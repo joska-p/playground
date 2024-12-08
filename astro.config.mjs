@@ -8,4 +8,6 @@ export default defineConfig({
   experimental: {
     svg: true,
   },
+  site: "https://joska-p.github.io",
+  base: "astrotiles",
 })
