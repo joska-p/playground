@@ -1,8 +1,14 @@
 ---
-const { color1, color2, color3, color4 } = Astro.props
+const { width, height, color1, color2, color3, color4 } = Astro.props
 ---
 
-<svg xmlns="http://www.w3.org/2000/svg" class="square" viewBox="0 0 100 100">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class="square"
+  viewBox="0 0 100 100"
+  width={width}
+  height={height}
+>
   <rect fill=`${color1}` x="0" y="0" width="50" height="50"></rect>
   <rect fill=`${color2}` x="50" y="0" width="50" height="50"></rect>
   <rect fill=`${color3}` x="0" y="50" width="50" height="50"></rect>
