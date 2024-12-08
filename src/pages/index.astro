@@ -1,11 +1,56 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Square from "#components/tiles/Square.astro"
+import Triangle from "#components/tiles/Triangle.astro"
+import Layout from "#layouts/Layout.astro"
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+type Palette = [string, string, string, string, string]
+
+const randomPalette = async () => {
+  const palettes = (await fetch("https://unpkg.com/nice-color-palettes@3.0.0/100.json").then(
+    (response) => response.json()
+  )) as Palette[]
+  const palette = palettes[Math.floor(Math.random() * palettes.length)]
+  return palette as Palette
+}
+
+const randomColor = (palette: string[]) => {
+  return palette[Math.floor(Math.random() * palette.length)]
+}
+
+const tilesType = [Square, Triangle]
+const palette = await randomPalette()
+
+const numberOfRows = 10
+const numberOfColumns = 10
+const numberOfTiles = numberOfRows * numberOfRows
+const tileHeight = 100
+const tileWidth = tileHeight
+
+const createTile = () => {
+  const color1 = randomColor(palette)
+  const color2 = randomColor(palette)
+  const color3 = randomColor(palette)
+  const color4 = randomColor(palette)
+  const randomTile = tilesType[Math.floor(Math.random() * tilesType.length)]
+  return { color1, color2, color3, color4, randomTile }
+}
+
+const tiles = Array.from({ length: numberOfTiles }, createTile)
 ---
 
 <Layout>
-	<Welcome />
+  <div
+    class={`grid grid-cols-[repeat(${numberOfColumns},${tileWidth}px)] grid-rows-[repeat(${numberOfRows},${tileHeight}px)] place-content-center`}
+  >
+    {
+      tiles.map((Tile) => (
+        <Tile.randomTile
+          color1={Tile.color1}
+          color2={Tile.color2}
+          color3={Tile.color3}
+          color4={Tile.color4}
+        />
+      ))
+    }
+  </div>
 </Layout>

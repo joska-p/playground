@@ -1,0 +1,10 @@
+---
+const { color1, color2, color3, color4 } = Astro.props
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" class="triangle" viewBox="0 0 100 100">
+  <polygon fill=`${color1}` points="0,0 100,0 50,50"></polygon>
+  <polygon fill=`${color2}` points="0,0 0,100 50,50"></polygon>
+  <polygon fill=`${color3}` points="0,100 100,100 50,50"></polygon>
+  <polygon fill=`${color4}` points="100,100 100,0 50,50"></polygon>
+</svg>
