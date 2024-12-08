@@ -20,11 +20,8 @@ const randomColor = (palette: string[]) => {
 const tilesType = [Square, Triangle]
 const palette = await randomPalette()
 
-const numberOfRows = 10
-const numberOfColumns = 10
-const numberOfTiles = numberOfRows * numberOfRows
-const tileHeight = 100
-const tileWidth = tileHeight
+const numberOfColumns = 30
+const numberOfTiles = numberOfColumns * numberOfColumns
 
 const createTile = () => {
   const color1 = randomColor(palette)
@@ -39,9 +36,7 @@ const tiles = Array.from({ length: numberOfTiles }, createTile)
 ---
 
 <Layout>
-  <div
-    class={`grid grid-cols-[repeat(${numberOfColumns},${tileWidth}px)] grid-rows-[repeat(${numberOfRows},${tileHeight}px)] place-content-center`}
-  >
+  <div class="grid grid-cols-[repeat(30,100px)] grid-rows-[repeat(30,100px)] place-content-center">
     {
       tiles.map((Tile) => (
         <Tile.randomTile
