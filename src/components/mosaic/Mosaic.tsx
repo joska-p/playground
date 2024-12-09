@@ -11,7 +11,6 @@ type Props = {
 }
 
 const getRandomTile = () => [Square, Triangle][Math.floor(Math.random() * 2)]
-const getRandomRotation = () => [0, 90, 180, 270][Math.floor(Math.random() * 4)]
 
 const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
@@ -46,7 +45,7 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
 
       const tiles = Array.from({ length: numberOfTiles }, (_, index) => {
         const Tile = getRandomTile()
-        return <Tile key={index} rotation={getRandomRotation()} />
+        return <Tile key={index} />
       })
       setTiles(tiles)
     }
@@ -54,6 +53,7 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
 
   const handleResizeTiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTileSize({ width: e.target.valueAsNumber, height: e.target.valueAsNumber })
+    generateTiles()
   }
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
           Regenerate tiles
         </button>
         <label htmlFor="tile-size" className="block mb-2 text-sm font-medium text-gray-50">
-          Tile size
+          Tile size: {tileSize.width}px x {tileSize.height}px
         </label>
         <input
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
