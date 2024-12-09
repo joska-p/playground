@@ -1,25 +1,24 @@
 type Props = {
-  width: number
-  height: number
-  color1: string
-  color2: string
-  color3: string
-  color4: string
+  rotation: number
 }
 
-export default function Triangle({ width, height, color1, color2, color3, color4 }: Props) {
+export default function Triangle({ rotation }: Props) {
+  const styleObject = {
+    transform: `rotate(${rotation}deg)`,
+  }
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="triangle"
       viewBox="0 0 100 100"
-      width={width}
-      height={height}
+      width="var(--tile-width)"
+      height="var(--tile-height)"
     >
-      <polygon fill={color1} points="0,0 100,0 50,50" />
-      <polygon fill={color2} points="0,0 0,100 50,50" />
-      <polygon fill={color3} points="0,100 100,100 50,50" />
-      <polygon fill={color4} points="100,100 100,0 50,50" />
+      <polygon fill="var(--color-1)" points="0,0 100,0 50,50" />
+      <polygon fill="var(--color-2)" points="0,0 0,100 50,50" />
+      <polygon fill="var(--color-3)" points="0,100 100,100 50,50" />
+      <polygon fill="var(--color-4)" points="100,100 100,0 50,50" />
     </svg>
   )
 }

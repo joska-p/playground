@@ -1,4 +1,5 @@
-import RandomTile from "#components/tiles/RandomTile.tsx"
+import Square from "#components/tiles/Square.tsx"
+import Triangle from "#components/tiles/Triangle.tsx"
 import type { Palette } from "#lib/colors.ts"
 import { getRandomPalette } from "#lib/colors.ts"
 import { getNumberOfTiles } from "#lib/tiles.tsx"
@@ -9,6 +10,9 @@ type Props = {
   tileHeight: number
 }
 
+const getRandomTile = () => [Square, Triangle][Math.floor(Math.random() * 2)]
+const getRandomRotation = () => [0, 90, 180, 270][Math.floor(Math.random() * 4)]
+
 const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tiles, setTiles] = useState<JSX.Element[]>([])
@@ -16,7 +20,14 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
   const mosaicRef = useRef<HTMLDivElement>(null)
 
   const styleObject = {
-    backgroundColor: palette[0],
+    "--bg-color": palette[0],
+    "--color-1": palette[1],
+    "--color-2": palette[2],
+    "--color-3": palette[3],
+    "--color-4": palette[4],
+    "--tile-width": `${tileSize.width}px`,
+    "--tile-height": `${tileSize.height}px`,
+    backgroundColor: "var(--bg-color)",
   }
 
   const generatePalette = async () => {
@@ -32,9 +43,11 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
         mosaicWidth: mosaicRef.current.offsetWidth,
         mosaicHeight: mosaicRef.current.offsetHeight,
       })
-      const tiles = Array.from({ length: numberOfTiles }, (_, index) => (
-        <RandomTile key={index} width={tileSize.width} height={tileSize.height} palette={palette} />
-      ))
+
+      const tiles = Array.from({ length: numberOfTiles }, (_, index) => {
+        const Tile = getRandomTile()
+        return <Tile key={index} rotation={getRandomRotation()} />
+      })
       setTiles(tiles)
     }
   }
@@ -45,15 +58,7 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
 
   useEffect(() => {
     generatePalette()
-  }, [])
-
-  useEffect(() => {
     generateTiles()
-  }, [palette, tileSize])
-
-  useEffect(() => {
-    window.addEventListener("resize", generateTiles)
-    return () => window.removeEventListener("resize", generateTiles)
   }, [])
 
   return (
@@ -63,13 +68,20 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
       ref={mosaicRef}
     >
       {tiles}
-      <div className="absolute top-4 right-4 flex flex-col items-center justify-center text-gray-50 bg-gray-800/50 py-4 px-8 rounded-lg">
+      <div className="absolute gap-2 top-4 right-4 flex flex-col items-center justify-center text-gray-50 bg-gray-800/50 py-4 px-8 rounded-lg">
         <button
           type="button"
           onClick={generatePalette}
-          className="  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Regenerate
+          Regenerate palette
+        </button>
+        <button
+          type="button"
+          onClick={generateTiles}
+          className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Regenerate tiles
         </button>
         <label htmlFor="tile-size" className="block mb-2 text-sm font-medium text-gray-50">
           Tile size
