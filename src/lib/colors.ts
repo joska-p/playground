@@ -7,8 +7,8 @@ const getRandomPalette = async () => {
   return palettes[Math.floor(Math.random() * palettes.length)]
 }
 
-const colors = ["--color-1", "--color-2", "--color-3", "--color-4"]
+const colors = ["--color-1", "--color-2", "--color-3", "--color-4"] as const
 const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)]
 
-export { getRandomColor, getRandomPalette }
+export { colors, getRandomColor, getRandomPalette }
 export type { Palette }

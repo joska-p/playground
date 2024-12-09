@@ -1,65 +1,20 @@
-import Square from "#components/tiles/Square.tsx"
-import Triangle from "#components/tiles/Triangle.tsx"
-import type { Palette } from "#lib/colors.ts"
-import { getRandomPalette } from "#lib/colors.ts"
-import { getNumberOfTiles } from "#lib/tiles.tsx"
-import { useEffect, useRef, useState } from "react"
+import { useMosaic } from "#hooks/useMosaic.ts"
 
 type Props = {
-  tileWidth: number
-  tileHeight: number
+  tileWidth?: number
+  tileHeight?: number
 }
 
-const getRandomTile = () => [Square, Triangle][Math.floor(Math.random() * 2)]
-
-const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
-  const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
-  const [tiles, setTiles] = useState<JSX.Element[]>([])
-  const [palette, setPalette] = useState<Palette>([])
-  const mosaicRef = useRef<HTMLDivElement>(null)
-
-  const styleObject = {
-    "--bg-color": palette[0],
-    "--color-1": palette[1],
-    "--color-2": palette[2],
-    "--color-3": palette[3],
-    "--color-4": palette[4],
-    "--tile-width": `${tileSize.width}px`,
-    "--tile-height": `${tileSize.height}px`,
-    backgroundColor: "var(--bg-color)",
-  }
-
-  const generatePalette = async () => {
-    const palette = await getRandomPalette()
-    setPalette(palette)
-  }
-
-  const generateTiles = async () => {
-    if (mosaicRef.current) {
-      const numberOfTiles = getNumberOfTiles({
-        tileWidth: tileSize.width,
-        tileHeight: tileSize.height,
-        mosaicWidth: mosaicRef.current.offsetWidth,
-        mosaicHeight: mosaicRef.current.offsetHeight,
-      })
-
-      const tiles = Array.from({ length: numberOfTiles }, (_, index) => {
-        const Tile = getRandomTile()
-        return <Tile key={index} />
-      })
-      setTiles(tiles)
-    }
-  }
-
-  const handleResizeTiles = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTileSize({ width: e.target.valueAsNumber, height: e.target.valueAsNumber })
-    generateTiles()
-  }
-
-  useEffect(() => {
-    generatePalette()
-    generateTiles()
-  }, [])
+const Mosaic = ({ tileWidth, tileHeight }: Props) => {
+  const {
+    mosaicRef,
+    styleObject,
+    tiles,
+    generateTiles,
+    generatePalette,
+    handleResizeTiles,
+    tileSize,
+  } = useMosaic({ tileWidth, tileHeight })
 
   return (
     <div
@@ -67,7 +22,10 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
       className="tiles w-full h-full justify-center content-center flex flex-wrap mx-auto"
       ref={mosaicRef}
     >
-      {tiles}
+      {tiles.map(({ Tile, key }) => (
+        <Tile key={key} />
+      ))}
+
       <div className="absolute gap-2 top-4 right-4 flex flex-col items-center justify-center text-gray-50 bg-gray-800/50 py-4 px-8 rounded-lg">
         <button
           type="button"
