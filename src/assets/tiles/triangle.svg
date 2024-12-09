@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="triangle" viewBox="0 0 100 100">
-  <polygon fill="white" points="0,0 100,0 50,50" />
-  <polygon fill="red" points="0,0 0,100 50,50" />
-  <polygon fill="pink" points="0,100 100,100 50,50" />
-  <polygon fill="magenta" points="100,100 100,0 50,50" />
-</svg>
