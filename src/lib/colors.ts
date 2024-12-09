@@ -8,7 +8,7 @@ const getRandomPalette = async () => {
   }
 
   // if not, fetch and store
-  const palettes = (await fetch("https://unpkg.com/nice-color-palettes@3.0.0/100.json").then(
+  const palettes = (await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json").then(
     (response) => response.json()
   )) as Palette[]
 
