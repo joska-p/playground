@@ -2,7 +2,7 @@ import Square from "#components/tiles/Square.tsx"
 import Triangle from "#components/tiles/Triangle.tsx"
 import { useEffect, useRef, useState } from "react"
 
-type Palette = [string, string, string, string, string]
+type Palette = [string, string, string, string, string] | []
 
 const tilesComponents = [Square, Triangle]
 
@@ -28,8 +28,13 @@ const createTile = ({ id, palette }: { id: number; palette: string[] }) => {
   }
 }
 
-const getRandomTiles = async (numberOfTiles: number = 100) => {
-  const palette = await getRandomPalette()
+const getRandomTiles = async ({
+  numberOfTiles = 100,
+  palette,
+}: {
+  numberOfTiles: number
+  palette: Palette
+}) => {
   return Array.from({ length: numberOfTiles }, (_, index) => createTile({ id: index, palette }))
 }
 
@@ -40,8 +45,13 @@ type Props = {
 
 const Mosaic = ({ tileWidth, tileHeight }: Props) => {
   const [tiles, setTiles] = useState<Awaited<ReturnType<typeof getRandomTiles>> | []>([])
-  const [tileSize, setTileSize] = useState({ width: 0, height: 0 })
+  const [palette, setPalette] = useState<Palette>([])
   const mosaicRef = useRef<HTMLDivElement>(null)
+
+  const generatePalette = async () => {
+    const palette = await getRandomPalette()
+    setPalette(palette)
+  }
 
   const getNumberOfTiles = () => {
     if (mosaicRef.current) {
@@ -54,30 +64,23 @@ const Mosaic = ({ tileWidth, tileHeight }: Props) => {
     return 0
   }
 
-  const generateTiles = async (numberOfTiles: number = 100) => {
-    const tiles = await getRandomTiles(numberOfTiles)
+  const generateTiles = async () => {
+    const numberOfTiles = getNumberOfTiles()
+    const tiles = await getRandomTiles({ numberOfTiles, palette })
     setTiles(tiles)
   }
 
-  const handleMosaicResize = () => {
-    if (mosaicRef.current) {
-      const mosaicWidth = mosaicRef.current.offsetWidth
-      const mosaicHeight = mosaicRef.current.offsetHeight
-      const numberOfTiles =
-        Math.floor(mosaicWidth / tileWidth) * Math.floor(mosaicHeight / tileHeight)
-      generateTiles(numberOfTiles)
-    }
-  }
+  useEffect(() => {
+    generatePalette()
+  }, [])
 
   useEffect(() => {
-    setTileSize({ width: tileWidth, height: tileHeight })
-    const numberOfTiles = getNumberOfTiles()
-    generateTiles(numberOfTiles)
-    window.addEventListener("resize", handleMosaicResize)
+    generateTiles()
+    window.addEventListener("resize", generateTiles)
     return () => {
-      window.removeEventListener("resize", handleMosaicResize)
+      window.removeEventListener("resize", generateTiles)
     }
-  }, [])
+  }, [palette])
 
   return (
     <div
@@ -87,8 +90,8 @@ const Mosaic = ({ tileWidth, tileHeight }: Props) => {
       {tiles.map((Tile) => (
         <Tile.randomTile
           key={Tile.id}
-          width={tileSize.width}
-          height={tileSize.height}
+          width={tileWidth}
+          height={tileHeight}
           color1={Tile.color1}
           color2={Tile.color2}
           color3={Tile.color3}
