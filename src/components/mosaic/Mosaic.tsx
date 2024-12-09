@@ -6,8 +6,16 @@ type MosaicProps = {
 }
 
 const Mosaic = ({ tileWidthPx, tileHeightPx }: MosaicProps) => {
-  const { mosaicRef, styleObject, tiles, getPalette, getTiles, handleResizeTiles, tileSize } =
-    useMosaic({ tileWidthPx, tileHeightPx })
+  const {
+    mosaicRef,
+    styleObject,
+    tiles,
+    getPalette,
+    getTiles,
+    handleResizeTiles,
+    shuffleColorVariables,
+    tileSize,
+  } = useMosaic({ tileWidthPx, tileHeightPx })
 
   return (
     <div
@@ -25,14 +33,21 @@ const Mosaic = ({ tileWidthPx, tileHeightPx }: MosaicProps) => {
           onClick={getPalette}
           className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Regenerate palette
+          New palette
+        </button>
+        <button
+          type="button"
+          onClick={shuffleColorVariables}
+          className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Shuffle palette
         </button>
         <button
           type="button"
           onClick={getTiles}
           className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          Regenerate tiles
+          New tiles
         </button>
         <label htmlFor="tile-size" className="block mb-2 text-sm font-medium text-gray-50">
           Tile size: {tileSize.widthPx}px x {tileSize.heightPx}px
