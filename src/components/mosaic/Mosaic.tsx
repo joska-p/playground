@@ -15,21 +15,25 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
   const [palette, setPalette] = useState<Palette>([])
   const mosaicRef = useRef<HTMLDivElement>(null)
 
+  const styleObject = {
+    backgroundColor: palette[0],
+  }
+
   const generatePalette = async () => {
     const palette = await getRandomPalette()
     setPalette(palette)
   }
 
-  const generateTiles = async ({ width, height: height }: { width: number; height: number }) => {
+  const generateTiles = async () => {
     if (mosaicRef.current) {
       const numberOfTiles = getNumberOfTiles({
-        tileWidth: width,
-        tileHeight: height,
+        tileWidth: tileSize.width,
+        tileHeight: tileSize.height,
         mosaicWidth: mosaicRef.current.offsetWidth,
         mosaicHeight: mosaicRef.current.offsetHeight,
       })
       const tiles = Array.from({ length: numberOfTiles }, (_, index) => (
-        <RandomTile key={index} width={width} height={height} palette={palette} />
+        <RandomTile key={index} width={tileSize.width} height={tileSize.height} palette={palette} />
       ))
       setTiles(tiles)
     }
@@ -44,31 +48,30 @@ const Mosaic = ({ tileWidth = 32, tileHeight = 32 }: Props) => {
   }, [])
 
   useEffect(() => {
-    generateTiles({ width: tileSize.width, height: tileSize.height })
-    window.addEventListener("resize", () =>
-      generateTiles({ width: tileSize.width, height: tileSize.height })
-    )
-    return () =>
-      window.removeEventListener("resize", () =>
-        generateTiles({ width: tileSize.width, height: tileSize.height })
-      )
+    generateTiles()
   }, [palette, tileSize])
+
+  useEffect(() => {
+    window.addEventListener("resize", generateTiles)
+    return () => window.removeEventListener("resize", generateTiles)
+  }, [])
 
   return (
     <div
+      style={styleObject}
       className="tiles w-full h-full justify-center content-center flex flex-wrap mx-auto"
       ref={mosaicRef}
     >
       {tiles}
-      <div className="absolute top-4 right-4 flex flex-col items-center justify-center">
+      <div className="absolute top-4 right-4 flex flex-col items-center justify-center text-gray-50 bg-gray-800/50 py-4 px-8 rounded-lg">
         <button
           type="button"
           onClick={generatePalette}
-          className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
           Regenerate
         </button>
-        <label htmlFor="tile-size" className="block mb-2 text-sm font-medium text-gray-900 ">
+        <label htmlFor="tile-size" className="block mb-2 text-sm font-medium text-gray-50">
           Tile size
         </label>
         <input
