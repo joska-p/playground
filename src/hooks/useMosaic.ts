@@ -26,6 +26,7 @@ const useMosaic = ({ tileWidthPx = 32, tileHeightPx = 32 }) => {
     "--tile-width": `${tileSize.widthPx}px`,
     "--tile-height": `${tileSize.heightPx}px`,
     backgroundColor: "var(--color-0)",
+    transition: "background-color 0.5s ease-in-out",
   }
 
   const getPalette = async () => {

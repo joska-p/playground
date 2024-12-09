@@ -13,10 +13,26 @@ export default function Triangle() {
       viewBox="0 0 100 100"
       style={styleObject}
     >
-      <polygon fill={`var(${getRandomColor()})`} points="0,0 100,0 50,50" />
-      <polygon fill={`var(${getRandomColor()})`} points="0,0 0,100 50,50" />
-      <polygon fill={`var(${getRandomColor()})`} points="0,100 100,100 50,50" />
-      <polygon fill={`var(${getRandomColor()})`} points="100,100 100,0 50,50" />
+      <polygon
+        style={{ transition: "fill 0.5s ease-in-out" }}
+        fill={`var(${getRandomColor()})`}
+        points="0,0 100,0 50,50"
+      />
+      <polygon
+        style={{ transition: "fill 0.5s ease-in-out" }}
+        fill={`var(${getRandomColor()})`}
+        points="0,0 0,100 50,50"
+      />
+      <polygon
+        style={{ transition: "fill 0.5s ease-in-out" }}
+        fill={`var(${getRandomColor()})`}
+        points="0,100 100,100 50,50"
+      />
+      <polygon
+        style={{ transition: "fill 0.5s ease-in-out" }}
+        fill={`var(${getRandomColor()})`}
+        points="100,100 100,0 50,50"
+      />
     </svg>
   )
 }
