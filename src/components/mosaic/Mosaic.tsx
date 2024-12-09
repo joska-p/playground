@@ -1,89 +1,100 @@
 import Square from "#components/tiles/Square.tsx"
 import Triangle from "#components/tiles/Triangle.tsx"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 type Palette = [string, string, string, string, string]
+
+const tilesComponents = [Square, Triangle]
 
 const getRandomPalette = async () => {
   const palettes = (await fetch("https://unpkg.com/nice-color-palettes@3.0.0/100.json").then(
     (response) => response.json()
   )) as Palette[]
-  const palette = palettes[Math.floor(Math.random() * palettes.length)]
-  return palette
+  return palettes[Math.floor(Math.random() * palettes.length)]
 }
 
 const getRandomColor = (palette: string[]) => {
   return palette[Math.floor(Math.random() * palette.length)]
 }
 
-const getRandomTiles = async ({
-  numberOfColumns,
-  numberOfRows,
-}: {
-  numberOfColumns: number
-  numberOfRows: number
-}) => {
-  const tilesType = [Square, Triangle]
-  const palette = await getRandomPalette()
-
-  const numberOfTiles = numberOfColumns * numberOfRows
-
-  const createTile = () => {
-    const color1 = getRandomColor(palette)
-    const color2 = getRandomColor(palette)
-    const color3 = getRandomColor(palette)
-    const color4 = getRandomColor(palette)
-    const randomTile = tilesType[Math.floor(Math.random() * tilesType.length)]
-    return { color1, color2, color3, color4, randomTile }
+const createTile = ({ id, palette }: { id: number; palette: string[] }) => {
+  return {
+    id,
+    color1: getRandomColor(palette),
+    color2: getRandomColor(palette),
+    color3: getRandomColor(palette),
+    color4: getRandomColor(palette),
+    randomTile: tilesComponents[Math.floor(Math.random() * tilesComponents.length)],
   }
+}
 
-  const tiles = Array.from({ length: numberOfTiles }, createTile)
-
-  return tiles
+const getRandomTiles = async (numberOfTiles: number = 100) => {
+  const palette = await getRandomPalette()
+  return Array.from({ length: numberOfTiles }, (_, index) => createTile({ id: index, palette }))
 }
 
 type Props = {
-  numberOfColumns: number
-  numberOfRows: number
   tileWidth: number
   tileHeight: number
 }
 
-type Tiles = Awaited<ReturnType<typeof getRandomTiles>>
+const Mosaic = ({ tileWidth, tileHeight }: Props) => {
+  const [tiles, setTiles] = useState<Awaited<ReturnType<typeof getRandomTiles>> | []>([])
+  const [tileSize, setTileSize] = useState({ width: 0, height: 0 })
+  const mosaicRef = useRef<HTMLDivElement>(null)
 
-const Mosaic = ({ numberOfColumns, numberOfRows, tileWidth, tileHeight }: Props) => {
-  const [tiles, setTiles] = useState<Tiles | null>(null)
+  const getNumberOfTiles = () => {
+    if (mosaicRef.current) {
+      const mosaicWidth = mosaicRef.current.offsetWidth
+      const mosaicHeight = mosaicRef.current.offsetHeight
+      const numberOfTiles =
+        Math.floor(mosaicWidth / tileWidth) * Math.floor(mosaicHeight / tileHeight)
+      return numberOfTiles
+    }
+    return 0
+  }
 
-  const stylesObj = {
-    gridTemplateColumns: `repeat(${numberOfColumns}, ${tileWidth}px)`,
-    gridTemplateRows: `repeat(${numberOfRows}, ${tileHeight}px)`,
+  const generateTiles = async (numberOfTiles: number = 100) => {
+    const tiles = await getRandomTiles(numberOfTiles)
+    setTiles(tiles)
+  }
+
+  const handleMosaicResize = () => {
+    if (mosaicRef.current) {
+      const mosaicWidth = mosaicRef.current.offsetWidth
+      const mosaicHeight = mosaicRef.current.offsetHeight
+      const numberOfTiles =
+        Math.floor(mosaicWidth / tileWidth) * Math.floor(mosaicHeight / tileHeight)
+      generateTiles(numberOfTiles)
+    }
   }
 
   useEffect(() => {
-    const getTiles = async () => {
-      const tiles = await getRandomTiles({
-        numberOfColumns,
-        numberOfRows,
-      })
-      setTiles(tiles)
+    setTileSize({ width: tileWidth, height: tileHeight })
+    const numberOfTiles = getNumberOfTiles()
+    generateTiles(numberOfTiles)
+    window.addEventListener("resize", handleMosaicResize)
+    return () => {
+      window.removeEventListener("resize", handleMosaicResize)
     }
-    getTiles()
-    return () => setTiles(null)
   }, [])
 
   return (
-    <div className="tiles grid place-content-center" style={stylesObj}>
-      {tiles &&
-        tiles.map((Tile) => (
-          <Tile.randomTile
-            width={tileWidth}
-            height={tileHeight}
-            color1={Tile.color1}
-            color2={Tile.color2}
-            color3={Tile.color3}
-            color4={Tile.color4}
-          />
-        ))}
+    <div
+      className="tiles w-full h-full justify-center content-center flex flex-wrap mx-auto"
+      ref={mosaicRef}
+    >
+      {tiles.map((Tile) => (
+        <Tile.randomTile
+          key={Tile.id}
+          width={tileSize.width}
+          height={tileSize.height}
+          color1={Tile.color1}
+          color2={Tile.color2}
+          color3={Tile.color3}
+          color4={Tile.color4}
+        />
+      ))}
     </div>
   )
 }

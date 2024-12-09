@@ -4,5 +4,7 @@ import Layout from "#layouts/Layout.astro"
 ---
 
 <Layout>
-  <Mosaic client:load numberOfColumns={10} numberOfRows={10} tileWidth={100} tileHeight={100} />
+  <section class="h-dvh w-dvw">
+    <Mosaic client:load tileWidth={100} tileHeight={100} />
+  </section>
 </Layout>
