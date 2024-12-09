@@ -8,6 +8,8 @@
     "#components/*": "./src/components/*",
     "#widgets/*": "./src/components/widgets/*",
     "#content/*": "./src/content/*",
+    "#context/*": "./src/context/*",
+    "#hooks/*": "./src/hooks/*",
     "#layouts/*": "./src/layouts/*",
     "#lib/*": "./src/lib/*",
     "#styles/*": "./src/styles/*",
