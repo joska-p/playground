@@ -1,18 +1,16 @@
 import { colorNames } from "#lib/colors.ts"
-import { getRandom } from "#lib/utils.ts"
 
 type Props = {
   colors?: string[]
-  random?: boolean
 }
 
-const OppositeCircles = ({ colors, random = true }: Props) => {
-  const colorsToUse = random ? colorNames.toSorted(() => Math.random() - 0.5) : (colors as string[])
+const OppositeCircles = ({ colors }: Props) => {
+  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
 
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
-    transition: "transform 0.5s ease-in-out",
+    transition: "transform 0.5s linear",
     transform: `rotate(${[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}deg)`,
   }
 
@@ -25,18 +23,18 @@ const OppositeCircles = ({ colors, random = true }: Props) => {
     >
       {" "}
       <circle
-        style={{ transition: "fill 0.5s ease-in-out" }}
+        style={{ transition: "fill 0.5s linear" }}
         cx="1"
         cy="2"
         r="50%"
-        fill={`var(${getRandom(colorsToUse)})`}
+        fill={`var(${colorsToUse[0]})`}
       />
       <circle
-        style={{ transition: "fill 0.5s ease-in-out" }}
+        style={{ transition: "fill 0.5s linear" }}
         cx="1"
         cy="0"
         r="50%"
-        fill={`var(${getRandom(colorsToUse)})`}
+        fill={`var(${colorsToUse[1]})`}
       />
     </svg>
   )

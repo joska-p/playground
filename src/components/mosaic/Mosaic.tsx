@@ -26,7 +26,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
     "--tile-width": `${tileSize.width}px`,
     "--tile-height": `${tileSize.height}px`,
     backgroundColor: "var(--color-0)",
-    transition: "background-color 0.5s ease-in-out",
+    transition: "background-color 0.5s linear",
   }
 
   const getNewPalette = async () => {
@@ -43,7 +43,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
       const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
         const Tile = getRandom(TILE_SET)
 
-        return <Tile key={index} random />
+        return <Tile key={index} />
       })
 
       setTiles(newTiles)

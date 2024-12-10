@@ -1,17 +1,15 @@
 import { colorNames } from "#lib/colors.ts"
-import { getRandom } from "#lib/utils.ts"
 
 type Props = {
   colors?: string[]
-  random?: boolean
 }
-const Square = ({ colors, random = true }: Props) => {
-  const colorsToUse = random ? colorNames.toSorted(() => Math.random() - 0.5) : (colors as string[])
+const Square = ({ colors }: Props) => {
+  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
 
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
-    transition: "transform 0.5s ease-in-out",
+    transition: "transform 0.5s linear",
     transform: `rotate(${[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}deg)`,
   }
 
@@ -23,32 +21,32 @@ const Square = ({ colors, random = true }: Props) => {
       style={styleObject}
     >
       <rect
-        style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandom(colorsToUse)})`}
+        style={{ transition: "fill 0.5s linear" }}
+        fill={`var(${colorsToUse[0]})`}
         x="0"
         y="0"
         width="1"
         height="1"
       />
       <rect
-        style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandom(colorsToUse)})`}
+        style={{ transition: "fill 0.5s linear" }}
+        fill={`var(${colorsToUse[1]})`}
         x="1"
         y="0"
         width="1"
         height="1"
       />
       <rect
-        style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandom(colorsToUse)})`}
+        style={{ transition: "fill 0.5s linear" }}
+        fill={`var(${colorsToUse[2]})`}
         x="0"
         y="1"
         width="1"
         height="1"
       />
       <rect
-        style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandom(colorsToUse)})`}
+        style={{ transition: "fill 0.5s linear" }}
+        fill={`var(${colorsToUse[3]})`}
         x="1"
         y="1"
         width="1"
