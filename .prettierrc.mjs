@@ -6,7 +6,7 @@ export default {
   semi: false,
   singleQuote: false,
   trailingComma: "es5",
-  plugins: ["prettier-plugin-astro"],
+  plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
   overrides: [
     {
       files: "*.astro",
@@ -15,4 +15,4 @@ export default {
       },
     },
   ],
-};
+}

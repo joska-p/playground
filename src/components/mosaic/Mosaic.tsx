@@ -48,13 +48,17 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
   }
 
   const shuffleCssColors = () => {
-    setCssColors((prev) => shuffleObject(prev))
+    setCssColors((prev) => {
+      console.log(prev)
+      const cssColorsShuffled = shuffleObject(prev)
+      console.log(cssColorsShuffled)
+      return cssColorsShuffled
+    })
   }
 
   const handleResizeTiles = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSize = event.target.valueAsNumber
     setTileSize({ width: newSize, height: newSize })
-    getNewTiles()
   }
 
   useEffect(() => {
@@ -69,7 +73,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
   return (
     <div
       style={styleObject}
-      className="tiles w-full h-full justify-center content-center flex flex-wrap mx-auto"
+      className="tiles mx-auto flex h-full w-full flex-wrap content-center justify-center"
       ref={mosaicRef}
     >
       {tiles}
