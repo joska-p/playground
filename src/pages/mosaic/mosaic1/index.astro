@@ -1,0 +1,10 @@
+---
+import Mosaic from "#components/mosaic/Mosaic.tsx"
+import Layout from "#layouts/Layout.astro"
+---
+
+<Layout>
+  <section class="h-dvh w-dvw">
+    <Mosaic client:load tileWidthPx={100} tileHeightPx={100} />
+  </section>
+</Layout>

@@ -1,6 +1,6 @@
-import { getRandomColor } from "#lib/colors.ts"
+import type { CssColorVariablesNames } from "#constants/css-variables-names.ts"
 
-export default function Square() {
+export default function Square({ colors }: { colors: CssColorVariablesNames }) {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
@@ -16,7 +16,7 @@ export default function Square() {
     >
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandomColor()})`}
+        fill={`var(${colors[0]})`}
         x="0"
         y="0"
         width="1"
@@ -24,7 +24,7 @@ export default function Square() {
       />
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandomColor()})`}
+        fill={`var(${colors[1]})`}
         x="1"
         y="0"
         width="1"
@@ -32,7 +32,7 @@ export default function Square() {
       />
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandomColor()})`}
+        fill={`var(${colors[2]})`}
         x="0"
         y="1"
         width="1"
@@ -40,7 +40,7 @@ export default function Square() {
       />
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${getRandomColor()})`}
+        fill={`var(${colors[3]})`}
         x="1"
         y="1"
         width="1"

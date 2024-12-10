@@ -1,21 +1,79 @@
-import { useMosaic } from "#hooks/useMosaic.ts"
+import Square from "#components/tiles/Square.tsx"
+import Triangle from "#components/tiles/Triangle.tsx"
+import { cssColorVariablesNames } from "#constants/css-variables-names.ts"
+import type { Palette } from "#lib/colors.ts"
+import { getRandomPalette } from "#lib/colors.ts"
+import { getRandom, shuffleObject } from "#lib/utils.ts"
+import { useEffect, useRef, useState } from "react"
+import Controls from "./Controls"
 
-type MosaicProps = {
-  tileWidthPx?: number
-  tileHeightPx?: number
+const getCssColorVariables = (palette: Palette) => {
+  return cssColorVariablesNames.reduce((acc: Record<string, string>, color, index) => {
+    acc[color] = palette[index]
+    return acc
+  }, {})
 }
 
-const Mosaic = ({ tileWidthPx, tileHeightPx }: MosaicProps) => {
-  const {
-    mosaicRef,
-    styleObject,
-    tiles,
-    getPalette,
-    getTiles,
-    handleResizeTiles,
-    shuffleColorVariables,
-    tileSize,
-  } = useMosaic({ tileWidthPx, tileHeightPx })
+type MosaicProps = {
+  tileWidth?: number
+  tileHeight?: number
+}
+
+const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
+  const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
+  const [palette, setPalette] = useState<Palette>([])
+  const [cssColorVariables, setCssColorVariables] = useState<Record<string, string>>({})
+  const [tiles, setTiles] = useState<JSX.Element[]>([])
+  const mosaicRef = useRef<HTMLDivElement>(null)
+
+  const styleObject = {
+    ...cssColorVariables,
+    "--tile-width": `${tileSize.width}px`,
+    "--tile-height": `${tileSize.height}px`,
+    backgroundColor: "var(--color-0)",
+    transition: "background-color 0.5s ease-in-out",
+  }
+
+  const getNewPalette = async () => {
+    const newPalette = await getRandomPalette()
+    setPalette(newPalette)
+  }
+
+  const getNewTiles = () => {
+    if (!mosaicRef.current) return
+
+    const numberOfTiles =
+      Math.floor(mosaicRef.current.offsetWidth / tileSize.width) *
+      Math.floor(mosaicRef.current.offsetHeight / tileSize.height)
+
+    const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
+      const Tile = getRandom([Square, Triangle])
+      const randomColors = cssColorVariablesNames.toSorted(() => Math.random() - 0.5)
+
+      return <Tile key={index} colors={randomColors} />
+    })
+
+    setTiles(newTiles)
+  }
+
+  const shuffleCssColorVariables = () => {
+    setCssColorVariables((prev) => shuffleObject(prev))
+  }
+
+  const handleResizeTiles = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSize = event.target.valueAsNumber
+    setTileSize({ width: newSize, height: newSize })
+    getNewTiles()
+  }
+
+  useEffect(() => {
+    setCssColorVariables(getCssColorVariables(palette))
+  }, [palette])
+
+  useEffect(() => {
+    getNewPalette()
+    getNewTiles()
+  }, [])
 
   return (
     <div
@@ -23,47 +81,15 @@ const Mosaic = ({ tileWidthPx, tileHeightPx }: MosaicProps) => {
       className="tiles w-full h-full justify-center content-center flex flex-wrap mx-auto"
       ref={mosaicRef}
     >
-      {tiles.map(({ Tile, key }) => (
-        <Tile key={key} />
-      ))}
+      {tiles}
 
-      <div className="absolute top-4 right-4 flex flex-col items-center justify-center text-gray-50 bg-gray-800/50 py-4 px-8 rounded-lg">
-        <button
-          type="button"
-          onClick={getPalette}
-          className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          New palette
-        </button>
-        <button
-          type="button"
-          onClick={shuffleColorVariables}
-          className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          Shuffle palette
-        </button>
-        <button
-          type="button"
-          onClick={getTiles}
-          className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          New tiles
-        </button>
-        <label htmlFor="tile-size" className="block mb-2 text-sm font-medium text-gray-50">
-          Tile size: {tileSize.widthPx}px x {tileSize.heightPx}px
-        </label>
-        <input
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-          id="tile-size"
-          type="range"
-          name="Tile size"
-          min="32"
-          step={1}
-          max="256"
-          value={tileSize.widthPx}
-          onChange={handleResizeTiles}
-        />
-      </div>
+      <Controls
+        getNewPalette={getNewPalette}
+        shuffleCssColorVariables={shuffleCssColorVariables}
+        getNewTiles={getNewTiles}
+        handleResizeTiles={handleResizeTiles}
+        tileSize={tileSize}
+      />
     </div>
   )
 }

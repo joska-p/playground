@@ -6,6 +6,7 @@
   "imports": {
     "#assets/*": "./src/assets/*",
     "#components/*": "./src/components/*",
+    "#constants/*": "./src/constants/*",
     "#widgets/*": "./src/components/widgets/*",
     "#content/*": "./src/content/*",
     "#hooks/*": "./src/hooks/*",
