@@ -1,18 +1,9 @@
 import Square from "#components/tiles/Square.tsx"
 import Triangle from "#components/tiles/Triangle.tsx"
-import { cssColorVariablesNames } from "#constants/css-variables-names.ts"
-import type { Palette } from "#lib/colors.ts"
-import { getRandomPalette } from "#lib/colors.ts"
+import { colorNames, getCssColors, getRandomPalette } from "#lib/colors.ts"
 import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useEffect, useRef, useState } from "react"
 import Controls from "./Controls"
-
-const getCssColorVariables = (palette: Palette) => {
-  return cssColorVariablesNames.reduce((acc: Record<string, string>, color, index) => {
-    acc[color] = palette[index]
-    return acc
-  }, {})
-}
 
 type MosaicProps = {
   tileWidth?: number
@@ -21,13 +12,13 @@ type MosaicProps = {
 
 const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
-  const [palette, setPalette] = useState<Palette>([])
-  const [cssColorVariables, setCssColorVariables] = useState<Record<string, string>>({})
+  const [palette, setPalette] = useState<string[]>([])
+  const [cssColors, setCssColors] = useState<Record<string, string>>({})
   const [tiles, setTiles] = useState<JSX.Element[]>([])
   const mosaicRef = useRef<HTMLDivElement>(null)
 
   const styleObject = {
-    ...cssColorVariables,
+    ...cssColors,
     "--tile-width": `${tileSize.width}px`,
     "--tile-height": `${tileSize.height}px`,
     backgroundColor: "var(--color-0)",
@@ -40,24 +31,24 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
   }
 
   const getNewTiles = () => {
-    if (!mosaicRef.current) return
+    if (mosaicRef.current) {
+      const numberOfTiles =
+        Math.floor(mosaicRef.current.offsetWidth / tileSize.width) *
+        Math.floor(mosaicRef.current.offsetHeight / tileSize.height)
 
-    const numberOfTiles =
-      Math.floor(mosaicRef.current.offsetWidth / tileSize.width) *
-      Math.floor(mosaicRef.current.offsetHeight / tileSize.height)
+      const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
+        const Tile = getRandom([Square, Triangle])
+        const randomColors = colorNames.toSorted(() => Math.random() - 0.5)
 
-    const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
-      const Tile = getRandom([Square, Triangle])
-      const randomColors = cssColorVariablesNames.toSorted(() => Math.random() - 0.5)
+        return <Tile key={index} colors={randomColors} />
+      })
 
-      return <Tile key={index} colors={randomColors} />
-    })
-
-    setTiles(newTiles)
+      setTiles(newTiles)
+    }
   }
 
-  const shuffleCssColorVariables = () => {
-    setCssColorVariables((prev) => shuffleObject(prev))
+  const shuffleCssColors = () => {
+    setCssColors((prev) => shuffleObject(prev))
   }
 
   const handleResizeTiles = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +58,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
   }
 
   useEffect(() => {
-    setCssColorVariables(getCssColorVariables(palette))
+    setCssColors(getCssColors({ palette, colorNames }))
   }, [palette])
 
   useEffect(() => {
@@ -85,7 +76,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
 
       <Controls
         getNewPalette={getNewPalette}
-        shuffleCssColorVariables={shuffleCssColorVariables}
+        shuffleColors={shuffleCssColors}
         getNewTiles={getNewTiles}
         handleResizeTiles={handleResizeTiles}
         tileSize={tileSize}

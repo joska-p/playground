@@ -1,6 +1,4 @@
-import type { CssColorVariablesNames } from "#constants/css-variables-names.ts"
-
-export default function Triangle({ colors }: { colors: CssColorVariablesNames }) {
+export default function Triangle({ colors }: { colors: string[] }) {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
