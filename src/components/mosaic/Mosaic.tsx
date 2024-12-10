@@ -1,9 +1,13 @@
+import CornerCircles from "#components/tiles/Corner-circles.tsx"
+import OppositeCircles from "#components/tiles/Opposite-circles.tsx"
 import Square from "#components/tiles/Square.tsx"
 import Triangle from "#components/tiles/Triangle.tsx"
 import { colorNames, getCssColors, getRandomPalette } from "#lib/colors.ts"
 import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useEffect, useRef, useState } from "react"
 import Controls from "./Controls"
+
+const TILE_SET = [CornerCircles, OppositeCircles, Square, Triangle]
 
 type MosaicProps = {
   tileWidth?: number
@@ -37,10 +41,9 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
         Math.floor(mosaicRef.current.offsetHeight / tileSize.height)
 
       const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
-        const Tile = getRandom([Square, Triangle])
-        const randomColors = colorNames.toSorted(() => Math.random() - 0.5)
+        const Tile = getRandom(TILE_SET)
 
-        return <Tile key={index} colors={randomColors} />
+        return <Tile key={index} random />
       })
 
       setTiles(newTiles)
@@ -48,12 +51,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
   }
 
   const shuffleCssColors = () => {
-    setCssColors((prev) => {
-      console.log(prev)
-      const cssColorsShuffled = shuffleObject(prev)
-      console.log(cssColorsShuffled)
-      return cssColorsShuffled
-    })
+    setCssColors((prev) => shuffleObject(prev))
   }
 
   const handleResizeTiles = (event: React.ChangeEvent<HTMLInputElement>) => {

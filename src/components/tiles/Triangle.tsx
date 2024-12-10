@@ -1,7 +1,19 @@
-export default function Triangle({ colors }: { colors: string[] }) {
+import { colorNames } from "#lib/colors.ts"
+import { getRandom } from "#lib/utils.ts"
+
+type Props = {
+  colors?: string[]
+  random?: boolean
+}
+
+const Triangle = ({ colors, random = true }: Props) => {
+  const colorsToUse = random ? colorNames.toSorted(() => Math.random() - 0.5) : (colors as string[])
+
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
+    transition: "transform 0.5s ease-in-out",
+    transform: `rotate(${[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}deg)`,
   }
 
   return (
@@ -13,24 +25,26 @@ export default function Triangle({ colors }: { colors: string[] }) {
     >
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${colors[0]})`}
+        fill={`var(${getRandom(colorsToUse)})`}
         points="0,0 2,0 1,1"
       />
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${colors[1]})`}
+        fill={`var(${getRandom(colorsToUse)})`}
         points="0,0 0,2 1,1"
       />
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${colors[2]})`}
+        fill={`var(${getRandom(colorsToUse)})`}
         points="0,2 2,2 1,1"
       />
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
-        fill={`var(${colors[3]})`}
+        fill={`var(${getRandom(colorsToUse)})`}
         points="2,2 2,0 1,1"
       />
     </svg>
   )
 }
+
+export default Triangle
