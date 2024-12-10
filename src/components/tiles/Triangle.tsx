@@ -10,28 +10,28 @@ export default function Triangle() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="triangle"
-      viewBox="0 0 100 100"
+      viewBox="0 0 2 2"
       style={styleObject}
     >
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
-        points="0,0 100,0 50,50"
+        points="0,0 2,0 1,1"
       />
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
-        points="0,0 0,100 50,50"
+        points="0,0 0,2 1,1"
       />
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
-        points="0,100 100,100 50,50"
+        points="0,2 2,2 1,1"
       />
       <polygon
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
-        points="100,100 100,0 50,50"
+        points="2,2 2,0 1,1"
       />
     </svg>
   )

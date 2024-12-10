@@ -11,7 +11,7 @@ export default function Square() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="square"
-      viewBox="0 0 100 100"
+      viewBox="0 0 2 2"
       style={styleObject}
     >
       <rect
@@ -19,32 +19,32 @@ export default function Square() {
         fill={`var(${getRandomColor()})`}
         x="0"
         y="0"
-        width="50"
-        height="50"
+        width="1"
+        height="1"
       />
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
-        x="50"
+        x="1"
         y="0"
-        width="50"
-        height="50"
+        width="1"
+        height="1"
       />
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
         x="0"
-        y="50"
-        width="50"
-        height="50"
+        y="1"
+        width="1"
+        height="1"
       />
       <rect
         style={{ transition: "fill 0.5s ease-in-out" }}
         fill={`var(${getRandomColor()})`}
-        x="50"
-        y="50"
-        width="50"
-        height="50"
+        x="1"
+        y="1"
+        width="1"
+        height="1"
       />
     </svg>
   )
