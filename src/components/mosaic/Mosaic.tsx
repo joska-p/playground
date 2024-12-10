@@ -1,4 +1,5 @@
 import CornerCircles from "#components/tiles/Corner-circles.tsx"
+import MiddleCircle from "#components/tiles/Middle-circle.tsx"
 import OppositeCircles from "#components/tiles/Opposite-circles.tsx"
 import Square from "#components/tiles/Square.tsx"
 import Triangle from "#components/tiles/Triangle.tsx"
@@ -7,7 +8,7 @@ import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useEffect, useRef, useState } from "react"
 import Controls from "./Controls"
 
-const TILE_SET = [CornerCircles, OppositeCircles, Square, Triangle]
+const TILE_SET = [CornerCircles, OppositeCircles, Square, Triangle, MiddleCircle]
 
 type MosaicProps = {
   tileWidth?: number

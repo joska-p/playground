@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" className="triangle" viewBox="0 0 2 2">
-  <circle cx="0" cy="0" r="50%" fill="var(--tile-color)" />
-  <circle cx="2" cy="2" r="50%" fill="var(--tile-color)" />
+  <defs>
+    <linearGradient id="Gradient1">
+      <stop class="stop1" offset="0%" />
+      <stop class="stop2" offset="50%" />
+      <stop class="stop3" offset="50%" />
+      <stop class="stop4" offset="100%" />
+    </linearGradient>
+  </defs>
+  <circle cx="1" cy="1" r="25%" fill="url(#Gradient1)" />
 </svg>

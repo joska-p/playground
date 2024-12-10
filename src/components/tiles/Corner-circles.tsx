@@ -10,7 +10,6 @@ const CornerCircles = ({ colors }: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
-    transition: "transform 0.5s linear",
     transform: `rotate(${[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}deg)`,
   }
   return (
@@ -20,21 +19,8 @@ const CornerCircles = ({ colors }: Props) => {
       viewBox="0 0 2 2"
       style={styleObject}
     >
-      {" "}
-      <circle
-        style={{ transition: "fill 0.5s linear" }}
-        cx="0"
-        cy="0"
-        r="50%"
-        fill={`var(${colorsToUse[0]})`}
-      />
-      <circle
-        style={{ transition: "fill 0.5s linear" }}
-        cx="2"
-        cy="2"
-        r="50%"
-        fill={`var(${colorsToUse[1]})`}
-      />
+      <circle cx="0" cy="0" r="50%" fill={`var(${colorsToUse[0]})`} />
+      <circle cx="2" cy="2" r="50%" fill={`var(${colorsToUse[1]})`} />
     </svg>
   )
 }

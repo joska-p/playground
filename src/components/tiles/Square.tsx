@@ -9,7 +9,6 @@ const Square = ({ colors }: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
-    transition: "transform 0.5s linear",
     transform: `rotate(${[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}deg)`,
   }
 
@@ -20,38 +19,10 @@ const Square = ({ colors }: Props) => {
       viewBox="0 0 2 2"
       style={styleObject}
     >
-      <rect
-        style={{ transition: "fill 0.5s linear" }}
-        fill={`var(${colorsToUse[0]})`}
-        x="0"
-        y="0"
-        width="1"
-        height="1"
-      />
-      <rect
-        style={{ transition: "fill 0.5s linear" }}
-        fill={`var(${colorsToUse[1]})`}
-        x="1"
-        y="0"
-        width="1"
-        height="1"
-      />
-      <rect
-        style={{ transition: "fill 0.5s linear" }}
-        fill={`var(${colorsToUse[2]})`}
-        x="0"
-        y="1"
-        width="1"
-        height="1"
-      />
-      <rect
-        style={{ transition: "fill 0.5s linear" }}
-        fill={`var(${colorsToUse[3]})`}
-        x="1"
-        y="1"
-        width="1"
-        height="1"
-      />
+      <rect fill={`var(${colorsToUse[0]})`} x="0" y="0" width="1" height="1" />
+      <rect fill={`var(${colorsToUse[1]})`} x="1" y="0" width="1" height="1" />
+      <rect fill={`var(${colorsToUse[2]})`} x="0" y="1" width="1" height="1" />
+      <rect fill={`var(${colorsToUse[3]})`} x="1" y="1" width="1" height="1" />
     </svg>
   )
 }
