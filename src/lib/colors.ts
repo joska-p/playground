@@ -1,3 +1,5 @@
+import { getRandom } from "./utils"
+
 const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"]
 
 const getRandomPalette = async () => {
@@ -6,7 +8,7 @@ const getRandomPalette = async () => {
   // check for local storage
   if (localStorage.getItem("palettes")) {
     const palettes = JSON.parse(localStorage.getItem("palettes") || "[]")
-    palette = palettes[Math.floor(Math.random() * palettes.length)]
+    palette = getRandom(palettes)
   } else {
     // if not, fetch and store
     const palettes = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json").then(
@@ -14,7 +16,7 @@ const getRandomPalette = async () => {
     )
 
     localStorage.setItem("palettes", JSON.stringify(palettes))
-    palette = palettes[Math.floor(Math.random() * palettes.length)]
+    palette = getRandom(palettes)
   }
 
   return palette
@@ -27,6 +29,6 @@ const getCssColors = ({ palette, colorNames }: { palette: string[]; colorNames: 
   }, {})
 }
 
-const getColorsToUse = () => colorNames.toSorted(() => Math.random() - 0.5)
+const getColorsToUse = () => colorNames.map(() => getRandom(colorNames))
 
 export { colorNames, getColorsToUse, getCssColors, getRandomPalette }
