@@ -20,7 +20,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, tileSet }: MosaicProps) => 
     ...cssColors,
     "--tile-width": `${tileSize.width}px`,
     "--tile-height": `${tileSize.height}px`,
-    backgroundColor: "var(--color-5)",
+    backgroundColor: "var(--color-4)",
     transition: "background-color 0.5s linear",
   }
 
