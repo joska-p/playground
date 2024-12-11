@@ -2,13 +2,17 @@ import { getColorsToUse } from "#lib/colors.ts"
 
 type Props = {
   colors?: string[]
+  rotation?: number
 }
 
-const CornerCircles = ({ colors = getColorsToUse() }: Props) => {
+const CornerCircles = ({
+  colors = getColorsToUse(),
+  rotation = [0, 90, 180, 270].sort(() => Math.random() - 0.5)[0],
+}: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
-    transform: `rotate(${[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}deg)`,
+    transform: `rotate(${rotation}deg)`,
   }
   return (
     <svg

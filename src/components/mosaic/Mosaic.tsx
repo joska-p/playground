@@ -6,7 +6,13 @@ import Controls from "./Controls"
 type MosaicProps = {
   tileWidth?: number
   tileHeight?: number
-  initialTileSet: (({ colors }: { colors?: string[] }) => JSX.Element)[]
+  initialTileSet: (({
+    colors,
+    rotation,
+  }: {
+    colors?: string[]
+    rotation?: number
+  }) => JSX.Element)[]
 }
 
 const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicProps) => {
@@ -54,9 +60,24 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
     setTileSize({ width: newSize, height: newSize })
   }
 
+  const handleChangeTileSet = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checkbox = event.target
+    const TileName = checkbox.value
+    if (tileSet.length === 1 && tileSet[0].name === TileName) return
+    if (tileSet.find((tile) => tile.name === TileName)) {
+      setTileSet((prev) => prev.filter((tile) => tile.name !== TileName))
+    } else {
+      setTileSet((prev) => [...prev, ...initialTileSet.filter((tile) => tile.name === TileName)])
+    }
+  }
+
   useEffect(() => {
     setCssColors(getCssColors({ palette, colorNames }))
   }, [palette])
+
+  useEffect(() => {
+    getNewTiles()
+  }, [tileSet])
 
   useEffect(() => {
     getNewPalette()
@@ -64,21 +85,24 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }, [])
 
   return (
-    <div
-      style={styleObject}
-      className="tiles mx-auto flex h-full w-full flex-wrap content-center justify-center"
-      ref={mosaicRef}
-    >
-      {tiles}
-
+    <div className="max-w-dvw grid h-dvh max-h-dvh w-dvw grid-rows-[auto_1fr] overflow-hidden">
       <Controls
         getNewPalette={getNewPalette}
         shuffleColors={shuffleCssColors}
         getNewTiles={getNewTiles}
         handleResizeTiles={handleResizeTiles}
         tileSize={tileSize}
+        initialTileSet={initialTileSet}
         tileSet={tileSet}
+        handleChangeTileSet={handleChangeTileSet}
       />
+      <div
+        style={styleObject}
+        className="tiles mx-auto flex w-full flex-wrap content-center justify-center overflow-hidden"
+        ref={mosaicRef}
+      >
+        {tiles}
+      </div>
     </div>
   )
 }
