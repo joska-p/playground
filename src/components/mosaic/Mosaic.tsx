@@ -1,21 +1,15 @@
-import CornerCircles from "#components/tiles/Corner-circles.tsx"
-import MiddleCircle from "#components/tiles/Middle-circle.tsx"
-import OppositeCircles from "#components/tiles/Opposite-circles.tsx"
-import Square from "#components/tiles/Square.tsx"
-import Triangle from "#components/tiles/Triangle.tsx"
 import { colorNames, getCssColors, getRandomPalette } from "#lib/colors.ts"
 import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useEffect, useRef, useState } from "react"
 import Controls from "./Controls"
 
-const TILE_SET = [CornerCircles, OppositeCircles, Square, Triangle, MiddleCircle]
-
 type MosaicProps = {
   tileWidth?: number
   tileHeight?: number
+  tileSet: (({ colors }: { colors?: string[] }) => JSX.Element)[]
 }
 
-const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
+const Mosaic = ({ tileWidth = 100, tileHeight = 100, tileSet }: MosaicProps) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [palette, setPalette] = useState<string[]>([])
   const [cssColors, setCssColors] = useState<Record<string, string>>({})
@@ -42,7 +36,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100 }: MosaicProps) => {
         Math.floor(mosaicRef.current.offsetHeight / tileSize.height)
 
       const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
-        const Tile = getRandom(TILE_SET)
+        const Tile = getRandom(tileSet)
 
         return <Tile key={index} />
       })

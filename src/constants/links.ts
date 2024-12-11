@@ -6,7 +6,12 @@ export const links = [
   },
   {
     id: 2,
-    title: "mosaic1",
-    url: "/astrotiles/mosaic/mosaic1/",
+    title: "Mosaic-Svg",
+    url: "/astrotiles/mosaic/mosaic-svg/",
+  },
+  {
+    id: 3,
+    title: "Mosaic-Css",
+    url: "/astrotiles/mosaic/mosaic-css/",
   },
 ]

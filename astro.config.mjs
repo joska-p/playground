@@ -9,6 +9,9 @@ export default defineConfig({
   site: "https://joska-p.github.io",
   base: "astrotiles",
   compressHTML: false,
+  devToolbar: {
+    enabled: false,
+  },
   build: {
     format: "preserve",
   },
