@@ -6,11 +6,12 @@ import Controls from "./Controls"
 type MosaicProps = {
   tileWidth?: number
   tileHeight?: number
-  tileSet: (({ colors }: { colors?: string[] }) => JSX.Element)[]
+  initialTileSet: (({ colors }: { colors?: string[] }) => JSX.Element)[]
 }
 
-const Mosaic = ({ tileWidth = 100, tileHeight = 100, tileSet }: MosaicProps) => {
+const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicProps) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
+  const [tileSet, setTileSet] = useState(initialTileSet)
   const [palette, setPalette] = useState<string[]>([])
   const [cssColors, setCssColors] = useState<Record<string, string>>({})
   const [tiles, setTiles] = useState<JSX.Element[]>([])
@@ -76,6 +77,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, tileSet }: MosaicProps) => 
         getNewTiles={getNewTiles}
         handleResizeTiles={handleResizeTiles}
         tileSize={tileSize}
+        tileSet={tileSet}
       />
     </div>
   )

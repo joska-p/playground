@@ -4,6 +4,7 @@ type ControlsProps = {
   getNewTiles: () => void
   handleResizeTiles: (event: React.ChangeEvent<HTMLInputElement>) => void
   tileSize: { width: number; height: number }
+  tileSet: (({ colors }: { colors?: string[] }) => JSX.Element)[]
 }
 
 const Controls = ({

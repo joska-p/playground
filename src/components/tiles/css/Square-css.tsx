@@ -1,11 +1,9 @@
-import { colorNames } from "#lib/colors.ts"
+import { getColorsToUse } from "#lib/colors.ts"
 
 type Props = {
   colors?: string[]
 }
-const Square = ({ colors }: Props) => {
-  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
-
+const Square = ({ colors = getColorsToUse() }: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
@@ -14,10 +12,10 @@ const Square = ({ colors }: Props) => {
 
   return (
     <div className="grid grid-cols-2 grid-rows-2" style={styleObject}>
-      <div style={{ backgroundColor: `var(${colorsToUse[0]})` }} />
-      <div style={{ backgroundColor: `var(${colorsToUse[1]})` }} />
-      <div style={{ backgroundColor: `var(${colorsToUse[2]})` }} />
-      <div style={{ backgroundColor: `var(${colorsToUse[3]})` }} />
+      <div style={{ backgroundColor: `var(${colors[0]})` }} />
+      <div style={{ backgroundColor: `var(${colors[1]})` }} />
+      <div style={{ backgroundColor: `var(${colors[2]})` }} />
+      <div style={{ backgroundColor: `var(${colors[3]})` }} />
     </div>
   )
 }

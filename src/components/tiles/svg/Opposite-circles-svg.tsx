@@ -1,12 +1,10 @@
-import { colorNames } from "#lib/colors.ts"
+import { getColorsToUse } from "#lib/colors.ts"
 
 type Props = {
   colors?: string[]
 }
 
-const OppositeCircles = ({ colors }: Props) => {
-  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
-
+const OppositeCircles = ({ colors = getColorsToUse() }: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
@@ -20,8 +18,8 @@ const OppositeCircles = ({ colors }: Props) => {
       viewBox="0 0 2 2"
       style={styleObject}
     >
-      <circle cx="1" cy="2" r="50%" fill={`var(${colorsToUse[0]})`} />
-      <circle cx="1" cy="0" r="50%" fill={`var(${colorsToUse[1]})`} />
+      <circle cx="1" cy="2" r="50%" fill={`var(${colors[0]})`} />
+      <circle cx="1" cy="0" r="50%" fill={`var(${colors[1]})`} />
     </svg>
   )
 }

@@ -1,12 +1,10 @@
-import { colorNames } from "#lib/colors.ts"
+import { getColorsToUse } from "#lib/colors.ts"
 
 type Props = {
   colors?: string[]
 }
 
-const Triangle = ({ colors }: Props) => {
-  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
-
+const Triangle = ({ colors = getColorsToUse() }: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
@@ -20,10 +18,10 @@ const Triangle = ({ colors }: Props) => {
       viewBox="0 0 2 2"
       style={styleObject}
     >
-      <polygon fill={`var(${colorsToUse[0]})`} points="0,0 2,0 1,1" />
-      <polygon fill={`var(${colorsToUse[1]})`} points="0,0 0,2 1,1" />
-      <polygon fill={`var(${colorsToUse[2]})`} points="0,2 2,2 1,1" />
-      <polygon fill={`var(${colorsToUse[3]})`} points="2,2 2,0 1,1" />
+      <polygon fill={`var(${colors[0]})`} points="0,0 2,0 1,1" />
+      <polygon fill={`var(${colors[1]})`} points="0,0 0,2 1,1" />
+      <polygon fill={`var(${colors[2]})`} points="0,2 2,2 1,1" />
+      <polygon fill={`var(${colors[3]})`} points="2,2 2,0 1,1" />
     </svg>
   )
 }

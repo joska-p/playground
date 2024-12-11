@@ -1,12 +1,11 @@
-import { colorNames } from "#lib/colors.ts"
+import { getColorsToUse } from "#lib/colors.ts"
 
 type Props = {
   colors?: string[]
 }
 
-const MiddleCircle = ({ colors }: Props) => {
-  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
-  const uniqueId = colorsToUse.join("-").trim()
+const MiddleCircle = ({ colors = getColorsToUse() }: Props) => {
+  const uniqueId = colors.join("-").trim()
 
   const styleObject = {
     width: "var(--tile-width)",
@@ -22,10 +21,10 @@ const MiddleCircle = ({ colors }: Props) => {
     >
       <defs>
         <linearGradient id={uniqueId}>
-          <stop stopColor={`var(${colorsToUse[0]})`} offset="0%" />
-          <stop stopColor={`var(${colorsToUse[0]})`} offset="50%" />
-          <stop stopColor={`var(${colorsToUse[1]})`} offset="50%" />
-          <stop stopColor={`var(${colorsToUse[1]})`} offset="100%" />
+          <stop stopColor={`var(${colors[0]})`} offset="0%" />
+          <stop stopColor={`var(${colors[0]})`} offset="50%" />
+          <stop stopColor={`var(${colors[1]})`} offset="50%" />
+          <stop stopColor={`var(${colors[1]})`} offset="100%" />
         </linearGradient>
       </defs>
       <circle cx="1" cy="1" r="25%" fill={`url(#${uniqueId})`} />

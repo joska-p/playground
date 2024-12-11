@@ -7,10 +7,10 @@ import Triangle from "#components/tiles/css/Triangle-css.tsx"
 
 const testSet = [OppositeCircles]
 
-const tileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
+const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
 
 const MosaicSvg = () => {
-  return <Mosaic tileSet={tileSet} tileWidth={64} tileHeight={64} />
+  return <Mosaic initialTileSet={initialTileSet} tileWidth={64} tileHeight={64} />
 }
 
 export default MosaicSvg

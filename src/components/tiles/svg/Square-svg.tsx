@@ -1,11 +1,9 @@
-import { colorNames } from "#lib/colors.ts"
+import { getColorsToUse } from "#lib/colors.ts"
 
 type Props = {
   colors?: string[]
 }
-const Square = ({ colors }: Props) => {
-  const colorsToUse = colors || colorNames.toSorted(() => Math.random() - 0.5)
-
+const Square = ({ colors = getColorsToUse() }: Props) => {
   const styleObject = {
     width: "var(--tile-width)",
     height: "var(--tile-height)",
@@ -19,10 +17,10 @@ const Square = ({ colors }: Props) => {
       viewBox="0 0 2 2"
       style={styleObject}
     >
-      <rect fill={`var(${colorsToUse[0]})`} x="0" y="0" width="1" height="1" />
-      <rect fill={`var(${colorsToUse[1]})`} x="1" y="0" width="1" height="1" />
-      <rect fill={`var(${colorsToUse[2]})`} x="0" y="1" width="1" height="1" />
-      <rect fill={`var(${colorsToUse[3]})`} x="1" y="1" width="1" height="1" />
+      <rect fill={`var(${colors[0]})`} x="0" y="0" width="1" height="1" />
+      <rect fill={`var(${colors[1]})`} x="1" y="0" width="1" height="1" />
+      <rect fill={`var(${colors[2]})`} x="0" y="1" width="1" height="1" />
+      <rect fill={`var(${colors[3]})`} x="1" y="1" width="1" height="1" />
     </svg>
   )
 }

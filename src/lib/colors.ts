@@ -27,4 +27,6 @@ const getCssColors = ({ palette, colorNames }: { palette: string[]; colorNames: 
   }, {})
 }
 
-export { colorNames, getCssColors, getRandomPalette }
+const getColorsToUse = () => colorNames.toSorted(() => Math.random() - 0.5)
+
+export { colorNames, getColorsToUse, getCssColors, getRandomPalette }
