@@ -28,7 +28,7 @@ const Controls = ({
   handleChangeTileSet,
 }: ControlsProps) => {
   return (
-    <div className="flex flex-wrap items-center gap-8 bg-gray-900 py-2 text-gray-50 portrait:flex-row portrait:justify-center landscape:flex-col landscape:justify-start">
+    <div className="flex flex-row flex-wrap items-center justify-center gap-8 bg-gray-900 py-2 text-gray-50 md:landscape:flex-col md:landscape:justify-start">
       <button
         type="button"
         onClick={swapColors}
