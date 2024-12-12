@@ -85,7 +85,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }, [])
 
   return (
-    <div className="max-w-dvw grid h-dvh max-h-dvh w-dvw grid-cols-[1fr_auto] overflow-hidden bg-gray-950">
+    <div className="max-w-dvw grid h-dvh max-h-dvh w-dvw overflow-hidden bg-gray-950 portrait:grid-rows-[1fr_auto] landscape:grid-cols-[1fr_auto]">
       <div
         style={styleObject}
         className="tiles mx-auto flex aspect-square h-full flex-wrap content-center justify-center overflow-hidden"

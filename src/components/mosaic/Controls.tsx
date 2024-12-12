@@ -28,7 +28,7 @@ const Controls = ({
   handleChangeTileSet,
 }: ControlsProps) => {
   return (
-    <div className="flex flex-col items-center justify-start gap-8 bg-gray-900 py-2 text-gray-50">
+    <div className="flex flex-wrap items-center gap-8 bg-gray-900 py-2 text-gray-50 portrait:flex-row portrait:justify-center landscape:flex-col landscape:justify-start">
       <button
         type="button"
         onClick={swapColors}
@@ -53,18 +53,19 @@ const Controls = ({
         New tiles
       </button>
 
-      <label htmlFor="tile-size">Tile size: {tileSize.width}px</label>
-      <input
-        className="h-2 cursor-pointer rounded-lg bg-gray-200"
-        id="tile-size"
-        type="range"
-        name="Tile size"
-        min="32"
-        step={2}
-        max="256"
-        value={tileSize.width}
-        onChange={handleResizeTiles}
-      />
+      <label className="flex flex-col items-center gap-2">
+        Tile size: {tileSize.width}px
+        <input
+          className="h-2 cursor-pointer rounded-lg bg-gray-200"
+          type="range"
+          name="Tile size"
+          min="32"
+          step={2}
+          max="256"
+          value={tileSize.width}
+          onChange={handleResizeTiles}
+        />
+      </label>
 
       <TileSetControls
         initialTileSet={initialTileSet}
