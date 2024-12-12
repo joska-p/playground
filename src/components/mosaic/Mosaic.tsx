@@ -82,13 +82,15 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   useEffect(() => {
     getNewPalette()
     getNewTiles()
+    window.addEventListener("resize", getNewTiles)
+    return () => window.removeEventListener("resize", getNewTiles)
   }, [])
 
   return (
-    <div className="grid h-dvh grid-rows-[1fr_auto] overflow-hidden bg-gray-950 lg:grid-cols-[1fr_auto]">
+    <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden bg-gray-950 lg:grid-cols-[1fr_auto]">
       <div
         style={styleObject}
-        className="tiles mx-auto flex aspect-square h-full flex-wrap content-center justify-center overflow-hidden"
+        className="tiles mx-auto flex aspect-square flex-wrap content-center justify-center overflow-hidden portrait:w-full landscape:h-full"
         ref={mosaicRef}
       >
         {tiles}
