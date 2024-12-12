@@ -19,15 +19,15 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tileSet, setTileSet] = useState(initialTileSet)
   const [palette, setPalette] = useState<string[]>([])
-  const [cssColors, setCssColors] = useState<Record<string, string>>({})
+  const [colors, setColors] = useState<Record<string, string>>({})
   const [tiles, setTiles] = useState<JSX.Element[]>([])
   const mosaicRef = useRef<HTMLDivElement>(null)
 
   const styleObject = {
-    ...cssColors,
+    ...colors,
     "--tile-width": `${tileSize.width}px`,
     "--tile-height": `${tileSize.height}px`,
-    backgroundColor: "black",
+    backgroundColor: "var(--color-5)",
   }
 
   const getNewPalette = async () => {
@@ -51,8 +51,8 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
     }
   }
 
-  const shuffleCssColors = () => {
-    setCssColors((prev) => shuffleObject(prev))
+  const swapColors = () => {
+    setColors((prev) => shuffleObject(prev))
   }
 
   const handleResizeTiles = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +72,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }
 
   useEffect(() => {
-    setCssColors(getCssColors({ palette, colorNames }))
+    setColors(getCssColors({ palette, colorNames }))
   }, [palette])
 
   useEffect(() => {
@@ -85,10 +85,17 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }, [])
 
   return (
-    <div className="max-w-dvw grid h-dvh max-h-dvh w-dvw grid-rows-[auto_1fr] overflow-hidden">
+    <div className="max-w-dvw grid h-dvh max-h-dvh w-dvw grid-cols-[1fr_auto] overflow-hidden bg-gray-950">
+      <div
+        style={styleObject}
+        className="tiles mx-auto flex aspect-square h-full flex-wrap content-center justify-center overflow-hidden"
+        ref={mosaicRef}
+      >
+        {tiles}
+      </div>
       <Controls
         getNewPalette={getNewPalette}
-        shuffleColors={shuffleCssColors}
+        swapColors={swapColors}
         getNewTiles={getNewTiles}
         handleResizeTiles={handleResizeTiles}
         tileSize={tileSize}
@@ -96,13 +103,6 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
         tileSet={tileSet}
         handleChangeTileSet={handleChangeTileSet}
       />
-      <div
-        style={styleObject}
-        className="tiles mx-auto flex w-full flex-wrap content-center justify-center overflow-hidden"
-        ref={mosaicRef}
-      >
-        {tiles}
-      </div>
     </div>
   )
 }
