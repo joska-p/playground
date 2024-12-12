@@ -12,7 +12,7 @@ type Props = {
 
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
-    <div className="p flex flex-wrap gap-2 lg:grid lg:grid-cols-2 lg:gap-8">
+    <div className="flex flex-wrap justify-around gap-2 lg:grid lg:grid-cols-2 lg:gap-8">
       {initialTileSet.map((Tile, index) => {
         const styleObject = {
           "--tile-width": "32px",
@@ -25,7 +25,7 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
           "--rotation": "0deg",
         } as React.CSSProperties
         return (
-          <label key={index} style={styleObject} className="flex items-center gap-2">
+          <label key={index} style={styleObject} className="flex items-center gap-2 lg:flex-col">
             <input
               type="checkbox"
               name={Tile.name}
