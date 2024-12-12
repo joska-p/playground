@@ -53,7 +53,7 @@ const Controls = ({
         New tiles
       </button>
 
-      <label className="flex flex-col items-center gap-2">
+      <label className="flex flex-col items-center gap-2 text-sm">
         Tile size: {tileSize.width}px
         <input
           className="h-2 cursor-pointer rounded-lg bg-gray-200"
