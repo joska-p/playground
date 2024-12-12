@@ -12,7 +12,7 @@ type Props = {
 
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
-    <div className="p flex flex-wrap gap-8 lg:grid lg:grid-cols-2">
+    <div className="p flex flex-wrap gap-2 lg:grid lg:grid-cols-2 lg:gap-8">
       {initialTileSet.map((Tile, index) => {
         const styleObject = {
           "--tile-width": "32px",
