@@ -76,12 +76,18 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }, [palette])
 
   useEffect(() => {
-    getNewTiles()
+    const debounce = setTimeout(() => {
+      getNewTiles()
+    }, 500)
+    return () => {
+      clearTimeout(debounce)
+    }
   }, [tileSet, tileSize])
 
   useEffect(() => {
     getNewPalette()
     getNewTiles()
+
     window.addEventListener("resize", getNewTiles)
     return () => window.removeEventListener("resize", getNewTiles)
   }, [])
