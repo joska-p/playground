@@ -90,7 +90,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
     <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden bg-gray-950 lg:grid-cols-[1fr_auto]">
       <div
         style={styleObject}
-        className="tiles mx-auto flex h-full flex-wrap content-center justify-center overflow-hidden"
+        className="tiles flex h-full w-full flex-wrap content-center justify-center overflow-hidden"
         ref={mosaicRef}
       >
         {tiles}
