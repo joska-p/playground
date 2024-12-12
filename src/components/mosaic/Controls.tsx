@@ -15,6 +15,8 @@ type ControlsProps = {
   }) => JSX.Element)[]
   tileSet: (({ colors, rotation }: { colors?: string[]; rotation?: number }) => JSX.Element)[]
   handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
+  gap: number
+  handleChangeGap: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Controls = ({
@@ -26,6 +28,8 @@ const Controls = ({
   initialTileSet,
   tileSet,
   handleChangeTileSet,
+  gap,
+  handleChangeGap,
 }: ControlsProps) => {
   return (
     <div className="flex w-full flex-col gap-4 bg-gray-900 p-2 text-gray-50 lg:gap-8 lg:px-2 lg:py-6">
@@ -64,6 +68,20 @@ const Controls = ({
           max="256"
           value={tileSize.width}
           onChange={handleResizeTiles}
+        />
+      </label>
+
+      <label className="flex flex-row items-center justify-center gap-2 text-sm lg:flex-col lg:gap-4">
+        Gap size: {gap}px
+        <input
+          className="h-2 cursor-pointer rounded-lg bg-gray-200"
+          type="range"
+          name="Tile size"
+          min="0"
+          step={1}
+          max={tileSize.width}
+          value={gap}
+          onChange={handleChangeGap}
         />
       </label>
 

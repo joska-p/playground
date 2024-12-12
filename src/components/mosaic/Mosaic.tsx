@@ -1,6 +1,6 @@
 import { colorNames, getCssColors, getRandomPalette } from "#lib/colors.ts"
 import { getRandom, shuffleObject } from "#lib/utils.ts"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
 type MosaicProps = {
@@ -21,38 +21,47 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   const [palette, setPalette] = useState<string[]>([])
   const [colors, setColors] = useState<Record<string, string>>({})
   const [tiles, setTiles] = useState<JSX.Element[]>([])
+  const [gap, setGap] = useState(0)
   const mosaicRef = useRef<HTMLDivElement>(null)
 
   const styleObject = {
     ...colors,
     "--tile-width": `${tileSize.width}px`,
     "--tile-height": `${tileSize.height}px`,
-    backgroundColor: "var(--color-5)",
-  }
+    "--gap": `${gap}px`,
+  } as CSSProperties
 
   const getNewPalette = async () => {
     const newPalette = await getRandomPalette()
     setPalette(newPalette)
   }
 
-  const getNewTiles = () => {
+  const getNumberOfTiles = useCallback(() => {
     if (mosaicRef.current) {
-      const numberOfTiles =
-        Math.floor(mosaicRef.current.offsetWidth / tileSize.width) *
-        Math.floor(mosaicRef.current.offsetHeight / tileSize.height)
-
-      const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
-        const Tile = getRandom(tileSet)
-
-        return <Tile key={index} />
-      })
-
-      setTiles(newTiles)
+      return (
+        Math.floor(mosaicRef.current.offsetWidth / (tileSize.width + gap)) *
+        Math.floor(mosaicRef.current.offsetHeight / (tileSize.height + gap))
+      )
     }
+  }, [mosaicRef, tileSize, gap])
+
+  const getNewTiles = () => {
+    const newTiles = Array.from({ length: getNumberOfTiles() || 0 }, (_, index) => {
+      const Tile = getRandom(tileSet)
+
+      return <Tile key={index} />
+    })
+
+    setTiles(newTiles)
   }
 
   const swapColors = () => {
     setColors((prev) => shuffleObject(prev))
+  }
+
+  const handleChangeGap = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSize = event.target.valueAsNumber
+    setGap(newSize)
   }
 
   const handleResizeTiles = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +91,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
     return () => {
       clearTimeout(debounce)
     }
-  }, [tileSet, tileSize])
+  }, [tileSet, tileSize, gap])
 
   useEffect(() => {
     getNewPalette()
@@ -93,10 +102,10 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }, [])
 
   return (
-    <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden bg-gray-950 lg:grid-cols-[1fr_auto]">
+    <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden bg-gray-900 lg:grid-cols-[1fr_auto]">
       <div
         style={styleObject}
-        className="tiles flex h-full w-full flex-wrap content-center justify-center overflow-hidden"
+        className="tiles flex h-full w-full flex-wrap content-center justify-center gap-[var(--gap)] overflow-hidden pb-[var(--gap)] pr-[var(--gap)]"
         ref={mosaicRef}
       >
         {tiles}
@@ -110,6 +119,8 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
         initialTileSet={initialTileSet}
         tileSet={tileSet}
         handleChangeTileSet={handleChangeTileSet}
+        gap={gap}
+        handleChangeGap={handleChangeGap}
       />
     </div>
   )
