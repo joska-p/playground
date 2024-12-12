@@ -5,18 +5,19 @@ const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color
 const getRandomPalette = async () => {
   let palette: [string, string, string, string, string]
 
-  // check for local storage
-  if (localStorage.getItem("palettes")) {
-    const palettes = JSON.parse(localStorage.getItem("palettes") || "[]")
-    palette = getRandom(palettes)
-  } else {
-    // if not, fetch and store
-    const palettes = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json").then(
+  const expirationDuration = 1000 * 60 * 60 * 24 * 7 // 7 days
+  const expirationDate = new Date().getTime() + expirationDuration
+  const date = new Date()
+  const storedPalettes = localStorage.getItem("palettes")
+
+  if (!storedPalettes || JSON.parse(storedPalettes).expiration - date.getTime() < 0) {
+    const newPalettes = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json").then(
       (response) => response.json()
     )
-
-    localStorage.setItem("palettes", JSON.stringify(palettes))
-    palette = getRandom(palettes)
+    localStorage.setItem("palettes", JSON.stringify({ newPalettes, expiration: expirationDate }))
+    palette = getRandom(newPalettes)
+  } else {
+    palette = getRandom(JSON.parse(storedPalettes).newPalettes)
   }
 
   return palette
