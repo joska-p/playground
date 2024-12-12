@@ -77,7 +77,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
 
   useEffect(() => {
     getNewTiles()
-  }, [tileSet])
+  }, [tileSet, tileSize])
 
   useEffect(() => {
     getNewPalette()

@@ -9,8 +9,8 @@ const testSet = [OppositeCircles]
 
 const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
 
-const MosaicSvg = () => {
+const MosaicPage = () => {
   return <Mosaic initialTileSet={initialTileSet} tileWidth={64} tileHeight={64} />
 }
 
-export default MosaicSvg
+export default MosaicPage
