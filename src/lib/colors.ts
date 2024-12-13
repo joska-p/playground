@@ -42,7 +42,7 @@ const getRandomPalette = async (): Promise<Palette> => {
   }
 }
 
-const getColors = ({ palette, colorNames }: { palette: Palette; colorNames: ColorNames }) => {
+const getColors = (palette = fallbackPalettes[0]) => {
   return colorNames.reduce((acc, color, index) => {
     acc[color] = palette[index]
     return acc

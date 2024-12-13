@@ -1,9 +1,9 @@
 import TileSetControls from "./Tile-set-controls"
 
 type ControlsProps = {
-  getNewPalette: () => void
+  setNewColors: () => void
   swapColors: () => void
-  getNewTiles: () => void
+  setNewTiles: () => void
   handleResizeTiles: (event: React.ChangeEvent<HTMLInputElement>) => void
   tileSize: { width: number; height: number }
   initialTileSet: (({
@@ -20,9 +20,9 @@ type ControlsProps = {
 }
 
 const Controls = ({
-  getNewPalette,
+  setNewColors,
   swapColors,
-  getNewTiles,
+  setNewTiles,
   handleResizeTiles,
   tileSize,
   initialTileSet,
@@ -43,14 +43,14 @@ const Controls = ({
         </button>
         <button
           type="button"
-          onClick={getNewPalette}
+          onClick={setNewColors}
           className="rounded-lg bg-gray-700 px-3 py-2 text-sm hover:bg-gray-800 lg:w-full"
         >
           New colors
         </button>
         <button
           type="button"
-          onClick={getNewTiles}
+          onClick={setNewTiles}
           className="rounded-lg bg-gray-700 px-3 py-2 text-sm hover:bg-gray-800 lg:w-full"
         >
           New tiles
