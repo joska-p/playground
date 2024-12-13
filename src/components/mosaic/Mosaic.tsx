@@ -1,31 +1,21 @@
-import {
-  colorNames,
-  fallbackPalette,
-  getColors,
-  getRandomPalette,
-  type Palette,
-} from "#lib/colors.ts"
+import { colorNames, fallbackPalette, getColors, getRandomPalette } from "#lib/colors.ts"
 import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
+type Tile = ({ colors, rotation }: { colors?: string[]; rotation?: number }) => JSX.Element
+
 type MosaicProps = {
   tileWidth?: number
   tileHeight?: number
-  initialTileSet: (({
-    colors,
-    rotation,
-  }: {
-    colors?: string[]
-    rotation?: number
-  }) => JSX.Element)[]
+  initialTileSet: Tile[]
 }
 
 const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicProps) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tileSet, setTileSet] = useState(initialTileSet)
-  const [palette, setPalette] = useState<Palette>(fallbackPalette)
-  const [colors, setColors] = useState<Record<string, string>>(getColors({ palette, colorNames }))
+  const [palette, setPalette] = useState(fallbackPalette)
+  const [colors, setColors] = useState(getColors({ palette, colorNames }))
   const [tiles, setTiles] = useState<JSX.Element[]>([])
   const [gap, setGap] = useState(0)
   const mosaicRef = useRef<HTMLDivElement>(null)
@@ -93,7 +83,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   useEffect(() => {
     const debounce = setTimeout(() => {
       getNewTiles()
-    }, 500)
+    }, 300)
     return () => {
       clearTimeout(debounce)
     }

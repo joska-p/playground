@@ -5,13 +5,13 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-const shuffleObject = (obj: { [key: string]: any }): { [key: string]: any } => {
-  const values = Object.values(obj)
-  for (let i = values.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[values[i], values[j]] = [values[j], values[i]]
-  }
-  return Object.fromEntries(Object.keys(obj).map((key, index) => [key, values[index]]))
+const shuffleObject = <T extends Record<string, unknown>>(obj: T): T => {
+  const keys = Object.keys(obj) as Array<keyof T>
+  const values = Object.values(obj) as Array<T[keyof T]>
+
+  const shuffledValues = values.sort(() => 0.5 - Math.random())
+
+  return Object.fromEntries(keys.map((key, index) => [key, shuffledValues[index]])) as T
 }
 
 const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
