@@ -1,3 +1,4 @@
+import { z } from "zod"
 import { getRandom } from "./utils"
 
 type Palette = [string, string, string, string, string]
@@ -9,14 +10,12 @@ type Colors = Record<ColorName, string>
 const fallbackPalettes = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]] as Palettes
 const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as ColorNames
 
-const isPalettes = (palettes: unknown): palettes is Palettes =>
-  Array.isArray(palettes) &&
-  palettes.every(
-    (palette) =>
-      Array.isArray(palette) &&
-      palette.length >= colorNames.length &&
-      palette.every((color) => typeof color === "string")
-  )
+const safeFetch = async <TData>(url: string, scheme: z.ZodSchema<TData>): Promise<TData> => {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error("Network response was not ok")
+
+  return scheme.parse(await response.json())
+}
 
 const getRandomPalette = async (): Promise<Palette> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000
@@ -26,14 +25,13 @@ const getRandomPalette = async (): Promise<Palette> => {
     return getRandom(JSON.parse(storedPalettes).palettes)
 
   try {
-    const response = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json")
-    if (!response.ok) return getRandom(fallbackPalettes)
-
-    const palettes = await response.json()
-    if (!isPalettes(palettes)) return getRandom(fallbackPalettes)
+    const palettes = await safeFetch(
+      "https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
+      z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5))
+    )
 
     localStorage.setItem("palettes", JSON.stringify({ palettes, expiration: palettesExpiration }))
-    return getRandom(palettes)
+    return getRandom(palettes) as Palette
   } catch (e) {
     console.error(e)
     return getRandom(fallbackPalettes)
