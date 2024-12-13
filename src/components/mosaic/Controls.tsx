@@ -6,14 +6,8 @@ type ControlsProps = {
   setNewTiles: () => void
   handleResizeTiles: (event: React.ChangeEvent<HTMLInputElement>) => void
   tileSize: { width: number; height: number }
-  initialTileSet: (({
-    colors,
-    rotation,
-  }: {
-    colors?: string[]
-    rotation?: number
-  }) => JSX.Element)[]
-  tileSet: (({ colors, rotation }: { colors?: string[]; rotation?: number }) => JSX.Element)[]
+  initialTileSet: (() => JSX.Element)[]
+  tileSet: (() => JSX.Element)[]
   handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
   gap: number
   handleChangeGap: (event: React.ChangeEvent<HTMLInputElement>) => void

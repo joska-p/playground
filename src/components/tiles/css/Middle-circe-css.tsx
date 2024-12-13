@@ -1,13 +1,9 @@
 import { getColorsToUse } from "#lib/colors.ts"
 
-type Props = {
-  colors?: string[]
-  rotation?: number
-}
 const MiddleCircles = ({
   colors = getColorsToUse(),
   rotation = [0, 90, 180, 270].sort(() => Math.random() - 0.5)[0],
-}: Props) => {
+}) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     width: "var(--tile-width)",
