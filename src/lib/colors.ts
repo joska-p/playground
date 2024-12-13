@@ -6,35 +6,39 @@ type ColorName = "--color-1" | "--color-2" | "--color-3" | "--color-4" | "--colo
 type ColorNames = ColorName[]
 type Colors = Record<ColorName, string>
 
+const fallbackPalettes = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]] as Palettes
+const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as ColorNames
+
 const isPalettes = (palettes: unknown): palettes is Palettes =>
   Array.isArray(palettes) &&
   palettes.every(
     (palette) =>
       Array.isArray(palette) &&
-      palette.length > 5 &&
+      palette.length >= colorNames.length &&
       palette.every((color) => typeof color === "string")
   )
 
-const fallbackPalette = ["#333333", "#555555", "#777777", "#999999", "#bbbbbb"] as Palette
-const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as ColorNames
-
-const getRandomPalette = async () => {
+const getRandomPalette = async (): Promise<Palette> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000
   const storedPalettes = localStorage.getItem("palettes")
 
-  if (storedPalettes) return getRandom(JSON.parse(storedPalettes).palettes)
+  if (storedPalettes && JSON.parse(storedPalettes).expiration > Date.now())
+    return getRandom(JSON.parse(storedPalettes).palettes)
 
   try {
-    const palettes = fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json").then(
-      (response) => response.json()
-    )
-    if (!isPalettes(palettes)) return getRandom(fallbackPalette)
+    const response = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json")
+    if (!response.ok) return getRandom(fallbackPalettes)
+
+    const palettes = await response.json()
+    console.log(palettes)
+    console.log(isPalettes(palettes))
+    if (!isPalettes(palettes)) return getRandom(fallbackPalettes)
 
     localStorage.setItem("palettes", JSON.stringify({ palettes, expiration: palettesExpiration }))
     return getRandom(palettes)
   } catch (e) {
     console.error(e)
-    return getRandom(fallbackPalette)
+    return getRandom(fallbackPalettes)
   }
 }
 
@@ -47,5 +51,5 @@ const getColors = ({ palette, colorNames }: { palette: Palette; colorNames: Colo
 
 const getColorsToUse = () => colorNames.map(() => getRandom(colorNames))
 
-export { colorNames, fallbackPalette, getColors, getColorsToUse, getRandomPalette }
+export { colorNames, fallbackPalettes, getColors, getColorsToUse, getRandomPalette }
 export type { Colors, Palette }

@@ -1,6 +1,6 @@
-import { colorNames, fallbackPalette, getColors, getRandomPalette } from "#lib/colors.ts"
+import { colorNames, fallbackPalettes, getColors, getRandomPalette } from "#lib/colors.ts"
 import { getRandom, shuffleObject } from "#lib/utils.ts"
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react"
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
 type Tile = ({ colors, rotation }: { colors?: string[]; rotation?: number }) => JSX.Element
@@ -14,7 +14,7 @@ type MosaicProps = {
 const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicProps) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tileSet, setTileSet] = useState(initialTileSet)
-  const [palette, setPalette] = useState(fallbackPalette)
+  const [palette, setPalette] = useState(fallbackPalettes[0])
   const [colors, setColors] = useState(getColors({ palette, colorNames }))
   const [tiles, setTiles] = useState<JSX.Element[]>([])
   const [gap, setGap] = useState(0)
@@ -32,14 +32,14 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
     setPalette(newPalette)
   }
 
-  const getNumberOfTiles = useCallback(() => {
+  const getNumberOfTiles = () => {
     if (mosaicRef.current) {
       return (
         Math.floor(mosaicRef.current.offsetWidth / (tileSize.width + gap)) *
         Math.floor(mosaicRef.current.offsetHeight / (tileSize.height + gap))
       )
     }
-  }, [mosaicRef, tileSize, gap])
+  }
 
   const getNewTiles = () => {
     const newTiles = Array.from({ length: getNumberOfTiles() || 0 }, (_, index) => {
@@ -66,14 +66,20 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
   }
 
   const handleChangeTileSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checkbox = event.target
-    const TileName = checkbox.value
-    if (tileSet.length === 1 && tileSet[0].name === TileName) return
+    const TileName = event.target.value
+    const newTile = initialTileSet.filter((tile) => tile.name === TileName)
+
     if (tileSet.find((tile) => tile.name === TileName)) {
+      if (tileSet.length === 1) return
+
       setTileSet((prev) => prev.filter((tile) => tile.name !== TileName))
     } else {
-      setTileSet((prev) => [...prev, ...initialTileSet.filter((tile) => tile.name === TileName)])
+      setTileSet((prev) => [...prev, ...newTile])
     }
+  }
+
+  const handleWindowResize = () => {
+    getNewTiles()
   }
 
   useEffect(() => {
@@ -93,8 +99,8 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet }: MosaicPro
     getNewPalette()
     getNewTiles()
 
-    window.addEventListener("resize", getNewTiles)
-    return () => window.removeEventListener("resize", getNewTiles)
+    window.addEventListener("resize", handleWindowResize)
+    return () => window.removeEventListener("resize", handleWindowResize)
   }, [])
 
   return (
