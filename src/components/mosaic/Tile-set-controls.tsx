@@ -25,7 +25,7 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
           <label
             key={index}
             style={styleObject}
-            className="bg-gray-900 p-1 opacity-50 transition-all hover:opacity-100 has-[:checked]:bg-gray-900 has-[:checked]:opacity-100 has-[:checked]:ring-2 has-[:checked]:ring-inset has-[:checked]:ring-blue-400"
+            className="rounded-sm bg-gray-900 p-1 opacity-50 transition-all hover:opacity-100 has-[:checked]:bg-gray-900 has-[:checked]:opacity-100 has-[:checked]:ring-2 has-[:checked]:ring-inset has-[:checked]:ring-blue-400"
           >
             <input
               type="checkbox"
