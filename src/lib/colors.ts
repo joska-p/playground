@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { getRandom } from "./utils"
+import { getRandom, safeFetch } from "./utils"
 
 type Palette = [string, string, string, string, string]
 type Palettes = Palette[]
@@ -9,13 +9,6 @@ type Colors = Record<ColorName, string>
 
 const fallbackPalettes = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]] as Palettes
 const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as ColorNames
-
-const safeFetch = async <TData>(url: string, scheme: z.ZodSchema<TData>): Promise<TData> => {
-  const response = await fetch(url)
-  if (!response.ok) throw new Error("Network response was not ok")
-
-  return scheme.parse(await response.json())
-}
 
 const getRandomPalette = async (): Promise<Palette> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000

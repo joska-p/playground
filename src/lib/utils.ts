@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import type { z } from "zod"
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -16,4 +17,11 @@ const shuffleObject = <T extends Record<string, unknown>>(obj: T): T => {
 
 const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
 
-export { cn, getRandom, shuffleObject }
+const safeFetch = async <TData>(url: string, scheme: z.ZodSchema<TData>): Promise<TData> => {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error("Network response was not ok")
+
+  return scheme.parse(await response.json())
+}
+
+export { cn, getRandom, safeFetch, shuffleObject }
