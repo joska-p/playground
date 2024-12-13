@@ -30,8 +30,6 @@ const getRandomPalette = async (): Promise<Palette> => {
     if (!response.ok) return getRandom(fallbackPalettes)
 
     const palettes = await response.json()
-    console.log(palettes)
-    console.log(isPalettes(palettes))
     if (!isPalettes(palettes)) return getRandom(fallbackPalettes)
 
     localStorage.setItem("palettes", JSON.stringify({ palettes, expiration: palettesExpiration }))
