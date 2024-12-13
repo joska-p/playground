@@ -27,7 +27,7 @@ const getRandomPalette = async (): Promise<Palette> => {
   try {
     const palettes = await safeFetch(
       "https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
-      z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5))
+      z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1)
     )
 
     localStorage.setItem("palettes", JSON.stringify({ palettes, expiration: palettesExpiration }))
