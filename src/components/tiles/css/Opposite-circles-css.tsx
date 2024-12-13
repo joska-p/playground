@@ -15,11 +15,11 @@ const OppositeCircles = ({
     <div className="relative overflow-hidden" style={styleObject}>
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
-        className="absolute right-1/2 h-full w-full rounded-full"
+        className="absolute right-1/2 h-full w-1/2 rounded-r-full"
       />
       <div
         style={{ backgroundColor: `var(${colors[2]})` }}
-        className="absolute left-1/2 h-full w-full rounded-full"
+        className="absolute left-1/2 h-full w-1/2 rounded-l-full"
       />
     </div>
   )

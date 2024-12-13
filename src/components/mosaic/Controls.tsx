@@ -1,3 +1,4 @@
+import { fallbackTileSet } from "./Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
 type ControlsProps = {
@@ -6,8 +7,8 @@ type ControlsProps = {
   setNewTiles: () => void
   handleResizeTiles: (event: React.ChangeEvent<HTMLInputElement>) => void
   tileSize: { width: number; height: number }
-  initialTileSet: (() => JSX.Element)[]
-  tileSet: (() => JSX.Element)[]
+  initialTileSet: typeof fallbackTileSet
+  tileSet: typeof fallbackTileSet
   handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
   gap: number
   handleChangeGap: (event: React.ChangeEvent<HTMLInputElement>) => void

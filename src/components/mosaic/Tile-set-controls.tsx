@@ -1,42 +1,42 @@
+import { colorNames } from "#lib/colors.ts"
+import { fallbackTileSet } from "./Mosaic"
+
 type Props = {
-  initialTileSet: (({
-    colors,
-    rotation,
-  }: {
-    colors?: string[]
-    rotation?: number
-  }) => JSX.Element)[]
-  tileSet: (({ colors, rotation }: { colors?: string[]; rotation?: number }) => JSX.Element)[]
+  initialTileSet: typeof fallbackTileSet
+  tileSet: typeof fallbackTileSet
   handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
-    <div className="flex flex-wrap justify-around gap-2 lg:grid lg:grid-cols-2 lg:gap-8">
+    <div className="flex flex-wrap justify-around gap-2 lg:mx-auto lg:grid lg:grid-cols-2 lg:place-content-center lg:items-start lg:gap-8">
       {initialTileSet.map((Tile, index) => {
         const styleObject = {
           "--tile-width": "32px",
           "--tile-height": "32px",
-          "--color-0": "#333333",
-          "--color-1": "#555555",
-          "--color-2": "#777777",
-          "--color-3": "#999999",
-          "--color-4": "#bbbbbb",
+          [colorNames[0]]: "#555555",
+          [colorNames[1]]: "#777777",
+          [colorNames[2]]: "#999999",
+          [colorNames[3]]: "#bbbbbb",
+          [colorNames[4]]: "#dddddd",
           "--rotation": "0deg",
         } as React.CSSProperties
         return (
-          <label key={index} style={styleObject} className="flex items-center gap-2 lg:flex-col">
+          <label
+            key={index}
+            style={styleObject}
+            className="bg-gray-900 p-1 opacity-50 transition-all hover:opacity-100 has-[:checked]:bg-gray-900 has-[:checked]:opacity-100 has-[:checked]:ring-2 has-[:checked]:ring-inset has-[:checked]:ring-blue-400"
+          >
             <input
               type="checkbox"
               name={Tile.name}
               value={Tile.name}
+              defaultChecked={true}
               checked={tileSet.find((tile) => tile.name === Tile.name) ? true : false}
               onChange={handleChangeTileSet}
+              className="sr-only"
             />
-            <Tile
-              colors={["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"]}
-              rotation={0}
-            />
+            <Tile colors={colorNames} rotation={0} />
           </label>
         )
       })}

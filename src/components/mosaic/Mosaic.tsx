@@ -8,13 +8,7 @@ import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
-const fallbackTileSet = [
-  Square,
-  Triangle,
-  CornerCircles,
-  MiddleCircles,
-  OppositeCircles,
-] as (() => JSX.Element)[]
+export const fallbackTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
 
 const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet = fallbackTileSet }) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
@@ -22,6 +16,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet = fallbackTi
   const [colors, setColors] = useState(getColors())
   const [tiles, setTiles] = useState<JSX.Element[]>([])
   const [gap, setGap] = useState(0)
+  const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 })
   const mosaicRef = useRef<HTMLDivElement>(null)
 
   const styleObject = useMemo(
@@ -69,18 +64,27 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet = fallbackTi
   }
 
   const handleChangeTileSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const tileName = event.target.value
+    const checkbox = event.target
+    const tileName = checkbox.value
 
     if (tileSet.find((tile) => tile.name === tileName)) {
-      if (tileSet.length > 1) setTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
+      if (tileSet.length > 1) {
+        checkbox.checked = false
+        setTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
+      }
     } else {
+      checkbox.checked = true
       const newTile = initialTileSet.filter((tile) => tile.name === tileName)
       setTileSet((prev) => [...prev, ...newTile])
     }
   }
 
   const handleWindowResize = () => {
-    setNewTiles()
+    if (mosaicRef.current) {
+      const mosaicWidth = mosaicRef.current?.offsetWidth || 0
+      const mosaicHeight = mosaicRef.current?.offsetHeight || 0
+      setMosaicSize({ width: mosaicWidth, height: mosaicHeight })
+    }
   }
 
   useEffect(() => {
@@ -90,14 +94,11 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet = fallbackTi
     return () => {
       clearTimeout(debounce)
     }
-  }, [tileSet, tileSize, gap])
+  }, [tileSet, tileSize, gap, mosaicSize])
 
   useEffect(() => {
     setNewColors()
     setNewTiles()
-  }, [])
-
-  useEffect(() => {
     window.addEventListener("resize", handleWindowResize)
     return () => {
       window.removeEventListener("resize", handleWindowResize)
