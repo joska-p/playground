@@ -14,6 +14,6 @@ const shuffleObject = (obj: { [key: string]: any }): { [key: string]: any } => {
   return Object.fromEntries(Object.keys(obj).map((key, index) => [key, values[index]]))
 }
 
-const getRandom = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)]
+const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]
 
 export { cn, getRandom, shuffleObject }

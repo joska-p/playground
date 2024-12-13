@@ -1,30 +1,45 @@
 import { getRandom } from "./utils"
 
+type Palette = [string, string, string, string, string]
+type Palettes = Palette[]
+
+const isPalettes = (palettes: unknown): palettes is Palettes =>
+  Array.isArray(palettes) &&
+  palettes.every(
+    (palette) => Array.isArray(palette) && palette.every((color) => typeof color === "string")
+  ) &&
+  palettes.length > 5
+
+const fallbackPalette = ["#333333", "#555555", "#777777", "#999999", "#bbbbbb"] as Palette
 const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"]
 
 const getRandomPalette = async () => {
-  let palette: [string, string, string, string, string]
-
-  const expirationDuration = 1000 * 60 * 60 * 24 * 7 // 7 days
-  const expirationDate = new Date().getTime() + expirationDuration
-  const date = new Date()
+  const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000
   const storedPalettes = localStorage.getItem("palettes")
 
-  if (!storedPalettes || JSON.parse(storedPalettes).expiration - date.getTime() < 0) {
-    const newPalettes = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json").then(
-      (response) => response.json()
-    )
-    localStorage.setItem("palettes", JSON.stringify({ newPalettes, expiration: expirationDate }))
-    palette = getRandom(newPalettes)
-  } else {
-    palette = getRandom(JSON.parse(storedPalettes).newPalettes)
+  if (!storedPalettes || JSON.parse(storedPalettes).expiration < Date.now()) {
+    const newPalettes = await fetch("https://unpkg.com/nice-color-palettes@3.0.0/1000.json")
+      .then((response) => response.json())
+      .then((palettes) => {
+        if (!isPalettes(palettes)) return [fallbackPalette]
+
+        localStorage.setItem(
+          "palettes",
+          JSON.stringify({ palettes, expiration: palettesExpiration })
+        )
+        return palettes
+      })
+    return getRandom(newPalettes)
   }
 
-  return palette
+  const newPalettes = JSON.parse(storedPalettes).palettes
+  if (!isPalettes(newPalettes)) return fallbackPalette
+
+  return getRandom(newPalettes)
 }
 
-const getCssColors = ({ palette, colorNames }: { palette: string[]; colorNames: string[] }) => {
-  return colorNames.reduce((acc: Record<string, string>, color, index) => {
+const getColors = ({ palette, colorNames: colors }: { palette: Palette; colorNames: string[] }) => {
+  return colors.reduce<Record<string, string>>((acc, color, index) => {
     acc[color] = palette[index]
     return acc
   }, {})
@@ -32,4 +47,5 @@ const getCssColors = ({ palette, colorNames }: { palette: string[]; colorNames: 
 
 const getColorsToUse = () => colorNames.map(() => getRandom(colorNames))
 
-export { colorNames, getColorsToUse, getCssColors, getRandomPalette }
+export { colorNames, fallbackPalette, getColors, getColorsToUse, getRandomPalette }
+export type { Palette }
