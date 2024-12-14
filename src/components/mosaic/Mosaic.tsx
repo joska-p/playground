@@ -54,8 +54,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
     }
 
     if (newNumberOfTiles >= numberOfTiles) {
-      const numberOfTilesToAdd =
-        newNumberOfTiles - numberOfTiles === 0 ? numberOfTiles : newNumberOfTiles - numberOfTiles
+      const numberOfTilesToAdd = newNumberOfTiles - numberOfTiles
       const newTiles = Array.from({ length: numberOfTilesToAdd }, (_, index) => {
         const Tile = getRandom(tileSet)
 
@@ -63,6 +62,16 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
       })
 
       setTiles((prev) => [...prev, ...newTiles])
+    }
+
+    if (newNumberOfTiles === numberOfTiles) {
+      const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
+        const Tile = getRandom(tileSet)
+
+        return <Tile key={index} />
+      })
+
+      setTiles(newTiles)
     }
   }
 
