@@ -94,7 +94,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   useEffect(() => {
     const debounce = setTimeout(() => {
       setNewTiles()
-    }, 100)
+    }, 300)
     return () => {
       clearTimeout(debounce)
     }
