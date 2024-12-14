@@ -6,7 +6,7 @@ import Triangle from "@components/tiles/css/Triangle-css"
 import { getColors, getRandomPalette } from "@lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
-import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react"
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
 export const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
@@ -80,7 +80,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
     setMosaicSize({ width: mosaicWidth, height: mosaicHeight })
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const debounce = setTimeout(() => {
       setNewTiles()
     }, 300)
@@ -89,7 +89,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
     }
   }, [tileSet, tileSize, gap, mosaicSize])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setNewColors()
     setNewTiles()
 
@@ -111,7 +111,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
           ref={mosaicRef}
         >
           {tiles}
-          <SidebarTrigger variant="ghost" className="bg-sidebar absolute right-2 top-2" />
+          <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
         </div>
       </SidebarInset>
 
