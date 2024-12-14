@@ -13,22 +13,26 @@ const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color
 const getRandomPalette = async (): Promise<Palette> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000
   const storedPalettes = localStorage.getItem("palettes")
+  let randomPalette: Palette
 
-  if (storedPalettes && JSON.parse(storedPalettes).expiration > Date.now())
-    return getRandom(JSON.parse(storedPalettes).palettes)
+  if (storedPalettes && JSON.parse(storedPalettes).expiration > Date.now()) {
+    randomPalette = getRandom(JSON.parse(storedPalettes).palettes)
+  } else {
+    try {
+      const palettes = await safeFetch(
+        "https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
+        z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1)
+      )
 
-  try {
-    const palettes = await safeFetch(
-      "https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
-      z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1)
-    )
-
-    localStorage.setItem("palettes", JSON.stringify({ palettes, expiration: palettesExpiration }))
-    return getRandom(palettes) as Palette
-  } catch (e) {
-    console.error(e)
-    return getRandom(fallbackPalettes)
+      localStorage.setItem("palettes", JSON.stringify({ palettes, expiration: palettesExpiration }))
+      randomPalette = getRandom(palettes) as Palette
+    } catch (e) {
+      console.error(e)
+      randomPalette = getRandom(fallbackPalettes)
+    }
   }
+
+  return randomPalette
 }
 
 const getColors = (palette = fallbackPalettes[0]) => {
