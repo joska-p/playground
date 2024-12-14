@@ -1,5 +1,6 @@
 import { Button } from "@ui/button"
 import { Sidebar, SidebarContent, SidebarGroup } from "@ui/sidebar"
+import { Slider } from "../ui/slider"
 import { initialTileSet } from "./Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
@@ -7,13 +8,13 @@ type ControlsProps = {
   setNewColors: () => void
   swapColors: () => void
   setNewTiles: () => void
-  handleResizeTiles: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleResizeTiles: (value: number) => void
   tileSize: { width: number; height: number }
   initialTileSet: typeof initialTileSet
   tileSet: typeof initialTileSet
   handleChangeTileSet: (tileName: string) => void
   gap: number
-  handleChangeGap: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeGap: (value: number) => void
 }
 
 const Controls = ({
@@ -29,9 +30,9 @@ const Controls = ({
   handleChangeGap,
 }: ControlsProps) => {
   return (
-    <Sidebar variant="inset" side="right">
-      <SidebarContent>
-        <SidebarGroup>
+    <Sidebar side="right">
+      <SidebarContent className="space-y-6">
+        <SidebarGroup className="space-y-6">
           <Button type="button" onClick={swapColors}>
             Swap colors
           </Button>
@@ -43,34 +44,28 @@ const Controls = ({
           </Button>
         </SidebarGroup>
 
-        <SidebarGroup>
-          <label className="flex flex-row items-center justify-center gap-2 text-sm lg:flex-col lg:gap-4">
-            Tile size: {tileSize.width}px
-            <input
-              className="h-2 cursor-pointer rounded-lg bg-gray-200"
-              type="range"
-              name="Tile size"
-              min="32"
-              step={2}
-              max="256"
-              value={tileSize.width}
-              onChange={handleResizeTiles}
-            />
-          </label>
+        <SidebarGroup className="space-y-6">
+          <p className="text-sm">Tile size: {tileSize.width}px</p>
+          <Slider
+            min={32}
+            max={256}
+            step={2}
+            defaultValue={[tileSize.width]}
+            onValueChange={(value) => {
+              handleResizeTiles(value[0])
+            }}
+          />
 
-          <label className="flex flex-row items-center justify-center gap-2 text-sm lg:flex-col lg:gap-4">
-            Gap size: {gap}px
-            <input
-              className="h-2 cursor-pointer rounded-lg bg-gray-200"
-              type="range"
-              name="Tile size"
-              min="0"
-              step={1}
-              max={tileSize.width}
-              value={gap}
-              onChange={handleChangeGap}
-            />
-          </label>
+          <p className="text-sm">Gap size: {gap}px</p>
+          <Slider
+            min={0}
+            step={1}
+            max={tileSize.width}
+            defaultValue={[gap]}
+            onValueChange={(value) => {
+              handleChangeGap(value[0])
+            }}
+          />
         </SidebarGroup>
 
         <SidebarGroup>
