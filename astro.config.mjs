@@ -5,7 +5,12 @@ import { defineConfig } from "astro/config"
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react()],
+  integrations: [
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    react(),
+  ],
   site: "https://joska-p.github.io",
   base: "astrotiles",
   compressHTML: false,

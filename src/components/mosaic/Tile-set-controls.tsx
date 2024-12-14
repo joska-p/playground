@@ -1,9 +1,9 @@
 import { colorNames } from "#lib/colors.ts"
-import { fallbackTileSet } from "./Mosaic"
+import { initialTileSet } from "./Mosaic"
 
 type Props = {
-  initialTileSet: typeof fallbackTileSet
-  tileSet: typeof fallbackTileSet
+  initialTileSet: typeof initialTileSet
+  tileSet: typeof initialTileSet
   handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -31,7 +31,6 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
               type="checkbox"
               name={Tile.name}
               value={Tile.name}
-              defaultChecked={true}
               checked={tileSet.find((tile) => tile.name === Tile.name) ? true : false}
               onChange={handleChangeTileSet}
               className="sr-only"

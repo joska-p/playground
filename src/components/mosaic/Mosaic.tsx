@@ -8,9 +8,9 @@ import { getRandom, shuffleObject } from "#lib/utils.ts"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
-export const fallbackTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
+export const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
 
-const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet = fallbackTileSet }) => {
+const Mosaic = ({ tileWidth = 100, tileHeight = 100 }) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tileSet, setTileSet] = useState(initialTileSet)
   const [colors, setColors] = useState(getColors())
@@ -106,7 +106,7 @@ const Mosaic = ({ tileWidth = 100, tileHeight = 100, initialTileSet = fallbackTi
   }, [])
 
   return (
-    <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden bg-gray-900 lg:grid-cols-[1fr_auto]">
+    <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden lg:grid-cols-[1fr_auto]">
       <div
         style={styleObject}
         className="tiles flex h-full w-full flex-wrap content-center justify-center gap-[var(--gap)] overflow-hidden p-[calc(var(--gap)/2)]"
