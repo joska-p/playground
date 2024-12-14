@@ -1,5 +1,5 @@
 import { Button } from "@ui/button"
-import { Sidebar, SidebarContent } from "@ui/sidebar"
+import { Sidebar, SidebarContent, SidebarGroup } from "@ui/sidebar"
 import { initialTileSet } from "./Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
@@ -11,7 +11,7 @@ type ControlsProps = {
   tileSize: { width: number; height: number }
   initialTileSet: typeof initialTileSet
   tileSet: typeof initialTileSet
-  handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeTileSet: (tileName: string) => void
   gap: number
   handleChangeGap: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -29,21 +29,21 @@ const Controls = ({
   handleChangeGap,
 }: ControlsProps) => {
   return (
-    <Sidebar variant="floating" side="right">
+    <Sidebar variant="inset" side="right">
       <SidebarContent>
-        <div className="flex w-full flex-col gap-4 lg:gap-8 lg:px-2 lg:py-6">
-          <div className="flex flex-row items-center justify-around gap-2 lg:flex-col lg:gap-6">
-            <Button type="button" onClick={swapColors}>
-              Swap colors
-            </Button>
-            <Button type="button" onClick={setNewColors}>
-              New colors
-            </Button>
-            <Button type="button" onClick={setNewTiles}>
-              New tiles
-            </Button>
-          </div>
+        <SidebarGroup>
+          <Button type="button" onClick={swapColors}>
+            Swap colors
+          </Button>
+          <Button type="button" onClick={setNewColors}>
+            New colors
+          </Button>
+          <Button type="button" onClick={setNewTiles}>
+            New tiles
+          </Button>
+        </SidebarGroup>
 
+        <SidebarGroup>
           <label className="flex flex-row items-center justify-center gap-2 text-sm lg:flex-col lg:gap-4">
             Tile size: {tileSize.width}px
             <input
@@ -71,13 +71,15 @@ const Controls = ({
               onChange={handleChangeGap}
             />
           </label>
+        </SidebarGroup>
 
+        <SidebarGroup>
           <TileSetControls
             initialTileSet={initialTileSet}
             tileSet={tileSet}
             handleChangeTileSet={handleChangeTileSet}
           />
-        </div>
+        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   )

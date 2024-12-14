@@ -5,7 +5,7 @@ import Square from "@components/tiles/css/Square-css"
 import Triangle from "@components/tiles/css/Triangle-css"
 import { getColors, getRandomPalette } from "@lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
-import { SidebarProvider, SidebarTrigger } from "@ui/sidebar"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
@@ -64,17 +64,12 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
     setTileSize({ width: newSize, height: newSize })
   }
 
-  const handleChangeTileSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checkbox = event.target
-    const tileName = checkbox.value
-
+  const handleChangeTileSet = (tileName: string) => {
     if (tileSet.find((tile) => tile.name === tileName)) {
       if (tileSet.length > 1) {
-        checkbox.checked = false
         setTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
       }
     } else {
-      checkbox.checked = true
       const newTile = initialTileSet.filter((tile) => tile.name === tileName)
       setTileSet((prev) => [...prev, ...newTile])
     }
@@ -108,14 +103,16 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
 
   return (
     <SidebarProvider>
-      <div
-        style={styleObject}
-        className="relative flex h-dvh w-full flex-wrap content-center justify-center gap-[var(--gap)] p-[calc(var(--gap)/2)]"
-        ref={mosaicRef}
-      >
-        {tiles}
-        <SidebarTrigger variant="ghost" className="bg-sidebar absolute right-2 top-2" />
-      </div>
+      <SidebarInset>
+        <div
+          style={styleObject}
+          className="relative flex h-dvh w-full flex-wrap content-center justify-center gap-[var(--gap)] p-[calc(var(--gap)/2)]"
+          ref={mosaicRef}
+        >
+          {tiles}
+          <SidebarTrigger variant="ghost" className="bg-sidebar absolute right-2 top-2" />
+        </div>
+      </SidebarInset>
 
       <Controls
         setNewColors={setNewColors}

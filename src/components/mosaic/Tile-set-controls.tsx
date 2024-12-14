@@ -1,10 +1,11 @@
 import { colorNames } from "@lib/colors"
+import { Checkbox } from "@ui/checkbox"
 import { initialTileSet } from "./Mosaic"
 
 type Props = {
   initialTileSet: typeof initialTileSet
   tileSet: typeof initialTileSet
-  handleChangeTileSet: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeTileSet: (tileName: string) => void
 }
 
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
@@ -22,21 +23,23 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
           "--rotation": "0deg",
         } as React.CSSProperties
         return (
-          <label
-            key={index}
-            style={styleObject}
-            className="rounded-sm bg-gray-900 p-1 opacity-50 transition-all hover:opacity-100 has-[:checked]:bg-gray-900 has-[:checked]:opacity-100 has-[:checked]:ring-2 has-[:checked]:ring-inset has-[:checked]:ring-blue-400"
-          >
-            <input
-              type="checkbox"
+          <div key={Tile.name} className="items-top flex space-x-2" style={styleObject}>
+            <Checkbox
+              id="terms1"
               name={Tile.name}
               value={Tile.name}
               checked={tileSet.find((tile) => tile.name === Tile.name) ? true : false}
-              onChange={handleChangeTileSet}
-              className="sr-only"
+              onCheckedChange={() => handleChangeTileSet(Tile.name)}
             />
-            <Tile colors={colorNames} rotation={0} />
-          </label>
+            <div className="grid gap-1.5 leading-none">
+              <label
+                htmlFor="terms1"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                <Tile colors={colorNames} rotation={0} />
+              </label>
+            </div>
+          </div>
         )
       })}
     </div>
