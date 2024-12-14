@@ -128,7 +128,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
       <SidebarInset>
         <div
           style={styleObject}
-          className="relative flex h-dvh w-full flex-wrap content-center justify-center gap-[var(--gap)] p-[calc(var(--gap)/2)]"
+          className="relative flex h-dvh w-full flex-wrap content-center justify-center gap-[var(--gap)] overflow-hidden p-[calc(var(--gap)/2)]"
           ref={mosaicRef}
         >
           {tiles}
