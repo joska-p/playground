@@ -41,17 +41,28 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   }
 
   const setNewTiles = () => {
-    const numberOfTiles =
-      Math.floor((mosaicRef.current?.offsetWidth || 0) / (tileSize.width + gap)) *
-      Math.floor((mosaicRef.current?.offsetHeight || 0) / (tileSize.height + gap))
+    if (!mosaicRef.current) return
 
-    const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
-      const Tile = getRandom(tileSet)
+    const numberOfTiles = tiles.length
+    const newNumberOfTiles =
+      Math.floor(mosaicRef.current?.offsetWidth / (tileSize.width + gap)) *
+      Math.floor(mosaicRef.current?.offsetHeight / (tileSize.height + gap))
 
-      return <Tile key={index} />
-    })
+    if (newNumberOfTiles < numberOfTiles) {
+      const removeTiles = numberOfTiles - newNumberOfTiles
+      setTiles((prev) => prev.slice(0, prev.length - removeTiles))
+    }
 
-    setTiles(newTiles)
+    if (newNumberOfTiles > numberOfTiles) {
+      const addTiles = newNumberOfTiles - numberOfTiles
+      const newTiles = Array.from({ length: addTiles }, (_, index) => {
+        const Tile = getRandom(tileSet)
+
+        return <Tile key={index} />
+      })
+
+      setTiles((prev) => [...prev, ...newTiles])
+    }
   }
 
   const handleChangeGap = (value: number) => {
@@ -83,7 +94,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   useEffect(() => {
     const debounce = setTimeout(() => {
       setNewTiles()
-    }, 300)
+    }, 100)
     return () => {
       clearTimeout(debounce)
     }
