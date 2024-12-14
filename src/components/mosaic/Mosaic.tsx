@@ -1,6 +1,7 @@
 import CornerCircles from "@components/tiles/css/Corner-circles-css"
 import MiddleCircles from "@components/tiles/css/Middle-circe-css"
 import OppositeCircles from "@components/tiles/css/Opposite-circles-css"
+import Rainbow from "@components/tiles/css/Rainbow"
 import Square from "@components/tiles/css/Square-css"
 import Triangle from "@components/tiles/css/Triangle-css"
 import { getColors, getRandomPalette } from "@lib/colors"
@@ -9,7 +10,14 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
-export const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
+export const initialTileSet = [
+  Square,
+  Triangle,
+  CornerCircles,
+  MiddleCircles,
+  OppositeCircles,
+  Rainbow,
+]
 
 const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
