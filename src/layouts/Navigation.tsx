@@ -1,10 +1,10 @@
-import { links } from "#constants/links.ts"
+import { links } from "@constants/links"
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "#ui/navigation-menu"
+} from "@ui/navigation-menu"
 
 const Navigation = () => {
   return (

@@ -1,10 +1,10 @@
 ---
-import Mosaic from "#components/mosaic/Mosaic.tsx"
-import Layout from "#layouts/Layout.astro"
+import Mosaic from "@components/mosaic/Mosaic"
+import Layout from "@layouts/Layout.astro"
 ---
 
 <Layout>
   <section>
-    <Mosaic tileWidth={64} tileHeight={64} client:load />
+    <Mosaic client:load />
   </section>
 </Layout>

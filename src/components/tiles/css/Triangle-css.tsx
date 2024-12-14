@@ -1,4 +1,4 @@
-import { getColorsToUse } from "#lib/colors.ts"
+import { getColorsToUse } from "@lib/colors"
 
 const Triangle = ({
   colors = getColorsToUse(),

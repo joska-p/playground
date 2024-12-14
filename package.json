@@ -3,19 +3,6 @@
   "type": "module",
   "version": "0.0.1",
   "types": "module",
-  "imports": {
-    "#assets/*": "./src/assets/*",
-    "#components/*": "./src/components/*",
-    "#constants/*": "./src/constants/*",
-    "#ui/*": "./src/components/ui/*",
-    "#widgets/*": "./src/components/widgets/*",
-    "#content/*": "./src/content/*",
-    "#hooks/*": "./src/hooks/*",
-    "#layouts/*": "./src/layouts/*",
-    "#lib/*": "./src/lib/*",
-    "#styles/*": "./src/styles/*",
-    "#*": "./src/*"
-  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

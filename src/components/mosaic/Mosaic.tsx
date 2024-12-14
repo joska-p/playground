@@ -1,16 +1,16 @@
-import CornerCircles from "#components/tiles/css/Corner-circles-css.tsx"
-import MiddleCircles from "#components/tiles/css/Middle-circe-css.tsx"
-import OppositeCircles from "#components/tiles/css/Opposite-circles-css.tsx"
-import Square from "#components/tiles/css/Square-css.tsx"
-import Triangle from "#components/tiles/css/Triangle-css.tsx"
-import { getColors, getRandomPalette } from "#lib/colors.ts"
-import { getRandom, shuffleObject } from "#lib/utils.ts"
+import CornerCircles from "@components/tiles/css/Corner-circles-css"
+import MiddleCircles from "@components/tiles/css/Middle-circe-css"
+import OppositeCircles from "@components/tiles/css/Opposite-circles-css"
+import Square from "@components/tiles/css/Square-css"
+import Triangle from "@components/tiles/css/Triangle-css"
+import { getColors, getRandomPalette } from "@lib/colors"
+import { getRandom, shuffleObject } from "@lib/utils"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
 export const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
 
-const Mosaic = ({ tileWidth = 100, tileHeight = 100 }) => {
+const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tileSet, setTileSet] = useState(initialTileSet)
   const [colors, setColors] = useState(getColors())

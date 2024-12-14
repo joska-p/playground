@@ -1,4 +1,4 @@
-import { colorNames } from "#lib/colors.ts"
+import { colorNames } from "@lib/colors"
 import { initialTileSet } from "./Mosaic"
 
 type Props = {
