@@ -73,7 +73,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
     }
   }
 
-  const handleWindowResize = () => {
+  const handleMosaicResize = () => {
     if (mosaicRef.current) {
       const mosaicWidth = mosaicRef.current?.offsetWidth || 0
       const mosaicHeight = mosaicRef.current?.offsetHeight || 0
@@ -91,12 +91,21 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   }, [tileSet, tileSize, gap, mosaicSize])
 
   useEffect(() => {
+    if (!mosaicRef.current) return
+
+    const observer = new ResizeObserver(() => {
+      handleMosaicResize()
+    })
+
+    observer.observe(mosaicRef.current)
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
     setNewColors()
     setNewTiles()
-    window.addEventListener("resize", handleWindowResize)
-    return () => {
-      window.removeEventListener("resize", handleWindowResize)
-    }
   }, [])
 
   return (
