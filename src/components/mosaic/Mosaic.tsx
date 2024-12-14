@@ -6,7 +6,7 @@ import Triangle from "@components/tiles/css/Triangle-css"
 import { getColors, getRandomPalette } from "@lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
 export const initialTileSet = [Square, Triangle, CornerCircles, MiddleCircles, OppositeCircles]
@@ -92,7 +92,9 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   useEffect(() => {
     setNewColors()
     setNewTiles()
+  }, [])
 
+  useLayoutEffect(() => {
     const observer = new ResizeObserver(() => {
       handleMosaicResize()
     })
