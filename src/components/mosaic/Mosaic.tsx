@@ -49,13 +49,14 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
       Math.floor(mosaicRef.current?.offsetHeight / (tileSize.height + gap))
 
     if (newNumberOfTiles < numberOfTiles) {
-      const removeTiles = numberOfTiles - newNumberOfTiles
-      setTiles((prev) => prev.slice(0, prev.length - removeTiles))
+      const numberOfTilesToRemove = numberOfTiles - newNumberOfTiles
+      setTiles((prev) => prev.slice(0, prev.length - numberOfTilesToRemove))
     }
 
     if (newNumberOfTiles >= numberOfTiles) {
-      const addTiles = newNumberOfTiles - numberOfTiles
-      const newTiles = Array.from({ length: addTiles }, (_, index) => {
+      const numberOfTilesToAdd =
+        newNumberOfTiles - numberOfTiles === 0 ? numberOfTiles : newNumberOfTiles - numberOfTiles
+      const newTiles = Array.from({ length: numberOfTilesToAdd }, (_, index) => {
         const Tile = getRandom(tileSet)
 
         return <Tile key={index} />
