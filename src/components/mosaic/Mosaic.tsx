@@ -1,7 +1,8 @@
+import Rainbow from "@/components/tiles/css/Rainbow-css"
 import CornerCircles from "@components/tiles/css/Corner-circles-css"
+import Diamond from "@components/tiles/css/Diamond-css"
 import MiddleCircles from "@components/tiles/css/Middle-circe-css"
 import OppositeCircles from "@components/tiles/css/Opposite-circles-css"
-import Rainbow from "@components/tiles/css/Rainbow"
 import Square from "@components/tiles/css/Square-css"
 import Triangle from "@components/tiles/css/Triangle-css"
 import { getColors, getRandomPalette } from "@lib/colors"
@@ -17,6 +18,7 @@ export const initialTileSet = [
   MiddleCircles,
   OppositeCircles,
   Rainbow,
+  Diamond,
 ]
 
 const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
@@ -51,36 +53,17 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   const setNewTiles = () => {
     if (!mosaicRef.current) return
 
-    const numberOfTiles = tiles.length
     const newNumberOfTiles =
       Math.floor(mosaicRef.current?.offsetWidth / (tileSize.width + gap)) *
       Math.floor(mosaicRef.current?.offsetHeight / (tileSize.height + gap))
 
-    if (newNumberOfTiles < numberOfTiles) {
-      const numberOfTilesToRemove = numberOfTiles - newNumberOfTiles
-      setTiles((prev) => prev.slice(0, prev.length - numberOfTilesToRemove))
-    }
+    const newTiles = Array.from({ length: newNumberOfTiles }, (_, index) => {
+      const Tile = getRandom(tileSet)
 
-    if (newNumberOfTiles >= numberOfTiles) {
-      const numberOfTilesToAdd = newNumberOfTiles - numberOfTiles
-      const newTiles = Array.from({ length: numberOfTilesToAdd }, (_, index) => {
-        const Tile = getRandom(tileSet)
+      return <Tile key={index} />
+    })
 
-        return <Tile key={index} />
-      })
-
-      setTiles((prev) => [...prev, ...newTiles])
-    }
-
-    if (newNumberOfTiles === numberOfTiles) {
-      const newTiles = Array.from({ length: numberOfTiles }, (_, index) => {
-        const Tile = getRandom(tileSet)
-
-        return <Tile key={index} />
-      })
-
-      setTiles(newTiles)
-    }
+    setTiles(newTiles)
   }
 
   const handleChangeGap = (value: number) => {
