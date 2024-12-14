@@ -75,8 +75,8 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
 
   const handleMosaicResize = () => {
     if (!mosaicRef.current) return
-    const mosaicWidth = mosaicRef.current?.offsetWidth || 0
-    const mosaicHeight = mosaicRef.current?.offsetHeight || 0
+    const mosaicWidth = mosaicRef.current.offsetWidth
+    const mosaicHeight = mosaicRef.current.offsetHeight
     setMosaicSize({ width: mosaicWidth, height: mosaicHeight })
   }
 
