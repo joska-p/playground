@@ -5,6 +5,7 @@ import Square from "@components/tiles/css/Square-css"
 import Triangle from "@components/tiles/css/Triangle-css"
 import { getColors, getRandomPalette } from "@lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
+import { SidebarProvider, SidebarTrigger } from "@ui/sidebar"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Controls from "./Controls"
 
@@ -106,14 +107,16 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   }, [])
 
   return (
-    <div className="grid h-dvh grid-rows-[1fr_auto] content-center overflow-hidden lg:grid-cols-[1fr_auto]">
+    <SidebarProvider>
       <div
         style={styleObject}
-        className="tiles flex h-full w-full flex-wrap content-center justify-center gap-[var(--gap)] overflow-hidden p-[calc(var(--gap)/2)]"
+        className="relative flex h-dvh w-full flex-wrap content-center justify-center gap-[var(--gap)] p-[calc(var(--gap)/2)]"
         ref={mosaicRef}
       >
         {tiles}
+        <SidebarTrigger variant="ghost" className="bg-sidebar absolute right-2 top-2" />
       </div>
+
       <Controls
         setNewColors={setNewColors}
         swapColors={swapColors}
@@ -126,7 +129,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
         gap={gap}
         handleChangeGap={handleChangeGap}
       />
-    </div>
+    </SidebarProvider>
   )
 }
 
