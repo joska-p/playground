@@ -1,4 +1,5 @@
 import { Button } from "@ui/button"
+import { Label } from "@ui/label"
 import { Sidebar, SidebarContent, SidebarGroup } from "@ui/sidebar"
 import { Slider } from "../ui/slider"
 import { initialTileSet } from "./Mosaic"
@@ -30,7 +31,7 @@ const Controls = ({
   handleChangeGap,
 }: ControlsProps) => {
   return (
-    <Sidebar side="right">
+    <Sidebar side="right" variant="inset">
       <SidebarContent className="space-y-6">
         <SidebarGroup className="space-y-6">
           <Button type="button" onClick={swapColors}>
@@ -45,27 +46,37 @@ const Controls = ({
         </SidebarGroup>
 
         <SidebarGroup className="space-y-6">
-          <p className="text-sm">Tile size: {tileSize.width}px</p>
-          <Slider
-            min={32}
-            max={256}
-            step={2}
-            defaultValue={[tileSize.width]}
-            onValueChange={(value) => {
-              handleResizeTiles(value[0])
-            }}
-          />
+          <div className="flex flex-col items-center space-y-2">
+            <Label htmlFor="tile-size" className="text-sm">
+              Tile size: {tileSize.width}px
+            </Label>
+            <Slider
+              id="tile-size"
+              min={32}
+              max={256}
+              step={2}
+              defaultValue={[tileSize.width]}
+              onValueChange={(value) => {
+                handleResizeTiles(value[0])
+              }}
+            />
+          </div>
 
-          <p className="text-sm">Gap size: {gap}px</p>
-          <Slider
-            min={0}
-            step={1}
-            max={tileSize.width}
-            defaultValue={[gap]}
-            onValueChange={(value) => {
-              handleChangeGap(value[0])
-            }}
-          />
+          <div className="flex flex-col items-center space-y-2">
+            <Label htmlFor="gap" className="text-sm">
+              Gap size: {gap}px
+            </Label>
+            <Slider
+              id="gap"
+              min={0}
+              step={1}
+              max={tileSize.width}
+              defaultValue={[gap]}
+              onValueChange={(value) => {
+                handleChangeGap(value[0])
+              }}
+            />
+          </div>
         </SidebarGroup>
 
         <SidebarGroup>

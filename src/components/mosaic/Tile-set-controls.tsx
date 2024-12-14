@@ -1,5 +1,6 @@
 import { colorNames } from "@lib/colors"
 import { Checkbox } from "@ui/checkbox"
+import { Label } from "@ui/label"
 import { initialTileSet } from "./Mosaic"
 
 type Props = {
@@ -33,14 +34,12 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
               checked={tileSet.find((tile) => tile.name === Tile.name) ? true : false}
               onCheckedChange={() => handleChangeTileSet(Tile.name)}
             />
-            <div className="grid gap-1.5 leading-none">
-              <label
-                htmlFor={Tile.name}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                <Tile colors={colorNames} rotation={0} />
-              </label>
-            </div>
+            <Label
+              htmlFor={Tile.name}
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              <Tile colors={colorNames} rotation={0} />
+            </Label>
           </div>
         )
       })}
