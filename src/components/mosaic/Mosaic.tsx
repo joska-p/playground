@@ -25,7 +25,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
   const [tileSet, setTileSet] = useState(initialTileSet)
   const [colors, setColors] = useState(getColors())
-  const [tiles, setTiles] = useState<JSX.Element[]>([])
+  const [tiles, setTiles] = useState<typeof initialTileSet>([])
   const [gap, setGap] = useState(0)
   const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 })
   const mosaicRef = useRef<HTMLDivElement>(null)
@@ -53,17 +53,30 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   const setNewTiles = () => {
     if (!mosaicRef.current) return
 
+    const numberOfTiles = tiles.length
     const newNumberOfTiles =
       Math.floor(mosaicRef.current?.offsetWidth / (tileSize.width + gap)) *
       Math.floor(mosaicRef.current?.offsetHeight / (tileSize.height + gap))
 
-    const newTiles = Array.from({ length: newNumberOfTiles }, (_, index) => {
-      const Tile = getRandom(tileSet)
+    if (newNumberOfTiles < numberOfTiles) {
+      const numberOfTilesToRemove = numberOfTiles - newNumberOfTiles
+      setTiles((prev) => prev.slice(0, prev.length - numberOfTilesToRemove))
+    }
 
-      return <Tile key={index} />
-    })
+    if (newNumberOfTiles >= numberOfTiles) {
+      const numberOfTilesToAdd = newNumberOfTiles - numberOfTiles
+      const newTiles = Array.from({ length: numberOfTilesToAdd }, () => {
+        return getRandom(tileSet)
+      })
+      setTiles((prev) => [...prev, ...newTiles])
+    }
 
-    setTiles(newTiles)
+    if (newNumberOfTiles === numberOfTiles) {
+      const newTiles = Array.from({ length: numberOfTiles }, () => {
+        return getRandom(tileSet)
+      })
+      setTiles(newTiles)
+    }
   }
 
   const handleChangeGap = (value: number) => {
@@ -122,7 +135,10 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
           className="relative flex h-dvh w-full flex-wrap content-center justify-center gap-[var(--gap)] overflow-hidden p-[calc(var(--gap)/2)]"
           ref={mosaicRef}
         >
-          {tiles}
+          {tiles.map((Tile, index) => (
+            <Tile key={index} />
+          ))}
+
           <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
         </div>
       </SidebarInset>
