@@ -5,7 +5,7 @@ import MiddleCircles from "@components/tiles/css/Middle-circe-css"
 import OppositeCircles from "@components/tiles/css/Opposite-circles-css"
 import Square from "@components/tiles/css/Square-css"
 import Triangle from "@components/tiles/css/Triangle-css"
-import { getColors, getRandomPalette } from "@lib/colors"
+import { getColors, getColorsToUse, getRandomPalette } from "@lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
@@ -53,30 +53,14 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   const setNewTiles = () => {
     if (!mosaicRef.current) return
 
-    const numberOfTiles = tiles.length
     const newNumberOfTiles =
       Math.floor(mosaicRef.current?.offsetWidth / (tileSize.width + gap)) *
       Math.floor(mosaicRef.current?.offsetHeight / (tileSize.height + gap))
 
-    if (newNumberOfTiles < numberOfTiles) {
-      const numberOfTilesToRemove = numberOfTiles - newNumberOfTiles
-      setTiles((prev) => prev.slice(0, prev.length - numberOfTilesToRemove))
-    }
-
-    if (newNumberOfTiles >= numberOfTiles) {
-      const numberOfTilesToAdd = newNumberOfTiles - numberOfTiles
-      const newTiles = Array.from({ length: numberOfTilesToAdd }, () => {
-        return getRandom(tileSet)
-      })
-      setTiles((prev) => [...prev, ...newTiles])
-    }
-
-    if (newNumberOfTiles === numberOfTiles) {
-      const newTiles = Array.from({ length: numberOfTiles }, () => {
-        return getRandom(tileSet)
-      })
-      setTiles(newTiles)
-    }
+    const newTiles = Array.from({ length: newNumberOfTiles }, () => {
+      return getRandom(tileSet)
+    })
+    setTiles(newTiles)
   }
 
   const handleChangeGap = (value: number) => {
@@ -136,7 +120,11 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
           ref={mosaicRef}
         >
           {tiles.map((Tile, index) => (
-            <Tile key={index} />
+            <Tile
+              key={index}
+              colors={getColorsToUse()}
+              rotation={[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}
+            />
           ))}
 
           <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
