@@ -79,7 +79,9 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   }
 
   const handleChangeTileSet = (tileName: string) => {
-    if (tileSet.find((tile) => tile.name === tileName) && tileSet.length > 1) {
+    if (tileSet.length === 1 && tileName == tileSet[0].name) return
+
+    if (tileSet.find((tile) => tile.name === tileName)) {
       setTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
     } else {
       const newTile = initialTileSet.filter((tile) => tile.name === tileName)
