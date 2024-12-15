@@ -1,4 +1,5 @@
-import { getColorsToUse } from "@lib/colors"
+import { getColorsToUse } from "@/components/mosaic/lib/colors"
+import styles from "./tile.module.css"
 
 const MiddleCircles = ({
   colors = getColorsToUse(),
@@ -6,8 +7,6 @@ const MiddleCircles = ({
 }) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
-    width: "var(--tile-width)",
-    height: "var(--tile-height)",
     transform: `rotate(${rotation}deg)`,
   }
 
@@ -16,7 +15,7 @@ const MiddleCircles = ({
   }
 
   return (
-    <div className="flex items-center justify-center" style={styleObject}>
+    <div className={`flex items-center justify-center ${styles.tile}`} style={styleObject}>
       <div style={linearGradient} className="h-1/2 w-1/2 rounded-full" />
     </div>
   )

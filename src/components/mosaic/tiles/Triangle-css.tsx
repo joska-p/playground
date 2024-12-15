@@ -1,4 +1,5 @@
-import { getColorsToUse } from "@lib/colors"
+import { getColorsToUse } from "@/components/mosaic/lib/colors"
+import styles from "./tile.module.css"
 
 const Triangle = ({
   colors = getColorsToUse(),
@@ -9,12 +10,10 @@ const Triangle = ({
     borderRight: `var(${colors[1]}) calc(var(--tile-width) / 2) solid`,
     borderBottom: `var(${colors[2]}) calc(var(--tile-height) / 2) solid`,
     borderLeft: `var(${colors[3]}) calc(var(--tile-width) / 2) solid`,
-    width: "var(--tile-width)",
-    height: "var(--tile-height)",
     transform: `rotate(${rotation}deg)`,
   }
 
-  return <div style={styleObject}></div>
+  return <div style={styleObject} className={styles.tile}></div>
 }
 
 export default Triangle

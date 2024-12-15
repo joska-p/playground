@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { getRandom, safeFetch } from "./utils"
+import { getRandom, safeFetch } from "../../../lib/utils"
 
 type Palette = [string, string, string, string, string]
 type Palettes = Palette[]

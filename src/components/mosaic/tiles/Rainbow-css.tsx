@@ -1,4 +1,5 @@
-import { getColorsToUse } from "@lib/colors"
+import { getColorsToUse } from "@/components/mosaic/lib/colors"
+import styles from "./tile.module.css"
 
 const Rainbow = ({
   colors = getColorsToUse(),
@@ -6,13 +7,11 @@ const Rainbow = ({
 }) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
-    width: "var(--tile-width)",
-    height: "var(--tile-height)",
     transform: `rotate(${rotation}deg)`,
   }
 
   return (
-    <div className="relative" style={styleObject}>
+    <div className={styles.tile} style={styleObject}>
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
         className="absolute left-0 top-0 h-full w-full rounded-br-full"

@@ -1,0 +1,6 @@
+.tile {
+  width: var(--tile-width);
+  height: var(--tile-height);
+  position: relative;
+  overflow: hidden;
+}

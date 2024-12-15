@@ -1,27 +1,27 @@
-import { colorNames } from "@lib/colors"
+import { colorNames } from "@/components/mosaic/lib/colors"
 import { Checkbox } from "@ui/checkbox"
 import { Label } from "@ui/label"
-import { initialTileSet } from "./Mosaic"
+import type { Tiles } from "../Mosaic"
 
 type Props = {
-  initialTileSet: typeof initialTileSet
-  tileSet: typeof initialTileSet
+  initialTileSet: Tiles
+  tileSet: Tiles
   handleChangeTileSet: (tileName: string) => void
 }
 
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
     <div className="flex flex-wrap gap-4">
-      {initialTileSet.map((Tile, index) => {
+      {initialTileSet.map((Tile) => {
         const styleObject = {
           "--tile-width": "32px",
           "--tile-height": "32px",
+          "--rotation": "0deg",
           [colorNames[0]]: "#555555",
           [colorNames[1]]: "#777777",
           [colorNames[2]]: "#999999",
           [colorNames[3]]: "#bbbbbb",
           [colorNames[4]]: "#dddddd",
-          "--rotation": "0deg",
         } as React.CSSProperties
         return (
           <div
