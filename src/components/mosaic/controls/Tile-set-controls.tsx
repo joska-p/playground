@@ -9,20 +9,21 @@ type Props = {
   handleChangeTileSet: (tileName: string) => void
 }
 
+const styleObject = {
+  "--tile-width": "32px",
+  "--tile-height": "32px",
+  "--rotation": "0deg",
+  [colorNames[0]]: "#555555",
+  [colorNames[1]]: "#777777",
+  [colorNames[2]]: "#999999",
+  [colorNames[3]]: "#bbbbbb",
+  [colorNames[4]]: "#dddddd",
+} as React.CSSProperties
+
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
     <div className="flex flex-wrap gap-4">
       {initialTileSet.map((Tile) => {
-        const styleObject = {
-          "--tile-width": "32px",
-          "--tile-height": "32px",
-          "--rotation": "0deg",
-          [colorNames[0]]: "#555555",
-          [colorNames[1]]: "#777777",
-          [colorNames[2]]: "#999999",
-          [colorNames[3]]: "#bbbbbb",
-          [colorNames[4]]: "#dddddd",
-        } as React.CSSProperties
         return (
           <div
             key={Tile.name}

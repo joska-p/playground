@@ -1,15 +1,17 @@
+import { useDebounce } from "@/hooks/use-debounce"
 import { Button } from "@ui/button"
 import { Label } from "@ui/label"
 import { SidebarContent, SidebarGroup } from "@ui/sidebar"
 import { Slider } from "@ui/slider"
+import { useState } from "react"
 import type { Tiles } from "../Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
 type ControlsProps = {
-  gap: number
+  mosaicGap: number
   handleChangeGap: (value: number) => void
   handleChangeTileSet: (tileName: string) => void
-  handleResizeTiles: (value: number) => void
+  handleResizeTiles: ({ width, height }: { width: number; height: number }) => void
   initialTileSet: Tiles
   setNewColors: () => void
   setNewTiles: () => void
@@ -19,7 +21,7 @@ type ControlsProps = {
 }
 
 const Controls = ({
-  gap,
+  mosaicGap,
   handleChangeGap,
   handleChangeTileSet,
   handleResizeTiles,
@@ -30,6 +32,25 @@ const Controls = ({
   tileSet,
   tileSize,
 }: ControlsProps) => {
+  const [size, setSize] = useState(tileSize)
+  const [gap, setGap] = useState(mosaicGap)
+
+  useDebounce(
+    () => {
+      handleChangeGap(gap)
+    },
+    100,
+    [gap]
+  )
+
+  useDebounce(
+    () => {
+      handleResizeTiles(size)
+    },
+    100,
+    [size]
+  )
+
   return (
     <SidebarContent className="space-y-6">
       <SidebarGroup className="space-y-6">
@@ -47,16 +68,16 @@ const Controls = ({
       <SidebarGroup className="space-y-6">
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="tile-size" className="text-sm">
-            Tile size: {tileSize.width}px
+            Tile size: {size.width}px
           </Label>
           <Slider
             id="tile-size"
             min={32}
             max={256}
-            step={2}
-            defaultValue={[tileSize.width]}
+            step={1}
+            defaultValue={[size.width]}
             onValueChange={(value) => {
-              handleResizeTiles(value[0])
+              setSize({ width: value[0], height: value[0] })
             }}
           />
         </div>
@@ -69,10 +90,10 @@ const Controls = ({
             id="gap"
             min={0}
             step={1}
-            max={tileSize.width}
+            max={256}
             defaultValue={[gap]}
             onValueChange={(value) => {
-              handleChangeGap(value[0])
+              setGap(value[0])
             }}
           />
         </div>

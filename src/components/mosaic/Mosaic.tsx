@@ -54,29 +54,28 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   }
 
   const setNewTiles = () => {
+    const numberOfTiles = tiles.length
     const newNumberOfTiles =
       Math.floor(mosaicSize.width / (tileSize.width + gap)) *
       Math.floor(mosaicSize.height / (tileSize.height + gap))
 
-    const newTiles = Array.from({ length: newNumberOfTiles }, () => {
-      return getRandom(tileSet)
-    })
-    setTiles(newTiles)
-  }
+    if (newNumberOfTiles < numberOfTiles) {
+      setTiles((prev) => prev.slice(0, newNumberOfTiles))
+    }
 
-  const handleResizeTiles = (value: number) => {
-    setTileSize({ width: value, height: value })
-  }
+    if (newNumberOfTiles === numberOfTiles) {
+      const newTiles = Array.from({ length: newNumberOfTiles }, () => {
+        return getRandom(tileSet)
+      })
+      setTiles(newTiles)
+    }
 
-  const handleChangeGap = (value: number) => {
-    setGap(value)
-  }
-
-  const handleMosaicResize = () => {
-    if (!mosaicRef.current) return
-    const mosaicWidth = mosaicRef.current.offsetWidth
-    const mosaicHeight = mosaicRef.current.offsetHeight
-    setMosaicSize({ width: mosaicWidth, height: mosaicHeight })
+    if (newNumberOfTiles > numberOfTiles) {
+      const newTiles = Array.from({ length: newNumberOfTiles - numberOfTiles }, () => {
+        return getRandom(tileSet)
+      })
+      setTiles((prev) => [...prev, ...newTiles])
+    }
   }
 
   const handleChangeTileSet = (tileName: string) => {
@@ -89,39 +88,27 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   }
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      setNewTiles()
-    }, 300)
-    return () => {
-      clearTimeout(debounce)
-    }
-  }, [tileSet, tileSize, gap, mosaicSize])
-
-  useEffect(() => {
-    if (mosaicRef.current) {
-      const observer = new ResizeObserver(() => {
-        handleMosaicResize()
-      })
-      observer.observe(mosaicRef.current)
-      return () => {
-        observer.disconnect()
-      }
-    }
-  }, [])
+    setNewTiles()
+  }, [gap, tileSize, mosaicSize])
 
   return (
     <SidebarProvider>
       <SidebarInset>
-        <Grid tiles={tiles} ref={mosaicRef} styleObject={styleObject} />
+        <Grid
+          tiles={tiles}
+          ref={mosaicRef}
+          styleObject={styleObject}
+          setMosaicSize={setMosaicSize}
+        />
         <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
       </SidebarInset>
 
       <Sidebar side="right" variant="inset">
         <Controls
-          gap={gap}
-          handleChangeGap={handleChangeGap}
+          mosaicGap={gap}
+          handleChangeGap={setGap}
           handleChangeTileSet={handleChangeTileSet}
-          handleResizeTiles={handleResizeTiles}
+          handleResizeTiles={setTileSize}
           initialTileSet={initialTileSet}
           setNewColors={setNewColors}
           setNewTiles={setNewTiles}
