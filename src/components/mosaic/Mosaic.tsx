@@ -99,15 +99,14 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64 }) => {
   }, [tileSet, tileSize, gap, mosaicSize])
 
   useEffect(() => {
-    setNewColors()
-    setNewTiles()
-
-    const observer = new ResizeObserver(() => {
-      handleMosaicResize()
-    })
-    if (mosaicRef.current) observer.observe(mosaicRef.current)
-    return () => {
-      observer.disconnect()
+    if (mosaicRef.current) {
+      const observer = new ResizeObserver(() => {
+        handleMosaicResize()
+      })
+      observer.observe(mosaicRef.current)
+      return () => {
+        observer.disconnect()
+      }
     }
   }, [])
 
