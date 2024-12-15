@@ -24,4 +24,6 @@ const safeFetch = async <TData>(url: string, scheme: z.ZodSchema<TData>): Promis
   return scheme.parse(await response.json())
 }
 
-export { cn, getRandom, safeFetch, shuffleObject }
+const stall = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export { cn, getRandom, safeFetch, shuffleObject, stall }

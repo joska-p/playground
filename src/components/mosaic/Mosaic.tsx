@@ -53,7 +53,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     setColors((prev) => shuffleObject(prev))
   }
 
-  const setNewTiles = () => {
+  const setNewTiles = async () => {
     const numberOfTiles = tiles.length
     const newNumberOfTiles =
       Math.floor(mosaicSize.width / (tileSize.width + gap)) *

@@ -74,7 +74,7 @@ const Controls = ({
             id="tile-size"
             min={32}
             max={256}
-            step={1}
+            step={2}
             defaultValue={[size.width]}
             onValueChange={(value) => {
               setSize({ width: value[0], height: value[0] })

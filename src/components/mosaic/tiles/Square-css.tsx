@@ -10,7 +10,11 @@ const Square = ({
   }
 
   return (
-    <div className={`tile grid grid-cols-2 grid-rows-2 ${styles.tile}`} style={styleObject}>
+    <div
+      className={`tile grid grid-cols-2 grid-rows-2 ${styles.tile}`}
+      style={styleObject}
+      data-type="tile"
+    >
       <div style={{ backgroundColor: `var(${colors[0]})` }} />
       <div style={{ backgroundColor: `var(${colors[1]})` }} />
       <div style={{ backgroundColor: `var(${colors[2]})` }} />

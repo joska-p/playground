@@ -11,7 +11,7 @@ const OppositeCircles = ({
   }
 
   return (
-    <div className={styles.tile} style={styleObject}>
+    <div className={styles.tile} style={styleObject} data-type="tile">
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
         className="absolute right-1/2 h-full w-1/2 rounded-r-full"

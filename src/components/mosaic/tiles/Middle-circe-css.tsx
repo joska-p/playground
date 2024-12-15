@@ -15,7 +15,11 @@ const MiddleCircles = ({
   }
 
   return (
-    <div className={`flex items-center justify-center ${styles.tile}`} style={styleObject}>
+    <div
+      className={`flex items-center justify-center ${styles.tile}`}
+      style={styleObject}
+      data-type="tile"
+    >
       <div style={linearGradient} className="h-1/2 w-1/2 rounded-full" />
     </div>
   )

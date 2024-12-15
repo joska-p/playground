@@ -11,41 +11,33 @@ const Diamond = ({
   }
 
   return (
-    <div className={`tile grid grid-cols-2 grid-rows-2 ${styles.tile}`} style={styleObject}>
+    <div className={styles.tile} style={styleObject} data-type="tile">
       <div
+        className="absolute inset-0"
         style={{
-          borderTopColor: `var(${colors[1]})`,
-          borderRightColor: "transparent",
-          borderBottomColor: "transparent",
-          borderLeftColor: `var(${colors[1]})`,
-          borderWidth: "calc(var(--tile-height) / 4)",
+          clipPath: "polygon(50% 0, 100% 0, 100% 50%)",
+          backgroundColor: `var(${colors[1]})`,
         }}
       />
       <div
+        className="absolute inset-0"
         style={{
-          borderTopColor: `var(${colors[2]})`,
-          borderRightColor: `var(${colors[2]})`,
-          borderBottomColor: "transparent",
-          borderLeftColor: "transparent",
-          borderWidth: "calc(var(--tile-height) / 4)",
+          clipPath: "polygon(100% 50%, 100% 100%, 50% 100%)",
+          backgroundColor: `var(${colors[2]})`,
         }}
       />
       <div
+        className="absolute inset-0"
         style={{
-          borderTopColor: "transparent",
-          borderRightColor: "transparent",
-          borderBottomColor: `var(${colors[3]})`,
-          borderLeftColor: `var(${colors[3]})`,
-          borderWidth: "calc(var(--tile-height) / 4)",
+          clipPath: "polygon(50% 100%, 0 100%, 0 50%)",
+          backgroundColor: `var(${colors[3]})`,
         }}
       />
       <div
+        className="absolute inset-0"
         style={{
-          borderTopColor: "transparent",
-          borderRightColor: `var(${colors[4]})`,
-          borderBottomColor: `var(${colors[4]})`,
-          borderLeftColor: "transparent",
-          borderWidth: "calc(var(--tile-height) / 4)",
+          clipPath: "polygon(0 50%, 0 0, 50% 0)",
+          backgroundColor: `var(${colors[4]})`,
         }}
       />
     </div>

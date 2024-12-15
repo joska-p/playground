@@ -11,7 +11,7 @@ const CornerCircles = ({
   }
 
   return (
-    <div className={styles.tile} style={styleObject}>
+    <div className={styles.tile} style={styleObject} data-type="tile">
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
         className="absolute left-0 top-0 h-1/2 w-1/2 rounded-br-full"
