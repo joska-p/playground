@@ -91,7 +91,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   useEffect(() => {
     setNewTiles()
-  }, [gap, tileSize, mosaicSize])
+  }, [gap, tileSize, mosaicSize, tileSet])
 
   return (
     <SidebarProvider>
