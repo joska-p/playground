@@ -7,8 +7,8 @@ const draw = (
 ) => {
   if (!canvas.parentElement) return
 
-  canvas.width = containerSize.width - 2
-  canvas.height = containerSize.height - 2
+  canvas.width = containerSize.width - 16
+  canvas.height = containerSize.height - 16
 
   const context = canvas.getContext("2d") as CanvasRenderingContext2D
   const valueMin = Math.min(...sequence)
@@ -52,8 +52,8 @@ const drawSvg = (
   const maxHeight = containerSize.height
 
   // calculate the viewbox
-  const width = Math.min(Math.max(...sequence), maxWith) - 2
-  const height = Math.min(findBiggestInterval(sequence), maxHeight) - 2
+  const width = Math.min(Math.max(...sequence), maxWith)
+  const height = Math.min(findBiggestInterval(sequence), maxHeight)
 
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`)
 

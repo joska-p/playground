@@ -23,7 +23,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
     <svg
       ref={svgRef}
       style={styleObject}
-      className="mx-auto w-full fill-transparent stroke-slate-400 stroke-1"
+      className="mx-auto w-full fill-transparent stroke-slate-400 stroke-1 p-2"
     ></svg>
   )
 }

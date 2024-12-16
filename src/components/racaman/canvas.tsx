@@ -13,7 +13,7 @@ const Canvas = ({ sequence, containerSize }: Props) => {
     if (canvasRef.current && sequence) draw(canvasRef.current, sequence, containerSize)
   }, [canvasRef, sequence, containerSize])
 
-  return <canvas ref={canvasRef} className="mx-auto w-full" />
+  return <canvas ref={canvasRef} className="mx-auto" />
 }
 
 export default Canvas
