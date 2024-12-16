@@ -10,7 +10,12 @@ const Canvas = ({ sequence, containerSize }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (canvasRef.current && sequence) draw(canvasRef.current, sequence, containerSize)
+    const debounce = setTimeout(() => {
+      if (canvasRef.current) draw(canvasRef.current, sequence, containerSize)
+    }, 100)
+    return () => {
+      clearTimeout(debounce)
+    }
   }, [canvasRef, sequence, containerSize])
 
   return <canvas ref={canvasRef} className="mx-auto" />

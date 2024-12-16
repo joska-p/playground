@@ -89,7 +89,12 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     }
   }
 
-  useEffect(setNewTiles, [gap, tileSize, mosaicSize, tileSet])
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setNewTiles()
+    }, 300)
+    return () => clearTimeout(debounce)
+  }, [gap, tileSize, mosaicSize, tileSet])
 
   return (
     <SidebarProvider>

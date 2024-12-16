@@ -1,9 +1,7 @@
-import { useDebounce } from "@/hooks/use-debounce"
 import { Button } from "@ui/button"
 import { Label } from "@ui/label"
 import { SidebarContent, SidebarGroup } from "@ui/sidebar"
 import { Slider } from "@ui/slider"
-import { useState } from "react"
 import type { Tiles } from "../Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
@@ -32,25 +30,6 @@ const Controls = ({
   tileSet,
   tileSize,
 }: ControlsProps) => {
-  const [size, setSize] = useState(tileSize)
-  const [gap, setGap] = useState(mosaicGap)
-
-  useDebounce(
-    () => {
-      handleChangeGap(gap)
-    },
-    100,
-    [gap]
-  )
-
-  useDebounce(
-    () => {
-      handleResizeTiles(size)
-    },
-    100,
-    [size]
-  )
-
   return (
     <SidebarContent className="space-y-6">
       <SidebarGroup className="space-y-6">
@@ -68,32 +47,32 @@ const Controls = ({
       <SidebarGroup className="space-y-6">
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="tile-size" className="text-sm">
-            Tile size: {size.width}px
+            Tile size: {tileSize.width}px
           </Label>
           <Slider
             id="tile-size"
             min={32}
             max={256}
             step={2}
-            defaultValue={[size.width]}
+            defaultValue={[tileSize.width]}
             onValueChange={(value) => {
-              setSize({ width: value[0], height: value[0] })
+              handleResizeTiles({ width: value[0], height: value[0] })
             }}
           />
         </div>
 
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="gap" className="text-sm">
-            Gap size: {gap}px
+            Gap size: {mosaicGap}px
           </Label>
           <Slider
             id="gap"
             min={0}
             step={1}
             max={256}
-            defaultValue={[gap]}
+            defaultValue={[mosaicGap]}
             onValueChange={(value) => {
-              setGap(value[0])
+              handleChangeGap(value[0])
             }}
           />
         </div>

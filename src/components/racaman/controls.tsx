@@ -1,28 +1,17 @@
-import { useDebounce } from "@/hooks/use-debounce"
 import { Label } from "@ui/label"
 import { RadioGroup, RadioGroupItem } from "@ui/radio-group"
 import { SidebarContent, SidebarGroup } from "@ui/sidebar"
 import { Slider } from "@ui/slider"
-import { useState } from "react"
 import { createRacamanSequence } from "./lib/sequence"
 
 type Props = {
   setSequence: (sequence: number[]) => void
+  sequenceLength: number
   setDrawMode: (mode: string) => void
   drawMode: string
 }
 
-const Controls = ({ setSequence, setDrawMode, drawMode }: Props) => {
-  const [sequenceLength, setSequenceLength] = useState(50)
-
-  useDebounce(
-    () => {
-      setSequence(createRacamanSequence(sequenceLength))
-    },
-    100,
-    [sequenceLength]
-  )
-
+const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props) => {
   return (
     <SidebarContent className="space-y-6">
       <SidebarGroup className="space-y-6">
@@ -37,7 +26,7 @@ const Controls = ({ setSequence, setDrawMode, drawMode }: Props) => {
             step={1}
             defaultValue={[sequenceLength]}
             onValueChange={(value) => {
-              setSequenceLength(value[0])
+              setSequence(createRacamanSequence(value[0]))
             }}
           />
         </div>

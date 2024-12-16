@@ -39,7 +39,12 @@ const Racaman = () => {
       </SidebarInset>
 
       <Sidebar side="right" variant="inset">
-        <Controls setSequence={setSequence} setDrawMode={setDrawMode} drawMode={drawMode} />
+        <Controls
+          setSequence={setSequence}
+          sequenceLength={sequence.length}
+          setDrawMode={setDrawMode}
+          drawMode={drawMode}
+        />
       </Sidebar>
     </SidebarProvider>
   )

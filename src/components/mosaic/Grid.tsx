@@ -1,5 +1,4 @@
-import { useDebounce } from "@/hooks/use-debounce"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import type { Tiles } from "./Mosaic"
 import { getColorsToUse } from "./lib/colors"
 
@@ -11,24 +10,11 @@ type Props = {
 }
 
 const Grid = ({ tiles, styleObject, ref, setMosaicSize }: Props) => {
-  const [gridSize, setGridSize] = useState({ width: 0, height: 0 })
-
-  useDebounce(
-    () => {
-      setMosaicSize({
-        width: ref.current?.offsetWidth ?? gridSize.width,
-        height: ref.current?.offsetHeight ?? gridSize.height,
-      })
-    },
-    100,
-    [gridSize]
-  )
-
   useEffect(() => {
     const observer = new ResizeObserver(() => {
-      setGridSize({
-        width: ref.current?.offsetWidth ?? gridSize.width,
-        height: ref.current?.offsetHeight ?? gridSize.height,
+      setMosaicSize({
+        width: ref.current?.offsetWidth ?? 0,
+        height: ref.current?.offsetHeight ?? 0,
       })
     })
     if (ref.current) observer.observe(ref.current)

@@ -18,7 +18,12 @@ const Vectors = ({ sequence, containerSize }: Props) => {
   } as React.CSSProperties
 
   useEffect(() => {
-    if (svgRef.current && sequence) drawSvg(svgRef.current, sequence, containerSize)
+    const debounce = setTimeout(() => {
+      if (svgRef.current) drawSvg(svgRef.current, sequence, containerSize)
+    }, 100)
+    return () => {
+      clearTimeout(debounce)
+    }
   }, [svgRef, sequence, containerSize])
 
   return (
