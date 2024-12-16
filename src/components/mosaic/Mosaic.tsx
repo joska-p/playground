@@ -1,7 +1,7 @@
 import { getColors, getRandomPalette } from "@/components/mosaic/lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
 import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Controls from "./controls/Controls"
 import Grid from "./Grid"
 import CornerCircles from "./tiles/Corner-circles-css"
@@ -33,16 +33,12 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 })
   const mosaicRef = useRef<HTMLDivElement>(null)
 
-  const styleObject = useMemo(
-    () =>
-      ({
-        ...colors,
-        "--tile-width": `${tileSize.width}px`,
-        "--tile-height": `${tileSize.height}px`,
-        "--gap": `${gap}px`,
-      }) as React.CSSProperties,
-    [colors, tileSize, gap]
-  )
+  const styleObject = {
+    ...colors,
+    "--tile-width": `${tileSize.width}px`,
+    "--tile-height": `${tileSize.height}px`,
+    "--gap": `${gap}px`,
+  } as React.CSSProperties
 
   const setNewColors = async () => {
     const newPalette = await getRandomPalette()
@@ -99,18 +95,15 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   return (
     <SidebarProvider>
       <SidebarInset>
-        <Grid
-          tiles={tiles}
-          ref={mosaicRef}
-          styleObject={styleObject}
-          setMosaicSize={setMosaicSize}
-        />
-        <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
+        <div className="relative" style={styleObject}>
+          <Grid tiles={tiles} ref={mosaicRef} setMosaicSize={setMosaicSize} />
+          <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
+        </div>
       </SidebarInset>
 
       <Sidebar side="right" variant="inset">
         <Controls
-          mosaicGap={gap}
+          gap={gap}
           handleChangeGap={setGap}
           handleChangeTileSet={handleChangeTileSet}
           handleResizeTiles={setTileSize}

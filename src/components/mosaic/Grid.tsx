@@ -4,12 +4,11 @@ import { getColorsToUse } from "./lib/colors"
 
 type Props = {
   tiles: Tiles
-  styleObject: React.CSSProperties
   ref: React.RefObject<HTMLDivElement>
   setMosaicSize: ({ width, height }: { width: number; height: number }) => void
 }
 
-const Grid = ({ tiles, styleObject, ref, setMosaicSize }: Props) => {
+const Grid = ({ tiles, ref, setMosaicSize }: Props) => {
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       setMosaicSize({
@@ -27,7 +26,6 @@ const Grid = ({ tiles, styleObject, ref, setMosaicSize }: Props) => {
     <section
       ref={ref}
       className="flex h-dvh flex-wrap content-center justify-center gap-[var(--gap)] p-[calc(var(--gap)/2)]"
-      style={styleObject}
     >
       {tiles.map((Tile, index) => (
         <Tile

@@ -6,7 +6,7 @@ import type { Tiles } from "../Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
 type ControlsProps = {
-  mosaicGap: number
+  gap: number
   handleChangeGap: (value: number) => void
   handleChangeTileSet: (tileName: string) => void
   handleResizeTiles: ({ width, height }: { width: number; height: number }) => void
@@ -19,7 +19,7 @@ type ControlsProps = {
 }
 
 const Controls = ({
-  mosaicGap,
+  gap,
   handleChangeGap,
   handleChangeTileSet,
   handleResizeTiles,
@@ -63,14 +63,14 @@ const Controls = ({
 
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="gap" className="text-sm">
-            Gap size: {mosaicGap}px
+            Gap size: {gap}px
           </Label>
           <Slider
             id="gap"
             min={0}
             step={1}
             max={256}
-            defaultValue={[mosaicGap]}
+            defaultValue={[gap]}
             onValueChange={(value) => {
               handleChangeGap(value[0])
             }}
