@@ -7,8 +7,8 @@ const draw = (
 ) => {
   if (!canvas.parentElement) return
 
-  canvas.width = containerSize.width
-  canvas.height = containerSize.height
+  canvas.width = containerSize.width + 2
+  canvas.height = containerSize.height + 2
 
   const context = canvas.getContext("2d") as CanvasRenderingContext2D
   const valueMin = Math.min(...sequence)
@@ -16,7 +16,7 @@ const draw = (
   const valueScale = canvas.width / (valueMax - valueMin)
 
   context.save()
-  context.translate(0, canvas.height / 2)
+  context.translate(1, (canvas.height - 1) / 2)
 
   context.strokeStyle = "#a89984"
   context.lineWidth = 1
