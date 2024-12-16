@@ -3,20 +3,17 @@ import { draw } from "./lib/draw"
 
 type Props = {
   sequence: number[]
+  containerSize: { width: number; height: number }
 }
 
-const Canvas = ({ sequence }: Props) => {
+const Canvas = ({ sequence, containerSize }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (canvasRef.current && sequence) draw(canvasRef.current, sequence)
-  }, [canvasRef, sequence])
+    if (canvasRef.current && sequence) draw(canvasRef.current, sequence, containerSize)
+  }, [canvasRef, sequence, containerSize])
 
-  return (
-    <div className="relative h-dvh content-center">
-      <canvas ref={canvasRef} className="mx-auto" />
-    </div>
-  )
+  return <canvas ref={canvasRef} className="mx-auto w-full" />
 }
 
 export default Canvas

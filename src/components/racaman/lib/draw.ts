@@ -1,10 +1,14 @@
 import { findBiggestInterval } from "@/lib/math"
 
-const draw = (canvas: HTMLCanvasElement, sequence: number[]) => {
+const draw = (
+  canvas: HTMLCanvasElement,
+  sequence: number[],
+  containerSize: { width: number; height: number }
+) => {
   if (!canvas.parentElement) return
 
-  canvas.width = canvas.parentElement.clientWidth
-  canvas.height = canvas.parentElement.clientHeight
+  canvas.width = containerSize.width
+  canvas.height = containerSize.height
 
   const context = canvas.getContext("2d") as CanvasRenderingContext2D
   const valueMin = Math.min(...sequence)
@@ -35,17 +39,21 @@ const draw = (canvas: HTMLCanvasElement, sequence: number[]) => {
   context.restore()
 }
 
-const drawSvg = (svg: SVGSVGElement, sequence: number[]) => {
+const drawSvg = (
+  svg: SVGSVGElement,
+  sequence: number[],
+  containerSize: { width: number; height: number }
+) => {
   //reset the svg
   svg.innerHTML = ""
   svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
 
-  const maxWith = svg.parentElement?.clientWidth || 0
-  const maxHeight = svg.parentElement?.clientHeight || 0
+  const maxWith = containerSize.width
+  const maxHeight = containerSize.height
 
   // calculate the viewbox
-  const width = Math.min(Math.max(...sequence), maxWith)
-  const height = Math.min(findBiggestInterval(sequence), maxHeight)
+  const width = Math.min(Math.max(...sequence), maxWith) + 1
+  const height = Math.min(findBiggestInterval(sequence), maxHeight) + 1
 
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`)
 

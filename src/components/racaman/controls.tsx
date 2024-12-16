@@ -19,7 +19,7 @@ const Controls = ({ setSequence, setDrawMode, drawMode }: Props) => {
     () => {
       setSequence(createRacamanSequence(sequenceLength))
     },
-    200,
+    100,
     [sequenceLength]
   )
 
