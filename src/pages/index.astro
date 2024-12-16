@@ -1,21 +1,8 @@
 ---
+import Header from "@/layouts/Header.astro"
 import Layout from "@layouts/Layout.astro"
-import ModeToggle from "@widgets/ModeToggle"
-import Navigation from "@widgets/Navigation"
 ---
 
 <Layout>
-  <header class="mx-auto flex max-w-screen-xl items-center gap-10 p-4">
-    <a href="/astrotiles" class="mr-auto flex items-center space-x-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
-        <rect fill="#331436" x="0" y="0" width="1" height="1"></rect>
-        <rect fill="#eb9961" x="1" y="0" width="1" height="1"></rect>
-        <rect fill="#cb4f57" x="0" y="1" width="1" height="1"></rect>
-        <rect fill="#7a1745" x="1" y="1" width="1" height="1"></rect>
-      </svg>
-      <span class="self-center whitespace-nowrap text-2xl font-semibold">Mosaic</span>
-    </a>
-    <Navigation />
-    <ModeToggle client:load />
-  </header>
+  <Header />
 </Layout>

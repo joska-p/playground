@@ -16,8 +16,8 @@ const Grid = ({ tiles, styleObject, ref, setMosaicSize }: Props) => {
   useDebounce(
     () => {
       setMosaicSize({
-        width: ref.current?.offsetWidth || gridSize.width,
-        height: ref.current?.offsetHeight || gridSize.height,
+        width: ref.current?.offsetWidth ?? gridSize.width,
+        height: ref.current?.offsetHeight ?? gridSize.height,
       })
     },
     100,
@@ -27,8 +27,8 @@ const Grid = ({ tiles, styleObject, ref, setMosaicSize }: Props) => {
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       setGridSize({
-        width: ref.current?.offsetWidth || gridSize.width,
-        height: ref.current?.offsetHeight || gridSize.height,
+        width: ref.current?.offsetWidth ?? gridSize.width,
+        height: ref.current?.offsetHeight ?? gridSize.height,
       })
     })
     if (ref.current) observer.observe(ref.current)

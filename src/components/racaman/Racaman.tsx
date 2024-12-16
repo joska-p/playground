@@ -14,8 +14,8 @@ const Racaman = () => {
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       setContainerSize({
-        width: containerRef.current?.offsetWidth || containerSize.width,
-        height: containerRef.current?.offsetHeight || containerSize.height,
+        width: containerRef.current?.offsetWidth ?? containerSize.width,
+        height: containerRef.current?.offsetHeight ?? containerSize.height,
       })
     })
     if (containerRef.current) observer.observe(containerRef.current)
