@@ -1,4 +1,4 @@
-import { links } from "@constants/links"
+import { routes } from "@/constants/routes"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,9 +10,9 @@ const Navigation = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList className="gap-3">
-        {links.map((link) => (
-          <NavigationMenuItem key={link.title}>
-            <NavigationMenuLink href={link.url}>{link.title}</NavigationMenuLink>
+        {routes.map((route) => (
+          <NavigationMenuItem key={route.title}>
+            <NavigationMenuLink href={route.url}>{route.title}</NavigationMenuLink>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>

@@ -12,7 +12,7 @@ export default defineConfig({
     react(),
   ],
   site: "https://joska-p.github.io",
-  base: "astrotiles",
+  base: "playground-v1",
   compressHTML: false,
   devToolbar: {
     enabled: false,
