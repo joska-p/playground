@@ -7,8 +7,8 @@ const draw = (
 ) => {
   if (!canvas.parentElement) return
 
-  canvas.width = containerSize.width + 2
-  canvas.height = containerSize.height + 2
+  canvas.width = containerSize.width - 2
+  canvas.height = containerSize.height - 2
 
   const context = canvas.getContext("2d") as CanvasRenderingContext2D
   const valueMin = Math.min(...sequence)
@@ -16,7 +16,7 @@ const draw = (
   const valueScale = canvas.width / (valueMax - valueMin)
 
   context.save()
-  context.translate(1, (canvas.height - 1) / 2)
+  context.translate(0, canvas.height / 2)
 
   context.strokeStyle = "#a89984"
   context.lineWidth = 1
@@ -52,10 +52,10 @@ const drawSvg = (
   const maxHeight = containerSize.height
 
   // calculate the viewbox
-  const width = Math.min(Math.max(...sequence), maxWith) + 2
-  const height = Math.min(findBiggestInterval(sequence), maxHeight) + 2
+  const width = Math.min(Math.max(...sequence), maxWith) - 2
+  const height = Math.min(findBiggestInterval(sequence), maxHeight) - 2
 
-  svg.setAttribute("viewBox", `1 1 ${width} ${height}`)
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`)
 
   const path = sequence.reduce((acc, value, index) => {
     if (index > 0) {
