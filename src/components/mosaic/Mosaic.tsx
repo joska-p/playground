@@ -53,7 +53,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     setColors((prev) => shuffleObject(prev))
   }
 
-  const setNewTiles = async () => {
+  const setNewTiles = () => {
     const numberOfTiles = tiles.length
     const newNumberOfTiles =
       Math.floor(mosaicSize.width / (tileSize.width + gap)) *
@@ -89,9 +89,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     }
   }
 
-  useEffect(() => {
-    setNewTiles()
-  }, [gap, tileSize, mosaicSize, tileSet])
+  useEffect(setNewTiles, [gap, tileSize, mosaicSize, tileSet])
 
   return (
     <SidebarProvider>
