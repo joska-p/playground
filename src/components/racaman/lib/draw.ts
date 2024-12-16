@@ -52,10 +52,10 @@ const drawSvg = (
   const maxHeight = containerSize.height
 
   // calculate the viewbox
-  const width = Math.min(Math.max(...sequence), maxWith) + 1
-  const height = Math.min(findBiggestInterval(sequence), maxHeight) + 1
+  const width = Math.min(Math.max(...sequence), maxWith) + 2
+  const height = Math.min(findBiggestInterval(sequence), maxHeight) + 2
 
-  svg.setAttribute("viewBox", `0 0 ${width} ${height}`)
+  svg.setAttribute("viewBox", `1 1 ${width} ${height}`)
 
   const path = sequence.reduce((acc, value, index) => {
     if (index > 0) {
