@@ -40,9 +40,12 @@ const drawSvg = (svg: SVGSVGElement, sequence: number[]) => {
   svg.innerHTML = ""
   svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
 
+  const maxWith = svg.parentElement?.clientWidth || 0
+  const maxHeight = svg.parentElement?.clientHeight || 0
+
   // calculate the viewbox
-  const width = Math.max(...sequence)
-  const height = findBiggestInterval(sequence)
+  const width = Math.min(Math.max(...sequence), maxWith)
+  const height = Math.min(findBiggestInterval(sequence), maxHeight)
 
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`)
 
