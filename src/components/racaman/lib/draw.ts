@@ -18,7 +18,7 @@ const draw = (
   context.save()
   context.translate(0, canvas.height / 2)
 
-  context.strokeStyle = "#a89984"
+  context.strokeStyle = "currentColor"
   context.lineWidth = 1
 
   sequence.forEach((value, index) => {

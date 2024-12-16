@@ -13,6 +13,8 @@ const Vectors = ({ sequence, containerSize }: Props) => {
     "--dashoffset": 0,
     strokeDasharray: "var(--dasharray)",
     strokeDashoffset: "var(--dashoffset)",
+    strokeWidth: 1,
+    stroke: "currentColor",
   } as React.CSSProperties
 
   useEffect(() => {
@@ -20,11 +22,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
   }, [svgRef, sequence, containerSize])
 
   return (
-    <svg
-      ref={svgRef}
-      style={styleObject}
-      className="mx-auto w-full fill-transparent stroke-slate-400 stroke-1 p-2"
-    ></svg>
+    <svg ref={svgRef} style={styleObject} className="mx-auto w-full fill-transparent p-2"></svg>
   )
 }
 
