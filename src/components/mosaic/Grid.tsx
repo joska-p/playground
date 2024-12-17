@@ -1,19 +1,31 @@
-import { useEffect } from "react"
-import type { Tiles } from "./Mosaic"
-import { getColorsToUse } from "./lib/colors"
+import { useDebounce } from "@/hooks/use-debounce"
+import { useEffect, useState } from "react"
+import type { DefaultTileSet } from "./Mosaic"
+import Tile from "./tiles/Tile"
 
 type Props = {
-  tiles: Tiles
+  tiles: DefaultTileSet
   ref: React.RefObject<HTMLDivElement>
-  setMosaicSize: ({ width, height }: { width: number; height: number }) => void
+  setNewTiles: () => void
+  styleObject: React.CSSProperties
 }
 
-const Grid = ({ tiles, ref, setMosaicSize }: Props) => {
+const Grid = ({ tiles, ref, setNewTiles, styleObject }: Props) => {
+  const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 })
+
+  useDebounce(
+    () => {
+      setNewTiles()
+    },
+    100,
+    [mosaicSize]
+  )
+
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       setMosaicSize({
-        width: ref.current?.offsetWidth ?? 0,
-        height: ref.current?.offsetHeight ?? 0,
+        width: ref.current?.offsetWidth ?? mosaicSize.width,
+        height: ref.current?.offsetHeight ?? mosaicSize.height,
       })
     })
     if (ref.current) observer.observe(ref.current)
@@ -25,14 +37,11 @@ const Grid = ({ tiles, ref, setMosaicSize }: Props) => {
   return (
     <section
       ref={ref}
-      className="flex h-dvh flex-wrap content-center justify-center gap-[var(--gap)] p-[calc(var(--gap)/2)]"
+      className="flex h-full w-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
+      style={styleObject}
     >
-      {tiles.map((Tile, index) => (
-        <Tile
-          key={index}
-          colors={getColorsToUse()}
-          rotation={[0, 90, 180, 270].sort(() => Math.random() - 0.5)[0]}
-        />
+      {tiles.map((tile, index) => (
+        <Tile key={index} name={tile.name} />
       ))}
     </section>
   )

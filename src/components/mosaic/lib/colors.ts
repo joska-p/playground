@@ -2,13 +2,11 @@ import { z } from "zod"
 import { getRandom, safeFetch } from "../../../lib/utils"
 
 type Palette = [string, string, string, string, string]
-type Palettes = Palette[]
-type ColorName = "--color-1" | "--color-2" | "--color-3" | "--color-4" | "--color-5"
-type ColorNames = ColorName[]
-type Colors = Record<ColorName, string>
+type ColorName = "--color-0" | "--color-1" | "--color-2" | "--color-3" | "--color-4"
+type ColorProperties = Record<ColorName, string>
 
-const fallbackPalettes = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]] as Palettes
-const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as ColorNames
+const fallbackPalettes: Palette[] = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]]
+const colorNames: ColorName[] = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"]
 
 const getRandomPalette = async (): Promise<Palette> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000
@@ -43,14 +41,13 @@ const getRandomPalette = async (): Promise<Palette> => {
   return randomPalette
 }
 
-const getColors = (palette = fallbackPalettes[0]) => {
+const getColorProperties = (palette = fallbackPalettes[0]) => {
   return colorNames.reduce((acc, color, index) => {
     acc[color] = palette[index]
     return acc
-  }, {} as Colors)
+  }, {} as ColorProperties)
 }
 
-const getColorsToUse = () => colorNames.map(() => getRandom(colorNames))
+const getRandomColorsToUse = () => colorNames.map(() => getRandom(colorNames))
 
-export { colorNames, fallbackPalettes, getColors, getColorsToUse, getRandomPalette }
-export type { Colors, Palette }
+export { colorNames, fallbackPalettes, getColorProperties, getRandomColorsToUse, getRandomPalette }

@@ -1,4 +1,4 @@
-import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
+import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
 import { useEffect, useRef, useState } from "react"
 import Canvas from "./canvas"
 import Controls from "./controls"
@@ -26,19 +26,15 @@ const Racaman = () => {
 
   return (
     <SidebarProvider>
-      <SidebarInset>
-        <div className="h-dvh content-center" ref={containerRef}>
-          {drawMode === "vector-mode" && (
-            <Vectors sequence={sequence} containerSize={containerSize} />
-          )}
-          {drawMode === "canvas-mode" && (
-            <Canvas sequence={sequence} containerSize={containerSize} />
-          )}
-        </div>
+      <div className="relative h-dvh w-full content-center" ref={containerRef}>
+        {drawMode === "vector-mode" && (
+          <Vectors sequence={sequence} containerSize={containerSize} />
+        )}
+        {drawMode === "canvas-mode" && <Canvas sequence={sequence} containerSize={containerSize} />}
         <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
-      </SidebarInset>
+      </div>
 
-      <Sidebar side="right" variant="inset">
+      <Sidebar side="right" variant="floating">
         <Controls
           setSequence={setSequence}
           sequenceLength={sequence.length}

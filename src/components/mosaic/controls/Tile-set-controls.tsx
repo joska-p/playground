@@ -1,11 +1,12 @@
 import { colorNames } from "@/components/mosaic/lib/colors"
 import { Checkbox } from "@ui/checkbox"
 import { Label } from "@ui/label"
-import type { Tiles } from "../Mosaic"
+import type { DefaultTileSet } from "../Mosaic"
+import Tile from "../tiles/Tile"
 
 type Props = {
-  initialTileSet: Tiles
-  tileSet: Tiles
+  initialTileSet: DefaultTileSet
+  tileSet: DefaultTileSet
   handleChangeTileSet: (tileName: string) => void
 }
 
@@ -23,23 +24,23 @@ const styleObject = {
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
     <div className="flex flex-wrap gap-4">
-      {initialTileSet.map((Tile) => {
+      {initialTileSet.map((tile) => {
         return (
           <div
-            key={Tile.name}
+            key={tile.name}
             className="items-top flex items-center space-x-2"
             style={styleObject}
           >
             <Checkbox
-              id={Tile.name}
-              checked={tileSet.find((tile) => tile.name === Tile.name) ? true : false}
-              onCheckedChange={() => handleChangeTileSet(Tile.name)}
+              id={tile.name}
+              checked={tileSet.find((element) => element.name === tile.name) ? true : false}
+              onCheckedChange={() => handleChangeTileSet(tile.name)}
             />
             <Label
-              htmlFor={Tile.name}
+              htmlFor={tile.name}
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              <Tile colors={colorNames} rotation={0} />
+              <Tile name={tile.name} colorNames={colorNames} rotation={0} />
             </Label>
           </div>
         )

@@ -35,11 +35,15 @@ const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
         <RadioGroup defaultValue={drawMode} onValueChange={setDrawMode}>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="canvas-mode" id="canvas-mode" />
-            <Label htmlFor="canvas-mode">Canvas mode</Label>
+            <Label htmlFor="canvas-mode" className="cursor-pointer">
+              Canvas mode
+            </Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="vector-mode" id="vector-mode" />
-            <Label htmlFor="vector-mode">Vector mode</Label>
+            <Label htmlFor="vector-mode" className="cursor-pointer">
+              Vector mode
+            </Label>
           </div>
         </RadioGroup>
       </SidebarGroup>

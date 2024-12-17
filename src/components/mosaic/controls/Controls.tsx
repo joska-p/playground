@@ -1,35 +1,56 @@
+import { useDebounce } from "@/hooks/use-debounce"
 import { Button } from "@ui/button"
 import { Label } from "@ui/label"
 import { SidebarContent, SidebarGroup } from "@ui/sidebar"
 import { Slider } from "@ui/slider"
-import type { Tiles } from "../Mosaic"
+import { useState } from "react"
+import type { DefaultTileSet } from "../Mosaic"
 import TileSetControls from "./Tile-set-controls"
 
 type ControlsProps = {
-  gap: number
-  handleChangeGap: (value: number) => void
-  handleChangeTileSet: (tileName: string) => void
-  handleResizeTiles: ({ width, height }: { width: number; height: number }) => void
-  initialTileSet: Tiles
+  mosaicTileSet: DefaultTileSet
+  handleChangeMosaicTileSet: (tileName: string) => void
+  mosaicGap: number
+  handleChangeMosaicGap: (value: number) => void
+  mosaicTileSize: { width: number; height: number }
+  handleResizeMosaicTiles: ({ width, height }: { width: number; height: number }) => void
+  initialTileSet: DefaultTileSet
   setNewColors: () => void
   setNewTiles: () => void
   swapColors: () => void
-  tileSet: Tiles
-  tileSize: { width: number; height: number }
 }
 
 const Controls = ({
-  gap,
-  handleChangeGap,
-  handleChangeTileSet,
-  handleResizeTiles,
+  mosaicTileSet,
+  handleResizeMosaicTiles,
+  mosaicGap,
+  handleChangeMosaicGap,
+  mosaicTileSize,
+  handleChangeMosaicTileSet,
   initialTileSet,
   setNewColors,
   setNewTiles,
   swapColors,
-  tileSet,
-  tileSize,
 }: ControlsProps) => {
+  const [gapSize, setGapSize] = useState(mosaicGap)
+  const [tileSize, setTileSize] = useState(mosaicTileSize)
+
+  useDebounce(
+    () => {
+      handleChangeMosaicGap(gapSize)
+    },
+    500,
+    [gapSize]
+  )
+
+  useDebounce(
+    () => {
+      handleResizeMosaicTiles({ width: tileSize.width, height: tileSize.height })
+    },
+    500,
+    [tileSize]
+  )
+
   return (
     <SidebarContent className="space-y-6">
       <SidebarGroup className="space-y-6">
@@ -56,23 +77,23 @@ const Controls = ({
             step={2}
             defaultValue={[tileSize.width]}
             onValueChange={(value) => {
-              handleResizeTiles({ width: value[0], height: value[0] })
+              setTileSize({ width: value[0], height: value[0] })
             }}
           />
         </div>
 
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="gap" className="text-sm">
-            Gap size: {gap}px
+            Gap size: {gapSize}px
           </Label>
           <Slider
             id="gap"
             min={0}
             step={1}
             max={256}
-            defaultValue={[gap]}
+            defaultValue={[gapSize]}
             onValueChange={(value) => {
-              handleChangeGap(value[0])
+              setGapSize(value[0])
             }}
           />
         </div>
@@ -81,8 +102,8 @@ const Controls = ({
       <SidebarGroup>
         <TileSetControls
           initialTileSet={initialTileSet}
-          tileSet={tileSet}
-          handleChangeTileSet={handleChangeTileSet}
+          tileSet={mosaicTileSet}
+          handleChangeTileSet={handleChangeMosaicTileSet}
         />
       </SidebarGroup>
     </SidebarContent>

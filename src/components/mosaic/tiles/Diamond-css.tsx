@@ -1,17 +1,18 @@
-import { getColorsToUse } from "@/components/mosaic/lib/colors"
 import styles from "./tile.module.css"
 
-const Diamond = ({
-  colors = getColorsToUse(),
-  rotation = [0, 90, 180, 270].sort(() => Math.random() - 0.5)[0],
-}) => {
+type Props = {
+  colors: string[]
+  rotation: number
+}
+
+const Diamond = ({ colors, rotation }: Props) => {
   const styleObject = {
     transform: `rotate(${rotation}deg)`,
     backgroundColor: `var(${colors[0]})`,
   }
 
   return (
-    <div className={styles.tile} style={styleObject} data-type="tile">
+    <div className={styles.tile} style={styleObject}>
       <div
         className="absolute inset-0"
         style={{

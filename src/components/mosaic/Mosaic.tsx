@@ -1,7 +1,11 @@
-import { getColors, getRandomPalette } from "@/components/mosaic/lib/colors"
+import {
+  getColorProperties,
+  getRandomColorsToUse,
+  getRandomPalette,
+} from "@/components/mosaic/lib/colors"
 import { getRandom, shuffleObject } from "@lib/utils"
-import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
-import { useEffect, useRef, useState } from "react"
+import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
+import { useEffect, useMemo, useRef, useState } from "react"
 import Controls from "./controls/Controls"
 import Grid from "./Grid"
 import CornerCircles from "./tiles/Corner-circles-css"
@@ -13,106 +17,147 @@ import Square from "./tiles/Square-css"
 import Triangle from "./tiles/Triangle-css"
 
 const defaultTileSet = [
-  CornerCircles,
-  Diamond,
-  MiddleCircles,
-  OppositeCircles,
-  Rainbow,
-  Square,
-  Triangle,
+  {
+    name: CornerCircles.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
+  {
+    name: Diamond.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
+  {
+    name: MiddleCircles.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
+  {
+    name: OppositeCircles.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
+  {
+    name: Rainbow.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
+  {
+    name: Square.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
+  {
+    name: Triangle.name,
+    colorNames: getRandomColorsToUse(),
+    rotation: getRandom([0, 90, 180, 270]),
+  },
 ]
 
-export type Tiles = typeof defaultTileSet
+export type DefaultTileSet = typeof defaultTileSet
 
 const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileSet }) => {
-  const [tileSize, setTileSize] = useState({ width: tileWidth, height: tileHeight })
-  const [tileSet, setTileSet] = useState<Tiles>(initialTileSet)
-  const [colors, setColors] = useState(getColors())
-  const [tiles, setTiles] = useState<Tiles>([])
-  const [gap, setGap] = useState(0)
-  const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 })
+  const [mosaicTileSize, setMosaicTileSize] = useState({ width: tileWidth, height: tileHeight })
+  const [mosaicTileSet, setMosaicTileSet] = useState(initialTileSet)
+  const [colorProperties, setColorProperties] = useState(getColorProperties())
+  const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([])
+  const [mosaicGap, setMosaicGap] = useState(0)
   const mosaicRef = useRef<HTMLDivElement>(null)
 
-  const styleObject = {
-    ...colors,
-    "--tile-width": `${tileSize.width}px`,
-    "--tile-height": `${tileSize.height}px`,
-    "--gap": `${gap}px`,
-  } as React.CSSProperties
+  const styleObject = useMemo(
+    () =>
+      ({
+        ...colorProperties,
+        "--tile-width": `${mosaicTileSize.width}px`,
+        "--tile-height": `${mosaicTileSize.height}px`,
+        "--gap": `${mosaicGap}px`,
+      }) as React.CSSProperties,
+    [colorProperties, mosaicGap, mosaicTileSize]
+  )
 
   const setNewColors = async () => {
     const newPalette = await getRandomPalette()
-    setColors(getColors(newPalette))
+    setColorProperties(getColorProperties(newPalette))
   }
 
   const swapColors = () => {
-    setColors((prev) => shuffleObject(prev))
+    setColorProperties((prev) => shuffleObject(prev))
+  }
+
+  const createNewRandomTiles = (numbreOfTiles: number) => {
+    const newTiles = Array.from({ length: numbreOfTiles }, () => {
+      const newTileName = getRandom(mosaicTileSet).name
+      return {
+        name: newTileName,
+        colorNames: getRandomColorsToUse(),
+        rotation: getRandom([0, 90, 180, 270]),
+      }
+    })
+    return newTiles
   }
 
   const setNewTiles = () => {
-    const numberOfTiles = tiles.length
+    if (!mosaicRef.current) return
+
+    const numberOfTiles = mosaicTiles.length
     const newNumberOfTiles =
-      Math.floor(mosaicSize.width / (tileSize.width + gap)) *
-      Math.floor(mosaicSize.height / (tileSize.height + gap))
+      Math.floor(mosaicRef.current.offsetWidth / (mosaicTileSize.width + mosaicGap)) *
+      Math.floor(mosaicRef.current.offsetHeight / (mosaicTileSize.height + mosaicGap))
 
     if (newNumberOfTiles < numberOfTiles) {
-      setTiles((prev) => prev.slice(0, newNumberOfTiles))
+      setMosaicTiles((prev) => prev.slice(0, newNumberOfTiles))
     }
 
     if (newNumberOfTiles === numberOfTiles) {
-      const newTiles = Array.from({ length: newNumberOfTiles }, () => {
-        return getRandom(tileSet)
-      })
-      setTiles(newTiles)
+      const newTiles = createNewRandomTiles(newNumberOfTiles)
+      setMosaicTiles(newTiles)
     }
 
     if (newNumberOfTiles > numberOfTiles) {
-      const newTiles = Array.from({ length: newNumberOfTiles - numberOfTiles }, () => {
-        return getRandom(tileSet)
-      })
-      setTiles((prev) => [...prev, ...newTiles])
+      const newTiles = createNewRandomTiles(newNumberOfTiles)
+      setMosaicTiles((prev) => [...prev, ...newTiles])
     }
   }
 
-  const handleChangeTileSet = (tileName: string) => {
-    if (tileSet.length === 1 && tileName == tileSet[0].name) return
+  const handleChangeMosaicTileSet = (tileName: string) => {
+    if (mosaicTileSet.length === 1 && tileName == mosaicTileSet[0].name) return
 
-    if (tileSet.find((tile) => tile.name === tileName)) {
-      setTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
+    if (mosaicTileSet.find((tile) => tile.name === tileName)) {
+      setMosaicTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
     } else {
       const newTile = initialTileSet.filter((tile) => tile.name === tileName)
-      setTileSet((prev) => [...prev, ...newTile])
+      setMosaicTileSet((prev) => [...prev, ...newTile])
     }
   }
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      setNewTiles()
-    }, 300)
-    return () => clearTimeout(debounce)
-  }, [gap, tileSize, mosaicSize, tileSet])
+    setNewTiles()
+  }, [])
 
   return (
     <SidebarProvider>
-      <SidebarInset>
-        <div className="relative" style={styleObject}>
-          <Grid tiles={tiles} ref={mosaicRef} setMosaicSize={setMosaicSize} />
-          <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
-        </div>
-      </SidebarInset>
+      <div className="relative h-svh w-full overflow-hidden">
+        <Grid
+          tiles={mosaicTiles}
+          ref={mosaicRef}
+          setNewTiles={setNewTiles}
+          styleObject={styleObject}
+        />
+        <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
+      </div>
 
-      <Sidebar side="right" variant="inset">
+      <Sidebar side="right" variant="floating">
         <Controls
-          gap={gap}
-          handleChangeGap={setGap}
-          handleChangeTileSet={handleChangeTileSet}
-          handleResizeTiles={setTileSize}
+          mosaicTileSet={mosaicTileSet}
+          handleChangeMosaicTileSet={handleChangeMosaicTileSet}
+          mosaicGap={mosaicGap}
+          handleChangeMosaicGap={setMosaicGap}
+          mosaicTileSize={mosaicTileSize}
+          handleResizeMosaicTiles={setMosaicTileSize}
           initialTileSet={initialTileSet}
           setNewColors={setNewColors}
-          setNewTiles={setNewTiles}
           swapColors={swapColors}
-          tileSet={tileSet}
-          tileSize={tileSize}
+          setNewTiles={setNewTiles}
         />
       </Sidebar>
     </SidebarProvider>

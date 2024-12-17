@@ -1,17 +1,18 @@
-import { getColorsToUse } from "@/components/mosaic/lib/colors"
 import styles from "./tile.module.css"
 
-const OppositeCircles = ({
-  colors = getColorsToUse(),
-  rotation = [0, 90, 180, 270].sort(() => Math.random() - 0.5)[0],
-}) => {
+type Props = {
+  colors: string[]
+  rotation: number
+}
+
+const OppositeCircles = ({ colors, rotation }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(${rotation}deg)`,
   }
 
   return (
-    <div className={styles.tile} style={styleObject} data-type="tile">
+    <div className={styles.tile} style={styleObject}>
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
         className="absolute right-1/2 h-full w-1/2 rounded-r-full"
