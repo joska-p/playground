@@ -17,7 +17,14 @@ const MiddleCircles = ({ colors, rotation }: Props) => {
 
   return (
     <div className={`flex items-center justify-center ${styles.tile}`} style={styleObject}>
-      <div style={linearGradient} className="h-1/2 w-1/2 rounded-full" />
+      <div
+        className="h-1/2 w-1/4 rounded-l-full"
+        style={{ backgroundColor: `var(${colors[1]})` }}
+      />
+      <div
+        className="h-1/2 w-1/4 rounded-r-full"
+        style={{ backgroundColor: `var(${colors[2]})` }}
+      />
     </div>
   )
 }
