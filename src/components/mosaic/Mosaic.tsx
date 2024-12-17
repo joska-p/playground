@@ -94,8 +94,8 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     if (!mosaicRef.current) return
 
     const newNumberOfTiles =
-      Math.floor(mosaicSize.width / (mosaicTileSize.width + mosaicGap)) *
-      Math.floor(mosaicSize.height / (mosaicTileSize.height + mosaicGap))
+      Math.floor(mosaicSize.width / mosaicTileSize.width) *
+      Math.floor(mosaicSize.height / mosaicTileSize.height)
 
     const newTiles = Array.from({ length: newNumberOfTiles }, () => {
       const newTileName = getRandom(mosaicTileSet).name

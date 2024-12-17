@@ -1,14 +1,14 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const Square = ({ colors, rotation }: Props) => {
   const styleObject = {
     transform: `rotate(${rotation}deg)`,
-  }
+  };
 
   return (
     <div className={`tile grid grid-cols-2 grid-rows-2 ${styles.tile}`} style={styleObject}>
@@ -17,7 +17,7 @@ const Square = ({ colors, rotation }: Props) => {
       <div style={{ backgroundColor: `var(${colors[2]})` }} />
       <div style={{ backgroundColor: `var(${colors[3]})` }} />
     </div>
-  )
-}
+  );
+};
 
-export default Square
+export default Square;

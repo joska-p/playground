@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.BASE_URL
+const baseUrl = import.meta.env.BASE_URL;
 
 const routes = [
   {
@@ -17,6 +17,6 @@ const routes = [
     title: "Piechart",
     url: `${baseUrl}/piechart`,
   },
-]
+];
 
-export { routes }
+export { routes };

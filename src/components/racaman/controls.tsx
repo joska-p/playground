@@ -1,15 +1,15 @@
-import { Label } from "@ui/label"
-import { RadioGroup, RadioGroupItem } from "@ui/radio-group"
-import { SidebarContent, SidebarGroup } from "@ui/sidebar"
-import { Slider } from "@ui/slider"
-import { createRacamanSequence } from "./lib/sequence"
+import { Label } from "@ui/label";
+import { RadioGroup, RadioGroupItem } from "@ui/radio-group";
+import { SidebarContent, SidebarGroup } from "@ui/sidebar";
+import { Slider } from "@ui/slider";
+import { createRacamanSequence } from "./lib/sequence";
 
 type Props = {
-  setSequence: (sequence: number[]) => void
-  sequenceLength: number
-  setDrawMode: (mode: string) => void
-  drawMode: string
-}
+  setSequence: (sequence: number[]) => void;
+  sequenceLength: number;
+  setDrawMode: (mode: string) => void;
+  drawMode: string;
+};
 
 const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props) => {
   return (
@@ -26,7 +26,7 @@ const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
             step={1}
             defaultValue={[sequenceLength]}
             onValueChange={(value) => {
-              setSequence(createRacamanSequence(value[0]))
+              setSequence(createRacamanSequence(value[0]));
             }}
           />
         </div>
@@ -48,7 +48,7 @@ const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
         </RadioGroup>
       </SidebarGroup>
     </SidebarContent>
-  )
-}
+  );
+};
 
-export default Controls
+export default Controls;

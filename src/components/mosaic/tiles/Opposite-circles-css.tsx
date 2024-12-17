@@ -1,15 +1,15 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const OppositeCircles = ({ colors, rotation }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(${rotation}deg)`,
-  }
+  };
 
   return (
     <div className={styles.tile} style={styleObject}>
@@ -22,7 +22,7 @@ const OppositeCircles = ({ colors, rotation }: Props) => {
         className="absolute left-1/2 h-full w-1/2 rounded-l-full"
       />
     </div>
-  )
-}
+  );
+};
 
-export default OppositeCircles
+export default OppositeCircles;

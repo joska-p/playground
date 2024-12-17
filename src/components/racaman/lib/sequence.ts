@@ -1,19 +1,19 @@
 const createRacamanSequence = (n: number) => {
-  let sequence: number[] = []
-  let i = 0
+  let sequence: number[] = [];
+  let i = 0;
   while (sequence.length < n) {
-    let last = sequence[sequence.length - 1]
+    let last = sequence[sequence.length - 1];
     if (last === undefined) {
-      sequence.push(0)
+      sequence.push(0);
     } else if (last - i > 0 && !sequence.includes(last - i)) {
-      sequence.push(last - i)
+      sequence.push(last - i);
     } else {
-      sequence.push(last + i)
+      sequence.push(last + i);
     }
-    i++
+    i++;
   }
-  return sequence
-}
+  return sequence;
+};
 
 // Test
 // const refSequence = [
@@ -25,4 +25,4 @@ const createRacamanSequence = (n: number) => {
 // const racamanSequence = createRacamanSequence(refSequence.length)
 // console.log(refSequence.toString() === racamanSequence.toString())
 
-export { createRacamanSequence }
+export { createRacamanSequence };

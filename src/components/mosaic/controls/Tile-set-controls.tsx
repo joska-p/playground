@@ -1,14 +1,14 @@
-import { colorNames } from "@/components/mosaic/lib/colors"
-import { Checkbox } from "@ui/checkbox"
-import { Label } from "@ui/label"
-import type { DefaultTileSet } from "../Mosaic"
-import Tile from "../tiles/Tile"
+import { colorNames } from "@/components/mosaic/lib/colors";
+import { Checkbox } from "@ui/checkbox";
+import { Label } from "@ui/label";
+import type { DefaultTileSet } from "../Mosaic";
+import Tile from "../tiles/Tile";
 
 type Props = {
-  initialTileSet: DefaultTileSet
-  tileSet: DefaultTileSet
-  handleChangeTileSet: (tileName: string) => void
-}
+  initialTileSet: DefaultTileSet;
+  tileSet: DefaultTileSet;
+  handleChangeTileSet: (tileName: string) => void;
+};
 
 const styleObject = {
   "--tile-width": "32px",
@@ -19,7 +19,7 @@ const styleObject = {
   [colorNames[2]]: "#999999",
   [colorNames[3]]: "#bbbbbb",
   [colorNames[4]]: "#dddddd",
-} as React.CSSProperties
+} as React.CSSProperties;
 
 const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
   return (
@@ -43,10 +43,10 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
               <Tile name={tile.name} colorNames={colorNames} rotation={0} />
             </Label>
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default TileSetControls
+export default TileSetControls;

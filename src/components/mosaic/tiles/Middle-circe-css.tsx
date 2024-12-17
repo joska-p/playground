@@ -1,19 +1,19 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const MiddleCircles = ({ colors, rotation }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(${rotation}deg)`,
-  }
+  };
 
   const linearGradient = {
     backgroundImage: `linear-gradient(to right, var(${colors[1]}), 50% , var(${colors[1]}), 50%, var(${colors[2]}) , var(${colors[2]}))`,
-  }
+  };
 
   return (
     <div className={`flex items-center justify-center ${styles.tile}`} style={styleObject}>
@@ -26,7 +26,7 @@ const MiddleCircles = ({ colors, rotation }: Props) => {
         style={{ backgroundColor: `var(${colors[2]})` }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default MiddleCircles
+export default MiddleCircles;

@@ -1,15 +1,15 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const Triangle = ({ colors, rotation }: Props) => {
   const styleObject = {
     transform: `rotate(${rotation}deg)`,
     backgroundColor: `var(${colors[0]})`,
-  }
+  };
 
   return (
     <div style={styleObject} className={styles.tile} data-type="tile">
@@ -39,7 +39,7 @@ const Triangle = ({ colors, rotation }: Props) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Triangle
+export default Triangle;

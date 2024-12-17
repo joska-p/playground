@@ -1,15 +1,15 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const CornerCircles = ({ colors, rotation }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(${rotation}deg)`,
-  }
+  };
 
   return (
     <div className={styles.tile} style={styleObject}>
@@ -22,7 +22,7 @@ const CornerCircles = ({ colors, rotation }: Props) => {
         className="absolute bottom-0 right-0 h-1/2 w-1/2 rounded-tl-full"
       />
     </div>
-  )
-}
+  );
+};
 
-export default CornerCircles
+export default CornerCircles;

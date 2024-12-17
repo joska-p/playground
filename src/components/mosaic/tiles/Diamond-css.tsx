@@ -1,15 +1,15 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const Diamond = ({ colors, rotation }: Props) => {
   const styleObject = {
     transform: `rotate(${rotation}deg)`,
     backgroundColor: `var(${colors[0]})`,
-  }
+  };
 
   return (
     <div className={styles.tile} style={styleObject}>
@@ -42,7 +42,7 @@ const Diamond = ({ colors, rotation }: Props) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Diamond
+export default Diamond;

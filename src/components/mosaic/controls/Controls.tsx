@@ -1,24 +1,24 @@
-import { useDebounce } from "@/hooks/use-debounce"
-import { Button } from "@ui/button"
-import { Label } from "@ui/label"
-import { SidebarContent, SidebarGroup } from "@ui/sidebar"
-import { Slider } from "@ui/slider"
-import { useState } from "react"
-import type { DefaultTileSet } from "../Mosaic"
-import TileSetControls from "./Tile-set-controls"
+import { useDebounce } from "@/hooks/use-debounce";
+import { Button } from "@ui/button";
+import { Label } from "@ui/label";
+import { SidebarContent, SidebarGroup } from "@ui/sidebar";
+import { Slider } from "@ui/slider";
+import { useState } from "react";
+import type { DefaultTileSet } from "../Mosaic";
+import TileSetControls from "./Tile-set-controls";
 
 type ControlsProps = {
-  mosaicTileSet: DefaultTileSet
-  handleChangeMosaicTileSet: (tileName: string) => void
-  mosaicGap: number
-  handleChangeMosaicGap: (value: number) => void
-  mosaicTileSize: { width: number; height: number }
-  handleResizeMosaicTiles: ({ width, height }: { width: number; height: number }) => void
-  initialTileSet: DefaultTileSet
-  setNewColors: () => void
-  setNewTiles: () => void
-  swapColors: () => void
-}
+  mosaicTileSet: DefaultTileSet;
+  handleChangeMosaicTileSet: (tileName: string) => void;
+  mosaicGap: number;
+  handleChangeMosaicGap: (value: number) => void;
+  mosaicTileSize: { width: number; height: number };
+  handleResizeMosaicTiles: ({ width, height }: { width: number; height: number }) => void;
+  initialTileSet: DefaultTileSet;
+  setNewColors: () => void;
+  setNewTiles: () => void;
+  swapColors: () => void;
+};
 
 const Controls = ({
   mosaicTileSet,
@@ -32,24 +32,24 @@ const Controls = ({
   setNewTiles,
   swapColors,
 }: ControlsProps) => {
-  const [gapSize, setGapSize] = useState(mosaicGap)
-  const [tileSize, setTileSize] = useState(mosaicTileSize)
+  const [gapSize, setGapSize] = useState(mosaicGap);
+  const [tileSize, setTileSize] = useState(mosaicTileSize);
 
   useDebounce(
     () => {
-      handleChangeMosaicGap(gapSize)
+      handleChangeMosaicGap(gapSize);
     },
     500,
     [gapSize]
-  )
+  );
 
   useDebounce(
     () => {
-      handleResizeMosaicTiles({ width: tileSize.width, height: tileSize.height })
+      handleResizeMosaicTiles({ width: tileSize.width, height: tileSize.height });
     },
     500,
     [tileSize]
-  )
+  );
 
   return (
     <SidebarContent className="space-y-6">
@@ -77,7 +77,7 @@ const Controls = ({
             step={2}
             defaultValue={[tileSize.width]}
             onValueChange={(value) => {
-              setTileSize({ width: value[0], height: value[0] })
+              setTileSize({ width: value[0], height: value[0] });
             }}
           />
         </div>
@@ -93,7 +93,7 @@ const Controls = ({
             max={256}
             defaultValue={[gapSize]}
             onValueChange={(value) => {
-              setGapSize(value[0])
+              setGapSize(value[0]);
             }}
           />
         </div>
@@ -107,7 +107,7 @@ const Controls = ({
         />
       </SidebarGroup>
     </SidebarContent>
-  )
-}
+  );
+};
 
-export default Controls
+export default Controls;

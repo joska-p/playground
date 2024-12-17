@@ -1,10 +1,10 @@
-import { routes } from "@/constants/routes"
+import { routes } from "@/constants/routes";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@ui/navigation-menu"
+} from "@ui/navigation-menu";
 
 const Navigation = () => {
   return (
@@ -17,7 +17,7 @@ const Navigation = () => {
         ))}
       </NavigationMenuList>
     </NavigationMenu>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

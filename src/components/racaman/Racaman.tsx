@@ -1,28 +1,28 @@
-import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
-import { useEffect, useRef, useState } from "react"
-import Canvas from "./canvas"
-import Controls from "./controls"
-import { createRacamanSequence } from "./lib/sequence"
-import Vectors from "./vectors"
+import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar";
+import { useEffect, useRef, useState } from "react";
+import Canvas from "./canvas";
+import Controls from "./controls";
+import { createRacamanSequence } from "./lib/sequence";
+import Vectors from "./vectors";
 
 const Racaman = () => {
-  const [sequence, setSequence] = useState<number[]>(createRacamanSequence(50))
-  const [drawMode, setDrawMode] = useState("vector-mode")
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [sequence, setSequence] = useState<number[]>(createRacamanSequence(50));
+  const [drawMode, setDrawMode] = useState("vector-mode");
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       setContainerSize({
         width: containerRef.current?.offsetWidth ?? containerSize.width,
         height: containerRef.current?.offsetHeight ?? containerSize.height,
-      })
-    })
-    if (containerRef.current) observer.observe(containerRef.current)
+      });
+    });
+    if (containerRef.current) observer.observe(containerRef.current);
     return () => {
-      observer.disconnect()
-    }
-  }, [])
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <SidebarProvider>
@@ -43,7 +43,7 @@ const Racaman = () => {
         />
       </Sidebar>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default Racaman
+export default Racaman;

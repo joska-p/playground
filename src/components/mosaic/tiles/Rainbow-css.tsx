@@ -1,15 +1,15 @@
-import styles from "./tile.module.css"
+import styles from "./tile.module.css";
 
 type Props = {
-  colors: string[]
-  rotation: number
-}
+  colors: string[];
+  rotation: number;
+};
 
 const Rainbow = ({ colors, rotation }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(${rotation}deg)`,
-  }
+  };
 
   return (
     <div className={styles.tile} style={styleObject}>
@@ -22,7 +22,7 @@ const Rainbow = ({ colors, rotation }: Props) => {
         className="absolute left-0 top-0 h-1/2 w-1/2 rounded-br-full"
       />
     </div>
-  )
-}
+  );
+};
 
-export default Rainbow
+export default Rainbow;
