@@ -108,7 +108,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
         style={styleObject}
       >
         {mosaicTiles.map((tile, index) => (
-          <Tile key={index} name={tile.name} rotation={0} />
+          <Tile key={index} name={tile.name} />
         ))}
         <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
       </section>
