@@ -5,7 +5,7 @@ type Props = {
   rotation: number;
 };
 
-const Triangle = ({ colors, rotation }: Props) => {
+const Triangles = ({ colors, rotation }: Props) => {
   const styleObject = {
     transform: `rotate(${rotation}deg)`,
     backgroundColor: `var(${colors[0]})`,
@@ -42,4 +42,4 @@ const Triangle = ({ colors, rotation }: Props) => {
   );
 };
 
-export default Triangle;
+export default Triangles;

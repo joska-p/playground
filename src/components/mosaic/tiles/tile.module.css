@@ -10,7 +10,9 @@
 }
 
 .tile > * {
-  transition:
-    background 1s ease-in-out,
-    background 1s ease-in-out;
+  transition: background 1s ease-in-out;
+}
+
+.tile polygon {
+  transition: fill 1s ease-in-out;
 }

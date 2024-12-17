@@ -81,4 +81,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  .grid-stack {
+    display: grid;
+    grid-template-areas: "stack";
+  }
+  .grid-stack > * {
+    grid-area: stack;
+  }
 }
