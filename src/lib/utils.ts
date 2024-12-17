@@ -6,13 +6,24 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-const shuffleObject = <T extends Record<string, unknown>>(obj: T): T => {
-  const keys = Object.keys(obj) as Array<keyof T>
-  const values = Object.values(obj) as Array<T[keyof T]>
+function shuffleObject<T>(obj: Record<string, T>): Record<string, T> {
+  // Extract the keys and values from the object
+  const keys = Object.keys(obj)
+  const values = Object.values(obj)
 
-  const shuffledValues = values.sort(() => 0.5 - Math.random())
+  // Shuffle the values using the Fisher-Yates algorithm
+  for (let i = values.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[values[i], values[j]] = [values[j], values[i]] // Swap
+  }
 
-  return Object.fromEntries(keys.map((key, index) => [key, shuffledValues[index]])) as T
+  // Create a new object with the shuffled values
+  const shuffledObject: Record<string, T> = {}
+  keys.forEach((key, index) => {
+    shuffledObject[key] = values[index]
+  })
+
+  return shuffledObject
 }
 
 const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)]

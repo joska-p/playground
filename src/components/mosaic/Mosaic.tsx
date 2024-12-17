@@ -79,13 +79,14 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   const setNewColors = async () => {
     const newPalette = await getRandomPalette()
-    setColorProperties(getColorProperties(newPalette))
+    const newColorProperties = getColorProperties(newPalette)
+    setColorProperties(newColorProperties)
   }
 
   const swapColors = () => {
     const newColorProperties = shuffleObject(colorProperties)
-    Object.entries(newColorProperties).forEach(([colorName, colorValue]) => {
-      mosaicRef.current?.style.setProperty(colorName, colorValue)
+    Object.entries(newColorProperties).forEach(([key, value]) => {
+      mosaicRef.current?.style.setProperty(key, value)
     })
   }
 
