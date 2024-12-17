@@ -8,7 +8,8 @@ import { getRandom, shuffleObject } from "@lib/utils";
 import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Controls from "./controls/Controls";
-import Tile, { defaultTileSet } from "./tiles/Tile";
+import Tile from "./tiles/Tile";
+import { defaultTileSet } from "./tiles/default-tile-set";
 
 export type DefaultTileSet = typeof defaultTileSet;
 
