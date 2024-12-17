@@ -1,19 +1,12 @@
 .tile {
-  --opacity: 1;
-
   width: var(--tile-width);
   height: var(--tile-height);
   position: relative;
   overflow: hidden;
 
-  opacity: var(--opacity);
   transition:
     opacity 1s ease-in-out,
     background 1s ease-in-out;
-
-  @starting-style {
-    opacity: 0;
-  }
 }
 
 .tile > * {

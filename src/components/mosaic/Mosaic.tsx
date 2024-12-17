@@ -3,17 +3,18 @@ import {
   getRandomColorsToUse,
   getRandomPalette,
 } from "@/components/mosaic/lib/colors"
+import { useDebounce } from "@/hooks/use-debounce"
 import { getRandom, shuffleObject } from "@lib/utils"
 import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar"
 import { useEffect, useMemo, useRef, useState } from "react"
 import Controls from "./controls/Controls"
-import Grid from "./Grid"
 import CornerCircles from "./tiles/Corner-circles-css"
 import Diamond from "./tiles/Diamond-css"
 import MiddleCircles from "./tiles/Middle-circe-css"
 import OppositeCircles from "./tiles/Opposite-circles-css"
 import Rainbow from "./tiles/Rainbow-css"
 import Square from "./tiles/Square-css"
+import Tile from "./tiles/Tile"
 import Triangle from "./tiles/Triangle-css"
 
 const defaultTileSet = [
@@ -62,6 +63,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   const [colorProperties, setColorProperties] = useState(getColorProperties())
   const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([])
   const [mosaicGap, setMosaicGap] = useState(0)
+  const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 })
   const mosaicRef = useRef<HTMLDivElement>(null)
 
   const styleObject = useMemo(
@@ -81,11 +83,20 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   }
 
   const swapColors = () => {
-    setColorProperties((prev) => shuffleObject(prev))
+    const newColorProperties = shuffleObject(colorProperties)
+    Object.entries(newColorProperties).forEach(([colorName, colorValue]) => {
+      mosaicRef.current?.style.setProperty(colorName, colorValue)
+    })
   }
 
-  const createNewRandomTiles = (numbreOfTiles: number) => {
-    const newTiles = Array.from({ length: numbreOfTiles }, () => {
+  const setNewTiles = () => {
+    if (!mosaicRef.current) return
+
+    const newNumberOfTiles =
+      Math.floor(mosaicSize.width / (mosaicTileSize.width + mosaicGap)) *
+      Math.floor(mosaicSize.height / (mosaicTileSize.height + mosaicGap))
+
+    const newTiles = Array.from({ length: newNumberOfTiles }, () => {
       const newTileName = getRandom(mosaicTileSet).name
       return {
         name: newTileName,
@@ -93,34 +104,11 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
         rotation: getRandom([0, 90, 180, 270]),
       }
     })
-    return newTiles
-  }
-
-  const setNewTiles = () => {
-    if (!mosaicRef.current) return
-
-    const numberOfTiles = mosaicTiles.length
-    const newNumberOfTiles =
-      Math.floor(mosaicRef.current.offsetWidth / (mosaicTileSize.width + mosaicGap)) *
-      Math.floor(mosaicRef.current.offsetHeight / (mosaicTileSize.height + mosaicGap))
-
-    if (newNumberOfTiles < numberOfTiles) {
-      setMosaicTiles((prev) => prev.slice(0, newNumberOfTiles))
-    }
-
-    if (newNumberOfTiles === numberOfTiles) {
-      const newTiles = createNewRandomTiles(newNumberOfTiles)
-      setMosaicTiles(newTiles)
-    }
-
-    if (newNumberOfTiles > numberOfTiles) {
-      const newTiles = createNewRandomTiles(newNumberOfTiles)
-      setMosaicTiles((prev) => [...prev, ...newTiles])
-    }
+    setMosaicTiles(newTiles)
   }
 
   const handleChangeMosaicTileSet = (tileName: string) => {
-    if (mosaicTileSet.length === 1 && tileName == mosaicTileSet[0].name) return
+    if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0].name) return
 
     if (mosaicTileSet.find((tile) => tile.name === tileName)) {
       setMosaicTileSet((prev) => prev.filter((tile) => tile.name !== tileName))
@@ -130,21 +118,43 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     }
   }
 
+  useEffect(setNewTiles, [mosaicTileSet, mosaicTileSize, mosaicGap])
+
+  useDebounce(
+    () => {
+      setNewTiles()
+    },
+    200,
+    [mosaicSize]
+  )
+
   useEffect(() => {
-    setNewTiles()
+    if (!mosaicRef.current) return
+
+    const observer = new ResizeObserver(() => {
+      setMosaicSize({
+        width: mosaicRef.current!.offsetWidth,
+        height: mosaicRef.current!.offsetHeight,
+      })
+    })
+    observer.observe(mosaicRef.current)
+    return () => {
+      observer.disconnect()
+    }
   }, [])
 
   return (
     <SidebarProvider>
-      <div className="relative h-svh w-full overflow-hidden">
-        <Grid
-          tiles={mosaicTiles}
-          ref={mosaicRef}
-          setNewTiles={setNewTiles}
-          styleObject={styleObject}
-        />
+      <section
+        ref={mosaicRef}
+        className="relative flex h-svh w-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
+        style={styleObject}
+      >
+        {mosaicTiles.map((tile, index) => (
+          <Tile key={index} name={tile.name} />
+        ))}
         <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
-      </div>
+      </section>
 
       <Sidebar side="right" variant="floating">
         <Controls
