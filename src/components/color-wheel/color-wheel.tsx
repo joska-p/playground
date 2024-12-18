@@ -6,36 +6,35 @@ const ColorWheel = () => {
   const colorWheelRef = useRef<HTMLDivElement>(null);
 
   const colorWheelStyles = {
-    "--tw-bg-opacity": "1",
-    "--tw-hue": "0",
-    "--tw-saturation": "100%",
-    "--tw-value": "50%",
+    "--bg-opacity": "1",
+    "--hue": "180",
+    "--saturation": "50%",
+    "--luminosity": "50%",
   } as React.CSSProperties;
 
   const hueStyles = {
-    "--tw-bg-opacity": "1",
-    backgroundColor: "hsla(var(--tw-hue) 100% 50% / var(--tw-bg-opacity))",
+    "--bg-opacity": "1",
+    backgroundColor: "hsla(var(--hue) 100% 50% / var(--bg-opacity))",
   };
   const saturationStyles = {
-    "--tw-bg-opacity": "1",
-    backgroundColor: "hsla(var(--tw-hue) var(--tw-saturation) 50% / var(--tw-bg-opacity))",
+    "--bg-opacity": "1",
+    backgroundColor: "hsla(var(--hue) var(--saturation) 50% / var(--bg-opacity))",
   };
-  const valueStyles = {
-    "--tw-bg-opacity": "1",
-    backgroundColor:
-      "hsla(var(--tw-hue) var(--tw-saturation) var(--tw-value) / var(--tw-bg-opacity))",
+  const luminosityStyles = {
+    "--bg-opacity": "1",
+    backgroundColor: "hsla(var(--hue) var(--saturation) var(--luminosity) / var(--bg-opacity))",
   };
 
   const handleHueChange = (value: number) => {
-    colorWheelRef.current?.style.setProperty("--tw-hue", `${value}`);
+    colorWheelRef.current?.style.setProperty("--hue", `${value}`);
   };
 
   const handleSaturationChange = (value: number) => {
-    colorWheelRef.current?.style.setProperty("--tw-saturation", `${value}%`);
+    colorWheelRef.current?.style.setProperty("--saturation", `${value}%`);
   };
 
-  const handleValueChange = (value: number) => {
-    colorWheelRef.current?.style.setProperty("--tw-value", `${value}%`);
+  const handleLuminosityChange = (value: number) => {
+    colorWheelRef.current?.style.setProperty("--luminosity", `${value}%`);
   };
 
   return (
@@ -49,7 +48,7 @@ const ColorWheel = () => {
           min={0}
           max={360}
           step={1}
-          defaultValue={[0]}
+          defaultValue={[180]}
           onValueChange={(value) => handleHueChange(value[0])}
         />
       </div>
@@ -63,22 +62,22 @@ const ColorWheel = () => {
           min={0}
           max={100}
           step={1}
-          defaultValue={[0]}
+          defaultValue={[50]}
           onValueChange={(value) => handleSaturationChange(value[0])}
         />
       </div>
 
       <div className="flex flex-col gap-10">
-        <Label htmlFor="value-slider">Value</Label>
-        <div className="h-40 w-full" style={valueStyles}></div>
+        <Label htmlFor="value-slider">Luminosity</Label>
+        <div className="h-40 w-full" style={luminosityStyles}></div>
         <Slider
           id="value-slider"
           name="value-slider"
           min={0}
           max={100}
           step={1}
-          defaultValue={[0]}
-          onValueChange={(value) => handleValueChange(value[0])}
+          defaultValue={[50]}
+          onValueChange={(value) => handleLuminosityChange(value[0])}
         />
       </div>
     </section>
