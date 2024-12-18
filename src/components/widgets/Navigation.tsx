@@ -9,7 +9,7 @@ import {
 const Navigation = () => {
   return (
     <NavigationMenu>
-      <NavigationMenuList className="gap-3">
+      <NavigationMenuList className="gap-10">
         {routes.map((route) => (
           <NavigationMenuItem key={route.title}>
             <NavigationMenuLink href={route.url}>{route.title}</NavigationMenuLink>

@@ -17,6 +17,10 @@ const routes = [
     title: "Piechart",
     url: `${baseUrl}/piechart`,
   },
+  {
+    title: "Color wheel",
+    url: `${baseUrl}/color-wheel`,
+  },
 ];
 
 export { routes };
