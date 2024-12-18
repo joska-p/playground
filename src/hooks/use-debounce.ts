@@ -2,7 +2,7 @@ import { useTimeout } from "@/hooks/use-timeout";
 import { useEffect } from "react";
 
 const useDebounce = (
-  callback: (...args: any[]) => any,
+  callback: (...args: unknown[]) => unknown,
   delay: number,
   dependencies: React.DependencyList
 ): void => {

@@ -64,7 +64,7 @@ class PieChart extends HTMLElement {
       return uiPath;
     });
 
-    this.lines = this.data.map((_) => {
+    this.lines = this.data.map(() => {
       const uiLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
       uiLine.setAttribute("stroke", "#000");
       uiLine.setAttribute("stroke-width", gap);

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 
 const useTimeout = (
-  callback: (...args: any[]) => void,
+  callback: (...args: unknown[]) => void,
   delay: number
 ): { reset: () => void; clear: () => void } => {
   const callbackRef = useRef<typeof callback>(callback);

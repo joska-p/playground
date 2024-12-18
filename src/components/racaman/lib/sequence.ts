@@ -1,8 +1,8 @@
 const createRacamanSequence = (n: number) => {
-  let sequence: number[] = [];
+  const sequence: number[] = [];
   let i = 0;
   while (sequence.length < n) {
-    let last = sequence[sequence.length - 1];
+    const last = sequence[sequence.length - 1];
     if (last === undefined) {
       sequence.push(0);
     } else if (last - i > 0 && !sequence.includes(last - i)) {

@@ -10,7 +10,8 @@
     "astro": "astro",
     "format": "prettier --write . --ignore-path .gitignore",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "fix": "prettier --write . --ignore-path .gitignore && eslint --fix"
   },
   "dependencies": {
     "@astrojs/react": "^4.0.0",

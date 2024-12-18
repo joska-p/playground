@@ -42,7 +42,7 @@ const getRandomValue = (obj: Record<string, unknown>) => {
 
 const stall = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const debounce = <T extends (...args: any[]) => any>(
+const debounce = <T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay = 1000
 ): ((...args: Parameters<T>) => void) => {
@@ -53,7 +53,7 @@ const debounce = <T extends (...args: any[]) => any>(
   };
 };
 
-const throttle = <T extends (...args: any[]) => any>(callback: T, delay = 1000) => {
+const throttle = <T extends (...args: unknown[]) => unknown[]>(callback: T, delay = 1000) => {
   let shouldWait = false;
   let waitingArgs: Parameters<T> | null;
 
