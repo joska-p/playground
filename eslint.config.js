@@ -7,13 +7,13 @@ import tseslint from "typescript-eslint";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ["src/**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { languageOptions: { globals: globals.browser } },
   ...tseslint.configs.recommended.map((config) => ({ ...config, files: ["src/**/*.{ts,tsx}"] })),
   {
     ...pluginJs.configs.recommended,
     ...pluginReact.configs.flat.recommended,
-    files: ["src/**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    ...jsxA11y.flatConfigs.recommended,
+    files: ["src/**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
     settings: {
       react: {
         version: "detect",
@@ -25,15 +25,4 @@ export default [
     },
   },
   ...eslintPluginAstro.configs.recommended,
-  {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    ...jsxA11y.flatConfigs.recommended,
-    languageOptions: {
-      ...jsxA11y.flatConfigs.recommended.languageOptions,
-      globals: {
-        ...globals.serviceworker,
-        ...globals.browser,
-      },
-    },
-  },
 ];
