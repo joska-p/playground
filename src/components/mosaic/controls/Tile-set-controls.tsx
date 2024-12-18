@@ -34,7 +34,7 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
             <Checkbox
               id={tile.name}
               checked={tileSet.find((element) => element.name === tile.name) ? true : false}
-              onCheckedChange={() => handleChangeTileSet(tile.name)}
+              onChange={() => handleChangeTileSet(tile.name)}
             />
             <Label
               htmlFor={tile.name}

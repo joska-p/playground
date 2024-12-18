@@ -2,23 +2,23 @@ const baseUrl = import.meta.env.BASE_URL;
 
 const routes = [
   {
-    title: "Home",
+    text: "Home",
     url: baseUrl,
   },
   {
-    title: "Mosaic",
+    text: "Mosaic",
     url: `${baseUrl}/mosaic`,
   },
   {
-    title: "Racaman",
+    text: "Racaman",
     url: `${baseUrl}/racaman`,
   },
   {
-    title: "Piechart",
+    text: "Piechart",
     url: `${baseUrl}/piechart`,
   },
   {
-    title: "Color wheel",
+    text: "Color wheel",
     url: `${baseUrl}/color-wheel`,
   },
 ];

@@ -1,4 +1,3 @@
-import { routes } from "@/constants/routes";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -6,13 +5,17 @@ import {
   NavigationMenuList,
 } from "@ui/navigation-menu";
 
-const Navigation = () => {
+type Props = {
+  routes: { text: string; url: string }[];
+};
+
+const Navigation = ({ routes }: Props) => {
   return (
     <NavigationMenu>
       <NavigationMenuList className="gap-10">
         {routes.map((route) => (
-          <NavigationMenuItem key={route.title}>
-            <NavigationMenuLink href={route.url}>{route.title}</NavigationMenuLink>
+          <NavigationMenuItem key={route.text}>
+            <NavigationMenuLink href={route.url}>{route.text}</NavigationMenuLink>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
