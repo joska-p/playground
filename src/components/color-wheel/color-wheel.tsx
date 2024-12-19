@@ -1,5 +1,5 @@
+import { Input } from "@ui/input";
 import { Label } from "@ui/label";
-import { Slider } from "@ui/slider";
 import { useRef } from "react";
 
 const ColorWheel = () => {
@@ -25,16 +25,16 @@ const ColorWheel = () => {
     backgroundColor: "hsla(var(--hue) var(--saturation) var(--luminosity) / var(--bg-opacity))",
   };
 
-  const handleHueChange = (value: number) => {
-    colorWheelRef.current?.style.setProperty("--hue", `${value}`);
+  const handleHueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    colorWheelRef.current?.style.setProperty("--hue", `${event.target.value}`);
   };
 
-  const handleSaturationChange = (value: number) => {
-    colorWheelRef.current?.style.setProperty("--saturation", `${value}%`);
+  const handleSaturationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    colorWheelRef.current?.style.setProperty("--saturation", `${event.target.value}%`);
   };
 
-  const handleLuminosityChange = (value: number) => {
-    colorWheelRef.current?.style.setProperty("--luminosity", `${value}%`);
+  const handleLuminosityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    colorWheelRef.current?.style.setProperty("--luminosity", `${event.target.value}%`);
   };
 
   return (
@@ -42,42 +42,45 @@ const ColorWheel = () => {
       <div className="flex flex-col gap-10">
         <Label htmlFor="hue-slider">Hue</Label>
         <div className="h-40 w-full" style={hueStyles}></div>
-        <Slider
+        <Input
+          type="range"
           id="hue-slider"
           name="hue-slider"
           min={0}
           max={360}
           step={1}
-          defaultValue={[180]}
-          onValueChange={(value) => handleHueChange(value[0])}
+          defaultValue={180}
+          onChange={handleHueChange}
         />
       </div>
 
       <div className="flex flex-col gap-10">
         <Label htmlFor="saturation-slider">Saturation</Label>
         <div className="h-40 w-full" style={saturationStyles}></div>
-        <Slider
+        <Input
+          type="range"
           id="saturation-slider"
           name="saturation-slider"
           min={0}
           max={100}
           step={1}
-          defaultValue={[50]}
-          onValueChange={(value) => handleSaturationChange(value[0])}
+          defaultValue={50}
+          onChange={handleSaturationChange}
         />
       </div>
 
       <div className="flex flex-col gap-10">
         <Label htmlFor="value-slider">Luminosity</Label>
         <div className="h-40 w-full" style={luminosityStyles}></div>
-        <Slider
+        <Input
+          type="range"
           id="value-slider"
           name="value-slider"
           min={0}
           max={100}
           step={1}
-          defaultValue={[50]}
-          onValueChange={(value) => handleLuminosityChange(value[0])}
+          defaultValue={50}
+          onChange={handleLuminosityChange}
         />
       </div>
     </section>

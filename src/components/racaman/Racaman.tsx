@@ -1,7 +1,7 @@
-import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar";
+import Controls from "@/components/racaman/controls";
+import { Sidebar, SidebarProvider } from "@ui/sidebar";
 import { useEffect, useRef, useState } from "react";
 import Canvas from "./canvas";
-import Controls from "./controls";
 import { createRacamanSequence } from "./lib/sequence";
 import Vectors from "./vectors";
 
@@ -25,16 +25,15 @@ const Racaman = () => {
   }, []);
 
   return (
-    <SidebarProvider>
+    <SidebarProvider position="right">
       <div className="relative h-dvh w-full content-center" ref={containerRef}>
         {drawMode === "vector-mode" && (
           <Vectors sequence={sequence} containerSize={containerSize} />
         )}
         {drawMode === "canvas-mode" && <Canvas sequence={sequence} containerSize={containerSize} />}
-        <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
       </div>
 
-      <Sidebar side="right" variant="floating">
+      <Sidebar>
         <Controls
           setSequence={setSequence}
           sequenceLength={sequence.length}
@@ -42,6 +41,15 @@ const Racaman = () => {
           drawMode={drawMode}
         />
       </Sidebar>
+
+      {/* <Sidebar>
+        <Controls
+          setSequence={setSequence}
+          sequenceLength={sequence.length}
+          setDrawMode={setDrawMode}
+          drawMode={drawMode}
+        />
+      </Sidebar> */}
     </SidebarProvider>
   );
 };

@@ -5,7 +5,7 @@ import {
 } from "@/components/mosaic/lib/colors";
 import { useDebounce } from "@/hooks/use-debounce";
 import { getRandom, shuffleObject } from "@lib/utils";
-import { Sidebar, SidebarProvider, SidebarTrigger } from "@ui/sidebar";
+import { Sidebar, SidebarProvider } from "@ui/sidebar";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Controls from "./controls/Controls";
 import Tile from "./tiles/Tile";
@@ -101,8 +101,8 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   }, []);
 
   return (
-    <SidebarProvider>
-      <section
+    <SidebarProvider position="right">
+      <div
         ref={mosaicRef}
         className="relative flex h-svh w-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
         style={styleObject}
@@ -110,10 +110,9 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
         {mosaicTiles.map((tile, index) => (
           <Tile key={index} name={tile.name} />
         ))}
-        <SidebarTrigger variant="ghost" className="absolute right-2 top-2 bg-sidebar" />
-      </section>
+      </div>
 
-      <Sidebar side="right" variant="floating">
+      <Sidebar>
         <Controls
           mosaicTileSet={mosaicTileSet}
           handleChangeMosaicTileSet={handleChangeMosaicTileSet}
