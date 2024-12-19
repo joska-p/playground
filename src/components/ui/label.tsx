@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   ref?: React.Ref<HTMLLabelElement>;
-} & React.ComponentProps<"label">;
+} & React.LabelHTMLAttributes<HTMLLabelElement>;
 
 const Label = ({ ref, className, ...props }: Props) => {
   return (

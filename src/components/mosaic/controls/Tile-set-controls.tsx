@@ -1,5 +1,5 @@
 import { colorNames } from "@/components/mosaic/lib/colors";
-import { Checkbox } from "@ui/checkbox";
+import { Input } from "@ui/input";
 import { Label } from "@ui/label";
 import type { DefaultTileSet } from "../Mosaic";
 import Tile from "../tiles/Tile";
@@ -31,7 +31,8 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
             className="items-top flex items-center space-x-2"
             style={styleObject}
           >
-            <Checkbox
+            <Input
+              type="checkbox"
               id={tile.name}
               checked={tileSet.find((element) => element.name === tile.name) ? true : false}
               onChange={() => handleChangeTileSet(tile.name)}

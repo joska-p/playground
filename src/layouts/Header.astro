@@ -1,6 +1,5 @@
 ---
 import { routes } from "@/constants/routes";
-import ModeToggle from "@widgets/ModeToggle";
 import Navigation from "@widgets/Navigation";
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -19,5 +18,5 @@ const { title } = Astro.props;
     >
   </a>
   <Navigation routes={routes} />
-  <ModeToggle client:load />
+  <!-- <ModeToggle client:load /> -->
 </header>
