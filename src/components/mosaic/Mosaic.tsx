@@ -50,8 +50,8 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     if (!mosaicRef.current) return;
 
     const newNumberOfTiles =
-      Math.floor(mosaicSize.width / mosaicTileSize.width) *
-      Math.floor(mosaicSize.height / mosaicTileSize.height);
+      Math.floor(mosaicSize.width / (mosaicTileSize.width + mosaicGap)) *
+      Math.floor(mosaicSize.height / (mosaicTileSize.height + mosaicGap));
 
     const newTiles = Array.from({ length: newNumberOfTiles }, () => {
       const newTileName = getRandom(mosaicTileSet).name;
@@ -87,24 +87,28 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   useEffect(() => {
     if (!mosaicRef.current) return;
+    setMosaicSize({ width: mosaicRef.current.offsetWidth, height: mosaicRef.current.offsetHeight });
+  }, [mosaicRef]);
 
-    const observer = new ResizeObserver(() => {
+  useEffect(() => {
+    if (!mosaicRef.current) return;
+
+    window.addEventListener("resize", () => {
       setMosaicSize({
-        width: mosaicRef.current!.offsetWidth,
-        height: mosaicRef.current!.offsetHeight,
+        width: mosaicRef.current?.offsetWidth ?? 0,
+        height: mosaicRef.current?.offsetHeight ?? 0,
       });
     });
-    observer.observe(mosaicRef.current);
     return () => {
-      observer.disconnect();
+      window.removeEventListener("resize", () => {});
     };
   }, []);
 
   return (
-    <SidebarProvider className="flex-grow">
+    <SidebarProvider className="h-full">
       <div
         ref={mosaicRef}
-        className="relative flex h-full w-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
+        className="flex h-full flex-wrap place-content-center gap-[var(--gap)]"
         style={styleObject}
       >
         {mosaicTiles.map((tile, index) => (

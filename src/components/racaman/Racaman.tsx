@@ -25,7 +25,7 @@ const Racaman = () => {
   }, []);
 
   return (
-    <SidebarProvider className="flex-grow">
+    <SidebarProvider className="h-full">
       <div className="relative h-full w-full content-center" ref={containerRef}>
         {drawMode === "vector-mode" && (
           <Vectors sequence={sequence} containerSize={containerSize} />
