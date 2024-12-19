@@ -735,42 +735,57 @@
 
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
+
+/**
+ * Sidebar context
+ */
+
+type SidebarContext = {
+  state: "expanded" | "collapsed";
+  toggleSidebar: () => void;
+};
+
+const SidebarContext = createContext<SidebarContext | null>(null);
+
+function useSidebar() {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider.");
+  }
+
+  return context;
+}
 
 /**
  * Sidebar provider
  */
 
-const sibarProviderVariants = cva("grid", {
-  variants: {
-    position: {
-      left: "grid-cols-[auto_1fr]",
-      right: "grid-cols-[1fr_auto]",
-      top: "grid-rows-[auto_1fr]",
-      bottom: "grid-rows-[1fr_auto]",
-    },
-  },
-  defaultVariants: {
-    position: "left",
-  },
-});
-
-export interface SidebarProviderProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof sibarProviderVariants> {
+interface SidebarProviderProps extends React.HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const SidebarProvider = ({
-  ref,
-  position,
-  className,
-  children,
-  ...props
-}: SidebarProviderProps) => {
+const SidebarProvider = ({ ref, className, children, ...props }: SidebarProviderProps) => {
+  const [open, setOpen] = useState(false);
+
+  const toggleSidebar = useCallback(() => {
+    setOpen((open) => !open);
+  }, [open]);
+
+  const contextValue = useMemo<SidebarContext>(
+    () => ({
+      state: open ? "expanded" : "collapsed",
+      toggleSidebar,
+    }),
+    [open]
+  );
+
   return (
-    <div ref={ref} {...props} className={cn(sibarProviderVariants({ position, className }))}>
-      {children}
-    </div>
+    <SidebarContext.Provider value={contextValue}>
+      <div ref={ref} {...props} className={cn("relative isolate overflow-hidden", className)}>
+        {children}
+      </div>
+    </SidebarContext.Provider>
   );
 };
 SidebarProvider.displayName = "SidebarProvider";
@@ -779,17 +794,92 @@ SidebarProvider.displayName = "SidebarProvider";
  * Sidebar
  */
 
-export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
+const sidebarVariants = cva("absolute z-10 grid top-0 bg-background h-full overflow-y-auto", {
+  variants: {
+    position: {
+      left: "left-0",
+      right: "right-0 grid-cols-[auto_1fr]",
+      top: "top-0",
+      bottom: "bottom-0",
+    },
+  },
+  defaultVariants: {
+    position: "right",
+  },
+});
+
+interface SidebarProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof sidebarVariants> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const Sidebar = ({ ref, children, ...props }: SidebarProps) => {
+const Sidebar = ({ ref, position, className, children, ...props }: SidebarProps) => {
+  const { state } = useSidebar();
   return (
-    <aside ref={ref} {...props}>
-      {children}
+    <aside ref={ref} {...props} className={cn(sidebarVariants({ position, className }))}>
+      <SidebarTrigger state={state} />
+      <div className={cn(state === "collapsed" && "hidden")}>{children}</div>
     </aside>
   );
 };
 Sidebar.displayName = "Sidebar";
 
-export { Sidebar, SidebarProvider };
+/**
+ * Sidebar trigger
+ */
+
+const sidebarTriggerVariants = cva("z-20", {
+  variants: {
+    size: {
+      sm: "h-6 w-6",
+      md: "h-7 w-7",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
+
+interface SidebarTriggerProps
+  extends React.HTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof sidebarTriggerVariants> {
+  state: "expanded" | "collapsed";
+}
+
+const SidebarTrigger = ({ state, size, className, ...props }: SidebarTriggerProps) => {
+  const { toggleSidebar } = useSidebar();
+
+  return (
+    <button
+      className={cn(sidebarTriggerVariants({ size, className }))}
+      onClick={toggleSidebar}
+      {...props}
+    >
+      <span className="sr-only">Toggle sidebar</span>
+      {state === "collapsed" ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      )}
+    </button>
+  );
+};
+
+export { Sidebar, SidebarProvider, SidebarTrigger };

@@ -26,7 +26,7 @@ const buttonVariants = cva(
   }
 );
 
-export interface Props
+interface Props
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   href?: string;

@@ -101,10 +101,10 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   }, []);
 
   return (
-    <SidebarProvider position="right">
+    <SidebarProvider className="flex-grow">
       <div
         ref={mosaicRef}
-        className="relative flex h-svh w-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
+        className="relative flex h-full w-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
         style={styleObject}
       >
         {mosaicTiles.map((tile, index) => (
@@ -112,7 +112,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
         ))}
       </div>
 
-      <Sidebar>
+      <Sidebar position="right">
         <Controls
           mosaicTileSet={mosaicTileSet}
           handleChangeMosaicTileSet={handleChangeMosaicTileSet}

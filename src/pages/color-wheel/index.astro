@@ -1,12 +1,8 @@
 ---
 import ColorWheel from "@/components/color-wheel/color-wheel";
-import Header from "@layouts/Header.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Mosaic">
-  <Header title="Color wheel" />
-  <main class="mx-auto max-w-screen-xl p-4">
-    <ColorWheel client:load />
-  </main>
+  <ColorWheel client:load />
 </Layout>

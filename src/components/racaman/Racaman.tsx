@@ -25,7 +25,7 @@ const Racaman = () => {
   }, []);
 
   return (
-    <SidebarProvider position="right">
+    <SidebarProvider>
       <div className="relative h-dvh w-full content-center" ref={containerRef}>
         {drawMode === "vector-mode" && (
           <Vectors sequence={sequence} containerSize={containerSize} />
@@ -33,7 +33,7 @@ const Racaman = () => {
         {drawMode === "canvas-mode" && <Canvas sequence={sequence} containerSize={containerSize} />}
       </div>
 
-      <Sidebar>
+      <Sidebar position="right">
         <Controls
           setSequence={setSequence}
           sequenceLength={sequence.length}
@@ -41,15 +41,6 @@ const Racaman = () => {
           drawMode={drawMode}
         />
       </Sidebar>
-
-      {/* <Sidebar>
-        <Controls
-          setSequence={setSequence}
-          sequenceLength={sequence.length}
-          setDrawMode={setDrawMode}
-          drawMode={drawMode}
-        />
-      </Sidebar> */}
     </SidebarProvider>
   );
 };

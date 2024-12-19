@@ -1,20 +1,29 @@
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-type Props = {
-  ref?: React.Ref<HTMLLabelElement>;
-} & React.LabelHTMLAttributes<HTMLLabelElement>;
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  {
+    variants: {
+      variant: {
+        default: "text-foreground",
+        outline: "text-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
-const Label = ({ ref, className, ...props }: Props) => {
-  return (
-    <label
-      className={cn(
-        "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-  );
+interface Props
+  extends React.LabelHTMLAttributes<HTMLLabelElement>,
+    VariantProps<typeof labelVariants> {
+  ref?: React.ForwardedRef<HTMLLabelElement>;
+}
+
+const Label = ({ ref, variant, className, ...props }: Props) => {
+  return <label className={cn(labelVariants({ variant, className }))} ref={ref} {...props} />;
 };
 
 export { Label };
