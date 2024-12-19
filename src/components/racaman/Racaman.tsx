@@ -25,15 +25,15 @@ const Racaman = () => {
   }, []);
 
   return (
-    <SidebarProvider>
-      <div className="relative h-dvh w-full content-center" ref={containerRef}>
+    <SidebarProvider className="flex-grow">
+      <div className="relative h-full w-full content-center" ref={containerRef}>
         {drawMode === "vector-mode" && (
           <Vectors sequence={sequence} containerSize={containerSize} />
         )}
         {drawMode === "canvas-mode" && <Canvas sequence={sequence} containerSize={containerSize} />}
       </div>
 
-      <Sidebar position="right">
+      <Sidebar position="top">
         <Controls
           setSequence={setSequence}
           sequenceLength={sequence.length}

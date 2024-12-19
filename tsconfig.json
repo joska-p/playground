@@ -9,10 +9,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],
       "@ui/*": ["./src/components/ui/*"],
       "@widgets/*": ["./src/components/widgets/*"],
+      "@components/*": ["./src/components/*"],
       "@content/*": ["./src/content/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
