@@ -3,9 +3,8 @@ import {
   getRandomColorsToUse,
   getRandomPalette,
 } from "@/components/mosaic/lib/colors";
-import { useDebounce } from "@/hooks/use-debounce";
 import { getRandom, shuffleObject } from "@lib/utils";
-import { Sidebar, SidebarProvider } from "@ui/sidebar";
+import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Controls from "./controls/Controls";
 import Tile from "./tiles/Tile";
@@ -19,7 +18,6 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   const [colorProperties, setColorProperties] = useState(getColorProperties());
   const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([]);
   const [mosaicGap, setMosaicGap] = useState(0);
-  const [mosaicSize, setMosaicSize] = useState({ width: 0, height: 0 });
   const mosaicRef = useRef<HTMLDivElement>(null);
 
   const styleObject = useMemo(
@@ -49,10 +47,14 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
   const setNewTiles = () => {
     if (!mosaicRef.current) return;
 
-    const newNumberOfTiles =
-      Math.floor(mosaicSize.width / (mosaicTileSize.width + mosaicGap)) *
-      Math.floor(mosaicSize.height / (mosaicTileSize.height + mosaicGap));
+    const numberOfColumns = Math.floor(
+      mosaicRef.current.offsetWidth / (mosaicTileSize.width + mosaicGap)
+    );
+    const numberOfRows = Math.floor(
+      mosaicRef.current.offsetHeight / (mosaicTileSize.height + mosaicGap)
+    );
 
+    const newNumberOfTiles = numberOfColumns * numberOfRows;
     const newTiles = Array.from({ length: newNumberOfTiles }, () => {
       const newTileName = getRandom(mosaicTileSet).name;
       return {
@@ -75,46 +77,20 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     }
   };
 
-  useEffect(setNewTiles, [mosaicTileSet, mosaicTileSize, mosaicGap]);
-
-  useDebounce(
-    () => {
-      setNewTiles();
-    },
-    200,
-    [mosaicSize]
-  );
-
-  useEffect(() => {
-    if (!mosaicRef.current) return;
-    setMosaicSize({ width: mosaicRef.current.offsetWidth, height: mosaicRef.current.offsetHeight });
-  }, [mosaicRef]);
-
-  useEffect(() => {
-    if (!mosaicRef.current) return;
-
-    window.addEventListener("resize", () => {
-      setMosaicSize({
-        width: mosaicRef.current?.offsetWidth ?? 0,
-        height: mosaicRef.current?.offsetHeight ?? 0,
-      });
-    });
-    return () => {
-      window.removeEventListener("resize", () => {});
-    };
-  }, []);
+  useEffect(setNewTiles, []);
 
   return (
     <SidebarProvider className="h-full">
-      <div
-        ref={mosaicRef}
-        className="flex h-full flex-wrap place-content-center gap-[var(--gap)]"
-        style={styleObject}
-      >
-        {mosaicTiles.map((tile, index) => (
-          <Tile key={index} name={tile.name} />
-        ))}
-      </div>
+      <SidebarContent className="relative h-full" ref={mosaicRef}>
+        <div
+          className="absolute inset-0 flex h-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
+          style={styleObject}
+        >
+          {mosaicTiles.map((tile, index) => (
+            <Tile key={index} name={tile.name} />
+          ))}
+        </div>
+      </SidebarContent>
 
       <Sidebar position="right">
         <Controls

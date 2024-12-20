@@ -45,7 +45,7 @@ const Controls = ({
     () => {
       handleChangeMosaicGap(gapSize);
     },
-    500,
+    200,
     [gapSize]
   );
 
@@ -53,13 +53,13 @@ const Controls = ({
     () => {
       handleResizeMosaicTiles({ width: tileSize.width, height: tileSize.height });
     },
-    500,
+    200,
     [tileSize]
   );
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-6">
+    <div className="max-w-sm space-y-6">
+      <div className="flex flex-col space-y-6">
         <Button type="button" onClick={swapColors}>
           Swap colors
         </Button>

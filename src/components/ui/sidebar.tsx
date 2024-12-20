@@ -31,8 +31,8 @@ interface SidebarProviderProps extends React.HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const SidebarProvider = ({ ref, className, children, ...props }: SidebarProviderProps) => {
-  const [open, setOpen] = useState(false);
+const SidebarProvider = ({ ref, className, children }: SidebarProviderProps) => {
+  const [open, setOpen] = useState(true);
 
   const toggleSidebar = useCallback(() => {
     setOpen((open) => !open);
@@ -48,7 +48,7 @@ const SidebarProvider = ({ ref, className, children, ...props }: SidebarProvider
 
   return (
     <SidebarContext.Provider value={contextValue}>
-      <div ref={ref} {...props} className={cn("relative isolate overflow-hidden", className)}>
+      <div ref={ref} className={cn("relative", className)}>
         {children}
       </div>
     </SidebarContext.Provider>
@@ -60,7 +60,7 @@ SidebarProvider.displayName = "SidebarProvider";
  * Sidebar
  */
 
-const sidebarVariants = cva("absolute z-10 grid bg-background overflow-y-auto", {
+const sidebarVariants = cva("z-10 absolute grid overflow-y-auto transition-transform", {
   variants: {
     position: {
       left: "left-0 top-0 grid-cols-[1fr_auto] h-full w-auto",
@@ -97,13 +97,13 @@ const Sidebar = ({ ref, position = "right", className, children, ...props }: Sid
 
       <div
         className={cn(
-          "overflow-hidden",
+          "overflow-hidden bg-background/90 p-2",
           { "col-start-2": position === "right" },
           { "row-start-2": position === "bottom" },
           { "col-start-1 row-start-1": position === "left" },
           { "row-start-1": position === "top" },
-          { "w-0": (position === "left" || position === "right") && state === "collapsed" },
-          { "h-0": (position === "top" || position === "bottom") && state === "collapsed" }
+          { "w-0 p-0": (position === "left" || position === "right") && state === "collapsed" },
+          { "h-0 p-0": (position === "top" || position === "bottom") && state === "collapsed" }
         )}
       >
         {children}
@@ -114,34 +114,36 @@ const Sidebar = ({ ref, position = "right", className, children, ...props }: Sid
 Sidebar.displayName = "Sidebar";
 
 /**
+ * Sidebar content
+ */
+
+interface SidebarContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+const SidebarContent = ({ ref, className, children, ...props }: SidebarContentProps) => {
+  return (
+    <div ref={ref} {...props} className={cn(className)}>
+      {children}
+    </div>
+  );
+};
+
+/**
  * Sidebar trigger
  */
 
-const sidebarTriggerVariants = cva("z-20  justify-self-center", {
-  variants: {
-    size: {
-      sm: "h-6 w-6",
-      md: "h-7 w-7",
-    },
-  },
-  defaultVariants: {
-    size: "md",
-  },
-});
-
-interface SidebarTriggerProps
-  extends React.HTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof sidebarTriggerVariants> {
+interface SidebarTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
   state: "expanded" | "collapsed";
   position: "left" | "right" | "top" | "bottom";
 }
 
-const SidebarTrigger = ({ state, size, position, className, ...props }: SidebarTriggerProps) => {
+const SidebarTrigger = ({ state, position, className, ...props }: SidebarTriggerProps) => {
   const { toggleSidebar } = useSidebar();
 
   return (
     <button
-      className={cn(sidebarTriggerVariants({ size, className }))}
+      className={cn("z-20 h-8 w-7 content-center bg-background/90 p-1", className)}
       onClick={toggleSidebar}
       {...props}
     >
@@ -151,4 +153,4 @@ const SidebarTrigger = ({ state, size, position, className, ...props }: SidebarT
   );
 };
 
-export { Sidebar, SidebarProvider, SidebarTrigger };
+export { Sidebar, SidebarContent, SidebarProvider, SidebarTrigger };

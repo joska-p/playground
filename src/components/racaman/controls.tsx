@@ -19,7 +19,7 @@ const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-background/90">
       <div className="space-y-6">
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="sequence-Length" className="text-sm">
