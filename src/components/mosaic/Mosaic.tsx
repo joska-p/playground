@@ -44,7 +44,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     });
   };
 
-  const setNewTiles = () => {
+  const setNewTiles = (newMosaicTileSet = mosaicTileSet) => {
     if (!mosaicRef.current) return;
 
     const numberOfColumns = Math.floor(
@@ -56,7 +56,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
     const newNumberOfTiles = numberOfColumns * numberOfRows;
     const newTiles = Array.from({ length: newNumberOfTiles }, () => {
-      const newTileName = getRandom(mosaicTileSet).name;
+      const newTileName = getRandom(newMosaicTileSet).name;
       return {
         name: newTileName,
         colorNames: getRandomColorsToUse(),
@@ -65,6 +65,8 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     });
     setMosaicTiles(newTiles);
   };
+
+  console.log("all mosaic render");
 
   useEffect(setNewTiles, []);
 

@@ -24,7 +24,7 @@ type ControlsProps = {
   setMosaicTileSize: ({ width, height }: { width: number; height: number }) => void;
   initialTileSet: DefaultTileSet;
   setNewColors: () => void;
-  setNewTiles: () => void;
+  setNewTiles: (tiles: DefaultTileSet) => void;
   swapColors: () => void;
 };
 
@@ -43,7 +43,7 @@ const Controls = ({
   const [gapSize, setGapSize] = useState(mosaicGap);
   const [tileSize, setTileSize] = useState(mosaicTileSize);
 
-  const handleChangeMosaicTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTileSize({ width: parseInt(event.target.value), height: parseInt(event.target.value) });
   };
   const handleChangeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +75,7 @@ const Controls = ({
         <Button type="button" onClick={setNewColors}>
           New colors
         </Button>
-        <Button type="button" onClick={setNewTiles}>
+        <Button type="button" onClick={() => setNewTiles(mosaicTileSet)}>
           New tiles
         </Button>
       </div>
@@ -92,7 +92,7 @@ const Controls = ({
             max={256}
             step={2}
             defaultValue={tileSize.width}
-            onChange={handleChangeMosaicTileSize}
+            onChange={handleChangeTileSize}
           />
         </div>
 
@@ -115,6 +115,7 @@ const Controls = ({
       <div>
         <TileSetControls
           initialTileSet={initialTileSet}
+          setNewTiles={setNewTiles}
           mosaicTileSet={mosaicTileSet}
           setMosaicTileSet={setMosaicTileSet}
         />

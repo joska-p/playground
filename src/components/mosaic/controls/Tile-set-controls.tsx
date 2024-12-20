@@ -7,6 +7,7 @@ import Tile from "../tiles/Tile";
 
 type Props = {
   initialTileSet: DefaultTileSet;
+  setNewTiles: (newMosaicTileSet: DefaultTileSet) => void;
   mosaicTileSet: DefaultTileSet;
   setMosaicTileSet: React.Dispatch<
     React.SetStateAction<
@@ -30,15 +31,24 @@ const styleObject = {
   [colorNames[4]]: "#dddddd",
 } as React.CSSProperties;
 
-const TileSetControls = ({ initialTileSet, mosaicTileSet, setMosaicTileSet }: Props) => {
+const TileSetControls = ({
+  initialTileSet,
+  setNewTiles,
+  mosaicTileSet,
+  setMosaicTileSet,
+}: Props) => {
   const handleChangeMosaicTileSet = (tileName: string) => {
     if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0].name) return;
 
     if (mosaicTileSet.find((tile) => tile.name === tileName)) {
-      setMosaicTileSet((prev) => prev.filter((tile) => tile.name !== tileName));
+      const newTileSet = mosaicTileSet.filter((tile) => tile.name !== tileName);
+      setMosaicTileSet(newTileSet);
+      setNewTiles(newTileSet);
     } else {
       const newTile = initialTileSet.filter((tile) => tile.name === tileName);
-      setMosaicTileSet((prev) => [...prev, ...newTile]);
+      const newTileSet = [...mosaicTileSet, ...newTile];
+      setMosaicTileSet(newTileSet);
+      setNewTiles(newTileSet);
     }
   };
 
