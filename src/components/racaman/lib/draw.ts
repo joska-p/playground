@@ -7,8 +7,8 @@ const draw = (
 ) => {
   if (!canvas.parentElement) return;
 
-  canvas.width = containerSize.width - 16;
-  canvas.height = containerSize.height - 16;
+  canvas.width = containerSize.width;
+  canvas.height = containerSize.height;
 
   const context = canvas.getContext("2d") as CanvasRenderingContext2D;
   const valueMin = Math.min(...sequence);
@@ -57,21 +57,24 @@ const drawSvg = (
 
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
 
-  const path = sequence.reduce((acc, value, index) => {
-    if (index > 0) {
-      const previousValue = sequence[index - 1];
-      const radius = Math.abs(value - previousValue) / 2;
-      if (
-        (index % 2 === 0 && previousValue > value) ||
-        (index % 2 !== 0 && previousValue < value)
-      ) {
-        acc += ` A ${radius} ${radius} 0 0 1 ${value} 0`; // clockwise
-      } else acc += `  A ${radius} ${radius} 0 0 0 ${value} 0`; // counter-clockwise
-    }
-    return acc;
-  }, `M 0 0`);
+  const path = sequence.reduce(
+    (acc, value, index) => {
+      if (index > 0) {
+        const previousValue = sequence[index - 1];
+        const radius = Math.abs(value - previousValue) / 2;
+        if (
+          (index % 2 === 0 && previousValue > value) ||
+          (index % 2 !== 0 && previousValue < value)
+        ) {
+          acc += ` A ${radius} ${radius} 0 0 1 ${value} ${height / 2}`; // clockwise
+        } else acc += `  A ${radius} ${radius} 0 0 0 ${value} ${height / 2}`; // counter-clockwise
+      }
+      return acc;
+    },
+    `M 0 ${height / 2} `
+  );
 
-  svg.innerHTML += `<path class="path" d="${path}" transform="translate(0, ${height / 2})" style="vector-effect: non-scaling-stroke"/>`;
+  svg.innerHTML += `<path class="path" d="${path}"  style="vector-effect: non-scaling-stroke"/>`;
 };
 
 export { draw, drawSvg };

@@ -26,9 +26,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
     };
   }, [svgRef, sequence, containerSize]);
 
-  return (
-    <svg ref={svgRef} style={styleObject} className="mx-auto w-full fill-transparent p-2"></svg>
-  );
+  return <svg ref={svgRef} style={styleObject} className="max-h-full fill-transparent" />;
 };
 
 export default Vectors;

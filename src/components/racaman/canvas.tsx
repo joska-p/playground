@@ -18,7 +18,7 @@ const Canvas = ({ sequence, containerSize }: Props) => {
     };
   }, [canvasRef, sequence, containerSize]);
 
-  return <canvas ref={canvasRef} className="mx-auto" />;
+  return <canvas ref={canvasRef} />;
 };
 
 export default Canvas;

@@ -13,9 +13,10 @@ const Racaman = () => {
 
   useEffect(() => {
     const observer = new ResizeObserver(() => {
+      if (!containerRef.current) return;
       setContainerSize({
-        width: containerRef.current?.offsetWidth ?? containerSize.width,
-        height: containerRef.current?.offsetHeight ?? containerSize.height,
+        width: containerRef.current.offsetWidth,
+        height: containerRef.current.offsetHeight,
       });
     });
     if (containerRef.current) observer.observe(containerRef.current);
@@ -37,7 +38,7 @@ const Racaman = () => {
         </div>
       </SidebarContent>
 
-      <Sidebar position="top">
+      <Sidebar position="right">
         <Controls
           setSequence={setSequence}
           sequenceLength={sequence.length}
