@@ -3,16 +3,25 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { Button } from "@ui/button";
 import { Label } from "@ui/label";
 import { useState } from "react";
+import type { ColorName } from "../lib/colors";
 import type { DefaultTileSet } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
 type ControlsProps = {
   mosaicTileSet: DefaultTileSet;
-  handleChangeMosaicTileSet: (tileName: string) => void;
+  setMosaicTileSet: React.Dispatch<
+    React.SetStateAction<
+      {
+        name: string;
+        colorNames: ColorName[];
+        rotation: number;
+      }[]
+    >
+  >;
   mosaicGap: number;
-  handleChangeMosaicGap: (value: number) => void;
+  setMosaicGap: React.Dispatch<React.SetStateAction<number>>;
   mosaicTileSize: { width: number; height: number };
-  handleResizeMosaicTiles: ({ width, height }: { width: number; height: number }) => void;
+  setMosaicTileSize: ({ width, height }: { width: number; height: number }) => void;
   initialTileSet: DefaultTileSet;
   setNewColors: () => void;
   setNewTiles: () => void;
@@ -21,11 +30,11 @@ type ControlsProps = {
 
 const Controls = ({
   mosaicTileSet,
-  handleResizeMosaicTiles,
+  setMosaicTileSize,
   mosaicGap,
-  handleChangeMosaicGap,
+  setMosaicGap,
   mosaicTileSize,
-  handleChangeMosaicTileSet,
+  setMosaicTileSet,
   initialTileSet,
   setNewColors,
   setNewTiles,
@@ -34,7 +43,7 @@ const Controls = ({
   const [gapSize, setGapSize] = useState(mosaicGap);
   const [tileSize, setTileSize] = useState(mosaicTileSize);
 
-  const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMosaicTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTileSize({ width: parseInt(event.target.value), height: parseInt(event.target.value) });
   };
   const handleChangeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +52,7 @@ const Controls = ({
 
   useDebounce(
     () => {
-      handleChangeMosaicGap(gapSize);
+      setMosaicGap(gapSize);
     },
     200,
     [gapSize]
@@ -51,7 +60,7 @@ const Controls = ({
 
   useDebounce(
     () => {
-      handleResizeMosaicTiles({ width: tileSize.width, height: tileSize.height });
+      setMosaicTileSize({ width: tileSize.width, height: tileSize.height });
     },
     200,
     [tileSize]
@@ -83,7 +92,7 @@ const Controls = ({
             max={256}
             step={2}
             defaultValue={tileSize.width}
-            onChange={handleChangeTileSize}
+            onChange={handleChangeMosaicTileSize}
           />
         </div>
 
@@ -106,8 +115,8 @@ const Controls = ({
       <div>
         <TileSetControls
           initialTileSet={initialTileSet}
-          tileSet={mosaicTileSet}
-          handleChangeTileSet={handleChangeMosaicTileSet}
+          mosaicTileSet={mosaicTileSet}
+          setMosaicTileSet={setMosaicTileSet}
         />
       </div>
     </div>

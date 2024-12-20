@@ -1,13 +1,22 @@
 import { colorNames } from "@/components/mosaic/lib/colors";
 import { Input } from "@ui/input";
 import { Label } from "@ui/label";
+import type { ColorName } from "../lib/colors";
 import type { DefaultTileSet } from "../Mosaic";
 import Tile from "../tiles/Tile";
 
 type Props = {
   initialTileSet: DefaultTileSet;
-  tileSet: DefaultTileSet;
-  handleChangeTileSet: (tileName: string) => void;
+  mosaicTileSet: DefaultTileSet;
+  setMosaicTileSet: React.Dispatch<
+    React.SetStateAction<
+      {
+        name: string;
+        colorNames: ColorName[];
+        rotation: number;
+      }[]
+    >
+  >;
 };
 
 const styleObject = {
@@ -21,7 +30,18 @@ const styleObject = {
   [colorNames[4]]: "#dddddd",
 } as React.CSSProperties;
 
-const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props) => {
+const TileSetControls = ({ initialTileSet, mosaicTileSet, setMosaicTileSet }: Props) => {
+  const handleChangeMosaicTileSet = (tileName: string) => {
+    if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0].name) return;
+
+    if (mosaicTileSet.find((tile) => tile.name === tileName)) {
+      setMosaicTileSet((prev) => prev.filter((tile) => tile.name !== tileName));
+    } else {
+      const newTile = initialTileSet.filter((tile) => tile.name === tileName);
+      setMosaicTileSet((prev) => [...prev, ...newTile]);
+    }
+  };
+
   return (
     <div className="flex flex-wrap gap-4">
       {initialTileSet.map((tile) => {
@@ -34,8 +54,8 @@ const TileSetControls = ({ initialTileSet, tileSet, handleChangeTileSet }: Props
             <Input
               type="checkbox"
               id={tile.name}
-              checked={tileSet.find((element) => element.name === tile.name) ? true : false}
-              onChange={() => handleChangeTileSet(tile.name)}
+              checked={mosaicTileSet.find((element) => element.name === tile.name) ? true : false}
+              onChange={() => handleChangeMosaicTileSet(tile.name)}
             />
             <Label
               htmlFor={tile.name}

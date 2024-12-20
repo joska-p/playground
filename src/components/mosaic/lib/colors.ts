@@ -2,7 +2,7 @@ import { z } from "zod";
 import { getRandom, safeFetch } from "../../../lib/utils";
 
 type Palette = [string, string, string, string, string];
-type ColorName = "--color-0" | "--color-1" | "--color-2" | "--color-3" | "--color-4";
+export type ColorName = "--color-0" | "--color-1" | "--color-2" | "--color-3" | "--color-4";
 type ColorProperties = Record<ColorName, string>;
 
 const fallbackPalettes: Palette[] = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]];

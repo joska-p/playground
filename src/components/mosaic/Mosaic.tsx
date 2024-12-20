@@ -66,24 +66,14 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     setMosaicTiles(newTiles);
   };
 
-  const handleChangeMosaicTileSet = (tileName: string) => {
-    if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0].name) return;
-
-    if (mosaicTileSet.find((tile) => tile.name === tileName)) {
-      setMosaicTileSet((prev) => prev.filter((tile) => tile.name !== tileName));
-    } else {
-      const newTile = initialTileSet.filter((tile) => tile.name === tileName);
-      setMosaicTileSet((prev) => [...prev, ...newTile]);
-    }
-  };
-
   useEffect(setNewTiles, []);
 
   return (
     <SidebarProvider className="h-full">
-      <SidebarContent className="relative h-full" ref={mosaicRef}>
+      <SidebarContent className="relative h-full">
         <div
           className="absolute inset-0 flex h-full flex-wrap place-content-center gap-[var(--gap)] overflow-hidden"
+          ref={mosaicRef}
           style={styleObject}
         >
           {mosaicTiles.map((tile, index) => (
@@ -95,11 +85,11 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
       <Sidebar position="right">
         <Controls
           mosaicTileSet={mosaicTileSet}
-          handleChangeMosaicTileSet={handleChangeMosaicTileSet}
+          setMosaicTileSet={setMosaicTileSet}
           mosaicGap={mosaicGap}
-          handleChangeMosaicGap={setMosaicGap}
+          setMosaicGap={setMosaicGap}
           mosaicTileSize={mosaicTileSize}
-          handleResizeMosaicTiles={setMosaicTileSize}
+          setMosaicTileSize={setMosaicTileSize}
           initialTileSet={initialTileSet}
           setNewColors={setNewColors}
           swapColors={swapColors}
