@@ -1,7 +1,7 @@
 ---
-import ToggleTheme from "@/components/widgets/ToggleTheme.astro";
 import { routes } from "@/constants/routes";
 import Navigation from "@widgets/Navigation";
+import ThemeToogle from "@widgets/themeToggle.astro";
 
 const baseUrl = import.meta.env.BASE_URL;
 const { title } = Astro.props;
@@ -19,5 +19,5 @@ const { title } = Astro.props;
     >
   </a>
   <Navigation routes={routes} />
-  <ToggleTheme />
+  <ThemeToogle />
 </header>
