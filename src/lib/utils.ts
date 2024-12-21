@@ -2,11 +2,9 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { z } from "zod";
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-function shuffleObject<T>(obj: Record<string, T>): Record<string, T> {
+const shuffleObject = <T>(obj: Record<string, T>): Record<string, T> => {
   // Extract the keys and values from the object
   const keys = Object.keys(obj);
   const values = Object.values(obj);
@@ -24,7 +22,9 @@ function shuffleObject<T>(obj: Record<string, T>): Record<string, T> {
   });
 
   return shuffledObject;
-}
+};
+
+const shuffleArray = <T>(array: T[]): T[] => array.sort(() => Math.random() - 0.5);
 
 const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)];
 
@@ -80,4 +80,14 @@ const throttle = <T extends (...args: unknown[]) => unknown[]>(callback: T, dela
   };
 };
 
-export { cn, debounce, getRandom, getRandomValue, safeFetch, shuffleObject, stall, throttle };
+export {
+  cn,
+  debounce,
+  getRandom,
+  getRandomValue,
+  safeFetch,
+  shuffleArray,
+  shuffleObject,
+  stall,
+  throttle,
+};

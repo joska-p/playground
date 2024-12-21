@@ -1,32 +1,27 @@
 import { z } from "zod";
-import { getRandom, safeFetch } from "../../../lib/utils";
+import { safeFetch } from "../../../lib/utils";
 
-type Palette = [string, string, string, string, string];
-export type ColorName = "--color-0" | "--color-1" | "--color-2" | "--color-3" | "--color-4";
-type ColorProperties = Record<ColorName, string>;
-
-const fallbackPalettes: Palette[] = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]];
-const initialColors: ColorProperties = {
+const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"];
+const initialColors = {
   "--color-0": "#333333",
   "--color-1": "#555555",
   "--color-2": "#777777",
   "--color-3": "#999999",
   "--color-4": "#bbbbbb",
 };
-const colorNames: ColorName[] = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"];
+const fallbackPalettes = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]];
 
-const getRandomPalette = async (): Promise<Palette> => {
+const getPalettes = async (): Promise<string[][]> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000;
   const palettesVersion = 1;
   const storedPalettes = localStorage.getItem("palettes");
-  let randomPalette: Palette;
 
   if (
     storedPalettes &&
     JSON.parse(storedPalettes).expiration > Date.now() &&
     JSON.parse(storedPalettes).version === palettesVersion
   ) {
-    randomPalette = getRandom(JSON.parse(storedPalettes).palettes);
+    return JSON.parse(storedPalettes).palettes;
   } else {
     try {
       const palettes = await safeFetch(
@@ -38,22 +33,19 @@ const getRandomPalette = async (): Promise<Palette> => {
         "palettes",
         JSON.stringify({ palettes, expiration: palettesExpiration, version: palettesVersion })
       );
-      randomPalette = getRandom(palettes) as Palette;
+      return palettes;
     } catch (e) {
       console.error(e);
-      randomPalette = getRandom(fallbackPalettes);
+      return fallbackPalettes;
     }
   }
-
-  return randomPalette;
 };
 
-const getRandomColors = async () => {
-  const palette = await getRandomPalette();
-  return colorNames.reduce((acc, color, index) => {
-    acc[color] = palette[index];
-    return acc;
-  }, {} as ColorProperties);
-};
+// const getRandomColors = (palette: ) => {
+//   return colorNames.reduce((acc, color, index) => {
+//     acc[color] = palette[index];
+//     return acc;
+//   }, {});
+// };
 
-export { colorNames, getRandomColors, initialColors };
+export { colorNames, getPalettes, initialColors };
