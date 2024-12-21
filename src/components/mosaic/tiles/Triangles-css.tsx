@@ -9,37 +9,16 @@ const Triangles = ({ colors, rotation }: Props) => {
   const styleObject = {
     transform: `rotate(${rotation}deg)`,
     backgroundColor: `var(${colors[0]})`,
+    transitionProperty: "border",
+    borderWidth: "calc(var(--tile-width) / 2)",
+    borderTopColor: `var(${colors[1]})`,
+    borderRightColor: `var(${colors[2]})`,
+    borderBottomColor: `var(${colors[3]})`,
+    borderLeftColor: `var(${colors[4]})`,
+    borderStyle: "solid",
   };
 
-  return (
-    <div style={styleObject} className={styles.tile} data-type="tile">
-      <div
-        className="absolute inset-0"
-        style={{ clipPath: "polygon(0 0, 50% 50%, 100% 0)", backgroundColor: `var(${colors[1]})` }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          clipPath: "polygon(100% 0, 50% 50%, 100% 100%)",
-          backgroundColor: `var(${colors[2]})`,
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          clipPath: "polygon(100% 100%, 50% 50%, 0 100%)",
-          backgroundColor: `var(${colors[3]})`,
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          clipPath: "polygon(0 100%, 50% 50%, 0% 0%)",
-          backgroundColor: `var(${colors[4]})`,
-        }}
-      />
-    </div>
-  );
+  return <div style={styleObject} className={styles.tile} data-type="tile" />;
 };
 
 export default Triangles;
