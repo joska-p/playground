@@ -8,8 +8,8 @@ import { defaultTileSet } from "./tiles/default-tile-set";
 
 export type DefaultTileSet = typeof defaultTileSet;
 
-const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileSet }) => {
-  const [mosaicTileSet, setMosaicTileSet] = useState(initialTileSet);
+const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) => {
+  const [mosaicTileSet, setMosaicTileSet] = useState(tileSet);
   const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([]);
   const mosaicRef = useRef<HTMLDivElement>(null);
 
@@ -34,26 +34,22 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     );
   };
 
-  const computeNumberOfTiles = () => {
+  const computedNumberOfTiles = () => {
     if (!mosaicRef.current) return 0;
     return (
       Math.floor(
-        (mosaicRef.current.parentElement!.offsetWidth - computedGap()) /
-          (computedTileWidth() + computedGap())
+        mosaicRef.current.parentElement!.offsetWidth / (computedTileWidth() + computedGap())
       ) *
       Math.floor(
-        (mosaicRef.current.parentElement!.offsetHeight - computedGap()) /
-          (computedTileHeight() + computedGap())
+        mosaicRef.current.parentElement!.offsetHeight / (computedTileHeight() + computedGap())
       )
     );
   };
 
   const setNewTiles = (newMosaicTileSet = mosaicTileSet) => {
-    if (!mosaicRef.current) return;
-
-    const newTiles = Array.from({ length: computeNumberOfTiles() }, () => {
-      return getRandom(newMosaicTileSet);
-    });
+    const newTiles = Array.from({ length: computedNumberOfTiles() }, () =>
+      getRandom(newMosaicTileSet)
+    );
     setMosaicTiles(newTiles);
   };
 
@@ -70,9 +66,9 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   return (
     <SidebarProvider className="h-full">
-      <SidebarContent className="absolute inset-0 grid content-center overflow-hidden">
+      <SidebarContent className="absolute inset-0 content-center overflow-hidden">
         <div
-          className="mx-auto flex w-fit flex-wrap gap-[var(--mosaicGap)]"
+          className="mx-auto flex w-fit flex-wrap justify-center gap-[var(--mosaicGap)]"
           ref={mosaicRef}
           style={styleObject}
         >
@@ -92,7 +88,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
           mosaicRef={mosaicRef}
           mosaicTileSet={mosaicTileSet}
           setMosaicTileSet={setMosaicTileSet}
-          initialTileSet={initialTileSet}
+          initialTileSet={tileSet}
           setNewTiles={setNewTiles}
         />
       </Sidebar>
