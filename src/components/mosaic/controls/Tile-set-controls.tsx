@@ -1,4 +1,4 @@
-import { colorNames, initialColors } from "@/components/mosaic/lib/colors";
+import { initialColors } from "@/components/mosaic/lib/colors";
 import { Input } from "@ui/input";
 import { Label } from "@ui/label";
 import type { DefaultTileSet } from "../Mosaic";
@@ -54,7 +54,7 @@ const TileSetControls = ({
               htmlFor={tile}
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              <Tile name={tile} colors={colorNames} rotation={0} />
+              <Tile name={tile} colors={Object.keys(initialColors)} rotation={0} />
             </Label>
           </div>
         );

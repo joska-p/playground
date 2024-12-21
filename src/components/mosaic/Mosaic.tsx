@@ -1,4 +1,4 @@
-import { colorNames, getPalettes, initialColors } from "@/components/mosaic/lib/colors";
+import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
 import { getRandom, shuffleArray } from "@lib/utils";
 import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +16,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   const computedColors = () => {
     if (!mosaicRef.current) return [];
-    return colorNames.map((color) =>
+    return Object.keys(initialColors).map((color) =>
       getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(color)
     );
   };
@@ -58,7 +58,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   const setNewColors = () => {
     const randomPalette = getRandom(palettes);
-    colorNames.forEach((colorName, index) => {
+    Object.keys(initialColors).forEach((colorName, index) => {
       if (!mosaicRef.current) return;
       mosaicRef.current.style.setProperty(colorName, randomPalette[index]);
     });
@@ -66,7 +66,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
   const swapColors = () => {
     const newColors = shuffleArray(computedColors());
-    colorNames.forEach((colorName, index) => {
+    Object.keys(initialColors).forEach((colorName, index) => {
       if (!mosaicRef.current) return;
       mosaicRef.current.style.setProperty(colorName, newColors[index]);
     });
@@ -110,7 +110,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
             <Tile
               key={index}
               name={tile}
-              colors={colorNames.map(() => getRandom(colorNames))}
+              colors={Object.keys(initialColors).map(() => getRandom(Object.keys(initialColors)))}
               rotation={getRandom([0, 90, 180, 270])}
             />
           ))}

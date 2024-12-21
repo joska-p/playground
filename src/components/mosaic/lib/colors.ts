@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { safeFetch } from "../../../lib/utils";
 
-const colorNames = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"];
 const initialColors = {
   "--color-0": "#333333",
   "--color-1": "#555555",
@@ -41,11 +40,4 @@ const getPalettes = async (): Promise<string[][]> => {
   }
 };
 
-// const getRandomColors = (palette: ) => {
-//   return colorNames.reduce((acc, color, index) => {
-//     acc[color] = palette[index];
-//     return acc;
-//   }, {});
-// };
-
-export { colorNames, getPalettes, initialColors };
+export { getPalettes, initialColors };
