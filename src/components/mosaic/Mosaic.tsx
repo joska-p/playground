@@ -56,12 +56,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
 
     const newNumberOfTiles = numberOfColumns * numberOfRows;
     const newTiles = Array.from({ length: newNumberOfTiles }, () => {
-      const newTileName = getRandom(newMosaicTileSet).name;
-      return {
-        name: newTileName,
-        colorNames: getRandomColorsToUse(),
-        rotation: getRandom([0, 90, 180, 270]),
-      };
+      return getRandom(newMosaicTileSet);
     });
     setMosaicTiles(newTiles);
   };
@@ -77,7 +72,12 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
           style={styleObject}
         >
           {mosaicTiles.map((tile, index) => (
-            <Tile key={index} name={tile.name} />
+            <Tile
+              key={index}
+              name={tile}
+              colors={getRandomColorsToUse()}
+              rotation={getRandom([0, 90, 180, 270])}
+            />
           ))}
         </div>
       </SidebarContent>

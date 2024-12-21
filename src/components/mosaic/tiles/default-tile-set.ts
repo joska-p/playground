@@ -1,5 +1,3 @@
-import { getRandom } from "@lib/utils";
-import { getRandomColorsToUse } from "../lib/colors";
 import CornerCircles from "./Corner-circles-css";
 import Diamond from "./Diamond-css";
 import MiddleCircles from "./Middle-circe-css";
@@ -19,41 +17,13 @@ const DefaultTileComponents = {
 };
 
 const defaultTileSet = [
-  {
-    name: CornerCircles.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
-  {
-    name: Diamond.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
-  {
-    name: MiddleCircles.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
-  {
-    name: OppositeCircles.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
-  {
-    name: Rainbow.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
-  {
-    name: Square.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
-  {
-    name: Triangles.name,
-    colorNames: getRandomColorsToUse(),
-    rotation: getRandom([0, 90, 180, 270]),
-  },
+  CornerCircles.name,
+  Diamond.name,
+  MiddleCircles.name,
+  OppositeCircles.name,
+  Rainbow.name,
+  Square.name,
+  Triangles.name,
 ];
 
 export { DefaultTileComponents, defaultTileSet };

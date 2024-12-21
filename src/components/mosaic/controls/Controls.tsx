@@ -3,21 +3,12 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { Button } from "@ui/button";
 import { Label } from "@ui/label";
 import { useState } from "react";
-import type { ColorName } from "../lib/colors";
 import type { DefaultTileSet } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
 type ControlsProps = {
   mosaicTileSet: DefaultTileSet;
-  setMosaicTileSet: React.Dispatch<
-    React.SetStateAction<
-      {
-        name: string;
-        colorNames: ColorName[];
-        rotation: number;
-      }[]
-    >
-  >;
+  setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
   mosaicGap: number;
   setMosaicGap: React.Dispatch<React.SetStateAction<number>>;
   mosaicTileSize: { width: number; height: number };
