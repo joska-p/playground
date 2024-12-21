@@ -37,11 +37,13 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
   const computedNumberOfTiles = () => {
     if (!mosaicRef.current) return 0;
     return (
-      Math.floor(
-        mosaicRef.current.parentElement!.offsetWidth / (computedTileWidth() + computedGap())
+      Math.round(
+        (mosaicRef.current.parentElement!.offsetWidth - computedGap()) /
+          (computedTileWidth() + computedGap())
       ) *
-      Math.floor(
-        mosaicRef.current.parentElement!.offsetHeight / (computedTileHeight() + computedGap())
+      Math.round(
+        (mosaicRef.current.parentElement!.offsetHeight - computedGap()) /
+          (computedTileHeight() + computedGap())
       )
     );
   };

@@ -1,6 +1,5 @@
 import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
 import { Input } from "@/components/ui/input";
-import { useDebounce } from "@/hooks/use-debounce";
 import { getRandom, shuffleArray } from "@/lib/utils";
 import { Button } from "@ui/button";
 import { Label } from "@ui/label";
@@ -26,14 +25,6 @@ const Controls = ({
   const [palettes, setPalettes] = useState([[""]]);
   const [size, setSize] = useState(64);
   const [gap, setGap] = useState(0);
-
-  useDebounce(
-    () => {
-      setNewTiles();
-    },
-    200,
-    [size, gap]
-  );
 
   const computedColors = () => {
     if (!mosaicRef.current) return [];
@@ -104,8 +95,8 @@ const Controls = ({
             id="tile-size"
             min={32}
             max={256}
-            step={2}
-            defaultValue={size}
+            step={1}
+            value={size}
             onChange={handleChangeTileSize}
           />
         </div>
@@ -119,8 +110,8 @@ const Controls = ({
             id="gap"
             min={0}
             step={1}
-            max={256}
-            defaultValue={gap}
+            max={128}
+            value={gap}
             onChange={handleChangeGapSize}
           />
         </div>
