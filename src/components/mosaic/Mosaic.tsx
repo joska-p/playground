@@ -66,8 +66,6 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     setMosaicTiles(newTiles);
   };
 
-  console.log("all mosaic render");
-
   useEffect(setNewTiles, []);
 
   return (

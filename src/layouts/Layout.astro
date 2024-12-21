@@ -6,6 +6,16 @@ const baseUrl = import.meta.env.BASE_URL;
 const { title } = Astro.props;
 ---
 
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+  document.documentElement.classList[getThemePreference() ? "add" : "remove"]("dark");
+</script>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />

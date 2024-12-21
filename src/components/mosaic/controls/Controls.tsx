@@ -24,7 +24,7 @@ type ControlsProps = {
   setMosaicTileSize: ({ width, height }: { width: number; height: number }) => void;
   initialTileSet: DefaultTileSet;
   setNewColors: () => void;
-  setNewTiles: (tiles: DefaultTileSet) => void;
+  setNewTiles: (tileset?: DefaultTileSet) => void;
   swapColors: () => void;
 };
 
@@ -45,9 +45,11 @@ const Controls = ({
 
   const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTileSize({ width: parseInt(event.target.value), height: parseInt(event.target.value) });
+    setNewTiles();
   };
   const handleChangeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGapSize(parseInt(event.target.value));
+    setNewTiles();
   };
 
   useDebounce(
