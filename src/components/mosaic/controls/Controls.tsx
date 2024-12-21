@@ -1,7 +1,9 @@
+import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
 import { Input } from "@/components/ui/input";
+import { getRandom, shuffleArray } from "@/lib/utils";
 import { Button } from "@ui/button";
 import { Label } from "@ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { DefaultTileSet } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
@@ -10,9 +12,7 @@ type ControlsProps = {
   mosaicTileSet: DefaultTileSet;
   setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
   initialTileSet: DefaultTileSet;
-  setNewColors: () => void;
   setNewTiles: (tileset?: DefaultTileSet) => void;
-  swapColors: () => void;
 };
 
 const Controls = ({
@@ -20,12 +20,34 @@ const Controls = ({
   mosaicTileSet,
   setMosaicTileSet,
   initialTileSet,
-  setNewColors,
   setNewTiles,
-  swapColors,
 }: ControlsProps) => {
+  const [palettes, setPalettes] = useState([[""]]);
   const [size, setSize] = useState(64);
   const [gap, setGap] = useState(0);
+
+  const computedColors = () => {
+    if (!mosaicRef.current) return [];
+    return Object.keys(initialColors).map((color) =>
+      getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(color)
+    );
+  };
+
+  const setNewColors = () => {
+    const randomPalette = getRandom(palettes);
+    Object.keys(initialColors).forEach((colorName, index) => {
+      if (!mosaicRef.current) return;
+      mosaicRef.current.style.setProperty(colorName, randomPalette[index]);
+    });
+  };
+
+  const swapColors = () => {
+    const newColors = shuffleArray(computedColors());
+    Object.keys(initialColors).forEach((colorName, index) => {
+      if (!mosaicRef.current) return;
+      mosaicRef.current.style.setProperty(colorName, newColors[index]);
+    });
+  };
 
   const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSize(parseInt(event.target.value));
@@ -39,6 +61,15 @@ const Controls = ({
     if (!mosaicRef.current) return;
     mosaicRef.current.style.setProperty("--mosaicGap", `${event.target.value}px`);
   };
+
+  const setNewPalettes = async () => {
+    const palettes = await getPalettes();
+    setPalettes(palettes);
+  };
+
+  useEffect(() => {
+    setNewPalettes();
+  }, []);
 
   return (
     <div className="max-w-sm space-y-6">

@@ -1,5 +1,5 @@
-import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
-import { getRandom, shuffleArray } from "@lib/utils";
+import { initialColors } from "@/components/mosaic/lib/colors";
+import { getRandom } from "@lib/utils";
 import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
 import { useEffect, useRef, useState } from "react";
 import Controls from "./controls/Controls";
@@ -9,17 +9,9 @@ import { defaultTileSet } from "./tiles/default-tile-set";
 export type DefaultTileSet = typeof defaultTileSet;
 
 const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileSet }) => {
-  const [palettes, setPalettes] = useState([[""]]);
   const [mosaicTileSet, setMosaicTileSet] = useState(initialTileSet);
   const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([]);
   const mosaicRef = useRef<HTMLDivElement>(null);
-
-  const computedColors = () => {
-    if (!mosaicRef.current) return [];
-    return Object.keys(initialColors).map((color) =>
-      getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(color)
-    );
-  };
 
   const computedTileWidth = () => {
     if (!mosaicRef.current) return tileWidth;
@@ -56,22 +48,6 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     );
   };
 
-  const setNewColors = () => {
-    const randomPalette = getRandom(palettes);
-    Object.keys(initialColors).forEach((colorName, index) => {
-      if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(colorName, randomPalette[index]);
-    });
-  };
-
-  const swapColors = () => {
-    const newColors = shuffleArray(computedColors());
-    Object.keys(initialColors).forEach((colorName, index) => {
-      if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(colorName, newColors[index]);
-    });
-  };
-
   const setNewTiles = (newMosaicTileSet = mosaicTileSet) => {
     if (!mosaicRef.current) return;
 
@@ -88,13 +64,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
     "--mosaicGap": `${0}px`,
   } as React.CSSProperties;
 
-  const setNewPalettes = async () => {
-    const palettes = await getPalettes();
-    setPalettes(palettes);
-  };
-
   useEffect(() => {
-    setNewPalettes();
     setNewTiles();
   }, []);
 
@@ -123,8 +93,6 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, initialTileSet = defaultTileS
           mosaicTileSet={mosaicTileSet}
           setMosaicTileSet={setMosaicTileSet}
           initialTileSet={initialTileSet}
-          setNewColors={setNewColors}
-          swapColors={swapColors}
           setNewTiles={setNewTiles}
         />
       </Sidebar>
