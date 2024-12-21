@@ -11,14 +11,13 @@ const navigationMenuVariants = cva("relative z-10 flex flex-1 items-center space
       default: "text-foreground",
     },
     position: {
-      default: "justify-center",
       left: "justify-start",
       center: "justify-center",
       right: "justify-end",
     },
     spacing: {
-      default: "space-x-1",
       none: "space-x-0",
+      xs: "space-x-1",
       sm: "space-x-2",
       lg: "space-x-4",
       xl: "space-x-8",
@@ -27,7 +26,7 @@ const navigationMenuVariants = cva("relative z-10 flex flex-1 items-center space
   defaultVariants: {
     variant: "default",
     position: "center",
-    spacing: "default",
+    spacing: "none",
   },
 });
 
@@ -59,14 +58,13 @@ const navigationMenuListVariants = cva("group flex flex-1 list-none items-center
       default: "text-foreground",
     },
     position: {
-      default: "justify-center",
       left: "justify-start",
       center: "justify-center",
       right: "justify-end",
     },
     spacing: {
-      default: "space-x-1",
       none: "space-x-0",
+      xs: "space-x-1",
       sm: "space-x-2",
       lg: "space-x-4",
       xl: "space-x-8",
@@ -74,8 +72,8 @@ const navigationMenuListVariants = cva("group flex flex-1 list-none items-center
   },
   defaultVariants: {
     variant: "default",
-    position: "default",
-    spacing: "default",
+    position: "center",
+    spacing: "none",
   },
 });
 
