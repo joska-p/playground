@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { useDebounce } from "@/hooks/use-debounce";
 import { Button } from "@ui/button";
 import { Label } from "@ui/label";
 import { useState } from "react";
@@ -7,12 +6,9 @@ import type { DefaultTileSet } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
 type ControlsProps = {
+  mosaicRef: React.RefObject<HTMLDivElement>;
   mosaicTileSet: DefaultTileSet;
   setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
-  mosaicGap: number;
-  setMosaicGap: React.Dispatch<React.SetStateAction<number>>;
-  mosaicTileSize: { width: number; height: number };
-  setMosaicTileSize: ({ width, height }: { width: number; height: number }) => void;
   initialTileSet: DefaultTileSet;
   setNewColors: () => void;
   setNewTiles: (tileset?: DefaultTileSet) => void;
@@ -20,44 +16,29 @@ type ControlsProps = {
 };
 
 const Controls = ({
+  mosaicRef,
   mosaicTileSet,
-  setMosaicTileSize,
-  mosaicGap,
-  setMosaicGap,
-  mosaicTileSize,
   setMosaicTileSet,
   initialTileSet,
   setNewColors,
   setNewTiles,
   swapColors,
 }: ControlsProps) => {
-  const [gapSize, setGapSize] = useState(mosaicGap);
-  const [tileSize, setTileSize] = useState(mosaicTileSize);
+  const [size, setSize] = useState(64);
+  const [gap, setGap] = useState(0);
 
   const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTileSize({ width: parseInt(event.target.value), height: parseInt(event.target.value) });
-    setNewTiles();
+    setSize(parseInt(event.target.value));
+    if (!mosaicRef.current) return;
+    mosaicRef.current.style.setProperty("--tile-width", `${event.target.value}px`);
+    mosaicRef.current.style.setProperty("--tile-height", `${event.target.value}px`);
   };
+
   const handleChangeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGapSize(parseInt(event.target.value));
-    setNewTiles();
+    setGap(parseInt(event.target.value));
+    if (!mosaicRef.current) return;
+    mosaicRef.current.style.setProperty("--mosaicGap", `${event.target.value}px`);
   };
-
-  useDebounce(
-    () => {
-      setMosaicGap(gapSize);
-    },
-    200,
-    [gapSize]
-  );
-
-  useDebounce(
-    () => {
-      setMosaicTileSize({ width: tileSize.width, height: tileSize.height });
-    },
-    200,
-    [tileSize]
-  );
 
   return (
     <div className="max-w-sm space-y-6">
@@ -76,7 +57,7 @@ const Controls = ({
       <div className="space-y-6">
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="tile-size" className="text-sm">
-            Tile size: {tileSize.width}px
+            Tile size: {size}px
           </Label>
           <Input
             type="range"
@@ -84,14 +65,14 @@ const Controls = ({
             min={32}
             max={256}
             step={2}
-            defaultValue={tileSize.width}
+            defaultValue={size}
             onChange={handleChangeTileSize}
           />
         </div>
 
         <div className="flex flex-col items-center space-y-2">
           <Label htmlFor="gap" className="text-sm">
-            Gap size: {gapSize}px
+            Gap size: {gap}px
           </Label>
           <Input
             type="range"
@@ -99,7 +80,7 @@ const Controls = ({
             min={0}
             step={1}
             max={256}
-            defaultValue={gapSize}
+            defaultValue={gap}
             onChange={handleChangeGapSize}
           />
         </div>

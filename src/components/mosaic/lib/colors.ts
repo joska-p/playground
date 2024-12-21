@@ -6,6 +6,13 @@ export type ColorName = "--color-0" | "--color-1" | "--color-2" | "--color-3" | 
 type ColorProperties = Record<ColorName, string>;
 
 const fallbackPalettes: Palette[] = [["#333333", "#555555", "#777777", "#999999", "#bbbbbb"]];
+const initialColors: ColorProperties = {
+  "--color-0": "#333333",
+  "--color-1": "#555555",
+  "--color-2": "#777777",
+  "--color-3": "#999999",
+  "--color-4": "#bbbbbb",
+};
 const colorNames: ColorName[] = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"];
 
 const getRandomPalette = async (): Promise<Palette> => {
@@ -41,13 +48,12 @@ const getRandomPalette = async (): Promise<Palette> => {
   return randomPalette;
 };
 
-const getColorProperties = (palette = fallbackPalettes[0]) => {
+const getRandomColors = async () => {
+  const palette = await getRandomPalette();
   return colorNames.reduce((acc, color, index) => {
     acc[color] = palette[index];
     return acc;
   }, {} as ColorProperties);
 };
 
-const getRandomColorsToUse = () => colorNames.map(() => getRandom(colorNames));
-
-export { colorNames, fallbackPalettes, getColorProperties, getRandomColorsToUse, getRandomPalette };
+export { colorNames, getRandomColors, initialColors };

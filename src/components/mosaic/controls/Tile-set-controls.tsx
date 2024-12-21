@@ -1,4 +1,4 @@
-import { colorNames } from "@/components/mosaic/lib/colors";
+import { colorNames, initialColors } from "@/components/mosaic/lib/colors";
 import { Input } from "@ui/input";
 import { Label } from "@ui/label";
 import type { DefaultTileSet } from "../Mosaic";
@@ -15,11 +15,7 @@ const styleObject = {
   "--tile-width": "32px",
   "--tile-height": "32px",
   "--rotation": "0deg",
-  [colorNames[0]]: "#555555",
-  [colorNames[1]]: "#777777",
-  [colorNames[2]]: "#999999",
-  [colorNames[3]]: "#bbbbbb",
-  [colorNames[4]]: "#dddddd",
+  ...initialColors,
 } as React.CSSProperties;
 
 const TileSetControls = ({
