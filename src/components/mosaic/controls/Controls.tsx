@@ -84,7 +84,7 @@ const Controls = ({
 
   const handleSetNewPalettes = async () => {
     const palettes = await getPalettes();
-    const randomPalettes = shuffleArray(palettes).slice(0, 22);
+    const randomPalettes = shuffleArray(palettes).slice(0, 23);
     setPalettes(randomPalettes);
   };
 

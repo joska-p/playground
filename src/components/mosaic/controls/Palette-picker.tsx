@@ -10,12 +10,6 @@ const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) 
   return (
     <fieldset className="flex flex-wrap justify-center gap-4">
       <Palette
-        palette={currentPalette}
-        disabled
-        checked={false}
-        handleSetNewColors={handleSetNewColors}
-      />
-      <Palette
         palette={defaultPalette}
         handleSetNewColors={handleSetNewColors}
         checked={defaultPalette.join(",") === currentPalette.join(",")}
