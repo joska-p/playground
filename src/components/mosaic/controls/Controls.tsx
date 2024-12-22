@@ -95,16 +95,16 @@ const Controls = ({
   return (
     <form className="max-w-sm space-y-8">
       <fieldset className="grid grid-cols-2 gap-4">
-        <Button type="button" onClick={HandleShuffleColors}>
+        <Button type="button" onClick={HandleShuffleColors} size="sm">
           Shuffle colors
         </Button>
-        <Button type="button" onClick={HandleSuffleRotations}>
+        <Button type="button" onClick={HandleSuffleRotations} size="sm">
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={handleSetNewPalettes}>
+        <Button type="button" onClick={handleSetNewPalettes} size="sm">
           New palettes
         </Button>
-        <Button type="button" onClick={() => handleSetNewTiles(mosaicTileSet)}>
+        <Button type="button" onClick={() => handleSetNewTiles(mosaicTileSet)} size="sm">
           New tiles
         </Button>
       </fieldset>
