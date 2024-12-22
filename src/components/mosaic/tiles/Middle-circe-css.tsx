@@ -1,18 +1,18 @@
-import styles from "./tile.module.css";
+import { cn } from "@/lib/utils";
 
 type Props = {
   colors: string[];
   rotation: string;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const MiddleCircles = ({ colors, rotation }: Props) => {
+const MiddleCircles = ({ colors, rotation, className }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(var(${rotation}))`,
   };
 
   return (
-    <div className={`flex items-center justify-center ${styles.tile}`} style={styleObject}>
+    <div className={cn("flex items-center justify-center", className)} style={styleObject}>
       <div
         className="h-1/2 w-1/4 rounded-l-full"
         style={{ backgroundColor: `var(${colors[1]})` }}

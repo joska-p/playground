@@ -1,3 +1,4 @@
+import PalettePicker from "@/components/mosaic/controls/Palette-picker";
 import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
 import { Input } from "@/components/ui/input";
 import { getRandom, shuffleArray } from "@/lib/utils";
@@ -8,12 +9,14 @@ import type { DefaultTileSet } from "../Mosaic";
 import { initialRotations } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
+export const defaultPalette = ["#333333", "#555555", "#777777", "#999999", "#bbbbbb"];
+
 type ControlsProps = {
   mosaicRef: React.RefObject<HTMLDivElement>;
   mosaicTileSet: DefaultTileSet;
   setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
   initialTileSet: DefaultTileSet;
-  setNewTiles: (tileset?: DefaultTileSet) => void;
+  handleSetNewTiles: (tileset?: DefaultTileSet) => void;
 };
 
 const Controls = ({
@@ -21,9 +24,10 @@ const Controls = ({
   mosaicTileSet,
   setMosaicTileSet,
   initialTileSet,
-  setNewTiles,
+  handleSetNewTiles,
 }: ControlsProps) => {
   const [palettes, setPalettes] = useState([[""]]);
+  const [currentPalette, setCurrentPalette] = useState(defaultPalette);
   const [size, setSize] = useState(64);
   const [gap, setGap] = useState(0);
 
@@ -41,15 +45,15 @@ const Controls = ({
     );
   };
 
-  const setNewColors = () => {
-    const randomPalette = getRandom(palettes);
+  const handleSetNewColors = (palette = getRandom(palettes)) => {
+    setCurrentPalette(palette);
     Object.keys(initialColors).forEach((colorName, index) => {
       if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(colorName, randomPalette[index]);
+      mosaicRef.current.style.setProperty(colorName, palette[index]);
     });
   };
 
-  const shuffleColors = () => {
+  const HandleShuffleColors = () => {
     const newColors = shuffleArray(computedColors());
     Object.keys(initialColors).forEach((colorName, index) => {
       if (!mosaicRef.current) return;
@@ -57,7 +61,7 @@ const Controls = ({
     });
   };
 
-  const suffleRotations = () => {
+  const HandleSuffleRotations = () => {
     const newRotations = shuffleArray(computedRotation());
     Object.keys(initialRotations).forEach((rotationName, index) => {
       if (!mosaicRef.current) return;
@@ -78,73 +82,72 @@ const Controls = ({
     mosaicRef.current.style.setProperty("--mosaicGap", `${event.target.value}px`);
   };
 
-  const setNewPalettes = async () => {
+  const handleSetNewPalettes = async () => {
     const palettes = await getPalettes();
-    setPalettes(palettes);
+    const randomPalettes = shuffleArray(palettes).slice(0, 22);
+    setPalettes(randomPalettes);
   };
 
   useEffect(() => {
-    setNewPalettes();
+    handleSetNewPalettes();
   }, []);
 
   return (
-    <div className="max-w-sm space-y-6">
-      <div className="flex flex-col space-y-6">
-        <Button type="button" onClick={shuffleColors}>
+    <form className="max-w-sm space-y-8">
+      <fieldset className="grid grid-cols-2 gap-4">
+        <Button type="button" onClick={HandleShuffleColors}>
           Shuffle colors
         </Button>
-        <Button type="button" onClick={suffleRotations}>
+        <Button type="button" onClick={HandleSuffleRotations}>
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={setNewColors}>
-          New colors
+        <Button type="button" onClick={handleSetNewPalettes}>
+          New palettes
         </Button>
-        <Button type="button" onClick={() => setNewTiles(mosaicTileSet)}>
+        <Button type="button" onClick={() => handleSetNewTiles(mosaicTileSet)}>
           New tiles
         </Button>
-      </div>
+      </fieldset>
 
-      <div className="space-y-6">
-        <div className="flex flex-col items-center space-y-2">
-          <Label htmlFor="tile-size" className="text-sm">
-            Tile size: {size}px
-          </Label>
+      <fieldset className="grid grid-cols-2 gap-4">
+        <Label className="flex flex-col items-center text-sm">
+          Tile size: {size}px
           <Input
             type="range"
-            id="tile-size"
             min={32}
             max={256}
             step={1}
             value={size}
             onChange={handleChangeTileSize}
           />
-        </div>
+        </Label>
 
-        <div className="flex flex-col items-center space-y-2">
-          <Label htmlFor="gap" className="text-sm">
-            Gap size: {gap}px
-          </Label>
+        <Label className="flex flex-col items-center text-sm">
+          Gap size: {gap}px
           <Input
             type="range"
-            id="gap"
             min={0}
             step={1}
             max={128}
             value={gap}
             onChange={handleChangeGapSize}
           />
-        </div>
-      </div>
+        </Label>
+      </fieldset>
 
-      <div>
-        <TileSetControls
-          initialTileSet={initialTileSet}
-          setNewTiles={setNewTiles}
-          mosaicTileSet={mosaicTileSet}
-          setMosaicTileSet={setMosaicTileSet}
-        />
-      </div>
-    </div>
+      <TileSetControls
+        initialTileSet={initialTileSet}
+        handleSetNewTiles={handleSetNewTiles}
+        mosaicTileSet={mosaicTileSet}
+        setMosaicTileSet={setMosaicTileSet}
+      />
+
+      <PalettePicker
+        palettes={palettes}
+        currentPalette={currentPalette}
+        handleSetNewColors={handleSetNewColors}
+      />
+    </form>
   );
 };
 

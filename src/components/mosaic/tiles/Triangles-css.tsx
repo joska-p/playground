@@ -1,11 +1,9 @@
-import styles from "./tile.module.css";
-
 type Props = {
   colors: string[];
   rotation: string;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const Triangles = ({ colors, rotation }: Props) => {
+const Triangles = ({ colors, rotation, className }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(var(${rotation}))`,
@@ -17,7 +15,7 @@ const Triangles = ({ colors, rotation }: Props) => {
     borderStyle: "solid",
   };
 
-  return <div style={styleObject} className={styles.tile} data-type="tile" />;
+  return <div style={styleObject} className={className} />;
 };
 
 export default Triangles;

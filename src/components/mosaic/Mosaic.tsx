@@ -54,7 +54,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
     );
   };
 
-  const setNewTiles = (newMosaicTileSet = mosaicTileSet) => {
+  const handleSetNewTiles = (newMosaicTileSet = mosaicTileSet) => {
     const newTiles = Array.from({ length: computedNumberOfTiles() }, () =>
       getRandom(newMosaicTileSet)
     );
@@ -70,7 +70,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
   } as React.CSSProperties;
 
   useEffect(() => {
-    setNewTiles();
+    handleSetNewTiles();
   }, []);
 
   return (
@@ -98,7 +98,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
           mosaicTileSet={mosaicTileSet}
           setMosaicTileSet={setMosaicTileSet}
           initialTileSet={tileSet}
-          setNewTiles={setNewTiles}
+          handleSetNewTiles={handleSetNewTiles}
         />
       </Sidebar>
     </SidebarProvider>

@@ -1,18 +1,16 @@
-import styles from "./tile.module.css";
-
 type Props = {
   colors: string[];
   rotation: string;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const Diamond = ({ colors, rotation }: Props) => {
+const Diamond = ({ colors, rotation, className }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(var(${rotation}))`,
   };
 
   return (
-    <div className={styles.tile} style={styleObject}>
+    <div className={className} style={styleObject}>
       <div
         className="absolute inset-0"
         style={{

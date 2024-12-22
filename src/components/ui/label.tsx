@@ -1,20 +1,16 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const labelVariants = cva(
-  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-  {
-    variants: {
-      variant: {
-        default: "text-foreground",
-        outline: "text-foreground",
-      },
+const labelVariants = cva("text-sm font-medium", {
+  variants: {
+    variant: {
+      default: "text-foreground",
     },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-);
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 type Props = React.LabelHTMLAttributes<HTMLLabelElement> &
   VariantProps<typeof labelVariants> & {

@@ -21,9 +21,6 @@ export default defineConfig({
     format: "preserve",
   },
   vite: {
-    optimizeDeps: {
-      include: ["react/jsx-runtime"],
-    },
     build: {
       sourcemap: true,
     },

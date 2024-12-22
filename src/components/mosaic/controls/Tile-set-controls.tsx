@@ -1,26 +1,18 @@
 import { initialColors } from "@/components/mosaic/lib/colors";
-import { Input } from "@ui/input";
 import { Label } from "@ui/label";
 import type { DefaultTileSet } from "../Mosaic";
 import Tile from "../tiles/Tile";
 
 type Props = {
   initialTileSet: DefaultTileSet;
-  setNewTiles: (newMosaicTileSet: DefaultTileSet) => void;
+  handleSetNewTiles: (newMosaicTileSet: DefaultTileSet) => void;
   mosaicTileSet: DefaultTileSet;
   setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const styleObject = {
-  "--tile-width": "32px",
-  "--tile-height": "32px",
-  "--rotation": "0deg",
-  ...initialColors,
-} as React.CSSProperties;
-
 const TileSetControls = ({
   initialTileSet,
-  setNewTiles,
+  handleSetNewTiles,
   mosaicTileSet,
   setMosaicTileSet,
 }: Props) => {
@@ -30,36 +22,43 @@ const TileSetControls = ({
     if (mosaicTileSet.find((tile) => tile === tileName)) {
       const newTileSet = mosaicTileSet.filter((tile) => tile !== tileName);
       setMosaicTileSet(newTileSet);
-      setNewTiles(newTileSet);
+      handleSetNewTiles(newTileSet);
     } else {
       const newTile = initialTileSet.filter((tile) => tile === tileName);
       const newTileSet = [...mosaicTileSet, ...newTile];
       setMosaicTileSet(newTileSet);
-      setNewTiles(newTileSet);
+      handleSetNewTiles(newTileSet);
     }
   };
 
+  const styleObject = {
+    ...initialColors,
+    "--tile-width": "32px",
+    "--tile-height": "32px",
+    "--rotation": "0deg",
+  } as React.CSSProperties;
+
   return (
-    <div className="flex flex-wrap gap-4">
+    <fieldset className="flex flex-wrap justify-center gap-4" style={styleObject}>
       {initialTileSet.map((tile) => {
         return (
-          <div key={tile} className="items-top flex items-center space-x-2" style={styleObject}>
-            <Input
+          <Label key={tile} className="flex flex-col gap-2">
+            <input
               type="checkbox"
-              id={tile}
               checked={mosaicTileSet.find((element) => element === tile) ? true : false}
               onChange={() => handleChangeMosaicTileSet(tile)}
+              className="peer sr-only"
             />
-            <Label
-              htmlFor={tile}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              <Tile name={tile} colors={Object.keys(initialColors)} rotation={0} />
-            </Label>
-          </div>
+            <Tile
+              name={tile}
+              colors={Object.keys(initialColors)}
+              className="peer-checked:ring-4"
+              rotation="--rotation-0"
+            />
+          </Label>
         );
       })}
-    </div>
+    </fieldset>
   );
 };
 

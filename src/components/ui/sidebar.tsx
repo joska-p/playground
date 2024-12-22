@@ -96,7 +96,7 @@ const Sidebar = ({ ref, position = "right", className, children, ...props }: Sid
 
       <div
         className={cn(
-          "overflow-hidden bg-background/90 p-2",
+          "overflow-y-auto overflow-x-hidden bg-background/90 p-2",
           { "col-start-2": position === "right" },
           { "row-start-2": position === "bottom" },
           { "col-start-1 row-start-1": position === "left" },
