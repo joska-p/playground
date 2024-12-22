@@ -49,7 +49,7 @@ const Controls = ({
     });
   };
 
-  const swapColors = () => {
+  const shuffleColors = () => {
     const newColors = shuffleArray(computedColors());
     Object.keys(initialColors).forEach((colorName, index) => {
       if (!mosaicRef.current) return;
@@ -57,7 +57,7 @@ const Controls = ({
     });
   };
 
-  const rotateTiles = () => {
+  const suffleRotations = () => {
     const newRotations = shuffleArray(computedRotation());
     Object.keys(initialRotations).forEach((rotationName, index) => {
       if (!mosaicRef.current) return;
@@ -90,11 +90,11 @@ const Controls = ({
   return (
     <div className="max-w-sm space-y-6">
       <div className="flex flex-col space-y-6">
-        <Button type="button" onClick={swapColors}>
-          Swap colors
+        <Button type="button" onClick={shuffleColors}>
+          Shuffle colors
         </Button>
-        <Button type="button" onClick={rotateTiles}>
-          Rotate tiles
+        <Button type="button" onClick={suffleRotations}>
+          Shuffle rotations
         </Button>
         <Button type="button" onClick={setNewColors}>
           New colors
