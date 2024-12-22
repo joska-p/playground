@@ -5,6 +5,7 @@ import { Button } from "@ui/button";
 import { Label } from "@ui/label";
 import { useEffect, useState } from "react";
 import type { DefaultTileSet } from "../Mosaic";
+import { initialRotations } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
 type ControlsProps = {
@@ -33,6 +34,13 @@ const Controls = ({
     );
   };
 
+  const computedRotation = () => {
+    if (!mosaicRef.current) return [];
+    return Object.keys(initialRotations).map((rotation) =>
+      getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(rotation)
+    );
+  };
+
   const setNewColors = () => {
     const randomPalette = getRandom(palettes);
     Object.keys(initialColors).forEach((colorName, index) => {
@@ -46,6 +54,14 @@ const Controls = ({
     Object.keys(initialColors).forEach((colorName, index) => {
       if (!mosaicRef.current) return;
       mosaicRef.current.style.setProperty(colorName, newColors[index]);
+    });
+  };
+
+  const rotateTiles = () => {
+    const newRotations = shuffleArray(computedRotation());
+    Object.keys(initialRotations).forEach((rotationName, index) => {
+      if (!mosaicRef.current) return;
+      mosaicRef.current.style.setProperty(rotationName, newRotations[index]);
     });
   };
 
@@ -76,6 +92,9 @@ const Controls = ({
       <div className="flex flex-col space-y-6">
         <Button type="button" onClick={swapColors}>
           Swap colors
+        </Button>
+        <Button type="button" onClick={rotateTiles}>
+          Rotate tiles
         </Button>
         <Button type="button" onClick={setNewColors}>
           New colors

@@ -7,6 +7,12 @@ import Tile from "./tiles/Tile";
 import { defaultTileSet } from "./tiles/default-tile-set";
 
 export type DefaultTileSet = typeof defaultTileSet;
+export const initialRotations = {
+  "--rotation-0": "0deg",
+  "--rotation-1": "90deg",
+  "--rotation-2": "180deg",
+  "--rotation-3": "270deg",
+};
 
 const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) => {
   const [mosaicTileSet, setMosaicTileSet] = useState(tileSet);
@@ -57,6 +63,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
 
   const styleObject = {
     ...initialColors,
+    ...initialRotations,
     "--tile-width": `${tileWidth}px`,
     "--tile-height": `${tileHeight}px`,
     "--mosaicGap": `${0}px`,
@@ -79,7 +86,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
               key={index}
               name={tile}
               colors={Object.keys(initialColors).map(() => getRandom(Object.keys(initialColors)))}
-              rotation={getRandom([0, 90, 180, 270])}
+              rotation={getRandom(Object.keys(initialRotations))}
             />
           ))}
         </div>

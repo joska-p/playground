@@ -2,13 +2,13 @@ import styles from "./tile.module.css";
 
 type Props = {
   colors: string[];
-  rotation: number;
+  rotation: string;
 };
 
 const OppositeCircles = ({ colors, rotation }: Props) => {
   const styleObject = {
     backgroundColor: `var(${colors[0]})`,
-    transform: `rotate(${rotation}deg)`,
+    transform: `rotate(var(${rotation}))`,
   };
 
   return (

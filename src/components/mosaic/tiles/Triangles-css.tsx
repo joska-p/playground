@@ -2,13 +2,13 @@ import styles from "./tile.module.css";
 
 type Props = {
   colors: string[];
-  rotation: number;
+  rotation: string;
 };
 
 const Triangles = ({ colors, rotation }: Props) => {
   const styleObject = {
-    transform: `rotate(${rotation}deg)`,
     backgroundColor: `var(${colors[0]})`,
+    transform: `rotate(var(${rotation}))`,
     borderWidth: "calc(var(--tile-width) / 2)",
     borderTopColor: `var(${colors[1]})`,
     borderRightColor: `var(${colors[2]})`,

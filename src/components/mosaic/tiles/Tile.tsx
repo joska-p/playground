@@ -3,7 +3,7 @@ import { DefaultTileComponents } from "./default-tile-set";
 type Props = {
   name: string;
   colors: string[];
-  rotation: number;
+  rotation: string;
   tileComponent?: typeof DefaultTileComponents;
 };
 
