@@ -1,7 +1,7 @@
-interface Props {
+type Props = {
   position?: "left" | "right" | "top" | "bottom";
   state?: "expanded" | "collapsed";
-}
+};
 
 const Chevron = ({ position = "right", state = "expanded" }: Props) => {
   if (

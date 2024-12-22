@@ -27,9 +27,9 @@ function useSidebar() {
  * Sidebar provider
  */
 
-interface SidebarProviderProps extends React.HTMLAttributes<HTMLDivElement> {
+type SidebarProviderProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
-}
+};
 
 const SidebarProvider = ({ ref, className, children }: SidebarProviderProps) => {
   const [open, setOpen] = useState(true);
@@ -74,11 +74,10 @@ const sidebarVariants = cva("z-10 absolute grid overflow-y-auto transition-trans
   },
 });
 
-interface SidebarProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof sidebarVariants> {
-  ref?: React.Ref<HTMLDivElement>;
-}
+type SidebarProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof sidebarVariants> & {
+    ref?: React.Ref<HTMLDivElement>;
+  };
 
 const Sidebar = ({ ref, position = "right", className, children, ...props }: SidebarProps) => {
   const { state } = useSidebar();
@@ -117,9 +116,9 @@ Sidebar.displayName = "Sidebar";
  * Sidebar content
  */
 
-interface SidebarContentProps extends React.HTMLAttributes<HTMLDivElement> {
+type SidebarContentProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
-}
+};
 
 const SidebarContent = ({ ref, className, children, ...props }: SidebarContentProps) => {
   return (
@@ -133,10 +132,10 @@ const SidebarContent = ({ ref, className, children, ...props }: SidebarContentPr
  * Sidebar trigger
  */
 
-interface SidebarTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
+type SidebarTriggerProps = React.HTMLAttributes<HTMLButtonElement> & {
   state: "expanded" | "collapsed";
   position: "left" | "right" | "top" | "bottom";
-}
+};
 
 const SidebarTrigger = ({ state, position, className, ...props }: SidebarTriggerProps) => {
   const { toggleSidebar } = useSidebar();

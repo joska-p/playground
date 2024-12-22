@@ -30,9 +30,8 @@ const navigationMenuVariants = cva("relative z-10 flex flex-1 items-center space
   },
 });
 
-export interface NavigationMenuProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof navigationMenuVariants> {}
+type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof navigationMenuVariants>;
 
 const NavigationMenu = ({
   children,
@@ -76,10 +75,9 @@ const navigationMenuListVariants = cva("group flex flex-1 list-none items-center
     spacing: "none",
   },
 });
+type NavigationMenuListProps = React.HTMLAttributes<HTMLUListElement> &
+  VariantProps<typeof navigationMenuListVariants>;
 
-export interface NavigationMenuListProps
-  extends React.HTMLAttributes<HTMLUListElement>,
-    VariantProps<typeof navigationMenuListVariants> {}
 const NavigationMenuList = ({
   children,
   variant,
@@ -112,9 +110,8 @@ const navigationMenuItemVariants = cva(
   }
 );
 
-export interface NavigationMenuItemProps
-  extends React.LiHTMLAttributes<HTMLLIElement>,
-    VariantProps<typeof navigationMenuItemVariants> {}
+type NavigationMenuItemProps = React.LiHTMLAttributes<HTMLLIElement> &
+  VariantProps<typeof navigationMenuItemVariants>;
 
 const NavigationMenuItem = ({ children, variant, className }: NavigationMenuItemProps) => {
   return <li className={cn(navigationMenuItemVariants({ variant, className }))}>{children}</li>;
@@ -138,9 +135,8 @@ const navigationMenuLinkVariants = cva(
   }
 );
 
-export interface NavigationMenuLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof navigationMenuLinkVariants> {}
+type NavigationMenuLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
+  VariantProps<typeof navigationMenuLinkVariants>;
 
 const NavigationMenuLink = ({
   href,

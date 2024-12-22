@@ -18,11 +18,10 @@ const inputVariants = cva(
   }
 );
 
-interface Props
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof inputVariants> {
-  ref?: string;
-}
+type Props = React.InputHTMLAttributes<HTMLInputElement> &
+  VariantProps<typeof inputVariants> & {
+    ref?: string;
+  };
 
 const Input = ({ ref, className, variant, type = "text", ...props }: Props) => {
   return (

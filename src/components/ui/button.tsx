@@ -26,12 +26,11 @@ const buttonVariants = cva(
   }
 );
 
-interface Props
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  href?: string;
-  ref?: string;
-}
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
+    href?: string;
+    ref?: string;
+  };
 
 const Button = ({
   ref,
