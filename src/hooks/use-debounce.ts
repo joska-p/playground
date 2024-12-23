@@ -1,5 +1,6 @@
-import { useTimeout } from "@/hooks/use-timeout";
 import { useEffect } from "react";
+
+import { useTimeout } from "@/hooks/use-timeout";
 
 const useDebounce = (
   callback: (...args: unknown[]) => unknown,

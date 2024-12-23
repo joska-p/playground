@@ -12,10 +12,10 @@ type SidebarContext = {
   toggleSidebar: () => void;
 };
 
-const SidebarContext = createContext<SidebarContext | null>(null);
+const sidebarContext = createContext<SidebarContext | null>(null);
 
 function useSidebar() {
-  const context = useContext(SidebarContext);
+  const context = useContext(sidebarContext);
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.");
   }
@@ -47,11 +47,11 @@ const SidebarProvider = ({ ref, className, children }: SidebarProviderProps) => 
   );
 
   return (
-    <SidebarContext.Provider value={contextValue}>
+    <sidebarContext.Provider value={contextValue}>
       <div ref={ref} className={cn("relative", className)}>
         {children}
       </div>
-    </SidebarContext.Provider>
+    </sidebarContext.Provider>
   );
 };
 SidebarProvider.displayName = "SidebarProvider";

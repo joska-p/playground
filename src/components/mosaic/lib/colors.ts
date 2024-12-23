@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { safeFetch } from "../../../lib/utils";
 
 const initialColors = {

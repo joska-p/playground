@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "rounded-md bg-primary px-4 py-2 text-primary-foreground shadow hover:bg-primary/90",

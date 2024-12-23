@@ -1,10 +1,12 @@
-import { initialColors } from "@/components/mosaic/lib/colors";
 import { getRandom } from "@lib/utils";
 import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
 import { useEffect, useRef, useState } from "react";
+
 import Controls from "./controls/Controls";
 import Tile from "./tiles/Tile";
 import { defaultTileSet } from "./tiles/default-tile-set";
+
+import { initialColors } from "@/components/mosaic/lib/colors";
 
 export type DefaultTileSet = typeof defaultTileSet;
 export const initialRotations = {

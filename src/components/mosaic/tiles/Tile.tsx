@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import { DefaultTileComponents } from "./default-tile-set";
 import styles from "./tile.module.css";
+
+import { cn } from "@/lib/utils";
 type Props = {
   name: string;
   colors: string[];
