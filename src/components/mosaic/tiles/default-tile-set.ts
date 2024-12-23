@@ -7,23 +7,23 @@ import Square from "./Square-css";
 import Triangles from "./Triangles-css";
 
 const DefaultTileComponents = {
-  [CornerCircles.name]: CornerCircles,
-  [Diamond.name]: Diamond,
-  [MiddleCircles.name]: MiddleCircles,
-  [OppositeCircles.name]: OppositeCircles,
-  [Rainbow.name]: Rainbow,
-  [Square.name]: Square,
-  [Triangles.name]: Triangles,
+	[CornerCircles.name]: CornerCircles,
+	[Diamond.name]: Diamond,
+	[MiddleCircles.name]: MiddleCircles,
+	[OppositeCircles.name]: OppositeCircles,
+	[Rainbow.name]: Rainbow,
+	[Square.name]: Square,
+	[Triangles.name]: Triangles,
 };
 
 const defaultTileSet = [
-  CornerCircles.name,
-  Diamond.name,
-  MiddleCircles.name,
-  OppositeCircles.name,
-  Rainbow.name,
-  Square.name,
-  Triangles.name,
+	CornerCircles.name,
+	Diamond.name,
+	MiddleCircles.name,
+	OppositeCircles.name,
+	Rainbow.name,
+	Square.name,
+	Triangles.name,
 ];
 
 export { DefaultTileComponents, defaultTileSet };
