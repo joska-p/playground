@@ -18,6 +18,7 @@ const PalettePicker = ({
 				palette={defaultPalette}
 				handleSetNewColors={handleSetNewColors}
 				checked={defaultPalette.join(",") === currentPalette.join(",")}
+				ariaLabel="Default palette"
 			/>
 			{palettes.map((palette) => (
 				<Palette
@@ -25,6 +26,7 @@ const PalettePicker = ({
 					palette={palette}
 					handleSetNewColors={handleSetNewColors}
 					checked={palette.join(",") === currentPalette.join(",")}
+					ariaLabel={palette.join(",")}
 				/>
 			))}
 		</fieldset>

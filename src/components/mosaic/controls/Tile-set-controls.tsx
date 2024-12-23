@@ -45,7 +45,7 @@ const TileSetControls = ({
 		>
 			{initialTileSet.map((tile) => {
 				return (
-					<Label key={tile} className="flex flex-col gap-2">
+					<Label key={tile} aria-label={tile} className="flex flex-col gap-2">
 						<input
 							type="checkbox"
 							checked={mosaicTileSet.includes(tile)}

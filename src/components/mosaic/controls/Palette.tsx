@@ -6,6 +6,7 @@ type Props = React.HTMLAttributes<HTMLLabelElement> & {
 	disabled?: boolean;
 	checked: boolean;
 	handleSetNewColors: (palette?: string[]) => void;
+	ariaLabel?: string;
 };
 const Palette = ({
 	palette,
@@ -13,10 +14,15 @@ const Palette = ({
 	disabled,
 	checked,
 	handleSetNewColors,
+	ariaLabel,
 	...props
 }: Props) => {
 	return (
-		<Label className={cn("has-[:checked]:ring-4", className)} {...props}>
+		<Label
+			className={cn("has-[:checked]:ring-4", className)}
+			aria-label={ariaLabel}
+			{...props}
+		>
 			<input
 				type="radio"
 				name="palette"
