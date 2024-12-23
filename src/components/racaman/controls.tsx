@@ -1,5 +1,3 @@
-import { Input } from "@ui/input";
-import { Label } from "@ui/label";
 import { createRacamanSequence } from "./lib/sequence";
 
 type Props = {
@@ -29,10 +27,10 @@ const Controls = ({
 		<div className="space-y-6 bg-background/90">
 			<div className="space-y-6">
 				<div className="flex flex-col items-center space-y-2">
-					<Label htmlFor="sequence-Length" className="text-sm">
+					<label htmlFor="sequence-Length" className="text-sm">
 						Sequence Length: {sequenceLength}
-					</Label>
-					<Input
+					</label>
+					<input
 						type="range"
 						id="sequence-Length"
 						min={1}
@@ -54,9 +52,9 @@ const Controls = ({
 							id="canvas-mode"
 							onChange={handleSetDrawMode}
 						/>
-						<Label htmlFor="canvas-mode" className="cursor-pointer">
+						<label htmlFor="canvas-mode" className="cursor-pointer">
 							Canvas mode
-						</Label>
+						</label>
 					</div>
 					<div className="flex items-center space-x-2">
 						<input
@@ -67,9 +65,9 @@ const Controls = ({
 							id="vector-mode"
 							onChange={handleSetDrawMode}
 						/>
-						<Label htmlFor="vector-mode" className="cursor-pointer">
+						<label htmlFor="vector-mode" className="cursor-pointer">
 							Vector mode
-						</Label>
+						</label>
 					</div>
 				</div>
 			</div>

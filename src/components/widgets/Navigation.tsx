@@ -3,7 +3,7 @@ import {
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
-} from "@ui/navigation-menu";
+} from "@/components/ui/Navigation-menu";
 
 type Props = {
 	routes: { text: string; url: string }[];

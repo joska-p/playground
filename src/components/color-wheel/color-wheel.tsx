@@ -1,5 +1,3 @@
-import { Input } from "@ui/input";
-import { Label } from "@ui/label";
 import { useRef } from "react";
 
 const ColorWheel = () => {
@@ -56,9 +54,9 @@ const ColorWheel = () => {
 			ref={colorWheelRef}
 		>
 			<div className="flex flex-col gap-10">
-				<Label htmlFor="hue-slider">Hue</Label>
+				<label htmlFor="hue-slider">Hue</label>
 				<div className="h-40 w-full" style={hueStyles} />
-				<Input
+				<input
 					type="range"
 					id="hue-slider"
 					name="hue-slider"
@@ -71,9 +69,9 @@ const ColorWheel = () => {
 			</div>
 
 			<div className="flex flex-col gap-10">
-				<Label htmlFor="saturation-slider">Saturation</Label>
+				<label htmlFor="saturation-slider">Saturation</label>
 				<div className="h-40 w-full" style={saturationStyles} />
-				<Input
+				<input
 					type="range"
 					id="saturation-slider"
 					name="saturation-slider"
@@ -86,9 +84,9 @@ const ColorWheel = () => {
 			</div>
 
 			<div className="flex flex-col gap-10">
-				<Label htmlFor="value-slider">Luminosity</Label>
+				<label htmlFor="value-slider">Luminosity</label>
 				<div className="h-40 w-full" style={luminosityStyles} />
-				<Input
+				<input
 					type="range"
 					id="value-slider"
 					name="value-slider"

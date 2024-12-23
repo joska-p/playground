@@ -1,5 +1,4 @@
 import { initialColors } from "@/components/mosaic/lib/colors";
-import { Label } from "@ui/label";
 import type { DefaultTileSet } from "../Mosaic";
 import { Tile } from "../tiles/Tile";
 
@@ -45,7 +44,7 @@ const TileSetControls = ({
 		>
 			{initialTileSet.map((tile) => {
 				return (
-					<Label key={tile} aria-label={tile} className="flex flex-col gap-2">
+					<label key={tile} aria-label={tile} className="flex flex-col gap-2">
 						<input
 							type="checkbox"
 							checked={mosaicTileSet.includes(tile)}
@@ -58,7 +57,7 @@ const TileSetControls = ({
 							className="peer-checked:ring-4"
 							rotation="--rotation-0"
 						/>
-					</Label>
+					</label>
 				);
 			})}
 		</fieldset>

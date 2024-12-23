@@ -7,8 +7,8 @@ import {
 	useState,
 } from "react";
 
+import { Chevron } from "@/components/ui/Chevron";
 import { cn } from "@lib/utils";
-import { Chevron } from "@ui/chevron";
 
 /**
  * Sidebar context

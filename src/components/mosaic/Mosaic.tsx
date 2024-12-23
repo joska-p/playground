@@ -1,6 +1,10 @@
 import { initialColors } from "@/components/mosaic/lib/colors";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarProvider,
+} from "@/components/ui/Sidebar";
 import { getRandom } from "@lib/utils";
-import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Controls } from "./controls/Controls";
 import { Tile } from "./tiles/Tile";

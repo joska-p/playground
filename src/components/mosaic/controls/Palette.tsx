@@ -1,4 +1,3 @@
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
@@ -6,7 +5,6 @@ type Props = React.HTMLAttributes<HTMLLabelElement> & {
 	disabled?: boolean;
 	checked: boolean;
 	handleSetNewColors: (palette?: string[]) => void;
-	ariaLabel?: string;
 };
 const Palette = ({
 	palette,
@@ -14,15 +12,10 @@ const Palette = ({
 	disabled,
 	checked,
 	handleSetNewColors,
-	ariaLabel,
 	...props
 }: Props) => {
 	return (
-		<Label
-			className={cn("has-[:checked]:ring-4", className)}
-			aria-label={ariaLabel}
-			{...props}
-		>
+		<label className={cn("has-[:checked]:ring-4", className)} {...props}>
 			<input
 				type="radio"
 				name="palette"
@@ -39,7 +32,7 @@ const Palette = ({
 					className="h-8 w-8"
 				/>
 			))}
-		</Label>
+		</label>
 	);
 };
 

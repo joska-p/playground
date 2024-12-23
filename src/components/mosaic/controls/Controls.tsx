@@ -1,9 +1,7 @@
 import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
 import { PalettePicker } from "@components/mosaic/controls/Palette-picker";
-import { Button } from "@ui/button";
-import { Label } from "@ui/label";
 import { useEffect, useState } from "react";
 import type { DefaultTileSet } from "../Mosaic";
 import { initialRotations } from "../Mosaic";
@@ -134,9 +132,9 @@ const Controls = ({
 			</fieldset>
 
 			<fieldset className="grid grid-cols-2 gap-4">
-				<Label className="flex flex-col items-center text-sm">
+				<label className="flex flex-col items-center text-sm">
 					Tile size: {size}px
-					<Input
+					<input
 						type="range"
 						min={32}
 						max={256}
@@ -144,11 +142,11 @@ const Controls = ({
 						value={size}
 						onChange={handleChangeTileSize}
 					/>
-				</Label>
+				</label>
 
-				<Label className="flex flex-col items-center text-sm">
+				<label className="flex flex-col items-center text-sm">
 					Gap size: {gap}px
-					<Input
+					<input
 						type="range"
 						min={0}
 						step={1}
@@ -156,7 +154,7 @@ const Controls = ({
 						value={gap}
 						onChange={handleChangeGapSize}
 					/>
-				</Label>
+				</label>
 			</fieldset>
 
 			<TileSetControls
