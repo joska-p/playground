@@ -1,15 +1,16 @@
+import { useEffect, useState } from "react";
+
 import { Button } from "@ui/button";
 import { Label } from "@ui/label";
-import { useEffect, useState } from "react";
+import { getRandom, shuffleArray } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
+import PalettePicker from "@/components/mosaic/controls/Palette-picker";
 
 import type { DefaultTileSet } from "../Mosaic";
 import { initialRotations } from "../Mosaic";
 import TileSetControls from "./Tile-set-controls";
 
-import { getRandom, shuffleArray } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
-import PalettePicker from "@/components/mosaic/controls/Palette-picker";
 
 export const defaultPalette = ["#333333", "#555555", "#777777", "#999999", "#bbbbbb"];
 

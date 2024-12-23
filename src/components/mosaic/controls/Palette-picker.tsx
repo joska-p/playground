@@ -3,7 +3,7 @@ import Palette from "./Palette";
 type Props = {
   palettes: string[][];
   currentPalette: string[];
-  handleSetNewColors: (palette?: string[]) => void;
+  handleSetNewColors: () => void;
 };
 
 const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) => {

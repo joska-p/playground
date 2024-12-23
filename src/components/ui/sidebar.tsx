@@ -1,7 +1,8 @@
-import { cn } from "@lib/utils";
-import { Chevron } from "@ui/chevron";
 import { cva, type VariantProps } from "class-variance-authority";
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
+
+import { cn } from "@lib/utils";
+import { Chevron } from "@ui/chevron";
 
 /**
  * Sidebar context
@@ -36,14 +37,14 @@ const SidebarProvider = ({ ref, className, children }: SidebarProviderProps) => 
 
   const toggleSidebar = useCallback(() => {
     setOpen((open) => !open);
-  }, [open]);
+  }, []);
 
   const contextValue = useMemo<SidebarContext>(
     () => ({
       state: open ? "expanded" : "collapsed",
       toggleSidebar,
     }),
-    [open]
+    [open, toggleSidebar]
   );
 
   return (

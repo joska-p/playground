@@ -1,12 +1,12 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { initialColors } from "@/components/mosaic/lib/colors";
 import { getRandom } from "@lib/utils";
 import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
-import { useEffect, useRef, useState } from "react";
 
 import Controls from "./controls/Controls";
 import Tile from "./tiles/Tile";
 import { defaultTileSet } from "./tiles/default-tile-set";
-
-import { initialColors } from "@/components/mosaic/lib/colors";
 
 export type DefaultTileSet = typeof defaultTileSet;
 export const initialRotations = {
@@ -21,20 +21,6 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
   const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([]);
   const mosaicRef = useRef<HTMLDivElement>(null);
 
-  const computedTileWidth = () => {
-    if (!mosaicRef.current) return tileWidth;
-    return parseFloat(
-      getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue("--tile-width")
-    );
-  };
-
-  const computedTileHeight = () => {
-    if (!mosaicRef.current) return tileHeight;
-    return parseFloat(
-      getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue("--tile-height")
-    );
-  };
-
   const computedGap = () => {
     if (!mosaicRef.current) return 0;
     return parseFloat(
@@ -42,26 +28,43 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
     );
   };
 
-  const computedNumberOfTiles = () => {
-    if (!mosaicRef.current) return 0;
-    return (
-      Math.floor(
-        (mosaicRef.current.parentElement!.offsetWidth + computedGap()) /
-          (computedTileWidth() + computedGap())
-      ) *
-      Math.floor(
-        (mosaicRef.current.parentElement!.offsetHeight + computedGap()) /
-          (computedTileHeight() + computedGap())
-      )
-    );
-  };
+  const handleSetNewTiles = useCallback(
+    (newMosaicTileSet = mosaicTileSet) => {
+      const computedTileHeight = () => {
+        if (!mosaicRef.current) return tileHeight;
+        return parseFloat(
+          getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue("--tile-height")
+        );
+      };
 
-  const handleSetNewTiles = (newMosaicTileSet = mosaicTileSet) => {
-    const newTiles = Array.from({ length: computedNumberOfTiles() }, () =>
-      getRandom(newMosaicTileSet)
-    );
-    setMosaicTiles(newTiles);
-  };
+      const computedTileWidth = () => {
+        if (!mosaicRef.current) return tileWidth;
+        return parseFloat(
+          getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue("--tile-width")
+        );
+      };
+
+      const computedNumberOfTiles = () => {
+        if (!mosaicRef.current) return 0;
+        return (
+          Math.floor(
+            (mosaicRef.current.parentElement!.offsetWidth + computedGap()) /
+              (computedTileWidth() + computedGap())
+          ) *
+          Math.floor(
+            (mosaicRef.current.parentElement!.offsetHeight + computedGap()) /
+              (computedTileHeight() + computedGap())
+          )
+        );
+      };
+
+      const newTiles = Array.from({ length: computedNumberOfTiles() }, () =>
+        getRandom(newMosaicTileSet)
+      );
+      setMosaicTiles(newTiles);
+    },
+    [mosaicTileSet, tileHeight, tileWidth]
+  );
 
   const styleObject = {
     ...initialColors,
@@ -73,7 +76,7 @@ const Mosaic = ({ tileWidth = 64, tileHeight = 64, tileSet = defaultTileSet }) =
 
   useEffect(() => {
     handleSetNewTiles();
-  }, []);
+  }, [handleSetNewTiles]);
 
   return (
     <SidebarProvider className="h-full">

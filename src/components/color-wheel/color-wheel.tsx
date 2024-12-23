@@ -1,6 +1,7 @@
+import { useRef } from "react";
+
 import { Input } from "@ui/input";
 import { Label } from "@ui/label";
-import { useRef } from "react";
 
 const ColorWheel = () => {
   const colorWheelRef = useRef<HTMLDivElement>(null);

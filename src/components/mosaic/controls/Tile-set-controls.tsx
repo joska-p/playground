@@ -1,9 +1,9 @@
 import { Label } from "@ui/label";
+import { initialColors } from "@/components/mosaic/lib/colors";
 
 import type { DefaultTileSet } from "../Mosaic";
 import Tile from "../tiles/Tile";
 
-import { initialColors } from "@/components/mosaic/lib/colors";
 
 type Props = {
   initialTileSet: DefaultTileSet;
