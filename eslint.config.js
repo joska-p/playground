@@ -19,11 +19,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const gitignorePath = path.resolve(__dirname, ".gitignore");
 
-const pluginsOptions = {
-  "import/parsers": tsParser,
-  "react-hooks": fixupPluginRules(reactHooksPlugin),
-};
-
 export default [
   includeIgnoreFile(gitignorePath),
   { files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"] },
@@ -45,7 +40,7 @@ export default [
   pluginJs.configs.recommended,
   {
     plugins: {
-      ...pluginsOptions,
+      "react-hooks": fixupPluginRules(reactHooksPlugin),
     },
   },
   {
