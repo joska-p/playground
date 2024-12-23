@@ -1,95 +1,56 @@
-import { initialColors } from "@/components/mosaic/lib/colors";
+import { computeNumberOfTiles } from "@/components/mosaic/lib/utils";
 import {
 	Sidebar,
 	SidebarContent,
 	SidebarProvider,
 } from "@/components/ui/Sidebar";
 import { getRandom } from "@lib/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Controls } from "./controls/Controls";
 import { Tile } from "./tiles/Tile";
-import { defaultTileSet } from "./tiles/default-tile-set";
-
-export type DefaultTileSet = typeof defaultTileSet;
-export const initialRotations = {
-	"--rotation-0": "0deg",
-	"--rotation-1": "90deg",
-	"--rotation-2": "180deg",
-	"--rotation-3": "270deg",
-};
+import {
+	defaulColors,
+	defaultRotations,
+	defaultTileSet,
+} from "./tiles/default-options";
+import type { DefaultTileSet } from "./tiles/default-options";
 
 const Mosaic = ({
 	tileWidth = 64,
 	tileHeight = 64,
 	tileSet = defaultTileSet,
+	colors = defaulColors,
+	rotations = defaultRotations,
 }) => {
-	const [mosaicTileSet, setMosaicTileSet] = useState(tileSet);
 	const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([]);
 	const mosaicRef = useRef<HTMLDivElement>(null);
 
-	const handleSetNewTiles = useCallback(
-		(newMosaicTileSet = mosaicTileSet) => {
-			const computedTileHeight = () => {
-				if (!mosaicRef.current) return tileHeight;
-				return Number.parseFloat(
-					getComputedStyle(
-						mosaicRef.current as HTMLDivElement,
-					).getPropertyValue("--tile-height"),
-				);
-			};
+	const handleSetNewTiles = useCallback((tileSet = defaultTileSet) => {
+		if (!mosaicRef.current) {
+			throw new Error("No mosaic ref");
+		}
+		if (!mosaicRef.current.parentElement) {
+			throw new Error("No mosaic parent element");
+		}
 
-			const computedTileWidth = () => {
-				if (!mosaicRef.current) return tileWidth;
-				return Number.parseFloat(
-					getComputedStyle(
-						mosaicRef.current as HTMLDivElement,
-					).getPropertyValue("--tile-width"),
-				);
-			};
+		const computedNumberOfTiles = computeNumberOfTiles({
+			element: mosaicRef.current,
+			parentElement: mosaicRef.current.parentElement as HTMLDivElement,
+		});
 
-			const computedGap = () => {
-				if (!mosaicRef.current) return 0;
-				return Number.parseFloat(
-					getComputedStyle(
-						mosaicRef.current as HTMLDivElement,
-					).getPropertyValue("--mosaicGap"),
-				);
-			};
-
-			const computedNumberOfTiles = () => {
-				if (!mosaicRef.current || !mosaicRef.current.parentElement) return 0;
-
-				return (
-					Math.floor(
-						(mosaicRef.current.parentElement.offsetWidth + computedGap()) /
-							(computedTileWidth() + computedGap()),
-					) *
-					Math.floor(
-						(mosaicRef.current.parentElement.offsetHeight + computedGap()) /
-							(computedTileHeight() + computedGap()),
-					)
-				);
-			};
-
-			const newTiles = Array.from({ length: computedNumberOfTiles() }, () =>
-				getRandom(newMosaicTileSet),
-			);
-			setMosaicTiles(newTiles);
-		},
-		[mosaicTileSet, tileHeight, tileWidth],
-	);
+		const newTiles = Array.from({ length: computedNumberOfTiles }, () =>
+			getRandom(tileSet),
+		);
+		setMosaicTiles(newTiles);
+	}, []);
 
 	const styleObject = {
-		...initialColors,
-		...initialRotations,
+		...colors,
+		...rotations,
 		"--tile-width": `${tileWidth}px`,
 		"--tile-height": `${tileHeight}px`,
 		"--mosaicGap": `${0}px`,
 	} as React.CSSProperties;
-
-	useEffect(() => {
-		handleSetNewTiles();
-	}, [handleSetNewTiles]);
 
 	return (
 		<SidebarProvider className="h-full">
@@ -104,10 +65,10 @@ const Mosaic = ({
 							// biome-ignore lint/suspicious/noArrayIndexKey: There is no other way
 							key={index}
 							name={tile}
-							colors={Object.keys(initialColors).map(() =>
-								getRandom(Object.keys(initialColors)),
+							colors={Object.keys(colors).map(() =>
+								getRandom(Object.keys(colors)),
 							)}
-							rotation={getRandom(Object.keys(initialRotations))}
+							rotation={getRandom(Object.keys(rotations))}
 						/>
 					))}
 				</div>
@@ -116,8 +77,6 @@ const Mosaic = ({
 			<Sidebar position="right">
 				<Controls
 					mosaicRef={mosaicRef}
-					mosaicTileSet={mosaicTileSet}
-					setMosaicTileSet={setMosaicTileSet}
 					initialTileSet={tileSet}
 					handleSetNewTiles={handleSetNewTiles}
 				/>

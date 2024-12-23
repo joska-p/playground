@@ -1,16 +1,8 @@
 import { z } from "zod";
-
 import { safeFetch } from "../../../lib/utils";
 
-const initialColors = {
-	"--color-0": "#333333",
-	"--color-1": "#555555",
-	"--color-2": "#777777",
-	"--color-3": "#999999",
-	"--color-4": "#bbbbbb",
-};
 const fallbackPalettes = [
-	["#333333", "#555555", "#777777", "#999999", "#bbbbbb"],
+	["#333333", "#555555", "#777777", "#999999", "#babbbb"],
 ];
 
 const getPalettes = async (): Promise<string[][]> => {
@@ -47,4 +39,4 @@ const getPalettes = async (): Promise<string[][]> => {
 	}
 };
 
-export { getPalettes, initialColors };
+export { getPalettes };

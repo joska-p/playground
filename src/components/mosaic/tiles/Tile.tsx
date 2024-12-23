@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { DefaultTileComponents } from "./default-tile-set";
+import { DefaultTileComponents } from "./default-options";
 import styles from "./tile.module.css";
 
 type Props = {

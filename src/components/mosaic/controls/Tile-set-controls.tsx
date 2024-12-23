@@ -1,19 +1,19 @@
-import { initialColors } from "@/components/mosaic/lib/colors";
-import type { DefaultTileSet } from "../Mosaic";
 import { Tile } from "../tiles/Tile";
+import type { DefaultTileSet } from "../tiles/default-options";
+import { defaulColors as colors } from "../tiles/default-options";
 
 type Props = {
 	initialTileSet: DefaultTileSet;
-	handleSetNewTiles: (newMosaicTileSet: DefaultTileSet) => void;
 	mosaicTileSet: DefaultTileSet;
-	setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
+	setMosaicTileSet: React.Dispatch<React.SetStateAction<DefaultTileSet>>;
+	handleSetNewTiles: (tileset?: DefaultTileSet) => void;
 };
 
 const TileSetControls = ({
 	initialTileSet,
-	handleSetNewTiles,
 	mosaicTileSet,
 	setMosaicTileSet,
+	handleSetNewTiles,
 }: Props) => {
 	const handleChangeMosaicTileSet = (tileName: string) => {
 		if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0]) return;
@@ -31,7 +31,7 @@ const TileSetControls = ({
 	};
 
 	const styleObject = {
-		...initialColors,
+		...colors,
 		"--tile-width": "32px",
 		"--tile-height": "32px",
 		"--rotation": "0deg",
@@ -53,7 +53,7 @@ const TileSetControls = ({
 						/>
 						<Tile
 							name={tile}
-							colors={Object.keys(initialColors)}
+							colors={Object.keys(colors)}
 							className="peer-checked:ring-4"
 							rotation="--rotation-0"
 						/>

@@ -1,35 +1,28 @@
-import { getPalettes, initialColors } from "@/components/mosaic/lib/colors";
+import { getPalettes } from "@/components/mosaic/lib/colors";
 import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
 import { PalettePicker } from "@components/mosaic/controls/Palette-picker";
-import { useEffect, useState } from "react";
-import type { DefaultTileSet } from "../Mosaic";
-import { initialRotations } from "../Mosaic";
+import { useCallback, useEffect, useState } from "react";
+import type { DefaultTileSet } from "../tiles/default-options";
+import {
+	defaulColors as colors,
+	defaultPalette,
+	defaultRotations as rotations,
+} from "../tiles/default-options";
 import { TileSetControls } from "./Tile-set-controls";
-
-export const defaultPalette = [
-	"#333333",
-	"#555555",
-	"#777777",
-	"#999999",
-	"#bbbbbb",
-];
 
 type ControlsProps = {
 	mosaicRef: React.RefObject<HTMLDivElement>;
-	mosaicTileSet: DefaultTileSet;
-	setMosaicTileSet: React.Dispatch<React.SetStateAction<string[]>>;
 	initialTileSet: DefaultTileSet;
 	handleSetNewTiles: (tileset?: DefaultTileSet) => void;
 };
 
 const Controls = ({
 	mosaicRef,
-	mosaicTileSet,
-	setMosaicTileSet,
 	initialTileSet,
 	handleSetNewTiles,
 }: ControlsProps) => {
+	const [mosaicTileSet, setMosaicTileSet] = useState(initialTileSet);
 	const [palettes, setPalettes] = useState([[""]]);
 	const [currentPalette, setCurrentPalette] = useState(defaultPalette);
 	const [size, setSize] = useState(64);
@@ -37,7 +30,7 @@ const Controls = ({
 
 	const computedColors = () => {
 		if (!mosaicRef.current) return [];
-		return Object.keys(initialColors).map((color) =>
+		return Object.keys(colors).map((color) =>
 			getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(
 				color,
 			),
@@ -46,7 +39,7 @@ const Controls = ({
 
 	const computedRotation = () => {
 		if (!mosaicRef.current) return [];
-		return Object.keys(initialRotations).map((rotation) =>
+		return Object.keys(rotations).map((rotation) =>
 			getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(
 				rotation,
 			),
@@ -55,7 +48,7 @@ const Controls = ({
 
 	const handleSetNewColors = (palette = getRandom(palettes)) => {
 		setCurrentPalette(palette);
-		Object.keys(initialColors).forEach((colorName, index) => {
+		Object.keys(colors).forEach((colorName, index) => {
 			if (!mosaicRef.current) return;
 			mosaicRef.current.style.setProperty(colorName, palette[index]);
 		});
@@ -63,7 +56,7 @@ const Controls = ({
 
 	const HandleShuffleColors = () => {
 		const newColors = shuffleArray(computedColors());
-		Object.keys(initialColors).forEach((colorName, index) => {
+		Object.keys(colors).forEach((colorName, index) => {
 			if (!mosaicRef.current) return;
 			mosaicRef.current.style.setProperty(colorName, newColors[index]);
 		});
@@ -71,7 +64,7 @@ const Controls = ({
 
 	const HandleSuffleRotations = () => {
 		const newRotations = shuffleArray(computedRotation());
-		Object.keys(initialRotations).forEach((rotationName, index) => {
+		Object.keys(rotations).forEach((rotationName, index) => {
 			if (!mosaicRef.current) return;
 			mosaicRef.current.style.setProperty(rotationName, newRotations[index]);
 		});
@@ -99,16 +92,16 @@ const Controls = ({
 		);
 	};
 
-	const handleSetNewPalettes = async () => {
+	const handleSetNewPalettes = useCallback(async () => {
 		const palettes = await getPalettes();
 		const randomPalettes = shuffleArray(palettes).slice(0, 23);
 		setPalettes(randomPalettes);
-	};
+	}, []);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies(handleSetNewPalettes): async call at need to initialize the palettes
 	useEffect(() => {
 		handleSetNewPalettes();
-	}, []);
+		handleSetNewTiles();
+	}, [handleSetNewTiles, handleSetNewPalettes]);
 
 	return (
 		<form className="max-w-sm space-y-8">
@@ -159,9 +152,9 @@ const Controls = ({
 
 			<TileSetControls
 				initialTileSet={initialTileSet}
-				handleSetNewTiles={handleSetNewTiles}
 				mosaicTileSet={mosaicTileSet}
 				setMosaicTileSet={setMosaicTileSet}
+				handleSetNewTiles={handleSetNewTiles}
 			/>
 
 			<PalettePicker

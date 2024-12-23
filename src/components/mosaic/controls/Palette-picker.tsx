@@ -1,4 +1,4 @@
-import { defaultPalette } from "./Controls";
+import { defaultPalette } from "../tiles/default-options";
 import { Palette } from "./Palette";
 
 type Props = {
