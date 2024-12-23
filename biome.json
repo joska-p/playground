@@ -26,5 +26,22 @@
 		"formatter": {
 			"quoteStyle": "double"
 		}
+	},
+	"json": {
+		"parser": {
+			"allowComments": true
+		}
+	},
+	"css": {
+		"parser": {
+			"cssModules": true
+		},
+		"formatter": {
+			"enabled": true,
+			"quoteStyle": "double"
+		},
+		"linter": {
+			"enabled": true
+		}
 	}
 }
