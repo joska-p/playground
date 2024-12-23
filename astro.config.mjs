@@ -12,7 +12,7 @@ export default defineConfig({
     react(),
   ],
   site: "https://joska-p.github.io",
-  base: "playground-v1",
+  base: "playground",
   compressHTML: false,
   devToolbar: {
     enabled: false,
