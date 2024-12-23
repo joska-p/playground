@@ -28,4 +28,4 @@ const MiddleCircles = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default MiddleCircles;
+export { MiddleCircles };

@@ -23,4 +23,4 @@ const Rainbow = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default Rainbow;
+export { Rainbow };

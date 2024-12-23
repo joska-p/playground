@@ -54,7 +54,7 @@ class PieChart extends HTMLElement {
 
 		this.data = (this.getAttribute("data") ?? "")
 			.split(";")
-			.map((v) => parseFloat(v));
+			.map((v) => Number.parseFloat(v));
 
 		this.paths = this.data.map((_, index) => {
 			const color = colors[index % colors.length];

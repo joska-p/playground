@@ -23,4 +23,4 @@ const OppositeCircles = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default OppositeCircles;
+export { OppositeCircles };

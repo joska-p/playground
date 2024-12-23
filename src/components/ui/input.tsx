@@ -1,6 +1,5 @@
-import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils";
+import { type VariantProps, cva } from "class-variance-authority";
 
 const inputVariants = cva(
 	"flex h-9 w-full rounded-md border px-3 py-1 shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1  disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",

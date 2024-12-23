@@ -43,4 +43,4 @@ const Diamond = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default Diamond;
+export { Diamond };

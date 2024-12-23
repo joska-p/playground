@@ -24,4 +24,4 @@ const Square = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default Square;
+export { Square };

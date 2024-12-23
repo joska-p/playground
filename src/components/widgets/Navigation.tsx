@@ -25,4 +25,4 @@ const Navigation = ({ routes }: Props) => {
 	);
 };
 
-export default Navigation;
+export { Navigation };

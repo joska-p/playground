@@ -1,5 +1,6 @@
 import { defaultPalette } from "./Controls";
-import Palette from "./Palette";
+import { Palette } from "./Palette";
+
 type Props = {
 	palettes: string[][];
 	currentPalette: string[];
@@ -18,9 +19,9 @@ const PalettePicker = ({
 				handleSetNewColors={handleSetNewColors}
 				checked={defaultPalette.join(",") === currentPalette.join(",")}
 			/>
-			{palettes.map((palette, index) => (
+			{palettes.map((palette) => (
 				<Palette
-					key={index}
+					key={palette.join(",")}
 					palette={palette}
 					handleSetNewColors={handleSetNewColors}
 					checked={palette.join(",") === currentPalette.join(",")}
@@ -30,4 +31,4 @@ const PalettePicker = ({
 	);
 };
 
-export default PalettePicker;
+export { PalettePicker };

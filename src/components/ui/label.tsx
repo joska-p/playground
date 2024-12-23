@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
@@ -18,13 +18,23 @@ type Props = React.LabelHTMLAttributes<HTMLLabelElement> &
 		ref?: React.ForwardedRef<HTMLLabelElement>;
 	};
 
-const Label = ({ ref, variant, className, ...props }: Props) => {
+const Label = ({
+	ref,
+	variant,
+	className,
+	children,
+	htmlFor,
+	...props
+}: Props) => {
 	return (
 		<label
 			className={cn(labelVariants({ variant, className }))}
 			ref={ref}
+			htmlFor={htmlFor}
 			{...props}
-		/>
+		>
+			{children}
+		</label>
 	);
 };
 

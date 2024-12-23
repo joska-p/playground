@@ -24,28 +24,26 @@ const getPalettes = async (): Promise<string[][]> => {
 		JSON.parse(storedPalettes).version === palettesVersion
 	) {
 		return JSON.parse(storedPalettes).palettes;
-	} else {
-		try {
-			const palettes = await safeFetch(
-				"https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
-				z
-					.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5))
-					.min(1),
-			);
+	}
 
-			localStorage.setItem(
-				"palettes",
-				JSON.stringify({
-					palettes,
-					expiration: palettesExpiration,
-					version: palettesVersion,
-				}),
-			);
-			return palettes;
-		} catch (e) {
-			console.error(e);
-			return fallbackPalettes;
-		}
+	try {
+		const palettes = await safeFetch(
+			"https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
+			z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1),
+		);
+
+		localStorage.setItem(
+			"palettes",
+			JSON.stringify({
+				palettes,
+				expiration: palettesExpiration,
+				version: palettesVersion,
+			}),
+		);
+		return palettes;
+	} catch (e) {
+		console.error(e);
+		return fallbackPalettes;
 	}
 };
 

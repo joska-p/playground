@@ -18,4 +18,4 @@ const Triangles = ({ colors, rotation, className }: Props) => {
 	return <div style={styleObject} className={className} />;
 };
 
-export default Triangles;
+export { Triangles };

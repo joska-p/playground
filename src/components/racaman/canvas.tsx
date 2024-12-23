@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-
 import { draw } from "./lib/draw";
 
 type Props = {
@@ -17,9 +16,9 @@ const Canvas = ({ sequence, containerSize }: Props) => {
 		return () => {
 			clearTimeout(debounce);
 		};
-	}, [canvasRef, sequence, containerSize]);
+	}, [sequence, containerSize]);
 
 	return <canvas ref={canvasRef} />;
 };
 
-export default Canvas;
+export { Canvas };

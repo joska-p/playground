@@ -8,9 +8,8 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"format": "prettier --write . --ignore-path .gitignore",
-		"lint": "biome format",
-		"lint:fix": "biome format --write"
+		"check": "biome check",
+		"check:fix": "biome check --write"
 	},
 	"dependencies": {
 		"@astrojs/react": "^4.1.2",

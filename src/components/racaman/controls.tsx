@@ -1,6 +1,5 @@
 import { Input } from "@ui/input";
 import { Label } from "@ui/label";
-
 import { createRacamanSequence } from "./lib/sequence";
 
 type Props = {
@@ -19,7 +18,7 @@ const Controls = ({
 	const handleSequenceLengthChange = (
 		event: React.ChangeEvent<HTMLInputElement>,
 	) => {
-		setSequence(createRacamanSequence(parseInt(event.target.value)));
+		setSequence(createRacamanSequence(Number.parseInt(event.target.value)));
 	};
 
 	const handleSetDrawMode = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,4 +77,4 @@ const Controls = ({
 	);
 };
 
-export default Controls;
+export { Controls };

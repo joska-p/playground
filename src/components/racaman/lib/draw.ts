@@ -59,17 +59,21 @@ const drawSvg = (
 
 	const path = sequence.reduce(
 		(acc, value, index) => {
+			let newPath = acc;
+
 			if (index > 0) {
 				const previousValue = sequence[index - 1];
 				const radius = Math.abs(value - previousValue) / 2;
+
 				if (
 					(index % 2 === 0 && previousValue > value) ||
 					(index % 2 !== 0 && previousValue < value)
 				) {
-					acc += ` A ${radius} ${radius} 0 0 1 ${value} ${height / 2}`; // clockwise
-				} else acc += `  A ${radius} ${radius} 0 0 0 ${value} ${height / 2}`; // counter-clockwise
+					newPath += ` A ${radius} ${radius} 0 0 1 ${value} ${height / 2}`; // clockwise
+				} else
+					newPath += `  A ${radius} ${radius} 0 0 0 ${value} ${height / 2}`; // counter-clockwise
 			}
-			return acc;
+			return newPath;
 		},
 		`M 0 ${height / 2} `,
 	);

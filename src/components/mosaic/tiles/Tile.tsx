@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-
 import { DefaultTileComponents } from "./default-tile-set";
 import styles from "./tile.module.css";
 
@@ -27,4 +26,4 @@ const Tile = ({
 	);
 };
 
-export default Tile;
+export { Tile };

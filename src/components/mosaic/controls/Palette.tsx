@@ -26,9 +26,9 @@ const Palette = ({
 				checked={checked}
 				onChange={() => handleSetNewColors(palette)}
 			/>
-			{palette.map((color, index) => (
+			{palette.map((color) => (
 				<div
-					key={index}
+					key={color}
 					style={{ backgroundColor: color }}
 					className="h-8 w-8"
 				/>
@@ -37,4 +37,4 @@ const Palette = ({
 	);
 };
 
-export default Palette;
+export { Palette };

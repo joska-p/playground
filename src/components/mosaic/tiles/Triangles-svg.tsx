@@ -16,6 +16,7 @@ const Triangle = ({ colors, rotation, className }: Props) => {
 				className="triangle"
 				viewBox="0 0 2 2"
 			>
+				<title>Triangle</title>
 				<polygon points="0, 0 1, 1 2, 0" fill={`var(${colors[1]})`} />
 				<polygon points="2, 0 1, 1 2, 2" fill={`var(${colors[2]})`} />
 				<polygon points="0, 2 1, 1 2, 2" fill={`var(${colors[3]})`} />
@@ -25,4 +26,4 @@ const Triangle = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default Triangle;
+export { Triangle };

@@ -16,6 +16,7 @@ const Chevron = ({ position = "right", state = "expanded" }: Props) => {
 				strokeWidth="1.5"
 				stroke="currentColor"
 			>
+				<title>Toggle</title>
 				<path
 					strokeLinecap="round"
 					strokeLinejoin="round"
@@ -36,6 +37,7 @@ const Chevron = ({ position = "right", state = "expanded" }: Props) => {
 				strokeWidth="1.5"
 				stroke="currentColor"
 			>
+				<title>Toggle</title>
 				<path
 					strokeLinecap="round"
 					strokeLinejoin="round"
@@ -56,6 +58,7 @@ const Chevron = ({ position = "right", state = "expanded" }: Props) => {
 				strokeWidth="1.5"
 				stroke="currentColor"
 			>
+				<title>Toggle</title>
 				<path
 					strokeLinecap="round"
 					strokeLinejoin="round"
@@ -77,6 +80,7 @@ const Chevron = ({ position = "right", state = "expanded" }: Props) => {
 				strokeWidth="1.5"
 				stroke="currentColor"
 			>
+				<title>Toggle</title>
 				<path
 					strokeLinecap="round"
 					strokeLinejoin="round"

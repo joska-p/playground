@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-
 import { initialColors } from "@/components/mosaic/lib/colors";
 import { getRandom } from "@lib/utils";
 import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
-
-import Controls from "./controls/Controls";
-import Tile from "./tiles/Tile";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Controls } from "./controls/Controls";
+import { Tile } from "./tiles/Tile";
 import { defaultTileSet } from "./tiles/default-tile-set";
 
 export type DefaultTileSet = typeof defaultTileSet;
@@ -25,20 +23,11 @@ const Mosaic = ({
 	const [mosaicTiles, setMosaicTiles] = useState<DefaultTileSet>([]);
 	const mosaicRef = useRef<HTMLDivElement>(null);
 
-	const computedGap = () => {
-		if (!mosaicRef.current) return 0;
-		return parseFloat(
-			getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(
-				"--mosaicGap",
-			),
-		);
-	};
-
 	const handleSetNewTiles = useCallback(
 		(newMosaicTileSet = mosaicTileSet) => {
 			const computedTileHeight = () => {
 				if (!mosaicRef.current) return tileHeight;
-				return parseFloat(
+				return Number.parseFloat(
 					getComputedStyle(
 						mosaicRef.current as HTMLDivElement,
 					).getPropertyValue("--tile-height"),
@@ -47,22 +36,32 @@ const Mosaic = ({
 
 			const computedTileWidth = () => {
 				if (!mosaicRef.current) return tileWidth;
-				return parseFloat(
+				return Number.parseFloat(
 					getComputedStyle(
 						mosaicRef.current as HTMLDivElement,
 					).getPropertyValue("--tile-width"),
 				);
 			};
 
-			const computedNumberOfTiles = () => {
+			const computedGap = () => {
 				if (!mosaicRef.current) return 0;
+				return Number.parseFloat(
+					getComputedStyle(
+						mosaicRef.current as HTMLDivElement,
+					).getPropertyValue("--mosaicGap"),
+				);
+			};
+
+			const computedNumberOfTiles = () => {
+				if (!mosaicRef.current || !mosaicRef.current.parentElement) return 0;
+
 				return (
 					Math.floor(
-						(mosaicRef.current.parentElement!.offsetWidth + computedGap()) /
+						(mosaicRef.current.parentElement.offsetWidth + computedGap()) /
 							(computedTileWidth() + computedGap()),
 					) *
 					Math.floor(
-						(mosaicRef.current.parentElement!.offsetHeight + computedGap()) /
+						(mosaicRef.current.parentElement.offsetHeight + computedGap()) /
 							(computedTileHeight() + computedGap()),
 					)
 				);
@@ -98,6 +97,7 @@ const Mosaic = ({
 				>
 					{mosaicTiles.map((tile, index) => (
 						<Tile
+							// biome-ignore lint/suspicious/noArrayIndexKey: There is no other way
 							key={index}
 							name={tile}
 							colors={Object.keys(initialColors).map(() =>
@@ -122,4 +122,4 @@ const Mosaic = ({
 	);
 };
 
-export default Mosaic;
+export { Mosaic };

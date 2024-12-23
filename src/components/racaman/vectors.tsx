@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-
+import type { CSSProperties } from "react";
+import { useEffect, useRef } from "react";
 import { drawSvg } from "./lib/draw";
 
 type Props = {
@@ -16,7 +16,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
 		strokeDashoffset: "var(--dashoffset)",
 		strokeWidth: 1,
 		stroke: "currentColor",
-	} as React.CSSProperties;
+	} as CSSProperties;
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
@@ -25,7 +25,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
 		return () => {
 			clearTimeout(debounce);
 		};
-	}, [svgRef, sequence, containerSize]);
+	}, [sequence, containerSize]);
 
 	return (
 		<svg
@@ -36,4 +36,4 @@ const Vectors = ({ sequence, containerSize }: Props) => {
 	);
 };
 
-export default Vectors;
+export { Vectors };

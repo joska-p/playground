@@ -1,11 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-
+import { Controls } from "@/components/racaman/controls";
 import { Sidebar, SidebarContent, SidebarProvider } from "@ui/sidebar";
-import Controls from "@/components/racaman/controls";
-
-import Canvas from "./canvas";
+import { useEffect, useRef, useState } from "react";
+import { Canvas } from "./canvas";
 import { createRacamanSequence } from "./lib/sequence";
-import Vectors from "./vectors";
+import { Vectors } from "./vectors";
 
 const Racaman = () => {
 	const [sequence, setSequence] = useState<number[]>(createRacamanSequence(50));
@@ -52,4 +50,4 @@ const Racaman = () => {
 	);
 };
 
-export default Racaman;
+export { Racaman };

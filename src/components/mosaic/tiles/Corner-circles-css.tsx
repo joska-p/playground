@@ -23,4 +23,4 @@ const CornerCircles = ({ colors, rotation, className }: Props) => {
 	);
 };
 
-export default CornerCircles;
+export { CornerCircles };

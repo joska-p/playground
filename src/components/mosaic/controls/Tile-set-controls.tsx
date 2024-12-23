@@ -1,7 +1,7 @@
 import { initialColors } from "@/components/mosaic/lib/colors";
 import { Label } from "@ui/label";
 import type { DefaultTileSet } from "../Mosaic";
-import Tile from "../tiles/Tile";
+import { Tile } from "../tiles/Tile";
 
 type Props = {
 	initialTileSet: DefaultTileSet;
@@ -48,9 +48,7 @@ const TileSetControls = ({
 					<Label key={tile} className="flex flex-col gap-2">
 						<input
 							type="checkbox"
-							checked={
-								mosaicTileSet.find((element) => element === tile) ? true : false
-							}
+							checked={mosaicTileSet.includes(tile)}
 							onChange={() => handleChangeMosaicTileSet(tile)}
 							className="peer sr-only"
 						/>
@@ -67,4 +65,4 @@ const TileSetControls = ({
 	);
 };
 
-export default TileSetControls;
+export { TileSetControls };
