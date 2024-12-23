@@ -1,36 +1,40 @@
+import { includeIgnoreFile } from "@eslint/compat";
 import pluginJs from "@eslint/js";
 import eslintPluginAstro from "eslint-plugin-astro";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginReact from "eslint-plugin-react";
-import reactCompiler from "eslint-plugin-react-compiler";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const gitignorePath = path.resolve(__dirname, ".gitignore");
+
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  includeIgnoreFile(gitignorePath),
   { languageOptions: { globals: globals.browser } },
-  ...tseslint.configs.recommended.map((config) => ({
-    ...config,
-    files: ["src/**/*.{ts,tsx,astro}"],
-  })),
+  ...tseslint.configs.recommended,
+  pluginJs.configs.recommended,
   {
-    ...pluginJs.configs.recommended,
     ...pluginReact.configs.flat.recommended,
     ...jsxA11y.flatConfigs.recommended,
-    files: ["src/**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    plugins: {
-      "react-compiler": reactCompiler,
-    },
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
     settings: {
       react: {
         version: "detect",
       },
     },
-    rules: {
-      "react-compiler/react-compiler": "error",
-      "react/jsx-uses-react": "off",
-      "react/jsx-uses-vars": "off",
-    },
   },
   ...eslintPluginAstro.configs.recommended,
+  {
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"],
+    rules: {
+      "no-unused-vars": "warn",
+      "no-undef": "off",
+    },
+  },
 ];
