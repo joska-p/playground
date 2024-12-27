@@ -1,8 +1,8 @@
 ---
-import { Mosaic } from "@components/mosaic/Mosaic";
+import { MosaicProvider } from "@/components/mosaic/MosaicProvider";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Mosaic">
-  <Mosaic client:idle />
+  <MosaicProvider client:idle />
 </Layout>

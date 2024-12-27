@@ -16,17 +16,14 @@ const computeGap = (element: HTMLDivElement) => {
 	);
 };
 
-const computeNumberOfTiles = ({
-	element,
-	parentElement,
-}: { element: HTMLDivElement; parentElement: HTMLDivElement }) => {
+const computeNumberOfTiles = (element: HTMLDivElement) => {
 	return (
 		Math.floor(
-			(parentElement.offsetWidth + computeGap(element)) /
+			(element.offsetWidth + computeGap(element)) /
 				(computeTileWidth(element) + computeGap(element)),
 		) *
 		Math.floor(
-			(parentElement.offsetHeight + computeGap(element)) /
+			(element.offsetHeight + computeGap(element)) /
 				(computeTileHeight(element) + computeGap(element)),
 		)
 	);

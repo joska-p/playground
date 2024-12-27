@@ -11,17 +11,13 @@ import {
 } from "../tiles/default-options";
 import { TileSetControls } from "./Tile-set-controls";
 
-type ControlsProps = {
+type Props = {
 	mosaicRef: React.RefObject<HTMLDivElement>;
 	initialTileSet: DefaultTileSet;
 	handleSetNewTiles: (tileset?: DefaultTileSet) => void;
 };
 
-const Controls = ({
-	mosaicRef,
-	initialTileSet,
-	handleSetNewTiles,
-}: ControlsProps) => {
+const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 	const [mosaicTileSet, setMosaicTileSet] = useState(initialTileSet);
 	const [palettes, setPalettes] = useState([[""]]);
 	const [currentPalette, setCurrentPalette] = useState(defaultPalette);
@@ -104,7 +100,7 @@ const Controls = ({
 	}, [handleSetNewTiles, handleSetNewPalettes]);
 
 	return (
-		<form className="max-w-sm space-y-8">
+		<form className="space-y-8">
 			<fieldset className="grid grid-cols-2 gap-4">
 				<Button type="button" onClick={HandleShuffleColors} size="sm">
 					Shuffle colors
