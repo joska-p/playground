@@ -2,7 +2,7 @@ import { getPalettes } from "@/components/mosaic/lib/colors";
 import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
 import { PalettePicker } from "@components/mosaic/controls/Palette-picker";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DefaultTileSet } from "../tiles/default-options";
 import {
 	defaulColors as colors,
@@ -88,11 +88,15 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 		);
 	};
 
-	const handleSetNewPalettes = useCallback(async () => {
+	const initialPalettes = useMemo(async () => {
 		const palettes = await getPalettes();
-		const randomPalettes = shuffleArray(palettes).slice(0, 23);
-		setPalettes(randomPalettes);
+		return palettes;
 	}, []);
+
+	const handleSetNewPalettes = useCallback(async () => {
+		const randomPalettes = shuffleArray(await initialPalettes).slice(0, 23);
+		setPalettes(randomPalettes);
+	}, [initialPalettes]);
 
 	useEffect(() => {
 		handleSetNewPalettes();

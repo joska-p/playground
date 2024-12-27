@@ -25,9 +25,10 @@ const Palette = ({
 				checked={checked}
 				onChange={() => handleSetNewColors(palette)}
 			/>
-			{palette.map((color) => (
+			{palette.map((color, index) => (
 				<div
-					key={color}
+					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+					key={index}
 					style={{ backgroundColor: color }}
 					className="h-8 w-8"
 				/>

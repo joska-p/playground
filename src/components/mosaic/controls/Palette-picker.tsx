@@ -20,9 +20,9 @@ const PalettePicker = ({
 				checked={defaultPalette.join(",") === currentPalette.join(",")}
 				aria-label="Default palette"
 			/>
-			{palettes.map((palette) => (
+			{palettes.map((palette, index) => (
 				<Palette
-					key={palette.join(",")}
+					key={palette.toSorted().join(",")}
 					palette={palette}
 					handleSetNewColors={handleSetNewColors}
 					checked={palette.join(",") === currentPalette.join(",")}
