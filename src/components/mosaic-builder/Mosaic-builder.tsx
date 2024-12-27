@@ -1,11 +1,6 @@
-import { computeNumberOfTiles } from "@/components/mosaic/lib/utils";
-import { Mosaic } from "@/components/mosaic/mosaic";
+import { computeNumberOfTiles } from "@/components/mosaic-builder/lib/utils";
+import { Mosaic } from "@/components/mosaic-builder/mosaic";
 import { SidebarProvider } from "@/components/ui/sidebar/Sidebar";
-// import {
-// 	Sidebar,
-// 	SidebarContent,
-// 	SidebarProvider,
-// } from "@/components/ui/Sidebar";
 import { cn, getRandom } from "@lib/utils";
 import { useCallback, useRef, useState } from "react";
 import { Controls } from "./controls/Controls";
@@ -15,7 +10,7 @@ import {
 	defaultTileSet,
 } from "./tiles/default-options";
 
-const MosaicProvider = ({
+const MosaicBuilder = ({
 	inititialTileSet = defaultTileSet,
 	inititialColors = defaulColors,
 	inititialRotations = defaultRotations,
@@ -59,4 +54,4 @@ const MosaicProvider = ({
 	);
 };
 
-export { MosaicProvider };
+export { MosaicBuilder };

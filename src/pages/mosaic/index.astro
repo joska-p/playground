@@ -1,8 +1,8 @@
 ---
-import { MosaicProvider } from "@/components/mosaic/MosaicProvider";
+import { MosaicBuilder } from "@/components/mosaic-builder/Mosaic-builder";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Mosaic">
-  <MosaicProvider client:only="react" />
+  <MosaicBuilder client:only="react" />
 </Layout>

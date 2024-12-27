@@ -1,7 +1,7 @@
-import { getPalettes } from "@/components/mosaic/lib/colors";
+import { PalettePicker } from "@/components/mosaic-builder/controls/Palette-picker";
+import { getPalettes } from "@/components/mosaic-builder/lib/colors";
 import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
-import { PalettePicker } from "@components/mosaic/controls/Palette-picker";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DefaultTileSet } from "../tiles/default-options";
 import {
