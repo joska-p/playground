@@ -34,7 +34,7 @@ const MosaicBuilder = ({
 
 	return (
 		<SidebarProvider>
-			<SidebarProvider.Content className={cn("relative overflow-hidden")}>
+			<SidebarProvider.Content className="relative">
 				<Mosaic
 					mosaicRef={mosaicRef}
 					colors={inititialColors}
@@ -43,7 +43,7 @@ const MosaicBuilder = ({
 				/>
 			</SidebarProvider.Content>
 
-			<SidebarProvider.Sidebar className="px-4">
+			<SidebarProvider.Sidebar>
 				<Controls
 					mosaicRef={mosaicRef}
 					initialTileSet={inititialTileSet}
