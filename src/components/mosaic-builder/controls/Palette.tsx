@@ -15,7 +15,13 @@ const Palette = ({
 	...props
 }: Props) => {
 	return (
-		<label className={cn("has-[:checked]:ring-4", className)} {...props}>
+		<label
+			className={cn(
+				"has-[:checked]:ring-4 flex flex-row md:flex-col",
+				className,
+			)}
+			{...props}
+		>
 			<input
 				type="radio"
 				name="palette"
@@ -30,7 +36,7 @@ const Palette = ({
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={index}
 					style={{ backgroundColor: color }}
-					className="h-8 w-8"
+					className="h-4 w-4 md:h-8 md:w-8"
 				/>
 			))}
 		</label>

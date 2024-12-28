@@ -13,14 +13,14 @@ const PalettePicker = ({
 	handleSetNewColors,
 }: Props) => {
 	return (
-		<fieldset className="flex flex-wrap justify-center gap-4">
+		<fieldset className="flex flex-wrap justify-center gap-2 md:gap-4">
 			<Palette
 				palette={defaultPalette}
 				handleSetNewColors={handleSetNewColors}
 				checked={defaultPalette.join(",") === currentPalette.join(",")}
 				aria-label="Default palette"
 			/>
-			{palettes.map((palette, index) => (
+			{palettes.map((palette) => (
 				<Palette
 					key={palette.toSorted().join(",")}
 					palette={palette}

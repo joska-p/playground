@@ -1,19 +1,15 @@
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
-import { createContext, useContext, useMemo, useState } from "react";
+import {
+	type ComponentProps,
+	createContext,
+	useContext,
+	useMemo,
+	useState,
+} from "react";
 
-type SidebarProviderProps = React.HTMLAttributes<HTMLDivElement> & {
-	ref?: React.Ref<HTMLDivElement>;
-	className?: string;
+type SidebarProviderProps = ComponentProps<"div"> & {
 	position?: "horizontal";
-};
-type ContentProps = React.HTMLAttributes<HTMLDivElement> & {
-	ref?: React.Ref<HTMLDivElement>;
-	className?: string;
-};
-type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
-	ref?: React.Ref<HTMLDivElement>;
-	className?: string;
 };
 
 type SidebarContext = {
@@ -36,14 +32,15 @@ const useSidebarContext = () => {
 	return context;
 };
 
-const sidebarVariants = cva("flex relative", {
+const sidebarProviderVariants = cva("flex", {
 	variants: {
 		position: {
 			horizontal: "flex-row",
+			vertical: "flex-col md:flex-row",
 		},
 	},
 	defaultVariants: {
-		position: "horizontal",
+		position: "vertical",
 	},
 });
 
@@ -68,7 +65,7 @@ const SidebarProvider = ({
 		<sidebarContext.Provider value={value}>
 			<div
 				ref={ref}
-				className={cn(sidebarVariants({ position }), className)}
+				className={cn(sidebarProviderVariants({ position, className }))}
 				{...props}
 			>
 				{children}
@@ -82,7 +79,7 @@ SidebarProvider.Content = ({
 	ref,
 	className,
 	...props
-}: ContentProps) => {
+}: ComponentProps<"div">) => {
 	return (
 		<div ref={ref} className={cn("flex-grow", className)} {...props}>
 			{children}
@@ -95,10 +92,14 @@ SidebarProvider.Sidebar = ({
 	ref,
 	className,
 	...props
-}: SidebarProps) => {
+}: ComponentProps<"div">) => {
 	const { isOpen } = useSidebarContext();
 	return (
-		<div ref={ref} className={cn(className)} {...props}>
+		<div
+			ref={ref}
+			className={cn("flex-shrink-0 md:w-[40ch]", className)}
+			{...props}
+		>
 			{children}
 		</div>
 	);

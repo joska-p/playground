@@ -21,10 +21,6 @@ const routes = [
 		text: "Color wheel",
 		url: `${baseUrl}/color-wheel`,
 	},
-	{
-		text: "Sidebar ex",
-		url: `${baseUrl}/sidebar`,
-	},
 ];
 
 export { routes };
