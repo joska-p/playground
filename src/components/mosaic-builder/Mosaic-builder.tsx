@@ -20,14 +20,13 @@ const MosaicBuilder = ({
 
 	const handleSetNewTiles = useCallback(
 		(tileSet = inititialTileSet) => {
-			if (!mosaicRef.current) {
-				throw new Error("No mosaic ref");
+			if (mosaicRef.current) {
+				const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
+				const newTiles = Array.from({ length: computedNumberOfTiles }, () =>
+					getRandom(tileSet),
+				);
+				setMosaicTiles(newTiles);
 			}
-			const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
-			const newTiles = Array.from({ length: computedNumberOfTiles }, () =>
-				getRandom(tileSet),
-			);
-			setMosaicTiles(newTiles);
 		},
 		[inititialTileSet],
 	);

@@ -34,7 +34,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 	};
 
 	const computedRotation = () => {
-		if (!mosaicRef.current) return [];
+		if (mosaicRef.current) return [];
 		return Object.keys(rotations).map((rotation) =>
 			getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(
 				rotation,
@@ -45,47 +45,52 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 	const handleSetNewColors = (palette = getRandom(palettes)) => {
 		setCurrentPalette(palette);
 		Object.keys(colors).forEach((colorName, index) => {
-			if (!mosaicRef.current) return;
-			mosaicRef.current.style.setProperty(colorName, palette[index]);
+			if (mosaicRef.current) {
+				mosaicRef.current.style.setProperty(colorName, palette[index]);
+			}
 		});
 	};
 
 	const HandleShuffleColors = () => {
 		const newColors = shuffleArray(computedColors());
 		Object.keys(colors).forEach((colorName, index) => {
-			if (!mosaicRef.current) return;
-			mosaicRef.current.style.setProperty(colorName, newColors[index]);
+			if (mosaicRef.current) {
+				mosaicRef.current.style.setProperty(colorName, newColors[index]);
+			}
 		});
 	};
 
 	const HandleSuffleRotations = () => {
 		const newRotations = shuffleArray(computedRotation());
 		Object.keys(rotations).forEach((rotationName, index) => {
-			if (!mosaicRef.current) return;
-			mosaicRef.current.style.setProperty(rotationName, newRotations[index]);
+			if (mosaicRef.current) {
+				mosaicRef.current.style.setProperty(rotationName, newRotations[index]);
+			}
 		});
 	};
 
 	const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSize(Number.parseInt(event.target.value));
-		if (!mosaicRef.current) return;
-		mosaicRef.current.style.setProperty(
-			"--tile-width",
-			`${event.target.value}px`,
-		);
-		mosaicRef.current.style.setProperty(
-			"--tile-height",
-			`${event.target.value}px`,
-		);
+		if (mosaicRef.current) {
+			mosaicRef.current.style.setProperty(
+				"--tile-width",
+				`${event.target.value}px`,
+			);
+			mosaicRef.current.style.setProperty(
+				"--tile-height",
+				`${event.target.value}px`,
+			);
+		}
 	};
 
 	const handleChangeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setGap(Number.parseInt(event.target.value));
-		if (!mosaicRef.current) return;
-		mosaicRef.current.style.setProperty(
-			"--mosaicGap",
-			`${event.target.value}px`,
-		);
+		if (mosaicRef.current) {
+			mosaicRef.current.style.setProperty(
+				"--mosaicGap",
+				`${event.target.value}px`,
+			);
+		}
 	};
 
 	const initialPalettes = useMemo(async () => {

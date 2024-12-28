@@ -81,7 +81,7 @@ SidebarProvider.Content = ({
 	...props
 }: ComponentProps<"div">) => {
 	return (
-		<div ref={ref} className={cn("flex-grow", className)} {...props}>
+		<div ref={ref} className={cn("basis-full", className)} {...props}>
 			{children}
 		</div>
 	);
@@ -95,7 +95,7 @@ SidebarProvider.Sidebar = ({
 }: ComponentProps<"div">) => {
 	const { isOpen } = useSidebarContext();
 	return (
-		<div ref={ref} className={cn("flex-shrink-0 ", className)} {...props}>
+		<div ref={ref} className={cn("", className)} {...props}>
 			{children}
 		</div>
 	);
