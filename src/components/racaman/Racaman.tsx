@@ -26,12 +26,12 @@ const Racaman = () => {
 	}, []);
 
 	return (
-		<SidebarProvider position="horizontal">
-			<SidebarProvider.Content
-				ref={containerRef}
-				className="content-center overflow-hidden"
-			>
-				<div className="overflow-hidden">
+		<SidebarProvider position="bottom">
+			<SidebarProvider.Content className="relative">
+				<div
+					ref={containerRef}
+					className="absolute inset-0 content-center overflow-hidden"
+				>
 					{drawMode === "vector-mode" && (
 						<Vectors sequence={sequence} containerSize={containerSize} />
 					)}

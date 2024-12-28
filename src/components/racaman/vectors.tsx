@@ -31,7 +31,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
 		<svg
 			ref={svgRef}
 			style={styleObject}
-			className="max-h-full fill-transparent"
+			className="max-h-full max-w-full fill-transparent"
 		/>
 	);
 };
