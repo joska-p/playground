@@ -110,7 +110,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 
 	return (
 		<form className="flex flex-wrap justify-center gap-4 md:w-[40ch] md:flex-col md:gap-8">
-			<fieldset className="grid grid-cols-4 gap-4 md:grid-cols-2">
+			<fieldset className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-2">
 				<Button type="button" onClick={HandleShuffleColors} size="sm">
 					Shuffle colors
 				</Button>

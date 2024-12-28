@@ -33,7 +33,7 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{`Playground - ${title ?? "Home"}`}</title>
   </head>
-  <body class="min-h-svh grid grid-rows-[auto,1fr]">
+  <body class="min-h-dvh grid grid-rows-[auto,1fr] grid-cols-1">
     <Header title={title} />
       <main>
         <slot />

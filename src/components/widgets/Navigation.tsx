@@ -12,7 +12,7 @@ type Props = {
 const Navigation = ({ routes }: Props) => {
 	return (
 		<NavigationMenu>
-			<NavigationMenuList position="right" spacing="lg">
+			<NavigationMenuList>
 				{routes.map((route) => (
 					<NavigationMenuItem key={route.text}>
 						<NavigationMenuLink href={route.url}>

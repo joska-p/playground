@@ -4,11 +4,7 @@ import type { ComponentProps } from "react";
 type NavigationMenuProps = ComponentProps<"div">;
 
 const NavigationMenu = ({ children, className }: NavigationMenuProps) => {
-	return (
-		<div className={cn(" flex items-center justify-center", className)}>
-			{children}
-		</div>
-	);
+	return <nav className={cn(" flex items-center", className)}>{children}</nav>;
 };
 
 type NavigationMenuListProps = ComponentProps<"ul">;
@@ -19,10 +15,7 @@ const NavigationMenuList = ({
 }: NavigationMenuListProps) => {
 	return (
 		<ul
-			className={cn(
-				"group flex list-none items-center justify-center",
-				className,
-			)}
+			className={cn("group flex list-none flex-wrap items-center", className)}
 		>
 			{children}
 		</ul>

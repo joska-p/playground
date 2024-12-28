@@ -96,7 +96,7 @@ SidebarProvider.Content = ({
 	...props
 }: ComponentProps<"div">) => {
 	return (
-		<div ref={ref} className={cn("h-full", className)} {...props}>
+		<div ref={ref} className={cn(className)} {...props}>
 			{children}
 		</div>
 	);
