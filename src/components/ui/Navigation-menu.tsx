@@ -112,7 +112,7 @@ const NavigationMenuList = ({
  */
 
 const navigationMenuItemVariants = cva(
-	"flex items-center rounded-md px-2 py-1.5 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+	"flex items-center rounded-md px-2 py-1.5 font-medium text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 	{
 		variants: {
 			variant: {
@@ -145,7 +145,7 @@ const NavigationMenuItem = ({
  */
 
 const navigationMenuLinkVariants = cva(
-	"inline-flex items-center rounded-md px-2 py-1.5 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+	"inline-flex items-center rounded-md px-2 py-1.5 font-medium text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 	{
 		variants: {
 			variant: {

@@ -17,7 +17,7 @@ const Palette = ({
 	return (
 		<label
 			className={cn(
-				"has-[:checked]:ring-4 flex flex-row md:flex-col",
+				"flex flex-row has-[:checked]:ring-4 md:flex-col",
 				className,
 			)}
 			{...props}

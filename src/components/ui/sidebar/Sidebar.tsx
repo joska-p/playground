@@ -35,7 +35,7 @@ const useSidebarContext = () => {
 const sidebarProviderVariants = cva("flex", {
 	variants: {
 		position: {
-			horizontal: "flex-row",
+			horizontal: "flex-col",
 			vertical: "flex-col md:flex-row",
 		},
 	},
@@ -95,11 +95,7 @@ SidebarProvider.Sidebar = ({
 }: ComponentProps<"div">) => {
 	const { isOpen } = useSidebarContext();
 	return (
-		<div
-			ref={ref}
-			className={cn("flex-shrink-0 md:w-[40ch]", className)}
-			{...props}
-		>
+		<div ref={ref} className={cn("flex-shrink-0 ", className)} {...props}>
 			{children}
 		</div>
 	);
