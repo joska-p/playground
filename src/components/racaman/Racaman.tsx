@@ -26,7 +26,7 @@ const Racaman = () => {
 	}, []);
 
 	return (
-		<SidebarProvider position="bottom">
+		<SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
 			<SidebarProvider.Content className="relative">
 				<div
 					ref={containerRef}

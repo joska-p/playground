@@ -32,7 +32,7 @@ const MosaicBuilder = ({
 	);
 
 	return (
-		<SidebarProvider position="right">
+		<SidebarProvider desktopPosition="right" mobilePosition="bottom">
 			<SidebarProvider.Content className="relative">
 				<Mosaic
 					mosaicRef={mosaicRef}

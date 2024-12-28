@@ -30,16 +30,22 @@ const useSidebarContext = () => {
 
 const sidebarProviderVariants = cva("grid h-full", {
 	variants: {
-		position: {
+		mobilePosition: {
 			top: "grid-cols-1 grid-rows-[auto,1fr]",
-			right:
-				"grid-cols-1 grid-rows-[1fr,auto] md:grid-cols-[1fr,auto] md:grid-rows-1",
+			right: "grid-cols-[1fr,auto] grid-rows-1",
 			bottom: "grid-cols-1 grid-rows-[1fr,auto]",
-			left: "grid-cols-1 grid-rows-[auto,1fr] md:grid-cols-[auto,1fr] md:grid-rows-1",
+			left: "grid-cols-[auto,1fr] grid-rows-1",
+		},
+		desktopPosition: {
+			top: "md:grid-cols-1 md:grid-rows-[auto,1fr]",
+			right: "md:grid-cols-[1fr,auto] md:grid-rows-1",
+			bottom: "md:grid-cols-1 md:grid-rows-[1fr,auto]",
+			left: "md:grid-cols-[auto,1fr] md:grid-rows-1",
 		},
 	},
 	defaultVariants: {
-		position: "right",
+		mobilePosition: "bottom",
+		desktopPosition: "bottom",
 	},
 });
 
@@ -50,7 +56,8 @@ const SidebarProvider = ({
 	children,
 	ref,
 	className,
-	position,
+	mobilePosition,
+	desktopPosition,
 	...props
 }: SidebarProviderProps) => {
 	const [isOpen, toggleSidebar] = useState(true);
@@ -67,7 +74,13 @@ const SidebarProvider = ({
 		<sidebarContext.Provider value={value}>
 			<div
 				ref={ref}
-				className={cn(sidebarProviderVariants({ position, className }))}
+				className={cn(
+					sidebarProviderVariants({
+						mobilePosition,
+						desktopPosition,
+						className,
+					}),
+				)}
 				{...props}
 			>
 				{children}
@@ -83,7 +96,7 @@ SidebarProvider.Content = ({
 	...props
 }: ComponentProps<"div">) => {
 	return (
-		<div ref={ref} className={cn(className)} {...props}>
+		<div ref={ref} className={cn("h-full", className)} {...props}>
 			{children}
 		</div>
 	);
