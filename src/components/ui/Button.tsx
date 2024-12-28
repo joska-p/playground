@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { type VariantProps, cva } from "class-variance-authority";
+import type { ComponentProps } from "react";
 
 const buttonVariants = cva(
 	"rounded-md bg-primary px-4 py-2 text-primary-foreground shadow hover:bg-primary/90",
@@ -27,33 +28,17 @@ const buttonVariants = cva(
 	},
 );
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
-	VariantProps<typeof buttonVariants> & {
-		href?: string;
-		ref?: string;
-	};
+type Props = ComponentProps<"button"> & VariantProps<typeof buttonVariants>;
 
 const Button = ({
 	ref,
 	className,
 	children,
-	href,
 	variant,
 	size,
 	type = "button",
 	...props
 }: Props) => {
-	if (href) {
-		return (
-			<a
-				href={href}
-				className={cn(buttonVariants({ variant, size, className }))}
-				ref={ref}
-			>
-				{children}
-			</a>
-		);
-	}
 	return (
 		<button
 			className={cn(buttonVariants({ variant, size, className }))}
@@ -65,6 +50,5 @@ const Button = ({
 		</button>
 	);
 };
-Button.displayName = "Button";
 
 export { Button, buttonVariants };

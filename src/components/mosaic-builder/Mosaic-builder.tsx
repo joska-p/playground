@@ -33,7 +33,7 @@ const MosaicBuilder = ({
 
 	return (
 		<SidebarProvider>
-			<SidebarProvider.Content className="relative">
+			<SidebarProvider.Content className="relative flex flex-col">
 				<Mosaic
 					mosaicRef={mosaicRef}
 					colors={inititialColors}

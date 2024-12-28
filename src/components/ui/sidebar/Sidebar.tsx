@@ -32,7 +32,7 @@ const useSidebarContext = () => {
 	return context;
 };
 
-const sidebarProviderVariants = cva("flex", {
+const sidebarProviderVariants = cva("flex flex-grow", {
 	variants: {
 		position: {
 			horizontal: "flex-col",
@@ -81,7 +81,7 @@ SidebarProvider.Content = ({
 	...props
 }: ComponentProps<"div">) => {
 	return (
-		<div ref={ref} className={cn("basis-full", className)} {...props}>
+		<div ref={ref} className={cn("flex-grow", className)} {...props}>
 			{children}
 		</div>
 	);
@@ -95,7 +95,7 @@ SidebarProvider.Sidebar = ({
 }: ComponentProps<"div">) => {
 	const { isOpen } = useSidebarContext();
 	return (
-		<div ref={ref} className={cn("", className)} {...props}>
+		<div ref={ref} className={cn(className)} {...props}>
 			{children}
 		</div>
 	);

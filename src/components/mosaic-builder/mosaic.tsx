@@ -20,7 +20,7 @@ const Mosaic = ({ mosaicRef, colors, rotations, mosaicTiles }: Props) => {
 	return (
 		<div
 			ref={mosaicRef}
-			className="flex h-full flex-wrap content-start justify-center gap-[var(--mosaicGap)]"
+			className="absolute inset-0 grid grid-cols-[repeat(auto-fill,var(--tile-width))] grid-rows-[repeat(auto-fill,var(--tile-height),1fr)] content-start justify-center gap-[var(--mosaicGap)] overflow-hidden bg-accent"
 			style={styleObject}
 		>
 			{mosaicTiles.map((tile, index) => (

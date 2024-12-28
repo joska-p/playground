@@ -36,7 +36,7 @@ const Palette = ({
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={index}
 					style={{ backgroundColor: color }}
-					className="h-4 w-4 md:h-8 md:w-8"
+					className="h-6 w-6 md:h-8 md:w-8"
 				/>
 			))}
 		</label>
