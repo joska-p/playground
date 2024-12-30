@@ -1,14 +1,15 @@
-import { PalettePicker } from "@/components/mosaic-builder/controls/Palette-picker";
-import { getPalettes } from "@/components/mosaic-builder/lib/colors";
 import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { getPalettes } from "../lib/colors";
+import { computedColors, computedRotation } from "../lib/utils";
 import type { DefaultTileSet } from "../tiles/default-options";
 import {
-	defaulColors as colors,
+	defaulColors,
 	defaultPalette,
-	defaultRotations as rotations,
+	defaultRotations,
 } from "../tiles/default-options";
+import { PalettePicker } from "./Palette-picker";
 import { TileSetControls } from "./Tile-set-controls";
 
 type Props = {
@@ -24,73 +25,58 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 	const [size, setSize] = useState(64);
 	const [gap, setGap] = useState(0);
 
-	const computedColors = () => {
-		if (!mosaicRef.current) return [];
-		return Object.keys(colors).map((color) =>
-			getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(
-				color,
-			),
-		);
-	};
-
-	const computedRotation = () => {
-		if (mosaicRef.current) return [];
-		return Object.keys(rotations).map((rotation) =>
-			getComputedStyle(mosaicRef.current as HTMLDivElement).getPropertyValue(
-				rotation,
-			),
-		);
-	};
-
 	const handleSetNewColors = (palette = getRandom(palettes)) => {
+		if (!mosaicRef.current) return;
+
+		const element = mosaicRef.current;
 		setCurrentPalette(palette);
-		Object.keys(colors).forEach((colorName, index) => {
-			if (mosaicRef.current) {
-				mosaicRef.current.style.setProperty(colorName, palette[index]);
-			}
-		});
+		Object.keys(defaulColors).forEach((colorName, index) =>
+			element.style.setProperty(colorName, palette[index]),
+		);
 	};
 
 	const HandleShuffleColors = () => {
-		const newColors = shuffleArray(computedColors());
-		Object.keys(colors).forEach((colorName, index) => {
-			if (mosaicRef.current) {
-				mosaicRef.current.style.setProperty(colorName, newColors[index]);
-			}
-		});
+		if (!mosaicRef.current) return;
+
+		const element = mosaicRef.current;
+		const newColors = shuffleArray(computedColors(element));
+		Object.keys(defaulColors).forEach((colorName, index) =>
+			element.style.setProperty(colorName, newColors[index]),
+		);
 	};
 
 	const HandleSuffleRotations = () => {
-		const newRotations = shuffleArray(computedRotation());
-		Object.keys(rotations).forEach((rotationName, index) => {
-			if (mosaicRef.current) {
-				mosaicRef.current.style.setProperty(rotationName, newRotations[index]);
-			}
-		});
+		if (!mosaicRef.current) return;
+
+		const element = mosaicRef.current;
+		const newRotations = shuffleArray(computedRotation(element));
+		Object.keys(defaultRotations).forEach((rotationName, index) =>
+			element.style.setProperty(rotationName, newRotations[index]),
+		);
 	};
 
 	const handleChangeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (!mosaicRef.current) return;
+
 		setSize(Number.parseInt(event.target.value));
-		if (mosaicRef.current) {
-			mosaicRef.current.style.setProperty(
-				"--tile-width",
-				`${event.target.value}px`,
-			);
-			mosaicRef.current.style.setProperty(
-				"--tile-height",
-				`${event.target.value}px`,
-			);
-		}
+		mosaicRef.current.style.setProperty(
+			"--tile-width",
+			`${event.target.value}px`,
+		);
+		mosaicRef.current.style.setProperty(
+			"--tile-height",
+			`${event.target.value}px`,
+		);
 	};
 
 	const handleChangeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (!mosaicRef.current) return;
+
 		setGap(Number.parseInt(event.target.value));
-		if (mosaicRef.current) {
-			mosaicRef.current.style.setProperty(
-				"--mosaicGap",
-				`${event.target.value}px`,
-			);
-		}
+		mosaicRef.current.style.setProperty(
+			"--mosaicGap",
+			`${event.target.value}px`,
+		);
 	};
 
 	const initialPalettes = useMemo(async () => {
@@ -109,7 +95,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 	}, [handleSetNewTiles, handleSetNewPalettes]);
 
 	return (
-		<form className="flex h-[40ch] flex-wrap justify-center gap-4 overflow-y-auto md:h-auto md:w-[40ch] md:flex-col md:gap-8">
+		<form className="flex h-[40ch] flex-wrap justify-center gap-4 overflow-y-auto overflow-x-visible md:h-auto md:w-[42ch] md:flex-col md:gap-8">
 			<fieldset className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-2">
 				<Button type="button" onClick={HandleShuffleColors} size="sm">
 					Shuffle colors

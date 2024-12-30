@@ -1,3 +1,20 @@
+import {
+	defaulColors,
+	defaultRotations,
+} from "@/components/mosaic-builder/tiles/default-options";
+
+const computedColors = (element: HTMLDivElement) => {
+	return Object.keys(defaulColors).map((color) =>
+		getComputedStyle(element).getPropertyValue(color),
+	);
+};
+
+const computedRotation = (element: HTMLDivElement) => {
+	return Object.keys(defaultRotations).map((rotation) =>
+		getComputedStyle(element).getPropertyValue(rotation),
+	);
+};
+
 const computeTileHeight = (element: HTMLDivElement) => {
 	return Number.parseFloat(
 		getComputedStyle(element).getPropertyValue("--tile-height"),
@@ -29,4 +46,4 @@ const computeNumberOfTiles = (element: HTMLDivElement) => {
 	);
 };
 
-export { computeNumberOfTiles };
+export { computeNumberOfTiles, computedColors, computedRotation };
