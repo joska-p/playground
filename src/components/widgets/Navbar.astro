@@ -2,8 +2,8 @@
 import ThemeToggle from "@components/widgets/themeToggle.astro";
 
 interface Props {
-	title?: string;
-	routes: { text: string; url: string }[];
+  title?: string;
+  routes: { text: string; url: string }[];
 }
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -12,46 +12,73 @@ const { routes } = Astro.props;
 ---
 
 <nav class="border-gray-200 py-2">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
-
-    <a href={baseUrl} class="flex items-center gap-3 group outline-none">
+  <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
+    <a href={baseUrl} class="group flex items-center gap-3 outline-none">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
         <rect fill="#331436" x="0" y="0" width="1" height="1"></rect>
         <rect fill="#eb9961" x="1" y="0" width="1" height="1"></rect>
         <rect fill="#cb4f57" x="0" y="1" width="1" height="1"></rect>
         <rect fill="#7a1745" x="1" y="1" width="1" height="1"></rect>
       </svg>
-      <span class="text-2xl font-semibold whitespace-nowrap py-2 px-4 group-hover:bg-primary group-hover:text-primary-foreground rounded-lg transition-colors group-focus-visible:bg-accent group-focus-visible:text-accent-foreground">{title ?? "Playground"}</span
+      <span
+        class="whitespace-nowrap rounded-lg px-4 py-2 text-2xl font-semibold transition-colors group-hover:bg-primary group-hover:text-primary-foreground group-focus-visible:bg-accent group-focus-visible:text-accent-foreground"
+        >{title ?? "Playground"}</span
       >
     </a>
- 
-    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center w-8 h-8 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
+
+    <button
+      data-collapse-toggle="navbar-default"
+      type="button"
+      class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-sm text-gray-500 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-600 md:hidden"
+      aria-controls="navbar-default"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="h-5 w-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"></path>
+      </svg>
     </button>
 
-    <div class="hidden w-full md:w-auto font-medium md:flex flex-col md:flex-row md:gap-8"  id="navbar-default">
-        { routes.map((route) => (
-          <a href={route.url} class="outline-none block py-2 px-4 hover:bg-primary hover:text-primary-foreground rounded-lg transition-colors focus-visible:bg-accent focus-visible:text-accent-foreground" aria-current="page">{route.text}</a>
+    <div
+      class="hidden w-full flex-col font-medium md:flex md:w-auto md:flex-row md:gap-8"
+      id="navbar-default"
+    >
+      {
+        routes.map((route) => (
+          <a
+            href={route.url}
+            class="block rounded-lg px-4 py-2 outline-none transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:bg-accent focus-visible:text-accent-foreground"
+            aria-current="page"
+          >
+            {route.text}
+          </a>
         ))
-        }
-          <ThemeToggle />
-
+      }
+      <ThemeToggle />
     </div>
   </div>
 </nav>
 
 <script is:inline>
-const initCollapser = () => {
-  const collapser = document.querySelectorAll('[data-collapse-toggle]');
-  collapser.forEach(toggler => {
-    toggler.addEventListener('click', () => {
-      const target = document.getElementById(toggler.getAttribute('data-collapse-toggle'));
-      target.classList.toggle('hidden');
+  const initCollapser = () => {
+    const collapser = document.querySelectorAll("[data-collapse-toggle]");
+    collapser.forEach((toggler) => {
+      toggler.addEventListener("click", () => {
+        const target = document.getElementById(toggler.getAttribute("data-collapse-toggle"));
+        target.classList.toggle("hidden");
+      });
     });
-  });
-}
-initCollapser();
+  };
+  initCollapser();
 </script>

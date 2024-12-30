@@ -11,36 +11,18 @@ const math = {
     return (v - a) / (b - a);
   },
 
-  remap: (
-    oldA: number,
-    oldB: number,
-    newA: number,
-    newB: number,
-    v: number,
-  ) => {
+  remap: (oldA: number, oldB: number, newA: number, newB: number, v: number) => {
     return math.lerp(newA, newB, math.invLerp(oldA, oldB, v));
   },
 
   remapPoint: (
     oldBounds: { left: number; top: number; right: number; bottom: number },
     newBounds: { left: number; top: number; right: number; bottom: number },
-    point: [number, number],
+    point: [number, number]
   ) => {
     return [
-      math.remap(
-        oldBounds.left,
-        oldBounds.right,
-        newBounds.left,
-        newBounds.right,
-        point[0],
-      ),
-      math.remap(
-        oldBounds.top,
-        oldBounds.bottom,
-        newBounds.top,
-        newBounds.bottom,
-        point[1],
-      ),
+      math.remap(oldBounds.left, oldBounds.right, newBounds.left, newBounds.right, point[0]),
+      math.remap(oldBounds.top, oldBounds.bottom, newBounds.top, newBounds.bottom, point[1]),
     ];
   },
 

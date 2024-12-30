@@ -21,7 +21,10 @@ const { title } = Astro.props;
       const isDark = document.documentElement.classList.contains("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
     });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
   }
 </script>
 
@@ -33,10 +36,10 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{`Playground - ${title ?? "Home"}`}</title>
   </head>
-  <body class="min-h-dvh grid grid-rows-[auto,1fr] grid-cols-1">
+  <body class="grid min-h-dvh grid-cols-1 grid-rows-[auto,1fr]">
     <Header title={title} />
-      <main>
-        <slot />
-      </main>
+    <main>
+      <slot />
+    </main>
   </body>
 </html>

@@ -43,12 +43,6 @@ const defaulColors = {
 
 const defaultPalette = ["#333333", "#555555", "#777777", "#999999", "#bbbbbb"];
 
-export {
-  DefaultTileComponents,
-  defaultTileSet,
-  defaultRotations,
-  defaulColors,
-  defaultPalette,
-};
+export { DefaultTileComponents, defaultTileSet, defaultRotations, defaulColors, defaultPalette };
 
 export type DefaultTileSet = typeof defaultTileSet;

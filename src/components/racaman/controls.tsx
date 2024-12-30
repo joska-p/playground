@@ -7,15 +7,8 @@ type Props = {
   drawMode: string;
 };
 
-const Controls = ({
-  setSequence,
-  sequenceLength,
-  setDrawMode,
-  drawMode,
-}: Props) => {
-  const handleSequenceLengthChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props) => {
+  const handleSequenceLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSequence(createRacamanSequence(Number.parseInt(event.target.value)));
   };
 

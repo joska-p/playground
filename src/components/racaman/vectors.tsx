@@ -29,11 +29,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
   }, [sequence, containerSize]);
 
   return (
-    <svg
-      ref={svgRef}
-      style={styleObject}
-      className="max-h-full max-w-full fill-transparent"
-    />
+    <svg ref={svgRef} style={styleObject} className="max-h-full max-w-full fill-transparent" />
   );
 };
 

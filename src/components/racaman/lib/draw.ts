@@ -3,7 +3,7 @@ import { findBiggestInterval } from "@/lib/math";
 const draw = (
   canvas: HTMLCanvasElement,
   sequence: number[],
-  containerSize: { width: number; height: number },
+  containerSize: { width: number; height: number }
 ) => {
   if (!canvas.parentElement) return;
 
@@ -42,7 +42,7 @@ const draw = (
 const drawSvg = (
   svg: SVGSVGElement,
   sequence: number[],
-  containerSize: { width: number; height: number },
+  containerSize: { width: number; height: number }
 ) => {
   //reset the svg
   svg.innerHTML = "";
@@ -70,12 +70,11 @@ const drawSvg = (
           (index % 2 !== 0 && previousValue < value)
         ) {
           newPath += ` A ${radius} ${radius} 0 0 1 ${value} ${height / 2}`; // clockwise
-        } else
-          newPath += `  A ${radius} ${radius} 0 0 0 ${value} ${height / 2}`; // counter-clockwise
+        } else newPath += `  A ${radius} ${radius} 0 0 0 ${value} ${height / 2}`; // counter-clockwise
       }
       return newPath;
     },
-    `M 0 ${height / 2} `,
+    `M 0 ${height / 2} `
   );
 
   svg.innerHTML += `<path class="path" d="${path}"  style="vector-effect: non-scaling-stroke"/>`;

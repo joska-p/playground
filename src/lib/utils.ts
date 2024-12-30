@@ -24,16 +24,11 @@ const shuffleObject = <T>(obj: Record<string, T>): Record<string, T> => {
   return shuffledObject;
 };
 
-const shuffleArray = <T>(array: T[]): T[] =>
-  array.sort(() => Math.random() - 0.5);
+const shuffleArray = <T>(array: T[]): T[] => array.sort(() => Math.random() - 0.5);
 
-const getRandom = <T>(array: T[]): T =>
-  array[Math.floor(Math.random() * array.length)];
+const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)];
 
-const safeFetch = async <TData>(
-  url: string,
-  scheme: z.ZodSchema<TData>,
-): Promise<TData> => {
+const safeFetch = async <TData>(url: string, scheme: z.ZodSchema<TData>): Promise<TData> => {
   const response = await fetch(url);
   if (!response.ok) throw new Error("Network response was not ok");
 
@@ -47,12 +42,4 @@ const getRandomValue = (obj: Record<string, unknown>) => {
 
 const stall = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export {
-  cn,
-  getRandom,
-  getRandomValue,
-  safeFetch,
-  shuffleArray,
-  shuffleObject,
-  stall,
-};
+export { cn, getRandom, getRandomValue, safeFetch, shuffleArray, shuffleObject, stall };

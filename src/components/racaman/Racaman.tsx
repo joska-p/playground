@@ -30,10 +30,7 @@ const Racaman = () => {
   return (
     <SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
       <SidebarProvider.Content className="relative">
-        <div
-          ref={containerRef}
-          className="absolute inset-0 content-center overflow-hidden"
-        >
+        <div ref={containerRef} className="absolute inset-0 content-center overflow-hidden">
           {drawMode === "vector-mode" && (
             <Vectors sequence={sequence} containerSize={containerSize} />
           )}

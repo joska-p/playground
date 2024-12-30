@@ -1,47 +1,38 @@
-import {
-  defaulColors,
-  defaultRotations,
-} from "@/components/mosaic-builder/tiles/default-options";
+import { defaulColors, defaultRotations } from "@/components/mosaic-builder/tiles/default-options";
 
 const computedColors = (element: HTMLDivElement) => {
   return Object.keys(defaulColors).map((color) =>
-    getComputedStyle(element).getPropertyValue(color),
+    getComputedStyle(element).getPropertyValue(color)
   );
 };
 
 const computedRotation = (element: HTMLDivElement) => {
   return Object.keys(defaultRotations).map((rotation) =>
-    getComputedStyle(element).getPropertyValue(rotation),
+    getComputedStyle(element).getPropertyValue(rotation)
   );
 };
 
 const computeTileHeight = (element: HTMLDivElement) => {
-  return Number.parseFloat(
-    getComputedStyle(element).getPropertyValue("--tile-height"),
-  );
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--tile-height"));
 };
 
 const computeTileWidth = (element: HTMLDivElement) => {
-  return Number.parseFloat(
-    getComputedStyle(element).getPropertyValue("--tile-width"),
-  );
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--tile-width"));
 };
 
 const computeGap = (element: HTMLDivElement) => {
-  return Number.parseFloat(
-    getComputedStyle(element).getPropertyValue("--mosaicGap"),
-  );
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--mosaicGap"));
 };
 
 const computeNumberOfTiles = (element: HTMLDivElement) => {
   return (
     Math.floor(
       (element.offsetWidth + computeGap(element)) /
-        (computeTileWidth(element) + computeGap(element)),
+        (computeTileWidth(element) + computeGap(element))
     ) *
     Math.floor(
       (element.offsetHeight + computeGap(element)) /
-        (computeTileHeight(element) + computeGap(element)),
+        (computeTileHeight(element) + computeGap(element))
     )
   );
 };

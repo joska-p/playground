@@ -12,10 +12,7 @@ const MiddleCircles = ({ colors, rotation, className }: Props) => {
   };
 
   return (
-    <div
-      className={cn("flex items-center justify-center", className)}
-      style={styleObject}
-    >
+    <div className={cn("flex items-center justify-center", className)} style={styleObject}>
       <div
         className="h-1/2 w-1/4 rounded-l-full"
         style={{ backgroundColor: `var(${colors[1]})` }}

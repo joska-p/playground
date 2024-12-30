@@ -16,43 +16,27 @@ const ColorWheel = () => {
   };
   const saturationStyles = {
     "--bg-opacity": "1",
-    backgroundColor:
-      "hsla(var(--hue) var(--saturation) 50% / var(--bg-opacity))",
+    backgroundColor: "hsla(var(--hue) var(--saturation) 50% / var(--bg-opacity))",
   };
   const luminosityStyles = {
     "--bg-opacity": "1",
-    backgroundColor:
-      "hsla(var(--hue) var(--saturation) var(--luminosity) / var(--bg-opacity))",
+    backgroundColor: "hsla(var(--hue) var(--saturation) var(--luminosity) / var(--bg-opacity))",
   };
 
   const handleHueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     colorWheelRef.current?.style.setProperty("--hue", `${event.target.value}`);
   };
 
-  const handleSaturationChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    colorWheelRef.current?.style.setProperty(
-      "--saturation",
-      `${event.target.value}%`,
-    );
+  const handleSaturationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    colorWheelRef.current?.style.setProperty("--saturation", `${event.target.value}%`);
   };
 
-  const handleLuminosityChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    colorWheelRef.current?.style.setProperty(
-      "--luminosity",
-      `${event.target.value}%`,
-    );
+  const handleLuminosityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    colorWheelRef.current?.style.setProperty("--luminosity", `${event.target.value}%`);
   };
 
   return (
-    <section
-      className="grid grid-cols-3 gap-20"
-      style={colorWheelStyles}
-      ref={colorWheelRef}
-    >
+    <section className="grid grid-cols-3 gap-20" style={colorWheelStyles} ref={colorWheelRef}>
       <div className="flex flex-col gap-10">
         <label htmlFor="hue-slider">Hue</label>
         <div className="h-40 w-full" style={hueStyles} />

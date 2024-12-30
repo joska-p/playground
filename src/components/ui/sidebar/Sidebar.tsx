@@ -1,11 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import {
-  type ComponentProps,
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { type ComponentProps, createContext, useContext, useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -50,8 +44,7 @@ const sidebarProviderVariants = cva("grid h-full", {
   },
 });
 
-type SidebarProviderProps = ComponentProps<"div"> &
-  VariantProps<typeof sidebarProviderVariants>;
+type SidebarProviderProps = ComponentProps<"div"> & VariantProps<typeof sidebarProviderVariants>;
 
 const SidebarProvider = ({
   children,
@@ -68,7 +61,7 @@ const SidebarProvider = ({
       isOpen,
       toggleSidebar,
     }),
-    [isOpen],
+    [isOpen]
   );
 
   return (
@@ -80,7 +73,7 @@ const SidebarProvider = ({
             mobilePosition,
             desktopPosition,
             className,
-          }),
+          })
         )}
         {...props}
       >
@@ -90,12 +83,7 @@ const SidebarProvider = ({
   );
 };
 
-const Content = ({
-  children,
-  ref,
-  className,
-  ...props
-}: ComponentProps<"div">) => {
+const Content = ({ children, ref, className, ...props }: ComponentProps<"div">) => {
   return (
     <div ref={ref} className={cn(className)} {...props}>
       {children}
@@ -103,12 +91,7 @@ const Content = ({
   );
 };
 
-const Sidebar = ({
-  children,
-  ref,
-  className,
-  ...props
-}: ComponentProps<"div">) => {
+const Sidebar = ({ children, ref, className, ...props }: ComponentProps<"div">) => {
   const { isOpen } = useSidebarContext();
   return (
     <div ref={ref} className={cn(className, !isOpen && "hidden")} {...props}>

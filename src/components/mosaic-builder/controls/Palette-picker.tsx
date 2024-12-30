@@ -7,11 +7,7 @@ type Props = {
   handleSetNewColors: () => void;
 };
 
-const PalettePicker = ({
-  palettes,
-  currentPalette,
-  handleSetNewColors,
-}: Props) => {
+const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) => {
   return (
     <fieldset className="flex flex-wrap justify-center gap-2 md:gap-4">
       <Palette

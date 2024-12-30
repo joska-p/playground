@@ -7,18 +7,12 @@ type Props = React.HTMLAttributes<HTMLLabelElement> & {
   handleSetNewColors: (palette?: string[]) => void;
 };
 
-const Palette = ({
-  palette,
-  className,
-  disabled,
-  checked,
-  handleSetNewColors,
-}: Props) => {
+const Palette = ({ palette, className, disabled, checked, handleSetNewColors }: Props) => {
   return (
     <label
       className={cn(
         "flex flex-row has-[:focus-visible]:bg-accent has-[:focus-visible]:text-accent-foreground has-[:checked]:ring-4 has-[:checked]:ring-primary",
-        className,
+        className
       )}
     >
       <input

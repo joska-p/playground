@@ -38,10 +38,7 @@ const TileSetControls = ({
   } as React.CSSProperties;
 
   return (
-    <fieldset
-      className="flex flex-wrap justify-center gap-4"
-      style={styleObject}
-    >
+    <fieldset className="flex flex-wrap justify-center gap-4" style={styleObject}>
       {initialTileSet.map((tile) => {
         return (
           <label key={tile} aria-label={tile} className="flex flex-col gap-2">

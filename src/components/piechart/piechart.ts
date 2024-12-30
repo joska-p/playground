@@ -52,16 +52,11 @@ class PieChart extends HTMLElement {
     const pathGroup = svg.querySelector("g");
     const maskGroup = svg.querySelector("mask");
 
-    this.data = (this.getAttribute("data") ?? "")
-      .split(";")
-      .map((v) => Number.parseFloat(v));
+    this.data = (this.getAttribute("data") ?? "").split(";").map((v) => Number.parseFloat(v));
 
     this.paths = this.data.map((_, index) => {
       const color = colors[index % colors.length];
-      const uiPath = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path",
-      );
+      const uiPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
       uiPath.setAttribute("fill", color);
       uiPath.addEventListener("mouseover", () => this.handlePathHover(index));
       uiPath.addEventListener("mouseout", () => this.handlePathOut(index));
@@ -70,10 +65,7 @@ class PieChart extends HTMLElement {
     });
 
     this.lines = this.data.map(() => {
-      const uiLine = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "line",
-      );
+      const uiLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
       uiLine.setAttribute("stroke", "#000");
       uiLine.setAttribute("stroke-width", gap);
       uiLine.setAttribute("x1", "0");
@@ -149,14 +141,13 @@ class PieChart extends HTMLElement {
 
     this.data.forEach((value, index) => {
       const ratio = (value / total) * progress;
-      if (progress === 1)
-        this.positionLabel(this.labels[index], angle + ratio * Math.PI);
+      if (progress === 1) this.positionLabel(this.labels[index], angle + ratio * Math.PI);
       angle += ratio * 2 * Math.PI;
       const end = Point.fromAngle(angle);
       const largeFlag = ratio > 0.5 ? "1" : "0";
       this.paths[index].setAttribute(
         "d",
-        `M 0 0 L ${start.toSvgPath()} A 1 1 0 ${largeFlag} 1 ${end.toSvgPath()} L 0 0`,
+        `M 0 0 L ${start.toSvgPath()} A 1 1 0 ${largeFlag} 1 ${end.toSvgPath()} L 0 0`
       );
       this.lines[index].setAttribute("x2", String(end.x));
       this.lines[index].setAttribute("y2", String(end.y));

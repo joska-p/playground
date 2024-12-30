@@ -10,8 +10,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground",
         destructive: "bg-destructive text-destructive-foreground",
-        outline:
-          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
         subtle: "bg-subtle text-subtle-foreground",
         ghost: "bg-transparent hover:bg-accent hover:text-accent-foreground",
         link: "bg-transparent text-primary underline-offset-4 hover:underline",
@@ -26,20 +25,12 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 type Props = ComponentProps<"button"> & VariantProps<typeof buttonVariants>;
 
-const Button = ({
-  ref,
-  className,
-  children,
-  variant,
-  size,
-  type = "button",
-  ...props
-}: Props) => {
+const Button = ({ ref, className, children, variant, size, type = "button", ...props }: Props) => {
   return (
     <button
       className={cn(buttonVariants({ variant, size, className }))}

@@ -6,11 +6,7 @@ import { SidebarProvider } from "@/components/ui/sidebar/Sidebar";
 import { getRandom } from "@lib/utils";
 
 import { Controls } from "./controls/Controls";
-import {
-  defaulColors,
-  defaultRotations,
-  defaultTileSet,
-} from "./tiles/default-options";
+import { defaulColors, defaultRotations, defaultTileSet } from "./tiles/default-options";
 
 const MosaicBuilder = ({
   inititialTileSet = defaultTileSet,
@@ -24,13 +20,11 @@ const MosaicBuilder = ({
     (tileSet = inititialTileSet) => {
       if (mosaicRef.current) {
         const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
-        const newTiles = Array.from({ length: computedNumberOfTiles }, () =>
-          getRandom(tileSet),
-        );
+        const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
         setMosaicTiles(newTiles);
       }
     },
-    [inititialTileSet],
+    [inititialTileSet]
   );
 
   return (

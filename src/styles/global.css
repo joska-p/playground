@@ -11,18 +11,15 @@
     --popover: 52.94117647058823 73.91304347826066% 90.98039215686272%;
     --popover-foreground: 0 0% 15.686274509803921%;
     --primary: 182.6865671641791 32.68292682926829% 40.196078431372555%;
-    --primary-foreground: 43.15789473684211 58.762886597938156%
-      80.98039215686275%;
+    --primary-foreground: 43.15789473684211 58.762886597938156% 80.98039215686275%;
     --secondary: 58.095238095238095 70.78651685393257% 34.90196078431373%;
-    --secondary-foreground: 48.46153846153846 86.66666666666654%
-      88.23529411764704%;
+    --secondary-foreground: 48.46153846153846 86.66666666666654% 88.23529411764704%;
     --muted: 43.15789473684211 58.762886597938156% 80.98039215686275%;
     --muted-foreground: 26.666666666666664 9.67741935483871% 36.470588235294116%;
     --accent: 157.05882352941177 15.887850467289718% 58.03921568627451%;
     --accent-foreground: 20 3.0927835051546393% 19.019607843137255%;
     --destructive: 2.4 75.10729613733905% 45.68627450980392%;
-    --destructive-foreground: 52.94117647058823 73.91304347826066%
-      90.98039215686272%;
+    --destructive-foreground: 52.94117647058823 73.91304347826066% 90.98039215686272%;
     --border: 35 17.14285714285714% 58.8235294117647%;
     --input: 52.94117647058823 73.91304347826066% 90.98039215686272%;
     --ring: 38 100% 50%;
@@ -40,8 +37,7 @@
     --card: 20 3.0927835051546393% 19.019607843137255%;
     --card-foreground: 48.46153846153846 86.66666666666654% 88.23529411764704%;
     --popover: 0 0% 15.686274509803921%;
-    --popover-foreground: 43.15789473684211 58.762886597938156%
-      80.98039215686275%;
+    --popover-foreground: 43.15789473684211 58.762886597938156% 80.98039215686275%;
     --primary: 182.6865671641791 32.68292682926829% 40.196078431372555%;
     --primary-foreground: 195 6.451612903225806% 12.15686274509804%;
     --secondary: 59.523809523809526 70.78651685393257% 34.90196078431373%;
@@ -79,11 +75,11 @@
   }
 
   input[type="range"] {
-    @apply rounded-lg bg-accent w-full appearance-none h-2 relative my-4;
+    @apply relative my-4 h-2 w-full appearance-none rounded-lg bg-accent;
   }
   input[type="range"]::-webkit-slider-thumb,
   input[type="range"]::-moz-range-thumb {
-    @apply h-4 w-4 rounded-full bg-primary border-none ring-2 ring-primary outline outline-2 outline-offset-0 outline-background ring-offset-2;
+    @apply h-4 w-4 rounded-full border-none bg-primary outline outline-2 outline-offset-0 outline-background ring-2 ring-primary ring-offset-2;
   }
 }
 
