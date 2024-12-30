@@ -11,8 +11,7 @@
     "format": "prettier --write . --ignore-path .gitignore",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "fix": "prettier --write . --ignore-path .gitignore && eslint --fix",
-    "fixest": "prettier --plugin=prettier-plugin-astro --write **/*.astro"
+    "fix": "prettier --write . --ignore-path .gitignore && eslint --fix"
   },
   "dependencies": {
     "@astrojs/react": "^4.1.2",
