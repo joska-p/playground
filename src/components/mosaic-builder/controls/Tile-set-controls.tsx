@@ -54,7 +54,7 @@ const TileSetControls = ({
 						<Tile
 							name={tile}
 							colors={Object.keys(colors)}
-							className="peer-checked:ring-4"
+							className="peer-checked:ring-4 peer-checked:ring-primary"
 							rotation="--rotation-0"
 						/>
 					</label>
