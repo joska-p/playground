@@ -5,24 +5,24 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [
-		tailwind({
-			applyBaseStyles: false,
-		}),
-		react(),
-	],
-	site: "https://joska-p.github.io",
-	base: "playground",
-	compressHTML: false,
-	devToolbar: {
-		enabled: false,
-	},
-	build: {
-		format: "preserve",
-	},
-	vite: {
-		build: {
-			sourcemap: true,
-		},
-	},
+  integrations: [
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    react(),
+  ],
+  site: "https://joska-p.github.io",
+  base: "playground",
+  compressHTML: false,
+  devToolbar: {
+    enabled: false,
+  },
+  build: {
+    format: "preserve",
+  },
+  vite: {
+    build: {
+      sourcemap: true,
+    },
+  },
 });
