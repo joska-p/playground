@@ -109,7 +109,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 	}, [handleSetNewTiles, handleSetNewPalettes]);
 
 	return (
-		<form className="flex flex-wrap justify-center gap-4 md:w-[40ch] md:flex-col md:gap-8">
+		<form className="flex h-[40ch] flex-wrap justify-center gap-4 overflow-y-auto md:h-auto md:w-[40ch] md:flex-col md:gap-8">
 			<fieldset className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-2">
 				<Button type="button" onClick={HandleShuffleColors} size="sm">
 					Shuffle colors
@@ -136,7 +136,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 						type="range"
 						min={32}
 						max={256}
-						step={1}
+						step={2}
 						value={size}
 						onChange={handleChangeTileSize}
 					/>
@@ -147,7 +147,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 					<input
 						type="range"
 						min={0}
-						step={1}
+						step={2}
 						max={128}
 						value={gap}
 						onChange={handleChangeGapSize}

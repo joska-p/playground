@@ -17,7 +17,7 @@ const Palette = ({
 	return (
 		<label
 			className={cn(
-				"flex flex-row has-[:checked]:ring-4 has-[:checked]:ring-primary md:flex-col",
+				"flex flex-row has-[:checked]:ring-4 has-[:checked]:ring-primary",
 				className,
 			)}
 			{...props}
@@ -36,7 +36,7 @@ const Palette = ({
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={index}
 					style={{ backgroundColor: color }}
-					className="h-6 w-6 md:h-8 md:w-8"
+					className="h-6 w-6 md:h-6 md:w-6"
 				/>
 			))}
 		</label>

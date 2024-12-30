@@ -33,7 +33,7 @@ const MosaicBuilder = ({
 
 	return (
 		<SidebarProvider desktopPosition="right" mobilePosition="bottom">
-			<SidebarProvider.Content className="relative">
+			<SidebarProvider.Content className="relative bg-popover">
 				<Mosaic
 					mosaicRef={mosaicRef}
 					colors={inititialColors}
@@ -42,7 +42,7 @@ const MosaicBuilder = ({
 				/>
 			</SidebarProvider.Content>
 
-			<SidebarProvider.Sidebar>
+			<SidebarProvider.Sidebar className="bg-card p-2">
 				<Controls
 					mosaicRef={mosaicRef}
 					initialTileSet={inititialTileSet}

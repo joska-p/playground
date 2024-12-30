@@ -10,6 +10,8 @@ export default {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
+				card: "hsl(var(--card))",
+				popover: "hsl(var(--popover))",
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				primary: {
