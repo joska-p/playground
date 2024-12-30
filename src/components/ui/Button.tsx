@@ -3,7 +3,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 
 const buttonVariants = cva(
-	"rounded-md bg-primary px-4 py-2 text-primary-foreground shadow hover:bg-primary/90",
+	"rounded-md bg-primary px-4 py-2 text-primary-foreground shadow outline-none hover:bg-primary/90 focus:ring-4 focus:ring-seconary",
 	{
 		variants: {
 			variant: {

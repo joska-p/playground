@@ -12,15 +12,13 @@ const Palette = ({
 	disabled,
 	checked,
 	handleSetNewColors,
-	...props
 }: Props) => {
 	return (
 		<label
 			className={cn(
-				"flex flex-row has-[:checked]:ring-4 has-[:checked]:ring-primary",
+				"flex flex-row has-[:focus]:bg-accent has-[:focus]:text-accent-foreground has-[:checked]:ring-4 has-[:checked]:ring-primary",
 				className,
 			)}
-			{...props}
 		>
 			<input
 				type="radio"
@@ -30,6 +28,7 @@ const Palette = ({
 				disabled={disabled}
 				checked={checked}
 				onChange={() => handleSetNewColors(palette)}
+				aria-label={palette.join(",")}
 			/>
 			{palette.map((color, index) => (
 				<div

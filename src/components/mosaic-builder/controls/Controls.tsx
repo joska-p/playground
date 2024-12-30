@@ -116,7 +116,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 			</fieldset>
 
 			<fieldset className="grid grid-cols-2 gap-4">
-				<label className="flex flex-col items-center text-sm">
+				<label className="flex flex-col items-center text-sm ">
 					Tile size: {size}px
 					<input
 						type="range"
@@ -125,6 +125,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 						step={2}
 						value={size}
 						onChange={handleChangeTileSize}
+						className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-seconary"
 					/>
 				</label>
 
@@ -137,6 +138,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
 						max={128}
 						value={gap}
 						onChange={handleChangeGapSize}
+						className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-seconary"
 					/>
 				</label>
 			</fieldset>
