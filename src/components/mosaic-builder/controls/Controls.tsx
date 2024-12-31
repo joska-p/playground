@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
+import { Slider } from "@/components/ui/slider/Slider";
 
 import { getPalettes } from "../lib/colors";
 import { computedColors, computedRotation } from "../lib/utils";
@@ -103,28 +104,12 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
       <fieldset className="grid grid-cols-2 gap-4 px-2">
         <label className="flex flex-col items-center text-sm">
           Tile size: {size}px
-          <input
-            type="range"
-            min={32}
-            max={256}
-            step={2}
-            value={size}
-            onChange={handleChangeTileSize}
-            className="outline-none hover:bg-primary/90 focus:ring-1 focus:ring-accent"
-          />
+          <Slider min={32} max={256} step={2} value={size} onChange={handleChangeTileSize} />
         </label>
 
         <label className="flex flex-col items-center text-sm">
           Gap size: {gap}px
-          <input
-            type="range"
-            min={0}
-            step={2}
-            max={128}
-            value={gap}
-            onChange={handleChangeGapSize}
-            className="outline-none hover:bg-primary/90 focus:ring-2 focus:ring-accent"
-          />
+          <Slider min={0} step={2} max={128} value={gap} onChange={handleChangeGapSize} />
         </label>
       </fieldset>
 

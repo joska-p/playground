@@ -1,3 +1,5 @@
+import { Slider } from "@/components/ui/slider/Slider";
+
 import { createRacamanSequence } from "./lib/sequence";
 
 type Props = {
@@ -22,8 +24,7 @@ const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
         <label htmlFor="sequence-Length" className="text-sm">
           Sequence Length: {sequenceLength}
         </label>
-        <input
-          type="range"
+        <Slider
           id="sequence-Length"
           min={1}
           max={256}

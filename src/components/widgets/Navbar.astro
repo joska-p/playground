@@ -12,74 +12,86 @@ const { title } = Astro.props;
 const { routes } = Astro.props;
 ---
 
-<nav class="px-2 py-2 xl:px-0">
-  <div
-    class="relative isolate z-10 mx-auto flex max-w-screen-xl flex-wrap items-center justify-between"
+<nav
+  class="relative isolate z-10 mx-auto flex max-w-screen-xl flex-wrap items-center justify-between bg-background px-2 py-2 xl:px-0"
+>
+  <a href={baseUrl} class="group z-20 flex items-center gap-3 bg-background outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
+      <rect fill="#331436" x="0" y="0" width="1" height="1"></rect>
+      <rect fill="#eb9961" x="1" y="0" width="1" height="1"></rect>
+      <rect fill="#cb4f57" x="0" y="1" width="1" height="1"></rect>
+      <rect fill="#7a1745" x="1" y="1" width="1" height="1"></rect>
+    </svg>
+    <h1
+      class={cn(
+        "whitespace-nowrap rounded-lg px-4 py-2 text-2xl font-semibold transition-colors",
+        "group-hover:bg-primary group-hover:text-primary-foreground",
+        "group-focus-visible:bg-primary group-focus-visible:text-primary-foreground"
+      )}
+    >
+      {title ?? "Playground"}
+    </h1>
+  </a>
+
+  <button
+    data-collapse-toggle="navbar-default"
+    type="button"
+    class={cn(
+      "z-20 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground shadow outline-none",
+      "focus-visible::ring-accent hover:bg-primary/80 focus-visible:ring-4",
+      "md:hidden"
+    )}
+    aria-controls="navbar-default"
+    aria-expanded="false"
   >
-    <a href={baseUrl} class="group flex items-center gap-3 outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
-        <rect fill="#331436" x="0" y="0" width="1" height="1"></rect>
-        <rect fill="#eb9961" x="1" y="0" width="1" height="1"></rect>
-        <rect fill="#cb4f57" x="0" y="1" width="1" height="1"></rect>
-        <rect fill="#7a1745" x="1" y="1" width="1" height="1"></rect>
-      </svg>
-      <h1
-        class="group-focus-visible:text-prbg-primary-foreground whitespace-nowrap rounded-lg px-4 py-2 text-2xl font-semibold transition-colors group-hover:bg-primary group-hover:text-primary-foreground group-focus-visible:bg-primary group-focus-visible:text-primary-foreground"
-      >
-        {title ?? "Playground"}
-      </h1>
-    </a>
-
-    <button
-      data-collapse-toggle="navbar-default"
-      type="button"
-      class="focus:ring-seconary inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground shadow outline-none hover:bg-primary/80 focus:ring-4 focus:ring-accent md:hidden"
-      aria-controls="navbar-default"
-      aria-expanded="false"
+    <span class="sr-only">Open main menu</span>
+    <svg
+      class="h-5 w-5"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 17 14"
     >
-      <span class="sr-only">Open main menu</span>
-      <svg
-        class="h-5 w-5"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 17 14"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M1 1h15M1 7h15M1 13h15"></path>
-      </svg>
-    </button>
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M1 1h15M1 7h15M1 13h15"></path>
+    </svg>
+  </button>
 
-    <div
-      data-expand={false}
-      class="text-card-foreground absolute top-full z-10 w-full origin-top-right flex-col gap-4 rounded-lg bg-card font-medium shadow transition-all data-[expand=false]:translate-x-full data-[expand=true]:translate-x-0 data-[expand=false]:opacity-0 data-[expand=true]:opacity-100 md:static md:flex md:h-auto md:w-auto md:translate-x-0 md:flex-row md:rounded-none md:bg-transparent md:text-primary md:opacity-100 md:shadow-none md:transition-none data-[expand=false]:md:translate-x-0 data-[expand=false]:md:opacity-100"
-      id="navbar-default"
-      style={{ interpolateSize: "allow-keywords" }}
-    >
-      {
-        routes.map((route) => {
-          const isCurrent = Astro.url.pathname === route.url;
+  <div
+    data-collapse={true}
+    class={cn(
+      "absolute left-0 top-full z-10 flex h-fit w-full flex-col gap-4 bg-background p-2 font-medium text-foreground transition-[opacity,transform]",
+      "data-[collapse=false]:translate-y-0 data-[collapse=false]:opacity-100",
+      "data-[collapse=true]:-translate-y-96 data-[collapse=true]:opacity-0",
+      "md:static md:w-auto md:flex-row md:rounded-none md:p-0 md:data-[collapse=true]:translate-y-0 md:data-[collapse=true]:opacity-100"
+    )}
+    id="navbar-default"
+  >
+    {
+      routes.map((route) => {
+        const isCurrent = Astro.url.pathname === route.url;
 
-          return (
-            <a
-              href={route.url}
-              class={cn(
-                "block rounded-lg px-4 py-2 outline-none transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:bg-primary focus-visible:text-primary-foreground",
-                { "bg-primary text-primary-foreground": isCurrent }
-              )}
-              aria-current={isCurrent ? "page" : false}
-            >
-              {route.text}
-            </a>
-          );
-        })
-      }
-      <ThemeToggle />
-    </div>
+        return (
+          <a
+            href={route.url}
+            class={cn(
+              "block rounded-lg px-4 py-2 text-foreground outline-none transition-colors",
+              "hover:bg-primary hover:text-primary-foreground",
+              "focus-visible:bg-primary focus-visible:text-primary-foreground",
+              { "bg-primary text-primary-foreground": isCurrent }
+            )}
+            aria-current={isCurrent ? "page" : false}
+          >
+            {route.text}
+          </a>
+        );
+      })
+    }
+    <ThemeToggle />
   </div>
 </nav>
 
@@ -90,8 +102,8 @@ const { routes } = Astro.props;
       toggler.addEventListener("click", () => {
         const target = document.getElementById(toggler.getAttribute("data-collapse-toggle"));
         target.setAttribute(
-          "data-expand",
-          target.getAttribute("data-expand") === "true" ? "false" : "true"
+          "data-collapse",
+          target.getAttribute("data-collapse") === "true" ? "false" : "true"
         );
       });
     });
