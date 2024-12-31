@@ -74,7 +74,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
   }, []);
 
   const handleSetNewPalettes = useCallback(async () => {
-    const randomPalettes = shuffleArray(await initialPalettes).slice(0, 23);
+    const randomPalettes = shuffleArray(await initialPalettes).slice(0, 39);
     setPalettes(randomPalettes);
   }, [initialPalettes]);
 
@@ -84,8 +84,8 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
   }, [handleSetNewTiles, handleSetNewPalettes]);
 
   return (
-    <form className="flex h-[40ch] flex-wrap justify-center gap-4 overflow-hidden md:h-auto md:w-[42ch] md:flex-col md:gap-8">
-      <fieldset className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-2">
+    <form className="flex flex-wrap justify-center gap-4 md:h-auto md:w-[42ch] md:flex-col md:gap-8">
+      <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 md:grid-cols-2">
         <Button type="button" onClick={HandleShuffleColors} size="sm">
           Shuffle colors
         </Button>
@@ -100,7 +100,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
         </Button>
       </fieldset>
 
-      <fieldset className="grid grid-cols-2 gap-4">
+      <fieldset className="grid grid-cols-2 gap-4 px-2">
         <label className="flex flex-col items-center text-sm">
           Tile size: {size}px
           <input
@@ -110,7 +110,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
             step={2}
             value={size}
             onChange={handleChangeTileSize}
-            className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-accent"
+            className="outline-none hover:bg-primary/90 focus:ring-1 focus:ring-accent"
           />
         </label>
 
@@ -123,7 +123,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
             max={128}
             value={gap}
             onChange={handleChangeGapSize}
-            className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-accent"
+            className="outline-none hover:bg-primary/90 focus:ring-2 focus:ring-accent"
           />
         </label>
       </fieldset>

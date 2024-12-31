@@ -38,7 +38,7 @@ const MosaicBuilder = ({
         />
       </SidebarProvider.Content>
 
-      <SidebarProvider.Sidebar className="bg-card p-2">
+      <SidebarProvider.Sidebar className="bg-card">
         <Controls
           mosaicRef={mosaicRef}
           initialTileSet={inititialTileSet}

@@ -13,7 +13,9 @@ const { routes } = Astro.props;
 ---
 
 <nav class="px-2 py-2 xl:px-0">
-  <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
+  <div
+    class="relative isolate z-10 mx-auto flex max-w-screen-xl flex-wrap items-center justify-between"
+  >
     <a href={baseUrl} class="group flex items-center gap-3 outline-none">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
         <rect fill="#331436" x="0" y="0" width="1" height="1"></rect>
@@ -53,8 +55,10 @@ const { routes } = Astro.props;
     </button>
 
     <div
-      class="text-card-foreground hidden w-full flex-col gap-4 rounded-lg bg-card font-medium shadow md:flex md:w-auto md:flex-row md:rounded-none md:bg-transparent md:text-primary md:shadow-none"
+      data-expand={false}
+      class="text-card-foreground absolute top-full z-10 w-full origin-top-right flex-col gap-4 rounded-lg bg-card font-medium shadow transition-all data-[expand=false]:translate-x-full data-[expand=true]:translate-x-0 data-[expand=false]:opacity-0 data-[expand=true]:opacity-100 md:static md:flex md:h-auto md:w-auto md:translate-x-0 md:flex-row md:rounded-none md:bg-transparent md:text-primary md:opacity-100 md:shadow-none md:transition-none data-[expand=false]:md:translate-x-0 data-[expand=false]:md:opacity-100"
       id="navbar-default"
+      style={{ interpolateSize: "allow-keywords" }}
     >
       {
         routes.map((route) => {
@@ -85,7 +89,10 @@ const { routes } = Astro.props;
     collapser.forEach((toggler) => {
       toggler.addEventListener("click", () => {
         const target = document.getElementById(toggler.getAttribute("data-collapse-toggle"));
-        target.classList.toggle("hidden");
+        target.setAttribute(
+          "data-expand",
+          target.getAttribute("data-expand") === "true" ? "false" : "true"
+        );
       });
     });
   };

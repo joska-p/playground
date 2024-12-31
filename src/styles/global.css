@@ -75,7 +75,7 @@
   }
 
   input[type="range"] {
-    @apply relative my-4 h-2 w-full appearance-none rounded-lg bg-primary-foreground;
+    @apply relative my-4 h-2 w-full appearance-none rounded-lg bg-foreground/50;
   }
   input[type="range"]::-webkit-slider-thumb,
   input[type="range"]::-moz-range-thumb {
