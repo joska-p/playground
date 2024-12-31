@@ -4,7 +4,7 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "rounded-md bg-primary px-4 py-2 text-primary-foreground shadow outline-none hover:bg-primary/90 focus:ring-4 focus:ring-seconary",
+  "rounded-md bg-primary px-4 py-2 text-primary-foreground shadow outline-none hover:bg-primary/80 focus:ring-4 focus:ring-accent",
   {
     variants: {
       variant: {

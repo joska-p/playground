@@ -110,7 +110,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
             step={2}
             value={size}
             onChange={handleChangeTileSize}
-            className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-secondary"
+            className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-accent"
           />
         </label>
 
@@ -123,7 +123,7 @@ const Controls = ({ mosaicRef, initialTileSet, handleSetNewTiles }: Props) => {
             max={128}
             value={gap}
             onChange={handleChangeGapSize}
-            className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-secondary"
+            className="outline-none hover:bg-primary/90 focus:ring-4 focus:ring-accent"
           />
         </label>
       </fieldset>

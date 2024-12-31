@@ -51,7 +51,7 @@ const TileSetControls = ({
             <Tile
               name={tile}
               colors={Object.keys(colors)}
-              className="opacity-70 transition-opacity peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-primary peer-focus-visible:ring-4 peer-focus-visible:ring-secondary"
+              className="opacity-70 transition-opacity peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-accent peer-focus-visible:ring-4 peer-focus-visible:ring-secondary"
               rotation="--rotation-0"
             />
           </label>
