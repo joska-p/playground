@@ -9,7 +9,7 @@ type Props = {
 
 const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) => {
   return (
-    <fieldset className="flex flex-wrap justify-center gap-2 md:gap-4">
+    <fieldset className="flex max-h-[50%] flex-wrap justify-center gap-2 overflow-y-auto py-2 md:gap-4">
       <Palette
         palette={defaultPalette}
         handleSetNewColors={handleSetNewColors}
