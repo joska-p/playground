@@ -12,7 +12,7 @@ const { title } = Astro.props;
 const { routes } = Astro.props;
 ---
 
-<nav class="border-gray-200 px-2 py-2 xl:px-0">
+<nav class="px-2 py-2 xl:px-0">
   <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between">
     <a href={baseUrl} class="group flex items-center gap-3 outline-none">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
@@ -31,7 +31,7 @@ const { routes } = Astro.props;
     <button
       data-collapse-toggle="navbar-default"
       type="button"
-      class="focus:ring-seconary inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground shadow outline-none hover:bg-primary/80 focus:ring-4 md:hidden"
+      class="focus:ring-seconary inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm text-primary-foreground shadow outline-none hover:bg-primary/80 focus:ring-4 focus:ring-accent md:hidden"
       aria-controls="navbar-default"
       aria-expanded="false"
     >
@@ -53,7 +53,7 @@ const { routes } = Astro.props;
     </button>
 
     <div
-      class="hidden w-full flex-col font-medium md:flex md:w-auto md:flex-row md:gap-4"
+      class="text-card-foreground hidden w-full flex-col gap-4 rounded-lg bg-card font-medium shadow md:flex md:w-auto md:flex-row md:rounded-none md:bg-transparent md:text-primary md:shadow-none"
       id="navbar-default"
     >
       {

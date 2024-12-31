@@ -11,6 +11,7 @@ export default {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         card: "hsl(var(--card))",
+        cardForeground: "hsl(var(--card-foreground))",
         popover: "hsl(var(--popover))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
