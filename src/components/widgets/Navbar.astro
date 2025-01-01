@@ -74,12 +74,10 @@ const { routes } = Astro.props;
     {
       routes.map((route) => {
         const isCurrent = Astro.url.pathname === route.url;
-        console.log("pathname", Astro.url.pathname);
-        console.log("route.url", route.url);
 
         return (
           <a
-            href={`${baseUrl}/${route.url}`}
+            href={route.url}
             class={cn(
               "block rounded-lg px-4 py-2 text-foreground outline-none transition-colors",
               "hover:bg-primary hover:text-primary-foreground",
@@ -89,6 +87,10 @@ const { routes } = Astro.props;
             aria-current={isCurrent ? "page" : false}
           >
             {route.text}
+            <pre>
+              pathname = {Astro.url.pathname}
+              route url = {route.url}
+            </pre>
           </a>
         );
       })

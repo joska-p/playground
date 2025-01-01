@@ -13,6 +13,7 @@ export default defineConfig({
   ],
   site: "https://joska-p.github.io",
   base: "playground",
+  trailingSlash: "always",
   compressHTML: false,
   devToolbar: {
     enabled: false,
