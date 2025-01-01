@@ -84,7 +84,7 @@ const SidebarProvider = ({
 
 const Content = ({ children, ref, className, ...props }: ComponentProps<"div">) => {
   return (
-    <div ref={ref} className={cn("h-full", className)} {...props}>
+    <div ref={ref} className={cn(className)} {...props}>
       {children}
     </div>
   );
@@ -93,7 +93,7 @@ const Content = ({ children, ref, className, ...props }: ComponentProps<"div">) 
 const Sidebar = ({ children, ref, className, ...props }: ComponentProps<"div">) => {
   const { isOpen } = useSidebarContext();
   return (
-    <div ref={ref} className={cn("h-full", className, !isOpen && "hidden")} {...props}>
+    <div ref={ref} className={cn(className, !isOpen && "hidden")} {...props}>
       {children}
     </div>
   );

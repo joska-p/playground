@@ -7,6 +7,8 @@ type Props = {
 
 const Cube = ({ colors, rotation, className }: Props) => {
   const styleObjectCube = {
+    height: "var(--tile-width)",
+    width: "var(--tile-width)",
     transform: `rotate(var(${rotation}))`,
   };
   const styleObjectEdges = {

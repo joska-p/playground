@@ -10,16 +10,12 @@ const routes = [
     url: `${baseUrl}mosaic/`,
   },
   {
-    text: "Racaman",
-    url: `${baseUrl}racaman/`,
+    text: "Sequence",
+    url: `${baseUrl}sequence/`,
   },
   {
-    text: "Piechart",
-    url: `${baseUrl}piechart/`,
-  },
-  {
-    text: "Color wheel",
-    url: `${baseUrl}color-wheel/`,
+    text: "Misc",
+    url: `${baseUrl}misc/`,
   },
 ];
 

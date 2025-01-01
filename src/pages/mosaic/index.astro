@@ -1,8 +1,12 @@
 ---
-import { MosaicMaker } from "@/components/mosaic-maker/Mosaic-maker";
-import Layout from "@layouts/Layout.astro";
+import Layout from "@layouts/layout.astro";
+import { buttonVariants } from "@/components/ui/button";
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Mosaic">
-  <MosaicMaker client:only="react" />
+  <article>
+    <a href={`${baseUrl}mosaic/maker/`} class={buttonVariants()}>--&gt; Mosaic maker page</a>
+  </article>
 </Layout>

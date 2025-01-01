@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
-import { computeNumberOfTiles } from "@/components/mosaic-maker/lib/utils";
-import { Mosaic } from "@/components/mosaic-maker/mosaic";
-import { SidebarProvider } from "@/components/widgets/sidebar/Sidebar";
+import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
 import { getRandom } from "@lib/utils";
-import { Controls } from "./controls/Controls";
+import { computeNumberOfTiles } from "./lib/utils";
+import { Mosaic } from "./mosaic";
+import { Controls } from "./controls";
 import { defaultTileSet } from "./tiles/default-options";
 
 const MosaicMaker = () => {

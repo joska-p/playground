@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Tile } from "../tiles/Tile";
+import { Tile } from "../tiles/tile";
 import type { DefaultTileSet } from "../tiles/default-options";
 import { defaulColors as colors, defaultTileSet } from "../tiles/default-options";
 

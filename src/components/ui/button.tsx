@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "cursor-pointer rounded-md bg-primary px-4 py-2 text-primary-foreground shadow outline-none transition-transform hover:bg-primary/80 focus-visible:ring-4 focus-visible:ring-accent",
+  "inline-block cursor-pointer rounded-md bg-primary px-4 py-2 text-primary-foreground shadow outline-none transition-transform hover:bg-primary/80 focus-visible:ring-4 focus-visible:ring-accent",
   {
     variants: {
       variant: {

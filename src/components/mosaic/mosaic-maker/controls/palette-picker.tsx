@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { defaultPalette } from "../tiles/default-options";
-import { Palette } from "./Palette";
+import { Palette } from "./palette";
 
 type Props = {
   palettes: string[][];

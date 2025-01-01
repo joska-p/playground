@@ -1,11 +1,11 @@
-import { CornerCircles } from "./Corner-circles-css";
-import { Diamond } from "./Diamond-css";
-import { MiddleCircles } from "./Middle-circe-css";
-import { OppositeCircles } from "./Opposite-circles-css";
-import { Rainbow } from "./Rainbow-css";
-import { Square } from "./Square-css";
-import { Triangles } from "./Triangles-css";
-import { Cube } from "./Cube-css";
+import { CornerCircles } from "./corner-circles-css";
+import { Diamond } from "./diamond-css";
+import { MiddleCircles } from "./middle-circe-css";
+import { OppositeCircles } from "./opposite-circles-css";
+import { Rainbow } from "./rainbow-css";
+import { Square } from "./square-css";
+import { Triangles } from "./triangles-css";
+import { Cube } from "./cube-css";
 
 const DefaultTileComponents = {
   [CornerCircles.name]: CornerCircles,

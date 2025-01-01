@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { Button } from "@/components/ui/Button";
-import { Slider } from "@/components/ui/slider/Slider";
+import { Slider } from "@/components/ui/slider/slider";
+import { Button } from "@/components/ui/button";
 import { useControls } from "./useControls";
 import { shuffleCssColors, suffleCssRotations } from "../lib/utils";
-import { PalettePicker } from "./Palette-picker";
-import { TileSetControls } from "./Tile-set-controls";
+import { PalettePicker } from "./palette-picker";
+import { TileSetControls } from "./tile-set-controls";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement>;

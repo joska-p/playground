@@ -1,5 +1,5 @@
-import { defaulColors, defaultRotations } from "@/components/mosaic-maker/tiles/default-options";
 import { shuffleArray } from "@/lib/utils";
+import { defaulColors, defaultRotations } from "../tiles/default-options";
 
 const computedColors = (element: HTMLDivElement) => {
   return Object.keys(defaulColors).map((color) =>

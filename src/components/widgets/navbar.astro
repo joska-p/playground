@@ -79,9 +79,10 @@ const { routes } = Astro.props;
           <a
             href={route.url}
             class={cn(
-              "block rounded-lg px-4 py-2 text-foreground outline-none transition-colors",
+              "block rounded-lg px-4 py-2 outline-none transition-colors",
               "hover:bg-primary hover:text-primary-foreground",
               "focus-visible:bg-primary focus-visible:text-primary-foreground",
+              { "text-foreground": !isCurrent },
               { "bg-primary text-primary-foreground": isCurrent }
             )}
             aria-current={isCurrent ? "page" : false}

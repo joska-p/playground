@@ -1,5 +1,5 @@
 import { getRandom } from "@/lib/utils";
-import { Tile } from "./tiles/Tile";
+import { Tile } from "./tiles/tile";
 import { defaulColors, defaultRotations } from "./tiles/default-options";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
