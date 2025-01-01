@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Controls } from "@/components/racaman/controls";
-import { SidebarProvider } from "@components/ui/sidebar/Sidebar";
+import { SidebarProvider } from "@/components/widgets/sidebar/Sidebar";
 import { Canvas } from "./canvas";
 import { createRacamanSequence } from "./lib/sequence";
 import { Vectors } from "./vectors";
