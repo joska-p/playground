@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
-
 import { drawSvg } from "./lib/draw";
 
 type Props = {

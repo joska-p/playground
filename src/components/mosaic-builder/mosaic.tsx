@@ -1,5 +1,4 @@
 import { getRandom } from "@/lib/utils";
-
 import { Tile } from "./tiles/Tile";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {

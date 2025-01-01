@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { defaultPalette } from "../tiles/default-options";
 import { Palette } from "./Palette";
 
@@ -9,7 +10,13 @@ type Props = {
 
 const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) => {
   return (
-    <fieldset className="flex h-[176px] w-full flex-col flex-wrap justify-center gap-2 overflow-x-auto p-2 has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-secondary md:h-auto md:flex-row md:gap-4">
+    <fieldset
+      className={cn(
+        "flex h-[176px] w-full flex-col flex-wrap justify-center gap-2 overflow-x-auto p-2",
+        "md:h-auto md:flex-row md:gap-4",
+        "has-[:focus-visible]:bg-accent/20"
+      )}
+    >
       <Palette
         palette={defaultPalette}
         handleSetNewColors={handleSetNewColors}

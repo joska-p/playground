@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/Button";
 import { getRandom, shuffleArray } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider/Slider";
-
 import { getPalettes } from "../lib/colors";
 import { computedColors, computedRotation } from "../lib/utils";
 import type { DefaultTileSet } from "../tiles/default-options";

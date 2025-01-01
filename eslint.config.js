@@ -2,7 +2,6 @@
 /** @type {import('eslint').Linter.Config[]} */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat";
 import pluginJs from "@eslint/js";
 import tsParser from "@typescript-eslint/parser";
@@ -82,7 +81,7 @@ export default [
         "error",
         {
           groups: ["builtin", "external", "internal", ["parent", "sibling", "index"]],
-          "newlines-between": "always",
+          "newlines-between": "never",
         },
       ],
     },

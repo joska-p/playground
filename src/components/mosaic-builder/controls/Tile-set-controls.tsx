@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Tile } from "../tiles/Tile";
 import type { DefaultTileSet } from "../tiles/default-options";
 import { defaulColors as colors } from "../tiles/default-options";
@@ -51,7 +52,11 @@ const TileSetControls = ({
             <Tile
               name={tile}
               colors={Object.keys(colors)}
-              className="opacity-70 transition-opacity peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-accent peer-focus-visible:ring-4 peer-focus-visible:ring-secondary"
+              className={cn(
+                "opacity-70 transition-opacity",
+                "peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-primary",
+                "peer-focus-visible:ring-4 peer-focus-visible:ring-accent"
+              )}
               rotation="--rotation-0"
             />
           </label>

@@ -1,10 +1,8 @@
 import { useCallback, useRef, useState } from "react";
-
 import { computeNumberOfTiles } from "@/components/mosaic-builder/lib/utils";
 import { Mosaic } from "@/components/mosaic-builder/mosaic";
 import { SidebarProvider } from "@/components/ui/sidebar/Sidebar";
 import { getRandom } from "@lib/utils";
-
 import { Controls } from "./controls/Controls";
 import { defaulColors, defaultRotations, defaultTileSet } from "./tiles/default-options";
 

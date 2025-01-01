@@ -1,5 +1,4 @@
 import { Slider } from "@/components/ui/slider/Slider";
-
 import { createRacamanSequence } from "./lib/sequence";
 
 type Props = {

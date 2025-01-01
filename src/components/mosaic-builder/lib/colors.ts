@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import { safeFetch } from "../../../lib/utils";
 
 const fallbackPalettes = [["#333333", "#555555", "#777777", "#999999", "#babbbb"]];
