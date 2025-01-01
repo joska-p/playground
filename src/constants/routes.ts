@@ -1,25 +1,23 @@
-const baseUrl = import.meta.env.BASE_URL;
-
 const routes = [
   {
     text: "Home",
-    url: baseUrl,
+    url: "",
   },
   {
     text: "Mosaic",
-    url: `${baseUrl}/mosaic`,
+    url: "mosaic",
   },
   {
     text: "Racaman",
-    url: `${baseUrl}/racaman`,
+    url: "racaman",
   },
   {
     text: "Piechart",
-    url: `${baseUrl}/piechart`,
+    url: "piechart",
   },
   {
     text: "Color wheel",
-    url: `${baseUrl}/color-wheel`,
+    url: "color-wheel",
   },
 ];
 
