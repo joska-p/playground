@@ -5,6 +5,7 @@ import { OppositeCircles } from "./Opposite-circles-css";
 import { Rainbow } from "./Rainbow-css";
 import { Square } from "./Square-css";
 import { Triangles } from "./Triangles-css";
+import { Cube } from "./Cube-css";
 
 const DefaultTileComponents = {
   [CornerCircles.name]: CornerCircles,
@@ -14,6 +15,7 @@ const DefaultTileComponents = {
   [Rainbow.name]: Rainbow,
   [Square.name]: Square,
   [Triangles.name]: Triangles,
+  [Cube.name]: Cube,
 };
 
 const defaultTileSet = [
@@ -24,6 +26,7 @@ const defaultTileSet = [
   Rainbow.name,
   Square.name,
   Triangles.name,
+  Cube.name,
 ];
 
 const defaultRotations = {
