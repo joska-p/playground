@@ -13,7 +13,7 @@ const Canvas = ({ sequence, containerSize }: Props) => {
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (canvasRef.current) draw(canvasRef.current, sequence, containerSize);
-    }, 100);
+    }, 10);
     return () => {
       clearTimeout(debounce);
     };

@@ -1,23 +1,23 @@
 const routes = [
   {
     text: "Home",
-    url: "",
+    url: "/",
   },
   {
     text: "Mosaic",
-    url: "mosaic",
+    url: "mosaic/",
   },
   {
     text: "Racaman",
-    url: "racaman",
+    url: "racaman/",
   },
   {
     text: "Piechart",
-    url: "piechart",
+    url: "piechart/",
   },
   {
     text: "Color wheel",
-    url: "color-wheel",
+    url: "color-wheel/",
   },
 ];
 

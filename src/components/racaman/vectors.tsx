@@ -22,7 +22,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (svgRef.current) drawSvg(svgRef.current, sequence, containerSize);
-    }, 100);
+    }, 10);
     return () => {
       clearTimeout(debounce);
     };
