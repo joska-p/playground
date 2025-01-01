@@ -12,7 +12,7 @@ const Palette = ({ palette, className, disabled, checked, handleSetNewColors }: 
     <label
       className={cn(
         "flex w-fit flex-row",
-        "md:flex-col",
+        "lg:flex-col",
         "has-[:checked]:ring-4 has-[:checked]:ring-primary",
         "has-[:focus-visible]:bg-accent has-[:focus-visible]:text-accent-foreground",
         className

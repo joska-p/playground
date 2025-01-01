@@ -69,8 +69,6 @@ const suffleCssRotations = (element: HTMLDivElement) => {
 
 export {
   computeNumberOfTiles,
-  computedColors,
-  computedRotation,
   setCssTileSize,
   setCssGap,
   setCssColors,

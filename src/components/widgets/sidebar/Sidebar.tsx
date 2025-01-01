@@ -31,10 +31,10 @@ const sidebarProviderVariants = cva("grid h-full", {
       left: "grid-cols-[auto,1fr] grid-rows-1",
     },
     desktopPosition: {
-      top: "md:grid-cols-1 md:grid-rows-[auto,1fr]",
-      right: "md:grid-cols-[1fr,auto] md:grid-rows-1",
-      bottom: "md:grid-cols-1 md:grid-rows-[1fr,auto]",
-      left: "md:grid-cols-[auto,1fr] md:grid-rows-1",
+      top: "lg:grid-cols-1 lg:grid-rows-[auto,1fr]",
+      right: "lg:grid-cols-[1fr,auto] lg:grid-rows-1",
+      bottom: "lg:grid-cols-1 lg:grid-rows-[1fr,auto]",
+      left: "lg:grid-cols-[auto,1fr] lg:grid-rows-1",
     },
   },
   defaultVariants: {

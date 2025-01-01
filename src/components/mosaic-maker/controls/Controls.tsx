@@ -30,7 +30,7 @@ const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
   }, [handleSetNewTiles]);
 
   return (
-    <form className="flex flex-wrap justify-center gap-4 md:h-auto md:w-[42ch] md:flex-col md:gap-8">
+    <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 md:grid-cols-2">
         <Button type="button" onClick={() => shuffleCssColors(mosaicRef.current!)} size="sm">
           Shuffle colors
