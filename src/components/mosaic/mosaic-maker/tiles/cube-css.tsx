@@ -32,7 +32,7 @@ const Cube = ({ colors, rotation, className }: Props) => {
 
   return (
     <div style={styleObjectCube} className={cn("relative", className)}>
-      <div style={styleObjectEdges} className="inset absolute" />
+      <div style={styleObjectEdges} className="absolute left-0 top-0" />
       <div style={styleObjectinnerSquare} className="absolute bottom-0 left-0"></div>
     </div>
   );
