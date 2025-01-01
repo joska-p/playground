@@ -87,10 +87,6 @@ const { routes } = Astro.props;
             aria-current={isCurrent ? "page" : false}
           >
             {route.text}
-            <pre>
-              pathname = {Astro.url.pathname}
-              route url = {route.url}
-            </pre>
           </a>
         );
       })
