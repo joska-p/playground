@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Slider } from "@/components/ui/slider/slider";
 import { Button } from "@/components/ui/button";
 import { useControls } from "./useControls";
-import { shuffleCssColors, suffleCssRotations } from "../lib/utils";
 import { PalettePicker } from "./palette-picker";
 import { TileSetControls } from "./tile-set-controls";
 import { defaultRotations } from "../tiles/default-options";
@@ -23,6 +22,8 @@ const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
     gap,
     changeGapSize,
     setNewColors,
+    shuffleCssColors,
+    suffleCssRotations,
     handleSetNewPalettes,
   } = useControls({ mosaicRef });
 
@@ -33,20 +34,10 @@ const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
-        <Button
-          type="button"
-          onClick={() => shuffleCssColors({ element: mosaicRef.current!, palette: currentPalette })}
-          size="sm"
-        >
+        <Button type="button" onClick={() => shuffleCssColors(currentPalette)} size="sm">
           Shuffle colors
         </Button>
-        <Button
-          type="button"
-          onClick={() =>
-            suffleCssRotations({ element: mosaicRef.current!, rotations: defaultRotations })
-          }
-          size="sm"
-        >
+        <Button type="button" onClick={() => suffleCssRotations(defaultRotations)} size="sm">
           Shuffle rotations
         </Button>
         <Button type="button" onClick={handleSetNewPalettes} size="sm">

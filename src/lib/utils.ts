@@ -4,27 +4,15 @@ import type { z } from "zod";
 
 const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-const shuffleObject = <T>(obj: Record<string, T>): Record<string, T> => {
-  // Extract the keys and values from the object
-  const keys = Object.keys(obj);
-  const values = Object.values(obj);
-
-  // Shuffle the values using the Fisher-Yates algorithm
-  for (let i = values.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [values[i], values[j]] = [values[j], values[i]]; // Swap
-  }
-
-  // Create a new object with the shuffled values
-  const shuffledObject: Record<string, T> = {};
-  keys.forEach((key, index) => {
-    shuffledObject[key] = values[index];
-  });
-
-  return shuffledObject;
-};
-
 const shuffleArray = <T>(array: T[]): T[] => array.sort(() => Math.random() - 0.5);
+
+const shuffleObject = <T extends Record<string, unknown>>(object: T) => {
+  const keys = Object.keys(object);
+  const values = Object.values(object);
+  const shuffledValues = shuffleArray(values);
+
+  return Object.fromEntries(keys.map((key, index) => [key, shuffledValues[index]])) as T;
+};
 
 const getRandom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)];
 
