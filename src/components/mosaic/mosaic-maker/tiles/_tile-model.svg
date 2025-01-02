@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" className="triangle" viewBox="0 0 2 2">
-  <polygon points="0, 0 1, 1 2, 0" fill="blue" />
-  <polygon points="2, 0 1, 1 2, 2" fill="yellow" />
-  <polygon points="0, 2 1, 1 2, 2" fill="green" />
-  <polygon points="0, 0 1, 1 0, 2" fill="red" />
-</svg>

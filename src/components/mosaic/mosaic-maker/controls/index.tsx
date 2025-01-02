@@ -13,54 +13,54 @@ type Props = {
 
 const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
   const {
-    mosaicTileSet,
-    setMosaicTileSet,
+    tileSet,
+    setTileSet,
     palettes,
     currentPalette,
-    size,
+    tileSize,
     changeTileSize,
-    gap,
+    gapSize,
     changeGapSize,
     setNewColors,
-    shuffleCssColors,
-    suffleCssRotations,
-    handleSetNewPalettes,
+    shuffleColors,
+    shuffleRotations,
+    setNewPalettes,
   } = useControls({ mosaicRef });
 
   useEffect(() => {
     handleSetNewTiles();
-  }, [handleSetNewTiles, mosaicTileSet]);
+  }, [handleSetNewTiles, tileSet]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
-        <Button type="button" onClick={() => shuffleCssColors(currentPalette)} size="sm">
+        <Button type="button" onClick={shuffleColors} size="sm">
           Shuffle colors
         </Button>
-        <Button type="button" onClick={() => suffleCssRotations(defaultRotations)} size="sm">
+        <Button type="button" onClick={() => shuffleRotations(defaultRotations)} size="sm">
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={handleSetNewPalettes} size="sm">
+        <Button type="button" onClick={setNewPalettes} size="sm">
           New palettes
         </Button>
-        <Button type="button" onClick={() => handleSetNewTiles(mosaicTileSet)} size="sm">
+        <Button type="button" onClick={() => handleSetNewTiles(tileSet)} size="sm">
           New tiles
         </Button>
       </fieldset>
 
       <fieldset className="grid grid-cols-2 gap-4 px-2">
         <label className="flex flex-col items-center text-sm">
-          Tile size: {size}px
-          <Slider min={32} max={256} step={2} value={size} onChange={changeTileSize} />
+          Tile size: {tileSize}px
+          <Slider min={32} max={256} step={2} value={tileSize} onChange={changeTileSize} />
         </label>
 
         <label className="flex flex-col items-center text-sm">
-          Gap size: {gap}px
-          <Slider min={0} step={2} max={128} value={gap} onChange={changeGapSize} />
+          Gap size: {gapSize}px
+          <Slider min={0} step={2} max={128} value={gapSize} onChange={changeGapSize} />
         </label>
       </fieldset>
 
-      <TileSetControls mosaicTileSet={mosaicTileSet} setMosaicTileSet={setMosaicTileSet} />
+      <TileSetControls mosaicTileSet={tileSet} setMosaicTileSet={setTileSet} />
 
       <PalettePicker
         palettes={palettes}

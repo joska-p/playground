@@ -2,21 +2,21 @@ import { cn } from "@/lib/utils";
 import { DefaultTileComponents } from "./default-options";
 import styles from "./tile.module.css";
 
-type Props = {
+type TileProps = {
   name: string;
   colors: string[];
   rotation: string;
-  tileComponent?: typeof DefaultTileComponents;
-} & React.HTMLAttributes<HTMLDivElement>;
+  className?: string;
+  component?: (typeof DefaultTileComponents)[keyof typeof DefaultTileComponents];
+};
 
 const Tile = ({
   name,
   colors,
   rotation,
-  tileComponent = DefaultTileComponents,
+  component: Component = DefaultTileComponents[name],
   className,
-}: Props) => {
-  const Component = tileComponent[name];
+}: TileProps) => {
   return <Component colors={colors} rotation={rotation} className={cn(styles.tile, className)} />;
 };
 
