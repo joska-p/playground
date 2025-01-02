@@ -8,19 +8,11 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 const Mosaic = ({ mosaicRef, tiles }: Props) => {
-  const styleObject = {
-    ...initialPalette,
-    ...initialRotations,
-    "--tile-width": "64px",
-    "--tile-height": "64px",
-    "--mosaicGap": "0px",
-  } as React.CSSProperties;
-
   return (
     <div
       ref={mosaicRef}
-      className="absolute inset-2 grid grid-cols-[repeat(auto-fill,var(--tile-width))] grid-rows-[repeat(auto-fill,var(--tile-height),1fr)] content-start justify-center gap-[var(--mosaicGap)] overflow-hidden"
-      style={styleObject}
+      className="absolute inset-0 grid grid-cols-[repeat(auto-fill,var(--tile-width))] grid-rows-[repeat(auto-fill,var(--tile-height),1fr)] content-start justify-center gap-[var(--mosaicGap)] overflow-hidden [--mosaicGap:0px] [--tile-height:64px] [--tile-width:64px]"
+      style={{ ...initialPalette, ...initialRotations } as React.CSSProperties}
     >
       {tiles.map((tile, index) => (
         <Tile

@@ -19,15 +19,11 @@ const TileSetSelection = ({ tileSet, setTileSet }: Props) => {
     setTileSet(updatedTileSet);
   };
 
-  const styleObject = {
-    ...initialPalette,
-    "--tile-width": "32px",
-    "--tile-height": "32px",
-    "--rotation": "0deg",
-  } as React.CSSProperties;
-
   return (
-    <fieldset className="flex flex-wrap items-center justify-center gap-4" style={styleObject}>
+    <fieldset
+      className="flex flex-wrap items-center justify-center gap-4 [--rotation:0deg] [--tile-height:32px] [--tile-width:32px]"
+      style={{ ...initialPalette } as React.CSSProperties}
+    >
       {initialTileSet.map((tile) => {
         return (
           <label key={tile} aria-label={tile} className="flex flex-col gap-2">

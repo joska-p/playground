@@ -1,21 +1,23 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Slider } from "@/components/ui/slider/slider";
 import { Button } from "@/components/ui/button";
+import { getRandom } from "@/lib/utils.ts";
 import { useControls } from "./useControls";
 import { PalettePicker } from "./palette-picker";
 import { TileSetSelection } from "./tile-set-selection.tsx";
 import { initialRotations } from "../options.ts";
+import { computeNumberOfTiles } from "../lib/utils.ts";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement>;
-  setNewTiles: (tileSet: string[]) => void;
+  setTiles: (tileSet: string[]) => void;
 };
 
-const Controls = ({ mosaicRef, setNewTiles }: Props) => {
+const Controls = ({ mosaicRef, setTiles }: Props) => {
   const {
     tileSet,
     setTileSet,
-    palettes,
+    currentPalettes,
     currentPalette,
     tileSize,
     changeTileSize,
@@ -27,9 +29,20 @@ const Controls = ({ mosaicRef, setNewTiles }: Props) => {
     setNewPalettes,
   } = useControls({ mosaicRef });
 
+  const setNewTiles = useCallback(
+    (tileSet: string[]) => {
+      if (!mosaicRef.current) return;
+
+      const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
+      const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
+      setTiles(newTiles);
+    },
+    [mosaicRef, setTiles]
+  );
+
   useEffect(() => {
     setNewTiles(tileSet);
-  }, [setNewTiles, tileSet]);
+  }, [tileSet, setNewTiles]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
@@ -63,7 +76,7 @@ const Controls = ({ mosaicRef, setNewTiles }: Props) => {
       <TileSetSelection tileSet={tileSet} setTileSet={setTileSet} />
 
       <PalettePicker
-        palettes={palettes}
+        currentPalettes={currentPalettes}
         currentPalette={currentPalette}
         setNewPalette={setNewPalette}
       />
