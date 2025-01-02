@@ -20,7 +20,8 @@ const useControls = ({ mosaicRef }: Props) => {
   }, []);
 
   const setNewPalettes = useCallback(async () => {
-    const randomPalettes = shuffleArray(await palettes).slice(0, 39);
+    const newPalettes = await palettes;
+    const randomPalettes = shuffleArray(newPalettes).slice(0, 39);
     setCurrentPalettes(randomPalettes);
   }, [palettes]);
 
