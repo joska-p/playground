@@ -24,9 +24,9 @@ const useControls = ({ mosaicRef }: Props) => {
     setCurrentPalettes(randomPalettes);
   }, [palettes]);
 
-  // useEffect(() => {
-  //   setNewPalettes();
-  // }, [setNewPalettes]);
+  useEffect(() => {
+    setNewPalettes();
+  }, [setNewPalettes]);
 
   const changeTileSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
