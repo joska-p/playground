@@ -1,13 +1,12 @@
 import { cn } from "@/lib/utils";
-import styles from "./tile.module.css";
-import { CornerCircles } from "./corner-circles-css";
-import { Diamond } from "./diamond-css";
-import { MiddleCircles } from "./middle-circe-css";
-import { OppositeCircles } from "./opposite-circles-css";
-import { Rainbow } from "./rainbow-css";
-import { Square } from "./square-css";
-import { Triangles } from "./triangles-css";
-import { Cube } from "./cube-css";
+import { CornerCircles } from "./corner-circles";
+import { Diamond } from "./diamond";
+import { MiddleCircles } from "./middle-circe";
+import { OppositeCircles } from "./opposite-circles";
+import { Rainbow } from "./rainbow";
+import { Square } from "./square";
+import { Triangles } from "./triangles";
+import { Cube } from "./cube";
 
 const tileComponents = {
   [CornerCircles.name]: CornerCircles,
@@ -35,7 +34,16 @@ const Tile = ({
   component: Component = tileComponents[name],
   className,
 }: TileProps) => {
-  return <Component colors={colors} rotation={rotation} className={cn(styles.tile, className)} />;
+  return (
+    <Component
+      colors={colors}
+      rotation={rotation}
+      className={cn(
+        "relative h-[var(--tile-width)] w-[var(--tile-width)] overflow-hidden transition-[transform,colors]",
+        className
+      )}
+    />
+  );
 };
 
 export { Tile };

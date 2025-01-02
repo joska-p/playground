@@ -13,10 +13,10 @@ const Square = ({ colors, rotation, className }: Props) => {
 
   return (
     <div className={cn("tile grid grid-cols-2 grid-rows-2", className)} style={styleObject}>
-      <div style={{ backgroundColor: `var(${colors[1]})` }} />
-      <div style={{ backgroundColor: `var(${colors[2]})` }} />
-      <div style={{ backgroundColor: `var(${colors[3]})` }} />
-      <div style={{ backgroundColor: `var(${colors[4]})` }} />
+      <div style={{ backgroundColor: `var(${colors[1]})` }} className="transition-colors" />
+      <div style={{ backgroundColor: `var(${colors[2]})` }} className="transition-colors" />
+      <div style={{ backgroundColor: `var(${colors[3]})` }} className="transition-colors" />
+      <div style={{ backgroundColor: `var(${colors[4]})` }} className="transition-colors" />
     </div>
   );
 };

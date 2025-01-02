@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
   colors: string[];
   rotation: string;
@@ -8,17 +10,21 @@ const Triangles = ({ colors, rotation, className }: Props) => {
     backgroundColor: `var(${colors[0]})`,
     transform: `rotate(var(${rotation}))`,
     borderTopColor: `var(${colors[1]})`,
-    borderTopWidth: "calc(var(--tile-width) / 2)",
     borderRightColor: `var(${colors[2]})`,
-    borderRightWidth: "calc(var(--tile-width) / 2)",
     borderBottomColor: `var(${colors[3]})`,
-    borderBottomWidth: "calc(var(--tile-width) / 2)",
     borderLeftColor: `var(${colors[4]})`,
-    borderLeftWidth: "calc(var(--tile-width) / 2)",
     borderStyle: "solid",
   };
 
-  return <div style={styleObject} className={className} />;
+  return (
+    <div
+      style={styleObject}
+      className={cn(
+        "border-b-[calc(var(--tile-width)/2)] border-l-[calc(var(--tile-width)/2)] border-r-[calc(var(--tile-width)/2)] border-t-[calc(var(--tile-width)/2)] border-solid transition-colors",
+        className
+      )}
+    />
+  );
 };
 
 export { Triangles };
