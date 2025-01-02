@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { getRandom, shuffleArray, shuffleObject } from "@/lib/utils";
-import { defaultTileSet, defaultPalette } from "../tiles/default-options";
+import { initialTileSet, initialPalette } from "../options";
 import { getPalettes } from "../lib/colors";
 
 type Props = {
@@ -8,9 +8,9 @@ type Props = {
 };
 
 const useControls = ({ mosaicRef }: Props) => {
-  const [tileSet, setTileSet] = useState(defaultTileSet);
-  const [palettes, setPalettes] = useState([defaultPalette]);
-  const [currentPalette, setCurrentPalette] = useState(defaultPalette);
+  const [tileSet, setTileSet] = useState(initialTileSet);
+  const [palettes, setPalettes] = useState([initialPalette]);
+  const [currentPalette, setCurrentPalette] = useState(initialPalette);
   const [tileSize, setTileSize] = useState(64);
   const [gapSize, setGapSize] = useState(0);
 
@@ -51,7 +51,7 @@ const useControls = ({ mosaicRef }: Props) => {
     [mosaicRef]
   );
 
-  const setNewColors = useCallback(
+  const setNewPalette = useCallback(
     (palette = getRandom(palettes)) => {
       if (!mosaicRef.current) return;
       setCurrentPalette(palette);
@@ -64,8 +64,8 @@ const useControls = ({ mosaicRef }: Props) => {
 
   const shuffleColors = useCallback(() => {
     const newPalette = shuffleObject(currentPalette);
-    setNewColors(newPalette);
-  }, [currentPalette, setNewColors]);
+    setNewPalette(newPalette);
+  }, [currentPalette, setNewPalette]);
 
   const shuffleRotations = useCallback(
     (rotations: Record<string, string>) => {
@@ -87,7 +87,7 @@ const useControls = ({ mosaicRef }: Props) => {
     changeTileSize,
     gapSize,
     changeGapSize,
-    setNewColors,
+    setNewPalette,
     shuffleColors,
     shuffleRotations,
     setNewPalettes,

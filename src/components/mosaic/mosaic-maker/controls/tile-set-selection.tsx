@@ -1,26 +1,26 @@
 import { cn } from "@/lib/utils";
 import { Tile } from "../tiles/tile";
-import { defaultPalette, defaultTileSet } from "../tiles/default-options";
+import { initialPalette, initialTileSet } from "../options";
 
 type Props = {
-  mosaicTileSet: typeof defaultTileSet;
-  setMosaicTileSet: React.Dispatch<React.SetStateAction<typeof defaultTileSet>>;
+  tileSet: typeof initialTileSet;
+  setTileSet: React.Dispatch<React.SetStateAction<typeof initialTileSet>>;
 };
 
-const TileSetControls = ({ mosaicTileSet, setMosaicTileSet }: Props) => {
-  const handleChangeMosaicTileSet = (tileName: string) => {
-    if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0]) return;
+const TileSetSelection = ({ tileSet, setTileSet }: Props) => {
+  const handleChangetileSet = (tileName: string) => {
+    if (tileSet.length === 1 && tileName === tileSet[0]) return;
 
-    const isTileInSet = mosaicTileSet.includes(tileName);
+    const isTileInSet = tileSet.includes(tileName);
     const updatedTileSet = isTileInSet
-      ? mosaicTileSet.filter((tile) => tile !== tileName)
-      : [...mosaicTileSet, ...defaultTileSet.filter((tile) => tile === tileName)];
+      ? tileSet.filter((tile) => tile !== tileName)
+      : [...tileSet, ...initialTileSet.filter((tile) => tile === tileName)];
 
-    setMosaicTileSet(updatedTileSet);
+    setTileSet(updatedTileSet);
   };
 
   const styleObject = {
-    ...defaultPalette,
+    ...initialPalette,
     "--tile-width": "32px",
     "--tile-height": "32px",
     "--rotation": "0deg",
@@ -28,18 +28,18 @@ const TileSetControls = ({ mosaicTileSet, setMosaicTileSet }: Props) => {
 
   return (
     <fieldset className="flex flex-wrap items-center justify-center gap-4" style={styleObject}>
-      {defaultTileSet.map((tile) => {
+      {initialTileSet.map((tile) => {
         return (
           <label key={tile} aria-label={tile} className="flex flex-col gap-2">
             <input
               type="checkbox"
-              checked={mosaicTileSet.includes(tile)}
-              onChange={() => handleChangeMosaicTileSet(tile)}
+              checked={tileSet.includes(tile)}
+              onChange={() => handleChangetileSet(tile)}
               className="peer sr-only"
             />
             <Tile
               name={tile}
-              colors={Object.keys(defaultPalette)}
+              colors={Object.keys(initialPalette)}
               className={cn(
                 "opacity-70 transition-opacity",
                 "peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-primary",
@@ -54,4 +54,4 @@ const TileSetControls = ({ mosaicTileSet, setMosaicTileSet }: Props) => {
   );
 };
 
-export { TileSetControls };
+export { TileSetSelection };

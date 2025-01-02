@@ -3,29 +3,29 @@ import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
 import { getRandom } from "@lib/utils";
 import { computeNumberOfTiles } from "./lib/utils";
 import { Mosaic } from "./mosaic";
-import { Controls } from "./controls";
-import { defaultTileSet } from "./tiles/default-options";
+import { Controls } from "./controls/controls";
+import { initialTileSet } from "./options";
 
 const MosaicMaker = () => {
-  const [mosaicTiles, setMosaicTiles] = useState(defaultTileSet);
+  const [tiles, setTiles] = useState(initialTileSet);
   const mosaicRef = useRef<HTMLDivElement>(null);
 
-  const handleSetNewTiles = useCallback((tileSet = defaultTileSet) => {
+  const setNewTiles = useCallback((tileSet: string[]) => {
     if (mosaicRef.current) {
       const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
       const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
-      setMosaicTiles(newTiles);
+      setTiles(newTiles);
     }
   }, []);
 
   return (
     <SidebarProvider desktopPosition="right" mobilePosition="bottom">
       <SidebarProvider.Content className="relative bg-popover">
-        <Mosaic mosaicRef={mosaicRef} mosaicTiles={mosaicTiles} />
+        <Mosaic mosaicRef={mosaicRef} tiles={tiles} />
       </SidebarProvider.Content>
 
       <SidebarProvider.Sidebar className="bg-card">
-        <Controls mosaicRef={mosaicRef} handleSetNewTiles={handleSetNewTiles} />
+        <Controls mosaicRef={mosaicRef} setNewTiles={setNewTiles} />
       </SidebarProvider.Sidebar>
     </SidebarProvider>
   );

@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
-import { defaultPalette } from "../tiles/default-options";
+import { initialPalette } from "../options";
 import { Palette } from "./palette";
 
 type Props = {
   palettes: Record<string, string>[];
   currentPalette: Record<string, string>;
-  handleSetNewColors: () => void;
+  setNewPalette: () => void;
 };
 
-const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) => {
+const PalettePicker = ({ palettes, currentPalette, setNewPalette }: Props) => {
   return (
     <fieldset
       className={cn(
@@ -18,10 +18,10 @@ const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) 
       )}
     >
       <Palette
-        palette={defaultPalette}
-        handleSetNewColors={handleSetNewColors}
+        palette={initialPalette}
+        setNewPalette={setNewPalette}
         checked={
-          Object.values(defaultPalette).join(",") === Object.values(currentPalette).join(",")
+          Object.values(initialPalette).join(",") === Object.values(currentPalette).join(",")
         }
         aria-label="Default palette"
       />
@@ -33,7 +33,7 @@ const PalettePicker = ({ palettes, currentPalette, handleSetNewColors }: Props) 
           <Palette
             key={newPaletteId}
             palette={palette}
-            handleSetNewColors={handleSetNewColors}
+            setNewPalette={setNewPalette}
             checked={newPaletteId === currentPaletteId}
             aria-label={newPaletteId}
           />

@@ -3,15 +3,15 @@ import { Slider } from "@/components/ui/slider/slider";
 import { Button } from "@/components/ui/button";
 import { useControls } from "./useControls";
 import { PalettePicker } from "./palette-picker";
-import { TileSetControls } from "./tile-set-controls";
-import { defaultRotations } from "../tiles/default-options";
+import { TileSetSelection } from "./tile-set-selection.tsx";
+import { initialRotations } from "../options.ts";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement>;
-  handleSetNewTiles: (tileSet?: string[]) => void;
+  setNewTiles: (tileSet: string[]) => void;
 };
 
-const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
+const Controls = ({ mosaicRef, setNewTiles }: Props) => {
   const {
     tileSet,
     setTileSet,
@@ -21,15 +21,15 @@ const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
     changeTileSize,
     gapSize,
     changeGapSize,
-    setNewColors,
+    setNewPalette,
     shuffleColors,
     shuffleRotations,
     setNewPalettes,
   } = useControls({ mosaicRef });
 
   useEffect(() => {
-    handleSetNewTiles();
-  }, [handleSetNewTiles, tileSet]);
+    setNewTiles(tileSet);
+  }, [setNewTiles, tileSet]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
@@ -37,13 +37,13 @@ const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
         <Button type="button" onClick={shuffleColors} size="sm">
           Shuffle colors
         </Button>
-        <Button type="button" onClick={() => shuffleRotations(defaultRotations)} size="sm">
+        <Button type="button" onClick={() => shuffleRotations(initialRotations)} size="sm">
           Shuffle rotations
         </Button>
         <Button type="button" onClick={setNewPalettes} size="sm">
           New palettes
         </Button>
-        <Button type="button" onClick={() => handleSetNewTiles(tileSet)} size="sm">
+        <Button type="button" onClick={() => setNewTiles(tileSet)} size="sm">
           New tiles
         </Button>
       </fieldset>
@@ -60,12 +60,12 @@ const Controls = ({ mosaicRef, handleSetNewTiles }: Props) => {
         </label>
       </fieldset>
 
-      <TileSetControls mosaicTileSet={tileSet} setMosaicTileSet={setTileSet} />
+      <TileSetSelection tileSet={tileSet} setTileSet={setTileSet} />
 
       <PalettePicker
         palettes={palettes}
         currentPalette={currentPalette}
-        handleSetNewColors={setNewColors}
+        setNewPalette={setNewPalette}
       />
     </form>
   );

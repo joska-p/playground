@@ -1,16 +1,16 @@
 import { getRandom } from "@/lib/utils";
 import { Tile } from "./tiles/tile";
-import { defaultPalette, defaultRotations } from "./tiles/default-options";
+import { initialPalette, initialRotations } from "./options";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   mosaicRef: React.RefObject<HTMLDivElement>;
-  mosaicTiles: string[];
+  tiles: string[];
 };
 
-const Mosaic = ({ mosaicRef, mosaicTiles }: Props) => {
+const Mosaic = ({ mosaicRef, tiles }: Props) => {
   const styleObject = {
-    ...defaultPalette,
-    ...defaultRotations,
+    ...initialPalette,
+    ...initialRotations,
     "--tile-width": "64px",
     "--tile-height": "64px",
     "--mosaicGap": "0px",
@@ -22,13 +22,13 @@ const Mosaic = ({ mosaicRef, mosaicTiles }: Props) => {
       className="absolute inset-2 grid grid-cols-[repeat(auto-fill,var(--tile-width))] grid-rows-[repeat(auto-fill,var(--tile-height),1fr)] content-start justify-center gap-[var(--mosaicGap)] overflow-hidden"
       style={styleObject}
     >
-      {mosaicTiles.map((tile, index) => (
+      {tiles.map((tile, index) => (
         <Tile
           // biome-ignore lint/suspicious/noArrayIndexKey: There is no other way
           key={index}
           name={tile}
-          colors={Object.keys(defaultPalette).map(() => getRandom(Object.keys(defaultPalette)))}
-          rotation={getRandom(Object.keys(defaultRotations))}
+          colors={Object.keys(initialPalette).map(() => getRandom(Object.keys(initialPalette)))}
+          rotation={getRandom(Object.keys(initialRotations))}
         />
       ))}
     </div>

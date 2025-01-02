@@ -4,10 +4,10 @@ type Props = React.HTMLAttributes<HTMLLabelElement> & {
   palette: Record<string, string>;
   disabled?: boolean;
   checked: boolean;
-  handleSetNewColors: (palette?: Record<string, string>) => void;
+  setNewPalette: (palette?: Record<string, string>) => void;
 };
 
-const Palette = ({ palette, className, disabled, checked, handleSetNewColors }: Props) => {
+const Palette = ({ palette, className, disabled, checked, setNewPalette }: Props) => {
   const paletteId = Object.values(palette).join(",");
   return (
     <label
@@ -26,7 +26,7 @@ const Palette = ({ palette, className, disabled, checked, handleSetNewColors }: 
         className="sr-only"
         disabled={disabled}
         checked={checked}
-        onChange={() => handleSetNewColors(palette)}
+        onChange={() => setNewPalette(palette)}
         aria-label={paletteId}
       />
       {Object.values(palette).map((color, index) => (
