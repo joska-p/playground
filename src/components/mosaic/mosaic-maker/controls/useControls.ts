@@ -25,60 +25,48 @@ const useControls = ({ mosaicRef }: Props) => {
     setCurrentPalettes(randomPalettes);
   }, [palettes]);
 
-  // useEffect(() => {
-  //   setNewPalettes();
-  // }, [setNewPalettes]);
+  useEffect(() => {
+    setNewPalettes();
+  }, [setNewPalettes]);
 
-  const changeTileSize = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!mosaicRef.current) return;
+
+    const newSize = Number.parseInt(event.target.value);
+    setTileSize(newSize);
+    mosaicRef.current.style.setProperty("--tile-width", `${newSize}px`);
+    mosaicRef.current.style.setProperty("--tile-height", `${newSize}px`);
+  };
+
+  const changeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!mosaicRef.current) return;
+    const newSize = Number.parseInt(event.target.value);
+    setGapSize(newSize);
+    mosaicRef.current.style.setProperty("--mosaicGap", `${newSize}px`);
+  };
+
+  const setNewPalette = (palette = getRandom(currentPalettes)) => {
+    setCurrentPalette(palette);
+    Object.entries(palette).forEach(([colorName, colorValue]) => {
       if (!mosaicRef.current) return;
+      mosaicRef.current.style.setProperty(colorName, colorValue);
+    });
+  };
 
-      const newSize = Number.parseInt(event.target.value);
-      setTileSize(newSize);
-      mosaicRef.current.style.setProperty("--tile-width", `${newSize}px`);
-      mosaicRef.current.style.setProperty("--tile-height", `${newSize}px`);
-    },
-    [mosaicRef]
-  );
-
-  const changeGapSize = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (!mosaicRef.current) return;
-      const newSize = Number.parseInt(event.target.value);
-      setGapSize(newSize);
-      mosaicRef.current.style.setProperty("--mosaicGap", `${newSize}px`);
-    },
-    [mosaicRef]
-  );
-
-  const setNewPalette = useCallback(
-    (palette = getRandom(currentPalettes)) => {
-      if (!mosaicRef.current) return;
-      setCurrentPalette(palette);
-      Object.entries(palette).forEach(([colorName, colorValue]) =>
-        mosaicRef.current!.style.setProperty(colorName, colorValue)
-      );
-    },
-    [currentPalettes, mosaicRef]
-  );
-
-  const shuffleColors = useCallback(() => {
+  const shuffleColors = () => {
     const newPalette = shuffleObject(currentPalette);
     Object.entries(newPalette).forEach(([colorName, colorValue]) =>
       mosaicRef.current!.style.setProperty(colorName, colorValue)
     );
-  }, [currentPalette, mosaicRef]);
+  };
 
-  const shuffleRotations = useCallback(
-    (rotations: Record<string, string>) => {
+  const shuffleRotations = (rotations: Record<string, string>) => {
+    const newRotations = shuffleObject(rotations);
+    Object.entries(newRotations).forEach(([rotationName, rotationValue]) => {
       if (!mosaicRef.current) return;
-      const newRotations = shuffleObject(rotations);
-      Object.entries(newRotations).forEach(([rotationName, rotationValue]) =>
-        mosaicRef.current!.style.setProperty(rotationName, rotationValue)
-      );
-    },
-    [mosaicRef]
-  );
+      mosaicRef.current.style.setProperty(rotationName, rotationValue);
+    });
+  };
 
   return {
     tileSet,
