@@ -64,4 +64,3 @@ const getPalettes = async (): Promise<Palette[]> => {
 };
 
 export { getPalettes };
-export type { Palette };
