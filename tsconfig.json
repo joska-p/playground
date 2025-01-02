@@ -8,14 +8,14 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@components/*": ["./src/components/*"],
-      "@content/*": ["./src/content/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@/assets/*": ["./src/assets/*"],
+      "@/constants/*": ["./src/constants/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/content/*": ["./src/content/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/styles/*": ["./src/styles/*"]
     }
   }
 }
