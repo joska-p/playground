@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getRandom, shuffleArray, shuffleObject } from "@/lib/utils";
 import { initialTileSet, initialPalette } from "../options";
 import { getPalettes } from "../lib/colors";
@@ -14,15 +14,20 @@ const useControls = ({ mosaicRef }: Props) => {
   const [tileSize, setTileSize] = useState(64);
   const [gapSize, setGapSize] = useState(0);
 
-  const setNewPalettes = useCallback(async () => {
-    const newPalettes = await getPalettes();
-    const randomPalettes = shuffleArray(newPalettes).slice(0, 39);
-    setCurrentPalettes(randomPalettes);
+  const palettes = useMemo(async () => {
+    const palettes = await getPalettes();
+    return palettes;
   }, []);
 
-  useEffect(() => {
-    setNewPalettes();
-  }, [setNewPalettes]);
+  const setNewPalettes = useCallback(async () => {
+    const newPalettes = await palettes;
+    const randomPalettes = shuffleArray(newPalettes).slice(0, 39);
+    setCurrentPalettes(randomPalettes);
+  }, [palettes]);
+
+  // useEffect(() => {
+  //   setNewPalettes();
+  // }, [setNewPalettes]);
 
   const changeTileSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
