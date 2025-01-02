@@ -36,7 +36,7 @@ const defaultRotations = {
   "--rotation-3": "270deg",
 };
 
-const defaulColors = {
+const defaultPalette = {
   "--color-0": "#333333",
   "--color-1": "#555555",
   "--color-2": "#777777",
@@ -44,8 +44,4 @@ const defaulColors = {
   "--color-4": "#bbbbbb",
 };
 
-const defaultPalette = ["#333333", "#555555", "#777777", "#999999", "#bbbbbb"];
-
-export { DefaultTileComponents, defaultTileSet, defaultRotations, defaulColors, defaultPalette };
-
-export type DefaultTileSet = typeof defaultTileSet;
+export { DefaultTileComponents, defaultTileSet, defaultRotations, defaultPalette };

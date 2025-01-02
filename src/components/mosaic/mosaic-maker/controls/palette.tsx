@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
-  palette: string[];
+  palette: Record<string, string>;
   disabled?: boolean;
   checked: boolean;
-  handleSetNewColors: (palette?: string[]) => void;
+  handleSetNewColors: (palette?: Record<string, string>) => void;
 };
 
 const Palette = ({ palette, className, disabled, checked, handleSetNewColors }: Props) => {
+  const paletteId = Object.values(palette).join(",");
   return (
     <label
       className={cn(
@@ -21,16 +22,16 @@ const Palette = ({ palette, className, disabled, checked, handleSetNewColors }: 
       <input
         type="radio"
         name="palette"
-        value={palette.join(",")}
+        value={paletteId}
         className="sr-only"
         disabled={disabled}
         checked={checked}
         onChange={() => handleSetNewColors(palette)}
-        aria-label={palette.join(",")}
+        aria-label={paletteId}
       />
-      {palette.map((color, index) => (
+      {Object.values(palette).map((color, index) => (
         <div
-          // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+          // biome-ignore lint/suspicious/noArrayIndexKey: no other way
           key={index}
           style={{ backgroundColor: color }}
           className="h-6 w-6 md:h-6 md:w-6"

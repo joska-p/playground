@@ -1,17 +1,5 @@
-import { shuffleArray } from "@/lib/utils";
-import { defaulColors, defaultRotations } from "../tiles/default-options";
-
-const computedColors = (element: HTMLDivElement) => {
-  return Object.keys(defaulColors).map((color) =>
-    getComputedStyle(element).getPropertyValue(color)
-  );
-};
-
-const computedRotation = (element: HTMLDivElement) => {
-  return Object.keys(defaultRotations).map((rotation) =>
-    getComputedStyle(element).getPropertyValue(rotation)
-  );
-};
+import { shuffleObject } from "@/lib/utils";
+import type { Palette } from "./colors";
 
 const computeTileHeight = (element: HTMLDivElement) => {
   return Number.parseFloat(getComputedStyle(element).getPropertyValue("--tile-height"));
@@ -47,23 +35,27 @@ const setCssGap = ({ element, value }: { element: HTMLDivElement; value: string 
   element.style.setProperty("--mosaicGap", `${value}px`);
 };
 
-const setCssColors = ({ element, palette }: { element: HTMLDivElement; palette: string[] }) => {
-  Object.keys(defaulColors).forEach((colorName, index) =>
-    element.style.setProperty(colorName, palette[index])
+const setCssColors = ({ element, palette }: { element: HTMLDivElement; palette: Palette }) => {
+  Object.entries(palette).forEach(([colorName, colorValue]) =>
+    element.style.setProperty(colorName, colorValue)
   );
 };
 
-const shuffleCssColors = (element: HTMLDivElement) => {
-  const newColors = shuffleArray(computedColors(element));
-  Object.keys(defaulColors).forEach((colorName, index) =>
-    element.style.setProperty(colorName, newColors[index])
-  );
+const shuffleCssColors = ({ element, palette }: { element: HTMLDivElement; palette: Palette }) => {
+  const newPalette = shuffleObject(palette) as Palette;
+  setCssColors({ element, palette: newPalette });
 };
 
-const suffleCssRotations = (element: HTMLDivElement) => {
-  const newRotations = shuffleArray(computedRotation(element));
-  Object.keys(defaultRotations).forEach((rotationName, index) =>
-    element.style.setProperty(rotationName, newRotations[index])
+const suffleCssRotations = ({
+  element,
+  rotations,
+}: {
+  element: HTMLDivElement;
+  rotations: Record<string, string>;
+}) => {
+  const newRotations = shuffleObject(rotations);
+  Object.entries(newRotations).forEach(([rotationName, rotationValue]) =>
+    element.style.setProperty(rotationName, rotationValue)
   );
 };
 

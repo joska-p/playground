@@ -1,32 +1,26 @@
 import { cn } from "@/lib/utils";
 import { Tile } from "../tiles/tile";
-import type { DefaultTileSet } from "../tiles/default-options";
-import { defaulColors as colors, defaultTileSet } from "../tiles/default-options";
+import { defaultPalette, defaultTileSet } from "../tiles/default-options";
 
 type Props = {
-  mosaicTileSet: DefaultTileSet;
-  setMosaicTileSet: React.Dispatch<React.SetStateAction<DefaultTileSet>>;
-  handleSetNewTiles: (tileset?: DefaultTileSet) => void;
+  mosaicTileSet: typeof defaultTileSet;
+  setMosaicTileSet: React.Dispatch<React.SetStateAction<typeof defaultTileSet>>;
 };
 
-const TileSetControls = ({ mosaicTileSet, setMosaicTileSet, handleSetNewTiles }: Props) => {
+const TileSetControls = ({ mosaicTileSet, setMosaicTileSet }: Props) => {
   const handleChangeMosaicTileSet = (tileName: string) => {
     if (mosaicTileSet.length === 1 && tileName === mosaicTileSet[0]) return;
 
-    if (mosaicTileSet.find((tile) => tile === tileName)) {
-      const newTileSet = mosaicTileSet.filter((tile) => tile !== tileName);
-      setMosaicTileSet(newTileSet);
-      handleSetNewTiles(newTileSet);
-    } else {
-      const newTile = defaultTileSet.filter((tile) => tile === tileName);
-      const newTileSet = [...mosaicTileSet, ...newTile];
-      setMosaicTileSet(newTileSet);
-      handleSetNewTiles(newTileSet);
-    }
+    const isTileInSet = mosaicTileSet.includes(tileName);
+    const updatedTileSet = isTileInSet
+      ? mosaicTileSet.filter((tile) => tile !== tileName)
+      : [...mosaicTileSet, ...defaultTileSet.filter((tile) => tile === tileName)];
+
+    setMosaicTileSet(updatedTileSet);
   };
 
   const styleObject = {
-    ...colors,
+    ...defaultPalette,
     "--tile-width": "32px",
     "--tile-height": "32px",
     "--rotation": "0deg",
@@ -45,7 +39,7 @@ const TileSetControls = ({ mosaicTileSet, setMosaicTileSet, handleSetNewTiles }:
             />
             <Tile
               name={tile}
-              colors={Object.keys(colors)}
+              colors={Object.keys(defaultPalette)}
               className={cn(
                 "opacity-70 transition-opacity",
                 "peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-primary",

@@ -1,6 +1,6 @@
 import { getRandom } from "@/lib/utils";
 import { Tile } from "./tiles/tile";
-import { defaulColors, defaultRotations } from "./tiles/default-options";
+import { defaultPalette, defaultRotations } from "./tiles/default-options";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   mosaicRef: React.RefObject<HTMLDivElement>;
@@ -9,7 +9,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 const Mosaic = ({ mosaicRef, mosaicTiles }: Props) => {
   const styleObject = {
-    ...defaulColors,
+    ...defaultPalette,
     ...defaultRotations,
     "--tile-width": "64px",
     "--tile-height": "64px",
@@ -27,7 +27,7 @@ const Mosaic = ({ mosaicRef, mosaicTiles }: Props) => {
           // biome-ignore lint/suspicious/noArrayIndexKey: There is no other way
           key={index}
           name={tile}
-          colors={Object.keys(defaulColors).map(() => getRandom(Object.keys(defaulColors)))}
+          colors={Object.keys(defaultPalette).map(() => getRandom(Object.keys(defaultPalette)))}
           rotation={getRandom(Object.keys(defaultRotations))}
         />
       ))}

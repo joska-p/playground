@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { getRandom, shuffleArray } from "@/lib/utils";
-import { defaultPalette, defaultTileSet } from "../tiles/default-options";
+import { defaultTileSet, defaultPalette } from "../tiles/default-options";
 import { getPalettes } from "../lib/colors";
 import { setCssTileSize, setCssGap, setCssColors } from "../lib/utils";
 
@@ -10,7 +10,7 @@ type Props = {
 
 const useControls = ({ mosaicRef }: Props) => {
   const [mosaicTileSet, setMosaicTileSet] = useState(defaultTileSet);
-  const [palettes, setPalettes] = useState([[""]]);
+  const [palettes, setPalettes] = useState([defaultPalette]);
   const [currentPalette, setCurrentPalette] = useState(defaultPalette);
   const [size, setSize] = useState(64);
   const [gap, setGap] = useState(0);
