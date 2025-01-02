@@ -24,9 +24,9 @@ const useControls = ({ mosaicRef }: Props) => {
     setCurrentPalettes(randomPalettes);
   }, [palettes]);
 
-  useEffect(() => {
-    setNewPalettes();
-  }, [setNewPalettes]);
+  // useEffect(() => {
+  //   setNewPalettes();
+  // }, [setNewPalettes]);
 
   const changeTileSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +43,6 @@ const useControls = ({ mosaicRef }: Props) => {
   const changeGapSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (!mosaicRef.current) return;
-
       const newSize = Number.parseInt(event.target.value);
       setGapSize(newSize);
       mosaicRef.current.style.setProperty("--mosaicGap", `${newSize}px`);
@@ -54,9 +53,7 @@ const useControls = ({ mosaicRef }: Props) => {
   const setNewPalette = useCallback(
     (palette = getRandom(currentPalettes)) => {
       if (!mosaicRef.current) return;
-
       setCurrentPalette(palette);
-
       Object.entries(palette).forEach(([colorName, colorValue]) =>
         mosaicRef.current!.style.setProperty(colorName, colorValue)
       );
