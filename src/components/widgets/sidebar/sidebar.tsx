@@ -2,20 +2,13 @@ import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, createContext, useContext, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
-type SidebarContext = {
+const SidebarContext = createContext<{
   isOpen: boolean;
   toggleSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const initialeContext = {
-  isOpen: true,
-  toggleSidebar: () => {},
-} as SidebarContext;
-
-const sidebarContext = createContext(initialeContext);
+} | null>(null);
 
 const useSidebarContext = () => {
-  const context = useContext(sidebarContext);
+  const context = useContext(SidebarContext);
   if (!context) {
     throw new Error("useSidebarContext must be used within a SidebarProvider");
   }
@@ -55,7 +48,7 @@ const SidebarProvider = ({
 }: SidebarProviderProps) => {
   const [isOpen, toggleSidebar] = useState(true);
 
-  const value = useMemo<SidebarContext>(
+  const value = useMemo(
     () => ({
       isOpen,
       toggleSidebar,
@@ -64,7 +57,7 @@ const SidebarProvider = ({
   );
 
   return (
-    <sidebarContext.Provider value={value}>
+    <SidebarContext value={value}>
       <div
         ref={ref}
         className={cn(
@@ -78,7 +71,7 @@ const SidebarProvider = ({
       >
         {children}
       </div>
-    </sidebarContext.Provider>
+    </SidebarContext>
   );
 };
 

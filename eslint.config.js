@@ -7,6 +7,8 @@ import pluginJs from "@eslint/js";
 import eslintPluginAstro from "eslint-plugin-astro";
 import importPlugin from "eslint-plugin-import";
 import tseslint from "typescript-eslint";
+import reactCompiler from "eslint-plugin-react-compiler";
+import reactHooksPluggin from "eslint-plugin-react-hooks";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +26,14 @@ export default [
       "import/resolver": {
         typescript: true,
       },
+    },
+    plugins: {
+      "react-hooks": reactHooksPluggin,
+      "react-compiler": reactCompiler,
+    },
+    rules: {
+      ...reactHooksPluggin.configs.recommended.rules,
+      "react-compiler/react-compiler": "error",
     },
   },
 ];

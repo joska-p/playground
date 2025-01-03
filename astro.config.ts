@@ -1,19 +1,16 @@
 // @ts-check
-import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 
 import sitemap from "@astrojs/sitemap";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    react(),
-    sitemap({
-      filter: (page) => page !== "/404",
-    }),
-  ],
+  integrations: [tailwind(), sitemap({
+    filter: (page) => page !== "/404",
+  }), react()],
   site: "https://joska-p.github.io",
   base: "playground",
   trailingSlash: "always",
