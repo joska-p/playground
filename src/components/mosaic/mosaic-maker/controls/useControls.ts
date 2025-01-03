@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { getRandom, shuffleArray, shuffleObject } from "@/lib/utils";
-import { initialTileSet, initialPalette } from "../options";
+import { useCallback, useEffect, useState } from "react";
+import { shuffleArray, shuffleObject } from "@/lib/utils";
+import { initialTileSet, initialPalette, initialRotations } from "../options";
 import { getPalettes } from "../lib/colors";
 
 type Props = {
@@ -9,48 +9,16 @@ type Props = {
 
 const useControls = ({ mosaicRef }: Props) => {
   const [tileSet, setTileSet] = useState(initialTileSet);
+  const [allThePalettes, setAllThePalettes] = useState([initialPalette]);
   const [palettes, setPalettes] = useState([initialPalette]);
   const [currentPalette, setCurrentPalette] = useState(initialPalette);
   const [tileSize, setTileSize] = useState(64);
   const [gapSize, setGapSize] = useState(0);
 
-  const allThePalettes = useMemo(async () => {
-    return getPalettes();
-  }, []);
-
-  const setNewPalettes = useCallback(async () => {
-    const newPalettes = await allThePalettes;
-    const randomPalettes = shuffleArray(newPalettes).slice(0, 39);
+  const setNewPalettes = useCallback(() => {
+    const randomPalettes = shuffleArray(allThePalettes).slice(0, 39);
     setPalettes(randomPalettes);
   }, [allThePalettes]);
-
-  useEffect(() => {
-    setNewPalettes();
-  }, [setNewPalettes]);
-
-  const changeTileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!mosaicRef.current) return;
-
-    const newSize = Number.parseInt(event.target.value);
-    setTileSize(newSize);
-    mosaicRef.current.style.setProperty("--tile-width", `${newSize}px`);
-    mosaicRef.current.style.setProperty("--tile-height", `${newSize}px`);
-  };
-
-  const changeGapSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!mosaicRef.current) return;
-    const newSize = Number.parseInt(event.target.value);
-    setGapSize(newSize);
-    mosaicRef.current.style.setProperty("--mosaicGap", `${newSize}px`);
-  };
-
-  const setNewPalette = (palette = getRandom(palettes)) => {
-    setCurrentPalette(palette);
-    Object.entries(palette).forEach(([colorName, colorValue]) => {
-      if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(colorName, colorValue);
-    });
-  };
 
   const shuffleColors = () => {
     const newPalette = shuffleObject(currentPalette);
@@ -59,27 +27,51 @@ const useControls = ({ mosaicRef }: Props) => {
     );
   };
 
-  const shuffleRotations = (rotations: Record<string, string>) => {
-    const newRotations = shuffleObject(rotations);
+  const shuffleRotations = () => {
+    const newRotations = shuffleObject(initialRotations);
     Object.entries(newRotations).forEach(([rotationName, rotationValue]) => {
       if (!mosaicRef.current) return;
       mosaicRef.current.style.setProperty(rotationName, rotationValue);
     });
   };
 
+  useEffect(() => {
+    getPalettes().then((palettes) => setAllThePalettes(palettes));
+  }, []);
+
+  useEffect(setNewPalettes, [allThePalettes, setNewPalettes]);
+
+  useEffect(() => {
+    Object.entries(currentPalette).forEach(([colorName, colorValue]) => {
+      if (!mosaicRef.current) return;
+      mosaicRef.current.style.setProperty(colorName, colorValue);
+    });
+  }, [mosaicRef, currentPalette]);
+
+  useEffect(() => {
+    if (!mosaicRef.current) return;
+    mosaicRef.current.style.setProperty("--tile-width", `${tileSize}px`);
+    mosaicRef.current.style.setProperty("--tile-height", `${tileSize}px`);
+  }, [mosaicRef, tileSize]);
+
+  useEffect(() => {
+    if (!mosaicRef.current) return;
+    mosaicRef.current.style.setProperty("--mosaicGap", `${gapSize}px`);
+  }, [mosaicRef, gapSize]);
+
   return {
     tileSet,
     setTileSet,
     palettes,
+    setNewPalettes,
     currentPalette,
+    setCurrentPalette,
     tileSize,
-    changeTileSize,
+    setTileSize,
     gapSize,
-    changeGapSize,
-    setNewPalette,
+    setGapSize,
     shuffleColors,
     shuffleRotations,
-    setNewPalettes,
   };
 };
 

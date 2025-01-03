@@ -3,12 +3,12 @@ import { initialPalette } from "../options";
 import { Palette } from "./palette";
 
 type Props = {
-  palettes: Record<string, string>[];
-  currentPalette: Record<string, string>;
-  setNewPalette: () => void;
+  palettes: (typeof initialPalette)[];
+  currentPalette: typeof initialPalette;
+  setCurrentPalette: React.Dispatch<React.SetStateAction<typeof initialPalette>>;
 };
 
-const PalettePicker = ({ palettes, currentPalette, setNewPalette }: Props) => {
+const PalettePicker = ({ palettes, currentPalette, setCurrentPalette }: Props) => {
   return (
     <fieldset
       className={cn(
@@ -19,7 +19,7 @@ const PalettePicker = ({ palettes, currentPalette, setNewPalette }: Props) => {
     >
       <Palette
         palette={initialPalette}
-        setNewPalette={setNewPalette}
+        setCurrentPalette={setCurrentPalette}
         checked={
           Object.values(initialPalette).join(",") === Object.values(currentPalette).join(",")
         }
@@ -33,7 +33,7 @@ const PalettePicker = ({ palettes, currentPalette, setNewPalette }: Props) => {
           <Palette
             key={newPaletteId}
             palette={palette}
-            setNewPalette={setNewPalette}
+            setCurrentPalette={setCurrentPalette}
             checked={newPaletteId === currentPaletteId}
             aria-label={newPaletteId}
           />

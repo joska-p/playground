@@ -5,7 +5,6 @@ import { getRandom } from "@/lib/utils.ts";
 import { useControls } from "./useControls";
 import { PalettePicker } from "./palette-picker";
 import { TileSetSelection } from "./tile-set-selection.tsx";
-import { initialRotations } from "../options.ts";
 import { computeNumberOfTiles } from "../lib/utils.ts";
 
 type Props = {
@@ -18,31 +17,26 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
     tileSet,
     setTileSet,
     palettes,
+    setNewPalettes,
     currentPalette,
+    setCurrentPalette,
     tileSize,
-    changeTileSize,
+    setTileSize,
     gapSize,
-    changeGapSize,
-    setNewPalette,
+    setGapSize,
     shuffleColors,
     shuffleRotations,
-    setNewPalettes,
   } = useControls({ mosaicRef });
 
-  const setNewTiles = useCallback(
-    (tileSet: string[]) => {
-      if (!mosaicRef.current) return;
+  const setNewTiles = useCallback(() => {
+    if (!mosaicRef.current) return;
 
-      const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
-      const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
-      setTiles(newTiles);
-    },
-    [mosaicRef, setTiles]
-  );
+    const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
+    const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
+    setTiles(newTiles);
+  }, [mosaicRef, setTiles, tileSet]);
 
-  useEffect(() => {
-    setNewTiles(tileSet);
-  }, [tileSet, setNewTiles]);
+  useEffect(setNewTiles, [tileSet, setNewTiles]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
@@ -50,13 +44,13 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
         <Button type="button" onClick={shuffleColors} size="sm">
           Shuffle colors
         </Button>
-        <Button type="button" onClick={() => shuffleRotations(initialRotations)} size="sm">
+        <Button type="button" onClick={shuffleRotations} size="sm">
           Shuffle rotations
         </Button>
         <Button type="button" onClick={setNewPalettes} size="sm">
           New palettes
         </Button>
-        <Button type="button" onClick={() => setNewTiles(tileSet)} size="sm">
+        <Button type="button" onClick={setNewTiles} size="sm">
           New tiles
         </Button>
       </fieldset>
@@ -64,12 +58,24 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
       <fieldset className="grid grid-cols-2 gap-4 px-2">
         <label className="flex flex-col items-center text-sm">
           Tile size: {tileSize}px
-          <Slider min={32} max={256} step={2} value={tileSize} onChange={changeTileSize} />
+          <Slider
+            min={32}
+            max={256}
+            step={2}
+            value={tileSize}
+            onChange={(event) => setTileSize(Number(event.target.value))}
+          />
         </label>
 
         <label className="flex flex-col items-center text-sm">
           Gap size: {gapSize}px
-          <Slider min={0} step={2} max={128} value={gapSize} onChange={changeGapSize} />
+          <Slider
+            min={0}
+            step={2}
+            max={128}
+            value={gapSize}
+            onChange={(event) => setGapSize(Number(event.target.value))}
+          />
         </label>
       </fieldset>
 
@@ -78,7 +84,7 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
       <PalettePicker
         palettes={palettes}
         currentPalette={currentPalette}
-        setNewPalette={setNewPalette}
+        setCurrentPalette={setCurrentPalette}
       />
     </form>
   );

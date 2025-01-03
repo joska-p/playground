@@ -1,13 +1,14 @@
+import type { initialPalette } from "../options";
 import { cn } from "@/lib/utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
-  palette: Record<string, string>;
+  palette: typeof initialPalette;
   disabled?: boolean;
   checked: boolean;
-  setNewPalette: (palette?: Record<string, string>) => void;
+  setCurrentPalette: React.Dispatch<React.SetStateAction<typeof initialPalette>>;
 };
 
-const Palette = ({ palette, className, disabled, checked, setNewPalette }: Props) => {
+const Palette = ({ palette, className, disabled, checked, setCurrentPalette }: Props) => {
   const paletteId = Object.values(palette).join(",");
   return (
     <label
@@ -26,7 +27,7 @@ const Palette = ({ palette, className, disabled, checked, setNewPalette }: Props
         className="sr-only"
         disabled={disabled}
         checked={checked}
-        onChange={() => setNewPalette(palette)}
+        onChange={() => setCurrentPalette(palette)}
         aria-label={paletteId}
       />
       {Object.values(palette).map((color, index) => (
