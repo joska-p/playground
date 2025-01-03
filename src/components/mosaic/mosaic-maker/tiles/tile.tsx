@@ -24,16 +24,10 @@ type TileProps = {
   colors: string[];
   rotation: string;
   className?: string;
-  component?: (typeof tileComponents)[keyof typeof tileComponents];
 };
 
-const Tile = ({
-  name,
-  colors,
-  rotation,
-  component: Component = tileComponents[name],
-  className,
-}: TileProps) => {
+const Tile = ({ name, colors, rotation, className }: TileProps) => {
+  const Component = tileComponents[name];
   return (
     <Component
       colors={colors}

@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
   colors: string[];
   rotation: string;
@@ -10,7 +12,7 @@ const Diamond = ({ colors, rotation, className }: Props) => {
   };
 
   return (
-    <div className={className} style={styleObject}>
+    <div className={cn(className)} style={styleObject}>
       <div
         className="absolute inset-0 transition-colors"
         style={{

@@ -3,8 +3,8 @@ import { Tile } from "../tiles/tile";
 import { initialPalette, initialTileSet } from "../options";
 
 type Props = {
-  tileSet: typeof initialTileSet;
-  setTileSet: React.Dispatch<React.SetStateAction<typeof initialTileSet>>;
+  tileSet: string[];
+  setTileSet: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const TileSetSelection = ({ tileSet, setTileSet }: Props) => {

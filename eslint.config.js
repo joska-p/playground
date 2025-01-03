@@ -20,8 +20,12 @@ const gitignorePath = path.resolve(__dirname, ".gitignore");
 
 export default [
   includeIgnoreFile(gitignorePath),
-  { files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"] },
+  pluginJs.configs.recommended,
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs["typescript"],
+  ...tseslint.configs.recommended,
   {
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -35,55 +39,37 @@ export default [
         },
       },
     },
-  },
-  pluginJs.configs.recommended,
-  {
-    plugins: {
-      "react-hooks": fixupPluginRules(reactHooksPlugin),
-    },
-  },
-  {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    ...pluginReact.configs.flat.recommended, // This is not a plugin object, but a shareable config object
-    ...pluginReact.configs.flat["jsx-runtime"], // Add this if you are using React 17+
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-  },
-  {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    ...jsxA11y.flatConfigs.recommended,
-    languageOptions: {
-      ...jsxA11y.flatConfigs.recommended.languageOptions,
-    },
-  },
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs["typescript"],
-  ...tseslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
-  eslintConfigPrettier,
-  {
     settings: {
       "import/resolver": {
         typescript: true,
       },
     },
-  },
-  {
     rules: {
-      ...reactHooksPlugin.configs.recommended.rules,
-      "no-unused-vars": "off",
-      "no-undef": "off",
-      "import/no-named-as-default": "off",
-      "import/order": [
-        "error",
-        {
-          groups: ["builtin", "external", "internal", ["parent", "sibling", "index"]],
-          "newlines-between": "never",
-        },
-      ],
+      "import/no-dynamic-require": "warn",
+      "import/no-named-as-default": "warn",
     },
   },
+  {
+    ...pluginReact.configs.flat.recommended, // This is not a plugin object, but a shareable config object
+    ...pluginReact.configs.flat["jsx-runtime"], // Add this if you are using React 17+
+    ...jsxA11y.flatConfigs.recommended,
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
+    plugins: {
+      "react-hooks": fixupPluginRules(reactHooksPlugin),
+    },
+    languageOptions: {
+      globals: globals.browser,
+      ...jsxA11y.flatConfigs.recommended.languageOptions,
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    rules: {
+      ...reactHooksPlugin.configs.recommended.rules,
+    },
+  },
+  ...eslintPluginAstro.configs.recommended,
+  eslintConfigPrettier,
 ];
