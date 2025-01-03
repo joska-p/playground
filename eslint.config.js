@@ -37,6 +37,10 @@ export default [
         typescript: true,
       },
     },
+    rules: {
+      "import/no-dynamic-require": "warn",
+      "import/no-named-as-default": "warn",
+    },
   },
   {
     // This block use react lint rules only on the files bellow
