@@ -17,7 +17,7 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
   const {
     tileSet,
     setTileSet,
-    currentPalettes,
+    palettes,
     currentPalette,
     tileSize,
     changeTileSize,
@@ -76,7 +76,7 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
       <TileSetSelection tileSet={tileSet} setTileSet={setTileSet} />
 
       <PalettePicker
-        currentPalettes={currentPalettes}
+        palettes={palettes}
         currentPalette={currentPalette}
         setNewPalette={setNewPalette}
       />

@@ -26,5 +26,8 @@ export default defineConfig({
       sourcemap: true,
       minify: true,
     },
+    esbuild: {
+      minifyIdentifiers: false,
+    },
   },
 });

@@ -9,21 +9,20 @@ type Props = {
 
 const useControls = ({ mosaicRef }: Props) => {
   const [tileSet, setTileSet] = useState(initialTileSet);
-  const [currentPalettes, setCurrentPalettes] = useState([initialPalette]);
+  const [palettes, setPalettes] = useState([initialPalette]);
   const [currentPalette, setCurrentPalette] = useState(initialPalette);
   const [tileSize, setTileSize] = useState(64);
   const [gapSize, setGapSize] = useState(0);
 
-  const palettes = useMemo(async () => {
-    const palettes = await getPalettes();
-    return palettes;
+  const allThePalettes = useMemo(async () => {
+    return getPalettes();
   }, []);
 
   const setNewPalettes = useCallback(async () => {
-    const newPalettes = await palettes;
+    const newPalettes = await allThePalettes;
     const randomPalettes = shuffleArray(newPalettes).slice(0, 39);
-    setCurrentPalettes(randomPalettes);
-  }, [palettes]);
+    setPalettes(randomPalettes);
+  }, [allThePalettes]);
 
   useEffect(() => {
     setNewPalettes();
@@ -45,7 +44,7 @@ const useControls = ({ mosaicRef }: Props) => {
     mosaicRef.current.style.setProperty("--mosaicGap", `${newSize}px`);
   };
 
-  const setNewPalette = (palette = getRandom(currentPalettes)) => {
+  const setNewPalette = (palette = getRandom(palettes)) => {
     setCurrentPalette(palette);
     Object.entries(palette).forEach(([colorName, colorValue]) => {
       if (!mosaicRef.current) return;
@@ -71,7 +70,7 @@ const useControls = ({ mosaicRef }: Props) => {
   return {
     tileSet,
     setTileSet,
-    currentPalettes,
+    palettes,
     currentPalette,
     tileSize,
     changeTileSize,

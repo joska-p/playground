@@ -3,12 +3,12 @@ import { initialPalette } from "../options";
 import { Palette } from "./palette";
 
 type Props = {
-  currentPalettes: Record<string, string>[];
+  palettes: Record<string, string>[];
   currentPalette: Record<string, string>;
   setNewPalette: () => void;
 };
 
-const PalettePicker = ({ currentPalettes, currentPalette, setNewPalette }: Props) => {
+const PalettePicker = ({ palettes, currentPalette, setNewPalette }: Props) => {
   return (
     <fieldset
       className={cn(
@@ -25,7 +25,7 @@ const PalettePicker = ({ currentPalettes, currentPalette, setNewPalette }: Props
         }
         aria-label="Default palette"
       />
-      {currentPalettes.map((palette) => {
+      {palettes.map((palette) => {
         const newPaletteId = Object.values(palette).join(",");
         const currentPaletteId = Object.values(currentPalette).join(",");
 
