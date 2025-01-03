@@ -7,7 +7,6 @@ type Props = {
 
 const Triangles = ({ colors, rotation, className }: Props) => {
   const styleObject = {
-    backgroundColor: `var(${colors[0]})`,
     transform: `rotate(var(${rotation}))`,
     borderTopColor: `var(${colors[1]})`,
     borderRightColor: `var(${colors[2]})`,
@@ -20,7 +19,7 @@ const Triangles = ({ colors, rotation, className }: Props) => {
     <div
       style={styleObject}
       className={cn(
-        "border-b-[calc(var(--tile-width)/2)] border-l-[calc(var(--tile-width)/2)] border-r-[calc(var(--tile-width)/2)] border-t-[calc(var(--tile-width)/2)] border-solid transition-colors",
+        "border-b-[calc(var(--tile-width)/2)] border-l-[calc(var(--tile-width)/2)] border-r-[calc(var(--tile-width)/2)] border-t-[calc(var(--tile-width)/2)] border-solid transition-[transform,border-color] duration-300",
         className
       )}
     />

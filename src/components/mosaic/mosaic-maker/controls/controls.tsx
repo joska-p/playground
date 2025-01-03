@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { Slider } from "@/components/ui/slider/slider";
 import { Button } from "@/components/ui/button";
-import { getRandom } from "@/lib/utils.ts";
+import { getRandom, shuffleObject } from "@/lib/utils.ts";
 import { useControls } from "./useControls";
 import { PalettePicker } from "./palette-picker";
 import { TileSetSelection } from "./tile-set-selection.tsx";
@@ -24,13 +24,12 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
     setTileSize,
     gapSize,
     setGapSize,
-    shuffleColors,
-    shuffleRotations,
+    currentRotations,
+    setCurrentRotations,
   } = useControls({ mosaicRef });
 
   const setNewTiles = useCallback(() => {
     if (!mosaicRef.current) return;
-
     const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
     const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
     setTiles(newTiles);
@@ -41,10 +40,18 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
-        <Button type="button" onClick={shuffleColors} size="sm">
+        <Button
+          type="button"
+          onClick={() => setCurrentPalette(shuffleObject(currentPalette))}
+          size="sm"
+        >
           Shuffle colors
         </Button>
-        <Button type="button" onClick={shuffleRotations} size="sm">
+        <Button
+          type="button"
+          onClick={() => setCurrentRotations(shuffleObject(currentRotations))}
+          size="sm"
+        >
           Shuffle rotations
         </Button>
         <Button type="button" onClick={setNewPalettes} size="sm">

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { shuffleArray, shuffleObject } from "@/lib/utils";
+import { shuffleArray } from "@/lib/utils";
 import { initialTileSet, initialPalette, initialRotations } from "../options";
 import { getPalettes } from "../lib/colors";
 
@@ -12,6 +12,7 @@ const useControls = ({ mosaicRef }: Props) => {
   const [allThePalettes, setAllThePalettes] = useState([initialPalette]);
   const [palettes, setPalettes] = useState([initialPalette]);
   const [currentPalette, setCurrentPalette] = useState(initialPalette);
+  const [currentRotations, setCurrentRotations] = useState(initialRotations);
   const [tileSize, setTileSize] = useState(64);
   const [gapSize, setGapSize] = useState(0);
 
@@ -19,21 +20,6 @@ const useControls = ({ mosaicRef }: Props) => {
     const randomPalettes = shuffleArray(allThePalettes).slice(0, 39);
     setPalettes(randomPalettes);
   }, [allThePalettes]);
-
-  const shuffleColors = () => {
-    const newPalette = shuffleObject(currentPalette);
-    Object.entries(newPalette).forEach(([colorName, colorValue]) =>
-      mosaicRef.current!.style.setProperty(colorName, colorValue)
-    );
-  };
-
-  const shuffleRotations = () => {
-    const newRotations = shuffleObject(initialRotations);
-    Object.entries(newRotations).forEach(([rotationName, rotationValue]) => {
-      if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(rotationName, rotationValue);
-    });
-  };
 
   useEffect(() => {
     getPalettes().then((palettes) => setAllThePalettes(palettes));
@@ -47,6 +33,13 @@ const useControls = ({ mosaicRef }: Props) => {
       mosaicRef.current.style.setProperty(colorName, colorValue);
     });
   }, [mosaicRef, currentPalette]);
+
+  useEffect(() => {
+    Object.entries(currentRotations).forEach(([rotationName, rotationValue]) => {
+      if (!mosaicRef.current) return;
+      mosaicRef.current.style.setProperty(rotationName, rotationValue);
+    });
+  }, [mosaicRef, currentRotations]);
 
   useEffect(() => {
     if (!mosaicRef.current) return;
@@ -70,8 +63,8 @@ const useControls = ({ mosaicRef }: Props) => {
     setTileSize,
     gapSize,
     setGapSize,
-    shuffleColors,
-    shuffleRotations,
+    currentRotations,
+    setCurrentRotations,
   };
 };
 

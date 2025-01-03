@@ -21,14 +21,14 @@ const Cube = ({ colors, rotation, className }: Props) => {
   };
 
   return (
-    <div style={styleObjectCube} className={cn(className)}>
+    <div style={styleObjectCube} className={cn("transition-transform duration-300", className)}>
       <div
         style={styleObjectEdges}
-        className="absolute left-0 top-0 border-b-[calc(var(--tile-width)/2)] border-l-[calc(var(--tile-width)/2)] border-r-[calc(var(--tile-width)/2)] border-t-[calc(var(--tile-width)/2)] border-solid transition-colors"
+        className="absolute left-0 top-0 border-b-[calc(var(--tile-width)/2)] border-l-[calc(var(--tile-width)/2)] border-r-[calc(var(--tile-width)/2)] border-t-[calc(var(--tile-width)/2)] border-solid transition-colors duration-300"
       />
       <div
         style={styleObjectinnerSquare}
-        className="absolute bottom-0 left-0 h-[calc(var(--tile-width)/2)] w-[calc(var(--tile-width)/2)] transition-colors"
+        className="absolute bottom-0 left-0 h-[calc(var(--tile-width)/2)] w-[calc(var(--tile-width)/2)] transition-colors duration-300"
       ></div>
     </div>
   );

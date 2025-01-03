@@ -33,7 +33,7 @@ const Tile = ({ name, colors, rotation, className }: TileProps) => {
       colors={colors}
       rotation={rotation}
       className={cn(
-        "relative h-[var(--tile-width)] w-[var(--tile-width)] overflow-hidden transition-[transform,colors]",
+        "relative h-[var(--tile-width)] w-[var(--tile-width)] overflow-hidden",
         className
       )}
     />
