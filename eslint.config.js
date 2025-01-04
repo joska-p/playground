@@ -2,7 +2,7 @@
 /** @type {import('eslint').Linter.Config[]} */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { includeIgnoreFile } from "@eslint/compat";
+import { includeIgnoreFile, fixupPluginRules } from "@eslint/compat";
 import pluginJs from "@eslint/js";
 import eslintPluginAstro from "eslint-plugin-astro";
 import importPlugin from "eslint-plugin-import";
@@ -31,6 +31,8 @@ export default [
         ...globals.serviceworker,
         ...globals.browser,
       },
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
     settings: {
       "import/resolver": {
@@ -56,6 +58,8 @@ export default [
         ...globals.serviceworker,
         ...globals.browser,
       },
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
     settings: {
       react: {
@@ -63,10 +67,15 @@ export default [
       },
     },
     plugins: {
-      "react-hooks": reactHooksPluggin,
-      "react-compiler": reactCompiler,
+      react: fixupPluginRules(reactPlugin),
+      "jsx-a11y": fixupPluginRules(jsxA11y),
+      "react-hooks": fixupPluginRules(reactHooksPluggin),
+      "react-compiler": fixupPluginRules(reactCompiler),
     },
     rules: {
+      ...reactPlugin.configs.recommended.rules,
+      ...reactPlugin.configs["jsx-runtime"].rules,
+      ...jsxA11y.flatConfigs.recommended.rules,
       ...reactHooksPluggin.configs.recommended.rules,
       "react-compiler/react-compiler": "error",
     },

@@ -8,7 +8,7 @@ import { TileSetSelection } from "./tile-set-selection.tsx";
 import { computeNumberOfTiles } from "../lib/utils.ts";
 
 type Props = {
-  mosaicRef: React.RefObject<HTMLDivElement>;
+  mosaicRef: React.RefObject<HTMLDivElement | null>;
   setTiles: (tileSet: string[]) => void;
 };
 

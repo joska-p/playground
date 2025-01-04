@@ -4,7 +4,7 @@ import { initialTileSet, initialPalette, initialRotations } from "../options";
 import { getPalettes } from "../lib/colors";
 
 type Props = {
-  mosaicRef: React.RefObject<HTMLDivElement>;
+  mosaicRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const useControls = ({ mosaicRef }: Props) => {

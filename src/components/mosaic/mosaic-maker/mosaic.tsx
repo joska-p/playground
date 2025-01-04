@@ -3,7 +3,7 @@ import { Tile } from "./tiles/tile";
 import { initialPalette, initialRotations } from "./options";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  mosaicRef: React.RefObject<HTMLDivElement>;
+  mosaicRef: React.RefObject<HTMLDivElement | null>;
   tiles: string[];
 };
 
@@ -16,7 +16,6 @@ const Mosaic = ({ mosaicRef, tiles }: Props) => {
     >
       {tiles.map((tile, index) => (
         <Tile
-          // biome-ignore lint/suspicious/noArrayIndexKey: There is no other way
           key={index}
           name={tile}
           colors={Object.keys(initialPalette).map(() => getRandom(Object.keys(initialPalette)))}
