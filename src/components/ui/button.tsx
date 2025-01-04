@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 const buttonVariants = cva(
   "inline-block cursor-pointer rounded-md bg-primary px-4 py-2 text-primary-foreground shadow outline-none transition-transform hover:bg-primary/80 focus-visible:ring-4 focus-visible:ring-accent",
@@ -31,12 +31,7 @@ type Props = ComponentProps<"button"> & VariantProps<typeof buttonVariants>;
 
 const Button = ({ ref, className, children, variant, size, type = "button", ...props }: Props) => {
   return (
-    <button
-      className={cn(buttonVariants({ variant, size, className }))}
-      type={type}
-      ref={ref}
-      {...props}
-    >
+    <button className={cn(buttonVariants({ variant, size, className }))} type={type} ref={ref} {...props}>
       {children}
     </button>
   );

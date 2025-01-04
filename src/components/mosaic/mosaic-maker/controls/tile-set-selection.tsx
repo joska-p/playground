@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 import { Tile } from "../tiles/tile";
 import { initialPalette, initialTileSet } from "../options";
 

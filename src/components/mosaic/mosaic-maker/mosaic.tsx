@@ -1,4 +1,4 @@
-import { getRandom } from "@/lib/utils";
+import { getRandom } from "@lib/utils";
 import { Tile } from "./tiles/tile";
 import { initialPalette, initialRotations } from "./options";
 

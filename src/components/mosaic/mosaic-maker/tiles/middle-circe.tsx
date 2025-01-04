@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 type Props = {
   colors: string[];
@@ -13,10 +13,7 @@ const MiddleCircles = ({ colors, rotation, className }: Props) => {
 
   return (
     <div
-      className={cn(
-        "flex items-center justify-center transition-[transform,background-color] duration-300",
-        className
-      )}
+      className={cn("flex items-center justify-center transition-[transform,background-color] duration-300", className)}
       style={styleObject}
     >
       <div

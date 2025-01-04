@@ -1,14 +1,8 @@
 import { z } from "zod";
-import { safeFetch } from "@/lib/utils";
+import { safeFetch } from "@lib/utils";
 
 type ColorNames = "--color-0" | "--color-1" | "--color-2" | "--color-3" | "--color-4";
-const colorNames: ColorNames[] = [
-  "--color-0",
-  "--color-1",
-  "--color-2",
-  "--color-3",
-  "--color-4",
-] as const;
+const colorNames: ColorNames[] = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as const;
 
 type Palette = Record<ColorNames, string>;
 const fallbackPalette: Palette = {

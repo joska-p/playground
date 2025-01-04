@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
+import { SidebarProvider } from "@components/widgets/sidebar/sidebar";
 import { Mosaic } from "./mosaic";
 import { Controls } from "./controls/controls";
 

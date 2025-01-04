@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 type Props = {
   colors: string[];
@@ -12,10 +12,7 @@ const CornerCircles = ({ colors, rotation, className }: Props) => {
   };
 
   return (
-    <div
-      className={cn("transition-[transform,background-color] duration-300", className)}
-      style={styleObject}
-    >
+    <div className={cn("transition-[transform,background-color] duration-300", className)} style={styleObject}>
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
         className="absolute left-0 top-0 h-1/2 w-1/2 rounded-br-full transition-colors duration-300"

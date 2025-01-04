@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 type Props = {
   colors: string[];
@@ -12,10 +12,7 @@ const Diamond = ({ colors, rotation, className }: Props) => {
   };
 
   return (
-    <div
-      className={cn("transition-[transform,background-color] duration-300", className)}
-      style={styleObject}
-    >
+    <div className={cn("transition-[transform,background-color] duration-300", className)} style={styleObject}>
       <div
         className="absolute inset-0 transition-colors duration-300"
         style={{

@@ -1,10 +1,6 @@
-import { findBiggestInterval } from "@/lib/math";
+import { findBiggestInterval } from "@lib/math";
 
-const draw = (
-  canvas: HTMLCanvasElement,
-  sequence: number[],
-  containerSize: { width: number; height: number }
-) => {
+const draw = (canvas: HTMLCanvasElement, sequence: number[], containerSize: { width: number; height: number }) => {
   if (!canvas.parentElement) return;
 
   canvas.width = containerSize.width;
@@ -39,11 +35,7 @@ const draw = (
   context.restore();
 };
 
-const drawSvg = (
-  svg: SVGSVGElement,
-  sequence: number[],
-  containerSize: { width: number; height: number }
-) => {
+const drawSvg = (svg: SVGSVGElement, sequence: number[], containerSize: { width: number; height: number }) => {
   //reset the svg
   svg.innerHTML = "";
   svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
@@ -65,10 +57,7 @@ const drawSvg = (
         const previousValue = sequence[index - 1];
         const radius = Math.abs(value - previousValue) / 2;
 
-        if (
-          (index % 2 === 0 && previousValue > value) ||
-          (index % 2 !== 0 && previousValue < value)
-        ) {
+        if ((index % 2 === 0 && previousValue > value) || (index % 2 !== 0 && previousValue < value)) {
           newPath += ` A ${radius} ${radius} 0 0 1 ${value} ${height / 2}`; // clockwise
         } else newPath += `  A ${radius} ${radius} 0 0 0 ${value} ${height / 2}`; // counter-clockwise
       }

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 type Props = {
   colors: string[];
@@ -12,10 +12,7 @@ const OppositeCircles = ({ colors, rotation, className }: Props) => {
   };
 
   return (
-    <div
-      className={cn("transition-[transform,background-color] duration-300", className)}
-      style={styleObject}
-    >
+    <div className={cn("transition-[transform,background-color] duration-300", className)} style={styleObject}>
       <div
         style={{ backgroundColor: `var(${colors[1]})` }}
         className="absolute right-1/2 h-full w-1/2 rounded-r-full transition-colors duration-300"

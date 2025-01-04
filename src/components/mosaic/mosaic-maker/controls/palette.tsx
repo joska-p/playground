@@ -1,5 +1,5 @@
 import type { initialPalette } from "../options";
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
   palette: typeof initialPalette;

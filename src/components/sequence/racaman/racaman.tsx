@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
+import { SidebarProvider } from "@components/widgets/sidebar/sidebar";
 import { Controls } from "./controls";
 import { Canvas } from "./canvas";
 import { createRacamanSequence } from "./lib/sequence";
@@ -29,12 +29,8 @@ const Racaman = () => {
     <SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
       <SidebarProvider.Content className="relative">
         <div ref={containerRef} className="absolute inset-0 content-center overflow-hidden">
-          {drawMode === "vector-mode" && (
-            <Vectors sequence={sequence} containerSize={containerSize} />
-          )}
-          {drawMode === "canvas-mode" && (
-            <Canvas sequence={sequence} containerSize={containerSize} />
-          )}
+          {drawMode === "vector-mode" && <Vectors sequence={sequence} containerSize={containerSize} />}
+          {drawMode === "canvas-mode" && <Canvas sequence={sequence} containerSize={containerSize} />}
         </div>
       </SidebarProvider.Content>
 

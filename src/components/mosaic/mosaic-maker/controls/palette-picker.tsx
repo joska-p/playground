@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 import { initialPalette } from "../options";
 import { Palette } from "./palette";
 
@@ -20,9 +20,7 @@ const PalettePicker = ({ palettes, currentPalette, setCurrentPalette }: Props) =
       <Palette
         palette={initialPalette}
         setCurrentPalette={setCurrentPalette}
-        checked={
-          Object.values(initialPalette).join(",") === Object.values(currentPalette).join(",")
-        }
+        checked={Object.values(initialPalette).join(",") === Object.values(currentPalette).join(",")}
         aria-label="Default palette"
       />
       {palettes.map((palette) => {

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 import { CornerCircles } from "./corner-circles";
 import { Diamond } from "./diamond";
 import { MiddleCircles } from "./middle-circe";
@@ -32,10 +32,7 @@ const Tile = ({ name, colors, rotation, className }: TileProps) => {
     <Component
       colors={colors}
       rotation={rotation}
-      className={cn(
-        "relative h-[var(--tile-width)] w-[var(--tile-width)] overflow-hidden",
-        className
-      )}
+      className={cn("relative h-[var(--tile-width)] w-[var(--tile-width)] overflow-hidden", className)}
     />
   );
 };

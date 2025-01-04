@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { shuffleArray } from "@/lib/utils";
+import { shuffleArray } from "@lib/utils";
 import { initialTileSet, initialPalette, initialRotations } from "../options";
 import { getPalettes } from "../lib/colors";
 
