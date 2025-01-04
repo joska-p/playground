@@ -3,12 +3,13 @@ import { fileURLToPath } from "node:url";
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
-import { includeIgnoreFile } from "@eslint/compat";
+import { includeIgnoreFile, fixupPluginRules } from "@eslint/compat";
 import pluginReact from "eslint-plugin-react";
 import eslintPluginAstro from "eslint-plugin-astro";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import importPlugin from "eslint-plugin-import";
 import reactHooksPluggin from "eslint-plugin-react-hooks";
+import tsParser from "@typescript-eslint/parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,17 +20,26 @@ export default [
   includeIgnoreFile(gitignorePath),
   pluginJs.configs.recommended,
   importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs["typescript"],
   ...tseslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
   {
     files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"],
     languageOptions: {
       globals: globals.browser,
+      parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     settings: {
       "import/resolver": {
         typescript: true,
       },
+    },
+    rules: {
+      "import/no-named-as-default": "off",
     },
   },
   {
@@ -47,20 +57,13 @@ export default [
     },
     plugins: {
       react: pluginReact,
+      "react-hooks": fixupPluginRules(reactHooksPluggin),
     },
     rules: {
       ...pluginReact.configs.recommended.rules,
       ...pluginReact.configs["jsx-runtime"].rules,
-    },
-  },
-
-  {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    plugins: {
-      "react-hooks": reactHooksPluggin,
-    },
-    rules: {
       ...reactHooksPluggin.configs.recommended.rules,
     },
   },
+  ...eslintPluginAstro.configs.recommended,
 ];
