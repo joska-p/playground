@@ -13,9 +13,9 @@ export default [
   importPlugin.flatConfigs.recommended,
   ...tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx,astro}"] },
-  { languageOptions: { globals: globals.browser } },
   {
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"],
+    languageOptions: { globals: globals.browser },
     settings: {
       "import/resolver": {
         typescript: true,
@@ -29,11 +29,23 @@ export default [
     ...reactHooksPluggin.configs.recommended,
     ...jsxA11y.flatConfigs.recommended,
     languageOptions: {
+      ...pluginReact.configs.flat.recommended.languageOptions,
+      ...pluginReact.configs.flat["jsx-runtime"].languageOptions,
       ...jsxA11y.flatConfigs.recommended.languageOptions,
       globals: {
-        ...globals.serviceworker,
         ...globals.browser,
       },
+    },
+    plugins: {
+      react: pluginReact,
+      "react-hooks": reactHooksPluggin,
+      "jsx-a11y": jsxA11y,
+    },
+    rules: {
+      ...pluginReact.configs.recommended.rules,
+      ...pluginReact.configs["jsx-runtime"].rules,
+      ...reactHooksPluggin.configs.recommended.rules,
+      ...jsxA11y.flatConfigs.recommended.rules,
     },
   },
 ];
