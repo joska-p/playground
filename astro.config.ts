@@ -17,7 +17,7 @@ export default defineConfig({
   trailingSlash: "always",
   compressHTML: true,
   devToolbar: {
-    enabled: true,
+    enabled: false,
   },
   build: {
     format: "preserve",
