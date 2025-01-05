@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@components/ui/button";
 import { StrictMode, useCallback, useEffect, useRef, useState } from "react";
 
 export interface Particle {
