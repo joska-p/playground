@@ -8,62 +8,91 @@ import pluginReact from "eslint-plugin-react";
 import eslintPluginAstro from "eslint-plugin-astro";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import importPlugin from "eslint-plugin-import";
-import reactHooksPluggin from "eslint-plugin-react-hooks";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 import tsParser from "@typescript-eslint/parser";
 
+// File path setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const gitignorePath = path.resolve(__dirname, ".gitignore");
 
+// Common settings and patterns
+const commonExtensions = ["js", "mjs", "cjs", "jsx", "mjsx", "ts", "tsx", "mtsx"];
+const allFilePatterns = `**/*.{${commonExtensions.join(",")},astro}`;
+const jsxFilePatterns = `**/*.{${commonExtensions.join(",")}}`;
+
+// Base configuration
+const baseConfig = {
+  files: [allFilePatterns],
+  languageOptions: {
+    globals: globals.browser,
+    parser: tsParser,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
+  },
+  settings: {
+    "import/resolver": {
+      typescript: true,
+    },
+  },
+  rules: {
+    "import/no-named-as-default": "off",
+  },
+};
+
+// React specific configuration
+const reactConfig = {
+  files: [jsxFilePatterns],
+  ...pluginReact.configs.flat.recommended,
+  ...pluginReact.configs.flat["jsx-runtime"],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+  plugins: {
+    react: pluginReact,
+    "react-hooks": fixupPluginRules(reactHooksPlugin),
+  },
+  rules: {
+    ...pluginReact.configs.recommended.rules,
+    ...pluginReact.configs["jsx-runtime"].rules,
+    ...reactHooksPlugin.configs.recommended.rules,
+    // Add explicit rules for hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+  },
+};
+
+// JSX a11y configuration
+const a11yConfig = {
+  ...jsxA11y.flatConfigs.recommended,
+  files: [jsxFilePatterns],
+};
+
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  // Core configs
   includeIgnoreFile(gitignorePath),
   pluginJs.configs.recommended,
+
+  // Import plugin configs
   importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs["typescript"],
+  importPlugin.flatConfigs.typescript,
+
+  // TypeScript configs
   ...tseslint.configs.recommended,
-  {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,astro}"],
-    languageOptions: {
-      globals: globals.browser,
-      parser: tsParser,
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    settings: {
-      "import/resolver": {
-        typescript: true,
-      },
-    },
-    rules: {
-      "import/no-named-as-default": "off",
-    },
-  },
-  {
-    ...jsxA11y.flatConfigs.recommended,
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-  },
-  {
-    ...pluginReact.configs.flat.recommended, // This is not a plugin object, but a shareable config object
-    ...pluginReact.configs.flat["jsx-runtime"], // Add this if you are using React 17+
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-    plugins: {
-      react: pluginReact,
-      "react-hooks": fixupPluginRules(reactHooksPluggin),
-    },
-    rules: {
-      ...pluginReact.configs.recommended.rules,
-      ...pluginReact.configs["jsx-runtime"].rules,
-      ...reactHooksPluggin.configs.recommended.rules,
-    },
-  },
+
+  // Base config
+  baseConfig,
+
+  // Framework specific configs
+  a11yConfig,
+  reactConfig,
+
+  // Astro configs
   ...eslintPluginAstro.configs.recommended,
 ];
