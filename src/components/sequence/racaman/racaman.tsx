@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, StrictMode } from "react";
 import { SidebarProvider } from "@components/widgets/sidebar/sidebar";
 import { Controls } from "./controls";
 import { Canvas } from "./canvas";
@@ -46,4 +46,12 @@ const Racaman = () => {
   );
 };
 
-export { Racaman };
+const StrictModeRacaman = () => {
+  return (
+    <StrictMode>
+      <Racaman />
+    </StrictMode>
+  );
+};
+
+export { Racaman, StrictModeRacaman };

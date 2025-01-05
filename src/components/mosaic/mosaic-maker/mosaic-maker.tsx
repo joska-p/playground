@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { StrictMode, useRef, useState } from "react";
 import { SidebarProvider } from "@components/widgets/sidebar/sidebar";
 import { Mosaic } from "./mosaic";
 import { Controls } from "./controls/controls";
@@ -20,4 +20,12 @@ const MosaicMaker = () => {
   );
 };
 
-export { MosaicMaker };
+const StrictModeMosaicMaker = () => {
+  return (
+    <StrictMode>
+      <MosaicMaker />
+    </StrictMode>
+  );
+};
+
+export { MosaicMaker, StrictModeMosaicMaker };

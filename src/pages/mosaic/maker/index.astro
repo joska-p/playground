@@ -1,8 +1,8 @@
 ---
 import Layout from "@layouts/layout.astro";
-import { MosaicMaker } from "@components/mosaic/mosaic-maker/mosaic-maker";
+import { StrictModeMosaicMaker } from "@components/mosaic/mosaic-maker/mosaic-maker";
 ---
 
 <Layout title="Mosaic maker">
-  <MosaicMaker client:only="react" />
+  <StrictModeMosaicMaker client:only="react" />
 </Layout>

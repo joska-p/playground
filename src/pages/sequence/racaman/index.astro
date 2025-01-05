@@ -1,8 +1,8 @@
 ---
 import Layout from "@layouts/layout.astro";
-import { Racaman } from "@components/sequence/racaman/racaman";
+import { StrictModeRacaman } from "@components/sequence/racaman/racaman";
 ---
 
 <Layout title="Racaman">
-  <Racaman client:only="react" />
+  <StrictModeRacaman client:only="react" />
 </Layout>
