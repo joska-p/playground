@@ -6,6 +6,10 @@ const routes = [
     url: baseUrl,
   },
   {
+    text: "Particles",
+    url: `${baseUrl}particles/`,
+  },
+  {
     text: "Mosaic",
     url: `${baseUrl}mosaic/`,
   },

@@ -1,0 +1,9 @@
+---
+import Layout from "@layouts/layout.astro";
+import { StrictModeImageToParticles } from "@components/particles/image-to-particles/image-to-particles";
+---
+
+<Layout title="Particles">
+  <StrictModeImageToParticles client:only="react" />
+</Layout>;
+
