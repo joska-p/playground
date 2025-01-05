@@ -1,13 +1,13 @@
 import { cn } from "@lib/utils";
 import { Tile } from "../tiles/tile";
-import { initialPalette, initialTileSet } from "../options";
+import { initialPalette, initialTileSet } from "../config";
 
 type Props = {
   tileSet: string[];
   setTileSet: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const TileSetSelection = ({ tileSet, setTileSet }: Props) => {
+const TileSetControls = ({ tileSet, setTileSet }: Props) => {
   const handleChangetileSet = (tileName: string) => {
     if (tileSet.length === 1 && tileName === tileSet[0]) return;
 
@@ -50,4 +50,4 @@ const TileSetSelection = ({ tileSet, setTileSet }: Props) => {
   );
 };
 
-export { TileSetSelection };
+export { TileSetControls };

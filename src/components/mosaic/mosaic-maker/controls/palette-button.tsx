@@ -1,15 +1,14 @@
-import type { initialPalette } from "../options";
+import type { initialPalette } from "../config";
 import { cn } from "@lib/utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
+  id: string;
   palette: typeof initialPalette;
-  disabled?: boolean;
   checked: boolean;
   setCurrentPalette: React.Dispatch<React.SetStateAction<typeof initialPalette>>;
 };
 
-const Palette = ({ palette, className, disabled, checked, setCurrentPalette }: Props) => {
-  const paletteId = Object.values(palette).join(",");
+const PaletteButton = ({ id, palette, className, checked, setCurrentPalette }: Props) => {
   return (
     <label
       className={cn(
@@ -23,23 +22,17 @@ const Palette = ({ palette, className, disabled, checked, setCurrentPalette }: P
       <input
         type="radio"
         name="palette"
-        value={paletteId}
+        value={id}
         className="sr-only"
-        disabled={disabled}
         checked={checked}
         onChange={() => setCurrentPalette(palette)}
-        aria-label={paletteId}
+        aria-label={`Color palette ${id}`}
       />
       {Object.values(palette).map((color, index) => (
-        <div
-          // biome-ignore lint/suspicious/noArrayIndexKey: no other way
-          key={index}
-          style={{ backgroundColor: color }}
-          className="h-6 w-6 md:h-6 md:w-6"
-        />
+        <div key={index} style={{ backgroundColor: color }} className="h-6 w-6 md:h-6 md:w-6" />
       ))}
     </label>
   );
 };
 
-export { Palette };
+export { PaletteButton };

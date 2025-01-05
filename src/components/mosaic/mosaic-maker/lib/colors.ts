@@ -1,17 +1,9 @@
 import { z } from "zod";
 import { safeFetch } from "@lib/utils";
+import { initialPalette } from "../config";
 
-type ColorNames = "--color-0" | "--color-1" | "--color-2" | "--color-3" | "--color-4";
-const colorNames: ColorNames[] = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as const;
-
-type Palette = Record<ColorNames, string>;
-const fallbackPalette: Palette = {
-  "--color-0": "#333333",
-  "--color-1": "#555555",
-  "--color-2": "#777777",
-  "--color-3": "#999999",
-  "--color-4": "#bbbbbb",
-};
+type Palette = typeof initialPalette;
+const colorNames = Object.keys(initialPalette) as (keyof Palette)[];
 
 const getPalettes = async (): Promise<Palette[]> => {
   const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000;
@@ -33,13 +25,10 @@ const getPalettes = async (): Promise<Palette[]> => {
     );
 
     const palettes: Palette[] = palettesArray.map((palette) => {
-      return colorNames.reduce(
-        (acc, colorName, index) => {
-          acc[colorName] = palette[index];
-          return acc;
-        },
-        {} as Record<ColorNames, string>
-      );
+      return colorNames.reduce((acc, colorName, index) => {
+        acc[colorName] = palette[index];
+        return acc;
+      }, {} as Palette);
     });
 
     localStorage.setItem(
@@ -53,7 +42,7 @@ const getPalettes = async (): Promise<Palette[]> => {
     return palettes;
   } catch (e) {
     console.error(e);
-    return [fallbackPalette];
+    return [initialPalette];
   }
 };
 

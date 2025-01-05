@@ -1,13 +1,15 @@
+import { CSS_VARS } from "../config";
+
 const computeTileHeight = (element: HTMLDivElement) => {
-  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--tile-height"));
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue(CSS_VARS.height));
 };
 
 const computeTileWidth = (element: HTMLDivElement) => {
-  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--tile-width"));
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue(CSS_VARS.width));
 };
 
 const computeGap = (element: HTMLDivElement) => {
-  return Number.parseFloat(getComputedStyle(element).getPropertyValue("--mosaicGap"));
+  return Number.parseFloat(getComputedStyle(element).getPropertyValue(CSS_VARS.gap));
 };
 
 const computeNumberOfTiles = (element: HTMLDivElement) => {
@@ -17,4 +19,10 @@ const computeNumberOfTiles = (element: HTMLDivElement) => {
   );
 };
 
-export { computeNumberOfTiles };
+const updateElementStyles = (element: HTMLElement, styles: Record<string, string>): void => {
+  Object.entries(styles).forEach(([prop, value]) => {
+    element.style.setProperty(prop, value);
+  });
+};
+
+export { computeNumberOfTiles, updateElementStyles };

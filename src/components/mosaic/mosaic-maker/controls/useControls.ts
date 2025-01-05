@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { shuffleArray } from "@lib/utils";
-import { initialTileSet, initialPalette, initialRotations } from "../options";
+import { CSS_VARS, initialTileSet, initialPalette, initialRotations } from "../config";
 import { getPalettes } from "../lib/colors";
+import { updateElementStyles } from "../lib/utils";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
@@ -17,40 +18,32 @@ const useControls = ({ mosaicRef }: Props) => {
   const [gapSize, setGapSize] = useState(0);
 
   const setNewPalettes = useCallback(() => {
+    if (!allThePalettes.length) return;
     const randomPalettes = shuffleArray(allThePalettes).slice(0, 39);
     setPalettes(randomPalettes);
   }, [allThePalettes]);
 
   useEffect(() => {
-    getPalettes().then((palettes) => setAllThePalettes(palettes));
+    const loadPalettes = async () => {
+      const palettes = await getPalettes();
+      setAllThePalettes(palettes);
+    };
+    loadPalettes();
   }, []);
 
   useEffect(setNewPalettes, [allThePalettes, setNewPalettes]);
 
   useEffect(() => {
-    Object.entries(currentPalette).forEach(([colorName, colorValue]) => {
-      if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(colorName, colorValue);
-    });
-  }, [mosaicRef, currentPalette]);
-
-  useEffect(() => {
-    Object.entries(currentRotations).forEach(([rotationName, rotationValue]) => {
-      if (!mosaicRef.current) return;
-      mosaicRef.current.style.setProperty(rotationName, rotationValue);
-    });
-  }, [mosaicRef, currentRotations]);
-
-  useEffect(() => {
     if (!mosaicRef.current) return;
-    mosaicRef.current.style.setProperty("--tile-width", `${tileSize}px`);
-    mosaicRef.current.style.setProperty("--tile-height", `${tileSize}px`);
-  }, [mosaicRef, tileSize]);
 
-  useEffect(() => {
-    if (!mosaicRef.current) return;
-    mosaicRef.current.style.setProperty("--mosaicGap", `${gapSize}px`);
-  }, [mosaicRef, gapSize]);
+    updateElementStyles(mosaicRef.current, currentPalette);
+    updateElementStyles(mosaicRef.current, currentRotations);
+    updateElementStyles(mosaicRef.current, {
+      [CSS_VARS.height]: `${tileSize}px`,
+      [CSS_VARS.width]: `${tileSize}px`,
+      [CSS_VARS.gap]: `${gapSize}px`,
+    });
+  }, [mosaicRef, currentPalette, currentRotations, tileSize, gapSize]);
 
   return {
     tileSet,

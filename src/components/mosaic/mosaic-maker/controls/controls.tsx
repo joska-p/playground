@@ -3,8 +3,8 @@ import { Slider } from "@components/ui/slider/slider";
 import { Button } from "@components/ui/button";
 import { getRandom, shuffleObject } from "@lib/utils.ts";
 import { useControls } from "./useControls";
-import { PalettePicker } from "./palette-picker";
-import { TileSetSelection } from "./tile-set-selection.tsx";
+import { PaletteControls } from "./palette-controls.tsx";
+import { TileSetControls } from "./tile-set-controls.tsx";
 import { computeNumberOfTiles } from "../lib/utils.ts";
 
 type Props = {
@@ -78,9 +78,9 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
         </label>
       </fieldset>
 
-      <TileSetSelection tileSet={tileSet} setTileSet={setTileSet} />
+      <TileSetControls tileSet={tileSet} setTileSet={setTileSet} />
 
-      <PalettePicker palettes={palettes} currentPalette={currentPalette} setCurrentPalette={setCurrentPalette} />
+      <PaletteControls palettes={palettes} currentPalette={currentPalette} setCurrentPalette={setCurrentPalette} />
     </form>
   );
 };
