@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { draw } from "./lib/draw";
+import { draw } from "./lib/draw-canvas";
 
 type Props = {
   sequence: number[];

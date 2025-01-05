@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
-import { drawSvg } from "./lib/draw";
+import { draw } from "./lib/draw-svg";
 
 type Props = {
   sequence: number[];
@@ -20,7 +20,7 @@ const Vectors = ({ sequence, containerSize }: Props) => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (svgRef.current) drawSvg(svgRef.current, sequence, containerSize);
+      if (svgRef.current) draw(svgRef.current, sequence, containerSize);
     }, 10);
     return () => {
       clearTimeout(debounce);
