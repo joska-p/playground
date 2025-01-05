@@ -10,6 +10,7 @@ import jsxA11y from "eslint-plugin-jsx-a11y";
 import importPlugin from "eslint-plugin-import";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import tsParser from "@typescript-eslint/parser";
+import reactCompiler from "eslint-plugin-react-compiler";
 
 // File path setup
 const __filename = fileURLToPath(import.meta.url);
@@ -56,6 +57,7 @@ const reactConfig = {
   plugins: {
     react: pluginReact,
     "react-hooks": fixupPluginRules(reactHooksPlugin),
+    "react-compiler": reactCompiler,
   },
   rules: {
     ...pluginReact.configs.recommended.rules,
@@ -64,6 +66,7 @@ const reactConfig = {
     // Add explicit rules for hooks
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react-compiler/react-compiler": "error",
   },
 };
 
