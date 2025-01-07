@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateElementStyles } from "../lib/utils";
+import { updateElementStyles } from "../libs/style-utils";
 import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE } from "../config";
 
 type Props = {

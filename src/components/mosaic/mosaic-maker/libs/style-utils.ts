@@ -53,4 +53,4 @@ const updateElementStyles = (element: HTMLElement, styles: ComputedStyles): void
   }
 };
 
-export { computeNumberOfTiles, updateElementStyles, type ComputedStyles };
+export { computeNumberOfTiles, updateElementStyles };

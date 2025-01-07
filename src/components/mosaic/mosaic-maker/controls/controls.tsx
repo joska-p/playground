@@ -6,7 +6,7 @@ import { TileSetControls } from "./tile-set-controls.tsx";
 import { usePalettes } from "./use-palettes.ts";
 import { useTiles } from "./use-tiles.ts";
 import { useState } from "react";
-import { updateElementStyles } from "../lib/utils";
+import { updateElementStyles } from "../libs/style-utils.ts";
 import { initialRotations, initialTileSet } from "../config.ts";
 
 type Props = {

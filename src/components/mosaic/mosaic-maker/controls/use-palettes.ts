@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { initialPalette, MAX_RANDOM_PALETTES } from "../config";
-import { getPalettes } from "../lib/colors";
+import { fetchPalettes } from "../libs/fetch-palettes";
 import { shuffleArray } from "@/lib/utils";
-import { updateElementStyles } from "../lib/utils";
+import { updateElementStyles } from "../libs/style-utils";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
@@ -18,7 +18,7 @@ const usePalettes = ({ mosaicRef }: Props) => {
   const loadPalettes = useCallback(async () => {
     try {
       setIsLoading(true);
-      const fetchedPalettes = await getPalettes();
+      const fetchedPalettes = await fetchPalettes();
       setAllPalettes(fetchedPalettes);
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Failed to load palettes"));

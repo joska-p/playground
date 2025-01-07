@@ -51,7 +51,7 @@ const cachePalettes = (palettes: Palette[]): void => {
   localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
 };
 
-const getPalettes = async (): Promise<Palette[]> => {
+const fetchPalettes = async (): Promise<Palette[]> => {
   const cached = getCachedPalettes();
   if (cached && isCacheValid(cached)) {
     return cached.palettes;
@@ -68,4 +68,4 @@ const getPalettes = async (): Promise<Palette[]> => {
   }
 };
 
-export { getPalettes, type Palette };
+export { fetchPalettes };

@@ -2,7 +2,7 @@ import { StrictMode, useCallback, useEffect, useRef, useState } from "react";
 import { SidebarProvider } from "@components/widgets/sidebar/sidebar";
 import { Mosaic } from "./mosaic";
 import { Controls } from "./controls/controls";
-import { computeNumberOfTiles } from "./lib/utils";
+import { computeNumberOfTiles } from "./libs/style-utils";
 import { getRandom } from "@/lib/utils";
 import { initialTileSet } from "./config";
 
