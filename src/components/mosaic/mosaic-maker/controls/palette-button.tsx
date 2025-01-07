@@ -1,5 +1,5 @@
+import { cn } from "@/lib/utils";
 import type { initialPalette } from "../config";
-import { cn } from "@lib/utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
   id: string;

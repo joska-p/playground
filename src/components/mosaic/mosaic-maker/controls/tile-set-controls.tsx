@@ -1,7 +1,7 @@
-import { cn } from "@lib/utils";
-import { Tile } from "../tiles/tile";
-import { initialPalette, initialTileSet } from "../config";
+import { cn } from "@/lib/utils";
 import { useCallback } from "react";
+import { initialPalette, initialTileSet } from "../config";
+import { Tile } from "../tiles/tile";
 
 type Props = {
   tileSet: string[];

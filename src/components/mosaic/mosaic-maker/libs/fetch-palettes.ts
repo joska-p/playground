@@ -1,5 +1,5 @@
+import { safeFetch } from "@/lib/utils";
 import { z } from "zod";
-import { safeFetch } from "@lib/utils";
 import { initialPalette } from "../config";
 
 // Types

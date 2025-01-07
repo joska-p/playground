@@ -1,6 +1,6 @@
-import { getRandom } from "@lib/utils";
+import { getRandom } from "@/lib/utils";
+import { initialGapSize, initialPalette, initialRotations, initialTileSize } from "./config";
 import { Tile } from "./tiles/tile";
-import { initialTileSize, initialGapSize, initialPalette, initialRotations } from "./config";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   mosaicRef: React.RefObject<HTMLDivElement | null>;

@@ -1,4 +1,4 @@
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 
 interface RainbowProps extends React.HTMLAttributes<HTMLDivElement> {
   colors: [string, string, string, string, string];

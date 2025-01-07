@@ -1,4 +1,4 @@
-import { Slider } from "@components/ui/slider/slider";
+import { Slider } from "@/components/ui/slider/slider";
 import { createRacamanSequence } from "./lib/sequence";
 
 type Props = {

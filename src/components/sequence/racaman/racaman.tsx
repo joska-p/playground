@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState, StrictMode } from "react";
-import { SidebarProvider } from "@components/widgets/sidebar/sidebar";
-import { Controls } from "./controls";
+import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
+import { StrictMode, useEffect, useRef, useState } from "react";
 import { Canvas } from "./canvas";
+import { Controls } from "./controls";
 import { createRacamanSequence } from "./lib/sequence";
 import { Vectors } from "./vectors";
 

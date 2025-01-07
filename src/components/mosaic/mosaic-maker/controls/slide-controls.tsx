@@ -1,4 +1,4 @@
-import { Slider } from "@components/ui/slider/slider";
+import { Slider } from "@/components/ui/slider/slider";
 import { useState } from "react";
 
 type Props = {

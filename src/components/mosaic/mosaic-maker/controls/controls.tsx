@@ -1,12 +1,12 @@
-import { Button } from "@components/ui/button";
-import { shuffleObject } from "@lib/utils.ts";
+import { Button } from "@/components/ui/button";
+import { shuffleObject } from "@/lib/utils.ts";
+import { useState } from "react";
+import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations, initialTileSet } from "../config.ts";
+import { updateElementStyles } from "../libs/style-utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
+import { SlideControls } from "./slide-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
 import { usePalettes } from "./use-palettes.ts";
-import { useState } from "react";
-import { updateElementStyles } from "../libs/style-utils.ts";
-import { initialRotations, initialTileSet, CSS_VARS, DEFAULT_TILE_SIZE, DEFAULT_GAP_SIZE } from "../config.ts";
-import { SlideControls } from "./slide-controls.tsx";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;

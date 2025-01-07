@@ -1,7 +1,7 @@
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 import { initialPalette } from "../config";
-import { PaletteButton } from "./palette-button";
 import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
+import { PaletteButton } from "./palette-button";
 
 type Props = {
   palettes: (typeof initialPalette)[];
