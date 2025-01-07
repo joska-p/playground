@@ -1,13 +1,19 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { initialPalette, MAX_RANDOM_PALETTES } from "../config";
 import { getPalettes } from "../lib/colors";
 import { shuffleArray } from "@/lib/utils";
+import { updateElementStyles } from "../lib/utils";
 
-const usePalettes = () => {
+type Props = {
+  mosaicRef: React.RefObject<HTMLDivElement | null>;
+};
+
+const usePalettes = ({ mosaicRef }: Props) => {
   const [allPalettes, setAllPalettes] = useState([initialPalette]);
-  const [currentPalettes, setCurrentPalettes] = useState([initialPalette]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [currentPalettes, setCurrentPalettes] = useState([initialPalette]);
+  const [currentPalette, setCurrentPalette] = useState(initialPalette);
 
   const loadPalettes = useCallback(async () => {
     try {
@@ -27,7 +33,29 @@ const usePalettes = () => {
     setCurrentPalettes(randomPalettes);
   }, [allPalettes]);
 
-  return { allPalettes, currentPalettes, isLoading, error, loadPalettes, shufflePalettes };
+  const handleSetCurrentPalette = (palette: typeof initialPalette) => {
+    setCurrentPalette(palette);
+    if (!mosaicRef.current) return;
+    updateElementStyles(mosaicRef.current, palette);
+  };
+
+  useEffect(() => {
+    loadPalettes();
+  }, [loadPalettes]);
+
+  useEffect(() => {
+    shufflePalettes();
+  }, [shufflePalettes]);
+
+  return {
+    allPalettes,
+    isLoading,
+    error,
+    currentPalettes,
+    shufflePalettes,
+    currentPalette,
+    setCurrentPalette: handleSetCurrentPalette,
+  };
 };
 
 export { usePalettes };

@@ -6,7 +6,7 @@ import { arePalettesEqual, getPaletteId } from "../lib/palette-utils";
 type Props = {
   palettes: (typeof initialPalette)[];
   currentPalette: typeof initialPalette;
-  setCurrentPalette: React.Dispatch<React.SetStateAction<typeof initialPalette>>;
+  setCurrentPalette: (palette: typeof initialPalette) => void;
 };
 
 const PaletteControls = ({ palettes, currentPalette, setCurrentPalette }: Props) => {

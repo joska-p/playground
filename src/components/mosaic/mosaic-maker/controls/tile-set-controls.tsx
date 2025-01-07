@@ -6,9 +6,10 @@ import { useCallback } from "react";
 type Props = {
   tileSet: string[];
   setTileSet: React.Dispatch<React.SetStateAction<string[]>>;
+  setNewTiles: (tileSet?: string[]) => void;
 };
 
-const TileSetControls = ({ tileSet, setTileSet }: Props) => {
+const TileSetControls = ({ tileSet, setTileSet, setNewTiles }: Props) => {
   const handleChangetileSet = useCallback(
     (tileName: string) => {
       if (tileSet.length === 1 && tileName === tileSet[0]) return;
@@ -19,8 +20,9 @@ const TileSetControls = ({ tileSet, setTileSet }: Props) => {
         : [...tileSet, ...initialTileSet.filter((tile) => tile === tileName)];
 
       setTileSet(updatedTileSet);
+      setNewTiles(updatedTileSet);
     },
-    [tileSet, setTileSet]
+    [tileSet, setTileSet, setNewTiles]
   );
 
   return (

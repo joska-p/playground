@@ -5,7 +5,7 @@ type Props = React.HTMLAttributes<HTMLLabelElement> & {
   id: string;
   palette: typeof initialPalette;
   checked: boolean;
-  setCurrentPalette: React.Dispatch<React.SetStateAction<typeof initialPalette>>;
+  setCurrentPalette: (palette: typeof initialPalette) => void;
 };
 
 const PaletteButton = ({ id, palette, className, checked, setCurrentPalette }: Props) => {
