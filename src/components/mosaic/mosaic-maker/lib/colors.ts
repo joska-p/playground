@@ -2,48 +2,70 @@ import { z } from "zod";
 import { safeFetch } from "@lib/utils";
 import { initialPalette } from "../config";
 
+// Types
 type Palette = typeof initialPalette;
+type CachedPalettes = {
+  palettes: Palette[];
+  expiration: number;
+  version: number;
+};
+
+// Constants
+const CACHE_KEY = "palettes";
+const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+const CACHE_VERSION = 2;
+const PALETTE_URL = "https://unpkg.com/nice-color-palettes@3.0.0/1000.json";
+
 const colorNames = Object.keys(initialPalette) as (keyof Palette)[];
 
-const getPalettes = async (): Promise<Palette[]> => {
-  const palettesExpiration = Date.now() + 7 * 24 * 60 * 60 * 1000;
-  const palettesVersion = 2;
-  const storedPalettes = localStorage.getItem("palettes");
+const paletteSchema = z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1);
 
-  if (
-    storedPalettes &&
-    JSON.parse(storedPalettes).expiration > Date.now() &&
-    JSON.parse(storedPalettes).version === palettesVersion
-  ) {
-    return JSON.parse(storedPalettes).palettes;
+const getCachedPalettes = (): CachedPalettes | null => {
+  const stored = localStorage.getItem(CACHE_KEY);
+  if (!stored) return null;
+
+  try {
+    return JSON.parse(stored) as CachedPalettes;
+  } catch {
+    return null;
+  }
+};
+
+const isCacheValid = (cache: CachedPalettes): boolean => {
+  return cache.expiration > Date.now() && cache.version === CACHE_VERSION;
+};
+
+const transformPalette = (colors: string[]): Palette => {
+  return colorNames.reduce((acc, colorName, index) => {
+    acc[colorName] = colors[index];
+    return acc;
+  }, {} as Palette);
+};
+
+const cachePalettes = (palettes: Palette[]): void => {
+  const cache: CachedPalettes = {
+    palettes,
+    expiration: Date.now() + CACHE_DURATION_MS,
+    version: CACHE_VERSION,
+  };
+  localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+};
+
+const getPalettes = async (): Promise<Palette[]> => {
+  const cached = getCachedPalettes();
+  if (cached && isCacheValid(cached)) {
+    return cached.palettes;
   }
 
   try {
-    const palettesArray = await safeFetch(
-      "https://unpkg.com/nice-color-palettes@3.0.0/1000.json",
-      z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1)
-    );
-
-    const palettes: Palette[] = palettesArray.map((palette) => {
-      return colorNames.reduce((acc, colorName, index) => {
-        acc[colorName] = palette[index];
-        return acc;
-      }, {} as Palette);
-    });
-
-    localStorage.setItem(
-      "palettes",
-      JSON.stringify({
-        palettes,
-        expiration: palettesExpiration,
-        version: palettesVersion,
-      })
-    );
+    const palettesArray = await safeFetch(PALETTE_URL, paletteSchema);
+    const palettes = palettesArray.map(transformPalette);
+    cachePalettes(palettes);
     return palettes;
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error("Failed to fetch palettes:", error);
     return [initialPalette];
   }
 };
 
-export { getPalettes };
+export { getPalettes, type Palette };

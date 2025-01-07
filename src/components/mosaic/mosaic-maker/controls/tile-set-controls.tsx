@@ -1,6 +1,7 @@
 import { cn } from "@lib/utils";
 import { Tile } from "../tiles/tile";
 import { initialPalette, initialTileSet } from "../config";
+import { useCallback } from "react";
 
 type Props = {
   tileSet: string[];
@@ -8,16 +9,19 @@ type Props = {
 };
 
 const TileSetControls = ({ tileSet, setTileSet }: Props) => {
-  const handleChangetileSet = (tileName: string) => {
-    if (tileSet.length === 1 && tileName === tileSet[0]) return;
+  const handleChangetileSet = useCallback(
+    (tileName: string) => {
+      if (tileSet.length === 1 && tileName === tileSet[0]) return;
 
-    const isTileInSet = tileSet.includes(tileName);
-    const updatedTileSet = isTileInSet
-      ? tileSet.filter((tile) => tile !== tileName)
-      : [...tileSet, ...initialTileSet.filter((tile) => tile === tileName)];
+      const isTileInSet = tileSet.includes(tileName);
+      const updatedTileSet = isTileInSet
+        ? tileSet.filter((tile) => tile !== tileName)
+        : [...tileSet, ...initialTileSet.filter((tile) => tile === tileName)];
 
-    setTileSet(updatedTileSet);
-  };
+      setTileSet(updatedTileSet);
+    },
+    [tileSet, setTileSet]
+  );
 
   return (
     <fieldset
@@ -35,7 +39,7 @@ const TileSetControls = ({ tileSet, setTileSet }: Props) => {
             />
             <Tile
               name={tile}
-              colors={Object.keys(initialPalette)}
+              colors={Object.keys(initialPalette) as [string, string, string, string, string]}
               className={cn(
                 "opacity-70 transition-opacity",
                 "peer-checked:opacity-100 peer-checked:ring-4 peer-checked:ring-primary",

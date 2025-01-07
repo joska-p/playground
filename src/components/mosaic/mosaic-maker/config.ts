@@ -4,6 +4,10 @@ const CSS_VARS = {
   gap: "--mosaicGap",
 };
 
+const MAX_RANDOM_PALETTES = 39;
+const DEFAULT_TILE_SIZE = 64;
+const DEFAULT_GAP_SIZE = 0;
+
 const defaultTileSize = {
   [CSS_VARS.width]: "64px",
   [CSS_VARS.height]: "64px",
@@ -45,4 +49,14 @@ const initialRotations = defaultRotations;
 const initialPalette = defaultPalette;
 const initialTileSet = defaultTileSet;
 
-export { CSS_VARS, initialTileSet, initialTileSize, initialGapSize, initialRotations, initialPalette };
+export {
+  CSS_VARS,
+  DEFAULT_TILE_SIZE,
+  DEFAULT_GAP_SIZE,
+  MAX_RANDOM_PALETTES,
+  initialTileSet,
+  initialTileSize,
+  initialGapSize,
+  initialRotations,
+  initialPalette,
+};

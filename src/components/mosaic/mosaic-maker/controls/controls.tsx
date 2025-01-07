@@ -1,54 +1,51 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Slider } from "@components/ui/slider/slider";
 import { Button } from "@components/ui/button";
-import { getRandom, shuffleArray, shuffleObject } from "@lib/utils.ts";
+import { shuffleObject } from "@lib/utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
-import { computeNumberOfTiles, updateElementStyles } from "../lib/utils.ts";
-import { CSS_VARS, initialPalette, initialRotations, initialTileSet } from "../config.ts";
-import { getPalettes } from "../lib/colors.ts";
+import { updateElementStyles } from "../lib/utils.ts";
+import {
+  CSS_VARS,
+  DEFAULT_GAP_SIZE,
+  DEFAULT_TILE_SIZE,
+  initialPalette,
+  initialRotations,
+  initialTileSet,
+} from "../config.ts";
+import { usePalettes } from "./use-palettes.ts";
+import { useTiles } from "./use-tiles.ts";
 
 type Props = {
-  mosaicRef: React.RefObject<HTMLDivElement | null>;
+  mosaicRef: React.RefObject<HTMLDivElement> | null;
   setTiles: (tileSet: string[]) => void;
 };
 
 const Controls = ({ mosaicRef, setTiles }: Props) => {
   const [tileSet, setTileSet] = useState(initialTileSet);
-  const [allThePalettes, setAllThePalettes] = useState([initialPalette]);
-  const [palettes, setPalettes] = useState([initialPalette]);
   const [currentPalette, setCurrentPalette] = useState(initialPalette);
   const [currentRotations, setCurrentRotations] = useState(initialRotations);
-  const [tileSize, setTileSize] = useState(64);
-  const [gapSize, setGapSize] = useState(0);
+  const [tileSize, setTileSize] = useState(DEFAULT_TILE_SIZE);
+  const [gapSize, setGapSize] = useState(DEFAULT_GAP_SIZE);
 
-  const setNewTiles = useCallback(() => {
-    if (!mosaicRef.current) return;
-    const computedNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
-    const newTiles = Array.from({ length: computedNumberOfTiles }, () => getRandom(tileSet));
-    setTiles(newTiles);
-  }, [mosaicRef, setTiles, tileSet]);
+  const { currentPalettes, isLoading, error, loadPalettes, shufflePalettes } = usePalettes();
 
-  useEffect(setNewTiles, [tileSet, setNewTiles]);
-
-  const setNewPalettes = useCallback(() => {
-    if (!allThePalettes.length) return;
-    const randomPalettes = shuffleArray(allThePalettes).slice(0, 39);
-    setPalettes(randomPalettes);
-  }, [allThePalettes]);
+  const generateTiles = useTiles(mosaicRef, tileSet, setTiles);
 
   useEffect(() => {
-    const loadPalettes = async () => {
-      const palettes = await getPalettes();
-      setAllThePalettes(palettes);
-    };
     loadPalettes();
-  }, []);
-
-  useEffect(setNewPalettes, [allThePalettes, setNewPalettes]);
+  }, [loadPalettes]);
 
   useEffect(() => {
-    if (!mosaicRef.current) return;
+    shufflePalettes();
+  }, [shufflePalettes]);
+
+  useEffect(() => {
+    generateTiles();
+  }, [tileSet, generateTiles]);
+
+  useEffect(() => {
+    if (!mosaicRef || !mosaicRef.current) return;
 
     updateElementStyles(mosaicRef.current, currentPalette);
     updateElementStyles(mosaicRef.current, currentRotations);
@@ -59,6 +56,9 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
     });
   }, [mosaicRef, currentPalette, currentRotations, tileSize, gapSize]);
 
+  if (isLoading) return <div>Loading palettes...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
@@ -68,10 +68,10 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
         <Button type="button" onClick={() => setCurrentRotations(shuffleObject(currentRotations))} size="sm">
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={setNewPalettes} size="sm">
+        <Button type="button" onClick={shufflePalettes} size="sm">
           New palettes
         </Button>
-        <Button type="button" onClick={setNewTiles} size="sm">
+        <Button type="button" onClick={generateTiles} size="sm">
           New tiles
         </Button>
       </fieldset>
@@ -102,7 +102,11 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
 
       <TileSetControls tileSet={tileSet} setTileSet={setTileSet} />
 
-      <PaletteControls palettes={palettes} currentPalette={currentPalette} setCurrentPalette={setCurrentPalette} />
+      <PaletteControls
+        palettes={currentPalettes}
+        currentPalette={currentPalette}
+        setCurrentPalette={setCurrentPalette}
+      />
     </form>
   );
 };

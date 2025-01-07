@@ -19,14 +19,18 @@ const tileComponents = {
   [Cube.name]: Cube,
 };
 
-type TileProps = {
-  name: string;
-  colors: string[];
+type Props = {
+  name: keyof typeof tileComponents;
+  colors: [string, string, string, string, string];
   rotation: string;
   className?: string;
 };
 
-const Tile = ({ name, colors, rotation, className }: TileProps) => {
+const Tile = ({ name, colors, rotation, className }: Props) => {
+  if (colors.length !== 5) {
+    throw new Error("Tile component requires exactly 5 colors");
+  }
+
   const Component = tileComponents[name];
   return (
     <Component

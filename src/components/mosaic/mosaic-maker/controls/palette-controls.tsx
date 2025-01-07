@@ -1,10 +1,7 @@
 import { cn } from "@lib/utils";
 import { initialPalette } from "../config";
 import { PaletteButton } from "./palette-button";
-
-const getPaletteId = (palette: typeof initialPalette): string => Object.values(palette).join("-");
-const arePalettesEqual = (a: typeof initialPalette, b: typeof initialPalette): boolean =>
-  getPaletteId(a) === getPaletteId(b);
+import { arePalettesEqual, getPaletteId } from "../lib/palette-utils";
 
 type Props = {
   palettes: (typeof initialPalette)[];
