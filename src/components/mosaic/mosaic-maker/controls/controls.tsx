@@ -1,11 +1,12 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Slider } from "@components/ui/slider/slider";
 import { Button } from "@components/ui/button";
-import { getRandom, shuffleObject } from "@lib/utils.ts";
-import { useControls } from "./useControls";
+import { getRandom, shuffleArray, shuffleObject } from "@lib/utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
-import { computeNumberOfTiles } from "../lib/utils.ts";
+import { computeNumberOfTiles, updateElementStyles } from "../lib/utils.ts";
+import { CSS_VARS, initialPalette, initialRotations, initialTileSet } from "../config.ts";
+import { getPalettes } from "../lib/colors.ts";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
@@ -13,20 +14,13 @@ type Props = {
 };
 
 const Controls = ({ mosaicRef, setTiles }: Props) => {
-  const {
-    tileSet,
-    setTileSet,
-    palettes,
-    setNewPalettes,
-    currentPalette,
-    setCurrentPalette,
-    tileSize,
-    setTileSize,
-    gapSize,
-    setGapSize,
-    currentRotations,
-    setCurrentRotations,
-  } = useControls({ mosaicRef });
+  const [tileSet, setTileSet] = useState(initialTileSet);
+  const [allThePalettes, setAllThePalettes] = useState([initialPalette]);
+  const [palettes, setPalettes] = useState([initialPalette]);
+  const [currentPalette, setCurrentPalette] = useState(initialPalette);
+  const [currentRotations, setCurrentRotations] = useState(initialRotations);
+  const [tileSize, setTileSize] = useState(64);
+  const [gapSize, setGapSize] = useState(0);
 
   const setNewTiles = useCallback(() => {
     if (!mosaicRef.current) return;
@@ -36,6 +30,34 @@ const Controls = ({ mosaicRef, setTiles }: Props) => {
   }, [mosaicRef, setTiles, tileSet]);
 
   useEffect(setNewTiles, [tileSet, setNewTiles]);
+
+  const setNewPalettes = useCallback(() => {
+    if (!allThePalettes.length) return;
+    const randomPalettes = shuffleArray(allThePalettes).slice(0, 39);
+    setPalettes(randomPalettes);
+  }, [allThePalettes]);
+
+  useEffect(() => {
+    const loadPalettes = async () => {
+      const palettes = await getPalettes();
+      setAllThePalettes(palettes);
+    };
+    loadPalettes();
+  }, []);
+
+  useEffect(setNewPalettes, [allThePalettes, setNewPalettes]);
+
+  useEffect(() => {
+    if (!mosaicRef.current) return;
+
+    updateElementStyles(mosaicRef.current, currentPalette);
+    updateElementStyles(mosaicRef.current, currentRotations);
+    updateElementStyles(mosaicRef.current, {
+      [CSS_VARS.height]: `${tileSize}px`,
+      [CSS_VARS.width]: `${tileSize}px`,
+      [CSS_VARS.gap]: `${gapSize}px`,
+    });
+  }, [mosaicRef, currentPalette, currentRotations, tileSize, gapSize]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
