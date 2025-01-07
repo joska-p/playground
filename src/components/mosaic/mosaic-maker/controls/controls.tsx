@@ -1,13 +1,12 @@
-import { Slider } from "@components/ui/slider/slider";
 import { Button } from "@components/ui/button";
 import { shuffleObject } from "@lib/utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
 import { usePalettes } from "./use-palettes.ts";
-import { useTiles } from "./use-tiles.ts";
 import { useState } from "react";
 import { updateElementStyles } from "../libs/style-utils.ts";
-import { initialRotations, initialTileSet } from "../config.ts";
+import { initialRotations, initialTileSet, CSS_VARS, DEFAULT_TILE_SIZE, DEFAULT_GAP_SIZE } from "../config.ts";
+import { SlideControls } from "./slide-controls.tsx";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
@@ -16,9 +15,6 @@ type Props = {
 
 const Controls = ({ mosaicRef, setNewTiles }: Props) => {
   const [tileSet, setTileSet] = useState(initialTileSet);
-  const { tileSize, setTileSize, gapSize, setGapSize } = useTiles({
-    mosaicRef,
-  });
   const { currentPalettes, isLoading, error, shufflePalettes, currentPalette, setCurrentPalette } = usePalettes({
     mosaicRef,
   });
@@ -54,27 +50,24 @@ const Controls = ({ mosaicRef, setNewTiles }: Props) => {
       </fieldset>
 
       <fieldset className="grid grid-cols-2 gap-4 px-2">
-        <label className="flex flex-col items-center text-sm">
-          Tile size: {tileSize}px
-          <Slider
-            min={32}
-            max={256}
-            step={2}
-            value={tileSize}
-            onChange={(event) => setTileSize(Number(event.target.value))}
-          />
-        </label>
-
-        <label className="flex flex-col items-center text-sm">
-          Gap size: {gapSize}px
-          <Slider
-            min={0}
-            step={2}
-            max={128}
-            value={gapSize}
-            onChange={(event) => setGapSize(Number(event.target.value))}
-          />
-        </label>
+        <SlideControls
+          mosaicRef={mosaicRef}
+          label="Tile size"
+          defaultValue={DEFAULT_TILE_SIZE}
+          cssVars={[CSS_VARS.width, CSS_VARS.height]}
+          min={32}
+          max={256}
+          step={2}
+        />
+        <SlideControls
+          mosaicRef={mosaicRef}
+          label="Gap size"
+          defaultValue={DEFAULT_GAP_SIZE}
+          cssVars={[CSS_VARS.gap]}
+          min={0}
+          max={32}
+          step={2}
+        />
       </fieldset>
 
       <TileSetControls tileSet={tileSet} setTileSet={setTileSet} setNewTiles={setNewTiles} />

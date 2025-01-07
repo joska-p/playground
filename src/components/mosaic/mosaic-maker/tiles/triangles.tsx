@@ -13,15 +13,13 @@ const Triangles = ({ colors, rotation, className }: Props) => {
     borderBottomColor: `var(${colors[3]})`,
     borderLeftColor: `var(${colors[4]})`,
     borderStyle: "solid",
+    borderWidth: "calc(var(--tile-width)/2)",
   };
 
   return (
     <div
       style={triangleStyle}
-      className={cn(
-        "border-b-[calc(var(--tile-width)/2)] border-l-[calc(var(--tile-width)/2)] border-r-[calc(var(--tile-width)/2)] border-t-[calc(var(--tile-width)/2)] border-solid transition-[transform,border-color] duration-300",
-        className
-      )}
+      className={cn("border-solid transition-[transform,border-color] duration-300", className)}
     />
   );
 };
