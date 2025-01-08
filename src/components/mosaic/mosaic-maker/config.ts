@@ -51,12 +51,12 @@ const initialTileSet = defaultTileSet;
 
 export {
   CSS_VARS,
-  DEFAULT_TILE_SIZE,
   DEFAULT_GAP_SIZE,
-  MAX_RANDOM_PALETTES,
+  DEFAULT_TILE_SIZE,
+  initialGapSize,
+  initialPalette,
+  initialRotations,
   initialTileSet,
   initialTileSize,
-  initialGapSize,
-  initialRotations,
-  initialPalette,
+  MAX_RANDOM_PALETTES,
 };

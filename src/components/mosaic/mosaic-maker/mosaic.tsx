@@ -1,5 +1,5 @@
 import { getRandom } from "@/lib/utils";
-import { initialGapSize, initialPalette, initialRotations, initialTileSize } from "./config";
+import { CSS_VARS, initialGapSize, initialPalette, initialRotations, initialTileSize } from "./config";
 import { Tile } from "./tiles/tile";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
@@ -12,6 +12,9 @@ const MOSAIC_STYLES = {
   ...initialTileSize,
   ...initialGapSize,
   ...initialRotations,
+  gridTemplateColumns: `repeat(auto-fill,var(${CSS_VARS.width}))`,
+  gridTemplateRows: `repeat(auto-fill,var(${CSS_VARS.height}))`,
+  gap: `var(${CSS_VARS.gap})`,
 } as React.CSSProperties;
 
 const generateTileColors = () => {
@@ -19,20 +22,20 @@ const generateTileColors = () => {
   return Array.from({ length: 5 }, () => getRandom(paletteKeys)) as [string, string, string, string, string];
 };
 
+const generateTileRotations = () => {
+  const rotationKeys = Object.keys(initialRotations);
+  return getRandom(rotationKeys);
+};
+
 const Mosaic = ({ mosaicRef, tiles }: Props) => {
   return (
     <div
       ref={mosaicRef}
-      className="absolute inset-0 grid grid-cols-[repeat(auto-fill,var(--tile-width))] grid-rows-[repeat(auto-fill,var(--tile-height),1fr)] content-start justify-center gap-[var(--mosaicGap)] overflow-hidden [--mosaicGap:0px] [--tile-height:64px] [--tile-width:64px]"
+      className="absolute inset-0 grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile, index) => (
-        <Tile
-          key={`${tile}-${index}`}
-          name={tile}
-          colors={generateTileColors()}
-          rotation={getRandom(Object.keys(initialRotations))}
-        />
+        <Tile key={`${tile}-${index}`} name={tile} colors={generateTileColors()} rotation={generateTileRotations()} />
       ))}
     </div>
   );
