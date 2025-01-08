@@ -28,10 +28,10 @@ const Cube = ({ colors, rotation, className }: Props) => {
 
   return (
     <div style={cubeStyle} className={cn("transition-transform duration-300", className)}>
-      <div style={edgeStyle} className={`absolute left-0 top-0 border-solid transition-[border-color] duration-300`} />
+      <div style={edgeStyle} className={"absolute left-0 top-0 border-solid transition-[border-color] duration-300"} />
       <div
         style={squareStyle}
-        className={`absolute bottom-0 left-0 bg-inherit transition-[background-color] duration-300`}
+        className={"absolute bottom-0 left-0 bg-inherit transition-[background-color] duration-300"}
       />
     </div>
   );

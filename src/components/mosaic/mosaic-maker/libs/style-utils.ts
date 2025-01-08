@@ -44,12 +44,8 @@ const computeNumberOfTiles = (element: HTMLDivElement): number => {
 };
 
 const updateElementStyles = (element: HTMLElement, styles: ComputedStyles): void => {
-  try {
-    Object.entries(styles).forEach(([prop, value]) => {
-      element.style.setProperty(prop, value);
-    });
-  } catch (error) {
-    console.error("Failed to update element styles:", error);
+  for (const [prop, value] of Object.entries(styles)) {
+    element.style.setProperty(prop, value);
   }
 };
 
