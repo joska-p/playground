@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { CSS_VARS } from "../config";
 
 type Props = {
   colors: [string, string, string, string, string];
@@ -13,7 +14,7 @@ const Triangles = ({ colors, rotation, className }: Props) => {
     borderBottomColor: `var(${colors[3]})`,
     borderLeftColor: `var(${colors[4]})`,
     borderStyle: "solid",
-    borderWidth: "calc(var(--tile-width)/2)",
+    borderWidth: `calc(var(${CSS_VARS.width})/2)`,
   };
 
   return (

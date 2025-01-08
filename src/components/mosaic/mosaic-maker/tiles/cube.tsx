@@ -17,7 +17,7 @@ const Cube = ({ colors, rotation, className }: Props) => {
     borderTopColor: `var(${colors[1]})`,
     borderRightColor: `var(${colors[2]})`,
     borderBottomColor: `var(${colors[2]})`,
-    borderWidth: `calc(var(${CSS_VARS.height})/2)`,
+    borderWidth: `calc(var(${CSS_VARS.width})/2)`,
   };
 
   const squareStyle = {

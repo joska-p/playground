@@ -54,7 +54,7 @@ const Controls = ({ mosaicRef, setNewTiles }: Props) => {
           mosaicRef={mosaicRef}
           label="Tile size"
           defaultValue={DEFAULT_TILE_SIZE}
-          cssVars={[CSS_VARS.width, CSS_VARS.height]}
+          cssVar={CSS_VARS.width}
           min={32}
           max={256}
           step={2}
@@ -63,7 +63,7 @@ const Controls = ({ mosaicRef, setNewTiles }: Props) => {
           mosaicRef={mosaicRef}
           label="Gap size"
           defaultValue={DEFAULT_GAP_SIZE}
-          cssVars={[CSS_VARS.gap]}
+          cssVar={CSS_VARS.gap}
           min={0}
           max={32}
           step={2}

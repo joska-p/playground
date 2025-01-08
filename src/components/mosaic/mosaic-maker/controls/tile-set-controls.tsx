@@ -27,7 +27,7 @@ const TileSetControls = ({ tileSet, setTileSet, setNewTiles }: Props) => {
 
   return (
     <fieldset
-      className="flex flex-wrap items-center justify-center gap-4 [--rotation:0deg] [--tile-height:32px] [--tile-width:32px]"
+      className="flex flex-wrap items-center justify-center gap-4 [--rotation:0deg] [--tile-size:32px]"
       style={{ ...initialPalette } as React.CSSProperties}
     >
       {initialTileSet.map((tile) => {

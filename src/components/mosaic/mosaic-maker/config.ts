@@ -1,6 +1,6 @@
 const CSS_VARS = {
-  width: "--tile-width",
-  height: "--tile-height",
+  width: "--tile-size",
+  height: "--tile-size",
   gap: "--mosaicGap",
 };
 

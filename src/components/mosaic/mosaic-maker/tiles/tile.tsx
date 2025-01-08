@@ -36,7 +36,7 @@ const Tile = ({ name, colors, rotation, className }: Props) => {
     <Component
       colors={colors}
       rotation={rotation}
-      className={cn("relative h-[var(--tile-width)] w-[var(--tile-width)] overflow-hidden", className)}
+      className={cn("relative h-[var(--tile-size)] w-[var(--tile-size)] overflow-hidden", className)}
     />
   );
 };
