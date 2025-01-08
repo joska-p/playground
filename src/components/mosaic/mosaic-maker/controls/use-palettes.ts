@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { initialPalette, MAX_RANDOM_PALETTES } from "../config";
+import { MAX_RANDOM_PALETTES, initialPalette } from "../config";
 import { fetchPalettes } from "../libs/fetch-palettes";
 import { shuffleArray } from "@/lib/utils";
 import { updateElementStyles } from "../libs/style-utils";

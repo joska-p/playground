@@ -1,7 +1,6 @@
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import eslintPluginAstro from "eslint-plugin-astro";
-import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import path from "node:path";
@@ -35,7 +34,6 @@ export default typescriptESLint.config(
   },
   {
     plugins: {
-      react: eslintPluginReact,
       "react-hooks": fixupPluginRules(eslintPluginReactHooks),
     },
   },
