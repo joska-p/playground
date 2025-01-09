@@ -10,7 +10,7 @@ interface Props extends ComponentProps<"div"> {
 function Triangles({ colors, rotation, className }: Props) {
   return (
     <div
-      className={cn("border-solid transition-[transform,border-color] duration-300", className)}
+      className={cn("border-solid transition-[transform,border-color] duration-500", className)}
       style={{
         transform: `rotate(var(${rotation}))`,
         borderTopColor: `var(${colors[1]})`,

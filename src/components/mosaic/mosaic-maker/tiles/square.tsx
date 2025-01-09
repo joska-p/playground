@@ -13,29 +13,29 @@ function Square({ colors, rotation, className }: Props) {
 
   return (
     <div
-      className={cn("tile grid grid-cols-2 grid-rows-2 transition-transform duration-300", className)}
+      className={cn("tile grid grid-cols-2 grid-rows-2 transition-transform duration-500", className)}
       style={squareStyle}
     >
       <div
-        className={"transition-colors duration-300"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[1]})`,
         }}
       />
       <div
-        className={"transition-colors duration-300"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[2]})`,
         }}
       />
       <div
-        className={"transition-colors duration-300"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[3]})`,
         }}
       />
       <div
-        className={"transition-colors duration-300"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[4]})`,
         }}
