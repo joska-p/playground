@@ -1,36 +1,48 @@
 import { Button } from "@/components/ui/button";
-import { shuffleObject } from "@/lib/utils.ts";
-import { useState } from "react";
-import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations, initialTileSet } from "../config.ts";
+import { shuffleArray, shuffleObject } from "@/lib/utils.ts";
+import type { Signal } from "@preact/signals-react";
+import { useEffect } from "react";
+import {
+  CSS_VARS,
+  DEFAULT_GAP_SIZE,
+  DEFAULT_TILE_SIZE,
+  initialPalette,
+  initialRotations,
+  MAX_RANDOM_PALETTES,
+} from "../config.ts";
 import { updateElementStyles } from "../libs/style-utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
 import { SlideControls } from "./slide-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
-import { usePalettes } from "./use-palettes.ts";
 
 type Props = {
-  mosaicRef: React.RefObject<HTMLDivElement | null>;
-  setNewTiles: (tileSet?: string[]) => void;
+  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
+  tileSet: Signal<string[]>;
+  allThePalettes: Signal<(typeof initialPalette)[]>;
+  currentPalettes: Signal<(typeof initialPalette)[]>;
+  currentPalette: Signal<typeof initialPalette>;
 };
 
-function Controls({ mosaicRef, setNewTiles }: Props) {
-  const [tileSet, setTileSet] = useState(initialTileSet);
-  const { currentPalettes, isLoading, error, shufflePalettes, currentPalette, setCurrentPalette } = usePalettes({
-    mosaicRef,
-  });
+function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, currentPalette }: Props) {
+  const shufflePalettes = () => {
+    if (!allThePalettes.value.length) return;
+    const randomPalettes = shuffleArray(allThePalettes.value).slice(0, MAX_RANDOM_PALETTES);
+    currentPalettes.value = randomPalettes;
+  };
 
   const shuffleColors = () => {
-    if (!mosaicRef.current) return;
-    updateElementStyles(mosaicRef.current, shuffleObject(currentPalette));
+    if (!mosaicRef.value.current) return;
+    updateElementStyles(mosaicRef.value.current, shuffleObject(currentPalette.value));
   };
 
   const shuffleRotations = () => {
-    if (!mosaicRef.current) return;
-    updateElementStyles(mosaicRef.current, shuffleObject(initialRotations));
+    if (!mosaicRef.value.current) return;
+    updateElementStyles(mosaicRef.value.current, shuffleObject(initialRotations));
   };
 
-  if (isLoading) return <div>Loading palettes...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  useEffect(() => {
+    tileSet.value = [...tileSet.value];
+  }, [tileSet]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
@@ -44,7 +56,13 @@ function Controls({ mosaicRef, setNewTiles }: Props) {
         <Button type="button" onClick={shufflePalettes} size="sm">
           New palettes
         </Button>
-        <Button type="button" onClick={() => setNewTiles(tileSet)} size="sm">
+        <Button
+          type="button"
+          onClick={() => {
+            tileSet.value = [...tileSet.value];
+          }}
+          size="sm"
+        >
           New tiles
         </Button>
       </fieldset>
@@ -70,13 +88,9 @@ function Controls({ mosaicRef, setNewTiles }: Props) {
         />
       </fieldset>
 
-      <TileSetControls tileSet={tileSet} setTileSet={setTileSet} setNewTiles={setNewTiles} />
+      <TileSetControls tileSet={tileSet} />
 
-      <PaletteControls
-        palettes={currentPalettes}
-        currentPalette={currentPalette}
-        setCurrentPalette={setCurrentPalette}
-      />
+      <PaletteControls mosaicRef={mosaicRef} currentPalette={currentPalette} currentPalettes={currentPalettes} />
     </form>
   );
 }

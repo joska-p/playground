@@ -1,15 +1,16 @@
 import { cn } from "@/lib/utils";
+import type { Signal } from "@preact/signals-react";
 import { initialPalette } from "../config";
-import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
+import { getPaletteId } from "../libs/palette-utils";
 import { PaletteButton } from "./palette-button";
 
 type Props = {
-  palettes: (typeof initialPalette)[];
-  currentPalette: typeof initialPalette;
-  setCurrentPalette: (palette: typeof initialPalette) => void;
+  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
+  currentPalette: Signal<typeof initialPalette>;
+  currentPalettes: Signal<(typeof initialPalette)[]>;
 };
 
-function PaletteControls({ palettes, currentPalette, setCurrentPalette }: Props) {
+function PaletteControls({ mosaicRef, currentPalette, currentPalettes }: Props) {
   return (
     <fieldset
       className={cn(
@@ -21,19 +22,17 @@ function PaletteControls({ palettes, currentPalette, setCurrentPalette }: Props)
       <legend className="sr-only">Choose a color palette</legend>
 
       <PaletteButton
-        id={getPaletteId(initialPalette)}
         palette={initialPalette}
-        setCurrentPalette={setCurrentPalette}
-        checked={arePalettesEqual(initialPalette, currentPalette)}
+        currentPalette={currentPalette}
+        mosaicRef={mosaicRef}
         aria-label="Default palette"
       />
-      {palettes.map((palette) => (
+      {currentPalettes.value.map((palette) => (
         <PaletteButton
           key={getPaletteId(palette)}
-          id={getPaletteId(palette)}
           palette={palette}
-          setCurrentPalette={setCurrentPalette}
-          checked={arePalettesEqual(palette, currentPalette)}
+          currentPalette={currentPalette}
+          mosaicRef={mosaicRef}
         />
       ))}
     </fieldset>

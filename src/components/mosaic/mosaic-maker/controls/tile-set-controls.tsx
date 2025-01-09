@@ -1,29 +1,23 @@
 import { cn } from "@/lib/utils";
-import { useCallback } from "react";
+import type { Signal } from "@preact/signals-react";
 import { initialPalette, initialTileSet } from "../config";
 import { Tile } from "../tiles/tile";
 
 type Props = {
-  tileSet: string[];
-  setTileSet: React.Dispatch<React.SetStateAction<string[]>>;
-  setNewTiles: (tileSet?: string[]) => void;
+  tileSet: Signal<string[]>;
 };
 
-function TileSetControls({ tileSet, setTileSet, setNewTiles }: Props) {
-  const handleChangetileSet = useCallback(
-    (tileName: string) => {
-      if (tileSet.length === 1 && tileName === tileSet[0]) return;
+function TileSetControls({ tileSet }: Props) {
+  const handleChangetileSet = (tileName: string) => {
+    if (tileSet.value.length === 1 && tileName === tileSet.value[0]) return;
 
-      const isTileInSet = tileSet.includes(tileName);
-      const updatedTileSet = isTileInSet
-        ? tileSet.filter((tile) => tile !== tileName)
-        : [...tileSet, ...initialTileSet.filter((tile) => tile === tileName)];
+    const isTileInSet = tileSet.value.includes(tileName);
+    const updatedTileSet = isTileInSet
+      ? tileSet.value.filter((tile) => tile !== tileName)
+      : [...tileSet.value, ...initialTileSet.filter((tile) => tile === tileName)];
 
-      setTileSet(updatedTileSet);
-      setNewTiles(updatedTileSet);
-    },
-    [tileSet, setTileSet, setNewTiles]
-  );
+    tileSet.value = updatedTileSet;
+  };
 
   return (
     <fieldset
@@ -35,7 +29,7 @@ function TileSetControls({ tileSet, setTileSet, setNewTiles }: Props) {
           <label key={tile} aria-label={tile} className="flex flex-col gap-2">
             <input
               type="checkbox"
-              checked={tileSet.includes(tile)}
+              checked={tileSet.value.includes(tile)}
               onChange={() => handleChangetileSet(tile)}
               className="peer sr-only"
             />

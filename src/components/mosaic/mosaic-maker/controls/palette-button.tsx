@@ -1,32 +1,39 @@
 import { cn } from "@/lib/utils";
+import type { Signal } from "@preact/signals-react";
 import type { initialPalette } from "../config";
+import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
+import { updateElementStyles } from "../libs/style-utils";
 
 type Props = React.HTMLAttributes<HTMLLabelElement> & {
-  id: string;
   palette: typeof initialPalette;
-  checked: boolean;
-  setCurrentPalette: (palette: typeof initialPalette) => void;
+  currentPalette: Signal<typeof initialPalette>;
+  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
 };
 
-function PaletteButton({ id, palette, className, checked, setCurrentPalette }: Props) {
+function PaletteButton({ palette, currentPalette, mosaicRef }: Props) {
+  const setCurrentPalette = (palette: typeof initialPalette) => {
+    currentPalette.value = palette;
+    if (!mosaicRef.value.current) return;
+    updateElementStyles(mosaicRef.value.current, palette);
+  };
+
   return (
     <label
       className={cn(
         "flex w-fit flex-row",
         "lg:flex-col",
         "has-[:checked]:ring-4 has-[:checked]:ring-primary",
-        "has-[:focus-visible]:bg-accent has-[:focus-visible]:text-accent-foreground",
-        className
+        "has-[:focus-visible]:bg-accent has-[:focus-visible]:text-accent-foreground"
       )}
     >
       <input
         type="radio"
         name="palette"
-        value={id}
+        value={getPaletteId(palette)}
         className="sr-only"
-        checked={checked}
+        checked={arePalettesEqual(palette, currentPalette.value)}
         onChange={() => setCurrentPalette(palette)}
-        aria-label={`Color palette ${id}`}
+        aria-label={`Color palette ${getPaletteId(palette)}`}
       />
       {Object.values(palette).map((color, index) => (
         <div key={index} style={{ backgroundColor: color }} className="h-6 w-6 md:h-6 md:w-6" />

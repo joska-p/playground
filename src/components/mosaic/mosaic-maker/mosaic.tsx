@@ -1,11 +1,13 @@
 import { getRandom } from "@/lib/utils";
+import type { Signal } from "@preact/signals-react";
+import type { ComponentProps } from "react";
 import { CSS_VARS, initialGapSize, initialPalette, initialRotations, initialTileSize } from "./config";
 import { Tile } from "./tiles/tile";
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
-  mosaicRef: React.RefObject<HTMLDivElement | null>;
-  tiles: string[];
-};
+interface Props extends ComponentProps<"div"> {
+  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
+  tiles: Signal<string[]>;
+}
 
 const MOSAIC_STYLES = {
   ...initialPalette,
@@ -30,11 +32,11 @@ function generateTileRotations() {
 function Mosaic({ mosaicRef, tiles }: Props) {
   return (
     <div
-      ref={mosaicRef}
+      ref={mosaicRef.value}
       className="absolute inset-0 grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
-      {tiles.map((tile, index) => (
+      {tiles.value.map((tile, index) => (
         <Tile key={`${tile}-${index}`} name={tile} colors={generateTileColors()} rotation={generateTileRotations()} />
       ))}
     </div>
