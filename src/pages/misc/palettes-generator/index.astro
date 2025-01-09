@@ -1,0 +1,8 @@
+---
+import { StrictModePaletteGenerator } from "@/components/misc/colors/palettes-generator/palette-generator";
+import Layout from "@/layouts/layout.astro";
+---
+
+<Layout title="Palettes generator">
+  <StrictModePaletteGenerator client:only="react" />
+</Layout>
