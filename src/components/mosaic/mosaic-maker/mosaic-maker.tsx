@@ -15,8 +15,7 @@ const currentPalettes = signal(allThePalettes.value.slice(0, MAX_RANDOM_PALETTES
 const currentPalette = signal(initialPalette);
 const tiles = computed(() => {
   const newTileSet = tileSet.value;
-  const mosaicValue = mosaicRef.value;
-  const mosaicElement = mosaicValue.current;
+  const mosaicElement = mosaicRef.value.current;
   const numberOfTiles = mosaicElement ? computeNumberOfTiles(mosaicElement) : 0;
   return Array.from({ length: numberOfTiles }, () => getRandom(newTileSet));
 });
