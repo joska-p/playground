@@ -2,9 +2,18 @@ import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 import styles from "./slider.module.css";
 
-type Props = ComponentProps<"input">;
+type LabelProps = ComponentProps<"label">;
+type InputProps = ComponentProps<"input">;
 
-function Slider({ ref, min, step, max, value, onChange, className }: Props) {
+const Label = ({ children, className, ...props }: LabelProps) => {
+  return (
+    <label className={cn("flex w-fit cursor-pointer flex-col items-center text-sm", className)} {...props}>
+      {children}
+    </label>
+  );
+};
+
+const Input = ({ ref, min, step, max, value, onChange, className, ...props }: InputProps) => {
   return (
     <input
       ref={ref}
@@ -20,8 +29,11 @@ function Slider({ ref, min, step, max, value, onChange, className }: Props) {
         styles.slider,
         className
       )}
+      {...props}
     />
   );
-}
+};
+
+const Slider = { Label, Input };
 
 export { Slider };

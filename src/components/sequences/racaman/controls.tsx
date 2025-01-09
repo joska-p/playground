@@ -19,10 +19,10 @@ function Controls({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
 
   return (
     <form className="flex items-center justify-center gap-8 bg-background/90 py-4">
-      <label className="flex w-fit cursor-pointer items-center gap-2 text-sm">
+      <Slider.Label className="flex w-fit cursor-pointer items-center gap-2 text-sm">
         <span className="mr-2 text-nowrap">Length: {sequenceLength}</span>
-        <Slider min={1} max={256} step={1} defaultValue={sequenceLength} onChange={handleSequenceLengthChange} />
-      </label>
+        <Slider.Input min={1} max={256} step={1} defaultValue={sequenceLength} onChange={handleSequenceLengthChange} />
+      </Slider.Label>
       <label className="cursor-pointer text-sm">
         <input
           type="radio"

@@ -15,7 +15,7 @@ const routes = [
   },
   {
     text: "Sequence",
-    url: `${baseUrl}sequence/`,
+    url: `${baseUrl}sequences/`,
   },
   {
     text: "Misc",

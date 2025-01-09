@@ -22,10 +22,10 @@ function SlideControls({ mosaicRef, label, defaultValue, cssVar, min, max, step 
   };
 
   return (
-    <label className="flex flex-col items-center text-sm">
+    <Slider.Label>
       {label}: {value}px
-      <Slider min={min} max={max} step={step} value={value} onChange={handleSetValue} />
-    </label>
+      <Slider.Input min={min} max={max} step={step} value={value} onChange={handleSetValue} />
+    </Slider.Label>
   );
 }
 
