@@ -1,5 +1,5 @@
 import { Slider } from "@/components/ui/slider/slider";
-import { useState } from "react";
+import { useSignal } from "@preact/signals-react";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
@@ -12,19 +12,19 @@ type Props = {
 };
 
 function SlideControls({ mosaicRef, label, defaultValue, cssVar, min, max, step }: Props) {
-  const [value, setValue] = useState(defaultValue);
+  const slideValue = useSignal(defaultValue);
 
   const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!mosaicRef.current) return;
     const value = Number(event.target.value);
-    setValue(value);
+    slideValue.value = value;
     mosaicRef.current!.style.setProperty(cssVar, `${value}px`);
   };
 
   return (
     <Slider.Label>
-      {label}: {value}px
-      <Slider.Input min={min} max={max} step={step} value={value} onChange={handleSetValue} />
+      {label}: {slideValue.value}px
+      <Slider.Input min={min} max={max} step={step} value={slideValue.value} onChange={handleSetValue} />
     </Slider.Label>
   );
 }

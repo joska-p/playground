@@ -6,7 +6,11 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
   integrations: [
-    react(),
+    react({
+      babel: {
+        plugins: [["module:@preact/signals-react-transform"]],
+      },
+    }),
     tailwind(),
     sitemap({
       filter: (page) => page !== "/404",
