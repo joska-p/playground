@@ -1,32 +1,47 @@
 import { cn } from "@/lib/utils";
+import type { ComponentProps } from "react";
 
-type SquareProps = {
+interface Props extends ComponentProps<"div"> {
   colors: [string, string, string, string, string];
   rotation: string;
-} & React.HTMLAttributes<HTMLDivElement>;
+}
 
-const COMMON_STYLES = "transition-colors duration-300";
-
-const Square = ({ colors, rotation, className }: SquareProps) => {
+function Square({ colors, rotation, className }: Props) {
   const squareStyle = {
     transform: `rotate(var(${rotation}))`,
   };
-
-  const sectionStyle = (color: string) => ({
-    backgroundColor: `var(${color})`,
-  });
 
   return (
     <div
       className={cn("tile grid grid-cols-2 grid-rows-2 transition-transform duration-300", className)}
       style={squareStyle}
     >
-      <div style={sectionStyle(colors[1])} className={COMMON_STYLES} />
-      <div style={sectionStyle(colors[2])} className={COMMON_STYLES} />
-      <div style={sectionStyle(colors[3])} className={COMMON_STYLES} />
-      <div style={sectionStyle(colors[4])} className={COMMON_STYLES} />
+      <div
+        className={"transition-colors duration-300"}
+        style={{
+          backgroundColor: `var(${colors[1]})`,
+        }}
+      />
+      <div
+        className={"transition-colors duration-300"}
+        style={{
+          backgroundColor: `var(${colors[2]})`,
+        }}
+      />
+      <div
+        className={"transition-colors duration-300"}
+        style={{
+          backgroundColor: `var(${colors[3]})`,
+        }}
+      />
+      <div
+        className={"transition-colors duration-300"}
+        style={{
+          backgroundColor: `var(${colors[4]})`,
+        }}
+      />
     </div>
   );
-};
+}
 
-export { Square, type SquareProps };
+export { Square };

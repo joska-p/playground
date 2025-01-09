@@ -1,4 +1,4 @@
-const createRacamanSequence = (n: number) => {
+function createRacamanSequence(n: number) {
   const sequence: number[] = [];
   let i = 0;
   while (sequence.length < n) {
@@ -13,7 +13,7 @@ const createRacamanSequence = (n: number) => {
     i++;
   }
   return sequence;
-};
+}
 
 // Test
 // const refSequence = [

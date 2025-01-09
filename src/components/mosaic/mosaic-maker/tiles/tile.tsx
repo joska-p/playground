@@ -26,7 +26,7 @@ type Props = {
   className?: string;
 };
 
-const Tile = ({ name, colors, rotation, className }: Props) => {
+function Tile({ name, colors, rotation, className }: Props) {
   if (colors.length !== 5) {
     throw new Error("Tile component requires exactly 5 colors");
   }
@@ -39,6 +39,6 @@ const Tile = ({ name, colors, rotation, className }: Props) => {
       className={cn("relative h-[var(--tile-size)] w-[var(--tile-size)] overflow-hidden", className)}
     />
   );
-};
+}
 
 export { Tile };

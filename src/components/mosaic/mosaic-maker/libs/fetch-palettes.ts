@@ -20,7 +20,7 @@ const colorNames = Object.keys(initialPalette) as (keyof Palette)[];
 
 const paletteSchema = z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1);
 
-const getCachedPalettes = (): CachedPalettes | null => {
+function getCachedPalettes(): CachedPalettes | null {
   const stored = localStorage.getItem(CACHE_KEY);
   if (!stored) return null;
 
@@ -29,29 +29,29 @@ const getCachedPalettes = (): CachedPalettes | null => {
   } catch {
     return null;
   }
-};
+}
 
-const isCacheValid = (cache: CachedPalettes): boolean => {
+function isCacheValid(cache: CachedPalettes): boolean {
   return cache.expiration > Date.now() && cache.version === CACHE_VERSION;
-};
+}
 
-const transformPalette = (colors: string[]): Palette => {
+function transformPalette(colors: string[]): Palette {
   return colorNames.reduce((acc, colorName, index) => {
     acc[colorName] = colors[index];
     return acc;
   }, {} as Palette);
-};
+}
 
-const cachePalettes = (palettes: Palette[]): void => {
+function cachePalettes(palettes: Palette[]): void {
   const cache: CachedPalettes = {
     palettes,
     expiration: Date.now() + CACHE_DURATION_MS,
     version: CACHE_VERSION,
   };
   localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-};
+}
 
-const fetchPalettes = async (): Promise<Palette[]> => {
+async function fetchPalettes(): Promise<Palette[]> {
   const cached = getCachedPalettes();
   if (cached && isCacheValid(cached)) {
     return cached.palettes;
@@ -66,6 +66,6 @@ const fetchPalettes = async (): Promise<Palette[]> => {
     console.error("Failed to fetch palettes:", error);
     return [initialPalette];
   }
-};
+}
 
 export { fetchPalettes };

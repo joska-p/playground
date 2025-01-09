@@ -7,13 +7,13 @@ const SidebarContext = createContext<{
   toggleSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
-const useSidebarContext = () => {
+function useSidebarContext() {
   const context = useContext(SidebarContext);
   if (!context) {
     throw new Error("useSidebarContext must be used within a SidebarProvider");
   }
   return context;
-};
+}
 
 const sidebarProviderVariants = cva("grid h-full", {
   variants: {
@@ -36,16 +36,16 @@ const sidebarProviderVariants = cva("grid h-full", {
   },
 });
 
-type SidebarProviderProps = ComponentProps<"div"> & VariantProps<typeof sidebarProviderVariants>;
+interface SidebarProviderProps extends ComponentProps<"div">, VariantProps<typeof sidebarProviderVariants> {}
 
-const SidebarProvider = ({
+function SidebarProvider({
   children,
   ref,
   className,
   mobilePosition,
   desktopPosition,
   ...props
-}: SidebarProviderProps) => {
+}: SidebarProviderProps) {
   const [isOpen, toggleSidebar] = useState(true);
 
   const value = useMemo(
@@ -73,24 +73,24 @@ const SidebarProvider = ({
       </div>
     </SidebarContext>
   );
-};
+}
 
-const Content = ({ children, ref, className, ...props }: ComponentProps<"div">) => {
+function Content({ children, ref, className, ...props }: ComponentProps<"div">) {
   return (
     <div ref={ref} className={cn(className)} {...props}>
       {children}
     </div>
   );
-};
+}
 
-const Sidebar = ({ children, ref, className, ...props }: ComponentProps<"div">) => {
+function Sidebar({ children, ref, className, ...props }: ComponentProps<"div">) {
   const { isOpen } = useSidebarContext();
   return (
     <div ref={ref} className={cn(className, !isOpen && "hidden")} {...props}>
       {children}
     </div>
   );
-};
+}
 
 SidebarProvider.Content = Content;
 SidebarProvider.Sidebar = Sidebar;

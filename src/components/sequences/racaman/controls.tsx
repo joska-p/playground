@@ -8,14 +8,14 @@ type Props = {
   drawMode: string;
 };
 
-const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props) => {
-  const handleSequenceLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+function Controls({ setSequence, sequenceLength, setDrawMode, drawMode }: Props) {
+  function handleSequenceLengthChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSequence(createRacamanSequence(Number.parseInt(event.target.value)));
-  };
+  }
 
-  const handleSetDrawMode = (event: React.ChangeEvent<HTMLInputElement>) => {
+  function handleSetDrawMode(event: React.ChangeEvent<HTMLInputElement>) {
     setDrawMode(event.target.value);
-  };
+  }
 
   return (
     <form className="flex items-center justify-center gap-8 bg-background/90 py-4">
@@ -47,6 +47,6 @@ const Controls = ({ setSequence, sequenceLength, setDrawMode, drawMode }: Props)
       </label>
     </form>
   );
-};
+}
 
 export { Controls };

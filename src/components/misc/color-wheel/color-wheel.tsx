@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-const ColorWheel = () => {
+function ColorWheel() {
   const colorWheelRef = useRef<HTMLDivElement>(null);
 
   const colorWheelStyles = {
@@ -83,6 +83,6 @@ const ColorWheel = () => {
       </div>
     </section>
   );
-};
+}
 
 export { ColorWheel };

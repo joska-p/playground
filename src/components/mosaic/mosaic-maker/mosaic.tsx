@@ -17,17 +17,17 @@ const MOSAIC_STYLES = {
   gap: `var(${CSS_VARS.gap})`,
 } as React.CSSProperties;
 
-const generateTileColors = () => {
+function generateTileColors() {
   const paletteKeys = Object.keys(initialPalette);
   return Array.from({ length: 5 }, () => getRandom(paletteKeys)) as [string, string, string, string, string];
-};
+}
 
-const generateTileRotations = () => {
+function generateTileRotations() {
   const rotationKeys = Object.keys(initialRotations);
   return getRandom(rotationKeys);
-};
+}
 
-const Mosaic = ({ mosaicRef, tiles }: Props) => {
+function Mosaic({ mosaicRef, tiles }: Props) {
   return (
     <div
       ref={mosaicRef}
@@ -39,6 +39,6 @@ const Mosaic = ({ mosaicRef, tiles }: Props) => {
       ))}
     </div>
   );
-};
+}
 
 export { Mosaic };

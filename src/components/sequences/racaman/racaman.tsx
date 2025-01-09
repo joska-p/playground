@@ -5,7 +5,7 @@ import { Controls } from "./controls";
 import { createRacamanSequence } from "./lib/sequence";
 import { Vectors } from "./vectors";
 
-const Racaman = () => {
+function Racaman() {
   const [sequence, setSequence] = useState<number[]>(createRacamanSequence(50));
   const [drawMode, setDrawMode] = useState("vector-mode");
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -44,14 +44,14 @@ const Racaman = () => {
       </SidebarProvider.Sidebar>
     </SidebarProvider>
   );
-};
+}
 
-const StrictModeRacaman = () => {
+function StrictModeRacaman() {
   return (
     <StrictMode>
       <Racaman />
     </StrictMode>
   );
-};
+}
 
 export { Racaman, StrictModeRacaman };

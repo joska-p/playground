@@ -6,7 +6,7 @@ import { Controls } from "./controls/controls";
 import { computeNumberOfTiles } from "./libs/style-utils";
 import { Mosaic } from "./mosaic";
 
-const MosaicMaker = () => {
+function MosaicMaker() {
   const [tiles, setTiles] = useState<string[]>([]);
   const mosaicRef = useRef<HTMLDivElement>(null);
 
@@ -32,14 +32,14 @@ const MosaicMaker = () => {
       </SidebarProvider.Sidebar>
     </SidebarProvider>
   );
-};
+}
 
-const StrictModeMosaicMaker = () => {
+function StrictModeMosaicMaker() {
   return (
     <StrictMode>
       <MosaicMaker />
     </StrictMode>
   );
-};
+}
 
 export { MosaicMaker, StrictModeMosaicMaker };

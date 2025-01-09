@@ -9,7 +9,7 @@ type Props = {
   setNewTiles: (tileSet?: string[]) => void;
 };
 
-const TileSetControls = ({ tileSet, setTileSet, setNewTiles }: Props) => {
+function TileSetControls({ tileSet, setTileSet, setNewTiles }: Props) {
   const handleChangetileSet = useCallback(
     (tileName: string) => {
       if (tileSet.length === 1 && tileName === tileSet[0]) return;
@@ -54,6 +54,6 @@ const TileSetControls = ({ tileSet, setTileSet, setNewTiles }: Props) => {
       })}
     </fieldset>
   );
-};
+}
 
 export { TileSetControls };

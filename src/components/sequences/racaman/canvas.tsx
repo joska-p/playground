@@ -6,7 +6,7 @@ type Props = {
   containerSize: { width: number; height: number };
 };
 
-const Canvas = ({ sequence, containerSize }: Props) => {
+function Canvas({ sequence, containerSize }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -19,6 +19,6 @@ const Canvas = ({ sequence, containerSize }: Props) => {
   }, [sequence, containerSize]);
 
   return <canvas ref={canvasRef} />;
-};
+}
 
 export { Canvas };

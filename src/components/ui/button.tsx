@@ -27,14 +27,14 @@ const buttonVariants = cva(
   }
 );
 
-type Props = ComponentProps<"button"> & VariantProps<typeof buttonVariants>;
+interface Props extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {}
 
-const Button = ({ ref, className, children, variant, size, type = "button", ...props }: Props) => {
+function Button({ ref, className, children, variant, size, type = "button", ...props }: Props) {
   return (
     <button className={cn(buttonVariants({ variant, size, className }))} type={type} ref={ref} {...props}>
       {children}
     </button>
   );
-};
+}
 
 export { Button, buttonVariants };

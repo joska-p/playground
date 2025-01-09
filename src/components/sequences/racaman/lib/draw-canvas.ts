@@ -1,15 +1,15 @@
-const setupCanvas = (canvas: HTMLCanvasElement, containerSize: { width: number; height: number }) => {
+function setupCanvas(canvas: HTMLCanvasElement, containerSize: { width: number; height: number }) {
   canvas.width = containerSize.width;
   canvas.height = containerSize.height;
-};
+}
 
-const calculateValueScale = (sequence: number[], canvasWidth: number): number => {
+function calculateValueScale(sequence: number[], canvasWidth: number): number {
   const valueMin = Math.min(...sequence);
   const valueMax = Math.max(...sequence);
   return canvasWidth / (valueMax - valueMin);
-};
+}
 
-const drawSequence = (context: CanvasRenderingContext2D, sequence: number[], valueScale: number) => {
+function drawSequence(context: CanvasRenderingContext2D, sequence: number[], valueScale: number) {
   sequence.forEach((value, index) => {
     if (index > 0) {
       const previousValue = sequence[index - 1];
@@ -25,9 +25,9 @@ const drawSequence = (context: CanvasRenderingContext2D, sequence: number[], val
       context.stroke();
     }
   });
-};
+}
 
-const draw = (canvas: HTMLCanvasElement, sequence: number[], containerSize: { width: number; height: number }) => {
+function draw(canvas: HTMLCanvasElement, sequence: number[], containerSize: { width: number; height: number }) {
   if (!canvas.parentElement) return;
 
   setupCanvas(canvas, containerSize);
@@ -42,6 +42,6 @@ const draw = (canvas: HTMLCanvasElement, sequence: number[], containerSize: { wi
   drawSequence(context, sequence, valueScale);
 
   context.restore();
-};
+}
 
 export { draw };

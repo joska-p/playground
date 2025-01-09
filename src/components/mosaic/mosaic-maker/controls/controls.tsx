@@ -13,7 +13,7 @@ type Props = {
   setNewTiles: (tileSet?: string[]) => void;
 };
 
-const Controls = ({ mosaicRef, setNewTiles }: Props) => {
+function Controls({ mosaicRef, setNewTiles }: Props) {
   const [tileSet, setTileSet] = useState(initialTileSet);
   const { currentPalettes, isLoading, error, shufflePalettes, currentPalette, setCurrentPalette } = usePalettes({
     mosaicRef,
@@ -79,6 +79,6 @@ const Controls = ({ mosaicRef, setNewTiles }: Props) => {
       />
     </form>
   );
-};
+}
 
 export { Controls };

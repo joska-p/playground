@@ -8,7 +8,7 @@ type Props = React.HTMLAttributes<HTMLLabelElement> & {
   setCurrentPalette: (palette: typeof initialPalette) => void;
 };
 
-const PaletteButton = ({ id, palette, className, checked, setCurrentPalette }: Props) => {
+function PaletteButton({ id, palette, className, checked, setCurrentPalette }: Props) {
   return (
     <label
       className={cn(
@@ -33,6 +33,6 @@ const PaletteButton = ({ id, palette, className, checked, setCurrentPalette }: P
       ))}
     </label>
   );
-};
+}
 
 export { PaletteButton };

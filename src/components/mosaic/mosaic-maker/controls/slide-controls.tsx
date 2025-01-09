@@ -11,7 +11,7 @@ type Props = {
   step: number;
 };
 
-const SlideControls = ({ mosaicRef, label, defaultValue, cssVar, min, max, step }: Props) => {
+function SlideControls({ mosaicRef, label, defaultValue, cssVar, min, max, step }: Props) {
   const [value, setValue] = useState(defaultValue);
 
   const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +27,6 @@ const SlideControls = ({ mosaicRef, label, defaultValue, cssVar, min, max, step 
       <Slider min={min} max={max} step={step} value={value} onChange={handleSetValue} />
     </label>
   );
-};
+}
 
 export { SlideControls };

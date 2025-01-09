@@ -3,35 +3,35 @@ import { CSS_VARS } from "../config";
 type StyleProperty = keyof typeof CSS_VARS;
 type ComputedStyles = Record<string, string>;
 
-const getComputedPropertyValue = (element: HTMLDivElement, property: StyleProperty): string => {
+function getComputedPropertyValue(element: HTMLDivElement, property: StyleProperty): string {
   return getComputedStyle(element).getPropertyValue(CSS_VARS[property]);
-};
+}
 
-const parseNumericValue = (value: string): number => {
+function parseNumericValue(value: string): number {
   const parsed = Number.parseFloat(value);
   if (Number.isNaN(parsed)) {
     throw new Error(`Invalid numeric value: ${value}`);
   }
   return parsed;
-};
+}
 
-const computeTileHeight = (element: HTMLDivElement): number => {
+function computeTileHeight(element: HTMLDivElement): number {
   return parseNumericValue(getComputedPropertyValue(element, "height"));
-};
+}
 
-const computeTileWidth = (element: HTMLDivElement): number => {
+function computeTileWidth(element: HTMLDivElement): number {
   return parseNumericValue(getComputedPropertyValue(element, "width"));
-};
+}
 
-const computeGap = (element: HTMLDivElement): number => {
+function computeGap(element: HTMLDivElement): number {
   return parseNumericValue(getComputedPropertyValue(element, "gap"));
-};
+}
 
-const computeDimension = (total: number, size: number, gap: number): number => {
+function computeDimension(total: number, size: number, gap: number): number {
   return Math.floor((total + gap) / (size + gap));
-};
+}
 
-const computeNumberOfTiles = (element: HTMLDivElement): number => {
+function computeNumberOfTiles(element: HTMLDivElement): number {
   try {
     const gap = computeGap(element);
     const tilesPerRow = computeDimension(element.offsetWidth, computeTileWidth(element), gap);
@@ -41,12 +41,12 @@ const computeNumberOfTiles = (element: HTMLDivElement): number => {
     console.error("Failed to compute number of tiles:", error);
     return 0;
   }
-};
+}
 
-const updateElementStyles = (element: HTMLElement, styles: ComputedStyles): void => {
+function updateElementStyles(element: HTMLElement, styles: ComputedStyles): void {
   for (const [prop, value] of Object.entries(styles)) {
     element.style.setProperty(prop, value);
   }
-};
+}
 
 export { computeNumberOfTiles, updateElementStyles };

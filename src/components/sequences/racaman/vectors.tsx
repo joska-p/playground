@@ -7,7 +7,7 @@ type Props = {
   containerSize: { width: number; height: number };
 };
 
-const Vectors = ({ sequence, containerSize }: Props) => {
+function Vectors({ sequence, containerSize }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const styleObject = {
     "--dasharray": 0,
@@ -28,6 +28,6 @@ const Vectors = ({ sequence, containerSize }: Props) => {
   }, [sequence, containerSize]);
 
   return <svg ref={svgRef} style={styleObject} className="max-h-full max-w-full fill-transparent" />;
-};
+}
 
 export { Vectors };

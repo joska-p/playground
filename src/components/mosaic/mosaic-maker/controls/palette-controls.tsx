@@ -9,7 +9,7 @@ type Props = {
   setCurrentPalette: (palette: typeof initialPalette) => void;
 };
 
-const PaletteControls = ({ palettes, currentPalette, setCurrentPalette }: Props) => {
+function PaletteControls({ palettes, currentPalette, setCurrentPalette }: Props) {
   return (
     <fieldset
       className={cn(
@@ -38,6 +38,6 @@ const PaletteControls = ({ palettes, currentPalette, setCurrentPalette }: Props)
       ))}
     </fieldset>
   );
-};
+}
 
 export { PaletteControls };

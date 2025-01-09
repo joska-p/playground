@@ -4,7 +4,7 @@ import styles from "./slider.module.css";
 
 type Props = ComponentProps<"input">;
 
-const Slider = ({ ref, min, step, max, value, onChange, className }: Props) => {
+function Slider({ ref, min, step, max, value, onChange, className }: Props) {
   return (
     <input
       ref={ref}
@@ -22,6 +22,6 @@ const Slider = ({ ref, min, step, max, value, onChange, className }: Props) => {
       )}
     />
   );
-};
+}
 
 export { Slider };

@@ -1,14 +1,14 @@
+import { shuffleArray } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 import { MAX_RANDOM_PALETTES, initialPalette } from "../config";
 import { fetchPalettes } from "../libs/fetch-palettes";
-import { shuffleArray } from "@/lib/utils";
 import { updateElementStyles } from "../libs/style-utils";
 
 type Props = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
 };
 
-const usePalettes = ({ mosaicRef }: Props) => {
+function usePalettes({ mosaicRef }: Props) {
   const [allPalettes, setAllPalettes] = useState([initialPalette]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -56,6 +56,6 @@ const usePalettes = ({ mosaicRef }: Props) => {
     currentPalette,
     setCurrentPalette: handleSetCurrentPalette,
   };
-};
+}
 
 export { usePalettes };

@@ -2,7 +2,7 @@ import { useSearchParams } from "@/hooks/use-searchparams";
 import { StrictMode } from "react";
 import { Button } from "../ui/button";
 
-const Example01 = () => {
+function Example01() {
   const { storeParam, getParam, clearParams, getAllParams } = useSearchParams();
 
   return (
@@ -30,7 +30,7 @@ const Example01 = () => {
       </div>
     </section>
   );
-};
+}
 
 const StrictModeExample01 = () => {
   return (
