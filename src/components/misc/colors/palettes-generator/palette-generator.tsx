@@ -2,7 +2,7 @@ import { StrictMode, useState } from "react";
 import { ColorPicker } from "./color-picker";
 
 function PaletteGenerator() {
-  const [baseColor, setBaseColor] = useState({ hue: 180, saturation: 50, lightness: 50 });
+  const [baseColor, setBaseColor] = useState({ hue: 180, saturation: 100, lightness: 50 });
 
   return (
     <section className="mt-20 flex flex-col items-center justify-center gap-20">
