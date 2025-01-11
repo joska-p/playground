@@ -1,23 +1,15 @@
+import type { Signal } from "@preact/signals-react";
 import { useCallback, useEffect, useRef } from "react";
-import type { HSLColor } from "./lib/color-conversions";
-import { RGBToHSL } from "./lib/color-conversions";
+import { RGBToHSL, type HSLColor } from "../lib/color-conversions";
 
-interface ColorPickerProps {
-  saturation?: number;
-  setBaseColor: (color: HSLColor) => void;
-  width?: number;
-  height?: number;
-}
+type Props = {
+  baseColor: Signal<HSLColor>;
+  marker: Signal<{ x: number; y: number }>;
+};
 
-const DEFAULT_DIMENSIONS = 300;
 const DEBOUNCE_DELAY = 100;
 
-function ColorPicker({
-  saturation = 100,
-  setBaseColor,
-  width = DEFAULT_DIMENSIONS,
-  height = DEFAULT_DIMENSIONS,
-}: ColorPickerProps) {
+function useColorPicker({ baseColor, marker }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const getPixelColor = useCallback((canvas: HTMLCanvasElement, x: number, y: number): HSLColor => {
@@ -25,11 +17,7 @@ function ColorPicker({
     if (!context) throw new Error("Could not get canvas context");
 
     const pixelData = context.getImageData(x, y, 1, 1).data;
-    return RGBToHSL({
-      red: pixelData[0],
-      green: pixelData[1],
-      blue: pixelData[2],
-    });
+    return RGBToHSL({ red: pixelData[0], green: pixelData[1], blue: pixelData[2] });
   }, []);
 
   const handlePickColor = useCallback(
@@ -42,13 +30,13 @@ function ColorPicker({
       const y = event.clientY - rect.top;
 
       try {
-        const hslColor = getPixelColor(canvas, x, y);
-        setBaseColor(hslColor);
+        baseColor.value = getPixelColor(canvas, x, y);
+        marker.value = { x, y };
       } catch (error) {
         console.error("Error picking color:", error);
       }
     },
-    [setBaseColor, getPixelColor]
+    [baseColor, getPixelColor, marker]
   );
 
   const drawColorSpace = useCallback((canvas: HTMLCanvasElement, saturationValue: number) => {
@@ -77,23 +65,13 @@ function ColorPicker({
     if (!canvas) return;
 
     const debounceTimer = setTimeout(() => {
-      drawColorSpace(canvas, saturation);
+      drawColorSpace(canvas, baseColor.value.saturation);
     }, DEBOUNCE_DELAY);
 
     return () => clearTimeout(debounceTimer);
-  }, [saturation, drawColorSpace]);
+  }, [baseColor, drawColorSpace]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      width={width}
-      height={height}
-      onClick={handlePickColor}
-      aria-label="Color picker"
-      role="img"
-      style={{ cursor: "crosshair" }}
-    />
-  );
+  return { canvasRef, handlePickColor };
 }
 
-export { ColorPicker };
+export { useColorPicker };

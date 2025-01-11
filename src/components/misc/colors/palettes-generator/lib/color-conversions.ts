@@ -40,7 +40,11 @@ export function RGBToHSL({ red, green, blue }: RGBColor): HSLColor {
   }
 
   // Return the HSL values as an object
-  return { hue: Math.round(hue), saturation: Math.round(saturation * 100), lightness: Math.round(lightness * 100) };
+  return {
+    hue: Math.round(hue),
+    saturation: Math.round(saturation * 100),
+    lightness: Math.round(lightness * 100),
+  };
 }
 
 export function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {

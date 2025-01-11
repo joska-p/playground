@@ -36,7 +36,9 @@ const sidebarProviderVariants = cva("grid h-full", {
   },
 });
 
-interface SidebarProviderProps extends ComponentProps<"div">, VariantProps<typeof sidebarProviderVariants> {}
+interface SidebarProviderProps
+  extends ComponentProps<"div">,
+    VariantProps<typeof sidebarProviderVariants> {}
 
 function SidebarProvider({
   children,
@@ -86,7 +88,7 @@ function Content({ children, ref, className, ...props }: ComponentProps<"div">) 
 function Sidebar({ children, ref, className, ...props }: ComponentProps<"div">) {
   const { isOpen } = useSidebarContext();
   return (
-    <div ref={ref} className={cn(className, !isOpen && "hidden")} {...props}>
+    <div ref={ref} className={cn(className, { hidden: !isOpen })} {...props}>
       {children}
     </div>
   );
