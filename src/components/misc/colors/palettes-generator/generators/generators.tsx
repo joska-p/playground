@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { Signal } from "@preact/signals-react";
 import type { HSLColor } from "../lib/color-conversions";
-import { monochromeColorScheme } from "../lib/monochrome-color-scheme";
+import { complementaryPalettes } from "../lib/complementary-palettes";
 
 type Props = {
   palettes: Signal<HSLColor[][]>;
@@ -9,13 +9,13 @@ type Props = {
 };
 
 function Generators({ palettes, baseColor }: Props) {
-  const monochrome = monochromeColorScheme(baseColor.value, 4);
+  const palette = complementaryPalettes(baseColor.value, 4);
 
   function handleClick() {
-    palettes.value = [monochrome];
+    palettes.value = [...palettes.value, palette];
   }
 
-  return <Button onClick={handleClick}>Monochrome</Button>;
+  return <Button onClick={handleClick}>Complementary</Button>;
 }
 
 export { Generators };
