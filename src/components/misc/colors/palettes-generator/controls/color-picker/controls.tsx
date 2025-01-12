@@ -1,5 +1,5 @@
 import type { Signal } from "@preact/signals-react";
-import type { HSLColor } from "../lib/color-conversions";
+import type { HSLColor } from "../../lib/color-conversions";
 
 type Props = {
   baseColor: Signal<HSLColor>;

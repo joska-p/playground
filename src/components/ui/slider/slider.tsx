@@ -7,7 +7,10 @@ type InputProps = ComponentProps<"input">;
 
 const Label = ({ children, className, ...props }: LabelProps) => {
   return (
-    <label className={cn("flex w-fit cursor-pointer flex-col items-center text-sm", className)} {...props}>
+    <label
+      className={cn("flex w-fit cursor-pointer flex-col items-center text-sm", className)}
+      {...props}
+    >
       {children}
     </label>
   );

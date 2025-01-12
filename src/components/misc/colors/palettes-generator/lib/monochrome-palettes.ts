@@ -1,6 +1,6 @@
 import type { HSLColor } from "./color-conversions";
 
-function analogousPalettes(
+function monochromePalettes(
   { hue, saturation, lightness }: HSLColor,
   paletteLength: number
 ): HSLColor[] {
@@ -24,4 +24,4 @@ function analogousPalettes(
   return palette;
 }
 
-export { analogousPalettes };
+export { monochromePalettes };

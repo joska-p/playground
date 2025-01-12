@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { signal, type Signal } from "@preact/signals-react";
-import type { HSLColor } from "../lib/color-conversions";
+import type { HSLColor } from "../../lib/color-conversions";
 import { Controls } from "./controls";
 import { useColorPicker } from "./use-colorPicker";
 

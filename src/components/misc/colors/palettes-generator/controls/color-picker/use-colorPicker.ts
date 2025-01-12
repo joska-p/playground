@@ -1,6 +1,6 @@
 import type { Signal } from "@preact/signals-react";
 import { useEffect, useRef } from "react";
-import { RGBToHSL, type HSLColor } from "../lib/color-conversions";
+import { RGBToHSL, type HSLColor } from "../../lib/color-conversions";
 
 const getPixelColor = (canvas: HTMLCanvasElement, x: number, y: number): HSLColor => {
   const context = canvas.getContext("2d");
