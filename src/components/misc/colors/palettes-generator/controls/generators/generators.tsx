@@ -18,8 +18,8 @@ function Generators({ palettes, baseColor }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <MonochromaticForm palettes={palettes} baseColor={baseColor} />
-      <AnalogousForm palettes={palettes} baseColor={baseColor} />
       <XadicForm palettes={palettes} baseColor={baseColor} />
+      <AnalogousForm palettes={palettes} baseColor={baseColor} />
       <ComplementaryForm palettes={palettes} baseColor={baseColor} />
     </div>
   );

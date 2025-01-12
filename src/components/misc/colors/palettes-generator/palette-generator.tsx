@@ -15,7 +15,7 @@ const palettes = signal<Palette[]>([]);
 function PaletteGenerator() {
   return (
     <SidebarProvider mobilePosition="left" desktopPosition="left">
-      <SidebarProvider.Sidebar className="space-y-4 bg-card p-2">
+      <SidebarProvider.Sidebar className="w-96 space-y-4 bg-card p-2">
         <ColorPicker baseColor={baseColor} marker={marker} />
         <Generators palettes={palettes} baseColor={baseColor} />
       </SidebarProvider.Sidebar>

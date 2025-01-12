@@ -3,7 +3,7 @@ import { type Signal } from "@preact/signals-react";
 import type { HSLColor } from "../../lib/color-conversions";
 import { useColorPicker } from "./use-colorPicker";
 
-const DEFAULT_DIMENSIONS = 300;
+const DEFAULT_DIMENSIONS = 368;
 
 interface ColorPickerProps {
   baseColor: Signal<HSLColor>;
@@ -21,7 +21,7 @@ function ColorPicker({
   const { canvasRef, handlePickColor } = useColorPicker({ baseColor, marker });
 
   return (
-    <div className="relative flex w-fit flex-col items-start justify-between gap-4">
+    <div className="relative flex flex-col items-start justify-between gap-4">
       <div
         style={{ top: marker.value.y, left: marker.value.x }}
         inert
@@ -35,10 +35,10 @@ function ColorPicker({
         ref={canvasRef}
         width={width}
         height={height}
+        className="cursor-crosshair"
         onClick={handlePickColor}
         aria-label="Color picker"
         role="img"
-        style={{ cursor: "crosshair" }}
       />
       <label className="w-full text-center">
         Saturation
