@@ -1,21 +1,20 @@
 import { cn } from "@/lib/utils";
-import { signal, type Signal } from "@preact/signals-react";
+import { type Signal } from "@preact/signals-react";
 import type { HSLColor } from "../../lib/color-conversions";
-import { Controls } from "./controls";
 import { useColorPicker } from "./use-colorPicker";
 
 const DEFAULT_DIMENSIONS = 300;
 
-const marker = signal({ x: 0, y: 0 });
-
 interface ColorPickerProps {
   baseColor: Signal<HSLColor>;
+  marker: Signal<{ x: number; y: number }>;
   width?: number;
   height?: number;
 }
 
 function ColorPicker({
   baseColor,
+  marker,
   width = DEFAULT_DIMENSIONS,
   height = DEFAULT_DIMENSIONS,
 }: ColorPickerProps) {
@@ -41,7 +40,27 @@ function ColorPicker({
         role="img"
         style={{ cursor: "crosshair" }}
       />
-      <Controls baseColor={baseColor} marker={marker} />
+      <label className="w-full text-center">
+        Saturation
+        <div
+          className="h-8 w-full"
+          style={{
+            backgroundImage: `linear-gradient(to right, hsl(${baseColor.value.hue}, 0%, ${baseColor.value.lightness}%), hsl(${baseColor.value.hue}, 100%, ${baseColor.value.lightness}%))`,
+          }}
+        />
+        <input
+          className="w-full"
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={baseColor.value.saturation}
+          aria-label="Saturation"
+          onChange={(event) =>
+            (baseColor.value = { ...baseColor.value, saturation: Number(event.target.value) })
+          }
+        />
+      </label>
       <div
         className="h-16 w-full"
         style={{

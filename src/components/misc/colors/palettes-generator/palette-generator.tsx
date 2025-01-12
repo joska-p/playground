@@ -9,13 +9,14 @@ import { Palettes } from "./palettes";
 type Palette = HSLColor[];
 
 const baseColor = signal<HSLColor>({ hue: 180, saturation: 100, lightness: 50 });
+const marker = signal({ x: 150, y: 150 });
 const palettes = signal<Palette[]>([]);
 
 function PaletteGenerator() {
   return (
     <SidebarProvider mobilePosition="left" desktopPosition="left">
       <SidebarProvider.Sidebar className="space-y-4 bg-card p-2">
-        <ColorPicker baseColor={baseColor} />
+        <ColorPicker baseColor={baseColor} marker={marker} />
         <Generators palettes={palettes} baseColor={baseColor} />
       </SidebarProvider.Sidebar>
 
