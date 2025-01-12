@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "lint:inspect": "eslint --inspect-config",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "test": "vitest"
   },
   "dependencies": {
     "@astrojs/react": "^4.1.2",
@@ -38,6 +39,7 @@
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.9",
-    "typescript-eslint": "^8.19.1"
+    "typescript-eslint": "^8.19.1",
+    "vitest": "^3.0.0-beta.4"
   }
 }
