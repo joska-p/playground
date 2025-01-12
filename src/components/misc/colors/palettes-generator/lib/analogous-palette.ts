@@ -1,23 +1,15 @@
 import type { HSLColor } from "./color-conversions";
 
-function analogousPalettes(
-  { hue, saturation, lightness }: HSLColor,
-  paletteLength: number
-): HSLColor[] {
-  const palette: Array<HSLColor> = [];
+function analogousPalettes({ hue, saturation, lightness }: HSLColor, length: number): HSLColor[] {
+  const palette: HSLColor[] = [];
+  const angle = 30; // Angle for analogous colors
 
-  // Calculate the step size for hue variation
-  const stepSize = 360 / paletteLength;
-
-  for (let i = 0; i < paletteLength; i++) {
-    // Calculate the new hue by adding the step size
-    const currentHue = (hue + i * stepSize) % 360;
-
-    // Push the new color into the palette
+  for (let i = -Math.floor(length / 2); i <= Math.floor(length / 2); i++) {
+    const newHue = (hue + (i * angle + (Math.random() * 100 - 50)) + 360) % 360; // Wrap around hue
     palette.push({
-      hue: currentHue,
-      saturation: saturation,
-      lightness: lightness,
+      hue: newHue,
+      saturation,
+      lightness,
     });
   }
 

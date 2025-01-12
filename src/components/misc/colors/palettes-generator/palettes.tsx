@@ -7,9 +7,9 @@ type Props = {
 
 function Palettes({ palettes }: Props) {
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-col gap-4">
       {palettes.value.map((palette, index) => (
-        <div key={index} className="flex flex-col">
+        <div key={index} className="flex flex-wrap">
           {palette.map((color, index) => (
             <div
               key={index}

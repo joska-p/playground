@@ -5,7 +5,7 @@ import { useState } from "react";
 import { analogousPalettes } from "../../lib/analogous-palette";
 import type { HSLColor } from "../../lib/color-conversions";
 import { complementaryPalettes } from "../../lib/complementary-palettes";
-import { monochromePalettes } from "../../lib/monochrome-palettes";
+import { monochromaticPalettes } from "../../lib/monochromatic-palettes";
 import { triadicPalettes } from "../../lib/triadic-palettes";
 
 type Props = {
@@ -17,7 +17,7 @@ function Generators({ palettes, baseColor }: Props) {
   const [length, setLength] = useState(5);
 
   function setMonochromePalette() {
-    const colors = monochromePalettes(baseColor.value, length);
+    const colors = monochromaticPalettes(baseColor.value, length);
     palettes.value = [...palettes.value, colors];
   }
 
