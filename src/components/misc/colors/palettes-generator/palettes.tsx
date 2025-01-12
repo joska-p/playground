@@ -16,7 +16,7 @@ function Palettes({ palettes }: Props) {
               style={{
                 backgroundColor: `hsl(${color.hue}, ${color.saturation}%, ${color.lightness}%)`,
               }}
-              className="h-20 w-20"
+              className="h-16 w-20"
             />
           ))}
         </div>

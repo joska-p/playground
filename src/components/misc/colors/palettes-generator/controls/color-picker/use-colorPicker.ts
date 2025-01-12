@@ -64,13 +64,13 @@ function useColorPicker({ baseColor, marker }: Props) {
   };
 
   useEffect(() => {
-    const debounceTimer = setTimeout(() => {
+    const debounce = setTimeout(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       drawColorSpace({ canvas, saturation: baseColor.value.saturation });
     }, DEBOUNCE_DELAY);
 
-    return () => clearTimeout(debounceTimer);
+    return () => clearTimeout(debounce);
   }, [baseColor.value.saturation]);
 
   return { canvasRef, handlePickColor };
