@@ -12,7 +12,7 @@ import {
 } from "../config.ts";
 import { updateElementStyles } from "../libs/style-utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
-import { SlideControls } from "./slide-controls.tsx";
+import { SliderControls } from "./slider-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
 
 type Props = {
@@ -68,7 +68,7 @@ function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, current
       </fieldset>
 
       <fieldset className="grid grid-cols-2 gap-4 px-2">
-        <SlideControls
+        <SliderControls
           mosaicRef={mosaicRef}
           label="Tile size"
           defaultValue={DEFAULT_TILE_SIZE}
@@ -77,7 +77,7 @@ function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, current
           max={256}
           step={2}
         />
-        <SlideControls
+        <SliderControls
           mosaicRef={mosaicRef}
           label="Gap size"
           defaultValue={DEFAULT_GAP_SIZE}
@@ -90,7 +90,11 @@ function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, current
 
       <TileSetControls tileSet={tileSet} />
 
-      <PaletteControls mosaicRef={mosaicRef} currentPalette={currentPalette} currentPalettes={currentPalettes} />
+      <PaletteControls
+        mosaicRef={mosaicRef}
+        currentPalette={currentPalette}
+        currentPalettes={currentPalettes}
+      />
     </form>
   );
 }
