@@ -14,7 +14,7 @@ function TileSetControls({ tileSet }: Props) {
     const isTileInSet = tileSet.value.includes(tileName);
     const updatedTileSet = isTileInSet
       ? tileSet.value.filter((tile) => tile !== tileName)
-      : [...tileSet.value, ...initialTileSet.filter((tile) => tile === tileName)];
+      : [...tileSet.value, tileName];
 
     tileSet.value = updatedTileSet;
   };
@@ -24,17 +24,17 @@ function TileSetControls({ tileSet }: Props) {
       className="flex flex-wrap items-center justify-center gap-4 [--rotation:0deg] [--tile-size:32px]"
       style={{ ...initialPalette } as React.CSSProperties}
     >
-      {initialTileSet.map((tile) => {
+      {initialTileSet.map((tileName) => {
         return (
-          <label key={tile} aria-label={tile} className="flex flex-col gap-2">
+          <label key={tileName} aria-label={tileName} className="flex flex-col gap-2">
             <input
               type="checkbox"
-              checked={tileSet.value.includes(tile)}
-              onChange={() => handleChangetileSet(tile)}
+              checked={tileSet.value.includes(tileName)}
+              onChange={() => handleChangetileSet(tileName)}
               className="peer sr-only"
             />
             <Tile
-              name={tile}
+              name={tileName}
               colors={Object.keys(initialPalette) as [string, string, string, string, string]}
               className={cn(
                 "opacity-70 transition-opacity",

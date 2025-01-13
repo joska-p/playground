@@ -1,7 +1,13 @@
 import { getRandom } from "@/lib/utils";
 import type { Signal } from "@preact/signals-react";
 import type { ComponentProps } from "react";
-import { CSS_VARS, initialGapSize, initialPalette, initialRotations, initialTileSize } from "./config";
+import {
+  CSS_VARS,
+  initialGapSize,
+  initialPalette,
+  initialRotations,
+  initialTileSize,
+} from "./config";
 import { Tile } from "./tiles/tile";
 
 interface Props extends ComponentProps<"div"> {
@@ -21,7 +27,13 @@ const MOSAIC_STYLES = {
 
 function generateTileColors() {
   const paletteKeys = Object.keys(initialPalette);
-  return Array.from({ length: 5 }, () => getRandom(paletteKeys)) as [string, string, string, string, string];
+  return Array.from({ length: 5 }, () => getRandom(paletteKeys)) as [
+    string,
+    string,
+    string,
+    string,
+    string,
+  ];
 }
 
 function generateTileRotations() {
@@ -37,7 +49,12 @@ function Mosaic({ mosaicRef, tiles }: Props) {
       style={MOSAIC_STYLES}
     >
       {tiles.value.map((tile, index) => (
-        <Tile key={`${tile}-${index}`} name={tile} colors={generateTileColors()} rotation={generateTileRotations()} />
+        <Tile
+          key={`${tile}-${index}`}
+          name={tile}
+          colors={generateTileColors()}
+          rotation={generateTileRotations()}
+        />
       ))}
     </div>
   );
