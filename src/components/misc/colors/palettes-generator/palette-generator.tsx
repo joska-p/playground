@@ -7,16 +7,22 @@ import type { HSLColor } from "./lib/color-conversions";
 import { Palettes } from "./palettes";
 
 type Palette = HSLColor[];
+export type BaseColor = HSLColor & { location: { x: number; y: number } };
 
-const baseColor = signal<HSLColor>({ hue: 180, saturation: 100, lightness: 50 });
-const marker = signal({ x: 150, y: 150 });
+const colorPickerSize = 368;
 const palettes = signal<Palette[]>([]);
+const baseColor = signal<BaseColor>({
+  hue: 180,
+  saturation: 100,
+  lightness: 50,
+  location: { x: 184, y: 184 },
+});
 
 function PaletteGenerator() {
   return (
     <SidebarProvider mobilePosition="left" desktopPosition="left">
       <SidebarProvider.Sidebar className="w-96 space-y-4 bg-card p-2">
-        <ColorPicker baseColor={baseColor} marker={marker} />
+        <ColorPicker baseColor={baseColor} width={colorPickerSize} height={colorPickerSize} />
         <Generators palettes={palettes} baseColor={baseColor} />
       </SidebarProvider.Sidebar>
 

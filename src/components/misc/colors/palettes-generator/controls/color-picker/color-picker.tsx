@@ -1,29 +1,21 @@
 import { cn } from "@/lib/utils";
 import { type Signal } from "@preact/signals-react";
-import type { HSLColor } from "../../lib/color-conversions";
+import type { BaseColor } from "../../palette-generator";
 import { useColorPicker } from "./use-colorPicker";
 
-const DEFAULT_DIMENSIONS = 368;
-
-interface ColorPickerProps {
-  baseColor: Signal<HSLColor>;
-  marker: Signal<{ x: number; y: number }>;
+type ColorPickerProps = {
+  baseColor: Signal<BaseColor>;
   width?: number;
   height?: number;
-}
+};
 
-function ColorPicker({
-  baseColor,
-  marker,
-  width = DEFAULT_DIMENSIONS,
-  height = DEFAULT_DIMENSIONS,
-}: ColorPickerProps) {
-  const { canvasRef, handlePickColor } = useColorPicker({ baseColor, marker });
+function ColorPicker({ baseColor, width, height }: ColorPickerProps) {
+  const { canvasRef, handlePickColor } = useColorPicker(baseColor);
 
   return (
     <div className="relative flex flex-col items-start justify-between gap-4">
       <div
-        style={{ top: marker.value.y, left: marker.value.x }}
+        style={{ top: baseColor.value.location.y, left: baseColor.value.location.x }}
         inert
         className={cn(
           "absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2",

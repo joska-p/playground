@@ -1,6 +1,7 @@
 import type { Signal } from "@preact/signals-react";
 import { useEffect, useRef } from "react";
 import { RGBToHSL, type HSLColor } from "../../lib/color-conversions";
+import type { BaseColor } from "../../palette-generator";
 
 const getPixelColor = (canvas: HTMLCanvasElement, x: number, y: number): HSLColor => {
   const context = canvas.getContext("2d");
@@ -37,27 +38,22 @@ const drawColorSpace = ({
   }
 };
 
-type Props = {
-  baseColor: Signal<HSLColor>;
-  marker: Signal<{ x: number; y: number }>;
-};
-
 const DEBOUNCE_DELAY = 100;
 
-function useColorPicker({ baseColor, marker }: Props) {
+function useColorPicker(baseColor: Signal<BaseColor>) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handlePickColor = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Get mouse position relative to the canvas
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
     try {
-      baseColor.value = getPixelColor(canvas, x, y);
-      marker.value = { x, y };
+      baseColor.value = { ...getPixelColor(canvas, x, y), location: { x, y } };
     } catch (error) {
       console.error("Error picking color:", error);
     }
