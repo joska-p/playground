@@ -1,6 +1,4 @@
 import { getRandom } from "@/lib/utils";
-import type { Signal } from "@preact/signals-react";
-import type { ComponentProps } from "react";
 import {
   CSS_VARS,
   initialGapSize,
@@ -8,12 +6,8 @@ import {
   initialRotations,
   initialTileSize,
 } from "./config";
+import { useMosaicMakerContext } from "./context";
 import { Tile } from "./tiles/tile";
-
-interface Props extends ComponentProps<"div"> {
-  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
-  tiles: Signal<string[]>;
-}
 
 const MOSAIC_STYLES = {
   ...initialPalette,
@@ -41,7 +35,9 @@ function generateTileRotations() {
   return getRandom(rotationKeys);
 }
 
-function Mosaic({ mosaicRef, tiles }: Props) {
+function Mosaic() {
+  const { mosaicRef, tiles } = useMosaicMakerContext();
+
   return (
     <div
       ref={mosaicRef.value}

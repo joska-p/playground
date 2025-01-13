@@ -1,8 +1,8 @@
 import { Slider } from "@/components/ui/slider/slider";
-import { Signal, useSignal } from "@preact/signals-react";
+import { useSignal } from "@preact/signals-react";
+import { useMosaicMakerContext } from "../context";
 
 type Props = {
-  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
   label: string;
   defaultValue: number;
   cssVar: string;
@@ -11,7 +11,8 @@ type Props = {
   step: number;
 };
 
-function SliderControls({ mosaicRef, label, defaultValue, cssVar, min, max, step }: Props) {
+function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) {
+  const { mosaicRef } = useMosaicMakerContext();
   const slideValue = useSignal(defaultValue);
 
   const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,16 +1,16 @@
 import { cn } from "@/lib/utils";
-import type { Signal } from "@preact/signals-react";
 import type { initialPalette } from "../config";
+import { useMosaicMakerContext } from "../context";
 import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
 import { updateElementStyles } from "../libs/style-utils";
 
-type Props = React.HTMLAttributes<HTMLLabelElement> & {
+interface Props extends React.HTMLAttributes<HTMLLabelElement> {
   palette: typeof initialPalette;
-  currentPalette: Signal<typeof initialPalette>;
-  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
-};
+}
 
-function PaletteButton({ palette, currentPalette, mosaicRef }: Props) {
+function PaletteButton({ palette }: Props) {
+  const { mosaicRef, currentPalette } = useMosaicMakerContext();
+
   const setCurrentPalette = (palette: typeof initialPalette) => {
     currentPalette.value = palette;
     if (!mosaicRef.value.current) return;

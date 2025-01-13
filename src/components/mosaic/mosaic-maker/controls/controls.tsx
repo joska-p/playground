@@ -1,29 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { shuffleArray, shuffleObject } from "@/lib/utils.ts";
-import type { Signal } from "@preact/signals-react";
 import { useEffect } from "react";
 import {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
-  initialPalette,
   initialRotations,
   MAX_RANDOM_PALETTES,
 } from "../config.ts";
+import { useMosaicMakerContext } from "../context";
 import { updateElementStyles } from "../libs/style-utils.ts";
 import { PaletteControls } from "./palette-controls.tsx";
 import { SliderControls } from "./slider-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
 
-type Props = {
-  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
-  tileSet: Signal<string[]>;
-  allThePalettes: Signal<(typeof initialPalette)[]>;
-  currentPalettes: Signal<(typeof initialPalette)[]>;
-  currentPalette: Signal<typeof initialPalette>;
-};
+function Controls() {
+  const { mosaicRef, tileSet, allThePalettes, currentPalettes, currentPalette } =
+    useMosaicMakerContext();
 
-function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, currentPalette }: Props) {
   const shufflePalettes = () => {
     if (!allThePalettes.value.length) return;
     const randomPalettes = shuffleArray(allThePalettes.value).slice(0, MAX_RANDOM_PALETTES);
@@ -69,7 +63,6 @@ function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, current
 
       <fieldset className="grid grid-cols-2 gap-4 px-2">
         <SliderControls
-          mosaicRef={mosaicRef}
           label="Tile size"
           defaultValue={DEFAULT_TILE_SIZE}
           cssVar={CSS_VARS.width}
@@ -78,7 +71,6 @@ function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, current
           step={2}
         />
         <SliderControls
-          mosaicRef={mosaicRef}
           label="Gap size"
           defaultValue={DEFAULT_GAP_SIZE}
           cssVar={CSS_VARS.gap}
@@ -88,13 +80,9 @@ function Controls({ mosaicRef, tileSet, allThePalettes, currentPalettes, current
         />
       </fieldset>
 
-      <TileSetControls tileSet={tileSet} />
+      <TileSetControls />
 
-      <PaletteControls
-        mosaicRef={mosaicRef}
-        currentPalette={currentPalette}
-        currentPalettes={currentPalettes}
-      />
+      <PaletteControls />
     </form>
   );
 }

@@ -1,16 +1,12 @@
 import { cn } from "@/lib/utils";
-import type { Signal } from "@preact/signals-react";
 import { initialPalette } from "../config";
+import { useMosaicMakerContext } from "../context";
 import { getPaletteId } from "../libs/palette-utils";
 import { PaletteButton } from "./palette-button";
 
-type Props = {
-  mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
-  currentPalette: Signal<typeof initialPalette>;
-  currentPalettes: Signal<(typeof initialPalette)[]>;
-};
+function PaletteControls() {
+  const { currentPalettes } = useMosaicMakerContext();
 
-function PaletteControls({ mosaicRef, currentPalette, currentPalettes }: Props) {
   return (
     <fieldset
       className={cn(
@@ -21,19 +17,9 @@ function PaletteControls({ mosaicRef, currentPalette, currentPalettes }: Props) 
     >
       <legend className="sr-only">Choose a color palette</legend>
 
-      <PaletteButton
-        palette={initialPalette}
-        currentPalette={currentPalette}
-        mosaicRef={mosaicRef}
-        aria-label="Default palette"
-      />
+      <PaletteButton palette={initialPalette} aria-label="Default palette" />
       {currentPalettes.value.map((palette) => (
-        <PaletteButton
-          key={getPaletteId(palette)}
-          palette={palette}
-          currentPalette={currentPalette}
-          mosaicRef={mosaicRef}
-        />
+        <PaletteButton key={getPaletteId(palette)} palette={palette} />
       ))}
     </fieldset>
   );

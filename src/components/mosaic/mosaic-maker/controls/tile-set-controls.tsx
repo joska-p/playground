@@ -1,13 +1,11 @@
 import { cn } from "@/lib/utils";
-import type { Signal } from "@preact/signals-react";
 import { initialPalette, initialTileSet } from "../config";
+import { useMosaicMakerContext } from "../context";
 import { Tile } from "../tiles/tile";
 
-type Props = {
-  tileSet: Signal<string[]>;
-};
+function TileSetControls() {
+  const { tileSet } = useMosaicMakerContext();
 
-function TileSetControls({ tileSet }: Props) {
   const handleChangetileSet = (tileName: string) => {
     if (tileSet.value.length === 1 && tileName === tileSet.value[0]) return;
 
