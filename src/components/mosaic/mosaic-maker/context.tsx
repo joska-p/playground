@@ -14,10 +14,8 @@ type MosaicContext = {
   tiles: Signal<string[]>;
 };
 
-// Create a context
 const MosaicMakerContext = createContext<MosaicContext | null>(null);
 
-// Create a provider component
 const MosaicMakerProvider = ({ children }: ComponentProps<"div">) => {
   const mosaicRef = signal(createRef<HTMLDivElement>());
   const tileSet = signal(initialTileSet);
@@ -25,16 +23,14 @@ const MosaicMakerProvider = ({ children }: ComponentProps<"div">) => {
   const currentPalettes = signal([initialPalette]);
   const currentPalette = signal(initialPalette);
 
-  // Fetch palettes using useEffect
   useEffect(() => {
     (async () => {
       const palettes = await fetchPalettes();
-      allThePalettes.value = palettes; // Update the signal with fetched data
-      currentPalettes.value = palettes.slice(0, MAX_RANDOM_PALETTES); // Update current palettes
+      allThePalettes.value = palettes;
+      currentPalettes.value = palettes.slice(0, MAX_RANDOM_PALETTES);
     })();
-  }, [allThePalettes, currentPalettes]); // Run once on mount
+  }, [allThePalettes, currentPalettes]);
 
-  // Computed signal for tiles
   const tiles = computed(() => {
     const newTileSet = tileSet.value;
     const mosaicElement = mosaicRef.value.current;
@@ -51,7 +47,6 @@ const MosaicMakerProvider = ({ children }: ComponentProps<"div">) => {
   );
 };
 
-// Custom hook to use the DataContext
 const useMosaicMakerContext = () => {
   const context = useContext(MosaicMakerContext);
   if (!context) {
