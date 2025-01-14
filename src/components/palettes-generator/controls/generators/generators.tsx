@@ -2,19 +2,14 @@
  * source for the color generators https://www.procjam.com/tutorials/en/color/
  */
 
-import type { Signal } from "@preact/signals-react";
-import type { HSLColor } from "../../lib/color-conversions";
+import { usePaletteContext } from "../../palette-context";
 import { AnalogousForm } from "./analogous-form";
 import { ComplementaryForm } from "./complementary-form";
 import { MonochromaticForm } from "./monochromatic-form";
 import { XadicForm } from "./xadic-form";
 
-type Props = {
-  palettes: Signal<HSLColor[][]>;
-  baseColor: Signal<HSLColor>;
-};
-
-function Generators({ palettes, baseColor }: Props) {
+function Generators() {
+  const { palettes, baseColor } = usePaletteContext();
   return (
     <div className="flex flex-col gap-4">
       <MonochromaticForm palettes={palettes} baseColor={baseColor} />

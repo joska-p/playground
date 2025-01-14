@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import type { initialPalette } from "../config";
-import { useMosaicMakerContext } from "../context";
 import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
 import { updateElementStyles } from "../libs/style-utils";
+import { useMosaicMakerContext } from "../mosaic-context";
 
 interface Props extends React.HTMLAttributes<HTMLLabelElement> {
   palette: typeof initialPalette;

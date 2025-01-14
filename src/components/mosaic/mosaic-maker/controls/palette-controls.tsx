@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { initialPalette } from "../config";
-import { useMosaicMakerContext } from "../context";
 import { getPaletteId } from "../libs/palette-utils";
+import { useMosaicMakerContext } from "../mosaic-context";
 import { PaletteButton } from "./palette-button";
 
 function PaletteControls() {

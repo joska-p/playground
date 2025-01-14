@@ -1,15 +1,14 @@
 import { cn } from "@/lib/utils";
-import { type Signal } from "@preact/signals-react";
-import type { BaseColor } from "../../palette-generator";
+import { usePaletteContext } from "../../palette-context";
 import { useColorPicker } from "./use-colorPicker";
 
 type ColorPickerProps = {
-  baseColor: Signal<BaseColor>;
   width?: number;
   height?: number;
 };
 
-function ColorPicker({ baseColor, width, height }: ColorPickerProps) {
+function ColorPicker({ width, height }: ColorPickerProps) {
+  const { baseColor } = usePaletteContext();
   const { canvasRef, handlePickColor } = useColorPicker(baseColor);
 
   return (

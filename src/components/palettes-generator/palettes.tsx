@@ -1,11 +1,7 @@
-import type { Signal } from "@preact/signals-react";
-import type { HSLColor } from "./lib/color-conversions";
+import { usePaletteContext } from "./palette-context";
 
-type Props = {
-  palettes: Signal<HSLColor[][]>;
-};
-
-function Palettes({ palettes }: Props) {
+function Palettes() {
+  const { palettes } = usePaletteContext();
   return (
     <div className="flex flex-col gap-4">
       {palettes.value.map((palette, index) => (

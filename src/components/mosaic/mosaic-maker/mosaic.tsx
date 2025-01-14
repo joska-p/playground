@@ -6,7 +6,7 @@ import {
   initialRotations,
   initialTileSize,
 } from "./config";
-import { useMosaicMakerContext } from "./context";
+import { useMosaicMakerContext } from "./mosaic-context";
 import { Tile } from "./tiles/tile";
 
 const MOSAIC_STYLES = {

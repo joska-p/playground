@@ -16,7 +16,7 @@ type MosaicContext = {
 
 const MosaicMakerContext = createContext<MosaicContext | null>(null);
 
-const MosaicMakerProvider = ({ children }: ComponentProps<"div">) => {
+function MosaicMakerProvider({ children }: ComponentProps<"div">) {
   const mosaicRef = signal(createRef<HTMLDivElement>());
   const tileSet = signal(initialTileSet);
   const allThePalettes = signal([initialPalette]);
@@ -45,14 +45,14 @@ const MosaicMakerProvider = ({ children }: ComponentProps<"div">) => {
       {children}
     </MosaicMakerContext>
   );
-};
+}
 
-const useMosaicMakerContext = () => {
+function useMosaicMakerContext() {
   const context = useContext(MosaicMakerContext);
   if (!context) {
     throw new Error("useMosaicMakerContext must be used within a MosaicMakerProvider");
   }
   return context;
-};
+}
 
 export { MosaicMakerProvider, useMosaicMakerContext };

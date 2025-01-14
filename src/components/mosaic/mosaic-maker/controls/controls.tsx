@@ -8,8 +8,8 @@ import {
   initialRotations,
   MAX_RANDOM_PALETTES,
 } from "../config.ts";
-import { useMosaicMakerContext } from "../context";
 import { updateElementStyles } from "../libs/style-utils.ts";
+import { useMosaicMakerContext } from "../mosaic-context.tsx";
 import { PaletteControls } from "./palette-controls.tsx";
 import { SliderControls } from "./slider-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
