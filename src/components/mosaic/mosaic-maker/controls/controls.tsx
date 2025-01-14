@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button.tsx";
 import { shuffleArray, shuffleObject } from "@/lib/utils.ts";
 import { useEffect } from "react";
 import {

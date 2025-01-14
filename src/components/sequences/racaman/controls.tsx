@@ -1,50 +1,50 @@
+import { Input } from "@/components/ui/input/input";
+import { Label } from "@/components/ui/label/label";
 import { Slider } from "@/components/ui/slider/slider";
 import { createRacamanSequence } from "./lib/sequence";
+import { useRacamanContext } from "./racaman-context";
 
-type Props = {
-  setSequence: (sequence: number[]) => void;
-  sequenceLength: number;
-  setDrawMode: (mode: string) => void;
-  drawMode: string;
-};
-
-function Controls({ setSequence, sequenceLength, setDrawMode, drawMode }: Props) {
-  function handleSequenceLengthChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSequence(createRacamanSequence(Number.parseInt(event.target.value)));
-  }
-
-  function handleSetDrawMode(event: React.ChangeEvent<HTMLInputElement>) {
-    setDrawMode(event.target.value);
-  }
+function Controls() {
+  const { sequence, drawMode } = useRacamanContext();
 
   return (
     <form className="flex items-center justify-center gap-8 bg-background/90 py-4">
-      <Slider.Label className="flex w-fit cursor-pointer items-center gap-2 text-sm">
-        <span className="mr-2 text-nowrap">Length: {sequenceLength}</span>
-        <Slider.Input min={1} max={256} step={1} defaultValue={sequenceLength} onChange={handleSequenceLengthChange} />
+      <Slider.Label>
+        Length: {sequence.value.length}
+        <Slider.Input
+          min={1}
+          max={256}
+          step={1}
+          defaultValue={sequence.value.length}
+          onChange={(event) => {
+            sequence.value = createRacamanSequence(Number(event.target.value));
+          }}
+        />
       </Slider.Label>
-      <label className="cursor-pointer text-sm">
-        <input
+      <Label>
+        <Input
           type="radio"
           value="canvas-mode"
-          checked={drawMode === "canvas-mode"}
-          name="change-draw-mode"
-          onChange={handleSetDrawMode}
-          className="mr-2"
+          checked={drawMode.value === "canvas-mode"}
+          name="canvas-mode"
+          onChange={(event) => {
+            drawMode.value = event.target.value;
+          }}
         />
         Canvas mode
-      </label>
-      <label htmlFor="vector-mode" className="cursor-pointer text-sm">
-        <input
+      </Label>
+      <Label>
+        <Input
           type="radio"
           value="vector-mode"
-          checked={drawMode === "vector-mode"}
-          name="change-draw-mode"
-          onChange={handleSetDrawMode}
-          className="mr-2"
+          checked={drawMode.value === "vector-mode"}
+          name="vectors-mode"
+          onChange={(event) => {
+            drawMode.value = event.target.value;
+          }}
         />
         Vector mode
-      </label>
+      </Label>
     </form>
   );
 }

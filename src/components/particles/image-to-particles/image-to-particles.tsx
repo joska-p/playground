@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button/button";
 import { StrictMode, useCallback, useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,
