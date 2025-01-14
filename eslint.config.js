@@ -1,13 +1,14 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginAstro from "eslint-plugin-astro";
+import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import typescriptESLint from "typescript-eslint";
 
 // File path setup
@@ -51,6 +52,30 @@ const jsxa11yConfig = {
   },
 };
 
+const importConfig = {
+  extends: [importPlugin.flatConfigs.recommended, importPlugin.flatConfigs.typescript],
+  settings: {
+    "import/resolver": {
+      typescript: {
+        alwaysTryTypes: true,
+        project: "./tsconfig.json",
+      },
+    },
+  },
+  rules: {
+    "import/order": [
+      "error",
+      {
+        groups: ["builtin", "external", "parent", "sibling", "index"],
+        alphabetize: {
+          order: "asc",
+        },
+      },
+    ],
+    "import/no-named-as-default-member": "off",
+  },
+};
+
 export default typescriptESLint.config(
   includeIgnoreFile(gitignorePath),
   eslint.configs.recommended,
@@ -59,5 +84,6 @@ export default typescriptESLint.config(
   ...eslintPluginAstro.configs.recommended,
   reactConfig,
   reactHooksConfig,
-  jsxa11yConfig
+  jsxa11yConfig,
+  importConfig
 );

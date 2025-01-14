@@ -1,8 +1,8 @@
-import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
 import { StrictMode } from "react";
 import { Controls } from "./controls/controls";
 import { MosaicMakerProvider } from "./mosaic-context";
 import { MosaicDisplay } from "./mosaic-display";
+import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
 
 function MosaicMaker() {
   return (

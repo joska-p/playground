@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button/button.tsx";
-import { shuffleArray, shuffleObject } from "@/lib/utils.ts";
 import { useEffect } from "react";
 import {
   CSS_VARS,
@@ -13,6 +11,8 @@ import { useMosaicMakerContext } from "../mosaic-context.tsx";
 import { PaletteControls } from "./palette-controls.tsx";
 import { SliderControls } from "./slider-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
+import { Button } from "@/components/ui/button/button.tsx";
+import { shuffleArray, shuffleObject } from "@/lib/utils.ts";
 
 function Controls() {
   const { mosaicRef, tileSet, allThePalettes, currentPalettes, currentPalette } =

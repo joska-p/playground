@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { useColorPicker } from "./use-colorPicker";
+import { cn } from "@/lib/utils";
 
 type ColorPickerProps = {
   width?: number;

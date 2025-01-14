@@ -1,4 +1,3 @@
-import { getRandom } from "@/lib/utils";
 import {
   CSS_VARS,
   initialGapSize,
@@ -8,6 +7,7 @@ import {
 } from "./config";
 import { useMosaicMakerContext } from "./mosaic-context";
 import { Tile } from "./tiles/tile";
+import { getRandom } from "@/lib/utils";
 
 const MOSAIC_STYLES = {
   ...initialPalette,

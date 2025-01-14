@@ -1,6 +1,6 @@
-import { safeFetch } from "@/lib/utils";
 import { z } from "zod";
 import { initialPalette } from "../config";
+import { safeFetch } from "@/lib/utils";
 
 // Types
 type Palette = typeof initialPalette;

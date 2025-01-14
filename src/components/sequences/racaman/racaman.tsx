@@ -1,8 +1,8 @@
-import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
 import { StrictMode } from "react";
 import { Controls } from "./controls";
 import { RacamanProvider } from "./racaman-context";
 import { RacamanDisplay } from "./racaman-display";
+import { SidebarProvider } from "@/components/widgets/sidebar/sidebar";
 
 function Racaman() {
   return (

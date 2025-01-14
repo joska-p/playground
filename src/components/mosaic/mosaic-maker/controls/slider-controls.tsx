@@ -1,6 +1,6 @@
-import { Slider } from "@/components/ui/slider/slider";
 import { useSignal } from "@preact/signals-react";
 import { useMosaicMakerContext } from "../mosaic-context";
+import { Slider } from "@/components/ui/slider/slider";
 
 type Props = {
   label: string;

@@ -1,8 +1,8 @@
+import { createRacamanSequence } from "./lib/sequence";
+import { useRacamanContext } from "./racaman-context";
 import { Input } from "@/components/ui/input/input";
 import { Label } from "@/components/ui/label/label";
 import { Slider } from "@/components/ui/slider/slider";
-import { createRacamanSequence } from "./lib/sequence";
-import { useRacamanContext } from "./racaman-context";
 
 function Controls() {
   const { sequence, drawMode } = useRacamanContext();

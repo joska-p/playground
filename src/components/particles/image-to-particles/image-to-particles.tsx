@@ -1,4 +1,3 @@
-import { Button, buttonVariants } from "@/components/ui/button/button";
 import { StrictMode, useCallback, useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,
@@ -11,6 +10,7 @@ import {
 } from "./config";
 import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./lib/utils";
 import { useImageUpload } from "./use-image-upload";
+import { Button, buttonVariants } from "@/components/ui/button/button";
 
 export type Particle = {
   x: number;

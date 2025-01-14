@@ -1,6 +1,6 @@
-import { useSearchParams } from "@/hooks/use-searchparams";
 import { StrictMode } from "react";
 import { Button } from "../ui/button/button";
+import { useSearchParams } from "@/hooks/use-searchparams";
 
 function Example01() {
   const { storeParam, getParam, clearParams, getAllParams } = useSearchParams();

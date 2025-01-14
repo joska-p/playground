@@ -1,4 +1,3 @@
-import { getRandom } from "@/lib/utils";
 import type { Signal } from "@preact/signals-react";
 import { computed, effect, signal } from "@preact/signals-react";
 import type { ComponentProps } from "react";
@@ -6,6 +5,7 @@ import { createContext, createRef, useContext } from "react";
 import { initialPalette, initialTileSet, MAX_RANDOM_PALETTES } from "./config";
 import { fetchPalettes } from "./libs/fetch-palettes";
 import { computeNumberOfTiles } from "./libs/style-utils";
+import { getRandom } from "@/lib/utils";
 
 type MosaicContext = {
   mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;

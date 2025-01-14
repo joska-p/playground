@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
 import { initialPalette, initialTileSet } from "../config";
 import { useMosaicMakerContext } from "../mosaic-context";
 import { Tile } from "../tiles/tile";
+import { cn } from "@/lib/utils";
 
 function TileSetControls() {
   const { tileSet } = useMosaicMakerContext();

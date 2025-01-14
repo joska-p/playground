@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { CornerCircles } from "./corner-circles";
 import { Cube } from "./cube";
 import { Diamond } from "./diamond";
@@ -7,6 +6,7 @@ import { OppositeCircles } from "./opposite-circles";
 import { Rainbow } from "./rainbow";
 import { Square } from "./square";
 import { Triangles } from "./triangles";
+import { cn } from "@/lib/utils";
 
 const tileComponents = {
   [CornerCircles.name]: CornerCircles,

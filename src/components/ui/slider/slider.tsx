@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 import styles from "./slider.module.css";
+import { cn } from "@/lib/utils";
 
 type LabelProps = ComponentProps<"label">;
 type InputProps = ComponentProps<"input">;
