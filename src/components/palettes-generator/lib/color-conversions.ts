@@ -1,5 +1,13 @@
-export type RGBColor = { red: number; green: number; blue: number };
-export type HSLColor = { hue: number; saturation: number; lightness: number };
+export interface RGBColor {
+  red: number;
+  green: number;
+  blue: number;
+}
+export interface HSLColor {
+  hue: number;
+  saturation: number;
+  lightness: number;
+}
 
 export function RGBToHSL({ red, green, blue }: RGBColor): HSLColor {
   const normalizedRed = red / 255;

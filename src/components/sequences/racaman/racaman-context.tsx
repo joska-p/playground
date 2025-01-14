@@ -2,11 +2,11 @@ import { signal, type Signal } from "@preact/signals-react";
 import { createContext, useContext, type ComponentProps } from "react";
 import { createRacamanSequence } from "./lib/sequence";
 
-type RacamanContext = {
+interface RacamanContext {
   sequence: Signal<number[]>;
   drawMode: Signal<string>;
   containerSize: Signal<{ width: number; height: number }>;
-};
+}
 
 const RacamanContext = createContext<RacamanContext | null>(null);
 

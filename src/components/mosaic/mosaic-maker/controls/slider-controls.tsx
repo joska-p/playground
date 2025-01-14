@@ -2,14 +2,14 @@ import { useSignal } from "@preact/signals-react";
 import { useMosaicMakerContext } from "../mosaic-context";
 import { Slider } from "@/components/ui/slider/slider";
 
-type Props = {
+interface Props {
   label: string;
   defaultValue: number;
   cssVar: string;
   min: number;
   max: number;
   step: number;
-};
+}
 
 function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) {
   const { mosaicRef } = useMosaicMakerContext();

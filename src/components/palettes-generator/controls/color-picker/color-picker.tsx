@@ -1,10 +1,10 @@
 import { useColorPicker } from "./use-colorPicker";
 import { cn } from "@/lib/utils";
 
-type ColorPickerProps = {
+interface ColorPickerProps {
   width?: number;
   height?: number;
-};
+}
 
 function ColorPicker({ width, height }: ColorPickerProps) {
   const { canvasRef, baseColor, handlePickColor } = useColorPicker();

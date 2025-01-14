@@ -7,14 +7,14 @@ import { fetchPalettes } from "./libs/fetch-palettes";
 import { computeNumberOfTiles } from "./libs/style-utils";
 import { getRandom } from "@/lib/utils";
 
-type MosaicContext = {
+interface MosaicContext {
   mosaicRef: Signal<React.RefObject<HTMLDivElement | null>>;
   tileSet: Signal<typeof initialTileSet>;
   allThePalettes: Signal<(typeof initialPalette)[]>;
   currentPalettes: Signal<(typeof initialPalette)[]>;
   currentPalette: Signal<typeof initialPalette>;
   tiles: Signal<string[]>;
-};
+}
 
 const MosaicMakerContext = createContext<MosaicContext | null>(null);
 

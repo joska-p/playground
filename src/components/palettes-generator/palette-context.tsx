@@ -5,10 +5,10 @@ import type { HSLColor } from "./lib/color-conversions";
 type Palette = HSLColor[];
 type BaseColor = HSLColor & { location: { x: number; y: number } };
 
-type PaletteContext = {
+interface PaletteContext {
   palettes: Signal<Palette[]>;
   baseColor: Signal<BaseColor>;
-};
+}
 
 const PaletteContext = createContext<PaletteContext | null>(null);
 

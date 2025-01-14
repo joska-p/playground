@@ -12,7 +12,7 @@ import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./li
 import { useImageUpload } from "./use-image-upload";
 import { Button, buttonVariants } from "@/components/ui/button/button";
 
-export type Particle = {
+export interface Particle {
   x: number;
   y: number;
   originX: number;
@@ -25,7 +25,7 @@ export type Particle = {
   };
   state: "waiting" | "falling" | "landed";
   delay: number;
-};
+}
 
 const ImageToParticles = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -127,8 +127,9 @@ const ImageToParticles = () => {
     image.onload = () => {
       try {
         // Setup canvas
-        canvasRef.current!.width = CANVAS_WIDTH;
-        canvasRef.current!.height = CANVAS_HEIGHT;
+        if (!canvasRef.current) return;
+        canvasRef.current.width = CANVAS_WIDTH;
+        canvasRef.current.height = CANVAS_HEIGHT;
 
         // Process image
         const dimensions = calculateImageDimensions(image.width, image.height);

@@ -4,11 +4,11 @@ import type { HSLColor } from "../../lib/color-conversions";
 import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 
-type MonochromaticPalettes = {
+interface MonochromaticPalettes {
   baseColor: HSLColor;
   length: number;
   angle: number;
-};
+}
 
 function xadicPalettes({ baseColor, length, angle }: MonochromaticPalettes): HSLColor[] {
   const { hue, saturation, lightness } = baseColor;
@@ -26,10 +26,10 @@ function xadicPalettes({ baseColor, length, angle }: MonochromaticPalettes): HSL
   return palette.sort((a, b) => a.hue - b.hue);
 }
 
-type Props = {
+interface Props {
   palettes: Signal<HSLColor[][]>;
   baseColor: Signal<HSLColor>;
-};
+}
 
 function XadicForm({ palettes, baseColor }: Props) {
   const [length, setLength] = useState(3);

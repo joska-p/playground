@@ -1,6 +1,9 @@
 type ParamKey = string;
 type ParamValue = string;
-type Param = { key: ParamKey; value: ParamValue };
+interface Param {
+  key: ParamKey;
+  value: ParamValue;
+}
 
 const useSearchParams = () => {
   const storeParam = (params: Param): void => {

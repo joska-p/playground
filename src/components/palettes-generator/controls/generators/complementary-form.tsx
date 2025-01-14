@@ -4,15 +4,15 @@ import type { HSLColor } from "../../lib/color-conversions";
 import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 
-type MonochromaticPalettes = {
+interface MonochromaticPalettes {
   baseColor: HSLColor;
   length: number;
   split: number;
-};
+}
 
 function complementaryPalettes({ baseColor, length, split }: MonochromaticPalettes): HSLColor[] {
   const { hue, saturation, lightness } = baseColor;
-  const palette: Array<HSLColor> = [];
+  const palette: HSLColor[] = [];
   const angle = 180;
 
   for (let i = -Math.floor(length / 2); i < Math.ceil(length / 2); i++) {
@@ -30,10 +30,10 @@ function complementaryPalettes({ baseColor, length, split }: MonochromaticPalett
   return palette.sort((a, b) => a.hue - b.hue);
 }
 
-type Props = {
+interface Props {
   palettes: Signal<HSLColor[][]>;
   baseColor: Signal<HSLColor>;
-};
+}
 
 function ComplementaryForm({ palettes, baseColor }: Props) {
   const [length, setLength] = useState(3);

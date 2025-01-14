@@ -19,12 +19,12 @@ const tileComponents = {
   [Cube.name]: Cube,
 };
 
-type Props = {
+interface Props {
   name: keyof typeof tileComponents;
   colors: [string, string, string, string, string];
   rotation: string;
   className?: string;
-};
+}
 
 function Tile({ name, colors, rotation, className }: Props) {
   if (colors.length !== 5) {

@@ -4,15 +4,15 @@ import type { HSLColor } from "../../lib/color-conversions";
 import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 
-type MonochromaticPalettes = {
+interface MonochromaticPalettes {
   baseColor: HSLColor;
   length: number;
   angle: number;
-};
+}
 
 function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalettes) {
   const { hue, saturation, lightness } = baseColor;
-  const palette: Array<HSLColor> = [];
+  const palette: HSLColor[] = [];
 
   // Calculate the step size for hue variation
 
@@ -35,10 +35,10 @@ function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalett
   return palette.sort((a, b) => a.lightness - b.lightness);
 }
 
-type Props = {
+interface Props {
   palettes: Signal<HSLColor[][]>;
   baseColor: Signal<HSLColor>;
-};
+}
 
 function MonochromaticForm({ palettes, baseColor }: Props) {
   const [length, setLength] = useState(5);

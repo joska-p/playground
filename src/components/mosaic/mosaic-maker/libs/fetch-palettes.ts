@@ -4,11 +4,11 @@ import { safeFetch } from "@/lib/utils";
 
 // Types
 type Palette = typeof initialPalette;
-type CachedPalettes = {
+interface CachedPalettes {
   palettes: Palette[];
   expiration: number;
   version: number;
-};
+}
 
 // Constants
 const CACHE_KEY = "palettes";
