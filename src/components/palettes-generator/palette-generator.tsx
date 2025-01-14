@@ -3,7 +3,7 @@ import { StrictMode } from "react";
 import { ColorPicker } from "./controls/color-picker/color-picker";
 import { Generators } from "./controls/generators/generators";
 import { PaletteProvider } from "./palette-context";
-import { Palettes } from "./palettes";
+import { PaletteDisplay } from "./palette-display";
 
 function PaletteGenerator() {
   return (
@@ -15,7 +15,7 @@ function PaletteGenerator() {
         </SidebarProvider.Sidebar>
 
         <SidebarProvider.Content className="p-2">
-          <Palettes />
+          <PaletteDisplay />
         </SidebarProvider.Content>
       </SidebarProvider>
     </PaletteProvider>

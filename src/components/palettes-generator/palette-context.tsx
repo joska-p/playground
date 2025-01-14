@@ -1,5 +1,5 @@
 import { signal, type Signal } from "@preact/signals-react";
-import { createContext, createRef, useContext, type ComponentProps } from "react";
+import { createContext, useContext, type ComponentProps } from "react";
 import type { HSLColor } from "./lib/color-conversions";
 
 type Palette = HSLColor[];
@@ -8,7 +8,6 @@ type BaseColor = HSLColor & { location: { x: number; y: number } };
 type PaletteContext = {
   palettes: Signal<Palette[]>;
   baseColor: Signal<BaseColor>;
-  colorSpaceRef: Signal<React.RefObject<HTMLCanvasElement | null>>;
 };
 
 const PaletteContext = createContext<PaletteContext | null>(null);
@@ -21,9 +20,8 @@ function PaletteProvider({ children }: ComponentProps<"div">) {
     lightness: 50,
     location: { x: 184, y: 184 },
   });
-  const colorSpaceRef = signal(createRef<HTMLCanvasElement>());
 
-  return <PaletteContext value={{ palettes, baseColor, colorSpaceRef }}>{children}</PaletteContext>;
+  return <PaletteContext value={{ palettes, baseColor }}>{children}</PaletteContext>;
 }
 
 function usePaletteContext() {

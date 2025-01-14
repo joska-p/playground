@@ -1,6 +1,6 @@
 import { usePaletteContext } from "./palette-context";
 
-function Palettes() {
+function PaletteDisplay() {
   const { palettes } = usePaletteContext();
   return (
     <div className="flex flex-col gap-4">
@@ -21,4 +21,4 @@ function Palettes() {
   );
 }
 
-export { Palettes };
+export { PaletteDisplay };

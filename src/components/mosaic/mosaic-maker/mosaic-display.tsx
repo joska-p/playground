@@ -35,7 +35,7 @@ function generateTileRotations() {
   return getRandom(rotationKeys);
 }
 
-function Mosaic() {
+function MosaicDisplay() {
   const { mosaicRef, tiles } = useMosaicMakerContext();
 
   return (
@@ -56,4 +56,4 @@ function Mosaic() {
   );
 }
 
-export { Mosaic };
+export { MosaicDisplay };
