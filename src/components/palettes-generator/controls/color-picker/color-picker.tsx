@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { usePaletteContext } from "../../palette-context";
 import { useColorPicker } from "./use-colorPicker";
 
 type ColorPickerProps = {
@@ -8,18 +7,19 @@ type ColorPickerProps = {
 };
 
 function ColorPicker({ width, height }: ColorPickerProps) {
-  const { baseColor } = usePaletteContext();
-  const { canvasRef, handlePickColor } = useColorPicker(baseColor);
+  const { canvasRef, baseColor, handlePickColor } = useColorPicker();
+  const { hue, saturation, lightness } = baseColor.value;
+  const { x, y } = baseColor.value.location;
 
   return (
     <div className="relative flex flex-col items-start justify-between gap-4">
       <div
-        style={{ top: baseColor.value.location.y, left: baseColor.value.location.x }}
+        style={{ top: y, left: x }}
         inert
         className={cn(
           "absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2",
-          { "border-white": baseColor.value.lightness < 50 },
-          { "border-black": baseColor.value.lightness >= 50 }
+          { "border-white": lightness < 50 },
+          { "border-black": lightness >= 50 }
         )}
       ></div>
       <canvas
@@ -36,7 +36,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
         <div
           className="h-8 w-full"
           style={{
-            backgroundImage: `linear-gradient(to right, hsl(${baseColor.value.hue}, 0%, ${baseColor.value.lightness}%), hsl(${baseColor.value.hue}, 100%, ${baseColor.value.lightness}%))`,
+            backgroundImage: `linear-gradient(to right, hsl(${hue}, 0%, ${lightness}%), hsl(${hue}, 100%, ${lightness}%))`,
           }}
         />
         <input
@@ -45,7 +45,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
           min={0}
           max={100}
           step={1}
-          value={baseColor.value.saturation}
+          value={saturation}
           aria-label="Saturation"
           onChange={(event) =>
             (baseColor.value = { ...baseColor.value, saturation: Number(event.target.value) })
@@ -55,7 +55,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
       <div
         className="h-16 w-full"
         style={{
-          background: `hsl(${baseColor.value.hue}, ${baseColor.value.saturation}%, ${baseColor.value.lightness}%)`,
+          background: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
         }}
       ></div>
     </div>

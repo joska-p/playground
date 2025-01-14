@@ -1,7 +1,6 @@
-import type { Signal } from "@preact/signals-react";
 import { useEffect, useRef } from "react";
 import { RGBToHSL, type HSLColor } from "../../lib/color-conversions";
-import type { BaseColor } from "../../palette-generator";
+import { usePaletteContext } from "../../palette-context";
 
 const getPixelColor = (canvas: HTMLCanvasElement, x: number, y: number): HSLColor => {
   const context = canvas.getContext("2d");
@@ -40,8 +39,9 @@ const drawColorSpace = ({
 
 const DEBOUNCE_DELAY = 100;
 
-function useColorPicker(baseColor: Signal<BaseColor>) {
+function useColorPicker() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { baseColor } = usePaletteContext();
 
   const handlePickColor = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -69,7 +69,7 @@ function useColorPicker(baseColor: Signal<BaseColor>) {
     return () => clearTimeout(debounce);
   }, [baseColor.value.saturation]);
 
-  return { canvasRef, handlePickColor };
+  return { canvasRef, baseColor, handlePickColor };
 }
 
 export { useColorPicker };
