@@ -1,6 +1,8 @@
 import { getRandom } from "@/lib/utils";
-import { computed, Signal, signal } from "@preact/signals-react";
-import { createContext, createRef, useContext, useEffect, type ComponentProps } from "react";
+import type { Signal } from "@preact/signals-react";
+import { computed, effect, signal } from "@preact/signals-react";
+import type { ComponentProps } from "react";
+import { createContext, createRef, useContext } from "react";
 import { initialPalette, initialTileSet, MAX_RANDOM_PALETTES } from "./config";
 import { fetchPalettes } from "./libs/fetch-palettes";
 import { computeNumberOfTiles } from "./libs/style-utils";
@@ -22,20 +24,18 @@ function MosaicMakerProvider({ children }: ComponentProps<"div">) {
   const allThePalettes = signal([initialPalette]);
   const currentPalettes = signal([initialPalette]);
   const currentPalette = signal(initialPalette);
-
-  useEffect(() => {
-    (async () => {
-      const palettes = await fetchPalettes();
-      allThePalettes.value = palettes;
-      currentPalettes.value = palettes.slice(0, MAX_RANDOM_PALETTES);
-    })();
-  }, [allThePalettes, currentPalettes]);
-
   const tiles = computed(() => {
     const newTileSet = tileSet.value;
     const mosaicElement = mosaicRef.value.current;
     const numberOfTiles = mosaicElement ? computeNumberOfTiles(mosaicElement) : 0;
     return Array.from({ length: numberOfTiles }, () => getRandom(newTileSet));
+  });
+
+  effect(() => {
+    (async () => {
+      allThePalettes.value = await fetchPalettes();
+      currentPalettes.value = allThePalettes.value.slice(0, MAX_RANDOM_PALETTES);
+    })();
   });
 
   return (
