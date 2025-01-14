@@ -6,10 +6,13 @@ interface Props extends ComponentProps<"div"> {
   rotation: string;
 }
 
-function MiddleCircles({ colors, rotation, className }: Props) {
+function MiddleCircle({ colors, rotation, className }: Props) {
   return (
     <div
-      className={cn("flex items-center justify-center transition-[transform,background-color] duration-500", className)}
+      className={cn(
+        "flex items-center justify-center transition-[transform,background-color] duration-500",
+        className
+      )}
       style={{
         backgroundColor: `var(${colors[0]})`,
         transform: `rotate(var(${rotation}))`,
@@ -31,4 +34,4 @@ function MiddleCircles({ colors, rotation, className }: Props) {
   );
 }
 
-export { MiddleCircles };
+export { MiddleCircle };

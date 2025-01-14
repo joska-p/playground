@@ -18,7 +18,9 @@ const useSearchParams = () => {
   const removeParam = (key: ParamKey): void => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.delete(key);
-    const newUrl = searchParams.toString() ? `${location.pathname}?${searchParams.toString()}` : location.pathname;
+    const newUrl = searchParams.toString()
+      ? `${location.pathname}?${searchParams.toString()}`
+      : location.pathname;
     history.pushState({}, "", newUrl);
   };
 

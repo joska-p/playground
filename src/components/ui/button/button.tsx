@@ -31,7 +31,12 @@ interface Props extends ComponentProps<"button">, VariantProps<typeof buttonVari
 
 function Button({ ref, className, children, variant, size, type = "button", ...props }: Props) {
   return (
-    <button className={cn(buttonVariants({ variant, size, className }))} type={type} ref={ref} {...props}>
+    <button
+      className={cn(buttonVariants({ variant, size, className }))}
+      type={type}
+      ref={ref}
+      {...props}
+    >
       {children}
     </button>
   );

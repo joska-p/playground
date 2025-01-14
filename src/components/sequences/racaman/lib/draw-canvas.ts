@@ -27,7 +27,11 @@ function drawSequence(context: CanvasRenderingContext2D, sequence: number[], val
   });
 }
 
-function draw(canvas: HTMLCanvasElement, sequence: number[], containerSize: { width: number; height: number }) {
+function draw(
+  canvas: HTMLCanvasElement,
+  sequence: number[],
+  containerSize: { width: number; height: number }
+) {
   if (!canvas.parentElement) return;
 
   setupCanvas(canvas, containerSize);

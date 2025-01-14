@@ -13,7 +13,10 @@ function Square({ colors, rotation, className }: Props) {
 
   return (
     <div
-      className={cn("tile grid grid-cols-2 grid-rows-2 transition-transform duration-500", className)}
+      className={cn(
+        "tile grid grid-cols-2 grid-rows-2 transition-transform duration-500",
+        className
+      )}
       style={squareStyle}
     >
       <div
