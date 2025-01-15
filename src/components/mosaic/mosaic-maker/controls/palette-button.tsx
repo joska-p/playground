@@ -12,9 +12,9 @@ function PaletteButton({ palette }: Props) {
   const { mosaicRef, currentPalette } = useMosaicMakerContext();
 
   const setCurrentPalette = (palette: typeof initialPalette) => {
-    if (!mosaicRef.value.current) return;
+    if (!mosaicRef.current) return;
     currentPalette.value = palette;
-    updateElementStyles(mosaicRef.value.current, palette);
+    updateElementStyles(mosaicRef.current, palette);
   };
 
   return (

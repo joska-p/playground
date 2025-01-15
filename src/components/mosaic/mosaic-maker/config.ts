@@ -35,7 +35,7 @@ const defaultPalette = {
 const defaultTileSet = [
   "CornerCircles",
   "Diamond",
-  "MiddleCircles",
+  "MiddleCircle",
   "OppositeCircles",
   "Rainbow",
   "Square",

@@ -16,10 +16,10 @@ function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) 
   const slideValue = useSignal(defaultValue);
 
   const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!mosaicRef.value.current) return;
+    if (!mosaicRef.current) return;
     const value = Number(event.target.value);
     slideValue.value = value;
-    mosaicRef.value.current.style.setProperty(cssVar, `${value}px`);
+    mosaicRef.current.style.setProperty(cssVar, `${value}px`);
   };
 
   return (

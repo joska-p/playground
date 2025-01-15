@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
@@ -18,25 +18,29 @@ function Controls() {
   const { mosaicRef, tileSet, allThePalettes, currentPalettes, currentPalette } =
     useMosaicMakerContext();
 
-  const shufflePalettes = () => {
+  function shufflePalettes() {
     if (!allThePalettes.value.length) return;
     const randomPalettes = shuffleArray(allThePalettes.value).slice(0, MAX_RANDOM_PALETTES);
     currentPalettes.value = randomPalettes;
-  };
+  }
 
-  const shuffleColors = () => {
-    if (!mosaicRef.value.current) return;
-    updateElementStyles(mosaicRef.value.current, shuffleObject(currentPalette.value));
-  };
+  function shuffleColors() {
+    if (!mosaicRef.current) return;
+    updateElementStyles(mosaicRef.current, shuffleObject(currentPalette.value));
+  }
 
-  const shuffleRotations = () => {
-    if (!mosaicRef.value.current) return;
-    updateElementStyles(mosaicRef.value.current, shuffleObject(initialRotations));
-  };
+  function shuffleRotations() {
+    if (!mosaicRef.current) return;
+    updateElementStyles(mosaicRef.current, shuffleObject(initialRotations));
+  }
+
+  const setNewTiles = useCallback(() => {
+    tileSet.value = shuffleArray(tileSet.value);
+  }, [tileSet]);
 
   useEffect(() => {
-    tileSet.value = [...tileSet.value];
-  }, [tileSet]);
+    setNewTiles();
+  }, [setNewTiles]);
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
@@ -50,13 +54,7 @@ function Controls() {
         <Button type="button" onClick={shufflePalettes} size="sm">
           New palettes
         </Button>
-        <Button
-          type="button"
-          onClick={() => {
-            tileSet.value = [...tileSet.value];
-          }}
-          size="sm"
-        >
+        <Button type="button" onClick={setNewTiles} size="sm">
           New tiles
         </Button>
       </fieldset>

@@ -27,7 +27,7 @@ interface Props {
 }
 
 function Tile({ name, colors, rotation, className }: Props) {
-  if (colors.length !== 5) {
+  if (colors.length < 5) {
     throw new Error("Tile component requires exactly 5 colors");
   }
 

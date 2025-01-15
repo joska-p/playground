@@ -40,7 +40,7 @@ function MosaicDisplay() {
 
   return (
     <div
-      ref={mosaicRef.value}
+      ref={mosaicRef}
       className="absolute inset-0 grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
