@@ -35,7 +35,7 @@ function Controls() {
   }
 
   const setNewTiles = useCallback(() => {
-    tileSet.value = shuffleArray(tileSet.value);
+    tileSet.value = [...tileSet.value];
   }, [tileSet]);
 
   useEffect(() => {
