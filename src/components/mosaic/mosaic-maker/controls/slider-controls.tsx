@@ -24,7 +24,7 @@ function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) 
 
   return (
     <Slider.Label>
-      {label}: {slideValue.value}px
+      {label}: {slideValue}px
       <Slider.Input
         min={min}
         max={max}
