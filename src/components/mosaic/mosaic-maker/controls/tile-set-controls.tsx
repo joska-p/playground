@@ -4,18 +4,7 @@ import { Tile } from "../tiles/tile";
 import { cn } from "@/lib/utils";
 
 function TileSetControls() {
-  const { tileSet } = useMosaicMakerContext();
-
-  const handleChangetileSet = (tileName: string) => {
-    if (tileSet.value.length === 1 && tileName === tileSet.value[0]) return;
-
-    const isTileInSet = tileSet.value.includes(tileName);
-    const updatedTileSet = isTileInSet
-      ? tileSet.value.filter((tile) => tile !== tileName)
-      : [...tileSet.value, tileName];
-
-    tileSet.value = updatedTileSet;
-  };
+  const { tileSet, updateTileSet } = useMosaicMakerContext();
 
   return (
     <fieldset
@@ -28,7 +17,7 @@ function TileSetControls() {
             <input
               type="checkbox"
               checked={tileSet.value.includes(tileName)}
-              onChange={() => handleChangetileSet(tileName)}
+              onChange={() => updateTileSet(tileName)}
               className="peer sr-only"
             />
             <Tile

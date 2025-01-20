@@ -37,6 +37,7 @@ function XadicForm({ palettes, baseColor }: Props) {
 
   function handleClick() {
     const colors = xadicPalettes({ baseColor: baseColor.value, length, angle });
+    // eslint-disable-next-line react-compiler/react-compiler
     palettes.value = [...palettes.value, colors];
   }
 

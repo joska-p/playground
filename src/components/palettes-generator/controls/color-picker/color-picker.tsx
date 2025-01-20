@@ -7,7 +7,7 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ width, height }: ColorPickerProps) {
-  const { canvasRef, baseColor, handlePickColor } = useColorPicker();
+  const { canvasRef, baseColor, handlePickColor, handleSaturationChange } = useColorPicker();
   const { hue, saturation, lightness } = baseColor.value;
   const { x, y } = baseColor.value.location;
 
@@ -47,9 +47,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
           step={1}
           value={saturation}
           aria-label="Saturation"
-          onChange={(event) =>
-            (baseColor.value = { ...baseColor.value, saturation: Number(event.target.value) })
-          }
+          onChange={handleSaturationChange}
         />
       </label>
       <div

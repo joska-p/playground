@@ -38,6 +38,7 @@ function AnalogousForm({ palettes, baseColor }: Props) {
 
   function handleClick() {
     const colors = analogousPalettes({ baseColor: baseColor.value, length, split });
+    // eslint-disable-next-line react-compiler/react-compiler
     palettes.value = [...palettes.value, colors];
   }
 

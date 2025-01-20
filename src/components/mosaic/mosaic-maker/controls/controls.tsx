@@ -1,46 +1,12 @@
-import { useCallback, useEffect } from "react";
-import {
-  CSS_VARS,
-  DEFAULT_GAP_SIZE,
-  DEFAULT_TILE_SIZE,
-  initialRotations,
-  MAX_RANDOM_PALETTES,
-} from "../config.ts";
-import { updateElementStyles } from "../libs/style-utils.ts";
+import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE } from "../config.ts";
 import { useMosaicMakerContext } from "../mosaic-context.tsx";
 import { PaletteControls } from "./palette-controls.tsx";
 import { SliderControls } from "./slider-controls.tsx";
 import { TileSetControls } from "./tile-set-controls.tsx";
 import { Button } from "@/components/ui/button/button.tsx";
-import { shuffleArray, shuffleObject } from "@/lib/utils.ts";
 
 function Controls() {
-  const { mosaicRef, tileSet, allThePalettes, currentPalettes, currentPalette } =
-    useMosaicMakerContext();
-
-  function shufflePalettes() {
-    if (!allThePalettes.value.length) return;
-    const randomPalettes = shuffleArray(allThePalettes.value).slice(0, MAX_RANDOM_PALETTES);
-    currentPalettes.value = randomPalettes;
-  }
-
-  function shuffleColors() {
-    if (!mosaicRef.current) return;
-    updateElementStyles(mosaicRef.current, shuffleObject(currentPalette.value));
-  }
-
-  function shuffleRotations() {
-    if (!mosaicRef.current) return;
-    updateElementStyles(mosaicRef.current, shuffleObject(initialRotations));
-  }
-
-  const setNewTiles = useCallback(() => {
-    tileSet.value = [...tileSet.value];
-  }, [tileSet]);
-
-  useEffect(() => {
-    setNewTiles();
-  }, [setNewTiles]);
+  const { shufflePalettes, shuffleColors, shuffleRotations, setNewTiles } = useMosaicMakerContext();
 
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">

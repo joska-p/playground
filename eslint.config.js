@@ -7,6 +7,7 @@ import eslintPluginAstro from "eslint-plugin-astro";
 import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginReact from "eslint-plugin-react";
+import reactCompiler from "eslint-plugin-react-compiler";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import typescriptESLint from "typescript-eslint";
@@ -37,6 +38,15 @@ const reactHooksConfig = {
     ...eslintPluginReactHooks.configs.recommended.rules,
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+  },
+};
+
+const reactCompilerConfig = {
+  plugins: {
+    "react-compiler": reactCompiler,
+  },
+  rules: {
+    "react-compiler/react-compiler": "error",
   },
 };
 
@@ -85,6 +95,7 @@ export default typescriptESLint.config(
   ...eslintPluginAstro.configs.recommended,
   reactConfig,
   reactHooksConfig,
+  reactCompilerConfig,
   jsxa11yConfig,
   importConfig
 );

@@ -18,6 +18,7 @@ function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) 
   const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!mosaicRef.current) return;
     const value = Number(event.target.value);
+    // eslint-disable-next-line react-compiler/react-compiler
     slideValue.value = value;
     mosaicRef.current.style.setProperty(cssVar, `${value}px`);
   };

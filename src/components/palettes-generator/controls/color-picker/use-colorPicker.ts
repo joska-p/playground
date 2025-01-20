@@ -53,10 +53,15 @@ function useColorPicker() {
     const y = event.clientY - rect.top;
 
     try {
+      // eslint-disable-next-line react-compiler/react-compiler
       baseColor.value = { ...getPixelColor(canvas, x, y), location: { x, y } };
     } catch (error) {
       console.error("Error picking color:", error);
     }
+  };
+
+  const handleSaturationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    baseColor.value = { ...baseColor.value, saturation: Number(event.target.value) };
   };
 
   useEffect(() => {
@@ -69,7 +74,7 @@ function useColorPicker() {
     return () => clearTimeout(debounce);
   }, [baseColor.value.saturation]);
 
-  return { canvasRef, baseColor, handlePickColor };
+  return { canvasRef, baseColor, handlePickColor, handleSaturationChange };
 }
 
 export { useColorPicker };

@@ -46,6 +46,7 @@ function MonochromaticForm({ palettes, baseColor }: Props) {
 
   function handleClick() {
     const colors = monochromaticPalettes({ baseColor: baseColor.value, length, angle });
+    // eslint-disable-next-line react-compiler/react-compiler
     palettes.value = [...palettes.value, colors];
   }
 

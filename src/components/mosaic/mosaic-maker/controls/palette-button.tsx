@@ -1,6 +1,5 @@
 import type { initialPalette } from "../config";
 import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
-import { updateElementStyles } from "../libs/style-utils";
 import { useMosaicMakerContext } from "../mosaic-context";
 import { cn } from "@/lib/utils";
 
@@ -9,13 +8,7 @@ interface Props extends React.HTMLAttributes<HTMLLabelElement> {
 }
 
 function PaletteButton({ palette }: Props) {
-  const { mosaicRef, currentPalette } = useMosaicMakerContext();
-
-  const setCurrentPalette = (palette: typeof initialPalette) => {
-    if (!mosaicRef.current) return;
-    currentPalette.value = palette;
-    updateElementStyles(mosaicRef.current, palette);
-  };
+  const { currentPalette, setCurrentPalette } = useMosaicMakerContext();
 
   return (
     <label

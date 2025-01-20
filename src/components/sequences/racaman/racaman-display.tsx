@@ -10,11 +10,14 @@ function RacamanDisplay() {
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       if (!containerRef.current) return;
+
+      // eslint-disable-next-line react-compiler/react-compiler
       containerSize.value = {
         width: containerRef.current.offsetWidth,
         height: containerRef.current.offsetHeight,
       };
     });
+
     if (containerRef.current) observer.observe(containerRef.current);
     return () => {
       observer.disconnect();

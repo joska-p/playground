@@ -41,6 +41,7 @@ function ComplementaryForm({ palettes, baseColor }: Props) {
 
   function handleClick() {
     const colors = complementaryPalettes({ baseColor: baseColor.value, length, split });
+    // eslint-disable-next-line react-compiler/react-compiler
     palettes.value = [...palettes.value, colors];
   }
 

@@ -1,4 +1,4 @@
-import { signal, type Signal } from "@preact/signals-react";
+import { useSignal, type Signal } from "@preact/signals-react";
 import { createContext, useContext, type ComponentProps } from "react";
 import type { HSLColor } from "./lib/color-conversions";
 
@@ -13,8 +13,8 @@ interface PaletteContext {
 const PaletteContext = createContext<PaletteContext | null>(null);
 
 function PaletteProvider({ children }: ComponentProps<"div">) {
-  const palettes = signal<Palette[]>([]);
-  const baseColor = signal<BaseColor>({
+  const palettes = useSignal<Palette[]>([]);
+  const baseColor = useSignal<BaseColor>({
     hue: 180,
     saturation: 100,
     lightness: 50,

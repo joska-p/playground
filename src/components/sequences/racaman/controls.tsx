@@ -1,11 +1,10 @@
-import { createRacamanSequence } from "./lib/sequence";
 import { useRacamanContext } from "./racaman-context";
 import { Input } from "@/components/ui/input/input";
 import { Label } from "@/components/ui/label/label";
 import { Slider } from "@/components/ui/slider/slider";
 
 function Controls() {
-  const { sequence, drawMode } = useRacamanContext();
+  const { sequence, drawMode, updateSequence, changeDrawMode } = useRacamanContext();
 
   return (
     <form className="flex items-center justify-center gap-8 bg-background/90 py-4">
@@ -16,9 +15,7 @@ function Controls() {
           max={256}
           step={1}
           defaultValue={sequence.value.length}
-          onChange={(event) => {
-            sequence.value = createRacamanSequence(Number(event.target.value));
-          }}
+          onChange={updateSequence}
         />
       </Slider.Label>
       <Label>
@@ -27,9 +24,7 @@ function Controls() {
           value="canvas-mode"
           checked={drawMode.value === "canvas-mode"}
           name="canvas-mode"
-          onChange={(event) => {
-            drawMode.value = event.target.value;
-          }}
+          onChange={changeDrawMode}
         />
         Canvas mode
       </Label>
@@ -39,9 +34,7 @@ function Controls() {
           value="vector-mode"
           checked={drawMode.value === "vector-mode"}
           name="vectors-mode"
-          onChange={(event) => {
-            drawMode.value = event.target.value;
-          }}
+          onChange={changeDrawMode}
         />
         Vector mode
       </Label>
