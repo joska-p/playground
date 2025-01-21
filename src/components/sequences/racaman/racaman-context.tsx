@@ -1,11 +1,11 @@
-import { useSignal, type Signal } from "@preact/signals-react";
-import { createContext, useContext, type ComponentProps } from "react";
+import { createContext, useContext, useState, type ComponentProps } from "react";
 import { createRacamanSequence } from "./lib/sequence";
 
 interface RacamanContext {
-  sequence: Signal<number[]>;
-  drawMode: Signal<string>;
-  containerSize: Signal<{ width: number; height: number }>;
+  sequence: number[];
+  drawMode: "vector-mode" | "canvas-mode";
+  containerSize: { width: number; height: number };
+  setContainerSize: React.Dispatch<React.SetStateAction<{ width: number; height: number }>>;
   updateSequence: (event: React.ChangeEvent<HTMLInputElement>) => void;
   changeDrawMode: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -13,22 +13,30 @@ interface RacamanContext {
 const RacamanContext = createContext<RacamanContext | null>(null);
 
 function RacamanProvider({ children }: ComponentProps<"div">) {
-  const sequence = useSignal<number[]>(createRacamanSequence(30));
-  const drawMode = useSignal("vector-mode");
-  const containerSize = useSignal({ width: 0, height: 0 });
+  const [sequence, setSequence] = useState<number[]>(createRacamanSequence(30));
+  const [drawMode, setDrawMode] = useState<"vector-mode" | "canvas-mode">("vector-mode");
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   const updateSequence = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // eslint-disable-next-line react-compiler/react-compiler
-    sequence.value = createRacamanSequence(Number(event.target.value));
+    setSequence(createRacamanSequence(Number(event.target.value)));
   };
 
   const changeDrawMode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    drawMode.value = event.target.value;
+    if (event.target.value !== "canvas-mode" && event.target.value !== "vector-mode")
+      throw new Error("Invalid draw mode");
+    setDrawMode(event.target.value);
   };
 
   return (
     <RacamanContext.Provider
-      value={{ sequence, drawMode, containerSize, updateSequence, changeDrawMode }}
+      value={{
+        sequence,
+        drawMode,
+        containerSize,
+        setContainerSize,
+        updateSequence,
+        changeDrawMode,
+      }}
     >
       {children}
     </RacamanContext.Provider>

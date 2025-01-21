@@ -4,30 +4,29 @@ import { useRacamanContext } from "./racaman-context";
 import { VectorsDisplay } from "./vectors-display";
 
 function RacamanDisplay() {
-  const { drawMode, containerSize } = useRacamanContext();
+  const { drawMode, setContainerSize } = useRacamanContext();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new ResizeObserver(() => {
       if (!containerRef.current) return;
 
-      // eslint-disable-next-line react-compiler/react-compiler
-      containerSize.value = {
+      setContainerSize({
         width: containerRef.current.offsetWidth,
         height: containerRef.current.offsetHeight,
-      };
+      });
     });
 
     if (containerRef.current) observer.observe(containerRef.current);
     return () => {
       observer.disconnect();
     };
-  }, [containerRef, containerSize]);
+  }, [containerRef, setContainerSize]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 content-center overflow-hidden">
-      {drawMode.value === "vector-mode" && <VectorsDisplay />}
-      {drawMode.value === "canvas-mode" && <CanvasDisplay />}
+      {drawMode === "vector-mode" && <VectorsDisplay />}
+      {drawMode === "canvas-mode" && <CanvasDisplay />}
     </div>
   );
 }

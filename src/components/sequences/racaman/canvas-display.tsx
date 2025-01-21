@@ -8,9 +8,9 @@ function CanvasDisplay() {
 
   useEffect(() => {
     if (canvasRef.current) {
-      draw(canvasRef.current, sequence.value, containerSize.value);
+      draw(canvasRef.current, sequence, containerSize);
     }
-  }, [sequence.value, containerSize.value]);
+  }, [sequence, containerSize]);
 
   return <canvas ref={canvasRef} />;
 }

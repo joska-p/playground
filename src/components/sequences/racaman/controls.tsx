@@ -9,12 +9,12 @@ function Controls() {
   return (
     <form className="flex items-center justify-center gap-8 bg-background/90 py-4">
       <Slider.Label>
-        Length: {sequence.value.length}
+        Length: {sequence.length}
         <Slider.Input
           min={1}
           max={256}
           step={1}
-          defaultValue={sequence.value.length}
+          defaultValue={sequence.length}
           onChange={updateSequence}
         />
       </Slider.Label>
@@ -22,7 +22,7 @@ function Controls() {
         <Input
           type="radio"
           value="canvas-mode"
-          checked={drawMode.value === "canvas-mode"}
+          checked={drawMode === "canvas-mode"}
           name="canvas-mode"
           onChange={changeDrawMode}
         />
@@ -32,7 +32,7 @@ function Controls() {
         <Input
           type="radio"
           value="vector-mode"
-          checked={drawMode.value === "vector-mode"}
+          checked={drawMode === "vector-mode"}
           name="vectors-mode"
           onChange={changeDrawMode}
         />

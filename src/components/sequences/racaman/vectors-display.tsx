@@ -17,9 +17,9 @@ function VectorsDisplay() {
 
   useEffect(() => {
     if (svgRef.current) {
-      draw(svgRef.current, sequence.value, containerSize.value);
+      draw(svgRef.current, sequence, containerSize);
     }
-  }, [sequence.value, containerSize.value]);
+  }, [sequence, containerSize]);
 
   return (
     <svg ref={svgRef} style={styleObject} className="max-h-full max-w-full fill-transparent" />
