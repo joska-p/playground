@@ -18,7 +18,7 @@ function PaletteControls() {
       <legend className="sr-only">Choose a color palette</legend>
 
       <PaletteButton palette={initialPalette} aria-label="Default palette" />
-      {currentPalettes.value.map((palette) => (
+      {currentPalettes.map((palette) => (
         <PaletteButton key={getPaletteId(palette)} palette={palette} />
       ))}
     </fieldset>

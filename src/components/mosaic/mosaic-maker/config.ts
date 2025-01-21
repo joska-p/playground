@@ -30,7 +30,7 @@ const defaultPalette = {
   "--color-2": "#777777",
   "--color-3": "#999999",
   "--color-4": "#bbbbbb",
-};
+} as const;
 
 const defaultTileSet = [
   "CornerCircles",
@@ -41,7 +41,11 @@ const defaultTileSet = [
   "Square",
   "Triangles",
   "Cube",
-];
+] as const;
+
+export type Palette = Record<keyof typeof defaultPalette, string>;
+export type TileSet = (typeof defaultTileSet)[number][];
+export type TileNames = (typeof defaultTileSet)[number];
 
 const initialTileSize = defaultTileSize;
 const initialGapSize = defaultGapSize;

@@ -16,7 +16,7 @@ function TileSetControls() {
           <label key={tileName} aria-label={tileName} className="flex flex-col gap-2">
             <input
               type="checkbox"
-              checked={tileSet.value.includes(tileName)}
+              checked={tileSet.includes(tileName)}
               onChange={() => updateTileSet(tileName)}
               className="peer sr-only"
             />

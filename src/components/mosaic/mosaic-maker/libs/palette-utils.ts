@@ -1,10 +1,10 @@
-import type { initialPalette } from "../config";
+import type { Palette } from "../config";
 
-function getPaletteId(palette: typeof initialPalette): string {
+function getPaletteId(palette: Palette): string {
   return Object.values(palette).sort().join("-");
 }
 
-function arePalettesEqual(a: typeof initialPalette, b: typeof initialPalette): boolean {
+function arePalettesEqual(a: Palette, b: Palette): boolean {
   return getPaletteId(a) === getPaletteId(b);
 }
 

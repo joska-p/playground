@@ -44,7 +44,7 @@ function MosaicDisplay() {
       className="absolute inset-0 grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
-      {tiles.value.map((tile, index) => (
+      {tiles.map((tile, index) => (
         <Tile
           key={`${tile}-${index}`}
           name={tile}

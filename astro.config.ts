@@ -3,12 +3,19 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 
+const ReactCompilerConfig = {
+  /* ... */
+};
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     react({
       babel: {
-        plugins: [["module:@preact/signals-react-transform"]],
+        plugins: [
+          ["module:@preact/signals-react-transform"],
+          ["babel-plugin-react-compiler", ReactCompilerConfig],
+        ],
       },
     }),
     tailwind(),
@@ -29,7 +36,7 @@ export default defineConfig({
   vite: {
     build: {
       sourcemap: true,
-      minify: true,
+      minify: false,
     },
     esbuild: {
       minifyIdentifiers: false,

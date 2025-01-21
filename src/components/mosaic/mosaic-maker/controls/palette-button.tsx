@@ -1,14 +1,14 @@
-import type { initialPalette } from "../config";
+import type { Palette } from "../config";
 import { arePalettesEqual, getPaletteId } from "../libs/palette-utils";
 import { useMosaicMakerContext } from "../mosaic-context";
 import { cn } from "@/lib/utils";
 
 interface Props extends React.HTMLAttributes<HTMLLabelElement> {
-  palette: typeof initialPalette;
+  palette: Palette;
 }
 
 function PaletteButton({ palette }: Props) {
-  const { currentPalette, setCurrentPalette } = useMosaicMakerContext();
+  const { currentPalette, updatePalette } = useMosaicMakerContext();
 
   return (
     <label
@@ -24,8 +24,8 @@ function PaletteButton({ palette }: Props) {
         name="palette"
         value={getPaletteId(palette)}
         className="sr-only"
-        checked={arePalettesEqual(palette, currentPalette.value)}
-        onChange={() => setCurrentPalette(palette)}
+        checked={arePalettesEqual(palette, currentPalette)}
+        onChange={() => updatePalette(palette)}
         aria-label={`Color palette ${getPaletteId(palette)}`}
       />
       {Object.values(palette).map((color, index) => (
