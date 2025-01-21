@@ -8,8 +8,8 @@ interface ColorPickerProps {
 
 function ColorPicker({ width, height }: ColorPickerProps) {
   const { canvasRef, baseColor, handlePickColor, handleSaturationChange } = useColorPicker();
-  const { hue, saturation, lightness } = baseColor.value;
-  const { x, y } = baseColor.value.location;
+  const { hue, saturation, lightness } = baseColor;
+  const { x, y } = baseColor.location;
 
   return (
     <div className="relative flex flex-col items-start justify-between gap-4">

@@ -1,18 +1,18 @@
-import type { Signal } from "@preact/signals-react";
 import { useState } from "react";
-import type { HSLColor } from "../../lib/color-conversions";
+import { usePaletteContext } from "../../palette-context";
+import type { Palette, BaseColor } from "../../palette-context";
 import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 
-interface MonochromaticPalettes {
-  baseColor: HSLColor;
+interface AnalogousPalettes {
+  baseColor: BaseColor;
   length: number;
   split: number;
 }
 
-function analogousPalettes({ baseColor, length, split }: MonochromaticPalettes): HSLColor[] {
+function analogousPalettes({ baseColor, length, split }: AnalogousPalettes): Palette {
   const { hue, saturation, lightness } = baseColor;
-  const palette: HSLColor[] = [];
+  const palette: Palette = [];
   const angle = 30;
 
   for (let i = -Math.floor(length / 2); i < Math.ceil(length / 2); i++) {
@@ -27,19 +27,15 @@ function analogousPalettes({ baseColor, length, split }: MonochromaticPalettes):
   return palette.sort((a, b) => a.hue - b.hue);
 }
 
-interface Props {
-  palettes: Signal<HSLColor[][]>;
-  baseColor: Signal<HSLColor>;
-}
+function AnalogousForm() {
+  const { setPalettes, baseColor } = usePaletteContext();
 
-function AnalogousForm({ palettes, baseColor }: Props) {
   const [length, setLength] = useState(3);
   const [split, setSplit] = useState(30);
 
   function handleClick() {
-    const colors = analogousPalettes({ baseColor: baseColor.value, length, split });
-    // eslint-disable-next-line react-compiler/react-compiler
-    palettes.value = [...palettes.value, colors];
+    const colors = analogousPalettes({ baseColor, length, split });
+    setPalettes((prev) => [...prev, colors]);
   }
 
   return (

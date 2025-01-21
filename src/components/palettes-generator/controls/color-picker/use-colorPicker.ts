@@ -41,7 +41,7 @@ const DEBOUNCE_DELAY = 100;
 
 function useColorPicker() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { baseColor } = usePaletteContext();
+  const { baseColor, setBaseColor } = usePaletteContext();
 
   const handlePickColor = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -53,26 +53,25 @@ function useColorPicker() {
     const y = event.clientY - rect.top;
 
     try {
-      // eslint-disable-next-line react-compiler/react-compiler
-      baseColor.value = { ...getPixelColor(canvas, x, y), location: { x, y } };
+      setBaseColor({ ...getPixelColor(canvas, x, y), location: { x, y } });
     } catch (error) {
       console.error("Error picking color:", error);
     }
   };
 
   const handleSaturationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    baseColor.value = { ...baseColor.value, saturation: Number(event.target.value) };
+    setBaseColor({ ...baseColor, saturation: Number(event.target.value) });
   };
 
   useEffect(() => {
     const debounce = setTimeout(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      drawColorSpace({ canvas, saturation: baseColor.value.saturation });
+      drawColorSpace({ canvas, saturation: baseColor.saturation });
     }, DEBOUNCE_DELAY);
 
     return () => clearTimeout(debounce);
-  }, [baseColor.value.saturation]);
+  }, [baseColor.saturation]);
 
   return { canvasRef, baseColor, handlePickColor, handleSaturationChange };
 }

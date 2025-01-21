@@ -1,27 +1,33 @@
-import { useSignal, type Signal } from "@preact/signals-react";
-import { createContext, useContext, type ComponentProps } from "react";
+import { createContext, useContext, useState } from "react";
+import type { ComponentProps } from "react";
 import type { HSLColor } from "./lib/color-conversions";
 
-type Palette = HSLColor[];
-type BaseColor = HSLColor & { location: { x: number; y: number } };
+export type Palette = HSLColor[];
+export type BaseColor = HSLColor & { location: { x: number; y: number } };
 
 interface PaletteContext {
-  palettes: Signal<Palette[]>;
-  baseColor: Signal<BaseColor>;
+  palettes: Palette[];
+  setPalettes: React.Dispatch<React.SetStateAction<Palette[]>>;
+  baseColor: BaseColor;
+  setBaseColor: React.Dispatch<React.SetStateAction<BaseColor>>;
 }
 
 const PaletteContext = createContext<PaletteContext | null>(null);
 
 function PaletteProvider({ children }: ComponentProps<"div">) {
-  const palettes = useSignal<Palette[]>([]);
-  const baseColor = useSignal<BaseColor>({
+  const [palettes, setPalettes] = useState<Palette[]>([]);
+  const [baseColor, setBaseColor] = useState<BaseColor>({
     hue: 180,
     saturation: 100,
     lightness: 50,
     location: { x: 184, y: 184 },
   });
 
-  return <PaletteContext value={{ palettes, baseColor }}>{children}</PaletteContext>;
+  return (
+    <PaletteContext value={{ palettes, setPalettes, baseColor, setBaseColor }}>
+      {children}
+    </PaletteContext>
+  );
 }
 
 function usePaletteContext() {

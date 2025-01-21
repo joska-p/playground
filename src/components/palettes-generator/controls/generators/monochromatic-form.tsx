@@ -1,18 +1,18 @@
-import type { Signal } from "@preact/signals-react";
 import { useState } from "react";
-import type { HSLColor } from "../../lib/color-conversions";
+import type { Palette, BaseColor } from "../../palette-context";
+import { usePaletteContext } from "../../palette-context";
 import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 
 interface MonochromaticPalettes {
-  baseColor: HSLColor;
+  baseColor: BaseColor;
   length: number;
   angle: number;
 }
 
-function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalettes) {
+function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalettes): Palette {
   const { hue, saturation, lightness } = baseColor;
-  const palette: HSLColor[] = [];
+  const palette: Palette = [];
 
   // Calculate the step size for hue variation
 
@@ -35,19 +35,15 @@ function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalett
   return palette.sort((a, b) => a.lightness - b.lightness);
 }
 
-interface Props {
-  palettes: Signal<HSLColor[][]>;
-  baseColor: Signal<HSLColor>;
-}
+function MonochromaticForm() {
+  const { setPalettes, baseColor } = usePaletteContext();
 
-function MonochromaticForm({ palettes, baseColor }: Props) {
   const [length, setLength] = useState(5);
   const [angle, setAngle] = useState(100 / 5);
 
   function handleClick() {
-    const colors = monochromaticPalettes({ baseColor: baseColor.value, length, angle });
-    // eslint-disable-next-line react-compiler/react-compiler
-    palettes.value = [...palettes.value, colors];
+    const colors = monochromaticPalettes({ baseColor, length, angle });
+    setPalettes((prev) => [...prev, colors]);
   }
 
   function handleSetLength(event: React.ChangeEvent<HTMLInputElement>) {

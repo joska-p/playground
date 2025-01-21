@@ -1,18 +1,18 @@
-import type { Signal } from "@preact/signals-react";
 import { useState } from "react";
-import type { HSLColor } from "../../lib/color-conversions";
+import type { Palette, BaseColor } from "../../palette-context";
+import { usePaletteContext } from "../../palette-context";
 import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 
-interface MonochromaticPalettes {
-  baseColor: HSLColor;
+interface XadicPalettes {
+  baseColor: BaseColor;
   length: number;
   angle: number;
 }
 
-function xadicPalettes({ baseColor, length, angle }: MonochromaticPalettes): HSLColor[] {
+function xadicPalettes({ baseColor, length, angle }: XadicPalettes): Palette {
   const { hue, saturation, lightness } = baseColor;
-  const palette: HSLColor[] = [];
+  const palette: Palette = [];
 
   for (let i = -Math.floor(length / 2); i < Math.ceil(length / 2); i++) {
     const newHue = (hue + i * angle + 360) % 360;
@@ -26,19 +26,14 @@ function xadicPalettes({ baseColor, length, angle }: MonochromaticPalettes): HSL
   return palette.sort((a, b) => a.hue - b.hue);
 }
 
-interface Props {
-  palettes: Signal<HSLColor[][]>;
-  baseColor: Signal<HSLColor>;
-}
-
-function XadicForm({ palettes, baseColor }: Props) {
+function XadicForm() {
+  const { setPalettes, baseColor } = usePaletteContext();
   const [length, setLength] = useState(3);
   const [angle, setAngle] = useState(360 / 3);
 
   function handleClick() {
-    const colors = xadicPalettes({ baseColor: baseColor.value, length, angle });
-    // eslint-disable-next-line react-compiler/react-compiler
-    palettes.value = [...palettes.value, colors];
+    const colors = xadicPalettes({ baseColor, length, angle });
+    setPalettes((prev) => [...prev, colors]);
   }
 
   function handleSetLength(event: React.ChangeEvent<HTMLInputElement>) {

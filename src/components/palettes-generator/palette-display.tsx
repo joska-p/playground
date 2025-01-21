@@ -4,7 +4,7 @@ function PaletteDisplay() {
   const { palettes } = usePaletteContext();
   return (
     <div className="flex flex-col gap-4">
-      {palettes.value.map((palette, index) => (
+      {palettes.map((palette, index) => (
         <div key={index} className="flex flex-wrap">
           {palette.map((color, index) => (
             <div
