@@ -16,9 +16,6 @@ importers:
       "@astrojs/tailwind":
         specifier: ^5.1.4
         version: 5.1.4(astro@5.1.6(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(tailwindcss@3.4.17)
-      "@preact/signals-react":
-        specifier: ^3.0.0
-        version: 3.0.1(react@19.0.0)
       "@types/react":
         specifier: ^19.0.2
         version: 19.0.7
@@ -56,9 +53,6 @@ importers:
       "@eslint/js":
         specifier: ^9.17.0
         version: 9.18.0
-      "@preact/signals-react-transform":
-        specifier: ^0.5.1
-        version: 0.5.1(@babel/core@7.26.0)(react@19.0.0)
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-decd7b8-20250118
         version: 19.0.0-beta-decd7b8-20250118
@@ -1160,29 +1154,6 @@ packages:
         integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==,
       }
     engines: { node: ^12.20.0 || ^14.18.0 || >=16.0.0 }
-
-  "@preact/signals-core@1.8.0":
-    resolution:
-      {
-        integrity: sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA==,
-      }
-
-  "@preact/signals-react-transform@0.5.1":
-    resolution:
-      {
-        integrity: sha512-/w1rgu7i/qDk8dhDj+6AVVVJ+b1W11YkP3vfPPPyrn1tDCPb8orYwETa3JCvYxMtJBHbvIYEjhXvZ8Ab2cWC8g==,
-      }
-    peerDependencies:
-      "@babel/core": ^7.0.0
-      react: ^16.14.0 || 17.x || 18.x || 19.x
-
-  "@preact/signals-react@3.0.1":
-    resolution:
-      {
-        integrity: sha512-HkM5Q2IsETO1M0bUzy4JB0EPQCf99SMbWP9K6GYlYVHfOX1HLKJ6Dl9L1/1rQnmrQpUsTw0R+IJQDh6tYWar2g==,
-      }
-    peerDependencies:
-      react: ^16.14.0 || 17.x || 18.x || 19.x
 
   "@rollup/pluginutils@5.1.4":
     resolution:
@@ -5396,14 +5367,6 @@ packages:
         integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==,
       }
 
-  use-sync-external-store@1.4.0:
-    resolution:
-      {
-        integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==,
-      }
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   util-deprecate@1.0.2:
     resolution:
       {
@@ -6292,26 +6255,6 @@ snapshots:
     optional: true
 
   "@pkgr/core@0.1.1": {}
-
-  "@preact/signals-core@1.8.0": {}
-
-  "@preact/signals-react-transform@0.5.1(@babel/core@7.26.0)(react@19.0.0)":
-    dependencies:
-      "@babel/core": 7.26.0
-      "@babel/helper-module-imports": 7.25.9
-      "@babel/helper-plugin-utils": 7.26.5
-      "@preact/signals-react": 3.0.1(react@19.0.0)
-      debug: 4.4.0
-      react: 19.0.0
-      use-sync-external-store: 1.4.0(react@19.0.0)
-    transitivePeerDependencies:
-      - supports-color
-
-  "@preact/signals-react@3.0.1(react@19.0.0)":
-    dependencies:
-      "@preact/signals-core": 1.8.0
-      react: 19.0.0
-      use-sync-external-store: 1.4.0(react@19.0.0)
 
   "@rollup/pluginutils@5.1.4(rollup@4.30.1)":
     dependencies:
@@ -9363,10 +9306,6 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
-
-  use-sync-external-store@1.4.0(react@19.0.0):
-    dependencies:
-      react: 19.0.0
 
   util-deprecate@1.0.2: {}
 

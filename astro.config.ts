@@ -12,10 +12,7 @@ export default defineConfig({
   integrations: [
     react({
       babel: {
-        plugins: [
-          ["module:@preact/signals-react-transform"],
-          ["babel-plugin-react-compiler", ReactCompilerConfig],
-        ],
+        plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
       },
     }),
     tailwind(),
