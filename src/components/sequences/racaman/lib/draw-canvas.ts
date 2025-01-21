@@ -1,12 +1,21 @@
+import { findBiggestInterval } from "@/lib/math";
+
 function setupCanvas(canvas: HTMLCanvasElement, containerSize: { width: number; height: number }) {
   canvas.width = containerSize.width;
   canvas.height = containerSize.height;
 }
 
-function calculateValueScale(sequence: number[], canvasWidth: number): number {
-  const valueMin = Math.min(...sequence);
-  const valueMax = Math.max(...sequence);
-  return canvasWidth / (valueMax - valueMin);
+function calculateValueScale(
+  sequence: number[],
+  containerSize: { width: number; height: number }
+): number {
+  const maxWith = containerSize.width;
+  const maxHeight = containerSize.height;
+  const width = Math.min(Math.max(...sequence), maxWith); // The max x value is determined by the biggest number in the sequence
+  const height = Math.min(findBiggestInterval(sequence), maxHeight); // The max y value is determined by the biggest interval between two conscutive numbers in the sequence
+  const horizontalScale = maxWith / width;
+  const verticalScale = maxHeight / height;
+  return horizontalScale < verticalScale ? horizontalScale : verticalScale; // Return the smaller scale to feet the sequence in the screen
 }
 
 function drawSequence(context: CanvasRenderingContext2D, sequence: number[], valueScale: number) {
@@ -36,7 +45,7 @@ function draw(
 
   setupCanvas(canvas, containerSize);
   const context = canvas.getContext("2d") as CanvasRenderingContext2D;
-  const valueScale = calculateValueScale(sequence, canvas.width);
+  const valueScale = calculateValueScale(sequence, containerSize);
 
   context.save();
   context.translate(0, canvas.height / 2);
