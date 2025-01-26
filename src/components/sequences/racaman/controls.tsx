@@ -1,23 +1,20 @@
+import { Input, Slider, Label } from "@jpotin/playground-ui";
 import { useRacamanContext } from "./racaman-context";
-import { Input } from "@/components/ui/input/input";
-import { Label } from "@/components/ui/label/label";
-import { Slider } from "@/components/ui/slider/slider";
 
 function Controls() {
   const { sequence, drawMode, updateSequence, changeDrawMode } = useRacamanContext();
 
   return (
-    <form className="flex items-center justify-center gap-8 bg-background/90 py-4">
-      <Slider.Label>
-        Length: {sequence.length}
-        <Slider.Input
-          min={1}
-          max={256}
-          step={1}
-          defaultValue={sequence.length}
-          onChange={updateSequence}
-        />
-      </Slider.Label>
+    <form className="bg-background/90 flex items-center justify-center gap-8 py-4">
+      <Slider
+        label="sequence length"
+        value={sequence.length}
+        onChange={updateSequence}
+        step={1}
+        min={1}
+        max={256}
+      />
+
       <Label>
         <Input
           type="radio"

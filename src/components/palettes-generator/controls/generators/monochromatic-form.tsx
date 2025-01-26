@@ -1,8 +1,7 @@
+import { Button, Input } from "@jpotin/playground-ui";
 import { useState } from "react";
 import type { Palette, BaseColor } from "../../palette-context";
 import { usePaletteContext } from "../../palette-context";
-import { Button } from "@/components/ui/button/button";
-import { Input } from "@/components/ui/input/input";
 
 interface MonochromaticPalettes {
   baseColor: BaseColor;

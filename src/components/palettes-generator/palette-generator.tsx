@@ -9,7 +9,7 @@ function PaletteGenerator() {
   return (
     <PaletteProvider>
       <SidebarProvider mobilePosition="left" desktopPosition="left">
-        <SidebarProvider.Sidebar className="w-96 space-y-4 bg-card p-2">
+        <SidebarProvider.Sidebar className="bg-card w-96 space-y-4 p-2">
           <ColorPicker width={368} height={368} />
           <Generators />
         </SidebarProvider.Sidebar>

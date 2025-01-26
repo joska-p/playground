@@ -6,7 +6,7 @@ interface RacamanContext {
   drawMode: "vector-mode" | "canvas-mode";
   containerSize: { width: number; height: number };
   setContainerSize: React.Dispatch<React.SetStateAction<{ width: number; height: number }>>;
-  updateSequence: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  updateSequence: (value: number) => void;
   changeDrawMode: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -17,8 +17,8 @@ function RacamanProvider({ children }: ComponentProps<"div">) {
   const [drawMode, setDrawMode] = useState<"vector-mode" | "canvas-mode">("vector-mode");
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
-  const updateSequence = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSequence(createRacamanSequence(Number(event.target.value)));
+  const updateSequence = (value: number) => {
+    setSequence(createRacamanSequence(value));
   };
 
   const changeDrawMode = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,5 +1,5 @@
+import { Button } from "@jpotin/playground-ui";
 import { StrictMode } from "react";
-import { Button } from "../ui/button/button";
 import { useSearchParams } from "@/hooks/use-searchparams";
 
 function Example01() {

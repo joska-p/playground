@@ -12,7 +12,7 @@ const { title } = Astro.props;
 ---
 
 <header class="flex items-center justify-between">
-  <a href={baseUrl} class="group flex items-center gap-3 bg-background outline-none">
+  <a href={baseUrl} class="bg-background group flex items-center gap-3 outline-none">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 2 2">
       <rect fill="#331436" x="0" y="0" width="1" height="1"></rect>
       <rect fill="#eb9961" x="1" y="0" width="1" height="1"></rect>
@@ -21,7 +21,7 @@ const { title } = Astro.props;
     </svg>
     <h1
       class={cn(
-        "whitespace-nowrap rounded-lg px-4 py-2 text-2xl font-semibold transition-colors",
+        "rounded-lg px-4 py-2 text-2xl font-semibold whitespace-nowrap transition-colors",
         "group-hover:bg-primary group-hover:text-primary-foreground",
         "group-focus-visible:bg-primary group-focus-visible:text-primary-foreground"
       )}
@@ -32,7 +32,7 @@ const { title } = Astro.props;
 
   <nav
     id="navbar"
-    class="fixed -right-full top-0 z-20 flex h-dvh w-[max(50%,20ch)] flex-col gap-4 self-end bg-background px-4 py-1 transition-[right] md:static md:h-auto md:w-auto md:flex-row md:p-0"
+    class="bg-background fixed top-0 -right-full z-20 flex h-dvh w-[max(50%,20ch)] flex-col gap-4 self-end px-4 py-1 transition-[right] md:static md:h-auto md:w-auto md:flex-row md:p-0"
   >
     <button
       id="close-sidebar-button"
@@ -58,7 +58,7 @@ const { title } = Astro.props;
           <a
             href={route.url}
             class={cn(
-              "block rounded-lg px-4 py-2 outline-none transition-colors",
+              "block rounded-lg px-4 py-2 transition-colors outline-none",
               "hover:bg-primary hover:text-primary-foreground",
               "focus-visible:bg-primary focus-visible:text-primary-foreground",
               { "text-foreground": !isCurrent },

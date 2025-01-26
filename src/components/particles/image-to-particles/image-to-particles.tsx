@@ -1,3 +1,4 @@
+import { Button, Input } from "@jpotin/playground-ui";
 import { StrictMode, useCallback, useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,
@@ -10,7 +11,6 @@ import {
 } from "./config";
 import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./lib/utils";
 import { useImageUpload } from "./use-image-upload";
-import { Button, buttonVariants } from "@/components/ui/button/button";
 
 export interface Particle {
   x: number;
@@ -156,12 +156,7 @@ const ImageToParticles = () => {
 
   return (
     <div className="mx-auto my-8 flex w-fit flex-col items-center gap-8">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        className={buttonVariants()}
-      />
+      <Input type="file" accept="image/*" onChange={handleImageUpload} />
       <Button
         onClick={resetParticles}
         style={{

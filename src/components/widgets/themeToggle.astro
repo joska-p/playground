@@ -1,6 +1,6 @@
 <label
   aria-label="Toggle theme"
-  class="has-[:focus-visible]:bg-primay block cursor-pointer items-center rounded-lg px-4 py-2 text-sm font-medium outline-none hover:bg-primary hover:text-primary-foreground has-[:focus-visible]:bg-primary has-[:focus-visible]:text-primary-foreground"
+  class="has-[:focus-visible]:bg-primay hover:bg-primary hover:text-primary-foreground has-[:focus-visible]:bg-primary has-[:focus-visible]:text-primary-foreground block cursor-pointer items-center rounded-lg px-4 py-2 text-sm font-medium outline-none"
 >
   <input id="theme-toggle" name="theme" class="peer sr-only" type="checkbox" value="dark" />
   <svg
@@ -39,10 +39,10 @@
   const themeToggle = document.getElementById("theme-toggle");
 
   if (themeToggle) {
-    themeToggle.checked = document.documentElement.classList.contains("dark");
+    themeToggle.checked = document.documentElement.dataset.mode === "dark";
     themeToggle.addEventListener("change", () => {
-      localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
-      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("mode", themeToggle.checked ? "dark" : "light");
+      document.documentElement.dataset.mode = themeToggle.checked ? "dark" : "light";
     });
   }
 </script>
