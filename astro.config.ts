@@ -1,10 +1,10 @@
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
 const ReactCompilerConfig = {
-  /* ... */
+  target: "19",
 };
 
 // https://astro.build/config
@@ -15,7 +15,6 @@ export default defineConfig({
         plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
       },
     }),
-    tailwind(),
     sitemap({
       filter: (page) => page !== "/404",
     }),
@@ -31,6 +30,7 @@ export default defineConfig({
     format: "preserve",
   },
   vite: {
+    plugins: [tailwindcss()],
     build: {
       sourcemap: true,
       minify: false,
