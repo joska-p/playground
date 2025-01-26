@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@source "@jpotin/playground-ui";
-@source "@jpotin/mosaic-maker";
+@source "../../node_modules/@jpotin/playground-ui";
+@source "../../node_modules/@jpotin/mosaic-maker";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
