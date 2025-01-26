@@ -14,24 +14,25 @@ function Controls() {
         min={1}
         max={256}
       />
-
-      <Label>
+      <Label className="flex w-max items-center gap-2">
         <Input
           type="radio"
           value="canvas-mode"
           checked={drawMode === "canvas-mode"}
           name="canvas-mode"
           onChange={changeDrawMode}
+          className="w-fit"
         />
         Canvas mode
       </Label>
-      <Label>
+      <Label className="flex w-max items-center gap-2">
         <Input
           type="radio"
           value="vector-mode"
           checked={drawMode === "vector-mode"}
           name="vectors-mode"
           onChange={changeDrawMode}
+          className="w-fit"
         />
         Vector mode
       </Label>
