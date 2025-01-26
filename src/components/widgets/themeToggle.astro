@@ -39,10 +39,10 @@
   const themeToggle = document.getElementById("theme-toggle");
 
   if (themeToggle) {
-    themeToggle.checked = document.documentElement.dataset.mode === "dark";
+    themeToggle.checked = document.documentElement.dataset.theme === "dark";
     themeToggle.addEventListener("change", () => {
-      localStorage.setItem("mode", themeToggle.checked ? "dark" : "light");
-      document.documentElement.dataset.mode = themeToggle.checked ? "dark" : "light";
+      localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
+      document.documentElement.dataset.theme = themeToggle.checked ? "dark" : "light";
     });
   }
 </script>

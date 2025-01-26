@@ -1,6 +1,5 @@
 ---
 import Header from "@/layouts/header.astro";
-import "@jpotin/playground-ui/dist/playground-ui.css";
 import "@/styles/global.css";
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -9,22 +8,22 @@ const { title } = Astro.props;
 
 <script is:inline>
   const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("mode")) {
-      return localStorage.getItem("mode");
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
     }
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   };
   const isDark = getThemePreference() === "dark";
-  document.documentElement.dataset.mode = isDark ? "dark" : "light";
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
 
   if (typeof localStorage !== "undefined") {
     const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.dataset.mode === "dark";
-      localStorage.setItem("mode", isDark ? "dark" : "light");
+      const isDark = document.documentElement.dataset.theme === "dark";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
     });
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-mode"],
+      attributeFilter: ["data-theme"],
     });
   }
 </script>

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "@jpotin/playground-ui";
+@source "@jpotin/mosaic-maker";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
@@ -32,4 +34,85 @@
   --radius-sm: calc(var(--radius) - 4px);
 
   --ring-color: hsl(var(--ring));
+}
+
+@layer base {
+  html[data-theme="light"],
+  html.light {
+    --border: 35 17% 58%;
+    --input: 52 73% 90%;
+    --ring: 38 100% 50%;
+    --card: 48 86% 88%;
+    --card-foreground: 20 5% 22%;
+    --popover: 52 73% 90%;
+    --background: 43 58% 80%;
+    --foreground: 21 7% 29%;
+
+    --primary: 189 88% 24%;
+    --primary-foreground: 43 58% 80%;
+
+    --secondary: 58 70% 34%;
+    --secondary-foreground: 48 86% 88%;
+
+    --muted: 43 58% 80%;
+    --muted-foreground: 26 9% 36%;
+
+    --accent: 332 33% 53%;
+    --accent-foreground: 20 3% 19%;
+
+    --destructive: 2 75% 45%;
+    --destructive-foreground: 52 73% 90%;
+
+    --radius: 0.5rem;
+  }
+
+  :root,
+  html[data-theme="dark"],
+  html.dark {
+    --border: 21 7% 29%;
+    --input: 20 5% 22%;
+    --ring: 41 95% 58%;
+    --card: 20 3% 19%;
+    --card-foreground: 48 86% 88%;
+    --popover: 0 0% 15%;
+    --background: 195 6% 12%;
+    --foreground: 40 38% 73%;
+
+    --primary: 157 15% 58%;
+    --primary-foreground: 195 6% 12%;
+
+    --secondary: 59 70% 34%;
+    --secondary-foreground: 0 0% 15%;
+
+    --muted: 20 5% 22%;
+    --muted-foreground: 38 24% 65%;
+
+    --accent: 332 33% 53%;
+    --accent-foreground: 20 3% 19%;
+
+    --destructive: 2 75% 45%;
+    --destructive-foreground: 195 6% 12%;
+
+    --radius: 0.5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .slider::-webkit-slider-thumb,
+  .slider::-moz-range-thumb {
+    @apply bg-primary outline-primary ring-background h-4 w-4 rounded-full ring-2 outline-2 outline-offset-2;
+  }
+}
+
+@layer utilities {
+  .grid-stack {
+    @apply grid [grid-template-areas:'stack'];
+  }
+  .grid-stack > * {
+    @apply [grid-area:stack];
+  }
 }

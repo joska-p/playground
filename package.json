@@ -17,11 +17,11 @@
   "dependencies": {
     "@astrojs/react": "^4.1.6",
     "@astrojs/sitemap": "^3.2.1",
-    "@jpotin/mosaic-maker": "^1.0.0",
-    "@jpotin/playground-ui": "^0.1.6",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
-    "astro": "^5.1.2",
+    "@jpotin/mosaic-maker": "^1.0.2",
+    "@jpotin/playground-ui": "^1.0.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "astro": "^5.1.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "react": "^19.0.0",
@@ -31,8 +31,8 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.2.4",
-    "@eslint/js": "^9.17.0",
+    "@eslint/compat": "^1.2.5",
+    "@eslint/js": "^9.19.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@tailwindcss/vite": "^4.0.0",
     "babel-plugin-react-compiler": "19.0.0-beta-decd7b8-20250118",
@@ -47,10 +47,10 @@
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.9",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.0",
-    "typescript-eslint": "^8.19.1",
-    "vitest": "^3.0.0-beta.4"
+    "typescript-eslint": "^8.21.0",
+    "vitest": "^3.0.4"
   },
   "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
