@@ -55,7 +55,8 @@ function useColorPicker() {
     try {
       setBaseColor({ ...getPixelColor(canvas, x, y), location: { x, y } });
     } catch (error) {
-      console.error("Error picking color:", error);
+      if (error instanceof Error) throw new Error("Could not get pixel color", error);
+      throw error;
     }
   };
 

@@ -111,7 +111,7 @@ const ImageToParticles = () => {
 
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) {
-      console.error("Could not get canvas context");
+      throw new Error("Could not get canvas context");
       return;
     }
 
@@ -143,12 +143,14 @@ const ImageToParticles = () => {
         //cleanup();
         //animate();
       } catch (error) {
-        console.error("Error processing image:", error);
+        if (error instanceof Error) throw new Error("Error processing image", error);
+        throw error;
       }
     };
 
     image.onerror = (error) => {
-      console.error("Error loading image:", error);
+      if (error instanceof Error) throw new Error("Error loading image", error);
+      throw error;
     };
 
     return cleanup;

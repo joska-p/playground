@@ -10,59 +10,22 @@ import pluginReact from "eslint-plugin-react";
 import reactCompiler from "eslint-plugin-react-compiler";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
-import typescriptESLint from "typescript-eslint";
+import tseslint from "typescript-eslint";
 
 // File path setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const gitignorePath = path.resolve(__dirname, ".gitignore");
 
-const reactConfig = {
-  files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
-  ...pluginReact.configs.flat.recommended,
-  languageOptions: {
-    ...pluginReact.configs.flat.recommended.languageOptions,
-    globals: {
-      ...globals.serviceworker,
-      ...globals.browser,
-    },
-  },
-};
-
-const reactHooksConfig = {
-  plugins: {
-    "react-hooks": eslintPluginReactHooks,
-  },
-  settings: { react: { version: "detect" } },
+const baseConfig = tseslint.config({
+  extends: [eslint.configs.recommended, tseslint.configs.strict, tseslint.configs.stylistic],
   rules: {
-    ...eslintPluginReactHooks.configs.recommended.rules,
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
+    "no-console": "warn",
+    "no-unused-vars": "off", // handled by typescript
   },
-};
+});
 
-const reactCompilerConfig = {
-  plugins: {
-    "react-compiler": reactCompiler,
-  },
-  rules: {
-    "react-compiler/react-compiler": "error",
-  },
-};
-
-const jsxa11yConfig = {
-  files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-  ...jsxA11y.flatConfigs.recommended,
-  languageOptions: {
-    ...jsxA11y.flatConfigs.recommended.languageOptions,
-    globals: {
-      ...globals.serviceworker,
-      ...globals.browser,
-    },
-  },
-};
-
-const importConfig = {
+const importConfig = tseslint.config({
   extends: [importPlugin.flatConfigs.recommended, importPlugin.flatConfigs.typescript],
   settings: {
     "import/resolver": {
@@ -84,18 +47,47 @@ const importConfig = {
     ],
     "import/no-named-as-default-member": "off",
   },
-};
+});
 
-export default typescriptESLint.config(
+const jsxA11yConfig = tseslint.config({
+  files: ["**/*.{js,jsx,ts,tsx}"],
+  extends: [jsxA11y.flatConfigs.recommended],
+  languageOptions: {
+    ...jsxA11y.flatConfigs.recommended.languageOptions,
+  },
+  rules: {
+    ...jsxA11y.flatConfigs.recommended.rules,
+  },
+});
+
+const reactConfig = tseslint.config({
+  files: ["**/*.{js,jsx,ts,tsx}"],
+  extends: [pluginReact.configs.flat.recommended],
+  languageOptions: {
+    ...pluginReact.configs.flat.recommended.languageOptions,
+    globals: {
+      ...globals.serviceworker,
+      ...globals.browser,
+    },
+  },
+  plugins: {
+    "react-hooks": eslintPluginReactHooks,
+    "react-compiler": reactCompiler,
+  },
+  settings: { react: { version: "detect" } },
+  rules: {
+    ...eslintPluginReactHooks.configs.recommended.rules,
+    "react/react-in-jsx-scope": "off",
+    "react-compiler/react-compiler": "error",
+  },
+});
+
+export default tseslint.config(
   includeIgnoreFile(gitignorePath),
-  eslint.configs.recommended,
-  eslintConfigPrettier,
-  typescriptESLint.configs.strict,
-  typescriptESLint.configs.stylistic,
-  ...eslintPluginAstro.configs.recommended,
+  baseConfig,
+  jsxA11yConfig,
   reactConfig,
-  reactHooksConfig,
-  reactCompilerConfig,
-  jsxa11yConfig,
-  importConfig
+  eslintPluginAstro.configs.recommended,
+  importConfig,
+  eslintConfigPrettier
 );
