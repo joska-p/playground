@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn";
 import { labelVariants } from "./labelVariants";
 
-interface LabelProps
+export interface LabelProps
   extends ComponentProps<"label">, VariantProps<typeof labelVariants> {
   required?: boolean;
 }

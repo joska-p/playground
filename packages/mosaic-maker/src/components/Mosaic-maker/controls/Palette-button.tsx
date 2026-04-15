@@ -3,7 +3,7 @@ import type { Palette } from "../config.js";
 import { arePalettesEqual, getPaletteId } from "../lib/palette-utils.js";
 import { twMerge } from "tailwind-merge";
 
-interface Props extends React.HTMLAttributes<HTMLLabelElement> {
+export interface Props extends React.HTMLAttributes<HTMLLabelElement> {
   palette: Palette;
 }
 

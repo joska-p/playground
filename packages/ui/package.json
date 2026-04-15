@@ -8,10 +8,22 @@
     "dist"
   ],
   "exports": {
-    "./styles.css": "./dist/styles.css",
-    "./*": {
-      "types": "./src/components/*/index.tsx",
-      "default": "./src/components/*/index.js"
+    "./styles.css": "./dist/index.css",
+    "./Button": {
+      "types": "./dist/components/Button/index.d.ts",
+      "default": "./dist/components/Button/index.js"
+    },
+    "./Input": {
+      "types": "./dist/components/Input/index.d.ts",
+      "default": "./dist/components/Input/index.js"
+    },
+    "./Label": {
+      "types": "./dist/components/Label/index.d.ts",
+      "default": "./dist/components/Label/index.js"
+    },
+    "./Slider": {
+      "types": "./dist/components/Slider/index.d.ts",
+      "default": "./dist/components/Slider/index.js"
     }
   },
   "license": "MIT",

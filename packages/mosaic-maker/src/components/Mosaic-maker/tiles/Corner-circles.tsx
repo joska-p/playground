@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface Props extends ComponentProps<"div"> {
+export interface Props extends ComponentProps<"div"> {
   colors: [string, string, string, string, string];
   rotation: string;
 }

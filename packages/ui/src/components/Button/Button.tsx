@@ -3,7 +3,7 @@ import type { ElementType, ComponentPropsWithRef } from "react";
 import { cn } from "../../utils/cn";
 import { buttonVariants } from "./buttonVariants";
 
-type ButtonProps<T extends ElementType = "button"> = {
+export type ButtonProps<T extends ElementType = "button"> = {
   as?: T;
   loading?: boolean;
 } & ComponentPropsWithRef<T> &

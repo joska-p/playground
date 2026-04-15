@@ -1,3 +1,1 @@
-import { MosaicMaker } from "./components/Mosaic-maker/Mosaic-maker.js";
-
-export { MosaicMaker };
+export * from "./components/Mosaic-maker/Mosaic-maker.js";

@@ -4,7 +4,7 @@ import type { Palette } from "../config.js";
 import { safeFetch } from "./utils.js";
 
 // Types
-interface CachedPalettes {
+export interface CachedPalettes {
   palettes: Palette[];
   expiration: number;
   version: number;

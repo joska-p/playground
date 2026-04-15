@@ -9,7 +9,7 @@ import { Rainbow } from "./Rainbow.js";
 import { Square } from "./Square.js";
 import { Triangles } from "./Triangles.js";
 
-interface TileComponentProps {
+export interface TileComponentProps {
   colors: [string, string, string, string, string];
   rotation: string;
   className?: string;
@@ -26,7 +26,7 @@ const tileComponents: Record<string, ComponentType<TileComponentProps>> = {
   Cube,
 };
 
-interface Props {
+export interface Props {
   name: keyof typeof tileComponents;
   colors: [string, string, string, string, string];
   rotation: string;

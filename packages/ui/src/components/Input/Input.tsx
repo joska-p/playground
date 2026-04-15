@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import { inputVariants } from "./inputVariants";
 
-interface InputProps
+export interface InputProps
   extends ComponentProps<"input">, VariantProps<typeof inputVariants> {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -31,7 +31,7 @@ function Input({
         className={cn(
           inputVariants({ variant, className }),
           leftIcon && "pl-10",
-          rightIcon && "pr-10"
+          rightIcon && "pr-10",
         )}
         {...props}
       />

@@ -2,7 +2,7 @@ import { Slider } from "@repo/ui/Slider";
 import { useState } from "react";
 import { useMosaicMakerContext } from "../Mosaic-context.js";
 
-interface Props {
+export interface Props {
   label: string;
   defaultValue: number;
   cssVar: string;
