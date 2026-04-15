@@ -11,8 +11,8 @@
   "exports": {
     "./styles.css": "./dist/index.css",
     "./MosaicMaker": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/Mosaic-maker.d.ts",
+      "default": "./dist/Mosaic-maker.js"
     }
   },
   "license": "MIT",

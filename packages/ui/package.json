@@ -10,20 +10,20 @@
   "exports": {
     "./styles.css": "./dist/index.css",
     "./Button": {
-      "types": "./dist/components/Button/index.d.ts",
-      "default": "./dist/components/Button/index.js"
+      "types": "./dist/components/Button/Button.d.ts",
+      "default": "./dist/components/Button/Button.js"
     },
     "./Input": {
-      "types": "./dist/components/Input/index.d.ts",
-      "default": "./dist/components/Input/index.js"
+      "types": "./dist/components/Input/Input.d.ts",
+      "default": "./dist/components/Input/Input.js"
     },
     "./Label": {
-      "types": "./dist/components/Label/index.d.ts",
-      "default": "./dist/components/Label/index.js"
+      "types": "./dist/components/Label/Label.d.ts",
+      "default": "./dist/components/Label/Label.js"
     },
     "./Slider": {
-      "types": "./dist/components/Slider/index.d.ts",
-      "default": "./dist/components/Slider/index.js"
+      "types": "./dist/components/Slider/Slider.d.ts",
+      "default": "./dist/components/Slider/Slider.js"
     }
   },
   "license": "MIT",
