@@ -7,67 +7,39 @@
    • Running build in 6 packages
    • Remote caching disabled
 
-@repo/ui:build:components: cache bypass, force executing e851b78b8d14e843
-@repo/ui:build:styles: cache bypass, force executing 76299008820da022
-@repo/mosaic-maker:build:components: cache bypass, force executing 34f442ff6929f7a1
-@repo/mosaic-maker:build:styles: cache bypass, force executing c593d3ad2e1a7f01
+@repo/ui:build:styles: cache bypass, force executing 1c9d3b97d5a61d11
+@repo/ui:build:components: cache bypass, force executing c9d14209a634d15a
+@repo/mosaic-maker:build:styles: cache bypass, force executing 1d3b18689c6b97b4
+@repo/mosaic-maker:build:components: cache bypass, force executing 1c8dfc7445e0b5a9
 @repo/ui:build:components: 
 @repo/ui:build:components: > @repo/ui@0.0.0 build:components /home/muratha/Work/Fun/playground/packages/ui
 @repo/ui:build:components: > tsc
 @repo/ui:build:components: 
+@repo/mosaic-maker:build:components: 
+@repo/mosaic-maker:build:components: > @repo/mosaic-maker@0.0.0 build:components /home/muratha/Work/Fun/playground/packages/mosaic-maker
+@repo/mosaic-maker:build:components: > tsc
+@repo/mosaic-maker:build:components: 
 @repo/mosaic-maker:build:styles: 
 @repo/mosaic-maker:build:styles: > @repo/mosaic-maker@0.0.0 build:styles /home/muratha/Work/Fun/playground/packages/mosaic-maker
-@repo/mosaic-maker:build:styles: > tailwindcss -i ./src/styles.css -o ./dist/styles.css
+@repo/mosaic-maker:build:styles: > tailwindcss -i ./src/styles.css -o ./dist/index.css
 @repo/mosaic-maker:build:styles: 
 @repo/ui:build:styles: 
 @repo/ui:build:styles: > @repo/ui@0.0.0 build:styles /home/muratha/Work/Fun/playground/packages/ui
 @repo/ui:build:styles: > tailwindcss -i ./src/styles.css -o ./dist/index.css
 @repo/ui:build:styles: 
-@repo/mosaic-maker:build:components: 
-@repo/mosaic-maker:build:components: > @repo/mosaic-maker@0.0.0 build:components /home/muratha/Work/Fun/playground/packages/mosaic-maker
-@repo/mosaic-maker:build:components: > tsc
-@repo/mosaic-maker:build:components: 
-@repo/mosaic-maker:build:styles: ≈ tailwindcss v4.1.16
-@repo/mosaic-maker:build:styles: 
 @repo/ui:build:styles: ≈ tailwindcss v4.1.16
 @repo/ui:build:styles: 
-@repo/mosaic-maker:build:styles: Done in 86ms
-@repo/ui:build:styles: Done in 86ms
-@repo/playground:build: cache bypass, force executing 18b9458f36c49c19
-@repo/playground:build: 
-@repo/playground:build: > @repo/playground@0.0.1 build /home/muratha/Work/Fun/playground/apps/playground
-@repo/playground:build: > astro build
-@repo/playground:build: 
-@repo/playground:build: 16:08:20 [types] Generated 37ms
-@repo/playground:build: 16:08:20 [build] output: "static"
-@repo/playground:build: 16:08:20 [build] mode: "static"
-@repo/playground:build: 16:08:20 [build] directory: /home/muratha/Work/Fun/playground/apps/playground/dist/
-@repo/playground:build: 16:08:20 [build] Collecting build info...
-@repo/playground:build: 16:08:20 [build] ✓ Completed in 79ms.
-@repo/playground:build: 16:08:20 [build] Building static entrypoints...
-@repo/playground:build: 16:08:21 [vite] ✓ built in 1.04s
-@repo/playground:build: 16:08:22 [ERROR] [vite] ✗ Build failed in 459ms
-@repo/playground:build: src/components/examples/example01.tsx (1:9): "Button" is not exported by "../../packages/ui/dist/components/Button/index.js", imported by "src/components/examples/example01.tsx".
-@repo/playground:build: file: /home/muratha/Work/Fun/playground/apps/playground/src/components/examples/example01.tsx:1:9
-@repo/playground:build: 
-@repo/playground:build: 1: import { Button } from "@repo/ui/Button";
-@repo/playground:build:             ^
-@repo/playground:build: 2: import { StrictMode } from "react";
-@repo/playground:build: 3: import { useSearchParams } from "../../hooks/use-searchparams";
-@repo/playground:build: 
-@repo/playground:build:   Location:
-@repo/playground:build:     /home/muratha/Work/Fun/playground/apps/playground/src/components/examples/example01.tsx:1:9
-@repo/playground:build:   Stack trace:
-@repo/playground:build:     at getRollupError (file:///home/muratha/Work/Fun/playground/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/parseAst.js:406:41)
-@repo/playground:build:     at Module.error (file:///home/muratha/Work/Fun/playground/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:17380:16)
-@repo/playground:build:     at ModuleScope.findVariable (file:///home/muratha/Work/Fun/playground/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:15403:39)
-@repo/playground:build:     at FunctionBodyScope.findVariable (file:///home/muratha/Work/Fun/playground/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:5676:38)
-@repo/playground:build:     at CallExpression.bind (file:///home/muratha/Work/Fun/playground/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:2828:28)
-@repo/playground:build:  ELIFECYCLE  Command failed with exit code 1.
+@repo/mosaic-maker:build:styles: ≈ tailwindcss v4.1.16
+@repo/mosaic-maker:build:styles: 
+@repo/ui:build:styles: Done in 105ms
+@repo/mosaic-maker:build:styles: Done in 120ms
+@repo/ui:build:components: tsconfig.json(3,3): error TS6379: Composite projects may not disable incremental compilation.
+@repo/ui:build:components:  ELIFECYCLE  Command failed with exit code 2.
+@repo/mosaic-maker:build:components:  ELIFECYCLE  Command failed.
 
- Tasks:    4 successful, 5 total
-Cached:    0 cached, 5 total
-  Time:    5.366s 
-Failed:    @repo/playground#build
+ Tasks:    2 successful, 4 total
+Cached:    0 cached, 4 total
+  Time:    1.306s 
+Failed:    @repo/ui#build:components
 
- ELIFECYCLE  Command failed with exit code 1.
+ ELIFECYCLE  Command failed with exit code 2.
