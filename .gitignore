@@ -2,6 +2,7 @@
 
 # Nix/Direnv
 .direnv/
+.envrc
 result
 result-*
 
