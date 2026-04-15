@@ -55,6 +55,16 @@ jobs:
       - name: Build Project
         run: nix develop . --command pnpm build
 
+      - name: TS resolution trace (on failure)
+        if: ${{ failure() }}
+        run: |
+          echo "=== tsc traceResolution (packages/mosaic-maker) ==="
+          nix develop . --command pnpm -C packages/mosaic-maker exec tsc --traceResolution --noEmit --pretty false || true
+          echo "=== tsc traceResolution (packages/ui) ==="
+          nix develop . --command pnpm -C packages/ui exec tsc --traceResolution --noEmit --pretty false || true
+          echo "=== node_modules/@repo/ui (snapshot) ==="
+          nix develop . --command ls -la node_modules/@repo/ui || true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
