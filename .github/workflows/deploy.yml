@@ -20,26 +20,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache turbo build setup
-        uses: actions/cache@v4
-        with:
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
-
       - name: Install Nix
         uses: cachix/install-nix-action@v25
+        with:
+          # Ensure Flakes are enabled if you are using 'nix develop'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: nix develop . --command pnpm install
+        # Ensure your Nix shell actually provides pnpm!
+        run: nix develop --command pnpm install
 
       - name: Build Project
-        run: nix develop . --command pnpm build
+        run: nix develop --command pnpm build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Double-check this path matches your vite/webpack config
           path: ./apps/playground/dist
 
   deploy:
