@@ -1,8 +1,8 @@
 "use client";
 
-import { MosaicMakerProvider } from "./Mosaic-context";
-import { MosaicDisplay } from "./Mosaic-display";
-import { Controls } from "./controls/Controls";
+import { MosaicMakerProvider } from "./Mosaic-context.js";
+import { MosaicDisplay } from "./Mosaic-display.js";
+import { Controls } from "./controls/Controls.js";
 
 function MosaicMaker() {
   return (

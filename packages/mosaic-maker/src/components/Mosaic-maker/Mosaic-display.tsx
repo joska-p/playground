@@ -1,13 +1,13 @@
-import { useMosaicMakerContext } from "./Mosaic-context";
+import { useMosaicMakerContext } from "./Mosaic-context.js";
 import {
   CSS_VARS,
   initialGapSize,
   initialPalette,
   initialRotations,
   initialTileSize,
-} from "./config";
-import { getRandom } from "./lib/utils";
-import { Tile } from "./tiles/Tile";
+} from "./config.js";
+import { getRandom } from "./lib/utils.js";
+import { Tile } from "./tiles/Tile.js";
 
 const MOSAIC_STYLES = {
   ...initialPalette,

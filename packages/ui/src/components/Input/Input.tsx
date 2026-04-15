@@ -4,8 +4,7 @@ import { cn } from "../../utils/cn";
 import { inputVariants } from "./inputVariants";
 
 interface InputProps
-  extends ComponentProps<"input">,
-    VariantProps<typeof inputVariants> {
+  extends ComponentProps<"input">, VariantProps<typeof inputVariants> {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
 }
@@ -20,9 +19,9 @@ function Input({
   ...props
 }: InputProps) {
   return (
-    <div className="ui:relative ui:flex ui:w-full ui:items-center">
+    <div className="relative flex w-full items-center">
       {leftIcon && (
-        <div className="ui:text-muted-foreground ui:absolute ui:left-3 ui:flex ui:items-center ui:justify-center ui:[&_svg]:size-4">
+        <div className="text-muted-foreground absolute left-3 flex items-center justify-center [&_svg]:size-4">
           {leftIcon}
         </div>
       )}
@@ -31,13 +30,13 @@ function Input({
         type={type}
         className={cn(
           inputVariants({ variant, className }),
-          leftIcon && "ui:pl-10",
-          rightIcon && "ui:pr-10",
+          leftIcon && "pl-10",
+          rightIcon && "pr-10"
         )}
         {...props}
       />
       {rightIcon && (
-        <div className="ui:text-muted-foreground ui:absolute ui:right-3 ui:flex ui:items-center ui:justify-center ui:[&_svg]:size-4">
+        <div className="text-muted-foreground absolute right-3 flex items-center justify-center [&_svg]:size-4">
           {rightIcon}
         </div>
       )}

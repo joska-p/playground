@@ -4,8 +4,7 @@ import { cn } from "../../utils/cn";
 import { labelVariants } from "./labelVariants";
 
 interface LabelProps
-  extends ComponentProps<"label">,
-    VariantProps<typeof labelVariants> {
+  extends ComponentProps<"label">, VariantProps<typeof labelVariants> {
   required?: boolean;
 }
 
@@ -24,7 +23,7 @@ function Label({
       {...props}
     >
       {children}
-      {required && <span className="ui:ml-1 ui:text-destructive">*</span>}
+      {required && <span className="ml-1 text-destructive">*</span>}
     </label>
   );
 }

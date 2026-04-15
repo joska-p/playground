@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { CSS_VARS } from "../config";
+import { CSS_VARS } from "../config.js";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends ComponentProps<"div"> {

@@ -1,13 +1,13 @@
 import { type ComponentType } from "react";
 import { twMerge } from "tailwind-merge";
-import { CornerCircles } from "./Corner-circles";
-import { Cube } from "./Cube";
-import { Diamond } from "./Diamond";
-import { MiddleCircle } from "./Middle-circle";
-import { OppositeCircles } from "./Opposite-circles";
-import { Rainbow } from "./Rainbow";
-import { Square } from "./Square";
-import { Triangles } from "./Triangles";
+import { CornerCircles } from "./Corner-circles.js";
+import { Cube } from "./Cube.js";
+import { Diamond } from "./Diamond.js";
+import { MiddleCircle } from "./Middle-circle.js";
+import { OppositeCircles } from "./Opposite-circles.js";
+import { Rainbow } from "./Rainbow.js";
+import { Square } from "./Square.js";
+import { Triangles } from "./Triangles.js";
 
 interface TileComponentProps {
   colors: [string, string, string, string, string];

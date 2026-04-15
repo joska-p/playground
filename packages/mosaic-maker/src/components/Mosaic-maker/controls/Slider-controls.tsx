@@ -1,6 +1,6 @@
-import { Slider } from "@repo/ui";
+import { Slider } from "@repo/ui/Slider";
 import { useState } from "react";
-import { useMosaicMakerContext } from "../Mosaic-context";
+import { useMosaicMakerContext } from "../Mosaic-context.js";
 
 interface Props {
   label: string;
@@ -30,7 +30,7 @@ function SliderControls({
 
   return (
     <Slider
-      label={label}
+      //label={label}
       min={min}
       max={max}
       step={step}

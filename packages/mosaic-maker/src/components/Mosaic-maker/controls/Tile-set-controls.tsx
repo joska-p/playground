@@ -1,7 +1,7 @@
-import { useMosaicMakerContext } from "../Mosaic-context";
-import { initialPalette, initialTileSet } from "../config";
+import { useMosaicMakerContext } from "../Mosaic-context.js";
+import { initialPalette, initialTileSet } from "../config.js";
 import { twMerge } from "tailwind-merge";
-import { Tile } from "../tiles/Tile";
+import { Tile } from "../tiles/Tile.js";
 
 function TileSetControls() {
   const { tileSet, updateTileSet } = useMosaicMakerContext();

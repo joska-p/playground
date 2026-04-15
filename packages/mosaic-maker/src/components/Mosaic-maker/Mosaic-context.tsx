@@ -8,15 +8,18 @@ import {
   useRef,
   useState,
 } from "react";
-import type { TileSet, Palette, TileNames } from "./config";
+import type { TileSet, Palette, TileNames } from "./config.js";
 import {
   initialPalette,
   initialTileSet,
   MAX_NUMBER_OF_PALETTES,
-} from "./config";
-import { fetchPalettes } from "./lib/fetch-palettes";
-import { computeNumberOfTiles, updateElementStyles } from "./lib/style-utils";
-import { getRandom } from "./lib/utils";
+} from "./config.js";
+import { fetchPalettes } from "./lib/fetch-palettes.js";
+import {
+  computeNumberOfTiles,
+  updateElementStyles,
+} from "./lib/style-utils.js";
+import { getRandom } from "./lib/utils.js";
 
 interface MosaicContext {
   mosaicRef: React.RefObject<HTMLDivElement | null>;

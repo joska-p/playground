@@ -1,6 +1,6 @@
-import { useMosaicMakerContext } from "../Mosaic-context";
-import type { Palette } from "../config";
-import { arePalettesEqual, getPaletteId } from "../lib/palette-utils";
+import { useMosaicMakerContext } from "../Mosaic-context.js";
+import type { Palette } from "../config.js";
+import { arePalettesEqual, getPaletteId } from "../lib/palette-utils.js";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends React.HTMLAttributes<HTMLLabelElement> {

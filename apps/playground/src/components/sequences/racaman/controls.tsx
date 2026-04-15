@@ -1,4 +1,6 @@
-import { Input, Slider, Label } from "@repo/ui";
+import { Input } from "@repo/ui/Input";
+import { Label } from "@repo/ui/Label";
+import { Slider } from "@repo/ui/Slider";
 import { useRacamanContext } from "./racaman-context";
 
 function Controls() {
@@ -10,7 +12,7 @@ function Controls() {
       <Slider
         label="sequence length"
         value={sequence.length}
-        onChange={updateSequence}
+        //onChange={updateSequence}
         step={1}
         min={1}
         max={256}

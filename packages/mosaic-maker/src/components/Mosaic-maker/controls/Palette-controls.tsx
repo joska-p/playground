@@ -1,7 +1,7 @@
-import { useMosaicMakerContext } from "../Mosaic-context";
-import { initialPalette } from "../config";
-import { getPaletteId } from "../lib/palette-utils";
-import { PaletteButton } from "./Palette-button";
+import { useMosaicMakerContext } from "../Mosaic-context.js";
+import { initialPalette } from "../config.js";
+import { getPaletteId } from "../lib/palette-utils.js";
+import { PaletteButton } from "./Palette-button.js";
 
 function PaletteControls() {
   const { currentPalettes } = useMosaicMakerContext();
