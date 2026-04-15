@@ -1,0 +1,32 @@
+import type { ComponentProps } from "react";
+import { CSS_VARS } from "../config";
+import { twMerge } from "tailwind-merge";
+
+interface Props extends ComponentProps<"div"> {
+  colors: [string, string, string, string, string];
+  rotation: string;
+}
+
+function Triangles({ colors, rotation, className }: Props) {
+  return (
+    <div
+      className={twMerge(
+        "mm:border-solid mm:transition-[transform,border-color] mm:duration-500",
+        className,
+      )}
+      style={{
+        transform: `rotate(var(${rotation}))`,
+        borderTopColor: `var(${colors[1]})`,
+        borderRightColor: `var(${colors[2]})`,
+        borderBottomColor: `var(${colors[3]})`,
+        borderLeftColor: `var(${colors[4]})`,
+        borderStyle: "solid",
+        borderWidth: `calc(var(${CSS_VARS.width})/2)`,
+      }}
+    />
+  );
+}
+
+Triangles.displayName = "Triangles";
+
+export { Triangles };
