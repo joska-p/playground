@@ -5,6 +5,9 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
   pages: write
@@ -31,39 +34,8 @@ jobs:
       - name: Install dependencies
         run: nix develop . --command pnpm install
 
-      - name: Debug workspace & resolution (CI)
-        run: |
-          echo "=== node & pnpm versions ==="
-          nix develop . --command node -v
-          nix develop . --command pnpm -v
-
-          echo "=== workspace root package.json ==="
-          cat package.json
-
-          echo "=== pnpm workspace list (top-level) ==="
-          nix develop . --command pnpm -w -r list --depth 0 || true
-
-          echo "=== node_modules/@repo/ui package.json (if linked) ==="
-          cat node_modules/@repo/ui/package.json || true
-
-          echo "=== packages/ui/dist (before build) ==="
-          ls -la packages/ui/dist || true
-
-          echo "=== attempt require.resolve from packages/mosaic-maker ==="
-          nix develop . --command pnpm -C packages/mosaic-maker exec node -e "try { console.log(require.resolve('@repo/ui')); } catch(e) { console.error('resolve failed', e.message); process.exit(0) }" || true
-
       - name: Build Project
         run: nix develop . --command pnpm build
-
-      - name: TS resolution trace (on failure)
-        if: ${{ failure() }}
-        run: |
-          echo "=== tsc traceResolution (packages/mosaic-maker) ==="
-          nix develop . --command pnpm -C packages/mosaic-maker exec tsc --traceResolution --noEmit --pretty false || true
-          echo "=== tsc traceResolution (packages/ui) ==="
-          nix develop . --command pnpm -C packages/ui exec tsc --traceResolution --noEmit --pretty false || true
-          echo "=== node_modules/@repo/ui (snapshot) ==="
-          nix develop . --command ls -la node_modules/@repo/ui || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
