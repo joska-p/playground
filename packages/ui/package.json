@@ -11,7 +11,7 @@
     "./styles.css": "./dist/styles.css",
     "./*": {
       "types": "./src/components/*/index.tsx",
-      "default": "./dist/components/*/index.js"
+      "default": "./src/components/*/index.js"
     }
   },
   "license": "MIT",
