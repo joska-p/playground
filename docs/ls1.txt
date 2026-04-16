@@ -1,1 +1,0 @@
-lrwxrwxrwx 1 muratha users 23 avril 15 16:07 apps/playground/node_modules/@repo/ui -> ../../../../packages/ui

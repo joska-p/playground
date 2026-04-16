@@ -1,6 +1,0 @@
-total 32
-drwxr-xr-x 4 muratha users  4096 avril 15 15:50 .
-drwxr-xr-x 6 muratha users  4096 avril 15 16:07 ..
-drwxr-xr-x 6 muratha users  4096 avril 15 15:50 components
--rw-r--r-- 1 muratha users 12594 avril 15 15:50 index.css
-drwxr-xr-x 2 muratha users  4096 avril 15 15:50 utils
