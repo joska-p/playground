@@ -10,19 +10,19 @@
   "exports": {
     "./styles.css": "./dist/index.css",
     "./Button": {
-      "types": "./dist/components/Button/Button.d.ts",
+      "types": "./src/components/Button/Button.tsx",
       "default": "./dist/components/Button/Button.js"
     },
     "./Input": {
-      "types": "./dist/components/Input/Input.d.ts",
+      "types": "./src/components/Input/Input.tsx",
       "default": "./dist/components/Input/Input.js"
     },
     "./Label": {
-      "types": "./dist/components/Label/Label.d.ts",
+      "types": "./src/components/Label/Label.tsx",
       "default": "./dist/components/Label/Label.js"
     },
     "./Slider": {
-      "types": "./dist/components/Slider/Slider.d.ts",
+      "types": "./src/components/Slider/Slider.tsx",
       "default": "./dist/components/Slider/Slider.js"
     }
   },
@@ -34,7 +34,7 @@
     "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "dev:components": "tsc --watch",
     "lint": "eslint src --max-warnings 0",
-    "clean": "rm -rf node_modules dist .turbo"
+    "clean": "rm -rf .turbo node_modules dist"
   },
   "peerDependencies": {
     "react": "^19"
