@@ -10,10 +10,7 @@
   ],
   "exports": {
     "./styles.css": "./dist/index.css",
-    "./MosaicMaker": {
-      "types": "./dist/Mosaic-maker.d.ts",
-      "default": "./dist/Mosaic-maker.js"
-    }
+    "./MosaicMaker": "./dist/Mosaic-maker.js"
   },
   "license": "MIT",
   "scripts": {
