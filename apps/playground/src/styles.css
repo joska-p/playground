@@ -1,6 +1,0 @@
-@import "tailwindcss";
-@import "@repo/tailwind-config";
-
-body {
-  @apply bg-background text-foreground transition-colors duration-300;
-}

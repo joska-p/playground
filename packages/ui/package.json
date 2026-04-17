@@ -9,22 +9,7 @@
   ],
   "exports": {
     "./styles.css": "./dist/index.css",
-    "./Button": {
-      "types": "./src/components/Button/Button.tsx",
-      "default": "./dist/components/Button/Button.js"
-    },
-    "./Input": {
-      "types": "./src/components/Input/Input.tsx",
-      "default": "./dist/components/Input/Input.js"
-    },
-    "./Label": {
-      "types": "./src/components/Label/Label.tsx",
-      "default": "./dist/components/Label/Label.js"
-    },
-    "./Slider": {
-      "types": "./src/components/Slider/Slider.tsx",
-      "default": "./dist/components/Slider/Slider.js"
-    }
+    "./*": "./dist/*.js"
   },
   "license": "MIT",
   "scripts": {
@@ -34,7 +19,7 @@
     "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "dev:components": "tsc --watch",
     "lint": "eslint src --max-warnings 0",
-    "clean": "rm -rf .turbo node_modules dist"
+    "clean": "rm -rf dist node_modules .turbo"
   },
   "peerDependencies": {
     "react": "^19"
