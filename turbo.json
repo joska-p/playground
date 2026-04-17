@@ -8,10 +8,7 @@
       "outputs": ["dist/**", "storybook-static/**"]
     },
     "playground#build": {
-      "dependsOn": [
-        "@repo/mosaic-maker#build:components",
-        "@repo/ui#build:components"
-      ]
+      "dependsOn": ["@repo/mosaic-maker#build:components"]
     },
     "mosaic-maker#build": {
       "dependsOn": ["@repo/ui#build:components"]
