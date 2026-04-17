@@ -8,7 +8,8 @@
       "outputs": ["dist/**"]
     },
     "build:components": {
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "dependsOn": ["@repo/ui#build:components"]
     },
     "dev": {
       "with": ["dev:styles", "dev:components"]
