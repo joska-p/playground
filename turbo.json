@@ -7,6 +7,12 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", "storybook-static/**"]
     },
+    "playground#build": {
+      "dependsOn": ["mosaic-maker#^build"]
+    },
+    "mosaic-maker#build": {
+      "dependsOn": ["ui#^build"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
