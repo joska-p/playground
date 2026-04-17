@@ -1,4 +1,5 @@
 import { Slider } from "@repo/ui/Slider";
+import { Label } from "@repo/ui/Label";
 import { useState } from "react";
 import { useMosaicMakerContext } from "../Mosaic-context.js";
 
@@ -22,21 +23,23 @@ function SliderControls({
   const { mosaicRef } = useMosaicMakerContext();
   const [value, setValue] = useState(defaultValue);
 
-  const handleSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(e.target.value);
+  const handleSetValue = (newValue: number) => {
     setValue(newValue);
     mosaicRef.current?.style.setProperty(cssVar, `${newValue}px`);
   };
 
   return (
-    <Slider
-      //label={label}
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={handleSetValue}
-    />
+    <Label>
+      {label}
+      <Slider
+        //label={label}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={handleSetValue}
+      />
+    </Label>
   );
 }
 

@@ -36,7 +36,11 @@ export function Slider({
   }
 
   return (
-    <label className={"flex cursor-pointer flex-col items-center text-sm md:text-base"}>
+    <label
+      className={
+        "flex cursor-pointer flex-col items-center text-sm md:text-base"
+      }
+    >
       <span>{label ? `${label}: ${sliderValue}` : sliderValue}</span>
       <input
         aria-label={ariaLabel}

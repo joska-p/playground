@@ -9,7 +9,10 @@
   ],
   "exports": {
     "./styles.css": "./dist/index.css",
-    "./*": "./dist/*.js"
+    "./Button": "./dist/components/button/Button.js",
+    "./Input": "./dist/components/input/Input.js",
+    "./Label": "./dist/components/label/Label.js",
+    "./Slider": "./dist/components/slider/Slider.js"
   },
   "license": "MIT",
   "scripts": {
@@ -19,7 +22,7 @@
     "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "dev:components": "tsc --watch",
     "lint": "eslint src --max-warnings 0",
-    "clean": "rm -rf dist node_modules .turbo"
+    "clean": "rm -rf node_modules .turbo dist"
   },
   "peerDependencies": {
     "react": "^19"

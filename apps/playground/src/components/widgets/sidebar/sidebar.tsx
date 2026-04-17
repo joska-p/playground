@@ -1,0 +1,115 @@
+import type { VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import { type ComponentProps } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
+import { cn } from "../../../lib/utils";
+
+const SidebarContext = createContext<{
+  isOpen: boolean;
+  toggleSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+} | null>(null);
+
+function useSidebarContext() {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebarContext must be used within a SidebarProvider");
+  }
+  return context;
+}
+
+const sidebarProviderVariants = cva("grid h-full", {
+  variants: {
+    mobilePosition: {
+      top: "grid-cols-1 grid-rows-[auto_1fr]",
+      right: "grid-cols-[1fr_auto] grid-rows-1",
+      bottom: "grid-cols-1 grid-rows-[1fr_auto]",
+      left: "grid-cols-[auto_1fr] grid-rows-1",
+    },
+    desktopPosition: {
+      top: "lg:grid-cols-1 lg:grid-rows-[auto_1fr]",
+      right: "lg:grid-cols-[1fr_auto] lg:grid-rows-1",
+      bottom: "lg:grid-cols-1 lg:grid-rows-[1fr_auto]",
+      left: "lg:grid-cols-[auto_1fr] lg:grid-rows-1",
+    },
+  },
+  defaultVariants: {
+    mobilePosition: "bottom",
+    desktopPosition: "bottom",
+  },
+});
+
+interface SidebarProviderProps
+  extends
+    React.ComponentProps<"div">,
+    VariantProps<typeof sidebarProviderVariants> {
+  children: React.ReactNode; // 👈 Add this explicitly
+}
+
+function SidebarProvider({
+  children,
+  ref,
+  className,
+  mobilePosition,
+  desktopPosition,
+  ...props
+}: SidebarProviderProps) {
+  const [isOpen, toggleSidebar] = useState(true);
+
+  const value = useMemo(
+    () => ({
+      isOpen,
+      toggleSidebar,
+    }),
+    [isOpen]
+  );
+
+  return (
+    <SidebarContext value={value}>
+      <div
+        ref={ref}
+        className={cn(
+          sidebarProviderVariants({
+            mobilePosition,
+            desktopPosition,
+            className,
+          })
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    </SidebarContext>
+  );
+}
+
+function Content({
+  children,
+  ref,
+  className,
+  ...props
+}: ComponentProps<"div">) {
+  return (
+    <div ref={ref} className={cn(className)} {...props}>
+      {children}
+    </div>
+  );
+}
+
+function Sidebar({
+  children,
+  ref,
+  className,
+  ...props
+}: ComponentProps<"div">) {
+  const { isOpen } = useSidebarContext();
+  return (
+    <div ref={ref} className={cn(className, { hidden: !isOpen })} {...props}>
+      {children}
+    </div>
+  );
+}
+
+SidebarProvider.Content = Content;
+SidebarProvider.Sidebar = Sidebar;
+
+export { SidebarProvider };
