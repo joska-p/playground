@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/Button";
+import { Button } from "@repo/ui";
 import { StrictMode } from "react";
 import { useSearchParams } from "../../hooks/use-searchparams";
 

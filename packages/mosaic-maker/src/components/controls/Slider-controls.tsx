@@ -1,5 +1,4 @@
-import { Slider } from "@repo/ui/Slider";
-import { Label } from "@repo/ui/Label";
+import { Slider, Label } from "@repo/ui";
 import { useState } from "react";
 import { useMosaicMakerContext } from "../Mosaic-context.js";
 

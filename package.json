@@ -6,7 +6,8 @@
     "dev": "turbo run dev",
     "preview": "turbo run preview",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint-fix": "turbo run lint-fix",
+    "format": "turbo run format",
     "check-types": "turbo run check-types",
     "clean": "turbo run clean && rm -rf node_modules"
   },

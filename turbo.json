@@ -4,22 +4,27 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", "storybook-static/**"]
-    },
-    "playground#build": {
-      "dependsOn": ["@repo/mosaic-maker#build:components"]
-    },
-    "mosaic-maker#build": {
-      "dependsOn": ["@repo/ui#build:components"]
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "tsconfig.json"],
+      "outputs": ["dist/**", ".astro/**", "storybook-static/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"]
+    },
+    "lint-fix": {
+      "dependsOn": ["^lint-fix"],
+      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"]
+    },
+    "format": {
+      "dependsOn": ["^format"],
+      "inputs": ["$TURBO_DEFAULT$", ".prettierrc*", "prettier.config.*"]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": ["^check-types"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig.json"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },

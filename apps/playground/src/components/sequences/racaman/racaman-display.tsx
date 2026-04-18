@@ -24,7 +24,10 @@ function RacamanDisplay() {
   }, [containerRef, setContainerSize]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 content-center overflow-hidden">
+    <div
+      ref={containerRef}
+      className="absolute inset-0 content-center overflow-hidden"
+    >
       {drawMode === "vector-mode" && <VectorsDisplay />}
       {drawMode === "canvas-mode" && <CanvasDisplay />}
     </div>

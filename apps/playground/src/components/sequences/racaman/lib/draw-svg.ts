@@ -7,7 +7,7 @@ function resetSvg(svg: SVGSVGElement) {
 
 function calculateViewBox(
   sequence: number[],
-  containerSize: { width: number; height: number }
+  containerSize: { width: number; height: number },
 ) {
   const maxWith = containerSize.width;
   const maxHeight = containerSize.height;
@@ -20,7 +20,7 @@ function generateArcPath(
   radius: number,
   value: number,
   height: number,
-  clockwise: boolean
+  clockwise: boolean,
 ): string {
   const sweepFlag = clockwise ? 1 : 0;
   return ` A ${radius} ${radius} 0 0 ${sweepFlag} ${value} ${height / 2}`;
@@ -42,14 +42,14 @@ function generatePath(sequence: number[], height: number): string {
       // Append the arc path to the accumulated path
       return acc + generateArcPath(radius, value, height, clockwise);
     },
-    `M 0 ${height / 2} ` // Move to the starting point
+    `M 0 ${height / 2} `, // Move to the starting point
   );
 }
 
 function draw(
   svg: SVGSVGElement,
   sequence: number[],
-  containerSize: { width: number; height: number }
+  containerSize: { width: number; height: number },
 ) {
   resetSvg(svg);
   const { width, height } = calculateViewBox(sequence, containerSize);

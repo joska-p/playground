@@ -2,7 +2,7 @@ import { findBiggestInterval } from "../../../../lib/math";
 
 function setupCanvas(
   canvas: HTMLCanvasElement,
-  containerSize: { width: number; height: number }
+  containerSize: { width: number; height: number },
 ) {
   canvas.width = containerSize.width;
   canvas.height = containerSize.height;
@@ -10,7 +10,7 @@ function setupCanvas(
 
 function calculateValueScale(
   sequence: number[],
-  containerSize: { width: number; height: number }
+  containerSize: { width: number; height: number },
 ): number {
   const maxWith = containerSize.width;
   const maxHeight = containerSize.height;
@@ -24,7 +24,7 @@ function calculateValueScale(
 function drawSequence(
   context: CanvasRenderingContext2D,
   sequence: number[],
-  valueScale: number
+  valueScale: number,
 ) {
   sequence.forEach((value, index) => {
     if (index > 0) {
@@ -46,7 +46,7 @@ function drawSequence(
 function draw(
   canvas: HTMLCanvasElement,
   sequence: number[],
-  containerSize: { width: number; height: number }
+  containerSize: { width: number; height: number },
 ) {
   if (!canvas.parentElement) return;
 

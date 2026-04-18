@@ -1,5 +1,4 @@
-import { Button } from "@repo/ui/Button";
-import { Input } from "@repo/ui/Input";
+import { Button, Input } from "@repo/ui";
 import { useState } from "react";
 import { usePaletteContext } from "../../palette-context";
 import type { Palette, BaseColor } from "../../palette-context";

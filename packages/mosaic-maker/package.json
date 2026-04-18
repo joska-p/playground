@@ -8,18 +8,30 @@
   "files": [
     "dist"
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
   "exports": {
-    "./styles.css": "./dist/index.css",
-    "./MosaicMaker": "./dist/Mosaic-maker.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
   },
   "license": "MIT",
   "scripts": {
+    "build": "pnpm run /^build:/",
     "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
     "build:components": "tsc",
     "check-types": "tsc --noEmit",
     "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "dev:components": "tsc --watch",
-    "lint": "eslint src --max-warnings 0",
+    "lint": "eslint . --max-warnings 0",
+    "lint-fix": "eslint . --max-warnings 0 --fix",
+    "format": "prettier --write .",
     "clean": "rm -rf node_modules .turbo dist"
   },
   "peerDependencies": {

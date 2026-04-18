@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/Button";
+import { Button } from "@repo/ui";
 import { useMosaicMakerContext } from "../Mosaic-context.js";
 import {
   CSS_VARS,

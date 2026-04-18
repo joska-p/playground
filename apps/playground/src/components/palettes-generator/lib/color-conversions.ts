@@ -70,7 +70,10 @@ export function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {
   if (normalizedLightness < 0.5) {
     t2 = normalizedLightness * (1 + normalizedSaturation);
   } else {
-    t2 = normalizedLightness + normalizedSaturation - normalizedLightness * normalizedSaturation;
+    t2 =
+      normalizedLightness +
+      normalizedSaturation -
+      normalizedLightness * normalizedSaturation;
   }
 
   const t1 = 2 * normalizedLightness - t2;
@@ -99,7 +102,11 @@ export function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {
     rgb[i] = val * 255;
   }
 
-  return { red: Math.round(rgb[0]), green: Math.round(rgb[1]), blue: Math.round(rgb[2]) };
+  return {
+    red: Math.round(rgb[0]),
+    green: Math.round(rgb[1]),
+    blue: Math.round(rgb[2]),
+  };
 }
 
 export function RGBToHex({ red, green, blue }: RGBColor): string {

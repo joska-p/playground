@@ -1,5 +1,4 @@
-import { Button } from "@repo/ui/Button";
-import { Input } from "@repo/ui/Input";
+import { Button, Input } from "@repo/ui";
 import { StrictMode, useCallback, useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,

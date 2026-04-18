@@ -60,7 +60,7 @@ function SidebarProvider({
       isOpen,
       toggleSidebar,
     }),
-    [isOpen]
+    [isOpen],
   );
 
   return (
@@ -72,7 +72,7 @@ function SidebarProvider({
             mobilePosition,
             desktopPosition,
             className,
-          })
+          }),
         )}
         {...props}
       >

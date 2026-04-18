@@ -1,9 +1,10 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "../../utils/cn";
-import { buttonVariants } from "./buttonVariants";
+import { cn } from "../../utils/cn.js";
+import { buttonVariants } from "./buttonVariants.js";
 
-interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {}
+interface ButtonProps
+  extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {}
 
 function Button({
   ref,

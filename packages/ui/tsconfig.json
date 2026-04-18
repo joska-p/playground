@@ -5,8 +5,8 @@
     "strictNullChecks": true,
     "module": "ESNext",
     "target": "es2022",
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler"
   },
   "include": ["./src"],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": ["dist", "build", "node_modules"]
 }

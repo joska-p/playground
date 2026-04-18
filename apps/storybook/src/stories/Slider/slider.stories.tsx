@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentProps } from "react";
 import { fn } from "storybook/test";
-import { Slider } from "@repo/ui/Slider";
+import { Slider } from "@repo/ui";
 
 type StoryProps = ComponentProps<typeof Slider> & {
   buttonText: string;
