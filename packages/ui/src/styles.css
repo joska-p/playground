@@ -1,3 +1,6 @@
-/* Component-level styles for the UI package */
 @import "tailwindcss" prefix(ui);
 @import "@repo/tailwind-config";
+
+body {
+  @apply ui:bg-background ui:text-foreground ui:transition-colors ui:duration-300;
+}

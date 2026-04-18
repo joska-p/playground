@@ -1,16 +1,16 @@
 import { cva } from "class-variance-authority";
 
 export const inputVariants = cva(
-  "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+  "ui:flex ui:h-9 ui:w-full ui:rounded-md ui:border ui:border-input ui:bg-transparent ui:px-3 ui:py-1 ui:text-base ui:shadow-xs ui:transition-colors ui:file:border-0 ui:file:bg-transparent ui:file:text-sm ui:file:font-medium ui:file:text-foreground ui:placeholder:text-muted-foreground ui:focus-visible:outline-hidden ui:focus-visible:ring-1 ui:focus-visible:ring-ring ui:disabled:cursor-not-allowed ui:disabled:opacity-50 ui:md:text-sm",
   {
     variants: {
       variant: {
         default: "",
-        error: "border-destructive focus-visible:ring-destructive",
+        error: "ui:border-destructive ui:focus-visible:ring-destructive",
       },
     },
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );

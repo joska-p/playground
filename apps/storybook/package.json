@@ -1,12 +1,11 @@
 {
-  "name": "storybook",
+  "name": "@repo/storybook",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build --docs",
-    "preview-storybook": "serve storybook-static",
     "clean": "rm -rf .turbo node_modules storybook-static dist",
     "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
   },
@@ -30,6 +29,7 @@
     "vite": "^8.0.8",
     "storybook": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
+    "@storybook/addon-themes": "^10.3.5",
     "@chromatic-com/storybook": "^5.1.2",
     "@storybook/addon-vitest": "^10.3.5",
     "@storybook/addon-a11y": "^10.3.5",
@@ -38,6 +38,7 @@
     "vitest": "^4.1.4",
     "playwright": "^1.59.1",
     "@vitest/browser-playwright": "^4.1.4",
-    "@vitest/coverage-v8": "^4.1.4"
+    "@vitest/coverage-v8": "^4.1.4",
+    "@repo/typescript-config": "workspace:*"
   }
 }

@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const labelVariants = cva(
-  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  "ui:text-sm ui:font-medium ui:leading-none ui:peer-disabled:cursor-not-allowed ui:peer-disabled:opacity-70",
   {
     variants: {
       variant: {
@@ -12,5 +12,5 @@ export const labelVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );

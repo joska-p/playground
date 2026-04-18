@@ -1,3 +1,0 @@
-import type { ClassValue } from "clsx";
-export declare const cn: (...inputs: ClassValue[]) => string;
-//# sourceMappingURL=cn.d.ts.map

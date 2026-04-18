@@ -33,6 +33,15 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Merge storybook into Astro Dist
+        # We use 'if: always()' to ensure reports are merged even if previous steps failed
+        if: always()
+        run: |
+          mkdir -p ./apps/playground/dist/storybook
+          # Use 'cp -r' with care; if the folders don't exist, this might error,
+          # so we add || true to be safe.
+          cp -r ./apps/storybook/storybook-static/* ./apps/playground/dist/storybook/ || true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
