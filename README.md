@@ -1,63 +1,69 @@
-# Personal Playground
+# 🎨 Creative Playground
 
-This is a personal monorepo I use to learn and experiment with modern web technologies. It is a work in progress and serves as a sandbox for me to practice building and managing a workspace with Turborepo, pnpm, and various frameworks.
+[![Deploy to GitHub Pages](https://github.com/joska-p/playground/actions/workflows/deploy.yml/badge.svg)](https://github.com/joska-p/playground/actions/workflows/deploy.yml)
 
-## Project Structure
+A personal monorepo serving as a sandbox for exploring modern web technologies, creative coding, and frontend architecture.
 
-The workspace is organized into an application and shared packages:
+🚀 **[Live Demo](https://joska-p.github.io/playground/)** | 📚 **[Storybook](https://joska-p.github.io/playground/storybook)**
 
-### Applications
-* **apps/playground**: An Astro site for static experiments and UI testing.
+---
 
-### Packages
-* **packages/mosaic-maker**: A React component for creating interactive mosaics.
-* **packages/ui**: A shared library of basic UI components (buttons, inputs, etc.).
-* **packages/tailwind-config**: Shared styling configuration for Tailwind CSS 4.
-* **packages/typescript-config**: Shared TypeScript configurations.
-* **packages/eslint-config**: Shared linting rules.
+## ✨ Features & Experiments
 
-## Tech Stack
+This playground hosts various experiments and tools built while learning new frameworks and patterns:
 
-I am using this project to learn:
-* **Monorepos**: Managed with Turborepo and pnpm.
-* **Frameworks**: React 19 and Astro.
-* **Styling**: Tailwind CSS 4.
-* **Modules**: Transitioning to native ESM and modern TypeScript resolution (bundler).
+*   **🧩 Mosaic Maker**: An interactive tool to generate and customize mosaic patterns from images or color palettes.
+*   **✨ Particles**: Image-to-particle conversion experiments, exploring canvas manipulation and animations.
+*   **🔢 Sequences**: Mathematical visualizations, including the beautiful **Recamán's Sequence**.
+*   **🎨 Palette Generator**: Tools for exploring color theory and generating accessible color schemes.
+*   **📊 Data Viz**: Minimalist components like custom SVG pie charts.
 
-## Getting Started
+## 🏗️ Architecture
 
-## Development Environment
+The workspace is a **Turborepo** monorepo managed with **pnpm**, designed for high performance and shared configurations.
 
-This project is optimized for a reproducible development environment using **Nix** and **direnv**.
+### 📱 Applications
+*   `apps/playground`: The main **Astro** site hosting all experiments.
+*   `apps/storybook`: **Storybook** instance documenting the shared UI components.
 
-If you have Nix and direnv installed:
-1.  Entering the project directory will automatically load the `devShell`.
-2.  All required tools (`pnpm`, `turbo`, `nodejs`, `typescript`) will be available in your path.
-3.  `corepack` is used to ensure the correct version of `pnpm` is active.
+### 📦 Packages
+*   `packages/mosaic-maker`: Core logic and React components for the mosaic engine.
+*   `packages/ui`: A shared library of primitive UI components built with **React 19**.
+*   `packages/tailwind-config`: Shared styling configuration for **Tailwind CSS v4**.
+*   `packages/typescript-config`: Centralized TS configs for consistent DX.
+*   `packages/eslint-config`: Shared linting rules to maintain code quality.
 
-### Prerequisites
-* Node.js (>= 18)
-* pnpm (v10)
+## 🛠️ Tech Stack
 
-Alternatively, if you are not using Nix, ensure the above are installed manually.
+*   **Frameworks**: [Astro](https://astro.build/), [React 19](https://react.dev/)
+*   **Build System**: [Turborepo](https://turbo.build/), [pnpm](https://pnpm.io/)
+*   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+*   **Language**: [TypeScript](https://www.typescriptlang.org/)
+*   **Infrastructure**: [Nix](https://nixos.org/) & [direnv](https://direnv.net/) for a reproducible dev environment.
 
-### Installation
+## 🚀 Getting Started
+
+### Development Environment
+
+This project uses **Nix** and **direnv** to ensure a consistent environment across different machines.
+
+1.  Clone the repository.
+2.  If you have Nix and direnv installed, simply `cd` into the directory and run `direnv allow`.
+3.  All dependencies (`pnpm`, `node`, `turbo`) will be automatically available.
+
+### Installation & Run
+
 ```bash
+# Install dependencies
 pnpm install
-```
 
-### Development
-To start the workspace in development mode:
-```bash
+# Start development servers
 pnpm dev
-```
 
-### Build
-To compile the entire project:
-```bash
+# Build all apps and packages
 pnpm build
 ```
 
-## Usage Note
+## 📝 License
 
-This project is strictly for personal learning and experimentation. It is not intended to demonstrate "best practices" or provide a template for others, as I am still exploring these tools myself.
+Personal learning project. Feel free to explore and use bits of code for your own learning!
