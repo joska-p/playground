@@ -1,5 +1,5 @@
 @import "tailwindcss" prefix(ui);
-@import "@repo/tailwind-config";
+@import "@repo/tailwind-config/gruvbox";
 
 body {
   @apply ui:bg-background ui:text-foreground ui:transition-colors ui:duration-300;
