@@ -10,9 +10,9 @@ export const buttonVariants = cva(
         destructive:
           "ui:bg-destructive ui:text-destructive-foreground ui:hover:bg-destructive/90 ui:shadow-sm",
         outline:
-          "ui:border-input ui:bg-background ui:hover:bg-accent ui:hover:text-accent-foreground ui:border ui:shadow-xs",
+          "ui:border-input ui:bg-transparent ui:hover:bg-accent ui:hover:text-accent-foreground ui:border ui:shadow-xs",
         secondary:
-          "ui:bg-secondary ui:text-secondary-foreground ui:hover:bg-secondary/80 ui:shadow-xs",
+          "ui:bg-secondary ui:text-secondary-foreground ui:hover:bg-secondary/90 ui:shadow-xs",
         ghost: "ui:hover:bg-accent ui:hover:text-accent-foreground",
         link: "ui:text-primary ui:underline-offset-4 ui:hover:underline",
       },

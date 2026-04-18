@@ -1,43 +1,56 @@
 import { Input, Label, Slider } from "@repo/ui";
-import { useRacamanContext } from "./racaman-context";
+import { useRacamanContext } from "./racaman-context.js";
 
 function Controls() {
-  const { sequence, drawMode, updateSequence, changeDrawMode } =
-    useRacamanContext();
+  const { config, setConfig } = useRacamanContext();
 
   return (
-    <form className="bg-background/90 flex items-center justify-center gap-8 py-4">
-      <Slider
-        label="sequence length"
-        value={sequence.length}
-        //onChange={updateSequence}
-        step={1}
-        min={1}
-        max={256}
-      />
-      <Label className="flex w-max items-center gap-2">
-        <Input
-          type="radio"
-          value="canvas-mode"
-          checked={drawMode === "canvas-mode"}
-          name="canvas-mode"
-          onChange={changeDrawMode}
-          className="w-fit"
-        />
-        Canvas mode
-      </Label>
-      <Label className="flex w-max items-center gap-2">
-        <Input
-          type="radio"
-          value="vector-mode"
-          checked={drawMode === "vector-mode"}
-          name="vectors-mode"
-          onChange={changeDrawMode}
-          className="w-fit"
-        />
-        Vector mode
-      </Label>
-    </form>
+    <aside className="flex flex-col gap-6 rounded-lg border bg-card p-4 shadow-sm md:w-64">
+      <div className="flex flex-col gap-4">
+        <Label className="flex flex-col gap-2">
+          <span className="text-sm font-medium">
+            Iterations: {config.iterations}
+          </span>
+          <Slider
+            min={10}
+            max={2000}
+            step={10}
+            value={config.iterations}
+            onChange={(val) => setConfig({ ...config, iterations: val })}
+          />
+        </Label>
+
+        <Label className="flex flex-col gap-2">
+          <span className="text-sm font-medium">
+            Step Size: {config.stepSize}
+          </span>
+          <Slider
+            min={1}
+            max={50}
+            step={0.5}
+            value={config.stepSize}
+            onChange={(val) => setConfig({ ...config, stepSize: val })}
+          />
+        </Label>
+
+        <Label className="flex flex-col gap-2">
+          <span className="text-sm font-medium">Stroke Width</span>
+          <Input
+            type="number"
+            min={0.1}
+            max={10}
+            step={0.1}
+            value={config.strokeWidth}
+            onChange={(e) =>
+              setConfig({
+                ...config,
+                strokeWidth: parseFloat(e.target.value) || 1,
+              })
+            }
+          />
+        </Label>
+      </div>
+    </aside>
   );
 }
 

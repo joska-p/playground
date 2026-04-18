@@ -28,10 +28,11 @@ function SliderControls({
   };
 
   return (
-    <Label>
-      {label}
+    <Label className="mm:flex mm:flex-col mm:gap-2">
+      <span className="mm:text-sm mm:font-medium">
+        {label}: {value}px
+      </span>
       <Slider
-        //label={label}
         min={min}
         max={max}
         step={step}

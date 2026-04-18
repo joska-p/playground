@@ -1,31 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ComponentProps } from "react";
-import { fn } from "storybook/test";
 import { Input } from "@repo/ui";
 
-type StoryProps = ComponentProps<typeof Input> & {
-  buttonText: string;
-};
-
-const meta: Meta<StoryProps> = {
+const meta: Meta<typeof Input> = {
   component: Input,
   tags: ["autodocs"],
   argTypes: {
     variant: {
       options: ["default", "primary", "destructive", "secondary"],
-      control: {
-        type: "select",
-      },
+      control: { type: "select" },
     },
     type: {
-      options: ["text", "email", "file"],
-      control: {
-        type: "select",
-      },
+      options: ["text", "email", "number", "file", "password"],
+      control: { type: "select" },
     },
-  },
-  args: {
-    onClick: fn(),
   },
 };
 
@@ -36,31 +23,23 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
   args: {
     type: "text",
-    placeholder: "Default placeholder",
+    placeholder: "Type something...",
     variant: "default",
   },
 };
 
-export const primary: Story = {
+export const Password: Story = {
   args: {
-    type: "text",
-    placeholder: "Primary placeholder",
-    variant: "primary",
+    type: "password",
+    placeholder: "Enter password",
+    variant: "default",
   },
 };
 
-export const destructive: Story = {
+export const Number: Story = {
   args: {
-    type: "text",
-    placeholder: "Destructive placeholder",
-    variant: "destructive",
-  },
-};
-
-export const secondary: Story = {
-  args: {
-    type: "text",
-    placeholder: "Secondary placeholder",
-    variant: "secondary",
+    type: "number",
+    placeholder: "0",
+    variant: "default",
   },
 };

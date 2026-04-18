@@ -1,31 +1,33 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ComponentProps } from "react";
-import { fn } from "storybook/test";
-import { Slider } from "@repo/ui";
+import { useState } from "react";
+import { Slider, Label } from "@repo/ui";
 
-type StoryProps = ComponentProps<typeof Slider> & {
-  buttonText: string;
-};
-
-const meta: Meta<StoryProps> = {
+const meta: Meta<typeof Slider> = {
   component: Slider,
   tags: ["autodocs"],
   argTypes: {
     variant: {
       options: ["default", "outline", "primary", "destructive", "secondary"],
-      control: {
-        type: "select",
-      },
+      control: { type: "select" },
     },
-  },
-  args: {
-    onChange: fn(),
   },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Slider>;
+
+const SliderWithState = (args: any) => {
+  const [value, setValue] = useState(args.value ?? 50);
+  return (
+    <div className="flex flex-col gap-4 w-[300px]">
+      <Label className="flex flex-col gap-2">
+        <span className="text-sm font-medium">Value: {value}</span>
+        <Slider {...args} value={value} onChange={setValue} />
+      </Label>
+    </div>
+  );
+};
 
 export const Default: Story = {
   args: {
@@ -34,43 +36,28 @@ export const Default: Story = {
     max: 100,
     step: 1,
     value: 50,
-    label: "Default Slider",
-    ariaLabel: "Default Slider",
   },
+  render: (args) => <SliderWithState {...args} />,
 };
 
-export const outline: Story = {
+export const Outline: Story = {
   args: {
     variant: "outline",
     min: 0,
     max: 100,
     step: 1,
-    value: 50,
-    label: "Outline Slider",
-    ariaLabel: "Outline Slider",
+    value: 30,
   },
+  render: (args) => <SliderWithState {...args} />,
 };
 
-export const destructive: Story = {
+export const Destructive: Story = {
   args: {
     variant: "destructive",
     min: 0,
     max: 100,
-    step: 1,
-    value: 50,
-    label: "Destructive Slider",
-    ariaLabel: "Destructive Slider",
+    step: 5,
+    value: 80,
   },
-};
-
-export const secondary: Story = {
-  args: {
-    variant: "secondary",
-    min: 0,
-    max: 100,
-    step: 1,
-    value: 50,
-    label: "Secondary Slider",
-    ariaLabel: "Secondary Slider",
-  },
+  render: (args) => <SliderWithState {...args} />,
 };

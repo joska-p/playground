@@ -5,8 +5,8 @@ export const labelVariants = cva(
   {
     variants: {
       variant: {
-        default: "text-foreground",
-        destructive: "text-destructive",
+        default: "ui:text-foreground",
+        destructive: "ui:text-destructive",
       },
     },
     defaultVariants: {
