@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "storybook build --docs",
+    "build": "storybook build",
+    "preview": "serve -n storybook-static",
     "clean": "rm -rf .turbo node_modules storybook-static dist",
     "lint": "eslint ./stories/*.stories.tsx --max-warnings 0"
   },
@@ -39,6 +40,7 @@
     "playwright": "^1.59.1",
     "@vitest/browser-playwright": "^4.1.4",
     "@vitest/coverage-v8": "^4.1.4",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "serve": "^14.2.6"
   }
 }

@@ -14,6 +14,9 @@ const preview: Preview = {
     }),
   ],
   parameters: {
+    docs: {
+      toc: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -28,6 +31,7 @@ const preview: Preview = {
       test: "todo",
     },
   },
+  tags: ["autodocs"],
 };
 
 export default preview;

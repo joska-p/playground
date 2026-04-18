@@ -22,20 +22,5 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true,
   },
-  async viteFinal(config) {
-    // customize the Vite config here
-    return {
-      ...config,
-      define: { "process.env": {} },
-      resolve: {
-        alias: [
-          {
-            find: "ui",
-            replacement: getAbsolutePath("../../../packages/ui/"),
-          },
-        ],
-      },
-    };
-  },
 };
 export default config;
