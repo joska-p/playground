@@ -1,12 +1,12 @@
 {
   "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist",
     "strictNullChecks": true,
     "module": "ESNext",
     "target": "es2022",
     "moduleResolution": "bundler",
   },
-  "include": ["src"],
+  "include": ["./src"],
   "exclude": ["dist", "build", "node_modules"],
 }

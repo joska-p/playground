@@ -1,0 +1,1 @@
+{"version":3,"file":"fetch-palettes.d.ts","sourceRoot":"","sources":["fetch-palettes.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,cAAc,CAAC;AAI5C,MAAM,WAAW,cAAc;IAC7B,QAAQ,EAAE,OAAO,EAAE,CAAC;IACpB,UAAU,EAAE,MAAM,CAAC;IACnB,OAAO,EAAE,MAAM,CAAC;CACjB;AA6CD,iBAAe,aAAa,IAAI,OAAO,CAAC,OAAO,EAAE,CAAC,CAejD;AAED,OAAO,EAAE,aAAa,EAAE,CAAC"}

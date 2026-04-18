@@ -7,10 +7,12 @@ SAVES
 result
 result-*
 
-# Astrojs
+# Astrojs and Buils
 # generated types
 .astro
 dist
+storybook-static
+build
 
 # dependencies
 .pnpm-home
@@ -20,12 +22,6 @@ node_modules
 
 # testing
 coverage
-
-# next.js
-.next/
-out/
-build
-.swc/
 
 # misc
 .DS_Store
@@ -48,6 +44,3 @@ logs
 
 # turbo
 .turbo
-
-# ui
-dist/

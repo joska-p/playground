@@ -1,0 +1,1 @@
+{"version":3,"file":"style-utils.d.ts","sourceRoot":"","sources":["style-utils.ts"],"names":[],"mappings":"AAGA,KAAK,cAAc,GAAG,MAAM,CAAC,MAAM,EAAE,MAAM,CAAC,CAAC;AAiC7C,iBAAS,oBAAoB,CAAC,OAAO,EAAE,cAAc,GAAG,MAAM,CAkB7D;AAED,iBAAS,mBAAmB,CAC1B,OAAO,EAAE,WAAW,EACpB,MAAM,EAAE,cAAc,GACrB,IAAI,CAIN;AAED,OAAO,EAAE,oBAAoB,EAAE,mBAAmB,EAAE,CAAC"}

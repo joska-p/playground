@@ -23,6 +23,9 @@
       "cache": false,
       "persistent": true
     },
+    "preview-storybook": {
+      "dependsOn": ["^build"]
+    },
     "clean": {
       "dependsOn": ["^clean"]
     }
