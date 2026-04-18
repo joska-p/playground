@@ -17,3 +17,8 @@
 - [x] Fix missing `.js` extensions in ESM package entry points
 - [x] Resolve deep import issues by migrating to root package exports
 - [x] Simplify `turbo.json` build pipeline
+
+## Phase 5: GitHub Actions & Nix Integration
+- [x] Migrate `.github/workflows/deploy.yml` to use Nix for build parity
+- [x] Implement Nix caching for faster workflow runs
+- [ ] Verify build and deployment via Nix-backed CI
