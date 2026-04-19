@@ -1,10 +1,10 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
-import { draw } from "./lib/draw-svg";
-import { useRacamanContext } from "./racaman-context";
+import { draw } from "../lib/draw-svg.js";
+import { useSequenceContext } from "../Sequence-context.js";
 
-function VectorsDisplay() {
-  const { sequence, containerSize } = useRacamanContext();
+function SVGRenderer() {
+  const { sequence, containerSize } = useSequenceContext();
   const svgRef = useRef<SVGSVGElement>(null);
   const styleObject = {
     "--dasharray": 0,
@@ -25,9 +25,9 @@ function VectorsDisplay() {
     <svg
       ref={svgRef}
       style={styleObject}
-      className="max-h-full max-w-full fill-transparent"
+      className="w-full h-full fill-transparent"
     />
   );
 }
 
-export { VectorsDisplay };
+export { SVGRenderer };

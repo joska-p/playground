@@ -1,4 +1,4 @@
-import { findBiggestInterval } from "../../../../lib/math";
+import { findBiggestInterval } from "./math.js";
 
 function setupCanvas(
   canvas: HTMLCanvasElement,
@@ -12,13 +12,15 @@ function calculateValueScale(
   sequence: number[],
   containerSize: { width: number; height: number },
 ): number {
-  const maxWith = containerSize.width;
-  const maxHeight = containerSize.height;
-  const width = Math.min(Math.max(...sequence), maxWith); // The max x value is determined by the biggest number in the sequence
-  const height = Math.min(findBiggestInterval(sequence), maxHeight); // The max y value is determined by the biggest interval between two conscutive numbers in the sequence
-  const horizontalScale = maxWith / width;
-  const verticalScale = maxHeight / height;
-  return horizontalScale < verticalScale ? horizontalScale : verticalScale; // Return the smaller scale to feet the sequence in the screen
+  const maxVal = Math.max(...sequence, 0);
+  const maxInterval = findBiggestInterval(sequence);
+
+  // Add 5% padding
+  const padding = 0.95;
+  const horizontalScale = (containerSize.width * padding) / (maxVal || 1);
+  const verticalScale = (containerSize.height * padding) / (maxInterval || 1);
+
+  return Math.min(horizontalScale, verticalScale);
 }
 
 function drawSequence(
@@ -27,8 +29,8 @@ function drawSequence(
   valueScale: number,
 ) {
   sequence.forEach((value, index) => {
-    if (index > 0) {
-      const previousValue = sequence[index - 1];
+    const previousValue = sequence[index - 1];
+    if (index > 0 && previousValue !== undefined) {
       const middleValue = ((previousValue + value) / 2) * valueScale;
       const radius = (Math.abs(value - previousValue) / 2) * valueScale;
 
@@ -55,8 +57,16 @@ function draw(
   const valueScale = calculateValueScale(sequence, containerSize);
 
   context.save();
-  context.translate(0, canvas.height / 2);
-  context.strokeStyle = "currentColor";
+
+  // Center the drawing
+  const maxVal = Math.max(...sequence, 0);
+  const offsetX = (containerSize.width - maxVal * valueScale) / 2;
+  const offsetY = containerSize.height / 2;
+
+  context.translate(offsetX, offsetY);
+
+  const color = getComputedStyle(canvas).color || "black";
+  context.strokeStyle = color;
   context.lineWidth = 1;
 
   drawSequence(context, sequence, valueScale);

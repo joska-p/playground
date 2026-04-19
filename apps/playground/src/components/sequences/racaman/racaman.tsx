@@ -1,23 +1,9 @@
 import { StrictMode } from "react";
-import { Controls } from "./controls";
-import { RacamanProvider } from "./racaman-context";
-import { RacamanDisplay } from "./racaman-display";
-import { SidebarProvider } from "../../../components/widgets/sidebar/sidebar";
+import { SequenceMaker } from "@repo/sequence-renderer";
+import "@repo/sequence-renderer/styles.css";
 
 function Racaman() {
-  return (
-    <RacamanProvider>
-      <SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
-        <SidebarProvider.Content className="relative">
-          <RacamanDisplay />
-        </SidebarProvider.Content>
-
-        <SidebarProvider.Sidebar>
-          <Controls />
-        </SidebarProvider.Sidebar>
-      </SidebarProvider>
-    </RacamanProvider>
-  );
+  return <SequenceMaker />;
 }
 
 function StrictModeRacaman() {

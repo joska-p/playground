@@ -2,7 +2,7 @@ import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import { type ComponentProps } from "react";
 import { createContext, useContext, useMemo, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn } from "../../../utils/cn.js";
 
 const SidebarContext = createContext<{
   isOpen: boolean;
@@ -39,10 +39,9 @@ const sidebarProviderVariants = cva("grid h-full", {
 });
 
 interface SidebarProviderProps
-  extends
-    React.ComponentProps<"div">,
+  extends React.ComponentProps<"div">,
     VariantProps<typeof sidebarProviderVariants> {
-  children: React.ReactNode; // 👈 Add this explicitly
+  children: React.ReactNode;
 }
 
 function SidebarProvider({
@@ -64,7 +63,7 @@ function SidebarProvider({
   );
 
   return (
-    <SidebarContext value={value}>
+    <SidebarContext.Provider value={value}>
       <div
         ref={ref}
         className={cn(
@@ -78,7 +77,7 @@ function SidebarProvider({
       >
         {children}
       </div>
-    </SidebarContext>
+    </SidebarContext.Provider>
   );
 }
 

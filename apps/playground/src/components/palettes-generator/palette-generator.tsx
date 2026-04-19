@@ -3,7 +3,7 @@ import { ColorPicker } from "./controls/color-picker/color-picker";
 import { Generators } from "./controls/generators/generators";
 import { PaletteProvider } from "./palette-context";
 import { PaletteDisplay } from "./palette-display";
-import { SidebarProvider } from "../../components/widgets/sidebar/sidebar";
+import { SidebarProvider } from "@repo/ui";
 
 function PaletteGenerator() {
   return (
