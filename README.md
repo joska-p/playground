@@ -12,7 +12,7 @@ A personal monorepo serving as a sandbox for exploring modern web technologies, 
 
 This playground hosts various experiments and tools built while learning new frameworks and patterns:
 
-*   **🧩 Mosaic Maker**: An interactive tool to generate and customize mosaic patterns from images or color palettes.
+*   **🧩 Mosaic Maker**: An interactive tool to generate and customize mosaic patterns from images or color palettes. Read the [Mosaic Engine Guide](./docs/mosaic-engine-guide.md) to learn how it works.
 *   **✨ Particles**: Image-to-particle conversion experiments, exploring canvas manipulation and animations.
 *   **🔢 Sequences**: Mathematical visualizations, including the beautiful **Recamán's Sequence**.
 *   **🎨 Palette Generator**: Tools for exploring color theory and generating accessible color schemes.
