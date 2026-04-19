@@ -22,6 +22,8 @@
             # Required to enable the language server
             pkgs.typescript
             pkgs.typescript-language-server
+            pkgs.astro-language-server
+            pkgs.tailwindcss-language-server
 
             # Required for madge dependency graph visualization
             pkgs.graphviz
