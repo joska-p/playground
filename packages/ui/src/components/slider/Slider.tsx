@@ -11,7 +11,11 @@ interface SliderProps
   onChange?: (value: number) => void;
 }
 
+/**
+ * A themed range input for adjusting numerical values in experiments.
+ */
 function Slider({
+  ref,
   className,
   variant,
   value,
@@ -35,6 +39,7 @@ function Slider({
       value={value}
       onChange={handleChange}
       className={cn(sliderVariants({ variant, className }))}
+      ref={ref}
       {...props}
     />
   );

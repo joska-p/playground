@@ -3,10 +3,14 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { labelVariants } from "./labelVariants.js";
 
-interface labelProps
+interface LabelProps
   extends ComponentProps<"label">, VariantProps<typeof labelVariants> {}
 
-function Label({ children, ref, className, variant, ...props }: labelProps) {
+/**
+ * A primitive label component used for form field accessibility.
+ * Styled with a mono font to match the Creative Playground aesthetic.
+ */
+function Label({ children, ref, className, variant, ...props }: LabelProps) {
   return (
     <label
       className={cn(labelVariants({ variant, className }))}

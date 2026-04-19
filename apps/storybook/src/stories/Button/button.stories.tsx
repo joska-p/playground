@@ -1,17 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ComponentProps } from "react";
-import { fn } from "storybook/test";
 import { Button } from "@repo/ui";
+import { fn } from "storybook/test";
 
-type StoryProps = ComponentProps<typeof Button> & {
-  buttonText: string;
-};
-
-const meta: Meta<StoryProps> = {
+/**
+ * A versatile Button component themed for the Creative Playground.
+ * Utilizes the shared Gruvbox palette and supports various states like loading and disabled.
+ */
+const meta: Meta<typeof Button> = {
+  title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
   argTypes: {
+    children: {
+      description: "the content to display inside the button.",
+      control: "text",
+    },
     variant: {
+      description: "Visual style of the button based on the theme palette.",
       options: [
         "default",
         "destructive",
@@ -20,88 +25,76 @@ const meta: Meta<StoryProps> = {
         "ghost",
         "link",
       ],
-      control: {
-        type: "select",
-      },
+      control: { type: "select" },
     },
     size: {
+      description: "Controls the physical dimensions of the button.",
       options: ["default", "sm", "lg", "icon"],
-      control: {
-        type: "select",
-      },
+      control: { type: "select" },
+    },
+    isLoading: {
+      description: "Shows a loading spinner and disables the button.",
+      control: "boolean",
+    },
+    disabled: {
+      description: "Disables interaction and dims the appearance.",
+      control: "boolean",
     },
   },
   args: {
     onClick: fn(),
+    children: "Button Text",
   },
 };
 
 export default meta;
+type Story = StoryObj<typeof Button>;
 
-type Story = StoryObj<StoryProps>;
-
+/**
+ * The primary action style using the core theme colors.
+ */
 export const Default: Story = {
   args: {
-    buttonText: "Hello, i am a default button",
     variant: "default",
-    size: "default",
-  },
-  render: ({ buttonText, ...args }) => {
-    return <Button {...args}>{buttonText}</Button>;
   },
 };
 
+/**
+ * Used for dangerous actions like 'Delete' or 'Reset Palette'.
+ */
 export const Destructive: Story = {
   args: {
-    buttonText: "Hello, i am a destructive button",
     variant: "destructive",
-    size: "default",
-  },
-  render: ({ buttonText, ...args }) => {
-    return <Button {...args}>{buttonText}</Button>;
+    children: "Clear Data",
   },
 };
 
+/**
+ * A subtle border style, perfect for secondary site navigation.
+ */
 export const Outline: Story = {
   args: {
-    buttonText: "Hello, i am an outline button",
     variant: "outline",
-    size: "default",
-  },
-  render: ({ buttonText, ...args }) => {
-    return <Button {...args}>{buttonText}</Button>;
+    children: "Documentation",
   },
 };
 
-export const Secondary: Story = {
+/**
+ * Specifically for async tasks like generating a Mosaic or Particle sequence.
+ */
+export const Loading: Story = {
   args: {
-    buttonText: "Hello, i am a secondary button",
-    variant: "secondary",
-    size: "default",
-  },
-  render: ({ buttonText, ...args }) => {
-    return <Button {...args}>{buttonText}</Button>;
+    isLoading: true,
+    children: "Generating...",
   },
 };
 
+/**
+ * Minimalist style for actions with low visual priority.
+ */
 export const Ghost: Story = {
   args: {
-    buttonText: "Hello, i am a ghost button",
     variant: "ghost",
-    size: "default",
-  },
-  render: ({ buttonText, ...args }) => {
-    return <Button {...args}>{buttonText}</Button>;
-  },
-};
-
-export const Link: Story = {
-  args: {
-    buttonText: "Hello, i am a link button",
-    variant: "link",
-    size: "default",
-  },
-  render: ({ buttonText, ...args }) => {
-    return <Button {...args}>{buttonText}</Button>;
+    children: "Settings",
   },
 };
