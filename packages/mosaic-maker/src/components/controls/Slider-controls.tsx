@@ -34,7 +34,7 @@ function SliderControls({
         max={max}
         step={step}
         value={value}
-        onValueChange={handleSetValue}
+        onChange={handleSetValue}
       />
     </ControlGroup>
   );

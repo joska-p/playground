@@ -1,4 +1,4 @@
-import { Select, Label } from "@repo/ui";
+import { Select } from "@repo/ui";
 import { SEQUENCE_GENERATORS, type SequenceType } from "../generators/index.js";
 import { useSequenceContext } from "../Sequence-context.js";
 
@@ -6,8 +6,8 @@ function SequenceSelector() {
   const { sequenceType, setSequenceType } = useSequenceContext();
 
   return (
-    <Label className="flex gap-2 items-center">
-      Sequence:
+    <div className="flex items-center gap-2 whitespace-nowrap min-w-[200px]">
+      <span className="text-sm font-medium">Sequence:</span>
       <Select
         variant="secondary"
         value={sequenceType}
@@ -20,7 +20,7 @@ function SequenceSelector() {
           </option>
         ))}
       </Select>
-    </Label>
+    </div>
   );
 }
 

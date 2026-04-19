@@ -1,15 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Input, Field } from "@repo/ui";
+import { Input } from "@repo/ui";
 
 /**
- * A primitive input component.
- * Use the Field component to add labels and helper text.
+ * A highly customizable, Gruvbox-themed input component.
+ * Built with React 19 and Tailwind CSS v4, supporting accessible labels
+ * and automated ID generation.
  */
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
   component: Input,
   tags: ["autodocs"],
   argTypes: {
+    label: {
+      description: "The floating label text above the input.",
+      control: "text",
+    },
+    helperText: {
+      description: "Supportive text displayed below the input field.",
+      control: "text",
+    },
     variant: {
       description: "Visual style variant based on the Gruvbox color palette.",
       options: ["default", "error", "secondary"],
@@ -36,53 +45,60 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 /**
- * The primitive input.
+ * The standard input style using the Gruvbox 'border-border' and 'bg-input' tokens.
  */
-export const Primitive: Story = {
+export const Default: Story = {
   args: {
-    placeholder: "Just a primitive input...",
+    label: "Username",
+    placeholder: "e.g. josh_creative",
     variant: "default",
+    helperText: "Choose a unique name for the playground.",
   },
 };
 
 /**
- * Input wrapped in a Field to provide a Label and Helper Text.
+ * Highlights errors using the 'destructive' (red) color from the theme.
  */
-export const WithField: StoryObj = {
-  render: (args) => (
-    <Field
-      label="Username"
-      helperText="Choose a unique name for the playground."
-      {...args}
-    >
-      <Input placeholder="e.g. josh_creative" />
-    </Field>
-  ),
+export const ErrorState: Story = {
+  args: {
+    label: "Email Address",
+    type: "email",
+    defaultValue: "invalid-email",
+    variant: "error",
+    helperText: "Please enter a valid email address.",
+  },
 };
 
 /**
- * Field with error state.
+ * A subtle style with a slightly different background weight.
  */
-export const FieldWithError: StoryObj = {
-  render: (args) => (
-    <Field
-      label="Email Address"
-      error
-      helperText="Please enter a valid email address."
-      {...args}
-    >
-      <Input type="email" defaultValue="invalid-email" variant="error" />
-    </Field>
-  ),
+export const Secondary: Story = {
+  args: {
+    label: "Additional Notes",
+    placeholder: "Optional details...",
+    variant: "secondary",
+  },
 };
 
 /**
  * Standard password masking.
  */
-export const Password: StoryObj = {
-  render: (args) => (
-    <Field label="Password" {...args}>
-      <Input type="password" placeholder="••••••••" />
-    </Field>
-  ),
+export const Password: Story = {
+  args: {
+    label: "Password",
+    type: "password",
+    placeholder: "••••••••",
+  },
+};
+
+/**
+ * Demonstrates the disabled state with reduced opacity and 'not-allowed' cursor.
+ */
+export const Disabled: Story = {
+  args: {
+    label: "Read Only Field",
+    disabled: true,
+    placeholder: "You cannot edit this content",
+    helperText: "This field is currently locked.",
+  },
 };

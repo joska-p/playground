@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
-import { switchVariants, switchThumbVariants } from "./variants.js";
+import { switchVariants, switchThumbVariants } from "./switchVariants.js";
 
 interface SwitchProps
   extends

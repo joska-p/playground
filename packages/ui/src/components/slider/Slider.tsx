@@ -1,25 +1,25 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
-import { sliderVariants } from "./variants.js";
+import { sliderVariants } from "./sliderVariants.js";
 
 interface SliderProps
   extends
     Omit<ComponentProps<"input">, "onChange" | "value">,
     VariantProps<typeof sliderVariants> {
   value?: number;
-  onValueChange?: (value: number) => void;
+  onChange?: (value: number) => void;
 }
 
 /**
- * A primitive themed range input.
+ * A themed range input for adjusting numerical values in experiments.
  */
 function Slider({
   ref,
   className,
   variant,
   value,
-  onValueChange,
+  onChange,
   min = 0,
   max = 100,
   step = 1,
@@ -27,7 +27,7 @@ function Slider({
 }: SliderProps) {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = parseFloat(event.target.value);
-    onValueChange?.(newValue);
+    onChange?.(newValue);
   }
 
   return (

@@ -7,7 +7,7 @@ function SequenceMaker() {
   return (
     <SequenceProvider>
       <SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
-        <SidebarProvider.Content className="relative flex h-full w-full overflow-hidden">
+        <SidebarProvider.Content className="relative h-full w-full overflow-hidden">
           <SequenceDisplay />
         </SidebarProvider.Content>
 
