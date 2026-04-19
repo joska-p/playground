@@ -10,7 +10,7 @@ function OppositeCircles({ colors, rotation, className }: Props) {
   return (
     <div
       className={twMerge(
-        "mm:transition-[transform,background-color] mm:duration-500",
+        "transition-[transform,background-color] duration-500",
         className,
       )}
       style={{
@@ -22,13 +22,13 @@ function OppositeCircles({ colors, rotation, className }: Props) {
         style={{
           backgroundColor: `var(${colors[1]})`,
         }}
-        className="mm:absolute mm:right-1/2 mm:h-full mm:w-1/2 mm:rounded-r-full mm:transition-colors mm:duration-500"
+        className="absolute right-1/2 h-full w-1/2 rounded-r-full transition-colors duration-500"
       />
       <div
         style={{
           backgroundColor: `var(${colors[2]})`,
         }}
-        className="mm:absolute mm:left-1/2 mm:h-full mm:w-1/2 mm:rounded-l-full mm:transition-colors mm:duration-500"
+        className="absolute left-1/2 h-full w-1/2 rounded-l-full transition-colors duration-500"
       />
     </div>
   );

@@ -11,7 +11,7 @@ function Triangles({ colors, rotation, className }: Props) {
   return (
     <div
       className={twMerge(
-        "mm:border-solid mm:transition-[transform,border-color] mm:duration-500",
+        "border-solid transition-[transform,border-color] duration-500",
         className,
       )}
       style={{

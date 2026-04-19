@@ -27,8 +27,8 @@ function Controls() {
   }
 
   return (
-    <form className="mm:flex mm:flex-wrap mm:justify-center mm:gap-4 mm:lg:w-[42ch] mm:lg:flex-col mm:lg:gap-8">
-      <fieldset className="mm:mt-2 mm:grid mm:grid-cols-2 mm:gap-4 mm:px-2 mm:sm:grid-cols-4 mm:lg:grid-cols-2">
+    <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
+      <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
         <Button
           variant="default"
           type="button"
@@ -48,7 +48,7 @@ function Controls() {
         </Button>
       </fieldset>
 
-      <fieldset className="mm:grid mm:grid-cols-2 mm:gap-4 mm:px-2">
+      <fieldset className="grid grid-cols-2 gap-4 px-2">
         <SliderControls
           label="Tile size"
           defaultValue={DEFAULT_TILE_SIZE}

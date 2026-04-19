@@ -8,7 +8,7 @@ function TileSetControls() {
 
   return (
     <fieldset
-      className="mm:flex mm:flex-wrap mm:items-center mm:justify-center mm:gap-4 mm:[--rotation:0deg] mm:[--tile-size:32px]"
+      className="flex flex-wrap items-center justify-center gap-4 [--rotation:0deg] [--tile-size:32px]"
       style={{ ...initialPalette } as React.CSSProperties}
     >
       {initialTileSet.map((tileName) => {
@@ -16,13 +16,13 @@ function TileSetControls() {
           <label
             key={tileName}
             aria-label={tileName}
-            className="mm:flex mm:flex-col mm:gap-2"
+            className="flex flex-col gap-2"
           >
             <input
               type="checkbox"
               checked={tileSet.includes(tileName)}
               onChange={() => updateTileSet(tileName)}
-              className="mm:peer mm:sr-only"
+              className="peer sr-only"
             />
             <Tile
               name={tileName}
@@ -36,9 +36,9 @@ function TileSetControls() {
                 ]
               }
               className={twMerge(
-                "mm:opacity-70 mm:transition-opacity",
-                "mm:peer-checked:ring-primary mm:peer-checked:opacity-100 mm:peer-checked:ring-4",
-                "mm:peer-focus-visible:ring-accent mm:peer-focus-visible:ring-4",
+                "opacity-70 transition-opacity",
+                "peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4",
+                "peer-focus-visible:ring-accent peer-focus-visible:ring-4",
               )}
               rotation="--rotation-0"
             />

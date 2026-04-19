@@ -10,7 +10,7 @@ function CornerCircles({ colors, rotation, className }: Props) {
   return (
     <div
       className={twMerge(
-        "mm:transition-[transform,background-color] mm:duration-500",
+        "transition-[transform,background-color] duration-500",
         className,
       )}
       style={{
@@ -22,13 +22,13 @@ function CornerCircles({ colors, rotation, className }: Props) {
         style={{
           backgroundColor: `var(${colors[1]})`,
         }}
-        className="mm:absolute mm:top-0 mm:left-0 mm:h-1/2 mm:w-1/2 mm:rounded-br-full mm:transition-colors mm:duration-500"
+        className="absolute top-0 left-0 h-1/2 w-1/2 rounded-br-full transition-colors duration-500"
       />
       <div
         style={{
           backgroundColor: `var(${colors[2]})`,
         }}
-        className="mm:absolute mm:right-0 mm:bottom-0 mm:h-1/2 mm:w-1/2 mm:rounded-tl-full mm:transition-colors mm:duration-500"
+        className="absolute right-0 bottom-0 h-1/2 w-1/2 rounded-tl-full transition-colors duration-500"
       />
     </div>
   );

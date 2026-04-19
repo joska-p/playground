@@ -28,8 +28,8 @@ function SliderControls({
   };
 
   return (
-    <Label className="mm:flex mm:flex-col mm:gap-2">
-      <span className="mm:text-sm mm:font-medium">
+    <Label className="flex flex-col gap-2">
+      <span className="text-sm font-medium">
         {label}: {value}px
       </span>
       <Slider

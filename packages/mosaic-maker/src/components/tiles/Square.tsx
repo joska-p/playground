@@ -14,31 +14,31 @@ function Square({ colors, rotation, className }: Props) {
   return (
     <div
       className={twMerge(
-        "mm:tile grid mm:grid-cols-2 mm:grid-rows-2 mm:transition-transform mm:duration-500",
+        "tile grid grid-cols-2 grid-rows-2 transition-transform duration-500",
         className,
       )}
       style={squareStyle}
     >
       <div
-        className={"mm:transition-colors mm:duration-500"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[1]})`,
         }}
       />
       <div
-        className={"mm:transition-colors mm:duration-500"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[2]})`,
         }}
       />
       <div
-        className={"mm:transition-colors mm:duration-500"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[3]})`,
         }}
       />
       <div
-        className={"mm:transition-colors mm:duration-500"}
+        className={"transition-colors duration-500"}
         style={{
           backgroundColor: `var(${colors[4]})`,
         }}

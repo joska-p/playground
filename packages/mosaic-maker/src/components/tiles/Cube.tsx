@@ -10,7 +10,7 @@ export interface Props extends ComponentProps<"div"> {
 function Cube({ colors, rotation, className }: Props) {
   return (
     <div
-      className={twMerge("mm:transition-transform mm:duration-500", className)}
+      className={twMerge("transition-transform duration-500", className)}
       style={{
         transform: `rotate(var(${rotation}))`,
         backgroundColor: `var(${colors[0]})`,
@@ -18,7 +18,7 @@ function Cube({ colors, rotation, className }: Props) {
     >
       <div
         className={
-          "mm:absolute mm:top-0 mm:left-0 mm:border-solid mm:transition-[border-color] mm:duration-500"
+          "absolute top-0 left-0 border-solid transition-[border-color] duration-500"
         }
         style={{
           borderLeftColor: `var(${colors[1]})`,
@@ -30,7 +30,7 @@ function Cube({ colors, rotation, className }: Props) {
       />
       <div
         className={
-          "mm:absolute mm:bottom-0 mm:left-0 mm:bg-inherit mm:transition-[background-color] mm:duration-500"
+          "absolute bottom-0 left-0 bg-inherit transition-[background-color] duration-500"
         }
         style={{
           backgroundColor: `var(${colors[3]})`,

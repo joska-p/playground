@@ -10,7 +10,7 @@ function MiddleCircle({ colors, rotation, className }: Props) {
   return (
     <div
       className={twMerge(
-        "mm:flex mm:items-center mm:justify-center mm:transition-[transform,background-color] mm:duration-500",
+        "flex items-center justify-center transition-[transform,background-color] duration-500",
         className,
       )}
       style={{
@@ -19,13 +19,13 @@ function MiddleCircle({ colors, rotation, className }: Props) {
       }}
     >
       <div
-        className="mm:h-1/2 mm:w-1/4 mm:rounded-l-full mm:transition-colors mm:duration-500"
+        className="h-1/2 w-1/4 rounded-l-full transition-colors duration-500"
         style={{
           backgroundColor: `var(${colors[1]})`,
         }}
       />
       <div
-        className="mm:h-1/2 mm:w-1/4 mm:rounded-r-full mm:transition-colors mm:duration-500"
+        className="h-1/2 w-1/4 rounded-r-full transition-colors duration-500"
         style={{
           backgroundColor: `var(${colors[2]})`,
         }}

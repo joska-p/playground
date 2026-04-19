@@ -49,7 +49,7 @@ function Tile({ name, colors, rotation, className }: Props) {
       colors={colors}
       rotation={rotation}
       className={twMerge(
-        "mm:relative mm:h-(--tile-size) mm:w-(--tile-size) mm:overflow-hidden",
+        "relative h-(--tile-size) w-(--tile-size) overflow-hidden",
         className,
       )}
     />

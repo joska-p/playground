@@ -13,10 +13,10 @@ function PaletteButton({ palette }: Props) {
   return (
     <label
       className={twMerge(
-        "mm:flex mm:w-fit mm:flex-row",
-        "mm:lg:flex-col",
-        "mm:has-checked:ring-primary mm:has-checked:ring-4",
-        "mm:has-focus-visible:bg-accent mm:has-focus-visible:text-accent-foreground",
+        "flex w-fit flex-row",
+        "lg:flex-col",
+        "has-checked:ring-primary has-checked:ring-4",
+        "has-focus-visible:bg-accent has-focus-visible:text-accent-foreground",
       )}
     >
       <input
@@ -32,7 +32,7 @@ function PaletteButton({ palette }: Props) {
         <div
           key={index}
           style={{ backgroundColor: color }}
-          className="mm:h-6 mm:w-6 mm:md:h-6 mm:md:w-6"
+          className="h-6 w-6 md:h-6 md:w-6"
         />
       ))}
     </label>

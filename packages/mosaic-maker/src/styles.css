@@ -1,3 +1,1 @@
-/* Component-level styles for the mosaic-maker package */
-@import "tailwindcss" prefix(mm);
 @import "@repo/tailwind-config/gruvbox";

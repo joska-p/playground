@@ -10,7 +10,7 @@ function Diamond({ colors, rotation, className }: Props) {
   return (
     <div
       className={twMerge(
-        "mm:transition-[transform,background-color] mm:duration-500",
+        "transition-[transform,background-color] duration-500",
         className,
       )}
       style={{
@@ -19,28 +19,28 @@ function Diamond({ colors, rotation, className }: Props) {
       }}
     >
       <div
-        className="mm:absolute mm:inset-0 mm:transition-colors mm:duration-500"
+        className="absolute inset-0 transition-colors duration-500"
         style={{
           clipPath: "polygon(50% 0, 100% 0, 100% 50%)",
           backgroundColor: `var(${colors[1]})`,
         }}
       />
       <div
-        className="mm:absolute mm:inset-0 mm:transition-colors mm:duration-500"
+        className="absolute inset-0 transition-colors duration-500"
         style={{
           clipPath: "polygon(100% 50%, 100% 100%, 50% 100%)",
           backgroundColor: `var(${colors[2]})`,
         }}
       />
       <div
-        className="mm:absolute mm:inset-0 mm:transition-colors mm:duration-500"
+        className="absolute inset-0 transition-colors duration-500"
         style={{
           clipPath: "polygon(50% 100%, 0 100%, 0 50%)",
           backgroundColor: `var(${colors[3]})`,
         }}
       />
       <div
-        className="mm:absolute mm:inset-0 mm:transition-colors mm:duration-500"
+        className="absolute inset-0 transition-colors duration-500"
         style={{
           clipPath: "polygon(0 50%, 0 0, 50% 0)",
           backgroundColor: `var(${colors[4]})`,
