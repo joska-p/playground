@@ -1,48 +1,38 @@
-import { useEffect, useState } from "react";
 import { cn } from "../../utils/cn.js";
 
-interface ThemeToggleProps {
-  className?: string;
-}
-
-function ThemeToggle({ className }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-
-  useEffect(() => {
-    // Get initial theme
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const initialTheme = savedTheme ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-
-    setTheme(initialTheme);
-    document.documentElement.dataset.theme = initialTheme;
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.dataset.theme = newTheme;
+/**
+ * A "Zero-State" Theme Toggle.
+ * Instead of syncing React state (which causes warnings), it simply flips
+ * the data-theme attribute on the <html> element.
+ * CSS handles the icon swapping automatically.
+ */
+function ThemeToggle({ className }: { className?: string }) {
+  const toggle = () => {
+    const root = document.documentElement;
+    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
   };
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={toggle}
       className={cn(
-        "inline-flex items-center justify-center p-2 rounded-md transition-all active:translate-y-[1px]",
+        "inline-flex items-center justify-center p-2 rounded-md transition-all active:translate-y-px",
         "text-foreground hover:bg-primary/10 hover:text-primary focus:outline-none cursor-pointer",
-        className
+        className,
       )}
       aria-label="Toggle theme"
     >
-      {/* Sun Icon (shown when dark) */}
+      {/*
+        We use raw CSS classes for the toggle logic.
+        Tailwind v4 / CSS will show/hide these based on the data-theme attribute.
+      */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className={cn("size-6", theme === "light" ? "hidden" : "block")}
+        className="size-6 block in-data-[theme='light']:hidden"
       >
         <path
           strokeLinecap="round"
@@ -50,14 +40,13 @@ function ThemeToggle({ className }: ThemeToggleProps) {
           d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
         />
       </svg>
-      {/* Moon Icon (shown when light) */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className={cn("size-6", theme === "dark" ? "hidden" : "block")}
+        className="size-6 hidden in-data-[theme='light']:block"
       >
         <path
           strokeLinecap="round"
