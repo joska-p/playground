@@ -10,11 +10,15 @@ export interface Props {
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
   const fillColor = `var(${colors[shape.colorIndex]})`;
+  const commonProps = {
+    fill: fillColor,
+    className: "transition-all duration-500",
+  };
 
   switch (shape.type) {
     case "circle":
       return (
-        <circle cx={shape.cx} cy={shape.cy} r={shape.r} fill={fillColor} />
+        <circle cx={shape.cx} cy={shape.cy} r={shape.r} {...commonProps} />
       );
     case "rect":
       return (
@@ -23,13 +27,13 @@ function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
           y={shape.y}
           width={shape.width}
           height={shape.height}
-          fill={fillColor}
+          {...commonProps}
         />
       );
     case "path":
-      return <path d={shape.d} fill={fillColor} />;
+      return <path d={shape.d} {...commonProps} />;
     case "polygon":
-      return <polygon points={shape.points} fill={fillColor} />;
+      return <polygon points={shape.points} {...commonProps} />;
     default:
       return null;
   }
@@ -48,7 +52,7 @@ function Tile({ name, colors, rotation, className }: Props) {
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
       className={twMerge(
-        "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform",
+        "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform duration-500",
         className,
       )}
       style={{ transform: `rotate(var(${rotation}))` } as React.CSSProperties}
