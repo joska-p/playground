@@ -2,6 +2,8 @@ export * from "./components/button/Button.js";
 export * from "./components/button/buttonVariants.js";
 export * from "./components/input/Input.js";
 export * from "./components/input/inputVariants.js";
+export * from "./components/select/Select.js";
+export * from "./components/select/selectVariants.js";
 export * from "./components/label/Label.js";
 export * from "./components/label/labelVariants.js";
 export * from "./components/slider/Slider.js";
