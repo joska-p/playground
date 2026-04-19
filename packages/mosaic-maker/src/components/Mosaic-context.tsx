@@ -135,7 +135,7 @@ function MosaicMakerProvider({ children }: ComponentProps<"div">) {
     if (dimensions.width > 0 && dimensions.height > 0) {
       updateTiles();
     }
-  }, [dimensions.width, dimensions.height]);
+  }, [dimensions.width, dimensions.height, updateTiles]);
 
   useEffect(() => {
     const init = async () => {

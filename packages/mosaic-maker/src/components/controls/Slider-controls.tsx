@@ -1,4 +1,4 @@
-import { Slider, Label } from "@repo/ui";
+import { Slider, ControlGroup } from "@repo/ui";
 import { useState } from "react";
 import { useMosaicMakerContext } from "../Mosaic-context.js";
 
@@ -28,10 +28,7 @@ function SliderControls({
   };
 
   return (
-    <Label className="flex flex-col gap-2">
-      <span className="text-sm font-medium">
-        {label}: {value}px
-      </span>
+    <ControlGroup label={label} valueDisplay={`${value}px`}>
       <Slider
         min={min}
         max={max}
@@ -39,7 +36,7 @@ function SliderControls({
         value={value}
         onChange={handleSetValue}
       />
-    </Label>
+    </ControlGroup>
   );
 }
 

@@ -1,18 +1,27 @@
+import { ColorPalette } from "@repo/ui";
 import { useMosaicMakerContext } from "../Mosaic-context.js";
-import { initialPalette } from "../config.js";
-import { getPaletteId } from "../lib/palette-utils.js";
-import { PaletteButton } from "./Palette-button.js";
+import { arePalettesEqual, getPaletteId } from "../lib/palette-utils.js";
 
 function PaletteControls() {
-  const { currentPalettes } = useMosaicMakerContext();
+  const { currentPalettes, currentPalette, updatePalette } =
+    useMosaicMakerContext();
 
   return (
-    <fieldset className="has-focus-visible:bg-accent/20 flex h-44 w-full flex-col flex-wrap justify-center gap-2 overflow-x-auto p-2 lg:h-auto lg:flex-row lg:gap-4">
-      <legend className="sr-only">Choose a color palette</legend>
-
-      <PaletteButton palette={initialPalette} aria-label="Default palette" />
+    <fieldset className="flex flex-wrap items-center justify-center gap-2 p-4 border-t border-border/30 mt-4">
       {currentPalettes.map((palette) => (
-        <PaletteButton key={getPaletteId(palette)} palette={palette} />
+        <ColorPalette
+          key={getPaletteId(palette)}
+          colors={Object.values(palette)}
+          checked={arePalettesEqual(palette, currentPalette)}
+          onChange={() => updatePalette(palette)}
+          aria-label={`Color palette ${getPaletteId(palette)}`}
+          // Default (mobile): Horizontal + Small
+          size="sm"
+          orientation="horizontal"
+          // Responsive (desktop): Vertical + Medium
+          className="lg:flex-col `lg:[--cell-size:--spacing(8)] hover:scale-105 transition-transform"
+          interactive
+        />
       ))}
     </fieldset>
   );
