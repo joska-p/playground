@@ -6,7 +6,6 @@ import {
   initialRotations,
   initialTileSize,
 } from "./config.js";
-import { getRandom } from "./lib/utils.js";
 import { Tile } from "./tiles/Tile.js";
 
 const MOSAIC_STYLES = {
@@ -19,22 +18,6 @@ const MOSAIC_STYLES = {
   gap: `var(${CSS_VARS.gap})`,
 } as React.CSSProperties;
 
-function generateTileColors() {
-  const paletteKeys = Object.keys(initialPalette);
-  return Array.from({ length: 5 }, () => getRandom(paletteKeys)) as [
-    string,
-    string,
-    string,
-    string,
-    string,
-  ];
-}
-
-function generateTileRotations() {
-  const rotationKeys = Object.keys(initialRotations);
-  return getRandom(rotationKeys);
-}
-
 function MosaicDisplay() {
   const { mosaicRef, tiles } = useMosaicMakerContext();
 
@@ -44,12 +27,12 @@ function MosaicDisplay() {
       className="absolute inset-0 mt-2 grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
-      {tiles.map((tile, index) => (
+      {tiles.map((tile) => (
         <Tile
-          key={`${tile}-${index}`}
-          name={tile}
-          colors={generateTileColors()}
-          rotation={generateTileRotations()}
+          key={tile.id}
+          name={tile.name}
+          colors={tile.colors}
+          rotation={tile.rotation}
         />
       ))}
     </div>

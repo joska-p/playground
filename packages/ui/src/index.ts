@@ -13,4 +13,5 @@ export * from "./components/switch/switchVariants.js";
 export * from "./components/navbar/Navbar.js";
 export * from "./components/navbar/navbarVariants.js";
 export * from "./components/widgets/ThemeToggle.js";
+export * from "./hooks/use-resize-observer.js";
 export * from "./utils/cn.js";
