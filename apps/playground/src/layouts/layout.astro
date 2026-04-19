@@ -14,7 +14,7 @@ const { title } = Astro.props;
       }
       return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     } catch {
-      return "light";
+      return "dark";
     }
   };
 
