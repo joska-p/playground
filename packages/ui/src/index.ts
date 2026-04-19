@@ -10,4 +10,7 @@ export * from "./components/card/Card.js";
 export * from "./components/card/cardVariants.js";
 export * from "./components/switch/Switch.js";
 export * from "./components/switch/switchVariants.js";
+export * from "./components/navbar/Navbar.js";
+export * from "./components/navbar/navbarVariants.js";
+export * from "./components/widgets/ThemeToggle.js";
 export * from "./utils/cn.js";
