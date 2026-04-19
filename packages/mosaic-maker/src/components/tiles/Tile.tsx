@@ -1,58 +1,66 @@
-import { type ComponentType } from "react";
 import { twMerge } from "tailwind-merge";
-import { CornerCircles } from "./Corner-circles.js";
-import { Cube } from "./Cube.js";
-import { Diamond } from "./Diamond.js";
-import { MiddleCircle } from "./Middle-circle.js";
-import { OppositeCircles } from "./Opposite-circles.js";
-import { Rainbow } from "./Rainbow.js";
-import { Square } from "./Square.js";
-import { Triangles } from "./Triangles.js";
+import { TILE_REGISTRY, type Shape } from "./tile-registry.js";
 
-export interface TileComponentProps {
+export interface Props {
+  name: string;
   colors: [string, string, string, string, string];
   rotation: string;
   className?: string;
 }
 
-const tileComponents: Record<string, ComponentType<TileComponentProps>> = {
-  CornerCircles,
-  Diamond,
-  MiddleCircle,
-  OppositeCircles,
-  Rainbow,
-  Square,
-  Triangles,
-  Cube,
-};
+function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
+  const fillColor = `var(${colors[shape.colorIndex]})`;
 
-export interface Props {
-  name: keyof typeof tileComponents;
-  colors: [string, string, string, string, string];
-  rotation: string;
-  className?: string;
+  switch (shape.type) {
+    case "circle":
+      return (
+        <circle cx={shape.cx} cy={shape.cy} r={shape.r} fill={fillColor} />
+      );
+    case "rect":
+      return (
+        <rect
+          x={shape.x}
+          y={shape.y}
+          width={shape.width}
+          height={shape.height}
+          fill={fillColor}
+        />
+      );
+    case "path":
+      return <path d={shape.d} fill={fillColor} />;
+    case "polygon":
+      return <polygon points={shape.points} fill={fillColor} />;
+    default:
+      return null;
+  }
 }
 
 function Tile({ name, colors, rotation, className }: Props) {
-  if (colors.length < 5) {
-    throw new Error("Tile component requires exactly 5 colors");
-  }
+  const definition = TILE_REGISTRY[name];
 
-  const TileComponent = tileComponents[name];
-
-  if (!TileComponent) {
+  if (!definition) {
+    console.warn(`Tile pattern "${name}" not found in registry.`);
     return null;
   }
 
   return (
-    <TileComponent
-      colors={colors}
-      rotation={rotation}
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid slice"
       className={twMerge(
-        "relative h-(--tile-size) w-(--tile-size) overflow-hidden",
+        "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform",
         className,
       )}
-    />
+      style={{ transform: `rotate(var(${rotation}))` } as React.CSSProperties}
+    >
+      {definition.shapes.map((shape, index) => (
+        <ShapeRenderer
+          key={`${name}-shape-${index}`}
+          shape={shape}
+          colors={colors}
+        />
+      ))}
+    </svg>
   );
 }
 
