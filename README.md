@@ -13,8 +13,8 @@ A personal monorepo serving as a sandbox for exploring modern web technologies, 
 This playground hosts various experiments and tools built while learning new frameworks and patterns:
 
 *   **🧩 Mosaic Maker**: An interactive tool to generate and customize mosaic patterns from images or color palettes. Read the [Mosaic Engine Guide](./docs/mosaic-engine-guide.md) to learn how it works.
+*   **🔢 Sequences**: Mathematical visualizations, including the beautiful **Recamán's Sequence**. Read the [Sequence Renderer Architecture Guide](./docs/sequence-renderer-guide.md) to learn how it works.
 *   **✨ Particles**: Image-to-particle conversion experiments, exploring canvas manipulation and animations.
-*   **🔢 Sequences**: Mathematical visualizations, including the beautiful **Recamán's Sequence**.
 *   **🎨 Palette Generator**: Tools for exploring color theory and generating accessible color schemes.
 *   **📊 Data Viz**: Minimalist components like custom SVG pie charts.
 
@@ -28,6 +28,7 @@ The workspace is a **Turborepo** monorepo managed with **pnpm**, designed for hi
 
 ### 📦 Packages
 *   `packages/mosaic-maker`: Core logic and React components for the mosaic engine.
+*   `packages/sequence-renderer`: Core logic and components for mathematical sequence visualizations.
 *   `packages/ui`: A shared library of primitive UI components built with **React 19**.
 *   `packages/tailwind-config`: Shared styling configuration for **Tailwind CSS v4**.
 *   `packages/typescript-config`: Centralized TS configs for consistent DX.
