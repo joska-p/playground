@@ -29,10 +29,11 @@
       "persistent": true
     },
     "preview": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
     },
     "clean": {
-      "dependsOn": ["^clean"]
+      "dependsOn": ["^clean"],
+      "cache": false,
     }
   }
 }

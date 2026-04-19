@@ -1,100 +1,108 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "@repo/ui";
-import { fn } from "storybook/test";
+import { Button, Spinner } from "@repo/ui";
 
 /**
- * A versatile Button component themed for the Creative Playground.
- * Utilizes the shared Gruvbox palette and supports various states like loading and disabled.
+ * A tactile, physical button component.
+ * Features a 2px bottom border and a press-down animation to simulate physical feedback.
  */
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
   argTypes: {
-    children: {
-      description: "the content to display inside the button.",
-      control: "text",
-    },
     variant: {
-      description: "Visual style of the button based on the theme palette.",
+      description: "Visual style variant.",
       options: [
         "default",
+        "secondary",
         "destructive",
         "outline",
-        "secondary",
         "ghost",
         "link",
       ],
       control: { type: "select" },
     },
     size: {
-      description: "Controls the physical dimensions of the button.",
+      description: "Button size.",
       options: ["default", "sm", "lg", "icon"],
       control: { type: "select" },
     },
-    isLoading: {
-      description: "Shows a loading spinner and disables the button.",
-      control: "boolean",
-    },
     disabled: {
-      description: "Disables interaction and dims the appearance.",
+      description: "Disables interaction.",
       control: "boolean",
     },
-  },
-  args: {
-    onClick: fn(),
-    children: "Button Text",
   },
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Button>;
 
-/**
- * The primary action style using the core theme colors.
- */
 export const Default: Story = {
   args: {
+    children: "Click Me",
     variant: "default",
   },
 };
 
-/**
- * Used for dangerous actions like 'Delete' or 'Reset Palette'.
- */
+export const Secondary: Story = {
+  args: {
+    children: "Secondary Action",
+    variant: "secondary",
+  },
+};
+
 export const Destructive: Story = {
   args: {
+    children: "Delete Record",
     variant: "destructive",
-    children: "Clear Data",
   },
 };
 
 /**
- * A subtle border style, perfect for secondary site navigation.
- */
-export const Outline: Story = {
-  args: {
-    variant: "outline",
-    children: "Documentation",
-  },
-};
-
-/**
- * Specifically for async tasks like generating a Mosaic or Particle sequence.
+ * Using the standalone Spinner primitive within a Button.
  */
 export const Loading: Story = {
+  render: (args) => (
+    <Button {...args} disabled>
+      <Spinner size="sm" variant="white" />
+      Processing...
+    </Button>
+  ),
+};
+
+export const Outline: Story = {
   args: {
-    isLoading: true,
-    children: "Generating...",
+    children: "Outline Style",
+    variant: "outline",
   },
 };
 
-/**
- * Minimalist style for actions with low visual priority.
- */
 export const Ghost: Story = {
   args: {
+    children: "Ghost Button",
     variant: "ghost",
-    children: "Settings",
+  },
+};
+
+export const IconButton: Story = {
+  args: {
+    variant: "default",
+    size: "icon",
+    children: (
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 4v16m8-8H4"
+        />
+      </svg>
+    ),
   },
 };

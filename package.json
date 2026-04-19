@@ -1,6 +1,9 @@
 {
   "name": "@repo/playground",
   "private": true,
+  "overrides": {
+    "vite": "latest"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",

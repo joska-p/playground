@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
-import { navbarLinkVariants, navbarVariants } from "./navbarVariants.js";
+import { navbarLinkVariants, navbarVariants } from "./variants.js";
 
 interface NavbarProps
   extends ComponentProps<"header">, VariantProps<typeof navbarVariants> {}

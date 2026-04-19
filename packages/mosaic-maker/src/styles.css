@@ -1,1 +1,2 @@
-@import "@repo/tailwind-config/gruvbox";
+@import "tailwindcss";
+@import "@repo/ui/styles.css";

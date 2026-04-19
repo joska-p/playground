@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "../../../utils/cn.js";
-import { colorPaletteVariants } from "./colorPaletteVariants.js";
+import { colorPaletteVariants } from "./variants.js";
 
 interface ColorPaletteProps
   extends
