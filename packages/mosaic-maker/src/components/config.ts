@@ -4,7 +4,7 @@ const CSS_VARS = {
   gap: "--mosaicGap",
 };
 
-const MAX_NUMBER_OF_PALETTES = 39;
+const MAX_NUMBER_OF_PALETTES = 33;
 const DEFAULT_TILE_SIZE = 64;
 const DEFAULT_GAP_SIZE = 0;
 

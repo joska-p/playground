@@ -27,10 +27,9 @@ function ColorPalette({
   className,
   orientation,
   size,
-  interactive,
   ...props
 }: ColorPaletteProps) {
-  const isInteractive = interactive ?? !!onChange;
+  const isInteractive = !!onChange;
 
   return (
     <label

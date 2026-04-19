@@ -19,8 +19,7 @@ function PaletteControls() {
           size="sm"
           orientation="horizontal"
           // Responsive (desktop): Vertical + Medium
-          className="lg:flex-col `lg:[--cell-size:--spacing(8)] hover:scale-105 transition-transform"
-          interactive
+          className="lg:flex-col lg:[--cell-size:--spacing(6)] hover:scale-105 transition-transform"
         />
       ))}
     </fieldset>
