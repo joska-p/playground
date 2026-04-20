@@ -4,7 +4,8 @@ import NavbarLink from "./NavbarLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
-import type { Route } from "../../constants/routes";
+import SubNavbar from "./SubNavbar.astro";
+import { type Route, getActiveCategory } from "../../constants/routes";
 
 interface Props {
   routes: Route[];
@@ -16,7 +17,17 @@ interface Props {
 const { routes, currentPath, title, baseUrl } = Astro.props;
 
 // Helper to check active state
-const isActive = (href: string) => currentPath === href || currentPath === href + "/";
+const isLinkActive = (href: string) => currentPath === href || currentPath === href + "/";
+
+// Find the active category for the submenu
+const activeCategory = getActiveCategory(currentPath);
+const hasSubMenu = !!activeCategory;
+
+// Check if a top-level route is active (either directly or via a child)
+const isTopLevelActive = (route: Route) => {
+  if (isLinkActive(route.href)) return true;
+  return route.children?.some(child => isLinkActive(child.href));
+};
 ---
 
 <header class="w-full border-b border-border bg-background/80 backdrop-blur-md transition-all sticky top-0 z-50">
@@ -28,7 +39,7 @@ const isActive = (href: string) => currentPath === href || currentPath === href 
       {routes.map((route) => (
         <NavbarLink
           href={route.href}
-          isActive={isActive(route.href)}
+          isActive={isTopLevelActive(route)}
         >
           {route.label}
         </NavbarLink>
@@ -41,7 +52,14 @@ const isActive = (href: string) => currentPath === href || currentPath === href 
     </div>
   </div>
 
-  <MobileMenu routes={routes} isActive={isActive} />
+  {/* Horizontal Sub-navbar for desktop */}
+  {hasSubMenu && activeCategory && (
+    <div class="hidden md:block">
+      <SubNavbar parentRoute={activeCategory} currentPath={currentPath} />
+    </div>
+  )}
+
+  <MobileMenu routes={routes} isActive={isLinkActive} />
 </header>
 
 <script>

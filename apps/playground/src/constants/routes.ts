@@ -1,27 +1,19 @@
-import { z } from "zod";
+export interface Route {
+  label: string;
+  href: string;
+  children?: Route[];
+  icon?: string;
+  description?: string;
+}
 
+// 1. Prepare the Base URL
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-export const RouteSchema: z.ZodType<any> = z.lazy(() =>
-  z.object({
-    label: z.string(),
-    href: z.string(),
-    children: z.array(RouteSchema).optional(),
-    icon: z.string().optional(),
-    description: z.string().optional(),
-  }),
-);
-
-export type Route = z.infer<typeof RouteSchema>;
-
-const rawRoutes: Route[] = [
-  {
-    label: "Home",
-    href: "/",
-  },
+const rawRoutes = [
+  { label: "Home", href: "/" },
   {
     label: "Particles",
-    href: "/particles",
+    href: "/particles/image-to-particles",
     children: [
       {
         label: "Image to Particles",
@@ -32,7 +24,7 @@ const rawRoutes: Route[] = [
   },
   {
     label: "Sequences",
-    href: "/sequences",
+    href: "/sequences/recaman",
     children: [
       {
         label: "Recaman",
@@ -43,7 +35,7 @@ const rawRoutes: Route[] = [
   },
   {
     label: "Mosaic",
-    href: "/mosaic",
+    href: "/mosaic/maker",
     children: [
       {
         label: "Mosaic Maker",
@@ -53,14 +45,20 @@ const rawRoutes: Route[] = [
     ],
   },
   {
-    label: "Misc",
-    href: "/misc",
+    label: "Colors",
+    href: "/colors/palettes-generator",
     children: [
       {
-        label: "Palettes",
-        href: "/misc/palettes-generator",
+        label: "Palettes generator",
+        href: "/colors/palettes-generator",
         description: "Generate color palettes from algorithms",
       },
+    ],
+  },
+  {
+    label: "Misc",
+    href: "/misc/piechart",
+    children: [
       {
         label: "Piechart",
         href: "/misc/piechart",
@@ -68,55 +66,37 @@ const rawRoutes: Route[] = [
       },
     ],
   },
-];
+] satisfies Route[];
 
 /**
- * Normalizes URLs to include the BASE_URL and ensure trailing slashes for Astro
+ * Normalizes a route path to: /base/path/
  */
-const normalizeRoutes = (routes: Route[]): Route[] => {
-  return routes.map((route) => ({
+const normalize = (route: Route): Route => {
+  // Collapse double slashes and ensure a leading slash
+  const combined = `${baseUrl}/${route.href}`.replace(/\/+/g, "/");
+
+  // Ensure exactly one trailing slash
+  const href = combined.endsWith("/") ? combined : `${combined}/`;
+
+  return {
     ...route,
-    href: `${baseUrl}${route.href}`.replace(/\/$/, "") + "/",
-    children: route.children ? normalizeRoutes(route.children) : undefined,
-  }));
+    href,
+    children: route.children?.map(normalize),
+  };
 };
 
-export const routes = normalizeRoutes(rawRoutes);
+export const routes = rawRoutes.map(normalize);
 
 /**
- * Utility to find a route by its href
+ * Utility to detect the active top-level category
  */
-export const findRouteByHref = (
-  href: string,
-  items: Route[] = routes,
-): Route | undefined => {
-  for (const item of items) {
-    if (item.href === href || item.href === href + "/") return item;
-    if (item.children) {
-      const found = findRouteByHref(href, item.children);
-      if (found) return found;
-    }
-  }
-  return undefined;
-};
+export const getActiveCategory = (path: string): Route | undefined => {
+  const normalizedPath = path.endsWith("/") ? path : `${path}/`;
+  const homePath = `${baseUrl}/`.replace(/\/+/g, "/");
 
-/**
- * Utility to get breadcrumbs for a given path
- */
-export const getBreadcrumbs = (
-  path: string,
-  items: Route[] = routes,
-  acc: Route[] = [],
-): Route[] => {
-  for (const item of items) {
-    if (path.startsWith(item.href)) {
-      const newAcc = [...acc, item];
-      if (item.href === path || item.href === path + "/") return newAcc;
-      if (item.children) {
-        return getBreadcrumbs(path, item.children, newAcc);
-      }
-      return newAcc;
-    }
-  }
-  return acc;
+  if (normalizedPath === homePath) return undefined;
+
+  return routes.find((route) =>
+    route.children?.some((child) => normalizedPath.startsWith(child.href)),
+  );
 };

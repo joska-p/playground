@@ -1,5 +1,5 @@
 import { useColorPicker } from "./use-colorPicker";
-import { cn } from "../../../../lib/utils";
+import { cn } from "../../../../../lib/utils";
 
 interface ColorPickerProps {
   width?: number;
