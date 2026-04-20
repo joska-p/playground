@@ -1,17 +1,24 @@
-function createRecamanSequence(n: number) {
-  const sequence: number[] = [];
-  let i = 0;
-  while (sequence.length < n) {
-    const last = sequence[sequence.length - 1];
-    if (last === undefined) {
-      sequence.push(0);
-    } else if (last - i > 0 && !sequence.includes(last - i)) {
-      sequence.push(last - i);
+function createRecamanSequence(n: number): number[] {
+  if (n <= 0) return [];
+
+  const sequence: number[] = [0];
+  const seen: Set<number> = new Set([0]);
+
+  let current = 0;
+
+  for (let step = 1; step < n; step++) {
+    const backward = current - step;
+
+    if (backward > 0 && !seen.has(backward)) {
+      current = backward;
     } else {
-      sequence.push(last + i);
+      current = current + step;
     }
-    i++;
+
+    sequence.push(current);
+    seen.add(current);
   }
+
   return sequence;
 }
 
