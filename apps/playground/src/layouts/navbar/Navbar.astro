@@ -4,11 +4,7 @@ import NavbarLink from "./NavbarLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
-
-interface Route {
-  text: string;
-  url: string;
-}
+import type { Route } from "../../constants/routes";
 
 interface Props {
   routes: Route[];
@@ -20,7 +16,7 @@ interface Props {
 const { routes, currentPath, title, baseUrl } = Astro.props;
 
 // Helper to check active state
-const isActive = (url: string) => currentPath === url || currentPath === url + "/";
+const isActive = (href: string) => currentPath === href || currentPath === href + "/";
 ---
 
 <header class="w-full border-b border-border bg-background/80 backdrop-blur-md transition-all sticky top-0 z-50">
@@ -31,10 +27,10 @@ const isActive = (url: string) => currentPath === url || currentPath === url + "
     <nav class="hidden md:flex items-center gap-2">
       {routes.map((route) => (
         <NavbarLink
-          href={route.url}
-          isActive={isActive(route.url)}
+          href={route.href}
+          isActive={isActive(route.href)}
         >
-          {route.text}
+          {route.label}
         </NavbarLink>
       ))}
     </nav>
@@ -48,7 +44,7 @@ const isActive = (url: string) => currentPath === url || currentPath === url + "
   <MobileMenu routes={routes} isActive={isActive} />
 </header>
 
-<script is:inline>
+<script>
   const setupNavbar = () => {
     const themeToggle = document.getElementById('theme-toggle');
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');

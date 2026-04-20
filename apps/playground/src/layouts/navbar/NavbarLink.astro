@@ -13,7 +13,7 @@ const { href, isActive, className } = Astro.props;
 <a
   href={href}
   class={cn(
-    "group relative px-4 py-2 text-sm font-mono font-medium transition-all outline-none active:translate-y-px",
+    "group relative px-4 py-2 text-sm font-mono font-medium transition-all outline-none active:translate-y-[1px]",
     isActive
       ? "text-primary"
       : "text-foreground/70 hover:text-primary",

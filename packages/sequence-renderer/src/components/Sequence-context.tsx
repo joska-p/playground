@@ -22,7 +22,7 @@ interface SequenceContextType {
 const SequenceContext = createContext<SequenceContextType | null>(null);
 
 function SequenceProvider({ children }: ComponentProps<"div">) {
-  const [sequenceType, setSequenceType] = useState<SequenceType>("racaman");
+  const [sequenceType, setSequenceType] = useState<SequenceType>("recaman");
   const [iterations, setIterations] = useState<number>(
     SEQUENCE_GENERATORS[sequenceType].defaultIterations,
   );

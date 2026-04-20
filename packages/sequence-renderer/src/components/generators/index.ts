@@ -1,9 +1,9 @@
-import { createRacamanSequence } from "./racaman.js";
+import { createRecamanSequence } from "./recaman.js";
 
 export const SEQUENCE_GENERATORS = {
-  racaman: {
-    name: "Racaman's Sequence",
-    generate: createRacamanSequence,
+  recaman: {
+    name: "Recamán's Sequence",
+    generate: createRecamanSequence,
     defaultIterations: 30,
     maxIterations: 2000,
   },

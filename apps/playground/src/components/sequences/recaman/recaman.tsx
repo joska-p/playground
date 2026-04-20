@@ -1,16 +1,16 @@
 import { StrictMode } from "react";
 import { SequenceMaker } from "@repo/sequence-renderer";
 
-function Racaman() {
+function Recaman() {
   return <SequenceMaker />;
 }
 
-function StrictModeRacaman() {
+function StrictModeRecaman() {
   return (
     <StrictMode>
-      <Racaman />
+      <Recaman />
     </StrictMode>
   );
 }
 
-export { Racaman, StrictModeRacaman };
+export { Recaman, StrictModeRecaman };

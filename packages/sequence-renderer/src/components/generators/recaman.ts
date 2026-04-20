@@ -1,4 +1,4 @@
-function createRacamanSequence(n: number) {
+function createRecamanSequence(n: number) {
   const sequence: number[] = [];
   let i = 0;
   while (sequence.length < n) {
@@ -15,4 +15,4 @@ function createRacamanSequence(n: number) {
   return sequence;
 }
 
-export { createRacamanSequence };
+export { createRecamanSequence };

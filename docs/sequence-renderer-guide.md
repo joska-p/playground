@@ -23,9 +23,9 @@ Sequences are defined in the `SEQUENCE_GENERATORS` registry located at `src/comp
 ### Example: Adding a New Sequence
 ```typescript
 export const SEQUENCE_GENERATORS = {
-  racaman: {
-    name: "Racaman's Sequence",
-    generate: createRacamanSequence,
+  recaman: {
+    name: "Recamán's Sequence",
+    generate: createRecamanSequence,
     defaultIterations: 30,
     maxIterations: 2000,
   },
