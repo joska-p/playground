@@ -10,20 +10,20 @@ function Controls() {
   const generator = SEQUENCE_GENERATORS[sequenceType];
 
   return (
-    <Card className="flex flex-row flex-wrap items-center gap-8 px-6 py-3 w-full rounded-none border-x-0 border-t-2 border-t-primary/20 bg-muted/30 backdrop-blur-md">
+    <Card className="flex flex-row flex-wrap justify-center items-center gap-8 px-6 py-3 w-full rounded-none border-x-0 border-t-2 border-t-primary/20 bg-muted/30 backdrop-blur-md">
       <SequenceSelector />
 
-      <Label className="flex items-center gap-4 flex-1 min-w-[200px] text-muted-foreground hover:text-foreground transition-colors">
+      <Label className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors">
         <span className="text-sm font-bold whitespace-nowrap">
           Iterations: <span className="text-secondary">{iterations}</span>
         </span>
         <Slider
-          min={10}
+          min={2}
           max={generator.maxIterations}
-          step={10}
+          step={1}
           value={iterations}
           onChange={setIterations}
-          className="flex-1 accent-primary"
+          className="accent-primary w-auto mt-0"
         />
       </Label>
 

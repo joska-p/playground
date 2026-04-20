@@ -1,5 +1,4 @@
 import { MosaicMaker } from "@repo/mosaic-maker";
-import "@repo/mosaic-maker/styles.css";
 import { StrictMode } from "react";
 
 function StrictModeMosaicMaker() {

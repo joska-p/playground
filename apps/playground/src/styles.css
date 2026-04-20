@@ -1,7 +1,15 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config/gruvbox";
-@import "@repo/ui/styles.css";
+
+/* Explicitly tell Tailwind to scan your package sources for classes */
+@source "../node_modules/@repo/ui";
+@source "../node_modules/@repo/mosaic-maker";
+@source "../node_modules/@repo/sequence-renderer";
 
 @view-transition {
   navigation: auto;
+}
+
+body {
+  @apply bg-background text-foreground transition-colors duration-300;
 }

@@ -1,5 +1,0 @@
-@import "@repo/tailwind-config/gruvbox";
-
-body {
-  @apply bg-background text-foreground transition-colors duration-300;
-}

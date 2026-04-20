@@ -2,9 +2,6 @@
   "name": "@repo/mosaic-maker",
   "version": "0.0.0",
   "type": "module",
-  "sideEffects": [
-    "**/*.css"
-  ],
   "files": [
     "dist"
   ],
@@ -18,17 +15,13 @@
       "import": "./dist/index.js",
       "development": "./src/index.ts",
       "default": "./dist/index.js"
-    },
-    "./styles.css": "./dist/index.css"
+    }
   },
   "license": "MIT",
   "scripts": {
-    "build": "pnpm run /^build:/",
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "build:components": "tsc",
+    "build": "tsc",
     "check-types": "tsc --noEmit",
-    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
-    "dev:components": "tsc --watch",
+    "dev": "tsc --watch",
     "lint": "eslint . --max-warnings 0",
     "lint-fix": "eslint . --max-warnings 0 --fix",
     "format": "prettier --write .",
@@ -41,10 +34,8 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/cli": "^4.2.2",
     "@types/react": "^19.2.14",
     "eslint": "^9.39.4",
-    "tailwindcss": "^4.2.2",
     "typescript": "^5.9.2"
   },
   "dependencies": {

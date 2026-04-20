@@ -12,7 +12,7 @@ function SequenceSelector() {
         variant="secondary"
         value={sequenceType}
         onChange={(e) => setSequenceType(e.target.value as SequenceType)}
-        className="flex-1"
+        className="flex-1 pr-6"
       >
         {Object.entries(SEQUENCE_GENERATORS).map(([key, gen]) => (
           <option key={key} value={key}>
