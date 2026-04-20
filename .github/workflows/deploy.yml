@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache turbo build setup
         uses: actions/cache@v4
@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-turbo-
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v25
+        uses: cachix/install-nix-action@v31
 
       - name: Install Dependencies
         run: nix develop --command pnpm install
@@ -41,7 +41,7 @@ jobs:
           cp -r ./apps/storybook/storybook-static/* ./apps/playground/dist/storybook/ || true
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./apps/playground/dist
 
