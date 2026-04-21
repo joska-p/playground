@@ -28,7 +28,7 @@ export const fibonacciRule: SequenceRule = {
   name: "Fibonacci",
   id: "fibonacci",
   description: "F(n) = F(n-1) + F(n-2). Grows exponentially.",
-  maxSteps: 75, // Safe limit before exceeding Number.MAX_SAFE_INTEGER
+  maxSteps: 20, // Safe limit before exceeding Number.MAX_SAFE_INTEGER
   getNext: ({ index, current, sequence }) => {
     if (index <= 1) return index;
     return current + (sequence[index - 2] ?? 0);
