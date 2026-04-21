@@ -11,8 +11,6 @@
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf .turbo node_modules dist",
-    "lint": "eslint . --max-warnings 0",
-    "lint-fix": "eslint . --max-warnings 0 --fix",
     "format": "prettier --write ."
   },
   "dependencies": {

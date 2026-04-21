@@ -29,9 +29,10 @@ const meta: Meta<typeof Slider> = {
 export default meta;
 
 type Story = StoryObj<typeof Slider>;
+type SliderProps = React.ComponentProps<typeof Slider>;
 
 // Interactive wrapper for the stories
-const SliderWithState = (args: any) => {
+const SliderWithState = (args: SliderProps) => {
   const [value, setValue] = useState(args.value ?? 50);
   return (
     <div className="flex flex-col gap-4 w-[300px] p-4 bg-card rounded-lg border border-border">

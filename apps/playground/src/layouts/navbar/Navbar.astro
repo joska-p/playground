@@ -6,6 +6,7 @@ import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
 import SubNavbar from "./SubNavbar.astro";
 import { type Route, getActiveCategory } from "../../constants/routes";
+import { Font } from "astro:assets";
 
 interface Props {
   routes: Route[];
@@ -39,7 +40,7 @@ const isTopLevelActive = (route: Route) => {
       {routes.map((route) => (
         <NavbarLink
           href={route.href}
-          isActive={isTopLevelActive(route)}
+          isActive={isTopLevelActive(route) || false}
         >
           {route.label}
         </NavbarLink>

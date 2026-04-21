@@ -17,7 +17,7 @@ function SVGRenderer() {
 
   useEffect(() => {
     if (svgRef.current) {
-      draw(svgRef.current, sequence, containerSize);
+      draw(svgRef.current, sequence);
     }
   }, [sequence, containerSize]);
 
