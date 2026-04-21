@@ -47,11 +47,7 @@ function generatePath(sequence: number[], baselineY: number): string {
   }, `M 0 ${baselineY} `);
 }
 
-function draw(
-  svg: SVGSVGElement,
-  sequence: number[],
-  containerSize: { width: number; height: number },
-) {
+function draw(svg: SVGSVGElement, sequence: number[]) {
   resetSvg(svg);
   const { minX, minY, width, height, internalHeight } =
     calculateViewBox(sequence);

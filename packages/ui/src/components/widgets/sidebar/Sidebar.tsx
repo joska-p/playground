@@ -39,7 +39,8 @@ const sidebarProviderVariants = cva("grid h-full", {
 });
 
 interface SidebarProviderProps
-  extends React.ComponentProps<"div">,
+  extends
+    React.ComponentProps<"div">,
     VariantProps<typeof sidebarProviderVariants> {
   children: React.ReactNode;
 }
