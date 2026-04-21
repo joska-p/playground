@@ -35,11 +35,11 @@ const rawRoutes = [
   },
   {
     label: "Mosaic",
-    href: "/mosaic/maker",
+    href: "/mosaic/mosaic-maker",
     children: [
       {
         label: "Mosaic Maker",
-        href: "/mosaic/maker",
+        href: "/mosaic/mosaic-maker",
         description: "Create complex mosaic patterns from images",
       },
     ],

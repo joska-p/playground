@@ -1,0 +1,11 @@
+---
+import { MosaicMaker } from "@repo/mosaic-maker";
+import { StrictMode } from "react";
+import Layout from "../../../layouts/layout.astro";
+---
+
+<Layout title="Mosaic maker">
+  <StrictMode>
+    <MosaicMaker client:only="react" />
+  </StrictMode>
+</Layout>
