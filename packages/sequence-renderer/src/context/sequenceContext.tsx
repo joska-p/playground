@@ -3,11 +3,11 @@ import {
   useContext,
   useState,
   useMemo,
-  useCallback,
   type ComponentProps,
 } from "react";
-import type { SequenceRule } from "../utils/rules.js";
-import { recamanRule } from "../utils/rules.js";
+import type { SequenceRule } from "../core/rules.js";
+import { recamanRule } from "../core/rules.js";
+import { generateSequence } from "../core/generator.js";
 
 interface SequenceContextType {
   sequenceRule: SequenceRule;
@@ -23,30 +23,14 @@ const SequenceContext = createContext<SequenceContextType | null>(null);
 
 function SequenceProvider({ children }: ComponentProps<"div">) {
   const [sequenceRule, setSequenceRule] = useState<SequenceRule>(recamanRule);
-  const [steps, setSteps] = useState<number>(100);
+  const [steps, setSteps] = useState<number>(1);
   const [drawMode, setDrawMode] = useState<"vector-mode" | "canvas-mode">(
     "vector-mode",
   );
 
-  const getSequence = useCallback(
-    (SequenceRule: SequenceRule, steps: number) => {
-      const sequence: number[] = [0];
-      const seen = new Set([0]);
-      let current = 0;
-
-      for (let i = 1; i < steps; i++) {
-        current = SequenceRule.getNext(i, current, seen);
-        sequence.push(current);
-        seen.add(current);
-      }
-      return sequence;
-    },
-    [],
-  );
-
   const sequence = useMemo(() => {
-    return getSequence(sequenceRule, steps);
-  }, [sequenceRule, steps, getSequence]);
+    return generateSequence(sequenceRule, steps);
+  }, [sequenceRule, steps]);
 
   return (
     <SequenceContext.Provider

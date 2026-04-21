@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { draw } from "../../utils/draw-canvas.js";
+import { draw } from "../../core/draw-canvas.js";
 import { useSequenceContext } from "../../context/sequenceContext.js";
 
 function CanvasRenderer() {

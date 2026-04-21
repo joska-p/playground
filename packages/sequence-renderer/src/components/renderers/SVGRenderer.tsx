@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
-import { draw } from "../../utils/draw-svg.js";
+import { draw } from "../../core/draw-svg.js";
 import { useSequenceContext } from "../../context/sequenceContext.js";
 
 function SVGRenderer() {

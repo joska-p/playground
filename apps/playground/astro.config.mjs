@@ -11,5 +11,10 @@ export default defineConfig({
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      sourcemap: true,
+      minify: false,
+    },
   },
+  compressHTML: false,
 });

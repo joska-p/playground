@@ -1,4 +1,4 @@
-import { findBiggestInterval } from "./math.js";
+import { findBiggestInterval } from "../utils/math.js";
 
 function resetSvg(svg: SVGSVGElement) {
   svg.innerHTML = "";

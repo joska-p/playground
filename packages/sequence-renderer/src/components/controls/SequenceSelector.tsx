@@ -1,7 +1,7 @@
 import { Select } from "@repo/ui";
 import { useSequenceContext } from "../../context/sequenceContext.js";
-import { sequencesRule } from "../../utils/rules.js";
-import type { SequenceRule } from "../../utils/rules.js";
+import { sequencesRule } from "../../core/rules.js";
+import type { SequenceRule } from "../../core/rules.js";
 
 function SequenceSelector() {
   const { sequenceRule, setSequenceRule } = useSequenceContext();
@@ -18,7 +18,7 @@ function SequenceSelector() {
       <span className="text-sm font-medium">Sequence:</span>
       <Select
         variant="default"
-        value={sequenceRule.name}
+        value={sequenceRule.id}
         onChange={handleChange}
         className="flex-1 pr-6"
       >
