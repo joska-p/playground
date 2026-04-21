@@ -3,49 +3,60 @@ import {
   useContext,
   useState,
   useMemo,
+  useCallback,
   type ComponentProps,
 } from "react";
-import { SEQUENCE_GENERATORS, type SequenceType } from "./generators/index.js";
+import type { SequenceRule } from "./lib/rules.js";
+import { recamanRule } from "./lib/rules.js";
 
 interface SequenceContextType {
-  sequenceType: SequenceType;
-  setSequenceType: (type: SequenceType) => void;
-  iterations: number;
-  setIterations: (n: number) => void;
+  sequenceRule: SequenceRule;
+  setSequenceRule: (type: SequenceRule) => void;
+  steps: number;
+  setSteps: (n: number) => void;
   drawMode: "vector-mode" | "canvas-mode";
   setDrawMode: (mode: "vector-mode" | "canvas-mode") => void;
-  containerSize: { width: number; height: number };
-  setContainerSize: (size: { width: number; height: number }) => void;
   sequence: number[];
 }
 
 const SequenceContext = createContext<SequenceContextType | null>(null);
 
 function SequenceProvider({ children }: ComponentProps<"div">) {
-  const [sequenceType, setSequenceType] = useState<SequenceType>("recaman");
-  const [iterations, setIterations] = useState<number>(
-    SEQUENCE_GENERATORS[sequenceType].defaultIterations,
-  );
+  const [sequenceRule, setSequenceRule] = useState<SequenceRule>(recamanRule);
+  const [steps, setSteps] = useState<number>(100);
   const [drawMode, setDrawMode] = useState<"vector-mode" | "canvas-mode">(
     "vector-mode",
   );
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
+  const getSequence = useCallback(
+    (SequenceRule: SequenceRule, steps: number) => {
+      const sequence: number[] = [0];
+      const seen = new Set([0]);
+      let current = 0;
+
+      for (let i = 1; i < steps; i++) {
+        current = SequenceRule.getNext(i, current, seen);
+        sequence.push(current);
+        seen.add(current);
+      }
+      return sequence;
+    },
+    [],
+  );
 
   const sequence = useMemo(() => {
-    return SEQUENCE_GENERATORS[sequenceType].generate(iterations);
-  }, [sequenceType, iterations]);
+    return getSequence(sequenceRule, steps);
+  }, [sequenceRule, steps, getSequence]);
 
   return (
     <SequenceContext.Provider
       value={{
-        sequenceType,
-        setSequenceType,
-        iterations,
-        setIterations,
+        sequenceRule,
+        setSequenceRule,
+        steps,
+        setSteps,
         drawMode,
         setDrawMode,
-        containerSize,
-        setContainerSize,
         sequence,
       }}
     >

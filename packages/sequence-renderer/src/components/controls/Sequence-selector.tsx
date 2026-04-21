@@ -1,22 +1,30 @@
 import { Select } from "@repo/ui";
-import { SEQUENCE_GENERATORS, type SequenceType } from "../generators/index.js";
 import { useSequenceContext } from "../Sequence-context.js";
+import { sequencesRule } from "../lib/rules.js";
+import type { SequenceRule } from "../lib/rules.js";
 
 function SequenceSelector() {
-  const { sequenceType, setSequenceType } = useSequenceContext();
+  const { sequenceRule, setSequenceRule } = useSequenceContext();
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value);
+    const selectedRule = sequencesRule.find(
+      (rule) => rule.id === e.target.value,
+    );
+    if (selectedRule) setSequenceRule(selectedRule);
+  };
 
   return (
     <div className="flex items-center gap-2 whitespace-nowrap min-w-[200px]">
       <span className="text-sm font-medium">Sequence:</span>
       <Select
-        variant="secondary"
-        value={sequenceType}
-        onChange={(e) => setSequenceType(e.target.value as SequenceType)}
+        variant="default"
+        value={sequenceRule.name}
+        onChange={handleChange}
         className="flex-1 pr-6"
       >
-        {Object.entries(SEQUENCE_GENERATORS).map(([key, gen]) => (
-          <option key={key} value={key}>
-            {gen.name}
+        {sequencesRule.map((sequenceRule: SequenceRule) => (
+          <option key={`${sequenceRule.id}`} value={sequenceRule.id}>
+            {sequenceRule.name}
           </option>
         ))}
       </Select>

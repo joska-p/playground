@@ -1,13 +1,9 @@
 import { Input, Label, Slider, Card } from "@repo/ui";
 import { useSequenceContext } from "../Sequence-context.js";
-import { SEQUENCE_GENERATORS } from "../generators/index.js";
 import { SequenceSelector } from "./Sequence-selector.js";
 
 function Controls() {
-  const { sequenceType, iterations, setIterations, drawMode, setDrawMode } =
-    useSequenceContext();
-
-  const generator = SEQUENCE_GENERATORS[sequenceType];
+  const { steps, setSteps, drawMode, setDrawMode } = useSequenceContext();
 
   return (
     <Card className="flex flex-row flex-wrap justify-center items-center gap-8 px-6 py-3 w-full rounded-none border-x-0 border-t-2 border-t-primary/20 bg-muted/30 backdrop-blur-md">
@@ -15,14 +11,14 @@ function Controls() {
 
       <Label className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors">
         <span className="text-sm font-bold whitespace-nowrap">
-          Iterations: <span className="text-secondary">{iterations}</span>
+          Steps: <span className="text-secondary">{steps}</span>
         </span>
         <Slider
           min={2}
-          max={generator.maxIterations}
+          max={300}
           step={1}
-          value={iterations}
-          onChange={setIterations}
+          value={steps}
+          onChange={setSteps}
           className="accent-primary w-auto mt-0"
         />
       </Label>

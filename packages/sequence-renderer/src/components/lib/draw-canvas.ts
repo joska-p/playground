@@ -1,13 +1,5 @@
 import { findBiggestInterval } from "./math.js";
 
-function setupCanvas(
-  canvas: HTMLCanvasElement,
-  containerSize: { width: number; height: number },
-) {
-  canvas.width = containerSize.width;
-  canvas.height = containerSize.height;
-}
-
 function calculateValueScale(
   sequence: number[],
   containerSize: { width: number; height: number },
@@ -45,14 +37,16 @@ function drawSequence(
   });
 }
 
-function draw(
-  canvas: HTMLCanvasElement,
-  sequence: number[],
-  containerSize: { width: number; height: number },
-) {
+function draw(canvas: HTMLCanvasElement, sequence: number[]) {
   if (!canvas.parentElement) return;
 
-  setupCanvas(canvas, containerSize);
+  const containerSize = {
+    width: canvas.parentElement.clientWidth,
+    height: canvas.parentElement.clientHeight,
+  };
+  canvas.width = containerSize.width;
+  canvas.height = containerSize.height;
+
   const context = canvas.getContext("2d") as CanvasRenderingContext2D;
   const valueScale = calculateValueScale(sequence, containerSize);
 

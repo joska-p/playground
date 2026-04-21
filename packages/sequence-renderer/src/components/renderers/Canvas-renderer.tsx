@@ -3,14 +3,14 @@ import { draw } from "../lib/draw-canvas.js";
 import { useSequenceContext } from "../Sequence-context.js";
 
 function CanvasRenderer() {
-  const { sequence, containerSize } = useSequenceContext();
+  const { sequence } = useSequenceContext();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
-      draw(canvasRef.current, sequence, containerSize);
+      draw(canvasRef.current, sequence);
     }
-  }, [sequence, containerSize]);
+  }, [sequence]);
 
   return <canvas ref={canvasRef} className="w-full h-full" />;
 }

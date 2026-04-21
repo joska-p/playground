@@ -5,8 +5,8 @@ export const selectVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-border hover:border-secondary hover:shadow-md",
-        primary: "border-primary text-primary hover:bg-primary/5",
+        default: "border-border/50 hover:border-secondary hover:border-border",
+        primary: "border-primary/50 text-primary hover:border-primary",
         secondary: "border-secondary/50 text-secondary hover:border-secondary",
         error:
           "border-destructive text-destructive focus-visible:ring-destructive",
