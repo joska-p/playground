@@ -4,7 +4,7 @@ import { draw } from "../lib/draw-svg.js";
 import { useSequenceContext } from "../Sequence-context.js";
 
 function SVGRenderer() {
-  const { sequence } = useSequenceContext();
+  const { sequence, containerSize } = useSequenceContext();
   const svgRef = useRef<SVGSVGElement>(null);
   const styleObject = {
     "--dasharray": 0,
@@ -17,9 +17,9 @@ function SVGRenderer() {
 
   useEffect(() => {
     if (svgRef.current) {
-      draw(svgRef.current, sequence);
+      draw(svgRef.current, sequence, containerSize);
     }
-  }, [sequence]);
+  }, [sequence, containerSize]);
 
   return (
     <svg
