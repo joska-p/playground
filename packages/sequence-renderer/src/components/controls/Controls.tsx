@@ -1,6 +1,6 @@
 import { Input, Label, Slider, Card } from "@repo/ui";
-import { useSequenceContext } from "../Sequence-context.js";
-import { SequenceSelector } from "./Sequence-selector.js";
+import { useSequenceContext } from "../../context/sequenceContext.js";
+import { SequenceSelector } from "./SequenceSelector.js";
 
 function Controls() {
   const { steps, setSteps, drawMode, setDrawMode } = useSequenceContext();

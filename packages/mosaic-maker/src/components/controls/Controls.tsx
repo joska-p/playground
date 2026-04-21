@@ -1,16 +1,16 @@
 import { Button } from "@repo/ui";
-import { useMosaicMakerContext } from "../Mosaic-context.js";
+import { useMosaicMakerContext } from "../../context/mosaicContext.js";
 import {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
   initialRotations,
-} from "../config.js";
-import { updateElementStyles } from "../lib/style-utils.js";
-import { shuffleObject } from "../lib/utils.js";
-import { PaletteControls } from "./Palette-controls.js";
-import { SliderControls } from "./Slider-controls.js";
-import { TileSetControls } from "./Tile-set-controls.js";
+} from "../../core/config.js";
+import { updateElementStyles } from "../../utils/style-utils.js";
+import { shuffleObject } from "../../utils/utils.js";
+import { PaletteControls } from "./PaletteControls.js";
+import { SliderControls } from "./SliderControls.js";
+import { TileSetControls } from "./TileSetControls.js";
 
 function Controls() {
   const { mosaicRef, currentPalette, updateCurrentPalettes, updateTiles } =

@@ -24,11 +24,11 @@ const rawRoutes = [
   },
   {
     label: "Sequences",
-    href: "/sequences/recaman",
+    href: "/sequences/sequence-renderer",
     children: [
       {
-        label: "Recaman",
-        href: "/sequences/recaman",
+        label: "Sequence Renderer",
+        href: "/sequences/sequence-renderer",
         description: "Explore the Recamán's sequence visualization",
       },
     ],

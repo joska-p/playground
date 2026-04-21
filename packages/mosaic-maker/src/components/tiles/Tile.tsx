@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { TILE_REGISTRY, type Shape } from "./tile-registry.js";
+import { TILE_REGISTRY, type Shape } from "../../core/tile-registry.js";
 
 export interface Props {
   name: string;
