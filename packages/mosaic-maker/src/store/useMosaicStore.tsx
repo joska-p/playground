@@ -50,7 +50,7 @@ function computeInitialTiles(
   if (!mosaicRef.current) return [];
   const numberOfTiles = computeNumberOfTiles(mosaicRef.current);
   return Array.from({ length: numberOfTiles }, (_, i) => ({
-    id: `${i}-${Math.random().toString(36).substr(2, 9)}`,
+    id: `${i}-${Math.random().toString(36).substring(2, 12)}`,
     name: getRandom(tileSet),
     colors: generateTileColors(),
     rotation: generateTileRotation(),
