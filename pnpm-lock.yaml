@@ -26,6 +26,9 @@ importers:
       '@astrojs/react':
         specifier: ^5.0.3
         version: 5.0.3(@types/node@25.6.0)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.6.1)(lightningcss@1.32.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@repo/image-to-particles':
+        specifier: workspace:*
+        version: link:../../packages/image-to-particles
       '@repo/mosaic-maker':
         specifier: workspace:*
         version: link:../../packages/mosaic-maker
@@ -211,6 +214,34 @@ importers:
       typescript-eslint:
         specifier: ^8.58.2
         version: 8.58.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.2)
+
+  packages/image-to-particles:
+    dependencies:
+      react:
+        specifier: ^19
+        version: 19.2.5
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tailwind-config':
+        specifier: workspace:*
+        version: link:../tailwind-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      eslint:
+        specifier: ^9.39.4
+        version: 9.39.4(jiti@2.6.1)
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/mosaic-maker:
     dependencies:
