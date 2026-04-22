@@ -1,6 +1,7 @@
 import { Slider, ControlGroup } from "@repo/ui";
 import { useState } from "react";
-import { useMosaicMakerContext } from "../../context/mosaicContext.js";
+import { useMosaicStore } from "../../store/useMosaicStore.js";
+import { useShallow } from "zustand/shallow";
 
 export interface Props {
   label: string;
@@ -12,7 +13,7 @@ export interface Props {
 }
 
 function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) {
-  const { mosaicRef } = useMosaicMakerContext();
+  const { mosaicRef } = useMosaicStore(useShallow((state) => ({ mosaicRef: state.mosaicRef })));
   const [value, setValue] = useState(defaultValue);
 
   const handleSetValue = (newValue: number) => {

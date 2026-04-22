@@ -1,4 +1,7 @@
-import { useMosaicMakerContext } from "../../context/mosaicContext.js";
+import { useEffect } from "react";
+import { useResizeObserver } from "@repo/ui";
+import { useMosaicStore, initPalettes, setMosaicRef } from "../../store/useMosaicStore.js";
+import { useShallow } from "zustand/shallow";
 import {
   CSS_VARS,
   initialGapSize,
@@ -19,7 +22,18 @@ const MOSAIC_STYLES = {
 } as React.CSSProperties;
 
 function MosaicDisplay() {
-  const { mosaicRef, tiles } = useMosaicMakerContext();
+  const { tiles } = useMosaicStore(useShallow((state) => ({ tiles: state.tiles })));
+  const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
+
+  useEffect(() => {
+    if (dimensions.width > 0 && dimensions.height > 0) {
+      setMosaicRef(mosaicRef);
+    }
+  }, [dimensions.width, dimensions.height, mosaicRef]);
+
+  useEffect(() => {
+    initPalettes();
+  }, []);
 
   return (
     <div

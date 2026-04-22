@@ -1,5 +1,6 @@
 import { Button } from "@repo/ui";
-import { useMosaicMakerContext } from "../../context/mosaicContext.js";
+import { useMosaicStore, updateCurrentPalettes, updateTiles } from "../../store/useMosaicStore.js";
+import { useShallow } from "zustand/shallow";
 import {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
@@ -13,7 +14,12 @@ import { SliderControls } from "./SliderControls.js";
 import { TileSetControls } from "./TileSetControls.js";
 
 function Controls() {
-  const { mosaicRef, currentPalette, updateCurrentPalettes, updateTiles } = useMosaicMakerContext();
+  const { mosaicRef, currentPalette } = useMosaicStore(
+    useShallow((state) => ({
+      mosaicRef: state.mosaicRef,
+      currentPalette: state.currentPalette,
+    }))
+  );
 
   function shuffleColors() {
     if (!mosaicRef.current) return;

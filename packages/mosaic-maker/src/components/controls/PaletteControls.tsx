@@ -1,9 +1,15 @@
 import { ColorPalette } from "@repo/ui";
-import { useMosaicMakerContext } from "../../context/mosaicContext.js";
+import { useMosaicStore, updatePalette } from "../../store/useMosaicStore.js";
+import { useShallow } from "zustand/shallow";
 import { arePalettesEqual, getPaletteId } from "../../utils/palette-utils.js";
 
 function PaletteControls() {
-  const { currentPalettes, currentPalette, updatePalette } = useMosaicMakerContext();
+  const { currentPalettes, currentPalette } = useMosaicStore(
+    useShallow((state) => ({
+      currentPalettes: state.currentPalettes,
+      currentPalette: state.currentPalette,
+    }))
+  );
 
   return (
     <fieldset className="flex flex-wrap items-center justify-center gap-2 p-4 border-t border-border/30 mt-4">
@@ -14,10 +20,8 @@ function PaletteControls() {
           checked={arePalettesEqual(palette, currentPalette)}
           onChange={() => updatePalette(palette)}
           aria-label={`Color palette ${getPaletteId(palette)}`}
-          // Default (mobile): Horizontal + Small
           size="sm"
           orientation="horizontal"
-          // Responsive (desktop): Vertical + Medium
           className="lg:flex-col lg:[--cell-size:--spacing(6)] hover:scale-105 transition-transform"
         />
       ))}

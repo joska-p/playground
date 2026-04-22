@@ -1,10 +1,11 @@
-import { useMosaicMakerContext } from "../../context/mosaicContext.js";
+import { useMosaicStore, updateTileSet } from "../../store/useMosaicStore.js";
+import { useShallow } from "zustand/shallow";
 import { initialPalette, initialTileSet } from "../../core/config.js";
 import { twMerge } from "tailwind-merge";
 import { Tile } from "../tiles/Tile.js";
 
 function TileSetControls() {
-  const { tileSet, updateTileSet } = useMosaicMakerContext();
+  const { tileSet } = useMosaicStore(useShallow((state) => ({ tileSet: state.tileSet })));
 
   return (
     <fieldset
