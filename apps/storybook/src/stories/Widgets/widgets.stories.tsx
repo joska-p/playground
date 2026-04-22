@@ -23,16 +23,16 @@ export const ColorPaletteStory: StoryObj<typeof ColorPalette> = {
     ];
 
     return (
-      <div className="flex flex-col gap-8 p-4 bg-background border border-border rounded-xl">
+      <div className="bg-background border-border flex flex-col gap-8 rounded-xl border p-4">
         <section>
-          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          <h3 className="text-muted-foreground mb-4 font-mono text-sm font-bold tracking-widest uppercase">
             Display Only
           </h3>
           <ColorPalette colors={palettes[0].colors} />
         </section>
 
         <section>
-          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          <h3 className="text-muted-foreground mb-4 font-mono text-sm font-bold tracking-widest uppercase">
             Interactive Picker
           </h3>
           <div className="flex flex-wrap gap-4">
@@ -48,7 +48,7 @@ export const ColorPaletteStory: StoryObj<typeof ColorPalette> = {
         </section>
 
         <section>
-          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
+          <h3 className="text-muted-foreground mb-4 font-mono text-sm font-bold tracking-widest uppercase">
             Vertical Size SM
           </h3>
           <ColorPalette colors={palettes[2].colors} orientation="vertical" size="sm" />
@@ -72,7 +72,7 @@ export const ControlGroupStory: StoryObj<typeof ControlGroup> = {
         </ControlGroup>
 
         <ControlGroup label="Export Mode">
-          <select className="w-full bg-transparent font-mono text-sm outline-none cursor-pointer">
+          <select className="w-full cursor-pointer bg-transparent font-mono text-sm outline-none">
             <option>SVG Grid</option>
             <option>PNG Export</option>
             <option>JSON Data</option>

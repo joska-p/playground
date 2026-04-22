@@ -80,7 +80,7 @@ export const Dangerous: Story = {
   render: (args) => {
     const [checked, setChecked] = useState(false);
     return (
-      <div className="flex items-center gap-3 font-mono text-destructive">
+      <div className="text-destructive flex items-center gap-3 font-mono">
         <Switch {...args} checked={checked} onCheckedChange={setChecked} />
         <Label>Self-Destruct Mode</Label>
       </div>

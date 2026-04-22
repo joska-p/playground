@@ -35,8 +35,8 @@ type SliderProps = React.ComponentProps<typeof Slider>;
 const SliderWithState = (args: SliderProps) => {
   const [value, setValue] = useState(args.value ?? 50);
   return (
-    <div className="flex flex-col gap-4 w-[300px] p-4 bg-card rounded-lg border border-border">
-      <div className="flex justify-between items-center font-mono text-sm">
+    <div className="bg-card border-border flex w-[300px] flex-col gap-4 rounded-lg border p-4">
+      <div className="flex items-center justify-between font-mono text-sm">
         <Label>Intensity</Label>
         <span className="text-primary font-bold">{value}%</span>
       </div>
