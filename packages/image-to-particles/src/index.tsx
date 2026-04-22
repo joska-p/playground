@@ -1,5 +1,5 @@
 import { Button, Input } from "@repo/ui";
-import { StrictMode, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -164,12 +164,4 @@ const ImageToParticles = () => {
   );
 };
 
-const StrictModeImageToParticles = () => {
-  return (
-    <StrictMode>
-      <ImageToParticles />
-    </StrictMode>
-  );
-};
-
-export { ImageToParticles, StrictModeImageToParticles };
+export { ImageToParticles };
