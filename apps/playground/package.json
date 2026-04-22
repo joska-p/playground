@@ -21,6 +21,7 @@
     "@repo/mosaic-maker": "workspace:*",
     "@repo/sequence-renderer": "workspace:*",
     "@repo/palette-generator": "workspace:*",
+    "@repo/image-to-particles": "workspace:*",
     "@repo/ui": "workspace:*",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
