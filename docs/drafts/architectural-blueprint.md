@@ -8,7 +8,8 @@ Every package or application within the `src/` directory must strictly follow th
 ### The Source Directory (`src/`)
 * **`core/`**: **The Brain.** Contains pure TypeScript domain logic, mathematical rules, and state engines. **Zero dependencies on React or DOM APIs.**
 * **`components/`**: **The Body.** Pure UI components. Follows the *Component-per-Folder* pattern.
-* **`hooks/`**: **The Nerves.** React-specific lifecycle logic and state management glue.
+* **`hooks/`**: **The Nerves.** React-specific lifecycle logic (useEffect, refs, etc.). **Not for state management.**
+* **`store/`**: **The Memory.** State management (Zustand, Redux, etc.). Contains state + actions, agnostic to UI.
 * **`renderers/`**: **The Eyes.** Specialized logic for drawing or output (Canvas, SVG, WebGL, PDF).
 * **`services/`**: **The Diplomats.** Logic for external communication (API clients, LocalStorage, WebWorkers).
 * **`utils/`**: **The Tools.** Generic, stateless helper functions that could theoretically work in any project (e.g., date formatting, generic math).
@@ -67,7 +68,7 @@ To resolve "identity crises" between folders, apply these tests:
 ## 🚀 5. Engineering Standards (React 19+)
 
 * **Named Exports Only:** Avoid `export default`. Named exports enable better IDE refactoring and prevent naming collisions in large monorepos.
-* **Logic Extraction:** Components should be "thin." All complex calculations or state transitions should live in `core/` (math) or `hooks/` (state).
+* **Logic Extraction:** Components should be "thin." All complex calculations or state transitions should live in `core/` (math) or `store/` (state).
 * **Type Safety:** * Avoid `any` at all costs. 
     * Use `interface` for public APIs/Props.
     * Use `type` for unions or utility types.
