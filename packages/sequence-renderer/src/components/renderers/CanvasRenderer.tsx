@@ -1,16 +1,23 @@
 import { useEffect, useRef } from "react";
-import { draw } from "../../core/draw-canvas.js";
 import { useSequenceStore } from "../../store/useSequenceStore.js";
+import { visualizations } from "../../core/visualizations/index.js";
+import { useShallow } from "zustand/shallow";
 
 function CanvasRenderer() {
-  const { sequence } = useSequenceStore();
+  const { sequence, visualizationId } = useSequenceStore(
+    useShallow((state) => ({
+      sequence: state.sequence,
+      visualizationId: state.visualizationId,
+    }))
+  );
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
-      draw(canvasRef.current, sequence);
+      const viz = visualizations.find((v) => v.id === visualizationId);
+      viz?.draw(canvasRef.current, sequence);
     }
-  }, [sequence]);
+  }, [sequence, visualizationId]);
 
   return <canvas ref={canvasRef} className="w-full h-full" />;
 }

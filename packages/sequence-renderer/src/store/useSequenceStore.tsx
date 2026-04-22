@@ -2,11 +2,12 @@ import { create } from "zustand";
 import type { SequenceRule } from "../core/rules.js";
 import { recamanRule } from "../core/rules.js";
 import { generateSequence } from "../core/generator.js";
+import { visualizations } from "../core/visualizations/index.js";
 
 interface SequenceState {
   sequenceRule: SequenceRule;
   steps: number;
-  drawMode: "vector-mode" | "canvas-mode";
+  visualizationId: string;
   sequence: number[];
 }
 
@@ -17,7 +18,7 @@ function generateInitial(rule: SequenceRule, steps: number) {
 export const useSequenceStore = create<SequenceState>()(() => ({
   sequenceRule: recamanRule,
   steps: 2,
-  drawMode: "canvas-mode",
+  visualizationId: visualizations[0]?.id ?? "recaman-arcs",
   sequence: generateInitial(recamanRule, 2),
 }));
 
@@ -41,6 +42,6 @@ export const setSteps = (steps: number) => {
   });
 };
 
-export const setDrawMode = (mode: "vector-mode" | "canvas-mode") => {
-  useSequenceStore.setState({ drawMode: mode });
+export const setVisualizationId = (id: string) => {
+  useSequenceStore.setState({ visualizationId: id });
 };

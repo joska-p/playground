@@ -1,15 +1,16 @@
-import { Input, Label, Slider, Card } from "@repo/ui";
+import { Label, Slider, Card, Select } from "@repo/ui";
 import { useSequenceStore } from "../../store/useSequenceStore.js";
 import { SequenceSelector } from "./SequenceSelector.js";
-import { setSteps, setDrawMode } from "../../store/useSequenceStore.js";
+import { setSteps, setVisualizationId } from "../../store/useSequenceStore.js";
+import { visualizations } from "../../core/visualizations/index.js";
 import { useShallow } from "zustand/shallow";
 
 function Controls() {
-  const { sequenceRule, steps, drawMode } = useSequenceStore(
+  const { sequenceRule, steps, visualizationId } = useSequenceStore(
     useShallow((state) => ({
       sequenceRule: state.sequenceRule,
       steps: state.steps,
-      drawMode: state.drawMode,
+      visualizationId: state.visualizationId,
     }))
   );
 
@@ -31,27 +32,20 @@ function Controls() {
         />
       </Label>
 
-      <div className="flex gap-6 border-l border-border/50 pl-6 h-8 items-center">
-        <Label className="flex items-center gap-2 text-sm cursor-pointer hover:text-primary transition-colors">
-          <Input
-            type="radio"
-            value="canvas-mode"
-            checked={drawMode === "canvas-mode"}
-            onChange={() => setDrawMode("canvas-mode")}
-            className="w-4 h-4 accent-primary"
-          />
-          Canvas
-        </Label>
-        <Label className="flex items-center gap-2 text-sm cursor-pointer hover:text-primary transition-colors">
-          <Input
-            type="radio"
-            value="vector-mode"
-            checked={drawMode === "vector-mode"}
-            onChange={() => setDrawMode("vector-mode")}
-            className="w-4 h-4 accent-primary"
-          />
-          Vector
-        </Label>
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-medium">Visualization:</span>
+        <Select
+          variant="default"
+          value={visualizationId}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVisualizationId(e.target.value)}
+          className="w-auto min-w-[140px]"
+        >
+          {visualizations.map((v) => (
+            <option key={v.id} value={v.id}>
+              {v.name}
+            </option>
+          ))}
+        </Select>
       </div>
     </Card>
   );

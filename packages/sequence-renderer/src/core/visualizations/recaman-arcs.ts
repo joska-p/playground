@@ -1,4 +1,4 @@
-import { findBiggestInterval } from "../utils/math.js";
+import { findBiggestInterval } from "../../utils/math.js";
 
 function calculateValueScale(
   sequence: number[],
@@ -7,7 +7,6 @@ function calculateValueScale(
   const maxVal = Math.max(...sequence, 0);
   const maxInterval = findBiggestInterval(sequence);
 
-  // Add 5% padding
   const padding = 0.95;
   const horizontalScale = (containerSize.width * padding) / (maxVal || 1);
   const verticalScale = (containerSize.height * padding) / (maxInterval || 1);
@@ -48,7 +47,6 @@ function draw(canvas: HTMLCanvasElement, sequence: number[]) {
 
   context.save();
 
-  // Center the drawing
   const maxVal = Math.max(...sequence, 0);
   const offsetX = (containerSize.width - maxVal * valueScale) / 2;
   const offsetY = containerSize.height / 2;
@@ -64,4 +62,8 @@ function draw(canvas: HTMLCanvasElement, sequence: number[]) {
   context.restore();
 }
 
-export { draw };
+export const recamanArcs = {
+  id: "recaman-arcs",
+  name: "Recamán Arcs",
+  draw,
+};
