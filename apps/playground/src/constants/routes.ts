@@ -7,11 +7,11 @@ export interface Route {
   isUtility?: boolean;
 }
 
-export const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
-  { label: "Home", href: "/" },
-{
+  { label: "Home", href: "/", description: "Go to the home page" },
+  {
     label: "Particles",
     href: "/particles/",
     description: "Visual effects using particle systems",
@@ -55,53 +55,6 @@ const rawRoutes = [
       {
         label: "Palettes Generator",
         href: "/colors/palettes-generator/",
-        description: "Generate color palettes using algorithms",
-      },
-    ],
-  },
-  {
-    label: "Data Viz",
-    href: "/data-viz/",
-    description: "Charts and data visualization tools",
-    children: [
-      {
-        label: "Piechart",
-        href: "/data-viz/piechart/",
-        description: "Interactive d3-based piechart examples",
-      },
-    ],
-  },
-    ],
-  },
-  {
-    label: "Sequences",
-    href: "/sequences/",
-    children: [
-      {
-        label: "Sequence Renderer",
-        href: "/sequences/sequence-renderer/",
-        description: "Explore the Recamán's sequence visualization",
-      },
-    ],
-  },
-  {
-    label: "Mosaic",
-    href: "/mosaic/",
-    children: [
-      {
-        label: "Mosaic Maker",
-        href: "/mosaic/mosaic-maker/",
-        description: "Create complex mosaic patterns from images",
-      },
-    ],
-  },
-  {
-    label: "Colors",
-    href: "/colors/",
-    children: [
-      {
-        label: "Palettes Generator",
-        href: "/colors/palettes-generator/",
         description: "Generate color palettes from algorithms",
       },
     ],
@@ -109,6 +62,7 @@ const rawRoutes = [
   {
     label: "Data Viz",
     href: "/data-viz/",
+    description: "Charts and data visualization tools",
     children: [
       {
         label: "Piechart",
