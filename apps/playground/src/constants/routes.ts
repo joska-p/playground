@@ -11,15 +11,66 @@ export const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
   { label: "Home", href: "/" },
-  {
+{
     label: "Particles",
     href: "/particles/",
+    description: "Visual effects using particle systems",
     children: [
       {
         label: "Image to Particles",
         href: "/particles/image-to-particles/",
         description: "Transform images into interactive particles",
       },
+    ],
+  },
+  {
+    label: "Sequences",
+    href: "/sequences/",
+    description: "Mathematical sequence visualizations",
+    children: [
+      {
+        label: "Sequence Renderer",
+        href: "/sequences/sequence-renderer/",
+        description: "Explore the Recamán's sequence visualization",
+      },
+    ],
+  },
+  {
+    label: "Mosaic",
+    href: "/mosaic/",
+    description: "Pattern generation and tiling algorithms",
+    children: [
+      {
+        label: "Mosaic Maker",
+        href: "/mosaic/mosaic-maker/",
+        description: "Create complex mosaic patterns from images",
+      },
+    ],
+  },
+  {
+    label: "Colors",
+    href: "/colors/",
+    description: "Color tools and palette generators",
+    children: [
+      {
+        label: "Palettes Generator",
+        href: "/colors/palettes-generator/",
+        description: "Generate color palettes using algorithms",
+      },
+    ],
+  },
+  {
+    label: "Data Viz",
+    href: "/data-viz/",
+    description: "Charts and data visualization tools",
+    children: [
+      {
+        label: "Piechart",
+        href: "/data-viz/piechart/",
+        description: "Interactive d3-based piechart examples",
+      },
+    ],
+  },
     ],
   },
   {
