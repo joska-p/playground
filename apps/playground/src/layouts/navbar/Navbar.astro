@@ -2,6 +2,7 @@
 import NavbarBrand from "./NavbarBrand.astro";
 import NavbarLink from "./NavbarLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import UtilityLinks from "./UtilityLinks.astro";
 import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
 import SubNavbar from "./SubNavbar.astro";
@@ -47,7 +48,8 @@ const isTopLevelActive = (route: Route) => {
       ))}
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
+      <UtilityLinks />
       <ThemeToggle />
       <MobileMenuToggle />
     </div>

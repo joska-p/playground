@@ -6,14 +6,13 @@ export interface Route {
   description?: string;
 }
 
-// 1. Prepare the Base URL
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
   { label: "Home", href: "/" },
   {
     label: "Particles",
-    href: "/particles/image-to-particles",
+    href: "/particles/",
     children: [
       {
         label: "Image to Particles",
@@ -24,7 +23,7 @@ const rawRoutes = [
   },
   {
     label: "Sequences",
-    href: "/sequences/sequence-renderer",
+    href: "/sequences/",
     children: [
       {
         label: "Sequence Renderer",
@@ -35,7 +34,7 @@ const rawRoutes = [
   },
   {
     label: "Mosaic",
-    href: "/mosaic/mosaic-maker",
+    href: "/mosaic/",
     children: [
       {
         label: "Mosaic Maker",
@@ -46,36 +45,30 @@ const rawRoutes = [
   },
   {
     label: "Colors",
-    href: "/colors/palettes-generator",
+    href: "/colors/",
     children: [
       {
-        label: "Palettes generator",
+        label: "Palettes Generator",
         href: "/colors/palettes-generator",
         description: "Generate color palettes from algorithms",
       },
     ],
   },
   {
-    label: "Misc",
-    href: "/misc/piechart",
+    label: "Data Viz",
+    href: "/data-viz/",
     children: [
       {
         label: "Piechart",
-        href: "/misc/piechart",
+        href: "/data-viz/piechart",
         description: "Interactive d3-based piechart examples",
       },
     ],
   },
 ] satisfies Route[];
 
-/**
- * Normalizes a route path to: /base/path/
- */
 const normalize = (route: Route): Route => {
-  // Collapse double slashes and ensure a leading slash
   const combined = `${baseUrl}/${route.href}`.replace(/\/+/g, "/");
-
-  // Ensure exactly one trailing slash
   const href = combined.endsWith("/") ? combined : `${combined}/`;
 
   return {
@@ -87,9 +80,6 @@ const normalize = (route: Route): Route => {
 
 export const routes = rawRoutes.map(normalize);
 
-/**
- * Utility to detect the active top-level category
- */
 export const getActiveCategory = (path: string): Route | undefined => {
   const normalizedPath = path.endsWith("/") ? path : `${path}/`;
   const homePath = `${baseUrl}/`.replace(/\/+/g, "/");
