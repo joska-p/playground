@@ -1,0 +1,2 @@
+  warning: could not transcribe /home/muratha/Work/Fun/playground/apps/storybook/storybook-static/addon-visual-tests-assets/visual-test-illustration.mp4: Video transcription requires faster-whisper. Run: pip install 'graphifyy[video]'
+[]

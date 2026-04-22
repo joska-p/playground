@@ -1,4 +1,4 @@
-# 🎨 Creative Playground
+# Creative Playground
 
 [![Deploy to GitHub Pages](https://github.com/joska-p/playground/actions/workflows/deploy.yml/badge.svg)](https://github.com/joska-p/playground/actions/workflows/deploy.yml)
 
@@ -8,63 +8,117 @@ A personal monorepo serving as a sandbox for exploring modern web technologies, 
 
 ---
 
-## ✨ Features & Experiments
+## Intent
 
-This playground hosts various experiments and tools built while learning new frameworks and patterns:
+This playground exists to experiment with frontend technologies in a low-pressure environment. It is a space to:
 
-*   **🧩 Mosaic Maker**: An interactive tool to generate and customize mosaic patterns from images or color palettes. Read the [Mosaic Engine Guide](./docs/drafts/mosaic-engine-guide.md) to learn how it works.
-*   **🔢 Sequences**: Mathematical visualizations, including the beautiful **Recamán's Sequence**. Read the [Sequence Renderer Architecture Guide](./docs/drafts/sequence-renderer-guide.md) to learn how it works.
-*   **✨ Particles**: Image-to-particle conversion experiments, exploring canvas manipulation and animations.
-*   **🎨 Palette Generator**: Tools for exploring color theory and generating accessible color schemes.
-*   **📊 Data Viz**: Minimalist components like custom SVG pie charts.
+- Explore new frameworks, patterns, and tools
+- Build creative coding experiments and visualizations
+- Iterate on architectural approaches without Product constraints
 
-## 🏗️ Architecture
+Code here is not production-grade. Expect breaking changes, refactors, and experiments that don't pan out.
 
-The workspace is a **Turborepo** monorepo managed with **pnpm**, designed for high performance and shared configurations.
+---
 
-### 📱 Applications
-*   `apps/playground`: The main **Astro** site hosting all experiments.
-*   `apps/storybook`: **Storybook** instance documenting the shared UI components.
+## Structure
 
-### 📦 Packages
-*   `packages/mosaic-maker`: Core logic and React components for the mosaic engine.
-*   `packages/sequence-renderer`: Core logic and components for mathematical sequence visualizations.
-*   `packages/ui`: A shared library of primitive UI components built with **React 19**.
-*   `packages/tailwind-config`: Shared styling configuration for **Tailwind CSS v4**.
-*   `packages/typescript-config`: Centralized TS configs for consistent DX.
-*   `packages/eslint-config`: Shared linting rules to maintain code quality.
+The workspace is a **Turborepo** monorepo managed with **pnpm**.
 
-## 🛠️ Tech Stack
+```
+apps/              # Deployable applications
+├── playground/   # Main Astro site
+└── storybook/     # Component documentation
 
-*   **Frameworks**: [Astro](https://astro.build/), [React 19](https://react.dev/)
-*   **Build System**: [Turborepo](https://turbo.build/), [pnpm](https://pnpm.io/)
-*   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/)
-*   **Infrastructure**: [Nix](https://nixos.org/) & [direnv](https://direnv.net/) for a reproducible dev environment.
+packages/         # Shared libraries
+├── ui/            # Primitive UI components
+├── mosaic-maker/  # Mosaic generation engine
+├── sequence-renderer/  # Mathematical sequence visualizations
+├── tailwind-config/   # Shared Tailwind configuration
+├── typescript-config/  # Shared TypeScript configuration
+└── eslint-config/     # Shared ESLint configuration
+```
 
-## 🚀 Getting Started
+### Directory Taxonomy
 
-### Development Environment
+All packages follow a consistent internal structure defined in the [Architectural Blueprint](./docs/drafts/architectural-blueprint.md):
 
-This project uses **Nix** and **direnv** to ensure a consistent environment across different machines.
+- `src/core/` — Pure domain logic (no React/DOM dependencies)
+- `src/components/` — UI components following the component-per-folder pattern
+- `src/hooks/` — React lifecycle and state management
+- `src/renderers/` — Canvas, SVG, WebGL output logic
+- `src/services/` — External communication (API clients, storage)
+- `src/utils/` — Generic helper functions
 
-1.  Clone the repository.
-2.  If you have Nix and direnv installed, simply `cd` into the directory and run `direnv allow`.
-3.  All dependencies (`pnpm`, `node`, `turbo`) will be automatically available.
+---
 
-### Installation & Run
+## Guidelines
+
+### Development Workflow
 
 ```bash
 # Install dependencies
 pnpm install
 
-# Start development servers
+# Start all dev servers
 pnpm dev
 
-# Build all apps and packages
+# Build all packages and apps
 pnpm build
 ```
 
-## 📝 License
+### Package Scripts
+
+All packages expose standardized scripts:
+
+| Script | Purpose |
+| :--- | :--- |
+| `pnpm build` | Compile TypeScript |
+| `pnpm check-types` | Type-check without emitting |
+| `pnpm lint` | Lint with warnings counting as errors |
+| `pnpm format` | Format code with Prettier |
+
+### Environment
+
+This project uses **Nix** and **direnv** to ensure consistent tooling across machines. If Nix is installed, simply `cd` into the directory and run `direnv allow` — dependencies will load automatically.
+
+### AI Assistance
+
+This project uses **OpenCode** as the CLI assistant, configured with a **graphify** knowledge graph for codebase navigation.
+
+**Graphify** — After modifying code, run `graphify update .` to keep the knowledge graph current. The graph is located at `graphify-out/` and contains:
+- Extracted code structure and relationships
+- Inferred connections between modules
+- Wiki-style navigation
+
+For architecture questions, use `graphify query`, `graphify path`, or `graphify explain` instead of raw file searches.
+
+---
+
+## Maintenance
+
+- **Loose coupling**: Packages should not depend on each other's internal implementations
+- **Independent builds**: Each package can be built and published separately
+- **Shared configs**: TypeScript, ESLint, and Tailwind configs live in dedicated packages to ensure consistency
+- **No breaking changes in hotfixes**: Backward compatibility is not guaranteed across versions
+
+---
+
+## Further Reading
+
+- [Architectural Blueprint](./docs/drafts/architectural-blueprint.md) — Directory structure, naming conventions, and coding standards
+- [Mosaic Engine Guide](./docs/drafts/mosaic-engine-guide.md) — How the mosaic generation works
+- [Sequence Renderer Guide](./docs/drafts/sequence-renderer-guide.md) — Mathematical sequence visualizations
+
+For individual apps and packages, see their dedicated READMEs:
+
+- [apps/playground](./apps/playground/README.md)
+- [apps/storybook](./apps/storybook/README.md)
+- [packages/ui](./packages/ui/README.md)
+- [packages/mosaic-maker](./packages/mosaic-maker/README.md)
+- [packages/sequence-renderer](./packages/sequence-renderer/README.md)
+
+---
+
+## License
 
 Personal learning project. Feel free to explore and use bits of code for your own learning!
