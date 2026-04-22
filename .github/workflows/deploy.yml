@@ -10,9 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # Force all actions to run on Node.js 24
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,6 +25,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
+      - name: Cache node_modules
+        uses: actions/cache@v5
+        with:
+          path: |
+            node_modules
+            .pnpm-store
+          key: ${{ runner.os }}-node-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Nix
         uses: cachix/install-nix-action@v31
 
@@ -38,10 +45,9 @@ jobs:
         run: nix develop --command pnpm build
 
       - name: Merge storybook into Astro Dist
-        # Consolidate Storybook into the Astro site structure for deployment
         run: |
           mkdir -p ./apps/playground/dist/storybook
-          cp -r ./apps/storybook/storybook-static/* ./apps/playground/dist/storybook/ || true
+          cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

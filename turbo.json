@@ -1,19 +1,21 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "globalDependencies": ["pnpm-workspace.yaml"],
+  "globalEnv": ["BASE_URL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "tsconfig.json"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "tsconfig.json", "pnpm-workspace.yaml"],
       "outputs": ["dist/**", ".astro/**", "storybook-static/**"]
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"]
+      "inputs": ["$TURBO_DEFAULT$", "eslint.config.*"]
     },
     "lint-fix": {
       "dependsOn": ["^lint-fix"],
-      "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"]
+      "inputs": ["$TURBO_DEFAULT$", "eslint.config.*"]
     },
     "format": {
       "dependsOn": ["^format"],

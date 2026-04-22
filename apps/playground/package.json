@@ -11,6 +11,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf .turbo node_modules dist",
+    "lint": "eslint . --max-warnings 0",
+    "lint-fix": "eslint . --max-warnings 0 --fix",
+    "check-types": "tsc --noEmit",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -32,6 +35,9 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/vite": "^4.2.2",
     "autoprefixer": "^10.5.0",
