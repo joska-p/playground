@@ -2,123 +2,111 @@
 
 [![Deploy to GitHub Pages](https://github.com/joska-p/playground/actions/workflows/deploy.yml/badge.svg)](https://github.com/joska-p/playground/actions/workflows/deploy.yml)
 
-A personal monorepo serving as a sandbox for exploring modern web technologies, creative coding, and frontend architecture.
+A personal monorepo for creative coding experiments and frontend exploration.
 
-🚀 **[Live Demo](https://joska-p.github.io/playground/)** | 📚 **[Storybook](https://joska-p.github.io/playground/storybook)**
+🚀 **[Live Demo](https://joska-p.github.io/playground/)** · 📚 **[Storybook](https://joska-p.github.io/playground/storybook)** · 🔗 **[Knowledge Graph](https://joska-p.github.io/playground/graph/)**
 
 ---
 
-## Intent
+## What's Inside
 
-This playground exists to experiment with frontend technologies in a low-pressure environment. It is a space to:
+Interactive web experiments organized by type:
 
-- Explore new frameworks, patterns, and tools
-- Build creative coding experiments and visualizations
-- Iterate on architectural approaches without Product constraints
+| Category | Projects |
+|----------|----------|
+| **Particles** | Image to Particles |
+| **Sequences** | Sequence Renderer |
+| **Mosaic** | Mosaic Maker |
+| **Colors** | Palettes Generator |
+| **Data Viz** | Piechart |
 
-Code here is not production-grade. Expect breaking changes, refactors, and experiments that don't pan out.
+Each category has a landing page listing its projects.
 
 ---
 
 ## Structure
 
-The workspace is a **Turborepo** monorepo managed with **pnpm**.
-
 ```
-apps/              # Deployable applications
-├── playground/   # Main Astro site
+apps/
+├── playground/    # Astro site with all experiments
 └── storybook/     # Component documentation
 
-packages/         # Shared libraries
-├── ui/            # Primitive UI components
-├── mosaic-maker/  # Mosaic generation engine
-├── sequence-renderer/  # Mathematical sequence visualizations
-├── tailwind-config/   # Shared Tailwind configuration
-├── typescript-config/  # Shared TypeScript configuration
-└── eslint-config/     # Shared ESLint configuration
+packages/
+├── ui/                    # Primitive UI components
+├── mosaic-maker/           # Mosaic generation engine
+├── sequence-renderer/     # Mathematical sequence viz
+├── tailwind-config/       # Shared Tailwind theme
+├── typescript-config/     # Shared TypeScript config
+└── eslint-config/         # Shared ESLint config
 ```
 
-### Directory Taxonomy
+### Architecture
 
-All packages follow a consistent internal structure defined in the [Architectural Blueprint](./docs/drafts/architectural-blueprint.md):
+Packages follow a consistent structure:
 
-- `src/core/` — Pure domain logic (no React/DOM dependencies)
-- `src/components/` — UI components following the component-per-folder pattern
-- `src/hooks/` — React lifecycle and state management
-- `src/renderers/` — Canvas, SVG, WebGL output logic
-- `src/services/` — External communication (API clients, storage)
-- `src/utils/` — Generic helper functions
+- `src/core/` — Pure domain logic (no UI dependencies)
+- `src/components/` — Component-per-folder pattern
+- `src/hooks/` — React lifecycle and state
+- `src/renderers/` — Canvas/SVG/WebGL output
+- `src/utils/` — Generic helpers
+
+See [Architectural Blueprint](docs/drafts/architectural-blueprint.md) for full conventions.
 
 ---
 
-## Guidelines
-
-### Development Workflow
+## Getting Started
 
 ```bash
-# Install dependencies
+# Install (uses Nix + direnv automatically if available)
 pnpm install
 
 # Start all dev servers
 pnpm dev
 
-# Build all packages and apps
+# Build for production
 pnpm build
+
+# Type-check, lint, format
+pnpm check-types
+pnpm lint
+pnpm format
 ```
 
-### Package Scripts
+---
 
-All packages expose standardized scripts:
+## Adding Projects
 
-| Script | Purpose |
-| :--- | :--- |
-| `pnpm build` | Compile TypeScript |
-| `pnpm check-types` | Type-check without emitting |
-| `pnpm lint` | Lint with warnings counting as errors |
-| `pnpm format` | Format code with Prettier |
+See [Adding Pages and Routes](docs/guides/adding-pages.md) for a step-by-step guide.
 
-### Environment
+---
 
-This project uses **Nix** and **direnv** to ensure consistent tooling across machines. If Nix is installed, simply `cd` into the directory and run `direnv allow` — dependencies will load automatically.
+## Documentation
 
-### AI Assistance
-
-This project uses **OpenCode** as the CLI assistant, configured with a **graphify** knowledge graph for codebase navigation.
-
-**Graphify** — After modifying code, run `graphify update .` to keep the knowledge graph current. The graph is located at `graphify-out/` and contains:
-- Extracted code structure and relationships
-- Inferred connections between modules
-- Wiki-style navigation
-
-For architecture questions, use `graphify query`, `graphify path`, or `graphify explain` instead of raw file searches.
+```
+docs/
+├── drafts/          # In-progress architecture docs
+│   ├── architectural-blueprint.md   # Monorepo standards
+│   ├── mosaic-engine-guide.md       # Tile system
+│   └── sequence-renderer-guide.md    # Sequence viz
+├── audit/           # Completed audit reports
+│   ├── monorepo-flow-audit.md       # Turborepo issues (resolved)
+│   ├── mosaic-maker-audit.md         # Architecture review
+│   └── ...
+└── guides/         # How-to docs
+    └── adding-pages.md               # Adding new projects
+```
 
 ---
 
 ## Maintenance
 
-- **Loose coupling**: Packages should not depend on each other's internal implementations
-- **Independent builds**: Each package can be built and published separately
-- **Shared configs**: TypeScript, ESLint, and Tailwind configs live in dedicated packages to ensure consistency
-- **No breaking changes in hotfixes**: Backward compatibility is not guaranteed across versions
-
----
-
-## Further Reading
-
-- [Architectural Blueprint](./docs/drafts/architectural-blueprint.md) — Directory structure, naming conventions, and coding standards
-- [Mosaic Engine Guide](./docs/drafts/mosaic-engine-guide.md) — How the mosaic generation works
-- [Sequence Renderer Guide](./docs/drafts/sequence-renderer-guide.md) — Mathematical sequence visualizations
-
-For individual apps and packages, see their dedicated READMEs:
-
-- [apps/playground](./apps/playground/README.md)
-- [apps/storybook](./apps/storybook/README.md)
-- [packages/ui](./packages/ui/README.md)
-- [packages/mosaic-maker](./packages/mosaic-maker/README.md)
-- [packages/sequence-renderer](./packages/sequence-renderer/README.md)
+- Packages follow **component-per-folder** pattern
+- **Independent builds** — each package can be built separately
+- **Shared configs** — TS, ESLint, Tailwind in dedicated packages
+- **Graphify** — Knowledge graph auto-rebuilds on commit
 
 ---
 
 ## License
 
-Personal learning project. Feel free to explore and use bits of code for your own learning!
+Personal learning project. Feel free to explore and borrow!
