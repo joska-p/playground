@@ -37,6 +37,7 @@ const isTopLevelActive = (route: Route) => {
         <NavbarLink
           href={route.href}
           isActive={isTopLevelActive(route) || false}
+          title={route.description}
         >
           {route.label}
         </NavbarLink>

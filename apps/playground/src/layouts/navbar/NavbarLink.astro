@@ -4,14 +4,16 @@ import { cn } from "../../utils/utils";
 interface Props {
   href: string;
   isActive: boolean;
+  title?: string;
   className?: string;
 }
 
-const { href, isActive, className } = Astro.props;
+const { href, isActive, title, className } = Astro.props;
 ---
 
 <a
   href={href}
+  title={title}
   class={cn(
     "group relative px-4 py-2 text-sm font-mono font-medium transition-all outline-none active:translate-y-px",
     isActive
