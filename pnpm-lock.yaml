@@ -219,13 +219,16 @@ importers:
         version: 2.1.1
       react:
         specifier: ^19
-        version: 19.2.0
+        version: 19.2.5
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
       zod:
         specifier: ^4.3.6
         version: 4.3.6
+      zustand:
+        specifier: ^5.0.12
+        version: 5.0.12(@types/react@19.2.14)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -3132,10 +3135,6 @@ packages:
 
   react-refresh@0.18.0:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
-    engines: {node: '>=0.10.0'}
-
-  react@19.2.0:
-    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
   react@19.2.5:
@@ -7006,8 +7005,6 @@ snapshots:
   react-is@17.0.2: {}
 
   react-refresh@0.18.0: {}
-
-  react@19.2.0: {}
 
   react@19.2.5: {}
 
