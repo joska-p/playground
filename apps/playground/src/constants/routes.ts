@@ -10,7 +10,6 @@ export interface Route {
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
-  { label: "Home", href: "/", description: "Go to the home page" },
   {
     label: "Particles",
     href: "/particles/",

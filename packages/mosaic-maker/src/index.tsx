@@ -11,7 +11,7 @@ function MosaicMaker() {
         <MosaicDisplay />
       </SidebarProvider.Content>
 
-      <SidebarProvider.Sidebar>
+      <SidebarProvider.Sidebar className="bg-card p-2">
         <Controls />
       </SidebarProvider.Sidebar>
     </SidebarProvider>
