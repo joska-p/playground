@@ -1,54 +1,46 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Dependencies
+# -----------------------------------------------------------------------------
+node_modules/
+.pnpm-home/
 
-SAVES
-.gemini
-.opencode
-graphify-out
+# Build outputs
+# -----------------------------------------------------------------------------
+dist/
+.astro/
+build/
+storybook-static/
 
-
-# Nix/Direnv
-.direnv
+# Dev tools & caches
+# -----------------------------------------------------------------------------
+.turbo/
+.direnv/
 result
 result-*
 
-# Astrojs and Buils
-# generated types
-.astro
-dist
-storybook-static
-build
+# Environment files
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
 
-# dependencies
-.pnpm-home
-node_modules
-.pnp
-.pnp.js
+# Logs
+# -----------------------------------------------------------------------------
+*.log
+logs/
 
-# testing
-coverage
-
-# misc
+# OS & editor noise
+# -----------------------------------------------------------------------------
 .DS_Store
 *.pem
+*.swp
+*.swo
+*~
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-logs
-
-# local env files
-.env
-.env.production
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# turbo
-.turbo
-
-# graphify knowledge graph
+# Knowledge graphs & AI tooling (generated, not tracked)
+# -----------------------------------------------------------------------------
 graphify-out/
 .opencode/
+
+# Local workspace config (if you add tools later)
+# -----------------------------------------------------------------------------
+*.local
