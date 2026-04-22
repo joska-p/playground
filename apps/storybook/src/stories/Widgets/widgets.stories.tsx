@@ -25,12 +25,16 @@ export const ColorPaletteStory: StoryObj<typeof ColorPalette> = {
     return (
       <div className="flex flex-col gap-8 p-4 bg-background border border-border rounded-xl">
         <section>
-          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">Display Only</h3>
+          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
+            Display Only
+          </h3>
           <ColorPalette colors={palettes[0].colors} />
         </section>
 
         <section>
-          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">Interactive Picker</h3>
+          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
+            Interactive Picker
+          </h3>
           <div className="flex flex-wrap gap-4">
             {palettes.map((p) => (
               <ColorPalette
@@ -44,12 +48,10 @@ export const ColorPaletteStory: StoryObj<typeof ColorPalette> = {
         </section>
 
         <section>
-          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">Vertical Size SM</h3>
-          <ColorPalette
-            colors={palettes[2].colors}
-            orientation="vertical"
-            size="sm"
-          />
+          <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
+            Vertical Size SM
+          </h3>
+          <ColorPalette colors={palettes[2].colors} orientation="vertical" size="sm" />
         </section>
       </div>
     );
@@ -65,10 +67,7 @@ export const ControlGroupStory: StoryObj<typeof ControlGroup> = {
     const [val, setVal] = useState(64);
     return (
       <div className="max-w-xs space-y-4">
-        <ControlGroup
-          label="Tile Size"
-          valueDisplay={`${val}px`}
-        >
+        <ControlGroup label="Tile Size" valueDisplay={`${val}px`}>
           <Slider min={32} max={128} value={val} onChange={setVal} />
         </ControlGroup>
 

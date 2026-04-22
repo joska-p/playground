@@ -16,5 +16,5 @@ export const sliderVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );

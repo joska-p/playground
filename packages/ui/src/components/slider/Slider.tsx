@@ -4,9 +4,7 @@ import { cn } from "../../utils/cn.js";
 import { sliderVariants } from "./sliderVariants.js";
 
 interface SliderProps
-  extends
-    Omit<ComponentProps<"input">, "onChange" | "value">,
-    VariantProps<typeof sliderVariants> {
+  extends Omit<ComponentProps<"input">, "onChange" | "value">, VariantProps<typeof sliderVariants> {
   value?: number;
   onChange?: (value: number) => void;
 }

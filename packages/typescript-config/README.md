@@ -19,5 +19,6 @@ Reference these configs in your `tsconfig.json`:
 ```
 
 Available configs:
+
 - `base.json` — Base configuration for libraries
 - `astro.json` — Astro-specific configuration

@@ -3,8 +3,7 @@ import { useMosaicMakerContext } from "../../context/mosaicContext.js";
 import { arePalettesEqual, getPaletteId } from "../../utils/palette-utils.js";
 
 function PaletteControls() {
-  const { currentPalettes, currentPalette, updatePalette } =
-    useMosaicMakerContext();
+  const { currentPalettes, currentPalette, updatePalette } = useMosaicMakerContext();
 
   return (
     <fieldset className="flex flex-wrap items-center justify-center gap-2 p-4 border-t border-border/30 mt-4">

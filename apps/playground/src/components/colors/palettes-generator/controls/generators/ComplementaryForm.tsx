@@ -9,11 +9,7 @@ interface ComplementaryPalettes {
   split: number;
 }
 
-function complementaryPalettes({
-  baseColor,
-  length,
-  split,
-}: ComplementaryPalettes): Palette {
+function complementaryPalettes({ baseColor, length, split }: ComplementaryPalettes): Palette {
   const { hue, saturation, lightness } = baseColor;
   const palette: Palette = [];
   const angle = 180;

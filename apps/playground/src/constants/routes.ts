@@ -97,6 +97,6 @@ export const getActiveCategory = (path: string): Route | undefined => {
   if (normalizedPath === homePath) return undefined;
 
   return routes.find((route) =>
-    route.children?.some((child) => normalizedPath.startsWith(child.href)),
+    route.children?.some((child) => normalizedPath.startsWith(child.href))
   );
 };

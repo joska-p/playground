@@ -6,11 +6,11 @@ The main Astro site hosting all experiments and creative coding tools.
 
 From the workspace root:
 
-| Command | Action |
-| :--- | :--- |
-| `pnpm dev` | Start development server at `localhost:4321` |
-| `pnpm build` | Build production files to `./dist` |
-| `pnpm preview` | Preview production build locally |
+| Command        | Action                                       |
+| :------------- | :------------------------------------------- |
+| `pnpm dev`     | Start development server at `localhost:4321` |
+| `pnpm build`   | Build production files to `./dist`           |
+| `pnpm preview` | Preview production build locally             |
 
 ## Structure
 

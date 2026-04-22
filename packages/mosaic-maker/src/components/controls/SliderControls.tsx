@@ -11,14 +11,7 @@ export interface Props {
   step: number;
 }
 
-function SliderControls({
-  label,
-  defaultValue,
-  cssVar,
-  min,
-  max,
-  step,
-}: Props) {
+function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) {
   const { mosaicRef } = useMosaicMakerContext();
   const [value, setValue] = useState(defaultValue);
 
@@ -29,13 +22,7 @@ function SliderControls({
 
   return (
     <ControlGroup label={label} valueDisplay={`${value}px`}>
-      <Slider
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={handleSetValue}
-      />
+      <Slider min={min} max={max} step={step} value={value} onChange={handleSetValue} />
     </ControlGroup>
   );
 }

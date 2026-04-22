@@ -3,10 +3,7 @@ import { CSS_VARS } from "../core/config.js";
 type StyleProperty = keyof typeof CSS_VARS;
 type ComputedStyles = Record<string, string>;
 
-function getComputedPropertyValue(
-  element: HTMLDivElement,
-  property: StyleProperty,
-): string {
+function getComputedPropertyValue(element: HTMLDivElement, property: StyleProperty): string {
   return getComputedStyle(element).getPropertyValue(CSS_VARS[property]);
 }
 
@@ -37,16 +34,8 @@ function computeDimension(total: number, size: number, gap: number): number {
 function computeNumberOfTiles(element: HTMLDivElement): number {
   try {
     const gap = computeGap(element);
-    const tilesPerRow = computeDimension(
-      element.offsetWidth,
-      computeTileWidth(element),
-      gap,
-    );
-    const tilesPerColumn = computeDimension(
-      element.offsetHeight,
-      computeTileHeight(element),
-      gap,
-    );
+    const tilesPerRow = computeDimension(element.offsetWidth, computeTileWidth(element), gap);
+    const tilesPerColumn = computeDimension(element.offsetHeight, computeTileHeight(element), gap);
     return tilesPerRow * tilesPerColumn;
   } catch (error) {
     console.error("Failed to compute number of tiles:", error);
@@ -54,10 +43,7 @@ function computeNumberOfTiles(element: HTMLDivElement): number {
   }
 }
 
-function updateElementStyles(
-  element: HTMLElement,
-  styles: ComputedStyles,
-): void {
+function updateElementStyles(element: HTMLElement, styles: ComputedStyles): void {
   for (const [prop, value] of Object.entries(styles)) {
     element.style.setProperty(prop, value);
   }

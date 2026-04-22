@@ -19,7 +19,7 @@ export const switchVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export const switchThumbVariants = cva(
@@ -34,5 +34,5 @@ export const switchThumbVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  },
+  }
 );

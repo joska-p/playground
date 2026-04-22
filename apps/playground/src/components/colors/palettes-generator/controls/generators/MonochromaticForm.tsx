@@ -9,11 +9,7 @@ interface MonochromaticPalettes {
   angle: number;
 }
 
-function monochromaticPalettes({
-  baseColor,
-  length,
-  angle,
-}: MonochromaticPalettes): Palette {
+function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalettes): Palette {
   const { hue, saturation, lightness } = baseColor;
   const palette: Palette = [];
 
@@ -26,10 +22,7 @@ function monochromaticPalettes({
   for (let i = -Math.floor(length / 2); i < Math.ceil(length / 2); i++) {
     // Calculate the new hue by adding the step size
     const currenLightness = (lightness + i * angle) % 100;
-    const currenLightnessClamped = Math.min(
-      Math.max(currenLightness, min),
-      max,
-    );
+    const currenLightnessClamped = Math.min(Math.max(currenLightness, min), max);
     // Push the new color into the palette
     palette.push({
       hue,

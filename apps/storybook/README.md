@@ -6,10 +6,10 @@ Component documentation and playground for UI components.
 
 From the workspace root:
 
-| Command | Action |
-| :--- | :--- |
-| `pnpm dev --filter=storybook` | Start Storybook at `localhost:6006` |
-| `pnpm build --filter=storybook` | Build static Storybook |
+| Command                         | Action                              |
+| :------------------------------ | :---------------------------------- |
+| `pnpm dev --filter=storybook`   | Start Storybook at `localhost:6006` |
+| `pnpm build --filter=storybook` | Build static Storybook              |
 
 ## Adding Stories
 

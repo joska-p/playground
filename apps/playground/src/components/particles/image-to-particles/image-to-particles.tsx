@@ -9,11 +9,7 @@ import {
   POSITION_THRESHOLD,
   RETURN_FORCE,
 } from "./config";
-import {
-  calculateImageDimensions,
-  drawImageToCanvas,
-  initParticles,
-} from "./lib/utils";
+import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./lib/utils";
 import { useImageUpload } from "./use-image-upload";
 
 export interface Particle {
@@ -137,8 +133,7 @@ const ImageToParticles = () => {
 
         animate();
       } catch (error) {
-        if (error instanceof Error)
-          throw new Error("Error processing image", error);
+        if (error instanceof Error) throw new Error("Error processing image", error);
         throw error;
       }
     };

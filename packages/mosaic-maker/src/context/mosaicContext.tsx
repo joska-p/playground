@@ -1,12 +1,5 @@
 import type { ComponentProps } from "react";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { TileSet, Palette, TileNames } from "../core/config.js";
 import {
   initialPalette,
@@ -15,10 +8,7 @@ import {
   initialRotations,
 } from "../core/config.js";
 import { fetchPalettes } from "../utils/fetch-palettes.js";
-import {
-  computeNumberOfTiles,
-  updateElementStyles,
-} from "../utils/style-utils.js";
+import { computeNumberOfTiles, updateElementStyles } from "../utils/style-utils.js";
 import { getRandom } from "../utils/utils.js";
 import { useResizeObserver } from "@repo/ui";
 
@@ -44,13 +34,7 @@ interface MosaicContext {
 const MosaicMakerContext = createContext<MosaicContext | null>(null);
 
 function generateTileColors(): [string, string, string, string, string] {
-  const paletteKeys = [
-    "--color-0",
-    "--color-1",
-    "--color-2",
-    "--color-3",
-    "--color-4",
-  ];
+  const paletteKeys = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"];
   return Array.from({ length: 5 }, () => getRandom(paletteKeys)) as [
     string,
     string,
@@ -74,17 +58,12 @@ function MosaicMakerProvider({ children }: ComponentProps<"div">) {
   const [tiles, setTiles] = useState<TileInstance[]>([]);
 
   const currentPalettes = useMemo(() => {
-    return paletteStock.slice(
-      currentPalettesIndex,
-      currentPalettesIndex + MAX_NUMBER_OF_PALETTES,
-    );
+    return paletteStock.slice(currentPalettesIndex, currentPalettesIndex + MAX_NUMBER_OF_PALETTES);
   }, [currentPalettesIndex, paletteStock]);
 
   const updateCurrentPalettes = useCallback(() => {
     setCurrentPalettesIndex((prev) =>
-      prev >= paletteStock.length - MAX_NUMBER_OF_PALETTES
-        ? 0
-        : prev + MAX_NUMBER_OF_PALETTES,
+      prev >= paletteStock.length - MAX_NUMBER_OF_PALETTES ? 0 : prev + MAX_NUMBER_OF_PALETTES
     );
   }, [paletteStock]);
 
@@ -94,19 +73,17 @@ function MosaicMakerProvider({ children }: ComponentProps<"div">) {
       if (!mosaicRef.current) return;
       updateElementStyles(mosaicRef.current, palette);
     },
-    [mosaicRef],
+    [mosaicRef]
   );
 
   const updateTileSet = useCallback(
     (tileName: TileNames) => {
       if (tileSet.length === 1 && tileName === tileSet[0]) return;
       setTileSet((prev) =>
-        prev.includes(tileName)
-          ? prev.filter((tile) => tile !== tileName)
-          : [...prev, tileName],
+        prev.includes(tileName) ? prev.filter((tile) => tile !== tileName) : [...prev, tileName]
       );
     },
-    [tileSet],
+    [tileSet]
   );
 
   const updateTiles = useCallback(
@@ -114,19 +91,16 @@ function MosaicMakerProvider({ children }: ComponentProps<"div">) {
       if (!mosaicRef.current) return;
       const newNumberOfTiles = computeNumberOfTiles(mosaicRef.current);
 
-      const newTiles: TileInstance[] = Array.from(
-        { length: newNumberOfTiles },
-        (_, i) => ({
-          id: `${i}-${Math.random().toString(36).substr(2, 9)}`,
-          name: getRandom(newTileSet),
-          colors: generateTileColors(),
-          rotation: generateTileRotation(),
-        }),
-      );
+      const newTiles: TileInstance[] = Array.from({ length: newNumberOfTiles }, (_, i) => ({
+        id: `${i}-${Math.random().toString(36).substr(2, 9)}`,
+        name: getRandom(newTileSet),
+        colors: generateTileColors(),
+        rotation: generateTileRotation(),
+      }));
 
       setTiles(newTiles);
     },
-    [tileSet, mosaicRef],
+    [tileSet, mosaicRef]
   );
 
   // Re-generate tiles only when dimensions change significantly
@@ -167,9 +141,7 @@ function MosaicMakerProvider({ children }: ComponentProps<"div">) {
 function useMosaicMakerContext() {
   const context = useContext(MosaicMakerContext);
   if (!context) {
-    throw new Error(
-      "useMosaicMakerContext must be used within a MosaicMakerProvider",
-    );
+    throw new Error("useMosaicMakerContext must be used within a MosaicMakerProvider");
   }
   return context;
 }

@@ -28,5 +28,5 @@ export const colorPaletteVariants = cva(
       interactive: false,
       checked: false,
     },
-  },
+  }
 );

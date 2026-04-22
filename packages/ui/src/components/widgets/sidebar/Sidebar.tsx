@@ -39,8 +39,7 @@ const sidebarProviderVariants = cva("grid h-full", {
 });
 
 interface SidebarProviderProps
-  extends React.ComponentProps<"div">,
-    VariantProps<typeof sidebarProviderVariants> {
+  extends React.ComponentProps<"div">, VariantProps<typeof sidebarProviderVariants> {
   children: React.ReactNode;
 }
 
@@ -59,7 +58,7 @@ function SidebarProvider({
       isOpen,
       toggleSidebar,
     }),
-    [isOpen],
+    [isOpen]
   );
 
   return (
@@ -71,7 +70,7 @@ function SidebarProvider({
             mobilePosition,
             desktopPosition,
             className,
-          }),
+          })
         )}
         {...props}
       >
@@ -81,12 +80,7 @@ function SidebarProvider({
   );
 }
 
-function Content({
-  children,
-  ref,
-  className,
-  ...props
-}: ComponentProps<"div">) {
+function Content({ children, ref, className, ...props }: ComponentProps<"div">) {
   return (
     <div ref={ref} className={cn(className)} {...props}>
       {children}
@@ -94,12 +88,7 @@ function Content({
   );
 }
 
-function Sidebar({
-  children,
-  ref,
-  className,
-  ...props
-}: ComponentProps<"div">) {
+function Sidebar({ children, ref, className, ...props }: ComponentProps<"div">) {
   const { isOpen } = useSidebarContext();
   return (
     <div ref={ref} className={cn(className, { hidden: !isOpen })} {...props}>

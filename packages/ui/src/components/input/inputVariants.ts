@@ -9,8 +9,7 @@ export const inputVariants = cva(
         // High contrast border for light mode, softer for dark
         default: "border-border hover:border-primary/50",
         // Distinctive Gruvbox red for errors
-        error:
-          "border-destructive text-destructive focus-visible:ring-destructive",
+        error: "border-destructive text-destructive focus-visible:ring-destructive",
         // Subtle variation
         secondary: "bg-secondary/10 border-secondary/20",
       },
@@ -18,5 +17,5 @@ export const inputVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );

@@ -13,8 +13,7 @@ import { SliderControls } from "./SliderControls.js";
 import { TileSetControls } from "./TileSetControls.js";
 
 function Controls() {
-  const { mosaicRef, currentPalette, updateCurrentPalettes, updateTiles } =
-    useMosaicMakerContext();
+  const { mosaicRef, currentPalette, updateCurrentPalettes, updateTiles } = useMosaicMakerContext();
 
   function shuffleColors() {
     if (!mosaicRef.current) return;
@@ -29,12 +28,7 @@ function Controls() {
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
-        <Button
-          variant="default"
-          type="button"
-          onClick={() => shuffleColors()}
-          size="sm"
-        >
+        <Button variant="default" type="button" onClick={() => shuffleColors()} size="sm">
           Shuffle colors
         </Button>
         <Button type="button" onClick={() => shuffleRotations()} size="sm">

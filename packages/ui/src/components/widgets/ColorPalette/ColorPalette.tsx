@@ -4,9 +4,7 @@ import { cn } from "../../../utils/cn.js";
 import { colorPaletteVariants } from "./colorPaletteVariants.js";
 
 interface ColorPaletteProps
-  extends
-    Omit<ComponentProps<"label">, "onChange">,
-    VariantProps<typeof colorPaletteVariants> {
+  extends Omit<ComponentProps<"label">, "onChange">, VariantProps<typeof colorPaletteVariants> {
   colors: string[];
   name?: string;
   value?: string;
@@ -41,7 +39,7 @@ function ColorPalette({
           interactive: isInteractive,
           checked,
           className,
-        }),
+        })
       )}
       {...props}
     >

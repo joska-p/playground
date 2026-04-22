@@ -17,14 +17,7 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       description: "Visual style of the button based on the theme palette.",
-      options: [
-        "default",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
+      options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
       control: { type: "select" },
     },
     size: {

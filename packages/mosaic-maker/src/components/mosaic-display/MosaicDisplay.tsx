@@ -28,12 +28,7 @@ function MosaicDisplay() {
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (
-        <Tile
-          key={tile.id}
-          name={tile.name}
-          colors={tile.colors}
-          rotation={tile.rotation}
-        />
+        <Tile key={tile.id} name={tile.name} colors={tile.colors} rotation={tile.rotation} />
       ))}
     </div>
   );

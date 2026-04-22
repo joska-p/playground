@@ -43,12 +43,7 @@ export const Default: Story = {
     const [checked, setChecked] = useState(false);
     return (
       <div className="flex items-center gap-3 font-mono">
-        <Switch
-          {...args}
-          checked={checked}
-          onCheckedChange={setChecked}
-          id="toggle-feature"
-        />
+        <Switch {...args} checked={checked} onCheckedChange={setChecked} id="toggle-feature" />
         <Label htmlFor="toggle-feature" className="cursor-pointer">
           Enable Experiment
         </Label>

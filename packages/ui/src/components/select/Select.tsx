@@ -4,8 +4,7 @@ import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { selectVariants } from "./selectVariants.js";
 
-interface SelectProps
-  extends ComponentProps<"select">, VariantProps<typeof selectVariants> {
+interface SelectProps extends ComponentProps<"select">, VariantProps<typeof selectVariants> {
   label?: string;
   helperText?: string;
   children: ReactNode;
@@ -44,18 +43,8 @@ function Select({
           {children}
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-foreground/50">
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
       </div>
@@ -63,7 +52,7 @@ function Select({
         <p
           className={cn(
             "text-xs italic",
-            variant === "error" ? "text-destructive" : "text-muted-foreground",
+            variant === "error" ? "text-destructive" : "text-muted-foreground"
           )}
         >
           {helperText}

@@ -4,8 +4,7 @@ import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { inputVariants } from "./inputVariants.js";
 
-interface InputProps
-  extends ComponentProps<"input">, VariantProps<typeof inputVariants> {
+interface InputProps extends ComponentProps<"input">, VariantProps<typeof inputVariants> {
   label?: string;
   helperText?: string;
 }
@@ -44,7 +43,7 @@ function Input({
         <p
           className={cn(
             "text-xs italic",
-            variant === "error" ? "text-destructive" : "text-muted-foreground",
+            variant === "error" ? "text-destructive" : "text-muted-foreground"
           )}
         >
           {helperText}

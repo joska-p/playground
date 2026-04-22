@@ -30,12 +30,9 @@ export interface Particle {
 
 export const calculateImageDimensions = (
   imageWidth: number,
-  imageHeight: number,
+  imageHeight: number
 ): ImageDimensions => {
-  const scale = Math.min(
-    CANVAS_WIDTH / imageWidth,
-    CANVAS_HEIGHT / imageHeight,
-  );
+  const scale = Math.min(CANVAS_WIDTH / imageWidth, CANVAS_HEIGHT / imageHeight);
   const scaledWidth = imageWidth * scale;
   const scaledHeight = imageHeight * scale;
 
@@ -53,7 +50,7 @@ export const calculateImageDimensions = (
 export const drawImageToCanvas = (
   ctx: CanvasRenderingContext2D,
   image: HTMLImageElement,
-  dimensions: ImageDimensions,
+  dimensions: ImageDimensions
 ): void => {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   ctx.drawImage(
@@ -61,7 +58,7 @@ export const drawImageToCanvas = (
     dimensions.offset.x,
     dimensions.offset.y,
     dimensions.width,
-    dimensions.height,
+    dimensions.height
   );
 };
 
@@ -94,8 +91,7 @@ export const initParticles = (imageData: ImageData) => {
           INITIAL_VELOCITY.MIN_Y +
           Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y);
         const randomSize =
-          PARTICLE_SIZE.MIN +
-          Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
+          PARTICLE_SIZE.MIN + Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
 
         // Add slight color variation
         const colorVariation = Math.random() * 20 - 10;

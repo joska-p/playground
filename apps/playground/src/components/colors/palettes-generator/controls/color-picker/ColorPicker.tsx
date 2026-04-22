@@ -7,8 +7,7 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ width, height }: ColorPickerProps) {
-  const { canvasRef, baseColor, handlePickColor, handleSaturationChange } =
-    useColorPicker();
+  const { canvasRef, baseColor, handlePickColor, handleSaturationChange } = useColorPicker();
   const { hue, saturation, lightness } = baseColor;
   const { x, y } = baseColor.location;
 
@@ -20,7 +19,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
         className={cn(
           "absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2",
           { "border-white": lightness < 50 },
-          { "border-black": lightness >= 50 },
+          { "border-black": lightness >= 50 }
         )}
       />
       <canvas

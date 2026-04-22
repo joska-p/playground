@@ -13,11 +13,7 @@ function TileSetControls() {
     >
       {initialTileSet.map((tileName) => {
         return (
-          <label
-            key={tileName}
-            aria-label={tileName}
-            className="flex flex-col gap-2"
-          >
+          <label key={tileName} aria-label={tileName} className="flex flex-col gap-2">
             <input
               type="checkbox"
               checked={tileSet.includes(tileName)}
@@ -26,19 +22,11 @@ function TileSetControls() {
             />
             <Tile
               name={tileName}
-              colors={
-                Object.keys(initialPalette) as [
-                  string,
-                  string,
-                  string,
-                  string,
-                  string,
-                ]
-              }
+              colors={Object.keys(initialPalette) as [string, string, string, string, string]}
               className={twMerge(
                 "opacity-70 transition-opacity",
                 "peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4",
-                "peer-focus-visible:ring-accent peer-focus-visible:ring-4",
+                "peer-focus-visible:ring-accent peer-focus-visible:ring-4"
               )}
               rotation="--rotation-0"
             />

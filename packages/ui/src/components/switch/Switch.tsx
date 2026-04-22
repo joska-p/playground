@@ -4,9 +4,7 @@ import { cn } from "../../utils/cn.js";
 import { switchVariants, switchThumbVariants } from "./switchVariants.js";
 
 interface SwitchProps
-  extends
-    Omit<ComponentProps<"button">, "onChange">,
-    VariantProps<typeof switchVariants> {
+  extends Omit<ComponentProps<"button">, "onChange">, VariantProps<typeof switchVariants> {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }

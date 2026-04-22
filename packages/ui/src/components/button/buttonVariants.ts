@@ -7,17 +7,13 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         // Uses your --primary token
-        default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
         // Uses your --destructive token
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
         // Retro outline using the --border token
-        outline:
-          "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
         // Uses your --secondary token
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm",
         ghost: "hover:bg-foreground/5 hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
@@ -32,5 +28,5 @@ export const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );

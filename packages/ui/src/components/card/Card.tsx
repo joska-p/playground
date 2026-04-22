@@ -3,45 +3,28 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { cardVariants } from "./cardVariants.js";
 
-interface CardProps
-  extends ComponentProps<"div">, VariantProps<typeof cardVariants> {}
+interface CardProps extends ComponentProps<"div">, VariantProps<typeof cardVariants> {}
 
 /**
  * A layout container component based on the Gruvbox theme.
  */
 function Card({ className, variant, ...props }: CardProps) {
-  return (
-    <div className={cn(cardVariants({ variant, className }))} {...props} />
-  );
+  return <div className={cn(cardVariants({ variant, className }))} {...props} />;
 }
 
 function CardHeader({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div
-      className={cn("flex flex-col space-y-1.5 p-6", className)}
-      {...props}
-    />
-  );
+  return <div className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />;
 }
 
 function CardTitle({ className, ...props }: ComponentProps<"h3">) {
   return (
-    <h3
-      className={cn("text-xl font-mono leading-none tracking-tight", className)}
-      {...props}
-    />
+    <h3 className={cn("text-xl font-mono leading-none tracking-tight", className)} {...props} />
   );
 }
 
 function CardDescription({ className, ...props }: ComponentProps<"p">) {
   return (
-    <p
-      className={cn(
-        "text-sm text-muted-foreground font-mono italic",
-        className,
-      )}
-      {...props}
-    />
+    <p className={cn("text-sm text-muted-foreground font-mono italic", className)} {...props} />
   );
 }
 
@@ -50,16 +33,7 @@ function CardContent({ className, ...props }: ComponentProps<"div">) {
 }
 
 function CardFooter({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div className={cn("flex items-center p-6 pt-0", className)} {...props} />
-  );
+  return <div className={cn("flex items-center p-6 pt-0", className)} {...props} />;
 }
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
-};
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

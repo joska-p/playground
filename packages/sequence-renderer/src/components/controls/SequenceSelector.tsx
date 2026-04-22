@@ -7,9 +7,7 @@ function SequenceSelector() {
   const { sequenceRule, setSequenceRule } = useSequenceContext();
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value);
-    const selectedRule = sequencesRule.find(
-      (rule) => rule.id === e.target.value,
-    );
+    const selectedRule = sequencesRule.find((rule) => rule.id === e.target.value);
     if (selectedRule) setSequenceRule(selectedRule);
   };
 

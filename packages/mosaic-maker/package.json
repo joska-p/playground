@@ -2,7 +2,9 @@
   "name": "@repo/mosaic-maker",
   "version": "0.0.0",
   "type": "module",
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist"
   ],

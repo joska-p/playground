@@ -21,13 +21,7 @@ function SVGRenderer() {
     }
   }, [sequence]);
 
-  return (
-    <svg
-      ref={svgRef}
-      style={styleObject}
-      className="w-full h-full fill-transparent"
-    />
-  );
+  return <svg ref={svgRef} style={styleObject} className="w-full h-full fill-transparent" />;
 }
 
 export { SVGRenderer };

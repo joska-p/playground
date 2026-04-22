@@ -18,7 +18,7 @@ function ThemeToggle({ className }: { className?: string }) {
       className={cn(
         "inline-flex items-center justify-center p-2 rounded-md transition-all active:translate-y-px",
         "text-foreground hover:bg-primary/10 hover:text-primary focus:outline-none cursor-pointer",
-        className,
+        className
       )}
       aria-label="Toggle theme"
     >

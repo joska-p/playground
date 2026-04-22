@@ -2,7 +2,7 @@ import { findBiggestInterval } from "../utils/math.js";
 
 function calculateValueScale(
   sequence: number[],
-  containerSize: { width: number; height: number },
+  containerSize: { width: number; height: number }
 ): number {
   const maxVal = Math.max(...sequence, 0);
   const maxInterval = findBiggestInterval(sequence);
@@ -15,11 +15,7 @@ function calculateValueScale(
   return Math.min(horizontalScale, verticalScale);
 }
 
-function drawSequence(
-  context: CanvasRenderingContext2D,
-  sequence: number[],
-  valueScale: number,
-) {
+function drawSequence(context: CanvasRenderingContext2D, sequence: number[], valueScale: number) {
   sequence.forEach((value, index) => {
     const previousValue = sequence[index - 1];
     if (index > 0 && previousValue !== undefined) {

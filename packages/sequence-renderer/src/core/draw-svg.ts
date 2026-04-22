@@ -26,7 +26,7 @@ function generateArcPath(
   radius: number,
   value: number,
   baselineY: number,
-  clockwise: boolean,
+  clockwise: boolean
 ): string {
   const sweepFlag = clockwise ? 1 : 0;
   return ` A ${radius} ${radius} 0 0 ${sweepFlag} ${value} ${baselineY}`;
@@ -40,8 +40,7 @@ function generatePath(sequence: number[], baselineY: number): string {
     const radius = Math.abs(value - previousValue) / 2;
 
     const clockwise =
-      (index % 2 === 0 && previousValue > value) ||
-      (index % 2 !== 0 && previousValue < value);
+      (index % 2 === 0 && previousValue > value) || (index % 2 !== 0 && previousValue < value);
 
     return acc + generateArcPath(radius, value, baselineY, clockwise);
   }, `M 0 ${baselineY} `);
@@ -49,8 +48,7 @@ function generatePath(sequence: number[], baselineY: number): string {
 
 function draw(svg: SVGSVGElement, sequence: number[]) {
   resetSvg(svg);
-  const { minX, minY, width, height, internalHeight } =
-    calculateViewBox(sequence);
+  const { minX, minY, width, height, internalHeight } = calculateViewBox(sequence);
   svg.setAttribute("viewBox", `${minX} ${minY} ${width} ${height}`);
 
   const path = generatePath(sequence, internalHeight / 2);

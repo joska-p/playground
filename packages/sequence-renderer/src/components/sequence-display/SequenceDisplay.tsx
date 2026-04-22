@@ -20,10 +20,7 @@ function SequenceDisplay() {
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 w-full h-full overflow-hidden"
-    >
+    <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden">
       {drawMode === "vector-mode" && <SVGRenderer />}
       {drawMode === "canvas-mode" && <CanvasRenderer />}
     </div>

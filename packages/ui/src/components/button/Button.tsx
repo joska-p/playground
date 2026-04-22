@@ -3,8 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { buttonVariants } from "./buttonVariants.js";
 
-interface ButtonProps
-  extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
 }
 

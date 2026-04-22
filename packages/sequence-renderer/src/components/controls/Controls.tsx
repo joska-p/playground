@@ -3,8 +3,7 @@ import { useSequenceContext } from "../../context/sequenceContext.js";
 import { SequenceSelector } from "./SequenceSelector.js";
 
 function Controls() {
-  const { sequenceRule, steps, setSteps, drawMode, setDrawMode } =
-    useSequenceContext();
+  const { sequenceRule, steps, setSteps, drawMode, setDrawMode } = useSequenceContext();
 
   return (
     <Card className="flex flex-row flex-wrap justify-center items-center gap-8 px-6 py-3 w-full rounded-none border-x-0 border-t-2 border-t-primary/20 bg-muted/30 backdrop-blur-md">
@@ -18,11 +17,7 @@ function Controls() {
           min={2}
           max={sequenceRule.maxSteps}
           step={1}
-          value={
-            steps > sequenceRule.maxSteps
-              ? Math.floor(sequenceRule.maxSteps / 2)
-              : steps
-          }
+          value={steps > sequenceRule.maxSteps ? Math.floor(sequenceRule.maxSteps / 2) : steps}
           onChange={setSteps}
           className="accent-primary w-auto mt-0"
         />

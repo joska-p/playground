@@ -19,11 +19,7 @@ import { usePaletteContext } from "../context/paletteContext";
  */
 const DEBOUNCE_DELAY = 100;
 
-const getPixelColor = (
-  canvas: HTMLCanvasElement,
-  x: number,
-  y: number,
-): HSLColor => {
+const getPixelColor = (canvas: HTMLCanvasElement, x: number, y: number): HSLColor => {
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Could not get canvas context");
 
@@ -54,10 +50,7 @@ const drawColorSpace = ({
 
     for (let col = 0; col < canvasWidth; col++) {
       const hue = (col / canvasWidth) * 360;
-      gradient.addColorStop(
-        col / canvasWidth,
-        `hsl(${hue}, ${saturation}%, ${lightness}%)`,
-      );
+      gradient.addColorStop(col / canvasWidth, `hsl(${hue}, ${saturation}%, ${lightness}%)`);
     }
 
     context.fillStyle = gradient;
@@ -83,15 +76,12 @@ function useColorPicker() {
       setBaseColor({ ...picked, location: { x, y } });
     } catch (err) {
       // Surface a helpful error while preserving the original message
-      const msg =
-        err instanceof Error ? err.message : String(err ?? "unknown error");
+      const msg = err instanceof Error ? err.message : String(err ?? "unknown error");
       throw new Error(`Could not get pixel color: ${msg}`);
     }
   };
 
-  const handleSaturationChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleSaturationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBaseColor({ ...baseColor, saturation: Number(event.target.value) });
   };
 

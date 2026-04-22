@@ -9,11 +9,7 @@ interface AnalogousPalettes {
   split: number;
 }
 
-function analogousPalettes({
-  baseColor,
-  length,
-  split,
-}: AnalogousPalettes): Palette {
+function analogousPalettes({ baseColor, length, split }: AnalogousPalettes): Palette {
   const { hue, saturation, lightness } = baseColor;
   const palette: Palette = [];
   const angle = 30;
