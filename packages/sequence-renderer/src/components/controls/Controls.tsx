@@ -25,7 +25,7 @@ function Controls() {
           min={2}
           max={sequenceRule.maxSteps}
           step={1}
-          value={steps > sequenceRule.maxSteps ? Math.floor(sequenceRule.maxSteps / 2) : steps}
+          value={steps}
           onChange={setSteps}
           className="accent-primary w-auto mt-0"
         />

@@ -10,26 +10,37 @@ interface SequenceState {
   sequence: number[];
 }
 
+function generateInitial(rule: SequenceRule, steps: number) {
+  return generateSequence(rule, steps);
+}
+
 export const useSequenceStore = create<SequenceState>()(() => ({
   sequenceRule: recamanRule,
   steps: 2,
   drawMode: "canvas-mode",
-  sequence: [0, 1],
+  sequence: generateInitial(recamanRule, 2),
 }));
 
 export const setSequenceRule = (rule: SequenceRule) => {
-  useSequenceStore.setState({ sequenceRule: rule });
-  setSequence(generateSequence(rule, useSequenceStore.getState().steps));
+  const currentSteps = useSequenceStore.getState().steps;
+  const clampedSteps = Math.min(currentSteps, rule.maxSteps);
+  useSequenceStore.setState({
+    sequenceRule: rule,
+    steps: clampedSteps,
+    sequence: generateSequence(rule, clampedSteps),
+  });
 };
+
 export const setSteps = (steps: number) => {
-  useSequenceStore.setState({ steps });
-  setSequence(
-    generateSequence(useSequenceStore.getState().sequenceRule, useSequenceStore.getState().steps)
-  );
+  const state = useSequenceStore.getState();
+  const max = state.sequenceRule.maxSteps;
+  const clampedSteps = Math.min(Math.max(steps, 2), max);
+  useSequenceStore.setState({
+    steps: clampedSteps,
+    sequence: generateSequence(state.sequenceRule, clampedSteps),
+  });
 };
+
 export const setDrawMode = (mode: "vector-mode" | "canvas-mode") => {
   useSequenceStore.setState({ drawMode: mode });
-};
-export const setSequence = (sequence: number[]) => {
-  useSequenceStore.setState({ sequence });
 };
