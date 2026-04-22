@@ -16,10 +16,10 @@ function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) 
   const { mosaicRef } = useMosaicStore(useShallow((state) => ({ mosaicRef: state.mosaicRef })));
   const [value, setValue] = useState(defaultValue);
 
-  const handleSetValue = (newValue: number) => {
+  function handleSetValue(newValue: number) {
     setValue(newValue);
     mosaicRef.current?.style.setProperty(cssVar, `${newValue}px`);
-  };
+  }
 
   return (
     <ControlGroup label={label} valueDisplay={`${value}px`}>

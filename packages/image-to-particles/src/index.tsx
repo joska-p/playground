@@ -66,11 +66,11 @@ function ImageToParticles() {
     const image = new Image();
     image.src = imageFile;
 
-    const cleanup = () => {
+    function cleanup() {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-    };
+    }
 
     image.onload = () => {
       try {
@@ -84,7 +84,7 @@ function ImageToParticles() {
         const imageData = ctx.getImageData(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         particles.current = initParticles(imageData);
 
-        const animate = () => {
+        function animate() {
           if (!canvasRef.current) return;
           const context = canvasRef.current.getContext("2d");
           if (!context) return;
@@ -129,7 +129,7 @@ function ImageToParticles() {
           });
 
           animationRef.current = requestAnimationFrame(animate);
-        };
+        }
 
         animate();
       } catch (error) {

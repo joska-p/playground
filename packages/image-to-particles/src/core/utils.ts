@@ -28,10 +28,7 @@ export interface Particle {
   delay: number;
 }
 
-export const calculateImageDimensions = (
-  imageWidth: number,
-  imageHeight: number
-): ImageDimensions => {
+function calculateImageDimensions(imageWidth: number, imageHeight: number): ImageDimensions {
   const scale = Math.min(CANVAS_WIDTH / imageWidth, CANVAS_HEIGHT / imageHeight);
   const scaledWidth = imageWidth * scale;
   const scaledHeight = imageHeight * scale;
@@ -45,13 +42,13 @@ export const calculateImageDimensions = (
       y: (CANVAS_HEIGHT - scaledHeight) / 2,
     },
   };
-};
+}
 
-export const drawImageToCanvas = (
+function drawImageToCanvas(
   ctx: CanvasRenderingContext2D,
   image: HTMLImageElement,
   dimensions: ImageDimensions
-): void => {
+): void {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   ctx.drawImage(
     image,
@@ -60,9 +57,9 @@ export const drawImageToCanvas = (
     dimensions.width,
     dimensions.height
   );
-};
+}
 
-export const initParticles = (imageData: ImageData) => {
+function initParticles(imageData: ImageData) {
   const particles: Particle[] = [];
   let currentDelay = 0;
 
@@ -117,4 +114,6 @@ export const initParticles = (imageData: ImageData) => {
     }
   }
   return particles;
-};
+}
+
+export { calculateImageDimensions, drawImageToCanvas, initParticles };

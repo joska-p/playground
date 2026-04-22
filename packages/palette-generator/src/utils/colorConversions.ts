@@ -37,7 +37,7 @@ export interface HSLColor {
  * - saturation in [0, 100]
  * - lightness in [0, 100]
  */
-export function RGBToHSL({ red, green, blue }: RGBColor): HSLColor {
+function RGBToHSL({ red, green, blue }: RGBColor): HSLColor {
   const r = red / 255;
   const g = green / 255;
   const b = blue / 255;
@@ -103,7 +103,7 @@ function hueToRGB(p: number, q: number, t: number): number {
  *
  * Output channels in [0, 255], rounded to integers.
  */
-export function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {
+function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {
   const h = hue / 360;
   const s = saturation / 100;
   const l = lightness / 100;
@@ -132,20 +132,20 @@ export function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {
  * Convert an RGBColor to a hex string `#rrggbb`.
  * Input channels expected in [0, 255].
  */
-export function RGBToHex({ red, green, blue }: RGBColor): string {
-  const toHex = (n: number) => {
+function RGBToHex({ red, green, blue }: RGBColor): string {
+  function toHex(n: number): string {
     // clamp to [0,255] and convert to two-digit hex
     const clamped = Math.max(0, Math.min(255, Math.round(n)));
     const hex = clamped.toString(16).padStart(2, "0");
     return hex;
-  };
+  }
   return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
 }
 
 /**
  * Convert HSL to hex `#rrggbb` by delegating to HSLToRGB -> RGBToHex.
  */
-export function HSLToHex(hsl: HSLColor): string {
+function HSLToHex(hsl: HSLColor): string {
   const rgb = HSLToRGB(hsl);
   return RGBToHex(rgb);
 }
@@ -154,7 +154,7 @@ export function HSLToHex(hsl: HSLColor): string {
  * Parse a hex color string `#rrggbb` or `#rgb` (case-insensitive) into RGBColor.
  * Throws on invalid input.
  */
-export function hexToRGB(hex: string | undefined): RGBColor {
+function hexToRGB(hex: string | undefined): RGBColor {
   if (typeof hex !== "string") {
     throw new TypeError("hex must be a string");
   }
@@ -164,13 +164,14 @@ export function hexToRGB(hex: string | undefined): RGBColor {
     throw new Error(`Invalid hex color: "${hex}"`);
   }
 
-  const expand = (s: string) =>
-    s.length === 3
+  function expand(s: string): string {
+    return s.length === 3
       ? s
           .split("")
           .map((ch) => ch + ch)
           .join("")
       : s;
+  }
 
   const full = expand(sanitized);
   const r = parseInt(full.slice(0, 2), 16);
@@ -187,7 +188,9 @@ export function hexToRGB(hex: string | undefined): RGBColor {
 /**
  * Convert a hex color string to HSLColor (via hexToRGB -> RGBToHSL).
  */
-export function hexToHSL(hex: string): HSLColor {
+function hexToHSL(hex: string): HSLColor {
   const rgb = hexToRGB(hex);
   return RGBToHSL(rgb);
 }
+
+export { RGBToHSL, HSLToRGB, RGBToHex, HSLToHex, hexToRGB, hexToHSL };

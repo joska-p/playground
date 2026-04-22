@@ -7,10 +7,10 @@ import { cn } from "../../utils/cn.js";
  * CSS handles the icon swapping automatically.
  */
 function ThemeToggle({ className }: { className?: string }) {
-  const toggle = () => {
+  function toggle() {
     const root = document.documentElement;
     root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-  };
+  }
 
   return (
     <button

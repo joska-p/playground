@@ -1,6 +1,6 @@
 import type { SequenceRule } from "./rules.js";
 
-export const generateSequence = (rule: SequenceRule, steps: number): number[] => {
+function generateSequence(rule: SequenceRule, steps: number): number[] {
   const sequence: number[] = [0];
   const seen = new Set([0]);
   let current = 0;
@@ -17,4 +17,6 @@ export const generateSequence = (rule: SequenceRule, steps: number): number[] =>
     seen.add(current);
   }
   return sequence;
-};
+}
+
+export { generateSequence };

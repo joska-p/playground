@@ -32,7 +32,7 @@ type Story = StoryObj<typeof Slider>;
 type SliderProps = React.ComponentProps<typeof Slider>;
 
 // Interactive wrapper for the stories
-const SliderWithState = (args: SliderProps) => {
+function SliderWithState(args: SliderProps) {
   const [value, setValue] = useState(args.value ?? 50);
   return (
     <div className="bg-card border-border flex w-[300px] flex-col gap-4 rounded-lg border p-4">
@@ -43,7 +43,7 @@ const SliderWithState = (args: SliderProps) => {
       <Slider {...args} value={value} onChange={setValue} />
     </div>
   );
-};
+}
 
 /**
  * Standard slider used for general parameter tuning.

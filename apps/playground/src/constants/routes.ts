@@ -7,7 +7,7 @@ export interface Route {
   isUtility?: boolean;
 }
 
-export const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
   { label: "Home", href: "/", description: "Go to the home page" },
@@ -94,7 +94,7 @@ const rawRoutes = [
   },
 ] satisfies Route[];
 
-const normalize = (route: Route): Route => {
+function normalize(route: Route): Route {
   let href: string;
 
   if (route.href.startsWith("http://") || route.href.startsWith("https://")) {
@@ -109,11 +109,11 @@ const normalize = (route: Route): Route => {
     href,
     children: route.children?.map(normalize),
   };
-};
+}
 
-export const routes = rawRoutes.map(normalize);
+const routes = rawRoutes.map(normalize);
 
-export const getActiveCategory = (path: string): Route | undefined => {
+function getActiveCategory(path: string): Route | undefined {
   const normalizedPath = path.endsWith("/") ? path : `${path}/`;
   const homePath = `${baseUrl}/`.replace(/\/+/g, "/");
 
@@ -122,4 +122,6 @@ export const getActiveCategory = (path: string): Route | undefined => {
   return routes.find((route) =>
     route.children?.some((child) => normalizedPath.startsWith(child.href))
   );
-};
+}
+
+export { baseUrl, routes, getActiveCategory };

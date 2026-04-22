@@ -19,7 +19,7 @@ import { usePaletteContext } from "../context/paletteContext.js";
  */
 const DEBOUNCE_DELAY = 100;
 
-const getPixelColor = (canvas: HTMLCanvasElement, x: number, y: number): HSLColor => {
+function getPixelColor(canvas: HTMLCanvasElement, x: number, y: number): HSLColor {
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Could not get canvas context");
 
@@ -29,15 +29,9 @@ const getPixelColor = (canvas: HTMLCanvasElement, x: number, y: number): HSLColo
     green: pixelData[1] || 0,
     blue: pixelData[2] || 0,
   });
-};
+}
 
-const drawColorSpace = ({
-  canvas,
-  saturation,
-}: {
-  canvas: HTMLCanvasElement;
-  saturation: number;
-}) => {
+function drawColorSpace({ canvas, saturation }: { canvas: HTMLCanvasElement; saturation: number }) {
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Could not get canvas context");
 
@@ -56,13 +50,13 @@ const drawColorSpace = ({
     context.fillStyle = gradient;
     context.fillRect(0, row, canvasWidth, 1);
   }
-};
+}
 
 function useColorPicker() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { baseColor, setBaseColor } = usePaletteContext();
 
-  const handlePickColor = (event: React.MouseEvent<HTMLCanvasElement>) => {
+  function handlePickColor(event: React.MouseEvent<HTMLCanvasElement>) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -79,11 +73,11 @@ function useColorPicker() {
       const msg = err instanceof Error ? err.message : String(err ?? "unknown error");
       throw new Error(`Could not get pixel color: ${msg}`);
     }
-  };
+  }
 
-  const handleSaturationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  function handleSaturationChange(event: React.ChangeEvent<HTMLInputElement>) {
     setBaseColor({ ...baseColor, saturation: Number(event.target.value) });
-  };
+  }
 
   useEffect(() => {
     const timeout = setTimeout(() => {

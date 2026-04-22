@@ -6,10 +6,10 @@ import { useSequenceStore, setSequenceRule } from "../../store/useSequenceStore.
 function SequenceSelector() {
   const { sequenceRule } = useSequenceStore();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const selectedRule = sequencesRule.find((rule) => rule.id === e.target.value);
     if (selectedRule) setSequenceRule(selectedRule);
-  };
+  }
 
   return (
     <div className="flex min-w-[200px] items-center gap-2 whitespace-nowrap">
