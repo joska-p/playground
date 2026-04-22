@@ -38,7 +38,7 @@ const isTopLevelActive = (route: Route) => {
 
     <!-- Desktop Links -->
     <nav class="hidden md:flex items-center gap-2">
-      {routes.map((route) => (
+      {routes.filter((route) => !route.isUtility).map((route) => (
         <NavbarLink
           href={route.href}
           isActive={isTopLevelActive(route) || false}
