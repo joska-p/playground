@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/layout.astro";
 
+const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+
 const projects = [
   {
     label: "Mosaic Maker",
-    href: "/mosaic/mosaic-maker",
+    href: `${baseUrl}/mosaic/mosaic-maker/`,
     description: "Create complex mosaic patterns from images",
   },
 ];

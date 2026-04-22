@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/layout.astro";
 
+const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+
 const projects = [
   {
     label: "Sequence Renderer",
-    href: "/sequences/sequence-renderer",
+    href: `${baseUrl}/sequences/sequence-renderer/`,
     description: "Explore mathematical sequences through visualization",
   },
 ];

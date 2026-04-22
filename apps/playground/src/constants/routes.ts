@@ -17,7 +17,7 @@ const rawRoutes = [
     children: [
       {
         label: "Image to Particles",
-        href: "/particles/image-to-particles",
+        href: "/particles/image-to-particles/",
         description: "Transform images into interactive particles",
       },
     ],
@@ -28,7 +28,7 @@ const rawRoutes = [
     children: [
       {
         label: "Sequence Renderer",
-        href: "/sequences/sequence-renderer",
+        href: "/sequences/sequence-renderer/",
         description: "Explore the Recamán's sequence visualization",
       },
     ],
@@ -39,7 +39,7 @@ const rawRoutes = [
     children: [
       {
         label: "Mosaic Maker",
-        href: "/mosaic/mosaic-maker",
+        href: "/mosaic/mosaic-maker/",
         description: "Create complex mosaic patterns from images",
       },
     ],
@@ -50,7 +50,7 @@ const rawRoutes = [
     children: [
       {
         label: "Palettes Generator",
-        href: "/colors/palettes-generator",
+        href: "/colors/palettes-generator/",
         description: "Generate color palettes from algorithms",
       },
     ],
@@ -61,7 +61,7 @@ const rawRoutes = [
     children: [
       {
         label: "Piechart",
-        href: "/data-viz/piechart",
+        href: "/data-viz/piechart/",
         description: "Interactive d3-based piechart examples",
       },
     ],

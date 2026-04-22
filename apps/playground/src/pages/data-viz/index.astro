@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/layout.astro";
 
+const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+
 const projects = [
   {
     label: "Piechart",
-    href: "/data-viz/piechart",
+    href: `${baseUrl}/data-viz/piechart/`,
     description: "Interactive d3-based piechart examples",
   },
 ];

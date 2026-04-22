@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/layout.astro";
 
+const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+
 const projects = [
   {
     label: "Palettes Generator",
-    href: "/colors/palettes-generator",
+    href: `${baseUrl}/colors/palettes-generator/`,
     description: "Generate color palettes using algorithms",
   },
 ];

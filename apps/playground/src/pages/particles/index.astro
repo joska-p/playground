@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/layout.astro";
 
+const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+
 const projects = [
   {
     label: "Image to Particles",
-    href: "/particles/image-to-particles",
+    href: `${baseUrl}/particles/image-to-particles/`,
     description: "Transform images into interactive falling particles",
   },
 ];
