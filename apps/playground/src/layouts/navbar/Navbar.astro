@@ -5,8 +5,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 import UtilityLinks from "./UtilityLinks.astro";
 import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
-import SubNavbar from "./SubNavbar.astro";
-import { type Route, getActiveCategory } from "../../constants/routes";
+import { type Route } from "../../constants/routes";
 import { Font } from "astro:assets";
 
 interface Props {
@@ -20,10 +19,6 @@ const { routes, currentPath, title, baseUrl } = Astro.props;
 
 // Helper to check active state
 const isLinkActive = (href: string) => currentPath === href || currentPath === href + "/";
-
-// Find the active category for the submenu
-const activeCategory = getActiveCategory(currentPath);
-const hasSubMenu = !!activeCategory;
 
 // Check if a top-level route is active (either directly or via a child)
 const isTopLevelActive = (route: Route) => {
@@ -54,13 +49,6 @@ const isTopLevelActive = (route: Route) => {
       <MobileMenuToggle />
     </div>
   </div>
-
-  {/* Horizontal Sub-navbar for desktop */}
-  {hasSubMenu && activeCategory && (
-    <div class="hidden md:block">
-      <SubNavbar parentRoute={activeCategory} currentPath={currentPath} />
-    </div>
-  )}
 
   <MobileMenu routes={routes} isActive={isLinkActive} />
 </header>
