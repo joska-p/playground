@@ -2,18 +2,19 @@
 
 import { MosaicDisplay } from "./components/mosaic-display/MosaicDisplay.js";
 import { Controls } from "./components/controls/Controls.js";
+import { SidebarProvider } from "@repo/ui";
 
 function MosaicMaker() {
   return (
-    <div className="grid flex-1 grid-cols-1 grid-rows-[1fr_auto] lg:grid-cols-[1fr_auto] lg:grid-rows-1 overflow-hidden">
-      <div className="relative">
+    <SidebarProvider desktopPosition="right" mobilePosition={"bottom"}>
+      <SidebarProvider.Content className="relative">
         <MosaicDisplay />
-      </div>
+      </SidebarProvider.Content>
 
-      <div className="bg-card overflow-y-auto">
+      <SidebarProvider.Sidebar>
         <Controls />
-      </div>
-    </div>
+      </SidebarProvider.Sidebar>
+    </SidebarProvider>
   );
 }
 

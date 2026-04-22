@@ -5,11 +5,11 @@ import { SidebarProvider } from "@repo/ui";
 function SequenceRenderer() {
   return (
     <SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
-      <SidebarProvider.Content className="relative h-full w-full overflow-hidden">
+      <SidebarProvider.Content className="relative">
         <SequenceDisplay />
       </SidebarProvider.Content>
 
-      <SidebarProvider.Sidebar className="w-full">
+      <SidebarProvider.Sidebar>
         <Controls />
       </SidebarProvider.Sidebar>
     </SidebarProvider>
