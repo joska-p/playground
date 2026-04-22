@@ -44,3 +44,7 @@ logs
 
 # turbo
 .turbo
+
+# graphify knowledge graph
+graphify-out/
+.opencode/
