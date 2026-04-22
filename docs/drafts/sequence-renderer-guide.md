@@ -1,75 +1,108 @@
 # Sequence Renderer Architecture Guide
 
-This document explains the architecture of the `@repo/sequence-renderer` package, which provides a flexible system for generating and visualizing mathematical sequences using both Canvas and SVG.
+This document explains the architecture of the `@repo/sequence-renderer` package, which provides visualizations for mathematical sequences like Recamán's Sequence using Canvas rendering.
 
 ---
 
 ## 🏗️ Core Philosophy
 
-The Sequence Renderer is built on the principle of decoupling **sequence generation** from **visualization**.
+The Sequence Renderer decouples **sequence generation** from **visualization**.
 
--   **Generators**: Pure functions that take parameters (like `iterations`) and return an array of numbers.
--   **Renderers**: Components that take a sequence and draw it. Currently, we support:
-    -   **`CanvasRenderer`**: Optimized for performance and complex drawings.
-    -   **`SVGRenderer`**: Provides sharp, scalable vectors with CSS styling support.
--   **Engine (`SequenceMaker.tsx`)**: Orchestrates the state, generators, and renderers.
+- **Rules**: Define sequences via `getNext(index, current, sequence, seen)` function
+- **Visualization**: Pluggable drawing functions in `src/core/visualizations/`
+- **Store**: Zustand store for state management
 
 ---
 
-## 🛠️ Sequence Generators
+## 🗄️ State Management
 
-Sequences are defined in the `SEQUENCE_GENERATORS` registry located at `src/components/generators/index.ts`.
+The store is in `src/store/useSequenceStore.tsx`:
 
-### Example: Adding a New Sequence
 ```typescript
-export const SEQUENCE_GENERATORS = {
-  recaman: {
-    name: "Recamán's Sequence",
-    generate: createRecamanSequence,
-    defaultIterations: 30,
-    maxIterations: 2000,
-  },
-  // Add your new sequence here!
-} as const;
+const { sequenceRule, steps, visualizationId, sequence } = useSequenceStore();
 ```
 
-A generator function should follow this signature:
-`(n: number) => number[]`
+Actions are atomic - each updates the state and recomputes derived values in a single transaction.
 
 ---
 
-## 🎨 Rendering Logic
+## 🎨 Visualization System
 
-The drawing logic is centralized in the `lib` directory to ensure consistency between Canvas and SVG:
+Visualizations are pluggable renderers in `src/core/visualizations/`:
 
--   **`draw-canvas.ts`**: Handles drawing to the HTML5 Canvas 2D context.
--   **`draw-svg.ts`**: Handles generating path strings and viewBox calculations for SVG.
--   **`math.ts`**: Contains shared mathematical utilities like `findBiggestInterval`.
+```typescript
+// src/core/visualizations/recaman-arcs.ts
+export const recamanArcs = {
+  id: "recaman-arcs",
+  name: "Recamán Arcs",
+  draw: (canvas, sequence) => { /* ... */ },
+};
+```
 
-### ViewBox & Scaling
-Both renderers automatically scale the sequence to fit the container. They use a 5% padding to ensure the drawing is never clipped at the edges.
+Register in `src/core/visualizations/index.ts`:
+
+```typescript
+export const visualizations: Visualization[] = [recamanArcs];
+```
+
+### Adding a New Visualization
+
+1. Create `src/core/visualizations/my-visualization.ts`
+2. Export `{ id, name, draw }`
+3. Add to `index.ts` registry
 
 ---
 
 ## 🔄 Data Flow
 
-1.  **Context**: `SequenceProvider` manages the global state:
-    -   `sequenceType`: Which generator to use.
-    -   `iterations`: Number of steps in the sequence.
-    -   `drawMode`: Switch between `canvas-mode` and `vector-mode`.
-    -   `containerSize`: Automatically tracked via `ResizeObserver`.
-2.  **Generation**: The sequence is automatically re-generated via `useMemo` whenever `sequenceType` or `iterations` change.
-3.  **Display**: `SequenceDisplay` tracks the container size and chooses the active renderer.
-4.  **Render**: The active renderer (Canvas or SVG) calls the corresponding drawing library with the current sequence and container size.
+1. **User Action**: Changes rule, steps, or visualization via UI
+2. **Store Action**: Updates state atomically, recomputes sequence
+3. **CanvasRenderer**: Calls `visualization.draw(canvas, sequence)` 
 
 ---
 
-## 🚀 How to Add a New Sequence
+## 📁 File Structure
 
-1.  **Create the Generator**: Add a new file in `src/components/generators/` (e.g., `fibonacci.ts`).
-2.  **Register it**: Add the generator to `SEQUENCE_GENERATORS` in `src/components/generators/index.ts`.
-3.  **Update UI**: The `SequenceSelector` will automatically pick up the new sequence and add it to the dropdown menu.
+```
+src/
+├── core/
+│   ├── rules.ts          # Sequence definitions
+│   ├── generator.ts     # Sequence generation
+│   └── visualizations/ # Drawing functions
+├── components/
+│   ├── controls/        # UI controls
+│   ├── renderers/       # CanvasRenderer
+│   └── sequence-display/
+├── store/
+│   └── useSequenceStore.tsx
+└── utils/
+    └── math.ts
+```
 
 ---
 
-*This modular approach allows the Sequence Renderer to grow with new mathematical patterns and visualization styles without cluttering the core components.*
+## 🚀 Adding a New Sequence
+
+1. Define the rule in `src/core/rules.ts`:
+
+```typescript
+export const myRule: SequenceRule = {
+  name: "My Sequence",
+  id: "my-sequence",
+  description: "...",
+  maxSteps: 100,
+  getNext: ({ index, current, sequence, seen }) => { /* ... */ },
+};
+```
+
+2. Add to `sequencesRule` array - it automatically appears in the UI dropdown.
+
+---
+
+## 🧮 Supported Sequences
+
+- **Recamán**: Jump back by `n` if possible, else forward
+- **Fibonacci**: F(n) = F(n-1) + F(n-2)
+- **Primes**: Prime numbers
+- **Triangular**: 1, 3, 6, 10, 15...
+- **Collatz**: Even: n/2 | Odd: 3n+1
