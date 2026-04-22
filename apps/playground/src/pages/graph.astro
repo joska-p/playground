@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/layout.astro";
+
+const BASE_URL = import.meta.env.BASE_URL ?? "/";
+---
+
+<Layout title="Knowledge Graph">
+  <div class="flex-1 w-full overflow-hidden">
+    <iframe
+      src={`${BASE_URL}graph.html`}
+      class="w-full h-full border-0"
+      title="Knowledge Graph"
+    />
+  </div>
+</Layout>
