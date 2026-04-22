@@ -1,47 +1,33 @@
 ---
-const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+import { routes } from "../../constants/routes";
 
-const links = [
-  {
-    label: "Storybook",
-    title: "Component documentation",
-    href: `${baseUrl}/storybook/`,
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="m12 6.053 9.196 5.265a1 1 0 0 1 0 1.727L12 18.18 2.804 13a1 1 0 0 1 0-1.727l9.196-5.264Z" />
-    </svg>`,
-  },
-  {
-    label: "Graph",
-    title: "Knowledge graph",
-    href: `${baseUrl}/graph/`,
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3H21m-1.5 0H16M3 7.5h1.5m-1.5 3H3m18 0h-1.5m-1.5 0H21M3 12h18m-9 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0Z" />
-    </svg>`,
-  },
-  {
-    label: "GitHub",
-    title: "View source on GitHub",
-    href: "https://github.com/joska-p/playground",
-    external: true,
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.395 1.106a2.25 2.25 0 0 1-.595 2.029l-1.253.924a6.751 6.751 0 0 0 2.115 2.108l2.313.927a12.23 12.23 0 0 0 2.348 1.135M14.287 14.094a6.75 6.75 0 0 0 2.107-2.109l2.312-.926a6.75 6.75 0 0 1-.595-2.029l-1.253-.926a2.25 2.25 0 0 0-2.348-1.135m-9.717 2.106a12.23 12.23 0 0 0 2.348 1.135M21 12a9.75 9.75 0 1 1-19.5 0 9.75 9.75 0 0 1 19.5 0Z" />
-    </svg>`,
-  },
-];
+const utilityLinks = routes.filter((route) => route.isUtility);
+
+const icons: Record<string, string> = {
+  storybook: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="m12 6.053 9.196 5.265a1 1 0 0 1 0 1.727L12 18.18 2.804 13a1 1 0 0 1 0-1.727l9.196-5.264Z" />
+  </svg>`,
+  graph: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3H21m-1.5 0H16M3 7.5h1.5m-1.5 3H3m18 0h-1.5m-1.5 0H21M3 12h18m-9 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0Z" />
+  </svg>`,
+  github: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.395 1.106a2.25 2.25 0 0 1-.595 2.029l-1.253.924a6.751 6.751 0 0 0 2.115 2.108l2.313.927a12.23 12.23 0 0 0 2.348 1.135M14.287 14.094a6.75 6.75 0 0 0 2.107-2.109l2.312-.926a6.75 6.75 0 0 1-.595-2.029l-1.253-.926a2.25 2.25 0 0 0-2.348-1.135m-9.717 2.106a12.23 12.23 0 0 0 2.348 1.135M21 12a9.75 9.75 0 1 1-19.5 0 9.75 9.75 0 0 1 19.5 0Z" />
+  </svg>`,
+};
 ---
 
 <div class="flex items-center gap-2">
   {
-    links.map((link) => (
+    utilityLinks.map((link) => (
       <a
         href={link.href}
-        target={link.external ? "_blank" : undefined}
-        rel={link.external ? "noopener noreferrer" : undefined}
-        title={link.title}
+        title={link.description}
+        target={link.href.startsWith("http") ? "_blank" : undefined}
+        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
         class="inline-flex items-center justify-center p-2 rounded-md transition-all text-foreground/60 hover:text-foreground hover:bg-primary/10 focus:outline-none"
         aria-label={link.label}
       >
-        <Fragment set:html={link.icon} />
+        <Fragment set:html={icons[link.icon ?? ""] ?? ""} />
       </a>
     ))
   }

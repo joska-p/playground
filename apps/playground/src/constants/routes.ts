@@ -4,6 +4,7 @@ export interface Route {
   children?: Route[];
   icon?: string;
   description?: string;
+  isUtility?: boolean;
 }
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -64,6 +65,27 @@ const rawRoutes = [
         description: "Interactive d3-based piechart examples",
       },
     ],
+  },
+  {
+    label: "Storybook",
+    href: "/storybook/",
+    description: "Component documentation",
+    isUtility: true,
+    icon: "storybook",
+  },
+  {
+    label: "Graph",
+    href: "/graph/",
+    description: "Knowledge graph",
+    isUtility: true,
+    icon: "graph",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/joska-p/playground",
+    description: "View source on GitHub",
+    isUtility: true,
+    icon: "github",
   },
 ] satisfies Route[];
 
