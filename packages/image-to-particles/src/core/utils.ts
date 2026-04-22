@@ -4,7 +4,7 @@ import {
   INITIAL_VELOCITY,
   MAX_PARTICLES,
   PARTICLE_SIZE,
-} from "../config";
+} from "./config.js";
 
 export interface ImageDimensions {
   width: number;
@@ -69,7 +69,7 @@ export const initParticles = (imageData: ImageData) => {
   // Count visible pixels first
   let visiblePixels = 0;
   for (let i = 3; i < imageData.data.length; i += 4) {
-    if (imageData.data[i] > 128) visiblePixels++;
+    if (imageData.data[i]! > 128) visiblePixels++;
   }
 
   // Adjust sampling rate based on visible pixels
@@ -78,10 +78,10 @@ export const initParticles = (imageData: ImageData) => {
   for (let y = 0; y < imageData.height; y += samplingRate) {
     for (let x = 0; x < imageData.width; x += samplingRate) {
       const i = (y * imageData.width + x) * 4;
-      const r = imageData.data[i];
-      const g = imageData.data[i + 1];
-      const b = imageData.data[i + 2];
-      const a = imageData.data[i + 3];
+      const r = imageData.data[i]!;
+      const g = imageData.data[i + 1]!;
+      const b = imageData.data[i + 2]!;
+      const a = imageData.data[i + 3]!;
 
       if (a > 128) {
         const randomVelocityX =
@@ -93,7 +93,6 @@ export const initParticles = (imageData: ImageData) => {
         const randomSize =
           PARTICLE_SIZE.MIN + Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
 
-        // Add slight color variation
         const colorVariation = Math.random() * 20 - 10;
         const adjustedR = Math.min(255, Math.max(0, r + colorVariation));
         const adjustedG = Math.min(255, Math.max(0, g + colorVariation));
@@ -101,7 +100,7 @@ export const initParticles = (imageData: ImageData) => {
 
         particles.push({
           x: x,
-          y: -10, // Start above canvas
+          y: -10,
           originX: x,
           originY: y,
           color: `rgba(${adjustedR},${adjustedG},${adjustedB},${a})`,
@@ -113,7 +112,7 @@ export const initParticles = (imageData: ImageData) => {
           state: "waiting",
           delay: currentDelay,
         });
-        currentDelay += Math.random() * 5; // Random delay between particles
+        currentDelay += Math.random() * 5;
       }
     }
   }
