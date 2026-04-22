@@ -1,6 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 SAVES
+.gemini
+.opencode
+graphify-out
+
 
 # Nix/Direnv
 .direnv
