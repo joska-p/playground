@@ -1,12 +1,12 @@
 import { Select } from "@repo/ui";
-import { useSequenceContext } from "../../context/sequenceContext.js";
 import { sequencesRule } from "../../core/rules.js";
 import type { SequenceRule } from "../../core/rules.js";
+import { useSequenceStore, setSequenceRule } from "../../store/useSequenceStore.js";
 
 function SequenceSelector() {
-  const { sequenceRule, setSequenceRule } = useSequenceContext();
+  const { sequenceRule } = useSequenceStore();
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
     const selectedRule = sequencesRule.find((rule) => rule.id === e.target.value);
     if (selectedRule) setSequenceRule(selectedRule);
   };

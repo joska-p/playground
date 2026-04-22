@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { draw } from "../../core/draw-canvas.js";
-import { useSequenceContext } from "../../context/sequenceContext.js";
+import { useSequenceStore } from "../../store/useSequenceStore.js";
 
 function CanvasRenderer() {
-  const { sequence } = useSequenceContext();
+  const { sequence } = useSequenceStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

@@ -1,9 +1,17 @@
 import { Input, Label, Slider, Card } from "@repo/ui";
-import { useSequenceContext } from "../../context/sequenceContext.js";
+import { useSequenceStore } from "../../store/useSequenceStore.js";
 import { SequenceSelector } from "./SequenceSelector.js";
+import { setSteps, setDrawMode } from "../../store/useSequenceStore.js";
+import { useShallow } from "zustand/shallow";
 
 function Controls() {
-  const { sequenceRule, steps, setSteps, drawMode, setDrawMode } = useSequenceContext();
+  const { sequenceRule, steps, drawMode } = useSequenceStore(
+    useShallow((state) => ({
+      sequenceRule: state.sequenceRule,
+      steps: state.steps,
+      drawMode: state.drawMode,
+    }))
+  );
 
   return (
     <Card className="flex flex-row flex-wrap justify-center items-center gap-8 px-6 py-3 w-full rounded-none border-x-0 border-t-2 border-t-primary/20 bg-muted/30 backdrop-blur-md">

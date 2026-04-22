@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { CanvasRenderer } from "../renderers/CanvasRenderer.js";
 import { SVGRenderer } from "../renderers/SVGRenderer.js";
-import { useSequenceContext } from "../../context/sequenceContext.js";
+import { useSequenceStore } from "../../store/useSequenceStore.js";
 
 function SequenceDisplay() {
-  const { drawMode } = useSequenceContext();
+  const { drawMode } = useSequenceStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
