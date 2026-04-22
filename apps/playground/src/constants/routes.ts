@@ -7,7 +7,7 @@ export interface Route {
   isUtility?: boolean;
 }
 
-const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+export const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
   { label: "Home", href: "/" },

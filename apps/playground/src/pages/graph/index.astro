@@ -1,13 +1,14 @@
 ---
 import Layout from "../../layouts/layout.astro";
+import { baseUrl } from "../../constants/routes";
 
-const BASE_URL = import.meta.env.BASE_URL ?? "/";
+const graphUrl = `${baseUrl}/graph.html`;
 ---
 
 <Layout title="Knowledge Graph">
   <div class="flex-1 w-full overflow-hidden">
     <iframe
-      src={`${BASE_URL}graph.html`}
+      src={graphUrl}
       class="w-full h-full border-0"
       title="Knowledge Graph"
     />
