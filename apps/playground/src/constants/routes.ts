@@ -90,8 +90,14 @@ const rawRoutes = [
 ] satisfies Route[];
 
 const normalize = (route: Route): Route => {
-  const combined = `${baseUrl}/${route.href}`.replace(/\/+/g, "/");
-  const href = combined.endsWith("/") ? combined : `${combined}/`;
+  let href: string;
+
+  if (route.href.startsWith("http://") || route.href.startsWith("https://")) {
+    href = route.href;
+  } else {
+    const combined = `${baseUrl}/${route.href}`.replace(/\/+/g, "/");
+    href = combined.endsWith("/") ? combined : `${combined}/`;
+  }
 
   return {
     ...route,

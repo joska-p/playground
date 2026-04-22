@@ -22,8 +22,8 @@ const icons: Record<string, string> = {
       <a
         href={link.href}
         title={link.description}
-        target={link.href.startsWith("http") ? "_blank" : undefined}
-        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+        target="_blank"
+        rel="noopener noreferrer"
         class="inline-flex items-center justify-center p-2 rounded-md transition-all text-foreground/60 hover:text-foreground hover:bg-primary/10 focus:outline-none"
         aria-label={link.label}
       >
