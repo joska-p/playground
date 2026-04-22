@@ -4,7 +4,7 @@ import { PaletteProvider } from "./context/paletteContext.js";
 import { PaletteDisplay } from "./components/PaletteDisplay.js";
 import { SidebarProvider } from "@repo/ui";
 
-export function PaletteGenerator() {
+function PaletteGenerator() {
   return (
     <PaletteProvider>
       <SidebarProvider mobilePosition="left" desktopPosition="left">
@@ -20,3 +20,5 @@ export function PaletteGenerator() {
     </PaletteProvider>
   );
 }
+
+export { PaletteGenerator };

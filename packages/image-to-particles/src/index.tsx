@@ -27,7 +27,7 @@ export interface Particle {
   delay: number;
 }
 
-const ImageToParticles = () => {
+function ImageToParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
   const animationRef = useRef<number>(null);
@@ -162,6 +162,6 @@ const ImageToParticles = () => {
       <canvas ref={canvasRef} className="bg-black" />
     </div>
   );
-};
+}
 
 export { ImageToParticles };
