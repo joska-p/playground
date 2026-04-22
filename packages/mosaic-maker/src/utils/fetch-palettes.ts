@@ -3,16 +3,14 @@ import { initialPalette } from "../core/config.js";
 import type { Palette } from "../core/config.js";
 import { safeFetch } from "./utils.js";
 
-// Types
 export interface CachedPalettes {
   palettes: Palette[];
   expiration: number;
   version: number;
 }
 
-// Constants
 const CACHE_KEY = "palettes";
-const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
 const CACHE_VERSION = 2;
 const PALETTE_URL = "https://unpkg.com/nice-color-palettes@3.0.0/1000.json";
 

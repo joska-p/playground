@@ -18,13 +18,13 @@ function CardHeader({ className, ...props }: ComponentProps<"div">) {
 
 function CardTitle({ className, ...props }: ComponentProps<"h3">) {
   return (
-    <h3 className={cn("text-xl font-mono leading-none tracking-tight", className)} {...props} />
+    <h3 className={cn("font-mono text-xl leading-none tracking-tight", className)} {...props} />
   );
 }
 
 function CardDescription({ className, ...props }: ComponentProps<"p">) {
   return (
-    <p className={cn("text-sm text-muted-foreground font-mono italic", className)} {...props} />
+    <p className={cn("text-muted-foreground font-mono text-sm italic", className)} {...props} />
   );
 }
 

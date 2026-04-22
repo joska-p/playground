@@ -27,7 +27,7 @@ function Input({
       {label && (
         <label
           htmlFor={inputId}
-          className="text-xs font-bold uppercase tracking-wider text-foreground/80"
+          className="text-foreground/80 text-xs font-bold tracking-wider uppercase"
         >
           {label}
         </label>

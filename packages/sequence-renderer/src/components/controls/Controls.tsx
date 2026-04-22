@@ -15,10 +15,10 @@ function Controls() {
   );
 
   return (
-    <Card className="flex flex-row flex-wrap justify-center items-center gap-8 px-6 py-3 w-full rounded-none border-x-0 border-t-2 border-t-primary/20 bg-muted/30 backdrop-blur-md">
+    <Card className="border-t-primary/20 bg-muted/30 flex w-full flex-row flex-wrap items-center justify-center gap-8 rounded-none border-x-0 border-t-2 px-6 py-3 backdrop-blur-md">
       <SequenceSelector />
 
-      <Label className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors">
+      <Label className="text-muted-foreground hover:text-foreground flex items-center gap-4 transition-colors">
         <span className="text-sm font-bold whitespace-nowrap">
           Steps: <span className="text-secondary">{steps}</span>
         </span>
@@ -28,7 +28,7 @@ function Controls() {
           step={1}
           value={steps}
           onChange={setSteps}
-          className="accent-primary w-auto mt-0"
+          className="accent-primary mt-0 w-auto"
         />
       </Label>
 

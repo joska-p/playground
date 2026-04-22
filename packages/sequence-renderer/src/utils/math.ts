@@ -1,14 +1,10 @@
 const findBiggestInterval = (numbers: number[]): number => {
-  // If the array has less than 2 elements, there can't be any intervals, so return 0
   if (numbers.length < 2) return 0;
 
-  return numbers.slice(1).reduce((biggestInterval, current, index) => {
-    // Calculate the interval between the current number and the previous number
+  return numbers.slice(1).reduce((biggest, current, index) => {
     const prev = numbers[index] ?? 0;
     const interval = Math.abs(current - prev);
-
-    // Return the maximum of the current biggest interval and the newly calculated interval
-    return Math.max(biggestInterval, interval);
+    return Math.max(biggest, interval);
   }, 0);
 };
 

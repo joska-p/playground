@@ -9,7 +9,7 @@ export type SequenceRule = {
   name: string;
   id: string;
   description: string;
-  maxSteps: number; // The safety limit for the UI
+  maxSteps: number;
   getNext: (params: NextStepParams) => number;
 };
 
@@ -17,7 +17,7 @@ export const recamanRule: SequenceRule = {
   name: "Recaman's Rule",
   id: "recaman",
   description: "Jump back by 'n' if possible, otherwise jump forward.",
-  maxSteps: 1000, // Very stable, can handle many steps
+  maxSteps: 1000,
   getNext: ({ index, current, seen }) => {
     const backward = current - index;
     return backward > 0 && !seen.has(backward) ? backward : current + index;
@@ -28,7 +28,7 @@ export const fibonacciRule: SequenceRule = {
   name: "Fibonacci",
   id: "fibonacci",
   description: "F(n) = F(n-1) + F(n-2). Grows exponentially.",
-  maxSteps: 20, // Safe limit before exceeding Number.MAX_SAFE_INTEGER
+  maxSteps: 20,
   getNext: ({ index, current, sequence }) => {
     if (index <= 1) return index;
     return current + (sequence[index - 2] ?? 0);

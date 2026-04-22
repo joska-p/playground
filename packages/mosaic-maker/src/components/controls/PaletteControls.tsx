@@ -12,7 +12,7 @@ function PaletteControls() {
   );
 
   return (
-    <fieldset className="flex flex-wrap items-center justify-center gap-2 p-4 border-t border-border/30 mt-4">
+    <fieldset className="border-border/30 mt-4 flex flex-wrap items-center justify-center gap-2 border-t p-4">
       {currentPalettes.map((palette) => (
         <ColorPalette
           key={getPaletteId(palette)}
@@ -22,7 +22,7 @@ function PaletteControls() {
           aria-label={`Color palette ${getPaletteId(palette)}`}
           size="sm"
           orientation="horizontal"
-          className="lg:flex-col lg:[--cell-size:--spacing(6)] hover:scale-105 transition-transform"
+          className="transition-transform hover:scale-105 lg:flex-col lg:[--cell-size:--spacing(6)]"
         />
       ))}
     </fieldset>

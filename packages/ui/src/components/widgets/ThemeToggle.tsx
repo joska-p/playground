@@ -16,8 +16,8 @@ function ThemeToggle({ className }: { className?: string }) {
     <button
       onClick={toggle}
       className={cn(
-        "inline-flex items-center justify-center p-2 rounded-md transition-all active:translate-y-px",
-        "text-foreground hover:bg-primary/10 hover:text-primary focus:outline-none cursor-pointer",
+        "inline-flex items-center justify-center rounded-md p-2 transition-all active:translate-y-px",
+        "text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer focus:outline-none",
         className
       )}
       aria-label="Toggle theme"
@@ -32,7 +32,7 @@ function ThemeToggle({ className }: { className?: string }) {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="size-6 block in-data-[theme='light']:hidden"
+        className="block size-6 in-data-[theme='light']:hidden"
       >
         <path
           strokeLinecap="round"
@@ -46,7 +46,7 @@ function ThemeToggle({ className }: { className?: string }) {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="size-6 hidden in-data-[theme='light']:block"
+        className="hidden size-6 in-data-[theme='light']:block"
       >
         <path
           strokeLinecap="round"

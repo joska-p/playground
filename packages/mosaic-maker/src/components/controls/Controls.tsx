@@ -32,7 +32,7 @@ function Controls() {
   }
 
   return (
-    <Card className="rounded-none h-full border-y-none">
+    <Card className="border-y-none h-full rounded-none">
       <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
         <fieldset className="mt-2 grid grid-cols-2 gap-4 px-2 sm:grid-cols-4 lg:grid-cols-2">
           <Button variant="default" type="button" onClick={() => shuffleColors()} size="sm">

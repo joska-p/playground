@@ -24,11 +24,11 @@ function Select({
   const selectId = id ?? generatedId;
 
   return (
-    <div className="flex flex-col gap-1.5 w-full">
+    <div className="flex w-full flex-col gap-1.5">
       {label && (
         <label
           htmlFor={selectId}
-          className="text-xs font-bold uppercase tracking-wider text-foreground/80"
+          className="text-foreground/80 text-xs font-bold tracking-wider uppercase"
         >
           {label}
         </label>
@@ -42,7 +42,7 @@ function Select({
         >
           {children}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-foreground/50">
+        <div className="text-foreground/50 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
           </svg>

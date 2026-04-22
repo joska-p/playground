@@ -43,7 +43,10 @@ function generateTileRotation(): string {
   return getRandom(rotationKeys);
 }
 
-function computeInitialTiles(mosaicRef: React.RefObject<HTMLDivElement | null>, tileSet: TileSet): TileInstance[] {
+function computeInitialTiles(
+  mosaicRef: React.RefObject<HTMLDivElement | null>,
+  tileSet: TileSet
+): TileInstance[] {
   if (!mosaicRef.current) return [];
   const numberOfTiles = computeNumberOfTiles(mosaicRef.current);
   return Array.from({ length: numberOfTiles }, (_, i) => ({

@@ -1,18 +1,13 @@
 import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  // Base: Mono font, standard casing, and smoother transition
-  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-mono whitespace-nowrap transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:translate-y-[1px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer",
+  "focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-mono text-sm whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-[1px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        // Uses your --primary token
         default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
-        // Uses your --destructive token
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
-        // Retro outline using the --border token
-        outline: "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
-        // Uses your --secondary token
+        outline: "border-border hover:bg-accent hover:text-accent-foreground border bg-transparent",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm",
         ghost: "hover:bg-foreground/5 hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",

@@ -19,7 +19,7 @@ function CanvasRenderer() {
     }
   }, [sequence, visualizationId]);
 
-  return <canvas ref={canvasRef} className="w-full h-full" />;
+  return <canvas ref={canvasRef} className="h-full w-full" />;
 }
 
 export { CanvasRenderer };

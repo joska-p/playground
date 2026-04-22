@@ -17,7 +17,7 @@ function SequenceDisplay() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden">
+    <div ref={containerRef} className="absolute inset-0 h-full w-full overflow-hidden">
       <CanvasRenderer />
     </div>
   );

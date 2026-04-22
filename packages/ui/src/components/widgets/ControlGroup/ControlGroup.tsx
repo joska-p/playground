@@ -25,7 +25,7 @@ function ControlGroup({
 }: ControlGroupProps) {
   return (
     <div ref={ref} className={cn(controlGroupVariants({ variant, className }))} {...props}>
-      <div className="flex justify-between items-center font-mono text-xs tracking-wider text-muted-foreground">
+      <div className="text-muted-foreground flex items-center justify-between font-mono text-xs tracking-wider">
         <Label className="text-inherit">{label}</Label>
         {valueDisplay && <span className="text-primary">{valueDisplay}</span>}
       </div>
