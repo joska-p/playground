@@ -154,28 +154,34 @@ export function HSLToHex(hsl: HSLColor): string {
  * Parse a hex color string `#rrggbb` or `#rgb` (case-insensitive) into RGBColor.
  * Throws on invalid input.
  */
-export function hexToRGB(hex: string): RGBColor {
+export function hexToRGB(hex: string | undefined): RGBColor {
   if (typeof hex !== "string") {
     throw new TypeError("hex must be a string");
   }
 
-  const sanitized = hex.trim().replace(/^#/, "");
+  const sanitized = hex.trim().replace(/^#/, "").toLowerCase();
   if (sanitized.length !== 3 && sanitized.length !== 6) {
     throw new Error(`Invalid hex color: "${hex}"`);
   }
-  if (sanitized.length === 3) {
-    const r = parseInt(sanitized[0] + sanitized[0], 16);
-    const g = parseInt(sanitized[1] + sanitized[1], 16);
-    const b = parseInt(sanitized[2] + sanitized[2], 16);
-    return { red: r, green: g, blue: b };
-  } else if (sanitized.length === 6) {
-    const r = parseInt(sanitized.slice(0, 2), 16);
-    const g = parseInt(sanitized.slice(2, 4), 16);
-    const b = parseInt(sanitized.slice(4, 6), 16);
-    return { red: r, green: g, blue: b };
+
+  const expand = (s: string) =>
+    s.length === 3
+      ? s
+          .split("")
+          .map((ch) => ch + ch)
+          .join("")
+      : s;
+
+  const full = expand(sanitized);
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) {
+    throw new Error(`Invalid hex color: "${hex}"`);
   }
 
-  throw new Error(`Invalid hex color: "${hex}"`);
+  return { red: r, green: g, blue: b };
 }
 
 /**

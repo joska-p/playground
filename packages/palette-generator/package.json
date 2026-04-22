@@ -11,12 +11,12 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "source": "./src/index.tsx",
+  "source": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "development": "./src/index.tsx",
+      "development": "./src/index.ts",
       "default": "./dist/index.js"
     }
   },
@@ -40,13 +40,15 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@repo/ui": "workspace:*",
     "@types/react": "^19.2.14",
     "eslint": "^9.39.4",
-    "react": "^19.2.14",
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@repo/ui": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0",
     "zustand": "^5.0.12"
   }
 }

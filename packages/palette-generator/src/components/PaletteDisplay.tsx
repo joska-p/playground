@@ -1,4 +1,4 @@
-import { usePaletteContext } from "../store/paletteStore";
+import { usePaletteContext } from "../context/paletteContext.js";
 
 function PaletteDisplay() {
   const { palettes } = usePaletteContext();

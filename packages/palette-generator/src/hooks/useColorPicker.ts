@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import type { HSLColor } from "../utils/colorConversions";
-import { RGBToHSL } from "../utils/colorConversions";
-import { usePaletteContext } from ".../store/paletteStore";
+import type { HSLColor } from "../utils/colorConversions.js";
+import { RGBToHSL } from "../utils/colorConversions.js";
+import { usePaletteContext } from "../context/paletteContext.js";
 
 /**
  * useColorPicker

@@ -1,6 +1,22 @@
-export * from "./components/PaletteDisplay";
-export * from "./store/paletteStore";
-export * from "./controls/color-picker";
-export * from "./controls/generators";
-export * from "./hooks/useColorPicker";
-export * from "./utils/colorConversions";
+import { ColorPicker } from "./controls/color-picker/ColorPicker.js";
+import { Generators } from "./controls/generators/Generators.js";
+import { PaletteProvider } from "./context/paletteContext.js";
+import { PaletteDisplay } from "./components/PaletteDisplay.js";
+import { SidebarProvider } from "@repo/ui";
+
+export function PaletteGenerator() {
+  return (
+    <PaletteProvider>
+      <SidebarProvider mobilePosition="left" desktopPosition="left">
+        <SidebarProvider.Sidebar className="bg-card w-96 space-y-4 p-2">
+          <ColorPicker width={368} height={368} />
+          <Generators />
+        </SidebarProvider.Sidebar>
+
+        <SidebarProvider.Content className="p-2">
+          <PaletteDisplay />
+        </SidebarProvider.Content>
+      </SidebarProvider>
+    </PaletteProvider>
+  );
+}

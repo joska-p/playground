@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import type { ComponentProps } from "react";
-import type { HSLColor } from "../utils/colorConversions";
+import type { HSLColor } from "../utils/colorConversions.js";
 
 export type Palette = HSLColor[];
 export type BaseColor = HSLColor & { location: { x: number; y: number } };
