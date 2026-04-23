@@ -38,7 +38,7 @@ function MosaicDisplay() {
   return (
     <div
       ref={mosaicRef}
-      className="absolute inset-0 mt-2 grid content-start justify-center overflow-hidden"
+      className="absolute inset-0 grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (

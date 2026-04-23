@@ -2,12 +2,14 @@ import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { cn } from "../../../utils/cn.js";
-import { sidebarVariants, sidebarPanelVariants } from "./sidebarVariants.js";
+import { sidebarVariants } from "./sidebarVariants.js";
+
+type SidebarVariant = "primary" | "secondary" | "accent";
+type PanelPosition = "top" | "right" | "bottom" | "left";
 
 interface SidebarContextValue {
   isOpen: boolean;
   toggleSidebar: () => void;
-  variant: "primary" | "secondary" | "accent";
 }
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);
@@ -22,7 +24,7 @@ function useSidebarContext() {
 
 interface SidebarProps extends ComponentProps<"div">, VariantProps<typeof sidebarVariants> {
   defaultOpen?: boolean;
-  variant?: "primary" | "secondary" | "accent";
+  variant?: SidebarVariant;
 }
 
 function Sidebar({
@@ -31,7 +33,7 @@ function Sidebar({
   className,
   mobilePosition,
   desktopPosition,
-  variant = "primary",
+  variant = "default",
   defaultOpen = true,
   ...props
 }: SidebarProps) {
@@ -41,16 +43,13 @@ function Sidebar({
     setIsOpen((prev) => !prev);
   }, []);
 
-  const value = useMemo(
-    () => ({ isOpen, toggleSidebar, variant }),
-    [isOpen, toggleSidebar, variant]
-  );
+  const value = useMemo(() => ({ isOpen, toggleSidebar }), [isOpen, toggleSidebar]);
 
   return (
     <SidebarContext.Provider value={value}>
       <div
         ref={ref}
-        className={cn(sidebarVariants({ mobilePosition, desktopPosition, variant }), className)}
+        className={cn(sidebarVariants({ variant, mobilePosition, desktopPosition }), className)}
         {...props}
       >
         {children}
@@ -59,17 +58,13 @@ function Sidebar({
   );
 }
 
-interface PanelProps extends ComponentProps<"div">, VariantProps<typeof sidebarPanelVariants> {}
+interface PanelProps extends ComponentProps<"div"> {
+  position?: PanelPosition;
+}
 
-function Panel({ children, ref, className, variant, position, ...props }: PanelProps) {
-  const ctx = useSidebarContext();
-  const v = variant ?? ctx.variant;
+function Panel({ children, ref, className, ...props }: PanelProps) {
   return (
-    <div
-      ref={ref}
-      className={cn(sidebarPanelVariants({ variant: v, position: position as any }), className)}
-      {...props}
-    >
+    <div ref={ref} className={cn("sidebar-panel", className)} {...props}>
       {children}
     </div>
   );
@@ -78,27 +73,19 @@ function Panel({ children, ref, className, variant, position, ...props }: PanelP
 function Main({ children, ref, className, ...props }: ComponentProps<"div">) {
   const { isOpen } = useSidebarContext();
   return (
-    <div ref={ref} className={cn(className, { hidden: !isOpen })} {...props}>
+    <div ref={ref} className={cn("relative", className, { hidden: !isOpen })} {...props}>
       {children}
     </div>
   );
 }
 
 function Toggle({ className, ...props }: ComponentProps<"button">) {
-  const { isOpen, toggleSidebar, variant } = useSidebarContext();
+  const { isOpen, toggleSidebar } = useSidebarContext();
   return (
     <button
       type="button"
       onClick={toggleSidebar}
-      className={cn(
-        "cursor-pointer rounded p-2 transition-colors",
-        {
-          "bg-primary text-primary-foreground hover:bg-primary/90": variant === "primary",
-          "bg-secondary text-secondary-foreground hover:bg-secondary/90": variant === "secondary",
-          "bg-accent text-accent-foreground hover:bg-accent/90": variant === "accent",
-        },
-        className
-      )}
+      className={cn(className)}
       aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       {...props}
     >
@@ -116,4 +103,4 @@ Sidebar.Main = Main;
 Sidebar.Toggle = Toggle;
 Sidebar.use = useSidebar;
 
-export { Sidebar, sidebarVariants, sidebarPanelVariants };
+export { Sidebar, sidebarVariants };

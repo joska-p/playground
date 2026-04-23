@@ -1,7 +1,13 @@
 import { cva } from "class-variance-authority";
 
-export const sidebarVariants = cva("grid h-full", {
+export const sidebarVariants = cva("grid min-h-full", {
   variants: {
+    variant: {
+      default: "[&>.sidebar-panel]:bg-card",
+      primary: "[&>.sidebar-panel]:bg-primary",
+      secondary: "[&>.sidebar-panel]:bg-secondary",
+      accent: "[&>.sidebar-panel]:bg-accent",
+    },
     mobilePosition: {
       top: "grid-cols-1 grid-rows-[auto_1fr]",
       right: "grid-cols-[1fr_auto] grid-rows-1",
@@ -14,28 +20,10 @@ export const sidebarVariants = cva("grid h-full", {
       bottom: "lg:grid-cols-1 lg:grid-rows-[1fr_auto]",
       left: "lg:grid-cols-[auto_1fr] lg:grid-rows-1",
     },
-    variant: {
-      primary: "",
-      secondary: "",
-      accent: "",
-    },
   },
   defaultVariants: {
+    variant: "default",
     mobilePosition: "bottom",
     desktopPosition: "bottom",
-    variant: "primary",
-  },
-});
-
-export const sidebarPanelVariants = cva({
-  variants: {
-    variant: {
-      primary: "bg-card",
-      secondary: "bg-secondary",
-      accent: "bg-accent",
-    },
-  },
-  defaultVariants: {
-    variant: "primary",
   },
 });

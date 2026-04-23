@@ -7,7 +7,7 @@ import { Sidebar } from "@repo/ui";
 function MosaicMaker() {
   return (
     <Sidebar desktopPosition="right" mobilePosition="bottom">
-      <Sidebar.Main className="relative">
+      <Sidebar.Main>
         <MosaicDisplay />
       </Sidebar.Main>
 
