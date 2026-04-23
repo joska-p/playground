@@ -28,7 +28,7 @@ function Select({
       {label && (
         <label
           htmlFor={selectId}
-          className="text-foreground/80 text-xs font-bold tracking-wider uppercase"
+          className="text-xs text-foreground/80"
         >
           {label}
         </label>

@@ -124,6 +124,25 @@ export { Button };
 
 ---
 
+## Label Styling
+
+All form components with built-in labels use this pattern:
+
+```tsx
+<label className="text-xs text-foreground/80">
+  {label}
+</label>
+```
+
+**Rules:**
+- No `font-bold` — use regular weight
+- No `tracking-wider` — no letter-spacing
+- No `uppercase` — use lowercase
+- Size: `text-xs` (12px)
+- Color: `text-foreground/80` (muted foreground)
+
+---
+
 ## Component Pattern: Input
 
 ### Variants (`inputVariants.ts`)

@@ -34,7 +34,7 @@ function Input({
       {label && (
         <label
           htmlFor={inputId}
-          className="text-foreground/80 text-xs font-bold tracking-wider uppercase"
+          className="text-xs text-foreground/80"
         >
           {label}
         </label>

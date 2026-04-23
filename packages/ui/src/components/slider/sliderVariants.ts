@@ -1,16 +1,18 @@
 import { cva } from "class-variance-authority";
 
 export const sliderVariants = cva(
-  "border-border/50 focus-visible:ring-ring mt-2 block w-full cursor-pointer rounded-md border py-2 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+  "mt-2 block w-full cursor-pointer rounded-md py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "accent-secondary",
-        destructive: "accent-destructive",
+        primary: "accent-primary text-primary",
+        secondary: "accent-secondary text-secondary",
+        accent: "accent-accent text-accent",
+        destructive: "accent-destructive text-destructive",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
     },
   }
 );

@@ -1,74 +1,134 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Slider, Label } from "@repo/ui";
+import { Slider } from "@repo/ui";
 
 /**
- * The Slider component allows users to make selections from a range of values.
- * Perfect for real-time adjustments in the Mosaic Maker or Particle experiments.
+ * A styled range input component for adjusting numerical values.
+ * Perfect for real-time adjustments in experiments like Mosaic Maker.
  */
 const meta: Meta<typeof Slider> = {
   title: "Components/Slider",
   component: Slider,
   tags: ["autodocs"],
   argTypes: {
+    label: {
+      description: "The label text displayed above the slider.",
+      control: "text",
+    },
+    helperText: {
+      description: "Supportive text displayed below the slider.",
+      control: "text",
+    },
     variant: {
       description: "Controls the accent color of the slider thumb.",
-      options: ["default", "destructive"],
+      options: ["primary", "secondary", "accent", "destructive"],
       control: { type: "select" },
     },
-    value: {
-      description: "The current numerical value.",
+    min: {
+      description: "Minimum possible value.",
       control: { type: "number" },
     },
-    min: { description: "Minimum possible value." },
-    max: { description: "Maximum possible value." },
-    step: { description: "The granularity of the slider." },
+    max: {
+      description: "Maximum possible value.",
+      control: { type: "number" },
+    },
+    step: {
+      description: "The granularity of the slider.",
+      control: { type: "number" },
+    },
+    disabled: {
+      description: "Disables user interaction and applies dimmed styling.",
+      control: "boolean",
+    },
+  },
+  args: {
+    label: "Intensity",
+    variant: "primary",
+    min: 0,
+    max: 100,
+    step: 1,
   },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Slider>;
-type SliderProps = React.ComponentProps<typeof Slider>;
 
-// Interactive wrapper for the stories
-function SliderWithState(args: SliderProps) {
+type SliderStoryProps = {
+  showValue?: boolean;
+};
+
+function InteractiveSlider(args: SliderStoryProps & React.ComponentProps<typeof Slider>) {
   const [value, setValue] = useState(args.value ?? 50);
   return (
-    <div className="bg-card border-border flex w-[300px] flex-col gap-4 rounded-lg border p-4">
-      <div className="flex items-center justify-between font-mono text-sm">
-        <Label>Intensity</Label>
-        <span className="text-primary font-bold">{value}%</span>
-      </div>
+    <div className="flex w-[300px] flex-col gap-4">
       <Slider {...args} value={value} onChange={setValue} />
     </div>
   );
 }
 
 /**
- * Standard slider used for general parameter tuning.
+ * The standard slider using the primary accent color.
+ * Use as the default slider for most controls.
  */
-export const Default: Story = {
+export const Primary: Story = {
   args: {
-    variant: "default",
-    min: 0,
-    max: 100,
-    step: 1,
-    value: 50,
+    variant: "primary",
   },
-  render: (args) => <SliderWithState {...args} />,
+  render: (args) => <InteractiveSlider {...args} showValue />,
 };
 
 /**
- * Destructive variant for parameters that might impact performance (like particle count).
+ * Uses the secondary accent color for alternative sliders.
+ * Good for secondary parameters.
  */
-export const PerformanceWarning: Story = {
+export const Secondary: Story = {
   args: {
+    label: "Volume",
+    variant: "secondary",
+    helperText: "Adjust the volume level.",
+  },
+  render: (args) => <InteractiveSlider {...args} showValue />,
+};
+
+/**
+ * Uses the accent color for highlighted sliders.
+ * Use for sliders that need special attention.
+ */
+export const Accent: Story = {
+  args: {
+    label: "Brightness",
+    variant: "accent",
+    helperText: "Adjust the display brightness.",
+  },
+  render: (args) => <InteractiveSlider {...args} showValue />,
+};
+
+/**
+ * Uses the destructive accent color for warning sliders.
+ * Use for parameters that might impact performance.
+ */
+export const Destructive: Story = {
+  args: {
+    label: "Particle Count",
     variant: "destructive",
-    min: 0,
     max: 1000,
     step: 10,
-    value: 800,
+    helperText: "Warning: High values may affect performance.",
   },
-  render: (args) => <SliderWithState {...args} />,
+  render: (args) => <InteractiveSlider {...args} showValue />,
+};
+
+/**
+ * Demonstrates the disabled state with reduced opacity.
+ */
+export const Disabled: Story = {
+  args: {
+    label: "Locked Slider",
+    variant: "primary",
+    value: 50,
+    disabled: true,
+    helperText: "This slider is currently locked.",
+  },
+  render: (args) => <InteractiveSlider {...args} showValue />,
 };
