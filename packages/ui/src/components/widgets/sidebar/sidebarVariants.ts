@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 export const sidebarVariants = cva("grid min-h-full", {
   variants: {
     variant: {
-      default: "[&>.sidebar-panel]:bg-card",
+      normal: "[&>.sidebar-panel]:bg-card",
       primary: "[&>.sidebar-panel]:bg-primary",
       secondary: "[&>.sidebar-panel]:bg-secondary",
       accent: "[&>.sidebar-panel]:bg-accent",
@@ -22,7 +22,7 @@ export const sidebarVariants = cva("grid min-h-full", {
     },
   },
   defaultVariants: {
-    variant: "default",
+    variant: "normal",
     mobilePosition: "bottom",
     desktopPosition: "bottom",
   },

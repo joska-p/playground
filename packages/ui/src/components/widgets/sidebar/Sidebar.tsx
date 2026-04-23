@@ -4,9 +4,6 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
 import { cn } from "../../../utils/cn.js";
 import { sidebarVariants } from "./sidebarVariants.js";
 
-type SidebarVariant = "primary" | "secondary" | "accent";
-type PanelPosition = "top" | "right" | "bottom" | "left";
-
 interface SidebarContextValue {
   isOpen: boolean;
   toggleSidebar: () => void;
@@ -24,7 +21,6 @@ function useSidebarContext() {
 
 interface SidebarProps extends ComponentProps<"div">, VariantProps<typeof sidebarVariants> {
   defaultOpen?: boolean;
-  variant?: SidebarVariant;
 }
 
 function Sidebar({
@@ -33,7 +29,7 @@ function Sidebar({
   className,
   mobilePosition,
   desktopPosition,
-  variant = "default",
+  variant,
   defaultOpen = true,
   ...props
 }: SidebarProps) {
@@ -58,11 +54,7 @@ function Sidebar({
   );
 }
 
-interface PanelProps extends ComponentProps<"div"> {
-  position?: PanelPosition;
-}
-
-function Panel({ children, ref, className, ...props }: PanelProps) {
+function Panel({ children, ref, className, ...props }: ComponentProps<"div">) {
   return (
     <div ref={ref} className={cn("sidebar-panel", className)} {...props}>
       {children}
