@@ -18,15 +18,15 @@ function Controls() {
     <Card className="border-t-primary/20 bg-muted/30 flex w-full flex-row flex-wrap items-center justify-center gap-8 rounded-none border-x-0 border-t-2 px-6 py-3 backdrop-blur-md">
       <SequenceSelector />
 
-      <Slider
+<Slider
         variant="secondary"
+        layout="horizontal"
         label="Steps"
         min={2}
         max={sequenceRule.maxSteps}
         step={1}
         value={steps}
         onChange={setSteps}
-        className="mt-0 w-auto"
       />
 
       <div className="flex items-center gap-2">

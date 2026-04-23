@@ -17,6 +17,7 @@ function Slider({
   ref,
   className,
   variant,
+  layout,
   value,
   onChange,
   min = 0,
@@ -31,6 +32,7 @@ function Slider({
   const generatedId = useId();
   const sliderId = id ?? generatedId;
   const hasLabel = label !== undefined;
+  const isHorizontal = layout === "horizontal";
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = parseFloat(event.target.value);
@@ -38,8 +40,25 @@ function Slider({
   }
 
   return (
-    <div className="flex w-full flex-col gap-1.5">
-      {label && (
+    <div className={cn(sliderVariants({ variant, layout, className }))}>
+      {label && (isHorizontal ? (
+        <div className="flex items-center gap-2">
+          <label htmlFor={sliderId} className="text-xs whitespace-nowrap text-foreground/80">
+            {label}
+          </label>
+          <span
+            className={cn("font-mono text-xs", {
+              "text-primary": !variant || variant === "primary",
+              "text-secondary": variant === "secondary",
+              "text-accent": variant === "accent",
+              "text-destructive": variant === "destructive",
+            })}
+          >
+            {value}
+            {unit}
+          </span>
+        </div>
+      ) : (
         <div className="flex items-center justify-between">
           <label htmlFor={sliderId} className="text-xs text-foreground/80">
             {label}
@@ -56,19 +75,34 @@ function Slider({
             {unit}
           </span>
         </div>
+      ))}
+      {isHorizontal ? (
+        <input
+          type="range"
+          id={sliderId}
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={handleChange}
+          className="flex-1"
+          ref={ref}
+          {...props}
+        />
+      ) : (
+        <input
+          type="range"
+          id={sliderId}
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={handleChange}
+          className="mt-2 w-full"
+          ref={ref}
+          {...props}
+        />
       )}
-      <input
-        type="range"
-        id={sliderId}
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={handleChange}
-        className={cn(sliderVariants({ variant, className }))}
-        ref={ref}
-        {...props}
-      />
       {helperText && !hasLabel && (
         <p
           className={cn(

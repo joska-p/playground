@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const sliderVariants = cva(
-  "mt-2 block w-full cursor-pointer rounded-md py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50",
+  "block w-full cursor-pointer rounded-md py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -10,9 +10,14 @@ export const sliderVariants = cva(
         accent: "accent-accent text-accent",
         destructive: "accent-destructive text-destructive",
       },
+      layout: {
+        vertical: "mt-2",
+        horizontal: "flex items-center gap-3 py-0",
+      },
     },
     defaultVariants: {
       variant: "primary",
+      layout: "vertical",
     },
   }
 );
