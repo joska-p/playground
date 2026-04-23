@@ -9,7 +9,7 @@ interface ColorPaletteProps
   name?: string;
   value?: string;
   checked?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange?: (palette: unknown) => void;
 }
 
 /**
@@ -28,8 +28,6 @@ function ColorPalette({
   variant,
   ...props
 }: ColorPaletteProps) {
-  const isInteractive = !!onChange;
-
   return (
     <label
       ref={ref}
@@ -38,19 +36,19 @@ function ColorPalette({
           orientation,
           size,
           variant,
-          checked: isInteractive && checked ? true : false,
+          checked: checked,
           className,
         })
       )}
       {...props}
     >
-      {isInteractive && (
+      {onChange && (
         <input
           type="radio"
           name={name}
           value={value}
           checked={checked}
-          onChange={(e) => onChange?.(e.target.checked)}
+          onChange={() => onChange?.(true)}
           className="sr-only"
         />
       )}
