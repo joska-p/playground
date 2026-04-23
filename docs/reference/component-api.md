@@ -185,3 +185,5 @@ import { Sidebar } from "@repo/ui";
 ---
 
 > Tip: All components use design tokens (`bg-primary`, `text-foreground`, etc.) from `@repo/tailwind-config`.
+
+> Note: For interactive examples, see [Storybook](https://joska-p.github.io/playground/storybook).

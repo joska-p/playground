@@ -66,12 +66,13 @@ function MyProject() {
 
 ## 📚 Learn More
 
-| Topic | Where to Look |
+| Topic | Where |
 |-------|-------------|
 | Add pages | [how-to/adding-pages](./how-to/adding-pages.md) |
 | Build components | [how-to/creating-components](./how-to/creating-components.md) |
 | Design tokens | [reference/design-tokens](./reference/design-tokens.md) |
 | Architecture | [explanation/architecture](./explanation/architecture.md) |
+| Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
 
 ## 🚀 Run Individual Apps
 

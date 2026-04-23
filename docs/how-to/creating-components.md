@@ -181,6 +181,6 @@ className={cn("base", { "active": isActive })}
 ## 📚 Learn More
 
 | Topic | Where |
-|------|-------|
-| Design tokens | [reference/design-tokens](./design-tokens.md) |
-| Full API | [reference/component-api](./component-api.md) |
+|-------|-------|
+| Design tokens | [reference/design-tokens](../reference/design-tokens.md) |
+| Full API + Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |

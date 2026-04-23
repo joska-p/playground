@@ -99,6 +99,7 @@ apps/storybook      ← uses → ui
 
 | Topic | Where |
 |-------|-------|
-| Mosaic Maker | [explanation/mosaic-engine](./mosaic-engine.md) |
-| Sequence Renderer | [explanation/sequence-renderer](./sequence-renderer.md) |
-| Design tokens | [reference/design-tokens](./reference/design-tokens.md) |
+| Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
+| Mosaic Maker | [mosaic-engine](./mosaic-engine.md) |
+| Sequence Renderer | [sequence-renderer](./sequence-renderer.md) |
+| Design tokens | [reference/design-tokens](../reference/design-tokens.md) |
