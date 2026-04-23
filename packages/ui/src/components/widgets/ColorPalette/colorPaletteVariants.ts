@@ -14,12 +14,12 @@ export const colorPaletteVariants = cva(
         lg: "[--cell-size:theme(spacing.8)]",
       },
       variant: {
-        primary: "hover:ring-primary/50 has-checked:ring-primary",
-        secondary: "hover:ring-secondary/50 has-checked:ring-secondary",
-        accent: "hover:ring-accent/50 has-checked:ring-accent",
+        primary: "hover:ring-primary/50 has-checked:ring-primary has-checked:shadow-md has-checked:ring-4",
+        secondary: "hover:ring-secondary/50 has-checked:ring-secondary has-checked:shadow-md has-checked:ring-4",
+        accent: "hover:ring-accent/50 has-checked:ring-accent has-checked:shadow-md has-checked:ring-4",
       },
       checked: {
-        true: "ring-primary shadow-md ring-4",
+        true: "",
         false: "",
       },
     },

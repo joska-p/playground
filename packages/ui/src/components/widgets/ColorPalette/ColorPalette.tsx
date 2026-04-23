@@ -34,7 +34,6 @@ function ColorPalette({
       className={cn(
         colorPaletteVariants({
           orientation,
-          checked,
           size,
           variant,
           className,
