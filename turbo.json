@@ -22,7 +22,7 @@
       "inputs": ["$TURBO_DEFAULT$", ".prettierrc*", "prettier.config.*"]
     },
     "check-types": {
-      "dependsOn": ["^check-types"],
+      "dependsOn": ["^build", "^check-types"],
       "inputs": ["$TURBO_DEFAULT$", "tsconfig.json"]
     },
     "dev": {
