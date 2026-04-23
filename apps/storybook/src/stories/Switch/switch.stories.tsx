@@ -1,30 +1,47 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Switch, Label } from "@repo/ui";
+import { Switch } from "@repo/ui";
 
 /**
- * The Switch component is a digital toggle that allows users to switch between two states.
- * Best used for settings that take effect immediately in your creative tools.
+ * A styled toggle switch component for binary on/off states.
+ * Perfect for settings that take effect immediately.
  */
 const meta: Meta<typeof Switch> = {
   title: "Components/Switch",
   component: Switch,
   tags: ["autodocs"],
   argTypes: {
+    label: {
+      description: "The label text displayed above the switch.",
+      control: "text",
+    },
+    helperText: {
+      description: "Supportive text displayed below the switch.",
+      control: "text",
+    },
     variant: {
       description: "Changes the 'on' state color palette.",
-      options: ["default", "dangerous"],
+      options: ["primary", "secondary", "accent", "destructive"],
       control: { type: "select" },
     },
     size: {
       description: "The physical size of the toggle.",
-      options: ["default", "sm"],
+      options: ["default", "sm", "lg"],
       control: { type: "select" },
     },
     checked: {
       description: "The current state of the switch.",
       control: "boolean",
     },
+    disabled: {
+      description: "Disables user interaction and applies dimmed styling.",
+      control: "boolean",
+    },
+  },
+  args: {
+    label: "Enable Feature",
+    variant: "primary",
+    size: "default",
   },
 };
 
@@ -32,58 +49,67 @@ export default meta;
 
 type Story = StoryObj<typeof Switch>;
 
+function InteractiveSwitch(args: React.ComponentProps<typeof Switch>) {
+  const [checked, setChecked] = useState(args.checked ?? false);
+  return <Switch {...args} checked={checked} onCheckedChange={setChecked} />;
+}
+
 /**
- * The standard switch used for general settings like 'Dark Mode' or 'Auto-save'.
+ * The standard switch using the primary color.
+ * Use as the default switch for most settings.
  */
-export const Default: Story = {
-  args: {
-    variant: "default",
-  },
-  render: (args) => {
-    const [checked, setChecked] = useState(false);
-    return (
-      <div className="flex items-center gap-3 font-mono">
-        <Switch {...args} checked={checked} onCheckedChange={setChecked} id="toggle-feature" />
-        <Label htmlFor="toggle-feature" className="cursor-pointer">
-          Enable Experiment
-        </Label>
-      </div>
-    );
-  },
+export const Primary: Story = {
+  render: (args) => <InteractiveSwitch {...args} />,
 };
 
 /**
- * A smaller version for dense UI sidebars or property panels.
+ * Uses the secondary color for alternative switches.
+ * Good for secondary settings.
  */
-export const Small: Story = {
+export const Secondary: Story = {
   args: {
-    size: "sm",
+    label: "Dark Mode",
+    variant: "secondary",
+    helperText: "Switch to dark theme.",
   },
-  render: (args) => {
-    const [checked, setChecked] = useState(true);
-    return (
-      <div className="flex items-center gap-3 font-mono text-xs">
-        <Switch {...args} checked={checked} onCheckedChange={setChecked} />
-        <Label>Compact Mode</Label>
-      </div>
-    );
-  },
+  render: (args) => <InteractiveSwitch {...args} />,
 };
 
 /**
- * Used for high-impact actions like 'Hardware Acceleration' or 'Reset Canvas'.
+ * Uses the accent color for highlighted switches.
+ * Use for switches that need special attention.
  */
-export const Dangerous: Story = {
+export const Accent: Story = {
   args: {
-    variant: "dangerous",
+    label: "Notifications",
+    variant: "accent",
+    helperText: "Receive push notifications.",
   },
-  render: (args) => {
-    const [checked, setChecked] = useState(false);
-    return (
-      <div className="text-destructive flex items-center gap-3 font-mono">
-        <Switch {...args} checked={checked} onCheckedChange={setChecked} />
-        <Label>Self-Destruct Mode</Label>
-      </div>
-    );
+  render: (args) => <InteractiveSwitch {...args} />,
+};
+
+/**
+ * Uses the destructive color for dangerous switches.
+ * Use for high-impact or dangerous settings.
+ */
+export const Destructive: Story = {
+  args: {
+    label: "Reset Data",
+    variant: "destructive",
+    helperText: "Warning: This action cannot be undone.",
+  },
+  render: (args) => <InteractiveSwitch {...args} />,
+};
+
+/**
+ * Demonstrates the disabled state.
+ */
+export const Disabled: Story = {
+  args: {
+    label: "Locked Switch",
+    variant: "primary",
+    checked: true,
+    disabled: true,
+    helperText: "This switch is currently locked.",
   },
 };

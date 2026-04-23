@@ -1,5 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
+import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { switchVariants, switchThumbVariants } from "./switchVariants.js";
 
@@ -7,6 +8,8 @@ interface SwitchProps
   extends Omit<ComponentProps<"button">, "onChange">, VariantProps<typeof switchVariants> {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
+  label?: string;
+  helperText?: string;
 }
 
 /**
@@ -20,24 +23,51 @@ function Switch({
   size,
   checked,
   onCheckedChange,
+  label,
+  helperText,
+  id,
   ...props
 }: SwitchProps) {
+  const generatedId = useId();
+  const switchId = id ?? generatedId;
+
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      data-state={checked ? "checked" : "unchecked"}
-      onClick={() => onCheckedChange?.(!checked)}
-      className={cn(switchVariants({ variant, size, className }))}
-      ref={ref}
-      {...props}
-    >
-      <span
+    <div className="flex w-full flex-col gap-1.5">
+      {label && (
+        <label
+          htmlFor={switchId}
+          className="text-xs text-foreground/80 cursor-pointer"
+        >
+          {label}
+        </label>
+      )}
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        id={switchId}
         data-state={checked ? "checked" : "unchecked"}
-        className={cn(switchThumbVariants({ size }))}
-      />
-    </button>
+        onClick={() => onCheckedChange?.(!checked)}
+        className={cn(switchVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      >
+        <span
+          data-state={checked ? "checked" : "unchecked"}
+          className={cn(switchThumbVariants({ size }))}
+        />
+      </button>
+      {helperText && (
+        <p
+          className={cn(
+            "text-xs italic",
+            variant === "destructive" ? "text-destructive" : "text-muted-foreground"
+          )}
+        >
+          {helperText}
+        </p>
+      )}
+    </div>
   );
 }
 
