@@ -85,7 +85,7 @@ export const Primary: Story = {
   args: {
     variant: "primary",
   },
-  render: (args) => <InteractiveSlider {...args} showValue />,
+  render: (args) => <InteractiveSlider {...args} />,
 };
 
 /**
@@ -98,7 +98,7 @@ export const Secondary: Story = {
     variant: "secondary",
     helperText: "Adjust the volume level.",
   },
-  render: (args) => <InteractiveSlider {...args} showValue />,
+  render: (args) => <InteractiveSlider {...args} />,
 };
 
 /**
@@ -111,7 +111,7 @@ export const Accent: Story = {
     variant: "accent",
     helperText: "Adjust the display brightness.",
   },
-  render: (args) => <InteractiveSlider {...args} showValue />,
+  render: (args) => <InteractiveSlider {...args} />,
 };
 
 /**
@@ -126,7 +126,7 @@ export const Destructive: Story = {
     step: 10,
     helperText: "Warning: High values may affect performance.",
   },
-  render: (args) => <InteractiveSlider {...args} showValue />,
+  render: (args) => <InteractiveSlider {...args} />,
 };
 
 /**
@@ -140,7 +140,7 @@ export const Disabled: Story = {
     disabled: true,
     helperText: "This slider is currently locked.",
   },
-  render: (args) => <InteractiveSlider {...args} showValue />,
+  render: (args) => <InteractiveSlider {...args} />,
 };
 
 /**
@@ -151,12 +151,9 @@ export const Horizontal: Story = {
     label: "Volume",
     variant: "secondary",
     layout: "horizontal",
-    value: 50,
+    max: 100,
+    step: 10,
     unit: "%",
   },
-  render: (args) => (
-    <div className="w-[400px]">
-      <Slider {...args} value={args.value ?? 50} onChange={() => {}} />
-    </div>
-  ),
+  render: (args) => <InteractiveSlider {...args} className="max-w-xs" />,
 };
