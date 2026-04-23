@@ -217,6 +217,9 @@ importers:
 
   packages/image-to-particles:
     dependencies:
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../ui
       react:
         specifier: ^19
         version: 19.2.5
@@ -230,9 +233,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
