@@ -18,7 +18,7 @@ interface ColorPaletteProps
 function ColorPalette({
   ref,
   colors,
-  name,
+  name = "palette",
   value,
   checked,
   onChange,
@@ -34,24 +34,22 @@ function ColorPalette({
       className={cn(
         colorPaletteVariants({
           orientation,
+          checked,
           size,
           variant,
-          checked: checked,
           className,
         })
       )}
       {...props}
     >
-      {onChange && (
-        <input
-          type="radio"
-          name={name}
-          value={value}
-          checked={checked}
-          onChange={() => onChange?.(true)}
-          className="sr-only"
-        />
-      )}
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={() => onChange?.(true)}
+        className="sr-only"
+      />
       {colors.map((color, index) => (
         <div
           key={`${color}-${index}`}

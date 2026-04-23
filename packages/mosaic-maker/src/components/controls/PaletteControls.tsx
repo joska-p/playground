@@ -16,7 +16,6 @@ function PaletteControls() {
       {currentPalettes.map((palette) => (
         <ColorPalette
           key={getPaletteId(palette)}
-          name="palette"
           colors={Object.values(palette)}
           checked={arePalettesEqual(palette, currentPalette)}
           onChange={() => updatePalette(palette)}
