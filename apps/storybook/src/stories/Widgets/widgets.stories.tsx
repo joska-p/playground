@@ -2,57 +2,140 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { ColorPalette, ControlGroup, Slider } from "@repo/ui";
 
-const meta: Meta = {
+const meta: Meta<typeof ColorPalette> = {
   title: "Components/Widgets",
+  component: ColorPalette,
   tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      description: "Controls the ring color for checked/hover state.",
+      options: ["primary", "secondary", "accent"],
+      control: { type: "select" },
+    },
+    size: {
+      description: "Controls the cell size.",
+      options: ["sm", "md", "lg"],
+      control: { type: "select" },
+    },
+    orientation: {
+      description: "Controls the layout direction.",
+      options: ["horizontal", "vertical"],
+      control: { type: "select" },
+    },
+  },
+  args: {
+    variant: "primary",
+    size: "md",
+    orientation: "horizontal",
+  },
 };
 
 export default meta;
 
+type Story = StoryObj<typeof ColorPalette>;
+
+const palettes = [
+  { id: "p1", colors: ["#331436", "#eb9961", "#cb4f57", "#7a1745", "#f7f7f7"] },
+  { id: "p2", colors: ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"] },
+  { id: "p3", colors: ["#001219", "#005f73", "#0a9396", "#94d2bd", "#e9d8a6"] },
+];
+
 /**
- * A reusable Color Palette component for display or selection.
+ * ColorPalette with primary ring color.
  */
-export const ColorPaletteStory: StoryObj<typeof ColorPalette> = {
-  name: "ColorPalette",
-  render: () => {
+export const Primary: Story = {
+  args: {
+    variant: "primary",
+  },
+  render: (args) => {
     const [selected, setSelected] = useState("p1");
-    const palettes = [
-      { id: "p1", colors: ["#331436", "#eb9961", "#cb4f57", "#7a1745", "#f7f7f7"] },
-      { id: "p2", colors: ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"] },
-      { id: "p3", colors: ["#001219", "#005f73", "#0a9396", "#94d2bd", "#e9d8a6"] },
-    ];
-
     return (
-      <div className="bg-background border-border flex flex-col gap-8 rounded-xl border p-4">
-        <section>
-          <h3 className="text-muted-foreground mb-4 font-mono text-sm font-bold tracking-widest uppercase">
-            Display Only
-          </h3>
-          <ColorPalette colors={palettes[0].colors} />
-        </section>
+      <div className="flex flex-wrap gap-4">
+        {palettes.map((p) => (
+          <ColorPalette
+            key={p.id}
+            colors={p.colors}
+            checked={selected === p.id}
+            onChange={() => setSelected(p.id)}
+            {...args}
+          />
+        ))}
+      </div>
+    );
+  },
+};
 
-        <section>
-          <h3 className="text-muted-foreground mb-4 font-mono text-sm font-bold tracking-widest uppercase">
-            Interactive Picker
-          </h3>
-          <div className="flex flex-wrap gap-4">
-            {palettes.map((p) => (
-              <ColorPalette
-                key={p.id}
-                colors={p.colors}
-                checked={selected === p.id}
-                onChange={() => setSelected(p.id)}
-              />
-            ))}
-          </div>
-        </section>
+/**
+ * ColorPalette with secondary ring color.
+ */
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+  },
+  render: (args) => {
+    const [selected, setSelected] = useState("p1");
+    return (
+      <div className="flex flex-wrap gap-4">
+        {palettes.map((p) => (
+          <ColorPalette
+            key={p.id}
+            colors={p.colors}
+            checked={selected === p.id}
+            onChange={() => setSelected(p.id)}
+            {...args}
+          />
+        ))}
+      </div>
+    );
+  },
+};
 
-        <section>
-          <h3 className="text-muted-foreground mb-4 font-mono text-sm font-bold tracking-widest uppercase">
-            Vertical Size SM
-          </h3>
-          <ColorPalette colors={palettes[2].colors} orientation="vertical" size="sm" />
-        </section>
+/**
+ * ColorPalette with accent ring color.
+ */
+export const Accent: Story = {
+  args: {
+    variant: "accent",
+  },
+  render: (args) => {
+    const [selected, setSelected] = useState("p1");
+    return (
+      <div className="flex flex-wrap gap-4">
+        {palettes.map((p) => (
+          <ColorPalette
+            key={p.id}
+            colors={p.colors}
+            checked={selected === p.id}
+            onChange={() => setSelected(p.id)}
+            {...args}
+          />
+        ))}
+      </div>
+    );
+  },
+};
+
+/**
+ * ColorPalette in vertical orientation.
+ */
+export const Vertical: Story = {
+  args: {
+    orientation: "vertical",
+    size: "sm",
+  },
+  render: (args) => {
+    const [selected, setSelected] = useState("p1");
+    return (
+      <div className="flex flex-wrap gap-4">
+        {palettes.map((p) => (
+          <ColorPalette
+            key={p.id}
+            colors={p.colors}
+            checked={selected === p.id}
+            onChange={() => setSelected(p.id)}
+            {...args}
+          />
+        ))}
       </div>
     );
   },

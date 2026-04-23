@@ -25,6 +25,7 @@ function ColorPalette({
   className,
   orientation,
   size,
+  variant,
   ...props
 }: ColorPaletteProps) {
   const isInteractive = !!onChange;
@@ -36,8 +37,8 @@ function ColorPalette({
         colorPaletteVariants({
           orientation,
           size,
-          interactive: isInteractive,
-          checked,
+          variant,
+          checked: isInteractive && checked ? true : false,
           className,
         })
       )}

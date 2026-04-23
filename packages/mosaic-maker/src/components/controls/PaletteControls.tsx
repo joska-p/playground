@@ -19,7 +19,7 @@ function PaletteControls() {
           colors={Object.values(palette)}
           checked={arePalettesEqual(palette, currentPalette)}
           onChange={() => updatePalette(palette)}
-          aria-label={`Color palette ${getPaletteId(palette)}`}
+          variant="primary"
           size="sm"
           orientation="horizontal"
           className="transition-transform hover:scale-105 lg:flex-col lg:[--cell-size:--spacing(6)]"

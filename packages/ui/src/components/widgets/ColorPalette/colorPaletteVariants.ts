@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const colorPaletteVariants = cva(
-  "border-border flex w-fit overflow-hidden border transition-all",
+  "border-border flex w-fit cursor-pointer overflow-hidden border transition-all hover:ring-4",
   {
     variants: {
       orientation: {
@@ -13,19 +13,37 @@ export const colorPaletteVariants = cva(
         md: "[--cell-size:theme(spacing.6)]",
         lg: "[--cell-size:theme(spacing.8)]",
       },
-      interactive: {
-        true: "hover:ring-primary/50 cursor-pointer hover:ring-4 active:scale-95",
-        false: "cursor-default",
+      variant: {
+        primary: "hover:ring-primary/50",
+        secondary: "hover:ring-secondary/50",
+        accent: "hover:ring-accent/50",
       },
       checked: {
-        true: "ring-primary shadow-md ring-4",
+        true: "",
         false: "",
       },
     },
+    compoundVariants: [
+      {
+        variant: "primary",
+        checked: true,
+        className: "ring-primary shadow-md",
+      },
+      {
+        variant: "secondary",
+        checked: true,
+        className: "ring-secondary shadow-md",
+      },
+      {
+        variant: "accent",
+        checked: true,
+        className: "ring-accent shadow-md",
+      },
+    ],
     defaultVariants: {
       orientation: "horizontal",
       size: "md",
-      interactive: false,
+      variant: "primary",
       checked: false,
     },
   }
