@@ -41,8 +41,23 @@ jobs:
       - name: Install Dependencies
         run: nix develop --command pnpm install
 
+      - name: Type-check
+        run: nix develop --command pnpm check-types
+
+      - name: Lint
+        run: nix develop --command pnpm lint
+
       - name: Build
         run: nix develop --command pnpm build
+
+      - name: Verify storybook build exists
+        run: |
+          if [ ! -d "./apps/storybook/storybook-static" ]; then
+            echo "Error: storybook-static not found" && exit 1
+          fi
+          if [ -z "$(ls -A ./apps/storybook/storybook-static)" ]; then
+            echo "Error: storybook-static is empty" && exit 1
+          fi
 
       - name: Merge storybook into Astro Dist
         run: |

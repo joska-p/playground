@@ -1,4 +1,4 @@
-import { Button, Card } from "@repo/ui";
+import { Button } from "@repo/ui";
 import { useMosaicStore, updateCurrentPalettes, updateTiles } from "../../store/useMosaicStore.js";
 import { useShallow } from "zustand/shallow";
 import {

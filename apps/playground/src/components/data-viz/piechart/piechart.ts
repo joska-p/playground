@@ -55,7 +55,7 @@ class PieChart extends HTMLElement {
     this.data = (this.getAttribute("data") ?? "").split(";").map((v) => Number.parseFloat(v));
 
     this.paths = this.data.map((_, index) => {
-      const color = colors[index % colors.length];
+      const color = colors[index % colors.length] ?? "#000";
       const uiPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
       uiPath.setAttribute("fill", color);
       uiPath.addEventListener("mouseover", () => this.handlePathHover(index));
@@ -135,22 +135,29 @@ class PieChart extends HTMLElement {
   }
 
   draw(progress = 1) {
-    const total = this.data.reduce((acc, v) => acc + v);
+    const total = this.data.reduce((acc, v) => acc + v, 0);
     let angle = Math.PI / -2;
     let start = new Point(0, -1);
 
     this.data.forEach((value, index) => {
       const ratio = (value / total) * progress;
-      if (progress === 1) this.positionLabel(this.labels[index], angle + ratio * Math.PI);
+      const label = this.labels[index];
+      const path = this.paths[index];
+      const line = this.lines[index];
+      if (progress === 1 && label) this.positionLabel(label, angle + ratio * Math.PI);
       angle += ratio * 2 * Math.PI;
       const end = Point.fromAngle(angle);
       const largeFlag = ratio > 0.5 ? "1" : "0";
-      this.paths[index].setAttribute(
-        "d",
-        `M 0 0 L ${start.toSvgPath()} A 1 1 0 ${largeFlag} 1 ${end.toSvgPath()} L 0 0`
-      );
-      this.lines[index].setAttribute("x2", String(end.x));
-      this.lines[index].setAttribute("y2", String(end.y));
+      if (path) {
+        path.setAttribute(
+          "d",
+          `M 0 0 L ${start.toSvgPath()} A 1 1 0 ${largeFlag} 1 ${end.toSvgPath()} L 0 0`
+        );
+      }
+      if (line) {
+        line.setAttribute("x2", String(end.x));
+        line.setAttribute("y2", String(end.y));
+      }
       start = end;
     });
   }
