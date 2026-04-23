@@ -1,7 +1,7 @@
 import { Button, Input } from "@repo/ui";
 import { useState } from "react";
-import { usePaletteContext } from "../../context/paletteContext.js";
-import type { Palette, BaseColor } from "../../context/paletteContext.js";
+import { usePaletteContext } from "../../../context/paletteContext.js";
+import type { Palette, BaseColor } from "../../../context/paletteContext.js";
 
 interface AnalogousPalettes {
   baseColor: BaseColor;

@@ -1,18 +1,18 @@
 import { Controls } from "./components/controls/Controls.js";
 import { SequenceDisplay } from "./components/sequence-display/SequenceDisplay.js";
-import { SidebarProvider } from "@repo/ui";
+import { Sidebar } from "@repo/ui";
 
 function SequenceRenderer() {
   return (
-    <SidebarProvider desktopPosition="bottom" mobilePosition={"bottom"}>
-      <SidebarProvider.Content className="relative">
+    <Sidebar desktopPosition="bottom" mobilePosition="bottom">
+      <Sidebar.Main className="relative">
         <SequenceDisplay />
-      </SidebarProvider.Content>
+      </Sidebar.Main>
 
-      <SidebarProvider.Sidebar>
+      <Sidebar.Panel>
         <Controls />
-      </SidebarProvider.Sidebar>
-    </SidebarProvider>
+      </Sidebar.Panel>
+    </Sidebar>
   );
 }
 

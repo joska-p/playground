@@ -1,5 +1,5 @@
-import { useColorPicker } from "../../hooks/useColorPicker.js";
-import { cn } from "../../utils/utils.js";
+import { useColorPicker } from "../../../hooks/useColorPicker.js";
+import { cn } from "../../../utils/utils.js";
 
 interface ColorPickerProps {
   width?: number;
@@ -12,7 +12,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
   const { x, y } = baseColor.location;
 
   return (
-    <div className="relative flex flex-col items-start justify-between gap-4">
+    <>
       <div
         style={{ top: y, left: x }}
         inert
@@ -56,7 +56,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
           background: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
         }}
       />
-    </div>
+    </>
   );
 }
 

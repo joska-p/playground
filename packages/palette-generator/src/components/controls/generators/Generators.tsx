@@ -9,12 +9,12 @@ import { XadicForm } from "./XadicForm.js";
 
 function Generators() {
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <MonochromaticForm />
       <XadicForm />
       <AnalogousForm />
       <ComplementaryForm />
-    </div>
+    </>
   );
 }
 

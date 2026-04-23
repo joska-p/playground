@@ -1,22 +1,22 @@
-import { ColorPicker } from "./controls/color-picker/ColorPicker.js";
-import { Generators } from "./controls/generators/Generators.js";
+import { ColorPicker } from "./components/controls/color-picker/ColorPicker.js";
+import { Generators } from "./components/controls/generators/Generators.js";
 import { PaletteProvider } from "./context/paletteContext.js";
 import { PaletteDisplay } from "./components/PaletteDisplay.js";
-import { SidebarProvider } from "@repo/ui";
+import { Sidebar } from "@repo/ui";
 
 function PaletteGenerator() {
   return (
     <PaletteProvider>
-      <SidebarProvider mobilePosition="left" desktopPosition="left">
-        <SidebarProvider.Sidebar className="bg-card w-96 space-y-4 p-2">
+      <Sidebar mobilePosition="left" desktopPosition="left">
+        <Sidebar.Panel className="flex flex-col items-start justify-between gap-4 p-4">
           <ColorPicker width={368} height={368} />
           <Generators />
-        </SidebarProvider.Sidebar>
+        </Sidebar.Panel>
 
-        <SidebarProvider.Content className="p-2">
+        <Sidebar.Main className="p-2">
           <PaletteDisplay />
-        </SidebarProvider.Content>
-      </SidebarProvider>
+        </Sidebar.Main>
+      </Sidebar>
     </PaletteProvider>
   );
 }
