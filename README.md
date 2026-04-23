@@ -27,6 +27,20 @@ pnpm dev
 
 Opens at [localhost:4321](http://localhost:4321)
 
+### Nix (Optional)
+
+If you're on NixOS or have Nix:
+
+```bash
+# With flakes (recommended)
+nix develop
+
+# Or with direnv
+direnv allow
+```
+
+This gives you: Node.js, pnpm, turbo, ESLint, Prettier, TypeScript, and language servers.
+
 ---
 
 ## 📁 Structure

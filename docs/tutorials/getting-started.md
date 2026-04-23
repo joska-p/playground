@@ -18,11 +18,24 @@ pnpm install
 pnpm dev
 ```
 
+### Nix (Optional)
+
+On NixOS? Just run:
+
+```bash
+nix develop
+```
+
+Or with direnv: `direnv allow`
+
+Gets you: Node.js, pnpm, turbo, ESLint, Prettier, TypeScript—all set up.
+
 | Command | What Happens |
-|---------|-------------|
+|--------|-------------|
 | `pnpm dev` | All apps + packages in watch mode |
 | `pnpm build` | Production build |
 | `pnpm check-types` | TypeScript check |
+| `nix develop` | Nix shell (optional) |
 
 ## 📁 Project Structure
 
