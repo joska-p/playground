@@ -1,4 +1,4 @@
-import { Slider, ControlGroup } from "@repo/ui";
+import { Slider } from "@repo/ui";
 import { useState } from "react";
 import { useMosaicStore } from "../../store/useMosaicStore.js";
 import { useShallow } from "zustand/shallow";
@@ -22,9 +22,15 @@ function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) 
   }
 
   return (
-    <ControlGroup label={label} valueDisplay={`${value}px`}>
-      <Slider min={min} max={max} step={step} value={value} onChange={handleSetValue} />
-    </ControlGroup>
+    <Slider
+      label={label}
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={handleSetValue}
+      unit="px"
+    />
   );
 }
 
