@@ -1,28 +1,49 @@
 # Documentation
 
-A collection of guides, design references, and architectural standards for the Creative Playground.
+> Everything you need to know about the Creative Playground.
 
 ---
 
-## Getting Started
+## 🌱 Tutorials
 
-- [Adding Pages and Routes](guides/adding-pages.md) — How to add new projects and categories
+Learning-oriented guides for new developers.
+
+- [Getting Started](./tutorials/getting-started.md) — Set up, run, and make your first contribution
+
+## 🛠️ How-To
+
+Problem-solving recipes for common tasks.
+
+- [Adding Pages](./how-to/adding-pages.md) — Add projects to the playground
+- [Creating Components](./how-to/creating-components.md) — Build UI components the right way
+- [Adding Visualizations](./how-to/adding-visualizations.md) — Add sequence visualizations
+
+## 📖 Reference
+
+Technical details—look it up when you need it.
+
+- [Design Tokens](./reference/design-tokens.md) — Colors, typography, spacing
+- [Component API](./reference/component-api.md) — Component props and usage
+- [Package API](./reference/package-api.md) — What's exported where
+
+## 💡 Explanation
+
+Understanding-oriented guides—deep dives into the why.
+
+- [Architecture](./explanation/architecture.md) — Directory structure and conventions
+- [Mosaic Engine](./explanation/mosaic-engine.md) — How tile generation works
+- [Sequence Renderer](./explanation/sequence-renderer.md) — How sequence viz works
 
 ---
 
-## Design System
+## 🚀 Quick Links
 
-- [Graphic Charter](design/graphic-charter.md) — Gruvbox design tokens (colors, typography, spacing)
-- [Guidelines](design/guidelines.md) — Component rules and patterns
-
----
-
-## Architecture
-
-- [Blueprint](architecture/blueprint.md) — Directory structure, naming conventions, coding standards
-- [Mosaic Engine Guide](architecture/mosaic-engine-guide.md) — Tile registry and ruleset pattern
-- [Sequence Renderer Guide](architecture/sequence-renderer-guide.md) — Mathematical sequence visualization
+| Resource | Link |
+|----------|------|
+| Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
+| GitHub | [github.com/joska-p/playground](https://github.com/joska-p/playground) |
+| Run locally | `pnpm dev` |
 
 ---
 
-For component documentation, see [Storybook](https://joska-p.github.io/playground/storybook).
+*Built with 🎨 by the playground team*

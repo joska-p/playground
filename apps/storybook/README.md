@@ -1,24 +1,54 @@
 # Storybook
 
-Component documentation for the Creative Playground.
+> Component documentation for the Creative Playground.
 
 ---
 
-## Commands
+## 🚀 Run It
 
-From workspace root:
+```bash
+cd apps/storybook && pnpm dev
+```
 
-| Command | Action |
-|---------|--------|
-| `pnpm dev` | Start Storybook at `localhost:6006` |
-| `pnpm build` | Build static Storybook |
+Opens at [localhost:6006](http://localhost:6006)
+
+## 🛠️ Commands
+
+| Command | What |
+|---------|------|
+| `pnpm dev` | Start Storybook (6006) |
+| `pnpm build` | Static build |
+
+## 🧩 Where Stories Live
+
+Stories are co-located with components:
+
+```
+packages/ui/src/components/Button/
+├── Button.tsx
+├── Button.stories.tsx  # 👈 Stories here
+└── index.ts
+```
+
+## 🎨 Browse Components
+
+| Category | Components |
+|----------|-----------|
+| Actions | Button |
+| Forms | Input, Slider, Switch, Select |
+| Layout | Card, Sidebar |
+| Display | ColorPalette, Label |
 
 ---
 
-## Components
+## 📖 Learn More
 
-UI components are defined in `packages/ui/` with Storybook stories co-located.
+| Topic | Link |
+|-------|------|
+| Component patterns | [docs/how-to/creating-components](../docs/how-to/creating-components.md) |
+| Design tokens | [docs/reference/design-tokens](../docs/reference/design-tokens.md) |
+| Live Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
 
-See [Storybook](https://joska-p.github.io/playground/storybook) for live documentation.
+---
 
-For design system reference, see [Graphic Charter](docs/design/graphic-charter.md) and [Guidelines](docs/design/guidelines.md).
+*Part of @repo/playground*

@@ -1,21 +1,55 @@
 # Playground (Astro)
 
-The main Astro site hosting all experiments.
+> The main Astro site where all the magic happens.
 
 ---
 
-## Commands
+## 🚀 Run It
 
-From workspace root:
+```bash
+pnpm dev
+```
 
-| Command | Action |
-|---------|--------|
-| `pnpm dev` | Start dev server at `localhost:4321` |
-| `pnpm build` | Build to `./dist` |
-| `pnpm preview` | Preview build locally |
+Opens at [localhost:4321](http://localhost:4321)
+
+## 🛠️ Commands
+
+| Command | What |
+|---------|------|
+| `pnpm dev` | Start dev server (4321) |
+| `pnpm build` | Production build |
+| `pnpm preview` | Preview local build |
+
+## ➕ Add a Project
+
+See [Adding Pages](../docs/how-to/adding-pages.md) for the full guide.
+
+```tsx
+// Create: apps/playground/src/pages/<category>/<project>/index.tsx
+// Register: src/constants/routes.ts
+```
 
 ---
 
-## Adding Projects
+## 📁 Structure
 
-See [Adding Pages and Routes](docs/guides/adding-pages.md) for a step-by-step guide.
+```
+apps/playground/src/
+├── constants/routes.ts    # Navigation
+├── layouts/             # Page layouts
+├── pages/              # All projects
+└── components/        # Shared components
+```
+
+---
+
+## 📖 Learn More
+
+| Topic | Link |
+|-------|------|
+| Add pages | [docs/how-to/adding-pages](../docs/how-to/adding-pages.md) |
+| Design tokens | [docs/reference/design-tokens](../docs/reference/design-tokens.md) |
+
+---
+
+*Part of @repo/playground*
