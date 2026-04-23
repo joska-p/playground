@@ -1,6 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Input } from "@repo/ui";
 
+function MailIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 8.99-4.97-4.96-3.03 3.03" />
+    </svg>
+  );
+}
+
+function GlobeIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+      <path d="M2 12h20" />
+    </svg>
+  );
+}
+
 /**
  * A highly customizable, Gruvbox-themed input component.
  * Built with React 19 and Tailwind CSS v4, supporting accessible labels
@@ -32,6 +51,18 @@ const meta: Meta<typeof Input> = {
     disabled: {
       description: "Disables user interaction and applies dimmed styling.",
       control: "boolean",
+    },
+    isLoading: {
+      description: "Shows a loading spinner and disables the input.",
+      control: "boolean",
+    },
+    startIcon: {
+      description: "Icon displayed before the input text.",
+      control: false,
+    },
+    endIcon: {
+      description: "Icon displayed after the input text.",
+      control: false,
     },
     placeholder: {
       description: "Placeholder text inside the input.",
@@ -80,14 +111,11 @@ export const Secondary: Story = {
   },
 };
 
-/**
- * Standard password masking.
- */
 export const Password: Story = {
   args: {
     label: "Password",
     type: "password",
-    placeholder: "••••••••",
+    placeholder: "Enter password",
   },
 };
 
@@ -100,5 +128,43 @@ export const Disabled: Story = {
     disabled: true,
     placeholder: "You cannot edit this content",
     helperText: "This field is currently locked.",
+  },
+};
+
+/**
+ * Shows a loading spinner inside the input field.
+ */
+export const Loading: Story = {
+  args: {
+    label: "Search",
+    placeholder: "Searching…",
+    isLoading: true,
+    helperText: "Searching for results…",
+  },
+};
+
+/**
+ * Input with an icon on the left side.
+ */
+export const WithStartIcon: Story = {
+  args: {
+    label: "Email",
+    type: "email",
+    placeholder: "you@example.com",
+    startIcon: <MailIcon />,
+    helperText: "We'll never share your email.",
+  },
+};
+
+/**
+ * Input with an icon on the right side.
+ */
+export const WithEndIcon: Story = {
+  args: {
+    label: "Website",
+    type: "url",
+    placeholder: "https://",
+    endIcon: <GlobeIcon />,
+    helperText: "Your personal portfolio URL.",
   },
 };
