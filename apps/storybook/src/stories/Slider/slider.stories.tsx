@@ -24,6 +24,15 @@ const meta: Meta<typeof Slider> = {
       options: ["primary", "secondary", "accent", "destructive"],
       control: { type: "select" },
     },
+    layout: {
+      description: "Controls the layout direction.",
+      options: ["vertical", "horizontal"],
+      control: { type: "select" },
+    },
+    unit: {
+      description: "Unit suffix displayed after value.",
+      control: "text",
+    },
     min: {
       description: "Minimum possible value.",
       control: { type: "number" },
@@ -44,6 +53,7 @@ const meta: Meta<typeof Slider> = {
   args: {
     label: "Intensity",
     variant: "primary",
+    layout: "vertical",
     min: 0,
     max: 100,
     step: 1,
@@ -131,4 +141,22 @@ export const Disabled: Story = {
     helperText: "This slider is currently locked.",
   },
   render: (args) => <InteractiveSlider {...args} showValue />,
+};
+
+/**
+ * Horizontal layout for inline controls.
+ */
+export const Horizontal: Story = {
+  args: {
+    label: "Volume",
+    variant: "secondary",
+    layout: "horizontal",
+    value: 50,
+    unit: "%",
+  },
+  render: (args) => (
+    <div className="w-[400px]">
+      <Slider {...args} value={args.value ?? 50} onChange={() => {}} />
+    </div>
+  ),
 };
