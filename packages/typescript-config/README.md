@@ -2,15 +2,19 @@
 
 Shared TypeScript configurations.
 
+---
+
 ## Installation
 
 ```bash
 pnpm add -D @repo/typescript-config
 ```
 
+---
+
 ## Usage
 
-Reference these configs in your `tsconfig.json`:
+Reference in your `tsconfig.json`:
 
 ```json
 {
@@ -20,5 +24,7 @@ Reference these configs in your `tsconfig.json`:
 
 Available configs:
 
-- `base.json` — Base configuration for libraries
-- `astro.json` — Astro-specific configuration
+| Config | Purpose |
+|--------|---------|
+| `base.json` | Base configuration |
+| `astro.json` | Astro-specific |

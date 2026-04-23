@@ -1,6 +1,8 @@
 # @repo/ui
 
-Shared primitive UI components built with React 19.
+Shared UI components built with React 19.
+
+---
 
 ## Installation
 
@@ -8,13 +10,7 @@ Shared primitive UI components built with React 19.
 pnpm add @repo/ui
 ```
 
-## Available Components
-
-- Primitive UI components (buttons, inputs, cards)
-- Layout components
-- Data visualization components
-
-See [Storybook](https://joska-p.github.io/playground/storybook) for interactive documentation.
+---
 
 ## Usage
 
@@ -25,3 +21,11 @@ export function MyPage() {
   return <Button>Click me</Button>;
 }
 ```
+
+---
+
+## Documentation
+
+See [Graphic Charter](docs/design/graphic-charter.md) for design tokens and [Guidelines](docs/design/guidelines.md) for component patterns.
+
+For interactive examples, see [Storybook](https://joska-p.github.io/playground/storybook).

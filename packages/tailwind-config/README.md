@@ -1,6 +1,8 @@
 # @repo/tailwind-config
 
-Shared Tailwind CSS v4 configuration.
+Shared Tailwind CSS configuration featuring the Gruvbox theme.
+
+---
 
 ## Installation
 
@@ -8,9 +10,11 @@ Shared Tailwind CSS v4 configuration.
 pnpm add @repo/tailwind-config
 ```
 
+---
+
 ## Usage
 
-This package exports theme configuration for Tailwind. Import it in your Tailwind config:
+Import the theme in your Tailwind config:
 
 ```js
 // tailwind.config.js
@@ -20,3 +24,9 @@ export default {
   theme,
 };
 ```
+
+---
+
+## Design System
+
+See [Graphic Charter](docs/design/graphic-charter.md) for color values, typography, and spacing tokens.

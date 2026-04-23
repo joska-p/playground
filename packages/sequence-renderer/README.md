@@ -1,6 +1,8 @@
 # @repo/sequence-renderer
 
-Mathematical sequence visualizations — renders sequences like Recamán's Sequence as interactive graphics.
+Mathematical sequence visualizations. Renders sequences like Recaman's Sequence as interactive graphics.
+
+---
 
 ## Installation
 
@@ -8,6 +10,8 @@ Mathematical sequence visualizations — renders sequences like Recamán's Seque
 pnpm add @repo/sequence-renderer
 ```
 
-## Usage
+---
 
-See [Sequence Renderer Guide](../../docs/drafts/sequence-renderer-guide.md) for detailed documentation.
+## Documentation
+
+See [Sequence Renderer Guide](docs/architecture/sequence-renderer-guide.md) for detailed usage and the [Blueprint](docs/architecture/blueprint.md) for code conventions.

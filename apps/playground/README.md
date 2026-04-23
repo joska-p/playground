@@ -1,30 +1,21 @@
 # Playground (Astro)
 
-The main Astro site hosting all experiments and creative coding tools.
+The main Astro site hosting all experiments.
+
+---
 
 ## Commands
 
-From the workspace root:
+From workspace root:
 
-| Command        | Action                                       |
-| :------------- | :------------------------------------------- |
-| `pnpm dev`     | Start development server at `localhost:4321` |
-| `pnpm build`   | Build production files to `./dist`           |
-| `pnpm preview` | Preview production build locally             |
+| Command | Action |
+|---------|--------|
+| `pnpm dev` | Start dev server at `localhost:4321` |
+| `pnpm build` | Build to `./dist` |
+| `pnpm preview` | Preview build locally |
 
-## Structure
+---
 
-```
-src/
-├── components/    # Astro + React components
-├── layouts/       # Page layouts
-├── pages/         # File-based routing
-├── styles/       # Global styles
-└── content/      # Content collections
-```
+## Adding Projects
 
-## Adding New Experiments
-
-1. Create a new page in `src/pages/`
-2. Add any required components to `src/components/`
-3. Follow the [Architectural Blueprint](../../docs/drafts/architectural-blueprint.md) for structure conventions
+See [Adding Pages and Routes](docs/guides/adding-pages.md) for a step-by-step guide.

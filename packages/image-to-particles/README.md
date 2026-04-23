@@ -2,23 +2,24 @@
 
 Transform images into interactive falling particle animations.
 
+---
+
 ## Installation
 
 ```bash
 pnpm add @repo/image-to-particles
 ```
 
+---
+
 ## Usage
 
 ```tsx
 import { ImageToParticles } from "@repo/image-to-particles";
+
+<ImageToParticles />
 ```
 
-Wrap in StrictMode at the app level if needed:
-```tsx
-<StrictMode>
-  <ImageToParticles />
-</StrictMode>
-```
+---
 
-See [docs/guides/image-to-particles.md](../../docs/guides/image-to-particles.md) for detailed guide.
+See the [Playground](https://joska-p.github.io/playground/particles/image-to-particles/) for live examples.

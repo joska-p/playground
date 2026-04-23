@@ -1,25 +1,24 @@
 # Storybook
 
-Component documentation and playground for UI components.
+Component documentation for the Creative Playground.
+
+---
 
 ## Commands
 
-From the workspace root:
+From workspace root:
 
-| Command                         | Action                              |
-| :------------------------------ | :---------------------------------- |
-| `pnpm dev --filter=storybook`   | Start Storybook at `localhost:6006` |
-| `pnpm build --filter=storybook` | Build static Storybook              |
+| Command | Action |
+|---------|--------|
+| `pnpm dev` | Start Storybook at `localhost:6006` |
+| `pnpm build` | Build static Storybook |
 
-## Adding Stories
+---
 
-Stories live alongside components following the component-per-folder pattern:
+## Components
 
-```
-src/components/MyComponent/
-├── MyComponent.tsx
-├── MyComponent.stories.tsx
-└── index.ts
-```
+UI components are defined in `packages/ui/` with Storybook stories co-located.
 
-See the [official Storybook docs](https://storybook.js.org/) for more on writing stories.
+See [Storybook](https://joska-p.github.io/playground/storybook) for live documentation.
+
+For design system reference, see [Graphic Charter](docs/design/graphic-charter.md) and [Guidelines](docs/design/guidelines.md).

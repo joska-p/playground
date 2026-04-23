@@ -1,6 +1,8 @@
 # @repo/mosaic-maker
 
-Mosaic generation engine — transforms images or color palettes into customizable mosaic patterns.
+Mosaic generation engine. Transforms images or color palettes into customizable mosaic patterns.
+
+---
 
 ## Installation
 
@@ -8,6 +10,8 @@ Mosaic generation engine — transforms images or color palettes into customizab
 pnpm add @repo/mosaic-maker
 ```
 
-## Usage
+---
 
-See [Mosaic Engine Guide](../../docs/drafts/mosaic-engine-guide.md) for detailed documentation.
+## Documentation
+
+See [Mosaic Engine Guide](docs/architecture/mosaic-engine-guide.md) for detailed usage and the [Blueprint](docs/architecture/blueprint.md) for code conventions.

@@ -1,6 +1,8 @@
 # @repo/palette-generator
 
-Color palette generation tools - create harmonious palettes using color theory (complementary, analogous, monochromatic, triadic).
+Color palette generation using color theory (complementary, analogous, monochromatic, triadic).
+
+---
 
 ## Installation
 
@@ -8,17 +10,16 @@ Color palette generation tools - create harmonious palettes using color theory (
 pnpm add @repo/palette-generator
 ```
 
+---
+
 ## Usage
 
 ```tsx
 import { PaletteGenerator } from "@repo/palette-generator";
+
+<PaletteGenerator />
 ```
 
-Wrap in StrictMode at the app level if needed:
-```tsx
-<StrictMode>
-  <PaletteGenerator />
-</StrictMode>
-```
+---
 
-See [docs/guides/palette-generator.md](../../docs/guides/palette-generator.md) for detailed guide.
+See the [Playground](https://joska-p.github.io/playground/colors/palettes-generator/) for live examples.
