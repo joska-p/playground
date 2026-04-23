@@ -20,7 +20,7 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       description: "Controls the background and border style of the card.",
-      options: ["default", "muted"],
+      options: ["primary", "secondary", "accent", "outline", "ghost", "muted"],
       control: { type: "select" },
     },
   },
@@ -31,11 +31,12 @@ export default meta;
 type Story = StoryObj<typeof Card>;
 
 /**
- * The standard layout used for experiment settings and toolcards.
+ * The standard card layout using the primary background.
+ * Use as the default for experiment settings and toolcards.
  */
-export const Default: Story = {
+export const Primary: Story = {
   args: {
-    variant: "default",
+    variant: "primary",
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -57,9 +58,100 @@ export const Default: Story = {
 };
 
 /**
- * A subtle variation for less prominent information or sidebars.
+ * Uses the secondary background for alternative cards.
+ * Good for supporting or secondary content.
  */
-export const MutedVariant: Story = {
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+  },
+  render: (args) => (
+    <div className="w-full max-w-sm">
+      <Card {...args}>
+        <CardHeader>
+          <CardTitle>Additional Settings</CardTitle>
+          <CardDescription>Optional configurations.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Advanced options for power users.</p>
+        </CardContent>
+      </Card>
+    </div>
+  ),
+};
+
+/**
+ * Uses the accent background for highlighted cards.
+ * Good for call-to-action cards.
+ */
+export const Accent: Story = {
+  args: {
+    variant: "accent",
+  },
+  render: (args) => (
+    <div className="w-full max-w-sm">
+      <Card {...args}>
+        <CardHeader>
+          <CardTitle>Special Offer</CardTitle>
+          <CardDescription>Limited time deal!</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Get 50% off on your next generation.</p>
+        </CardContent>
+        <CardFooter>
+          <Button>Claim Now</Button>
+        </CardFooter>
+      </Card>
+    </div>
+  ),
+};
+
+/**
+ * Card with outline/border only, no background fill.
+ * Good for comparison cards or nested content.
+ */
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+  },
+  render: (args) => (
+    <div className="w-full max-w-sm">
+      <Card {...args}>
+        <CardHeader>
+          <CardTitle>Preview Mode</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>This card is for preview purposes.</p>
+        </CardContent>
+      </Card>
+    </div>
+  ),
+};
+
+/**
+ * Minimal card with no shadow or border.
+ * Good for inline content or dark backgrounds.
+ */
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+  },
+  render: (args) => (
+    <div className="w-full max-w-sm">
+      <Card {...args}>
+        <CardContent>
+          <p>Minimal inline card content.</p>
+        </CardContent>
+      </Card>
+    </div>
+  ),
+};
+
+/**
+ * Card with dashed border for metadata or notes.
+ * Good for displaying version info or timestamps.
+ */
+export const Muted: Story = {
   args: {
     variant: "muted",
   },

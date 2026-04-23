@@ -18,7 +18,7 @@ function CardHeader({ className, ...props }: ComponentProps<"div">) {
 
 function CardTitle({ className, ...props }: ComponentProps<"h3">) {
   return (
-    <h3 className={cn("font-mono text-xl leading-none tracking-tight", className)} {...props} />
+    <h3 className={cn("font-mono text-xl", className)} {...props} />
   );
 }
 
