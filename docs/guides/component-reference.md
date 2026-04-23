@@ -16,6 +16,36 @@ components/MyComponent/
 
 ---
 
+## Utility: `cn()`
+
+All components use `cn()` from `@repo/ui` for class merging. It's a wrapper around `clsx` + `tailwind-merge`.
+
+```tsx
+import { cn } from "../../utils/cn.js";
+```
+
+### Usage
+
+```tsx
+// Simple concatenation
+className={cn("base-class", "extra-class")}
+
+// Conditional classes (object syntax)
+className={cn("base", {
+  "text-primary": variant === "primary",
+  "text-secondary": variant === "secondary",
+})}
+
+// Mixed
+className={cn("base", someCondition && "conditional", {
+  "variant-class": isActive,
+})}
+```
+
+**Key:** Always use static strings in ternaries/objects so Tailwind JIT can scan them. Template literals like `text-${variant}` won't work.
+
+---
+
 ## Component Pattern: Button
 
 ### Variants (`buttonVariants.ts`)

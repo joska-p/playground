@@ -10,11 +10,9 @@ interface SliderProps
   onChange?: (value: number) => void;
   label?: string;
   helperText?: string;
+  unit?: string;
 }
 
-/**
- * A themed range input for adjusting numerical values in experiments.
- */
 function Slider({
   ref,
   className,
@@ -26,11 +24,13 @@ function Slider({
   step = 1,
   label,
   helperText,
+  unit,
   id,
   ...props
 }: SliderProps) {
   const generatedId = useId();
   const sliderId = id ?? generatedId;
+  const hasLabel = label !== undefined;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = parseFloat(event.target.value);
@@ -40,12 +40,22 @@ function Slider({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label
-          htmlFor={sliderId}
-          className="text-xs text-foreground/80"
-        >
-          {label}
-        </label>
+        <div className="flex items-center justify-between">
+          <label htmlFor={sliderId} className="text-xs text-foreground/80">
+            {label}
+          </label>
+          <span
+            className={cn("font-mono text-xs", {
+              "text-primary": !variant || variant === "primary",
+              "text-secondary": variant === "secondary",
+              "text-accent": variant === "accent",
+              "text-destructive": variant === "destructive",
+            })}
+          >
+            {value}
+            {unit}
+          </span>
+        </div>
       )}
       <input
         type="range"
@@ -59,7 +69,7 @@ function Slider({
         ref={ref}
         {...props}
       />
-      {helperText && (
+      {helperText && !hasLabel && (
         <p
           className={cn(
             "text-xs italic",
