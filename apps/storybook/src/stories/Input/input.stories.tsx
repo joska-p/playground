@@ -40,7 +40,7 @@ const meta: Meta<typeof Input> = {
     },
     variant: {
       description: "Visual style variant based on the Gruvbox color palette.",
-      options: ["default", "error", "secondary"],
+      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
       control: { type: "select" },
     },
     type: {
@@ -76,38 +76,78 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 /**
- * The standard input style using the Gruvbox 'border-border' and 'bg-input' tokens.
+ * The standard input style using the primary border color.
+ * Use as the default input field for most forms.
  */
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     label: "Username",
     placeholder: "e.g. josh_creative",
-    variant: "default",
+    variant: "primary",
     helperText: "Choose a unique name for the playground.",
   },
 };
 
 /**
- * Highlights errors using the 'destructive' (red) color from the theme.
+ * Uses the secondary color for alternative input styling.
+ * Good for optional or secondary fields.
  */
-export const ErrorState: Story = {
+export const Secondary: Story = {
+  args: {
+    label: "Additional Notes",
+    placeholder: "Optional details…",
+    variant: "secondary",
+  },
+};
+
+/**
+ * Uses the accent color for highlighted inputs.
+ * Use for inputs that need special attention.
+ */
+export const Accent: Story = {
+  args: {
+    label: "Promo Code",
+    placeholder: "Enter code",
+    variant: "accent",
+    helperText: "Enter your promotional code.",
+  },
+};
+
+/**
+ * Uses the destructive color to indicate errors.
+ * Displayed when the input has an invalid value.
+ */
+export const Destructive: Story = {
   args: {
     label: "Email Address",
     type: "email",
     defaultValue: "invalid-email",
-    variant: "error",
+    variant: "destructive",
     helperText: "Please enter a valid email address.",
   },
 };
 
 /**
- * A subtle style with a slightly different background weight.
+ * A subtle transparent style with border on hover.
+ * Good for less prominent input fields.
  */
-export const Secondary: Story = {
+export const Outline: Story = {
   args: {
-    label: "Additional Notes",
-    placeholder: "Optional details...",
-    variant: "secondary",
+    label: "Hidden Field",
+    placeholder: "Optional…",
+    variant: "outline",
+  },
+};
+
+/**
+ * Minimal style with hover background effect.
+ * Use for inline or compact forms.
+ */
+export const Ghost: Story = {
+  args: {
+    label: "Quick Search",
+    placeholder: "Search…",
+    variant: "ghost",
   },
 };
 

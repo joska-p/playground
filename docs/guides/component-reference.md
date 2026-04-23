@@ -28,12 +28,12 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80 shadow-sm",
+        primary: "bg-primary text-primary-foreground hover:bg-primary/80 shadow-sm",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
+        accent: "bg-accent text-accent-foreground hover:bg-accent/80 shadow-sm",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/80 shadow-sm",
         outline: "border border-border bg-transparent hover:bg-foreground/5 hover:text-foreground shadow-sm",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
         ghost: "hover:bg-foreground/10 hover:text-foreground shadow-sm",
-        link: "text-primary hover:underline underline-offset-4",
       },
       size: {
         sm: "h-8 px-3 text-xs",
@@ -43,7 +43,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "default",
     },
   }
@@ -136,13 +136,16 @@ export const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-border hover:border-primary/50",
-        error: "border-destructive text-destructive focus-visible:ring-destructive",
-        secondary: "bg-secondary/10 border-secondary/20",
+        primary: "border-border hover:border-primary/50",
+        secondary: "border-secondary/50 bg-secondary/10 hover:border-secondary",
+        accent: "border-accent/50 bg-accent/10 hover:border-accent",
+        destructive: "border-destructive text-destructive focus-visible:ring-destructive",
+        outline: "border-border bg-transparent hover:border-primary/50",
+        ghost: "border-transparent bg-transparent hover:bg-foreground/5",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
     },
   }
 );
@@ -240,7 +243,7 @@ function Input({
         <p
           className={cn(
             "text-xs italic",
-            variant === "error" ? "text-destructive" : "text-muted-foreground"
+            variant === "destructive" ? "text-destructive" : "text-muted-foreground"
           )}
         >
           {helperText}
@@ -358,9 +361,10 @@ function SearchIcon() {
 ### Args Pattern
 
 ```tsx
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     // required props
+    variant: "primary",
     children: "Button Text",
   },
 };
@@ -378,8 +382,8 @@ export const Loading: Story = {
 ```tsx
 argTypes: {
   variant: {
-    description: "Visual style variant",
-    options: ["default", "destructive", "outline", "secondary", "ghost"],
+    description: "Visual style variant based on the theme colors.",
+    options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
     control: { type: "select" },
   },
   isLoading: {
@@ -403,18 +407,99 @@ argTypes: {
 
 ---
 
-## Variance Reference
+## Standard Variants
 
-### Standard Variants
+All components MUST have these 6 variants:
 
-| Variant | Use Case |
-| :--- | :--- |
-| `default` | Primary action |
-| `destructive` | Delete, reset, dangerous |
-| `outline` | Secondary with border |
-| `secondary` | Alternative action |
-| `ghost` | Minimal, tertiary |
-| `link` | Anchor-style |
+| Variant | Color | Usage |
+| :--- | :--- | :--- |
+| `primary` | primary | Primary action (default) |
+| `secondary` | secondary | Secondary/alternative actions |
+| `accent` | accent | Highlights, special actions |
+| `destructive` | destructive | Delete, reset, dangerous |
+| `outline` | border | Secondary with border |
+| `ghost` | hover only | Minimal, tertiary |
+
+### Required Stories
+
+Create a story for each variant:
+
+```tsx
+export const Primary: Story = {
+  args: {
+    variant: "primary",
+    children: "Primary Label",
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+    children: "Secondary Label",
+  },
+};
+
+export const Accent: Story = {
+  args: {
+    variant: "accent",
+    children: "Accent Label",
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    variant: "destructive",
+    children: "Destructive Label",
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+    children: "Outline Label",
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+    children: "Ghost Label",
+  },
+};
+```
+
+### CVA Definition
+
+```tsx
+const myComponentVariants = cva(
+  "base classes..."
+  {
+    variants: {
+      variant: {
+        primary: "text-primary",
+        secondary: "text-secondary",
+        accent: "text-accent",
+        destructive: "text-destructive",
+        outline: "border border-border bg-transparent hover:bg-foreground/5",
+        ghost: "hover:bg-foreground/10",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+    },
+  }
+);
+```
+
+### HelperText Pattern
+
+For error states in form inputs:
+
+```tsx
+variant === "destructive" ? "text-destructive" : "text-muted-foreground"
+```
+
+**Never use `error` variant name — use `destructive`.**
 
 ### Standard Sizes
 

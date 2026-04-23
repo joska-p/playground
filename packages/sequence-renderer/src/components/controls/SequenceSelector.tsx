@@ -15,7 +15,7 @@ function SequenceSelector() {
     <div className="flex min-w-[200px] items-center gap-2 whitespace-nowrap">
       <span className="text-sm font-medium">Sequence:</span>
       <Select
-        variant="default"
+        variant="primary"
         value={sequenceRule.id}
         onChange={handleChange}
         className="flex-1 pr-6"

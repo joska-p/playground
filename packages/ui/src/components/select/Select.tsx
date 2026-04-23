@@ -52,7 +52,7 @@ function Select({
         <p
           className={cn(
             "text-xs italic",
-            variant === "error" ? "text-destructive" : "text-muted-foreground"
+            variant === "destructive" ? "text-destructive" : "text-muted-foreground"
           )}
         >
           {helperText}

@@ -35,7 +35,7 @@ function Controls() {
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">Visualization:</span>
         <Select
-          variant="default"
+          variant="primary"
           value={visualizationId}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVisualizationId(e.target.value)}
           className="w-auto min-w-[140px]"

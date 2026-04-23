@@ -5,12 +5,12 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80 shadow-sm",
+        primary: "bg-primary text-primary-foreground hover:bg-primary/80 shadow-sm",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
+        accent: "bg-accent text-accent-foreground hover:bg-accent/80 shadow-sm",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/80 shadow-sm",
         outline: "border border-border bg-transparent hover:bg-foreground/5 hover:text-foreground shadow-sm",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
         ghost: "hover:bg-foreground/10 hover:text-foreground shadow-sm",
-        link: "text-primary hover:underline underline-offset-4",
       },
       size: {
         sm: "h-8 px-3 text-xs",
@@ -20,7 +20,7 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "default",
     },
   }

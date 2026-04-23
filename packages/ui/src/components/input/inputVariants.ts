@@ -5,13 +5,16 @@ export const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-border hover:border-primary/50",
-        error: "border-destructive text-destructive focus-visible:ring-destructive",
-        secondary: "bg-secondary/10 border-secondary/20",
+        primary: "border-border hover:border-primary/50",
+        secondary: "border-secondary/50 bg-secondary/10 hover:border-secondary",
+        accent: "border-accent/50 bg-accent/10 hover:border-accent",
+        destructive: "border-destructive text-destructive focus-visible:ring-destructive",
+        outline: "border-border bg-transparent hover:border-primary/50",
+        ghost: "border-transparent bg-transparent hover:bg-foreground/5",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
     },
   }
 );

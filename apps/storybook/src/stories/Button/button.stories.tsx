@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       description: "Visual style of the button based on the theme palette.",
-      options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
       control: { type: "select" },
     },
     size: {
@@ -45,15 +45,39 @@ type Story = StoryObj<typeof Button>;
 
 /**
  * The primary action style using the core theme colors.
+ * Use as the main call-to-action button.
  */
-export const Default: Story = {
+export const Primary: Story = {
   args: {
-    variant: "default",
+    variant: "primary",
+  },
+};
+
+/**
+ * Uses the secondary color for alternative actions.
+ * Good for secondary actions that complement the primary button.
+ */
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+    children: "Secondary Action",
+  },
+};
+
+/**
+ * Uses the accent color for highlights or special actions.
+ * Use for attention-grabbing but non-destructive actions.
+ */
+export const Accent: Story = {
+  args: {
+    variant: "accent",
+    children: "Accent Action",
   },
 };
 
 /**
  * Used for dangerous actions like 'Delete' or 'Reset Palette'.
+ * Uses the destructive/red color to signal caution.
  */
 export const Destructive: Story = {
   args: {
@@ -64,6 +88,7 @@ export const Destructive: Story = {
 
 /**
  * A subtle border style, perfect for secondary site navigation.
+ * Displays as an outline with transparent background.
  */
 export const Outline: Story = {
   args: {
@@ -73,21 +98,23 @@ export const Outline: Story = {
 };
 
 /**
- * Specifically for async tasks like generating a Mosaic or Particle sequence.
- */
-export const Loading: Story = {
-  args: {
-    isLoading: true,
-    children: "Generating...",
-  },
-};
-
-/**
  * Minimalist style for actions with low visual priority.
+ * Shows background color only on hover.
  */
 export const Ghost: Story = {
   args: {
     variant: "ghost",
     children: "Settings",
+  },
+};
+
+/**
+ * Specifically for async tasks like generating a Mosaic or Particle sequence.
+ * Shows a loading spinner and disables interaction.
+ */
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+    children: "Generating…",
   },
 };
