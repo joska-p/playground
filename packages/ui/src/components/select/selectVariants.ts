@@ -9,8 +9,8 @@ export const selectVariants = cva(
         secondary: "border-secondary/50 hover:border-secondary",
         accent: "border-accent/50 hover:border-accent",
         destructive: "border-destructive text-destructive focus-visible:ring-destructive",
-        outline: "border-border bg-transparent hover:border-primary/50",
-        ghost: "border-transparent bg-transparent hover:bg-foreground/5",
+        outline: "border-border hover:border-primary/50 bg-transparent",
+        ghost: "hover:bg-foreground/5 border-transparent bg-transparent",
       },
     },
     defaultVariants: {

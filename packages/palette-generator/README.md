@@ -20,13 +20,13 @@ export default function MyPalette() {
 
 ## 🎨 Generator Types
 
-| Type | Description |
-|------|-------------|
-| **Analogous** | Colors next to each other on the wheel |
-| **Complementary** | Opposite colors |
-| **Monochromatic** | Same hue, different saturation |
-| **Triadic** | Three colors evenly spaced |
-| **Xadic** | Four colors (x pattern) |
+| Type              | Description                            |
+| ----------------- | -------------------------------------- |
+| **Analogous**     | Colors next to each other on the wheel |
+| **Complementary** | Opposite colors                        |
+| **Monochromatic** | Same hue, different saturation         |
+| **Triadic**       | Three colors evenly spaced             |
+| **Xadic**         | Four colors (x pattern)                |
 
 ## 🧩 Context
 
@@ -44,4 +44,4 @@ See it in action at [joska-p.github.io/playground/colors/palette-generator](http
 
 ---
 
-*Part of @repo/playground*
+_Part of @repo/playground_

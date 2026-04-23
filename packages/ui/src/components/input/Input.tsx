@@ -32,21 +32,18 @@ function Input({
   return (
     <div className="flex flex-col gap-1.5">
       {label && (
-        <label
-          htmlFor={inputId}
-          className="text-xs text-foreground/80"
-        >
+        <label htmlFor={inputId} className="text-foreground/80 text-xs">
           {label}
         </label>
       )}
       <div className="relative flex items-center">
         {startIcon && (
-          <span className="absolute left-3 text-muted-foreground [&_svg]:size-4 [&_svg]:shrink-0">
+          <span className="text-muted-foreground absolute left-3 [&_svg]:size-4 [&_svg]:shrink-0">
             {startIcon}
           </span>
         )}
         {isLoading && (
-          <span className="absolute left-3 text-muted-foreground">
+          <span className="text-muted-foreground absolute left-3">
             <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
               <circle
                 className="opacity-25"
@@ -78,7 +75,7 @@ function Input({
           {...props}
         />
         {endIcon && !isLoading && (
-          <span className="absolute right-3 text-muted-foreground [&_svg]:size-4 [&_svg]:shrink-0">
+          <span className="text-muted-foreground absolute right-3 [&_svg]:size-4 [&_svg]:shrink-0">
             {endIcon}
           </span>
         )}

@@ -24,7 +24,7 @@ Reference in your `tsconfig.json`:
 
 Available configs:
 
-| Config | Purpose |
-|--------|---------|
-| `base.json` | Base configuration |
-| `astro.json` | Astro-specific |
+| Config       | Purpose            |
+| ------------ | ------------------ |
+| `base.json`  | Base configuration |
+| `astro.json` | Astro-specific     |

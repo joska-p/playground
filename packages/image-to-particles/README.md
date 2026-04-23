@@ -24,4 +24,4 @@ See it in action at [joska-p.github.io/playground/particles/image-to-particles](
 
 ---
 
-*Part of @repo/playground*
+_Part of @repo/playground_

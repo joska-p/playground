@@ -26,10 +26,7 @@ function Select({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label
-          htmlFor={selectId}
-          className="text-xs text-foreground/80"
-        >
+        <label htmlFor={selectId} className="text-foreground/80 text-xs">
           {label}
         </label>
       )}

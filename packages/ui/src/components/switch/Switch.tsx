@@ -34,10 +34,7 @@ function Switch({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label
-          htmlFor={switchId}
-          className="text-xs text-foreground/80 cursor-pointer"
-        >
+        <label htmlFor={switchId} className="text-foreground/80 cursor-pointer text-xs">
           {label}
         </label>
       )}

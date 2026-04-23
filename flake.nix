@@ -18,6 +18,9 @@
             pkgs.python315
             pkgs.uv
 
+            # Gemini CLI for AI-assisted coding
+            pkgs.gemini-cli
+
             # Use corepack to install npm/pnpm/yarn as specified in package.json
             pkgs.corepack
 

@@ -20,30 +20,30 @@ export default function MyViz() {
 
 ## 🧮 Available Sequences
 
-| Sequence | Description |
-|----------|-------------|
-| **Recamán** | Jump back if possible |
-| **Fibonacci** | The golden ratio |
-| **Primes** | Prime numbers |
-| **Triangular** | 1, 3, 6, 10... |
-| **Collatz** | The 3n+1 problem |
+| Sequence       | Description           |
+| -------------- | --------------------- |
+| **Recamán**    | Jump back if possible |
+| **Fibonacci**  | The golden ratio      |
+| **Primes**     | Prime numbers         |
+| **Triangular** | 1, 3, 6, 10...        |
+| **Collatz**    | The 3n+1 problem      |
 
 ## 🎨 Available Visualizations
 
-| Visual | Style |
-|--------|-------|
-| Recamán Arcs | Curved arcs |
-| Bar Chart | Vertical bars |
-| Dot Plot | Points |
+| Visual       | Style         |
+| ------------ | ------------- |
+| Recamán Arcs | Curved arcs   |
+| Bar Chart    | Vertical bars |
+| Dot Plot     | Points        |
 
 ## 🧩 Store Exports
 
 ```tsx
-import { 
+import {
   useSequenceStore,
   setSequenceRule,
   setSteps,
-  setVisualizationId 
+  setVisualizationId,
 } from "@repo/sequence-renderer";
 ```
 
@@ -51,12 +51,12 @@ import {
 
 ## 📖 Learn More
 
-| Topic | Link |
-|-------|------|
-| Deep Dive | [docs/explanation/sequence-renderer.md](../../docs/explanation/sequence-renderer.md) |
-| Add Viz | [docs/how-to/adding-visualizations.md](../../docs/how-to/adding-visualizations.md) |
-| Architecture | [docs/explanation/architecture.md](../../docs/explanation/architecture.md) |
+| Topic        | Link                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| Deep Dive    | [docs/explanation/sequence-renderer.md](../../docs/explanation/sequence-renderer.md) |
+| Add Viz      | [docs/how-to/adding-visualizations.md](../../docs/how-to/adding-visualizations.md)   |
+| Architecture | [docs/explanation/architecture.md](../../docs/explanation/architecture.md)           |
 
 ---
 
-*Part of @repo/playground*
+_Part of @repo/playground_

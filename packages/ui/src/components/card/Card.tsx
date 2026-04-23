@@ -17,9 +17,7 @@ function CardHeader({ className, ...props }: ComponentProps<"div">) {
 }
 
 function CardTitle({ className, ...props }: ComponentProps<"h3">) {
-  return (
-    <h3 className={cn("font-mono text-xl", className)} {...props} />
-  );
+  return <h3 className={cn("font-mono text-xl", className)} {...props} />;
 }
 
 function CardDescription({ className, ...props }: ComponentProps<"p">) {

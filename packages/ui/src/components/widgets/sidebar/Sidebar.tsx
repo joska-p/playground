@@ -1,34 +1,24 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../utils/cn.js";
+import type { SidebarContextValue } from "./SidebarContext.js";
+import { SidebarContext, useSidebarContext } from "./SidebarContext.js";
+import { SidebarMain } from "./SidebarMain.js";
+import { SidebarPanel } from "./SidebarPanel.js";
+import { SidebarToggle } from "./SidebarToggle.js";
 import { sidebarVariants } from "./sidebarVariants.js";
 
-interface SidebarContextValue {
-  isOpen: boolean;
-  toggleSidebar: () => void;
-}
-
-const SidebarContext = createContext<SidebarContextValue | null>(null);
-
-function useSidebarContext() {
-  const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error("Sidebar compound components must be used within a Sidebar");
-  }
-  return context;
-}
-
-interface SidebarProps extends ComponentProps<"div">, VariantProps<typeof sidebarVariants> {
+export interface SidebarProps extends ComponentProps<"div">, VariantProps<typeof sidebarVariants> {
   defaultOpen?: boolean;
 }
 
-function Sidebar({
+export function Sidebar({
   children,
   ref,
   className,
-  mobilePosition,
-  desktopPosition,
+  mobilePosition = "bottom",
+  desktopPosition = "bottom",
   variant,
   defaultOpen = true,
   ...props
@@ -39,13 +29,25 @@ function Sidebar({
     setIsOpen((prev) => !prev);
   }, []);
 
-  const value = useMemo(() => ({ isOpen, toggleSidebar }), [isOpen, toggleSidebar]);
+  const value = useMemo(
+    () => ({
+      isOpen,
+      toggleSidebar,
+      desktopPosition: desktopPosition as SidebarContextValue["desktopPosition"],
+      mobilePosition: mobilePosition as SidebarContextValue["mobilePosition"],
+    }),
+    [isOpen, toggleSidebar, desktopPosition, mobilePosition]
+  );
 
   return (
     <SidebarContext.Provider value={value}>
       <div
         ref={ref}
-        className={cn(sidebarVariants({ variant, mobilePosition, desktopPosition }), className)}
+        className={cn(
+          "relative",
+          sidebarVariants({ variant, mobilePosition, desktopPosition }),
+          className
+        )}
         {...props}
       >
         {children}
@@ -54,45 +56,7 @@ function Sidebar({
   );
 }
 
-function Panel({ children, ref, className, ...props }: ComponentProps<"div">) {
-  return (
-    <div ref={ref} className={cn("sidebar-panel", className)} {...props}>
-      {children}
-    </div>
-  );
-}
-
-function Main({ children, ref, className, ...props }: ComponentProps<"div">) {
-  const { isOpen } = useSidebarContext();
-  return (
-    <div ref={ref} className={cn("relative", className, { hidden: !isOpen })} {...props}>
-      {children}
-    </div>
-  );
-}
-
-function Toggle({ className, ...props }: ComponentProps<"button">) {
-  const { isOpen, toggleSidebar } = useSidebarContext();
-  return (
-    <button
-      type="button"
-      onClick={toggleSidebar}
-      className={cn(className)}
-      aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
-      {...props}
-    >
-      {isOpen ? "✕" : "☰"}
-    </button>
-  );
-}
-
-function useSidebar() {
-  return useSidebarContext();
-}
-
-Sidebar.Panel = Panel;
-Sidebar.Main = Main;
-Sidebar.Toggle = Toggle;
-Sidebar.use = useSidebar;
-
-export { Sidebar, sidebarVariants };
+Sidebar.Panel = SidebarPanel;
+Sidebar.Main = SidebarMain;
+Sidebar.Toggle = SidebarToggle;
+Sidebar.use = useSidebarContext;

@@ -155,7 +155,8 @@ import { ColorPalette } from "@repo/ui";
 ```tsx
 import { Sidebar } from "@repo/ui";
 
-<Sidebar mobilePosition="bottom" desktopPosition="right">
+<Sidebar variant="normal" desktopPosition="left">
+  <Sidebar.Toggle />
   <Sidebar.Panel>
     <p>Controls here</p>
   </Sidebar.Panel>
@@ -169,18 +170,19 @@ import { Sidebar } from "@repo/ui";
 
 | Component | Description |
 |-----------|-------------|
-| `Sidebar.Panel` | Collapsible sidebar panel |
-| `Sidebar.Main` | Main content area |
-| `Sidebar.Toggle` | Toggle button (optional) |
-| `Sidebar.use()` | Hook for context |
+| `Sidebar.Panel` | Collapsible sidebar panel. |
+| `Sidebar.Main` | Main content area. |
+| `Sidebar.Toggle` | Intelligent toggle button. Automatically snaps to the accessible corner based on sidebar position. |
+| `Sidebar.use()` | Hook to access sidebar state (`isOpen`, `toggleSidebar`). |
 
 ### Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `mobilePosition` | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | `"bottom"` | Panel position |
-| `desktopPosition` | Same | `"bottom"` | Desktop position |
-| `defaultOpen` | `boolean` | `true` | Initial state |
+| `variant` | `"normal"` \| `"primary"` \| `"secondary"` \| `"accent"` | `"normal"` | Background theme of the panel |
+| `mobilePosition` | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | `"bottom"` | Panel position on mobile |
+| `desktopPosition` | Same | `"bottom"` | Panel position on desktop |
+| `defaultOpen` | `boolean` | `true` | Initial open state |
 
 ---
 

@@ -7,6 +7,7 @@ import { Sidebar } from "@repo/ui";
 function MosaicMaker() {
   return (
     <Sidebar desktopPosition="right" mobilePosition="bottom">
+      <Sidebar.Toggle className="hover:bg-accent rounded-md p-2" />
       <Sidebar.Main>
         <MosaicDisplay />
       </Sidebar.Main>

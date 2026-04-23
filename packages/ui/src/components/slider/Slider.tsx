@@ -41,41 +41,42 @@ function Slider({
 
   return (
     <div className={cn(sliderVariants({ variant, layout, className }))}>
-      {label && (isHorizontal ? (
-        <div className="flex items-center gap-2">
-          <label htmlFor={sliderId} className="text-xs whitespace-nowrap text-foreground/80">
-            {label}
-          </label>
-          <span
-            className={cn("font-mono text-xs", {
-              "text-primary": !variant || variant === "primary",
-              "text-secondary": variant === "secondary",
-              "text-accent": variant === "accent",
-              "text-destructive": variant === "destructive",
-            })}
-          >
-            {value}
-            {unit}
-          </span>
-        </div>
-      ) : (
-        <div className="flex items-center justify-between">
-          <label htmlFor={sliderId} className="text-xs text-foreground/80">
-            {label}
-          </label>
-          <span
-            className={cn("font-mono text-xs", {
-              "text-primary": !variant || variant === "primary",
-              "text-secondary": variant === "secondary",
-              "text-accent": variant === "accent",
-              "text-destructive": variant === "destructive",
-            })}
-          >
-            {value}
-            {unit}
-          </span>
-        </div>
-      ))}
+      {label &&
+        (isHorizontal ? (
+          <div className="flex items-center gap-2">
+            <label htmlFor={sliderId} className="text-foreground/80 text-xs whitespace-nowrap">
+              {label}
+            </label>
+            <span
+              className={cn("font-mono text-xs", {
+                "text-primary": !variant || variant === "primary",
+                "text-secondary": variant === "secondary",
+                "text-accent": variant === "accent",
+                "text-destructive": variant === "destructive",
+              })}
+            >
+              {value}
+              {unit}
+            </span>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between">
+            <label htmlFor={sliderId} className="text-foreground/80 text-xs">
+              {label}
+            </label>
+            <span
+              className={cn("font-mono text-xs", {
+                "text-primary": !variant || variant === "primary",
+                "text-secondary": variant === "secondary",
+                "text-accent": variant === "accent",
+                "text-destructive": variant === "destructive",
+              })}
+            >
+              {value}
+              {unit}
+            </span>
+          </div>
+        ))}
       {isHorizontal ? (
         <input
           type="range"

@@ -8,13 +8,13 @@ export default defineConfig({
   site: "https://joska-p.github.io",
   base: "/playground",
   trailingSlash: "ignore",
-  integrations: [react({
-    babel: {
-      plugins: [
-        ['babel-plugin-react-compiler', { target: '19' }]
-      ]
-    }
-  })],
+  integrations: [
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler", { target: "19" }]],
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
     build: {

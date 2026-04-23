@@ -20,24 +20,24 @@ export default function MyMosaic() {
 
 ## 🧩 What's Included
 
-| Export | Description |
-|--------|-------------|
-| `MosaicMaker` | Main component |
-| `useMosaicStore` | Zustand store |
-| `updatePalette` | Change colors |
-| `updateTileSet` | Toggle tile types |
-| `updateTiles` | Regenerate tiles |
+| Export           | Description       |
+| ---------------- | ----------------- |
+| `MosaicMaker`    | Main component    |
+| `useMosaicStore` | Zustand store     |
+| `updatePalette`  | Change colors     |
+| `updateTileSet`  | Toggle tile types |
+| `updateTiles`    | Regenerate tiles  |
 
 ## 🎨 Controls
 
-| Control | What It Does |
-|--------|-----------|
-| Shuffle colors | Randomize palette |
+| Control           | What It Does            |
+| ----------------- | ----------------------- |
+| Shuffle colors    | Randomize palette       |
 | Shuffle rotations | Randomize tile rotation |
-| New palettes | Load more palettes |
-| New tiles | Regenerate all tiles |
-| Tile size | Adjust tile dimensions |
-| Gap size | Space between tiles |
+| New palettes      | Load more palettes      |
+| New tiles         | Regenerate all tiles    |
+| Tile size         | Adjust tile dimensions  |
+| Gap size          | Space between tiles     |
 
 ## 🎭 Available Tiles
 
@@ -56,11 +56,11 @@ export default function MyMosaic() {
 
 ## 📖 Learn More
 
-| Topic | Link |
-|-------|------|
+| Topic            | Link                                                                         |
+| ---------------- | ---------------------------------------------------------------------------- |
 | Engine Deep Dive | [docs/explanation/mosaic-engine.md](../../docs/explanation/mosaic-engine.md) |
-| Architecture | [docs/explanation/architecture.md](../../docs/explanation/architecture.md) |
+| Architecture     | [docs/explanation/architecture.md](../../docs/explanation/architecture.md)   |
 
 ---
 
-*Part of @repo/playground*
+_Part of @repo/playground_
