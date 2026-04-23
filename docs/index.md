@@ -1,5 +1,10 @@
 # Documentation
 
+## Design System
+
+- [Graphic Charter](design/graphic-charter.md) — Gruvbox design tokens (colors, typography, spacing)
+- [Guidelines](design/guidelines.md) — Component rules and patterns
+
 ## Guides
 
 - [Adding Pages and Routes](guides/adding-pages.md) — How to add new projects and categories
