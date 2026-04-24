@@ -20,7 +20,7 @@ function PaletteControls() {
           checked={arePalettesEqual(palette, currentPalette)}
           onChange={() => updatePalette(palette)}
           variant="primary"
-          size="sm"
+          size="small"
           orientation="horizontal"
           className="transition-transform hover:scale-105 lg:flex-col lg:[--cell-size:--spacing(6)]"
         />

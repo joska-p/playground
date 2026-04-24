@@ -9,7 +9,7 @@
 ```tsx
 import { Button } from "@repo/ui";
 
-<Button variant="primary" size="default">Click me</Button>
+<Button variant="primary" size="medium">Click me</Button>
 ```
 
 ### Props

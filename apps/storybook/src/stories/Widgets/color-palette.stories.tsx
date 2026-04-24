@@ -74,7 +74,7 @@ export const SecondaryVertical: Story = {
 export const AccentLarge: Story = {
   args: {
     variant: "accent",
-    size: "lg",
+    size: "large",
     colors: ["#ebdbb2", "#d5c4a1", "#bdae93", "#a89984", "#928374"],
     checked: true,
   },
@@ -85,7 +85,7 @@ export const AccentLarge: Story = {
  */
 export const SmallCompact: Story = {
   args: {
-    size: "sm",
+    size: "small",
     variant: "primary",
   },
 };

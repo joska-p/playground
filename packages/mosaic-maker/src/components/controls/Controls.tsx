@@ -34,16 +34,16 @@ function Controls() {
   return (
     <form className="flex flex-wrap justify-center gap-4 lg:w-[42ch] lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2">
-        <Button variant="primary" type="button" onClick={() => shuffleColors()} size="sm">
+        <Button variant="primary" type="button" onClick={() => shuffleColors()} size="small">
           Shuffle colors
         </Button>
-        <Button type="button" onClick={() => shuffleRotations()} size="sm">
+        <Button type="button" onClick={() => shuffleRotations()} size="small">
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={() => updateCurrentPalettes()} size="sm">
+        <Button type="button" onClick={() => updateCurrentPalettes()} size="small">
           New palettes
         </Button>
-        <Button type="button" onClick={() => updateTiles()} size="sm">
+        <Button type="button" onClick={() => updateTiles()} size="small">
           New tiles
         </Button>
       </fieldset>

@@ -25,8 +25,8 @@ const meta: Meta<typeof Switch> = {
       control: { type: "select" },
     },
     size: {
-      description: "The physical size of the toggle.",
-      options: ["default", "sm", "lg"],
+      description: "The size of the switch.",
+      options: ["medium", "small", "large"],
       control: { type: "select" },
     },
     checked: {
@@ -37,12 +37,12 @@ const meta: Meta<typeof Switch> = {
       description: "Disables user interaction and applies dimmed styling.",
       control: "boolean",
     },
-  },
-  args: {
+    },
+    args: {
     label: "Enable Feature",
     variant: "primary",
-    size: "default",
-  },
+    size: "medium",
+    },
 };
 
 export default meta;

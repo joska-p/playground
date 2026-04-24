@@ -38,14 +38,14 @@ export const myComponentVariants = cva(
         destructive: "bg-destructive text-destructive-foreground",
       },
       size: {
-        sm: "h-8 px-3 text-xs",
-        default: "h-10 px-4",
-        lg: "h-12 px-6",
+        small: "h-8 px-3 text-xs",
+        medium: "h-10 px-4",
+        large: "h-12 px-6",
       },
     },
     defaultVariants: {
       variant: "primary",
-      size: "default",
+      size: "medium",
     },
   }
 );

@@ -9,9 +9,9 @@ export const colorPaletteVariants = cva(
         vertical: "flex-col",
       },
       size: {
-        sm: "[--cell-size:theme(spacing.4)]",
-        default: "[--cell-size:theme(spacing.6)]",
-        lg: "[--cell-size:theme(spacing.8)]",
+        small: "[--cell-size:theme(spacing.4)]",
+        medium: "[--cell-size:theme(spacing.6)]",
+        large: "[--cell-size:theme(spacing.8)]",
       },
       variant: {
         primary:
@@ -24,7 +24,7 @@ export const colorPaletteVariants = cva(
     },
     defaultVariants: {
       orientation: "horizontal",
-      size: "default",
+      size: "medium",
       variant: "primary",
     },
   }
