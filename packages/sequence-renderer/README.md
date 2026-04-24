@@ -18,44 +18,66 @@ export default function MyViz() {
 }
 ```
 
+## 🏗️ Core Philosophy
+
+Decouple **generation** from **visualization**:
+
+1.  **Rules** — Define sequences via `getNext()` function in `src/core/rules.ts`.
+2.  **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
+3.  **Zustand Store** — State management (`useSequenceStore`).
+
 ## 🧮 Available Sequences
 
-| Sequence       | Description           |
-| -------------- | --------------------- |
-| **Recamán**    | Jump back if possible |
-| **Fibonacci**  | The golden ratio      |
-| **Primes**     | Prime numbers         |
-| **Triangular** | 1, 3, 6, 10...        |
-| **Collatz**    | The 3n+1 problem      |
+| Sequence | Rule | Description |
+| :--- | :--- | :--- |
+| **Recamán** | Jump back by n if possible | Classic visualization |
+| **Fibonacci** | F(n) = F(n-1) + F(n-2) | Golden ratio |
+| **Primes** | Prime numbers only | Prime visualization |
+| **Triangular** | 1, 3, 6, 10, 15... | Triangle numbers |
+| **Collatz** | Even: n/2, Odd: 3n+1 | The 3n+1 problem |
 
-## 🎨 Available Visualizations
+## 🎨 Visualization System
 
-| Visual       | Style         |
-| ------------ | ------------- |
-| Recamán Arcs | Curved arcs   |
-| Bar Chart    | Vertical bars |
-| Dot Plot     | Points        |
+Visualizations are pluggable renderers:
 
-## 🧩 Store Exports
-
-```tsx
-import {
-  useSequenceStore,
-  setSequenceRule,
-  setSteps,
-  setVisualizationId,
-} from "@repo/sequence-renderer";
+```typescript
+// recaman-arcs.ts
+export const recamanArcs = {
+  id: "recaman-arcs",
+  name: "Recamán Arcs",
+  draw: (ctx, sequence, bounds) => {
+    // Your drawing magic here
+  },
+};
 ```
+
+## 💾 State & Actions
+
+```typescript
+const { sequenceRule, steps, visualizationId, sequence } = useSequenceStore();
+```
+
+| Action | What |
+| :--- | :--- |
+| `setSequenceRule(rule)` | Change sequence type |
+| `setSteps(n)` | Change step count |
+| `setVisualizationId(id)` | Switch visualization |
+
+## 🔄 Data Flow
+
+`User changes` → `Store updates` → `Sequence recalculates` → `Canvas renders`
 
 ---
 
-## 📖 Learn More
+## ➕ Add a New Sequence
 
-| Topic        | Link                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| Deep Dive    | [docs/explanation/sequence-renderer.md](../../docs/explanation/sequence-renderer.md) |
-| Add Viz      | [docs/how-to/adding-visualizations.md](../../docs/how-to/adding-visualizations.md)   |
-| Architecture | [docs/explanation/architecture.md](../../docs/explanation/architecture.md)           |
+1.  Define in `src/core/rules.ts` by adding a `SequenceRule` object.
+2.  Add to the rules array—it will automatically appear in UI.
+
+## ➕ Add a New Visualization
+
+1.  Create a new visualization file in `src/core/visualizations/`.
+2.  Register it in `src/core/visualizations/index.ts`.
 
 ---
 
