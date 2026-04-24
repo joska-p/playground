@@ -4,6 +4,16 @@
 
 ---
 
+## 🏗️ Architectural Split
+
+The project is divided into two distinct zones:
+
+### 1. The Stable Shell (Infrastructure)
+The **Astro apps** and the **UI library** provide a consistent platform. This infrastructure is stable, uses "Stateless First" principles, and changes slowly.
+
+### 2. The Volatile Engines (Experiments)
+The **creative engines** (Mosaic, Sequence, etc.) are highly experimental and subject to massive refactors. Their technical documentation resides *within* their packages to keep it in sync with the rapid changes.
+
 ## 🏗️ Directory Structure
 
 ```

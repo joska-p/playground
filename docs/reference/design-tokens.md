@@ -116,5 +116,5 @@
 | Topic | Where |
 |-------|-------|
 | UI Components | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
-| Component API | [reference/component-api](./component-api.md) |
-| Creating components | [how-to/creating-components](./how-to/creating-components.md) |
+| Component API | [docs/reference/component-api.md](../reference/component-api.md) |
+| Creating components | [docs/how-to/creating-components.md](../how-to/creating-components.md) |

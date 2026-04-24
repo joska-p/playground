@@ -74,10 +74,54 @@ const { sequenceRule, steps, visualizationId, sequence } = useSequenceStore();
 1.  Define in `src/core/rules.ts` by adding a `SequenceRule` object.
 2.  Add to the rules array—it will automatically appear in UI.
 
-## ➕ Add a New Visualization
+---
 
-1.  Create a new visualization file in `src/core/visualizations/`.
-2.  Register it in `src/core/visualizations/index.ts`.
+## 🚀 How to Add a New Visualization
+
+### Step 1: Create the Visualization
+
+Create a new file in `src/core/visualizations/` (e.g., `my-viz.ts`):
+
+```typescript
+import type { Visualization } from "./types";
+
+export const myViz: Visualization = {
+  id: "my-viz",
+  name: "My Awesome Visualization",
+  draw: (ctx, sequence, bounds) => {
+    const { width, height } = bounds;
+    
+    // Your drawing logic here
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2, 50, 0, Math.PI * 2);
+    ctx.fill();
+  },
+};
+```
+
+### Step 2: Register It
+
+Import and add your visualization to the registry in `src/core/visualizations/index.ts`:
+
+```typescript
+import { myViz } from "./my-viz";
+
+export const visualizations: Visualization[] = [
+  myViz,
+  // ...others
+];
+```
+
+### Step 3: Drawing API
+
+#### Canvas Context
+-   `ctx`: `CanvasRenderingContext2D`
+-   `sequence`: `number[]`
+-   `bounds`: `{ width: number, height: number }`
+
+#### Common Patterns
+-   **Lines**: `ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();`
+-   **Circles**: `ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();`
 
 ---
 

@@ -10,25 +10,37 @@ The Creative Playground is a monorepo of interactive visualizations—mosaic gen
 
 ## 🛠️ Quick Start
 
+### ❄️ Using Nix (Recommended)
+
+If you have Nix installed, you can enter a perfectly configured shell with all dependencies pre-installed:
+
 ```bash
-# Clone and install
+# With flakes (recommended)
+nix develop
+
+# Or with direnv
+direnv allow
+```
+
+This shell includes Node.js, pnpm, uv, turbo, ESLint, Prettier, and all necessary language servers.
+
+### 🛠️ Manual Setup
+
+If you're not using Nix, ensure you have these tools installed:
+
+-   **Node.js** (v22+)
+-   **pnpm** (v10+)
+-   **uv** (for `graphify` and Python tooling)
+-   **Turborepo**
+-   **Graphviz** (optional)
+
+```bash
+# Install dependencies
 pnpm install
 
-# Start everything
+# Start development environment
 pnpm dev
 ```
-
-### Nix (Optional)
-
-On NixOS? Just run:
-
-```bash
-nix develop
-```
-
-Or with direnv: `direnv allow`
-
-Gets you: Node.js, pnpm, turbo, ESLint, Prettier, TypeScript—all set up.
 
 | Command | What Happens |
 |--------|-------------|
@@ -81,10 +93,10 @@ function MyProject() {
 
 | Topic | Where |
 |-------|-------------|
-| Add pages | [how-to/adding-pages](./how-to/adding-pages.md) |
-| Build components | [how-to/creating-components](./how-to/creating-components.md) |
-| Design tokens | [reference/design-tokens](./reference/design-tokens.md) |
-| Architecture | [explanation/architecture](./explanation/architecture.md) |
+| Add pages | [docs/how-to/adding-pages.md](../how-to/adding-pages.md) |
+| Build components | [docs/how-to/creating-components.md](../how-to/creating-components.md) |
+| Design tokens | [docs/reference/design-tokens.md](../reference/design-tokens.md) |
+| Architecture | [docs/explanation/architecture.md](../explanation/architecture.md) |
 | Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
 
 ## 🚀 Run Individual Apps

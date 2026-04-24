@@ -182,5 +182,5 @@ className={cn("base", { "active": isActive })}
 
 | Topic | Where |
 |-------|-------|
-| Design tokens | [reference/design-tokens](../reference/design-tokens.md) |
+| Design tokens | [docs/reference/design-tokens.md](../reference/design-tokens.md) |
 | Full API + Storybook | [joska-p.github.io/playground/storybook](https://joska-p.github.io/playground/storybook) |
