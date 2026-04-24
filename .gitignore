@@ -39,6 +39,7 @@ logs/
 # Knowledge graphs & AI tooling (generated, not tracked)
 # -----------------------------------------------------------------------------
 graphify-out/
+apps/playground/public/data-viz/
 .opencode/
 
 # Local workspace config (if you add tools later)
