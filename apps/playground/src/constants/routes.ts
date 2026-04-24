@@ -78,13 +78,6 @@ const rawRoutes = [
     icon: "storybook",
   },
   {
-    label: "Graph",
-    href: "/graph/",
-    description: "Knowledge graph",
-    isUtility: true,
-    icon: "graph",
-  },
-  {
     label: "GitHub",
     href: "https://github.com/joska-p/playground",
     description: "View source on GitHub",
