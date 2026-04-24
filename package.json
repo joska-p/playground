@@ -9,6 +9,7 @@
     "lint-fix": "turbo run lint-fix",
     "format": "turbo run format",
     "check-types": "turbo run check-types",
+    "graphify": "graphify update . && mkdir -p apps/playground/public/data-viz/graphify && cp graphify-out/graph.html apps/playground/public/data-viz/graphify/graph.html",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
