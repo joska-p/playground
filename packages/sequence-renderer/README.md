@@ -28,13 +28,13 @@ Decouple **generation** from **visualization**:
 
 ## 🧮 Available Sequences
 
-| Sequence | Rule | Description |
-| :--- | :--- | :--- |
-| **Recamán** | Jump back by n if possible | Classic visualization |
-| **Fibonacci** | F(n) = F(n-1) + F(n-2) | Golden ratio |
-| **Primes** | Prime numbers only | Prime visualization |
-| **Triangular** | 1, 3, 6, 10, 15... | Triangle numbers |
-| **Collatz** | Even: n/2, Odd: 3n+1 | The 3n+1 problem |
+| Sequence       | Rule                       | Description           |
+| :------------- | :------------------------- | :-------------------- |
+| **Recamán**    | Jump back by n if possible | Classic visualization |
+| **Fibonacci**  | F(n) = F(n-1) + F(n-2)     | Golden ratio          |
+| **Primes**     | Prime numbers only         | Prime visualization   |
+| **Triangular** | 1, 3, 6, 10, 15...         | Triangle numbers      |
+| **Collatz**    | Even: n/2, Odd: 3n+1       | The 3n+1 problem      |
 
 ## 🎨 Visualization System
 
@@ -57,10 +57,10 @@ export const recamanArcs = {
 const { sequenceRule, steps, visualizationId, sequence } = useSequenceStore();
 ```
 
-| Action | What |
-| :--- | :--- |
-| `setSequenceRule(rule)` | Change sequence type |
-| `setSteps(n)` | Change step count |
+| Action                   | What                 |
+| :----------------------- | :------------------- |
+| `setSequenceRule(rule)`  | Change sequence type |
+| `setSteps(n)`            | Change step count    |
 | `setVisualizationId(id)` | Switch visualization |
 
 ## 🔄 Data Flow
@@ -90,7 +90,7 @@ export const myViz: Visualization = {
   name: "My Awesome Visualization",
   draw: (ctx, sequence, bounds) => {
     const { width, height } = bounds;
-    
+
     // Your drawing logic here
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, 50, 0, Math.PI * 2);
@@ -115,13 +115,15 @@ export const visualizations: Visualization[] = [
 ### Step 3: Drawing API
 
 #### Canvas Context
--   `ctx`: `CanvasRenderingContext2D`
--   `sequence`: `number[]`
--   `bounds`: `{ width: number, height: number }`
+
+- `ctx`: `CanvasRenderingContext2D`
+- `sequence`: `number[]`
+- `bounds`: `{ width: number, height: number }`
 
 #### Common Patterns
--   **Lines**: `ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();`
--   **Circles**: `ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();`
+
+- **Lines**: `ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();`
+- **Circles**: `ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();`
 
 ---
 

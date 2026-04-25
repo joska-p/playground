@@ -16,10 +16,12 @@ order: 1
 The project is divided into two distinct zones:
 
 ### 1. The Stable Shell (Infrastructure)
+
 The **Astro apps** and the **UI library** provide a consistent platform. This infrastructure is stable, uses "Stateless First" principles, and changes slowly.
 
 ### 2. The Volatile Engines (Experiments)
-The **creative engines** (Mosaic, Sequence, etc.) are highly experimental and subject to massive refactors. Their technical documentation resides *within* their packages to keep it in sync with the rapid changes.
+
+The **creative engines** (Mosaic, Sequence, etc.) are highly experimental and subject to massive refactors. Their technical documentation resides _within_ their packages to keep it in sync with the rapid changes.
 
 ## Directory Structure
 
@@ -55,25 +57,25 @@ src/
 
 ### What Goes Where
 
-| Folder | What It Contains | Examples |
-|--------|----------------|----------|
-| `core/` | Pure domain logic, no React | Math functions, rules |
-| `components/` | UI components | Button, Card, Sidebar |
-| `hooks/` | React lifecycle | useAnimation, useResize |
-| `store/` | State (Zustand, etc.) | useMosaicStore |
-| `renderers/` | Canvas, SVG, WebGL | CanvasRenderer |
-| `services/` | API calls, storage | fetchPalettes |
-| `utils/` | Generic helpers | date formatting |
+| Folder        | What It Contains            | Examples                |
+| ------------- | --------------------------- | ----------------------- |
+| `core/`       | Pure domain logic, no React | Math functions, rules   |
+| `components/` | UI components               | Button, Card, Sidebar   |
+| `hooks/`      | React lifecycle             | useAnimation, useResize |
+| `store/`      | State (Zustand, etc.)       | useMosaicStore          |
+| `renderers/`  | Canvas, SVG, WebGL          | CanvasRenderer          |
+| `services/`   | API calls, storage          | fetchPalettes           |
+| `utils/`      | Generic helpers             | date formatting         |
 
 ## Naming Conventions
 
-| Entity | Casing | Example |
-|--------|--------|---------|
-| Folders | `kebab-case` | `sequence-generator/` |
-| Components | `PascalCase` | `DataVisualizer.tsx` |
-| Utils/Hooks | `camelCase` | `useAnimation.ts` |
-| Types | `PascalCase` | `UserSession.d.ts` |
-| Constants | `UPPER_SNAKE` | `MAX_RETRY_COUNT` |
+| Entity      | Casing        | Example               |
+| ----------- | ------------- | --------------------- |
+| Folders     | `kebab-case`  | `sequence-generator/` |
+| Components  | `PascalCase`  | `DataVisualizer.tsx`  |
+| Utils/Hooks | `camelCase`   | `useAnimation.ts`     |
+| Types       | `PascalCase`  | `UserSession.d.ts`    |
+| Constants   | `UPPER_SNAKE` | `MAX_RETRY_COUNT`     |
 
 ## Component-Per-Folder
 
@@ -103,7 +105,7 @@ components/MyComponent/
 @repo/sequence-renderer
 @repo/palette-generator
 @repo/image-to-particles
-   
+
 apps/playground       ← uses → packages/*
 apps/storybook      ← uses → ui
 ```

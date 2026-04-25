@@ -142,17 +142,17 @@ Storybook, Graph, and GitHub links live in `routes.ts` too:
 
 ## Best Practices
 
-| Do | Don't |
-|---|---|
-| One component per folder | Put stuff anywhere |
-| Descriptive labels in navbar | Vague names like "Thing" |
-| Helpful descriptions for tooltips | Leave it blank |
-| Paths like `/category/project/` | `/category-project/` |
+| Do                                | Don't                    |
+| --------------------------------- | ------------------------ |
+| One component per folder          | Put stuff anywhere       |
+| Descriptive labels in navbar      | Vague names like "Thing" |
+| Helpful descriptions for tooltips | Leave it blank           |
+| Paths like `/category/project/`   | `/category-project/`     |
 
 ## Quick Reference
 
-| What | Where |
-|------|-------|
-| Add project | `routes.ts` + `pages/.../index.tsx` |
+| What         | Where                                 |
+| ------------ | ------------------------------------- |
+| Add project  | `routes.ts` + `pages/.../index.tsx`   |
 | New category | `routes.ts` + `pages/.../index.astro` |
-| Change icon | `routes.ts` + `UtilityLinks.astro` |
+| Change icon  | `routes.ts` + `UtilityLinks.astro`    |

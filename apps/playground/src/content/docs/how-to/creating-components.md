@@ -67,17 +67,10 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { myComponentVariants } from "./myComponentVariants.js";
 
-interface MyComponentProps 
-  extends ComponentProps<"button">, 
-  VariantProps<typeof myComponentVariants> {}
+interface MyComponentProps
+  extends ComponentProps<"button">, VariantProps<typeof myComponentVariants> {}
 
-function MyComponent({
-  ref,
-  className,
-  variant,
-  size,
-  ...props
-}: MyComponentProps) {
+function MyComponent({ ref, className, variant, size, ...props }: MyComponentProps) {
   return (
     <button
       className={cn(myComponentVariants({ variant, size, className }))}
@@ -154,14 +147,14 @@ Before calling it done:
 
 Every component should support:
 
-| Variant | Usage |
-|--------|-------|
-| `primary` | Main action (default) |
-| `secondary` | Alternative actions |
-| `accent` | Highlights |
+| Variant       | Usage                 |
+| ------------- | --------------------- |
+| `primary`     | Main action (default) |
+| `secondary`   | Alternative actions   |
+| `accent`      | Highlights            |
 | `destructive` | Delete, reset, danger |
-| `outline` | Secondary with border |
-| `ghost` | Minimal, tertiary |
+| `outline`     | Secondary with border |
+| `ghost`       | Minimal, tertiary     |
 
 ## Utility: cn()
 

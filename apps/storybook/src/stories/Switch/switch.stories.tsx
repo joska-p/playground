@@ -37,12 +37,12 @@ const meta: Meta<typeof Switch> = {
       description: "Disables user interaction and applies dimmed styling.",
       control: "boolean",
     },
-    },
-    args: {
+  },
+  args: {
     label: "Enable Feature",
     variant: "primary",
     size: "medium",
-    },
+  },
 };
 
 export default meta;

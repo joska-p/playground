@@ -49,12 +49,12 @@ pnpm install
 pnpm dev
 ```
 
-| Command | What Happens |
-|--------|-------------|
-| `pnpm dev` | All apps + packages in watch mode |
-| `pnpm build` | Production build |
-| `pnpm check-types` | TypeScript check |
-| `nix develop` | Nix shell (optional) |
+| Command            | What Happens                      |
+| ------------------ | --------------------------------- |
+| `pnpm dev`         | All apps + packages in watch mode |
+| `pnpm build`       | Production build                  |
+| `pnpm check-types` | TypeScript check                  |
+| `nix develop`      | Nix shell (optional)              |
 
 ## Project Structure
 
