@@ -4,19 +4,16 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
-// 1. Detect the environment
 const isVercel = process.env.VERCEL === "true";
+const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
 
-// 2. Set dynamic values based on environment
-// Default to GH Pages if we aren't on Vercel
-const siteUrl = isVercel ? "https://playground-ten-sand.vercel.app" : "https://joska-p.github.io";
+// THIS LOG WILL SHOW UP IN YOUR VERCEL BUILD LOGS
+console.log("--- BUILD DEBUG ---", { isVercel, VERCEL_ENV: process.env.VERCEL });
+console.log("--- BUILD DEBUG ---", { isGitHubPages, GITHUB_ACTIONS: process.env.GITHUB_ACTIONS });
 
-const basePath = isVercel ? "/" : "/playground";
-
-// https://astro.build/config
 export default defineConfig({
-  site: siteUrl, // Used here!
-  base: basePath, // Used here!
+  site: "https://joska-p.github.io",
+  base: "/playground",
   trailingSlash: "ignore",
   integrations: [
     react({
