@@ -1,15 +1,21 @@
 ---
 import Layout from "./layout.astro";
-import CardLink from "../components/ui/card-link/index.astro";
+import ExperimentCard from "../components/ui/experiment-card/index.astro";
+
+interface Project {
+  label: string;
+  href: string;
+  description: string;
+  icon?: any;
+  iconBgColor?: string;
+  iconColor?: string;
+  tags?: { label: string; color?: string }[];
+}
 
 interface Props {
   title: string;
-  description: string;
-  projects: {
-    label: string;
-    href: string;
-    description: string;
-  }[];
+  description?: string;
+  projects: Project[];
 }
 
 const { title, description, projects } = Astro.props;
@@ -24,10 +30,14 @@ const { title, description, projects } = Astro.props;
 
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {projects.map((project) => (
-        <CardLink
+        <ExperimentCard
           href={project.href}
           title={project.label}
           description={project.description}
+          icon={project.icon}
+          iconBgColor={project.iconBgColor}
+          iconColor={project.iconColor}
+          tags={project.tags}
         />
       ))}
     </div>

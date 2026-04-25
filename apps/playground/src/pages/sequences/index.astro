@@ -1,5 +1,5 @@
 ---
-import CategoryPage from "../../layouts/category-page.astro";
+import CategoryLayout from "../../layouts/category-layout.astro";
 import { baseUrl } from "../../constants/routes";
 
 const title = "Sequences";
@@ -13,4 +13,4 @@ const projects = [
 ];
 ---
 
-<CategoryPage title={title} description={description} projects={projects} />
+<CategoryLayout title={title} description={description} projects={projects} />
