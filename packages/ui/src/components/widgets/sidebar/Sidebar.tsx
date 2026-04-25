@@ -30,11 +30,11 @@ export function Sidebar({
   }, []);
 
   const value = useMemo(
-    () => ({
+    (): SidebarContextValue => ({
       isOpen,
       toggleSidebar,
-      desktopPosition: desktopPosition as SidebarContextValue["desktopPosition"],
-      mobilePosition: mobilePosition as SidebarContextValue["mobilePosition"],
+      desktopPosition: desktopPosition ?? "bottom",
+      mobilePosition: mobilePosition ?? "bottom",
     }),
     [isOpen, toggleSidebar, desktopPosition, mobilePosition]
   );

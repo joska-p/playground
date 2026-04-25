@@ -1,7 +1,7 @@
 export interface Route {
   label: string;
   href: string;
-  children?: Route[];
+  children: Route[];
   icon?: string;
   description?: string;
   isUtility?: boolean;
@@ -14,6 +14,7 @@ const rawRoutes = [
     label: "Docs",
     href: "/docs/",
     description: "Documentation",
+    children: [],
   },
   {
     label: "Particles",
@@ -24,6 +25,7 @@ const rawRoutes = [
         label: "Image to Particles",
         href: "/particles/image-to-particles/",
         description: "Transform images into interactive particles",
+        children: [],
       },
     ],
   },
@@ -36,6 +38,7 @@ const rawRoutes = [
         label: "Sequence Renderer",
         href: "/sequences/sequence-renderer/",
         description: "Explore the Recamán's sequence visualization",
+        children: [],
       },
     ],
   },
@@ -48,6 +51,7 @@ const rawRoutes = [
         label: "Mosaic Maker",
         href: "/mosaic/mosaic-maker/",
         description: "Create complex mosaic patterns from images",
+        children: [],
       },
     ],
   },
@@ -60,6 +64,7 @@ const rawRoutes = [
         label: "Palettes Generator",
         href: "/colors/palettes-generator/",
         description: "Generate color palettes from algorithms",
+        children: [],
       },
     ],
   },
@@ -72,6 +77,7 @@ const rawRoutes = [
         label: "Piechart",
         href: "/data-viz/piechart/",
         description: "Interactive d3-based piechart examples",
+        children: [],
       },
     ],
   },
@@ -81,6 +87,7 @@ const rawRoutes = [
     description: "Component documentation",
     isUtility: true,
     icon: "storybook",
+    children: [],
   },
   {
     label: "GitHub",
@@ -88,6 +95,7 @@ const rawRoutes = [
     description: "View source on GitHub",
     isUtility: true,
     icon: "github",
+    children: [],
   },
 ] satisfies Route[];
 
@@ -104,7 +112,7 @@ function normalize(route: Route): Route {
   return {
     ...route,
     href,
-    children: route.children?.map(normalize),
+    children: route.children?.map(normalize) ?? [],
   };
 }
 
