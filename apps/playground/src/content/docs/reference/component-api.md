@@ -187,4 +187,39 @@ import { Sidebar } from "@repo/ui";
 
 ---
 
+## Label
+
+```tsx
+import { Label } from "@repo/ui";
+
+<Label variant="primary" size="medium">
+  Email
+</Label>;
+```
+
+### Props
+
+| Prop      | Type                                                                                      | Default     | Description  |
+| --------- | ----------------------------------------------------------------------------------------- | ----------- | ------------ |
+| `variant` | `"primary"` \| `"secondary"` \| `"accent"` \| `"destructive"` \| `"outline"` \| `"ghost"` | `"primary"` | Visual style |
+| `size`    | `"small"` \| `"medium"` \| `"large"`                                                      | `"medium"`  | Label size   |
+
+---
+
+## Badge
+
+```tsx
+import { Badge } from "@repo/ui";
+
+<Badge variant="primary">New</Badge>;
+```
+
+### Props
+
+| Prop      | Type                                                                         | Default     | Description  |
+| --------- | ---------------------------------------------------------------------------- | ----------- | ------------ |
+| `variant` | `"primary"` \| `"secondary"` \| `"accent"` \| `"destructive"` \| `"outline"` | `"primary"` | Visual style |
+
+---
+
 > **Tip:** All components use design tokens (`bg-primary`, `text-foreground`, etc.) from `@repo/tailwind-config`.
