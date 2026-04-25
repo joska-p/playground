@@ -21,7 +21,7 @@ interface Props {
 const { sections, currentPath, docsBaseUrl } = Astro.props;
 ---
 
-<aside class="w-64 shrink-0 overflow-y-auto border-r border-border/40 bg-card/30 p-6">
+<aside class="hidden md:block w-64 shrink-0 overflow-y-auto border-r border-border/40 bg-card/30 p-6">
   <a 
     href={docsBaseUrl} 
     class="mb-6 flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
