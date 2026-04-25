@@ -1,5 +1,5 @@
 ---
-import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui";
+import { Card, CardHeader, CardTitle, CardContent, Badge } from "@repo/ui";
 import type { LucideIcon } from "lucide-react";
 
 interface Props {
@@ -38,12 +38,9 @@ const {
       {tags.length > 0 && (
         <div class="mt-6 flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <span class:list={[
-              "rounded-full border px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-              tag.color ? `border-${tag.color}/20 bg-${tag.color}/5 text-${tag.color}` : "border-primary/20 bg-primary/5 text-primary"
-            ]}>
+            <Badge variant={tag.color as any}>
               {tag.label}
-            </span>
+            </Badge>
           ))}
         </div>
       )}
