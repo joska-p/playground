@@ -82,14 +82,6 @@ const rawRoutes = [
     ],
   },
   {
-    label: "Storybook",
-    href: "/storybook/",
-    description: "Component documentation",
-    isUtility: true,
-    icon: "storybook",
-    children: [],
-  },
-  {
     label: "GitHub",
     href: "https://github.com/joska-p/playground",
     description: "View source on GitHub",
