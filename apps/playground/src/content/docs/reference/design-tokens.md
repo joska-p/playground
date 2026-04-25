@@ -15,39 +15,39 @@ order: 1
 
 ### Light Mode
 
-| Token | Color | HSL | Usage |
-| ------------- | ------------------ | ------------------ | --------------- |
-| `background` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(43 58% 80%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(43 58% 80%)` | Page background |
-| `foreground` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(21 7% 29%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(21 7% 29%)` | Primary text |
-| `card` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(48 86% 88%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(48 86% 88%)` | Card surfaces |
-| `primary` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(189 88% 24%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(189 88% 24%)` | Actions, links |
-| `secondary` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(58 70% 34%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(58 70% 34%)` | Alt actions |
-| `accent` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(332 33% 53%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(332 33% 53%)` | Highlights |
-| `destructive` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(2 75% 45%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(2 75% 45%)` | Errors, delete |
-| `border` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(35 17% 58%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(35 17% 58%)` | Borders |
-| `muted` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(43 58% 80%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(43 58% 80%)` | Disabled |
+| Token         | Color                                                                                                                                            | HSL                | Usage           |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------ | --------------- |
+| `background`  | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(43 58% 80%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(43 58% 80%)`  | Page background |
+| `foreground`  | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(21 7% 29%);border-radius:4px;border:1px solid var(--border)"></span>   | `hsl(21 7% 29%)`   | Primary text    |
+| `card`        | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(48 86% 88%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(48 86% 88%)`  | Card surfaces   |
+| `primary`     | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(189 88% 24%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(189 88% 24%)` | Actions, links  |
+| `secondary`   | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(58 70% 34%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(58 70% 34%)`  | Alt actions     |
+| `accent`      | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(332 33% 53%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(332 33% 53%)` | Highlights      |
+| `destructive` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(2 75% 45%);border-radius:4px;border:1px solid var(--border)"></span>   | `hsl(2 75% 45%)`   | Errors, delete  |
+| `border`      | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(35 17% 58%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(35 17% 58%)`  | Borders         |
+| `muted`       | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(43 58% 80%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(43 58% 80%)`  | Disabled        |
 
 ### Dark Mode
 
-| Token | Color | HSL | Usage |
-| ------------- | ------------------ | ------------------ | --------------- |
-| `background` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(195 6% 12%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(195 6% 12%)` | Page background |
-| `foreground` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(40 38% 73%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(40 38% 73%)` | Primary text |
-| `card` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(20 3% 19%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(20 3% 19%)` | Card surfaces |
-| `primary` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(157 15% 58%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(157 15% 58%)` | Actions |
-| `secondary` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(59 70% 34%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(59 70% 34%)` | Alt actions |
-| `accent` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(332 33% 53%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(332 33% 53%)` | Highlights |
-| `destructive` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(2 75% 45%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(2 75% 45%)` | Errors |
-| `border` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(21 7% 29%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(21 7% 29%)` | Borders |
-| `muted` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(20 5% 22%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(20 5% 22%)` | Disabled |
+| Token         | Color                                                                                                                                            | HSL                | Usage           |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------ | --------------- |
+| `background`  | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(195 6% 12%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(195 6% 12%)`  | Page background |
+| `foreground`  | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(40 38% 73%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(40 38% 73%)`  | Primary text    |
+| `card`        | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(20 3% 19%);border-radius:4px;border:1px solid var(--border)"></span>   | `hsl(20 3% 19%)`   | Card surfaces   |
+| `primary`     | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(157 15% 58%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(157 15% 58%)` | Actions         |
+| `secondary`   | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(59 70% 34%);border-radius:4px;border:1px solid var(--border)"></span>  | `hsl(59 70% 34%)`  | Alt actions     |
+| `accent`      | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(332 33% 53%);border-radius:4px;border:1px solid var(--border)"></span> | `hsl(332 33% 53%)` | Highlights      |
+| `destructive` | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(2 75% 45%);border-radius:4px;border:1px solid var(--border)"></span>   | `hsl(2 75% 45%)`   | Errors          |
+| `border`      | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(21 7% 29%);border-radius:4px;border:1px solid var(--border)"></span>   | `hsl(21 7% 29%)`   | Borders         |
+| `muted`       | <span style="display:inline-block;width:1.5em;height:1.5em;background:hsl(20 5% 22%);border-radius:4px;border:1px solid var(--border)"></span>   | `hsl(20 5% 22%)`   | Disabled        |
 
 ## Typography
 
-| Family | Font | Usage |
-| ------- | --------------- | ------------ |
-| `sans` | Inter | Body text |
-| `serif` | Playfair Display | Headings |
-| `mono` | JetBrains Mono | Code, inputs |
+| Family  | Font             | Usage        |
+| ------- | ---------------- | ------------ |
+| `sans`  | Inter            | Body text    |
+| `serif` | Playfair Display | Headings     |
+| `mono`  | JetBrains Mono   | Code, inputs |
 
 ### Type Scale
 

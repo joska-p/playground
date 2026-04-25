@@ -158,12 +158,12 @@ pnpm --filter @repo/ui test
 
 ### Common Issues
 
-| Issue                            | Cause              | Fix                                      |
-| -------------------------------- | ------------------ | ---------------------------------------- |
-| `pnpm: command not found`        | pnpm not installed | `npm install -g pnpm`                    |
-| `uv: command not found`          | Missing uv         | `pip install uv` or use Nix              |
-| Port 4321 in use                 | Already running    | Kill process or use different port       |
-| Type errors after package update | Cache stale        | `pnpm clean && pnpm install`           |
+| Issue                            | Cause              | Fix                                   |
+| -------------------------------- | ------------------ | ------------------------------------- |
+| `pnpm: command not found`        | pnpm not installed | `npm install -g pnpm`                 |
+| `uv: command not found`          | Missing uv         | `pip install uv` or use Nix           |
+| Port 4321 in use                 | Already running    | Kill process or use different port    |
+| Type errors after package update | Cache stale        | `pnpm clean && pnpm install`          |
 | Storybook stories not showing    | Not built          | `pnpm --filter @repo/storybook build` |
 
 ### Node.js Version
