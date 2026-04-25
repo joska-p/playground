@@ -2,7 +2,7 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "globalDependencies": ["pnpm-workspace.yaml"],
-  "globalEnv": ["BASE_URL"],
+  "globalEnv": ["BASE_URL", "GITHUB_ACTIONS", "VERCEL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
