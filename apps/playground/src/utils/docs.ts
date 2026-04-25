@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { baseUrl } from "../constants/routes";
 
 export type DocType = "tutorial" | "how-to" | "explanation" | "reference";
@@ -39,7 +39,7 @@ export async function getDocsNav(): Promise<NavSection[]> {
     reference: [],
   };
 
-  allDocs.forEach((doc) => {
+  allDocs.forEach((doc: CollectionEntry<"docs">) => {
     sections[doc.data.type].push({
       id: doc.id,
       title: doc.data.title,
@@ -55,7 +55,7 @@ export async function getDocsNav(): Promise<NavSection[]> {
   }));
 }
 
-export async function getDocById(id: string) {
+export async function getDocById(id: string): Promise<CollectionEntry<"docs"> | undefined> {
   const allDocs = await getCollection("docs");
-  return allDocs.find((doc) => doc.id === id);
+  return allDocs.find((doc: CollectionEntry<"docs">) => doc.id === id);
 }
