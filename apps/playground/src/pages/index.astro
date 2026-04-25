@@ -2,7 +2,9 @@
 import Layout from "../layouts/layout.astro";
 import ExperimentCard from "../components/experiment-card/index.astro";
 import DocCard from "../components/doc-card/index.astro";
-import { baseUrl, routes } from "../constants/routes";
+import SectionHeader from "../components/ui/section-header/index.astro";
+import FooterLinks from "../components/ui/footer-links/index.astro";
+import { baseUrl } from "../constants/routes";
 import {
   Sparkles,
   Grid3X3,
@@ -14,17 +16,12 @@ import {
   Lightbulb,
   Code,
   Zap,
-  ArrowRight,
-  Github,
-  BookOpen,
 } from "lucide-react";
 
 const docsBase = `${baseUrl}/docs`.replace(/\/+/g, "/");
 const resolveDoc = (path: string) => `${docsBase}/${path}`.replace(/\/+/g, "/");
 
-const githubRoute = routes.find(r => r.label === "GitHub");
-const storybookRoute = routes.find(r => r.label === "Storybook");
-const docsRoute = routes.find(r => r.label === "Docs");
+const githubRoute = { href: "https://github.com/joska-p/playground" };
 ---
 
 <Layout title="Playground">
@@ -67,18 +64,14 @@ const docsRoute = routes.find(r => r.label === "Docs");
 
   <div class="mx-auto max-w-6xl px-6 py-20 lg:py-24">
     <section id="experiments" class="mb-24 scroll-mt-24">
-      <div class="mb-12 flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-        <div>
-          <h2 class="flex items-center justify-center gap-3 text-4xl font-bold tracking-tight sm:justify-start">
-            <Sparkles class="h-10 w-10 text-accent" />
-            Engines & Labs
-          </h2>
-          <p class="mt-2 text-muted-foreground">Volatile experiments in high-interactivity canvas rendering.</p>
-        </div>
-        <a href={githubRoute?.href} class="group flex items-center gap-2 text-sm font-bold text-primary hover:text-accent transition-colors">
-          View all on GitHub <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </a>
-      </div>
+      <SectionHeader 
+        icon={Sparkles} 
+        title="Engines & Labs" 
+        description="Volatile experiments in high-interactivity canvas rendering."
+        href={githubRoute.href}
+      >
+        <span slot="link-text">View all on GitHub</span>
+      </SectionHeader>
 
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <ExperimentCard
@@ -97,7 +90,7 @@ const docsRoute = routes.find(r => r.label === "Docs");
         <ExperimentCard
           href={`${baseUrl}/sequences/sequence-renderer`}
           title="Sequences"
-          description="Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers."
+          description="Visualize mathematical sequences like Recaman and Fibonacci with pluggable renderers."
           icon={Infinity}
           iconBgColor="bg-primary/20"
           iconColor="text-primary"
@@ -136,13 +129,12 @@ const docsRoute = routes.find(r => r.label === "Docs");
     </section>
 
     <section class="mb-24 rounded-3xl bg-muted/30 p-8 lg:p-12">
-      <div class="mb-12 text-center">
-        <h2 class="flex items-center justify-center gap-3 text-4xl font-bold tracking-tight">
-          <Book class="h-10 w-10 text-primary" />
-          Platform Guide
-        </h2>
-        <p class="mt-2 text-muted-foreground">Deep dives into the infrastructure and conventions of the lab.</p>
-      </div>
+      <SectionHeader 
+        icon={Book} 
+        title="Platform Guide" 
+        description="Deep dives into the infrastructure and conventions of the lab."
+        align="center"
+      />
 
       <div class="grid gap-6 sm:grid-cols-2">
         <DocCard
@@ -180,29 +172,14 @@ const docsRoute = routes.find(r => r.label === "Docs");
 
       <div class="mt-12 text-center">
         <a href={docsBase} class="inline-flex items-center gap-2 font-bold text-primary hover:text-accent transition-colors">
-          Browse Documentation Hub <ArrowRight class="h-4 w-4" />
+          Browse Documentation Hub 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
     </section>
 
-    <footer class="border-t border-border/40 pt-16 text-center">
-      <div class="mb-8 flex justify-center gap-8">
-        <a href={githubRoute?.href} class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-          <Github class="h-4 w-4" />
-          GitHub
-        </a>
-        <a href={storybookRoute?.href} class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-          <BookOpen class="h-4 w-4" />
-          Storybook
-        </a>
-        <a href={docsRoute?.href} class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-          <Book class="h-4 w-4" />
-          Docs
-        </a>
-      </div>
-      <p class="text-sm text-muted-foreground italic">
-        Crafted with by the Creative Playground Team.
-      </p>
-    </footer>
+    <FooterLinks>
+      <span slot="default">Crafted with creativity.</span>
+    </FooterLinks>
   </div>
 </Layout>

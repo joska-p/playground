@@ -1,5 +1,7 @@
 export * from "./components/button/Button.js";
 export * from "./components/button/buttonVariants.js";
+export * from "./components/badge/Badge.js";
+export * from "./components/badge/badgeVariants.js";
 export * from "./components/input/Input.js";
 export * from "./components/input/inputVariants.js";
 export * from "./components/select/Select.js";

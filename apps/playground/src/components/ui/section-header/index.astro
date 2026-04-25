@@ -1,0 +1,37 @@
+---
+import type { ComponentProps } from "astro/types";
+import type { LucideIcon } from "lucide-react";
+
+interface Props {
+  icon?: LucideIcon;
+  title: string;
+  description?: string;
+  href?: string;
+  align?: "left" | "center";
+}
+
+const { icon: Icon, title, description, href, align = "left" } = Astro.props;
+const isCenter = align === "center";
+---
+
+<div class:list={[
+  "flex flex-col gap-2",
+  isCenter ? "items-center text-center" : "items-start"
+]}>
+  <h2 class:list={[
+    "flex items-center gap-3 text-4xl font-bold tracking-tight",
+    isCenter ? "justify-center" : ""
+  ]}>
+    {Icon && <Icon class="h-10 w-10 text-primary" />}
+    {title}
+  </h2>
+  {description && <p class="text-muted-foreground">{description}</p>}
+  {href && (
+    <a href={href} class="group inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-accent transition-colors">
+      <slot name="link-text">View all</slot>
+      <slot name="link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </slot>
+    </a>
+  )}
+</div>
