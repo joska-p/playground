@@ -2,11 +2,32 @@
 import Layout from "../../layouts/layout.astro";
 import DocCard from "../../components/ui/doc-card/index.astro";
 import { Book, Wrench, Lightbulb, Code } from "lucide-react";
-import { getDocsNav } from "../../utils/docs";
+import { getDocs } from "../../utils/docs";
 import { baseUrl } from "../../constants/routes";
 
-const docsNav = await getDocsNav();
-const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
+const docs = await getDocs();
+
+const docsByType = {
+  tutorial: [] as typeof docs,
+  "how-to": [] as typeof docs,
+  explanation: [] as typeof docs,
+  reference: [] as typeof docs,
+};
+
+for (const doc of docs) {
+  docsByType[doc.data.type].push(doc);
+}
+
+for (const type of Object.keys(docsByType) as (keyof typeof docsByType)[]) {
+  docsByType[type].sort((a, b) => a.data.order - b.data.order);
+}
+
+const TYPE_LABELS = {
+  tutorial: "Tutorials",
+  "how-to": "How-To Guides",
+  explanation: "Explanation",
+  reference: "Reference",
+};
 
 const iconMap = {
   tutorial: Book,
@@ -14,6 +35,8 @@ const iconMap = {
   explanation: Lightbulb,
   reference: Code,
 };
+
+const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
 ---
 
 <Layout title="Documentation Hub">
@@ -28,28 +51,28 @@ const iconMap = {
     </header>
 
     <div class="grid gap-16">
-      {docsNav.map((section) => {
-        const Icon = iconMap[section.type];
+      {Object.entries(docsByType).map(([type, items]) => {
+        if (items.length === 0) return null;
+        const Icon = iconMap[type as keyof typeof iconMap];
         return (
-          <section id={section.type} class="scroll-mt-24">
+          <section id={type} class="scroll-mt-24">
             <div class="mb-8 flex items-center gap-4 border-b border-border/40 pb-4">
               <div class="rounded-xl bg-primary/10 p-3">
                 <Icon className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h2 class="text-3xl font-bold tracking-tight">{section.label}</h2>
+                <h2 class="text-3xl font-bold tracking-tight">{TYPE_LABELS[type]}</h2>
               </div>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2">
-              {section.items.map((item) => (
+              {items.map((doc) => (
                 <DocCard
-
-                  href={item.href}
-                  variant={section.type === 'how-to' ? 'howTo' : section.type}
+                  href={`${docsBaseUrl}/${doc.id}`}
+                  variant={type === 'how-to' ? 'howTo' : type}
                   icon={Icon}
-                  title={item.title}
-                  description={`Detailed documentation and guides for ${item.title.toLowerCase()}.`}
+                  title={doc.data.title}
+                  description={`Detailed documentation and guides for ${doc.data.title.toLowerCase()}.`}
                 />
               ))}
             </div>

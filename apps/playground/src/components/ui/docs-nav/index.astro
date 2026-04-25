@@ -1,24 +1,33 @@
 ---
-interface DocNavItem {
-  id: string;
-  title: string;
-  href: string;
-  order: number;
+import { getDocs } from "../../utils/docs";
+import { baseUrl } from "../../constants/routes";
+
+const docs = await getDocs();
+
+const docsByType = {
+  tutorial: [] as typeof docs,
+  "how-to": [] as typeof docs,
+  explanation: [] as typeof docs,
+  reference: [] as typeof docs,
+};
+
+for (const doc of docs) {
+  docsByType[doc.data.type].push(doc);
 }
 
-interface NavSection {
-  type: string;
-  label: string;
-  items: DocNavItem[];
+for (const type of Object.keys(docsByType) as (keyof typeof docsByType)[]) {
+  docsByType[type].sort((a, b) => a.data.order - b.data.order);
 }
 
-interface Props {
-  sections: NavSection[];
-  currentPath: string;
-  docsBaseUrl: string;
-}
+const TYPE_LABELS = {
+  tutorial: "Tutorials",
+  "how-to": "How-To Guides",
+  explanation: "Explanation",
+  reference: "Reference",
+};
 
-const { sections, currentPath, docsBaseUrl } = Astro.props;
+const currentPath = Astro.url.pathname;
+const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
 ---
 
 <aside class="hidden md:block w-64 shrink-0 overflow-y-auto border-r border-border/40 bg-card/30 p-6">
@@ -31,18 +40,19 @@ const { sections, currentPath, docsBaseUrl } = Astro.props;
   </a>
   
   <nav class="space-y-8">
-    {sections.map((section) => (
+    {Object.entries(docsByType).map(([type, items]) => (
       <div>
         <h3 class="mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/70">
-          {section.label}
+          {TYPE_LABELS[type]}
         </h3>
         <ul class="space-y-1">
-          {section.items.map((item) => {
-            const isActive = currentPath === item.href || currentPath === `${item.href}/`;
+          {items.map((doc) => {
+            const href = `${docsBaseUrl}/${doc.id}`;
+            const isActive = currentPath === href || currentPath === `${href}/`;
             return (
               <li>
                 <a
-                  href={item.href}
+                  href={href}
                   class:list={[
                     "block rounded-md px-3 py-2 text-sm transition-all",
                     isActive 
@@ -50,7 +60,7 @@ const { sections, currentPath, docsBaseUrl } = Astro.props;
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   ]}
                 >
-                  {item.title}
+                  {doc.data.title}
                 </a>
               </li>
             );

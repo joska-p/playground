@@ -1,7 +1,5 @@
 ---
 import Layout from "../layout.astro";
-import { baseUrl } from "../../constants/routes";
-import { getDocsNav, type DocType } from "../../utils/docs";
 import DocsNav from "../../components/ui/docs-nav/index.astro";
 import type { CollectionEntry } from "astro:content";
 
@@ -10,27 +8,11 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-
-const docsNav = await getDocsNav();
-const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
-
-const TYPE_LABELS: Record<DocType, string> = {
-  tutorial: "Tutorials",
-  "how-to": "How-To Guides",
-  explanation: "Explanation",
-  reference: "Reference",
-};
-
-const currentPath = Astro.url.pathname;
 ---
 
 <Layout title={entry.data.title}>
   <div class="flex h-full overflow-hidden">
-    <DocsNav
-      sections={docsNav}
-      currentPath={currentPath}
-      docsBaseUrl={docsBaseUrl}
-    />
+    <DocsNav />
 
     <main class="flex-1 overflow-y-auto">
       <div class="mx-auto max-w-4xl px-6 py-12 md:px-12">
