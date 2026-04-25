@@ -12,7 +12,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 const rawRoutes = [
   {
     label: "Docs",
-    href: "/",
+    href: "/docs/",
     description: "Documentation",
   },
   {

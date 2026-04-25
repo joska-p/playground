@@ -1,0 +1,45 @@
+---
+import type { LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+interface Props {
+  href: string;
+  icon?: LucideIcon;
+  title: string;
+  description?: string;
+  variant?: "default" | "tutorial" | "howTo" | "explanation" | "reference";
+  class?: string;
+}
+
+const { href, icon: Icon, title, description, variant = "default", class: className } = Astro.props;
+
+const variantClasses: Record<string, string> = {
+  default: "hover:bg-card/80",
+  tutorial: "border-secondary/30 hover:border-secondary/60",
+  howTo: "border-accent/30 hover:border-accent/60",
+  explanation: "border-primary/30 hover:border-primary/60",
+  reference: "border-muted/30 hover:border-muted/60",
+};
+---
+
+<a href={href} class:list={[
+  "group inline-block rounded-xl border bg-card p-6 transition-all duration-200 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5",
+  variantClasses[variant],
+  className
+]}>
+  <span class="flex items-start gap-4">
+    {Icon && (
+      <span class="mt-1 rounded-lg bg-primary/10 p-2 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+        <Icon className="h-5 w-5" />
+      </span>
+    )}
+    <span class="flex-1">
+      <span class="flex items-center gap-2 font-mono text-lg font-semibold">
+        {title}
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+      </span>
+      {description && <p class="mt-1 text-sm text-muted-foreground">{description}</p>}
+      <slot />
+    </span>
+  </span>
+</a>

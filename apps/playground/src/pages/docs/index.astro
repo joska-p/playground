@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/layout.astro";
-import { DocCard } from "@repo/ui";
+import DocCard from "../../components/DocCard.astro";
 import { Book, Wrench, Lightbulb, Code } from "lucide-react";
 import { getDocsNav } from "../../utils/docs";
 import { baseUrl } from "../../constants/routes";
@@ -34,7 +34,7 @@ const iconMap = {
           <section id={section.type} class="scroll-mt-24">
             <div class="mb-8 flex items-center gap-4 border-b border-border/40 pb-4">
               <div class="rounded-xl bg-primary/10 p-3">
-                <Icon className="h-6 w-6 text-primary" />
+                <Icon class="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h2 class="text-3xl font-bold tracking-tight">{section.label}</h2>

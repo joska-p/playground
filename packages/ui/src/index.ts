@@ -15,8 +15,5 @@ export * from "./components/switch/switchVariants.js";
 export * from "./components/widgets/sidebar/Sidebar.js";
 export * from "./components/widgets/ColorPalette/ColorPalette.js";
 export * from "./components/widgets/ColorPalette/colorPaletteVariants.js";
-export * from "./components/callout/Callout.js";
-export * from "./components/breadcrumb/Breadcrumb.js";
-export * from "./components/doc-card/DocCard.js";
 export * from "./hooks/use-resize-observer.js";
 export * from "./utils/cn.js";

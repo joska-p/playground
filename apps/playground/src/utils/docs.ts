@@ -75,12 +75,12 @@ export async function getNextPrev(id: string) {
   
   return {
     prev: currentIndex > 0 ? {
-      title: sortedDocs[currentIndex - 1].data.title,
-      href: resolveDocHref(sortedDocs[currentIndex - 1].id)
+      title: sortedDocs[currentIndex - 1]!.data.title,
+      href: resolveDocHref(sortedDocs[currentIndex - 1]!.id)
     } : null,
     next: currentIndex < sortedDocs.length - 1 ? {
-      title: sortedDocs[currentIndex + 1].data.title,
-      href: resolveDocHref(sortedDocs[currentIndex + 1].id)
+      title: sortedDocs[currentIndex + 1]!.data.title,
+      href: resolveDocHref(sortedDocs[currentIndex + 1]!.id)
     } : null,
   };
 }

@@ -1,0 +1,53 @@
+---
+import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui";
+import type { ComponentProps } from "astro/types";
+import type { LucideIcon } from "lucide-react";
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  iconBgColor?: string;
+  iconColor?: string;
+  tags?: { label: string; color?: string }[];
+}
+
+const {
+  href,
+  title,
+  description,
+  icon: Icon,
+  iconBgColor = "bg-primary/20",
+  iconColor = "text-primary",
+  tags = []
+} = Astro.props;
+---
+
+<a href={href} class="group outline-none">
+  <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
+    <CardHeader>
+      <div class:list={["mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-3", iconBgColor]}>
+        <Icon class:list={["h-8 w-8", iconColor]} />
+      </div>
+      <CardTitle className="text-2xl">{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p class="text-sm leading-relaxed text-muted-foreground">
+        {description}
+      </p>
+      {tags.length > 0 && (
+        <div class="mt-6 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class:list={[
+              "rounded-full border px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+              tag.color ? `border-${tag.color}/20 bg-${tag.color}/5 text-${tag.color}` : "border-primary/20 bg-primary/5 text-primary"
+            ]}>
+              {tag.label}
+            </span>
+          ))}
+        </div>
+      )}
+    </CardContent>
+  </Card>
+</a>

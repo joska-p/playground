@@ -3,7 +3,7 @@ import Layout from "./layout.astro";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { baseUrl } from "../constants/routes";
 import { getDocsNav, getNextPrev, type DocType } from "../utils/docs";
-import { Breadcrumb } from "@repo/ui";
+import Breadcrumb from "../components/Breadcrumb.astro";
 import { DocsNav } from "../components/DocsNav";
 import type { CollectionEntry } from "astro:content";
 
@@ -43,7 +43,7 @@ const currentPath = Astro.url.pathname;
 
     <main class="flex-1 overflow-y-auto">
       <div class="mx-auto max-w-4xl px-6 py-12 lg:px-12">
-        <Breadcrumb client:load items={breadcrumbItems} className="mb-8" />
+        <Breadcrumb items={breadcrumbItems} class="mb-8" />
 
         <article class="prose prose-gruvbox dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-primary hover:prose-a:text-accent transition-colors">
           <slot />
