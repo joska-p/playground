@@ -98,10 +98,14 @@ function MyProject() {
 
 ## Run Individual Apps
 
+Always run commands from the root using `--filter`:
+
 ```bash
-cd apps/playground && pnpm dev      # Main site (port 4321)
-cd apps/storybook && pnpm dev     # Storybook (port 6006)
+pnpm --filter @repo/playground dev      # Main site (port 4321)
+pnpm --filter @repo/storybook dev         # Storybook (port 6006)
 ```
+
+> **Tip:** Always use `pnpm --filter <package> <command>` from root instead of `cd`ing into directories.
 
 ## Pro Tips
 
@@ -159,8 +163,8 @@ pnpm --filter @repo/ui test
 | `pnpm: command not found`        | pnpm not installed | `npm install -g pnpm`                    |
 | `uv: command not found`          | Missing uv         | `pip install uv` or use Nix              |
 | Port 4321 in use                 | Already running    | Kill process or use different port       |
-| Type errors after package update | Cache stale        | Delete `.turbo` and rerun `pnpm install` |
-| Storybook stories not showing    | Not built          | `cd apps/storybook && pnpm build`        |
+| Type errors after package update | Cache stale        | `pnpm clean && pnpm install`           |
+| Storybook stories not showing    | Not built          | `pnpm --filter @repo/storybook build` |
 
 ### Node.js Version
 
@@ -170,24 +174,36 @@ This project requires **Node.js 22+**. Check your version:
 node --version
 ```
 
-If you have an older version, use `n` or `fnm` to switch:
+If you have an older version, use a version manager like [`n`](https://github.com/tj/n) or [`fnm`](https://github.com/Schniz/fnm) to switch:
 
 ```bash
+# Using fnm
 fnm install 22
 fnm use 22
 ```
 
 ### Clean Restart
 
-If things feel off, start fresh:
+If things feel off, clean and reinstall:
 
 ```bash
-# Remove caches
-rm -rf .turbo node_modules apps/*/node_modules packages/*/node_modules
-
-# Reinstall
-pnpm install
-
-# Verify
-pnpm lint && pnpm check-types
+pnpm clean          # Remove .turbo and all node_modules
+pnpm install       # Fresh install
 ```
+
+Or manually:
+
+```bash
+rm -rf .turbo node_modules apps/*/node_modules packages/*/node_modules
+pnpm install
+```
+
+## Verify Your Setup
+
+Run the full verification before starting work:
+
+```bash
+pnpm lint && pnpm format && pnpm check-types
+```
+
+All three must pass with no errors.

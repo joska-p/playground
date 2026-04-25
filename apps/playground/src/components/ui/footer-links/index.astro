@@ -1,5 +1,6 @@
 ---
 import { routes } from "../../../constants/routes";
+import { Badge } from "@repo/ui";
 
 interface Props {
   class?: string;
@@ -9,13 +10,25 @@ const { class: className } = Astro.props;
 
 // Get utility links and Docs from routes
 const utilityLinks = routes.filter(r => r.isUtility || r.label === "Docs");
+
+// Tools and technologies used - cycling through variants for visual interest
+const credits = [
+  { name: "Astro",  variant: "primary" },
+  { name: "React",  variant: "secondary" },
+  { name: "Tailwind", variant: "accent" },
+  { name: "Turborepo", variant: "primary" },
+  { name: "Storybook", variant: "secondary" },
+  { name: "TypeScript", variant: "accent" },
+  { name: "Nix", variant: "secondary" },
+  { name: "pnpm", variant: "primary" },
+];
 ---
 
 <footer class:list={["border-t border-border/40 pt-16 text-center", className]}>
   <div class="mb-8 flex justify-center gap-8">
     {utilityLinks.map((link) => (
-      <a 
-        href={link.href} 
+      <a
+        href={link.href}
         class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
         target={link.href.startsWith("http") ? "_blank" : undefined}
         rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
@@ -35,6 +48,14 @@ const utilityLinks = routes.filter(r => r.isUtility || r.label === "Docs");
         )}
         <span>{link.label}</span>
       </a>
+    ))}
+  </div>
+  <div class="mb-4 flex flex-wrap justify-center gap-2">
+    <span class="text-muted-foreground text-sm py-1">Powered by</span>
+    {credits.map((credit) => (
+      <Badge variant={credit.variant as "primary" | "secondary" | "accent" | "outline"} class="gap-1">
+        {credit.name}
+      </Badge>
     ))}
   </div>
   <p class="text-sm text-muted-foreground italic">

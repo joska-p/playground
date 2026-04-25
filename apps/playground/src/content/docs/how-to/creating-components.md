@@ -131,7 +131,7 @@ export const Secondary: StoryObj = {
 };
 ```
 
-> **Tip:** Run `cd apps/storybook && pnpm dev` to see your stories (port 6006).
+> **Tip:** Run `pnpm --filter @repo/storybook dev` to see your stories (port 6006).
 
 ## Checklist
 

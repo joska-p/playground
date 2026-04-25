@@ -19,6 +19,9 @@ This project uses **Vitest** for testing. To set it up:
 # Add Vitest to your package
 cd packages/my-package
 pnpm add -D vitest @testing-library/react @testing-library/dom jsdom
+
+# Or from root
+pnpm --filter @repo/my-package add -D vitest @testing-library/react jsdom
 ```
 
 ### Configure Vitest
@@ -88,8 +91,8 @@ pnpm test --coverage
 # Run in watch mode
 pnpm test --watch
 
-# Run specific package
-cd packages/my-package && pnpm test
+# Run specific package (from root)
+pnpm --filter @repo/my-package test
 ```
 
 ## Best Practices
@@ -115,7 +118,7 @@ Before committing:
 Use Storybook to verify visual output:
 
 ```bash
-cd apps/storybook && pnpm dev
+pnpm --filter @repo/storybook dev
 # Visit http://localhost:6006
 ```
 

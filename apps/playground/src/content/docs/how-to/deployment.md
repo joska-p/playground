@@ -97,12 +97,12 @@ Or connect the repository in the Vercel dashboard.
 
 ## Troubleshooting
 
-| Issue             | Fix                                                |
-| ----------------- | -------------------------------------------------- |
-| Build fails       | Run `pnpm build` locally first                     |
-| Cache stale       | Delete `.turbo` and rebuild                        |
-| Type errors       | Run `pnpm check-types` locally                     |
-| Storybook missing | Build Storybook: `cd apps/storybook && pnpm build` |
+| Issue             | Fix                                     |
+| ----------------- | -------------------------------------- |
+| Build fails       | Run `pnpm build` locally first            |
+| Cache stale       | Delete `.turbo` and rebuild               |
+| Type errors       | Run `pnpm check-types` locally            |
+| Storybook missing | `pnpm --filter @repo/storybook build` |
 
 ## Pre-Commit Checklist
 
