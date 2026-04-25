@@ -30,7 +30,7 @@ export function resolveDocHref(id: string) {
 }
 
 export async function getDocsNav(): Promise<NavSection[]> {
-  const allDocs = await getCollection("docs", ({ data }) => !data.draft);
+  const allDocs = await getCollection("docs", (entry) => !entry.data.draft);
 
   const sections: Record<DocType, DocNavItem[]> = {
     tutorial: [],
