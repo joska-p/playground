@@ -1,25 +1,33 @@
 ---
-import { getDocs } from "../../utils/docs";
-import { baseUrl } from "../../constants/routes";
+import { getDocs } from "../../../utils/docs";
+import { baseUrl } from "../../../constants/routes";
+import type { CollectionEntry } from "astro:content";
 
 const docs = await getDocs();
 
-const docsByType = {
-  tutorial: [] as typeof docs,
-  "how-to": [] as typeof docs,
-  explanation: [] as typeof docs,
-  reference: [] as typeof docs,
+type DocEntry = CollectionEntry<"docs">;
+
+const docsByType: Record<string, DocEntry[]> = {
+  tutorial: [],
+  "how-to": [],
+  explanation: [],
+  reference: [],
 };
 
 for (const doc of docs) {
-  docsByType[doc.data.type].push(doc);
+  const docType = doc.data.type;
+  if (docType && docsByType[docType]) {
+    docsByType[docType].push(doc);
+  }
 }
 
-for (const type of Object.keys(docsByType) as (keyof typeof docsByType)[]) {
-  docsByType[type].sort((a, b) => a.data.order - b.data.order);
+for (const type of Object.keys(docsByType)) {
+  if (docsByType[type]) {
+    docsByType[type].sort((a, b) => a.data.order - b.data.order);
+  }
 }
 
-const TYPE_LABELS = {
+const TYPE_LABELS: Record<string, string> = {
   tutorial: "Tutorials",
   "how-to": "How-To Guides",
   explanation: "Explanation",

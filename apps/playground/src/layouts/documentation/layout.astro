@@ -1,5 +1,5 @@
 ---
-import Layout from "../layout.astro";
+import BaseLayout from "../layout.astro";
 import DocsNav from "../../components/ui/docs-nav/index.astro";
 import type { CollectionEntry } from "astro:content";
 
@@ -10,7 +10,7 @@ interface Props {
 const { entry } = Astro.props;
 ---
 
-<Layout title={entry.data.title}>
+<BaseLayout title={entry.data.title}>
   <div class="flex h-full overflow-hidden">
     <DocsNav />
 

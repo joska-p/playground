@@ -23,7 +23,7 @@
     },
     "check-types": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "tsconfig.json"]
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig.json", "package.json"]
     },
     "dev": {
       "dependsOn": ["^build"],

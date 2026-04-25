@@ -1,5 +1,5 @@
 ---
-import Layout from "../layout.astro";
+import BaseLayout from "../layout.astro";
 import ExperimentCard from "../../components/ui/experiment-card/index.astro";
 
 interface Project {
@@ -18,10 +18,10 @@ interface Props {
   projects: Project[];
 }
 
-const { title, description, projects } = Astro.props;
+const { title, description, projects = [] } = Astro.props;
 ---
 
-<Layout title={title}>
+<BaseLayout title={title}>
   <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
     <header class="mb-12">
       <h1 class="text-4xl font-bold text-foreground">{title}</h1>
@@ -35,11 +35,11 @@ const { title, description, projects } = Astro.props;
           title={project.label}
           description={project.description}
           icon={project.icon}
-          iconBgColor={project.iconBgColor}
-          iconColor={project.iconColor}
-          tags={project.tags}
+          iconBgColor={project.iconBgColor ?? ""}
+          iconColor={project.iconColor ?? ""}
+          tags={project.tags ?? []}
         />
       ))}
     </div>
   </div>
-</Layout>
+</BaseLayout>

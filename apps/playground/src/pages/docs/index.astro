@@ -22,7 +22,7 @@ for (const type of Object.keys(docsByType) as (keyof typeof docsByType)[]) {
   docsByType[type].sort((a, b) => a.data.order - b.data.order);
 }
 
-const TYPE_LABELS = {
+const TYPE_LABELS: Record<string, string> = {
   tutorial: "Tutorials",
   "how-to": "How-To Guides",
   explanation: "Explanation",
@@ -61,20 +61,23 @@ const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
                 <Icon className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h2 class="text-3xl font-bold tracking-tight">{TYPE_LABELS[type]}</h2>
+                <h2 class="text-3xl font-bold tracking-tight">{TYPE_LABELS[type as string]}</h2>
               </div>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2">
-              {items.map((doc) => (
-                <DocCard
-                  href={`${docsBaseUrl}/${doc.id}`}
-                  variant={type === 'how-to' ? 'howTo' : type}
-                  icon={Icon}
-                  title={doc.data.title}
-                  description={`Detailed documentation and guides for ${doc.data.title.toLowerCase()}.`}
-                />
-              ))}
+              {items.map((doc) => {
+                  const docVariant = type === "how-to" ? "howTo" : type === "tutorial" ? "tutorial" : type === "explanation" ? "explanation" : type === "reference" ? "reference" : "default";
+                  return (
+                    <DocCard
+                      href={`${docsBaseUrl}/${doc.id}`}
+                      variant={docVariant as any}
+                      icon={Icon}
+                      title={doc.data.title}
+                      description={`Detailed documentation and guides for ${doc.data.title.toLowerCase()}.`}
+                    />
+                  );
+                })}
             </div>
           </section>
         );
