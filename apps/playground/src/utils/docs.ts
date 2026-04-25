@@ -59,28 +59,3 @@ export async function getDocById(id: string) {
   const allDocs = await getCollection("docs");
   return allDocs.find((doc) => doc.id === id);
 }
-
-export async function getNextPrev(id: string) {
-  const allDocs = await getCollection("docs", ({ data }) => !data.draft);
-  // Sort all docs in a stable way for next/prev
-  const sortedDocs = allDocs.sort((a, b) => {
-    if (a.data.type !== b.data.type) {
-      const types: DocType[] = ["tutorial", "how-to", "explanation", "reference"];
-      return types.indexOf(a.data.type) - types.indexOf(b.data.type);
-    }
-    return a.data.order - b.data.order;
-  });
-
-  const currentIndex = sortedDocs.findIndex((doc) => doc.id === id);
-  
-  return {
-    prev: currentIndex > 0 ? {
-      title: sortedDocs[currentIndex - 1]!.data.title,
-      href: resolveDocHref(sortedDocs[currentIndex - 1]!.id)
-    } : null,
-    next: currentIndex < sortedDocs.length - 1 ? {
-      title: sortedDocs[currentIndex + 1]!.data.title,
-      href: resolveDocHref(sortedDocs[currentIndex + 1]!.id)
-    } : null,
-  };
-}

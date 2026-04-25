@@ -1,10 +1,8 @@
 ---
 import Layout from "./layout.astro";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { baseUrl } from "../constants/routes";
-import { getDocsNav, getNextPrev, type DocType } from "../utils/docs";
-import Breadcrumb from "../components/Breadcrumb.astro";
-import { DocsNav } from "../components/DocsNav";
+import { getDocsNav, type DocType } from "../utils/docs";
+import DocsNav from "../components/DocsNav.astro";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -14,7 +12,6 @@ interface Props {
 const { entry } = Astro.props;
 
 const docsNav = await getDocsNav();
-const { next, prev } = await getNextPrev(entry.id);
 const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
 
 const TYPE_LABELS: Record<DocType, string> = {
@@ -23,12 +20,6 @@ const TYPE_LABELS: Record<DocType, string> = {
   explanation: "Explanation",
   reference: "Reference",
 };
-
-const breadcrumbItems = [
-  { label: "Docs", href: docsBaseUrl },
-  { label: TYPE_LABELS[entry.data.type], href: `${docsBaseUrl}#${entry.data.type}` },
-  { label: entry.data.title },
-];
 
 const currentPath = Astro.url.pathname;
 ---
@@ -43,37 +34,9 @@ const currentPath = Astro.url.pathname;
 
     <main class="flex-1 overflow-y-auto">
       <div class="mx-auto max-w-4xl px-6 py-12 lg:px-12">
-        <Breadcrumb items={breadcrumbItems} class="mb-8" />
-
         <article class="prose prose-gruvbox dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-primary hover:prose-a:text-accent transition-colors">
           <slot />
         </article>
-
-        <nav class="mt-20 flex flex-col gap-4 border-t border-border/40 pt-10 sm:flex-row sm:items-center sm:justify-between">
-          {prev ? (
-            <a href={prev.href} class="group flex flex-col items-start gap-1 rounded-lg border border-transparent p-3 transition-colors hover:border-border hover:bg-muted/50">
-              <span class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                <ChevronLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-                Previous
-              </span>
-              <span class="font-medium text-foreground">{prev.title}</span>
-            </a>
-          ) : (
-            <div />
-          )}
-
-          {next ? (
-            <a href={next.href} class="group flex flex-col items-end gap-1 rounded-lg border border-transparent p-3 text-right transition-colors hover:border-border hover:bg-muted/50">
-              <span class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Next
-                <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-              </span>
-              <span class="font-medium text-foreground">{next.title}</span>
-            </a>
-          ) : (
-            <div />
-          )}
-        </nav>
       </div>
     </main>
   </div>
