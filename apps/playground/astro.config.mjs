@@ -34,7 +34,7 @@ export default defineConfig({
     {
       provider: fontProviders.fontsource(),
       name: "JetBrains Mono",
-      cssVariable: "--font-JetBrainsMono",
+      cssVariable: "--font-jetbrains-mono",
     },
   ],
 });

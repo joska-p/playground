@@ -43,11 +43,11 @@ order: 1
 
 ## Typography
 
-| Family  | Font            | Usage        |
+| Family | Font | Usage |
 | ------- | --------------- | ------------ |
-| `sans`  | Source Code Pro | Body         |
-| `serif` | Source Serif 4  | Headings     |
-| `mono`  | JetBrains Mono  | Code, inputs |
+| `sans` | Inter | Body text |
+| `serif` | Playfair Display | Headings |
+| `mono` | JetBrains Mono | Code, inputs |
 
 ### Type Scale
 

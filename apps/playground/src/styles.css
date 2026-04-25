@@ -47,9 +47,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-JetBrainsMono);
-  --font-serif: var(--font-JetBrainsMono);
-  --font-mono: var(--font-JetBrainsMono);
+  --font-sans: var(--font-jetbrains-mono);
+  --font-serif: var(--font-jetbrains-mono);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
