@@ -1,11 +1,11 @@
 ---
-import Layout from "../../layouts/layout.astro";
+import BaseLayout from "../../layouts/base-layout.astro";
 import { baseUrl } from "../../constants/routes";
 
 const graphUrl = `${baseUrl}/graph.html`;
 ---
 
-<Layout title="Knowledge Graph">
+<BaseLayout title="Knowledge Graph">
   <div class="flex-1 w-full overflow-hidden">
     <iframe
       src={graphUrl}
@@ -13,4 +13,4 @@ const graphUrl = `${baseUrl}/graph.html`;
       title="Knowledge Graph"
     />
   </div>
-</Layout>
+</BaseLayout>

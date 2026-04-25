@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import DocumentationLayout from "../../layouts/documentation/layout.astro";
+import DocumentationLayout from "../../layouts/documentation/documentation-layout.astro";
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs", ({ data }) => !data.draft);

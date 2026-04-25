@@ -1,10 +1,10 @@
 ---
 import { StrictMode } from "react";
 import { ImageToParticles } from "@repo/image-to-particles";
-import Layout from "../../../layouts/layout.astro";
+import BaseLayout from "../../../layouts/base-layout.astro";
 ---
 
-<Layout title="Sequence Renderer">
+<BaseLayout title="Sequence Renderer">
   <StrictMode>
     <ImageToParticles client:only="react"/>
   </StrictMode>

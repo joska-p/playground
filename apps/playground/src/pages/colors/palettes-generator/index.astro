@@ -1,10 +1,10 @@
 ---
 import { PaletteGenerator } from "@repo/palette-generator";
 import { StrictMode } from "react";
-import Layout from "../../../layouts/layout.astro";
+import BaseLayout from "../../../layouts/base-layout.astro";
 ---
 
-<Layout title="Palette generator">
+<BaseLayout title="Palette generator">
   <StrictMode>
     <PaletteGenerator client:only="react" />
   </StrictMode>

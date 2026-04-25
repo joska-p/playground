@@ -1,10 +1,10 @@
 ---
 import { StrictMode } from "react";
 import { SequenceRenderer } from "@repo/sequence-renderer";
-import Layout from "../../../layouts/layout.astro";
+import BaseLayout from "../../../layouts/base-layout.astro";
 ---
 
-<Layout title="Sequence Renderer">
+<BaseLayout title="Sequence Renderer">
   <StrictMode>
     <SequenceRenderer  client:only="react"/>
   </StrictMode>

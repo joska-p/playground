@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/layout.astro";
+import BaseLayout from "../../layouts/base-layout.astro";
 import DocCard from "../../components/ui/doc-card/index.astro";
 import { Book, Wrench, Lightbulb, Code } from "lucide-react";
 import { getDocs } from "../../utils/docs";
@@ -39,7 +39,7 @@ const iconMap = {
 const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
 ---
 
-<Layout title="Documentation Hub">
+<BaseLayout title="Documentation Hub">
   <div class="mx-auto max-w-5xl px-6 py-16 lg:py-24">
     <header class="mb-20 text-center">
       <h1 class="font-serif text-5xl font-bold tracking-tight lg:text-6xl">
@@ -93,4 +93,4 @@ const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
       </p>
     </footer>
   </div>
-</Layout>
+</BaseLayout>

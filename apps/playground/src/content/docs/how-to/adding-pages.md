@@ -36,11 +36,11 @@ apps/playground/src/
 **Location:** `apps/playground/src/pages/<category>/<project>/index.tsx`
 
 ```tsx
-import Layout from "../../layouts/layout.astro";
+import BaseLayout from "../../layouts/base-layout.astro";
 
 export default function MyPage() {
   return (
-    <Layout title="My Awesome Project">
+    <BaseLayout title="My Awesome Project">
       <h1>My Awesome Project</h1>
       <p>This is going to be fun!</p>
     </Layout>
@@ -80,7 +80,7 @@ Create `apps/playground/src/pages/<category>/index.astro`:
 
 ```astro
 ---
-import Layout from "../../layouts/layout.astro";
+import BaseLayout from "../../layouts/base-layout.astro";
 
 const projects = [
   {
