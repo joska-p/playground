@@ -1,0 +1,57 @@
+# AGENTS.md — Creative Playground
+
+## Quick Commands
+
+```bash
+pnpm dev        # Start all apps (Astro:4321, Storybook:6006)
+pnpm lint       # Turborepo lint (depends on ^lint)
+pnpm format     # Prettier write
+pnpm check-types # astro check (depends on ^build)
+pnpm graphify   # Update knowledge graph post-code change
+```
+
+## Mandatory Setup
+
+- **Node.js 22+**: `pnpm` auto-installs
+- **Nix (recommended)**: `nix develop` or `direnv allow` — ensures correct environment
+
+## Architecture
+
+| Path | Type |
+|------|------|
+| `apps/playground` | Main Astro app + in-app docs |
+| `apps/storybook` | UI component isolation (port 6006) |
+| `packages/ui` | Shared atomic components |
+| `packages/*` | "Engines": mosaic-maker, sequence-renderer, palette-generator, image-to-particles |
+
+## Knowledge Graph
+
+Read `graphify-out/GRAPH_REPORT.md` for god nodes and architecture context. Run `pnpm graphify` after code changes.
+
+## Verification Rules
+
+- UI changes MUST verify in Storybook (`apps/storybook`)
+- Run `pnpm lint && pnpm format && pnpm check-types` before completing
+
+## Critical Conventions
+
+- **Branch**: ALWAYS work on `develop` branch, never push to `main`
+- **State**: Use URL SearchParams for shareable UI state (`URL as State`)
+- **Component structure**: `src/components/Name/` (includes `.stories.tsx`)
+- **Environment detection** (Astro config): Use `process.env.VERCEL`, NOT `import.meta.env`
+- **Graphify**: Include GITHUB_ACTIONS and VERCEL in turbo.json `globalEnv` if modifying env logic
+
+## Turborepo Dependencies
+
+```json
+"check-types": { "dependsOn": ["^build"] },
+"lint": { "dependsOn": ["^lint"] }
+```
+
+Build must complete before type-check runs. Package order in `pnpm-workspace.yaml`: `apps/*` then `packages/*`.
+
+## See Also
+
+- **In-app docs**: `apps/playground/src/content/docs/` — Architecture, getting started, how-to guides
+- `.agents/skills/` — Domain-specific skills (frontend-design, turborepo, etc.)
+- `.opencode/opencode.json` → links to this file for OpenCode
