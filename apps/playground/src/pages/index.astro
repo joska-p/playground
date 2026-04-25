@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/layout.astro";
-import ExperimentCard from "../components/experiment-card/index.astro";
-import DocCard from "../components/doc-card/index.astro";
+import ExperimentCard from "../components/ui/experiment-card/index.astro";
+import DocCard from "../components/ui/doc-card/index.astro";
 import SectionHeader from "../components/ui/section-header/index.astro";
 import FooterLinks from "../components/ui/footer-links/index.astro";
 import { baseUrl } from "../constants/routes";
@@ -32,12 +32,12 @@ const githubRoute = { href: "https://github.com/joska-p/playground" };
 
     <div class="relative z-10 mx-auto max-w-4xl">
       <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium text-primary">
-        <Zap class="h-4 w-4 fill-current text-primary" />
+        <Zap className="h-4 w-4 fill-current text-primary" />
         <span>Stateless First Architecture</span>
       </div>
 
       <h1 class="font-serif text-6xl font-black tracking-tighter sm:text-7xl lg:text-8xl">
-        Creative <span class="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">Playground</span>
+        Creative <span class="bg-linear-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">Playground</span>
       </h1>
 
       <p class="mx-auto mt-8 max-w-2xl text-xl text-muted-foreground leading-relaxed">
@@ -64,9 +64,9 @@ const githubRoute = { href: "https://github.com/joska-p/playground" };
 
   <div class="mx-auto max-w-6xl px-6 py-20 lg:py-24">
     <section id="experiments" class="mb-24 scroll-mt-24">
-      <SectionHeader 
-        icon={Sparkles} 
-        title="Engines & Labs" 
+      <SectionHeader
+        icon={Sparkles}
+        title="Engines & Labs"
         description="Volatile experiments in high-interactivity canvas rendering."
         href={githubRoute.href}
       >
@@ -129,9 +129,9 @@ const githubRoute = { href: "https://github.com/joska-p/playground" };
     </section>
 
     <section class="mb-24 rounded-3xl bg-muted/30 p-8 lg:p-12">
-      <SectionHeader 
-        icon={Book} 
-        title="Platform Guide" 
+      <SectionHeader
+        icon={Book}
+        title="Platform Guide"
         description="Deep dives into the infrastructure and conventions of the lab."
         align="center"
       />
@@ -172,7 +172,7 @@ const githubRoute = { href: "https://github.com/joska-p/playground" };
 
       <div class="mt-12 text-center">
         <a href={docsBase} class="inline-flex items-center gap-2 font-bold text-primary hover:text-accent transition-colors">
-          Browse Documentation Hub 
+          Browse Documentation Hub
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
