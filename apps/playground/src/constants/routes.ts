@@ -11,6 +11,11 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
   {
+    label: "Docs",
+    href: "/",
+    description: "Documentation",
+  },
+  {
     label: "Particles",
     href: "/particles/",
     description: "Visual effects using particle systems",

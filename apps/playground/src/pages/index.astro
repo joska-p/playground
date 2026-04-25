@@ -1,5 +1,225 @@
 ---
 import Layout from "../layouts/layout.astro";
+import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui";
+import { DocCard } from "@repo/ui";
+import { baseUrl } from "../constants/routes";
+import {
+  Sparkles,
+  Grid3X3,
+  Infinity,
+  Palette,
+  Flame,
+  Book,
+  Wrench,
+  Lightbulb,
+  Code,
+  Zap,
+  ArrowRight,
+} from "lucide-react";
+
+const docsBase = `${baseUrl}/docs`.replace(/\/+/g, "/");
+const resolveDoc = (path: string) => `${docsBase}/${path}`.replace(/\/+/g, "/");
 ---
 
-<Layout title="Playground" />
+<Layout title="Playground">
+  <!-- Hero Section -->
+  <section class="relative flex flex-col items-center justify-center overflow-hidden border-b border-border/40 bg-card/30 px-6 py-24 text-center lg:py-32">
+    <div class="absolute inset-0 z-0 opacity-20">
+      <div class="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_50%_50%,var(--primary),transparent_70%)]"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-4xl">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium text-primary">
+        <Zap className="h-4 w-4 fill-current text-primary" />
+        <span>Stateless First Architecture</span>
+      </div>
+
+      <h1 class="font-serif text-6xl font-black tracking-tighter sm:text-7xl lg:text-8xl">
+        Creative <span class="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">Playground</span>
+      </h1>
+
+      <p class="mx-auto mt-8 max-w-2xl text-xl text-muted-foreground leading-relaxed">
+        A high-performance creative coding lab. Interactive visualizations, math sequences, and color tools built with
+        <span class="text-foreground font-semibold italic">Astro + React 19</span>.
+      </p>
+
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="#experiments"
+          class="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 hover:bg-primary/90 active:scale-95"
+        >
+          Explore Engines
+        </a>
+        <a
+          href={docsBase}
+          class="inline-flex h-12 items-center justify-center rounded-lg border border-border bg-background px-8 text-sm font-bold transition-all hover:bg-muted active:scale-95"
+        >
+          Read the Docs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-6 py-20 lg:py-24">
+    <!-- Experiments Section -->
+    <section id="experiments" class="mb-24 scroll-mt-24">
+      <div class="mb-12 flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+        <div>
+          <h2 class="flex items-center justify-center gap-3 text-4xl font-bold tracking-tight sm:justify-start">
+            <Sparkles className="h-10 w-10 text-accent" />
+            Engines & Labs
+          </h2>
+          <p class="mt-2 text-muted-foreground">Volatile experiments in high-interactivity canvas rendering.</p>
+        </div>
+        <a href="https://github.com/joska-p/playground" class="group flex items-center gap-2 text-sm font-bold text-primary hover:text-accent transition-colors">
+          View all on GitHub <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <a href={`${baseUrl}/mosaic/mosaic-maker`} class="group outline-none">
+          <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
+            <CardHeader>
+              <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/20 transition-transform group-hover:scale-110 group-hover:rotate-3">
+                <Grid3X3 className="h-8 w-8 text-secondary" />
+              </div>
+              <CardTitle className="text-2xl">Mosaic Maker</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="rounded-full border border-secondary/20 bg-secondary/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-secondary">Canvas</span>
+                <span class="rounded-full border border-secondary/20 bg-secondary/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-secondary">Zustand</span>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+
+        <a href={`${baseUrl}/sequences/sequence-renderer`} class="group outline-none">
+          <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
+            <CardHeader>
+              <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/20 transition-transform group-hover:scale-110 group-hover:-rotate-3">
+                <Infinity className="h-8 w-8 text-primary" />
+              </div>
+              <CardTitle className="text-2xl">Sequences</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="rounded-full border border-primary/20 bg-primary/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">Math</span>
+                <span class="rounded-full border border-primary/20 bg-primary/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">SVG</span>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+
+        <a href={`${baseUrl}/colors/palettes-generator`} class="group outline-none">
+          <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
+            <CardHeader>
+              <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/20 transition-transform group-hover:scale-110 group-hover:rotate-3">
+                <Palette className="h-8 w-8 text-accent" />
+              </div>
+              <CardTitle className="text-2xl">Palettes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                Generate harmonious color schemes using mathematical color theory models.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="rounded-full border border-accent/20 bg-accent/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">Design</span>
+                <span class="rounded-full border border-accent/20 bg-accent/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">Theory</span>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+
+        <a href={`${baseUrl}/particles/image-to-particles`} class="group outline-none">
+          <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
+            <CardHeader>
+              <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/20 transition-transform group-hover:scale-110 group-hover:-rotate-3">
+                <Flame className="h-8 w-8 text-destructive" />
+              </div>
+              <CardTitle className="text-2xl">Particles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                Deconstruct images into physics-based particle systems with real-time interaction.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="rounded-full border border-destructive/20 bg-destructive/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">Physics</span>
+                <span class="rounded-full border border-destructive/20 bg-destructive/5 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">Canvas</span>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+      </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section class="mb-24 rounded-3xl bg-muted/30 p-8 lg:p-12">
+      <div class="mb-12 text-center">
+        <h2 class="flex items-center justify-center gap-3 text-4xl font-bold tracking-tight">
+          <Book className="h-10 w-10 text-primary" />
+          Platform Guide
+        </h2>
+        <p class="mt-2 text-muted-foreground">Deep dives into the infrastructure and conventions of the lab.</p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <DocCard
+          href={resolveDoc("tutorial/getting-started")}
+          variant="tutorial"
+          icon={Book}
+          title="Getting Started"
+          description="Initialize your local Nix environment and launch your first experiment."
+        />
+
+        <DocCard
+          href={resolveDoc("how-to/adding-pages")}
+          variant="howTo"
+          icon={Wrench}
+          title="How-To: Add Engines"
+          description="Step-by-step guide to integrating a new engine into the Astro shell."
+        />
+
+        <DocCard
+          href={resolveDoc("explanation/architecture")}
+          variant="explanation"
+          icon={Lightbulb}
+          title="Architecture"
+          description="Learn about our Stateless First philosophy and monorepo structure."
+        />
+
+        <DocCard
+          href={resolveDoc("reference/design-tokens")}
+          variant="reference"
+          icon={Code}
+          title="Design Tokens"
+          description="Technical reference for our Gruvbox-inspired visual language system."
+        />
+      </div>
+
+      <div class="mt-12 text-center">
+        <a href={docsBase} class="inline-flex items-center gap-2 font-bold text-primary hover:text-accent transition-colors">
+          Browse Documentation Hub <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-border/40 pt-16 text-center">
+      <div class="mb-8 flex justify-center gap-8">
+        <a href="https://github.com/joska-p/playground" class="text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
+        <a href={`${baseUrl}/storybook`} class="text-muted-foreground hover:text-foreground transition-colors">Storybook</a>
+        <a href={docsBase} class="text-muted-foreground hover:text-foreground transition-colors">Docs</a>
+      </div>
+      <p class="text-sm text-muted-foreground italic">
+        Crafted with 🎨 by the Creative Playground Team.
+      </p>
+    </footer>
+  </div>
+</Layout>

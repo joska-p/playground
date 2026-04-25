@@ -1,0 +1,70 @@
+---
+import Layout from "../../layouts/layout.astro";
+import { DocCard } from "@repo/ui";
+import { Book, Wrench, Lightbulb, Code } from "lucide-react";
+import { getDocsNav } from "../../utils/docs";
+import { baseUrl } from "../../constants/routes";
+
+const docsNav = await getDocsNav();
+const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
+
+const iconMap = {
+  tutorial: Book,
+  "how-to": Wrench,
+  explanation: Lightbulb,
+  reference: Code,
+};
+---
+
+<Layout title="Documentation Hub">
+  <div class="mx-auto max-w-5xl px-6 py-16 lg:py-24">
+    <header class="mb-20 text-center">
+      <h1 class="font-serif text-5xl font-bold tracking-tight lg:text-6xl">
+        Documentation <span class="text-primary">Hub</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+        Master the Creative Playground with our comprehensive guides, technical references, and architectural deep-dives.
+      </p>
+    </header>
+
+    <div class="grid gap-16">
+      {docsNav.map((section) => {
+        const Icon = iconMap[section.type];
+        return (
+          <section id={section.type} class="scroll-mt-24">
+            <div class="mb-8 flex items-center gap-4 border-b border-border/40 pb-4">
+              <div class="rounded-xl bg-primary/10 p-3">
+                <Icon className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h2 class="text-3xl font-bold tracking-tight">{section.label}</h2>
+              </div>
+            </div>
+
+            <div class="grid gap-6 sm:grid-cols-2">
+              {section.items.map((item) => (
+                <DocCard
+
+                  href={item.href}
+                  variant={section.type === 'how-to' ? 'howTo' : section.type}
+                  icon={Icon}
+                  title={item.title}
+                  description={`Detailed documentation and guides for ${item.title.toLowerCase()}.`}
+                />
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+
+    <footer class="mt-24 border-t border-border/40 pt-12 text-center">
+      <p class="text-muted-foreground">
+        Can't find what you're looking for?
+        <a href="https://github.com/joska-p/playground/issues" class="ml-1 font-medium text-primary hover:underline">
+          Open an issue on GitHub
+        </a>
+      </p>
+    </footer>
+  </div>
+</Layout>
