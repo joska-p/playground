@@ -45,3 +45,5 @@ apps/playground/public/data-viz/
 # Local workspace config (if you add tools later)
 # -----------------------------------------------------------------------------
 *.local
+# Turborepo
+.turbo
