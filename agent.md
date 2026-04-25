@@ -27,7 +27,16 @@ This is an experimental creative coding lab and monorepo. The primary goal is to
 - **Component Pattern**: Follow component-per-folder: `src/components/Name/` (inc. `.stories.tsx`).
 - **Graphify Workflow**: Read `graphify-out/GRAPH_REPORT.md` for context; run `pnpm graphify` after any code change.
 - **Verification**: UI changes MUST be verified in Storybook (`apps/storybook`).
-
+- **Branch Strategy**: 
+  - ALWAYS perform work on the `develop` branch. 
+  - NEVER push directly to `main` unless explicitly instructed for a production release.
+- **Environment Logic**:
+  - `astro.config.mjs` uses `process.env` (Node.js) for environment detection.
+  - Use `Boolean(process.env.VERCEL)` for Vercel detection and `Boolean(process.env.GITHUB_ACTIONS)` for GitHub Pages.
+  - DO NOT use `import.meta.env` inside `astro.config.mjs`; it is not available in that context.
+- **Turborepo Awareness**:
+  - If modifying environment-related logic, ensure `turbo.json` includes the relevant variables (`VERCEL`, `GITHUB_ACTIONS`) in `globalEnv` to prevent cache poisoning.
+  - 
 ## 🤖 Agent Protocol (For AI Agents)
 
 AI Agents **MUST** follow these rules to ensure consistency and safety:

@@ -6,7 +6,7 @@
 
 ## 🏛️ Core Guidelines
 
-- [**Development Manifesto**](../DEVELOPMENT.md) — Our architectural philosophy.
+- [**Development Manifesto**](./DEVELOPMENT.md) — Our architectural philosophy.
 - [**Architecture**](./explanation/architecture.md) — How the repository is structured.
 
 ## 🌱 Tutorials
