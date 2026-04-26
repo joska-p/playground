@@ -1,6 +1,7 @@
 ---
 import { Card, CardHeader, CardTitle, CardContent, Badge } from "@repo/ui";
 import type { LucideIcon } from "lucide-react";
+import type { BadgeColor } from "../../../data/projects";
 
 interface Props {
   href: string;
@@ -9,7 +10,7 @@ interface Props {
   icon: LucideIcon;
   iconBgColor?: string;
   iconColor?: string;
-  tags?: { label: string; color?: string }[];
+  tags?: { label: string; color: BadgeColor }[];
 }
 
 const {
@@ -38,7 +39,7 @@ const {
       {tags.length > 0 && (
         <div class="mt-6 flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <Badge variant={tag.color as any}>
+            <Badge variant={tag.color}>
               {tag.label}
             </Badge>
           ))}

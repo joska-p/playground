@@ -1,15 +1,17 @@
 ---
 import BaseLayout from "../base-layout.astro";
 import ExperimentCard from "../../components/ui/experiment-card/index.astro";
+import type { LucideIcon } from "lucide-react";
+import type { BadgeColor } from "../../data/projects";
 
 interface Project {
   label: string;
   href: string;
   description: string;
-  icon?: any;
+  icon: LucideIcon;
   iconBgColor?: string;
   iconColor?: string;
-  tags?: { label: string; color?: string }[];
+  tags?: { label: string; color: BadgeColor }[];
 }
 
 interface Props {

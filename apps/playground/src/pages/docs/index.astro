@@ -5,6 +5,8 @@ import { Book, Wrench, Lightbulb, Code } from "lucide-react";
 import { getDocs } from "../../utils/docs";
 import { baseUrl } from "../../constants/routes";
 
+type DocVariant = "default" | "tutorial" | "howTo" | "explanation" | "reference";
+
 const docs = await getDocs();
 
 const docsByType = {
@@ -37,6 +39,16 @@ const iconMap = {
 };
 
 const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
+
+function getVariant(type: string): DocVariant {
+  const variantMap: Record<string, DocVariant> = {
+    "how-to": "howTo",
+    tutorial: "tutorial",
+    explanation: "explanation",
+    reference: "reference",
+  };
+  return variantMap[type] ?? "default";
+}
 ---
 
 <BaseLayout title="Documentation Hub">
@@ -65,19 +77,16 @@ const docsBaseUrl = `${baseUrl}/docs`.replace(/\/+/g, "/");
               </div>
             </div>
 
-            <div class="grid gap-6 sm:grid-cols-2">
-              {items.map((doc) => {
-                  const docVariant = type === "how-to" ? "howTo" : type === "tutorial" ? "tutorial" : type === "explanation" ? "explanation" : type === "reference" ? "reference" : "default";
-                  return (
-                    <DocCard
-                      href={`${docsBaseUrl}/${doc.id}`}
-                      variant={docVariant as any}
-                      icon={Icon}
-                      title={doc.data.title}
-                      description={`Detailed documentation and guides for ${doc.data.title.toLowerCase()}.`}
-                    />
-                  );
-                })}
+<div class="grid gap-6 sm:grid-cols-2">
+              {items.map((doc) => (
+                <DocCard
+                  href={`${docsBaseUrl}/${doc.id}`}
+                  variant={getVariant(type)}
+                  icon={Icon}
+                  title={doc.data.title}
+                  description={`Detailed documentation and guides for ${doc.data.title.toLowerCase()}.`}
+                />
+              ))}
             </div>
           </section>
         );

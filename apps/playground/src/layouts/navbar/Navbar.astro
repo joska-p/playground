@@ -16,13 +16,15 @@ interface Props {
 const { routes, currentPath, baseUrl } = Astro.props;
 
 // Helper to check active state
-const isLinkActive = (href: string) => currentPath === href || currentPath === href + "/";
+function isLinkActive(href: string) {
+  return currentPath === href || currentPath === href + "/";
+}
 
 // Check if a top-level route is active (either directly or via a child)
-const isTopLevelActive = (route: Route) => {
+function isTopLevelActive(route: Route) {
   if (isLinkActive(route.href)) return true;
   return route.children?.some(child => isLinkActive(child.href));
-};
+}
 ---
 
 <header class="w-full border-b border-border bg-background/80 backdrop-blur-md transition-all sticky top-0 z-50">
