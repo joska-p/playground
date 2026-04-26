@@ -5,10 +5,7 @@ import SectionHeader from "../../components/ui/section-header/index.astro";
 import { baseUrl } from "../../constants/routes";
 import {
   categories,
-  projectIcons,
-  projectIconBgColors,
-  projectIconColors,
-  getProjectsByCategory,
+  projectsByCategory,
   type Category,
 } from "../../data/projects";
 
@@ -42,7 +39,7 @@ const categoryList: Category[] = ["generative", "color", "image"];
     {categoryList.map((category) => {
       const categoryMeta = categories[category];
       const CategoryIcon = categoryMeta.icon;
-      const categoryProjects = getProjectsByCategory(category);
+      const categoryProjects = projectsByCategory[category];
 
       return (
         <section class="mb-16">
@@ -53,20 +50,17 @@ const categoryList: Category[] = ["generative", "color", "image"];
           />
 
           <div class="grid gap-8 sm:grid-cols-2 mt-8">
-            {categoryProjects.map((project) => {
-              const ProjectIcon = projectIcons[project.slug];
-              return (
-                <ExperimentCard
-                  href={`${projectsBase}/${project.slug}`}
-                  title={project.name}
-                  description={project.description}
-                  icon={ProjectIcon}
-                  iconBgColor={projectIconBgColors[project.slug]}
-                  iconColor={projectIconColors[project.slug]}
-                  tags={project.tags}
-                />
-              );
-            })}
+            {categoryProjects.map((project) => (
+              <ExperimentCard
+                href={`${projectsBase}/${project.slug}`}
+                title={project.name}
+                description={project.description}
+                icon={project.icon}
+                iconBgColor={project.iconBg}
+                iconColor={project.iconColor}
+                tags={project.tags}
+              />
+            ))}
           </div>
         </section>
       );

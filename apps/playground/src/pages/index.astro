@@ -5,7 +5,7 @@ import DocCard from "../components/ui/doc-card/index.astro";
 import SectionHeader from "../components/ui/section-header/index.astro";
 import FooterLinks from "../components/ui/footer-links/index.astro";
 import { baseUrl } from "../constants/routes";
-import { projects, projectIcons, projectIconBgColors, projectIconColors } from "../data/projects";
+import { projects, projectSlugs } from "../data/projects";
 import { Sparkles, Book, Wrench, Lightbulb, Code, Zap } from "lucide-react";
 
 const docsBase = `${baseUrl}/docs`.replace(/\/+/g, "/");
@@ -14,7 +14,7 @@ const resolveDoc = (path: string) => `${docsBase}/${path}`.replace(/\/+/g, "/");
 const githubRoute = { href: "https://github.com/joska-p/playground" };
 
 // Get featured projects (first 4)
-const featuredProjects = Object.keys(projects).slice(0, 4) as Array<keyof typeof projects>;
+const featuredProjects = projectSlugs.slice(0, 4);
 ---
 
 <BaseLayout title="Playground">
@@ -69,15 +69,14 @@ const featuredProjects = Object.keys(projects).slice(0, 4) as Array<keyof typeof
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-12">
         {featuredProjects.map((slug) => {
           const project = projects[slug];
-          const ProjectIcon = projectIcons[slug];
           return (
             <ExperimentCard
               href={`${baseUrl}/projects/${slug}`}
               title={project.name}
               description={project.description}
-              icon={ProjectIcon}
-              iconBgColor={projectIconBgColors[slug]}
-              iconColor={projectIconColors[slug]}
+              icon={project.icon}
+              iconBgColor={project.iconBg}
+              iconColor={project.iconColor}
               tags={project.tags}
             />
           );

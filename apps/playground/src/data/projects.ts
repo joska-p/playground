@@ -10,8 +10,7 @@ import {
 } from "lucide-react";
 
 /**
- * Badge color variants - inferred from @repo/ui Badge
- * Use this type to ensure only valid badge colors are used
+ * Valid badge color variants - inferred from @repo/ui Badge
  */
 export type BadgeColor = Extract<
   BadgeVariant,
@@ -19,14 +18,20 @@ export type BadgeColor = Extract<
 >;
 
 /**
- * Categories for organizing projects
+ * Project categories
  */
 export type Category = "generative" | "color" | "image";
 
 /**
  * Category metadata
  */
-export const categories = {
+export interface CategoryMeta {
+  name: string;
+  description: string;
+  icon: LucideIcon;
+}
+
+export const categories: Record<Category, CategoryMeta> = {
   generative: {
     name: "Generative Art",
     description:
@@ -44,126 +49,115 @@ export const categories = {
     description: "Transform, deconstruct, and visualize images through creative algorithms.",
     icon: Flame,
   },
-} satisfies Record<Category, { name: string; description: string; icon: LucideIcon }>;
-
-/**
- * Icon mapping - maps icon name to imported icon component
- * All projects must have an icon defined here
- */
-export const projectIcons: Record<ProjectSlug, LucideIcon> = {
-  mosaic: Grid3X3,
-  sequences: InfinityIcon,
-  palettes: Palette,
-  particles: Flame,
-  piechart: PieChart,
 };
 
 /**
- * Icon background color mapping per project
+ * Project data - single source of truth for all project metadata
  */
-export const projectIconBgColors: Record<ProjectSlug, string> = {
-  mosaic: "bg-secondary/20",
-  sequences: "bg-primary/20",
-  palettes: "bg-accent/20",
-  particles: "bg-destructive/20",
-  piechart: "bg-primary/20",
-};
-
-/**
- * Icon text color mapping per project
- */
-export const projectIconColors: Record<ProjectSlug, string> = {
-  mosaic: "text-secondary",
-  sequences: "text-primary",
-  palettes: "text-accent",
-  particles: "text-destructive",
-  piechart: "text-primary",
-};
-
-/**
- * Icon and color mapping for each project
- */
-export interface ProjectMeta {
+export interface Project {
   name: string;
   description: string;
   category: Category;
   tags: { label: string; color: BadgeColor }[];
+  icon: LucideIcon;
+  iconBg: string;
+  iconColor: string;
 }
 
 /**
- * Central source of truth for all projects
- * Add/edit projects here - changes propagate automatically
+ * All projects - add/edit here only
  */
 export const projects = {
   mosaic: {
     name: "Mosaic Maker",
     description:
       "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
-    category: "generative" as const,
+    category: "generative",
     tags: [
-      { label: "Canvas", color: "secondary" as const },
-      { label: "Zustand", color: "secondary" as const },
+      { label: "Canvas", color: "secondary" },
+      { label: "Zustand", color: "secondary" },
     ],
+    icon: Grid3X3,
+    iconBg: "bg-secondary/20",
+    iconColor: "text-secondary",
   },
   sequences: {
     name: "Sequence Renderer",
     description:
       "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
-    category: "generative" as const,
+    category: "generative",
     tags: [
-      { label: "Math", color: "primary" as const },
-      { label: "SVG", color: "primary" as const },
+      { label: "Math", color: "primary" },
+      { label: "SVG", color: "primary" },
     ],
+    icon: InfinityIcon,
+    iconBg: "bg-primary/20",
+    iconColor: "text-primary",
   },
   palettes: {
     name: "Palettes Generator",
     description: "Generate harmonious color schemes using mathematical color theory models.",
-    category: "color" as const,
+    category: "color",
     tags: [
-      { label: "Design", color: "accent" as const },
-      { label: "Theory", color: "accent" as const },
+      { label: "Design", color: "accent" },
+      { label: "Theory", color: "accent" },
     ],
+    icon: Palette,
+    iconBg: "bg-accent/20",
+    iconColor: "text-accent",
   },
   particles: {
     name: "Image to Particles",
     description:
       "Deconstruct images into physics-based particle systems with real-time interaction.",
-    category: "image" as const,
+    category: "image",
     tags: [
-      { label: "Physics", color: "destructive" as const },
-      { label: "Canvas", color: "destructive" as const },
+      { label: "Physics", color: "destructive" },
+      { label: "Canvas", color: "destructive" },
     ],
+    icon: Flame,
+    iconBg: "bg-destructive/20",
+    iconColor: "text-destructive",
   },
   piechart: {
     name: "Pie Chart",
     description: "Interactive D3-based pie chart examples for data visualization.",
-    category: "image" as const,
+    category: "image",
     tags: [
-      { label: "D3", color: "primary" as const },
-      { label: "Charts", color: "primary" as const },
+      { label: "D3", color: "primary" },
+      { label: "Charts", color: "primary" },
     ],
+    icon: PieChart,
+    iconBg: "bg-primary/20",
+    iconColor: "text-primary",
   },
-} satisfies Record<string, ProjectMeta>;
+} satisfies Record<string, Project>;
 
 /**
- * Get all projects as an array
+ * Type for project slug - derived from projects object
  */
 export type ProjectSlug = keyof typeof projects;
 
 /**
- * Get project by slug
+ * Get all project slugs as an array
  */
-export function getProject(slug: ProjectSlug): ProjectMeta {
-  return projects[slug];
-}
+export const projectSlugs = Object.keys(projects) as ProjectSlug[];
 
 /**
- * Get projects by category
+ * Get projects grouped by category - pre-computed for efficient lookups
+ * Each project includes its slug for easy linking
  */
-export function getProjectsByCategory(
-  category: Category
-): Array<{ slug: ProjectSlug } & ProjectMeta> {
-  return (Object.entries(projects) as [ProjectSlug, ProjectMeta][])
-    .filter(([, meta]) => meta.category === category)
-    .map(([slug, meta]) => ({ slug, ...meta }));
+export interface ProjectWithSlug extends Project {
+  slug: ProjectSlug;
+}
+
+export const projectsByCategory: Record<Category, ProjectWithSlug[]> = {
+  generative: [],
+  color: [],
+  image: [],
+};
+
+for (const slug of projectSlugs) {
+  const project = projects[slug];
+  projectsByCategory[project.category].push({ ...project, slug });
 }
