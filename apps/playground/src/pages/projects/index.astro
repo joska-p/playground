@@ -52,7 +52,7 @@ const categoryList: Category[] = ["generative", "color", "image"];
           <div class="grid gap-8 sm:grid-cols-2 mt-8">
             {categoryProjects.map((project) => (
               <ExperimentCard
-                href={`${projectsBase}/${project.slug}`}
+                href={`${projectsBase}/${category}/${project.slug}`}
                 title={project.name}
                 description={project.description}
                 icon={project.icon}

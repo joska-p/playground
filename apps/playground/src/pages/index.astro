@@ -71,7 +71,7 @@ const featuredProjects = projectSlugs.slice(0, 4);
           const project = projects[slug];
           return (
             <ExperimentCard
-              href={`${baseUrl}/projects/${slug}`}
+              href={`${baseUrl}/projects/${project.category}/${slug}`}
               title={project.name}
               description={project.description}
               icon={project.icon}
