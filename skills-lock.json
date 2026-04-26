@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "better-i18n": {
+      "source": "better-i18n/skills",
+      "sourceType": "github",
+      "computedHash": "f33b22ff3d952a4a6354dabd197dff5cc66adaab7d7392033953bbd2e050ce62"
+    },
     "documentation-writer": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
