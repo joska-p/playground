@@ -7,6 +7,7 @@ import {
   Flame,
   PieChart,
   Sparkles,
+  BarChart3,
 } from "lucide-react";
 
 /**
@@ -20,7 +21,7 @@ export type BadgeColor = Extract<
 /**
  * Project categories
  */
-export type Category = "generative" | "color" | "image";
+export type Category = "generative" | "color" | "image" | "data-viz";
 
 /**
  * Category metadata
@@ -43,6 +44,12 @@ export const categories: Record<Category, CategoryMeta> = {
     description:
       "Tools for exploring color theory, generating harmonious palettes, and design utilities.",
     icon: Palette,
+  },
+  "data-viz": {
+    name: "Data Visualization",
+    description:
+      "Interactive charts, graphs, and visual representations of data using D3 and other libraries.",
+    icon: BarChart3,
   },
   image: {
     name: "Image Processing",
@@ -122,7 +129,7 @@ export const projects = {
   piechart: {
     name: "Pie Chart",
     description: "Interactive D3-based pie chart examples for data visualization.",
-    category: "image",
+    category: "data-viz",
     tags: [
       { label: "D3", color: "primary" },
       { label: "Charts", color: "primary" },
@@ -154,6 +161,7 @@ export interface ProjectWithSlug extends Project {
 export const projectsByCategory: Record<Category, ProjectWithSlug[]> = {
   generative: [],
   color: [],
+  "data-viz": [],
   image: [],
 };
 
