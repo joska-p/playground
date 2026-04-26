@@ -1,0 +1,5 @@
+# Auto-track pnpm lockfile
+# This ensures pnpm-lock.yaml is always committed when it changes
+# Prevents CI failures from stale lockfiles
+
+pnpm-lock.yaml linguist-generated
