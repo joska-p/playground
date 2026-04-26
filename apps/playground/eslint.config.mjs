@@ -1,5 +1,5 @@
 import { globalIgnores } from "eslint/config";
-import { config } from "@repo/eslint-config/base.js";
+import { config } from "@repo/eslint-config/base";
 import eslintPluginAstro from "eslint-plugin-astro";
 
 export default [
