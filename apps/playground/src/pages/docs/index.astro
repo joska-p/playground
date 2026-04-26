@@ -20,10 +20,6 @@ for (const doc of docs) {
   docsByType[doc.data.type].push(doc);
 }
 
-for (const type of Object.keys(docsByType) as (keyof typeof docsByType)[]) {
-  docsByType[type].sort((a, b) => a.data.order - b.data.order);
-}
-
 const TYPE_LABELS: Record<string, string> = {
   tutorial: "Tutorials",
   "how-to": "How-To Guides",
