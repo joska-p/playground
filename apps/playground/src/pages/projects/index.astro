@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/base-layout.astro";
+import ExperimentCard from "../../components/ui/experiment-card/index.astro";
+import SectionHeader from "../../components/ui/section-header/index.astro";
+import { baseUrl } from "../../constants/routes";
+import { Sparkles, Palette, Image, Grid3X3, Infinity, Flame, PieChart } from "lucide-react";
+
+const projectsBase = `${baseUrl}/projects`;
+---
+
+<BaseLayout title="Projects | Playground">
+  <section class="relative flex flex-col items-center justify-center overflow-hidden border-b border-border/40 bg-card/30 px-6 py-24 text-center lg:py-32">
+    <div class="absolute inset-0 z-0 opacity-20">
+      <div class="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_50%_50%,var(--primary),transparent_70%)]"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-4xl">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium text-primary">
+        <Sparkles className="h-4 w-4 fill-current" />
+        <span>Creative Projects</span>
+      </div>
+
+      <h1 class="font-serif text-5xl font-black tracking-tighter sm:text-6xl lg:text-7xl">
+        Explore the <span class="bg-linear-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">Lab</span>
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+        Interactive tools, visualizations, and creative engines built with Astro + React 19.
+        Browse projects by category to find the right tool for your creative workflow.
+      </p>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-6 py-16 lg:py-20">
+    <!-- Generative Art -->
+    <section class="mb-16">
+      <SectionHeader
+        icon={Sparkles}
+        title="Generative Art"
+        description="Procedural patterns and mathematical visualizations that create art from algorithms."
+      />
+
+      <div class="grid gap-8 sm:grid-cols-2 mt-8">
+        <ExperimentCard
+          href={`${projectsBase}/mosaic`}
+          title="Mosaic Maker"
+          description="Transform color palettes into beautiful procedural mosaic patterns using CSS Grid."
+          icon={Grid3X3}
+          iconBgColor="bg-secondary/20"
+          iconColor="text-secondary"
+          tags={[
+            { label: "Canvas", color: "secondary" },
+            { label: "Zustand", color: "secondary" },
+          ]}
+        />
+
+        <ExperimentCard
+          href={`${projectsBase}/sequences`}
+          title="Sequence Renderer"
+          description="Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers."
+          icon={Infinity}
+          iconBgColor="bg-primary/20"
+          iconColor="text-primary"
+          tags={[
+            { label: "Math", color: "primary" },
+            { label: "SVG", color: "primary" },
+          ]}
+        />
+      </div>
+    </section>
+
+    <!-- Color & Design -->
+    <section class="mb-16">
+      <SectionHeader
+        icon={Palette}
+        title="Color & Design"
+        description="Tools for exploring color theory, generating harmonious palettes, and design utilities."
+      />
+
+      <div class="grid gap-8 sm:grid-cols-2 mt-8">
+        <ExperimentCard
+          href={`${projectsBase}/palettes`}
+          title="Palettes Generator"
+          description="Generate harmonious color schemes using mathematical color theory models."
+          icon={Palette}
+          iconBgColor="bg-accent/20"
+          iconColor="text-accent"
+          tags={[
+            { label: "Design", color: "accent" },
+            { label: "Theory", color: "accent" },
+          ]}
+        />
+      </div>
+    </section>
+
+    <!-- Image Processing -->
+    <section class="mb-16">
+      <SectionHeader
+        icon={Image}
+        title="Image Processing"
+        description="Transform, deconstruct, and visualize images through creative algorithms."
+      />
+
+      <div class="grid gap-8 sm:grid-cols-2 mt-8">
+        <ExperimentCard
+          href={`${projectsBase}/particles`}
+          title="Image to Particles"
+          description="Deconstruct images into physics-based particle systems with real-time interaction."
+          icon={Flame}
+          iconBgColor="bg-destructive/20"
+          iconColor="text-destructive"
+          tags={[
+            { label: "Physics", color: "destructive" },
+            { label: "Canvas", color: "destructive" },
+          ]}
+        />
+
+        <ExperimentCard
+          href={`${projectsBase}/piechart`}
+          title="Pie Chart"
+          description="Interactive D3-based pie chart examples for data visualization."
+          icon={PieChart}
+          iconBgColor="bg-primary/20"
+          iconColor="text-primary"
+          tags={[
+            { label: "D3", color: "primary" },
+            { label: "Charts", color: "primary" },
+          ]}
+        />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -11,75 +11,47 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const rawRoutes = [
   {
+    label: "Projects",
+    href: "/projects/",
+    description: "Browse creative projects by category",
+    children: [
+      {
+        label: "Mosaic Maker",
+        href: "/projects/mosaic/",
+        description: "Procedural mosaic patterns",
+        children: [],
+      },
+      {
+        label: "Sequence Renderer",
+        href: "/projects/sequences/",
+        description: "Mathematical sequence visualizations",
+        children: [],
+      },
+      {
+        label: "Palettes Generator",
+        href: "/projects/palettes/",
+        description: "Color palette generator",
+        children: [],
+      },
+      {
+        label: "Image to Particles",
+        href: "/projects/particles/",
+        description: "Transform images into particles",
+        children: [],
+      },
+      {
+        label: "Pie Chart",
+        href: "/projects/piechart/",
+        description: "D3-based pie chart",
+        children: [],
+      },
+    ],
+  },
+  {
     label: "Docs",
     href: "/docs/",
     description: "Documentation",
     children: [],
-  },
-  {
-    label: "Particles",
-    href: "/particles/",
-    description: "Visual effects using particle systems",
-    children: [
-      {
-        label: "Image to Particles",
-        href: "/particles/image-to-particles/",
-        description: "Transform images into interactive particles",
-        children: [],
-      },
-    ],
-  },
-  {
-    label: "Sequences",
-    href: "/sequences/",
-    description: "Mathematical sequence visualizations",
-    children: [
-      {
-        label: "Sequence Renderer",
-        href: "/sequences/sequence-renderer/",
-        description: "Explore the Recamán's sequence visualization",
-        children: [],
-      },
-    ],
-  },
-  {
-    label: "Mosaic",
-    href: "/mosaic/",
-    description: "Pattern generation and tiling algorithms",
-    children: [
-      {
-        label: "Mosaic Maker",
-        href: "/mosaic/mosaic-maker/",
-        description: "Create complex mosaic patterns from images",
-        children: [],
-      },
-    ],
-  },
-  {
-    label: "Colors",
-    href: "/colors/",
-    description: "Color tools and palette generators",
-    children: [
-      {
-        label: "Palettes Generator",
-        href: "/colors/palettes-generator/",
-        description: "Generate color palettes from algorithms",
-        children: [],
-      },
-    ],
-  },
-  {
-    label: "Data Viz",
-    href: "/data-viz/",
-    description: "Charts and data visualization tools",
-    children: [
-      {
-        label: "Piechart",
-        href: "/data-viz/piechart/",
-        description: "Interactive d3-based piechart examples",
-        children: [],
-      },
-    ],
   },
   {
     label: "GitHub",

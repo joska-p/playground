@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../layouts/base-layout.astro";
+import { baseUrl } from "../constants/routes";
+import { Home, Sparkles } from "lucide-react";
+---
+
+<BaseLayout title="404 - Page Not Found">
+  <div class="relative flex flex-1 items-center justify-center overflow-hidden px-6 py-20">
+    <!-- Animated background grid -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-15"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--primary)_0%,transparent_70%)] opacity-20"></div>
+    </div>
+
+    <!-- Floating particles effect -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <div class="animate-float absolute left-[10%] top-[20%] h-2 w-2 rounded-full bg-primary/30 blur-sm"></div>
+      <div class="animate-float-delayed absolute left-[80%] top-[30%] h-3 w-3 rounded-full bg-secondary/30 blur-sm"></div>
+      <div class="animate-float absolute left-[25%] top-[60%] h-2 w-2 rounded-full bg-accent/30 blur-sm"></div>
+      <div class="animate-float-delayed absolute left-[70%] top-[70%] h-2 w-2 rounded-full bg-primary/30 blur-sm"></div>
+      <div class="animate-float absolute left-[50%] top-[40%] h-1 w-1 rounded-full bg-destructive/30 blur-sm"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-2xl text-center">
+      <!-- Large 404 with gradient -->
+      <div class="mb-8">
+        <span class="font-serif text-[12rem] font-black leading-none tracking-tighter bg-linear-to-r from-primary via-accent to-secondary bg-clip-text text-transparent sm:text-[16rem]">
+          404
+        </span>
+      </div>
+
+      <!-- Glitch effect title -->
+      <h1 class="mb-4 font-mono text-3xl font-bold tracking-widest text-foreground">
+        <span class="animate-pulse">P</span><span class="animate-pulse delay-75">A</span><span class="animate-pulse delay-100">G</span><span class="animate-pulse delay-150">E</span>
+        <span class="mx-2 text-muted-foreground">/</span>
+        <span class="animate-pulse delay-200">N</span><span class="animate-pulse delay-250">O</span><span class="animate-pulse delay-300">T</span>
+        <span class="mx-2 text-muted-foreground">/</span>
+        <span class="animate-pulse delay-350">F</span><span class="animate-pulse delay-400">O</span><span class="animate-pulse delay-500">U</span><span class="animate-pulse delay-500">N</span><span class="animate-pulse delay-500">D</span>
+      </h1>
+
+      <p class="mx-auto mb-12 max-w-md text-lg text-muted-foreground">
+        You&apos;ve ventured into the void. This page doesn&apos;t exist in our dimension.
+        Perhaps it was lost in the multiverse, or maybe it never was.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href={`${baseUrl}/`}
+          class="inline-flex h-12 items-center gap-2 rounded-lg bg-primary px-8 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 hover:bg-primary/90 active:scale-95"
+        >
+          <Home className="h-4 w-4" />
+          Return Home
+        </a>
+
+        <a
+          href={`${baseUrl}/projects`}
+          class="inline-flex h-12 items-center gap-2 rounded-lg border border-border bg-background px-8 text-sm font-bold transition-all hover:bg-muted active:scale-95"
+        >
+          <Sparkles className="h-4 w-4" />
+          Explore Projects
+        </a>
+      </div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="pointer-events-none absolute bottom-10 left-10 z-10 opacity-30">
+      <div class="h-32 w-32 rotate-45 border border-dashed border-primary/50"></div>
+    </div>
+    <div class="pointer-events-none absolute top-20 right-20 z-10 opacity-20">
+      <div class="h-20 w-20 rotate-12 border border-dashed border-secondary/50"></div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-10px);
+    }
+    75% {
+      transform: translateY(-30px) translateX(5px);
+    }
+  }
+
+  @keyframes float-delayed {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    25% {
+      transform: translateY(-15px) translateX(-5px);
+    }
+    50% {
+      transform: translateY(-25px) translateX(15px);
+    }
+    75% {
+      transform: translateY(-5px) translateX(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 10s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+</style>
