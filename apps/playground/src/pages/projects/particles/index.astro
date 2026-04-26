@@ -2,9 +2,12 @@
 import { ImageToParticles } from "@repo/image-to-particles";
 import { StrictMode } from "react";
 import BaseLayout from "../../../layouts/base-layout.astro";
+import { projects } from "../../../data/projects";
+
+const { name: title } = projects.particles;
 ---
 
-<BaseLayout title="Image to Particles">
+<BaseLayout title={title}>
   <StrictMode>
     <ImageToParticles client:only="react" />
   </StrictMode>

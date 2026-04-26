@@ -4,6 +4,7 @@ export * from "./components/badge/Badge.js";
 export * from "./components/badge/badgeVariants.js";
 export * from "./components/input/Input.js";
 export * from "./components/input/inputVariants.js";
+export type { BadgeVariant } from "./components/badge/Badge.js";
 export * from "./components/select/Select.js";
 export * from "./components/select/selectVariants.js";
 export * from "./components/label/Label.js";

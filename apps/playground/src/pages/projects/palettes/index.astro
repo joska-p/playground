@@ -2,9 +2,12 @@
 import { PaletteGenerator } from "@repo/palette-generator";
 import { StrictMode } from "react";
 import BaseLayout from "../../../layouts/base-layout.astro";
+import { projects } from "../../../data/projects";
+
+const { name: title } = projects.palettes;
 ---
 
-<BaseLayout title="Palettes Generator">
+<BaseLayout title={title}>
   <StrictMode>
     <PaletteGenerator client:only="react" />
   </StrictMode>

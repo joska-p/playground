@@ -1,3 +1,5 @@
+import { projects } from "../data/projects";
+
 export interface Route {
   label: string;
   href: string;
@@ -9,43 +11,20 @@ export interface Route {
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
+// Generate project routes from central data source
+const projectRoutes = Object.entries(projects).map(([slug, meta]) => ({
+  label: meta.name,
+  href: `/projects/${slug}/`,
+  description: meta.description,
+  children: [],
+}));
+
 const rawRoutes = [
   {
     label: "Projects",
     href: "/projects/",
     description: "Browse creative projects by category",
-    children: [
-      {
-        label: "Mosaic Maker",
-        href: "/projects/mosaic/",
-        description: "Procedural mosaic patterns",
-        children: [],
-      },
-      {
-        label: "Sequence Renderer",
-        href: "/projects/sequences/",
-        description: "Mathematical sequence visualizations",
-        children: [],
-      },
-      {
-        label: "Palettes Generator",
-        href: "/projects/palettes/",
-        description: "Color palette generator",
-        children: [],
-      },
-      {
-        label: "Image to Particles",
-        href: "/projects/particles/",
-        description: "Transform images into particles",
-        children: [],
-      },
-      {
-        label: "Pie Chart",
-        href: "/projects/piechart/",
-        description: "D3-based pie chart",
-        children: [],
-      },
-    ],
+    children: projectRoutes,
   },
   {
     label: "Docs",

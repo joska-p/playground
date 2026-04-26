@@ -2,9 +2,12 @@
 import { SequenceRenderer } from "@repo/sequence-renderer";
 import { StrictMode } from "react";
 import BaseLayout from "../../../layouts/base-layout.astro";
+import { projects } from "../../../data/projects";
+
+const { name: title } = projects.sequences;
 ---
 
-<BaseLayout title="Sequence Renderer">
+<BaseLayout title={title}>
   <StrictMode>
     <SequenceRenderer client:only="react" />
   </StrictMode>

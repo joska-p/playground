@@ -1,4 +1,4 @@
-import { config } from "@repo/eslint-config/react-internal";
-import { defineConfig, globalIgnores } from "eslint/config";
+import { config } from "@repo/eslint-config/react-internal.js";
+import eslintPluginAstro from "eslint-plugin-astro";
 
-export default defineConfig([globalIgnores([".astro/", "dist/"]), ...config]);
+export default [...config, ...eslintPluginAstro.configs.recommended];

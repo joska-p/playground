@@ -5,23 +5,16 @@ import DocCard from "../components/ui/doc-card/index.astro";
 import SectionHeader from "../components/ui/section-header/index.astro";
 import FooterLinks from "../components/ui/footer-links/index.astro";
 import { baseUrl } from "../constants/routes";
-import {
-  Sparkles,
-  Grid3X3,
-  Infinity,
-  Palette,
-  Flame,
-  Book,
-  Wrench,
-  Lightbulb,
-  Code,
-  Zap,
-} from "lucide-react";
+import { projects, projectIcons, projectIconBgColors, projectIconColors } from "../data/projects";
+import { Sparkles, Book, Wrench, Lightbulb, Code, Zap } from "lucide-react";
 
 const docsBase = `${baseUrl}/docs`.replace(/\/+/g, "/");
 const resolveDoc = (path: string) => `${docsBase}/${path}`.replace(/\/+/g, "/");
 
 const githubRoute = { href: "https://github.com/joska-p/playground" };
+
+// Get featured projects (first 4)
+const featuredProjects = Object.keys(projects).slice(0, 4) as Array<keyof typeof projects>;
 ---
 
 <BaseLayout title="Playground">
@@ -74,57 +67,21 @@ const githubRoute = { href: "https://github.com/joska-p/playground" };
       </SectionHeader>
 
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-12">
-        <ExperimentCard
-          href={`${baseUrl}/mosaic/mosaic-maker`}
-          title="Mosaic Maker"
-          description="Transform color palettes into beautiful procedural mosaic patterns using CSS Grid."
-          icon={Grid3X3}
-          iconBgColor="bg-secondary/20"
-          iconColor="text-secondary"
-          tags={[
-            { label: "Canvas", color: "secondary" },
-            { label: "Zustand", color: "secondary" },
-          ]}
-        />
-
-        <ExperimentCard
-          href={`${baseUrl}/sequences/sequence-renderer`}
-          title="Sequences"
-          description="Visualize mathematical sequences like Recaman and Fibonacci with pluggable renderers."
-          icon={Infinity}
-          iconBgColor="bg-primary/20"
-          iconColor="text-primary"
-          tags={[
-            { label: "Math", color: "primary" },
-            { label: "SVG", color: "primary" },
-          ]}
-        />
-
-        <ExperimentCard
-          href={`${baseUrl}/colors/palettes-generator`}
-          title="Palettes"
-          description="Generate harmonious color schemes using mathematical color theory models."
-          icon={Palette}
-          iconBgColor="bg-accent/20"
-          iconColor="text-accent"
-          tags={[
-            { label: "Design", color: "accent" },
-            { label: "Theory", color: "accent" },
-          ]}
-        />
-
-        <ExperimentCard
-          href={`${baseUrl}/particles/image-to-particles`}
-          title="Particles"
-          description="Deconstruct images into physics-based particle systems with real-time interaction."
-          icon={Flame}
-          iconBgColor="bg-destructive/20"
-          iconColor="text-destructive"
-          tags={[
-            { label: "Physics", color: "destructive" },
-            { label: "Canvas", color: "destructive" },
-          ]}
-        />
+        {featuredProjects.map((slug) => {
+          const project = projects[slug];
+          const ProjectIcon = projectIcons[slug];
+          return (
+            <ExperimentCard
+              href={`${baseUrl}/projects/${slug}`}
+              title={project.name}
+              description={project.description}
+              icon={ProjectIcon}
+              iconBgColor={projectIconBgColors[slug]}
+              iconColor={projectIconColors[slug]}
+              tags={project.tags}
+            />
+          );
+        })}
       </div>
     </section>
 

@@ -6,7 +6,7 @@ interface Props {
   href: string;
   title: string;
   description: string;
-  icon?: LucideIcon;
+  icon: LucideIcon;
   iconBgColor?: string;
   iconColor?: string;
   tags?: { label: string; color?: string }[];
@@ -26,13 +26,9 @@ const {
 <a href={href} class="group outline-none">
   <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
     <CardHeader>
-      {Icon ? (
-        <div class:list={["mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-3", iconBgColor]}>
-          <Icon class:list={["h-8 w-8", iconColor]} />
-        </div>
-      ) : (
-        <div class="mb-2"></div>
-      )}
+      <div class:list={["mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-3", iconBgColor]}>
+        <Icon class:list={["h-8 w-8", iconColor]} />
+      </div>
       <CardTitle className="text-2xl">{title}</CardTitle>
     </CardHeader>
     <CardContent>

@@ -11,3 +11,6 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 
 export { Badge, badgeVariants };
 export type { BadgeProps };
+
+// BadgeVariant type for external use
+export type BadgeVariant = VariantProps<typeof badgeVariants>["variant"];
