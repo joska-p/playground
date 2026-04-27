@@ -77,7 +77,7 @@ packages/
 └── tailwind-config/  # Design tokens (Gruvbox theme)
 ```
 
-Components? Check [Storybook](/storybook).
+Components? Check [Storybook](/storybook). Design tokens? See [Design Tokens](/docs/design-tokens).
 
 ---
 

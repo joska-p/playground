@@ -44,6 +44,8 @@ pnpm install && pnpm dev
 | ---------------------------------------- | ----------------------------- |
 | [Getting Started](/docs/getting-started) | Manifesto and overview        |
 | [Adding Projects](/docs/adding-projects) | How to add new visualizations |
+| [Design Tokens](/docs/design-tokens)     | Color palette and typography  |
+| [UI Components](/docs/ui-components)     | Component library reference   |
 | [AGENTS.md](./AGENTS.md)                 | Code style and conventions    |
 
 ---
