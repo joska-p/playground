@@ -2,69 +2,52 @@
 
 [![Deploy to GitHub Pages](https://github.com/joska-p/playground/actions/workflows/deploy.yml/badge.svg)](https://github.com/joska-p/playground/actions/workflows/deploy.yml)
 
-> A high-performance creative coding lab and monorepo for frontend exploration. Built with [**Astro**](https://astro.build/), [**React 19**](https://react.dev/), and [**Tailwind CSS v4**](https://tailwindcss.com/).
+> A creative coding playground where I experiment with generative art, data viz, and visual toys. Built for fun, documented for collaborators.
+
+by [@joska-p](https://github.com/joska-p)
 
 ---
 
-## 🧪 The Lab
+## The Lab
 
-The Creative Playground is divided into a **Stable Shell** (Astro infrastructure) and **Volatile Engines** (experimental React visualizations).
-
-| Engine | Description | Package |
-| :--- | :--- | :--- |
-| **Mosaic Maker** | Transform palettes into procedural patterns | [`@repo/mosaic-maker`](./packages/mosaic-maker) |
-| **Sequences** | Visualize mathematical sequences | [`@repo/sequence-renderer`](./packages/sequence-renderer) |
-| **Palettes** | Color theory scheme generator | [`@repo/palette-generator`](./packages/palette-generator) |
-| **Particles** | Physics-based particle deconstruction | [`@repo/image-to-particles`](./packages/image-to-particles) |
+| Engine           | Description                                 | Package                                                     |
+| ---------------- | ------------------------------------------- | ----------------------------------------------------------- |
+| **Mosaic Maker** | Transform palettes into procedural patterns | [`@repo/mosaic-maker`](./packages/mosaic-maker)             |
+| **Sequences**    | Visualize mathematical sequences            | [`@repo/sequence-renderer`](./packages/sequence-renderer)   |
+| **Palettes**     | Color theory scheme generator               | [`@repo/palette-generator`](./packages/palette-generator)   |
+| **Particles**    | Physics-based particle deconstruction       | [`@repo/image-to-particles`](./packages/image-to-particles) |
 
 ---
 
-## 🚀 Getting Started
+## Quick Start
 
-### ❄️ Using Nix (Recommended)
-Enter a perfectly configured shell with all dependencies:
+### Using Nix (Recommended)
+
 ```bash
-nix develop # or direnv allow
+nix develop
 ```
 
-### 🛠️ Manual Setup
-Ensure you have **Node.js v22+** and **pnpm v10+** installed.
+### Manual Setup
+
 ```bash
-pnpm install
-pnpm dev
+pnpm install && pnpm dev
 ```
-- **Main Site:** [localhost:4321](http://localhost:4321)
+
+- **Playground:** [localhost:4321](http://localhost:4321)
 - **Storybook:** [localhost:6006](http://localhost:6006)
 
 ---
 
-## 📖 Documentation Hub
+## Documentation
 
-Our documentation lives within the Astro app itself—built with Astro content collections for a seamless experience:
-
-- **Explore inline**: [http://localhost:4321/docs/](http://localhost:4321/docs/)
-- **Local docs**: Run `pnpm dev` then visit `/docs/`
-
-### Quick Links
-
-| Guide | What You'll Learn |
-| ------ | -----------------|
-| [Architecture](./apps/playground/src/content/docs/explanation/architecture.md) | How the playground is organized |
-| [Getting Started](./apps/playground/src/content/docs/tutorial/getting-started.md) | Set up your dev environment |
-| [Adding Pages](./apps/playground/src/content/docs/how-to/adding-pages.md) | Add new visualizations |
-| [Projects Model](./apps/playground/src/content/docs/how-to/projects.md) | The data model behind projects |
-| [Component API](./apps/playground/src/content/docs/reference/component-api.md) | UI library reference |
-| [Design Tokens](./apps/playground/src/content/docs/reference/design-tokens.md) | The Gruvbox theme system |
+| Doc                                      | Description                   |
+| ---------------------------------------- | ----------------------------- |
+| [Getting Started](/docs/getting-started) | Manifesto and overview        |
+| [Adding Projects](/docs/adding-projects) | How to add new visualizations |
+| [AGENTS.md](./AGENTS.md)                 | Code style and conventions    |
 
 ---
 
-## 📁 Repository Structure
+## Built With
 
-- `apps/playground` — The main Astro shell and docs site.
-- `apps/storybook` — Component documentation and isolated testing.
-- `packages/ui` — Shared atomic UI components (Gruvbox theme).
-- `packages/*` — Specialized creative engines.
-
----
-
-_Built with 🎨 by the Creative Playground Team_
+[Astro](https://astro.build) · [React 19](https://react.dev) · [Tailwind CSS](https://tailwindcss.com) · [TypeScript](https://typescriptlang.org) · [Turborepo](https://turbo.build/repo) · [Storybook](https://storybook.js.org) · [D3](https://d3js.org) · [AI assistance](https://chat.openai.com)
