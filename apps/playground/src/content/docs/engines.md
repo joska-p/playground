@@ -6,7 +6,7 @@ type: "explanation"
 
 # Engines
 
-The creative engines follow a simple pattern: **data-driven rules + pluggable visualizations**.
+The creative engines follow a simple pattern: **rules generate data, visualizations render it**.
 
 ---
 
@@ -15,12 +15,14 @@ The creative engines follow a simple pattern: **data-driven rules + pluggable vi
 ### The Pattern
 
 ```
-Rule (math) → Generator → Sequence → Visualization → Canvas
+Rule (math) → Sequence → Visualization (draw) → Canvas
 ```
+
+**Rules** define _what numbers to generate_. **Visualizations** define _how to draw them_. They're independent — mix any rule with any visualization.
 
 ### Rules (`src/core/rules.ts`)
 
-Rules define _what_ the sequence produces:
+A rule is a simple interface:
 
 ```typescript
 type SequenceRule = {
@@ -28,7 +30,7 @@ type SequenceRule = {
   id: string;
   description: string;
   maxSteps: number;
-  getNext: (params) => number;
+  getNext: (params: NextStepParams) => number;
 };
 ```
 
@@ -41,103 +43,39 @@ getNext: ({ index, current, seen }) => {
 };
 ```
 
-### Available Sequences
+### Available Rules
 
-| Sequence       | Rule                       | Description           |
-| -------------- | -------------------------- | --------------------- |
-| **Recamán**    | Jump back by n if possible | Classic visualization |
-| **Fibonacci**  | F(n) = F(n-1) + F(n-2)     | Golden ratio          |
-| **Primes**     | Prime numbers only         | 2, 3, 5, 7, 11...     |
-| **Triangular** | 1, 3, 6, 10, 15...         | Sum of integers       |
-| **Collatz**    | Even: n/2, Odd: 3n+1       | The 3n+1 problem      |
+| Rule           | ID           | Description                |
+| -------------- | ------------ | -------------------------- |
+| **Recamán**    | `recaman`    | Jump back by n if possible |
+| **Fibonacci**  | `fibonacci`  | F(n) = F(n-1) + F(n-2)     |
+| **Primes**     | `primes`     | Prime numbers only         |
+| **Triangular** | `triangular` | 1, 3, 6, 10, 15...         |
+| **Collatz**    | `collatz`    | Even: n/2, Odd: 3n+1       |
 
-### Adding a Sequence
+### Adding a Rule
 
-1. Define a new `SequenceRule` in `rules.ts`
+1. Define a new `SequenceRule` object in `rules.ts`
 2. Add it to the `sequencesRule` array
-3. Done — it appears in the UI automatically
+3. Done — appears in UI automatically
 
-### Visualizations
+### Visualizations (`src/core/visualizations/`)
 
-Visualizations are pluggable drawing functions:
+A visualization is a draw function:
 
 ```typescript
 type Visualization = {
   id: string;
   name: string;
-  draw: (ctx, sequence, bounds) => void;
+  draw: (canvas, sequence) => void;
 };
 ```
 
-Add new visualizations in `src/core/visualizations/`.
+### Adding a Visualization
 
----
-
-## Mosaic Maker
-
-### The Pattern
-
-```
-Palette → Tile Registry → CSS Grid → Pattern
-```
-
-### Tile Registry (`src/core/tile-registry.ts`)
-
-Tiles define _shapes_ that map to palette colors:
-
-```typescript
-const TILE_REGISTRY: Record<string, TileDefinition> = {
-  Square: {
-    shapes: [
-      { type: "rect", x: 0, y: 0, width: 50, height: 50, colorIndex: 1 },
-      // ...
-    ],
-  },
-};
-```
-
-### Available Tiles
-
-| Tile                | Description                   |
-| ------------------- | ----------------------------- |
-| **Square**          | 4 equal quadrants             |
-| **CornerCircles**   | Background with corner arcs   |
-| **OppositeCircles** | Two opposing arcs             |
-| **MiddleCircle**    | Center circle pattern         |
-| **Diamond**         | 4 triangles forming diamond   |
-| **Triangles**       | 4 triangles meeting at center |
-| **Cube**            | 3D cube illusion              |
-| **Rainbow**         | Concentric arc pattern        |
-
-### Adding a Tile
-
-1. Define shapes in `tile-registry.ts`
-2. Add to `TILE_REGISTRY`
-3. It appears in the UI automatically
-
-### Configuration (`src/core/config.ts`)
-
-- `DEFAULT_TILE_SIZE`: 64px
-- `DEFAULT_GAP_SIZE`: 0px
-- `MAX_NUMBER_OF_PALETTES`: 33
-
----
-
-## Palette Generator
-
-### Generator Types
-
-| Type              | Rule                         | Colors |
-| ----------------- | ---------------------------- | ------ |
-| **Analogous**     | Adjacent on wheel            | 5      |
-| **Complementary** | Opposite on wheel            | 5      |
-| **Monochromatic** | Same hue, varying saturation | 5      |
-| **Triadic**       | 120° apart                   | 3      |
-| **Xadic**         | 4-color pattern              | 4      |
-
-### Color Space
-
-Uses HSL internally for intuitive color manipulation.
+1. Create `src/core/visualizations/my-viz.ts`
+2. Export it in `src/core/visualizations/index.ts`
+3. Appears in UI automatically
 
 ---
 
@@ -153,7 +91,7 @@ const { value, setValue } = useStore();
 
 ### Pluggable Architecture
 
-Add new rules/visualizations/tiles by:
+Add new rules or visualizations by:
 
 1. Defining the data structure
 2. Adding to the registry array
