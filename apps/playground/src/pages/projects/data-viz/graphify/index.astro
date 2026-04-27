@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../../../layouts/base-layout.astro";
+import { projects } from "../../../../data/projects";
+
+const baseUrl = import.meta.env.BASE_URL || "/";
+const graphUrl = `${baseUrl}/graphify/graph.html`;
+
+const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
+---
+
+<BaseLayout title={title}>
+  <div class="flex-1 w-full overflow-hidden">
+    <iframe
+      src={graphUrl}
+      class="w-full h-full border-0"
+      title={title}
+    />
+  </div>
+</BaseLayout>

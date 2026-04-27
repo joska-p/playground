@@ -1,5 +1,6 @@
 ---
 import Header from "./header.astro";
+import { Font } from "astro:assets";
 import "../styles.css"
 
 const baseUrl = import.meta.env.BASE_URL || "";
@@ -48,6 +49,7 @@ const siteTitle = title ? `Playground - ${title}` : "Playground";
 
 <html lang="en" data-theme="dark">
   <head>
+    <Font cssVariable="--font-jetbrains-mono" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/playground/favicon.svg" />

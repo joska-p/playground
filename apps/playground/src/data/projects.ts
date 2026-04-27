@@ -7,6 +7,7 @@ import {
   PieChart,
   Sparkles,
   BarChart3,
+  Grid
 } from "lucide-react";
 
 /**
@@ -63,6 +64,7 @@ const icons = {
   PieChart,
   Sparkles,
   BarChart3,
+  Grid
 };
 
 /**
@@ -111,6 +113,14 @@ export const projects: Record<string, Project> = {
     category: "data-viz",
     tags: ["D3", "Charts"],
     icon: icons.PieChart,
+  },
+  graphify: {
+    slug: "graphify",
+    name: "Graphify",
+    description: "interactive graph, click nodes, search, filter by community.",
+    category: "data-viz",
+    tags: ["Graph", "D3"],
+    icon: icons.Grid,
   },
 };
 
