@@ -8,7 +8,7 @@ type: "reference"
 
 Shared atomic components for the playground. Full interactive docs with live examples:
 
-**→ [Storybook](/storybook)**
+**→ [Storybook](/storybook/)**
 
 ---
 
@@ -110,6 +110,6 @@ import { Sidebar } from "@repo/ui";
 
 ## Adding Components
 
-See [AGENTS.md](/AGENTS.md) → "React Components" section for patterns.
+See [AGENTS.md](/AGENTS.md/) → "React Components" section for patterns.
 
 Components live in `packages/ui/src/components/`.

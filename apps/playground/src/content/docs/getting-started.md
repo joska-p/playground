@@ -27,22 +27,22 @@ Small, focused components that do one thing well. Mix and match.
 
 ## Built With
 
-| Tool          | Link                                                 | Where                            |
-| ------------- | ---------------------------------------------------- | -------------------------------- |
-| Astro         | [astro.build](https://astro.build)                   | App shell, routing, content      |
-| React 19      | [react.dev](https://react.dev)                       | UI components                    |
-| Tailwind CSS  | [tailwindcss.com](https://tailwindcss.com)           | Styling                          |
-| TypeScript    | [typescriptlang.org](https://typescriptlang.org)     | Type safety                      |
-| Turborepo     | [turbo.build](https://turbo.build/repo)              | Build orchestration              |
-| pnpm          | [pnpm.io](https://pnpm.io)                           | Package management               |
-| Storybook     | [storybook.js.org](https://storybook.js.org)         | [Component explorer](/storybook) |
-| Lucide        | [lucide.dev](https://lucide.dev)                     | Icons                            |
-| Zustand       | [zustand-demo.pmnd.rs](https://zustand-demo.pmnd.rs) | State management                 |
-| D3            | [d3js.org](https://d3js.org)                         | Data visualization               |
-| ESLint        | [eslint.org](https://eslint.org)                     | Linting                          |
-| Prettier      | [prettier.io](https://prettier.io)                   | Formatting                       |
-| Nix           | [nixos.org](https://nixos.org)                       | Dev environment                  |
-| AI assistance | [chat.openai.com](https://chat.openai.com)           | Code help                        |
+| Tool          | Link                                                 | Where                             |
+| ------------- | ---------------------------------------------------- | --------------------------------- |
+| Astro         | [astro.build](https://astro.build)                   | App shell, routing, content       |
+| React 19      | [react.dev](https://react.dev)                       | UI components                     |
+| Tailwind CSS  | [tailwindcss.com](https://tailwindcss.com)           | Styling                           |
+| TypeScript    | [typescriptlang.org](https://typescriptlang.org)     | Type safety                       |
+| Turborepo     | [turbo.build](https://turbo.build/repo)              | Build orchestration               |
+| pnpm          | [pnpm.io](https://pnpm.io)                           | Package management                |
+| Storybook     | [storybook.js.org](https://storybook.js.org)         | [Component explorer](/storybook/) |
+| Lucide        | [lucide.dev](https://lucide.dev)                     | Icons                             |
+| Zustand       | [zustand-demo.pmnd.rs](https://zustand-demo.pmnd.rs) | State management                  |
+| D3            | [d3js.org](https://d3js.org)                         | Data visualization                |
+| ESLint        | [eslint.org](https://eslint.org)                     | Linting                           |
+| Prettier      | [prettier.io](https://prettier.io)                   | Formatting                        |
+| Nix           | [nixos.org](https://nixos.org)                       | Dev environment                   |
+| AI assistance | [chat.openai.com](https://chat.openai.com)           | Code help                         |
 
 ---
 
@@ -77,7 +77,7 @@ packages/
 └── tailwind-config/  # Design tokens (Gruvbox theme)
 ```
 
-Components? Check [Storybook](/storybook). Design tokens? See [Design Tokens](/docs/design-tokens).
+Components? Check [Storybook](/storybook/). Design tokens? See [Design Tokens](/docs/design-tokens/).
 
 ---
 
@@ -87,10 +87,10 @@ Components? Check [Storybook](/storybook). Design tokens? See [Design Tokens](/d
 2. Create `apps/playground/src/pages/projects/<category>/<project>/index.astro`
 3. Done.
 
-Full guide: [Adding Projects](/docs/adding-projects)
+Full guide: [Adding Projects](/docs/adding-projects/)
 
 ---
 
 ## Conventions
 
-Code style and patterns: See [AGENTS.md](/AGENTS.md)
+Code style and patterns: See [AGENTS.md](/AGENTS.md/)
