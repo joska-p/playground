@@ -108,8 +108,4 @@ import { Sidebar } from "@repo/ui";
 
 ---
 
-## Adding Components
-
-See [AGENTS.md](/AGENTS.md/) → "React Components" section for patterns.
-
 Components live in `packages/ui/src/components/`.

@@ -90,7 +90,3 @@ Components? Check [Storybook](/storybook/). Design tokens? See [Design Tokens](/
 Full guide: [Adding Projects](/docs/adding-projects/)
 
 ---
-
-## Conventions
-
-Code style and patterns: See [AGENTS.md](/AGENTS.md/)
