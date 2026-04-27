@@ -40,13 +40,14 @@ pnpm install && pnpm dev
 
 ## Documentation
 
-| Doc                                           | Description                   |
-| --------------------------------------------- | ----------------------------- |
-| [Getting Started](/docs/getting-started/)     | Manifesto and overview        |
-| [Adding Projects](/docs/adding-projects/)     | How to add new visualizations |
-| [Adding Components](/docs/adding-components/) | How to add UI components      |
-| [Design Tokens](/docs/design-tokens/)         | Color palette and typography  |
-| [UI Components](/docs/ui-components/)         | Component library reference   |
+| Doc                                                                               | Description                   |
+| --------------------------------------------------------------------------------- | ----------------------------- |
+| [Documentation hub](https://joska-p.github.io/playground/docs/)                   | Documention hub
+| [Getting Started](https://joska-p.github.io/playground/docs/getting-started/)     | Manifesto and overview        |
+| [Adding Projects](https://joska-p.github.io/playground/docs/adding-projects/)     | How to add new visualizations |
+| [Adding Components](https://joska-p.github.io/playground/docs/adding-components/) | How to add UI components      |
+| [Design Tokens](https://joska-p.github.io/playground/docs/design-tokens/)         | Color palette and typography  |
+| [UI Components](https://joska-p.github.io/playground/docs/ui-components/)         | Component library reference   |
 
 ---
 
