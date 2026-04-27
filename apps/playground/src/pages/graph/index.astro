@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
-import { baseUrl } from "../../constants/routes";
 
+const baseUrl = import.meta.env.BASE_URL || "/";
 const graphUrl = `${baseUrl}/graph.html`;
 ---
 

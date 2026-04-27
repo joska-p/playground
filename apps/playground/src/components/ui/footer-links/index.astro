@@ -1,15 +1,30 @@
 ---
-import { routes } from "../../../constants/routes";
 import { Badge } from "@repo/ui";
+
+interface Route {
+  label: string;
+  href: string;
+  isUtility?: boolean;
+  icon?: string;
+}
+
+const baseUrl = import.meta.env.BASE_URL || "/";
+
+// Utility links (like GitHub) and Docs
+const routes: Route[] = [
+  { label: "GitHub", href: "https://github.com/joska-p/playground", isUtility: true, icon: "github" },
+  { label: "Storybook", href: `${baseUrl}/storybook`, isUtility: true, icon: "storybook" },
+  { label: "Docs", href: `${baseUrl}/docs/`, icon: "docs" },
+];
+
+// Utility links (like GitHub) and Docs from routes
+const utilityLinks = routes.filter((r) => r.isUtility || r.label === "Docs");
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
-
-// Get utility links and Docs from routes
-const utilityLinks = routes.filter(r => r.isUtility || r.label === "Docs");
 
 // Tools and technologies used - cycling through variants for visual interest
 const credits = [

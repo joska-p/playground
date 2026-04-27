@@ -2,15 +2,21 @@
 import BaseLayout from "../../layouts/base-layout.astro";
 import ExperimentCard from "../../components/ui/experiment-card/index.astro";
 import SectionHeader from "../../components/ui/section-header/index.astro";
-import { baseUrl } from "../../constants/routes";
-import {
-  categories,
-  projectsByCategory,
-  type Category,
-} from "../../data/projects";
+import { categories, getProjectsByCategory, type Category } from "../../data/projects";
+import { Sparkles, Palette, Flame, BarChart3 } from "lucide-react";
 
-const projectsBase = `${baseUrl}/projects`;
+const baseUrl = import.meta.env.BASE_URL || "/";
+
+const projectsBaseUrl = `${baseUrl}projects/`;
 const categoryList: Category[] = ["generative", "color", "image", "data-viz"];
+
+// Default icons per category (since we don't store icons in categories anymore)
+const categoryIcons = {
+  generative: Sparkles,
+  color: Palette,
+  image: Flame,
+  "data-viz": BarChart3,
+};
 ---
 
 <BaseLayout title="Projects | Playground">
@@ -38,8 +44,8 @@ const categoryList: Category[] = ["generative", "color", "image", "data-viz"];
   <div class="mx-auto max-w-6xl px-6 py-16 lg:py-20">
     {categoryList.map((category) => {
       const categoryMeta = categories[category];
-      const CategoryIcon = categoryMeta.icon;
-      const categoryProjects = projectsByCategory[category];
+      const CategoryIcon = categoryIcons[category];
+      const projectList = getProjectsByCategory()[category];
 
       return (
         <section class="mb-16">
@@ -50,14 +56,13 @@ const categoryList: Category[] = ["generative", "color", "image", "data-viz"];
           />
 
           <div class="grid gap-8 sm:grid-cols-2 mt-8">
-            {categoryProjects.map((project) => (
+            {projectList.map((project) => (
               <ExperimentCard
-                href={`${projectsBase}/${category}/${project.slug}`}
+                href={`${projectsBaseUrl}${category}/${project.slug}/`}
                 title={project.name}
                 description={project.description}
                 icon={project.icon}
-                iconBgColor={project.iconBg}
-                iconColor={project.iconColor}
+                category={project.category}
                 tags={project.tags}
               />
             ))}

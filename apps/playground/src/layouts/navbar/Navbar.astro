@@ -5,25 +5,50 @@ import ThemeToggle from "./ThemeToggle.astro";
 import UtilityLinks from "./UtilityLinks.astro";
 import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
-import { type Route } from "../../constants/routes";
 
-interface Props {
-  routes: Route[];
-  currentPath: string;
-  baseUrl: string;
+interface Route {
+  label: string;
+  href: string;
+  description?: string;
+  isUtility?: boolean;
 }
 
-const { routes, currentPath, baseUrl } = Astro.props;
+// Get base URL from Astro config (Vercel="/" or GitHub Pages="/playground")
+const baseUrl = import.meta.env.BASE_URL || "/";
+
+// Nav routes - normalized with baseUrl
+const routes: Route[] = [
+  {
+    label: "Projects",
+    href: `${baseUrl}projects/`,
+    description: "Browse creative projects by category",
+  },
+  {
+    label: "Docs",
+    href: `${baseUrl}docs/`,
+    description: "Documentation",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/joska-p/playground",
+    description: "View source on GitHub",
+    isUtility: true,
+  },
+];
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
 
 // Helper to check active state
 function isLinkActive(href: string) {
   return currentPath === href || currentPath === href + "/";
 }
 
-// Check if a top-level route is active (either directly or via a child)
 function isTopLevelActive(route: Route) {
-  if (isLinkActive(route.href)) return true;
-  return route.children?.some(child => isLinkActive(child.href));
+  return isLinkActive(route.href);
 }
 ---
 

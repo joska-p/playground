@@ -1,6 +1,12 @@
 ---
 import { cn } from "../../utils/utils";
-import type { Route } from "../../constants/routes";
+
+interface Route {
+  label: string;
+  href: string;
+  description?: string;
+  isUtility?: boolean;
+}
 
 interface Props {
   routes: Route[];
@@ -14,37 +20,17 @@ const mainRoutes = routes.filter((route) => !route.isUtility);
 <div id="mobile-menu" class="absolute top-16 inset-x-0 z-50 p-4 md:hidden hidden animate-in slide-in-from-top-2 duration-200">
   <div class="rounded-xl border border-border bg-card p-4 shadow-2xl flex flex-col gap-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
     {mainRoutes.map((route) => (
-      <div class="flex flex-col gap-1">
-        <a
-          href={route.href}
-          class={cn(
-            "group relative px-4 py-2 rounded-md text-sm font-mono font-medium transition-all outline-none active:translate-y-px",
-            isActive(route.href)
-              ? "bg-primary text-primary-foreground"
-              : "text-foreground/70 hover:bg-primary/10 hover:text-primary"
-          )}
-        >
-          {route.label}
-        </a>
-
-        {route.children && (
-          <div class="ml-4 pl-4 border-l border-border flex flex-col gap-1 mt-1 mb-2">
-            {route.children.map((child) => (
-              <a
-                href={child.href}
-                class={cn(
-                  "px-4 py-1.5 rounded-md text-xs font-mono transition-all",
-                  isActive(child.href)
-                    ? "text-primary font-bold"
-                    : "text-foreground/60 hover:text-primary"
-                )}
-              >
-                {child.label}
-              </a>
-            ))}
-          </div>
+      <a
+        href={route.href}
+        class={cn(
+          "group relative px-4 py-2 rounded-md text-sm font-mono font-medium transition-all outline-none active:translate-y-px",
+          isActive(route.href)
+            ? "bg-primary text-primary-foreground"
+            : "text-foreground/70 hover:bg-primary/10 hover:text-primary"
         )}
-      </div>
+      >
+        {route.label}
+      </a>
     ))}
-
-    
+  </div>
+</div>

@@ -14,7 +14,7 @@ const basePath = isVercel ? "/" : "/playground";
 export default defineConfig({
   site: siteUrl,
   base: basePath,
-  trailingSlash: "ignore",
+  trailingSlash: "always",
   integrations: [
     react({
       babel: {

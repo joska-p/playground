@@ -1,12 +1,7 @@
 ---
 import Navbar from "./navbar/Navbar.astro";
-import { routes, baseUrl } from "../constants/routes";
 
 const currentPath = Astro.url.pathname;
 ---
 
-<Navbar
-  routes={routes}
-  currentPath={currentPath}
-  baseUrl={baseUrl}
-/>
+<Navbar currentPath={currentPath} />

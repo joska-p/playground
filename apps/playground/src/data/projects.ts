@@ -1,5 +1,4 @@
-import type { BadgeVariant } from "@repo/ui";
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
 import {
   Grid3X3,
   Infinity as InfinityIcon,
@@ -11,161 +10,136 @@ import {
 } from "lucide-react";
 
 /**
- * Valid badge color variants - inferred from @repo/ui Badge
- */
-export type BadgeColor = Extract<
-  BadgeVariant,
-  "primary" | "secondary" | "accent" | "destructive" | "outline"
->;
-
-/**
  * Project categories
  */
 export type Category = "generative" | "color" | "image" | "data-viz";
 
 /**
- * Category metadata
+ * Category metadata - human-readable names
  */
-export interface CategoryMeta {
-  name: string;
-  description: string;
-  icon: LucideIcon;
-}
-
-export const categories: Record<Category, CategoryMeta> = {
+export const categories: Record<Category, { name: string; description: string }> = {
   generative: {
     name: "Generative Art",
     description:
       "Procedural patterns and mathematical visualizations that create art from algorithms.",
-    icon: Sparkles,
   },
   color: {
     name: "Color & Design",
     description:
       "Tools for exploring color theory, generating harmonious palettes, and design utilities.",
-    icon: Palette,
   },
   "data-viz": {
     name: "Data Visualization",
     description:
       "Interactive charts, graphs, and visual representations of data using D3 and other libraries.",
-    icon: BarChart3,
   },
   image: {
     name: "Image Processing",
     description: "Transform, deconstruct, and visualize images through creative algorithms.",
-    icon: Flame,
   },
 };
 
 /**
  * Project data - single source of truth for all project metadata
+ * Styling is derived from category via CSS tokens (see gruvbox-styles.css)
  */
 export interface Project {
+  slug: string;
   name: string;
   description: string;
   category: Category;
-  tags: { label: string; color: BadgeColor }[];
-  icon: LucideIcon;
-  iconBg: string;
-  iconColor: string;
+  tags: string[];
+  icon: ComponentType<{ className?: string }>;
 }
+
+/**
+ * Icon map - components are already imported at top
+ */
+const icons = {
+  Grid3X3,
+  InfinityIcon,
+  Palette,
+  Flame,
+  PieChart,
+  Sparkles,
+  BarChart3,
+};
 
 /**
  * All projects - add/edit here only
  */
-export const projects = {
+export const projects: Record<string, Project> = {
   mosaic: {
+    slug: "mosaic",
     name: "Mosaic Maker",
     description:
       "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
     category: "generative",
-    tags: [
-      { label: "Canvas", color: "secondary" },
-      { label: "Zustand", color: "secondary" },
-    ],
-    icon: Grid3X3,
-    iconBg: "bg-secondary/20",
-    iconColor: "text-secondary",
+    tags: ["Canvas", "Zustand"],
+    icon: icons.Grid3X3,
   },
   sequences: {
+    slug: "sequences",
     name: "Sequence Renderer",
     description:
       "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
     category: "generative",
-    tags: [
-      { label: "Math", color: "primary" },
-      { label: "SVG", color: "primary" },
-    ],
-    icon: InfinityIcon,
-    iconBg: "bg-primary/20",
-    iconColor: "text-primary",
+    tags: ["Math", "SVG"],
+    icon: icons.InfinityIcon,
   },
   palettes: {
+    slug: "palettes",
     name: "Palettes Generator",
     description: "Generate harmonious color schemes using mathematical color theory models.",
     category: "color",
-    tags: [
-      { label: "Design", color: "accent" },
-      { label: "Theory", color: "accent" },
-    ],
-    icon: Palette,
-    iconBg: "bg-accent/20",
-    iconColor: "text-accent",
+    tags: ["Design", "Theory"],
+    icon: icons.Palette,
   },
   particles: {
+    slug: "particles",
     name: "Image to Particles",
     description:
       "Deconstruct images into physics-based particle systems with real-time interaction.",
     category: "image",
-    tags: [
-      { label: "Physics", color: "destructive" },
-      { label: "Canvas", color: "destructive" },
-    ],
-    icon: Flame,
-    iconBg: "bg-destructive/20",
-    iconColor: "text-destructive",
+    tags: ["Physics", "Canvas"],
+    icon: icons.Flame,
   },
   piechart: {
+    slug: "piechart",
     name: "Pie Chart",
     description: "Interactive D3-based pie chart examples for data visualization.",
     category: "data-viz",
-    tags: [
-      { label: "D3", color: "primary" },
-      { label: "Charts", color: "primary" },
-    ],
-    icon: PieChart,
-    iconBg: "bg-primary/20",
-    iconColor: "text-primary",
+    tags: ["D3", "Charts"],
+    icon: icons.PieChart,
   },
-} satisfies Record<string, Project>;
+};
 
 /**
- * Type for project slug - derived from projects object
+ * Type for project slug
  */
 export type ProjectSlug = keyof typeof projects;
 
 /**
- * Get all project slugs as an array
+ * Helper: get all project slugs
  */
-export const projectSlugs = Object.keys(projects) as ProjectSlug[];
-
-/**
- * Get projects grouped by category - pre-computed for efficient lookups
- * Each project includes its slug for easy linking
- */
-export interface ProjectWithSlug extends Project {
-  slug: ProjectSlug;
+export function getProjectSlugs(): ProjectSlug[] {
+  return Object.keys(projects) as ProjectSlug[];
 }
 
-export const projectsByCategory: Record<Category, ProjectWithSlug[]> = {
-  generative: [],
-  color: [],
-  "data-viz": [],
-  image: [],
-};
+/**
+ * Helper: get projects grouped by category
+ */
+export function getProjectsByCategory(): Record<Category, Project[]> {
+  const result: Record<Category, Project[]> = {
+    generative: [],
+    color: [],
+    "data-viz": [],
+    image: [],
+  };
 
-for (const slug of projectSlugs) {
-  const project = projects[slug];
-  projectsByCategory[project.category].push({ ...project, slug });
+  for (const project of Object.values(projects)) {
+    result[project.category].push(project);
+  }
+
+  return result;
 }

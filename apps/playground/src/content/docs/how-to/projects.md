@@ -257,13 +257,13 @@ The category in the path matches the `category` field in your project entry.
 
 ## Quick Reference
 
-| What | Where | How |
-|------|-------|-----|
-| Add project | `projects.ts` + `pages/.../index.astro` | Add to `projects` object |
-| New category | `projects.ts` + `pages/<category>/` | Update Category type + add entry |
-| Change category | `projects.ts` | Change `category` field on project |
-| Project icon | `projects.ts` | Import Lucide icon |
-| Category icon | `projects.ts` | Import Lucide icon |
+| What            | Where                                   | How                                |
+| --------------- | --------------------------------------- | ---------------------------------- |
+| Add project     | `projects.ts` + `pages/.../index.astro` | Add to `projects` object           |
+| New category    | `projects.ts` + `pages/<category>/`     | Update Category type + add entry   |
+| Change category | `projects.ts`                           | Change `category` field on project |
+| Project icon    | `projects.ts`                           | Import Lucide icon                 |
+| Category icon   | `projects.ts`                           | Import Lucide icon                 |
 
 ### Valid Tag Colors
 

@@ -4,7 +4,7 @@ import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
 
-const { name: title } = projects.particles;
+const title = projects["particles"]?.name ?? "Image to Particles";
 ---
 
 <BaseLayout title={title}>

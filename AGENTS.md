@@ -66,9 +66,26 @@ Build must complete before type-check runs. Package order in `pnpm-workspace.yam
 
 ## See Also
 
-- **In-app docs**: `apps/playground/src/content/docs/` — Architecture, getting started, how-to guides
+- **In-app docs**: `apps/playground/src/content/docs/` — See "Content Collections" above for API
 - `.agents/skills/` — Domain-specific skills (frontend-design, turborepo, etc.)
 - `.opencode/opencode.json` → links to this file for OpenCode
+
+## Skills
+
+**Recommended**: Install the Astro skill for general Astro guidance:
+```bash
+npx skills add astrolicious/agent-skills@astro
+```
+(5.1K installs — CLI commands, project structure, and deployment)
+
+## Content Collections
+
+This repo uses Astro 6.0+ content collections with glob loader:
+- **Config**: `apps/playground/src/content.config.ts`
+- **Content**: `apps/playground/src/content/docs/*.md` (frontmatter: title, description, type, order, draft)
+- **API**: `getCollection('docs')` from `astro:content`
+
+Docs are rendered via dynamic route `apps/playground/src/pages/docs/[...slug].astro`.
 
 ## Verification Before Commit
 
