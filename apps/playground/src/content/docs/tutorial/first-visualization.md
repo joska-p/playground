@@ -6,145 +6,109 @@ type: "tutorial"
 
 # Your First Visualization
 
-Let's build a simple visualization from scratch. By the end, you'll have a new project in the playground.
+Let's add a new visualization to the Sequence Renderer. By the end, you'll have drawn something new with math.
 
 ---
 
 ## What We're Building
 
-A simple "Random Walk" visualization — a particle that takes random steps and leaves a trail.
+A "Line Graph" visualization — draws the sequence as connected points, like a stock chart.
 
 ---
 
-## Step 1: Add to Projects
+## Step 1: Create the Visualization
 
-Open `apps/playground/src/data/projects.ts` and add your project:
+Create `packages/sequence-renderer/src/core/visualizations/line-graph.ts`:
 
 ```typescript
-export const projects: Record<string, Project> = {
-  // ...existing projects
-  randomwalk: {
-    slug: "randomwalk",
-    name: "Random Walk",
-    description: "A particle wandering randomly through space.",
-    category: "generative",
-    tags: ["Canvas", "Random"],
-    icon: icons.Sparkles,
-  },
-};
-```
+export function drawLineGraph(canvas: HTMLCanvasElement, sequence: number[]) {
+  if (!canvas.parentElement) return;
 
----
+  const width = canvas.parentElement.clientWidth;
+  const height = canvas.parentElement.clientHeight;
+  canvas.width = width;
+  canvas.height = height;
 
-## Step 2: Create the Page
+  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-Create `apps/playground/src/pages/projects/generative/randomwalk/index.astro`:
+  // Clear canvas
+  ctx.clearRect(0, 0, width, height);
 
-```astro
----
-import BaseLayout from "../../../../layouts/base-layout.astro";
-import { RandomWalk } from "@repo/random-walk"; // We'll create this
----
+  // Calculate scales
+  const maxVal = Math.max(...sequence, 0);
+  const stepX = width / (sequence.length - 1 || 1);
+  const scaleY = height / maxVal;
 
-<BaseLayout title="Random Walk">
-  <RandomWalk client:load />
-</BaseLayout>
-```
+  // Draw line
+  ctx.beginPath();
+  ctx.strokeStyle = "hsl(160, 50%, 50%)";
+  ctx.lineWidth = 2;
 
----
+  sequence.forEach((value, index) => {
+    const x = index * stepX;
+    const y = height - value * scaleY;
 
-## Step 3: Build the Component
+    if (index === 0) {
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+    }
+  });
 
-Create `packages/random-walk/src/index.tsx`:
+  ctx.stroke();
 
-```tsx
-import { useEffect, useRef, useState } from "react";
-
-export function RandomWalk() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isRunning, setIsRunning] = useState(true);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Starting position
-    let x = canvas.width / 2;
-    let y = canvas.height / 2;
-
-    const animate = () => {
-      // Random step
-      x += Math.random() * 20 - 10;
-      y += Math.random() * 20 - 10;
-
-      // Draw
-      ctx.fillStyle = "hsl(160, 50%, 50%)";
-      ctx.beginPath();
-      ctx.arc(x, y, 2, 0, Math.PI * 2);
-      ctx.fill();
-
-      if (isRunning) requestAnimationFrame(animate);
-    };
-
-    animate();
-  }, [isRunning]);
-
-  return (
-    <div>
-      <canvas ref={canvasRef} width={800} height={600} />
-      <button onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Pause" : "Play"}</button>
-    </div>
-  );
+  // Draw points
+  ctx.fillStyle = "hsl(160, 50%, 50%)";
+  sequence.forEach((value, index) => {
+    const x = index * stepX;
+    const y = height - value * scaleY;
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fill();
+  });
 }
 ```
 
 ---
 
-## Step 4: Export the Package
+## Step 2: Export the Visualization
 
-In `packages/random-walk/src/index.ts`:
+In `packages/sequence-renderer/src/core/visualizations/index.ts`:
 
 ```typescript
-export { RandomWalk } from "./index";
-```
+import { drawLineGraph } from "./line-graph.js";
 
-In `packages/random-walk/package.json`, add to `exports`:
-
-```json
-{
-  "name": "@repo/random-walk",
-  "exports": {
-    ".": "./src/index.ts"
-  }
-}
+export const visualizations = [
+  // ...existing visualizations
+  { id: "line-graph", name: "Line Graph", draw: drawLineGraph },
+];
 ```
 
 ---
 
-## Step 5: Run It
+## Step 3: Run It
 
 ```bash
+pnpm --filter @repo/sequence-renderer build
 pnpm --filter @repo/playground dev
 ```
 
-Visit `http://localhost:4321/projects/generative/randomwalk/`
+Visit `http://localhost:4321/projects/generative/sequences/`
+
+Select your new "Line Graph" visualization from the dropdown.
 
 ---
 
 ## What's Next?
 
-- Add controls (speed, color, particle size)
-- Save to `@repo/ui` if reusable
-- Check [Adding Projects](/docs/adding-projects/) for more patterns
+- Add controls (color, line width, show/hide points)
+- Try different sequences (Fibonacci, Primes, Collatz)
+- Check [Engines](/docs/engines/) for how rules and visualizations work together
 
 ---
 
 ## Key Takeaways
 
-1. **Projects are just pages** — Astro routing handles the URL
-2. **Engines are React components** — Import and use `client:load`
-3. **Canvas is simple** — Just requestAnimationFrame + drawing commands
-4. **State is optional** — Start stateless, add Zustand when needed
+1. **Visualizations are draw functions** — they receive `canvas` and `sequence`
+2. **Rules generate data, visualizations render it** — they're independent
+3. **Add to the array, it appears in UI** — no config needed
