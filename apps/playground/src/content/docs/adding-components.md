@@ -75,7 +75,60 @@ export { MyComponent, myComponentVariants };
 export { MyComponent, myComponentVariants } from "./MyComponent";
 ```
 
-## Step 4: Add to Package
+## Step 4: Add Stories
+
+Create `apps/storybook/src/stories/MyComponent/myComponent.stories.tsx`:
+
+```typescript
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { MyComponent } from "@repo/ui";
+import { fn } from "storybook/test";
+
+const meta: Meta<typeof MyComponent> = {
+  title: "Components/MyComponent",
+  component: MyComponent,
+  tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
+      control: { type: "select" },
+    },
+    size: {
+      options: ["default", "sm", "lg", "icon"],
+      control: { type: "select" },
+    },
+  },
+  args: {
+    onClick: fn(),
+    children: "My Component",
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const Primary: Story = {
+  args: {
+    variant: "primary",
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+    children: "Secondary",
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+    children: "Loading...",
+  },
+};
+```
+
+## Step 5: Add to Package
 
 In `packages/ui/src/index.ts`:
 
@@ -96,7 +149,8 @@ export * from "./components/MyComponent";
 
 ## Checklist
 
-- [ ] All variants have stories in Storybook
+- [ ] All variants have stories in Storybook (Step 4)
+- [ ] Stories are documented with JSDoc comments
 - [ ] Works in light AND dark mode
 - [ ] Focus states: `focus-visible:ring-*`
 - [ ] PropTypes via `ComponentProps<"element">` pattern
