@@ -24,14 +24,7 @@ export default function Patterns() {
 2. **State Engine:** Centralized Zustand store for real-time reactivity.
 3. **Layout Logic:** Efficient tiling algorithms utilizing modern CSS.
 
----
-
-## 📖 Documentation
-
-Detailed engineering guides and architecture details:
-
-- [**Architecture Overview**](https://joska-p.github.io/playground/docs/explanation/architecture)
-- [**Adding Engines Guide**](https://joska-p.github.io/playground/docs/how-to/adding-pages)
+See [Engines](/docs/engines/) for detailed architecture.
 
 ---
 
