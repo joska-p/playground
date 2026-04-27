@@ -40,14 +40,21 @@ pnpm dev
 
 ## 📖 Documentation Hub
 
-Our full documentation is now hosted within the Astro app for a seamless experience:
+Our documentation lives within the Astro app itself—built with Astro content collections for a seamless experience:
 
-👉 [**Explore the Documentation Hub**](https://joska-p.github.io/playground/docs)
+- **Explore inline**: [http://localhost:4321/docs/](http://localhost:4321/docs/)
+- **Local docs**: Run `pnpm dev` then visit `/docs/`
 
-- [**Development Manifesto**](https://joska-p.github.io/playground/docs/explanation/architecture) — Our architectural philosophy.
-- [**Getting Started**](https://joska-p.github.io/playground/docs/tutorial/getting-started) — Detailed setup guide.
-- [**Adding Engines**](https://joska-p.github.io/playground/docs/how-to/adding-pages) — How to contribute new experiments.
-- [**Component API**](https://joska-p.github.io/playground/docs/reference/component-api) — UI library reference.
+### Quick Links
+
+| Guide | What You'll Learn |
+| ------ | -----------------|
+| [Architecture](./apps/playground/src/content/docs/explanation/architecture.md) | How the playground is organized |
+| [Getting Started](./apps/playground/src/content/docs/tutorial/getting-started.md) | Set up your dev environment |
+| [Adding Pages](./apps/playground/src/content/docs/how-to/adding-pages.md) | Add new visualizations |
+| [Projects Model](./apps/playground/src/content/docs/how-to/projects.md) | The data model behind projects |
+| [Component API](./apps/playground/src/content/docs/reference/component-api.md) | UI library reference |
+| [Design Tokens](./apps/playground/src/content/docs/reference/design-tokens.md) | The Gruvbox theme system |
 
 ---
 

@@ -54,6 +54,8 @@ pnpm dev
 | `pnpm dev`         | All apps + packages in watch mode |
 | `pnpm build`       | Production build                  |
 | `pnpm check-types` | TypeScript check                  |
+| `pnpm lint`        | ESLint check                      |
+| `pnpm format`      | Prettier format                   |
 | `nix develop`      | Nix shell (optional)              |
 
 ## Project Structure
@@ -75,8 +77,8 @@ packages/
 
 ## Your First Contribution
 
-1. **Add a page**: Create `apps/playground/src/pages/<category>/<project>/index.tsx`
-2. **Add route**: Update `src/constants/routes.ts`
+1. **Add a page**: Create `apps/playground/src/pages/projects/<category>/<project>/index.astro`
+2. **Add to data model**: Update `src/data/projects.ts`
 3. **Build something awesome**: Use `@repo/ui` components
 
 ```tsx

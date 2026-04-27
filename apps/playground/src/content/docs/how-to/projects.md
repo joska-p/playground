@@ -228,30 +228,21 @@ export const projectsByCategory: Record<Category, ProjectWithSlug[]> = {
 
 ## Routing
 
-Routes are auto-generated from the data model:
+Routes are not auto-generated—they use the standard Astro file-based routing:
 
 ```
-routes.ts:14-20
+pages/projects/<category>/
+├── index.astro           # Category landing page
+└── <project>/
+    └── index.astro      # Individual project page
 ```
+
+The category in the path comes from your project's `category` field in `projects.ts`:
 
 ```typescript
-const projectRoutes = Object.entries(projects).map(([slug, meta]) => ({
-  label: meta.name,
-  href: `/projects/${slug}/`,
-  description: meta.description,
-  children: [],
-}));
+const project = projects.piechart;
+project.category === "data-viz"; // maps to /projects/data-viz/piechart/
 ```
-
-This generates:
-
-- `/projects/generative/mosaic/` → Mosaic Maker
-- `/projects/generative/sequences/` → Sequence Renderer
-- `/projects/color/palettes/` → Palettes Generator
-- `/projects/image/particles/` → Image to Particles
-- `/projects/data-viz/piechart/` → Pie Chart
-
-The category in the path matches the `category` field in your project entry.
 
 ---
 

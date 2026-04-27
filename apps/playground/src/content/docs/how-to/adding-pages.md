@@ -15,144 +15,153 @@ order: 1
 
 ```
 apps/playground/src/
-├── constants/
-│   └── routes.ts              # Single source of truth for navigation
 ├── layouts/
-│   ├── layout.astro          # Base layout
-│   └── navbar/              # Navbar components
+│   ├── base-layout.astro      # Base layout
+│   └── navbar/                # Navbar components
 └── pages/
-    ├── index.astro          # Home
-    ├── particles/           # Category landing
-    │   └── image-to-particles/  # Project
-    └── <category>/
-        └── <project>/
-            └── index.tsx     # Your new project
+    ├── index.astro            # Home
+    ├── projects/
+    │   └── <category>/
+    │       └── <project>/
+    │           └── index.astro # Your new project
 ```
 
 ## Add a New Project
 
 ### Step 1: Create the Page
 
-**Location:** `apps/playground/src/pages/<category>/<project>/index.tsx`
+**Location:** `apps/playground/src/pages/projects/<category>/<project>/index.astro`
 
-```tsx
-import BaseLayout from "../../layouts/base-layout.astro";
+```astro
+---
+import BaseLayout from "../../../../layouts/base-layout.astro";
+import { projects } from "../../../../data/projects";
 
-export default function MyPage() {
-  return (
-    <BaseLayout title="My Awesome Project">
-      <h1>My Awesome Project</h1>
-      <p>This is going to be fun!</p>
-    </Layout>
-  );
-}
+const project = projects.myproject;
+---
+
+<BaseLayout title={project.name}>
+  <h1>{project.name}</h1>
+  <p>{project.description}</p>
+</BaseLayout>
 ```
 
-### Step 2: Register the Route
+### Step 2: Add to Data Model
 
-Edit `apps/playground/src/constants/routes.ts`:
+Edit `apps/playground/src/data/projects.ts`:
 
 ```typescript
-{
-  label: "Particles",
-  href: "/particles/",
-  children: [
-    {
-      label: "Image to Particles",
-      href: "/particles/image-to-particles",
-      description: "Transform images into interactive particles",
-    },
-    // Add your project here
-    {
-      label: "My Awesome Project",
-      href: "/particles/my-awesome-project",
-      description: "What it does in one sentence",
-    },
-  ],
-},
+export const projects = {
+  // ...existing projects
+
+  myproject: {
+    name: "My Awesome Project",
+    description: "What it does in one sentence.",
+    category: "generative", // Must exist in Category type
+    slug: "myproject", // URL slug
+    tags: [{ label: "React", color: "secondary" }],
+    icon: Sparkles,
+  },
+} satisfies Record<string, Project>;
 ```
 
 ## Add a New Category
 
-### Step 1: Landing Page
+### Step 1: Create Landing Page
 
-Create `apps/playground/src/pages/<category>/index.astro`:
+Create `apps/playground/src/pages/projects/<category>/index.astro`:
 
 ```astro
 ---
-import BaseLayout from "../../layouts/base-layout.astro";
+import BaseLayout from "../../../../layouts/base-layout.astro";
+import { projectsByCategory, categories } from "../../../../data/projects";
 
-const projects = [
-  {
-    label: "My Project",
-    href: "/my-category/my-project",
-    description: "Does cool stuff",
-  },
-];
+const category = "mycategory";
+const meta = categories[category];
+const categoryProjects = projectsByCategory[category];
 ---
 
-<Layout title="My Category">
-  <div class="mx-auto max-w-4xl px-4 py-12">
-    <h1 class="text-4xl font-bold">My Category</h1>
-    <div class="grid gap-6 mt-8">
-      {projects.map((p) => (
-        <a href={p.href} class="block p-6 border rounded-lg">
-          <h2>{p.label}</h2>
-          <p>{p.description}</p>
+<BaseLayout title={`${meta.name} | Playground`}>
+  <h1>{meta.name}</h1>
+  <p>{meta.description}</p>
+
+  <ul>
+    {categoryProjects.map((project) => (
+      <li>
+        <a href={`/projects/${category}/${project.slug}`}>
+          {project.name}
         </a>
-      ))}
-    </div>
-  </div>
-</Layout>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
 ```
 
-### Step 2: Register Category
+### Step 2: Add to Categories Record
 
-In `routes.ts`, add the top-level entry:
+Edit `apps/playground/src/data/projects.ts`:
 
 ```typescript
-{
-  label: "My Category",
-  href: "/my-category/",
-  children: [
-    {
-      label: "My Project",
-      href: "/my-category/my-project",
-      description: "Does cool stuff",
-    },
-  ],
-},
+export type Category = "generative" | "color" | "image" | "data-viz" | "mycategory";
+
+export const categories: Record<Category, CategoryMeta> = {
+  // ...existing
+  mycategory: {
+    name: "My Category",
+    description: "What makes this category special.",
+    icon: MyIcon,
+  },
+};
+```
+
+And add to `projectsByCategory`:
+
+```typescript
+export const projectsByCategory: Record<Category, ProjectWithSlug[]> = {
+  // ...existing
+  mycategory: [],
+};
+```
+
+### Step 3: Add Navbar Routes (if needed)
+
+Routes are defined in `Navbar.astro` frontmatter. Edit `apps/playground/src/layouts/navbar/Navbar.astro`:
+
+```typescript
+const routes: Route[] = [
+  {
+    label: "Projects",
+    href: `${baseUrl}/projects/`,
+  },
+  // Add category link here if top-level
+];
 ```
 
 ## Utility Links
 
-Storybook, Graph, and GitHub links live in `routes.ts` too:
+Utility links (GitHub, Storybook) are defined in `UtilityLinks.astro`:
 
-```typescript
-{
-  label: "Storybook",
-  href: "/storybook/",
-  description: "Component docs",
-  isUtility: true,
-  icon: "storybook",
-},
+```astro
+<a href={`${baseUrl}/storybook`} target="_blank">
+  <span>Storybook</span>
+</a>
 ```
 
-> **Tip:** Icons come from [Lucide](https://lucide.dev/)—edit `UtilityLinks.astro` to add new ones.
+> **Tip:** Icons come from [Lucide](https://lucide.dev/)
 
 ## Best Practices
 
-| Do                                | Don't                    |
-| --------------------------------- | ------------------------ |
-| One component per folder          | Put stuff anywhere       |
-| Descriptive labels in navbar      | Vague names like "Thing" |
-| Helpful descriptions for tooltips | Leave it blank           |
-| Paths like `/category/project/`   | `/category-project/`     |
+| Do                                       | Don't                    |
+| ---------------------------------------- | ------------------------ |
+| One component per folder                 | Put stuff anywhere       |
+| Descriptive labels in navbar             | Vague names like "Thing" |
+| Helpful descriptions for tooltips        | Leave it blank           |
+| Paths like `/projects/category/project/` | `/category-project/`     |
 
 ## Quick Reference
 
-| What         | Where                                 |
-| ------------ | ------------------------------------- |
-| Add project  | `routes.ts` + `pages/.../index.tsx`   |
-| New category | `routes.ts` + `pages/.../index.astro` |
-| Change icon  | `routes.ts` + `UtilityLinks.astro`    |
+| What         | Where                                          |
+| ------------ | ---------------------------------------------- |
+| Add project  | `projects.ts` + `pages/.../index.astro`        |
+| New category | `projects.ts` + `pages/<category>/index.astro` |
+| Change nav   | `Navbar.astro` frontmatter                     |
