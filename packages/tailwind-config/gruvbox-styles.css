@@ -20,12 +20,6 @@
     --input: hsl(52 73% 90%);
     --ring: hsl(38 100% 50%);
 
-    /* Category colors - light theme */
-    --category-generative: hsl(160 50% 35%);
-    --category-color: hsl(280 40% 50%);
-    --category-image: hsl(15 60% 45%);
-    --category-data-viz: hsl(200 60% 40%);
-
     --font-sans:
       ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
@@ -66,12 +60,6 @@
     --border: hsl(21 7% 29%);
     --input: hsl(20 5% 22%);
     --ring: hsl(41 95% 68%);
-
-    /* Category colors - dark theme */
-    --category-generative: hsl(160 40% 45%);
-    --category-color: hsl(280 35% 55%);
-    --category-image: hsl(15 50% 50%);
-    --category-data-viz: hsl(200 50% 50%);
 
     --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.01);
     --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.01);

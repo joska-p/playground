@@ -87,48 +87,48 @@ const featuredSlugs = getProjectSlugs().slice(0, 4);
     <section class="mb-24 rounded-3xl bg-muted/30 p-8 lg:p-12">
       <SectionHeader
         icon={Book}
-        title="Platform Guide"
-        description="Deep dives into the infrastructure and conventions of the lab."
+        title="Documentation"
+        description="Manifesto, guides, and references for collaborators."
         align="center"
       />
 
       <div class="grid gap-6 sm:grid-cols-2 mt-12">
         <DocCard
-          href={`${docsBaseUrl}tutorial/getting-started/`}
-          variant="tutorial"
-          icon={Book}
-          title="Getting Started"
-          description="Initialize your local Nix environment and launch your first experiment."
-        />
-
-        <DocCard
-          href={`${docsBaseUrl}how-to/adding-pages/`}
-          variant="howTo"
-          icon={Wrench}
-          title="How-To: Add Engines"
-          description="Step-by-step guide to integrating a new engine into the Astro shell."
-        />
-
-        <DocCard
-          href={`${docsBaseUrl}explanation/architecture/`}
-          variant="explanation"
+          href={`${docsBaseUrl}getting-started/`}
+          type="explanation"
           icon={Lightbulb}
-          title="Architecture"
-          description="Learn about our Stateless First philosophy and monorepo structure."
+          title="Getting Started"
+          description="What is this? Principles and quick start."
         />
 
         <DocCard
-          href={`${docsBaseUrl}reference/design-tokens/`}
-          variant="reference"
+          href={`${docsBaseUrl}engines/`}
+          type="explanation"
+          icon={Sparkles}
+          title="Engines"
+          description="How rules and visualizations work together."
+        />
+
+        <DocCard
+          href={`${docsBaseUrl}adding-projects/`}
+          type="how-to"
+          icon={Wrench}
+          title="Adding Projects"
+          description="How to add new visualizations to the playground."
+        />
+
+        <DocCard
+          href={`${docsBaseUrl}design-tokens/`}
+          type="reference"
           icon={Code}
           title="Design Tokens"
-          description="Technical reference for our Gruvbox-inspired visual language system."
+          description="Colors, typography, and the Gruvbox theme."
         />
       </div>
 
       <div class="mt-12 text-center">
         <a href={docsBaseUrl} class="inline-flex items-center gap-2 font-bold text-primary hover:text-accent transition-colors">
-          Browse Documentation Hub
+          Browse Documentation
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>

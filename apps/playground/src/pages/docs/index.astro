@@ -5,9 +5,6 @@ import { Book, Wrench, Lightbulb, Code } from "lucide-react";
 import { getDocs } from "../../utils/docs";
 
 const baseUrl = import.meta.env.BASE_URL || "";
-
-type DocVariant = "default" | "tutorial" | "howTo" | "explanation" | "reference";
-
 const docs = await getDocs();
 
 const docsByType = {
@@ -15,18 +12,18 @@ const docsByType = {
   "how-to": [] as typeof docs,
   explanation: [] as typeof docs,
   reference: [] as typeof docs,
-};
+}; 
 
 for (const doc of docs) {
   docsByType[doc.data.type].push(doc);
-}
+} 
 
 const TYPE_LABELS: Record<string, string> = {
   tutorial: "Tutorials",
   "how-to": "How-To Guides",
   explanation: "Explanation",
   reference: "Reference",
-};
+}; 
 
 const iconMap = {
   tutorial: Book,
@@ -36,16 +33,6 @@ const iconMap = {
 };
 
 const docsBaseUrl = `${baseUrl}docs/`;
-
-function getVariant(type: string): DocVariant {
-  const variantMap: Record<string, DocVariant> = {
-    "how-to": "howTo",
-    tutorial: "tutorial",
-    explanation: "explanation",
-    reference: "reference",
-  };
-  return variantMap[type] ?? "default";
-}
 ---
 
 <BaseLayout title="Documentation Hub">
@@ -55,7 +42,7 @@ function getVariant(type: string): DocVariant {
         Documentation <span class="text-primary">Hub</span>
       </h1>
       <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-        Master the Creative Playground with our comprehensive guides, technical references, and architectural deep-dives.
+        Master the Creative Playground with our comprehensive guides and technical references. [cite: 9]
       </p>
     </header>
 
@@ -63,25 +50,30 @@ function getVariant(type: string): DocVariant {
       {Object.entries(docsByType).map(([type, items]) => {
         if (items.length === 0) return null;
         const Icon = iconMap[type as keyof typeof iconMap];
+        
         return (
-          <section id={type} class="scroll-mt-24">
+          <section 
+            id={type} 
+            class="scroll-mt-24"
+            style={`--category-variant: var(--category-${type})`}
+          >
             <div class="mb-8 flex items-center gap-4 border-b border-border/40 pb-4">
-              <div class="rounded-xl bg-primary/10 p-3">
-                <Icon className="h-6 w-6 text-primary" />
+              <div class="rounded-xl bg-(--category-variant)/10 p-3">
+                <Icon className="h-6 w-6 text-(--category-variant)" />
               </div>
               <div>
-                <h2 class="text-3xl font-bold tracking-tight">{TYPE_LABELS[type as string]}</h2>
+                <h2 class="text-3xl font-bold tracking-tight">{TYPE_LABELS[type]}</h2>
               </div>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2">
               {items.map((doc) => (
                 <DocCard
-                  href={`${docsBaseUrl}${doc.id}/`}
-                  variant={getVariant(type)}
-                  icon={Icon}
+                  href={`${docsBaseUrl}${doc.id}/`} 
                   title={doc.data.title}
-                  description={`Detailed documentation and guides for ${doc.data.title.toLowerCase()}.`}
+                  description={`Detailed documentation for ${doc.data.title.toLowerCase()}.`}
+                  icon={Icon}
+                  type={doc.data.type}
                 />
               ))}
             </div>
@@ -92,7 +84,7 @@ function getVariant(type: string): DocVariant {
 
     <footer class="mt-24 border-t border-border/40 pt-12 text-center">
       <p class="text-muted-foreground">
-        Can't find what you're looking for?
+        Can't find what you're looking for? [cite: 14]
         <a href="https://github.com/joska-p/playground/issues" class="ml-1 font-medium text-primary hover:underline">
           Open an issue on GitHub
         </a>

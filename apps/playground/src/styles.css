@@ -11,6 +11,32 @@
   navigation: auto;
 }
 
+@layer base {
+  :root {
+    --category-generative: hsl(160 50% 35%);
+    --category-color: hsl(280 40% 50%);
+    --category-image: hsl(15 60% 45%);
+    --category-data-viz: hsl(200 60% 40%);
+
+    --category-tutorial: hsl(160 50% 35%);
+    --category-how-to: hsl(280 40% 50%);
+    --category-explanation: hsl(15 60% 45%);
+    --category-reference: hsl(200 75% 45%);
+  }
+
+  html[data-theme="dark"] {
+    --category-generative: hsl(160 40% 45%);
+    --category-color: hsl(280 35% 55%);
+    --category-image: hsl(15 50% 50%);
+    --category-data-viz: hsl(200 50% 50%);
+
+    --category-tutorial: hsl(160 40% 45%);
+    --category-how-to: hsl(280 35% 55%);
+    --category-explanation: hsl(15 50% 50%);
+    --category-reference: hsl(200 50% 50%);
+  }
+}
+
 @utility prose-gruvbox {
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);

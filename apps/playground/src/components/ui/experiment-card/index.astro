@@ -22,11 +22,11 @@ const {
 } = Astro.props;
 ---
 
-<a href={href} class="group outline-none">
-  <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-primary">
+<a href={href} class="group outline-none" style={`--category-variant: var(--category-${category})`}>
+  <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-(--category-variant) hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-(--category-variant)">
     <CardHeader>
-      <div class={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-3 bg-category-${category}/20`}>
-        <Icon className={`h-8 w-8 text-category-${category}`} />
+      <div class={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-3 bg-(--category-variant)/20`}>
+        <Icon className="h-8 w-8 text-(--category-variant)" />
       </div>
       <CardTitle className="text-2xl">{title}</CardTitle>
     </CardHeader>

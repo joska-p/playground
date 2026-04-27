@@ -7,29 +7,21 @@ interface Props {
   icon?: LucideIcon;
   title: string;
   description?: string;
-  variant?: "default" | "tutorial" | "howTo" | "explanation" | "reference";
+  type?: "tutorial" | "how-to" | "explanation" | "reference";
   class?: string;
 }
 
-const { href, icon: Icon, title, description, variant = "default", class: className } = Astro.props;
+const { href, icon: Icon, title, description, type = "reference", class: className } = Astro.props;
 
-const variantClasses: Record<string, string> = {
-  default: "hover:bg-card/80",
-  tutorial: "border-secondary/30 hover:border-secondary/60",
-  howTo: "border-accent/30 hover:border-accent/60",
-  explanation: "border-primary/30 hover:border-primary/60",
-  reference: "border-muted/30 hover:border-muted/60",
-};
 ---
 
-<a href={href} class:list={[
-  "group inline-block rounded-xl border bg-card p-6 transition-all duration-200 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5",
-  variantClasses[variant],
+<a href={href} style={`--category-variant: var(--category-${type})`} class:list={[
+  "group inline-block rounded-xl border border-(--category-variant)/50 bg-card p-6 transition-all duration-200 hover:border-(--category-variant)/50 hover:shadow-lg hover:shadow-(--category-variant)/5",
   className
 ]}>
   <span class="flex items-start gap-4">
     {Icon && (
-      <span class="mt-1 rounded-lg bg-primary/10 p-2 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+      <span class="mt-1 rounded-lg bg-(--category-variant)/10 p-2 text-(--category-variant) transition-colors group-hover:bg-(--category-variant) group-hover:text-primary-foreground">
         <Icon className="h-5 w-5" />
       </span>
     )}
