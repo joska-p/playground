@@ -52,12 +52,12 @@ function isTopLevelActive(route: Route) {
 ---
 
 <header class="w-full border-b border-border bg-background/80 backdrop-blur-md transition-all sticky top-0 z-50">
-  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto flex md:grid  md:grid-cols-3 h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
     <NavbarBrand baseUrl={baseUrl} />
 
     <!-- Desktop Links -->
-    <nav class="hidden md:flex items-center gap-2">
-      {routes.filter((route) =>  (
+    <nav class="hidden md:flex items-center gap-2 md:justify-center">
+      {routes.map((route) => (
         <NavbarLink
           href={route.href}
           isActive={isTopLevelActive(route) || false}
@@ -68,7 +68,7 @@ function isTopLevelActive(route: Route) {
       ))}
     </nav>
 
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 md:justify-end">
       <UtilityLinks />
       <ThemeToggle />
       <MobileMenuToggle />
