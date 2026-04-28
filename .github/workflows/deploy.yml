@@ -41,14 +41,6 @@ jobs:
       - name: Install Dependencies
         run: nix develop --command pnpm install
 
-      - name: Install Graphify
-        run: |
-          nix develop --command uv tool install graphifyy
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Generate Knowledge Graph
-        run: nix develop --command pnpm graphify
-
       - name: Type-check
         run: nix develop --command pnpm check-types
 

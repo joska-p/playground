@@ -38,9 +38,6 @@ logs/
 
 # Knowledge graphs & AI tooling (generated, not tracked)
 # -----------------------------------------------------------------------------
-# keep graph outputs, skip heavy/local-only files
-apps/playground/public/graphify
-
 # optional: commit for shared extraction speed, skip to keep repo small
 graphify-out/cache
 
