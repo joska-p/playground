@@ -1,5 +1,6 @@
 ---
-import { Card, CardHeader, CardTitle, CardContent, Badge } from "@repo/ui";
+import { ArrowRight } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@repo/ui";
 import type { ComponentType } from "react";
 import type { Category } from "../../../data/projects";
 
@@ -23,17 +24,18 @@ const {
 ---
 
 <a href={href} class="group outline-none" style={`--category-variant: var(--category-${category})`}>
-  <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-(--category-variant) hover:shadow-2xl hover:shadow-primary/10 group-focus:ring-2 group-focus:ring-(--category-variant)">
+  <Card variant="primary" className="h-full border-2 border-transparent bg-card/50 transition-all duration-300 hover:-translate-y-2 hover:border-(--category-variant) hover:shadow-2xl hover:shadow-primary/10 group-focus-within:ring-2 group-focus-within:ring-(--category-variant)">
     <CardHeader>
-      <div class={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 group-hover:rotate-3 bg-(--category-variant)/20`}>
+      <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-(--category-variant)/20 transition-transform group-hover:scale-110 group-hover:rotate-3">
         <Icon className="h-8 w-8 text-(--category-variant)" />
       </div>
-      <CardTitle className="text-2xl">{title}</CardTitle>
+      <CardTitle className="flex items-center gap-2 text-2xl">
+        {title}
+        <ArrowRight className="h-4 w-4 opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
+      </CardTitle>
     </CardHeader>
     <CardContent>
-      <p class="text-sm leading-relaxed text-muted-foreground">
-        {description}
-      </p>
+      <CardDescription className="text-sm leading-relaxed not-italic">{description}</CardDescription>
       {tags.length > 0 && (
         <div class="mt-6 flex flex-wrap gap-2">
           {tags.map((tag) => (
