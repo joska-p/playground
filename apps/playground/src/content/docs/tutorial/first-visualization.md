@@ -103,7 +103,7 @@ Select your new "Line Graph" visualization from the dropdown.
 
 - Add controls (color, line width, show/hide points)
 - Try different sequences (Fibonacci, Primes, Collatz)
-- Check [Engines](/docs/engines/) for how rules and visualizations work together
+- Check [Engines](/docs/explanation/engines/) for how rules and visualizations work together
 
 ---
 

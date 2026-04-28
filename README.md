@@ -43,11 +43,12 @@ pnpm install && pnpm dev
 | Doc                                                                               | Description                   |
 | --------------------------------------------------------------------------------- | ----------------------------- |
 | [Documentation hub](https://joska-p.github.io/playground/docs/)                   | Documention hub
-| [Getting Started](https://joska-p.github.io/playground/docs/getting-started/)     | Manifesto and overview        |
-| [Adding Projects](https://joska-p.github.io/playground/docs/adding-projects/)     | How to add new visualizations |
-| [Adding Components](https://joska-p.github.io/playground/docs/adding-components/) | How to add UI components      |
-| [Design Tokens](https://joska-p.github.io/playground/docs/design-tokens/)         | Color palette and typography  |
-| [UI Components](https://joska-p.github.io/playground/docs/ui-components/)         | Component library reference   |
+| [Getting Started](https://joska-p.github.io/playground/docs/explanation/getting-started/)     | Manifesto and overview        |
+| [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/)     | How to add new visualizations |
+| [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/) | How to add UI components      |
+| [Import and Export Strategy](https://joska-p.github.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules |
+| [Design Tokens](https://joska-p.github.io/playground/docs/reference/design-tokens/)         | Color palette and typography  |
+| [UI Components](https://joska-p.github.io/playground/docs/reference/ui-components/)         | Component library reference   |
 
 ---
 

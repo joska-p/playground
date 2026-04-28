@@ -133,8 +133,11 @@ export const Loading: Story = {
 In `packages/ui/src/index.ts`:
 
 ```typescript
-export * from "./components/MyComponent";
+export { MyComponent } from "./components/MyComponent/MyComponent.js";
+export { myComponentVariants } from "./components/MyComponent/myComponentVariants.js";
 ```
+
+Use explicit named exports in package entrypoints. Do not use `export *` in public package APIs.
 
 ## Standard Variants
 

@@ -24,7 +24,7 @@ export default function Patterns() {
 2. **State Engine:** Centralized Zustand store for real-time reactivity.
 3. **Layout Logic:** Efficient tiling algorithms utilizing modern CSS.
 
-See [Engines](/docs/engines/) for detailed architecture.
+See [Engines](/docs/explanation/engines/) for detailed architecture.
 
 ---
 
