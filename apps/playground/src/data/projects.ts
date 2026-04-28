@@ -7,7 +7,7 @@ import {
   PieChart,
   Sparkles,
   BarChart3,
-  Grid
+  Grid,
 } from "lucide-react";
 
 /**
@@ -64,7 +64,7 @@ const icons = {
   PieChart,
   Sparkles,
   BarChart3,
-  Grid
+  Grid,
 };
 
 /**
