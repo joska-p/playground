@@ -1,7 +1,7 @@
 # Graph Report - playground  (2026-04-28)
 
 ## Corpus Check
-- 94 files · ~30,050 words
+- 94 files · ~33,718 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -37,14 +37,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `process_graph()` --calls--> `GET()`  [INFERRED]
   scripts/update_graph_communities.py → apps/playground/src/pages/robots.txt.ts
-- `computeInitialTiles()` --calls--> `computeNumberOfTiles()`  [INFERRED]
-  packages/mosaic-maker/src/store/useMosaicStore.tsx → packages/mosaic-maker/src/utils/style-utils.ts
-- `fetchPalettes()` --calls--> `safeFetch()`  [INFERRED]
-  packages/mosaic-maker/src/utils/fetch-palettes.ts → packages/mosaic-maker/src/utils/utils.ts
-- `useColorPicker()` --calls--> `usePaletteContext()`  [INFERRED]
-  packages/palette-generator/src/hooks/useColorPicker.ts → packages/palette-generator/src/context/paletteContext.tsx
-- `ComplementaryForm()` --calls--> `usePaletteContext()`  [INFERRED]
-  packages/palette-generator/src/components/controls/generators/ComplementaryForm.tsx → packages/palette-generator/src/context/paletteContext.tsx
+- `computeNumberOfTiles()` --calls--> `computeInitialTiles()`  [INFERRED]
+  packages/mosaic-maker/src/utils/style-utils.ts → packages/mosaic-maker/src/store/useMosaicStore.tsx
+- `safeFetch()` --calls--> `fetchPalettes()`  [INFERRED]
+  packages/mosaic-maker/src/utils/utils.ts → packages/mosaic-maker/src/utils/fetch-palettes.ts
+- `usePaletteContext()` --calls--> `useColorPicker()`  [INFERRED]
+  packages/palette-generator/src/context/paletteContext.tsx → packages/palette-generator/src/hooks/useColorPicker.ts
+- `usePaletteContext()` --calls--> `ComplementaryForm()`  [INFERRED]
+  packages/palette-generator/src/context/paletteContext.tsx → packages/palette-generator/src/components/controls/generators/ComplementaryForm.tsx
 
 ## Communities
 
