@@ -38,9 +38,17 @@ logs/
 
 # Knowledge graphs & AI tooling (generated, not tracked)
 # -----------------------------------------------------------------------------
-graphify-out/
-apps/playground/public/graphify/
-.opencode/
+# keep graph outputs, skip heavy/local-only files
+apps/playground/public/graphify
+
+# optional: commit for shared extraction speed, skip to keep repo small
+graphify-out/cache
+
+# mtime-based, invalid after git clone - always gitignore this
+graphify-out/manifest.json
+
+# local token tracking, not useful to share
+graphify-out/cost.json
 
 # Local workspace config (if you add tools later)
 # -----------------------------------------------------------------------------
