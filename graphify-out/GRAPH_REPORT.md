@@ -1,11 +1,11 @@
 # Graph Report - playground  (2026-04-28)
 
 ## Corpus Check
-- 94 files · ~31,520 words
+- 94 files · ~34,477 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 198 nodes · 210 edges · 11 communities detected
+- 197 nodes · 209 edges · 11 communities detected
 - Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -65,12 +65,12 @@ Cohesion: 0.19
 Nodes (9): hexToHSL(), hexToRGB(), HSLToHex(), HSLToRGB(), hueToRGB(), RGBToHex(), RGBToHSL(), getPixelColor() (+1 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.26
-Nodes (8): Controls(), computeDimension(), computeGap(), computeNumberOfTiles(), computeTileHeight(), computeTileWidth(), getComputedPropertyValue(), parseNumericValue()
-
-### Community 5 - "Community 5"
 Cohesion: 0.18
 Nodes (3): PieChart, Point, strToDom()
+
+### Community 5 - "Community 5"
+Cohesion: 0.21
+Nodes (5): Controls(), findBiggestInterval(), calculateValueScale(), draw(), drawSequence()
 
 ### Community 6 - "Community 6"
 Cohesion: 0.31
@@ -81,11 +81,11 @@ Cohesion: 0.28
 Nodes (2): ImageToParticles(), useImageUpload()
 
 ### Community 8 - "Community 8"
-Cohesion: 0.31
-Nodes (4): findBiggestInterval(), calculateValueScale(), draw(), drawSequence()
+Cohesion: 0.61
+Nodes (7): computeDimension(), computeGap(), computeNumberOfTiles(), computeTileHeight(), computeTileWidth(), getComputedPropertyValue(), parseNumericValue()
 
 ### Community 9 - "Community 9"
-Cohesion: 0.5
+Cohesion: 0.29
 Nodes (2): arePalettesEqual(), getPaletteId()
 
 ### Community 10 - "Community 10"
@@ -97,7 +97,7 @@ Nodes (3): GET(), getRobotsTxt(), process_graph()
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 7`** (9 nodes): `ImageToParticles()`, `config.ts`, `utils.ts`, `use-image-upload.ts`, `index.tsx`, `useImageUpload()`, `calculateImageDimensions()`, `drawImageToCanvas()`, `initParticles()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 9`** (5 nodes): `PaletteControls.tsx`, `palette-utils.ts`, `arePalettesEqual()`, `getPaletteId()`, `PaletteControls()`
+- **Thin community `Community 9`** (8 nodes): `PaletteControls.tsx`, `TileSetControls.tsx`, `MosaicDisplay.tsx`, `config.ts`, `palette-utils.ts`, `arePalettesEqual()`, `getPaletteId()`, `PaletteControls()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions

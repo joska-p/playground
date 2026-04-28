@@ -158,4 +158,4 @@ Use explicit named exports in package entrypoints. Do not use `export *` in publ
 - [ ] Focus states: `focus-visible:ring-*`
 - [ ] PropTypes via `ComponentProps<"element">` pattern
 
-Components? Check [Storybook](/storybook/) for live examples.
+Components? Check [Storybook](/playground/storybook/) for live examples.

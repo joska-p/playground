@@ -2,18 +2,19 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@repo/ui";
+import { docCategories, type DocType } from "../../../data/docs";
 
 interface Props {
   href: string;
   icon?: LucideIcon;
   title: string;
-  description?: string;
-  type?: "tutorial" | "how-to" | "explanation" | "reference";
-  class?: string;
+  description?: string | undefined;
+  type?: DocType;
+  className?: string | undefined;
 }
 
-const { href, icon: Icon, title, description, type = "reference", class: className } = Astro.props;
-
+const { href, title, description, type = "reference", className } = Astro.props;
+const Icon = Astro.props.icon ?? docCategories[type].icon;
 ---
 
 <a href={href} style={`--category-variant: var(--category-${type})`} class:list={["group inline-block outline-none", className]}>

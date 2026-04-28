@@ -1,37 +1,9 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
 import DocCard from "../../components/ui/doc-card/index.astro";
-import { Book, Wrench, Lightbulb, Code } from "lucide-react";
-import { getDocs } from "../../utils/docs";
+import { docsByType, docCategories } from "../../data/docs";
 
 const baseUrl = import.meta.env.BASE_URL || "";
-const docs = await getDocs();
-
-const docsByType = {
-  tutorial: [] as typeof docs,
-  "how-to": [] as typeof docs,
-  explanation: [] as typeof docs,
-  reference: [] as typeof docs,
-}; 
-
-for (const doc of docs) {
-  docsByType[doc.data.type].push(doc);
-} 
-
-const TYPE_LABELS: Record<string, string> = {
-  tutorial: "Tutorials",
-  "how-to": "How-To Guides",
-  explanation: "Explanation",
-  reference: "Reference",
-}; 
-
-const iconMap = {
-  tutorial: Book,
-  "how-to": Wrench,
-  explanation: Lightbulb,
-  reference: Code,
-};
-
 const docsBaseUrl = `${baseUrl}docs/`;
 ---
 
@@ -49,11 +21,12 @@ const docsBaseUrl = `${baseUrl}docs/`;
     <div class="grid gap-16">
       {Object.entries(docsByType).map(([type, items]) => {
         if (items.length === 0) return null;
-        const Icon = iconMap[type as keyof typeof iconMap];
-        
+        const category = docCategories[type as keyof typeof docCategories];
+        const Icon = category.icon;
+
         return (
-          <section 
-            id={type} 
+          <section
+            id={type}
             class="scroll-mt-24"
             style={`--category-variant: var(--category-${type})`}
           >
@@ -62,17 +35,16 @@ const docsBaseUrl = `${baseUrl}docs/`;
                 <Icon className="h-6 w-6 text-(--category-variant)" />
               </div>
               <div>
-                <h2 class="text-3xl font-bold tracking-tight">{TYPE_LABELS[type]}</h2>
+                <h2 class="text-3xl font-bold tracking-tight">{category.label}</h2>
               </div>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2">
               {items.map((doc) => (
                 <DocCard
-                  href={`${docsBaseUrl}${doc.id}/`} 
+                  href={`${docsBaseUrl}${doc.id}/`}
                   title={doc.data.title}
-                  description={`Detailed documentation for ${doc.data.title.toLowerCase()}.`}
-                  icon={Icon}
+                  description={doc.data.description}
                   type={doc.data.type}
                 />
               ))}

@@ -77,7 +77,7 @@ packages/
 └── tailwind-config/  # Design tokens (Gruvbox theme)
 ```
 
-Components? Check [Storybook](/storybook/). Design tokens? See [Design Tokens](/docs/reference/design-tokens/).
+Components? Check [Storybook](/playground/storybook/). Design tokens? See [Design Tokens](/playground/docs/reference/design-tokens/).
 
 ---
 
@@ -87,6 +87,6 @@ Components? Check [Storybook](/storybook/). Design tokens? See [Design Tokens](/
 2. Create `apps/playground/src/pages/projects/<category>/<project>/index.astro`
 3. Done.
 
-Full guide: [Adding Projects](/docs/how-to/adding-projects/)
+Full guide: [Adding Projects](/playground/docs/how-to/adding-projects/)
 
 ---

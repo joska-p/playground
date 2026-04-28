@@ -12,7 +12,14 @@ export { Label } from "./components/label/Label.js";
 export { labelVariants } from "./components/label/labelVariants.js";
 export { Slider } from "./components/slider/Slider.js";
 export { sliderVariants } from "./components/slider/sliderVariants.js";
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "./components/card/Card.js";
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./components/card/Card.js";
 export { cardVariants } from "./components/card/cardVariants.js";
 export { Switch } from "./components/switch/Switch.js";
 export { switchVariants, switchThumbVariants } from "./components/switch/switchVariants.js";
