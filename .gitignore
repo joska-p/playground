@@ -53,5 +53,6 @@ graphify-out/cost.json
 # Local workspace config (if you add tools later)
 # -----------------------------------------------------------------------------
 *.local
+drafts/
 # Turborepo
 .turbo
