@@ -1,16 +1,11 @@
 ---
 import BaseLayout from "../base-layout.astro";
 import DocsNav from "../../components/ui/docs-nav/index.astro";
-import type { ProcessedDoc } from "../../data/docs";
 
-interface Props {
-  entry: ProcessedDoc;
-}
-
-const { entry } = Astro.props;
+const { doc } = Astro.props;
 ---
 
-<BaseLayout title={entry.data.title}>
+<BaseLayout title={doc.data.title}>
   <div class="flex h-full overflow-hidden">
     <DocsNav />
     <main class="flex-1 overflow-y-auto">

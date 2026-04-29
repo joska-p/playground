@@ -1,56 +1,73 @@
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import { TAG_REGISTRY, getTagMetadata, type TagId, type TagMetadata } from "./tags";
+import { z } from "astro/zod";
+import { Book, Wrench, Lightbulb, Code } from "lucide-react";
 
-// Base URL with trailing slash (matches Astro's trailingSlash: "always" config)
 const baseUrl = import.meta.env.BASE_URL || "/";
+export const docsBaseUrl = `${baseUrl}docs/`;
 
-export type DocEntry = CollectionEntry<"docs">;
+// 1. Define UI Metadata separately
+export const TAG_METADATA = {
+  tutorial: {
+    label: "Tutorials",
+    description: "Step-by-step guides.",
+    Icon: Book,
+    color: "text-blue-500",
+    bgColor: "bg-blue-50",
+  },
+  "how-to": {
+    label: "How-To Guides",
+    description: "Practical recipes.",
+    Icon: Wrench,
+    color: "text-amber-500",
+    bgColor: "bg-amber-50",
+  },
+  explanation: {
+    label: "Explanations",
+    description: "Deep dives.",
+    Icon: Lightbulb,
+    color: "text-emerald-500",
+    bgColor: "bg-emerald-50",
+  },
+  reference: {
+    label: "Reference",
+    description: "Technical specs.",
+    Icon: Code,
+    color: "text-purple-500",
+    bgColor: "bg-purple-50",
+  },
+} as const;
 
-// Enrich document type with pre-computed tag metadata
-export interface ProcessedDoc extends DocEntry {
-  tagMetadata: (TagMetadata & { id: TagId })[];
-  url: string;
-}
+// Helper types for your UI components
+export type TagId = keyof typeof TAG_METADATA;
+const tagIds = Object.keys(TAG_METADATA) as [TagId, ...TagId[]];
 
-const rawDocs = await getCollection("docs", ({ data }) => !data.draft);
-const sortedDocs = rawDocs.sort((a, b) => a.data.order - b.data.order);
-
-export const processedDocs: ProcessedDoc[] = sortedDocs.map((doc) => {
-  // Get the folder name as the default tag
-  const folderId = doc.id.split("/")[0] as TagId | undefined;
-
-  // Use folder tag if no explicit tags, otherwise use explicit tags
-  const tagIds: TagId[] =
-    doc.data.tags.length > 0
-      ? (doc.data.tags as TagId[])
-      : folderId && folderId in TAG_REGISTRY
-        ? [folderId]
-        : [];
-
-  // Map to metadata - all entries are guaranteed valid (no casting needed)
-  const tagMetadata = tagIds
-    .map((id) => {
-      const metadata = getTagMetadata(id);
-      if (!metadata) return null;
-      return { id, ...metadata };
-    })
-    .filter((t): t is TagMetadata & { id: TagId } => t !== null);
-
-  return {
-    ...doc,
-    tagMetadata,
-    url: `${baseUrl}docs/${doc.id}/`,
-  };
+// 2. The "Pure" Schema: No transform, just validation
+export const docSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  featured: z.boolean().default(false),
+  order: z.number().default(0),
+  draft: z.boolean().default(false),
+  tags: z.array(z.enum(tagIds)).default([]), // Only validates the strings
 });
 
-export const featuredDocs = processedDocs.filter((doc) => doc.data.featured);
+// 3. UI Helper Function
+export function getTagMetadata(id: TagId) {
+  return TAG_METADATA[id];
+}
 
-// docsByTag uses TAG_REGISTRY entries, so all ids are valid TagIds
-export const docsByTag = (Object.entries(TAG_REGISTRY) as [TagId, TagMetadata][])
-  .map(([id, meta]) => ({
+export async function getDocsByCategory() {
+  const allDocs = await getCollection("docs", ({ data }) => !data.draft);
+
+  return Object.entries(TAG_METADATA).map(([id, meta]) => ({
+    id: id as TagId,
     ...meta,
-    id,
-    docs: processedDocs.filter((d) => d.id.startsWith(id) || d.data.tags.includes(id)),
-  }))
-  .filter((section) => section.docs.length > 0);
+    articles: allDocs
+      .filter((doc) => doc.data.tags.includes(id as TagId)) // Simple string check
+      .sort((a, b) => a.data.order - b.data.order),
+  }));
+}
+
+export async function getFeaturedDocs() {
+  return getCollection("docs", ({ data }) => data.featured && !data.draft);
+}

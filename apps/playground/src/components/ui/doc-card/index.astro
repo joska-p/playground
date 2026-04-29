@@ -1,23 +1,21 @@
 ---
 import { ArrowRight } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@repo/ui";
-import { getTagMetadataWithFallback, type TagId } from "../../../data/tags";
+import { getTagMetadata } from "../../../data/docs";
+import type { TagId } from "../../../data/docs";
+
 
 interface Props {
   href: string;
   title: string;
   description?: string | undefined;
-  type?: TagId;  // Now strictly typed - no arbitrary strings allowed
+  type?: TagId;
   className?: string | undefined;
 }
 
 const { href, title, description, type = "reference", className } = Astro.props;
-
-// Type-safe lookup with automatic fallback to 'reference'
-const tag = getTagMetadataWithFallback(type);
-
-// Icon is guaranteed to exist since tag metadata is fully typed
-const { Icon } = tag;
+const metadata = getTagMetadata(type);
+const { Icon, color } = metadata;
 ---
 
 <a
@@ -32,7 +30,7 @@ const { Icon } = tag;
       <div class="flex items-start gap-4">
         <div class:list={[
           "mt-1 mb-0 flex h-9 w-9 items-center justify-center rounded-lg p-2 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
-          tag.color
+          color
         ]}>
           <Icon className="h-5 w-5" />
         </div>

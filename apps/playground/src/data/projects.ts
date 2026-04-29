@@ -1,14 +1,5 @@
 import type { ComponentType } from "react";
-import {
-  Grid3X3,
-  Infinity as InfinityIcon,
-  Palette,
-  Flame,
-  PieChart,
-  Sparkles,
-  BarChart3,
-  Grid,
-} from "lucide-react";
+import { Grid3X3, Infinity as InfinityIcon, Palette, Flame, PieChart, Grid } from "lucide-react";
 
 /**
  * Project categories
@@ -16,9 +7,9 @@ import {
 export type Category = "generative" | "color" | "image" | "data-viz";
 
 /**
- * Category metadata - human-readable names
+ * Category metadata
  */
-export const categories: Record<Category, { name: string; description: string }> = {
+export const CATEGORIES = {
   generative: {
     name: "Generative Art",
     description:
@@ -38,12 +29,8 @@ export const categories: Record<Category, { name: string; description: string }>
     name: "Image Processing",
     description: "Transform, deconstruct, and visualize images through creative algorithms.",
   },
-};
+} as const;
 
-/**
- * Project data - single source of truth for all project metadata
- * Styling is derived from category via CSS tokens (see gruvbox-styles.css)
- */
 export interface Project {
   slug: string;
   name: string;
@@ -51,24 +38,11 @@ export interface Project {
   category: Category;
   tags: string[];
   icon: ComponentType<{ className?: string }>;
+  featured: boolean;
 }
 
 /**
- * Icon map - components are already imported at top
- */
-const icons = {
-  Grid3X3,
-  InfinityIcon,
-  Palette,
-  Flame,
-  PieChart,
-  Sparkles,
-  BarChart3,
-  Grid,
-};
-
-/**
- * All projects - add/edit here only
+ * All projects - icons assigned directly from imports
  */
 export const projects: Record<string, Project> = {
   mosaic: {
@@ -78,7 +52,8 @@ export const projects: Record<string, Project> = {
       "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
     category: "generative",
     tags: ["Canvas", "Zustand"],
-    icon: icons.Grid3X3,
+    icon: Grid3X3,
+    featured: true,
   },
   sequences: {
     slug: "sequences",
@@ -87,7 +62,8 @@ export const projects: Record<string, Project> = {
       "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
     category: "generative",
     tags: ["Math", "SVG"],
-    icon: icons.InfinityIcon,
+    icon: InfinityIcon,
+    featured: true,
   },
   palettes: {
     slug: "palettes",
@@ -95,7 +71,8 @@ export const projects: Record<string, Project> = {
     description: "Generate harmonious color schemes using mathematical color theory models.",
     category: "color",
     tags: ["Design", "Theory"],
-    icon: icons.Palette,
+    icon: Palette,
+    featured: true,
   },
   particles: {
     slug: "particles",
@@ -104,7 +81,8 @@ export const projects: Record<string, Project> = {
       "Deconstruct images into physics-based particle systems with real-time interaction.",
     category: "image",
     tags: ["Physics", "Canvas"],
-    icon: icons.Flame,
+    icon: Flame,
+    featured: false,
   },
   piechart: {
     slug: "piechart",
@@ -112,44 +90,34 @@ export const projects: Record<string, Project> = {
     description: "Interactive D3-based pie chart examples for data visualization.",
     category: "data-viz",
     tags: ["D3", "Charts"],
-    icon: icons.PieChart,
+    icon: PieChart,
+    featured: false,
   },
   graphify: {
     slug: "graphify",
     name: "Graphify",
-    description: "interactive graph, click nodes, search, filter by community.",
+    description: "Interactive graph, click nodes, search, filter by community.",
     category: "data-viz",
     tags: ["Graph", "D3"],
-    icon: icons.Grid,
+    icon: Grid,
+    featured: true,
   },
 };
 
 /**
- * Type for project slug
+ * API: Get featured projects
  */
-export type ProjectSlug = keyof typeof projects;
-
-/**
- * Helper: get all project slugs
- */
-export function getProjectSlugs(): ProjectSlug[] {
-  return Object.keys(projects) as ProjectSlug[];
+export function getFeaturedProjects() {
+  return Object.values(projects).filter((p) => p.featured);
 }
 
 /**
- * Helper: get projects grouped by category
+ * API: Get projects grouped by category with metadata
  */
-export function getProjectsByCategory(): Record<Category, Project[]> {
-  const result: Record<Category, Project[]> = {
-    generative: [],
-    color: [],
-    "data-viz": [],
-    image: [],
-  };
-
-  for (const project of Object.values(projects)) {
-    result[project.category].push(project);
-  }
-
-  return result;
+export function getProjectsByCategory() {
+  return Object.entries(CATEGORIES).map(([id, meta]) => ({
+    id: id as Category,
+    ...meta,
+    projects: Object.values(projects).filter((p) => p.category === id),
+  }));
 }
