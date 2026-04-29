@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../base-layout.astro";
 import DocsNav from "../../components/ui/docs-nav/index.astro";
-import type { CollectionEntry } from "astro:content";
+import type { ProcessedDoc } from "../../data/docs";
 
 interface Props {
-  entry: CollectionEntry<"docs">;
+  entry: ProcessedDoc;
 }
 
 const { entry } = Astro.props;
@@ -13,10 +13,10 @@ const { entry } = Astro.props;
 <BaseLayout title={entry.data.title}>
   <div class="flex h-full overflow-hidden">
     <DocsNav />
-
     <main class="flex-1 overflow-y-auto">
       <div class="mx-auto max-w-4xl px-6 py-12 md:px-12">
-        <article class="prose prose-gruvbox max-w-none prose-headings:font-serif">
+        {/* Breadcrumbs or Tag Badges could go here using entry.tagMetadata */}
+        <article class="prose prose-gruvbox max-w-none">
           <slot />
         </article>
       </div>

@@ -1,53 +1,39 @@
 ---
-import { docsByType, docCategories } from "../../../data/docs";
-
-const baseUrl = import.meta.env.BASE_URL || "/";
+import { docsByTag } from "../../../data/docs";
 const currentPath = Astro.url.pathname;
-const docsBaseUrl = `${baseUrl}docs/`;
 ---
 
 <aside class="hidden md:block w-64 shrink-0 overflow-y-auto border-r border-border/40 bg-card/30 p-6">
-  <a
-    href={docsBaseUrl}
-    class="mb-6 flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m15 18-6-6 6-6"/></svg>
-    Documentation Hub
-  </a>
-
   <nav class="space-y-8">
-    {Object.entries(docsByType).map(([type, items]) => {
-      if (items.length === 0) return null;
-      const category = docCategories[type as keyof typeof docCategories];
-
-      return (
-        <div>
-          <h3 class="mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/70">
-            {category.label}
+    {docsByTag.map((section) => (
+      <div>
+        <div class="mb-3 flex items-center gap-2">
+          <section.Icon className={`h-4 w-4 ${section.color}`} />
+          <h3 class="text-xs font-bold uppercase tracking-widest text-muted-foreground/70">
+            {section.label}
           </h3>
-          <ul class="space-y-1">
-            {items.map((doc) => {
-              const href = `${docsBaseUrl}${doc.id}/`;
-              const isActive = currentPath === href || currentPath === `${href}/`;
-              return (
-                <li>
-                  <a
-                    href={href}
-                    class:list={[
-                      "block rounded-md px-3 py-2 text-sm transition-all",
-                      isActive
-                        ? "bg-primary/10 font-medium text-primary shadow-sm"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                    ]}
-                  >
-                    {doc.data.title}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
         </div>
-      );
-    })}
+        <ul class="space-y-1">
+          {section.docs.map((doc) => {
+            const isActive = currentPath === doc.url || currentPath === `${doc.url}/`;
+            return (
+              <li>
+                <a
+                  href={doc.url}
+                  class:list={[
+                    "block rounded-md px-3 py-2 text-sm transition-all",
+                    isActive
+                      ? "bg-primary/10 font-medium text-primary shadow-sm"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ]}
+                >
+                  {doc.data.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
   </nav>
 </aside>

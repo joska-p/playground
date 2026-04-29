@@ -1,37 +1,51 @@
 ---
-import type { LucideIcon } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@repo/ui";
-import { docCategories, type DocType } from "../../../data/docs";
+import { getTagMetadataWithFallback, type TagId } from "../../../data/tags";
 
 interface Props {
   href: string;
-  icon?: LucideIcon;
   title: string;
   description?: string | undefined;
-  type?: DocType;
+  type?: TagId;  // Now strictly typed - no arbitrary strings allowed
   className?: string | undefined;
 }
 
 const { href, title, description, type = "reference", className } = Astro.props;
-const Icon = Astro.props.icon ?? docCategories[type].icon;
+
+// Type-safe lookup with automatic fallback to 'reference'
+const tag = getTagMetadataWithFallback(type);
+
+// Icon is guaranteed to exist since tag metadata is fully typed
+const { Icon } = tag;
 ---
 
-<a href={href} style={`--category-variant: var(--category-${type})`} class:list={["group inline-block outline-none", className]}>
-  <Card variant="primary" className="h-full border-2 border-(--category-variant)/40 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-(--category-variant)/60 hover:shadow-lg hover:shadow-(--category-variant)/5 group-focus-within:ring-2 group-focus-within:ring-(--category-variant)">
+<a
+  href={href}
+  class:list={["group inline-block outline-none", className]}
+>
+  <Card
+    variant="primary"
+    className="h-full border-2 border-border/40 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-primary/60 hover:shadow-lg group-focus-within:ring-2 group-focus-within:ring-primary"
+  >
     <CardHeader className="pb-4">
       <div class="flex items-start gap-4">
-    {Icon && (
-          <div class="mt-1 mb-0 flex h-9 w-9 items-center justify-center rounded-lg bg-(--category-variant)/10 p-2 text-(--category-variant) transition-colors group-hover:bg-(--category-variant) group-hover:text-primary-foreground">
-        <Icon className="h-5 w-5" />
-          </div>
-    )}
+        <div class:list={[
+          "mt-1 mb-0 flex h-9 w-9 items-center justify-center rounded-lg p-2 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+          tag.color
+        ]}>
+          <Icon className="h-5 w-5" />
+        </div>
         <div class="flex-1">
           <CardTitle className="flex items-center gap-2 text-lg">
             {title}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </CardTitle>
-          {description && <CardDescription className="mt-1 not-italic">{description}</CardDescription>}
+          {description && (
+            <CardDescription className="mt-1 not-italic line-clamp-2">
+              {description}
+            </CardDescription>
+          )}
         </div>
       </div>
     </CardHeader>

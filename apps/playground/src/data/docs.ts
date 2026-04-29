@@ -1,61 +1,56 @@
-import { getCollection, type CollectionEntry } from "astro:content";
-import { Book, Wrench, Lightbulb, Code } from "lucide-react";
-import type { ComponentType } from "react";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { TAG_REGISTRY, getTagMetadata, type TagId, type TagMetadata } from "./tags";
 
-export type DocType = "tutorial" | "how-to" | "explanation" | "reference";
+// Base URL with trailing slash (matches Astro's trailingSlash: "always" config)
+const baseUrl = import.meta.env.BASE_URL || "/";
+
 export type DocEntry = CollectionEntry<"docs">;
 
-export interface DocCategory {
-  label: string;
-  icon: ComponentType<{ className?: string }>;
+// Enrich document type with pre-computed tag metadata
+export interface ProcessedDoc extends DocEntry {
+  tagMetadata: (TagMetadata & { id: TagId })[];
+  url: string;
 }
 
-export const docCategories: Record<DocType, DocCategory> = {
-  tutorial: {
-    label: "Tutorials",
-    icon: Book,
-  },
-  "how-to": {
-    label: "How-To Guides",
-    icon: Wrench,
-  },
-  explanation: {
-    label: "Explanation",
-    icon: Lightbulb,
-  },
-  reference: {
-    label: "Reference",
-    icon: Code,
-  },
-};
+const rawDocs = await getCollection("docs", ({ data }) => !data.draft);
+const sortedDocs = rawDocs.sort((a, b) => a.data.order - b.data.order);
 
-const featuredDocIds = [
-  "explanation/getting-started",
-  "explanation/engines",
-  "how-to/adding-projects",
-  "reference/design-tokens",
-];
+export const processedDocs: ProcessedDoc[] = sortedDocs.map((doc) => {
+  // Get the folder name as the default tag
+  const folderId = doc.id.split("/")[0] as TagId | undefined;
 
-// Fetch all docs once at the top level
-const allDocs = await getCollection("docs", ({ data }) => !data.draft);
-export const docs = allDocs.sort((a, b) => a.data.order - b.data.order);
+  // Use folder tag if no explicit tags, otherwise use explicit tags
+  const tagIds: TagId[] =
+    doc.data.tags.length > 0
+      ? (doc.data.tags as TagId[])
+      : folderId && folderId in TAG_REGISTRY
+        ? [folderId]
+        : [];
 
-// Helper for grouping
-export const docsByType: Record<DocType, DocEntry[]> = {
-  tutorial: [],
-  "how-to": [],
-  explanation: [],
-  reference: [],
-};
+  // Map to metadata - all entries are guaranteed valid (no casting needed)
+  const tagMetadata = tagIds
+    .map((id) => {
+      const metadata = getTagMetadata(id);
+      if (!metadata) return null;
+      return { id, ...metadata };
+    })
+    .filter((t): t is TagMetadata & { id: TagId } => t !== null);
 
-for (const doc of docs) {
-  const type = doc.data.type as DocType;
-  if (type in docsByType) {
-    docsByType[type].push(doc);
-  }
-}
+  return {
+    ...doc,
+    tagMetadata,
+    url: `${baseUrl}docs/${doc.id}/`,
+  };
+});
 
-// Helper for featured
-export const featuredDocs = featuredDocIds
-  .map((id) => docs.find((doc) => doc.id === id))
-  .filter((doc): doc is DocEntry => !!doc);
+export const featuredDocs = processedDocs.filter((doc) => doc.data.featured);
+
+// docsByTag uses TAG_REGISTRY entries, so all ids are valid TagIds
+export const docsByTag = (Object.entries(TAG_REGISTRY) as [TagId, TagMetadata][])
+  .map(([id, meta]) => ({
+    ...meta,
+    id,
+    docs: processedDocs.filter((d) => d.id.startsWith(id) || d.data.tags.includes(id)),
+  }))
+  .filter((section) => section.docs.length > 0);

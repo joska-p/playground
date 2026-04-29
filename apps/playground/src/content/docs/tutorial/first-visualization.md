@@ -2,6 +2,7 @@
 title: "Your First Visualization"
 description: "A step-by-step guide to creating your first visualization in the playground."
 type: "tutorial"
+featured: true
 ---
 
 # Your First Visualization

@@ -2,6 +2,7 @@
 title: "Creative Playground"
 description: "A creative coding playground for experiments, visualizations, and visual toys."
 type: "explanation"
+featured: true
 ---
 
 # Creative Playground

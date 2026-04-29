@@ -5,6 +5,8 @@ import DocCard from "../components/ui/doc-card/index.astro";
 import SectionHeader from "../components/ui/section-header/index.astro";
 import FooterLinks from "../components/ui/footer-links/index.astro";
 import { projects, getProjectSlugs } from "../data/projects";
+
+// Import the new processed data
 import { featuredDocs } from "../data/docs";
 import { Sparkles, Book, Zap } from "lucide-react";
 
@@ -96,8 +98,8 @@ const featuredSlugs = getProjectSlugs().slice(0, 4);
       <div class="grid gap-6 sm:grid-cols-2 mt-12">
         {featuredDocs.map((doc) => (
           <DocCard
-            href={`${docsBaseUrl}${doc.id}/`}
-            type={doc.data.type}
+            href={doc.url}
+            type={doc.tagMetadata[0]?.id || "reference"}
             title={doc.data.title}
             description={doc.data.description}
           />
