@@ -1,7 +1,8 @@
 ---
 title: "UI Components"
 description: "Shared components in @repo/ui."
-type: "reference"
+tags:
+  - reference
 ---
 
 # UI Components

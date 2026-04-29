@@ -1,7 +1,8 @@
 ---
 title: "Adding Components"
 description: "Add new UI components to the shared library."
-type: "how-to"
+tags:
+  - how-to
 featured: true
 ---
 

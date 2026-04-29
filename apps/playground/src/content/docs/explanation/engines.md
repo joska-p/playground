@@ -1,7 +1,8 @@
 ---
 title: "Engines"
 description: "How the creative engines work — rules, generators, and pluggable systems."
-type: "explanation"
+tags:
+  - explanation
 ---
 
 # Engines

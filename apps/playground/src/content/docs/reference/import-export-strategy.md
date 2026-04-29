@@ -1,7 +1,8 @@
 ---
 title: "Import and Export Strategy"
 description: "Explicit rules for package APIs, barrels, and imports across the monorepo."
-type: "reference"
+tags:
+  - reference
 ---
 
 # Import and Export Strategy
