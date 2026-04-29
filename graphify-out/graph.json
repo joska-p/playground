@@ -9,7 +9,7 @@
       "source_file": "packages/image-to-particles/babel.config.js",
       "source_location": "L1",
       "id": "packages_image_to_particles_babel_config_js",
-      "community": 20,
+      "community": 21,
       "norm_label": "babel.config.js"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "packages/image-to-particles/eslint.config.mjs",
       "source_location": "L1",
       "id": "packages_image_to_particles_eslint_config_mjs",
-      "community": 21,
+      "community": 22,
       "norm_label": "eslint.config.mjs"
     },
     {
@@ -108,7 +108,7 @@
       "source_file": "packages/ui/babel.config.js",
       "source_location": "L1",
       "id": "packages_ui_babel_config_js",
-      "community": 22,
+      "community": 23,
       "norm_label": "babel.config.js"
     },
     {
@@ -117,7 +117,7 @@
       "source_file": "packages/ui/eslint.config.mjs",
       "source_location": "L1",
       "id": "packages_ui_eslint_config_mjs",
-      "community": 23,
+      "community": 24,
       "norm_label": "eslint.config.mjs"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "packages/ui/src/index.ts",
       "source_location": "L1",
       "id": "packages_ui_src_index_ts",
-      "community": 24,
+      "community": 25,
       "norm_label": "index.ts"
     },
     {
@@ -153,7 +153,7 @@
       "source_file": "packages/ui/src/hooks/use-resize-observer.ts",
       "source_location": "L1",
       "id": "packages_ui_src_hooks_use_resize_observer_ts",
-      "community": 14,
+      "community": 15,
       "norm_label": "use-resize-observer.ts"
     },
     {
@@ -162,7 +162,7 @@
       "source_file": "packages/ui/src/hooks/use-resize-observer.ts",
       "source_location": "L12",
       "id": "use_resize_observer_useresizeobserver",
-      "community": 14,
+      "community": 15,
       "norm_label": "useresizeobserver()"
     },
     {
@@ -299,15 +299,6 @@
       "id": "packages_ui_src_components_button_button_tsx",
       "community": 0,
       "norm_label": "button.tsx"
-    },
-    {
-      "label": "index.ts",
-      "file_type": "code",
-      "source_file": "packages/ui/src/components/badge/index.ts",
-      "source_location": "L1",
-      "id": "packages_ui_src_components_badge_index_ts",
-      "community": 25,
-      "norm_label": "index.ts"
     },
     {
       "label": "Badge.tsx",
@@ -486,7 +477,7 @@
       "source_file": "packages/mosaic-maker/src/index.tsx",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_index_tsx",
-      "community": 15,
+      "community": 16,
       "norm_label": "index.tsx"
     },
     {
@@ -495,7 +486,7 @@
       "source_file": "packages/mosaic-maker/src/index.tsx",
       "source_location": "L7",
       "id": "index_mosaicmaker",
-      "community": 15,
+      "community": 16,
       "norm_label": "mosaicmaker()"
     },
     {
@@ -504,7 +495,7 @@
       "source_file": "packages/mosaic-maker/src/core/tile-registry.ts",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_core_tile_registry_ts",
-      "community": 11,
+      "community": 12,
       "norm_label": "tile-registry.ts"
     },
     {
@@ -513,7 +504,7 @@
       "source_file": "packages/mosaic-maker/src/core/config.ts",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_core_config_ts",
-      "community": 9,
+      "community": 4,
       "norm_label": "config.ts"
     },
     {
@@ -522,7 +513,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_utils_style_utils_ts",
-      "community": 8,
+      "community": 4,
       "norm_label": "style-utils.ts"
     },
     {
@@ -531,7 +522,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L6",
       "id": "style_utils_getcomputedpropertyvalue",
-      "community": 8,
+      "community": 4,
       "norm_label": "getcomputedpropertyvalue()"
     },
     {
@@ -540,7 +531,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L10",
       "id": "style_utils_parsenumericvalue",
-      "community": 8,
+      "community": 4,
       "norm_label": "parsenumericvalue()"
     },
     {
@@ -549,7 +540,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L18",
       "id": "style_utils_computetileheight",
-      "community": 8,
+      "community": 4,
       "norm_label": "computetileheight()"
     },
     {
@@ -558,7 +549,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L22",
       "id": "style_utils_computetilewidth",
-      "community": 8,
+      "community": 4,
       "norm_label": "computetilewidth()"
     },
     {
@@ -567,7 +558,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L26",
       "id": "style_utils_computegap",
-      "community": 8,
+      "community": 4,
       "norm_label": "computegap()"
     },
     {
@@ -576,7 +567,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L30",
       "id": "style_utils_computedimension",
-      "community": 8,
+      "community": 4,
       "norm_label": "computedimension()"
     },
     {
@@ -585,7 +576,7 @@
       "source_file": "packages/mosaic-maker/src/utils/style-utils.ts",
       "source_location": "L34",
       "id": "style_utils_computenumberoftiles",
-      "community": 8,
+      "community": 4,
       "norm_label": "computenumberoftiles()"
     },
     {
@@ -846,7 +837,7 @@
       "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "community": 9,
+      "community": 4,
       "norm_label": "tilesetcontrols.tsx"
     },
     {
@@ -855,7 +846,7 @@
       "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "community": 5,
+      "community": 4,
       "norm_label": "controls.tsx"
     },
     {
@@ -864,7 +855,7 @@
       "source_file": "packages/sequence-renderer/src/components/controls/Controls.tsx",
       "source_location": "L8",
       "id": "controls_controls",
-      "community": 5,
+      "community": 4,
       "norm_label": "controls()"
     },
     {
@@ -891,7 +882,7 @@
       "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
-      "community": 16,
+      "community": 17,
       "norm_label": "slidercontrols.tsx"
     },
     {
@@ -900,7 +891,7 @@
       "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
       "source_location": "L15",
       "id": "slidercontrols_slidercontrols",
-      "community": 16,
+      "community": 17,
       "norm_label": "slidercontrols()"
     },
     {
@@ -909,7 +900,7 @@
       "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "community": 9,
+      "community": 4,
       "norm_label": "mosaicdisplay.tsx"
     },
     {
@@ -918,7 +909,7 @@
       "source_file": "packages/mosaic-maker/src/components/tiles/Tile.tsx",
       "source_location": "L1",
       "id": "packages_mosaic_maker_src_components_tiles_tile_tsx",
-      "community": 11,
+      "community": 12,
       "norm_label": "tile.tsx"
     },
     {
@@ -927,7 +918,7 @@
       "source_file": "packages/mosaic-maker/src/components/tiles/Tile.tsx",
       "source_location": "L11",
       "id": "tile_shaperenderer",
-      "community": 11,
+      "community": 12,
       "norm_label": "shaperenderer()"
     },
     {
@@ -963,7 +954,7 @@
       "source_file": "packages/palette-generator/src/index.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_index_tsx",
-      "community": 17,
+      "community": 18,
       "norm_label": "index.tsx"
     },
     {
@@ -972,7 +963,7 @@
       "source_file": "packages/palette-generator/src/index.tsx",
       "source_location": "L7",
       "id": "index_palettegenerator",
-      "community": 17,
+      "community": 18,
       "norm_label": "palettegenerator()"
     },
     {
@@ -981,7 +972,7 @@
       "source_file": "packages/palette-generator/src/context/paletteContext.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_context_palettecontext_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "palettecontext.tsx"
     },
     {
@@ -990,7 +981,7 @@
       "source_file": "packages/palette-generator/src/context/paletteContext.tsx",
       "source_location": "L17",
       "id": "palettecontext_paletteprovider",
-      "community": 3,
+      "community": 2,
       "norm_label": "paletteprovider()"
     },
     {
@@ -999,7 +990,7 @@
       "source_file": "packages/palette-generator/src/context/paletteContext.tsx",
       "source_location": "L33",
       "id": "palettecontext_usepalettecontext",
-      "community": 3,
+      "community": 2,
       "norm_label": "usepalettecontext()"
     },
     {
@@ -1008,7 +999,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L1",
       "id": "packages_palette_generator_src_utils_colorconversions_ts",
-      "community": 2,
+      "community": 3,
       "norm_label": "colorconversions.ts"
     },
     {
@@ -1017,7 +1008,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L40",
       "id": "colorconversions_rgbtohsl",
-      "community": 2,
+      "community": 3,
       "norm_label": "rgbtohsl()"
     },
     {
@@ -1026,7 +1017,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L88",
       "id": "colorconversions_huetorgb",
-      "community": 2,
+      "community": 3,
       "norm_label": "huetorgb()"
     },
     {
@@ -1035,7 +1026,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L106",
       "id": "colorconversions_hsltorgb",
-      "community": 2,
+      "community": 3,
       "norm_label": "hsltorgb()"
     },
     {
@@ -1044,7 +1035,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L135",
       "id": "colorconversions_rgbtohex",
-      "community": 2,
+      "community": 3,
       "norm_label": "rgbtohex()"
     },
     {
@@ -1053,7 +1044,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L148",
       "id": "colorconversions_hsltohex",
-      "community": 2,
+      "community": 3,
       "norm_label": "hsltohex()"
     },
     {
@@ -1062,7 +1053,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L157",
       "id": "colorconversions_hextorgb",
-      "community": 2,
+      "community": 3,
       "norm_label": "hextorgb()"
     },
     {
@@ -1071,7 +1062,7 @@
       "source_file": "packages/palette-generator/src/utils/colorConversions.ts",
       "source_location": "L191",
       "id": "colorconversions_hextohsl",
-      "community": 2,
+      "community": 3,
       "norm_label": "hextohsl()"
     },
     {
@@ -1080,7 +1071,7 @@
       "source_file": "packages/palette-generator/src/utils/utils.ts",
       "source_location": "L1",
       "id": "packages_palette_generator_src_utils_utils_ts",
-      "community": 2,
+      "community": 3,
       "norm_label": "utils.ts"
     },
     {
@@ -1089,7 +1080,7 @@
       "source_file": "apps/playground/src/utils/utils.ts",
       "source_location": "L5",
       "id": "utils_cn",
-      "community": 2,
+      "community": 3,
       "norm_label": "cn()"
     },
     {
@@ -1098,7 +1089,7 @@
       "source_file": "packages/palette-generator/src/hooks/useColorPicker.ts",
       "source_location": "L1",
       "id": "packages_palette_generator_src_hooks_usecolorpicker_ts",
-      "community": 2,
+      "community": 3,
       "norm_label": "usecolorpicker.ts"
     },
     {
@@ -1107,7 +1098,7 @@
       "source_file": "packages/palette-generator/src/hooks/useColorPicker.ts",
       "source_location": "L22",
       "id": "usecolorpicker_getpixelcolor",
-      "community": 2,
+      "community": 3,
       "norm_label": "getpixelcolor()"
     },
     {
@@ -1116,7 +1107,7 @@
       "source_file": "packages/palette-generator/src/hooks/useColorPicker.ts",
       "source_location": "L34",
       "id": "usecolorpicker_drawcolorspace",
-      "community": 2,
+      "community": 3,
       "norm_label": "drawcolorspace()"
     },
     {
@@ -1143,7 +1134,7 @@
       "source_file": "packages/palette-generator/src/components/controls/color-picker/ColorPicker.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_components_controls_color_picker_colorpicker_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "colorpicker.tsx"
     },
     {
@@ -1161,7 +1152,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/ComplementaryForm.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_components_controls_generators_complementaryform_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "complementaryform.tsx"
     },
     {
@@ -1170,7 +1161,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/ComplementaryForm.tsx",
       "source_location": "L12",
       "id": "complementaryform_complementarypalettes",
-      "community": 3,
+      "community": 2,
       "norm_label": "complementarypalettes()"
     },
     {
@@ -1179,7 +1170,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/ComplementaryForm.tsx",
       "source_location": "L32",
       "id": "complementaryform_complementaryform",
-      "community": 3,
+      "community": 2,
       "norm_label": "complementaryform()"
     },
     {
@@ -1188,7 +1179,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/XadicForm.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_components_controls_generators_xadicform_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "xadicform.tsx"
     },
     {
@@ -1197,7 +1188,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/XadicForm.tsx",
       "source_location": "L12",
       "id": "xadicform_xadicpalettes",
-      "community": 3,
+      "community": 2,
       "norm_label": "xadicpalettes()"
     },
     {
@@ -1206,7 +1197,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/XadicForm.tsx",
       "source_location": "L28",
       "id": "xadicform_xadicform",
-      "community": 3,
+      "community": 2,
       "norm_label": "xadicform()"
     },
     {
@@ -1215,7 +1206,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/MonochromaticForm.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_components_controls_generators_monochromaticform_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "monochromaticform.tsx"
     },
     {
@@ -1224,7 +1215,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/MonochromaticForm.tsx",
       "source_location": "L12",
       "id": "monochromaticform_monochromaticpalettes",
-      "community": 3,
+      "community": 2,
       "norm_label": "monochromaticpalettes()"
     },
     {
@@ -1233,7 +1224,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/MonochromaticForm.tsx",
       "source_location": "L37",
       "id": "monochromaticform_monochromaticform",
-      "community": 3,
+      "community": 2,
       "norm_label": "monochromaticform()"
     },
     {
@@ -1242,7 +1233,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/AnalogousForm.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_components_controls_generators_analogousform_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "analogousform.tsx"
     },
     {
@@ -1251,7 +1242,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/AnalogousForm.tsx",
       "source_location": "L12",
       "id": "analogousform_analogouspalettes",
-      "community": 3,
+      "community": 2,
       "norm_label": "analogouspalettes()"
     },
     {
@@ -1260,7 +1251,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/AnalogousForm.tsx",
       "source_location": "L29",
       "id": "analogousform_analogousform",
-      "community": 3,
+      "community": 2,
       "norm_label": "analogousform()"
     },
     {
@@ -1269,7 +1260,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/Generators.tsx",
       "source_location": "L1",
       "id": "packages_palette_generator_src_components_controls_generators_generators_tsx",
-      "community": 18,
+      "community": 19,
       "norm_label": "generators.tsx"
     },
     {
@@ -1278,7 +1269,7 @@
       "source_file": "packages/palette-generator/src/components/controls/generators/Generators.tsx",
       "source_location": "L10",
       "id": "generators_generators",
-      "community": 18,
+      "community": 19,
       "norm_label": "generators()"
     },
     {
@@ -1341,7 +1332,7 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/index.ts",
       "source_location": "L1",
       "id": "packages_sequence_renderer_src_core_visualizations_index_ts",
-      "community": 5,
+      "community": 8,
       "norm_label": "index.ts"
     },
     {
@@ -1350,7 +1341,7 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/recaman-arcs.ts",
       "source_location": "L1",
       "id": "packages_sequence_renderer_src_core_visualizations_recaman_arcs_ts",
-      "community": 5,
+      "community": 8,
       "norm_label": "recaman-arcs.ts"
     },
     {
@@ -1359,7 +1350,7 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/recaman-arcs.ts",
       "source_location": "L3",
       "id": "recaman_arcs_calculatevaluescale",
-      "community": 5,
+      "community": 8,
       "norm_label": "calculatevaluescale()"
     },
     {
@@ -1368,7 +1359,7 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/recaman-arcs.ts",
       "source_location": "L17",
       "id": "recaman_arcs_drawsequence",
-      "community": 5,
+      "community": 8,
       "norm_label": "drawsequence()"
     },
     {
@@ -1377,7 +1368,7 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/recaman-arcs.ts",
       "source_location": "L35",
       "id": "recaman_arcs_draw",
-      "community": 5,
+      "community": 8,
       "norm_label": "draw()"
     },
     {
@@ -1386,7 +1377,7 @@
       "source_file": "packages/sequence-renderer/src/utils/math.ts",
       "source_location": "L1",
       "id": "packages_sequence_renderer_src_utils_math_ts",
-      "community": 5,
+      "community": 8,
       "norm_label": "math.ts"
     },
     {
@@ -1395,7 +1386,7 @@
       "source_file": "packages/sequence-renderer/src/utils/math.ts",
       "source_location": "L1",
       "id": "math_findbiggestinterval",
-      "community": 5,
+      "community": 8,
       "norm_label": "findbiggestinterval()"
     },
     {
@@ -1449,7 +1440,7 @@
       "source_file": "packages/sequence-renderer/src/components/controls/Controls.tsx",
       "source_location": "L1",
       "id": "packages_sequence_renderer_src_components_controls_controls_tsx",
-      "community": 5,
+      "community": 4,
       "norm_label": "controls.tsx"
     },
     {
@@ -1476,7 +1467,7 @@
       "source_file": "packages/sequence-renderer/src/components/renderers/CanvasRenderer.tsx",
       "source_location": "L1",
       "id": "packages_sequence_renderer_src_components_renderers_canvasrenderer_tsx",
-      "community": 5,
+      "community": 8,
       "norm_label": "canvasrenderer.tsx"
     },
     {
@@ -1485,7 +1476,7 @@
       "source_file": "packages/sequence-renderer/src/components/renderers/CanvasRenderer.tsx",
       "source_location": "L6",
       "id": "canvasrenderer_canvasrenderer",
-      "community": 5,
+      "community": 8,
       "norm_label": "canvasrenderer()"
     },
     {
@@ -1494,7 +1485,7 @@
       "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
       "source_location": "L1",
       "id": "packages_sequence_renderer_src_components_sequence_display_sequencedisplay_tsx",
-      "community": 19,
+      "community": 20,
       "norm_label": "sequencedisplay.tsx"
     },
     {
@@ -1503,7 +1494,7 @@
       "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
       "source_location": "L4",
       "id": "sequencedisplay_sequencedisplay",
-      "community": 19,
+      "community": 20,
       "norm_label": "sequencedisplay()"
     },
     {
@@ -1557,7 +1548,7 @@
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L1",
       "id": "apps_playground_astro_config_mjs",
-      "community": 39,
+      "community": 13,
       "norm_label": "astro.config.mjs"
     },
     {
@@ -1566,7 +1557,7 @@
       "source_file": "apps/playground/eslint.config.mjs",
       "source_location": "L1",
       "id": "apps_playground_eslint_config_mjs",
-      "community": 40,
+      "community": 39,
       "norm_label": "eslint.config.mjs"
     },
     {
@@ -1575,7 +1566,7 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L1",
       "id": "apps_playground_src_content_config_ts",
-      "community": 41,
+      "community": 40,
       "norm_label": "content.config.ts"
     },
     {
@@ -1584,7 +1575,7 @@
       "source_file": "apps/playground/src/env.d.ts",
       "source_location": "L1",
       "id": "apps_playground_src_env_d_ts",
-      "community": 42,
+      "community": 41,
       "norm_label": "env.d.ts"
     },
     {
@@ -1593,7 +1584,7 @@
       "source_file": "apps/playground/src/utils/utils.ts",
       "source_location": "L1",
       "id": "apps_playground_src_utils_utils_ts",
-      "community": 2,
+      "community": 3,
       "norm_label": "utils.ts"
     },
     {
@@ -1624,31 +1615,22 @@
       "norm_label": "get()"
     },
     {
-      "label": "tags.ts",
+      "label": "remark-base-url.mjs",
       "file_type": "code",
-      "source_file": "apps/playground/src/data/tags.ts",
+      "source_file": "apps/playground/src/lib/remark-base-url.mjs",
       "source_location": "L1",
-      "id": "apps_playground_src_data_tags_ts",
-      "community": 12,
-      "norm_label": "tags.ts"
+      "id": "apps_playground_src_lib_remark_base_url_mjs",
+      "community": 13,
+      "norm_label": "remark-base-url.mjs"
     },
     {
-      "label": "getTagMetadata()",
+      "label": "remarkBaseUrl()",
       "file_type": "code",
-      "source_file": "apps/playground/src/data/tags.ts",
-      "source_location": "L46",
-      "id": "tags_gettagmetadata",
-      "community": 12,
-      "norm_label": "gettagmetadata()"
-    },
-    {
-      "label": "getTagMetadataWithFallback()",
-      "file_type": "code",
-      "source_file": "apps/playground/src/data/tags.ts",
-      "source_location": "L54",
-      "id": "tags_gettagmetadatawithfallback",
-      "community": 12,
-      "norm_label": "gettagmetadatawithfallback()"
+      "source_file": "apps/playground/src/lib/remark-base-url.mjs",
+      "source_location": "L3",
+      "id": "remark_base_url_remarkbaseurl",
+      "community": 13,
+      "norm_label": "remarkbaseurl()"
     },
     {
       "label": "docs.ts",
@@ -1656,8 +1638,35 @@
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L1",
       "id": "apps_playground_src_data_docs_ts",
-      "community": 43,
+      "community": 11,
       "norm_label": "docs.ts"
+    },
+    {
+      "label": "getTagMetadata()",
+      "file_type": "code",
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": "L55",
+      "id": "docs_gettagmetadata",
+      "community": 11,
+      "norm_label": "gettagmetadata()"
+    },
+    {
+      "label": "getDocsByCategory()",
+      "file_type": "code",
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": "L59",
+      "id": "docs_getdocsbycategory",
+      "community": 11,
+      "norm_label": "getdocsbycategory()"
+    },
+    {
+      "label": "getFeaturedDocs()",
+      "file_type": "code",
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": "L71",
+      "id": "docs_getfeatureddocs",
+      "community": 11,
+      "norm_label": "getfeatureddocs()"
     },
     {
       "label": "projects.ts",
@@ -1665,25 +1674,25 @@
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L1",
       "id": "apps_playground_src_data_projects_ts",
-      "community": 13,
+      "community": 14,
       "norm_label": "projects.ts"
     },
     {
-      "label": "getProjectSlugs()",
+      "label": "getFeaturedProjects()",
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
-      "source_location": "L135",
-      "id": "projects_getprojectslugs",
-      "community": 13,
-      "norm_label": "getprojectslugs()"
+      "source_location": "L110",
+      "id": "projects_getfeaturedprojects",
+      "community": 14,
+      "norm_label": "getfeaturedprojects()"
     },
     {
       "label": "getProjectsByCategory()",
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
-      "source_location": "L142",
+      "source_location": "L117",
       "id": "projects_getprojectsbycategory",
-      "community": 13,
+      "community": 14,
       "norm_label": "getprojectsbycategory()"
     },
     {
@@ -1692,7 +1701,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L1",
       "id": "apps_playground_src_components_data_viz_piechart_piechart_ts",
-      "community": 4,
+      "community": 5,
       "norm_label": "piechart.ts"
     },
     {
@@ -1701,7 +1710,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L1",
       "id": "piechart_strtodom",
-      "community": 4,
+      "community": 5,
       "norm_label": "strtodom()"
     },
     {
@@ -1710,7 +1719,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L5",
       "id": "piechart_point",
-      "community": 4,
+      "community": 5,
       "norm_label": "point"
     },
     {
@@ -1719,7 +1728,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L9",
       "id": "piechart_point_constructor",
-      "community": 4,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -1728,7 +1737,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L14",
       "id": "piechart_point_tosvgpath",
-      "community": 4,
+      "community": 5,
       "norm_label": ".tosvgpath()"
     },
     {
@@ -1737,7 +1746,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L18",
       "id": "piechart_point_fromangle",
-      "community": 4,
+      "community": 5,
       "norm_label": ".fromangle()"
     },
     {
@@ -1746,7 +1755,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L23",
       "id": "piechart_piechart",
-      "community": 4,
+      "community": 5,
       "norm_label": "piechart"
     },
     {
@@ -1755,7 +1764,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L29",
       "id": "piechart_piechart_constructor",
-      "community": 4,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -1764,7 +1773,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L122",
       "id": "piechart_piechart_connectedcallback",
-      "community": 4,
+      "community": 5,
       "norm_label": ".connectedcallback()"
     },
     {
@@ -1773,7 +1782,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L137",
       "id": "piechart_piechart_draw",
-      "community": 4,
+      "community": 5,
       "norm_label": ".draw()"
     },
     {
@@ -1782,7 +1791,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L165",
       "id": "piechart_piechart_handlepathhover",
-      "community": 4,
+      "community": 5,
       "norm_label": ".handlepathhover()"
     },
     {
@@ -1791,7 +1800,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L170",
       "id": "piechart_piechart_handlepathout",
-      "community": 4,
+      "community": 5,
       "norm_label": ".handlepathout()"
     },
     {
@@ -1800,7 +1809,7 @@
       "source_file": "apps/playground/src/components/data-viz/piechart/piechart.ts",
       "source_location": "L174",
       "id": "piechart_piechart_positionlabel",
-      "community": 4,
+      "community": 5,
       "norm_label": ".positionlabel()"
     }
   ],
@@ -4086,6 +4095,18 @@
       "target": "robots_txt_get"
     },
     {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/astro.config.mjs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "apps_playground_astro_config_mjs",
+      "_tgt": "apps_playground_src_lib_remark_base_url_mjs",
+      "source": "apps_playground_astro_config_mjs",
+      "target": "apps_playground_src_lib_remark_base_url_mjs",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/robots.txt.ts",
@@ -4124,56 +4145,68 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/data/tags.ts",
-      "source_location": "L46",
+      "source_file": "apps/playground/src/lib/remark-base-url.mjs",
+      "source_location": "L3",
       "weight": 1.0,
-      "_src": "apps_playground_src_data_tags_ts",
-      "_tgt": "tags_gettagmetadata",
-      "source": "apps_playground_src_data_tags_ts",
-      "target": "tags_gettagmetadata",
+      "_src": "apps_playground_src_lib_remark_base_url_mjs",
+      "_tgt": "remark_base_url_remarkbaseurl",
+      "source": "apps_playground_src_lib_remark_base_url_mjs",
+      "target": "remark_base_url_remarkbaseurl",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/data/tags.ts",
-      "source_location": "L54",
-      "weight": 1.0,
-      "_src": "apps_playground_src_data_tags_ts",
-      "_tgt": "tags_gettagmetadatawithfallback",
-      "source": "apps_playground_src_data_tags_ts",
-      "target": "tags_gettagmetadatawithfallback",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/data/tags.ts",
+      "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L55",
       "weight": 1.0,
-      "_src": "tags_gettagmetadatawithfallback",
-      "_tgt": "tags_gettagmetadata",
-      "source": "tags_gettagmetadata",
-      "target": "tags_gettagmetadatawithfallback",
+      "_src": "apps_playground_src_data_docs_ts",
+      "_tgt": "docs_gettagmetadata",
+      "source": "apps_playground_src_data_docs_ts",
+      "target": "docs_gettagmetadata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "apps_playground_src_data_docs_ts",
+      "_tgt": "docs_getdocsbycategory",
+      "source": "apps_playground_src_data_docs_ts",
+      "target": "docs_getdocsbycategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_src": "apps_playground_src_data_docs_ts",
+      "_tgt": "docs_getfeatureddocs",
+      "source": "apps_playground_src_data_docs_ts",
+      "target": "docs_getfeatureddocs",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/data/projects.ts",
-      "source_location": "L135",
+      "source_location": "L110",
       "weight": 1.0,
       "_src": "apps_playground_src_data_projects_ts",
-      "_tgt": "projects_getprojectslugs",
+      "_tgt": "projects_getfeaturedprojects",
       "source": "apps_playground_src_data_projects_ts",
-      "target": "projects_getprojectslugs",
+      "target": "projects_getfeaturedprojects",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/data/projects.ts",
-      "source_location": "L142",
+      "source_location": "L117",
       "weight": 1.0,
       "_src": "apps_playground_src_data_projects_ts",
       "_tgt": "projects_getprojectsbycategory",
