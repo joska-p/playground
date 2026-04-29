@@ -2,9 +2,10 @@ import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import { TAG_REGISTRY } from "./data/tags";
+import type { TagId } from "./data/tags";
 
 // Define valid tag keys as a Zod enum (derived from TAG_REGISTRY)
-const tagEnum = z.enum(Object.keys(TAG_REGISTRY) as [string, ...string[]]);
+const tagEnum = z.enum(Object.keys(TAG_REGISTRY) as [TagId, ...TagId[]]);
 
 const docs = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs" }),

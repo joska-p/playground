@@ -44,10 +44,7 @@ export const TAG_REGISTRY: Readonly<typeof _TAG_REGISTRY> = _TAG_REGISTRY;
 
 // Type-safe lookup function - returns undefined if key doesn't exist
 export function getTagMetadata(id: string): TagMetadata | undefined {
-  if (id in TAG_REGISTRY) {
-    return TAG_REGISTRY[id as TagId];
-  }
-  return undefined;
+  return TAG_REGISTRY[id as TagId];
 }
 
 // Type-safe lookup with fallback to 'reference'
