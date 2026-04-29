@@ -1,35 +1,43 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
 import DocCard from "../../components/ui/doc-card/index.astro";
-import { docsByTag } from "../../data/docs";
+import { getDocsByCategory, docsBaseUrl } from "../../data/docs";
+
+const docsByCategory = await getDocsByCategory();
+
 ---
 
 <BaseLayout title="Documentation Hub">
   <div class="mx-auto max-w-5xl px-6 py-16 lg:py-24">
     <div class="grid gap-20">
-      {docsByTag.map((section) => (
-        <section id={section.id} class="scroll-mt-24">
+      {docsByCategory.map((category) => (
+        <section id={category.id} class="scroll-mt-24">
           <header class="mb-10">
             <div class="mb-4 flex items-center gap-4">
               <div class="rounded-xl bg-primary/10 p-3">
-                <section.Icon className="h-7 w-7 text-primary" />
+                <category.Icon className="h-7 w-7 text-primary" />
               </div>
-              <h2 class="text-4xl font-bold tracking-tight">{section.label}</h2>
+              <h2 class="text-4xl font-bold tracking-tight">{category.label}</h2>
             </div>
             <p class="max-w-3xl text-lg text-muted-foreground leading-relaxed">
-              {section.description}
+              {category.description}
             </p>
           </header>
 
           <div class="grid gap-6 sm:grid-cols-2">
-            {section.docs.map((doc) => (
+            {category.articles.map((doc) => {
+            const docUrl = `${docsBaseUrl}${doc.id}/`;
+            const firstTagId = doc.data.tags[0] || "explanation";
+
+            return (
               <DocCard
-                href={doc.url}
+                href={docUrl}
                 title={doc.data.title}
                 description={doc.data.description}
-                type={section.id}
+                type={firstTagId}
               />
-            ))}
+            )
+            })}
           </div>
         </section>
       ))}
