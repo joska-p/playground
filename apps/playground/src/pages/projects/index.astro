@@ -2,21 +2,11 @@
 import BaseLayout from "../../layouts/base-layout.astro";
 import ExperimentCard from "../../components/ui/experiment-card/index.astro";
 import SectionHeader from "../../components/ui/section-header/index.astro";
-import { categories, getProjectsByCategory, type Category } from "../../data/projects";
-import { Sparkles, Palette, Flame, BarChart3 } from "lucide-react";
+import { getProjectsByCategory } from "../../data/projects";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
-
 const projectsBaseUrl = `${baseUrl}projects/`;
-const categoryList: Category[] = ["generative", "color", "image", "data-viz"];
-
-// Default icons per category (since we don't store icons in categories anymore)
-const categoryIcons = {
-  generative: Sparkles,
-  color: Palette,
-  image: Flame,
-  "data-viz": BarChart3,
-};
+const catgories = getProjectsByCategory();
 ---
 
 <BaseLayout title="Projects | Playground">
@@ -42,33 +32,27 @@ const categoryIcons = {
   </section>
 
   <div class="mx-auto max-w-6xl px-6 py-16 lg:py-20">
-    {categoryList.map((category) => {
-      const categoryMeta = categories[category];
-      const CategoryIcon = categoryIcons[category];
-      const projectList = getProjectsByCategory()[category];
+  {catgories.map(({ name, description, projects }) => (
+    <section class="mb-16">
+      <SectionHeader
 
-      return (
-        <section class="mb-16">
-          <SectionHeader
-            icon={CategoryIcon}
-            title={categoryMeta.name}
-            description={categoryMeta.description}
+        title={name}
+        description={description}
+      />
+
+      <div class="grid gap-8 sm:grid-cols-2 mt-8">
+        {projects.map((project) => (
+          <ExperimentCard
+            href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
+            title={project.name}
+            description={project.description}
+            icon={project.icon}
+            category={project.category}
+            tags={project.tags}
           />
-
-          <div class="grid gap-8 sm:grid-cols-2 mt-8">
-            {projectList.map((project) => (
-              <ExperimentCard
-                href={`${projectsBaseUrl}${category}/${project.slug}/`}
-                title={project.name}
-                description={project.description}
-                icon={project.icon}
-                category={project.category}
-                tags={project.tags}
-              />
-            ))}
-          </div>
-        </section>
-      );
-    })}
+        ))}
+      </div>
+    </section>
+  ))}
   </div>
 </BaseLayout>

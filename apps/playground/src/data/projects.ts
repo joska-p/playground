@@ -114,7 +114,17 @@ export function getFeaturedProjects() {
 /**
  * API: Get projects grouped by category with metadata
  */
-export function getProjectsByCategory() {
+export function getProjectsByCategory(category?: Category) {
+  if (category) {
+    const meta = CATEGORIES[category];
+    return [
+      {
+        id: category,
+        ...meta,
+        projects: Object.values(projects).filter((p) => p.category === category),
+      },
+    ];
+  }
   return Object.entries(CATEGORIES).map(([id, meta]) => ({
     id: id as Category,
     ...meta,
