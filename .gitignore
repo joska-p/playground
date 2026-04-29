@@ -47,10 +47,8 @@ graphify-out/manifest.json
 # local token tracking, not useful to share
 graphify-out/cost.json
 
-.cursor
-.gemini
-GEMINI.md
-skills-lock.json
+# session files (local token tracking, not useful to share)
+session-ses*
 
 # Local workspace config (if you add tools later)
 # -----------------------------------------------------------------------------
