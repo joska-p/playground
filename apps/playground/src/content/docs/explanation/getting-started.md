@@ -44,7 +44,6 @@ Small, focused components that do one thing well. Mix and match.
 | ESLint        | [eslint.org](https://eslint.org)                     | Linting                           |
 | Prettier      | [prettier.io](https://prettier.io)                   | Formatting                        |
 | Nix           | [nixos.org](https://nixos.org)                       | Dev environment                   |
-| AI assistance | [chat.openai.com](https://chat.openai.com)           | Code help                         |
 
 ---
 
@@ -79,7 +78,7 @@ packages/
 └── tailwind-config/  # Design tokens (Gruvbox theme)
 ```
 
-Components? Check [Storybook](/playground/storybook/). Design tokens? See [Design Tokens](/playground/docs/reference/design-tokens/).
+Components? Check [Storybook](/storybook/). Design tokens? See [Design Tokens](/docs/reference/design-tokens/).
 
 ---
 
@@ -89,6 +88,6 @@ Components? Check [Storybook](/playground/storybook/). Design tokens? See [Desig
 2. Create `apps/playground/src/pages/projects/<category>/<project>/index.astro`
 3. Done.
 
-Full guide: [Adding Projects](/playground/docs/how-to/adding-projects/)
+Full guide: [Adding Projects](/docs/how-to/adding-projects/)
 
 ---

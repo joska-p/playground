@@ -1,5 +1,5 @@
 import { useColorPicker } from "../../../hooks/useColorPicker.js";
-import { cn } from "../../../utils/utils.js";
+import { cn } from "@repo/ui";
 
 interface ColorPickerProps {
   width?: number;

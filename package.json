@@ -10,7 +10,7 @@
     "lint-fix": "turbo run lint-fix",
     "format": "turbo run format",
     "check-types": "turbo run check-types",
-    "graphify": "graphify update . && python3 scripts/apply-graph-labels.py && cp graphify-out/graph.html apps/playground/public/graphify/graph.html",
+    "graphify": "graphify update . && cp graphify-out/graph.html apps/playground/public/graphify/graph.html",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
@@ -23,5 +23,8 @@
   "packageManager": "pnpm@10.19.0",
   "engines": {
     "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@mariozechner/pi-coding-agent": "^0.70.6"
   }
 }
