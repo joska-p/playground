@@ -1,0 +1,38 @@
+name: Build and Push Dev Container
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: # This adds the "Run workflow" button
+
+env:
+  REGISTRY: ghcr.io
+  # Use a lowercase version of your repo name to avoid registry errors
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: .devcontainer/Containerfile
+          push: true
+          # We force it to lowercase here just in case your repo has caps
+          tags: ghcr.io/${{ github.repository }}:latest

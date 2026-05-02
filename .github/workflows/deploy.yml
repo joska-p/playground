@@ -15,50 +15,46 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Reference the image created in Part 1
+    container:
+      image: ghcr.io/${{ github.repository }}-dev-sandbox:latest
+      options: --user 1000 # Matches the 'dev' user UID in your Containerfile
+
+    env:
+      HOME: /home/dev
+      NVM_DIR: /home/dev/.nvm
+      PNPM_HOME: /home/dev/.local/share/pnpm
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Cache turbo build setup
+      - name: Initialize Sandbox Environment
+        # Correctly populates /home/dev from the skel directory
+        run: bash /opt/sandbox/init-home.sh
+
+      - name: Cache Turbo
         uses: actions/cache@v5
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
 
-      - name: Cache node_modules
-        uses: actions/cache@v5
-        with:
-          path: |
-            node_modules
-            .pnpm-store
-          key: ${{ runner.os }}-node-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-
-      - name: Install Dependencies
-        run: nix develop --command pnpm install
-
-      - name: Build
-        run: nix develop --command pnpm build
-
-      - name: Verify storybook build exists
+      - name: Install and Build
         run: |
-          if [ ! -d "./apps/storybook/storybook-static" ]; then
-            echo "Error: storybook-static not found" && exit 1
-          fi
-          if [ -z "$(ls -A ./apps/storybook/storybook-static)" ]; then
-            echo "Error: storybook-static is empty" && exit 1
-          fi
+          # Manually source NVM as it's a shell function, not a binary[cite: 1]
+          . $NVM_DIR/nvm.sh
+          nvm use default
+          export PATH="$PNPM_HOME:$PATH"
+
+          pnpm install
+          pnpm build
 
       - name: Merge storybook into Astro Dist
         run: |
           mkdir -p ./apps/playground/dist/storybook
-          cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/
+          if [ -d "./apps/storybook/storybook-static" ]; then
+            cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
@@ -67,6 +63,7 @@ jobs:
 
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
