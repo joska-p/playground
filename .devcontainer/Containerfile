@@ -109,56 +109,40 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 # -----------------------------------------------------------------------------
 # 7. .zshrc
 # -----------------------------------------------------------------------------
-RUN cat > /opt/sandbox/skel/.zshrc << 'EOF'
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git z zsh-autosuggestions)
-source $ZSH/oh-my-zsh.sh
-
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
-export UV_TOOL_DIR="$HOME/.local/uv-tools"
-export UV_TOOL_BIN_DIR="$HOME/.local/bin"
-export PATH="$HOME/.local/bin:$PATH"
-
-alias ll="ls -lah --color=auto"
-alias gs="git status"
-EOF
+RUN printf 'export ZSH="$HOME/.oh-my-zsh"\n\
+ZSH_THEME="powerlevel10k/powerlevel10k"\n\
+plugins=(git z zsh-autosuggestions)\n\
+source $ZSH/oh-my-zsh.sh\n\
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh\n\
+export NVM_DIR="$HOME/.nvm"\n\
+[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"\n\
+export PNPM_HOME="$HOME/.local/share/pnpm"\n\
+export PATH="$PNPM_HOME:$PATH"\n\
+export UV_TOOL_DIR="$HOME/.local/uv-tools"\n\
+export UV_TOOL_BIN_DIR="$HOME/.local/bin"\n\
+export PATH="$HOME/.local/bin:$PATH"\n\
+alias ll="ls -lah --color=auto"\n\
+alias gs="git status"\n' > /opt/sandbox/skel/.zshrc
 
 # -----------------------------------------------------------------------------
 # 8. init-home.sh
 # -----------------------------------------------------------------------------
-RUN cat > /opt/sandbox/init-home.sh << 'EOF'
-#!/bin/bash
-set -e
-echo "[sandbox] Initialising home directory..."
-for item in /opt/sandbox/skel/.*; do
-  name="$(basename "$item")"
-  [ "$name" = "." ] || [ "$name" = ".." ] && continue
-  dest="$HOME/$name"
-  if [ ! -e "$dest" ]; then
-    cp -a "$item" "$dest"
-  elif [ -d "$item" ] && [ -d "$dest" ]; then
-    cp -rn "$item/." "$dest/"
-  fi
-done
-
-if ! command -v graphify &>/dev/null; then
-  echo "  installing graphify..."
-  /opt/sandbox/skel/.local/bin/uv tool install graphifyy
-  /opt/sandbox/skel/.local/bin/graphify install --platform opencode
-fi
-EOF
+RUN printf '#!/bin/bash\n\
+set -e\n\
+echo "[sandbox] Initialising home directory..."\n\
+for item in /opt/sandbox/skel/.*; do\n\
+  name="$(basename "$item")"\n\
+  [ "$name" = "." ] || [ "$name" = ".." ] && continue\n\
+  dest="$HOME/$name"\n\
+  if [ ! -e "$dest" ]; then\n\
+    cp -a "$item" "$dest"\n\
+  elif [ -d "$item" ] && [ -d "$dest" ]; then\n\
+    cp -rn "$item/." "$dest/"\n\
+  fi\n\
+done\n\
+if ! command -v graphify &>/dev/null; then\n\
+  /opt/sandbox/skel/.local/bin/uv tool install graphifyy\n\
+fi\n' > /opt/sandbox/init-home.sh
 
 RUN chmod +x /opt/sandbox/init-home.sh
 
