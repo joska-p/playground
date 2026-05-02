@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { Grid3X3, Infinity as InfinityIcon, Palette, Flame, PieChart, Grid } from "lucide-react";
+import { Grid3X3, Infinity as InfinityIcon, Palette, Flame, PieChart, Grid, BarChart2 as BarChart } from "lucide-react";
 
 /**
  * Project categories
@@ -101,6 +101,15 @@ export const projects: Record<string, Project> = {
     tags: ["Graph", "D3"],
     icon: Grid,
     featured: true,
+  },
+  "ai-usage-tracker": {
+    slug: "ai-usage-tracker",
+    name: "AI Usage Tracker",
+    description: "Track and visualize AI provider usage across different providers.",
+    category: "data-viz",
+    tags: ["D3", "Charts", "Zustand"],
+    icon: BarChart,
+    featured: false,
   },
 };
 

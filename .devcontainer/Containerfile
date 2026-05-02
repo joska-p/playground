@@ -147,7 +147,7 @@ fi\n' > /opt/sandbox/init-home.sh
 RUN chmod +x /opt/sandbox/init-home.sh
 
 
-# Astro: 4321 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
-EXPOSE 4321 6006 3000 5000 8080 8888
+# Astro: 4321 4322 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
+EXPOSE 4321 4322 6006 3000 5000 8080 8888
 
 CMD ["/bin/zsh", "--login"]

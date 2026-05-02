@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../../../layouts/base-layout.astro";
+import { projects } from "../../../../data/projects";
+
+const { slug } = Astro.params;
+const project = projects[slug!];
+const title = project?.name ?? "AI Usage Tracker";
+---
+
+<BaseLayout title={title}>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">{project?.name}</h1>
+    <p class="text-gray-600 mb-8">{project?.description}</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="border rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Dashboard</h2>
+        <p class="text-gray-600 mb-4">
+          The AI Usage Tracker package provides React components to visualize your AI provider usage.
+        </p>
+        <div class="bg-gray-50 rounded p-4">
+          <h3 class="font-semibold mb-2">Features:</h3>
+          <ul class="list-disc list-inside space-y-1 text-sm">
+            <li>Cost tracking by provider</li>
+            <li>Usage over time visualization</li>
+            <li>Session summary (2-hour windows)</li>
+            <li>Request log table with filtering</li>
+            <li>Budget tracking per provider</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Usage</h2>
+        <p class="text-gray-600 mb-4">Track your AI API usage:</p>
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded text-sm overflow-x-auto"><code>{`import { trackUsage } from '@repo/ai-usage-tracker'
+
+trackUsage({
+  provider: 'anthropic',
+  model: 'claude-3-opus',
+  inputTokens: 1500,
+  outputTokens: 800,
+  cost: 0.0375,
+  requestType: 'chat',
+})`}</code></pre>
+      </div>
+    </div>
+
+    <div class="mt-8 border rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4">CLI Tool</h2>
+      <p class="text-gray-600 mb-4">View usage stats from the terminal:</p>
+      <pre class="bg-gray-900 text-gray-100 p-4 rounded text-sm overflow-x-auto"><code>{`# View summary
+ai-usage-tracker summary
+
+# List recent usage
+ai-usage-tracker list
+
+# Check budget status
+ai-usage-tracker budgets`}</code></pre>
+    </div>
+  </div>
+</BaseLayout>

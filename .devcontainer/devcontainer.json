@@ -22,8 +22,8 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
 
-  // Astro: 4321 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
-  "forwardPorts": [4321, 6006, 3000, 5000, 8080, 8888],
+  // Astro: 4321 4322 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
+  "forwardPorts": [4321, 4322, 6006, 3000, 5000, 8080, 8888],
 
   // Needed so non-interactive processes (editor extensions, scripts) can find
   // node, pnpm, uv, etc. without sourcing .zshrc first.
