@@ -145,10 +145,6 @@ EOF
 
 # -----------------------------------------------------------------------------
 # 8. init-home.sh — run by postCreateCommand on first container start
-#
-# Copies items from skel into $HOME only if they don't already exist.
-# Directories are merged with cp -rn so subdirs like .local/share/pnpm
-# are populated even if .local was pre-created by the editor.
 # -----------------------------------------------------------------------------
 RUN cat > /opt/sandbox/init-home.sh << 'EOF'
 #!/bin/bash
@@ -168,8 +164,18 @@ for item in /opt/sandbox/skel/.*; do
     echo "  skipped $name (already exists)"
   fi
 done
+
+# The fix: Ensure 'if' is inside the EOF block and closed with 'fi'
+if ! command -v graphify &>/dev/null; then
+  echo "  installing graphify..."
+  # Use absolute path to uv since it's in the skel path at this point
+  /opt/sandbox/skel/.local/bin/uv tool install graphifyy
+  /opt/sandbox/skel/.local/bin/graphify install --platform opencode
+fi
+
 echo "[sandbox] Done. Open a new terminal or run: source ~/.zshrc"
 EOF
+
 RUN chmod +x /opt/sandbox/init-home.sh
 
 
