@@ -56,12 +56,12 @@ Used for project category badges.
 
 Used for documentation section badges (tutorial, how-to, explanation, reference).
 
-| Category              | Light             | Dark              | Swatch                                                                                                     |
-| --------------------- | ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------- |
-| `category-tutorial`   | `hsl(160 50% 35%)` | `hsl(160 40% 45%)` | <span style="display:inline-block;width:2em;height:2em;background:hsl(160 50% 35%);border-radius:4px"></span> |
-| `category-how-to`     | `hsl(280 40% 50%)` | `hsl(280 35% 55%)` | <span style="display:inline-block;width:2em;height:2em;background:hsl(280 40% 50%);border-radius:4px"></span> |
-| `category-explanation`| `hsl(15 60% 45%)`  | `hsl(15 50% 50%)`  | <span style="display:inline-block;width:2em;height:2em;background:hsl(15 60% 45%);border-radius:4px"></span>  |
-| `category-reference`  | `hsl(200 75% 45%)` | `hsl(200 50% 50%)` | <span style="display:inline-block;width:2em;height:2em;background:hsl(200 75% 45%);border-radius:4px"></span> |
+| Category               | Light              | Dark               | Swatch                                                                                                        |
+| ---------------------- | ------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `category-tutorial`    | `hsl(160 50% 35%)` | `hsl(160 40% 45%)` | <span style="display:inline-block;width:2em;height:2em;background:hsl(160 50% 35%);border-radius:4px"></span> |
+| `category-how-to`      | `hsl(280 40% 50%)` | `hsl(280 35% 55%)` | <span style="display:inline-block;width:2em;height:2em;background:hsl(280 40% 50%);border-radius:4px"></span> |
+| `category-explanation` | `hsl(15 60% 45%)`  | `hsl(15 50% 50%)`  | <span style="display:inline-block;width:2em;height:2em;background:hsl(15 60% 45%);border-radius:4px"></span>  |
+| `category-reference`   | `hsl(200 75% 45%)` | `hsl(200 50% 50%)` | <span style="display:inline-block;width:2em;height:2em;background:hsl(200 75% 45%);border-radius:4px"></span> |
 
 ---
 
@@ -69,27 +69,27 @@ Used for documentation section badges (tutorial, how-to, explanation, reference)
 
 Uses JetBrains Mono for all text (monospace-first design).
 
-| Token        | Stack                    |
-| ------------ | ------------------------ |
-| `font-sans`  | JetBrains Mono           |
-| `font-serif` | JetBrains Mono           |
-| `font-mono`  | JetBrains Mono           |
+| Token        | Stack          |
+| ------------ | -------------- |
+| `font-sans`  | JetBrains Mono |
+| `font-serif` | JetBrains Mono |
+| `font-mono`  | JetBrains Mono |
 
 ### Prose Tokens
 
 Tailwind Typography plugin tokens for `prose-gruvbox` utility:
 
-| Token | Value |
-| --- | --- |
-| `--tw-prose-body` | `var(--foreground)` |
-| `--tw-prose-headings` | `var(--foreground)` |
-| `--tw-prose-links` | `var(--primary)` |
-| `--tw-prose-bold` | `var(--foreground)` |
-| `--tw-prose-bullets` | `var(--border)` |
-| `--tw-prose-hr` | `var(--border)` |
-| `--tw-prose-pre-bg` | `var(--card)` |
-| `--tw-prose-th-borders` | `var(--border)` |
-| `--tw-prose-td-borders` | `var(--border)` |
+| Token                   | Value               |
+| ----------------------- | ------------------- |
+| `--tw-prose-body`       | `var(--foreground)` |
+| `--tw-prose-headings`   | `var(--foreground)` |
+| `--tw-prose-links`      | `var(--primary)`    |
+| `--tw-prose-bold`       | `var(--foreground)` |
+| `--tw-prose-bullets`    | `var(--border)`     |
+| `--tw-prose-hr`         | `var(--border)`     |
+| `--tw-prose-pre-bg`     | `var(--card)`       |
+| `--tw-prose-th-borders` | `var(--border)`     |
+| `--tw-prose-td-borders` | `var(--border)`     |
 
 ---
 

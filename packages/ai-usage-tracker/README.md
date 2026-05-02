@@ -22,36 +22,36 @@ pnpm build
 ### Tracking Usage
 
 ```typescript
-import { initTracker, trackUsage } from '@repo/ai-usage-tracker'
+import { initTracker, trackUsage } from "@repo/ai-usage-tracker";
 
 // Initialize (creates ~/.ai-usage-tracker/ directory)
-initTracker()
+initTracker();
 
 // Log usage after an AI API call
 const record = trackUsage({
-  provider: 'anthropic',
-  model: 'claude-3-opus',
+  provider: "anthropic",
+  model: "claude-3-opus",
   inputTokens: 1500,
   outputTokens: 800,
   cost: 0.0375,
-  requestType: 'chat',
+  requestType: "chat",
   // timestamp is optional, defaults to now
-})
+});
 ```
 
 ### Setting Budgets
 
 ```typescript
-import { setBudget } from '@repo/ai-usage-tracker'
+import { setBudget } from "@repo/ai-usage-tracker";
 
-setBudget('anthropic', 100) // $100 budget
-setBudget('google', 50)    // $50 budget
+setBudget("anthropic", 100); // $100 budget
+setBudget("google", 50); // $50 budget
 ```
 
 ### Using Visualization Components
 
 ```tsx
-import { Dashboard, CostByProvider, UsageOverTime } from '@repo/ai-usage-tracker'
+import { Dashboard, CostByProvider, UsageOverTime } from "@repo/ai-usage-tracker";
 
 function App() {
   return (
@@ -62,7 +62,7 @@ function App() {
       <CostByProvider />
       <UsageOverTime />
     </div>
-  )
+  );
 }
 ```
 
@@ -86,14 +86,14 @@ ai-usage-tracker budgets
 
 ## Dashboard Components
 
-| Component | Description |
-|-----------|-------------|
-| `<Dashboard />` | Combined view with all charts |
-| `<CostByProvider />` | Pie chart showing cost by provider |
-| `<UsageOverTime />` | Line chart of usage over time |
-| `<SessionSummary />` | Time-based sessions (2-hour windows) |
+| Component             | Description                           |
+| --------------------- | ------------------------------------- |
+| `<Dashboard />`       | Combined view with all charts         |
+| `<CostByProvider />`  | Pie chart showing cost by provider    |
+| `<UsageOverTime />`   | Line chart of usage over time         |
+| `<SessionSummary />`  | Time-based sessions (2-hour windows)  |
 | `<RequestLogTable />` | Sortable/filterable table of requests |
-| `<BudgetTracker />` | Per-provider budget progress |
+| `<BudgetTracker />`   | Per-provider budget progress          |
 
 ## Session Definition
 
