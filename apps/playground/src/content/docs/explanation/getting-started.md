@@ -43,17 +43,33 @@ Small, focused components that do one thing well. Mix and match.
 | D3            | [d3js.org](https://d3js.org)                         | Data visualization                |
 | ESLint        | [eslint.org](https://eslint.org)                     | Linting                           |
 | Prettier      | [prettier.io](https://prettier.io)                   | Formatting                        |
-| Nix           | [nixos.org](https://nixos.org)                       | Dev environment                   |
+| Podman        | [podman.io](https://podman.io)                       | Dev environment                   |
 
 ---
 
 ## Quick Start
 
-```bash
-# Recommended
-nix develop
+### Dev Container (Recommended)
 
-# Or manual
+Requires [Podman](https://podman.io) and an editor with devcontainer support (Zed, VS Code, etc.).
+
+```bash
+mkdir .container_home   # only once — persists shell state across rebuilds
+```
+
+Then open the project in your editor and choose **Reopen in Container**.
+
+```bash
+pnpm install && pnpm dev
+```
+
+> **Rebuilding?** Run `rm -rf .container_home/*` before reopening so the fresh image is copied cleanly.
+
+### Manual Setup
+
+Requires Node 24+ and pnpm.
+
+```bash
 pnpm install && pnpm dev
 ```
 
