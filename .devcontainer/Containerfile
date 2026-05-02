@@ -108,10 +108,6 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 
 # -----------------------------------------------------------------------------
 # 7. .zshrc
-#
-# Paths reference $HOME (not /opt/sandbox/skel) because by the time this file
-# is sourced it will have been copied to /home/dev by postCreateCommand.
-# p10k instant prompt must come before anything that prints to stdout.
 # -----------------------------------------------------------------------------
 RUN cat > /opt/sandbox/skel/.zshrc << 'EOF'
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -123,12 +119,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git z zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
-# Run `p10k configure` to set up your prompt interactively
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -139,41 +133,31 @@ export PATH="$HOME/.local/bin:$PATH"
 
 alias ll="ls -lah --color=auto"
 alias gs="git status"
-alias gap="git add -p"
 EOF
 
-
 # -----------------------------------------------------------------------------
-# 8. init-home.sh — run by postCreateCommand on first container start
+# 8. init-home.sh
 # -----------------------------------------------------------------------------
 RUN cat > /opt/sandbox/init-home.sh << 'EOF'
 #!/bin/bash
 set -e
-echo "[sandbox] Initialising home directory from image defaults..."
+echo "[sandbox] Initialising home directory..."
 for item in /opt/sandbox/skel/.*; do
   name="$(basename "$item")"
   [ "$name" = "." ] || [ "$name" = ".." ] && continue
   dest="$HOME/$name"
   if [ ! -e "$dest" ]; then
     cp -a "$item" "$dest"
-    echo "  copied $name"
   elif [ -d "$item" ] && [ -d "$dest" ]; then
     cp -rn "$item/." "$dest/"
-    echo "  merged $name"
-  else
-    echo "  skipped $name (already exists)"
   fi
 done
 
-# The fix: Ensure 'if' is inside the EOF block and closed with 'fi'
 if ! command -v graphify &>/dev/null; then
   echo "  installing graphify..."
-  # Use absolute path to uv since it's in the skel path at this point
   /opt/sandbox/skel/.local/bin/uv tool install graphifyy
   /opt/sandbox/skel/.local/bin/graphify install --platform opencode
 fi
-
-echo "[sandbox] Done. Open a new terminal or run: source ~/.zshrc"
 EOF
 
 RUN chmod +x /opt/sandbox/init-home.sh
