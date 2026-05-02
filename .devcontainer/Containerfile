@@ -1,69 +1,179 @@
 # =============================================================================
-# Zero-Pollution Agent Sandbox
-# Base: Debian Slim (small, stable, broad package support)
+# Dev Sandbox — Debian Bookworm Slim
+# Stack: Node.js via nvm · pnpm · Python via uv · Zsh + Oh My Zsh
+# Tools: opencode · graphify · turbo · eslint · prettier · language servers
 # =============================================================================
 FROM docker.io/debian:bookworm-slim
 
-# --- Core system tools -------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# 1. System packages
+# -----------------------------------------------------------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash curl wget git vim nano less jq unzip zip openssh-client \
+    zsh curl wget git vim nano less jq unzip zip openssh-client \
     build-essential ca-certificates gnupg \
     procps iputils-ping dnsutils \
-    python3 python3-pip python3-venv pipx \
-    && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt-get install -y nodejs \
-    && curl -fsSL https://go.dev/dl/go1.22.4.linux-amd64.tar.gz \
-       | tar -C /usr/local -xz \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    graphviz \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# --- Paths -------------------------------------------------------------------
-ENV PATH="/usr/local/go/bin:${PATH}"
-ENV SANDBOX_HOME="/opt/sandbox"
-ENV PIPX_HOME="${SANDBOX_HOME}/pipx"
-ENV PIPX_BIN_DIR="${SANDBOX_HOME}/bin"
-ENV PNPM_HOME="${SANDBOX_HOME}/pnpm"
-ENV PATH="${SANDBOX_HOME}/bin:${PNPM_HOME}:${PATH}"
 
-RUN mkdir -p "${SANDBOX_HOME}/bin" "${SANDBOX_HOME}/pnpm"
+# -----------------------------------------------------------------------------
+# 2. Create the dev user and skeleton directory
+#
+# Tools are installed into /opt/sandbox/skel instead of /home/dev because the
+# devcontainer bind-mounts .container_home/ over /home/dev at runtime, which
+# would hide anything written there at build time. postCreateCommand copies
+# skel into /home/dev on first start, once the mount is already applied.
+#
+# UID 1000 matches the default host UID, required by --userns=keep-id.
+# -----------------------------------------------------------------------------
+RUN useradd -m -s /bin/zsh -u 1000 dev \
+ && mkdir -p /opt/sandbox/skel \
+ && chown -R dev:dev /opt/sandbox
 
-# --- pnpm via corepack -------------------------------------------------------
-RUN corepack enable pnpm \
- && corepack prepare pnpm@latest --activate \
- && pnpm config set store-dir "${SANDBOX_HOME}/pnpm-store" --global
+USER dev
+WORKDIR /opt/sandbox/skel
 
-# --- Python tools via pipx ---------------------------------------------------
-RUN pipx install aider-chat \
- && pipx install llm \
- && pipx install open-interpreter \
- && chmod -R 755 "${SANDBOX_HOME}/pipx" "${SANDBOX_HOME}/bin"
 
-# --- Node tools via pnpm -----------------------------------------------------
-RUN pnpm add -g \
-    @anthropic-ai/sdk \
+# -----------------------------------------------------------------------------
+# 3. nvm + Node.js 24 + pnpm via corepack
+#
+# NVM_DIR is exported inline (not via ENV) so the directory exists before the
+# installer checks for it. mkdir -p is required for the same reason.
+# -----------------------------------------------------------------------------
+RUN export NVM_DIR="/opt/sandbox/skel/.nvm" \
+ && mkdir -p "$NVM_DIR" \
+ && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
+ && . "$NVM_DIR/nvm.sh" \
+ && nvm install 24 \
+ && nvm alias default 24 \
+ && nvm use default \
+ && export PATH="$(nvm which default | xargs dirname):$PATH" \
+ && corepack enable pnpm \
+ && corepack prepare pnpm@latest --activate
+
+
+# -----------------------------------------------------------------------------
+# 4. pnpm global tools
+#
+# Each RUN is a fresh shell with no profile, so nvm.sh must be sourced and
+# PATH exported manually on every step that needs node/pnpm.
+# -----------------------------------------------------------------------------
+ENV PNPM_HOME="/opt/sandbox/skel/.local/share/pnpm"
+
+RUN export NVM_DIR="/opt/sandbox/skel/.nvm" \
+ && . "$NVM_DIR/nvm.sh" \
+ && nvm use default \
+ && export PATH="$(nvm which default | xargs dirname):$PNPM_HOME:$PATH" \
+ && pnpm config set store-dir /opt/sandbox/skel/.local/share/pnpm-store --global \
+ && pnpm add -g \
+    opencode-ai \
     typescript \
-    ts-node
+    turbo \
+    eslint \
+    prettier \
+    typescript-language-server \
+    @astrojs/language-server \
+    @tailwindcss/language-server
 
-# --- Profile: make /opt/sandbox available to all login shells ----------------
-RUN printf '%s\n' \
-    'export PATH="/opt/sandbox/bin:/opt/sandbox/pnpm:${PATH}"' \
-    'export PIPX_HOME="/opt/sandbox/pipx"' \
-    'export PNPM_HOME="/opt/sandbox/pnpm"' \
-    > /etc/profile.d/sandbox.sh \
- && chmod 644 /etc/profile.d/sandbox.sh
 
-# --- Prepare /etc/skel so new users inherit the shell config -----------------
-RUN printf '%s\n' \
-    'source /etc/profile.d/sandbox.sh' \
-    'export PS1="[sandbox] \w \$ "' \
-    'alias ll="ls -lah --color=auto"' \
-    >> /etc/skel/.bashrc
+# -----------------------------------------------------------------------------
+# 5. uv + graphify
+#
+# graphify requires a post-install step to download its rendering backend.
+# graphifyy with 2 y is the name of the package. It's not a typo.
+# -----------------------------------------------------------------------------
+ENV UV_TOOL_DIR="/opt/sandbox/skel/.local/uv-tools"
+ENV UV_TOOL_BIN_DIR="/opt/sandbox/skel/.local/bin"
 
-# --- Create dev user (copies skel, so /home/dev/.bashrc is ready) ------------
-RUN useradd -m -s /bin/bash -u 1000 dev
+RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/opt/sandbox/skel/.local/bin sh \
+ && export PATH="/opt/sandbox/skel/.local/bin:$PATH" \
+ && uv tool install graphifyy \
+ && graphify install --platform opencode
 
-# --- Port Exposure -----------------------------------------------------------
-# Astro: 4321, Storybook: 6006, etc.
+
+# -----------------------------------------------------------------------------
+# 6. Oh My Zsh + powerlevel10k + zsh-autosuggestions
+# -----------------------------------------------------------------------------
+ENV ZSH="/opt/sandbox/skel/.oh-my-zsh"
+ENV ZSH_CUSTOM="/opt/sandbox/skel/.oh-my-zsh/custom"
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    "" --unattended \
+ && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+    "$ZSH_CUSTOM/themes/powerlevel10k" \
+ && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
+    "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+
+
+# -----------------------------------------------------------------------------
+# 7. .zshrc
+#
+# Paths reference $HOME (not /opt/sandbox/skel) because by the time this file
+# is sourced it will have been copied to /home/dev by postCreateCommand.
+# p10k instant prompt must come before anything that prints to stdout.
+# -----------------------------------------------------------------------------
+RUN cat > /opt/sandbox/skel/.zshrc << 'EOF'
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git z zsh-autosuggestions)
+source $ZSH/oh-my-zsh.sh
+
+# Run `p10k configure` to set up your prompt interactively
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+export UV_TOOL_DIR="$HOME/.local/uv-tools"
+export UV_TOOL_BIN_DIR="$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
+
+alias ll="ls -lah --color=auto"
+alias gs="git status"
+alias gap="git add -p"
+EOF
+
+
+# -----------------------------------------------------------------------------
+# 8. init-home.sh — run by postCreateCommand on first container start
+#
+# Copies items from skel into $HOME only if they don't already exist.
+# Directories are merged with cp -rn so subdirs like .local/share/pnpm
+# are populated even if .local was pre-created by the editor.
+# -----------------------------------------------------------------------------
+RUN cat > /opt/sandbox/init-home.sh << 'EOF'
+#!/bin/bash
+set -e
+echo "[sandbox] Initialising home directory from image defaults..."
+for item in /opt/sandbox/skel/.*; do
+  name="$(basename "$item")"
+  [ "$name" = "." ] || [ "$name" = ".." ] && continue
+  dest="$HOME/$name"
+  if [ ! -e "$dest" ]; then
+    cp -a "$item" "$dest"
+    echo "  copied $name"
+  elif [ -d "$item" ] && [ -d "$dest" ]; then
+    cp -rn "$item/." "$dest/"
+    echo "  merged $name"
+  else
+    echo "  skipped $name (already exists)"
+  fi
+done
+echo "[sandbox] Done. Open a new terminal or run: source ~/.zshrc"
+EOF
+RUN chmod +x /opt/sandbox/init-home.sh
+
+
+# Astro: 4321 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
 EXPOSE 4321 6006 3000 5000 8080 8888
 
-# --- Entrypoint --------------------------------------------------------------
-CMD ["/bin/bash", "--login"]
+CMD ["/bin/zsh", "--login"]

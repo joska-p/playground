@@ -1,40 +1,40 @@
 {
-  // Zed reads this file and prompts "Open in Container?" when you open the project.
-  // Requires: podman symlinked to docker (one-time setup — see README).
   "name": "sandbox-dev",
 
-  // Build from our local Containerfile rather than pulling a pre-made image.
   "build": {
     "dockerfile": "./Containerfile",
-    "context": "..",
+    "context": ".."
   },
 
-  // Pass extra flags directly to `podman run`.
-  // --userns=keep-id  maps your host UID to the same UID inside the container,
-  // so bind-mounted files (workspace + home) are writable as `dev`.
+  // --userns=keep-id maps your host UID to UID 1000 inside the container,
+  // so files created inside are owned by you on the host without sudo.
   "runArgs": ["--userns=keep-id"],
 
-  // The user inside the container (matches the `dev` user in the Containerfile).
   "remoteUser": "dev",
 
-  // Bind-mount .container_home/ as $HOME — writable now that keep-id is set.
+  // Bind-mount .container_home/ as /home/dev so your shell config, history,
+  // and tool state persist across container rebuilds on your host machine.
+  // Create it once with: mkdir .container_home
   "mounts": [
-    "source=${localWorkspaceFolder}/.container_home,target=/home/dev,type=bind,consistency=cached",
+    "source=${localWorkspaceFolder}/.container_home,target=/home/dev,type=bind,consistency=cached"
   ],
 
-  // Open the project root inside the container.
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
 
-  // Ports forwarded container → host. Access via localhost:<port> in your browser.
-  // Astro: 4321, Storybook: 6006, generic dev: 3000/5000/8080/8888
+  // Astro: 4321 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
   "forwardPorts": [4321, 6006, 3000, 5000, 8080, 8888],
 
-  // Environment variables available inside the container.
+  // Needed so non-interactive processes (editor extensions, scripts) can find
+  // node, pnpm, uv, etc. without sourcing .zshrc first.
   "containerEnv": {
+    "NVM_DIR": "/home/dev/.nvm",
     "PNPM_HOME": "/home/dev/.local/share/pnpm",
-    "PIPX_HOME": "/home/dev/.local/pipx",
+    "UV_TOOL_DIR": "/home/dev/.local/uv-tools",
+    "UV_TOOL_BIN_DIR": "/home/dev/.local/bin"
   },
 
-  "postCreateCommand": "echo 'Sandbox ready.'",
+  // Copies items from /opt/sandbox/skel into /home/dev for anything that
+  // doesn't already exist there, so your customisations are never overwritten.
+  "postCreateCommand": "bash /opt/sandbox/init-home.sh"
 }

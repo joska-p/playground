@@ -21,13 +21,25 @@ by [@joska-p](https://github.com/joska-p)
 
 ## Quick Start
 
-### Using Nix (Recommended)
+### Dev Container (Recommended)
+
+Requires [Podman](https://podman.io) and an editor with devcontainer support (Zed, VS Code, etc.).
 
 ```bash
-nix develop
+mkdir .container_home   # only once — persists shell state across rebuilds
 ```
 
+Then open the project in your editor and choose **Reopen in Container**. On first start the container will copy your shell config, Node, pnpm, uv, and all global tools into `.container_home/`.
+
+```bash
+pnpm install && pnpm dev
+```
+
+> **Rebuilding?** Run `rm -rf .container_home/*` before reopening so the fresh image is copied cleanly.
+
 ### Manual Setup
+
+Requires Node 24+ and pnpm.
 
 ```bash
 pnpm install && pnpm dev
@@ -54,4 +66,4 @@ pnpm install && pnpm dev
 
 ## Built With
 
-[Astro](https://astro.build) · [React 19](https://react.dev) · [Tailwind CSS](https://tailwindcss.com) · [TypeScript](https://typescriptlang.org) · [Turborepo](https://turbo.build/repo) · [Storybook](https://storybook.js.org) · [D3](https://d3js.org) · [AI assistance](https://chat.openai.com)
+[Astro](https://astro.build) · [React 19](https://react.dev) · [Tailwind CSS](https://tailwindcss.com) · [TypeScript](https://typescriptlang.org) · [Turborepo](https://turbo.build/repo) · [Storybook](https://storybook.js.org) · [D3](https://d3js.org)
