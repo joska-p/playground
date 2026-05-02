@@ -21,15 +21,16 @@ const { Icon, color } = metadata;
 <a
   href={href}
   class:list={["group inline-block outline-none", className]}
+  style={`--category-variant: var(--category-${type})`}
 >
   <Card
     variant="primary"
-    className="h-full border-2 border-border/40 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-primary/60 hover:shadow-lg group-focus-within:ring-2 group-focus-within:ring-primary"
+    className="h-full border-2 border-border/40 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-(--category-variant) hover:shadow-lg group-focus-within:ring-2 group-focus-within:ring-primary"
   >
     <CardHeader className="pb-4">
       <div class="flex items-start gap-4">
         <div class:list={[
-          "mt-1 mb-0 flex h-9 w-9 items-center justify-center rounded-lg p-2 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+          "mt-1 mb-0 flex h-9 w-9 items-center justify-center rounded-lg p-2 bg-(--category-variant)/20 transition-transform group-hover:scale-110 group-hover:rotate-3",
           color
         ]}>
           <Icon className="h-5 w-5" />
