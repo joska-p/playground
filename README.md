@@ -10,12 +10,12 @@ by [@joska-p](https://github.com/joska-p)
 
 ## The Lab
 
-| Engine           | Description                                 | Package                                                     |
-| ---------------- | ------------------------------------------- | ----------------------------------------------------------- |
-| **Mosaic Maker** | Transform palettes into procedural patterns | [`@repo/mosaic-maker`](./packages/mosaic-maker)             |
-| **Sequences**    | Visualize mathematical sequences            | [`@repo/sequence-renderer`](./packages/sequence-renderer)   |
-| **Palettes**     | Color theory scheme generator               | [`@repo/palette-generator`](./packages/palette-generator)   |
-| **Particles**    | Physics-based particle deconstruction       | [`@repo/image-to-particles`](./packages/image-to-particles) |
+| Engine | Description | Package |
+| --- | --- | --- |
+| **Mosaic Maker** | Transform palettes into procedural patterns | [`@repo/mosaic-maker`](./packages/mosaic-maker) |
+| **Sequences** | Visualize mathematical sequences | [`@repo/sequence-renderer`](./packages/sequence-renderer) |
+| **Palettes** | Color theory scheme generator | [`@repo/palette-generator`](./packages/palette-generator) |
+| **Particles** | Physics-based particle deconstruction | [`@repo/image-to-particles`](./packages/image-to-particles) |
 
 ---
 
@@ -29,7 +29,7 @@ Requires [Podman](https://podman.io) and an editor with devcontainer support (Ze
 mkdir .container_home   # only once — persists shell state across rebuilds
 ```
 
-Then open the project in your editor and choose **Reopen in Container**. On first start the container will copy your shell config, Node, pnpm, uv, and all global tools into `.container_home/`.
+Then open the project in your editor and choose **Reopen in Container**.
 
 ```bash
 pnpm install && pnpm dev
@@ -52,15 +52,19 @@ pnpm install && pnpm dev
 
 ## Documentation
 
-| Doc                                                                               | Description                   |
-| --------------------------------------------------------------------------------- | ----------------------------- |
-| [Documentation hub](https://joska-p.github.io/playground/docs/)                   | Documentation hub             |
-| [Getting Started](https://joska-p.github.io/playground/docs/explanation/getting-started/)     | Manifesto and overview        |
-| [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/)     | How to add new visualizations |
-| [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/) | How to add UI components      |
+| Doc | Description |
+| --- | --- |
+| [Documentation hub](https://joska-p.github.io/playground/docs/) | Documentation hub |
+| [Overview](https://joska-p.github.io/playground/docs/explanation/overview/) | What this is, principles, architecture |
+| [Engines](https://joska-p.github.io/playground/docs/explanation/engines/) | How rules and visualizations work |
+| [Your First Visualization](https://joska-p.github.io/playground/docs/tutorial/first-visualization/) | Step-by-step tutorial |
+| [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/) | How to add new visualizations |
+| [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/) | How to add UI components |
+| [Adding a Rule](https://joska-p.github.io/playground/docs/how-to/adding-sequence-rule/) | Add sequence rules |
+| [Adding a Visualization](https://joska-p.github.io/playground/docs/how-to/adding-visualization/) | Add visualization types |
 | [Import and Export Strategy](https://joska-p.github.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules |
-| [Design Tokens](https://joska-p.github.io/playground/docs/reference/design-tokens/)         | Color palette and typography  |
-| [UI Components](https://joska-p.github.io/playground/docs/reference/ui-components/)         | Component library reference   |
+| [Design Tokens](https://joska-p.github.io/playground/docs/reference/design-tokens/) | Color palette and typography |
+| [UI Components](https://joska-p.github.io/playground/docs/reference/ui-components/) | Component library reference |
 
 ---
 

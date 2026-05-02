@@ -21,9 +21,27 @@ Rule (math) → Sequence → Visualization (draw) → Canvas
 
 **Rules** define _what numbers to generate_. **Visualizations** define _how to draw them_. They're independent — mix any rule with any visualization.
 
-### Rules (`src/core/rules.ts`)
+### Available Rules
 
-A rule is a simple interface:
+| Rule | ID | Description |
+| --- | --- | --- |
+| **Recamán** | `recaman` | Jump back by n if possible |
+| **Fibonacci** | `fibonacci` | F(n) = F(n-1) + F(n-2) |
+| **Primes** | `primes` | Prime numbers only |
+| **Triangular** | `triangular` | 1, 3, 6, 10, 15... |
+| **Collatz** | `collatz` | Even: n/2, Odd: 3n+1 |
+
+### Available Visualizations
+
+| Visualization | ID | Description |
+| --- | --- | --- |
+| **Line Graph** | `line-graph` | Connected points, stock-chart style |
+| **Scatter Plot** | `scatter` | Dots positioned by sequence value |
+| **Bars** | `bars` | Vertical bars per sequence step |
+
+### Data Structures
+
+**Rule interface:**
 
 ```typescript
 type SequenceRule = {
@@ -35,34 +53,7 @@ type SequenceRule = {
 };
 ```
 
-Example — Recamán's Rule:
-
-```typescript
-getNext: ({ index, current, seen }) => {
-  const backward = current - index;
-  return backward > 0 && !seen.has(backward) ? backward : current + index;
-};
-```
-
-### Available Rules
-
-| Rule           | ID           | Description                |
-| -------------- | ------------ | -------------------------- |
-| **Recamán**    | `recaman`    | Jump back by n if possible |
-| **Fibonacci**  | `fibonacci`  | F(n) = F(n-1) + F(n-2)     |
-| **Primes**     | `primes`     | Prime numbers only         |
-| **Triangular** | `triangular` | 1, 3, 6, 10, 15...         |
-| **Collatz**    | `collatz`    | Even: n/2, Odd: 3n+1       |
-
-### Adding a Rule
-
-1. Define a new `SequenceRule` object in `rules.ts`
-2. Add it to the `sequencesRule` array
-3. Done — appears in UI automatically
-
-### Visualizations (`src/core/visualizations/`)
-
-A visualization is a draw function:
+**Visualization interface:**
 
 ```typescript
 type Visualization = {
@@ -71,12 +62,6 @@ type Visualization = {
   draw: (canvas, sequence) => void;
 };
 ```
-
-### Adding a Visualization
-
-1. Create `src/core/visualizations/my-viz.ts`
-2. Export it in `src/core/visualizations/index.ts`
-3. Appears in UI automatically
 
 ---
 
@@ -99,3 +84,10 @@ Add new rules or visualizations by:
 3. UI updates automatically
 
 This keeps the engine core stable while experiments evolve freely.
+
+---
+
+## Extending
+
+- **Add a rule**: See [Adding a Sequence Rule](/docs/how-to/adding-sequence-rule/)
+- **Add a visualization**: See [Adding a Visualization](/docs/how-to/adding-visualization/)
