@@ -1,7 +1,11 @@
+# The persistent container home — never commit this
+.container_home/
+
 # Dependencies
 # -----------------------------------------------------------------------------
 node_modules/
 .pnpm-home/
+.pnpm-store
 
 # Build outputs
 # -----------------------------------------------------------------------------

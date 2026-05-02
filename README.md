@@ -42,7 +42,7 @@ pnpm install && pnpm dev
 
 | Doc                                                                               | Description                   |
 | --------------------------------------------------------------------------------- | ----------------------------- |
-| [Documentation hub](https://joska-p.github.io/playground/docs/)                   | Documention hub
+| [Documentation hub](https://joska-p.github.io/playground/docs/)                   | Documentation hub             |
 | [Getting Started](https://joska-p.github.io/playground/docs/explanation/getting-started/)     | Manifesto and overview        |
 | [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/)     | How to add new visualizations |
 | [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/) | How to add UI components      |

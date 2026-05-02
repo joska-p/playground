@@ -1,0 +1,40 @@
+{
+  // Zed reads this file and prompts "Open in Container?" when you open the project.
+  // Requires: podman symlinked to docker (one-time setup — see README).
+  "name": "sandbox-dev",
+
+  // Build from our local Containerfile rather than pulling a pre-made image.
+  "build": {
+    "dockerfile": "./Containerfile",
+    "context": "..",
+  },
+
+  // Pass extra flags directly to `podman run`.
+  // --userns=keep-id  maps your host UID to the same UID inside the container,
+  // so bind-mounted files (workspace + home) are writable as `dev`.
+  "runArgs": ["--userns=keep-id"],
+
+  // The user inside the container (matches the `dev` user in the Containerfile).
+  "remoteUser": "dev",
+
+  // Bind-mount .container_home/ as $HOME — writable now that keep-id is set.
+  "mounts": [
+    "source=${localWorkspaceFolder}/.container_home,target=/home/dev,type=bind,consistency=cached",
+  ],
+
+  // Open the project root inside the container.
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+
+  // Ports forwarded container → host. Access via localhost:<port> in your browser.
+  // Astro: 4321, Storybook: 6006, generic dev: 3000/5000/8080/8888
+  "forwardPorts": [4321, 6006, 3000, 5000, 8080, 8888],
+
+  // Environment variables available inside the container.
+  "containerEnv": {
+    "PNPM_HOME": "/home/dev/.local/share/pnpm",
+    "PIPX_HOME": "/home/dev/.local/pipx",
+  },
+
+  "postCreateCommand": "echo 'Sandbox ready.'",
+}
