@@ -1,18 +1,25 @@
 import { Controls } from "./components/controls/Controls.js";
 import { Dashboard } from "./components/dashboard/Dashboard.js";
 import { Sidebar } from "@repo/ui";
+import { useDashboardLoop } from "./hooks/useDashboardLoop.js";
+import { useDashboardStore } from "./store/useDashboardStore.js";
 
 function CrazyDashboard() {
-  return (
-    <Sidebar desktopPosition="bottom" mobilePosition="bottom">
-      <Sidebar.Main className="relative">
-        <Dashboard />
-      </Sidebar.Main>
+  const theme = useDashboardStore((s) => s.theme);
+  useDashboardLoop();
 
-      <Sidebar.Panel>
-        <Controls />
-      </Sidebar.Panel>
-    </Sidebar>
+  return (
+    <div data-theme={theme} className="h-full w-full">
+      <Sidebar desktopPosition="top" mobilePosition="top">
+        <Sidebar.Main className="relative">
+          <Dashboard />
+        </Sidebar.Main>
+
+        <Sidebar.Panel>
+          <Controls />
+        </Sidebar.Panel>
+      </Sidebar>
+    </div>
   );
 }
 

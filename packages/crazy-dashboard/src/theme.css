@@ -1,0 +1,20 @@
+/* Standard theme — clean/minimal */
+[data-theme="standard"] {
+  --viz-bg: hsl(0 0% 98%);
+  --viz-border: hsl(0 0% 90%);
+  --viz-line: hsl(220 70% 50%);
+  --viz-gauge: hsl(140 60% 45%);
+  --viz-text: hsl(0 0% 20%);
+  --viz-grid: hsl(0 0% 85%);
+}
+
+/* Cyberpunk theme — neon glow, dark */
+[data-theme="cyberpunk"] {
+  --viz-bg: hsl(260 30% 8%);
+  --viz-border: hsl(280 100% 40%);
+  --viz-line: hsl(320 100% 60%);
+  --viz-gauge: hsl(120 100% 60%);
+  --viz-text: hsl(180 100% 80%);
+  --viz-grid: hsl(280 50% 20%);
+  --viz-glow: 0 0 10px hsl(320 100% 60%);
+}

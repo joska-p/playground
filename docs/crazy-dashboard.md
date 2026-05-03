@@ -90,7 +90,7 @@ top-level: mode, theme, paused
 **Decision:** Generator functions (cpu.ts, memory.ts, etc.) — pure functions, easy to unit test without React.
 
 ### Q23: Generator interface — what should the function signature be?
-**Decision:** `() => number` — generator is only responsible for generating the current value. Internally, it uses browser API if available, otherwise falls back to built-in simulation. Store manages the history array and trimming.
+**Decision:** Generator takes a **rule** that dictates generation: `(rule: CpuRule) => number`. Mirrors sequence-renderer pattern where `rule.getNext(context)` defines the logic. Generator becomes a pure function consuming the rule. Store manages history array and trimming.
 
 ### Q24: Where should shared TypeScript interfaces live, and what tool should define them?
 **Decision:** `src/core/types.ts` — single file using Zod schemas (`z.object(...)`) to define `MetricState`, `Generator`, `Visualization`, `Theme`, etc. Types inferred via `z.infer<typeof schema>`. Gives runtime validation for TDD.
@@ -120,18 +120,33 @@ top-level: mode, theme, paused
 
 ## Implementation Plan (Standard Mode First)
 
-### Phase 1: Tooling + Types
-1. Set up Vitest + @testing-library/react in workspace and `crazy-dashboard`
-2. Create `src/core/types.ts` with Zod schemas: `MetricState`, `Generator`, `Visualization`, `Theme`, `DashboardStore`
-3. Infer TypeScript types via `z.infer<>`
+### Phase 1: Tooling + Types ✅
+1. ✅ Set up Vitest + @testing-library/react in workspace and `crazy-dashboard`
+2. ✅ Create `src/core/types.ts` with Zod schemas: `MetricState`, `Generator`, `Visualization`, `Theme`, `DashboardStore`
+3. ✅ Infer TypeScript types via `z.infer<>`
 
-### Phase 2: Generators (TDD)
-4. Create `src/core/generators/index.ts` registry
-5. Create `src/core/generators/cpu.ts` — `() => number`, TDD with Vitest
-6. Create `src/core/generators/memory.ts` — browser API + fallback, TDD
-7. Create `src/core/generators/network.ts` — browser API + fallback, TDD
-8. Create `src/core/generators/walker.ts` — random walker, TDD
-9. Create `src/core/generators/cursor.ts` — reads real cursor position, TDD
+### Phase 2: Rules (TDD) ✅
+4. ✅ Create `src/core/rules/` — cpu-rules.ts, memory-rules.ts, network-rules.ts, walker-rules.ts, cursor-rules.ts
+5. ✅ 24 tests pass — all rule tests green
+
+### Phase 3: Generators (TDD) ✅
+6. ✅ Create `src/core/generators/index.ts` registry
+7. ✅ Create `src/core/generators/cpu.ts` — takes rule + context, TDD
+8. ✅ Create `src/core/generators/memory.ts` — takes rule + context, TDD
+9. ✅ Create `src/core/generators/network.ts` — takes rule + context, TDD
+10. ✅ Create `src/core/generators/walker.ts` — takes rule + context, TDD
+11. ✅ Create `src/core/generators/cursor.ts` — takes rule + context, TDD
+12. ✅ 14 tests pass, types clean
+
+### Phase 4: Store ✅
+13. ✅ Create `src/store/useDashboardStore.tsx` following mosaic-maker pattern
+14. ✅ State: `metrics` (record per metric), `mode`, `theme`, `paused`
+15. ✅ Actions: `setMode()`, `setTheme()`, `togglePause()`, `updateMetrics()`
+16. ✅ Rolling window: trim history to 60 points
+
+### Phase 5: rAF Loop 🔄
+17. Create `src/hooks/useDashboardLoop.ts` custom hook
+18. Reads `paused` from store, starts rAF on mount, cleans up on unmount
 
 ### Phase 3: Store
 10. Create `src/store/useDashboardStore.tsx` following mosaic-maker pattern

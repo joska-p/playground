@@ -100,37 +100,39 @@ export type DashboardStore = z.infer<typeof DashboardStoreSchema>;
 ## Generator Specs
 
 ### CPU Generator (`generators/cpu.ts`)
-- **Signature:** `() => number` (0-100)
-- **Behavior:** Simulated sine wave + noise if no API
-- **Browser API:** None (pure simulation)
-- **Test:** Deterministic with seeded Math.random mock
+- **Signature:** `(rule: CpuRule, context: CpuRuleContext) => number` (0-100)
+- **Rule pattern:** Mirrors sequence-renderer: `rule.getNext(context)` defines logic
+- **Rules:** `sineCpuRule`, `randomCpuRule`, `spikeCpuRule` in `rules/cpu-rules.ts`
+- **Browser API:** None (pure simulation via rules)
+- **Test:** Pass different rules, verify output range
 
 ### Memory Generator (`generators/memory.ts`)
-- **Signature:** `() => number` (0-100)
-- **Browser API:** `performance.memory` (Chrome only)
+- **Signature:** `(rule: MemoryRule, context: MemoryRuleContext) => number` (0-100)
+- **Rules:** `gradualMemoryRule`, `stepMemoryRule` in `rules/memory-rules.ts`
+- **Browser API (inside rule):** `performance.memory` (Chrome only)
   - `performance.memory.usedJSHeapSize / performance.memory.jsHeapSizeLimit * 100`
-- **Fallback:** Simulated gradual increase with periodic garbage collection dips
-- **Test:** Mock `performance.memory`, test fallback path
+- **Fallback:** Rules handle fallback internally when `performanceMemory` not in context
+- **Test:** Mock `performance.memory`, test rule fallback path
 
 ### Network Generator (`generators/network.ts`)
-- **Signature:** `() => number` (throughput in kB/s)
-- **Browser API:** `navigator.connection`
+- **Signature:** `(rule: NetworkRule, context: NetworkRuleContext) => number` (throughput in kB/s)
+- **Rules:** `steadyNetworkRule`, `burstyNetworkRule` in `rules/network-rules.ts`
+- **Browser API (inside rule):** `navigator.connection`
   - Use `downlink` (Mbps) converted to kB/s
-  - `rtt` for latency simulation
-- **Fallback:** Simulated bursty traffic pattern
-- **Test:** Mock `navigator.connection`, test fallback
+- **Fallback:** Rules handle fallback internally
+- **Test:** Mock `navigator.connection`, test rule fallback
 
 ### Walker Generator (`generators/walker.ts`)
-- **Signature:** `() => { x: number; y: number }`
-- **Behavior:** Random walk within a bounded 2D space (0-100, 0-100)
-- **Test:** Verify bounds, verify movement is ±1-3 units per step
+- **Signature:** `(rule: WalkerRule, context: WalkerRuleContext) => { x: number; y: number }`
+- **Rules:** `defaultWalkerRule`, `bounceWalkerRule` in `rules/walker-rules.ts`
+- **Behavior:** Random walk within bounded 2D space from context.bounds
+- **Test:** Verify bounds, verify movement
 
 ### Cursor Generator (`generators/cursor.ts`)
-- **Signature:** `() => { x: number; y: number }`
-- **Behavior:** Reads real `document.documentElement.clientWidth/Height` for bounds
-- **Note:** Actual cursor position captured via `mousemove` event listener in the hook, not in generator
-- **Generator role:** Return last known cursor position from store
-- **Test:** Mock cursor position, verify return
+- **Signature:** `(rule: CursorRule, context: CursorRuleContext) => { x: number; y: number }`
+- **Rules:** `defaultCursorRule`, `smoothedCursorRule` in `rules/cursor-rules.ts`
+- **Note:** Real cursor position captured via `mousemove` in the hook
+- **Test:** Pass context with cursor position, verify return
 
 ## Store (`src/store/useDashboardStore.tsx`)
 

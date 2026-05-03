@@ -1,3 +1,2 @@
-import { generateData } from "../generator.js";
-
-export const visualizations: (() => null)[] = [generateData];
+export { standardVisualizations } from "./standard/index.js";
+export type { Visualization } from "../types.js";
