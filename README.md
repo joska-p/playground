@@ -72,3 +72,9 @@ pnpm install && pnpm dev
 ## Built With
 
 [Astro](https://astro.build) · [React 19](https://react.dev) · [Tailwind CSS](https://tailwindcss.com) · [TypeScript](https://typescriptlang.org) · [Turborepo](https://turbo.build/repo) · [Storybook](https://storybook.js.org) · [D3](https://d3js.org)
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).

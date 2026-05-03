@@ -1,6 +1,7 @@
 {
   "name": "@repo/playground",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "deploy:vercel": "pnpm build && mkdir -p ./apps/playground/dist/storybook && cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/",
     "build": "turbo run build",
