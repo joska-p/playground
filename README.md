@@ -1,6 +1,7 @@
 # Creative Playground
 
-[![Deploy to GitHub Pages](https://github.com/joska-p/playground/actions/workflows/deploy.yml/badge.svg)](https://github.com/joska-p/playground/actions/workflows/deploy.yml)
+[![Pipeline Status](https://gitlab.com/jpotin/playground/badges/main/pipeline.svg)](https://gitlab.com/jpotin/playground/-/pipelines)
+[![Pages Status](https://gitlab.com/jpotin/playground/badges/main/pages.svg)](https://jpotin.gitlab.io/playground/)
 
 > A creative coding playground where I experiment with generative art, data viz, and visual toys. Built for fun, documented for collaborators.
 
