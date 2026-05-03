@@ -7,8 +7,10 @@ import { remarkBaseUrl } from "./src/lib/remark-base-url.mjs";
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
+const gitlabUrl = "https://jpotin.gitlab.io";
+const vercelUrl = "https://playground-ten-sand.vercel.app";
 
-const siteUrl = isVercel ? "https://playground-ten-sand.vercel.app" : "https://joska-p.github.io";
+const siteUrl = isVercel ? vercelUrl : gitlabUrl;
 
 const basePath = isVercel ? "/" : "/playground";
 
