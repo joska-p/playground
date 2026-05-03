@@ -8,7 +8,7 @@
 
   // --userns=keep-id maps your host UID to UID 1000 inside the container,
   // so files created inside are owned by you on the host without sudo.
-  "runArgs": ["--userns=keep-id"],
+  "runArgs": ["--userns=keep-id", "--name", "zed-sandbox"],
 
   "remoteUser": "dev",
 
