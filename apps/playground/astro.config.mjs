@@ -32,7 +32,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
     build: {
       sourcemap: true,
-      minify: false,
     },
   },
   compressHTML: false,

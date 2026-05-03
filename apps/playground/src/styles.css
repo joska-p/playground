@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "@repo/tailwind-config/gruvbox";
+@import "@repo/crazy-dashboard/theme";
 
 /* Explicitly tell Tailwind to scan my package sources for classes */
 @source "../node_modules/@repo/ui";
