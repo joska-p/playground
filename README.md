@@ -54,17 +54,17 @@ pnpm install && pnpm dev
 
 | Doc | Description |
 | --- | --- |
-| [Documentation hub](https://joska-p.github.io/playground/docs/) | Documentation hub |
-| [Overview](https://joska-p.github.io/playground/docs/explanation/overview/) | What this is, principles, architecture |
-| [Engines](https://joska-p.github.io/playground/docs/explanation/engines/) | How rules and visualizations work |
-| [Your First Visualization](https://joska-p.github.io/playground/docs/tutorial/first-visualization/) | Step-by-step tutorial |
-| [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/) | How to add new visualizations |
-| [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/) | How to add UI components |
-| [Adding a Rule](https://joska-p.github.io/playground/docs/how-to/adding-sequence-rule/) | Add sequence rules |
-| [Adding a Visualization](https://joska-p.github.io/playground/docs/how-to/adding-visualization/) | Add visualization types |
-| [Import and Export Strategy](https://joska-p.github.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules |
-| [Design Tokens](https://joska-p.github.io/playground/docs/reference/design-tokens/) | Color palette and typography |
-| [UI Components](https://joska-p.github.io/playground/docs/reference/ui-components/) | Component library reference |
+| [Documentation hub](https://playground-beryl-omega.vercel.app/docs/) | Documentation hub |
+| [Overview](https://playground-beryl-omega.vercel.app/docs/explanation/overview/) | What this is, principles, architecture |
+| [Engines](https://playground-beryl-omega.vercel.app/docs/explanation/engines/) | How rules and visualizations work |
+| [Your First Visualization](https://playground-beryl-omega.vercel.app/docs/tutorial/first-visualization/) | Step-by-step tutorial |
+| [Adding Projects](https://playground-beryl-omega.vercel.app/docs/how-to/adding-projects/) | How to add new visualizations |
+| [Adding Components](https://playground-beryl-omega.vercel.app/docs/how-to/adding-components/) | How to add UI components |
+| [Adding a Rule](https://playground-beryl-omega.vercel.app/docs/how-to/adding-sequence-rule/) | Add sequence rules |
+| [Adding a Visualization](https://playground-beryl-omega.vercel.app/docs/how-to/adding-visualization/) | Add visualization types |
+| [Import and Export Strategy](https://playground-beryl-omega.vercel.app/docs/reference/import-export-strategy/) | Public API and barrel rules |
+| [Design Tokens](https://playground-beryl-omega.vercel.app/docs/reference/design-tokens/) | Color palette and typography |
+| [UI Components](https://playground-beryl-omega.vercel.app/docs/reference/ui-components/) | Component library reference |
 
 ---
 

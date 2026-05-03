@@ -28,4 +28,4 @@ See [Engines](/docs/explanation/engines/) for detailed architecture.
 
 ---
 
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://playground-beryl-omega.vercel.app)_

@@ -35,10 +35,10 @@ export function MyComponent() {
 
 Detailed technical reference and usage guides are available in the Documentation Hub:
 
-- [**Component API Reference**](https://joska-p.github.io/playground/docs/reference/component-api)
-- [**Design Tokens & Theme**](https://joska-p.github.io/playground/docs/reference/design-tokens)
-- [**Creating New Components**](https://joska-p.github.io/playground/docs/how-to/creating-components)
+- [**Component API Reference**](https://playground-beryl-omega.vercel.app/docs/reference/component-api)
+- [**Design Tokens & Theme**](https://playground-beryl-omega.vercel.app/docs/reference/design-tokens)
+- [**Creating New Components**](https://playground-beryl-omega.vercel.app/docs/how-to/creating-components)
 
 ---
 
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://playground-beryl-omega.vercel.app)_

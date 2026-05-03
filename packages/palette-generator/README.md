@@ -40,7 +40,7 @@ const { palette, setPalette } = usePalette();
 
 ## 🎯 Live Example
 
-See it in action at [joska-p.github.io/playground/colors/palette-generator](https://joska-p.github.io/playground/colors/palette-generator)
+See it in action at [joska-p.github.io/playground/colors/palette-generator](https://playground-beryl-omega.vercel.app/colors/palette-generator)
 
 ---
 
