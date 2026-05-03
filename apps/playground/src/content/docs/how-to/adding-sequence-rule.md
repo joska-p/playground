@@ -25,11 +25,11 @@ type SequenceRule = {
 
 `NextStepParams` gives you:
 
-| Param | Type | Meaning |
-| --- | --- | --- |
-| `index` | `number` | Current step number (starts at 0) |
-| `current` | `number` | The previous value in the sequence |
-| `seen` | `Set<number>` | All values generated so far |
+| Param     | Type          | Meaning                            |
+| --------- | ------------- | ---------------------------------- |
+| `index`   | `number`      | Current step number (starts at 0)  |
+| `current` | `number`      | The previous value in the sequence |
+| `seen`    | `Set<number>` | All values generated so far        |
 
 ---
 

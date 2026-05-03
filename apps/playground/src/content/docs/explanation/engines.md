@@ -23,21 +23,21 @@ Rule (math) → Sequence → Visualization (draw) → Canvas
 
 ### Available Rules
 
-| Rule | ID | Description |
-| --- | --- | --- |
-| **Recamán** | `recaman` | Jump back by n if possible |
-| **Fibonacci** | `fibonacci` | F(n) = F(n-1) + F(n-2) |
-| **Primes** | `primes` | Prime numbers only |
-| **Triangular** | `triangular` | 1, 3, 6, 10, 15... |
-| **Collatz** | `collatz` | Even: n/2, Odd: 3n+1 |
+| Rule           | ID           | Description                |
+| -------------- | ------------ | -------------------------- |
+| **Recamán**    | `recaman`    | Jump back by n if possible |
+| **Fibonacci**  | `fibonacci`  | F(n) = F(n-1) + F(n-2)     |
+| **Primes**     | `primes`     | Prime numbers only         |
+| **Triangular** | `triangular` | 1, 3, 6, 10, 15...         |
+| **Collatz**    | `collatz`    | Even: n/2, Odd: 3n+1       |
 
 ### Available Visualizations
 
-| Visualization | ID | Description |
-| --- | --- | --- |
-| **Line Graph** | `line-graph` | Connected points, stock-chart style |
-| **Scatter Plot** | `scatter` | Dots positioned by sequence value |
-| **Bars** | `bars` | Vertical bars per sequence step |
+| Visualization    | ID           | Description                         |
+| ---------------- | ------------ | ----------------------------------- |
+| **Line Graph**   | `line-graph` | Connected points, stock-chart style |
+| **Scatter Plot** | `scatter`    | Dots positioned by sequence value   |
+| **Bars**         | `bars`       | Vertical bars per sequence step     |
 
 ### Data Structures
 

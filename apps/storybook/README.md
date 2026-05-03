@@ -43,10 +43,10 @@ packages/ui/src/components/Button/
 
 ## 📖 Learn More
 
-| Topic              | Link                                                                                     |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| Component patterns | [docs/how-to/creating-components](../docs/how-to/creating-components.md)                 |
-| Design tokens      | [docs/reference/design-tokens](../docs/reference/design-tokens.md)                       |
+| Topic              | Link                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------- |
+| Component patterns | [docs/how-to/creating-components](../docs/how-to/creating-components.md)                      |
+| Design tokens      | [docs/reference/design-tokens](../docs/reference/design-tokens.md)                            |
 | Live Storybook     | [joska-p.github.io/playground/storybook](https://playground-beryl-omega.vercel.app/storybook) |
 
 ---

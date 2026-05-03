@@ -2,9 +2,6 @@
   "name": "@repo/playground",
   "type": "module",
   "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
@@ -20,6 +17,7 @@
     "@astrojs/react": "^5.0.4",
     "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",
+    "@repo/crazy-dashboard": "workspace:*",
     "@repo/palette-generator": "workspace:*",
     "@repo/sequence-renderer": "workspace:*",
     "@repo/ui": "workspace:*",

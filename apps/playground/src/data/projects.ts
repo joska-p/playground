@@ -1,5 +1,13 @@
 import type { ComponentType } from "react";
-import { Grid3X3, Infinity as InfinityIcon, Palette, Flame, PieChart, Grid } from "lucide-react";
+import {
+  Grid3X3,
+  Infinity as InfinityIcon,
+  Palette,
+  Flame,
+  PieChart,
+  Grid,
+  BarChart,
+} from "lucide-react";
 
 /**
  * Project categories
@@ -101,6 +109,15 @@ export const projects: Record<string, Project> = {
     tags: ["Graph", "D3"],
     icon: Grid,
     featured: true,
+  },
+  crazyDashboard: {
+    slug: "crazy-dashboard",
+    name: "Crazy Dashboard",
+    description: "A crazy dashboard with multiple charts and interactive elements.",
+    category: "data-viz",
+    tags: [],
+    icon: BarChart,
+    featured: false,
   },
 };
 
