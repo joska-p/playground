@@ -1,11 +1,11 @@
 # Creative Playground
 
 [![Pipeline Status](https://gitlab.com/jpotin/playground/badges/main/pipeline.svg)](https://gitlab.com/jpotin/playground/-/pipelines)
-[![Pages Status](https://gitlab.com/jpotin/playground/badges/main/pages.svg)](https://jpotin.gitlab.io/playground/)
+[![Website](https://img.shields.io/badge/Live_Demo-GitLab_Pages-orange?style=flat&logo=gitlab)](https://jpotin.gitlab.io/playground/)
 
 > A creative coding playground where I experiment with generative art, data viz, and visual toys. Built for fun, documented for collaborators.
 
-by [@joska-p](https://github.com/joska-p)
+by [@jpotin](https://gitlab.com/jpotin)
 
 ---
 
