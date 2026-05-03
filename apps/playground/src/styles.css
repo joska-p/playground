@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 @import "@repo/tailwind-config/gruvbox";
 
-/* Explicitly tell Tailwind to scan your package sources for classes */
+/* Explicitly tell Tailwind to scan my package sources for classes */
 @source "../node_modules/@repo/ui";
 @source "../node_modules/@repo/mosaic-maker";
 @source "../node_modules/@repo/sequence-renderer";
