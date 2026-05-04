@@ -297,6 +297,21 @@ importers:
         specifier: ^8.58.2
         version: 8.59.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
 
+  packages/generators:
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: ^9.39.4
+        version: 9.39.4(jiti@2.6.1)
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+
   packages/image-to-particles:
     dependencies:
       '@repo/ui':

@@ -1,0 +1,98 @@
+# syntax=docker/dockerfile:1
+FROM debian:bookworm-slim
+
+# ---------------------------------------------------------------------------
+# System packages
+# ---------------------------------------------------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash \
+    bash-completion \
+    ca-certificates \
+    curl \
+    git \
+    gnupg \
+    htop \
+    less \
+    locales \
+    lsb-release \
+    man-db \
+    openssh-server \
+    procps \
+    sudo \
+    tree \
+    unzip \
+    vim \
+    wget \
+    zip \
+    && rm -rf /var/lib/apt/lists/* \
+    # sshd needs /run/sshd to exist
+    && mkdir -p /run/sshd
+
+# ---------------------------------------------------------------------------
+# Locale
+# ---------------------------------------------------------------------------
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
+# ---------------------------------------------------------------------------
+# Create the "boffin" user — UID/GID 1000 to match the host user
+# ---------------------------------------------------------------------------
+RUN groupadd --gid 1000 boffin \
+    && useradd \
+        --uid 1000 \
+        --gid 1000 \
+        --create-home \
+        --shell /bin/bash \
+        --comment "The Boffin — chief experimentalist" \
+        boffin \
+    # Allow boffin to sudo without a password (handy for installing system tools)
+    && echo "boffin ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/boffin \
+    && chmod 0440 /etc/sudoers.d/boffin
+
+# ---------------------------------------------------------------------------
+# SSH server configuration (must run as root)
+#   - Listen on 2222 to avoid conflict with host SSH on 22
+#   - Disable password auth — key only
+#   - Root login disabled
+# ---------------------------------------------------------------------------
+RUN sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config \
+    && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
+    && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config \
+    && echo "PermitRootLogin no" >> /etc/ssh/sshd_config \
+    && echo "AllowUsers boffin" >> /etc/ssh/sshd_config
+
+# ---------------------------------------------------------------------------
+# Switch to boffin for all subsequent steps so tool installations
+# land in /home/boffin and are owned by UID 1000
+# ---------------------------------------------------------------------------
+USER boffin
+WORKDIR /home/boffin
+
+# ---------------------------------------------------------------------------
+# Sensible shell defaults
+# ---------------------------------------------------------------------------
+RUN echo '\n# ---- boffin env ----' >> ~/.bashrc \
+    && echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc \
+    && echo 'export HISTSIZE=10000' >> ~/.bashrc \
+    && echo 'export HISTFILESIZE=20000' >> ~/.bashrc \
+    && echo 'source /etc/bash_completion 2>/dev/null || true' >> ~/.bashrc
+
+# ---------------------------------------------------------------------------
+# Exposed ports
+# ---------------------------------------------------------------------------
+# 2222  — SSH
+# 3000  — Node / general dev servers
+# 4321  — Astro dev server
+# 4322  — spare / secondary dev server
+# 5000  — Flask / MLflow
+# 6006  — TensorBoard
+# 8080  — Generic HTTP
+# 8888  — Jupyter
+EXPOSE 2222 3000 4321 4322 5000 6006 8080 8888
+
+# ---------------------------------------------------------------------------
+# Default command
+# ---------------------------------------------------------------------------
+CMD ["/bin/bash"]

@@ -1,40 +1,82 @@
 {
-  "name": "sandbox-dev",
+  // -------------------------------------------------------------------------
+  // Dev Container — "boffin" experiment sandbox
+  // Spec: https://containers.dev/implementors/json_reference/
+  // -------------------------------------------------------------------------
+  "name": "boffin-lab",
+  "containerName": "boffin-lab",
 
+  // Build from the local ContainerFile (Podman-compatible)
   "build": {
-    "dockerfile": "./Containerfile",
-    "context": ".."
+    "dockerfile": "ContainerFile",
+    "context": "..",
   },
 
-  // --userns=keep-id maps your host UID to UID 1000 inside the container,
-  // so files created inside are owned by you on the host without sudo.
-  "runArgs": ["--userns=keep-id", "--name", "zed-sandbox"],
+  // Run as the boffin user (UID 1000 = your host user)
+  "remoteUser": "boffin",
+  "containerUser": "boffin",
 
-  "remoteUser": "dev",
-
-  // Bind-mount .container_home/ as /home/dev so your shell config, history,
-  // and tool state persist across container rebuilds on your host machine.
-  // Create it once with: mkdir .container_home
+  // -------------------------------------------------------------------------
+  // Mounts
+  //   - Bind the container home to your local playground directory so that
+  //     everything boffin installs or creates persists across container runs.
+  //   - The source path must already exist on the host (or be created before
+  //     starting the container).
+  // -------------------------------------------------------------------------
   "mounts": [
-    "source=${localWorkspaceFolder}/.container_home,target=/home/dev,type=bind,consistency=cached"
+    {
+      "type": "bind",
+      "source": "${localWorkspaceFolder}/.container_home",
+      "target": "/home/boffin",
+      "consistency": "cached",
+    },
   ],
 
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+  // -------------------------------------------------------------------------
+  // Port forwarding — all ports are forwarded to the same host port
+  // -------------------------------------------------------------------------
+  "forwardPorts": [2222, 3000, 4321, 4322, 5000, 6006, 8080, 8888],
 
-  // Astro: 4321 · Storybook: 6006 · Generic: 3000 / 5000 / 8080 / 8888
-  "forwardPorts": [4321, 6006, 3000, 5000, 8080, 8888],
-
-  // Needed so non-interactive processes (editor extensions, scripts) can find
-  // node, pnpm, uv, etc. without sourcing .zshrc first.
-  "containerEnv": {
-    "NVM_DIR": "/home/dev/.nvm",
-    "PNPM_HOME": "/home/dev/.local/share/pnpm",
-    "UV_TOOL_DIR": "/home/dev/.local/uv-tools",
-    "UV_TOOL_BIN_DIR": "/home/dev/.local/bin"
+  "portsAttributes": {
+    "2222": { "label": "SSH" },
+    "3000": { "label": "Dev server (Node / general)" },
+    "4321": { "label": "Astro dev server" },
+    "4322": { "label": "Spare / secondary" },
+    "5000": { "label": "Flask / MLflow" },
+    "6006": { "label": "TensorBoard" },
+    "8080": { "label": "Generic HTTP" },
+    "8888": { "label": "Jupyter" },
   },
 
-  // Copies items from /opt/sandbox/skel into /home/dev for anything that
-  // doesn't already exist there, so your customisations are never overwritten.
-  "postCreateCommand": "bash /opt/sandbox/init-home.sh"
+  // -------------------------------------------------------------------------
+  // Container run arguments (Podman / Docker)
+  //   --userns=keep-id  → Podman maps your host UID into the container so
+  //                        bind-mount ownership stays consistent.
+  //                        Remove this line if you use Docker instead.
+  // -------------------------------------------------------------------------
+  "runArgs": ["--userns=keep-id"],
+
+  // -------------------------------------------------------------------------
+  // Lifecycle hooks
+  //   Ensure the local mount target exists before the container starts.
+  // -------------------------------------------------------------------------
+  "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.container_home",
+
+  // -------------------------------------------------------------------------
+  // Start SSH server automatically when the container starts
+  // -------------------------------------------------------------------------
+  "postStartCommand": "sudo /usr/sbin/sshd",
+
+  // -------------------------------------------------------------------------
+  // VS Code / Zed compatible settings
+  //   (Extensions are intentionally omitted — install what you need per
+  //    experiment via the devcontainer features or manually.)
+  // -------------------------------------------------------------------------
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+      },
+    },
+  },
 }
