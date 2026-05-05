@@ -3,11 +3,16 @@
 # setup.sh — boffin lab environment bootstrap
 # Run as: bash .devcontainer/setup.sh
 # Safe to re-run — skips steps already completed.
+#
+# NOTE: System packages (zsh, git, build tools, etc.) are already baked into
+# the ContainerFile image — no apt-get needed here.
 # =============================================================================
 
 set -euo pipefail
 
-# Colors for output
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../dotfiles" && pwd)"
+
+# Colors
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
@@ -26,7 +31,8 @@ if [ "$(whoami)" != "boffin" ]; then
 fi
 
 # =============================================================================
-# 1. SSH key setup
+# 1. SSH key setup — fetched from GitLab (no hardcoded keys in this file)
+#    Keys are managed at: https://gitlab.com/-/profile/keys
 # =============================================================================
 log "Setting up SSH authorized_keys..."
 mkdir -p "$HOME/.ssh"
@@ -34,46 +40,34 @@ chmod 700 "$HOME/.ssh"
 touch "$HOME/.ssh/authorized_keys"
 chmod 600 "$HOME/.ssh/authorized_keys"
 
-PUBKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICzsf+ixruiCaILvOX8yrPC5YXNF/tRuyrnzFgM6yFCz GitLab Migration"
-if grep -qF "$PUBKEY" "$HOME/.ssh/authorized_keys" 2>/dev/null; then
-  warn "SSH public key already in authorized_keys, skipping."
+# Set your GitLab username here (or export GITLAB_USER before running)
+GITLAB_USER="${GITLAB_USER:-}"
+if [ -z "$GITLAB_USER" ]; then
+  warn "GITLAB_USER not set — skipping SSH key fetch."
+  warn "Set it and re-run: GITLAB_USER=yourusername bash .devcontainer/setup.sh"
 else
-  echo "$PUBKEY" >> "$HOME/.ssh/authorized_keys"
-  ok "SSH public key added to authorized_keys."
+  KEYS_URL="https://gitlab.com/${GITLAB_USER}.keys"
+  FETCHED_KEYS=$(curl -fsSL "$KEYS_URL") || { warn "Failed to fetch keys from $KEYS_URL"; FETCHED_KEYS=""; }
+  if [ -n "$FETCHED_KEYS" ]; then
+    # Add only keys not already present
+    ADDED=0
+    while IFS= read -r key; do
+      [ -z "$key" ] && continue
+      if ! grep -qF "$key" "$HOME/.ssh/authorized_keys"; then
+        echo "$key" >> "$HOME/.ssh/authorized_keys"
+        ADDED=$((ADDED + 1))
+      fi
+    done <<< "$FETCHED_KEYS"
+    ok "SSH keys synced from gitlab.com/${GITLAB_USER} ($ADDED new key(s) added)."
+  else
+    warn "No keys found at $KEYS_URL — check your GitLab username and that you have keys registered."
+  fi
 fi
 
 # =============================================================================
-# 3. System dependencies (via sudo — boffin has passwordless sudo)
+# 2. Zsh + Oh My Zsh + Powerlevel10k
 # =============================================================================
-log "Installing system dependencies..."
-sudo apt-get update -qq
-sudo apt-get install -y --no-install-recommends \
-  build-essential \
-  curl \
-  fontconfig \
-  git \
-  libffi-dev \
-  liblzma-dev \
-  libncursesw5-dev \
-  libreadline-dev \
-  libsqlite3-dev \
-  libssl-dev \
-  libxml2-dev \
-  libxmlsec1-dev \
-  llvm \
-  make \
-  tk-dev \
-  wget \
-  xz-utils \
-  zlib1g-dev \
-  zsh \
-  zsh-common
-ok "System dependencies installed."
-
-# =============================================================================
-# 4. Zsh + Oh My Zsh + Powerlevel10k
-# =============================================================================
-log "Setting up Zsh + Oh My Zsh..."
+log "Setting up Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -103,263 +97,13 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
 fi
 ok "Zsh plugins installed."
 
-log "Writing .zshrc..."
-cat > "$HOME/.zshrc" << 'ZSHRC'
-# --- Powerlevel10k instant prompt (keep at top) ---
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# --- Oh My Zsh ---
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  docker
-  python
-  node
-)
-source "$ZSH/oh-my-zsh.sh"
-
-# --- p10k config ---
-[[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
-
-# --- pyenv ---
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# --- nvm ---
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
-
-# --- pnpm (via corepack) ---
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
-# --- uv ---
-export PATH="$HOME/.local/bin:$PATH"
-
-# --- General ---
-export PATH="$HOME/.local/bin:$PATH"
-export HISTSIZE=10000
-export HISTFILESIZE=20000
-ZSHRC
-ok ".zshrc written."
-
-log "Writing Powerlevel10k config (.p10k.zsh)..."
-cat > "$HOME/.p10k.zsh" << 'P10K'
-# Generated by Powerlevel10k configuration wizard on 2026-05-04 at 18:02 UTC.
-# Based on romkatv/powerlevel10k/config/p10k-pure.zsh, checksum 07533.
-# Wizard options: nerdfont-v3 + powerline, large icons, pure, snazzy, 2 lines, sparse,
-# transient_prompt, instant_prompt=verbose.
-# Type `p10k configure` to generate another config.
-#
-# Config file for Powerlevel10k with the style of Pure (https://github.com/sindresorhus/pure).
-#
-# Differences from Pure:
-#
-#   - Git:
-#     - `@c4d3ec2c` instead of something like `v1.4.0~11` when in detached HEAD state.
-#     - No automatic `git fetch` (the same as in Pure with `PURE_GIT_PULL=0`).
-#
-# Apart from the differences listed above, the replication of Pure prompt is exact. This includes
-# even the questionable parts. For example, just like in Pure, there is no indication of Git status
-# being stale; prompt symbol is the same in command, visual and overwrite vi modes; when prompt
-# doesn't fit on one line, it wraps around with no attempt to shorten it.
-#
-# If you like the general style of Pure but not particularly attached to all its quirks, type
-# `p10k configure` and pick "Lean" style. This will give you slick minimalist prompt while taking
-# advantage of Powerlevel10k features that aren't present in Pure.
-
-# Temporarily change options.
-'builtin' 'local' '-a' 'p10k_config_opts'
-[[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
-[[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')
-[[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
-'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
-
-() {
-  emulate -L zsh -o extended_glob
-
-  # Unset all configuration options.
-  unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
-
-  # Zsh >= 5.1 is required.
-  [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
-
-  # Prompt colors.
-  local grey='242'
-  local red='#FF5C57'
-  local yellow='#F3F99D'
-  local blue='#57C7FF'
-  local magenta='#FF6AC1'
-  local cyan='#9AEDFE'
-  local white='#F1F1F0'
-
-  # Left prompt segments.
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    # =========================[ Line #1 ]=========================
-    context                   # user@host
-    dir                       # current directory
-    vcs                       # git status
-    command_execution_time    # previous command duration
-    # =========================[ Line #2 ]=========================
-    newline                   # \n
-    virtualenv                # python virtual environment
-    prompt_char               # prompt symbol
-  )
-
-  # Right prompt segments.
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    # =========================[ Line #1 ]=========================
-    # command_execution_time  # previous command duration
-    # virtualenv              # python virtual environment
-    # context                 # user@host
-    # time                    # current time
-    # =========================[ Line #2 ]=========================
-    newline                   # \n
-  )
-
-  # Basic style options that define the overall prompt look.
-  typeset -g POWERLEVEL9K_BACKGROUND=                            # transparent background
-  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
-  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
-  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
-  typeset -g POWERLEVEL9K_VISUAL_IDENTIFIER_EXPANSION=           # no segment icons
-
-  # Add an empty line before each prompt except the first. This doesn't emulate the bug
-  # in Pure that makes prompt drift down whenever you use the Alt-C binding from fzf or similar.
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-
-  # Magenta prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS}_FOREGROUND=$magenta
-  # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS}_FOREGROUND=$red
-  # Default prompt symbol.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
-  # Prompt symbol in command vi mode.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
-  # Prompt symbol in visual vi mode is the same as in command mode.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='❮'
-  # Prompt symbol in overwrite vi mode is the same as in command mode.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=false
-
-  # Grey Python Virtual Environment.
-  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=$grey
-  # Don't show Python version.
-  typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
-  typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
-
-  # Blue current directory.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$blue
-
-  # Context format when root: user@host. The first part white, the rest grey.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%F{$white}%n%f%F{$grey}@%m%f"
-  # Context format when not root: user@host. The whole thing grey.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%F{$grey}%n@%m%f"
-  # Don't show context unless root or in SSH.
-  typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_CONTENT_EXPANSION=
-
-  # Show previous command duration only if it's >= 5s.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=5
-  # Don't show fractional seconds. Thus, 7s rather than 7.3s.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=0
-  # Duration format: 1d 2h 3m 4s.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
-  # Yellow previous command duration.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=$yellow
-
-  # Grey Git prompt. This makes stale prompts indistinguishable from up-to-date ones.
-  typeset -g POWERLEVEL9K_VCS_FOREGROUND=$grey
-
-  # Disable async loading indicator to make directories that aren't Git repositories
-  # indistinguishable from large Git repositories without known state.
-  typeset -g POWERLEVEL9K_VCS_LOADING_TEXT=
-
-  # Don't wait for Git status even for a millisecond, so that prompt always updates
-  # asynchronously when Git state changes.
-  typeset -g POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS=0
-
-  # Cyan ahead/behind arrows.
-  typeset -g POWERLEVEL9K_VCS_{INCOMING,OUTGOING}_CHANGESFORMAT_FOREGROUND=$cyan
-  # Don't show remote branch, current tag or stashes.
-  typeset -g POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind)
-  # Don't show the branch icon.
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=
-  # When in detached HEAD state, show @commit where branch normally goes.
-  typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='@'
-  # Don't show staged, unstaged, untracked indicators.
-  typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED}_ICON=
-  # Show '*' when there are staged, unstaged or untracked files.
-  typeset -g POWERLEVEL9K_VCS_DIRTY_ICON='*'
-  # Show '⇣' if local branch is behind remote.
-  typeset -g POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=':⇣'
-  # Show '⇡' if local branch is ahead of remote.
-  typeset -g POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=':⇡'
-  # Don't show the number of commits next to the ahead/behind arrows.
-  typeset -g POWERLEVEL9K_VCS_{COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=1
-  # Remove space between '⇣' and '⇡' and all trailing spaces.
-  typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='${${${P9K_CONTENT/⇣* :⇡/⇣⇡}// }//:/ }'
-
-  # Grey current time.
-  typeset -g POWERLEVEL9K_TIME_FOREGROUND=$grey
-  # Format for the current time: 09:51:02. See `man 3 strftime`.
-  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
-  # If set to true, time will update when you hit enter. This way prompts for the past
-  # commands will contain the start times of their commands rather than the end times of
-  # their preceding commands.
-  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
-
-  # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
-  # when accepting a command line. Supported values:
-  #
-  #   - off:      Don't change prompt when accepting a command line.
-  #   - always:   Trim down prompt when accepting a command line.
-  #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
-  #               typed after changing current working directory.
-  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
-
-  # Instant prompt mode.
-  #
-  #   - off:     Disable instant prompt. Choose this if you've tried instant prompt and found
-  #              it incompatible with your zsh configuration files.
-  #   - quiet:   Enable instant prompt and don't print warnings when detecting console output
-  #              during zsh initialization. Choose this if you've read and understood
-  #              https://github.com/romkatv/powerlevel10k#instant-prompt.
-  #   - verbose: Enable instant prompt and print a warning when detecting console output during
-  #              zsh initialization. Choose this if you've never tried instant prompt, haven't
-  #              seen the warning, or if you are unsure what this all means.
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-
-  # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
-  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
-  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
-  # really need it.
-  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
-
-  # If p10k is already loaded, reload configuration.
-  # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
-  (( ! $+functions[p10k] )) || p10k reload
-}
-
-# Tell `p10k configure` which file it should overwrite.
-typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
-
-(( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
-'builtin' 'unset' 'p10k_config_opts'
-P10K
-ok "Powerlevel10k config written."
-
-log "Setting zsh as default shell for boffin..."
-sudo chsh -s "$(which zsh)" boffin
-ok "Default shell set to zsh."
+log "Copying dotfiles from $DOTFILES_DIR ..."
+cp "$DOTFILES_DIR/.zshrc"   "$HOME/.zshrc"
+cp "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+ok "Dotfiles copied."
 
 # =============================================================================
-# 5. pyenv + Python
+# 3. pyenv
 # =============================================================================
 log "Installing pyenv..."
 if [ ! -d "$HOME/.pyenv" ]; then
@@ -373,23 +117,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-log "Installing latest stable Python via pyenv..."
-LATEST_PYTHON=$(pyenv install --list \
-  | grep -E '^\s+3\.[0-9]+\.[0-9]+$' \
-  | grep -v -- '-' \
-  | tail -1 \
-  | tr -d ' ')
-if pyenv versions | grep -q "$LATEST_PYTHON"; then
-  warn "Python $LATEST_PYTHON already installed."
-else
-  pyenv install "$LATEST_PYTHON"
-  ok "Python $LATEST_PYTHON installed."
-fi
-pyenv global "$LATEST_PYTHON"
-ok "Python $(python --version) set as global."
-
 # =============================================================================
-# 6. uv
+# 4. uv
 # =============================================================================
 log "Installing uv..."
 if ! command -v uv &>/dev/null; then
@@ -401,7 +130,7 @@ else
 fi
 
 # =============================================================================
-# 7. nvm + Node.js LTS
+# 5. nvm + Node.js LTS
 # =============================================================================
 log "Installing nvm..."
 if [ ! -d "$HOME/.nvm" ]; then
@@ -426,7 +155,7 @@ else
 fi
 
 # =============================================================================
-# 8. corepack + pnpm
+# 6. corepack + pnpm
 # =============================================================================
 log "Enabling corepack and activating pnpm..."
 corepack enable
@@ -436,58 +165,163 @@ export PATH="$PNPM_HOME:$PATH"
 ok "pnpm $(pnpm --version) ready."
 
 # =============================================================================
-# 9. TypeScript + language server (global, via pnpm)
+# 7. TypeScript + language server (global, via pnpm)
 # =============================================================================
 log "Installing TypeScript and language server globally..."
 pnpm add -g typescript typescript-language-server
 ok "TypeScript $(tsc --version) + language server installed."
 
 # =============================================================================
-# 10. Global pnpm packages — add yours here
+# 8. Global pnpm packages
 # =============================================================================
 log "Installing global pnpm packages..."
-PNPM_GLOBAL_PACKAGES=(
-  # Add global pnpm packages below, one per line. Examples:
-  "prettier" # Code formatter
-  "eslint" # Linter
-  "@mariozechner/pi-coding-agent" # AI coding agent
-  # "tsx"
-  # "nodemon"
-)
-if [ ${#PNPM_GLOBAL_PACKAGES[@]} -gt 0 ]; then
-  pnpm add -g "${PNPM_GLOBAL_PACKAGES[@]}"
-  ok "Global pnpm packages installed."
+pnpm add -g \
+  prettier \
+  eslint \
+  @biomejs/biome \
+  serve \
+  @mariozechner/pi-coding-agent
+ok "Global pnpm packages installed."
+
+log "Installing glab (GitLab CLI)..."
+if ! command -v glab &>/dev/null; then
+  GLAB_VERSION=$(curl -fsSL https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases \
+    | grep -o '"tag_name":"[^"]*"' | head -1 | cut -d'"' -f4)
+  curl -fsSL \
+    "https://gitlab.com/gitlab-org/cli/-/releases/${GLAB_VERSION}/downloads/glab_${GLAB_VERSION#v}_linux_amd64.tar.gz" \
+    | tar -xz -C "$HOME/.local/bin" --strip-components=2 bin/glab 2>/dev/null \
+    && ok "glab ${GLAB_VERSION} installed. Run: glab auth login" \
+    || warn "glab install failed — install manually from https://gitlab.com/gitlab-org/cli"
 else
-  warn "No extra global pnpm packages defined — add them to PNPM_GLOBAL_PACKAGES in setup.sh."
+  warn "glab already installed: $(glab --version)"
 fi
 
 # =============================================================================
-# 11. Python packages via uv — add yours here
+# 9. Global Python tools via uv
 # =============================================================================
 log "Installing global Python tools via uv..."
-UV_TOOLS=(
-  # Add uv tools below, one per line. Examples:
-  # "ruff"
-  # "black"
-  # "ipython"
-  # "jupyterlab"
-  # "httpie"
-  "graphifyy" # knowledge graph
-)
-if [ ${#UV_TOOLS[@]} -gt 0 ]; then
-  for tool in "${UV_TOOLS[@]}"; do
-    uv tool install "$tool"
-  done
-  ok "uv tools installed."
+for tool in ruff ipython jupyterlab httpie graphifyy; do
+  if uv tool list 2>/dev/null | grep -q "^${tool} "; then
+    warn "${tool} already installed, skipping."
+  else
+    uv tool install "$tool" && ok "${tool} installed."
+  fi
+done
+
+# =============================================================================
+# 10. Secrets scaffold
+# =============================================================================
+log "Setting up secrets scaffold..."
+if [ ! -f "$HOME/.env.local" ]; then
+  cat > "$HOME/.env.local" << 'EOF'
+# ~/.env.local — NEVER commit this file.
+# Add your API keys and tokens here, one per line:
+#
+# export GITLAB_TOKEN=glpat-xxxxxxxxxxxx
+# export VERCEL_TOKEN=xxxxxxxxxxxx
+# export ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxx
+EOF
+  chmod 600 "$HOME/.env.local"
+  ok "~/.env.local created."
 else
-  warn "No extra uv tools defined — add them to UV_TOOLS in setup.sh."
+  warn "~/.env.local already exists, skipping."
+fi
+
+# =============================================================================
+# 11. Git config
+# =============================================================================
+log "Configuring git..."
+cat > "$HOME/.gitignore_global" << 'EOF'
+# Secrets
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node
+node_modules/
+.pnpm-store/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+EOF
+
+git config --global core.excludesfile "$HOME/.gitignore_global"
+git config --global init.defaultBranch main
+git config --global pull.rebase false
+git config --global push.autoSetupRemote true
+
+[ -z "$(git config --global user.name  2>/dev/null)" ] && \
+  warn "Git user.name not set  → run: git config --global user.name 'Your Name'"
+[ -z "$(git config --global user.email 2>/dev/null)" ] && \
+  warn "Git user.email not set → run: git config --global user.email 'you@example.com'"
+ok "Git configured."
+
+# =============================================================================
+# 12. Base code quality configs
+# =============================================================================
+log "Writing base code quality configs..."
+if [ ! -f "$HOME/.prettierrc" ]; then
+  cat > "$HOME/.prettierrc" << 'EOF'
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 100
+}
+EOF
+  ok "~/.prettierrc written."
+else
+  warn "~/.prettierrc already exists, skipping."
+fi
+
+if [ ! -f "$HOME/.eslintrc.json" ]; then
+  cat > "$HOME/.eslintrc.json" << 'EOF'
+{
+  "env": { "browser": true, "es2022": true, "node": true },
+  "extends": ["eslint:recommended"],
+  "parserOptions": { "ecmaVersion": "latest", "sourceType": "module" },
+  "rules": { "no-unused-vars": "warn", "no-console": "off" }
+}
+EOF
+  ok "~/.eslintrc.json written."
+else
+  warn "~/.eslintrc.json already exists, skipping."
 fi
 
 # =============================================================================
 # Done
 # =============================================================================
 echo ""
-echo -e "${GREEN}════════════════════════════════════════${NC}"
-echo -e "${GREEN}  boffin lab is ready. Start a new zsh  ${NC}"
-echo -e "${GREEN}  session or run: exec zsh              ${NC}"
-echo -e "${GREEN}════════════════════════════════════════${NC}"
+echo -e "${GREEN}════════════════════════════════════════════════════════${NC}"
+echo -e "${GREEN}  boffin lab is ready!                                  ${NC}"
+echo -e "${GREEN}                                                        ${NC}"
+echo -e "${GREEN}  Next steps:                                           ${NC}"
+echo -e "${GREEN}  1. exec zsh                   start your new shell    ${NC}"
+echo -e "${GREEN}  2. nano ~/.env.local          add your API tokens     ${NC}"
+echo -e "${GREEN}  3. git config --global \\                              ${NC}"
+echo -e "${GREEN}       user.name 'Your Name'   set your git identity   ${NC}"
+echo -e "${GREEN}  4. glab auth login            connect to GitLab       ${NC}"
+echo -e "${GREEN}                                                        ${NC}"
+echo -e "${GREEN}  Aliases available in zsh:                             ${NC}"
+echo -e "${GREEN}  serve  → static file server (port 8080)               ${NC}"
+echo -e "${GREEN}  jl     → JupyterLab (port 8888)                       ${NC}"
+echo -e "${GREEN}  ipy    → IPython REPL                                 ${NC}"
+echo -e "${GREEN}  http   → HTTPie (friendly curl)                       ${NC}"
+echo -e "${GREEN}════════════════════════════════════════════════════════${NC}"

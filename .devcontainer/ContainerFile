@@ -1,98 +1,159 @@
 # syntax=docker/dockerfile:1
+# =============================================================================
+# ContainerFile — boffin-lab
+#
+# Layer strategy:
+#   - Everything here is STABLE and benefits from Docker layer caching.
+#   - Fast-changing things (dotfiles, tool versions, SSH keys) live in setup.sh.
+#   - Rebuild this image rarely; run setup.sh often.
+# =============================================================================
 FROM debian:bookworm-slim
 
-# ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # System packages
-# ---------------------------------------------------------------------------
+#
+# Organised by purpose so it's easy to add/remove groups:
+#   • Shell & terminal utilities
+#   • Build toolchain (needed by pyenv to compile Python)
+#   • Crypto / TLS
+#   • Media tools  ← NEW: ffmpeg + imagemagick for creative-coding exports
+#   • SSH server
+#   • Misc helpers
+# -----------------------------------------------------------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    \
+    # --- Shell & terminal ---
     bash \
     bash-completion \
+    less \
+    man-db \
+    tree \
+    zsh \
+    zsh-common \
+    \
+    # --- Build toolchain (required by pyenv) ---
+    build-essential \
+    libffi-dev \
+    liblzma-dev \
+    libncursesw5-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    llvm \
+    make \
+    tk-dev \
+    xz-utils \
+    zlib1g-dev \
+    \
+    # --- Crypto / TLS / Downloads ---
     ca-certificates \
     curl \
-    git \
     gnupg \
+    wget \
+    \
+    # --- Media tools (creative coding: export canvas to video/image) ---
+    ffmpeg \
+    imagemagick \
+    \
+    # --- Fonts (needed by imagemagick + some canvas renderers) ---
+    fontconfig \
+    fonts-dejavu-core \
+    \
+    # --- Git ---
+    git \
+    \
+    # --- SSH server ---
+    openssh-server \
+    \
+    # --- System utilities ---
     htop \
-    less \
     locales \
     lsb-release \
-    man-db \
-    openssh-server \
     procps \
     sudo \
-    tree \
     unzip \
     vim \
-    wget \
     zip \
+    \
     && rm -rf /var/lib/apt/lists/* \
-    # sshd needs /run/sshd to exist
+    # sshd needs this directory to exist at startup
     && mkdir -p /run/sshd
 
-# ---------------------------------------------------------------------------
-# Locale
-# ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Locale — set to UTF-8 so Python, Node, and terminal tools all agree
+# -----------------------------------------------------------------------------
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
 
-# ---------------------------------------------------------------------------
-# Create the "boffin" user — UID/GID 1000 to match the host user
-# ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Create the "boffin" user — UID/GID 1000 matches the typical host user.
+# Passwordless sudo is intentional: this is a local experiment sandbox,
+# not a production server.
+# -----------------------------------------------------------------------------
 RUN groupadd --gid 1000 boffin \
     && useradd \
         --uid 1000 \
         --gid 1000 \
         --create-home \
-        --shell /bin/bash \
+        --shell /bin/zsh \
         --comment "The Boffin — chief experimentalist" \
         boffin \
-    # Allow boffin to sudo without a password (handy for installing system tools)
     && echo "boffin ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/boffin \
     && chmod 0440 /etc/sudoers.d/boffin
 
-# ---------------------------------------------------------------------------
-# SSH server configuration (must run as root)
-#   - Listen on 2222 to avoid conflict with host SSH on 22
-#   - Disable password auth — key only
-#   - Root login disabled
-# ---------------------------------------------------------------------------
-RUN sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config \
+# -----------------------------------------------------------------------------
+# SSH server configuration
+#   - Port 2222 avoids conflicts with the host's own SSH daemon on port 22.
+#   - Password auth disabled — key-only, set up by setup.sh at first run.
+#   - Only the boffin user is allowed in.
+# -----------------------------------------------------------------------------
+RUN sed -i 's/#Port 22/Port 2222/'                                  /etc/ssh/sshd_config \
     && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
-    && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config \
-    && echo "PermitRootLogin no" >> /etc/ssh/sshd_config \
-    && echo "AllowUsers boffin" >> /etc/ssh/sshd_config
+    && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/'    /etc/ssh/sshd_config \
+    && echo "PermitRootLogin no"  >> /etc/ssh/sshd_config \
+    && echo "AllowUsers boffin"   >> /etc/ssh/sshd_config
 
-# ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Switch to boffin for all subsequent steps so tool installations
-# land in /home/boffin and are owned by UID 1000
-# ---------------------------------------------------------------------------
+# land in /home/boffin and are owned by UID 1000.
+# NOTE: The bind-mount in devcontainer.json will overlay /home/boffin at
+# runtime, so files written here are only fallback defaults used when the
+# mount target (.container_home) is empty.
+# -----------------------------------------------------------------------------
 USER boffin
 WORKDIR /home/boffin
 
-# ---------------------------------------------------------------------------
-# Sensible shell defaults
-# ---------------------------------------------------------------------------
-RUN echo '\n# ---- boffin env ----' >> ~/.bashrc \
-    && echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc \
-    && echo 'export HISTSIZE=10000' >> ~/.bashrc \
-    && echo 'export HISTFILESIZE=20000' >> ~/.bashrc \
-    && echo 'source /etc/bash_completion 2>/dev/null || true' >> ~/.bashrc
+# -----------------------------------------------------------------------------
+# Minimal shell bootstrap written into the image as a safe default.
+# setup.sh will overwrite .zshrc with the full config (oh-my-zsh, p10k, etc.)
+# This ensures a working shell even before setup.sh has been run.
+# -----------------------------------------------------------------------------
+RUN echo '\n# ---- boffin env ----'                           >> /home/boffin/.bashrc \
+    && echo 'export PATH="$HOME/.local/bin:$PATH"'            >> /home/boffin/.bashrc \
+    && echo 'export HISTSIZE=10000'                           >> /home/boffin/.bashrc \
+    && echo 'export HISTFILESIZE=20000'                       >> /home/boffin/.bashrc \
+    && echo 'source /etc/bash_completion 2>/dev/null || true' >> /home/boffin/.bashrc
 
-# ---------------------------------------------------------------------------
-# Exposed ports
-# ---------------------------------------------------------------------------
-# 2222  — SSH
-# 3000  — Node / general dev servers
-# 4321  — Astro dev server
-# 4322  — spare / secondary dev server
-# 5000  — Flask / MLflow
-# 6006  — TensorBoard
-# 8080  — Generic HTTP
-# 8888  — Jupyter
+# -----------------------------------------------------------------------------
+# Exposed ports (documentation only — actual forwarding is in devcontainer.json)
+#
+#   2222  SSH
+#   3000  Node / general dev server
+#   4321  Astro dev server
+#   4322  Spare / secondary
+#   5000  Flask / MLflow
+#   6006  TensorBoard
+#   8080  Generic HTTP / static preview (serve)
+#   8888  Jupyter
+# -----------------------------------------------------------------------------
 EXPOSE 2222 3000 4321 4322 5000 6006 8080 8888
 
-# ---------------------------------------------------------------------------
-# Default command
-# ---------------------------------------------------------------------------
-CMD ["/bin/bash"]
+# -----------------------------------------------------------------------------
+# Default command — drops into zsh. sshd is started by devcontainer's
+# postStartCommand so it runs as root (required by sshd).
+# -----------------------------------------------------------------------------
+CMD ["/bin/zsh"]
