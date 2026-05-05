@@ -26,7 +26,7 @@ describe("sinusoid generator", () => {
     const values: number[] = [];
     for (let i = 0; i < samplesPerPeriod; i++) values.push(gen.next().value);
     // After one period, should return to start value
-    expect(gen.next().value).toBeCloseTo(values[0], 5);
+    expect(gen.next().value).toBeCloseTo(values[0] ?? 0, 5);
   });
 
   it("should handle negative amplitude", () => {
