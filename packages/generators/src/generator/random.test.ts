@@ -15,13 +15,15 @@ describe("random generator", () => {
     // Mock Math.random to return deterministic sequence
     const mockValues = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.15, 0.25, 0.35];
     let callCount = 0;
-    vi.spyOn(Math, "random").mockImplementation(() => mockValues[callCount++ % mockValues.length]);
-    
+    vi.spyOn(Math, "random").mockImplementation(
+      () => mockValues[callCount++ % mockValues.length] as number
+    );
+
     const gen = random(0, 1);
     const values = new Set<number>();
     for (let i = 0; i < 50; i++) values.add(gen.next().value);
     expect(values.size).toBeGreaterThan(10);
-    
+
     vi.restoreAllMocks();
   });
 });
