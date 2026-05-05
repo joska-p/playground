@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1777977913473" clover="3.2.0">
+  <project timestamp="1777977913473" name="All files">
+    <metrics statements="25" coveredstatements="25" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5" elements="36" coveredelements="36" complexity="0" loc="25" ncloc="25" packages="1" files="5" classes="5"/>
+    <file name="constant.ts" path="/workspaces/playground/packages/generators/src/generator/constant.ts">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="2" count="4" type="stmt"/>
+      <line num="3" count="1014" type="stmt"/>
+    </file>
+    <file name="ramp.ts" path="/workspaces/playground/packages/generators/src/generator/ramp.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <line num="2" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="8" count="3" type="stmt"/>
+      <line num="9" count="3" type="stmt"/>
+      <line num="11" count="3" type="stmt"/>
+      <line num="12" count="163" type="stmt"/>
+    </file>
+    <file name="random.ts" path="/workspaces/playground/packages/generators/src/generator/random.ts">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="4" count="150" type="stmt"/>
+    </file>
+    <file name="sinusoid.ts" path="/workspaces/playground/packages/generators/src/generator/sinusoid.ts">
+      <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <line num="2" count="6" type="stmt"/>
+      <line num="3" count="6" type="stmt"/>
+      <line num="5" count="6" type="stmt"/>
+      <line num="6" count="1109" type="stmt"/>
+      <line num="7" count="1103" type="stmt"/>
+    </file>
+    <file name="square.ts" path="/workspaces/playground/packages/generators/src/generator/square.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+      <line num="2" count="6" type="stmt"/>
+      <line num="3" count="6" type="stmt"/>
+      <line num="5" count="6" type="stmt"/>
+      <line num="6" count="1502" type="stmt"/>
+      <line num="7" count="1502" type="stmt"/>
+      <line num="8" count="1502" type="cond" truecount="2" falsecount="0"/>
+      <line num="9" count="1502" type="stmt"/>
+      <line num="10" count="1496" type="stmt"/>
+    </file>
+  </project>
+</coverage>
