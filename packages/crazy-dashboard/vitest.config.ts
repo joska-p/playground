@@ -5,5 +5,9 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    exclude: ["node_modules", "dist"],
+    coverage: {
+      provider: "v8",
+    },
   },
 });
