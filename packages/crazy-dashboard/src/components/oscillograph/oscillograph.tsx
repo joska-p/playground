@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { sinusoid } from "@repo/generators";
-import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui";
+import { createCircularBuffer } from "../../utils/circularBuffer.js";
+import { drawGrid, drawWaveform } from "../../utils/oscillographRenderer.js";
 
 function Oscillograph() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,8 +17,8 @@ function Oscillograph() {
     // Lazy generator: only maintains a single `t` counter, no memory accumulation.
     // Outputs values in [-amplitude, amplitude] range (amplitude=1 → -1 to 1, amplitude=50 here → -50 to 50).
     const generator = sinusoid({ amplitude: 50, frequency: 1 });
-    // Data buffer capped at 200 points to prevent unbounded memory growth.
-    const data: number[] = [];
+    // Circular buffer: fixed-size with O(1) writes, avoids costly shift().
+    const circularBuffer = createCircularBuffer({ size: 200 });
     const maxDataPoints = 200;
     const centerY = canvas.height / 2;
 
@@ -25,39 +26,21 @@ function Oscillograph() {
       const value = generator.next().value;
       if (value === undefined) return;
 
-      data.push(value);
-      if (data.length > maxDataPoints) data.shift();
+      circularBuffer.push(value);
 
       const currentCanvas = canvas!;
       const currentCtx = ctx!;
 
       currentCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
 
-      currentCtx.strokeStyle = "#333";
-      currentCtx.lineWidth = 0.5;
-      for (let i = 0; i < currentCanvas.height; i += 20) {
-        currentCtx.beginPath();
-        currentCtx.moveTo(0, i);
-        currentCtx.lineTo(currentCanvas.width, i);
-        currentCtx.stroke();
-      }
-      for (let i = 0; i < currentCanvas.width; i += 20) {
-        currentCtx.beginPath();
-        currentCtx.moveTo(i, 0);
-        currentCtx.lineTo(i, currentCanvas.height);
-        currentCtx.stroke();
-      }
-
-      currentCtx.strokeStyle = "#33ff33";
-      currentCtx.lineWidth = 2;
-      currentCtx.beginPath();
-      for (let i = 0; i < data.length; i++) {
-        const x = (i / maxDataPoints) * currentCanvas.width;
-        const y = centerY - data[i]!;
-        if (i === 0) currentCtx.moveTo(x, y);
-        else currentCtx.lineTo(x, y);
-      }
-      currentCtx.stroke();
+      drawGrid({ ctx: currentCtx, width: currentCanvas.width, height: currentCanvas.height });
+      drawWaveform({
+        ctx: currentCtx,
+        entries: circularBuffer.entries(),
+        centerY,
+        maxDataPoints,
+        width: currentCanvas.width,
+      });
 
       animationRef.current = requestAnimationFrame(animate);
     }
@@ -68,19 +51,10 @@ function Oscillograph() {
   }, []);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Oscillograph</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <canvas
-          ref={canvasRef}
-          width={600}
-          height={300}
-          className="w-full bg-black rounded"
-        />
-      </CardContent>
-    </Card>
+    <div>
+      <h2>Oscillograph </h2>
+      <canvas ref={canvasRef} width={600} height={300} className="h-full w-full rounded bg-black" />
+    </div>
   );
 }
 
