@@ -179,8 +179,7 @@ pnpm add -g \
   prettier \
   eslint \
   @biomejs/biome \
-  serve \
-  @mariozechner/pi-coding-agent
+  serve
 ok "Global pnpm packages installed."
 
 log "Installing glab (GitLab CLI)..."
