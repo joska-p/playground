@@ -24,10 +24,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# --- nvm ---
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+# --- fnm ---
+export FNM_DIR="$HOME/.local/share/fnm"
+export PATH="$FNM_DIR:$PATH"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # --- pnpm (via corepack) ---
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -58,5 +58,6 @@ alias py='python'
 alias ipy='ipython'
 alias jl='jupyter lab --no-browser --port=8888'
 alias serve='npx serve'
+alias bat='batcat'
 
 . "$HOME/.local/bin/env"

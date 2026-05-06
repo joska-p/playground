@@ -2,7 +2,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["@repo/ui#build"]
+      "dependsOn": ["@repo/ui#build", "@repo/generators#build"]
     }
   }
 }

@@ -25,10 +25,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # --- Shell & terminal ---
     bash \
     bash-completion \
-    cat \
     bat \
+    dnsutils \
+    iputils-ping \
     less \
+    lsof \
     man-db \
+    net-tools \
     tree \
     zsh \
     zsh-common \
@@ -73,8 +76,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     htop \
     locales \
     lsb-release \
-    lsof \
-    iputils-ping \
     procps \
     sudo \
     unzip \

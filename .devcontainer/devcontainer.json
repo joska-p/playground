@@ -54,7 +54,7 @@
   //                        bind-mount ownership stays consistent.
   //                        Remove this line if you use Docker instead.
   // -------------------------------------------------------------------------
-  "runArgs": ["--userns=keep-id", "--name=boffin-lab"],
+  "runArgs": ["--userns=keep-id"],
 
   // -------------------------------------------------------------------------
   // Lifecycle hooks
@@ -65,7 +65,7 @@
   // -------------------------------------------------------------------------
   // Start SSH server automatically when the container starts
   // -------------------------------------------------------------------------
-  "postStartCommand": "sudo /usr/sbin/sshd",
+  "postStartCommand": "bash -lc 'pgrep -x sshd >/dev/null || sudo /usr/sbin/sshd'",
 
   // -------------------------------------------------------------------------
   // VS Code / Zed compatible settings
