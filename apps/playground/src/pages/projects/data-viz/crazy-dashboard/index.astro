@@ -1,5 +1,5 @@
 ---
-import { CrazyDashboard } from "@repo/crazy-dashboard";
+import { Oscillograph } from "@repo/crazy-dashboard";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
@@ -9,6 +9,6 @@ const title = projects["crazy-dashboard"]?.name ?? "Crazy Dashboard";
 
 <BaseLayout title={title}>
   <StrictMode>
-    <CrazyDashboard client:only="react" />
+    <Oscillograph client:only="react" />
   </StrictMode>
 </BaseLayout>
