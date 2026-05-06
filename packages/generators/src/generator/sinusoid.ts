@@ -1,9 +1,16 @@
-export function* sinusoid(
-  amplitude: number,
-  frequency: number,
+interface SinusoidOptions {
+  amplitude: number;
+  frequency: number;
+  phase?: number;
+  sampleRate?: number;
+}
+
+function* sinusoid({
+  amplitude,
+  frequency,
   phase = 0,
-  sampleRate = 100
-): Generator<number> {
+  sampleRate = 100,
+}: SinusoidOptions): Generator<number> {
   let t = 0;
 
   while (true) {
@@ -11,3 +18,5 @@ export function* sinusoid(
     t += 1 / sampleRate;
   }
 }
+
+export { sinusoid };
