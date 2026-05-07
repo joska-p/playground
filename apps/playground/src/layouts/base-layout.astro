@@ -52,7 +52,7 @@ const siteTitle = title ? `Playground - ${title}` : "Playground";
     <Font cssVariable="--font-jetbrains-mono" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/playground/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.svg`} />
     <link rel="sitemap" href={`${baseUrl}/sitemap-index.xml`} />
     <meta name="generator" content={Astro.generator} />
     <title>{siteTitle}</title>
