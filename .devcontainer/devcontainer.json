@@ -5,17 +5,14 @@
   // -------------------------------------------------------------------------
   "name": "boffin-lab",
   "containerName": "boffin-lab",
-
   // Build from the local ContainerFile (Podman-compatible)
   "build": {
     "dockerfile": "ContainerFile",
-    "context": "..",
+    "context": ".."
   },
-
   // Run as the boffin user (UID 1000 = your host user)
   "remoteUser": "boffin",
   "containerUser": "boffin",
-
   // -------------------------------------------------------------------------
   // Mounts
   //   - Bind the container home to your local playground directory so that
@@ -28,26 +25,39 @@
       "type": "bind",
       "source": "${localWorkspaceFolder}/.container_home",
       "target": "/home/boffin",
-      "consistency": "cached",
-    },
+      "consistency": "cached"
+    }
   ],
-
   // -------------------------------------------------------------------------
   // Port forwarding — all ports are forwarded to the same host port
   // -------------------------------------------------------------------------
   "forwardPorts": [2222, 3000, 4321, 4322, 5000, 6006, 8080, 8888],
-
   "portsAttributes": {
-    "2222": { "label": "SSH" },
-    "3000": { "label": "Dev server (Node / general)" },
-    "4321": { "label": "Astro dev server" },
-    "4322": { "label": "Spare / secondary" },
-    "5000": { "label": "Flask / MLflow" },
-    "6006": { "label": "TensorBoard" },
-    "8080": { "label": "Generic HTTP" },
-    "8888": { "label": "Jupyter" },
+    "2222": {
+      "label": "SSH"
+    },
+    "3000": {
+      "label": "Dev server (Node / general)"
+    },
+    "4321": {
+      "label": "Astro dev server"
+    },
+    "4322": {
+      "label": "Spare / secondary"
+    },
+    "5000": {
+      "label": "Flask / MLflow"
+    },
+    "6006": {
+      "label": "TensorBoard"
+    },
+    "8080": {
+      "label": "Generic HTTP"
+    },
+    "8888": {
+      "label": "Jupyter"
+    }
   },
-
   // -------------------------------------------------------------------------
   // Container run arguments (Podman / Docker)
   //   --userns=keep-id  → Podman maps your host UID into the container so
@@ -55,18 +65,15 @@
   //                        Remove this line if you use Docker instead.
   // -------------------------------------------------------------------------
   "runArgs": ["--userns=keep-id"],
-
   // -------------------------------------------------------------------------
   // Lifecycle hooks
   //   Ensure the local mount target exists before the container starts.
   // -------------------------------------------------------------------------
   "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.container_home",
-
   // -------------------------------------------------------------------------
   // Start SSH server automatically when the container starts
   // -------------------------------------------------------------------------
   "postStartCommand": "bash -lc 'pgrep -x sshd >/dev/null || sudo /usr/sbin/sshd'",
-
   // -------------------------------------------------------------------------
   // VS Code / Zed compatible settings
   //   (Extensions are intentionally omitted — install what you need per
@@ -75,8 +82,8 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-      },
-    },
-  },
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
 }

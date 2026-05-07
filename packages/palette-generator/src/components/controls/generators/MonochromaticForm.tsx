@@ -1,7 +1,7 @@
 import { Button, Input } from "@repo/ui";
 import { useState } from "react";
-import { usePaletteContext } from "../../../context/paletteContext.js";
-import type { Palette, BaseColor } from "../../../context/paletteContext.js";
+import { addPalette, usePaletteStore } from "../../../store/usePaletteStore.js";
+import type { Palette, BaseColor } from "../../../store/usePaletteStore.js";
 
 interface MonochromaticPalettes {
   baseColor: BaseColor;
@@ -35,14 +35,14 @@ function monochromaticPalettes({ baseColor, length, angle }: MonochromaticPalett
 }
 
 function MonochromaticForm() {
-  const { setPalettes, baseColor } = usePaletteContext();
+  const baseColor = usePaletteStore((state) => state.baseColor);
 
   const [length, setLength] = useState(5);
   const [angle, setAngle] = useState(100 / 5);
 
   function handleClick() {
     const colors = monochromaticPalettes({ baseColor, length, angle });
-    setPalettes((prev) => [...prev, colors]);
+    addPalette(colors);
   }
 
   function handleSetLength(event: React.ChangeEvent<HTMLInputElement>) {

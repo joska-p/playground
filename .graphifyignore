@@ -1,1 +1,10 @@
+# .graphifyignore
+node_modules/
+dist/
+*.generated.py
 apps/storybook/
+
+# only index src/, ignore everything else
+*
+!src/
+!src/**

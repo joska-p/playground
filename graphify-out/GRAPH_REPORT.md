@@ -1,130 +1,143 @@
-# Graph Report - playground  (2026-05-03)
+# Graph Report - .  (2026-05-07)
 
 ## Corpus Check
-- 128 files · ~49,856 words
-- Verdict: corpus is large enough that graph structure adds value.
+- Corpus is ~19,270 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-- 370 nodes · 467 edges · 14 communities detected
-- Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 38 edges (avg confidence: 0.8)
+- 249 nodes · 352 edges · 40 communities (27 shown, 13 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 20 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Community 0|Community 0]]
-- [[_COMMUNITY_Community 1|Community 1]]
-- [[_COMMUNITY_Community 3|Community 3]]
-- [[_COMMUNITY_Community 4|Community 4]]
-- [[_COMMUNITY_Community 5|Community 5]]
-- [[_COMMUNITY_Community 6|Community 6]]
-- [[_COMMUNITY_Community 7|Community 7]]
-- [[_COMMUNITY_Community 8|Community 8]]
-- [[_COMMUNITY_Community 9|Community 9]]
-- [[_COMMUNITY_Community 10|Community 10]]
-- [[_COMMUNITY_Community 11|Community 11]]
-- [[_COMMUNITY_Community 13|Community 13]]
-- [[_COMMUNITY_Community 14|Community 14]]
-- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_UI Component Library|UI Component Library]]
+- [[_COMMUNITY_Mosaic Maker Core|Mosaic Maker Core]]
+- [[_COMMUNITY_Architecture & Concepts|Architecture & Concepts]]
+- [[_COMMUNITY_Color Palette Generators|Color Palette Generators]]
+- [[_COMMUNITY_Sequence Renderer Engine|Sequence Renderer Engine]]
+- [[_COMMUNITY_Color Picker & Conversions|Color Picker & Conversions]]
+- [[_COMMUNITY_Data Fetching & Utilities|Data Fetching & Utilities]]
+- [[_COMMUNITY_Pie Chart Web Component|Pie Chart Web Component]]
+- [[_COMMUNITY_Image to Particles|Image to Particles]]
+- [[_COMMUNITY_Oscillograph Visualization|Oscillograph Visualization]]
+- [[_COMMUNITY_User Documentation|User Documentation]]
+- [[_COMMUNITY_Recamán Visualization|Recamán Visualization]]
+- [[_COMMUNITY_Background SVG Assets|Background SVG Assets]]
+- [[_COMMUNITY_Community 27|Community 27]]
+- [[_COMMUNITY_Community 28|Community 28]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 33|Community 33]]
+- [[_COMMUNITY_Community 34|Community 34]]
+- [[_COMMUNITY_Community 35|Community 35]]
+- [[_COMMUNITY_Community 36|Community 36]]
+- [[_COMMUNITY_Community 37|Community 37]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `PieChart` - 7 edges
-2. `PieChart` - 7 edges
-3. `fetchPalettes()` - 6 edges
-4. `computeNumberOfTiles()` - 6 edges
-5. `usePaletteContext()` - 6 edges
-6. `computeNumberOfTiles()` - 6 edges
-7. `fetchPalettes()` - 6 edges
-8. `usePaletteContext()` - 6 edges
-9. `Point` - 4 edges
-10. `Controls()` - 4 edges
+1. `React 19` - 31 edges
+2. `cn()` - 14 edges
+3. `Sequence Renderer Engine` - 14 edges
+4. `PieChart` - 7 edges
+5. `fetchPalettes()` - 7 edges
+6. `computeNumberOfTiles()` - 7 edges
+7. `@repo/ui` - 7 edges
+8. `_updateTiles()` - 5 edges
+9. `addPalette()` - 5 edges
+10. `generateSequence()` - 5 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `computeInitialTiles()` --calls--> `computeNumberOfTiles()`  [INFERRED]
-  packages/mosaic-maker/src/store/useMosaicStore.tsx → packages/mosaic-maker/src/utils/style-utils.ts
-- `fetchPalettes()` --calls--> `safeFetch()`  [INFERRED]
-  packages/mosaic-maker/src/utils/fetch-palettes.ts → packages/mosaic-maker/src/utils/utils.ts
-- `AnalogousForm()` --calls--> `usePaletteContext()`  [INFERRED]
-  packages/palette-generator/src/components/controls/generators/AnalogousForm.tsx → packages/palette-generator/src/context/paletteContext.tsx
-- `ComplementaryForm()` --calls--> `usePaletteContext()`  [INFERRED]
-  packages/palette-generator/src/components/controls/generators/ComplementaryForm.tsx → packages/palette-generator/src/context/paletteContext.tsx
-- `MonochromaticForm()` --calls--> `usePaletteContext()`  [INFERRED]
-  packages/palette-generator/src/components/controls/generators/MonochromaticForm.tsx → packages/palette-generator/src/context/paletteContext.tsx
+- `initPalettes()` --calls--> `fetchPalettes()`  [INFERRED]
+  packages/mosaic-maker/src/store/useMosaicStore.tsx → packages/mosaic-maker/src/utils/fetch-palettes.ts
+- `generateInitial()` --calls--> `generateSequence()`  [INFERRED]
+  packages/sequence-renderer/src/store/useSequenceStore.tsx → packages/sequence-renderer/src/core/generator.ts
+- `Stable Shell / Volatile Engines` --semantically_similar_to--> `Pluggable Architecture`  [INFERRED] [semantically similar]
+  apps/playground/src/content/docs/explanation/overview.md → apps/playground/src/content/docs/explanation/engines.md
+- `Stateless First` --conceptually_related_to--> `Sequence Renderer Engine`  [INFERRED]
+  apps/playground/src/content/docs/explanation/overview.md → apps/playground/src/content/docs/explanation/engines.md
+- `Composable UI` --semantically_similar_to--> `CVA Variants Pattern`  [INFERRED] [semantically similar]
+  apps/playground/src/content/docs/explanation/overview.md → apps/playground/src/content/docs/how-to/adding-components.md
 
-## Communities
+## Hyperedges (group relationships)
+- **Rule → Sequence → Visualization → Canvas Pipeline** — recaman_rule, fibonacci_rule, primes_rule, triangular_rule, collatz_rule, line_graph_viz, scatter_plot_viz, bars_viz, sequence_renderer_engine [EXTRACTED 1.00]
+- **Creative Playground Design Principles** — stable_shell_volatile_engines, stateless_first, composable_ui [EXTRACTED 1.00]
+- **Monorepo Shell Architecture** — app_playground, package_ui, package_sequence_renderer, astro, react, tailwind_css, typescript, zustand [EXTRACTED 1.00]
 
-### Community 0 - "Community 0"
-Cohesion: 0.07
-Nodes (36): cachePalettes(), fetchPalettes(), getCachedPalettes(), isCacheValid(), computeInitialTiles(), generateTileRotation(), initPalettes(), setMosaicRef() (+28 more)
+## Communities (40 total, 13 thin omitted)
 
-### Community 1 - "Community 1"
+### Community 0 - "UI Component Library"
 Cohesion: 0.08
-Nodes (14): buildCpuContext(), generateCpu(), buildCursorContext(), generateCursor(), buildMemoryContext(), generateMemory(), buildNetworkContext(), generateNetwork() (+6 more)
+Nodes (5): React 19, useSidebarContext(), SidebarMain(), SidebarPanel(), cn()
 
-### Community 3 - "Community 3"
-Cohesion: 0.09
-Nodes (12): AnalogousForm(), ComplementaryForm(), usePaletteContext(), AnalogousForm(), ComplementaryForm(), MonochromaticForm(), XadicForm(), useColorPicker() (+4 more)
+### Community 1 - "Mosaic Maker Core"
+Cohesion: 0.14
+Nodes (20): PaletteControls(), SliderControls(), computeInitialTiles(), initPalettes(), setMosaicRef(), setPaletteStock(), updateCurrentPalettes(), updatePalette() (+12 more)
 
-### Community 4 - "Community 4"
-Cohesion: 0.09
-Nodes (6): PieChart, PieChart, Point, strToDom(), Point, strToDom()
+### Community 2 - "Architecture & Concepts"
+Cohesion: 0.08
+Nodes (27): apps/playground, Bars Visualization, Button, Card, Collatz Rule, Composable UI, CVA Variants Pattern, Explicit Named Exports (+19 more)
 
-### Community 5 - "Community 5"
-Cohesion: 0.13
-Nodes (17): hexToHSL(), hexToRGB(), HSLToHex(), HSLToRGB(), hueToRGB(), RGBToHex(), RGBToHSL(), getPixelColor() (+9 more)
+### Community 3 - "Color Palette Generators"
+Cohesion: 0.14
+Nodes (7): AnalogousForm(), ComplementaryForm(), Generators(), MonochromaticForm(), XadicForm(), addPalette(), Zustand
 
-### Community 6 - "Community 6"
-Cohesion: 0.11
-Nodes (10): Controls(), Controls(), generateData(), Dashboard(), useDashboardLoop(), CrazyDashboard(), setMode(), setTheme() (+2 more)
+### Community 4 - "Sequence Renderer Engine"
+Cohesion: 0.15
+Nodes (9): Controls(), handleChange(), generateSequence(), CanvasRenderer(), SequenceDisplay(), generateInitial(), setSequenceRule(), setSteps() (+1 more)
 
-### Community 7 - "Community 7"
-Cohesion: 0.2
-Nodes (10): handleChange(), generateSequence(), generateSequence(), handleChange(), generateInitial(), setSequenceRule(), setSteps(), generateInitial() (+2 more)
-
-### Community 8 - "Community 8"
-Cohesion: 0.32
-Nodes (14): computeDimension(), computeGap(), computeNumberOfTiles(), computeTileHeight(), computeTileWidth(), getComputedPropertyValue(), parseNumericValue(), computeDimension() (+6 more)
-
-### Community 9 - "Community 9"
+### Community 5 - "Color Picker & Conversions"
 Cohesion: 0.18
-Nodes (4): useImageUpload(), ImageToParticles(), ImageToParticles(), useImageUpload()
+Nodes (10): getPixelColor(), useColorPicker(), setBaseColor(), hexToHSL(), hexToRGB(), HSLToHex(), HSLToRGB(), hueToRGB() (+2 more)
 
-### Community 10 - "Community 10"
+### Community 6 - "Data Fetching & Utilities"
 Cohesion: 0.22
-Nodes (4): arePalettesEqual(), getPaletteId(), arePalettesEqual(), getPaletteId()
+Nodes (10): generateTileRotation(), cachePalettes(), fetchPalettes(), getCachedPalettes(), isCacheValid(), getRandom(), getRandomValue(), safeFetch() (+2 more)
 
-### Community 11 - "Community 11"
+### Community 7 - "Pie Chart Web Component"
+Cohesion: 0.18
+Nodes (3): PieChart, Point, strToDom()
+
+### Community 8 - "Image to Particles"
+Cohesion: 0.39
+Nodes (5): calculateImageDimensions(), drawImageToCanvas(), initParticles(), useImageUpload(), ImageToParticles()
+
+### Community 9 - "Oscillograph Visualization"
+Cohesion: 0.52
+Nodes (4): animate(), createCircularBuffer(), drawGrid(), drawWaveform()
+
+### Community 10 - "User Documentation"
 Cohesion: 0.33
-Nodes (8): findBiggestInterval(), calculateValueScale(), draw(), drawSequence(), findBiggestInterval(), calculateValueScale(), draw(), drawSequence()
+Nodes (7): Adding Projects, Adding a Sequence Rule, Adding a Visualization, Creative Playground, Engines, Your First Visualization, UI Components
 
-### Community 13 - "Community 13"
-Cohesion: 0.38
-Nodes (5): GET(), getRobotsTxt(), GET(), getRobotsTxt(), process_graph()
+### Community 11 - "Recamán Visualization"
+Cohesion: 0.6
+Nodes (4): findBiggestInterval(), calculateValueScale(), draw(), drawSequence()
 
-### Community 14 - "Community 14"
+### Community 12 - "Background SVG Assets"
 Cohesion: 0.4
-Nodes (4): useSidebarContext(), SidebarPanel(), useSidebarContext(), SidebarPanel()
-
-### Community 16 - "Community 16"
-Cohesion: 0.67
-Nodes (1): remarkBaseUrl()
+Nodes (5): Background SVG Image, Blue-to-Purple Linear Gradient, Bottom Organic Blob Shape, Top Organic Blob Shape, Red-to-Magenta Linear Gradient
 
 ## Knowledge Gaps
-- **Thin community `Community 16`** (4 nodes): `astro.config.mjs`, `remark-base-url.mjs`, `remarkBaseUrl()`, `remarkBaseUrl()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **38 isolated node(s):** `Adding a Sequence Rule`, `Adding a Visualization`, `Adding Components`, `Adding Projects`, `UI Components` (+33 more)
+  These have ≤1 connection - possible missing edges or undocumented components.
+- **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `React 19` connect `UI Component Library` to `Mosaic Maker Core`, `Color Palette Generators`, `Sequence Renderer Engine`, `Color Picker & Conversions`, `Image to Particles`, `Oscillograph Visualization`?**
+  _High betweenness centrality (0.339) - this node is a cross-community bridge._
+- **Why does `Zustand` connect `Color Palette Generators` to `Mosaic Maker Core`, `Architecture & Concepts`, `Sequence Renderer Engine`?**
+  _High betweenness centrality (0.207) - this node is a cross-community bridge._
+- **Why does `Sequence Renderer Engine` connect `Architecture & Concepts` to `Color Palette Generators`?**
+  _High betweenness centrality (0.148) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `fetchPalettes()` (e.g. with `initPalettes()` and `safeFetch()`) actually correct?**
   _`fetchPalettes()` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 5 inferred relationships involving `usePaletteContext()` (e.g. with `AnalogousForm()` and `ComplementaryForm()`) actually correct?**
-  _`usePaletteContext()` has 5 INFERRED edges - model-reasoned connections that need verification._
-- **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.07 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
+- **What connects `Adding a Sequence Rule`, `Adding a Visualization`, `Adding Components` to the rest of the system?**
+  _38 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `UI Component Library` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.05 - nodes in this community are weakly interconnected._
-- **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.09 - nodes in this community are weakly interconnected._
-- **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.09 - nodes in this community are weakly interconnected._
+- **Should `Mosaic Maker Core` be split into smaller, more focused modules?**
+  _Cohesion score 0.14 - nodes in this community are weakly interconnected._

@@ -1,7 +1,7 @@
-import { usePaletteContext } from "../context/paletteContext.js";
+import { usePaletteStore } from "../store/usePaletteStore.js";
 
 function PaletteDisplay() {
-  const { palettes } = usePaletteContext();
+  const palettes = usePaletteStore((state) => state.palettes);
   return (
     <div className="flex flex-col gap-4">
       {palettes.map((palette, index) => (

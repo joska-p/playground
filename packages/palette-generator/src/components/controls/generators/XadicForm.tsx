@@ -1,7 +1,7 @@
 import { Button, Input } from "@repo/ui";
 import { useState } from "react";
-import { usePaletteContext } from "../../../context/paletteContext.js";
-import type { Palette, BaseColor } from "../../../context/paletteContext.js";
+import { addPalette, usePaletteStore } from "../../../store/usePaletteStore.js";
+import type { Palette, BaseColor } from "../../../store/usePaletteStore.js";
 
 interface XadicPalettes {
   baseColor: BaseColor;
@@ -26,13 +26,13 @@ function xadicPalettes({ baseColor, length, angle }: XadicPalettes): Palette {
 }
 
 function XadicForm() {
-  const { setPalettes, baseColor } = usePaletteContext();
+  const baseColor = usePaletteStore((state) => state.baseColor);
   const [length, setLength] = useState(3);
   const [angle, setAngle] = useState(360 / 3);
 
   function handleClick() {
     const colors = xadicPalettes({ baseColor, length, angle });
-    setPalettes((prev) => [...prev, colors]);
+    addPalette(colors);
   }
 
   function handleSetLength(event: React.ChangeEvent<HTMLInputElement>) {

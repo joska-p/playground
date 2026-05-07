@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { HSLColor } from "../utils/colorConversions.js";
 import { RGBToHSL } from "../utils/colorConversions.js";
-import { usePaletteContext } from "../context/paletteContext.js";
+import { setBaseColor, usePaletteStore } from "../store/usePaletteStore.js";
 
 /**
  * useColorPicker
@@ -54,7 +54,7 @@ function drawColorSpace({ canvas, saturation }: { canvas: HTMLCanvasElement; sat
 
 function useColorPicker() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { baseColor, setBaseColor } = usePaletteContext();
+  const baseColor = usePaletteStore((state) => state.baseColor);
 
   function handlePickColor(event: React.MouseEvent<HTMLCanvasElement>) {
     const canvas = canvasRef.current;

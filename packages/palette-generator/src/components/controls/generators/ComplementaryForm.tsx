@@ -1,7 +1,7 @@
 import { Button, Input } from "@repo/ui";
 import { useState } from "react";
-import { usePaletteContext } from "../../../context/paletteContext.js";
-import type { Palette, BaseColor } from "../../../context/paletteContext.js";
+import { addPalette, usePaletteStore } from "../../../store/usePaletteStore.js";
+import type { Palette, BaseColor } from "../../../store/usePaletteStore.js";
 
 interface ComplementaryPalettes {
   baseColor: BaseColor;
@@ -30,14 +30,14 @@ function complementaryPalettes({ baseColor, length, split }: ComplementaryPalett
 }
 
 function ComplementaryForm() {
-  const { setPalettes, baseColor } = usePaletteContext();
+  const baseColor = usePaletteStore((state) => state.baseColor);
 
   const [length, setLength] = useState(3);
   const [split, setSplit] = useState(30);
 
   function handleClick() {
     const colors = complementaryPalettes({ baseColor, length, split });
-    setPalettes((prev) => [...prev, colors]);
+    addPalette(colors);
   }
 
   return (
