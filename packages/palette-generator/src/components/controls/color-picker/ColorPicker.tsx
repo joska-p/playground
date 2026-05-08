@@ -1,23 +1,82 @@
-import { useColorPicker } from "../../../hooks/useColorPicker.js";
+import { useEffect, useRef } from "react";
 import { cn } from "@repo/ui";
+import { usePaletteStore, setBaseColor } from "../../../store/usePaletteStore.js";
+import { RGBToHSL, HSLToRGB } from "../../../utils/colorConversions.js";
+
+const DEBOUNCE_DELAY = 100;
 
 interface ColorPickerProps {
   width?: number;
   height?: number;
 }
 
-function ColorPicker({ width, height }: ColorPickerProps) {
-  const { canvasRef, baseColor, handlePickColor, handleSaturationChange } = useColorPicker();
+function drawColorSpace(context: CanvasRenderingContext2D, width: number, height: number, saturation: number) {
+  const imageData = context.createImageData(width, height);
+  const data = imageData.data;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const hue = (x / width) * 360;
+      const lightness = 100 - (y / height) * 100;
+      const rgb = HSLToRGB({ hue, saturation, lightness });
+      const idx = (y * width + x) * 4;
+      data[idx] = rgb.red;
+      data[idx + 1] = rgb.green;
+      data[idx + 2] = rgb.blue;
+      data[idx + 3] = 255;
+    }
+  }
+
+  context.putImageData(imageData, 0, 0);
+}
+
+function ColorPicker({ width = 368, height = 368 }: ColorPickerProps) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const baseColor = usePaletteStore((state) => state.baseColor);
   const { hue, saturation, lightness } = baseColor;
   const { x, y } = baseColor.location;
 
+  function handlePickColor(event: React.MouseEvent<HTMLCanvasElement>) {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const px = Math.round(event.clientX - rect.left);
+    const py = Math.round(event.clientY - rect.top);
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const pixelData = context.getImageData(px, py, 1, 1).data;
+    const picked = RGBToHSL({
+      red: pixelData[0] || 0,
+      green: pixelData[1] || 0,
+      blue: pixelData[2] || 0,
+    });
+    setBaseColor({ ...picked, location: { x: px, y: py } });
+  }
+
+  function handleSaturationChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setBaseColor({ ...baseColor, saturation: Number(event.target.value) });
+  }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const context = canvas.getContext("2d");
+      if (!context) return;
+      drawColorSpace(context, canvas.width, canvas.height, baseColor.saturation);
+    }, DEBOUNCE_DELAY);
+    return () => clearTimeout(timeout);
+  }, [baseColor.saturation]);
+
   return (
-    <>
+    <div className="relative">
       <div
         style={{ top: y, left: x }}
-        inert
         className={cn(
-          "absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2",
+          "pointer-events-none absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2",
           { "border-white": lightness < 50 },
           { "border-black": lightness >= 50 }
         )}
@@ -56,7 +115,7 @@ function ColorPicker({ width, height }: ColorPickerProps) {
           background: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
         }}
       />
-    </>
+    </div>
   );
 }
 

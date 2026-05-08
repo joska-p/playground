@@ -26,9 +26,18 @@ function setBaseColor(baseColor: BaseColor) {
 }
 
 function addPalette(palette: Palette) {
-  const current = usePaletteStore.getState().palettes;
-  usePaletteStore.setState({ palettes: [...current, palette] });
+  const { palettes } = usePaletteStore.getState();
+  usePaletteStore.setState({ palettes: [...palettes, palette] });
+}
+
+function removePalette(index: number) {
+  const { palettes } = usePaletteStore.getState();
+  usePaletteStore.setState({ palettes: palettes.filter((_, i) => i !== index) });
+}
+
+function clearPalettes() {
+  usePaletteStore.setState({ palettes: [] });
 }
 
 export type { Palette, BaseColor };
-export { usePaletteStore, setBaseColor, addPalette };
+export { usePaletteStore, setBaseColor, addPalette, removePalette, clearPalettes };
