@@ -1,20 +1,11 @@
 import { create } from "zustand";
-import type { HSLColor } from "../utils/colorConversions.js";
-
-type Palette = HSLColor[];
-type BaseColor = HSLColor & { location: { x: number; y: number } };
+import type { Palette, BaseColor } from "../core/config.js";
+import { initialBaseColor } from "../core/config.js";
 
 interface PaletteState {
   palettes: Palette[];
   baseColor: BaseColor;
 }
-
-const initialBaseColor: BaseColor = {
-  hue: 180,
-  saturation: 100,
-  lightness: 50,
-  location: { x: 184, y: 184 },
-};
 
 const usePaletteStore = create<PaletteState>()(() => ({
   palettes: [],

@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@repo/ui";
-import { usePaletteStore, setBaseColor } from "../../../store/usePaletteStore.js";
-import { RGBToHSL, HSLToRGB } from "../../../utils/colorConversions.js";
-
-const DEBOUNCE_DELAY = 100;
+import { usePaletteStore, setBaseColor } from "../../store/usePaletteStore.js";
+import { RGBToHSL, HSLToRGB } from "../../utils/colorConversions.js";
+import { DEBOUNCE_DELAY } from "../../core/config.js";
 
 interface ColorPickerProps {
   width?: number;

@@ -1,4 +1,4 @@
-import { usePaletteStore, removePalette, clearPalettes } from "../store/usePaletteStore.js";
+import { usePaletteStore, removePalette, clearPalettes } from "../../store/usePaletteStore.js";
 
 function PaletteDisplay() {
   const palettes = usePaletteStore((state) => state.palettes);

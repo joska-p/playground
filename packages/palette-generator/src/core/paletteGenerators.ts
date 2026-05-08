@@ -1,4 +1,4 @@
-import type { Palette, BaseColor } from "../store/usePaletteStore.js";
+import type { Palette, BaseColor } from "./config.js";
 
 interface AnalogousParams {
   split: number;

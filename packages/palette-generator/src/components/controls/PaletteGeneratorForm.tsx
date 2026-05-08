@@ -1,7 +1,7 @@
 import { Button, Input } from "@repo/ui";
 import { useState } from "react";
-import { usePaletteStore, addPalette } from "../../../store/usePaletteStore.js";
-import type { Palette, BaseColor } from "../../../store/usePaletteStore.js";
+import type { Palette, BaseColor } from "../../core/config.js";
+import { usePaletteStore, addPalette } from "../../store/usePaletteStore.js";
 
 interface ParamDef {
   name: string;
@@ -15,7 +15,6 @@ interface GeneratorFormConfig {
   defaultParams: Record<string, number>;
   paramDefs: ParamDef[];
   generate: (baseColor: BaseColor, params: Record<string, number>) => Palette;
-  // params values are guaranteed non-null (defaultParams provides defaults)
 }
 
 function PaletteGeneratorForm({ config }: { config: GeneratorFormConfig }) {

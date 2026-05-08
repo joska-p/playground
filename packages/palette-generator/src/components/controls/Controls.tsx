@@ -1,4 +1,4 @@
-import { generateAnalogous, generateComplementary, generateMonochromatic, generateXadic } from "../../../utils/paletteGenerators.js";
+import { generateAnalogous, generateComplementary, generateMonochromatic, generateXadic } from "../../core/paletteGenerators.js";
 import { PaletteGeneratorForm } from "./PaletteGeneratorForm.js";
 import type { GeneratorFormConfig } from "./PaletteGeneratorForm.js";
 
@@ -46,7 +46,7 @@ const complementaryConfig = {
     generateComplementary(baseColor, { split: params["split"]!, length: params["length"]! }),
 } satisfies GeneratorFormConfig;
 
-function Generators() {
+function Controls() {
   return (
     <>
       <PaletteGeneratorForm config={monochromaticConfig} />
@@ -57,4 +57,4 @@ function Generators() {
   );
 }
 
-export { Generators };
+export { Controls };
