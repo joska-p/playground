@@ -2,6 +2,35 @@
 
 step_git_setup() {
   log "Configuring git..."
+  cat > "$HOME/.gitignore_global" << 'EOF'
+# Secrets
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node
+node_modules/
+.pnpm-store/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+EOF
 
   git config --global core.excludesfile "$HOME/.gitignore_global"
   git config --global init.defaultBranch main
