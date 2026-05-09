@@ -2,6 +2,12 @@
 
 > Tracking file for the ongoing refactor. Update as we go.
 
+## Session End — 2026-05-08
+
+Next step: **UX refinement of the Controls**. We agreed to revisit the look and feel of the scheme selector, dynamic params, and generate flow. After that, Phase 3 (multi-color pinning and interpolation).
+
+---
+
 ## Phase 1: Foundation ✓
 
 - [x] Extract generation functions to `core/paletteGenerators.ts`
@@ -26,6 +32,7 @@
   - [x] Single "Generate" button
 - [x] Delete unused `PaletteGeneratorForm.tsx`
 - [x] Verify typecheck, lint, build
+- [x] Committed `db9cf77`
 
 ## Phase 3: Multi-Color Input (next)
 

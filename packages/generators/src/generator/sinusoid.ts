@@ -1,4 +1,4 @@
-interface SinusoidOptions {
+type SinusoidOptions = {
   amplitude: number;
   frequency: number;
   phase?: number;
