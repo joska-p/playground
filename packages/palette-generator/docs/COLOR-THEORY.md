@@ -5,21 +5,25 @@ All hue angles in degrees on the HSL color wheel (0–360).
 ## Standard Harmony Schemes
 
 ### Monochromatic
+
 - **Hue**: fixed to base hue
 - **Variation**: lightness ± spread, saturation can also vary
 - **Math**: `L_i = clamp(base_L + i * step, 5, 95)` where `step = spread / count`
 
 ### Analogous
+
 - **Hue**: step away from base by `angle` degrees
 - **Math**: `H_i = (base_H + i * angle) mod 360`
 - **Default angle**: 30° (3 colors → base −30°, base, base +30°)
 
 ### Complementary
+
 - **Hue**: exactly opposite
 - **Math**: `H_comp = (base_H + 180) mod 360`
 - **If count > 2**: intermediate hues are interpolated, or S/L variants are generated
 
 ### Split-Complementary
+
 - **Hue**: base + the two colors adjacent to the complement
 - **Math**:
   ```
@@ -30,6 +34,7 @@ All hue angles in degrees on the HSL color wheel (0–360).
 - **Default angle**: 30°
 
 ### Triadic
+
 - **Hue**: three colors evenly spaced (equilateral triangle on the wheel)
 - **Math**:
   ```
@@ -39,6 +44,7 @@ All hue angles in degrees on the HSL color wheel (0–360).
 - **If count > 3**: repeat hues with S/L variants
 
 ### Tetradic (Rectangle / Double-Complementary)
+
 - **Hue**: two complementary pairs offset by `n` degrees
 - **Math**:
   ```

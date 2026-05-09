@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
-    "@repo/crazy-dashboard": "workspace:*",
     "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",
     "@repo/palette-generator": "workspace:*",

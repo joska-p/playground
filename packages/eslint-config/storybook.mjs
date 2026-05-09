@@ -1,23 +1,18 @@
 import storybookPlugin from "eslint-plugin-storybook";
-import { config as baseConfig } from "./base.js";
+import { defineConfig } from "eslint/config";
+import { config as baseConfig } from "./base.mjs";
 
-/**
- * ESLint configuration for Storybook story files.
- * Apply this only to *.stories.* and *.story.* files.
- *
- * @type {import("eslint").Linter.Config[]}
- */
-export const config = [
+export const config = defineConfig([
   // ─── Base (TS + quality) ────────────────────────────────────────────────────
-  ...baseConfig,
+  baseConfig,
 
   // ─── Storybook recommended ──────────────────────────────────────────────────
-  ...storybookPlugin.configs["flat/recommended"],
+  storybookPlugin.configs["flat/recommended"],
 
   // ─── Story-specific overrides ───────────────────────────────────────────────
   {
     files: ["**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)", "**/*.story.@(ts|tsx|js|jsx|mjs|cjs)"],
-    ignores: ["storybook-static"],
+    ignores: ["storybook-static", "!.storybook"],
     rules: {
       // Stories often use default exports and named exports together — allow it
       "import/no-default-export": "off",
@@ -30,4 +25,4 @@ export const config = [
       "react-hooks/exhaustive-deps": "off",
     },
   },
-];
+]);

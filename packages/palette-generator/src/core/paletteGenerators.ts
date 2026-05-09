@@ -12,12 +12,12 @@ type SchemeType =
   | "triadic"
   | "tetradic";
 
-interface GeneratorParams {
+type GeneratorParams = {
   scheme: SchemeType;
   count: number;
   angle: number;
   lightnessSpread: number;
-}
+};
 
 function normHue(h: number): number {
   return ((h % 360) + 360) % 360;
@@ -100,7 +100,12 @@ function generateHues(scheme: SchemeType, baseHue: number, count: number, angle:
   }
 }
 
-function varyLightness(index: number, count: number, baseLightness: number, spread: number): number {
+function varyLightness(
+  index: number,
+  count: number,
+  baseLightness: number,
+  spread: number
+): number {
   if (count <= 1) return clamp(baseLightness, MIN_LIGHTNESS, MAX_LIGHTNESS);
   const step = spread / (count - 1);
   return clamp(baseLightness - spread / 2 + index * step, MIN_LIGHTNESS, MAX_LIGHTNESS);
@@ -109,22 +114,27 @@ function varyLightness(index: number, count: number, baseLightness: number, spre
 function generatePalette(baseColor: HSLColor, params: GeneratorParams): Palette {
   const hues = generateHues(params.scheme, baseColor.hue, params.count, params.angle);
 
-  return hues.map((hue, i) => ({
-    hue,
-    saturation: baseColor.saturation,
-    lightness:
-      params.scheme === "monochromatic"
-        ? varyLightness(i, params.count, baseColor.lightness, params.lightnessSpread)
-        : baseColor.lightness,
-  }));
+  return {
+    id: `palette-${hues.reduce((acc, hue) => acc + hue, 0)}`,
+    colors: hues.map((hue, i) => ({
+      hue,
+      saturation: baseColor.saturation,
+      lightness:
+        params.scheme === "monochromatic"
+          ? varyLightness(i, params.count, baseColor.lightness, params.lightnessSpread)
+          : baseColor.lightness,
+    })),
+  };
 }
 
 function interpolatePalette(colors: HSLColor[], count: number): Palette {
-  if (colors.length === 0) return [];
-  if (colors.length === 1) return Array.from({ length: count }, () => ({ ...colors[0]! }));
-  if (count <= colors.length) return colors.slice(0, count);
+  if (colors.length === 0) return { id: "0", colors: [] };
+  if (colors.length === 1)
+    return { id: "1", colors: Array.from({ length: count }, () => ({ ...colors[0]! })) };
+  if (count <= colors.length) return { id: "2", colors: colors.slice(0, count) };
 
-  const palette: Palette = [];
+  const paletteId = `palette-${colors.reduce((acc, color) => acc + color.hue, 0)}`;
+  const palette: Palette = { id: paletteId, colors: [] };
   const segments = colors.length - 1;
 
   for (let i = 0; i < count; i++) {
@@ -139,7 +149,7 @@ function interpolatePalette(colors: HSLColor[], count: number): Palette {
     if (hueDiff > 180) hueDiff -= 360;
     if (hueDiff < -180) hueDiff += 360;
 
-    palette.push({
+    palette.colors.push({
       hue: normHue(a.hue + hueDiff * localT),
       saturation: a.saturation + (b.saturation - a.saturation) * localT,
       lightness: a.lightness + (b.lightness - a.lightness) * localT,
@@ -168,10 +178,4 @@ const SCHEME_DEFAULTS: Record<SchemeType, Pick<GeneratorParams, "angle" | "light
 };
 
 export type { SchemeType, GeneratorParams };
-export {
-  SCHEME_LABELS,
-  SCHEME_DEFAULTS,
-  generatePalette,
-  generateHues,
-  interpolatePalette,
-};
+export { SCHEME_LABELS, SCHEME_DEFAULTS, generatePalette, generateHues, interpolatePalette };

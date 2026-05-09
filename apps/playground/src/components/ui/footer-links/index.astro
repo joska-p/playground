@@ -1,7 +1,7 @@
 ---
 import { Badge } from "@repo/ui";
 
-interface Route {
+type Route = {
   label: string;
   href: string;
   isUtility?: boolean;
@@ -20,7 +20,7 @@ const routes: Route[] = [
 // Utility links (like GitHub) and Docs from routes
 const utilityLinks = routes.filter((r) => r.isUtility || r.label === "Docs");
 
-interface Props {
+type Props = {
   class?: string;
 }
 

@@ -39,7 +39,7 @@ export const CATEGORIES = {
   },
 } as const;
 
-export interface Project {
+export type Project = {
   slug: string;
   name: string;
   description: string;
@@ -47,7 +47,7 @@ export interface Project {
   tags: string[];
   icon: ComponentType<{ className?: string }>;
   featured: boolean;
-}
+};
 
 /**
  * All projects - icons assigned directly from imports
@@ -109,15 +109,6 @@ export const projects: Record<string, Project> = {
     tags: ["Graph", "D3"],
     icon: Grid,
     featured: true,
-  },
-  crazyDashboard: {
-    slug: "crazy-dashboard",
-    name: "Crazy Dashboard",
-    description: "A crazy dashboard with multiple charts and interactive elements.",
-    category: "data-viz",
-    tags: [],
-    icon: BarChart,
-    featured: false,
   },
 };
 

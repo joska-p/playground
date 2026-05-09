@@ -1,12 +1,12 @@
 import { twMerge } from "tailwind-merge";
 import { TILE_REGISTRY, type Shape } from "../../core/tile-registry.js";
 
-export interface Props {
+export type Props = {
   name: string;
   colors: [string, string, string, string, string];
   rotation: string;
   className?: string;
-}
+};
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
   const fillColor = `var(${colors[shape.colorIndex]})`;
@@ -47,10 +47,10 @@ function Tile({ name, colors, rotation, className }: Props) {
         "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform duration-500",
         className
       )}
-      style={{ transform: `rotate(var(${rotation}))` } as React.CSSProperties}
+      style={{ transform: `rotate(var(${rotation}))` }}
     >
-      {definition.shapes.map((shape, index) => (
-        <ShapeRenderer key={`${name}-shape-${index}`} shape={shape} colors={colors} />
+      {definition.shapes.map((shape) => (
+        <ShapeRenderer key={`${name}-shape`} shape={shape} colors={colors} />
       ))}
     </svg>
   );

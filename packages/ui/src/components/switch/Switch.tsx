@@ -4,13 +4,13 @@ import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { switchVariants, switchThumbVariants } from "./switchVariants.js";
 
-interface SwitchProps
-  extends Omit<ComponentProps<"button">, "onChange">, VariantProps<typeof switchVariants> {
+type SwitchProps = {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   label?: string;
   helperText?: string;
-}
+} & Omit<ComponentProps<"button">, "onChange"> &
+  VariantProps<typeof switchVariants>;
 
 /**
  * A tactile toggle switch for binary states.

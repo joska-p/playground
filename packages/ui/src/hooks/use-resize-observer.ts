@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
-interface Dimensions {
+type Dimensions = {
   width: number;
   height: number;
-}
+};
 
 /**
  * A hook to observe the dimensions of a DOM element.

@@ -33,7 +33,9 @@ function getRandomValue(obj: Record<string, unknown>) {
 }
 
 function stall(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 export { shuffleArray, shuffleObject, getRandom, safeFetch, getRandomValue, stall };

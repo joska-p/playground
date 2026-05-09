@@ -1,14 +1,14 @@
 ---
 import { cn } from "@repo/ui";
 
-interface Route {
+type Route = {
   label: string;
   href: string;
   description?: string;
   isUtility?: boolean;
 }
 
-interface Props {
+type Props = {
   routes: Route[];
   isActive: (url: string) => boolean;
 }

@@ -4,11 +4,12 @@ import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { selectVariants } from "./selectVariants.js";
 
-interface SelectProps extends ComponentProps<"select">, VariantProps<typeof selectVariants> {
+type SelectProps = {
   label?: string;
   helperText?: string;
   children: ReactNode;
-}
+} & ComponentProps<"select"> &
+  VariantProps<typeof selectVariants>;
 
 function Select({
   ref,

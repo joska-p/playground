@@ -9,9 +9,10 @@ import { SidebarPanel } from "./SidebarPanel.js";
 import { SidebarToggle } from "./SidebarToggle.js";
 import { sidebarVariants } from "./sidebarVariants.js";
 
-export interface SidebarProps extends ComponentProps<"div">, VariantProps<typeof sidebarVariants> {
+export type SidebarProps = {
   defaultOpen?: boolean;
-}
+} & ComponentProps<"div"> &
+  VariantProps<typeof sidebarVariants>;
 
 export function Sidebar({
   children,

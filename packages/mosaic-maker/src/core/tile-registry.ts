@@ -11,9 +11,9 @@ export type Shape =
   | { type: "path"; d: string; colorIndex: number }
   | { type: "polygon"; points: string; colorIndex: number };
 
-export interface TileDefinition {
+export type TileDefinition = {
   shapes: Shape[];
-}
+};
 
 export const TILE_REGISTRY: Record<string, TileDefinition> = {
   Square: {

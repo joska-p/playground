@@ -32,7 +32,9 @@ function MosaicDisplay() {
   }, [dimensions.width, dimensions.height, mosaicRef]);
 
   useEffect(() => {
-    initPalettes();
+    initPalettes().catch((error) => {
+      throw new Error("Failed to initialize palettes: " + error);
+    });
   }, []);
 
   return (

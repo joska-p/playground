@@ -1,20 +1,17 @@
+// @ts-check
 import pluginReactHooks from "eslint-plugin-react-hooks";
+import { defineConfig } from "eslint/config";
 import pluginReact from "eslint-plugin-react";
 import globals from "globals";
-import { config as baseConfig } from "./base.js";
+import { config as baseConfig } from "./base.mjs";
 
-/**
- * ESLint configuration for React libraries and apps.
- * Extends base config — no need to re-import TS or Prettier configs here.
- *
- * @type {import("eslint").Linter.Config[]}
- */
-export const config = [
+export const config = defineConfig([
   // ─── Base (TS + quality) ────────────────────────────────────────────────────
-  ...baseConfig,
+  baseConfig,
 
   // ─── React (flat config) ────────────────────────────────────────────────────
   pluginReact.configs.flat.recommended,
+  pluginReactHooks.configs.flat.recommended,
 
   // ─── Browser globals ────────────────────────────────────────────────────────
   {
@@ -28,7 +25,6 @@ export const config = [
 
   // ─── React rules ────────────────────────────────────────────────────────────
   {
-    plugins: { "react-hooks": pluginReactHooks },
     settings: { react: { version: "detect" } },
     rules: {
       // Hooks
@@ -54,4 +50,4 @@ export const config = [
       "react/jsx-key": ["error", { checkFragmentShorthand: true, checkKeyMustBeforeSpread: true }],
     },
   },
-];
+]);

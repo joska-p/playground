@@ -14,12 +14,12 @@ pnpm add -D @repo/typescript-config
 
 ## Configs
 
-| Config | Use for | `module` |
-|---|---|---|
-| `base.json` | Node.js packages, CLI tools, scripts | `NodeNext` |
-| `react-library.json` | React component libraries | `Bundler` |
-| `astro.json` | Astro projects | `Bundler` |
-| `vite.json` | Vite apps, Storybook | `Bundler` |
+| Config               | Use for                              | `module`   |
+| -------------------- | ------------------------------------ | ---------- |
+| `base.json`          | Node.js packages, CLI tools, scripts | `NodeNext` |
+| `react-library.json` | React component libraries            | `Bundler`  |
+| `astro.json`         | Astro projects                       | `Bundler`  |
+| `vite.json`          | Vite apps, Storybook                 | `Bundler`  |
 
 ---
 

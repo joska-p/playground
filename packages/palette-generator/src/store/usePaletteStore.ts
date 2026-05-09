@@ -2,10 +2,10 @@ import { create } from "zustand";
 import type { Palette, BaseColor } from "../core/config.js";
 import { initialBaseColor } from "../core/config.js";
 
-interface PaletteState {
+type PaletteState = {
   palettes: Palette[];
   baseColor: BaseColor;
-}
+};
 
 const usePaletteStore = create<PaletteState>()(() => ({
   palettes: [],

@@ -4,13 +4,14 @@ import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { inputVariants } from "./inputVariants.js";
 
-interface InputProps extends ComponentProps<"input">, VariantProps<typeof inputVariants> {
+type InputProps = {
   label?: string;
   helperText?: string;
   isLoading?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
-}
+} & ComponentProps<"input"> &
+  VariantProps<typeof inputVariants>;
 
 function Input({
   ref,
@@ -66,10 +67,10 @@ function Input({
           id={inputId}
           ref={ref}
           type={type}
-          disabled={isLoading || disabled}
+          disabled={isLoading ?? disabled}
           className={cn(
             inputVariants({ variant, className }),
-            (startIcon || isLoading) && "pl-10",
+            (startIcon ?? isLoading) && "pl-10",
             endIcon && "pr-10"
           )}
           {...props}

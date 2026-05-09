@@ -10,14 +10,14 @@ import { fetchPalettes } from "../utils/fetch-palettes.js";
 import { computeNumberOfTiles, updateElementStyles } from "../utils/style-utils.js";
 import { getRandom } from "../utils/utils.js";
 
-export interface TileInstance {
+export type TileInstance = {
   id: string;
   name: TileNames;
   colors: [string, string, string, string, string];
   rotation: string;
-}
+};
 
-interface MosaicState {
+type MosaicState = {
   mosaicRef: React.RefObject<HTMLDivElement | null>;
   paletteStock: Palette[];
   currentPalettesIndex: number;
@@ -25,7 +25,7 @@ interface MosaicState {
   currentPalettes: Palette[];
   tileSet: TileSet;
   tiles: TileInstance[];
-}
+};
 
 function generateTileColors(): [string, string, string, string, string] {
   const paletteKeys = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"];

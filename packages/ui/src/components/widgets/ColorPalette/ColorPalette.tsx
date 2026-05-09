@@ -3,14 +3,14 @@ import type { VariantProps } from "class-variance-authority";
 import { cn } from "../../../utils/cn.js";
 import { colorPaletteVariants } from "./colorPaletteVariants.js";
 
-interface ColorPaletteProps
-  extends Omit<ComponentProps<"label">, "onChange">, VariantProps<typeof colorPaletteVariants> {
+type ColorPaletteProps = {
   colors: string[];
   name?: string;
   value?: string;
   checked?: boolean;
   onChange?: (palette: unknown) => void;
-}
+} & Omit<ComponentProps<"label">, "onChange"> &
+  VariantProps<typeof colorPaletteVariants>;
 
 /**
  * A reusable Color Palette component using CVA for variants.
@@ -49,9 +49,9 @@ function ColorPalette({
         onChange={() => onChange?.(true)}
         className="sr-only"
       />
-      {colors.map((color, index) => (
+      {colors.map((color) => (
         <div
-          key={`${color}-${index}`}
+          key={color}
           style={{ backgroundColor: color }}
           className="size-(--cell-size) shrink-0 transition-transform"
         />

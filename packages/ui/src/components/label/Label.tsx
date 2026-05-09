@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { labelVariants } from "./labelVariants.js";
 
-interface LabelProps extends ComponentProps<"label">, VariantProps<typeof labelVariants> {}
+type LabelProps = {} & ComponentProps<"label"> & VariantProps<typeof labelVariants>;
 
 /**
  * A primitive label component used for form field accessibility.

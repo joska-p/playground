@@ -4,12 +4,12 @@ import { recamanRule } from "../core/rules.js";
 import { generateSequence } from "../core/generator.js";
 import { visualizations } from "../core/visualizations/index.js";
 
-interface SequenceState {
+type SequenceState = {
   sequenceRule: SequenceRule;
   steps: number;
   visualizationId: string;
   sequence: number[];
-}
+};
 
 function generateInitial(rule: SequenceRule, steps: number) {
   return generateSequence(rule, steps);

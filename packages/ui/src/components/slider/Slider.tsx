@@ -4,14 +4,14 @@ import { useId } from "react";
 import { cn } from "../../utils/cn.js";
 import { sliderVariants } from "./sliderVariants.js";
 
-interface SliderProps
-  extends Omit<ComponentProps<"input">, "onChange" | "value">, VariantProps<typeof sliderVariants> {
+type SliderProps = {
   value?: number;
   onChange?: (value: number) => void;
   label?: string;
   helperText?: string;
   unit?: string;
-}
+} & Omit<ComponentProps<"input">, "onChange" | "value"> &
+  VariantProps<typeof sliderVariants>;
 
 function Slider({
   ref,

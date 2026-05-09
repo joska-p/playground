@@ -22,11 +22,11 @@ function PaletteDisplay() {
         </button>
       </div>
       {palettes.map((palette, paletteIndex) => (
-        <div key={paletteIndex} className="group relative">
+        <div key={palette.id} className="group relative">
           <div className="flex flex-wrap">
-            {palette.map((color, colorIndex) => (
+            {palette.colors.map((color) => (
               <div
-                key={colorIndex}
+                key={color.hue}
                 style={{
                   backgroundColor: `hsl(${color.hue}, ${color.saturation}%, ${color.lightness}%)`,
                 }}
@@ -36,7 +36,7 @@ function PaletteDisplay() {
           </div>
           <button
             onClick={() => removePalette(paletteIndex)}
-            className="absolute -right-2 -top-2 hidden h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white group-hover:flex"
+            className="absolute -top-2 -right-2 hidden h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white group-hover:flex"
             aria-label="Remove palette"
           >
             ×

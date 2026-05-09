@@ -4,12 +4,17 @@ import { usePaletteStore, setBaseColor } from "../../store/usePaletteStore.js";
 import { RGBToHSL, HSLToRGB } from "../../utils/colorConversions.js";
 import { DEBOUNCE_DELAY } from "../../core/config.js";
 
-interface ColorPickerProps {
+type ColorPickerProps = {
   width?: number;
   height?: number;
-}
+};
 
-function drawColorSpace(context: CanvasRenderingContext2D, width: number, height: number, saturation: number) {
+function drawColorSpace(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  saturation: number
+) {
   const imageData = context.createImageData(width, height);
   const data = imageData.data;
 
@@ -48,11 +53,12 @@ function ColorPicker({ width = 368, height = 368 }: ColorPickerProps) {
 
     const pixelData = context.getImageData(px, py, 1, 1).data;
     const picked = RGBToHSL({
-      red: pixelData[0] || 0,
-      green: pixelData[1] || 0,
-      blue: pixelData[2] || 0,
+      red: pixelData[0] ?? 0,
+      green: pixelData[1] ?? 0,
+      blue: pixelData[2] ?? 0,
     });
-    setBaseColor({ ...picked, location: { x: px, y: py } });
+    const colorId = `${picked.hue}-${picked.saturation}-${picked.lightness}`;
+    setBaseColor({ ...picked, location: { x: px, y: py }, id: colorId });
   }
 
   function handleSaturationChange(event: React.ChangeEvent<HTMLInputElement>) {

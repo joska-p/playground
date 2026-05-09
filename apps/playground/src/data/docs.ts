@@ -63,7 +63,7 @@ export async function getDocsByCategory() {
     id: id as TagId,
     ...meta,
     articles: allDocs
-      .filter((doc) => doc.data.tags.includes(id as TagId)) // Simple string check
+      .filter((doc) => doc.data.tags.includes(id)) // Simple string check
       .sort((a, b) => a.data.order - b.data.order),
   }));
 }

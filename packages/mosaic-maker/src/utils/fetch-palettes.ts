@@ -3,11 +3,11 @@ import { initialPalette } from "../core/config.js";
 import type { Palette } from "../core/config.js";
 import { safeFetch } from "./utils.js";
 
-export interface CachedPalettes {
+export type CachedPalettes = {
   palettes: Palette[];
   expiration: number;
   version: number;
-}
+};
 
 const CACHE_KEY = "palettes";
 const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;

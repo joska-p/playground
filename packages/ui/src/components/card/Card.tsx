@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { cardVariants } from "./cardVariants.js";
 
-interface CardProps extends ComponentProps<"div">, VariantProps<typeof cardVariants> {}
+type CardProps = {} & ComponentProps<"div"> & VariantProps<typeof cardVariants>;
 
 /**
  * A layout container component based on the Gruvbox theme.

@@ -1,28 +1,24 @@
+// @ts-check
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import turboPlugin from "eslint-plugin-turbo";
 import tseslint from "typescript-eslint";
-import onlyWarn from "eslint-plugin-only-warn";
+import { defineConfig } from "eslint/config";
 
-/**
- * Base ESLint configuration — TypeScript + general code quality.
- * Extend this in every package in the monorepo.
- *
- * @type {import("eslint").Linter.Config[]}
- */
-export const config = [
+export const config = defineConfig([
   // ─── Core JS recommended ────────────────────────────────────────────────────
   js.configs.recommended,
 
   // ─── TypeScript (type-aware) ─────────────────────────────────────────────────
   // recommendedTypeChecked requires parserOptions.projectService so the parser
   // can find each package's tsconfig.json automatically.
-  ...tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
       parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        projectService: {
+          allowDefaultProject: ["*.js", "*.mjs", "*.ts"],
+        },
       },
     },
   },
@@ -83,13 +79,8 @@ export const config = [
     },
   },
 
-  // ─── Downgrade all errors to warnings (onlyWarn) ────────────────────────────
-  {
-    plugins: { onlyWarn },
-  },
-
   // ─── Ignored paths ──────────────────────────────────────────────────────────
   {
-    ignores: ["dist/**", ".turbo/**", "node_modules/**", "*.min.js", "coverage/**"],
+    ignores: ["dist/**", ".turbo/**", "node_modules/**", "*.min.js"],
   },
-];
+]);

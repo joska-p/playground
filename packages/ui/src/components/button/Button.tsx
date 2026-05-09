@@ -3,9 +3,10 @@ import type { ComponentProps } from "react";
 import { cn } from "../../utils/cn.js";
 import { buttonVariants } from "./buttonVariants.js";
 
-interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+type ButtonProps = {
   isLoading?: boolean;
-}
+} & ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants>;
 
 function Button({
   ref,
@@ -23,7 +24,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       type={type}
       ref={ref}
-      disabled={isLoading || disabled}
+      disabled={isLoading ?? disabled}
       {...props}
     >
       {isLoading ? (

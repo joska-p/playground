@@ -12,11 +12,11 @@
 /**
  * RGBColor represents a color in 0..255 integer channels.
  */
-export interface RGBColor {
+export type RGBColor = {
   red: number;
   green: number;
   blue: number;
-}
+};
 
 /**
  * HSLColor represents a color with:
@@ -24,11 +24,11 @@ export interface RGBColor {
  * - saturation: 0..100 (percent)
  * - lightness: 0..100 (percent)
  */
-export interface HSLColor {
+export type HSLColor = {
   hue: number;
   saturation: number;
   lightness: number;
-}
+};
 
 /**
  * Convert an RGB color to HSL.

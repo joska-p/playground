@@ -8,7 +8,7 @@ export function SidebarToggle({ className, children, ...props }: ComponentProps<
   const { isOpen, toggleSidebar, desktopPosition } = useSidebarContext();
 
   const positionClasses = useMemo(() => {
-    const pos = desktopPosition || "left";
+    const pos = desktopPosition;
 
     if (isOpen) return "[grid-area:panel] top-2 right-2";
 
@@ -35,7 +35,7 @@ export function SidebarToggle({ className, children, ...props }: ComponentProps<
       aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       {...props}
     >
-      {children ||
+      {children ??
         (isOpen ? (
           <svg
             className="h-4 w-4"

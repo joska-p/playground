@@ -6,7 +6,7 @@ import UtilityLinks from "./UtilityLinks.astro";
 import MobileMenuToggle from "./MobileMenuToggle.astro";
 import MobileMenu from "./MobileMenu.astro";
 
-interface Route {
+type Route = {
   label: string;
   href: string;
   description?: string;
@@ -35,7 +35,7 @@ const routes: Route[] = [
   },
 ];
 
-interface Props {
+type Props = {
   currentPath: string;
 }
 

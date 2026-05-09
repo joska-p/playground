@@ -12,7 +12,7 @@ import {
 import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./core/utils.js";
 import { useImageUpload } from "./hooks/use-image-upload.js";
 
-export interface Particle {
+export type Particle = {
   x: number;
   y: number;
   originX: number;
@@ -25,7 +25,7 @@ export interface Particle {
   };
   state: "waiting" | "falling" | "landed";
   delay: number;
-}
+};
 
 function ImageToParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -34,8 +34,6 @@ function ImageToParticles() {
   const [imageFile, handleImageUpload] = useImageUpload();
 
   const resetParticles = useCallback(() => {
-    if (!particles.current) return;
-
     let currentDelay = 0;
     particles.current = particles.current.map((particle) => ({
       ...particle,
@@ -112,7 +110,7 @@ function ImageToParticles() {
                   particle.state = "landed";
                   particle.y = particle.originY;
                 }
-              } else if (particle.state === "landed") {
+              } else {
                 const dx = particle.originX - particle.x;
                 const distance = Math.abs(dx);
 
@@ -140,7 +138,6 @@ function ImageToParticles() {
 
     image.onerror = (error) => {
       if (error instanceof Error) throw new Error("Error loading image", error);
-      throw error;
     };
 
     return cleanup;
