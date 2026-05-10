@@ -1,15 +1,20 @@
 import { create } from "zustand";
-import type { Palette, BaseColor } from "../core/config.js";
-import { initialBaseColor } from "../core/config.js";
+import type { BaseColor, Palette } from "../core/rules";
 
 type PaletteState = {
   palettes: Palette[];
   baseColor: BaseColor;
+  setBaseColor: (baseColor: BaseColor) => void;
+  addPalette: (palette: Palette) => void;
 };
+
+const initialBaseColor: BaseColor = "#123546";
 
 const usePaletteStore = create<PaletteState>()(() => ({
   palettes: [],
   baseColor: initialBaseColor,
+  setBaseColor,
+  addPalette,
 }));
 
 function setBaseColor(baseColor: BaseColor) {
@@ -21,14 +26,4 @@ function addPalette(palette: Palette) {
   usePaletteStore.setState({ palettes: [...palettes, palette] });
 }
 
-function removePalette(index: number) {
-  const { palettes } = usePaletteStore.getState();
-  usePaletteStore.setState({ palettes: palettes.filter((_, i) => i !== index) });
-}
-
-function clearPalettes() {
-  usePaletteStore.setState({ palettes: [] });
-}
-
-export type { Palette, BaseColor };
-export { usePaletteStore, setBaseColor, addPalette, removePalette, clearPalettes };
+export { usePaletteStore, setBaseColor, addPalette };

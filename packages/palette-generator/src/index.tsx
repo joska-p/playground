@@ -1,18 +1,17 @@
-import { ColorPicker } from "./components/color-picker/ColorPicker.js";
-import { Controls } from "./components/controls/Controls.js";
-import { PaletteDisplay } from "./components/palette-display/PaletteDisplay.js";
 import { Sidebar } from "@repo/ui";
+import { Display } from "./components/display";
+import { Controls } from "./components/controls";
 
 function PaletteGenerator() {
   return (
     <Sidebar mobilePosition="left" desktopPosition="left">
-      <Sidebar.Panel className="flex flex-col items-start justify-between gap-4 p-4">
-        <ColorPicker width={368} height={368} />
+      <Sidebar.Panel className="flex flex-col gap-3 p-3">
+        <div className="text-sm font-semibold">Palette Generator</div>
         <Controls />
       </Sidebar.Panel>
 
-      <Sidebar.Main className="p-2">
-        <PaletteDisplay />
+      <Sidebar.Main className="p-3">
+        <Display />
       </Sidebar.Main>
     </Sidebar>
   );
