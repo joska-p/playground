@@ -2,11 +2,6 @@
  * colorConversions.ts
  *
  * Pure, project-agnostic color conversion utilities.
- * - Exported names follow the blueprint's named-exports-only rule.
- * - Types use PascalCase naming.
- *
- * These functions are intentionally pure and have no DOM/React dependencies,
- * so they belong in `src/utils/` per the architectural blueprint.
  */
 
 /**
@@ -83,7 +78,6 @@ function RGBToHSL({ red, green, blue }: RGBColor): HSLColor {
 
 /**
  * Helper for HSL -> RGB conversion
- * Given a temporary value p and q and a t component, compute color component.
  */
 function hueToRGB(p: number, q: number, t: number): number {
   if (t < 0) t += 1;
@@ -134,7 +128,6 @@ function HSLToRGB({ hue, saturation, lightness }: HSLColor): RGBColor {
  */
 function RGBToHex({ red, green, blue }: RGBColor): string {
   function toHex(n: number): string {
-    // clamp to [0,255] and convert to two-digit hex
     const clamped = Math.max(0, Math.min(255, Math.round(n)));
     const hex = clamped.toString(16).padStart(2, "0");
     return hex;
@@ -193,4 +186,57 @@ function hexToHSL(hex: string): HSLColor {
   return RGBToHSL(rgb);
 }
 
-export { RGBToHSL, HSLToRGB, RGBToHex, HSLToHex, hexToRGB, hexToHSL };
+/* -------------------------
+   Accessibility helpers
+   ------------------------- */
+
+/**
+ * Convert an 8-bit sRGB channel (0..255) to linear channel (0..1).
+ */
+function srgbChannelToLinear01(channel8: number): number {
+  const c = channel8 / 255;
+  if (c <= 0.04045) return c / 12.92;
+  return Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+/**
+ * Relative luminance per WCAG (returns 0..1)
+ */
+function relativeLuminance(rgb: RGBColor): number {
+  const r = srgbChannelToLinear01(rgb.red);
+  const g = srgbChannelToLinear01(rgb.green);
+  const b = srgbChannelToLinear01(rgb.blue);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+/**
+ * Contrast ratio between two RGB colors (0..21)
+ */
+function contrastRatioRgb(a: RGBColor, b: RGBColor): number {
+  const La = relativeLuminance(a);
+  const Lb = relativeLuminance(b);
+  const light = Math.max(La, Lb);
+  const dark = Math.min(La, Lb);
+  return (light + 0.05) / (dark + 0.05);
+}
+
+/**
+ * Convenience: contrast between two hex strings
+ */
+function contrastRatioHex(aHex: string | undefined, bHex: string | undefined): number {
+  const a = hexToRGB(aHex);
+  const b = hexToRGB(bHex);
+  return contrastRatioRgb(a, b);
+}
+
+export {
+  RGBToHSL,
+  HSLToRGB,
+  RGBToHex,
+  HSLToHex,
+  hexToRGB,
+  hexToHSL,
+  relativeLuminance,
+  contrastRatioRgb,
+  contrastRatioHex,
+};
