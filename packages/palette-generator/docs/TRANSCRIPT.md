@@ -6,85 +6,99 @@ Summary
 
 - Goal: redesign `@repo/palette-generator`, focus on a clean programmatic API and a small React UI component for the playground. Use Oklab as the single perceptual color space, avoid runtime dependencies, make contrast adjustments optional.
 
-- Key decisions made with you:
-  1. TypeScript-first implementation.
-  2. Primary consumers: frontend (React) and design systems; we also include programmatic generator exports.
-  3. Accessibility support (WCAG contrast) is optional and enabled via controls.
-  4. No external color libraries — implement `srgb <-> oklab` conversions internally.
-  5. The UI will be decomposed and restyled; `@repo/ui` primitives will be used for consistent look and feel.
+Key decisions made with you
 
-Step-by-step actions performed
+1. Implementation choices
+   - TypeScript-first implementation.
+   - Primary consumers: frontend (React) and design systems; programmatic generator exports are provided for scripting and token generation.
+   - Accessibility support (WCAG contrast) is optional and enabled via controls.
+   - No external color libraries — implement `srgb <-> oklab` conversions internally.
+   - Interpolation and perceptual math are performed in Oklab (`src/utils/oklab.ts`).
 
-1. Implemented Oklab helpers and color math
-   - `src/utils/oklab.ts` — `srgbToOklab`, `oklabToSrgb`, tiny gamut check.
-   - `src/utils/colorConversions.ts` — HSL <-> RGB, hex parsing, relative luminance, contrast ratio utilities.
+2. UI decisions
+   - The UI is composed of small, focused components using `@repo/ui` primitives for a consistent look.
+   - The color picker UX uses an HSL hue/lightness canvas (intuitive for designers) with a saturation slider; generation still uses Oklab internally.
+   - Controls were decomposed into `SchemeSelector`, `NumericControl`, `ContrastControls`, and a main `Controls` card.
 
-2. Rewrote/extended generator to use Oklab
-   - `src/core/paletteGenerators.ts` — Interpolation in Oklab, iterative chroma-reduction gamut mapping, optional `ensureContrast` pass (binary search on L per swatch).
-   - Generator signature: `generatePalette(baseColor: HSLColor, params: GeneratorParams): Palette`.
+User decisions (answers provided during the design conversation)
 
-3. Refactored UI into smaller components
-   - `ColorCanvas.tsx` — isolated canvas drawing + pick handling; debounced draws.
-   - `ColorPicker.tsx` — composes `ColorCanvas` + saturation `Slider` + selected preview.
-   - `Controls.tsx` refactor: split into `SchemeSelector`, `NumericControl`, `ContrastControls` + styled `Card` layout.
+The user provided input to guide the next work. These are recorded exactly so you can resume later.
 
-4. Added canvas helpers
-   - `src/utils/canvasHelpers.ts` — color-space draw helper.
+1) Generation workflow & UX
+   - Rather than an immediate `Generate` action, the UI should present a `Save` button and a `Live` toggle. When `Live` is enabled the palette updates automatically (see debounce below). There will be no history (no undo/redo) for now.
+   - Debounce for live updates: 500ms (start value).
 
-5. Fixed lint/type issues and iterated until build + lint succeeded for the package.
+2) Schemes & steps
+   - Keep the `analogous` scheme for now (the base scheme to focus on).
+   - Number of steps: the user left the exact count open — requirement: "as long there is no duplicate color." Implementation decision: default to 10 swatches when not specified, but the generator must ensure uniqueness (detect duplicates post-conversion to sRGB/hex and resolve by small perceptual adjustments as needed).
 
-Files added/modified (high-level)
+3) Token mapping / naming
+   - The user wasn’t sure about tokenization. They pointed to existing project token examples for guidance:
+     - `packages/tailwind-config/gruvbox-styles.css`
+     - `apps/playground/src/styles.css`
+   - Implementation decision: provide CSS variables + JSON token export by default. Token naming rules:
+     - If `count === 10`, map to `50,100,...,900` when `tokenPrefix` is supplied.
+     - For other counts, fall back to `prefix-0..N-1` (simple numeric tokens) to avoid guessing.
 
-- Added
-  - `src/utils/oklab.ts`
-  - `src/utils/canvasHelpers.ts`
-  - `src/components/color-picker/ColorCanvas.tsx`
-  - `src/components/controls/SchemeSelector.tsx`
-  - `src/components/controls/NumericControl.tsx`
-  - `src/components/controls/ContrastControls.tsx`
-  - `docs/README.md` (this documentation)
-  - `docs/TRANSCRIPT.md` (this file)
+4) Contrast behavior when target unreachable
+   - The user agreed with the conservative approach: Option A (best-effort & show badge). We will preserve hue where possible and only adjust Oklab L (and reduce chroma for gamut) to reach contrast; if impossible, return the best effort color and mark the swatch as adjusted/failed in metadata with a badge and tooltip explaining the limitation.
+   - The UI will auto-select a recommended foreground text color (`--token-on`) for each swatch (black or white) and include it in token exports.
 
-- Modified
-  - `src/core/paletteGenerators.ts`
-  - `src/utils/colorConversions.ts`
-  - `src/components/color-picker/ColorPicker.tsx`
-  - `src/components/controls/Controls.tsx`
+5) Angle / spread control
+   - The user is unsure whether `angle` is useful. Implementation decision: remove the `angle` control for now (keep `analogous` as a simple neighbor-based harmonic). We can reintroduce `angle` later if you want more creative harmonic controls.
 
-Commands run during the work
+6) Gamut mapping & other defaults
+   - Keep iterative chroma reduction as the default gamut strategy (preferred to clipping). This preserves hue and produces visually pleasing results.
 
-- Build: `pnpm --filter @repo/palette-generator build`
-- Lint: `pnpm --filter @repo/palette-generator lint`
-- Type check: `pnpm --filter @repo/palette-generator run check-types`
+7) Exports
+   - Initial export formats: CSS variables and JSON tokens (user accepted default). We will include `hex`, `hsl`, `oklab` (L,a,b) and a recommended `textOn` color in each token.
 
-How to pick up from here
+8) UI behavior and polish
+   - Basic controls visible; advanced options (seed, token mapping behavior, gamut strategy) behind an "Advanced" toggle.
+   - Add a small preview kit that shows sample components (button, heading, body) using the selected swatch and recommended foreground color.
+   - Save palettes locally (export/download JSON). No server-side saves for now.
 
-1. Start by running the dev server for your playground (root of repo):
+Implementation status (what was done already)
 
-```bash
-pnpm install
-pnpm dev # or your existing workspace dev command
-```
+- Core math and algorithms
+  - `src/utils/oklab.ts` — Oklab conversions (srgb <-> Oklab) implemented with no dependencies.
+  - `src/utils/colorConversions.ts` — HSL/RGB helpers, hex parsing, relative luminance and contrast routines.
+  - `src/core/paletteGenerators.ts` — Interpolation in Oklab, iterative chroma-reduction gamut mapping, optional `ensureContrast` pass (binary search on L for contrast).
 
-2. Open the palettes playground page: `/apps/playground/src/pages/projects/color/palettes/index.astro`.
+- UI refactor
+  - `src/components/color-picker/ColorCanvas.tsx` — isolated canvas drawing + pick handling (debounced draws).
+  - `src/components/color-picker/ColorPicker.tsx` — composes `ColorCanvas` + `Slider` + selected preview.
+  - `src/components/controls/*` — `Controls.tsx` broken into `SchemeSelector`, `NumericControl`, `ContrastControls` and styled with `Card`.
+  - `src/utils/canvasHelpers.ts` — canvas draw helper.
 
-3. If you want to iterate on the UI:
-   - Edit `src/components/controls/*` to add or rearrange controls.
-   - Edit `src/components/color-picker/*` to tune canvas behavior.
+- Documentation
+  - `packages/palette-generator/docs/README.md` — package overview and API notes.
+  - `packages/palette-generator/docs/NEXT_STEPS.md` — short-term TODO list.
 
-4. If you want to iterate on the generator:
-   - Edit `src/core/paletteGenerators.ts`.
-   - Unit tests should cover: srgb<->oklab round-trip, gamut reduction, contrast adjustment.
+Immediate next implementation step (what I will do now)
 
-Notes, gotchas, and suggestions
+Per your request I will choose the next logical step. Based on your answers and the plan above, I will implement these changes next:
 
-- We currently accept the base color in HSL for the UI picker. The generator performs interpolation in Oklab and returns HSL colors for the UI; if you want the core to return Oklab values (for token generation), we can add that.
-- The `ensureContrast` pass mutates L only and reduces chroma when required to remain in gamut. When a target contrast is impossible, the generator returns a best-effort color (no full metadata added yet to palette objects). We can add `adjusted` booleans per swatch if you'd like visual feedback in the UI.
-- I recommend adding unit tests for the Oklab helpers and the contrast adjuster next.
+- Add per-swatch metadata to the generator result (fields: `adjusted?: boolean`, `contrast?: { ratio:number; against:string }`, `oklab?: { L,a,b }`, and `textOn?: string`).
+- Implement a `Swatch` component used by `PaletteDisplay` with the following features:
+  - color preview square,
+  - HEX label + copy-to-clipboard button,
+  - optional small developer tooltip showing HSL and Oklab values,
+  - an `adjusted` badge when the swatch was modified by the contrast/gamut pass.
+- Replace the existing palette boxes in `PaletteDisplay` with `Swatch` components and wire up the metadata display.
+- Add a small export panel in `PaletteDisplay` that offers:
+  - Copy CSS variables to clipboard (using the token prefix and exported names),
+  - Download JSON tokens (including hex, hsl, oklab, textOn, contrast metadata).
+- Update `Controls` to expose a `Live` toggle and a `Save` button (renaming `Generate` behavior):
+  - `Live` toggles auto-generation using a 500ms debounce.
+  - `Save` persists the generated token set to the palette list (same as prior `addPalette`) and enables export.
+- Remove the `angle` control from the UI to keep the scheme simple for now.
 
-If you'd like, I can now:
-- Commit the current state (I will create a git commit containing all changes in `packages/palette-generator`).
-- Add `Swatch` components that show hex values + copy button + adjusted badge.
-- Add unit tests for color math.
+I will commit the changes when finished and update the docs/transcript — you already asked to update the transcript, which is done in this file.
 
-Tell me which of these you want next (or say "commit and polish"), and I will proceed.
+How to resume development from here
+
+- To continue work, run the dev server and open the palettes page (`apps/playground/src/pages/projects/color/palettes/index.astro`).
+- If you want to change any of the decisions recorded above, edit this transcript or reply in chat and I will adapt the implementation accordingly.
+
+If you want me to proceed now with the Swatch + metadata + export step, say "Proceed" and I will implement, test, commit, and update the docs and transcript with the result.
