@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { setBaseColor } from "../../store/usePaletteStore";
-import Slice from "./Slice";
+import { ColorPicker } from "./color-picker/ColorPicker";
 import { oklab, oklch } from "../../utils/colorspaces";
 import type { PickResult } from "../../utils/color-utils";
 
@@ -15,8 +14,8 @@ function Controls() {
 
   return (
     <div className="flex flex-wrap gap-6 p-4">
-      <Slice colorSpace={oklab} displaySize={400} onPick={handleColorPick} />
-      <Slice colorSpace={oklch} displaySize={400} onPick={handleColorPick} />
+      <ColorPicker colorSpace={oklab} displaySize={400} onPick={handleColorPick} />
+      <ColorPicker colorSpace={oklch} displaySize={400} onPick={handleColorPick} />
     </div>
   );
 }

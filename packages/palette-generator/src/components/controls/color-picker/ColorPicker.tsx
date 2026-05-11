@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { Slider, cn } from "@repo/ui";
-import { useCanvasSlice } from "../../hooks/useCanvasSlice";
-import type { ColorSpaceDef } from "../../utils/colorspaces";
-import type { PickResult } from "../../utils/color-utils";
+import { useColorPicker } from "./hooks/useColorPicker";
+import type { ColorSpaceDef } from "../../../utils/colorspaces";
+import type { PickResult } from "../../../utils/color-utils";
 
-type SliceProps = {
+type ColorPickerProps = {
   colorSpace: ColorSpaceDef;
   displaySize?: number;
   onPick?: (result: PickResult) => void;
   className?: string;
 };
 
-function Slice({ colorSpace, displaySize = 512, onPick, className }: SliceProps) {
+function ColorPicker({ colorSpace, displaySize = 512, onPick, className }: ColorPickerProps) {
   // Uncontrolled fallback: manage params internally if none are passed in
   const [params, setParams] = useState(colorSpace.defaultParams);
-  const { canvasRef, render, getColorAtClientPosition } = useCanvasSlice(
+  const { canvasRef, render, getColorAtClientPosition } = useColorPicker(
     colorSpace,
     params,
     displaySize
@@ -55,4 +55,4 @@ function Slice({ colorSpace, displaySize = 512, onPick, className }: SliceProps)
   );
 }
 
-export default Slice;
+export { ColorPicker };

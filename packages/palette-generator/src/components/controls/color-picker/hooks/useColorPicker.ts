@@ -1,9 +1,9 @@
 import { useCallback, useRef } from "react";
-import { configureCanvasForDPR, clientToInternalPixel } from "../utils/canvasDpr";
-import { fillSliceImageData } from "../utils/imageFill";
-import { oklabToPickResult, oklchToPickResult } from "../utils/color-utils";
-import type { PickResult } from "../utils/color-utils";
-import type { ColorSpaceDef } from "../utils/colorspaces";
+import { configureCanvasForDPR, clientToInternalPixel } from "../../../../utils/canvasDpr";
+import { fillSliceImageData } from "../../../../utils/imageFill";
+import { oklabToPickResult, oklchToPickResult } from "../../../../utils/color-utils";
+import type { PickResult } from "../../../../utils/color-utils";
+import type { ColorSpaceDef } from "../../../../utils/colorspaces";
 
 export type { PickResult };
 
@@ -23,7 +23,7 @@ function mapAxis(pixelPos: number, totalPixels: number, rangeMax: number, signed
   return signed ? rangeMax * (t * 2 - 1) : rangeMax * t;
 }
 
-export function useCanvasSlice(
+export function useColorPicker(
   colorSpace: ColorSpaceDef,
   params: Record<string, number>,
   displaySize: number
