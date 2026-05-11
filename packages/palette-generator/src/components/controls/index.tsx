@@ -1,7 +1,10 @@
-import { setBaseColor } from "../../store/usePaletteStore";
+import { setBaseColor, addPalette } from "../../store/usePaletteStore";
 import { ColorPicker } from "./color-picker/ColorPicker";
 import { oklab, oklch } from "../../utils/colorspaces";
 import type { PickResult } from "../../utils/color-utils";
+import { generatePalette } from "../../core/generator";
+import { rules } from "../../core/rules";
+import type { Rule } from "../../core/rules";
 
 /**
  * Controls renders two colorspace slices sharing a common lightness value.
@@ -9,6 +12,8 @@ import type { PickResult } from "../../utils/color-utils";
  */
 function Controls() {
   const handleColorPick = (result: PickResult) => {
+    const palette = generatePalette(result.hex, rules["rule01"] as Rule);
+    addPalette(palette);
     setBaseColor(result.hex);
   };
 

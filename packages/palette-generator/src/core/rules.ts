@@ -16,17 +16,17 @@ export type Rule = {
   };
 };
 
-export type Rules = Map<string, Rule>;
-
 const exampleRule: Rule = {
-  id: "example-rule-01",
-  apply: (color: BaseColor) => [color],
+  id: "rule01",
+  apply: (color: BaseColor) => [color, color, color, color, color, color],
   info: {
     name: "example 01",
     description: "return the input color",
   },
 };
 
-const rules: Rules = new Map([[exampleRule.id, exampleRule]]);
+const rules = {
+  [exampleRule.id]: exampleRule,
+} as const;
 
 export { rules };
