@@ -1,29 +1,22 @@
-import { usePaletteStore, setBaseColor } from "../../store/usePaletteStore";
-import OKLabSlice from "./OKLabSlice";
-import OKLchSlice from "./OKLchSlice";
+import { useState } from "react";
+import { setBaseColor } from "../../store/usePaletteStore";
+import Slice from "./Slice";
+import { oklab, oklch } from "../../utils/colorspaces";
+import type { PickResult } from "../../utils/color-utils";
 
+/**
+ * Controls renders two colorspace slices sharing a common lightness value.
+ * Picking a color in either slice updates the global palette base color.
+ */
 function Controls() {
-  const baseColor = usePaletteStore((state) => state.baseColor);
-
-  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBaseColor(e.target.value);
-  };
-
-  const handleColorPick = (c: { oklab: string; hex: string; rgb: [number, number, number] }) => {
-    setBaseColor(c.hex);
+  const handleColorPick = (result: PickResult) => {
+    setBaseColor(result.hex);
   };
 
   return (
-    <div>
-      <OKLabSlice initialL={0.75} displaySize={400} onPick={handleColorPick} />
-      <OKLchSlice initialL={0.75} displaySize={400} onPick={handleColorPick} />
-      <input
-        type="color"
-        onChange={handleColorChange}
-        value={baseColor}
-        id="exemple"
-        name="example"
-      />
+    <div className="flex flex-wrap gap-6 p-4">
+      <Slice colorSpace={oklab} displaySize={400} onPick={handleColorPick} />
+      <Slice colorSpace={oklch} displaySize={400} onPick={handleColorPick} />
     </div>
   );
 }

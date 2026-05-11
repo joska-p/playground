@@ -68,18 +68,109 @@ export function oklabTo8bit(lightness: number, a: number, b: number): [number, n
   ];
 }
 
-export function oklchToOklab(lightness: number, chroma: number, hueDegrees: number) {
+export function oklchToOklab(
+  lightness: number,
+  chroma: number,
+  hueDegrees: number
+): { lightness: number; a: number; b: number } {
   const hueRadians = (hueDegrees * Math.PI) / 180;
   const a = chroma * Math.cos(hueRadians);
   const b = chroma * Math.sin(hueRadians);
   return { lightness, a, b };
 }
 
-export function oklchTo8bit(lightness: number, chroma: number, hueDegrees: number): [number, number, number] {
+export function oklabToOklch(
+  lightness: number,
+  a: number,
+  b: number
+): { lightness: number; chroma: number; hueDegrees: number } {
+  const chroma = Math.sqrt(a * a + b * b);
+  let hueDegrees = (Math.atan2(b, a) * 180) / Math.PI;
+  if (hueDegrees < 0) hueDegrees += 360;
+  return { lightness, chroma, hueDegrees };
+}
+
+export function oklchTo8bit(
+  lightness: number,
+  chroma: number,
+  hueDegrees: number
+): [number, number, number] {
   const { a, b } = oklchToOklab(lightness, chroma, hueDegrees);
   return oklabTo8bit(lightness, a, b);
 }
 
 export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + [r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("");
+}
+
+// ---------------------------------------------------------------------------
+// PickResult — the canonical color object returned by the color picker
+// ---------------------------------------------------------------------------
+
+/**
+ * All string values use CSS Color Level 4 modern syntax (space-separated, no commas).
+ *
+ * hex    "#1f7832"
+ * rgb    "rgb(31 120 50)"
+ * oklab  "oklab(0.75 -0.10 0.08)"
+ * oklch  "oklch(0.75 0.13 141.2)"
+ */
+export type PickResult = {
+  hex: string;
+  rgb: string;
+  oklab: string;
+  oklch: string;
+};
+
+function round(value: number, decimals: number): number {
+  const factor = Math.pow(10, decimals);
+  return Math.round(value * factor) / factor;
+}
+
+function toRgbString(r: number, g: number, b: number): string {
+  return `rgb(${r} ${g} ${b})`;
+}
+
+function toOklabString(lightness: number, a: number, b: number): string {
+  return `oklab(${round(lightness, 4)} ${round(a, 4)} ${round(b, 4)})`;
+}
+
+function toOklchString(lightness: number, chroma: number, hueDegrees: number): string {
+  return `oklch(${round(lightness, 4)} ${round(chroma, 4)} ${round(hueDegrees, 2)})`;
+}
+
+/**
+ * Build a PickResult from OKLab coordinates.
+ * Use this in useCanvasSlice when the active colorspace is oklab.
+ */
+export function oklabToPickResult(lightness: number, a: number, b: number): PickResult {
+  const [r, g, b8] = oklabTo8bit(lightness, a, b);
+  const { chroma, hueDegrees } = oklabToOklch(lightness, a, b);
+
+  return {
+    hex: rgbToHex(r, g, b8),
+    rgb: toRgbString(r, g, b8),
+    oklab: toOklabString(lightness, a, b),
+    oklch: toOklchString(lightness, chroma, hueDegrees),
+  };
+}
+
+/**
+ * Build a PickResult from OKLCH coordinates.
+ * Use this in useCanvasSlice when the active colorspace is oklch.
+ */
+export function oklchToPickResult(
+  lightness: number,
+  chroma: number,
+  hueDegrees: number
+): PickResult {
+  const { a, b } = oklchToOklab(lightness, chroma, hueDegrees);
+  const [r, g, b8] = oklabTo8bit(lightness, a, b);
+
+  return {
+    hex: rgbToHex(r, g, b8),
+    rgb: toRgbString(r, g, b8),
+    oklab: toOklabString(lightness, a, b),
+    oklch: toOklchString(lightness, chroma, hueDegrees),
+  };
 }
