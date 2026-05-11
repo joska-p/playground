@@ -1,4 +1,5 @@
 import { usePaletteStore, setBaseColor } from "../../store/usePaletteStore";
+import OKLabSlice from "./OKLabSlice";
 
 function Controls() {
   const baseColor = usePaletteStore((state) => state.baseColor);
@@ -7,8 +8,13 @@ function Controls() {
     setBaseColor(e.target.value);
   };
 
+  const handleColorPick = (c: { oklab: string; hex: string; rgb: [number, number, number] }) => {
+    setBaseColor(c.hex);
+  };
+
   return (
     <div>
+      <OKLabSlice initialL={0.75} displaySize={400} onPick={handleColorPick} />
       <input
         type="color"
         onChange={handleColorChange}
