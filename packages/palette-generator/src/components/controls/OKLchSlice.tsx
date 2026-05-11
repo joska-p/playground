@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useOKLabCanvas } from "../../hooks/useOKLabCanvas";
+import { useOKLchCanvas } from "../../hooks/useOKLchCanvas";
 import { Slider, cn } from "@repo/ui";
 
 type Props = {
   initialL?: number;
   displaySize?: number;
-  aRange?: number;
-  bRange?: number;
+  chroma?: number;
+  hueDegrees?: number;
   className?: string;
   onPick?: (payload: { oklab: string; hex: string; rgb: [number, number, number] }) => void;
 };
@@ -14,24 +14,24 @@ type Props = {
 export default function OKLabSlice({
   initialL = 0.8,
   displaySize = 512,
-  aRange = 0.6,
-  bRange = 0.6,
+  chroma = 0.6,
+  hueDegrees = 0.6,
   className,
   onPick,
 }: Props) {
   const [lightness, setLightness] = useState<number>(initialL);
   const [picked, setPicked] = useState<string>("");
 
-  const { canvasRef, renderOKLabSlice, getColorAtClientPosition } = useOKLabCanvas({
+  const { canvasRef, renderOKLchSlice, getColorAtClientPosition } = useOKLchCanvas({
     lightness,
     displaySize,
-    aRange,
-    bRange,
+    chroma,
+    hueDegrees,
   });
 
   useEffect(() => {
-    renderOKLabSlice();
-  }, [lightness, displaySize, renderOKLabSlice]);
+    renderOKLchSlice();
+  }, [lightness, displaySize, renderOKLchSlice]);
 
   const onCanvasClick = (ev: React.MouseEvent<HTMLCanvasElement>) => {
     const css = getColorAtClientPosition(ev.nativeEvent);

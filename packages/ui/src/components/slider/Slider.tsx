@@ -18,7 +18,7 @@ function Slider({
   className,
   variant,
   layout,
-  value,
+  value = 0,
   onChange,
   min = 0,
   max = 100,
@@ -31,8 +31,15 @@ function Slider({
 }: SliderProps) {
   const generatedId = useId();
   const sliderId = id ?? generatedId;
-  const hasLabel = label !== undefined;
+  const helperId = `${sliderId}-helper`;
   const isHorizontal = layout === "horizontal";
+
+  const valueColorClass = cn("font-mono text-xs", {
+    "text-primary": !variant || variant === "primary",
+    "text-secondary": variant === "secondary",
+    "text-accent": variant === "accent",
+    "text-destructive": variant === "destructive",
+  });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = parseFloat(event.target.value);
@@ -41,71 +48,44 @@ function Slider({
 
   return (
     <div className={cn(sliderVariants({ variant, layout, className }))}>
-      {label &&
-        (isHorizontal ? (
-          <div className="flex items-center gap-2">
-            <label htmlFor={sliderId} className="text-foreground/80 text-xs whitespace-nowrap">
-              {label}
-            </label>
-            <span
-              className={cn("font-mono text-xs", {
-                "text-primary": !variant || variant === "primary",
-                "text-secondary": variant === "secondary",
-                "text-accent": variant === "accent",
-                "text-destructive": variant === "destructive",
-              })}
-            >
-              {value}
-              {unit}
-            </span>
-          </div>
-        ) : (
-          <div className="flex items-center justify-between">
-            <label htmlFor={sliderId} className="text-foreground/80 text-xs">
-              {label}
-            </label>
-            <span
-              className={cn("font-mono text-xs", {
-                "text-primary": !variant || variant === "primary",
-                "text-secondary": variant === "secondary",
-                "text-accent": variant === "accent",
-                "text-destructive": variant === "destructive",
-              })}
-            >
-              {value}
-              {unit}
-            </span>
-          </div>
-        ))}
-      {isHorizontal ? (
-        <input
-          type="range"
-          id={sliderId}
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={handleChange}
-          className="flex-1"
-          ref={ref}
-          {...props}
-        />
-      ) : (
-        <input
-          type="range"
-          id={sliderId}
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={handleChange}
-          className="mt-2 w-full"
-          ref={ref}
-          {...props}
-        />
+      {label && (
+        <div
+          className={cn("flex items-center gap-2", {
+            "justify-between": !isHorizontal,
+          })}
+        >
+          <label htmlFor={sliderId} className="text-foreground/80 text-xs whitespace-nowrap">
+            {label}
+          </label>
+          <span className={valueColorClass}>
+            {value}
+            {unit}
+          </span>
+        </div>
       )}
-      {helperText && !hasLabel && (
+
+      <input
+        ref={ref}
+        type="range"
+        id={sliderId}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={handleChange}
+        aria-valuetext={unit ? `${value}${unit}` : undefined}
+        aria-describedby={helperText ? helperId : undefined}
+        aria-label={!label ? (props["aria-label"] ?? "Slider") : undefined}
+        className={cn("cursor-pointer disabled:cursor-not-allowed", {
+          "flex-1": isHorizontal,
+          "mt-2 w-full": !isHorizontal,
+        })}
+        {...props}
+      />
+
+      {helperText && (
         <p
+          id={helperId}
           className={cn(
             "text-xs italic",
             variant === "destructive" ? "text-destructive" : "text-muted-foreground"
