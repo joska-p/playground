@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 import { configureCanvasForDPR, clientToInternalPixel } from "../utils/canvasDpr";
 import { fillOKLabSliceImageData } from "../utils/imageFill";
-import { oklabTo8bit } from "../utils/oklab-to-srgb";
+import { oklabTo8bit } from "../utils/color-utils";
 
 type Params = {
   lightness: number;

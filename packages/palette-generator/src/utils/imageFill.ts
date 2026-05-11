@@ -1,5 +1,4 @@
-import { oklabTo8bit } from "./oklab-to-srgb";
-import { oklchTo8bit } from "./oklch-to-srgb";
+import { oklabTo8bit, oklchTo8bit } from "./color-utils";
 
 /**
  * Fill an ImageData buffer with an OKLab fixed-L slice.
