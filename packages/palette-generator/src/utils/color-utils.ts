@@ -50,33 +50,22 @@ export function oklabToPreCubeLMS(lightness: number, a: number, b: number) {
   return { preL, preM, preS };
 }
 
-export function oklabTo8bit(lightness: number, a: number, b: number): [number, number, number] {
+export function oklabToRgb(lightness: number, a: number, b: number): [number, number, number] {
   const { preL, preM, preS } = oklabToPreCubeLMS(lightness, a, b);
   const l = cube(preL);
   const m = cube(preM);
   const s = cube(preS);
 
-  let [r, g, bl] = lmsToLinearSRGB(l, m, s);
-  r = clip01(r);
-  g = clip01(g);
-  bl = clip01(bl);
+  let [red, green, blue] = lmsToLinearSRGB(l, m, s);
+  red = clip01(red);
+  green = clip01(green);
+  blue = clip01(blue);
 
   return [
-    Math.round(255 * linearToSRGBGamma(r)),
-    Math.round(255 * linearToSRGBGamma(g)),
-    Math.round(255 * linearToSRGBGamma(bl)),
+    Math.round(255 * linearToSRGBGamma(red)),
+    Math.round(255 * linearToSRGBGamma(green)),
+    Math.round(255 * linearToSRGBGamma(blue)),
   ];
-}
-
-export function oklchToOklab(
-  lightness: number,
-  chroma: number,
-  hueDegrees: number
-): { lightness: number; a: number; b: number } {
-  const hueRadians = (hueDegrees * Math.PI) / 180;
-  const a = chroma * Math.cos(hueRadians);
-  const b = chroma * Math.sin(hueRadians);
-  return { lightness, a, b };
 }
 
 export function oklabToOklch(
@@ -90,17 +79,157 @@ export function oklabToOklch(
   return { lightness, chroma, hueDegrees };
 }
 
-export function oklchTo8bit(
+export function oklchToOklab(
+  lightness: number,
+  chroma: number,
+  hueDegrees: number
+): { lightness: number; a: number; b: number } {
+  const hueRadians = (hueDegrees * Math.PI) / 180;
+  const a = chroma * Math.cos(hueRadians);
+  const b = chroma * Math.sin(hueRadians);
+  return { lightness, a, b };
+}
+
+export function oklchToRgb(
   lightness: number,
   chroma: number,
   hueDegrees: number
 ): [number, number, number] {
   const { a, b } = oklchToOklab(lightness, chroma, hueDegrees);
-  return oklabTo8bit(lightness, a, b);
+  return oklabToRgb(lightness, a, b);
 }
 
-export function rgbToHex(r: number, g: number, b: number): string {
-  return "#" + [r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("");
+export function rgbToHex(red: number, green: number, blue: number): string {
+  return "#" + [red, green, blue].map((v) => v.toString(16).padStart(2, "0")).join("");
+}
+
+export function rgbToHsl(r: number, g: number, b: number) {
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  const l = (max + min) / 2;
+
+  let h = 0;
+  let s = 0;
+
+  if (max !== min) {
+    const delta = max - min;
+    s = l > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+
+    switch (max) {
+      case rNorm:
+        h = (gNorm - bNorm) / delta + (gNorm < bNorm ? 6 : 0);
+        break;
+      case gNorm:
+        h = (bNorm - rNorm) / delta + 2;
+        break;
+      case bNorm:
+        h = (rNorm - gNorm) / delta + 4;
+        break;
+    }
+    h /= 6;
+  }
+
+  return {
+    hue: Math.round(h * 360),
+    saturation: Math.round(s * 100),
+    lightness: Math.round(l * 100),
+  };
+}
+
+export function hslToRgb(
+  h: number,
+  s: number,
+  l: number
+): { red: number; green: number; blue: number } {
+  const sNorm = s / 100;
+  const lNorm = l / 100;
+
+  const k = (n: number) => (n + h / 30) % 12;
+  const a = sNorm * Math.min(lNorm, 1 - lNorm);
+  const f = (n: number) => lNorm - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+
+  return {
+    red: Math.round(255 * f(0)),
+    green: Math.round(255 * f(8)),
+    blue: Math.round(255 * f(4)),
+  };
+}
+
+export function rgbToHsv(r: number, g: number, b: number) {
+  const rNorm = r / 255;
+  const gNorm = g / 255;
+  const bNorm = b / 255;
+
+  const max = Math.max(rNorm, gNorm, bNorm);
+  const min = Math.min(rNorm, gNorm, bNorm);
+  const delta = max - min;
+
+  let h = 0;
+  const s = max === 0 ? 0 : delta / max;
+  const v = max;
+
+  if (delta !== 0) {
+    switch (max) {
+      case rNorm:
+        h = (gNorm - bNorm) / delta + (gNorm < bNorm ? 6 : 0);
+        break;
+      case gNorm:
+        h = (bNorm - rNorm) / delta + 2;
+        break;
+      case bNorm:
+        h = (rNorm - gNorm) / delta + 4;
+        break;
+    }
+    h /= 6;
+  }
+
+  return {
+    hue: Math.round(h * 360),
+    saturation: Math.round(s * 100),
+    value: Math.round(v * 100),
+  };
+}
+
+export function hsvToRgb(
+  h: number,
+  s: number,
+  v: number
+): { red: number; green: number; blue: number } {
+  // Normalize Saturation and Value to 0-1
+  const sNorm = s / 100;
+  const vNorm = v / 100;
+
+  const c = vNorm * sNorm; // Chroma
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = vNorm - c;
+
+  let rPrime = 0,
+    gPrime = 0,
+    bPrime = 0;
+
+  if (h >= 0 && h < 60) {
+    [rPrime, gPrime, bPrime] = [c, x, 0];
+  } else if (h >= 60 && h < 120) {
+    [rPrime, gPrime, bPrime] = [x, c, 0];
+  } else if (h >= 120 && h < 180) {
+    [rPrime, gPrime, bPrime] = [0, c, x];
+  } else if (h >= 180 && h < 240) {
+    [rPrime, gPrime, bPrime] = [0, x, c];
+  } else if (h >= 240 && h < 300) {
+    [rPrime, gPrime, bPrime] = [x, 0, c];
+  } else if (h >= 300 && h <= 360) {
+    [rPrime, gPrime, bPrime] = [c, 0, x];
+  }
+
+  return {
+    red: Math.round((rPrime + m) * 255),
+    green: Math.round((gPrime + m) * 255),
+    blue: Math.round((bPrime + m) * 255),
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -112,12 +241,16 @@ export function rgbToHex(r: number, g: number, b: number): string {
  *
  * hex    "#1f7832"
  * rgb    "rgb(31 120 50)"
+ * hsl    "hsl(140 50% 30%)"
+ * hsv    "hsv(140 50% 30%)"
  * oklab  "oklab(0.75 -0.10 0.08)"
  * oklch  "oklch(0.75 0.13 141.2)"
  */
 export type PickResult = {
   hex: string;
   rgb: string;
+  hsl: string;
+  hsv: string;
   oklab: string;
   oklch: string;
 };
@@ -127,8 +260,16 @@ function round(value: number, decimals: number): number {
   return Math.round(value * factor) / factor;
 }
 
-function toRgbString(r: number, g: number, b: number): string {
-  return `rgb(${r} ${g} ${b})`;
+function toRgbString(red: number, green: number, blue: number): string {
+  return `rgb(${red} ${green} ${blue})`;
+}
+
+function toHslString(hue: number, saturation: number, lightness: number): string {
+  return `hsl(${hue} ${saturation} ${lightness})`;
+}
+
+function toHsvString(hue: number, saturation: number, value: number): string {
+  return `hsv(${hue} ${saturation} ${value})`;
 }
 
 function toOklabString(lightness: number, a: number, b: number): string {
@@ -144,12 +285,14 @@ function toOklchString(lightness: number, chroma: number, hueDegrees: number): s
  * Use this in useCanvasSlice when the active colorspace is oklab.
  */
 export function oklabToPickResult(lightness: number, a: number, b: number): PickResult {
-  const [r, g, b8] = oklabTo8bit(lightness, a, b);
+  const [red, green, blue] = oklabToRgb(lightness, a, b);
   const { chroma, hueDegrees } = oklabToOklch(lightness, a, b);
 
   return {
-    hex: rgbToHex(r, g, b8),
-    rgb: toRgbString(r, g, b8),
+    hex: rgbToHex(red, green, blue),
+    rgb: toRgbString(red, green, blue),
+    hsl: toHslString(red, green, blue),
+    hsv: toHsvString(red, green, blue),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
   };
@@ -165,11 +308,13 @@ export function oklchToPickResult(
   hueDegrees: number
 ): PickResult {
   const { a, b } = oklchToOklab(lightness, chroma, hueDegrees);
-  const [r, g, b8] = oklabTo8bit(lightness, a, b);
+  const [red, green, blue] = oklabToRgb(lightness, a, b);
 
   return {
-    hex: rgbToHex(r, g, b8),
-    rgb: toRgbString(r, g, b8),
+    hex: rgbToHex(red, green, blue),
+    rgb: toRgbString(red, green, blue),
+    hsl: toHslString(red, green, blue),
+    hsv: toHsvString(red, green, blue),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
   };
