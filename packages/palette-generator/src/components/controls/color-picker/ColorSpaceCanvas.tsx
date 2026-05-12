@@ -1,21 +1,26 @@
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { COLOR_SPACES } from "../../../core/colorspaces";
 
 type ColorSpaceCanvasProps = {
+  ref?: React.RefObject<HTMLCanvasElement | null>;
   spaceId: keyof typeof COLOR_SPACES;
   zValue: number;
   size?: number;
+  onPick?: (e: React.PointerEvent<HTMLCanvasElement>) => void;
 };
 
-function ColorSpaceCanvas({ spaceId, zValue, size = 200 }: ColorSpaceCanvasProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+function ColorSpaceCanvas({
+  ref,
+  spaceId,
+  zValue,
+  size = 200,
+  onPick = () => {},
+}: ColorSpaceCanvasProps) {
   const config = useMemo(() => COLOR_SPACES[spaceId], [spaceId]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
+    const canvas = ref?.current;
+    const ctx = canvas?.getContext("2d");
     if (!ctx) return;
 
     const imageData = ctx.createImageData(size, size);
@@ -41,9 +46,11 @@ function ColorSpaceCanvas({ spaceId, zValue, size = 200 }: ColorSpaceCanvasProps
     }
 
     ctx.putImageData(imageData, 0, 0);
-  }, [config, zValue, size]);
+  }, [config, zValue, size, ref]);
 
-  return <canvas ref={canvasRef} width={size} height={size} />;
+  return (
+    <canvas ref={ref} width={size} height={size} onPointerDown={onPick} onPointerMove={onPick} />
+  );
 }
 
 export { ColorSpaceCanvas };

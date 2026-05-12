@@ -262,12 +262,10 @@ function toOklchString(lightness: number, chroma: number, hueDegrees: number): s
  * Build a PickResult from OKLab coordinates.
  */
 export function oklabToPickResult(lightness: number, a: number, b: number): PickResult {
-  const [red, green, blue] = oklabToRgb(lightness, a, b);
-  const { chroma, hueDegrees } = oklabToOklch(lightness, a, b);
-
-  // Corrected: Convert RGB to HSL/HSV values before formatting strings
-  const hsl = rgbToHsl(red, green, blue);
-  const hsv = rgbToHsv(red, green, blue);
+  const [red, green, blue] = oklabToRgb(lightness, a, b); // rgb conversion
+  const { chroma, hueDegrees } = oklabToOklch(lightness, a, b); // oklch conversion
+  const hsl = rgbToHsl(red, green, blue); // hsl conversion
+  const hsv = rgbToHsv(red, green, blue); // hsv conversion
 
   return {
     hex: rgbToHex(red, green, blue),
@@ -287,11 +285,10 @@ export function oklchToPickResult(
   chroma: number,
   hueDegrees: number
 ): PickResult {
-  const { a, b } = oklchToOklab(lightness, chroma, hueDegrees);
-  const [red, green, blue] = oklabToRgb(lightness, a, b);
-
-  const hsl = rgbToHsl(red, green, blue);
-  const hsv = rgbToHsv(red, green, blue);
+  const { a, b } = oklchToOklab(lightness, chroma, hueDegrees); // oklab conversion
+  const [red, green, blue] = oklabToRgb(lightness, a, b); // rgb conversion
+  const hsl = rgbToHsl(red, green, blue); // hsl conversion
+  const hsv = rgbToHsv(red, green, blue); // hsv conversion
 
   return {
     hex: rgbToHex(red, green, blue),
@@ -300,5 +297,47 @@ export function oklchToPickResult(
     hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
+  };
+}
+
+export function hslToPickResult(hue: number, saturation: number, lightness: number): PickResult {
+  const [red, green, blue] = hslToRgb(hue, saturation, lightness); // rgb conversion
+  const hsv = rgbToHsv(red, green, blue); // hsv conversion
+
+  return {
+    hex: rgbToHex(red, green, blue),
+    rgb: toRgbString(red, green, blue),
+    hsl: toHslString(hue, saturation, lightness),
+    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
+    oklab: "N/A",
+    oklch: "N/A",
+  };
+}
+
+export function hsvToPickResult(hue: number, saturation: number, value: number): PickResult {
+  const [red, green, blue] = hsvToRgb(hue, saturation, value); // rgb conversion
+  const hsl = rgbToHsl(red, green, blue); // hsl conversion
+
+  return {
+    hex: rgbToHex(red, green, blue),
+    rgb: toRgbString(red, green, blue),
+    hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
+    hsv: toHsvString(hue, saturation, value),
+    oklab: "N/A",
+    oklch: "N/A",
+  };
+}
+
+export function rgbToPickResult(red: number, green: number, blue: number): PickResult {
+  const hsl = rgbToHsl(red, green, blue); // hsl conversion
+  const hsv = rgbToHsv(red, green, blue); // hsv conversion
+
+  return {
+    hex: rgbToHex(red, green, blue),
+    rgb: toRgbString(red, green, blue),
+    hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
+    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
+    oklab: "N/A",
+    oklch: "N/A",
   };
 }
