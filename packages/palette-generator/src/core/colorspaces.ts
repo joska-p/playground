@@ -39,10 +39,7 @@ export const hsl: ColorSpaceDef = {
   xAxis: { label: "Hue", min: 0, max: 360 },
   yAxis: { label: "Saturation", min: 0, max: 100 },
   zSlider: { label: "Lightness", min: 0, max: 100, step: 1 },
-  toRGB: (h, s, l) => {
-    const { red, green, blue } = hslToRgb(h, s, l);
-    return [red, green, blue];
-  },
+  toRGB: (h, s, l) => hslToRgb(h, s, l),
 };
 
 export const hsv: ColorSpaceDef = {
@@ -52,10 +49,7 @@ export const hsv: ColorSpaceDef = {
   xAxis: { label: "Hue", min: 0, max: 360 },
   yAxis: { label: "Saturation", min: 0, max: 100 },
   zSlider: { label: "Value", min: 0, max: 100, step: 1 },
-  toRGB: (h, s, v) => {
-    const { red, green, blue } = hsvToRgb(h, s, v);
-    return [red, green, blue];
-  },
+  toRGB: (h, s, v) => hsvToRgb(h, s, v),
 };
 
 export const COLOR_SPACES = { oklab, oklch, hsl, hsv };

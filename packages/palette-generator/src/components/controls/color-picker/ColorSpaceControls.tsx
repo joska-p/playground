@@ -10,7 +10,8 @@ type ColorSliceProps = {
 
 function ColorSpaceControls({ spaceId = "oklab", size = 200 }: ColorSliceProps) {
   const { name, zSlider } = COLOR_SPACES[spaceId];
-  const [zValue, setZValue] = useState<number>(zSlider.max / 2);
+  const { label, min, max, step } = zSlider;
+  const [zValue, setZValue] = useState<number>(max / 2);
 
   return (
     <div className="flex flex-col gap-8">
@@ -18,10 +19,10 @@ function ColorSpaceControls({ spaceId = "oklab", size = 200 }: ColorSliceProps) 
       <ColorSpaceCanvas spaceId={spaceId} zValue={zValue} size={size} />
 
       <Slider
-        label={zSlider.label}
-        min={zSlider.min}
-        max={zSlider.max}
-        step={zSlider.step ?? 1}
+        label={label}
+        min={min}
+        max={max}
+        step={step ?? 1}
         value={zValue}
         onChange={setZValue}
       />

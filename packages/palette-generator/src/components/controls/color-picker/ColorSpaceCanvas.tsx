@@ -26,8 +26,6 @@ function ColorSpaceCanvas({ spaceId, zValue, size = 200 }: ColorSpaceCanvasProps
     for (let py = 0; py < size; py++) {
       for (let px = 0; px < size; px++) {
         // Map pixel coordinates to axis ranges
-        // xAxis is horizontal (left to right)
-        // yAxis is vertical (top to bottom)
         const x = xAxis.min + (px / size) * (xAxis.max - xAxis.min);
         const y = yAxis.max - (py / size) * (yAxis.max - yAxis.min); // Invert y for standard Cartesian
 

@@ -144,7 +144,7 @@ export function hslToRgb(
   hue: number,
   saturation: number,
   lightness: number
-): { red: number; green: number; blue: number } {
+): [number, number, number] {
   const saturationNorm = saturation / 100;
   const lightnessNorm = lightness / 100;
 
@@ -153,11 +153,7 @@ export function hslToRgb(
   const f = (n: number) =>
     lightnessNorm - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
 
-  return {
-    red: Math.round(255 * f(0)),
-    green: Math.round(255 * f(8)),
-    blue: Math.round(255 * f(4)),
-  };
+  return [Math.round(255 * f(0)), Math.round(255 * f(8)), Math.round(255 * f(4))];
 }
 
 export function rgbToHsv(red: number, green: number, blue: number) {
@@ -195,11 +191,7 @@ export function rgbToHsv(red: number, green: number, blue: number) {
   };
 }
 
-export function hsvToRgb(
-  hue: number,
-  saturation: number,
-  value: number
-): { red: number; green: number; blue: number } {
+export function hsvToRgb(hue: number, saturation: number, value: number): [number, number, number] {
   const saturationNorm = saturation / 100;
   const valueNorm = value / 100;
 
@@ -225,11 +217,11 @@ export function hsvToRgb(
     [redPrime, greenPrime, bluePrime] = [chroma, 0, x];
   }
 
-  return {
-    red: Math.round((redPrime + m) * 255),
-    green: Math.round((greenPrime + m) * 255),
-    blue: Math.round((bluePrime + m) * 255),
-  };
+  return [
+    Math.round((redPrime + m) * 255),
+    Math.round((greenPrime + m) * 255),
+    Math.round((bluePrime + m) * 255),
+  ];
 }
 
 export type PickResult = {
