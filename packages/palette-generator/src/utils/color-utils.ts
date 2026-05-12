@@ -37,10 +37,10 @@ export function linearToSRGBGamma(channel: number) {
 }
 
 export function lmsToLinearSRGB(l: number, m: number, s: number): [number, number, number] {
-  const linearR = LMS_TO_LINEAR_R_L * l + LMS_TO_LINEAR_R_M * m + LMS_TO_LINEAR_R_S * s;
-  const linearG = LMS_TO_LINEAR_G_L * l + LMS_TO_LINEAR_G_M * m + LMS_TO_LINEAR_G_S * s;
-  const linearB = LMS_TO_LINEAR_B_L * l + LMS_TO_LINEAR_B_M * m + LMS_TO_LINEAR_B_S * s;
-  return [linearR, linearG, linearB];
+  const linearRed = LMS_TO_LINEAR_R_L * l + LMS_TO_LINEAR_R_M * m + LMS_TO_LINEAR_R_S * s;
+  const linearGreen = LMS_TO_LINEAR_G_L * l + LMS_TO_LINEAR_G_M * m + LMS_TO_LINEAR_G_S * s;
+  const linearBlue = LMS_TO_LINEAR_B_L * l + LMS_TO_LINEAR_B_M * m + LMS_TO_LINEAR_B_S * s;
+  return [linearRed, linearGreen, linearBlue];
 }
 
 export function oklabToPreCubeLMS(lightness: number, a: number, b: number) {
@@ -56,15 +56,15 @@ export function oklabToRgb(lightness: number, a: number, b: number): [number, nu
   const m = cube(preM);
   const s = cube(preS);
 
-  let [red, green, blue] = lmsToLinearSRGB(l, m, s);
-  red = clip01(red);
-  green = clip01(green);
-  blue = clip01(blue);
+  let [linearRed, linearGreen, linearBlue] = lmsToLinearSRGB(l, m, s);
+  linearRed = clip01(linearRed);
+  linearGreen = clip01(linearGreen);
+  linearBlue = clip01(linearBlue);
 
   return [
-    Math.round(255 * linearToSRGBGamma(red)),
-    Math.round(255 * linearToSRGBGamma(green)),
-    Math.round(255 * linearToSRGBGamma(blue)),
+    Math.round(255 * linearToSRGBGamma(linearRed)),
+    Math.round(255 * linearToSRGBGamma(linearGreen)),
+    Math.round(255 * linearToSRGBGamma(linearBlue)),
   ];
 }
 
@@ -103,54 +103,55 @@ export function rgbToHex(red: number, green: number, blue: number): string {
   return "#" + [red, green, blue].map((v) => v.toString(16).padStart(2, "0")).join("");
 }
 
-export function rgbToHsl(r: number, g: number, b: number) {
-  const rNorm = r / 255;
-  const gNorm = g / 255;
-  const bNorm = b / 255;
+export function rgbToHsl(red: number, green: number, blue: number) {
+  const redNorm = red / 255;
+  const greenNorm = green / 255;
+  const blueNorm = blue / 255;
 
-  const max = Math.max(rNorm, gNorm, bNorm);
-  const min = Math.min(rNorm, gNorm, bNorm);
-  const l = (max + min) / 2;
+  const max = Math.max(redNorm, greenNorm, blueNorm);
+  const min = Math.min(redNorm, greenNorm, blueNorm);
+  const lightness = (max + min) / 2;
 
-  let h = 0;
-  let s = 0;
+  let hue = 0;
+  let saturation = 0;
 
   if (max !== min) {
     const delta = max - min;
-    s = l > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+    saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
 
     switch (max) {
-      case rNorm:
-        h = (gNorm - bNorm) / delta + (gNorm < bNorm ? 6 : 0);
+      case redNorm:
+        hue = (greenNorm - blueNorm) / delta + (greenNorm < blueNorm ? 6 : 0);
         break;
-      case gNorm:
-        h = (bNorm - rNorm) / delta + 2;
+      case greenNorm:
+        hue = (blueNorm - redNorm) / delta + 2;
         break;
-      case bNorm:
-        h = (rNorm - gNorm) / delta + 4;
+      case blueNorm:
+        hue = (redNorm - greenNorm) / delta + 4;
         break;
     }
-    h /= 6;
+    hue /= 6;
   }
 
   return {
-    hue: Math.round(h * 360),
-    saturation: Math.round(s * 100),
-    lightness: Math.round(l * 100),
+    hue: Math.round(hue * 360),
+    saturation: Math.round(saturation * 100),
+    lightness: Math.round(lightness * 100),
   };
 }
 
 export function hslToRgb(
-  h: number,
-  s: number,
-  l: number
+  hue: number,
+  saturation: number,
+  lightness: number
 ): { red: number; green: number; blue: number } {
-  const sNorm = s / 100;
-  const lNorm = l / 100;
+  const saturationNorm = saturation / 100;
+  const lightnessNorm = lightness / 100;
 
-  const k = (n: number) => (n + h / 30) % 12;
-  const a = sNorm * Math.min(lNorm, 1 - lNorm);
-  const f = (n: number) => lNorm - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  const k = (n: number) => (n + hue / 30) % 12;
+  const a = saturationNorm * Math.min(lightnessNorm, 1 - lightnessNorm);
+  const f = (n: number) =>
+    lightnessNorm - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
 
   return {
     red: Math.round(255 * f(0)),
@@ -159,93 +160,78 @@ export function hslToRgb(
   };
 }
 
-export function rgbToHsv(r: number, g: number, b: number) {
-  const rNorm = r / 255;
-  const gNorm = g / 255;
-  const bNorm = b / 255;
+export function rgbToHsv(red: number, green: number, blue: number) {
+  const redNorm = red / 255;
+  const greenNorm = green / 255;
+  const blueNorm = blue / 255;
 
-  const max = Math.max(rNorm, gNorm, bNorm);
-  const min = Math.min(rNorm, gNorm, bNorm);
+  const max = Math.max(redNorm, greenNorm, blueNorm);
+  const min = Math.min(redNorm, greenNorm, blueNorm);
   const delta = max - min;
 
-  let h = 0;
-  const s = max === 0 ? 0 : delta / max;
-  const v = max;
+  let hue = 0;
+  const saturation = max === 0 ? 0 : delta / max;
+  const value = max;
 
   if (delta !== 0) {
     switch (max) {
-      case rNorm:
-        h = (gNorm - bNorm) / delta + (gNorm < bNorm ? 6 : 0);
+      case redNorm:
+        hue = (greenNorm - blueNorm) / delta + (greenNorm < blueNorm ? 6 : 0);
         break;
-      case gNorm:
-        h = (bNorm - rNorm) / delta + 2;
+      case greenNorm:
+        hue = (blueNorm - redNorm) / delta + 2;
         break;
-      case bNorm:
-        h = (rNorm - gNorm) / delta + 4;
+      case blueNorm:
+        hue = (redNorm - greenNorm) / delta + 4;
         break;
     }
-    h /= 6;
+    hue /= 6;
   }
 
   return {
-    hue: Math.round(h * 360),
-    saturation: Math.round(s * 100),
-    value: Math.round(v * 100),
+    hue: Math.round(hue * 360),
+    saturation: Math.round(saturation * 100),
+    value: Math.round(value * 100),
   };
 }
 
 export function hsvToRgb(
-  h: number,
-  s: number,
-  v: number
+  hue: number,
+  saturation: number,
+  value: number
 ): { red: number; green: number; blue: number } {
-  // Normalize Saturation and Value to 0-1
-  const sNorm = s / 100;
-  const vNorm = v / 100;
+  const saturationNorm = saturation / 100;
+  const valueNorm = value / 100;
 
-  const c = vNorm * sNorm; // Chroma
-  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-  const m = vNorm - c;
+  const chroma = valueNorm * saturationNorm;
+  const x = chroma * (1 - Math.abs(((hue / 60) % 2) - 1));
+  const m = valueNorm - chroma;
 
-  let rPrime = 0,
-    gPrime = 0,
-    bPrime = 0;
+  let redPrime = 0,
+    greenPrime = 0,
+    bluePrime = 0;
 
-  if (h >= 0 && h < 60) {
-    [rPrime, gPrime, bPrime] = [c, x, 0];
-  } else if (h >= 60 && h < 120) {
-    [rPrime, gPrime, bPrime] = [x, c, 0];
-  } else if (h >= 120 && h < 180) {
-    [rPrime, gPrime, bPrime] = [0, c, x];
-  } else if (h >= 180 && h < 240) {
-    [rPrime, gPrime, bPrime] = [0, x, c];
-  } else if (h >= 240 && h < 300) {
-    [rPrime, gPrime, bPrime] = [x, 0, c];
-  } else if (h >= 300 && h <= 360) {
-    [rPrime, gPrime, bPrime] = [c, 0, x];
+  if (hue >= 0 && hue < 60) {
+    [redPrime, greenPrime, bluePrime] = [chroma, x, 0];
+  } else if (hue >= 60 && hue < 120) {
+    [redPrime, greenPrime, bluePrime] = [x, chroma, 0];
+  } else if (hue >= 120 && hue < 180) {
+    [redPrime, greenPrime, bluePrime] = [0, chroma, x];
+  } else if (hue >= 180 && hue < 240) {
+    [redPrime, greenPrime, bluePrime] = [0, x, chroma];
+  } else if (hue >= 240 && hue < 300) {
+    [redPrime, greenPrime, bluePrime] = [x, 0, chroma];
+  } else if (hue >= 300 && hue <= 360) {
+    [redPrime, greenPrime, bluePrime] = [chroma, 0, x];
   }
 
   return {
-    red: Math.round((rPrime + m) * 255),
-    green: Math.round((gPrime + m) * 255),
-    blue: Math.round((bPrime + m) * 255),
+    red: Math.round((redPrime + m) * 255),
+    green: Math.round((greenPrime + m) * 255),
+    blue: Math.round((bluePrime + m) * 255),
   };
 }
 
-// ---------------------------------------------------------------------------
-// PickResult — the canonical color object returned by the color picker
-// ---------------------------------------------------------------------------
-
-/**
- * All string values use CSS Color Level 4 modern syntax (space-separated, no commas).
- *
- * hex    "#1f7832"
- * rgb    "rgb(31 120 50)"
- * hsl    "hsl(140 50% 30%)"
- * hsv    "hsv(140 50% 30%)"
- * oklab  "oklab(0.75 -0.10 0.08)"
- * oklch  "oklch(0.75 0.13 141.2)"
- */
 export type PickResult = {
   hex: string;
   rgb: string;
@@ -265,11 +251,11 @@ function toRgbString(red: number, green: number, blue: number): string {
 }
 
 function toHslString(hue: number, saturation: number, lightness: number): string {
-  return `hsl(${hue} ${saturation} ${lightness})`;
+  return `hsl(${hue} ${saturation}% ${lightness}%)`;
 }
 
 function toHsvString(hue: number, saturation: number, value: number): string {
-  return `hsv(${hue} ${saturation} ${value})`;
+  return `hsv(${hue} ${saturation}% ${value}%)`;
 }
 
 function toOklabString(lightness: number, a: number, b: number): string {
@@ -282,17 +268,20 @@ function toOklchString(lightness: number, chroma: number, hueDegrees: number): s
 
 /**
  * Build a PickResult from OKLab coordinates.
- * Use this in useCanvasSlice when the active colorspace is oklab.
  */
 export function oklabToPickResult(lightness: number, a: number, b: number): PickResult {
   const [red, green, blue] = oklabToRgb(lightness, a, b);
   const { chroma, hueDegrees } = oklabToOklch(lightness, a, b);
 
+  // Corrected: Convert RGB to HSL/HSV values before formatting strings
+  const hsl = rgbToHsl(red, green, blue);
+  const hsv = rgbToHsv(red, green, blue);
+
   return {
     hex: rgbToHex(red, green, blue),
     rgb: toRgbString(red, green, blue),
-    hsl: toHslString(red, green, blue),
-    hsv: toHsvString(red, green, blue),
+    hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
+    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
   };
@@ -300,7 +289,6 @@ export function oklabToPickResult(lightness: number, a: number, b: number): Pick
 
 /**
  * Build a PickResult from OKLCH coordinates.
- * Use this in useCanvasSlice when the active colorspace is oklch.
  */
 export function oklchToPickResult(
   lightness: number,
@@ -310,11 +298,14 @@ export function oklchToPickResult(
   const { a, b } = oklchToOklab(lightness, chroma, hueDegrees);
   const [red, green, blue] = oklabToRgb(lightness, a, b);
 
+  const hsl = rgbToHsl(red, green, blue);
+  const hsv = rgbToHsv(red, green, blue);
+
   return {
     hex: rgbToHex(red, green, blue),
     rgb: toRgbString(red, green, blue),
-    hsl: toHslString(red, green, blue),
-    hsv: toHsvString(red, green, blue),
+    hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
+    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
   };
