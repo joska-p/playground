@@ -100,7 +100,10 @@ export function oklchToRgb(
 }
 
 export function rgbToHex(red: number, green: number, blue: number): string {
-  return "#" + [red, green, blue].map((v) => v.toString(16).padStart(2, "0")).join("");
+  const r = Math.round(red).toString(16).padStart(2, "0");
+  const g = Math.round(green).toString(16).padStart(2, "0");
+  const b = Math.round(blue).toString(16).padStart(2, "0");
+  return `#${r}${g}${b}`;
 }
 
 export function rgbToHsl(red: number, green: number, blue: number) {
@@ -156,79 +159,9 @@ export function hslToRgb(
   return [Math.round(255 * f(0)), Math.round(255 * f(8)), Math.round(255 * f(4))];
 }
 
-export function rgbToHsv(red: number, green: number, blue: number) {
-  const redNorm = red / 255;
-  const greenNorm = green / 255;
-  const blueNorm = blue / 255;
-
-  const max = Math.max(redNorm, greenNorm, blueNorm);
-  const min = Math.min(redNorm, greenNorm, blueNorm);
-  const delta = max - min;
-
-  let hue = 0;
-  const saturation = max === 0 ? 0 : delta / max;
-  const value = max;
-
-  if (delta !== 0) {
-    switch (max) {
-      case redNorm:
-        hue = (greenNorm - blueNorm) / delta + (greenNorm < blueNorm ? 6 : 0);
-        break;
-      case greenNorm:
-        hue = (blueNorm - redNorm) / delta + 2;
-        break;
-      case blueNorm:
-        hue = (redNorm - greenNorm) / delta + 4;
-        break;
-    }
-    hue /= 6;
-  }
-
-  return {
-    hue: Math.round(hue * 360),
-    saturation: Math.round(saturation * 100),
-    value: Math.round(value * 100),
-  };
-}
-
-export function hsvToRgb(hue: number, saturation: number, value: number): [number, number, number] {
-  const saturationNorm = saturation / 100;
-  const valueNorm = value / 100;
-
-  const chroma = valueNorm * saturationNorm;
-  const x = chroma * (1 - Math.abs(((hue / 60) % 2) - 1));
-  const m = valueNorm - chroma;
-
-  let redPrime = 0,
-    greenPrime = 0,
-    bluePrime = 0;
-
-  if (hue >= 0 && hue < 60) {
-    [redPrime, greenPrime, bluePrime] = [chroma, x, 0];
-  } else if (hue >= 60 && hue < 120) {
-    [redPrime, greenPrime, bluePrime] = [x, chroma, 0];
-  } else if (hue >= 120 && hue < 180) {
-    [redPrime, greenPrime, bluePrime] = [0, chroma, x];
-  } else if (hue >= 180 && hue < 240) {
-    [redPrime, greenPrime, bluePrime] = [0, x, chroma];
-  } else if (hue >= 240 && hue < 300) {
-    [redPrime, greenPrime, bluePrime] = [x, 0, chroma];
-  } else if (hue >= 300 && hue <= 360) {
-    [redPrime, greenPrime, bluePrime] = [chroma, 0, x];
-  }
-
-  return [
-    Math.round((redPrime + m) * 255),
-    Math.round((greenPrime + m) * 255),
-    Math.round((bluePrime + m) * 255),
-  ];
-}
-
 export type PickResult = {
   hex: string;
-  rgb: string;
   hsl: string;
-  hsv: string;
   oklab: string;
   oklch: string;
 };
@@ -238,16 +171,8 @@ function round(value: number, decimals: number): number {
   return Math.round(value * factor) / factor;
 }
 
-function toRgbString(red: number, green: number, blue: number): string {
-  return `rgb(${red} ${green} ${blue})`;
-}
-
 function toHslString(hue: number, saturation: number, lightness: number): string {
   return `hsl(${hue} ${saturation}% ${lightness}%)`;
-}
-
-function toHsvString(hue: number, saturation: number, value: number): string {
-  return `hsv(${hue} ${saturation}% ${value}%)`;
 }
 
 function toOklabString(lightness: number, a: number, b: number): string {
@@ -265,13 +190,10 @@ export function oklabToPickResult(lightness: number, a: number, b: number): Pick
   const [red, green, blue] = oklabToRgb(lightness, a, b); // rgb conversion
   const { chroma, hueDegrees } = oklabToOklch(lightness, a, b); // oklch conversion
   const hsl = rgbToHsl(red, green, blue); // hsl conversion
-  const hsv = rgbToHsv(red, green, blue); // hsv conversion
 
   return {
     hex: rgbToHex(red, green, blue),
-    rgb: toRgbString(red, green, blue),
     hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
-    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
   };
@@ -288,13 +210,10 @@ export function oklchToPickResult(
   const { a, b } = oklchToOklab(lightness, chroma, hueDegrees); // oklab conversion
   const [red, green, blue] = oklabToRgb(lightness, a, b); // rgb conversion
   const hsl = rgbToHsl(red, green, blue); // hsl conversion
-  const hsv = rgbToHsv(red, green, blue); // hsv conversion
 
   return {
     hex: rgbToHex(red, green, blue),
-    rgb: toRgbString(red, green, blue),
     hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
-    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
     oklab: toOklabString(lightness, a, b),
     oklch: toOklchString(lightness, chroma, hueDegrees),
   };
@@ -302,41 +221,20 @@ export function oklchToPickResult(
 
 export function hslToPickResult(hue: number, saturation: number, lightness: number): PickResult {
   const [red, green, blue] = hslToRgb(hue, saturation, lightness); // rgb conversion
-  const hsv = rgbToHsv(red, green, blue); // hsv conversion
 
   return {
     hex: rgbToHex(red, green, blue),
-    rgb: toRgbString(red, green, blue),
     hsl: toHslString(hue, saturation, lightness),
-    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
-    oklab: "N/A",
-    oklch: "N/A",
-  };
-}
-
-export function hsvToPickResult(hue: number, saturation: number, value: number): PickResult {
-  const [red, green, blue] = hsvToRgb(hue, saturation, value); // rgb conversion
-  const hsl = rgbToHsl(red, green, blue); // hsl conversion
-
-  return {
-    hex: rgbToHex(red, green, blue),
-    rgb: toRgbString(red, green, blue),
-    hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
-    hsv: toHsvString(hue, saturation, value),
     oklab: "N/A",
     oklch: "N/A",
   };
 }
 
 export function rgbToPickResult(red: number, green: number, blue: number): PickResult {
-  const hsl = rgbToHsl(red, green, blue); // hsl conversion
-  const hsv = rgbToHsv(red, green, blue); // hsv conversion
-
+  const { hue, saturation, lightness } = rgbToHsl(red, green, blue);
   return {
     hex: rgbToHex(red, green, blue),
-    rgb: toRgbString(red, green, blue),
-    hsl: toHslString(hsl.hue, hsl.saturation, hsl.lightness),
-    hsv: toHsvString(hsv.hue, hsv.saturation, hsv.value),
+    hsl: toHslString(hue, saturation, lightness),
     oklab: "N/A",
     oklch: "N/A",
   };

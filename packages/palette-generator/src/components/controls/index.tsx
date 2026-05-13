@@ -6,7 +6,7 @@ function Controls() {
       <ColorSpaceControls spaceId="oklab" size={200} />
       <ColorSpaceControls spaceId="oklch" size={200} />
       <ColorSpaceControls spaceId="hsl" size={200} />
-      <ColorSpaceControls spaceId="hsv" size={200} />
+      <ColorSpaceControls spaceId="rgb" size={200} />
     </div>
   );
 }

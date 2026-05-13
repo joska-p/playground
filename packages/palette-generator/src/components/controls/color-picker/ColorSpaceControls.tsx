@@ -30,7 +30,7 @@ function ColorSpaceControls({ spaceId = "oklab", size = 200 }: ColorSliceProps) 
     // 2. Call the native pick result for this specific space
     const result = toPickResult(xValue, yValue, zValue);
 
-    //setSelectedPoint({ px, py });
+    console.log(result);
     setBaseColor(result.hex);
   };
 

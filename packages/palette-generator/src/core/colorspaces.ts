@@ -2,11 +2,10 @@ import {
   oklabToRgb,
   oklabToPickResult,
   hslToPickResult,
-  hsvToPickResult,
   oklchToPickResult,
   oklchToRgb,
   hslToRgb,
-  hsvToRgb,
+  rgbToPickResult,
 } from "../utils/color-utils";
 import type { PickResult } from "../utils/color-utils";
 
@@ -56,15 +55,15 @@ export const hsl: ColorSpaceDef = {
   toPickResult: (h, s, l) => hslToPickResult(h, s, l),
 };
 
-export const hsv: ColorSpaceDef = {
-  id: "hsv",
-  name: "HSV",
-  description: "HSV color space",
-  xAxis: { label: "Hue", min: 0, max: 360 },
-  yAxis: { label: "Saturation", min: 0, max: 100 },
-  zSlider: { label: "Value", min: 0, max: 100, step: 1 },
-  toRGB: (h, s, v) => hsvToRgb(h, s, v),
-  toPickResult: (h, s, v) => hsvToPickResult(h, s, v),
+export const rgb: ColorSpaceDef = {
+  id: "rgb",
+  name: "RGB",
+  description: "RGB color space",
+  xAxis: { label: "Red", min: 0, max: 255 },
+  yAxis: { label: "Green", min: 0, max: 255 },
+  zSlider: { label: "Blue", min: 0, max: 255, step: 1 },
+  toRGB: (r, g, b) => [r, g, b],
+  toPickResult: (r, g, b) => rgbToPickResult(r, g, b),
 };
 
-export const COLOR_SPACES = { oklab, oklch, hsl, hsv };
+export const COLOR_SPACES = { oklab, oklch, hsl, rgb };
