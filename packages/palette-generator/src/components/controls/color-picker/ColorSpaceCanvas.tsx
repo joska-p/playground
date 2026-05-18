@@ -26,7 +26,7 @@ function ColorSpaceCanvas({
     const imageData = ctx.createImageData(size, size);
     const data = imageData.data;
 
-    const { xAxis, yAxis, toRGB } = config;
+    const { xAxis, yAxis, toPickResult } = config;
 
     for (let py = 0; py < size; py++) {
       for (let px = 0; px < size; px++) {
@@ -35,7 +35,7 @@ function ColorSpaceCanvas({
         const y = yAxis.max - (py / size) * (yAxis.max - yAxis.min); // Invert y for standard Cartesian
 
         // Calculate RGB
-        const color = toRGB(x, y, zValue);
+        const color = toPickResult(x, y, zValue);
 
         const index = (py * size + px) * 4;
         data[index] = color.srgb["red"] ?? 0; // Red

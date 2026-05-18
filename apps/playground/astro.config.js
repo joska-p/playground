@@ -3,8 +3,8 @@ import process from "node:process";
 import { defineConfig, fontProviders } from "astro/config";
 import react from "@astrojs/react";
 import { remarkBaseUrl } from "./src/lib/remark-base-url.mjs";
-import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
@@ -41,6 +41,6 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss(), tsconfigPaths()],
+    plugins: [tsconfigPaths(), tailwindcss()],
   },
 });

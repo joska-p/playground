@@ -1,14 +1,12 @@
 import type Color from "colorjs.io";
 
-export type BaseColor = Color;
-
 export type Palette = {
-  colors: BaseColor[];
+  colors: Color[];
 };
 
 export type Rule = {
   id: string;
-  apply: (color: BaseColor) => BaseColor[];
+  apply: (color: Color) => Color[];
   info: {
     name: string;
     description: string;
@@ -17,7 +15,7 @@ export type Rule = {
 
 const exampleRule: Rule = {
   id: "rule01",
-  apply: (color: BaseColor) => [color, color, color, color, color, color],
+  apply: (color: Color) => [color, color, color, color, color, color],
   info: {
     name: "example 01",
     description: "return the input color",

@@ -1,15 +1,15 @@
 import { create } from "zustand";
-import type { BaseColor, Palette } from "../core/rules";
+import type { Palette } from "../core/rules";
 import Color from "colorjs.io";
 
 type PaletteState = {
   palettes: Palette[];
-  baseColor: BaseColor;
-  setBaseColor: (baseColor: BaseColor) => void;
+  baseColor: Color;
+  setBaseColor: (baseColor: Color) => void;
   addPalette: (palette: Palette) => void;
 };
 
-const initialBaseColor: BaseColor = new Color("lab", [0.7, 0.1, 196]);
+const initialBaseColor = new Color("lab", [0.7, 0.1, 196]);
 
 const usePaletteStore = create<PaletteState>()(() => ({
   palettes: [],
@@ -18,7 +18,7 @@ const usePaletteStore = create<PaletteState>()(() => ({
   addPalette,
 }));
 
-function setBaseColor(baseColor: BaseColor) {
+function setBaseColor(baseColor: Color) {
   usePaletteStore.setState({ baseColor });
 }
 

@@ -30,7 +30,8 @@ function ColorSpaceControls({ spaceId = "lab", size = 200 }: ColorSliceProps) {
     // 2. Call the native pick result for this specific space
     const result = toPickResult(xValue, yValue, zValue);
 
-    setBaseColor(result[spaceId]);
+    console.log("result", result);
+    setBaseColor(result);
   };
 
   return (

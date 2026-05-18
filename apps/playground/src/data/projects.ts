@@ -1,13 +1,5 @@
 import type { ComponentType } from "react";
-import {
-  Grid3X3,
-  Infinity as InfinityIcon,
-  Palette,
-  Flame,
-  PieChart,
-  Grid,
-  BarChart,
-} from "lucide-react";
+import { Grid3X3, Infinity as InfinityIcon, Palette, Flame, PieChart, Grid } from "lucide-react";
 
 /**
  * Project categories

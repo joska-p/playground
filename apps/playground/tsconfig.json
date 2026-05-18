@@ -1,15 +1,12 @@
 {
-  "extends": ["@repo/typescript-config/astro.json", "astro/tsconfigs/strict"],
-  "include": ["src", ".astro/types.d.ts"],
-  "exclude": ["dist"],
+  "extends": "astro/tsconfigs/base",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "astro.config.js"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "paths": {
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@data/*": ["./src/data/*"],
-      "@utils/*": ["./src/utils/*"]
-    }
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ]
   }
 }
