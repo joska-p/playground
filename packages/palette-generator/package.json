@@ -44,6 +44,7 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "class-variance-authority": "^0.7.1",
+    "colorjs.io": "^0.6.1",
     "zustand": "^5.0.12"
   }
 }

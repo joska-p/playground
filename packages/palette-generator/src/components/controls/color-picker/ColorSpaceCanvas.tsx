@@ -35,13 +35,13 @@ function ColorSpaceCanvas({
         const y = yAxis.max - (py / size) * (yAxis.max - yAxis.min); // Invert y for standard Cartesian
 
         // Calculate RGB
-        const [r, g, b] = toRGB(x, y, zValue);
+        const color = toRGB(x, y, zValue);
 
         const index = (py * size + px) * 4;
-        data[index] = r; // Red
-        data[index + 1] = g; // Green
-        data[index + 2] = b; // Blue
-        data[index + 3] = 255; // Alpha
+        data[index] = color.srgb["red"] ?? 0; // Red
+        data[index + 1] = color.srgb["green"] ?? 0; // Green
+        data[index + 2] = color.srgb["blue"] ?? 0; // Blue
+        data[index + 3] = color.srgb["alpha"] ?? 255; // Alpha
       }
     }
 

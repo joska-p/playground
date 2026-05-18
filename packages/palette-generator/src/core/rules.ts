@@ -1,7 +1,6 @@
-// oklab colors = oklab(40.1% 0.1143 0.045 / 0.9);
-// 40.1% is the lightness component, 0.1143 is the chroma component, and 0.045 is the hue component
-//
-export type BaseColor = string;
+import type Color from "colorjs.io";
+
+export type BaseColor = Color;
 
 export type Palette = {
   colors: BaseColor[];

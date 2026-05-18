@@ -7,7 +7,7 @@ function Display() {
   return (
     <div className="flex flex-wrap gap-8">
       <div className="flex gap-2">
-        <div className="h-10 w-10" style={{ backgroundColor: baseColor }} />
+        <div className="h-10 w-10" style={{ backgroundColor: baseColor.to("lch").toString() }} />
       </div>
       {palettes.map((palette) => {
         const paletteId = palette.colors.join();
@@ -15,7 +15,11 @@ function Display() {
           <div key={paletteId}>
             <div className="flex gap-2">
               {palette.colors.map((color) => (
-                <div key={color} className="h-10 w-10" style={{ backgroundColor: color }} />
+                <div
+                  key={color.to("lch").toString()}
+                  className="h-10 w-10"
+                  style={{ backgroundColor: color.to("lch").toString() }}
+                />
               ))}
             </div>
           </div>
