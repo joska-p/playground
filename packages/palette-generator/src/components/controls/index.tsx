@@ -21,11 +21,11 @@ function Controls() {
         <ColorSpaceControls spaceId="hsl" size={200} isActive={baseColor.spaceId === "hsl"} />
         <ColorSpaceControls spaceId="srgb" size={200} isActive={baseColor.spaceId === "srgb"} />
       </div>
-      {Object.values(rules).map((rule) => (
+      {Object.entries(rules).map(([key, rule]) => (
         <Button
-          key={rule.info.name}
+          key={key}
           title={rule.info.description}
-          onClick={() => handleGeneratePalette(baseColor, "rule01")}
+          onClick={() => handleGeneratePalette(baseColor, key as RuleKey)}
         >
           Generate {rule.info.name}
         </Button>
