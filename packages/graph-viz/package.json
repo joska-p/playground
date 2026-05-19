@@ -1,0 +1,49 @@
+{
+  "name": "@repo/graph-viz",
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.tsx",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "tsc --watch",
+    "lint": "eslint . --max-warnings 0",
+    "lint-fix": "eslint . --max-warnings 0 --fix",
+    "format": "prettier --write .",
+    "clean": "rm -rf node_modules .turbo dist"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.14",
+    "eslint": "^9.39.4",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "vis-data": "^8.0.4",
+    "vis-network": "^10.1.0",
+    "vis-util": "^6.0.0"
+  }
+}
