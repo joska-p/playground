@@ -12,7 +12,7 @@ export type ColorSpaceDef = {
   getColor: (x: number, y: number, z: number) => Color;
 };
 
-export const lab: ColorSpaceDef = {
+export const oklab: ColorSpaceDef = {
   id: "oklab",
   name: "OKLab",
   description: "OKLab color space",
@@ -22,7 +22,7 @@ export const lab: ColorSpaceDef = {
   getColor: (x, y, z) => new Color("oklab", [z, x, y]),
 };
 
-export const lch: ColorSpaceDef = {
+export const oklch: ColorSpaceDef = {
   id: "oklch",
   name: "OKLCh",
   description: "OKLCh color space",
@@ -52,4 +52,4 @@ export const srgb: ColorSpaceDef = {
   getColor: (x, y, z) => new Color("srgb", [x / 255, y / 255, z / 255]),
 };
 
-export const COLOR_SPACES = { lab, lch, hsl, srgb };
+export const COLOR_SPACES = { oklab, oklch, hsl, srgb };

@@ -3,13 +3,15 @@ import { COLOR_SPACES } from "../../../core/colorspaces";
 import { ColorSpaceCanvas } from "./ColorSpaceCanvas";
 import { Slider } from "@repo/ui";
 import { setBaseColor } from "../../../store/usePaletteStore";
+import { cn } from "@repo/ui";
 
 type ColorSliceProps = {
   spaceId?: keyof typeof COLOR_SPACES;
   size?: number;
+  isActive?: boolean;
 };
 
-function ColorSpaceControls({ spaceId = "lab", size = 200 }: ColorSliceProps) {
+function ColorSpaceControls({ spaceId = "oklch", size = 200, isActive = false }: ColorSliceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { name, zSlider, getColor, xAxis, yAxis } = COLOR_SPACES[spaceId];
   const { label, min, max, step } = zSlider;
@@ -34,8 +36,8 @@ function ColorSpaceControls({ spaceId = "lab", size = 200 }: ColorSliceProps) {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <h3>{name} Slice</h3>
+    <div className={cn("flex flex-col gap-8", { "bg-background": isActive })}>
+      <h3 className="text-center">{name} Slice</h3>
       <ColorSpaceCanvas
         ref={canvasRef}
         spaceId={spaceId}
