@@ -1,9 +1,0 @@
-/workspaces/playground/apps/playground/src/content/docs/explanation/engines.md
-/workspaces/playground/apps/playground/src/content/docs/explanation/overview.md
-/workspaces/playground/apps/playground/src/content/docs/how-to/adding-components.md
-/workspaces/playground/apps/playground/src/content/docs/how-to/adding-projects.md
-/workspaces/playground/apps/playground/src/content/docs/how-to/adding-visualization.md
-/workspaces/playground/apps/playground/src/content/docs/how-to/adding-sequence-rule.md
-/workspaces/playground/apps/playground/src/content/docs/reference/import-export-strategy.md
-/workspaces/playground/apps/playground/src/content/docs/reference/ui-components.md
-/workspaces/playground/apps/playground/src/content/docs/tutorial/first-visualization.md

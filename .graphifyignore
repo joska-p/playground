@@ -1,10 +1,9 @@
 # .graphifyignore
 node_modules/
 dist/
-*.generated.py
+.turbo/
+.git/
+.container_home/
+.pnpm-store/
 apps/storybook/
-
-# only index src/, ignore everything else
-*
-!src/
-!src/**
+*.generated.py
