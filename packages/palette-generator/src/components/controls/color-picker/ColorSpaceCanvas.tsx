@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { COLOR_SPACES } from "../../../core/colorspaces";
+import { scaleTo255 } from "../../../utils/color";
 
 type ColorSpaceCanvasProps = {
   ref?: React.RefObject<HTMLCanvasElement | null>;
@@ -23,10 +24,9 @@ function ColorSpaceCanvas({
     const ctx = canvas?.getContext("2d");
     if (!ctx) return;
 
+    const { xAxis, yAxis, getColor } = config;
     const imageData = ctx.createImageData(size, size);
     const data = imageData.data;
-
-    const { xAxis, yAxis, toPickResult } = config;
 
     for (let py = 0; py < size; py++) {
       for (let px = 0; px < size; px++) {
@@ -35,13 +35,14 @@ function ColorSpaceCanvas({
         const y = yAxis.max - (py / size) * (yAxis.max - yAxis.min); // Invert y for standard Cartesian
 
         // Calculate RGB
-        const color = toPickResult(x, y, zValue);
+        const color = getColor(x, y, zValue);
+        const [r, g, b] = color.srgb;
 
         const index = (py * size + px) * 4;
-        data[index] = color.srgb["red"] ?? 0; // Red
-        data[index + 1] = color.srgb["green"] ?? 0; // Green
-        data[index + 2] = color.srgb["blue"] ?? 0; // Blue
-        data[index + 3] = color.srgb["alpha"] ?? 255; // Alpha
+        data[index] = scaleTo255(r);
+        data[index + 1] = scaleTo255(g);
+        data[index + 2] = scaleTo255(b);
+        data[index + 3] = 255; // Alpha
       }
     }
 

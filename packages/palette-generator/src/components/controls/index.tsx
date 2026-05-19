@@ -6,7 +6,7 @@ function Controls() {
       <ColorSpaceControls spaceId="lab" size={200} />
       <ColorSpaceControls spaceId="lch" size={200} />
       <ColorSpaceControls spaceId="hsl" size={200} />
-      <ColorSpaceControls spaceId="rgb" size={200} />
+      <ColorSpaceControls spaceId="srgb" size={200} />
     </div>
   );
 }

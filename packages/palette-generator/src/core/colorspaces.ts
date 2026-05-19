@@ -9,27 +9,27 @@ export type ColorSpaceDef = {
   xAxis: Axis;
   yAxis: Axis;
   zSlider: Axis; // The control for the "slice" depth
-  toPickResult: (x: number, y: number, z: number) => Color;
+  getColor: (x: number, y: number, z: number) => Color;
 };
 
 export const lab: ColorSpaceDef = {
-  id: "lab",
+  id: "oklab",
   name: "OKLab",
   description: "OKLab color space",
   xAxis: { label: "a (green-red)", min: -0.4, max: 0.4 },
   yAxis: { label: "b (blue-yellow)", min: -0.4, max: 0.4 },
   zSlider: { label: "Lightness", min: 0, max: 1, step: 0.01 },
-  toPickResult: (x, y, z) => new Color(`lab(${z}% ${x} ${y})`),
+  getColor: (x, y, z) => new Color("oklab", [z, x, y]),
 };
 
 export const lch: ColorSpaceDef = {
-  id: "lch",
+  id: "oklch",
   name: "OKLCh",
   description: "OKLCh color space",
   xAxis: { label: "Chroma", min: 0, max: 0.4 },
   yAxis: { label: "Hue", min: 0, max: 360 },
   zSlider: { label: "Lightness", min: 0, max: 1, step: 0.01 },
-  toPickResult: (x, y, z) => new Color(`lch(${z}% ${x} ${y})`),
+  getColor: (x, y, z) => new Color("oklch", [z, x, y]),
 };
 
 export const hsl: ColorSpaceDef = {
@@ -39,17 +39,17 @@ export const hsl: ColorSpaceDef = {
   xAxis: { label: "Hue", min: 0, max: 360 },
   yAxis: { label: "Saturation", min: 0, max: 100 },
   zSlider: { label: "Lightness", min: 0, max: 100, step: 1 },
-  toPickResult: (x, y, z) => new Color(`hsl(${x} ${y} ${z})`),
+  getColor: (x, y, z) => new Color("hsl", [x, y, z]),
 };
 
-export const rgb: ColorSpaceDef = {
-  id: "rgb",
-  name: "RGB",
-  description: "RGB color space",
+export const srgb: ColorSpaceDef = {
+  id: "srgb",
+  name: "sRGB",
+  description: "sRGB color space",
   xAxis: { label: "Red", min: 0, max: 255 },
   yAxis: { label: "Green", min: 0, max: 255 },
   zSlider: { label: "Blue", min: 0, max: 255, step: 1 },
-  toPickResult: (x, y, z) => new Color(`rgb(${x} ${y} ${z})`),
+  getColor: (x, y, z) => new Color("srgb", [x / 255, y / 255, z / 255]),
 };
 
-export const COLOR_SPACES = { lab, lch, hsl, rgb };
+export const COLOR_SPACES = { lab, lch, hsl, srgb };

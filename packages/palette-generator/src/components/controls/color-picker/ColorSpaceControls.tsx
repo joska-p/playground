@@ -11,7 +11,7 @@ type ColorSliceProps = {
 
 function ColorSpaceControls({ spaceId = "lab", size = 200 }: ColorSliceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { name, zSlider, toPickResult, xAxis, yAxis } = COLOR_SPACES[spaceId];
+  const { name, zSlider, getColor, xAxis, yAxis } = COLOR_SPACES[spaceId];
   const { label, min, max, step } = zSlider;
   const [zValue, setZValue] = useState<number>(max / 2);
 
@@ -28,9 +28,8 @@ function ColorSpaceControls({ spaceId = "lab", size = 200 }: ColorSliceProps) {
     const yValue = yAxis.max - (py / size) * (yAxis.max - yAxis.min);
 
     // 2. Call the native pick result for this specific space
-    const result = toPickResult(xValue, yValue, zValue);
+    const result = getColor(xValue, yValue, zValue);
 
-    console.log("result", result);
     setBaseColor(result);
   };
 

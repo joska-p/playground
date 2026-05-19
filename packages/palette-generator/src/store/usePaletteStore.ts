@@ -9,7 +9,7 @@ type PaletteState = {
   addPalette: (palette: Palette) => void;
 };
 
-const initialBaseColor = new Color("lab", [0.7, 0.1, 196]);
+const initialBaseColor = new Color("oklch", [0.7, 0.1, 196]);
 
 const usePaletteStore = create<PaletteState>()(() => ({
   palettes: [],
