@@ -3,7 +3,9 @@ import { usePaletteStore, addPalette } from "../../store/usePaletteStore";
 import { generatePalette } from "../../core/generator";
 import { Button } from "@repo/ui";
 import { rules } from "../../core/rules";
+import { colorSpaces } from "../../core/colorspaces";
 import type { RuleKey } from "../../core/rules";
+import type { ColorSpacesKey } from "../../core/colorspaces";
 
 function Controls() {
   const baseColor = usePaletteStore((state) => state.baseColor);
@@ -16,20 +18,26 @@ function Controls() {
   return (
     <div className="p-4">
       <div className="flex flex-wrap gap-6">
-        <ColorSpaceControls spaceId="oklab" size={200} isActive={baseColor.spaceId === "oklab"} />
-        <ColorSpaceControls spaceId="oklch" size={200} isActive={baseColor.spaceId === "oklch"} />
-        <ColorSpaceControls spaceId="hsl" size={200} isActive={baseColor.spaceId === "hsl"} />
-        <ColorSpaceControls spaceId="srgb" size={200} isActive={baseColor.spaceId === "srgb"} />
+        {Object.keys(colorSpaces).map((key) => (
+          <ColorSpaceControls
+            key={key}
+            spaceId={key as ColorSpacesKey}
+            size={200}
+            isActive={baseColor.spaceId === key}
+          />
+        ))}
       </div>
-      {Object.entries(rules).map(([key, rule]) => (
-        <Button
-          key={key}
-          title={rule.info.description}
-          onClick={() => handleGeneratePalette(baseColor, key as RuleKey)}
-        >
-          Generate {rule.info.name}
-        </Button>
-      ))}
+      <div className="flex flex-wrap gap-6">
+        {Object.entries(rules).map(([key, rule]) => (
+          <Button
+            key={key}
+            title={rule.info.description}
+            onClick={() => handleGeneratePalette(baseColor, key as RuleKey)}
+          >
+            Generate {rule.info.name}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 }

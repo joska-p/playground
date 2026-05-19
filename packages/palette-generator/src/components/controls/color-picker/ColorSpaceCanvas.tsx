@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from "react";
-import { COLOR_SPACES } from "../../../core/colorspaces";
+import { colorSpaces } from "../../../core/colorspaces";
 import { scaleTo255 } from "../../../utils/color";
 
 type ColorSpaceCanvasProps = {
   ref?: React.RefObject<HTMLCanvasElement | null>;
-  spaceId: keyof typeof COLOR_SPACES;
+  spaceId: keyof typeof colorSpaces;
   zValue: number;
   size?: number;
   onPick?: (e: React.PointerEvent<HTMLCanvasElement>) => void;
@@ -17,7 +17,7 @@ function ColorSpaceCanvas({
   size = 200,
   onPick = () => {},
 }: ColorSpaceCanvasProps) {
-  const config = useMemo(() => COLOR_SPACES[spaceId], [spaceId]);
+  const config = useMemo(() => colorSpaces[spaceId], [spaceId]);
 
   useEffect(() => {
     const canvas = ref?.current;

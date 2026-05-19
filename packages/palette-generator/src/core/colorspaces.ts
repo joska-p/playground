@@ -1,8 +1,8 @@
 import Color from "colorjs.io";
 
-export type Axis = { label: string; min: number; max: number; step?: number };
+type Axis = { label: string; min: number; max: number; step?: number };
 
-export type ColorSpaceDef = {
+type ColorSpaceDef = {
   id: string;
   name: string;
   description?: string;
@@ -12,7 +12,7 @@ export type ColorSpaceDef = {
   getColor: (x: number, y: number, z: number) => Color;
 };
 
-export const oklab: ColorSpaceDef = {
+const oklab: ColorSpaceDef = {
   id: "oklab",
   name: "OKLab",
   description: "OKLab color space",
@@ -22,7 +22,7 @@ export const oklab: ColorSpaceDef = {
   getColor: (x, y, z) => new Color("oklab", [z, x, y]),
 };
 
-export const oklch: ColorSpaceDef = {
+const oklch: ColorSpaceDef = {
   id: "oklch",
   name: "OKLCh",
   description: "OKLCh color space",
@@ -32,7 +32,7 @@ export const oklch: ColorSpaceDef = {
   getColor: (x, y, z) => new Color("oklch", [z, x, y]),
 };
 
-export const hsl: ColorSpaceDef = {
+const hsl: ColorSpaceDef = {
   id: "hsl",
   name: "HSL",
   description: "HSL color space",
@@ -42,7 +42,7 @@ export const hsl: ColorSpaceDef = {
   getColor: (x, y, z) => new Color("hsl", [x, y, z]),
 };
 
-export const srgb: ColorSpaceDef = {
+const srgb: ColorSpaceDef = {
   id: "srgb",
   name: "sRGB",
   description: "sRGB color space",
@@ -52,4 +52,9 @@ export const srgb: ColorSpaceDef = {
   getColor: (x, y, z) => new Color("srgb", [x / 255, y / 255, z / 255]),
 };
 
-export const COLOR_SPACES = { oklab, oklch, hsl, srgb };
+const colorSpaces = { oklab, oklch, hsl, srgb };
+
+type ColorSpacesKey = keyof typeof colorSpaces;
+
+export { colorSpaces };
+export type { Axis, ColorSpacesKey };
