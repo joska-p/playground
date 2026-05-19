@@ -1,10 +1,12 @@
-// @ts-check
 import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import astro from "eslint-plugin-astro";
+import astroParser from "astro-eslint-parser";
 import prettier from "eslint-plugin-prettier";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactCompiler from "eslint-plugin-react-compiler";
 
 // parsers
 const tsParser = tseslint.parser;
@@ -23,7 +25,7 @@ export default defineConfig([
 
   // Base configs
   js.configs.recommended,
-  tseslint.configs.recommended,
+  ...tseslint.configs.recommended,
 
   // Prettier config
   {
@@ -36,13 +38,26 @@ export default defineConfig([
     },
   },
 
+  // React setup (Compiler + Hooks)
+  {
+    files: ["**/*.{js,jsx,ts,tsx,astro}"],
+    plugins: {
+      "react-hooks": reactHooks,
+      "react-compiler": reactCompiler,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      "react-compiler/react-compiler": "error",
+    },
+  },
+
   // astro setup with a11y
-  astro.configs.recommended,
-  astro.configs["jsx-a11y-recommended"],
+  ...astro.configs.recommended,
+  ...astro.configs["jsx-a11y-recommended"],
   {
     files: ["**/*.astro"],
     languageOptions: {
-      parser: "astro-eslint-parser",
+      parser: astroParser,
       parserOptions: {
         parser: tsParser,
         extraFileExtensions: [".astro"],
