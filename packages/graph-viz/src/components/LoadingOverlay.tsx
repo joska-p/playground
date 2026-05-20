@@ -7,7 +7,7 @@ export function LoadingOverlay() {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
-      <span className="text-sky-400 text-sm tracking-widest animate-pulse">SIMULATING FORCES…</span>
+      <span className="text-accent text-sm tracking-widest animate-pulse">SIMULATING FORCES…</span>
     </div>
   );
 }

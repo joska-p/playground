@@ -40,8 +40,8 @@ export function TopBar({ onResetZoom }: TopBarProps) {
   }));
 
   return (
-    <div className="flex items-center gap-3 px-4 py-2 bg-[#0b1628] border-b border-slate-800 flex-wrap z-10">
-      <span className="text-sm font-bold text-sky-400 mr-2">◈ GRAPHIFY</span>
+    <div className="flex items-center gap-3 px-4 py-2 bg-background border-b border-border flex-wrap z-10">
+      <span className="text-sm font-bold text-primary mr-2">◈ GRAPHIFY</span>
 
       <Input
         value={search}
@@ -94,7 +94,7 @@ export function TopBar({ onResetZoom }: TopBarProps) {
 
       <div className="flex items-center gap-2">
         <Switch checked={showHyper} onCheckedChange={() => toggleHyper()} size="sm" />
-        <span className="text-sm text-slate-400">Hyper</span>
+        <span className="text-sm text-muted">Hyper</span>
       </div>
 
       <Button variant="ghost" size="sm" onClick={resetFilters}>
@@ -104,7 +104,7 @@ export function TopBar({ onResetZoom }: TopBarProps) {
         ⊡ Reset
       </Button>
 
-      <span className="ml-auto text-xs text-slate-500">
+      <span className="ml-auto text-xs text-muted">
         {stats.nodes.toLocaleString()} nodes · {stats.links.toLocaleString()} edges
       </span>
     </div>

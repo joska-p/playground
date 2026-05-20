@@ -9,7 +9,7 @@ export function Legend() {
   const colorMode = useGraphStore((s) => s.colorMode);
 
   return (
-    <div className="flex items-center gap-4 px-4 py-2 bg-[#0b1628] border-t border-slate-800 flex-wrap">
+    <div className="flex items-center gap-4 px-4 py-2 bg-background border-t border-border flex-wrap">
       <div className="flex gap-4 flex-wrap items-center">
         {colorMode === "filetype" ? (
           FT_OPTIONS.map((ft) => (

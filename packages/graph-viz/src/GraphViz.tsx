@@ -17,7 +17,7 @@ export function GraphViz({ graphData }: { graphData?: GraphData }) {
   }, [graphData, setGraphData]);
 
   return (
-    <div className="w-full h-full bg-[#070d1a] text-slate-200 overflow-hidden flex flex-col">
+    <div className="w-full h-full bg-background text-foreground overflow-hidden flex flex-col">
       <TopBar onResetZoom={() => resetZoomRef.current()} />
 
       <div className="flex-1 flex overflow-hidden">
