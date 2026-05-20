@@ -20,6 +20,31 @@
     --input: hsl(52 73% 90%);
     --ring: hsl(38 100% 50%);
 
+    /* Semantic tokens */
+    --success: #34d399;
+    --info: #22d3ee;
+    --warning: #fbbf24;
+    --danger: var(--destructive);
+
+    /* File-type palette (reusable across projects) */
+    --ft-code: #22d3ee;
+    --ft-document: #a78bfa;
+    --ft-concept: #fbbf24;
+    --ft-image: #f472b6;
+    --ft-rationale: #34d399;
+
+    /* Relation palette (edges) */
+    --rel-contains: #475569;
+    --rel-references: #0ea5e9;
+    --rel-imports: #6366f1;
+    --rel-imports-from: #818cf8;
+    --rel-defines: #22c55e;
+    --rel-calls: #f97316;
+    --rel-conceptual: #e879f9;
+    --rel-cites: #facc15;
+    --rel-rationale: #fb923c;
+    --rel-method: #4ade80;
+
     --font-sans:
       ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
@@ -60,6 +85,31 @@
     --border: hsl(21 7% 29%);
     --input: hsl(20 5% 22%);
     --ring: hsl(41 95% 68%);
+
+    /* Semantic tokens */
+    --success: #34d399;
+    --info: #22d3ee;
+    --warning: #fbbf24;
+    --danger: var(--destructive);
+
+    /* File-type palette (reusable across projects) */
+    --ft-code: #22d3ee;
+    --ft-document: #a78bfa;
+    --ft-concept: #fbbf24;
+    --ft-image: #f472b6;
+    --ft-rationale: #34d399;
+
+    /* Relation palette (edges) */
+    --rel-contains: #475569;
+    --rel-references: #0ea5e9;
+    --rel-imports: #6366f1;
+    --rel-imports-from: #818cf8;
+    --rel-defines: #22c55e;
+    --rel-calls: #f97316;
+    --rel-conceptual: #e879f9;
+    --rel-cites: #facc15;
+    --rel-rationale: #fb923c;
+    --rel-method: #4ade80;
 
     --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.01);
     --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.01);
@@ -116,4 +166,30 @@
   --color-category-color: var(--category-color);
   --color-category-image: var(--category-image);
   --color-category-data-viz: var(--category-data-viz);
+
+  /* Semantic color aliases */
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* File-type tokens */
+  --color-ft-code: var(--ft-code);
+  --color-ft-document: var(--ft-document);
+  --color-ft-concept: var(--ft-concept);
+  --color-ft-image: var(--ft-image);
+  --color-ft-rationale: var(--ft-rationale);
+
+  /* Relation tokens */
+  --color-rel-contains: var(--rel-contains);
+  --color-rel-references: var(--rel-references);
+  --color-rel-imports: var(--rel-imports);
+  --color-rel-imports-from: var(--rel-imports-from);
+  --color-rel-defines: var(--rel-defines);
+  --color-rel-calls: var(--rel-calls);
+  --color-rel-conceptual: var(--rel-conceptual);
+  --color-rel-cites: var(--rel-cites);
+  --color-rel-rationale: var(--rel-rationale);
+  --color-rel-method: var(--rel-method);
 }
+
