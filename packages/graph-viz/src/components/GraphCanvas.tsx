@@ -17,7 +17,6 @@ export type GraphCanvasProps = {
   onNodeDoubleClick?: (node: GraphNode) => void;
   onEdgeSelect?: (edge: GraphEdge | null) => void;
   networkOptions?: Record<string, unknown> | undefined;
-  theme: "dark" | "light";
 };
 
 const EDGE_WIDTH_MAP: Record<GraphEdge["confidence"], number> = {
@@ -26,6 +25,11 @@ const EDGE_WIDTH_MAP: Record<GraphEdge["confidence"], number> = {
   AMBIGUOUS: 0.5,
 };
 
+function readCSSVar(name: string): string {
+  if (typeof document === "undefined") return "";
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
 export function GraphCanvas({
   ref,
   data,
@@ -33,11 +37,9 @@ export function GraphCanvas({
   onNodeDoubleClick,
   onEdgeSelect,
   networkOptions,
-  theme,
 }: GraphCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const networkRef = useRef<Network | null>(null);
-  const isDark = theme === "dark";
 
   const onNodeSelectRef = useRef(onNodeSelect);
   const onNodeDoubleClickRef = useRef(onNodeDoubleClick);
@@ -74,6 +76,10 @@ export function GraphCanvas({
     const container = containerRef.current;
     if (!container) return;
 
+    const foreground = readCSSVar("--foreground") || "#e0e0e0";
+    const borderColor = readCSSVar("--border") || "#4a4a6a";
+    const mutedFg = readCSSVar("--muted-foreground") || "#888";
+
     const visNodes: Node[] = data.nodes.map((n) => ({
       id: n.id,
       label: n.label,
@@ -87,7 +93,7 @@ export function GraphCanvas({
         },
       },
       font: {
-        color: isDark ? "#e0e0e0" : "#1a1a2e",
+        color: foreground,
         size: 12,
       },
       borderWidth: 1,
@@ -102,12 +108,12 @@ export function GraphCanvas({
       label: e.relation,
       title: `${e.relation} [${e.confidence}] score=${e.confidence_score}`,
       color: {
-        color: isDark ? "#4a4a6a" : "#999",
+        color: borderColor,
         highlight: "#818cf8",
         hover: "#818cf8",
       },
       font: {
-        color: isDark ? "#888" : "#666",
+        color: mutedFg,
         size: 10,
         strokeWidth: 0,
       },
@@ -198,7 +204,7 @@ export function GraphCanvas({
       network.destroy();
       networkRef.current = null;
     };
-  }, [data, networkOptions, isDark]);
+  }, [data, networkOptions]);
 
   return (
     <div

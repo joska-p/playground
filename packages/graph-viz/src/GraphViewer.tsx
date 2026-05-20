@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useCallback, useRef } from "react";
 import type { GraphData, GraphEdge, GraphNode } from "./types.js";
 import { Sidebar } from "@repo/ui";
 import { GraphCanvas, type GraphCanvasHandle } from "./components/GraphCanvas.js";
@@ -13,10 +13,8 @@ import { Legend } from "./components/Legend.js";
 import { useGraphStore, selectNode, selectEdge, clearSelection } from "./store/useGraphStore.js";
 
 export type GraphViewerProps = {
-  /** Graph data object as produced by graphify (pass at build time) */
-  data?: GraphData;
-  /** Alternative: fetch graph JSON from this URL at runtime */
-  url?: string;
+  /** Graph data object as produced by graphify */
+  data: GraphData;
   /** Container height (default: "100vh") */
   height?: string;
   /** Show the info/legend sidebar (default: true) */
@@ -25,71 +23,22 @@ export type GraphViewerProps = {
   showLegend?: boolean;
   /** Callback when a node is clicked */
   onNodeClick?: (node: GraphNode) => void;
-  /** Callback when a node is double-clicked (drills into neighbors) */
+  /** Callback when a node is double-clicked */
   onNodeDoubleClick?: (node: GraphNode) => void;
-  /** Force dark or light theme. Auto-detects from document if unset. */
-  theme?: "dark" | "light";
   /** vis-network options overrides (merged with defaults) */
   networkOptions?: Record<string, unknown>;
 };
 
-function detectTheme(): "dark" | "light" {
-  if (typeof document === "undefined") return "dark";
-  const html = document.documentElement;
-  const cls = html.className;
-  if (cls.includes("dark")) return "dark";
-  if (cls.includes("light")) return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
 export function GraphViewer({
-  data: incomingData,
-  url,
+  data,
   height = "100vh",
   showSidebar = true,
   showLegend = true,
   onNodeClick,
   onNodeDoubleClick,
-  theme: forcedTheme,
   networkOptions,
 }: GraphViewerProps) {
-  const theme = forcedTheme ?? detectTheme();
-  const isDark = theme === "dark";
-
-  const [graphData, setGraphData] = useState<GraphData | null>(incomingData ?? null);
-  const [loading, setLoading] = useState(!!url && !incomingData);
-  const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<GraphCanvasHandle>(null);
-
-  useEffect(() => {
-    if (!url || incomingData) return;
-
-    let cancelled = false;
-
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load graph: ${res.status}`);
-        return res.json() as Promise<GraphData>;
-      })
-      .then((data) => {
-        if (!cancelled) {
-          setGraphData(data);
-          setLoading(false);
-        }
-      })
-      .catch((err: Error) => {
-        if (!cancelled) {
-          setError(err.message);
-          setLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [incomingData, url]);
 
   const handleNodeSelect = useCallback(
     (node: GraphNode | null) => {
@@ -127,85 +76,27 @@ export function GraphViewer({
   const selectedEdge = useGraphStore((s) => s.selectedEdge);
 
   const handleCommunityClick = useCallback((communityId: number) => {
-    const data = graphData;
-    if (!data) return;
     const member = data.nodes.find((n) => n.community === communityId);
     if (member) canvasRef.current?.focusNode(member.id);
-  }, [graphData]);
-
-  if (loading) {
-    return (
-      <div
-        className="flex items-center justify-center"
-        style={{
-          height,
-          background: isDark ? "#0f0f1a" : "#f8f8fa",
-          color: isDark ? "#888" : "#6b7280",
-        }}
-      >
-        <div className="text-center">
-          <div
-            className="mx-auto mb-3 h-6 w-6 animate-spin rounded-full border-2 border-t-transparent"
-            style={{
-              borderColor: isDark ? "#4a4a6a" : "#d1d5db",
-              borderTopColor: "#818cf8",
-            }}
-          />
-          <span className="text-sm">Loading graph...</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div
-        className="flex items-center justify-center"
-        style={{
-          height,
-          background: isDark ? "#0f0f1a" : "#f8f8fa",
-          color: "#ef4444",
-        }}
-      >
-        <p className="text-sm">{error}</p>
-      </div>
-    );
-  }
-
-  if (!graphData) {
-    return (
-      <div
-        className="flex items-center justify-center"
-        style={{
-          height,
-          background: isDark ? "#0f0f1a" : "#f8f8fa",
-          color: isDark ? "#888" : "#6b7280",
-        }}
-      >
-        <p className="text-sm">
-          Provide graph data via the <code>data</code> or <code>url</code> prop.
-        </p>
-      </div>
-    );
-  }
+  }, [data.nodes]);
 
   const infoPanel = (
     <>
-      <Search nodes={graphData.nodes} onSelect={handleSearchSelect} />
+      <Search nodes={data.nodes} onSelect={handleSearchSelect} />
       <div className="border-border border-b px-3 py-3">
-        {selectedNode && <NodeInfo links={graphData.links} />}
+        {selectedNode && <NodeInfo links={data.links} />}
         {!selectedNode && selectedEdge && <EdgeInfo />}
         {!selectedNode && !selectedEdge && <EmptyInfo onResetView={handleResetView} />}
       </div>
       <NeighborList
-        nodes={graphData.nodes}
-        links={graphData.links}
+        nodes={data.nodes}
+        links={data.links}
         onSelect={handleSearchSelect}
       />
       {showLegend && (
         <div className="border-border border-t">
           <Legend
-            nodes={graphData.nodes}
+            nodes={data.nodes}
             onCommunityClick={handleCommunityClick}
           />
         </div>
@@ -214,18 +105,17 @@ export function GraphViewer({
   );
 
   return (
-    <div className="h-full w-full overflow-hidden" style={{ height }}>
+    <div className="bg-background h-full w-full overflow-hidden" style={{ height }}>
       {showSidebar ? (
         <Sidebar desktopPosition="right" variant="normal">
           <Sidebar.Main>
             <GraphCanvas
               ref={canvasRef}
-              data={graphData}
+              data={data}
               onNodeSelect={handleNodeSelect}
               onNodeDoubleClick={handleNodeDoubleClick}
               onEdgeSelect={handleEdgeSelect}
               networkOptions={networkOptions}
-              theme={theme}
             />
           </Sidebar.Main>
           <Sidebar.Toggle />
@@ -236,12 +126,11 @@ export function GraphViewer({
       ) : (
         <GraphCanvas
           ref={canvasRef}
-          data={graphData}
+          data={data}
           onNodeSelect={handleNodeSelect}
           onNodeDoubleClick={handleNodeDoubleClick}
           onEdgeSelect={handleEdgeSelect}
           networkOptions={networkOptions}
-          theme={theme}
         />
       )}
     </div>
