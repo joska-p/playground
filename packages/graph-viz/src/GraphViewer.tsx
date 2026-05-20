@@ -2,10 +2,15 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import type { GraphData, GraphEdge, GraphNode } from "./types.js";
+import { Sidebar } from "@repo/ui";
 import { GraphCanvas, type GraphCanvasHandle } from "./components/GraphCanvas.js";
-import { Sidebar } from "./components/Sidebar.js";
+import { Search } from "./components/Search.js";
+import { NodeInfo } from "./components/NodeInfo.js";
+import { EdgeInfo } from "./components/EdgeInfo.js";
+import { EmptyInfo } from "./components/EmptyInfo.js";
+import { NeighborList } from "./components/NeighborList.js";
 import { Legend } from "./components/Legend.js";
-import { selectNode, selectEdge, clearSelection } from "./store/useGraphStore.js";
+import { useGraphStore, selectNode, selectEdge, clearSelection } from "./store/useGraphStore.js";
 
 export type GraphViewerProps = {
   /** Graph data object as produced by graphify (pass at build time) */
@@ -118,6 +123,9 @@ export function GraphViewer({
     canvasRef.current?.resetView();
   }, []);
 
+  const selectedNode = useGraphStore((s) => s.selectedNode);
+  const selectedEdge = useGraphStore((s) => s.selectedEdge);
+
   const handleCommunityClick = useCallback((communityId: number) => {
     const data = loadedData;
     if (!data) return;
@@ -181,12 +189,51 @@ export function GraphViewer({
     );
   }
 
+  const infoPanel = (
+    <>
+      <Search nodes={loadedData.nodes} onSelect={handleSearchSelect} />
+      <div className="border-border border-b px-3 py-3">
+        {selectedNode && <NodeInfo links={loadedData.links} />}
+        {!selectedNode && selectedEdge && <EdgeInfo />}
+        {!selectedNode && !selectedEdge && <EmptyInfo onResetView={handleResetView} />}
+      </div>
+      <NeighborList
+        nodes={loadedData.nodes}
+        links={loadedData.links}
+        onSelect={handleSearchSelect}
+      />
+      {showLegend && (
+        <div className="border-border border-t">
+          <Legend
+            nodes={loadedData.nodes}
+            onCommunityClick={handleCommunityClick}
+          />
+        </div>
+      )}
+    </>
+  );
+
   return (
-    <div
-      className="flex overflow-hidden"
-      style={{ height, fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` }}
-    >
-      <div className="min-w-0 flex-1">
+    <div className="h-full w-full overflow-hidden" style={{ height }}>
+      {showSidebar ? (
+        <Sidebar desktopPosition="right" variant="normal">
+          <Sidebar.Main>
+            <GraphCanvas
+              ref={canvasRef}
+              data={loadedData}
+              onNodeSelect={handleNodeSelect}
+              onNodeDoubleClick={handleNodeDoubleClick}
+              onEdgeSelect={handleEdgeSelect}
+              networkOptions={networkOptions}
+              theme={theme}
+            />
+          </Sidebar.Main>
+          <Sidebar.Toggle />
+          <Sidebar.Panel>
+            {infoPanel}
+          </Sidebar.Panel>
+        </Sidebar>
+      ) : (
         <GraphCanvas
           ref={canvasRef}
           data={loadedData}
@@ -196,34 +243,6 @@ export function GraphViewer({
           networkOptions={networkOptions}
           theme={theme}
         />
-      </div>
-
-      {showSidebar && (
-        <div
-          className="flex w-72 shrink-0 flex-col overflow-hidden"
-          style={{
-            borderLeft: `1px solid ${isDark ? "#2a2a4e" : "#e5e7eb"}`,
-          }}
-        >
-          <Sidebar
-            data={loadedData}
-            onNodeClick={handleSearchSelect}
-            onResetView={handleResetView}
-            theme={theme}
-          />
-          {showLegend && (
-            <div
-              className="border-t"
-              style={{ borderColor: isDark ? "#2a2a4e" : "#e5e7eb" }}
-            >
-              <Legend
-                nodes={loadedData.nodes}
-                onCommunityClick={handleCommunityClick}
-                theme={theme}
-              />
-            </div>
-          )}
-        </div>
       )}
     </div>
   );

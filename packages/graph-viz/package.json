@@ -42,6 +42,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@repo/ui": "workspace:*",
     "vis-data": "^8.0.4",
     "vis-network": "^10.1.0",
     "vis-util": "^6.0.0",

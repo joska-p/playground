@@ -274,6 +274,9 @@ importers:
 
   packages/graph-viz:
     dependencies:
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../ui
       react:
         specifier: ^19
         version: 19.2.6
