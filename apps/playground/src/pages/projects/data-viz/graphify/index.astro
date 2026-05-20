@@ -3,13 +3,12 @@ import { GraphViz } from "@repo/graph-viz";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
-import graphData from "../../../../generated/graph";
 
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
 ---
 
 <BaseLayout title={title}>
       <StrictMode>
-        <GraphViz client:only="react" graphData={graphData} />
+        <GraphViz client:only="react" />
       </StrictMode>
 </BaseLayout>

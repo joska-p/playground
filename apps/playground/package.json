@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "copy-graph": "cp ../../graphify-out/graph.json public/graphify/",
+    "predev": "pnpm copy-graph",
+    "prebuild": "pnpm copy-graph",
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
@@ -11,8 +14,7 @@
     "lint": "eslint . --max-warnings 0",
     "lint-fix": "eslint . --max-warnings 0 --fix",
     "check-types": "astro check",
-    "format": "prettier --write .",
-    "generate-graph": "node scripts/generate-graph.mjs"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
