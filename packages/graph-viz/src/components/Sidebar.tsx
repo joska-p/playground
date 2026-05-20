@@ -7,13 +7,11 @@ import {
   confidenceLabel,
 } from "../utils/graph.js";
 import { communityColor } from "../colors.js";
+import { useGraphStore } from "../store/useGraphStore.js";
 
 export type SidebarProps = {
   data: GraphData;
-  selectedNode: GraphNode | null;
-  selectedEdge: GraphEdge | null;
   onNodeClick: (nodeId: string) => void;
-  onNeighborFocus: (nodeId: string) => void;
   onResetView: () => void;
   theme: "dark" | "light";
 };
@@ -138,14 +136,13 @@ function SearchResults({ results, isDark, onSelect }: {
 
 export function Sidebar({
   data,
-  selectedNode,
-  selectedEdge,
   onNodeClick,
-  onNeighborFocus,
   onResetView,
   theme,
 }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const selectedNode = useGraphStore((s) => s.selectedNode);
+  const selectedEdge = useGraphStore((s) => s.selectedEdge);
 
   const isDark = theme === "dark";
   const borderColor = isDark ? "#2a2a4e" : "#e5e7eb";
@@ -231,7 +228,7 @@ export function Sidebar({
               );
               return (
                 <button key={n.id}
-                  onClick={() => onNeighborFocus(n.id)}
+                  onClick={() => onNodeClick(n.id)}
                   className="flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1 text-left text-xs transition-colors"
                   style={{ borderLeft: `3px solid ${communityColor(n.community)}`, color: isDark ? "#ccc" : "#374151" }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = isDark ? "#2a2a4e" : "#f3f4f6"; }}

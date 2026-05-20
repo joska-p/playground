@@ -5,6 +5,7 @@ import type { GraphData, GraphEdge, GraphNode } from "./types.js";
 import { GraphCanvas, type GraphCanvasHandle } from "./components/GraphCanvas.js";
 import { Sidebar } from "./components/Sidebar.js";
 import { Legend } from "./components/Legend.js";
+import { selectNode, selectEdge, clearSelection } from "./store/useGraphStore.js";
 
 export type GraphViewerProps = {
   /** Graph data object as produced by graphify (pass at build time) */
@@ -53,8 +54,6 @@ export function GraphViewer({
   const isDark = theme === "dark";
 
   const [loadedData, setLoadedData] = useState<GraphData | null>(propData ?? null);
-  const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
-  const [selectedEdge, setSelectedEdge] = useState<GraphEdge | null>(null);
   const [loading, setLoading] = useState(!!url && !propData);
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<GraphCanvasHandle>(null);
@@ -89,8 +88,7 @@ export function GraphViewer({
 
   const handleNodeSelect = useCallback(
     (node: GraphNode | null) => {
-      setSelectedNode(node);
-      setSelectedEdge(null);
+      selectNode(node);
       if (node) onNodeClick?.(node);
     },
     [onNodeClick],
@@ -98,8 +96,7 @@ export function GraphViewer({
 
   const handleEdgeSelect = useCallback(
     (edge: GraphEdge | null) => {
-      setSelectedEdge(edge);
-      if (!edge) setSelectedNode(null);
+      selectEdge(edge);
     },
     [],
   );
@@ -107,7 +104,7 @@ export function GraphViewer({
   const handleNodeDoubleClick = useCallback(
     (node: GraphNode) => {
       onNodeDoubleClick?.(node);
-      canvasRef.current?.focusNeighbors(node.id);
+      canvasRef.current?.focusNode(node.id);
     },
     [onNodeDoubleClick],
   );
@@ -116,13 +113,8 @@ export function GraphViewer({
     canvasRef.current?.focusNode(nodeId);
   }, []);
 
-  const handleNeighborFocus = useCallback((nodeId: string) => {
-    canvasRef.current?.focusNeighbors(nodeId);
-  }, []);
-
   const handleResetView = useCallback(() => {
-    setSelectedNode(null);
-    setSelectedEdge(null);
+    clearSelection();
     canvasRef.current?.resetView();
   }, []);
 
@@ -215,10 +207,7 @@ export function GraphViewer({
         >
           <Sidebar
             data={loadedData}
-            selectedNode={selectedNode}
-            selectedEdge={selectedEdge}
             onNodeClick={handleSearchSelect}
-            onNeighborFocus={handleNeighborFocus}
             onResetView={handleResetView}
             theme={theme}
           />
