@@ -9,25 +9,25 @@ export function Legend() {
   const colorMode = useGraphStore((s) => s.colorMode);
 
   return (
-    <div className="flex items-center gap-4 px-4 py-2 bg-background border-t border-border flex-wrap">
-      <div className="flex gap-4 flex-wrap items-center">
+    <div className="bg-background border-border flex flex-wrap items-center gap-4 border-t px-4 py-2">
+      <div className="flex flex-wrap items-center gap-4">
         {colorMode === "filetype" ? (
           FT_OPTIONS.map((ft) => (
             <div key={ft} className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full" style={{ background: FT_COLOR[ft] }} />
+              <div className="h-2 w-2 rounded-full" style={{ background: FT_COLOR[ft] }} />
               <Badge variant="outline">{FT_LABEL[ft]}</Badge>
             </div>
           ))
         ) : (
-          <span className="text-slate-500 text-xs">Nodes coloured by community</span>
+          <span className="text-xs text-slate-500">Nodes coloured by community</span>
         )}
       </div>
 
-      <div className="flex gap-3 flex-wrap items-center ml-auto">
+      <div className="ml-auto flex flex-wrap items-center gap-3">
         {REL_PREVIEW.map(([rel, color]) => (
           <div key={rel} className="flex items-center gap-2">
-            <div className="w-4 h-0.5 rounded" style={{ background: color }} />
-          <Badge variant="outline">{rel}</Badge>
+            <div className="h-0.5 w-4 rounded" style={{ background: color }} />
+            <Badge variant="outline">{rel}</Badge>
           </div>
         ))}
       </div>

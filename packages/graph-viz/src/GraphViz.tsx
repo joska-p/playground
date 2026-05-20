@@ -17,10 +17,10 @@ export function GraphViz({ graphData }: { graphData?: GraphData }) {
   }, [graphData, setGraphData]);
 
   return (
-    <div className="w-full h-full bg-background text-foreground overflow-hidden flex flex-col">
+    <div className="bg-background text-foreground flex h-full w-full flex-col overflow-hidden">
       <TopBar onResetZoom={() => resetZoomRef.current()} />
 
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex flex-1 overflow-hidden">
         <GraphCanvas
           onResetZoomReady={(fn) => {
             resetZoomRef.current = fn;

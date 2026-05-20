@@ -3,70 +3,9 @@ import { GraphViz } from "@repo/graph-viz";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
-import fs from 'fs/promises';
-import path from 'path';
-import { z } from 'zod';
+import graphData from "../../../../generated/graph";
 
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
-
-// Read and validate graph.json at build time with Zod to ensure safety and correct types
-// Try multiple candidate locations because build/prerender may run with different CWDs
-const candidates = [
-  path.resolve(process.cwd(), 'apps', 'playground', 'public', 'graphify', 'graph.json'),
-  path.resolve(process.cwd(), 'public', 'graphify', 'graph.json'),
-];
-
-let foundPath = null;
-for (const p of candidates) {
-  try {
-    await fs.access(p);
-    foundPath = p;
-    break;
-  } catch (e) {
-    // continue
-  }
-}
-
-if (!foundPath) {
-  throw new Error('graph.json not found in any of the expected locations: ' + JSON.stringify(candidates));
-}
-
-const raw = await fs.readFile(foundPath, 'utf-8');
-const json = JSON.parse(raw);
-
-const NodeSchema = z.object({
-  id: z.preprocess((v) => String(v), z.string()),
-  label: z.string().optional(),
-  ft: z.string().nullable().optional(),
-  c: z.union([z.number(), z.string()]).nullable().optional(),
-  sf: z.string().nullable().optional(),
-});
-
-const LinkSchema = z.object({
-  s: z.preprocess((v) => String(v), z.string()),
-  t: z.preprocess((v) => String(v), z.string()),
-  r: z.string().nullable().optional(),
-  w: z.number().optional().transform((v) => v ?? 1),
-});
-
-const HyperSchema = z.object({
-  nodes: z.array(z.preprocess((v) => String(v), z.string())),
-}).partial();
-
-const GraphSchema = z.object({
-  nodes: z.array(NodeSchema),
-  links: z.array(LinkSchema),
-  hyperedges: z.array(HyperSchema).optional(),
-});
-
-const parsed = GraphSchema.safeParse(json);
-if (!parsed.success) {
-  // Provide a build-time error with diagnostics
-  console.error('Invalid graph.json:', parsed.error.format());
-  throw new Error('graph.json failed validation — see build output for details');
-}
-
-const graphData = parsed.data;
 ---
 
 <BaseLayout title={title}>

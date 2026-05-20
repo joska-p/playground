@@ -6,6 +6,8 @@
 @source "../node_modules/@repo/ui";
 @source "../node_modules/@repo/mosaic-maker";
 @source "../node_modules/@repo/sequence-renderer";
+@source "../node_modules/@repo/graph-viz";
+@source "../node_modules/@repo/image-to-particles";
 
 @view-transition {
   navigation: auto;

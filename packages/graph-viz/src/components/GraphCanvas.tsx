@@ -19,9 +19,9 @@ export function GraphCanvas({ onResetZoomReady }: GraphCanvasProps) {
   }, [onResetZoomReady, resetZoom]);
 
   return (
-    <div ref={containerRef} className="flex-1 relative overflow-hidden">
+    <div ref={containerRef} className="relative flex-1 overflow-hidden">
       <LoadingOverlay />
-      <svg ref={svgRef} width="100%" height="100%" className="block w-full h-full" />
+      <svg ref={svgRef} width="100%" height="100%" className="block h-full w-full" />
     </div>
   );
 }

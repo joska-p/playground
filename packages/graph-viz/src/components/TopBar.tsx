@@ -2,7 +2,7 @@ import { FT_LABEL, REL_COLORS } from "../constants";
 import { useGraphStore } from "../store/useGraphStore";
 import type { ColorMode } from "../types";
 import { Button, Input, Select, Switch } from "@repo/ui";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_OPTIONS = Object.keys(REL_COLORS);
@@ -25,20 +25,22 @@ export function TopBar({ onResetZoom }: TopBarProps) {
     setSearch,
     toggleHyper,
     resetFilters,
-  } = useGraphStore((s) => ({
-    colorMode: s.colorMode,
-    filterFT: s.filterFT,
-    filterRel: s.filterRel,
-    search: s.search,
-    showHyper: s.showHyper,
-    stats: s.stats,
-    setColorMode: s.setColorMode,
-    setFilterFT: s.setFilterFT,
-    setFilterRel: s.setFilterRel,
-    setSearch: s.setSearch,
-    toggleHyper: s.toggleHyper,
-    resetFilters: s.resetFilters,
-  }), shallow);
+  } = useGraphStore(
+    useShallow((state) => ({
+      colorMode: state.colorMode,
+      filterFT: state.filterFT,
+      filterRel: state.filterRel,
+      search: state.search,
+      showHyper: state.showHyper,
+      stats: state.stats,
+      setColorMode: state.setColorMode,
+      setFilterFT: state.setFilterFT,
+      setFilterRel: state.setFilterRel,
+      setSearch: state.setSearch,
+      toggleHyper: state.toggleHyper,
+      resetFilters: state.resetFilters,
+    }))
+  );
 
   return (
     <div className="bg-background border-border z-10 flex flex-wrap items-center gap-3 border-b px-4 py-2">

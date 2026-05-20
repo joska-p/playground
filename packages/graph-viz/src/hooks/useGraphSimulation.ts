@@ -67,7 +67,9 @@ export function useGraphSimulation() {
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.05, 8])
-      .on("zoom", (e: d3.D3ZoomEvent<SVGSVGElement, unknown>) => g.attr("transform", e.transform.toString()));
+      .on("zoom", (e: d3.D3ZoomEvent<SVGSVGElement, unknown>) =>
+        g.attr("transform", e.transform.toString())
+      );
     svg.call(zoom);
     zoomRef.current = zoom;
 
@@ -135,7 +137,10 @@ export function useGraphSimulation() {
           if (t === nodeId) connected.add(s);
         });
       }
-      nodeSel.attr("opacity", (d) => (!nodeId || connected.has(d.id) ? 1 : 0.15)).attr("stroke", (d) => (d.id === nodeId ? "#fff" : "#0f172a")).attr("stroke-width", (d) => (d.id === nodeId ? 2 : 0.8));
+      nodeSel
+        .attr("opacity", (d) => (!nodeId || connected.has(d.id) ? 1 : 0.15))
+        .attr("stroke", (d) => (d.id === nodeId ? "#fff" : "#0f172a"))
+        .attr("stroke-width", (d) => (d.id === nodeId ? 2 : 0.8));
       linkSel.attr("opacity", (d) => {
         if (!nodeId) return 0.55;
         const s = resolveId(d.source);
@@ -193,13 +198,23 @@ export function useGraphSimulation() {
           .distance(SIM_CONFIG.linkDistance)
           .strength(SIM_CONFIG.linkStrength)
       )
-      .force("charge", d3.forceManyBody().strength(SIM_CONFIG.chargeStrength).distanceMax(SIM_CONFIG.chargeMaxDist))
+      .force(
+        "charge",
+        d3.forceManyBody().strength(SIM_CONFIG.chargeStrength).distanceMax(SIM_CONFIG.chargeMaxDist)
+      )
       .force("center", d3.forceCenter(W / 2, H / 2))
-      .force("collide", d3.forceCollide<SimNode>((d) => nodeRadius(d.id, degMap) + SIM_CONFIG.collideBuffer))
+      .force(
+        "collide",
+        d3.forceCollide<SimNode>((d) => nodeRadius(d.id, degMap) + SIM_CONFIG.collideBuffer)
+      )
       .alphaDecay(SIM_CONFIG.alphaDecay);
 
     sim.on("tick", () => {
-      linkSel.attr("x1", (d) => (d.source as SimNode).x ?? 0).attr("y1", (d) => (d.source as SimNode).y ?? 0).attr("x2", (d) => (d.target as SimNode).x ?? 0).attr("y2", (d) => (d.target as SimNode).y ?? 0);
+      linkSel
+        .attr("x1", (d) => (d.source as SimNode).x ?? 0)
+        .attr("y1", (d) => (d.source as SimNode).y ?? 0)
+        .attr("x2", (d) => (d.target as SimNode).x ?? 0)
+        .attr("y2", (d) => (d.target as SimNode).y ?? 0);
 
       nodeSel.attr("cx", (d) => d.x ?? 0).attr("cy", (d) => d.y ?? 0);
 
