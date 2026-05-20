@@ -1,6 +1,7 @@
 import { FT_LABEL, REL_COLORS } from "../constants";
 import { useGraphStore } from "../store/useGraphStore";
 import type { ColorMode } from "../types";
+import { Button, Input, Select, Switch } from "@repo/ui";
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_OPTIONS = Object.keys(REL_COLORS);
@@ -42,17 +43,19 @@ export function TopBar({ onResetZoom }: TopBarProps) {
     <div className="flex items-center gap-3 px-4 py-2 bg-[#0b1628] border-b border-slate-800 flex-wrap z-10">
       <span className="text-sm font-bold text-sky-400 mr-2">◈ GRAPHIFY</span>
 
-      <input
+      <Input
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => setSearch((e.target as HTMLInputElement).value)}
         placeholder="Search nodes…"
-        className="bg-[#0f172a] border border-slate-700 text-slate-200 text-sm px-2 py-1 rounded w-40"
+        className="w-40"
+        size="sm"
       />
 
-      <select
+      <Select
         value={filterFT ?? ""}
-        onChange={(e) => setFilterFT(e.target.value || null)}
-        className="bg-[#0f172a] border border-slate-700 text-slate-200 text-sm px-2 py-1 rounded"
+        onChange={(e) => setFilterFT((e.target as HTMLSelectElement).value || null)}
+        className="w-auto"
+        size="sm"
       >
         <option value="">All file types</option>
         {FT_OPTIONS.map((ft) => (
@@ -60,12 +63,13 @@ export function TopBar({ onResetZoom }: TopBarProps) {
             {FT_LABEL[ft]}
           </option>
         ))}
-      </select>
+      </Select>
 
-      <select
+      <Select
         value={filterRel ?? ""}
-        onChange={(e) => setFilterRel(e.target.value || null)}
-        className="bg-[#0f172a] border border-slate-700 text-slate-200 text-sm px-2 py-1 rounded"
+        onChange={(e) => setFilterRel((e.target as HTMLSelectElement).value || null)}
+        className="w-auto"
+        size="sm"
       >
         <option value="">All relations</option>
         {REL_OPTIONS.map((r) => (
@@ -73,33 +77,32 @@ export function TopBar({ onResetZoom }: TopBarProps) {
             {r}
           </option>
         ))}
-      </select>
+      </Select>
 
       <div className="flex gap-2">
         {( ["community", "filetype"] as ColorMode[]).map((m) => (
-          <button
+          <Button
             key={m}
+            variant={colorMode === m ? "primary" : "ghost"}
+            size="sm"
             onClick={() => setColorMode(m)}
-            className={`text-xs uppercase px-2 py-1 rounded border ${colorMode === m ? 'border-sky-400 text-sky-400 bg-slate-800' : 'border-slate-700 text-slate-400'}`}
           >
             {m === "community" ? "Community" : "File Type"}
-          </button>
+          </Button>
         ))}
       </div>
 
-      <button
-        onClick={toggleHyper}
-        className={`text-xs uppercase px-2 py-1 rounded border ${showHyper ? 'border-emerald-400 text-emerald-400 bg-slate-800' : 'border-slate-700 text-slate-400'}`}
-      >
-        {showHyper ? "Hyper ✓" : "Hyper ○"}
-      </button>
+      <div className="flex items-center gap-2">
+        <Switch checked={showHyper} onCheckedChange={() => toggleHyper()} size="sm" />
+        <span className="text-sm text-slate-400">Hyper</span>
+      </div>
 
-      <button onClick={resetFilters} className="text-xs px-2 py-1 rounded border border-slate-700 text-slate-400 bg-transparent">
+      <Button variant="ghost" size="sm" onClick={resetFilters}>
         ✕ Clear
-      </button>
-      <button onClick={onResetZoom} className="text-xs px-2 py-1 rounded border border-slate-700 text-slate-400 bg-transparent">
+      </Button>
+      <Button variant="ghost" size="sm" onClick={onResetZoom}>
         ⊡ Reset
-      </button>
+      </Button>
 
       <span className="ml-auto text-xs text-slate-500">
         {stats.nodes.toLocaleString()} nodes · {stats.links.toLocaleString()} edges
