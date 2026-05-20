@@ -3,9 +3,6 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "copy-graph": "cp ../../graphify-out/graph.json public/graphify/",
-    "predev": "pnpm copy-graph",
-    "prebuild": "pnpm copy-graph",
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
