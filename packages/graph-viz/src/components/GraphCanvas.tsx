@@ -131,6 +131,10 @@ export function GraphCanvas({
     const edges = new DataSet(visEdges);
 
     const options: Options = {
+      layout: {
+        improvedLayout: true,
+        randomSeed: 42,
+      },
       nodes: {
         shape: "dot",
         size: 8,
@@ -146,18 +150,7 @@ export function GraphCanvas({
         },
         font: { size: 10, strokeWidth: 0 },
       },
-      physics: {
-        solver: "forceAtlas2Based",
-        forceAtlas2Based: {
-          gravitationalConstant: -40,
-          centralGravity: 0.005,
-          springLength: 160,
-          springConstant: 0.02,
-          damping: 0.4,
-        },
-        stabilization: { iterations: 300 },
-        maxVelocity: 30,
-      },
+      physics: false,
       interaction: {
         hover: true,
         hoverConnectedEdges: true,
@@ -200,9 +193,7 @@ export function GraphCanvas({
       }
     });
 
-    network.once("stabilizationIterationsDone", () => {
-      network.fit({ animation: false });
-    });
+    network.fit({ animation: false });
 
     return () => {
       network.destroy();
