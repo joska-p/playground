@@ -1,5 +1,6 @@
 import { FT_COLOR, FT_LABEL, REL_COLORS } from "../constants";
 import { useGraphStore } from "../store/useGraphStore";
+import { Badge } from "@repo/ui";
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_PREVIEW = Object.entries(REL_COLORS).slice(0, 6);
@@ -14,7 +15,7 @@ export function Legend() {
           FT_OPTIONS.map((ft) => (
             <div key={ft} className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full" style={{ background: FT_COLOR[ft] }} />
-              <span className="text-slate-400 text-xs">{FT_LABEL[ft]}</span>
+              <Badge variant="ghost" size="sm">{FT_LABEL[ft]}</Badge>
             </div>
           ))
         ) : (
@@ -26,7 +27,7 @@ export function Legend() {
         {REL_PREVIEW.map(([rel, color]) => (
           <div key={rel} className="flex items-center gap-2">
             <div className="w-4 h-0.5 rounded" style={{ background: color }} />
-            <span className="text-slate-500 text-xs">{rel}</span>
+            <Badge variant="outline" size="sm">{rel}</Badge>
           </div>
         ))}
       </div>
