@@ -11,7 +11,7 @@
     "lint-fix": "turbo run lint-fix",
     "format": "turbo run format",
     "check-types": "turbo run check-types",
-    "graphify": "graphify update . && cp graphify-out/graph.json apps/playground/public/graphify/graph.json",
+    "graphify": "graphify update . && node scripts/generate-graph.mjs",
     "clean": "turbo run clean --force && rm -rf node_modules .turbo/cache"
   },
   "devDependencies": {
