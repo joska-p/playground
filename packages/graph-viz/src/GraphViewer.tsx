@@ -45,7 +45,7 @@ function detectTheme(): "dark" | "light" {
 }
 
 export function GraphViewer({
-  data: propData,
+  data: incomingData,
   url,
   height = "100vh",
   showSidebar = true,
@@ -58,13 +58,13 @@ export function GraphViewer({
   const theme = forcedTheme ?? detectTheme();
   const isDark = theme === "dark";
 
-  const [loadedData, setLoadedData] = useState<GraphData | null>(propData ?? null);
-  const [loading, setLoading] = useState(!!url && !propData);
+  const [graphData, setGraphData] = useState<GraphData | null>(incomingData ?? null);
+  const [loading, setLoading] = useState(!!url && !incomingData);
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<GraphCanvasHandle>(null);
 
   useEffect(() => {
-    if (!url || propData) return;
+    if (!url || incomingData) return;
 
     let cancelled = false;
 
@@ -73,9 +73,9 @@ export function GraphViewer({
         if (!res.ok) throw new Error(`Failed to load graph: ${res.status}`);
         return res.json() as Promise<GraphData>;
       })
-      .then((graphData) => {
+      .then((data) => {
         if (!cancelled) {
-          setLoadedData(graphData);
+          setGraphData(data);
           setLoading(false);
         }
       })
@@ -89,7 +89,7 @@ export function GraphViewer({
     return () => {
       cancelled = true;
     };
-  }, [propData, url]);
+  }, [incomingData, url]);
 
   const handleNodeSelect = useCallback(
     (node: GraphNode | null) => {
@@ -127,11 +127,11 @@ export function GraphViewer({
   const selectedEdge = useGraphStore((s) => s.selectedEdge);
 
   const handleCommunityClick = useCallback((communityId: number) => {
-    const data = loadedData;
+    const data = graphData;
     if (!data) return;
     const member = data.nodes.find((n) => n.community === communityId);
     if (member) canvasRef.current?.focusNode(member.id);
-  }, [loadedData]);
+  }, [graphData]);
 
   if (loading) {
     return (
@@ -172,7 +172,7 @@ export function GraphViewer({
     );
   }
 
-  if (!loadedData) {
+  if (!graphData) {
     return (
       <div
         className="flex items-center justify-center"
@@ -191,21 +191,21 @@ export function GraphViewer({
 
   const infoPanel = (
     <>
-      <Search nodes={loadedData.nodes} onSelect={handleSearchSelect} />
+      <Search nodes={graphData.nodes} onSelect={handleSearchSelect} />
       <div className="border-border border-b px-3 py-3">
-        {selectedNode && <NodeInfo links={loadedData.links} />}
+        {selectedNode && <NodeInfo links={graphData.links} />}
         {!selectedNode && selectedEdge && <EdgeInfo />}
         {!selectedNode && !selectedEdge && <EmptyInfo onResetView={handleResetView} />}
       </div>
       <NeighborList
-        nodes={loadedData.nodes}
-        links={loadedData.links}
+        nodes={graphData.nodes}
+        links={graphData.links}
         onSelect={handleSearchSelect}
       />
       {showLegend && (
         <div className="border-border border-t">
           <Legend
-            nodes={loadedData.nodes}
+            nodes={graphData.nodes}
             onCommunityClick={handleCommunityClick}
           />
         </div>
@@ -220,7 +220,7 @@ export function GraphViewer({
           <Sidebar.Main>
             <GraphCanvas
               ref={canvasRef}
-              data={loadedData}
+              data={graphData}
               onNodeSelect={handleNodeSelect}
               onNodeDoubleClick={handleNodeDoubleClick}
               onEdgeSelect={handleEdgeSelect}
@@ -236,7 +236,7 @@ export function GraphViewer({
       ) : (
         <GraphCanvas
           ref={canvasRef}
-          data={loadedData}
+          data={graphData}
           onNodeSelect={handleNodeSelect}
           onNodeDoubleClick={handleNodeDoubleClick}
           onEdgeSelect={handleEdgeSelect}

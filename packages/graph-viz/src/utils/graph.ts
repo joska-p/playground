@@ -1,4 +1,4 @@
-import type { GraphEdge, GraphNode, GraphData } from "../types.js";
+import type { GraphEdge, GraphNode } from "../types.js";
 
 export function findNodeById(
   nodes: GraphNode[],
@@ -28,34 +28,10 @@ export function neighborIds(
   return [...ids];
 }
 
-export function communityLabels(data: GraphData): Map<number, string> {
-  const seen = new Map<number, string[]>();
-  for (const n of data.nodes) {
-    const c = n.community;
-    if (c === undefined) continue;
-    if (!seen.has(c)) seen.set(c, []);
-    const arr = seen.get(c)!;
-    if (arr.length < 3) arr.push(n.label);
-  }
-  const labels = new Map<number, string>();
-  for (const [c, samples] of seen) {
-    if (samples.length === 0) continue;
-    labels.set(c, `Community ${c}`);
-  }
-  return labels;
-}
-
 export function confidenceLabel(
-  confidence: "EXTRACTED" | "INFERRED" | "AMBIGUOUS",
+  confidence: GraphEdge["confidence"],
 ): string {
-  switch (confidence) {
-    case "EXTRACTED":
-      return "Extracted";
-    case "INFERRED":
-      return "Inferred";
-    case "AMBIGUOUS":
-      return "Ambiguous";
-  }
+  return confidence.charAt(0) + confidence.slice(1).toLowerCase();
 }
 
 export function fileTypeIcon(file_type: string): string {
