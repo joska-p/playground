@@ -26,7 +26,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#38bdf8",
     fontSize: 12,
     letterSpacing: "0.1em",
-    fontFamily: "'JetBrains Mono','Fira Code',monospace",
     animation: "gv-pulse 1.5s ease-in-out infinite",
   },
 };

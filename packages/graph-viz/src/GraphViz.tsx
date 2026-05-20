@@ -39,11 +39,10 @@ export function GraphViz() {
 const styles: Record<string, React.CSSProperties> = {
   root: {
     width: "100%",
-    height: "100vh",
+    height: "100%",
     background: "#070d1a",
     display: "flex",
     flexDirection: "column",
-    fontFamily: "'JetBrains Mono','Fira Code',monospace",
     color: "#e2e8f0",
     overflow: "hidden",
   },

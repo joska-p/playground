@@ -113,7 +113,6 @@ const styles: Record<string, React.CSSProperties> = {
     overflowY: "auto",
     flexShrink: 0,
     fontSize: 11,
-    fontFamily: "'JetBrains Mono','Fira Code',monospace",
   },
   header: {
     display: "flex",
