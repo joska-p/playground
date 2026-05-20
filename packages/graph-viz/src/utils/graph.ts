@@ -1,11 +1,4 @@
-import type { GraphEdge, GraphNode } from "../types.js";
-
-export function findNodeById(
-  nodes: GraphNode[],
-  id: string,
-): GraphNode | undefined {
-  return nodes.find((n) => n.id === id);
-}
+import type { GraphEdge } from "../types.js";
 
 export function edgesForNode(
   edges: GraphEdge[],

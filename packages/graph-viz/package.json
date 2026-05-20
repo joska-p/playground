@@ -28,6 +28,8 @@
     "lint": "eslint . --max-warnings 0",
     "lint-fix": "eslint . --max-warnings 0 --fix",
     "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "clean": "rm -rf node_modules .turbo dist"
   },
   "peerDependencies": {
@@ -39,7 +41,8 @@
     "@repo/typescript-config": "workspace:*",
     "@types/react": "^19.2.14",
     "eslint": "^9.39.4",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.7"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
