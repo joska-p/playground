@@ -15,7 +15,7 @@
     "lint-fix": "eslint . --max-warnings 0 --fix",
     "check-types": "astro check",
     "format": "prettier --write .",
-    "generate-graph": "node ../../scripts/generate-graph.mjs"
+    "generate-graph": "node scripts/generate-graph.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
