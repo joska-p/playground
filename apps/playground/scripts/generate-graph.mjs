@@ -49,7 +49,17 @@ async function main() {
   const parsed = GraphSchema.safeParse(json);
   if (!parsed.success) {
     console.error('graph.json failed validation:');
-    console.error('graph.json failed validation:', parsed.error.flatten());
+    // Prefer z.treeifyError if available (provides nice tree view). Fall back to issues otherwise.
+    if (typeof z.treeifyError === 'function') {
+      try {
+        console.error(z.treeifyError(parsed.error));
+      } catch (e) {
+        console.error('graph.json failed validation (treeifyError threw):', e);
+        console.error(parsed.error.issues);
+      }
+    } else {
+      console.error('graph.json failed validation:', parsed.error.issues ?? parsed.error);
+    }
     process.exit(2);
   }
 
