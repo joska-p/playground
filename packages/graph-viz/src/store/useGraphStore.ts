@@ -1,26 +1,50 @@
 import { create } from "zustand";
-import type { GraphNode, GraphEdge } from "../types.js";
+import type { ColorMode, GraphStats, RawNode } from "../types";
 
 type GraphState = {
-  selectedNode: GraphNode | null;
-  selectedEdge: GraphEdge | null;
+  // ── Filters & display ───────────────────────────────────────────────────────
+  colorMode: ColorMode;
+  filterFT: string | null;
+  filterRel: string | null;
+  search: string;
+  showHyper: boolean;
+
+  // ── Selection ───────────────────────────────────────────────────────────────
+  selectedNode: RawNode | null;
+
+  // ── Async / derived ─────────────────────────────────────────────────────────
+  isReady: boolean;
+  stats: GraphStats;
+
+  // ── Actions ─────────────────────────────────────────────────────────────────
+  setColorMode: (mode: ColorMode) => void;
+  setFilterFT: (ft: string | null) => void;
+  setFilterRel: (rel: string | null) => void;
+  setSearch: (q: string) => void;
+  toggleHyper: () => void;
+  setSelectedNode: (node: RawNode | null) => void;
+  setIsReady: (ready: boolean) => void;
+  setStats: (stats: GraphStats) => void;
+  resetFilters: () => void;
 };
 
-const useGraphStore = create<GraphState>()(() => ({
+export const useGraphStore = create<GraphState>((set) => ({
+  colorMode: "community",
+  filterFT: null,
+  filterRel: null,
+  search: "",
+  showHyper: true,
   selectedNode: null,
-  selectedEdge: null,
+  isReady: false,
+  stats: { nodes: 0, links: 0 },
+
+  setColorMode: (colorMode) => set({ colorMode }),
+  setFilterFT: (filterFT) => set({ filterFT }),
+  setFilterRel: (filterRel) => set({ filterRel }),
+  setSearch: (search) => set({ search }),
+  toggleHyper: () => set((s) => ({ showHyper: !s.showHyper })),
+  setSelectedNode: (selectedNode) => set({ selectedNode }),
+  setIsReady: (isReady) => set({ isReady }),
+  setStats: (stats) => set({ stats }),
+  resetFilters: () => set({ filterFT: null, filterRel: null, search: "", selectedNode: null }),
 }));
-
-function selectNode(node: GraphNode | null) {
-  useGraphStore.setState({ selectedNode: node, selectedEdge: null });
-}
-
-function selectEdge(edge: GraphEdge | null) {
-  useGraphStore.setState({ selectedEdge: edge });
-}
-
-function clearSelection() {
-  useGraphStore.setState({ selectedNode: null, selectedEdge: null });
-}
-
-export { useGraphStore, selectNode, selectEdge, clearSelection };

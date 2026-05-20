@@ -1,34 +1,14 @@
 ---
-import { readFileSync } from "node:fs";
-import { GraphViewer, type GraphData } from "@repo/graph-viz";
+import { GraphViz } from "@repo/graph-viz";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
 
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
-
-let graphData: GraphData | null = null;
-try {
-  const raw = readFileSync("public/graphify/graph.json", "utf-8");
-  graphData = JSON.parse(raw);
-} catch {
-  graphData = null;
-}
 ---
 
 <BaseLayout title={title}>
-  {graphData ? (
-    <div class="flex-1 w-full overflow-hidden">
       <StrictMode>
-        <GraphViewer data={graphData} client:only="react" />
+        <GraphViz client:only="react" />
       </StrictMode>
-    </div>
-  ) : (
-    <div class="flex flex-1 items-center justify-center text-sm text-gray-500">
-      <p>
-        No graph found. Run <code>graphify</code> first to generate
-        <code>graphify-out/graph.json</code>.
-      </p>
-    </div>
-  )}
 </BaseLayout>

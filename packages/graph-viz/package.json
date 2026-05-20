@@ -28,8 +28,6 @@
     "lint": "eslint . --max-warnings 0",
     "lint-fix": "eslint . --max-warnings 0 --fix",
     "format": "prettier --write .",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "clean": "rm -rf node_modules .turbo dist"
   },
   "peerDependencies": {
@@ -46,9 +44,8 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "vis-data": "^8.0.4",
-    "vis-network": "^10.1.0",
-    "vis-util": "^6.0.0",
+    "@types/d3": "^7.4.3",
+    "d3": "^7.9.0",
     "zustand": "^5.0.13"
   }
 }

@@ -1,49 +1,59 @@
-import { useMemo } from "react";
-import type { GraphNode } from "../types.js";
-import { communityColor } from "../colors.js";
+import { FT_COLOR, FT_LABEL, REL_COLORS } from "../constants";
+import { useGraphStore } from "../store/useGraphStore";
 
-export type LegendProps = {
-  nodes: GraphNode[];
-  onCommunityClick: (communityId: number) => void;
-};
+const FT_OPTIONS = Object.keys(FT_LABEL);
+const REL_PREVIEW = Object.entries(REL_COLORS).slice(0, 6);
 
-export function Legend({ nodes, onCommunityClick }: LegendProps) {
-  const communities = useMemo(() => {
-    const map = new Map<number, number>();
-    for (const n of nodes) {
-      const c = n.community;
-      if (c !== undefined) {
-        map.set(c, (map.get(c) ?? 0) + 1);
-      }
-    }
-    return [...map.entries()].sort((a, b) => b[1] - a[1]);
-  }, [nodes]);
-
-  if (communities.length === 0) return null;
+export function Legend() {
+  const colorMode = useGraphStore((s) => s.colorMode);
 
   return (
-    <div className="px-3 py-3">
-      <span className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">
-        Communities ({communities.length})
-      </span>
-      <div className="mt-2 space-y-1">
-        {communities.map(([id, count]) => (
-          <button
-            key={id}
-            onClick={() => onCommunityClick(id)}
-            className="hover:bg-accent text-foreground flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1 text-left text-xs transition-colors"
-          >
-            <span
-              className="inline-block h-3 w-3 shrink-0 rounded-sm"
-              style={{ background: communityColor(id) }}
-            />
-            <span className="min-w-0 flex-1 truncate">Community {id}</span>
-            <span className="text-muted-foreground shrink-0 text-[10px]">
-              {count}
-            </span>
-          </button>
+    <div style={styles["bar"]}>
+      {/* Left: node colour legend */}
+      <div style={styles["left"]}>
+        {colorMode === "filetype" ? (
+          FT_OPTIONS.map((ft) => (
+            <div key={ft} style={styles["item"]}>
+              <div style={{ ...styles["dot"], background: FT_COLOR[ft] }} />
+              <span style={styles["label"]}>{FT_LABEL[ft]}</span>
+            </div>
+          ))
+        ) : (
+          <span style={styles["muted"]}>Nodes coloured by community</span>
+        )}
+      </div>
+
+      {/* Right: edge relation legend */}
+      <div style={styles["right"]}>
+        {REL_PREVIEW.map(([rel, color]) => (
+          <div key={rel} style={styles["item"]}>
+            <div style={{ ...styles["dash"], background: color }} />
+            <span style={styles["muted"]}>{rel}</span>
+          </div>
         ))}
       </div>
     </div>
   );
 }
+
+// ── Styles ────────────────────────────────────────────────────────────────────
+
+const styles: Record<string, React.CSSProperties> = {
+  bar: {
+    display: "flex",
+    alignItems: "center",
+    gap: 16,
+    padding: "6px 14px",
+    background: "#0b1628",
+    borderTop: "1px solid #1e293b",
+    flexWrap: "wrap",
+    flexShrink: 0,
+  },
+  left: { display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" },
+  right: { display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", marginLeft: "auto" },
+  item: { display: "flex", alignItems: "center", gap: 5 },
+  dot: { width: 8, height: 8, borderRadius: "50%", flexShrink: 0 },
+  dash: { width: 14, height: 2, borderRadius: 1, flexShrink: 0 },
+  label: { color: "#64748b", fontSize: 10 },
+  muted: { color: "#475569", fontSize: 10 },
+};

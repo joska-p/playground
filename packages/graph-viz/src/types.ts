@@ -1,50 +1,59 @@
-export type GraphNode = {
+import type * as d3 from "d3";
+
+// ── Raw data shapes (as produced by Graphify) ─────────────────────────────────
+
+export type RawNode = {
   id: string;
   label: string;
-  file_type: "code" | "document" | "paper" | "image" | "rationale";
-  source_file: string;
-  source_location: string | null;
-  source_url: string | null;
-  captured_at: string | null;
-  author: string | null;
-  contributor: string | null;
-  community?: number;
-  norm_label?: string;
+  ft: string; // file_type
+  c: number; // community
+  sf: string; // source_file
 };
 
-export type GraphEdge = {
-  source: string;
-  target: string;
-  relation: string;
-  confidence: "EXTRACTED" | "INFERRED" | "AMBIGUOUS";
-  confidence_score: number;
-  source_file: string;
-  source_location?: string | null;
-  weight: number;
+export type RawLink = {
+  s: string; // source id
+  t: string; // target id
+  r: string; // relation
+  w: number; // confidence_score / weight
 };
 
-export type Hyperedge = {
+export type RawHyperedge = {
   id: string;
   label: string;
   nodes: string[];
-  relation: string;
-  confidence: "EXTRACTED" | "INFERRED";
-  confidence_score: number;
-  source_file: string;
+  rel: string;
 };
 
 export type GraphData = {
-  directed: boolean;
-  multigraph: boolean;
-  graph: {
-    hyperedges: Hyperedge[];
-  };
-  nodes: GraphNode[];
-  links: GraphEdge[];
-  built_at_commit?: string;
+  nodes: RawNode[];
+  links: RawLink[];
+  hyperedges: RawHyperedge[];
 };
 
-export type SelectedNode = {
-  node: GraphNode;
-  edges: GraphEdge[];
+// ── D3 simulation types ───────────────────────────────────────────────────────
+
+/** Node extended with D3 simulation mutable fields */
+export type SimNode = {
+  x?: number;
+  y?: number;
+  fx?: number | null;
+  fy?: number | null;
+} & RawNode &
+  d3.SimulationNodeDatum;
+
+/** Link with typed D3 source/target resolution */
+export type SimLink = {
+  s: string;
+  t: string;
+  r: string;
+  w: number;
+} & d3.SimulationLinkDatum<SimNode>;
+
+// ── UI state types ─────────────────────────────────────────────────────────────
+
+export type ColorMode = "community" | "filetype";
+
+export type GraphStats = {
+  nodes: number;
+  links: number;
 };
