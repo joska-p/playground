@@ -4,29 +4,47 @@ import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
 import fs from 'fs/promises';
+import { z } from 'zod';
 
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
 
-// Read and transform graph.json at build time to ensure correct types and small client payload
+// Read and validate graph.json at build time with Zod to ensure safety and correct types
 const raw = await fs.readFile(new URL('../../../../../public/graphify/graph.json', import.meta.url), 'utf-8');
-const parsed = JSON.parse(raw);
+const json = JSON.parse(raw);
 
-const graphData = {
-  nodes: (parsed.nodes || []).map((n) => ({
-    id: String(n.id),
-    label: n.label ?? String(n.id),
-    ft: n.ft ?? null,
-    c: n.c ?? null,
-    sf: n.sf ?? null,
-  })),
-  links: (parsed.links || []).map((l) => ({
-    s: String(l.s),
-    t: String(l.t),
-    r: l.r ?? null,
-    w: Number(l.w ?? 1),
-  })),
-  hyperedges: parsed.hyperedges ?? [],
-};
+const NodeSchema = z.object({
+  id: z.preprocess((v) => String(v), z.string()),
+  label: z.string().optional(),
+  ft: z.string().nullable().optional(),
+  c: z.union([z.number(), z.string()]).nullable().optional(),
+  sf: z.string().nullable().optional(),
+});
+
+const LinkSchema = z.object({
+  s: z.preprocess((v) => String(v), z.string()),
+  t: z.preprocess((v) => String(v), z.string()),
+  r: z.string().nullable().optional(),
+  w: z.number().optional().transform((v) => v ?? 1),
+});
+
+const HyperSchema = z.object({
+  nodes: z.array(z.preprocess((v) => String(v), z.string())),
+}).partial();
+
+const GraphSchema = z.object({
+  nodes: z.array(NodeSchema),
+  links: z.array(LinkSchema),
+  hyperedges: z.array(HyperSchema).optional(),
+});
+
+const parsed = GraphSchema.safeParse(json);
+if (!parsed.success) {
+  // Provide a build-time error with diagnostics
+  console.error('Invalid graph.json:', parsed.error.format());
+  throw new Error('graph.json failed validation — see build output for details');
+}
+
+const graphData = parsed.data;
 ---
 
 <BaseLayout title={title}>
