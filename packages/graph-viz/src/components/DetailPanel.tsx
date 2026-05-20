@@ -1,5 +1,4 @@
-import { FT_COLOR, REL_COLORS } from "../constants";
-import { communityColor } from "../utils/colors";
+import { REL_COLORS } from "../constants";
 import { useGraphStore } from "../store/useGraphStore";
 import { Badge, Button } from "@repo/ui";
 
@@ -29,10 +28,10 @@ export function DetailPanel() {
           <span className="text-foreground break-all">{selectedNode.id}</span>
 
           <span className="text-muted pt-1">Type</span>
-          <span className="text-foreground"><Badge variant="accent" size="sm">{selectedNode.ft || '—'}</Badge></span>
+          <span className="text-foreground"><Badge variant="accent">{selectedNode.ft || '—'}</Badge></span>
 
           <span className="text-muted pt-1">Community</span>
-          <span className="text-foreground"><Badge variant="outline" size="sm">{String(selectedNode.c)}</Badge></span>
+          <span className="text-foreground"><Badge variant="outline">{String(selectedNode.c)}</Badge></span>
 
           <span className="text-muted pt-1">Source</span>
           <span className="text-foreground break-all">{selectedNode.sf || '—'}</span>
@@ -51,7 +50,7 @@ export function DetailPanel() {
                 className="mb-2 p-2 bg-muted rounded cursor-pointer border-l-4"
                 style={{ borderLeftColor: REL_COLORS[l.r] ?? '#334155' }}
               >
-                <div className="mb-1"><Badge variant="outline" size="sm">{l.r}</Badge></div>
+                <div className="mb-1"><Badge variant="outline">{l.r}</Badge></div>
                 <div className="text-foreground text-sm break-words">{other?.label ?? otherId}</div>
               </div>
             );

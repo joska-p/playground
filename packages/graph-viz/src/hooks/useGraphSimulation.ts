@@ -4,7 +4,7 @@ import * as d3 from "d3";
 import { REL_COLORS, SIM_CONFIG } from "../constants";
 import { nodeColor, nodeRadius, buildDegreeMap } from "../utils/colors";
 import { useGraphStore } from "../store/useGraphStore";
-import type { SimNode, SimLink, GraphData } from "../types";
+import type { SimNode, SimLink } from "../types";
 import exampleGraph from "../data/exampleGraph";
 
 export function useGraphSimulation() {
@@ -20,7 +20,7 @@ export function useGraphSimulation() {
   const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
   const setIsReady = useGraphStore((s) => s.setIsReady);
   const setStats = useGraphStore((s) => s.setStats);
-  const graphData = useGraphStore((s) => s.graphData) as GraphData | null;
+  const graphData = useGraphStore((s) => s.graphData);
 
   useEffect(() => {
     if (!svgRef.current || !containerRef.current) return;
@@ -152,7 +152,7 @@ export function useGraphSimulation() {
     function renderHulls() {
       if (!showHyper) return;
       hyperLayer.selectAll("*").remove();
-      (RAW_GRAPH.hyperedges || []).forEach((he) => {
+      RAW_GRAPH.hyperedges.forEach((he) => {
         const pts = he.nodes
           .map((id) => nodeMap.get(id))
           .filter((n): n is SimNode => n !== undefined)

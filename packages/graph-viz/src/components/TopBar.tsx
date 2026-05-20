@@ -45,17 +45,15 @@ export function TopBar({ onResetZoom }: TopBarProps) {
 
       <Input
         value={search}
-        onChange={(e) => setSearch((e.target as HTMLInputElement).value)}
+        onChange={(e) => setSearch((e.target).value)}
         placeholder="Search nodes…"
         className="w-40"
-        size="sm"
       />
 
       <Select
         value={filterFT ?? ""}
-        onChange={(e) => setFilterFT((e.target as HTMLSelectElement).value || null)}
+        onChange={(e) => setFilterFT((e.target).value || null)}
         className="w-auto"
-        size="sm"
       >
         <option value="">All file types</option>
         {FT_OPTIONS.map((ft) => (
@@ -67,9 +65,8 @@ export function TopBar({ onResetZoom }: TopBarProps) {
 
       <Select
         value={filterRel ?? ""}
-        onChange={(e) => setFilterRel((e.target as HTMLSelectElement).value || null)}
+        onChange={(e) => setFilterRel((e.target).value || null)}
         className="w-auto"
-        size="sm"
       >
         <option value="">All relations</option>
         {REL_OPTIONS.map((r) => (
@@ -84,7 +81,7 @@ export function TopBar({ onResetZoom }: TopBarProps) {
           <Button
             key={m}
             variant={colorMode === m ? "primary" : "ghost"}
-            size="sm"
+            size="small"
             onClick={() => setColorMode(m)}
           >
             {m === "community" ? "Community" : "File Type"}
@@ -93,14 +90,14 @@ export function TopBar({ onResetZoom }: TopBarProps) {
       </div>
 
       <div className="flex items-center gap-2">
-        <Switch checked={showHyper} onCheckedChange={() => toggleHyper()} size="sm" />
+        <Switch checked={showHyper} onCheckedChange={() => toggleHyper()} size="small" />
         <span className="text-sm text-muted">Hyper</span>
       </div>
 
-      <Button variant="ghost" size="sm" onClick={resetFilters}>
+      <Button variant="ghost" size="small" onClick={resetFilters}>
         ✕ Clear
       </Button>
-      <Button variant="ghost" size="sm" onClick={onResetZoom}>
+      <Button variant="ghost" size="small" onClick={onResetZoom}>
         ⊡ Reset
       </Button>
 

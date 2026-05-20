@@ -15,7 +15,7 @@ export function Legend() {
           FT_OPTIONS.map((ft) => (
             <div key={ft} className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full" style={{ background: FT_COLOR[ft] }} />
-              <Badge variant="ghost" size="sm">{FT_LABEL[ft]}</Badge>
+              <Badge variant="outline">{FT_LABEL[ft]}</Badge>
             </div>
           ))
         ) : (
@@ -27,7 +27,7 @@ export function Legend() {
         {REL_PREVIEW.map(([rel, color]) => (
           <div key={rel} className="flex items-center gap-2">
             <div className="w-4 h-0.5 rounded" style={{ background: color }} />
-            <Badge variant="outline" size="sm">{rel}</Badge>
+          <Badge variant="outline">{rel}</Badge>
           </div>
         ))}
       </div>
