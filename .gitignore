@@ -60,7 +60,3 @@ session-ses*
 drafts/
 # Turborepo
 .turbo
-
-# Generated graph module
-apps/playground/src/generated
-
