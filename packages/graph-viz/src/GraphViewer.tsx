@@ -81,9 +81,9 @@ export function GraphViewer({
   }, [data.nodes]);
 
   const infoPanel = (
-    <>
+    <div className="flex h-full flex-col overflow-y-auto">
       <Search nodes={data.nodes} onSelect={handleSearchSelect} />
-      <div className="border-border border-b px-3 py-3">
+      <div className="border-border shrink-0 border-b px-3 py-3">
         {selectedNode && <NodeInfo links={data.links} />}
         {!selectedNode && selectedEdge && <EdgeInfo />}
         {!selectedNode && !selectedEdge && <EmptyInfo onResetView={handleResetView} />}
@@ -94,14 +94,14 @@ export function GraphViewer({
         onSelect={handleSearchSelect}
       />
       {showLegend && (
-        <div className="border-border border-t">
+        <div className="border-border shrink-0 border-t">
           <Legend
             nodes={data.nodes}
             onCommunityClick={handleCommunityClick}
           />
         </div>
       )}
-    </>
+    </div>
   );
 
   return (

@@ -200,6 +200,10 @@ export function GraphCanvas({
       }
     });
 
+    network.once("stabilizationIterationsDone", () => {
+      network.fit({ animation: false });
+    });
+
     return () => {
       network.destroy();
       networkRef.current = null;
