@@ -10,8 +10,28 @@ import { z } from 'zod';
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
 
 // Read and validate graph.json at build time with Zod to ensure safety and correct types
-const graphJsonPath = path.resolve(process.cwd(), 'apps', 'playground', 'public', 'graphify', 'graph.json');
-const raw = await fs.readFile(graphJsonPath, 'utf-8');
+// Try multiple candidate locations because build/prerender may run with different CWDs
+const candidates = [
+  path.resolve(process.cwd(), 'apps', 'playground', 'public', 'graphify', 'graph.json'),
+  path.resolve(process.cwd(), 'public', 'graphify', 'graph.json'),
+];
+
+let foundPath = null;
+for (const p of candidates) {
+  try {
+    await fs.access(p);
+    foundPath = p;
+    break;
+  } catch (e) {
+    // continue
+  }
+}
+
+if (!foundPath) {
+  throw new Error('graph.json not found in any of the expected locations: ' + JSON.stringify(candidates));
+}
+
+const raw = await fs.readFile(foundPath, 'utf-8');
 const json = JSON.parse(raw);
 
 const NodeSchema = z.object({
