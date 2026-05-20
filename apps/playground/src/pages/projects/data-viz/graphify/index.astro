@@ -3,9 +3,30 @@ import { GraphViz } from "@repo/graph-viz";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
-import graphData from '../../../../../public/graphify/graph.json';
+import fs from 'fs/promises';
 
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
+
+// Read and transform graph.json at build time to ensure correct types and small client payload
+const raw = await fs.readFile(new URL('../../../../../public/graphify/graph.json', import.meta.url), 'utf-8');
+const parsed = JSON.parse(raw);
+
+const graphData = {
+  nodes: (parsed.nodes || []).map((n) => ({
+    id: String(n.id),
+    label: n.label ?? String(n.id),
+    ft: n.ft ?? null,
+    c: n.c ?? null,
+    sf: n.sf ?? null,
+  })),
+  links: (parsed.links || []).map((l) => ({
+    s: String(l.s),
+    t: String(l.t),
+    r: l.r ?? null,
+    w: Number(l.w ?? 1),
+  })),
+  hyperedges: parsed.hyperedges ?? [],
+};
 ---
 
 <BaseLayout title={title}>
