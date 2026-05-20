@@ -4,12 +4,14 @@ import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
 import fs from 'fs/promises';
+import path from 'path';
 import { z } from 'zod';
 
 const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
 
 // Read and validate graph.json at build time with Zod to ensure safety and correct types
-const raw = await fs.readFile(new URL('../../../../../public/graphify/graph.json', import.meta.url), 'utf-8');
+const graphJsonPath = path.resolve(process.cwd(), 'apps', 'playground', 'public', 'graphify', 'graph.json');
+const raw = await fs.readFile(graphJsonPath, 'utf-8');
 const json = JSON.parse(raw);
 
 const NodeSchema = z.object({
