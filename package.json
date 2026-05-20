@@ -11,7 +11,7 @@
     "lint-fix": "turbo run lint-fix",
     "format": "turbo run format",
     "check-types": "turbo run check-types",
-    "graphify": "graphify update . && node scripts/generate-graph.mjs",
+    "graphify": "graphify update . && pnpm --filter @repo/playground run generate-graph",
     "clean": "turbo run clean --force && rm -rf node_modules .turbo/cache"
   },
   "devDependencies": {
