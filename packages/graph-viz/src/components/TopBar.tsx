@@ -10,35 +10,49 @@ type TopBarProps = {
 };
 
 export function TopBar({ onResetZoom }: TopBarProps) {
-  const colorMode = useGraphStore((s) => s.colorMode);
-  const filterFT = useGraphStore((s) => s.filterFT);
-  const filterRel = useGraphStore((s) => s.filterRel);
-  const search = useGraphStore((s) => s.search);
-  const showHyper = useGraphStore((s) => s.showHyper);
-  const stats = useGraphStore((s) => s.stats);
-
-  const setColorMode = useGraphStore((s) => s.setColorMode);
-  const setFilterFT = useGraphStore((s) => s.setFilterFT);
-  const setFilterRel = useGraphStore((s) => s.setFilterRel);
-  const setSearch = useGraphStore((s) => s.setSearch);
-  const toggleHyper = useGraphStore((s) => s.toggleHyper);
-  const resetFilters = useGraphStore((s) => s.resetFilters);
+  const {
+    colorMode,
+    filterFT,
+    filterRel,
+    search,
+    showHyper,
+    stats,
+    setColorMode,
+    setFilterFT,
+    setFilterRel,
+    setSearch,
+    toggleHyper,
+    resetFilters,
+  } = useGraphStore((s) => ({
+    colorMode: s.colorMode,
+    filterFT: s.filterFT,
+    filterRel: s.filterRel,
+    search: s.search,
+    showHyper: s.showHyper,
+    stats: s.stats,
+    setColorMode: s.setColorMode,
+    setFilterFT: s.setFilterFT,
+    setFilterRel: s.setFilterRel,
+    setSearch: s.setSearch,
+    toggleHyper: s.toggleHyper,
+    resetFilters: s.resetFilters,
+  }));
 
   return (
-    <div style={styles["bar"]}>
-      <span style={styles["logo"]}>◈ GRAPHIFY</span>
+    <div className="flex items-center gap-3 px-4 py-2 bg-[#0b1628] border-b border-slate-800 flex-wrap z-10">
+      <span className="text-sm font-bold text-sky-400 mr-2">◈ GRAPHIFY</span>
 
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search nodes…"
-        style={styles["input"]}
+        className="bg-[#0f172a] border border-slate-700 text-slate-200 text-sm px-2 py-1 rounded w-40"
       />
 
       <select
         value={filterFT ?? ""}
         onChange={(e) => setFilterFT(e.target.value || null)}
-        style={styles["select"]}
+        className="bg-[#0f172a] border border-slate-700 text-slate-200 text-sm px-2 py-1 rounded"
       >
         <option value="">All file types</option>
         {FT_OPTIONS.map((ft) => (
@@ -51,7 +65,7 @@ export function TopBar({ onResetZoom }: TopBarProps) {
       <select
         value={filterRel ?? ""}
         onChange={(e) => setFilterRel(e.target.value || null)}
-        style={styles["select"]}
+        className="bg-[#0f172a] border border-slate-700 text-slate-200 text-sm px-2 py-1 rounded"
       >
         <option value="">All relations</option>
         {REL_OPTIONS.map((r) => (
@@ -61,106 +75,35 @@ export function TopBar({ onResetZoom }: TopBarProps) {
         ))}
       </select>
 
-      <div style={{ display: "flex", gap: 6 }}>
-        {(["community", "filetype"] as ColorMode[]).map((m) => (
-          <button key={m} onClick={() => setColorMode(m)} style={colorToggleStyle(colorMode === m)}>
+      <div className="flex gap-2">
+        {( ["community", "filetype"] as ColorMode[]).map((m) => (
+          <button
+            key={m}
+            onClick={() => setColorMode(m)}
+            className={`text-xs uppercase px-2 py-1 rounded border ${colorMode === m ? 'border-sky-400 text-sky-400 bg-slate-800' : 'border-slate-700 text-slate-400'}`}
+          >
             {m === "community" ? "Community" : "File Type"}
           </button>
         ))}
       </div>
 
-      <button onClick={toggleHyper} style={hyperToggleStyle(showHyper)}>
+      <button
+        onClick={toggleHyper}
+        className={`text-xs uppercase px-2 py-1 rounded border ${showHyper ? 'border-emerald-400 text-emerald-400 bg-slate-800' : 'border-slate-700 text-slate-400'}`}
+      >
         {showHyper ? "Hyper ✓" : "Hyper ○"}
       </button>
 
-      <button onClick={resetFilters} style={styles["ghostBtn"]}>
+      <button onClick={resetFilters} className="text-xs px-2 py-1 rounded border border-slate-700 text-slate-400 bg-transparent">
         ✕ Clear
       </button>
-      <button onClick={onResetZoom} style={styles["ghostBtn"]}>
+      <button onClick={onResetZoom} className="text-xs px-2 py-1 rounded border border-slate-700 text-slate-400 bg-transparent">
         ⊡ Reset
       </button>
 
-      <span style={styles["statsLabel"]}>
+      <span className="ml-auto text-xs text-slate-500">
         {stats.nodes.toLocaleString()} nodes · {stats.links.toLocaleString()} edges
       </span>
     </div>
   );
-}
-
-// ── Styles ─────────────────────────────────────────────────────────────────────
-
-const base: React.CSSProperties = {
-  background: "#0f172a",
-  border: "1px solid #1e3a5f",
-  borderRadius: 4,
-  color: "#e2e8f0",
-  padding: "4px 8px",
-  fontSize: 11,
-  fontFamily: "inherit",
-  outline: "none",
-};
-
-const styles: Record<string, React.CSSProperties> = {
-  bar: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    padding: "8px 14px",
-    background: "#0b1628",
-    borderBottom: "1px solid #1e293b",
-    flexWrap: "wrap",
-    flexShrink: 0,
-    zIndex: 10,
-  },
-  logo: {
-    fontSize: 13,
-    fontWeight: 700,
-    color: "#38bdf8",
-    letterSpacing: "0.05em",
-    marginRight: 6,
-    whiteSpace: "nowrap",
-  },
-  input: { ...base, width: 160, padding: "4px 10px" },
-  select: { ...base, cursor: "pointer" },
-  ghostBtn: {
-    ...base,
-    background: "transparent",
-    border: "1px solid #1e293b",
-    color: "#64748b",
-    cursor: "pointer",
-    textTransform: "uppercase" as const,
-    letterSpacing: "0.06em",
-  },
-  statsLabel: {
-    marginLeft: "auto",
-    fontSize: 10,
-    color: "#475569",
-    whiteSpace: "nowrap",
-  },
-};
-
-function colorToggleStyle(active: boolean): React.CSSProperties {
-  return {
-    ...base,
-    background: active ? "#1e3a5f" : "transparent",
-    border: `1px solid ${active ? "#38bdf8" : "#1e3a5f"}`,
-    color: active ? "#38bdf8" : "#64748b",
-    cursor: "pointer",
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-    fontSize: 10,
-  };
-}
-
-function hyperToggleStyle(active: boolean): React.CSSProperties {
-  return {
-    ...base,
-    background: active ? "#1a2a1a" : "transparent",
-    border: `1px solid ${active ? "#34d399" : "#1e3a5f"}`,
-    color: active ? "#34d399" : "#64748b",
-    cursor: "pointer",
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-    fontSize: 10,
-  };
 }

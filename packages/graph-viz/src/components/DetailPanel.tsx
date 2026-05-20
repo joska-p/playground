@@ -1,4 +1,3 @@
-import { RAW_GRAPH } from "../data/graphData";
 import { FT_COLOR, REL_COLORS } from "../constants";
 import { communityColor } from "../utils/colors";
 import { useGraphStore } from "../store/useGraphStore";
@@ -6,183 +5,58 @@ import { useGraphStore } from "../store/useGraphStore";
 export function DetailPanel() {
   const selectedNode = useGraphStore((s) => s.selectedNode);
   const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
+  const graphData = useGraphStore((s) => s.graphData);
 
   if (!selectedNode) return null;
 
-  const connections = RAW_GRAPH.links.filter(
-    (l) => l.s === selectedNode.id || l.t === selectedNode.id
-  );
+  const links = graphData?.links ?? [];
+  const nodes = graphData?.nodes ?? [];
+  const connections = links.filter((l) => l.s === selectedNode.id || l.t === selectedNode.id);
 
   return (
-    <div style={styles["panel"]}>
-      {/* Header */}
-      <div style={styles["header"]}>
-        <span style={styles["title"]}>{selectedNode.label}</span>
-        <button onClick={() => setSelectedNode(null)} style={styles["closeBtn"]}>
-          ×
-        </button>
+    <aside className="w-64 bg-[#0b1628] border-l border-slate-800 p-4 overflow-y-auto text-sm">
+      <div className="flex justify-between items-start mb-3">
+        <h3 className="text-sm font-semibold text-sky-400 break-words">{selectedNode.label}</h3>
+        <button onClick={() => setSelectedNode(null)} className="text-slate-500 px-2">×</button>
       </div>
 
-      {/* Metadata grid */}
-      <div style={styles["grid"]}>
-        <MetaRow label="ID" value={selectedNode.id} mono />
-        <MetaRow
-          label="Type"
-          value={selectedNode.ft || "—"}
-          color={FT_COLOR[selectedNode.ft]}
-          bold
-        />
-        <MetaRow
-          label="Community"
-          value={String(selectedNode.c)}
-          color={communityColor(selectedNode.c)}
-          bold
-        />
-        <MetaRow label="Source" value={selectedNode.sf || "—"} mono small />
+      <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-start">
+        <span className="text-slate-500 pt-1">ID</span>
+        <span className="text-slate-400 break-all">{selectedNode.id}</span>
+
+        <span className="text-slate-500 pt-1">Type</span>
+        <span className="text-slate-400" style={{ color: FT_COLOR[selectedNode.ft] }}>{selectedNode.ft || '—'}</span>
+
+        <span className="text-slate-500 pt-1">Community</span>
+        <span className="text-slate-400" style={{ color: communityColor(selectedNode.c) }}>{String(selectedNode.c)}</span>
+
+        <span className="text-slate-500 pt-1">Source</span>
+        <span className="text-slate-400 break-all">{selectedNode.sf || '—'}</span>
       </div>
 
-      {/* Connections list */}
-      <div style={styles["section"]}>
-        <span style={styles["sectionLabel"]}>Connections ({connections.length})</span>
+      <div className="mt-4 border-t border-slate-800 pt-3">
+        <div className="text-slate-500 text-xs uppercase tracking-wider mb-2">Connections ({connections.length})</div>
 
         {connections.slice(0, 20).map((l) => {
           const otherId = l.s === selectedNode.id ? l.t : l.s;
-          const other = RAW_GRAPH.nodes.find((n) => n.id === otherId);
+          const other = nodes.find((n) => n.id === otherId);
           return (
             <div
               key={otherId}
               onClick={() => other && setSelectedNode(other)}
-              style={{ ...styles["connItem"], borderLeftColor: REL_COLORS[l.r] ?? "#334155" }}
+              className="mb-2 p-2 bg-[#0f172a] rounded cursor-pointer border-l-4"
+              style={{ borderLeftColor: REL_COLORS[l.r] ?? '#334155' }}
             >
-              <span style={{ ...styles["relLabel"], color: REL_COLORS[l.r] ?? "#64748b" }}>
-                {l.r}
-              </span>
-              <span style={styles["connLabel"]}>{other?.label ?? otherId}</span>
+              <div className="text-[9px] uppercase tracking-wider mb-1" style={{ color: REL_COLORS[l.r] ?? '#64748b' }}>{l.r}</div>
+              <div className="text-slate-400 text-sm break-words">{other?.label ?? otherId}</div>
             </div>
           );
         })}
 
         {connections.length > 20 && (
-          <span style={styles["overflow"]}>+{connections.length - 20} more</span>
+          <div className="text-slate-500 text-xs text-center pt-1">+{connections.length - 20} more</div>
         )}
       </div>
-    </div>
+    </aside>
   );
 }
-
-// ── Sub-component ─────────────────────────────────────────────────────────────
-
-type MetaRowProps = {
-  label: string;
-  value: string;
-  color?: string | undefined;
-  bold?: boolean;
-  mono?: boolean;
-  small?: boolean;
-};
-
-function MetaRow({ label, value, color, bold, mono, small }: MetaRowProps) {
-  return (
-    <>
-      <span style={styles["metaKey"]}>{label}</span>
-      <span
-        style={{
-          ...styles["metaVal"],
-          color: color ?? "#94a3b8",
-          fontWeight: bold ? 600 : undefined,
-          fontFamily: mono ? "inherit" : undefined,
-          fontSize: small ? 9 : 11,
-          lineHeight: small ? 1.4 : undefined,
-          wordBreak: "break-all",
-        }}
-      >
-        {value}
-      </span>
-    </>
-  );
-}
-
-// ── Styles ────────────────────────────────────────────────────────────────────
-
-const styles: Record<string, React.CSSProperties> = {
-  panel: {
-    width: 260,
-    background: "#0b1628",
-    borderLeft: "1px solid #1e293b",
-    padding: 16,
-    overflowY: "auto",
-    flexShrink: 0,
-    fontSize: 11,
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 12,
-  },
-  title: {
-    fontSize: 13,
-    fontWeight: 700,
-    color: "#38bdf8",
-    wordBreak: "break-word",
-    flex: 1,
-  },
-  closeBtn: {
-    background: "none",
-    border: "none",
-    color: "#475569",
-    cursor: "pointer",
-    fontSize: 16,
-    lineHeight: 1,
-    padding: "0 0 0 8px",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "auto 1fr",
-    gap: "6px 10px",
-    alignItems: "start",
-  },
-  metaKey: { color: "#475569", paddingTop: 1 },
-  metaVal: { color: "#94a3b8" },
-  section: {
-    marginTop: 14,
-    borderTop: "1px solid #1e293b",
-    paddingTop: 12,
-  },
-  sectionLabel: {
-    display: "block",
-    color: "#475569",
-    marginBottom: 6,
-    fontSize: 10,
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-  },
-  connItem: {
-    marginBottom: 6,
-    padding: "5px 8px",
-    background: "#0f172a",
-    borderRadius: 4,
-    cursor: "pointer",
-    borderLeft: "2px solid",
-  },
-  relLabel: {
-    display: "block",
-    fontSize: 9,
-    textTransform: "uppercase",
-    letterSpacing: "0.06em",
-    marginBottom: 2,
-  },
-  connLabel: {
-    display: "block",
-    color: "#94a3b8",
-    fontSize: 10,
-    wordBreak: "break-word",
-  },
-  overflow: {
-    display: "block",
-    color: "#475569",
-    fontSize: 10,
-    textAlign: "center",
-    paddingTop: 4,
-  },
-};

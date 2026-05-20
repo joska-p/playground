@@ -1,22 +1,20 @@
 import { create } from "zustand";
-import type { ColorMode, GraphStats, RawNode } from "../types";
+import type { ColorMode, GraphStats, RawNode, GraphData } from "../types";
 
 type GraphState = {
-  // ── Filters & display ───────────────────────────────────────────────────────
   colorMode: ColorMode;
   filterFT: string | null;
   filterRel: string | null;
   search: string;
   showHyper: boolean;
 
-  // ── Selection ───────────────────────────────────────────────────────────────
   selectedNode: RawNode | null;
 
-  // ── Async / derived ─────────────────────────────────────────────────────────
   isReady: boolean;
   stats: GraphStats;
 
-  // ── Actions ─────────────────────────────────────────────────────────────────
+  graphData: GraphData | null;
+
   setColorMode: (mode: ColorMode) => void;
   setFilterFT: (ft: string | null) => void;
   setFilterRel: (rel: string | null) => void;
@@ -26,6 +24,7 @@ type GraphState = {
   setIsReady: (ready: boolean) => void;
   setStats: (stats: GraphStats) => void;
   resetFilters: () => void;
+  setGraphData: (g: GraphData | null) => void;
 };
 
 export const useGraphStore = create<GraphState>((set) => ({
@@ -37,6 +36,7 @@ export const useGraphStore = create<GraphState>((set) => ({
   selectedNode: null,
   isReady: false,
   stats: { nodes: 0, links: 0 },
+  graphData: null,
 
   setColorMode: (colorMode) => set({ colorMode }),
   setFilterFT: (filterFT) => set({ filterFT }),
@@ -46,5 +46,6 @@ export const useGraphStore = create<GraphState>((set) => ({
   setSelectedNode: (selectedNode) => set({ selectedNode }),
   setIsReady: (isReady) => set({ isReady }),
   setStats: (stats) => set({ stats }),
-  resetFilters: () => set({ filterFT: null, filterRel: null, search: "", selectedNode: null }),
+  resetFilters: () => set({ filterFT: null, filterRel: null, search: "" }),
+  setGraphData: (g) => set({ graphData: g }),
 }));

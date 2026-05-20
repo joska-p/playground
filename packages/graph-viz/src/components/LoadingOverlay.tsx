@@ -6,26 +6,8 @@ export function LoadingOverlay() {
   if (isReady) return null;
 
   return (
-    <div style={styles["overlay"]}>
-      <span style={styles["text"]}>SIMULATING FORCES…</span>
+    <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
+      <span className="text-sky-400 text-sm tracking-widest animate-pulse">SIMULATING FORCES…</span>
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  overlay: {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 5,
-    pointerEvents: "none",
-  },
-  text: {
-    color: "#38bdf8",
-    fontSize: 12,
-    letterSpacing: "0.1em",
-    animation: "gv-pulse 1.5s ease-in-out infinite",
-  },
-};

@@ -1,17 +1,12 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-import { RAW_GRAPH } from "../data/graphData";
 import { REL_COLORS, SIM_CONFIG } from "../constants";
 import { nodeColor, nodeRadius, buildDegreeMap } from "../utils/colors";
 import { useGraphStore } from "../store/useGraphStore";
-import type { SimNode, SimLink } from "../types";
+import type { SimNode, SimLink, GraphData } from "../types";
+import exampleGraph from "../data/exampleGraph";
 
-/**
- * Owns the entire D3 lifecycle: builds the filtered graph, runs the force
- * simulation, and attaches all DOM event listeners.  Returns stable refs
- * for the SVG and its container div so the canvas component can mount them.
- */
 export function useGraphSimulation() {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,10 +20,12 @@ export function useGraphSimulation() {
   const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
   const setIsReady = useGraphStore((s) => s.setIsReady);
   const setStats = useGraphStore((s) => s.setStats);
+  const graphData = useGraphStore((s) => s.graphData) as GraphData | null;
 
-  // ── Rebuild simulation when structural state changes ───────────────────────
   useEffect(() => {
     if (!svgRef.current || !containerRef.current) return;
+
+    const RAW_GRAPH = graphData ?? exampleGraph;
 
     const svg = d3.select(svgRef.current);
     const W = containerRef.current.clientWidth;
@@ -37,7 +34,6 @@ export function useGraphSimulation() {
     svg.selectAll("*").remove();
     setIsReady(false);
 
-    // 1. Filter data
     let nodes: SimNode[] = RAW_GRAPH.nodes.map((n) => ({ ...n }));
     let links: SimLink[] = RAW_GRAPH.links.map((l) => ({
       ...l,
@@ -62,24 +58,19 @@ export function useGraphSimulation() {
 
     setStats({ nodes: nodes.length, links: validLinks.length });
 
-    // 2. SVG layers (back → front)
     const g = svg.append("g");
     const hyperLayer = g.append("g").attr("class", "hyper");
     const linkLayer = g.append("g").attr("class", "links");
     const nodeLayer = g.append("g").attr("class", "nodes");
     const labelLayer = g.append("g").attr("class", "labels");
 
-    // 3. Zoom
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.05, 8])
-      .on("zoom", (e: d3.D3ZoomEvent<SVGSVGElement, unknown>) =>
-        g.attr("transform", e.transform.toString())
-      );
+      .on("zoom", (e: d3.D3ZoomEvent<SVGSVGElement, unknown>) => g.attr("transform", e.transform.toString()));
     svg.call(zoom);
     zoomRef.current = zoom;
 
-    // 4. Render links
     const linkSel = linkLayer
       .selectAll<SVGLineElement, SimLink>("line")
       .data(validLinks)
@@ -88,7 +79,6 @@ export function useGraphSimulation() {
       .attr("stroke-opacity", 0.55)
       .attr("stroke-width", (d) => 0.5 + d.w * 0.8);
 
-    // 5. Render nodes
     const nodeSel = nodeLayer
       .selectAll<SVGCircleElement, SimNode>("circle")
       .data(nodes)
@@ -122,7 +112,6 @@ export function useGraphSimulation() {
           })
       );
 
-    // 6. Labels (only high-degree nodes to avoid clutter)
     const labelSel = labelLayer
       .selectAll<SVGTextElement, SimNode>("text")
       .data(nodes.filter((n) => (degMap.get(n.id) ?? 0) >= 4))
@@ -135,7 +124,6 @@ export function useGraphSimulation() {
       .style("pointer-events", "none")
       .style("user-select", "none");
 
-    // 7. Highlight helper (used by click + search)
     function highlight(nodeId: string | null) {
       const connected = new Set<string>();
       if (nodeId) {
@@ -147,10 +135,7 @@ export function useGraphSimulation() {
           if (t === nodeId) connected.add(s);
         });
       }
-      nodeSel
-        .attr("opacity", (d) => (!nodeId || connected.has(d.id) ? 1 : 0.15))
-        .attr("stroke", (d) => (d.id === nodeId ? "#fff" : "#0f172a"))
-        .attr("stroke-width", (d) => (d.id === nodeId ? 2 : 0.8));
+      nodeSel.attr("opacity", (d) => (!nodeId || connected.has(d.id) ? 1 : 0.15)).attr("stroke", (d) => (d.id === nodeId ? "#fff" : "#0f172a")).attr("stroke-width", (d) => (d.id === nodeId ? 2 : 0.8));
       linkSel.attr("opacity", (d) => {
         if (!nodeId) return 0.55;
         const s = resolveId(d.source);
@@ -164,11 +149,10 @@ export function useGraphSimulation() {
       highlight(null);
     });
 
-    // 8. Hyperedge convex-hull overlays
     function renderHulls() {
       if (!showHyper) return;
       hyperLayer.selectAll("*").remove();
-      RAW_GRAPH.hyperedges.forEach((he) => {
+      (RAW_GRAPH.hyperedges || []).forEach((he) => {
         const pts = he.nodes
           .map((id) => nodeMap.get(id))
           .filter((n): n is SimNode => n !== undefined)
@@ -199,7 +183,6 @@ export function useGraphSimulation() {
       });
     }
 
-    // 9. Force simulation
     const sim = d3
       .forceSimulation<SimNode>(nodes)
       .force(
@@ -210,23 +193,13 @@ export function useGraphSimulation() {
           .distance(SIM_CONFIG.linkDistance)
           .strength(SIM_CONFIG.linkStrength)
       )
-      .force(
-        "charge",
-        d3.forceManyBody().strength(SIM_CONFIG.chargeStrength).distanceMax(SIM_CONFIG.chargeMaxDist)
-      )
+      .force("charge", d3.forceManyBody().strength(SIM_CONFIG.chargeStrength).distanceMax(SIM_CONFIG.chargeMaxDist))
       .force("center", d3.forceCenter(W / 2, H / 2))
-      .force(
-        "collide",
-        d3.forceCollide<SimNode>((d) => nodeRadius(d.id, degMap) + SIM_CONFIG.collideBuffer)
-      )
+      .force("collide", d3.forceCollide<SimNode>((d) => nodeRadius(d.id, degMap) + SIM_CONFIG.collideBuffer))
       .alphaDecay(SIM_CONFIG.alphaDecay);
 
     sim.on("tick", () => {
-      linkSel
-        .attr("x1", (d) => (d.source as SimNode).x ?? 0)
-        .attr("y1", (d) => (d.source as SimNode).y ?? 0)
-        .attr("x2", (d) => (d.target as SimNode).x ?? 0)
-        .attr("y2", (d) => (d.target as SimNode).y ?? 0);
+      linkSel.attr("x1", (d) => (d.source as SimNode).x ?? 0).attr("y1", (d) => (d.source as SimNode).y ?? 0).attr("x2", (d) => (d.target as SimNode).x ?? 0).attr("y2", (d) => (d.target as SimNode).y ?? 0);
 
       nodeSel.attr("cx", (d) => d.x ?? 0).attr("cy", (d) => d.y ?? 0);
 
@@ -242,7 +215,6 @@ export function useGraphSimulation() {
     };
   }, [filterFT, filterRel, showHyper]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Reactive color update (no simulation restart) ──────────────────────────
   useEffect(() => {
     if (!svgRef.current) return;
     d3.select(svgRef.current)
@@ -250,7 +222,6 @@ export function useGraphSimulation() {
       .attr("fill", (d) => nodeColor(d, colorMode));
   }, [colorMode]);
 
-  // ── Reactive search highlight ──────────────────────────────────────────────
   useEffect(() => {
     if (!svgRef.current) return;
     const q = search.toLowerCase().trim();
@@ -263,8 +234,6 @@ export function useGraphSimulation() {
 
   return { svgRef, containerRef, zoomRef };
 }
-
-// ── Private helpers ────────────────────────────────────────────────────────────
 
 function resolveId(endpoint: string | number | d3.SimulationNodeDatum): string {
   return typeof endpoint === "object" ? (endpoint as SimNode).id : String(endpoint);
