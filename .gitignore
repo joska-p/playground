@@ -1,14 +1,73 @@
-# The persistent container home — never commit this
-.container_home/
+# __ IMPORTANT / SECURITY RISK __
+# This is the HOME directory for the container.
+# You don't want this directory committed to your repository.
+.container_home
 
-# Dependencies
-# -----------------------------------------------------------------------------
+
+# __ Below are secure gitignore defaults __
+
+# --- OS ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.Trash-*
+
+# --- Temp / swap / editor ---
+# Vim
+*.swp
+*.swo
+.*.sw?
+swapfile
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+# but ignore workspace storage
+.vscode/workspaceStorage/
+.history/
+
+# JetBrains
+.idea/
+*.iml
+out/
+
+# Sublime
+*.sublime-workspace
+*.sublime-project
+
+# Emacs
+*~
+.\#*
+
+# --- Logs & runtime ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pids/
+*.pid
+*.seed
+*.pid.lock
+*.pid.tmp
+
+# --- Dependency directories ---
 node_modules/
-.pnpm-home/
-.pnpm-store
 
-# Build outputs
-# -----------------------------------------------------------------------------
+# --- Build / dist ---
 dist/
 .astro/
 build/
@@ -24,21 +83,48 @@ result-*
 # Environment files
 # -----------------------------------------------------------------------------
 .env
-.env.*
-!.env.example
+.env.*            # .env.local, .env.production, etc.
+.envrc
 
 # Logs
 # -----------------------------------------------------------------------------
 *.log
 logs/
 
-# OS & editor noise
-# -----------------------------------------------------------------------------
-.DS_Store
+# GCP
+gcloud/
+*.json        # (Be careful: may also ignore harmless JSON; adapt per project)
+
+# Azure
+*.publishsettings
+azureProfile.json
+
+# Kubernetes / Helm / secrets
+secrets.yaml
+secret-*.yaml
+helmfile.d/values-*.yaml
+
+# Docker / container credentials
+.docker/
+docker-compose.override.yml
+docker-compose.*.yml
+docker-compose.local.yml
+
+# --- Keys, tokens, certs, credentials files ---
+id_rsa
+id_rsa.pub
+id_dsa
+id_ecdsa
+id_ed25519
 *.pem
-*.swp
-*.swo
-*~
+*.p12
+*.pfx
+*.key
+*.csr
+*.crt
+*.der
+*.asc
+*.jks
 
 # Knowledge graphs & AI tooling (generated, not tracked)
 # -----------------------------------------------------------------------------
@@ -51,8 +137,14 @@ graphify-out/manifest.json
 # local token tracking, not useful to share
 graphify-out/cost.json
 
-# session files (local token tracking, not useful to share)
-session-ses*
+# --- Database / local data ---
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+dump.sql
+*.sql.gz
 
 # Local workspace config (if you add tools later)
 # -----------------------------------------------------------------------------
@@ -60,3 +152,4 @@ session-ses*
 drafts/
 # Turborepo
 .turbo
+.pnpm-store

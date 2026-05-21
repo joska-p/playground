@@ -3,8 +3,8 @@
   // Dev Container — "boffin" experiment sandbox
   // Spec: https://containers.dev/implementors/json_reference/
   // -------------------------------------------------------------------------
-  "name": "boffin-lab",
-  "containerName": "boffin-lab",
+  "name": "sandbox-dev",
+  "containerName": "sandbox-dev",
   "appPorts": [2222, 3000, 4321, 4322, 5000, 6006, 8080, 8888],
   // Build from the local ContainerFile (Podman-compatible)
   "build": {
