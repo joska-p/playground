@@ -9,31 +9,36 @@ const projectsBaseUrl = `${baseUrl}projects/`;
 const categories = getProjectsByCategory();
 ---
 
-<BaseLayout title="Projects | Playground">
+<BaseLayout title="Projects">
   <!-- ── HERO ─────────────────────────────────────────────────── -->
   <section
-    class="projects-hero border-border relative flex flex-col items-start justify-end overflow-hidden border-b px-6 py-20 lg:py-24"
+    class="border-border relative flex flex-col justify-end overflow-hidden border-b px-6 py-20 lg:py-28"
   >
-    <div class="dot-grid absolute inset-0 z-0"></div>
+    <div class="dot-grid absolute inset-0 z-0" aria-hidden="true"></div>
     <div
-      class="bg-primary absolute right-0 bottom-0 z-0 h-96 w-96 translate-x-1/4 translate-y-1/4 rounded-full opacity-10 blur-3xl"
+      class="bg-primary absolute -right-24 bottom-0 z-0 h-80 w-80 rounded-full opacity-[0.07] blur-3xl"
+      aria-hidden="true"
     >
     </div>
 
     <div class="relative z-10 mx-auto w-full max-w-6xl">
       <div
-        class="border-primary/30 bg-primary/8 text-primary mb-5 inline-flex items-center gap-2 rounded border px-3 py-1 text-xs"
+        class="border-primary/20 bg-primary/6 text-primary mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase"
       >
-        <span class="hero-pulse bg-primary h-1.5 w-1.5 rounded-full"></span>
-        CREATIVE PROJECTS
+        <span class="relative flex h-1.5 w-1.5">
+          <span class="ping bg-primary absolute inline-flex h-full w-full rounded-full opacity-60"
+          ></span>
+          <span class="bg-primary relative inline-flex h-1.5 w-1.5 rounded-full"></span>
+        </span>
+        Creative Projects
       </div>
 
-      <h1 class="text-5xl sm:text-6xl lg:text-7xl">
+      <h1 class="text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.93] font-black tracking-tight">
         Explore<br />
-        <span class="text-primary">The Lab<span class="hero-cursor">_</span></span>
+        <span class="text-primary">The Lab<span class="cursor">_</span></span>
       </h1>
 
-      <p class="text-muted-foreground mt-6 max-w-xl">
+      <p class="text-muted-foreground mt-6 max-w-lg text-base leading-relaxed">
         Interactive tools, visualizations, and creative engines built with
         <span class="text-foreground font-medium">Astro + React 19</span>. Browse by category to
         find the right experiment.
@@ -41,41 +46,42 @@ const categories = getProjectsByCategory();
     </div>
   </section>
 
-  <!-- ── PROJECT CATEGORIES ────────────────────────────────────── -->
+  <!-- ── CATEGORIES ────────────────────────────────────────────── -->
   <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
-    {
-      categories.map(({ name, description, projects }) => (
-        <section class="mb-16 last:mb-0">
-          <SectionHeader title={name} description={description} />
-
-          <div class="mt-8 grid gap-5 sm:grid-cols-2">
-            {projects.map((project) => (
-              <ExperimentCard
-                href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
-                title={project.name}
-                description={project.description}
-                icon={project.icon}
-                category={project.category}
-                tags={project.tags}
-              />
-            ))}
-          </div>
-        </section>
-      ))
-    }
+    <div class="space-y-16">
+      {
+        categories.map(({ name, description, projects }) => (
+          <section>
+            <SectionHeader title={name} description={description} />
+            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project) => (
+                <ExperimentCard
+                  href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
+                  title={project.name}
+                  description={project.description}
+                  icon={project.icon}
+                  category={project.category}
+                  tags={project.tags}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>
 
 <style>
   .dot-grid {
     background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
-    background-size: 26px 26px;
-    opacity: 0.45;
+    background-size: 28px 28px;
+    opacity: 0.5;
   }
-  .hero-cursor {
-    animation: cursor-blink 1.1s step-end infinite;
+  .cursor {
+    animation: blink 1.1s step-end infinite;
   }
-  @keyframes cursor-blink {
+  @keyframes blink {
     0%,
     100% {
       opacity: 1;
@@ -84,17 +90,14 @@ const categories = getProjectsByCategory();
       opacity: 0;
     }
   }
-  .hero-pulse {
-    animation: hero-pulse 2.4s ease-in-out infinite;
+  .ping {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
-  @keyframes hero-pulse {
-    0%,
+  @keyframes ping {
     75%,
     100% {
-      opacity: 1;
-    }
-    87% {
-      opacity: 0.1;
+      transform: scale(2.2);
+      opacity: 0;
     }
   }
 </style>

@@ -1,134 +1,80 @@
 ---
-type Route = {
-  label: string;
-  href: string;
-  isUtility?: boolean;
-  icon?: string;
-};
+type Route = { label: string; href: string; icon?: string };
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 
 const routes: Route[] = [
-  {
-    label: "GitHub",
-    href: "https://github.com/joska-p/playground",
-    isUtility: true,
-    icon: "github",
-  },
-  {
-    label: "GitLab",
-    href: "https://gitlab.com/jpotin/playground",
-    isUtility: true,
-    icon: "gitlab",
-  },
-  { label: "Storybook", href: `${baseUrl}storybook/`, isUtility: true, icon: "storybook" },
-  { label: "Docs", href: `${baseUrl}docs/`, icon: "docs" },
+  { label: "GitHub",    href: "https://github.com/joska-p/playground",  icon: "github"    },
+  { label: "GitLab",    href: "https://gitlab.com/jpotin/playground",    icon: "gitlab"    },
+  { label: "Storybook", href: `${baseUrl}storybook/`,                   icon: "storybook" },
+  { label: "Docs",      href: `${baseUrl}docs/`,                         icon: "docs"      },
 ];
 
-const credits = [
-  "Astro",
-  "React",
-  "Tailwind",
-  "Turborepo",
-  "Storybook",
-  "TypeScript",
-  "Nix",
-  "pnpm",
-];
+const credits = ["Astro", "React", "Tailwind", "Turborepo", "Storybook", "TypeScript", "Nix", "pnpm"];
 
 type Props = { class?: string };
 const { class: className } = Astro.props;
 ---
 
-<footer class:list={["border-border border-t pt-12 pb-6", className]}>
-  <!-- Links row -->
-  <div class="mb-8 flex flex-wrap justify-center gap-6">
-    {
-      routes.map((link) => (
-        <a
-          href={link.href}
-          class="group text-muted-foreground/60 hover:text-primary flex items-center gap-2 text-xs uppercase transition-colors"
-          target={link.href.startsWith("http") ? "_blank" : undefined}
-          rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-        >
-          {link.icon === "github" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-            </svg>
-          )}
-          {link.icon === "gitlab" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 380 380"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M282.83,170.73l-.27-.69-26.14-68.22a6.81,6.81,0,0,0-2.69-3.24,7,7,0,0,0-8,.43,7,7,0,0,0-2.32,3.52l-17.65,54H154.29l-17.65-54A6.86,6.86,0,0,0,134.32,99a7,7,0,0,0-8-.43,6.87,6.87,0,0,0-2.69,3.24L97.44,170l-.26.69a48.54,48.54,0,0,0,16.1,56.1l.09.07.24.17,39.82,29.82,19.7,14.91,12,9.06a8.07,8.07,0,0,0,9.76,0l12-9.06,19.7-14.91,40.06-30,.1-.08A48.56,48.56,0,0,0,282.83,170.73Z" />
-            </svg>
-          )}
-          {link.icon === "storybook" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 16v-4" />
-              <path d="M12 8h.01" />
-            </svg>
-          )}
-          {link.icon === "docs" && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-            </svg>
-          )}
-          {link.label}
-        </a>
-      ))
-    }
-  </div>
+<footer class:list={["border-t border-border pt-10 pb-8 not-prose", className]}>
+  <div class="mx-auto max-w-6xl px-6">
 
-  <!-- Tech credits -->
-  <div class="mb-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-    <span class="text-muted-foreground/40 text-[9px] tracking-widest uppercase"> Powered by </span>
-    {
-      credits.map((name) => (
-        <span class="text-muted-foreground/50 border-border hover:border-primary/40 hover:text-primary cursor-default rounded border px-2 py-0.5 text-[9px] tracking-widest uppercase transition-colors">
+    <!-- Top row: brand + links -->
+    <div class="mb-8 flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+      <span class="text-[10px] font-bold tracking-[0.2em] text-muted-foreground/40 uppercase">
+        PG_LAB
+      </span>
+
+      <nav class="flex flex-wrap justify-center gap-5" aria-label="Footer navigation">
+        {routes.map((link) => (
+          <a
+            href={link.href}
+            class="group flex items-center gap-1.5 text-[10px] tracking-widest text-muted-foreground/50 uppercase transition-colors hover:text-primary"
+            target={link.href.startsWith("http") ? "_blank" : undefined}
+            rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          >
+            {link.icon === "github" && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            )}
+            {link.icon === "gitlab" && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 380 380" fill="currentColor" aria-hidden="true">
+                <path d="M282.83,170.73l-.27-.69-26.14-68.22a6.81,6.81,0,0,0-2.69-3.24,7,7,0,0,0-8,.43,7,7,0,0,0-2.32,3.52l-17.65,54H154.29l-17.65-54A6.86,6.86,0,0,0,134.32,99a7,7,0,0,0-8-.43,6.87,6.87,0,0,0-2.69,3.24L97.44,170l-.26.69a48.54,48.54,0,0,0,16.1,56.1l.09.07.24.17,39.82,29.82,19.7,14.91,12,9.06a8.07,8.07,0,0,0,9.76,0l12-9.06,19.7-14.91,40.06-30,.1-.08A48.56,48.56,0,0,0,282.83,170.73Z"/>
+              </svg>
+            )}
+            {link.icon === "storybook" && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+            )}
+            {link.icon === "docs" && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+              </svg>
+            )}
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <!-- Divider -->
+    <div class="mb-6 h-px w-full bg-border/50" />
+
+    <!-- Credits -->
+    <div class="flex flex-wrap items-center justify-center gap-2">
+      <span class="text-[9px] tracking-widest text-muted-foreground/30 uppercase">Built with</span>
+      {credits.map((name) => (
+        <span class="cursor-default rounded border border-border/50 px-2 py-0.5 text-[9px] tracking-widest text-muted-foreground/40 uppercase transition-colors hover:border-primary/30 hover:text-primary/60">
           {name}
         </span>
-      ))
-    }
-  </div>
+      ))}
+    </div>
 
-  <!-- Tagline -->
-  <p class="text-muted-foreground/40 text-center text-[10px] tracking-wide">
-    <slot>Made with creativity.</slot>
-  </p>
+    <!-- Tagline -->
+    <p class="mt-5 text-center text-[9px] tracking-wide text-muted-foreground/25">
+      <slot>Made with creativity.</slot>
+    </p>
+  </div>
 </footer>

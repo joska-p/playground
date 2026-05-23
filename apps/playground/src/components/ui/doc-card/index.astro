@@ -17,55 +17,51 @@ const { Icon, color } = getTagMetadata(type);
 <a
   href={href}
   class:list={[
-    "doc-card group border-border bg-card hover:border-primary/40 focus-visible:ring-primary relative flex flex-col gap-3 overflow-hidden rounded-lg border p-5 transition-all duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none",
+    "doc-card group relative flex flex-col gap-3 overflow-hidden rounded-lg border border-border bg-card p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
     className,
   ]}
   style={{ "--cat": `var(--category-${type}, var(--primary))` }}
 >
-  <!-- Left accent bar -->
-  <span
-    class="absolute top-0 left-0 h-full w-0.75 rounded-l-lg bg-(--cat) opacity-40 transition-opacity duration-200 group-hover:opacity-100"
-  ></span>
+  <!-- Left accent stripe -->
+  <span class="absolute inset-y-0 left-0 w-[3px] rounded-l-lg bg-(--cat) opacity-30 transition-all duration-200 group-hover:opacity-100" />
 
-  <div class="pl-3">
-    <!-- Icon + type label -->
-    <div class="flex items-center gap-2">
+  <div class="pl-4">
+    <!-- Type badge -->
+    <div class="flex items-center gap-2 mb-3">
       <span
-        class:list={["flex h-6 w-6 items-center justify-center rounded", color]}
-        style="background-color: color-mix(in srgb, var(--cat) 12%, transparent)"
+        class:list={["flex h-5.5 w-5.5 items-center justify-center rounded-sm", color]}
+        style="background-color: color-mix(in srgb, var(--cat) 14%, transparent)"
       >
-        <Icon className="h-3.5 w-3.5" style={{ color: "var(--cat)" }} />
+        <Icon className="h-3 w-3" style={{ color: "var(--cat)" }} />
       </span>
-      <span class="text-[0.7rem] uppercase" style="color: var(--cat)">
+      <span class="text-[9px] font-semibold tracking-widest uppercase" style="color: var(--cat)">
         {type.replace("-", "·")}
       </span>
     </div>
 
     <!-- Title -->
-    <h3 class="text-card-foreground group-hover:text-primary mt-2.5 transition-colors">
+    <h3 class="text-sm font-semibold text-card-foreground transition-colors group-hover:text-primary leading-snug">
       {title}
     </h3>
 
     <!-- Description -->
-    {description && <p class="text-muted-foreground mt-1.5 line-clamp-2">{description}</p>}
+    {description && (
+      <p class="mt-1.5 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+        {description}
+      </p>
+    )}
 
     <slot />
   </div>
 
-  <!-- Arrow -->
+  <!-- Arrow indicator -->
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="12"
-    height="12"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="text-primary absolute right-4 bottom-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+    xmlns="http://www.w3.org/2000/svg" width="11" height="11"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+    class="absolute right-4 bottom-4 text-primary opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
     aria-hidden="true"
   >
-    <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
   </svg>
 </a>

@@ -8,12 +8,12 @@ const { doc } = Astro.props;
 <BaseLayout title={doc.data.title}>
   <div class="flex h-full overflow-hidden">
     <DocNav />
-    <main class="flex-1 overflow-y-auto">
-      <div class="mx-auto max-w-4xl px-6 py-12 md:px-12">
-        <article class="max-w-none">
+    <div class="flex-1 overflow-y-auto">
+      <div class="mx-auto max-w-3xl px-6 py-12 md:px-10 lg:py-16">
+        <article class="prose prose-gruvbox max-w-none">
           <slot />
         </article>
       </div>
-    </main>
+    </div>
   </div>
 </BaseLayout>

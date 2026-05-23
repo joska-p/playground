@@ -16,59 +16,51 @@ const { href, title, description, icon: Icon, category = "generative", tags = []
 
 <a
   href={href}
-  class="experiment-card group border-border bg-card hover:border-primary/40 focus-visible:ring-primary relative flex flex-col overflow-hidden rounded-lg border transition-all duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:outline-none"
+  class="experiment-card group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
   style={{ "--cat": `var(--category-${category}, var(--primary))` }}
 >
-  <!-- Top colour bar: appears on hover, uses category variable -->
-  <span
-    class="block h-px w-full shrink-0 bg-(--cat) opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-  ></span>
+  <!-- Category colour bar — top edge -->
+  <div class="h-[2px] w-full bg-gradient-to-r from-(--cat)/60 via-(--cat) to-(--cat)/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
   <div class="flex flex-1 flex-col gap-4 p-5">
     <!-- Icon -->
     <div
-      class="border-border bg-background flex h-11 w-11 items-center justify-center rounded-md border transition-transform duration-200 group-hover:scale-105"
+      class="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background transition-all duration-200 group-hover:border-(--cat)/40 group-hover:scale-[1.03]"
       style="color: var(--cat)"
     >
-      <Icon className="h-5 w-5" />
+      <Icon className="h-4.5 w-4.5" />
     </div>
 
-    <!-- Title + arrow -->
+    <!-- Header row -->
     <div class="flex items-start justify-between gap-2">
-      <h3 class="text-card-foreground group-hover:text-primary leading-snug transition-colors">
+      <h3 class="text-card-foreground text-sm font-semibold leading-snug transition-colors group-hover:text-primary">
         {title}
       </h3>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="12"
-        height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="text-primary mt-0.5 shrink-0 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+        xmlns="http://www.w3.org/2000/svg" width="11" height="11"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+        class="mt-0.5 shrink-0 text-primary opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
         aria-hidden="true"
       >
-        <path d="M7 7h10v10"></path><path d="M7 17 17 7"></path>
+        <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
       </svg>
     </div>
 
     <!-- Description -->
-    <p class="text-muted-foreground flex-1">
+    <p class="flex-1 text-sm text-muted-foreground leading-relaxed">
       {description}
     </p>
 
     <!-- Tags -->
-    {
-      tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 pt-1">
-          {tags.map((tag) => (
-            <span class="text-muted-foreground/50 text-sm uppercase">{tag}</span>
-          ))}
-        </div>
-      )
-    }
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 pt-1">
+        {tags.map((tag) => (
+          <span class="rounded px-1.5 py-0.5 text-[10px] tracking-widest text-muted-foreground/50 uppercase border border-border/50">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
   </div>
 </a>

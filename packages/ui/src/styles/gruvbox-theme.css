@@ -1,109 +1,107 @@
 @layer base {
   :root {
-    --background: hsl(43 58% 80%);
-    --foreground: hsl(21 7% 29%);
-    --card: hsl(48 86% 88%);
-    --card-foreground: hsl(20 5% 22%);
-    --popover: hsl(52 73% 90%);
-    --popover-foreground: hsl(21 7% 29%);
-    --primary: hsl(189 88% 24%);
-    --primary-foreground: hsl(43 58% 80%);
-    --secondary: hsl(58 70% 34%);
-    --secondary-foreground: hsl(48 86% 88%);
-    --muted: hsl(43 58% 80%);
-    --muted-foreground: hsl(26 9% 36%);
-    --accent: hsl(332 33% 53%);
-    --accent-foreground: hsl(20 3% 19%);
-    --destructive: hsl(2 75% 45%);
-    --destructive-foreground: hsl(2 80% 15%);
-    --border: hsl(35 17% 58%);
-    --input: hsl(52 73% 90%);
-    --ring: hsl(38 100% 50%);
+    /* Gruvbox Light — warmer, richer surface scale */
+    --background: hsl(43 30% 91%);
+    --foreground: hsl(20 10% 20%);
+    --card: hsl(43 40% 95%);
+    --card-foreground: hsl(20 10% 18%);
+    --popover: hsl(48 50% 97%);
+    --popover-foreground: hsl(20 10% 20%);
+
+    --primary: hsl(172 60% 28%); /* gruvbox aqua-dark */
+    --primary-foreground: hsl(43 30% 91%);
+
+    --secondary: hsl(60 60% 30%); /* gruvbox yellow-dark */
+    --secondary-foreground: hsl(43 50% 94%);
+
+    --muted: hsl(43 20% 86%);
+    --muted-foreground: hsl(26 12% 42%);
+
+    --accent: hsl(332 30% 50%); /* gruvbox pink */
+    --accent-foreground: hsl(20 3% 15%);
+
+    --destructive: hsl(2 70% 42%);
+    --destructive-foreground: hsl(43 30% 91%);
+
+    --border: hsl(35 18% 74%);
+    --input: hsl(43 30% 91%);
+    --ring: hsl(172 60% 28%);
 
     --font-sans:
-      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-      "Courier New", monospace;
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
 
-    --radius: 0.5rem;
+    --radius: 0.375rem;
 
-    --shadow-2xs: 0px 1px 2.5px 0px hsl(35 17% 20% / 0.03);
-    --shadow-xs: 0px 1px 2.5px 0px hsl(35 17% 20% / 0.03);
-    --shadow-sm:
-      0px 1px 2.5px 0px hsl(35 17% 20% / 0.06),
-      0px 1px 2px -1px hsl(35 17% 20% / 0.06);
-    --shadow:
-      0px 1px 2.5px 0px hsl(35 17% 20% / 0.06),
-      0px 1px 2px -1px hsl(35 17% 20% / 0.06);
-    --shadow-md:
-      0px 1px 2.5px 0px hsl(35 17% 20% / 0.06),
-      0px 2px 4px -1px hsl(35 17% 20% / 0.06);
-    --shadow-lg:
-      0px 1px 2.5px 0px hsl(35 17% 20% / 0.06),
-      0px 4px 6px -1px hsl(35 17% 20% / 0.06);
-    --shadow-xl:
-      0px 1px 2.5px 0px hsl(35 17% 20% / 0.06),
-      0px 8px 10px -1px hsl(35 17% 20% / 0.06);
-    --shadow-2xl: 0px 1px 2.5px 0px hsl(35 17% 20% / 0.15);
+    /* Refined warm shadows */
+    --shadow-2xs: 0 1px 2px hsl(35 20% 25% / 0.04);
+    --shadow-xs: 0 1px 3px hsl(35 20% 25% / 0.06);
+    --shadow-sm: 0 2px 4px hsl(35 20% 25% / 0.07), 0 1px 2px hsl(35 20% 25% / 0.04);
+    --shadow: 0 3px 6px hsl(35 20% 25% / 0.08), 0 1px 3px hsl(35 20% 25% / 0.05);
+    --shadow-md: 0 4px 8px hsl(35 20% 25% / 0.08), 0 2px 4px hsl(35 20% 25% / 0.05);
+    --shadow-lg: 0 8px 16px hsl(35 20% 25% / 0.08), 0 4px 6px hsl(35 20% 25% / 0.04);
+    --shadow-xl: 0 16px 24px hsl(35 20% 25% / 0.08), 0 8px 12px hsl(35 20% 25% / 0.04);
+    --shadow-2xl: 0 24px 40px hsl(35 20% 25% / 0.12);
 
-    --category-generative: hsl(160 50% 35%);
-    --category-color: hsl(280 40% 50%);
-    --category-image: hsl(15 60% 45%);
-    --category-data-viz: hsl(200 60% 40%);
-
-    --category-tutorial: hsl(160 50% 35%);
-    --category-how-to: hsl(280 40% 50%);
-    --category-explanation: hsl(15 60% 45%);
-    --category-reference: hsl(200 75% 45%);
+    /* Category palette — light mode */
+    --category-generative: hsl(160 55% 32%);
+    --category-color: hsl(280 38% 48%);
+    --category-image: hsl(18 62% 42%);
+    --category-data-viz: hsl(200 62% 38%);
+    --category-tutorial: hsl(160 55% 32%);
+    --category-how-to: hsl(280 38% 48%);
+    --category-explanation: hsl(18 62% 42%);
+    --category-reference: hsl(200 72% 40%);
   }
 
   html[data-theme="dark"] {
-    --background: hsl(195 6% 12%);
-    --foreground: hsl(40 38% 73%);
-    --card: hsl(20 3% 19%);
-    --card-foreground: hsl(48 86% 88%);
-    --popover: hsl(0 0% 15%);
-    --popover-foreground: hsl(40 38% 73%);
-    --primary: hsl(157 15% 58%);
-    --primary-foreground: hsl(195 6% 12%);
-    --secondary: hsl(59 70% 34%);
-    --secondary-foreground: hsl(0 0% 15%);
-    --muted: hsl(20 5% 22%);
-    --muted-foreground: hsl(38 24% 65%);
-    --accent: hsl(332 33% 53%);
-    --accent-foreground: hsl(20 3% 19%);
-    --destructive: hsl(2 75% 45%);
-    --destructive-foreground: hsl(195 6% 12%);
-    --border: hsl(21 7% 29%);
-    --input: hsl(20 5% 22%);
-    --ring: hsl(41 95% 68%);
+    --background: hsl(220 8% 10%); /* slightly cooler dark bg */
+    --foreground: hsl(40 32% 72%);
+    --card: hsl(220 6% 14%);
+    --card-foreground: hsl(40 32% 80%);
+    --popover: hsl(220 6% 16%);
+    --popover-foreground: hsl(40 32% 72%);
 
-    --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.01);
-    --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.01);
-    --shadow-sm:
-      0px 1px 2px 0px hsl(0 0% 0% / 0.01), 0px 1px 2px -1px hsl(0 0% 0% / 0.01);
-    --shadow:
-      0px 1px 2px 0px hsl(0 0% 0% / 0.01), 0px 1px 2px -1px hsl(0 0% 0% / 0.01);
-    --shadow-md:
-      0px 1px 2px 0px hsl(0 0% 0% / 0.01), 0px 2px 4px -1px hsl(0 0% 0% / 0.01);
-    --shadow-lg:
-      0px 1px 2px 0px hsl(0 0% 0% / 0.01), 0px 4px 6px -1px hsl(0 0% 0% / 0.01);
-    --shadow-xl:
-      0px 1px 2px 0px hsl(0 0% 0% / 0.01), 0px 8px 10px -1px hsl(0 0% 0% / 0.01);
-    --shadow-2xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.03);
+    --primary: hsl(157 20% 62%); /* gruvbox aqua bright */
+    --primary-foreground: hsl(220 8% 10%);
 
-    --category-generative: hsl(160 40% 45%);
-    --category-color: hsl(280 35% 55%);
-    --category-image: hsl(15 50% 50%);
-    --category-data-viz: hsl(200 50% 50%);
+    --secondary: hsl(60 65% 38%);
+    --secondary-foreground: hsl(220 8% 10%);
 
-    --category-tutorial: hsl(160 40% 45%);
-    --category-how-to: hsl(280 35% 55%);
-    --category-explanation: hsl(15 50% 50%);
-    --category-reference: hsl(200 50% 50%);
+    --muted: hsl(220 6% 18%);
+    --muted-foreground: hsl(38 20% 58%);
+
+    --accent: hsl(332 35% 55%);
+    --accent-foreground: hsl(220 6% 14%);
+
+    --destructive: hsl(2 68% 48%);
+    --destructive-foreground: hsl(220 8% 10%);
+
+    --border: hsl(220 6% 22%);
+    --input: hsl(220 6% 18%);
+    --ring: hsl(157 20% 62%);
+
+    --shadow-2xs: 0 1px 2px hsl(0 0% 0% / 0.15);
+    --shadow-xs: 0 1px 3px hsl(0 0% 0% / 0.2);
+    --shadow-sm: 0 2px 4px hsl(0 0% 0% / 0.25), 0 1px 2px hsl(0 0% 0% / 0.15);
+    --shadow: 0 3px 6px hsl(0 0% 0% / 0.25), 0 1px 3px hsl(0 0% 0% / 0.15);
+    --shadow-md: 0 4px 8px hsl(0 0% 0% / 0.25), 0 2px 4px hsl(0 0% 0% / 0.15);
+    --shadow-lg: 0 8px 16px hsl(0 0% 0% / 0.25), 0 4px 6px hsl(0 0% 0% / 0.12);
+    --shadow-xl: 0 16px 24px hsl(0 0% 0% / 0.28), 0 8px 12px hsl(0 0% 0% / 0.15);
+    --shadow-2xl: 0 24px 40px hsl(0 0% 0% / 0.35);
+
+    --category-generative: hsl(160 42% 48%);
+    --category-color: hsl(280 32% 58%);
+    --category-image: hsl(18 52% 52%);
+    --category-data-viz: hsl(200 52% 52%);
+    --category-tutorial: hsl(160 42% 48%);
+    --category-how-to: hsl(280 32% 58%);
+    --category-explanation: hsl(18 52% 52%);
+    --category-reference: hsl(200 52% 52%);
   }
 }
 
@@ -132,10 +130,10 @@
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
 
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
@@ -146,13 +144,10 @@
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 
-  /* Category colors */
   --color-category-generative: var(--category-generative);
   --color-category-color: var(--category-color);
   --color-category-image: var(--category-image);
   --color-category-data-viz: var(--category-data-viz);
-
-  /* Docs color */
   --color-category-tutorial: var(--category-tutorial);
   --color-category-how-to: var(--category-how-to);
   --color-category-explanation: var(--category-explanation);
