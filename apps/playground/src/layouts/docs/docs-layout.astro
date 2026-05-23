@@ -1,16 +1,15 @@
 ---
 import BaseLayout from "../base-layout.astro";
-import DocsNav from "../../components/ui/docs-nav/index.astro";
+import DocNav from "../../components/ui/doc-nav/index.astro";
 
 const { doc } = Astro.props;
 ---
 
 <BaseLayout title={doc.data.title}>
   <div class="flex h-full overflow-hidden">
-    <DocsNav />
+    <DocNav />
     <main class="flex-1 overflow-y-auto">
       <div class="mx-auto max-w-4xl px-6 py-12 md:px-12">
-        {/* Breadcrumbs or Tag Badges could go here using entry.tagMetadata */}
         <article class="prose prose-gruvbox max-w-none">
           <slot />
         </article>
