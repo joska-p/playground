@@ -36,27 +36,18 @@ const { Icon, color } = getTagMetadata(type);
       >
         <Icon className="h-3.5 w-3.5" style={{ color: "var(--cat)" }} />
       </span>
-      <span
-        class="font-mono text-[0.7rem] font-bold tracking-widest uppercase"
-        style="color: var(--cat)"
-      >
+      <span class="text-[0.7rem] uppercase" style="color: var(--cat)">
         {type.replace("-", "·")}
       </span>
     </div>
 
     <!-- Title -->
-    <h3
-      class="text-card-foreground group-hover:text-primary mt-2.5 text-xl leading-snug font-semibold transition-colors"
-    >
+    <h3 class="text-card-foreground group-hover:text-primary mt-2.5 transition-colors">
       {title}
     </h3>
 
     <!-- Description -->
-    {
-      description && (
-        <p class="text-muted-foreground mt-1.5 line-clamp-2 leading-relaxed">{description}</p>
-      )
-    }
+    {description && <p class="text-muted-foreground mt-1.5 line-clamp-2">{description}</p>}
 
     <slot />
   </div>

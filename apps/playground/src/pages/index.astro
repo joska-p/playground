@@ -31,32 +31,30 @@ const featuredDocs = await getFeaturedDocs();
     <div class="relative z-10 mx-auto w-full max-w-6xl">
       <!-- Tag / environment badge -->
       <div
-        class="border-primary/30 bg-primary/8 text-primary mb-6 inline-flex items-center gap-2 rounded border px-3 py-1 font-mono text-[10px] tracking-widest"
+        class="border-primary/30 bg-primary/8 text-primary mb-6 inline-flex items-center gap-2 rounded border px-3 py-1 text-xs"
       >
         <span class="hero-pulse bg-primary h-1.5 w-1.5 rounded-full"></span>
         STATELESS_FIRST &nbsp;·&nbsp; ASTRO + REACT 19
       </div>
 
       <!-- Headline -->
-      <h1
-        class="text-foreground font-mono text-5xl leading-[1.06] font-bold tracking-tight sm:text-6xl lg:text-7xl"
-      >
+      <h1 class="text-5xl sm:text-6xl lg:text-7xl">
         Creative<br />
         <span class="text-primary">Playground<span class="hero-cursor">_</span></span>
       </h1>
 
       <!-- Description -->
-      <p class="text-muted-foreground mt-6 max-w-xl text-base leading-relaxed">
+      <p class="text-muted-foreground mt-6 max-w-xl">
         A high-performance lab for interactive visualizations,
-        <span class="text-foreground font-medium">math sequences</span>, and color tools. Built with
-        Astro + React 19 to experiment without limits.
+        <span class="text-foreground">math sequences</span>, and color tools. Built with Astro +
+        React 19 to experiment without limits.
       </p>
 
       <!-- CTAs -->
       <div class="mt-10 flex flex-wrap items-center gap-3">
         <a
           href="#experiments"
-          class="bg-primary text-primary-foreground inline-flex h-10 items-center gap-2 rounded-md px-6 font-mono font-bold tracking-widest transition-all hover:-translate-y-px hover:opacity-90 active:translate-y-0 active:opacity-100"
+          class="bg-primary text-primary-foreground inline-flex h-10 items-center gap-2 rounded-md px-6 font-bold transition-all hover:-translate-y-px hover:opacity-90 active:translate-y-0 active:opacity-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +74,7 @@ const featuredDocs = await getFeaturedDocs();
         </a>
         <a
           href={projectsBaseUrl}
-          class="border-border bg-card text-muted-foreground hover:border-foreground/40 hover:text-foreground inline-flex h-10 items-center rounded-md border px-6 font-mono tracking-widest transition-all active:scale-[0.98]"
+          class="border-border bg-card text-muted-foreground hover:border-foreground/40 hover:text-foreground inline-flex h-10 items-center rounded-md border px-6 transition-all active:scale-[0.98]"
         >
           BROWSE PROJECTS
         </a>
@@ -95,8 +93,8 @@ const featuredDocs = await getFeaturedDocs();
           { value: "0", label: "RUNTIME DEPS" },
         ].map(({ value, label }) => (
           <div class="flex flex-col px-6 py-5">
-            <dt class="text-muted-foreground font-mono text-[10px] tracking-widest">{label}</dt>
-            <dd class="text-foreground mt-1 font-mono text-2xl font-bold">{value}</dd>
+            <dt class="text-muted-foreground text-xs">{label}</dt>
+            <dd class="mt-1 text-2xl font-bold">{value}</dd>
           </div>
         ))
       }
@@ -163,7 +161,7 @@ const featuredDocs = await getFeaturedDocs();
         <div class="mt-10 text-center">
           <a
             href={docsBaseUrl}
-            class="text-primary hover:text-foreground inline-flex items-center gap-2 font-mono font-bold tracking-widest transition-colors"
+            class="hover:text-foreground inline-flex items-center gap-2 font-bold tracking-widest transition-colors"
           >
             BROWSE DOCS
             <svg

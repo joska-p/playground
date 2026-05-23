@@ -54,7 +54,9 @@ const siteTitle = title ? `Playground - ${title}` : "Playground";
     <meta name="generator" content={Astro.generator} />
     <title>{siteTitle}</title>
   </head>
-  <body class="bg-background text-foreground grid min-h-dvh grid-cols-1 grid-rows-[auto_1fr]">
+  <body
+    class="bg-background text-foreground prose-a:no-underline prose prose-gruvbox grid min-h-dvh max-w-none grid-cols-1 grid-rows-[auto_1fr]"
+  >
     <Navbar />
     <main class="flex flex-col overflow-hidden">
       <slot />

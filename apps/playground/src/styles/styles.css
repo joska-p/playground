@@ -16,6 +16,4 @@
 
 @theme inline {
   --font-sans: var(--font-jetbrains-mono);
-  --font-serif: var(--font-jetbrains-mono);
-  --font-mono: var(--font-jetbrains-mono);
 }

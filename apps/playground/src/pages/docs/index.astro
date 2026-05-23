@@ -15,17 +15,17 @@ const docsByCategory = await getDocsByCategory();
     <div class="absolute top-0 left-0 z-0 h-80 w-80 -translate-x-1/3 -translate-y-1/3 rounded-full bg-primary opacity-8 blur-3xl"></div>
 
     <div class="relative z-10 mx-auto w-full max-w-6xl">
-      <div class="mb-5 inline-flex items-center gap-2 rounded border border-primary/30 bg-primary/8 px-3 py-1 font-mono text-[10px] tracking-widest text-primary">
+      <div class="mb-5 inline-flex items-center gap-2 rounded border border-primary/30 bg-primary/8 px-3 py-1 text-xs text-primary">
         <span class="hero-pulse h-1.5 w-1.5 rounded-full bg-primary"></span>
         DOCUMENTATION
       </div>
 
-      <h1 class="font-mono text-4xl font-bold leading-[1.06] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+      <h1 class="text-5xl sm:text-6xl lg:text-7xl">
         Knowledge<br />
         <span class="text-primary">Base<span class="hero-cursor">_</span></span>
       </h1>
 
-      <p class="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground">
+      <p class="mt-5 max-w-lg text-muted-foreground">
         Manifesto, guides, and references for collaborators and contributors.
       </p>
     </div>
@@ -45,15 +45,15 @@ const docsByCategory = await getDocsByCategory();
             >
               <category.Icon className="h-4 w-4" />
             </span>
-            <div>
+            <div class="prose-h2:m-0">
               <div class="flex items-center gap-2 mb-1">
                 <span class="h-px w-5 bg-primary"></span>
-                <h2 class="font-mono font-bold tracking-widest uppercase" style={{color: `var(--category-${category.id}, var(--primary))`}}>
+                <h2 class="uppercase" style={{color: `var(--category-${category.id}, var(--primary))`}}>
                   {category.label}
                 </h2>
               </div>
               {category.description && (
-                <p class="text-sm leading-relaxed text-muted-foreground max-w-2xl">
+                <p class="text-muted-foreground max-w-2xl">
                   {category.description}
                 </p>
               )}

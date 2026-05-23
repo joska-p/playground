@@ -13,7 +13,12 @@ const { icon: Icon, title, description, href, align = "left" } = Astro.props;
 const isCenter = align === "center";
 ---
 
-<div class:list={["flex flex-col gap-3", isCenter ? "items-center text-center" : "items-start"]}>
+<div
+  class:list={[
+    "prose-h2:m-0 flex flex-col gap-3",
+    isCenter ? "items-center text-center" : "items-start",
+  ]}
+>
   <div class:list={["flex items-center gap-3", isCenter ? "justify-center" : ""]}>
     <span class="bg-primary h-px w-8 shrink-0"></span>
 
@@ -25,19 +30,14 @@ const isCenter = align === "center";
       )
     }
 
-    <h2 class="text-primary font-mono text-xl font-bold tracking-widest uppercase">
+    <h2 class="text-primary uppercase">
       {title}
     </h2>
   </div>
 
   {
     description && (
-      <p
-        class:list={[
-          "text-muted-foreground max-w-xl leading-relaxed",
-          isCenter ? "text-center" : "",
-        ]}
-      >
+      <p class:list={["text-muted-foreground max-w-xl", isCenter ? "text-center" : ""]}>
         {description}
       </p>
     )
@@ -47,7 +47,7 @@ const isCenter = align === "center";
     href && (
       <a
         href={href}
-        class="group text-primary/70 hover:text-primary inline-flex items-center gap-1.5 font-mono font-bold tracking-widest uppercase transition-colors"
+        class="group text-primary/70 hover:text-primary inline-flex items-center gap-1.5 uppercase transition-colors"
       >
         <slot name="link-text">View all</slot>
         <slot name="link-icon">
