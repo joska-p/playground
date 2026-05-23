@@ -150,11 +150,13 @@ RUN echo '\n# ---- boffin env ----'                           >> /home/boffin/.b
 #   4321  Astro dev server
 #   4322  Spare / secondary
 #   5000  Flask / MLflow
-#   6006  TensorBoard
+#   5173  Vite dev server
+#   5174  Spare / secondary
+#   6006  Storybook
 #   8080  Generic HTTP / static preview (serve)
 #   8888  Jupyter
 # -----------------------------------------------------------------------------
-EXPOSE 2222 3000 4321 4322 5000 6006 8080 8888
+EXPOSE 2222 3000 4321 4322 5000 5173 5174 6006 8080 8888
 
 # -----------------------------------------------------------------------------
 # Default command — drops into zsh. sshd is started by devcontainer's

@@ -27,6 +27,9 @@ step_node_setup() {
   export PATH="$PNPM_HOME:$PATH"
   ok "pnpm $(pnpm --version) ready."
 
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+  export PATH="$PNPM_HOME/bin:$PNPM_HOME:$PATH"
+
   log "Installing TypeScript and language server globally..."
   pnpm add -g typescript typescript-language-server
   ok "TypeScript $(tsc --version) + language server installed."

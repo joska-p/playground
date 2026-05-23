@@ -3,9 +3,9 @@
   // Dev Container — "boffin" experiment sandbox
   // Spec: https://containers.dev/implementors/json_reference/
   // -------------------------------------------------------------------------
-  "name": "sandbox-dev",
-  "containerName": "sandbox-dev",
-  "appPorts": [2222, 3000, 4321, 4322, 5000, 6006, 8080, 8888],
+  "name": "playground-dev",
+  "containerName": "playground-dev",
+  "appPorts": [2222, 3000, 4321, 4322, 5000, 5173, 5174, 6006, 8080, 8888],
   // Build from the local ContainerFile (Podman-compatible)
   "build": {
     "dockerfile": "ContainerFile",
@@ -35,7 +35,7 @@
   // -------------------------------------------------------------------------
   // Port forwarding — all ports are forwarded to the same host port
   // -------------------------------------------------------------------------
-  "forwardPorts": [2222, 3000, 4321, 4322, 5000, 6006, 8080, 8888],
+  "forwardPorts": [2222, 3000, 4321, 4322, 5000, 5173, 5174, 6006, 8080, 8888],
 
   // -------------------------------------------------------------------------
   // Container run arguments (Podman / Docker)
