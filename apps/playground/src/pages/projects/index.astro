@@ -6,53 +6,97 @@ import { getProjectsByCategory } from "../../data/projects";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 const projectsBaseUrl = `${baseUrl}projects/`;
-const catgories = getProjectsByCategory();
+const categories = getProjectsByCategory();
 ---
 
 <BaseLayout title="Projects | Playground">
-  <section class="relative flex flex-col items-center justify-center overflow-hidden border-b border-border/40 bg-card/30 px-6 py-24 text-center lg:py-32">
-    <div class="absolute inset-0 z-0 opacity-20">
-      <div class="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_50%_50%,var(--primary),transparent_70%)]"></div>
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section
+    class="projects-hero border-border relative flex flex-col items-start justify-end overflow-hidden border-b px-6 py-20 lg:py-24"
+  >
+    <div class="dot-grid absolute inset-0 z-0"></div>
+    <div
+      class="bg-primary absolute right-0 bottom-0 z-0 h-96 w-96 translate-x-1/4 translate-y-1/4 rounded-full opacity-10 blur-3xl"
+    >
     </div>
 
-    <div class="relative z-10 mx-auto max-w-4xl">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1 text-sm font-medium text-primary">
-        <span>Creative Projects</span>
+    <div class="relative z-10 mx-auto w-full max-w-6xl">
+      <div
+        class="border-primary/30 bg-primary/8 text-primary mb-5 inline-flex items-center gap-2 rounded border px-3 py-1 font-mono text-[10px] tracking-widest"
+      >
+        <span class="hero-pulse bg-primary h-1.5 w-1.5 rounded-full"></span>
+        CREATIVE PROJECTS
       </div>
 
-      <h1 class="font-serif text-5xl font-black tracking-tighter sm:text-6xl lg:text-7xl">
-        Explore the <span class="bg-linear-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">Lab</span>
+      <h1
+        class="text-foreground font-mono text-5xl leading-[1.06] font-bold tracking-tight sm:text-6xl lg:text-7xl"
+      >
+        Explore<br />
+        <span class="text-primary">The Lab<span class="hero-cursor">_</span></span>
       </h1>
 
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-        Interactive tools, visualizations, and creative engines built with Astro + React 19.
-        Browse projects by category to find the right tool for your creative workflow.
+      <p class="text-muted-foreground mt-6 max-w-xl text-sm leading-relaxed">
+        Interactive tools, visualizations, and creative engines built with
+        <span class="text-foreground font-medium">Astro + React 19</span>. Browse by category to
+        find the right experiment.
       </p>
     </div>
   </section>
 
-  <div class="mx-auto max-w-6xl px-6 py-16 lg:py-20">
-  {catgories.map(({ name, description, projects }) => (
-    <section class="mb-16">
-      <SectionHeader
+  <!-- ── PROJECT CATEGORIES ────────────────────────────────────── -->
+  <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
+    {
+      categories.map(({ name, description, projects }) => (
+        <section class="mb-16 last:mb-0">
+          <SectionHeader title={name} description={description} />
 
-        title={name}
-        description={description}
-      />
-
-      <div class="grid gap-8 sm:grid-cols-2 mt-8">
-        {projects.map((project) => (
-          <ExperimentCard
-            href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
-            title={project.name}
-            description={project.description}
-            icon={project.icon}
-            category={project.category}
-            tags={project.tags}
-          />
-        ))}
-      </div>
-    </section>
-  ))}
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            {projects.map((project) => (
+              <ExperimentCard
+                href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
+                title={project.name}
+                description={project.description}
+                icon={project.icon}
+                category={project.category}
+                tags={project.tags}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    }
   </div>
 </BaseLayout>
+
+<style>
+  .dot-grid {
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 26px 26px;
+    opacity: 0.45;
+  }
+  .hero-cursor {
+    animation: cursor-blink 1.1s step-end infinite;
+  }
+  @keyframes cursor-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  .hero-pulse {
+    animation: hero-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes hero-pulse {
+    0%,
+    75%,
+    100% {
+      opacity: 1;
+    }
+    87% {
+      opacity: 0.1;
+    }
+  }
+</style>

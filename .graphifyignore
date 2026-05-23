@@ -1,0 +1,26 @@
+# graphify ignore file — gitignore syntax
+node_modules/
+dist/
+.turbo/
+.cache/
+.pnpm-store/
+.container_home/
+__pycache__/
+*.generated.py
+*.log
+logs/
+.vscode/
+.idea/
+*.sw?
+.DS_Store
+.astro/
+build/
+storybook-static/
+.env
+.env.*
+.envrc
+*.pem
+*.key
+*.p12
+drafts/
+graphify-out/
