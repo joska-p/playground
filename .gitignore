@@ -1,55 +1,42 @@
 # __ IMPORTANT / SECURITY RISK __
-# This is the HOME directory for the container.
-# You don't want this directory committed to your repository.
+# This directory is the container home — never commit it.
 .container_home
 
-
-
-# __ Below are secure gitignore defaults __
+# Local workspace config
+.pnpm-store
+drafts
 
 # --- OS ---
-# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-
-# Linux
 *~
 .Trash-*
 
-# --- Temp / swap / editor ---
-# Vim
+# --- Editor / IDE ---
 *.swp
 *.swo
 .*.sw?
 swapfile
 
-# VS Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/launch.json
-# but ignore workspace storage
 .vscode/workspaceStorage/
 .history/
 
-# JetBrains
 .idea/
 *.iml
 out/
 
-# Sublime
 *.sublime-workspace
 *.sublime-project
 
-# Emacs
-*~
 .\#*
 
 # --- Logs & runtime ---
@@ -63,58 +50,41 @@ pids/
 *.pid
 *.seed
 *.pid.lock
-*.pid.tmp
 
-# --- Dependency directories ---
+# --- Dependencies ---
 node_modules/
 jspm_packages/
 bower_components/
 vendor/
 
-# --- Build / dist ---
+# --- Build output ---
 dist/
 .astro/
 build/
 storybook-static/
 
-# Dev tools & caches
-# -----------------------------------------------------------------------------
+# --- Dev tools & caches ---
 .turbo/
 .direnv/
 result
 result-*
 
-# Environment files
-# -----------------------------------------------------------------------------
+# --- Environment ---
 .env
-.env.*            # .env.local, .env.production, etc.
+.env.*
 .envrc
 
-# Logs
-# -----------------------------------------------------------------------------
-*.log
-logs/
-
-# GCP
+# --- Cloud / infra ---
 gcloud/
-*.json        # (Be careful: may also ignore harmless JSON; adapt per project)
-
-# Azure
 *.publishsettings
 azureProfile.json
-
-# Kubernetes / Helm / secrets
 secrets.yaml
 secret-*.yaml
 helmfile.d/values-*.yaml
-
-# Docker / container credentials
 .docker/
-docker-compose.override.yml
 docker-compose.*.yml
-docker-compose.local.yml
 
-# --- Keys, tokens, certs, credentials files ---
+# --- Keys & credentials ---
 id_rsa
 id_rsa.pub
 id_dsa
@@ -130,15 +100,9 @@ id_ed25519
 *.asc
 *.jks
 
-# Knowledge graphs & AI tooling (generated, not tracked)
-# -----------------------------------------------------------------------------
-# optional: commit for shared extraction speed, skip to keep repo small
+# --- AI tooling (generated) ---
 graphify-out/cache
-
-# mtime-based, invalid after git clone - always gitignore this
 graphify-out/manifest.json
-
-# local token tracking, not useful to share
 graphify-out/cost.json
 
 # --- Database / local data ---
@@ -149,11 +113,3 @@ graphify-out/cost.json
 *.db-wal
 dump.sql
 *.sql.gz
-
-# Local workspace config (if you add tools later)
-# -----------------------------------------------------------------------------
-*.local
-drafts/
-# Turborepo
-.turbo
-.pnpm-store
