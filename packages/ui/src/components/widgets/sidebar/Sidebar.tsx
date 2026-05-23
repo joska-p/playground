@@ -46,7 +46,7 @@ export function Sidebar({
       <div
         ref={ref}
         className={cn(
-          "relative",
+          "relative min-h-full",
           sidebarVariants({ variant, mobilePosition, desktopPosition }),
           className
         )}

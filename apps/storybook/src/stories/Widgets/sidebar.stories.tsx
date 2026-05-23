@@ -41,7 +41,7 @@ type Story = StoryObj<typeof Sidebar>;
 
 function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
   return (
-    <div className="border-muted-foreground/20 bg-background h-[400px] w-full overflow-hidden border border-dashed">
+    <div className="border-muted-foreground/20 bg-background h-100 w-full overflow-hidden border border-dashed">
       <Sidebar {...args} className="h-full">
         <Sidebar.Toggle />
         <Sidebar.Panel className="p-4 pt-12">
