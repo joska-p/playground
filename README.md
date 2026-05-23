@@ -1,159 +1,80 @@
-# Turborepo starter
+# Creative Playground
 
-This Turborepo starter is maintained by the Turborepo core team.
+[![Pipeline Status](https://gitlab.com/jpotin/playground/badges/main/pipeline.svg)](https://gitlab.com/jpotin/playground/-/pipelines)
+[![Website](https://img.shields.io/badge/Live_Demo-GitLab_Pages-orange?style=flat&logo=gitlab)](https://jpotin.gitlab.io/playground/)
 
-## Using this example
+> A creative coding playground where I experiment with generative art, data viz, and visual toys. Built for fun, documented for collaborators.
 
-Run the following command:
+by [@jpotin](https://gitlab.com/jpotin)
 
-```sh
-npx create-turbo@latest
+---
+
+## The Lab
+
+| Engine | Description | Package |
+| --- | --- | --- |
+| **Mosaic Maker** | Transform palettes into procedural patterns | [`@repo/mosaic-maker`](./packages/mosaic-maker) |
+| **Sequences** | Visualize mathematical sequences | [`@repo/sequence-renderer`](./packages/sequence-renderer) |
+| **Palettes** | Color theory scheme generator | [`@repo/palette-generator`](./packages/palette-generator) |
+| **Particles** | Physics-based particle deconstruction | [`@repo/image-to-particles`](./packages/image-to-particles) |
+
+---
+
+## Quick Start
+
+### Dev Container (Recommended)
+
+Requires [Podman](https://podman.io) and an editor with devcontainer support (Zed, VS Code, etc.).
+
+```bash
+mkdir .container_home   # only once — persists shell state across rebuilds
 ```
 
-## What's inside?
+Then open the project in your editor and choose **Reopen in Container**.
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```bash
+pnpm install && pnpm dev
 ```
 
-Without global `turbo`, use your package manager:
+> **Rebuilding?** Run `rm -rf .container_home/*` before reopening so the fresh image is copied cleanly.
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+### Manual Setup
+
+Requires Node 24+ and pnpm.
+
+```bash
+pnpm install && pnpm dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- **Playground:** [localhost:4321](http://localhost:4321)
+- **Storybook:** [localhost:6006](http://localhost:6006)
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo build --filter=docs
-```
+## Documentation
 
-Without global `turbo`:
+| Doc | Description |
+| --- | --- |
+| [Documentation hub](https://playground-beryl-omega.vercel.app/docs/) | Documentation hub |
+| [Overview](https://playground-beryl-omega.vercel.app/docs/explanation/overview/) | What this is, principles, architecture |
+| [Engines](https://playground-beryl-omega.vercel.app/docs/explanation/engines/) | How rules and visualizations work |
+| [Your First Visualization](https://playground-beryl-omega.vercel.app/docs/tutorial/first-visualization/) | Step-by-step tutorial |
+| [Adding Projects](https://playground-beryl-omega.vercel.app/docs/how-to/adding-projects/) | How to add new visualizations |
+| [Adding Components](https://playground-beryl-omega.vercel.app/docs/how-to/adding-components/) | How to add UI components |
+| [Adding a Rule](https://playground-beryl-omega.vercel.app/docs/how-to/adding-sequence-rule/) | Add sequence rules |
+| [Adding a Visualization](https://playground-beryl-omega.vercel.app/docs/how-to/adding-visualization/) | Add visualization types |
+| [Import and Export Strategy](https://playground-beryl-omega.vercel.app/docs/reference/import-export-strategy/) | Public API and barrel rules |
+| [Design Tokens](https://playground-beryl-omega.vercel.app/docs/reference/design-tokens/) | Color palette and typography |
+| [UI Components](https://playground-beryl-omega.vercel.app/docs/reference/ui-components/) | Component library reference |
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+---
 
-### Develop
+## Built With
 
-To develop all apps and packages, run the following command:
+[Astro](https://astro.build) · [React 19](https://react.dev) · [Tailwind CSS](https://tailwindcss.com) · [TypeScript](https://typescriptlang.org) · [Turborepo](https://turbo.build/repo) · [Storybook](https://storybook.js.org) · [D3](https://d3js.org)
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+---
 
-```sh
-cd my-turborepo
-turbo dev
-```
+## License
 
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+This project is licensed under the [MIT License](./LICENSE).
