@@ -1,8 +1,8 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { useId } from "react";
-import { cn } from "../../utils/cn.js";
-import { inputVariants } from "./inputVariants.js";
+import { cn } from "../../utils/cn";
+import { inputVariants } from "./inputVariants";
 
 type InputProps = {
   label?: string;

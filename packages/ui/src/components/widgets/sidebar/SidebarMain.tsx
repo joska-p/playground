@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { cn } from "../../../utils/cn.js";
+import { cn } from "../../../utils/cn";
 
 function SidebarMain({ children, ref, className, ...props }: ComponentProps<"div">) {
   return (

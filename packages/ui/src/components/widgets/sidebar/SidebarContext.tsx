@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 export type SidebarContextValue = {
   isOpen: boolean;
@@ -9,12 +9,4 @@ export type SidebarContextValue = {
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);
 
-function useSidebarContext() {
-  const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error("Sidebar compound components must be used within a Sidebar");
-  }
-  return context;
-}
-
-export { SidebarContext, useSidebarContext };
+export { SidebarContext };

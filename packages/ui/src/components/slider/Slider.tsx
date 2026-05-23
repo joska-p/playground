@@ -1,8 +1,8 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { useId } from "react";
-import { cn } from "../../utils/cn.js";
-import { sliderVariants } from "./sliderVariants.js";
+import { cn } from "../../utils/cn";
+import { sliderVariants } from "./sliderVariants";
 
 type SliderProps = {
   value?: number;

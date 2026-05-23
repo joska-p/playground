@@ -1,9 +1,0 @@
-# .graphifyignore
-node_modules/
-dist/
-.turbo/
-.git/
-.container_home/
-.pnpm-store/
-apps/storybook/
-*.generated.py

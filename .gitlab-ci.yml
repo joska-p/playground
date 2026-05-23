@@ -20,7 +20,7 @@ pages:
     - pnpm install
 
     # Executes: pnpm build && mkdir ... && cp -r storybook
-    - pnpm run deploy:vercel
+    - pnpm run deploy
 
     # Matches your astro.config.mjs logic:
     # Moves the dist folder to 'public' so GitLab hosts it correctly.

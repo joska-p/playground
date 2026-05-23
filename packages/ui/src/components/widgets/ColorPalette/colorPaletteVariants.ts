@@ -9,9 +9,9 @@ export const colorPaletteVariants = cva(
         vertical: "flex-col",
       },
       size: {
-        small: "[--cell-size:theme(spacing.4)]",
-        medium: "[--cell-size:theme(spacing.6)]",
-        large: "[--cell-size:theme(spacing.8)]",
+        small: "[--cell-size:--spacing(4)]",
+        medium: "[--cell-size:--spacing(6)]",
+        large: "[--cell-size:--spacing(8)]",
       },
       variant: {
         primary:

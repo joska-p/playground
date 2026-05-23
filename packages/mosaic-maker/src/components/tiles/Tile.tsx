@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "@repo/ui";
 import { TILE_REGISTRY, type Shape } from "../../core/tile-registry.js";
 
 export type Props = {
@@ -43,7 +43,7 @@ function Tile({ name, colors, rotation, className }: Props) {
     <svg
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
-      className={twMerge(
+      className={cn(
         "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform duration-500",
         className
       )}

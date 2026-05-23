@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "../../utils/cn.js";
-import { labelVariants } from "./labelVariants.js";
+import { cn } from "../../utils/cn";
+import { labelVariants } from "./labelVariants";
 
 type LabelProps = {} & ComponentProps<"label"> & VariantProps<typeof labelVariants>;
 

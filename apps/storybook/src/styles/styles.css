@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "@repo/ui/gruvbox-theme";
+
+/* Explicitly tell Tailwind to scan your package sources for classes */
+@source "../../node_modules/@repo/ui";
+
+body {
+  @apply bg-background text-foreground;
+}

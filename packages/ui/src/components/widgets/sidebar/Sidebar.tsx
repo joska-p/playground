@@ -1,13 +1,14 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { useCallback, useMemo, useState } from "react";
-import { cn } from "../../../utils/cn.js";
-import type { SidebarContextValue } from "./SidebarContext.js";
-import { SidebarContext, useSidebarContext } from "./SidebarContext.js";
-import { SidebarMain } from "./SidebarMain.js";
-import { SidebarPanel } from "./SidebarPanel.js";
-import { SidebarToggle } from "./SidebarToggle.js";
-import { sidebarVariants } from "./sidebarVariants.js";
+import { cn } from "../../../utils/cn";
+import type { SidebarContextValue } from "./SidebarContext";
+import { SidebarContext } from "./SidebarContext";
+import { useSidebarContext } from "./useSidebarContext";
+import { SidebarMain } from "./SidebarMain";
+import { SidebarPanel } from "./SidebarPanel";
+import { SidebarToggle } from "./SidebarToggle";
+import { sidebarVariants } from "./sidebarVariants";
 
 export type SidebarProps = {
   defaultOpen?: boolean;

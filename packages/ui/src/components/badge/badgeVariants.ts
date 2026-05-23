@@ -1,3 +1,4 @@
+import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 
 export const badgeVariants = cva(
@@ -19,3 +20,5 @@ export const badgeVariants = cva(
     },
   }
 );
+
+export type BadgeVariant = VariantProps<typeof badgeVariants>["variant"];

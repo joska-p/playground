@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "../../utils/cn.js";
-import { buttonVariants } from "./buttonVariants.js";
+import { cn } from "../../utils/cn";
+import { buttonVariants } from "./buttonVariants";
 
 type ButtonProps = {
   isLoading?: boolean;

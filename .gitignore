@@ -4,6 +4,7 @@
 .container_home
 
 
+
 # __ Below are secure gitignore defaults __
 
 # --- OS ---
@@ -66,6 +67,9 @@ pids/
 
 # --- Dependency directories ---
 node_modules/
+jspm_packages/
+bower_components/
+vendor/
 
 # --- Build / dist ---
 dist/

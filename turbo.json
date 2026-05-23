@@ -1,42 +1,27 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
-  "globalDependencies": ["pnpm-workspace.yaml"],
-  "globalEnv": ["BASE_URL", "GITHUB_ACTIONS", "VERCEL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "tsconfig.json", "pnpm-workspace.yaml"],
-      "outputs": ["dist/**", ".astro/**", "storybook-static/**"]
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**", "storybook-static/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"],
-      "inputs": ["$TURBO_DEFAULT$", "eslint.config.*"]
+      "dependsOn": ["^lint"]
     },
     "lint-fix": {
-      "dependsOn": ["^lint-fix"],
-      "inputs": ["$TURBO_DEFAULT$", "eslint.config.*"]
-    },
-    "format": {
-      "dependsOn": ["^format"],
-      "inputs": ["$TURBO_DEFAULT$", ".prettierrc*", "prettier.config.*"]
+      "dependsOn": ["^lint-fix"]
     },
     "check-types": {
-      "inputs": ["$TURBO_DEFAULT$", "tsconfig.json", "package.json"]
+      "dependsOn": ["^check-types"]
     },
     "dev": {
-      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
-    "preview": {
-      "dependsOn": ["^build"]
-    },
-    "graphify": {
-      "cache": false
-    },
     "clean": {
-      "dependsOn": ["^clean"]
+      "cache": false,
     }
   }
 }

@@ -1,8 +1,8 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { useId } from "react";
-import { cn } from "../../utils/cn.js";
-import { switchVariants, switchThumbVariants } from "./switchVariants.js";
+import { cn } from "../../utils/cn";
+import { switchVariants, switchThumbVariants } from "./switchVariants";
 
 type SwitchProps = {
   checked?: boolean;

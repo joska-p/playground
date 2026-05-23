@@ -1,7 +1,7 @@
 import { useMosaicStore, updateTileSet } from "../../store/useMosaicStore.js";
 import { useShallow } from "zustand/shallow";
 import { initialPalette, initialTileSet } from "../../core/config.js";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@repo/ui";
 import { Tile } from "../tiles/Tile.js";
 
 function TileSetControls() {
@@ -24,7 +24,7 @@ function TileSetControls() {
             <Tile
               name={tileName}
               colors={Object.keys(initialPalette) as [string, string, string, string, string]}
-              className={twMerge(
+              className={cn(
                 "opacity-70 transition-opacity",
                 "peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4",
                 "peer-focus-visible:ring-accent peer-focus-visible:ring-4"

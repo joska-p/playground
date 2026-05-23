@@ -4,7 +4,7 @@ import { Sidebar } from "@repo/ui";
 
 function SequenceRenderer() {
   return (
-    <Sidebar desktopPosition="bottom" mobilePosition="bottom">
+    <Sidebar desktopPosition="bottom" mobilePosition="bottom" className="min-h-full">
       <Sidebar.Main className="relative">
         <SequenceDisplay />
       </Sidebar.Main>
