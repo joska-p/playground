@@ -25,7 +25,7 @@ const isCenter = align === "center";
       )
     }
 
-    <h2 class="text-primary font-mono text-[11px] font-bold tracking-widest uppercase">
+    <h2 class="text-primary font-mono text-xl font-bold tracking-widest uppercase">
       {title}
     </h2>
   </div>
@@ -34,7 +34,7 @@ const isCenter = align === "center";
     description && (
       <p
         class:list={[
-          "text-muted-foreground max-w-xl text-sm leading-relaxed",
+          "text-muted-foreground max-w-xl leading-relaxed",
           isCenter ? "text-center" : "",
         ]}
       >
@@ -47,7 +47,7 @@ const isCenter = align === "center";
     href && (
       <a
         href={href}
-        class="group text-primary/70 hover:text-primary inline-flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-widest uppercase transition-colors"
+        class="group text-primary/70 hover:text-primary inline-flex items-center gap-1.5 font-mono font-bold tracking-widest uppercase transition-colors"
       >
         <slot name="link-text">View all</slot>
         <slot name="link-icon">
