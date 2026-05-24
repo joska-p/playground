@@ -5,15 +5,26 @@ date: 2026-05-24
 katex: true
 draft: false
 category: "maths"
-tags: 
+tags:
   - "maths"
   - "complex-systems"
   - "philosophy"
 ---
 
+import { Image } from 'astro:assets';
+import text from "../../assets/numbers/text.svg"
+import graphic from "../../assets/numbers/graphic.svg"
+import masterpiece from "../../assets/numbers/masterpiece.svg"
+
 <p class="lead">
   This is an invitation to a walk. Not a formal proof, not a lecture — a walk. At every crossroads, we will ask the same question: <em>what if we wanted to reverse that?</em> It is this question, asked again and again, that builds the entire architecture of numbers from the ground up.
 </p>
+
+<div class="not-prose my-10 overflow-x-auto">
+  <div class="min-w-[520px]">
+    <Image src={text} alt="The Emergence of Complexity" />
+  </div>
+</div>
 
 <div class="not-prose flex items-center gap-4 mt-16 mb-1">
   <span class="font-mono text-[10px] tracking-[0.25em] text-primary uppercase opacity-70">Step 01</span>
@@ -97,6 +108,21 @@ $$\mathbb{Q} = \left\{\frac{a}{b}\ \middle|\ a \in \mathbb{Z},\ b \in \mathbb{Z}
 What changes here is subtle but vertiginous. Before, between two consecutive integers like $1$ and $2$ there was *nothing* — a void. Now, between those same two points, there exist **infinitely many** rationals: $\frac{3}{2}$, $\frac{5}{4}$, $\frac{7}{5}$, $\frac{99}{100}$... And between any two of those rationals, however close, there are infinitely many more. The number line has become **dense**.
 
 > To feel this: between $\frac{1}{2}$ and $\frac{1}{3}$, you can always find their average, $\frac{5}{12}$. Between $\frac{1}{2}$ and $\frac{5}{12}$, there is $\frac{11}{24}$. This game never ends.
+
+Three steps in, it is worth pausing to see what we have built. Each time we asked *"what if we reversed that?"*, a new universe emerged — strictly larger, strictly richer — from the wreckage of the old one's limitations. The diagram below makes this nesting visible.
+
+<div class="not-prose border border-border bg-card rounded-lg overflow-hidden my-10">
+  <div class="flex items-center justify-between px-5 py-3 border-b border-border">
+    <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">The tower of number sets</span>
+    <span class="font-mono text-[10px] text-muted-foreground opacity-50">ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ⊂ ℂ</span>
+  </div>
+  <div class="bg-background flex w-full justify-center p-6">
+    <Image src={graphic} alt="The Emergence of Complexity" />
+  </div>
+  <div class="px-5 py-3 border-t border-border">
+    <p class="text-[11px] text-muted-foreground font-mono opacity-70">Each ring is a universe that strictly contains the previous one. The seed at the centre is <code>1</code>.</p>
+  </div>
+</div>
 
 <div class="not-prose flex items-center gap-4 mt-16 mb-1">
   <span class="font-mono text-[10px] tracking-[0.25em] text-primary uppercase opacity-70">Step 04</span>
@@ -340,14 +366,16 @@ This formula is often called the most beautiful in all of mathematics. Not by co
 
 ### The loop closes
 
-Take a step back and see the full path.
+Take a step back and see the full path. We began with the brick `1`, equipped with one rule: the successor. That rule, pushed by the simple question *"what if we reversed it?"*, generated the integers — then the negatives — then fractions — then had to domesticate unmanageable scales by inventing logarithms — then finally shattered its own dimension to make room for $i$.
 
-We began with the brick `1`, equipped with one rule: the successor. That rule, pushed by the simple question *"what if we reversed it?"*, generated the integers — then the negatives — then fractions — then had to domesticate unmanageable scales by inventing logarithms — then finally shattered its own dimension to make room for $i$.
+And at the end of this journey, all those worlds are woven together in a five-symbol formula. The entire tower, from the first brick to the complex plane, is laid out below.
 
-And at the end of this journey, all those worlds are woven together in a five-symbol formula.
+<div class="not-prose my-12 overflow-x-auto rounded-lg">
+  <div class="min-w-[600px]">
+    <Image src={masterpiece} alt="The Emergence of Complexity" />
+  </div>
+</div>
 
 > Complexity was not *imposed* on mathematics from outside. It *emerged* from within, driven solely by the questions we dared to ask.
-
-$$1 \xrightarrow{+} \mathbb{N} \xrightarrow{-} \mathbb{Z} \xrightarrow{\div} \mathbb{Q} \xrightarrow{\sqrt{\phantom{x}}} \mathbb{R} \xrightarrow{\sqrt{-1}} \mathbb{C}$$
 
 Each arrow is a question. Each set is an answer. And the walk — it never quite ends.

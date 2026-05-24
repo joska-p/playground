@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="115" height="48">
+<tspan x="96" y="120">
+  <text x="120" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">N</text>
+</tspan>
+
+<text x="190" y="110" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="44" fill="#6E6A66">+</text>
+
+<text x="260" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">→</text>
+<text x="300" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">Z</text>
+<text x="360" y="110" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="44" fill="#6E6A66">−</text>
+
+<text x="420" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">→</text>
+<text x="460" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">Q</text>
+<text x="520" y="110" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="44" fill="#6E6A66">÷</text>
+
+<text x="580" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">→</text>
+<text x="620" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">R</text>
+<text x="680" y="110" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="44" fill="#6E6A66">√</text>
+
+<text x="740" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">→</text>
+<text x="780" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#1A1716">C</text>
+<text x="840" y="110" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="44" fill="#6E6A66">i</text>
+
+</svg>

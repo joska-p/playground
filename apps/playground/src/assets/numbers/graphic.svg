@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <style>
+      :root, svg {
+        --background:           oklch(0.239 0.004 219.659);
+        --foreground:           oklch(0.822 0.051 84.515);
+        --muted-foreground:     oklch(0.749 0.042 81.345);
+        --border:               oklch(0.409 0.011 50.327);
+        --secondary:            oklch(0.639 0.131 108.548);
+        --accent:               oklch(0.59  0.111 351.672);
+        --primary:              oklch(0.691 0.04  169.812);
+        --destructive:          oklch(0.539 0.201 28.478);
+        --category-generative:  oklch(0.644 0.1   168.409);
+        --ring:                 oklch(0.862 0.135 84.271);
+      }
+      .bg        { fill: var(--background,          #1d2021); }
+      .grain-dot { fill: var(--foreground,           #ebdbb2); }
+      .ring-C    { stroke: var(--category-generative, #8ec07c); }
+      .fill-C    { fill:   var(--category-generative, #8ec07c); }
+      .ring-R    { stroke: var(--destructive,          #fe8019); }
+      .fill-R    { fill:   var(--destructive,          #fe8019); }
+      .ring-Q    { stroke: var(--primary,              #83a598); }
+      .fill-Q    { fill:   var(--primary,              #83a598); }
+      .ring-Z    { stroke: var(--accent,               #d3869b); }
+      .fill-Z    { fill:   var(--accent,               #d3869b); }
+      .ring-N    { stroke: var(--secondary,            #b8bb26); }
+      .fill-N    { fill:   var(--secondary,            #b8bb26); }
+      .center-dot { fill: var(--primary,               #83a598); }
+      .center-seed { fill: var(--foreground,           #ebdbb2); }
+      .diag-line { stroke: var(--border,               #504945); }
+      .op-label  { fill: var(--muted-foreground,       #a89984); }
+      .bottom-label { fill: var(--muted-foreground,    #a89984); }
+      .dot-gold  { fill: var(--ring,                   #fabd2f); }
+    </style>
+    <pattern id="grain" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" x="1" y="1" class="grain-dot" opacity="0.025"/>
+      <rect width="1" height="1" x="3" y="3" class="grain-dot" opacity="0.02"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M1 2L8 5L1 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" class="bg"/>
+  <rect width="400" height="400" fill="url(#grain)"/>
+
+  <!-- Concentric ring 5 — ℂ — green -->
+  <circle cx="200" cy="200" r="168" fill="none" class="ring-C" stroke-width="1" opacity="0.35"/>
+  <circle cx="200" cy="200" r="168" class="fill-C" opacity="0.06"/>
+
+  <!-- Concentric ring 4 — ℝ — orange/red -->
+  <circle cx="200" cy="200" r="135" fill="none" class="ring-R" stroke-width="1" opacity="0.4"/>
+  <circle cx="200" cy="200" r="135" class="fill-R" opacity="0.06"/>
+
+  <!-- Concentric ring 3 — ℚ — blue -->
+  <circle cx="200" cy="200" r="102" fill="none" class="ring-Q" stroke-width="1" opacity="0.5"/>
+  <circle cx="200" cy="200" r="102" class="fill-Q" opacity="0.07"/>
+
+  <!-- Concentric ring 2 — ℤ — rose -->
+  <circle cx="200" cy="200" r="69" fill="none" class="ring-Z" stroke-width="1" opacity="0.6"/>
+  <circle cx="200" cy="200" r="69" class="fill-Z" opacity="0.08"/>
+
+  <!-- Concentric ring 1 — ℕ — yellow-green -->
+  <circle cx="200" cy="200" r="40" fill="none" class="ring-N" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="200" cy="200" r="40" class="fill-N" opacity="0.15"/>
+
+  <!-- Center dot — the seed "1" -->
+  <circle cx="200" cy="200" r="6" class="center-dot" opacity="0.8"/>
+  <circle cx="200" cy="200" r="3" class="center-seed"/>
+
+  <!-- Ring labels -->
+  <text x="200" y="153" font-family="'EB Garamond', Georgia, serif" font-size="18" font-weight="600"
+        class="fill-N" text-anchor="middle" dominant-baseline="central">ℕ</text>
+
+  <text x="248" y="152" font-family="'EB Garamond', Georgia, serif" font-size="18" font-weight="600"
+        class="fill-Z" text-anchor="middle" dominant-baseline="central">ℤ</text>
+
+  <text x="280" y="120" font-family="'EB Garamond', Georgia, serif" font-size="18" font-weight="600"
+        class="fill-Q" text-anchor="middle" dominant-baseline="central">ℚ</text>
+
+  <text x="295" y="85" font-family="'EB Garamond', Georgia, serif" font-size="18" font-weight="600"
+        class="fill-R" text-anchor="middle" dominant-baseline="central">ℝ</text>
+
+  <text x="316" y="55" font-family="'EB Garamond', Georgia, serif" font-size="18" font-weight="600"
+        class="fill-C" text-anchor="middle" dominant-baseline="central">ℂ</text>
+
+  <!-- Diagonal expansion line -->
+  <line x1="200" y1="200" x2="350" y2="50" class="diag-line" stroke-width="0.5" opacity="0.3" stroke-dasharray="3 4"/>
+
+  <!-- Op labels along the diagonal -->
+  <text x="214" y="185" font-family="'EB Garamond', Georgia, serif" font-size="11" font-style="italic"
+        class="op-label" text-anchor="middle">+</text>
+  <text x="238" y="163" font-family="'EB Garamond', Georgia, serif" font-size="11" font-style="italic"
+        class="op-label" text-anchor="middle">−</text>
+  <text x="264" y="138" font-family="'EB Garamond', Georgia, serif" font-size="11" font-style="italic"
+        class="op-label" text-anchor="middle">÷</text>
+  <text x="290" y="112" font-family="'EB Garamond', Georgia, serif" font-size="11" font-style="italic"
+        class="op-label" text-anchor="middle">√</text>
+  <text x="314" y="86" font-family="'EB Garamond', Georgia, serif" font-size="10" font-style="italic"
+        class="op-label" text-anchor="middle">√−1</text>
+
+  <!-- Central "1" -->
+  <text x="200" y="207" font-family="'EB Garamond', Georgia, serif" font-size="13" font-weight="600"
+        class="center-seed" text-anchor="middle" dominant-baseline="central" opacity="0.7">1</text>
+
+  <!-- Bottom label -->
+  <text x="200" y="382" font-family="'EB Garamond', Georgia, serif" font-size="12" font-style="italic"
+        class="bottom-label" text-anchor="middle" opacity="0.6">1 → ℕ → ℤ → ℚ → ℝ → ℂ</text>
+</svg>
