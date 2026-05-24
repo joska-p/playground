@@ -1,0 +1,63 @@
+---
+import { getDocsByCategory, docsBaseUrl } from "../../../data/docs";
+
+const currentPath = Astro.url.pathname;
+const categories = await getDocsByCategory();
+---
+
+<aside
+  class="border-border bg-card/30 hidden w-60 shrink-0 flex-col overflow-y-auto border-r md:flex"
+>
+  <div class="border-border flex h-12 items-center gap-2.5 border-b px-5">
+    <span class="bg-primary h-1.5 w-1.5 rounded-full"></span>
+    <span class="text-muted-foreground text-[10px] font-semibold tracking-[0.18em] uppercase">
+      ~/docs
+    </span>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto p-3" aria-label="Documentation navigation">
+    <div class="space-y-5 py-1">
+      {
+        categories.map((category) => (
+          <div>
+            <div class="mb-1.5 flex items-center gap-2 px-2 py-1">
+              <category.Icon className={`h-3 w-3 shrink-0 ${category.color}`} aria-hidden="true" />
+              <span class="text-muted-foreground/50 text-[9px] font-bold tracking-[0.18em] uppercase">
+                {category.label}
+              </span>
+            </div>
+
+            <ul class="space-y-0.5">
+              {category.articles.map((doc) => {
+                const docUrl = `${docsBaseUrl}${doc.id}/`;
+                const isActive = currentPath === docUrl || currentPath === docUrl.slice(0, -1);
+                return (
+                  <li>
+                    <a
+                      href={docUrl}
+                      class:list={[
+                        "group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-[11.5px] leading-snug transition-all duration-150",
+                        isActive
+                          ? "bg-primary/10 text-primary font-semibold"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                      ]}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      <span
+                        class:list={[
+                          "h-1 w-1 shrink-0 rounded-full transition-colors",
+                          isActive ? "bg-primary" : "bg-border group-hover:bg-muted-foreground/50",
+                        ]}
+                      />
+                      {doc.data.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </nav>
+</aside>

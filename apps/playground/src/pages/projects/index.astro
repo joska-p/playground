@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
-import ExperimentCard from "../../components/ui/cards/ExperimentCard.astro";
-import SectionHeader from "../../components/ui/section-header/index.astro";
+import Hero from "../../components/ui/features/hero.astro";
+import ExperimentCard from "../../components/ui/cards/experiment-card.astro";
+import SectionHeader from "../../components/ui/features/section-header.astro";
 import { getProjectsByCategory } from "../../data/projects";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
@@ -10,43 +11,13 @@ const categories = getProjectsByCategory();
 ---
 
 <BaseLayout title="Projects">
-  <!-- ── HERO ─────────────────────────────────────────────────── -->
-  <section
-    class="border-border relative flex flex-col justify-end overflow-hidden border-b px-6 py-20 lg:py-28"
-  >
-    <div class="dot-grid absolute inset-0 z-0" aria-hidden="true"></div>
-    <div
-      class="bg-primary absolute -right-24 bottom-0 z-0 h-80 w-80 rounded-full opacity-[0.07] blur-3xl"
-      aria-hidden="true"
-    >
-    </div>
+  <Hero
+    badgeText="Creative Projects"
+    title="Explore"
+    highlight="The Lab"
+    description="Interactive tools, visualizations, and creative engines built with Astro + React 19</span>. Browse by category to find the right experiment."
+  />
 
-    <div class="relative z-10 mx-auto w-full max-w-6xl">
-      <div
-        class="border-primary/20 bg-primary/6 text-primary mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase"
-      >
-        <span class="relative flex h-1.5 w-1.5">
-          <span class="ping bg-primary absolute inline-flex h-full w-full rounded-full opacity-60"
-          ></span>
-          <span class="bg-primary relative inline-flex h-1.5 w-1.5 rounded-full"></span>
-        </span>
-        Creative Projects
-      </div>
-
-      <h1 class="text-[clamp(2.8rem,7vw,5.5rem)] leading-[0.93] font-black tracking-tight">
-        Explore<br />
-        <span class="text-primary">The Lab<span class="cursor">_</span></span>
-      </h1>
-
-      <p class="text-muted-foreground mt-6 max-w-lg text-base leading-relaxed">
-        Interactive tools, visualizations, and creative engines built with
-        <span class="text-foreground font-medium">Astro + React 19</span>. Browse by category to
-        find the right experiment.
-      </p>
-    </div>
-  </section>
-
-  <!-- ── CATEGORIES ────────────────────────────────────────────── -->
   <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
     <div class="space-y-16">
       {
@@ -71,33 +42,3 @@ const categories = getProjectsByCategory();
     </div>
   </div>
 </BaseLayout>
-
-<style>
-  .dot-grid {
-    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
-    background-size: 28px 28px;
-    opacity: 0.5;
-  }
-  .cursor {
-    animation: blink 1.1s step-end infinite;
-  }
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-  .ping {
-    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
-  @keyframes ping {
-    75%,
-    100% {
-      transform: scale(2.2);
-      opacity: 0;
-    }
-  }
-</style>

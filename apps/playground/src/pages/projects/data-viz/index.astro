@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "../../../layouts/base-layout.astro";
-import ExperimentCard from "../../../components/ui/cards/ExperimentCard.astro";
+import ExperimentCard from "../../../components/ui/cards/experiment-card.astro";
 import { getProjectsByCategory } from "../../../data/projects";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
-const category = getProjectsByCategory("data-viz")[0];
+const category = getProjectsByCategory("image")[0];
 const projects = category?.projects;
 ---
 
-<BaseLayout title={`${category?.name || "Data Visualization"} | Playground`}>
+<BaseLayout title={`${category?.name} | Data Visualization | Playground`}>
   <section
     class="border-border/40 bg-card/30 relative flex flex-col items-center justify-center overflow-hidden border-b px-6 py-24 text-center lg:py-32"
   >

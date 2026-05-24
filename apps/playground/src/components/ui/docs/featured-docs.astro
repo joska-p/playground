@@ -1,0 +1,56 @@
+---
+import DocCard from "../cards/doc-card.astro";
+import SectionHeader from "../features/section-header.astro";
+import { Book } from "lucide-react";
+import { getFeaturedDocs, docsBaseUrl } from "../../../data/docs";
+
+const featuredDocs = await getFeaturedDocs();
+---
+
+<SectionHeader
+  icon={Book}
+  title="Documentation"
+  description="Manifesto, guides, and references for collaborators."
+  align="center"
+/>
+
+<div class="mt-8 grid gap-4 sm:grid-cols-2">
+  {
+    featuredDocs.map((doc) => {
+      const docUrl = `${docsBaseUrl}${doc.id}/`;
+      const firstTagId = doc.data.tags[0] || "explanation";
+      return (
+        <DocCard
+          href={docUrl}
+          type={firstTagId}
+          title={doc.data.title}
+          description={doc.data.description}
+        />
+      );
+    })
+  }
+</div>
+
+<div class="mt-8 text-center">
+  <a
+    href={docsBaseUrl}
+    class="group text-primary/60 hover:text-primary inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.18em] uppercase transition-colors"
+  >
+    Browse all docs
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="11"
+      height="11"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="transition-transform group-hover:translate-x-0.5"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </a>
+</div>
