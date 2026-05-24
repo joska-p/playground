@@ -2,7 +2,6 @@
 import { render, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/base-layout.astro";
 import DocNav from "../../components/ui/docs/doc-nav.astro";
-import Footer from "../../layouts/footer.astro";
 import SectionHeader from "../../components/ui/features/section-header.astro";
 import { Book } from "lucide-react";
 
@@ -30,8 +29,4 @@ const { Content } = await render(doc);
       </div>
     </div>
   </div>
-
-  <Footer>
-    <span slot="default">Crafted with creativity.</span>
-  </Footer>
 </BaseLayout>
