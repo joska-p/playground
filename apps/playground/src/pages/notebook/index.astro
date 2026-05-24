@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/base-layout.astro";
 import Hero from "../../components/ui/features/hero.astro";
 import DocCard from "../../components/ui/cards/doc-card.astro";
 import { getNotesByCategory, notebookBaseUrl } from "../../data/notebook";
+import Footer from "../../layouts/footer.astro";
 
 const notesByCategory = await getNotesByCategory();
 ---
@@ -66,4 +67,7 @@ const notesByCategory = await getNotesByCategory();
     </div>
   </div>
 
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
 </BaseLayout>

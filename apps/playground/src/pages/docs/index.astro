@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/base-layout.astro";
 import Hero from "../../components/ui/features/hero.astro";
 import DocCard from "../../components/ui/cards/doc-card.astro";
 import { getDocsByCategory, docsBaseUrl } from "../../data/docs";
+import Footer from "../../layouts/footer.astro";
 
 const docsByCategory = await getDocsByCategory();
 ---
@@ -69,4 +70,8 @@ const docsByCategory = await getDocsByCategory();
     </div>
   </div>
 
+
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
 </BaseLayout>

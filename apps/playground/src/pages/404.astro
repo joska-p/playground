@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/base-layout.astro";
 import { Home, Sparkles } from "lucide-react";
+import Footer from "../layouts/footer.astro";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 ---
@@ -79,4 +80,8 @@ const baseUrl = import.meta.env.BASE_URL || "/";
     >
     </div>
   </div>
+
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
 </BaseLayout>

@@ -4,6 +4,7 @@ import Hero from "../components/ui/features/hero.astro";
 import Stats from "../components/ui/features/stats.astro";
 import FeaturedProjects from "../components/ui/projects/featured-projects.astro";
 import FeaturedDocs from "../components/ui/docs/featured-docs.astro";
+import Footer from "../layouts/footer.astro";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 const projectsBaseUrl = `${baseUrl}projects/`;
@@ -58,4 +59,8 @@ const projectsBaseUrl = `${baseUrl}projects/`;
       <FeaturedDocs />
     </div>
   </div>
+
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
 </BaseLayout>

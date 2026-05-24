@@ -4,6 +4,7 @@ import Hero from "../../components/ui/features/hero.astro";
 import ExperimentCard from "../../components/ui/cards/experiment-card.astro";
 import SectionHeader from "../../components/ui/features/section-header.astro";
 import { getProjectsByCategory } from "../../data/projects";
+import Footer from "../../layouts/footer.astro";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 const projectsBaseUrl = `${baseUrl}projects/`;
@@ -41,4 +42,8 @@ const categories = getProjectsByCategory();
       }
     </div>
   </div>
+
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
 </BaseLayout>

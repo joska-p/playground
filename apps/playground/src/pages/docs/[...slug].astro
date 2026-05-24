@@ -2,6 +2,7 @@
 import { render, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/base-layout.astro";
 import DocNav from "../../components/ui/docs/doc-nav.astro";
+import Footer from "../../layouts/footer.astro";
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs");
@@ -26,4 +27,8 @@ const { Content } = await render(doc);
       </div>
     </div>
   </div>
+
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
 </BaseLayout>
