@@ -1,0 +1,118 @@
+---
+import type { ComponentType } from "react";
+import type { Category } from "../../../data/projects";
+import type { TagId } from "../../../data/docs";
+import { getTagMetadata } from "../../../data/docs";
+
+type Props = {
+  href: string;
+  title: string;
+  description?: string;
+  className?: string;
+} & (
+  | { variant: "doc"; type?: TagId; icon?: never; category?: never; tags?: never }
+  | {
+      variant: "experiment";
+      icon: ComponentType<{ className?: string }>;
+      category?: Category;
+      type?: never;
+      tags?: string[];
+    }
+);
+
+const { href, title, description, className, variant } = Astro.props;
+
+const isDoc = variant === "doc";
+const slug = isDoc ? (Astro.props.type ?? "reference") : (Astro.props.category ?? "generative");
+const cat = `var(--category-${slug}, var(--primary))`;
+const { Icon } = isDoc ? getTagMetadata(slug as TagId) : { Icon: Astro.props.icon };
+const tags = isDoc ? [] : (Astro.props.tags ?? []);
+---
+
+<a
+  href={href}
+  data-variant={variant}
+  class:list={[
+    "group border-border relative flex flex-col overflow-hidden rounded-[10px] border",
+    "bg-card bg-[repeating-linear-gradient(135deg,color-mix(in_srgb,var(--cat)_3%,transparent)_0px,color-mix(in_srgb,var(--cat)_3%,transparent)_1px,transparent_1px,transparent_14px),radial-gradient(circle,color-mix(in_srgb,var(--cat)_4%,transparent)_1px,transparent_1px)]",
+    "transition-all duration-200 hover:-translate-y-0.5",
+    "hover:border-[color-mix(in_srgb,var(--cat)_35%,var(--border))] hover:shadow-[0_6px_24px_color-mix(in_srgb,var(--cat)_14%,transparent)]",
+    "focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none",
+    className,
+  ]}
+  style={{ "--cat": cat }}
+>
+  <!-- Top bar — experiment only -->
+  <div
+    class="`h-0.75 `in-data-[variant=doc]:hidden w-full opacity-0 transition-opacity duration-300 [background:linear-gradient(90deg,transparent,var(--cat)_30%,var(--cat)_70%,transparent)] group-hover:in-data-[variant=experiment]:opacity-100"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Corner notch — doc only -->
+  <span
+    class="pointer-events-none absolute top-0 right-0 h-0 w-0 [border-width:0_28px_28px_0] border-solid border-[transparent_var(--cat)_transparent_transparent] opacity-50 transition-opacity duration-200 group-hover:in-data-[variant=doc]:opacity-100 in-data-[variant=experiment]:hidden"
+    aria-hidden="true"></span>
+
+  <div class="flex flex-1 flex-col gap-2.5 p-4">
+    <!-- Badge — doc only -->
+    <div
+      class="flex w-fit items-center gap-1 rounded bg-[color-mix(in_srgb,var(--cat)_12%,transparent)] px-1.5 py-0.5 text-[10px] font-semibold tracking-widest text-(--cat) uppercase [border:0.5px_solid_color-mix(in_srgb,var(--cat)_25%,transparent)] in-data-[variant=experiment]:hidden"
+    >
+      <Icon className="h-3 w-3" />
+      <span>{(slug as string).replace("-", "·")}</span>
+    </div>
+
+    <!-- Icon box — experiment only -->
+    <div
+      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[color-mix(in_srgb,var(--cat)_30%,transparent)] bg-[color-mix(in_srgb,var(--cat)_9%,var(--card))] text-(--cat) transition-transform duration-200 group-hover:scale-[1.06] in-data-[variant=doc]:hidden"
+    >
+      <Icon className="h-4 w-4" />
+    </div>
+
+    <h3 class="text-card-foreground text-sm leading-snug font-semibold">
+      {title}
+    </h3>
+
+    {
+      description && (
+        <p class="text-muted-foreground line-clamp-2 flex-1 text-[12.5px] leading-relaxed">
+          {description}
+        </p>
+      )
+    }
+
+    <slot />
+  </div>
+
+  {
+    tags.length > 0 && (
+      <>
+        <div class="bg-border mx-4 h-px" />
+        <div class="flex flex-wrap gap-1.5 px-4 py-2.5">
+          {tags.map((tag) => (
+            <span class="border-border/50 text-muted-foreground/60 rounded border px-1.5 py-0.5 font-mono text-[10px] tracking-[0.08em] uppercase">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </>
+    )
+  }
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="13"
+    height="13"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="text-primary absolute right-3 bottom-3 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+    aria-hidden="true"
+  >
+    <path d="M7 7h10v10"></path><path d="M7 17 17 7"></path>
+  </svg>
+</a>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
-import DocCard from "../../components/ui/doc-card/index.astro";
+import Card from "../../components/ui/card/index.astro";
 import { getDocsByCategory, docsBaseUrl } from "../../data/docs";
 
 const docsByCategory = await getDocsByCategory();
@@ -71,7 +71,8 @@ const docsByCategory = await getDocsByCategory();
               const docUrl     = `${docsBaseUrl}${doc.id}/`;
               const firstTagId = doc.data.tags[0] || "explanation";
               return (
-                <DocCard
+                <Card
+                  variant="doc"
                   href={docUrl}
                   title={doc.data.title}
                   description={doc.data.description}

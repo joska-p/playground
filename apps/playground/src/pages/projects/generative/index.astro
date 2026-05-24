@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/base-layout.astro";
-import ExperimentCard from "../../../components/ui/experiment-card/index.astro";
+import Card from "../../../components/ui/card/index.astro";
 import SectionHeader from "../../../components/ui/section-header/index.astro";
 import { getProjectsByCategory } from "../../../data/projects";
 
@@ -28,9 +28,7 @@ const categories = getProjectsByCategory();
         CREATIVE PROJECTS
       </div>
 
-      <h1
-        class="text-5xl leading-[1.06] tracking-tight sm:text-6xl lg:text-7xl"
-      >
+      <h1 class="text-5xl leading-[1.06] tracking-tight sm:text-6xl lg:text-7xl">
         Explore<br />
         <span class="text-primary">The Lab<span class="hero-cursor">_</span></span>
       </h1>
@@ -52,7 +50,8 @@ const categories = getProjectsByCategory();
 
           <div class="mt-8 grid gap-5 sm:grid-cols-2">
             {projects.map((project) => (
-              <ExperimentCard
+              <Card
+                variant="experiment"
                 href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
                 title={project.name}
                 description={project.description}

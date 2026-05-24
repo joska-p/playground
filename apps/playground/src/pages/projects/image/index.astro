@@ -1,17 +1,22 @@
 ---
 import BaseLayout from "../../../layouts/base-layout.astro";
-import ExperimentCard from "../../../components/ui/experiment-card/index.astro";
+import Card from "../../../components/ui/card/index.astro";
 import { getProjectsByCategory } from "../../../data/projects";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 const category = getProjectsByCategory("image")[0];
-const projects = category?.projects
+const projects = category?.projects;
 ---
 
 <BaseLayout title={`${category?.name} | Playground`}>
-  <section class="relative flex flex-col items-center justify-center overflow-hidden border-b border-border/40 bg-card/30 px-6 py-24 text-center lg:py-32">
+  <section
+    class="border-border/40 bg-card/30 relative flex flex-col items-center justify-center overflow-hidden border-b px-6 py-24 text-center lg:py-32"
+  >
     <div class="absolute inset-0 z-0 opacity-20">
-      <div class="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_50%_50%,var(--primary),transparent_70%)]"></div>
+      <div
+        class="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_50%_50%,var(--primary),transparent_70%)]"
+      >
+      </div>
     </div>
 
     <div class="relative z-10 mx-auto max-w-4xl">
@@ -19,7 +24,7 @@ const projects = category?.projects
         {category?.name}
       </h1>
 
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+      <p class="text-muted-foreground mx-auto mt-6 max-w-2xl text-lg">
         {category?.description}
       </p>
     </div>
@@ -27,16 +32,19 @@ const projects = category?.projects
 
   <div class="mx-auto max-w-6xl px-6 py-16 lg:py-20">
     <div class="grid gap-8 sm:grid-cols-2">
-      {projects?.map((project) => (
-        <ExperimentCard
-          href={`${baseUrl}projects/${category?.id}/${project.slug}`}
-          title={project.name}
-          description={project.description}
-          icon={project.icon}
-          category={project.category}
-          tags={project.tags}
-        />
-      ))}
+      {
+        projects?.map((project) => (
+          <Card
+            variant="experiment"
+            href={`${baseUrl}projects/${category?.id}/${project.slug}`}
+            title={project.name}
+            description={project.description}
+            icon={project.icon}
+            category={project.category}
+            tags={project.tags}
+          />
+        ))
+      }
     </div>
   </div>
 </BaseLayout>
