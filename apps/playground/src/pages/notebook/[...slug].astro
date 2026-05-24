@@ -1,0 +1,33 @@
+---
+import { render, getCollection } from "astro:content";
+import BaseLayout from "../../layouts/base-layout.astro";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notebook");
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<BaseLayout title={note.data.title} katex={true}>
+  <div class="mx-auto max-w-4xl px-6 py-12">
+    <div class="text-muted-foreground mb-8 font-mono text-xs">
+      {
+        note.data.date.toLocaleDateString("fr-FR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }
+    </div>
+
+    <article class="prose prose-playground">
+      <Content />
+    </article>
+  </div>
+</BaseLayout>

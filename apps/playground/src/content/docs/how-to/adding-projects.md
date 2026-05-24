@@ -1,6 +1,7 @@
 ---
 title: "Adding Projects"
 description: "Add new visualizations to the playground."
+category: "how-to"
 tags:
   - how-to
 featured: true

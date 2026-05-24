@@ -1,6 +1,7 @@
 ---
 title: "UI Components"
 description: "Shared components in @repo/ui."
+category: "reference"
 tags:
   - reference
 ---

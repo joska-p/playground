@@ -1,6 +1,7 @@
 ---
 title: "Design Tokens"
 description: "Colors, typography, and spacing — the Gruvbox theme."
+category: "reference"
 tags:
   - reference
 ---

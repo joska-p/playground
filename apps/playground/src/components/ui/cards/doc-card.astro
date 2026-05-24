@@ -1,20 +1,20 @@
 ---
-import type { TagId } from "../../../data/docs";
-import { getTagMetadata } from "../../../data/docs";
+import type { CategoryId } from "../../../data/docs";
+import { getCategoryMetadata } from "../../../data/docs";
 import BaseCard from "./base-card.astro";
 
 interface Props {
   href: string;
   title: string;
   description?: string;
-  type?: TagId;
+  type?: CategoryId;
   className?: string;
 }
 
 const { href, title, description, type = "reference", className } = Astro.props;
 
 const cat = `var(--category-${type}, var(--primary))`;
-const { Icon } = getTagMetadata(type);
+const { Icon } = getCategoryMetadata(type);
 const formattedType = type.replace("-", "·");
 ---
 

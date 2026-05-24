@@ -52,13 +52,13 @@ const docsByCategory = await getDocsByCategory();
           <div class="grid gap-4 sm:grid-cols-2">
             {category.articles.map((doc) => {
               const docUrl     = `${docsBaseUrl}${doc.id}/`;
-              const firstTagId = doc.data.tags[0] || "explanation";
+              const categoryId = doc.data.category || "explanation";
               return (
                 <DocCard
                   href={docUrl}
                   title={doc.data.title}
                   description={doc.data.description}
-                  type={firstTagId}
+                  type={categoryId}
                 />
               );
             })}

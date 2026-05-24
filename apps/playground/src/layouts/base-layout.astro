@@ -6,14 +6,14 @@ import "../styles/styles.css";
 
 const baseUrl = import.meta.env.BASE_URL || "";
 
-type Props = { title?: string };
-const { title } = Astro.props;
+const { title, katex = false } = Astro.props;
 const siteTitle = title ? `${title} — Playground` : "Playground";
 ---
 
 <html lang="en" data-theme="dark">
   <head>
     <Font cssVariable="--font-jetbrains-mono" />
+    {katex && <link rel="stylesheet" href={`${baseUrl}katex.css`} />}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.svg`} />

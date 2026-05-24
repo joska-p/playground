@@ -5,8 +5,7 @@ import { Book, Wrench, Lightbulb, Code } from "lucide-react";
 const baseUrl = import.meta.env.BASE_URL || "/";
 export const docsBaseUrl = `${baseUrl}docs/`;
 
-// 1. Define UI Metadata separately
-export const TAG_METADATA = {
+export const CATEGORY_METADATA = {
   tutorial: {
     label: "Tutorials",
     description: "Step-by-step guides.",
@@ -37,33 +36,32 @@ export const TAG_METADATA = {
   },
 } as const;
 
-// Helper types for your UI components
-export type TagId = keyof typeof TAG_METADATA;
-const tagIds = Object.keys(TAG_METADATA) as [TagId, ...TagId[]];
+export type CategoryId = keyof typeof CATEGORY_METADATA;
+const categoryIds = Object.keys(CATEGORY_METADATA) as [CategoryId, ...CategoryId[]];
 
-// 2. The "Pure" Schema: No transform, just validation
 export const docSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   featured: z.boolean().default(false),
   order: z.number().default(0),
   draft: z.boolean().default(false),
-  tags: z.array(z.enum(tagIds)).default([]), // Only validates the strings
+  category: z.enum(categoryIds),
+  tags: z.array(z.string()).default([]).optional(),
 });
 
 // 3. UI Helper Function
-export function getTagMetadata(id: TagId) {
-  return TAG_METADATA[id];
+export function getCategoryMetadata(id: CategoryId) {
+  return CATEGORY_METADATA[id];
 }
 
 export async function getDocsByCategory() {
   const allDocs = await getCollection("docs", ({ data }) => !data.draft);
 
-  return Object.entries(TAG_METADATA).map(([id, meta]) => ({
-    id: id as TagId,
+  return Object.entries(CATEGORY_METADATA).map(([id, meta]) => ({
+    id: id as CategoryId,
     ...meta,
     articles: allDocs
-      .filter((doc) => doc.data.tags.includes(id as TagId)) // Simple string check
+      .filter((doc) => doc.data.category === (id as CategoryId)) // Simple string check
       .sort((a, b) => a.data.order - b.data.order),
   }));
 }

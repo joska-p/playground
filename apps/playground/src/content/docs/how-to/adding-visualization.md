@@ -1,6 +1,7 @@
 ---
 title: "Adding a Visualization"
 description: "Add a new visualization to the Sequence Renderer engine."
+category: "how-to"
 tags:
   - how-to
 ---

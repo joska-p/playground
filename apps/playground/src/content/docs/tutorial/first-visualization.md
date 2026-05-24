@@ -1,6 +1,7 @@
 ---
 title: "Your First Visualization"
 description: "A step-by-step guide to creating your first visualization in the playground."
+category: "tutorial"
 tags:
   - tutorial
 featured: true

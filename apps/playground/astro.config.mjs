@@ -4,6 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import process from "node:process";
 import { remarkBaseUrl } from "./src/lib/remark-base-url.mjs";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+
+import mdx from "@astrojs/mdx";
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
@@ -20,9 +24,9 @@ export default defineConfig({
   base: basePath,
   trailingSlash: "always",
   markdown: {
-    remarkPlugins: [[remarkBaseUrl, { base: basePath }]],
+    rehypePlugins: [rehypeKatex],
+    remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]],
   },
-
   fonts: [
     {
       provider: fontProviders.fontsource(),
@@ -39,5 +43,5 @@ export default defineConfig({
     },
   },
 
-  integrations: [react()],
+  integrations: [react(), mdx()],
 });

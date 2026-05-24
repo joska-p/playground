@@ -1,6 +1,7 @@
 ---
 title: "Adding a Sequence Rule"
 description: "Add a new math rule to the Sequence Renderer engine."
+category: "how-to"
 tags:
   - how-to
 ---
