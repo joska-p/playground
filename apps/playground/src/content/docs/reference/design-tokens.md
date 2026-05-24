@@ -77,7 +77,7 @@ Uses JetBrains Mono for all text (monospace-first design).
 
 ### Prose Tokens
 
-Tailwind Typography plugin tokens for `prose-gruvbox` utility:
+Tailwind Typography plugin tokens for `prose-playground` utility:
 
 | Token                   | Value               |
 | ----------------------- | ------------------- |

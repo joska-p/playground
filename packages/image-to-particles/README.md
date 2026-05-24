@@ -20,7 +20,7 @@ export default function myParticles() {
 
 ## 🎯 Live Example
 
-See it in action at [joska-p.github.io/playground/particles/image-to-particles](https://playground-beryl-omega.vercel.app/particles/image-to-particles)
+See it in action at [https://jpotin.gitlab.io/playground/projects/image/particles/](https://jpotin.gitlab.io/playground/projects/image/particles/)
 
 ---
 
