@@ -1,24 +1,29 @@
 @layer base {
   :root {
-    --background: oklch(0.888 0.059 89.012);
-    --foreground: oklch(0.409 0.011 50.327);
-    --card: oklch(0.953 0.056 95.604);
-    --card-foreground: oklch(0.341 0.006 48.534);
-    --popover: oklch(0.96 0.042 99.947);
-    --popover-foreground: oklch(0.409 0.011 50.327);
-    --primary: oklch(0.46 0.079 214.349);
-    --primary-foreground: oklch(0.888 0.059 89.012);
-    --secondary: oklch(0.635 0.129 107.44);
-    --secondary-foreground: oklch(0.953 0.056 95.604);
-    --muted: oklch(0.888 0.059 89.012);
-    --muted-foreground: oklch(0.477 0.017 59.8);
-    --accent: oklch(0.59 0.111 351.672);
-    --accent-foreground: oklch(0.311 0.003 48.623);
-    --destructive: oklch(0.539 0.201 28.478);
-    --destructive-foreground: oklch(0.257 0.089 27.735);
-    --border: oklch(0.684 0.035 76.295);
-    --input: oklch(0.96 0.042 99.947);
-    --ring: oklch(0.787 0.172 68.864);
+    /* Darkened the light mode backgrounds for a cozier feel */
+    --background: oklch(0.82 0.05 89.012);
+    --card: oklch(0.86 0.045 95.604);
+    --popover: oklch(0.86 0.04 99.947);
+    --muted: oklch(0.76 0.04 89.012);
+    --input: oklch(0.86 0.04 99.947);
+
+    /* Significantly darkened foregrounds for strong contrast/lisability */
+    --foreground: oklch(0.28 0.015 50.327);
+    --card-foreground: oklch(0.28 0.015 48.534);
+    --popover-foreground: oklch(0.28 0.015 50.327);
+    --muted-foreground: oklch(0.35 0.015 59.8);
+
+    /* Adjusted primary/secondary elements for better pop against the darker bg */
+    --primary: oklch(0.4 0.085 214.349);
+    --primary-foreground: oklch(0.95 0.02 89.012);
+    --secondary: oklch(0.6 0.12 107.44);
+    --secondary-foreground: oklch(0.95 0.05 95.604);
+    --accent: oklch(0.55 0.111 351.672);
+    --accent-foreground: oklch(0.95 0.015 48.623);
+    --destructive: oklch(0.5 0.18 28.478);
+    --destructive-foreground: oklch(0.95 0.02 27.735);
+    --border: oklch(0.6 0.03 76.295);
+    --ring: oklch(0.7 0.15 68.864);
 
     --font-sans:
       ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -49,36 +54,40 @@
       0px 8px 10px -1px oklch(0.331 0.02 76.196 / 0.06);
     --shadow-2xl: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.15);
 
-    --category-generative: oklch(0.558 0.097 167.141);
-    --category-color: oklch(0.544 0.164 313.001);
-    --category-image: oklch(0.559 0.143 38.532);
-    --category-data-viz: oklch(0.551 0.099 234.793);
+    --category-generative: oklch(0.5 0.097 167.141);
+    --category-color: oklch(0.5 0.164 313.001);
+    --category-image: oklch(0.5 0.143 38.532);
+    --category-data-viz: oklch(0.5 0.099 234.793);
 
-    --category-tutorial: oklch(0.558 0.097 167.141);
-    --category-how-to: oklch(0.544 0.164 313.001);
-    --category-explanation: oklch(0.559 0.143 38.532);
-    --category-reference: oklch(0.619 0.128 237.422);
+    --category-tutorial: oklch(0.5 0.097 167.141);
+    --category-how-to: oklch(0.5 0.164 313.001);
+    --category-explanation: oklch(0.5 0.143 38.532);
+    --category-reference: oklch(0.55 0.128 237.422);
   }
 
   html[data-theme="dark"] {
-    --background: oklch(0.239 0.004 219.659);
-    --foreground: oklch(0.822 0.051 84.515);
-    --card: oklch(0.311 0.003 48.623);
-    --card-foreground: oklch(0.953 0.056 95.604);
-    --popover: oklch(0.27 0 0);
-    --popover-foreground: oklch(0.822 0.051 84.515);
-    --primary: oklch(0.691 0.04 169.812);
-    --primary-foreground: oklch(0.239 0.004 219.659);
-    --secondary: oklch(0.639 0.131 108.548);
-    --secondary-foreground: oklch(0.27 0 0);
-    --muted: oklch(0.341 0.006 48.534);
-    --muted-foreground: oklch(0.749 0.042 81.345);
-    --accent: oklch(0.59 0.111 351.672);
-    --accent-foreground: oklch(0.311 0.003 48.623);
-    --destructive: oklch(0.539 0.201 28.478);
-    --destructive-foreground: oklch(0.239 0.004 219.659);
-    --border: oklch(0.409 0.011 50.327);
-    --input: oklch(0.341 0.006 48.534);
+    /* Deepened backgrounds slightly for better depth */
+    --background: oklch(0.18 0.004 219.659);
+    --card: oklch(0.22 0.005 48.623);
+    --popover: oklch(0.22 0.005 48.623);
+    --muted: oklch(0.26 0.005 48.534);
+    --input: oklch(0.26 0.005 48.534);
+
+    /* Brightened foregrounds for improved lisability */
+    --foreground: oklch(0.9 0.02 84.515);
+    --card-foreground: oklch(0.9 0.02 95.604);
+    --popover-foreground: oklch(0.9 0.02 84.515);
+    --muted-foreground: oklch(0.78 0.02 81.345);
+
+    --primary: oklch(0.75 0.04 169.812);
+    --primary-foreground: oklch(0.18 0.004 219.659);
+    --secondary: oklch(0.68 0.131 108.548);
+    --secondary-foreground: oklch(0.18 0.004 219.659);
+    --accent: oklch(0.65 0.111 351.672);
+    --accent-foreground: oklch(0.18 0.004 219.659);
+    --destructive: oklch(0.6 0.201 28.478);
+    --destructive-foreground: oklch(0.18 0.004 219.659);
+    --border: oklch(0.32 0.01 50.327);
     --ring: oklch(0.862 0.135 84.271);
 
     --shadow-2xs: 0px 1px 2px 0px oklch(0 0 0 / 0.01);
@@ -90,15 +99,15 @@
     --shadow-xl: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 8px 10px -1px oklch(0 0 0 / 0.01);
     --shadow-2xl: 0px 1px 2px 0px oklch(0 0 0 / 0.03);
 
-    --category-generative: oklch(0.644 0.1 168.409);
-    --category-color: oklch(0.592 0.131 313.642);
-    --category-image: oklch(0.596 0.131 38.922);
-    --category-data-viz: oklch(0.635 0.103 233.501);
+    --category-generative: oklch(0.7 0.1 168.409);
+    --category-color: oklch(0.65 0.131 313.642);
+    --category-image: oklch(0.65 0.131 38.922);
+    --category-data-viz: oklch(0.7 0.103 233.501);
 
-    --category-tutorial: oklch(0.644 0.1 168.409);
-    --category-how-to: oklch(0.592 0.131 313.642);
-    --category-explanation: oklch(0.596 0.131 38.922);
-    --category-reference: oklch(0.635 0.103 233.501);
+    --category-tutorial: oklch(0.7 0.1 168.409);
+    --category-how-to: oklch(0.65 0.131 313.642);
+    --category-explanation: oklch(0.65 0.131 38.922);
+    --category-reference: oklch(0.7 0.103 233.501);
   }
 }
 
@@ -154,7 +163,7 @@
   --color-category-reference: var(--category-reference);
 }
 
-@utility prose-gruvbox {
+@utility prose-playground {
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
   --tw-prose-lead: var(--muted-foreground);
