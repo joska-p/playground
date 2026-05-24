@@ -9,67 +9,61 @@ const docsByCategory = await getDocsByCategory();
 ---
 
 <BaseLayout title="Documentation">
-
   <Hero
     badgeText="Documentation"
     title="Knowledge"
     highlight="Base"
     description="Manifesto, guides, and references for collaborators and contributors."
   />
-
-  <!-- ── CATEGORIES ────────────────────────────────────────────── -->
   <div class="mx-auto w-full max-w-5xl px-6 py-16 lg:py-20">
     <div class="space-y-16">
-      {docsByCategory.map((category) => (
-        <section id={category.id} class="scroll-mt-20">
-
-          <!-- Category header -->
-          <header class="mb-8 flex items-start gap-4">
-            <span
-              class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-card"
-              style={{ color: `var(--category-${category.id}, var(--primary))` }}
-            >
-              <category.Icon className="h-3.5 w-3.5" />
-            </span>
-            <div>
-              <div class="flex items-center gap-3 mb-1">
-                <h2
-                  class="text-xs font-bold tracking-[0.18em] uppercase m-0"
-                  style={{ color: `var(--category-${category.id}, var(--primary))` }}
-                >
-                  {category.label}
-                </h2>
-                <span class="h-px flex-1 bg-border" />
+      {
+        docsByCategory.map((category) => (
+          <section id={category.id} class="scroll-mt-20">
+            <header class="mb-8 flex items-start gap-4">
+              <span
+                class="border-border bg-card mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border"
+                style={{ color: `var(--category-${category.id}, var(--primary))` }}
+              >
+                <category.Icon className="h-3.5 w-3.5" />
+              </span>
+              <div>
+                <div class="mb-1 flex items-center gap-3">
+                  <h2
+                    class="m-0 text-xs font-bold tracking-[0.18em] uppercase"
+                    style={{ color: `var(--category-${category.id}, var(--primary))` }}
+                  >
+                    {category.label}
+                  </h2>
+                  <span class="bg-border h-px flex-1" />
+                </div>
+                {category.description && (
+                  <p class="text-muted-foreground max-w-2xl text-sm leading-relaxed">
+                    {category.description}
+                  </p>
+                )}
               </div>
-              {category.description && (
-                <p class="text-sm text-muted-foreground max-w-2xl leading-relaxed">
-                  {category.description}
-                </p>
-              )}
+            </header>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              {category.articles.map((doc) => {
+                const docUrl = `${docsBaseUrl}${doc.id}/`;
+                const categoryId = doc.data.category || "explanation";
+                return (
+                  <DocCard
+                    href={docUrl}
+                    title={doc.data.title}
+                    description={doc.data.description}
+                    type={categoryId}
+                  />
+                );
+              })}
             </div>
-          </header>
-
-          <!-- Cards -->
-          <div class="grid gap-4 sm:grid-cols-2">
-            {category.articles.map((doc) => {
-              const docUrl     = `${docsBaseUrl}${doc.id}/`;
-              const categoryId = doc.data.category || "explanation";
-              return (
-                <DocCard
-                  href={docUrl}
-                  title={doc.data.title}
-                  description={doc.data.description}
-                  type={categoryId}
-                />
-              );
-            })}
-          </div>
-
-        </section>
-      ))}
+          </section>
+        ))
+      }
     </div>
   </div>
-
 
   <Footer>
     <span slot="default">Crafted with creativity.</span>

@@ -18,11 +18,11 @@ const featuredDocs = await getFeaturedDocs();
   {
     featuredDocs.map((doc) => {
       const docUrl = `${docsBaseUrl}${doc.id}/`;
-      const firstTagId = doc.data.tags[0] || "explanation";
+      const categoryId = doc.data.category || "explanation";
       return (
         <DocCard
           href={docUrl}
-          type={firstTagId}
+          type={categoryId}
           title={doc.data.title}
           description={doc.data.description}
         />

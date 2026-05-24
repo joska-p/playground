@@ -2,6 +2,7 @@
 import { render, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/base-layout.astro";
 import Footer from "../../layouts/footer.astro";
+import Hero from "../../components/ui/features/hero.astro";
 
 export async function getStaticPaths() {
   const notes = await getCollection("notebook");
@@ -13,20 +14,27 @@ export async function getStaticPaths() {
 
 const { note } = Astro.props;
 const { Content } = await render(note);
+
+const date = new Date(note.data.date);
+const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+} as const;
+
+const formatedDate = date.toLocaleDateString("fr-FR", options);
 ---
 
 <BaseLayout title={note.data.title} katex={true}>
-  <div class="mx-auto max-w-4xl px-6 py-12">
-    <div class="text-muted-foreground mb-8 font-mono text-xs">
-      {
-        note.data.date.toLocaleDateString("fr-FR", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      }
-    </div>
+  <Hero
+    badgeText={formatedDate}
+    title={note.data.category}
+    highlight={note.data.title}
+    description={note.data.description}
+  />
 
+  <div class="mx-auto max-w-4xl px-6 py-12">
     <article class="prose prose-playground">
       <Content />
     </article>

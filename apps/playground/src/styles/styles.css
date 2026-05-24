@@ -21,3 +21,25 @@
 @theme inline {
   --font-sans: var(--font-jetbrains-mono);
 }
+
+@layer components {
+  .dot-grid {
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+  }
+
+  .cursor {
+    animation: blink 1.1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}
