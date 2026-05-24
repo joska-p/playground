@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/base-layout.astro";
 import Card from "../components/ui/card/index.astro";
+import ExperimentCard from "../components/ui/cards/ExperimentCard.astro";
+import DocCard from "../components/ui/cards/DocCard.astro";
 import SectionHeader from "../components/ui/section-header/index.astro";
 import FooterLinks from "../components/ui/footer-links/index.astro";
 import { getFeaturedProjects } from "../data/projects";
@@ -128,8 +130,7 @@ const featuredDocs = await getFeaturedDocs();
       <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           featuredProjects.map((project) => (
-            <Card
-              variant="experiment"
+            <ExperimentCard
               href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
               title={project.name}
               description={project.description}
@@ -158,8 +159,7 @@ const featuredDocs = await getFeaturedDocs();
               const docUrl = `${docsBaseUrl}${doc.id}/`;
               const firstTagId = doc.data.tags[0] || "explanation";
               return (
-                <Card
-                  variant="doc"
+                <DocCard
                   href={docUrl}
                   type={firstTagId}
                   title={doc.data.title}

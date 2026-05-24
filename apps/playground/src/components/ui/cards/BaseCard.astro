@@ -1,0 +1,42 @@
+---
+interface Props {
+  href: string;
+  cat: string;
+  variant: "doc" | "experiment";
+  className?: string;
+}
+
+const { href, cat, variant, className } = Astro.props;
+---
+
+<a
+  href={href}
+  data-variant={variant}
+  class:list={[
+    "group border-border relative flex flex-col overflow-hidden rounded-[10px] border",
+    "bg-card bg-[repeating-linear-gradient(135deg,color-mix(in_srgb,var(--cat)_3%,transparent)_0px,color-mix(in_srgb,var(--cat)_3%,transparent)_1px,transparent_1px,transparent_14px),radial-gradient(circle,color-mix(in_srgb,var(--cat)_4%,transparent)_1px,transparent_1px)]",
+    "transition-all duration-200 hover:-translate-y-0.5",
+    "hover:border-[color-mix(in_srgb,var(--cat)_35%,var(--border))] hover:shadow-[0_6px_24px_color-mix(in_srgb,var(--cat)_14%,transparent)]",
+    "focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none",
+    className,
+  ]}
+  style={{ "--cat": cat }}
+>
+  <slot />
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="13"
+    height="13"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="text-primary absolute right-3 bottom-3 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+    aria-hidden="true"
+  >
+    <path d="M7 7h10v10"></path><path d="M7 17 17 7"></path>
+  </svg>
+</a>
