@@ -6,26 +6,52 @@ import "../styles/styles.css";
 
 const baseUrl = import.meta.env.BASE_URL || "";
 
-const { title, katex = false } = Astro.props;
-const siteTitle = title ? `${title} — Playground` : "Playground";
+const {
+  title,
+  description = "Un playground technique et créatif : art génératif, mathématiques, visualisation de données et tutoriels frontend.",
+  keywords = "Art Génératif, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathématiques, Frontend",
+  ogImage = `${baseUrl}default-og-image.jpg`, // Une image par défaut à la racine de votre dossier public
+  katex = false,
+} = Astro.props;
+
+const siteTitle = title ? `${title} — Playground` : "Playground — Art Génératif & Dev Notes";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en" data-theme="dark">
   <head>
-    <Font cssVariable="--font-jetbrains-mono" />
-    {katex && <link rel="stylesheet" href={`${baseUrl}katex.css`} />}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.svg`} />
-    <link rel="sitemap" href={`${baseUrl}/sitemap-index.xml`} />
+    <link rel="sitemap" href={`${baseUrl}sitemap-index.xml`} />
     <meta name="generator" content={Astro.generator} />
+
     <title>{siteTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="author" content="Votre Nom / Pseudo" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={siteTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <Font cssVariable="--font-jetbrains-mono" />
+    {katex && <link rel="stylesheet" href={`${baseUrl}katex.css`} />}
   </head>
   <body
     class="bg-background text-foreground grid min-h-dvh grid-cols-1 grid-rows-[auto_1fr] antialiased"
   >
     <Navbar />
-    <main class="flex flex-col overflow-hidden">
+    <main class="relative flex flex-col overflow-hidden">
       <slot />
     </main>
   </body>

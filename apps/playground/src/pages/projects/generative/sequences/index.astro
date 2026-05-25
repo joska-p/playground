@@ -3,12 +3,22 @@ import { SequenceRenderer } from "@repo/sequence-renderer";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
+import Hero from "../../../../components/ui/features/hero.astro";
 
-const title = projects["sequences"]?.name ?? "Sequence Renderer";
+const project = projects["sequences"];
+const keywords = `${project["tags"].join(", ")}`;
 ---
 
-<BaseLayout title={title}>
-  <StrictMode>
-    <SequenceRenderer client:only="react" />
-  </StrictMode>
+<BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>
+  <Hero
+    badgeText={keywords}
+    title={project["name"]}
+    highlight={project["category"]}
+    description={project["description"]}
+  />
+  <div class="min-h-screen">
+    <StrictMode>
+      <SequenceRenderer client:only="react" />
+    </StrictMode>
+  </div>
 </BaseLayout>

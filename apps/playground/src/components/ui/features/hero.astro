@@ -5,6 +5,7 @@ interface Props {
   title?: string;
   highlight?: string;
   description?: string;
+  className?: string; // Added to allow safe layout overrides per-page
 }
 
 const {
@@ -12,44 +13,73 @@ const {
   title = "Creative",
   highlight = "Playground",
   description = "A high-performance lab for interactive visualizations, math sequences, and color tools. Built to experiment without limits.",
+  className = "",
 } = Astro.props;
 ---
 
 <section
-  class="hero border-border relative flex flex-col justify-end overflow-hidden border-b px-6 py-24 lg:py-32"
+  class:list={[
+    "border-border relative flex min-h-[65vh] flex-col justify-center overflow-hidden border-b px-6 py-20 md:py-32",
+    className,
+  ]}
 >
-  <div class="dot-grid absolute inset-0 z-0" aria-hidden="true"></div>
+  <div class="dot-grid absolute inset-0 z-0 opacity-50" aria-hidden="true"></div>
+
   <div
-    class="bg-primary absolute bottom-0 -left-32 z-0 h-112 w-md rounded-full opacity-[0.07] blur-3xl"
+    class="bg-primary absolute -bottom-24 -left-32 z-0 h-96 w-96 rounded-full opacity-[0.08] blur-[100px]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="absolute -top-24 -right-32 z-0 h-96 w-96 rounded-full bg-indigo-500 opacity-[0.04] blur-[100px]"
     aria-hidden="true"
   >
   </div>
 
   <div class="relative z-10 mx-auto w-full max-w-6xl">
-    <div
-      class="border-primary/20 bg-primary/6 text-primary mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase"
-    >
-      <span class="live-dot relative flex h-1.5 w-1.5">
-        <span class="ping bg-primary absolute inline-flex h-full w-full rounded-full opacity-60"
-        ></span>
-        <span class="bg-primary relative inline-flex h-1.5 w-1.5 rounded-full"></span>
-      </span>
-      {badgeText}
-    </div>
+    {
+      badgeText && (
+        <div class="border-primary/20 bg-primary/5 text-primary mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase backdrop-blur-sm">
+          {badgeText}
+        </div>
+      )
+    }
 
     <h1
-      class="text-foreground text-[clamp(3rem,8vw,6rem)] leading-[0.93] font-black tracking-tight"
+      class="text-foreground text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.05] font-black tracking-tight sm:leading-[0.95]"
     >
       {title}<br />
-      <span class="text-primary">{highlight}<span class="cursor">_</span></span>
+      <span class="from-primary to-primary/70 bg-linear-to-r bg-clip-text text-transparent">
+        {highlight}<span class="text-primary cursor ml-1 font-light">_</span>
+      </span>
     </h1>
 
-    <p class="text-muted-foreground mt-7 max-w-lg text-base leading-relaxed">
-      {description}
-    </p>
+    {
+      description && (
+        <p class="text-muted-foreground mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
+          {description}
+        </p>
+      )
+    }
 
-    <div class="mt-10 flex flex-wrap items-center gap-4">
-      <slot name="cta" />
-    </div>
+    {
+      Astro.slots.has("cta") && (
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <slot name="cta" />
+        </div>
+      )
+    }
   </div>
 </section>
+
+<style>
+  /* Fallback template if your global CSS doesn't have a dot-grid background class defined */
+  .dot-grid {
+    background-image: radial-gradient(
+      rgba(var(--primary-rgb, 120, 119, 198), 0.15) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+</style>

@@ -3,12 +3,23 @@ import { PaletteGenerator } from "@repo/palette-generator";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
+import Hero from "../../../../components/ui/features/hero.astro";
 
-const title = projects["palettes"]?.name ?? "Palettes Generator";
+const project = projects["palettes"];
+const keywords = `${project["tags"].join(", ")}`;
 ---
 
-<BaseLayout title={title}>
-  <StrictMode>
-    <PaletteGenerator client:only="react" />
-  </StrictMode>
+<BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>
+  <Hero
+    badgeText={keywords}
+    title={project["name"]}
+    highlight={project["category"]}
+    description={project["description"]}
+  />
+
+  <div class="min-h-screen">
+    <StrictMode>
+      <PaletteGenerator client:only="react" />
+    </StrictMode>
+  </div>
 </BaseLayout>

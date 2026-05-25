@@ -3,12 +3,22 @@ import { GraphViz } from "@repo/graph-viz";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/base-layout.astro";
 import { projects } from "../../../../data/projects";
+import Hero from "../../../../components/ui/features/hero.astro";
 
-const title = projects["Knowledge Graph"]?.name ?? "Knowledge Graph";
+const project = projects["graphify"];
+const keywords = `${project["tags"].join(", ")}, data viz, pie chart`;
 ---
 
-<BaseLayout title={title}>
-      <StrictMode>
-        <GraphViz client:only="react" />
-      </StrictMode>
+<BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>
+  <Hero
+    badgeText={keywords}
+    title={project["name"]}
+    highlight={project["category"]}
+    description={project["description"]}
+  />
+  <div class="min-h-full">
+    <StrictMode>
+      <GraphViz client:only="react" />
+    </StrictMode>
+  </div>
 </BaseLayout>
