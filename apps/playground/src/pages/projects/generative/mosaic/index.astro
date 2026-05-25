@@ -6,7 +6,7 @@ import { projects } from "../../../../data/projects";
 import Hero from "../../../../components/ui/features/hero.astro";
 
 const project = projects["mosaic"];
-const keywords = `${project["tags"].join(", ")}, art génératif, css grid`;
+const keywords = `${project["tags"].join(", ")}`;
 ---
 
 <BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>

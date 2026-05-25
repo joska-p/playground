@@ -8,13 +8,13 @@ const baseUrl = import.meta.env.BASE_URL || "";
 
 const {
   title,
-  description = "Un playground technique et créatif : art génératif, mathématiques, visualisation de données et tutoriels frontend.",
-  keywords = "Art Génératif, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathématiques, Frontend",
+  description = "A creative and technical playground: generative art, mathematics, data visualization, and frontend tutorials.",
+  keywords = "Generative Art, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathematics, Frontend",
   ogImage = `${baseUrl}default-og-image.jpg`, // Une image par défaut à la racine de votre dossier public
   katex = false,
 } = Astro.props;
 
-const siteTitle = title ? `${title} — Playground` : "Playground — Art Génératif & Dev Notes";
+const siteTitle = title ? `${title} — Playground` : "Playground — Generative Art & Dev Notes";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 

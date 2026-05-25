@@ -5,7 +5,7 @@ import { projects } from "../../../../data/projects";
 import Hero from "../../../../components/ui/features/hero.astro";
 
 const project = projects["piechart"];
-const keywords = `${project["tags"].join(", ")}, data viz, pie chart`;
+const keywords = `${project["tags"].join(", ")}`;
 ---
 
 <BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>
