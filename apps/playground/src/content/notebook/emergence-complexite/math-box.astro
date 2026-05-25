@@ -8,14 +8,12 @@ const { label } = Astro.props;
 <div class="bg-card border-primary/40 relative mx-auto my-10 max-w-lg rounded-lg border shadow-md">
   {
     label && (
-      <div class="bg-background text-primary border-border absolute -top-2.5 left-5 rounded border px-2 font-mono text-[0.68rem] font-semibold tracking-widest uppercase">
+      <div class="bg-background text-primary border-border absolute -top-2.5 left-5 rounded border px-2 font-mono text-sm font-semibold tracking-widest uppercase">
         {label}
       </div>
     )
   }
-  <div
-    class="text-foreground px-10 py-7 text-center font-serif text-[1.85rem] leading-snug tracking-tight"
-  >
+  <div class="text-foreground px-10 py-7 text-center text-2xl leading-snug tracking-tight">
     <slot />
   </div>
 </div>

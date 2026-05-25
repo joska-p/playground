@@ -8,18 +8,18 @@ import "./common-animations.css";
 >
   <canvas id="hero-canvas" class="absolute inset-0 h-full w-full"></canvas>
   <div class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3">
-    <div class="flex items-center gap-1.5 font-serif text-[clamp(1.4rem,5vw,2.4rem)]">
+    <div class="flex items-center gap-1.5">
       <span class="text-category-tutorial font-bold">ℕ</span>
-      <span class="text-muted-foreground mx-1 text-[0.8em]">⊂</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
       <span class="text-category-how-to font-bold">ℤ</span>
-      <span class="text-muted-foreground mx-1 text-[0.8em]">⊂</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
       <span class="text-category-explanation font-bold">ℚ</span>
-      <span class="text-muted-foreground mx-1 text-[0.8em]">⊂</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
       <span class="text-category-data-viz font-bold">ℝ</span>
-      <span class="text-muted-foreground mx-1 text-[0.8em]">⊂</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
       <span class="text-primary font-bold">ℂ</span>
     </div>
-    <p class="text-muted-foreground m-0 font-sans text-[0.8rem] tracking-[0.12em] uppercase">
+    <p class="text-muted-foreground m-0 font-sans text-sm uppercase">
       A walk from one brick to infinite dimensions
     </p>
   </div>
@@ -48,7 +48,8 @@ import "./common-animations.css";
 
   let frame = 0;
   function draw() {
-    const w = canvas.offsetWidth, h = canvas.offsetHeight;
+    const w = canvas.offsetWidth,
+      h = canvas.offsetHeight;
     ctx.clearRect(0, 0, w, h);
 
     const style = getComputedStyle(document.documentElement);
@@ -59,7 +60,8 @@ import "./common-animations.css";
     ctx.lineWidth = 0.5;
     ctx.strokeStyle = `oklch(${border} / 0.4)`;
     const step = 40;
-    const cx = w / 2, cy = h / 2;
+    const cx = w / 2,
+      cy = h / 2;
     for (let x = cx % step; x < w; x += step) {
       ctx.beginPath();
       ctx.moveTo(x, 0);

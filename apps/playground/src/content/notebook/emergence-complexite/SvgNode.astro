@@ -5,12 +5,8 @@ interface Props {
   label: string;
   subtitle?: string;
   r?: number;
-  stroke?: string;
-  labelSize?: number;
-  subtitleSize?: number;
   class?: string;
-  labelY?: number;
-  subtitleY?: number;
+  stroke?: string;
 }
 const {
   cx,
@@ -18,38 +14,21 @@ const {
   label,
   subtitle,
   r = 26,
-  stroke = "var(--primary)",
-  labelSize = 22,
-  subtitleSize = 10,
   class: className,
-  labelY,
-  subtitleY,
+  stroke = "var(--primary)",
 } = Astro.props;
-
-const labelYPos = labelY ?? cy + labelSize * 0.35;
-const subtitleYPos = subtitleY ?? cy + r + subtitleSize + 6;
 ---
 
 <g class={className}>
-  <circle cx={cx} cy={cy} r={r} fill="var(--card)" stroke={stroke} stroke-width="2" />
-  <text
-    x={cx}
-    y={labelYPos}
-    text-anchor="middle"
-    font-family="Georgia,serif"
-    font-size={labelSize}
-    font-weight="bold"
-    fill={stroke}
-  >{label}</text>
-  {subtitle && (
-    <text
-      x={cx}
-      y={subtitleYPos}
-      text-anchor="middle"
-      font-family="Georgia,serif"
-      font-size={subtitleSize}
-      fill="var(--muted-foreground)"
-      letter-spacing="0.5"
-    >{subtitle}</text>
-  )}
+  <circle cx={cx} cy={cy} r={r} fill="var(--card)" stroke={stroke} stroke-width="2"></circle>
+  <text x={cx} y={cy} dy=".35em" text-anchor="middle" class="text-2xl font-bold" fill={stroke}
+    >{label}</text
+  >
+  {
+    subtitle && (
+      <text x={cx} y={cy + r + 14} text-anchor="middle" class="fill-muted-foreground text-sm">
+        {subtitle}
+      </text>
+    )
+  }
 </g>

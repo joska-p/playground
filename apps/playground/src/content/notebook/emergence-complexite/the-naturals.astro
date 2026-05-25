@@ -4,49 +4,105 @@ import "./common-animations.css";
 import SvgNode from "./SvgNode.astro";
 
 const nodes = [
-  { cx: 56, cy: 100, label: "1", subtitle: "first", cls: "nat-n1", opacity: 1, sw: 2 },
-  { cx: 136, cy: 100, label: "2", cls: "nat-n2", opacity: 0.9, sw: 1.5 },
-  { cx: 216, cy: 100, label: "3", cls: "nat-n3", opacity: 0.8, sw: 1.5 },
-  { cx: 296, cy: 100, label: "4", cls: "nat-n4", opacity: 0.7, sw: 1.5 },
-  { cx: 376, cy: 100, label: "5", cls: "nat-n5", opacity: 0.6, sw: 1.5 },
-  { cx: 456, cy: 100, label: "6", cls: "nat-n6", opacity: 0.45, sw: 1.5 },
+  { cx: 80, cy: 100, label: "1", subtitle: "first", cls: "nat-n1", opacity: 1, sw: 2 },
+  { cx: 176, cy: 100, label: "2", cls: "nat-n2", opacity: 0.9, sw: 1.5 },
+  { cx: 272, cy: 100, label: "3", cls: "nat-n3", opacity: 0.8, sw: 1.5 },
+  { cx: 368, cy: 100, label: "4", cls: "nat-n4", opacity: 0.7, sw: 1.5 },
+  { cx: 464, cy: 100, label: "5", cls: "nat-n5", opacity: 0.6, sw: 1.5 },
+  { cx: 560, cy: 100, label: "6", cls: "nat-n6", opacity: 0.45, sw: 1.5 },
 ];
 ---
 
 <Figure className="flex flex-col items-center">
-  <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
+  <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-3xl">
     <style>
-      .nat-rail { animation: scale-x 1s 0.1s ease-out both; transform-origin: 0px 100px; }
-      .nat-n1 { animation: pop-in 0.4s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 56px 100px; }
-      .nat-n2 { animation: pop-in 0.4s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 136px 100px; }
-      .nat-n3 { animation: pop-in 0.4s 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 216px 100px; }
-      .nat-n4 { animation: pop-in 0.4s 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 296px 100px; }
-      .nat-n5 { animation: pop-in 0.4s 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 376px 100px; }
-      .nat-n6 { animation: pop-in 0.4s 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 456px 100px; }
-      .nat-dots { animation: pop-in 0.4s 1.05s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 514px 100px; }
+      .nat-rail {
+        animation: scale-x 1s 0.1s ease-out both;
+        transform-origin: 0px 100px;
+      }
+      .nat-n1 {
+        animation: pop-in 0.4s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 80px 100px;
+      }
+      .nat-n2 {
+        animation: pop-in 0.4s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 176px 100px;
+      }
+      .nat-n3 {
+        animation: pop-in 0.4s 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 272px 100px;
+      }
+      .nat-n4 {
+        animation: pop-in 0.4s 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 368px 100px;
+      }
+      .nat-n5 {
+        animation: pop-in 0.4s 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 464px 100px;
+      }
+      .nat-n6 {
+        animation: pop-in 0.4s 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 560px 100px;
+      }
+      .nat-dots {
+        animation: pop-in 0.4s 1.05s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 630px 100px;
+      }
     </style>
 
-    <line x1="20" y1="100" x2="540" y2="100" stroke="var(--border)" stroke-width="1.5" class="nat-rail"></line>
+    <line
+      x1="30"
+      y1="100"
+      x2="660"
+      y2="100"
+      class="stroke-border"
+      stroke-width="1.5"
+      class="nat-rail"></line>
 
-    {nodes.map((n, i) => (
-      <g class={n.cls}>
-        {i === 0 ? (
-          <SvgNode cx={n.cx} cy={n.cy} label={n.label} subtitle={n.subtitle} class={n.cls} r={26} labelSize={22} />
-        ) : (
-          <>
-            <circle cx={n.cx} cy={n.cy} r={26} fill="var(--card)" stroke="var(--primary)" stroke-width={n.sw} opacity={n.opacity} />
-            <text x={n.cx} y={n.cy + 7} text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="var(--primary)">{n.label}</text>
-          </>
-        )}
-      </g>
-    ))}
+    {
+      nodes.map((n, i) => (
+        <g class={n.cls}>
+          {i === 0 ? (
+            <SvgNode cx={n.cx} cy={n.cy} label={n.label} subtitle={n.subtitle} r={26} />
+          ) : (
+            <>
+              <circle
+                cx={n.cx}
+                cy={n.cy}
+                r="26"
+                fill="var(--card)"
+                class="stroke-primary"
+                stroke-width={n.sw}
+                opacity={n.opacity}
+              />
+              <text
+                x={n.cx}
+                y={n.cy}
+                dy=".35em"
+                text-anchor="middle"
+                class="fill-primary text-2xl font-bold"
+                opacity={n.opacity}
+              >
+                {n.label}
+              </text>
+            </>
+          )}
+        </g>
+      ))
+    }
 
     <g class="nat-dots">
-      <text x="514" y="109" font-family="Georgia,serif" font-size="28" fill="var(--primary)" opacity="0.35">…</text>
-      <text x="514" y="144" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" opacity="0.6">∞</text>
+      <text x="628" y="108" class="fill-primary/35 text-3xl">…</text>
+      <text x="628" y="144" text-anchor="middle" class="fill-muted-foreground/60 text-sm">∞</text>
     </g>
 
-    <text x="280" y="175" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-style="italic" fill="var(--muted-foreground)" letter-spacing="1">
+    <text
+      x="345"
+      y="180"
+      text-anchor="middle"
+      class="fill-muted-foreground text-base italic"
+      letter-spacing="1"
+    >
       ℕ = {"{ "}1, 2, 3, 4, 5, …{"}"}
     </text>
   </svg>

@@ -7,10 +7,10 @@ import "./common-animations.css";
   class="bg-card border-border my-8 rounded-lg border px-4 pt-5 pb-3 font-sans"
 >
   <div class="mb-3 flex items-baseline justify-between">
-    <div class="text-muted-foreground text-[0.75rem] font-semibold tracking-[0.08em] uppercase">
+    <div class="text-muted-foreground text-sm font-semibold tracking-[0.08em] uppercase">
       Linear vs Logarithmic Growth
     </div>
-    <div class="text-muted-foreground flex items-center gap-3 text-[0.72rem]">
+    <div class="text-muted-foreground flex items-center gap-3">
       <span class="flex items-center gap-1.5">
         <span class="bg-category-explanation inline-block h-2 w-2 rounded-full"></span>
         Linear
@@ -55,11 +55,16 @@ import "./common-animations.css";
     const colorLog = style.getPropertyValue("--category-tutorial").trim();
     const mutedFg = style.getPropertyValue("--muted-foreground").trim();
 
-    const w = canvas.offsetWidth, h = 240;
+    const w = canvas.offsetWidth,
+      h = 240;
     ctx.clearRect(0, 0, w, h);
 
-    const pL = 44, pR = 20, pT = 16, pB = 32;
-    const cW = w - pL - pR, cH = h - pT - pB;
+    const pL = 44,
+      pR = 20,
+      pT = 16,
+      pB = 32;
+    const cW = w - pL - pR,
+      cH = h - pT - pB;
     const N = 120;
 
     ctx.strokeStyle = `oklch(${border} / 0.4)`;
@@ -125,5 +130,7 @@ import "./common-animations.css";
     }
   }
 
-  observeOnce(canvas, () => { if (progress === 0) animate(); });
+  observeOnce(canvas, () => {
+    if (progress === 0) animate();
+  });
 </script>

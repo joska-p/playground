@@ -4,62 +4,106 @@ import "./common-animations.css";
 ---
 
 <Figure className="flex flex-col items-center">
-  <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
+  <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-3xl">
     <style>
-      .log-axis { animation: fade-in 0.5s 0.1s ease-out both; }
-      .log-exp-curve { stroke-dasharray: 900; animation: draw-exp 1.2s 0.4s ease-out both; }
-      .log-log-curve { stroke-dasharray: 600; animation: draw-log 1.2s 0.9s ease-out both; }
-      @keyframes draw-exp { from { stroke-dashoffset: 900; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
-      @keyframes draw-log { from { stroke-dashoffset: 600; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
-      .log-labels { animation: fade-in 0.4s 1.6s ease-out both; }
-      .log-key { animation: fade-in 0.4s 1.8s ease-out both; }
+      .log-axis {
+        animation: fade-in 0.5s 0.1s ease-out both;
+      }
+      .log-exp-curve {
+        stroke-dasharray: 900;
+        animation: draw-exp 1.2s 0.4s ease-out both;
+      }
+      .log-log-curve {
+        stroke-dasharray: 600;
+        animation: draw-log 1.2s 0.9s ease-out both;
+      }
+      @keyframes draw-exp {
+        from {
+          stroke-dashoffset: 900;
+          opacity: 0;
+        }
+        to {
+          stroke-dashoffset: 0;
+          opacity: 1;
+        }
+      }
+      @keyframes draw-log {
+        from {
+          stroke-dashoffset: 600;
+          opacity: 0;
+        }
+        to {
+          stroke-dashoffset: 0;
+          opacity: 1;
+        }
+      }
+      .log-labels {
+        animation: fade-in 0.4s 1.6s ease-out both;
+      }
+      .log-key {
+        animation: fade-in 0.4s 1.8s ease-out both;
+      }
     </style>
 
-    <g class="log-axis" stroke="var(--border)" stroke-width="1.5">
-      <line x1="70" y1="15" x2="70" y2="195"></line>
-      <polygon points="66,15 74,15 70,8" fill="var(--border)"></polygon>
-      <line x1="70" y1="195" x2="525" y2="195"></line>
-      <polygon points="525,191 525,199 532,195" fill="var(--border)"></polygon>
+    <g class="log-axis stroke-border" stroke-width="1.5">
+      <line x1="80" y1="15" x2="80" y2="205"></line>
+      <polygon points="76,15 84,15 80,8" class="fill-border"></polygon>
+      <line x1="80" y1="205" x2="580" y2="205"></line>
+      <polygon points="580,201 580,209 592,205" class="fill-border"></polygon>
     </g>
 
-    <g stroke="var(--border)" stroke-width="0.5" opacity="0.25" class="log-axis">
-      <line x1="70" y1="50" x2="525" y2="50"></line>
-      <line x1="70" y1="100" x2="525" y2="100"></line>
-      <line x1="70" y1="150" x2="525" y2="150"></line>
-      <line x1="157" y1="15" x2="157" y2="195"></line>
-      <line x1="244" y1="15" x2="244" y2="195"></line>
-      <line x1="331" y1="15" x2="331" y2="195"></line>
-      <line x1="418" y1="15" x2="418" y2="195"></line>
-      <line x1="505" y1="15" x2="505" y2="195"></line>
+    <g class="stroke-border/25 log-axis" stroke-width="0.5">
+      <line x1="80" y1="55" x2="580" y2="55"></line>
+      <line x1="80" y1="105" x2="580" y2="105"></line>
+      <line x1="80" y1="155" x2="580" y2="155"></line>
+      <line x1="180" y1="15" x2="180" y2="205"></line>
+      <line x1="280" y1="15" x2="280" y2="205"></line>
+      <line x1="380" y1="15" x2="380" y2="205"></line>
+      <line x1="480" y1="15" x2="480" y2="205"></line>
+      <line x1="580" y1="15" x2="580" y2="205"></line>
     </g>
 
-    <g font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" text-anchor="middle" class="log-axis">
-      <text x="157" y="209">1</text>
-      <text x="244" y="209">2</text>
-      <text x="331" y="209">3</text>
-      <text x="418" y="209">4</text>
-      <text x="505" y="209">5</text>
-      <text x="300" y="224">x</text>
+    <g class="fill-muted-foreground text-anchor-middle log-axis text-sm">
+      <text x="180" y="222">1</text>
+      <text x="280" y="222">2</text>
+      <text x="380" y="222">3</text>
+      <text x="480" y="222">4</text>
+      <text x="580" y="222">5</text>
+      <text x="330" y="240">x</text>
     </g>
 
-    <path d="M70,194 C100,193 157,192 244,186 S370,155 418,130 L505,15" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" class="log-exp-curve"></path>
-    <path d="M70,195 C100,165 157,125 244,85 S380,45 505,15" fill="none" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round" class="log-log-curve"></path>
+    <path
+      d="M80,204 C115,203 180,202 280,196 S420,165 480,140 L580,15"
+      fill="none"
+      class="log-exp-curve stroke-accent"
+      stroke-width="2.5"
+      stroke-linecap="round"></path>
+    <path
+      d="M80,205 C115,175 180,135 280,95 S420,55 580,15"
+      fill="none"
+      class="log-log-curve stroke-secondary"
+      stroke-width="2.5"
+      stroke-linecap="round"></path>
 
     <g class="log-labels">
-      <text x="390" y="105" font-family="Georgia,serif" font-size="12" fill="var(--accent)" font-style="italic">eˣ</text>
-      <text x="455" y="52" font-family="Georgia,serif" font-size="12" fill="var(--secondary)" font-style="italic">log(x)</text>
+      <text x="440" y="110" class="fill-accent text-base italic">eˣ</text>
+      <text x="520" y="55" class="fill-secondary text-base italic">log(x)</text>
     </g>
 
     <g class="log-key">
-      <rect x="74" y="22" width="10" height="3" rx="1.5" fill="var(--accent)"></rect>
-      <text x="90" y="28" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)">exponential — grows unbounded</text>
-      <rect x="74" y="36" width="10" height="3" rx="1.5" fill="var(--secondary)"></rect>
-      <text x="90" y="42" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)">logarithm — tames the explosion</text>
+      <rect x="84" y="24" width="12" height="4" rx="2" class="fill-accent"></rect>
+      <text x="102" y="30" class="fill-muted-foreground text-sm">exponential — grows unbounded</text
+      >
+      <rect x="84" y="40" width="12" height="4" rx="2" class="fill-secondary"></rect>
+      <text x="102" y="46" class="fill-muted-foreground text-sm"
+        >logarithm — tames the explosion</text
+      >
     </g>
 
     <g class="log-labels">
-      <circle cx="505" cy="15" r="4" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.5"></circle>
-      <text x="400" y="16" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" opacity="0.7">same value at x = 5</text>
+      <circle cx="580" cy="15" r="4" fill="none" class="stroke-primary/50" stroke-width="1.5"
+      ></circle>
+      <text x="460" y="14" class="fill-muted-foreground/70 text-sm">same value at x = 5</text>
     </g>
   </svg>
 </Figure>

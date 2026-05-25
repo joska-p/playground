@@ -13,19 +13,39 @@ import "./common-animations.css";
   <div class="flex flex-col gap-2">
     {
       [
-        { from: "1", to: "i", fromCls: "text-[color:var(--category-tutorial)]", toCls: "text-[color:var(--category-how-to)]" },
-        { from: "i", to: "−1", fromCls: "text-[color:var(--category-how-to)]", toCls: "text-[color:var(--category-explanation)]" },
-        { from: "−1", to: "−i", fromCls: "text-[color:var(--category-explanation)]", toCls: "text-[color:var(--category-data-viz)]" },
-        { from: "−i", to: "1", fromCls: "text-[color:var(--category-data-viz)]", toCls: "text-[color:var(--category-tutorial)]" },
+        {
+          from: "1",
+          to: "i",
+          fromCls: "text-[color:var(--category-tutorial)]",
+          toCls: "text-[color:var(--category-how-to)]",
+        },
+        {
+          from: "i",
+          to: "−1",
+          fromCls: "text-[color:var(--category-how-to)]",
+          toCls: "text-[color:var(--category-explanation)]",
+        },
+        {
+          from: "−1",
+          to: "−i",
+          fromCls: "text-[color:var(--category-explanation)]",
+          toCls: "text-[color:var(--category-data-viz)]",
+        },
+        {
+          from: "−i",
+          to: "1",
+          fromCls: "text-[color:var(--category-data-viz)]",
+          toCls: "text-[color:var(--category-tutorial)]",
+        },
       ].map(({ from, to, fromCls, toCls }, i) => (
         <div
-          class="rot-step border-border bg-card flex items-center gap-2 rounded-md border px-4 py-2.5 font-serif transition-colors duration-200"
+          class="rot-step border-border bg-card flex items-center gap-2 rounded-md border px-4 py-2.5 transition-colors duration-200"
           data-step={i}
         >
           <span class={`w-7 text-center text-lg font-bold ${fromCls}`}>{from}</span>
-          <span class="text-muted-foreground font-mono text-[0.72rem]">×i</span>
+          <span class="text-muted-foreground font-mono">×i</span>
           <span class={`w-7 text-center text-lg font-bold ${toCls}`}>{to}</span>
-          <span class="text-primary ml-auto pl-3 font-mono text-[0.68rem]">+90°</span>
+          <span class="text-primary ml-auto pl-3 font-mono text-sm">+90°</span>
         </div>
       ))
     }
@@ -49,7 +69,12 @@ import "./common-animations.css";
 
   const angles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
   const labels = ["1", "i", "−1", "−i"];
-  const colorVars = ["--category-tutorial", "--category-how-to", "--category-explanation", "--category-data-viz"];
+  const colorVars = [
+    "--category-tutorial",
+    "--category-how-to",
+    "--category-explanation",
+    "--category-data-viz",
+  ];
 
   let phase = 0;
 
@@ -61,7 +86,8 @@ import "./common-animations.css";
 
     const size = canvas.offsetWidth;
     ctx.clearRect(0, 0, size, size);
-    const cx = size / 2, cy = size / 2;
+    const cx = size / 2,
+      cy = size / 2;
     const radius = size * 0.33;
 
     ctx.strokeStyle = `oklch(${border} / 0.45)`;

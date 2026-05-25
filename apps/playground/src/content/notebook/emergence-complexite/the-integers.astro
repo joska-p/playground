@@ -4,79 +4,192 @@ import "./common-animations.css";
 ---
 
 <Figure className="flex flex-col items-center">
-  <svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
+  <svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-3xl">
     <style>
-      .int-axis { animation: scale-x 1s 0.1s ease-out both; transform-origin: 280px 90px; }
-      .int-neg { animation: fade-up 0.5s ease-out both; }
-      .int-neg-5 { animation-delay: 0.15s; }
-      .int-neg-4 { animation-delay: 0.25s; }
-      .int-neg-3 { animation-delay: 0.35s; }
-      .int-neg-2 { animation-delay: 0.45s; }
-      .int-neg-1 { animation-delay: 0.55s; }
-      .int-zero { animation: pop-in 0.6s 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 280px 90px; }
-      .int-pos { animation: fade-up 0.5s ease-out both; }
-      .int-pos-1 { animation-delay: 0.75s; }
-      .int-pos-2 { animation-delay: 0.85s; }
-      .int-pos-3 { animation-delay: 0.95s; }
-      .int-pos-4 { animation-delay: 1.05s; }
-      .int-pos-5 { animation-delay: 1.15s; }
-      .int-arrows { animation: fade-up 0.5s 1.3s ease-out both; }
+      .int-axis {
+        animation: scale-x 1s 0.1s ease-out both;
+        transform-origin: 320px 90px;
+      }
+      .int-neg {
+        animation: fade-up 0.5s ease-out both;
+      }
+      .int-neg-5 {
+        animation-delay: 0.15s;
+      }
+      .int-neg-4 {
+        animation-delay: 0.25s;
+      }
+      .int-neg-3 {
+        animation-delay: 0.35s;
+      }
+      .int-neg-2 {
+        animation-delay: 0.45s;
+      }
+      .int-neg-1 {
+        animation-delay: 0.55s;
+      }
+      .int-zero {
+        animation: pop-in 0.6s 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 320px 90px;
+      }
+      .int-pos {
+        animation: fade-up 0.5s ease-out both;
+      }
+      .int-pos-1 {
+        animation-delay: 0.75s;
+      }
+      .int-pos-2 {
+        animation-delay: 0.85s;
+      }
+      .int-pos-3 {
+        animation-delay: 0.95s;
+      }
+      .int-pos-4 {
+        animation-delay: 1.05s;
+      }
+      .int-pos-5 {
+        animation-delay: 1.15s;
+      }
+      .int-arrows {
+        animation: fade-up 0.5s 1.3s ease-out both;
+      }
     </style>
 
     <defs>
       <marker id="int-left" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto">
-        <path d="M8,0 L8,6 L0,3 z" fill="var(--accent)"></path>
+        <path d="M8,0 L8,6 L0,3 z" class="fill-accent"></path>
       </marker>
       <marker id="int-right" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-        <path d="M0,0 L0,6 L8,3 z" fill="var(--secondary)"></path>
+        <path d="M0,0 L0,6 L8,3 z" class="fill-secondary"></path>
       </marker>
     </defs>
 
-    <line x1="30" y1="90" x2="530" y2="90" stroke="var(--border)" stroke-width="1.5" class="int-axis"></line>
+    <line x1="40" y1="90" x2="600" y2="90" class="stroke-border" stroke-width="1.5" class="int-axis"
+    ></line>
 
     <g class="int-arrows">
-      <line x1="50" y1="90" x2="30" y2="90" stroke="var(--accent)" stroke-width="2" marker-end="url(#int-left)"></line>
-      <line x1="510" y1="90" x2="530" y2="90" stroke="var(--secondary)" stroke-width="2" marker-end="url(#int-right)"></line>
+      <line
+        x1="60"
+        y1="90"
+        x2="40"
+        y2="90"
+        class="stroke-accent"
+        stroke-width="2"
+        marker-end="url(#int-left)"></line>
+      <line
+        x1="580"
+        y1="90"
+        x2="600"
+        y2="90"
+        class="stroke-secondary"
+        stroke-width="2"
+        marker-end="url(#int-right)"></line>
     </g>
 
-    <g font-family="Georgia,serif" font-size="18" font-weight="bold" text-anchor="middle">
-      {[
-        { x: 60, label: "−5", cls: "int-neg-5", color: "var(--accent)", opacity: 0.6, sw: 1.5 },
-        { x: 104, label: "−4", cls: "int-neg-4", color: "var(--accent)", opacity: 0.7, sw: 1.5 },
-        { x: 148, label: "−3", cls: "int-neg-3", color: "var(--accent)", opacity: 0.8, sw: 1.5 },
-        { x: 192, label: "−2", cls: "int-neg-2", color: "var(--accent)", opacity: 0.9, sw: 1.8 },
-        { x: 236, label: "−1", cls: "int-neg-1", color: "var(--accent)", opacity: 1, sw: 2 },
-      ].map((t) => (
-        <g class={`int-neg ${t.cls}`}>
-          <line x1={t.x} y1="82" x2={t.x} y2="98" stroke={t.color} stroke-width={t.sw} opacity={t.opacity}></line>
-          <text x={t.x} y="120" fill={t.color} opacity={t.opacity}>{t.label}</text>
-        </g>
-      ))}
+    <g class="text-anchor-middle text-lg font-bold">
+      {
+        [
+          { x: 80, label: "−5", cls: "int-neg-5", color: "var(--accent)", opacity: 0.6, sw: 1.5 },
+          { x: 140, label: "−4", cls: "int-neg-4", color: "var(--accent)", opacity: 0.7, sw: 1.5 },
+          { x: 200, label: "−3", cls: "int-neg-3", color: "var(--accent)", opacity: 0.8, sw: 1.5 },
+          { x: 260, label: "−2", cls: "int-neg-2", color: "var(--accent)", opacity: 0.9, sw: 1.8 },
+          { x: 290, label: "−1", cls: "int-neg-1", color: "var(--accent)", opacity: 1, sw: 2 },
+        ].map((t) => (
+          <g class={`int-neg ${t.cls}`}>
+            <line
+              x1={t.x}
+              y1="82"
+              x2={t.x}
+              y2="98"
+              stroke={t.color}
+              stroke-width={t.sw}
+              opacity={t.opacity}
+            />
+            <text x={t.x} y="120" fill={t.color} opacity={t.opacity}>
+              {t.label}
+            </text>
+          </g>
+        ))
+      }
     </g>
 
     <g class="int-zero">
-      <circle cx="280" cy="90" r="16" fill="var(--card)" stroke="var(--primary)" stroke-width="2.5"></circle>
-      <text x="280" y="97" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="var(--primary)">0</text>
+      <circle cx="320" cy="90" r="16" fill="var(--card)" class="stroke-primary" stroke-width="2.5"
+      ></circle>
+      <text x="320" y="97" text-anchor="middle" class="fill-primary text-lg font-bold">0</text>
     </g>
 
-    <g font-family="Georgia,serif" font-size="18" font-weight="bold" text-anchor="middle">
-      {[
-        { x: 324, label: "1", cls: "int-pos-1", color: "var(--secondary)", opacity: 1, sw: 2 },
-        { x: 368, label: "2", cls: "int-pos-2", color: "var(--secondary)", opacity: 0.9, sw: 1.8 },
-        { x: 412, label: "3", cls: "int-pos-3", color: "var(--secondary)", opacity: 0.8, sw: 1.5 },
-        { x: 456, label: "4", cls: "int-pos-4", color: "var(--secondary)", opacity: 0.7, sw: 1.5 },
-        { x: 500, label: "5", cls: "int-pos-5", color: "var(--secondary)", opacity: 0.6, sw: 1.5 },
-      ].map((t) => (
-        <g class={`int-pos ${t.cls}`}>
-          <line x1={t.x} y1="82" x2={t.x} y2="98" stroke={t.color} stroke-width={t.sw} opacity={t.opacity}></line>
-          <text x={t.x} y="120" fill={t.color} opacity={t.opacity}>{t.label}</text>
-        </g>
-      ))}
+    <g class="text-anchor-middle text-lg font-bold">
+      {
+        [
+          { x: 350, label: "1", cls: "int-pos-1", color: "var(--secondary)", opacity: 1, sw: 2 },
+          {
+            x: 380,
+            label: "2",
+            cls: "int-pos-2",
+            color: "var(--secondary)",
+            opacity: 0.9,
+            sw: 1.8,
+          },
+          {
+            x: 440,
+            label: "3",
+            cls: "int-pos-3",
+            color: "var(--secondary)",
+            opacity: 0.8,
+            sw: 1.5,
+          },
+          {
+            x: 500,
+            label: "4",
+            cls: "int-pos-4",
+            color: "var(--secondary)",
+            opacity: 0.7,
+            sw: 1.5,
+          },
+          {
+            x: 560,
+            label: "5",
+            cls: "int-pos-5",
+            color: "var(--secondary)",
+            opacity: 0.6,
+            sw: 1.5,
+          },
+        ].map((t) => (
+          <g class={`int-pos ${t.cls}`}>
+            <line
+              x1={t.x}
+              y1="82"
+              x2={t.x}
+              y2="98"
+              stroke={t.color}
+              stroke-width={t.sw}
+              opacity={t.opacity}
+            />
+            <text x={t.x} y="120" fill={t.color} opacity={t.opacity}>
+              {t.label}
+            </text>
+          </g>
+        ))
+      }
     </g>
 
     <g class="int-arrows">
-      <path d="M148,148 Q280,162 412,148" fill="none" stroke="var(--border)" stroke-width="1" opacity="0.5" stroke-dasharray="4,3"></path>
-      <text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="var(--muted-foreground)" letter-spacing="1.5">ℤ = {"{ "}…, −2, −1, 0, 1, 2, …{"}"} · infinite in both directions</text>
+      <path
+        d="M200,148 Q320,162 440,148"
+        fill="none"
+        class="stroke-border"
+        stroke-width="1"
+        opacity="0.5"
+        stroke-dasharray="4,3"></path>
+      <text
+        x="320"
+        y="172"
+        text-anchor="middle"
+        class="fill-muted-foreground text-sm"
+        letter-spacing="1.5"
+        >ℤ = {"{ "}…, −2, −1, 0, 1, 2, …{"}"} · infinite in both directions</text
+      >
     </g>
   </svg>
 </Figure>
