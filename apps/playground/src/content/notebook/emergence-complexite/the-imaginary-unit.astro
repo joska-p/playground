@@ -1,87 +1,28 @@
 ---
 import Figure from "./figure.astro";
+import "./common-animations.css";
+import SvgNode from "./SvgNode.astro";
 ---
 
 <Figure className="flex flex-col items-center">
   <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-lg">
     <style>
-      .iu-bg {
-        animation: iu-in 0.5s 0.1s ease-out both;
-      }
-      @keyframes iu-in {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      .iu-circle {
-        stroke-dasharray: 628;
-        animation: iu-spin 1.2s 0.3s ease-out both;
-      }
+      .iu-bg { animation: fade-in 0.5s 0.1s ease-out both; }
+      .iu-circle { stroke-dasharray: 628; animation: iu-spin 1.2s 0.3s ease-out both; }
       @keyframes iu-spin {
-        from {
-          stroke-dashoffset: 628;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
+        from { stroke-dashoffset: 628; opacity: 0; }
+        to { stroke-dashoffset: 0; opacity: 1; }
       }
-
-      /* nodes appear in sequence */
-      .iu-n1 {
-        animation: iu-pop 0.4s 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        transform-origin: 360px 150px;
-      }
-      .iu-n2 {
-        animation: iu-pop 0.4s 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        transform-origin: 260px 50px;
-      }
-      .iu-n3 {
-        animation: iu-pop 0.4s 2.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        transform-origin: 160px 150px;
-      }
-      .iu-n4 {
-        animation: iu-pop 0.4s 2.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        transform-origin: 260px 250px;
-      }
-      @keyframes iu-pop {
-        from {
-          opacity: 0;
-          transform: scale(0.2);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-
-      /* curved arrows */
-      .iu-a1 {
-        animation: iu-in 0.4s 1.6s ease-out both;
-      }
-      .iu-a2 {
-        animation: iu-in 0.4s 2s ease-out both;
-      }
-      .iu-a3 {
-        animation: iu-in 0.4s 2.4s ease-out both;
-      }
-      .iu-a4 {
-        animation: iu-in 0.4s 2.8s ease-out both;
-      }
-
-      .iu-caption {
-        animation: iu-in 0.4s 3s ease-out both;
-      }
-
-      /* continuous slow spin on the circle after appearance */
-      .iu-spin-label {
-        animation: iu-in 0.4s 1.5s ease-out both;
-      }
+      .iu-n1 { animation: pop-in 0.4s 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 360px 150px; }
+      .iu-n2 { animation: pop-in 0.4s 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 260px 50px; }
+      .iu-n3 { animation: pop-in 0.4s 2.2s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 160px 150px; }
+      .iu-n4 { animation: pop-in 0.4s 2.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 260px 250px; }
+      .iu-a1 { animation: fade-in 0.4s 1.6s ease-out both; }
+      .iu-a2 { animation: fade-in 0.4s 2s ease-out both; }
+      .iu-a3 { animation: fade-in 0.4s 2.4s ease-out both; }
+      .iu-a4 { animation: fade-in 0.4s 2.8s ease-out both; }
+      .iu-caption { animation: fade-in 0.4s 3s ease-out both; }
+      .iu-spin-label { animation: fade-in 0.4s 1.5s ease-out both; }
     </style>
 
     <defs>
@@ -90,190 +31,43 @@ import Figure from "./figure.astro";
       </marker>
     </defs>
 
-    <!-- axes (subtle) -->
     <g class="iu-bg" stroke="var(--border)" stroke-width="1" opacity="0.4">
       <line x1="80" y1="150" x2="440" y2="150"></line>
       <line x1="260" y1="30" x2="260" y2="270"></line>
     </g>
-    <!-- axis labels -->
-    <g
-      class="iu-bg"
-      font-family="Georgia,serif"
-      font-size="10"
-      fill="var(--muted-foreground)"
-      opacity="0.6"
-    >
+    <g class="iu-bg" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" opacity="0.6">
       <text x="445" y="154">Re</text>
       <text x="260" y="26" text-anchor="middle">Im</text>
     </g>
 
-    <!-- unit circle -->
-    <circle
-      cx="260"
-      cy="150"
-      r="100"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="1.5"
-      opacity="0.25"
-      class="iu-circle"></circle>
+    <circle cx="260" cy="150" r="100" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.25" class="iu-circle"></circle>
 
-    <!-- curved rotation arrows (arcs between nodes) -->
-    <!-- 1 → i : quarter arc top-right -->
-    <path
-      d="M350,118 A100,100 0 0,0 292,60"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="2"
-      marker-end="url(#iu-arr)"
-      class="iu-a1"></path>
-    <!-- i → -1 : quarter arc top-left -->
-    <path
-      d="M228,60 A100,100 0 0,0 170,118"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="2"
-      marker-end="url(#iu-arr)"
-      class="iu-a2"></path>
-    <!-- -1 → -i : quarter arc bottom-left -->
-    <path
-      d="M170,182 A100,100 0 0,0 228,240"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="2"
-      marker-end="url(#iu-arr)"
-      class="iu-a3"></path>
-    <!-- -i → 1 : quarter arc bottom-right -->
-    <path
-      d="M292,240 A100,100 0 0,0 350,182"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="2"
-      marker-end="url(#iu-arr)"
-      class="iu-a4"></path>
+    <path d="M350,118 A100,100 0 0,0 292,60" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#iu-arr)" class="iu-a1"></path>
+    <path d="M228,60 A100,100 0 0,0 170,118" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#iu-arr)" class="iu-a2"></path>
+    <path d="M170,182 A100,100 0 0,0 228,240" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#iu-arr)" class="iu-a3"></path>
+    <path d="M292,240 A100,100 0 0,0 350,182" fill="none" stroke="var(--primary)" stroke-width="2" marker-end="url(#iu-arr)" class="iu-a4"></path>
 
-    <!-- ×i labels on arcs -->
-    <g
-      font-family="Georgia,serif"
-      font-size="11"
-      fill="var(--primary)"
-      text-anchor="middle"
-      opacity="0.75"
-    >
+    <g font-family="Georgia,serif" font-size="11" fill="var(--primary)" text-anchor="middle" opacity="0.75">
       <text x="336" y="76" class="iu-a1">×i</text>
       <text x="184" y="76" class="iu-a2">×i</text>
       <text x="184" y="232" class="iu-a3">×i</text>
       <text x="336" y="232" class="iu-a4">×i</text>
     </g>
 
-    <!-- node: 1 (right) -->
     <g class="iu-n1">
-      <circle
-        cx="360"
-        cy="150"
-        r="22"
-        fill="var(--card)"
-        stroke="var(--secondary)"
-        stroke-width="2.5"></circle>
-      <text
-        x="360"
-        y="157"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="18"
-        font-weight="bold"
-        fill="var(--secondary)">1</text
-      >
-      <text
-        x="360"
-        y="182"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="9"
-        fill="var(--muted-foreground)">90°×0</text
-      >
+      <SvgNode cx={360} cy={150} label="1" stroke="var(--secondary)" r={22} labelSize={18} subtitle="90°×0" subtitleSize={9} labelY={157} subtitleY={182} />
     </g>
-
-    <!-- node: i (top) -->
     <g class="iu-n2">
-      <circle cx="260" cy="50" r="22" fill="var(--card)" stroke="var(--primary)" stroke-width="2.5"
-      ></circle>
-      <text
-        x="260"
-        y="57"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="18"
-        font-weight="bold"
-        fill="var(--primary)">i</text
-      >
-      <text
-        x="260"
-        y="30"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="9"
-        fill="var(--muted-foreground)">90°×1</text
-      >
+      <SvgNode cx={260} cy={50} label="i" stroke="var(--primary)" r={22} labelSize={18} subtitle="90°×1" subtitleSize={9} labelY={57} subtitleY={30} />
     </g>
-
-    <!-- node: -1 (left) -->
     <g class="iu-n3">
-      <circle cx="160" cy="150" r="22" fill="var(--card)" stroke="var(--accent)" stroke-width="2.5"
-      ></circle>
-      <text
-        x="160"
-        y="157"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="16"
-        font-weight="bold"
-        fill="var(--accent)">−1</text
-      >
-      <text
-        x="160"
-        y="182"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="9"
-        fill="var(--muted-foreground)">90°×2</text
-      >
+      <SvgNode cx={160} cy={150} label="−1" stroke="var(--accent)" r={22} labelSize={16} subtitle="90°×2" subtitleSize={9} labelY={157} subtitleY={182} />
     </g>
-
-    <!-- node: -i (bottom) -->
     <g class="iu-n4">
-      <circle cx="260" cy="250" r="22" fill="var(--card)" stroke="var(--primary)" stroke-width="2.5"
-      ></circle>
-      <text
-        x="260"
-        y="257"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="16"
-        font-weight="bold"
-        fill="var(--primary)">−i</text
-      >
-      <text
-        x="260"
-        y="280"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="9"
-        fill="var(--muted-foreground)">90°×3</text
-      >
+      <SvgNode cx={260} cy={250} label="−i" stroke="var(--primary)" r={22} labelSize={16} subtitle="90°×3" subtitleSize={9} labelY={257} subtitleY={280} />
     </g>
 
-    <!-- caption -->
-    <text
-      x="260"
-      y="295"
-      text-anchor="middle"
-      font-family="Georgia,serif"
-      font-size="11"
-      fill="var(--muted-foreground)"
-      letter-spacing="1"
-      class="iu-caption"
-    >
+    <text x="260" y="295" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="var(--muted-foreground)" letter-spacing="1" class="iu-caption">
       multiplying by i = rotating 90° · four steps = full circle
     </text>
   </svg>

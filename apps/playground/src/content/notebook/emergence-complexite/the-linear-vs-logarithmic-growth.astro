@@ -1,5 +1,5 @@
 ---
-
+import "./common-animations.css";
 ---
 
 <div
@@ -29,6 +29,8 @@
 </div>
 
 <script>
+  import { resizeCanvas, observeOnce } from "./canvas-utils";
+
   const canvas = document.getElementById("growth-canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d")!;
 
@@ -53,19 +55,13 @@
     const colorLog = style.getPropertyValue("--category-tutorial").trim();
     const mutedFg = style.getPropertyValue("--muted-foreground").trim();
 
-    const w = canvas.offsetWidth,
-      h = 240;
+    const w = canvas.offsetWidth, h = 240;
     ctx.clearRect(0, 0, w, h);
 
-    const pL = 44,
-      pR = 20,
-      pT = 16,
-      pB = 32;
-    const cW = w - pL - pR,
-      cH = h - pT - pB;
+    const pL = 44, pR = 20, pT = 16, pB = 32;
+    const cW = w - pL - pR, cH = h - pT - pB;
     const N = 120;
 
-    // Grid
     ctx.strokeStyle = `oklch(${border} / 0.4)`;
     ctx.lineWidth = 0.5;
     for (let i = 0; i <= 4; i++) {
@@ -83,7 +79,6 @@
       ctx.stroke();
     }
 
-    // Axes
     ctx.strokeStyle = `oklch(${border} / 0.8)`;
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -95,7 +90,6 @@
     const steps = Math.floor(t * N);
     const maxLog = Math.log(N + 1);
 
-    // Linear
     ctx.beginPath();
     ctx.lineWidth = 2;
     ctx.strokeStyle = `oklch(${colorLin})`;
@@ -106,7 +100,6 @@
     }
     ctx.stroke();
 
-    // Log
     ctx.beginPath();
     ctx.lineWidth = 2;
     ctx.strokeStyle = `oklch(${colorLog})`;
@@ -117,7 +110,6 @@
     }
     ctx.stroke();
 
-    // Y-axis labels
     ctx.fillStyle = `oklch(${mutedFg})`;
     ctx.font = "10px ui-monospace, monospace";
     ctx.textAlign = "right";
@@ -133,12 +125,5 @@
     }
   }
 
-  new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting && progress === 0) {
-        animate();
-      }
-    },
-    { threshold: 0.3 }
-  ).observe(canvas);
+  observeOnce(canvas, () => { if (progress === 0) animate(); });
 </script>

@@ -1,89 +1,35 @@
 ---
 import Figure from "./figure.astro";
+import "./common-animations.css";
 ---
 
 <Figure className="flex flex-col items-center">
   <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
     <style>
-      .exp-axis {
-        animation: exp-in 0.6s 0.1s ease-out both;
+      .exp-axis { animation: fade-in 0.6s 0.1s ease-out both; }
+      .exp-curve { stroke-dasharray: 800; animation: draw-curve 1.4s 0.4s ease-out both; }
+      @keyframes draw-curve {
+        from { stroke-dashoffset: 800; opacity: 0; }
+        to { stroke-dashoffset: 0; opacity: 1; }
       }
-      @keyframes exp-in {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      .exp-curve {
-        stroke-dasharray: 800;
-        animation: curve-draw 1.4s 0.4s ease-out both;
-      }
-      @keyframes curve-draw {
-        from {
-          stroke-dashoffset: 800;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-      .exp-dot {
-        animation: dot-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-      }
-      .exp-d1 {
-        animation-delay: 0.5s;
-      }
-      .exp-d2 {
-        animation-delay: 0.65s;
-      }
-      .exp-d3 {
-        animation-delay: 0.8s;
-      }
-      .exp-d4 {
-        animation-delay: 0.95s;
-      }
-      .exp-d5 {
-        animation-delay: 1.1s;
-      }
-      .exp-d6 {
-        animation-delay: 1.25s;
-      }
-      @keyframes dot-pop {
-        from {
-          opacity: 0;
-          transform: scale(0);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      .exp-label {
-        animation: exp-in 0.4s 1.5s ease-out both;
-      }
+      .exp-d { animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+      .exp-d1 { animation-delay: 0.5s; }
+      .exp-d2 { animation-delay: 0.65s; }
+      .exp-d3 { animation-delay: 0.8s; }
+      .exp-d4 { animation-delay: 0.95s; }
+      .exp-d5 { animation-delay: 1.1s; }
+      .exp-d6 { animation-delay: 1.25s; }
+      .exp-label { animation: fade-in 0.4s 1.5s ease-out both; }
     </style>
 
-    <!-- axes -->
     <g class="exp-axis" stroke="var(--border)" stroke-width="1.5">
-      <!-- Y axis -->
       <line x1="70" y1="20" x2="70" y2="190"></line>
       <polygon points="66,20 74,20 70,10" fill="var(--border)"></polygon>
-      <!-- X axis -->
       <line x1="70" y1="190" x2="520" y2="190"></line>
       <polygon points="520,186 520,194 530,190" fill="var(--border)"></polygon>
     </g>
 
-    <!-- X axis labels: n = 0,1,2,3,4,5,6 mapped to x = 70,140,210,280,350,420,490 -->
-    <g
-      font-family="Georgia,serif"
-      font-size="11"
-      text-anchor="middle"
-      fill="var(--muted-foreground)"
-      class="exp-axis"
-    >
+    <g font-family="Georgia,serif" font-size="11" text-anchor="middle" fill="var(--muted-foreground)" class="exp-axis">
       <text x="70" y="206">0</text>
       <text x="140" y="206">1</text>
       <text x="210" y="206">2</text>
@@ -92,29 +38,9 @@ import Figure from "./figure.astro";
       <text x="420" y="206">5</text>
       <text x="490" y="206">6</text>
     </g>
-    <text
-      x="300"
-      y="220"
-      text-anchor="middle"
-      font-family="Georgia,serif"
-      font-size="11"
-      fill="var(--muted-foreground)"
-      class="exp-axis">n</text
-    >
+    <text x="300" y="220" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="var(--muted-foreground)" class="exp-axis">n</text>
+    <text x="55" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="var(--muted-foreground)" transform="rotate(-90,55,100)" class="exp-axis">10ⁿ</text>
 
-    <!-- Y axis label -->
-    <text
-      x="55"
-      y="100"
-      text-anchor="middle"
-      font-family="Georgia,serif"
-      font-size="11"
-      fill="var(--muted-foreground)"
-      transform="rotate(-90,55,100)"
-      class="exp-axis">10ⁿ</text
-    >
-
-    <!-- grid lines (subtle) -->
     <g stroke="var(--border)" stroke-width="0.5" opacity="0.3" class="exp-axis">
       <line x1="140" y1="20" x2="140" y2="190"></line>
       <line x1="210" y1="20" x2="210" y2="190"></line>
@@ -124,105 +50,31 @@ import Figure from "./figure.astro";
       <line x1="490" y1="20" x2="490" y2="190"></line>
     </g>
 
-    <!--
-      Data: 10^n scaled to fit.
-      n=0→1, n=1→10, n=2→100, n=3→1000, n=4→10000, n=5→100000, n=6→1000000
-      Normalize to max 170px height (log scale display to show the shape):
-      y = 190 - (n/6)*170
-      x = 70 + n*70
-      But for real exponential curve we compress: y = 190 - sqrt(n/6)*170
-      Actually let's do a simple power mapping: y = 190 - (n²/36)*170 for visual effect
-      n=0: y=190, n=1: y=185, n=2: y=171, n=3: y=143, n=4: y=109, n=5: y=66, n=6: y=22
-    -->
-    <!-- exponential curve -->
-    <path
-      d="M70,190 C100,188 140,183 210,168 S330,130 490,22"
-      fill="none"
-      stroke="var(--secondary)"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      class="exp-curve"></path>
+    <path d="M70,190 C100,188 140,183 210,168 S330,130 490,22" fill="none" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round" class="exp-curve"></path>
 
-    <!-- data points with value labels -->
-    <!-- n=0: 1 -->
-    <g class="exp-dot exp-d1" style="transform-origin:70px 190px">
-      <circle cx="70" cy="190" r="5" fill="var(--secondary)" stroke="var(--card)" stroke-width="1.5"
-      ></circle>
-      <text x="75" y="184" font-family="Georgia,serif" font-size="9" fill="var(--secondary)">1</text
-      >
-    </g>
-    <!-- n=1: 10 -->
-    <g class="exp-dot exp-d2" style="transform-origin:140px 185px">
-      <circle
-        cx="140"
-        cy="185"
-        r="5"
-        fill="var(--secondary)"
-        stroke="var(--card)"
-        stroke-width="1.5"></circle>
-      <text x="145" y="179" font-family="Georgia,serif" font-size="9" fill="var(--secondary)"
-        >10</text
-      >
-    </g>
-    <!-- n=2: 100 -->
-    <g class="exp-dot exp-d3" style="transform-origin:210px 171px">
-      <circle
-        cx="210"
-        cy="171"
-        r="5"
-        fill="var(--secondary)"
-        stroke="var(--card)"
-        stroke-width="1.5"></circle>
-      <text x="215" y="165" font-family="Georgia,serif" font-size="9" fill="var(--secondary)"
-        >100</text
-      >
-    </g>
-    <!-- n=3: 1,000 -->
-    <g class="exp-dot exp-d4" style="transform-origin:280px 143px">
-      <circle
-        cx="280"
-        cy="143"
-        r="5"
-        fill="var(--secondary)"
-        stroke="var(--card)"
-        stroke-width="1.5"></circle>
-      <text x="285" y="137" font-family="Georgia,serif" font-size="9" fill="var(--secondary)"
-        >1k</text
-      >
-    </g>
-    <!-- n=4: 10,000 -->
-    <g class="exp-dot exp-d5" style="transform-origin:350px 109px">
-      <circle cx="350" cy="109" r="5" fill="var(--accent)" stroke="var(--card)" stroke-width="1.5"
-      ></circle>
-      <text x="355" y="103" font-family="Georgia,serif" font-size="9" fill="var(--accent)">10k</text
-      >
-    </g>
-    <!-- n=5: 100,000 -->
-    <g class="exp-dot exp-d5" style="transform-origin:420px 66px">
-      <circle cx="420" cy="66" r="5" fill="var(--accent)" stroke="var(--card)" stroke-width="1.5"
-      ></circle>
-      <text x="425" y="60" font-family="Georgia,serif" font-size="9" fill="var(--accent)">100k</text
-      >
-    </g>
-    <!-- n=6: 1,000,000 -->
-    <g class="exp-dot exp-d6" style="transform-origin:490px 22px">
-      <circle cx="490" cy="22" r="5" fill="var(--accent)" stroke="var(--card)" stroke-width="1.5"
-      ></circle>
+    {
+      [
+        { x: 70, y: 190, label: "1", color: "var(--secondary)", cls: "exp-d1" },
+        { x: 140, y: 185, label: "10", color: "var(--secondary)", cls: "exp-d2" },
+        { x: 210, y: 171, label: "100", color: "var(--secondary)", cls: "exp-d3" },
+        { x: 280, y: 143, label: "1k", color: "var(--secondary)", cls: "exp-d4" },
+        { x: 350, y: 109, label: "10k", color: "var(--accent)", cls: "exp-d5" },
+        { x: 420, y: 66, label: "100k", color: "var(--accent)", cls: "exp-d5" },
+      ].map((d) => (
+        <g class={`exp-d ${d.cls}`} style={`transform-origin:${d.x}px ${d.y}px`}>
+          <circle cx={d.x} cy={d.y} r="5" fill={d.color} stroke="var(--card)" stroke-width="1.5"></circle>
+          <text x={d.x + 5} y={d.y - 6} font-family="Georgia,serif" font-size="9" fill={d.color}>{d.label}</text>
+        </g>
+      ))
+    }
+
+    <g class="exp-d exp-d6" style="transform-origin:490px 22px">
+      <circle cx="490" cy="22" r="5" fill="var(--accent)" stroke="var(--card)" stroke-width="1.5"></circle>
       <text x="470" y="18" font-family="Georgia,serif" font-size="9" fill="var(--accent)">1M</text>
     </g>
 
-    <!-- formula label -->
     <g class="exp-label">
-      <text
-        x="130"
-        y="50"
-        font-family="Georgia,serif"
-        font-size="13"
-        fill="var(--secondary)"
-        font-style="italic"
-      >
-        10ⁿ grows without bound
-      </text>
+      <text x="130" y="50" font-family="Georgia,serif" font-size="13" fill="var(--secondary)" font-style="italic">10ⁿ grows without bound</text>
     </g>
   </svg>
 </Figure>

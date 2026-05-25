@@ -1,55 +1,27 @@
 ---
 import Figure from "./figure.astro";
+import "./common-animations.css";
 ---
 
 <Figure className="flex flex-col items-center">
   <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
     <style>
-      .log-axis {
-        animation: log-in 0.5s 0.1s ease-out both;
-      }
-      @keyframes log-in {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      .log-exp-curve {
-        stroke-dasharray: 900;
-        animation: log-draw 1.2s 0.4s ease-out both;
-      }
-      .log-log-curve {
-        stroke-dasharray: 600;
-        animation: log-draw 1.2s 0.9s ease-out both;
-      }
-      @keyframes log-draw {
-        from {
-          stroke-dashoffset: 900;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-      .log-labels {
-        animation: log-in 0.4s 1.6s ease-out both;
-      }
-      .log-key {
-        animation: log-in 0.4s 1.8s ease-out both;
-      }
+      .log-axis { animation: fade-in 0.5s 0.1s ease-out both; }
+      .log-exp-curve { stroke-dasharray: 900; animation: draw-exp 1.2s 0.4s ease-out both; }
+      .log-log-curve { stroke-dasharray: 600; animation: draw-log 1.2s 0.9s ease-out both; }
+      @keyframes draw-exp { from { stroke-dashoffset: 900; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+      @keyframes draw-log { from { stroke-dashoffset: 600; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+      .log-labels { animation: fade-in 0.4s 1.6s ease-out both; }
+      .log-key { animation: fade-in 0.4s 1.8s ease-out both; }
     </style>
 
-    <!-- axes -->
     <g class="log-axis" stroke="var(--border)" stroke-width="1.5">
       <line x1="70" y1="15" x2="70" y2="195"></line>
       <polygon points="66,15 74,15 70,8" fill="var(--border)"></polygon>
       <line x1="70" y1="195" x2="525" y2="195"></line>
       <polygon points="525,191 525,199 532,195" fill="var(--border)"></polygon>
     </g>
-    <!-- grid -->
+
     <g stroke="var(--border)" stroke-width="0.5" opacity="0.25" class="log-axis">
       <line x1="70" y1="50" x2="525" y2="50"></line>
       <line x1="70" y1="100" x2="525" y2="100"></line>
@@ -60,14 +32,8 @@ import Figure from "./figure.astro";
       <line x1="418" y1="15" x2="418" y2="195"></line>
       <line x1="505" y1="15" x2="505" y2="195"></line>
     </g>
-    <!-- axis ticks & labels -->
-    <g
-      font-family="Georgia,serif"
-      font-size="10"
-      fill="var(--muted-foreground)"
-      text-anchor="middle"
-      class="log-axis"
-    >
+
+    <g font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" text-anchor="middle" class="log-axis">
       <text x="157" y="209">1</text>
       <text x="244" y="209">2</text>
       <text x="331" y="209">3</text>
@@ -76,95 +42,24 @@ import Figure from "./figure.astro";
       <text x="300" y="224">x</text>
     </g>
 
-    <!--
-      Exponential: y = e^x  — scale so at x=5, y goes near top.
-      Map x: 0→70, 5→505 (Δx=87 per unit)
-      Map y: 0→195, max~150 → 15 (Δy = -36 per unit)
-      e^0=1, e^1≈2.72, e^2≈7.39, e^3≈20.1, e^4≈54.6, e^5≈148
-      Normalize: maxVal=148, height=180px
-      y_svg = 195 - (val/148)*180
-      x=0→70, val=1:  y=195-1.2=193.8
-      x=1→157, val=2.72: y=195-3.3=191.7 — too flat
-      Use: y = 195 - (e^(x*1.0)/e^5)*180
-      pts: (0,70,193.8) (1,157,191.7) (2,244,186.0) (3,331,170.5) (4,418,129.6) (5,505,15)
-    -->
-    <path
-      d="M70,194 C100,193 157,192 244,186 S370,155 418,130 L505,15"
-      fill="none"
-      stroke="var(--accent)"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      class="log-exp-curve"></path>
+    <path d="M70,194 C100,193 157,192 244,186 S370,155 418,130 L505,15" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" class="log-exp-curve"></path>
+    <path d="M70,195 C100,165 157,125 244,85 S380,45 505,15" fill="none" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round" class="log-log-curve"></path>
 
-    <!--
-      Log: y = log(x+1)*scale  — grows slowly
-      log10(1)=0, log10(2)=0.301, log10(3)=0.477, log10(4)=0.602, log10(5)=0.699
-      Normalize to 180px: y_svg = 195 - log10(x+1)/log10(6)*180
-      x=0→70: 195-0=195
-      x=1→157: 195-0.301/0.778*180=195-69.6=125.4
-      x=2→244: 195-0.477/0.778*180=195-110.3=84.7
-      x=3→331: 195-0.602/0.778*180=195-139.2=55.8
-      x=4→418: 195-0.699/0.778*180=195-161.6=33.4
-      x=5→505: 195-0.778/0.778*180=195-180=15
-    -->
-    <path
-      d="M70,195 C100,165 157,125 244,85 S380,45 505,15"
-      fill="none"
-      stroke="var(--secondary)"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      class="log-log-curve"></path>
-
-    <!-- labels on curves -->
     <g class="log-labels">
-      <text
-        x="390"
-        y="105"
-        font-family="Georgia,serif"
-        font-size="12"
-        fill="var(--accent)"
-        font-style="italic">eˣ</text
-      >
-      <text
-        x="455"
-        y="52"
-        font-family="Georgia,serif"
-        font-size="12"
-        fill="var(--secondary)"
-        font-style="italic">log(x)</text
-      >
+      <text x="390" y="105" font-family="Georgia,serif" font-size="12" fill="var(--accent)" font-style="italic">eˣ</text>
+      <text x="455" y="52" font-family="Georgia,serif" font-size="12" fill="var(--secondary)" font-style="italic">log(x)</text>
     </g>
 
-    <!-- legend -->
     <g class="log-key">
       <rect x="74" y="22" width="10" height="3" rx="1.5" fill="var(--accent)"></rect>
-      <text x="90" y="28" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)"
-        >exponential — grows unbounded</text
-      >
+      <text x="90" y="28" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)">exponential — grows unbounded</text>
       <rect x="74" y="36" width="10" height="3" rx="1.5" fill="var(--secondary)"></rect>
-      <text x="90" y="42" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)"
-        >logarithm — tames the explosion</text
-      >
+      <text x="90" y="42" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)">logarithm — tames the explosion</text>
     </g>
 
-    <!-- annotation: same endpoint -->
     <g class="log-labels">
-      <circle
-        cx="505"
-        cy="15"
-        r="4"
-        fill="none"
-        stroke="var(--primary)"
-        stroke-width="1.5"
-        opacity="0.5"></circle>
-      <text
-        x="400"
-        y="16"
-        font-family="Georgia,serif"
-        font-size="10"
-        fill="var(--muted-foreground)"
-        opacity="0.7">same value at x = 5</text
-      >
+      <circle cx="505" cy="15" r="4" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.5"></circle>
+      <text x="400" y="16" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" opacity="0.7">same value at x = 5</text>
     </g>
   </svg>
 </Figure>

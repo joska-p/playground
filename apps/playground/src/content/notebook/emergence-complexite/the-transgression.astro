@@ -1,208 +1,64 @@
 ---
 import Figure from "./figure.astro";
+import "./common-animations.css";
 ---
 
 <Figure className="flex flex-col items-center">
   <svg viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-lg">
     <style>
-      .tg-axis {
-        animation: tg-in 0.5s 0.1s ease-out both;
-      }
-      @keyframes tg-in {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      .tg-xaxis-line {
-        stroke-dasharray: 420;
-        animation: tg-axis-draw 0.8s 0.2s ease-out both;
-      }
-      @keyframes tg-axis-draw {
-        from {
-          stroke-dashoffset: 420;
-        }
-        to {
-          stroke-dashoffset: 0;
-        }
-      }
-      .tg-curve {
-        stroke-dasharray: 600;
-        animation: tg-curve-draw 1.1s 0.7s ease-out both;
-      }
-      @keyframes tg-curve-draw {
-        from {
-          stroke-dashoffset: 600;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-      .tg-gap {
-        animation: tg-in 0.5s 1.5s ease-out both;
-      }
-      .tg-labels {
-        animation: tg-in 0.5s 1.8s ease-out both;
-      }
-      .tg-brace {
-        animation: tg-in 0.5s 2s ease-out both;
-      }
+      .tg-axis { animation: fade-in 0.5s 0.1s ease-out both; }
+      .tg-xaxis { stroke-dasharray: 420; animation: draw-x 0.8s 0.2s ease-out both; }
+      @keyframes draw-x { from { stroke-dashoffset: 420; } to { stroke-dashoffset: 0; } }
+      .tg-curve { stroke-dasharray: 600; animation: draw-curve 1.1s 0.7s ease-out both; }
+      @keyframes draw-curve { from { stroke-dashoffset: 600; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+      .tg-gap { animation: fade-in 0.5s 1.5s ease-out both; }
+      .tg-labels { animation: fade-in 0.5s 1.8s ease-out both; }
+      .tg-brace { animation: fade-in 0.5s 2s ease-out both; }
     </style>
 
-    <!-- Y axis -->
     <g class="tg-axis" stroke="var(--border)" stroke-width="1.5">
       <line x1="260" y1="15" x2="260" y2="205"></line>
       <polygon points="256,15 264,15 260,8" fill="var(--border)"></polygon>
     </g>
 
-    <!-- X axis -->
-    <line
-      x1="40"
-      y1="170"
-      x2="480"
-      y2="170"
-      stroke="var(--border)"
-      stroke-width="1.5"
-      class="tg-xaxis-line"></line>
+    <line x1="40" y1="170" x2="480" y2="170" stroke="var(--border)" stroke-width="1.5" class="tg-xaxis"></line>
     <polygon points="480,166 480,174 488,170" fill="var(--border)" class="tg-axis"></polygon>
 
-    <!-- grid / ticks -->
     <g stroke="var(--border)" stroke-width="0.8" opacity="0.35" class="tg-axis">
       <line x1="140" y1="163" x2="140" y2="177"></line>
-      <!-- x=-2 -->
       <line x1="200" y1="163" x2="200" y2="177"></line>
-      <!-- x=-1 -->
       <line x1="320" y1="163" x2="320" y2="177"></line>
-      <!-- x=1  -->
       <line x1="380" y1="163" x2="380" y2="177"></line>
-      <!-- x=2  -->
     </g>
-    <g
-      font-family="Georgia,serif"
-      font-size="10"
-      text-anchor="middle"
-      fill="var(--muted-foreground)"
-      class="tg-axis"
-    >
+    <g font-family="Georgia,serif" font-size="10" text-anchor="middle" fill="var(--muted-foreground)" class="tg-axis">
       <text x="140" y="188">−2</text>
       <text x="200" y="188">−1</text>
       <text x="260" y="188">0</text>
       <text x="320" y="188">1</text>
       <text x="380" y="188">2</text>
     </g>
-    <!-- y=1 reference -->
-    <line
-      x1="250"
-      y1="110"
-      x2="270"
-      y2="110"
-      stroke="var(--border)"
-      stroke-width="0.8"
-      opacity="0.4"
-      class="tg-axis"></line>
-    <text
-      x="238"
-      y="114"
-      font-family="Georgia,serif"
-      font-size="10"
-      fill="var(--muted-foreground)"
-      text-anchor="middle"
-      class="tg-axis">1</text
-    >
+    <line x1="250" y1="110" x2="270" y2="110" stroke="var(--border)" stroke-width="0.8" opacity="0.4" class="tg-axis"></line>
+    <text x="238" y="114" font-family="Georgia,serif" font-size="10" fill="var(--muted-foreground)" text-anchor="middle" class="tg-axis">1</text>
 
-    <!--
-      Parabola: y = x² + 1
-      x in [-2.6, 2.6]
-      Mapping: x_svg = 260 + x*60
-      y_svg = 170 - (x²+1)*60
-      vertex at (0,1): y_svg = 170 - 60 = 110
-      x=±1: y_svg = 170 - 120 = 50 (wait, too high?)
-      Let's adjust: y_svg = 170 - (x²+1)*45
-      vertex: 170-45 = 125
-      x=±1: 170-90 = 80
-      x=±2: 170-225 = -55 (off screen, good)
-      x=±2: 170-45*5=170-225 → clamp to 20
-      Let's use scale 35: vertex=170-35=135, x=1: 170-70=100, x=2: 170-175=-5→clip at 20
-    -->
-    <path
-      d="M100,20 C120,32 180,70 220,110 S245,130 260,135 S285,130 300,110 S360,46 420,20"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      class="tg-curve"></path>
+    <path d="M100,20 C120,32 180,70 220,110 S245,130 260,135 S285,130 300,110 S360,46 420,20" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" class="tg-curve"></path>
 
-    <!-- The gap: dashed lines showing it never touches y=0 -->
     <g class="tg-gap">
-      <!-- vertical gap indicator at x=0 -->
-      <line
-        x1="260"
-        y1="135"
-        x2="260"
-        y2="170"
-        stroke="var(--accent)"
-        stroke-width="1.5"
-        stroke-dasharray="4,3"></line>
-      <!-- gap arrow -->
+      <line x1="260" y1="135" x2="260" y2="170" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4,3"></line>
       <polygon points="256,167 264,167 260,174" fill="var(--accent)" opacity="0.7"></polygon>
       <polygon points="256,138 264,138 260,131" fill="var(--accent)" opacity="0.7"></polygon>
-      <!-- gap label -->
-      <text x="282" y="155" font-family="Georgia,serif" font-size="11" fill="var(--accent)"
-        >gap = 1</text
-      >
+      <text x="282" y="155" font-family="Georgia,serif" font-size="11" fill="var(--accent)">gap = 1</text>
     </g>
 
-    <!-- no intersection band -->
-    <rect x="42" y="162" width="436" height="8" fill="var(--accent)" opacity="0.07" class="tg-gap"
-    ></rect>
+    <rect x="42" y="162" width="436" height="8" fill="var(--accent)" opacity="0.07" class="tg-gap"></rect>
 
-    <!-- labels -->
     <g class="tg-labels">
-      <text
-        x="405"
-        y="38"
-        font-family="Georgia,serif"
-        font-size="13"
-        fill="var(--primary)"
-        font-style="italic">y = x² + 1</text
-      >
-      <text
-        x="260"
-        y="220"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="11"
-        fill="var(--muted-foreground)"
-        letter-spacing="1"
-      >
-        never touches y = 0 · no real solution exists
-      </text>
+      <text x="405" y="38" font-family="Georgia,serif" font-size="13" fill="var(--primary)" font-style="italic">y = x² + 1</text>
+      <text x="260" y="220" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="var(--muted-foreground)" letter-spacing="1">never touches y = 0 · no real solution exists</text>
     </g>
 
-    <!-- x²+1=0 equation chip -->
     <g class="tg-brace">
-      <rect
-        x="66"
-        y="22"
-        width="110"
-        height="28"
-        rx="5"
-        fill="var(--card)"
-        stroke="var(--accent)"
-        stroke-width="1.5"></rect>
-      <text
-        x="121"
-        y="41"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="15"
-        fill="var(--accent)"
-        font-style="italic">x² + 1 = 0</text
-      >
+      <rect x="66" y="22" width="110" height="28" rx="5" fill="var(--card)" stroke="var(--accent)" stroke-width="1.5"></rect>
+      <text x="121" y="41" text-anchor="middle" font-family="Georgia,serif" font-size="15" fill="var(--accent)" font-style="italic">x² + 1 = 0</text>
     </g>
   </svg>
 </Figure>

@@ -1,97 +1,34 @@
 ---
 import Figure from "./figure.astro";
+import "./common-animations.css";
+import SvgNode from "./SvgNode.astro";
 ---
 
 <Figure className="flex flex-col items-center">
   <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-lg">
     <style>
-      .zero-line {
-        animation: zero-line-in 0.8s 0.1s ease-out both;
+      .zero-line { stroke-dasharray: 400; animation: draw-in 0.8s 0.1s ease-out both; }
+      @keyframes draw-in {
+        from { stroke-dashoffset: 400; opacity: 0; }
+        to { stroke-dashoffset: 0; opacity: 1; }
       }
-      @keyframes zero-line-in {
-        from {
-          stroke-dashoffset: 400;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-      .fwd-arrow {
-        animation: fwd-slide 0.9s 0.3s ease-out both;
-      }
-      @keyframes fwd-slide {
-        from {
-          stroke-dashoffset: 160;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-      .bwd-arrow {
-        animation: bwd-slide 0.9s 0.9s ease-out both;
-      }
-      @keyframes bwd-slide {
-        from {
-          stroke-dashoffset: 160;
-          opacity: 0;
-        }
-        to {
-          stroke-dashoffset: 0;
-          opacity: 1;
-        }
-      }
-      .zero-node {
-        animation: zero-pop 0.6s 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        transform-origin: 260px 96px;
-      }
-      @keyframes zero-pop {
-        from {
-          opacity: 0;
-          transform: scale(0);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      .zero-label {
-        animation: zero-pop 0.5s 2s ease-out both;
-        transform-origin: 260px 150px;
-      }
+      .z-fwd { stroke-dasharray: 160; animation: fade-in 0.9s 0.3s ease-out both; }
+      .z-bwd { stroke-dasharray: 160; animation: fade-in 0.9s 0.9s ease-out both; }
+      .z-pop { animation: pop-in 0.6s 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-origin: 260px 96px; }
+      .z-label { animation: fade-up 0.5s 2s ease-out both; transform-origin: 260px 150px; }
     </style>
 
     <defs>
       <marker id="z-fwd" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
         <path d="M0,0 L0,6 L8,3 z" fill="var(--secondary)"></path>
       </marker>
-      <marker
-        id="z-bwd"
-        markerWidth="8"
-        markerHeight="8"
-        refX="1"
-        refY="3"
-        orient="auto-start-reverse"
-      >
+      <marker id="z-bwd" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto-start-reverse">
         <path d="M0,0 L0,6 L8,3 z" fill="var(--accent)"></path>
       </marker>
     </defs>
 
-    <!-- number line -->
-    <line
-      x1="60"
-      y1="96"
-      x2="460"
-      y2="96"
-      stroke="var(--border)"
-      stroke-width="1.5"
-      stroke-dasharray="400"
-      class="zero-line"></line>
+    <line x1="60" y1="96" x2="460" y2="96" stroke="var(--border)" stroke-width="1.5" class="zero-line"></line>
 
-    <!-- tick marks -->
     <g stroke="var(--border)" stroke-width="1.2" opacity="0.5">
       <line x1="100" y1="88" x2="100" y2="104"></line>
       <line x1="140" y1="88" x2="140" y2="104"></line>
@@ -103,74 +40,18 @@ import Figure from "./figure.astro";
       <line x1="420" y1="88" x2="420" y2="104"></line>
     </g>
 
-    <!-- forward arrow: +3 steps -->
-    <line
-      x1="264"
-      y1="64"
-      x2="420"
-      y2="64"
-      stroke="var(--secondary)"
-      stroke-width="2.5"
-      stroke-dasharray="160"
-      marker-end="url(#z-fwd)"
-      class="fwd-arrow"></line>
-    <text
-      x="342"
-      y="54"
-      text-anchor="middle"
-      font-family="Georgia,serif"
-      font-size="12"
-      fill="var(--secondary)"
-      class="fwd-arrow">+3</text
-    >
+    <line x1="264" y1="64" x2="420" y2="64" stroke="var(--secondary)" stroke-width="2.5" marker-end="url(#z-fwd)" class="z-fwd"></line>
+    <text x="342" y="54" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="var(--secondary)" class="z-fwd">+3</text>
 
-    <!-- backward arrow: −3 steps -->
-    <line
-      x1="256"
-      y1="128"
-      x2="100"
-      y2="128"
-      stroke="var(--accent)"
-      stroke-width="2.5"
-      stroke-dasharray="160"
-      marker-end="url(#z-bwd)"
-      class="bwd-arrow"></line>
-    <text
-      x="178"
-      y="148"
-      text-anchor="middle"
-      font-family="Georgia,serif"
-      font-size="12"
-      fill="var(--accent)"
-      class="bwd-arrow">−3</text
-    >
+    <line x1="256" y1="128" x2="100" y2="128" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#z-bwd)" class="z-bwd"></line>
+    <text x="178" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="var(--accent)" class="z-bwd">−3</text>
 
-    <!-- zero node -->
-    <g class="zero-node">
-      <circle cx="260" cy="96" r="20" fill="var(--card)" stroke="var(--primary)" stroke-width="2.5"
-      ></circle>
-      <text
-        x="260"
-        y="103"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="22"
-        font-weight="bold"
-        fill="var(--primary)">0</text
-      >
+    <g class="z-pop">
+      <SvgNode cx={260} cy={96} label="0" r={20} labelSize={22} stroke="var(--primary)" />
     </g>
 
-    <!-- caption -->
-    <g class="zero-label">
-      <text
-        x="260"
-        y="175"
-        text-anchor="middle"
-        font-family="Georgia,serif"
-        font-size="12"
-        fill="var(--muted-foreground)"
-        letter-spacing="1">3 − 3 = 0 · the return to nothing</text
-      >
+    <g class="z-label">
+      <text x="260" y="175" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="var(--muted-foreground)" letter-spacing="1">3 − 3 = 0 · the return to nothing</text>
     </g>
   </svg>
 </Figure>
