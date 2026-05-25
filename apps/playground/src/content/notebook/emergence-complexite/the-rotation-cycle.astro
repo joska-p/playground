@@ -1,167 +1,178 @@
-<div class="border-border bg-card my-10 overflow-hidden rounded-lg border">
-  <div class="border-border flex items-center justify-between border-b px-5 py-3">
-    <span class="text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase"
-      >The rotation cycle of <em>i</em></span
-    >
-    <span
-      class="text-accent bg-accent/10 border-accent/20 rounded border px-2 py-0.5 font-mono text-[10px]"
-      >ℂ plane</span
-    >
-  </div>
-  <div class="grid grid-cols-1 items-center gap-0 md:grid-cols-5">
-    <div class="bg-background border-border flex justify-center p-6 md:col-span-3 md:border-r">
-      <svg viewBox="0 0 300 300" class="h-auto w-full max-w-xs">
-        {/* Unit circle */}
-        <circle
-          cx="150"
-          cy="150"
-          r="100"
-          stroke="var(--border)"
-          stroke-width="0.8"
-          fill="none"
-          stroke-dasharray="5 3"
-          opacity="0.5"></circle>
-        {/* Axes */}
-        <line x1="20" y1="150" x2="280" y2="150" stroke="var(--border)" stroke-width="1.5"></line>
-        <line x1="150" y1="20" x2="150" y2="280" stroke="var(--border)" stroke-width="1.5"></line>
-        {/* Axis labels */}
-        <text x="260" y="144" font-size="9" font-family="monospace" fill="var(--muted-foreground)"
-          >Real</text
-        >
-        <text x="155" y="26" font-size="9" font-family="monospace" fill="var(--muted-foreground)"
-          >Imaginary</text
-        >
-        {/* Arc 1→i */}
-        <path
-          d="M 245 150 A 95 95 0 0 0 150 55"
-          fill="none"
-          stroke="var(--accent)"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-dasharray="3 2"
-          opacity="0.85"></path>
-        <polygon points="150,52 157,63 143,63" fill="var(--accent)" opacity="0.9"></polygon>
-        <text x="218" y="88" font-size="8" font-family="monospace" fill="var(--accent)">× i</text>
-        {/* Arc i→-1 */}
-        <path
-          d="M 150 55 A 95 95 0 0 0 55 150"
-          fill="none"
-          stroke="var(--accent)"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-dasharray="3 2"
-          opacity="0.5"></path>
-        <text x="68" y="88" font-size="8" font-family="monospace" fill="var(--accent)" opacity="0.7"
-          >× i</text
-        >
-        {/* Arc -1→-i */}
-        <path
-          d="M 55 150 A 95 95 0 0 0 150 245"
-          fill="none"
-          stroke="var(--accent)"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-dasharray="3 2"
-          opacity="0.3"></path>
-        <text
-          x="68"
-          y="218"
-          font-size="8"
-          font-family="monospace"
-          fill="var(--accent)"
-          opacity="0.4">× i</text
-        >
-        {/* Four key points */}
-        <circle cx="250" cy="150" r="5" fill="var(--secondary)"></circle>
-        <text
-          x="256"
-          y="167"
-          font-size="12"
-          font-family="monospace"
-          font-weight="bold"
-          fill="var(--secondary)">1</text
-        >
-        <circle cx="150" cy="50" r="5" fill="var(--accent)"></circle>
-        <text
-          x="158"
-          y="46"
-          font-size="12"
-          font-family="monospace"
-          font-weight="bold"
-          fill="var(--accent)">i</text
-        >
-        <circle cx="50" cy="150" r="5" fill="var(--destructive)" opacity="0.85"></circle>
-        <text
-          x="22"
-          y="167"
-          font-size="12"
-          font-family="monospace"
-          font-weight="bold"
-          fill="var(--destructive)"
-          opacity="0.85">−1</text
-        >
-        <circle cx="150" cy="250" r="5" fill="var(--muted-foreground)" opacity="0.6"></circle>
-        <text
-          x="158"
-          y="267"
-          font-size="12"
-          font-family="monospace"
-          fill="var(--muted-foreground)"
-          opacity="0.6">−i</text
-        >
-        {/* Example Z vector */}
-        <line
-          x1="150"
-          y1="150"
-          x2="212"
-          y2="78"
-          stroke="var(--primary)"
-          stroke-width="1.5"
-          stroke-dasharray="4 2"
-          opacity="0.8"></line>
-        <circle cx="212" cy="78" r="4" fill="var(--primary)"></circle>
-        <text
-          x="218"
-          y="72"
-          font-size="10"
-          font-family="monospace"
-          font-weight="bold"
-          fill="var(--primary)">Z = a + ib</text
-        >
-      </svg>
-    </div>
-    <div class="space-y-4 p-6 md:col-span-2">
-      <p class="text-muted-foreground font-mono text-[10px] font-bold tracking-[0.2em] uppercase">
-        The full cycle
-      </p>
-      <div class="space-y-2 font-mono text-[11px]">
-        <div class="bg-background border-border flex items-center gap-2 rounded border px-3 py-2">
-          <span class="text-secondary w-4 font-bold">1</span>
-          <span class="text-border">×i</span>
-          <span class="text-accent font-bold">i</span>
-          <span class="text-muted-foreground ml-auto opacity-60">+90°</span>
-        </div>
-        <div class="bg-background border-border flex items-center gap-2 rounded border px-3 py-2">
-          <span class="text-accent w-4 font-bold">i</span>
-          <span class="text-border">×i</span>
-          <span class="text-destructive font-bold">−1</span>
-          <span class="text-muted-foreground ml-auto opacity-60">+90°</span>
-        </div>
-        <div class="bg-background border-border flex items-center gap-2 rounded border px-3 py-2">
-          <span class="text-destructive w-4 font-bold">−1</span>
-          <span class="text-border">×i</span>
-          <span class="font-bold">−i</span>
-          <span class="text-muted-foreground ml-auto opacity-60">+90°</span>
-        </div>
+---
+
+---
+
+<div class="my-10 flex flex-wrap items-center justify-center gap-8">
+  <canvas
+    id="rotation-canvas"
+    class="bg-card border-border block shrink-0 rounded-lg border"
+    style="width:300px;height:300px"
+    role="img"
+    aria-label="Complex plane: multiplying by i rotates 90° — 1→i→−1→−i→1"></canvas>
+
+  <div class="flex flex-col gap-2">
+    {
+      [
+        {
+          from: "1",
+          to: "i",
+          fromCls: "text-[color:var(--category-tutorial)]",
+          toCls: "text-[color:var(--category-how-to)]",
+        },
+        {
+          from: "i",
+          to: "−1",
+          fromCls: "text-[color:var(--category-how-to)]",
+          toCls: "text-[color:var(--category-explanation)]",
+        },
+        {
+          from: "−1",
+          to: "−i",
+          fromCls: "text-[color:var(--category-explanation)]",
+          toCls: "text-[color:var(--category-data-viz)]",
+        },
+        {
+          from: "−i",
+          to: "1",
+          fromCls: "text-[color:var(--category-data-viz)]",
+          toCls: "text-[color:var(--category-tutorial)]",
+        },
+      ].map(({ from, to, fromCls, toCls }, i) => (
         <div
-          class="border-primary/30 bg-primary/5 flex items-center gap-2 rounded border px-3 py-2"
+          class="rot-step border-border bg-card flex items-center gap-2 rounded-md border px-4 py-2.5 font-serif transition-colors duration-200"
+          data-step={i}
         >
-          <span class="w-4 font-bold">−i</span>
-          <span class="text-border">×i</span>
-          <span class="text-secondary font-bold">1</span>
-          <span class="text-primary ml-auto text-[10px] opacity-80">360° ↩</span>
+          <span class={`w-7 text-center text-lg font-bold ${fromCls}`}>{from}</span>
+          <span class="text-muted-foreground font-mono text-[0.72rem]">×i</span>
+          <span class={`w-7 text-center text-lg font-bold ${toCls}`}>{to}</span>
+          <span class="text-primary ml-auto pl-3 font-mono text-[0.68rem]">+90°</span>
         </div>
-      </div>
-    </div>
+      ))
+    }
   </div>
 </div>
+
+<script>
+  const canvas = document.getElementById("rotation-canvas") as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+
+  function resize() {
+    const size = Math.min(canvas.parentElement!.clientWidth, 300);
+    canvas.width = size * devicePixelRatio;
+    canvas.height = size * devicePixelRatio;
+    canvas.style.width = size + "px";
+    canvas.style.height = size + "px";
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const angles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+  const labels = ["1", "i", "−1", "−i"];
+  const colorVars = [
+    "--category-tutorial",
+    "--category-how-to",
+    "--category-explanation",
+    "--category-data-viz",
+  ];
+
+  let phase = 0;
+
+  function draw() {
+    const style = getComputedStyle(document.documentElement);
+    const border = style.getPropertyValue("--border").trim();
+    const primary = style.getPropertyValue("--primary").trim();
+    const fg = style.getPropertyValue("--foreground").trim();
+
+    const size = canvas.offsetWidth;
+    ctx.clearRect(0, 0, size, size);
+    const cx = size / 2,
+      cy = size / 2;
+    const radius = size * 0.33;
+
+    // Grid axes
+    ctx.strokeStyle = `oklch(${border} / 0.45)`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, 0);
+    ctx.lineTo(cx, size);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, cy);
+    ctx.lineTo(size, cy);
+    ctx.stroke();
+
+    // Axis labels
+    ctx.fillStyle = `oklch(${border})`;
+    ctx.font = `${size * 0.028}px ui-monospace, monospace`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Re", cx + radius + 18, cy - 8);
+    ctx.fillText("Im", cx + 8, cy - radius - 12);
+
+    // Unit circle
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.strokeStyle = `oklch(${primary} / 0.3)`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Sweep arm
+    const arm = -phase;
+    const sx = cx + Math.cos(arm) * radius;
+    const sy = cy + Math.sin(arm) * radius;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(sx, sy);
+    ctx.strokeStyle = `oklch(${primary} / 0.5)`;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Four points
+    for (let i = 0; i < 4; i++) {
+      const col = style.getPropertyValue(colorVars[i]).trim();
+      const a = -angles[i];
+      const px = cx + Math.cos(a) * radius;
+      const py = cy + Math.sin(a) * radius;
+
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, Math.PI * 2);
+      ctx.fillStyle = `oklch(${col})`;
+      ctx.fill();
+
+      const off = 20;
+      ctx.font = `bold ${size * 0.047}px ui-serif, Georgia, serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = `oklch(${col})`;
+      ctx.fillText(labels[i], cx + Math.cos(a) * (radius + off), cy + Math.sin(a) * (radius + off));
+    }
+
+    // Origin
+    ctx.beginPath();
+    ctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = `oklch(${border})`;
+    ctx.fill();
+
+    // Sync table
+    const step = Math.floor((phase / (Math.PI / 2)) % 4);
+    document.querySelectorAll(".rot-step").forEach((el, i) => {
+      el.classList.toggle("!bg-muted", i === step);
+      el.classList.toggle("!border-primary/40", i === step);
+    });
+
+    phase += 0.012;
+    requestAnimationFrame(draw);
+  }
+
+  new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        draw();
+      }
+    },
+    { threshold: 0.3 }
+  ).observe(canvas);
+</script>

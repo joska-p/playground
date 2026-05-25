@@ -1,120 +1,281 @@
-<div class="group my-16 flex w-full justify-center">
+---
+
+---
+
+<div class="my-10">
   <svg
-    class="h-auto w-full max-w-[280px] overflow-visible font-mono"
-    viewBox="0 0 300 480"
+    viewBox="0 0 600 340"
     xmlns="http://www.w3.org/2000/svg"
+    class="block h-auto w-full"
+    role="img"
+    aria-label="Nested number sets: ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ⊂ ℂ"
   >
-    <style>
-      .layer {
-        transition:
-          transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-          opacity 0.4s ease;
-        cursor: pointer;
-      }
-      /* Hovering the SVG separates the layers slightly */
-      svg:hover .layer-c {
-        transform: translateY(-20px);
-      }
-      svg:hover .layer-r {
-        transform: translateY(-10px);
-      }
-      svg:hover .layer-z {
-        transform: translateY(10px);
-      }
-      svg:hover .layer-n {
-        transform: translateY(20px);
-      }
+    <!-- ℂ -->
+    <ellipse
+      cx="300"
+      cy="170"
+      rx="280"
+      ry="148"
+      class="fill-category-data-viz/5 stroke-category-data-viz/50"
+      stroke-width="1.5"></ellipse>
+    <text
+      x="555"
+      y="100"
+      class="fill-(--color-category-data-viz)"
+      font-family="ui-serif,Georgia,serif"
+      font-size="18"
+      font-weight="700"
+      text-anchor="middle"
+      dominant-baseline="middle">ℂ</text
+    >
+    <text
+      x="530"
+      y="118"
+      font-family="ui-sans-serif,system-ui,sans-serif"
+      font-size="8"
+      class="fill-muted-foreground"
+      text-anchor="middle"
+      letter-spacing="1">COMPLEX</text
+    >
 
-      .axis-line {
-        stroke-dasharray: 4 4;
-        animation: march 20s linear infinite backwards;
-      }
-      @keyframes march {
-        to {
-          stroke-dashoffset: -100;
-        }
-      }
-    </style>
+    <!-- ℝ -->
+    <ellipse
+      cx="285"
+      cy="170"
+      rx="228"
+      ry="116"
+      class="fill-card/80 stroke-category-reference/60"
+      stroke-width="1.5"></ellipse>
+    <text
+      x="480"
+      y="126"
+      class="fill-var(--color-category-reference)"
+      font-family="ui-serif,Georgia,serif"
+      font-size="17"
+      font-weight="700"
+      text-anchor="middle"
+      dominant-baseline="middle">ℝ</text
+    >
+    <text
+      x="455"
+      y="143"
+      font-family="ui-sans-serif,system-ui,sans-serif"
+      font-size="8"
+      class="fill-muted-foreground"
+      text-anchor="middle"
+      letter-spacing="1">REAL</text
+    >
 
-    <line
-      x1="150"
-      y1="40"
-      x2="150"
-      y2="440"
-      stroke="var(--border)"
-      stroke-width="2"
-      class="axis-line"
-      opacity="0.4"></line>
+    <!-- ℚ -->
+    <ellipse
+      cx="272"
+      cy="170"
+      rx="178"
+      ry="86"
+      class="fill-card/90 stroke-var(--color-category-explanation)/65"
+      stroke-width="1.5"></ellipse>
+    <text
+      x="418"
+      y="149"
+      class="fill-var(--color-category-explanation)"
+      font-family="ui-serif,Georgia,serif"
+      font-size="16"
+      font-weight="700"
+      text-anchor="middle"
+      dominant-baseline="middle">ℚ</text
+    >
+    <text
+      x="392"
+      y="164"
+      font-family="ui-sans-serif,system-ui,sans-serif"
+      font-size="8"
+      class="fill-muted-foreground"
+      text-anchor="middle"
+      letter-spacing="1">RATIONAL</text
+    >
 
-    <g class="layer layer-c" transform="translate(150, 100)">
-      <ellipse
-        cx="0"
-        cy="0"
-        rx="140"
-        ry="60"
-        fill="var(--card)"
-        fill-opacity="0.8"
-        stroke="var(--primary)"
-        stroke-width="2"></ellipse>
-      <text x="-110" y="10" font-size="24" font-weight="bold" fill="var(--primary)">ℂ</text>
-      <text x="80" y="5" font-size="10" fill="var(--muted-foreground)">x² = -1</text>
-    </g>
+    <!-- ℤ -->
+    <ellipse
+      cx="260"
+      cy="170"
+      rx="130"
+      ry="60"
+      class="fill-card stroke-var(--color-category-how-to)/65"
+      stroke-width="1.5"></ellipse>
+    <text
+      x="358"
+      y="167"
+      class="fill-var(--color-category-how-to)"
+      font-family="ui-serif,Georgia,serif"
+      font-size="16"
+      font-weight="700"
+      text-anchor="middle"
+      dominant-baseline="middle">ℤ</text
+    >
+    <text
+      x="330"
+      y="181"
+      font-family="ui-sans-serif,system-ui,sans-serif"
+      font-size="8"
+      class="fill-muted-foreground"
+      text-anchor="middle"
+      letter-spacing="1">INTEGER</text
+    >
 
-    <g class="layer layer-r" transform="translate(150, 180)">
-      <ellipse
-        cx="0"
-        cy="0"
-        rx="110"
-        ry="47"
-        fill="var(--background)"
-        fill-opacity="0.9"
-        stroke="var(--foreground)"
-        stroke-width="2"></ellipse>
-      <text x="-80" y="10" font-size="22" font-weight="bold" fill="var(--foreground)">ℝ</text>
-      <text x="50" y="5" font-size="10" fill="var(--muted-foreground)">Continuum</text>
-    </g>
+    <!-- ℕ -->
+    <ellipse
+      cx="248"
+      cy="170"
+      rx="82"
+      ry="36"
+      class="fill-card stroke-var(--color-category-tutorial)/75"
+      stroke-width="1.5"></ellipse>
+    <text
+      x="248"
+      y="173"
+      class="fill-var(--color-category-tutorial)"
+      font-family="ui-serif,Georgia,serif"
+      font-size="16"
+      font-weight="700"
+      text-anchor="middle"
+      dominant-baseline="middle">ℕ</text
+    >
 
-    <g class="layer layer-q" transform="translate(150, 260)">
-      <ellipse
-        cx="0"
-        cy="0"
-        rx="80"
-        ry="34"
-        fill="var(--card)"
-        fill-opacity="0.95"
-        stroke="var(--accent)"
-        stroke-width="2"></ellipse>
-      <text x="-50" y="10" font-size="20" font-weight="bold" fill="var(--accent)">ℚ</text>
-      <text x="30" y="5" font-size="10" fill="var(--muted-foreground)">a ÷ b</text>
-    </g>
+    <!-- Example numbers -->
+    <text
+      x="220"
+      y="166"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/50"
+      text-anchor="middle"
+      dominant-baseline="middle">1</text
+    >
+    <text
+      x="248"
+      y="192"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/50"
+      text-anchor="middle"
+      dominant-baseline="middle">3</text
+    >
+    <text
+      x="272"
+      y="160"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/50"
+      text-anchor="middle"
+      dominant-baseline="middle">7</text
+    >
 
-    <g class="layer layer-z" transform="translate(150, 340)">
-      <ellipse
-        cx="0"
-        cy="0"
-        rx="55"
-        ry="24"
-        fill="var(--background)"
-        fill-opacity="1"
-        stroke="var(--secondary)"
-        stroke-width="2"></ellipse>
-      <text x="-30" y="10" font-size="18" font-weight="bold" fill="var(--secondary)">ℤ</text>
-      <text x="15" y="5" font-size="10" fill="var(--muted-foreground)">0, -n</text>
-    </g>
+    <text
+      x="154"
+      y="172"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/45"
+      text-anchor="middle"
+      dominant-baseline="middle">−5</text
+    >
+    <text
+      x="295"
+      y="185"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/45"
+      text-anchor="middle"
+      dominant-baseline="middle">0</text
+    >
+    <text
+      x="330"
+      y="160"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/45"
+      text-anchor="middle"
+      dominant-baseline="middle">−2</text
+    >
 
-    <g class="layer layer-n" transform="translate(150, 420)">
-      <ellipse
-        cx="0"
-        cy="0"
-        rx="30"
-        ry="13"
-        fill="var(--primary)"
-        fill-opacity="0.2"
-        stroke="var(--primary)"
-        stroke-width="2"></ellipse>
-      <text x="-10" y="6" font-size="16" font-weight="bold" fill="var(--primary)">ℕ</text>
-    </g>
+    <text
+      x="114"
+      y="170"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/40"
+      text-anchor="middle"
+      dominant-baseline="middle">½</text
+    >
+    <text
+      x="356"
+      y="182"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/40"
+      text-anchor="middle"
+      dominant-baseline="middle">⅔</text
+    >
+    <text
+      x="390"
+      y="154"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/40"
+      text-anchor="middle"
+      dominant-baseline="middle">−¾</text
+    >
 
-    <circle cx="150" cy="420" r="3" fill="var(--foreground)" class="layer layer-n"></circle>
+    <text
+      x="70"
+      y="170"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/38"
+      text-anchor="middle"
+      dominant-baseline="middle">√2</text
+    >
+    <text
+      x="432"
+      y="175"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/38"
+      text-anchor="middle"
+      dominant-baseline="middle">π</text
+    >
+    <text
+      x="452"
+      y="157"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/38"
+      text-anchor="middle"
+      dominant-baseline="middle">e</text
+    >
+
+    <text
+      x="28"
+      y="162"
+      font-family="ui-serif,Georgia,serif"
+      font-size="10"
+      class="fill-foreground/35"
+      text-anchor="middle"
+      dominant-baseline="middle">2+3i</text
+    >
+    <text
+      x="482"
+      y="186"
+      font-family="ui-serif,Georgia,serif"
+      font-size="11"
+      class="fill-foreground/35"
+      text-anchor="middle"
+      dominant-baseline="middle">i</text
+    >
   </svg>
+
+  <p class="text-muted-foreground mt-3 text-center font-sans text-[0.8rem] italic">
+    Each set is strictly contained in the next. Every expansion was forced by a question mathematics
+    could not ignore.
+  </p>
 </div>

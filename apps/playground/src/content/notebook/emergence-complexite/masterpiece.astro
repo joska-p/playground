@@ -1,115 +1,128 @@
-<div class="my-16 flex w-full justify-center">
-  <svg
-    class="h-auto w-full max-w-md font-mono"
-    viewBox="0 0 400 300"
-    xmlns="http://www.w3.org/2000/svg"
+---
+const rows = [
+  {
+    set: "ℕ",
+    cls: "text-[color:var(--category-tutorial)]",
+    name: "Natural Numbers",
+    rule: "+1 from nothing",
+    eq: "1, 2, 3, …",
+  },
+  {
+    set: "ℤ",
+    cls: "text-[color:var(--category-how-to)]",
+    name: "Integers",
+    rule: "+ zero & negatives",
+    eq: "…, −2, −1, 0, 1, …",
+  },
+  {
+    set: "ℚ",
+    cls: "text-[color:var(--category-explanation)]",
+    name: "Rationals",
+    rule: "+ fractions",
+    eq: "a/b, b ≠ 0",
+  },
+  {
+    set: "ℝ",
+    cls: "text-[color:var(--category-data-viz)]",
+    name: "Reals",
+    rule: "+ √2, π, e …",
+    eq: "√2, π, e, …",
+  },
+  { set: "ℂ", cls: "text-primary", name: "Complex", rule: "+ imaginary axis", eq: "a + ib" },
+];
+
+const arrows = [
+  "Reverse addition → subtraction unsolvable",
+  "Reverse multiplication → division unsolvable",
+  "Completeness gaps → irrationals",
+  "Reverse square root → x² = −1 unsolvable",
+];
+
+const chips = [
+  {
+    label: "1",
+    cls: "text-[color:var(--category-tutorial)]   border-[color:var(--category-tutorial)]   bg-[color:var(--category-tutorial)]/10",
+  },
+  {
+    label: "0",
+    cls: "text-[color:var(--category-how-to)]     border-[color:var(--category-how-to)]     bg-[color:var(--category-how-to)]/10",
+  },
+  {
+    label: "π",
+    cls: "text-[color:var(--category-data-viz)]   border-[color:var(--category-data-viz)]   bg-[color:var(--category-data-viz)]/10",
+  },
+  {
+    label: "e",
+    cls: "text-[color:var(--category-explanation)] border-[color:var(--category-explanation)] bg-[color:var(--category-explanation)]/10",
+  },
+  {
+    label: "i",
+    cls: "text-primary                            border-primary                            bg-primary/10",
+  },
+];
+---
+
+<div class="bg-card border-border my-10 overflow-hidden rounded-lg border font-sans">
+  <!-- Header -->
+  <div
+    class="text-muted-foreground border-border/50 border-b px-4 py-3 text-center text-[0.65rem] font-semibold tracking-[0.16em] uppercase"
   >
-    <style>
-      .orbit-path {
-        stroke-dasharray: 377; /* Approx Circumference of half circle r=120 */
-        stroke-dashoffset: 377;
-        animation: trace 4s ease-in-out infinite alternate;
-      }
-      .vector {
-        transform-origin: 200px 200px;
-        animation: sweep 4s ease-in-out infinite alternate;
-      }
-      .equation-glow {
-        animation: fadein 4s ease-in-out infinite alternate;
-      }
-      @keyframes trace {
-        0%,
-        10% {
-          stroke-dashoffset: 377;
-        }
-        90%,
-        100% {
-          stroke-dashoffset: 0;
-        }
-      }
-      @keyframes sweep {
-        0%,
-        10% {
-          transform: rotate(0deg);
-        }
-        90%,
-        100% {
-          transform: rotate(-180deg);
-        }
-      }
-      @keyframes fadein {
-        0%,
-        70% {
-          opacity: 0.1;
-          filter: grayscale(1);
-        }
-        90%,
-        100% {
-          opacity: 1;
-          filter: grayscale(0);
-          text-shadow: 0 0 10px var(--primary);
-        }
-      }
-    </style>
+    The Full Architecture of Numbers
+  </div>
 
-    <line x1="40" y1="200" x2="360" y2="200" stroke="var(--border)" stroke-width="1.5"></line>
-    <line
-      x1="200"
-      y1="40"
-      x2="200"
-      y2="280"
-      stroke="var(--border)"
-      stroke-width="1.5"
-      stroke-dasharray="4 4"></line>
+  <!-- Tower -->
+  <div class="flex flex-col gap-0 px-6 py-5">
+    {
+      rows.map((row, i) => (
+        <>
+          <div class="hover:bg-muted grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 rounded-md px-4 py-3 transition-colors duration-150">
+            <span class={`text-center font-serif text-[1.5rem] leading-none font-bold ${row.cls}`}>
+              {row.set}
+            </span>
+            <div>
+              <div class="text-foreground text-[0.85rem] font-semibold">{row.name}</div>
+              <div class="text-muted-foreground mt-0.5 font-mono text-[0.7rem]">{row.rule}</div>
+            </div>
+            <div class="text-muted-foreground text-right font-serif text-[0.85rem] whitespace-nowrap">
+              {row.eq}
+            </div>
+          </div>
 
-    <text x="350" y="220" font-size="12" fill="var(--muted-foreground)">+1 (Real)</text>
-    <text x="40" y="220" font-size="12" fill="var(--muted-foreground)">-1</text>
-    <text x="210" y="50" font-size="12" fill="var(--muted-foreground)">+i (Imaginary)</text>
+          {i < arrows.length && (
+            <div class="flex items-center gap-3 py-0.5 pl-7">
+              <div class="bg-border ml-3 h-7 w-px shrink-0" />
+              <span class="text-muted-foreground/60 flex-1 text-[0.65rem] italic">{arrows[i]}</span>
+              <span class="text-border mr-1 text-sm">↓</span>
+            </div>
+          )}
+        </>
+      ))
+    }
+  </div>
 
-    <path
-      d="M 320 200 A 120 120 0 0 0 80 200"
-      fill="none"
-      stroke="var(--primary)"
-      stroke-width="3"
-      stroke-linecap="round"
-      class="orbit-path"></path>
-
-    <g class="vector">
-      <line x1="200" y1="200" x2="320" y2="200" stroke="var(--foreground)" stroke-width="2"></line>
-      <circle cx="320" cy="200" r="5" fill="var(--foreground)"></circle>
-    </g>
-
-    <circle
-      cx="200"
-      cy="200"
-      r="4"
-      fill="var(--background)"
-      stroke="var(--foreground)"
-      stroke-width="2"></circle>
-
-    <g transform="translate(200, 130)" class="equation-glow">
-      <rect
-        x="-80"
-        y="-30"
-        width="160"
-        height="40"
-        rx="8"
-        fill="var(--card)"
-        stroke="var(--primary)"
-        stroke-width="1.5"
-        opacity="0.9"></rect>
-      <text
-        x="0"
-        y="-3"
-        font-size="20"
-        font-weight="bold"
-        fill="var(--foreground)"
-        text-anchor="middle"
-      >
-        e<tspan dy="-8" font-size="12" fill="var(--primary)">iπ</tspan><tspan dy="8">
-          + 1 = 0</tspan
-        >
-      </text>
-    </g>
-  </svg>
+  <!-- Euler banner -->
+  <div
+    class="border-border/50 bg-muted/40 flex flex-col items-center gap-2 border-t px-6 py-6 text-center"
+  >
+    <div class="text-muted-foreground text-[0.62rem] font-semibold tracking-[0.15em] uppercase">
+      All paths converge
+    </div>
+    <div class="text-foreground font-serif text-[2rem] leading-snug">
+      e<sup class="align-super text-[1rem]">iπ</sup> + 1 = 0
+    </div>
+    <div class="mt-1 flex flex-wrap items-center justify-center gap-2">
+      {
+        chips.map((chip, i) => (
+          <>
+            <span
+              class={`rounded-full border px-2.5 py-0.5 font-serif text-[0.82rem] font-bold ${chip.cls}`}
+            >
+              {chip.label}
+            </span>
+            {i < chips.length - 1 && <span class="text-border text-sm">·</span>}
+          </>
+        ))
+      }
+    </div>
+  </div>
 </div>

@@ -1,17 +1,29 @@
 ---
 interface Props {
-  label: string;
+  label?: string;
 }
 const { label } = Astro.props;
 ---
 
-<div class="my-10 flex flex-col items-center gap-4">
-  <div class="border-primary/30 bg-primary/5 rounded-xl border px-12 py-8 text-center">
-    <p class="text-foreground font-mono text-4xl font-black tracking-tight">
-      <slot />
-    </p>
+<div class="bg-card border-primary/40 relative mx-auto my-10 max-w-lg rounded-lg border shadow-md">
+  {
+    label && (
+      <div class="bg-background text-primary border-border absolute -top-2.5 left-5 rounded border px-2 font-mono text-[0.68rem] font-semibold tracking-widest uppercase">
+        {label}
+      </div>
+    )
+  }
+  <div
+    class="text-foreground px-10 py-7 text-center font-serif text-[1.85rem] leading-snug tracking-tight"
+  >
+    <slot />
   </div>
-  <p class="text-muted-foreground font-mono text-xs tracking-widest uppercase opacity-60">
-    {label}
-  </p>
 </div>
+
+<style>
+  /* slot may contain <sup> injected from mdx */
+  .math-box-content :global(sup) {
+    font-size: 1rem;
+    vertical-align: super;
+  }
+</style>

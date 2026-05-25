@@ -1,0 +1,234 @@
+---
+
+---
+
+<figure class="my-10 flex flex-col items-center">
+  <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
+    <style>
+      .nat-rail {
+        animation: rail-grow 1s 0.1s ease-out both;
+        transform-origin: 0px 100px;
+      }
+      @keyframes rail-grow {
+        from {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      }
+      .nat-n1 {
+        animation: nat-pop 0.4s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 56px 100px;
+      }
+      .nat-n2 {
+        animation: nat-pop 0.4s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 136px 100px;
+      }
+      .nat-n3 {
+        animation: nat-pop 0.4s 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 216px 100px;
+      }
+      .nat-n4 {
+        animation: nat-pop 0.4s 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 296px 100px;
+      }
+      .nat-n5 {
+        animation: nat-pop 0.4s 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 376px 100px;
+      }
+      .nat-n6 {
+        animation: nat-pop 0.4s 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 456px 100px;
+      }
+      .nat-dots {
+        animation: nat-pop 0.4s 1.05s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        transform-origin: 514px 100px;
+      }
+      @keyframes nat-pop {
+        from {
+          opacity: 0;
+          transform: scale(0);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+
+    <!-- horizontal rail -->
+    <line
+      x1="20"
+      y1="100"
+      x2="540"
+      y2="100"
+      stroke="var(--border)"
+      stroke-width="1.5"
+      class="nat-rail"></line>
+
+    <!-- number nodes -->
+    <!-- N = {1, 2, 3, 4, 5, 6, ...} -->
+    <g>
+      <!-- 1 -->
+      <g class="nat-n1">
+        <circle cx="56" cy="100" r="26" fill="var(--card)" stroke="var(--primary)" stroke-width="2"
+        ></circle>
+        <text
+          x="56"
+          y="107"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="22"
+          font-weight="bold"
+          fill="var(--primary)">1</text
+        >
+        <text
+          x="56"
+          y="145"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="10"
+          fill="var(--muted-foreground)"
+          letter-spacing="0.5">first</text
+        >
+      </g>
+      <!-- 2 -->
+      <g class="nat-n2">
+        <circle
+          cx="136"
+          cy="100"
+          r="26"
+          fill="var(--card)"
+          stroke="var(--primary)"
+          stroke-width="1.5"
+          opacity="0.9"></circle>
+        <text
+          x="136"
+          y="107"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="22"
+          font-weight="bold"
+          fill="var(--primary)">2</text
+        >
+      </g>
+      <!-- 3 -->
+      <g class="nat-n3">
+        <circle
+          cx="216"
+          cy="100"
+          r="26"
+          fill="var(--card)"
+          stroke="var(--primary)"
+          stroke-width="1.5"
+          opacity="0.8"></circle>
+        <text
+          x="216"
+          y="107"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="22"
+          font-weight="bold"
+          fill="var(--primary)">3</text
+        >
+      </g>
+      <!-- 4 -->
+      <g class="nat-n4">
+        <circle
+          cx="296"
+          cy="100"
+          r="26"
+          fill="var(--card)"
+          stroke="var(--primary)"
+          stroke-width="1.5"
+          opacity="0.7"></circle>
+        <text
+          x="296"
+          y="107"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="22"
+          font-weight="bold"
+          fill="var(--primary)">4</text
+        >
+      </g>
+      <!-- 5 -->
+      <g class="nat-n5">
+        <circle
+          cx="376"
+          cy="100"
+          r="26"
+          fill="var(--card)"
+          stroke="var(--primary)"
+          stroke-width="1.5"
+          opacity="0.6"></circle>
+        <text
+          x="376"
+          y="107"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="22"
+          font-weight="bold"
+          fill="var(--primary)">5</text
+        >
+      </g>
+      <!-- 6 -->
+      <g class="nat-n6">
+        <circle
+          cx="456"
+          cy="100"
+          r="26"
+          fill="var(--card)"
+          stroke="var(--primary)"
+          stroke-width="1.5"
+          opacity="0.45"></circle>
+        <text
+          x="456"
+          y="107"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="22"
+          font-weight="bold"
+          fill="var(--primary)">6</text
+        >
+      </g>
+      <!-- dots -->
+      <g class="nat-dots">
+        <text
+          x="514"
+          y="109"
+          font-family="Georgia,serif"
+          font-size="28"
+          fill="var(--primary)"
+          opacity="0.35">…</text
+        >
+        <text
+          x="514"
+          y="144"
+          text-anchor="middle"
+          font-family="Georgia,serif"
+          font-size="10"
+          fill="var(--muted-foreground)"
+          opacity="0.6">∞</text
+        >
+      </g>
+    </g>
+
+    <!-- set label -->
+    <text
+      x="280"
+      y="175"
+      text-anchor="middle"
+      font-family="Georgia,serif"
+      font-size="13"
+      font-style="italic"
+      fill="var(--muted-foreground)"
+      letter-spacing="1"
+    >
+      ℕ = "{" 1, 2, 3, 4, 5, … "}"
+    </text>
+  </svg>
+</figure>

@@ -1,35 +1,25 @@
 ---
 interface Props {
-  title?: string;
-  symbol?: string;
   caption?: string;
+  label?: string;
 }
-const { title, symbol, caption } = Astro.props;
+const { caption, label } = Astro.props;
 ---
 
-<div class="border-border bg-card my-10 overflow-hidden rounded-lg border">
-  {
-    title && (
-      <div class="border-border flex items-center justify-between border-b px-5 py-3">
-        <span class="text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase">
-          {title}
-        </span>
-        {symbol && (
-          <span class="text-muted-foreground font-mono text-[10px] opacity-50">{symbol}</span>
-        )}
-      </div>
-    )
-  }
-
-  <div class="bg-background flex w-full justify-center overflow-x-auto p-6">
+<figure class="my-8">
+  <div class="bg-card border-border overflow-hidden rounded-lg border">
     <slot />
   </div>
-
   {
-    caption && (
-      <div class="border-border border-t px-5 py-3">
-        <p class="text-muted-foreground font-mono text-[11px] opacity-70" set:html={caption} />
-      </div>
+    (caption || label) && (
+      <figcaption class="text-muted-foreground mt-2.5 flex items-baseline gap-1.5 font-sans text-[0.82rem]">
+        {label && (
+          <span class="text-primary font-mono text-[0.75rem] font-semibold tracking-wide uppercase">
+            {label}
+          </span>
+        )}
+        {caption && <span>{caption}</span>}
+      </figcaption>
     )
   }
-</div>
+</figure>
