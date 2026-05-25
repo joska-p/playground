@@ -1,0 +1,57 @@
+---
+import Figure from "./Figure.astro";
+import "../styles/styles.css";
+---
+
+<Figure className="flex flex-col items-center">
+  <div class="bg-card border-border/40 w-full max-w-sm rounded-xl border p-5 shadow-xs">
+    <svg
+      viewBox="0 0 360 360"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-auto w-full"
+      role="img"
+      aria-label="Unit circle showing rotation by i: 1 → i → -1 → -i → 1"
+    >
+      <defs>
+        <marker id="iu-arrow" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 z" class="fill-primary" />
+        </marker>
+      </defs>
+
+      <g class="anim-fade stroke-border/40" stroke-width="1.5">
+        <line x1="30" y1="180" x2="330" y2="180" />
+        <line x1="180" y1="30" x2="180" y2="330" class="stroke-primary/20" />
+      </g>
+
+      <circle cx="180" cy="180" r="90" fill="none"
+              class="stroke-border" stroke-width="2" stroke-dasharray="4,4"
+              style="animation: draw 1.4s 0.2s cubic-bezier(0.4,0,0.2,1) both; --draw-offset: 565;" />
+
+      <g fill="none" class="stroke-primary" stroke-width="2" marker-end="url(#iu-arrow)">
+        <path d="M 270,180 A 90,90 0 0,0 180,90"
+              class="anim-fade" style="--anim-delay: 1.1s; --anim-duration: 0.6s;" />
+        <path d="M 180,90 A 90,90 0 0,0 90,180"
+              class="anim-fade" style="--anim-delay: 1.5s; --anim-duration: 0.6s;" />
+        <path d="M 90,180 A 90,90 0 0,0 180,270"
+              class="anim-fade" style="--anim-delay: 1.9s; --anim-duration: 0.6s;" />
+        <path d="M 180,270 A 90,90 0 0,0 270,180"
+              class="anim-fade" style="--anim-delay: 2.3s; --anim-duration: 0.6s;" />
+      </g>
+
+      <g class="anim-fade font-mono text-xs font-black" text-anchor="middle" dominant-baseline="middle"
+         style="--anim-delay: 0.7s;">
+        <text x="290" y="180" class="fill-foreground text-sm">1</text>
+        <text x="70" y="180" class="fill-foreground text-sm">-1</text>
+        <text x="180" y="72" class="fill-primary text-sm font-black">i</text>
+        <text x="180" y="288" class="fill-primary text-sm font-black">-i</text>
+      </g>
+
+      <g class="anim-fade fill-primary/70 font-mono text-[0.62rem] font-bold" style="--anim-delay: 1.3s;">
+        <text x="235" y="125">× i (90° Shift)</text>
+        <text x="95" y="125" text-anchor="start">× i</text>
+        <text x="95" y="245">× i</text>
+        <text x="235" y="245">× i</text>
+      </g>
+    </svg>
+  </div>
+</Figure>

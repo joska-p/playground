@@ -1,0 +1,129 @@
+---
+import "../styles/styles.css";
+---
+
+<div
+  class="not-prose border-border bg-card relative my-8 mb-12 h-72 w-full overflow-hidden rounded-lg border"
+  aria-hidden="true"
+>
+  <canvas id="hero-canvas" class="absolute inset-0 h-full w-full"></canvas>
+  <div class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3">
+    <div class="flex items-center gap-1.5">
+      <span class="text-category-tutorial font-bold">ℕ</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
+      <span class="text-category-how-to font-bold">ℤ</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
+      <span class="text-category-explanation font-bold">ℚ</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
+      <span class="text-category-data-viz font-bold">ℝ</span>
+      <span class="text-muted-foreground mx-1 text-sm">⊂</span>
+      <span class="text-primary font-bold">ℂ</span>
+    </div>
+    <p class="text-muted-foreground m-0 font-sans text-sm uppercase">
+      A walk from one brick to infinite dimensions
+    </p>
+  </div>
+</div>
+
+<script>
+  import { resizeCanvas } from "../lib/utils.ts";
+
+  const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+
+  function resize() {
+    resizeCanvas(canvas);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const particles = Array.from({ length: 60 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    vx: (Math.random() - 0.5) * 0.0003,
+    vy: (Math.random() - 0.5) * 0.0003,
+    r: Math.random() * 1.8 + 0.4,
+    alpha: Math.random() * 0.4 + 0.1,
+  }));
+
+  let frame = 0;
+  function draw() {
+    const w = canvas.offsetWidth,
+      h = canvas.offsetHeight;
+    ctx.clearRect(0, 0, w, h);
+
+    const style = getComputedStyle(document.documentElement);
+    const border = style.getPropertyValue("--border").trim();
+    const primary = style.getPropertyValue("--primary").trim();
+    const secondary = style.getPropertyValue("--secondary").trim();
+
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = `oklch(${border} / 0.4)`;
+    const step = 40;
+    const cx = w / 2,
+      cy = h / 2;
+    for (let x = cx % step; x < w; x += step) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = cy % step; y < h; y += step) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `oklch(${border} / 0.7)`;
+    ctx.beginPath();
+    ctx.moveTo(cx, 0);
+    ctx.lineTo(cx, h);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, cy);
+    ctx.lineTo(w, cy);
+    ctx.stroke();
+
+    const rad = Math.min(w, h) * 0.32;
+    ctx.beginPath();
+    ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+    ctx.strokeStyle = `oklch(${primary} / 0.25)`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    const angle = frame * 0.008;
+    const px = cx + Math.cos(angle) * rad;
+    const py = cy + Math.sin(angle) * rad;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(px, py);
+    ctx.strokeStyle = `oklch(${primary} / 0.5)`;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(px, py, 4, 0, Math.PI * 2);
+    ctx.fillStyle = `oklch(${primary})`;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+    ctx.fillStyle = `oklch(${border})`;
+    ctx.fill();
+
+    for (const p of particles) {
+      p.x = (p.x + p.vx + 1) % 1;
+      p.y = (p.y + p.vy + 1) % 1;
+      ctx.beginPath();
+      ctx.arc(p.x * w, p.y * h, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `oklch(${secondary} / ${p.alpha})`;
+      ctx.fill();
+    }
+
+    frame++;
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>

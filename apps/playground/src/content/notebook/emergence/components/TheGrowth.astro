@@ -1,0 +1,77 @@
+---
+import Figure from "./Figure.astro";
+import "../styles/styles.css";
+---
+
+<Figure className="flex flex-col items-center">
+  <div class="bg-card border-border/40 w-full max-w-xl rounded-xl border p-5 shadow-xs sm:p-6">
+    <div class="border-border/30 mb-4 flex items-center justify-between border-b pb-3">
+      <div class="text-muted-foreground font-mono text-[0.62rem] tracking-widest uppercase">
+        Linear vs Logarithmic Growth
+      </div>
+      <div class="flex items-center gap-3 font-mono text-[0.65rem] font-bold">
+        <span class="text-category-exploration flex items-center gap-1.5">
+          <span class="bg-category-explanation inline-block h-2 w-2 rounded-full"></span>
+          Linear (+1)
+        </span>
+        <span class="text-category-tutorial flex items-center gap-1.5">
+          <span class="bg-category-tutorial inline-block h-2 w-2 rounded-full"></span>
+          Log (×10)
+        </span>
+      </div>
+    </div>
+
+    <svg
+      viewBox="0 0 440 200"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-auto w-full"
+      role="img"
+      aria-label="Comparison of linear vs logarithmic growth curves"
+    >
+      <g class="stroke-border/15" stroke-width="1">
+        <line x1="40" y1="30" x2="400" y2="30" />
+        <line x1="40" y1="75" x2="400" y2="75" />
+        <line x1="40" y1="120" x2="400" y2="120" />
+        <line x1="40" y1="165" x2="400" y2="165" class="stroke-border/40" stroke-width="1.5" />
+      </g>
+
+      <!-- Linear path -->
+      <g>
+        <path d="M 40,165 L 100,145 L 160,125 L 220,105 L 280,85 L 340,65 L 400,45"
+              fill="none" class="stroke-category-explanation" stroke-width="3" stroke-linecap="round"
+              style="animation: draw 1.2s 0.1s cubic-bezier(0.16,1,0.3,1) both; --draw-offset: 500;" />
+        {[40, 100, 160, 220, 280, 340, 400].map((cx, i) => (
+          <circle cx={cx} cy={165 - i * 20} r="3.5"
+                  class="fill-card stroke-category-explanation" stroke-width="2"
+                  class="anim-pop" style={`--anim-delay: ${0.2 + i * 0.1}s; --anim-duration: 0.4s;`} />
+        ))}
+      </g>
+
+      <!-- Log path -->
+      <g>
+        <path d="M 40,165 C 55,160 80,140 130,110 C 190,75 290,48 400,45"
+              fill="none" class="stroke-category-tutorial" stroke-width="3" stroke-linecap="round"
+              style="animation: draw 1.2s 0.3s cubic-bezier(0.16,1,0.3,1) both; --draw-offset: 500;" />
+        {[
+          { x: 40, y: 165 }, { x: 55, y: 161 }, { x: 80, y: 147 },
+          { x: 130, y: 110 }, { x: 230, y: 68 }, { x: 400, y: 45 }
+        ].map((pt) => (
+          <circle cx={pt.x} cy={pt.y} r="3.5"
+                  class="fill-card stroke-category-tutorial" stroke-width="2"
+                  class="anim-pop" style={`--anim-delay: ${0.4 + Math.random() * 0.3}s; --anim-duration: 0.4s;`} />
+        ))}
+      </g>
+
+      <g class="fill-muted-foreground/60 font-mono text-[0.6rem]" text-anchor="middle">
+        <text x="40" y="184">1</text>
+        <text x="130" y="184">10</text>
+        <text x="230" y="184">100</text>
+        <text x="400" y="184">1k</text>
+      </g>
+    </svg>
+
+    <div class="text-muted-foreground/70 mt-2 text-center font-mono text-[0.65rem] italic">
+      Both scales begin unified at the source — then diverge into separate dimensions.
+    </div>
+  </div>
+</Figure>

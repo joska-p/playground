@@ -1,0 +1,38 @@
+---
+interface Props {
+  variant: "question" | "consequence";
+  question?: string;
+  label?: string;
+}
+const { variant, question, label } = Astro.props;
+
+const icon = variant === "question" ? "?" : "→";
+const iconClass = variant === "question"
+  ? "text-primary bg-primary/10"
+  : "text-accent bg-accent/10";
+const labelText = label ?? (variant === "question" ? "The Question" : "The Consequence");
+---
+
+<div
+  class="not-prose bg-card border-primary/30 my-8 flex items-start gap-4 rounded-lg border p-5 shadow-sm"
+>
+  <span
+    class={`${iconClass} flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-lg font-bold`}
+    aria-hidden="true">{icon}</span
+  >
+  <div>
+    <p class="text-muted-foreground m-0 font-sans font-semibold tracking-[0.12em] uppercase">
+      {labelText}
+    </p>
+    {variant === "question" && question && (
+      <p class="text-foreground m-0 mt-0.5 text-xl leading-snug">
+        {question}
+      </p>
+    )}
+    {variant === "consequence" && (
+      <div class="text-foreground m-0 mt-0.5 leading-snug">
+        <slot />
+      </div>
+    )}
+  </div>
+</div>

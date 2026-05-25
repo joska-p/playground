@@ -1,0 +1,402 @@
+{
+  "nodes": [
+    {
+      "id": "emergence-complexite_the-naturals",
+      "label": "Natural Numbers (\u2115) \u2014 Discrete Points on a Line",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-naturals.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-rationals",
+      "label": "Rational Numbers (\u211a) \u2014 The Dense Number Line",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-rationals.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-exponentiation",
+      "label": "Exponential Growth (10\u207f)",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-exponentiation.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-logarithm",
+      "label": "Logarithmic vs Exponential Growth",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-logarithm.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-transgression",
+      "label": "The Transgression (\u211d \u2192 \u2102) \u2014 x\u00b2 + 1 = 0",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-transgression.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-complex-plane",
+      "label": "The Complex Plane \u2014 Z = 3 + 2i",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-complex-plane.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-imaginary-unit",
+      "label": "The Imaginary Unit (i) \u2014 90\u00b0 Rotation",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-imaginary-unit.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-nested-sets-diagram",
+      "label": "Nested Number Sets (\u2115 \u2282 \u2124 \u2282 \u211a \u2282 \u211d \u2282 \u2102)",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-nested-sets-diagram.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-masterpiece",
+      "label": "The Full Architecture of Numbers \u2014 Euler's Identity",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-masterpiece.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_the-linear-vs-logarithmic-growth",
+      "label": "Linear vs Logarithmic Growth \u2014 Animated Canvas Chart",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-linear-vs-logarithmic-growth.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_SvgNode",
+      "label": "SvgNode \u2014 Reusable SVG Circle+Label Component",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/SvgNode.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_canvas-utils",
+      "label": "canvas-utils \u2014 resizeCanvas, observeOnce",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/canvas-utils.ts",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_StepQuestion",
+      "label": "StepQuestion \u2014 Question Card Block",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/StepQuestion.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "emergence-complexite_StepConsequence",
+      "label": "StepConsequence \u2014 Consequence Card Block",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/StepConsequence.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "data_docs",
+      "label": "Docs Data Module \u2014 Schema, Categories, Helpers",
+      "file_type": "code",
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "data_notebook",
+      "label": "Notebook Data Module \u2014 Schema, Categories, Helpers",
+      "file_type": "code",
+      "source_file": "apps/playground/src/data/notebook.ts",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "layouts_base-layout",
+      "label": "Base Layout \u2014 HTML Shell, SEO, Navbar + Footer",
+      "file_type": "code",
+      "source_file": "apps/playground/src/layouts/base-layout.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "layouts_footer",
+      "label": "Footer Layout \u2014 Links, Credits, Tech Stack",
+      "file_type": "code",
+      "source_file": "apps/playground/src/layouts/footer.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "layouts_navbar",
+      "label": "Navbar Layout \u2014 Navigation, Theme Toggle, Mobile Menu",
+      "file_type": "code",
+      "source_file": "apps/playground/src/layouts/navbar.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pages_404",
+      "label": "404 Error Page",
+      "file_type": "code",
+      "source_file": "apps/playground/src/pages/404.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pages_index",
+      "label": "Home Page \u2014 Creative Playground Landing",
+      "file_type": "code",
+      "source_file": "apps/playground/src/pages/index.astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pages_docs_slug",
+      "label": "Docs Catch-All Page \u2014 Dynamic Content Renderer",
+      "file_type": "code",
+      "source_file": "apps/playground/src/pages/docs/[...slug].astro",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "emergence-complexite_the-rationals",
+      "target": "emergence-complexite_the-naturals",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-rationals.astro",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "emergence-complexite_the-nested-sets-diagram",
+      "target": "emergence-complexite_the-naturals",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-nested-sets-diagram.astro",
+      "source_location": null,
+      "weight": 0.8
+    },
+    {
+      "source": "emergence-complexite_the-nested-sets-diagram",
+      "target": "emergence-complexite_the-rationals",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-nested-sets-diagram.astro",
+      "source_location": null,
+      "weight": 0.8
+    },
+    {
+      "source": "emergence-complexite_the-transgression",
+      "target": "emergence-complexite_the-imaginary-unit",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-transgression.astro",
+      "source_location": null,
+      "weight": 0.9
+    },
+    {
+      "source": "emergence-complexite_the-imaginary-unit",
+      "target": "emergence-complexite_the-complex-plane",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-imaginary-unit.astro",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "emergence-complexite_the-transgression",
+      "target": "emergence-complexite_the-complex-plane",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-transgression.astro",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "emergence-complexite_the-masterpiece",
+      "target": "emergence-complexite_the-nested-sets-diagram",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-masterpiece.astro",
+      "source_location": null,
+      "weight": 0.95
+    },
+    {
+      "source": "emergence-complexite_the-exponentiation",
+      "target": "emergence-complexite_the-logarithm",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-exponentiation.astro",
+      "source_location": null,
+      "weight": 0.9
+    },
+    {
+      "source": "emergence-complexite_the-logarithm",
+      "target": "emergence-complexite_the-linear-vs-logarithmic-growth",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-logarithm.astro",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "emergence-complexite_the-exponentiation",
+      "target": "emergence-complexite_the-linear-vs-logarithmic-growth",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-exponentiation.astro",
+      "source_location": null,
+      "weight": 0.8
+    },
+    {
+      "source": "data_docs",
+      "target": "data_notebook",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "apps/playground/src/data/docs.ts",
+      "source_location": null,
+      "weight": 0.9
+    },
+    {
+      "source": "emergence-complexite_StepQuestion",
+      "target": "emergence-complexite_StepConsequence",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/StepQuestion.astro",
+      "source_location": null,
+      "weight": 0.85
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "number_system_evolution_narrative",
+      "label": "Number System Evolution Narrative",
+      "nodes": [
+        "emergence-complexite_the-naturals",
+        "emergence-complexite_the-rationals",
+        "emergence-complexite_the-nested-sets-diagram",
+        "emergence-complexite_the-transgression",
+        "emergence-complexite_the-imaginary-unit",
+        "emergence-complexite_the-complex-plane",
+        "emergence-complexite_the-masterpiece"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-masterpiece.astro"
+    },
+    {
+      "id": "growth_function_illustrations",
+      "label": "Growth Function Illustrations",
+      "nodes": [
+        "emergence-complexite_the-exponentiation",
+        "emergence-complexite_the-logarithm",
+        "emergence-complexite_the-linear-vs-logarithmic-growth"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "apps/playground/src/content/notebook/emergence-complexite/the-logarithm.astro"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

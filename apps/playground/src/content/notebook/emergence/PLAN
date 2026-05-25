@@ -1,0 +1,130 @@
+# The Emergence of Complexity — v2 Design Plan
+
+## Design Brief
+
+Remove ugliness and inconsistency. Give the article a cohesive visual language
+that matches its narrative: **a walk from one brick to infinite dimensions**.
+
+Each "step" is a station on a path. The reader moves forward, and each station
+has the same rhythm: **Question → Exploration → Consequence**.
+
+---
+
+## Design System
+
+### Typography
+- Body: `--font-sans` (JetBrains Mono, the site's global font)
+- Math display: `--font-serif` (Georgia) for prominence
+- All labels: uppercase, `tracking-[0.2em]`, tiny `[9px-12px]`
+- KaTeX everywhere — no raw HTML `<sup>` hacks
+
+### Color Progression (one color per step)
+
+```
+Step  | System  | Color Token
+──────┼─────────┼─────────────────────
+01    | ℕ       | --category-tutorial   (green)
+02    | ℤ       | --category-how-to     (purple)
+03    | ℚ       | --category-explanation (orange)
+04    | log     | --category-data-viz    (blue)
+05    | i       | --accent              (rose)
+06    | ℂ       | --primary             (teal)
+```
+
+Each step's accent color is set as a CSS variable on the section container.
+All child diagrams and callouts inherit it — no per-component color hardcoding.
+
+### Animation Primitives (single source of truth)
+Defined once in `styles.css`, used by all components:
+
+| Name    | Transform             | Use case              |
+|---------|-----------------------|------------------------|
+| fade-in | opacity               | static elements        |
+| slide-up| translateY(12px)      | staggered text        |
+| pop     | scale(0→1) + opacity  | nodes, badges         |
+| draw    | stroke-dashoffset     | lines, curves, axes   |
+| halo    | scale + opacity pulse | glow effects          |
+
+All durations and delays via CSS custom properties: `--anim-duration`, `--anim-delay`.
+
+### Component Architecture
+
+```
+index.mdx          — article content (MDX)
+styles.css         — shared animations + component styles
+utils.ts           — canvas utilities (HiDPI resize, IntersectionObserver)
+Figure.astro       — universal figure card (consistent border/radius/label position)
+Callout.astro      — question (?) / consequence (→) — unified, variant prop
+StepHeader.astro   — step divider with color accent + progress indicator
+Hero.astro         — full-width canvas banner
+SvgNode.astro      — reusable SVG <g> node (circle + label + optional subtitle)
+TheOne.astro       — "1" brick diagram
+TheSuccessor.astro — 1→2→3→4 chain
+TheNaturals.astro  — ℕ number line
+TheZero.astro      — subtraction fracture
+TheIntegers.astro  — symmetric ℤ line
+TheDivision.astro  — division shatter
+TheRationals.astro — rational density zoom
+TheNestedSets.astro— ℕ⊂ℤ⊂ℚ⊂ℝ⊂ℂ overview
+TheExponent.astro  — exponential curve
+TheLogarithm.astro — eˣ vs ln(x)
+TheGrowth.astro    — linear vs logarithmic
+TheTransgression.astro — x²+1 parabola with no real root
+TheImaginaryUnit.astro  — i rotation cycle
+TheComplexPlane.astro   — a+bi vector in 2D
+TheRotationCycle.astro  — interactive ×i canvas
+TheMasterpiece.astro    — Euler summary table
+```
+
+### Layout & Spacing
+- Each Step section starts with `StepHeader`, wrapped in a `<section>` with a
+  CSS variable `--step-color` on it
+- Diagrams: `mx-auto max-w-3xl` (can be wider than prose) or `max-w-sm` for small
+- The `Figure.astro` wrapper: `not-prose bg-card border-border rounded-lg border`
+- Label badge: `absolute top-3 left-4 font-mono text-[0.6rem] tracking-widest`
+- Use `my-12` between steps for clear visual breathing room
+
+### Prose Integration
+- Article text stays inside `prose prose-playground` (from site layout)
+- Components use `not-prose` to opt out of prose styling
+- Math: `$...$` inline, `$$...$$` display — KaTeX handles rendering
+- Code: inline `` `...` `` in prose for numerals and symbols
+
+---
+
+## Component Conventions (all .astro)
+
+1. No AI-style comments like "Clean, descriptive context label" or
+   "Smooth, non-blocking cascading animation delays" — write clean code.
+2. Import `styles.css` in frontmatter with `import "./styles.css";`.
+3. Use the shared animation keyframes from `styles.css`. Don't redefine.
+4. SVG `viewBox` scales responsively. Use `class="block h-auto w-full"`.
+5. Every SVG diagram gets `role="img"` with `aria-label`.
+6. All colors via Tailwind utility classes (not inline styles).
+7. Consistent stroke widths: lines 1.5-2, accent elements 2.5-3.5.
+8. Nodes: `r=24` for main, `r=18` for secondary, text `font-bold text-2xl`.
+
+---
+
+## Narrative Structure (6 Steps + Epilogue)
+
+| Step | Title                      | Question                              | Consequence                              |
+|------|----------------------------|---------------------------------------|------------------------------------------|
+| 01   | The Natural Numbers        | "What if something exists?"           | From one brick + one rule, infinity      |
+| 02   | Zero and Negatives         | "Can we undo an addition?"            | The line becomes symmetric               |
+| 03   | The Rationals              | "Can we undo a multiplication?"       | The line becomes dense                   |
+| 04   | Logarithms                 | "Given the result, what exponent?"    | Multiplication becomes addition          |
+| 05   | The Imaginary Unit         | "What number, squared, gives -1?"     | Pure logical will creates i              |
+| 06   | The Complex Plane          | "Where does i go?"                    | Multiplication becomes rotation          |
+| —    | Euler's Formula            | —                                     | Five constants converge                  |
+
+---
+
+## Migration Strategy
+
+1. Create directory `emergence/` with new architecture
+2. Build shared infrastructure: styles.css, utils.ts, Figure, Callout, StepHeader
+3. Write index.mdx with new narrative
+4. Port and redesign each diagram component
+5. Test rendering
+6. When complete, remove old `emergence-complexite/` directory

@@ -1,0 +1,40 @@
+---
+import Figure from "./Figure.astro";
+import "../styles/styles.css";
+---
+
+<Figure className="flex flex-col items-center">
+  <div class="bg-card border-border/40 w-full max-w-xl rounded-xl border p-5 shadow-xs sm:p-6">
+    <svg
+      viewBox="0 0 480 320"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-auto w-full"
+      role="img"
+      aria-label="Logarithmic curve tames exponential growth: eˣ vs ln(x)"
+    >
+      <g class="anim-fade stroke-border/20" stroke-width="1">
+        <line x1="50" y1="260" x2="440" y2="260" class="stroke-border/60" stroke-width="1.5" />
+        <line x1="50" y1="30" x2="50" y2="260" class="stroke-border/60" stroke-width="1.5" />
+        <line x1="50" y1="260" x2="440" y2="30" class="stroke-border/10" stroke-dasharray="3,3" />
+      </g>
+
+      <path d="M 50,250 C 120,248 180,230 220,180 C 250,140 280,80 310,30"
+            fill="none" class="stroke-accent/40" stroke-width="2" stroke-dasharray="4,2"
+            style="animation: draw 1.2s 0.2s cubic-bezier(0.2,1,0.4,1) both; --draw-offset: 600;" />
+
+      <path d="M 65,300 C 70,220 120,150 190,110 C 260,70 350,55 440,50"
+            fill="none" class="stroke-category-tutorial" stroke-width="3.5" stroke-linecap="round"
+            style="animation: draw 1.2s 0.6s cubic-bezier(0.2,1,0.4,1) both; --draw-offset: 600;" />
+
+      <g class="anim-fade font-mono text-xs font-bold" style="--anim-delay: 1.2s;">
+        <text x="210" y="145" class="fill-accent/70 italic">eˣ (Explosion)</text>
+        <text x="280" y="82" class="fill-category-tutorial font-black">ln(x) (The Anchor)</text>
+      </g>
+
+      <g class="anim-fade fill-muted-foreground/60 font-mono text-[0.6rem]" style="--anim-delay: 1.4s;">
+        <text x="440" y="275" text-anchor="end">Value Dimension →</text>
+        <text x="62" y="42" transform="rotate(90 62 42)">Perceived Step →</text>
+      </g>
+    </svg>
+  </div>
+</Figure>

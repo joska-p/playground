@@ -1,0 +1,21 @@
+---
+interface Props {
+  step: string;
+  symbol: string;
+  label?: string;
+}
+const { step, symbol, label } = Astro.props;
+---
+
+<div class="not-prose mt-16 mb-1 flex items-center gap-4">
+  <span class="text-primary tracking-[0.25em] uppercase opacity-70">
+    {label ?? "Step"} {step}
+  </span>
+  <span class="bg-border h-px flex-1 opacity-50"></span>
+  <span
+    class="text-accent bg-card border-border flex h-10 w-10 items-center justify-center rounded-full border font-mono text-xl font-bold"
+    aria-label={`Symbol: ${symbol}`}
+  >
+    {symbol}
+  </span>
+</div>

@@ -1,0 +1,55 @@
+---
+import Figure from "./Figure.astro";
+import "../styles/styles.css";
+---
+
+<Figure className="flex flex-col items-center">
+  <svg
+    viewBox="0 0 480 220"
+    xmlns="http://www.w3.org/2000/svg"
+    class="w-full max-w-3xl"
+    role="img"
+    aria-label="The number 1 as a glowing brick"
+  >
+    <ellipse
+      cx="240"
+      cy="108"
+      rx="88"
+      ry="80"
+      class="fill-primary"
+      style="animation: halo 4s ease-in-out infinite; transform-origin: 240px 108px;"
+    />
+    <g class="stroke-primary" stroke-width="1.5" stroke-linecap="round"
+       style="animation: ray-pulse 4s ease-in-out infinite;">
+      <line x1="240" y1="42" x2="240" y2="22" />
+      <line x1="240" y1="174" x2="240" y2="194" />
+      <line x1="158" y1="108" x2="138" y2="108" />
+      <line x1="322" y1="108" x2="342" y2="108" />
+      <line x1="182" y1="60" x2="168" y2="46" />
+      <line x1="298" y1="60" x2="312" y2="46" />
+      <line x1="182" y1="156" x2="168" y2="170" />
+      <line x1="298" y1="156" x2="312" y2="170" />
+    </g>
+    <rect
+      x="176" y="56" width="128" height="104" rx="10"
+      class="fill-card stroke-primary" stroke-width="2"
+      style="animation: slide-up 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;"
+    />
+    <rect
+      x="184" y="64" width="112" height="88" rx="6"
+      fill="none" class="stroke-primary/35" stroke-width="0.6"
+      style="animation: slide-up 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;"
+    />
+    <text
+      x="240" y="128" text-anchor="middle"
+      class="fill-primary text-6xl font-bold"
+      style="animation: slide-up 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;"
+    >1</text>
+    <text
+      x="240" y="198" text-anchor="middle"
+      class="fill-muted-foreground text-sm"
+      letter-spacing="3"
+      style="animation: fade-in 0.6s 0.8s ease-out both;"
+    >THE UNIT · THE ORIGIN · THE ONLY GIVEN</text>
+  </svg>
+</Figure>

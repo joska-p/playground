@@ -1,0 +1,90 @@
+---
+const rows = [
+  { set: "ℕ", cls: "text-category-tutorial bg-category-tutorial/10 border-category-tutorial/20",     name: "Natural Numbers",     rule: "The foundation of existence",       eq: "1, 2, 3, …" },
+  { set: "ℤ", cls: "text-category-how-to bg-category-how-to/10 border-category-how-to/20",           name: "Integers",            rule: "Symmetry via zero & negatives",    eq: "…, −2, −1, 0, 1, …" },
+  { set: "ℚ", cls: "text-category-explanation bg-category-explanation/10 border-category-explanation/20", name: "Rationals",       rule: "Density through fractions",         eq: "a/b, b ≠ 0" },
+  { set: "ℝ", cls: "text-category-data-viz bg-category-data-viz/10 border-category-data-viz/20",     name: "Real Numbers",        rule: "Completeness (gaps filled)",        eq: "√2, π, e, …" },
+  { set: "ℂ", cls: "text-primary bg-primary/10 border-primary/20",                                   name: "Complex Plane",       rule: "Two-dimensional rotation",          eq: "a + ib" },
+];
+
+const arrows = [
+  { trigger: "Reverse addition",     outcome: "subtraction becomes unsolvable" },
+  { trigger: "Reverse multiplication", outcome: "division becomes unsolvable" },
+  { trigger: "Completeness gaps",    outcome: "irrationals break the grid" },
+  { trigger: "Reverse square root",  outcome: "x² = −1 forces a breakthrough" },
+];
+
+const chips = [
+  { label: "1", desc: "The Unit",   cls: "text-category-tutorial border-category-tutorial/20 bg-category-tutorial/5" },
+  { label: "0", desc: "The Origin", cls: "text-category-how-to border-category-how-to/20 bg-category-how-to/5" },
+  { label: "π", desc: "The Circle", cls: "text-category-data-viz border-category-data-viz/20 bg-category-data-viz/5" },
+  { label: "e", desc: "The Growth", cls: "text-category-explanation border-category-explanation/20 bg-category-explanation/5" },
+  { label: "i", desc: "The Rotation", cls: "text-primary border-primary/20 bg-primary/5" },
+];
+---
+
+<div class="not-prose bg-card text-card-foreground border-border my-12 overflow-hidden rounded-xl border font-sans shadow-sm backdrop-blur-sm">
+  <div class="border-border/40 bg-muted/20 border-b px-6 py-4">
+    <h3 class="text-foreground text-center text-xs font-semibold tracking-[0.2em] uppercase opacity-80">
+      The Full Architecture of Numbers
+    </h3>
+  </div>
+
+  <div class="flex flex-col px-4 py-6 sm:px-8">
+    {rows.map((row, i) => (
+      <>
+        <div class="group hover:bg-muted/40 hover:border-border/40 relative flex flex-col justify-between gap-2 rounded-xl border border-transparent p-4 transition-all duration-200 sm:flex-row sm:items-center">
+          <div class="flex items-center gap-4">
+            <span class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border text-xl font-bold transition-transform group-hover:scale-105 ${row.cls}`}>
+              {row.set}
+            </span>
+            <div>
+              <h4 class="text-foreground text-sm font-semibold tracking-tight">{row.name}</h4>
+              <p class="text-muted-foreground mt-0.5 font-mono text-xs">{row.rule}</p>
+            </div>
+          </div>
+          <div class="text-muted-foreground bg-muted/30 border-border/30 self-end rounded-md border px-3 py-1 font-mono text-xs sm:self-center sm:text-sm">
+            {row.eq}
+          </div>
+        </div>
+
+        {i < arrows.length && (
+          <div class="relative my-1 flex items-stretch gap-4 pl-10">
+            <div class="from-border to-border/30 relative flex w-px justify-center bg-gradient-to-b">
+              <div class="bg-border absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full" />
+            </div>
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 py-3 text-xs">
+              <span class="text-foreground/70 font-medium">{arrows[i].trigger}</span>
+              <span class="text-muted-foreground/40 font-mono">→</span>
+              <span class="text-destructive bg-destructive/10 border-destructive/20 rounded border px-2 py-0.5 font-mono text-[0.7rem] font-medium sm:text-xs">
+                {arrows[i].outcome}
+              </span>
+            </div>
+          </div>
+        )}
+      </>
+    ))}
+  </div>
+
+  <div class="border-border/40 bg-muted/20 relative overflow-hidden border-t px-6 py-8 text-center">
+    <div class="bg-primary/5 pointer-events-none absolute -bottom-12 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full blur-3xl" />
+    <span class="text-muted-foreground mb-3 block text-[0.65rem] font-bold tracking-[0.25em] uppercase">
+      All Paths Converge
+    </span>
+
+    <div class="text-foreground my-4 font-serif text-3xl tracking-wide sm:text-4xl">
+      e<span class="text-primary align-super font-sans text-xl font-medium tracking-normal sm:text-2xl">iπ</span> + 1 = 0
+    </div>
+
+    <div class="relative z-10 mt-6 flex flex-wrap items-center justify-center gap-3">
+      {chips.map((chip) => (
+        <div class={`group/chip hover:bg-card flex items-center gap-2 rounded-lg border px-3 py-1 text-xs font-semibold transition-all duration-200 ${chip.cls}`}>
+          <span>{chip.label}</span>
+          <span class="text-muted-foreground/60 border-border/40 group-hover/chip:text-muted-foreground border-l pl-2 text-[0.65rem] font-normal transition-colors">
+            {chip.desc}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

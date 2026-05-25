@@ -1,0 +1,51 @@
+---
+interface Props {
+  cx: number;
+  cy: number;
+  label: string;
+  subtitle?: string;
+  r?: number;
+  class?: string;
+  style?: string;
+  stroke?: string;
+}
+const {
+  cx,
+  cy,
+  label,
+  subtitle,
+  r = 24,
+  class: className,
+  stroke = "var(--primary)",
+} = Astro.props;
+---
+
+<g class={className} style={Astro.props.style}>
+  <circle
+    cx={cx}
+    cy={cy}
+    r={r}
+    fill="var(--card)"
+    stroke={stroke}
+    stroke-width="2"
+  />
+  <text
+    x={cx}
+    y={cy}
+    dy=".35em"
+    text-anchor="middle"
+    class="fill-current text-2xl font-bold"
+  >
+    {label}
+  </text>
+  {subtitle && (
+    <text
+      x={cx}
+      y={cy + r + 14}
+      text-anchor="middle"
+      class="fill-muted-foreground text-sm"
+    >
+      {subtitle}
+    </text>
+  )}
+</g>
