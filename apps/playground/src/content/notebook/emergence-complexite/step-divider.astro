@@ -1,0 +1,15 @@
+---
+interface Props {
+  step: string;
+  symbol: string;
+}
+const { step, symbol } = Astro.props;
+---
+
+<div class="mt-16 mb-1 flex items-center gap-4">
+  <span class="text-primary font-mono text-[10px] tracking-[0.25em] uppercase opacity-70"
+    >Step {step}</span
+  >
+  <span class="bg-border h-px flex-1 opacity-50"></span>
+  <span class="text-muted-foreground font-mono text-[10px] opacity-50" set:html={symbol} />
+</div>

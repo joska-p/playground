@@ -1,0 +1,231 @@
+---
+title: "The Emergence of Complexity"
+description: "How simple arithmetic rules, through pure logical necessity, break open new dimensions and give rise to entirely new numerical universes."
+date: 2026-05-24
+katex: true
+draft: false
+category: "maths"
+tags:
+  - maths
+  - complex-systems
+  - philosophy"
+---
+
+import Hero from "./hero.astro"
+import NestedSetsDiagram from "./nested-sets-diagram.astro"
+import MasterPiece from "./masterpiece.astro"
+import LinearVsLogarithmicGrowth from "./linear-vs-logarithmic-growth.astro"
+import TheRotationCycle from "./the-rotation-cycle.astro"
+import StepDivider from "./step-divider.astro"
+import Figure from "./figure.astro"
+import MathBox from "./math-box.astro"
+
+This is an invitation to a walk. Not a formal proof, not a lecture — a walk. At every crossroads, we will ask the same question: <em>what if we wanted to reverse that?</em> It is this question, asked again and again, that builds the entire architecture of numbers from the ground up.
+
+<Hero />
+
+<StepDivider step="01" symbol="ℕ" />
+
+## The Natural Numbers
+
+### The simplest possible start
+
+We have to begin somewhere. Mathematics begins with an idea of disarming simplicity: the idea that *something exists*. That something is called `1`.
+
+At this point the universe is tiny. It contains a single object, a single notion: the unit. But we immediately attach a rule of motion, a generative rule:
+
+> **If a number exists, its successor — that number plus one — exists too.**
+
+That is all. One rule. And yet it is enough to trigger an explosion.
+
+### What one rule unleashes
+
+Apply the rule once and you get $1 + 1 = 2$. Apply it again: $2 + 1 = 3$. Then $4$, $5$, $6$ — the mechanism is as simple as it is inexhaustible. Nothing stops it. It produces, mechanically and inevitably, the infinite sequence of natural numbers:
+
+$$\mathbb{N} = \{1,\ 2,\ 3,\ 4,\ 5,\ \ldots\}$$
+
+Notice what just happened: from **one brick** and **one move**, we have constructed an infinite set. This is our first glimpse of *emergence* — the property a simple system has of generating richness wildly disproportionate to its starting rules.
+
+**Multiplication** isn't even a new rule: it is just compact notation for repeated addition. $3 \times 4$ means "add $4$ to itself $3$ times". It is entirely contained within addition, already there from the beginning.
+
+<StepDivider step="02" symbol="ℤ" />
+
+## Zero and the Negative Numbers
+
+### The question of reversal
+
+We know how to add. Naturally, a question forms: *can we undo what we just did?* If I walk $3$ steps forward and want to return to where I started, what operation should I perform?
+
+We invent subtraction. For a while, everything is fine: $5 - 2 = 3$, $7 - 4 = 3$, all results land safely inside $\mathbb{N}$. Home is comfortable.
+
+Then one day, someone dares to write $3 - 3$. Silence. The result *should* exist — you advance $3$, retreat $3$, you are back at the origin — but there is no symbol in $\mathbb{N}$ for "no displacement at all".
+
+And what about $3 - 5$? That is even worse: the answer lives nowhere in our universe.
+
+### Forcing the expansion
+
+Our universe is **not closed** under subtraction. To fix this, we have exactly one option: enlarge it. Not by choice — by logical necessity. We are compelled to invent:
+
+1. **Zero**, $0$ — the unique solution to $n - n = 0$. The neutral element, the origin, the return to nothing.
+2. **Negative numbers** — so that $3 - 5 = -2$ has somewhere to live. A number that "is missing", a debt, a displacement reversed.
+
+The integers $\mathbb{Z}$ are born:
+
+$$\mathbb{Z} = \{\ldots,\ -3,\ -2,\ -1,\ 0,\ 1,\ 2,\ 3,\ \ldots\}$$
+
+In doing this, our number line undergoes a **founding symmetry break**. It no longer has a beginning. It stretches infinitely in both directions, with zero as the centre of gravity around which every positive number has its perfect negative mirror.
+
+<StepDivider step="03" symbol="ℚ" />
+
+## The Rational Numbers
+
+### The same pattern, again
+
+You may have guessed it: the exact same reasoning is about to repeat, this time with multiplication. If we can multiply, can we *undo* a multiplication?
+
+We invent division. Again, things go well for a while: $6 \div 2 = 3$, $10 \div 5 = 2$.
+
+But what happens with $1 \div 2$? There is no integer in $\mathbb{Z}$ that, when multiplied by $2$, gives $1$. Our universe is non-closed again. We are forced to enlarge again.
+
+### The number line becomes dense
+
+We conceive the **rational numbers** $\mathbb{Q}$, written as fractions $\frac{a}{b}$ where $b \neq 0$:
+
+$$\mathbb{Q} = \left\{\frac{a}{b}\ \middle|\ a \in \mathbb{Z},\ b \in \mathbb{Z}^*\right\}$$
+
+What changes here is subtle but vertiginous. Before, between two consecutive integers like $1$ and $2$ there was *nothing* — a void. Now, between those same two points, there exist **infinitely many** rationals: $\frac{3}{2}$, $\frac{5}{4}$, $\frac{7}{5}$, $\frac{99}{100}$... And between any two of those rationals, however close, there are infinitely many more. The number line has become **dense**.
+
+> To feel this: between $\frac{1}{2}$ and $\frac{1}{3}$, you can always find their average, $\frac{5}{12}$. Between $\frac{1}{2}$ and $\frac{5}{12}$, there is $\frac{11}{24}$. This game never ends.
+
+Three steps in, it is worth pausing to see what we have built. Each time we asked *"what if we reversed that?"*, a new universe emerged — strictly larger, strictly richer — from the wreckage of the old one's limitations. The diagram below makes this nesting visible.
+
+<NestedSetsDiagram />
+
+<StepDivider step="04" symbol="log" />
+
+## Taming the Explosion — Logarithms
+
+### When growth outruns us
+
+Iterating multiplication leads naturally to exponentiation: $a^n$ means multiplying $a$ by itself $n$ times. Growth then becomes brutally fast.
+
+| $n$ | $10^n$ |
+|-----|--------|
+| 1 | 10 |
+| 3 | 1,000 |
+| 6 | 1,000,000 |
+| 9 | 1,000,000,000 |
+| 12 | 1,000,000,000,000 |
+
+In twelve steps we go from $10$ to a trillion. Astronomical distances, infinitesimal probabilities, the orders of magnitude of the physical universe — all of these grow at this speed, or faster.
+
+### The inverse question: find the exponent
+
+We ask the reverse: *given a result, what exponent produced it?* Finding $x$ such that $10^x = 1000$ is computing the **logarithm** base $10$ of $1000$. The answer is $3$.
+
+$$\log_{10}(1000) = 3 \qquad \text{because} \qquad 10^3 = 1000$$
+
+What makes logarithms so powerful is their fundamental property: they **convert multiplication into addition**.
+
+$$\log(A \times B) = \log(A) + \log(B)$$
+
+Multiplying two enormous numbers becomes adding two manageable ones. Exponential growth — vertiginous, uncontrollable — transforms into a slow, readable linear progression. This is precisely why seismographs, decibels, and stellar magnitudes all use logarithmic scales.
+
+<LinearVsLogarithmicGrowth />
+
+<StepDivider step="05" symbol="i" />
+
+## The Wall of the Impossible
+
+### An intimate enemy: the square
+
+We now have the real numbers $\mathbb{R}$ — which fill in the gaps left by rationals with numbers like $\sqrt{2}$ or $\pi$ that "fall between the cracks" of fractions. On this line, one rule seems absolutely inviolable:
+
+> **Any real number, squared, is non-negative.**
+
+The reason is intuitive: multiply a positive by itself ($3 \times 3 = 9$) or a negative by itself ($-3 \times -3 = 9$) — the result is always positive. This is a universal law of the real line.
+
+And yet, here is an equation of disarming innocence:
+
+$$x^2 + 1 = 0$$
+
+It asks: *which number, squared, gives $-1$?* By the law we just stated, no real number can answer. On the real line, this equation has **no solution**.
+
+### The founding act of transgression
+
+Faced with this impossibility, the Renaissance mathematicians — Cardano, Bombelli — could have filed this equation under "meaningless" and moved on. They did not.
+
+They did something far more audacious: they **postulated the existence** of a number that did not exist. They gave it a name, $i$, for "imaginary", and assigned it one single defining property:
+
+$$\boxed{i^2 = -1}$$
+
+This is an act of pure logical will. You do not *prove* that $i$ exists — you *decide* that it will, and accept all consequences. It is one of the most creative gestures in the entire history of mathematics.
+
+<StepDivider step="06" symbol="ℂ" />
+
+## The Complex Plane — A Revolution in Two Dimensions
+
+### Where does $i$ go?
+
+Now that $i$ exists, it needs a home. On the real line, every position is already occupied. $i$ cannot fit anywhere.
+
+There is only one solution: **leave the line entirely**. Break free from one dimension and claim a new freedom: height. We erect a second axis, **perpendicular** to the first — the imaginary axis. The numerical universe does not simply extend: it *opens into a new dimension*.
+
+Every complex number $Z$ is now a spatial coordinate in a two-dimensional plane:
+
+$$Z = a + ib \qquad a,\ b \in \mathbb{R}$$
+
+where $a$ is the real component (horizontal position) and $b$ the imaginary component (vertical position).
+
+### Multiplication becomes rotation
+
+This is where the complex plane reveals its magnificent strangeness. In the complex plane, **multiplying by $i$ does not change a number's size — it rotates it by 90°**.
+
+Start from $1$ (sitting on the positive real axis) and multiply repeatedly by $i$:
+
+- $1 \times i = i$ → 90° rotation, we arrive at the top
+- $i \times i = i^2 = -1$ → another 90°, we are on the left
+- $-1 \times i = -i$ → another 90°, we are at the bottom
+- $-i \times i = 1$ → final 90°, we are back where we started
+
+Four multiplications by $i$. Four rotations of 90°. One full turn. **Multiplication is no longer a scaling operation — it is a geometric choreography.**
+
+<TheRotationCycle />
+
+<StepDivider step="Epilogue" symbol="e^{i\pi}+1=0" />
+
+## Euler's Formula — The Improbable Convergence
+
+### Five strangers who were never supposed to meet
+
+Our journey ends on an encounter nothing could have predicted. Five mathematical entities, born in radically different contexts and separated by centuries of development, converge into a single equation.
+
+The introductions:
+
+- **$0$** — the additive identity, born from the need to cancel a displacement *(Step 02)*
+- **$1$** — the founding brick, our absolute starting point *(Step 01)*
+- **$\pi \approx 3.14159\ldots$** — the constant ratio of a circle's circumference to its diameter. It appears whenever curves and cycles are involved.
+- **$e \approx 2.71828\ldots$** — the base of continuous growth and decay. It arises naturally in any phenomenon that "grows proportionally to itself": compound interest, radioactive decay, biological populations.
+- **$i$** — our imaginary unit, born from the refusal to surrender to the equation $x^2 = -1$ *(Step 05)*
+
+### The formula
+
+By studying how the exponential function $e^x$ behaves when given an *imaginary* input, Leonhard Euler discovered a stunning relationship. When the exponent is $i\pi$, the infinite series defining $e^x$, $\cos(x)$, and $\sin(x)$ all collapse to the same point:
+
+<MathBox label="Euler's Identity">
+  e<sup class="text-2xl">iπ</sup> + 1 = 0
+</MathBox>
+
+This formula is often called the most beautiful in all of mathematics. Not by convention — but because it says something profound: five constants that seemed to belong to entirely separate universes (algebra, circular geometry, natural growth, imaginary algebra) **are deeply one**.
+
+### The loop closes
+
+Take a step back and see the full path. We began with the brick `1`, equipped with one rule: the successor. That rule, pushed by the simple question *"what if we reversed it?"*, generated the integers — then the negatives — then fractions — then had to domesticate unmanageable scales by inventing logarithms — then finally shattered its own dimension to make room for $i$.
+
+And at the end of this journey, all those worlds are woven together in a five-symbol formula. The entire tower, from the first brick to the complex plane, is laid out below.
+
+<MasterPiece />
+
+> Complexity was not *imposed* on mathematics from outside. It *emerged* from within, driven solely by the questions we dared to ask.
+
+Each arrow is a question. Each set is an answer. And the walk — it never quite ends.

@@ -42,10 +42,17 @@ const primesRule: SequenceRule = {
   maxSteps: 300,
   getNext: ({ current }) => {
     function isPrime(num: number) {
-      for (let i = 2, s = Math.sqrt(num); i <= s; i++) if (num % i === 0) return false;
-      return num > 1;
+      if (num <= 1) return false;
+      if (num <= 3) return true;
+      if (num % 2 === 0) return false;
+      for (let i = 3, s = Math.sqrt(num); i <= s; i += 2) {
+        if (num % i === 0) return false;
+      }
+      return true;
     }
-    let next = (current || 1) + 1;
+
+    const start = current === undefined || current === null ? 1 : current;
+    let next = start + 1;
     while (!isPrime(next)) next++;
     return next;
   },

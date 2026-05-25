@@ -1,0 +1,144 @@
+<div class="my-12 flex w-full justify-center">
+  <svg
+    class="h-auto w-full max-w-sm font-mono"
+    viewBox="0 0 300 500"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <style>
+      .pulse-path {
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-dasharray: 8 8;
+        animation: flow 20s linear infinite;
+      }
+      .pulse-path-solid {
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 400;
+        stroke-dashoffset: 400;
+        animation: draw 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+      @keyframes flow {
+        from {
+          stroke-dashoffset: 400;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes draw {
+        0% {
+          stroke-dashoffset: 400;
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          stroke-dashoffset: 0;
+          opacity: 1;
+        }
+        100% {
+          stroke-dashoffset: 0;
+          opacity: 0;
+        }
+      }
+      .node {
+        transition: all 0.5s ease;
+      }
+      .node:hover {
+        filter: brightness(1.2);
+        transform: scale(1.1);
+        transform-origin: center;
+      }
+    </style>
+
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="var(--border)" opacity="0.3"></circle>
+    </pattern>
+    <rect width="100%" height="100%" fill="url(#grid)"></rect>
+
+    <g stroke="var(--border)" opacity="0.5">
+      <path d="M150,80 C150,200 50,250 50,450" class="pulse-path"></path>
+      <path d="M150,80 C150,250 150,300 150,450" class="pulse-path"></path>
+      <path d="M150,80 C150,200 250,250 250,450" class="pulse-path"></path>
+      <path d="M150,180 C200,250 100,350 150,450" class="pulse-path" opacity="0.3"></path>
+    </g>
+
+    <path d="M150,80 C150,200 50,250 50,450" class="pulse-path-solid" stroke="var(--primary)"
+    ></path>
+    <path
+      d="M150,80 C150,250 150,300 150,450"
+      class="pulse-path-solid"
+      stroke="var(--accent)"
+      style="animation-delay: 1.5s;"></path>
+    <path
+      d="M150,80 C150,200 250,250 250,450"
+      class="pulse-path-solid"
+      stroke="var(--secondary)"
+      style="animation-delay: 0.7s;"></path>
+
+    <g class="node" transform="translate(150, 60)">
+      <circle cx="0" cy="0" r="25" fill="var(--card)" stroke="var(--primary)" stroke-width="2"
+      ></circle>
+      <circle
+        cx="0"
+        cy="0"
+        r="35"
+        fill="none"
+        stroke="var(--primary)"
+        stroke-width="1"
+        opacity="0.3"
+        stroke-dasharray="2 4"
+      >
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from="0"
+          to="360"
+          dur="10s"
+          repeatCount="indefinite"></animateTransform>
+      </circle>
+      <text x="0" y="6" font-size="20" font-weight="bold" fill="var(--primary)" text-anchor="middle"
+        >1</text
+      >
+    </g>
+
+    <text
+      x="50"
+      y="475"
+      font-size="14"
+      fill="var(--muted-foreground)"
+      text-anchor="middle"
+      opacity="0.7">n+1</text
+    >
+    <text
+      x="150"
+      y="475"
+      font-size="14"
+      fill="var(--muted-foreground)"
+      text-anchor="middle"
+      opacity="0.7">2ⁿ</text
+    >
+    <text
+      x="250"
+      y="475"
+      font-size="14"
+      fill="var(--muted-foreground)"
+      text-anchor="middle"
+      opacity="0.7">n!</text
+    >
+
+    <text
+      x="150"
+      y="24"
+      font-size="10"
+      fill="var(--muted-foreground)"
+      text-anchor="middle"
+      letter-spacing="0.2em"
+      opacity="0.5">THE GENERATOR</text
+    >
+  </svg>
+</div>

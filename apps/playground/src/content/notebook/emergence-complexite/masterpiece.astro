@@ -1,0 +1,115 @@
+<div class="my-16 flex w-full justify-center">
+  <svg
+    class="h-auto w-full max-w-md font-mono"
+    viewBox="0 0 400 300"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <style>
+      .orbit-path {
+        stroke-dasharray: 377; /* Approx Circumference of half circle r=120 */
+        stroke-dashoffset: 377;
+        animation: trace 4s ease-in-out infinite alternate;
+      }
+      .vector {
+        transform-origin: 200px 200px;
+        animation: sweep 4s ease-in-out infinite alternate;
+      }
+      .equation-glow {
+        animation: fadein 4s ease-in-out infinite alternate;
+      }
+      @keyframes trace {
+        0%,
+        10% {
+          stroke-dashoffset: 377;
+        }
+        90%,
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes sweep {
+        0%,
+        10% {
+          transform: rotate(0deg);
+        }
+        90%,
+        100% {
+          transform: rotate(-180deg);
+        }
+      }
+      @keyframes fadein {
+        0%,
+        70% {
+          opacity: 0.1;
+          filter: grayscale(1);
+        }
+        90%,
+        100% {
+          opacity: 1;
+          filter: grayscale(0);
+          text-shadow: 0 0 10px var(--primary);
+        }
+      }
+    </style>
+
+    <line x1="40" y1="200" x2="360" y2="200" stroke="var(--border)" stroke-width="1.5"></line>
+    <line
+      x1="200"
+      y1="40"
+      x2="200"
+      y2="280"
+      stroke="var(--border)"
+      stroke-width="1.5"
+      stroke-dasharray="4 4"></line>
+
+    <text x="350" y="220" font-size="12" fill="var(--muted-foreground)">+1 (Real)</text>
+    <text x="40" y="220" font-size="12" fill="var(--muted-foreground)">-1</text>
+    <text x="210" y="50" font-size="12" fill="var(--muted-foreground)">+i (Imaginary)</text>
+
+    <path
+      d="M 320 200 A 120 120 0 0 0 80 200"
+      fill="none"
+      stroke="var(--primary)"
+      stroke-width="3"
+      stroke-linecap="round"
+      class="orbit-path"></path>
+
+    <g class="vector">
+      <line x1="200" y1="200" x2="320" y2="200" stroke="var(--foreground)" stroke-width="2"></line>
+      <circle cx="320" cy="200" r="5" fill="var(--foreground)"></circle>
+    </g>
+
+    <circle
+      cx="200"
+      cy="200"
+      r="4"
+      fill="var(--background)"
+      stroke="var(--foreground)"
+      stroke-width="2"></circle>
+
+    <g transform="translate(200, 130)" class="equation-glow">
+      <rect
+        x="-80"
+        y="-30"
+        width="160"
+        height="40"
+        rx="8"
+        fill="var(--card)"
+        stroke="var(--primary)"
+        stroke-width="1.5"
+        opacity="0.9"></rect>
+      <text
+        x="0"
+        y="-3"
+        font-size="20"
+        font-weight="bold"
+        fill="var(--foreground)"
+        text-anchor="middle"
+      >
+        e<tspan dy="-8" font-size="12" fill="var(--primary)">iπ</tspan><tspan dy="8">
+          + 1 = 0</tspan
+        >
+      </text>
+    </g>
+  </svg>
+</div>
