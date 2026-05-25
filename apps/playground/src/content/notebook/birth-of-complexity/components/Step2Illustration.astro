@@ -1,0 +1,156 @@
+---
+interface Props {
+  class?: string;
+  ariaLabel?: string;
+  title?: string;
+}
+
+const {
+  class: className = "",
+  ariaLabel = "Étape 02 — ℤ : Zéro et les Nombres Négatifs",
+  title: titleProp = "Étape 02 — ℤ : Zéro et les Nombres Négatifs",
+} = Astro.props;
+---
+
+<figure class:list={["not-prose", className]} aria-label={ariaLabel}>
+  <svg
+    viewBox="0 0 720 240"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    class="h-auto w-full"
+    style="max-width: 720px;"
+  >
+    <title>{titleProp}</title>
+    <defs>
+      <linearGradient id="s2-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color: var(--card); stop-opacity: 1"></stop>
+        <stop offset="100%" style="stop-color: var(--background); stop-opacity: 1"></stop>
+      </linearGradient>
+      <linearGradient id="s2-neg" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color: var(--accent); stop-opacity: 0.8"></stop>
+        <stop offset="100%" style="stop-color: var(--accent); stop-opacity: 0"></stop>
+      </linearGradient>
+      <linearGradient id="s2-pos" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color: var(--secondary); stop-opacity: 0"></stop>
+        <stop offset="100%" style="stop-color: var(--secondary); stop-opacity: 0.8"></stop>
+      </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="720" height="240" fill="url(#s2-bg)" rx="10"></rect>
+    <rect
+      width="720"
+      height="240"
+      fill="none"
+      stroke="var(--border)"
+      stroke-width="1"
+      rx="10"
+      opacity="0.5"></rect>
+
+    <!-- Badge -->
+    <rect x="24" y="20" width="80" height="22" rx="11" fill="var(--accent)" opacity="0.18"></rect>
+    <text
+      x="64"
+      y="35"
+      text-anchor="middle"
+      font-size="11"
+      font-family="var(--font-mono)"
+      fill="var(--accent)"
+      font-weight="600">Étape 02</text
+    >
+
+    <!-- Title -->
+    <text
+      x="24"
+      y="72"
+      font-size="20"
+      font-weight="700"
+      font-family="var(--font-sans)"
+      fill="var(--foreground)">ℤ — Zéro et les Entiers</text
+    >
+    <text x="24" y="92" font-size="12" font-family="var(--font-sans)" fill="var(--muted-foreground)"
+      >La droite se brise en symétrie — un miroir autour de zéro.</text
+    >
+
+    <!-- Negative half line -->
+    <line x1="40" y1="155" x2="360" y2="155" stroke="url(#s2-neg)" stroke-width="2"></line>
+    <!-- Positive half line -->
+    <line x1="360" y1="155" x2="680" y2="155" stroke="url(#s2-pos)" stroke-width="2"></line>
+
+    <!-- Arrow left -->
+    <polygon points="35,155 45,150 45,160" fill="var(--accent)" opacity="0.6"></polygon>
+    <!-- Arrow right -->
+    <polygon points="685,155 675,150 675,160" fill="var(--secondary)" opacity="0.6"></polygon>
+
+    <!-- Numbers: -4 to +4 with 0 at center -->
+    {
+      [-4, -3, -2, -1, 0, 1, 2, 3, 4].map((n) => {
+        const x = 360 + n * 80;
+        const isZero = n === 0;
+        const isNeg = n < 0;
+        const color = isZero ? "var(--foreground)" : isNeg ? "var(--accent)" : "var(--secondary)";
+        return [
+          <line
+            x1={x}
+            y1="147"
+            x2={x}
+            y2="163"
+            stroke={color}
+            stroke-width={isZero ? 2.5 : 1.5}
+            opacity={isZero ? 1 : 0.7}
+          />,
+          <circle
+            cx={x}
+            cy="155"
+            r={isZero ? 7 : 5}
+            fill={isZero ? "var(--foreground)" : "var(--card)"}
+            stroke={color}
+            stroke-width="1.5"
+          />,
+          isZero && <circle cx={x} cy="155" r="3" fill="var(--card)" />,
+          <text
+            x={x}
+            y="180"
+            text-anchor="middle"
+            font-size={isZero ? "15" : "13"}
+            font-family="var(--font-mono)"
+            fill={color}
+            font-weight={isZero ? "700" : "400"}
+          >
+            {n === 0 ? "0" : n > 0 ? `+${n}` : n}
+          </text>,
+        ];
+      })
+    }
+
+    <!-- Mirror brace annotation -->
+    <path
+      d="M 200 130 Q 360 110 520 130"
+      fill="none"
+      stroke="var(--border)"
+      stroke-width="1"
+      stroke-dasharray="4 3"
+      opacity="0.5"></path>
+    <text
+      x="360"
+      y="107"
+      text-anchor="middle"
+      font-size="9"
+      font-family="var(--font-mono)"
+      fill="var(--muted-foreground)"
+      opacity="0.8">symétrie</text
+    >
+
+    <!-- 3 - 5 annotation -->
+    <rect x="24" y="200" width="672" height="28" rx="6" fill="var(--muted)" opacity="0.5"></rect>
+    <text
+      x="360"
+      y="218"
+      text-anchor="middle"
+      font-size="11"
+      font-family="var(--font-sans)"
+      fill="var(--muted-foreground)"
+      >3 − 5 = −2 peut enfin exister. L'univers est étendu par nécessité.</text
+    >
+  </svg>
+</figure>

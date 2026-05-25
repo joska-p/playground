@@ -11,11 +11,27 @@ tags:
   - philosophy
 ---
 
+import HeroIllustration from "../components/HeroIllustration.astro"
+import Step1Illustration from "../components/Step1Illustration.astro"
+import Step2Illustration from "../components/Step2Illustration.astro"
+import Step3Illustration from "../components/Step3Illustration.astro"
+import Step4Illustration from "../components/Step4Illustration.astro"
+import Step5Illustration from "../components/Step5Illustration.astro"
+import Step6Illustration from "../components/Step6Illustration.astro"
+import EpilogueIllustration from "../components/EpilogueIllustration.astro"
+import Divider from "../components/Divider.astro"
+
+<HeroIllustration class="my-8"  title="L'Émergence de la Complexité" ariaLabel="En partant d'une idée d'une simplicité désarmante"/>
+
 ## L'Émergence de la Complexité
 
 Ceci est une invitation à la promenade. À chaque carrefour, nous poserons la même question : **et si on inversait cela ?** C'est cette question, posée encore et encore, qui construit l'architecture entière des nombres à partir du sol.
 
+<Divider step="01" label="Étape 01 — ℕ" />
+
 ## Étape 01 — ℕ
+
+<Step1Illustration class="mx-auto my-6"  title="01 — Naturels" ariaLabel="Illustration des nombres naturels" />
 
 ## Les Nombres Naturels
 
@@ -26,7 +42,7 @@ Ceci est une invitation à la promenade. À chaque carrefour, nous poserons la m
 Il faut bien commencer quelque part. Les mathématiques commencent par une idée d'une simplicité désarmante : que _quelque chose existe_. Ce quelque chose est $1$.
 
 Il faut ajouter une règle de mouvement :
-- **Si un nombre existe, son successeur — ce nombre plus un — existe aussi.**
+- **Si un nombre existe, son successeur existe aussi.**
 
 ```latex
 Appliquez-la une fois     1 + 1 = 2
@@ -42,8 +58,11 @@ Puis                      4, 5, 6, 7, 8, 9, vers l'infini
 - La **multiplication** n'a jamais été une nouvelle règle.
 - C'est une notation compacte pour l'addition répétée, déjà contenue dans le successeur depuis le commencement.
 
+<Divider step="02" label="Étape 02 — ℤ" />
 
 ## Étape 02 — ℤ
+
+<Step2Illustration class="mx-auto my-6" title="02 — Entiers" ariaLabel="Illustration des nombres entiers" />
 
 ## Zéro et les Nombres Négatifs
 
@@ -69,8 +88,8 @@ Tous les résultats atterrissent dans $\mathbb{N}$.
 Puis quelqu'un ose écrire 3 - 3. Silence.
 ```
 
-Le résultat _devrait_ exister.<br />
-On avance 3, on recule 3, on est de retour à l'origine.<br />
+Le résultat _devrait_ exister.
+On avance 3, on recule 3, on est de retour à l'origine.
 Mais $\mathbb{N}$ n'a **aucun symbole pour le rien**.
 
 ```latex
@@ -97,7 +116,11 @@ pour que 3 - 5 = -2 ait un endroit où vivre.
 
 - La droite numérique subit une rupture de symétrie fondatrice. Elle n'a plus de commencement. Elle s'étend infiniment dans les deux directions, avec zéro comme centre autour duquel chaque positif a son parfait miroir négatif. Les entiers $\mathbb{Z}$ sont nés — clos pour la soustraction, enfin.
 
+<Divider step="03" label="Étape 03 — ℤ" />
+
 ## Étape 03 — ℚ
+
+<Step3Illustration class="mx-auto my-6" title="03 — Rationnels" ariaLabel="Illustration des nombres rationnels" />
 
 ## Les Nombres Rationnels
 
@@ -142,7 +165,11 @@ Apparition des rationnels : a/b
 > Entre 1/2 et 5/12, prenez 11/24.
 > Le jeu continue.
 
+<Divider step="04" label="Étape 04 — log" />
+
 ## Étape 04 — log
+
+<Step4Illustration class="mx-auto my-6" title="04 — Logarithmes" ariaLabel="Illustration des logarithmes" />
 
 ## Apprivoiser l'Explosion — Les Logarithmes
 
@@ -189,7 +216,11 @@ Les échelles logarithmiques rendent lisible l'incommensurable.
 Exemple : log_{10}(1000) = 3
 ```
 
+<Divider step="05" label="Étape 05 — i" />
+
 ## Étape 05 — i
+
+<Step5Illustration  class="mx-auto my-6" title="Étape 05 — i" />
 
 ## Le Mur de l'Impossible
 
@@ -222,7 +253,11 @@ Postulat : existence d'un nombre i tel que i^2 = -1
 - Introduction de l'imaginaire.
 - Nouvel alphabet pour résoudre l'irrésolu.
 
+<Divider step="06" label="Étape 06 — ℂ" />
+
 ## Étape 06 — ℂ
+
+<Step6Illustration class="mx-auto my-6" title="Étape 06 — ℂ" />
 
 ## Le Plan Complexe — Une Révolution en Deux Dimensions
 
@@ -235,7 +270,6 @@ i ne se place pas sur la droite.
 Nous construisons un second axe.
 
 ```latex
-//TODO create a complex plane visualization
 Construction : plan (axe réel, axe imaginaire)
 ```
 
@@ -250,7 +284,11 @@ Z = a + i b    avec a, b ∈ ℝ
 - La multiplication se lit comme: rotation + homothétie.
 - Multiplier par i = rotation de 90°.
 
-## Épilogue — e^"{"iπ"}" + 1 = 0
+<Divider step="07" label="Épilogue" />
+
+## Épilogue — $$e^{i\pi} + 1 = 0$$
+
+<EpilogueIllustration class="mx-auto my-6" title="Épilogue" />
 
 ## La Formule d'Euler — La Convergence Improbable
 

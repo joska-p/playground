@@ -1,0 +1,279 @@
+---
+interface Props {
+  class?: string;
+  ariaLabel?: string;
+  title?: string;
+}
+
+const {
+  class: className = "",
+  ariaLabel = "Étape 06 — ℂ : Le Plan Complexe",
+  title: titleProp = "Étape 06 — ℂ : Le Plan Complexe",
+} = Astro.props;
+---
+
+<figure class:list={["not-prose", className]} aria-label={ariaLabel}>
+  <svg
+    viewBox="0 0 720 260"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    class="h-auto w-full"
+    style="max-width: 720px;"
+  >
+    <title>{titleProp}</title>
+    <defs>
+      <linearGradient id="s6-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color: var(--card); stop-opacity: 1"></stop>
+        <stop offset="100%" style="stop-color: var(--background); stop-opacity: 1"></stop>
+      </linearGradient>
+      <pattern
+        id="s6-grid"
+        width="30"
+        height="30"
+        patternUnits="userSpaceOnUse"
+        patternTransform="translate(410, 130)"
+      >
+        <path
+          d="M 30 0 L 0 0 0 30"
+          fill="none"
+          stroke="var(--border)"
+          stroke-width="0.5"
+          opacity="0.5"></path>
+      </pattern>
+    </defs>
+
+    <rect width="720" height="260" fill="url(#s6-bg)" rx="10"></rect>
+    <rect
+      width="720"
+      height="260"
+      fill="none"
+      stroke="var(--border)"
+      stroke-width="1"
+      rx="10"
+      opacity="0.5"></rect>
+
+    <!-- Badge -->
+    <rect x="24" y="20" width="80" height="22" rx="11" fill="var(--secondary)" opacity="0.15"
+    ></rect>
+    <text
+      x="64"
+      y="35"
+      text-anchor="middle"
+      font-size="11"
+      font-family="var(--font-mono)"
+      fill="var(--secondary)"
+      font-weight="600">Étape 06</text
+    >
+
+    <!-- Title -->
+    <text
+      x="24"
+      y="72"
+      font-size="20"
+      font-weight="700"
+      font-family="var(--font-sans)"
+      fill="var(--foreground)">ℂ — Le Plan Complexe</text
+    >
+    <text x="24" y="92" font-size="12" font-family="var(--font-sans)" fill="var(--muted-foreground)"
+      >La droite devient plan — une révolution en deux dimensions.</text
+    >
+
+    <!-- Complex plane (right side) -->
+    <rect x="390" y="45" width="300" height="200" rx="8" fill="var(--card)" opacity="0.5"></rect>
+    <rect x="390" y="45" width="300" height="200" fill="url(#s6-grid)" rx="8"></rect>
+
+    <!-- Axes -->
+    <!-- Real axis -->
+    <line
+      x1="395"
+      y1="145"
+      x2="685"
+      y2="145"
+      stroke="var(--border)"
+      stroke-width="1.5"
+      opacity="0.8"></line>
+    <polygon points="689,145 680,140 680,150" fill="var(--border)" opacity="0.7"></polygon>
+    <text
+      x="688"
+      y="160"
+      font-size="10"
+      font-family="var(--font-mono)"
+      fill="var(--muted-foreground)">ℝ</text
+    >
+    <!-- Imaginary axis -->
+    <line x1="540" y1="235" x2="540" y2="50" stroke="var(--accent)" stroke-width="1.5" opacity="0.7"
+    ></line>
+    <polygon points="540,46 535,58 545,58" fill="var(--accent)" opacity="0.7"></polygon>
+    <text x="547" y="58" font-size="10" font-family="var(--font-mono)" fill="var(--accent)">i</text>
+
+    <!-- Origin -->
+    <circle cx="540" cy="145" r="3" fill="var(--foreground)" opacity="0.8"></circle>
+    <text
+      x="545"
+      y="158"
+      font-size="10"
+      font-family="var(--font-mono)"
+      fill="var(--muted-foreground)">0</text
+    >
+
+    <!-- Tick marks real axis -->
+    {
+      [-2, -1, 1, 2].map((n) => {
+        const x = 540 + n * 50;
+        return [
+          <line
+            x1={x}
+            y1="140"
+            x2={x}
+            y2="150"
+            stroke="var(--border)"
+            stroke-width="1"
+            opacity="0.7"
+          />,
+          <text
+            x={x}
+            y="163"
+            text-anchor="middle"
+            font-size="9"
+            font-family="var(--font-mono)"
+            fill="var(--muted-foreground)"
+          >
+            {n}
+          </text>,
+        ];
+      })
+    }
+
+    <!-- Tick marks imaginary axis -->
+    {
+      [-1, 1].map((n) => {
+        const y = 145 - n * 50;
+        return [
+          <line
+            x1="535"
+            y1={y}
+            x2="545"
+            y2={y}
+            stroke="var(--accent)"
+            stroke-width="1"
+            opacity="0.6"
+          />,
+          <text
+            x="524"
+            y={y + 4}
+            text-anchor="end"
+            font-size="9"
+            font-family="var(--font-mono)"
+            fill="var(--accent)"
+            opacity="0.8"
+          >
+            {n > 0 ? "+i" : "−i"}
+          </text>,
+        ];
+      })
+    }
+
+    <!-- Example complex number Z = 2 + i -->
+    <!-- Point -->
+    <circle cx="640" cy="95" r="5" fill="var(--secondary)" opacity="0.9"></circle>
+    <!-- Dashed projections -->
+    <line
+      x1="640"
+      y1="95"
+      x2="640"
+      y2="145"
+      stroke="var(--secondary)"
+      stroke-width="1"
+      stroke-dasharray="4 3"
+      opacity="0.4"></line>
+    <line
+      x1="540"
+      y1="95"
+      x2="640"
+      y2="95"
+      stroke="var(--secondary)"
+      stroke-width="1"
+      stroke-dasharray="4 3"
+      opacity="0.4"></line>
+    <!-- Vector from origin -->
+    <line x1="540" y1="145" x2="636" y2="99" stroke="var(--secondary)" stroke-width="1.8"></line>
+    <polygon points="638,98 626,102 631,113" fill="var(--secondary)"></polygon>
+    <!-- Label -->
+    <text
+      x="648"
+      y="90"
+      font-size="11"
+      font-family="var(--font-mono)"
+      fill="var(--secondary)"
+      font-weight="600">Z = 2 + i</text
+    >
+
+    <!-- Rotation arc -->
+    <path
+      d="M 590 145 A 50 50 0 0 0 540 95"
+      fill="none"
+      stroke="var(--accent)"
+      stroke-width="1.5"
+      stroke-dasharray="5 3"
+      opacity="0.6"></path>
+    <text
+      x="575"
+      y="118"
+      text-anchor="middle"
+      font-size="9"
+      font-family="var(--font-mono)"
+      fill="var(--accent)"
+      opacity="0.8">×i</text
+    >
+
+    <!-- Left panel: formula -->
+    <rect x="24" y="108" width="340" height="90" rx="8" fill="var(--muted)" opacity="0.4"></rect>
+
+    <text
+      x="42"
+      y="130"
+      font-size="12"
+      font-family="var(--font-sans)"
+      fill="var(--muted-foreground)">Tout nombre complexe s'écrit :</text
+    >
+
+    <rect
+      x="90"
+      y="138"
+      width="200"
+      height="34"
+      rx="6"
+      fill="var(--card)"
+      stroke="var(--border)"
+      stroke-width="1"></rect>
+    <text
+      x="190"
+      y="160"
+      text-anchor="middle"
+      font-size="18"
+      font-family="var(--font-mono)"
+      fill="var(--foreground)"
+      font-weight="600">Z = a + ib</text
+    >
+
+    <text
+      x="42"
+      y="188"
+      font-size="11"
+      font-family="var(--font-sans)"
+      fill="var(--muted-foreground)">Multiplier par i = rotation de 90° dans le plan.</text
+    >
+
+    <!-- Key insight -->
+    <rect x="24" y="220" width="672" height="28" rx="6" fill="var(--muted)" opacity="0.4"></rect>
+    <text
+      x="360"
+      y="238"
+      text-anchor="middle"
+      font-size="11"
+      font-family="var(--font-sans)"
+      fill="var(--muted-foreground)"
+      >La multiplication devient rotation + homothétie — la géométrie habite l'algèbre.</text
+    >
+  </svg>
+</figure>

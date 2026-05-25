@@ -1,0 +1,165 @@
+---
+interface Props {
+  class?: string;
+  ariaLabel?: string;
+  title?: string;
+}
+
+const {
+  class: className = "",
+  ariaLabel = "Étape 01 — ℕ : Les Nombres Naturels",
+  title: titleProp = "Étape 01 — ℕ : Les Nombres Naturels",
+} = Astro.props;
+---
+
+<figure class:list={["not-prose", className]} aria-label={ariaLabel}>
+  <svg
+    viewBox="0 0 720 240"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    class="h-auto w-full"
+    style="max-width: 720px;"
+  >
+    <title>{titleProp}</title>
+    <defs>
+      <linearGradient id="s1-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color: var(--card); stop-opacity: 1"></stop>
+        <stop offset="100%" style="stop-color: var(--background); stop-opacity: 1"></stop>
+      </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="720" height="240" fill="url(#s1-bg)" rx="10"></rect>
+    <rect
+      width="720"
+      height="240"
+      fill="none"
+      stroke="var(--border)"
+      stroke-width="1"
+      rx="10"
+      opacity="0.5"></rect>
+
+    <!-- Badge -->
+    <rect x="24" y="20" width="80" height="22" rx="11" fill="var(--secondary)" opacity="0.18"
+    ></rect>
+    <text
+      x="64"
+      y="35"
+      text-anchor="middle"
+      font-size="11"
+      font-family="var(--font-mono)"
+      fill="var(--secondary)"
+      font-weight="600">Étape 01</text
+    >
+
+    <!-- Title -->
+    <text
+      x="24"
+      y="72"
+      font-size="20"
+      font-weight="700"
+      font-family="var(--font-sans)"
+      fill="var(--foreground)">ℕ — Les Nombres Naturels</text
+    >
+    <text x="24" y="92" font-size="12" font-family="var(--font-sans)" fill="var(--muted-foreground)"
+      >Une brique. Une règle. Un infini.</text
+    >
+
+    <!-- Number line starting at 1 -->
+    <!-- Line -->
+    <line x1="60" y1="155" x2="660" y2="155" stroke="var(--border)" stroke-width="1.5" opacity="0.6"
+    ></line>
+    <!-- Arrow right -->
+    <polygon points="665,155 655,150 655,160" fill="var(--secondary)" opacity="0.7"></polygon>
+    <text
+      x="675"
+      y="159"
+      font-size="10"
+      font-family="var(--font-mono)"
+      fill="var(--muted-foreground)">∞</text
+    >
+
+    <!-- Ticks + numbers: 1 through 9 -->
+    {
+      [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n, i) => {
+        const x = 80 + i * 64;
+        const isOne = n === 1;
+        return [
+          <line
+            x1={x}
+            y1="148"
+            x2={x}
+            y2="162"
+            stroke={isOne ? "var(--secondary)" : "var(--border)"}
+            stroke-width={isOne ? 2 : 1}
+          />,
+          <circle
+            cx={x}
+            cy="155"
+            r={isOne ? 6 : 4}
+            fill={isOne ? "var(--secondary)" : "var(--card)"}
+            stroke={isOne ? "var(--secondary)" : "var(--border)"}
+            stroke-width="1.5"
+          />,
+          <text
+            x={x}
+            y="180"
+            text-anchor="middle"
+            font-size="14"
+            font-family="var(--font-mono)"
+            fill={isOne ? "var(--secondary)" : "var(--foreground)"}
+            font-weight={isOne ? "700" : "400"}
+          >
+            {n}
+          </text>,
+        ];
+      })
+    }
+
+    <!-- Successor arrows between consecutive numbers -->
+    {
+      [0, 1, 2, 3, 4, 5].map((i) => {
+        const x1 = 80 + i * 64 + 8;
+        const x2 = 80 + (i + 1) * 64 - 8;
+        const mid = (x1 + x2) / 2;
+        return [
+          <path
+            d={`M ${x1} 136 Q ${mid} 118 ${x2} 136`}
+            fill="none"
+            stroke="var(--secondary)"
+            stroke-width="1"
+            opacity="0.4"
+          />,
+          <polygon
+            points={`${x2},136 ${x2 - 5},129 ${x2 + 2},128`}
+            fill="var(--secondary)"
+            opacity="0.4"
+          />,
+        ];
+      })
+    }
+
+    <!-- +1 label above first arrow -->
+    <text
+      x="112"
+      y="115"
+      text-anchor="middle"
+      font-size="9"
+      font-family="var(--font-mono)"
+      fill="var(--secondary)"
+      opacity="0.7">+1</text
+    >
+
+    <!-- Key insight box -->
+    <rect x="24" y="200" width="672" height="28" rx="6" fill="var(--muted)" opacity="0.5"></rect>
+    <text
+      x="360"
+      y="218"
+      text-anchor="middle"
+      font-size="11"
+      font-family="var(--font-sans)"
+      fill="var(--muted-foreground)"
+      >Si un nombre existe, son successeur existe aussi — la règle engendre l'infini.</text
+    >
+  </svg>
+</figure>
