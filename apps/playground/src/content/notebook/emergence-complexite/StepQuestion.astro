@@ -1,0 +1,21 @@
+---
+interface Props {
+  question: string;
+}
+const { question } = Astro.props;
+---
+
+<div class="not-prose bg-card border-primary/30 my-8 flex items-start gap-4 rounded-lg border p-5 shadow-sm">
+  <span
+    class="text-primary bg-primary/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-lg font-bold"
+    aria-hidden="true"
+  >?</span>
+  <div>
+    <p class="text-muted-foreground m-0 font-sans text-[0.72rem] font-semibold tracking-[0.12em] uppercase">
+      The Question
+    </p>
+    <p class="text-foreground m-0 mt-0.5 font-serif text-[1.15rem] leading-snug">
+      {question}
+    </p>
+  </div>
+</div>
