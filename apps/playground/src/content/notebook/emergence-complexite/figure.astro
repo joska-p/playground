@@ -2,11 +2,12 @@
 interface Props {
   caption?: string;
   label?: string;
+  className?: string;
 }
-const { caption, label } = Astro.props;
+const { caption, label, className } = Astro.props;
 ---
 
-<figure class="my-8">
+<figure class={`my-8 ${className}`}>
   <div class="bg-card border-border overflow-hidden rounded-lg border">
     <slot />
   </div>
