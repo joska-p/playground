@@ -39,6 +39,7 @@ step_node_setup() {
     prettier \
     eslint \
     @biomejs/biome \
+    @mdx-js/language-server \
     serve
   ok "Global pnpm packages installed."
 }
