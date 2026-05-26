@@ -1,13 +1,13 @@
 {
-  "name": "@repo/image-manipulation",
+  "name": "@repo/image-manipulator",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.tsx",
-      "import": "./src/index.tsx",
-      "require": "./src/index.tsx"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
     },
     "./styles": "./src/styles/styles.css"
   },
