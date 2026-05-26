@@ -5,10 +5,22 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", "storybook-static/**"]
+      "outputs": [
+        ".astro/**",
+        "dist/**",
+        "storybook-static/**",
+        ".next/**",
+        "!.next/cache/**",
+        ".svelte-kit/**",
+        ".output/**"
+      ]
+    },
+    "test": {
+      "outputs": ["coverage/**", "playwright-report/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "outputs": [".eslintcache"]
     },
     "lint-fix": {
       "dependsOn": ["^lint-fix"]
@@ -21,7 +33,7 @@
       "persistent": true
     },
     "clean": {
-      "cache": false,
+      "cache": false
     }
   }
 }

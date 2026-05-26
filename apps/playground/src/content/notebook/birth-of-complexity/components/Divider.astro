@@ -6,77 +6,80 @@ interface Props {
   step?: string | number;
 }
 
-const {
-  class: className = "",
-  ariaLabel,
-  label,
-  step,
-} = Astro.props;
+const { class: className = "", ariaLabel, label, step } = Astro.props;
 
 const displayLabel = label ?? (step !== undefined ? `Étape ${step}` : undefined);
-const computedAriaLabel = ariaLabel ?? (displayLabel ? `Séparateur — ${displayLabel}` : "Séparateur de section");
+const computedAriaLabel =
+  ariaLabel ?? (displayLabel ? `Séparateur — ${displayLabel}` : "Séparateur de section");
 ---
 
-<div
-  class:list={["not-prose", className]}
-  aria-label={computedAriaLabel}
-  role="separator"
->
-  {displayLabel ? (
-    <!-- With step label -->
-    <svg
-      viewBox="0 0 720 32"
-      xmlns="http://www.w3.org/2000/svg"
-      class="w-full h-auto"
-      aria-hidden="true"
-    >
-      <line
-        x1="0" y1="16" x2="290" y2="16"
-        stroke="var(--border)"
-        stroke-width="1"
-        opacity="0.7"
-      />
-      <rect
-        x="298" y="4" width="124" height="24" rx="12"
-        fill="var(--card)"
-        stroke="var(--border)"
-        stroke-width="1"
-      />
-      <text
-        x="360" y="21"
-        text-anchor="middle"
-        font-size="11"
-        font-family="var(--font-mono)"
-        fill="var(--muted-foreground)"
-      >{displayLabel}</text>
-      <line
-        x1="430" y1="16" x2="720" y2="16"
-        stroke="var(--border)"
-        stroke-width="1"
-        opacity="0.7"
-      />
-    </svg>
-  ) : (
-    <!-- Simple line divider -->
-    <svg
-      viewBox="0 0 720 16"
-      xmlns="http://www.w3.org/2000/svg"
-      class="w-full h-auto"
-      aria-hidden="true"
-    >
-      <line
-        x1="0" y1="8" x2="320" y2="8"
-        stroke="var(--border)"
-        stroke-width="1"
-        opacity="0.7"
-      />
-      <circle cx="360" cy="8" r="3" fill="var(--border)" opacity="0.7" />
-      <line
-        x1="400" y1="8" x2="720" y2="8"
-        stroke="var(--border)"
-        stroke-width="1"
-        opacity="0.7"
-      />
-    </svg>
-  )}
+<div class:list={["not-prose", className]} aria-label={computedAriaLabel} role="separator">
+  {
+    displayLabel ? (
+      <svg
+        viewBox="0 0 720 32"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-auto w-full"
+        aria-hidden="true"
+      >
+        <line
+          x1="0"
+          y1="16"
+          x2="290"
+          y2="16"
+          stroke="var(--border)"
+          stroke-width="1"
+          opacity="0.7"
+        />
+        <rect
+          x="298"
+          y="4"
+          width="124"
+          height="24"
+          rx="12"
+          fill="var(--card)"
+          stroke="var(--border)"
+          stroke-width="1"
+        />
+        <text
+          x="360"
+          y="21"
+          text-anchor="middle"
+          font-size="11"
+          font-family="var(--font-mono)"
+          fill="var(--muted-foreground)"
+        >
+          {displayLabel}
+        </text>
+        <line
+          x1="430"
+          y1="16"
+          x2="720"
+          y2="16"
+          stroke="var(--border)"
+          stroke-width="1"
+          opacity="0.7"
+        />
+      </svg>
+    ) : (
+      <svg
+        viewBox="0 0 720 16"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-auto w-full"
+        aria-hidden="true"
+      >
+        <line x1="0" y1="8" x2="320" y2="8" stroke="var(--border)" stroke-width="1" opacity="0.7" />
+        <circle cx="360" cy="8" r="3" fill="var(--border)" opacity="0.7" />
+        <line
+          x1="400"
+          y1="8"
+          x2="720"
+          y2="8"
+          stroke="var(--border)"
+          stroke-width="1"
+          opacity="0.7"
+        />
+      </svg>
+    )
+  }
 </div>
