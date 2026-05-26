@@ -1,16 +1,36 @@
 import { Input, Select, Button } from "@repo/ui";
 import { useImageUpload } from "../../hooks/use-image-upload";
 import { manipulations } from "../../manipulations";
-import { useManipulatorStore } from "../../store/useManipulatorStore";
-import type { ManipulationId } from "../../store/useManipulatorStore";
-import { setManipulationId } from "../../store/useManipulatorStore";
-import { addToWorkflow } from "../../store/useManipulatorStore";
-import { clearWorkflow } from "../../store/useManipulatorStore";
+import { fork } from "../../core/fork";
+import {
+  useManipulatorStore,
+  setManipulationId,
+  addToWorkflow,
+  clearWorkflow,
+  addToOutputs,
+  clearOutputs,
+} from "../../store/useManipulatorStore";
+import type { ManipulationId, OutputType } from "../../store/useManipulatorStore";
 
 function Controls() {
+  const sourceImage = useManipulatorStore((state) => state.outputs[0]);
   const manipulationId = useManipulatorStore((state) => state.manipulationId);
   const workflow = useManipulatorStore((state) => state.workflow);
+
   const { handleImageUpload } = useImageUpload();
+
+  function executeWorkflow() {
+    if (!workflow || workflow.length === 0) return;
+    workflow.forEach((manipulationId, index) => {
+      const output: OutputType = {
+        id: index.toString(),
+        name: "TODO",
+        description: "TODO",
+        imageData: fork(manipulations[index].callback())(sourceImage.imageData),
+      };
+      addToOutputs(output);
+    });
+  }
 
   return (
     <div className="flex flex-col gap-4 p-4">
@@ -40,6 +60,11 @@ function Controls() {
           <li key={index}>{manipulationId}</li>
         ))}
       </ol>
+
+      <div className="gap-4 md:grid md:grid-cols-2">
+        <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
+        <Button onClick={() => clearOutputs()}>Clear Ouputs</Button>
+      </div>
     </div>
   );
 }

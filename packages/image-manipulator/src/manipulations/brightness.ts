@@ -6,7 +6,7 @@ import type { PixelCallback } from "../core/types.js";
  * Clamping to [0, 255] is handled by iteratePixels.
  */
 const callback =
-  (factor: number): PixelCallback =>
+  (factor = 1.6): PixelCallback =>
   ({ r, g, b, a }) => ({
     r: r * factor,
     g: g * factor,
