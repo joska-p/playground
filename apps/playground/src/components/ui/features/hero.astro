@@ -32,7 +32,7 @@ const {
   </div>
 
   <div
-    class="absolute -top-24 -right-32 z-0 h-96 w-96 rounded-full bg-indigo-500 opacity-[0.04] blur-[100px]"
+    class="bg-primary absolute -top-24 -right-32 z-0 h-96 w-96 rounded-full opacity-[0.04] blur-[100px]"
     aria-hidden="true"
   >
   </div>
@@ -49,9 +49,9 @@ const {
     <h1
       class="text-foreground text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.05] font-black tracking-tight sm:leading-[0.95]"
     >
-      {title}<br />
+      {highlight}<br />
       <span class="from-primary to-primary/70 bg-linear-to-r bg-clip-text text-transparent">
-        {highlight}<span class="text-primary cursor ml-1 font-light">_</span>
+        {title}<span class="text-primary cursor ml-1 font-light">_</span>
       </span>
     </h1>
 
