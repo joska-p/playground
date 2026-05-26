@@ -1,20 +1,19 @@
-import { Sidebar } from "@repo/ui";
+import { Input } from "@repo/ui";
 import { useEffect, useRef, useState } from "react";
-import { useImageUpload } from "../hooks/use-image-upload";
-import { imageElementToImageData, putImageData } from "../core/imageData";
-import { pipe } from "../core/pipe";
-import { fork } from "../core/fork";
-import { grayscale } from "../manipulations/grayscale";
-import { brightness } from "../manipulations/brightness";
-import { energyMap } from "../manipulations/energyMap";
-import { Controls } from "./controls/controls";
+import { useImageUpload } from "../hooks/use-image-upload.js";
+import { imageElementToImageData, putImageData } from "../core/imageData.js";
+import { pipe } from "../core/pipe.js";
+import { fork } from "../core/fork.js";
+import { grayscale } from "../manipulations/grayscale.js";
+import { brightness } from "../manipulations/brightness.js";
+import { energyMap } from "../manipulations/energyMap.js";
 
 function ImageManipulator() {
   const originalCanvasRef = useRef<HTMLCanvasElement>(null);
   const pipelineCanvasRef = useRef<HTMLCanvasElement>(null);
   const energyCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { imageFile } = useImageUpload();
+  const { imageFile, handleImageUpload } = useImageUpload();
   const [error, setError] = useState<Error | null>(null);
 
   if (error) throw error;
@@ -62,17 +61,14 @@ function ImageManipulator() {
   }, [imageFile]);
 
   return (
-    <Sidebar desktopPosition="left" mobilePosition="bottom" className="flex-1">
-      <Sidebar.Main>
-        <canvas ref={originalCanvasRef} className="bg-secondary max-h-screen max-w-screen" />
-        <canvas ref={pipelineCanvasRef} className="bg-secondary max-h-screen max-w-screen" />
-        <canvas ref={energyCanvasRef} className="bg-secondary max-h-screen max-w-screen" />
-      </Sidebar.Main>
-
-      <Sidebar.Panel>
-        <Controls />
-      </Sidebar.Panel>
-    </Sidebar>
+    <div>
+      <Input type="file" accept="image/*" onChange={handleImageUpload} />
+      <div>
+        <canvas ref={originalCanvasRef} className="bg-card max-h-screen max-w-screen" />
+        <canvas ref={pipelineCanvasRef} className="bg-card max-h-screen max-w-screen" />
+        <canvas ref={energyCanvasRef} className="bg-card max-h-screen max-w-screen" />
+      </div>
+    </div>
   );
 }
 

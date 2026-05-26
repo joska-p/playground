@@ -2,7 +2,7 @@ import { ImageManipulator } from "./index";
 
 function App() {
   return (
-    <div className="bg-background text-foreground">
+    <div className="bg-background text-foreground flex min-h-screen flex-col">
       <ImageManipulator />
     </div>
   );

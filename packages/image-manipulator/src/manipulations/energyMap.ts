@@ -11,7 +11,7 @@ import type { PixelCallback, PixelContext } from "../core/types.js";
  * Usage:
  *   const energyMap = fork(computeEnergy)(imageData)
  */
-const computeEnergy = (): PixelCallback => (ctx: PixelContext) => {
+const callback = (): PixelCallback => (ctx: PixelContext) => {
   const { x, y, width, height, sourceData } = ctx;
 
   const getPixelLuminance = (px: number, py: number): number => {
@@ -44,4 +44,11 @@ const computeEnergy = (): PixelCallback => (ctx: PixelContext) => {
   return { r: energy, g: energy, b: energy, a: 255 };
 };
 
-export { computeEnergy };
+const energyMap = {
+  id: "energyMap",
+  name: "energyMap",
+  description: "Computes the energy map of an image.",
+  callback,
+} as const;
+
+export { energyMap };

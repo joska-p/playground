@@ -11,7 +11,7 @@ export type { PixelContext, PixelCallback, RGBA } from "./core/types.js";
 // Manipulations
 export { grayscale } from "./manipulations/grayscale.js";
 export { brightness } from "./manipulations/brightness.js";
-export { computeEnergy } from "./manipulations/energyMap.js";
+export { energyMap } from "./manipulations/energyMap.js";
 
 // Components
 export { ImageManipulator } from "./components/imageManipulator.js";

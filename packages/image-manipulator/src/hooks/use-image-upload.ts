@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-type UseImageUploadReturn = [string | null, (event: React.ChangeEvent<HTMLInputElement>) => void];
+type UseImageUploadReturn = {
+  imageFile: string | null;
+  handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 function useImageUpload(): UseImageUploadReturn {
   const [imageFile, setImageFile] = useState<string | null>(null);
@@ -16,7 +19,7 @@ function useImageUpload(): UseImageUploadReturn {
     reader.readAsDataURL(file);
   }
 
-  return [imageFile, handleImageUpload];
+  return { imageFile, handleImageUpload };
 }
 
 export { useImageUpload };

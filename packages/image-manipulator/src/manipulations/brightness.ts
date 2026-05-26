@@ -5,7 +5,7 @@ import type { PixelCallback } from "../core/types.js";
  * factor > 1 brightens, factor < 1 darkens.
  * Clamping to [0, 255] is handled by iteratePixels.
  */
-const brightness =
+const callback =
   (factor: number): PixelCallback =>
   ({ r, g, b, a }) => ({
     r: r * factor,
@@ -13,5 +13,12 @@ const brightness =
     b: b * factor,
     a,
   });
+
+const brightness = {
+  id: "brightness",
+  name: "brightness",
+  description: "Adjusts brightness by a factor.",
+  callback,
+} as const;
 
 export { brightness };
