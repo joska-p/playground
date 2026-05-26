@@ -1,13 +1,10 @@
-import { useState } from "react";
+import { setImageFile } from "../store/useManipulatorStore";
 
 type UseImageUploadReturn = {
-  imageFile: string | null;
   handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function useImageUpload(): UseImageUploadReturn {
-  const [imageFile, setImageFile] = useState<string | null>(null);
-
   function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -19,7 +16,7 @@ function useImageUpload(): UseImageUploadReturn {
     reader.readAsDataURL(file);
   }
 
-  return { imageFile, handleImageUpload };
+  return { handleImageUpload };
 }
 
 export { useImageUpload };

@@ -4,23 +4,13 @@ import { manipulations } from "../../manipulations";
 import { useManipulatorStore } from "../../store/useManipulatorStore";
 import type { ManipulationId } from "../../store/useManipulatorStore";
 import { setManipulationId } from "../../store/useManipulatorStore";
-import { addToPipe } from "../../store/useManipulatorStore";
-import { clearPipe } from "../../store/useManipulatorStore";
+import { addToWorkflow } from "../../store/useManipulatorStore";
+import { clearWorkflow } from "../../store/useManipulatorStore";
 
 function Controls() {
-  const { currentManipulationId, pipe } = useManipulatorStore.getState();
+  const manipulationId = useManipulatorStore((state) => state.manipulationId);
+  const workflow = useManipulatorStore((state) => state.workflow);
   const { handleImageUpload } = useImageUpload();
-
-  const handleSetManipulationId = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("target", e.target.value);
-    setManipulationId(e.target.value as ManipulationId);
-  };
-
-  const handleAddToPipe = () => {
-    console.log("pipe", pipe);
-    addToPipe([currentManipulationId]);
-  };
-  const handleClearPipe = () => clearPipe();
 
   return (
     <div className="flex flex-col gap-4 p-4">
@@ -28,9 +18,9 @@ function Controls() {
 
       <Select
         variant="primary"
-        value={currentManipulationId}
-        onChange={handleSetManipulationId}
-        className="flex-1 pr-6"
+        value={manipulationId}
+        onChange={(e) => setManipulationId(e.target.value as ManipulationId)}
+        className="flex-1"
         label="Manipulation"
       >
         {manipulations.map((manipulation) => (
@@ -40,17 +30,16 @@ function Controls() {
         ))}
       </Select>
 
-      <Button onClick={handleAddToPipe}>Add to Pipe</Button>
-      <Button onClick={handleClearPipe}>Clear Pipe</Button>
-
-      <h4>Current Manipulation: {currentManipulationId}</h4>
-
-      <h4>Current Pipe</h4>
-      <div className="flex flex-col">
-        {pipe.map((manipulationId, index) => (
-          <div key={index}>{manipulationId}</div>
-        ))}
+      <div className="gap-4 md:grid md:grid-cols-2">
+        <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
+        <Button onClick={() => clearWorkflow()}>Clear Worflow</Button>
       </div>
+
+      <ol className="list-inside list-decimal">
+        {workflow.map((manipulationId, index) => (
+          <li key={index}>{manipulationId}</li>
+        ))}
+      </ol>
     </div>
   );
 }

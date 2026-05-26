@@ -1,72 +1,12 @@
 import { Sidebar } from "@repo/ui";
-import { useEffect, useRef, useState } from "react";
-import { useImageUpload } from "../hooks/use-image-upload";
-import { imageElementToImageData, putImageData } from "../core/imageData";
-import { pipe } from "../core/pipe";
-import { fork } from "../core/fork";
-import { grayscale } from "../manipulations/grayscale";
-import { brightness } from "../manipulations/brightness";
-import { energyMap } from "../manipulations/energyMap";
+import { Display } from "./display/Display";
 import { Controls } from "./controls/controls";
 
 function ImageManipulator() {
-  const originalCanvasRef = useRef<HTMLCanvasElement>(null);
-  const pipelineCanvasRef = useRef<HTMLCanvasElement>(null);
-  const energyCanvasRef = useRef<HTMLCanvasElement>(null);
-
-  const { imageFile } = useImageUpload();
-  const [error, setError] = useState<Error | null>(null);
-
-  if (error) throw error;
-
-  useEffect(() => {
-    if (!imageFile) return;
-
-    const image = new Image();
-    image.src = imageFile;
-
-    image.onload = () => {
-      try {
-        // --- Source ImageData (entry point for all transformations) ---
-        const sourceImageData = imageElementToImageData(image);
-
-        // --- Original: draw unmodified image ---
-        if (originalCanvasRef.current) {
-          putImageData(originalCanvasRef.current, sourceImageData);
-        }
-
-        // --- Pipeline: grayscale → brighten (one loop pass) ---
-        const pipelineResult = pipe(
-          grayscale.callback(),
-          brightness.callback(1.3)
-        )(sourceImageData);
-
-        if (pipelineCanvasRef.current) {
-          putImageData(pipelineCanvasRef.current, pipelineResult);
-        }
-
-        // --- Fork: energy map derived independently from the source ---
-        const energyResult = fork(energyMap.callback())(sourceImageData);
-
-        if (energyCanvasRef.current) {
-          putImageData(energyCanvasRef.current, energyResult);
-        }
-      } catch (e) {
-        setError(e instanceof Error ? e : new Error("Unknown error during processing"));
-      }
-    };
-
-    image.onerror = () => {
-      setError(new Error("Error loading image"));
-    };
-  }, [imageFile]);
-
   return (
     <Sidebar desktopPosition="left" mobilePosition="bottom" className="flex-1">
-      <Sidebar.Main>
-        <canvas ref={originalCanvasRef} className="bg-secondary max-h-screen max-w-screen" />
-        <canvas ref={pipelineCanvasRef} className="bg-secondary max-h-screen max-w-screen" />
-        <canvas ref={energyCanvasRef} className="bg-secondary max-h-screen max-w-screen" />
+      <Sidebar.Main className="grid grid-cols-3 gap-6">
+        <Display />
       </Sidebar.Main>
 
       <Sidebar.Panel>

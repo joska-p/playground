@@ -7,13 +7,15 @@ import { fork } from "../core/fork.js";
 import { grayscale } from "../manipulations/grayscale.js";
 import { brightness } from "../manipulations/brightness.js";
 import { energyMap } from "../manipulations/energyMap.js";
+import { useManipulatorStore } from "../store/useManipulatorStore.js";
 
 function ImageManipulator() {
+  const imageFile = useManipulatorStore((state) => state.imageFile);
   const originalCanvasRef = useRef<HTMLCanvasElement>(null);
   const pipelineCanvasRef = useRef<HTMLCanvasElement>(null);
   const energyCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { imageFile, handleImageUpload } = useImageUpload();
+  const { handleImageUpload } = useImageUpload();
   const [error, setError] = useState<Error | null>(null);
 
   if (error) throw error;

@@ -4,37 +4,38 @@ import { manipulations } from "../manipulations";
 export type ManipulationId = (typeof manipulations)[number]["id"];
 
 type ManipulatorState = {
-  currentManipulationId: ManipulationId;
-  pipe: ManipulationId[];
+  imageFile: string | null;
+  manipulationId: ManipulationId;
+  workflow: ManipulationId[];
 };
 
 const useManipulatorStore = create<ManipulatorState>()(() => ({
-  currentManipulationId: manipulations[0].id,
-  pipe: [],
+  imageFile: null,
+  manipulationId: manipulations[0].id,
+  workflow: [],
 }));
+
+function setImageFile(imageFile: string) {
+  useManipulatorStore.setState({ imageFile });
+}
 
 function setManipulationId(manipulationId: ManipulationId) {
   useManipulatorStore.setState({
-    currentManipulationId: manipulationId,
+    manipulationId,
   });
 }
 
-function setPipe(pipe: ManipulationId[]) {
+function addToWorkflow(newManipulation: ManipulationId) {
+  const { workflow } = useManipulatorStore.getState();
   useManipulatorStore.setState({
-    pipe,
+    workflow: [...workflow, newManipulation],
   });
 }
 
-function addToPipe(pipe: ManipulationId[]) {
-  useManipulatorStore.setState((state) => ({
-    pipe: [...state.pipe, ...pipe],
-  }));
-}
-
-function clearPipe() {
+function clearWorkflow() {
   useManipulatorStore.setState({
-    pipe: [],
+    workflow: [],
   });
 }
 
-export { useManipulatorStore, setManipulationId, setPipe, addToPipe, clearPipe };
+export { useManipulatorStore, setImageFile, setManipulationId, addToWorkflow, clearWorkflow };

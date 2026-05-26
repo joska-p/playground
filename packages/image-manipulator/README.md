@@ -28,30 +28,35 @@ pnpm add @repo/image-manipulator
 
 ## Core primitives
 
-| Export | Purpose |
-|--------|---------|
-| `imageElementToImageData(image)` | Convert a loaded `<img>` into raw pixel data |
-| `putImageData(canvas, imageData)` | Render `ImageData` onto a `<canvas>` |
-| `getImageData(canvas)` | Snapshot current canvas pixels |
-| `drawImageOnCanvas(canvas, image)` | Draw an `<img>` onto a canvas |
-| `pipe(...callbacks)` | Compose callbacks into one transformation |
-| `fork(callback)` | Create an independent derived image |
-| `iteratePixels(source, callbacks)` | Low-level loop primitive |
+| Export                             | Purpose                                      |
+| ---------------------------------- | -------------------------------------------- |
+| `imageElementToImageData(image)`   | Convert a loaded `<img>` into raw pixel data |
+| `putImageData(canvas, imageData)`  | Render `ImageData` onto a `<canvas>`         |
+| `getImageData(canvas)`             | Snapshot current canvas pixels               |
+| `drawImageOnCanvas(canvas, image)` | Draw an `<img>` onto a canvas                |
+| `pipe(...callbacks)`               | Compose callbacks into one transformation    |
+| `fork(callback)`                   | Create an independent derived image          |
+| `iteratePixels(source, callbacks)` | Low-level loop primitive                     |
 
 ### Types
 
 ```ts
-type RGBA = { r: number; g: number; b: number; a: number }
+type RGBA = { r: number; g: number; b: number; a: number };
 
 type PixelContext = {
-  r, g, b, a: number       // current pixel value (may be modified by earlier callbacks)
-  x, y: number              // pixel position
-  index: number             // byte offset in Uint8ClampedArray
-  width, height: number
-  sourceData: Uint8ClampedArray  // original unmodified data (for neighbour reads)
-}
+  r;
+  g;
+  b;
+  a: number; // current pixel value (may be modified by earlier callbacks)
+  x;
+  y: number; // pixel position
+  index: number; // byte offset in Uint8ClampedArray
+  width;
+  height: number;
+  sourceData: Uint8ClampedArray; // original unmodified data (for neighbour reads)
+};
 
-type PixelCallback = (ctx: PixelContext) => RGBA
+type PixelCallback = (ctx: PixelContext) => RGBA;
 ```
 
 ## Manipulations
@@ -76,10 +81,7 @@ import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 const source = imageElementToImageData(imgElement);
 
 // 2. Sequential pipe (one pass)
-const result = pipe(
-  grayscale(),
-  brightness(1.3),
-)(source);
+const result = pipe(grayscale(), brightness(1.3))(source);
 
 // 3. Fork for analysis (independent of the pipe)
 const energy = fork(computeEnergy())(source);
@@ -96,7 +98,8 @@ A manipulation is just a factory that returns a `PixelCallback`:
 ```ts
 import type { PixelCallback } from "@repo/image-manipulator";
 
-const tint = (hue: number): PixelCallback =>
+const tint =
+  (hue: number): PixelCallback =>
   ({ r, g, b, a }) => ({
     r: Math.min(255, r + hue),
     g,
