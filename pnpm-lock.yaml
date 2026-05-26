@@ -38,6 +38,9 @@ importers:
       '@repo/graph-viz':
         specifier: workspace:*
         version: link:../../packages/graph-viz
+      '@repo/image-manipulator':
+        specifier: workspace:*
+        version: link:../../packages/image-manipulator
       '@repo/image-to-particles':
         specifier: workspace:*
         version: link:../../packages/image-to-particles

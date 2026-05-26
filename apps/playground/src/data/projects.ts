@@ -84,6 +84,16 @@ export const projects: Record<string, Project> = {
     icon: Flame,
     featured: false,
   },
+  imageManipulator: {
+    slug: "image-manipulator",
+    name: "Image Manipulator",
+    description:
+      "A tool for manipulating images using physics-based particle systems and real-time interaction.",
+    category: "image",
+    tags: ["Images", "Canvas"],
+    icon: Flame,
+    featured: false,
+  },
   piechart: {
     slug: "piechart",
     name: "Pie Chart",

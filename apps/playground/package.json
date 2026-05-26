@@ -19,6 +19,7 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^5.0.6",
     "@astrojs/react": "^5.0.5",
+    "@repo/image-manipulator": "workspace:*",
     "@repo/graph-viz": "workspace:*",
     "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",
