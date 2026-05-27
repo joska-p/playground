@@ -1,5 +1,6 @@
 import { COMMUNITY_PALETTE, FT_COLOR } from "../constants";
-import type { ColorMode, SimNode } from "../types";
+import type { SimNode } from "../hooks/useGraphSimulation.types";
+import type { ColorMode } from "../store/useGraphStore.types";
 
 export function communityColor(community: number): string {
   return COMMUNITY_PALETTE[community % COMMUNITY_PALETTE.length] ?? "#94a3b8";

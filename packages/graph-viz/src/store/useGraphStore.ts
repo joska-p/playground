@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { ColorMode, GraphStats, RawNode } from "../types";
+import type { RawNode } from "../data/graphData.types";
+import type { ColorMode, GraphStats } from "./useGraphStore.types";
 
 type GraphState = {
   // ── Filters & display ───────────────────────────────────────────────────────

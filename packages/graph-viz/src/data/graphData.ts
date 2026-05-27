@@ -1,4 +1,4 @@
-import type { GraphData } from "../types";
+import type { GraphData } from "./graphData.types";
 
 export const RAW_GRAPH: GraphData = {
   nodes: [

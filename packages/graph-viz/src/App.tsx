@@ -1,4 +1,4 @@
-import { GraphViz } from "./index";
+import { GraphViz } from "./GraphViz";
 
 function App() {
   return (

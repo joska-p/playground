@@ -1,6 +1,6 @@
 import { FT_LABEL, REL_COLORS } from "../constants";
 import { useGraphStore } from "../store/useGraphStore";
-import type { ColorMode } from "../types";
+import type { ColorMode } from "../store/useGraphStore.types";
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_OPTIONS = Object.keys(REL_COLORS);
