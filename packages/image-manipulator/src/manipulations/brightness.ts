@@ -15,7 +15,6 @@ const callback =
   });
 
 const brightness = {
-  id: "brightness",
   name: "brightness",
   description: "Adjusts brightness by a factor.",
   callback,

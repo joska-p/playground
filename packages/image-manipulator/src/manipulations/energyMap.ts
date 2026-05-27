@@ -45,7 +45,6 @@ const callback = (): PixelCallback => (ctx: PixelContext) => {
 };
 
 const energyMap = {
-  id: "energyMap",
   name: "energyMap",
   description: "Computes the energy map of an image.",
   callback,

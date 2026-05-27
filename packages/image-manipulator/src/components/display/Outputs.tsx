@@ -11,12 +11,21 @@ function Outputs() {
   useEffect(() => {
     if (!imageFile) return;
 
+    // 1. Setup an ignore flag to prevent race conditions & update on unmount
+    let isSubscribed = true;
+
     const image = new Image();
-    image.src = imageFile;
+
+    // Optional: Uncomment if imageFile can be an external URL
+    // image.crossOrigin = "Anonymous";
 
     image.onload = () => {
+      // Bail out if the component unmounted or imageFile changed
+      if (!isSubscribed) return;
+
       try {
         const sourceImage: OutputType = {
+          // 2. Ensure your store handles overwriting this ID properly
           id: "source",
           name: "source",
           description: "image source",
@@ -24,8 +33,23 @@ function Outputs() {
         };
         addToOutputs(sourceImage);
       } catch (e) {
-        throw new Error("Unknown error during processing", e);
+        // 3. Handle async errors properly (do not throw)
+        console.error("Failed to process image data:", e);
+        // e.g., useManipulatorStore.getState().setError("Failed to process image");
       }
+    };
+
+    // 4. Handle image loading failures
+    image.onerror = (err) => {
+      if (!isSubscribed) return;
+      console.error("Failed to load image from source:", err);
+    };
+
+    image.src = imageFile;
+
+    // 5. Cleanup function
+    return () => {
+      isSubscribed = false;
     };
   }, [imageFile]);
 

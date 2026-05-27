@@ -12,7 +12,6 @@ const callback =
   };
 
 const grayscale = {
-  id: "grayscale",
   name: "grayscale",
   description: "Converts a pixel to grayscale using luminance weights.",
   callback,

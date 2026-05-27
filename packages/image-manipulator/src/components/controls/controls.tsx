@@ -1,7 +1,7 @@
 import { Input, Select, Button } from "@repo/ui";
 import { useImageUpload } from "../../hooks/use-image-upload";
-import { manipulations } from "../../manipulations";
-import { fork } from "../../core/fork";
+import { manipulations, manipulationsIds } from "../../manipulations";
+import { pipe } from "../../core/pipe";
 import {
   useManipulatorStore,
   setManipulationId,
@@ -21,15 +21,15 @@ function Controls() {
 
   function executeWorkflow() {
     if (!workflow || workflow.length === 0) return;
-    workflow.forEach((manipulationId, index) => {
-      const output: OutputType = {
-        id: index.toString(),
-        name: "TODO",
-        description: "TODO",
-        imageData: fork(manipulations[index].callback())(sourceImage.imageData),
-      };
-      addToOutputs(output);
-    });
+    const output: OutputType = {
+      id: "result",
+      name: "Result",
+      description: "Result of the workflow",
+      imageData: pipe(
+        ...workflow.map((manipulationId) => manipulations[manipulationId].callback())
+      )(sourceImage.imageData),
+    };
+    addToOutputs(output);
   }
 
   return (
@@ -43,9 +43,9 @@ function Controls() {
         className="flex-1"
         label="Manipulation"
       >
-        {manipulations.map((manipulation) => (
-          <option key={manipulation.id} value={manipulation.id}>
-            {manipulation.name}
+        {manipulationsIds.map((id) => (
+          <option key={id} value={id}>
+            {manipulations[id].name}
           </option>
         ))}
       </Select>

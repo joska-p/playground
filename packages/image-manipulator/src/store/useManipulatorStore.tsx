@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { manipulations } from "../manipulations";
+import { manipulationsIds } from "../manipulations";
 
-export type ManipulationId = (typeof manipulations)[number]["id"];
+export type ManipulationId = (typeof manipulationsIds)[number];
 export type OutputType = {
   id: string;
   name: string;
@@ -18,7 +18,7 @@ type ManipulatorState = {
 
 const useManipulatorStore = create<ManipulatorState>()(() => ({
   imageFile: null,
-  manipulationId: manipulations[0].id,
+  manipulationId: manipulationsIds[0],
   workflow: [],
   outputs: [],
 }));
