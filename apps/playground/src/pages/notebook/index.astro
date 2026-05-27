@@ -51,7 +51,6 @@ const notesByCategory = await getNotesByCategory();
           <div class="grid gap-4 sm:grid-cols-2">
             {category.articles.map((note) => {
               const noteUrl     = `${notebookBaseUrl}${note.id}/`;
-              const category = note.data.category;
               return (
                 <DocCard
                   href={noteUrl}
