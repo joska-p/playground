@@ -1,33 +1,33 @@
 # Audit: `packages/ui/src` — Convention Violations
 
-## 1. `packages/ui/src/index.ts`
+## ~~1. `packages/ui/src/index.ts`~~ ✅ Resolved
 
 | Field | Value |
 |-------|-------|
 | Rule  | **No barrel files (`index.ts`)** |
-| Fix   | Delete the file and declare each public component as a separate `exports` subpath in `package.json` |
+| Fix   | Deleted the file and added per-component `exports` subpaths in `package.json` |
 
 ---
 
-## 2. `packages/ui/package.json` — `exports` field
+## ~~2. `packages/ui/package.json` — `exports` field~~ ✅ Resolved
 
 | Field | Value |
 |-------|-------|
 | Rule  | **Package public API is declared in `package.json` exports. One subpath per public component — no root `index.tsx`** |
-| Fix   | Replace the root `"."` entry with per-component subpaths (e.g. `"./Button": "./src/components/button/Button.tsx"`) and remove the barrel file |
+| Fix   | Replaced root `"."` entry with per-component subpaths (e.g. `"./Button": "./src/components/button/Button.tsx"`) and removed the barrel file |
 
 ---
 
-## 3. `packages/ui/package.json` — `exports["."]` conditions
+## ~~3. `packages/ui/package.json` — `exports["."]` conditions~~ ✅ Resolved
 
 | Field | Value |
 |-------|-------|
 | Rule  | **Do not use `require` / `import` / `types` conditions when all three point to the same source file — omit them entirely** |
-| Fix   | Replace the conditional object `{ "types": …, "import": …, "require": … }` with a plain string `"./src/index.ts"` (or the per-component subpaths above) |
+| Fix   | Replaced the conditional object with plain string per-component subpath entries |
 
 ---
 
-## 4. `packages/ui/src/components/widgets/sidebar/SidebarContext.tsx`
+## ~~4. `packages/ui/src/components/widgets/sidebar/SidebarContext.tsx`~~ ✅ Resolved
 
 | Field | Value |
 |-------|-------|
