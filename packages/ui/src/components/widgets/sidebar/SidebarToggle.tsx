@@ -1,37 +1,20 @@
 import type { ComponentProps } from "react";
-import { useMemo } from "react";
 import { cn } from "../../../utils/cn";
 import { Button } from "../../button/Button";
+import styles from "./sidebar.module.css";
 import { useSidebarContext } from "./useSidebarContext";
 
 export function SidebarToggle({ className, children, ...props }: ComponentProps<"button">) {
-  const { isOpen, toggleSidebar, desktopPosition } = useSidebarContext();
-
-  const positionClasses = useMemo(() => {
-    const pos = desktopPosition;
-
-    if (isOpen) return "[grid-area:panel] top-2 right-2";
-
-    switch (pos) {
-      case "left":
-        return "top-2 left-2";
-      case "right":
-        return "top-2 right-2";
-      case "top":
-        return "top-2 right-2";
-      case "bottom":
-        return "bottom-2 right-2";
-      default:
-        return "top-2 left-2";
-    }
-  }, [isOpen, desktopPosition]);
+  const { isOpen, toggleSidebar } = useSidebarContext();
 
   return (
     <Button
       type="button"
       size="icon"
+      variant="ghost"
       onClick={toggleSidebar}
-      className={cn("sidebar-toggle absolute z-50", positionClasses, className)}
+      className={cn("sidebar-toggle", styles.toggle, className)}
+      aria-expanded={isOpen}
       aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       {...props}
     >

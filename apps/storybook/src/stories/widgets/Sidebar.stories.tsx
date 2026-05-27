@@ -41,7 +41,7 @@ export default meta;
 
 function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
   return (
-    <div className="border-muted-foreground/20 bg-background h-100 w-full overflow-hidden border border-dashed">
+    <div className="border-muted-foreground/20 bg-background h-[500px] w-full overflow-hidden border border-dashed">
       <Sidebar {...args} className="h-full">
         <Sidebar.Toggle />
         <Sidebar.Panel className="p-4 pt-12">

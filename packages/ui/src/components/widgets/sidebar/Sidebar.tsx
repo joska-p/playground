@@ -1,19 +1,20 @@
-import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../utils/cn";
+import styles from "./sidebar.module.css";
 import type { SidebarContextValue } from "./sidebarContext";
 import { SidebarContext } from "./sidebarContext";
 import { SidebarMain } from "./SidebarMain";
 import { SidebarPanel } from "./SidebarPanel";
 import { SidebarToggle } from "./SidebarToggle";
-import { sidebarVariants } from "./sidebarVariants";
 import { useSidebarContext } from "./useSidebarContext";
 
 export type SidebarProps = {
   defaultOpen?: boolean;
-} & ComponentProps<"div"> &
-  VariantProps<typeof sidebarVariants>;
+  mobilePosition?: "top" | "right" | "bottom" | "left";
+  desktopPosition?: "top" | "right" | "bottom" | "left";
+  variant?: "normal" | "primary" | "secondary" | "accent";
+} & ComponentProps<"div">;
 
 export function Sidebar({
   children,
@@ -21,7 +22,7 @@ export function Sidebar({
   className,
   mobilePosition = "bottom",
   desktopPosition = "bottom",
-  variant,
+  variant = "normal",
   defaultOpen = true,
   ...props
 }: SidebarProps) {
@@ -45,11 +46,11 @@ export function Sidebar({
     <SidebarContext.Provider value={value}>
       <div
         ref={ref}
-        className={cn(
-          "relative min-h-full",
-          sidebarVariants({ variant, mobilePosition, desktopPosition }),
-          className
-        )}
+        data-state={isOpen ? "open" : "closed"}
+        data-mobile-position={mobilePosition}
+        data-desktop-position={desktopPosition}
+        data-variant={variant}
+        className={cn(styles.sidebar, "group", className)}
         {...props}
       >
         {children}
