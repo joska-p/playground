@@ -1,0 +1,61 @@
+---
+import NavLogo from "./nav-logo.astro";
+import NavLinks from "./nav-links.astro";
+import NavActions from "./nav-actions.astro";
+import MobileMenu from "./mobile-menu.astro";
+
+const currentPath = Astro.url.pathname;
+const baseUrl = import.meta.env.BASE_URL || "/";
+
+type Route = { label: string; href: string };
+const routes: Route[] = [
+  { label: "./home", href: baseUrl },
+  { label: "./projects", href: `${baseUrl}projects/` },
+  { label: "./notebook", href: `${baseUrl}notebook/` },
+  { label: "./docs", href: `${baseUrl}docs/` },
+];
+---
+
+<header class="sticky top-0 z-50 w-full md:top-4 md:px-6">
+  <div
+    class="border-border/50 bg-background/90 md:hover:border-primary/30 relative z-30 mx-auto flex h-14 max-w-7xl items-center justify-between border-b px-4 shadow-sm backdrop-blur-md transition-colors md:rounded-2xl md:border-2"
+  >
+    <NavLogo href={baseUrl} />
+    <NavLinks routes={routes} currentPath={currentPath} baseUrl={baseUrl} />
+    <NavActions />
+  </div>
+
+  <MobileMenu routes={routes} currentPath={currentPath} baseUrl={baseUrl} />
+</header>
+
+<style>
+  header {
+    transition:
+      transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.4s ease;
+  }
+</style>
+
+<!-- Theme must be is:inline to run before first paint (prevents flash) -->
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+  const applyTheme = (theme) => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    root.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  };
+  applyTheme(getThemePreference());
+</script>
+
+<!-- Bundled scripts: Astro deduplicates these automatically -->
+<script>
+  import "./scripts/theme.js";
+  import "./scripts/mobileMenu.js";
+  import "./scripts/smartNavbar.js";
+</script>
