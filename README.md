@@ -59,6 +59,8 @@ pnpm install && pnpm dev
 | [Overview](https://playground-beryl-omega.vercel.app/docs/explanation/overview/) | What this is, principles, architecture |
 | [Engines](https://playground-beryl-omega.vercel.app/docs/explanation/engines/) | How rules and visualizations work |
 | [Your First Visualization](https://playground-beryl-omega.vercel.app/docs/tutorial/first-visualization/) | Step-by-step tutorial |
+| [Scaffolding Packages](https://playground-beryl-omega.vercel.app/docs/how-to/scaffolding-packages/) | Generate new packages with `turbo gen` |
+| [Project Maintenance](https://playground-beryl-omega.vercel.app/docs/how-to/maintenance/) | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
 | [Adding Projects](https://playground-beryl-omega.vercel.app/docs/how-to/adding-projects/) | How to add new visualizations |
 | [Adding Components](https://playground-beryl-omega.vercel.app/docs/how-to/adding-components/) | How to add UI components |
 | [Adding a Rule](https://playground-beryl-omega.vercel.app/docs/how-to/adding-sequence-rule/) | Add sequence rules |

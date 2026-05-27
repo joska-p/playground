@@ -9,9 +9,12 @@
     "lint-fix": "turbo run lint-fix",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "check-types": "turbo run check-types",
-    "clean": "node ./scripts/clean.mjs"
+    "gen": "turbo gen",
+    "clean": "node ./scripts/clean.mjs",
+    "reset": "node ./scripts/clean.mjs --yes && pnpm install && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build"
   },
   "devDependencies": {
+    "@turbo/gen": "^2.9.14",
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-organize-imports": "^4.3.0",

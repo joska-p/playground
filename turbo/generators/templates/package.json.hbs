@@ -1,0 +1,49 @@
+{
+  "name": "@repo/{{name}}",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./Demo": "./src/components/Demo.tsx",
+    "./styles": "./src/styles/styles.css"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc -b",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",
+    "preview": "vite preview --host",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/ui": "workspace:*",
+    "zod": "^4.3.6",
+    "zustand": "^5.0.12"
+  },
+  "peerDependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "eslint": "catalog:",
+    "@repo/config-eslint": "workspace:*",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "prettier": "3.8.3",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "prettier-plugin-tailwindcss": "0.8.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  }
+}
