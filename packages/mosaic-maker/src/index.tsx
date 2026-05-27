@@ -1,8 +1,8 @@
 "use client";
 
-import { MosaicDisplay } from "./components/mosaic-display/MosaicDisplay.js";
-import { Controls } from "./components/controls/Controls.js";
 import { Sidebar } from "@repo/ui";
+import { Controls } from "./components/controls/Controls.js";
+import { MosaicDisplay } from "./components/mosaic-display/MosaicDisplay.js";
 
 function MosaicMaker() {
   return (

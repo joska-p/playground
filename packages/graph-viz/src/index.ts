@@ -1,11 +1,11 @@
 export { GraphViz } from "./GraphViz";
 export { useGraphStore } from "./store/useGraphStore";
 export type {
-  RawNode,
-  RawLink,
-  RawHyperedge,
-  SimNode,
-  SimLink,
   ColorMode,
   GraphStats,
+  RawHyperedge,
+  RawLink,
+  RawNode,
+  SimLink,
+  SimNode,
 } from "./types";

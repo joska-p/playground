@@ -1,6 +1,6 @@
 import { Sidebar } from "@repo/ui";
-import { Controls } from "./controls/controls";
 import { Outputs } from "../components/display/Outputs";
+import { Controls } from "./controls/controls";
 
 function ImageManipulator() {
   return (

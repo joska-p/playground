@@ -1,6 +1,6 @@
+import { Switch } from "@repo/ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Switch } from "@repo/ui";
 
 /**
  * A styled toggle switch component for binary on/off states.

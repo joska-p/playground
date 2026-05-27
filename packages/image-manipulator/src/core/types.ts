@@ -30,4 +30,4 @@ type RGBA = { r: number; g: number; b: number; a: number };
  */
 type PixelCallback = (ctx: PixelContext) => RGBA;
 
-export type { PixelContext, PixelCallback, RGBA };
+export type { PixelCallback, PixelContext, RGBA };

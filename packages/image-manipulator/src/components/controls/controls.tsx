@@ -1,16 +1,16 @@
-import { Input, Select, Button } from "@repo/ui";
+import { Button, Input, Select } from "@repo/ui";
+import { pipe } from "../../core/pipe";
 import { useImageUpload } from "../../hooks/use-image-upload";
 import { manipulations, manipulationsIds } from "../../manipulations";
-import { pipe } from "../../core/pipe";
-import {
-  useManipulatorStore,
-  setManipulationId,
-  addToWorkflow,
-  clearWorkflow,
-  addToOutputs,
-  clearOutputs,
-} from "../../store/useManipulatorStore";
 import type { ManipulationId, OutputType } from "../../store/useManipulatorStore";
+import {
+  addToOutputs,
+  addToWorkflow,
+  clearOutputs,
+  clearWorkflow,
+  setManipulationId,
+  useManipulatorStore,
+} from "../../store/useManipulatorStore";
 
 function Controls() {
   const sourceImage = useManipulatorStore((state) => state.outputs[0]);

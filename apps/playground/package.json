@@ -19,8 +19,8 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^5.0.6",
     "@astrojs/react": "^5.0.5",
-    "@repo/image-manipulator": "workspace:*",
     "@repo/graph-viz": "workspace:*",
+    "@repo/image-manipulator": "workspace:*",
     "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",
     "@repo/palette-generator": "workspace:*",
@@ -47,6 +47,7 @@
     "eslint-plugin-astro": "^1.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "0.8.0",
     "sharp": "^0.34.5"
   }

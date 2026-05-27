@@ -1,11 +1,11 @@
-import { ColorSpaceControls } from "./color-picker/ColorSpaceControls";
-import { usePaletteStore, addPalette } from "../../store/usePaletteStore";
-import { generatePalette } from "../../core/generator";
 import { Button } from "@repo/ui";
-import { rules } from "../../core/rules";
-import { colorSpaces } from "../../core/colorspaces";
-import type { RuleKey } from "../../core/rules";
 import type { ColorSpacesKey } from "../../core/colorspaces";
+import { colorSpaces } from "../../core/colorspaces";
+import { generatePalette } from "../../core/generator";
+import type { RuleKey } from "../../core/rules";
+import { rules } from "../../core/rules";
+import { addPalette, usePaletteStore } from "../../store/usePaletteStore";
+import { ColorSpaceControls } from "./color-picker/ColorSpaceControls";
 
 function Controls() {
   const baseColor = usePaletteStore((state) => state.baseColor);

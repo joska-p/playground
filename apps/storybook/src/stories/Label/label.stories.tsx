@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Label } from "@repo/ui";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 /**
  * The Label component provides an accessible caption for an item in a user interface.

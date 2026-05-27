@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Output } from "./Output";
 import { imageElementToImageData } from "../../core/imageData";
-import { useManipulatorStore, addToOutputs } from "../../store/useManipulatorStore";
 import type { OutputType } from "../../store/useManipulatorStore";
+import { addToOutputs, useManipulatorStore } from "../../store/useManipulatorStore";
+import { Output } from "./Output";
 
 function Outputs() {
   const imageFile = useManipulatorStore((state) => state.imageFile);

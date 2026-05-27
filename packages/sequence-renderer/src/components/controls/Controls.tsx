@@ -1,9 +1,8 @@
-import { Slider, Card, Select } from "@repo/ui";
-import { useSequenceStore } from "../../store/useSequenceStore.js";
-import { SequenceSelector } from "./SequenceSelector.js";
-import { setSteps, setVisualizationId } from "../../store/useSequenceStore.js";
-import { visualizations } from "../../core/visualizations/index.js";
+import { Card, Select, Slider } from "@repo/ui";
 import { useShallow } from "zustand/shallow";
+import { visualizations } from "../../core/visualizations/index.js";
+import { setSteps, setVisualizationId, useSequenceStore } from "../../store/useSequenceStore.js";
+import { SequenceSelector } from "./SequenceSelector.js";
 
 function Controls() {
   const { sequenceRule, steps, visualizationId } = useSequenceStore(

@@ -1,8 +1,8 @@
 import type { ComponentProps } from "react";
 import { useMemo } from "react";
 import { cn } from "../../../utils/cn";
-import { useSidebarContext } from "./useSidebarContext";
 import { Button } from "../../button/Button";
+import { useSidebarContext } from "./useSidebarContext";
 
 export function SidebarToggle({ className, children, ...props }: ComponentProps<"button">) {
   const { isOpen, toggleSidebar, desktopPosition } = useSidebarContext();

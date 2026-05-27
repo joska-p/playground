@@ -2,7 +2,7 @@ import { analogous } from "./analogous";
 import { complementary } from "./complementary";
 import { monochromatic } from "./monochromatic";
 import { triadic } from "./triadic";
-import type { Rule, Palette } from "./types";
+import type { Palette, Rule } from "./types";
 
 const rules = {
   analogous,
@@ -14,4 +14,4 @@ const rules = {
 type RuleKey = keyof typeof rules; // "analogous" | "complementary" | ...
 
 export { rules };
-export type { Rule, Palette, RuleKey };
+export type { Palette, Rule, RuleKey };

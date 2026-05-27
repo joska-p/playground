@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import type { TileSet, Palette, TileNames } from "../core/config.js";
+import type { Palette, TileNames, TileSet } from "../core/config.js";
 import {
   initialPalette,
+  initialRotations,
   initialTileSet,
   MAX_NUMBER_OF_PALETTES,
-  initialRotations,
 } from "../core/config.js";
 import { fetchPalettes } from "../utils/fetch-palettes.js";
 import { computeNumberOfTiles, updateElementStyles } from "../utils/style-utils.js";
@@ -120,12 +120,12 @@ async function initPalettes() {
 }
 
 export {
-  useMosaicStore,
-  updateCurrentPalettes,
-  setPaletteStock,
-  setMosaicRef,
-  updatePalette,
-  updateTileSet,
-  updateTiles,
   initPalettes,
+  setMosaicRef,
+  setPaletteStock,
+  updateCurrentPalettes,
+  updatePalette,
+  updateTiles,
+  updateTileSet,
+  useMosaicStore,
 };

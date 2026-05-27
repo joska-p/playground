@@ -1,8 +1,8 @@
 import { brightness } from "./brightness";
-import { grayscale } from "./grayscale";
 import { energyMap } from "./energyMap";
+import { grayscale } from "./grayscale";
 
 const manipulationsIds = ["brightness", "grayscale", "energyMap"] as const;
 const manipulations = { brightness, grayscale, energyMap } as const;
 
-export { manipulationsIds, manipulations };
+export { manipulations, manipulationsIds };

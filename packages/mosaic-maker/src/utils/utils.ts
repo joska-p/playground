@@ -38,4 +38,4 @@ function stall(ms: number) {
   });
 }
 
-export { shuffleArray, shuffleObject, getRandom, safeFetch, getRandomValue, stall };
+export { getRandom, getRandomValue, safeFetch, shuffleArray, shuffleObject, stall };

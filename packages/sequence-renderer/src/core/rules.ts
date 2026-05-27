@@ -85,4 +85,4 @@ const sequencesRule: SequenceRule[] = [
   collatzRule,
 ];
 
-export { sequencesRule, recamanRule };
+export { recamanRule, sequencesRule };

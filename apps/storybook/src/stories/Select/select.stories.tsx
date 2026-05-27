@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@repo/ui";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const options = (
   <>

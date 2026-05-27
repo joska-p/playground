@@ -1,6 +1,6 @@
-import { getCollection } from "astro:content";
 import { z } from "astro/zod";
-import { Book, Wrench, Lightbulb, Code } from "lucide-react";
+import { getCollection } from "astro:content";
+import { Book, Code, Lightbulb, Wrench } from "lucide-react";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
 export const docsBaseUrl = `${baseUrl}docs/`;

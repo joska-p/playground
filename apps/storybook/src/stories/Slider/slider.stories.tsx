@@ -1,6 +1,6 @@
+import { Slider } from "@repo/ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Slider } from "@repo/ui";
 
 /**
  * A styled range input component for adjusting numerical values.

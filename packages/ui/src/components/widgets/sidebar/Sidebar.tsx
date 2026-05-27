@@ -4,11 +4,11 @@ import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../utils/cn";
 import type { SidebarContextValue } from "./SidebarContext";
 import { SidebarContext } from "./SidebarContext";
-import { useSidebarContext } from "./useSidebarContext";
 import { SidebarMain } from "./SidebarMain";
 import { SidebarPanel } from "./SidebarPanel";
 import { SidebarToggle } from "./SidebarToggle";
 import { sidebarVariants } from "./sidebarVariants";
+import { useSidebarContext } from "./useSidebarContext";
 
 export type SidebarProps = {
   defaultOpen?: boolean;

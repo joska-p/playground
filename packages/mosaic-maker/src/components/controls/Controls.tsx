@@ -1,5 +1,4 @@
 import { Button } from "@repo/ui";
-import { useMosaicStore, updateCurrentPalettes, updateTiles } from "../../store/useMosaicStore.js";
 import { useShallow } from "zustand/shallow";
 import {
   CSS_VARS,
@@ -7,6 +6,7 @@ import {
   DEFAULT_TILE_SIZE,
   initialRotations,
 } from "../../core/config.js";
+import { updateCurrentPalettes, updateTiles, useMosaicStore } from "../../store/useMosaicStore.js";
 import { updateElementStyles } from "../../utils/style-utils.js";
 import { shuffleObject } from "../../utils/utils.js";
 import { PaletteControls } from "./PaletteControls.js";

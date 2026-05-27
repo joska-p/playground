@@ -60,11 +60,11 @@ function clearOutputs() {
 }
 
 export {
-  useManipulatorStore,
+  addToOutputs,
+  addToWorkflow,
+  clearOutputs,
+  clearWorkflow,
   setImageFile,
   setManipulationId,
-  addToWorkflow,
-  clearWorkflow,
-  addToOutputs,
-  clearOutputs,
+  useManipulatorStore,
 };

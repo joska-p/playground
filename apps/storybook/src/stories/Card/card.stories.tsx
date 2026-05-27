@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
+  Button,
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-  Button,
 } from "@repo/ui";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 /**
  * The Card component provides a flexible container for grouping related content and actions.

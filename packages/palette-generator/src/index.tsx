@@ -1,6 +1,6 @@
 import { Sidebar } from "@repo/ui";
-import { Display } from "./components/display";
 import { Controls } from "./components/controls";
+import { Display } from "./components/display";
 
 function PaletteGenerator() {
   return (

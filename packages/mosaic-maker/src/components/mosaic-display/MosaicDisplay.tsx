@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useResizeObserver } from "@repo/ui";
-import { useMosaicStore, initPalettes, setMosaicRef } from "../../store/useMosaicStore.js";
+import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import {
   CSS_VARS,
@@ -9,6 +8,7 @@ import {
   initialRotations,
   initialTileSize,
 } from "../../core/config.js";
+import { initPalettes, setMosaicRef, useMosaicStore } from "../../store/useMosaicStore.js";
 import { Tile } from "../tiles/Tile.js";
 
 const MOSAIC_STYLES = {

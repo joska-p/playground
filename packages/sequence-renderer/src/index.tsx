@@ -1,6 +1,6 @@
+import { Sidebar } from "@repo/ui";
 import { Controls } from "./components/controls/Controls.js";
 import { SequenceDisplay } from "./components/sequence-display/SequenceDisplay.js";
-import { Sidebar } from "@repo/ui";
 
 function SequenceRenderer() {
   return (

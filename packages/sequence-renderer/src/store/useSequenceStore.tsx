@@ -1,7 +1,7 @@
 import { create } from "zustand";
+import { generateSequence } from "../core/generator.js";
 import type { SequenceRule } from "../core/rules.js";
 import { recamanRule } from "../core/rules.js";
-import { generateSequence } from "../core/generator.js";
 import { visualizations } from "../core/visualizations/index.js";
 
 type SequenceState = {
@@ -46,4 +46,4 @@ function setVisualizationId(id: string) {
   useSequenceStore.setState({ visualizationId: id });
 }
 
-export { useSequenceStore, setSequenceRule, setSteps, setVisualizationId };
+export { setSequenceRule, setSteps, setVisualizationId, useSequenceStore };

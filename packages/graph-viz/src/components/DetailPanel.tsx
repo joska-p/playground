@@ -1,7 +1,7 @@
-import { RAW_GRAPH } from "../data/graphData";
 import { FT_COLOR, REL_COLORS } from "../constants";
-import { communityColor } from "../utils/colors";
+import { RAW_GRAPH } from "../data/graphData";
 import { useGraphStore } from "../store/useGraphStore";
+import { communityColor } from "../utils/colors";
 
 export function DetailPanel() {
   const selectedNode = useGraphStore((s) => s.selectedNode);

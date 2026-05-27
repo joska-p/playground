@@ -1,7 +1,7 @@
-import { useMosaicStore, updateTileSet } from "../../store/useMosaicStore.js";
+import { cn } from "@repo/ui";
 import { useShallow } from "zustand/shallow";
 import { initialPalette, initialTileSet } from "../../core/config.js";
-import { cn } from "@repo/ui";
+import { updateTileSet, useMosaicStore } from "../../store/useMosaicStore.js";
 import { Tile } from "../tiles/Tile.js";
 
 function TileSetControls() {

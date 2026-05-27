@@ -1,6 +1,6 @@
 import { ColorPalette } from "@repo/ui";
-import { useMosaicStore, updatePalette } from "../../store/useMosaicStore.js";
 import { useShallow } from "zustand/shallow";
+import { updatePalette, useMosaicStore } from "../../store/useMosaicStore.js";
 import { arePalettesEqual, getPaletteId } from "../../utils/palette-utils.js";
 
 function PaletteControls() {

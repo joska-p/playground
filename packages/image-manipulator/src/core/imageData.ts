@@ -32,4 +32,4 @@ function imageElementToImageData(image: HTMLImageElement): ImageData {
   return ctx.getImageData(0, 0, image.width, image.height);
 }
 
-export { getImageData, putImageData, imageElementToImageData };
+export { getImageData, imageElementToImageData, putImageData };

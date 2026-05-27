@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { initialPalette } from "../core/config.js";
 import type { Palette } from "../core/config.js";
+import { initialPalette } from "../core/config.js";
 import { safeFetch } from "./utils.js";
 
 export type CachedPalettes = {

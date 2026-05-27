@@ -57,10 +57,10 @@ export {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
+  MAX_NUMBER_OF_PALETTES,
   initialGapSize,
   initialPalette,
   initialRotations,
   initialTileSet,
   initialTileSize,
-  MAX_NUMBER_OF_PALETTES,
 };

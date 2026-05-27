@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
-import { colorSpaces } from "../../../core/colorspaces";
-import { ColorSpaceCanvas } from "./ColorSpaceCanvas";
 import { Slider } from "@repo/ui";
+import { useRef, useState } from "react";
+import { colorSpaces } from "../../../core/colorspaces";
 import { setBaseColor } from "../../../store/usePaletteStore";
+import { ColorSpaceCanvas } from "./ColorSpaceCanvas";
 
 type ColorSliceProps = {
   spaceId?: keyof typeof colorSpaces;

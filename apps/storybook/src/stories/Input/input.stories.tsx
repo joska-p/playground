@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Input } from "@repo/ui";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 function MailIcon() {
   return (
