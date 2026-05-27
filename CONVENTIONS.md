@@ -315,6 +315,73 @@ Simple, self-contained components can live as a single file without a folder.
 
 ---
 
+## Package dependencies
+
+The monorepo has two kinds of packages: **apps** (`apps/*`) and **shared packages** (`packages/*`). The rules differ because apps are fully bundled — their dependency tree collapses at build time — while shared packages are consumed by other packages and must not bundle what the consumer already provides.
+
+### `dependencies`
+
+Runtime code that is **not** provided by the consumer and **not** erased at build time.
+
+| What belongs here                                                            | Example                                        |
+| ---------------------------------------------------------------------------- | ---------------------------------------------- |
+| Shared package consumed at runtime by another package                        | `"@repo/ui": "workspace:*"` in an app          |
+| A library the package ships logic from and the consumer doesn't already have | A small utility library unique to this package |
+
+**In practice this list is almost always empty for `packages/*`** — their runtime deps are either peer deps (React) or devDeps (build tools, types). Apps are the main users of `dependencies`.
+
+### `devDependencies`
+
+Anything only needed to **build, type-check, lint, or test** the package. Never ends up in the consumer's bundle.
+
+| What belongs here                          | Example                             |
+| ------------------------------------------ | ----------------------------------- |
+| Build tooling                              | `vite`, `typescript`, `tailwindcss` |
+| Type definitions                           | `@types/node`, `@types/react`       |
+| Linting / formatting                       | `eslint`, `@repo/eslint-config`     |
+| Test runners and utilities                 | `vitest`, `@testing-library/react`  |
+| Storybook                                  | `storybook`, `@storybook/*`         |
+| Workspace packages used only at build time | `@repo/tsconfig`                    |
+
+### `peerDependencies`
+
+A library the package **uses but expects the consumer to provide**. Prevents multiple copies of the same lib in the final bundle.
+
+| What belongs here                                    | Why                                                                            |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `react`, `react-dom`                                 | Every shared React package must declare these as peers — never bundle React    |
+| Any lib from the stack that the consumer already has | e.g. `zustand`, `zod` if a package builds on them but the app owns the version |
+
+Always pair a peer dep with a matching entry in `devDependencies` so the package can build and test locally:
+
+```json
+{
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}
+```
+
+### Quick reference
+
+| Scenario                                                | Where it goes                          |
+| ------------------------------------------------------- | -------------------------------------- |
+| `react` / `react-dom` in a shared package               | `peerDependencies` + `devDependencies` |
+| `react` / `react-dom` in an app                         | `dependencies`                         |
+| `vite`, `typescript`, `tailwindcss`                     | `devDependencies` (everywhere)         |
+| `@types/*`                                              | `devDependencies` (everywhere)         |
+| `@repo/eslint-config`, `@repo/tsconfig`                 | `devDependencies`                      |
+| `@repo/ui` consumed by an app at runtime                | `dependencies` in the app              |
+| `zustand`, `zod` in a package that re-exports from them | `peerDependencies` + `devDependencies` |
+| `zustand`, `zod` used only internally in a package      | `dependencies`                         |
+
+---
+
 ## Tooling
 
 ### Shared ESLint config
