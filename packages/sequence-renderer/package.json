@@ -4,11 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./src/index.tsx",
-      "import": "./src/index.tsx",
-      "require": "./src/index.tsx"
-    },
+    "./SequenceRenderer": "./src/SequenceRenderer.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {

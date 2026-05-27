@@ -1,4 +1,4 @@
-import type { SequenceRule } from "./rules";
+import type { SequenceRule } from "./sequencesRule";
 
 function generateSequence(rule: SequenceRule, steps: number): number[] {
   const sequence: number[] = [0];
