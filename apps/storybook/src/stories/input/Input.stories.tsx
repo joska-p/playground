@@ -1,4 +1,4 @@
-import { Input } from "@repo/ui";
+import { Input } from "@repo/ui/Input";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 function MailIcon() {
@@ -91,6 +91,7 @@ const meta: Meta<typeof Input> = {
   },
 };
 
+// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
 type Story = StoryObj<typeof Input>;

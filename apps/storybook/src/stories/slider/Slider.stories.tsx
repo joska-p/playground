@@ -1,4 +1,4 @@
-import { Slider } from "@repo/ui";
+import { Slider } from "@repo/ui/Slider";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
@@ -60,6 +60,7 @@ const meta: Meta<typeof Slider> = {
   },
 };
 
+// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
 type Story = StoryObj<typeof Slider>;

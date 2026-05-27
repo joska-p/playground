@@ -1,4 +1,4 @@
-import { Label } from "@repo/ui";
+import { Label } from "@repo/ui/Label";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 /**
@@ -34,6 +34,7 @@ const meta: Meta<typeof Label> = {
   },
 };
 
+// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
 type Story = StoryObj<typeof Label>;

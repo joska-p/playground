@@ -1,12 +1,12 @@
+import { Button } from "@repo/ui/Button";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@repo/ui";
+} from "@repo/ui/Card";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 /**
@@ -26,6 +26,7 @@ const meta: Meta<typeof Card> = {
   },
 };
 
+// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
 type Story = StoryObj<typeof Card>;

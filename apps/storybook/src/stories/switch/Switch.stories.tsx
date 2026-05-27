@@ -1,4 +1,4 @@
-import { Switch } from "@repo/ui";
+import { Switch } from "@repo/ui/Switch";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
@@ -45,6 +45,7 @@ const meta: Meta<typeof Switch> = {
   },
 };
 
+// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
 type Story = StoryObj<typeof Switch>;

@@ -1,4 +1,4 @@
-import { Select } from "@repo/ui";
+import { Select } from "@repo/ui/Select";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const options = (
@@ -99,6 +99,7 @@ const meta: Meta<typeof Select> = {
   },
 };
 
+// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
 type Story = StoryObj<typeof Select>;
