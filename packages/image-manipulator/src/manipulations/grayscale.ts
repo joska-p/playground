@@ -1,4 +1,4 @@
-import type { PixelCallback } from "../core/types.js";
+import type { PixelCallback } from "../core/types";
 
 /**
  * Converts a pixel to grayscale using luminance weights.

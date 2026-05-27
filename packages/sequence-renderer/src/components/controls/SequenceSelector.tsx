@@ -1,7 +1,7 @@
 import { Select } from "@repo/ui";
-import type { SequenceRule } from "../../core/rules.js";
-import { sequencesRule } from "../../core/rules.js";
-import { setSequenceRule, useSequenceStore } from "../../store/useSequenceStore.js";
+import type { SequenceRule } from "../../core/rules";
+import { sequencesRule } from "../../core/rules";
+import { setSequenceRule, useSequenceStore } from "../../store/useSequenceStore";
 
 function SequenceSelector() {
   const { sequenceRule } = useSequenceStore();

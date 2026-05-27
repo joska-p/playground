@@ -8,9 +8,9 @@ import {
   INITIAL_VELOCITY,
   POSITION_THRESHOLD,
   RETURN_FORCE,
-} from "./core/config.js";
-import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./core/utils.js";
-import { useImageUpload } from "./hooks/use-image-upload.js";
+} from "./core/config";
+import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./core/utils";
+import { useImageUpload } from "./hooks/useImageUpload";
 
 export type Particle = {
   x: number;

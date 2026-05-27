@@ -1,7 +1,7 @@
 import { Slider } from "@repo/ui";
 import { useState } from "react";
 import { useShallow } from "zustand/shallow";
-import { useMosaicStore } from "../../store/useMosaicStore.js";
+import { useMosaicStore } from "../../store/useMosaicStore";
 
 export type Props = {
   label: string;

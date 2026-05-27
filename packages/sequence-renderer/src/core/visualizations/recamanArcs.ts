@@ -1,4 +1,4 @@
-import { findBiggestInterval } from "../../utils/math.js";
+import { findBiggestInterval } from "../../utils/math";
 
 function calculateValueScale(
   sequence: number[],

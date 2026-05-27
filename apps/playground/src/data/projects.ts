@@ -94,8 +94,8 @@ export const projects: Record<string, Project> = {
     icon: Flame,
     featured: false,
   },
-  piechart: {
-    slug: "piechart",
+  "pie-chart": {
+    slug: "pie-chart",
     name: "Pie Chart",
     description: "Interactive D3-based pie chart examples for data visualization.",
     category: "data-viz",

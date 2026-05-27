@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { CanvasRenderer } from "../renderers/CanvasRenderer.js";
+import { CanvasRenderer } from "../renderers/CanvasRenderer";
 
 function SequenceDisplay() {
   const containerRef = useRef<HTMLDivElement>(null);

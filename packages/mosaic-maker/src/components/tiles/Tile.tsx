@@ -1,5 +1,5 @@
 import { cn } from "@repo/ui";
-import { TILE_REGISTRY, type Shape } from "../../core/tile-registry.js";
+import { TILE_REGISTRY, type Shape } from "../../core/tileRegistry";
 
 export type Props = {
   name: string;

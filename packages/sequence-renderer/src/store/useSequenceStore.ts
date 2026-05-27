@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { generateSequence } from "../core/generator.js";
-import type { SequenceRule } from "../core/rules.js";
-import { recamanRule } from "../core/rules.js";
-import { visualizations } from "../core/visualizations/index.js";
+import { generateSequence } from "../core/generator";
+import type { SequenceRule } from "../core/rules";
+import { recamanRule } from "../core/rules";
+import { visualizations } from "../core/visualizations/index";
 
 type SequenceState = {
   sequenceRule: SequenceRule;

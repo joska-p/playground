@@ -1,8 +1,8 @@
 import { cn } from "@repo/ui";
 import { useShallow } from "zustand/shallow";
-import { initialPalette, initialTileSet } from "../../core/config.js";
-import { updateTileSet, useMosaicStore } from "../../store/useMosaicStore.js";
-import { Tile } from "../tiles/Tile.js";
+import { initialPalette, initialTileSet } from "../../core/config";
+import { updateTileSet, useMosaicStore } from "../../store/useMosaicStore";
+import { Tile } from "../tiles/Tile";
 
 function TileSetControls() {
   const { tileSet } = useMosaicStore(useShallow((state) => ({ tileSet: state.tileSet })));

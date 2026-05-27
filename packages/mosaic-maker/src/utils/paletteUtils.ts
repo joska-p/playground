@@ -1,4 +1,4 @@
-import type { Palette } from "../core/config.js";
+import type { Palette } from "../core/config";
 
 function getPaletteId(palette: Palette): string {
   return Object.values(palette).sort().join("-");

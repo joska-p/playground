@@ -7,9 +7,9 @@ import {
   initialPalette,
   initialRotations,
   initialTileSize,
-} from "../../core/config.js";
-import { initPalettes, setMosaicRef, useMosaicStore } from "../../store/useMosaicStore.js";
-import { Tile } from "../tiles/Tile.js";
+} from "../../core/config";
+import { initPalettes, setMosaicRef, useMosaicStore } from "../../store/useMosaicStore";
+import { Tile } from "../tiles/Tile";
 
 const MOSAIC_STYLES = {
   ...initialPalette,

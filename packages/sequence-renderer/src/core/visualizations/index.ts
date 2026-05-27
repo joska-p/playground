@@ -1,4 +1,4 @@
-import { recamanArcs } from "./recaman-arcs.js";
+import { recamanArcs } from "./recamanArcs";
 
 export type Visualization = {
   id: string;

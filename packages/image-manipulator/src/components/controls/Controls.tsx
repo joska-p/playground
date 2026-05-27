@@ -1,6 +1,6 @@
 import { Button, Input, Select } from "@repo/ui";
 import { pipe } from "../../core/pipe";
-import { useImageUpload } from "../../hooks/use-image-upload";
+import { useImageUpload } from "../../hooks/useImageUpload";
 import { manipulations, manipulationsIds } from "../../manipulations";
 import type { ManipulationId, OutputType } from "../../store/useManipulatorStore";
 import {

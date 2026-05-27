@@ -1,20 +1,20 @@
 // Core primitives
-export { drawImageOnCanvas } from "./core/drawImage.js";
-export { fork } from "./core/fork.js";
-export { getImageData, imageElementToImageData, putImageData } from "./core/imageData.js";
-export { iteratePixels } from "./core/iteratePixels.js";
-export { pipe } from "./core/pipe.js";
+export { drawImageOnCanvas } from "./core/drawImage";
+export { fork } from "./core/fork";
+export { getImageData, imageElementToImageData, putImageData } from "./core/imageData";
+export { iteratePixels } from "./core/iteratePixels";
+export { pipe } from "./core/pipe";
 
 // Types
-export type { PixelCallback, PixelContext, RGBA } from "./core/types.js";
+export type { PixelCallback, PixelContext, RGBA } from "./core/types";
 
 // Manipulations
-export { brightness } from "./manipulations/brightness.js";
-export { energyMap } from "./manipulations/energyMap.js";
-export { grayscale } from "./manipulations/grayscale.js";
+export { brightness } from "./manipulations/brightness";
+export { energyMap } from "./manipulations/energyMap";
+export { grayscale } from "./manipulations/grayscale";
 
 // Components
-export { ImageManipulator } from "./components/imageManipulator.js";
+export { ImageManipulator } from "./components/ImageManipulator";
 
 // Hooks
-export { useImageUpload } from "./hooks/use-image-upload.js";
+export { useImageUpload } from "./hooks/useImageUpload";

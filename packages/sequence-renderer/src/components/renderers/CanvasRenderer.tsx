@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useShallow } from "zustand/shallow";
-import { visualizations } from "../../core/visualizations/index.js";
-import { useSequenceStore } from "../../store/useSequenceStore.js";
+import { visualizations } from "../../core/visualizations/index";
+import { useSequenceStore } from "../../store/useSequenceStore";
 
 function CanvasRenderer() {
   const { sequence, visualizationId } = useSequenceStore(

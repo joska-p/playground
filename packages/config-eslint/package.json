@@ -1,0 +1,19 @@
+{
+  "name": "@repo/config-eslint",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./index.js"
+  },
+  "peerDependencies": {
+    "eslint": "catalog:"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-react-refresh": "catalog:",
+    "globals": "catalog:",
+    "typescript-eslint": "catalog:",
+    "eslint-plugin-import-x": "catalog:"
+  }
+}

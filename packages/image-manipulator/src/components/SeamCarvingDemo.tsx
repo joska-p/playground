@@ -1,15 +1,15 @@
 import { Input } from "@repo/ui";
 import { useEffect, useRef, useState } from "react";
-import { fork } from "../core/fork.js";
-import { imageElementToImageData, putImageData } from "../core/imageData.js";
-import { pipe } from "../core/pipe.js";
-import { useImageUpload } from "../hooks/use-image-upload.js";
-import { brightness } from "../manipulations/brightness.js";
-import { energyMap } from "../manipulations/energyMap.js";
-import { grayscale } from "../manipulations/grayscale.js";
-import { useManipulatorStore } from "../store/useManipulatorStore.js";
+import { fork } from "../core/fork";
+import { imageElementToImageData, putImageData } from "../core/imageData";
+import { pipe } from "../core/pipe";
+import { useImageUpload } from "../hooks/useImageUpload";
+import { brightness } from "../manipulations/brightness";
+import { energyMap } from "../manipulations/energyMap";
+import { grayscale } from "../manipulations/grayscale";
+import { useManipulatorStore } from "../store/useManipulatorStore";
 
-function ImageManipulator() {
+function SeamCarvingDemo() {
   const imageFile = useManipulatorStore((state) => state.imageFile);
   const originalCanvasRef = useRef<HTMLCanvasElement>(null);
   const pipelineCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -74,4 +74,4 @@ function ImageManipulator() {
   );
 }
 
-export { ImageManipulator };
+export { SeamCarvingDemo };

@@ -4,7 +4,7 @@ import {
   INITIAL_VELOCITY,
   MAX_PARTICLES,
   PARTICLE_SIZE,
-} from "./config.js";
+} from "./config";
 
 export type ImageDimensions = {
   width: number;

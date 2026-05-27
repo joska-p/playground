@@ -1,4 +1,4 @@
-import { CSS_VARS } from "../core/config.js";
+import { CSS_VARS } from "../core/config";
 
 type StyleProperty = keyof typeof CSS_VARS;
 type ComputedStyles = Record<string, string>;

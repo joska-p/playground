@@ -5,13 +5,13 @@ import {
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
   initialRotations,
-} from "../../core/config.js";
-import { updateCurrentPalettes, updateTiles, useMosaicStore } from "../../store/useMosaicStore.js";
-import { updateElementStyles } from "../../utils/style-utils.js";
-import { shuffleObject } from "../../utils/utils.js";
-import { PaletteControls } from "./PaletteControls.js";
-import { SliderControls } from "./SliderControls.js";
-import { TileSetControls } from "./TileSetControls.js";
+} from "../../core/config";
+import { updateCurrentPalettes, updateTiles, useMosaicStore } from "../../store/useMosaicStore";
+import { updateElementStyles } from "../../utils/styleUtils";
+import { shuffleObject } from "../../utils/utils";
+import { PaletteControls } from "./PaletteControls";
+import { SliderControls } from "./SliderControls";
+import { TileSetControls } from "./TileSetControls";
 
 function Controls() {
   const { mosaicRef, currentPalette } = useMosaicStore(

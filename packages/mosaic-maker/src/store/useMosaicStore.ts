@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import type { Palette, TileNames, TileSet } from "../core/config.js";
+import type { Palette, TileNames, TileSet } from "../core/config";
 import {
   initialPalette,
   initialRotations,
   initialTileSet,
   MAX_NUMBER_OF_PALETTES,
-} from "../core/config.js";
-import { fetchPalettes } from "../utils/fetch-palettes.js";
-import { computeNumberOfTiles, updateElementStyles } from "../utils/style-utils.js";
-import { getRandom } from "../utils/utils.js";
+} from "../core/config";
+import { fetchPalettes } from "../utils/fetchPalettes";
+import { computeNumberOfTiles, updateElementStyles } from "../utils/styleUtils";
+import { getRandom } from "../utils/utils";
 
 export type TileInstance = {
   id: string;
