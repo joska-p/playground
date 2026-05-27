@@ -12,84 +12,145 @@ featured: true
 ## File Structure
 
 ```
-packages/ui/src/components/MyComponent/
-├── MyComponent.tsx          # Main implementation
-├── MyComponent.stories.tsx # Storybook stories
-├── index.ts               # Barrel export
-└── myComponentVariants.ts # CVA variants
+packages/ui/src/components/button/
+├── Button.tsx              # Component (PascalCase.tsx)
+└── buttonVariants.ts       # CVA variants (camelCase.ts)
 ```
+
+Simple components can live as a single file without a folder. For anything with variants, helpers, types, or styles, group them in a kebab-case directory:
+
+```
+packages/ui/src/components/color-palette/
+├── ColorPalette.tsx
+├── colorPaletteVariants.ts
+├── colorPalette.types.ts
+├── colorPalette.schema.ts
+└── ColorPalette.test.tsx
+```
+
+There are **no barrel files** (`index.ts`). Components are exported via `package.json` `exports` subpaths.
+
+---
 
 ## Step 1: Define Variants
 
 Use `class-variance-authority` (CVA) for variant management.
 
 ```typescript
-// myComponentVariants.ts
+// buttonVariants.ts
 import { cva } from "class-variance-authority";
 
-export const myComponentVariants = cva("base classes here", {
-  variants: {
-    variant: {
-      primary: "bg-primary text-primary-foreground",
-      secondary: "bg-secondary text-secondary-foreground",
+export const buttonVariants = cva(
+  "focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-mono text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        primary: "bg-primary text-primary-foreground hover:bg-primary/80",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        accent: "bg-accent text-accent-foreground hover:bg-accent/80",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        outline: "border-border hover:bg-foreground/5 hover:text-foreground border bg-transparent",
+        ghost: "hover:bg-foreground/10 hover:text-foreground",
+      },
+      size: {
+        small: "h-8 px-3 text-xs",
+        medium: "h-10 px-4 py-2",
+        large: "h-12 px-8 text-base",
+        icon: "h-10 w-10",
+      },
     },
-    size: {
-      small: "h-8 px-3 text-xs",
-      medium: "h-10 px-4",
-      large: "h-12 px-6",
+    defaultVariants: {
+      variant: "primary",
+      size: "medium",
     },
-  },
-  defaultVariants: {
-    variant: "primary",
-    size: "medium",
-  },
-});
+  }
+);
 ```
 
 ## Step 2: Build the Component
 
+Use `type` for props (never `interface`). Export with a named export — the identifier must match the filename exactly.
+
 ```typescript
-// MyComponent.tsx
+// Button.tsx
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "../../utils/cn.js";
-import { myComponentVariants } from "./myComponentVariants.js";
+import { cn } from "../../utils/cn";
+import { buttonVariants } from "./buttonVariants";
 
-interface MyComponentProps
-  extends ComponentProps<"button">, VariantProps<typeof myComponentVariants> {}
+type ButtonProps = {
+  isLoading?: boolean;
+} & ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants>;
 
-function MyComponent({ ref, className, variant, size, ...props }: MyComponentProps) {
+function Button({
+  ref,
+  className,
+  children,
+  variant,
+  size,
+  isLoading,
+  disabled,
+  type = "button",
+  ...props
+}: ButtonProps) {
   return (
     <button
-      className={cn(myComponentVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, className }))}
+      type={type}
       ref={ref}
+      disabled={isLoading ?? disabled}
       {...props}
-    />
+    >
+      {isLoading ? <span className="flex items-center gap-2">...</span> : children}
+    </button>
   );
 }
 
-export { MyComponent, myComponentVariants };
+export { Button };
 ```
 
-## Step 3: Export It
+React components use `function` declaration, never `const Component = () =>`.
 
-```typescript
-// index.ts
-export { MyComponent, myComponentVariants } from "./MyComponent";
+---
+
+## Step 3: Register the Export
+
+The public API is declared in `packages/ui/package.json` under `exports`. Add an entry per component:
+
+```json
+{
+  "exports": {
+    "./Button": "./src/components/button/Button.tsx",
+    "./buttonVariants": "./src/components/button/buttonVariants.ts"
+  }
+}
 ```
+
+Internal files not listed in `exports` are private by default — do not import them across packages.
+
+---
 
 ## Step 4: Add Stories
 
-Create `apps/storybook/src/stories/MyComponent/myComponent.stories.tsx`:
+Stories live in `apps/storybook/` and are **not co-located**. Mirror the source structure:
+
+```
+apps/storybook/src/stories/button/
+└── Button.stories.tsx
+```
+
+Import from the package subpath:
 
 ```typescript
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { MyComponent } from "@repo/ui";
+// apps/storybook/src/stories/button/Button.stories.tsx
+import { Button } from "@repo/ui/Button";
+import type { Meta } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 
-const meta: Meta<typeof MyComponent> = {
-  title: "Components/MyComponent",
-  component: MyComponent,
+const meta: Meta<typeof Button> = {
+  title: "Components/Button",
+  component: Button,
   tags: ["autodocs"],
   argTypes: {
     variant: {
@@ -101,46 +162,23 @@ const meta: Meta<typeof MyComponent> = {
       control: { type: "select" },
     },
   },
-  args: {
-    onClick: fn(),
-    children: "My Component",
-  },
+  args: { onClick: fn(), children: "Button Text" },
 };
 
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
 
-export const Primary: Story = {
-  args: {
-    variant: "primary",
-  },
+export const Primary = {
+  args: { variant: "primary" },
 };
 
-export const Secondary: Story = {
-  args: {
-    variant: "secondary",
-    children: "Secondary",
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    isLoading: true,
-    children: "Loading...",
-  },
+export const Secondary = {
+  args: { variant: "secondary", children: "Secondary Action" },
 };
 ```
 
-## Step 5: Add to Package
+Story file naming matches the component: `Button.stories.tsx` for `Button.tsx`.
 
-In `packages/ui/src/index.ts`:
-
-```typescript
-export { MyComponent } from "./components/MyComponent/MyComponent.js";
-export { myComponentVariants } from "./components/MyComponent/myComponentVariants.js";
-```
-
-Use explicit named exports in package entrypoints. Do not use `export *` in public package APIs.
+---
 
 ## Standard Variants
 
@@ -153,12 +191,24 @@ Use explicit named exports in package entrypoints. Do not use `export *` in publ
 | `outline`     | Secondary with border  |
 | `ghost`       | Minimal, no background |
 
+## Standard Sizes
+
+| Size     | Usage             |
+| -------- | ----------------- |
+| `small`  | Compact UI        |
+| `medium` | Default           |
+| `large`  | Emphasis          |
+| `icon`   | Square, icon-only |
+
 ## Checklist
 
-- [ ] All variants have stories in Storybook (Step 4)
-- [ ] Stories are documented with JSDoc comments
+- [ ] Variants exported in a separate `camelCaseVariants.ts` file
+- [ ] Props use `type`, never `interface`
+- [ ] Component uses `function` declaration, not arrow
+- [ ] Stories in `apps/storybook/src/stories/` (not co-located)
+- [ ] Stories import from `@repo/ui/ComponentName`
+- [ ] Component registered in `package.json` `exports`
 - [ ] Works in light AND dark mode
 - [ ] Focus states: `focus-visible:ring-*`
-- [ ] PropTypes via `ComponentProps<"element">` pattern
 
 Components? Check [Storybook](/storybook/) for live examples.

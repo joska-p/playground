@@ -1,6 +1,6 @@
 ---
 title: "Import and Export Strategy"
-description: "Explicit rules for package APIs, barrels, and imports across the monorepo."
+description: "Subpath exports, barrel bans, and import rules across the monorepo."
 category: "reference"
 tags:
   - reference
@@ -8,73 +8,104 @@ tags:
 
 # Import and Export Strategy
 
-This project uses strict import/export rules to keep package APIs explicit and stable.
+This project uses subpath exports and explicit named exports to keep package APIs stable and the dependency graph clean.
+
+---
 
 ## Core Rules
 
-1. Package public entrypoints (`packages/*/src/index.ts`) must use explicit named exports.
-2. Do not use `export *` in package public entrypoints.
-3. Use `export type { ... }` for type-only exports.
-4. Keep ESM path suffixes (`.js`) in re-export paths.
-5. Import from package roots (`@repo/ui`) in consumers, not deep private paths.
+1. **Public API is `package.json` `exports`.** Each public component gets its own subpath — no root `index.ts` barrel.
+2. **No barrel files** (`index.ts`). They cause circular dependencies, slow down the TypeScript server, and are hard to maintain.
+3. **Named exports only.** Never use `export default`.
+4. **No wildcard re-exports** (`export * from`). Always list identifiers explicitly.
+5. **Filename must match the primary exported identifier** (case-sensitive).
+6. **Use `export type { ... }`** for type-only exports to keep runtime bundles clean.
 
-## Why
+---
 
-- Prevent accidental API growth
-- Reduce export name collisions
-- Make reviews and refactors safer
-- Keep package contracts readable
+## Package Exports (`package.json`)
 
-## Public Entrypoint Pattern
+Every package declares its public API in the `exports` map — one subpath per public symbol:
 
-```ts
-// packages/ui/src/index.ts
-export { Button } from "./components/button/Button.js";
-export { buttonVariants } from "./components/button/buttonVariants.js";
-export type { BadgeProps, BadgeVariant } from "./components/badge/Badge.js";
+```json
+{
+  "exports": {
+    "./Button": "./src/components/button/Button.tsx",
+    "./buttonVariants": "./src/components/button/buttonVariants.ts",
+    "./Card": "./src/components/card/Card.tsx",
+    "./Sidebar": "./src/components/widgets/sidebar/Sidebar.tsx",
+    "./styles": "./src/styles/styles.css"
+  }
+}
 ```
 
-Avoid:
+**Rules:**
 
-```ts
-// Do not use this in package public APIs
-export * from "./components/button/Button.js";
-```
+- Do not use `require` / `import` / `types` conditions when all three point to the same source — omit them entirely.
+- The `./styles` subpath for CSS is the only exception to the symbol-per-subpath rule.
+- Internal files not listed in `exports` are private by default — do not import them across packages.
 
-## Type Exports
-
-Use explicit type exports so runtime bundles stay clean and API intent is obvious.
-
-```ts
-export type { SidebarProps } from "./components/widgets/sidebar/Sidebar.js";
-export type { BadgeVariant } from "./components/badge/Badge.js";
-```
+---
 
 ## Consumer Imports
 
-Preferred:
+Import exactly what you need via the subpath:
 
-```ts
-import { Card, CardHeader, CardTitle } from "@repo/ui";
-import type { BadgeVariant } from "@repo/ui";
+```typescript
+import { Button } from "@repo/ui/Button";
+import { Card, CardHeader } from "@repo/ui/Card";
+import type { ButtonProps } from "@repo/ui/Button";
 ```
 
-Not preferred in app/package code:
+Never reach into private paths:
 
-```ts
-import { Card } from "@repo/ui/src/components/card/Card";
+```typescript
+// ❌ Do not do this
+import { Button } from "@repo/ui/src/components/button/Button";
 ```
+
+---
+
+## In-Code Exports
+
+Named exports only. The exported identifier must match the filename exactly:
+
+```typescript
+// Button.tsx
+export type ButtonProps = { ... };
+export function Button({ ... }: ButtonProps) { ... }
+
+// useResizeObserver.ts
+export function useResizeObserver() { ... }
+
+// buttonVariants.ts
+export const buttonVariants = cva(...);
+```
+
+For type-only exports:
+
+```typescript
+export type { ButtonProps } from "./Button";
+export type { BadgeVariant } from "./Badge";
+```
+
+---
 
 ## Internal Barrels
 
-Internal barrels are allowed when they improve local module structure, but:
+Barrels inside a package (e.g. aggregating multiple internal modules) are **discouraged**. If used, they must:
 
-- they are not public package contract files
-- they should still avoid broad wildcard exports when ambiguity is likely
+- Not be part of the package's public contract
+- Avoid wildcard exports when ambiguity is likely
+- Never appear in `package.json` `exports`
+
+---
 
 ## PR Checklist
 
-- [ ] No `export *` in package public entrypoint files
-- [ ] New public symbols are explicitly exported
+- [ ] New public symbols are added to `package.json` `exports`
+- [ ] No `export *` in any source file
+- [ ] No barrel (`index.ts`) files introduced
 - [ ] Type-only symbols use `export type`
-- [ ] Consumer imports remain package-root based (`@repo/<pkg>`)
+- [ ] Consumer imports use subpath pattern (`@repo/ui/Component`)
+- [ ] Filename matches the exported identifier exactly

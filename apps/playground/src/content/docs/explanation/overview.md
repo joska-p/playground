@@ -46,7 +46,8 @@ The codebase follows a **monorepo** structure with clear separation between the 
 | `packages/sequence-renderer`  | Math sequence visualization engine        |
 | `packages/palette-generator`  | Color theory scheme generator             |
 | `packages/image-to-particles` | Image → particle physics deconstruction   |
-| `packages/tailwind-config`    | Design tokens (Gruvbox theme)             |
+| `packages/graph-viz`          | Interactive graph visualization           |
+| `packages/image-manipulator`  | Image manipulation with particles         |
 
 ### Data Flow
 
@@ -70,7 +71,7 @@ The shell (Astro) provides layout and navigation. Engines own their logic. UI co
 | pnpm         | [pnpm.io](https://pnpm.io)                           | Package management          |
 | Storybook    | [storybook.js.org](https://storybook.js.org)         | Component explorer          |
 | Zustand      | [zustand-demo.pmnd.rs](https://zustand-demo.pmnd.rs) | State management            |
-| D3           | [d3js.org](https://d3js.org)                         | Data visualization          |
+| Zod          | [zod.dev](https://zod.dev)                           | Runtime validation          |
 
 ---
 

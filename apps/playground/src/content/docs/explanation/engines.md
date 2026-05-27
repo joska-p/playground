@@ -70,11 +70,42 @@ type Visualization = {
 
 ### State Management
 
-Engines use **Zustand** for state:
+Engines use **Zustand** with a store-per-domain pattern. The store itself is never exported. Consumers interact through getter hooks and setter functions:
 
 ```typescript
-const { value, setValue } = useStore();
+// sequenceStore.ts — internal only
+const sequenceStore = create<SequenceState>(() => ({
+  sequenceRule: recamanRule,
+  steps: 2,
+  visualizationId: "recaman-arcs",
+  sequence: [],
+}));
+
+// Getter hooks — reactive selectors
+export function useSequenceRule(): SequenceRule {
+  return sequenceStore((s) => s.sequenceRule);
+}
+
+export function useSequenceSteps(): number {
+  return sequenceStore((s) => s.steps);
+}
+
+// Setter functions — plain functions callable from anywhere
+export function setSequenceSteps(steps: number) {
+  const state = sequenceStore.getState();
+  const max = state.sequenceRule.maxSteps;
+  sequenceStore.setState({
+    steps: Math.min(Math.max(steps, 2), max),
+    sequence: generateSequence(state.sequenceRule, Math.min(Math.max(steps, 2), max)),
+  });
+}
 ```
+
+Key rules:
+- The store variable is **never exported**
+- Getter hooks select a **single slice** — never the whole state
+- Setter functions are **not hooks** — no `use` prefix
+- Store files contain no JSX (`.ts` only)
 
 ### Pluggable Architecture
 

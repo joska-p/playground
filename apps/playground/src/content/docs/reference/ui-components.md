@@ -16,18 +16,20 @@ Shared atomic components for the playground. Full interactive docs with live exa
 
 ## Available Components
 
-| Component      | Description                               |
-| -------------- | ----------------------------------------- |
-| `Button`       | Actions, links, form submits              |
-| `Input`        | Text input with label and helper text     |
-| `Select`       | Dropdown selection                        |
-| `Slider`       | Range input with label and unit display   |
-| `Switch`       | Toggle switch                             |
-| `Card`         | Content container                         |
-| `Badge`        | Small label/tag                           |
-| `Label`        | Form label                                |
-| `ColorPalette` | Color swatch display                      |
-| `Sidebar`      | Collapsible sidebar with panel/main areas |
+| Component      | Export Subpath               | Description                               |
+| -------------- | ---------------------------- | ----------------------------------------- |
+| `Button`       | `@repo/ui/Button`            | Actions, links, form submits              |
+| `Input`        | `@repo/ui/Input`             | Text input with label and helper text     |
+| `Select`       | `@repo/ui/Select`            | Dropdown selection                        |
+| `Slider`       | `@repo/ui/Slider`            | Range input with label and unit display   |
+| `Switch`       | `@repo/ui/Switch`            | Toggle switch                             |
+| `Card`         | `@repo/ui/Card`              | Content container                         |
+| `Badge`        | `@repo/ui/Badge`             | Small label/tag                           |
+| `Label`        | `@repo/ui/Label`             | Form label                                |
+| `ColorPalette` | `@repo/ui/ColorPalette`      | Color swatch display                      |
+| `Sidebar`      | `@repo/ui/Sidebar`           | Collapsible sidebar with panel/main areas |
+
+Each component also exports its CVA variants (e.g. `@repo/ui/buttonVariants`) and types (e.g. `@repo/ui/Button`).
 
 ---
 
@@ -55,12 +57,32 @@ Most components support these variants:
 
 ---
 
+## Import Pattern
+
+All components are imported via subpath exports, not from a root barrel:
+
+```typescript
+import { Button } from "@repo/ui/Button";
+import { Input } from "@repo/ui/Input";
+import { Sidebar } from "@repo/ui/Sidebar";
+
+// Import types from the same subpath
+import type { ButtonProps } from "@repo/ui/Button";
+
+// Import variants separately
+import { buttonVariants } from "@repo/ui/buttonVariants";
+```
+
+The public API is declared in `packages/ui/package.json` under the `exports` field — one subpath per component.
+
+---
+
 ## Patterns
 
 ### Button
 
-```tsx
-import { Button } from "@repo/ui";
+```typescript
+import { Button } from "@repo/ui/Button";
 
 <Button variant="primary" size="medium">
   Click me
@@ -71,10 +93,12 @@ import { Button } from "@repo/ui";
 </Button>
 ```
 
+The Button component uses `type` for its props definition and `function` declaration for the component itself. See [Adding Components](/docs/how-to/adding-components/) for the full pattern.
+
 ### Input with Label
 
-```tsx
-import { Input } from "@repo/ui";
+```typescript
+import { Input } from "@repo/ui/Input";
 
 <Input
   label="Email"
@@ -86,16 +110,16 @@ import { Input } from "@repo/ui";
 
 ### Slider
 
-```tsx
-import { Slider } from "@repo/ui";
+```typescript
+import { Slider } from "@repo/ui/Slider";
 
 <Slider label="Volume" value={50} min={0} max={100} unit="%" onChange={(v) => console.log(v)} />;
 ```
 
 ### Sidebar
 
-```tsx
-import { Sidebar } from "@repo/ui";
+```typescript
+import { Sidebar } from "@repo/ui/Sidebar";
 
 <Sidebar variant="normal" desktopPosition="left">
   <Sidebar.Toggle />
@@ -110,4 +134,4 @@ import { Sidebar } from "@repo/ui";
 
 ---
 
-Components live in `packages/ui/src/components/`.
+Components live in `packages/ui/src/components/`. The public API surface is defined in `packages/ui/package.json` `exports`.
