@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { imageElementToImageData } from "../../core/imageData";
-import type { OutputType } from "../../store/useManipulatorStore";
-import { addToOutputs, useManipulatorStore } from "../../store/useManipulatorStore";
+import type { OutputType } from "../../store/manipulatorStore";
+import {
+  addToManipulatorOutputs,
+  useManipulatorImageFile,
+  useManipulatorOutputs,
+} from "../../store/manipulatorStore";
 import { Output } from "./Output";
 
 function Outputs() {
-  const imageFile = useManipulatorStore((state) => state.imageFile);
-  const outputs = useManipulatorStore((state) => state.outputs);
+  const imageFile = useManipulatorImageFile();
+  const outputs = useManipulatorOutputs();
 
   useEffect(() => {
     if (!imageFile) return;
@@ -31,11 +35,11 @@ function Outputs() {
           description: "image source",
           imageData: imageElementToImageData(image),
         };
-        addToOutputs(sourceImage);
+        addToManipulatorOutputs(sourceImage);
       } catch (e) {
         // 3. Handle async errors properly (do not throw)
         console.error("Failed to process image data:", e);
-        // e.g., useManipulatorStore.getState().setError("Failed to process image");
+        // e.g., addToManipulatorOutputs(...);
       }
     };
 

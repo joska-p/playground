@@ -1,6 +1,19 @@
 import { FT_LABEL, REL_COLORS } from "../constants";
-import { useGraphStore } from "../store/useGraphStore";
-import type { ColorMode } from "../store/useGraphStore.types";
+import {
+  resetGraphFilters,
+  setGraphColorMode,
+  setGraphFilterFT,
+  setGraphFilterRel,
+  setGraphSearch,
+  toggleGraphHyper,
+  useGraphColorMode,
+  useGraphFilterFT,
+  useGraphFilterRel,
+  useGraphSearch,
+  useGraphShowHyper,
+  useGraphStats,
+} from "../store/graphStore";
+import type { ColorMode } from "../store/graphStore.types";
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_OPTIONS = Object.keys(REL_COLORS);
@@ -10,19 +23,12 @@ type TopBarProps = {
 };
 
 export function TopBar({ onResetZoom }: TopBarProps) {
-  const colorMode = useGraphStore((s) => s.colorMode);
-  const filterFT = useGraphStore((s) => s.filterFT);
-  const filterRel = useGraphStore((s) => s.filterRel);
-  const search = useGraphStore((s) => s.search);
-  const showHyper = useGraphStore((s) => s.showHyper);
-  const stats = useGraphStore((s) => s.stats);
-
-  const setColorMode = useGraphStore((s) => s.setColorMode);
-  const setFilterFT = useGraphStore((s) => s.setFilterFT);
-  const setFilterRel = useGraphStore((s) => s.setFilterRel);
-  const setSearch = useGraphStore((s) => s.setSearch);
-  const toggleHyper = useGraphStore((s) => s.toggleHyper);
-  const resetFilters = useGraphStore((s) => s.resetFilters);
+  const colorMode = useGraphColorMode();
+  const filterFT = useGraphFilterFT();
+  const filterRel = useGraphFilterRel();
+  const search = useGraphSearch();
+  const showHyper = useGraphShowHyper();
+  const stats = useGraphStats();
 
   return (
     <div style={styles["bar"]}>
@@ -30,14 +36,14 @@ export function TopBar({ onResetZoom }: TopBarProps) {
 
       <input
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => setGraphSearch(e.target.value)}
         placeholder="Search nodes…"
         style={styles["input"]}
       />
 
       <select
         value={filterFT ?? ""}
-        onChange={(e) => setFilterFT(e.target.value || null)}
+        onChange={(e) => setGraphFilterFT(e.target.value || null)}
         style={styles["select"]}
       >
         <option value="">All file types</option>
@@ -50,7 +56,7 @@ export function TopBar({ onResetZoom }: TopBarProps) {
 
       <select
         value={filterRel ?? ""}
-        onChange={(e) => setFilterRel(e.target.value || null)}
+        onChange={(e) => setGraphFilterRel(e.target.value || null)}
         style={styles["select"]}
       >
         <option value="">All relations</option>
@@ -63,17 +69,21 @@ export function TopBar({ onResetZoom }: TopBarProps) {
 
       <div style={{ display: "flex", gap: 6 }}>
         {(["community", "filetype"] as ColorMode[]).map((m) => (
-          <button key={m} onClick={() => setColorMode(m)} style={colorToggleStyle(colorMode === m)}>
+          <button
+            key={m}
+            onClick={() => setGraphColorMode(m)}
+            style={colorToggleStyle(colorMode === m)}
+          >
             {m === "community" ? "Community" : "File Type"}
           </button>
         ))}
       </div>
 
-      <button onClick={toggleHyper} style={hyperToggleStyle(showHyper)}>
+      <button onClick={toggleGraphHyper} style={hyperToggleStyle(showHyper)}>
         {showHyper ? "Hyper ✓" : "Hyper ○"}
       </button>
 
-      <button onClick={resetFilters} style={styles["ghostBtn"]}>
+      <button onClick={resetGraphFilters} style={styles["ghostBtn"]}>
         ✕ Clear
       </button>
       <button onClick={onResetZoom} style={styles["ghostBtn"]}>

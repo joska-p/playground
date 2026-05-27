@@ -6,14 +6,14 @@ import { analogous } from "../../core/rules/analogous";
 import { complementary } from "../../core/rules/complementary";
 import { monochromatic } from "../../core/rules/monochromatic";
 import { triadic } from "../../core/rules/triadic";
-import { addPalette, usePaletteStore } from "../../store/usePaletteStore";
+import { addPalette, usePaletteBaseColor } from "../../store/paletteStore";
 import { ColorSpaceControls } from "./color-picker/ColorSpaceControls";
 
 const rules = { analogous, complementary, monochromatic, triadic } as const;
 type RuleKey = keyof typeof rules;
 
 function Controls() {
-  const baseColor = usePaletteStore((state) => state.baseColor);
+  const baseColor = usePaletteBaseColor();
 
   function handleGeneratePalette(color: typeof baseColor, ruleKey: RuleKey) {
     const palette = generatePalette(color, rules[ruleKey]);

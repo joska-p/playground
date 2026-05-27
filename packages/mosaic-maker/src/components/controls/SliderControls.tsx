@@ -1,7 +1,6 @@
 import { Slider } from "@repo/ui/Slider";
 import { useState } from "react";
-import { useShallow } from "zustand/shallow";
-import { useMosaicStore } from "../../store/useMosaicStore";
+import { useMosaicRef } from "../../store/mosaicStore";
 
 export type SliderControlsProps = {
   label: string;
@@ -13,7 +12,7 @@ export type SliderControlsProps = {
 };
 
 function SliderControls({ label, defaultValue, cssVar, min, max, step }: SliderControlsProps) {
-  const { mosaicRef } = useMosaicStore(useShallow((state) => ({ mosaicRef: state.mosaicRef })));
+  const mosaicRef = useMosaicRef();
   const [value, setValue] = useState(defaultValue);
 
   function handleSetValue(newValue: number) {

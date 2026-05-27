@@ -1,16 +1,15 @@
 import { ColorPalette } from "@repo/ui/ColorPalette";
-import { useShallow } from "zustand/shallow";
-import { updatePalette, useMosaicStore } from "../../store/useMosaicStore";
+import {
+  updateMosaicPalette,
+  useMosaicCurrentPalette,
+  useMosaicCurrentPalettes,
+} from "../../store/mosaicStore";
 import { arePalettesEqual } from "../../utils/arePalettesEqual";
 import { getPaletteId } from "../../utils/getPaletteId";
 
 function PaletteControls() {
-  const { currentPalettes, currentPalette } = useMosaicStore(
-    useShallow((state) => ({
-      currentPalettes: state.currentPalettes,
-      currentPalette: state.currentPalette,
-    }))
-  );
+  const currentPalettes = useMosaicCurrentPalettes();
+  const currentPalette = useMosaicCurrentPalette();
 
   return (
     <fieldset className="border-border/30 mt-4 flex flex-wrap items-center justify-center gap-2 border-t p-4">
@@ -19,7 +18,7 @@ function PaletteControls() {
           key={getPaletteId(palette)}
           colors={Object.values(palette)}
           checked={arePalettesEqual(palette, currentPalette)}
-          onChange={() => updatePalette(palette)}
+          onChange={() => updateMosaicPalette(palette)}
           variant="primary"
           size="small"
           orientation="horizontal"

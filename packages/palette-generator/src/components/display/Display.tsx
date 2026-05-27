@@ -1,8 +1,8 @@
-import { usePaletteStore } from "../../store/usePaletteStore";
+import { usePaletteBaseColor, usePalettePalettes } from "../../store/paletteStore";
 
 function Display() {
-  const palettes = usePaletteStore((state) => state.palettes);
-  const baseColor = usePaletteStore((state) => state.baseColor);
+  const palettes = usePalettePalettes();
+  const baseColor = usePaletteBaseColor();
 
   return (
     <div className="flex flex-wrap gap-8">

@@ -1,8 +1,12 @@
 import { Button } from "@repo/ui/Button";
-import { useShallow } from "zustand/shallow";
 import { DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../core/constants";
 import { CSS_VARS } from "../../core/cssVars";
-import { updateCurrentPalettes, updateTiles, useMosaicStore } from "../../store/useMosaicStore";
+import {
+  updateMosaicCurrentPalettes,
+  updateMosaicTiles,
+  useMosaicCurrentPalette,
+  useMosaicRef,
+} from "../../store/mosaicStore";
 import { shuffleObject } from "../../utils/shuffleObject";
 import { updateElementStyles } from "../../utils/updateElementStyles";
 import { PaletteControls } from "./PaletteControls";
@@ -10,12 +14,8 @@ import { SliderControls } from "./SliderControls";
 import { TileSetControls } from "./TileSetControls";
 
 function Controls() {
-  const { mosaicRef, currentPalette } = useMosaicStore(
-    useShallow((state) => ({
-      mosaicRef: state.mosaicRef,
-      currentPalette: state.currentPalette,
-    }))
-  );
+  const mosaicRef = useMosaicRef();
+  const currentPalette = useMosaicCurrentPalette();
 
   function shuffleColors() {
     if (!mosaicRef.current) return;
@@ -36,10 +36,10 @@ function Controls() {
         <Button type="button" onClick={() => shuffleRotations()} size="small">
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={() => updateCurrentPalettes()} size="small">
+        <Button type="button" onClick={() => updateMosaicCurrentPalettes()} size="small">
           New palettes
         </Button>
-        <Button type="button" onClick={() => updateTiles()} size="small">
+        <Button type="button" onClick={() => updateMosaicTiles()} size="small">
           New tiles
         </Button>
       </fieldset>

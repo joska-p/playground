@@ -1,11 +1,10 @@
 import { FT_COLOR, REL_COLORS } from "../constants";
 import { RAW_GRAPH } from "../data/graphData";
-import { useGraphStore } from "../store/useGraphStore";
+import { setGraphSelectedNode, useGraphSelectedNode } from "../store/graphStore";
 import { communityColor } from "../utils/colors";
 
 export function DetailPanel() {
-  const selectedNode = useGraphStore((s) => s.selectedNode);
-  const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
+  const selectedNode = useGraphSelectedNode();
 
   if (!selectedNode) return null;
 
@@ -18,7 +17,7 @@ export function DetailPanel() {
       {/* Header */}
       <div style={styles["header"]}>
         <span style={styles["title"]}>{selectedNode.label}</span>
-        <button onClick={() => setSelectedNode(null)} style={styles["closeBtn"]}>
+        <button onClick={() => setGraphSelectedNode(null)} style={styles["closeBtn"]}>
           ×
         </button>
       </div>
@@ -51,7 +50,7 @@ export function DetailPanel() {
           return (
             <div
               key={otherId}
-              onClick={() => other && setSelectedNode(other)}
+              onClick={() => other && setGraphSelectedNode(other)}
               style={{ ...styles["connItem"], borderLeftColor: REL_COLORS[l.r] ?? "#334155" }}
             >
               <span style={{ ...styles["relLabel"], color: REL_COLORS[l.r] ?? "#64748b" }}>

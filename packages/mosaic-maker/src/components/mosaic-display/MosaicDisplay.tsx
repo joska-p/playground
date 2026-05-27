@@ -1,10 +1,9 @@
 import { useResizeObserver } from "@repo/ui/useResizeObserver";
 import { useEffect } from "react";
-import { useShallow } from "zustand/shallow";
 import { initialGapSize, initialRotations, initialTileSize } from "../../core/constants";
 import { CSS_VARS } from "../../core/cssVars";
 import { initialPalette } from "../../core/initialPalette";
-import { initPalettes, setMosaicRef, useMosaicStore } from "../../store/useMosaicStore";
+import { initMosaicPalettes, setMosaicRef, useMosaicTiles } from "../../store/mosaicStore";
 import { Tile } from "../tiles/Tile";
 
 const MOSAIC_STYLES = {
@@ -18,7 +17,7 @@ const MOSAIC_STYLES = {
 } as React.CSSProperties;
 
 function MosaicDisplay() {
-  const { tiles } = useMosaicStore(useShallow((state) => ({ tiles: state.tiles })));
+  const tiles = useMosaicTiles();
   const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
 
   useEffect(() => {
@@ -28,7 +27,7 @@ function MosaicDisplay() {
   }, [dimensions.width, dimensions.height, mosaicRef]);
 
   useEffect(() => {
-    initPalettes().catch((error) => {
+    initMosaicPalettes().catch((error) => {
       throw new Error("Failed to initialize palettes: " + error);
     });
   }, []);

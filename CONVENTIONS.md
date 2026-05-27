@@ -42,7 +42,7 @@ Cross-package imports must use `@repo/` path aliases — never relative paths th
 | React component files  | `PascalCase.tsx`                          | `Button.tsx`, `GraphViz.tsx`   |
 | Astro component files  | `kebab-case.astro`                        | `section-header.astro`         |
 | Hook files             | `camelCase.ts` (must start with `use`)    | `useImageUpload.ts`            |
-| Zustand store files    | `camelCase.ts` (must end with `Store`)    | `useGraphStore.ts`             |
+| Zustand store files    | `camelCase.ts` (must end with `Store`)    | `graphStore.ts`                |
 | Utility / core files   | `camelCase.ts`                            | `fetchPalettes.ts`             |
 | Zod schema files       | `camelCase.schema.ts`                     | `colorPalette.schema.ts`       |
 | Type-only files        | `camelCase.types.ts`                      | `colorPalette.types.ts`        |
@@ -54,17 +54,19 @@ Cross-package imports must use `@repo/` path aliases — never relative paths th
 
 ### Casing by identifier (in-code)
 
-| Identifier             | Convention                                 | Example                       |
-| ---------------------- | ------------------------------------------ | ----------------------------- |
-| Variables, functions   | camelCase                                  | `fetchPalettes`, `parseColor` |
-| React components       | PascalCase                                 | `Button`, `GraphViz`          |
-| Hooks                  | `use` + camelCase                          | `useImageUpload`              |
-| Zustand stores         | `use` + PascalCase + `Store`               | `useGraphStore`               |
-| Props types            | `XxxProps`, co-located with component      | `ButtonProps`                 |
-| Module-level constants | SCREAMING_SNAKE_CASE                       | `MAX_RETRIES`, `API_BASE_URL` |
-| Zod schemas            | camelCase + `Schema` suffix                | `colorPaletteSchema`          |
-| TypeScript types       | PascalCase (`type`, not `interface`)       | `ColorPalette`, `GraphNode`   |
-| Enums                  | PascalCase (members: SCREAMING_SNAKE_CASE) | `Direction.NORTH`             |
+| Identifier             | Convention                                 | Example                           |
+| ---------------------- | ------------------------------------------ | --------------------------------- |
+| Variables, functions   | camelCase                                  | `fetchPalettes`, `parseColor`     |
+| React components       | PascalCase                                 | `Button`, `GraphViz`              |
+| Hooks                  | `use` + camelCase                          | `useImageUpload`                  |
+| Zustand store variable | camelCase + `Store` (unexported)           | `graphStore`                      |
+| Zustand getter hooks   | `use` + Domain + Slice                     | `useGraphNodes`                   |
+| Zustand setter fns     | camelCase verb + Domain + target           | `addGraphNode`, `selectGraphNode` |
+| Props types            | `XxxProps`, co-located with component      | `ButtonProps`                     |
+| Module-level constants | SCREAMING_SNAKE_CASE                       | `MAX_RETRIES`, `API_BASE_URL`     |
+| Zod schemas            | camelCase + `Schema` suffix                | `colorPaletteSchema`              |
+| TypeScript types       | PascalCase (`type`, not `interface`)       | `ColorPalette`, `GraphNode`       |
+| Enums                  | PascalCase (members: SCREAMING_SNAKE_CASE) | `Direction.NORTH`                 |
 
 ---
 
@@ -199,24 +201,88 @@ export async function fetchPalette(id: string): Promise<ColorPalette> {
 
 ## Zustand stores
 
-One store per feature/domain. The `use` prefix is kept because Zustand stores are consumed as hooks, but they are **not** general-purpose hooks — they manage shared state. Name them `use[Domain]Store`.
+One store per feature/domain. **The store itself is never exported.** Consumers interact with it only through exported getter hooks and setter functions. This decouples consumers from the store shape — internals can be refactored without touching call sites.
+
+### File structure
+
+```
+features/graph/
+  graphStore.ts       ← store (unexported) + all public accessors
+```
+
+The file is named `camelCase.ts` (no `use` prefix) because the store is private. The exported accessors follow their own naming rules below.
+
+### Getters — reactive hooks
+
+Exported as `use[Domain][Slice]` hooks. Each hook selects the minimal slice of state the consumer needs — never expose the full store object.
 
 ```ts
-// useGraphStore.ts
+export function useGraphNodes(): GraphNode[] {
+  return graphStore((s) => s.nodes);
+}
+
+export function useGraphSelectedId(): string | null {
+  return graphStore((s) => s.selectedId);
+}
+```
+
+### Setters — plain functions
+
+Exported as plain `camelCase` functions, not hooks. They call `graphStore.getState()` internally so they can be called from anywhere — event handlers, utils, other stores — without hook rules.
+
+```ts
+export function addGraphNode(node: GraphNode): void {
+  graphStore.setState((s) => ({ nodes: [...s.nodes, node] }));
+}
+
+export function selectGraphNode(id: string): void {
+  graphStore.setState({ selectedId: id });
+}
+```
+
+### Full example
+
+```ts
+// graphStore.ts
 import { create } from "zustand";
+import type { GraphNode } from "./graph.types";
 
 type GraphStore = {
   nodes: GraphNode[];
-  addNode: (node: GraphNode) => void;
+  selectedId: string | null;
 };
 
-export const useGraphStore = create<GraphStore>((set) => ({
+// not exported — internal only
+const graphStore = create<GraphStore>(() => ({
   nodes: [],
-  addNode: (node) => set((state) => ({ nodes: [...state.nodes, node] })),
+  selectedId: null,
 }));
+
+// ✅ getters — reactive hooks
+export function useGraphNodes(): GraphNode[] {
+  return graphStore((s) => s.nodes);
+}
+
+export function useGraphSelectedId(): string | null {
+  return graphStore((s) => s.selectedId);
+}
+
+// ✅ setters — plain functions, callable anywhere
+export function addGraphNode(node: GraphNode): void {
+  graphStore.setState((s) => ({ nodes: [...s.nodes, node] }));
+}
+
+export function selectGraphNode(id: string): void {
+  graphStore.setState({ selectedId: id });
+}
 ```
 
-Store files must not contain JSX. Use `.ts`, never `.tsx`.
+### Rules
+
+- The store variable is **never exported**, even internally across files.
+- Getter hooks select a **single slice** — no hook that returns the whole state.
+- Setter functions are **not hooks** — no `use` prefix, no hook rules.
+- Store files must not contain JSX. Use `.ts`, never `.tsx`.
 
 ---
 

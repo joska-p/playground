@@ -6,23 +6,26 @@ import { useImageUpload } from "../../hooks/useImageUpload";
 import { brightness } from "../../manipulations/brightness";
 import { energyMap } from "../../manipulations/energyMap";
 import { grayscale } from "../../manipulations/grayscale";
-import type { ManipulationId, OutputType } from "../../store/useManipulatorStore";
+import type { ManipulationId, OutputType } from "../../store/manipulatorStore";
 import {
-  addToOutputs,
-  addToWorkflow,
-  clearOutputs,
-  clearWorkflow,
-  setManipulationId,
-  useManipulatorStore,
-} from "../../store/useManipulatorStore";
+  addToManipulatorOutputs,
+  addToManipulatorWorkflow,
+  clearManipulatorOutputs,
+  clearManipulatorWorkflow,
+  setManipulatorManipulationId,
+  useManipulatorManipulationId,
+  useManipulatorOutputs,
+  useManipulatorWorkflow,
+} from "../../store/manipulatorStore";
 
 const manipulationsIds = ["brightness", "grayscale", "energyMap"] as const;
 const manipulations = { brightness, grayscale, energyMap } as const;
 
 function Controls() {
-  const sourceImage = useManipulatorStore((state) => state.outputs[0]);
-  const manipulationId = useManipulatorStore((state) => state.manipulationId);
-  const workflow = useManipulatorStore((state) => state.workflow);
+  const outputs = useManipulatorOutputs();
+  const sourceImage = outputs[0];
+  const manipulationId = useManipulatorManipulationId();
+  const workflow = useManipulatorWorkflow();
 
   const { handleImageUpload } = useImageUpload();
 
@@ -36,7 +39,7 @@ function Controls() {
         ...workflow.map((manipulationId) => manipulations[manipulationId].callback())
       )(sourceImage.imageData),
     };
-    addToOutputs(output);
+    addToManipulatorOutputs(output);
   }
 
   return (
@@ -46,7 +49,7 @@ function Controls() {
       <Select
         variant="primary"
         value={manipulationId}
-        onChange={(e) => setManipulationId(e.target.value as ManipulationId)}
+        onChange={(e) => setManipulatorManipulationId(e.target.value as ManipulationId)}
         className="flex-1"
         label="Manipulation"
       >
@@ -58,8 +61,8 @@ function Controls() {
       </Select>
 
       <div className="gap-4 md:grid md:grid-cols-2">
-        <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
-        <Button onClick={() => clearWorkflow()}>Clear Worflow</Button>
+        <Button onClick={() => addToManipulatorWorkflow(manipulationId)}>Add to Worflow</Button>
+        <Button onClick={() => clearManipulatorWorkflow()}>Clear Worflow</Button>
       </div>
 
       <ol className="list-inside list-decimal">
@@ -70,7 +73,7 @@ function Controls() {
 
       <div className="gap-4 md:grid md:grid-cols-2">
         <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
-        <Button onClick={() => clearOutputs()}>Clear Ouputs</Button>
+        <Button onClick={() => clearManipulatorOutputs()}>Clear Ouputs</Button>
       </div>
     </div>
   );

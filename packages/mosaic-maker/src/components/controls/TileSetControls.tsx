@@ -1,12 +1,11 @@
 import { cn } from "@repo/ui/cn";
-import { useShallow } from "zustand/shallow";
 import { initialPalette } from "../../core/initialPalette";
 import { initialTileSet } from "../../core/initialTileSet";
-import { updateTileSet, useMosaicStore } from "../../store/useMosaicStore";
+import { updateMosaicTileSet, useMosaicTileSet } from "../../store/mosaicStore";
 import { Tile } from "../tiles/Tile";
 
 function TileSetControls() {
-  const { tileSet } = useMosaicStore(useShallow((state) => ({ tileSet: state.tileSet })));
+  const tileSet = useMosaicTileSet();
 
   return (
     <fieldset
@@ -19,7 +18,7 @@ function TileSetControls() {
             <input
               type="checkbox"
               checked={tileSet.includes(tileName)}
-              onChange={() => updateTileSet(tileName)}
+              onChange={() => updateMosaicTileSet(tileName)}
               className="peer sr-only"
             />
             <Tile

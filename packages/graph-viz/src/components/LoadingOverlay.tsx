@@ -1,7 +1,7 @@
-import { useGraphStore } from "../store/useGraphStore";
+import { useGraphIsReady } from "../store/graphStore";
 
 export function LoadingOverlay() {
-  const isReady = useGraphStore((s) => s.isReady);
+  const isReady = useGraphIsReady();
 
   if (isReady) return null;
 

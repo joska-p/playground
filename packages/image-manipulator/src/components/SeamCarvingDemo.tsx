@@ -7,10 +7,10 @@ import { useImageUpload } from "../hooks/useImageUpload";
 import { brightness } from "../manipulations/brightness";
 import { energyMap } from "../manipulations/energyMap";
 import { grayscale } from "../manipulations/grayscale";
-import { useManipulatorStore } from "../store/useManipulatorStore";
+import { useManipulatorImageFile } from "../store/manipulatorStore";
 
 function SeamCarvingDemo() {
-  const imageFile = useManipulatorStore((state) => state.imageFile);
+  const imageFile = useManipulatorImageFile();
   const originalCanvasRef = useRef<HTMLCanvasElement>(null);
   const pipelineCanvasRef = useRef<HTMLCanvasElement>(null);
   const energyCanvasRef = useRef<HTMLCanvasElement>(null);

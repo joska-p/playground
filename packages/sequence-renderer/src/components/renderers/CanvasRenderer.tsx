@@ -1,15 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useShallow } from "zustand/shallow";
 import { visualizations } from "../../core/visualizations/visualizations";
-import { useSequenceStore } from "../../store/useSequenceStore";
+import { useSequenceSequence, useSequenceVisualizationId } from "../../store/sequenceStore";
 
 function CanvasRenderer() {
-  const { sequence, visualizationId } = useSequenceStore(
-    useShallow((state) => ({
-      sequence: state.sequence,
-      visualizationId: state.visualizationId,
-    }))
-  );
+  const sequence = useSequenceSequence();
+  const visualizationId = useSequenceVisualizationId();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

@@ -1,11 +1,11 @@
 import { FT_COLOR, FT_LABEL, REL_COLORS } from "../constants";
-import { useGraphStore } from "../store/useGraphStore";
+import { useGraphColorMode } from "../store/graphStore";
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_PREVIEW = Object.entries(REL_COLORS).slice(0, 6);
 
 export function Legend() {
-  const colorMode = useGraphStore((s) => s.colorMode);
+  const colorMode = useGraphColorMode();
 
   return (
     <div style={styles["bar"]}>

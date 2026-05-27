@@ -24,7 +24,7 @@ Decouple **generation** from **visualization**:
 
 1.  **Rules** — Define sequences via `getNext()` function in `src/core/rules.ts`.
 2.  **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
-3.  **Zustand Store** — State management (`useSequenceStore`).
+3.  **Zustand Store** — State management (`sequenceStore`).
 
 ## 🧮 Available Sequences
 
@@ -54,7 +54,10 @@ export const recamanArcs = {
 ## 💾 State & Actions
 
 ```typescript
-const { sequenceRule, steps, visualizationId, sequence } = useSequenceStore();
+const sequenceRule = useSequenceRule();
+const steps = useSequenceSteps();
+const visualizationId = useSequenceVisualizationId();
+const sequence = useSequenceSequence();
 ```
 
 | Action                   | What                 |

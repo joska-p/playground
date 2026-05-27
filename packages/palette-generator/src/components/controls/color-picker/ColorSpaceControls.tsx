@@ -1,7 +1,7 @@
 import { Slider } from "@repo/ui/Slider";
 import { useRef, useState } from "react";
 import { colorSpaces } from "../../../core/colorSpaces";
-import { setBaseColor } from "../../../store/usePaletteStore";
+import { setPaletteBaseColor } from "../../../store/paletteStore";
 import { ColorSpaceCanvas } from "./ColorSpaceCanvas";
 
 type ColorSliceProps = {
@@ -31,7 +31,7 @@ function ColorSpaceControls({ spaceId = "oklch", size = 200 }: ColorSliceProps) 
     // 2. Call the native pick result for this specific space
     const result = getColor(xValue, yValue, zValue);
 
-    setBaseColor(result);
+    setPaletteBaseColor(result);
   };
 
   return (
