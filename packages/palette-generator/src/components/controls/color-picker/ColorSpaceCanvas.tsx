@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { colorSpaces } from "../../../core/colorspaces";
+import { colorSpaces } from "../../../core/colorSpaces";
 import { scaleTo255 } from "../../../utils/color";
 
 type ColorSpaceCanvasProps = {

@@ -1,6 +1,6 @@
 import Color from "colorjs.io";
 import { create } from "zustand";
-import type { Palette } from "../core/rules";
+import type { Palette } from "../core/rules/harmonyRule.types";
 
 type PaletteState = {
   palettes: Palette[];

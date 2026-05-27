@@ -1,6 +1,6 @@
 import { Slider } from "@repo/ui";
 import { useRef, useState } from "react";
-import { colorSpaces } from "../../../core/colorspaces";
+import { colorSpaces } from "../../../core/colorSpaces";
 import { setBaseColor } from "../../../store/usePaletteStore";
 import { ColorSpaceCanvas } from "./ColorSpaceCanvas";
 

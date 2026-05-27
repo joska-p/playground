@@ -1,11 +1,16 @@
 import { Button } from "@repo/ui";
-import type { ColorSpacesKey } from "../../core/colorspaces";
-import { colorSpaces } from "../../core/colorspaces";
-import { generatePalette } from "../../core/generator";
-import type { RuleKey } from "../../core/rules";
-import { rules } from "../../core/rules";
+import type { ColorSpacesKey } from "../../core/colorSpaces";
+import { colorSpaces } from "../../core/colorSpaces";
+import { generatePalette } from "../../core/generatePalette";
+import { analogous } from "../../core/rules/analogous";
+import { complementary } from "../../core/rules/complementary";
+import { monochromatic } from "../../core/rules/monochromatic";
+import { triadic } from "../../core/rules/triadic";
 import { addPalette, usePaletteStore } from "../../store/usePaletteStore";
 import { ColorSpaceControls } from "./color-picker/ColorSpaceControls";
+
+const rules = { analogous, complementary, monochromatic, triadic } as const;
+type RuleKey = keyof typeof rules;
 
 function Controls() {
   const baseColor = usePaletteStore((state) => state.baseColor);

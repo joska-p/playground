@@ -8,7 +8,7 @@ type ColorSpaceDef = {
   description?: string;
   xAxis: Axis;
   yAxis: Axis;
-  zSlider: Axis; // The control for the "slice" depth
+  zSlider: Axis;
   getColor: (x: number, y: number, z: number) => Color;
 };
 

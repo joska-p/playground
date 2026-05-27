@@ -1,5 +1,5 @@
 import type Color from "colorjs.io";
-import type { Palette, Rule } from "./rules";
+import type { Palette, Rule } from "./rules/harmonyRule.types";
 
 function generatePalette(baseColor: Color, rule: Rule): Palette {
   return {

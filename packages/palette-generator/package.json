@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./src/index.tsx",
-      "import": "./src/index.tsx",
-      "require": "./src/index.tsx"
-    },
+    ".": "./src/PaletteGenerator.tsx",
+    "./PaletteGenerator": "./src/PaletteGenerator.tsx",
+    "./Controls": "./src/components/controls/Controls.tsx",
+    "./Display": "./src/components/display/Display.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
