@@ -1,649 +1,147 @@
 {
   "communities": {
     "0": [
-      "controls_palettecontrols_palettecontrols",
-      "controls_slidercontrols_props",
-      "controls_slidercontrols_slidercontrols",
-      "controls_tilesetcontrols_tilesetcontrols",
-      "core_config_css_vars",
-      "core_config_defaultgapsize",
-      "core_config_defaultpalette",
-      "core_config_defaultrotations",
-      "core_config_defaulttileset",
-      "core_config_defaulttilesize",
-      "core_config_palette",
-      "core_config_tilenames",
-      "core_config_tileset",
-      "core_tile_registry_shape",
-      "core_tile_registry_tile_registry",
-      "core_tile_registry_tiledefinition",
-      "hooks_use_resize_observer_dimensions",
-      "hooks_use_resize_observer_useresizeobserver",
-      "mosaic_display_mosaicdisplay_mosaic_styles",
-      "mosaic_display_mosaicdisplay_mosaicdisplay",
-      "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls",
-      "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
-      "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "packages_mosaic_maker_src_components_tiles_tile_tsx",
-      "packages_mosaic_maker_src_core_config_ts",
-      "packages_mosaic_maker_src_core_tile_registry_ts",
-      "packages_mosaic_maker_src_store_usemosaicstore_tsx",
-      "packages_mosaic_maker_src_utils_fetch_palettes_ts",
-      "packages_mosaic_maker_src_utils_palette_utils_ts",
-      "packages_mosaic_maker_src_utils_style_utils_ts",
-      "packages_mosaic_maker_src_utils_utils_ts",
-      "packages_ui_src_hooks_use_resize_observer_ts",
-      "store_usemosaicstore_computeinitialtiles",
-      "store_usemosaicstore_generatetilecolors",
-      "store_usemosaicstore_generatetilerotation",
-      "store_usemosaicstore_initpalettes",
-      "store_usemosaicstore_mosaicstate",
-      "store_usemosaicstore_setmosaicref",
-      "store_usemosaicstore_setpalettestock",
-      "store_usemosaicstore_tileinstance",
-      "store_usemosaicstore_updatecurrentpalettes",
-      "store_usemosaicstore_updatepalette",
-      "store_usemosaicstore_updatetiles",
-      "store_usemosaicstore_updatetileset",
-      "store_usemosaicstore_usemosaicstore",
-      "tiles_tile_props",
-      "tiles_tile_shaperenderer",
-      "tiles_tile_tile",
-      "utils_fetch_palettes_cachedpalettes",
-      "utils_fetch_palettes_cachepalettes",
-      "utils_fetch_palettes_colornames",
-      "utils_fetch_palettes_fetchpalettes",
-      "utils_fetch_palettes_getcachedpalettes",
-      "utils_fetch_palettes_iscachevalid",
-      "utils_fetch_palettes_paletteschema",
-      "utils_fetch_palettes_transformpalette",
-      "utils_palette_utils_arepalettesequal",
-      "utils_palette_utils_getpaletteid",
-      "utils_style_utils_computedimension",
-      "utils_style_utils_computedstyles",
-      "utils_style_utils_computegap",
-      "utils_style_utils_computenumberoftiles",
-      "utils_style_utils_computetileheight",
-      "utils_style_utils_computetilewidth",
-      "utils_style_utils_getcomputedpropertyvalue",
-      "utils_style_utils_parsenumericvalue",
-      "utils_style_utils_styleproperty",
-      "utils_style_utils_updateelementstyles",
-      "utils_utils_getrandom",
-      "utils_utils_getrandomvalue",
-      "utils_utils_safefetch",
-      "utils_utils_shufflearray",
-      "utils_utils_shuffleobject",
-      "utils_utils_stall"
+      "graphviz_COMMUNITY_PALETTE",
+      "graphviz_ColorMode",
+      "graphviz_FT_COLOR",
+      "graphviz_GraphData",
+      "graphviz_GraphStats",
+      "graphviz_RAW_GRAPH",
+      "graphviz_REL_COLORS",
+      "graphviz_RawHyperedge",
+      "graphviz_RawLink",
+      "graphviz_RawNode",
+      "graphviz_SIM_CONFIG",
+      "graphviz_SimLink",
+      "graphviz_SimNode",
+      "graphviz_buildDegreeMap",
+      "graphviz_communityColor",
+      "graphviz_exampleGraph",
+      "graphviz_graphStore",
+      "graphviz_nodeColor",
+      "graphviz_nodeRadius",
+      "graphviz_resetGraphFilters",
+      "graphviz_setGraphColorMode",
+      "graphviz_setGraphFilterFT",
+      "graphviz_setGraphFilterRel",
+      "graphviz_setGraphIsReady",
+      "graphviz_setGraphSearch",
+      "graphviz_setGraphSelectedNode",
+      "graphviz_setGraphStats",
+      "graphviz_toggleGraphHyper",
+      "graphviz_useGraphColorMode",
+      "graphviz_useGraphFilterFT",
+      "graphviz_useGraphFilterRel",
+      "graphviz_useGraphIsReady",
+      "graphviz_useGraphSearch",
+      "graphviz_useGraphSelectedNode",
+      "graphviz_useGraphShowHyper",
+      "graphviz_useGraphSimulation",
+      "graphviz_useGraphStats",
+      "graphviz_useResetZoom"
     ],
     "1": [
-      "components_detailpanel_detailpanel",
-      "components_detailpanel_metarow",
-      "components_detailpanel_metarowprops",
-      "components_detailpanel_styles",
-      "components_graphcanvas_graphcanvas",
-      "components_graphcanvas_graphcanvasprops",
-      "components_graphcanvas_styles",
-      "components_legend_ft_options",
-      "components_legend_legend",
-      "components_legend_rel_preview",
-      "components_legend_styles",
-      "components_loadingoverlay_loadingoverlay",
-      "components_loadingoverlay_styles",
-      "components_topbar_base",
-      "components_topbar_colortogglestyle",
-      "components_topbar_ft_options",
-      "components_topbar_hypertogglestyle",
-      "components_topbar_rel_options",
-      "components_topbar_styles",
-      "components_topbar_topbar",
-      "components_topbar_topbarprops",
-      "data_examplegraph_example_graph",
-      "data_graphdata_raw_graph",
-      "hooks_usegraphsimulation_matches",
-      "hooks_usegraphsimulation_resolveid",
-      "hooks_usegraphsimulation_usegraphsimulation",
-      "hooks_useresetzoom_useresetzoom",
-      "packages_graph_viz_src_app_tsx",
-      "packages_graph_viz_src_app_tsx_src_app_app",
-      "packages_graph_viz_src_components_detailpanel_tsx",
-      "packages_graph_viz_src_components_graphcanvas_tsx",
-      "packages_graph_viz_src_components_legend_tsx",
-      "packages_graph_viz_src_components_loadingoverlay_tsx",
-      "packages_graph_viz_src_components_topbar_tsx",
-      "packages_graph_viz_src_constants_ts",
-      "packages_graph_viz_src_data_examplegraph_ts",
-      "packages_graph_viz_src_data_graphdata_ts",
-      "packages_graph_viz_src_graphviz_tsx",
-      "packages_graph_viz_src_hooks_usegraphsimulation_ts",
-      "packages_graph_viz_src_hooks_useresetzoom_ts",
-      "packages_graph_viz_src_index_ts",
-      "packages_graph_viz_src_main_tsx",
-      "packages_graph_viz_src_store_usegraphstore_ts",
-      "packages_graph_viz_src_types_ts",
-      "packages_graph_viz_src_utils_colors_ts",
-      "src_constants_community_palette",
-      "src_constants_ft_color",
-      "src_constants_ft_label",
-      "src_constants_rel_colors",
-      "src_constants_sim_config",
-      "src_graphviz_graphviz",
-      "src_graphviz_styles",
-      "src_types_colormode",
-      "src_types_graphdata",
-      "src_types_graphstats",
-      "src_types_rawhyperedge",
-      "src_types_rawlink",
-      "src_types_rawnode",
-      "src_types_simlink",
-      "src_types_simnode",
-      "store_usegraphstore_graphstate",
-      "store_usegraphstore_usegraphstore",
-      "utils_colors_builddegreemap",
-      "utils_colors_communitycolor",
-      "utils_colors_nodecolor",
-      "utils_colors_noderadius"
+      "BaseCard",
+      "BaseLayout",
+      "CATEGORIES_projects",
+      "CATEGORY_METADATA_docs",
+      "CATEGORY_METADATA_notebook",
+      "ContentCollections",
+      "DocCard",
+      "DocNav",
+      "ExperimentCard",
+      "FeaturedDocs",
+      "FeaturedProjects",
+      "Footer",
+      "Hero",
+      "SectionHeader",
+      "Stats",
+      "docSchema",
+      "doc_detail_page",
+      "docs_data",
+      "docs_list_page",
+      "getDocsByCategory",
+      "getFeaturedDocs",
+      "getFeaturedProjects",
+      "getNotesByCategory",
+      "getProjectsByCategory",
+      "home_page",
+      "notebookSchema",
+      "notebook_data",
+      "notebook_detail_page",
+      "notebook_list_page",
+      "projects_data",
+      "projects_list_page"
     ],
     "2": [
-      "color_picker_colorspacecanvas_colorspacecanvas",
-      "color_picker_colorspacecanvas_colorspacecanvasprops",
-      "color_picker_colorspacecontrols_colorsliceprops",
-      "color_picker_colorspacecontrols_colorspacecontrols",
-      "controls_index_controls",
-      "core_colorspaces_axis",
-      "core_colorspaces_colorspacedef",
-      "core_colorspaces_colorspaces",
-      "core_colorspaces_colorspaceskey",
-      "core_colorspaces_hsl",
-      "core_colorspaces_oklab",
-      "core_colorspaces_oklch",
-      "core_colorspaces_srgb",
-      "core_generator_generatepalette",
-      "display_index_display",
-      "packages_palette_generator_src_app_tsx",
-      "packages_palette_generator_src_app_tsx_src_app_app",
-      "packages_palette_generator_src_components_controls_color_picker_colorspacecanvas_tsx",
-      "packages_palette_generator_src_components_controls_color_picker_colorspacecontrols_tsx",
-      "packages_palette_generator_src_components_controls_index_tsx",
-      "packages_palette_generator_src_components_display_index_tsx",
-      "packages_palette_generator_src_core_colorspaces_ts",
-      "packages_palette_generator_src_core_generator_ts",
-      "packages_palette_generator_src_core_rules_analogous_ts",
-      "packages_palette_generator_src_core_rules_complementary_ts",
-      "packages_palette_generator_src_core_rules_index_ts",
-      "packages_palette_generator_src_core_rules_monochromatic_ts",
-      "packages_palette_generator_src_core_rules_triadic_ts",
-      "packages_palette_generator_src_core_rules_types_ts",
-      "packages_palette_generator_src_index_tsx",
-      "packages_palette_generator_src_main_tsx",
-      "packages_palette_generator_src_store_usepalettestore_ts",
-      "packages_palette_generator_src_utils_color_ts",
-      "packages_palette_generator_src_utils_maths_ts",
-      "rules_analogous_analogous",
-      "rules_complementary_complementary",
-      "rules_index_rulekey",
-      "rules_monochromatic_monochromatic",
-      "rules_triadic_triadic",
-      "rules_types_palette",
-      "rules_types_rule",
-      "src_index_palettegenerator",
-      "store_usepalettestore_addpalette",
-      "store_usepalettestore_initialbasecolor",
-      "store_usepalettestore_palettestate",
-      "store_usepalettestore_setbasecolor",
-      "store_usepalettestore_usepalettestore",
-      "utils_color_scalecoordsto255",
-      "utils_color_scaleto255",
-      "utils_color_torgb",
-      "utils_maths_createremap"
+      "defineconfig",
+      "eslint_config_pkg",
+      "eslint_js",
+      "eslint_plugin_reacthooks",
+      "eslint_plugin_reactrefresh",
+      "eslint_plugin_storybook",
+      "globalignores",
+      "globals_pkg",
+      "storybook_eslint_config",
+      "typescript_eslint",
+      "ui_package_devdependencies",
+      "ui_package_devdependencies_babel_core",
+      "ui_package_devdependencies_babel_plugin_react_compiler",
+      "ui_package_devdependencies_eslint",
+      "ui_package_devdependencies_eslint_js",
+      "ui_package_devdependencies_eslint_plugin_react_hooks",
+      "ui_package_devdependencies_eslint_plugin_react_refresh",
+      "ui_package_devdependencies_globals",
+      "ui_package_devdependencies_prettier",
+      "ui_package_devdependencies_prettier_plugin_tailwindcss",
+      "ui_package_devdependencies_rolldown_plugin_babel",
+      "ui_package_devdependencies_tailwindcss_vite",
+      "ui_package_devdependencies_types_babel_core",
+      "ui_package_devdependencies_types_node",
+      "ui_package_devdependencies_types_react",
+      "ui_package_devdependencies_types_react_dom",
+      "ui_package_devdependencies_typescript",
+      "ui_package_devdependencies_typescript_eslint",
+      "ui_package_devdependencies_vite",
+      "ui_package_devdependencies_vitejs_plugin_react"
     ],
     "3": [
-      "mosaic_maker_package_dependencies",
-      "mosaic_maker_package_dependencies_react",
-      "mosaic_maker_package_dependencies_react_dom",
-      "mosaic_maker_package_dependencies_repo_ui",
-      "mosaic_maker_package_dependencies_zod",
-      "mosaic_maker_package_dependencies_zustand",
-      "mosaic_maker_package_devdependencies",
-      "mosaic_maker_package_devdependencies_babel_core",
-      "mosaic_maker_package_devdependencies_babel_plugin_react_compiler",
-      "mosaic_maker_package_devdependencies_eslint",
-      "mosaic_maker_package_devdependencies_eslint_js",
-      "mosaic_maker_package_devdependencies_eslint_plugin_react_hooks",
-      "mosaic_maker_package_devdependencies_eslint_plugin_react_refresh",
-      "mosaic_maker_package_devdependencies_globals",
-      "mosaic_maker_package_devdependencies_prettier",
-      "mosaic_maker_package_devdependencies_prettier_plugin_tailwindcss",
-      "mosaic_maker_package_devdependencies_rolldown_plugin_babel",
-      "mosaic_maker_package_devdependencies_tailwindcss",
-      "mosaic_maker_package_devdependencies_tailwindcss_vite",
-      "mosaic_maker_package_devdependencies_types_babel_core",
-      "mosaic_maker_package_devdependencies_types_node",
-      "mosaic_maker_package_devdependencies_types_react",
-      "mosaic_maker_package_devdependencies_types_react_dom",
-      "mosaic_maker_package_devdependencies_typescript",
-      "mosaic_maker_package_devdependencies_typescript_eslint",
-      "mosaic_maker_package_devdependencies_vite",
-      "mosaic_maker_package_devdependencies_vitejs_plugin_react",
-      "mosaic_maker_package_exports",
-      "mosaic_maker_package_exports_styles",
-      "mosaic_maker_package_import",
-      "mosaic_maker_package_name",
-      "mosaic_maker_package_private",
-      "mosaic_maker_package_require",
-      "mosaic_maker_package_scripts",
-      "mosaic_maker_package_scripts_build",
-      "mosaic_maker_package_scripts_check_types",
-      "mosaic_maker_package_scripts_clean",
-      "mosaic_maker_package_scripts_dev",
-      "mosaic_maker_package_scripts_format",
-      "mosaic_maker_package_scripts_lint",
-      "mosaic_maker_package_scripts_lint_fix",
-      "mosaic_maker_package_scripts_preview",
-      "mosaic_maker_package_type",
-      "mosaic_maker_package_types",
-      "mosaic_maker_package_version",
-      "packages_mosaic_maker_package_json"
+      "packages_ui_package_json",
+      "ui_package_dependencies",
+      "ui_package_dependencies_class_variance_authority",
+      "ui_package_dependencies_clsx",
+      "ui_package_dependencies_lucide_react",
+      "ui_package_dependencies_react",
+      "ui_package_dependencies_react_dom",
+      "ui_package_dependencies_tailwind_merge",
+      "ui_package_exports",
+      "ui_package_exports_blade_runner_theme",
+      "ui_package_exports_candy_coated_theme",
+      "ui_package_exports_gruvbox_theme",
+      "ui_package_exports_pale_asylum_theme",
+      "ui_package_exports_vintage_theme",
+      "ui_package_import",
+      "ui_package_name",
+      "ui_package_private",
+      "ui_package_require",
+      "ui_package_scripts",
+      "ui_package_scripts_build",
+      "ui_package_scripts_check_types",
+      "ui_package_scripts_clean",
+      "ui_package_scripts_dev",
+      "ui_package_scripts_format",
+      "ui_package_scripts_lint",
+      "ui_package_scripts_lint_fix",
+      "ui_package_scripts_preview",
+      "ui_package_type",
+      "ui_package_types",
+      "ui_package_version"
     ],
     "4": [
-      "packages_palette_generator_package_json",
-      "palette_generator_package_dependencies",
-      "palette_generator_package_dependencies_colorjs_io",
-      "palette_generator_package_dependencies_react",
-      "palette_generator_package_dependencies_react_dom",
-      "palette_generator_package_dependencies_repo_ui",
-      "palette_generator_package_dependencies_zustand",
-      "palette_generator_package_devdependencies",
-      "palette_generator_package_devdependencies_babel_core",
-      "palette_generator_package_devdependencies_babel_plugin_react_compiler",
-      "palette_generator_package_devdependencies_eslint",
-      "palette_generator_package_devdependencies_eslint_js",
-      "palette_generator_package_devdependencies_eslint_plugin_react_hooks",
-      "palette_generator_package_devdependencies_eslint_plugin_react_refresh",
-      "palette_generator_package_devdependencies_globals",
-      "palette_generator_package_devdependencies_prettier",
-      "palette_generator_package_devdependencies_prettier_plugin_tailwindcss",
-      "palette_generator_package_devdependencies_rolldown_plugin_babel",
-      "palette_generator_package_devdependencies_tailwindcss",
-      "palette_generator_package_devdependencies_tailwindcss_vite",
-      "palette_generator_package_devdependencies_types_babel_core",
-      "palette_generator_package_devdependencies_types_node",
-      "palette_generator_package_devdependencies_types_react",
-      "palette_generator_package_devdependencies_types_react_dom",
-      "palette_generator_package_devdependencies_typescript",
-      "palette_generator_package_devdependencies_typescript_eslint",
-      "palette_generator_package_devdependencies_vite",
-      "palette_generator_package_devdependencies_vitejs_plugin_react",
-      "palette_generator_package_exports",
-      "palette_generator_package_exports_styles",
-      "palette_generator_package_import",
-      "palette_generator_package_name",
-      "palette_generator_package_private",
-      "palette_generator_package_require",
-      "palette_generator_package_scripts",
-      "palette_generator_package_scripts_build",
-      "palette_generator_package_scripts_check_types",
-      "palette_generator_package_scripts_clean",
-      "palette_generator_package_scripts_dev",
-      "palette_generator_package_scripts_format",
-      "palette_generator_package_scripts_lint",
-      "palette_generator_package_scripts_lint_fix",
-      "palette_generator_package_scripts_preview",
-      "palette_generator_package_type",
-      "palette_generator_package_types",
-      "palette_generator_package_version"
-    ],
-    "5": [
-      "packages_sequence_renderer_package_json",
-      "sequence_renderer_package_dependencies",
-      "sequence_renderer_package_dependencies_react",
-      "sequence_renderer_package_dependencies_react_dom",
-      "sequence_renderer_package_dependencies_repo_ui",
-      "sequence_renderer_package_dependencies_zod",
-      "sequence_renderer_package_dependencies_zustand",
-      "sequence_renderer_package_devdependencies",
-      "sequence_renderer_package_devdependencies_babel_core",
-      "sequence_renderer_package_devdependencies_babel_plugin_react_compiler",
-      "sequence_renderer_package_devdependencies_eslint",
-      "sequence_renderer_package_devdependencies_eslint_js",
-      "sequence_renderer_package_devdependencies_eslint_plugin_react_hooks",
-      "sequence_renderer_package_devdependencies_eslint_plugin_react_refresh",
-      "sequence_renderer_package_devdependencies_globals",
-      "sequence_renderer_package_devdependencies_prettier",
-      "sequence_renderer_package_devdependencies_prettier_plugin_tailwindcss",
-      "sequence_renderer_package_devdependencies_rolldown_plugin_babel",
-      "sequence_renderer_package_devdependencies_tailwindcss",
-      "sequence_renderer_package_devdependencies_tailwindcss_vite",
-      "sequence_renderer_package_devdependencies_types_babel_core",
-      "sequence_renderer_package_devdependencies_types_node",
-      "sequence_renderer_package_devdependencies_types_react",
-      "sequence_renderer_package_devdependencies_types_react_dom",
-      "sequence_renderer_package_devdependencies_typescript",
-      "sequence_renderer_package_devdependencies_typescript_eslint",
-      "sequence_renderer_package_devdependencies_vite",
-      "sequence_renderer_package_devdependencies_vitejs_plugin_react",
-      "sequence_renderer_package_exports",
-      "sequence_renderer_package_exports_styles",
-      "sequence_renderer_package_import",
-      "sequence_renderer_package_name",
-      "sequence_renderer_package_private",
-      "sequence_renderer_package_require",
-      "sequence_renderer_package_scripts",
-      "sequence_renderer_package_scripts_build",
-      "sequence_renderer_package_scripts_check_types",
-      "sequence_renderer_package_scripts_clean",
-      "sequence_renderer_package_scripts_dev",
-      "sequence_renderer_package_scripts_format",
-      "sequence_renderer_package_scripts_lint",
-      "sequence_renderer_package_scripts_lint_fix",
-      "sequence_renderer_package_scripts_preview",
-      "sequence_renderer_package_type",
-      "sequence_renderer_package_types",
-      "sequence_renderer_package_version"
-    ],
-    "6": [
-      "image_to_particles_package_dependencies",
-      "image_to_particles_package_dependencies_react",
-      "image_to_particles_package_dependencies_react_dom",
-      "image_to_particles_package_dependencies_repo_ui",
-      "image_to_particles_package_dependencies_zustand",
-      "image_to_particles_package_devdependencies",
-      "image_to_particles_package_devdependencies_babel_core",
-      "image_to_particles_package_devdependencies_babel_plugin_react_compiler",
-      "image_to_particles_package_devdependencies_eslint",
-      "image_to_particles_package_devdependencies_eslint_js",
-      "image_to_particles_package_devdependencies_eslint_plugin_react_hooks",
-      "image_to_particles_package_devdependencies_eslint_plugin_react_refresh",
-      "image_to_particles_package_devdependencies_globals",
-      "image_to_particles_package_devdependencies_prettier",
-      "image_to_particles_package_devdependencies_prettier_plugin_tailwindcss",
-      "image_to_particles_package_devdependencies_rolldown_plugin_babel",
-      "image_to_particles_package_devdependencies_tailwindcss",
-      "image_to_particles_package_devdependencies_tailwindcss_vite",
-      "image_to_particles_package_devdependencies_types_babel_core",
-      "image_to_particles_package_devdependencies_types_node",
-      "image_to_particles_package_devdependencies_types_react",
-      "image_to_particles_package_devdependencies_types_react_dom",
-      "image_to_particles_package_devdependencies_typescript",
-      "image_to_particles_package_devdependencies_typescript_eslint",
-      "image_to_particles_package_devdependencies_vite",
-      "image_to_particles_package_devdependencies_vitejs_plugin_react",
-      "image_to_particles_package_exports",
-      "image_to_particles_package_exports_styles",
-      "image_to_particles_package_import",
-      "image_to_particles_package_name",
-      "image_to_particles_package_private",
-      "image_to_particles_package_require",
-      "image_to_particles_package_scripts",
-      "image_to_particles_package_scripts_build",
-      "image_to_particles_package_scripts_check_types",
-      "image_to_particles_package_scripts_clean",
-      "image_to_particles_package_scripts_dev",
-      "image_to_particles_package_scripts_format",
-      "image_to_particles_package_scripts_lint",
-      "image_to_particles_package_scripts_lint_fix",
-      "image_to_particles_package_scripts_preview",
-      "image_to_particles_package_type",
-      "image_to_particles_package_types",
-      "image_to_particles_package_version",
-      "packages_image_to_particles_package_json"
-    ],
-    "7": [
-      "apps_storybook_package_json",
-      "storybook_package_dependencies",
-      "storybook_package_dependencies_react",
-      "storybook_package_dependencies_react_dom",
-      "storybook_package_devdependencies",
-      "storybook_package_devdependencies_chromatic_com_storybook",
-      "storybook_package_devdependencies_eslint",
-      "storybook_package_devdependencies_eslint_js",
-      "storybook_package_devdependencies_eslint_plugin_react_hooks",
-      "storybook_package_devdependencies_eslint_plugin_react_refresh",
-      "storybook_package_devdependencies_eslint_plugin_storybook",
-      "storybook_package_devdependencies_globals",
-      "storybook_package_devdependencies_playwright",
-      "storybook_package_devdependencies_prettier",
-      "storybook_package_devdependencies_prettier_plugin_tailwindcss",
-      "storybook_package_devdependencies_storybook",
-      "storybook_package_devdependencies_storybook_addon_a11y",
-      "storybook_package_devdependencies_storybook_addon_docs",
-      "storybook_package_devdependencies_storybook_addon_themes",
-      "storybook_package_devdependencies_storybook_addon_vitest",
-      "storybook_package_devdependencies_storybook_react_vite",
-      "storybook_package_devdependencies_tailwindcss",
-      "storybook_package_devdependencies_tailwindcss_vite",
-      "storybook_package_devdependencies_types_node",
-      "storybook_package_devdependencies_types_react",
-      "storybook_package_devdependencies_types_react_dom",
-      "storybook_package_devdependencies_typescript",
-      "storybook_package_devdependencies_typescript_eslint",
-      "storybook_package_devdependencies_vite",
-      "storybook_package_devdependencies_vitejs_plugin_react",
-      "storybook_package_devdependencies_vitest",
-      "storybook_package_devdependencies_vitest_browser_playwright",
-      "storybook_package_devdependencies_vitest_coverage_v8",
-      "storybook_package_name",
-      "storybook_package_private",
-      "storybook_package_scripts",
-      "storybook_package_scripts_build",
-      "storybook_package_scripts_check_types",
-      "storybook_package_scripts_clean",
-      "storybook_package_scripts_dev",
-      "storybook_package_scripts_format",
-      "storybook_package_scripts_lint",
-      "storybook_package_scripts_lint_fix",
-      "storybook_package_type",
-      "storybook_package_version"
-    ],
-    "8": [
-      "controls_sequenceselector_sequenceselector",
-      "core_generator_generatesequence",
-      "core_rules_collatzrule",
-      "core_rules_fibonaccirule",
-      "core_rules_nextstepparams",
-      "core_rules_primesrule",
-      "core_rules_recamanrule",
-      "core_rules_sequencerule",
-      "core_rules_sequencesrule",
-      "core_rules_triangularrule",
-      "packages_sequence_renderer_src_app_tsx",
-      "packages_sequence_renderer_src_app_tsx_src_app_app",
-      "packages_sequence_renderer_src_components_controls_controls_tsx",
-      "packages_sequence_renderer_src_components_controls_controls_tsx_controls_controls_controls",
-      "packages_sequence_renderer_src_components_controls_sequenceselector_tsx",
-      "packages_sequence_renderer_src_components_renderers_canvasrenderer_tsx",
-      "packages_sequence_renderer_src_components_sequence_display_sequencedisplay_tsx",
-      "packages_sequence_renderer_src_core_generator_ts",
-      "packages_sequence_renderer_src_core_rules_ts",
-      "packages_sequence_renderer_src_core_visualizations_index_ts",
-      "packages_sequence_renderer_src_core_visualizations_recaman_arcs_ts",
-      "packages_sequence_renderer_src_index_tsx",
-      "packages_sequence_renderer_src_main_tsx",
-      "packages_sequence_renderer_src_store_usesequencestore_tsx",
-      "packages_sequence_renderer_src_utils_math_ts",
-      "renderers_canvasrenderer_canvasrenderer",
-      "sequence_display_sequencedisplay_sequencedisplay",
-      "src_index_sequencerenderer",
-      "store_usesequencestore_generateinitial",
-      "store_usesequencestore_sequencestate",
-      "store_usesequencestore_setsequencerule",
-      "store_usesequencestore_setsteps",
-      "store_usesequencestore_setvisualizationid",
-      "store_usesequencestore_usesequencestore",
-      "utils_math_findbiggestinterval",
-      "visualizations_index_visualization",
-      "visualizations_index_visualizations",
-      "visualizations_recaman_arcs_calculatevaluescale",
-      "visualizations_recaman_arcs_draw",
-      "visualizations_recaman_arcs_drawsequence",
-      "visualizations_recaman_arcs_recamanarcs"
-    ],
-    "9": [
-      "graph_viz_package_devdependencies",
-      "graph_viz_package_devdependencies_babel_core",
-      "graph_viz_package_devdependencies_babel_plugin_react_compiler",
-      "graph_viz_package_devdependencies_eslint",
-      "graph_viz_package_devdependencies_eslint_js",
-      "graph_viz_package_devdependencies_eslint_plugin_react_hooks",
-      "graph_viz_package_devdependencies_eslint_plugin_react_refresh",
-      "graph_viz_package_devdependencies_globals",
-      "graph_viz_package_devdependencies_prettier",
-      "graph_viz_package_devdependencies_prettier_plugin_tailwindcss",
-      "graph_viz_package_devdependencies_rolldown_plugin_babel",
-      "graph_viz_package_devdependencies_tailwindcss",
-      "graph_viz_package_devdependencies_tailwindcss_vite",
-      "graph_viz_package_devdependencies_types_babel_core",
-      "graph_viz_package_devdependencies_types_node",
-      "graph_viz_package_devdependencies_types_react",
-      "graph_viz_package_devdependencies_types_react_dom",
-      "graph_viz_package_devdependencies_typescript",
-      "graph_viz_package_devdependencies_typescript_eslint",
-      "graph_viz_package_devdependencies_vite",
-      "graph_viz_package_devdependencies_vitejs_plugin_react",
-      "graph_viz_package_exports",
-      "graph_viz_package_exports_styles",
-      "graph_viz_package_import",
-      "graph_viz_package_name",
-      "graph_viz_package_private",
-      "graph_viz_package_require",
-      "graph_viz_package_scripts",
-      "graph_viz_package_scripts_build",
-      "graph_viz_package_scripts_check_types",
-      "graph_viz_package_scripts_clean",
-      "graph_viz_package_scripts_dev",
-      "graph_viz_package_scripts_format",
-      "graph_viz_package_scripts_lint",
-      "graph_viz_package_scripts_lint_fix",
-      "graph_viz_package_scripts_preview",
-      "graph_viz_package_type",
-      "graph_viz_package_types",
-      "graph_viz_package_version",
-      "packages_graph_viz_package_json"
-    ],
-    "10": [
-      "apps_playground_package_json",
-      "apps_playground_package_json_playground_package_devdependencies",
-      "apps_playground_package_json_playground_package_devdependencies_prettier",
-      "apps_playground_package_json_playground_package_devdependencies_prettier_plugin_astro",
-      "apps_playground_package_json_playground_package_devdependencies_prettier_plugin_tailwindcss",
-      "apps_playground_package_json_playground_package_engines",
-      "apps_playground_package_json_playground_package_engines_node",
-      "apps_playground_package_json_playground_package_name",
-      "apps_playground_package_json_playground_package_scripts",
-      "apps_playground_package_json_playground_package_scripts_build",
-      "apps_playground_package_json_playground_package_scripts_check_types",
-      "apps_playground_package_json_playground_package_scripts_clean",
-      "apps_playground_package_json_playground_package_scripts_dev",
-      "apps_playground_package_json_playground_package_scripts_format",
-      "apps_playground_package_json_playground_package_scripts_lint",
-      "apps_playground_package_json_playground_package_scripts_lint_fix",
-      "playground_package_devdependencies",
-      "playground_package_devdependencies_eslint",
-      "playground_package_devdependencies_eslint_plugin_astro",
-      "playground_package_devdependencies_prettier",
-      "playground_package_devdependencies_prettier_plugin_astro",
-      "playground_package_devdependencies_prettier_plugin_tailwindcss",
-      "playground_package_devdependencies_sharp",
-      "playground_package_devdependencies_typescript_eslint_parser",
-      "playground_package_engines",
-      "playground_package_engines_node",
-      "playground_package_name",
-      "playground_package_scripts",
-      "playground_package_scripts_astro",
-      "playground_package_scripts_build",
-      "playground_package_scripts_check_types",
-      "playground_package_scripts_clean",
-      "playground_package_scripts_dev",
-      "playground_package_scripts_format",
-      "playground_package_scripts_lint",
-      "playground_package_scripts_lint_fix",
-      "playground_package_scripts_preview",
-      "playground_package_type",
-      "playground_package_version"
-    ],
-    "11": [
-      "button_stories",
-      "card_stories",
-      "color_palette_stories",
-      "d3_library",
-      "graph_viz_app",
-      "graph_viz_colors_util",
-      "graph_viz_package",
-      "graph_viz_package_dependencies",
-      "graph_viz_package_dependencies_d3",
-      "graph_viz_package_dependencies_react",
-      "graph_viz_package_dependencies_react_dom",
-      "graph_viz_package_dependencies_repo_ui",
-      "graph_viz_package_dependencies_types_d3",
-      "graph_viz_package_dependencies_zustand",
-      "graph_viz_raw_data",
-      "graph_viz_reset_zoom_hook",
-      "graph_viz_simulation_hook",
-      "graph_viz_store",
-      "graph_viz_types",
-      "image_to_particles_ImageToParticles",
-      "image_to_particles_config",
-      "image_to_particles_core_utils",
-      "image_to_particles_package",
-      "image_to_particles_useImageUpload",
-      "input_stories",
-      "label_stories",
-      "playground_package_dependencies_repo_ui",
-      "repo_ui",
-      "select_stories",
-      "sidebar_stories",
-      "slider_stories",
-      "storybook_package",
-      "storybook_package_devdependencies_repo_ui",
-      "storybook_readme",
-      "switch_stories",
-      "zustand_library"
-    ],
-    "12": [
-      "graphify_project_page",
-      "image_index_astro",
-      "image_particles_index_astro",
-      "mosaic_project_page",
-      "palettes_project_page",
-      "playground_package_dependencies",
-      "playground_package_dependencies_astro",
-      "playground_package_dependencies_astrojs_check",
-      "playground_package_dependencies_astrojs_mdx",
-      "playground_package_dependencies_astrojs_react",
-      "playground_package_dependencies_lucide_react",
-      "playground_package_dependencies_react",
-      "playground_package_dependencies_react_dom",
-      "playground_package_dependencies_rehype_katex",
-      "playground_package_dependencies_remark_math",
-      "playground_package_dependencies_repo_graph_viz",
-      "playground_package_dependencies_repo_image_to_particles",
-      "playground_package_dependencies_repo_mosaic_maker",
-      "playground_package_dependencies_repo_palette_generator",
-      "playground_package_dependencies_repo_sequence_renderer",
-      "playground_package_dependencies_tailwindcss",
-      "playground_package_dependencies_tailwindcss_typography",
-      "playground_package_dependencies_tailwindcss_vite",
-      "playground_package_dependencies_types_react",
-      "playground_package_dependencies_types_react_dom",
-      "playground_package_dependencies_typescript",
-      "playground_package_dependencies_unist_util_visit",
-      "playground_package_dependencies_zod",
-      "repo_graph_viz",
-      "repo_image_to_particles",
-      "repo_mosaic_maker",
-      "repo_palette_generator",
-      "repo_sequence_renderer",
-      "sequences_project_page"
-    ],
-    "13": [
-      "apps_playground_src_components_data_viz_piechart_piechart_astro",
+      "apps_playground_astro_config_mjs",
       "apps_playground_src_components_ui_cards_experiment_card_astro",
-      "apps_playground_src_components_ui_experiment_card_index_astro",
       "apps_playground_src_components_ui_features_hero_astro",
-      "apps_playground_src_data_projects_ts",
+      "apps_playground_src_layouts_base_layout_astro",
       "apps_playground_src_pages_projects_color_index_astro",
       "apps_playground_src_pages_projects_color_palettes_index_astro",
       "apps_playground_src_pages_projects_data_viz_graphify_index_astro",
@@ -655,23 +153,21 @@
       "apps_playground_src_pages_projects_image_index_astro",
       "apps_playground_src_pages_projects_image_particles_index_astro",
       "apps_playground_src_pages_projects_index_astro",
-      "data_projects_categories",
-      "data_projects_category",
-      "data_projects_getprojectsbycategory",
-      "data_projects_project",
-      "data_projects_projects",
+      "astro_assets",
       "graph_viz",
       "image_to_particles",
+      "layouts_base_layout_canonicalurl",
       "mosaic_maker",
       "palette_generator",
+      "playground_astro_config_isvercel",
       "projects_index_categories",
-      "projects_index_catgories",
       "react",
       "sequence_renderer",
       "workspaces_playground_apps_playground_src_components_data_viz_piechart_piechart_astro",
-      "workspaces_playground_apps_playground_src_data_projects"
+      "workspaces_playground_apps_playground_src_data_projects",
+      "workspaces_playground_apps_playground_src_styles_styles_css"
     ],
-    "14": [
+    "5": [
       "apps_playground_src_content_notebook_emergence_complexite_canvas_utils_ts",
       "apps_playground_src_content_notebook_emergence_complexite_figure_astro",
       "apps_playground_src_content_notebook_emergence_complexite_hero_astro",
@@ -701,41 +197,138 @@
       "workspaces_playground_apps_playground_src_content_notebook_emergence_complexite_canvas_utils",
       "workspaces_playground_apps_playground_src_content_notebook_emergence_complexite_common_animations_css"
     ],
-    "15": [
-      "apps_playground_src_components_ui_footer_links_index_astro",
-      "apps_playground_src_layouts_header_astro",
-      "apps_playground_src_layouts_navbar_mobilemenu_astro",
-      "apps_playground_src_layouts_navbar_mobilemenutoggle_astro",
-      "apps_playground_src_layouts_navbar_navbar_astro",
-      "apps_playground_src_layouts_navbar_navbarbrand_astro",
-      "apps_playground_src_layouts_navbar_navbarlink_astro",
-      "apps_playground_src_layouts_navbar_themetoggle_astro",
-      "apps_playground_src_layouts_navbar_utilitylinks_astro",
-      "footer_links_index",
-      "footer_links_index_credits",
-      "footer_links_index_utilitylinks",
-      "navbar_mobilemenu_mainroutes",
-      "navbar_navbar",
-      "navbar_navbar_githubbutton",
-      "navbar_navbar_islinkactive",
-      "navbar_navbar_istoplevelactive",
-      "navbar_navbar_menuiconclose",
-      "navbar_navbar_menuiconopen",
-      "navbar_navbar_mobilelinks",
-      "navbar_navbar_mobilemenu",
-      "navbar_navbar_mobilemenutoggle",
-      "navbar_navbar_togglemobilemenu",
-      "ui"
+    "6": [
+      "colorjs_io",
+      "palette_generator_analogous",
+      "palette_generator_app",
+      "palette_generator_color_utils",
+      "palette_generator_colorspacecanvas",
+      "palette_generator_colorspacecontrols",
+      "palette_generator_colorspaces",
+      "palette_generator_complementary",
+      "palette_generator_controls",
+      "palette_generator_display",
+      "palette_generator_generatepalette",
+      "palette_generator_harmonyrule_types",
+      "palette_generator_index_html",
+      "palette_generator_main",
+      "palette_generator_maths_utils",
+      "palette_generator_monochromatic",
+      "palette_generator_package",
+      "palette_generator_palettegenerator",
+      "palette_generator_palettestore",
+      "palette_generator_triadic",
+      "palette_generator_vite_config",
+      "playground_package_dependencies_repo_ui",
+      "react_library",
+      "repo_ui",
+      "tailwindcss_tool",
+      "typescript_tool",
+      "vite_tool",
+      "zustand_library"
     ],
-    "16": [
-      "apps_playground_src_components_ui_doc_nav_index_astro",
-      "apps_playground_src_components_ui_docs_doc_nav_astro",
+    "7": [
+      "paletteSchema",
+      "playground_package_dependencies",
+      "playground_package_dependencies_astro",
+      "playground_package_dependencies_astrojs_check",
+      "playground_package_dependencies_astrojs_mdx",
+      "playground_package_dependencies_astrojs_react",
+      "playground_package_dependencies_lucide_react",
+      "playground_package_dependencies_react",
+      "playground_package_dependencies_react_dom",
+      "playground_package_dependencies_rehype_katex",
+      "playground_package_dependencies_remark_math",
+      "playground_package_dependencies_repo_graph_viz",
+      "playground_package_dependencies_repo_image_to_particles",
+      "playground_package_dependencies_repo_mosaic_maker",
+      "playground_package_dependencies_repo_palette_generator",
+      "playground_package_dependencies_repo_sequence_renderer",
+      "playground_package_dependencies_tailwindcss_typography",
+      "playground_package_dependencies_tailwindcss_vite",
+      "playground_package_dependencies_types_react",
+      "playground_package_dependencies_types_react_dom",
+      "playground_package_dependencies_typescript",
+      "playground_package_dependencies_unist_util_visit",
+      "playground_package_dependencies_zod",
+      "safeFetch",
+      "stall",
+      "zod"
+    ],
+    "8": [
+      "apps_playground_package_json",
+      "playground_package_devdependencies",
+      "playground_package_devdependencies_eslint",
+      "playground_package_devdependencies_eslint_plugin_astro",
+      "playground_package_devdependencies_prettier",
+      "playground_package_devdependencies_prettier_plugin_astro",
+      "playground_package_devdependencies_prettier_plugin_tailwindcss",
+      "playground_package_devdependencies_sharp",
+      "playground_package_devdependencies_typescript_eslint_parser",
+      "playground_package_engines",
+      "playground_package_engines_node",
+      "playground_package_name",
+      "playground_package_scripts",
+      "playground_package_scripts_astro",
+      "playground_package_scripts_build",
+      "playground_package_scripts_check_types",
+      "playground_package_scripts_clean",
+      "playground_package_scripts_dev",
+      "playground_package_scripts_format",
+      "playground_package_scripts_lint",
+      "playground_package_scripts_lint_fix",
+      "playground_package_scripts_preview",
+      "playground_package_type",
+      "playground_package_version"
+    ],
+    "9": [
+      "baselayout",
+      "book_icon",
+      "category_metadata",
+      "code_icon",
+      "doccard_component",
+      "docnav_component",
+      "docs_content_collection",
+      "docs_data_ts",
+      "docs_index_astro",
+      "docs_slug_astro",
+      "docsbaseurl",
+      "explanation_category",
+      "footer_layout",
+      "getdocsbycategory",
+      "getfeatureddocs",
+      "getstaticpaths",
+      "hero_component",
+      "howto_category",
+      "lightbulb_icon",
+      "reference_category",
+      "sectionheader_component",
+      "tutorial_category",
+      "wrench_icon"
+    ],
+    "10": [
+      "complex_plane",
+      "division_operation",
+      "imaginary_unit_concept",
+      "integers_set",
+      "naturals_set",
+      "rationals_set",
+      "reals_set",
+      "svg_node",
+      "the_complex_plane",
+      "the_division",
+      "the_imaginary_unit",
+      "the_integers",
+      "the_masterpiece",
+      "the_naturals",
+      "the_nested_sets",
+      "the_one",
+      "the_unit_concept"
+    ],
+    "11": [
       "apps_playground_src_content_config_ts",
       "apps_playground_src_data_notebook_ts",
-      "apps_playground_src_layouts_docs_docs_layout_astro",
-      "apps_playground_src_pages_docs_slug_astro",
       "apps_playground_src_pages_notebook_index_astro",
-      "astro_content",
       "data_docs_docschema",
       "data_notebook_categoriesids",
       "data_notebook_category_metadata",
@@ -744,252 +337,15 @@
       "data_notebook_getnotesbycategory",
       "data_notebook_gettagmetadata",
       "data_notebook_notebookschema",
-      "docs_slug_getstaticpaths",
       "src_content_config_collections",
       "src_content_config_docs",
       "src_content_config_notebook",
       "workspaces_playground_apps_playground_src_data_notebook"
     ],
-    "17": [
-      "package_json",
-      "package_json_playground_package_devdependencies",
-      "package_json_playground_package_devdependencies_prettier",
-      "package_json_playground_package_devdependencies_prettier_plugin_astro",
-      "package_json_playground_package_devdependencies_prettier_plugin_tailwindcss",
-      "package_json_playground_package_engines",
-      "package_json_playground_package_engines_node",
-      "package_json_playground_package_name",
-      "package_json_playground_package_scripts",
-      "package_json_playground_package_scripts_build",
-      "package_json_playground_package_scripts_check_types",
-      "package_json_playground_package_scripts_clean",
-      "package_json_playground_package_scripts_dev",
-      "package_json_playground_package_scripts_format",
-      "package_json_playground_package_scripts_lint",
-      "package_json_playground_package_scripts_lint_fix",
-      "playground_package_devdependencies_turbo",
-      "playground_package_devdependencies_typescript",
-      "playground_package_packagemanager",
-      "playground_package_private",
-      "playground_package_scripts_deploy"
-    ],
-    "18": [
-      "ui_package_devdependencies",
-      "ui_package_devdependencies_babel_core",
-      "ui_package_devdependencies_babel_plugin_react_compiler",
-      "ui_package_devdependencies_eslint",
-      "ui_package_devdependencies_eslint_js",
-      "ui_package_devdependencies_eslint_plugin_react_hooks",
-      "ui_package_devdependencies_eslint_plugin_react_refresh",
-      "ui_package_devdependencies_globals",
-      "ui_package_devdependencies_prettier",
-      "ui_package_devdependencies_prettier_plugin_tailwindcss",
-      "ui_package_devdependencies_rolldown_plugin_babel",
-      "ui_package_devdependencies_tailwindcss",
-      "ui_package_devdependencies_tailwindcss_vite",
-      "ui_package_devdependencies_types_babel_core",
-      "ui_package_devdependencies_types_node",
-      "ui_package_devdependencies_types_react",
-      "ui_package_devdependencies_types_react_dom",
-      "ui_package_devdependencies_typescript",
-      "ui_package_devdependencies_typescript_eslint",
-      "ui_package_devdependencies_vite",
-      "ui_package_devdependencies_vitejs_plugin_react"
-    ],
-    "19": [
-      "apps_storybook_src_stories_card_card_stories_tsx",
-      "card_card_card",
-      "card_card_cardcontent",
-      "card_card_carddescription",
-      "card_card_cardfooter",
-      "card_card_cardheader",
-      "card_card_cardprops",
-      "card_card_cardtitle",
-      "card_card_stories_accent",
-      "card_card_stories_ghost",
-      "card_card_stories_meta",
-      "card_card_stories_muted",
-      "card_card_stories_outline",
-      "card_card_stories_primary",
-      "card_card_stories_secondary",
-      "card_card_stories_story",
-      "card_cardvariants_cardvariants",
-      "packages_ui_src_components_card_card_tsx",
-      "packages_ui_src_components_card_cardvariants_ts",
-      "utils_cn_cn"
-    ],
-    "20": [
-      "graph_viz_tsconfig_app_compileroptions",
-      "graph_viz_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "graph_viz_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "graph_viz_tsconfig_app_compileroptions_jsx",
-      "graph_viz_tsconfig_app_compileroptions_lib",
-      "graph_viz_tsconfig_app_compileroptions_module",
-      "graph_viz_tsconfig_app_compileroptions_moduledetection",
-      "graph_viz_tsconfig_app_compileroptions_moduleresolution",
-      "graph_viz_tsconfig_app_compileroptions_noemit",
-      "graph_viz_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "graph_viz_tsconfig_app_compileroptions_nounusedlocals",
-      "graph_viz_tsconfig_app_compileroptions_nounusedparameters",
-      "graph_viz_tsconfig_app_compileroptions_skiplibcheck",
-      "graph_viz_tsconfig_app_compileroptions_target",
-      "graph_viz_tsconfig_app_compileroptions_tsbuildinfofile",
-      "graph_viz_tsconfig_app_compileroptions_types",
-      "graph_viz_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "graph_viz_tsconfig_app_include",
-      "packages_graph_viz_tsconfig_app_json"
-    ],
-    "21": [
-      "image_to_particles_tsconfig_app_compileroptions",
-      "image_to_particles_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "image_to_particles_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "image_to_particles_tsconfig_app_compileroptions_jsx",
-      "image_to_particles_tsconfig_app_compileroptions_lib",
-      "image_to_particles_tsconfig_app_compileroptions_module",
-      "image_to_particles_tsconfig_app_compileroptions_moduledetection",
-      "image_to_particles_tsconfig_app_compileroptions_moduleresolution",
-      "image_to_particles_tsconfig_app_compileroptions_noemit",
-      "image_to_particles_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "image_to_particles_tsconfig_app_compileroptions_nounusedlocals",
-      "image_to_particles_tsconfig_app_compileroptions_nounusedparameters",
-      "image_to_particles_tsconfig_app_compileroptions_skiplibcheck",
-      "image_to_particles_tsconfig_app_compileroptions_target",
-      "image_to_particles_tsconfig_app_compileroptions_tsbuildinfofile",
-      "image_to_particles_tsconfig_app_compileroptions_types",
-      "image_to_particles_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "image_to_particles_tsconfig_app_include",
-      "packages_image_to_particles_tsconfig_app_json"
-    ],
-    "22": [
-      "mosaic_maker_tsconfig_app_compileroptions",
-      "mosaic_maker_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "mosaic_maker_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "mosaic_maker_tsconfig_app_compileroptions_jsx",
-      "mosaic_maker_tsconfig_app_compileroptions_lib",
-      "mosaic_maker_tsconfig_app_compileroptions_module",
-      "mosaic_maker_tsconfig_app_compileroptions_moduledetection",
-      "mosaic_maker_tsconfig_app_compileroptions_moduleresolution",
-      "mosaic_maker_tsconfig_app_compileroptions_noemit",
-      "mosaic_maker_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "mosaic_maker_tsconfig_app_compileroptions_nounusedlocals",
-      "mosaic_maker_tsconfig_app_compileroptions_nounusedparameters",
-      "mosaic_maker_tsconfig_app_compileroptions_skiplibcheck",
-      "mosaic_maker_tsconfig_app_compileroptions_target",
-      "mosaic_maker_tsconfig_app_compileroptions_tsbuildinfofile",
-      "mosaic_maker_tsconfig_app_compileroptions_types",
-      "mosaic_maker_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "mosaic_maker_tsconfig_app_include",
-      "packages_mosaic_maker_tsconfig_app_json"
-    ],
-    "23": [
-      "packages_palette_generator_tsconfig_app_json",
-      "palette_generator_tsconfig_app_compileroptions",
-      "palette_generator_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "palette_generator_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "palette_generator_tsconfig_app_compileroptions_jsx",
-      "palette_generator_tsconfig_app_compileroptions_lib",
-      "palette_generator_tsconfig_app_compileroptions_module",
-      "palette_generator_tsconfig_app_compileroptions_moduledetection",
-      "palette_generator_tsconfig_app_compileroptions_moduleresolution",
-      "palette_generator_tsconfig_app_compileroptions_noemit",
-      "palette_generator_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "palette_generator_tsconfig_app_compileroptions_nounusedlocals",
-      "palette_generator_tsconfig_app_compileroptions_nounusedparameters",
-      "palette_generator_tsconfig_app_compileroptions_skiplibcheck",
-      "palette_generator_tsconfig_app_compileroptions_target",
-      "palette_generator_tsconfig_app_compileroptions_tsbuildinfofile",
-      "palette_generator_tsconfig_app_compileroptions_types",
-      "palette_generator_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "palette_generator_tsconfig_app_include"
-    ],
-    "24": [
-      "packages_sequence_renderer_tsconfig_app_json",
-      "sequence_renderer_tsconfig_app_compileroptions",
-      "sequence_renderer_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "sequence_renderer_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "sequence_renderer_tsconfig_app_compileroptions_jsx",
-      "sequence_renderer_tsconfig_app_compileroptions_lib",
-      "sequence_renderer_tsconfig_app_compileroptions_module",
-      "sequence_renderer_tsconfig_app_compileroptions_moduledetection",
-      "sequence_renderer_tsconfig_app_compileroptions_moduleresolution",
-      "sequence_renderer_tsconfig_app_compileroptions_noemit",
-      "sequence_renderer_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "sequence_renderer_tsconfig_app_compileroptions_nounusedlocals",
-      "sequence_renderer_tsconfig_app_compileroptions_nounusedparameters",
-      "sequence_renderer_tsconfig_app_compileroptions_skiplibcheck",
-      "sequence_renderer_tsconfig_app_compileroptions_target",
-      "sequence_renderer_tsconfig_app_compileroptions_tsbuildinfofile",
-      "sequence_renderer_tsconfig_app_compileroptions_types",
-      "sequence_renderer_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "sequence_renderer_tsconfig_app_include"
-    ],
-    "25": [
-      "packages_ui_tsconfig_app_json",
-      "ui_tsconfig_app_compileroptions",
-      "ui_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "ui_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "ui_tsconfig_app_compileroptions_jsx",
-      "ui_tsconfig_app_compileroptions_lib",
-      "ui_tsconfig_app_compileroptions_module",
-      "ui_tsconfig_app_compileroptions_moduledetection",
-      "ui_tsconfig_app_compileroptions_moduleresolution",
-      "ui_tsconfig_app_compileroptions_noemit",
-      "ui_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "ui_tsconfig_app_compileroptions_nounusedlocals",
-      "ui_tsconfig_app_compileroptions_nounusedparameters",
-      "ui_tsconfig_app_compileroptions_skiplibcheck",
-      "ui_tsconfig_app_compileroptions_target",
-      "ui_tsconfig_app_compileroptions_tsbuildinfofile",
-      "ui_tsconfig_app_compileroptions_types",
-      "ui_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "ui_tsconfig_app_include"
-    ],
-    "26": [
-      "playground_turbo_build_dependson",
-      "playground_turbo_build_inputs",
-      "playground_turbo_build_outputs",
-      "playground_turbo_check_types_dependson",
-      "playground_turbo_clean_cache",
-      "playground_turbo_dev_cache",
-      "playground_turbo_dev_persistent",
-      "playground_turbo_lint_dependson",
-      "playground_turbo_lint_fix_dependson",
-      "playground_turbo_schema",
-      "playground_turbo_tasks",
-      "playground_turbo_tasks_build",
-      "playground_turbo_tasks_check_types",
-      "playground_turbo_tasks_clean",
-      "playground_turbo_tasks_dev",
-      "playground_turbo_tasks_lint",
-      "playground_turbo_tasks_lint_fix",
-      "playground_turbo_ui",
-      "turbo_json"
-    ],
-    "27": [
-      "apps_storybook_tsconfig_app_json",
-      "storybook_tsconfig_app_compileroptions",
-      "storybook_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "storybook_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "storybook_tsconfig_app_compileroptions_jsx",
-      "storybook_tsconfig_app_compileroptions_lib",
-      "storybook_tsconfig_app_compileroptions_module",
-      "storybook_tsconfig_app_compileroptions_moduledetection",
-      "storybook_tsconfig_app_compileroptions_moduleresolution",
-      "storybook_tsconfig_app_compileroptions_noemit",
-      "storybook_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "storybook_tsconfig_app_compileroptions_nounusedlocals",
-      "storybook_tsconfig_app_compileroptions_nounusedparameters",
-      "storybook_tsconfig_app_compileroptions_skiplibcheck",
-      "storybook_tsconfig_app_compileroptions_target",
-      "storybook_tsconfig_app_compileroptions_tsbuildinfofile",
-      "storybook_tsconfig_app_compileroptions_types",
-      "storybook_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "storybook_tsconfig_app_include"
-    ],
-    "28": [
+    "12": [
       "apps_playground_src_components_ui_cards_base_card_astro",
       "apps_playground_src_components_ui_cards_doc_card_astro",
-      "apps_playground_src_components_ui_doc_card_index_astro",
+      "apps_playground_src_components_ui_docs_doc_nav_astro",
       "apps_playground_src_data_docs_ts",
       "apps_playground_src_pages_docs_index_astro",
       "cards_doc_card_formattedtype",
@@ -999,199 +355,28 @@
       "data_docs_categoryids",
       "data_docs_getcategorymetadata",
       "data_docs_getdocsbycategory",
-      "data_docs_gettagmetadata",
-      "data_docs_tag_metadata",
-      "data_docs_tagid",
-      "data_docs_tagids",
-      "doc_card_index_metadata",
+      "data_docs_getfeatureddocs",
       "workspaces_playground_apps_playground_src_data_docs"
     ],
-    "29": [
-      "graph_viz_tsconfig_node_compileroptions",
-      "graph_viz_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "graph_viz_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "graph_viz_tsconfig_node_compileroptions_lib",
-      "graph_viz_tsconfig_node_compileroptions_module",
-      "graph_viz_tsconfig_node_compileroptions_moduledetection",
-      "graph_viz_tsconfig_node_compileroptions_moduleresolution",
-      "graph_viz_tsconfig_node_compileroptions_noemit",
-      "graph_viz_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "graph_viz_tsconfig_node_compileroptions_nounusedlocals",
-      "graph_viz_tsconfig_node_compileroptions_nounusedparameters",
-      "graph_viz_tsconfig_node_compileroptions_skiplibcheck",
-      "graph_viz_tsconfig_node_compileroptions_target",
-      "graph_viz_tsconfig_node_compileroptions_tsbuildinfofile",
-      "graph_viz_tsconfig_node_compileroptions_types",
-      "graph_viz_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "graph_viz_tsconfig_node_include",
-      "packages_graph_viz_tsconfig_node_json"
+    "13": [
+      "addPalette_function",
+      "analogous_rule",
+      "colorSpaces_module",
+      "complementary_rule",
+      "generatePalette_function",
+      "hsl_colorspace",
+      "monochromatic_rule",
+      "oklab_colorspace",
+      "oklch_colorspace",
+      "palette_type",
+      "rule_type",
+      "srgb_colorspace",
+      "triadic_rule",
+      "usePalettePalettes_hook"
     ],
-    "30": [
-      "mosaic_maker_tsconfig_node_compileroptions",
-      "mosaic_maker_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "mosaic_maker_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "mosaic_maker_tsconfig_node_compileroptions_lib",
-      "mosaic_maker_tsconfig_node_compileroptions_module",
-      "mosaic_maker_tsconfig_node_compileroptions_moduledetection",
-      "mosaic_maker_tsconfig_node_compileroptions_moduleresolution",
-      "mosaic_maker_tsconfig_node_compileroptions_noemit",
-      "mosaic_maker_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "mosaic_maker_tsconfig_node_compileroptions_nounusedlocals",
-      "mosaic_maker_tsconfig_node_compileroptions_nounusedparameters",
-      "mosaic_maker_tsconfig_node_compileroptions_skiplibcheck",
-      "mosaic_maker_tsconfig_node_compileroptions_target",
-      "mosaic_maker_tsconfig_node_compileroptions_tsbuildinfofile",
-      "mosaic_maker_tsconfig_node_compileroptions_types",
-      "mosaic_maker_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "mosaic_maker_tsconfig_node_include",
-      "packages_mosaic_maker_tsconfig_node_json"
-    ],
-    "31": [
-      "image_to_particles_tsconfig_node_compileroptions",
-      "image_to_particles_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "image_to_particles_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "image_to_particles_tsconfig_node_compileroptions_lib",
-      "image_to_particles_tsconfig_node_compileroptions_module",
-      "image_to_particles_tsconfig_node_compileroptions_moduledetection",
-      "image_to_particles_tsconfig_node_compileroptions_moduleresolution",
-      "image_to_particles_tsconfig_node_compileroptions_noemit",
-      "image_to_particles_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "image_to_particles_tsconfig_node_compileroptions_nounusedlocals",
-      "image_to_particles_tsconfig_node_compileroptions_nounusedparameters",
-      "image_to_particles_tsconfig_node_compileroptions_skiplibcheck",
-      "image_to_particles_tsconfig_node_compileroptions_target",
-      "image_to_particles_tsconfig_node_compileroptions_tsbuildinfofile",
-      "image_to_particles_tsconfig_node_compileroptions_types",
-      "image_to_particles_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "image_to_particles_tsconfig_node_include",
-      "packages_image_to_particles_tsconfig_node_json"
-    ],
-    "32": [
-      "packages_palette_generator_tsconfig_node_json",
-      "palette_generator_tsconfig_node_compileroptions",
-      "palette_generator_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "palette_generator_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "palette_generator_tsconfig_node_compileroptions_lib",
-      "palette_generator_tsconfig_node_compileroptions_module",
-      "palette_generator_tsconfig_node_compileroptions_moduledetection",
-      "palette_generator_tsconfig_node_compileroptions_moduleresolution",
-      "palette_generator_tsconfig_node_compileroptions_noemit",
-      "palette_generator_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "palette_generator_tsconfig_node_compileroptions_nounusedlocals",
-      "palette_generator_tsconfig_node_compileroptions_nounusedparameters",
-      "palette_generator_tsconfig_node_compileroptions_skiplibcheck",
-      "palette_generator_tsconfig_node_compileroptions_target",
-      "palette_generator_tsconfig_node_compileroptions_tsbuildinfofile",
-      "palette_generator_tsconfig_node_compileroptions_types",
-      "palette_generator_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "palette_generator_tsconfig_node_include"
-    ],
-    "33": [
-      "badge_badge_badge",
-      "badge_badge_badgeprops",
-      "badge_badgevariants_badgevariant",
-      "badge_badgevariants_badgevariants",
-      "label_label_label",
-      "label_label_labelprops",
-      "label_labelvariants_labelvariants",
-      "packages_ui_src_components_badge_badge_tsx",
-      "packages_ui_src_components_badge_badgevariants_ts",
-      "packages_ui_src_components_label_label_tsx",
-      "packages_ui_src_components_label_labelvariants_ts",
-      "packages_ui_src_components_slider_slider_tsx",
-      "packages_ui_src_components_slider_slidervariants_ts",
-      "packages_ui_src_index_ts",
-      "sidebar_sidebar_sidebarprops",
-      "slider_slider_slider",
-      "slider_slider_sliderprops",
-      "slider_slidervariants_slidervariants"
-    ],
-    "34": [
-      "packages_sequence_renderer_tsconfig_node_json",
-      "sequence_renderer_tsconfig_node_compileroptions",
-      "sequence_renderer_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "sequence_renderer_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "sequence_renderer_tsconfig_node_compileroptions_lib",
-      "sequence_renderer_tsconfig_node_compileroptions_module",
-      "sequence_renderer_tsconfig_node_compileroptions_moduledetection",
-      "sequence_renderer_tsconfig_node_compileroptions_moduleresolution",
-      "sequence_renderer_tsconfig_node_compileroptions_noemit",
-      "sequence_renderer_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "sequence_renderer_tsconfig_node_compileroptions_nounusedlocals",
-      "sequence_renderer_tsconfig_node_compileroptions_nounusedparameters",
-      "sequence_renderer_tsconfig_node_compileroptions_skiplibcheck",
-      "sequence_renderer_tsconfig_node_compileroptions_target",
-      "sequence_renderer_tsconfig_node_compileroptions_tsbuildinfofile",
-      "sequence_renderer_tsconfig_node_compileroptions_types",
-      "sequence_renderer_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "sequence_renderer_tsconfig_node_include"
-    ],
-    "35": [
-      "apps_storybook_tsconfig_node_json",
-      "storybook_tsconfig_node_compileroptions",
-      "storybook_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "storybook_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "storybook_tsconfig_node_compileroptions_lib",
-      "storybook_tsconfig_node_compileroptions_module",
-      "storybook_tsconfig_node_compileroptions_moduledetection",
-      "storybook_tsconfig_node_compileroptions_moduleresolution",
-      "storybook_tsconfig_node_compileroptions_noemit",
-      "storybook_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "storybook_tsconfig_node_compileroptions_nounusedlocals",
-      "storybook_tsconfig_node_compileroptions_nounusedparameters",
-      "storybook_tsconfig_node_compileroptions_skiplibcheck",
-      "storybook_tsconfig_node_compileroptions_target",
-      "storybook_tsconfig_node_compileroptions_tsbuildinfofile",
-      "storybook_tsconfig_node_compileroptions_types",
-      "storybook_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "storybook_tsconfig_node_include"
-    ],
-    "36": [
-      "packages_ui_tsconfig_node_json",
-      "ui_tsconfig_node_compileroptions",
-      "ui_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "ui_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "ui_tsconfig_node_compileroptions_lib",
-      "ui_tsconfig_node_compileroptions_module",
-      "ui_tsconfig_node_compileroptions_moduledetection",
-      "ui_tsconfig_node_compileroptions_moduleresolution",
-      "ui_tsconfig_node_compileroptions_noemit",
-      "ui_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "ui_tsconfig_node_compileroptions_nounusedlocals",
-      "ui_tsconfig_node_compileroptions_nounusedparameters",
-      "ui_tsconfig_node_compileroptions_skiplibcheck",
-      "ui_tsconfig_node_compileroptions_target",
-      "ui_tsconfig_node_compileroptions_tsbuildinfofile",
-      "ui_tsconfig_node_compileroptions_types",
-      "ui_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "ui_tsconfig_node_include"
-    ],
-    "37": [
-      "core_config_initial_velocity",
-      "core_config_particle_size",
-      "core_utils_calculateimagedimensions",
-      "core_utils_drawimagetocanvas",
-      "core_utils_imagedimensions",
-      "core_utils_initparticles",
-      "core_utils_particle",
-      "hooks_use_image_upload_useimageupload",
-      "packages_image_to_particles_src_app_tsx",
-      "packages_image_to_particles_src_app_tsx_src_app_app",
-      "packages_image_to_particles_src_core_config_ts",
-      "packages_image_to_particles_src_core_utils_ts",
-      "packages_image_to_particles_src_hooks_use_image_upload_ts",
-      "packages_image_to_particles_src_index_tsx",
-      "packages_image_to_particles_src_main_tsx",
-      "src_index_imagetoparticles",
-      "src_index_particle"
-    ],
-    "38": [
-      "adding_components_guide",
+    "14": [
       "adding_projects_guide",
       "collatz_rule",
-      "cva_variant_framework",
-      "doc_card_component",
-      "doc_nav_component",
       "engines_documentation",
       "fibonacci_rule",
       "monorepo_architecture",
@@ -1204,121 +389,51 @@
       "triangular_rule",
       "zustand_state_management"
     ],
-    "39": [
-      "apps_playground_src_layouts_base_layout_astro",
-      "apps_playground_src_layouts_footer_astro",
-      "apps_playground_src_pages_404_astro",
-      "apps_playground_src_pages_notebook_slug_astro",
-      "astro_assets",
-      "layouts_base_layout_canonicalurl",
-      "layouts_base_layout_if",
-      "layouts_base_layout_initialtheme",
-      "layouts_base_layout_observer",
-      "layouts_footer",
-      "layouts_footer_credits",
-      "notebook_slug_date",
-      "notebook_slug_formateddate",
-      "notebook_slug_getstaticpaths",
-      "notebook_slug_options",
-      "workspaces_playground_apps_playground_src_styles_styles_css"
+    "15": [
+      "card_stories_file",
+      "card_story_accent",
+      "card_story_ghost",
+      "card_story_muted",
+      "card_story_outline",
+      "card_story_primary",
+      "card_story_secondary",
+      "component_card",
+      "component_cardcontent",
+      "component_carddescription",
+      "component_cardfooter",
+      "component_cardheader",
+      "component_cardtitle"
     ],
-    "40": [
-      "apps_storybook_src_stories_input_input_stories_tsx",
-      "input_input_stories_accent",
-      "input_input_stories_destructive",
-      "input_input_stories_disabled",
-      "input_input_stories_ghost",
-      "input_input_stories_globeicon",
-      "input_input_stories_loading",
-      "input_input_stories_mailicon",
-      "input_input_stories_meta",
-      "input_input_stories_outline",
-      "input_input_stories_password",
-      "input_input_stories_primary",
-      "input_input_stories_secondary",
-      "input_input_stories_story",
-      "input_input_stories_withendicon",
-      "input_input_stories_withstarticon"
+    "16": [
+      "component_input",
+      "input_stories_file",
+      "input_story_accent",
+      "input_story_destructive",
+      "input_story_disabled",
+      "input_story_endicon",
+      "input_story_ghost",
+      "input_story_loading",
+      "input_story_outline",
+      "input_story_password",
+      "input_story_primary",
+      "input_story_secondary",
+      "input_story_starticon"
     ],
-    "41": [
-      "packages_ui_src_components_widgets_sidebar_sidebar_tsx",
-      "packages_ui_src_components_widgets_sidebar_sidebarcontext_tsx",
-      "packages_ui_src_components_widgets_sidebar_sidebarmain_tsx",
-      "packages_ui_src_components_widgets_sidebar_sidebarpanel_tsx",
-      "packages_ui_src_components_widgets_sidebar_sidebartoggle_tsx",
-      "packages_ui_src_components_widgets_sidebar_sidebarvariants_ts",
-      "packages_ui_src_components_widgets_sidebar_usesidebarcontext_ts",
-      "packages_ui_src_utils_cn_ts",
-      "sidebar_sidebar_sidebar",
-      "sidebar_sidebarcontext_sidebarcontext",
-      "sidebar_sidebarcontext_sidebarcontextvalue",
-      "sidebar_sidebarmain_sidebarmain",
-      "sidebar_sidebarpanel_sidebarpanel",
-      "sidebar_sidebartoggle_sidebartoggle",
-      "sidebar_sidebarvariants_sidebarvariants",
-      "sidebar_usesidebarcontext_usesidebarcontext"
+    "17": [
+      "callout",
+      "emergence-of-complexity",
+      "figure",
+      "hero",
+      "resizecanvas",
+      "svgnode",
+      "thenestedsets",
+      "therationals",
+      "therotationcycle",
+      "thesuccessor",
+      "thetransgression",
+      "thezero"
     ],
-    "42": [
-      "devcontainer_devcontainer_appports",
-      "devcontainer_devcontainer_build",
-      "devcontainer_devcontainer_build_context",
-      "devcontainer_devcontainer_build_dockerfile",
-      "devcontainer_devcontainer_containername",
-      "devcontainer_devcontainer_containeruser",
-      "devcontainer_devcontainer_forwardports",
-      "devcontainer_devcontainer_initializecommand",
-      "devcontainer_devcontainer_json",
-      "devcontainer_devcontainer_mounts",
-      "devcontainer_devcontainer_name",
-      "devcontainer_devcontainer_postcreatecommand",
-      "devcontainer_devcontainer_poststartcommand",
-      "devcontainer_devcontainer_remoteuser",
-      "devcontainer_devcontainer_runargs"
-    ],
-    "43": [
-      "apps_playground_src_components_data_viz_piechart_piechart_ts",
-      "piechart_piechart_piechart",
-      "piechart_piechart_piechart_connectedcallback",
-      "piechart_piechart_piechart_constructor",
-      "piechart_piechart_piechart_draw",
-      "piechart_piechart_piechart_handlepathhover",
-      "piechart_piechart_piechart_handlepathout",
-      "piechart_piechart_piechart_positionlabel",
-      "piechart_piechart_point",
-      "piechart_piechart_point_constructor",
-      "piechart_piechart_point_fromangle",
-      "piechart_piechart_point_tosvgpath",
-      "piechart_piechart_strtodom"
-    ],
-    "44": [
-      "apps_playground_src_components_ui_docs_featured_docs_astro",
-      "apps_playground_src_components_ui_features_section_header_astro",
-      "apps_playground_src_components_ui_features_stats_astro",
-      "apps_playground_src_components_ui_projects_featured_projects_astro",
-      "apps_playground_src_components_ui_section_header_index_astro",
-      "apps_playground_src_pages_index_astro",
-      "data_docs_getfeatureddocs",
-      "data_projects_getfeaturedprojects",
-      "lucide_react",
-      "pages_index_featuredprojects",
-      "pages_index_githubroute",
-      "projects_featured_projects_featuredprojects"
-    ],
-    "45": [
-      "apps_storybook_src_stories_widgets_color_palette_stories_tsx",
-      "colorpalette_colorpalette_colorpalette",
-      "colorpalette_colorpalette_colorpaletteprops",
-      "colorpalette_colorpalettevariants_colorpalettevariants",
-      "packages_ui_src_components_widgets_colorpalette_colorpalette_tsx",
-      "packages_ui_src_components_widgets_colorpalette_colorpalettevariants_ts",
-      "widgets_color_palette_stories_accentlarge",
-      "widgets_color_palette_stories_meta",
-      "widgets_color_palette_stories_primaryhorizontal",
-      "widgets_color_palette_stories_secondaryvertical",
-      "widgets_color_palette_stories_smallcompact",
-      "widgets_color_palette_stories_story"
-    ],
-    "46": [
+    "18": [
       "CanvasUtils",
       "CommonAnimationsCSS",
       "DivisionVisual",
@@ -1331,115 +446,54 @@
       "TheOneVisual",
       "ZeroVisual"
     ],
-    "47": [
-      "palette_generator_App",
-      "palette_generator_ColorSpaceCanvas",
-      "palette_generator_ColorSpaceControls",
-      "palette_generator_Controls",
-      "palette_generator_Display",
-      "palette_generator_PaletteGenerator",
-      "palette_generator_analogous_rule",
-      "palette_generator_colorSpaces",
-      "palette_generator_complementary_rule",
-      "palette_generator_generatePalette",
-      "palette_generator_rules_index"
+    "19": [
+      "addon_themes",
+      "gruvbox_theme",
+      "repo_storybook",
+      "storybook_dark_theme",
+      "storybook_index_html",
+      "storybook_live_url",
+      "storybook_manager_config",
+      "storybook_preview_config",
+      "storybook_readme",
+      "storybook_styles_css",
+      "storybook_vitest_shims"
     ],
-    "48": [
-      "devcontainer_config",
-      "gitlab_ci_pipeline",
-      "image_to_particles_engine",
-      "mosaic_maker_engine",
-      "palette_generator_engine",
-      "playground_monorepo",
-      "pnpm_filter_convention",
-      "pnpm_workspace_layout",
-      "sequence_renderer_engine",
-      "tech_stack",
-      "turborepo_build_system"
+    "20": [
+      "apps_playground_src_components_ui_docs_featured_docs_astro",
+      "apps_playground_src_components_ui_features_section_header_astro",
+      "apps_playground_src_components_ui_features_stats_astro",
+      "apps_playground_src_components_ui_projects_featured_projects_astro",
+      "apps_playground_src_pages_docs_slug_astro",
+      "apps_playground_src_pages_index_astro",
+      "astro_content",
+      "docs_slug_getstaticpaths",
+      "lucide_react",
+      "projects_featured_projects_featuredprojects"
     ],
-    "49": [
-      "apps_storybook_src_stories_slider_slider_stories_tsx",
-      "slider_slider_stories_accent",
-      "slider_slider_stories_destructive",
-      "slider_slider_stories_disabled",
-      "slider_slider_stories_horizontal",
-      "slider_slider_stories_interactiveslider",
-      "slider_slider_stories_meta",
-      "slider_slider_stories_primary",
-      "slider_slider_stories_secondary",
-      "slider_slider_stories_sliderstoryprops",
-      "slider_slider_stories_story"
+    "21": [
+      "apps_playground_src_layouts_footer_astro",
+      "apps_playground_src_pages_404_astro",
+      "apps_playground_src_pages_notebook_slug_astro",
+      "layouts_footer",
+      "layouts_footer_credits",
+      "notebook_slug_date",
+      "notebook_slug_formateddate",
+      "notebook_slug_getstaticpaths",
+      "notebook_slug_options"
     ],
-    "50": [
-      "apps_storybook_src_stories_select_select_stories_tsx",
-      "select_select_stories_accent",
-      "select_select_stories_destructive",
-      "select_select_stories_disabled",
-      "select_select_stories_ghost",
-      "select_select_stories_meta",
-      "select_select_stories_outline",
-      "select_select_stories_primary",
-      "select_select_stories_secondary",
-      "select_select_stories_story"
+    "22": [
+      "clean_CONFIRM_TOKEN",
+      "clean_child_process",
+      "clean_pnpm",
+      "clean_process",
+      "clean_readline",
+      "clean_run",
+      "clean_script",
+      "clean_spawnSync",
+      "clean_turbo"
     ],
-    "51": [
-      "apps_storybook_src_stories_button_button_stories_tsx",
-      "button_button_stories_accent",
-      "button_button_stories_destructive",
-      "button_button_stories_ghost",
-      "button_button_stories_loading",
-      "button_button_stories_meta",
-      "button_button_stories_outline",
-      "button_button_stories_primary",
-      "button_button_stories_secondary",
-      "button_button_stories_story"
-    ],
-    "52": [
-      "colorpalette_ColorPalette",
-      "colorpalette_colorPaletteVariants",
-      "sidebar_Sidebar",
-      "sidebar_SidebarContext",
-      "sidebar_SidebarMain",
-      "sidebar_SidebarPanel",
-      "sidebar_SidebarToggle",
-      "sidebar_sidebarVariants",
-      "sidebar_useSidebarContext",
-      "utils_cn"
-    ],
-    "53": [
-      "apps_storybook_src_stories_label_label_stories_tsx",
-      "label_label_stories_accent",
-      "label_label_stories_destructive",
-      "label_label_stories_ghost",
-      "label_label_stories_meta",
-      "label_label_stories_outline",
-      "label_label_stories_primary",
-      "label_label_stories_secondary",
-      "label_label_stories_story"
-    ],
-    "54": [
-      "base_layout",
-      "docs_data_layer",
-      "docs_layout",
-      "header_layout",
-      "import_export_strategy",
-      "project_category_types",
-      "projects_data_layer",
-      "tag_metadata",
-      "ui_components_reference"
-    ],
-    "55": [
-      "mosaic_maker_MosaicDisplay",
-      "mosaic_maker_SliderControls",
-      "mosaic_maker_Tile",
-      "mosaic_maker_TileRegistry",
-      "mosaic_maker_TileSetControls",
-      "mosaic_maker_config",
-      "mosaic_maker_fetchPalettes",
-      "mosaic_maker_style_utils",
-      "mosaic_maker_useMosaicStore"
-    ],
-    "56": [
+    "23": [
       "cardano_bombelli",
       "emergence_complexite_notebook",
       "eulers_identity",
@@ -1450,81 +504,39 @@
       "reversal_question",
       "text_svg"
     ],
-    "57": [
-      "apps_storybook_src_stories_switch_switch_stories_tsx",
-      "switch_switch_stories_accent",
-      "switch_switch_stories_destructive",
-      "switch_switch_stories_disabled",
-      "switch_switch_stories_interactiveswitch",
-      "switch_switch_stories_meta",
-      "switch_switch_stories_primary",
-      "switch_switch_stories_secondary",
-      "switch_switch_stories_story"
+    "24": [
+      "core_rules_collatzrule",
+      "core_rules_fibonaccirule",
+      "core_rules_nextstepparams",
+      "core_rules_primesrule",
+      "core_rules_recamanrule",
+      "core_rules_sequencerule",
+      "core_rules_sequencesrule",
+      "core_rules_triangularrule",
+      "packages_sequence_renderer_src_core_rules_ts"
     ],
-    "58": [
-      "ui_App",
-      "ui_Badge",
-      "ui_BadgeVariants",
-      "ui_Button",
-      "ui_ButtonVariants",
-      "ui_Card",
-      "ui_CardVariants",
-      "ui_Main",
-      "ui_PublicAPI"
+    "25": [
+      "button_stories_file",
+      "button_story_accent",
+      "button_story_destructive",
+      "button_story_ghost",
+      "button_story_loading",
+      "button_story_outline",
+      "button_story_primary",
+      "button_story_secondary",
+      "component_button"
     ],
-    "59": [
-      "ui_package_exports",
-      "ui_package_exports_blade_runner_theme",
-      "ui_package_exports_candy_coated_theme",
-      "ui_package_exports_gruvbox_theme",
-      "ui_package_exports_pale_asylum_theme",
-      "ui_package_exports_vintage_theme",
-      "ui_package_import",
-      "ui_package_require",
-      "ui_package_types"
+    "26": [
+      "CSS_VARS",
+      "computeDimension",
+      "computeGap",
+      "computeNumberOfTiles",
+      "computeTileHeight",
+      "computeTileWidth",
+      "getComputedPropertyValue",
+      "parseNumericValue"
     ],
-    "60": [
-      "ui_package_scripts",
-      "ui_package_scripts_build",
-      "ui_package_scripts_check_types",
-      "ui_package_scripts_clean",
-      "ui_package_scripts_dev",
-      "ui_package_scripts_format",
-      "ui_package_scripts_lint",
-      "ui_package_scripts_lint_fix",
-      "ui_package_scripts_preview"
-    ],
-    "61": [
-      "graph_viz_canvas",
-      "graph_viz_constants",
-      "graph_viz_detail_panel",
-      "graph_viz_legend",
-      "graph_viz_loading_overlay",
-      "graph_viz_main",
-      "graph_viz_root",
-      "graph_viz_top_bar"
-    ],
-    "62": [
-      "apps_storybook_src_stories_widgets_sidebar_stories_tsx",
-      "widgets_sidebar_stories_accentbottom",
-      "widgets_sidebar_stories_meta",
-      "widgets_sidebar_stories_normalleft",
-      "widgets_sidebar_stories_primaryright",
-      "widgets_sidebar_stories_secondarytop",
-      "widgets_sidebar_stories_sidebartemplate",
-      "widgets_sidebar_stories_story"
-    ],
-    "63": [
-      "button_button_button",
-      "button_button_buttonprops",
-      "button_buttonvariants_buttonvariants",
-      "packages_ui_src_app_tsx",
-      "packages_ui_src_app_tsx_src_app_app",
-      "packages_ui_src_components_button_button_tsx",
-      "packages_ui_src_components_button_buttonvariants_ts",
-      "packages_ui_src_main_tsx"
-    ],
-    "64": [
+    "27": [
       "apps_playground_src_layouts_navbar_astro",
       "layouts_navbar",
       "layouts_navbar_active",
@@ -1533,1027 +545,454 @@
       "layouts_navbar_isactive",
       "layouts_navbar_setupinteractions"
     ],
-    "65": [
-      "bluesky_icon_pg",
-      "discord_icon_pg",
-      "documentation_icon_pg",
-      "github_icon_pg",
-      "palette_generator_icons_svg",
-      "social_icon_pg",
-      "x_icon_pg"
+    "28": [
+      "addon_storybook_test",
+      "plugin_tailwindcss_vite",
+      "plugin_vite_react",
+      "provider_playwright",
+      "storybook_playwright",
+      "storybook_vite_config",
+      "storybook_vitest"
     ],
-    "66": [
-      "devcontainer_scripts_lib_common_sh",
-      "lib_common_log",
-      "lib_common_ok",
-      "lib_common_print_ready_banner",
-      "lib_common_require_boffin_user",
-      "lib_common_warn",
-      "workspaces_playground_devcontainer_scripts_lib_common_sh__entry"
+    "29": [
+      "exponentiation",
+      "linear_log_growth",
+      "logarithm_concept",
+      "the_exponent",
+      "the_growth",
+      "the_logarithm"
     ],
-    "67": [
-      "graphviz_bluesky_icon",
-      "graphviz_discord_icon",
-      "graphviz_documentation_icon",
-      "graphviz_github_icon",
-      "graphviz_icons_sprite",
-      "graphviz_social_icon",
-      "graphviz_x_icon"
+    "30": [
+      "addon_a11y",
+      "addon_chromatic",
+      "addon_docs",
+      "framework_storybook_react_vite",
+      "storybook_main_config"
     ],
-    "68": [
-      "bluesky_icon_symbol",
-      "discord_icon_symbol",
-      "documentation_icon_symbol",
-      "github_icon_symbol",
-      "icons_sprite_sheet",
-      "social_icon_symbol",
-      "x_twitter_icon_symbol"
+    "31": [
+      "node_types",
+      "storybook_tsconfig",
+      "storybook_tsconfig_app",
+      "storybook_tsconfig_node",
+      "vite_client_types"
     ],
-    "69": [
-      "icons_svg",
-      "icons_svg_bluesky",
-      "icons_svg_discord",
-      "icons_svg_documentation",
-      "icons_svg_github",
-      "icons_svg_social",
-      "icons_svg_x"
-    ],
-    "70": [
-      "imagetoparticles_bluesky_icon",
-      "imagetoparticles_discord_icon",
-      "imagetoparticles_documentation_icon",
-      "imagetoparticles_github_icon",
-      "imagetoparticles_icons_sprite",
-      "imagetoparticles_social_icon",
-      "imagetoparticles_x_icon"
-    ],
-    "71": [
-      "apps_playground_tsconfig_json",
-      "playground_tsconfig_compileroptions",
-      "playground_tsconfig_compileroptions_jsx",
-      "playground_tsconfig_compileroptions_jsximportsource",
-      "playground_tsconfig_exclude",
-      "playground_tsconfig_extends",
-      "playground_tsconfig_include"
-    ],
-    "72": [
-      "sequence_renderer_App",
-      "sequence_renderer_CanvasRenderer",
-      "sequence_renderer_Controls",
-      "sequence_renderer_LibraryEntry",
-      "sequence_renderer_Main",
-      "sequence_renderer_SequenceDisplay",
-      "sequence_renderer_SequenceSelector"
-    ],
-    "73": [
-      "generator_GenerateSequence",
-      "math_FindBiggestInterval",
-      "recaman_arcs_RecamanArcs",
-      "rules_RecamanRule",
-      "rules_SequenceRuleType",
-      "sequence_store_UseSequenceStore",
-      "visualizations_Registry"
-    ],
-    "74": [
-      "bluesky_icon_ui",
-      "discord_icon_ui",
-      "documentation_icon_ui",
-      "github_icon_ui",
-      "social_icon_ui",
-      "ui_icons_svg",
-      "x_icon_ui"
-    ],
-    "75": [
-      "ui_package_dependencies",
-      "ui_package_dependencies_class_variance_authority",
-      "ui_package_dependencies_clsx",
-      "ui_package_dependencies_lucide_react",
-      "ui_package_dependencies_react",
-      "ui_package_dependencies_react_dom",
-      "ui_package_dependencies_tailwind_merge"
-    ],
-    "76": [
-      "BaseCard",
-      "DocCard",
-      "ExperimentCard",
-      "FeaturedDocs",
-      "FeaturedProjects",
-      "SectionHeader"
-    ],
-    "77": [
-      "home_page_featured_docs",
-      "home_page_featured_projects",
-      "page_404",
-      "page_index",
-      "page_robots_txt",
-      "remark_base_url_plugin"
-    ],
-    "78": [
-      "packages_ui_src_components_switch_switch_tsx",
-      "packages_ui_src_components_switch_switchvariants_ts",
-      "switch_switch_switch",
-      "switch_switch_switchprops",
-      "switch_switchvariants_switchthumbvariants",
-      "switch_switchvariants_switchvariants"
-    ],
-    "79": [
-      "collatz_Sequence",
-      "fibonacci_Sequence",
-      "primes_Sequence",
-      "recaman_Sequence",
-      "sequence_renderer_Documentation",
-      "triangular_Sequence"
-    ],
-    "80": [
-      "graph_viz_turbo_check_types_dependson",
-      "graph_viz_turbo_extends",
-      "graph_viz_turbo_tasks",
-      "graph_viz_turbo_tasks_check_types",
-      "packages_graph_viz_turbo_json"
-    ],
-    "81": [
-      "image_to_particles_turbo_check_types_dependson",
-      "image_to_particles_turbo_extends",
-      "image_to_particles_turbo_tasks",
-      "image_to_particles_turbo_tasks_check_types",
-      "packages_image_to_particles_turbo_json"
-    ],
-    "82": [
-      "mosaic_maker_turbo_check_types_dependson",
-      "mosaic_maker_turbo_extends",
-      "mosaic_maker_turbo_tasks",
-      "mosaic_maker_turbo_tasks_check_types",
-      "packages_mosaic_maker_turbo_json"
-    ],
-    "83": [
-      "packages_palette_generator_turbo_json",
-      "palette_generator_turbo_check_types_dependson",
-      "palette_generator_turbo_extends",
-      "palette_generator_turbo_tasks",
-      "palette_generator_turbo_tasks_check_types"
-    ],
-    "84": [
-      "astro_config",
-      "eslint_astro_config",
-      "playground_package",
-      "react_framework",
-      "tailwind_css"
-    ],
-    "85": [
-      "input_input_input",
-      "input_input_inputprops",
-      "input_inputvariants_inputvariants",
-      "packages_ui_src_components_input_input_tsx",
-      "packages_ui_src_components_input_inputvariants_ts"
-    ],
-    "86": [
-      "packages_ui_src_components_select_select_tsx",
-      "packages_ui_src_components_select_selectvariants_ts",
-      "select_select_select",
-      "select_select_selectprops",
-      "select_selectvariants_selectvariants"
-    ],
-    "87": [
-      "packages_mosaic_maker_src_app_tsx",
-      "packages_mosaic_maker_src_app_tsx_src_app_app",
-      "packages_mosaic_maker_src_index_tsx",
-      "packages_mosaic_maker_src_main_tsx",
-      "src_index_mosaicmaker"
-    ],
-    "88": [
-      "favicon_color_dark_purple",
-      "favicon_color_magenta",
-      "favicon_color_orange",
-      "favicon_color_red",
-      "sequence_renderer_favicon_svg"
-    ],
-    "89": [
-      "packages_sequence_renderer_turbo_json",
-      "sequence_renderer_turbo_build_dependson",
-      "sequence_renderer_turbo_extends",
-      "sequence_renderer_turbo_tasks",
-      "sequence_renderer_turbo_tasks_build"
-    ],
-    "90": [
-      "packages_ui_package_json",
-      "ui_package_name",
-      "ui_package_private",
-      "ui_package_type",
-      "ui_package_version"
-    ],
-    "91": [
-      "apps_playground_astro_config_mjs",
-      "apps_playground_src_lib_remark_base_url_mjs",
-      "lib_remark_base_url_remarkbaseurl",
-      "playground_astro_config_isvercel"
-    ],
-    "92": [
+    "32": [
       "emergence-complexite_the-masterpiece",
       "emergence-complexite_the-naturals",
       "emergence-complexite_the-nested-sets-diagram",
       "emergence-complexite_the-rationals"
     ],
-    "93": [
-      "navbar_brand",
-      "navbar_component",
-      "navbar_link",
-      "theme_toggle"
+    "33": [
+      "getRandom",
+      "getRandomValue",
+      "shuffleArray",
+      "shuffleObject"
     ],
-    "94": [
-      "color_projects_page",
-      "dataviz_projects_page",
-      "generative_projects_page",
-      "projects_index_page"
+    "34": [
+      "Palette",
+      "arePalettesEqual",
+      "getPaletteId"
     ],
-    "95": [
-      "devcontainer_scripts_steps_01_ssh_sh",
-      "steps_01_ssh_add_missing_keys",
-      "steps_01_ssh_step_ssh_setup",
-      "workspaces_playground_devcontainer_scripts_steps_01_ssh_sh__entry"
-    ],
-    "96": [
-      "apps_playground_src_content_notebook_emergence_complexite_the_masterpiece_astro",
-      "emergence_complexite_the_masterpiece_arrows",
-      "emergence_complexite_the_masterpiece_chips"
-    ],
-    "97": [
-      "apps_playground_src_pages_robots_txt_ts",
-      "pages_robots_txt_get",
-      "pages_robots_txt_getrobotstxt"
-    ],
-    "98": [
-      "apps_storybook_storybook_main_ts",
-      "storybook_main_config",
-      "storybook_main_getabsolutepath"
-    ],
-    "99": [
-      "apps_storybook_tsconfig_json",
-      "storybook_tsconfig_files",
-      "storybook_tsconfig_references"
-    ],
-    "100": [
-      "background_gradient_svg",
-      "linear_gradient_a",
-      "linear_gradient_b"
-    ],
-    "101": [
-      "devcontainer_scripts_steps_02_zsh_sh",
-      "steps_02_zsh_step_zsh_setup",
-      "workspaces_playground_devcontainer_scripts_steps_02_zsh_sh__entry"
-    ],
-    "102": [
-      "devcontainer_scripts_steps_03_python_sh",
-      "steps_03_python_step_python_setup",
-      "workspaces_playground_devcontainer_scripts_steps_03_python_sh__entry"
-    ],
-    "103": [
-      "devcontainer_scripts_steps_04_node_sh",
-      "steps_04_node_step_node_setup",
-      "workspaces_playground_devcontainer_scripts_steps_04_node_sh__entry"
-    ],
-    "104": [
-      "devcontainer_scripts_steps_05_git_sh",
-      "steps_05_git_step_git_setup",
-      "workspaces_playground_devcontainer_scripts_steps_05_git_sh__entry"
-    ],
-    "105": [
-      "devcontainer_scripts_steps_06_quality_sh",
-      "steps_06_quality_step_quality_setup",
-      "workspaces_playground_devcontainer_scripts_steps_06_quality_sh__entry"
-    ],
-    "106": [
-      "doc_slug_page",
-      "docs_index_page",
-      "piechart_project_page"
-    ],
-    "107": [
-      "emergence-complexite_the-exponentiation",
-      "emergence-complexite_the-linear-vs-logarithmic-growth",
-      "emergence-complexite_the-logarithm"
-    ],
-    "108": [
-      "emergence-complexite_the-complex-plane",
-      "emergence-complexite_the-imaginary-unit",
-      "emergence-complexite_the-transgression"
-    ],
-    "109": [
-      "devcontainer_node_setup",
-      "fnm_node_manager",
-      "pnpm_package_manager"
-    ],
-    "110": [
-      "monochromatic_Rule",
-      "triadic_Rule",
-      "types_Rule"
-    ],
-    "111": [
-      "mosaic_maker_Controls",
-      "mosaic_maker_MosaicMaker",
-      "mosaic_maker_package"
-    ],
-    "112": [
-      "graph_viz_tsconfig_files",
-      "graph_viz_tsconfig_references",
-      "packages_graph_viz_tsconfig_json"
-    ],
-    "113": [
-      "image_to_particles_tsconfig_files",
-      "image_to_particles_tsconfig_references",
-      "packages_image_to_particles_tsconfig_json"
-    ],
-    "114": [
-      "mosaic_maker_tsconfig_files",
-      "mosaic_maker_tsconfig_references",
-      "packages_mosaic_maker_tsconfig_json"
-    ],
-    "115": [
-      "packages_sequence_renderer_tsconfig_json",
-      "sequence_renderer_tsconfig_files",
-      "sequence_renderer_tsconfig_references"
-    ],
-    "116": [
-      "packages_ui_tsconfig_json",
-      "ui_tsconfig_files",
-      "ui_tsconfig_references"
-    ],
-    "117": [
-      "packages_palette_generator_tsconfig_json",
-      "palette_generator_tsconfig_files",
-      "palette_generator_tsconfig_references"
-    ],
-    "118": [
-      "devcontainer_python_setup",
-      "pyenv",
-      "uv_package_installer"
-    ],
-    "119": [
-      "devcontainer_scripts_setup_sh",
-      "scripts_setup_run_step",
-      "workspaces_playground_devcontainer_scripts_setup_sh__entry"
-    ],
-    "120": [
-      "ui_favicon_purple_color",
-      "ui_favicon_svg",
-      "ui_favicon_zap_shape"
-    ],
-    "121": [
+    "35": [
       "adding_visualization_guide",
       "first_visualization_tutorial",
       "visualization_interface"
     ],
-    "122": [
-      "adding_sequence_rule_guide",
-      "sequence_rule_interface"
+    "36": [
+      "emergence-complexite_the-exponentiation",
+      "emergence-complexite_the-linear-vs-logarithmic-growth",
+      "emergence-complexite_the-logarithm"
     ],
-    "123": [
+    "37": [
+      "emergence-complexite_the-complex-plane",
+      "emergence-complexite_the-imaginary-unit",
+      "emergence-complexite_the-transgression"
+    ],
+    "38": [
+      "apps_playground_src_content_notebook_emergence_complexite_the_masterpiece_astro",
+      "emergence_complexite_the_masterpiece_arrows",
+      "emergence_complexite_the_masterpiece_chips"
+    ],
+    "39": [
+      "playground_package_dependencies_tailwindcss",
+      "tailwindcss",
+      "ui_package_devdependencies_tailwindcss"
+    ],
+    "40": [
+      "tsconfig_app",
+      "tsconfig_node",
+      "tsconfig_root"
+    ],
+    "41": [
+      "adding_components_guide",
+      "cva_variant_framework"
+    ],
+    "42": [
       "data_docs",
       "data_notebook"
     ],
-    "124": [
-      "content_config",
-      "doc_schema_zod"
-    ],
-    "125": [
+    "43": [
       "emergence-complexite_StepConsequence",
       "emergence-complexite_StepQuestion"
     ],
-    "126": [
-      "favicon_playground_favicon",
-      "svg_theme_aware_path"
-    ],
-    "127": [
-      "apps_playground_src_generated_graph_ts",
-      "generated_graph_graphdata"
-    ],
-    "128": [
-      "graphviz_brand_logo",
-      "graphviz_favicon_svg"
-    ],
-    "129": [
-      "imagetoparticles_brand_logo",
-      "imagetoparticles_favicon_svg"
-    ],
-    "130": [
-      "color_ScaleTo255",
-      "maths_CreateRemap"
-    ],
-    "131": [
-      "mosaic_maker_PaletteControls",
-      "mosaic_maker_palette_utils"
-    ],
-    "132": [
-      "mosaicmaker_brand_logo",
-      "mosaicmaker_favicon_svg"
-    ],
-    "133": [
-      "piechart_demo",
-      "piechart_web_component"
-    ],
-    "134": [
-      "apps_storybook_storybook_preview_tsx",
-      "storybook_preview_preview"
-    ],
-    "135": [
-      "types_Palette",
-      "usePaletteStore_Store"
-    ],
-    "136": [
-      "gruvbox_DesignSystem",
-      "ui_Documentation"
-    ],
-    "137": [
-      "ui_Input",
-      "ui_InputVariants"
-    ],
-    "138": [
-      "ui_Label",
-      "ui_LabelVariants"
-    ],
-    "139": [
-      "ui_Select",
-      "ui_SelectVariants"
-    ],
-    "140": [
-      "ui_Slider",
-      "ui_SliderVariants"
-    ],
-    "141": [
-      "ui_Switch",
-      "ui_SwitchVariants"
-    ],
-    "142": [
-      "apps_playground_eslint_config_js"
-    ],
-    "143": [
-      "apps_playground_src_env_d_ts"
-    ],
-    "144": [
-      "apps_storybook_eslint_config_js"
-    ],
-    "145": [
-      "apps_storybook_vite_config_ts"
-    ],
-    "146": [
-      "apps_storybook_vitest_shims_d_ts"
-    ],
-    "147": [
-      "apps_storybook_storybook_manager_ts"
-    ],
-    "148": [
-      "packages_ui_vite_config_ts"
-    ],
-    "149": [
-      "packages_ui_eslint_config_js"
-    ],
-    "150": [
-      "packages_mosaic_maker_eslint_config_js"
-    ],
-    "151": [
-      "packages_mosaic_maker_vite_config_ts"
-    ],
-    "152": [
-      "packages_sequence_renderer_eslint_config_js"
-    ],
-    "153": [
-      "packages_sequence_renderer_vite_config_ts"
-    ],
-    "154": [
-      "packages_palette_generator_eslint_config_js"
-    ],
-    "155": [
-      "packages_palette_generator_vite_config_ts"
-    ],
-    "156": [
-      "packages_image_to_particles_eslint_config_js"
-    ],
-    "157": [
-      "packages_image_to_particles_vite_config_ts"
-    ],
-    "158": [
-      "packages_graph_viz_eslint_config_js"
-    ],
-    "159": [
-      "packages_graph_viz_vite_config_ts"
-    ],
-    "160": [
-      "astro_logo_svg"
-    ],
-    "161": [
-      "favicon_storybook_favicon"
-    ],
-    "162": [
-      "hero_png"
-    ],
-    "163": [
-      "react_svg"
-    ],
-    "164": [
-      "vite_svg"
-    ],
-    "165": [
-      "favicon_svg"
-    ],
-    "166": [
-      "ssh_setup_script"
-    ],
-    "167": [
-      "zsh_setup_script"
-    ],
-    "168": [
-      "devcontainer_git_setup"
-    ],
-    "169": [
-      "devcontainer_quality_setup"
-    ],
-    "170": [
-      "tsconfig_strict"
-    ],
-    "171": [
-      "playground_readme"
-    ],
-    "172": [
-      "env_type_declarations"
-    ],
-    "173": [
-      "experiment_card_component"
-    ],
-    "174": [
-      "footer_links_component"
-    ],
-    "175": [
-      "section_header_component"
-    ],
-    "176": [
-      "generated_graph_data"
-    ],
-    "177": [
-      "mobile_menu"
-    ],
-    "178": [
-      "mobile_menu_toggle"
-    ],
-    "179": [
-      "utility_links"
-    ],
-    "180": [
-      "storybook_vite_config"
-    ],
-    "181": [
-      "graph_viz_example_graph"
-    ],
-    "182": [
-      "image_to_particles_Particle"
-    ],
-    "183": [
-      "mosaic_maker_utils"
-    ],
-    "184": [
-      "palette_generator_package"
-    ],
-    "185": [
-      "sequence_renderer_Package"
-    ],
-    "186": [
-      "rules_FibonacciRule"
-    ],
-    "187": [
-      "rules_PrimesRule"
-    ],
-    "188": [
-      "rules_TriangularRule"
-    ],
-    "189": [
-      "rules_CollatzRule"
-    ],
-    "190": [
-      "hooks_useResizeObserver"
-    ],
-    "191": [
+    "44": [
+      "graphviz_tsconfig",
+      "graphviz_tsconfig_app"
+    ],
+    "45": [
+      "paletteStore_store",
+      "palettestate_type"
+    ],
+    "46": [
+      "adding_sequence_rule_guide",
+      "sequence_rule_interface"
+    ],
+    "47": [
       "apps_playground_src_content_notebook_emergence_complexite_math_box_astro"
     ],
-    "192": [
+    "48": [
       "apps_playground_src_content_notebook_emergence_complexite_step_divider_astro"
     ],
-    "193": [
+    "49": [
       "apps_playground_src_content_notebook_emergence_complexite_the_nested_sets_diagram_astro"
     ],
-    "194": [
+    "50": [
       "apps_playground_src_content_notebook_emergence_complexite_stepquestion_astro"
     ],
-    "195": [
+    "51": [
       "apps_playground_src_content_notebook_emergence_complexite_stepconsequence_astro"
     ],
-    "196": [
+    "52": [
+      "import_export_strategy"
+    ],
+    "53": [
+      "ui_components_reference"
+    ],
+    "54": [
+      "default-og-image"
+    ],
+    "55": [
       "repo_playground"
     ],
-    "197": [
+    "56": [
       "AstroConfig"
     ],
-    "198": [
-      "ContentCollections"
-    ],
-    "199": [
-      "DocNav"
-    ],
-    "200": [
-      "Stats"
-    ],
-    "201": [
+    "57": [
       "HeroSection"
     ],
-    "202": [
+    "58": [
       "MathBox"
     ],
-    "203": [
+    "59": [
       "StepDivider"
     ],
-    "204": [
+    "60": [
       "EmergenceComplexiteNotebook"
     ],
-    "205": [
+    "61": [
       "emergence-complexite_SvgNode"
     ],
-    "206": [
+    "62": [
       "emergence-complexite_canvas-utils"
     ],
-    "207": [
+    "63": [
       "layouts_base-layout"
     ],
-    "208": [
+    "64": [
       "pages_404"
     ],
-    "209": [
+    "65": [
       "pages_index"
     ],
-    "210": [
+    "66": [
       "pages_docs_slug"
     ],
-    "211": [
+    "67": [
       "grafikart_piechart_tutorial"
     ],
-    "212": [
+    "68": [
+      "favicon_svg"
+    ],
+    "69": [
       "ui_themes"
+    ],
+    "70": [
+      "docsdata"
+    ],
+    "71": [
+      "remarkBaseUrl"
+    ],
+    "72": [
+      "getFeaturedNotes"
+    ],
+    "73": [
+      "graphviz_FT_LABEL"
+    ],
+    "74": [
+      "graphviz_eslint_config"
+    ],
+    "75": [
+      "updateElementStyles"
+    ],
+    "76": [
+      "styleUtils"
+    ],
+    "77": [
+      "palette_generator_tsconfig_node"
+    ],
+    "78": [
+      "palette_generator_turbo_json"
+    ],
+    "79": [
+      "axis_type"
+    ],
+    "80": [
+      "colorspacedef_type"
+    ],
+    "81": [
+      "colorspaceskey_type"
+    ],
+    "82": [
+      "usePaletteBaseColor_hook"
+    ],
+    "83": [
+      "setPaletteBaseColor_function"
+    ],
+    "84": [
+      "eslint_config"
     ]
   },
   "cohesion": {
-    "0": 0.05092276144907724,
-    "1": 0.06526806526806526,
-    "2": 0.07372549019607844,
-    "3": 0.043478260869565216,
-    "4": 0.043478260869565216,
-    "5": 0.043478260869565216,
-    "6": 0.044444444444444446,
-    "7": 0.044444444444444446,
-    "8": 0.08414634146341464,
-    "9": 0.05,
-    "10": 0.058029689608636977,
-    "11": 0.05873015873015873,
-    "12": 0.058823529411764705,
-    "13": 0.16344086021505377,
-    "14": 0.11375661375661375,
-    "15": 0.09057971014492754,
-    "16": 0.10952380952380952,
-    "17": 0.09523809523809523,
-    "18": 0.09523809523809523,
-    "19": 0.16842105263157894,
-    "20": 0.10526315789473684,
-    "21": 0.10526315789473684,
-    "22": 0.10526315789473684,
-    "23": 0.10526315789473684,
-    "24": 0.10526315789473684,
-    "25": 0.10526315789473684,
-    "26": 0.10526315789473684,
-    "27": 0.10526315789473684,
-    "28": 0.16339869281045752,
-    "29": 0.1111111111111111,
-    "30": 0.1111111111111111,
-    "31": 0.1111111111111111,
-    "32": 0.1111111111111111,
-    "33": 0.2222222222222222,
-    "34": 0.1111111111111111,
-    "35": 0.1111111111111111,
-    "36": 0.1111111111111111,
-    "37": 0.21323529411764705,
-    "38": 0.13970588235294118,
-    "39": 0.14166666666666666,
-    "40": 0.125,
-    "41": 0.2833333333333333,
-    "42": 0.13333333333333333,
-    "43": 0.1794871794871795,
-    "44": 0.25757575757575757,
-    "45": 0.19696969696969696,
-    "46": 0.38181818181818183,
-    "47": 0.2545454545454545,
-    "48": 0.18181818181818182,
-    "49": 0.18181818181818182,
-    "50": 0.2,
-    "51": 0.2,
-    "52": 0.24444444444444444,
-    "53": 0.2222222222222222,
-    "54": 0.2222222222222222,
-    "55": 0.2222222222222222,
-    "56": 0.3333333333333333,
-    "57": 0.2222222222222222,
-    "58": 0.2222222222222222,
-    "59": 0.2222222222222222,
-    "60": 0.2222222222222222,
-    "61": 0.32142857142857145,
-    "62": 0.25,
-    "63": 0.35714285714285715,
-    "64": 0.2857142857142857,
-    "65": 0.2857142857142857,
-    "66": 0.2857142857142857,
-    "67": 0.2857142857142857,
-    "68": 0.2857142857142857,
-    "69": 0.2857142857142857,
-    "70": 0.2857142857142857,
-    "71": 0.2857142857142857,
-    "72": 0.2857142857142857,
-    "73": 0.2857142857142857,
-    "74": 0.2857142857142857,
-    "75": 0.2857142857142857,
-    "76": 0.4666666666666667,
-    "77": 0.3333333333333333,
-    "78": 0.6,
-    "79": 0.3333333333333333,
-    "80": 0.4,
-    "81": 0.4,
-    "82": 0.4,
-    "83": 0.4,
-    "84": 0.6,
-    "85": 0.6,
-    "86": 0.6,
-    "87": 0.5,
-    "88": 0.4,
-    "89": 0.4,
-    "90": 0.4,
-    "91": 0.6666666666666666,
-    "92": 0.6666666666666666,
-    "93": 0.5,
-    "94": 0.5,
-    "95": 0.5,
-    "96": 0.6666666666666666,
-    "97": 1.0,
-    "98": 0.6666666666666666,
-    "99": 0.6666666666666666,
-    "100": 0.6666666666666666,
-    "101": 0.6666666666666666,
-    "102": 0.6666666666666666,
-    "103": 0.6666666666666666,
-    "104": 0.6666666666666666,
-    "105": 0.6666666666666666,
-    "106": 0.6666666666666666,
-    "107": 1.0,
-    "108": 1.0,
-    "109": 0.6666666666666666,
-    "110": 1.0,
-    "111": 0.6666666666666666,
-    "112": 0.6666666666666666,
-    "113": 0.6666666666666666,
-    "114": 0.6666666666666666,
-    "115": 0.6666666666666666,
-    "116": 0.6666666666666666,
-    "117": 0.6666666666666666,
-    "118": 0.6666666666666666,
-    "119": 1.0,
-    "120": 0.6666666666666666,
-    "121": 0.6666666666666666,
-    "122": 1.0,
-    "123": 1.0,
-    "124": 1.0,
-    "125": 1.0,
-    "126": 1.0,
-    "127": 1.0,
-    "128": 1.0,
-    "129": 1.0,
-    "130": 1.0,
-    "131": 1.0,
-    "132": 1.0,
-    "133": 1.0,
-    "134": 1.0,
-    "135": 1.0,
-    "136": 1.0,
-    "137": 1.0,
-    "138": 1.0,
-    "139": 1.0,
-    "140": 1.0,
-    "141": 1.0,
-    "142": 1.0,
-    "143": 1.0,
-    "144": 1.0,
-    "145": 1.0,
-    "146": 1.0,
-    "147": 1.0,
-    "148": 1.0,
-    "149": 1.0,
-    "150": 1.0,
-    "151": 1.0,
-    "152": 1.0,
-    "153": 1.0,
-    "154": 1.0,
-    "155": 1.0,
-    "156": 1.0,
-    "157": 1.0,
-    "158": 1.0,
-    "159": 1.0,
-    "160": 1.0,
-    "161": 1.0,
-    "162": 1.0,
-    "163": 1.0,
-    "164": 1.0,
-    "165": 1.0,
-    "166": 1.0,
-    "167": 1.0,
-    "168": 1.0,
-    "169": 1.0,
-    "170": 1.0,
-    "171": 1.0,
-    "172": 1.0,
-    "173": 1.0,
-    "174": 1.0,
-    "175": 1.0,
-    "176": 1.0,
-    "177": 1.0,
-    "178": 1.0,
-    "179": 1.0,
-    "180": 1.0,
-    "181": 1.0,
-    "182": 1.0,
-    "183": 1.0,
-    "184": 1.0,
-    "185": 1.0,
-    "186": 1.0,
-    "187": 1.0,
-    "188": 1.0,
-    "189": 1.0,
-    "190": 1.0,
-    "191": 1.0,
-    "192": 1.0,
-    "193": 1.0,
-    "194": 1.0,
-    "195": 1.0,
-    "196": 1.0,
-    "197": 1.0,
-    "198": 1.0,
-    "199": 1.0,
-    "200": 1.0,
-    "201": 1.0,
-    "202": 1.0,
-    "203": 1.0,
-    "204": 1.0,
-    "205": 1.0,
-    "206": 1.0,
-    "207": 1.0,
-    "208": 1.0,
-    "209": 1.0,
-    "210": 1.0,
-    "211": 1.0,
-    "212": 1.0
+    "0": 0.06970128022759602,
+    "1": 0.1053763440860215,
+    "2": 0.06896551724137931,
+    "3": 0.06666666666666667,
+    "4": 0.1402116402116402,
+    "5": 0.11375661375661375,
+    "6": 0.11904761904761904,
+    "7": 0.07692307692307693,
+    "8": 0.08333333333333333,
+    "9": 0.09486166007905138,
+    "10": 0.22058823529411764,
+    "11": 0.1523809523809524,
+    "12": 0.18681318681318682,
+    "13": 0.17582417582417584,
+    "14": 0.1794871794871795,
+    "15": 0.15384615384615385,
+    "16": 0.15384615384615385,
+    "17": 0.24242424242424243,
+    "18": 0.38181818181818183,
+    "19": 0.23636363636363636,
+    "20": 0.28888888888888886,
+    "21": 0.2222222222222222,
+    "22": 0.2222222222222222,
+    "23": 0.3333333333333333,
+    "24": 0.2222222222222222,
+    "25": 0.2222222222222222,
+    "26": 0.42857142857142855,
+    "27": 0.2857142857142857,
+    "28": 0.2857142857142857,
+    "29": 0.4,
+    "30": 0.4,
+    "31": 0.4,
+    "32": 0.6666666666666666,
+    "33": 0.5,
+    "34": 1.0,
+    "35": 0.6666666666666666,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 0.6666666666666666,
+    "39": 0.6666666666666666,
+    "40": 0.6666666666666666,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0
   },
   "gods": [
     {
-      "id": "utils_cn_cn",
-      "label": "cn()",
-      "degree": 37
-    },
-    {
       "id": "apps_playground_src_layouts_base_layout_astro",
       "label": "../../layouts/base-layout.astro",
-      "degree": 27
+      "degree": 22
     },
     {
-      "id": "storybook_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "graphviz_graphStore",
+      "label": "graphStore",
+      "degree": 21
     },
     {
-      "id": "ui_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "graphviz_useGraphSimulation",
+      "label": "useGraphSimulation",
+      "degree": 18
     },
     {
-      "id": "mosaic_maker_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "workspaces_playground_apps_playground_src_content_notebook_emergence_complexite_common_animations_css",
+      "label": "./common-animations.css",
+      "degree": 15
     },
     {
-      "id": "sequence_renderer_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "repo_storybook",
+      "label": "@repo/storybook",
+      "degree": 13
     },
     {
-      "id": "palette_generator_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "apps_playground_src_content_notebook_emergence_complexite_figure_astro",
+      "label": "./figure.astro",
+      "degree": 12
     },
     {
-      "id": "image_to_particles_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "apps_playground_src_components_ui_features_hero_astro",
+      "label": "../../components/ui/features/hero.astro",
+      "degree": 11
     },
     {
-      "id": "graph_viz_tsconfig_app_compileroptions",
-      "label": "compilerOptions",
-      "degree": 17
+      "id": "playground_package_scripts",
+      "label": "scripts",
+      "degree": 10
     },
     {
-      "id": "storybook_tsconfig_node_compileroptions",
-      "label": "compilerOptions",
-      "degree": 16
+      "id": "palette_generator_controls",
+      "label": "Controls",
+      "degree": 10
+    },
+    {
+      "id": "apps_playground_src_components_ui_cards_doc_card_astro",
+      "label": "../../components/ui/cards/doc-card.astro",
+      "degree": 9
     }
   ],
   "surprises": [
     {
-      "source": "Playground Monorepo",
-      "target": "pnpm Workspace Layout",
+      "source": "Recam\u00e1n Rule",
+      "target": "SequenceRule",
       "source_files": [
-        "package.json",
-        "pnpm-workspace.yaml"
+        "apps/playground/src/content/docs/explanation/engines.md",
+        "packages/sequence-renderer/src/core/rules.ts"
       ],
       "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `pnpm Workspace Layout` unexpectedly reaches hub `Playground Monorepo`"
+      "relation": "implements",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
     },
     {
-      "source": "Playground Monorepo",
-      "target": "GitLab CI Pipeline",
+      "source": "Fibonacci Rule",
+      "target": "SequenceRule",
       "source_files": [
-        "package.json",
-        ".gitlab-ci.yml"
+        "apps/playground/src/content/docs/explanation/engines.md",
+        "packages/sequence-renderer/src/core/rules.ts"
       ],
       "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `GitLab CI Pipeline` unexpectedly reaches hub `Playground Monorepo`"
+      "relation": "implements",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
     },
     {
-      "source": "Playground Monorepo",
-      "target": "Mosaic Maker Engine",
+      "source": "The Emergence of Complexity",
+      "target": "The Classical Tower of Numbers",
       "source_files": [
-        "package.json",
-        "README.md"
+        "apps/playground/src/content/notebook/emergence-complexite/index.mdx",
+        "apps/playground/src/assets/numbers/masterpiece.svg"
       ],
-      "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Mosaic Maker Engine` unexpectedly reaches hub `Playground Monorepo`"
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (doc \u2194 image); peripheral node `The Classical Tower of Numbers` unexpectedly reaches hub `The Emergence of Complexity`"
     },
     {
-      "source": "Playground Monorepo",
-      "target": "Sequences Engine",
+      "source": "The Emergence of Complexity",
+      "target": "Nested Number Systems Diagram",
       "source_files": [
-        "package.json",
-        "README.md"
+        "apps/playground/src/content/notebook/emergence-complexite/index.mdx",
+        "apps/playground/src/assets/numbers/graphic.svg"
       ],
-      "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Sequences Engine` unexpectedly reaches hub `Playground Monorepo`"
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (doc \u2194 image); peripheral node `Nested Number Systems Diagram` unexpectedly reaches hub `The Emergence of Complexity`"
     },
     {
-      "source": "Playground Monorepo",
-      "target": "Palettes Engine",
+      "source": "The Emergence of Complexity",
+      "target": "Expansion of Numbers Banner",
       "source_files": [
-        "package.json",
-        "README.md"
+        "apps/playground/src/content/notebook/emergence-complexite/index.mdx",
+        "apps/playground/src/assets/numbers/text.svg"
       ],
-      "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Palettes Engine` unexpectedly reaches hub `Playground Monorepo`"
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (doc \u2194 image); peripheral node `Expansion of Numbers Banner` unexpectedly reaches hub `The Emergence of Complexity`"
     }
   ],
   "questions": [
     {
       "type": "bridge_node",
-      "question": "Why does `dependencies` connect `Community 11` to `Community 9`?",
-      "why": "High betweenness centrality (0.036) - this node is a cross-community bridge."
+      "question": "Why does `dependencies` connect `Community 7` to `Community 8`, `Community 6`, `Community 39`?",
+      "why": "High betweenness centrality (0.133) - this node is a cross-community bridge."
     },
     {
       "type": "bridge_node",
-      "question": "Why does `dependencies` connect `Community 12` to `Community 10`, `Community 11`?",
-      "why": "High betweenness centrality (0.035) - this node is a cross-community bridge."
+      "question": "Why does `Tailwind CSS` connect `Community 39` to `Community 19`?",
+      "why": "High betweenness centrality (0.098) - this node is a cross-community bridge."
     },
     {
       "type": "bridge_node",
-      "question": "Why does `../../layouts/base-layout.astro` connect `Community 39` to `Community 64`, `Community 44`, `Community 13`, `Community 15`, `Community 16`, `Community 28`?",
-      "why": "High betweenness centrality (0.031) - this node is a cross-community bridge."
+      "question": "Why does `@repo/storybook` connect `Community 19` to `Community 15`, `Community 16`, `Community 25`, `Community 28`, `Community 30`, `Community 31`?",
+      "why": "High betweenness centrality (0.080) - this node is a cross-community bridge."
     },
     {
       "type": "isolated_nodes",
-      "question": "What connects `name`, `private`, `deploy` to the rest of the system?",
-      "why": "1047 weakly-connected nodes found - possible documentation gaps or missing edges."
+      "question": "What connects `isVercel`, `name`, `type` to the rest of the system?",
+      "why": "283 weakly-connected nodes found - possible documentation gaps or missing edges."
     },
     {
       "type": "low_cohesion",
       "question": "Should `Community 0` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05092276144907724 - nodes in this community are weakly interconnected."
+      "why": "Cohesion score 0.06970128022759602 - nodes in this community are weakly interconnected."
     },
     {
       "type": "low_cohesion",
       "question": "Should `Community 1` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.06526806526806526 - nodes in this community are weakly interconnected."
+      "why": "Cohesion score 0.1053763440860215 - nodes in this community are weakly interconnected."
     },
     {
       "type": "low_cohesion",
       "question": "Should `Community 2` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.07372549019607844 - nodes in this community are weakly interconnected."
+      "why": "Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected."
     }
   ]
 }
