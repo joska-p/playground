@@ -27,7 +27,7 @@ export type Particle = {
   delay: number;
 };
 
-function ImageToParticles() {
+export function ImageToParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
   const animationRef = useRef<number>(null);
@@ -146,19 +146,10 @@ function ImageToParticles() {
   return (
     <div className="mx-auto my-8 flex w-fit flex-col items-center gap-8">
       <Input type="file" accept="image/*" onChange={handleImageUpload} />
-      <Button
-        onClick={resetParticles}
-        style={{
-          margin: "10px",
-          padding: "8px 16px",
-          cursor: "pointer",
-        }}
-      >
+      <Button onClick={resetParticles} className="m-2.5 cursor-pointer px-4 py-2">
         Replay Animation
       </Button>
       <canvas ref={canvasRef} className="bg-black" />
     </div>
   );
 }
-
-export { ImageToParticles };

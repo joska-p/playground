@@ -5,9 +5,9 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.tsx",
-      "import": "./src/index.tsx",
-      "require": "./src/index.tsx"
+      "types": "./src/ImageToParticles.tsx",
+      "import": "./src/ImageToParticles.tsx",
+      "require": "./src/ImageToParticles.tsx"
     },
     "./styles": "./src/styles/styles.css"
   },

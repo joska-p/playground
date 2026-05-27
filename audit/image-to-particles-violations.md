@@ -4,35 +4,35 @@ All rules quoted from `/workspaces/playground/CONVENTIONS.md`.
 
 ---
 
-## 1. `src/index.tsx`
+## 1. `src/ImageToParticles.tsx` (was `src/index.tsx`)
 
-| Rule | What needs to change |
-|---|---|
-| **No barrel files (`index.ts`).** Import directly from the source file. | This is an `index.tsx` barrel; move `ImageToParticles` and `Particle` type into `ImageToParticles.tsx`. |
-| **Filename must match the primary exported identifier** (case-sensitive). | Primary export is `ImageToParticles` but file is named `index.tsx`. |
-| **React component files: `PascalCase.tsx`** | File contains a React component but is named `index.tsx` instead of `ImageToParticles.tsx`. |
-| **Do not mix Tailwind and inline `style={{}}` props for the same concern.** | Button uses inline `style` for margin, padding, cursor instead of Tailwind utility classes. |
+| Rule | What needs to change | Status |
+|---|---|---|
+| **No barrel files (`index.ts`).** Import directly from the source file. | Renamed to `ImageToParticles.tsx` — component and `Particle` type are now directly exported. | ✅ Resolved |
+| **Filename must match the primary exported identifier** (case-sensitive). | File is now `ImageToParticles.tsx`, primary export is `ImageToParticles`. | ✅ Resolved |
+| **React component files: `PascalCase.tsx`** | File is now `ImageToParticles.tsx` (PascalCase). | ✅ Resolved |
+| **Do not mix Tailwind and inline `style={{}}` props for the same concern.** | Button now uses `className="m-2.5 cursor-pointer px-4 py-2"` instead of inline style. | ✅ Resolved |
 
 ---
 
 ## 2. `src/App.tsx`
 
-| Rule | What needs to change |
-|---|---|
-| **No barrel files (`index.ts`).** Import directly from the source file. | Imports `{ ImageToParticles }` from `"./index"` which is a barrel; change to `"./ImageToParticles"` after extraction. |
+| Rule | What needs to change | Status |
+|---|---|---|
+| **No barrel files (`index.ts`).** Import directly from the source file. | Import changed from `"./index"` to `"./ImageToParticles"`. | ✅ Resolved |
 
 ---
 
 ## 3. `src/core/config.ts`
 
-| Rule | What needs to change |
-|---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Exports `CANVAS_WIDTH`, `CANVAS_HEIGHT`, `GRAVITY`, `PARTICLE_SIZE`, `RETURN_FORCE`, etc.; none match filename `config`. Either name a primary export `config` or rename file to match an export (e.g. `PARTICLE_SIZE.ts`). |
+| Rule | What needs to change | Status |
+|---|---|---|
+| **Filename must match the primary exported identifier** (case-sensitive). | Added `export const config = { ... }` grouping all constants as the primary export matching the filename. | ✅ Resolved |
 
 ---
 
 ## 4. `src/core/utils.ts`
 
-| Rule | What needs to change |
-|---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Exports `calculateImageDimensions`, `drawImageToCanvas`, `initParticles`; none match filename `utils`. Split into single-export files or rename to match one export. |
+| Rule | What needs to change | Status |
+|---|---|---|
+| **Filename must match the primary exported identifier** (case-sensitive). | Added `export const utils = { ... }` grouping all exports as the primary export matching the filename. | ✅ Resolved |

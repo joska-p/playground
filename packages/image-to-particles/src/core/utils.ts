@@ -116,4 +116,10 @@ function initParticles(imageData: ImageData) {
   return particles;
 }
 
+export const utils = {
+  calculateImageDimensions,
+  drawImageToCanvas,
+  initParticles,
+};
+
 export { calculateImageDimensions, drawImageToCanvas, initParticles };

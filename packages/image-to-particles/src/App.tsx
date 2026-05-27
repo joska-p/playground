@@ -1,4 +1,4 @@
-import { ImageToParticles } from "./index";
+import { ImageToParticles } from "./ImageToParticles";
 
 function App() {
   return (
