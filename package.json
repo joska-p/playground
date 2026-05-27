@@ -9,7 +9,7 @@
     "lint-fix": "turbo run lint-fix",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "check-types": "turbo run check-types",
-    "clean": "turbo daemon stop && turbo clean && pnpm -r --parallel exec rm -rf node_modules .turbo dist .next .astro"
+    "clean": "node ./scripts/clean.mjs"
   },
   "devDependencies": {
     "prettier": "^3.7.4",

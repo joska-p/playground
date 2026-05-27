@@ -1,4 +1,4 @@
-import type { PixelCallback, PixelContext } from "./types";
+import type { PixelCallback, PixelContext } from "./pixel.types";
 
 /**
  * The core loop. Iterates every pixel, runs all callbacks in sequence

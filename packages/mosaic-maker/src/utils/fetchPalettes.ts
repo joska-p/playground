@@ -1,7 +1,7 @@
 import type { Palette } from "../core/initialPalette";
 import { initialPalette } from "../core/initialPalette";
-import { safeFetch } from "./safeFetch";
 import { paletteSchema } from "./fetchPalettes.schema";
+import { safeFetch } from "./safeFetch";
 
 export type CachedPalettes = {
   palettes: Palette[];

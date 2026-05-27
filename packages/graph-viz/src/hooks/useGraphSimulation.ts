@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 import { REL_COLORS, SIM_CONFIG } from "../constants";
 import { RAW_GRAPH } from "../data/graphData";
 import { useGraphStore } from "../store/useGraphStore";
-import type { SimLink, SimNode } from "./useGraphSimulation.types";
 import { buildDegreeMap, nodeColor, nodeRadius } from "../utils/colors";
+import type { SimLink, SimNode } from "./useGraphSimulation.types";
 
 /**
  * Owns the entire D3 lifecycle: builds the filtered graph, runs the force

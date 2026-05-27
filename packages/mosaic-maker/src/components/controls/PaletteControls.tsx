@@ -1,4 +1,4 @@
-import { ColorPalette } from "@repo/ui";
+import { ColorPalette } from "@repo/ui/ColorPalette";
 import { useShallow } from "zustand/shallow";
 import { updatePalette, useMosaicStore } from "../../store/useMosaicStore";
 import { arePalettesEqual } from "../../utils/arePalettesEqual";

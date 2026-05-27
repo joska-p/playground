@@ -1,5 +1,5 @@
 import { ColorPalette } from "@repo/ui/ColorPalette";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 
 /**
@@ -44,7 +44,6 @@ const meta: Meta<typeof ColorPalette> = {
 
 // Required by Storybook CSF (Component Story Format) tooling
 export default meta;
-
 
 /**
  * Primary variant with horizontal orientation.

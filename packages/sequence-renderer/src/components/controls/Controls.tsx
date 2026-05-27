@@ -1,6 +1,8 @@
-import { Card, Select, Slider } from "@repo/ui";
+import { Card } from "@repo/ui/Card";
+import { Select } from "@repo/ui/Select";
+import { Slider } from "@repo/ui/Slider";
 import { useShallow } from "zustand/shallow";
-import { visualizations } from "../../core/visualizations/index";
+import { visualizations } from "../../core/visualizations/visualizations";
 import { setSteps, setVisualizationId, useSequenceStore } from "../../store/useSequenceStore";
 import { SequenceSelector } from "./SequenceSelector";
 
@@ -37,7 +39,7 @@ function Controls() {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVisualizationId(e.target.value)}
           className="w-auto min-w-[140px]"
         >
-          {visualizations.map((v) => (
+          {visualizations.map((v: { id: string; name: string }) => (
             <option key={v.id} value={v.id}>
               {v.name}
             </option>

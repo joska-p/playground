@@ -1,5 +1,5 @@
 import { iteratePixels } from "./iteratePixels";
-import type { PixelCallback } from "./types";
+import type { PixelCallback } from "./pixel.types";
 
 /**
  * Creates a new independent image from the source by applying a callback.

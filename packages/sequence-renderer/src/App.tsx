@@ -1,4 +1,4 @@
-import { SequenceRenderer } from "./index";
+import { SequenceRenderer } from "./components/SequenceRenderer";
 
 function App() {
   return (

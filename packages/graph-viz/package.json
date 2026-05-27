@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/GraphViz.tsx",
+    ".": "./src/components/GraphViz.tsx",
     "./styles": "./src/styles/graph-viz.css"
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",

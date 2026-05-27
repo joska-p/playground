@@ -1,4 +1,4 @@
-import { cn } from "@repo/ui";
+import { cn } from "@repo/ui/cn";
 import { TILE_REGISTRY, type Shape } from "../../core/TILE_REGISTRY";
 
 export type TileProps = {

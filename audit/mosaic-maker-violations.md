@@ -8,7 +8,7 @@ All rules quoted from `/workspaces/playground/CONVENTIONS.md`.
 
 | Rule | What needs to change |
 |---|---|
-| **No barrel files (`index.ts`).** Import directly from the source file. | Moved `MosaicMaker` component into its own `MosaicMaker.tsx` file. Barrel file `index.tsx` emptied. |
+| **No barrel files (`index.ts`).** Import directly from the source file. | Moved `MosaicMaker` component into its own `MosaicMaker.tsx` file. Barrel file `index.tsx` emptied. Updated `App.tsx` import from `"./index"` to `"./MosaicMaker"`. |
 | **Filename must match the primary exported identifier** (case-sensitive). | `MosaicMaker.tsx` now matches the `MosaicMaker` export. |
 
 ---
@@ -17,7 +17,7 @@ All rules quoted from `/workspaces/playground/CONVENTIONS.md`.
 
 | Rule | What needs to change |
 |---|---|
-| **No barrel files (`index.ts`).** Import directly from the source file. | Import changed from `"./index"` to `"./MosaicMaker"`. |
+| **No barrel files (`index.ts`).** Import directly from the source file. | Import changed from `"./index"` to `"./MosaicMaker"`. Verified: import is correct. |
 
 ---
 
@@ -82,3 +82,19 @@ All rules quoted from `/workspaces/playground/CONVENTIONS.md`.
 | Rule | What needs to change |
 |---|---|
 | **Props types** `XxxProps`, co-located with component | Renamed from `Props` to `SliderControlsProps`. |
+
+---
+
+## 11. Barrel `@repo/ui` imports in consumer files — ✅ RESOLVED
+
+7 consumer files imported from `"@repo/ui"` barrel instead of subpath exports. Updated to subpath imports:
+
+| File | Old | New |
+|---|---|---|
+| `MosaicMaker.tsx` | `"@repo/ui"` (Sidebar) | `"@repo/ui/Sidebar"` |
+| `Controls.tsx` | `"@repo/ui"` (Button) | `"@repo/ui/Button"` |
+| `PaletteControls.tsx` | `"@repo/ui"` (ColorPalette) | `"@repo/ui/ColorPalette"` |
+| `SliderControls.tsx` | `"@repo/ui"` (Slider) | `"@repo/ui/Slider"` |
+| `TileSetControls.tsx` | `"@repo/ui"` (cn) | `"@repo/ui/cn"` |
+| `MosaicDisplay.tsx` | `"@repo/ui"` (useResizeObserver) | `"@repo/ui/useResizeObserver"` |
+| `Tile.tsx` | `"@repo/ui"` (cn) | `"@repo/ui/cn"` |

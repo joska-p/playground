@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useShallow } from "zustand/shallow";
-import { visualizations } from "../../core/visualizations/index";
+import { visualizations } from "../../core/visualizations/visualizations";
 import { useSequenceStore } from "../../store/useSequenceStore";
 
 function CanvasRenderer() {
@@ -14,7 +14,7 @@ function CanvasRenderer() {
 
   useEffect(() => {
     if (canvasRef.current) {
-      const viz = visualizations.find((v) => v.id === visualizationId);
+      const viz = visualizations.find((v: { id: string }) => v.id === visualizationId);
       viz?.draw(canvasRef.current, sequence);
     }
   }, [sequence, visualizationId]);

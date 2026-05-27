@@ -4,16 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./src/MosaicMaker.tsx",
-      "import": "./src/MosaicMaker.tsx",
-      "require": "./src/MosaicMaker.tsx"
-    },
+    "./MosaicMaker": "./src/components/MosaicMaker.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",

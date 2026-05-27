@@ -6,9 +6,6 @@ import { useImageUpload } from "../../hooks/useImageUpload";
 import { brightness } from "../../manipulations/brightness";
 import { energyMap } from "../../manipulations/energyMap";
 import { grayscale } from "../../manipulations/grayscale";
-
-const manipulationsIds = ["brightness", "grayscale", "energyMap"] as const;
-const manipulations = { brightness, grayscale, energyMap } as const;
 import type { ManipulationId, OutputType } from "../../store/useManipulatorStore";
 import {
   addToOutputs,
@@ -18,6 +15,9 @@ import {
   setManipulationId,
   useManipulatorStore,
 } from "../../store/useManipulatorStore";
+
+const manipulationsIds = ["brightness", "grayscale", "energyMap"] as const;
+const manipulations = { brightness, grayscale, energyMap } as const;
 
 function Controls() {
   const sourceImage = useManipulatorStore((state) => state.outputs[0]);

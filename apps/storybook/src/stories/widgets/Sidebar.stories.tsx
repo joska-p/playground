@@ -1,5 +1,5 @@
 import { Sidebar } from "@repo/ui/Sidebar";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta } from "@storybook/react-vite";
 import React from "react";
 
 /**
@@ -38,7 +38,6 @@ const meta: Meta<typeof Sidebar> = {
 
 // Required by Storybook CSF (Component Story Format) tooling
 export default meta;
-
 
 function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
   return (

@@ -4,15 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/PaletteGenerator.tsx",
-    "./PaletteGenerator": "./src/PaletteGenerator.tsx",
+    "./PaletteGenerator": "./src/components/PaletteGenerator.tsx",
     "./Controls": "./src/components/controls/Controls.tsx",
     "./Display": "./src/components/display/Display.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",

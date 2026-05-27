@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui";
+import { Button } from "@repo/ui/Button";
 import type { ColorSpacesKey } from "../../core/colorSpaces";
 import { colorSpaces } from "../../core/colorSpaces";
 import { generatePalette } from "../../core/generatePalette";

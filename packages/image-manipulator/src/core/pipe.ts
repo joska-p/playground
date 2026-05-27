@@ -1,5 +1,5 @@
 import { iteratePixels } from "./iteratePixels";
-import type { PixelCallback } from "./types";
+import type { PixelCallback } from "./pixel.types";
 
 /**
  * Composes multiple pixel callbacks into a single transformation.

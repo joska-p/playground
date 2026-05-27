@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import type { Palette } from "../core/initialPalette";
-import type { TileNames, TileSet } from "../core/initialTileSet";
-import { initialPalette } from "../core/initialPalette";
 import { initialRotations, MAX_NUMBER_OF_PALETTES } from "../core/constants";
+import type { Palette } from "../core/initialPalette";
+import { initialPalette } from "../core/initialPalette";
+import type { TileNames, TileSet } from "../core/initialTileSet";
 import { initialTileSet } from "../core/initialTileSet";
-import { fetchPalettes } from "../utils/fetchPalettes";
 import { computeNumberOfTiles } from "../utils/computeNumberOfTiles";
-import { updateElementStyles } from "../utils/updateElementStyles";
+import { fetchPalettes } from "../utils/fetchPalettes";
 import { getRandom } from "../utils/getRandom";
+import { updateElementStyles } from "../utils/updateElementStyles";
 
 export type TileInstance = {
   id: string;

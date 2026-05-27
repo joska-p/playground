@@ -1,13 +1,13 @@
-import { Select } from "@repo/ui";
-import type { SequenceRule } from "../../core/rules";
-import { sequencesRule } from "../../core/rules";
+import { Select } from "@repo/ui/Select";
+import type { SequenceRule } from "../../core/sequencesRule";
+import { sequencesRule } from "../../core/sequencesRule";
 import { setSequenceRule, useSequenceStore } from "../../store/useSequenceStore";
 
 function SequenceSelector() {
   const { sequenceRule } = useSequenceStore();
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const selectedRule = sequencesRule.find((rule) => rule.id === e.target.value);
+    const selectedRule = sequencesRule.find((rule: SequenceRule) => rule.id === e.target.value);
     if (selectedRule) setSequenceRule(selectedRule);
   }
 

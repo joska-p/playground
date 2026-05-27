@@ -1,6 +1,6 @@
-import { Sidebar } from "@repo/ui";
-import { Controls } from "./components/controls/Controls";
-import { SequenceDisplay } from "./components/sequence-display/SequenceDisplay";
+import { Sidebar } from "@repo/ui/Sidebar";
+import { Controls } from "./controls/Controls";
+import { SequenceDisplay } from "./sequence-display/SequenceDisplay";
 
 function SequenceRenderer() {
   return (

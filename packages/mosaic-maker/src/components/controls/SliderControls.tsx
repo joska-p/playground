@@ -1,4 +1,4 @@
-import { Slider } from "@repo/ui";
+import { Slider } from "@repo/ui/Slider";
 import { useState } from "react";
 import { useShallow } from "zustand/shallow";
 import { useMosaicStore } from "../../store/useMosaicStore";

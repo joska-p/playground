@@ -1,6 +1,6 @@
 # Audit: `packages/image-manipulator/src` — Convention Violations
 
-Generated from CONVENTIONS.md rules. No source files have been modified.
+Generated from CONVENTIONS.md rules.
 
 ---
 
@@ -11,7 +11,7 @@ Generated from CONVENTIONS.md rules. No source files have been modified.
 | **Rule** | No barrel files (`index.ts`) |
 | **Quote** | "No barrel files (`index.ts`). Import directly from the source file." |
 | **Fix** | Delete this file; consumers must import directly from the source module (e.g. `@repo/image-manipulator/core/pipe` or via `package.json` subpaths). |
-| **Status** | ✅ **Resolved** — File deleted. |
+| **Status** | ✅ **Resolved** — File deleted. App.tsx updated to import from `"./components/ImageManipulator"` instead. |
 
 ---
 
@@ -33,7 +33,7 @@ Generated from CONVENTIONS.md rules. No source files have been modified.
 | **Rule** | Filename must match the primary exported identifier |
 | **Quote** | "Filename must match the primary exported identifier (case-sensitive)." |
 | **Fix** | Rename to `drawImageOnCanvas.ts` (to match its single export) or rename the export to `drawImage`. |
-| **Status** | ✅ **Resolved** — File renamed to `drawImageOnCanvas.ts` to match the exported `drawImageOnCanvas` function. |
+| **Status** | ✅ **Resolved** — File renamed to `drawImageOnCanvas.ts`. Updated all imports from `"./types"` to `"./pixel.types"` in `fork.ts`, `iteratePixels.ts`, `pipe.ts`. |
 
 ---
 
@@ -44,7 +44,7 @@ Generated from CONVENTIONS.md rules. No source files have been modified.
 | **Rule** | Type-only file naming convention |
 | **Quote** | "Type-only files: `camelCase.types.ts`" (naming table) |
 | **Fix** | Rename to `pixel.types.ts` (or another `camelCase.types.ts` name matching the domain). |
-| **Status** | ✅ **Resolved** — File renamed to `pixel.types.ts`. Types remain co-located with usage in the core module. |
+| **Status** | ✅ **Resolved** — File renamed to `pixel.types.ts`. All imports updated from `"./types"` to `"./pixel.types"`. |
 
 ---
 

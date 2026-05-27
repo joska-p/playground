@@ -1,4 +1,5 @@
-import { Button, Input } from "@repo/ui";
+import { Button } from "@repo/ui/Button";
+import { Input } from "@repo/ui/Input";
 import { useCallback, useEffect, useRef } from "react";
 import {
   CANVAS_HEIGHT,
@@ -8,9 +9,9 @@ import {
   INITIAL_VELOCITY,
   POSITION_THRESHOLD,
   RETURN_FORCE,
-} from "./core/config";
-import { calculateImageDimensions, drawImageToCanvas, initParticles } from "./core/utils";
-import { useImageUpload } from "./hooks/useImageUpload";
+} from "../core/config";
+import { calculateImageDimensions, drawImageToCanvas, initParticles } from "../core/utils";
+import { useImageUpload } from "../hooks/useImageUpload";
 
 export type Particle = {
   x: number;

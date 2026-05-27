@@ -27,8 +27,8 @@ const initialRotations = defaultRotations;
 export {
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
-  MAX_NUMBER_OF_PALETTES,
   initialGapSize,
   initialRotations,
   initialTileSize,
+  MAX_NUMBER_OF_PALETTES,
 };
