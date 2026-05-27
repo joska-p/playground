@@ -12,7 +12,7 @@ function SequenceSelector() {
   }
 
   return (
-    <div className="flex min-w-[200px] items-center gap-2 whitespace-nowrap">
+    <div className="flex min-w-50 items-center gap-2 whitespace-nowrap">
       <span className="text-sm font-medium">Sequence:</span>
       <Select
         variant="primary"

@@ -46,11 +46,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Font cssVariable="--font-jetbrains-mono" />
     {katex && <link rel="stylesheet" href={`${baseUrl}katex.css`} />}
   </head>
-  <body
-    class="bg-background text-foreground grid min-h-dvh grid-cols-1 grid-rows-[auto_1fr] antialiased"
-  >
+  <body class="bg-background text-foreground min-h-screen antialiased">
     <Navbar />
-    <main class="relative flex flex-col overflow-hidden">
+    <main>
       <slot />
     </main>
   </body>

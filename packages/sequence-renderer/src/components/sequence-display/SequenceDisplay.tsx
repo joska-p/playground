@@ -1,25 +1,20 @@
 import { useEffect, useRef } from "react";
-import { CanvasRenderer } from "../renderers/CanvasRenderer";
+import { visualizations } from "../../core/visualizations/visualizations";
+import { useSequenceSequence, useSequenceVisualizationId } from "../../store/sequenceStore";
 
 function SequenceDisplay() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sequence = useSequenceSequence();
+  const visualizationId = useSequenceVisualizationId();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) return;
-    });
+    if (canvasRef.current) {
+      const viz = visualizations.find((v: { id: string }) => v.id === visualizationId);
+      viz?.draw(canvasRef.current, sequence);
+    }
+  }, [sequence, visualizationId]);
 
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return (
-    <div ref={containerRef} className="absolute inset-0 h-full w-full overflow-hidden">
-      <CanvasRenderer />
-    </div>
-  );
+  return <canvas ref={canvasRef} width={800} height={600} className="h-full w-full" />;
 }
+
 export { SequenceDisplay };

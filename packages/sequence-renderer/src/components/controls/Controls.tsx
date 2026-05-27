@@ -17,7 +17,7 @@ function Controls() {
   const visualizationId = useSequenceVisualizationId();
 
   return (
-    <Card className="border-t-primary/20 bg-muted/30 flex w-full flex-row flex-wrap items-center justify-center gap-8 rounded-none border-x-0 border-t-2 px-6 py-3 backdrop-blur-md">
+    <Card className="flex w-full flex-row flex-wrap items-center justify-center gap-8 rounded-none">
       <SequenceSelector />
 
       <Slider
@@ -40,7 +40,7 @@ function Controls() {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             setSequenceVisualizationId(e.target.value)
           }
-          className="w-auto min-w-[140px]"
+          className="w-auto min-w-35"
         >
           {visualizations.map((v: { id: string; name: string }) => (
             <option key={v.id} value={v.id}>
