@@ -2,32 +2,53 @@
 import "../styles/styles.css";
 ---
 
-<div class="not-prose my-10 flex flex-wrap items-center justify-center gap-8">
+<div class="my-10 flex flex-wrap items-center justify-center gap-8">
   <canvas
     id="rotation-canvas"
     class="bg-card border-border block shrink-0 rounded-lg border"
     style="width:300px;height:300px"
     role="img"
-    aria-label="Complex plane: multiplying by i rotates 90° — 1→i→−1→−i→1"
-  />
+    aria-label="Complex plane: multiplying by i rotates 90° — 1→i→−1→−i→1"></canvas>
 
   <div class="flex flex-col gap-2">
-    {[
-      { from: "1", to: "i",   fromCls: "text-[color:var(--category-tutorial)]",   toCls: "text-[color:var(--category-how-to)]" },
-      { from: "i", to: "−1",  fromCls: "text-[color:var(--category-how-to)]",     toCls: "text-[color:var(--category-explanation)]" },
-      { from: "−1", to: "−i", fromCls: "text-[color:var(--category-explanation)]", toCls: "text-[color:var(--category-data-viz)]" },
-      { from: "−i", to: "1",  fromCls: "text-[color:var(--category-data-viz)]",   toCls: "text-[color:var(--category-tutorial)]" },
-    ].map(({ from, to, fromCls, toCls }, i) => (
-      <div
-        class="rot-step border-border bg-card flex items-center gap-2 rounded-md border px-4 py-2.5 transition-colors duration-200"
-        data-step={i}
-      >
-        <span class={`w-7 text-center text-lg font-bold ${fromCls}`}>{from}</span>
-        <span class="text-muted-foreground font-mono">×i</span>
-        <span class={`w-7 text-center text-lg font-bold ${toCls}`}>{to}</span>
-        <span class="text-primary ml-auto pl-3 font-mono text-sm">+90°</span>
-      </div>
-    ))}
+    {
+      [
+        {
+          from: "1",
+          to: "i",
+          fromCls: "text-[color:var(--category-tutorial)]",
+          toCls: "text-[color:var(--category-how-to)]",
+        },
+        {
+          from: "i",
+          to: "−1",
+          fromCls: "text-[color:var(--category-how-to)]",
+          toCls: "text-[color:var(--category-explanation)]",
+        },
+        {
+          from: "−1",
+          to: "−i",
+          fromCls: "text-[color:var(--category-explanation)]",
+          toCls: "text-[color:var(--category-data-viz)]",
+        },
+        {
+          from: "−i",
+          to: "1",
+          fromCls: "text-[color:var(--category-data-viz)]",
+          toCls: "text-[color:var(--category-tutorial)]",
+        },
+      ].map(({ from, to, fromCls, toCls }, i) => (
+        <div
+          class="rot-step border-border bg-card flex items-center gap-2 rounded-md border px-4 py-2.5 transition-colors duration-200"
+          data-step={i}
+        >
+          <span class={`w-7 text-center text-lg font-bold ${fromCls}`}>{from}</span>
+          <span class="text-muted-foreground font-mono">×i</span>
+          <span class={`w-7 text-center text-lg font-bold ${toCls}`}>{to}</span>
+          <span class="text-primary ml-auto pl-3 font-mono text-sm">+90°</span>
+        </div>
+      ))
+    }
   </div>
 </div>
 

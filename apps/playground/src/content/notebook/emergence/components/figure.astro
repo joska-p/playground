@@ -3,11 +3,11 @@ type Props = {
   caption?: string;
   label?: string;
   className?: string;
-}
+};
 const { caption, label, className } = Astro.props;
 ---
 
-<figure class={`not-prose ${className}`}>
+<figure class={` ${className}`}>
   <div class="bg-card border-border min-w-full overflow-hidden rounded-lg border">
     <slot />
   </div>

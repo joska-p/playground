@@ -4,7 +4,7 @@ type Props = {
   ariaLabel?: string;
   label?: string;
   step?: string | number;
-}
+};
 
 const { class: className = "", ariaLabel, label, step } = Astro.props;
 
@@ -13,7 +13,7 @@ const computedAriaLabel =
   ariaLabel ?? (displayLabel ? `Séparateur — ${displayLabel}` : "Séparateur de section");
 ---
 
-<div class:list={["not-prose", className]} aria-label={computedAriaLabel} role="separator">
+<div class:list={[className]} aria-label={computedAriaLabel} role="separator">
   {
     displayLabel ? (
       <svg

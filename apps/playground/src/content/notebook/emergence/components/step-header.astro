@@ -3,13 +3,14 @@ type Props = {
   step: string;
   symbol: string;
   label?: string;
-}
+};
 const { step, symbol, label } = Astro.props;
 ---
 
-<div class="not-prose mt-16 mb-1 flex items-center gap-4">
+<div class="mt-16 mb-1 flex items-center gap-4">
   <span class="text-primary tracking-[0.25em] uppercase opacity-70">
-    {label ?? "Step"} {step}
+    {label ?? "Step"}
+    {step}
   </span>
   <span class="bg-border h-px flex-1 opacity-50"></span>
   <span

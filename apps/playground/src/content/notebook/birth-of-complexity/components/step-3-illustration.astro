@@ -3,7 +3,7 @@ type Props = {
   class?: string;
   ariaLabel?: string;
   title?: string;
-}
+};
 
 const {
   class: className = "",
@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 ---
 
-<figure class:list={["not-prose", className]} aria-label={ariaLabel}>
+<figure class:list={[className]} aria-label={ariaLabel}>
   <svg
     viewBox="0 0 720 240"
     xmlns="http://www.w3.org/2000/svg"

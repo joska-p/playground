@@ -80,13 +80,13 @@ TheMasterpiece.astro    — Euler summary table
 - Each Step section starts with `StepHeader`, wrapped in a `<section>` with a
   CSS variable `--step-color` on it
 - Diagrams: `mx-auto max-w-3xl` (can be wider than prose) or `max-w-sm` for small
-- The `Figure.astro` wrapper: `not-prose bg-card border-border rounded-lg border`
+- The `Figure.astro` wrapper: ` bg-card border-border rounded-lg border`
 - Label badge: `absolute top-3 left-4 font-mono text-[0.6rem] tracking-widest`
 - Use `my-12` between steps for clear visual breathing room
 
 ### Prose Integration
 - Article text stays inside `prose prose-playground` (from site layout)
-- Components use `not-prose` to opt out of prose styling
+- Components use `` to opt out of prose styling
 - Math: `$...$` inline, `$$...$$` display — KaTeX handles rendering
 - Code: inline `` `...` `` in prose for numerals and symbols
 

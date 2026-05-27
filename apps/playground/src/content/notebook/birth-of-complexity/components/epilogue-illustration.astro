@@ -3,7 +3,7 @@ type Props = {
   class?: string;
   ariaLabel?: string;
   title?: string;
-}
+};
 
 const {
   class: className = "",
@@ -29,7 +29,7 @@ const piX = cx - r;
 const piY = cy;
 ---
 
-<figure class:list={["not-prose", className]} aria-label={ariaLabel}>
+<figure class:list={[className]} aria-label={ariaLabel}>
   <svg
     viewBox="0 0 720 280"
     xmlns="http://www.w3.org/2000/svg"
