@@ -9,4 +9,4 @@ const EXAMPLE_GRAPH: GraphData = {
   hyperedges: [],
 };
 
-export default EXAMPLE_GRAPH;
+export { EXAMPLE_GRAPH };
