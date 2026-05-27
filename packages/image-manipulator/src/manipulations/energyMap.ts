@@ -1,4 +1,4 @@
-import type { PixelCallback, PixelContext } from "../core/types";
+import type { PixelCallback, PixelContext } from "../core/pixel.types";
 
 /**
  * Computes a Sobel energy map — a fork example.

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { manipulationsIds } from "../manipulations";
+import { manipulationsIds } from "../manipulations/manipulations";
 
 export type ManipulationId = (typeof manipulationsIds)[number];
 export type OutputType = {

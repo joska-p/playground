@@ -1,4 +1,4 @@
-import type { PixelCallback } from "../core/types";
+import type { PixelCallback } from "../core/pixel.types";
 
 /**
  * Adjusts brightness by a factor.

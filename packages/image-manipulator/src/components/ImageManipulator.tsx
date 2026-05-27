@@ -1,4 +1,4 @@
-import { Sidebar } from "@repo/ui";
+import { Sidebar } from "@repo/ui/Sidebar";
 import { Outputs } from "../components/display/Outputs";
 import { Controls } from "./controls/Controls";
 

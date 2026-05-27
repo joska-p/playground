@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { putImageData } from "../../core/imageData";
 
-type Props = {
+type OutputProps = {
   imageData: ImageData;
 };
 
-function Output({ imageData }: Props) {
+function Output({ imageData }: OutputProps) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import type { PixelCallback } from "../core/types";
+import type { PixelCallback } from "../core/pixel.types";
 
 /**
  * Converts a pixel to grayscale using luminance weights.

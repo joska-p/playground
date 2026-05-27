@@ -1,7 +1,14 @@
-import { Button, Input, Select } from "@repo/ui";
+import { Button } from "@repo/ui/Button";
+import { Input } from "@repo/ui/Input";
+import { Select } from "@repo/ui/Select";
 import { pipe } from "../../core/pipe";
 import { useImageUpload } from "../../hooks/useImageUpload";
-import { manipulations, manipulationsIds } from "../../manipulations";
+import { brightness } from "../../manipulations/brightness";
+import { energyMap } from "../../manipulations/energyMap";
+import { grayscale } from "../../manipulations/grayscale";
+
+const manipulationsIds = ["brightness", "grayscale", "energyMap"] as const;
+const manipulations = { brightness, grayscale, energyMap } as const;
 import type { ManipulationId, OutputType } from "../../store/useManipulatorStore";
 import {
   addToOutputs,

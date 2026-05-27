@@ -1,4 +1,4 @@
-import { Input } from "@repo/ui";
+import { Input } from "@repo/ui/Input";
 import { useEffect, useRef, useState } from "react";
 import { fork } from "../core/fork";
 import { imageElementToImageData, putImageData } from "../core/imageData";
