@@ -2,7 +2,7 @@ function strToDom(str: string) {
   return document.createRange().createContextualFragment(str).firstChild;
 }
 
-class Point {
+export class Point {
   x: number;
   y: number;
 
@@ -20,7 +20,7 @@ class Point {
   }
 }
 
-class PieChart extends HTMLElement {
+export class PieChart extends HTMLElement {
   data: number[];
   paths: SVGPathElement[];
   lines: SVGLineElement[];

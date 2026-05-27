@@ -3,7 +3,7 @@ import type { CategoryId } from "../../../data/docs";
 import { getCategoryMetadata } from "../../../data/docs";
 import BaseCard from "./base-card.astro";
 
-interface Props {
+type Props = {
   href: string;
   title: string;
   description?: string;

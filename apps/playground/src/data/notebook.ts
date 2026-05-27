@@ -1,4 +1,3 @@
-import { z } from "astro/zod";
 import { getCollection } from "astro:content";
 
 const baseUrl = import.meta.env.BASE_URL || "/";
@@ -20,18 +19,7 @@ export const CATEGORY_METADATA = {
 } as const;
 
 export type CategoryId = keyof typeof CATEGORY_METADATA;
-const categoriesIds = Object.keys(CATEGORY_METADATA) as [CategoryId, ...CategoryId[]];
-
-export const notebookSchema = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  date: z.date(),
-  featured: z.boolean().default(false),
-  order: z.number().default(0),
-  draft: z.boolean().default(false),
-  category: z.enum(categoriesIds),
-  tags: z.array(z.string()).default([]).optional(),
-});
+export const categoriesIds = Object.keys(CATEGORY_METADATA) as [CategoryId, ...CategoryId[]];
 
 export function getTagMetadata(id: CategoryId) {
   return CATEGORY_METADATA[id];

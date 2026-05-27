@@ -3,7 +3,7 @@ import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import process from "node:process";
-import { remarkBaseUrl } from "./src/lib/remark-base-url.mjs";
+import { remarkBaseUrl } from "./src/lib/remarkBaseUrl.ts";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 

@@ -1,4 +1,3 @@
-import { z } from "astro/zod";
 import { getCollection } from "astro:content";
 import { Book, Code, Lightbulb, Wrench } from "lucide-react";
 
@@ -37,17 +36,7 @@ export const CATEGORY_METADATA = {
 } as const;
 
 export type CategoryId = keyof typeof CATEGORY_METADATA;
-const categoryIds = Object.keys(CATEGORY_METADATA) as [CategoryId, ...CategoryId[]];
-
-export const docSchema = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  featured: z.boolean().default(false),
-  order: z.number().default(0),
-  draft: z.boolean().default(false),
-  category: z.enum(categoryIds),
-  tags: z.array(z.string()).default([]).optional(),
-});
+export const categoryIds = Object.keys(CATEGORY_METADATA) as [CategoryId, ...CategoryId[]];
 
 // 3. UI Helper Function
 export function getCategoryMetadata(id: CategoryId) {
