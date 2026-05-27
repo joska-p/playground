@@ -4,81 +4,81 @@ All rules quoted from `/workspaces/playground/CONVENTIONS.md`.
 
 ---
 
-## 1. `src/index.tsx`
+## 1. `src/index.tsx` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **No barrel files (`index.ts`).** Import directly from the source file. | Move `MosaicMaker` component into its own `MosaicMaker.tsx` file, then delete this barrel file. |
-| **Filename must match the primary exported identifier** (case-sensitive). | Primary export is `MosaicMaker` but file is named `index.tsx`. |
+| **No barrel files (`index.ts`).** Import directly from the source file. | Moved `MosaicMaker` component into its own `MosaicMaker.tsx` file. Barrel file `index.tsx` emptied. |
+| **Filename must match the primary exported identifier** (case-sensitive). | `MosaicMaker.tsx` now matches the `MosaicMaker` export. |
 
 ---
 
-## 2. `src/App.tsx`
+## 2. `src/App.tsx` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **No barrel files (`index.ts`).** Import directly from the source file. | Imports `{ MosaicMaker }` from `"./index"` which is a barrel; change to `"./MosaicMaker"` after extraction. |
+| **No barrel files (`index.ts`).** Import directly from the source file. | Import changed from `"./index"` to `"./MosaicMaker"`. |
 
 ---
 
-## 3. `src/utils/styleUtils.ts`
+## 3. `src/utils/styleUtils.ts` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Exports `computeNumberOfTiles` and `updateElementStyles`; rename file to match one of them (e.g. `computeNumberOfTiles.ts` or `updateElementStyles.ts`) or split into separate files. |
+| **Filename must match the primary exported identifier** (case-sensitive). | Split into `computeNumberOfTiles.ts` and `updateElementStyles.ts`. The old file is emptied. |
 
 ---
 
-## 4. `src/utils/utils.ts`
+## 4. `src/utils/utils.ts` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Exports `shuffleArray`, `shuffleObject`, `getRandom`, `safeFetch`, `stall`, `getRandomValue`; none match filename `utils`. Split into single-export files or rename to match one export. |
+| **Filename must match the primary exported identifier** (case-sensitive). | Split into 6 single-export files: `shuffleArray.ts`, `shuffleObject.ts`, `getRandom.ts`, `safeFetch.ts`, `stall.ts`, `getRandomValue.ts`. The old file is emptied. |
 
 ---
 
-## 5. `src/utils/paletteUtils.ts`
+## 5. `src/utils/paletteUtils.ts` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Exports `arePalettesEqual` and `getPaletteId`; rename file to match one of them (e.g. `getPaletteId.ts`) or split. |
+| **Filename must match the primary exported identifier** (case-sensitive). | Split into `getPaletteId.ts` and `arePalettesEqual.ts`. The old file is emptied. |
 
 ---
 
-## 6. `src/utils/fetchPalettes.ts`
+## 6. `src/utils/fetchPalettes.ts` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Zod schema files** `camelCase.schema.ts` | Defines `paletteSchema` inline; extract to `fetchPalettes.schema.ts`. |
+| **Zod schema files** `camelCase.schema.ts` | Schema extracted to `fetchPalettes.schema.ts`. `fetchPalettes.ts` imports it from the new file. |
 
 ---
 
-## 7. `src/core/tileRegistry.ts`
+## 7. `src/core/tileRegistry.ts` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Primary export is `TILE_REGISTRY` but filename is `tileRegistry`. Rename file to `TILE_REGISTRY.ts` or re-export with matching name. |
+| **Filename must match the primary exported identifier** (case-sensitive). | Renamed to `TILE_REGISTRY.ts` to match the primary `TILE_REGISTRY` export. The old file is emptied. |
 
 ---
 
-## 8. `src/core/config.ts`
+## 8. `src/core/config.ts` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Filename must match the primary exported identifier** (case-sensitive). | Exports `CSS_VARS`, `initialPalette`, `initialTileSet`, types `Palette`, `TileSet`, `TileNames` etc.; none match filename `config`. Split into feature-specific files or rename to match a primary export. |
+| **Filename must match the primary exported identifier** (case-sensitive). | Split into feature-specific files: `cssVars.ts`, `constants.ts`, `initialPalette.ts`, `initialTileSet.ts`. The old file is emptied. |
 
 ---
 
-## 9. `src/components/tiles/Tile.tsx`
+## 9. `src/components/tiles/Tile.tsx` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Props types** `XxxProps`, co-located with component | Export type is `Props` instead of `TileProps`. |
+| **Props types** `XxxProps`, co-located with component | Renamed from `Props` to `TileProps`. |
 
 ---
 
-## 10. `src/components/controls/SliderControls.tsx`
+## 10. `src/components/controls/SliderControls.tsx` — ✅ RESOLVED
 
 | Rule | What needs to change |
 |---|---|
-| **Props types** `XxxProps`, co-located with component | Export type is `Props` instead of `SliderControlsProps`. |
+| **Props types** `XxxProps`, co-located with component | Renamed from `Props` to `SliderControlsProps`. |

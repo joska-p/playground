@@ -1,7 +1,7 @@
 import { cn } from "@repo/ui";
-import { TILE_REGISTRY, type Shape } from "../../core/tileRegistry";
+import { TILE_REGISTRY, type Shape } from "../../core/TILE_REGISTRY";
 
-export type Props = {
+export type TileProps = {
   name: string;
   colors: [string, string, string, string, string];
   rotation: string;
@@ -31,7 +31,7 @@ function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
   }
 }
 
-function Tile({ name, colors, rotation, className }: Props) {
+function Tile({ name, colors, rotation, className }: TileProps) {
   const definition = TILE_REGISTRY[name];
 
   if (!definition) {

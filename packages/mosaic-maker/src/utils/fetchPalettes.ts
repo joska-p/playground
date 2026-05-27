@@ -1,7 +1,7 @@
-import { z } from "zod";
-import type { Palette } from "../core/config";
-import { initialPalette } from "../core/config";
-import { safeFetch } from "./utils";
+import type { Palette } from "../core/initialPalette";
+import { initialPalette } from "../core/initialPalette";
+import { safeFetch } from "./safeFetch";
+import { paletteSchema } from "./fetchPalettes.schema";
 
 export type CachedPalettes = {
   palettes: Palette[];
@@ -15,8 +15,6 @@ const CACHE_VERSION = 2;
 const PALETTE_URL = "https://unpkg.com/nice-color-palettes@3.0.0/1000.json";
 
 const colorNames = Object.keys(initialPalette) as (keyof Palette)[];
-
-const paletteSchema = z.array(z.array(z.string().min(3).max(9).startsWith("#")).min(5)).min(1);
 
 function getCachedPalettes(): CachedPalettes | null {
   const stored = localStorage.getItem(CACHE_KEY);

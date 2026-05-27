@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useShallow } from "zustand/shallow";
 import { useMosaicStore } from "../../store/useMosaicStore";
 
-export type Props = {
+export type SliderControlsProps = {
   label: string;
   defaultValue: number;
   cssVar: string;
@@ -12,7 +12,7 @@ export type Props = {
   step: number;
 };
 
-function SliderControls({ label, defaultValue, cssVar, min, max, step }: Props) {
+function SliderControls({ label, defaultValue, cssVar, min, max, step }: SliderControlsProps) {
   const { mosaicRef } = useMosaicStore(useShallow((state) => ({ mosaicRef: state.mosaicRef })));
   const [value, setValue] = useState(defaultValue);
 

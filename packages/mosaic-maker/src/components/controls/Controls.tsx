@@ -1,9 +1,10 @@
 import { Button } from "@repo/ui";
 import { useShallow } from "zustand/shallow";
-import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../core/config";
+import { CSS_VARS } from "../../core/cssVars";
+import { DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../core/constants";
 import { updateCurrentPalettes, updateTiles, useMosaicStore } from "../../store/useMosaicStore";
-import { updateElementStyles } from "../../utils/styleUtils";
-import { shuffleObject } from "../../utils/utils";
+import { updateElementStyles } from "../../utils/updateElementStyles";
+import { shuffleObject } from "../../utils/shuffleObject";
 import { PaletteControls } from "./PaletteControls";
 import { SliderControls } from "./SliderControls";
 import { TileSetControls } from "./TileSetControls";

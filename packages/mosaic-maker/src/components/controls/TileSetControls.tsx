@@ -1,6 +1,7 @@
 import { cn } from "@repo/ui";
 import { useShallow } from "zustand/shallow";
-import { initialPalette, initialTileSet } from "../../core/config";
+import { initialPalette } from "../../core/initialPalette";
+import { initialTileSet } from "../../core/initialTileSet";
 import { updateTileSet, useMosaicStore } from "../../store/useMosaicStore";
 import { Tile } from "../tiles/Tile";
 

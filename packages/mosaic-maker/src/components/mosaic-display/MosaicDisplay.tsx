@@ -1,13 +1,9 @@
 import { useResizeObserver } from "@repo/ui";
 import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
-import {
-  CSS_VARS,
-  initialGapSize,
-  initialPalette,
-  initialRotations,
-  initialTileSize,
-} from "../../core/config";
+import { CSS_VARS } from "../../core/cssVars";
+import { initialGapSize, initialRotations, initialTileSize } from "../../core/constants";
+import { initialPalette } from "../../core/initialPalette";
 import { initPalettes, setMosaicRef, useMosaicStore } from "../../store/useMosaicStore";
 import { Tile } from "../tiles/Tile";
 

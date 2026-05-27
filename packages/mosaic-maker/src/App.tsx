@@ -1,4 +1,4 @@
-import { MosaicMaker } from "./index";
+import { MosaicMaker } from "./MosaicMaker";
 
 function App() {
   return (

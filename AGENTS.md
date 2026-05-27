@@ -1,30 +1,33 @@
-## AGENTS.md
+# AGENTS.md
 
-Purpose
+## Orientation
 
-- Enforce running package-scoped pnpm commands from repo root.
-  Rule (use exactly)
+Before diving in, use these two tools to understand the project:
 
-```
+- **Broad architecture** → read `GRAPH_REPORT.md`
+- **Focused question** → `graphify query "<question>"` (returns a scoped subgraph, much faster)
+
+## Conventions
+
+Read `CONVENTIONS.md` at the repo root before writing or editing any file.
+Apply only the rules relevant to the current task. When in doubt, ask — do not guess.
+
+## Running commands
+
+Always run from the **repo root**. Never `cd` into a package.
+
+```bash
 pnpm --filter @repo/<package> <cmd>
 ```
 
 Example:
 
-```
+```bash
 pnpm --filter @repo/ui build
 ```
 
-Recommendations
+Use the scope (`@repo/`) exactly as it appears in the package's `package.json` `"name"` field.
 
-- Always run from repository root; do not cd into packages.
-- Use the scope (`@repo/`) exactly as in package.json "name".
+## Scope discipline
 
-# Agent rules
-
-Before writing or editing any file, read CONVENTIONS.md at the repo root.
-
-Apply only the rules relevant to the current task. Do not refactor
-files outside the scope of the current request.
-
-When in doubt about a convention, ask — do not guess.
+Only touch files relevant to the current task. Do not refactor outside the requested scope.
