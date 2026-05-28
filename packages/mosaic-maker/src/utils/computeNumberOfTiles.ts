@@ -35,12 +35,12 @@ function computeNumberOfTiles(element: HTMLDivElement): number {
     const gap = computeGap(element);
     const width = element.clientWidth;
     const height = element.clientHeight;
-    
+
     if (width === 0 || height === 0) return 0;
 
     const tilesPerRow = computeDimension(width, computeTileWidth(element), gap);
     const tilesPerColumn = computeDimension(height, computeTileHeight(element), gap);
-    
+
     return Math.max(0, tilesPerRow * tilesPerColumn);
   } catch (error) {
     console.error("Failed to compute number of tiles:", error);

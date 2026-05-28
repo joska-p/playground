@@ -1,23 +1,72 @@
 ---
 // StepOne.astro
-// Represents the first conceptual "brick" or the number 1.
 const { label = "The First Postulate" } = Astro.props;
 ---
 
-<div
-  class="not-prose bg-secondary/10 border-secondary/20 my-12 flex flex-col items-center justify-center rounded-xl border p-12 shadow-inner"
->
-  <div class="relative flex h-32 w-32 items-center justify-center">
-    <!-- The "Void" - A subtle, dashed dashed container representing empty space -->
-    <div class="border-secondary/30 absolute inset-0 rounded-lg border-2 border-dashed"></div>
-
-    <!-- The "Brick" - The singular existence -->
-    <div
-      class="bg-accent/90 shadow-accent/40 relative flex h-12 w-12 cursor-default items-center justify-center rounded shadow-[0_0_20px_var(--tw-shadow-color)] transition-transform duration-500 hover:scale-110"
-    >
-      <span class="text-bg text-2xl font-bold">1</span>
-    </div>
+<div class="not-prose my-16 flex flex-col items-center justify-center py-16 select-none">
+  <div class="relative flex h-40 w-40 items-center justify-center">
+    <div class="ring0 ring1"></div>
+    <div class="ring0 ring2"></div>
+    <div class="point"></div>
   </div>
-
-  <p class="text-secondary mt-8 text-sm tracking-widest uppercase italic">{label}</p>
+  <p class="label mt-12 text-xs tracking-[0.4em] uppercase">{label}</p>
 </div>
+
+<style>
+  .ring0 {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1px solid var(--color-accent, oklch(75% 0.18 85deg));
+    opacity: 0;
+  }
+  .ring1 {
+    animation: ripple 4s ease-out 0s infinite;
+  }
+  .ring2 {
+    animation: ripple 4s ease-out 1.8s infinite;
+  }
+
+  .point {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 9999px;
+    background-color: var(--color-accent, oklch(75% 0.18 85deg));
+    box-shadow: 0 0 14px 4px
+      color-mix(in oklch, var(--color-accent, oklch(75% 0.18 85deg)) 50%, transparent);
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  .label {
+    color: color-mix(in oklch, var(--color-secondary, oklch(65% 0.04 240deg)) 40%, transparent);
+    font-family: inherit;
+    font-style: italic;
+    letter-spacing: 0.4em;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0.2);
+      opacity: 0.5;
+    }
+    70% {
+      opacity: 0.08;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes breathe {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+</style>

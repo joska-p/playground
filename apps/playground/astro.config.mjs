@@ -1,11 +1,11 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig, fontProviders } from "astro/config";
 import process from "node:process";
-import { remarkBaseUrl } from "./src/lib/remarkBaseUrl.ts";
-import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import { remarkBaseUrl } from "./src/lib/remarkBaseUrl.ts";
 
 import mdx from "@astrojs/mdx";
 
@@ -24,8 +24,8 @@ export default defineConfig({
   base: basePath,
   trailingSlash: "always",
   markdown: {
+    remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]], // the order matter math before katex
     rehypePlugins: [rehypeKatex],
-    remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]],
   },
   fonts: [
     {

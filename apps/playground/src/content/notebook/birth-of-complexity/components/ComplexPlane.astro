@@ -1,72 +1,141 @@
 ---
 // ComplexPlane.astro
-// Visualizes the transition from a 1D line to a 2D plane with rotation.
-const {
-  realLabel = "Real",
-  imagLabel = "Imaginary (i)",
-  description = "Multiplying by i rotates space by 90°. Doing it twice yields -1.",
-} = Astro.props;
 ---
 
-<div
-  class="not-prose bg-secondary/10 border-secondary/20 my-12 flex flex-col items-center justify-center rounded-xl border p-8"
->
-  <div
-    class="bg-bg border-secondary/10 relative aspect-square w-full max-w-md rounded-lg border p-4"
-  >
-    <svg viewBox="0 0 200 200" class="h-full w-full overflow-visible">
-      <!-- Grid Lines (Subtle Gruvbox style) -->
-      <line x1="0" y1="100" x2="200" y2="100" class="stroke-secondary/30 stroke-1"></line>
-      <line x1="100" y1="0" x2="100" y2="200" class="stroke-secondary/30 stroke-1"></line>
+<div class="not-prose my-16 flex flex-col items-center justify-center py-4 select-none">
+  <div class="plane-wrap">
+    <svg
+      viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
+      class="plane-svg"
+      aria-hidden="true"
+    >
+      <!-- Axes — near-invisible hairlines -->
+      <line x1="10" y1="100" x2="190" y2="100" class="axis"></line>
+      <line x1="100" y1="10" x2="100" y2="190" class="axis"></line>
 
-      <!-- Axes Labels -->
-      <text x="185" y="92" class="fill-secondary/70 font-mono text-[10px] tracking-wider"
-        >{realLabel}</text
-      >
-      <text x="106" y="15" class="fill-secondary/70 font-mono text-[10px] tracking-wider"
-        >{imagLabel}</text
-      >
+      <!-- Axis arrowheads -->
+      <polygon points="190,98 184,101 184,99" class="arrowhead"></polygon>
+      <polygon points="100,10 98,16 102,16" class="arrowhead"></polygon>
 
-      <!-- Main Points -->
-      <!-- Origin (0) -->
-      <circle cx="100" cy="100" r="3" class="fill-secondary"></circle>
+      <!-- Unit circle — very faint dashed -->
+      <circle cx="100" cy="100" r="60" class="unit-circle" stroke-dasharray="3 5"></circle>
 
-      <!-- Point 1 -->
-      <circle
-        cx="160"
-        cy="100"
-        r="4"
-        class="fill-secondary transition-transform group-hover:scale-125"></circle>
-      <text x="165" y="112" class="fill-secondary text-xs font-bold">1</text>
+      <!-- Cardinal points — secondary, low opacity -->
+      <circle cx="160" cy="100" r="2.5" class="pt-secondary"></circle>
+      <circle cx="40" cy="100" r="2.5" class="pt-secondary" style="opacity:0.4"></circle>
+      <circle cx="100" cy="160" r="2.5" class="pt-secondary" style="opacity:0.25"></circle>
 
-      <!-- Point i (90 deg rotation) -->
-      <circle cx="100" cy="40" r="4" class="fill-accent"></circle>
-      <text x="108" y="44" class="fill-accent text-xs font-bold">i</text>
+      <!-- Point i — accent -->
+      <circle cx="100" cy="40" r="3" class="pt-accent"></circle>
 
-      <!-- Point -1 (180 deg rotation) -->
-      <circle cx="40" cy="100" r="4" class="fill-secondary"></circle>
-      <text x="25" y="112" class="fill-secondary text-xs font-bold">-1</text>
-
-      <!-- Rotation Path (Arc) -->
+      <!-- Arc from 1 to i (quarter, counterclockwise) — draws itself in -->
+      <!-- M 160 100 A 60 60 0 0 0 100 40  → length ≈ 94.25 -->
       <path
         d="M 160 100 A 60 60 0 0 0 100 40"
-        class="stroke-accent stroke-dashed fill-none stroke-2"
-        stroke-dasharray="4,4"></path>
-      <path
-        d="M 100 40 A 60 60 0 0 0 40 100"
-        class="stroke-accent/50 stroke-dashed fill-none stroke-2"
-        stroke-dasharray="4,4"></path>
+        class="arc"
+        stroke-dasharray="95"
+        stroke-dashoffset="95"
+        fill="none"></path>
 
-      <!-- Arrowheads for rotation -->
-      <polygon points="100,38 96,44 104,44" class="fill-accent" transform="rotate(-45 100 40)"
+      <!-- Arrowhead at i end of arc -->
+      <polygon points="100,38 96,46 104,46" class="arc-arrow" transform="rotate(-42 100 40)"
       ></polygon>
-      <polygon points="40,98 36,104 44,104" class="fill-accent/50" transform="rotate(-45 40 100)"
-      ></polygon>
+
+      <!-- Labels -->
+      <text x="167" y="107" class="lbl lbl-secondary">1</text>
+      <text x="107" y="37" class="lbl lbl-accent">i</text>
+      <text x="26" y="107" class="lbl lbl-secondary" style="opacity:0.4">−1</text>
+      <text x="107" y="175" class="lbl lbl-secondary" style="opacity:0.25">−i</text>
+
+      <!-- Axis labels -->
+      <text x="177" y="94" class="axis-lbl">ℝ</text>
+      <text x="105" y="18" class="axis-lbl">𝕚</text>
     </svg>
   </div>
-
-  <p
-    class="text-secondary mt-6 max-w-xs text-center text-sm tracking-widest italic"
-    set:html={description}
-  />
 </div>
+
+<style>
+  .plane-wrap {
+    width: 100%;
+    max-width: 18rem;
+  }
+  .plane-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .axis {
+    stroke: var(--color-secondary, oklch(65% 0.04 240deg));
+    stroke-width: 0.5;
+    opacity: 0.2;
+  }
+  .arrowhead {
+    fill: var(--color-secondary, oklch(65% 0.04 240deg));
+    opacity: 0.2;
+  }
+  .unit-circle {
+    stroke: var(--color-secondary, oklch(65% 0.04 240deg));
+    stroke-width: 0.5;
+    fill: none;
+    opacity: 0.12;
+  }
+
+  .pt-secondary {
+    fill: var(--color-secondary, oklch(65% 0.04 240deg));
+    opacity: 0.5;
+  }
+  .pt-accent {
+    fill: var(--color-accent, oklch(75% 0.18 85deg));
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 2.4s forwards;
+    filter: drop-shadow(
+      0 0 4px color-mix(in oklch, var(--color-accent, oklch(75% 0.18 85deg)) 60%, transparent)
+    );
+  }
+
+  .arc {
+    stroke: var(--color-accent, oklch(75% 0.18 85deg));
+    stroke-width: 1.2;
+    opacity: 0.8;
+    animation: drawArc 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  }
+  .arc-arrow {
+    fill: var(--color-accent, oklch(75% 0.18 85deg));
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out 2.4s forwards;
+  }
+
+  .lbl {
+    font-size: 9px;
+    font-family: inherit;
+    font-style: italic;
+  }
+  .lbl-secondary {
+    fill: var(--color-secondary, oklch(65% 0.04 240deg));
+    opacity: 0.5;
+  }
+  .lbl-accent {
+    fill: var(--color-accent, oklch(75% 0.18 85deg));
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 2.4s forwards;
+  }
+  .axis-lbl {
+    font-size: 8px;
+    font-family: inherit;
+    fill: var(--color-secondary, oklch(65% 0.04 240deg));
+    opacity: 0.18;
+  }
+
+  @keyframes drawArc {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+</style>

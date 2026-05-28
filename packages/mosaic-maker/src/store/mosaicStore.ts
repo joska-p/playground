@@ -69,10 +69,10 @@ const mosaicStore = create<MosaicState>(() => ({
 function _updateTiles() {
   const { mosaicRef, tileSet, tiles } = mosaicStore.getState();
   if (!mosaicRef.current) return;
-  
+
   const numberOfTiles = computeNumberOfTiles(mosaicRef.current);
   if (numberOfTiles === tiles.length && tiles.length > 0) return;
-  
+
   mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef, tileSet) });
 }
 
