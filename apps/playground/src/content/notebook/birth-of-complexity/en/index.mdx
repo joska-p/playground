@@ -45,7 +45,7 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <br />
 
-<TheNarrator>We must begin somewhere.</TheNarrator>
+<TheSkeptic>We must begin somewhere.</TheSkeptic>
 
 <TheNarrator>Mathematics starts from a simple idea:</TheNarrator>
 
@@ -59,7 +59,7 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheNarrator>Then we add a single rule.</TheNarrator>
 
-<TheDreamer>If a number exists, its successor also exists.</TheDreamer>
+<TheNarrator>If a number exists, its successor also exists.</TheNarrator>
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
   <span class="block pl-4">$1 + 1 =$ something</span>
@@ -67,9 +67,9 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <br />
 
-<TheNarrator>The mechanism is as simple as it is tireless.</TheNarrator>
+<TheSkeptic>The mechanism is as simple as it is tireless.</TheSkeptic>
 
-<TheDreamer>From one brick and one generative rule, an infinite set unfolds.</TheDreamer>
+<TheNarrator>From one brick and one generative rule, an infinite set unfolds.</TheNarrator>
 
 <figure title="the Natural Numbers" class="flex items-center justify-start gap-4 pl-4">
   <figcaption class="text-accent/80">the Natural Numbers</figcaption>
@@ -103,7 +103,7 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>What if we undo the addition?</TheDreamer>
 
-<TheNarrator>If we can add, we must be able to reverse the operation.</TheNarrator>
+<TheSkeptic>If we can add, we must be able to reverse the operation.</TheSkeptic>
 
 {/* prettier-ignore-start */}
 
@@ -113,7 +113,7 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 {/* prettier-ignore-end */}
 
-<TheDreamer>Then someone dares to write:</TheDreamer>
+<TheNarrator>Then someone dares to write:</TheNarrator>
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
   <span class="block pl-4">$$1 - 1 = something$$</span>
@@ -127,13 +127,13 @@ import TheNarrator from "../components/TheNarrator.astro";
   <span class="block pl-4">$$1 - 2$$ is worse still</span>
 </div>
 
-<TheSkeptic>The answer lives nowhere in our universe $$\mathbb{N}$$.</TheSkeptic>
+<TheSkeptic>The answer lives nowhere in our universe.</TheSkeptic>
 
 <br />
 
 <TheNarrator>
-  We have only one option: enlarge it by logical necessity. We invent a new symbol for the void $0$,
-  and a new direction for the deficit $-1$.
+  We have only one option: enlarge it. We invent a new symbol for the void $0$, and a new direction
+  for the negatives $-1$.
 </TheNarrator>
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
@@ -164,9 +164,9 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>What if we undo a multiplication?</TheDreamer>
 
-<TheSkeptic>
+<TheNarrator>
   The same reasoning repeats. If we can multiply, we must be able to invert the operation.
-</TheSkeptic>
+</TheNarrator>
 
 <TheNarrator>
   We invent division. And once again at the beginning, everything works perfectly.
@@ -188,12 +188,15 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheNarrator>We invent new symbols to describe the pieces.</TheNarrator>
 
+{/* prettier-ignore-start */}
+
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
   <span class="block pl-4">
-    {/* prettier-ignore */}
-    $$\dfrac{a{b}$$, where $$a, b \in \mathbb{Z}$$ and $$b \neq 0$$.
+    $$\dfrac{a}{b}$$, where $$a, b \in \mathbb{Z}$$ and $$b \neq 0$$.
   </span>
 </div>
+
+{/* prettier-ignore-end */}
 
 <TheNarrator>These new numbers need a home.</TheNarrator>
 
@@ -252,9 +255,7 @@ import TheNarrator from "../components/TheNarrator.astro";
   written.
 </TheSkeptic>
 
-<TheNarrator>
-  The Real Numbers are born to fill the infinite gaps left behind, and they live in $$\mathbb{R}$$.
-</TheNarrator>
+<TheNarrator>The Real Numbers are born to fill the infinite gaps left behind.</TheNarrator>
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
   <span class="block pl-4">$$\sqrt{2}, \pi, e, 3.33333333...$$ are real numbers</span>
@@ -300,7 +301,7 @@ import TheNarrator from "../components/TheNarrator.astro";
   <span class="block pl-4">$$x^2 = -1$$</span>
 </div>
 
-<TheSkeptic>The equation $x^2 + 1 = 0$ has no real solution. It points to a void.</TheSkeptic>
+<TheSkeptic>The equation x^2 + 1 = 0 has no real solution.</TheSkeptic>
 
 <TheNarrator>
   Mathematicians chose to act rather than retreat. They postulated the existence of a number $$i$$
@@ -312,8 +313,7 @@ import TheNarrator from "../components/TheNarrator.astro";
 </div>
 
 <TheNarrator>
-  Not a trick. Not a shorthand for something else. A legitimate new entity — admitted by the same
-  logical necessity that once forced us to invent zero.
+  Not a trick. Not a shorthand for something else. A legitimate new entity born from a necessity.
 </TheNarrator>
 
 <br />
