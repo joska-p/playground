@@ -129,211 +129,229 @@
   },
   "nodes": [
     {
+      "label": "radius-table.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/components/ui/docs/radius-table.astro",
+      "source_location": "L1",
+      "id": "apps_playground_src_components_ui_docs_radius_table_astro",
+      "community": 164,
+      "norm_label": "radius-table.astro"
+    },
+    {
+      "label": "typography-table.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/components/ui/docs/typography-table.astro",
+      "source_location": "L1",
+      "id": "apps_playground_src_components_ui_docs_typography_table_astro",
+      "community": 233,
+      "norm_label": "typography-table.astro"
+    },
+    {
       "label": "ComplexPlane.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/ComplexPlane.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_complexplane_astro",
       "community": 238,
-      "norm_label": "complexplane.astro"
+      "norm_label": "complexplane.astro",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_complexplane_astro"
     },
     {
       "label": "EulerFormula.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/EulerFormula.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_eulerformula_astro",
       "community": 239,
-      "norm_label": "eulerformula.astro"
+      "norm_label": "eulerformula.astro",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_eulerformula_astro"
     },
     {
       "label": "StepOne.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/StepOne.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_stepone_astro",
       "community": 240,
-      "norm_label": "stepone.astro"
+      "norm_label": "stepone.astro",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_stepone_astro"
     },
     {
       "label": "index.mdx",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
       "community": 12,
-      "norm_label": "index.mdx"
+      "norm_label": "index.mdx",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx"
     },
     {
       "label": "Step 01 \u2014 The Natural Numbers \u2014 $\\mathbb{N}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L32",
-      "id": "en_index_step_01_the_natural_numbers_mathbb_n",
       "community": 12,
-      "norm_label": "step 01 \u2014 the natural numbers \u2014 $\\mathbb{n}$"
+      "norm_label": "step 01 \u2014 the natural numbers \u2014 $\\mathbb{n}$",
+      "id": "en_index_step_01_the_natural_numbers_mathbb_n"
     },
     {
       "label": "Step 02 \u2014 Zero and the Negatives \u2014 $\\mathbb{Z}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L77",
-      "id": "en_index_step_02_zero_and_the_negatives_mathbb_z",
       "community": 12,
-      "norm_label": "step 02 \u2014 zero and the negatives \u2014 $\\mathbb{z}$"
+      "norm_label": "step 02 \u2014 zero and the negatives \u2014 $\\mathbb{z}$",
+      "id": "en_index_step_02_zero_and_the_negatives_mathbb_z"
     },
     {
       "label": "code:text (If we can add, can we reverse the operation ?)",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L81",
-      "id": "en_index_codeblock_1",
       "community": 12,
-      "norm_label": "code:text (if we can add, can we reverse the operation ?)"
+      "norm_label": "code:text (if we can add, can we reverse the operation ?)",
+      "id": "en_index_codeblock_1"
     },
     {
       "label": "Step 03 \u2014 The Rational Numbers \u2014 $\\mathbb{Q}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L132",
-      "id": "en_index_step_03_the_rational_numbers_mathbb_q",
       "community": 12,
-      "norm_label": "step 03 \u2014 the rational numbers \u2014 $\\mathbb{q}$"
+      "norm_label": "step 03 \u2014 the rational numbers \u2014 $\\mathbb{q}$",
+      "id": "en_index_step_03_the_rational_numbers_mathbb_q"
     },
     {
       "label": "Step 04 \u2014 The Real Numbers \u2014 $\\mathbb{R}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L172",
-      "id": "en_index_step_04_the_real_numbers_mathbb_r",
       "community": 12,
-      "norm_label": "step 04 \u2014 the real numbers \u2014 $\\mathbb{r}$"
+      "norm_label": "step 04 \u2014 the real numbers \u2014 $\\mathbb{r}$",
+      "id": "en_index_step_04_the_real_numbers_mathbb_r"
     },
     {
       "label": "Step 05 \u2014 The Imaginary Unit \u2014 $\\mathbb{i}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L217",
-      "id": "en_index_step_05_the_imaginary_unit_mathbb_i",
       "community": 12,
-      "norm_label": "step 05 \u2014 the imaginary unit \u2014 $\\mathbb{i}$"
+      "norm_label": "step 05 \u2014 the imaginary unit \u2014 $\\mathbb{i}$",
+      "id": "en_index_step_05_the_imaginary_unit_mathbb_i"
     },
     {
       "label": "Step 06 \u2014 The Complex Plane \u2014 $\\mathbb{C}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L248",
-      "id": "en_index_step_06_the_complex_plane_mathbb_c",
       "community": 12,
-      "norm_label": "step 06 \u2014 the complex plane \u2014 $\\mathbb{c}$"
+      "norm_label": "step 06 \u2014 the complex plane \u2014 $\\mathbb{c}$",
+      "id": "en_index_step_06_the_complex_plane_mathbb_c"
     },
     {
       "label": "code:text (i is not in the real world. It does not lie on the line.)",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L252",
-      "id": "en_index_codeblock_2",
       "community": 12,
-      "norm_label": "code:text (i is not in the real world. it does not lie on the line.)"
+      "norm_label": "code:text (i is not in the real world. it does not lie on the line.)",
+      "id": "en_index_codeblock_2"
     },
     {
       "label": "Epilogue \u2014 Euler's Formula",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L289",
-      "id": "en_index_epilogue_euler_s_formula",
       "community": 12,
-      "norm_label": "epilogue \u2014 euler's formula"
+      "norm_label": "epilogue \u2014 euler's formula",
+      "id": "en_index_epilogue_euler_s_formula"
     },
     {
       "label": "index.mdx",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
       "community": 132,
-      "norm_label": "index.mdx"
+      "norm_label": "index.mdx",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx"
     },
     {
       "label": "\u00c9tape 01 \u2014 Les Entiers Naturels \u2014 $\\mathbb{N}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L32",
-      "id": "fr_index_\u00e9tape_01_les_entiers_naturels_mathbb_n",
       "community": 132,
-      "norm_label": "etape 01 \u2014 les entiers naturels \u2014 $\\mathbb{n}$"
+      "norm_label": "etape 01 \u2014 les entiers naturels \u2014 $\\mathbb{n}$",
+      "id": "fr_index_\u00e9tape_01_les_entiers_naturels_mathbb_n"
     },
     {
       "label": "\u00c9tape 02 \u2014 Le Z\u00e9ro et les N\u00e9gatifs \u2014 $\\mathbb{Z}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L77",
-      "id": "fr_index_\u00e9tape_02_le_z\u00e9ro_et_les_n\u00e9gatifs_mathbb_z",
       "community": 132,
-      "norm_label": "etape 02 \u2014 le zero et les negatifs \u2014 $\\mathbb{z}$"
+      "norm_label": "etape 02 \u2014 le zero et les negatifs \u2014 $\\mathbb{z}$",
+      "id": "fr_index_\u00e9tape_02_le_z\u00e9ro_et_les_n\u00e9gatifs_mathbb_z"
     },
     {
       "label": "code:text (Si nous pouvons additionner, pouvons-nous inverser l'op\u00e9rati)",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L81",
-      "id": "fr_index_codeblock_1",
       "community": 132,
-      "norm_label": "code:text (si nous pouvons additionner, pouvons-nous inverser l'operati)"
+      "norm_label": "code:text (si nous pouvons additionner, pouvons-nous inverser l'operati)",
+      "id": "fr_index_codeblock_1"
     },
     {
       "label": "\u00c9tape 03 \u2014 Les Nombres Rationnels \u2014 $\\mathbb{Q}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L132",
-      "id": "fr_index_\u00e9tape_03_les_nombres_rationnels_mathbb_q",
       "community": 132,
-      "norm_label": "etape 03 \u2014 les nombres rationnels \u2014 $\\mathbb{q}$"
+      "norm_label": "etape 03 \u2014 les nombres rationnels \u2014 $\\mathbb{q}$",
+      "id": "fr_index_\u00e9tape_03_les_nombres_rationnels_mathbb_q"
     },
     {
       "label": "\u00c9tape 04 \u2014 Les Nombres R\u00e9els \u2014 $\\mathbb{R}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L172",
-      "id": "fr_index_\u00e9tape_04_les_nombres_r\u00e9els_mathbb_r",
       "community": 132,
-      "norm_label": "etape 04 \u2014 les nombres reels \u2014 $\\mathbb{r}$"
+      "norm_label": "etape 04 \u2014 les nombres reels \u2014 $\\mathbb{r}$",
+      "id": "fr_index_\u00e9tape_04_les_nombres_r\u00e9els_mathbb_r"
     },
     {
       "label": "\u00c9tape 05 \u2014 L'Unit\u00e9 Imaginaire \u2014 $\\mathbb{i}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L217",
-      "id": "fr_index_\u00e9tape_05_l_unit\u00e9_imaginaire_mathbb_i",
       "community": 132,
-      "norm_label": "etape 05 \u2014 l'unite imaginaire \u2014 $\\mathbb{i}$"
+      "norm_label": "etape 05 \u2014 l'unite imaginaire \u2014 $\\mathbb{i}$",
+      "id": "fr_index_\u00e9tape_05_l_unit\u00e9_imaginaire_mathbb_i"
     },
     {
       "label": "\u00c9tape 06 \u2014 Le Plan Complexe \u2014 $\\mathbb{C}$",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L248",
-      "id": "fr_index_\u00e9tape_06_le_plan_complexe_mathbb_c",
       "community": 132,
-      "norm_label": "etape 06 \u2014 le plan complexe \u2014 $\\mathbb{c}$"
+      "norm_label": "etape 06 \u2014 le plan complexe \u2014 $\\mathbb{c}$",
+      "id": "fr_index_\u00e9tape_06_le_plan_complexe_mathbb_c"
     },
     {
       "label": "code:text (i n'est pas dans le monde r\u00e9el. Il ne se trouve pas sur la d)",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L252",
-      "id": "fr_index_codeblock_2",
       "community": 132,
-      "norm_label": "code:text (i n'est pas dans le monde reel. il ne se trouve pas sur la d)"
+      "norm_label": "code:text (i n'est pas dans le monde reel. il ne se trouve pas sur la d)",
+      "id": "fr_index_codeblock_2"
     },
     {
       "label": "\u00c9pilogue \u2014 La Formule d'Euler",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L293",
-      "id": "fr_index_\u00e9pilogue_la_formule_d_euler",
       "community": 132,
-      "norm_label": "epilogue \u2014 la formule d'euler"
+      "norm_label": "epilogue \u2014 la formule d'euler",
+      "id": "fr_index_\u00e9pilogue_la_formule_d_euler"
     },
     {
       "label": "turbo.json",
@@ -4514,7 +4532,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L1",
-      "community": 151,
+      "community": 156,
       "norm_label": "sidebar.stories.tsx",
       "id": "apps_storybook_src_stories_widgets_sidebar_stories_tsx"
     },
@@ -4523,7 +4541,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L9",
-      "community": 151,
+      "community": 156,
       "norm_label": "meta",
       "id": "widgets_sidebar_stories_meta"
     },
@@ -4532,7 +4550,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L42",
-      "community": 151,
+      "community": 156,
       "norm_label": "sidebartemplate()",
       "id": "widgets_sidebar_stories_sidebartemplate"
     },
@@ -4541,7 +4559,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L69",
-      "community": 151,
+      "community": 156,
       "norm_label": "normalleft",
       "id": "widgets_sidebar_stories_normalleft"
     },
@@ -4550,7 +4568,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L74",
-      "community": 151,
+      "community": 156,
       "norm_label": "primaryright",
       "id": "widgets_sidebar_stories_primaryright"
     },
@@ -4559,7 +4577,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L79",
-      "community": 151,
+      "community": 156,
       "norm_label": "secondarytop",
       "id": "widgets_sidebar_stories_secondarytop"
     },
@@ -4568,7 +4586,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
       "source_location": "L84",
-      "community": 151,
+      "community": 156,
       "norm_label": "accentbottom",
       "id": "widgets_sidebar_stories_accentbottom"
     },
@@ -23712,9 +23730,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "en_index_step_02_zero_and_the_negatives_mathbb_z",
-      "target": "en_index_codeblock_1",
-      "confidence_score": 1.0
+      "target": "en_index_codeblock_1"
     },
     {
       "relation": "contains",
@@ -23722,9 +23740,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L252",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "en_index_step_06_the_complex_plane_mathbb_c",
-      "target": "en_index_codeblock_2",
-      "confidence_score": 1.0
+      "target": "en_index_codeblock_2"
     },
     {
       "relation": "contains",
@@ -23732,9 +23750,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9tape_01_les_entiers_naturels_mathbb_n",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9tape_01_les_entiers_naturels_mathbb_n"
     },
     {
       "relation": "contains",
@@ -23742,9 +23760,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9tape_02_le_z\u00e9ro_et_les_n\u00e9gatifs_mathbb_z",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9tape_02_le_z\u00e9ro_et_les_n\u00e9gatifs_mathbb_z"
     },
     {
       "relation": "contains",
@@ -23752,9 +23770,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L132",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9tape_03_les_nombres_rationnels_mathbb_q",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9tape_03_les_nombres_rationnels_mathbb_q"
     },
     {
       "relation": "contains",
@@ -23762,9 +23780,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L172",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9tape_04_les_nombres_r\u00e9els_mathbb_r",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9tape_04_les_nombres_r\u00e9els_mathbb_r"
     },
     {
       "relation": "contains",
@@ -23772,9 +23790,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L217",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9tape_05_l_unit\u00e9_imaginaire_mathbb_i",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9tape_05_l_unit\u00e9_imaginaire_mathbb_i"
     },
     {
       "relation": "contains",
@@ -23782,9 +23800,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L248",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9tape_06_le_plan_complexe_mathbb_c",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9tape_06_le_plan_complexe_mathbb_c"
     },
     {
       "relation": "contains",
@@ -23792,9 +23810,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L293",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_fr_index_mdx",
-      "target": "fr_index_\u00e9pilogue_la_formule_d_euler",
-      "confidence_score": 1.0
+      "target": "fr_index_\u00e9pilogue_la_formule_d_euler"
     },
     {
       "relation": "contains",
@@ -23802,9 +23820,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "fr_index_\u00e9tape_02_le_z\u00e9ro_et_les_n\u00e9gatifs_mathbb_z",
-      "target": "fr_index_codeblock_1",
-      "confidence_score": 1.0
+      "target": "fr_index_codeblock_1"
     },
     {
       "relation": "contains",
@@ -23812,9 +23830,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/fr/index.mdx",
       "source_location": "L252",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "fr_index_\u00e9tape_06_le_plan_complexe_mathbb_c",
-      "target": "fr_index_codeblock_2",
-      "confidence_score": 1.0
+      "target": "fr_index_codeblock_2"
     },
     {
       "relation": "contains",
@@ -55335,5 +55353,5 @@
       "source_file": "packages/sequence-renderer/src/core/rules.ts"
     }
   ],
-  "built_at_commit": "b4c9b653c5c5a3d199b8acc79ba54bf6bd771b7e"
+  "built_at_commit": "ef40428ef05c421d5904ad453d345ccd3074275d"
 }

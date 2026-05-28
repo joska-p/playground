@@ -14,15 +14,23 @@ tags:
 import StepOne from "../components/StepOne.astro";
 import ComplexPlane from "../components/ComplexPlane.astro";
 
-This is an invitation to a walk.
+import TheDreamer from "../components/TheDreamer.astro";
+import TheSkeptic from "../components/TheSkeptic.astro";
+import TheNarrator from "../components/TheNarrator.astro";
 
-At every crossroads we will ask a simple question:
+<TheNarrator>This is an invitation to a walk.</TheNarrator>
 
-> What if ?
+<TheNarrator>At every crossroads we will ask a simple question:</TheNarrator>
 
-It is this question, asked again and again, that builds the whole architecture of numbers.
+<TheDreamer>What if ?</TheDreamer>
 
-From the ground up, step by step, each extension forced on us not by choice but by logic.
+<TheNarrator>
+  It is this question, asked again and again, that builds the whole architecture of numbers.
+</TheNarrator>
+
+<TheNarrator>
+  From the ground up, step by step, each extension forced on us not by choice but by logic.
+</TheNarrator>
 
 <br />
 
@@ -30,11 +38,11 @@ From the ground up, step by step, each extension forced on us not by choice but 
 
 ## Step 01 — The Natural Numbers — <span class="text-accent">$\mathbb{N}$</span>
 
-We must begin somewhere.
+<TheNarrator>We must begin somewhere.</TheNarrator>
 
-Mathematics starts from a simple idea:
+<TheNarrator>Mathematics starts from a simple idea:</TheNarrator>
 
-> What if something exists
+<TheDreamer>What if something exists?</TheDreamer>
 
 <br />
 
@@ -42,9 +50,9 @@ Mathematics starts from a simple idea:
 
 <br />
 
-Then we add a single rule.
+<TheNarrator>Then we add a single rule.</TheNarrator>
 
-> if a number exists, its successor also exists
+<TheDreamer>If a number exists, its successor also exists.</TheDreamer>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $1 + 1 =$ something
@@ -54,9 +62,9 @@ Then we add a single rule.
 
 <br />
 
-The mechanism is as simple as it is tireless.
+<TheNarrator>The mechanism is as simple as it is tireless.</TheNarrator>
 
-> From one brick and one generative rule, an infinite set unfolds.
+<TheDreamer>From one brick and one generative rule, an infinite set unfolds.</TheDreamer>
 
 <figure title="the Natural Numbers" class="text-center">
   <span class="text-accent text-5xl">$\mathbb{N}$</span>
@@ -65,9 +73,9 @@ The mechanism is as simple as it is tireless.
 
 <br />
 
-Then, multiplication is not a new invention.
+<TheNarrator>Then, multiplication is not a new invention.</TheNarrator>
 
-It is a compact notation for repeated addition.
+<TheSkeptic>It is just a compact notation for repeated addition.</TheSkeptic>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $1 + 1 + 1 = 1 * 3$
@@ -77,49 +85,50 @@ It is a compact notation for repeated addition.
 
 <br />
 
-## Step 02 — Zero and the Negatives — <span class="text-accent">$\mathbb{Z}$</ span>
+## Step 02 — Zero and the Negatives — <span class="text-accent">$\mathbb{Z}$</span>
 
-> What if we undo the addition ?
+<TheDreamer>What if we undo the addition?</TheDreamer>
 
-- If we can add, can we reverse the operation ?
+<TheSkeptic>
+  If we can add, we must be able to reverse the operation. That is the definition of a balance.
+</TheSkeptic>
 
 <br />
 
-We invent subtraction. And for a while, everything holds:
+<TheNarrator>
+  We invent subtraction. And for a while, everything holds: all results land safely in $\mathbb{N}$.
+</TheNarrator>
 
-All results land safely in <span class="text-accent">$\mathbb{N}$</span>.
-
-Then someone dares to write
+<TheDreamer>Then someone dares to write:</TheDreamer>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $1 - 1 = something$
 </div>
 
-> Silence.
+<TheNarrator>Silence.</TheNarrator>
 
-...
+<TheSkeptic>The operation is illegal. There is nothing before the start.</TheSkeptic>
 
-> The result should exist.
+<TheDreamer>The result should exist.</TheDreamer>
 
 <div class="not-prose text-secondary border-accent/20 text-accent/70 my-8 border-y py-8 text-center text-xl">
   $1 - 2$ is worse still
 </div>
 
-The answer lives nowhere in our universe <span class="text-accent">$\mathbb{N}$</ span>.
+<TheSkeptic>The answer lives nowhere in our universe $\mathbb{N}$.</TheSkeptic>
 
 <br />
 
-We have only one option: enlarge it.
-
-> by logical necessity.
-
-We invent a new symbol for the void <span class="text-secondary">$0$</span>, and a new direction for the deficit <span class="text-secondary">$-1$</span>.
+<TheNarrator>
+  We have only one option: enlarge it by logical necessity. We invent a new symbol for the void $0$,
+  and a new direction for the deficit $-1$.
+</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $0 = n - n$ and $0 - n = -n$
 </div>
 
-And we give the **negative numbers** somewhere to live.
+<TheNarrator>And we give the **negative numbers** somewhere to live.</TheNarrator>
 
 {/* TODO the number line with negative numbers */}
 
@@ -134,28 +143,40 @@ And we give the **negative numbers** somewhere to live.
 
 ## Step 03 — The Rational Numbers — <span class="text-accent">$\mathbb{Q}$</span>
 
-> What if we undo a multiplication ?
+<TheDreamer>What if we undo a multiplication?</TheDreamer>
 
-The same reasoning repeats. If we can multiply, can we invert the operation? We invent division.
+<TheSkeptic>
+  The same reasoning repeats. If we can multiply, we must be able to invert the operation.
+</TheSkeptic>
 
-And once again at the beginning, everything works. <span class="text-secondary">$4 \div2 = 2$</span>
-
-> But what if.
+<TheNarrator>
+  We invent division. And once again at the beginning, everything works perfectly.
+</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $n = 1 \div2$
+  $4 \div 2 = 2$
 </div>
 
-We invent new symbols.
+<TheDreamer>But what if it doesn't divide cleanly?</TheDreamer>
+
+<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
+  $n = 1 \div 2$
+</div>
+
+<TheSkeptic>
+  The space between the integers is empty. There are no positions between one and two.
+</TheSkeptic>
+
+<TheNarrator>We invent new symbols to describe the pieces.</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $\dfrac{a}
   {b}$, where $a, b \in \mathbb{Z}$ and $b \neq 0$.
 </div>
 
-These new numbers need a home.
+<TheNarrator>These new numbers need a home.</TheNarrator>
 
-> The number line becomes dense.
+<TheDreamer>The number line becomes dense.</TheDreamer>
 
 <figure title="the rational numbers" class="text-center">
   <span class="text-accent text-5xl">$\mathbb{Q}$</span>
@@ -168,19 +189,19 @@ These new numbers need a home.
 
 ## Step 04 — The Real Numbers — <span class="text-accent">$\mathbb{R}$</span>
 
-From the multiplication we derive the exponentiation.
+<TheNarrator>From multiplication, we derive exponentiation.</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $$3 ^ 9 = 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3$$
 </div>
 
-- It is just a fancy notation.
+<TheSkeptic>It is just a fancy notation.</TheSkeptic>
 
 <br />
 
-> What if we undo the exponentiation ?
+<TheDreamer>What if we undo the exponentiation?</TheDreamer>
 
-- We need a new symbol: <span class="text-secondary">$\sqrt{}$</span>
+<TheNarrator>We build a tool for it: the symbol $\sqrt{}$.</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $$\sqrt{a} = b$$ means that $$b^2 = a$$
@@ -188,17 +209,22 @@ From the multiplication we derive the exponentiation.
 
 <br />
 
-For a while it was fine. Then someone asked.
+<TheNarrator>For a while it was fine. Then a crack appeared in the geometry.</TheNarrator>
 
-> What if we undo the square of 2 ?
+<TheDreamer>What if we undo the square of 2?</TheDreamer>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $n = \sqrt{2}$
 </div>
 
-<br />
+<TheSkeptic>
+  We checked every fraction. No two integers can be divided to produce this ratio. It cannot be
+  written.
+</TheSkeptic>
 
-The Real Numbers are born and they live in <span class="text-accent">$\mathbb{R}$</span>.
+<TheNarrator>
+  The Real Numbers are born to fill the infinite gaps left behind, and they live in $\mathbb{R}$.
+</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $\sqrt{2}$, $\pi$, $e$, $3.33333333...$, are real numbers
@@ -215,31 +241,41 @@ The Real Numbers are born and they live in <span class="text-accent">$\mathbb{R}
 
 ## Step 05 — The Imaginary Unit — <span class="text-accent">$\mathbb{I}$</span>
 
-We have noticed that when you square a real number, the result is always positive.
-
-- Even if you square a negative number, the result is still positive.
+<TheNarrator>
+  We have noticed that when you square a real number, the result is always positive. Even if you
+  square a negative number, the result is still positive.
+</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $(-2)^2 = 4$ or, $(-x)^2 = x^2$
 </div>
 
-It enforces one absolute law: **every real square is $\geq 0$**.
+<TheNarrator>
+  It enforces one absolute law of our reality: <br />
+  Every real square is $\geq 0$.
+</TheNarrator>
 
-> What if we allow a square to be a negative number?
+<TheDreamer>What if we allow a square to be a negative number?</TheDreamer>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $x^2 = -1$
 </div>
 
-- The equation $x^2 + 1 = 0$ has no real solution.
+<TheSkeptic>The equation $x^2 + 1 = 0$ has no real solution. It points to a void.</TheSkeptic>
 
-Mathematicians chose to act rather than retreat. They postulated the existence of a number $i$ such that:
+<TheNarrator>
+  Mathematicians chose to act rather than retreat. They postulated the existence of a number $i$
+  such that:
+</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $$i^2 = -1$$
 </div>
 
-Not a trick. Not a shorthand for something else. A legitimate new entity — admitted by the same logical necessity that once forced us to invent zero.
+<TheNarrator>
+  Not a trick. Not a shorthand for something else. A legitimate new entity — admitted by the same
+  logical necessity that once forced us to invent zero.
+</TheNarrator>
 
 <br />
 
@@ -252,37 +288,32 @@ Not a trick. Not a shorthand for something else. A legitimate new entity — adm
 
 ## Step 06 — The Complex Plane — <span class="text-accent">$\mathbb{C}$</span>
 
-> Where is <span class="text-secondary">$i$ ?</span>
+<TheDreamer>Where is $i$?</TheDreamer>
 
-- <span class="text-secondary">$i$</span> is not in the real world. It does not lie on the line.
+<TheNarrator>
+  $i$ is not in the real world. It does not lie anywhere on our line. We need to be creative. We
+  create a new dimension.
+</TheNarrator>
 
-We need to be creative.
+<TheSkeptic>We visualize it as a line perpendicular to the real axis.</TheSkeptic>
 
-We create a new dimension. A dimension with a solution for:
-
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $i^2 = -1$.
-</div>
-
-Its axis is called the **imaginary axis**.
-
-> We visualize it as a line perpendicular to the real axis.
-
-And now with those two axis, the real numbers number line extends into a plane.
-
-This is where the complex numbers live: <span class="text-accent">$\mathbb{C}$</span>
+<TheNarrator>
+  And now with those two axes, the real number line extends into a plane. This is where the complex
+  numbers live: $\mathbb{C}$
+</TheNarrator>
 
 <ComplexPlane />
 
-Every complex number takes the form:
+<TheNarrator>Every complex number takes the form:</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $Z = a + ib \qquad a,\, b \in \mathbb{R}$
 </div>
 
-where <span class="text-secondary">$a$</span> is the **real part** and <span class="text-secondary">$b$</span> is the **imaginary part**. The line has become a plane.
-
-A brand new world.
+<TheNarrator>
+  where $a$ is the **real part** and $b$ is the **imaginary part**. The line has become a plane. A
+  brand new world.
+</TheNarrator>
 
 <br />
 
@@ -295,9 +326,9 @@ A brand new world.
 
 ## Epilogue — Euler's Formula
 
-> What if we bring them all together?
+<TheDreamer>What if we bring them all together?</TheDreamer>
 
-Five symbols. Five different origins. One equation.
+<TheNarrator>Five symbols. Five different origins. One equation.</TheNarrator>
 
 <div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
   $$0 \qquad 1 \qquad \pi \qquad e \qquad i$$
@@ -311,9 +342,12 @@ Five symbols. Five different origins. One equation.
 - **$e$** — the base of natural growth, the number that is its own derivative.
 - **$i$** — the answer to the impossible square.
 
-They come from different centuries, different problems, and different branches of mathematics. They have no obvious reason to meet.
+<TheNarrator>
+  They come from different centuries, different problems, and different branches of mathematics.
+  They have no obvious reason to meet.
+</TheNarrator>
 
-> And yet.
+<TheSkeptic>And yet.</TheSkeptic>
 
 <figure title="Euler's Formula" class="text-center">
   <span class="text-accent text-5xl">$$e^{i\pi} + 1 = 0$$</span>
@@ -322,6 +356,6 @@ They come from different centuries, different problems, and different branches o
 
 <br />
 
-The walk has no end.
+<TheDreamer>The walk has no end.</TheDreamer>
 
 <br />

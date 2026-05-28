@@ -1,16 +1,16 @@
 # Graph Report - playground  (2026-05-28)
 
 ## Corpus Check
-- 308 files · ~81,512 words
+- 309 files · ~81,659 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2433 nodes · 3084 edges · 235 communities (179 shown, 56 thin omitted)
+- 2435 nodes · 3084 edges · 238 communities (182 shown, 56 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 52 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b4c9b653`
+- Built from commit: `ef40428e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -161,6 +161,7 @@
 - [[_COMMUNITY_Community 153|Community 153]]
 - [[_COMMUNITY_Community 154|Community 154]]
 - [[_COMMUNITY_Community 155|Community 155]]
+- [[_COMMUNITY_Community 156|Community 156]]
 - [[_COMMUNITY_Community 157|Community 157]]
 - [[_COMMUNITY_Community 158|Community 158]]
 - [[_COMMUNITY_Community 159|Community 159]]
@@ -245,7 +246,7 @@
 - **Number Tower Visualizations** — number_expansion_tower, masterpiece_svg, text_svg, graphic_svg, emergence_complexite_notebook [INFERRED 0.85]
 - **Sequence Rule Implementations** — sequencerule_interface, recaman_rule, fibonacci_rule, primes_rule, triangular_rule, collatz_rule [EXTRACTED 1.00]
 
-## Communities (235 total, 56 thin omitted)
+## Communities (238 total, 56 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
@@ -668,8 +669,8 @@ Cohesion: 0.22
 Nodes (8): Accent, Destructive, Ghost, meta, Outline, Primary, Secondary, Story
 
 ### Community 151 - "Community 151"
-Cohesion: 0.12
-Nodes (12): Accent, Destructive, Disabled, meta, Primary, Secondary, Story, AccentBottom (+4 more)
+Cohesion: 0.22
+Nodes (7): Accent, Destructive, Disabled, meta, Primary, Secondary, Story
 
 ### Community 153 - "Community 153"
 Cohesion: 0.22
@@ -682,6 +683,10 @@ Nodes (5): defaultPalette, Palette, updateMosaicPalette(), arePalettesEqual(), g
 ### Community 155 - "Community 155"
 Cohesion: 0.50
 Nodes (8): computeDimension(), computeGap(), computeNumberOfTiles(), computeTileHeight(), computeTileWidth(), getComputedPropertyValue(), parseNumericValue(), StyleProperty
+
+### Community 156 - "Community 156"
+Cohesion: 0.29
+Nodes (5): AccentBottom, meta, NormalLeft, PrimaryRight, SecondaryTop
 
 ### Community 157 - "Community 157"
 Cohesion: 0.22
@@ -812,11 +817,11 @@ Nodes (4): dependsOn, extends, tasks, check-types
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Tailwind CSS` connect `Community 144` to `Community 8`, `Community 19`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Why does `dependencies` connect `Community 7` to `Community 144`, `Community 146`, `Community 101`, `Community 6`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
 - **Why does `@repo/storybook` connect `Community 19` to `Community 15`, `Community 16`, `Community 25`, `Community 28`, `Community 30`, `Community 31`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+- **Why does `devDependencies` connect `Community 2` to `Community 144`, `Community 153`, `Community 129`, `Community 3`?**
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `cn()` (e.g. with `clsx` and `Tile()`) actually correct?**
   _`cn()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Step 01 — The Natural Numbers — $\mathbb{N}$`, `code:text (If we can add, can we reverse the operation ?)`, `Step 03 — The Rational Numbers — $\mathbb{Q}$` to the rest of the system?**
