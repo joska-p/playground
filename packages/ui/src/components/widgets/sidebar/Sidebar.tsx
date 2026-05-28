@@ -14,6 +14,8 @@ export type SidebarProps = {
   mobilePosition?: "top" | "right" | "bottom" | "left";
   desktopPosition?: "top" | "right" | "bottom" | "left";
   variant?: "normal" | "primary" | "secondary" | "accent";
+  panelWidth?: string;
+  panelHeight?: string;
 } & ComponentProps<"div">;
 
 export function Sidebar({
@@ -24,6 +26,9 @@ export function Sidebar({
   desktopPosition = "bottom",
   variant = "normal",
   defaultOpen = true,
+  panelWidth,
+  panelHeight,
+  style,
   ...props
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -42,6 +47,15 @@ export function Sidebar({
     [isOpen, toggleSidebar, desktopPosition, mobilePosition]
   );
 
+  const sidebarStyles = useMemo(
+    () => ({
+      ...style,
+      ...(panelWidth && { "--sidebar-width": panelWidth }),
+      ...(panelHeight && { "--sidebar-height": panelHeight }),
+    }),
+    [style, panelWidth, panelHeight]
+  );
+
   return (
     <SidebarContext.Provider value={value}>
       <div
@@ -51,6 +65,7 @@ export function Sidebar({
         data-desktop-position={desktopPosition}
         data-variant={variant}
         className={cn(styles.sidebar, "group", className)}
+        style={sidebarStyles as React.CSSProperties}
         {...props}
       >
         {children}

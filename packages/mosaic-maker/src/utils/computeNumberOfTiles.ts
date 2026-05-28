@@ -33,9 +33,15 @@ function computeDimension(total: number, size: number, gap: number): number {
 function computeNumberOfTiles(element: HTMLDivElement): number {
   try {
     const gap = computeGap(element);
-    const tilesPerRow = computeDimension(element.offsetWidth, computeTileWidth(element), gap);
-    const tilesPerColumn = computeDimension(element.offsetHeight, computeTileHeight(element), gap);
-    return tilesPerRow * tilesPerColumn;
+    const width = element.clientWidth;
+    const height = element.clientHeight;
+    
+    if (width === 0 || height === 0) return 0;
+
+    const tilesPerRow = computeDimension(width, computeTileWidth(element), gap);
+    const tilesPerColumn = computeDimension(height, computeTileHeight(element), gap);
+    
+    return Math.max(0, tilesPerRow * tilesPerColumn);
   } catch (error) {
     console.error("Failed to compute number of tiles:", error);
     return 0;

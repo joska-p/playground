@@ -1,17 +1,17 @@
 @reference "../../../styles/styles.css";
 
 .sidebar {
-  @apply relative grid min-h-full transition-all duration-300 ease-in-out;
+  @apply relative grid w-full h-full transition-all duration-300 ease-in-out overflow-hidden;
 
-  /* CSS Variables for dimensions */
+  /* CSS Variables for dimensions with sensible defaults */
   --sidebar-width: min(80vw, 300px);
   --sidebar-height: min(40vh, 200px);
 
   /* Mobile Grid Layouts */
-  &[data-mobile-position="left"] { @apply grid-cols-[auto_1fr] [grid-template-areas:'panel_main']; }
-  &[data-mobile-position="right"] { @apply grid-cols-[1fr_auto] [grid-template-areas:'main_panel']; }
-  &[data-mobile-position="top"] { @apply grid-rows-[auto_1fr] [grid-template-areas:'panel'_'main']; }
-  &[data-mobile-position="bottom"] { @apply grid-rows-[1fr_auto] [grid-template-areas:'main'_'panel']; }
+  &[data-mobile-position="left"] { @apply grid-cols-[auto_1fr] [grid-template-areas:'panel_main'] grid-rows-1; }
+  &[data-mobile-position="right"] { @apply grid-cols-[1fr_auto] [grid-template-areas:'main_panel'] grid-rows-1; }
+  &[data-mobile-position="top"] { @apply grid-rows-[auto_1fr] [grid-template-areas:'panel'_'main'] grid-cols-1; }
+  &[data-mobile-position="bottom"] { @apply grid-rows-[1fr_auto] [grid-template-areas:'main'_'panel'] grid-cols-1; }
 
   /* Desktop Grid Layouts */
   @media (min-width: 1024px) {
@@ -37,36 +37,58 @@
 }
 
 .panel {
-  @apply [grid-area:panel] overflow-hidden transition-all duration-300 ease-in-out;
+  @apply [grid-area:panel] overflow-hidden transition-all duration-300 ease-in-out flex flex-col relative;
 
-  /* Horizontal Transitions */
-  .sidebar[data-mobile-position="left"] & { @apply w-(--sidebar-width); }
-  .sidebar[data-mobile-position="right"] & { @apply w-(--sidebar-width); }
-  .sidebar[data-state="closed"][data-mobile-position="left"] & { @apply w-0; }
-  .sidebar[data-state="closed"][data-mobile-position="right"] & { @apply w-0; }
+  /* Width handling */
+  .sidebar[data-mobile-position="left"] &,
+  .sidebar[data-mobile-position="right"] & {
+    width: var(--sidebar-width);
+  }
 
-  /* Vertical Transitions */
-  .sidebar[data-mobile-position="top"] & { @apply h-(--sidebar-height); }
-  .sidebar[data-mobile-position="bottom"] & { @apply h-(--sidebar-height); }
-  .sidebar[data-state="closed"][data-mobile-position="top"] & { @apply h-0; }
-  .sidebar[data-state="closed"][data-mobile-position="bottom"] & { @apply h-0; }
+  /* Height handling */
+  .sidebar[data-mobile-position="top"] &,
+  .sidebar[data-mobile-position="bottom"] & {
+    height: var(--sidebar-height);
+  }
 
   /* Desktop overrides */
   @media (min-width: 1024px) {
-    .sidebar[data-desktop-position="left"] & { @apply w-(--sidebar-width) h-auto; }
-    .sidebar[data-desktop-position="right"] & { @apply w-(--sidebar-width) h-auto; }
-    .sidebar[data-state="closed"][data-desktop-position="left"] & { @apply w-0; }
-    .sidebar[data-state="closed"][data-desktop-position="right"] & { @apply w-0; }
+    .sidebar[data-desktop-position="left"] &,
+    .sidebar[data-desktop-position="right"] & {
+      width: var(--sidebar-width);
+      @apply h-full;
+    }
 
-    .sidebar[data-desktop-position="top"] & { @apply h-(--sidebar-height) w-auto; }
-    .sidebar[data-desktop-position="bottom"] & { @apply h-(--sidebar-height) w-auto; }
-    .sidebar[data-state="closed"][data-desktop-position="top"] & { @apply h-0; }
-    .sidebar[data-state="closed"][data-desktop-position="bottom"] & { @apply h-0; }
+    .sidebar[data-desktop-position="top"] &,
+    .sidebar[data-desktop-position="bottom"] & {
+      height: var(--sidebar-height);
+      @apply w-full;
+    }
   }
 
-  /* Visibility */
-  .sidebar[data-state="closed"] & {
-    @apply invisible opacity-0;
+  /* Closed States - Horizontal */
+  .sidebar[data-state="closed"][data-mobile-position="left"] &,
+  .sidebar[data-state="closed"][data-mobile-position="right"] & {
+    @apply w-0 opacity-0 invisible;
+  }
+
+  /* Closed States - Vertical */
+  .sidebar[data-state="closed"][data-mobile-position="top"] &,
+  .sidebar[data-state="closed"][data-mobile-position="bottom"] & {
+    @apply h-0 opacity-0 invisible;
+  }
+
+  /* Desktop Closed States */
+  @media (min-width: 1024px) {
+    .sidebar[data-state="closed"][data-desktop-position="left"] &,
+    .sidebar[data-state="closed"][data-desktop-position="right"] & {
+      @apply w-0 opacity-0 invisible;
+    }
+
+    .sidebar[data-state="closed"][data-desktop-position="top"] &,
+    .sidebar[data-state="closed"][data-desktop-position="bottom"] & {
+      @apply h-0 opacity-0 invisible;
+    }
   }
 }
 
@@ -103,5 +125,6 @@
 }
 
 .main {
-  @apply relative [grid-area:main];
+  @apply relative [grid-area:main] min-w-0 min-h-0 w-full h-full;
 }
+

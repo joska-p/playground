@@ -3,7 +3,12 @@ import { useEffect } from "react";
 import { initialGapSize, initialRotations, initialTileSize } from "../../core/constants";
 import { CSS_VARS } from "../../core/cssVars";
 import { initialPalette } from "../../core/initialPalette";
-import { initMosaicPalettes, setMosaicRef, useMosaicTiles } from "../../store/mosaicStore";
+import {
+  initMosaicPalettes,
+  setMosaicRef,
+  updateMosaicTiles,
+  useMosaicTiles,
+} from "../../store/mosaicStore";
 import { Tile } from "../tiles/Tile";
 
 const MOSAIC_STYLES = {
@@ -23,6 +28,7 @@ function MosaicDisplay() {
   useEffect(() => {
     if (dimensions.width > 0 && dimensions.height > 0) {
       setMosaicRef(mosaicRef);
+      updateMosaicTiles();
     }
   }, [dimensions.width, dimensions.height, mosaicRef]);
 
@@ -35,7 +41,7 @@ function MosaicDisplay() {
   return (
     <div
       ref={mosaicRef}
-      className="absolute inset-0 grid content-start justify-center overflow-hidden"
+      className="w-full h-full grid content-start justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (
