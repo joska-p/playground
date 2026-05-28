@@ -17,7 +17,7 @@ function Controls() {
   const visualizationId = useSequenceVisualizationId();
 
   return (
-    <Card className="flex w-full flex-row flex-wrap items-center justify-center gap-8 rounded-none">
+    <Card className="flex w-full flex-row items-cente py-2 px-4 justify-center gap-8">
       <SequenceSelector />
 
       <Slider
@@ -35,7 +35,7 @@ function Controls() {
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">Visualization:</span>
         <Select
-          variant="primary"
+          variant="secondary"
           value={visualizationId}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             setSequenceVisualizationId(e.target.value)

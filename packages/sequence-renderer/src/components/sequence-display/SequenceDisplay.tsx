@@ -14,7 +14,7 @@ function SequenceDisplay() {
     }
   }, [sequence, visualizationId]);
 
-  return <canvas ref={canvasRef} width={800} height={600} className="h-full w-full" />;
+  return <canvas ref={canvasRef} className="h-full w-full" />;
 }
 
 export { SequenceDisplay };

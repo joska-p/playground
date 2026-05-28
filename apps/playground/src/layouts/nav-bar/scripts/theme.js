@@ -27,9 +27,6 @@ const setupThemeToggle = () => {
   });
 };
 
-// Apply immediately to avoid flash
-applyTheme(getThemePreference());
-
 setupThemeToggle();
 document.addEventListener("astro:after-swap", setupThemeToggle);
 document.addEventListener("astro:page-load", setupThemeToggle);

@@ -9,10 +9,10 @@ const baseUrl = import.meta.env.BASE_URL || "/";
 
 type Route = { label: string; href: string };
 const routes: Route[] = [
-  { label: "./home", href: baseUrl },
-  { label: "./projects", href: `${baseUrl}projects/` },
-  { label: "./notebook", href: `${baseUrl}notebook/` },
-  { label: "./docs", href: `${baseUrl}docs/` },
+  { label: "~/home", href: baseUrl },
+  { label: "~/projects", href: `${baseUrl}projects/` },
+  { label: "~/notebook", href: `${baseUrl}notebook/` },
+  { label: "~/docs", href: `${baseUrl}docs/` },
 ];
 ---
 
@@ -27,31 +27,6 @@ const routes: Route[] = [
 
   <MobileMenu routes={routes} currentPath={currentPath} baseUrl={baseUrl} />
 </header>
-
-<style>
-  header {
-    transition:
-      transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.4s ease;
-  }
-</style>
-
-<!-- Theme must be is:inline to run before first paint (prevents flash) -->
-<script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  };
-  const applyTheme = (theme) => {
-    const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
-    root.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
-  };
-  applyTheme(getThemePreference());
-</script>
 
 <!-- Bundled scripts: Astro deduplicates these automatically -->
 <script>

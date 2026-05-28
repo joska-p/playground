@@ -17,6 +17,23 @@ const siteTitle = title ? `${title} — Playground` : "Playground — Generative
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
+<!-- Theme must be is:inline to run before first paint (prevents flash) -->
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+  const applyTheme = (theme) => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    root.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  };
+  applyTheme(getThemePreference());
+</script>
+
 <html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />

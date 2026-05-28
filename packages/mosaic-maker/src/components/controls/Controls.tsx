@@ -28,7 +28,7 @@ function Controls() {
   }
 
   return (
-    <form className="flex flex-wrap justify-center gap-4 lg:flex-col lg:gap-8">
+    <form className="flex flex-wrap justify-center lg:max-w-[45ch] p-4 gap-4 lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2">
         <Button variant="primary" type="button" onClick={() => shuffleColors()} size="small">
           Shuffle colors

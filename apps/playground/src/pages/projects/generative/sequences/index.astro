@@ -16,7 +16,7 @@ const keywords = `${project["tags"].join(", ")}`;
     highlight={project["category"]}
     description={project["description"]}
   />
-  <div class="min-h-screen">
+  <div class="h-screen">
     <StrictMode>
       <SequenceRenderer client:only="react" />
     </StrictMode>

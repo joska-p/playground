@@ -41,7 +41,7 @@ function MosaicDisplay() {
   return (
     <div
       ref={mosaicRef}
-      className="w-full h-full grid content-start justify-center overflow-hidden"
+      className="w-full h-full grid content-center justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (

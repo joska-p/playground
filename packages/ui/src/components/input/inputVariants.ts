@@ -5,10 +5,10 @@ export const inputVariants = cva(
   {
     variants: {
       variant: {
-        primary: "border-border hover:border-primary/50",
+        primary: "border-primary/50 bg-primary/10 hover:border-primary",
         secondary: "border-secondary/50 bg-secondary/10 hover:border-secondary",
         accent: "border-accent/50 bg-accent/10 hover:border-accent",
-        destructive: "border-destructive text-destructive focus-visible:ring-destructive",
+        destructive: "border-destructive/50 text-destructive/10 hover:border-destructive",
         outline: "border-border hover:border-primary/50 bg-transparent",
         ghost: "hover:bg-foreground/5 border-transparent bg-transparent",
       },
