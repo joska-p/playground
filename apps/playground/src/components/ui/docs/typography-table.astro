@@ -1,0 +1,49 @@
+---
+type TypographyToken = {
+  name: string;
+  stack: string;
+  example: string;
+}
+
+type Props = {
+  tokens: TypographyToken[];
+}
+
+const { tokens } = Astro.props;
+---
+
+<div class="not-prose my-6 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+  <div class="overflow-x-auto">
+    <table class="w-full text-left text-sm border-collapse">
+      <thead>
+        <tr class="border-b border-border bg-muted/30">
+          <th class="px-4 py-3 font-semibold text-foreground">Token</th>
+          <th class="px-4 py-3 font-semibold text-foreground">Preview</th>
+          <th class="px-4 py-3 font-semibold text-foreground">Font Stack</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        {tokens.map((token) => (
+          <tr key={token.name} class="hover:bg-muted/10 transition-colors">
+            <td class="px-4 py-4 align-top">
+              <code class="rounded bg-muted px-2 py-0.5 font-mono text-xs font-medium text-primary">
+                {token.name}
+              </code>
+            </td>
+            <td class="px-4 py-4 align-top">
+              <div
+                class="text-lg leading-tight text-foreground"
+                style={{ fontFamily: `var(${token.name})` }}
+              >
+                {token.example}
+              </div>
+            </td>
+            <td class="px-4 py-4 align-top text-xs text-muted-foreground font-mono break-all max-w-xs">
+              {token.stack}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>

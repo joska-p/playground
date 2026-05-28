@@ -1,0 +1,33 @@
+---
+type RadiusToken = {
+  name: string;
+  value: string;
+};
+
+type Props = {
+  tokens: RadiusToken[];
+};
+
+const { tokens } = Astro.props;
+---
+
+<div class="not-prose my-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+  {
+    tokens.map((token) => (
+      <div class="border-border bg-card hover:bg-muted/5 flex flex-col items-center gap-4 rounded-xl border p-6 transition-colors">
+        <div
+          class="bg-primary/20 border-primary flex h-20 w-20 items-center justify-center border-2 shadow-inner"
+          style={{ borderRadius: `var(${token.name})` }}
+        >
+          <div class="bg-primary h-8 w-8 rounded-[inherit]" />
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <code class="bg-muted text-primary rounded px-2 py-0.5 font-mono text-xs font-medium">
+            {token.name}
+          </code>
+          <span class="text-muted-foreground text-xs">{token.value}</span>
+        </div>
+      </div>
+    ))
+  }
+</div>
