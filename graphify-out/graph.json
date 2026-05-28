@@ -129,22 +129,121 @@
   },
   "nodes": [
     {
+      "label": "TheDreamer.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/TheDreamer.astro",
+      "source_location": "L1",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_thedreamer_astro",
+      "community": 243,
+      "norm_label": "thedreamer.astro"
+    },
+    {
+      "label": "TheNarrator.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/TheNarrator.astro",
+      "source_location": "L1",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_thenarrator_astro",
+      "community": 244,
+      "norm_label": "thenarrator.astro"
+    },
+    {
+      "label": "TheSkeptic.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/TheSkeptic.astro",
+      "source_location": "L1",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_theskeptic_astro",
+      "community": 245,
+      "norm_label": "theskeptic.astro"
+    },
+    {
+      "label": "index.mdx",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L1",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
+      "community": 12,
+      "norm_label": "index.mdx"
+    },
+    {
+      "label": "Step 01 \u2014 The Natural Numbers \u2014 <span class=\"text-accent\">$\\mathbb{N}$</span>",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L39",
+      "id": "en_index_step_01_the_natural_numbers_span_class_text_accent_mathbb_n_span",
+      "community": 12,
+      "norm_label": "step 01 \u2014 the natural numbers \u2014 <span class=\"text-accent\">$\\mathbb{n}$</span>"
+    },
+    {
+      "label": "Step 02 \u2014 Zero and the Negatives \u2014 <span class=\"text-accent\">$\\mathbb{Z}$</span>",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L88",
+      "id": "en_index_step_02_zero_and_the_negatives_span_class_text_accent_mathbb_z_span",
+      "community": 12,
+      "norm_label": "step 02 \u2014 zero and the negatives \u2014 <span class=\"text-accent\">$\\mathbb{z}$</span>"
+    },
+    {
+      "label": "Step 03 \u2014 The Rational Numbers \u2014 <span class=\"text-accent\">$\\mathbb{Q}$</span>",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L144",
+      "id": "en_index_step_03_the_rational_numbers_span_class_text_accent_mathbb_q_span",
+      "community": 12,
+      "norm_label": "step 03 \u2014 the rational numbers \u2014 <span class=\"text-accent\">$\\mathbb{q}$</span>"
+    },
+    {
+      "label": "Step 04 \u2014 The Real Numbers \u2014 <span class=\"text-accent\">$\\mathbb{R}$</span>",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L190",
+      "id": "en_index_step_04_the_real_numbers_span_class_text_accent_mathbb_r_span",
+      "community": 12,
+      "norm_label": "step 04 \u2014 the real numbers \u2014 <span class=\"text-accent\">$\\mathbb{r}$</span>"
+    },
+    {
+      "label": "Step 05 \u2014 The Imaginary Unit \u2014 <span class=\"text-accent\">$\\mathbb{I}$</span>",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L242",
+      "id": "en_index_step_05_the_imaginary_unit_span_class_text_accent_mathbb_i_span",
+      "community": 12,
+      "norm_label": "step 05 \u2014 the imaginary unit \u2014 <span class=\"text-accent\">$\\mathbb{i}$</span>"
+    },
+    {
+      "label": "Step 06 \u2014 The Complex Plane \u2014 <span class=\"text-accent\">$\\mathbb{C}$</span>",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L289",
+      "id": "en_index_step_06_the_complex_plane_span_class_text_accent_mathbb_c_span",
+      "community": 12,
+      "norm_label": "step 06 \u2014 the complex plane \u2014 <span class=\"text-accent\">$\\mathbb{c}$</span>"
+    },
+    {
+      "label": "Epilogue \u2014 Euler's Formula",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
+      "source_location": "L327",
+      "id": "en_index_epilogue_euler_s_formula",
+      "community": 12,
+      "norm_label": "epilogue \u2014 euler's formula"
+    },
+    {
       "label": "radius-table.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/docs/radius-table.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_components_ui_docs_radius_table_astro",
       "community": 164,
-      "norm_label": "radius-table.astro"
+      "norm_label": "radius-table.astro",
+      "id": "apps_playground_src_components_ui_docs_radius_table_astro"
     },
     {
       "label": "typography-table.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/docs/typography-table.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_components_ui_docs_typography_table_astro",
       "community": 233,
-      "norm_label": "typography-table.astro"
+      "norm_label": "typography-table.astro",
+      "id": "apps_playground_src_components_ui_docs_typography_table_astro"
     },
     {
       "label": "ComplexPlane.astro",
@@ -172,96 +271,6 @@
       "community": 240,
       "norm_label": "stepone.astro",
       "id": "apps_playground_src_content_notebook_birth_of_complexity_components_stepone_astro"
-    },
-    {
-      "label": "index.mdx",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L1",
-      "community": 12,
-      "norm_label": "index.mdx",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx"
-    },
-    {
-      "label": "Step 01 \u2014 The Natural Numbers \u2014 $\\mathbb{N}$",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L32",
-      "community": 12,
-      "norm_label": "step 01 \u2014 the natural numbers \u2014 $\\mathbb{n}$",
-      "id": "en_index_step_01_the_natural_numbers_mathbb_n"
-    },
-    {
-      "label": "Step 02 \u2014 Zero and the Negatives \u2014 $\\mathbb{Z}$",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L77",
-      "community": 12,
-      "norm_label": "step 02 \u2014 zero and the negatives \u2014 $\\mathbb{z}$",
-      "id": "en_index_step_02_zero_and_the_negatives_mathbb_z"
-    },
-    {
-      "label": "code:text (If we can add, can we reverse the operation ?)",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L81",
-      "community": 12,
-      "norm_label": "code:text (if we can add, can we reverse the operation ?)",
-      "id": "en_index_codeblock_1"
-    },
-    {
-      "label": "Step 03 \u2014 The Rational Numbers \u2014 $\\mathbb{Q}$",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L132",
-      "community": 12,
-      "norm_label": "step 03 \u2014 the rational numbers \u2014 $\\mathbb{q}$",
-      "id": "en_index_step_03_the_rational_numbers_mathbb_q"
-    },
-    {
-      "label": "Step 04 \u2014 The Real Numbers \u2014 $\\mathbb{R}$",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L172",
-      "community": 12,
-      "norm_label": "step 04 \u2014 the real numbers \u2014 $\\mathbb{r}$",
-      "id": "en_index_step_04_the_real_numbers_mathbb_r"
-    },
-    {
-      "label": "Step 05 \u2014 The Imaginary Unit \u2014 $\\mathbb{i}$",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L217",
-      "community": 12,
-      "norm_label": "step 05 \u2014 the imaginary unit \u2014 $\\mathbb{i}$",
-      "id": "en_index_step_05_the_imaginary_unit_mathbb_i"
-    },
-    {
-      "label": "Step 06 \u2014 The Complex Plane \u2014 $\\mathbb{C}$",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L248",
-      "community": 12,
-      "norm_label": "step 06 \u2014 the complex plane \u2014 $\\mathbb{c}$",
-      "id": "en_index_step_06_the_complex_plane_mathbb_c"
-    },
-    {
-      "label": "code:text (i is not in the real world. It does not lie on the line.)",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L252",
-      "community": 12,
-      "norm_label": "code:text (i is not in the real world. it does not lie on the line.)",
-      "id": "en_index_codeblock_2"
-    },
-    {
-      "label": "Epilogue \u2014 Euler's Formula",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L289",
-      "community": 12,
-      "norm_label": "epilogue \u2014 euler's formula",
-      "id": "en_index_epilogue_euler_s_formula"
     },
     {
       "label": "index.mdx",
@@ -2055,7 +2064,7 @@
       "source_file": "apps/playground/src/components/ui/features/section-header.astro",
       "confidence": "EXTRACTED",
       "source_location": "L1",
-      "community": 227,
+      "community": 4,
       "norm_label": "../../components/ui/features/section-header.astro",
       "id": "apps_playground_src_components_ui_features_section_header_astro"
     },
@@ -2705,7 +2714,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/404.astro",
       "source_location": "L1",
-      "community": 4,
+      "community": 111,
       "norm_label": "404.astro",
       "id": "apps_playground_src_pages_404_astro"
     },
@@ -2768,7 +2777,7 @@
       "file_type": "code",
       "source_file": "astro:content",
       "confidence": "EXTRACTED",
-      "community": 11,
+      "community": 111,
       "norm_label": "astro:content",
       "id": "astro_content"
     },
@@ -5423,7 +5432,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L47",
-      "community": 4,
+      "community": 168,
       "norm_label": "lucide-react",
       "id": "ui_package_dependencies_lucide_react"
     },
@@ -5666,7 +5675,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/main.tsx",
       "source_location": "L1",
-      "community": 102,
+      "community": 21,
       "norm_label": "main.tsx",
       "id": "packages_ui_src_main_tsx"
     },
@@ -6899,7 +6908,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L19",
-      "community": 101,
+      "community": 88,
       "norm_label": "dependencies",
       "id": "mosaic_maker_package_dependencies"
     },
@@ -6908,7 +6917,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L20",
-      "community": 101,
+      "community": 88,
       "norm_label": "@repo/ui",
       "id": "mosaic_maker_package_dependencies_repo_ui"
     },
@@ -6917,7 +6926,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L21",
-      "community": 101,
+      "community": 88,
       "norm_label": "zod",
       "id": "mosaic_maker_package_dependencies_zod"
     },
@@ -6926,7 +6935,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L22",
-      "community": 101,
+      "community": 88,
       "norm_label": "zustand",
       "id": "mosaic_maker_package_dependencies_zustand"
     },
@@ -9878,7 +9887,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 86,
       "norm_label": "dependencies",
       "id": "palette_generator_package_dependencies"
     },
@@ -9887,7 +9896,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L22",
-      "community": 6,
+      "community": 86,
       "norm_label": "@repo/ui",
       "id": "palette_generator_package_dependencies_repo_ui"
     },
@@ -9896,7 +9905,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L23",
-      "community": 6,
+      "community": 86,
       "norm_label": "colorjs.io",
       "id": "palette_generator_package_dependencies_colorjs_io"
     },
@@ -9905,7 +9914,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L24",
-      "community": 6,
+      "community": 86,
       "norm_label": "zustand",
       "id": "palette_generator_package_dependencies_zustand"
     },
@@ -10121,7 +10130,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/App.tsx",
       "source_location": "L1",
-      "community": 95,
+      "community": 237,
       "norm_label": "app.tsx",
       "id": "packages_palette_generator_src_app_tsx"
     },
@@ -10130,7 +10139,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/App.tsx",
       "source_location": "L3",
-      "community": 95,
+      "community": 237,
       "norm_label": "app()",
       "id": "packages_palette_generator_src_app_tsx_src_app_app"
     },
@@ -10139,7 +10148,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/main.tsx",
       "source_location": "L1",
-      "community": 95,
+      "community": 237,
       "norm_label": "main.tsx",
       "id": "packages_palette_generator_src_main_tsx"
     },
@@ -10148,7 +10157,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/PaletteGenerator.tsx",
       "source_location": "L1",
-      "community": 95,
+      "community": 237,
       "norm_label": "palettegenerator.tsx",
       "id": "packages_palette_generator_src_components_palettegenerator_tsx"
     },
@@ -10157,7 +10166,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/PaletteGenerator.tsx",
       "source_location": "L5",
-      "community": 95,
+      "community": 237,
       "norm_label": "palettegenerator()",
       "id": "components_palettegenerator_palettegenerator"
     },
@@ -10166,7 +10175,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "controls.tsx",
       "id": "packages_palette_generator_src_components_controls_controls_tsx"
     },
@@ -10175,7 +10184,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L12",
-      "community": 95,
+      "community": 235,
       "norm_label": "rules",
       "id": "controls_controls_rules"
     },
@@ -10184,7 +10193,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L13",
-      "community": 95,
+      "community": 235,
       "norm_label": "rulekey",
       "id": "controls_controls_rulekey"
     },
@@ -10193,7 +10202,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L15",
-      "community": 95,
+      "community": 235,
       "norm_label": "controls()",
       "id": "packages_palette_generator_src_components_controls_controls_tsx_controls_controls_controls"
     },
@@ -10256,7 +10265,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/display/Display.tsx",
       "source_location": "L1",
-      "community": 95,
+      "community": 237,
       "norm_label": "display.tsx",
       "id": "packages_palette_generator_src_components_display_display_tsx"
     },
@@ -10265,7 +10274,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/display/Display.tsx",
       "source_location": "L3",
-      "community": 95,
+      "community": 237,
       "norm_label": "display()",
       "id": "display_display_display"
     },
@@ -10274,7 +10283,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/generatePalette.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "generatepalette.ts",
       "id": "packages_palette_generator_src_core_generatepalette_ts"
     },
@@ -10283,7 +10292,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/generatePalette.ts",
       "source_location": "L4",
-      "community": 95,
+      "community": 235,
       "norm_label": "generatepalette()",
       "id": "core_generatepalette_generatepalette"
     },
@@ -10373,7 +10382,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/analogous.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "analogous.ts",
       "id": "packages_palette_generator_src_core_rules_analogous_ts"
     },
@@ -10382,7 +10391,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/analogous.ts",
       "source_location": "L8",
-      "community": 95,
+      "community": 235,
       "norm_label": "analogous",
       "id": "rules_analogous_analogous"
     },
@@ -10391,7 +10400,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/complementary.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "complementary.ts",
       "id": "packages_palette_generator_src_core_rules_complementary_ts"
     },
@@ -10400,7 +10409,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/complementary.ts",
       "source_location": "L9",
-      "community": 95,
+      "community": 235,
       "norm_label": "complementary",
       "id": "rules_complementary_complementary"
     },
@@ -10409,7 +10418,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/monochromatic.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "monochromatic.ts",
       "id": "packages_palette_generator_src_core_rules_monochromatic_ts"
     },
@@ -10418,7 +10427,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/monochromatic.ts",
       "source_location": "L8",
-      "community": 95,
+      "community": 235,
       "norm_label": "monochromatic",
       "id": "rules_monochromatic_monochromatic"
     },
@@ -10427,7 +10436,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/triadic.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "triadic.ts",
       "id": "packages_palette_generator_src_core_rules_triadic_ts"
     },
@@ -10436,7 +10445,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/triadic.ts",
       "source_location": "L8",
-      "community": 95,
+      "community": 235,
       "norm_label": "triadic",
       "id": "rules_triadic_triadic"
     },
@@ -10445,7 +10454,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/harmonyRule.types.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 235,
       "norm_label": "harmonyrule.types.ts",
       "id": "packages_palette_generator_src_core_rules_harmonyrule_types_ts"
     },
@@ -10454,7 +10463,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/harmonyRule.types.ts",
       "source_location": "L3",
-      "community": 95,
+      "community": 235,
       "norm_label": "palette",
       "id": "rules_harmonyrule_types_palette"
     },
@@ -10463,7 +10472,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/harmonyRule.types.ts",
       "source_location": "L7",
-      "community": 95,
+      "community": 235,
       "norm_label": "rule",
       "id": "rules_harmonyrule_types_rule"
     },
@@ -10472,7 +10481,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L1",
-      "community": 95,
+      "community": 237,
       "norm_label": "palettestore.ts",
       "id": "packages_palette_generator_src_store_palettestore_ts"
     },
@@ -10481,7 +10490,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L5",
-      "community": 95,
+      "community": 237,
       "norm_label": "palettestate",
       "id": "store_palettestore_palettestate"
     },
@@ -10490,7 +10499,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L10",
-      "community": 95,
+      "community": 237,
       "norm_label": "initialbasecolor",
       "id": "store_palettestore_initialbasecolor"
     },
@@ -10499,7 +10508,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L12",
-      "community": 95,
+      "community": 237,
       "norm_label": "palettestore",
       "id": "store_palettestore_palettestore"
     },
@@ -10508,7 +10517,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L17",
-      "community": 95,
+      "community": 237,
       "norm_label": "usepalettepalettes()",
       "id": "store_palettestore_usepalettepalettes"
     },
@@ -10517,7 +10526,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L21",
-      "community": 95,
+      "community": 237,
       "norm_label": "usepalettebasecolor()",
       "id": "store_palettestore_usepalettebasecolor"
     },
@@ -10535,7 +10544,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L29",
-      "community": 95,
+      "community": 235,
       "norm_label": "addpalette()",
       "id": "store_palettestore_addpalette"
     },
@@ -11165,7 +11174,7 @@
       "file_type": "code",
       "source_file": "packages/image-to-particles/package.json",
       "source_location": "L19",
-      "community": 6,
+      "community": 91,
       "norm_label": "dependencies",
       "id": "image_to_particles_package_dependencies"
     },
@@ -11174,7 +11183,7 @@
       "file_type": "code",
       "source_file": "packages/image-to-particles/package.json",
       "source_location": "L20",
-      "community": 6,
+      "community": 91,
       "norm_label": "@repo/ui",
       "id": "image_to_particles_package_dependencies_repo_ui"
     },
@@ -11183,7 +11192,7 @@
       "file_type": "code",
       "source_file": "packages/image-to-particles/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 91,
       "norm_label": "zustand",
       "id": "image_to_particles_package_dependencies_zustand"
     },
@@ -11993,7 +12002,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L1",
-      "community": 87,
+      "community": 236,
       "norm_label": "package.json",
       "id": "packages_graph_viz_package_json"
     },
@@ -12002,7 +12011,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L2",
-      "community": 87,
+      "community": 236,
       "norm_label": "name",
       "id": "graph_viz_package_name"
     },
@@ -12011,7 +12020,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L3",
-      "community": 87,
+      "community": 236,
       "norm_label": "private",
       "id": "graph_viz_package_private"
     },
@@ -12020,7 +12029,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L4",
-      "community": 87,
+      "community": 236,
       "norm_label": "version",
       "id": "graph_viz_package_version"
     },
@@ -12029,7 +12038,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L5",
-      "community": 87,
+      "community": 236,
       "norm_label": "type",
       "id": "graph_viz_package_type"
     },
@@ -12038,7 +12047,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L6",
-      "community": 87,
+      "community": 236,
       "norm_label": "exports",
       "id": "graph_viz_package_exports"
     },
@@ -12047,7 +12056,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L8",
-      "community": 87,
+      "community": 236,
       "norm_label": "./styles",
       "id": "graph_viz_package_exports_styles"
     },
@@ -12056,7 +12065,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L10",
-      "community": 87,
+      "community": 236,
       "norm_label": "scripts",
       "id": "graph_viz_package_scripts"
     },
@@ -12065,7 +12074,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L11",
-      "community": 87,
+      "community": 236,
       "norm_label": "dev",
       "id": "graph_viz_package_scripts_dev"
     },
@@ -12074,7 +12083,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L12",
-      "community": 87,
+      "community": 236,
       "norm_label": "build",
       "id": "graph_viz_package_scripts_build"
     },
@@ -12083,7 +12092,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L13",
-      "community": 87,
+      "community": 236,
       "norm_label": "lint",
       "id": "graph_viz_package_scripts_lint"
     },
@@ -12092,7 +12101,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L14",
-      "community": 87,
+      "community": 236,
       "norm_label": "lint-fix",
       "id": "graph_viz_package_scripts_lint_fix"
     },
@@ -12101,7 +12110,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L15",
-      "community": 87,
+      "community": 236,
       "norm_label": "format",
       "id": "graph_viz_package_scripts_format"
     },
@@ -12110,7 +12119,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L16",
-      "community": 87,
+      "community": 236,
       "norm_label": "preview",
       "id": "graph_viz_package_scripts_preview"
     },
@@ -12119,7 +12128,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L17",
-      "community": 87,
+      "community": 236,
       "norm_label": "check-types",
       "id": "graph_viz_package_scripts_check_types"
     },
@@ -12128,7 +12137,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L19",
-      "community": 6,
+      "community": 242,
       "norm_label": "dependencies",
       "id": "graph_viz_package_dependencies"
     },
@@ -12137,7 +12146,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L20",
-      "community": 6,
+      "community": 242,
       "norm_label": "@repo/ui",
       "id": "graph_viz_package_dependencies_repo_ui"
     },
@@ -12146,7 +12155,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 242,
       "norm_label": "d3",
       "id": "graph_viz_package_dependencies_d3"
     },
@@ -12155,7 +12164,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L22",
-      "community": 6,
+      "community": 242,
       "norm_label": "zustand",
       "id": "graph_viz_package_dependencies_zustand"
     },
@@ -12164,7 +12173,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L24",
-      "community": 87,
+      "community": 236,
       "norm_label": "peerdependencies",
       "id": "graph_viz_package_peerdependencies"
     },
@@ -12173,7 +12182,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L25",
-      "community": 87,
+      "community": 236,
       "norm_label": "react",
       "id": "graph_viz_package_peerdependencies_react"
     },
@@ -12182,7 +12191,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L26",
-      "community": 87,
+      "community": 236,
       "norm_label": "react-dom",
       "id": "graph_viz_package_peerdependencies_react_dom"
     },
@@ -13694,7 +13703,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L19",
-      "community": 6,
+      "community": 90,
       "norm_label": "dependencies",
       "id": "image_manipulator_package_dependencies"
     },
@@ -13703,7 +13712,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L20",
-      "community": 6,
+      "community": 90,
       "norm_label": "@repo/ui",
       "id": "image_manipulator_package_dependencies_repo_ui"
     },
@@ -13712,7 +13721,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 90,
       "norm_label": "zustand",
       "id": "image_manipulator_package_dependencies_zustand"
     },
@@ -18320,7 +18329,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L21",
-      "community": 101,
+      "community": 88,
       "norm_label": "react",
       "id": "mosaic_maker_package_dependencies_react"
     },
@@ -18329,7 +18338,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L22",
-      "community": 101,
+      "community": 88,
       "norm_label": "react-dom",
       "id": "mosaic_maker_package_dependencies_react_dom"
     },
@@ -18356,7 +18365,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L24",
-      "community": 6,
+      "community": 86,
       "norm_label": "react",
       "id": "palette_generator_package_dependencies_react"
     },
@@ -18365,7 +18374,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L25",
-      "community": 6,
+      "community": 86,
       "norm_label": "react-dom",
       "id": "palette_generator_package_dependencies_react_dom"
     },
@@ -18374,7 +18383,7 @@
       "file_type": "code",
       "source_file": "packages/image-to-particles/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 91,
       "norm_label": "react",
       "id": "image_to_particles_package_dependencies_react"
     },
@@ -18383,7 +18392,7 @@
       "file_type": "code",
       "source_file": "packages/image-to-particles/package.json",
       "source_location": "L22",
-      "community": 6,
+      "community": 91,
       "norm_label": "react-dom",
       "id": "image_to_particles_package_dependencies_react_dom"
     },
@@ -18392,7 +18401,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 242,
       "norm_label": "@types/d3",
       "id": "graph_viz_package_dependencies_types_d3"
     },
@@ -18401,7 +18410,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L23",
-      "community": 6,
+      "community": 242,
       "norm_label": "react",
       "id": "graph_viz_package_dependencies_react"
     },
@@ -18410,7 +18419,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L24",
-      "community": 6,
+      "community": 242,
       "norm_label": "react-dom",
       "id": "graph_viz_package_dependencies_react_dom"
     },
@@ -18419,7 +18428,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 90,
       "norm_label": "react",
       "id": "image_manipulator_package_dependencies_react"
     },
@@ -18428,7 +18437,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L22",
-      "community": 6,
+      "community": 90,
       "norm_label": "react-dom",
       "id": "image_manipulator_package_dependencies_react_dom"
     },
@@ -18763,7 +18772,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L42",
-      "community": 4,
+      "community": 11,
       "norm_label": "docschema",
       "id": "data_docs_docschema"
     },
@@ -22959,7 +22968,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "@repo/palette-generator",
       "id": "palette_generator_package"
     },
@@ -22985,7 +22994,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "main",
       "id": "palette_generator_main"
     },
@@ -23193,7 +23202,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "index.html",
       "id": "palette_generator_index_html"
     },
@@ -23206,7 +23215,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "vite config",
       "id": "palette_generator_vite_config"
     },
@@ -23245,7 +23254,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 95,
+      "community": 235,
       "norm_label": "colorjs.io",
       "id": "colorjs_io"
     },
@@ -23258,7 +23267,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "react",
       "id": "react_library"
     },
@@ -23271,7 +23280,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "zustand",
       "id": "zustand_library"
     },
@@ -23297,7 +23306,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "vite",
       "id": "vite_tool"
     },
@@ -23310,7 +23319,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "typescript",
       "id": "typescript_tool"
     },
@@ -23323,7 +23332,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 241,
       "norm_label": "tailwind css",
       "id": "tailwindcss_tool"
     },
@@ -23658,61 +23667,61 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L22",
+      "source_location": "L39",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_01_the_natural_numbers_mathbb_n"
+      "target": "en_index_step_01_the_natural_numbers_span_class_text_accent_mathbb_n_span",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L49",
+      "source_location": "L88",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_02_zero_and_the_negatives_mathbb_z"
+      "target": "en_index_step_02_zero_and_the_negatives_span_class_text_accent_mathbb_z_span",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L85",
+      "source_location": "L144",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_03_the_rational_numbers_mathbb_q"
+      "target": "en_index_step_03_the_rational_numbers_span_class_text_accent_mathbb_q_span",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L161",
+      "source_location": "L190",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_04_the_real_numbers_mathbb_r"
+      "target": "en_index_step_04_the_real_numbers_span_class_text_accent_mathbb_r_span",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L138",
+      "source_location": "L242",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_05_the_imaginary_unit_mathbb_i"
+      "target": "en_index_step_05_the_imaginary_unit_span_class_text_accent_mathbb_i_span",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L163",
+      "source_location": "L289",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_06_the_complex_plane_mathbb_c"
+      "target": "en_index_step_06_the_complex_plane_span_class_text_accent_mathbb_c_span",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -23723,26 +23732,6 @@
       "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
       "target": "en_index_epilogue_euler_s_formula"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L81",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "en_index_step_02_zero_and_the_negatives_mathbb_z",
-      "target": "en_index_codeblock_1"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
-      "source_location": "L252",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "en_index_step_06_the_complex_plane_mathbb_c",
-      "target": "en_index_codeblock_2"
     },
     {
       "relation": "contains",
@@ -55353,5 +55342,5 @@
       "source_file": "packages/sequence-renderer/src/core/rules.ts"
     }
   ],
-  "built_at_commit": "ef40428ef05c421d5904ad453d345ccd3074275d"
+  "built_at_commit": "5276bf4ed6228e1bcf38edfa9563985626fab586"
 }

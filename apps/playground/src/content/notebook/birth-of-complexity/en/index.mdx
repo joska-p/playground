@@ -36,7 +36,14 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <br />
 
-## Step 01 — The Natural Numbers — <span class="text-accent">$\mathbb{N}$</span>
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 01</span>
+  <span class="shrink-0">The Natural Numbers</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$\mathbb{N}$$</span>
+</h2>
+
+<br />
 
 <TheNarrator>We must begin somewhere.</TheNarrator>
 
@@ -54,11 +61,9 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>If a number exists, its successor also exists.</TheDreamer>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $1 + 1 =$ something
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$1 + 1 =$ something</span>
 </div>
-
-{/* TODO the number line */}
 
 <br />
 
@@ -66,9 +71,9 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>From one brick and one generative rule, an infinite set unfolds.</TheDreamer>
 
-<figure title="the Natural Numbers" class="text-center">
-  <span class="text-accent text-5xl">$\mathbb{N}$</span>
+<figure title="the Natural Numbers" class="flex items-center justify-start gap-4 pl-4">
   <figcaption class="text-accent/80">the Natural Numbers</figcaption>
+  <span class="text-accent text-5xl">$$\mathbb{N}$$</span>
 </figure>
 
 <br />
@@ -77,45 +82,52 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheSkeptic>It is just a compact notation for repeated addition.</TheSkeptic>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $1 + 1 + 1 = 1 * 3$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4"> $$1 + 1 + 1 = 1 * 3$$</span>
 </div>
 
 <br />
 
 <br />
 
-## Step 02 — Zero and the Negatives — <span class="text-accent">$\mathbb{Z}$</span>
+<br />
 
-<TheDreamer>What if we undo the addition?</TheDreamer>
-
-<TheSkeptic>
-  If we can add, we must be able to reverse the operation. That is the definition of a balance.
-</TheSkeptic>
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 01</span>
+  <span class="shrink-0">Zero and the Negatives</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$\mathbb{Z}$$</span>
+</h2>
 
 <br />
 
+<TheDreamer>What if we undo the addition?</TheDreamer>
+
+<TheNarrator>If we can add, we must be able to reverse the operation.</TheNarrator>
+
+{/* prettier-ignore-start */}
+
 <TheNarrator>
-  We invent subtraction. And for a while, everything holds: all results land safely in $\mathbb{N}$.
+  We invent subtraction. And for a while, everything holds: all results land safely in $$\mathbb{N}$$.
 </TheNarrator>
+
+{/* prettier-ignore-end */}
 
 <TheDreamer>Then someone dares to write:</TheDreamer>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $1 - 1 = something$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$1 - 1 = something$$</span>
 </div>
 
 <TheNarrator>Silence.</TheNarrator>
 
-<TheSkeptic>The operation is illegal. There is nothing before the start.</TheSkeptic>
-
 <TheDreamer>The result should exist.</TheDreamer>
 
-<div class="not-prose text-secondary border-accent/20 text-accent/70 my-8 border-y py-8 text-center text-xl">
-  $1 - 2$ is worse still
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$1 - 2$$ is worse still</span>
 </div>
 
-<TheSkeptic>The answer lives nowhere in our universe $\mathbb{N}$.</TheSkeptic>
+<TheSkeptic>The answer lives nowhere in our universe $$\mathbb{N}$$.</TheSkeptic>
 
 <br />
 
@@ -124,24 +136,31 @@ import TheNarrator from "../components/TheNarrator.astro";
   and a new direction for the deficit $-1$.
 </TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $0 = n - n$ and $0 - n = -n$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$0 = n - n$$ and $$0 - n = -n$$</span>
 </div>
 
 <TheNarrator>And we give the **negative numbers** somewhere to live.</TheNarrator>
 
-{/* TODO the number line with negative numbers */}
-
-<figure title="the integers" class="text-center">
-  <span class="text-accent text-5xl">$\mathbb{Z}$</span>
+<figure title="the Natural Numbers" class="flex items-center justify-start gap-4 pl-4">
   <figcaption class="text-accent/80">the integers</figcaption>
+  <span class="text-accent text-5xl">$$\mathbb{Z}$$</span>
 </figure>
 
 <br />
 
 <br />
 
-## Step 03 — The Rational Numbers — <span class="text-accent">$\mathbb{Q}$</span>
+<br />
+
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 01</span>
+  <span class="shrink-0">The Rational Numbers</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$\mathbb{Q}$$</span>
+</h2>
+
+<br />
 
 <TheDreamer>What if we undo a multiplication?</TheDreamer>
 
@@ -153,14 +172,14 @@ import TheNarrator from "../components/TheNarrator.astro";
   We invent division. And once again at the beginning, everything works perfectly.
 </TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $4 \div 2 = 2$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$4 \div 2 = 2$$</span>
 </div>
 
 <TheDreamer>But what if it doesn't divide cleanly?</TheDreamer>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $n = 1 \div 2$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$n = 1 \div 2$$</span>
 </div>
 
 <TheSkeptic>
@@ -169,30 +188,41 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheNarrator>We invent new symbols to describe the pieces.</TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $\dfrac{a}
-  {b}$, where $a, b \in \mathbb{Z}$ and $b \neq 0$.
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">
+    {/* prettier-ignore */}
+    $$\dfrac{a{b}$$, where $$a, b \in \mathbb{Z}$$ and $$b \neq 0$$.
+  </span>
 </div>
 
 <TheNarrator>These new numbers need a home.</TheNarrator>
 
 <TheDreamer>The number line becomes dense.</TheDreamer>
 
-<figure title="the rational numbers" class="text-center">
-  <span class="text-accent text-5xl">$\mathbb{Q}$</span>
+<figure title="the Rational Numbers" class="flex items-center justify-start gap-4 pl-4">
   <figcaption class="text-accent/80">the rational numbers</figcaption>
+  <span class="text-accent text-5xl">$$\mathbb{Q}$$</span>
 </figure>
 
 <br />
 
 <br />
 
-## Step 04 — The Real Numbers — <span class="text-accent">$\mathbb{R}$</span>
+<br />
+
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 04</span>
+  <span class="shrink-0">The Real Numbers</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$\mathbb{R}$$</span>
+</h2>
+
+<br />
 
 <TheNarrator>From multiplication, we derive exponentiation.</TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $$3 ^ 9 = 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3$$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$3 ^ 9 = 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3$$</span>
 </div>
 
 <TheSkeptic>It is just a fancy notation.</TheSkeptic>
@@ -201,10 +231,10 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>What if we undo the exponentiation?</TheDreamer>
 
-<TheNarrator>We build a tool for it: the symbol $\sqrt{}$.</TheNarrator>
+<TheNarrator>We build a tool for it: the symbol $$\sqrt{}$$.</TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $$\sqrt{a} = b$$ means that $$b^2 = a$$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$\sqrt{a} = b$$ means that $$b^2 = a$$</span>
 </div>
 
 <br />
@@ -213,8 +243,8 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>What if we undo the square of 2?</TheDreamer>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $n = \sqrt{2}$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$n = \sqrt{2}$$</span>
 </div>
 
 <TheSkeptic>
@@ -223,31 +253,40 @@ import TheNarrator from "../components/TheNarrator.astro";
 </TheSkeptic>
 
 <TheNarrator>
-  The Real Numbers are born to fill the infinite gaps left behind, and they live in $\mathbb{R}$.
+  The Real Numbers are born to fill the infinite gaps left behind, and they live in $$\mathbb{R}$$.
 </TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $\sqrt{2}$, $\pi$, $e$, $3.33333333...$, are real numbers
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$\sqrt{2}, \pi, e, 3.33333333...$$ are real numbers</span>
 </div>
 
-<figure title="the real numbers" class="text-center">
-  <span class="text-accent text-5xl">$\mathbb{R}$</span>
+<figure title="the Real Numbers" class="flex items-center justify-start gap-4 pl-4">
   <figcaption class="text-accent/80">the real numbers</figcaption>
+  <span class="text-accent text-5xl">$$\mathbb{R}$$</span>
 </figure>
 
 <br />
 
 <br />
 
-## Step 05 — The Imaginary Unit — <span class="text-accent">$\mathbb{I}$</span>
+<br />
+
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 05</span>
+  <span class="shrink-0">The Imaginary Unit</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$\mathbb{i}$$</span>
+</h2>
+
+<br />
 
 <TheNarrator>
   We have noticed that when you square a real number, the result is always positive. Even if you
   square a negative number, the result is still positive.
 </TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $(-2)^2 = 4$ or, $(-x)^2 = x^2$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$(-2)^2 = 4$$ or, $$(-x)^2 = x^2$$</span>
 </div>
 
 <TheNarrator>
@@ -257,19 +296,19 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheDreamer>What if we allow a square to be a negative number?</TheDreamer>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $x^2 = -1$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$x^2 = -1$$</span>
 </div>
 
 <TheSkeptic>The equation $x^2 + 1 = 0$ has no real solution. It points to a void.</TheSkeptic>
 
 <TheNarrator>
-  Mathematicians chose to act rather than retreat. They postulated the existence of a number $i$
+  Mathematicians chose to act rather than retreat. They postulated the existence of a number $$i$$
   such that:
 </TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $$i^2 = -1$$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$i^2 = -1$$</span>
 </div>
 
 <TheNarrator>
@@ -279,14 +318,25 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <br />
 
-<figure title="the imaginary numbers" class="text-center">
-  <span class="text-accent text-5xl">$\mathbb{i}$</span>
+<figure title="the imaginary numbers" class="flex items-center justify-start gap-4 pl-4">
   <figcaption class="text-accent/80">the imaginary numbers</figcaption>
+  <span class="text-accent text-5xl">$$\mathbb{i}$$</span>
 </figure>
 
 <br />
 
-## Step 06 — The Complex Plane — <span class="text-accent">$\mathbb{C}$</span>
+<br />
+
+<br />
+
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 06</span>
+  <span class="shrink-0">The Complex Plane</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$\mathbb{C}$$</span>
+</h2>
+
+<br />
 
 <TheDreamer>Where is $i$?</TheDreamer>
 
@@ -299,15 +349,15 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <TheNarrator>
   And now with those two axes, the real number line extends into a plane. This is where the complex
-  numbers live: $\mathbb{C}$
+  numbers live: $$\mathbb{C}$$
 </TheNarrator>
 
 <ComplexPlane />
 
 <TheNarrator>Every complex number takes the form:</TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $Z = a + ib \qquad a,\, b \in \mathbb{R}$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$Z = a + ib \qquad a,\, b \in \mathbb{R}$$</span>
 </div>
 
 <TheNarrator>
@@ -318,20 +368,31 @@ import TheNarrator from "../components/TheNarrator.astro";
 <br />
 
 <figure title="the complex numbers" class="text-center">
-  <span class="text-accent text-5xl">$\mathbb{C}$</span>
+  <span class="text-accent text-5xl">$$\mathbb{C}$$</span>
   <figcaption class="text-accent/80">the complex numbers</figcaption>
 </figure>
 
 <br />
 
-## Epilogue — Euler's Formula
+<br />
+
+<br />
+
+<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Epilogue</span>
+  <span class="shrink-0">Euler's Formula</span>
+  <div class="bg-border h-px flex-grow"></div>
+  <span class="text-accent shrink-0">$$e^{i\pi} = -1$$</span>
+</h2>
+
+<br />
 
 <TheDreamer>What if we bring them all together?</TheDreamer>
 
 <TheNarrator>Five symbols. Five different origins. One equation.</TheNarrator>
 
-<div class="not-prose text-secondary border-secondary/10 my-8 border-y py-8 text-center text-xl">
-  $$0 \qquad 1 \qquad \pi \qquad e \qquad i$$
+<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
+  <span class="block pl-4">$$0 \qquad 1 \qquad \pi \qquad e \qquad i$$</span>
 </div>
 
 <br />
