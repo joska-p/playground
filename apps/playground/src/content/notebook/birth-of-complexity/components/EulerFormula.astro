@@ -1,6 +1,11 @@
 ---
 // EulerFormula.astro
 // Visualizes the ultimate unity of Euler's Identity on the unit circle.
+const {
+  realLabel = "Real",
+  imagLabel = "Imag",
+  description = 'Traveling a distance of <span class="text-accent font-bold">π</span> along the continuous rotation field of <span class="text-accent font-bold">e<sup>iθ</sup></span> lands perfectly on <span class="text-accent font-bold">-1</span>. Adding <span class="text-secondary font-bold">1</span> pulls the universe back to the void (<span class="text-secondary font-bold">0</span>).',
+} = Astro.props;
 ---
 
 <div
@@ -20,9 +25,11 @@
         class="stroke-secondary/20 fill-none stroke-1"
         stroke-dasharray="4,4"></circle>
 
-      <text x="185" y="92" class="fill-secondary/50 font-mono text-[10px] tracking-wider">Real</text
+      <text x="185" y="92" class="fill-secondary/50 font-mono text-[10px] tracking-wider"
+        >{realLabel}</text
       >
-      <text x="106" y="15" class="fill-secondary/50 font-mono text-[10px] tracking-wider">Imag</text
+      <text x="106" y="15" class="fill-secondary/50 font-mono text-[10px] tracking-wider"
+        >{imagLabel}</text
       >
 
       <circle cx="100" cy="100" r="3.5" class="fill-secondary"></circle>
@@ -50,12 +57,8 @@
     </svg>
   </div>
 
-  <p class="text-secondary mt-6 max-w-sm text-center text-sm tracking-widest italic">
-    Traveling a distance of <span class="text-accent font-bold">π</span> along the continuous rotation
-    field of <span class="text-accent font-bold">e<sup>iθ</sup></span> lands perfectly on <span
-      class="text-accent font-bold">-1</span
-    >. Adding <span class="text-secondary font-bold">1</span> pulls the universe back to the void (<span
-      class="text-secondary font-bold">0</span
-    >).
-  </p>
+  <p
+    class="text-secondary mt-6 max-w-sm text-center text-sm tracking-widest italic"
+    set:html={description}
+  />
 </div>

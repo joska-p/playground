@@ -1,6 +1,7 @@
 ---
 // StepOne.astro
 // Represents the first conceptual "brick" or the number 1.
+const { label = "The First Postulate" } = Astro.props;
 ---
 
 <div
@@ -18,5 +19,5 @@
     </div>
   </div>
 
-  <p class="text-secondary mt-8 text-sm tracking-widest uppercase italic">The First Postulate</p>
+  <p class="text-secondary mt-8 text-sm tracking-widest uppercase italic">{label}</p>
 </div>

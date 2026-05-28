@@ -1,6 +1,11 @@
 ---
 // ComplexPlane.astro
 // Visualizes the transition from a 1D line to a 2D plane with rotation.
+const {
+  realLabel = "Real",
+  imagLabel = "Imaginary (i)",
+  description = "Multiplying by i rotates space by 90°. Doing it twice yields -1.",
+} = Astro.props;
 ---
 
 <div
@@ -15,10 +20,11 @@
       <line x1="100" y1="0" x2="100" y2="200" class="stroke-secondary/30 stroke-1"></line>
 
       <!-- Axes Labels -->
-      <text x="185" y="92" class="fill-secondary/70 font-mono text-[10px] tracking-wider">Real</text
+      <text x="185" y="92" class="fill-secondary/70 font-mono text-[10px] tracking-wider"
+        >{realLabel}</text
       >
       <text x="106" y="15" class="fill-secondary/70 font-mono text-[10px] tracking-wider"
-        >Imaginary (i)</text
+        >{imagLabel}</text
       >
 
       <!-- Main Points -->
@@ -59,8 +65,8 @@
     </svg>
   </div>
 
-  <p class="text-secondary mt-6 max-w-xs text-center text-sm tracking-widest italic">
-    Multiplying by <span class="text-accent font-bold">i</span> rotates space by 90°. Doing it twice yields
-    -1.
-  </p>
+  <p
+    class="text-secondary mt-6 max-w-xs text-center text-sm tracking-widest italic"
+    set:html={description}
+  />
 </div>
