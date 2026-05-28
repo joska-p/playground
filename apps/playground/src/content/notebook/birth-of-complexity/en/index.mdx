@@ -11,6 +11,10 @@ tags:
   - philosophy
 ---
 
+import StepOne from "../components/StepOne.astro";
+import ComplexPlane from "../components/ComplexPlane.astro";
+import EulerFormula from "../components/EulerFormula.astro";
+
 This is an invitation to a walk.
 
 At every crossroads we will ask a simple question:
@@ -29,13 +33,13 @@ From the ground up, step by step, each extension forced on us not by choice but 
 
 We must begin somewhere.
 
-Mathematics starts from an simple idea:
+Mathematics starts from a simple idea:
 
 > What if something exists
 
 <br />
 
-//TODO: THE ONE simple illustration
+<StepOne />
 
 <br />
 
@@ -58,7 +62,7 @@ The mechanism is as simple as it is tireless.
 
 <br />
 
-Then the multiplication is not a new invention.
+Then, multiplication is not a new invention.
 
 It is compact notation for repeated addition.
 
@@ -76,7 +80,7 @@ If we can add, can we reverse the operation ?
 
 <br />
 
-We invent subtraction. And for a sometimes, everything holds:
+We invent subtraction. And for a while, everything holds:
 
 All results land safely in $\mathbb{N}$.
 
@@ -100,11 +104,11 @@ The answer lives nowhere in our universe $\mathbb{N}$.
 
 <br />
 
-We have only one option: enlarge it. not by choice.
+We have only one option: enlarge it. Not by choice.
 
 > by logical necessity.
 
-We invent a new symbol.
+We invent a new symbol for the void ($0$), and a new direction for the deficit ($-1$).
 
 <div class="bg-secondary/20 rounded p-8 text-xl">$0 = n - n$</div>
 
@@ -121,7 +125,7 @@ And we give the **negative numbers** somewhere to live.
 
 ## Step 03 — The Rational Numbers — $\mathbb{Q}$
 
-> What if we we undo a multiplication ?
+> What if we undo a multiplication ?
 
 The same reasoning repeats. If we can multiply, can we invert the operation? We invent division.
 
@@ -145,7 +149,8 @@ We invent new symbols.
   $\dfrac{a}
   {b}$, where $a, b \in \mathbb{Z}$ and $b \neq 0$.
 </div>
-We now, need to find a home for these new numbers.
+
+We now need to find a home for these new numbers.
 
 > The number line becomes dense.
 
@@ -164,7 +169,7 @@ From the multiplication we derive the exponentiation.
 
 <div class="bg-secondary/20 rounded p-8 text-xl">$$3 ^ 9 = 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3$$</div>
 
-- It is just an fancy notation.
+- It is just a fancy notation.
 
 <br />
 
@@ -172,7 +177,7 @@ From the multiplication we derive the exponentiation.
 
 - We need a new symbol: <span class="inline-flex px-4 py-3 bg-accent/20 rounded-full">$$\sqrt{}$$</span>
 
-<div class="bg-secondary/20 rounded p-8 text-xl">$$\sqrt{4} = 2$$ and $$2² = 4$$</div>
+<div class="bg-secondary/20 rounded p-8 text-xl">$$\sqrt{4} = 2$$ and $$2^2 = 4$$</div>
 
 More generally.
 
@@ -180,15 +185,15 @@ More generally.
 
 <br />
 
-And for a while its was fine. And then someone asked.
+And for a while it was fine. And then someone asked.
 
-> What if we square the number 2 ?
+> What if we undo the square of 2 ?
 
 <div class="bg-secondary/20 rounded p-8 text-xl">$\sqrt{2} = something$</div>
 
 <br />
 
-The Real Numbers are born and the live in $\mathbb{R}$.
+The Real Numbers are born and they live in $\mathbb{R}$.
 
 <div class="bg-secondary/20 rounded p-8 text-xl">
   $\sqrt{2}$, $\pi$, $e$, $3.33333333...$, are real numbers
@@ -209,11 +214,11 @@ We have noticed that when you square a real number, the result is always positiv
 
 - Even if you square a negative number, the result is still positive.
 
-<div class="bg-secondary/20 rounded p-8 text-xl">$(-2)^2 = 4$ or, $(-x)² = x^2$</div>
+<div class="bg-secondary/20 rounded p-8 text-xl">$(-2)^2 = 4$ or, $(-x)^2 = x^2$</div>
 
 It enforces one absolute law: **every real square is $\geq 0$**.
 
-> What if allow a square to be a negative number?
+> What if we allow a square to be a negative number?
 
 <div class="bg-secondary/20 rounded p-8 text-xl">$x^2 = -1$</div>
 
@@ -248,15 +253,13 @@ We create a new dimension. A dimension with a solution for:
 
 It is called the **imaginary axis**.
 
-```text
-We visualize it as a line perpendicular to the real axis.
-```
+> We visualize it as a line perpendicular to the real axis.
 
 And now with those two axes, we have extended the line of the real numbers into a plane.
 
-Where the complex numbers are. $\mathbb{C}$
+This is where the complex numbers live: $\mathbb{C}$
 
-//TODO: definitively needs an illustration
+<ComplexPlane />
 
 Every complex number takes the form:
 
@@ -264,7 +267,7 @@ Every complex number takes the form:
 
 where $a$ is the **real part** and $b$ is the **imaginary part**. The line has become a plane.
 
-And something unexpected reveals itself in this new geometry: multiplication in $\mathbb{C}$ is not just scaling — it is **rotation**. Multiplying by $i$ rotates by exactly $90°$. Multiplying by $i$ twice rotates by $180°$, which sends any number to its negative. Which is exactly what $i^2 = -1$ says — translated into geometry.
+And something unexpected reveals itself in this new geometry: multiplication in $\mathbb{C}$ is not just scaling — it is **rotation**. Multiplying by $i$ rotates by exactly $90^\circ$. Multiplying by $i$ twice rotates by $180^\circ$, which sends any number to its negative. Which is exactly what $i^2 = -1$ says — translated into geometry.
 
 A brand new world.
 
@@ -279,26 +282,43 @@ A brand new world.
 
 ## Epilogue — Euler's Formula
 
-_Five symbols. Five different origins. One equation._
+> What if we bring them all together?
 
-$$0 \qquad 1 \qquad \pi \qquad e \qquad i$$
+Five symbols. Five different origins. One equation.
 
-$0$ — the void, born when subtraction outran the naturals.
-$1$ — the origin, the first postulate, the brick.
-$\pi$ — the ratio of a circle's circumference to its diameter, irrational and inevitable.
-$e$ — the base of natural growth, the number that is its own derivative.
-$i$ — the answer to the impossible square.
-
-They come from different centuries, different problems, different branches of mathematics. They have no obvious reason to meet. And yet:
-
-$$e^{i\pi} + 1 = 0$$
-
-This is not a coincidence dressed up in symbols. It is a structural fact — a signature left by the internal logic of mathematics when you follow it far enough and refuse to stop at the walls.
+<div class="bg-secondary/20 rounded p-8 text-xl">$$0 \qquad 1 \qquad \pi \qquad e \qquad i$$</div>
 
 <br />
 
-> Each step shows the same pattern: pose an operation, notice a missing closure, extend the universe. The new universe always turns out to be richer, more symmetric, more geometric than the one before. The walk has no end.
+- **$0$** — the void, born when subtraction outran the naturals.
+- **$1$** — the origin, the first postulate, the brick.
+- **$\pi$** — the ratio of a circle's circumference to its diameter, irrational and inevitable.
+- **$e$** — the base of natural growth, the number that is its own derivative.
+- **$i$** — the answer to the impossible square.
 
-```
+They come from different centuries, different problems, and different branches of mathematics. They have no obvious reason to meet.
 
-```
+> And yet.
+
+<div class="bg-secondary/20 rounded p-8 text-xl">$$e^{i\pi} + 1 = 0$$</div>
+
+<br />
+
+This is not a coincidence dressed up in symbols. It is a structural fact — a signature left by the internal logic of mathematics when you follow it far enough and refuse to stop at the walls.
+
+> Each step shows the same pattern: pose an operation, notice a missing closure, extend the universe.
+
+The new universe always turns out to be richer, more symmetric, and more geometric than the one before.
+
+The walk has no end.
+
+<br />
+
+<figure title="Euler's Formula" class="text-center">
+  <span class="text-accent text-5xl">$$e^{i\pi} + 1 = 0$$</span>
+  <figcaption class="text-accent/80">Euler's Identity</figcaption>
+</figure>
+
+<EulerFormula />
+
+<br />

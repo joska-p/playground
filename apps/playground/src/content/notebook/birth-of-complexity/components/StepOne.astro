@@ -1,0 +1,22 @@
+---
+// StepOne.astro
+// Represents the first conceptual "brick" or the number 1.
+---
+
+<div
+  class="not-prose bg-secondary/10 border-secondary/20 my-12 flex flex-col items-center justify-center rounded-xl border p-12 shadow-inner"
+>
+  <div class="relative flex h-32 w-32 items-center justify-center">
+    <!-- The "Void" - A subtle, dashed dashed container representing empty space -->
+    <div class="border-secondary/30 absolute inset-0 rounded-lg border-2 border-dashed"></div>
+
+    <!-- The "Brick" - The singular existence -->
+    <div
+      class="bg-accent/90 shadow-accent/40 relative flex h-12 w-12 cursor-default items-center justify-center rounded shadow-[0_0_20px_var(--tw-shadow-color)] transition-transform duration-500 hover:scale-110"
+    >
+      <span class="text-bg text-2xl font-bold">1</span>
+    </div>
+  </div>
+
+  <p class="text-secondary mt-8 text-sm tracking-widest uppercase italic">The First Postulate</p>
+</div>

@@ -1,0 +1,66 @@
+---
+// ComplexPlane.astro
+// Visualizes the transition from a 1D line to a 2D plane with rotation.
+---
+
+<div
+  class="not-prose bg-secondary/10 border-secondary/20 my-12 flex flex-col items-center justify-center rounded-xl border p-8"
+>
+  <div
+    class="bg-bg border-secondary/10 relative aspect-square w-full max-w-md rounded-lg border p-4"
+  >
+    <svg viewBox="0 0 200 200" class="h-full w-full overflow-visible">
+      <!-- Grid Lines (Subtle Gruvbox style) -->
+      <line x1="0" y1="100" x2="200" y2="100" class="stroke-secondary/30 stroke-1"></line>
+      <line x1="100" y1="0" x2="100" y2="200" class="stroke-secondary/30 stroke-1"></line>
+
+      <!-- Axes Labels -->
+      <text x="185" y="92" class="fill-secondary/70 font-mono text-[10px] tracking-wider">Real</text
+      >
+      <text x="106" y="15" class="fill-secondary/70 font-mono text-[10px] tracking-wider"
+        >Imaginary (i)</text
+      >
+
+      <!-- Main Points -->
+      <!-- Origin (0) -->
+      <circle cx="100" cy="100" r="3" class="fill-secondary"></circle>
+
+      <!-- Point 1 -->
+      <circle
+        cx="160"
+        cy="100"
+        r="4"
+        class="fill-secondary transition-transform group-hover:scale-125"></circle>
+      <text x="165" y="112" class="fill-secondary text-xs font-bold">1</text>
+
+      <!-- Point i (90 deg rotation) -->
+      <circle cx="100" cy="40" r="4" class="fill-accent"></circle>
+      <text x="108" y="44" class="fill-accent text-xs font-bold">i</text>
+
+      <!-- Point -1 (180 deg rotation) -->
+      <circle cx="40" cy="100" r="4" class="fill-secondary"></circle>
+      <text x="25" y="112" class="fill-secondary text-xs font-bold">-1</text>
+
+      <!-- Rotation Path (Arc) -->
+      <path
+        d="M 160 100 A 60 60 0 0 0 100 40"
+        class="stroke-accent stroke-dashed fill-none stroke-2"
+        stroke-dasharray="4,4"></path>
+      <path
+        d="M 100 40 A 60 60 0 0 0 40 100"
+        class="stroke-accent/50 stroke-dashed fill-none stroke-2"
+        stroke-dasharray="4,4"></path>
+
+      <!-- Arrowheads for rotation -->
+      <polygon points="100,38 96,44 104,44" class="fill-accent" transform="rotate(-45 100 40)"
+      ></polygon>
+      <polygon points="40,98 36,104 44,104" class="fill-accent/50" transform="rotate(-45 40 100)"
+      ></polygon>
+    </svg>
+  </div>
+
+  <p class="text-secondary mt-6 max-w-xs text-center text-sm tracking-widest italic">
+    Multiplying by <span class="text-accent font-bold">i</span> rotates space by 90°. Doing it twice yields
+    -1.
+  </p>
+</div>
