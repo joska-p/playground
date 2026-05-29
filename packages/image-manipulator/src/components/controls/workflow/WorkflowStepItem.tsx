@@ -21,7 +21,7 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
   return (
     <div className="py-1.5">
       <div className="flex items-center justify-between gap-2">
-        <p className=" font-medium">
+        <p className="text-sm font-medium">
           {index + 1}. {manip.name}
         </p>
         <div className="flex gap-0.5">
