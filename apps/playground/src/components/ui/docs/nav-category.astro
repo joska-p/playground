@@ -1,0 +1,82 @@
+---
+import { docsBaseUrl } from "../../../data/docs";
+
+interface Props {
+  category: {
+    label: string;
+    color: string;
+    Icon: any;
+    articles: Array<{
+      id: string;
+      data: {
+        title: string;
+      };
+    }>;
+  };
+  currentPath: string;
+}
+
+const { category, currentPath } = Astro.props;
+
+// Check if this category contains the currently active article to auto-open it
+const hasActiveArticle = category.articles.some((doc) => {
+  const docUrl = `${docsBaseUrl}${doc.id}/`;
+  return currentPath === docUrl || currentPath === docUrl.slice(0, -1);
+});
+---
+
+<details class="group/category select-none" open={hasActiveArticle}>
+  <summary
+    class="mb-1.5 flex cursor-pointer list-none items-center justify-between gap-2 px-2 py-1 outline-none [&::-webkit-details-marker]:hidden"
+  >
+    <div class="flex items-center gap-2">
+      <category.Icon className={`h-3 w-3 shrink-0 ${category.color}`} aria-hidden="true" />
+      <span class="text-muted-foreground/50 text-[9px] font-bold tracking-[0.18em] uppercase">
+        {category.label}
+      </span>
+    </div>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      class="text-muted-foreground/40 h-2.5 w-2.5 transition-transform duration-200 group-open/category:rotate-90"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+    </svg>
+  </summary>
+
+  <ul class="space-y-0.5 pl-1.5">
+    {
+      category.articles.map((doc) => {
+        const docUrl = `${docsBaseUrl}${doc.id}/`;
+        const isActive = currentPath === docUrl || currentPath === docUrl.slice(0, -1);
+
+        return (
+          <li>
+            <a
+              href={docUrl}
+              class:list={[
+                "group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-[11.5px] leading-snug transition-all duration-150",
+                isActive
+                  ? "bg-primary/10 text-primary font-semibold"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
+              ]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <span
+                class:list={[
+                  "h-1 w-1 shrink-0 rounded-full transition-colors",
+                  isActive ? "bg-primary" : "bg-border group-hover:bg-muted-foreground/50",
+                ]}
+              />
+              {doc.data.title}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</details>
