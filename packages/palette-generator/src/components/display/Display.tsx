@@ -6,10 +6,10 @@ function Display() {
 
   return (
     <div className="flex flex-wrap gap-8">
-        <div
-          className="h-10 w-10"
-          style={{ backgroundColor: baseColor.to("lch").toString({ precision: 3 }) }}
-        />
+      <div
+        className="h-10 w-10"
+        style={{ backgroundColor: baseColor.to("lch").toString({ precision: 3 }) }}
+      />
       {palettes.map((palette) => {
         const paletteId = palette.colors.join();
         return (
