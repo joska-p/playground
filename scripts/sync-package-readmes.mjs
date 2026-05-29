@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readdir, readFile, mkdir, writeFile } from "fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -15,7 +15,7 @@ const PACKAGE_NAMES = {
   "image-to-particles": "Image to Particles",
   "palette-generator": "Palette Generator",
   "graph-viz": "Graph Visualization",
-  "ui": "UI Components",
+  ui: "UI Components",
 };
 
 async function main() {
@@ -33,13 +33,10 @@ async function main() {
       continue;
     }
 
-    const pkgName = `@repo/${entry.name}`;
     const displayName = PACKAGE_NAMES[entry.name] || entry.name;
 
     const lines = content.split("\n");
-    const tagline =
-      lines.find((l) => l.startsWith("> "))?.slice(2) ||
-      `${displayName} package`;
+    const tagline = lines.find((l) => l.startsWith("> "))?.slice(2) || `${displayName} package`;
 
     const doc = `---
 title: "${displayName}"
