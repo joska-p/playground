@@ -48,6 +48,8 @@ const energyMap = {
   name: "energyMap",
   description: "Computes the energy map of an image.",
   callback,
+  defaultArgs: {},
+  argDefinitions: [],
 } as const;
 
 export { energyMap };

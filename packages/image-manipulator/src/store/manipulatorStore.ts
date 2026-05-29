@@ -1,7 +1,13 @@
 import { create } from "zustand";
-import { manipulationsIds } from "../manipulations/manipulations";
+import { manipulations, manipulationsIds } from "../manipulations/manipulations";
 
 export type ManipulationId = (typeof manipulationsIds)[number];
+
+export type WorkflowStep = {
+  id: ManipulationId;
+  args: Record<string, number>;
+};
+
 export type OutputType = {
   id: string;
   name: string;
@@ -12,7 +18,7 @@ export type OutputType = {
 type ManipulatorState = {
   imageFile: string | null;
   manipulationId: ManipulationId;
-  workflow: ManipulationId[];
+  workflow: WorkflowStep[];
   outputs: OutputType[];
 };
 
@@ -31,7 +37,7 @@ export function useManipulatorManipulationId(): ManipulationId {
   return manipulatorStore((s) => s.manipulationId);
 }
 
-export function useManipulatorWorkflow(): ManipulationId[] {
+export function useManipulatorWorkflow(): WorkflowStep[] {
   return manipulatorStore((s) => s.workflow);
 }
 
@@ -44,22 +50,27 @@ export function setManipulatorImageFile(imageFile: string) {
 }
 
 export function setManipulatorManipulationId(manipulationId: ManipulationId) {
+  manipulatorStore.setState({ manipulationId });
+}
+
+export function addToManipulatorWorkflow(id: ManipulationId) {
+  const workflow = manipulatorStore.getState().workflow;
   manipulatorStore.setState({
-    manipulationId,
+    workflow: [...workflow, { id, args: { ...manipulations[id].defaultArgs } }],
   });
 }
 
-export function addToManipulatorWorkflow(newManipulation: ManipulationId) {
+export function updateManipulatorWorkflowStepArgs(
+  index: number,
+  args: Record<string, number>,
+) {
   const workflow = manipulatorStore.getState().workflow;
-  manipulatorStore.setState({
-    workflow: [...workflow, newManipulation],
-  });
+  const updated = workflow.map((step, i) => (i === index ? { ...step, args } : step));
+  manipulatorStore.setState({ workflow: updated });
 }
 
 export function clearManipulatorWorkflow() {
-  manipulatorStore.setState({
-    workflow: [],
-  });
+  manipulatorStore.setState({ workflow: [] });
 }
 
 export function addToManipulatorOutputs(output: OutputType) {

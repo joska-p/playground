@@ -18,6 +18,8 @@ const brightness = {
   name: "brightness",
   description: "Adjusts brightness by a factor.",
   callback,
+  defaultArgs: { factor: 1.6 },
+  argDefinitions: [{ key: "factor", label: "Factor", min: 0, max: 3, step: 0.1 }],
 } as const;
 
 export { brightness };

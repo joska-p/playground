@@ -3,9 +3,7 @@ import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
 import { manipulate } from "../../core/manipulate";
 import { useImageUpload } from "../../hooks/useImageUpload";
-import { brightness } from "../../manipulations/brightness";
-import { energyMap } from "../../manipulations/energyMap";
-import { grayscale } from "../../manipulations/grayscale";
+import { manipulations, manipulationsIds } from "../../manipulations/manipulations";
 import type { ManipulationId } from "../../store/manipulatorStore";
 import {
   addToManipulatorOutputs,
@@ -17,9 +15,7 @@ import {
   useManipulatorOutputs,
   useManipulatorWorkflow,
 } from "../../store/manipulatorStore";
-
-const manipulationsIds = ["brightness", "grayscale", "energyMap"] as const;
-const manipulations = { brightness, grayscale, energyMap } as const;
+import { Workflow } from "./Workflow";
 
 function Controls() {
   const outputs = useManipulatorOutputs();
@@ -33,7 +29,9 @@ function Controls() {
     if (!workflow || workflow.length === 0) return;
 
     const pipeline = manipulate(sourceImage.imageData);
-    workflow.forEach((id) => pipeline.apply(manipulations[id].callback()));
+    workflow.forEach((step) =>
+      pipeline.apply(manipulations[step.id].callback(...Object.values(step.args))),
+    );
 
     const results = pipeline.toArray();
     clearManipulatorOutputs();
@@ -42,7 +40,7 @@ function Controls() {
       addToManipulatorOutputs({
         id: `step-${i}`,
         name: `Step ${i + 1}`,
-        description: workflow[i],
+        description: workflow[i].id,
         imageData,
       });
     });
@@ -71,11 +69,7 @@ function Controls() {
         <Button onClick={() => clearManipulatorWorkflow()}>Clear Worflow</Button>
       </div>
 
-      <ol className="list-inside list-decimal">
-        {workflow.map((manipulationId, index) => (
-          <li key={index}>{manipulationId}</li>
-        ))}
-      </ol>
+      <Workflow steps={workflow} />
 
       <div className="gap-4 md:grid md:grid-cols-2">
         <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
