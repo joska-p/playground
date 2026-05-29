@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { manipulationsIds } from "../manipulations/manipulations";
 import type { ManipulationId } from "../manipulations/manipulations";
+import { manipulationsIds } from "../manipulations/manipulations";
 
 export type OutputType = {
   id: string;

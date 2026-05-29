@@ -1,5 +1,5 @@
-import { useManipulatorOutputs } from "../../store/manipulatorStore";
 import { useSourceImage } from "../../hooks/useSourceImage";
+import { useManipulatorOutputs } from "../../store/manipulatorStore";
 import { OutputCard } from "./OutputCard";
 
 function Outputs() {
@@ -8,9 +8,7 @@ function Outputs() {
 
   if (outputs.length === 0) {
     return (
-      <p className="text-muted-foreground p-16 text-center text-sm">
-        Upload an image to begin
-      </p>
+      <p className="text-muted-foreground p-16 text-center text-sm">Upload an image to begin</p>
     );
   }
 

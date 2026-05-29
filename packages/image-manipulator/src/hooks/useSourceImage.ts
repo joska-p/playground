@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { imageElementToImageData } from "../core/imageData";
 import type { OutputType } from "../store/manipulatorStore";
-import {
-  addToManipulatorOutputs,
-  useManipulatorImageFile,
-} from "../store/manipulatorStore";
+import { addToManipulatorOutputs, useManipulatorImageFile } from "../store/manipulatorStore";
 
 function useSourceImage() {
   const imageFile = useManipulatorImageFile();

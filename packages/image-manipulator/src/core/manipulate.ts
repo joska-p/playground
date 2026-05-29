@@ -1,5 +1,5 @@
-import { iteratePixels } from "./iteratePixels";
 import { putImageData } from "./imageData";
+import { iteratePixels } from "./iteratePixels";
 import type { PixelCallback } from "./pixel.types";
 
 function manipulate(imageData: ImageData) {
