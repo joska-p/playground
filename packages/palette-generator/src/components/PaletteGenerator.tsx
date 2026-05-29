@@ -10,7 +10,6 @@ function PaletteGenerator() {
       </Sidebar.Panel>
 
       <Sidebar.Main className="p-3">
-        s
         <Display />
       </Sidebar.Main>
     </Sidebar>
