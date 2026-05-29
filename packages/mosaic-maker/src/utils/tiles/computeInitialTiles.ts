@@ -1,17 +1,14 @@
 import type { TileSet } from "../../core/initialTileSet";
 import type { TileInstance } from "../../store/types";
+import { getRandom } from "../random/getRandom";
 import { computeNumberOfTiles } from "./computeNumberOfTiles";
 import { generateTileColors } from "./generateTileColors";
 import { generateTileRotation } from "./generateTileRotation";
-import { getRandom } from "../random/getRandom";
 
-function computeInitialTiles(
-  element: HTMLDivElement,
-  tileSet: TileSet,
-): TileInstance[] {
+function computeInitialTiles(element: HTMLDivElement, tileSet: TileSet): TileInstance[] {
   const numberOfTiles = computeNumberOfTiles(element);
   return Array.from({ length: numberOfTiles }, (_, i) => ({
-    id: `${i}-${Math.random().toString(36).substring(2, 12)}`,
+    id: `${i}`,
     name: getRandom(tileSet),
     colors: generateTileColors(),
     rotation: generateTileRotation(),
