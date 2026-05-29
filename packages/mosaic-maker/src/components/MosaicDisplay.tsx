@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { initialGapSize, initialRotations, initialTileSize } from "../core/constants";
 import { CSS_VARS } from "../core/cssVars";
 import { initialPalette } from "../core/initialPalette";
-import { initMosaicPalettes, regenerateMosaicTiles, setMosaicRef } from "../store/actions";
+import { initMosaicPalettes, setMosaicRef } from "../store/actions";
 import { useMosaicTiles } from "../store/selectors";
 import { Tile } from "./Tile";
 
@@ -25,15 +25,12 @@ function MosaicDisplay() {
     if (dimensions.width <= 0 || dimensions.height <= 0) return;
     const id = setTimeout(() => {
       setMosaicRef(mosaicRef);
-      regenerateMosaicTiles();
     }, 150);
     return () => clearTimeout(id);
   }, [dimensions.width, dimensions.height, mosaicRef]);
 
   useEffect(() => {
-    initMosaicPalettes().catch((error) => {
-      throw new Error("Failed to initialize palettes: " + error);
-    });
+    initMosaicPalettes();
   }, []);
 
   return (

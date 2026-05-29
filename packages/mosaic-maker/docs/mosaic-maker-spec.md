@@ -14,8 +14,7 @@ When the core `MosaicDisplay` component mounts, two independent asynchronous pat
 
 - **Palette Asset Hydration (One-Shot):** Checks `localStorage` for the cache key `"palettes"` (Version 2, 7-day TTL)[cite: 1, 2]. If a miss occurs, it fetches data from `unpkg.com/nice-color-palettes@3.0.0/1000.json`, runs a Zod schema validation parse, transforms the array into a structured CSS variable map, and saves it to cache[cite: 1, 2].
   - _Known Quirk:_ This is fire-and-forget[cite: 2]. The UI mounts initially with a grayscale fallback theme (`initialPalette`), which can cause a brief visual color flash once loading completes[cite: 2].
-- **Grid Layout Engine (Continuous):** Binds a native `ResizeObserver` to the mosaic wrapper[cite: 1]. Dimensions update reactively[cite: 1]. Every width or height change is passed through a **150ms debounce** before calling `regenerateMosaicTiles()`[cite: 1, 2].
-  - _Known Redundancy:_ The action `setMosaicRef()` persists the DOM reference but also triggers `regenerateMosaicTiles()` directly[cite: 2]. This causes redundant tile generation calls when mounting[cite: 2].
+- **Grid Layout Engine (Continuous):** Binds a native `ResizeObserver` to the mosaic wrapper[cite: 1]. Dimensions update reactively[cite: 1]. Every width or height change is passed through a **150ms debounce** before calling `setMosaicRef()`, which persists the ref and triggers `regenerateMosaicTiles()` internally[cite: 1, 2]. The explicit `regenerateMosaicTiles()` call that previously doubled up on resize has been removed.
 
 ### 2. The Arithmetic behind Tile Counting
 
@@ -33,12 +32,12 @@ The system minimizes React re-renders by handling high-frequency updates directl
 
 | Trigger                                   | Engine Strategy                                                                                   | Resource Overhead                                                                                                                      |
 | :---------------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- |
-| **Window/Container Resize**[cite: 1, 2]   | `ResizeObserver` $\rightarrow$ 150ms debounce $\rightarrow$ `regenerateMosaicTiles()`[cite: 1, 2] | **High:** Full array regeneration. Destroys and remounts all tile components[cite: 2].                                                 |
+| **Window/Container Resize**[cite: 1, 2]   | `ResizeObserver` $\rightarrow$ 150ms debounce $\rightarrow$ `setMosaicRef()` (calls `regenerateMosaicTiles()` internally)[cite: 1, 2] | **High:** Full array regeneration. Destroys and remounts all tile components[cite: 2].                                                 |
 | **"New Tiles" Button Click**[cite: 1, 2]  | Explicitly calls `regenerateMosaicTiles()`[cite: 2].                                              | **High:** Full array regeneration. Destroys and remounts all tile components[cite: 2].                                                 |
 | **Tile Checkbox Toggle**[cite: 1, 2]      | Modifies active array in `tileSet` $\rightarrow$ `regenerateMosaicTiles()`[cite: 2].              | **High:** Full array regeneration. Destroys and remounts all tile components[cite: 2].                                                 |
 | **Palette Click / Selection**[cite: 2]    | Mutates `currentPalette` state $\rightarrow$ triggers `updateElementStyles()`[cite: 2].           | **Low:** DOM-only CSS property write[cite: 2]. SVG nodes cross-fade natively using CSS transitions[cite: 2].                           |
 | **"Shuffle Colors / Rotations"**[cite: 2] | Applies `shuffleObject()` to randomize values while preserving keys[cite: 2].                     | **Low:** DOM-only CSS property write[cite: 2].                                                                                         |
-| **Tile Size / Gap Sliders**[cite: 1, 2]   | Directly issues `mosaicRef.current.style.setProperty()` updates[cite: 2].                         | **Low:** Local state update with DOM write[cite: 2]. The underlying CSS grid reflows automatically without a React render[cite: 1, 2]. |
+| **Tile Size / Gap Sliders**[cite: 1, 2]   | Directly issues `mosaicRef.current.style.setProperty()` updates, then debounces tile regeneration at 150ms[cite: 2]. | **Low→Medium:** Live CSS grid reflow during drag (low)[cite: 1, 2]; single debounced tile array rebuild after drag settles (medium)[cite: 2]. |
 
 ---
 

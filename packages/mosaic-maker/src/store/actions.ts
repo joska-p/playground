@@ -9,7 +9,7 @@ import { mosaicStore } from "./store";
 export function regenerateMosaicTiles() {
   const { mosaicRef, tileSet } = mosaicStore.getState();
   if (!mosaicRef.current) return;
-  mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef, tileSet) });
+  mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef.current, tileSet) });
 }
 
 function updateCurrentPalettes() {

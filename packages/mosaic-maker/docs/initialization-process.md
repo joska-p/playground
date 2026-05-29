@@ -36,8 +36,7 @@ const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
 `useResizeObserver` creates a `ResizeObserver` on the mosaic `<div>`. On mount, dimensions go from `{0,0}` to the element's actual size. Each dimension update triggers:
 
 ```ts
-useEffect → 150 ms debounce → setMosaicRef(mosaicRef)
-                           → regenerateMosaicTiles()
+useEffect → 150 ms debounce → setMosaicRef(mosaicRef)  // calls regenerateMosaicTiles() internally
 ```
 
 ---
@@ -108,8 +107,8 @@ useEffect(() => {
 | Window / container resize     | Yes (debounced 150 ms)         |
 | Tile set checkbox toggle      | Yes                            |
 | "New tiles" button            | Yes                            |
-| Tile size slider              | No — CSS grid reflows          |
-| Gap slider                    | No — CSS grid reflows          |
+| Tile size slider              | Yes (debounced 150 ms)         |
+| Gap slider                    | Yes (debounced 150 ms)         |
 | Palette / color change        | No — CSS variables only        |
 
 ---
@@ -125,7 +124,7 @@ grid-template-rows: repeat(auto-fill, var(--tile-size))
 
 It **automatically** computes the number of columns and rows, but it needs child elements to fill them. `computeNumberOfTiles` tells the JS how many children to produce so the grid is exactly filled — no empty cells, no overflow.
 
-Tile size and gap sliders change CSS variables on the mosaic element directly; the grid reflows automatically without regenerating tile identities.
+Tile size and gap sliders change CSS variables on the mosaic element directly; the grid reflows automatically during dragging. Once the drag settles (150ms debounce), tiles are regenerated to match the new layout dimensions.
 
 ---
 

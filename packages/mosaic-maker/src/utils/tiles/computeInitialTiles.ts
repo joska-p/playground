@@ -6,11 +6,10 @@ import { generateTileRotation } from "./generateTileRotation";
 import { getRandom } from "../random/getRandom";
 
 function computeInitialTiles(
-  mosaicRef: React.RefObject<HTMLDivElement | null>,
+  element: HTMLDivElement,
   tileSet: TileSet,
 ): TileInstance[] {
-  if (!mosaicRef.current) return [];
-  const numberOfTiles = computeNumberOfTiles(mosaicRef.current);
+  const numberOfTiles = computeNumberOfTiles(element);
   return Array.from({ length: numberOfTiles }, (_, i) => ({
     id: `${i}-${Math.random().toString(36).substring(2, 12)}`,
     name: getRandom(tileSet),

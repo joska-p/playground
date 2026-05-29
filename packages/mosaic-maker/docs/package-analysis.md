@@ -84,9 +84,8 @@ MosaicDisplay mount
   └─ useResizeObserver()           [every resize]
       └─ dimensions change
           └─ 150 ms debounce
-              ├─ setMosaicRef(ref)      ← persists ref in store
-              └─ regenerateMosaicTiles()
-                  └─ computeInitialTiles(ref, tileSet)
+              └─ setMosaicRef(ref)      ← persists ref + calls regenerateMosaicTiles()
+                  └─ computeInitialTiles(element, tileSet)
                       ├─ computeNumberOfTiles()  ← CSS grid math
                       └─ Array.from({length: N}) → TileInstance[]
                           ├─ name:     getRandom(tileSet)
@@ -106,8 +105,8 @@ MosaicDisplay mount
 | "New palettes" button | `cycleMosaicPalettes()` → slide window of 33 over `paletteStock` | Palette grid swaps |
 | "Shuffle colors" | `shuffleObject(currentPalette)` → `updateElementStyles()` | CSS vars shuffled in-place |
 | "Shuffle rotations" | `shuffleObject(initialRotations)` → `updateElementStyles()` | Rotation vars shuffled in-place |
-| Tile size slider | `mosaicRef.current.style.setProperty(CSS_VARS.size, ...)` | CSS grid reflows automatically |
-| Gap slider | `mosaicRef.current.style.setProperty(CSS_VARS.gap, ...)` | CSS grid reflows automatically |
+| Tile size slider | `mosaicRef.current.style.setProperty(CSS_VARS.size, ...)` + debounced `regenerateMosaicTiles()` | Live CSS grid reflow during drag; tile array rebuild 150ms after drag settles |
+| Gap slider | `mosaicRef.current.style.setProperty(CSS_VARS.gap, ...)` + debounced `regenerateMosaicTiles()` | Live CSS grid reflow during drag; tile array rebuild 150ms after drag settles |
 
 ---
 
@@ -247,10 +246,10 @@ Keeps keys in their original order, shuffles only values. Used for color shuffle
 `tiles.map(tile => <Tile key={tile.id} ...>)` — the `key` is `${i}-${randomStr}`. Every regeneration generates new random strings, so React unmounts and remounts every single SVG. An alternative would be stable IDs derived from the tile's properties, but that's more complex and may not matter for typical tile counts.
 
 ### `setMosaicRef` doubles as regeneration trigger
-The action `setMosaicRef()` both persists the ref **and** calls `regenerateMosaicTiles()`. This means the initial resize observer callback triggers tile generation through two paths: the debounced effect calls both `setMosaicRef()` and `regenerateMosaicTiles()` explicitly. The `regenerateMosaicTiles()` call is redundant since `setMosaicRef` already calls it.
+The action `setMosaicRef()` both persists the ref **and** calls `regenerateMosaicTiles()`. The resize observer effect now only calls `setMosaicRef()` — the redundant explicit `regenerateMosaicTiles()` call was removed.
 
 ### Palette fetch is fire-and-forget
-`initMosaicPalettes()` is an async function but its caller in `MosaicDisplay` only logs on error. The UI renders immediately with the fallback `initialPalette` (grayscale) and then updates when the fetch completes. This means a flash of grayscale on first load.
+`initMosaicPalettes()` is async but its caller in `MosaicDisplay` has no error handling of its own (the `.catch` that previously re-threw has been removed; `fetchPalettes()` already handles errors internally, returning the grayscale fallback). The UI renders immediately with the fallback `initialPalette` (grayscale) and then updates when the fetch completes. This means a flash of grayscale on first load.
 
 ---
 
@@ -261,10 +260,10 @@ The action `setMosaicRef()` both persists the ref **and** calls `regenerateMosai
 | `main.tsx` | 10 | React root mount with StrictMode |
 | `App.tsx` | 11 | Full-screen wrapper, mounts MosaicMaker |
 | `MosaicMaker.tsx` | 21 | Sidebar layout: main = MosaicDisplay, panel = Controls |
-| `MosaicDisplay.tsx` | 52 | Resize observer, palette init, tile rendering |
+| `MosaicDisplay.tsx` | 49 | Resize observer, palette init, tile rendering |
 | `Tile.tsx` | 59 | SVG renderer, shape dispatcher, rotation+transition |
 | `Controls.tsx` | 69 | Button grid, sliders, tile set, palette controls |
-| `SliderControls.tsx` | 36 | Local state slider, writes CSS var directly |
+| `SliderControls.tsx` | 44 | Local state slider, writes CSS var directly + debounced tile regeneration |
 | `PaletteControls.tsx` | 29 | Palette swatch grid, highlights active |
 | `TileSetControls.tsx` | 42 | Checkbox grid of tile patterns |
 | `store.ts` | 16 | Zustand store, default state |
@@ -277,7 +276,7 @@ The action `setMosaicRef()` both persists the ref **and** calls `regenerateMosai
 | `initialPalette.ts` | 13 | Grayscale fallback palette |
 | `initialTileSet.ts` | 17 | Ordered list of all tile names |
 | `computeNumberOfTiles.ts` | 32 | Grid math, CSS-var-aware calculation |
-| `computeInitialTiles.ts` | 22 | Tile instance factory |
+| `computeInitialTiles.ts` | 21 | Tile instance factory (takes HTMLDivElement, not RefObject) |
 | `generateTileColors.ts` | 9 | Shuffle CSS var key array |
 | `generateTileRotation.ts` | 9 | Pick random rotation key |
 | `fetchPalettes.ts` | 67 | Cache-or-fetch with localStorage |
