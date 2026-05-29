@@ -4,6 +4,16 @@ Stack: Turborepo · Vite · React · Astro · TypeScript · Tailwind · Zustand 
 
 ---
 
+## File structure
+
+- **One conceptual unit per directory.** A directory must contain 2+ files. If it would hold only one, place the file in the parent directory instead.
+- **Group by domain, not by type.** Controls live together in `controls/`, tiles in `tiles/`. Never create `components/`, `hooks/`, `utils/` as top-level grouping dirs — that's organisation by type, not domain.
+- **`core/`** for constants, types, and pure data. No React, no store, no side effects.
+- **`store/`** for Zustand state management. Split into `store.ts` (create call), `actions.ts` (mutations), `selectors.ts` (hooks), and `types.ts` if the store types are substantial.
+- **`utils/`** for reusable pure functions. Each file must serve a single clear purpose. Empty catch-all files (`paletteUtils.ts`, `styleUtils.ts`, `utils.ts`) are forbidden.
+
+---
+
 ## Monorepo structure
 
 ```
@@ -29,6 +39,10 @@ Cross-package imports must use `@repo/` path aliases — never relative paths th
 - **Prefer `type` over `interface`.** Use `interface` only when declaration merging is explicitly required.
 - **Zod schemas are co-located** with the feature or component they validate. They are for runtime validation only — derive TS types independently, don't use `z.infer<>` as the source of truth.
 - **Package public API is declared in `package.json` exports.** One subpath per public component — no root `index.tsx`.
+- **No comments.** Code should be self-explanatory through naming and structure.
+- **No empty files.**
+- **`array.sort()` mutates.** If you need a sorted copy, spread first: `[...array].sort()`. Prefer immutable patterns.
+- **Unused code is deleted, not commented out.**
 
 ---
 
@@ -51,6 +65,12 @@ Cross-package imports must use `@repo/` path aliases — never relative paths th
 | Test files             | same base name + `.test.ts` / `.test.tsx` | `Button.test.tsx`              |
 | Story files            | same base name + `.stories.tsx`           | `Button.stories.tsx`           |
 | Assets (images, fonts) | kebab-case                                | `icon-search@2x.png`           |
+
+### Naming semantics
+
+- **Functions are verbs.** The name must describe the action: `regenerateMosaicTiles`, `toggleTileInSet`, `applyMosaicPalette`. Avoid generic `update*` — "update what, how?"
+- **Components are nouns.** `MosaicDisplay`, `Tile`, `Controls`, `SliderControls`.
+- **No re-aliasing without reason.** `const initialTileSize = defaultTileSize` adds a name to remember for zero value. Export the original directly.
 
 ### Casing by identifier (in-code)
 
@@ -283,6 +303,8 @@ export function selectGraphNode(id: string): void {
 - Getter hooks select a **single slice** — no hook that returns the whole state.
 - Setter functions are **not hooks** — no `use` prefix, no hook rules.
 - Store files must not contain JSX. Use `.ts`, never `.tsx`.
+- **Actions mutate state, selectors read it.** Don't mix concerns in one exported function.
+- **Avoid guards that silently skip.** An early return that prevents an action from executing must be impossible to reach when the user explicitly triggered that action.
 
 ---
 
