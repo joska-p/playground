@@ -1,8 +1,9 @@
 import { cn } from "@repo/ui/cn";
 import { initialPalette } from "../../core/initialPalette";
 import { initialTileSet } from "../../core/initialTileSet";
-import { toggleTileInSet, useMosaicTileSet } from "../../store/mosaicStore";
-import { Tile } from "../tiles/Tile";
+import { toggleTileInSet } from "../../store/actions";
+import { useMosaicTileSet } from "../../store/selectors";
+import { Tile } from "../Tile";
 
 function TileSetControls() {
   const tileSet = useMosaicTileSet();
@@ -23,7 +24,7 @@ function TileSetControls() {
             />
             <Tile
               name={tileName}
-              colors={Object.keys(initialPalette) as [string, string, string, string, string]}
+              colors={Object.values(initialPalette) as [string, string, string, string, string]}
               className={cn(
                 "opacity-70 transition-opacity",
                 "peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4",

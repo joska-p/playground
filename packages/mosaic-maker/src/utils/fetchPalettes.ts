@@ -1,7 +1,7 @@
 import type { Palette } from "../core/initialPalette";
 import { initialPalette } from "../core/initialPalette";
 import { paletteSchema } from "./fetchPalettes.schema";
-import { safeFetch } from "./safeFetch";
+import { fetchWithValidation } from "./fetchWithValidation";
 
 export type CachedPalettes = {
   palettes: Palette[];
@@ -54,7 +54,7 @@ async function fetchPalettes(): Promise<Palette[]> {
   }
 
   try {
-    const palettesArray = await safeFetch(PALETTE_URL, paletteSchema);
+    const palettesArray = await fetchWithValidation(PALETTE_URL, paletteSchema);
     const palettes = palettesArray.map(transformPalette);
     cachePalettes(palettes);
     return palettes;

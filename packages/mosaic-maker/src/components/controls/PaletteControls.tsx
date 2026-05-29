@@ -1,9 +1,6 @@
 import { ColorPalette } from "@repo/ui/ColorPalette";
-import {
-  applyMosaicPalette,
-  useMosaicCurrentPalette,
-  useMosaicCurrentPalettes,
-} from "../../store/mosaicStore";
+import { applyMosaicPalette } from "../../store/actions";
+import { useMosaicCurrentPalette, useMosaicCurrentPalettes } from "../../store/selectors";
 import { arePalettesEqual } from "../../utils/arePalettesEqual";
 import { getPaletteId } from "../../utils/getPaletteId";
 

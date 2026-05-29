@@ -1,16 +1,16 @@
-# Graph Report - playground  (2026-05-28)
+# Graph Report - playground  (2026-05-29)
 
 ## Corpus Check
-- 312 files · ~81,884 words
+- 314 files · ~82,719 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2438 nodes · 3084 edges · 242 communities (187 shown, 55 thin omitted)
+- 2453 nodes · 3094 edges · 251 communities (194 shown, 57 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 52 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8dc909bb`
+- Built from commit: `46ad3df7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -185,6 +185,7 @@
 - [[_COMMUNITY_Community 178|Community 178]]
 - [[_COMMUNITY_Community 179|Community 179]]
 - [[_COMMUNITY_Community 180|Community 180]]
+- [[_COMMUNITY_Community 181|Community 181]]
 - [[_COMMUNITY_Community 183|Community 183]]
 - [[_COMMUNITY_Community 184|Community 184]]
 - [[_COMMUNITY_Community 185|Community 185]]
@@ -205,13 +206,21 @@
 - [[_COMMUNITY_Community 200|Community 200]]
 - [[_COMMUNITY_Community 201|Community 201]]
 - [[_COMMUNITY_Community 202|Community 202]]
+- [[_COMMUNITY_Community 227|Community 227]]
 - [[_COMMUNITY_Community 228|Community 228]]
 - [[_COMMUNITY_Community 229|Community 229]]
 - [[_COMMUNITY_Community 230|Community 230]]
 - [[_COMMUNITY_Community 231|Community 231]]
 - [[_COMMUNITY_Community 235|Community 235]]
+- [[_COMMUNITY_Community 236|Community 236]]
 - [[_COMMUNITY_Community 237|Community 237]]
 - [[_COMMUNITY_Community 241|Community 241]]
+- [[_COMMUNITY_Community 242|Community 242]]
+- [[_COMMUNITY_Community 246|Community 246]]
+- [[_COMMUNITY_Community 247|Community 247]]
+- [[_COMMUNITY_Community 248|Community 248]]
+- [[_COMMUNITY_Community 249|Community 249]]
+- [[_COMMUNITY_Community 250|Community 250]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 34 edges
@@ -247,7 +256,7 @@
 - **Number Tower Visualizations** — number_expansion_tower, masterpiece_svg, text_svg, graphic_svg, emergence_complexite_notebook [INFERRED 0.85]
 - **Sequence Rule Implementations** — sequencerule_interface, recaman_rule, fibonacci_rule, primes_rule, triangular_rule, collatz_rule [EXTRACTED 1.00]
 
-## Communities (242 total, 55 thin omitted)
+## Communities (251 total, 57 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
@@ -266,20 +275,20 @@ Cohesion: 0.04
 Nodes (47): exports, ./Badge, ./badgeVariants, ./blade-runner-theme, ./Button, ./buttonVariants, ./candy-coated-theme, ./Card (+39 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.25
-Nodes (8): ./base-card.astro, ../../components/ui/cards/doc-card.astro, ../../components/ui/docs/doc-nav.astro, formattedType, { Icon }, getCategoryMetadata(), getDocsByCategory(), ../../data/docs
+Cohesion: 0.16
+Nodes (15): ./base-card.astro, ../../components/ui/cards/doc-card.astro, ../../components/ui/docs/doc-nav.astro, ../components/ui/docs/featured-docs.astro, ../../components/ui/features/section-header.astro, formattedType, { Icon }, CATEGORY_METADATA (+7 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.11
 Nodes (9): ./figure.astro, resizeCanvas(), canvas, ctx, particles, resize(), nodes, ./canvas-utils (+1 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.17
-Nodes (19): analogous rule, App, color utils, ColorSpaceCanvas, ColorSpaceControls, colorSpaces, complementary rule, Controls (+11 more)
+Cohesion: 0.43
+Nodes (8): analogous rule, complementary rule, Controls, generatePalette, harmonyRule types, monochromatic rule, paletteStore, triadic rule
 
 ### Community 7 - "Community 7"
-Cohesion: 0.09
-Nodes (22): dependencies, astro, @astrojs/check, @astrojs/mdx, @astrojs/react, lucide-react, react, react-dom (+14 more)
+Cohesion: 0.10
+Nodes (21): dependencies, astro, @astrojs/check, @astrojs/mdx, @astrojs/react, react, react-dom, rehype-katex (+13 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.12
@@ -294,8 +303,8 @@ Cohesion: 0.22
 Nodes (17): Complex Numbers ℂ, Division, Imaginary Unit i, Integers ℤ, Natural Numbers ℕ, Rational Numbers ℚ, Real Numbers ℝ, SVG Node (+9 more)
 
 ### Community 11 - "Community 11"
-Cohesion: 0.10
-Nodes (19): docSchema, CATEGORY_METADATA, CategoryId, categoryIds, docSchema, getFeaturedDocs(), categoriesIds, CATEGORY_METADATA (+11 more)
+Cohesion: 0.13
+Nodes (15): docSchema, categoryIds, categoriesIds, CATEGORY_METADATA, CategoryId, notebookSchema, notebookSchema, paletteSchema (+7 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.25
@@ -330,7 +339,7 @@ Cohesion: 0.27
 Nodes (6): Gruvbox Theme, @repo/storybook, Dark Theme, Live Storybook URL, .storybook/manager.ts, .storybook/preview.tsx
 
 ### Community 20 - "Community 20"
-Cohesion: 0.06
+Cohesion: 0.05
 Nodes (60): DetailPanel(), MetaRowProps, styles, GraphCanvas(), GraphCanvasProps, styles, GraphViz(), styles (+52 more)
 
 ### Community 21 - "Community 21"
@@ -410,12 +419,12 @@ Cohesion: 0.09
 Nodes (31): SequenceRenderer(), SequenceSelector(), generateSequence(), collatzRule, fibonacciRule, NextStepParams, primesRule, recamanRule (+23 more)
 
 ### Community 86 - "Community 86"
-Cohesion: 0.04
-Nodes (45): dependencies, colorjs.io, react, react-dom, @repo/ui, zustand, devDependencies, @babel/core (+37 more)
+Cohesion: 0.05
+Nodes (39): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, react (+31 more)
 
 ### Community 87 - "Community 87"
-Cohesion: 0.04
-Nodes (44): dependencies, d3, react, react-dom, @repo/ui, @types/d3, zustand, devDependencies (+36 more)
+Cohesion: 0.05
+Nodes (37): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, react (+29 more)
 
 ### Community 88 - "Community 88"
 Cohesion: 0.05
@@ -427,7 +436,7 @@ Nodes (37): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, p
 
 ### Community 90 - "Community 90"
 Cohesion: 0.05
-Nodes (42): dependencies, react, react-dom, @repo/ui, zustand, devDependencies, @babel/core, babel-plugin-react-compiler (+34 more)
+Nodes (37): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, react (+29 more)
 
 ### Community 91 - "Community 91"
 Cohesion: 0.05
@@ -438,16 +447,16 @@ Cohesion: 0.08
 Nodes (26): devDependencies, @chromatic-com/storybook, eslint, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, playwright, prettier (+18 more)
 
 ### Community 93 - "Community 93"
-Cohesion: 0.14
-Nodes (19): defaultTileSet, TileNames, TileSet, computeInitialTiles(), generateTileColors(), generateTileRotation(), initMosaicPalettes(), MosaicState (+11 more)
+Cohesion: 0.15
+Nodes (18): defaultTileSet, TileNames, TileSet, computeInitialTiles(), cycleMosaicPalettes(), generateTileColors(), generateTileRotation(), initMosaicPalettes() (+10 more)
 
 ### Community 94 - "Community 94"
 Cohesion: 0.09
 Nodes (21): Codebase Conventions, code:typescript (// Button.tsx → exports Button, ButtonProps), code:typescript (// ✅ React component — function declaration), code:typescript (// sequenceStore.ts — file name: camelCase.ts), code:block4 (features/color-palette/), code:typescript (// colorPalette.schema.ts), code:block6 (ColorPalette.tsx          → ColorPalette.test.tsx), code:json ({) (+13 more)
 
 ### Community 95 - "Community 95"
-Cohesion: 0.13
-Nodes (17): ColorSpaceCanvas(), ColorSpaceCanvasProps, ColorSliceProps, ColorSpaceControls(), Axis, ColorSpaceDef, colorSpaces, ColorSpacesKey (+9 more)
+Cohesion: 0.07
+Nodes (36): ColorSpaceCanvas(), ColorSpaceCanvasProps, ColorSliceProps, ColorSpaceControls(), colorjs.io, PaletteGenerator(), RuleKey, rules (+28 more)
 
 ### Community 96 - "Community 96"
 Cohesion: 0.11
@@ -459,7 +468,7 @@ Nodes (21): dependsOn, inputs, outputs, dependsOn, cache, cache, persistent, dep
 
 ### Community 98 - "Community 98"
 Cohesion: 0.11
-Nodes (26): ../../../../components/data-viz/pie-chart/pie-chart.astro, ../../../components/ui/cards/experiment-card.astro, ../../components/ui/features/hero.astro, ../../layouts/base-layout.astro, CATEGORIES, Category, getProjectsByCategory(), Project (+18 more)
+Nodes (26): ../../../../components/data-viz/pie-chart/pie-chart.astro, ../../../components/ui/cards/experiment-card.astro, ../../components/ui/features/hero.astro, ../components/ui/projects/featured-projects.astro, CATEGORIES, Category, getFeaturedProjects(), getProjectsByCategory() (+18 more)
 
 ### Community 99 - "Community 99"
 Cohesion: 0.10
@@ -470,8 +479,8 @@ Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 101 - "Community 101"
-Cohesion: 0.15
-Nodes (12): dependencies, react, react-dom, @repo/ui, zod, zustand, dependencies, react (+4 more)
+Cohesion: 0.33
+Nodes (6): dependencies, react, react-dom, @repo/ui, zod, zustand
 
 ### Community 102 - "Community 102"
 Cohesion: 0.09
@@ -510,8 +519,8 @@ Cohesion: 0.25
 Nodes (8): devDependencies, prettier, prettier-plugin-astro, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, typescript, turbo, @turbo/gen
 
 ### Community 111 - "Community 111"
-Cohesion: 0.17
-Nodes (8): ../../layouts/footer.astro, getNotesByCategory(), [], credits, date, formatedDate, options, ../../data/notebook
+Cohesion: 0.14
+Nodes (12): ../components/ui/features/stats.astro, ../../layouts/base-layout.astro, ../../layouts/footer.astro, getNotesByCategory(), canonicalURL, [], credits, date (+4 more)
 
 ### Community 112 - "Community 112"
 Cohesion: 0.11
@@ -558,8 +567,8 @@ Cohesion: 0.12
 Nodes (16): Adding Components, Checklist, code:block1 (packages/ui/src/components/button/), code:block2 (packages/ui/src/components/color-palette/), code:typescript (// buttonVariants.ts), code:typescript (// Button.tsx), code:json ({), code:block6 (apps/storybook/src/stories/button/) (+8 more)
 
 ### Community 123 - "Community 123"
-Cohesion: 0.22
-Nodes (12): PaletteControls(), SliderControls(), SliderControlsProps, Controls(), mosaicStore, useMosaicCurrentPalette(), useMosaicCurrentPalettes(), useMosaicRef() (+4 more)
+Cohesion: 0.27
+Nodes (10): Controls(), PaletteControls(), SliderControls(), SliderControlsProps, mosaicStore, useMosaicCurrentPalette(), useMosaicCurrentPalettes(), useMosaicRef() (+2 more)
 
 ### Community 124 - "Community 124"
 Cohesion: 0.12
@@ -650,8 +659,8 @@ Cohesion: 0.20
 Nodes (10): code:ts (// graphStore.ts), code:block7 (features/graph/), code:ts (export function useGraphNodes(): GraphNode[] {), code:ts (export function addGraphNode(node: GraphNode): void {), File structure, Full example, Getters — reactive hooks, Rules (+2 more)
 
 ### Community 146 - "Community 146"
-Cohesion: 0.14
-Nodes (13): engines, node, name, engines, node, name, engines, node (+5 more)
+Cohesion: 0.25
+Nodes (7): engines, node, name, engines, node, packageManager, private
 
 ### Community 147 - "Community 147"
 Cohesion: 0.22
@@ -679,15 +688,15 @@ Nodes (9): devDependencies, @eslint/js, eslint-plugin-import-x, eslint-plugin-re
 
 ### Community 154 - "Community 154"
 Cohesion: 0.44
-Nodes (5): defaultPalette, Palette, updateMosaicPalette(), arePalettesEqual(), getPaletteId()
+Nodes (5): defaultPalette, Palette, applyMosaicPalette(), arePalettesEqual(), getPaletteId()
 
 ### Community 155 - "Community 155"
 Cohesion: 0.50
 Nodes (8): computeDimension(), computeGap(), computeNumberOfTiles(), computeTileHeight(), computeTileWidth(), getComputedPropertyValue(), parseNumericValue(), StyleProperty
 
 ### Community 156 - "Community 156"
-Cohesion: 0.18
-Nodes (7): remarkBaseUrl(), isVercel, AccentBottom, meta, NormalLeft, PrimaryRight, SecondaryTop
+Cohesion: 0.29
+Nodes (5): AccentBottom, meta, NormalLeft, PrimaryRight, SecondaryTop
 
 ### Community 157 - "Community 157"
 Cohesion: 0.22
@@ -726,8 +735,8 @@ Cohesion: 0.29
 Nodes (6): code:bash (pnpm add @repo/ui), code:tsx (import { Button, Sidebar, Card } from "@repo/ui";), 🧩 Components, 📖 Documentation, 🚀 Quick Start, @repo/ui
 
 ### Community 168 - "Community 168"
-Cohesion: 0.16
-Nodes (13): ../components/ui/docs/featured-docs.astro, ../../components/ui/features/section-header.astro, ../components/ui/features/stats.astro, ../components/ui/projects/featured-projects.astro, getFeaturedProjects(), featuredProjects, dependencies, class-variance-authority (+5 more)
+Cohesion: 0.29
+Nodes (7): dependencies, class-variance-authority, clsx, lucide-react, react, react-dom, tailwind-merge
 
 ### Community 169 - "Community 169"
 Cohesion: 0.33
@@ -777,6 +786,10 @@ Nodes (4): dependsOn, extends, tasks, build
 Cohesion: 0.40
 Nodes (5): code:ts (// ✅ React component — function declaration), code:ts (// ✅ infer — obvious return type), Declarations vs arrows, Function syntax, Return types
 
+### Community 181 - "Community 181"
+Cohesion: 0.20
+Nodes (9): Bugs, code:block1 (components/), Component structure, Dead / empty files, mosaic-maker — Refactor TODO, Naming / conventions, Potential issues, Store structure (+1 more)
+
 ### Community 199 - "Community 199"
 Cohesion: 0.67
 Nodes (3): Casing by entity, Casing by identifier (in-code), Naming conventions
@@ -793,6 +806,10 @@ Nodes (3): code:block13 (apps/storybook/), code:ts (// apps/storybook/stories/ui
 Cohesion: 0.25
 Nodes (4): args, log(), pathsToRemove, removePaths()
 
+### Community 227 - "Community 227"
+Cohesion: 0.25
+Nodes (8): dependencies, react, react-dom, @repo/ui, zustand, @repo/ui, @repo/ui, @repo/ui
+
 ### Community 228 - "Community 228"
 Cohesion: 0.14
 Nodes (13): Adding to the Playground Website, After Generation, code:bash (pnpm gen new-package), code:bash (pnpm gen new-package --args my-visualization), code:block3 (packages/<name>/), code:bash (pnpm install), code:astro (---), code:block6 (turbo/generators/) (+5 more)
@@ -806,35 +823,55 @@ Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 235 - "Community 235"
-Cohesion: 0.22
-Nodes (12): colorjs.io, RuleKey, rules, generatePalette(), Controls(), analogous, complementary, Palette (+4 more)
+Cohesion: 0.29
+Nodes (6): engines, node, name, name, type, version
+
+### Community 236 - "Community 236"
+Cohesion: 0.29
+Nodes (7): dependencies, d3, react, react-dom, @repo/ui, @types/d3, zustand
 
 ### Community 237 - "Community 237"
-Cohesion: 0.26
-Nodes (7): PaletteGenerator(), Display(), initialBaseColor, PaletteState, paletteStore, usePaletteBaseColor(), usePalettePalettes()
+Cohesion: 0.33
+Nodes (5): Code style, File structure, mosaic-maker — Conventions, Naming, Store
 
 ### Community 241 - "Community 241"
-Cohesion: 0.28
-Nodes (8): main, @repo/palette-generator, Vite config, React, Tailwind CSS, TypeScript, Vite, Zustand
+Cohesion: 0.38
+Nodes (7): @repo/palette-generator, Vite config, React, Tailwind CSS, TypeScript, Vite, Zustand
+
+### Community 242 - "Community 242"
+Cohesion: 0.33
+Nodes (6): dependencies, colorjs.io, react, react-dom, @repo/ui, zustand
+
+### Community 246 - "Community 246"
+Cohesion: 0.33
+Nodes (6): dependencies, react, react-dom, @repo/ui, zod, zustand
+
+### Community 247 - "Community 247"
+Cohesion: 0.40
+Nodes (4): App, Display, main, PaletteGenerator
+
+### Community 248 - "Community 248"
+Cohesion: 0.50
+Nodes (5): color utils, ColorSpaceCanvas, ColorSpaceControls, colorSpaces, maths utils
 
 ## Knowledge Gaps
-- **1284 isolated node(s):** `../../../../layouts/base-layout.astro`, `../../../../components/ui/features/hero.astro`, `Step 01 — The Natural Numbers — <span class="text-accent">$\mathbb{N}$</span>`, `Step 02 — Zero and the Negatives — <span class="text-accent">$\mathbb{Z}$</span>`, `Step 03 — The Rational Numbers — <span class="text-accent">$\mathbb{Q}$</span>` (+1279 more)
+- **1295 isolated node(s):** `File structure`, `Naming`, `Store`, `Code style`, `Bugs` (+1290 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **55 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **57 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Tailwind CSS` connect `Community 144` to `Community 8`, `Community 19`?**
   _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Why does `dependencies` connect `Community 7` to `Community 144`, `Community 146`, `Community 11`, `Community 6`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `Community 86` to `Community 144`?**
-  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **Why does `dependencies` connect `Community 7` to `Community 227`, `Community 4`, `Community 11`, `Community 235`, `Community 144`?**
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `react` connect `Community 7` to `Community 98`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `cn()` (e.g. with `clsx` and `Tile()`) actually correct?**
   _`cn()` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `../../../../layouts/base-layout.astro`, `../../../../components/ui/features/hero.astro`, `Step 01 — The Natural Numbers — <span class="text-accent">$\mathbb{N}$</span>` to the rest of the system?**
-  _1284 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `File structure`, `Naming`, `Store` to the rest of the system?**
+  _1295 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.06970128022759602 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

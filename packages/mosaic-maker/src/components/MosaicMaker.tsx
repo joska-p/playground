@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@repo/ui/Sidebar";
 import { Controls } from "./controls/Controls";
-import { MosaicDisplay } from "./mosaic-display/MosaicDisplay";
+import { MosaicDisplay } from "./MosaicDisplay";
 
 function MosaicMaker() {
   return (

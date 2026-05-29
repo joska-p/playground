@@ -1,15 +1,11 @@
 import { useResizeObserver } from "@repo/ui/useResizeObserver";
 import { useEffect } from "react";
-import { initialGapSize, initialRotations, initialTileSize } from "../../core/constants";
-import { CSS_VARS } from "../../core/cssVars";
-import { initialPalette } from "../../core/initialPalette";
-import {
-  initMosaicPalettes,
-  setMosaicRef,
-  regenerateMosaicTiles,
-  useMosaicTiles,
-} from "../../store/mosaicStore";
-import { Tile } from "../tiles/Tile";
+import { initialGapSize, initialRotations, initialTileSize } from "../core/constants";
+import { CSS_VARS } from "../core/cssVars";
+import { initialPalette } from "../core/initialPalette";
+import { initMosaicPalettes, regenerateMosaicTiles, setMosaicRef } from "../store/actions";
+import { useMosaicTiles } from "../store/selectors";
+import { Tile } from "./Tile";
 
 const MOSAIC_STYLES = {
   ...initialPalette,
@@ -26,10 +22,12 @@ function MosaicDisplay() {
   const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
 
   useEffect(() => {
-    if (dimensions.width > 0 && dimensions.height > 0) {
+    if (dimensions.width <= 0 || dimensions.height <= 0) return;
+    const id = setTimeout(() => {
       setMosaicRef(mosaicRef);
       regenerateMosaicTiles();
-    }
+    }, 150);
+    return () => clearTimeout(id);
   }, [dimensions.width, dimensions.height, mosaicRef]);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { Slider } from "@repo/ui/Slider";
 import { useState } from "react";
-import { useMosaicRef } from "../../store/mosaicStore";
+import { useMosaicRef } from "../../store/selectors";
 
 export type SliderControlsProps = {
   label: string;

@@ -1,12 +1,8 @@
 import { Button } from "@repo/ui/Button";
 import { DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../core/constants";
 import { CSS_VARS } from "../../core/cssVars";
-import {
-  cycleMosaicPalettes,
-  regenerateMosaicTiles,
-  useMosaicCurrentPalette,
-  useMosaicRef,
-} from "../../store/mosaicStore";
+import { cycleMosaicPalettes, regenerateMosaicTiles } from "../../store/actions";
+import { useMosaicCurrentPalette, useMosaicRef } from "../../store/selectors";
 import { shuffleObject } from "../../utils/shuffleObject";
 import { updateElementStyles } from "../../utils/updateElementStyles";
 import { PaletteControls } from "./PaletteControls";

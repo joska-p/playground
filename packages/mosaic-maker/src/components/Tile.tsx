@@ -1,5 +1,5 @@
 import { cn } from "@repo/ui/cn";
-import { TILE_REGISTRY, type Shape } from "../../core/TILE_REGISTRY";
+import { TILE_REGISTRY, type Shape } from "../core/TILE_REGISTRY";
 
 export type TileProps = {
   name: string;
@@ -9,7 +9,7 @@ export type TileProps = {
 };
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
-  const fillColor = `var(${colors[shape.colorIndex]})`;
+  const fillColor = colors[shape.colorIndex];
   const commonProps = {
     fill: fillColor,
     className: "transition-all duration-500",

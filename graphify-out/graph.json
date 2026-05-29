@@ -129,58 +129,472 @@
   },
   "nodes": [
     {
+      "label": "CONVENTIONS.md",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_conventions_md",
+      "community": 237,
+      "norm_label": "conventions.md"
+    },
+    {
+      "label": "mosaic-maker \u2014 Conventions",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L1",
+      "id": "mosaic_maker_conventions_mosaic_maker_conventions",
+      "community": 237,
+      "norm_label": "mosaic-maker \u2014 conventions"
+    },
+    {
+      "label": "File structure",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L3",
+      "id": "mosaic_maker_conventions_file_structure",
+      "community": 237,
+      "norm_label": "file structure"
+    },
+    {
+      "label": "Naming",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L11",
+      "id": "mosaic_maker_conventions_naming",
+      "community": 237,
+      "norm_label": "naming"
+    },
+    {
+      "label": "Store",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L18",
+      "id": "mosaic_maker_conventions_store",
+      "community": 237,
+      "norm_label": "store"
+    },
+    {
+      "label": "Code style",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L24",
+      "id": "mosaic_maker_conventions_code_style",
+      "community": 237,
+      "norm_label": "code style"
+    },
+    {
+      "label": "TODO.md",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_todo_md",
+      "community": 181,
+      "norm_label": "todo.md"
+    },
+    {
+      "label": "mosaic-maker \u2014 Refactor TODO",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L1",
+      "id": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "community": 181,
+      "norm_label": "mosaic-maker \u2014 refactor todo"
+    },
+    {
+      "label": "Bugs",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L5",
+      "id": "mosaic_maker_todo_bugs",
+      "community": 181,
+      "norm_label": "bugs"
+    },
+    {
+      "label": "Dead / empty files",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L10",
+      "id": "mosaic_maker_todo_dead_empty_files",
+      "community": 181,
+      "norm_label": "dead / empty files"
+    },
+    {
+      "label": "Store structure",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L15",
+      "id": "mosaic_maker_todo_store_structure",
+      "community": 181,
+      "norm_label": "store structure"
+    },
+    {
+      "label": "Utils sprawl",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L24",
+      "id": "mosaic_maker_todo_utils_sprawl",
+      "community": 181,
+      "norm_label": "utils sprawl"
+    },
+    {
+      "label": "Component structure",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L33",
+      "id": "mosaic_maker_todo_component_structure",
+      "community": 181,
+      "norm_label": "component structure"
+    },
+    {
+      "label": "code:block1 (components/)",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L37",
+      "id": "mosaic_maker_todo_codeblock_1",
+      "community": 181,
+      "norm_label": "code:block1 (components/)"
+    },
+    {
+      "label": "Naming / conventions",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L53",
+      "id": "mosaic_maker_todo_naming_conventions",
+      "community": 181,
+      "norm_label": "naming / conventions"
+    },
+    {
+      "label": "Potential issues",
+      "file_type": "document",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L58",
+      "id": "mosaic_maker_todo_potential_issues",
+      "community": 181,
+      "norm_label": "potential issues"
+    },
+    {
+      "label": "Controls.tsx",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "community": 123,
+      "norm_label": "controls.tsx"
+    },
+    {
+      "label": "Controls()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L16",
+      "id": "controls_controls_controls",
+      "community": 123,
+      "norm_label": "controls()"
+    },
+    {
+      "label": "PaletteControls.tsx",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "community": 154,
+      "norm_label": "palettecontrols.tsx"
+    },
+    {
+      "label": "PaletteControls()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L10",
+      "id": "controls_palettecontrols_palettecontrols",
+      "community": 123,
+      "norm_label": "palettecontrols()"
+    },
+    {
+      "label": "TileSetControls.tsx",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "community": 140,
+      "norm_label": "tilesetcontrols.tsx"
+    },
+    {
+      "label": "TileSetControls()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L7",
+      "id": "controls_tilesetcontrols_tilesetcontrols",
+      "community": 140,
+      "norm_label": "tilesetcontrols()"
+    },
+    {
+      "label": "MosaicDisplay.tsx",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "community": 113,
+      "norm_label": "mosaicdisplay.tsx"
+    },
+    {
+      "label": "MOSAIC_STYLES",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L14",
+      "id": "mosaic_display_mosaicdisplay_mosaic_styles",
+      "community": 113,
+      "norm_label": "mosaic_styles"
+    },
+    {
+      "label": "MosaicDisplay()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L24",
+      "id": "mosaic_display_mosaicdisplay_mosaicdisplay",
+      "community": 113,
+      "norm_label": "mosaicdisplay()"
+    },
+    {
+      "label": "mosaicStore.ts",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L1",
+      "id": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "community": 93,
+      "norm_label": "mosaicstore.ts"
+    },
+    {
+      "label": "TileInstance",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L12",
+      "id": "store_mosaicstore_tileinstance",
+      "community": 93,
+      "norm_label": "tileinstance"
+    },
+    {
+      "label": "MosaicState",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L19",
+      "id": "store_mosaicstore_mosaicstate",
+      "community": 93,
+      "norm_label": "mosaicstate"
+    },
+    {
+      "label": "generateTileColors()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L29",
+      "id": "store_mosaicstore_generatetilecolors",
+      "community": 93,
+      "norm_label": "generatetilecolors()"
+    },
+    {
+      "label": "generateTileRotation()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L40",
+      "id": "store_mosaicstore_generatetilerotation",
+      "community": 93,
+      "norm_label": "generatetilerotation()"
+    },
+    {
+      "label": "computeInitialTiles()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L45",
+      "id": "store_mosaicstore_computeinitialtiles",
+      "community": 93,
+      "norm_label": "computeinitialtiles()"
+    },
+    {
+      "label": "mosaicStore",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L59",
+      "id": "store_mosaicstore_mosaicstore",
+      "community": 123,
+      "norm_label": "mosaicstore"
+    },
+    {
+      "label": "regenerateMosaicTiles()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L69",
+      "id": "store_mosaicstore_regeneratemosaictiles",
+      "community": 93,
+      "norm_label": "regeneratemosaictiles()"
+    },
+    {
+      "label": "useMosaicRef()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L75",
+      "id": "store_mosaicstore_usemosaicref",
+      "community": 123,
+      "norm_label": "usemosaicref()"
+    },
+    {
+      "label": "useMosaicTiles()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L79",
+      "id": "store_mosaicstore_usemosaictiles",
+      "community": 113,
+      "norm_label": "usemosaictiles()"
+    },
+    {
+      "label": "useMosaicCurrentPalette()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L83",
+      "id": "store_mosaicstore_usemosaiccurrentpalette",
+      "community": 123,
+      "norm_label": "usemosaiccurrentpalette()"
+    },
+    {
+      "label": "useMosaicCurrentPalettes()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L87",
+      "id": "store_mosaicstore_usemosaiccurrentpalettes",
+      "community": 123,
+      "norm_label": "usemosaiccurrentpalettes()"
+    },
+    {
+      "label": "useMosaicTileSet()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L91",
+      "id": "store_mosaicstore_usemosaictileset",
+      "community": 140,
+      "norm_label": "usemosaictileset()"
+    },
+    {
+      "label": "useMosaicPaletteStock()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L95",
+      "id": "store_mosaicstore_usemosaicpalettestock",
+      "community": 93,
+      "norm_label": "usemosaicpalettestock()"
+    },
+    {
+      "label": "updateCurrentPalettes()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L99",
+      "id": "store_mosaicstore_updatecurrentpalettes",
+      "community": 93,
+      "norm_label": "updatecurrentpalettes()"
+    },
+    {
+      "label": "setMosaicPaletteStock()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L109",
+      "id": "store_mosaicstore_setmosaicpalettestock",
+      "community": 93,
+      "norm_label": "setmosaicpalettestock()"
+    },
+    {
+      "label": "setMosaicRef()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L114",
+      "id": "store_mosaicstore_setmosaicref",
+      "community": 93,
+      "norm_label": "setmosaicref()"
+    },
+    {
+      "label": "applyMosaicPalette()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L119",
+      "id": "store_mosaicstore_applymosaicpalette",
+      "community": 154,
+      "norm_label": "applymosaicpalette()"
+    },
+    {
+      "label": "toggleTileInSet()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L127",
+      "id": "store_mosaicstore_toggletileinset",
+      "community": 93,
+      "norm_label": "toggletileinset()"
+    },
+    {
+      "label": "cycleMosaicPalettes()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L137",
+      "id": "store_mosaicstore_cyclemosaicpalettes",
+      "community": 93,
+      "norm_label": "cyclemosaicpalettes()"
+    },
+    {
+      "label": "initMosaicPalettes()",
+      "file_type": "code",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L141",
+      "id": "store_mosaicstore_initmosaicpalettes",
+      "community": 93,
+      "norm_label": "initmosaicpalettes()"
+    },
+    {
       "label": "index.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
       "community": 98,
-      "norm_label": "index.astro"
+      "norm_label": "index.astro",
+      "id": "apps_playground_src_pages_projects_generative_mosaic_index_astro"
     },
     {
       "label": "@repo/mosaic-maker/MosaicMaker",
       "file_type": "code",
       "source_file": "@repo/mosaic-maker/MosaicMaker",
       "confidence": "EXTRACTED",
-      "id": "mosaicmaker",
       "community": 98,
-      "norm_label": "@repo/mosaic-maker/mosaicmaker"
+      "norm_label": "@repo/mosaic-maker/mosaicmaker",
+      "id": "mosaicmaker"
     },
     {
       "label": "react",
       "file_type": "code",
       "source_file": "react",
       "confidence": "EXTRACTED",
-      "id": "react",
       "community": 98,
-      "norm_label": "react"
+      "norm_label": "react",
+      "id": "react"
     },
     {
       "label": "../../../../layouts/base-layout.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/layouts/base-layout.astro",
       "confidence": "EXTRACTED",
-      "id": "workspaces_playground_apps_playground_src_layouts_base_layout_astro",
       "community": 98,
-      "norm_label": "../../../../layouts/base-layout.astro"
+      "norm_label": "../../../../layouts/base-layout.astro",
+      "id": "workspaces_playground_apps_playground_src_layouts_base_layout_astro"
     },
     {
       "label": "../../../../data/projects",
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects",
       "confidence": "EXTRACTED",
-      "id": "workspaces_playground_apps_playground_src_data_projects",
       "community": 98,
-      "norm_label": "../../../../data/projects"
+      "norm_label": "../../../../data/projects",
+      "id": "workspaces_playground_apps_playground_src_data_projects"
     },
     {
       "label": "../../../../components/ui/features/hero.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/features/hero.astro",
       "confidence": "EXTRACTED",
-      "id": "workspaces_playground_apps_playground_src_components_ui_features_hero_astro",
       "community": 98,
-      "norm_label": "../../../../components/ui/features/hero.astro"
+      "norm_label": "../../../../components/ui/features/hero.astro",
+      "id": "workspaces_playground_apps_playground_src_components_ui_features_hero_astro"
     },
     {
       "label": "TheDreamer.astro",
@@ -1329,7 +1743,7 @@
       "file_type": "code",
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L1",
-      "community": 156,
+      "community": 249,
       "norm_label": "astro.config.mjs",
       "id": "apps_playground_astro_config_mjs"
     },
@@ -1338,7 +1752,7 @@
       "file_type": "code",
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L13",
-      "community": 156,
+      "community": 249,
       "norm_label": "isvercel",
       "id": "playground_astro_config_isvercel"
     },
@@ -1419,7 +1833,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L1",
-      "community": 146,
+      "community": 235,
       "norm_label": "package.json",
       "id": "apps_playground_package_json"
     },
@@ -1428,7 +1842,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L2",
-      "community": 146,
+      "community": 235,
       "norm_label": "name",
       "id": "apps_playground_package_json_playground_package_name"
     },
@@ -1437,7 +1851,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L3",
-      "community": 146,
+      "community": 235,
       "norm_label": "type",
       "id": "playground_package_type"
     },
@@ -1446,7 +1860,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L4",
-      "community": 146,
+      "community": 235,
       "norm_label": "version",
       "id": "playground_package_version"
     },
@@ -1455,7 +1869,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L5",
-      "community": 146,
+      "community": 235,
       "norm_label": "engines",
       "id": "apps_playground_package_json_playground_package_engines"
     },
@@ -1464,7 +1878,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L6",
-      "community": 146,
+      "community": 235,
       "norm_label": "node",
       "id": "apps_playground_package_json_playground_package_engines_node"
     },
@@ -1644,7 +2058,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L28",
-      "community": 6,
+      "community": 227,
       "norm_label": "@repo/ui",
       "id": "playground_package_dependencies_repo_ui"
     },
@@ -1671,7 +2085,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L31",
-      "community": 7,
+      "community": 4,
       "norm_label": "lucide-react",
       "id": "playground_package_dependencies_lucide_react"
     },
@@ -2090,7 +2504,7 @@
       "source_file": "apps/playground/src/components/ui/docs/featured-docs.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 168,
+      "community": 4,
       "norm_label": "../components/ui/docs/featured-docs.astro",
       "id": "apps_playground_src_components_ui_docs_featured_docs_astro"
     },
@@ -2100,7 +2514,7 @@
       "source_file": "apps/playground/src/components/ui/features/section-header.astro",
       "confidence": "EXTRACTED",
       "source_location": "L1",
-      "community": 168,
+      "community": 4,
       "norm_label": "../../components/ui/features/section-header.astro",
       "id": "apps_playground_src_components_ui_features_section_header_astro"
     },
@@ -2109,7 +2523,7 @@
       "file_type": "code",
       "source_file": "lucide-react",
       "confidence": "EXTRACTED",
-      "community": 168,
+      "community": 4,
       "norm_label": "lucide-react",
       "id": "lucide_react"
     },
@@ -2129,7 +2543,7 @@
       "source_file": "apps/playground/src/components/ui/features/stats.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 168,
+      "community": 111,
       "norm_label": "../components/ui/features/stats.astro",
       "id": "apps_playground_src_components_ui_features_stats_astro"
     },
@@ -2149,7 +2563,7 @@
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 168,
+      "community": 98,
       "norm_label": "../components/ui/projects/featured-projects.astro",
       "id": "apps_playground_src_components_ui_projects_featured_projects_astro"
     },
@@ -2158,7 +2572,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
       "source_location": "L9",
-      "community": 168,
+      "community": 98,
       "norm_label": "featuredprojects",
       "id": "projects_featured_projects_featuredprojects"
     },
@@ -2167,7 +2581,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L1",
-      "community": 11,
+      "community": 4,
       "norm_label": "docs.ts",
       "id": "apps_playground_src_data_docs_ts"
     },
@@ -2176,7 +2590,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L7",
-      "community": 11,
+      "community": 4,
       "norm_label": "category_metadata",
       "id": "data_docs_category_metadata"
     },
@@ -2185,7 +2599,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L38",
-      "community": 11,
+      "community": 4,
       "norm_label": "categoryid",
       "id": "data_docs_categoryid"
     },
@@ -2221,7 +2635,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L58",
-      "community": 11,
+      "community": 4,
       "norm_label": "getfeatureddocs()",
       "id": "data_docs_getfeatureddocs"
     },
@@ -2275,7 +2689,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L120",
-      "community": 168,
+      "community": 98,
       "norm_label": "getfeaturedprojects()",
       "id": "data_projects_getfeaturedprojects"
     },
@@ -2393,7 +2807,7 @@
       "source_file": "apps/playground/src/layouts/base-layout.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 98,
+      "community": 111,
       "norm_label": "../../layouts/base-layout.astro",
       "id": "apps_playground_src_layouts_base_layout_astro"
     },
@@ -2402,7 +2816,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/layouts/base-layout.astro",
       "source_location": "L17",
-      "community": 98,
+      "community": 111,
       "norm_label": "canonicalurl",
       "id": "layouts_base_layout_canonicalurl"
     },
@@ -2421,7 +2835,7 @@
       "file_type": "code",
       "source_file": "astro:assets",
       "confidence": "EXTRACTED",
-      "community": 98,
+      "community": 111,
       "norm_label": "astro:assets",
       "id": "astro_assets"
     },
@@ -2430,7 +2844,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/styles/styles.css",
       "confidence": "EXTRACTED",
-      "community": 98,
+      "community": 111,
       "norm_label": "../styles/styles.css",
       "id": "workspaces_playground_apps_playground_src_styles_styles_css"
     },
@@ -2732,7 +3146,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/lib/remarkBaseUrl.ts",
       "source_location": "L1",
-      "community": 156,
+      "community": 249,
       "norm_label": "remarkbaseurl.ts",
       "id": "apps_playground_src_lib_remarkbaseurl_ts"
     },
@@ -2741,7 +3155,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/lib/remarkBaseUrl.ts",
       "source_location": "L3",
-      "community": 156,
+      "community": 249,
       "norm_label": "remarkbaseurl()",
       "id": "lib_remarkbaseurl_remarkbaseurl"
     },
@@ -2759,7 +3173,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/index.astro",
       "source_location": "L1",
-      "community": 168,
+      "community": 111,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_index_astro"
     },
@@ -2795,7 +3209,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/docs/[...slug].astro",
       "source_location": "L1",
-      "community": 11,
+      "community": 4,
       "norm_label": "[...slug].astro",
       "id": "apps_playground_src_pages_docs_slug_astro"
     },
@@ -2804,7 +3218,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/docs/[...slug].astro",
       "source_location": "L8",
-      "community": 11,
+      "community": 4,
       "norm_label": "getstaticpaths()",
       "id": "docs_slug_getstaticpaths"
     },
@@ -3596,7 +4010,7 @@
       "file_type": "code",
       "source_file": "apps/storybook/package.json",
       "source_location": "L21",
-      "community": 6,
+      "community": 227,
       "norm_label": "@repo/ui",
       "id": "storybook_package_devdependencies_repo_ui"
     },
@@ -7219,42 +7633,6 @@
       "id": "components_mosaicmaker_mosaicmaker"
     },
     {
-      "label": "Controls.tsx",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L1",
-      "community": 123,
-      "norm_label": "controls.tsx",
-      "id": "packages_mosaic_maker_src_components_controls_controls_tsx"
-    },
-    {
-      "label": "Controls()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L16",
-      "community": 123,
-      "norm_label": "controls()",
-      "id": "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls"
-    },
-    {
-      "label": "PaletteControls.tsx",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L1",
-      "community": 154,
-      "norm_label": "palettecontrols.tsx",
-      "id": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx"
-    },
-    {
-      "label": "PaletteControls()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L10",
-      "community": 123,
-      "norm_label": "palettecontrols()",
-      "id": "controls_palettecontrols_palettecontrols"
-    },
-    {
       "label": "SliderControls.tsx",
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
@@ -7280,51 +7658,6 @@
       "community": 123,
       "norm_label": "slidercontrols()",
       "id": "controls_slidercontrols_slidercontrols"
-    },
-    {
-      "label": "TileSetControls.tsx",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L1",
-      "community": 140,
-      "norm_label": "tilesetcontrols.tsx",
-      "id": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx"
-    },
-    {
-      "label": "TileSetControls()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L7",
-      "community": 140,
-      "norm_label": "tilesetcontrols()",
-      "id": "controls_tilesetcontrols_tilesetcontrols"
-    },
-    {
-      "label": "MosaicDisplay.tsx",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L1",
-      "community": 113,
-      "norm_label": "mosaicdisplay.tsx",
-      "id": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx"
-    },
-    {
-      "label": "MOSAIC_STYLES",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L9",
-      "community": 113,
-      "norm_label": "mosaic_styles",
-      "id": "mosaic_display_mosaicdisplay_mosaic_styles"
-    },
-    {
-      "label": "MosaicDisplay()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L19",
-      "community": 113,
-      "norm_label": "mosaicdisplay()",
-      "id": "mosaic_display_mosaicdisplay_mosaicdisplay"
     },
     {
       "label": "Tile.tsx",
@@ -7532,204 +7865,6 @@
       "community": 93,
       "norm_label": "tilenames",
       "id": "core_initialtileset_tilenames"
-    },
-    {
-      "label": "mosaicStore.ts",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L1",
-      "community": 93,
-      "norm_label": "mosaicstore.ts",
-      "id": "packages_mosaic_maker_src_store_mosaicstore_ts"
-    },
-    {
-      "label": "TileInstance",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L12",
-      "community": 93,
-      "norm_label": "tileinstance",
-      "id": "store_mosaicstore_tileinstance"
-    },
-    {
-      "label": "MosaicState",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L19",
-      "community": 93,
-      "norm_label": "mosaicstate",
-      "id": "store_mosaicstore_mosaicstate"
-    },
-    {
-      "label": "generateTileColors()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L29",
-      "community": 93,
-      "norm_label": "generatetilecolors()",
-      "id": "store_mosaicstore_generatetilecolors"
-    },
-    {
-      "label": "generateTileRotation()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L40",
-      "community": 93,
-      "norm_label": "generatetilerotation()",
-      "id": "store_mosaicstore_generatetilerotation"
-    },
-    {
-      "label": "computeInitialTiles()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L45",
-      "community": 93,
-      "norm_label": "computeinitialtiles()",
-      "id": "store_mosaicstore_computeinitialtiles"
-    },
-    {
-      "label": "mosaicStore",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L59",
-      "community": 123,
-      "norm_label": "mosaicstore",
-      "id": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "label": "_updateTiles()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L69",
-      "community": 93,
-      "norm_label": "_updatetiles()",
-      "id": "store_mosaicstore_updatetiles"
-    },
-    {
-      "label": "useMosaicRef()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L74",
-      "community": 123,
-      "norm_label": "usemosaicref()",
-      "id": "store_mosaicstore_usemosaicref"
-    },
-    {
-      "label": "useMosaicTiles()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L78",
-      "community": 113,
-      "norm_label": "usemosaictiles()",
-      "id": "store_mosaicstore_usemosaictiles"
-    },
-    {
-      "label": "useMosaicCurrentPalette()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L82",
-      "community": 123,
-      "norm_label": "usemosaiccurrentpalette()",
-      "id": "store_mosaicstore_usemosaiccurrentpalette"
-    },
-    {
-      "label": "useMosaicCurrentPalettes()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L86",
-      "community": 123,
-      "norm_label": "usemosaiccurrentpalettes()",
-      "id": "store_mosaicstore_usemosaiccurrentpalettes"
-    },
-    {
-      "label": "useMosaicTileSet()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L90",
-      "community": 140,
-      "norm_label": "usemosaictileset()",
-      "id": "store_mosaicstore_usemosaictileset"
-    },
-    {
-      "label": "useMosaicPaletteStock()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L94",
-      "community": 93,
-      "norm_label": "usemosaicpalettestock()",
-      "id": "store_mosaicstore_usemosaicpalettestock"
-    },
-    {
-      "label": "updateCurrentPalettes()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L98",
-      "community": 93,
-      "norm_label": "updatecurrentpalettes()",
-      "id": "store_mosaicstore_updatecurrentpalettes"
-    },
-    {
-      "label": "setMosaicPaletteStock()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L108",
-      "community": 93,
-      "norm_label": "setmosaicpalettestock()",
-      "id": "store_mosaicstore_setmosaicpalettestock"
-    },
-    {
-      "label": "setMosaicRef()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L113",
-      "community": 93,
-      "norm_label": "setmosaicref()",
-      "id": "store_mosaicstore_setmosaicref"
-    },
-    {
-      "label": "updateMosaicPalette()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L118",
-      "community": 154,
-      "norm_label": "updatemosaicpalette()",
-      "id": "store_mosaicstore_updatemosaicpalette"
-    },
-    {
-      "label": "updateMosaicTileSet()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L126",
-      "community": 93,
-      "norm_label": "updatemosaictileset()",
-      "id": "store_mosaicstore_updatemosaictileset"
-    },
-    {
-      "label": "updateMosaicTiles()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L136",
-      "community": 93,
-      "norm_label": "updatemosaictiles()",
-      "id": "store_mosaicstore_updatemosaictiles"
-    },
-    {
-      "label": "updateMosaicCurrentPalettes()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L140",
-      "community": 93,
-      "norm_label": "updatemosaiccurrentpalettes()",
-      "id": "store_mosaicstore_updatemosaiccurrentpalettes"
-    },
-    {
-      "label": "initMosaicPalettes()",
-      "file_type": "code",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L144",
-      "community": 93,
-      "norm_label": "initmosaicpalettes()",
-      "id": "store_mosaicstore_initmosaicpalettes"
     },
     {
       "label": "utils.ts",
@@ -7943,7 +8078,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/utils/shuffleArray.ts",
       "source_location": "L1",
-      "community": 123,
+      "community": 250,
       "norm_label": "shufflearray.ts",
       "id": "packages_mosaic_maker_src_utils_shufflearray_ts"
     },
@@ -7952,7 +8087,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/utils/shuffleArray.ts",
       "source_location": "L1",
-      "community": 123,
+      "community": 250,
       "norm_label": "shufflearray()",
       "id": "utils_shufflearray_shufflearray"
     },
@@ -7961,7 +8096,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/utils/shuffleObject.ts",
       "source_location": "L1",
-      "community": 123,
+      "community": 250,
       "norm_label": "shuffleobject.ts",
       "id": "packages_mosaic_maker_src_utils_shuffleobject_ts"
     },
@@ -7970,7 +8105,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/utils/shuffleObject.ts",
       "source_location": "L3",
-      "community": 123,
+      "community": 250,
       "norm_label": "shuffleobject()",
       "id": "utils_shuffleobject_shuffleobject"
     },
@@ -8672,7 +8807,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L19",
-      "community": 101,
+      "community": 246,
       "norm_label": "dependencies",
       "id": "sequence_renderer_package_dependencies"
     },
@@ -8681,7 +8816,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L20",
-      "community": 101,
+      "community": 246,
       "norm_label": "@repo/ui",
       "id": "sequence_renderer_package_dependencies_repo_ui"
     },
@@ -8690,7 +8825,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L21",
-      "community": 101,
+      "community": 246,
       "norm_label": "zod",
       "id": "sequence_renderer_package_dependencies_zod"
     },
@@ -8699,7 +8834,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L22",
-      "community": 101,
+      "community": 246,
       "norm_label": "zustand",
       "id": "sequence_renderer_package_dependencies_zustand"
     },
@@ -8933,7 +9068,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/src/main.tsx",
       "source_location": "L1",
-      "community": 85,
+      "community": 102,
       "norm_label": "main.tsx",
       "id": "packages_sequence_renderer_src_main_tsx"
     },
@@ -9905,7 +10040,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L21",
-      "community": 86,
+      "community": 242,
       "norm_label": "dependencies",
       "id": "palette_generator_package_dependencies"
     },
@@ -9914,7 +10049,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L22",
-      "community": 86,
+      "community": 242,
       "norm_label": "@repo/ui",
       "id": "palette_generator_package_dependencies_repo_ui"
     },
@@ -9923,7 +10058,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L23",
-      "community": 86,
+      "community": 242,
       "norm_label": "colorjs.io",
       "id": "palette_generator_package_dependencies_colorjs_io"
     },
@@ -9932,7 +10067,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L24",
-      "community": 86,
+      "community": 242,
       "norm_label": "zustand",
       "id": "palette_generator_package_dependencies_zustand"
     },
@@ -10148,7 +10283,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/App.tsx",
       "source_location": "L1",
-      "community": 237,
+      "community": 95,
       "norm_label": "app.tsx",
       "id": "packages_palette_generator_src_app_tsx"
     },
@@ -10157,7 +10292,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/App.tsx",
       "source_location": "L3",
-      "community": 237,
+      "community": 95,
       "norm_label": "app()",
       "id": "packages_palette_generator_src_app_tsx_src_app_app"
     },
@@ -10166,7 +10301,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/main.tsx",
       "source_location": "L1",
-      "community": 237,
+      "community": 95,
       "norm_label": "main.tsx",
       "id": "packages_palette_generator_src_main_tsx"
     },
@@ -10175,7 +10310,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/PaletteGenerator.tsx",
       "source_location": "L1",
-      "community": 237,
+      "community": 95,
       "norm_label": "palettegenerator.tsx",
       "id": "packages_palette_generator_src_components_palettegenerator_tsx"
     },
@@ -10184,7 +10319,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/PaletteGenerator.tsx",
       "source_location": "L5",
-      "community": 237,
+      "community": 95,
       "norm_label": "palettegenerator()",
       "id": "components_palettegenerator_palettegenerator"
     },
@@ -10193,7 +10328,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "controls.tsx",
       "id": "packages_palette_generator_src_components_controls_controls_tsx"
     },
@@ -10202,7 +10337,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L12",
-      "community": 235,
+      "community": 95,
       "norm_label": "rules",
       "id": "controls_controls_rules"
     },
@@ -10211,7 +10346,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L13",
-      "community": 235,
+      "community": 95,
       "norm_label": "rulekey",
       "id": "controls_controls_rulekey"
     },
@@ -10220,7 +10355,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/controls/Controls.tsx",
       "source_location": "L15",
-      "community": 235,
+      "community": 95,
       "norm_label": "controls()",
       "id": "packages_palette_generator_src_components_controls_controls_tsx_controls_controls_controls"
     },
@@ -10283,7 +10418,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/display/Display.tsx",
       "source_location": "L1",
-      "community": 237,
+      "community": 95,
       "norm_label": "display.tsx",
       "id": "packages_palette_generator_src_components_display_display_tsx"
     },
@@ -10292,7 +10427,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/display/Display.tsx",
       "source_location": "L3",
-      "community": 237,
+      "community": 95,
       "norm_label": "display()",
       "id": "display_display_display"
     },
@@ -10301,7 +10436,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/generatePalette.ts",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "generatepalette.ts",
       "id": "packages_palette_generator_src_core_generatepalette_ts"
     },
@@ -10310,7 +10445,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/generatePalette.ts",
       "source_location": "L4",
-      "community": 235,
+      "community": 95,
       "norm_label": "generatepalette()",
       "id": "core_generatepalette_generatepalette"
     },
@@ -10400,7 +10535,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/analogous.ts",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "analogous.ts",
       "id": "packages_palette_generator_src_core_rules_analogous_ts"
     },
@@ -10409,7 +10544,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/analogous.ts",
       "source_location": "L8",
-      "community": 235,
+      "community": 95,
       "norm_label": "analogous",
       "id": "rules_analogous_analogous"
     },
@@ -10418,7 +10553,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/complementary.ts",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "complementary.ts",
       "id": "packages_palette_generator_src_core_rules_complementary_ts"
     },
@@ -10427,7 +10562,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/complementary.ts",
       "source_location": "L9",
-      "community": 235,
+      "community": 95,
       "norm_label": "complementary",
       "id": "rules_complementary_complementary"
     },
@@ -10436,7 +10571,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/monochromatic.ts",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "monochromatic.ts",
       "id": "packages_palette_generator_src_core_rules_monochromatic_ts"
     },
@@ -10445,7 +10580,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/monochromatic.ts",
       "source_location": "L8",
-      "community": 235,
+      "community": 95,
       "norm_label": "monochromatic",
       "id": "rules_monochromatic_monochromatic"
     },
@@ -10454,7 +10589,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/triadic.ts",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "triadic.ts",
       "id": "packages_palette_generator_src_core_rules_triadic_ts"
     },
@@ -10463,7 +10598,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/triadic.ts",
       "source_location": "L8",
-      "community": 235,
+      "community": 95,
       "norm_label": "triadic",
       "id": "rules_triadic_triadic"
     },
@@ -10472,7 +10607,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/harmonyRule.types.ts",
       "source_location": "L1",
-      "community": 235,
+      "community": 95,
       "norm_label": "harmonyrule.types.ts",
       "id": "packages_palette_generator_src_core_rules_harmonyrule_types_ts"
     },
@@ -10481,7 +10616,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/harmonyRule.types.ts",
       "source_location": "L3",
-      "community": 235,
+      "community": 95,
       "norm_label": "palette",
       "id": "rules_harmonyrule_types_palette"
     },
@@ -10490,7 +10625,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/core/rules/harmonyRule.types.ts",
       "source_location": "L7",
-      "community": 235,
+      "community": 95,
       "norm_label": "rule",
       "id": "rules_harmonyrule_types_rule"
     },
@@ -10499,7 +10634,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L1",
-      "community": 237,
+      "community": 95,
       "norm_label": "palettestore.ts",
       "id": "packages_palette_generator_src_store_palettestore_ts"
     },
@@ -10508,7 +10643,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L5",
-      "community": 237,
+      "community": 95,
       "norm_label": "palettestate",
       "id": "store_palettestore_palettestate"
     },
@@ -10517,7 +10652,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L10",
-      "community": 237,
+      "community": 95,
       "norm_label": "initialbasecolor",
       "id": "store_palettestore_initialbasecolor"
     },
@@ -10526,7 +10661,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L12",
-      "community": 237,
+      "community": 95,
       "norm_label": "palettestore",
       "id": "store_palettestore_palettestore"
     },
@@ -10535,7 +10670,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L17",
-      "community": 237,
+      "community": 95,
       "norm_label": "usepalettepalettes()",
       "id": "store_palettestore_usepalettepalettes"
     },
@@ -10544,7 +10679,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L21",
-      "community": 237,
+      "community": 95,
       "norm_label": "usepalettebasecolor()",
       "id": "store_palettestore_usepalettebasecolor"
     },
@@ -10562,7 +10697,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L29",
-      "community": 235,
+      "community": 95,
       "norm_label": "addpalette()",
       "id": "store_palettestore_addpalette"
     },
@@ -12155,7 +12290,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L19",
-      "community": 87,
+      "community": 236,
       "norm_label": "dependencies",
       "id": "graph_viz_package_dependencies"
     },
@@ -12164,7 +12299,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L20",
-      "community": 87,
+      "community": 236,
       "norm_label": "@repo/ui",
       "id": "graph_viz_package_dependencies_repo_ui"
     },
@@ -12173,7 +12308,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L21",
-      "community": 87,
+      "community": 236,
       "norm_label": "d3",
       "id": "graph_viz_package_dependencies_d3"
     },
@@ -12182,7 +12317,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L22",
-      "community": 87,
+      "community": 236,
       "norm_label": "zustand",
       "id": "graph_viz_package_dependencies_zustand"
     },
@@ -12425,7 +12560,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/src/main.tsx",
       "source_location": "L1",
-      "community": 102,
+      "community": 20,
       "norm_label": "main.tsx",
       "id": "packages_graph_viz_src_main_tsx"
     },
@@ -13721,7 +13856,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L19",
-      "community": 90,
+      "community": 227,
       "norm_label": "dependencies",
       "id": "image_manipulator_package_dependencies"
     },
@@ -13730,7 +13865,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L20",
-      "community": 90,
+      "community": 227,
       "norm_label": "@repo/ui",
       "id": "image_manipulator_package_dependencies_repo_ui"
     },
@@ -13739,7 +13874,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L21",
-      "community": 90,
+      "community": 227,
       "norm_label": "zustand",
       "id": "image_manipulator_package_dependencies_zustand"
     },
@@ -18131,7 +18266,7 @@
       "file_type": "code",
       "source_file": "package.json",
       "source_location": "L2",
-      "community": 146,
+      "community": 235,
       "norm_label": "name",
       "id": "playground_package_name"
     },
@@ -18365,7 +18500,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L21",
-      "community": 101,
+      "community": 246,
       "norm_label": "react",
       "id": "sequence_renderer_package_dependencies_react"
     },
@@ -18374,7 +18509,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L22",
-      "community": 101,
+      "community": 246,
       "norm_label": "react-dom",
       "id": "sequence_renderer_package_dependencies_react_dom"
     },
@@ -18383,7 +18518,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L24",
-      "community": 86,
+      "community": 242,
       "norm_label": "react",
       "id": "palette_generator_package_dependencies_react"
     },
@@ -18392,7 +18527,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/package.json",
       "source_location": "L25",
-      "community": 86,
+      "community": 242,
       "norm_label": "react-dom",
       "id": "palette_generator_package_dependencies_react_dom"
     },
@@ -18419,7 +18554,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L21",
-      "community": 87,
+      "community": 236,
       "norm_label": "@types/d3",
       "id": "graph_viz_package_dependencies_types_d3"
     },
@@ -18428,7 +18563,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L23",
-      "community": 87,
+      "community": 236,
       "norm_label": "react",
       "id": "graph_viz_package_dependencies_react"
     },
@@ -18437,7 +18572,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L24",
-      "community": 87,
+      "community": 236,
       "norm_label": "react-dom",
       "id": "graph_viz_package_dependencies_react_dom"
     },
@@ -18446,7 +18581,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L21",
-      "community": 90,
+      "community": 227,
       "norm_label": "react",
       "id": "image_manipulator_package_dependencies_react"
     },
@@ -18455,7 +18590,7 @@
       "file_type": "code",
       "source_file": "packages/image-manipulator/package.json",
       "source_location": "L22",
-      "community": 90,
+      "community": 227,
       "norm_label": "react-dom",
       "id": "image_manipulator_package_dependencies_react_dom"
     },
@@ -18790,7 +18925,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L42",
-      "community": 11,
+      "community": 4,
       "norm_label": "docschema",
       "id": "data_docs_docschema"
     },
@@ -22999,7 +23134,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 247,
       "norm_label": "app",
       "id": "palette_generator_app"
     },
@@ -23012,7 +23147,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 241,
+      "community": 247,
       "norm_label": "main",
       "id": "palette_generator_main"
     },
@@ -23025,7 +23160,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 247,
       "norm_label": "palettegenerator",
       "id": "palette_generator_palettegenerator"
     },
@@ -23051,7 +23186,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 247,
       "norm_label": "display",
       "id": "palette_generator_display"
     },
@@ -23064,7 +23199,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 248,
       "norm_label": "colorspacecanvas",
       "id": "palette_generator_colorspacecanvas"
     },
@@ -23077,7 +23212,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 248,
       "norm_label": "colorspacecontrols",
       "id": "palette_generator_colorspacecontrols"
     },
@@ -23090,7 +23225,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 248,
       "norm_label": "colorspaces",
       "id": "palette_generator_colorspaces"
     },
@@ -23194,7 +23329,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 248,
       "norm_label": "color utils",
       "id": "palette_generator_color_utils"
     },
@@ -23207,7 +23342,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 248,
       "norm_label": "maths utils",
       "id": "palette_generator_maths_utils"
     },
@@ -23220,7 +23355,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 241,
+      "community": 247,
       "norm_label": "index.html",
       "id": "palette_generator_index_html"
     },
@@ -23272,7 +23407,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 235,
+      "community": 95,
       "norm_label": "colorjs.io",
       "id": "colorjs_io"
     },
@@ -23311,7 +23446,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
+      "community": 227,
       "norm_label": "@repo/ui",
       "id": "repo_ui"
     },
@@ -23682,6 +23817,1364 @@
   ],
   "links": [
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_conventions_md",
+      "target": "mosaic_maker_conventions_mosaic_maker_conventions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "mosaic_maker_conventions_mosaic_maker_conventions",
+      "target": "mosaic_maker_conventions_file_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "mosaic_maker_conventions_mosaic_maker_conventions",
+      "target": "mosaic_maker_conventions_naming",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "mosaic_maker_conventions_mosaic_maker_conventions",
+      "target": "mosaic_maker_conventions_store",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/CONVENTIONS.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "mosaic_maker_conventions_mosaic_maker_conventions",
+      "target": "mosaic_maker_conventions_code_style",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_todo_md",
+      "target": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_bugs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_dead_empty_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_store_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_utils_sprawl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_component_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_naming_conventions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_mosaic_maker_refactor_todo",
+      "target": "mosaic_maker_todo_potential_issues",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/TODO.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "mosaic_maker_todo_component_structure",
+      "target": "mosaic_maker_todo_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "core_cssvars_css_vars"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "store_mosaicstore_cyclemosaicpalettes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "store_mosaicstore_regeneratemosaictiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "store_mosaicstore_usemosaiccurrentpalette"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "store_mosaicstore_usemosaicref"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "utils_shuffleobject_shuffleobject"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "utils_updateelementstyles_updateelementstyles"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "controls_palettecontrols_palettecontrols"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "controls_slidercontrols_slidercontrols"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "controls_tilesetcontrols_tilesetcontrols"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "controls_controls_controls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
+      "target": "packages_mosaic_maker_src_components_controls_controls_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_core_constants_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_core_cssvars_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_utils_shuffleobject_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_utils_updateelementstyles_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
+      "target": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "controls_controls_controls",
+      "target": "store_mosaicstore_usemosaicref",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "controls_controls_controls",
+      "target": "store_mosaicstore_usemosaiccurrentpalette",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "store_mosaicstore_applymosaicpalette",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "store_mosaicstore_usemosaiccurrentpalette"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "store_mosaicstore_usemosaiccurrentpalettes"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "utils_arepalettesequal_arepalettesequal"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "utils_getpaletteid_getpaletteid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "controls_palettecontrols_palettecontrols"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "packages_mosaic_maker_src_utils_arepalettesequal_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
+      "target": "packages_mosaic_maker_src_utils_getpaletteid_ts"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "controls_palettecontrols_palettecontrols",
+      "target": "store_mosaicstore_usemosaiccurrentpalettes"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "controls_palettecontrols_palettecontrols",
+      "target": "store_mosaicstore_usemosaiccurrentpalette"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "store_mosaicstore_toggletileinset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "store_mosaicstore_usemosaictileset"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "tiles_tile_tile"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "controls_tilesetcontrols_tilesetcontrols"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "packages_mosaic_maker_src_core_initialpalette_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "packages_mosaic_maker_src_core_initialtileset_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
+      "target": "packages_mosaic_maker_src_components_tiles_tile_tsx"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "controls_tilesetcontrols_tilesetcontrols",
+      "target": "store_mosaicstore_usemosaictileset"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "core_cssvars_css_vars"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "store_mosaicstore_initmosaicpalettes"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "store_mosaicstore_setmosaicref"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "store_mosaicstore_regeneratemosaictiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "store_mosaicstore_usemosaictiles"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "tiles_tile_tile"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "mosaic_display_mosaicdisplay_mosaic_styles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "mosaic_display_mosaicdisplay_mosaicdisplay"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
+      "target": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "packages_mosaic_maker_src_core_constants_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "packages_mosaic_maker_src_core_cssvars_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "packages_mosaic_maker_src_core_initialpalette_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "packages_mosaic_maker_src_components_tiles_tile_tsx"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "mosaic_display_mosaicdisplay_mosaicdisplay",
+      "target": "store_mosaicstore_usemosaictiles"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "mosaic_display_mosaicdisplay_mosaicdisplay",
+      "target": "hooks_useresizeobserver_useresizeobserver"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
+      "target": "mosaic_display_mosaicdisplay_mosaicdisplay"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "core_initialpalette_palette"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "core_initialtileset_tilenames"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "core_initialtileset_tileset"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "utils_computenumberoftiles_computenumberoftiles"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "utils_fetchpalettes_fetchpalettes"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "utils_getrandom_getrandom"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "utils_updateelementstyles_updateelementstyles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_tileinstance"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_mosaicstate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_generatetilecolors"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_generatetilerotation"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_computeinitialtiles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_regeneratemosaictiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L74",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_usemosaicref"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_usemosaictiles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L82",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_usemosaiccurrentpalette"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_usemosaiccurrentpalettes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L90",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_usemosaictileset"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_usemosaicpalettestock"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L98",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_updatecurrentpalettes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_setmosaicpalettestock"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L113",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_setmosaicref"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_applymosaicpalette",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L127",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_toggletileinset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L137",
+      "weight": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_cyclemosaicpalettes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L144",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "store_mosaicstore_initmosaicpalettes"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
+      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_core_constants_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_core_initialpalette_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_core_initialtileset_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_utils_computenumberoftiles_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_utils_fetchpalettes_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_utils_getrandom_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
+      "target": "packages_mosaic_maker_src_utils_updateelementstyles_ts"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_generatetilecolors",
+      "target": "utils_getrandom_getrandom"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_generatetilerotation",
+      "target": "utils_getrandom_getrandom"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "store_mosaicstore_regeneratemosaictiles",
+      "target": "store_mosaicstore_computeinitialtiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_computeinitialtiles",
+      "target": "utils_computenumberoftiles_computenumberoftiles"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_computeinitialtiles",
+      "target": "utils_getrandom_getrandom"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L75",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_usemosaicref",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L79",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_usemosaictiles",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_usemosaiccurrentpalette",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_usemosaiccurrentpalettes",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L91",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_usemosaictileset",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_usemosaicpalettestock",
+      "target": "store_mosaicstore_mosaicstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "store_mosaicstore_setmosaicref",
+      "target": "store_mosaicstore_regeneratemosaictiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L134",
+      "weight": 1.0,
+      "source": "store_mosaicstore_toggletileinset",
+      "target": "store_mosaicstore_regeneratemosaictiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
+      "target": "store_mosaicstore_usemosaicref"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "controls_slidercontrols_slidercontrols",
+      "target": "store_mosaicstore_usemosaicref"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "store_mosaicstore_cyclemosaicpalettes",
+      "target": "store_mosaicstore_updatecurrentpalettes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L146",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_mosaicstore_initmosaicpalettes",
+      "target": "store_mosaicstore_setmosaicpalettestock"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "store_mosaicstore_initmosaicpalettes",
+      "target": "utils_fetchpalettes_fetchpalettes"
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -23699,9 +25192,9 @@
       "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "workspaces_playground_apps_playground_src_layouts_base_layout_astro",
-      "confidence_score": 1.0
+      "target": "workspaces_playground_apps_playground_src_layouts_base_layout_astro"
     },
     {
       "relation": "imports",
@@ -23721,9 +25214,9 @@
       "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "workspaces_playground_apps_playground_src_components_ui_features_hero_astro",
-      "confidence_score": 1.0
+      "target": "workspaces_playground_apps_playground_src_components_ui_features_hero_astro"
     },
     {
       "relation": "imports_from",
@@ -24173,17 +25666,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
       "target": "react"
     },
     {
@@ -33261,17 +34743,6 @@
       "target": "hooks_useresizeobserver_useresizeobserver"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L21",
-      "weight": 1.0,
-      "source": "mosaic_display_mosaicdisplay_mosaicdisplay",
-      "target": "hooks_useresizeobserver_useresizeobserver"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/ui/src/utils/cn.ts",
@@ -34241,39 +35712,6 @@
       "target": "src_app_app"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
-      "target": "packages_mosaic_maker_src_components_controls_controls_tsx"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
-      "target": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
-      "target": "mosaic_display_mosaicdisplay_mosaicdisplay"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/mosaic-maker/src/components/MosaicMaker.tsx",
@@ -34282,400 +35720,6 @@
       "confidence_score": 1.0,
       "source": "packages_mosaic_maker_src_components_mosaicmaker_tsx",
       "target": "components_mosaicmaker_mosaicmaker"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_core_constants_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_core_cssvars_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "core_cssvars_css_vars"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "store_mosaicstore_updatemosaiccurrentpalettes"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "store_mosaicstore_updatemosaictiles"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "store_mosaicstore_usemosaiccurrentpalette"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "store_mosaicstore_usemosaicref"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_utils_shuffleobject_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "utils_shuffleobject_shuffleobject"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_utils_updateelementstyles_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "utils_updateelementstyles_updateelementstyles"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "controls_palettecontrols_palettecontrols"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "controls_slidercontrols_slidercontrols"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "controls_tilesetcontrols_tilesetcontrols"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx",
-      "target": "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L17",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls",
-      "target": "store_mosaicstore_usemosaicref"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L18",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls",
-      "target": "store_mosaicstore_usemosaiccurrentpalette"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L22",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls",
-      "target": "utils_updateelementstyles_updateelementstyles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/Controls.tsx",
-      "source_location": "L22",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_controls_tsx_controls_controls_controls",
-      "target": "utils_shuffleobject_shuffleobject"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "store_mosaicstore_updatemosaicpalette"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "store_mosaicstore_usemosaiccurrentpalette"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "store_mosaicstore_usemosaiccurrentpalettes"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "packages_mosaic_maker_src_utils_arepalettesequal_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "utils_arepalettesequal_arepalettesequal"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "packages_mosaic_maker_src_utils_getpaletteid_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "utils_getpaletteid_getpaletteid"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_palettecontrols_tsx",
-      "target": "controls_palettecontrols_palettecontrols"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "controls_palettecontrols_palettecontrols",
-      "target": "store_mosaicstore_usemosaiccurrentpalettes"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/PaletteControls.tsx",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "controls_palettecontrols_palettecontrols",
-      "target": "store_mosaicstore_usemosaiccurrentpalette"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
-      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
-      "target": "store_mosaicstore_usemosaicref"
     },
     {
       "relation": "contains",
@@ -34696,256 +35740,6 @@
       "confidence_score": 1.0,
       "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
       "target": "controls_slidercontrols_slidercontrols"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "controls_slidercontrols_slidercontrols",
-      "target": "store_mosaicstore_usemosaicref"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "packages_mosaic_maker_src_core_initialpalette_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "packages_mosaic_maker_src_core_initialtileset_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "store_mosaicstore_updatemosaictileset"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "store_mosaicstore_usemosaictileset"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "packages_mosaic_maker_src_components_tiles_tile_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "tiles_tile_tile"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_tilesetcontrols_tsx",
-      "target": "controls_tilesetcontrols_tilesetcontrols"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "packages/mosaic-maker/src/components/controls/TileSetControls.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "source": "controls_tilesetcontrols_tilesetcontrols",
-      "target": "store_mosaicstore_usemosaictileset"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "packages_mosaic_maker_src_core_constants_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "packages_mosaic_maker_src_core_cssvars_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "core_cssvars_css_vars"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "packages_mosaic_maker_src_core_initialpalette_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "packages_mosaic_maker_src_store_mosaicstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "store_mosaicstore_initmosaicpalettes"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "store_mosaicstore_setmosaicref"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "store_mosaicstore_usemosaictiles"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "packages_mosaic_maker_src_components_tiles_tile_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "tiles_tile_tile"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "mosaic_display_mosaicdisplay_mosaic_styles"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L19",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "mosaic_display_mosaicdisplay_mosaicdisplay"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L20",
-      "weight": 1.0,
-      "source": "mosaic_display_mosaicdisplay_mosaicdisplay",
-      "target": "store_mosaicstore_usemosaictiles"
     },
     {
       "relation": "imports_from",
@@ -35125,17 +35919,6 @@
       "target": "core_constants_defaultrotations"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_core_constants_ts"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/mosaic-maker/src/core/initialPalette.ts",
@@ -35154,17 +35937,6 @@
       "confidence_score": 1.0,
       "source": "packages_mosaic_maker_src_core_initialpalette_ts",
       "target": "core_initialpalette_palette"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_core_initialpalette_ts"
     },
     {
       "relation": "imports_from",
@@ -35198,17 +35970,6 @@
       "confidence_score": 1.0,
       "source": "packages_mosaic_maker_src_utils_arepalettesequal_ts",
       "target": "packages_mosaic_maker_src_core_initialpalette_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "core_initialpalette_palette"
     },
     {
       "relation": "imports",
@@ -35272,535 +36033,6 @@
       "confidence_score": 1.0,
       "source": "packages_mosaic_maker_src_core_initialtileset_ts",
       "target": "core_initialtileset_tilenames"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_core_initialtileset_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "core_initialtileset_tileset"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "core_initialtileset_tilenames"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_utils_computenumberoftiles_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "utils_computenumberoftiles_computenumberoftiles"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_utils_fetchpalettes_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "utils_fetchpalettes_fetchpalettes"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_utils_getrandom_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "utils_getrandom_getrandom"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "packages_mosaic_maker_src_utils_updateelementstyles_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "utils_updateelementstyles_updateelementstyles"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_tileinstance"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L19",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_mosaicstate"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L29",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_generatetilecolors"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L40",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_generatetilerotation"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L45",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_computeinitialtiles"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L59",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L69",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_updatetiles"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L74",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_usemosaicref"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L78",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_usemosaictiles"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L82",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_usemosaiccurrentpalette"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L86",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_usemosaiccurrentpalettes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L90",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_usemosaictileset"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L94",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_usemosaicpalettestock"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L98",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_updatecurrentpalettes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L108",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_setmosaicpalettestock"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L113",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_setmosaicref"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L118",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_updatemosaicpalette"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L126",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_updatemosaictileset"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L136",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_updatemosaictiles"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L140",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_updatemosaiccurrentpalettes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L144",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_store_mosaicstore_ts",
-      "target": "store_mosaicstore_initmosaicpalettes"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_generatetilecolors",
-      "target": "utils_getrandom_getrandom"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_generatetilerotation",
-      "target": "utils_getrandom_getrandom"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L71",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_updatetiles",
-      "target": "store_mosaicstore_computeinitialtiles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_computeinitialtiles",
-      "target": "utils_computenumberoftiles_computenumberoftiles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L53",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_computeinitialtiles",
-      "target": "utils_getrandom_getrandom"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L75",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_usemosaicref",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L79",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_usemosaictiles",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L83",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_usemosaiccurrentpalette",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L87",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_usemosaiccurrentpalettes",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L91",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_usemosaictileset",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L95",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_usemosaicpalettestock",
-      "target": "store_mosaicstore_mosaicstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L115",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_setmosaicref",
-      "target": "store_mosaicstore_updatetiles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L133",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_updatemosaictileset",
-      "target": "store_mosaicstore_updatetiles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L137",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_updatemosaictiles",
-      "target": "store_mosaicstore_updatetiles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L141",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_updatemosaiccurrentpalettes",
-      "target": "store_mosaicstore_updatecurrentpalettes"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L146",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_mosaicstore_initmosaicpalettes",
-      "target": "store_mosaicstore_setmosaicpalettestock"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L122",
-      "weight": 1.0,
-      "source": "store_mosaicstore_updatemosaicpalette",
-      "target": "utils_updateelementstyles_updateelementstyles"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "packages/mosaic-maker/src/store/mosaicStore.ts",
-      "source_location": "L145",
-      "weight": 1.0,
-      "source": "store_mosaicstore_initmosaicpalettes",
-      "target": "utils_fetchpalettes_fetchpalettes"
     },
     {
       "relation": "imports_from",
@@ -55382,5 +55614,5 @@
       "source_file": "packages/sequence-renderer/src/core/rules.ts"
     }
   ],
-  "built_at_commit": "8dc909bbf34d71d97a81306e9fad64c109968bbc"
+  "built_at_commit": "46ad3df77e56d245aa78040f80abf0e4dcb8a389"
 }
