@@ -15,7 +15,7 @@ export type SliderControlsProps = {
 function SliderControls({ label, defaultValue, cssVar, min, max, step }: SliderControlsProps) {
   const mosaicRef = useMosaicRef();
   const [value, setValue] = useState(defaultValue);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(150);
 
   function handleSetValue(newValue: number) {
     setValue(newValue);
