@@ -15,7 +15,7 @@ import {
   useManipulatorOutputs,
   useManipulatorWorkflow,
 } from "../../store/manipulatorStore";
-import { Workflow } from "./Workflow";
+import { Workflow } from "./workflow/Workflow";
 
 function Controls() {
   const outputs = useManipulatorOutputs();
