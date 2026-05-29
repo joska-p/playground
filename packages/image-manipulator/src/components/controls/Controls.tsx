@@ -1,12 +1,12 @@
 import { Button } from "@repo/ui/Button";
 import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
-import { pipe } from "../../core/pipe";
+import { manipulate } from "../../core/manipulate";
 import { useImageUpload } from "../../hooks/useImageUpload";
 import { brightness } from "../../manipulations/brightness";
 import { energyMap } from "../../manipulations/energyMap";
 import { grayscale } from "../../manipulations/grayscale";
-import type { ManipulationId, OutputType } from "../../store/manipulatorStore";
+import type { ManipulationId } from "../../store/manipulatorStore";
 import {
   addToManipulatorOutputs,
   addToManipulatorWorkflow,
@@ -31,15 +31,21 @@ function Controls() {
 
   function executeWorkflow() {
     if (!workflow || workflow.length === 0) return;
-    const output: OutputType = {
-      id: "result",
-      name: "Result",
-      description: "Result of the workflow",
-      imageData: pipe(
-        ...workflow.map((manipulationId) => manipulations[manipulationId].callback())
-      )(sourceImage.imageData),
-    };
-    addToManipulatorOutputs(output);
+
+    const pipeline = manipulate(sourceImage.imageData);
+    workflow.forEach((id) => pipeline.apply(manipulations[id].callback()));
+
+    const results = pipeline.toArray();
+    clearManipulatorOutputs();
+
+    results.slice(1).forEach((imageData, i) => {
+      addToManipulatorOutputs({
+        id: `step-${i}`,
+        name: `Step ${i + 1}`,
+        description: workflow[i],
+        imageData,
+      });
+    });
   }
 
   return (
