@@ -17,6 +17,7 @@ function WorkflowStepArgSlider({ def, value, onChange }: WorkflowStepArgSliderPr
       step={def.step}
       layout="horizontal"
       onChange={onChange}
+      className="gap-4"
     />
   );
 }

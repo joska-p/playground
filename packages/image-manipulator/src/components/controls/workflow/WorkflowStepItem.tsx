@@ -19,15 +19,16 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
   const manip = manipulations[step.id];
 
   return (
-    <div className="rounded-md border p-2">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-medium">
+    <div className="py-1.5">
+      <div className="flex items-center justify-between gap-2">
+        <p className=" font-medium">
           {index + 1}. {manip.name}
         </p>
-        <div className="flex gap-1">
+        <div className="flex gap-0.5">
           <Button
             variant="ghost"
             size="icon"
+            className="h-8 w-8 "
             disabled={isFirst}
             onClick={() => moveWorkflowStep(index, -1)}
             aria-label="Move up"
@@ -37,6 +38,7 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
           <Button
             variant="ghost"
             size="icon"
+            className="h-8 w-8 "
             disabled={isLast}
             onClick={() => moveWorkflowStep(index, 1)}
             aria-label="Move down"
@@ -46,6 +48,7 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
           <Button
             variant="ghost"
             size="icon"
+            className="h-8 w-8 "
             onClick={() => removeWorkflowStep(index)}
             aria-label="Remove step"
           >
@@ -54,7 +57,7 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
         </div>
       </div>
       {manip.argDefinitions.length > 0 && (
-        <div className="ml-4 mt-1 flex flex-col gap-2">
+        <div className="mt-1 flex flex-col gap-1">
           {manip.argDefinitions.map((def) => (
             <WorkflowStepArgSlider
               key={def.key}
