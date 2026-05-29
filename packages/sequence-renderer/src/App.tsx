@@ -2,7 +2,7 @@ import { SequenceRenderer } from "./components/SequenceRenderer";
 
 function App() {
   return (
-    <div className="bg-background text-foreground grid h-screen">
+    <div className="bg-background text-foreground h-screen">
       <SequenceRenderer />
     </div>
   );

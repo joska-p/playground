@@ -17,7 +17,7 @@ function Controls() {
   const visualizationId = useSequenceVisualizationId();
 
   return (
-    <Card className="flex w-full flex-row items-cente py-2 px-4 justify-center gap-8">
+    <Card className="flex w-full items-center py-2 px-4 justify-center gap-8">
       <SequenceSelector />
 
       <Slider
