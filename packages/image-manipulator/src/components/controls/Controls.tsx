@@ -7,21 +7,19 @@ import { manipulations, manipulationsIds } from "../../manipulations/manipulatio
 import type { ManipulationId } from "../../store/manipulatorStore";
 import {
   addToManipulatorOutputs,
-  addToManipulatorWorkflow,
   clearManipulatorOutputs,
-  clearManipulatorWorkflow,
   setManipulatorManipulationId,
   useManipulatorManipulationId,
   useManipulatorOutputs,
-  useManipulatorWorkflow,
 } from "../../store/manipulatorStore";
+import { addToWorkflow, clearWorkflow, useWorkflow } from "../../store/workflowStore";
 import { Workflow } from "./workflow/Workflow";
 
 function Controls() {
   const outputs = useManipulatorOutputs();
   const sourceImage = outputs[0];
   const manipulationId = useManipulatorManipulationId();
-  const workflow = useManipulatorWorkflow();
+  const workflow = useWorkflow();
 
   const { handleImageUpload } = useImageUpload();
 
@@ -65,8 +63,8 @@ function Controls() {
       </Select>
 
       <div className="gap-4 md:grid md:grid-cols-2">
-        <Button onClick={() => addToManipulatorWorkflow(manipulationId)}>Add to Worflow</Button>
-        <Button onClick={() => clearManipulatorWorkflow()}>Clear Worflow</Button>
+        <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
+        <Button onClick={() => clearWorkflow()}>Clear Worflow</Button>
       </div>
 
       <Workflow steps={workflow} />

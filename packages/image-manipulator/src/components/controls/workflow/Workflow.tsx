@@ -1,4 +1,4 @@
-import type { WorkflowStep } from "../../../store/manipulatorStore";
+import type { WorkflowStep } from "../../../store/workflowStore";
 import { WorkflowStepItem } from "./WorkflowStepItem";
 
 type WorkflowProps = {
@@ -13,7 +13,13 @@ function Workflow({ steps }: WorkflowProps) {
   return (
     <div className="flex flex-col gap-3">
       {steps.map((step, index) => (
-        <WorkflowStepItem key={index} step={step} index={index} />
+        <WorkflowStepItem
+          key={index}
+          step={step}
+          index={index}
+          isFirst={index === 0}
+          isLast={index === steps.length - 1}
+        />
       ))}
     </div>
   );
