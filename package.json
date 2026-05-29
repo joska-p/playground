@@ -10,6 +10,7 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "check-types": "turbo run check-types",
     "gen": "turbo gen",
+    "graphify": "graphify update",
     "clean": "node ./scripts/clean.mjs",
     "reset": "node ./scripts/clean.mjs --yes && pnpm install && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build"
   },
