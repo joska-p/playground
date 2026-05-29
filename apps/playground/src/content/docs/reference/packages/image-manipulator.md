@@ -77,9 +77,16 @@ type PixelCallback = (ctx: PixelContext) => RGBA;
 
 Built-in `PixelCallback` factories:
 
-- **`grayscale()`** — luminance-weighted `0.299R + 0.587G + 0.114B`
-- **`brightness(factor)`** — multiply RGB by `factor` (>1 brightens, <1 darkens)
-- **`computeEnergy()`** — Sobel gradient magnitude (edge detection / seam carving)
+| Factory                   | Args                  | Description                              |
+| ------------------------- | --------------------- | ---------------------------------------- |
+| `grayscale()`             | —                     | Luminance-weighted `0.299R + 0.587G + 0.114B` |
+| `brightness(factor)`      | `factor` (0–3)        | Multiply RGB by `factor`                 |
+| `contrast(factor)`        | `factor` (0–3)        | Adjust contrast around midpoint 128      |
+| `saturate(amount)`        | `amount` (0–3)        | Adjust saturation via luminance blend    |
+| `sepia()`                 | —                     | Classic sepia tone matrix                |
+| `invert()`                | —                     | `255 - channel` per component            |
+| `threshold(threshold)`    | `threshold` (0–255)   | Binary black/white by luminance          |
+| `energyMap()`             | —                     | Sobel gradient magnitude (edge detection)|
 
 ## Creating a pipeline
 
@@ -88,7 +95,7 @@ the output of each callback feeds into the next per pixel:
 
 ```ts
 import { manipulate } from "@repo/image-manipulator";
-import { grayscale, brightness, computeEnergy } from "@repo/image-manipulator";
+import { grayscale, brightness, energyMap } from "@repo/image-manipulator";
 import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 
 // 1. Load source
@@ -146,6 +153,27 @@ Use `sourceData` on `PixelContext` for neighbour-dependent effects (blur, edge
 detection, etc.) — it always points to the original unmodified data for the
 current pass.
 
+## Workflow presets
+
+The built-in UI includes 9 pre-configured multi-step workflows. Selecting a
+preset and clicking **Load Workflow** populates the workflow editor with all
+steps and their tuned arguments — no manual assembly required.
+
+| Preset           | Steps                                      |
+| ---------------- | ------------------------------------------ |
+| Vintage          | sepia → brightness(1.2) → contrast(0.8)   |
+| Dramatic B&W     | grayscale → contrast(2.0)                  |
+| Neon             | saturate(2.5) → brightness(1.2) → contrast(1.5) |
+| Blueprint        | invert → threshold(200)                    |
+| Soft Pastel      | saturate(1.1) → brightness(1.3) → contrast(0.7) |
+| Dark & Moody     | brightness(0.5) → contrast(1.8) → saturate(0.6) |
+| Overexposed      | brightness(2.2) → contrast(0.5)            |
+| High Contrast    | contrast(2.5) → saturate(1.6)              |
+| Edge Ink         | grayscale → energyMap                      |
+
+Once loaded, steps can be reordered, removed, or tuned via sliders before
+executing.
+
 ## React component
 
 ```tsx
@@ -156,8 +184,8 @@ function App() {
 }
 ```
 
-Renders a file upload, a manipulation selector, a workflow builder, and
-canvases showing the result of each pipeline step.
+Renders a file upload, a manipulation selector, a workflow builder with
+preset support, and canvases showing the result of each pipeline step.
 
 ## Hook
 

@@ -21,6 +21,9 @@ putImageData(canvas, result);
 
 ---
 
+Also ships with 9 built-in **workflow presets** (Vintage, Dramatic B&W,
+Neon, …) that load a multi-step pipeline in one click.
+
 Full reference: [Image Manipulator](/docs/reference/packages/image-manipulator/)
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
