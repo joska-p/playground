@@ -138,49 +138,562 @@
       "norm_label": "controls.tsx"
     },
     {
-      "label": "manipulationsIds",
+      "label": "Controls()",
       "file_type": "code",
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L21",
-      "id": "controls_controls_manipulationsids",
+      "source_location": "L20",
+      "id": "controls_controls_controls",
+      "community": 39,
+      "norm_label": "controls()"
+    },
+    {
+      "label": "Workflow.tsx",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "community": 39,
+      "norm_label": "workflow.tsx"
+    },
+    {
+      "label": "WorkflowProps",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L6",
+      "id": "controls_workflow_workflowprops",
+      "community": 39,
+      "norm_label": "workflowprops"
+    },
+    {
+      "label": "Workflow()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L10",
+      "id": "controls_workflow_workflow",
+      "community": 39,
+      "norm_label": "workflow()"
+    },
+    {
+      "label": "brightness.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_brightness_ts",
+      "community": 39,
+      "norm_label": "brightness.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L8",
+      "id": "manipulations_brightness_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "brightness",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L17",
+      "id": "manipulations_brightness_brightness",
+      "community": 39,
+      "norm_label": "brightness"
+    },
+    {
+      "label": "contrast.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/contrast.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_contrast_ts",
+      "community": 39,
+      "norm_label": "contrast.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/contrast.ts",
+      "source_location": "L3",
+      "id": "manipulations_contrast_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "contrast",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/contrast.ts",
+      "source_location": "L15",
+      "id": "manipulations_contrast_contrast",
+      "community": 39,
+      "norm_label": "contrast"
+    },
+    {
+      "label": "energyMap.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_energymap_ts",
+      "community": 39,
+      "norm_label": "energymap.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L14",
+      "id": "manipulations_energymap_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "energyMap",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L47",
+      "id": "manipulations_energymap_energymap",
+      "community": 39,
+      "norm_label": "energymap"
+    },
+    {
+      "label": "grayscale.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_grayscale_ts",
+      "community": 39,
+      "norm_label": "grayscale.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L7",
+      "id": "manipulations_grayscale_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "grayscale",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L14",
+      "id": "manipulations_grayscale_grayscale",
+      "community": 39,
+      "norm_label": "grayscale"
+    },
+    {
+      "label": "invert.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/invert.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_invert_ts",
+      "community": 39,
+      "norm_label": "invert.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/invert.ts",
+      "source_location": "L3",
+      "id": "manipulations_invert_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "invert",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/invert.ts",
+      "source_location": "L10",
+      "id": "manipulations_invert_invert",
+      "community": 39,
+      "norm_label": "invert"
+    },
+    {
+      "label": "manipulations.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "community": 39,
+      "norm_label": "manipulations.ts"
+    },
+    {
+      "label": "manipulationsIds",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L10",
+      "id": "manipulations_manipulations_manipulationsids",
       "community": 39,
       "norm_label": "manipulationsids"
     },
     {
       "label": "manipulations",
       "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L22",
-      "id": "controls_controls_manipulations",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L20",
+      "id": "manipulations_manipulations_manipulations",
       "community": 39,
       "norm_label": "manipulations"
     },
     {
-      "label": "Controls()",
+      "label": "saturate.ts",
       "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L24",
-      "id": "controls_controls_controls",
-      "community": 93,
-      "norm_label": "controls()"
+      "source_file": "packages/image-manipulator/src/manipulations/saturate.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_saturate_ts",
+      "community": 39,
+      "norm_label": "saturate.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/saturate.ts",
+      "source_location": "L3",
+      "id": "manipulations_saturate_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "saturate",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/saturate.ts",
+      "source_location": "L15",
+      "id": "manipulations_saturate_saturate",
+      "community": 39,
+      "norm_label": "saturate"
+    },
+    {
+      "label": "sepia.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/sepia.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_sepia_ts",
+      "community": 39,
+      "norm_label": "sepia.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/sepia.ts",
+      "source_location": "L3",
+      "id": "manipulations_sepia_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "sepia",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/sepia.ts",
+      "source_location": "L10",
+      "id": "manipulations_sepia_sepia",
+      "community": 39,
+      "norm_label": "sepia"
+    },
+    {
+      "label": "threshold.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/threshold.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_manipulations_threshold_ts",
+      "community": 39,
+      "norm_label": "threshold.ts"
+    },
+    {
+      "label": "callback()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/threshold.ts",
+      "source_location": "L3",
+      "id": "manipulations_threshold_callback",
+      "community": 39,
+      "norm_label": "callback()"
+    },
+    {
+      "label": "threshold",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/manipulations/threshold.ts",
+      "source_location": "L11",
+      "id": "manipulations_threshold_threshold",
+      "community": 39,
+      "norm_label": "threshold"
+    },
+    {
+      "label": "manipulatorStore.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L1",
+      "id": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "community": 39,
+      "norm_label": "manipulatorstore.ts"
+    },
+    {
+      "label": "ManipulationId",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L4",
+      "id": "store_manipulatorstore_manipulationid",
+      "community": 39,
+      "norm_label": "manipulationid"
+    },
+    {
+      "label": "WorkflowStep",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L6",
+      "id": "store_manipulatorstore_workflowstep",
+      "community": 39,
+      "norm_label": "workflowstep"
+    },
+    {
+      "label": "OutputType",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L11",
+      "id": "store_manipulatorstore_outputtype",
+      "community": 39,
+      "norm_label": "outputtype"
+    },
+    {
+      "label": "ManipulatorState",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L18",
+      "id": "store_manipulatorstore_manipulatorstate",
+      "community": 39,
+      "norm_label": "manipulatorstate"
+    },
+    {
+      "label": "manipulatorStore",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L25",
+      "id": "store_manipulatorstore_manipulatorstore",
+      "community": 39,
+      "norm_label": "manipulatorstore"
+    },
+    {
+      "label": "useManipulatorImageFile()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L32",
+      "id": "store_manipulatorstore_usemanipulatorimagefile",
+      "community": 39,
+      "norm_label": "usemanipulatorimagefile()"
+    },
+    {
+      "label": "useManipulatorManipulationId()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L36",
+      "id": "store_manipulatorstore_usemanipulatormanipulationid",
+      "community": 39,
+      "norm_label": "usemanipulatormanipulationid()"
+    },
+    {
+      "label": "useManipulatorWorkflow()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L40",
+      "id": "store_manipulatorstore_usemanipulatorworkflow",
+      "community": 39,
+      "norm_label": "usemanipulatorworkflow()"
+    },
+    {
+      "label": "useManipulatorOutputs()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L44",
+      "id": "store_manipulatorstore_usemanipulatoroutputs",
+      "community": 39,
+      "norm_label": "usemanipulatoroutputs()"
+    },
+    {
+      "label": "setManipulatorImageFile()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L48",
+      "id": "store_manipulatorstore_setmanipulatorimagefile",
+      "community": 39,
+      "norm_label": "setmanipulatorimagefile()"
+    },
+    {
+      "label": "setManipulatorManipulationId()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L52",
+      "id": "store_manipulatorstore_setmanipulatormanipulationid",
+      "community": 39,
+      "norm_label": "setmanipulatormanipulationid()"
+    },
+    {
+      "label": "addToManipulatorWorkflow()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L56",
+      "id": "store_manipulatorstore_addtomanipulatorworkflow",
+      "community": 39,
+      "norm_label": "addtomanipulatorworkflow()"
+    },
+    {
+      "label": "updateManipulatorWorkflowStepArgs()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L63",
+      "id": "store_manipulatorstore_updatemanipulatorworkflowstepargs",
+      "community": 39,
+      "norm_label": "updatemanipulatorworkflowstepargs()"
+    },
+    {
+      "label": "clearManipulatorWorkflow()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L72",
+      "id": "store_manipulatorstore_clearmanipulatorworkflow",
+      "community": 39,
+      "norm_label": "clearmanipulatorworkflow()"
+    },
+    {
+      "label": "addToManipulatorOutputs()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L76",
+      "id": "store_manipulatorstore_addtomanipulatoroutputs",
+      "community": 39,
+      "norm_label": "addtomanipulatoroutputs()"
+    },
+    {
+      "label": "clearManipulatorOutputs()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L83",
+      "id": "store_manipulatorstore_clearmanipulatoroutputs",
+      "community": 39,
+      "norm_label": "clearmanipulatoroutputs()"
+    },
+    {
+      "label": "ImageManipulator.tsx",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
+      "source_location": "L1",
+      "community": 39,
+      "norm_label": "imagemanipulator.tsx",
+      "id": "packages_image_manipulator_src_components_imagemanipulator_tsx"
+    },
+    {
+      "label": "ImageManipulator()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
+      "source_location": "L5",
+      "community": 39,
+      "norm_label": "imagemanipulator()",
+      "id": "components_imagemanipulator_imagemanipulator"
+    },
+    {
+      "label": "Output.tsx",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L1",
+      "community": 39,
+      "norm_label": "output.tsx",
+      "id": "packages_image_manipulator_src_components_display_output_tsx"
+    },
+    {
+      "label": "OutputProps",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L5",
+      "community": 39,
+      "norm_label": "outputprops",
+      "id": "display_output_outputprops"
+    },
+    {
+      "label": "Output()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L10",
+      "community": 39,
+      "norm_label": "output()",
+      "id": "display_output_output"
+    },
+    {
+      "label": "OutputCard.tsx",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L1",
+      "community": 39,
+      "norm_label": "outputcard.tsx",
+      "id": "packages_image_manipulator_src_components_display_outputcard_tsx"
+    },
+    {
+      "label": "OutputCardProps",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L4",
+      "community": 39,
+      "norm_label": "outputcardprops",
+      "id": "display_outputcard_outputcardprops"
+    },
+    {
+      "label": "OutputCard()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L9",
+      "community": 39,
+      "norm_label": "outputcard()",
+      "id": "display_outputcard_outputcard"
+    },
+    {
+      "label": "Outputs.tsx",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L1",
+      "community": 39,
+      "norm_label": "outputs.tsx",
+      "id": "packages_image_manipulator_src_components_display_outputs_tsx"
+    },
+    {
+      "label": "Outputs()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L5",
+      "community": 39,
+      "norm_label": "outputs()",
+      "id": "display_outputs_outputs"
+    },
+    {
+      "label": "useSourceImage.ts",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L1",
+      "community": 39,
+      "norm_label": "usesourceimage.ts",
+      "id": "packages_image_manipulator_src_hooks_usesourceimage_ts"
+    },
+    {
+      "label": "useSourceImage()",
+      "file_type": "code",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L9",
+      "community": 39,
+      "norm_label": "usesourceimage()",
+      "id": "hooks_usesourceimage_usesourceimage"
     },
     {
       "label": "manipulate.ts",
       "file_type": "code",
       "source_file": "packages/image-manipulator/src/core/manipulate.ts",
       "source_location": "L1",
-      "id": "packages_image_manipulator_src_core_manipulate_ts",
       "community": 39,
-      "norm_label": "manipulate.ts"
+      "norm_label": "manipulate.ts",
+      "id": "packages_image_manipulator_src_core_manipulate_ts"
     },
     {
       "label": "manipulate()",
       "file_type": "code",
       "source_file": "packages/image-manipulator/src/core/manipulate.ts",
       "source_location": "L5",
-      "id": "core_manipulate_manipulate",
       "community": 39,
-      "norm_label": "manipulate()"
+      "norm_label": "manipulate()",
+      "id": "core_manipulate_manipulate"
     },
     {
       "label": "CONVENTIONS.md",
@@ -3643,7 +4156,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L1",
-      "community": 200,
+      "community": 201,
       "norm_label": "actions.ts",
       "id": "packages_mosaic_maker_src_store_actions_ts"
     },
@@ -3652,7 +4165,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L9",
-      "community": 200,
+      "community": 201,
       "norm_label": "regeneratemosaictiles()",
       "id": "store_actions_regeneratemosaictiles"
     },
@@ -3661,7 +4174,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L15",
-      "community": 200,
+      "community": 201,
       "norm_label": "updatecurrentpalettes()",
       "id": "store_actions_updatecurrentpalettes"
     },
@@ -3670,7 +4183,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L25",
-      "community": 200,
+      "community": 201,
       "norm_label": "setmosaicpalettestock()",
       "id": "store_actions_setmosaicpalettestock"
     },
@@ -3679,7 +4192,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L30",
-      "community": 200,
+      "community": 201,
       "norm_label": "setmosaicref()",
       "id": "store_actions_setmosaicref"
     },
@@ -3697,7 +4210,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L43",
-      "community": 200,
+      "community": 201,
       "norm_label": "toggletileinset()",
       "id": "store_actions_toggletileinset"
     },
@@ -3706,7 +4219,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L53",
-      "community": 200,
+      "community": 201,
       "norm_label": "cyclemosaicpalettes()",
       "id": "store_actions_cyclemosaicpalettes"
     },
@@ -3715,7 +4228,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/actions.ts",
       "source_location": "L57",
-      "community": 200,
+      "community": 201,
       "norm_label": "initmosaicpalettes()",
       "id": "store_actions_initmosaicpalettes"
     },
@@ -3877,7 +4390,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/src/store/selectors.ts",
       "source_location": "L10",
-      "community": 113,
+      "community": 93,
       "norm_label": "usemosaictiles()",
       "id": "store_selectors_usemosaictiles"
     },
@@ -4552,7 +5065,7 @@
       "file_type": "code",
       "source_file": "react",
       "confidence": "EXTRACTED",
-      "community": 98,
+      "community": 21,
       "norm_label": "react",
       "id": "react"
     },
@@ -4570,7 +5083,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects",
       "confidence": "EXTRACTED",
-      "community": 180,
+      "community": 168,
       "norm_label": "../../../../data/projects",
       "id": "workspaces_playground_apps_playground_src_data_projects"
     },
@@ -5730,7 +6243,7 @@
       "file_type": "code",
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L1",
-      "community": 155,
+      "community": 246,
       "norm_label": "astro.config.mjs",
       "id": "apps_playground_astro_config_mjs"
     },
@@ -5739,7 +6252,7 @@
       "file_type": "code",
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L13",
-      "community": 155,
+      "community": 246,
       "norm_label": "isvercel",
       "id": "playground_astro_config_isvercel"
     },
@@ -6040,7 +6553,7 @@
       "source_file": "apps/playground/src/components/ui/cards/experiment-card.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 180,
+      "community": 168,
       "norm_label": "../../../components/ui/cards/experiment-card.astro",
       "id": "apps_playground_src_components_ui_cards_experiment_card_astro"
     },
@@ -6060,7 +6573,7 @@
       "source_file": "apps/playground/src/components/ui/features/section-header.astro",
       "confidence": "EXTRACTED",
       "source_location": "L1",
-      "community": 180,
+      "community": 4,
       "norm_label": "../../components/ui/features/section-header.astro",
       "id": "apps_playground_src_components_ui_features_section_header_astro"
     },
@@ -6109,7 +6622,7 @@
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 180,
+      "community": 168,
       "norm_label": "../components/ui/projects/featured-projects.astro",
       "id": "apps_playground_src_components_ui_projects_featured_projects_astro"
     },
@@ -6118,7 +6631,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
       "source_location": "L9",
-      "community": 180,
+      "community": 168,
       "norm_label": "featuredprojects",
       "id": "projects_featured_projects_featuredprojects"
     },
@@ -6154,7 +6667,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L39",
-      "community": 11,
+      "community": 4,
       "norm_label": "categoryids",
       "id": "data_docs_categoryids"
     },
@@ -6190,7 +6703,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L1",
-      "community": 180,
+      "community": 168,
       "norm_label": "projects.ts",
       "id": "apps_playground_src_data_projects_ts"
     },
@@ -6199,7 +6712,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L7",
-      "community": 180,
+      "community": 168,
       "norm_label": "category",
       "id": "data_projects_category"
     },
@@ -6208,7 +6721,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L12",
-      "community": 180,
+      "community": 168,
       "norm_label": "categories",
       "id": "data_projects_categories"
     },
@@ -6217,7 +6730,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L34",
-      "community": 180,
+      "community": 168,
       "norm_label": "project",
       "id": "data_projects_project"
     },
@@ -6235,7 +6748,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L120",
-      "community": 180,
+      "community": 168,
       "norm_label": "getfeaturedprojects()",
       "id": "data_projects_getfeaturedprojects"
     },
@@ -6244,7 +6757,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L127",
-      "community": 180,
+      "community": 168,
       "norm_label": "getprojectsbycategory()",
       "id": "data_projects_getprojectsbycategory"
     },
@@ -6692,7 +7205,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/lib/remarkBaseUrl.ts",
       "source_location": "L1",
-      "community": 155,
+      "community": 246,
       "norm_label": "remarkbaseurl.ts",
       "id": "apps_playground_src_lib_remarkbaseurl_ts"
     },
@@ -6701,7 +7214,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/lib/remarkBaseUrl.ts",
       "source_location": "L3",
-      "community": 155,
+      "community": 246,
       "norm_label": "remarkbaseurl()",
       "id": "lib_remarkbaseurl_remarkbaseurl"
     },
@@ -6710,7 +7223,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/404.astro",
       "source_location": "L1",
-      "community": 4,
+      "community": 111,
       "norm_label": "404.astro",
       "id": "apps_playground_src_pages_404_astro"
     },
@@ -6791,7 +7304,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/index.astro",
       "source_location": "L1",
-      "community": 180,
+      "community": 168,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_index_astro"
     },
@@ -6800,7 +7313,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/index.astro",
       "source_location": "L11",
-      "community": 180,
+      "community": 168,
       "norm_label": "categories",
       "id": "projects_index_categories"
     },
@@ -6809,7 +7322,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/color/index.astro",
       "source_location": "L1",
-      "community": 180,
+      "community": 168,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_color_index_astro"
     },
@@ -6836,7 +7349,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/data-viz/index.astro",
       "source_location": "L1",
-      "community": 180,
+      "community": 168,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_data_viz_index_astro"
     },
@@ -6872,7 +7385,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/generative/index.astro",
       "source_location": "L1",
-      "community": 180,
+      "community": 168,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_generative_index_astro"
     },
@@ -6899,7 +7412,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/image/index.astro",
       "source_location": "L1",
-      "community": 180,
+      "community": 168,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_image_index_astro"
     },
@@ -9383,7 +9896,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L44",
-      "community": 168,
+      "community": 206,
       "norm_label": "dependencies",
       "id": "ui_package_dependencies"
     },
@@ -9392,7 +9905,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L45",
-      "community": 168,
+      "community": 206,
       "norm_label": "class-variance-authority",
       "id": "ui_package_dependencies_class_variance_authority"
     },
@@ -9401,7 +9914,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L46",
-      "community": 168,
+      "community": 206,
       "norm_label": "clsx",
       "id": "ui_package_dependencies_clsx"
     },
@@ -9410,7 +9923,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L47",
-      "community": 4,
+      "community": 206,
       "norm_label": "lucide-react",
       "id": "ui_package_dependencies_lucide_react"
     },
@@ -9419,7 +9932,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L48",
-      "community": 168,
+      "community": 206,
       "norm_label": "tailwind-merge",
       "id": "ui_package_dependencies_tailwind_merge"
     },
@@ -9635,7 +10148,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/App.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 200,
       "norm_label": "app.tsx",
       "id": "packages_ui_src_app_tsx"
     },
@@ -9644,7 +10157,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/App.tsx",
       "source_location": "L3",
-      "community": 21,
+      "community": 200,
       "norm_label": "app()",
       "id": "packages_ui_src_app_tsx_src_app_app"
     },
@@ -9653,7 +10166,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/main.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 200,
       "norm_label": "main.tsx",
       "id": "packages_ui_src_main_tsx"
     },
@@ -9662,7 +10175,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/button/Button.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 200,
       "norm_label": "button.tsx",
       "id": "packages_ui_src_components_button_button_tsx"
     },
@@ -9671,7 +10184,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/button/Button.tsx",
       "source_location": "L6",
-      "community": 21,
+      "community": 200,
       "norm_label": "buttonprops",
       "id": "button_button_buttonprops"
     },
@@ -9680,7 +10193,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/button/Button.tsx",
       "source_location": "L11",
-      "community": 21,
+      "community": 200,
       "norm_label": "button()",
       "id": "button_button_button"
     },
@@ -9689,7 +10202,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/button/buttonVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 200,
       "norm_label": "buttonvariants.ts",
       "id": "packages_ui_src_components_button_buttonvariants_ts"
     },
@@ -9698,7 +10211,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/button/buttonVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 200,
       "norm_label": "buttonvariants",
       "id": "button_buttonvariants_buttonvariants"
     },
@@ -9707,7 +10220,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/badge/Badge.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 216,
       "norm_label": "badge.tsx",
       "id": "packages_ui_src_components_badge_badge_tsx"
     },
@@ -9716,7 +10229,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/badge/Badge.tsx",
       "source_location": "L6",
-      "community": 21,
+      "community": 216,
       "norm_label": "badgeprops",
       "id": "badge_badge_badgeprops"
     },
@@ -9725,7 +10238,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/badge/Badge.tsx",
       "source_location": "L8",
-      "community": 21,
+      "community": 216,
       "norm_label": "badge()",
       "id": "badge_badge_badge"
     },
@@ -9734,7 +10247,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/badge/badgeVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 216,
       "norm_label": "badgevariants.ts",
       "id": "packages_ui_src_components_badge_badgevariants_ts"
     },
@@ -9743,7 +10256,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/badge/badgeVariants.ts",
       "source_location": "L4",
-      "community": 21,
+      "community": 216,
       "norm_label": "badgevariants",
       "id": "badge_badgevariants_badgevariants"
     },
@@ -9752,7 +10265,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/badge/badgeVariants.ts",
       "source_location": "L24",
-      "community": 21,
+      "community": 216,
       "norm_label": "badgevariant",
       "id": "badge_badgevariants_badgevariant"
     },
@@ -9761,7 +10274,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 199,
       "norm_label": "card.tsx",
       "id": "packages_ui_src_components_card_card_tsx"
     },
@@ -9770,7 +10283,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L6",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardprops",
       "id": "card_card_cardprops"
     },
@@ -9779,7 +10292,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L11",
-      "community": 21,
+      "community": 199,
       "norm_label": "card()",
       "id": "card_card_card"
     },
@@ -9788,7 +10301,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L15",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardheader()",
       "id": "card_card_cardheader"
     },
@@ -9797,7 +10310,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L19",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardtitle()",
       "id": "card_card_cardtitle"
     },
@@ -9806,7 +10319,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L23",
-      "community": 21,
+      "community": 199,
       "norm_label": "carddescription()",
       "id": "card_card_carddescription"
     },
@@ -9815,7 +10328,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L29",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardcontent()",
       "id": "card_card_cardcontent"
     },
@@ -9824,7 +10337,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/Card.tsx",
       "source_location": "L33",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardfooter()",
       "id": "card_card_cardfooter"
     },
@@ -9833,7 +10346,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/cardVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardvariants.ts",
       "id": "packages_ui_src_components_card_cardvariants_ts"
     },
@@ -9842,7 +10355,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/card/cardVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 199,
       "norm_label": "cardvariants",
       "id": "card_cardvariants_cardvariants"
     },
@@ -9851,7 +10364,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/input/Input.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 236,
       "norm_label": "input.tsx",
       "id": "packages_ui_src_components_input_input_tsx"
     },
@@ -9860,7 +10373,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/input/Input.tsx",
       "source_location": "L7",
-      "community": 21,
+      "community": 236,
       "norm_label": "inputprops",
       "id": "input_input_inputprops"
     },
@@ -9869,7 +10382,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/input/Input.tsx",
       "source_location": "L16",
-      "community": 21,
+      "community": 236,
       "norm_label": "input()",
       "id": "input_input_input"
     },
@@ -9878,7 +10391,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/input/inputVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 236,
       "norm_label": "inputvariants.ts",
       "id": "packages_ui_src_components_input_inputvariants_ts"
     },
@@ -9887,7 +10400,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/input/inputVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 236,
       "norm_label": "inputvariants",
       "id": "input_inputvariants_inputvariants"
     },
@@ -9896,7 +10409,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/label/Label.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 237,
       "norm_label": "label.tsx",
       "id": "packages_ui_src_components_label_label_tsx"
     },
@@ -9905,7 +10418,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/label/Label.tsx",
       "source_location": "L6",
-      "community": 21,
+      "community": 237,
       "norm_label": "labelprops",
       "id": "label_label_labelprops"
     },
@@ -9914,7 +10427,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/label/Label.tsx",
       "source_location": "L12",
-      "community": 21,
+      "community": 237,
       "norm_label": "label()",
       "id": "label_label_label"
     },
@@ -9923,7 +10436,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/label/labelVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 237,
       "norm_label": "labelvariants.ts",
       "id": "packages_ui_src_components_label_labelvariants_ts"
     },
@@ -9932,7 +10445,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/label/labelVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 237,
       "norm_label": "labelvariants",
       "id": "label_labelvariants_labelvariants"
     },
@@ -9941,7 +10454,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/select/Select.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 241,
       "norm_label": "select.tsx",
       "id": "packages_ui_src_components_select_select_tsx"
     },
@@ -9950,7 +10463,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/select/Select.tsx",
       "source_location": "L7",
-      "community": 21,
+      "community": 241,
       "norm_label": "selectprops",
       "id": "select_select_selectprops"
     },
@@ -9959,7 +10472,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/select/Select.tsx",
       "source_location": "L14",
-      "community": 21,
+      "community": 241,
       "norm_label": "select()",
       "id": "select_select_select"
     },
@@ -9968,7 +10481,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/select/selectVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 241,
       "norm_label": "selectvariants.ts",
       "id": "packages_ui_src_components_select_selectvariants_ts"
     },
@@ -9977,7 +10490,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/select/selectVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 241,
       "norm_label": "selectvariants",
       "id": "select_selectvariants_selectvariants"
     },
@@ -9986,7 +10499,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/slider/Slider.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 242,
       "norm_label": "slider.tsx",
       "id": "packages_ui_src_components_slider_slider_tsx"
     },
@@ -9995,7 +10508,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/slider/Slider.tsx",
       "source_location": "L7",
-      "community": 21,
+      "community": 242,
       "norm_label": "sliderprops",
       "id": "slider_slider_sliderprops"
     },
@@ -10004,7 +10517,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/slider/Slider.tsx",
       "source_location": "L16",
-      "community": 21,
+      "community": 242,
       "norm_label": "slider()",
       "id": "slider_slider_slider"
     },
@@ -10013,7 +10526,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/slider/sliderVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 242,
       "norm_label": "slidervariants.ts",
       "id": "packages_ui_src_components_slider_slidervariants_ts"
     },
@@ -10022,7 +10535,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/slider/sliderVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 242,
       "norm_label": "slidervariants",
       "id": "slider_slidervariants_slidervariants"
     },
@@ -10031,7 +10544,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/switch/Switch.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 218,
       "norm_label": "switch.tsx",
       "id": "packages_ui_src_components_switch_switch_tsx"
     },
@@ -10040,7 +10553,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/switch/Switch.tsx",
       "source_location": "L7",
-      "community": 21,
+      "community": 218,
       "norm_label": "switchprops",
       "id": "switch_switch_switchprops"
     },
@@ -10049,7 +10562,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/switch/Switch.tsx",
       "source_location": "L19",
-      "community": 21,
+      "community": 218,
       "norm_label": "switch()",
       "id": "switch_switch_switch"
     },
@@ -10058,7 +10571,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/switch/switchVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 218,
       "norm_label": "switchvariants.ts",
       "id": "packages_ui_src_components_switch_switchvariants_ts"
     },
@@ -10067,7 +10580,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/switch/switchVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 218,
       "norm_label": "switchvariants",
       "id": "switch_switchvariants_switchvariants"
     },
@@ -10076,7 +10589,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/switch/switchVariants.ts",
       "source_location": "L26",
-      "community": 21,
+      "community": 218,
       "norm_label": "switchthumbvariants",
       "id": "switch_switchvariants_switchthumbvariants"
     },
@@ -10148,7 +10661,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/widgets/sidebar/SidebarToggle.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 200,
       "norm_label": "sidebartoggle.tsx",
       "id": "packages_ui_src_components_widgets_sidebar_sidebartoggle_tsx"
     },
@@ -10229,7 +10742,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/widgets/color-palette/ColorPalette.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 235,
       "norm_label": "colorpalette.tsx",
       "id": "packages_ui_src_components_widgets_color_palette_colorpalette_tsx"
     },
@@ -10238,7 +10751,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/widgets/color-palette/ColorPalette.tsx",
       "source_location": "L6",
-      "community": 21,
+      "community": 235,
       "norm_label": "colorpaletteprops",
       "id": "color_palette_colorpalette_colorpaletteprops"
     },
@@ -10247,7 +10760,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/widgets/color-palette/ColorPalette.tsx",
       "source_location": "L18",
-      "community": 21,
+      "community": 235,
       "norm_label": "colorpalette()",
       "id": "color_palette_colorpalette_colorpalette"
     },
@@ -10256,7 +10769,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/widgets/color-palette/colorPaletteVariants.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 235,
       "norm_label": "colorpalettevariants.ts",
       "id": "packages_ui_src_components_widgets_color_palette_colorpalettevariants_ts"
     },
@@ -10265,7 +10778,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/components/widgets/color-palette/colorPaletteVariants.ts",
       "source_location": "L3",
-      "community": 21,
+      "community": 235,
       "norm_label": "colorpalettevariants",
       "id": "color_palette_colorpalettevariants_colorpalettevariants"
     },
@@ -10301,7 +10814,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/utils/cn.ts",
       "source_location": "L1",
-      "community": 21,
+      "community": 200,
       "norm_label": "cn.ts",
       "id": "packages_ui_src_utils_cn_ts"
     },
@@ -10310,7 +10823,7 @@
       "file_type": "code",
       "source_file": "packages/ui/src/utils/cn.ts",
       "source_location": "L5",
-      "community": 21,
+      "community": 199,
       "norm_label": "cn()",
       "id": "utils_cn_cn"
     },
@@ -11975,7 +12488,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L19",
-      "community": 155,
+      "community": 220,
       "norm_label": "dependencies",
       "id": "sequence_renderer_package_dependencies"
     },
@@ -11984,7 +12497,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L20",
-      "community": 155,
+      "community": 220,
       "norm_label": "@repo/ui",
       "id": "sequence_renderer_package_dependencies_repo_ui"
     },
@@ -11993,7 +12506,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L21",
-      "community": 11,
+      "community": 220,
       "norm_label": "zod",
       "id": "sequence_renderer_package_dependencies_zod"
     },
@@ -12002,7 +12515,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L22",
-      "community": 155,
+      "community": 220,
       "norm_label": "zustand",
       "id": "sequence_renderer_package_dependencies_zustand"
     },
@@ -13451,7 +13964,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/App.tsx",
       "source_location": "L1",
-      "community": 199,
+      "community": 180,
       "norm_label": "app.tsx",
       "id": "packages_palette_generator_src_app_tsx"
     },
@@ -13460,7 +13973,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/App.tsx",
       "source_location": "L3",
-      "community": 199,
+      "community": 180,
       "norm_label": "app()",
       "id": "packages_palette_generator_src_app_tsx_src_app_app"
     },
@@ -13469,7 +13982,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/main.tsx",
       "source_location": "L1",
-      "community": 199,
+      "community": 180,
       "norm_label": "main.tsx",
       "id": "packages_palette_generator_src_main_tsx"
     },
@@ -13478,7 +13991,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/PaletteGenerator.tsx",
       "source_location": "L1",
-      "community": 199,
+      "community": 180,
       "norm_label": "palettegenerator.tsx",
       "id": "packages_palette_generator_src_components_palettegenerator_tsx"
     },
@@ -13487,7 +14000,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/PaletteGenerator.tsx",
       "source_location": "L5",
-      "community": 199,
+      "community": 180,
       "norm_label": "palettegenerator()",
       "id": "components_palettegenerator_palettegenerator"
     },
@@ -13586,7 +14099,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/display/Display.tsx",
       "source_location": "L1",
-      "community": 199,
+      "community": 180,
       "norm_label": "display.tsx",
       "id": "packages_palette_generator_src_components_display_display_tsx"
     },
@@ -13595,7 +14108,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/components/display/Display.tsx",
       "source_location": "L3",
-      "community": 199,
+      "community": 180,
       "norm_label": "display()",
       "id": "display_display_display"
     },
@@ -13802,7 +14315,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L1",
-      "community": 199,
+      "community": 180,
       "norm_label": "palettestore.ts",
       "id": "packages_palette_generator_src_store_palettestore_ts"
     },
@@ -13811,7 +14324,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L5",
-      "community": 199,
+      "community": 180,
       "norm_label": "palettestate",
       "id": "store_palettestore_palettestate"
     },
@@ -13820,7 +14333,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L10",
-      "community": 199,
+      "community": 180,
       "norm_label": "initialbasecolor",
       "id": "store_palettestore_initialbasecolor"
     },
@@ -13829,7 +14342,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L12",
-      "community": 199,
+      "community": 180,
       "norm_label": "palettestore",
       "id": "store_palettestore_palettestore"
     },
@@ -13838,7 +14351,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L17",
-      "community": 199,
+      "community": 180,
       "norm_label": "usepalettepalettes()",
       "id": "store_palettestore_usepalettepalettes"
     },
@@ -13847,7 +14360,7 @@
       "file_type": "code",
       "source_file": "packages/palette-generator/src/store/paletteStore.ts",
       "source_location": "L21",
-      "community": 199,
+      "community": 180,
       "norm_label": "usepalettebasecolor()",
       "id": "store_palettestore_usepalettebasecolor"
     },
@@ -15728,7 +16241,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/src/main.tsx",
       "source_location": "L1",
-      "community": 102,
+      "community": 20,
       "norm_label": "main.tsx",
       "id": "packages_graph_viz_src_main_tsx"
     },
@@ -17308,24 +17821,6 @@
       "id": "packages_image_manipulator_src_hooks_useimageupload_ts_hooks_useimageupload_useimageupload"
     },
     {
-      "label": "ImageManipulator.tsx",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "imagemanipulator.tsx",
-      "id": "packages_image_manipulator_src_components_imagemanipulator_tsx"
-    },
-    {
-      "label": "ImageManipulator()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
-      "source_location": "L5",
-      "community": 39,
-      "norm_label": "imagemanipulator()",
-      "id": "components_imagemanipulator_imagemanipulator"
-    },
-    {
       "label": "SeamCarvingDemo.tsx",
       "file_type": "code",
       "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
@@ -17342,51 +17837,6 @@
       "community": 39,
       "norm_label": "seamcarvingdemo()",
       "id": "components_seamcarvingdemo_seamcarvingdemo"
-    },
-    {
-      "label": "Output.tsx",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "output.tsx",
-      "id": "packages_image_manipulator_src_components_display_output_tsx"
-    },
-    {
-      "label": "OutputProps",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L4",
-      "community": 39,
-      "norm_label": "outputprops",
-      "id": "display_output_outputprops"
-    },
-    {
-      "label": "Output()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L8",
-      "community": 39,
-      "norm_label": "output()",
-      "id": "display_output_output"
-    },
-    {
-      "label": "Outputs.tsx",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "outputs.tsx",
-      "id": "packages_image_manipulator_src_components_display_outputs_tsx"
-    },
-    {
-      "label": "Outputs()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L11",
-      "community": 39,
-      "norm_label": "outputs()",
-      "id": "display_outputs_outputs"
     },
     {
       "label": "imageData.ts",
@@ -17531,249 +17981,6 @@
       "community": 39,
       "norm_label": "pixelcallback",
       "id": "core_pixel_types_pixelcallback"
-    },
-    {
-      "label": "grayscale.ts",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "grayscale.ts",
-      "id": "packages_image_manipulator_src_manipulations_grayscale_ts"
-    },
-    {
-      "label": "callback()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L7",
-      "community": 39,
-      "norm_label": "callback()",
-      "id": "manipulations_grayscale_callback"
-    },
-    {
-      "label": "grayscale",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L14",
-      "community": 39,
-      "norm_label": "grayscale",
-      "id": "manipulations_grayscale_grayscale"
-    },
-    {
-      "label": "brightness.ts",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "brightness.ts",
-      "id": "packages_image_manipulator_src_manipulations_brightness_ts"
-    },
-    {
-      "label": "callback()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L8",
-      "community": 39,
-      "norm_label": "callback()",
-      "id": "manipulations_brightness_callback"
-    },
-    {
-      "label": "brightness",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L17",
-      "community": 39,
-      "norm_label": "brightness",
-      "id": "manipulations_brightness_brightness"
-    },
-    {
-      "label": "energyMap.ts",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "energymap.ts",
-      "id": "packages_image_manipulator_src_manipulations_energymap_ts"
-    },
-    {
-      "label": "callback()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L14",
-      "community": 39,
-      "norm_label": "callback()",
-      "id": "manipulations_energymap_callback"
-    },
-    {
-      "label": "energyMap",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L47",
-      "community": 39,
-      "norm_label": "energymap",
-      "id": "manipulations_energymap_energymap"
-    },
-    {
-      "label": "manipulations.ts",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "manipulations.ts",
-      "id": "packages_image_manipulator_src_manipulations_manipulations_ts"
-    },
-    {
-      "label": "manipulationsIds",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L5",
-      "community": 39,
-      "norm_label": "manipulationsids",
-      "id": "manipulations_manipulations_manipulationsids"
-    },
-    {
-      "label": "manipulations",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L6",
-      "community": 39,
-      "norm_label": "manipulations",
-      "id": "manipulations_manipulations_manipulations"
-    },
-    {
-      "label": "manipulatorStore.ts",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L1",
-      "community": 39,
-      "norm_label": "manipulatorstore.ts",
-      "id": "packages_image_manipulator_src_store_manipulatorstore_ts"
-    },
-    {
-      "label": "ManipulationId",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L4",
-      "community": 39,
-      "norm_label": "manipulationid",
-      "id": "store_manipulatorstore_manipulationid"
-    },
-    {
-      "label": "OutputType",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L5",
-      "community": 39,
-      "norm_label": "outputtype",
-      "id": "store_manipulatorstore_outputtype"
-    },
-    {
-      "label": "ManipulatorState",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L12",
-      "community": 39,
-      "norm_label": "manipulatorstate",
-      "id": "store_manipulatorstore_manipulatorstate"
-    },
-    {
-      "label": "manipulatorStore",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L19",
-      "community": 39,
-      "norm_label": "manipulatorstore",
-      "id": "store_manipulatorstore_manipulatorstore"
-    },
-    {
-      "label": "useManipulatorImageFile()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L26",
-      "community": 39,
-      "norm_label": "usemanipulatorimagefile()",
-      "id": "store_manipulatorstore_usemanipulatorimagefile"
-    },
-    {
-      "label": "useManipulatorManipulationId()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L30",
-      "community": 39,
-      "norm_label": "usemanipulatormanipulationid()",
-      "id": "store_manipulatorstore_usemanipulatormanipulationid"
-    },
-    {
-      "label": "useManipulatorWorkflow()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L34",
-      "community": 39,
-      "norm_label": "usemanipulatorworkflow()",
-      "id": "store_manipulatorstore_usemanipulatorworkflow"
-    },
-    {
-      "label": "useManipulatorOutputs()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L38",
-      "community": 39,
-      "norm_label": "usemanipulatoroutputs()",
-      "id": "store_manipulatorstore_usemanipulatoroutputs"
-    },
-    {
-      "label": "setManipulatorImageFile()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L42",
-      "community": 39,
-      "norm_label": "setmanipulatorimagefile()",
-      "id": "store_manipulatorstore_setmanipulatorimagefile"
-    },
-    {
-      "label": "setManipulatorManipulationId()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L46",
-      "community": 39,
-      "norm_label": "setmanipulatormanipulationid()",
-      "id": "store_manipulatorstore_setmanipulatormanipulationid"
-    },
-    {
-      "label": "addToManipulatorWorkflow()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L52",
-      "community": 39,
-      "norm_label": "addtomanipulatorworkflow()",
-      "id": "store_manipulatorstore_addtomanipulatorworkflow"
-    },
-    {
-      "label": "clearManipulatorWorkflow()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L59",
-      "community": 39,
-      "norm_label": "clearmanipulatorworkflow()",
-      "id": "store_manipulatorstore_clearmanipulatorworkflow"
-    },
-    {
-      "label": "addToManipulatorOutputs()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L65",
-      "community": 39,
-      "norm_label": "addtomanipulatoroutputs()",
-      "id": "store_manipulatorstore_addtomanipulatoroutputs"
-    },
-    {
-      "label": "clearManipulatorOutputs()",
-      "file_type": "code",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L72",
-      "community": 39,
-      "norm_label": "clearmanipulatoroutputs()",
-      "id": "store_manipulatorstore_clearmanipulatoroutputs"
     },
     {
       "label": "index.js",
@@ -19697,7 +19904,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L48",
-      "community": 168,
+      "community": 206,
       "norm_label": "react",
       "id": "ui_package_dependencies_react"
     },
@@ -19706,7 +19913,7 @@
       "file_type": "code",
       "source_file": "packages/ui/package.json",
       "source_location": "L49",
-      "community": 168,
+      "community": 206,
       "norm_label": "react-dom",
       "id": "ui_package_dependencies_react_dom"
     },
@@ -19733,7 +19940,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L21",
-      "community": 155,
+      "community": 220,
       "norm_label": "react",
       "id": "sequence_renderer_package_dependencies_react"
     },
@@ -19742,7 +19949,7 @@
       "file_type": "code",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L22",
-      "community": 155,
+      "community": 220,
       "norm_label": "react-dom",
       "id": "sequence_renderer_package_dependencies_react_dom"
     },
@@ -20158,7 +20365,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L42",
-      "community": 11,
+      "community": 4,
       "norm_label": "docschema",
       "id": "data_docs_docschema"
     },
@@ -24842,25 +25049,25 @@
   ],
   "links": [
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "packages_image_manipulator_src_core_manipulate_ts",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "core_manipulate_manipulate",
+      "target": "core_manipulate_manipulate"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
+      "target": "packages_image_manipulator_src_manipulations_manipulations_ts",
       "confidence_score": 1.0
     },
     {
@@ -24870,31 +25077,31 @@
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "manipulations_brightness_brightness"
+      "target": "manipulations_manipulations_manipulations",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "manipulations_energymap_energymap"
+      "target": "manipulations_manipulations_manipulationsids",
+      "confidence_score": 1.0
     },
     {
-      "relation": "imports",
+      "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L8",
+      "source_location": "L10",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "manipulations_grayscale_grayscale"
+      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
     },
     {
       "relation": "imports",
@@ -24996,24 +25203,26 @@
       "target": "store_manipulatorstore_usemanipulatorworkflow"
     },
     {
-      "relation": "contains",
+      "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L21",
+      "source_location": "L18",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "controls_controls_manipulationsids"
+      "target": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "confidence_score": 1.0
     },
     {
-      "relation": "contains",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L22",
+      "source_location": "L18",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "controls_controls_manipulations"
+      "target": "controls_workflow_workflow",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -25021,20 +25230,9 @@
       "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
       "source_location": "L24",
       "weight": 1.0,
-      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "controls_controls_controls",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "packages_image_manipulator_src_hooks_useimageupload_ts"
+      "target": "controls_controls_controls"
     },
     {
       "relation": "imports_from",
@@ -25046,6 +25244,61 @@
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
       "target": "packages_image_manipulator_src_components_controls_controls_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
+      "target": "packages_image_manipulator_src_core_manipulate_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
+      "target": "manipulations_brightness_brightness"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
+      "target": "manipulations_energymap_energymap"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
+      "target": "manipulations_grayscale_grayscale"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
+      "target": "packages_image_manipulator_src_hooks_useimageupload_ts"
     },
     {
       "relation": "imports_from",
@@ -25103,17 +25356,6 @@
       "target": "packages_image_manipulator_src_manipulations_grayscale_ts"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_controls_controls_tsx",
-      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
-    },
-    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -25123,6 +25365,50 @@
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_controls_controls_tsx",
       "target": "store_manipulatorstore_outputtype"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "controls_controls_controls",
+      "target": "store_manipulatorstore_usemanipulatoroutputs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "controls_controls_controls",
+      "target": "store_manipulatorstore_usemanipulatormanipulationid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/image-manipulator/src/components/controls/Controls.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "controls_controls_controls",
+      "target": "store_manipulatorstore_usemanipulatorworkflow"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
+      "target": "controls_controls_controls"
     },
     {
       "relation": "contains",
@@ -25179,15 +25465,1402 @@
       "target": "controls_controls_controls"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "manipulations_manipulations_manipulations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "store_manipulatorstore_workflowstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "store_manipulatorstore_updatemanipulatorworkflowstepargs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "controls_workflow_workflowprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/controls/Workflow.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_components_controls_workflow_tsx",
+      "target": "controls_workflow_workflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
+      "target": "core_pixel_types_pixelcallback"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
+      "target": "manipulations_brightness_callback"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
+      "target": "manipulations_brightness_brightness"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_brightness_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "packages_image_manipulator_src_manipulations_brightness_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
+      "target": "packages_image_manipulator_src_core_pixel_types_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_brightness_brightness"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "manipulations_brightness_brightness"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/contrast.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_contrast_ts",
+      "target": "core_pixel_types_pixelcallback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/contrast.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_contrast_ts",
+      "target": "manipulations_contrast_callback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/contrast.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_contrast_ts",
+      "target": "manipulations_contrast_contrast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_contrast_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_contrast_contrast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
+      "target": "core_pixel_types_pixelcallback"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
+      "target": "core_pixel_types_pixelcontext"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
+      "target": "manipulations_energymap_callback"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
+      "target": "manipulations_energymap_energymap"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_energymap_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "packages_image_manipulator_src_manipulations_energymap_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
+      "target": "packages_image_manipulator_src_core_pixel_types_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_energymap_energymap"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "manipulations_energymap_energymap"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
+      "target": "core_pixel_types_pixelcallback"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
+      "target": "manipulations_grayscale_callback"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
+      "target": "manipulations_grayscale_grayscale"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_grayscale_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "packages_image_manipulator_src_manipulations_grayscale_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
+      "target": "packages_image_manipulator_src_core_pixel_types_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_grayscale_grayscale"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "manipulations_grayscale_grayscale"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/invert.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_invert_ts",
+      "target": "core_pixel_types_pixelcallback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/invert.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_invert_ts",
+      "target": "manipulations_invert_callback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/invert.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_invert_ts",
+      "target": "manipulations_invert_invert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_invert_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_invert_invert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_saturate_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_saturate_saturate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_sepia_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_sepia_sepia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "packages_image_manipulator_src_manipulations_threshold_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_threshold_threshold",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_manipulations_manipulationsids"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
+      "target": "manipulations_manipulations_manipulations"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "packages_image_manipulator_src_manipulations_manipulations_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "manipulations_manipulations_manipulationsids"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "manipulations_manipulations_manipulations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/saturate.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_saturate_ts",
+      "target": "core_pixel_types_pixelcallback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/saturate.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_saturate_ts",
+      "target": "manipulations_saturate_callback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/saturate.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_saturate_ts",
+      "target": "manipulations_saturate_saturate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/sepia.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_sepia_ts",
+      "target": "core_pixel_types_pixelcallback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/sepia.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_sepia_ts",
+      "target": "manipulations_sepia_callback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/sepia.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_sepia_ts",
+      "target": "manipulations_sepia_sepia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/threshold.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_threshold_ts",
+      "target": "core_pixel_types_pixelcallback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/threshold.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_threshold_ts",
+      "target": "manipulations_threshold_callback",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/manipulations/threshold.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_manipulations_threshold_ts",
+      "target": "manipulations_threshold_threshold",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_manipulationid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_workflowstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_outputtype"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_manipulatorstate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_manipulatorstore"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_usemanipulatorimagefile"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_usemanipulatormanipulationid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_usemanipulatorworkflow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_usemanipulatoroutputs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_setmanipulatorimagefile"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_setmanipulatormanipulationid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_addtomanipulatorworkflow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_updatemanipulatorworkflowstepargs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_clearmanipulatorworkflow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_addtomanipulatoroutputs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
+      "target": "store_manipulatorstore_clearmanipulatoroutputs"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_useimageupload_ts",
+      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputcard_tsx",
+      "target": "store_manipulatorstore_outputtype"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "store_manipulatorstore_outputtype"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_usesourceimage_ts",
+      "target": "store_manipulatorstore_outputtype"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_manipulatorstore_usemanipulatorimagefile",
+      "target": "store_manipulatorstore_manipulatorstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_manipulatorstore_usemanipulatormanipulationid",
+      "target": "store_manipulatorstore_manipulatorstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_manipulatorstore_usemanipulatorworkflow",
+      "target": "store_manipulatorstore_manipulatorstore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "store_manipulatorstore_usemanipulatoroutputs",
+      "target": "store_manipulatorstore_manipulatorstore"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "store_manipulatorstore_usemanipulatorimagefile"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "display_outputs_outputs",
+      "target": "store_manipulatorstore_usemanipulatorimagefile"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_usesourceimage_ts",
+      "target": "store_manipulatorstore_usemanipulatorimagefile"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "store_manipulatorstore_usemanipulatorimagefile"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_seamcarvingdemo_seamcarvingdemo",
+      "target": "store_manipulatorstore_usemanipulatorimagefile"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "store_manipulatorstore_usemanipulatoroutputs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "display_outputs_outputs",
+      "target": "store_manipulatorstore_usemanipulatoroutputs"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_useimageupload_ts",
+      "target": "store_manipulatorstore_setmanipulatorimagefile"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_useimageupload_ts_hooks_useimageupload_useimageupload",
+      "target": "store_manipulatorstore_setmanipulatorimagefile"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "store_manipulatorstore_addtomanipulatoroutputs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "display_outputs_outputs",
+      "target": "store_manipulatorstore_addtomanipulatoroutputs"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_usesourceimage_ts",
+      "target": "store_manipulatorstore_addtomanipulatoroutputs"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
+      "target": "packages_image_manipulator_src_components_display_outputs_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
+      "target": "display_outputs_outputs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
+      "target": "components_imagemanipulator_imagemanipulator"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/App.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_app_tsx",
+      "target": "packages_image_manipulator_src_components_imagemanipulator_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/App.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_app_tsx",
+      "target": "components_imagemanipulator_imagemanipulator"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_output_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_output_tsx",
+      "target": "core_imagedata_putimagedata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_output_tsx",
+      "target": "display_output_outputprops"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_output_tsx",
+      "target": "display_output_output"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputcard_tsx",
+      "target": "packages_image_manipulator_src_components_display_output_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_output_tsx",
+      "target": "packages_image_manipulator_src_core_imagedata_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "packages_image_manipulator_src_components_display_output_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputcard_tsx",
+      "target": "display_output_output"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "display_output_output"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "display_output_output",
+      "target": "core_imagedata_putimagedata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputcard_tsx",
+      "target": "display_outputcard_outputcardprops"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/OutputCard.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputcard_tsx",
+      "target": "display_outputcard_outputcard"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "packages_image_manipulator_src_components_display_outputcard_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "display_outputcard_outputcard"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "packages_image_manipulator_src_hooks_usesourceimage_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "hooks_usesourceimage_usesourceimage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "display_outputs_outputs"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "packages_image_manipulator_src_core_imagedata_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "core_imagedata_imageelementtoimagedata"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "display_outputs_outputs",
+      "target": "hooks_usesourceimage_usesourceimage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "display_outputs_outputs",
+      "target": "core_imagedata_imageelementtoimagedata"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_usesourceimage_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_usesourceimage_ts",
+      "target": "core_imagedata_imageelementtoimagedata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/hooks/useSourceImage.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_hooks_usesourceimage_ts",
+      "target": "hooks_usesourceimage_usesourceimage"
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/core/manipulate.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_core_manipulate_ts",
-      "target": "core_iteratepixels_iteratepixels",
-      "confidence_score": 1.0
+      "target": "core_iteratepixels_iteratepixels"
     },
     {
       "relation": "imports",
@@ -25196,9 +26869,9 @@
       "source_file": "packages/image-manipulator/src/core/manipulate.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_core_manipulate_ts",
-      "target": "core_imagedata_putimagedata",
-      "confidence_score": 1.0
+      "target": "core_imagedata_putimagedata"
     },
     {
       "relation": "imports",
@@ -25207,9 +26880,9 @@
       "source_file": "packages/image-manipulator/src/core/manipulate.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_core_manipulate_ts",
-      "target": "core_pixel_types_pixelcallback",
-      "confidence_score": 1.0
+      "target": "core_pixel_types_pixelcallback"
     },
     {
       "relation": "contains",
@@ -25217,9 +26890,9 @@
       "source_file": "packages/image-manipulator/src/core/manipulate.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_core_manipulate_ts",
-      "target": "core_manipulate_manipulate",
-      "confidence_score": 1.0
+      "target": "core_manipulate_manipulate"
     },
     {
       "relation": "contains",
@@ -32583,28 +34256,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_output_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
       "target": "react"
     },
     {
@@ -50615,28 +52266,6 @@
       "target": "tailwindcss"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/App.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_app_tsx",
-      "target": "packages_image_manipulator_src_components_imagemanipulator_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/App.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_app_tsx",
-      "target": "components_imagemanipulator_imagemanipulator"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/App.tsx",
@@ -50669,28 +52298,6 @@
       "target": "src_app_app"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_hooks_useimageupload_ts",
-      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_hooks_useimageupload_ts",
-      "target": "store_manipulatorstore_setmanipulatorimagefile"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
@@ -50720,49 +52327,6 @@
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
       "target": "packages_image_manipulator_src_hooks_useimageupload_ts"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/hooks/useImageUpload.ts",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_hooks_useimageupload_ts_hooks_useimageupload_useimageupload",
-      "target": "store_manipulatorstore_setmanipulatorimagefile"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
-      "target": "packages_image_manipulator_src_components_display_outputs_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
-      "target": "display_outputs_outputs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/ImageManipulator.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_imagemanipulator_tsx",
-      "target": "components_imagemanipulator_imagemanipulator"
     },
     {
       "relation": "imports_from",
@@ -50842,94 +52406,6 @@
       "target": "core_pipe_pipe"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "packages_image_manipulator_src_manipulations_brightness_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "manipulations_brightness_brightness"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "packages_image_manipulator_src_manipulations_energymap_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "manipulations_energymap_energymap"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "packages_image_manipulator_src_manipulations_grayscale_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "manipulations_grayscale_grayscale"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "store_manipulatorstore_usemanipulatorimagefile"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
@@ -50938,17 +52414,6 @@
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
       "target": "components_seamcarvingdemo_seamcarvingdemo"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "components_seamcarvingdemo_seamcarvingdemo",
-      "target": "store_manipulatorstore_usemanipulatorimagefile"
     },
     {
       "relation": "calls",
@@ -50993,212 +52458,6 @@
       "confidence_score": 1.0,
       "source": "components_seamcarvingdemo_seamcarvingdemo",
       "target": "core_fork_fork"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_output_tsx",
-      "target": "packages_image_manipulator_src_core_imagedata_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_output_tsx",
-      "target": "core_imagedata_putimagedata"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_output_tsx",
-      "target": "display_output_outputprops"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_output_tsx",
-      "target": "display_output_output"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "packages_image_manipulator_src_components_display_output_tsx"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "display_output_output"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "display_output_output",
-      "target": "core_imagedata_putimagedata"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "packages_image_manipulator_src_core_imagedata_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "core_imagedata_imageelementtoimagedata"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "packages_image_manipulator_src_store_manipulatorstore_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "store_manipulatorstore_outputtype"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "store_manipulatorstore_addtomanipulatoroutputs"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "store_manipulatorstore_usemanipulatorimagefile"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "store_manipulatorstore_usemanipulatoroutputs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "display_outputs_outputs"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "display_outputs_outputs",
-      "target": "store_manipulatorstore_usemanipulatorimagefile"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "display_outputs_outputs",
-      "target": "store_manipulatorstore_usemanipulatoroutputs"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L36",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "display_outputs_outputs",
-      "target": "core_imagedata_imageelementtoimagedata"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L38",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "display_outputs_outputs",
-      "target": "store_manipulatorstore_addtomanipulatoroutputs"
     },
     {
       "relation": "contains",
@@ -51453,435 +52712,6 @@
       "confidence_score": 1.0,
       "source": "packages_image_manipulator_src_core_pixel_types_ts",
       "target": "core_pixel_types_pixelcallback"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
-      "target": "packages_image_manipulator_src_core_pixel_types_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
-      "target": "packages_image_manipulator_src_core_pixel_types_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
-      "target": "packages_image_manipulator_src_core_pixel_types_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
-      "target": "core_pixel_types_pixelcontext"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
-      "target": "core_pixel_types_pixelcallback"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
-      "target": "core_pixel_types_pixelcallback"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
-      "target": "core_pixel_types_pixelcallback"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
-      "target": "manipulations_grayscale_callback"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/grayscale.ts",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_grayscale_ts",
-      "target": "manipulations_grayscale_grayscale"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "packages_image_manipulator_src_manipulations_grayscale_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "manipulations_grayscale_grayscale"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
-      "target": "manipulations_brightness_callback"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/brightness.ts",
-      "source_location": "L17",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_brightness_ts",
-      "target": "manipulations_brightness_brightness"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "packages_image_manipulator_src_manipulations_brightness_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "manipulations_brightness_brightness"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
-      "target": "manipulations_energymap_callback"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/energyMap.ts",
-      "source_location": "L47",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_energymap_ts",
-      "target": "manipulations_energymap_energymap"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "packages_image_manipulator_src_manipulations_energymap_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "manipulations_energymap_energymap"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "manipulations_manipulations_manipulationsids"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/manipulations/manipulations.ts",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_manipulations_manipulations_ts",
-      "target": "manipulations_manipulations_manipulations"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "packages_image_manipulator_src_manipulations_manipulations_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "manipulations_manipulations_manipulationsids"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_manipulationid"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_outputtype"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_manipulatorstate"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L19",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_manipulatorstore"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L26",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_usemanipulatorimagefile"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L30",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_usemanipulatormanipulationid"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L34",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_usemanipulatorworkflow"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L38",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_usemanipulatoroutputs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_setmanipulatorimagefile"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L46",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_setmanipulatormanipulationid"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L52",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_addtomanipulatorworkflow"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L59",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_clearmanipulatorworkflow"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L65",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_addtomanipulatoroutputs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_store_manipulatorstore_ts",
-      "target": "store_manipulatorstore_clearmanipulatoroutputs"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_manipulatorstore_usemanipulatorimagefile",
-      "target": "store_manipulatorstore_manipulatorstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_manipulatorstore_usemanipulatormanipulationid",
-      "target": "store_manipulatorstore_manipulatorstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L35",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_manipulatorstore_usemanipulatorworkflow",
-      "target": "store_manipulatorstore_manipulatorstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/store/manipulatorStore.ts",
-      "source_location": "L39",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "store_manipulatorstore_usemanipulatoroutputs",
-      "target": "store_manipulatorstore_manipulatorstore"
     },
     {
       "relation": "imports_from",
@@ -58483,5 +59313,5 @@
       "source_file": "packages/sequence-renderer/src/core/rules.ts"
     }
   ],
-  "built_at_commit": "f9224eda30d757612cb637941f5e41fdb5149307"
+  "built_at_commit": "3c6eef38311295825356aedc4cc96f4b1c1151fe"
 }

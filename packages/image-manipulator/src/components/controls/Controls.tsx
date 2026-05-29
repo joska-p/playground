@@ -30,7 +30,7 @@ function Controls() {
 
     const pipeline = manipulate(sourceImage.imageData);
     workflow.forEach((step) =>
-      pipeline.apply(manipulations[step.id].callback(...Object.values(step.args))),
+      pipeline.apply(manipulations[step.id].callback(...Object.values(step.args)))
     );
 
     const results = pipeline.toArray();
@@ -47,7 +47,7 @@ function Controls() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-4 max-w-[35ch]">
       <Input type="file" accept="image/*" onChange={handleImageUpload} label="upload an image" />
 
       <Select

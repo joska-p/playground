@@ -4,7 +4,7 @@ import { Controls } from "./controls/Controls";
 
 function ImageManipulator() {
   return (
-    <Sidebar desktopPosition="left" mobilePosition="bottom" className="flex-1">
+    <Sidebar desktopPosition="left" mobilePosition="bottom" className="min-h-screen flex-1">
       <Sidebar.Main>
         <Outputs />
       </Sidebar.Main>
