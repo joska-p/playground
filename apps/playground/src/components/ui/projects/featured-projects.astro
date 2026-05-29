@@ -14,11 +14,12 @@ const featuredProjects = getFeaturedProjects();
   title="Engines & Labs"
   description="Volatile experiments in high-interactivity canvas rendering."
   href="https://jpotin.gitlab.io/playground/"
+  className="mb-12"
 >
   <span slot="link-text">View on GitLab</span>
 </SectionHeader>
 
-<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
   {
     featuredProjects.map((project) => (
       <ExperimentCard

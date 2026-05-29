@@ -11,7 +11,7 @@ type Props = {
   category?: Category;
   tags?: string[];
   className?: string;
-}
+};
 
 const {
   href,
@@ -32,36 +32,31 @@ const cat = `var(--category-${category}, var(--primary))`;
     aria-hidden="true"
   >
   </div>
-  <div class="flex flex-1 flex-col gap-2.5 p-4">
+  <div class="flex flex-1 flex-col gap-4 p-4">
     <div
       class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[color-mix(in_srgb,var(--cat)_30%,transparent)] bg-[color-mix(in_srgb,var(--cat)_9%,var(--card))] text-(--cat) transition-transform duration-200 group-hover:scale-[1.06]"
     >
       <Icon className="h-4 w-4" />
     </div>
-    <h3 class="text-card-foreground text-sm leading-snug font-semibold">
+
+    <h3 class="text-card-foreground leading-snug font-semibold">
       {title}
     </h3>
-    {
-      description && (
-        <p class="text-muted-foreground line-clamp-2 flex-1 text-[12.5px] leading-relaxed">
-          {description}
-        </p>
-      )
-    }
+
+    <p class="text-muted-foreground line-clamp-2 flex-1 text-sm leading-relaxed">
+      {description}
+    </p>
+
     <slot />
   </div>
-  {
-    tags.length > 0 && (
-      <>
-        <div class="bg-border mx-4 h-px" />
-        <div class="flex flex-wrap gap-1.5 px-4 py-2.5">
-          {tags.map((tag) => (
-            <span class="border-border/50 text-muted-foreground/60 rounded border px-1.5 py-0.5 font-mono text-[10px] tracking-[0.08em] uppercase">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </>
-    )
-  }
+
+  <div class="flex flex-wrap gap-1.5 px-4 py-2.5">
+    {
+      tags.map((tag) => (
+        <span class="text-muted-foreground/60 rounded px-1.5 py-0.5 font-mono text-xs tracking-tight">
+          {tag}
+        </span>
+      ))
+    }
+  </div>
 </BaseCard>

@@ -24,8 +24,8 @@ const categories = getProjectsByCategory();
       {
         categories.map(({ name, description, projects }) => (
           <section>
-            <SectionHeader title={name} description={description} />
-            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <SectionHeader title={name} description={description} className="mb-12" />
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((project) => (
                 <ExperimentCard
                   href={`${projectsBaseUrl}${project.category}/${project.slug}/`}

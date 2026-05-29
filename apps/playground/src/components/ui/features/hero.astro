@@ -26,13 +26,13 @@ const {
   <div class="dot-grid absolute inset-0 z-0 opacity-50" aria-hidden="true"></div>
 
   <div
-    class="bg-primary absolute -bottom-24 -left-32 z-0 h-96 w-96 rounded-full opacity-[0.08] blur-[100px]"
+    class="bg-primary absolute -bottom-24 -left-32 z-0 h-96 w-96 rounded-full opacity-10 blur-3xl"
     aria-hidden="true"
   >
   </div>
 
   <div
-    class="bg-primary absolute -top-24 -right-32 z-0 h-96 w-96 rounded-full opacity-[0.04] blur-[100px]"
+    class="bg-primary absolute -top-24 -right-32 z-0 h-96 w-96 rounded-full opacity-5 blur-3xl"
     aria-hidden="true"
   >
   </div>
@@ -40,14 +40,14 @@ const {
   <div class="relative z-10 mx-auto w-full max-w-6xl">
     {
       badgeText && (
-        <div class="border-primary/20 bg-primary/5 text-primary mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase backdrop-blur-sm">
+        <div class="border-primary/20 bg-primary/5 text-primary mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold tracking-widest uppercase backdrop-blur-sm">
           {badgeText}
         </div>
       )
     }
 
     <h1
-      class="text-foreground text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.05] font-black tracking-tight sm:leading-[0.95]"
+      class="text-5xl font-black tracking-tight leading-none sm:text-7xl lg:text-8xl"
     >
       {highlight}<br />
       <span class="from-primary to-primary/70 bg-linear-to-r bg-clip-text text-transparent">
