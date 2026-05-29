@@ -4,7 +4,7 @@ import styles from "./sidebar.module.css";
 
 function SidebarPanel({ children, ref, className, ...props }: ComponentProps<"div">) {
   return (
-    <div ref={ref} className={cn("sidebar-panel", styles.panel, className)} {...props}>
+    <div ref={ref} className={cn(styles.panel, className)} {...props}>
       {children}
     </div>
   );

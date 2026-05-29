@@ -1,6 +1,8 @@
 import { ColorPalette } from "@repo/ui/ColorPalette";
-import type { Meta } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
+
+type Story = StoryObj<typeof ColorPalette>;
 
 /**
  * A reusable Color Palette component that displays a series of colors.
@@ -22,7 +24,7 @@ const meta: Meta<typeof ColorPalette> = {
     },
     size: {
       description: "The size of each color cell.",
-      options: ["sm", "default", "lg"],
+      options: ["small", "medium", "large"],
       control: { type: "select" },
     },
     variant: {

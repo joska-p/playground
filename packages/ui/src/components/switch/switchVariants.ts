@@ -13,7 +13,7 @@ export const switchVariants = cva(
       size: {
         small: "h-5 w-9",
         medium: "h-6 w-11",
-        large: "h-7 w-13",
+        large: "h-7 w-14",
       },
     },
     defaultVariants: {

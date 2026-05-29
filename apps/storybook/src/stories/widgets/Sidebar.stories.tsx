@@ -1,6 +1,8 @@
 import { Sidebar } from "@repo/ui/Sidebar";
-import type { Meta } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
+
+type Story = StoryObj<typeof Sidebar>;
 
 /**
  * A flexible, responsive Sidebar component that supports various positions and themes.
