@@ -12,8 +12,8 @@ const MOSAIC_STYLES = {
   ...initialTileSize,
   ...initialGapSize,
   ...initialRotations,
-  gridTemplateColumns: `repeat(auto-fill,var(${CSS_VARS.width}))`,
-  gridTemplateRows: `repeat(auto-fill,var(${CSS_VARS.height}))`,
+  gridTemplateColumns: `repeat(auto-fill,var(${CSS_VARS.size}))`,
+  gridTemplateRows: `repeat(auto-fill,var(${CSS_VARS.size}))`,
   gap: `var(${CSS_VARS.gap})`,
 } as React.CSSProperties;
 

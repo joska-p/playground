@@ -3,7 +3,7 @@ import { DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../cor
 import { CSS_VARS } from "../../core/cssVars";
 import { cycleMosaicPalettes, regenerateMosaicTiles } from "../../store/actions";
 import { useMosaicCurrentPalette, useMosaicRef } from "../../store/selectors";
-import { shuffleObject } from "../../utils/shuffleObject";
+import { shuffleObject } from "../../utils/random/shuffleObject";
 import { updateElementStyles } from "../../utils/updateElementStyles";
 import { PaletteControls } from "./PaletteControls";
 import { SliderControls } from "./SliderControls";
@@ -44,7 +44,7 @@ function Controls() {
         <SliderControls
           label="Tile size"
           defaultValue={DEFAULT_TILE_SIZE}
-          cssVar={CSS_VARS.width}
+          cssVar={CSS_VARS.size}
           min={32}
           max={256}
           step={2}

@@ -5,8 +5,7 @@ const DEFAULT_TILE_SIZE = 64;
 const DEFAULT_GAP_SIZE = 0;
 
 const defaultTileSize = {
-  [CSS_VARS.width]: `${DEFAULT_TILE_SIZE}px`,
-  [CSS_VARS.height]: `${DEFAULT_TILE_SIZE}px`,
+  [CSS_VARS.size]: `${DEFAULT_TILE_SIZE}px`,
 };
 
 const defaultGapSize = {

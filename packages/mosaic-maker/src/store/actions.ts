@@ -1,8 +1,8 @@
 import { MAX_NUMBER_OF_PALETTES } from "../core/constants";
 import type { Palette } from "../core/initialPalette";
 import type { TileNames } from "../core/initialTileSet";
-import { computeInitialTiles } from "../utils/computeInitialTiles";
-import { fetchPalettes } from "../utils/fetchPalettes";
+import { computeInitialTiles } from "../utils/tiles/computeInitialTiles";
+import { fetchPalettes } from "../utils/palettes/fetchPalettes";
 import { updateElementStyles } from "../utils/updateElementStyles";
 import { mosaicStore } from "./store";
 

@@ -1,9 +1,9 @@
-import type { TileSet } from "../core/initialTileSet";
-import type { TileInstance } from "../store/types";
+import type { TileSet } from "../../core/initialTileSet";
+import type { TileInstance } from "../../store/types";
 import { computeNumberOfTiles } from "./computeNumberOfTiles";
 import { generateTileColors } from "./generateTileColors";
 import { generateTileRotation } from "./generateTileRotation";
-import { getRandom } from "./getRandom";
+import { getRandom } from "../random/getRandom";
 
 function computeInitialTiles(
   mosaicRef: React.RefObject<HTMLDivElement | null>,

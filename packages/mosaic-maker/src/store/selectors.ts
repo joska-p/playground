@@ -22,7 +22,3 @@ export function useMosaicCurrentPalettes(): Palette[] {
 export function useMosaicTileSet(): TileSet {
   return mosaicStore((s) => s.tileSet);
 }
-
-export function useMosaicPaletteStock(): Palette[] {
-  return mosaicStore((s) => s.paletteStock);
-}

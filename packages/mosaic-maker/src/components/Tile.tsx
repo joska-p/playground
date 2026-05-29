@@ -47,8 +47,8 @@ function Tile({ name, colors, rotation, className }: TileProps) {
       )}
       style={{ transform: `rotate(var(${rotation}))` }}
     >
-      {definition.shapes.map((shape) => (
-        <ShapeRenderer key={`${name}-shape`} shape={shape} colors={colors} />
+      {definition.shapes.map((shape, index) => (
+        <ShapeRenderer key={`${name}-${index}`} shape={shape} colors={colors} />
       ))}
     </svg>
   );
