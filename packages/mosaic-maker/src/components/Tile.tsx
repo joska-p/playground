@@ -42,7 +42,7 @@ function Tile({ name, colors, rotation, className }: TileProps) {
     <svg
       viewBox="0 0 100 100"
       className={cn(
-        "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform duration-500",
+        "h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform duration-500",
         className
       )}
       style={{ transform: `rotate(var(${rotation}))` }}

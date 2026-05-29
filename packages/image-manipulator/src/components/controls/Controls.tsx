@@ -71,7 +71,7 @@ function Controls() {
         ))}
       </Select>
 
-      <div className="gap-4 md:grid md:grid-cols-2">
+      <div className="md:gap-4 md:grid md:grid-cols-2">
         <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
         <Button onClick={() => clearWorkflow()}>Clear Worflow</Button>
       </div>
@@ -97,7 +97,7 @@ function Controls() {
 
       <Workflow steps={workflow} />
 
-      <div className="gap-4 md:grid md:grid-cols-2">
+      <div className="md:gap-4 md:grid md:grid-cols-2">
         <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
         <Button onClick={() => clearManipulatorOutputs()}>Clear Ouputs</Button>
       </div>

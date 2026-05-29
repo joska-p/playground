@@ -1,13 +1,11 @@
-import { cn } from "@repo/ui/cn";
 import { useEffect, useRef } from "react";
 import { putImageData } from "../../core/imageData";
 
 type OutputProps = {
   imageData: ImageData;
-  className?: string;
 };
 
-function Output({ imageData, className }: OutputProps) {
+function Output({ imageData }: OutputProps) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ function Output({ imageData, className }: OutputProps) {
       ref={ref}
       width={width}
       height={height}
-      className={cn("max-h-full max-w-full object-contain", className)}
+      className="max-h-full max-w-full"
     />
   );
 }
