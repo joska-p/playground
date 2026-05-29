@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { manipulationsIds } from "../manipulations/manipulations";
-
-export type ManipulationId = (typeof manipulationsIds)[number];
+import type { ManipulationId } from "../manipulations/manipulations";
 
 export type OutputType = {
   id: string;

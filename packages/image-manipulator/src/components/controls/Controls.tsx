@@ -1,10 +1,11 @@
 import { Button } from "@repo/ui/Button";
 import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
+import { useState } from "react";
 import { manipulate } from "../../core/manipulate";
 import { useImageUpload } from "../../hooks/useImageUpload";
+import type { ManipulationId } from "../../manipulations/manipulations";
 import { manipulations, manipulationsIds } from "../../manipulations/manipulations";
-import type { ManipulationId } from "../../store/manipulatorStore";
 import {
   addToManipulatorOutputs,
   clearManipulatorOutputs,
@@ -12,7 +13,8 @@ import {
   useManipulatorManipulationId,
   useManipulatorOutputs,
 } from "../../store/manipulatorStore";
-import { addToWorkflow, clearWorkflow, useWorkflow } from "../../store/workflowStore";
+import { addToWorkflow, clearWorkflow, setWorkflow, useWorkflow } from "../../store/workflowStore";
+import { WORKFLOW_PRESETS } from "../../workflows/workflows";
 import { Workflow } from "./workflow/Workflow";
 
 function Controls() {
@@ -21,7 +23,14 @@ function Controls() {
   const manipulationId = useManipulatorManipulationId();
   const workflow = useWorkflow();
 
+  const [selectedPreset, setSelectedPreset] = useState(0);
   const { handleImageUpload } = useImageUpload();
+
+  function loadWorkflowPreset() {
+    const preset = WORKFLOW_PRESETS[selectedPreset];
+    if (!preset) return;
+    setWorkflow(preset.steps);
+  }
 
   function executeWorkflow() {
     if (!workflow || workflow.length === 0) return;
@@ -66,6 +75,25 @@ function Controls() {
         <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
         <Button onClick={() => clearWorkflow()}>Clear Worflow</Button>
       </div>
+
+      <Select
+        variant="primary"
+        value={selectedPreset}
+        onChange={(e) => setSelectedPreset(Number(e.target.value))}
+        className="flex-1"
+        label="Preset"
+        helperText={WORKFLOW_PRESETS[selectedPreset].description}
+      >
+        {WORKFLOW_PRESETS.map((preset, index) => (
+          <option key={preset.name} value={index}>
+            {preset.name}
+          </option>
+        ))}
+      </Select>
+
+      <Button onClick={() => loadWorkflowPreset()} className="mt-2 w-full">
+        Load Workflow
+      </Button>
 
       <Workflow steps={workflow} />
 

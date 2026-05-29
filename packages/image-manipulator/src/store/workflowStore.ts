@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { manipulations } from "../manipulations/manipulations";
-import type { ManipulationId } from "./manipulatorStore";
+import type { ManipulationId } from "../manipulations/manipulations";
 
 type WorkflowStep = {
   id: ManipulationId;
@@ -53,5 +53,9 @@ function clearWorkflow() {
   workflowStore.setState({ workflow: [] });
 }
 
+function setWorkflow(steps: WorkflowStep[]) {
+  workflowStore.setState({ workflow: [...steps] });
+}
+
 export type { WorkflowStep };
-export { useWorkflow, addToWorkflow, removeWorkflowStep, moveWorkflowStep, updateWorkflowStepArgs, clearWorkflow };
+export { useWorkflow, addToWorkflow, removeWorkflowStep, moveWorkflowStep, updateWorkflowStepArgs, clearWorkflow, setWorkflow };

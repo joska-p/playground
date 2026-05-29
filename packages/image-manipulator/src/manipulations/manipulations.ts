@@ -28,4 +28,7 @@ const manipulations = {
   threshold,
 } as const;
 
+type ManipulationId = (typeof manipulationsIds)[number];
+
 export { manipulations, manipulationsIds };
+export type { ManipulationId };
