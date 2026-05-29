@@ -1,5 +1,5 @@
 import { Slider } from "@repo/ui/Slider";
-import type { ArgDefinition } from "../../manipulations/manipulation.types";
+import type { ArgDefinition } from "../../../manipulations/manipulation.types";
 
 type WorkflowStepArgSliderProps = {
   def: ArgDefinition;

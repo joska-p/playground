@@ -1,16 +1,16 @@
 # Graph Report - playground  (2026-05-29)
 
 ## Corpus Check
-- 326 files · ~81,560 words
+- 329 files · ~81,668 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2597 nodes · 3329 edges · 247 communities (193 shown, 54 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.83)
+- 2608 nodes · 3346 edges · 247 communities (192 shown, 55 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3c6eef38`
+- Built from commit: `8705b4f2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -261,7 +261,7 @@
 - **Number Tower Visualizations** — number_expansion_tower, masterpiece_svg, text_svg, graphic_svg, emergence_complexite_notebook [INFERRED 0.85]
 - **Sequence Rule Implementations** — sequencerule_interface, recaman_rule, fibonacci_rule, primes_rule, triangular_rule, collatz_rule [EXTRACTED 1.00]
 
-## Communities (247 total, 54 thin omitted)
+## Communities (247 total, 55 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
@@ -348,8 +348,8 @@ Cohesion: 0.05
 Nodes (60): DetailPanel(), MetaRowProps, styles, GraphCanvas(), GraphCanvasProps, styles, GraphViz(), styles (+52 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.27
-Nodes (9): Sidebar(), SidebarProps, SidebarContext, SidebarContextValue, SidebarMain(), SidebarPanel(), SidebarToggle(), sidebarVariants (+1 more)
+Cohesion: 0.23
+Nodes (10): Dimensions, Sidebar(), SidebarProps, SidebarContext, SidebarContextValue, SidebarMain(), SidebarPanel(), SidebarToggle() (+2 more)
 
 ### Community 22 - "Community 22"
 Cohesion: 0.11
@@ -412,8 +412,8 @@ Cohesion: 1.00
 Nodes (3): The Complex Plane — Z = 3 + 2i, The Imaginary Unit (i) — 90° Rotation, The Transgression (ℝ → ℂ) — x² + 1 = 0
 
 ### Community 39 - "Community 39"
-Cohesion: 0.06
-Nodes (49): ImageManipulator(), SeamCarvingDemo(), Controls(), Workflow(), WorkflowProps, fork(), getImageData(), imageElementToImageData() (+41 more)
+Cohesion: 0.05
+Nodes (55): ImageManipulator(), SeamCarvingDemo(), Controls(), Workflow(), WorkflowProps, fork(), getImageData(), imageElementToImageData() (+47 more)
 
 ### Community 40 - "Community 40"
 Cohesion: 0.67
@@ -468,8 +468,8 @@ Cohesion: 0.08
 Nodes (26): devDependencies, @chromatic-com/storybook, eslint, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, playwright, prettier (+18 more)
 
 ### Community 93 - "Community 93"
-Cohesion: 0.24
-Nodes (11): PaletteControls(), SliderControls(), SliderControlsProps, useMosaicCurrentPalette(), useMosaicCurrentPalettes(), useMosaicRef(), useMosaicTiles(), mosaicStore (+3 more)
+Cohesion: 0.22
+Nodes (13): PaletteControls(), SliderControls(), SliderControlsProps, TileSetControls(), useMosaicCurrentPalette(), useMosaicCurrentPalettes(), useMosaicRef(), useMosaicTiles() (+5 more)
 
 ### Community 94 - "Community 94"
 Cohesion: 0.05
@@ -548,8 +548,8 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 113 - "Community 113"
-Cohesion: 0.15
-Nodes (11): MOSAIC_STYLES, MosaicDisplay(), MosaicMaker(), defaultGapSize, defaultRotations, defaultTileSize, CSS_VARS, Dimensions (+3 more)
+Cohesion: 0.10
+Nodes (17): MOSAIC_STYLES, MosaicDisplay(), MosaicMaker(), Tile(), TileProps, defaultGapSize, defaultRotations, defaultTileSize (+9 more)
 
 ### Community 114 - "Community 114"
 Cohesion: 0.11
@@ -654,10 +654,6 @@ Nodes (10): code:typescript (export function drawLineGraph(canvas: HTMLCanvasEle
 ### Community 139 - "Community 139"
 Cohesion: 0.18
 Nodes (9): Accent, Destructive, Disabled, Horizontal, meta, Primary, Secondary, SliderStoryProps (+1 more)
-
-### Community 140 - "Community 140"
-Cohesion: 0.20
-Nodes (9): Tile(), TileProps, TileSetControls(), Shape, TILE_REGISTRY, TileDefinition, useMosaicTileSet(), Tile() (+1 more)
 
 ### Community 141 - "Community 141"
 Cohesion: 0.14
@@ -812,7 +808,7 @@ Cohesion: 0.33
 Nodes (9): Card(), CardContent(), CardDescription(), CardFooter(), CardHeader(), CardProps, CardTitle(), cardVariants (+1 more)
 
 ### Community 200 - "Community 200"
-Cohesion: 0.31
+Cohesion: 0.36
 Nodes (3): Button(), ButtonProps, buttonVariants
 
 ### Community 201 - "Community 201"
@@ -892,23 +888,23 @@ Cohesion: 0.60
 Nodes (3): Slider(), SliderProps, sliderVariants
 
 ## Knowledge Gaps
-- **1345 isolated node(s):** `WorkflowProps`, `ManipulatorState`, `OutputProps`, `OutputCardProps`, `code:block2 (apps/)` (+1340 more)
+- **1349 isolated node(s):** `WorkflowProps`, `WorkflowStepArgSliderProps`, `WorkflowStepItemProps`, `ArgDefinition`, `WorkflowProps` (+1344 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **54 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **55 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Tailwind CSS` connect `Community 144` to `Community 19`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+  _High betweenness centrality (0.041) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `Community 2` to `Community 144`, `Community 153`, `Community 129`, `Community 3`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Why does `dependencies` connect `Community 7` to `Community 217`, `Community 146`, `Community 11`?**
-  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+- **Why does `devDependencies` connect `Community 92` to `Community 128`, `Community 129`, `Community 217`, `Community 144`, `Community 153`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `cn()` (e.g. with `clsx` and `Tile()`) actually correct?**
   _`cn()` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `WorkflowProps`, `ManipulatorState`, `OutputProps` to the rest of the system?**
-  _1345 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `WorkflowProps`, `WorkflowStepArgSliderProps`, `WorkflowStepItemProps` to the rest of the system?**
+  _1349 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.06970128022759602 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

@@ -1,6 +1,6 @@
-import type { WorkflowStep } from "../../store/manipulatorStore";
-import { manipulations } from "../../manipulations/manipulations";
-import { updateManipulatorWorkflowStepArgs } from "../../store/manipulatorStore";
+import { manipulations } from "../../../manipulations/manipulations";
+import type { WorkflowStep } from "../../../store/manipulatorStore";
+import { updateManipulatorWorkflowStepArgs } from "../../../store/manipulatorStore";
 import { WorkflowStepArgSlider } from "./WorkflowStepArgSlider";
 
 type WorkflowStepItemProps = {
