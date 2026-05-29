@@ -25,20 +25,9 @@ export function GraphCanvas({ onResetZoomReady }: GraphCanvasProps) {
   }, [onResetZoomReady, resetZoom]);
 
   return (
-    <div ref={containerRef} style={styles["container"]}>
+    <div ref={containerRef} className="relative flex-1 overflow-hidden">
       <LoadingOverlay />
-      <svg ref={svgRef} width="100%" height="100%" style={styles["svg"]} />
+      <svg ref={svgRef} width="100%" height="100%" className="block" />
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    flex: 1,
-    position: "relative",
-    overflow: "hidden",
-  },
-  svg: {
-    display: "block",
-  },
-};

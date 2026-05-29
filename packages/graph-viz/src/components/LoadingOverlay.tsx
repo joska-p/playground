@@ -6,27 +6,10 @@ export function LoadingOverlay() {
   if (isReady) return null;
 
   return (
-    <div style={styles["overlay"]}>
-      <span style={styles["text"]}>SIMULATING FORCES…</span>
+    <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none">
+      <span className="text-sm tracking-widest text-primary font-mono animate-[gv-pulse_1.5s_ease-in-out_infinite]">
+        SIMULATING FORCES…
+      </span>
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  overlay: {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 5,
-    pointerEvents: "none",
-  },
-  text: {
-    color: "#38bdf8",
-    fontSize: 12,
-    letterSpacing: "0.1em",
-    fontFamily: "'JetBrains Mono','Fira Code',monospace",
-    animation: "gv-pulse 1.5s ease-in-out infinite",
-  },
-};

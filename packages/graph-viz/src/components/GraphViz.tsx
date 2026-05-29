@@ -16,10 +16,10 @@ export function GraphViz() {
   const resetZoomRef = useRef<() => void>(() => {});
 
   return (
-    <div style={styles["root"]}>
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground">
       <TopBar onResetZoom={() => resetZoomRef.current()} />
 
-      <div style={styles["body"]}>
+      <div className="flex flex-1 overflow-hidden">
         <GraphCanvas
           onResetZoomReady={(fn) => {
             resetZoomRef.current = fn;
@@ -35,21 +35,3 @@ export function GraphViz() {
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  root: {
-    width: "100%",
-    height: "100vh",
-    background: "#070d1a",
-    display: "flex",
-    flexDirection: "column",
-    fontFamily: "'JetBrains Mono','Fira Code',monospace",
-    color: "#e2e8f0",
-    overflow: "hidden",
-  },
-  body: {
-    flex: 1,
-    display: "flex",
-    overflow: "hidden",
-  },
-};

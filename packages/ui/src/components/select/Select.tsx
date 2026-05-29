@@ -25,7 +25,7 @@ function Select({
   const selectId = id ?? generatedId;
 
   return (
-    <div className="flex w-full flex-col gap-1.5">
+    <div className="flex flex-col gap-1.5">
       {label && (
         <label htmlFor={selectId} className="text-foreground/80 text-xs">
           {label}

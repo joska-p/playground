@@ -8,52 +8,30 @@ export function Legend() {
   const colorMode = useGraphColorMode();
 
   return (
-    <div style={styles["bar"]}>
+    <div className="flex flex-wrap items-center gap-4 border-t border-border bg-background px-4 py-1.5 text-sm">
       {/* Left: node colour legend */}
-      <div style={styles["left"]}>
+      <div className="flex flex-wrap items-center gap-3.5">
         {colorMode === "filetype" ? (
           FT_OPTIONS.map((ft) => (
-            <div key={ft} style={styles["item"]}>
-              <div style={{ ...styles["dot"], background: FT_COLOR[ft] }} />
-              <span style={styles["label"]}>{FT_LABEL[ft]}</span>
+            <div key={ft} className="flex items-center gap-1.5">
+              <div className="h-2 w-2 shrink-0 rounded-full" style={{ background: FT_COLOR[ft] }} />
+              <span className="text-muted-foreground">{FT_LABEL[ft]}</span>
             </div>
           ))
         ) : (
-          <span style={styles["muted"]}>Nodes coloured by community</span>
+          <span className="text-muted-foreground">Nodes coloured by community</span>
         )}
       </div>
 
       {/* Right: edge relation legend */}
-      <div style={styles["right"]}>
+      <div className="ml-auto flex flex-wrap items-center gap-3">
         {REL_PREVIEW.map(([rel, color]) => (
-          <div key={rel} style={styles["item"]}>
-            <div style={{ ...styles["dash"], background: color }} />
-            <span style={styles["muted"]}>{rel}</span>
+          <div key={rel} className="flex items-center gap-1.5">
+            <div className="h-0.5 w-3.5 shrink-0 rounded-sm" style={{ background: color }} />
+            <span className="text-muted-foreground">{rel}</span>
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-// ── Styles ────────────────────────────────────────────────────────────────────
-
-const styles: Record<string, React.CSSProperties> = {
-  bar: {
-    display: "flex",
-    alignItems: "center",
-    gap: 16,
-    padding: "6px 14px",
-    background: "#0b1628",
-    borderTop: "1px solid #1e293b",
-    flexWrap: "wrap",
-    flexShrink: 0,
-  },
-  left: { display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" },
-  right: { display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", marginLeft: "auto" },
-  item: { display: "flex", alignItems: "center", gap: 5 },
-  dot: { width: 8, height: 8, borderRadius: "50%", flexShrink: 0 },
-  dash: { width: 14, height: 2, borderRadius: 1, flexShrink: 0 },
-  label: { color: "#64748b", fontSize: 10 },
-  muted: { color: "#475569", fontSize: 10 },
-};

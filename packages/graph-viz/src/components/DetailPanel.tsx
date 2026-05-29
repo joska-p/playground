@@ -1,3 +1,4 @@
+import { cn } from "@repo/ui/cn";
 import { FT_COLOR, REL_COLORS } from "../constants";
 import { RAW_GRAPH } from "../data/graphData";
 import { setGraphSelectedNode, useGraphSelectedNode } from "../store/graphStore";
@@ -13,17 +14,20 @@ export function DetailPanel() {
   );
 
   return (
-    <div style={styles["panel"]}>
+    <div className="flex w-65 shrink-0 flex-col overflow-y-auto border-l border-border bg-background p-4 text-sm">
       {/* Header */}
-      <div style={styles["header"]}>
-        <span style={styles["title"]}>{selectedNode.label}</span>
-        <button onClick={() => setGraphSelectedNode(null)} style={styles["closeBtn"]}>
+      <div className="mb-3 flex items-start justify-between">
+        <span className="flex-1 wrap-break-words font-bold text-primary">{selectedNode.label}</span>
+        <button
+          onClick={() => setGraphSelectedNode(null)}
+          className="p-0 pl-2 text-base leading-none text-muted-foreground hover:text-foreground"
+        >
           ×
         </button>
       </div>
 
       {/* Metadata grid */}
-      <div style={styles["grid"]}>
+      <div className="grid grid-cols-[auto_1fr] items-start gap-x-3 gap-y-2">
         <MetaRow label="ID" value={selectedNode.id} mono />
         <MetaRow
           label="Type"
@@ -41,8 +45,10 @@ export function DetailPanel() {
       </div>
 
       {/* Connections list */}
-      <div style={styles["section"]}>
-        <span style={styles["sectionLabel"]}>Connections ({connections.length})</span>
+      <div className="mt-4 border-t border-border pt-3">
+        <span className="mb-2 block text-sm uppercase tracking-[0.08em] text-muted-foreground">
+          Connections ({connections.length})
+        </span>
 
         {connections.slice(0, 20).map((l) => {
           const otherId = l.s === selectedNode.id ? l.t : l.s;
@@ -51,18 +57,28 @@ export function DetailPanel() {
             <div
               key={otherId}
               onClick={() => other && setGraphSelectedNode(other)}
-              style={{ ...styles["connItem"], borderLeftColor: REL_COLORS[l.r] ?? "#334155" }}
+              className={cn(
+                "mb-2 cursor-pointer rounded border-l-2 bg-card pl-1 pr-2 py-1",
+                `border-l-[${REL_COLORS[l.r] ?? "#334155"}]`
+              )}
             >
-              <span style={{ ...styles["relLabel"], color: REL_COLORS[l.r] ?? "#64748b" }}>
+              <span
+                className="mb-1 block text-xs uppercase tracking-[0.06em]"
+                style={{ color: REL_COLORS[l.r] ?? "#64748b" }}
+              >
                 {l.r}
               </span>
-              <span style={styles["connLabel"]}>{other?.label ?? otherId}</span>
+              <span className="block wrap-break-words text-xs text-foreground">
+                {other?.label ?? otherId}
+              </span>
             </div>
           );
         })}
 
         {connections.length > 20 && (
-          <span style={styles["overflow"]}>+{connections.length - 20} more</span>
+          <span className="block pt-1 text-center text-xs text-muted-foreground">
+            +{connections.length - 20} more
+          </span>
         )}
       </div>
     </div>
@@ -80,109 +96,20 @@ type MetaRowProps = {
   small?: boolean;
 };
 
-function MetaRow({ label, value, color, bold, mono, small }: MetaRowProps) {
+function MetaRow({ label, value, color, bold, small }: MetaRowProps) {
   return (
     <>
-      <span style={styles["metaKey"]}>{label}</span>
+      <span className="pt-1 text-xs text-muted-foreground">{label}</span>
       <span
-        style={{
-          ...styles["metaVal"],
-          color: color ?? "#94a3b8",
-          fontWeight: bold ? 600 : undefined,
-          fontFamily: mono ? "inherit" : undefined,
-          fontSize: small ? 9 : 11,
-          lineHeight: small ? 1.4 : undefined,
-          wordBreak: "break-all",
-        }}
+        className={cn(
+          "break-all text-foreground",
+          bold && "font-semibold",
+          small ? "text-xs" : "text-sm"
+        )}
+        style={{ color: color ?? undefined }}
       >
         {value}
       </span>
     </>
   );
 }
-
-// ── Styles ────────────────────────────────────────────────────────────────────
-
-const styles: Record<string, React.CSSProperties> = {
-  panel: {
-    width: 260,
-    background: "#0b1628",
-    borderLeft: "1px solid #1e293b",
-    padding: 16,
-    overflowY: "auto",
-    flexShrink: 0,
-    fontSize: 11,
-    fontFamily: "'JetBrains Mono','Fira Code',monospace",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 12,
-  },
-  title: {
-    fontSize: 13,
-    fontWeight: 700,
-    color: "#38bdf8",
-    wordBreak: "break-word",
-    flex: 1,
-  },
-  closeBtn: {
-    background: "none",
-    border: "none",
-    color: "#475569",
-    cursor: "pointer",
-    fontSize: 16,
-    lineHeight: 1,
-    padding: "0 0 0 8px",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "auto 1fr",
-    gap: "6px 10px",
-    alignItems: "start",
-  },
-  metaKey: { color: "#475569", paddingTop: 1 },
-  metaVal: { color: "#94a3b8" },
-  section: {
-    marginTop: 14,
-    borderTop: "1px solid #1e293b",
-    paddingTop: 12,
-  },
-  sectionLabel: {
-    display: "block",
-    color: "#475569",
-    marginBottom: 6,
-    fontSize: 10,
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-  },
-  connItem: {
-    marginBottom: 6,
-    padding: "5px 8px",
-    background: "#0f172a",
-    borderRadius: 4,
-    cursor: "pointer",
-    borderLeft: "2px solid",
-  },
-  relLabel: {
-    display: "block",
-    fontSize: 9,
-    textTransform: "uppercase",
-    letterSpacing: "0.06em",
-    marginBottom: 2,
-  },
-  connLabel: {
-    display: "block",
-    color: "#94a3b8",
-    fontSize: 10,
-    wordBreak: "break-word",
-  },
-  overflow: {
-    display: "block",
-    color: "#475569",
-    fontSize: 10,
-    textAlign: "center",
-    paddingTop: 4,
-  },
-};
