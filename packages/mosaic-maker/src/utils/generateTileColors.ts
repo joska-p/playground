@@ -1,15 +1,9 @@
-import type { Palette } from "../core/initialPalette";
-import { getRandom } from "./getRandom";
+import { shuffleArray } from "./shuffleArray";
 
-function generateTileColors(palette: Palette): [string, string, string, string, string] {
-  const paletteKeys = Object.keys(palette) as (keyof Palette)[];
-  return Array.from({ length: 5 }, () => palette[getRandom(paletteKeys)]) as [
-    string,
-    string,
-    string,
-    string,
-    string,
-  ];
+const CSS_VAR_KEYS = ["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"] as const;
+
+function generateTileColors(): [string, string, string, string, string] {
+  return shuffleArray([...CSS_VAR_KEYS]) as [string, string, string, string, string];
 }
 
 export { generateTileColors };

@@ -9,9 +9,8 @@ export type TileProps = {
 };
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
-  const fillColor = colors[shape.colorIndex];
   const commonProps = {
-    fill: fillColor,
+    fill: `var(${colors[shape.colorIndex]})`,
     className: "transition-all duration-500",
   };
 
@@ -42,7 +41,6 @@ function Tile({ name, colors, rotation, className }: TileProps) {
   return (
     <svg
       viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid slice"
       className={cn(
         "relative h-(--tile-size) w-(--tile-size) overflow-hidden transition-transform duration-500",
         className

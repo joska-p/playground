@@ -7,9 +7,9 @@ import { updateElementStyles } from "../utils/updateElementStyles";
 import { mosaicStore } from "./store";
 
 export function regenerateMosaicTiles() {
-  const { mosaicRef, tileSet, currentPalette } = mosaicStore.getState();
+  const { mosaicRef, tileSet } = mosaicStore.getState();
   if (!mosaicRef.current) return;
-  mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef, tileSet, currentPalette) });
+  mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef, tileSet) });
 }
 
 function updateCurrentPalettes() {
