@@ -10,7 +10,7 @@ order: 20
 
 # @repo/image-manipulator
 
-Composable pixel-manipulation pipeline for the browser. Build image-processing
+Fluent pixel-manipulation pipeline for the browser. Build image-processing
 effects by chaining small, testable `PixelCallback` functions into a single
 loop pass over the image data.
 
@@ -22,9 +22,10 @@ HTMLImageElement
        ▼
 imageElementToImageData()      ──►  ImageData
        │
-       ├── pipe(grayscale(), brightness(1.3))   ──► transformed ImageData
-       │
-       └── fork(computeEnergy())                ──► derived ImageData
+       └── manipulate(source)
+              .apply(grayscale())
+              .apply(brightness(1.3))
+              .toImageData()          ──► transformed ImageData
 ```
 
 All transformations read from a source `ImageData` and produce a **new**
@@ -38,14 +39,17 @@ pnpm add @repo/image-manipulator
 
 ## Core primitives
 
-| Export                             | Purpose                                      |
+| Export / method                    | Purpose                                      |
 | ---------------------------------- | -------------------------------------------- |
 | `imageElementToImageData(image)`   | Convert a loaded `<img>` into raw pixel data |
 | `putImageData(canvas, imageData)`  | Render `ImageData` onto a `<canvas>`         |
 | `getImageData(canvas)`             | Snapshot current canvas pixels               |
 | `drawImageOnCanvas(canvas, image)` | Draw an `<img>` onto a canvas                |
-| `pipe(...callbacks)`               | Compose callbacks into one transformation    |
-| `fork(callback)`                   | Create an independent derived image          |
+| `manipulate(imageData)`            | Create a fluent pipeline builder             |
+| `── .apply(callback)`              | Add a manipulation step (returns `this`)     |
+| `── .toImageData()`                | Execute all steps, return final `ImageData`  |
+| `── .toArray()`                    | Execute step-by-step, return `[original, step1, …]` |
+| `── .toCanvas(canvas)`             | Execute and write result to a canvas         |
 | `iteratePixels(source, callbacks)` | Low-level loop primitive                     |
 
 ### Types
@@ -79,26 +83,40 @@ Built-in `PixelCallback` factories:
 
 ## Creating a pipeline
 
-Callbacks are composed with `pipe`. They run **in a single pixel loop** — the
-output of each callback feeds into the next per pixel:
+Callbacks are chained with `manipulate`. They run **in a single pixel loop** —
+the output of each callback feeds into the next per pixel:
 
 ```ts
-import { pipe, fork } from "@repo/image-manipulator";
+import { manipulate } from "@repo/image-manipulator";
 import { grayscale, brightness, computeEnergy } from "@repo/image-manipulator";
 import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 
 // 1. Load source
 const source = imageElementToImageData(imgElement);
 
-// 2. Sequential pipe (one pass)
-const result = pipe(grayscale(), brightness(1.3))(source);
+// 2. Build and execute pipeline (one pass)
+const result = manipulate(source)
+  .apply(grayscale())
+  .apply(brightness(1.3))
+  .toImageData();
 
-// 3. Fork for analysis (independent of the pipe)
-const energy = fork(computeEnergy())(source);
-
-// 4. Render
+// 3. Render
 putImageData(canvasElement, result);
-putImageData(energyCanvas, energy);
+```
+
+### Inspecting intermediate steps
+
+Use `.toArray()` to get every step's output, including the original:
+
+```ts
+const [original, grayed, brightened] = manipulate(source)
+  .apply(grayscale())
+  .apply(brightness(1.3))
+  .toArray();
+
+// original   = source (unmodified)
+// grayed     = after grayscale()
+// brightened = after brightness(1.3)
 ```
 
 ### Writing a custom manipulation
@@ -117,8 +135,11 @@ const tint =
     a,
   });
 
-// Use it in a pipe
-pipe(grayscale(), tint(30))(source);
+// Use it in a pipeline
+manipulate(source)
+  .apply(grayscale())
+  .apply(tint(30))
+  .toImageData();
 ```
 
 Use `sourceData` on `PixelContext` for neighbour-dependent effects (blur, edge
@@ -135,8 +156,8 @@ function App() {
 }
 ```
 
-Renders an `<input type="file">` and three canvases: original, pipeline output
-(grayscale + brighten), and Sobel energy map.
+Renders a file upload, a manipulation selector, a workflow builder, and
+canvases showing the result of each pipeline step.
 
 ## Hook
 

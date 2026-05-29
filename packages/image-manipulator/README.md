@@ -1,30 +1,21 @@
 # @repo/image-manipulator
 
-> Composable pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.
-
-## Install
-
-```bash
-pnpm add @repo/image-manipulator
-```
+> Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.
 
 ## Quick usage
 
-```tsx
-import { ImageManipulator } from "@repo/image-manipulator";
-
-function App() {
-  return <ImageManipulator />;
-}
-```
-
-Or use the pipeline directly:
-
 ```ts
-import { pipe, grayscale, brightness } from "@repo/image-manipulator";
+import { manipulate } from "@repo/image-manipulator";
+import { grayscale, brightness } from "@repo/image-manipulator";
 import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 
-const result = pipe(grayscale(), brightness(1.3))(imageElementToImageData(img));
+const source = imageElementToImageData(img);
+
+const result = manipulate(source)
+  .apply(grayscale())
+  .apply(brightness(1.3))
+  .toImageData();
+
 putImageData(canvas, result);
 ```
 
