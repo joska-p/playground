@@ -68,6 +68,10 @@ pnpm install
 pnpm --filter @repo/<name> dev       # start Vite dev server
 ```
 
+## Documenting the Package
+
+Follow [Documenting a Package](./documenting-packages/) to write the README, bootstrap the reference doc on the Astro site, and link from related docs.
+
 ## Adding to the Playground Website
 
 Follow [Adding Projects](./adding-projects/) to register the new package as a project page on the Astro site. For React components, use the `client:only="react"` directive:

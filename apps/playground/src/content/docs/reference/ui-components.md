@@ -4,6 +4,7 @@ description: "Shared components in @repo/ui."
 category: "reference"
 tags:
   - reference
+order: 10
 ---
 
 # UI Components

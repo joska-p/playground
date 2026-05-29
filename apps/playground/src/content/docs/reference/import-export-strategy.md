@@ -4,6 +4,7 @@ description: "Subpath exports, barrel bans, and import rules across the monorepo
 category: "reference"
 tags:
   - reference
+order: 10
 ---
 
 # Import and Export Strategy

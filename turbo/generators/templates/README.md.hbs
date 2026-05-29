@@ -12,9 +12,15 @@ pnpm --filter @repo/{{name}} dev
 
 > **Note:** All `turbo` commands are run via `pnpm gen` (`pnpm gen` wraps `turbo gen`).
 
+## Documentation
+
+Full reference: [/docs/reference/packages/{{name}}/](/docs/reference/packages/{{name}}/)
+
+After scaffolding, run `pnpm --filter @repo/playground sync-package-docs` to bootstrap the reference doc, then curate it with architecture details. See [Documenting a Package](/docs/how-to/documenting-packages/) for the full workflow.
+
 ## Adding to the Playground
 
-Follow the official guide: [Adding Projects](/how-to/adding-projects/).
+Follow the official guide: [Adding Projects](/docs/how-to/adding-projects/).
 
 Then apply the React-specific extras:
 

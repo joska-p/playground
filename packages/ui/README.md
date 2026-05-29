@@ -2,9 +2,7 @@
 
 > Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.
 
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 pnpm add @repo/ui
@@ -22,7 +20,7 @@ export function MyComponent() {
 }
 ```
 
-## 🧩 Components
+## Components
 
 - **Actions:** Button
 - **Forms:** Input, Slider, Switch, Select, Label
@@ -31,14 +29,6 @@ export function MyComponent() {
 
 ---
 
-## 📖 Documentation
-
-Detailed technical reference and usage guides are available in the Documentation Hub:
-
-- [**Component API Reference**](https://playground-beryl-omega.vercel.app/docs/reference/component-api)
-- [**Design Tokens & Theme**](https://playground-beryl-omega.vercel.app/docs/reference/design-tokens)
-- [**Creating New Components**](https://playground-beryl-omega.vercel.app/docs/how-to/creating-components)
-
----
+Full reference: [UI Components](/docs/reference/packages/ui/)
 
 _Part of the [Creative Playground](https://playground-beryl-omega.vercel.app)_
