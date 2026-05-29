@@ -40,6 +40,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.svg`} />
     <link rel="sitemap" href={`${baseUrl}sitemap-index.xml`} />
+    <meta name="robots" content="noindex" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{siteTitle}</title>
