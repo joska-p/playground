@@ -66,13 +66,9 @@ const mosaicStore = create<MosaicState>(() => ({
   tiles: [],
 }));
 
-function _updateTiles() {
-  const { mosaicRef, tileSet, tiles } = mosaicStore.getState();
+export function regenerateMosaicTiles() {
+  const { mosaicRef, tileSet } = mosaicStore.getState();
   if (!mosaicRef.current) return;
-
-  const numberOfTiles = computeNumberOfTiles(mosaicRef.current);
-  if (numberOfTiles === tiles.length && tiles.length > 0) return;
-
   mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef, tileSet) });
 }
 
@@ -117,10 +113,10 @@ export function setMosaicPaletteStock(palettes: Palette[]) {
 
 export function setMosaicRef(ref: React.RefObject<HTMLDivElement | null>) {
   mosaicStore.setState({ mosaicRef: ref });
-  _updateTiles();
+  regenerateMosaicTiles();
 }
 
-export function updateMosaicPalette(palette: Palette) {
+export function applyMosaicPalette(palette: Palette) {
   mosaicStore.setState({ currentPalette: palette });
   const { mosaicRef } = mosaicStore.getState();
   if (mosaicRef.current) {
@@ -128,21 +124,17 @@ export function updateMosaicPalette(palette: Palette) {
   }
 }
 
-export function updateMosaicTileSet(tileName: TileNames) {
+export function toggleTileInSet(tileName: TileNames) {
   const { tileSet } = mosaicStore.getState();
   if (tileSet.length === 1 && tileName === tileSet[0]) return;
   const newTileSet = tileSet.includes(tileName)
     ? tileSet.filter((tile) => tile !== tileName)
     : [...tileSet, tileName];
   mosaicStore.setState({ tileSet: newTileSet });
-  _updateTiles();
+  regenerateMosaicTiles();
 }
 
-export function updateMosaicTiles() {
-  _updateTiles();
-}
-
-export function updateMosaicCurrentPalettes() {
+export function cycleMosaicPalettes() {
   updateCurrentPalettes();
 }
 

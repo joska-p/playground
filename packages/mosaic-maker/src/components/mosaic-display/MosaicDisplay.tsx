@@ -6,7 +6,7 @@ import { initialPalette } from "../../core/initialPalette";
 import {
   initMosaicPalettes,
   setMosaicRef,
-  updateMosaicTiles,
+  regenerateMosaicTiles,
   useMosaicTiles,
 } from "../../store/mosaicStore";
 import { Tile } from "../tiles/Tile";
@@ -28,7 +28,7 @@ function MosaicDisplay() {
   useEffect(() => {
     if (dimensions.width > 0 && dimensions.height > 0) {
       setMosaicRef(mosaicRef);
-      updateMosaicTiles();
+      regenerateMosaicTiles();
     }
   }, [dimensions.width, dimensions.height, mosaicRef]);
 

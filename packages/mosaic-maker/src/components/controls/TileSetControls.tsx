@@ -1,7 +1,7 @@
 import { cn } from "@repo/ui/cn";
 import { initialPalette } from "../../core/initialPalette";
 import { initialTileSet } from "../../core/initialTileSet";
-import { updateMosaicTileSet, useMosaicTileSet } from "../../store/mosaicStore";
+import { toggleTileInSet, useMosaicTileSet } from "../../store/mosaicStore";
 import { Tile } from "../tiles/Tile";
 
 function TileSetControls() {
@@ -18,7 +18,7 @@ function TileSetControls() {
             <input
               type="checkbox"
               checked={tileSet.includes(tileName)}
-              onChange={() => updateMosaicTileSet(tileName)}
+              onChange={() => toggleTileInSet(tileName)}
               className="peer sr-only"
             />
             <Tile

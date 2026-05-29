@@ -1,6 +1,6 @@
 import { ColorPalette } from "@repo/ui/ColorPalette";
 import {
-  updateMosaicPalette,
+  applyMosaicPalette,
   useMosaicCurrentPalette,
   useMosaicCurrentPalettes,
 } from "../../store/mosaicStore";
@@ -18,7 +18,7 @@ function PaletteControls() {
           key={getPaletteId(palette)}
           colors={Object.values(palette)}
           checked={arePalettesEqual(palette, currentPalette)}
-          onChange={() => updateMosaicPalette(palette)}
+          onChange={() => applyMosaicPalette(palette)}
           variant="primary"
           size="small"
           orientation="horizontal"

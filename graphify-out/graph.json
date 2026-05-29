@@ -129,103 +129,157 @@
   },
   "nodes": [
     {
+      "label": "index.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L1",
+      "id": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "community": 98,
+      "norm_label": "index.astro"
+    },
+    {
+      "label": "@repo/mosaic-maker/MosaicMaker",
+      "file_type": "code",
+      "source_file": "@repo/mosaic-maker/MosaicMaker",
+      "confidence": "EXTRACTED",
+      "id": "mosaicmaker",
+      "community": 98,
+      "norm_label": "@repo/mosaic-maker/mosaicmaker"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "react",
+      "confidence": "EXTRACTED",
+      "id": "react",
+      "community": 98,
+      "norm_label": "react"
+    },
+    {
+      "label": "../../../../layouts/base-layout.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/layouts/base-layout.astro",
+      "confidence": "EXTRACTED",
+      "id": "workspaces_playground_apps_playground_src_layouts_base_layout_astro",
+      "community": 98,
+      "norm_label": "../../../../layouts/base-layout.astro"
+    },
+    {
+      "label": "../../../../data/projects",
+      "file_type": "code",
+      "source_file": "apps/playground/src/data/projects",
+      "confidence": "EXTRACTED",
+      "id": "workspaces_playground_apps_playground_src_data_projects",
+      "community": 98,
+      "norm_label": "../../../../data/projects"
+    },
+    {
+      "label": "../../../../components/ui/features/hero.astro",
+      "file_type": "code",
+      "source_file": "apps/playground/src/components/ui/features/hero.astro",
+      "confidence": "EXTRACTED",
+      "id": "workspaces_playground_apps_playground_src_components_ui_features_hero_astro",
+      "community": 98,
+      "norm_label": "../../../../components/ui/features/hero.astro"
+    },
+    {
       "label": "TheDreamer.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/TheDreamer.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_thedreamer_astro",
       "community": 243,
-      "norm_label": "thedreamer.astro"
+      "norm_label": "thedreamer.astro",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_thedreamer_astro"
     },
     {
       "label": "TheNarrator.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/TheNarrator.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_thenarrator_astro",
       "community": 244,
-      "norm_label": "thenarrator.astro"
+      "norm_label": "thenarrator.astro",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_thenarrator_astro"
     },
     {
       "label": "TheSkeptic.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/components/TheSkeptic.astro",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_theskeptic_astro",
       "community": 245,
-      "norm_label": "theskeptic.astro"
+      "norm_label": "theskeptic.astro",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_components_theskeptic_astro"
     },
     {
       "label": "index.mdx",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L1",
-      "id": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
       "community": 12,
-      "norm_label": "index.mdx"
+      "norm_label": "index.mdx",
+      "id": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx"
     },
     {
       "label": "Step 01 \u2014 The Natural Numbers \u2014 <span class=\"text-accent\">$\\mathbb{N}$</span>",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L39",
-      "id": "en_index_step_01_the_natural_numbers_span_class_text_accent_mathbb_n_span",
       "community": 12,
-      "norm_label": "step 01 \u2014 the natural numbers \u2014 <span class=\"text-accent\">$\\mathbb{n}$</span>"
+      "norm_label": "step 01 \u2014 the natural numbers \u2014 <span class=\"text-accent\">$\\mathbb{n}$</span>",
+      "id": "en_index_step_01_the_natural_numbers_span_class_text_accent_mathbb_n_span"
     },
     {
       "label": "Step 02 \u2014 Zero and the Negatives \u2014 <span class=\"text-accent\">$\\mathbb{Z}$</span>",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L88",
-      "id": "en_index_step_02_zero_and_the_negatives_span_class_text_accent_mathbb_z_span",
       "community": 12,
-      "norm_label": "step 02 \u2014 zero and the negatives \u2014 <span class=\"text-accent\">$\\mathbb{z}$</span>"
+      "norm_label": "step 02 \u2014 zero and the negatives \u2014 <span class=\"text-accent\">$\\mathbb{z}$</span>",
+      "id": "en_index_step_02_zero_and_the_negatives_span_class_text_accent_mathbb_z_span"
     },
     {
       "label": "Step 03 \u2014 The Rational Numbers \u2014 <span class=\"text-accent\">$\\mathbb{Q}$</span>",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L144",
-      "id": "en_index_step_03_the_rational_numbers_span_class_text_accent_mathbb_q_span",
       "community": 12,
-      "norm_label": "step 03 \u2014 the rational numbers \u2014 <span class=\"text-accent\">$\\mathbb{q}$</span>"
+      "norm_label": "step 03 \u2014 the rational numbers \u2014 <span class=\"text-accent\">$\\mathbb{q}$</span>",
+      "id": "en_index_step_03_the_rational_numbers_span_class_text_accent_mathbb_q_span"
     },
     {
       "label": "Step 04 \u2014 The Real Numbers \u2014 <span class=\"text-accent\">$\\mathbb{R}$</span>",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L190",
-      "id": "en_index_step_04_the_real_numbers_span_class_text_accent_mathbb_r_span",
       "community": 12,
-      "norm_label": "step 04 \u2014 the real numbers \u2014 <span class=\"text-accent\">$\\mathbb{r}$</span>"
+      "norm_label": "step 04 \u2014 the real numbers \u2014 <span class=\"text-accent\">$\\mathbb{r}$</span>",
+      "id": "en_index_step_04_the_real_numbers_span_class_text_accent_mathbb_r_span"
     },
     {
       "label": "Step 05 \u2014 The Imaginary Unit \u2014 <span class=\"text-accent\">$\\mathbb{I}$</span>",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L242",
-      "id": "en_index_step_05_the_imaginary_unit_span_class_text_accent_mathbb_i_span",
       "community": 12,
-      "norm_label": "step 05 \u2014 the imaginary unit \u2014 <span class=\"text-accent\">$\\mathbb{i}$</span>"
+      "norm_label": "step 05 \u2014 the imaginary unit \u2014 <span class=\"text-accent\">$\\mathbb{i}$</span>",
+      "id": "en_index_step_05_the_imaginary_unit_span_class_text_accent_mathbb_i_span"
     },
     {
       "label": "Step 06 \u2014 The Complex Plane \u2014 <span class=\"text-accent\">$\\mathbb{C}$</span>",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L289",
-      "id": "en_index_step_06_the_complex_plane_span_class_text_accent_mathbb_c_span",
       "community": 12,
-      "norm_label": "step 06 \u2014 the complex plane \u2014 <span class=\"text-accent\">$\\mathbb{c}$</span>"
+      "norm_label": "step 06 \u2014 the complex plane \u2014 <span class=\"text-accent\">$\\mathbb{c}$</span>",
+      "id": "en_index_step_06_the_complex_plane_span_class_text_accent_mathbb_c_span"
     },
     {
       "label": "Epilogue \u2014 Euler's Formula",
       "file_type": "document",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L327",
-      "id": "en_index_epilogue_euler_s_formula",
       "community": 12,
-      "norm_label": "epilogue \u2014 euler's formula"
+      "norm_label": "epilogue \u2014 euler's formula",
+      "id": "en_index_epilogue_euler_s_formula"
     },
     {
       "label": "radius-table.astro",
@@ -1275,7 +1329,7 @@
       "file_type": "code",
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L1",
-      "community": 181,
+      "community": 156,
       "norm_label": "astro.config.mjs",
       "id": "apps_playground_astro_config_mjs"
     },
@@ -1284,7 +1338,7 @@
       "file_type": "code",
       "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L13",
-      "community": 181,
+      "community": 156,
       "norm_label": "isvercel",
       "id": "playground_astro_config_isvercel"
     },
@@ -1671,7 +1725,7 @@
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L37",
-      "community": 101,
+      "community": 11,
       "norm_label": "zod",
       "id": "playground_package_dependencies_zod"
     },
@@ -2026,27 +2080,9 @@
       "source_file": "apps/playground/src/components/ui/cards/experiment-card.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 227,
+      "community": 98,
       "norm_label": "../../../components/ui/cards/experiment-card.astro",
       "id": "apps_playground_src_components_ui_cards_experiment_card_astro"
-    },
-    {
-      "label": "react",
-      "file_type": "code",
-      "source_file": "react",
-      "confidence": "EXTRACTED",
-      "community": 98,
-      "norm_label": "react",
-      "id": "react"
-    },
-    {
-      "label": "../../../../data/projects",
-      "file_type": "code",
-      "source_file": "apps/playground/src/data/projects",
-      "confidence": "EXTRACTED",
-      "community": 227,
-      "norm_label": "../../../../data/projects",
-      "id": "workspaces_playground_apps_playground_src_data_projects"
     },
     {
       "label": "../components/ui/docs/featured-docs.astro",
@@ -2054,7 +2090,7 @@
       "source_file": "apps/playground/src/components/ui/docs/featured-docs.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 4,
+      "community": 168,
       "norm_label": "../components/ui/docs/featured-docs.astro",
       "id": "apps_playground_src_components_ui_docs_featured_docs_astro"
     },
@@ -2064,7 +2100,7 @@
       "source_file": "apps/playground/src/components/ui/features/section-header.astro",
       "confidence": "EXTRACTED",
       "source_location": "L1",
-      "community": 4,
+      "community": 168,
       "norm_label": "../../components/ui/features/section-header.astro",
       "id": "apps_playground_src_components_ui_features_section_header_astro"
     },
@@ -2073,7 +2109,7 @@
       "file_type": "code",
       "source_file": "lucide-react",
       "confidence": "EXTRACTED",
-      "community": 4,
+      "community": 168,
       "norm_label": "lucide-react",
       "id": "lucide_react"
     },
@@ -2093,7 +2129,7 @@
       "source_file": "apps/playground/src/components/ui/features/stats.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 111,
+      "community": 168,
       "norm_label": "../components/ui/features/stats.astro",
       "id": "apps_playground_src_components_ui_features_stats_astro"
     },
@@ -2113,7 +2149,7 @@
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
       "source_location": "L1",
       "confidence": "EXTRACTED",
-      "community": 227,
+      "community": 168,
       "norm_label": "../components/ui/projects/featured-projects.astro",
       "id": "apps_playground_src_components_ui_projects_featured_projects_astro"
     },
@@ -2122,7 +2158,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
       "source_location": "L9",
-      "community": 227,
+      "community": 168,
       "norm_label": "featuredprojects",
       "id": "projects_featured_projects_featuredprojects"
     },
@@ -2131,7 +2167,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L1",
-      "community": 4,
+      "community": 11,
       "norm_label": "docs.ts",
       "id": "apps_playground_src_data_docs_ts"
     },
@@ -2140,7 +2176,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L7",
-      "community": 4,
+      "community": 11,
       "norm_label": "category_metadata",
       "id": "data_docs_category_metadata"
     },
@@ -2149,7 +2185,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L38",
-      "community": 4,
+      "community": 11,
       "norm_label": "categoryid",
       "id": "data_docs_categoryid"
     },
@@ -2185,7 +2221,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/docs.ts",
       "source_location": "L58",
-      "community": 4,
+      "community": 11,
       "norm_label": "getfeatureddocs()",
       "id": "data_docs_getfeatureddocs"
     },
@@ -2194,7 +2230,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L1",
-      "community": 227,
+      "community": 98,
       "norm_label": "projects.ts",
       "id": "apps_playground_src_data_projects_ts"
     },
@@ -2203,7 +2239,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L7",
-      "community": 227,
+      "community": 98,
       "norm_label": "category",
       "id": "data_projects_category"
     },
@@ -2212,7 +2248,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L12",
-      "community": 227,
+      "community": 98,
       "norm_label": "categories",
       "id": "data_projects_categories"
     },
@@ -2221,7 +2257,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L34",
-      "community": 227,
+      "community": 98,
       "norm_label": "project",
       "id": "data_projects_project"
     },
@@ -2239,7 +2275,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L120",
-      "community": 227,
+      "community": 168,
       "norm_label": "getfeaturedprojects()",
       "id": "data_projects_getfeaturedprojects"
     },
@@ -2248,7 +2284,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/projects.ts",
       "source_location": "L127",
-      "community": 227,
+      "community": 98,
       "norm_label": "getprojectsbycategory()",
       "id": "data_projects_getprojectsbycategory"
     },
@@ -2302,7 +2338,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/notebook.ts",
       "source_location": "L28",
-      "community": 11,
+      "community": 111,
       "norm_label": "getnotesbycategory()",
       "id": "data_notebook_getnotesbycategory"
     },
@@ -2696,7 +2732,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/lib/remarkBaseUrl.ts",
       "source_location": "L1",
-      "community": 181,
+      "community": 156,
       "norm_label": "remarkbaseurl.ts",
       "id": "apps_playground_src_lib_remarkbaseurl_ts"
     },
@@ -2705,7 +2741,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/lib/remarkBaseUrl.ts",
       "source_location": "L3",
-      "community": 181,
+      "community": 156,
       "norm_label": "remarkbaseurl()",
       "id": "lib_remarkbaseurl_remarkbaseurl"
     },
@@ -2723,7 +2759,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/index.astro",
       "source_location": "L1",
-      "community": 111,
+      "community": 168,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_index_astro"
     },
@@ -2759,7 +2795,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/docs/[...slug].astro",
       "source_location": "L1",
-      "community": 4,
+      "community": 11,
       "norm_label": "[...slug].astro",
       "id": "apps_playground_src_pages_docs_slug_astro"
     },
@@ -2768,7 +2804,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/docs/[...slug].astro",
       "source_location": "L8",
-      "community": 4,
+      "community": 11,
       "norm_label": "getstaticpaths()",
       "id": "docs_slug_getstaticpaths"
     },
@@ -2777,7 +2813,7 @@
       "file_type": "code",
       "source_file": "astro:content",
       "confidence": "EXTRACTED",
-      "community": 111,
+      "community": 11,
       "norm_label": "astro:content",
       "id": "astro_content"
     },
@@ -2795,7 +2831,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/index.astro",
       "source_location": "L1",
-      "community": 227,
+      "community": 98,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_index_astro"
     },
@@ -2804,7 +2840,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/index.astro",
       "source_location": "L11",
-      "community": 227,
+      "community": 98,
       "norm_label": "categories",
       "id": "projects_index_categories"
     },
@@ -2813,7 +2849,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/color/index.astro",
       "source_location": "L1",
-      "community": 227,
+      "community": 98,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_color_index_astro"
     },
@@ -2840,7 +2876,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/data-viz/index.astro",
       "source_location": "L1",
-      "community": 227,
+      "community": 98,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_data_viz_index_astro"
     },
@@ -2876,27 +2912,9 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/generative/index.astro",
       "source_location": "L1",
-      "community": 227,
+      "community": 98,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_generative_index_astro"
-    },
-    {
-      "label": "index.astro",
-      "file_type": "code",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "source_location": "L1",
-      "community": 98,
-      "norm_label": "index.astro",
-      "id": "apps_playground_src_pages_projects_generative_mosaic_index_astro"
-    },
-    {
-      "label": "@repo/mosaic-maker/MosaicMaker",
-      "file_type": "code",
-      "source_file": "@repo/mosaic-maker/MosaicMaker",
-      "confidence": "EXTRACTED",
-      "community": 98,
-      "norm_label": "@repo/mosaic-maker/mosaicmaker",
-      "id": "mosaicmaker"
     },
     {
       "label": "index.astro",
@@ -2921,7 +2939,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/projects/image/index.astro",
       "source_location": "L1",
-      "community": 227,
+      "community": 98,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_projects_image_index_astro"
     },
@@ -3011,7 +3029,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/pages/notebook/index.astro",
       "source_location": "L1",
-      "community": 11,
+      "community": 111,
       "norm_label": "index.astro",
       "id": "apps_playground_src_pages_notebook_index_astro"
     },
@@ -3020,7 +3038,7 @@
       "file_type": "code",
       "source_file": "apps/playground/src/data/notebook",
       "confidence": "EXTRACTED",
-      "community": 11,
+      "community": 111,
       "norm_label": "../../data/notebook",
       "id": "workspaces_playground_apps_playground_src_data_notebook"
     },
@@ -6908,7 +6926,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L19",
-      "community": 88,
+      "community": 101,
       "norm_label": "dependencies",
       "id": "mosaic_maker_package_dependencies"
     },
@@ -6917,7 +6935,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L20",
-      "community": 88,
+      "community": 101,
       "norm_label": "@repo/ui",
       "id": "mosaic_maker_package_dependencies_repo_ui"
     },
@@ -6926,7 +6944,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L21",
-      "community": 88,
+      "community": 101,
       "norm_label": "zod",
       "id": "mosaic_maker_package_dependencies_zod"
     },
@@ -6935,7 +6953,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L22",
-      "community": 88,
+      "community": 101,
       "norm_label": "zustand",
       "id": "mosaic_maker_package_dependencies_zustand"
     },
@@ -12002,7 +12020,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L1",
-      "community": 236,
+      "community": 87,
       "norm_label": "package.json",
       "id": "packages_graph_viz_package_json"
     },
@@ -12011,7 +12029,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L2",
-      "community": 236,
+      "community": 87,
       "norm_label": "name",
       "id": "graph_viz_package_name"
     },
@@ -12020,7 +12038,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L3",
-      "community": 236,
+      "community": 87,
       "norm_label": "private",
       "id": "graph_viz_package_private"
     },
@@ -12029,7 +12047,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L4",
-      "community": 236,
+      "community": 87,
       "norm_label": "version",
       "id": "graph_viz_package_version"
     },
@@ -12038,7 +12056,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L5",
-      "community": 236,
+      "community": 87,
       "norm_label": "type",
       "id": "graph_viz_package_type"
     },
@@ -12047,7 +12065,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L6",
-      "community": 236,
+      "community": 87,
       "norm_label": "exports",
       "id": "graph_viz_package_exports"
     },
@@ -12056,7 +12074,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L8",
-      "community": 236,
+      "community": 87,
       "norm_label": "./styles",
       "id": "graph_viz_package_exports_styles"
     },
@@ -12065,7 +12083,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L10",
-      "community": 236,
+      "community": 87,
       "norm_label": "scripts",
       "id": "graph_viz_package_scripts"
     },
@@ -12074,7 +12092,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L11",
-      "community": 236,
+      "community": 87,
       "norm_label": "dev",
       "id": "graph_viz_package_scripts_dev"
     },
@@ -12083,7 +12101,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L12",
-      "community": 236,
+      "community": 87,
       "norm_label": "build",
       "id": "graph_viz_package_scripts_build"
     },
@@ -12092,7 +12110,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L13",
-      "community": 236,
+      "community": 87,
       "norm_label": "lint",
       "id": "graph_viz_package_scripts_lint"
     },
@@ -12101,7 +12119,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L14",
-      "community": 236,
+      "community": 87,
       "norm_label": "lint-fix",
       "id": "graph_viz_package_scripts_lint_fix"
     },
@@ -12110,7 +12128,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L15",
-      "community": 236,
+      "community": 87,
       "norm_label": "format",
       "id": "graph_viz_package_scripts_format"
     },
@@ -12119,7 +12137,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L16",
-      "community": 236,
+      "community": 87,
       "norm_label": "preview",
       "id": "graph_viz_package_scripts_preview"
     },
@@ -12128,7 +12146,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L17",
-      "community": 236,
+      "community": 87,
       "norm_label": "check-types",
       "id": "graph_viz_package_scripts_check_types"
     },
@@ -12137,7 +12155,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L19",
-      "community": 242,
+      "community": 87,
       "norm_label": "dependencies",
       "id": "graph_viz_package_dependencies"
     },
@@ -12146,7 +12164,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L20",
-      "community": 242,
+      "community": 87,
       "norm_label": "@repo/ui",
       "id": "graph_viz_package_dependencies_repo_ui"
     },
@@ -12155,7 +12173,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L21",
-      "community": 242,
+      "community": 87,
       "norm_label": "d3",
       "id": "graph_viz_package_dependencies_d3"
     },
@@ -12164,7 +12182,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L22",
-      "community": 242,
+      "community": 87,
       "norm_label": "zustand",
       "id": "graph_viz_package_dependencies_zustand"
     },
@@ -12173,7 +12191,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L24",
-      "community": 236,
+      "community": 87,
       "norm_label": "peerdependencies",
       "id": "graph_viz_package_peerdependencies"
     },
@@ -12182,7 +12200,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L25",
-      "community": 236,
+      "community": 87,
       "norm_label": "react",
       "id": "graph_viz_package_peerdependencies_react"
     },
@@ -12191,7 +12209,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L26",
-      "community": 236,
+      "community": 87,
       "norm_label": "react-dom",
       "id": "graph_viz_package_peerdependencies_react_dom"
     },
@@ -18329,7 +18347,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L21",
-      "community": 88,
+      "community": 101,
       "norm_label": "react",
       "id": "mosaic_maker_package_dependencies_react"
     },
@@ -18338,7 +18356,7 @@
       "file_type": "code",
       "source_file": "packages/mosaic-maker/package.json",
       "source_location": "L22",
-      "community": 88,
+      "community": 101,
       "norm_label": "react-dom",
       "id": "mosaic_maker_package_dependencies_react_dom"
     },
@@ -18401,7 +18419,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L21",
-      "community": 242,
+      "community": 87,
       "norm_label": "@types/d3",
       "id": "graph_viz_package_dependencies_types_d3"
     },
@@ -18410,7 +18428,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L23",
-      "community": 242,
+      "community": 87,
       "norm_label": "react",
       "id": "graph_viz_package_dependencies_react"
     },
@@ -18419,7 +18437,7 @@
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L24",
-      "community": 242,
+      "community": 87,
       "norm_label": "react-dom",
       "id": "graph_viz_package_dependencies_react_dom"
     },
@@ -22734,7 +22752,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 101,
+      "community": 11,
       "norm_label": "safefetch",
       "id": "safeFetch"
     },
@@ -22747,7 +22765,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 101,
+      "community": 11,
       "norm_label": "stall",
       "id": "stall"
     },
@@ -22799,7 +22817,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 101,
+      "community": 11,
       "norm_label": "paletteschema",
       "id": "paletteSchema"
     },
@@ -22942,7 +22960,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 101,
+      "community": 11,
       "norm_label": "zod",
       "id": "zod"
     },
@@ -23664,14 +23682,1038 @@
   ],
   "links": [
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "workspaces_playground_apps_playground_src_layouts_base_layout_astro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "data_projects_projects"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "workspaces_playground_apps_playground_src_components_ui_features_hero_astro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "mosaicmaker"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "apps_playground_src_components_ui_features_hero_astro"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "apps_playground_src_data_projects_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "apps_playground_src_layouts_base_layout_astro"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
+      "target": "mosaic_maker"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/astro.config.mjs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_astro_config_mjs",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/package.json",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "playground_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/components/ui/cards/experiment-card.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_components_ui_cards_experiment_card_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/data/projects.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_data_projects_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/color/palettes/index.astro",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_color_palettes_index_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/data-viz/graphify/index.astro",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_data_viz_graphify_index_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/sequences/index.astro",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_sequences_index_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/image/particles/index.astro",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_image_particles_index_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/image/image-manipulator/index.astro",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_image_image_manipulator_index_astro",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storybook/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "storybook_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storybook/src/stories/slider/Slider.stories.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_storybook_src_stories_slider_slider_stories_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storybook/src/stories/switch/Switch.stories.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_storybook_src_stories_switch_switch_stories_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "apps_storybook_src_stories_widgets_sidebar_stories_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/package.json",
+      "source_location": "L51",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "ui_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/package.json",
+      "source_location": "L66",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "ui_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/button/Button.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_button_button_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/badge/Badge.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_badge_badge_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/card/Card.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_card_card_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/input/Input.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_input_input_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/label/Label.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_label_label_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/select/Select.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_select_select_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/slider/Slider.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_slider_slider_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/switch/Switch.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_switch_switch_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/sidebar/Sidebar.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_sidebar_sidebar_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/sidebar/SidebarMain.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_sidebar_sidebarmain_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/sidebar/SidebarPanel.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_sidebar_sidebarpanel_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/sidebar/SidebarToggle.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_sidebar_sidebartoggle_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/sidebar/useSidebarContext.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_sidebar_usesidebarcontext_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/sidebar/sidebarContext.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_sidebar_sidebarcontext_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/components/widgets/color-palette/ColorPalette.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_components_widgets_color_palette_colorpalette_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/src/hooks/useResizeObserver.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_ui_src_hooks_useresizeobserver_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "mosaic_maker_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/package.json",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "mosaic_maker_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "sequence_renderer_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/package.json",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "sequence_renderer_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_sequence_renderer_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/components/renderers/CanvasRenderer.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_sequence_renderer_src_components_renderers_canvasrenderer_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_sequence_renderer_src_components_sequence_display_sequencedisplay_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/palette-generator/package.json",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "palette_generator_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/palette-generator/package.json",
+      "source_location": "L42",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "palette_generator_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/palette-generator/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_palette_generator_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/palette-generator/src/components/controls/color-picker/ColorSpaceCanvas.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_palette_generator_src_components_controls_color_picker_colorspacecanvas_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/palette-generator/src/components/controls/color-picker/ColorSpaceControls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_palette_generator_src_components_controls_color_picker_colorspacecontrols_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-to-particles/package.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "image_to_particles_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-to-particles/package.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "image_to_particles_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-to-particles/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_to_particles_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-to-particles/src/hooks/useImageUpload.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_to_particles_src_hooks_useimageupload_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-to-particles/src/components/ImageToParticles.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_to_particles_src_components_imagetoparticles_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "graph_viz_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/package.json",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "graph_viz_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_graph_viz_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/GraphCanvas.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_graph_viz_src_components_graphcanvas_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/GraphViz.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_graph_viz_src_components_graphviz_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/hooks/useGraphSimulation.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_graph_viz_src_hooks_usegraphsimulation_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/hooks/useResetZoom.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_graph_viz_src_hooks_useresetzoom_ts",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/package.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "image_manipulator_package_peerdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/package.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "image_manipulator_package_devdependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_output_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo/generators/templates/src/main.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "turbo_generators_templates_src_main_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo/generators/templates/src/components/Demo.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "turbo_generators_templates_src_components_demo_tsx",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/ui/package.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "ui_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/mosaic-maker/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "mosaic_maker_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "sequence_renderer_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/palette-generator/package.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "palette_generator_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-to-particles/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "image_to_particles_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/package.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "graph_viz_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/image-manipulator/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "import",
+      "confidence_score": 1.0,
+      "source": "image_manipulator_package_dependencies_react",
+      "target": "react"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/components/ui/cards/experiment-card.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_components_ui_cards_experiment_card_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_components_ui_projects_featured_projects_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/color/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_color_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/color/palettes/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_color_palettes_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/data-viz/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_data_viz_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/data-viz/graphify/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_data_viz_graphify_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/data-viz/pie-chart/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_data_viz_pie_chart_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/generative/sequences/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_generative_sequences_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/image/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_image_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/image/particles/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_image_particles_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/image/image-manipulator/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_image_image_manipulator_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/data-viz/piechart/index.astro",
+      "confidence_score": 1.0,
+      "source": "apps_playground_src_pages_projects_data_viz_piechart_index_astro",
+      "target": "workspaces_playground_apps_playground_src_data_projects"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_01_the_natural_numbers_span_class_text_accent_mathbb_n_span",
-      "confidence_score": 1.0
+      "target": "en_index_step_01_the_natural_numbers_span_class_text_accent_mathbb_n_span"
     },
     {
       "relation": "contains",
@@ -23679,9 +24721,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_02_zero_and_the_negatives_span_class_text_accent_mathbb_z_span",
-      "confidence_score": 1.0
+      "target": "en_index_step_02_zero_and_the_negatives_span_class_text_accent_mathbb_z_span"
     },
     {
       "relation": "contains",
@@ -23689,9 +24731,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L144",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_03_the_rational_numbers_span_class_text_accent_mathbb_q_span",
-      "confidence_score": 1.0
+      "target": "en_index_step_03_the_rational_numbers_span_class_text_accent_mathbb_q_span"
     },
     {
       "relation": "contains",
@@ -23699,9 +24741,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L190",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_04_the_real_numbers_span_class_text_accent_mathbb_r_span",
-      "confidence_score": 1.0
+      "target": "en_index_step_04_the_real_numbers_span_class_text_accent_mathbb_r_span"
     },
     {
       "relation": "contains",
@@ -23709,9 +24751,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L242",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_05_the_imaginary_unit_span_class_text_accent_mathbb_i_span",
-      "confidence_score": 1.0
+      "target": "en_index_step_05_the_imaginary_unit_span_class_text_accent_mathbb_i_span"
     },
     {
       "relation": "contains",
@@ -23719,9 +24761,9 @@
       "source_file": "apps/playground/src/content/notebook/birth-of-complexity/en/index.mdx",
       "source_location": "L289",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "apps_playground_src_content_notebook_birth_of_complexity_en_index_mdx",
-      "target": "en_index_step_06_the_complex_plane_span_class_text_accent_mathbb_c_span",
-      "confidence_score": 1.0
+      "target": "en_index_step_06_the_complex_plane_span_class_text_accent_mathbb_c_span"
     },
     {
       "relation": "contains",
@@ -24710,17 +25752,6 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/astro.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_astro_config_mjs",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/astro.config.mjs",
       "source_location": "L6",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -25289,17 +26320,6 @@
       "confidence_score": 1.0,
       "source": "playground_package_dependencies_lucide_react",
       "target": "lucide_react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/package.json",
-      "source_location": "L35",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "playground_package_dependencies_react",
-      "target": "react"
     },
     {
       "relation": "imports",
@@ -25922,22 +26942,6 @@
     },
     {
       "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/components/ui/cards/experiment-card.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_components_ui_cards_experiment_card_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/components/ui/cards/experiment-card.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_components_ui_cards_experiment_card_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
@@ -26001,910 +27005,6 @@
       "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_image_index_astro",
       "target": "apps_playground_src_components_ui_cards_experiment_card_astro"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/data/projects.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_data_projects_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/color/palettes/index.astro",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_color_palettes_index_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/data-viz/graphify/index.astro",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_data_viz_graphify_index_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/sequences/index.astro",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_sequences_index_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/image/particles/index.astro",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_image_particles_index_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/image/image-manipulator/index.astro",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_image_image_manipulator_index_astro",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/storybook/package.json",
-      "source_location": "L15",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "storybook_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/storybook/src/stories/slider/Slider.stories.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_storybook_src_stories_slider_slider_stories_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/storybook/src/stories/switch/Switch.stories.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_storybook_src_stories_switch_switch_stories_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/storybook/src/stories/widgets/Sidebar.stories.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_storybook_src_stories_widgets_sidebar_stories_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/package.json",
-      "source_location": "L51",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "ui_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/package.json",
-      "source_location": "L66",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "ui_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/button/Button.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_button_button_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/badge/Badge.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_badge_badge_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/card/Card.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_card_card_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/input/Input.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_input_input_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/label/Label.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_label_label_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/select/Select.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_select_select_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/slider/Slider.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_slider_slider_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/switch/Switch.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_switch_switch_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/sidebar/Sidebar.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_sidebar_sidebar_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/sidebar/SidebarMain.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_sidebar_sidebarmain_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/sidebar/SidebarPanel.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_sidebar_sidebarpanel_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/sidebar/SidebarToggle.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_sidebar_sidebartoggle_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/sidebar/useSidebarContext.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_sidebar_usesidebarcontext_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/sidebar/sidebarContext.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_sidebar_sidebarcontext_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/components/widgets/color-palette/ColorPalette.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_components_widgets_color_palette_colorpalette_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/src/hooks/useResizeObserver.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_ui_src_hooks_useresizeobserver_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/package.json",
-      "source_location": "L25",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "mosaic_maker_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/package.json",
-      "source_location": "L40",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "mosaic_maker_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/controls/SliderControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_controls_slidercontrols_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/src/components/mosaic-display/MosaicDisplay.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_mosaic_maker_src_components_mosaic_display_mosaicdisplay_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/sequence-renderer/package.json",
-      "source_location": "L25",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "sequence_renderer_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/sequence-renderer/package.json",
-      "source_location": "L40",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "sequence_renderer_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/sequence-renderer/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_sequence_renderer_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/sequence-renderer/src/components/renderers/CanvasRenderer.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_sequence_renderer_src_components_renderers_canvasrenderer_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_sequence_renderer_src_components_sequence_display_sequencedisplay_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/palette-generator/package.json",
-      "source_location": "L27",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "palette_generator_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/palette-generator/package.json",
-      "source_location": "L42",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "palette_generator_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/palette-generator/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_palette_generator_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/palette-generator/src/components/controls/color-picker/ColorSpaceCanvas.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_palette_generator_src_components_controls_color_picker_colorspacecanvas_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/palette-generator/src/components/controls/color-picker/ColorSpaceControls.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_palette_generator_src_components_controls_color_picker_colorspacecontrols_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-to-particles/package.json",
-      "source_location": "L24",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "image_to_particles_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-to-particles/package.json",
-      "source_location": "L39",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "image_to_particles_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-to-particles/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_to_particles_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-to-particles/src/hooks/useImageUpload.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_to_particles_src_hooks_useimageupload_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-to-particles/src/components/ImageToParticles.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_to_particles_src_components_imagetoparticles_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/package.json",
-      "source_location": "L25",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "graph_viz_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/package.json",
-      "source_location": "L41",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "graph_viz_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/components/GraphCanvas.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_src_components_graphcanvas_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/components/GraphViz.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_src_components_graphviz_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/hooks/useGraphSimulation.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_src_hooks_usegraphsimulation_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/hooks/useResetZoom.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_src_hooks_useresetzoom_ts",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/package.json",
-      "source_location": "L24",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "image_manipulator_package_peerdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/package.json",
-      "source_location": "L39",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "image_manipulator_package_devdependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/SeamCarvingDemo.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_seamcarvingdemo_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Output.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_output_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/src/components/display/Outputs.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_image_manipulator_src_components_display_outputs_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "turbo/generators/templates/src/main.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "turbo_generators_templates_src_main_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "turbo/generators/templates/src/components/Demo.tsx",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "turbo_generators_templates_src_components_demo_tsx",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/ui/package.json",
-      "source_location": "L32",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "ui_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/mosaic-maker/package.json",
-      "source_location": "L21",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "mosaic_maker_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/sequence-renderer/package.json",
-      "source_location": "L21",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "sequence_renderer_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/palette-generator/package.json",
-      "source_location": "L24",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "palette_generator_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-to-particles/package.json",
-      "source_location": "L21",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "image_to_particles_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/package.json",
-      "source_location": "L23",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "graph_viz_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/image-manipulator/package.json",
-      "source_location": "L21",
-      "weight": 1.0,
-      "context": "import",
-      "confidence_score": 1.0,
-      "source": "image_manipulator_package_dependencies_react",
-      "target": "react"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/components/ui/projects/featured-projects.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_components_ui_projects_featured_projects_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/color/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_color_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/color/palettes/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_color_palettes_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/data-viz/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_data_viz_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/data-viz/graphify/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_data_viz_graphify_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/data-viz/pie-chart/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_data_viz_pie_chart_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/sequences/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_sequences_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/image/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_image_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/image/particles/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_image_particles_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/image/image-manipulator/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_image_image_manipulator_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/data-viz/piechart/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_data_viz_piechart_index_astro",
-      "target": "workspaces_playground_apps_playground_src_data_projects"
     },
     {
       "relation": "imports_from",
@@ -27151,17 +27251,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_data_viz_pie_chart_index_astro",
-      "target": "apps_playground_src_components_ui_features_hero_astro"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
       "target": "apps_playground_src_components_ui_features_hero_astro"
     },
     {
@@ -27550,17 +27639,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "apps_playground_src_data_projects_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/projects/generative/sequences/index.astro",
       "source_location": "L5",
       "weight": 1.0,
@@ -27632,17 +27710,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_data_viz_pie_chart_index_astro",
-      "target": "data_projects_projects"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
       "target": "data_projects_projects"
     },
     {
@@ -28049,17 +28116,6 @@
       "source_file": "apps/playground/src/pages/projects/generative/index.astro",
       "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_generative_index_astro",
-      "target": "apps_playground_src_layouts_base_layout_astro"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
       "target": "apps_playground_src_layouts_base_layout_astro"
     },
     {
@@ -28583,22 +28639,6 @@
       "confidence_score": 1.0,
       "source": "apps_playground_src_pages_projects_data_viz_graphify_index_astro",
       "target": "graph_viz"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "mosaicmaker"
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/pages/projects/generative/mosaic/index.astro",
-      "confidence_score": 1.0,
-      "source": "apps_playground_src_pages_projects_generative_mosaic_index_astro",
-      "target": "mosaic_maker"
     },
     {
       "relation": "imports_from",
@@ -55342,5 +55382,5 @@
       "source_file": "packages/sequence-renderer/src/core/rules.ts"
     }
   ],
-  "built_at_commit": "5276bf4ed6228e1bcf38edfa9563985626fab586"
+  "built_at_commit": "8dc909bbf34d71d97a81306e9fad64c109968bbc"
 }

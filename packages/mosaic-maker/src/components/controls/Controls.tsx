@@ -2,8 +2,8 @@ import { Button } from "@repo/ui/Button";
 import { DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../core/constants";
 import { CSS_VARS } from "../../core/cssVars";
 import {
-  updateMosaicCurrentPalettes,
-  updateMosaicTiles,
+  cycleMosaicPalettes,
+  regenerateMosaicTiles,
   useMosaicCurrentPalette,
   useMosaicRef,
 } from "../../store/mosaicStore";
@@ -36,10 +36,10 @@ function Controls() {
         <Button type="button" onClick={() => shuffleRotations()} size="small">
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={() => updateMosaicCurrentPalettes()} size="small">
+        <Button type="button" onClick={() => cycleMosaicPalettes()} size="small">
           New palettes
         </Button>
-        <Button type="button" onClick={() => updateMosaicTiles()} size="small">
+        <Button type="button" onClick={() => regenerateMosaicTiles()} size="small">
           New tiles
         </Button>
       </fieldset>
