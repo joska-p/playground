@@ -58,4 +58,10 @@ export type SnapshotStep = {
   kind: "snapshot";
 };
 
-export type Step = ManipStep | SnapshotStep;
+// Enforce that if id is "resize", opts MUST be ResizeOptions.
+// Otherwise, fall back to standard key-value records for filters.
+export type CustomManipStep =
+  | { kind: "manip"; id: "resize"; opts: ResizeOptions }
+  | { kind: "manip"; id: Exclude<string, "resize">; opts: Record<string, unknown> };
+
+export type Step = CustomManipStep | SnapshotStep;

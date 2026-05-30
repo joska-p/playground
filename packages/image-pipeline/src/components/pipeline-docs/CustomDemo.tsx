@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pipeline } from "../image-pipeline";
+import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
 
 function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
@@ -11,13 +11,11 @@ function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
     if (!sourceData || ranRef.current) return;
     ranRef.current = true;
     setLoading(true);
-    Pipeline.from(sourceData)
-      .add("demo-warm")
-      .run()
-      .then((r) => {
-        setResult(r.final);
-        setLoading(false);
-      });
+
+    pipelineGateway(sourceData, [{ kind: "manip", id: "demo-warm", opts: {} }])
+      .then((r) => setResult(r.final))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [sourceData]);
 
   const resultUrl = useMemo(() => (result ? imageDataToUrl(result) : null), [result]);

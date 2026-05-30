@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pipeline } from "../image-pipeline";
+import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
@@ -11,15 +11,15 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
     if (!sourceData || ranRef.current) return;
     ranRef.current = true;
     setLoading(true);
-    Pipeline.from(sourceData)
-      .add("brightness", { value: 1.2 })
-      .add("contrast", { value: 1.3 })
-      .add("sharpen", { strength: 1.5 })
-      .run()
-      .then((r) => {
-        setResult(r.final);
-        setLoading(false);
-      });
+
+    pipelineGateway(sourceData, [
+      { kind: "manip", id: "brightness", opts: { value: 1.2 } },
+      { kind: "manip", id: "contrast", opts: { value: 1.3 } },
+      { kind: "manip", id: "sharpen", opts: { strength: 1.5 } },
+    ])
+      .then((r) => setResult(r.final))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [sourceData]);
 
   const resultUrl = useMemo(() => (result ? imageDataToUrl(result) : null), [result]);

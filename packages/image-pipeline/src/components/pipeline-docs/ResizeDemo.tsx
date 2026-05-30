@@ -1,6 +1,6 @@
 import { Button } from "@repo/ui/Button";
 import { useEffect, useMemo, useState } from "react";
-import { Pipeline } from "../image-pipeline";
+import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
@@ -35,12 +35,9 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
     if (!sourceData) return;
     const m = modes.find((m) => m.id === mode);
     if (!m) return;
-    Pipeline.from(sourceData)
-      .resize(m.opts)
-      .run()
-      .then((r) => {
-        setResult(r.final);
-      });
+    pipelineGateway(sourceData, [{ kind: "manip", id: "resize", opts: m.opts }])
+      .then((r) => setResult(r.final))
+      .catch(console.error);
   }, [sourceData, mode, modes]);
 
   const loading = sourceData !== null && result === null;

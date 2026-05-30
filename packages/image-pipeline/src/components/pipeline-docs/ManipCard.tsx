@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@repo/ui/Card";
 import { Slider } from "@repo/ui/Slider";
 import { useEffect, useMemo, useState } from "react";
-import { Pipeline } from "../image-pipeline";
+import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { CodeBlock } from "./CodeBlock";
 import { imageDataToUrl } from "./helpers";
 import type { ManipInfo } from "./manipData";
@@ -30,15 +30,14 @@ function ManipCard({
       }
     }
 
-    Pipeline.from(sourceData)
-      .add(manip.id, opts)
-      .run()
-      .then((res) => {
+    pipelineGateway(sourceData, [{ kind: "manip", id: manip.id, opts }])
+      .then((r) => setResult(r.final))
+      .catch(console.error)
+      .finally(() => {
         if (!cancelled) {
-          setResult(res.final);
+          setResult(null);
         }
-      })
-      .catch(() => undefined);
+      });
 
     return () => {
       cancelled = true;

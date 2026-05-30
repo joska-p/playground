@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Pipeline } from "../image-pipeline";
+import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
 
 function SnapshotDemo({ sourceData }: { sourceData: ImageData | null }) {
@@ -11,17 +11,17 @@ function SnapshotDemo({ sourceData }: { sourceData: ImageData | null }) {
     if (!sourceData || ranRef.current) return;
     ranRef.current = true;
     setLoading(true);
-    Pipeline.from(sourceData)
-      .add("grayscale")
-      .snapshot()
-      .add("invert")
-      .snapshot()
-      .add("edge-detect")
-      .run()
-      .then((r) => {
-        setSnapshots([...r.snapshots, r.final]);
-        setLoading(false);
-      });
+
+    pipelineGateway(sourceData, [
+      { kind: "manip", id: "grayscale", opts: {} },
+      { kind: "snapshot" },
+      { kind: "manip", id: "invert", opts: {} },
+      { kind: "snapshot" },
+      { kind: "manip", id: "edge-detect", opts: {} },
+    ])
+      .then((r) => setSnapshots([...r.snapshots, r.final]))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [sourceData]);
 
   const stages = ["After: grayscale", "After: invert", "After: edge-detect"];
