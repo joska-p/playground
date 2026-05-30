@@ -9,7 +9,7 @@ const notebook = defineCollection({
 });
 
 const docs = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/docs" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "../../docs/wiki" }),
   schema: docSchema,
 });
 
