@@ -47,7 +47,7 @@ self.addEventListener(
         ...snapshots.map((snap) => snap.data.buffer),
       ];
 
-      self.postMessage(result, transferables);
+      self.postMessage(result, { transfer: transferables });
     } catch (err) {
       // Surface pipeline errors back to the gateway's onerror handler
       self.postMessage({ error: err instanceof Error ? err.message : String(err) });
