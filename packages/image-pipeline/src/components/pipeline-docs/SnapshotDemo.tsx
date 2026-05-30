@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Pipeline } from "../../api/index";
+import { Pipeline } from "../image-pipeline";
 import { imageDataToUrl } from "./helpers";
 
 function SnapshotDemo({ sourceData }: { sourceData: ImageData | null }) {

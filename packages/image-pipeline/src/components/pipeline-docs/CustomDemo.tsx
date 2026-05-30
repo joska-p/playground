@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pipeline } from "../../api/index";
+import { Pipeline } from "../image-pipeline";
 import { imageDataToUrl } from "./helpers";
 
 function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {

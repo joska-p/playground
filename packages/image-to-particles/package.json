@@ -18,31 +18,32 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "zustand": "^5.0.12"
+    "zustand": "catalog:"
   },
   "peerDependencies": {
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "eslint": "catalog:",
+    "@babel/core": "catalog:",
     "@repo/config-eslint": "workspace:*",
-    "@rolldown/plugin-babel": "^0.2.3",
-    "@tailwindcss/vite": "^4.3.0",
-    "@types/babel__core": "^7.20.5",
-    "@types/node": "^24.12.3",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "babel-plugin-react-compiler": "^1.0.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "prettier": "3.8.3",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "0.8.0",
-    "tailwindcss": "^4.3.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.0.12"
+    "@rolldown/plugin-babel": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tsconfig/strictest": "catalog:",
+    "@types/babel__core": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "babel-plugin-react-compiler": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "prettier-plugin-tailwindcss": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }

@@ -1,4 +1,4 @@
-import { registerManipulation } from "../../api/index";
+import { registerManipulation } from "../image-pipeline/index";
 
 type ManipInfo = {
   id: string;

@@ -35,7 +35,7 @@ export function PipelineDocs() {
     <div className="mx-auto max-w-6xl space-y-16 px-4 py-12">
       <div className="space-y-4">
         <h1 className="text-4xl font-black tracking-tight">
-          <span className="text-[var(--primary)]">@repo/</span>image-pipeline
+          <span className="text-primary">@repo/</span>image-pipeline
         </h1>
         <p className="text-muted-foreground max-w-3xl text-base leading-relaxed">
           TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Works in

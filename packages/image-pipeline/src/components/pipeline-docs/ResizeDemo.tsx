@@ -1,6 +1,6 @@
 import { Button } from "@repo/ui/Button";
 import { useEffect, useMemo, useState } from "react";
-import { Pipeline } from "../../api/index";
+import { Pipeline } from "../image-pipeline";
 import { imageDataToUrl } from "./helpers";
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
