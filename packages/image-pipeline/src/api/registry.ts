@@ -44,3 +44,8 @@ class Registry {
 }
 
 export const registry = new Registry();
+
+/** Register a manipulation so it can be used by ID in any pipeline. */
+export function registerManipulation(def: ManipulationDefinition): void {
+  registry.register(def);
+}

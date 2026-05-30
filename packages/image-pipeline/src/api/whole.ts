@@ -1,4 +1,4 @@
-import { registerManipulation } from "./index";
+import { registerManipulation } from "./registry";
 import type { WholeImageFn } from "./types";
 
 const wholeFn = (fn: WholeImageFn) => fn;

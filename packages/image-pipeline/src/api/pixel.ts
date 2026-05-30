@@ -1,4 +1,4 @@
-import { registerManipulation } from "./index";
+import { registerManipulation } from "./registry";
 import type { PixelFn } from "./types";
 
 const pixelFn = (fn: PixelFn) => fn;

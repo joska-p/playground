@@ -26,6 +26,7 @@ Then apply the React-specific extras:
 
 1. Add `"@repo/image-pipeline": "workspace:*"` to `apps/playground/package.json` (under `dependencies`).
 2. Create the Astro page at `apps/playground/src/pages/projects/<category>/<slug>/index.astro`:
+
    ```astro
    ---
    import { Demo } from "@repo/image-pipeline/Demo";
@@ -41,6 +42,7 @@ Then apply the React-specific extras:
      </div>
    </BaseLayout>
    ```
+
 3. Register the project in `apps/playground/src/data/projects.ts`.
 4. Add the `@source` directive in `apps/playground/src/styles/styles.css`:
    ```css

@@ -1,4 +1,4 @@
-import { registerManipulation } from "./index";
+import { registerManipulation } from "./registry";
 import type { NeighborhoodFn } from "./types";
 
 const neighborFn = (fn: NeighborhoodFn) => fn;

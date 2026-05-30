@@ -1,4 +1,4 @@
-import { PipelineDocs } from "./components/PipelineDocs.tsx";
+import { PipelineDocs } from "./components/pipeline-docs/PipelineDocs";
 
 function App() {
   return (

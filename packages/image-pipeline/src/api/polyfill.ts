@@ -18,7 +18,7 @@ class ImageDataPolyfill {
 
 if (typeof ImageData === "undefined") {
   const ImageDataCtor = ImageDataPolyfill as typeof ImageData;
-  (globalThis as { ImageData: typeof ImageData }).ImageData = ImageDataCtor;
+  (globalThis as unknown as { ImageData: typeof ImageData }).ImageData = ImageDataCtor;
 }
 
 export {};

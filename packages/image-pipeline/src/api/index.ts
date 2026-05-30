@@ -5,7 +5,7 @@ import "./whole";
 
 export { config } from "./config";
 export { Pipeline } from "./pipeline";
-export { registry } from "./registry";
+export { registerManipulation, registry } from "./registry";
 export type {
   ManipulationDefinition,
   NeighborhoodFn,
@@ -17,13 +17,7 @@ export type {
 } from "./types";
 
 import { config } from "./config";
-import { registry } from "./registry";
-import type { ManipulationDefinition, PipelineConfig } from "./types";
-
-/** Register a manipulation so it can be used by ID in any pipeline. */
-export function registerManipulation(def: ManipulationDefinition): void {
-  registry.register(def);
-}
+import type { PipelineConfig } from "./types";
 
 /** Override global pipeline configuration. */
 export function setConfig(overrides: Partial<PipelineConfig>): void {

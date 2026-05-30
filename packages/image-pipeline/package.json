@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     "./imagePipeline": "./src/api/index.ts",
-    "./PipelineDocs": "./src/components/PipelineDocs.tsx",
+    "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
