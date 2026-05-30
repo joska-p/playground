@@ -1,3 +1,8 @@
+import "./neighborhood";
+import "./pixel";
+import "./polyfill";
+import "./whole";
+
 export { config } from "./config";
 export { Pipeline } from "./pipeline";
 export { registry } from "./registry";

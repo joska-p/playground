@@ -23,10 +23,7 @@ export default defineConfig({
   site: siteUrl,
   base: basePath,
   trailingSlash: "always",
-  markdown: {
-    remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]], // the order matter math before katex
-    rehypePlugins: [rehypeKatex],
-  },
+
   fonts: [
     {
       provider: fontProviders.fontsource(),
@@ -43,5 +40,12 @@ export default defineConfig({
     },
   },
 
-  integrations: [react(), mdx()],
+  integrations: [
+    react(),
+    mdx({
+      remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]], // the order matter math before katex
+      rehypePlugins: [rehypeKatex],
+      remarkRehype: { allowDangerousHtml: true },
+    }),
+  ],
 });

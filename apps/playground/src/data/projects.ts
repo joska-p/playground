@@ -1,4 +1,12 @@
-import { Flame, Grid, Grid3X3, Infinity as InfinityIcon, Palette, PieChart } from "lucide-react";
+import {
+  Flame,
+  Grid,
+  Grid3X3,
+  ImageDown,
+  Infinity as InfinityIcon,
+  Palette,
+  PieChart,
+} from "lucide-react";
 import type { ComponentType } from "react";
 
 /**
@@ -92,6 +100,16 @@ export const projects: Record<string, Project> = {
     category: "image",
     tags: ["Images", "Canvas"],
     icon: Flame,
+    featured: false,
+  },
+  pipeline: {
+    slug: "pipeline",
+    name: "Image Pipeline",
+    description:
+      "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.",
+    category: "image",
+    tags: ["Pipeline", "Docs"],
+    icon: ImageDown,
     featured: false,
   },
   "pie-chart": {

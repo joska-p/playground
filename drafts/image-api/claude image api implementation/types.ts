@@ -6,7 +6,7 @@ export type PixelFn = (
   b: number,
   a: number,
   opts: Record<string, unknown>
-) => [number, number, number, number]
+) => [number, number, number, number];
 
 export type NeighborhoodFn = (
   src: Uint8ClampedArray,
@@ -14,21 +14,18 @@ export type NeighborhoodFn = (
   width: number,
   height: number,
   opts: Record<string, unknown>
-) => void
+) => void;
 
-export type WholeImageFn = (
-  imageData: ImageData,
-  opts: Record<string, unknown>
-) => ImageData
+export type WholeImageFn = (imageData: ImageData, opts: Record<string, unknown>) => ImageData;
 
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 
 export interface ManipulationDefinition {
-  id: string
-  type: 'pixel' | 'neighborhood' | 'whole'
+  id: string;
+  type: "pixel" | "neighborhood" | "whole";
   /** Required when type is 'neighborhood' */
-  radius?: number
-  fn: PixelFn | NeighborhoodFn | WholeImageFn
+  radius?: number;
+  fn: PixelFn | NeighborhoodFn | WholeImageFn;
 }
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
@@ -36,28 +33,28 @@ export interface ManipulationDefinition {
 export type ResizeOptions =
   | { width: number; height?: never; maxPixels?: never; fit?: never }
   | { height: number; width?: never; maxPixels?: never; fit?: never }
-  | { width: number; height: number; fit?: 'fill' | 'cover' | 'contain'; maxPixels?: never }
-  | { maxPixels: number; width?: never; height?: never; fit?: never }
+  | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maxPixels?: never }
+  | { maxPixels: number; width?: never; height?: never; fit?: never };
 
 export interface PipelineResult {
-  final: ImageData
-  snapshots: ImageData[]
+  final: ImageData;
+  snapshots: ImageData[];
 }
 
 export interface PipelineConfig {
-  maxPixels: number
+  maxPixels: number;
 }
 
 // ─── Internal Step Types ─────────────────────────────────────────────────────
 
 export interface ManipStep {
-  kind: 'manip'
-  id: string
-  opts: Record<string, unknown>
+  kind: "manip";
+  id: string;
+  opts: Record<string, unknown>;
 }
 
 export interface SnapshotStep {
-  kind: 'snapshot'
+  kind: "snapshot";
 }
 
-export type Step = ManipStep | SnapshotStep
+export type Step = ManipStep | SnapshotStep;

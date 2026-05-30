@@ -12,12 +12,6 @@ import type {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function cloneImageData(src: ImageData): ImageData {
-  const out = new ImageData(src.width, src.height);
-  out.data.set(src.data);
-  return out;
-}
-
 function imageDataFromBuffer(buf: Uint8ClampedArray, width: number, height: number): ImageData {
   const out = new ImageData(width, height);
   out.data.set(buf);
@@ -62,8 +56,8 @@ export async function runPipeline(
   const pixelCount = width * height;
 
   // Ping-pong buffers
-  let bufA = new Uint8ClampedArray(source.data);
-  let bufB = new Uint8ClampedArray(pixelCount * 4);
+  const bufA = new Uint8ClampedArray(source.data);
+  const bufB = new Uint8ClampedArray(pixelCount * 4);
 
   // Current "live" buffer pointer
   let current: Uint8ClampedArray = bufA;

@@ -1,32 +1,3 @@
-/**
- * Tests for the image-pipeline library.
- * Run with: npx tsx --test src/tests/pipeline.test.ts
- *
- * Uses a minimal ImageData polyfill so tests run in Node without a browser or canvas.
- */
-
-// ─── Minimal ImageData polyfill ───────────────────────────────────────────────
-class ImageDataPolyfill {
-  readonly width: number;
-  readonly height: number;
-  readonly data: Uint8ClampedArray;
-
-  constructor(widthOrData: number | Uint8ClampedArray, width: number, height?: number) {
-    if (typeof widthOrData === "number") {
-      this.width = widthOrData;
-      this.height = width;
-      this.data = new Uint8ClampedArray(widthOrData * width * 4);
-    } else {
-      this.width = width;
-      this.height = height!;
-      this.data = new Uint8ClampedArray(widthOrData);
-    }
-  }
-}
-
-// Inject before importing pipeline modules
-(globalThis as any).ImageData = ImageDataPolyfill;
-
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 
@@ -44,7 +15,7 @@ function makeImageData(
   height: number,
   fill: [number, number, number, number] = [100, 150, 200, 255]
 ): ImageData {
-  const img = new (globalThis as any).ImageData(width, height) as ImageData;
+  const img = new ImageData(width, height);
   for (let i = 0; i < width * height; i++) {
     img.data[i * 4] = fill[0];
     img.data[i * 4 + 1] = fill[1];
@@ -92,7 +63,7 @@ registerManipulation({
   id: "add-ten-whole",
   type: "whole",
   fn: wholeFn((imageData) => {
-    const out = new (globalThis as any).ImageData(imageData.width, imageData.height) as ImageData;
+    const out = new ImageData(imageData.width, imageData.height);
     for (let i = 0; i < imageData.width * imageData.height * 4; i += 4) {
       out.data[i] = Math.min(255, imageData.data[i] + 10);
       out.data[i + 1] = Math.min(255, imageData.data[i + 1] + 10);
@@ -107,7 +78,7 @@ registerManipulation({
 
 describe("Pipeline.from()", () => {
   test("rejects non-ImageData", () => {
-    assert.throws(() => Pipeline.from({} as any), /ImageData/);
+    assert.throws(() => Pipeline.from(null as ImageData), /ImageData/);
   });
 
   test("returns a Pipeline instance", () => {
