@@ -148,7 +148,7 @@ export function PipelineDocs() {
       <section>
         <SectionHeader
           title="Chaining & Composition"
-          code={`const pipeline = Pipeline.from(source)\n  .resize({ maxPixels: 100_000 })\n  .add("brightness", { value: 1.2 })\n  .add("contrast", { value: 1.3 })\n  .add("sharpen", { strength: 1.5 });\n\nconst { final, snapshots } = await pipeline.run();`}
+          code={`const pipeline = Pipeline.from(source)\n  .resize({ maxPixels: 100_000 })\n  .add("brightness", { value: 1.2 })\n  .add("contrast", { value: 1.3 })\n  .add("sharpen", { strength: 1.5 });\n\nconst { source, final, snapshots } = await pipeline.run();`}
         />
         <ChainDemo sourceData={sourceData} />
       </section>

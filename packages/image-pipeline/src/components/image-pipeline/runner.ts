@@ -137,5 +137,5 @@ export async function runPipeline(
   flushPixelBatch();
 
   const final = imageDataFromBuffer(current, currentWidth, currentHeight);
-  return { final, snapshots };
+  return { source, final, snapshots };
 }

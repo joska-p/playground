@@ -37,6 +37,7 @@ export type ResizeOptions =
   | { maxPixels: number; width?: never; height?: never; fit?: never };
 
 export type PipelineResult = {
+  source: ImageData;
   final: ImageData;
   snapshots: ImageData[];
 };
