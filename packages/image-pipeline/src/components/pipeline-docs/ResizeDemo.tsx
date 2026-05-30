@@ -1,53 +1,40 @@
 import { Button } from "@repo/ui/Button";
-import { useEffect, useMemo, useState } from "react";
-import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
+import { useState } from "react";
 import { imageDataToUrl } from "./helpers";
+import { usePipeline } from "./usePipeline";
+
+const MODES = [
+  { id: "width", label: "Width (100px)", opts: { width: 100 } as const },
+  { id: "height", label: "Height (100px)", opts: { height: 100 } as const },
+  {
+    id: "fill",
+    label: "Fill (100×100)",
+    opts: { width: 100, height: 100, fit: "fill" as const },
+  },
+  {
+    id: "contain",
+    label: "Contain (100×100)",
+    opts: { width: 100, height: 100, fit: "contain" as const },
+  },
+  {
+    id: "cover",
+    label: "Cover (100×100)",
+    opts: { width: 100, height: 100, fit: "cover" as const },
+  },
+  { id: "maxpixels", label: "Max Pixels (5000)", opts: { maxPixels: 5000 } as const },
+] as const;
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
-  const [mode, setMode] = useState<string>("width");
-  const [result, setResult] = useState<ImageData | null>(null);
-
-  const modes = useMemo(
-    () => [
-      { id: "width", label: "Width (100px)", opts: { width: 100 } as const },
-      { id: "height", label: "Height (100px)", opts: { height: 100 } as const },
-      {
-        id: "fill",
-        label: "Fill (100×100)",
-        opts: { width: 100, height: 100, fit: "fill" as const },
-      },
-      {
-        id: "contain",
-        label: "Contain (100×100)",
-        opts: { width: 100, height: 100, fit: "contain" as const },
-      },
-      {
-        id: "cover",
-        label: "Cover (100×100)",
-        opts: { width: 100, height: 100, fit: "cover" as const },
-      },
-      { id: "maxpixels", label: "Max Pixels (5000)", opts: { maxPixels: 5000 } as const },
-    ],
-    []
-  );
-
-  useEffect(() => {
-    if (!sourceData) return;
-    const m = modes.find((m) => m.id === mode);
-    if (!m) return;
-    pipelineGateway(sourceData, [{ kind: "manip", id: "resize", opts: m.opts }])
-      .then((r) => setResult(r.final))
-      .catch(console.error);
-  }, [sourceData, mode, modes]);
-
+  const [mode, setMode] = useState("width");
+  const m = MODES.find((m) => m.id === mode)!;
+  const result = usePipeline(sourceData, [{ kind: "manip", id: "resize", opts: m.opts }]);
+  const resultImage = result?.final ?? null;
   const loading = sourceData !== null && result === null;
-  const resultUrl = useMemo(() => (result ? imageDataToUrl(result) : null), [result]);
-  const sourceUrl = useMemo(() => (sourceData ? imageDataToUrl(sourceData) : null), [sourceData]);
 
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        {modes.map((m) => (
+        {MODES.map((m) => (
           <Button
             key={m.id}
             variant={mode === m.id ? "primary" : "outline"}
@@ -61,9 +48,9 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
       <div className="flex items-start gap-6">
         <div className="w-36">
           <p className="text-muted-foreground mb-1 text-xs">Original</p>
-          {sourceUrl && (
+          {sourceData && (
             <img
-              src={sourceUrl}
+              src={imageDataToUrl(sourceData)}
               alt="original"
               className="border-border w-full rounded border"
               style={{ imageRendering: "pixelated" }}
@@ -79,16 +66,16 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
             <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
               ...
             </div>
-          ) : resultUrl ? (
+          ) : resultImage ? (
             <img
-              src={resultUrl}
+              src={imageDataToUrl(resultImage)}
               alt="resized"
               className="border-border w-full rounded border"
               style={{ imageRendering: "pixelated" }}
             />
           ) : null}
           <p className="text-muted-foreground mt-1 text-[10px] font-mono">
-            {result?.width}×{result?.height}
+            {resultImage?.width}×{resultImage?.height}
           </p>
         </div>
       </div>

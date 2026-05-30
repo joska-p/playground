@@ -3,11 +3,7 @@ import PipelineWorker from "./pipeline.worker?worker&inline";
 import type { Step } from "./types";
 
 // ---------------------------------------------------------------------------
-// Worker pool
-// ---------------------------------------------------------------------------
-// One singleton worker serialises every job — request N blocks until request
-// N-1 finishes.  A pool dispatches each job to the next idle worker, so
-// heavy pipelines run concurrently up to the number of logical CPU cores.
+// Types
 // ---------------------------------------------------------------------------
 
 type PoolEntry = {
@@ -15,11 +11,22 @@ type PoolEntry = {
   busy: boolean;
 };
 
+type QueuedJob = {
+  imageData: ImageData;
+  steps: Step[];
+  resolve: (result: PipelineResult) => void;
+  reject: (error: Error) => void;
+};
+
+// ---------------------------------------------------------------------------
+// Pool + queue
+// ---------------------------------------------------------------------------
+
 let pool: PoolEntry[] = [];
+const jobQueue: QueuedJob[] = [];
 
 function getPool(): PoolEntry[] {
   if (pool.length === 0) {
-    // Cap at 4 so we don't thrash on machines with many cores
     const size = Math.min(navigator.hardwareConcurrency ?? 2, 4);
     pool = Array.from({ length: size }, () => ({
       worker: new PipelineWorker(),
@@ -33,48 +40,68 @@ function acquireWorker(): PoolEntry | null {
   return getPool().find((entry) => !entry.busy) ?? null;
 }
 
+function dispatch(
+  entry: PoolEntry,
+  imageData: ImageData,
+  steps: Step[],
+  resolve: QueuedJob["resolve"],
+  reject: QueuedJob["reject"]
+): void {
+  entry.busy = true;
+
+  const onMessage = (event: MessageEvent<PipelineResult | { error: string }>) => {
+    cleanup();
+    if ("error" in event.data) {
+      reject(new Error(event.data.error));
+    } else {
+      resolve(event.data);
+    }
+  };
+
+  const onError = (error: ErrorEvent) => {
+    cleanup();
+    reject(new Error(error.message ?? "Unknown worker error"));
+  };
+
+  const cleanup = () => {
+    entry.worker.removeEventListener("message", onMessage);
+    entry.worker.removeEventListener("error", onError);
+    entry.busy = false;
+    drainQueue();
+  };
+
+  entry.worker.addEventListener("message", onMessage);
+  entry.worker.addEventListener("error", onError);
+
+  const clampedCopy = new Uint8ClampedArray(imageData.data);
+  const imageDataCopy = new ImageData(clampedCopy, imageData.width, imageData.height);
+  entry.worker.postMessage({ sourceData: imageDataCopy, steps }, [imageDataCopy.data.buffer]);
+}
+
+function drainQueue(): void {
+  if (!jobQueue.length) return;
+  const entry = acquireWorker();
+  if (!entry) return;
+  const job = jobQueue.shift()!;
+  dispatch(entry, job.imageData, job.steps, job.resolve, job.reject);
+}
+
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
 
 function pipelineGateway(sourceImageData: ImageData, steps: Step[]): Promise<PipelineResult> {
+  const entry = acquireWorker();
+
+  if (entry) {
+    return new Promise((resolve, reject) => {
+      dispatch(entry, sourceImageData, steps, resolve, reject);
+    });
+  }
+
+  // All workers busy — queue the job until a worker frees up
   return new Promise((resolve, reject) => {
-    const entry = acquireWorker();
-
-    if (!entry) {
-      // All workers busy — caller should queue or debounce upstream
-      reject(new Error("Pipeline worker pool exhausted. Retry after a pending job completes."));
-      return;
-    }
-
-    entry.busy = true;
-
-    const onMessage = (event: MessageEvent<PipelineResult>) => {
-      cleanup();
-      resolve(event.data);
-    };
-
-    const onError = (error: ErrorEvent) => {
-      cleanup();
-      reject(new Error(error.message ?? "Unknown worker error"));
-    };
-
-    const cleanup = () => {
-      entry.worker.removeEventListener("message", onMessage);
-      entry.worker.removeEventListener("error", onError);
-      entry.busy = false;
-    };
-
-    entry.worker.addEventListener("message", onMessage);
-    entry.worker.addEventListener("error", onError);
-
-    // Transfer the buffer directly from the copy — not the intermediate
-    // allocation.  Transferring `bufferCopy` after wrapping it in ImageData
-    // detaches it before postMessage can serialise the ImageData payload.
-    const clampedCopy = new Uint8ClampedArray(sourceImageData.data);
-    const imageDataCopy = new ImageData(clampedCopy, sourceImageData.width, sourceImageData.height);
-
-    entry.worker.postMessage({ sourceData: imageDataCopy, steps }, [imageDataCopy.data.buffer]);
+    jobQueue.push({ imageData: sourceImageData, steps, resolve, reject });
   });
 }
 
@@ -82,8 +109,9 @@ function pipelineGateway(sourceImageData: ImageData, steps: Step[]): Promise<Pip
 // Lifecycle
 // ---------------------------------------------------------------------------
 
-/** Terminate all workers. Call this on app teardown to avoid memory leaks. */
+/** Terminate all workers and clear the queue. Call this on app teardown. */
 function teardownWorkerPool(): void {
+  jobQueue.length = 0;
   pool.forEach(({ worker }) => worker.terminate());
   pool = [];
 }

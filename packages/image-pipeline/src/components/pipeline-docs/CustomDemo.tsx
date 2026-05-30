@@ -1,33 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
+import { usePipeline } from "./usePipeline";
+
+const STEPS = [{ kind: "manip", id: "demo-warm", opts: {} }] as const;
 
 function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
-  const [result, setResult] = useState<ImageData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const ranRef = useRef(false);
-
-  useEffect(() => {
-    if (!sourceData || ranRef.current) return;
-    ranRef.current = true;
-    setLoading(true);
-
-    pipelineGateway(sourceData, [{ kind: "manip", id: "demo-warm", opts: {} }])
-      .then((r) => setResult(r.final))
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [sourceData]);
-
-  const resultUrl = useMemo(() => (result ? imageDataToUrl(result) : null), [result]);
-  const sourceUrl = useMemo(() => (sourceData ? imageDataToUrl(sourceData) : null), [sourceData]);
+  const result = usePipeline(sourceData, STEPS);
+  const resultImage = result?.final ?? null;
+  const loading = sourceData !== null && result === null;
 
   return (
     <div className="flex flex-wrap items-start gap-6">
       <div className="w-36">
         <p className="text-muted-foreground mb-1 text-xs">Original</p>
-        {sourceUrl && (
+        {sourceData && (
           <img
-            src={sourceUrl}
+            src={imageDataToUrl(sourceData)}
             alt="original"
             className="border-border w-full rounded border"
             style={{ imageRendering: "pixelated" }}
@@ -43,9 +30,9 @@ function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
           <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
             ...
           </div>
-        ) : resultUrl ? (
+        ) : resultImage ? (
           <img
-            src={resultUrl}
+            src={imageDataToUrl(resultImage)}
             alt="custom"
             className="border-border w-full rounded border"
             style={{ imageRendering: "pixelated" }}

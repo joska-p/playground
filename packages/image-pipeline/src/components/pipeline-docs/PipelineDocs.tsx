@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChainDemo } from "./ChainDemo";
 import { CodeBlock } from "./CodeBlock";
 import { CustomDemo } from "./CustomDemo";
@@ -25,11 +25,9 @@ export function PipelineDocs() {
     };
   }, []);
 
-  const handleParamChange = useCallback((id: string, key: string, value: number) => {
+  function handleParamChange(id: string, key: string, value: number) {
     setParams((prev) => ({ ...prev, [`${id}:${key}`]: value }));
-  }, []);
-
-  const sourceUrl = useMemo(() => (sourceData ? imageDataToUrl(sourceData) : null), [sourceData]);
+  }
 
   return (
     <div className="mx-auto max-w-6xl space-y-16 px-4 py-12">
@@ -51,12 +49,10 @@ export function PipelineDocs() {
         />
         <div className="flex items-start gap-6">
           <div className="w-48 shrink-0">
-            <p className="text-muted-foreground mb-2 text-xs">
-              Programmatically generated test image
-            </p>
-            {sourceUrl && (
+            <p className="text-muted-foreground mb-3 text-sm">demo image</p>
+            {sourceData && (
               <img
-                src={sourceUrl}
+                src={imageDataToUrl(sourceData)}
                 alt="source"
                 className="border-border w-full rounded-lg border"
                 style={{ imageRendering: "pixelated" }}

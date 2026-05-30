@@ -1,4 +1,4 @@
-import jcJpg from "../../assets/jc.jpg";
+import geant from "../../assets/geant.jpg";
 
 function loadImage(url: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function loadImage(url: string): Promise<HTMLImageElement> {
 
 async function loadDemoImage(size: number): Promise<ImageData> {
   try {
-    const img = await loadImage(jcJpg);
+    const img = await loadImage(geant);
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;

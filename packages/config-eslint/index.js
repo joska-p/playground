@@ -33,6 +33,9 @@ export default function createConfig(dirname) {
         "import/no-default-export": "error",
         "import/no-cycle": ["error", { maxDepth: 2 }],
 
+        // prefer const over let when variables are never reassigned after declared
+        "prefer-const": "error",
+
         // type over interface
         "@typescript-eslint/consistent-type-definitions": ["error", "type"],
 

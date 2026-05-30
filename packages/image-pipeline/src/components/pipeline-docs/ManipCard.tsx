@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@repo/ui/Card";
 import { Slider } from "@repo/ui/Slider";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { CodeBlock } from "./CodeBlock";
 import { imageDataToUrl } from "./helpers";
@@ -31,12 +31,12 @@ function ManipCard({
     }
 
     pipelineGateway(sourceData, [{ kind: "manip", id: manip.id, opts }])
-      .then((r) => setResult(r.final))
-      .catch(console.error)
-      .finally(() => {
-        if (!cancelled) {
-          setResult(null);
-        }
+      .then((r) => {
+        if (!cancelled) setResult(r.final);
+      })
+      .catch((err) => {
+        console.error(err);
+        if (!cancelled) setResult(null);
       });
 
     return () => {
@@ -44,16 +44,13 @@ function ManipCard({
     };
   }, [sourceData, manip.id, params, manip.params]);
 
-  const resultUrl = useMemo(() => (result ? imageDataToUrl(result) : null), [result]);
-  const sourceUrl = useMemo(() => (sourceData ? imageDataToUrl(sourceData) : null), [sourceData]);
+  const running = sourceData !== null && result === null;
 
   const codeLines = [
     `Pipeline.from(source)`,
     `  .add("${manip.id}"${manip.params && manip.params.length > 0 ? ", { " + manip.params.map((p) => `${p.key}: ${params[`${manip.id}:${p.key}`] ?? p.default}`).join(", ") + " }" : ""})`,
     `  .run()`,
   ];
-
-  const running = sourceData !== null && result === null;
 
   return (
     <Card className="overflow-hidden rounded-xl flex flex-col">
@@ -68,9 +65,9 @@ function ManipCard({
             <p className="text-muted-foreground mb-1 text-[10px] uppercase tracking-wide">
               Original
             </p>
-            {sourceUrl && (
+            {sourceData && (
               <img
-                src={sourceUrl}
+                src={imageDataToUrl(sourceData)}
                 alt="original"
                 className="border-border w-full rounded border"
                 style={{ imageRendering: "pixelated" }}
@@ -83,9 +80,9 @@ function ManipCard({
               <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
                 ...
               </div>
-            ) : resultUrl ? (
+            ) : result ? (
               <img
-                src={resultUrl}
+                src={imageDataToUrl(result)}
                 alt={manip.label}
                 className="border-border w-full rounded border"
                 style={{ imageRendering: "pixelated" }}

@@ -1,30 +1,20 @@
-import { useEffect, useRef, useState } from "react";
-import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
+import { usePipeline } from "./usePipeline";
+
+const STEPS = [
+  { kind: "manip", id: "grayscale", opts: {} },
+  { kind: "snapshot" },
+  { kind: "manip", id: "invert", opts: {} },
+  { kind: "snapshot" },
+  { kind: "manip", id: "edge-detect", opts: {} },
+] as const;
+
+const STAGES = ["After: grayscale", "After: invert", "After: edge-detect"];
 
 function SnapshotDemo({ sourceData }: { sourceData: ImageData | null }) {
-  const [snapshots, setSnapshots] = useState<ImageData[]>([]);
-  const [loading, setLoading] = useState(false);
-  const ranRef = useRef(false);
-
-  useEffect(() => {
-    if (!sourceData || ranRef.current) return;
-    ranRef.current = true;
-    setLoading(true);
-
-    pipelineGateway(sourceData, [
-      { kind: "manip", id: "grayscale", opts: {} },
-      { kind: "snapshot" },
-      { kind: "manip", id: "invert", opts: {} },
-      { kind: "snapshot" },
-      { kind: "manip", id: "edge-detect", opts: {} },
-    ])
-      .then((r) => setSnapshots([...r.snapshots, r.final]))
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [sourceData]);
-
-  const stages = ["After: grayscale", "After: invert", "After: edge-detect"];
+  const result = usePipeline(sourceData, STEPS);
+  const allImages = result ? [...result.snapshots, result.final] : [];
+  const loading = sourceData !== null && result === null;
 
   if (loading) {
     return <p className="text-muted-foreground text-sm">Running pipeline...</p>;
@@ -32,9 +22,9 @@ function SnapshotDemo({ sourceData }: { sourceData: ImageData | null }) {
 
   return (
     <div className="flex flex-wrap gap-6">
-      {snapshots.map((snap, i) => (
+      {allImages.map((snap, i) => (
         <div key={i} className="w-36">
-          <p className="text-muted-foreground mb-1 text-xs">{stages[i] ?? `Step ${i + 1}`}</p>
+          <p className="text-muted-foreground mb-1 text-xs">{STAGES[i] ?? `Step ${i + 1}`}</p>
           <img
             src={imageDataToUrl(snap)}
             alt={`snapshot ${i}`}
