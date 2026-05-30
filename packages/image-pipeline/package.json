@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "build": "tsc",
+    "build-test": "tsc",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "typecheck": "tsc --noEmit"
   },
