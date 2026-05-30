@@ -36,9 +36,9 @@ export function PipelineDocs() {
           <span className="text-primary">@repo/</span>image-pipeline
         </h1>
         <p className="text-muted-foreground max-w-3xl text-base leading-relaxed">
-          TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Works in
-          Node.js and the browser. Register custom manipulations and chain them into reusable
-          pipelines.
+          TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Register
+          custom manipulations and chain them into reusable pipelines. Runs off the main thread via a
+          Web Worker pool for non-blocking UI.
         </p>
       </div>
 
@@ -65,9 +65,45 @@ export function PipelineDocs() {
               registered globally and referenced by string ID.
             </p>
             <CodeBlock
-              code={`import { Pipeline } from "@repo/image-pipeline";\n\nconst result = await Pipeline\n  .from(imageData)\n  .add("grayscale")\n  .run();\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
+              code={`// --- Off-main-thread (recommended) ---\nimport { pipelineGateway } from "@repo/image-pipeline/imagePipelineGateway";\n\nconst result = await pipelineGateway(imageData, [\n  { kind: "manip", id: "grayscale", opts: {} },\n]);\n// result.final      → ImageData\n// result.snapshots  → ImageData[]\n\n// --- Main-thread (simple/direct) ---\nimport { Pipeline } from "@repo/image-pipeline";\n\nconst result = await Pipeline\n  .from(imageData)\n  .add("grayscale")\n  .run();`}
             />
           </div>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeader
+          title="Worker Pool"
+          code={`pipelineGateway(imageData, steps);  // dispatches to pool\n\nteadownWorkerPool();              // lifecycle cleanup`}
+        />
+        <div className="max-w-3xl space-y-3 text-sm leading-relaxed">
+          <p>
+            Pipeline execution is offloaded to a pool of composited Web Workers. The{" "}
+            <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">
+              pipelineGateway
+            </code>{" "}
+            function acquires an idle worker from the pool or queues the job if all workers are
+            busy. Workers are created lazily on first call, up to{" "}
+            <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">
+              min(navigator.hardwareConcurrency, 4)
+            </code>
+            .
+          </p>
+          <p>
+            Each worker imports the <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">Pipeline</code> class and
+            runs steps inside
+            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">pipeline.worker.ts</code>.
+            Pixel buffers are transferred via <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">postMessage</code> with
+            the <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">Transferable</code> flag — zero-copy, the source
+            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">ImageData</code> is neutered on the worker after sending.
+          </p>
+          <CodeBlock
+            code={`import { pipelineGateway, teardownWorkerPool }\n  from "@repo/image-pipeline/imagePipelineGateway";\n\nconst result = await pipelineGateway(sourceData, [\n  { kind: "manip", id: "brightness", opts: { value: 1.5 } },\n  { kind: "snapshot" },\n  { kind: "manip", id: "sharpen", opts: { strength: 2 } },\n]);\n\n// result.final      → ImageData  (final output)\n// result.snapshots  → ImageData[] (captured mid-stages)\n\n// Clean up on app teardown:\nteardownWorkerPool();`}
+          />
+          <p className="text-muted-foreground text-xs">
+            The demos below use <code className="rounded px-1 py-0.5 text-xs font-mono">usePipeline</code>, a thin React hook
+            around <code className="rounded px-1 py-0.5 text-xs font-mono">pipelineGateway</code>.
+          </p>
         </div>
       </section>
 

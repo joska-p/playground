@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./imagePipelineGateway": "./src/components/image-pipeline/pipeline.gateway.ts",
-    "./imagePipeline": "./src/components/image-pipeline/index.ts",
+    "./PipelineGateway": "./src/components/image-pipeline/pipeline-gateway.ts",
+    "./Pipeline": "./src/components/image-pipeline/index.ts",
+    "./usePipeline": "./src/components/pipeline-docs/usePipeline.ts",
     "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
     "./styles": "./src/styles/styles.css"
   },
