@@ -54,8 +54,30 @@ function Controls() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 max-w-[35ch]">
+    <div className="grid md:grid-cols-2 p-2 gap-x-2 gap-y-4 justify-center items-end max-w-[40ch]">
       <Input type="file" accept="image/*" onChange={handleImageUpload} label="upload an image" />
+      <Button variant="outline" onClick={() => clearManipulatorOutputs()}>
+        Clear Ouputs
+      </Button>
+
+      <Select
+        variant="primary"
+        value={selectedPreset}
+        onChange={(e) => setSelectedPreset(Number(e.target.value))}
+        className="flex-1"
+        label="Preset"
+        title={WORKFLOW_PRESETS[selectedPreset].description}
+      >
+        {WORKFLOW_PRESETS.map((preset, index) => (
+          <option key={preset.name} value={index}>
+            {preset.name}
+          </option>
+        ))}
+      </Select>
+
+      <Button onClick={() => loadWorkflowPreset()} className="mt-2 w-full">
+        Load Workflow
+      </Button>
 
       <Select
         variant="primary"
@@ -71,36 +93,14 @@ function Controls() {
         ))}
       </Select>
 
-      <div className="md:gap-4 md:grid md:grid-cols-2">
-        <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
-        <Button onClick={() => clearWorkflow()}>Clear Worflow</Button>
-      </div>
-
-      <Select
-        variant="primary"
-        value={selectedPreset}
-        onChange={(e) => setSelectedPreset(Number(e.target.value))}
-        className="flex-1"
-        label="Preset"
-        helperText={WORKFLOW_PRESETS[selectedPreset].description}
-      >
-        {WORKFLOW_PRESETS.map((preset, index) => (
-          <option key={preset.name} value={index}>
-            {preset.name}
-          </option>
-        ))}
-      </Select>
-
-      <Button onClick={() => loadWorkflowPreset()} className="mt-2 w-full">
-        Load Workflow
-      </Button>
+      <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
 
       <Workflow steps={workflow} />
 
-      <div className="md:gap-4 md:grid md:grid-cols-2">
-        <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
-        <Button onClick={() => clearManipulatorOutputs()}>Clear Ouputs</Button>
-      </div>
+      <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
+      <Button variant="outline" onClick={() => clearWorkflow()}>
+        Clear Worflow
+      </Button>
     </div>
   );
 }

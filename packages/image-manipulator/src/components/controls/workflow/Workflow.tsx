@@ -11,7 +11,7 @@ function Workflow({ steps }: WorkflowProps) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 col-span-full">
       {steps.map((step, index) => (
         <WorkflowStepItem
           key={index}
