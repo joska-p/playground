@@ -4,6 +4,7 @@
 
 # Local workspace config
 .pnpm-store
+toolbox
 
 # --- OS ---
 .DS_Store
