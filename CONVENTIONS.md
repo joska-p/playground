@@ -126,8 +126,8 @@ Two rules cover every file:
 
 ## Zustand stores
 
-- Store files live in `hooks/` alongside other hooks.
-- The store hook is named `use[Domain]Store` and is exported — but only imported in its own `actions.ts` and `selectors.ts` files, never in components.
+- Store files live in `stores/[domain]/` alongside its associated files.
+- The store hook is named `use[Domain]Store` and is exported — but only imported in its own `actions.ts` (setters) and `selectors.ts` (getters) files, never in components.
 - Getter hooks: `use[Domain][Slice]` — select a **single slice** and export it. (`useGraphNodes`, `useGraphEdges`)
 - Setter functions: plain `camelCase`, not hooks. (`addGraphNode`, `selectGraphNode`)
 - Store files use `.ts`, never `.tsx`.
@@ -158,7 +158,7 @@ Two rules cover every file:
 - Types co-located with usage. No shared `types/` package.
 - `type` over `interface`. Use `interface` only for declaration merging.
 - No empty files.
-- `array.sort()` mutates — spread first: `[...array].sort()`.
+- `array.sort()` mutates — use: `array.toSorted()`.
 - Unused code is deleted, not commented out.
 
 ## ESLint

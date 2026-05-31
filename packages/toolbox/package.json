@@ -5,10 +5,7 @@
   "type": "module",
   "exports": {
     "./Demo": "./src/components/Demo.tsx",
-    "./styles": "./src/styles/styles.css",
-    "./createWorkerFunction": "./src/worker-offload/utils/createWorkerFunction.ts",
-    "./useWorker": "./src/worker-offload/hooks/useWorker.ts",
-    "./TaskBoundary": "./src/worker-offload/components/TaskBoundary.tsx"
+    "./styles": "./src/styles/styles.css"
   },
   "scripts": {
     "dev": "vite --host",

@@ -34,7 +34,7 @@ export const projects: Record<string, Project> = {
 
 ```astro
 ---
-import BaseLayout from "../../../../layouts/base-layout.astro";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import { projects } from "../../../../data/projects";
 
 const { slug } = Astro.params;

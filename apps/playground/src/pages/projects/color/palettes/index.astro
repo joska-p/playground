@@ -1,9 +1,9 @@
 ---
 import { PaletteGenerator } from "@repo/palette-generator/PaletteGenerator";
 import { StrictMode } from "react";
-import BaseLayout from "../../../../layouts/base-layout.astro";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import { projects } from "../../../../data/projects";
-import Hero from "../../../../components/ui/features/hero.astro";
+import Hero from "../../../../components/ui/features/Hero.astro";
 
 const project = projects["palettes"];
 const keywords = `${project["tags"].join(", ")}`;

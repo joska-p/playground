@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "../../layouts/base-layout.astro";
-import Hero from "../../components/ui/features/hero.astro";
-import DocCard from "../../components/ui/cards/doc-card.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/ui/features/Hero.astro";
+import DocCard from "../../components/ui/cards/DocCard.astro";
 import { getDocsByCategory, docsBaseUrl } from "../../data/docs";
-import Footer from "../../layouts/footer.astro";
+import Footer from "../../layouts/Footer.astro";
 
 const docsByCategory = await getDocsByCategory();
 ---

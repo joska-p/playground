@@ -31,7 +31,7 @@ Then apply the React-specific extras:
    ---
    import { Demo } from "@repo/image-pipeline/Demo";
    import { StrictMode } from "react";
-   import BaseLayout from "../../../../layouts/base-layout.astro";
+   import BaseLayout from "../../../../layouts/BaseLayout.astro";
    ---
 
    <BaseLayout title="image-pipeline">
