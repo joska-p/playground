@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@repo/ui/Card";
 import { Slider } from "@repo/ui/Slider";
 import { useEffect, useState } from "react";
-import { pipelineGateway } from "../image-pipeline/pipeline-gateway";
+import { pipelineGateway } from "../image-pipeline/api/pipeline-gateway";
 import { CodeBlock } from "./CodeBlock";
 import { imageDataToUrl } from "./helpers";
 import type { ManipInfo } from "./manipData";

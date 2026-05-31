@@ -1,4 +1,4 @@
-import type { ManipulationDefinition, NeighborhoodFn } from "./types";
+import type { ManipulationDefinition, NeighborhoodFn } from "../types";
 
 const TILE_SIZE = 512; // pixels per tile edge
 

@@ -1,3 +1,5 @@
+import type { Registry } from "./registry/registry";
+
 // ─── Manipulation Function Signatures ───────────────────────────────────────
 
 export type PixelFn = (
@@ -35,6 +37,11 @@ export type ResizeOptions =
   | { height: number; width?: never; maxPixels?: never; fit?: never }
   | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maxPixels?: never }
   | { maxPixels: number; width?: never; height?: never; fit?: never };
+
+export type RunPipelineDeps = {
+  registry: Registry;
+  maxPixels: number;
+};
 
 export type PipelineResult = {
   source: ImageData;

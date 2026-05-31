@@ -1,4 +1,4 @@
-import { registerManipulation } from "../image-pipeline/index";
+import type { ManipulationDefinition } from "../image-pipeline/types";
 
 type ManipInfo = {
   id: string;
@@ -125,16 +125,18 @@ const WHOLE_MANIPS: ManipInfo[] = [
   },
 ];
 
-registerManipulation({
-  id: "demo-warm",
-  type: "pixel",
-  fn: (r: number, g: number, b: number, a: number): [number, number, number, number] => [
-    Math.min(255, r * 1.1),
-    g * 0.85,
-    b * 0.7,
-    a,
-  ],
-});
+export const DEMO_MANIPULATIONS: ManipulationDefinition[] = [
+  {
+    id: "demo-warm",
+    type: "pixel",
+    fn: (r: number, g: number, b: number, a: number): [number, number, number, number] => [
+      Math.min(255, r * 1.1),
+      g * 0.85,
+      b * 0.7,
+      a,
+    ],
+  },
+];
 
 export { NEIGHBOR_MANIPS, PIXEL_MANIPS, WHOLE_MANIPS };
 export type { ManipInfo };

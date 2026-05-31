@@ -1,6 +1,6 @@
+import type { Step } from "../types";
 import type { PipelineResult } from "./pipeline.worker";
 import PipelineWorker from "./pipeline.worker?worker&inline";
-import type { Step } from "./types";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -14,6 +14,7 @@ type PoolEntry = {
 type QueuedJob = {
   imageData: ImageData;
   steps: Step[];
+  maxPixels?: number;
   resolve: (result: PipelineResult) => void;
   reject: (error: Error) => void;
 };
@@ -45,7 +46,8 @@ function dispatch(
   imageData: ImageData,
   steps: Step[],
   resolve: QueuedJob["resolve"],
-  reject: QueuedJob["reject"]
+  reject: QueuedJob["reject"],
+  maxPixels?: number
 ): void {
   entry.busy = true;
 
@@ -75,7 +77,9 @@ function dispatch(
 
   const clampedCopy = new Uint8ClampedArray(imageData.data);
   const imageDataCopy = new ImageData(clampedCopy, imageData.width, imageData.height);
-  entry.worker.postMessage({ sourceData: imageDataCopy, steps }, [imageDataCopy.data.buffer]);
+  entry.worker.postMessage({ sourceData: imageDataCopy, steps, maxPixels }, [
+    imageDataCopy.data.buffer,
+  ]);
 }
 
 function drainQueue(): void {
@@ -83,25 +87,28 @@ function drainQueue(): void {
   const entry = acquireWorker();
   if (!entry) return;
   const job = jobQueue.shift()!;
-  dispatch(entry, job.imageData, job.steps, job.resolve, job.reject);
+  dispatch(entry, job.imageData, job.steps, job.resolve, job.reject, job.maxPixels);
 }
 
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
 
-function pipelineGateway(sourceImageData: ImageData, steps: Step[]): Promise<PipelineResult> {
+function pipelineGateway(
+  sourceImageData: ImageData,
+  steps: Step[],
+  maxPixels?: number
+): Promise<PipelineResult> {
   const entry = acquireWorker();
 
   if (entry) {
     return new Promise((resolve, reject) => {
-      dispatch(entry, sourceImageData, steps, resolve, reject);
+      dispatch(entry, sourceImageData, steps, resolve, reject, maxPixels);
     });
   }
 
-  // All workers busy — queue the job until a worker frees up
   return new Promise((resolve, reject) => {
-    jobQueue.push({ imageData: sourceImageData, steps, resolve, reject });
+    jobQueue.push({ imageData: sourceImageData, steps, maxPixels, resolve, reject });
   });
 }
 

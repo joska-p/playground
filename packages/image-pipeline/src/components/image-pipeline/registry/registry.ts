@@ -1,6 +1,6 @@
-import type { ManipulationDefinition } from "./types";
+import type { ManipulationDefinition } from "../types";
 
-class Registry {
+export class Registry {
   private readonly map = new Map<string, ManipulationDefinition>();
 
   register(def: ManipulationDefinition): void {
@@ -37,15 +37,7 @@ class Registry {
     return this.map.has(id);
   }
 
-  /** Exposed for testing only */
   clear(): void {
     this.map.clear();
   }
-}
-
-export const registry = new Registry();
-
-/** Register a manipulation so it can be used by ID in any pipeline. */
-export function registerManipulation(def: ManipulationDefinition): void {
-  registry.register(def);
 }

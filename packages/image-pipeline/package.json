@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./PipelineGateway": "./src/components/image-pipeline/pipeline-gateway.ts",
-    "./Pipeline": "./src/components/image-pipeline/index.ts",
+    "./PipelineGateway": "./src/components/image-pipeline/api/pipeline-gateway.ts",
+    "./Pipeline": "./src/components/image-pipeline/api/pipeline.ts",
+    "./Registry": "./src/components/image-pipeline/registry/registry.ts",
     "./usePipeline": "./src/components/pipeline-docs/usePipeline.ts",
     "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
     "./styles": "./src/styles/styles.css"
@@ -48,6 +49,7 @@
     "react-dom": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vitest": "^4.1.7"
   }
 }

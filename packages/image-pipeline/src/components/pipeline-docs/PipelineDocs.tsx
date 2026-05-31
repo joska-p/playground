@@ -37,8 +37,8 @@ export function PipelineDocs() {
         </h1>
         <p className="text-muted-foreground max-w-3xl text-base leading-relaxed">
           TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Register
-          custom manipulations and chain them into reusable pipelines. Runs off the main thread via a
-          Web Worker pool for non-blocking UI.
+          custom manipulations and chain them into reusable pipelines. Runs off the main thread via
+          a Web Worker pool for non-blocking UI.
         </p>
       </div>
 
@@ -65,7 +65,7 @@ export function PipelineDocs() {
               registered globally and referenced by string ID.
             </p>
             <CodeBlock
-              code={`// --- Off-main-thread (recommended) ---\nimport { pipelineGateway } from "@repo/image-pipeline/imagePipelineGateway";\n\nconst result = await pipelineGateway(imageData, [\n  { kind: "manip", id: "grayscale", opts: {} },\n]);\n// result.final      → ImageData\n// result.snapshots  → ImageData[]\n\n// --- Main-thread (simple/direct) ---\nimport { Pipeline } from "@repo/image-pipeline";\n\nconst result = await Pipeline\n  .from(imageData)\n  .add("grayscale")\n  .run();`}
+              code={`// --- Off-main-thread (recommended) ---\nimport { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";\n\nconst result = await pipelineGateway(imageData, [\n  { kind: "manip", id: "grayscale", opts: {} },\n]);\n// result.final      → ImageData\n// result.snapshots  → ImageData[]\n\n// --- Main-thread (simple/direct) ---\nimport { Pipeline } from "@repo/image-pipeline/Pipeline";\n\nconst result = await Pipeline\n  .from(imageData, { registry, maxPixels: 250_000 })\n  .add("grayscale")\n  .run();`}
             />
           </div>
         </div>
@@ -90,19 +90,32 @@ export function PipelineDocs() {
             .
           </p>
           <p>
-            Each worker imports the <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">Pipeline</code> class and
-            runs steps inside
-            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">pipeline.worker.ts</code>.
-            Pixel buffers are transferred via <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">postMessage</code> with
-            the <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">Transferable</code> flag — zero-copy, the source
-            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">ImageData</code> is neutered on the worker after sending.
+            Each worker imports the{" "}
+            <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">
+              Pipeline
+            </code>{" "}
+            class and runs steps inside
+            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">
+              pipeline.worker.ts
+            </code>
+            . Pixel buffers are transferred via{" "}
+            <code className="text-primary bg-muted rounded px-1 py-0.5 text-xs font-mono">
+              postMessage
+            </code>{" "}
+            with the{" "}
+            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">Transferable</code>{" "}
+            flag — zero-copy, the source
+            <code className="bg-muted rounded px-1 py-0.5 text-xs font-mono">ImageData</code> is
+            neutered on the worker after sending.
           </p>
           <CodeBlock
-            code={`import { pipelineGateway, teardownWorkerPool }\n  from "@repo/image-pipeline/imagePipelineGateway";\n\nconst result = await pipelineGateway(sourceData, [\n  { kind: "manip", id: "brightness", opts: { value: 1.5 } },\n  { kind: "snapshot" },\n  { kind: "manip", id: "sharpen", opts: { strength: 2 } },\n]);\n\n// result.final      → ImageData  (final output)\n// result.snapshots  → ImageData[] (captured mid-stages)\n\n// Clean up on app teardown:\nteardownWorkerPool();`}
+            code={`import { pipelineGateway, teardownWorkerPool }\n  from "@repo/image-pipeline/PipelineGateway";\n\nconst result = await pipelineGateway(sourceData, [\n  { kind: "manip", id: "brightness", opts: { value: 1.5 } },\n  { kind: "snapshot" },\n  { kind: "manip", id: "sharpen", opts: { strength: 2 } },\n]);\n\n// result.final      → ImageData  (final output)\n// result.snapshots  → ImageData[] (captured mid-stages)\n\n// Clean up on app teardown:\nteardownWorkerPool();`}
           />
           <p className="text-muted-foreground text-xs">
-            The demos below use <code className="rounded px-1 py-0.5 text-xs font-mono">usePipeline</code>, a thin React hook
-            around <code className="rounded px-1 py-0.5 text-xs font-mono">pipelineGateway</code>.
+            The demos below use{" "}
+            <code className="rounded px-1 py-0.5 text-xs font-mono">usePipeline</code>, a thin React
+            hook around{" "}
+            <code className="rounded px-1 py-0.5 text-xs font-mono">pipelineGateway</code>.
           </p>
         </div>
       </section>
@@ -188,7 +201,7 @@ export function PipelineDocs() {
       <section>
         <SectionHeader
           title="Custom Manipulations"
-          code={`import { registerManipulation } from "@repo/image-pipeline";\n\nregisterManipulation({\n  id: "my-effect",\n  type: "pixel",\n  fn: (r, g, b, a) => {\n    return [r * 1.1, g * 0.85, b * 0.7, a];\n  },\n});\n\nPipeline.from(source).add("my-effect").run();`}
+          code={`import { Registry } from "@repo/image-pipeline/Registry";\nimport { defaultConfig } from "@repo/image-pipeline/config";\nimport { Pipeline } from "@repo/image-pipeline/Pipeline";\n\nconst registry = new Registry();\nregistry.register({\n  id: "my-effect",\n  type: "pixel",\n  fn: (r, g, b, a) => {\n    return [r * 1.1, g * 0.85, b * 0.7, a];\n  },\n});\n\nconst result = await Pipeline\n  .from(source, { registry, maxPixels: defaultConfig().maxPixels })\n  .add("my-effect")\n  .run();`}
         />
         <CustomDemo sourceData={sourceData} />
       </section>
