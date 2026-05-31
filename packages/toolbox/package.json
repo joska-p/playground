@@ -5,7 +5,10 @@
   "type": "module",
   "exports": {
     "./Demo": "./src/components/Demo.tsx",
-    "./styles": "./src/styles/styles.css"
+    "./styles": "./src/styles/styles.css",
+    "./createWorkerFunction": "./src/worker-offload/utils/createWorkerFunction.ts",
+    "./useWorker": "./src/worker-offload/hooks/useWorker.ts",
+    "./TaskBoundary": "./src/worker-offload/components/TaskBoundary.tsx"
   },
   "scripts": {
     "dev": "vite --host",
@@ -31,6 +34,7 @@
     "@repo/config-eslint": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
+    "@testing-library/react": "^16.3.2",
     "@types/babel__core": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
@@ -39,6 +43,7 @@
     "@vitest/browser-playwright": "^4.1.7",
     "babel-plugin-react-compiler": "catalog:",
     "eslint": "catalog:",
+    "jsdom": "catalog:",
     "playwright": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
