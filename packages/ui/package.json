@@ -26,11 +26,7 @@
     "./useResizeObserver": "./src/hooks/useResizeObserver.ts",
     "./cn": "./src/utils/cn.ts",
     "./styles": "./src/styles/styles.css",
-    "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
-    "./blade-runner-theme": "./src/styles/blade-runner-theme.css",
-    "./candy-coated-theme": "./src/styles/candy-coated.css",
-    "./pale-asylum-theme": "./src/styles/pale-asylum.css",
-    "./vintage-theme": "./src/styles/vintage.css"
+    "./gruvbox-theme": "./src/styles/gruvbox-theme.css"
   },
   "scripts": {
     "dev": "vite --host",

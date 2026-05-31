@@ -46,7 +46,10 @@ function isActiveEndpoint(a: EndpointId, b: EndpointId): boolean {
   return false;
 }
 
-function findItemForEndpoint(groups: EndpointGroup[], endpoint: EndpointId): EndpointItem | undefined {
+function findItemForEndpoint(
+  groups: EndpointGroup[],
+  endpoint: EndpointId
+): EndpointItem | undefined {
   if (endpoint.kind === "overview") {
     return groups[0]?.items[0];
   }
@@ -277,11 +280,11 @@ export const DEMO_MANIPULATIONS: ManipulationDefinition[] = [
 
 export {
   ENDPOINT_GROUPS,
-  NEIGHBOR_MANIPS,
-  PIXEL_MANIPS,
-  WHOLE_MANIPS,
   findItemForEndpoint,
   findManipById,
   isActiveEndpoint,
+  NEIGHBOR_MANIPS,
+  PIXEL_MANIPS,
+  WHOLE_MANIPS,
 };
 export type { EndpointGroup, EndpointId, EndpointItem, ManipInfo, ParamDef };

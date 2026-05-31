@@ -19,9 +19,7 @@ function ParamTable({ params }: ParamTableProps) {
         <tbody>
           {params.map((p) => (
             <tr key={p.key} className="border-border border-b last:border-b-0">
-              <td className="text-primary px-4 py-2.5 font-mono text-xs font-medium">
-                {p.key}
-              </td>
+              <td className="text-primary px-4 py-2.5 font-mono text-xs font-medium">{p.key}</td>
               <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
               <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">{p.default}</td>
               <td className="text-muted-foreground px-4 py-2.5 text-xs">{p.label}</td>

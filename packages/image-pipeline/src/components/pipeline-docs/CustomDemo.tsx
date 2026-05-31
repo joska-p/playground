@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Pipeline } from "../image-pipeline/api/pipeline";
-import { Registry } from "../image-pipeline/registry/registry";
 import { NEIGHBOR_MANIPULATIONS } from "../image-pipeline/registry/neighborhood";
 import { PIXEL_MANIPULATIONS } from "../image-pipeline/registry/pixel";
+import { Registry } from "../image-pipeline/registry/registry";
 import { WHOLE_MANIPULATIONS } from "../image-pipeline/registry/whole";
-import { DEMO_MANIPULATIONS } from "./manipData";
 import { imageDataToUrl } from "./helpers";
+import { DEMO_MANIPULATIONS } from "./manipData";
 
 function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
   const [resultData, setResultData] = useState<ImageData | null>(null);
