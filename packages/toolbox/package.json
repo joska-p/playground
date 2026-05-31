@@ -14,7 +14,8 @@
     "lint-fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",
     "preview": "vite preview --host",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "vitest"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
@@ -27,7 +28,6 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "eslint": "catalog:",
     "@repo/config-eslint": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
@@ -36,14 +36,19 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
+    "@vitest/browser-playwright": "^4.1.7",
     "babel-plugin-react-compiler": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
+    "eslint": "catalog:",
+    "playwright": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "vitest-browser-react": "catalog:"
   }
 }
