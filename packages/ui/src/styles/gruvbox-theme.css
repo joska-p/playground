@@ -49,23 +49,23 @@
       0px 8px 10px -1px oklch(0.331 0.02 76.196 / 0.06);
     --shadow-2xl: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.15);
 
-    --category-generative: oklch(0.88 0.07 175);
-    --category-generative-foreground: oklch(0.28 0.07 175);
-    --category-color: oklch(0.87 0.065 305);
-    --category-color-foreground: oklch(0.27 0.075 305);
-    --category-image: oklch(0.88 0.09 48);
-    --category-image-foreground: oklch(0.28 0.1 48);
-    --category-data-viz: oklch(0.87 0.058 232);
-    --category-data-viz-foreground: oklch(0.27 0.07 232);
+    --category-generative: oklch(0.38 0.07 175);
+    --category-generative-foreground: oklch(0.91 0.09 175);
+    --category-color: oklch(0.36 0.085 305);
+    --category-color-foreground: oklch(0.9 0.075 305);
+    --category-image: oklch(0.41 0.105 48);
+    --category-image-foreground: oklch(0.93 0.095 48);
+    --category-data-viz: oklch(0.39 0.075 232);
+    --category-data-viz-foreground: oklch(0.9 0.072 232);
 
-    --category-tutorial: oklch(0.89 0.09 90);
-    --category-tutorial-foreground: oklch(0.28 0.095 90);
-    --category-how-to: oklch(0.87 0.085 22);
-    --category-how-to-foreground: oklch(0.27 0.095 22);
-    --category-explanation: oklch(0.89 0.075 62);
-    --category-explanation-foreground: oklch(0.28 0.085 62);
-    --category-reference: oklch(0.87 0.038 220);
-    --category-reference-foreground: oklch(0.27 0.05 220);
+    --category-tutorial: oklch(0.41 0.09 90);
+    --category-tutorial-foreground: oklch(0.94 0.1 90);
+    --category-how-to: oklch(0.38 0.105 22);
+    --category-how-to-foreground: oklch(0.92 0.09 22);
+    --category-explanation: oklch(0.43 0.09 62);
+    --category-explanation-foreground: oklch(0.93 0.09 62);
+    --category-reference: oklch(0.4 0.05 220);
+    --category-reference-foreground: oklch(0.9 0.045 220);
   }
 
   html[data-theme="dark"] {
@@ -98,23 +98,23 @@
     --shadow-xl: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 8px 10px -1px oklch(0 0 0 / 0.01);
     --shadow-2xl: 0px 1px 2px 0px oklch(0 0 0 / 0.03);
 
-    --category-generative: oklch(0.38 0.07 175);
-    --category-generative-foreground: oklch(0.91 0.09 175);
-    --category-color: oklch(0.36 0.085 305);
-    --category-color-foreground: oklch(0.9 0.075 305);
-    --category-image: oklch(0.41 0.105 48);
-    --category-image-foreground: oklch(0.93 0.095 48);
-    --category-data-viz: oklch(0.39 0.075 232);
-    --category-data-viz-foreground: oklch(0.9 0.072 232);
+    --category-generative: oklch(0.88 0.07 175);
+    --category-generative-foreground: oklch(0.28 0.07 175);
+    --category-color: oklch(0.87 0.065 305);
+    --category-color-foreground: oklch(0.27 0.075 305);
+    --category-image: oklch(0.88 0.09 48);
+    --category-image-foreground: oklch(0.28 0.1 48);
+    --category-data-viz: oklch(0.87 0.058 232);
+    --category-data-viz-foreground: oklch(0.27 0.07 232);
 
-    --category-tutorial: oklch(0.41 0.09 90);
-    --category-tutorial-foreground: oklch(0.94 0.1 90);
-    --category-how-to: oklch(0.38 0.105 22);
-    --category-how-to-foreground: oklch(0.92 0.09 22);
-    --category-explanation: oklch(0.43 0.09 62);
-    --category-explanation-foreground: oklch(0.93 0.09 62);
-    --category-reference: oklch(0.4 0.05 220);
-    --category-reference-foreground: oklch(0.9 0.045 220);
+    --category-tutorial: oklch(0.89 0.09 90);
+    --category-tutorial-foreground: oklch(0.28 0.095 90);
+    --category-how-to: oklch(0.87 0.085 22);
+    --category-how-to-foreground: oklch(0.27 0.095 22);
+    --category-explanation: oklch(0.89 0.075 62);
+    --category-explanation-foreground: oklch(0.28 0.085 62);
+    --category-reference: oklch(0.87 0.038 220);
+    --category-reference-foreground: oklch(0.27 0.05 220);
   }
 }
 
