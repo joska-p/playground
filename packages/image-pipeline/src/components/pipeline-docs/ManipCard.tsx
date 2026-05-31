@@ -47,18 +47,18 @@ function ManipCard({
   const running = sourceData !== null && result === null;
 
   const codeLines = [
-    `Pipeline.from(source)`,
-    `  .add("${manip.id}"${manip.params && manip.params.length > 0 ? ", { " + manip.params.map((p) => `${p.key}: ${params[`${manip.id}:${p.key}`] ?? p.default}`).join(", ") + " }" : ""})`,
-    `  .run()`,
+    `pipelineGateway(source, [`,
+    `  { kind: "manip", id: "${manip.id}"${manip.params && manip.params.length > 0 ? ", opts: { " + manip.params.map((p) => `${p.key}: ${params[`${manip.id}:${p.key}`] ?? p.default}`).join(", ") + " }" : ", opts: {}"}`,
+    `]);`,
   ];
 
   return (
-    <Card className="overflow-hidden rounded-xl flex flex-col">
+    <Card className="flex flex-col overflow-hidden rounded-xl">
       <div className="border-border flex items-center justify-between border-b px-4 py-3">
         <span className="font-semibold">{manip.label}</span>
         <span className="text-muted-foreground text-xs">{manip.type}</span>
       </div>
-      <CardContent className="p-4">
+      <CardContent className="flex flex-1 flex-col p-4">
         <p className="text-muted-foreground mb-3 text-xs">{manip.description}</p>
         <div className="mb-3 grid grid-cols-2 gap-2">
           <div>
@@ -90,19 +90,21 @@ function ManipCard({
             ) : null}
           </div>
         </div>
-        {manip.params &&
-          manip.params.map((p) => (
-            <Slider
-              key={p.key}
-              label={p.label}
-              min={p.min}
-              max={p.max}
-              step={p.step}
-              value={params[`${manip.id}:${p.key}`] ?? p.default}
-              onChange={(v) => onParamChange(manip.id, p.key, v)}
-            />
-          ))}
-        <details className="group">
+        <div className="space-y-2">
+          {manip.params &&
+            manip.params.map((p) => (
+              <Slider
+                key={p.key}
+                label={p.label}
+                min={p.min}
+                max={p.max}
+                step={p.step}
+                value={params[`${manip.id}:${p.key}`] ?? p.default}
+                onChange={(v) => onParamChange(manip.id, p.key, v)}
+              />
+            ))}
+        </div>
+        <details className="group mt-auto pt-3">
           <summary className="text-muted-foreground cursor-pointer text-[10px] uppercase tracking-wide">
             Code
           </summary>

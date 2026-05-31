@@ -13,8 +13,8 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
   const loading = sourceData !== null && result === null;
 
   return (
-    <div className="flex flex-wrap items-start gap-6">
-      <div className="w-36">
+    <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+      <div className="w-28 sm:w-36">
         <p className="text-muted-foreground mb-1 text-xs">Original</p>
         {sourceData && (
           <img
@@ -25,10 +25,10 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
           />
         )}
       </div>
-      <div className="flex items-center self-center">
-        <span className="text-muted-foreground text-2xl">→</span>
+      <div className="flex shrink-0 items-center self-center">
+        <span className="text-muted-foreground text-xl sm:text-2xl">→</span>
       </div>
-      <div className="w-36">
+      <div className="w-28 sm:w-36">
         <p className="text-muted-foreground mb-1 text-xs">Brightness → Contrast → Sharpen</p>
         {loading ? (
           <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">

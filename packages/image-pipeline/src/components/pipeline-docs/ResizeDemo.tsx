@@ -45,8 +45,8 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
           </Button>
         ))}
       </div>
-      <div className="flex items-start gap-6">
-        <div className="w-36">
+      <div className="flex flex-wrap items-start gap-4 sm:gap-6">
+        <div className="w-28 sm:w-36">
           <p className="text-muted-foreground mb-1 text-xs">Original</p>
           {sourceData && (
             <img
@@ -60,7 +60,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
             {sourceData?.width}×{sourceData?.height}
           </p>
         </div>
-        <div className="w-36">
+        <div className="w-28 sm:w-36">
           <p className="text-muted-foreground mb-1 text-xs">Resized</p>
           {loading ? (
             <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">

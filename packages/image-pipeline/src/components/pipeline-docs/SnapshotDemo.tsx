@@ -21,9 +21,9 @@ function SnapshotDemo({ sourceData }: { sourceData: ImageData | null }) {
   }
 
   return (
-    <div className="flex flex-wrap gap-6">
+    <div className="flex flex-wrap gap-4 sm:gap-6">
       {allImages.map((snap, i) => (
-        <div key={i} className="w-36">
+        <div key={i} className="w-28 sm:w-36">
           <p className="text-muted-foreground mb-1 text-xs">{STAGES[i] ?? `Step ${i + 1}`}</p>
           <img
             src={imageDataToUrl(snap)}
