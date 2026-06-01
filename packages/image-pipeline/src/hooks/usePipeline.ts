@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { pipelineGateway } from "../../api/pipeline-gateway";
-import type { PipelineResult } from "../../core/image-pipeline.types";
-import type { Step } from "../../core/manipulations/manifest";
+import { pipelineGateway } from "../api/pipeline-gateway";
+import type { PipelineResult } from "../core/image-pipeline.types";
+import type { Step } from "../core/manipulations/manifest";
 
 export function defineSteps<const T extends readonly Step[]>(steps: T): T {
   return steps;

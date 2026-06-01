@@ -1,7 +1,7 @@
 import { Button } from "@repo/ui/Button";
 import { useState } from "react";
+import { usePipeline } from "../../hooks/usePipeline";
 import { imageDataToUrl } from "./helpers";
-import { usePipeline } from "./usePipeline";
 
 const MODES = [
   { id: "width", label: "Width (100px)", options: { width: 100 } as const },

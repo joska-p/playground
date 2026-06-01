@@ -1,5 +1,5 @@
+import { defineSteps, usePipeline } from "../../hooks/usePipeline";
 import { imageDataToUrl } from "./helpers";
-import { defineSteps, usePipeline } from "./usePipeline";
 
 const STEPS = defineSteps([
   { id: "grayscale" },
