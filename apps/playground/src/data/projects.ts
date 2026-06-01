@@ -95,8 +95,7 @@ export const projects: Record<string, Project> = {
   imageManipulator: {
     slug: "image-manipulator",
     name: "Image Manipulator",
-    description:
-      "A tool for manipulating images using physics-based particle systems and real-time interaction.",
+    description: "A tool for manipulating images using canvas and webb workers.",
     category: "image",
     tags: ["Images", "Canvas"],
     icon: Flame,
