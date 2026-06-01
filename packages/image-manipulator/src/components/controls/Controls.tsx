@@ -1,8 +1,7 @@
 import { Button } from "@repo/ui/Button";
 import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
-import { useState } from "react";
-import { manipulate } from "../../core/manipulate";
+import { useRef, useState } from "react";
 import { useImageUpload } from "../../hooks/useImageUpload";
 import type { ManipulationId } from "../../manipulations/manipulations";
 import { manipulations, manipulationsIds } from "../../manipulations/manipulations";
@@ -22,7 +21,6 @@ function Controls() {
   const sourceImage = outputs[0];
   const manipulationId = useManipulatorManipulationId();
   const workflow = useWorkflow();
-
   const [selectedPreset, setSelectedPreset] = useState(0);
   const { handleImageUpload } = useImageUpload();
 
@@ -32,25 +30,30 @@ function Controls() {
     setWorkflow(preset.steps);
   }
 
+  const workerRef = useRef<Worker | null>(null);
   function executeWorkflow() {
     if (!workflow || workflow.length === 0) return;
+    workerRef.current?.terminate();
 
-    const pipeline = manipulate(sourceImage.imageData);
-    workflow.forEach((step) =>
-      pipeline.apply(manipulations[step.id].callback(...Object.values(step.args)))
-    );
-
-    const results = pipeline.toArray();
-    clearManipulatorOutputs();
-
-    results.slice(1).forEach((imageData, i) => {
-      addToManipulatorOutputs({
-        id: `step-${i}`,
-        name: `Step ${i + 1}`,
-        description: workflow[i].id,
-        imageData,
-      });
+    const worker = new Worker(new URL("../../workers/executeWorkflow.worker.ts", import.meta.url), {
+      type: "module",
     });
+    workerRef.current = worker;
+
+    worker.onmessage = (e: MessageEvent<ImageData[]>) => {
+      const results = e.data;
+      clearManipulatorOutputs();
+      results.slice(1).forEach((imageData, i) => {
+        addToManipulatorOutputs({
+          id: `step-${i}`,
+          name: `Step ${i + 1}`,
+          description: workflow[i].id,
+          imageData,
+        });
+      });
+    };
+
+    worker.postMessage({ imageData: sourceImage.imageData, workflow });
   }
 
   return (
@@ -66,7 +69,6 @@ function Controls() {
         onChange={(e) => setSelectedPreset(Number(e.target.value))}
         className="flex-1"
         label="Preset"
-        title={WORKFLOW_PRESETS[selectedPreset].description}
       >
         {WORKFLOW_PRESETS.map((preset, index) => (
           <option key={preset.name} value={index}>

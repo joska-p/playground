@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
+    "./hooks/useWebWorker": "./src/hooks/useWebWorker.ts",
     "./Demo": "./src/components/Demo.tsx",
     "./styles": "./src/styles/styles.css"
   },

@@ -456,6 +456,9 @@ importers:
 
   packages/image-manipulator:
     dependencies:
+      '@repo/toolbox':
+        specifier: workspace:*
+        version: link:../toolbox
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui

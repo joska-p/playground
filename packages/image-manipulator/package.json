@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "@repo/toolbox": "workspace:*",
     "zustand": "catalog:"
   },
   "peerDependencies": {
