@@ -5,19 +5,19 @@
 ### Pipeline execution flow
 
 ```
-runPipeline(source, steps, context)
+runPipeline({ source, steps, context })
   │
   ├── BufferManager(source)     ← double-buffered pixel arrays
   ├── FusionScheduler()         ← fuses consecutive pixel ops
   │
   └── for each step:
         ├── "snapshot"  → flush scheduler, clone buffer, store
-        └── "manip"     → dispatchStep(step)
+        └── "manip"     → dispatchStep({ step, context, bufferManager, scheduler })
                             │
                             ├── resize    → computeTargetDimensions() + resizeImageData()
                             ├── pixel     → FusionScheduler.add() (deferred)
                             ├── neighbor  → flush scheduler, run convolution
-                            │               (tiled if image > maxPixels)
+                            │               (tiled if image > maximumPixels)
                             └── whole     → flush scheduler, run transform
   │
   └── final flush
@@ -31,17 +31,17 @@ runPipeline(source, steps, context)
 Double-buffering avoids allocating a new array for every pixel operation.
 
 ```
-bufs: [Uint8ClampedArray, Uint8ClampedArray]
-ptr: 0 │ 1
+buffers: [Uint8ClampedArray, Uint8ClampedArray]
+pointer: 0 │ 1
 
-  "current" = bufs[ptr]
-  "other"   = bufs[1 - ptr]
+  "current" = buffers[pointer]
+  "other"   = buffers[1 - pointer]
 ```
 
-- On construction: `bufs[0]` = copy of source data, `bufs[1]` = empty (same length).
-- **`swap()`** flips `ptr` (O(1)). Used after each pixel/neighborhood pass.
+- On construction: `buffers[0]` = copy of source data, `buffers[1]` = empty (same length).
+- **`swap()`** flips `pointer` (O(1)). Used after each pixel/neighborhood pass.
 - **`snapshot()`** clones `current` into a new `ImageData`.
-- **`replaceWith(img)`** resets both buffers to new dimensions. Used when resize or whole-image ops change the image geometry.
+- **`replaceWith(imageData)`** resets both buffers to new dimensions. Used when resize or whole-image ops change the image geometry.
 
 ---
 
@@ -51,10 +51,10 @@ Consecutive **pixel-type** steps are fused into a single pixel loop to avoid N f
 
 ```typescript
 class FusionScheduler {
-  private batch: Array<{ def, options }> = [];
+  private batch: Array<{ definition, options }> = [];
 
-  add(def, options): void        // queue a pixel op
-  flush(manager): void         // run all queued ops in one pass
+  add(definition, options): void        // queue a pixel op
+  flush(bufferManager): void           // run all queued ops in one pass
 }
 ```
 
@@ -62,10 +62,10 @@ How it works:
 
 ```
 For each pixel (i = 0 .. pixelCount-1):
-  r,g,b,a = src[i]
-  for each (def, options) in batch:
-    [r,g,b,a] = def.fn(r, g, b, a, options)
-  dest[i] = clamp(r,g,b,a)
+  red,green,blue,alpha = current[i]
+  for each (definition, options) in batch:
+    [red,green,blue,alpha] = definition.function({ red, green, blue, alpha, options })
+  other[i] = clamp(red,green,blue,alpha)
 swap()
 ```
 
@@ -78,9 +78,9 @@ Non-pixel operations (neighborhood, whole, resize, snapshot) force a `flush()` b
 Routes each step to the correct handler:
 
 1. **`id === "resize"`** — not in registry; handled inline.
-2. **`def.type === "pixel"`** — enqueue in scheduler.
-3. **`def.type === "neighborhood"`** — flush scheduler, then run convolution. If image pixel count > `maxPixels`, use tiled path.
-4. **`def.type === "whole"`** — flush scheduler, then run the whole-image function.
+2. **`definition.type === "pixel"`** — enqueue in scheduler.
+3. **`definition.type === "neighborhood"`** — flush scheduler, then run convolution. If image pixel count > `maximumPixels`, use tiled path.
+4. **`definition.type === "whole"`** — flush scheduler, then run the whole-image function.
 
 ---
 
@@ -91,15 +91,15 @@ Large neighborhood operations are **tiled** to avoid allocating full-size tempor
 ```
 TILE_SIZE = 512 pixels per edge
 
-For each tile (tx, ty, tw, th):
+For each tile (tileX, tileY, tileWidth, tileHeight):
   ┌────────────────────────┐
-  │  extractTile(src, tx,ty,tw,th, halo)    ← includes halo border
-  │  run convolution on tile (with halo)     ← process independently
-  │  blitTile(dest, tileOut, tx,ty,tw,th, halo)  ← write center region only
+  │  extractTile({ imageData, tileX, tileY, tileWidth, tileHeight, halo })    ← includes halo border
+  │  run convolution on tile (with halo)                                      ← process independently
+  │  blitTile({ destination, tile, tileX, tileY, tileWidth, tileHeight, halo }) ← write center region only
   └────────────────────────┘
 ```
 
-- **Halo** = `def.radius` (extra pixels around each tile so edge pixels have neighbors).
+- **Halo** = `definition.radius` (extra pixels around each tile so edge pixels have neighbors).
 - **`extractTile`** — copies a padded region from source, clamped to image bounds.
 - **`blitTile`** — copies only the non-halo (center) region back to the destination.
 
@@ -112,22 +112,22 @@ This means the convolution result is identical to running it on the full image, 
 **Bilinear interpolation** — for each output pixel, samples the 4 nearest source pixels and interpolates.
 
 ```
-srcX = x * (srcW / targetW)
-srcY = y * (srcH / targetH)
+sourceX = x * (sourceWidth / targetWidth)
+sourceY = y * (sourceHeight / targetHeight)
 
-x0 = floor(srcX), x1 = min(x0+1, srcW-1)
-y0 = floor(srcY), y1 = min(y0+1, srcH-1)
+x0 = floor(sourceX), x1 = min(x0+1, sourceWidth-1)
+y0 = floor(sourceY), y1 = min(y0+1, sourceHeight-1)
 
-top    = src[x0,y0] * (1 - xFrac) + src[x1,y0] * xFrac
-bottom = src[x0,y1] * (1 - xFrac) + src[x1,y1] * xFrac
-dest   = top * (1 - yFrac) + bottom * yFrac
+top    = source[x0,y0] * (1 - xFraction) + source[x1,y0] * xFraction
+bottom = source[x0,y1] * (1 - xFraction) + source[x1,y1] * xFraction
+destination = top * (1 - yFraction) + bottom * yFraction
 ```
 
 **`computeTargetDimensions`** resolves a `ResizeOptions` to pixel dimensions:
 
 | Case | Result |
 |---|---|
-| `maxPixels` | Scale to fit pixel budget, maintain aspect ratio |
+| `maximumPixels` | Scale to fit pixel budget, maintain aspect ratio |
 | `width + height + "fill"` | Exact dimensions (stretch) |
 | `width + height + "contain"` | Fit within bounds, aspect-ratio-preserved |
 | `width + height + "cover"` | Fill bounds, aspect-ratio-preserved (crops) |
@@ -142,13 +142,13 @@ Returns `null` (no resize needed) if target dimensions match source.
 
 ### pipeline-worker.ts
 
-Entry point for the Web Worker. Each message receives `{sourceData, steps, maxPixels}`.
+Entry point for the Web Worker. Each message receives `{sourceImageData, steps, maximumPixels}`.
 
 ```
 message handler:
   Registry.from(ALL_MANIPULATIONS)   ← populates from manifest
-  runPipeline(sourceData, steps, { registry, maxPixels })
-  postMessage(result, { transfer: [all pixel buffers] })
+  runPipeline({ sourceImageData, steps, context: { registry, maximumPixels } })
+  postMessage(pipelineResult, { transfer: [all pixel buffers] })
 ```
 
 The worker is **stateless** — it rebuilds the registry per message. This is safe and avoids stale state.
@@ -161,17 +161,17 @@ Main-thread worker pool manager.
 Pool: up to min(hardwareConcurrency, 4) workers.
 Queue: FIFO queue for overflow when all workers busy.
 
-pipelineGateway(imageData, steps, maxPixels):
+pipelineGateway.run({ sourceImageData, steps, maximumPixels }):
   find idle worker
-    ├── found → dispatch(worker, ...)
+    ├── found → dispatch(poolEntry, ...)
     └── none  → push to jobQueue
 
-dispatch(worker, ...):
-  worker.postMessage(transferables)     ← zero-copy via Transferable
+dispatch(poolEntry, ...):
+  poolEntry.worker.postMessage(transferables)     ← zero-copy via Transferable
   on message → resolve(result), mark worker idle, drainQueue()
   on error   → reject(error), mark worker idle, drainQueue()
 
-teardownWorkerPool():
+teardown():
   terminate all workers
   clear queue
 ```
@@ -180,35 +180,15 @@ teardownWorkerPool():
 
 ---
 
-## Polyfill (`image-data-polyfill.ts`)
-
-If `ImageData` is not defined globally (e.g. Node.js or some worker environments), a minimal polyfill is installed:
+## Configuration
 
 ```typescript
-class ImageDataPolyfill {
-  width: number;
-  height: number;
-  data: Uint8ClampedArray;
-}
-```
-
-Constructor accepts either `(width, height)` or `(Uint8ClampedArray, width, height)` — matching the native `ImageData` API.
-
----
-
-## Configuration (`pipeline-config.ts`)
-
-```typescript
-export const MAX_PIXELS = 16_000_000;  // ~16 megapixel default cap
-
-export function defaultConfig(): PipelineConfig {
-  return { maxPixels: MAX_PIXELS };
-}
+export const DEFAULT_MAXIMUM_PIXELS = 16_000_000;  // ~16 megapixel default cap
 ```
 
 This limit is enforced in:
-- `runPipeline()` — auto-prepends a downscale if source exceeds maxPixels
-- `runNeighborhoodTiled()` — triggers tiled path if image > maxPixels
+- `runPipeline()` — auto-prepends a downscale if source exceeds maximumPixels
+- `runNeighborhoodTiled()` — triggers tiled path if image > maximumPixels
 
 ---
 
@@ -230,7 +210,7 @@ This limit is enforced in:
               │
               ├─ resize → compute + bilinear interpolation
               ├─ pixel  → FusionScheduler (fused batch)
-              ├─ neighborhood → convolution (tiled if > maxPixels)
+              ├─ neighborhood → convolution (tiled if > maximumPixels)
               └─ whole  → single-pass transform
               │
               ▼

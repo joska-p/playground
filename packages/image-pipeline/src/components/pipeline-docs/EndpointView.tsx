@@ -29,8 +29,10 @@ function ManipView({
   onParamChange: (id: string, key: string, value: number) => void;
 }) {
   const codeLines = [
-    `pipelineGateway(source, [`,
-    `  { id: "${manip.id}"${
+    `pipelineGateway.run({`,
+    `  sourceImageData: source,`,
+    `  steps: [`,
+    `    { id: "${manip.id}"${
       manip.params && manip.params.length > 0
         ? ", options: { " +
           manip.params
@@ -38,8 +40,9 @@ function ManipView({
             .join(", ") +
           " }"
         : ""
-    }`,
-    `]);`,
+    } }`,
+    `  ]`,
+    `});`,
   ];
 
   return (
@@ -100,25 +103,34 @@ function PipelineView({
   const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: "pipeline", id });
   const codeSamples: Record<string, string> = {
     snapshots: [
-      `pipelineGateway(source, [`,
-      `  { id: "grayscale" },`,
-      `  { id: "snapshot" },`,
-      `  { id: "invert" },`,
-      `  { id: "snapshot" },`,
-      `  { id: "edge-detect" },`,
-      `]);`,
+      `pipelineGateway.run({`,
+      `  sourceImageData: source,`,
+      `  steps: [`,
+      `    { id: "grayscale" },`,
+      `    { id: "snapshot" },`,
+      `    { id: "invert" },`,
+      `    { id: "snapshot" },`,
+      `    { id: "edge-detect" },`,
+      `  ]`,
+      `});`,
     ].join("\n"),
     resize: [
-      `pipelineGateway(source, [`,
-      `  { id: "resize", options: { width: 100 } },`,
-      `]);`,
+      `pipelineGateway.run({`,
+      `  sourceImageData: source,`,
+      `  steps: [`,
+      `    { id: "resize", options: { width: 100 } }`,
+      `  ]`,
+      `});`,
     ].join("\n"),
     chaining: [
-      `const result = await pipelineGateway(source, [`,
-      `  { id: "brightness", options: { value: 1.2 } },`,
-      `  { id: "contrast", options: { value: 1.3 } },`,
-      `  { id: "sharpen", options: { strength: 1.5 } },`,
-      `]);`,
+      `const result = await pipelineGateway.run({`,
+      `  sourceImageData: source,`,
+      `  steps: [`,
+      `    { id: "brightness", options: { value: 1.2 } },`,
+      `    { id: "contrast", options: { value: 1.3 } },`,
+      `    { id: "sharpen", options: { strength: 1.5 } }`,
+      `  ]`,
+      `});`,
     ].join("\n"),
   };
 
@@ -201,8 +213,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             <div>
               <div className="text-primary mb-1 font-semibold">Gateway</div>
               <div className="text-muted-foreground space-y-0.5 font-mono text-xs">
-                <div>pipelineGateway(src, steps)</div>
-                <div>teardownWorkerPool()</div>
+                <div>.run(&#123; sourceImageData, steps &#125;)</div>
+                <div>.teardown()</div>
               </div>
             </div>
           </div>
@@ -219,7 +231,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             automatically — no registry setup needed.
           </p>
           <CodeBlock
-            code={`import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";\n\nconst result = await pipelineGateway(sourceData, [\n  { id: "brightness", options: { value: 1.2 } },\n  { id: "sharpen", options: { strength: 1.5 } },\n  { id: "snapshot" },\n  { id: "edge-detect" },\n]);\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
+            code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "snapshot" },\n    { id: "edge-detect" },\n  ]\n});\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
           />
         </div>
         <div className="border-border rounded-lg border p-5">
@@ -231,7 +243,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             reusable pipeline definition.
           </p>
           <CodeBlock
-            code={`import { Pipeline } from "@repo/image-pipeline/Pipeline";\n\nconst result = await Pipeline\n  .from(sourceData, { maxPixels: 1_000_000 })\n  .add("brightness", { value: 1.2 })\n  .resize({ width: 800 })\n  .snapshot()\n  .add("sharpen")\n  .run();`}
+            code={`import { Pipeline } from "@repo/image-pipeline/core/pipeline";\n\nconst result = await Pipeline\n  .from(sourceData, { maximumPixels: 1_000_000 })\n  .add("brightness", { value: 1.2 })\n  .resize({ width: 800 })\n  .snapshot()\n  .add("sharpen")\n  .run();`}
           />
         </div>
       </div>

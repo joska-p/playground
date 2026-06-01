@@ -6,7 +6,7 @@
   "exports": {
     "./PipelineGateway": "./src/api/pipeline-gateway.ts",
     "./Registry": "./src/core/registry.ts",
-    "./usePipeline": "./src/components/pipeline-docs/usePipeline.ts",
+    "./usePipeline": "./src/hooks/usePipeline.ts",
     "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
     "./styles": "./src/styles/styles.css"
   },

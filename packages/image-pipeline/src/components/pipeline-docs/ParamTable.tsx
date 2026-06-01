@@ -17,12 +17,16 @@ function ParamTable({ params }: ParamTableProps) {
           </tr>
         </thead>
         <tbody>
-          {params.map((p) => (
-            <tr key={p.key} className="border-border border-b last:border-b-0">
-              <td className="text-primary px-4 py-2.5 font-mono text-xs font-medium">{p.key}</td>
+          {params.map((parameter) => (
+            <tr key={parameter.key} className="border-border border-b last:border-b-0">
+              <td className="text-primary px-4 py-2.5 font-mono text-xs font-medium">
+                {parameter.key}
+              </td>
               <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
-              <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">{p.default}</td>
-              <td className="text-muted-foreground px-4 py-2.5 text-xs">{p.label}</td>
+              <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                {parameter.default}
+              </td>
+              <td className="text-muted-foreground px-4 py-2.5 text-xs">{parameter.label}</td>
             </tr>
           ))}
         </tbody>

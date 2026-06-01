@@ -2,36 +2,18 @@ import type { Step } from "../core/manipulations/manifest";
 import type { PipelineResult } from "./pipeline-worker";
 import PipelineWorker from "./pipeline-worker?worker&inline";
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-export function createManipulationStep(id: string, options?: Record<string, unknown>): Step {
-  return { id, ...(options ? { options } : {}) } as Step;
-}
-
-export const SNAPSHOT_STEP = { id: "snapshot" as const };
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 type PoolEntry = {
   worker: Worker;
   busy: boolean;
 };
 
 type QueuedJob = {
-  imageData: ImageData;
+  sourceImageData: ImageData;
   steps: Step[];
   maximumPixels?: number;
   resolve: (result: PipelineResult) => void;
   reject: (error: Error) => void;
 };
-
-// ---------------------------------------------------------------------------
-// PipelineGateway — instance-based worker pool
-// ---------------------------------------------------------------------------
 
 export class PipelineGateway {
   private pool: PoolEntry[] = [];
@@ -49,25 +31,25 @@ export class PipelineGateway {
   }
 
   private acquireWorker(): PoolEntry | null {
-    return this.getPool().find((entry) => !entry.busy) ?? null;
+    return this.getPool().find((poolEntry) => !poolEntry.busy) ?? null;
   }
 
   private dispatch({
-    entry,
-    imageData,
+    poolEntry,
+    sourceImageData,
     steps,
     resolve,
     reject,
     maximumPixels,
   }: {
-    entry: PoolEntry;
-    imageData: ImageData;
+    poolEntry: PoolEntry;
+    sourceImageData: ImageData;
     steps: Step[];
     resolve: (result: PipelineResult) => void;
     reject: (error: Error) => void;
     maximumPixels?: number;
   }): void {
-    entry.busy = true;
+    poolEntry.busy = true;
 
     const onMessage = (event: MessageEvent<PipelineResult | { error: string }>) => {
       cleanup();
@@ -84,59 +66,59 @@ export class PipelineGateway {
     };
 
     const cleanup = () => {
-      entry.worker.removeEventListener("message", onMessage);
-      entry.worker.removeEventListener("error", onError);
-      entry.busy = false;
+      poolEntry.worker.removeEventListener("message", onMessage);
+      poolEntry.worker.removeEventListener("error", onError);
+      poolEntry.busy = false;
       this.drainQueue();
     };
 
-    entry.worker.addEventListener("message", onMessage);
-    entry.worker.addEventListener("error", onError);
+    poolEntry.worker.addEventListener("message", onMessage);
+    poolEntry.worker.addEventListener("error", onError);
 
-    const clampedCopy = new Uint8ClampedArray(imageData.data);
-    const imageDataCopy = new ImageData(clampedCopy, imageData.width, imageData.height);
-    entry.worker.postMessage({ sourceData: imageDataCopy, steps, maxPixels: maximumPixels }, [
+    const clampedCopy = new Uint8ClampedArray(sourceImageData.data);
+    const imageDataCopy = new ImageData(clampedCopy, sourceImageData.width, sourceImageData.height);
+    poolEntry.worker.postMessage({ sourceImageData: imageDataCopy, steps, maximumPixels }, [
       imageDataCopy.data.buffer,
     ]);
   }
 
   private drainQueue(): void {
     if (!this.jobQueue.length) return;
-    const entry = this.acquireWorker();
-    if (!entry) return;
-    const job = this.jobQueue.shift()!;
-    this.dispatch({ entry, ...job });
+    const poolEntry = this.acquireWorker();
+    if (!poolEntry) return;
+    const queuedJob = this.jobQueue.shift()!;
+    this.dispatch({ poolEntry, ...queuedJob });
   }
 
   run({
     sourceImageData,
     steps,
-    maxPixels,
+    maximumPixels,
   }: {
     sourceImageData: ImageData;
     steps: Step[];
-    maxPixels?: number;
+    maximumPixels?: number;
   }): Promise<PipelineResult> {
-    const entry = this.acquireWorker();
+    const poolEntry = this.acquireWorker();
 
-    if (entry) {
+    if (poolEntry) {
       return new Promise((resolve, reject) => {
         this.dispatch({
-          entry,
-          imageData: sourceImageData,
+          poolEntry,
+          sourceImageData,
           steps,
           resolve,
           reject,
-          maximumPixels: maxPixels,
+          maximumPixels,
         });
       });
     }
 
     return new Promise((resolve, reject) => {
       this.jobQueue.push({
-        imageData: sourceImageData,
+        sourceImageData,
         steps,
-        maximumPixels: maxPixels,
+        maximumPixels,
         resolve,
         reject,
       });

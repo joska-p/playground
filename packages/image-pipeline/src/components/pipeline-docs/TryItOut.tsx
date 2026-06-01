@@ -12,9 +12,9 @@ type TryItOutProps = {
 };
 
 function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutProps) {
-  const [result, setResult] = useState<ImageData | null>(null);
+  const [pipelineResultImage, setPipelineResultImage] = useState<ImageData | null>(null);
 
-  const loading = sourceData !== null && result === null;
+  const loading = sourceData !== null && pipelineResultImage === null;
 
   useEffect(() => {
     if (!sourceData) return;
@@ -22,19 +22,20 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
 
     const options: Record<string, unknown> = {};
     if (manip.params) {
-      for (const p of manip.params) {
-        options[p.key] = paramValues[`${manip.id}:${p.key}`] ?? p.default;
+      for (const parameterDefinition of manip.params) {
+        options[parameterDefinition.key] =
+          paramValues[`${manip.id}:${parameterDefinition.key}`] ?? parameterDefinition.default;
       }
     }
 
     pipelineGateway
       .run({ sourceImageData: sourceData, steps: [{ id: manip.id, options }] })
-      .then((r) => {
-        if (!cancelled) setResult(r.final);
+      .then((pipelineResult) => {
+        if (!cancelled) setPipelineResultImage(pipelineResult.final);
       })
-      .catch((err) => {
-        console.error(err);
-        if (!cancelled) setResult(null);
+      .catch((error) => {
+        console.error(error);
+        if (!cancelled) setPipelineResultImage(null);
       });
 
     return () => {
@@ -65,9 +66,9 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
             <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
               ...
             </div>
-          ) : result ? (
+          ) : pipelineResultImage ? (
             <img
-              src={imageDataToUrl(result)}
+              src={imageDataToUrl(pipelineResultImage)}
               alt={manip.label}
               className="border-border w-full rounded border"
               style={{ imageRendering: "pixelated" }}
@@ -83,15 +84,17 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
       </div>
       {manip.params && (
         <div className="space-y-2">
-          {manip.params.map((p) => (
+          {manip.params.map((parameterDefinition) => (
             <Slider
-              key={p.key}
-              label={p.label}
-              min={p.min}
-              max={p.max}
-              step={p.step}
-              value={paramValues[`${manip.id}:${p.key}`] ?? p.default}
-              onChange={(v) => onParamChange(manip.id, p.key, v)}
+              key={parameterDefinition.key}
+              label={parameterDefinition.label}
+              min={parameterDefinition.min}
+              max={parameterDefinition.max}
+              step={parameterDefinition.step}
+              value={
+                paramValues[`${manip.id}:${parameterDefinition.key}`] ?? parameterDefinition.default
+              }
+              onChange={(value) => onParamChange(manip.id, parameterDefinition.key, value)}
             />
           ))}
         </div>

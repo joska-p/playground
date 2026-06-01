@@ -3,31 +3,27 @@ import { pipelineGateway } from "../api/pipeline-gateway";
 import type { PipelineResult } from "../core/image-pipeline.types";
 import type { Step } from "../core/manipulations/manifest";
 
-export function defineSteps<const T extends readonly Step[]>(steps: T): T {
-  return steps;
-}
-
 export function usePipeline<const T extends readonly Step[]>(
-  sourceData: ImageData | null,
+  sourceImageData: ImageData | null,
   steps: T
 ): PipelineResult | null {
   const [result, setResult] = useState<PipelineResult | null>(null);
 
   useEffect(() => {
-    if (!sourceData) return;
+    if (!sourceImageData) return;
     let cancelled = false;
 
     pipelineGateway
-      .run({ sourceImageData: sourceData, steps: [...steps] })
-      .then((r) => {
-        if (!cancelled) setResult(r);
+      .run({ sourceImageData, steps: [...steps] })
+      .then((pipelineResult) => {
+        if (!cancelled) setResult(pipelineResult);
       })
       .catch(console.error);
 
     return () => {
       cancelled = true;
     };
-  }, [sourceData, steps]);
+  }, [sourceImageData, steps]);
 
   return result;
 }

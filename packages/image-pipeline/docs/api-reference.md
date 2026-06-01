@@ -21,28 +21,38 @@ The image-pipeline package chains pixel manipulations (brightness, blur, flip, e
 
 ## Types (`image-pipeline.types.ts`)
 
-Fn types are generic — the options shape is captured at definition time and used to derive the `Step` discriminated union:
+Manipulation functions now use a single **parameters object** instead of multiple positional arguments:
 
 ```typescript
-type PixelFn<O extends Record<string, unknown> = Record<string, unknown>> = (
-  r: number, g: number, b: number, a: number,
-  options: O
-) => [number, number, number, number];
+type PixelParameters<Options> = {
+  options: Options;
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+};
 
-type NeighborhoodFn<O extends Record<string, unknown> = Record<string, unknown>> = (
-  src: Uint8ClampedArray, dest: Uint8ClampedArray,
-  width: number, height: number,
-  options: O
-) => void;
+type NeighborhoodParameters<Options> = {
+  options: Options;
+  source: Uint8ClampedArray;
+  destination: Uint8ClampedArray;
+  width: number;
+  height: number;
+};
 
-type WholeImageFn<O extends Record<string, unknown> = Record<string, unknown>> = (
-  imageData: ImageData, options: O
-) => ImageData;
+type WholeImageParameters<Options> = {
+  options: Options;
+  imageData: ImageData;
+};
+
+type PixelFunction<Options = any> = (parameters: PixelParameters<Options>) => [number, number, number, number];
+type NeighborhoodFunction<Options = any> = (parameters: NeighborhoodParameters<Options>) => void;
+type WholeImageFunction<Options = any> = (parameters: WholeImageParameters<Options>) => ImageData;
 ```
 
 ### Step type
 
-The `Step` type is **derived** from the manifest (`manifest.ts`) — a typed const array of all built-in manipulations. Each known ID maps to its specific options type. A `NoInfer<string>` catch-all allows custom manipulations without breaking autocompletion:
+The `Step` type is **derived** from the manifest (`manifest.ts`) — a typed const array of all built-in manipulations. Each known ID maps to its specific options type:
 
 ```typescript
 type Step =
@@ -50,21 +60,22 @@ type Step =
   | { id: "contrast"; options?: { value?: number } }
   | { id: "grayscale" }                              // no options field
   | { id: "resize"; options: ResizeOptions }
-  | { id: "snapshot" }
-  | { id: NoInfer<string>; options?: Record<string, unknown> };  // custom
+  | { id: "snapshot" };
 ```
+
+Autocompletion works automatically when passed directly to `usePipeline` or `pipelineGateway.run` due to `const` generic parameters.
 
 ---
 
 ## `Pipeline` class (builder API)
 
-Import: `@repo/image-pipeline/Pipeline`
+Import: `@repo/image-pipeline/core/pipeline`
 
 Synchronous, chainable builder. Runs inline (same thread).
 
 ```typescript
 class Pipeline {
-  static from(source: ImageData, context: PipelineContext): Pipeline;
+  static from(sourceImageData: ImageData, configuration?: PipelineConfiguration): Pipeline;
 
   resize(options: ResizeOptions): Pipeline;
   add(id: string, options?: Record<string, unknown>): Pipeline;
@@ -76,13 +87,9 @@ class Pipeline {
 ### Usage
 
 ```typescript
-import { ALL_MANIPULATIONS } from "@repo/image-pipeline/manifest";
-import { Pipeline } from "@repo/image-pipeline/Pipeline";
-import { Registry } from "@repo/image-pipeline/Registry";
+import { Pipeline } from "@repo/image-pipeline/core/pipeline";
 
-const registry = Registry.from(ALL_MANIPULATIONS);
-
-const result = await Pipeline.from(imageData, { registry, maxPixels: 16_000_000 })
+const result = await Pipeline.from(sourceImageData, { maximumPixels: 16_000_000 })
   .resize({ width: 800 })
   .add("grayscale")
   .snapshot()
@@ -95,7 +102,7 @@ const result = await Pipeline.from(imageData, { registry, maxPixels: 16_000_000 
 
 ### Auto-downscale
 
-If no `resize()` step is called and the source exceeds `maxPixels`, the pipeline auto-prepends a downscale to fit within the pixel budget.
+If no `resize()` step is called and the source exceeds `maximumPixels`, the pipeline auto-prepends a downscale to fit within the pixel budget.
 
 ### `.snapshot()`
 
@@ -105,31 +112,35 @@ Captures the current buffer mid-pipeline. Useful for before/after comparisons.
 
 ## `pipelineGateway` (worker pool API)
 
-Import: `@repo/image-pipeline/PipelineGateway`
+Import: `@repo/image-pipeline/api/pipeline-gateway`
 
 Async, offloads to a Web Worker. Workers are pooled (up to `min(hardwareConcurrency, 4)`).
 
 ```typescript
-function pipelineGateway(
+// Part of PipelineGateway class
+run({
   sourceImageData: ImageData,
   steps: Step[],
-  maxPixels?: number
-): Promise<PipelineResult>;
+  maximumPixels?: number
+}): Promise<PipelineResult>;
 
-function teardownWorkerPool(): void;
+teardown(): void;
 ```
 
 ### Usage
 
 ```typescript
-import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
+import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";
 
-const result = await pipelineGateway(imageData, [
-  { id: "resize", options: { width: 800 } },
-  { id: "brightness", options: { value: 1.5 } },
-  { id: "snapshot" },
-  { id: "sharpen", options: { strength: 2 } },
-]);
+const result = await pipelineGateway.run({
+  sourceImageData,
+  steps: [
+    { id: "resize", options: { width: 800 } },
+    { id: "brightness", options: { value: 1.5 } },
+    { id: "snapshot" },
+    { id: "sharpen", options: { strength: 2 } },
+  ]
+});
 ```
 
 ### Worker pool behavior
@@ -137,62 +148,60 @@ const result = await pipelineGateway(imageData, [
 - Workers are lazily created on first call.
 - If all workers are busy, jobs are queued and dispatched as workers free up.
 - Pixel buffers are **transferred** (zero-copy) via `postMessage` Transferables.
-- Call `teardownWorkerPool()` on app unmount to terminate workers.
+- Call `pipelineGateway.teardown()` on app unmount to terminate workers.
 
 ---
 
 ## `Registry`
 
-Import: `@repo/image-pipeline/Registry`
+Import: `@repo/image-pipeline/core/registry`
 
 Stores and validates manipulation definitions.
 
 ```typescript
 class Registry {
-  static from(defs: readonly ManipulationEntry[]): Registry;
+  static from(definitions: readonly ManipulationDefinition[]): Registry;
 
-  register(def: ManipulationDefinition): void;
-  get(id: string): ManipulationDefinition;
-  has(id: string): boolean;
+  register(definition: ManipulationDefinition): void;
+  get(identifier: string): ManipulationDefinition;
+  has(identifier: string): boolean;
   clear(): void;
 }
 ```
 
-### `ManipulationDefinition` / `ManipulationEntry`
+### `ManipulationDefinition`
 
 ```typescript
-type ManipulationDefinition = {
+type ManipulationDefinition<Options = any> = {
   id: string;
-  type: "pixel" | "neighborhood" | "whole";
-  radius?: number;  // required for neighborhood
-  fn: PixelFn | NeighborhoodFn | WholeImageFn;
-};
+  options?: Options;
+} & (
+  | { type: "pixel"; function: PixelFunction<Options> }
+  | { type: "neighborhood"; radius: number; function: NeighborhoodFunction<Options> }
+  | { type: "whole"; function: WholeImageFunction<Options> }
+);
 ```
-
-- `Registry.from()` accepts the `ALL_MANIPULATIONS` manifest array or any subset.
-- `get()` throws if id is not registered — guards against typos.
-- Registering with an existing id logs a warning and overwrites.
 
 ### Factory functions
 
 Built-in manipulations are declared via type-safe factories that capture the ID as a literal and the options shape:
 
 ```typescript
-import { definePixel, defineNeighbor, defineWhole } from "@repo/image-pipeline/defineStep";
+import { definePixel, defineNeighbor, defineWhole } from "@repo/image-pipeline/core/manipulation-factories";
 
 // Pixel manipulation with typed options
-definePixel("brightness", (r, g, b, a, options: { value?: number }) => {
-  const v = options.value ?? 1;
-  return [r * v, g * v, b * v, a];
+definePixel("brightness", ({ red, green, blue, alpha, options }: PixelParameters<{ value?: number }>) => {
+  const value = options.value ?? 1;
+  return [red * value, green * value, blue * value, alpha];
 });
 
 // Neighborhood manipulation with radius
-defineNeighbor("sharpen", 1, (src, dest, w, h, options: { strength?: number }) => {
+defineNeighbor("sharpen", 1, ({ source, destination, width, height, options }: NeighborhoodParameters<{ strength?: number }>) => {
   // ...
 });
 
 // Whole-image transform (no options)
-defineWhole("flip-horizontal", (img) => {
+defineWhole("flip-horizontal", ({ imageData }: WholeImageParameters<Record<string, never>>) => {
   // ...
 });
 ```

@@ -51,17 +51,17 @@ export class FusionScheduler {
     this.batch.push({ definition, options });
   }
 
-  flush(manager: BufferManager) {
+  flush(bufferManager: BufferManager) {
     if (this.batch.length === 0) return;
 
     runFusedPixelBatch({
-      source: manager.current,
-      destination: manager.other,
-      pixelCount: manager.width * manager.height,
+      source: bufferManager.current,
+      destination: bufferManager.other,
+      pixelCount: bufferManager.width * bufferManager.height,
       batch: this.batch,
     });
 
-    manager.swap();
+    bufferManager.swap();
     this.batch.length = 0;
   }
 }

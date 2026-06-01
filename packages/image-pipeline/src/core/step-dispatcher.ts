@@ -38,7 +38,7 @@ type ExecutorParameters = {
   definition: ManipulationDefinition;
   options: Record<string, unknown>;
   context: PipelineContext;
-  manager: BufferManager;
+  bufferManager: BufferManager;
   scheduler: FusionScheduler;
 };
 
@@ -49,38 +49,38 @@ const executors: Record<string, ExecutorFunction> = {
     scheduler.add(definition, options);
   },
 
-  neighborhood: ({ definition, options, context, manager, scheduler }) => {
-    scheduler.flush(manager);
-    const source = manager.snapshot();
+  neighborhood: ({ definition, options, context, bufferManager, scheduler }) => {
+    scheduler.flush(bufferManager);
+    const source = bufferManager.snapshot();
 
-    if (source.width * source.height > context.maxPixels) {
-      manager.replaceWith(runNeighborhoodTiled({ source: source, definition, options }));
+    if (source.width * source.height > context.maximumPixels) {
+      bufferManager.replaceWith(runNeighborhoodTiled({ source, definition, options }));
     } else {
-      const destination = new Uint8ClampedArray(manager.current.length);
+      const destination = new Uint8ClampedArray(bufferManager.current.length);
 
       if (definition.type === "neighborhood") {
         definition.function({
           options,
-          source: manager.current,
+          source: bufferManager.current,
           destination,
-          width: manager.width,
-          height: manager.height,
+          width: bufferManager.width,
+          height: bufferManager.height,
         });
       }
 
-      const imageData = new ImageData(manager.width, manager.height);
+      const imageData = new ImageData(bufferManager.width, bufferManager.height);
       imageData.data.set(destination);
-      manager.replaceWith(imageData);
+      bufferManager.replaceWith(imageData);
     }
   },
 
-  whole: ({ definition, options, manager, scheduler }) => {
-    scheduler.flush(manager);
+  whole: ({ definition, options, bufferManager, scheduler }) => {
+    scheduler.flush(bufferManager);
     if (definition.type === "whole") {
-      manager.replaceWith(
+      bufferManager.replaceWith(
         definition.function({
           options,
-          imageData: manager.snapshot(),
+          imageData: bufferManager.snapshot(),
         })
       );
     }
@@ -90,18 +90,18 @@ const executors: Record<string, ExecutorFunction> = {
 export function dispatchStep({
   step,
   context,
-  manager,
+  bufferManager,
   scheduler,
 }: {
   step: Step;
   context: PipelineContext;
-  manager: BufferManager;
+  bufferManager: BufferManager;
   scheduler: FusionScheduler;
 }) {
   if (step.id === "resize") {
     executeResizeStep({
       options: (step as { options: ResizeOptions }).options,
-      bufferManager: manager,
+      bufferManager,
     });
     return;
   }
@@ -111,6 +111,6 @@ export function dispatchStep({
 
   const executor = executors[definition.type];
   if (executor) {
-    executor({ definition, options, context, manager, scheduler });
+    executor({ definition, options, context, bufferManager, scheduler });
   }
 }

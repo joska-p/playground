@@ -4,31 +4,34 @@ const TILE_SIZE = 512; // pixels per tile edge
 
 function extractTile({
   imageData,
-  tx,
-  ty,
-  tw,
-  th,
+  tileX,
+  tileY,
+  tileWidth,
+  tileHeight,
   halo,
 }: {
   imageData: ImageData;
-  tx: number;
-  ty: number;
-  tw: number;
-  th: number;
+  tileX: number;
+  tileY: number;
+  tileWidth: number;
+  tileHeight: number;
   halo: number;
 }) {
-  const padX = Math.max(0, tx - halo);
-  const padY = Math.max(0, ty - halo);
-  const padX2 = Math.min(imageData.width, tx + tw + halo);
-  const padY2 = Math.min(imageData.height, ty + th + halo);
+  const paddedX = Math.max(0, tileX - halo);
+  const paddedY = Math.max(0, tileY - halo);
+  const paddedX2 = Math.min(imageData.width, tileX + tileWidth + halo);
+  const paddedY2 = Math.min(imageData.height, tileY + tileHeight + halo);
 
-  const padW = padX2 - padX;
-  const padH = padY2 - padY;
+  const paddedWidth = paddedX2 - paddedX;
+  const paddedHeight = paddedY2 - paddedY;
 
-  const tile = new ImageData(padW, padH);
-  for (let row = 0; row < padH; row++) {
-    const srcOff = ((padY + row) * imageData.width + padX) * 4;
-    tile.data.set(imageData.data.subarray(srcOff, srcOff + padW * 4), row * padW * 4);
+  const tile = new ImageData(paddedWidth, paddedHeight);
+  for (let row = 0; row < paddedHeight; row++) {
+    const sourceOffset = ((paddedY + row) * imageData.width + paddedX) * 4;
+    tile.data.set(
+      imageData.data.subarray(sourceOffset, sourceOffset + paddedWidth * 4),
+      row * paddedWidth * 4
+    );
   }
   return tile;
 }
@@ -36,27 +39,30 @@ function extractTile({
 function blitTile({
   destination,
   tile,
-  tx,
-  ty,
-  tw,
-  th,
+  tileX,
+  tileY,
+  tileWidth,
+  tileHeight,
   halo,
 }: {
   destination: ImageData;
   tile: ImageData;
-  tx: number;
-  ty: number;
-  tw: number;
-  th: number;
+  tileX: number;
+  tileY: number;
+  tileWidth: number;
+  tileHeight: number;
   halo: number;
 }) {
-  const offX = tx - Math.max(0, tx - halo);
-  const offY = ty - Math.max(0, ty - halo);
+  const offsetX = tileX - Math.max(0, tileX - halo);
+  const offsetY = tileY - Math.max(0, tileY - halo);
 
-  for (let row = 0; row < th; row++) {
-    const tileOff = ((offY + row) * tile.width + offX) * 4;
-    const destOff = ((ty + row) * destination.width + tx) * 4;
-    destination.data.set(tile.data.subarray(tileOff, tileOff + tw * 4), destOff);
+  for (let row = 0; row < tileHeight; row++) {
+    const tileOffset = ((offsetY + row) * tile.width + offsetX) * 4;
+    const destinationOffset = ((tileY + row) * destination.width + tileX) * 4;
+    destination.data.set(
+      tile.data.subarray(tileOffset, tileOffset + tileWidth * 4),
+      destinationOffset
+    );
   }
 }
 
@@ -77,19 +83,19 @@ export function runNeighborhoodTiled({
 
   for (let row = 0; row < rows; row++) {
     for (let column = 0; column < columns; column++) {
-      const tx = column * TILE_SIZE;
-      const ty = row * TILE_SIZE;
-      const tw = Math.min(TILE_SIZE, source.width - tx);
-      const th = Math.min(TILE_SIZE, source.height - ty);
+      const tileX = column * TILE_SIZE;
+      const tileY = row * TILE_SIZE;
+      const tileWidth = Math.min(TILE_SIZE, source.width - tileX);
+      const tileHeight = Math.min(TILE_SIZE, source.height - tileY);
 
-      const tile = extractTile({ imageData: source, tx, ty, tw, th, halo });
-      const tileOut = new ImageData(tile.width, tile.height);
+      const tile = extractTile({ imageData: source, tileX, tileY, tileWidth, tileHeight, halo });
+      const tileOutput = new ImageData(tile.width, tile.height);
 
       if (definition.type === "neighborhood") {
         definition.function({
           options,
           source: tile.data,
-          destination: tileOut.data,
+          destination: tileOutput.data,
           width: tile.width,
           height: tile.height,
         });
@@ -97,11 +103,11 @@ export function runNeighborhoodTiled({
 
       blitTile({
         destination: destinationImage,
-        tile: tileOut,
-        tx,
-        ty,
-        tw,
-        th,
+        tile: tileOutput,
+        tileX,
+        tileY,
+        tileWidth,
+        tileHeight,
         halo,
       });
     }

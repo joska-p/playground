@@ -41,13 +41,16 @@ export const ALL_MANIPULATIONS = [
 
 // ─── Derive Step type from the manifest ─────────────────────────────────────
 
+type ManipulationLookup = {
+  [Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation["id"]]: Manipulation["options"];
+};
+
 export type Step =
   | {
-      [Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation["id"]]: {
-        id: Manipulation["id"];
-        options?: Manipulation["options"];
+      [Identifier in keyof ManipulationLookup]: {
+        id: Identifier;
+        options?: ManipulationLookup[Identifier];
       };
-    }[(typeof ALL_MANIPULATIONS)[number]["id"]]
+    }[keyof ManipulationLookup]
   | { id: "resize"; options: ResizeOptions }
-  | { id: "snapshot" }
-  | { id: string; options?: Record<string, unknown> };
+  | { id: "snapshot" };

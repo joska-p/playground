@@ -40,7 +40,7 @@ export async function runPipeline({
   const downscale = buildAutoDownscaleStep({
     source,
     steps,
-    maximumPixels: context.maxPixels,
+    maximumPixels: context.maximumPixels,
   });
 
   if (downscale) {
@@ -59,7 +59,7 @@ export async function runPipeline({
       scheduler.flush(manager);
       snapshots.push(manager.snapshot());
     } else {
-      dispatchStep({ step, context, manager, scheduler });
+      dispatchStep({ step, context, bufferManager: manager, scheduler });
     }
   }
 

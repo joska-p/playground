@@ -5,9 +5,9 @@ All manipulations are defined in [`manifest.ts`](../src/core/manipulations/manif
 Each manipulation is declared via a type-safe factory that captures its ID as a literal and its options shape as a generic parameter:
 
 ```typescript
-const brightness = definePixel("brightness", (r, g, b, a, options: { value?: number }) => {
-  const v = options.value ?? 1;
-  return [r * v, g * v, b * v, a];
+const brightness = definePixel("brightness", ({ red, green, blue, alpha, options }: PixelParameters<{ value?: number }>) => {
+  const value = options.value ?? 1;
+  return [red * value, green * value, blue * value, alpha];
 });
 ```
 
@@ -240,13 +240,13 @@ Resize is a **first-class built-in**, not a registered manipulation. It uses bil
 { id: "resize", options: { width: 400, height: 300, fit: "cover" } }      // fill bounds, crop
 
 // Downscale by pixel budget (maintains aspect ratio)
-{ id: "resize", options: { maxPixels: 1_000_000 } }
+{ id: "resize", options: { maximumPixels: 1_000_000 } }
 ```
 
 ```typescript
 // Class-based API
-Pipeline.from(src, context).resize({ width: 800, height: 600, fit: "contain" })
+Pipeline.from(sourceImageData, configuration).resize({ width: 800, height: 600, fit: "contain" })
 
-// Raw step (also works with pipelineGateway / usePipeline)
+// Raw step (also works with pipelineGateway.run / usePipeline)
 { id: "resize", options: { width: 800 } }
 ```

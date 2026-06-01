@@ -21,27 +21,27 @@ const MODES = [
     label: "Cover (100×100)",
     options: { width: 100, height: 100, fit: "cover" as const },
   },
-  { id: "maxpixels", label: "Max Pixels (5000)", options: { maxPixels: 5000 } as const },
+  { id: "maximumpixels", label: "Max Pixels (5000)", options: { maximumPixels: 5000 } as const },
 ] as const;
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
   const [mode, setMode] = useState("width");
-  const m = MODES.find((m) => m.id === mode)!;
-  const result = usePipeline(sourceData, [{ id: "resize", options: m.options }]);
-  const resultImage = result?.final ?? null;
-  const loading = sourceData !== null && result === null;
+  const modeItem = MODES.find((item) => item.id === mode)!;
+  const pipelineResult = usePipeline(sourceData, [{ id: "resize", options: modeItem.options }]);
+  const pipelineResultImage = pipelineResult?.final ?? null;
+  const loading = sourceData !== null && pipelineResult === null;
 
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        {MODES.map((m) => (
+        {MODES.map((item) => (
           <Button
-            key={m.id}
-            variant={mode === m.id ? "primary" : "outline"}
+            key={item.id}
+            variant={mode === item.id ? "primary" : "outline"}
             size="small"
-            onClick={() => setMode(m.id)}
+            onClick={() => setMode(item.id)}
           >
-            {m.label}
+            {item.label}
           </Button>
         ))}
       </div>
@@ -66,16 +66,16 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
             <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
               ...
             </div>
-          ) : resultImage ? (
+          ) : pipelineResultImage ? (
             <img
-              src={imageDataToUrl(resultImage)}
+              src={imageDataToUrl(pipelineResultImage)}
               alt="resized"
               className="border-border w-full rounded border"
               style={{ imageRendering: "pixelated" }}
             />
           ) : null}
           <p className="text-muted-foreground mt-1 text-[10px] font-mono">
-            {resultImage?.width}×{resultImage?.height}
+            {pipelineResultImage?.width}×{pipelineResultImage?.height}
           </p>
         </div>
       </div>

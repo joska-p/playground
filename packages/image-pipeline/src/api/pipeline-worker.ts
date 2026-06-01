@@ -11,33 +11,33 @@ export type PipelineResult = {
 };
 
 type WorkerMessage = {
-  sourceData: ImageData;
+  sourceImageData: ImageData;
   steps: Step[];
-  maxPixels?: number;
+  maximumPixels?: number;
 };
 
 self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
-  const { sourceData, steps, maxPixels } = event.data;
+  const { sourceImageData, steps, maximumPixels } = event.data;
 
   try {
     const registry = Registry.from(ALL_MANIPULATIONS);
 
-    const result = await runPipeline({
-      source: sourceData,
+    const pipelineResult = await runPipeline({
+      source: sourceImageData,
       steps,
       context: {
         registry,
-        maxPixels: maxPixels ?? DEFAULT_MAXIMUM_PIXELS,
+        maximumPixels: maximumPixels ?? DEFAULT_MAXIMUM_PIXELS,
       },
     });
 
     const transferables = [
-      result.source.data.buffer,
-      result.final.data.buffer,
-      ...result.snapshots.map((snapshot) => snapshot.data.buffer),
+      pipelineResult.source.data.buffer,
+      pipelineResult.final.data.buffer,
+      ...pipelineResult.snapshots.map((snapshot) => snapshot.data.buffer),
     ];
 
-    self.postMessage(result, { transfer: transferables });
+    self.postMessage(pipelineResult, { transfer: transferables });
   } catch (error) {
     self.postMessage({
       error: error instanceof Error ? error.message : String(error),

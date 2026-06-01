@@ -27,11 +27,11 @@ const BADGE_LABELS: Record<string, string> = {
 
 function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProps) {
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(groups.map((g) => [g.label, true]))
+    Object.fromEntries(groups.map((group) => [group.label, true]))
   );
 
   function toggleGroup(label: string) {
-    setExpandedGroups((prev) => ({ ...prev, [label]: !prev[label] }));
+    setExpandedGroups((previousState) => ({ ...previousState, [label]: !previousState[label] }));
   }
 
   function handleSelect(item: (typeof groups)[number]["items"][number]) {

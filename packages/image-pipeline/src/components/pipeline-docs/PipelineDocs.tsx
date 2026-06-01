@@ -15,8 +15,8 @@ function PipelineDocs() {
 
   useEffect(() => {
     let cancelled = false;
-    loadDemoImage(CANVAS_SIZE).then((img) => {
-      if (!cancelled) setSourceData(img);
+    loadDemoImage(CANVAS_SIZE).then((image) => {
+      if (!cancelled) setSourceData(image);
     });
     return () => {
       cancelled = true;

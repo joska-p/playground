@@ -57,14 +57,14 @@ export type ManipulationDefinition<
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
 
 export type ResizeOptions =
-  | { width: number; height?: never; maxPixels?: never; fit?: never }
-  | { height: number; width?: never; maxPixels?: never; fit?: never }
-  | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maxPixels?: never }
-  | { maxPixels: number; width?: never; height?: never; fit?: never };
+  | { width: number; height?: never; maximumPixels?: never; fit?: never }
+  | { height: number; width?: never; maximumPixels?: never; fit?: never }
+  | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maximumPixels?: never }
+  | { maximumPixels: number; width?: never; height?: never; fit?: never };
 
 export type PipelineContext = {
   registry: Registry;
-  maxPixels: number;
+  maximumPixels: number;
 };
 
 export type PipelineResult = {

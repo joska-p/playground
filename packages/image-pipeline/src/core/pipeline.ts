@@ -39,7 +39,7 @@ export class Pipeline {
     return pipelineGateway.run({
       sourceImageData: this.sourceImageData,
       steps: this.steps,
-      maxPixels: this.configuration.maximumPixels,
+      maximumPixels: this.configuration.maximumPixels,
     });
   }
 }

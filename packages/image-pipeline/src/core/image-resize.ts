@@ -63,10 +63,10 @@ export function computeTargetDimensions({
 }) {
   let targetWidth: number, targetHeight: number;
 
-  if ("maxPixels" in options && options.maxPixels) {
+  if ("maximumPixels" in options && options.maximumPixels) {
     const totalPixels = sourceWidth * sourceHeight;
-    if (totalPixels <= options.maxPixels) return null;
-    const scale = Math.sqrt(options.maxPixels / totalPixels);
+    if (totalPixels <= options.maximumPixels) return null;
+    const scale = Math.sqrt(options.maximumPixels / totalPixels);
     targetWidth = Math.max(1, Math.round(sourceWidth * scale));
     targetHeight = Math.max(1, Math.round(sourceHeight * scale));
   } else if ("width" in options && options.width && "height" in options && options.height) {

@@ -1,16 +1,16 @@
-import { defineSteps, usePipeline } from "../../hooks/usePipeline";
+import { usePipeline } from "../../hooks/usePipeline";
 import { imageDataToUrl } from "./helpers";
 
-const STEPS = defineSteps([
+const STEPS = [
   { id: "brightness", options: { value: 1.2 } },
   { id: "contrast", options: { value: 1.3 } },
   { id: "sharpen", options: { strength: 1.5 } },
-]);
+] as const;
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
-  const result = usePipeline(sourceData, STEPS);
-  const resultImage = result?.final ?? null;
-  const loading = sourceData !== null && result === null;
+  const pipelineResult = usePipeline(sourceData, STEPS);
+  const pipelineResultImage = pipelineResult?.final ?? null;
+  const loading = sourceData !== null && pipelineResult === null;
 
   return (
     <div className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -34,9 +34,9 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
           <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
             ...
           </div>
-        ) : resultImage ? (
+        ) : pipelineResultImage ? (
           <img
-            src={imageDataToUrl(resultImage)}
+            src={imageDataToUrl(pipelineResultImage)}
             alt="chained"
             className="border-border w-full rounded border"
             style={{ imageRendering: "pixelated" }}
