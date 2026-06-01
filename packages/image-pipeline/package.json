@@ -5,7 +5,6 @@
   "type": "module",
   "exports": {
     "./PipelineGateway": "./src/api/pipeline-gateway.ts",
-    "./Pipeline": "./src/api/image-pipeline.ts",
     "./Registry": "./src/core/registry.ts",
     "./usePipeline": "./src/components/pipeline-docs/usePipeline.ts",
     "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
@@ -18,7 +17,8 @@
     "lint-fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",
     "preview": "vite preview --host",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
@@ -42,6 +42,7 @@
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "eslint": "catalog:",
+    "happy-dom": "^20.9.0",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",

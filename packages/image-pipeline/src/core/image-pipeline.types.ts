@@ -33,6 +33,26 @@ export type ManipulationDefinition = {
   fn: PixelFn | NeighborhoodFn | WholeImageFn;
 };
 
+// ─── Type Guards ──────────────────────────────────────────────────────────────
+
+export function isPixelDef(
+  def: ManipulationDefinition
+): def is ManipulationDefinition & { type: "pixel"; fn: PixelFn } {
+  return def.type === "pixel";
+}
+
+export function isNeighborhoodDef(
+  def: ManipulationDefinition
+): def is ManipulationDefinition & { type: "neighborhood"; fn: NeighborhoodFn } {
+  return def.type === "neighborhood";
+}
+
+export function isWholeImageDef(
+  def: ManipulationDefinition
+): def is ManipulationDefinition & { type: "whole"; fn: WholeImageFn } {
+  return def.type === "whole";
+}
+
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
 
 export type ResizeOptions =
@@ -50,17 +70,4 @@ export type PipelineResult = {
   source: ImageData;
   final: ImageData;
   snapshots: ImageData[];
-};
-
-export type PipelineConfig = {
-  maxPixels: number;
-};
-
-// ─── Manifest Entry (loose shape for satisfies check) ────────────────────────
-
-export type ManipulationEntry = {
-  id: string;
-  type: "pixel" | "neighborhood" | "whole";
-  radius?: number;
-  fn: (...args: any[]) => any;
 };

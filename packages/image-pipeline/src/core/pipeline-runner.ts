@@ -1,12 +1,12 @@
-import type { PipelineContext, PipelineResult, ResizeOptions } from "./image-pipeline.types";
-import type { Step } from "./manipulations/manifest";
 import { BufferManager } from "./buffer-manager";
 import { FusionScheduler } from "./fusion-scheduler";
+import type { PipelineContext, PipelineResult, ResizeOptions } from "./image-pipeline.types";
+import type { Step } from "./manipulations/manifest";
 import { dispatchStep } from "./step-dispatcher";
 
 export type { PipelineContext };
 
-function buildAutoDownscaleStep(
+export function buildAutoDownscaleStep(
   source: ImageData,
   steps: Step[],
   maxPixels: number

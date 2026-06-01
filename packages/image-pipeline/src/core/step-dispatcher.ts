@@ -1,14 +1,13 @@
-import type {
-  ManipulationDefinition,
-  NeighborhoodFn,
-  PipelineContext,
-  ResizeOptions,
-  WholeImageFn,
-} from "./image-pipeline.types";
-import type { Step } from "./manipulations/manifest";
 import type { BufferManager } from "./buffer-manager";
 import type { FusionScheduler } from "./fusion-scheduler";
+import type {
+  ManipulationDefinition,
+  PipelineContext,
+  ResizeOptions,
+} from "./image-pipeline.types";
+import { isNeighborhoodDef, isWholeImageDef } from "./image-pipeline.types";
 import { computeTargetDimensions, resizeImageData } from "./image-resize";
+import type { Step } from "./manipulations/manifest";
 import { runNeighborhoodTiled } from "./neighborhood-tiling";
 
 type StepExecutionParams = {
@@ -25,12 +24,12 @@ function getStepOptions(step: Step): Record<string, unknown> {
   return "options" in step ? (step.options ?? {}) : {};
 }
 
-function executeResizeStep(step: Step, bufferManager: BufferManager): void {
-  const sourceImageData = bufferManager.asImageData();
+function executeResizeStep(options: ResizeOptions, bufferManager: BufferManager): void {
+  const sourceImageData = bufferManager.snapshot();
   const targetDimensions = computeTargetDimensions(
     sourceImageData.width,
     sourceImageData.height,
-    getStepOptions(step) as ResizeOptions
+    options
   );
   if (targetDimensions) {
     bufferManager.replaceWith(
@@ -52,18 +51,20 @@ function executeNeighborhoodStep({
   bufferManager,
   fusionScheduler,
 }: StepExecutionParams): void {
+  if (!isNeighborhoodDef(definition)) throw new Error(`Expected neighborhood manipulation`);
+
   // Flush any pending pixel ops before reading the image, so neighborhood
   // operations always see a fully up-to-date buffer.
   fusionScheduler.flush(bufferManager);
 
-  const sourceImageData = bufferManager.asImageData();
+  const sourceImageData = bufferManager.snapshot();
 
   // Tile the operation when the image exceeds the pixel budget to avoid memory blowout.
   if (sourceImageData.width * sourceImageData.height > context.maxPixels) {
     bufferManager.replaceWith(runNeighborhoodTiled(sourceImageData, definition, options));
   } else {
     const destinationBuffer = new Uint8ClampedArray(bufferManager.current.length);
-    (definition.fn as NeighborhoodFn)(
+    definition.fn(
       bufferManager.current,
       destinationBuffer,
       bufferManager.width,
@@ -82,9 +83,10 @@ function executeWholeImageStep({
   bufferManager,
   fusionScheduler,
 }: StepExecutionParams): void {
+  if (!isWholeImageDef(definition)) throw new Error(`Expected whole image manipulation`);
   // Flush any pending pixel ops before passing the full image to the manipulation function.
   fusionScheduler.flush(bufferManager);
-  bufferManager.replaceWith((definition.fn as WholeImageFn)(bufferManager.asImageData(), options));
+  bufferManager.replaceWith(definition.fn(bufferManager.snapshot(), options));
 }
 
 const stepExecutors: Record<string, StepExecutor> = {
@@ -100,7 +102,7 @@ export function dispatchStep(
   fusionScheduler: FusionScheduler
 ): void {
   if (step.id === "resize") {
-    executeResizeStep(step, bufferManager);
+    executeResizeStep(("options" in step ? step.options : {}) as ResizeOptions, bufferManager);
     return;
   }
 

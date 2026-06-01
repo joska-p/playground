@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Pipeline } from "../../api/image-pipeline";
 import { ALL_MANIPULATIONS } from "../../core/manipulations/manifest";
+import { runPipeline } from "../../core/pipeline-runner";
 import { Registry } from "../../core/registry";
 import { imageDataToUrl } from "./helpers";
 import { DEMO_MANIPULATIONS } from "./manipData";
@@ -16,9 +16,7 @@ function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
     const registry = Registry.from(ALL_MANIPULATIONS);
     for (const def of DEMO_MANIPULATIONS) registry.register(def);
 
-    Pipeline.from(sourceData, { registry, maxPixels: 16_000_000 })
-      .add("demo-warm")
-      .run()
+    runPipeline(sourceData, [{ id: "demo-warm" }], { registry, maxPixels: 16_000_000 })
       .then((r) => {
         if (!cancelled) setResultData(r.final);
       })

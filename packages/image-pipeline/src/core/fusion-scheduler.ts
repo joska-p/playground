@@ -1,5 +1,6 @@
-import type { ManipulationDefinition, PixelFn } from "./image-pipeline.types";
 import type { BufferManager } from "./buffer-manager";
+import type { ManipulationDefinition, PixelFn } from "./image-pipeline.types";
+import { isPixelDef } from "./image-pipeline.types";
 
 function runFusedPixelBatch(
   src: Uint8ClampedArray,
@@ -7,6 +8,10 @@ function runFusedPixelBatch(
   pixelCount: number,
   batch: Array<{ def: ManipulationDefinition; options: Record<string, unknown> }>
 ): void {
+  for (const { def } of batch) {
+    if (!isPixelDef(def)) throw new Error(`Expected pixel manipulation, got "${def.type}"`);
+  }
+
   for (let i = 0; i < pixelCount; i++) {
     const off = i * 4;
     let r = src[off];

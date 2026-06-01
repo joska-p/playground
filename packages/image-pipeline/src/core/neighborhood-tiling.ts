@@ -1,4 +1,5 @@
-import type { ManipulationDefinition, NeighborhoodFn } from "./image-pipeline.types";
+import type { ManipulationDefinition } from "./image-pipeline.types";
+import { isNeighborhoodDef } from "./image-pipeline.types";
 
 const TILE_SIZE = 512; // pixels per tile edge
 
@@ -56,6 +57,7 @@ export function runNeighborhoodTiled(
   def: ManipulationDefinition,
   options: Record<string, unknown>
 ): ImageData {
+  if (!isNeighborhoodDef(def)) throw new Error(`Expected neighborhood manipulation`);
   const halo = def.radius ?? 1;
   const destImage = new ImageData(src.width, src.height);
 
@@ -72,7 +74,7 @@ export function runNeighborhoodTiled(
       const tile = extractTile(src, tx, ty, tw, th, halo);
       const tileOut = new ImageData(tile.width, tile.height);
 
-      (def.fn as NeighborhoodFn)(tile.data, tileOut.data, tile.width, tile.height, options);
+      def.fn(tile.data, tileOut.data, tile.width, tile.height, options);
 
       blitTile(destImage, tileOut, tx, ty, tw, th, halo);
     }

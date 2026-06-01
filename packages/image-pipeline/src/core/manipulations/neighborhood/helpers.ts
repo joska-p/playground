@@ -27,7 +27,9 @@ export function applyKernel(
   const half = Math.floor(kernelSize / 2);
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      let r = 0, g = 0, b = 0;
+      let r = 0,
+        g = 0,
+        b = 0;
       for (let ky = 0; ky < kernelSize; ky++) {
         for (let kx = 0; kx < kernelSize; kx++) {
           const w = kernel[ky * kernelSize + kx] ?? 0;

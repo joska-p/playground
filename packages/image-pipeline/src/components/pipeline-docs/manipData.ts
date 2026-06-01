@@ -1,5 +1,5 @@
-import { definePixel } from "../../core/manipulation-factories";
 import type { ManipulationDefinition } from "../../core/image-pipeline.types";
+import { definePixel } from "../../core/manipulation-factories";
 
 type ParamDef = {
   key: string;

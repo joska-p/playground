@@ -3,9 +3,9 @@ import type { ManipulationDefinition } from "./image-pipeline.types";
 export class Registry {
   private readonly map = new Map<string, ManipulationDefinition>();
 
-  static from(defs: readonly { id: string; type: string; radius?: number; fn: (...args: any[]) => any }[]): Registry {
+  static from(defs: readonly ManipulationDefinition[]): Registry {
     const reg = new Registry();
-    for (const def of defs) reg.register(def as ManipulationDefinition);
+    for (const def of defs) reg.register(def);
     return reg;
   }
 

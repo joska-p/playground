@@ -36,12 +36,6 @@ export class BufferManager {
     return out;
   }
 
-  asImageData(): ImageData {
-    const out = new ImageData(this.w, this.h);
-    out.data.set(this.current);
-    return out;
-  }
-
   replaceWith(img: ImageData): void {
     this.bufs[this.ptr] = new Uint8ClampedArray(img.data);
     this.bufs[1 - this.ptr] = new Uint8ClampedArray(img.width * img.height * 4);

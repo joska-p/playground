@@ -1,8 +1,9 @@
 import type { Step } from "../core/manipulations/manifest";
 import { ALL_MANIPULATIONS } from "../core/manipulations/manifest";
-import { MAX_PIXELS } from "../core/pipeline-config";
-import { Registry } from "../core/registry";
 import { runPipeline } from "../core/pipeline-runner";
+import { Registry } from "../core/registry";
+
+const MAX_PIXELS = 16_000_000;
 
 export type PipelineResult = {
   source: ImageData;

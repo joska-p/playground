@@ -27,7 +27,8 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
       }
     }
 
-    pipelineGateway(sourceData, [{ id: manip.id, options }])
+    pipelineGateway
+      .run(sourceData, [{ id: manip.id, options }])
       .then((r) => {
         if (!cancelled) setResult(r.final);
       })

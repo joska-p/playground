@@ -30,107 +30,101 @@ type QueuedJob = {
 };
 
 // ---------------------------------------------------------------------------
-// Pool + queue
+// PipelineGateway — instance-based worker pool
 // ---------------------------------------------------------------------------
 
-let pool: PoolEntry[] = [];
-const jobQueue: QueuedJob[] = [];
+export class PipelineGateway {
+  private pool: PoolEntry[] = [];
+  private jobQueue: QueuedJob[] = [];
 
-function getPool(): PoolEntry[] {
-  if (pool.length === 0) {
-    const size = Math.min(navigator.hardwareConcurrency ?? 2, 4);
-    pool = Array.from({ length: size }, () => ({
-      worker: new PipelineWorker(),
-      busy: false,
-    }));
-  }
-  return pool;
-}
-
-function acquireWorker(): PoolEntry | null {
-  return getPool().find((entry) => !entry.busy) ?? null;
-}
-
-function dispatch(
-  entry: PoolEntry,
-  imageData: ImageData,
-  steps: Step[],
-  resolve: QueuedJob["resolve"],
-  reject: QueuedJob["reject"],
-  maxPixels?: number
-): void {
-  entry.busy = true;
-
-  const onMessage = (event: MessageEvent<PipelineResult | { error: string }>) => {
-    cleanup();
-    if ("error" in event.data) {
-      reject(new Error(event.data.error));
-    } else {
-      resolve(event.data);
+  private getPool(): PoolEntry[] {
+    if (this.pool.length === 0) {
+      const size = Math.min(navigator.hardwareConcurrency ?? 2, 4);
+      this.pool = Array.from({ length: size }, () => ({
+        worker: new PipelineWorker(),
+        busy: false,
+      }));
     }
-  };
+    return this.pool;
+  }
 
-  const onError = (error: ErrorEvent) => {
-    cleanup();
-    reject(new Error(error.message ?? "Unknown worker error"));
-  };
+  private acquireWorker(): PoolEntry | null {
+    return this.getPool().find((entry) => !entry.busy) ?? null;
+  }
 
-  const cleanup = () => {
-    entry.worker.removeEventListener("message", onMessage);
-    entry.worker.removeEventListener("error", onError);
-    entry.busy = false;
-    drainQueue();
-  };
+  private dispatch(
+    entry: PoolEntry,
+    imageData: ImageData,
+    steps: Step[],
+    resolve: QueuedJob["resolve"],
+    reject: QueuedJob["reject"],
+    maxPixels?: number
+  ): void {
+    entry.busy = true;
 
-  entry.worker.addEventListener("message", onMessage);
-  entry.worker.addEventListener("error", onError);
+    const onMessage = (event: MessageEvent<PipelineResult | { error: string }>) => {
+      cleanup();
+      if ("error" in event.data) {
+        reject(new Error(event.data.error));
+      } else {
+        resolve(event.data);
+      }
+    };
 
-  const clampedCopy = new Uint8ClampedArray(imageData.data);
-  const imageDataCopy = new ImageData(clampedCopy, imageData.width, imageData.height);
-  entry.worker.postMessage({ sourceData: imageDataCopy, steps, maxPixels }, [
-    imageDataCopy.data.buffer,
-  ]);
-}
+    const onError = (error: ErrorEvent) => {
+      cleanup();
+      reject(new Error(error.message ?? "Unknown worker error"));
+    };
 
-function drainQueue(): void {
-  if (!jobQueue.length) return;
-  const entry = acquireWorker();
-  if (!entry) return;
-  const job = jobQueue.shift()!;
-  dispatch(entry, job.imageData, job.steps, job.resolve, job.reject, job.maxPixels);
-}
+    const cleanup = () => {
+      entry.worker.removeEventListener("message", onMessage);
+      entry.worker.removeEventListener("error", onError);
+      entry.busy = false;
+      this.drainQueue();
+    };
 
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
+    entry.worker.addEventListener("message", onMessage);
+    entry.worker.addEventListener("error", onError);
 
-function pipelineGateway(
-  sourceImageData: ImageData,
-  steps: Step[],
-  maxPixels?: number
-): Promise<PipelineResult> {
-  const entry = acquireWorker();
+    const clampedCopy = new Uint8ClampedArray(imageData.data);
+    const imageDataCopy = new ImageData(clampedCopy, imageData.width, imageData.height);
+    entry.worker.postMessage({ sourceData: imageDataCopy, steps, maxPixels }, [
+      imageDataCopy.data.buffer,
+    ]);
+  }
 
-  if (entry) {
+  private drainQueue(): void {
+    if (!this.jobQueue.length) return;
+    const entry = this.acquireWorker();
+    if (!entry) return;
+    const job = this.jobQueue.shift()!;
+    this.dispatch(entry, job.imageData, job.steps, job.resolve, job.reject, job.maxPixels);
+  }
+
+  run(sourceImageData: ImageData, steps: Step[], maxPixels?: number): Promise<PipelineResult> {
+    const entry = this.acquireWorker();
+
+    if (entry) {
+      return new Promise((resolve, reject) => {
+        this.dispatch(entry, sourceImageData, steps, resolve, reject, maxPixels);
+      });
+    }
+
     return new Promise((resolve, reject) => {
-      dispatch(entry, sourceImageData, steps, resolve, reject, maxPixels);
+      this.jobQueue.push({ imageData: sourceImageData, steps, maxPixels, resolve, reject });
     });
   }
 
-  return new Promise((resolve, reject) => {
-    jobQueue.push({ imageData: sourceImageData, steps, maxPixels, resolve, reject });
-  });
+  /** Terminate all workers and clear the queue. Call this on app teardown. */
+  teardown(): void {
+    this.jobQueue.length = 0;
+    this.pool.forEach(({ worker }) => worker.terminate());
+    this.pool = [];
+  }
 }
 
 // ---------------------------------------------------------------------------
-// Lifecycle
+// Default singleton instance
 // ---------------------------------------------------------------------------
 
-/** Terminate all workers and clear the queue. Call this on app teardown. */
-function teardownWorkerPool(): void {
-  jobQueue.length = 0;
-  pool.forEach(({ worker }) => worker.terminate());
-  pool = [];
-}
-
-export { pipelineGateway, teardownWorkerPool };
+export const pipelineGateway = new PipelineGateway();
