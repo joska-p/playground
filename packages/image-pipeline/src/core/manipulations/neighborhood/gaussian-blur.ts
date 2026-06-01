@@ -1,10 +1,10 @@
 import { defineNeighbor } from "../../manipulation-factories";
 import { applyKernel } from "./helpers";
 
-export const gaussianBlur = defineNeighbor(
+export const gaussianBlur = defineNeighbor<{ radius?: number }>(
   "gaussian-blur",
   1,
-  (options: { radius?: number }, src, dest, width, height) => {
+  ({ options, source, destination, width, height }) => {
     const radius = options.radius ?? 1;
     const size = radius * 2 + 1;
     const sigma = radius / 2 + 0.5;
@@ -19,6 +19,6 @@ export const gaussianBlur = defineNeighbor(
         total += v;
       }
     }
-    applyKernel(src, dest, width, height, kernel, size, total);
+    applyKernel(source, destination, width, height, kernel, size, total);
   }
 );

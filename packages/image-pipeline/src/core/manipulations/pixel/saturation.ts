@@ -1,7 +1,10 @@
 import { definePixel } from "../../manipulation-factories";
 
-export const saturation = definePixel("saturation", (options: { value?: number }, r, g, b, a) => {
-  const v = options.value ?? 1;
-  const l = r * 0.2126 + g * 0.7152 + b * 0.0722;
-  return [l + (r - l) * v, l + (g - l) * v, l + (b - l) * v, a];
-});
+export const saturation = definePixel<{ value?: number }>(
+  "saturation",
+  ({ options, red, green, blue, alpha }) => {
+    const value = options.value ?? 1;
+    const l = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+    return [l + (red - l) * value, l + (green - l) * value, l + (blue - l) * value, alpha];
+  }
+);

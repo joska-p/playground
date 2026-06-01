@@ -16,8 +16,8 @@ export function getPixel(
 }
 
 export function applyKernel(
-  src: Uint8ClampedArray,
-  dest: Uint8ClampedArray,
+  source: Uint8ClampedArray,
+  destination: Uint8ClampedArray,
   width: number,
   height: number,
   kernel: number[],
@@ -27,23 +27,23 @@ export function applyKernel(
   const half = Math.floor(kernelSize / 2);
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      let r = 0,
-        g = 0,
-        b = 0;
+      let red = 0,
+        green = 0,
+        blue = 0;
       for (let ky = 0; ky < kernelSize; ky++) {
         for (let kx = 0; kx < kernelSize; kx++) {
-          const w = kernel[ky * kernelSize + kx] ?? 0;
-          r += getPixel(src, x + kx - half, y + ky - half, width, height, 0) * w;
-          g += getPixel(src, x + kx - half, y + ky - half, width, height, 1) * w;
-          b += getPixel(src, x + kx - half, y + ky - half, width, height, 2) * w;
+          const weight = kernel[ky * kernelSize + kx] ?? 0;
+          red += getPixel(source, x + kx - half, y + ky - half, width, height, 0) * weight;
+          green += getPixel(source, x + kx - half, y + ky - half, width, height, 1) * weight;
+          blue += getPixel(source, x + kx - half, y + ky - half, width, height, 2) * weight;
         }
       }
-      const a = getPixel(src, x, y, width, height, 3);
+      const alpha = getPixel(source, x, y, width, height, 3);
       const i = (y * width + x) * 4;
-      dest[i] = clamp(r / divisor);
-      dest[i + 1] = clamp(g / divisor);
-      dest[i + 2] = clamp(b / divisor);
-      dest[i + 3] = a;
+      destination[i] = clamp(red / divisor);
+      destination[i + 1] = clamp(green / divisor);
+      destination[i + 2] = clamp(blue / divisor);
+      destination[i + 3] = alpha;
     }
   }
 }

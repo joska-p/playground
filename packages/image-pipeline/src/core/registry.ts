@@ -1,33 +1,49 @@
 import type { ManipulationDefinition } from "./image-pipeline.types";
 
 export class Registry {
-  private readonly map = new Map<string, ManipulationDefinition>();
+  private readonly manipulationsMap = new Map<string, ManipulationDefinition>();
 
-  static from(defs: readonly ManipulationDefinition[]) {
-    const reg = new Registry();
-    for (const def of defs) reg.register(def);
-    return reg;
+  static from(definitions: readonly ManipulationDefinition[]) {
+    const registry = new Registry();
+    for (const definition of definitions) {
+      registry.register(definition);
+    }
+    return registry;
   }
 
-  register(def: ManipulationDefinition) {
-    if (!def.id) throw new Error(`[image-pipeline] Manipulation must have a non-empty string id`);
-    
-    if (def.type === "neighborhood" && (def.radius == null || def.radius < 0)) {
-      throw new Error(`[image-pipeline] Neighborhood manipulation "${def.id}" must declare a non-negative radius`);
+  register(definition: ManipulationDefinition) {
+    if (!definition.id) {
+      throw new Error(`[image-pipeline] Manipulation must have a non-empty string identifier`);
     }
 
-    if (this.map.has(def.id)) {
-      console.warn(`[image-pipeline] Overwriting existing manipulation "${def.id}"`);
+    if (
+      definition.type === "neighborhood" &&
+      (definition.radius == null || definition.radius < 0)
+    ) {
+      throw new Error(
+        `[image-pipeline] Neighborhood manipulation "${definition.id}" must declare a non-negative radius`
+      );
     }
-    this.map.set(def.id, def);
+
+    if (this.manipulationsMap.has(definition.id)) {
+      console.warn(`[image-pipeline] Overwriting existing manipulation "${definition.id}"`);
+    }
+    this.manipulationsMap.set(definition.id, definition);
   }
 
-  get(id: string) {
-    const def = this.map.get(id);
-    if (!def) throw new Error(`[image-pipeline] Manipulation "${id}" is not registered.`);
-    return def;
+  get(identifier: string) {
+    const definition = this.manipulationsMap.get(identifier);
+    if (!definition) {
+      throw new Error(`[image-pipeline] Manipulation "${identifier}" is not registered.`);
+    }
+    return definition;
   }
 
-  has(id: string) { return this.map.has(id); }
-  clear() { this.map.clear(); }
+  has(identifier: string) {
+    return this.manipulationsMap.has(identifier);
+  }
+
+  clear() {
+    this.manipulationsMap.clear();
+  }
 }

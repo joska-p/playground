@@ -24,7 +24,7 @@ type PoolEntry = {
 type QueuedJob = {
   imageData: ImageData;
   steps: Step[];
-  maxPixels?: number;
+  maximumPixels?: number;
   resolve: (result: PipelineResult) => void;
   reject: (error: Error) => void;
 };
@@ -58,14 +58,14 @@ export class PipelineGateway {
     steps,
     resolve,
     reject,
-    maxPixels,
+    maximumPixels,
   }: {
     entry: PoolEntry;
     imageData: ImageData;
     steps: Step[];
     resolve: (result: PipelineResult) => void;
     reject: (error: Error) => void;
-    maxPixels?: number;
+    maximumPixels?: number;
   }): void {
     entry.busy = true;
 
@@ -95,7 +95,7 @@ export class PipelineGateway {
 
     const clampedCopy = new Uint8ClampedArray(imageData.data);
     const imageDataCopy = new ImageData(clampedCopy, imageData.width, imageData.height);
-    entry.worker.postMessage({ sourceData: imageDataCopy, steps, maxPixels }, [
+    entry.worker.postMessage({ sourceData: imageDataCopy, steps, maxPixels: maximumPixels }, [
       imageDataCopy.data.buffer,
     ]);
   }
@@ -127,13 +127,19 @@ export class PipelineGateway {
           steps,
           resolve,
           reject,
-          maxPixels,
+          maximumPixels: maxPixels,
         });
       });
     }
 
     return new Promise((resolve, reject) => {
-      this.jobQueue.push({ imageData: sourceImageData, steps, maxPixels, resolve, reject });
+      this.jobQueue.push({
+        imageData: sourceImageData,
+        steps,
+        maximumPixels: maxPixels,
+        resolve,
+        reject,
+      });
     });
   }
 

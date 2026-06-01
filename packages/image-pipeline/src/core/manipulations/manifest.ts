@@ -41,16 +41,13 @@ export const ALL_MANIPULATIONS = [
 
 // ─── Derive Step type from the manifest ─────────────────────────────────────
 
-type BuiltInStep = {
-  [D in (typeof ALL_MANIPULATIONS)[number] as D["id"]]: D extends ManipulationDefinition<infer O>
-    ? keyof O extends never
-      ? { id: D["id"] }
-      : { id: D["id"]; options?: O }
-    : never;
-}[ (typeof ALL_MANIPULATIONS)[number]["id"] ];
-
 export type Step =
-  | BuiltInStep
+  | {
+      [Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation["id"]]: {
+        id: Manipulation["id"];
+        options?: Manipulation["options"];
+      };
+    }[(typeof ALL_MANIPULATIONS)[number]["id"]]
   | { id: "resize"; options: ResizeOptions }
   | { id: "snapshot" }
   | { id: string; options?: Record<string, unknown> };

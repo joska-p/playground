@@ -2,87 +2,95 @@ import type { ResizeOptions } from "./image-pipeline.types";
 
 /** Bilinear interpolation resize. Returns a new ImageData. */
 export function resizeImageData({
-  src,
-  targetW,
-  targetH,
+  source,
+  targetWidth,
+  targetHeight,
 }: {
-  src: ImageData;
-  targetW: number;
-  targetH: number;
+  source: ImageData;
+  targetWidth: number;
+  targetHeight: number;
 }) {
-  const { width: srcW, height: srcH, data: srcData } = src;
-  if (targetW === srcW && targetH === srcH) return src;
+  const { width: sourceWidth, height: sourceHeight, data: sourceData } = source;
+  if (targetWidth === sourceWidth && targetHeight === sourceHeight) {
+    return source;
+  }
 
-  const dest = new ImageData(targetW, targetH);
-  const { data: destData } = dest;
-  const xRatio = srcW / targetW,
-    yRatio = srcH / targetH;
+  const destination = new ImageData(targetWidth, targetHeight);
+  const { data: destinationData } = destination;
+  const xRatio = sourceWidth / targetWidth;
+  const yRatio = sourceHeight / targetHeight;
 
-  for (let y = 0; y < targetH; y++) {
-    for (let x = 0; x < targetW; x++) {
-      const srcX = x * xRatio,
-        srcY = y * yRatio;
-      const x0 = Math.floor(srcX),
-        y0 = Math.floor(srcY);
-      const x1 = Math.min(x0 + 1, srcW - 1),
-        y1 = Math.min(y0 + 1, srcH - 1);
-      const xFrac = srcX - x0,
-        yFrac = srcY - y0;
+  for (let y = 0; y < targetHeight; y++) {
+    for (let x = 0; x < targetWidth; x++) {
+      const sourceX = x * xRatio;
+      const sourceY = y * yRatio;
+      const x0 = Math.floor(sourceX);
+      const y0 = Math.floor(sourceY);
+      const x1 = Math.min(x0 + 1, sourceWidth - 1);
+      const y1 = Math.min(y0 + 1, sourceHeight - 1);
+      const xFraction = sourceX - x0;
+      const yFraction = sourceY - y0;
 
-      const i00 = (y0 * srcW + x0) * 4,
-        i10 = (y0 * srcW + x1) * 4;
-      const i01 = (y1 * srcW + x0) * 4,
-        i11 = (y1 * srcW + x1) * 4;
-      const destIdx = (y * targetW + x) * 4;
+      const i00 = (y0 * sourceWidth + x0) * 4;
+      const i10 = (y0 * sourceWidth + x1) * 4;
+      const i01 = (y1 * sourceWidth + x0) * 4;
+      const i11 = (y1 * sourceWidth + x1) * 4;
+      const destinationIndex = (y * targetWidth + x) * 4;
 
-      for (let c = 0; c < 4; c++) {
-        const top = srcData[i00 + c] * (1 - xFrac) + srcData[i10 + c] * xFrac;
-        const bot = srcData[i01 + c] * (1 - xFrac) + srcData[i11 + c] * xFrac;
-        destData[destIdx + c] = Math.round(top * (1 - yFrac) + bot * yFrac);
+      for (let channel = 0; channel < 4; channel++) {
+        const top =
+          sourceData[i00 + channel] * (1 - xFraction) + sourceData[i10 + channel] * xFraction;
+        const bottom =
+          sourceData[i01 + channel] * (1 - xFraction) + sourceData[i11 + channel] * xFraction;
+        destinationData[destinationIndex + channel] = Math.round(
+          top * (1 - yFraction) + bottom * yFraction
+        );
       }
     }
   }
-  return dest;
+  return destination;
 }
 
 /** Compute target dimensions from ResizeOptions. Returns null if no resize needed. */
 export function computeTargetDimensions({
-  srcW,
-  srcH,
+  sourceWidth,
+  sourceHeight,
   options,
 }: {
-  srcW: number;
-  srcH: number;
+  sourceWidth: number;
+  sourceHeight: number;
   options: ResizeOptions;
 }) {
-  let tw: number, th: number;
+  let targetWidth: number, targetHeight: number;
 
   if ("maxPixels" in options && options.maxPixels) {
-    const p = srcW * srcH;
-    if (p <= options.maxPixels) return null;
-    const s = Math.sqrt(options.maxPixels / p);
-    tw = Math.max(1, Math.round(srcW * s));
-    th = Math.max(1, Math.round(srcH * s));
+    const totalPixels = sourceWidth * sourceHeight;
+    if (totalPixels <= options.maxPixels) return null;
+    const scale = Math.sqrt(options.maxPixels / totalPixels);
+    targetWidth = Math.max(1, Math.round(sourceWidth * scale));
+    targetHeight = Math.max(1, Math.round(sourceHeight * scale));
   } else if ("width" in options && options.width && "height" in options && options.height) {
     const fit = options.fit ?? "fill";
     if (fit === "fill") {
-      tw = options.width;
-      th = options.height;
+      targetWidth = options.width;
+      targetHeight = options.height;
     } else {
-      const s =
+      const scale =
         fit === "contain"
-          ? Math.min(options.width / srcW, options.height / srcH)
-          : Math.max(options.width / srcW, options.height / srcH);
-      tw = Math.round(srcW * s);
-      th = Math.round(srcH * s);
+          ? Math.min(options.width / sourceWidth, options.height / sourceHeight)
+          : Math.max(options.width / sourceWidth, options.height / sourceHeight);
+      targetWidth = Math.round(sourceWidth * scale);
+      targetHeight = Math.round(sourceHeight * scale);
     }
   } else if ("width" in options && options.width) {
-    tw = options.width;
-    th = Math.max(1, Math.round(srcH * (options.width / srcW)));
+    targetWidth = options.width;
+    targetHeight = Math.max(1, Math.round(sourceHeight * (options.width / sourceWidth)));
   } else if ("height" in options && options.height) {
-    th = options.height;
-    tw = Math.max(1, Math.round(srcW * (options.height / srcH)));
+    targetHeight = options.height;
+    targetWidth = Math.max(1, Math.round(sourceWidth * (options.height / sourceHeight)));
   } else return null;
 
-  return tw === srcW && th === srcH ? null : { width: tw, height: th };
+  return targetWidth === sourceWidth && targetHeight === sourceHeight
+    ? null
+    : { width: targetWidth, height: targetHeight };
 }

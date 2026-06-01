@@ -1,50 +1,66 @@
 import type { BufferManager } from "./buffer-manager";
-import type { ManipulationDefinition, PixelFn } from "./image-pipeline.types";
+import type { ManipulationDefinition } from "./image-pipeline.types";
 
 function runFusedPixelBatch({
-  src,
-  dest,
+  source,
+  destination,
   pixelCount,
   batch,
 }: {
-  src: Uint8ClampedArray;
-  dest: Uint8ClampedArray;
+  source: Uint8ClampedArray;
+  destination: Uint8ClampedArray;
   pixelCount: number;
-  batch: Array<{ def: ManipulationDefinition; options: Record<string, unknown> }>;
+  batch: Array<{
+    definition: ManipulationDefinition;
+    options: Record<string, unknown>;
+  }>;
 }) {
   for (let i = 0; i < pixelCount; i++) {
-    const off = i * 4;
-    let r = src[off],
-      g = src[off + 1],
-      b = src[off + 2],
-      a = src[off + 3];
+    const offset = i * 4;
+    let red = source[offset];
+    let green = source[offset + 1];
+    let blue = source[offset + 2];
+    let alpha = source[offset + 3];
 
-    for (const { def, options } of batch) {
-      [r, g, b, a] = (def.fn as PixelFn)(options, r, g, b, a);
+    for (const { definition, options } of batch) {
+      if (definition.type === "pixel") {
+        [red, green, blue, alpha] = definition.function({
+          options,
+          red,
+          green,
+          blue,
+          alpha,
+        });
+      }
     }
 
-    dest[off] = Math.max(0, Math.min(255, r));
-    dest[off + 1] = Math.max(0, Math.min(255, g));
-    dest[off + 2] = Math.max(0, Math.min(255, b));
-    dest[off + 3] = Math.max(0, Math.min(255, a));
+    destination[offset] = Math.max(0, Math.min(255, red));
+    destination[offset + 1] = Math.max(0, Math.min(255, green));
+    destination[offset + 2] = Math.max(0, Math.min(255, blue));
+    destination[offset + 3] = Math.max(0, Math.min(255, alpha));
   }
 }
 
 export class FusionScheduler {
-  private batch: Array<{ def: ManipulationDefinition; options: Record<string, unknown> }> = [];
+  private batch: Array<{
+    definition: ManipulationDefinition;
+    options: Record<string, unknown>;
+  }> = [];
 
-  add(def: ManipulationDefinition, options: Record<string, unknown>) {
-    this.batch.push({ def, options });
+  add(definition: ManipulationDefinition, options: Record<string, unknown>) {
+    this.batch.push({ definition, options });
   }
 
   flush(manager: BufferManager) {
     if (this.batch.length === 0) return;
+
     runFusedPixelBatch({
-      src: manager.current,
-      dest: manager.other,
+      source: manager.current,
+      destination: manager.other,
       pixelCount: manager.width * manager.height,
       batch: this.batch,
     });
+
     manager.swap();
     this.batch.length = 0;
   }

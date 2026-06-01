@@ -1,8 +1,8 @@
 import { definePixel } from "../../manipulation-factories";
 
-export const sepia = definePixel("sepia", (_, r, g, b, a) => [
-  r * 0.393 + g * 0.769 + b * 0.189,
-  r * 0.349 + g * 0.686 + b * 0.168,
-  r * 0.272 + g * 0.534 + b * 0.131,
-  a,
+export const sepia = definePixel("sepia", ({ red, green, blue, alpha }) => [
+  red * 0.393 + green * 0.769 + blue * 0.189,
+  red * 0.349 + green * 0.686 + blue * 0.168,
+  red * 0.272 + green * 0.534 + blue * 0.131,
+  alpha,
 ]);

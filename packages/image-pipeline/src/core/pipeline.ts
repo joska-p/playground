@@ -2,23 +2,23 @@ import { pipelineGateway } from "../api/pipeline-gateway";
 import type { PipelineContext, PipelineResult } from "./image-pipeline.types";
 import type { Step } from "./manipulations/manifest";
 
-type PipelineConfig = {
+type PipelineConfiguration = {
   context?: Partial<PipelineContext>;
-  maxPixels?: number;
+  maximumPixels?: number;
 };
 
 export class Pipeline {
   private steps: Step[] = [];
-  private source: ImageData;
-  private config: PipelineConfig;
+  private sourceImageData: ImageData;
+  private configuration: PipelineConfiguration;
 
-  private constructor(source: ImageData, config: PipelineConfig = {}) {
-    this.source = source;
-    this.config = config;
+  private constructor(sourceImageData: ImageData, configuration: PipelineConfiguration = {}) {
+    this.sourceImageData = sourceImageData;
+    this.configuration = configuration;
   }
 
-  static from(source: ImageData, config: PipelineConfig = {}) {
-    return new Pipeline(source, config);
+  static from(sourceImageData: ImageData, configuration: PipelineConfiguration = {}) {
+    return new Pipeline(sourceImageData, configuration);
   }
 
   add(id: string, options?: Record<string, unknown>) {
@@ -37,9 +37,9 @@ export class Pipeline {
 
   async run(): Promise<PipelineResult> {
     return pipelineGateway.run({
-      sourceImageData: this.source,
+      sourceImageData: this.sourceImageData,
       steps: this.steps,
-      maxPixels: this.config.maxPixels,
+      maxPixels: this.configuration.maximumPixels,
     });
   }
 }

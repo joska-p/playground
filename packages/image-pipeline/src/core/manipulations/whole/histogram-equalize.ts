@@ -1,6 +1,6 @@
 import { defineWhole } from "../../manipulation-factories";
 
-export const histogramEqualize = defineWhole("histogram-equalize", (_, imageData) => {
+export const histogramEqualize = defineWhole("histogram-equalize", ({ imageData }) => {
   const data = imageData.data;
   const n = imageData.width * imageData.height;
   const luminance = new Uint8Array(n);
@@ -30,14 +30,14 @@ export const histogramEqualize = defineWhole("histogram-equalize", (_, imageData
   const out = new ImageData(imageData.width, imageData.height);
   for (let i = 0; i < n; i++) {
     const off = i * 4;
-    const r = data[off] ?? 0,
-      g = data[off + 1] ?? 0,
-      b = data[off + 2] ?? 0;
+    const red = data[off] ?? 0,
+      green = data[off + 1] ?? 0,
+      blue = data[off + 2] ?? 0;
     const l = luminance[i];
     const scale = l > 0 ? (lut[l] ?? 0) / l : 1;
-    out.data[off] = Math.min(255, Math.round(r * scale));
-    out.data[off + 1] = Math.min(255, Math.round(g * scale));
-    out.data[off + 2] = Math.min(255, Math.round(b * scale));
+    out.data[off] = Math.min(255, Math.round(red * scale));
+    out.data[off + 1] = Math.min(255, Math.round(green * scale));
+    out.data[off + 2] = Math.min(255, Math.round(blue * scale));
     out.data[off + 3] = data[off + 3] ?? 255;
   }
   return out;

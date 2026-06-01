@@ -2,7 +2,7 @@ import { ALL_MANIPULATIONS, type Step } from "../core/manipulations/manifest";
 import { runPipeline } from "../core/pipeline-runner";
 import { Registry } from "../core/registry";
 
-const MAX_PIXELS = 16_000_000;
+const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 
 export type PipelineResult = {
   source: ImageData;
@@ -27,18 +27,20 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
       steps,
       context: {
         registry,
-        maxPixels: maxPixels ?? MAX_PIXELS,
+        maxPixels: maxPixels ?? DEFAULT_MAXIMUM_PIXELS,
       },
     });
 
-    const transfer = [
+    const transferables = [
       result.source.data.buffer,
       result.final.data.buffer,
-      ...result.snapshots.map((s) => s.data.buffer),
+      ...result.snapshots.map((snapshot) => snapshot.data.buffer),
     ];
 
-    self.postMessage(result, { transfer });
-  } catch (err) {
-    self.postMessage({ error: err instanceof Error ? err.message : String(err) });
+    self.postMessage(result, { transfer: transferables });
+  } catch (error) {
+    self.postMessage({
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
 });

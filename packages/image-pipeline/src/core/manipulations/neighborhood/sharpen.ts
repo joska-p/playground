@@ -1,12 +1,12 @@
 import { defineNeighbor } from "../../manipulation-factories";
 import { applyKernel } from "./helpers";
 
-export const sharpen = defineNeighbor(
+export const sharpen = defineNeighbor<{ strength?: number }>(
   "sharpen",
   1,
-  (options: { strength?: number }, src, dest, width, height) => {
-    const s = options.strength ?? 1;
-    const kernel = [0, -s, 0, -s, 1 + 4 * s, -s, 0, -s, 0];
-    applyKernel(src, dest, width, height, kernel, 3, 1);
+  ({ options, source, destination, width, height }) => {
+    const strength = options.strength ?? 1;
+    const kernel = [0, -strength, 0, -strength, 1 + 4 * strength, -strength, 0, -strength, 0];
+    applyKernel(source, destination, width, height, kernel, 3, 1);
   }
 );

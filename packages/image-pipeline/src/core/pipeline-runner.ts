@@ -7,16 +7,17 @@ import { dispatchStep } from "./step-dispatcher";
 export function buildAutoDownscaleStep({
   source,
   steps,
-  maxPixels,
+  maximumPixels,
 }: {
   source: ImageData;
   steps: Step[];
-  maxPixels: number;
+  maximumPixels: number;
 }) {
-  if (steps.some((s) => s.id === "resize") || source.width * source.height <= maxPixels)
+  if (steps.some((step) => step.id === "resize") || source.width * source.height <= maximumPixels) {
     return null;
+  }
 
-  const scale = Math.sqrt(maxPixels / (source.width * source.height));
+  const scale = Math.sqrt(maximumPixels / (source.width * source.height));
   return {
     id: "resize" as const,
     options: {
@@ -36,7 +37,12 @@ export async function runPipeline({
   steps: Step[];
   context: PipelineContext;
 }): Promise<PipelineResult> {
-  const downscale = buildAutoDownscaleStep({ source, steps, maxPixels: context.maxPixels });
+  const downscale = buildAutoDownscaleStep({
+    source,
+    steps,
+    maximumPixels: context.maxPixels,
+  });
+
   if (downscale) {
     console.warn(
       `[image-pipeline] Auto-scaled source image to ${downscale.options.width}×${downscale.options.height}.`

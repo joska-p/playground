@@ -1,3 +1,8 @@
 import { definePixel } from "../../manipulation-factories";
 
-export const invert = definePixel("invert", (_, r, g, b, a) => [255 - r, 255 - g, 255 - b, a]);
+export const invert = definePixel("invert", ({ red, green, blue, alpha }) => [
+  255 - red,
+  255 - green,
+  255 - blue,
+  alpha,
+]);

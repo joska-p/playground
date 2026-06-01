@@ -1,20 +1,35 @@
-import type { ManipulationDefinition, NeighborhoodFn, PixelFn, WholeImageFn } from "./image-pipeline.types";
+import type {
+  ManipulationDefinition,
+  NeighborhoodFunction,
+  PixelFunction,
+  WholeImageFunction,
+} from "./image-pipeline.types";
 
-export const definePixel = <O>(id: string, fn: PixelFn<O>): ManipulationDefinition<O> => ({
+export const definePixel = <Options>(
+  id: string,
+  manipulationFunction: PixelFunction<Options>
+): ManipulationDefinition<Options> => ({
   id,
   type: "pixel",
-  fn,
+  function: manipulationFunction,
 });
 
-export const defineNeighbor = <O>(id: string, radius: number, fn: NeighborhoodFn<O>): ManipulationDefinition<O> => ({
+export const defineNeighbor = <Options>(
+  id: string,
+  radius: number,
+  manipulationFunction: NeighborhoodFunction<Options>
+): ManipulationDefinition<Options> => ({
   id,
   type: "neighborhood",
   radius,
-  fn,
+  function: manipulationFunction,
 });
 
-export const defineWhole = <O>(id: string, fn: WholeImageFn<O>): ManipulationDefinition<O> => ({
+export const defineWhole = <Options>(
+  id: string,
+  manipulationFunction: WholeImageFunction<Options>
+): ManipulationDefinition<Options> => ({
   id,
   type: "whole",
-  fn,
+  function: manipulationFunction,
 });
