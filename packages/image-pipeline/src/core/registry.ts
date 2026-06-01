@@ -3,6 +3,12 @@ import type { ManipulationDefinition } from "./image-pipeline.types";
 export class Registry {
   private readonly map = new Map<string, ManipulationDefinition>();
 
+  static from(defs: readonly { id: string; type: string; radius?: number; fn: (...args: any[]) => any }[]): Registry {
+    const reg = new Registry();
+    for (const def of defs) reg.register(def as ManipulationDefinition);
+    return reg;
+  }
+
   register(def: ManipulationDefinition): void {
     if (!def.id || typeof def.id !== "string") {
       throw new Error(`[image-pipeline] Manipulation must have a non-empty string id`);

@@ -1,7 +1,3 @@
-import type { ManipulationDefinition, PixelFn } from "../../image-pipeline.types";
+import { definePixel } from "../../manipulation-factories";
 
-export const invert: ManipulationDefinition = {
-  id: "invert",
-  type: "pixel",
-  fn: ((r, g, b, a) => [255 - r, 255 - g, 255 - b, a]) as PixelFn,
-};
+export const invert = definePixel("invert", (r, g, b, a) => [255 - r, 255 - g, 255 - b, a]);

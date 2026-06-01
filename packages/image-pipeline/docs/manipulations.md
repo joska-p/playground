@@ -1,6 +1,19 @@
 # Built-in Manipulations
 
-## Pixel Operations (`pixel-manipulations.ts`)
+All manipulations are defined in [`manifest.ts`](../src/core/manipulations/manifest.ts) — the single source of truth. The `Step` discriminated union is derived from this manifest, so adding a new manipulation here automatically enables autocompletion and type narrowing for step IDs and their options.
+
+Each manipulation is declared via a type-safe factory that captures its ID as a literal and its options shape as a generic parameter:
+
+```typescript
+const brightness = definePixel("brightness", (r, g, b, a, options: { value?: number }) => {
+  const v = options.value ?? 1;
+  return [r * v, g * v, b * v, a];
+});
+```
+
+Options declared as `Record<string, never>` (no 5th parameter) produce step types without an `options` field, preventing irrelevant parameters from being passed.
+
+## Pixel Operations
 
 Each operates independently on every pixel. Accepts `options` values via the pipeline step.
 
@@ -216,22 +229,24 @@ Resize is a **first-class built-in**, not a registered manipulation. It uses bil
 
 ```typescript
 // Scale to exact width, height auto-proportional
-{ width: 400 }
+{ id: "resize", options: { width: 400 } }
 
 // Scale to exact height, width auto-proportional
-{ height: 300 }
+{ id: "resize", options: { height: 300 } }
 
 // Exact dimensions with fit mode
-{ width: 400, height: 300, fit: "fill" }      // stretch (default)
-{ width: 400, height: 300, fit: "contain" }    // fit within bounds, maintain aspect ratio
-{ width: 400, height: 300, fit: "cover" }      // fill bounds, crop excess
+{ id: "resize", options: { width: 400, height: 300, fit: "fill" } }      // stretch (default)
+{ id: "resize", options: { width: 400, height: 300, fit: "contain" } }    // fit within bounds
+{ id: "resize", options: { width: 400, height: 300, fit: "cover" } }      // fill bounds, crop
 
 // Downscale by pixel budget (maintains aspect ratio)
-{ maxPixels: 1_000_000 }
+{ id: "resize", options: { maxPixels: 1_000_000 } }
 ```
 
 ```typescript
+// Class-based API
 Pipeline.from(src, context).resize({ width: 800, height: 600, fit: "contain" })
-// or as a raw step:
+
+// Raw step (also works with pipelineGateway / usePipeline)
 { id: "resize", options: { width: 800 } }
 ```

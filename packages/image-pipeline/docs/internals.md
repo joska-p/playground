@@ -146,8 +146,7 @@ Entry point for the Web Worker. Each message receives `{sourceData, steps, maxPi
 
 ```
 message handler:
-  create fresh Registry
-  register all built-in manipulations (pixel + neighborhood + whole)
+  Registry.from(ALL_MANIPULATIONS)   ← populates from manifest
   runPipeline(sourceData, steps, { registry, maxPixels })
   postMessage(result, { transfer: [all pixel buffers] })
 ```

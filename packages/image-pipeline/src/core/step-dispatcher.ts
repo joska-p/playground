@@ -3,9 +3,9 @@ import type {
   NeighborhoodFn,
   PipelineContext,
   ResizeOptions,
-  Step,
   WholeImageFn,
 } from "./image-pipeline.types";
+import type { Step } from "./manipulations/manifest";
 import type { BufferManager } from "./buffer-manager";
 import type { FusionScheduler } from "./fusion-scheduler";
 import { computeTargetDimensions, resizeImageData } from "./image-resize";
@@ -21,12 +21,16 @@ type StepExecutionParams = {
 
 type StepExecutor = (params: StepExecutionParams) => void;
 
+function getStepOptions(step: Step): Record<string, unknown> {
+  return "options" in step ? (step.options ?? {}) : {};
+}
+
 function executeResizeStep(step: Step, bufferManager: BufferManager): void {
   const sourceImageData = bufferManager.asImageData();
   const targetDimensions = computeTargetDimensions(
     sourceImageData.width,
     sourceImageData.height,
-    step.options as ResizeOptions
+    getStepOptions(step) as ResizeOptions
   );
   if (targetDimensions) {
     bufferManager.replaceWith(
@@ -103,7 +107,7 @@ export function dispatchStep(
   const definition = context.registry.get(step.id);
   stepExecutors[definition.type]({
     definition,
-    options: step.options ?? {},
+    options: getStepOptions(step),
     context,
     bufferManager,
     fusionScheduler,

@@ -1,4 +1,4 @@
-import type { Step } from "../core/image-pipeline.types";
+import type { Step } from "../core/manipulations/manifest";
 import type { PipelineResult } from "./pipeline-worker";
 import PipelineWorker from "./pipeline-worker?worker&inline";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pipeline } from "../../api/image-pipeline";
-import { registerAll } from "../../core/manipulations/manipulations";
+import { ALL_MANIPULATIONS } from "../../core/manipulations/manifest";
 import { Registry } from "../../core/registry";
 import { imageDataToUrl } from "./helpers";
 import { DEMO_MANIPULATIONS } from "./manipData";
@@ -13,8 +13,7 @@ function CustomDemo({ sourceData }: { sourceData: ImageData | null }) {
     if (!sourceData) return;
     let cancelled = false;
 
-    const registry = new Registry();
-    registerAll(registry);
+    const registry = Registry.from(ALL_MANIPULATIONS);
     for (const def of DEMO_MANIPULATIONS) registry.register(def);
 
     Pipeline.from(sourceData, { registry, maxPixels: 16_000_000 })

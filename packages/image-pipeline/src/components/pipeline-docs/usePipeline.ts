@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { pipelineGateway } from "../../api/pipeline-gateway";
-import type { PipelineResult, Step } from "../../core/image-pipeline.types";
+import type { PipelineResult } from "../../core/image-pipeline.types";
+import type { Step } from "../../core/manipulations/manifest";
 
-export function usePipeline(
+export function defineSteps<const T extends readonly Step[]>(steps: T): T {
+  return steps;
+}
+
+export function usePipeline<const T extends readonly Step[]>(
   sourceData: ImageData | null,
-  steps: readonly Step[]
+  steps: T
 ): PipelineResult | null {
   const [result, setResult] = useState<PipelineResult | null>(null);
 

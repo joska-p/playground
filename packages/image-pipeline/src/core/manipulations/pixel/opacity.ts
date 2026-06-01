@@ -1,10 +1,6 @@
-import type { ManipulationDefinition, PixelFn } from "../../image-pipeline.types";
+import { definePixel } from "../../manipulation-factories";
 
-export const opacity: ManipulationDefinition = {
-  id: "opacity",
-  type: "pixel",
-  fn: ((r, g, b, a, options) => {
-    const v = (options["value"] as number) ?? 1;
-    return [r, g, b, a * v];
-  }) as PixelFn,
-};
+export const opacity = definePixel("opacity", (r, g, b, a, options: { value?: number }) => {
+  const v = options.value ?? 1;
+  return [r, g, b, a * v];
+});

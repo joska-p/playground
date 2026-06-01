@@ -1,4 +1,5 @@
-import type { PipelineResult, ResizeOptions, Step } from "../core/image-pipeline.types";
+import type { PipelineResult, ResizeOptions } from "../core/image-pipeline.types";
+import type { Step } from "../core/manipulations/manifest";
 import { runPipeline, type PipelineContext } from "../core/pipeline-runner";
 
 export class Pipeline {

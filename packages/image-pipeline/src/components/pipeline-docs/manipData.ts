@@ -1,3 +1,4 @@
+import { definePixel } from "../../core/manipulation-factories";
 import type { ManipulationDefinition } from "../../core/image-pipeline.types";
 
 type ParamDef = {
@@ -266,16 +267,12 @@ const ENDPOINT_GROUPS: EndpointGroup[] = [
 ];
 
 export const DEMO_MANIPULATIONS: ManipulationDefinition[] = [
-  {
-    id: "demo-warm",
-    type: "pixel",
-    fn: (r: number, g: number, b: number, a: number): [number, number, number, number] => [
-      Math.min(255, r * 1.1),
-      g * 0.85,
-      b * 0.7,
-      a,
-    ],
-  },
+  definePixel("demo-warm", (r, g, b, a) => [
+    Math.min(255, r * 1.1),
+    g * 0.85,
+    b * 0.7,
+    a,
+  ]) as ManipulationDefinition,
 ];
 
 export {

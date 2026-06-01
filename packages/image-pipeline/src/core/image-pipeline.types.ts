@@ -1,24 +1,27 @@
 import type { Registry } from "./registry";
 
-// ─── Manipulation Function Signatures ───────────────────────────────────────
+// ─── Manipulation Function Signatures (generics capture options shape) ───────
 
-export type PixelFn = (
+export type PixelFn<O extends Record<string, unknown> = Record<string, unknown>> = (
   r: number,
   g: number,
   b: number,
   a: number,
-  options: Record<string, unknown>
+  options: O
 ) => [number, number, number, number];
 
-export type NeighborhoodFn = (
+export type NeighborhoodFn<O extends Record<string, unknown> = Record<string, unknown>> = (
   src: Uint8ClampedArray,
   dest: Uint8ClampedArray,
   width: number,
   height: number,
-  options: Record<string, unknown>
+  options: O
 ) => void;
 
-export type WholeImageFn = (imageData: ImageData, options: Record<string, unknown>) => ImageData;
+export type WholeImageFn<O extends Record<string, unknown> = Record<string, unknown>> = (
+  imageData: ImageData,
+  options: O
+) => ImageData;
 
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 
@@ -53,9 +56,11 @@ export type PipelineConfig = {
   maxPixels: number;
 };
 
-// ─── Step Types ───────────────────────────────────────────────────────────────
+// ─── Manifest Entry (loose shape for satisfies check) ────────────────────────
 
-export type Step =
-  | { id: "snapshot"; options?: never }
-  | { id: "resize"; options: ResizeOptions }
-  | { id: string; options?: Record<string, unknown> };
+export type ManipulationEntry = {
+  id: string;
+  type: "pixel" | "neighborhood" | "whole";
+  radius?: number;
+  fn: (...args: any[]) => any;
+};

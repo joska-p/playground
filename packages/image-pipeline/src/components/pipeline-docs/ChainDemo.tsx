@@ -1,11 +1,11 @@
 import { imageDataToUrl } from "./helpers";
-import { usePipeline } from "./usePipeline";
+import { defineSteps, usePipeline } from "./usePipeline";
 
-const STEPS = [
+const STEPS = defineSteps([
   { id: "brightness", options: { value: 1.2 } },
   { id: "contrast", options: { value: 1.3 } },
   { id: "sharpen", options: { strength: 1.5 } },
-] as const;
+]);
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
   const result = usePipeline(sourceData, STEPS);

@@ -1,10 +1,6 @@
-import type { ManipulationDefinition, PixelFn } from "../../image-pipeline.types";
+import { definePixel } from "../../manipulation-factories";
 
-export const grayscale: ManipulationDefinition = {
-  id: "grayscale",
-  type: "pixel",
-  fn: ((r, g, b, a) => {
-    const l = r * 0.2126 + g * 0.7152 + b * 0.0722;
-    return [l, l, l, a];
-  }) as PixelFn,
-};
+export const grayscale = definePixel("grayscale", (r, g, b, a) => {
+  const l = r * 0.2126 + g * 0.7152 + b * 0.0722;
+  return [l, l, l, a];
+});

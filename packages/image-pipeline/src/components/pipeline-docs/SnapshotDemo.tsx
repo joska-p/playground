@@ -1,13 +1,13 @@
 import { imageDataToUrl } from "./helpers";
-import { usePipeline } from "./usePipeline";
+import { defineSteps, usePipeline } from "./usePipeline";
 
-const STEPS = [
+const STEPS = defineSteps([
   { id: "grayscale" },
   { id: "snapshot" },
   { id: "invert" },
   { id: "snapshot" },
   { id: "edge-detect" },
-] as const;
+]);
 
 const STAGES = ["After: grayscale", "After: invert", "After: edge-detect"];
 

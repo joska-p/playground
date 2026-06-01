@@ -1,7 +1,7 @@
-import type { Step } from "../core/image-pipeline.types";
+import type { Step } from "../core/manipulations/manifest";
+import { ALL_MANIPULATIONS } from "../core/manipulations/manifest";
 import { MAX_PIXELS } from "../core/pipeline-config";
 import { Registry } from "../core/registry";
-import { registerAll } from "../core/manipulations/manipulations";
 import { runPipeline } from "../core/pipeline-runner";
 
 export type PipelineResult = {
@@ -20,8 +20,7 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
   const { sourceData, steps, maxPixels } = event.data;
 
   try {
-    const registry = new Registry();
-    registerAll(registry);
+    const registry = Registry.from(ALL_MANIPULATIONS);
 
     const result = await runPipeline(sourceData, steps, {
       registry,

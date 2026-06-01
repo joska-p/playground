@@ -1,4 +1,5 @@
-import type { PipelineContext, PipelineResult, ResizeOptions, Step } from "./image-pipeline.types";
+import type { PipelineContext, PipelineResult, ResizeOptions } from "./image-pipeline.types";
+import type { Step } from "./manipulations/manifest";
 import { BufferManager } from "./buffer-manager";
 import { FusionScheduler } from "./fusion-scheduler";
 import { dispatchStep } from "./step-dispatcher";
