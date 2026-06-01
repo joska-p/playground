@@ -1,6 +1,5 @@
 ---
-// StepOne.astro
-const { label = "The First Postulate" } = Astro.props;
+
 ---
 
 <div class="not-prose my-16 flex flex-col items-center justify-center py-16 select-none">
@@ -9,7 +8,6 @@ const { label = "The First Postulate" } = Astro.props;
     <div class="ring0 ring2"></div>
     <div class="point"></div>
   </div>
-  <p class="label mt-12 text-xs tracking-[0.4em] uppercase">{label}</p>
 </div>
 
 <style>
@@ -35,13 +33,6 @@ const { label = "The First Postulate" } = Astro.props;
     box-shadow: 0 0 14px 4px
       color-mix(in oklch, var(--color-accent, oklch(75% 0.18 85deg)) 50%, transparent);
     animation: breathe 4s ease-in-out infinite;
-  }
-
-  .label {
-    color: color-mix(in oklch, var(--color-secondary, oklch(65% 0.04 240deg)) 40%, transparent);
-    font-family: inherit;
-    font-style: italic;
-    letter-spacing: 0.4em;
   }
 
   @keyframes ripple {

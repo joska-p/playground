@@ -11,404 +11,346 @@ tags:
   - philosophy
 ---
 
-import StepOne from "../components/StepOne.astro";
-import ComplexPlane from "../components/ComplexPlane.astro";
+This is an invitation to a walk.
 
-import TheDreamer from "../components/TheDreamer.astro";
-import TheSkeptic from "../components/TheSkeptic.astro";
-import TheNarrator from "../components/TheNarrator.astro";
+At every crossroads we will ask a simple question:
 
-<TheNarrator>This is an invitation to a walk.</TheNarrator>
+>What if ?
 
-<TheNarrator>At every crossroads we will ask a simple question:</TheNarrator>
+It is this question, asked again and again, that builds the whole architecture of numbers.
 
-<TheDreamer>What if ?</TheDreamer>
-
-<TheNarrator>
-  It is this question, asked again and again, that builds the whole architecture of numbers.
-</TheNarrator>
-
-<TheNarrator>
-  From the ground up, step by step, each extension forced on us not by choice but by logic.
-</TheNarrator>
+From the ground up, step by step.
 
 <br />
 
 <br />
 
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 01</span>
-  <span class="shrink-0">The Natural Numbers</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$\mathbb{N}$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Step 01</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">The Natural Numbers</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$\mathbb{N}$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheSkeptic>We must begin somewhere.</TheSkeptic>
+We must begin somewhere.
 
-<TheNarrator>Mathematics starts from a simple idea:</TheNarrator>
+>What if something exists ?
 
-<TheDreamer>What if something exists?</TheDreamer>
+Call it "$1$". Then we add a single rule:
 
-<br />
-
-<StepOne />
-
-<br />
-
-<TheNarrator>Then we add a single rule.</TheNarrator>
-
-<TheNarrator>If a number exists, its successor also exists.</TheNarrator>
+```text
+If a number exists, its successor also exists.
+```
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$1 + 1 =$ something</span>
+  <span class="block pl-4">1 + 1 = something</span>
 </div>
 
-<br />
+The mechanism is as simple as it is tireless.
 
-<TheSkeptic>The mechanism is as simple as it is tireless.</TheSkeptic>
-
-<TheNarrator>From one brick and one generative rule, an infinite set unfolds.</TheNarrator>
-
-<figure title="the Natural Numbers" class="flex items-center justify-start gap-4 pl-4">
-  <figcaption class="text-accent/80">the Natural Numbers</figcaption>
-  <span class="text-accent text-5xl">$$\mathbb{N}$$</span>
-</figure>
+From one brick and one generative rule, an infinite set unfolds.
 
 <br />
 
-<TheNarrator>Then, multiplication is not a new invention.</TheNarrator>
+```math
+1 + 2 + 3 + 4 + 5 + 6 + \infty = \mathbb{N}
+```
 
-<TheSkeptic>It is just a compact notation for repeated addition.</TheSkeptic>
+<br />
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4"> $$1 + 1 + 1 = 1 * 3$$</span>
-</div>
+Then, multiplication is not a new invention.
+
+```text
+It is just a compact notation for repeated addition.
+```
+
+```math
+1 + 1 + 1 + 1 + 1 = 1 * 5
+```
 
 <br />
 
 <br />
 
-<br />
-
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 01</span>
-  <span class="shrink-0">Zero and the Negatives</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$\mathbb{Z}$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Step 02</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">Zero and the Negatives</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$\mathbb{Z}$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheDreamer>What if we undo the addition?</TheDreamer>
+>What if we undo the addition ?
 
-<TheSkeptic>If we can add, we must be able to reverse the operation.</TheSkeptic>
+```text
+If we can add, we must be able to reverse the operation.
+```
 
-{/* prettier-ignore-start */}
+We invent subtraction. And for a while, everything holds: all results land safely in N.
 
-<TheNarrator>
-  We invent subtraction. And for a while, everything holds: all results land safely in $$\mathbb{N}$$.
-</TheNarrator>
+<br />
 
-{/* prettier-ignore-end */}
-
-<TheNarrator>Then someone dares to write:</TheNarrator>
+Then someone dares to write:
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$1 - 1 = something$$</span>
+  <span class="block pl-4">1 - 1 = something</span>
 </div>
 
-<TheNarrator>Silence.</TheNarrator>
-
-<TheDreamer>The result should exist.</TheDreamer>
-
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$1 - 2$$ is worse still</span>
-</div>
-
-<TheSkeptic>The answer lives nowhere in our universe.</TheSkeptic>
+Silence.
 
 <br />
 
-<TheNarrator>
-  We have only one option: enlarge it. We invent a new symbol for the void $0$, and a new direction
-  for the negatives $-1$.
-</TheNarrator>
+>The result should exist.
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$0 = n - n$$ and $$0 - n = -n$$</span>
-</div>
-
-<TheNarrator>And we give the **negative numbers** somewhere to live.</TheNarrator>
-
-<figure title="the Natural Numbers" class="flex items-center justify-start gap-4 pl-4">
-  <figcaption class="text-accent/80">the integers</figcaption>
-  <span class="text-accent text-5xl">$$\mathbb{Z}$$</span>
-</figure>
+```text
+The answer lives nowhere in our universe.
+```
 
 <br />
+
+We have only one option: enlarge it. We invent a new symbol for the void "0", and a new direction for the negatives "-1".
+
+<br />
+
+```math
+-\infty \quad - 3 \quad - 2 \quad - 1 \quad - 0 \quad + 1 \quad + 2 \quad + 3 \quad + \infty
+```
+
+<br />
+
+And we give the **negative numbers** somewhere to live.
+
+The integers line Z.
 
 <br />
 
 <br />
 
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 01</span>
-  <span class="shrink-0">The Rational Numbers</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$\mathbb{Q}$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Step 03</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">The Rational Numbers</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$\mathbb{Q}$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheDreamer>What if we undo a multiplication?</TheDreamer>
+>What if we undo a multiplication ?
 
-<TheNarrator>
-  The same reasoning repeats. If we can multiply, we must be able to invert the operation.
-</TheNarrator>
+The same reasoning repeats. If we can multiply, we must be able to invert the operation.
 
-<TheNarrator>
-  We invent division. And once again at the beginning, everything works perfectly.
-</TheNarrator>
+We invent division. And once again at the beginning, everything works perfectly.
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$4 \div 2 = 2$$</span>
-</div>
+<br />
 
-<TheDreamer>But what if it doesn't divide cleanly?</TheDreamer>
+>But what if it doesn't divide cleanly ?
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$n = 1 \div 2$$</span>
+  <span class="block pl-4">1 $$\div$$ 2 = something</span>
 </div>
 
-<TheSkeptic>
-  The space between the integers is empty. There are no positions between one and two.
-</TheSkeptic>
+```text
+The space between the integers is empty. There are no positions between one and two.
+```
 
-<TheNarrator>We invent new symbols to describe the pieces.</TheNarrator>
+We invent new symbols to describe the pieces.
 
-{/* prettier-ignore-start */}
+<br />
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">
-    $$\dfrac{a}{b}$$, where $$a, b \in \mathbb{Z}$$ and $$b \neq 0$$.
-  </span>
-</div>
+```math
+\dfrac{a}{b}, \quad where \quad a, b \quad \in \quad \mathbb{Z} \quad and \quad b \neq 0.
+```
+<br />
 
-{/* prettier-ignore-end */}
+These new numbers need a home.
 
-<TheNarrator>These new numbers need a home.</TheNarrator>
-
-<TheDreamer>The number line becomes dense.</TheDreamer>
-
-<figure title="the Rational Numbers" class="flex items-center justify-start gap-4 pl-4">
-  <figcaption class="text-accent/80">the rational numbers</figcaption>
-  <span class="text-accent text-5xl">$$\mathbb{Q}$$</span>
-</figure>
+>The number line becomes dense in Q.
 
 <br />
 
 <br />
 
-<br />
-
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 04</span>
-  <span class="shrink-0">The Real Numbers</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$\mathbb{R}$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Step 04</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">The Real Numbers</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$\mathbb{R}$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheNarrator>From multiplication, we derive exponentiation.</TheNarrator>
+From multiplication, we derive exponentiation.
+
+<br />
+
+```math
+3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 = 3^9
+```
+
+<br />
+
+```text
+It is just a fancy notation.
+```
+
+<br />
+
+>What if we undo the exponentiation ?
+
+We build a tool for it: the square root $$\sqrt{}$$.
+
+<br />
+
+```math
+\sqrt{a} = b\quad means\quad that\quad b^2 = a
+```
+
+<br />
+
+For a while it was fine. Then a crack appeared in the geometry.
+
+>What if we undo the square of 2 ?
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$3 ^ 9 = 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3 * 3$$</span>
+  <span class="block pl-4">$$\sqrt{2}$$ = something</span>
 </div>
 
-<TheSkeptic>It is just a fancy notation.</TheSkeptic>
+```text
+We checked every fraction. No two integers can be divided to produce this ratio. It cannot be written.
+```
+
+The Real Numbers R are born to fill the infinite gaps.
 
 <br />
 
-<TheDreamer>What if we undo the exponentiation?</TheDreamer>
-
-<TheNarrator>We build a tool for it: the symbol $$\sqrt{}$$.</TheNarrator>
-
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$\sqrt{a} = b$$ means that $$b^2 = a$$</span>
-</div>
-
-<br />
-
-<TheNarrator>For a while it was fine. Then a crack appeared in the geometry.</TheNarrator>
-
-<TheDreamer>What if we undo the square of 2?</TheDreamer>
-
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$n = \sqrt{2}$$</span>
-</div>
-
-<TheSkeptic>
-  We checked every fraction. No two integers can be divided to produce this ratio. It cannot be
-  written.
-</TheSkeptic>
-
-<TheNarrator>The Real Numbers are born to fill the infinite gaps left behind.</TheNarrator>
-
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$\sqrt{2}, \pi, e, 3.33333333...$$ are real numbers</span>
-</div>
-
-<figure title="the Real Numbers" class="flex items-center justify-start gap-4 pl-4">
-  <figcaption class="text-accent/80">the real numbers</figcaption>
-  <span class="text-accent text-5xl">$$\mathbb{R}$$</span>
-</figure>
+```math
+\sqrt{2},\quad \pi,\quad e,\quad 3.33333333...\quad are\quad real\quad numbers
+```
 
 <br />
 
 <br />
 
-<br />
-
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 05</span>
-  <span class="shrink-0">The Imaginary Unit</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$\mathbb{i}$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Step 05</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">The Imaginary Unit</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$\mathbb{i}$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheNarrator>
-  We have noticed that when you square a real number, the result is always positive. Even if you
-  square a negative number, the result is still positive.
-</TheNarrator>
+We have noticed that when you square a real number, the result is always positive. Even if you
+square a negative number, the result is still positive.
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$(-2)^2 = 4$$ or, $$(-x)^2 = x^2$$</span>
-</div>
 
-<TheNarrator>
-  It enforces one absolute law of our reality: <br />
-  Every real square is $\geq 0$.
-</TheNarrator>
+```math
+(-x)^2 = x^2
+```
 
-<TheDreamer>What if we allow a square to be a negative number?</TheDreamer>
+<br />
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$x^2 = -1$$</span>
-</div>
+It enforces one absolute law of our reality:
 
-<TheSkeptic>The equation x^2 + 1 = 0 has no real solution.</TheSkeptic>
+Every real square is $\geq 0$.
 
-<TheNarrator>
-  Mathematicians chose to act rather than retreat. They postulated the existence of a number $$i$$
-  such that:
-</TheNarrator>
+
+>What if we allow a square to be a negative number ?
+
+```text
+The equation x^2 + 1 = 0 has no real solution.
+```
+
+Mathematicians chose to act rather than retreat. They postulated the existence of a number $$i$$ such that:
+
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
   <span class="block pl-4">$$i^2 = -1$$</span>
 </div>
 
-<TheNarrator>
   Not a trick. Not a shorthand for something else. A legitimate new entity born from a necessity.
-</TheNarrator>
-
-<br />
-
-<figure title="the imaginary numbers" class="flex items-center justify-start gap-4 pl-4">
-  <figcaption class="text-accent/80">the imaginary numbers</figcaption>
-  <span class="text-accent text-5xl">$$\mathbb{i}$$</span>
-</figure>
 
 <br />
 
 <br />
 
-<br />
-
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Step 06</span>
-  <span class="shrink-0">The Complex Plane</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$\mathbb{C}$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Step 06</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">The Complex Plane</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$\mathbb{C}$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheDreamer>Where is $i$?</TheDreamer>
+>Where is $i$ ?
 
-<TheNarrator>
-  $i$ is not in the real world. It does not lie anywhere on our line. We need to be creative. We
-  create a new dimension.
-</TheNarrator>
+$i$ is not in the real world. It does not lie anywhere on our line. We need to be creative.
 
-<TheSkeptic>We visualize it as a line perpendicular to the real axis.</TheSkeptic>
+We create a new dimension.
 
-<TheNarrator>
-  And now with those two axes, the real number line extends into a plane. This is where the complex
-  numbers live: $$\mathbb{C}$$
-</TheNarrator>
+```text
+We visualize it as a line perpendicular to the real axis.
+```
 
-<ComplexPlane />
+<br />
 
-<TheNarrator>Every complex number takes the form:</TheNarrator>
+And now with those two axes, the real number line extends into a plane. This is where the complex
+numbers live: $$\mathbb{C}$$
+
+Every complex number takes the form:
 
 <div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
   <span class="block pl-4">$$Z = a + ib \qquad a,\, b \in \mathbb{R}$$</span>
 </div>
 
-<TheNarrator>
-  where $a$ is the **real part** and $b$ is the **imaginary part**. The line has become a plane. A
-  brand new world.
-</TheNarrator>
+where "$a$" is the real part and "$b$" is the imaginary part. The line has become a plane.
 
-<br />
-
-<figure title="the complex numbers" class="text-center">
-  <span class="text-accent text-5xl">$$\mathbb{C}$$</span>
-  <figcaption class="text-accent/80">the complex numbers</figcaption>
-</figure>
+A brand new world.
 
 <br />
 
 <br />
 
-<br />
-
-<h2 class="text-primary my-8 flex items-center gap-4 text-2xl font-bold tracking-tight sm:text-3xl">
-  <span class="text-muted-foreground/50 shrink-0 self-start text-sm font-medium">Epilogue</span>
-  <span class="shrink-0">Euler's Formula</span>
-  <div class="bg-border h-px flex-grow"></div>
-  <span class="text-accent shrink-0">$$e^{i\pi} = -1$$</span>
+<h2 class="text-primary my-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+  <span class="text-muted-foreground/50 px-4 items-center inline-flex w-fit aspect-square border border-border text-sm font-medium rounded-full">Epilogue</span>
+  <div class="flex items-center gap-4 mt-16">
+    <span class="shrink-0">Euler's Formula</span>
+    <div class="bg-border h-px flex-grow"></div>
+    <span class="text-accent shrink-0">$$e^{i\pi} = -1$$</span>
+  </div>
 </h2>
 
 <br />
 
-<TheDreamer>What if we bring them all together?</TheDreamer>
+>What if we bring them all together ?
 
-<TheNarrator>Five symbols. Five different origins. One equation.</TheNarrator>
+Five symbols. Five different origins. One equation.
 
-<div class="not-prose border-secondary bg-secondary/5 text-secondary my-8 border-l-4 p-6 text-xl">
-  <span class="block pl-4">$$0 \qquad 1 \qquad \pi \qquad e \qquad i$$</span>
-</div>
+They come from different centuries, different problems, and different branches of mathematics.
+
+They have no obvious reason to meet.
+
+```text
+And yet.
+```
 
 <br />
-
-- **$0$** — the void, born when subtraction outran the naturals.
-- **$1$** — the origin, the first postulate, the brick.
-- **$\pi$** — the ratio of a circle's circumference to its diameter, irrational and inevitable.
-- **$e$** — the base of natural growth, the number that is its own derivative.
-- **$i$** — the answer to the impossible square.
-
-<TheNarrator>
-  They come from different centuries, different problems, and different branches of mathematics.
-  They have no obvious reason to meet.
-</TheNarrator>
-
-<TheSkeptic>And yet.</TheSkeptic>
 
 <figure title="Euler's Formula" class="text-center">
   <span class="text-accent text-5xl">$$e^{i\pi} + 1 = 0$$</span>
@@ -417,6 +359,6 @@ import TheNarrator from "../components/TheNarrator.astro";
 
 <br />
 
-<TheDreamer>The walk has no end.</TheDreamer>
+>The walk has no end.
 
 <br />
