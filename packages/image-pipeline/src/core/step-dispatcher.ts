@@ -48,7 +48,7 @@ const executors: Record<string, ExecutorFn> = {
       manager.replaceWith(runNeighborhoodTiled({ src, def, options }));
     } else {
       const dest = new Uint8ClampedArray(manager.current.length);
-      (def.fn as NeighborhoodFn)(manager.current, dest, manager.width, manager.height, options);
+      (def.fn as NeighborhoodFn)(options, manager.current, dest, manager.width, manager.height);
       const img = new ImageData(manager.width, manager.height);
       img.data.set(dest);
       manager.replaceWith(img);

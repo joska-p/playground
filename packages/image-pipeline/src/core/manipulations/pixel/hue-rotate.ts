@@ -1,6 +1,6 @@
 import { definePixel } from "../../manipulation-factories";
 
-export const hueRotate = definePixel("hue-rotate", (r, g, b, a, options: { degrees?: number }) => {
+export const hueRotate = definePixel("hue-rotate", (options: { degrees?: number }, r, g, b, a) => {
   const deg = options.degrees ?? 0;
   const angle = (deg * Math.PI) / 180;
   const cosA = Math.cos(angle);

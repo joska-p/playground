@@ -4,7 +4,7 @@ import { applyKernel } from "./helpers";
 export const gaussianBlur = defineNeighbor(
   "gaussian-blur",
   1,
-  (src, dest, width, height, options: { radius?: number }) => {
+  (options: { radius?: number }, src, dest, width, height) => {
     const radius = options.radius ?? 1;
     const size = radius * 2 + 1;
     const sigma = radius / 2 + 0.5;

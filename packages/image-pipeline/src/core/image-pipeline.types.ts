@@ -2,36 +2,33 @@ import type { Registry } from "./registry";
 
 // ─── Manipulation Function Signatures ────────────────────────────────────────
 
-export type PixelFn = (
+export type PixelFn<O = any> = (
+  options: O,
   r: number,
   g: number,
   b: number,
-  a: number,
-  options: Record<string, unknown>
+  a: number
 ) => [number, number, number, number];
 
-export type NeighborhoodFn = (
+export type NeighborhoodFn<O = any> = (
+  options: O,
   src: Uint8ClampedArray,
   dest: Uint8ClampedArray,
   width: number,
-  height: number,
-  options: Record<string, unknown>
+  height: number
 ) => void;
 
-export type WholeImageFn = (
-  imageData: ImageData,
-  options: Record<string, unknown>
+export type WholeImageFn<O = any> = (
+  options: O,
+  imageData: ImageData
 ) => ImageData;
 
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 
-export type ManipulationDefinition = {
-  id: string;
-  type: "pixel" | "neighborhood" | "whole";
-  /** Required when type is 'neighborhood' */
-  radius?: number;
-  fn: PixelFn | NeighborhoodFn | WholeImageFn;
-}
+export type ManipulationDefinition<O = any> =
+  | { id: string; type: "pixel"; fn: PixelFn<O> }
+  | { id: string; type: "neighborhood"; radius: number; fn: NeighborhoodFn<O> }
+  | { id: string; type: "whole"; fn: WholeImageFn<O> };
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
 

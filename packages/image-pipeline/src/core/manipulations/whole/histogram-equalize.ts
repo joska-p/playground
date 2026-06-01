@@ -1,6 +1,6 @@
 import { defineWhole } from "../../manipulation-factories";
 
-export const histogramEqualize = defineWhole("histogram-equalize", (imageData) => {
+export const histogramEqualize = defineWhole("histogram-equalize", (_, imageData) => {
   const data = imageData.data;
   const n = imageData.width * imageData.height;
   const luminance = new Uint8Array(n);

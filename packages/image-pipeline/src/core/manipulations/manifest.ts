@@ -41,18 +41,12 @@ export const ALL_MANIPULATIONS = [
 
 // ─── Derive Step type from the manifest ─────────────────────────────────────
 
-type ExtractOptions<T> = T extends { fn: (a1: unknown, a2: unknown, a3: unknown, a4: unknown, options: infer O) => unknown }
-  ? O
-  : T extends { fn: (a1: unknown, a2: unknown, a3: unknown, a4: unknown, a5: unknown) => unknown } // Neighborhood
-    ? T["fn"] extends (s: unknown, d: unknown, w: unknown, h: unknown, o: infer O) => unknown ? O : never
-    : T extends { fn: (img: unknown, options: infer O) => unknown }
-      ? O
-      : never;
-
 type BuiltInStep = {
-  [D in (typeof ALL_MANIPULATIONS)[number] as D["id"]]: ExtractOptions<D> extends never
-    ? { id: D["id"] }
-    : { id: D["id"]; options?: ExtractOptions<D> };
+  [D in (typeof ALL_MANIPULATIONS)[number] as D["id"]]: D extends ManipulationDefinition<infer O>
+    ? keyof O extends never
+      ? { id: D["id"] }
+      : { id: D["id"]; options?: O }
+    : never;
 }[ (typeof ALL_MANIPULATIONS)[number]["id"] ];
 
 export type Step =

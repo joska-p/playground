@@ -1,7 +1,7 @@
 import { defineNeighbor } from "../../manipulation-factories";
 import { clamp, getPixel } from "./helpers";
 
-export const edgeDetect = defineNeighbor("edge-detect", 1, (src, dest, width, height) => {
+export const edgeDetect = defineNeighbor("edge-detect", 1, (_, src, dest, width, height) => {
   const sobelX = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
   const sobelY = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
   const half = 1;

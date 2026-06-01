@@ -1,6 +1,6 @@
 import { defineWhole } from "../../manipulation-factories";
 
-export const rotate90Cw = defineWhole("rotate-90cw", (imageData) => {
+export const rotate90Cw = defineWhole("rotate-90cw", (_, imageData) => {
   const { width, height, data } = imageData;
   const out = new ImageData(height, width);
   for (let y = 0; y < height; y++) {

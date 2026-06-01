@@ -20,7 +20,7 @@ function runFusedPixelBatch({
       a = src[off + 3];
 
     for (const { def, options } of batch) {
-      [r, g, b, a] = (def.fn as PixelFn)(r, g, b, a, options);
+      [r, g, b, a] = (def.fn as PixelFn)(options, r, g, b, a);
     }
 
     dest[off] = Math.max(0, Math.min(255, r));

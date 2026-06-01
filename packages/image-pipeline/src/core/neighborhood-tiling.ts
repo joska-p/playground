@@ -84,7 +84,7 @@ export function runNeighborhoodTiled({
       const tile = extractTile({ src, tx, ty, tw, th, halo });
       const tileOut = new ImageData(tile.width, tile.height);
 
-      fn(tile.data, tileOut.data, tile.width, tile.height, options);
+      fn(options, tile.data, tileOut.data, tile.width, tile.height);
       blitTile({ dest: destImage, tile: tileOut, tx, ty, tw, th, halo });
     }
   }

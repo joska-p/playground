@@ -1,6 +1,6 @@
 import { defineWhole } from "../../manipulation-factories";
 
-export const flipHorizontal = defineWhole("flip-horizontal", (imageData) => {
+export const flipHorizontal = defineWhole("flip-horizontal", (_, imageData) => {
   const { width, height, data } = imageData;
   const out = new ImageData(width, height);
   for (let y = 0; y < height; y++) {

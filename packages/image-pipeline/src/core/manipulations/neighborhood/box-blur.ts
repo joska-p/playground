@@ -4,7 +4,7 @@ import { applyKernel } from "./helpers";
 export const boxBlur = defineNeighbor(
   "box-blur",
   1,
-  (src, dest, width, height, options: { radius?: number }) => {
+  (options: { radius?: number }, src, dest, width, height) => {
     const radius = options.radius ?? 1;
     const size = radius * 2 + 1;
     applyKernel(
