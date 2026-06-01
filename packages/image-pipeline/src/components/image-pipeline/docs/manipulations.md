@@ -1,8 +1,8 @@
 # Built-in Manipulations
 
-## Pixel Operations (`pixel.ts`)
+## Pixel Operations (`pixel-manipulations.ts`)
 
-Each operates independently on every pixel. Accepts `opts` values via the pipeline step.
+Each operates independently on every pixel. Accepts `options` values via the pipeline step.
 
 ### `brightness`
 
@@ -32,7 +32,7 @@ Scales each channel relative to 128 (mid-gray).
 
 Converts to luminance using ITU-R BT.601 weights: `0.2126R + 0.7152G + 0.0722B`.
 
-No parameters.
+No options.
 
 ```typescript
 .add("grayscale")
@@ -42,7 +42,7 @@ No parameters.
 
 Classic sepia tone matrix transformation.
 
-No parameters.
+No options.
 
 ```typescript
 .add("sepia")
@@ -52,7 +52,7 @@ No parameters.
 
 Inverts each channel: `255 - value`.
 
-No parameters.
+No options.
 
 ```typescript
 .add("invert")
@@ -108,7 +108,7 @@ Converts to pure black/white based on luminance vs a threshold.
 
 ---
 
-## Neighborhood (Convolution) Operations (`neighborhood.ts`)
+## Neighborhood (Convolution) Operations (`neighborhood-manipulations.ts`)
 
 Each reads a window of neighboring pixels using a kernel. Edge pixels are clamped (nearest pixel extended).
 
@@ -162,7 +162,7 @@ No parameters.
 
 ---
 
-## Whole-Image Operations (`whole.ts`)
+## Whole-Image Operations (`whole-image-manipulations.ts`)
 
 Create a new ImageData with different dimensions or pixel layout.
 
@@ -212,7 +212,7 @@ No parameters.
 
 Resize is a **first-class built-in**, not a registered manipulation. It uses bilinear interpolation.
 
-`opts` uses `ResizeOptions` (typed union):
+`options` uses `ResizeOptions` (typed union):
 
 ```typescript
 // Scale to exact width, height auto-proportional
@@ -231,7 +231,7 @@ Resize is a **first-class built-in**, not a registered manipulation. It uses bil
 ```
 
 ```typescript
-Pipeline.from(src, deps).resize({ width: 800, height: 600, fit: "contain" })
+Pipeline.from(src, context).resize({ width: 800, height: 600, fit: "contain" })
 // or as a raw step:
-{ kind: "manip", id: "resize", opts: { width: 800 } }
+{ id: "resize", options: { width: 800 } }
 ```

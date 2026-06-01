@@ -5,8 +5,8 @@
   "type": "module",
   "exports": {
     "./PipelineGateway": "./src/components/image-pipeline/api/pipeline-gateway.ts",
-    "./Pipeline": "./src/components/image-pipeline/api/pipeline.ts",
-    "./Registry": "./src/components/image-pipeline/registry/registry.ts",
+    "./Pipeline": "./src/components/image-pipeline/api/image-pipeline.ts",
+    "./Registry": "./src/components/image-pipeline/registry/manipulation-registry.ts",
     "./usePipeline": "./src/components/pipeline-docs/usePipeline.ts",
     "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
     "./styles": "./src/styles/styles.css"

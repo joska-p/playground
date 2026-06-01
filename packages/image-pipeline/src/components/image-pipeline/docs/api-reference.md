@@ -8,9 +8,9 @@ The image-pipeline package chains pixel manipulations (brightness, blur, flip, e
 
 | Type | Signature | Examples |
 |---|---|---|
-| **pixel** | `(r, g, b, a, opts) → [r, g, b, a]` | brightness, contrast, grayscale |
-| **neighborhood** | `(src, dest, width, height, opts) → void` | gaussian-blur, edge-detect |
-| **whole** | `(imageData, opts) → ImageData` | flip-horizontal, rotate-90cw |
+| **pixel** | `(r, g, b, a, options) → [r, g, b, a]` | brightness, contrast, grayscale |
+| **neighborhood** | `(src, dest, width, height, options) → void` | gaussian-blur, edge-detect |
+| **whole** | `(imageData, options) → ImageData` | flip-horizontal, rotate-90cw |
 
 ### Two API surfaces
 
@@ -19,43 +19,32 @@ The image-pipeline package chains pixel manipulations (brightness, blur, flip, e
 
 ---
 
-## Types (`types.ts`)
+## Types (`image-pipeline.types.ts`)
 
 ```typescript
 type PixelFn = (
   r: number, g: number, b: number, a: number,
-  opts: Record<string, unknown>
+  options: Record<string, unknown>
 ) => [number, number, number, number];
 
 type NeighborhoodFn = (
   src: Uint8ClampedArray, dest: Uint8ClampedArray,
   width: number, height: number,
-  opts: Record<string, unknown>
+  options: Record<string, unknown>
 ) => void;
 
 type WholeImageFn = (
-  imageData: ImageData, opts: Record<string, unknown>
+  imageData: ImageData, options: Record<string, unknown>
 ) => ImageData;
 ```
 
 ### Pipeline types
 
 ```typescript
-type ResizeOptions =
-  | { width: number }
-  | { height: number }
-  | { width: number; height: number; fit?: "fill" | "cover" | "contain" }
-  | { maxPixels: number };
-
 type Step =
-  | { kind: "manip"; id: string; opts: Record<string, unknown> }
-  | { kind: "snapshot" };
-
-type PipelineResult = {
-  source: ImageData;   // unmodified original
-  final: ImageData;    // result after all steps
-  snapshots: ImageData[]; // captured at each snapshot() call
-};
+  | { id: "snapshot" }
+  | { id: "resize"; options: ResizeOptions }
+  | { id: string; options?: Record<string, unknown> };
 ```
 
 ---
@@ -68,10 +57,10 @@ Synchronous, chainable builder. Runs inline (same thread).
 
 ```typescript
 class Pipeline {
-  static from(source: ImageData, deps: RunPipelineDeps): Pipeline;
+  static from(source: ImageData, context: PipelineContext): Pipeline;
 
-  resize(opts: ResizeOptions): Pipeline;
-  add(id: string, opts?: Record<string, unknown>): Pipeline;
+  resize(options: ResizeOptions): Pipeline;
+  add(id: string, options?: Record<string, unknown>): Pipeline;
   snapshot(): Pipeline;
   run(): Promise<PipelineResult>;
 }
@@ -132,10 +121,10 @@ function teardownWorkerPool(): void;
 import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
 
 const result = await pipelineGateway(imageData, [
-  { kind: "manip", id: "resize", opts: { width: 800 } },
-  { kind: "manip", id: "brightness", opts: { value: 1.5 } },
-  { kind: "snapshot" },
-  { kind: "manip", id: "sharpen", opts: { strength: 2 } },
+  { id: "resize", options: { width: 800 } },
+  { id: "brightness", options: { value: 1.5 } },
+  { id: "snapshot" },
+  { id: "sharpen", options: { strength: 2 } },
 ]);
 ```
 
@@ -183,13 +172,13 @@ type ManipulationDefinition = {
 
 ```typescript
 // Resize (always processed first if present)
-{ kind: "manip", id: "resize", opts: { width: 400 } }
+{ id: "resize", options: { width: 400 } }
 
 // Any registered manipulation
-{ kind: "manip", id: "brightness", opts: { value: 1.5 } }
+{ id: "brightness", options: { value: 1.5 } }
 
 // Take a snapshot (captures current state)
-{ kind: "snapshot" }
+{ id: "snapshot" }
 ```
 
 Steps execute in order. Consecutive pixel-type operations are **fused** into a single pass (see internals).

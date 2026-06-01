@@ -2,9 +2,9 @@ import { imageDataToUrl } from "./helpers";
 import { usePipeline } from "./usePipeline";
 
 const STEPS = [
-  { kind: "manip", id: "brightness", opts: { value: 1.2 } },
-  { kind: "manip", id: "contrast", opts: { value: 1.3 } },
-  { kind: "manip", id: "sharpen", opts: { strength: 1.5 } },
+  { id: "brightness", options: { value: 1.2 } },
+  { id: "contrast", options: { value: 1.3 } },
+  { id: "sharpen", options: { strength: 1.5 } },
 ] as const;
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {

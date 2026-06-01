@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Pipeline } from "../image-pipeline/api/pipeline";
-import { NEIGHBOR_MANIPULATIONS } from "../image-pipeline/registry/neighborhood";
-import { PIXEL_MANIPULATIONS } from "../image-pipeline/registry/pixel";
-import { Registry } from "../image-pipeline/registry/registry";
-import { WHOLE_MANIPULATIONS } from "../image-pipeline/registry/whole";
+import { Pipeline } from "../image-pipeline/api/image-pipeline";
+import { Registry } from "../image-pipeline/registry/manipulation-registry";
+import { NEIGHBOR_MANIPULATIONS } from "../image-pipeline/registry/neighborhood-manipulations";
+import { PIXEL_MANIPULATIONS } from "../image-pipeline/registry/pixel-manipulations";
+import { WHOLE_MANIPULATIONS } from "../image-pipeline/registry/whole-image-manipulations";
 import { imageDataToUrl } from "./helpers";
 import { DEMO_MANIPULATIONS } from "./manipData";
 

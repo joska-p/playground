@@ -1,4 +1,4 @@
-import type { ResizeOptions } from "../types";
+import type { ResizeOptions } from "../image-pipeline.types";
 
 /** Bilinear interpolation resize. Returns a new ImageData. */
 export function resizeImageData(src: ImageData, targetW: number, targetH: number): ImageData {
@@ -49,39 +49,39 @@ export function resizeImageData(src: ImageData, targetW: number, targetH: number
 export function computeTargetDimensions(
   srcW: number,
   srcH: number,
-  opts: ResizeOptions
+  options: ResizeOptions
 ): { width: number; height: number } | null {
   let targetW: number;
   let targetH: number;
 
-  if ("maxPixels" in opts && opts.maxPixels != null) {
+  if ("maxPixels" in options && options.maxPixels != null) {
     const pixels = srcW * srcH;
-    if (pixels <= opts.maxPixels) return null;
-    const scale = Math.sqrt(opts.maxPixels / pixels);
+    if (pixels <= options.maxPixels) return null;
+    const scale = Math.sqrt(options.maxPixels / pixels);
     targetW = Math.max(1, Math.round(srcW * scale));
     targetH = Math.max(1, Math.round(srcH * scale));
-  } else if ("width" in opts && opts.width != null && "height" in opts && opts.height != null) {
-    const fit = opts.fit ?? "fill";
+  } else if ("width" in options && options.width != null && "height" in options && options.height != null) {
+    const fit = options.fit ?? "fill";
     if (fit === "fill") {
-      targetW = opts.width;
-      targetH = opts.height;
+      targetW = options.width;
+      targetH = options.height;
     } else if (fit === "contain") {
-      const scale = Math.min(opts.width / srcW, opts.height / srcH);
+      const scale = Math.min(options.width / srcW, options.height / srcH);
       targetW = Math.round(srcW * scale);
       targetH = Math.round(srcH * scale);
     } else {
       // cover
-      const scale = Math.max(opts.width / srcW, opts.height / srcH);
+      const scale = Math.max(options.width / srcW, options.height / srcH);
       targetW = Math.round(srcW * scale);
       targetH = Math.round(srcH * scale);
     }
-  } else if ("width" in opts && opts.width != null) {
-    const scale = opts.width / srcW;
-    targetW = opts.width;
+  } else if ("width" in options && options.width != null) {
+    const scale = options.width / srcW;
+    targetW = options.width;
     targetH = Math.max(1, Math.round(srcH * scale));
-  } else if ("height" in opts && opts.height != null) {
-    const scale = opts.height / srcH;
-    targetH = opts.height;
+  } else if ("height" in options && options.height != null) {
+    const scale = options.height / srcH;
+    targetH = options.height;
     targetW = Math.max(1, Math.round(srcW * scale));
   } else {
     return null;

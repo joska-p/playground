@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { pipelineGateway } from "../image-pipeline/api/pipeline-gateway";
-import type { PipelineResult, Step } from "../image-pipeline/types";
+import type { PipelineResult, Step } from "../image-pipeline/image-pipeline.types";
 
 export function usePipeline(
   sourceData: ImageData | null,

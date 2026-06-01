@@ -1,11 +1,11 @@
-import type { ManipulationDefinition, PixelFn } from "../types";
+import type { ManipulationDefinition, PixelFn } from "../image-pipeline.types";
 import type { BufferManager } from "./buffer-manager";
 
 function runFusedPixelBatch(
   src: Uint8ClampedArray,
   dest: Uint8ClampedArray,
   pixelCount: number,
-  batch: Array<{ def: ManipulationDefinition; opts: Record<string, unknown> }>
+  batch: Array<{ def: ManipulationDefinition; options: Record<string, unknown> }>
 ): void {
   for (let i = 0; i < pixelCount; i++) {
     const off = i * 4;
@@ -14,8 +14,8 @@ function runFusedPixelBatch(
     let b = src[off + 2];
     let a = src[off + 3];
 
-    for (const { def, opts } of batch) {
-      [r, g, b, a] = (def.fn as PixelFn)(r, g, b, a, opts);
+    for (const { def, options } of batch) {
+      [r, g, b, a] = (def.fn as PixelFn)(r, g, b, a, options);
     }
 
     dest[off] = Math.max(0, Math.min(255, r));
@@ -26,10 +26,10 @@ function runFusedPixelBatch(
 }
 
 export class FusionScheduler {
-  private batch: Array<{ def: ManipulationDefinition; opts: Record<string, unknown> }> = [];
+  private batch: Array<{ def: ManipulationDefinition; options: Record<string, unknown> }> = [];
 
-  add(def: ManipulationDefinition, opts: Record<string, unknown>): void {
-    this.batch.push({ def, opts });
+  add(def: ManipulationDefinition, options: Record<string, unknown>): void {
+    this.batch.push({ def, options });
   }
 
   flush(manager: BufferManager): void {

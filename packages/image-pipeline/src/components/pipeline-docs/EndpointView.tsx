@@ -31,15 +31,15 @@ function ManipView({
 }) {
   const codeLines = [
     `pipelineGateway(source, [`,
-    `  { kind: "manip", id: "${manip.id}"${
-      manip.params && manip.params.length > 0
-        ? ", opts: { " +
-          manip.params
-            .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
-            .join(", ") +
-          " }"
-        : ", opts: {}"
-    }`,
+      `  { id: "${manip.id}"${
+        manip.params && manip.params.length > 0
+          ? ", options: { " +
+            manip.params
+              .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
+              .join(", ") +
+            " }"
+          : ""
+      }`,
     `]);`,
   ];
 
@@ -102,23 +102,23 @@ function PipelineView({
   const codeSamples: Record<string, string> = {
     snapshots: [
       `pipelineGateway(source, [`,
-      `  { kind: "manip", id: "grayscale", opts: {} },`,
-      `  { kind: "snapshot" },`,
-      `  { kind: "manip", id: "invert", opts: {} },`,
-      `  { kind: "snapshot" },`,
-      `  { kind: "manip", id: "edge-detect", opts: {} },`,
+      `  { id: "grayscale" },`,
+      `  { id: "snapshot" },`,
+      `  { id: "invert" },`,
+      `  { id: "snapshot" },`,
+      `  { id: "edge-detect" },`,
       `]);`,
     ].join("\n"),
     resize: [
       `pipelineGateway(source, [`,
-      `  { kind: "manip", id: "resize", opts: { width: 100 } },`,
+      `  { id: "resize", options: { width: 100 } },`,
       `]);`,
     ].join("\n"),
     chaining: [
       `const result = await pipelineGateway(source, [`,
-      `  { kind: "manip", id: "brightness", opts: { value: 1.2 } },`,
-      `  { kind: "manip", id: "contrast", opts: { value: 1.3 } },`,
-      `  { kind: "manip", id: "sharpen", opts: { strength: 1.5 } },`,
+      `  { id: "brightness", options: { value: 1.2 } },`,
+      `  { id: "contrast", options: { value: 1.3 } },`,
+      `  { id: "sharpen", options: { strength: 1.5 } },`,
       `]);`,
     ].join("\n"),
     custom: [
@@ -208,9 +208,9 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             <div>
               <div className="text-primary mb-1 font-semibold">Pipeline</div>
               <div className="text-muted-foreground space-y-0.5 font-mono text-xs">
-                <div>.from(src, deps)</div>
-                <div>.add(id, opts?)</div>
-                <div>.resize(opts)</div>
+                <div>.from(src, context)</div>
+                <div>.add(id, options?)</div>
+                <div>.resize(options)</div>
                 <div>.snapshot()</div>
                 <div>.run()</div>
               </div>
@@ -236,7 +236,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             automatically — no registry setup needed.
           </p>
           <CodeBlock
-            code={`import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";\n\nconst result = await pipelineGateway(sourceData, [\n  { kind: "manip", id: "brightness", opts: { value: 1.2 } },\n  { kind: "manip", id: "sharpen", opts: { strength: 1.5 } },\n  { kind: "snapshot" },\n  { kind: "manip", id: "edge-detect", opts: {} },\n]);\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
+            code={`import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";\n\nconst result = await pipelineGateway(sourceData, [\n  { id: "brightness", options: { value: 1.2 } },\n  { id: "sharpen", options: { strength: 1.5 } },\n  { id: "snapshot" },\n  { id: "edge-detect" },\n]);\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
           />
         </div>
         <div className="border-border rounded-lg border p-5">

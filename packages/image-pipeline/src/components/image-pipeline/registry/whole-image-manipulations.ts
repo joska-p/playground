@@ -1,12 +1,12 @@
-import type { ManipulationDefinition, WholeImageFn } from "../types";
+import type { ManipulationDefinition, WholeImageFn } from "../image-pipeline.types";
 
-const wholeFn = (fn: WholeImageFn) => fn;
+const wrapWholeImageFunction = (fn: WholeImageFn) => fn;
 
 export const WHOLE_MANIPULATIONS: ManipulationDefinition[] = [
   {
     id: "histogram-equalize",
     type: "whole",
-    fn: wholeFn((imageData) => {
+    fn: wrapWholeImageFunction((imageData) => {
       const data = imageData.data;
       const n = imageData.width * imageData.height;
       const hist = new Uint32Array(256);
@@ -50,7 +50,7 @@ export const WHOLE_MANIPULATIONS: ManipulationDefinition[] = [
   {
     id: "flip-horizontal",
     type: "whole",
-    fn: wholeFn((imageData) => {
+    fn: wrapWholeImageFunction((imageData) => {
       const { width, height, data } = imageData;
       const out = new ImageData(width, height);
       for (let y = 0; y < height; y++) {
@@ -69,7 +69,7 @@ export const WHOLE_MANIPULATIONS: ManipulationDefinition[] = [
   {
     id: "flip-vertical",
     type: "whole",
-    fn: wholeFn((imageData) => {
+    fn: wrapWholeImageFunction((imageData) => {
       const { width, height, data } = imageData;
       const out = new ImageData(width, height);
       for (let y = 0; y < height; y++) {
@@ -84,7 +84,7 @@ export const WHOLE_MANIPULATIONS: ManipulationDefinition[] = [
   {
     id: "rotate-90cw",
     type: "whole",
-    fn: wholeFn((imageData) => {
+    fn: wrapWholeImageFunction((imageData) => {
       const { width, height, data } = imageData;
       const out = new ImageData(height, width);
       for (let y = 0; y < height; y++) {

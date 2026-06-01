@@ -1,6 +1,6 @@
-import type { ManipulationDefinition, NeighborhoodFn } from "../types";
+import type { ManipulationDefinition, NeighborhoodFn } from "../image-pipeline.types";
 
-const neighborFn = (fn: NeighborhoodFn) => fn;
+const wrapNeighborhoodFunction = (fn: NeighborhoodFn) => fn;
 
 function clamp(v: number): number {
   return Math.max(0, Math.min(255, v));
@@ -57,8 +57,8 @@ export const NEIGHBOR_MANIPULATIONS: ManipulationDefinition[] = [
     id: "gaussian-blur",
     type: "neighborhood",
     radius: 1,
-    fn: neighborFn((src, dest, width, height, opts) => {
-      const radius = (opts["radius"] as number) ?? 1;
+    fn: wrapNeighborhoodFunction((src, dest, width, height, options) => {
+      const radius = (options["radius"] as number) ?? 1;
       const size = radius * 2 + 1;
       const sigma = radius / 2 + 0.5;
       const kernel: number[] = [];
@@ -79,8 +79,8 @@ export const NEIGHBOR_MANIPULATIONS: ManipulationDefinition[] = [
     id: "box-blur",
     type: "neighborhood",
     radius: 1,
-    fn: neighborFn((src, dest, width, height, opts) => {
-      const radius = (opts["radius"] as number) ?? 1;
+    fn: wrapNeighborhoodFunction((src, dest, width, height, options) => {
+      const radius = (options["radius"] as number) ?? 1;
       const size = radius * 2 + 1;
       applyKernel(
         src,
@@ -97,8 +97,8 @@ export const NEIGHBOR_MANIPULATIONS: ManipulationDefinition[] = [
     id: "sharpen",
     type: "neighborhood",
     radius: 1,
-    fn: neighborFn((src, dest, width, height, opts) => {
-      const s = (opts["strength"] as number) ?? 1;
+    fn: wrapNeighborhoodFunction((src, dest, width, height, options) => {
+      const s = (options["strength"] as number) ?? 1;
       const kernel = [0, -s, 0, -s, 1 + 4 * s, -s, 0, -s, 0];
       applyKernel(src, dest, width, height, kernel, 3, 1);
     }),
@@ -107,7 +107,7 @@ export const NEIGHBOR_MANIPULATIONS: ManipulationDefinition[] = [
     id: "edge-detect",
     type: "neighborhood",
     radius: 1,
-    fn: neighborFn((src, dest, width, height) => {
+    fn: wrapNeighborhoodFunction((src, dest, width, height) => {
       const sobelX = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
       const sobelY = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
       const half = 1;

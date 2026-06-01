@@ -10,10 +10,10 @@ type SwaggerSidebarProps = {
 };
 
 const BADGE_CLASSES: Record<string, string> = {
-  overview: "bg-category-data-viz text-category-data-viz-foreground",
+  overview: "bg-category-data-viz",
   pixel: "bg-secondary text-secondary-foreground",
-  neighborhood: "bg-category-image text-category-image-foreground",
-  whole: "bg-category-color text-category-color-foreground",
+  neighborhood: "bg-category-image",
+  whole: "bg-category-color",
   pipeline: "bg-primary text-primary-foreground",
 };
 
@@ -59,7 +59,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
               aria-expanded={isExpanded}
               className="text-foreground/70 hover:text-foreground flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-xs font-semibold uppercase tracking-wider transition-colors"
             >
-              <span className="shrink-0 text-[10px] transition-transform duration-150">
+              <span className="shrink-0 text-xs transition-transform duration-150">
                 {isExpanded ? "▼" : "▶"}
               </span>
               {group.label}

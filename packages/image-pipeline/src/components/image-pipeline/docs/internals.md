@@ -5,7 +5,7 @@
 ### Pipeline execution flow
 
 ```
-runPipeline(source, steps, deps)
+runPipeline(source, steps, context)
   │
   ├── BufferManager(source)     ← double-buffered pixel arrays
   ├── FusionScheduler()         ← fuses consecutive pixel ops
@@ -51,9 +51,9 @@ Consecutive **pixel-type** steps are fused into a single pixel loop to avoid N f
 
 ```typescript
 class FusionScheduler {
-  private batch: Array<{ def, opts }> = [];
+  private batch: Array<{ def, options }> = [];
 
-  add(def, opts): void        // queue a pixel op
+  add(def, options): void        // queue a pixel op
   flush(manager): void         // run all queued ops in one pass
 }
 ```
@@ -63,8 +63,8 @@ How it works:
 ```
 For each pixel (i = 0 .. pixelCount-1):
   r,g,b,a = src[i]
-  for each (def, opts) in batch:
-    [r,g,b,a] = def.fn(r, g, b, a, opts)
+  for each (def, options) in batch:
+    [r,g,b,a] = def.fn(r, g, b, a, options)
   dest[i] = clamp(r,g,b,a)
 swap()
 ```
@@ -84,7 +84,7 @@ Routes each step to the correct handler:
 
 ---
 
-### Tiling (`tiling.ts`)
+### Tiling (`neighborhood-tiling.ts`)
 
 Large neighborhood operations are **tiled** to avoid allocating full-size temporary buffers.
 
@@ -107,7 +107,7 @@ This means the convolution result is identical to running it on the full image, 
 
 ---
 
-### Resize (`resize.ts`)
+### Resize (`image-resize.ts`)
 
 **Bilinear interpolation** — for each output pixel, samples the 4 nearest source pixels and interpolates.
 
@@ -140,7 +140,7 @@ Returns `null` (no resize needed) if target dimensions match source.
 
 ## Worker Architecture (`api/`)
 
-### pipeline.worker.ts
+### pipeline-worker.ts
 
 Entry point for the Web Worker. Each message receives `{sourceData, steps, maxPixels}`.
 
@@ -181,7 +181,7 @@ teardownWorkerPool():
 
 ---
 
-## Polyfill (`polyfill.ts`)
+## Polyfill (`image-data-polyfill.ts`)
 
 If `ImageData` is not defined globally (e.g. Node.js or some worker environments), a minimal polyfill is installed:
 
@@ -197,7 +197,7 @@ Constructor accepts either `(width, height)` or `(Uint8ClampedArray, width, heig
 
 ---
 
-## Configuration (`config.ts`)
+## Configuration (`pipeline-config.ts`)
 
 ```typescript
 export const MAX_PIXELS = 16_000_000;  // ~16 megapixel default cap
@@ -208,7 +208,7 @@ export function defaultConfig(): PipelineConfig {
 ```
 
 This limit is enforced in:
-- `Pipeline.run()` — auto-prepends a downscale if source exceeds maxPixels
+- `runPipeline()` — auto-prepends a downscale if source exceeds maxPixels
 - `runNeighborhoodTiled()` — triggers tiled path if image > maxPixels
 
 ---

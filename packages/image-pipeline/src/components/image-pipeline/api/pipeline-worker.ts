@@ -1,10 +1,10 @@
-import { MAX_PIXELS } from "../config";
-import { NEIGHBOR_MANIPULATIONS } from "../registry/neighborhood";
-import { PIXEL_MANIPULATIONS } from "../registry/pixel";
-import { Registry } from "../registry/registry";
-import { WHOLE_MANIPULATIONS } from "../registry/whole";
-import { runPipeline } from "../run/runner";
-import type { Step } from "../types";
+import { MAX_PIXELS } from "../pipeline-config";
+import { NEIGHBOR_MANIPULATIONS } from "../registry/neighborhood-manipulations";
+import { PIXEL_MANIPULATIONS } from "../registry/pixel-manipulations";
+import { Registry } from "../registry/manipulation-registry";
+import { WHOLE_MANIPULATIONS } from "../registry/whole-image-manipulations";
+import { runPipeline } from "../run/pipeline-runner";
+import type { Step } from "../image-pipeline.types";
 
 export type PipelineResult = {
   source: ImageData;

@@ -2,11 +2,11 @@ import { imageDataToUrl } from "./helpers";
 import { usePipeline } from "./usePipeline";
 
 const STEPS = [
-  { kind: "manip", id: "grayscale", opts: {} },
-  { kind: "snapshot" },
-  { kind: "manip", id: "invert", opts: {} },
-  { kind: "snapshot" },
-  { kind: "manip", id: "edge-detect", opts: {} },
+  { id: "grayscale" },
+  { id: "snapshot" },
+  { id: "invert" },
+  { id: "snapshot" },
+  { id: "edge-detect" },
 ] as const;
 
 const STAGES = ["After: grayscale", "After: invert", "After: edge-detect"];

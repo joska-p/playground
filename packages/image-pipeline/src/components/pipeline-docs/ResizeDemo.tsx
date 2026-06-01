@@ -4,30 +4,30 @@ import { imageDataToUrl } from "./helpers";
 import { usePipeline } from "./usePipeline";
 
 const MODES = [
-  { id: "width", label: "Width (100px)", opts: { width: 100 } as const },
-  { id: "height", label: "Height (100px)", opts: { height: 100 } as const },
+  { id: "width", label: "Width (100px)", options: { width: 100 } as const },
+  { id: "height", label: "Height (100px)", options: { height: 100 } as const },
   {
     id: "fill",
     label: "Fill (100×100)",
-    opts: { width: 100, height: 100, fit: "fill" as const },
+    options: { width: 100, height: 100, fit: "fill" as const },
   },
   {
     id: "contain",
     label: "Contain (100×100)",
-    opts: { width: 100, height: 100, fit: "contain" as const },
+    options: { width: 100, height: 100, fit: "contain" as const },
   },
   {
     id: "cover",
     label: "Cover (100×100)",
-    opts: { width: 100, height: 100, fit: "cover" as const },
+    options: { width: 100, height: 100, fit: "cover" as const },
   },
-  { id: "maxpixels", label: "Max Pixels (5000)", opts: { maxPixels: 5000 } as const },
+  { id: "maxpixels", label: "Max Pixels (5000)", options: { maxPixels: 5000 } as const },
 ] as const;
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
   const [mode, setMode] = useState("width");
   const m = MODES.find((m) => m.id === mode)!;
-  const result = usePipeline(sourceData, [{ kind: "manip", id: "resize", opts: m.opts }]);
+  const result = usePipeline(sourceData, [{ id: "resize", options: m.options }]);
   const resultImage = result?.final ?? null;
   const loading = sourceData !== null && result === null;
 

@@ -20,14 +20,14 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
     if (!sourceData) return;
     let cancelled = false;
 
-    const opts: Record<string, unknown> = {};
+    const options: Record<string, unknown> = {};
     if (manip.params) {
       for (const p of manip.params) {
-        opts[p.key] = paramValues[`${manip.id}:${p.key}`] ?? p.default;
+        options[p.key] = paramValues[`${manip.id}:${p.key}`] ?? p.default;
       }
     }
 
-    pipelineGateway(sourceData, [{ kind: "manip", id: manip.id, opts }])
+    pipelineGateway(sourceData, [{ id: manip.id, options }])
       .then((r) => {
         if (!cancelled) setResult(r.final);
       })

@@ -1,4 +1,4 @@
-import type { Registry } from "./registry/registry";
+import type { Registry } from "./registry/manipulation-registry";
 
 // ─── Manipulation Function Signatures ───────────────────────────────────────
 
@@ -7,7 +7,7 @@ export type PixelFn = (
   g: number,
   b: number,
   a: number,
-  opts: Record<string, unknown>
+  options: Record<string, unknown>
 ) => [number, number, number, number];
 
 export type NeighborhoodFn = (
@@ -15,10 +15,10 @@ export type NeighborhoodFn = (
   dest: Uint8ClampedArray,
   width: number,
   height: number,
-  opts: Record<string, unknown>
+  options: Record<string, unknown>
 ) => void;
 
-export type WholeImageFn = (imageData: ImageData, opts: Record<string, unknown>) => ImageData;
+export type WholeImageFn = (imageData: ImageData, options: Record<string, unknown>) => ImageData;
 
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 
@@ -38,7 +38,7 @@ export type ResizeOptions =
   | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maxPixels?: never }
   | { maxPixels: number; width?: never; height?: never; fit?: never };
 
-export type RunPipelineDeps = {
+export type PipelineContext = {
   registry: Registry;
   maxPixels: number;
 };
@@ -53,22 +53,9 @@ export type PipelineConfig = {
   maxPixels: number;
 };
 
-// ─── Internal Step Types ─────────────────────────────────────────────────────
+// ─── Step Types ───────────────────────────────────────────────────────────────
 
-export type ManipStep = {
-  kind: "manip";
-  id: string;
-  opts: Record<string, unknown>;
-};
-
-export type SnapshotStep = {
-  kind: "snapshot";
-};
-
-// Enforce that if id is "resize", opts MUST be ResizeOptions.
-// Otherwise, fall back to standard key-value records for filters.
-export type CustomManipStep =
-  | { kind: "manip"; id: "resize"; opts: ResizeOptions }
-  | { kind: "manip"; id: Exclude<string, "resize">; opts: Record<string, unknown> };
-
-export type Step = CustomManipStep | SnapshotStep;
+export type Step =
+  | { id: "snapshot"; options?: never }
+  | { id: "resize"; options: ResizeOptions }
+  | { id: string; options?: Record<string, unknown> };

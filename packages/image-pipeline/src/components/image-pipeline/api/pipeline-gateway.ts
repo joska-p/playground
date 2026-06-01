@@ -1,6 +1,16 @@
-import type { Step } from "../types";
-import type { PipelineResult } from "./pipeline.worker";
-import PipelineWorker from "./pipeline.worker?worker&inline";
+import type { Step } from "../image-pipeline.types";
+import type { PipelineResult } from "./pipeline-worker";
+import PipelineWorker from "./pipeline-worker?worker&inline";
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+export function createManipulationStep(id: string, options?: Record<string, unknown>): Step {
+  return { id, ...(options ? { options } : {}) } as Step;
+}
+
+export const SNAPSHOT_STEP = { id: "snapshot" as const };
 
 // ---------------------------------------------------------------------------
 // Types
