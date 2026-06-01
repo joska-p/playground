@@ -31,15 +31,15 @@ function ManipView({
 }) {
   const codeLines = [
     `pipelineGateway(source, [`,
-      `  { id: "${manip.id}"${
-        manip.params && manip.params.length > 0
-          ? ", options: { " +
-            manip.params
-              .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
-              .join(", ") +
-            " }"
-          : ""
-      }`,
+    `  { id: "${manip.id}"${
+      manip.params && manip.params.length > 0
+        ? ", options: { " +
+          manip.params
+            .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
+            .join(", ") +
+          " }"
+        : ""
+    }`,
     `]);`,
   ];
 

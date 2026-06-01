@@ -60,7 +60,12 @@ export function computeTargetDimensions(
     const scale = Math.sqrt(options.maxPixels / pixels);
     targetW = Math.max(1, Math.round(srcW * scale));
     targetH = Math.max(1, Math.round(srcH * scale));
-  } else if ("width" in options && options.width != null && "height" in options && options.height != null) {
+  } else if (
+    "width" in options &&
+    options.width != null &&
+    "height" in options &&
+    options.height != null
+  ) {
     const fit = options.fit ?? "fill";
     if (fit === "fill") {
       targetW = options.width;
