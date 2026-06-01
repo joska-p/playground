@@ -52,14 +52,21 @@ export class PipelineGateway {
     return this.getPool().find((entry) => !entry.busy) ?? null;
   }
 
-  private dispatch(
-    entry: PoolEntry,
-    imageData: ImageData,
-    steps: Step[],
-    resolve: QueuedJob["resolve"],
-    reject: QueuedJob["reject"],
-    maxPixels?: number
-  ): void {
+  private dispatch({
+    entry,
+    imageData,
+    steps,
+    resolve,
+    reject,
+    maxPixels,
+  }: {
+    entry: PoolEntry;
+    imageData: ImageData;
+    steps: Step[];
+    resolve: (result: PipelineResult) => void;
+    reject: (error: Error) => void;
+    maxPixels?: number;
+  }): void {
     entry.busy = true;
 
     const onMessage = (event: MessageEvent<PipelineResult | { error: string }>) => {
@@ -98,15 +105,30 @@ export class PipelineGateway {
     const entry = this.acquireWorker();
     if (!entry) return;
     const job = this.jobQueue.shift()!;
-    this.dispatch(entry, job.imageData, job.steps, job.resolve, job.reject, job.maxPixels);
+    this.dispatch({ entry, ...job });
   }
 
-  run(sourceImageData: ImageData, steps: Step[], maxPixels?: number): Promise<PipelineResult> {
+  run({
+    sourceImageData,
+    steps,
+    maxPixels,
+  }: {
+    sourceImageData: ImageData;
+    steps: Step[];
+    maxPixels?: number;
+  }): Promise<PipelineResult> {
     const entry = this.acquireWorker();
 
     if (entry) {
       return new Promise((resolve, reject) => {
-        this.dispatch(entry, sourceImageData, steps, resolve, reject, maxPixels);
+        this.dispatch({
+          entry,
+          imageData: sourceImageData,
+          steps,
+          resolve,
+          reject,
+          maxPixels,
+        });
       });
     }
 

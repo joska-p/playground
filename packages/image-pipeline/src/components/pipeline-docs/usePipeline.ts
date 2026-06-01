@@ -18,7 +18,7 @@ export function usePipeline<const T extends readonly Step[]>(
     let cancelled = false;
 
     pipelineGateway
-      .run(sourceData, [...steps])
+      .run({ sourceImageData: sourceData, steps: [...steps] })
       .then((r) => {
         if (!cancelled) setResult(r);
       })

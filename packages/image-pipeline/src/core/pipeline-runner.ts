@@ -4,7 +4,15 @@ import type { PipelineContext, PipelineResult } from "./image-pipeline.types";
 import type { Step } from "./manipulations/manifest";
 import { dispatchStep } from "./step-dispatcher";
 
-export function buildAutoDownscaleStep(source: ImageData, steps: Step[], maxPixels: number) {
+export function buildAutoDownscaleStep({
+  source,
+  steps,
+  maxPixels,
+}: {
+  source: ImageData;
+  steps: Step[];
+  maxPixels: number;
+}) {
   if (steps.some((s) => s.id === "resize") || source.width * source.height <= maxPixels)
     return null;
 
@@ -19,12 +27,16 @@ export function buildAutoDownscaleStep(source: ImageData, steps: Step[], maxPixe
   };
 }
 
-export async function runPipeline(
-  source: ImageData,
-  steps: Step[],
-  context: PipelineContext
-): Promise<PipelineResult> {
-  const downscale = buildAutoDownscaleStep(source, steps, context.maxPixels);
+export async function runPipeline({
+  source,
+  steps,
+  context,
+}: {
+  source: ImageData;
+  steps: Step[];
+  context: PipelineContext;
+}): Promise<PipelineResult> {
+  const downscale = buildAutoDownscaleStep({ source, steps, maxPixels: context.maxPixels });
   if (downscale) {
     console.warn(
       `[image-pipeline] Auto-scaled source image to ${downscale.options.width}×${downscale.options.height}.`
@@ -41,7 +53,7 @@ export async function runPipeline(
       scheduler.flush(manager);
       snapshots.push(manager.snapshot());
     } else {
-      dispatchStep(step, context, manager, scheduler);
+      dispatchStep({ step, context, manager, scheduler });
     }
   }
 

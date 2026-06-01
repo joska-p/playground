@@ -1,6 +1,3 @@
-import type { ManipulationDefinition } from "../../core/image-pipeline.types";
-import { definePixel } from "../../core/manipulation-factories";
-
 type ParamDef = {
   key: string;
   label: string;
@@ -22,7 +19,7 @@ type ManipInfo = {
 type EndpointId =
   | { kind: "overview" }
   | { kind: "manip"; id: string }
-  | { kind: "pipeline"; id: "snapshots" | "resize" | "chaining" | "custom" };
+  | { kind: "pipeline"; id: "snapshots" | "resize" | "chaining" };
 
 type EndpointItemType = "overview" | "pixel" | "neighborhood" | "whole" | "pipeline";
 
@@ -241,13 +238,6 @@ const PIPELINE_ITEMS: EndpointItem[] = [
     path: "/pipeline/chaining",
     description: "Compose multiple manipulations into a single pipeline run",
   },
-  {
-    id: "custom",
-    label: "Custom",
-    type: "pipeline",
-    path: "/pipeline/custom",
-    description: "Register and run your own custom manipulation functions",
-  },
 ];
 
 const OVERVIEW_ITEM: EndpointItem = {
@@ -266,22 +256,13 @@ const ENDPOINT_GROUPS: EndpointGroup[] = [
   { label: "Pipeline", items: PIPELINE_ITEMS },
 ];
 
-export const DEMO_MANIPULATIONS: ManipulationDefinition[] = [
-  definePixel("demo-warm", (r, g, b, a) => [
-    Math.min(255, r * 1.1),
-    g * 0.85,
-    b * 0.7,
-    a,
-  ]) as ManipulationDefinition,
-];
-
 export {
   ENDPOINT_GROUPS,
-  findItemForEndpoint,
-  findManipById,
-  isActiveEndpoint,
   NEIGHBOR_MANIPS,
   PIXEL_MANIPS,
   WHOLE_MANIPS,
+  findItemForEndpoint,
+  findManipById,
+  isActiveEndpoint,
 };
 export type { EndpointGroup, EndpointId, EndpointItem, ManipInfo, ParamDef };

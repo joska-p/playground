@@ -2,7 +2,21 @@ import type { ManipulationDefinition, NeighborhoodFn } from "./image-pipeline.ty
 
 const TILE_SIZE = 512; // pixels per tile edge
 
-function extractTile(src: ImageData, tx: number, ty: number, tw: number, th: number, halo: number) {
+function extractTile({
+  src,
+  tx,
+  ty,
+  tw,
+  th,
+  halo,
+}: {
+  src: ImageData;
+  tx: number;
+  ty: number;
+  tw: number;
+  th: number;
+  halo: number;
+}) {
   const padX = Math.max(0, tx - halo);
   const padY = Math.max(0, ty - halo);
   const padX2 = Math.min(src.width, tx + tw + halo);
@@ -19,7 +33,23 @@ function extractTile(src: ImageData, tx: number, ty: number, tw: number, th: num
   return tile;
 }
 
-function blitTile(dest: ImageData, tile: ImageData, tx: number, ty: number, tw: number, th: number, halo: number) {
+function blitTile({
+  dest,
+  tile,
+  tx,
+  ty,
+  tw,
+  th,
+  halo,
+}: {
+  dest: ImageData;
+  tile: ImageData;
+  tx: number;
+  ty: number;
+  tw: number;
+  th: number;
+  halo: number;
+}) {
   const offX = tx - Math.max(0, tx - halo);
   const offY = ty - Math.max(0, ty - halo);
 
@@ -30,7 +60,15 @@ function blitTile(dest: ImageData, tile: ImageData, tx: number, ty: number, tw: 
   }
 }
 
-export function runNeighborhoodTiled(src: ImageData, def: ManipulationDefinition, options: Record<string, unknown>) {
+export function runNeighborhoodTiled({
+  src,
+  def,
+  options,
+}: {
+  src: ImageData;
+  def: ManipulationDefinition;
+  options: Record<string, unknown>;
+}) {
   const halo = def.radius ?? 1;
   const destImage = new ImageData(src.width, src.height);
   const fn = def.fn as NeighborhoodFn;
@@ -43,11 +81,11 @@ export function runNeighborhoodTiled(src: ImageData, def: ManipulationDefinition
       const tx = col * TILE_SIZE, ty = row * TILE_SIZE;
       const tw = Math.min(TILE_SIZE, src.width - tx), th = Math.min(TILE_SIZE, src.height - ty);
 
-      const tile = extractTile(src, tx, ty, tw, th, halo);
+      const tile = extractTile({ src, tx, ty, tw, th, halo });
       const tileOut = new ImageData(tile.width, tile.height);
 
       fn(tile.data, tileOut.data, tile.width, tile.height, options);
-      blitTile(destImage, tileOut, tx, ty, tw, th, halo);
+      blitTile({ dest: destImage, tile: tileOut, tx, ty, tw, th, halo });
     }
   }
   return destImage;

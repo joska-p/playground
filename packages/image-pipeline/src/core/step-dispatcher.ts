@@ -11,33 +11,41 @@ import { computeTargetDimensions, resizeImageData } from "./image-resize";
 import type { Step } from "./manipulations/manifest";
 import { runNeighborhoodTiled } from "./neighborhood-tiling";
 
-function executeResizeStep(options: ResizeOptions, bufferManager: BufferManager) {
-  const source = bufferManager.snapshot();
-  const dims = computeTargetDimensions(source.width, source.height, options);
+function executeResizeStep({
+  options,
+  bufferManager,
+}: {
+  options: ResizeOptions;
+  bufferManager: BufferManager;
+}) {
+  const src = bufferManager.snapshot();
+  const dims = computeTargetDimensions({ srcW: src.width, srcH: src.height, options });
   if (dims) {
-    bufferManager.replaceWith(resizeImageData(source, dims.width, dims.height));
+    bufferManager.replaceWith(resizeImageData({ src, targetW: dims.width, targetH: dims.height }));
   }
 }
 
-type ExecutorFn = (
-  def: ManipulationDefinition,
-  options: Record<string, unknown>,
-  context: PipelineContext,
-  manager: BufferManager,
-  scheduler: FusionScheduler
-) => void;
+type ExecutorParams = {
+  def: ManipulationDefinition;
+  options: Record<string, unknown>;
+  context: PipelineContext;
+  manager: BufferManager;
+  scheduler: FusionScheduler;
+};
+
+type ExecutorFn = (params: ExecutorParams) => void;
 
 const executors: Record<string, ExecutorFn> = {
-  pixel: (def, options, _, __, scheduler) => {
+  pixel: ({ def, options, scheduler }) => {
     scheduler.add(def, options);
   },
 
-  neighborhood: (def, options, ctx, manager, scheduler) => {
+  neighborhood: ({ def, options, context, manager, scheduler }) => {
     scheduler.flush(manager);
-    const source = manager.snapshot();
+    const src = manager.snapshot();
 
-    if (source.width * source.height > ctx.maxPixels) {
-      manager.replaceWith(runNeighborhoodTiled(source, def, options));
+    if (src.width * src.height > context.maxPixels) {
+      manager.replaceWith(runNeighborhoodTiled({ src, def, options }));
     } else {
       const dest = new Uint8ClampedArray(manager.current.length);
       (def.fn as NeighborhoodFn)(manager.current, dest, manager.width, manager.height, options);
@@ -47,25 +55,33 @@ const executors: Record<string, ExecutorFn> = {
     }
   },
 
-  whole: (def, options, _, manager, scheduler) => {
+  whole: ({ def, options, manager, scheduler }) => {
     scheduler.flush(manager);
     manager.replaceWith((def.fn as WholeImageFn)(manager.snapshot(), options));
-  }
+  },
 };
 
-export function dispatchStep(
-  step: Step,
-  context: PipelineContext,
-  manager: BufferManager,
-  scheduler: FusionScheduler
-) {
+export function dispatchStep({
+  step,
+  context,
+  manager,
+  scheduler,
+}: {
+  step: Step;
+  context: PipelineContext;
+  manager: BufferManager;
+  scheduler: FusionScheduler;
+}) {
   if (step.id === "resize") {
-    executeResizeStep((step as { options: ResizeOptions }).options, manager);
+    executeResizeStep({
+      options: (step as { options: ResizeOptions }).options,
+      bufferManager: manager,
+    });
     return;
   }
 
   const def = context.registry.get(step.id);
   const options = (step as { options?: Record<string, unknown> }).options || {};
-  
-  executors[def.type](def, options, context, manager, scheduler);
+
+  executors[def.type]({ def, options, context, manager, scheduler });
 }

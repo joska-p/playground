@@ -38,7 +38,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
     if (item.type === "overview") {
       onSelect({ kind: "overview" });
     } else if (item.type === "pipeline") {
-      onSelect({ kind: "pipeline", id: item.id as "snapshots" | "resize" | "chaining" | "custom" });
+      onSelect({ kind: "pipeline", id: item.id as "snapshots" | "resize" | "chaining" });
     } else {
       onSelect({ kind: "manip", id: item.id });
     }
@@ -68,15 +68,15 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
               <ul className="ml-1 space-y-0.5">
                 {group.items.map((item) => {
                   const isActive = isActiveEndpoint(
-                    activeEndpoint,
-                    item.type === "overview"
-                      ? { kind: "overview" }
-                      : item.type === "pipeline"
-                        ? {
-                            kind: "pipeline",
-                            id: item.id as "snapshots" | "resize" | "chaining" | "custom",
-                          }
-                        : { kind: "manip", id: item.id }
+                  activeEndpoint,
+                  item.type === "overview"
+                  ? { kind: "overview" }
+                  : item.type === "pipeline"
+                    ? {
+                        kind: "pipeline",
+                        id: item.id as "snapshots" | "resize" | "chaining",
+                      }
+                    : { kind: "manip", id: item.id }
                   );
                   return (
                     <li key={item.id}>

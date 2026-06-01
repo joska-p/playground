@@ -22,9 +22,13 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
   try {
     const registry = Registry.from(ALL_MANIPULATIONS);
 
-    const result = await runPipeline(sourceData, steps, {
-      registry,
-      maxPixels: maxPixels ?? MAX_PIXELS,
+    const result = await runPipeline({
+      source: sourceData,
+      steps,
+      context: {
+        registry,
+        maxPixels: maxPixels ?? MAX_PIXELS,
+      },
     });
 
     const transfer = [

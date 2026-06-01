@@ -2,7 +2,6 @@ import { Badge } from "@repo/ui/Badge";
 import { Card } from "@repo/ui/Card";
 import { ChainDemo } from "./ChainDemo";
 import { CodeBlock } from "./CodeBlock";
-import { CustomDemo } from "./CustomDemo";
 import { imageDataToUrl } from "./helpers";
 import type { EndpointId, ManipInfo } from "./manipData";
 import { ENDPOINT_GROUPS, findItemForEndpoint, findManipById } from "./manipData";
@@ -95,7 +94,7 @@ function PipelineView({
   id,
   sourceData,
 }: {
-  id: "snapshots" | "resize" | "chaining" | "custom";
+  id: "snapshots" | "resize" | "chaining";
   sourceData: ImageData | null;
 }) {
   const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: "pipeline", id });
@@ -121,27 +120,12 @@ function PipelineView({
       `  { id: "sharpen", options: { strength: 1.5 } },`,
       `]);`,
     ].join("\n"),
-    custom: [
-      `import { Registry } from "@repo/image-pipeline/Registry";`,
-      `import { definePixel } from "@repo/image-pipeline/definePixel";`,
-      ``,
-      `const registry = new Registry();`,
-      `registry.register(`,
-      `  definePixel("my-effect", (r, g, b, a) => [r * 1.1, g * 0.85, b * 0.7, a]),`,
-      `);`,
-      ``,
-      `const result = await Pipeline`,
-      `  .from(source, { registry, maxPixels: 250_000 })`,
-      `  .add("my-effect")`,
-      `  .run();`,
-    ].join("\n"),
   };
 
   const demos: Record<string, (props: { sourceData: ImageData | null }) => React.JSX.Element> = {
     snapshots: SnapshotDemo,
     resize: ResizeDemo,
     chaining: ChainDemo,
-    custom: CustomDemo,
   };
 
   const DemoComponent = demos[id];
@@ -177,9 +161,9 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           <span className="text-primary">@repo/</span>image-pipeline
         </h1>
         <p className="text-muted-foreground mt-2 max-w-3xl text-base leading-relaxed">
-          TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Register
-          custom manipulations and chain them into reusable pipelines. Runs off the main thread via
-          a Web Worker pool for non-blocking UI.
+          TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Chain
+          built-in manipulations into reusable pipelines. Runs off the main thread via a Web Worker
+          pool for non-blocking UI.
         </p>
       </div>
 
@@ -240,14 +224,14 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         </div>
         <div className="border-border rounded-lg border p-5">
           <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
-            Pipeline (custom control)
+            Pipeline (Fluent API)
           </h3>
           <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-            Custom registry, main-thread execution, or embedding in your own worker. Requires
-            explicit registry and config.
+            Fluent builder for composing pipelines. Preferred for complex chains or when you need a
+            reusable pipeline definition.
           </p>
           <CodeBlock
-            code={`import { Pipeline } from "@repo/image-pipeline/Pipeline";\nimport { Registry } from "@repo/image-pipeline/Registry";\n\nconst registry = new Registry();\nregistry.register({\n  id: "my-effect",\n  type: "pixel",\n  fn: (r, g, b, a) => [r * 1.1, g * 0.85, b * 0.7, a],\n});\n\nconst result = await Pipeline\n  .from(sourceData, { registry, maxPixels: 250_000 })\n  .add("brightness", { value: 1.2 })\n  .add("my-effect")\n  .snapshot()\n  .run();`}
+            code={`import { Pipeline } from "@repo/image-pipeline/Pipeline";\n\nconst result = await Pipeline\n  .from(sourceData, { maxPixels: 1_000_000 })\n  .add("brightness", { value: 1.2 })\n  .resize({ width: 800 })\n  .snapshot()\n  .add("sharpen")\n  .run();`}
           />
         </div>
       </div>
