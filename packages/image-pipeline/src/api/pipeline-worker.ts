@@ -1,10 +1,8 @@
-import type { Step } from "../image-pipeline.types";
-import { MAX_PIXELS } from "../pipeline-config";
-import { Registry } from "../registry/manipulation-registry";
-import { NEIGHBOR_MANIPULATIONS } from "../registry/neighborhood-manipulations";
-import { PIXEL_MANIPULATIONS } from "../registry/pixel-manipulations";
-import { WHOLE_MANIPULATIONS } from "../registry/whole-image-manipulations";
-import { runPipeline } from "../run/pipeline-runner";
+import type { Step } from "../core/image-pipeline.types";
+import { MAX_PIXELS } from "../core/pipeline-config";
+import { Registry } from "../core/registry";
+import { registerAll } from "../core/manipulations/manipulations";
+import { runPipeline } from "../core/pipeline-runner";
 
 export type PipelineResult = {
   source: ImageData;
@@ -23,9 +21,7 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
 
   try {
     const registry = new Registry();
-    for (const def of PIXEL_MANIPULATIONS) registry.register(def);
-    for (const def of NEIGHBOR_MANIPULATIONS) registry.register(def);
-    for (const def of WHOLE_MANIPULATIONS) registry.register(def);
+    registerAll(registry);
 
     const result = await runPipeline(sourceData, steps, {
       registry,

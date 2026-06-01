@@ -5,7 +5,7 @@ import type {
   ResizeOptions,
   Step,
   WholeImageFn,
-} from "../image-pipeline.types";
+} from "./image-pipeline.types";
 import type { BufferManager } from "./buffer-manager";
 import type { FusionScheduler } from "./fusion-scheduler";
 import { computeTargetDimensions, resizeImageData } from "./image-resize";

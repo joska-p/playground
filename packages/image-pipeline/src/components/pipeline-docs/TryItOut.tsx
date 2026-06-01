@@ -1,6 +1,6 @@
 import { Slider } from "@repo/ui/Slider";
 import { useEffect, useState } from "react";
-import { pipelineGateway } from "../image-pipeline/api/pipeline-gateway";
+import { pipelineGateway } from "../../api/pipeline-gateway";
 import { imageDataToUrl } from "./helpers";
 import type { ManipInfo } from "./manipData";
 

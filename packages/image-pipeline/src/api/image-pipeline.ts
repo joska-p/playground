@@ -1,5 +1,5 @@
-import type { PipelineResult, ResizeOptions, Step } from "../image-pipeline.types";
-import { runPipeline, type PipelineContext } from "../run/pipeline-runner";
+import type { PipelineResult, ResizeOptions, Step } from "../core/image-pipeline.types";
+import { runPipeline, type PipelineContext } from "../core/pipeline-runner";
 
 export class Pipeline {
   private readonly source: ImageData;

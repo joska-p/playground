@@ -1,4 +1,4 @@
-import type { ManipulationDefinition, PixelFn } from "../image-pipeline.types";
+import type { ManipulationDefinition, PixelFn } from "./image-pipeline.types";
 import type { BufferManager } from "./buffer-manager";
 
 function runFusedPixelBatch(

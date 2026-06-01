@@ -1,4 +1,4 @@
-import type { ManipulationDefinition } from "../image-pipeline/image-pipeline.types";
+import type { ManipulationDefinition } from "../../core/image-pipeline.types";
 
 type ParamDef = {
   key: string;

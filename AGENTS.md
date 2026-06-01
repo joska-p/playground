@@ -4,12 +4,12 @@
 
 Before diving in, use these two tools to understand the project:
 
-- **Broad architecture** → read `GRAPH_REPORT.md`
+- **Broad architecture** → read `./graphify-out/GRAPH_REPORT.md`
 - **Focused question** → `graphify query "<question>"` (returns a scoped subgraph, much faster)
 
 ## Conventions
 
-Read `CONVENTIONS.md` at the repo root before writing or editing any file.
+Read `./CONVENTIONS.md` at the repo root before writing or editing any file.
 Apply only the rules relevant to the current task. When in doubt, ask — do not guess.
 
 ## Running commands

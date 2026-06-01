@@ -1,4 +1,4 @@
-import type { Registry } from "./registry/manipulation-registry";
+import type { Registry } from "./registry";
 
 // ─── Manipulation Function Signatures ───────────────────────────────────────
 

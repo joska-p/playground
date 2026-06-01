@@ -1,4 +1,4 @@
-import type { ResizeOptions } from "../image-pipeline.types";
+import type { ResizeOptions } from "./image-pipeline.types";
 
 /** Bilinear interpolation resize. Returns a new ImageData. */
 export function resizeImageData(src: ImageData, targetW: number, targetH: number): ImageData {
