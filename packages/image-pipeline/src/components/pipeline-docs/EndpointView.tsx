@@ -221,31 +221,17 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="border-border rounded-lg border p-5">
-          <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
-            pipelineGateway (recommended)
-          </h3>
-          <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-            Most apps. Offloads to workers, manages pool lifecycle. Built-in manipulations available
-            automatically — no registry setup needed.
-          </p>
-          <CodeBlock
-            code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "snapshot" },\n    { id: "edge-detect" },\n  ]\n});\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
-          />
-        </div>
-        <div className="border-border rounded-lg border p-5">
-          <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
-            Pipeline (Fluent API)
-          </h3>
-          <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-            Fluent builder for composing pipelines. Preferred for complex chains or when you need a
-            reusable pipeline definition.
-          </p>
-          <CodeBlock
-            code={`import { Pipeline } from "@repo/image-pipeline/core/pipeline";\n\nconst result = await Pipeline\n  .from(sourceData, { maximumPixels: 1_000_000 })\n  .add("brightness", { value: 1.2 })\n  .resize({ width: 800 })\n  .snapshot()\n  .add("sharpen")\n  .run();`}
-          />
-        </div>
+      <div className="border-border rounded-lg border p-5">
+        <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
+          pipelineGateway (recommended)
+        </h3>
+        <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
+          Most apps. Offloads to workers, manages pool lifecycle. Built-in manipulations available
+          automatically — no registry setup needed.
+        </p>
+        <CodeBlock
+          code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "snapshot" },\n    { id: "edge-detect" },\n  ]\n});\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
+        />
       </div>
 
       {sourceData && (
