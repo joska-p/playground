@@ -10,33 +10,20 @@ export class BufferManager {
     this.h = source.height;
   }
 
-  get current(): Uint8ClampedArray {
-    return this.bufs[this.ptr];
-  }
+  get current() { return this.bufs[this.ptr]; }
+  get other() { return this.bufs[1 - this.ptr]; }
+  get width() { return this.w; }
+  get height() { return this.h; }
 
-  get other(): Uint8ClampedArray {
-    return this.bufs[1 - this.ptr];
-  }
+  swap() { this.ptr = this.ptr === 0 ? 1 : 0; }
 
-  get width(): number {
-    return this.w;
-  }
-
-  get height(): number {
-    return this.h;
-  }
-
-  swap(): void {
-    this.ptr = this.ptr === 0 ? 1 : 0;
-  }
-
-  snapshot(): ImageData {
+  snapshot() {
     const out = new ImageData(this.w, this.h);
     out.data.set(this.current);
     return out;
   }
 
-  replaceWith(img: ImageData): void {
+  replaceWith(img: ImageData) {
     this.bufs[this.ptr] = new Uint8ClampedArray(img.data);
     this.bufs[1 - this.ptr] = new Uint8ClampedArray(img.width * img.height * 4);
     this.w = img.width;

@@ -41,35 +41,19 @@ export const ALL_MANIPULATIONS = [
 
 // ─── Derive Step type from the manifest ─────────────────────────────────────
 
-type EntryOptions<E> = E extends {
-  type: "pixel";
-  fn: (r: number, g: number, b: number, a: number, options: infer O) => unknown;
-}
+type ExtractOptions<T> = T extends { fn: (a1: unknown, a2: unknown, a3: unknown, a4: unknown, options: infer O) => unknown }
   ? O
-  : E extends {
-        type: "neighborhood";
-        fn: (
-          src: unknown,
-          dest: unknown,
-          width: unknown,
-          height: unknown,
-          options: infer O
-        ) => unknown;
-      }
-    ? O
-    : E extends { type: "whole"; fn: (imageData: unknown, options: infer O) => unknown }
+  : T extends { fn: (a1: unknown, a2: unknown, a3: unknown, a4: unknown, a5: unknown) => unknown } // Neighborhood
+    ? T["fn"] extends (s: unknown, d: unknown, w: unknown, h: unknown, o: infer O) => unknown ? O : never
+    : T extends { fn: (img: unknown, options: infer O) => unknown }
       ? O
-      : Record<string, never>;
-
-type BuiltInOptions = {
-  [E in (typeof ALL_MANIPULATIONS)[number] as E["id"]]: EntryOptions<E>;
-};
+      : never;
 
 type BuiltInStep = {
-  [K in keyof BuiltInOptions]: BuiltInOptions[K] extends Record<string, never>
-    ? { id: K }
-    : { id: K; options?: BuiltInOptions[K] };
-}[keyof BuiltInOptions];
+  [D in (typeof ALL_MANIPULATIONS)[number] as D["id"]]: ExtractOptions<D> extends never
+    ? { id: D["id"] }
+    : { id: D["id"]; options?: ExtractOptions<D> };
+}[ (typeof ALL_MANIPULATIONS)[number]["id"] ];
 
 export type Step =
   | BuiltInStep

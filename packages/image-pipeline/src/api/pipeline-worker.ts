@@ -1,5 +1,4 @@
-import type { Step } from "../core/manipulations/manifest";
-import { ALL_MANIPULATIONS } from "../core/manipulations/manifest";
+import { ALL_MANIPULATIONS, type Step } from "../core/manipulations/manifest";
 import { runPipeline } from "../core/pipeline-runner";
 import { Registry } from "../core/registry";
 
@@ -27,20 +26,15 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
       registry,
       maxPixels: maxPixels ?? MAX_PIXELS,
     });
-    const { source, final, snapshots } = result;
 
-    // Transfer all pixel buffers to avoid copying — each ImageData is
-    // neutered on the worker side after postMessage returns, which is safe
-    // because the worker never touches them again.
-    const transferables: Transferable[] = [
-      source.data.buffer,
-      final.data.buffer,
-      ...snapshots.map((snap) => snap.data.buffer),
+    const transfer = [
+      result.source.data.buffer,
+      result.final.data.buffer,
+      ...result.snapshots.map((s) => s.data.buffer),
     ];
 
-    self.postMessage(result, { transfer: transferables });
+    self.postMessage(result, { transfer });
   } catch (err) {
-    // Surface pipeline errors back to the gateway's onerror handler
     self.postMessage({ error: err instanceof Error ? err.message : String(err) });
   }
 });
