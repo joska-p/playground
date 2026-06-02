@@ -49,15 +49,23 @@
       0px 8px 10px -1px oklch(0.331 0.02 76.196 / 0.06);
     --shadow-2xl: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.15);
 
-    --category-generative: oklch(0.558 0.097 167.141);
-    --category-color: oklch(0.544 0.164 313.001);
-    --category-image: oklch(0.559 0.143 38.532);
-    --category-data-viz: oklch(0.551 0.099 234.793);
+    --utility-color-1: oklch(0.558 0.097 167.141);
+    --utility-color-2: oklch(0.544 0.164 313.001);
+    --utility-color-3: oklch(0.559 0.143 38.532);
+    --utility-color-4: oklch(0.619 0.128 237.422);
+    --utility-color-5: oklch(0.597 0.154 81.796);
+    --utility-color-6: oklch(0.568 0.135 130.491);
+    --utility-color-7: oklch(0.582 0.139 18.679);
+    --utility-color-8: oklch(0.603 0.098 275.88);
 
-    --category-tutorial: oklch(0.558 0.097 167.141);
-    --category-how-to: oklch(0.544 0.164 313.001);
-    --category-explanation: oklch(0.559 0.143 38.532);
-    --category-reference: oklch(0.619 0.128 237.422);
+    --category-generative: var(--utility-1);
+    --category-color: var(--utility-2);
+    --category-image: var(--utility-3);
+    --category-data-viz: var(--utility-4);
+    --category-tutorial: var(--utility-5);
+    --category-how-to: var(--utility-6);
+    --category-explanation: var(--utility-7);
+    --category-reference: var(--utility-8);
   }
 
   html[data-theme="dark"] {
@@ -90,15 +98,23 @@
     --shadow-xl: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 8px 10px -1px oklch(0 0 0 / 0.01);
     --shadow-2xl: 0px 1px 2px 0px oklch(0 0 0 / 0.03);
 
-    --category-generative: oklch(0.644 0.1 168.409);
-    --category-color: oklch(0.592 0.131 313.642);
-    --category-image: oklch(0.596 0.131 38.922);
-    --category-data-viz: oklch(0.635 0.103 233.501);
+    --utility-1: oklch(0.644 0.1 168.409);
+    --utility-2: oklch(0.592 0.131 313.642);
+    --utility-3: oklch(0.596 0.131 38.922);
+    --utility-4: oklch(0.635 0.103 233.501);
+    --utility-5: oklch(0.664 0.123 80.938);
+    --utility-6: oklch(0.638 0.106 130.196);
+    --utility-7: oklch(0.644 0.109 19.256);
+    --utility-8: oklch(0.66 0.083 276.271);
 
-    --category-tutorial: oklch(0.644 0.1 168.409);
-    --category-how-to: oklch(0.592 0.131 313.642);
-    --category-explanation: oklch(0.596 0.131 38.922);
-    --category-reference: oklch(0.635 0.103 233.501);
+    --category-generative: var(--utility-1);
+    --category-color: var(--utility-2);
+    --category-image: var(--utility-3);
+    --category-data-viz: var(--utility-4);
+    --category-tutorial: var(--utility-5);
+    --category-how-to: var(--utility-6);
+    --category-explanation: var(--utility-7);
+    --category-reference: var(--utility-8);
   }
 }
 
@@ -141,15 +157,23 @@
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 
-  --category-generative: var(--category-generative);
-  --category-color: var(--category-color);
-  --category-image: var(--category-image);
-  --category-data-viz: var(--category-data-viz);
+  --color-utility-1: var(--utility-1);
+  --color-utility-2: var(--utility-2);
+  --color-utility-3: var(--utility-3);
+  --color-utility-4: var(--utility-4);
+  --color-utility-5: var(--utility-5);
+  --color-utility-6: var(--utility-6);
+  --color-utility-7: var(--utility-7);
+  --color-utility-8: var(--utility-8);
 
-  --category-tutorial: var(--category-tutorial);
-  --category-how-to: var(--category-how-to);
-  --category-explanation: var(--category-explanation);
-  --category-reference: var(--category-reference);
+  --color-category-generative: var(--utility-1);
+  --color-category-color: var(--utility-2);
+  --color-category-image: var(--utility-3);
+  --color-category-data-viz: var(--utility-4);
+  --color-category-tutorial: var(--utility-5);
+  --color-category-how-to: var(--utility-6);
+  --color-category-explanation: var(--utility-7);
+  --color-category-reference: var(--utility-8);
 }
 
 @utility prose-playground {

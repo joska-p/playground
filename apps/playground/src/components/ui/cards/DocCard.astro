@@ -13,19 +13,19 @@ type Props = {
 
 const { href, title, description, type = "reference", className } = Astro.props;
 
-const cat = `var(--category-${type}, var(--primary))`;
+const accentColor = `var(--category-${type}, var(--color-primary))`;
 const { Icon } = getCategoryMetadata(type);
 const formattedType = type.replace("-", "·");
 ---
 
-<BaseCard href={href} cat={cat} variant="doc" className={className}>
+<BaseCard href={href} accentColor={accentColor} variant="doc" className={className}>
   <span
-    class="pointer-events-none absolute top-0 right-0 h-0 w-0 [border-width:0_28px_28px_0] border-solid border-[transparent_var(--cat)_transparent_transparent] opacity-50 transition-opacity duration-200 group-hover:opacity-100"
+    class="pointer-events-none absolute top-0 right-0 h-0 w-0 [border-width:0_28px_28px_0] border-solid border-[transparent_var(--card-accent)_transparent_transparent] opacity-50 transition-opacity duration-200 group-hover:opacity-100"
     aria-hidden="true"></span>
 
   <div class="flex flex-1 flex-col gap-4 p-4">
     <div
-      class="flex w-fit items-center gap-1 rounded bg-[color-mix(in_srgb,var(--cat)_12%,transparent)] px-1.5 py-0.5 text-[10px] font-semibold tracking-widest text-(--cat) uppercase [border:0.5px_solid_color-mix(in_srgb,var(--cat)_25%,transparent)]"
+      class="flex w-fit items-center gap-1 rounded-md bg-[color-mix(in_srgb,var(--card-accent)_12%,transparent)] px-2 py-0.5 text-[10px] font-semibold tracking-widest text-[var(--card-accent)] uppercase [border:0.5px_solid_color-mix(in_srgb,var(--card-accent)_25%,transparent)]"
     >
       <Icon className="h-3 w-3" />
       <span>{formattedType}</span>
@@ -36,7 +36,7 @@ const formattedType = type.replace("-", "·");
     </h3>
     {
       description && (
-        <p class="text-muted-foreground line-clamp-2 flex-1 text-[12.5px] leading-relaxed">
+        <p class="text-muted-foreground line-clamp-2 flex-1 text-sm leading-relaxed">
           {description}
         </p>
       )

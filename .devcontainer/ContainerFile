@@ -122,27 +122,6 @@ RUN sed -i 's/#Port 22/Port 2222/'                                  /etc/ssh/ssh
     && echo "AllowUsers boffin"   >> /etc/ssh/sshd_config
 
 # -----------------------------------------------------------------------------
-# Switch to boffin for all subsequent steps so tool installations
-# land in /home/boffin and are owned by UID 1000.
-# NOTE: The bind-mount in devcontainer.json will overlay /home/boffin at
-# runtime, so files written here are only fallback defaults used when the
-# mount target (.container_home) is empty.
-# -----------------------------------------------------------------------------
-USER boffin
-WORKDIR /home/boffin
-
-# -----------------------------------------------------------------------------
-# Minimal shell bootstrap written into the image as a safe default.
-# setup.sh will overwrite .zshrc with the full config (oh-my-zsh, p10k, etc.)
-# This ensures a working shell even before setup.sh has been run.
-# -----------------------------------------------------------------------------
-RUN echo '\n# ---- boffin env ----'                           >> /home/boffin/.bashrc \
-    && echo 'export PATH="$HOME/.local/bin:$PATH"'            >> /home/boffin/.bashrc \
-    && echo 'export HISTSIZE=10000'                           >> /home/boffin/.bashrc \
-    && echo 'export HISTFILESIZE=20000'                       >> /home/boffin/.bashrc \
-    && echo 'source /etc/bash_completion 2>/dev/null || true' >> /home/boffin/.bashrc
-
-# -----------------------------------------------------------------------------
 # Exposed ports (documentation only — actual forwarding is in devcontainer.json)
 #
 #   2222  SSH
@@ -158,6 +137,9 @@ RUN echo '\n# ---- boffin env ----'                           >> /home/boffin/.b
 # -----------------------------------------------------------------------------
 EXPOSE 2222 3000 4321 4322 5000 5173 5174 6006 8080 8888
 
+
+USER boffin
+WORKDIR /home/boffin
 # -----------------------------------------------------------------------------
 # Default command — drops into zsh. sshd is started by devcontainer's
 # postStartCommand so it runs as root (required by sshd).

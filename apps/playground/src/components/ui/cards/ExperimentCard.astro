@@ -23,18 +23,18 @@ const {
   className,
 } = Astro.props;
 
-const cat = `var(--category-${category}, var(--primary))`;
+const accentColor = `var(--category-${category}, var(--color-primary))`;
 ---
 
-<BaseCard href={href} cat={cat} variant="experiment" className={className}>
+<BaseCard href={href} accentColor={accentColor} variant="experiment" className={className}>
   <div
-    class="h-0.75 w-full opacity-0 transition-opacity duration-300 [background:linear-gradient(90deg,transparent,var(--cat)_30%,var(--cat)_70%,transparent)] group-hover:opacity-100"
+    class="h-1 w-full opacity-0 transition-opacity duration-300 [background:linear-gradient(90deg,transparent,var(--card-accent)_30%,var(--card-accent)_70%,transparent)] group-hover:opacity-100"
     aria-hidden="true"
   >
   </div>
   <div class="flex flex-1 flex-col gap-4 p-4">
     <div
-      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[color-mix(in_srgb,var(--cat)_30%,transparent)] bg-[color-mix(in_srgb,var(--cat)_9%,var(--card))] text-(--cat) transition-transform duration-200 group-hover:scale-[1.06]"
+      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[color-mix(in_srgb,var(--card-accent)_30%,transparent)] bg-[color-mix(in_srgb,var(--card-accent)_9%,var(--color-card))] text-(--card-accent) transition-transform duration-200 group-hover:scale-[1.06]"
     >
       <Icon className="h-4 w-4" />
     </div>

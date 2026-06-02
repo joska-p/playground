@@ -13,6 +13,10 @@
   // Run as the boffin user (UID 1000 = your host user)
   "remoteUser": "boffin",
   "containerUser": "boffin",
+  "containerEnv": {
+    "HOME": "/home/boffin",
+    "USER": "boffin"
+  },
 
   // -------------------------------------------------------------------------
   // Mounts
@@ -51,7 +55,7 @@
   // -------------------------------------------------------------------------
   // Start SSH server automatically when the container starts
   // -------------------------------------------------------------------------
-  "postStartCommand": "bash -lc 'pgrep -x sshd >/dev/null || sudo /usr/sbin/sshd'",
+  "postStartCommand": "bash -lc 'pgrep -x sshd >/dev/null || sudo /usr/sbin/sshd'"
 
   // -------------------------------------------------------------------------
   // Run setup script after the container is created
