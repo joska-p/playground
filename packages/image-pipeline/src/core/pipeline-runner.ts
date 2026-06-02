@@ -4,7 +4,7 @@ import type { PipelineContext, PipelineResult } from "./image-pipeline.types";
 import type { Step } from "./manipulations/manifest";
 import { dispatchStep } from "./step-dispatcher";
 
-export function buildAutoDownscaleStep({
+function buildAutoDownscaleStep({
   source,
   steps,
   maximumPixels,
@@ -17,14 +17,9 @@ export function buildAutoDownscaleStep({
     return null;
   }
 
-  const scale = Math.sqrt(maximumPixels / (source.width * source.height));
   return {
     id: "resize" as const,
-    options: {
-      width: Math.max(1, Math.round(source.width * scale)),
-      height: Math.max(1, Math.round(source.height * scale)),
-      fit: "fill" as const,
-    },
+    options: { maximumPixels },
   };
 }
 
@@ -45,7 +40,7 @@ export async function runPipeline({
 
   if (downscale) {
     console.warn(
-      `[image-pipeline] Auto-scaled source image to ${downscale.options.width}×${downscale.options.height}.`
+      `[image-pipeline] Auto-scaling source image to within ${downscale.options.maximumPixels} pixels.`
     );
   }
 
@@ -55,14 +50,10 @@ export async function runPipeline({
   const scheduler = new FusionScheduler();
 
   for (const step of effectiveSteps) {
-    if (step.id === "snapshot") {
-      scheduler.flush(manager);
-      snapshots.push(manager.snapshot());
-    } else {
-      dispatchStep({ step, context, bufferManager: manager, scheduler });
-    }
+    dispatchStep({ step, context, bufferManager: manager, scheduler });
+    scheduler.flush(manager);
+    snapshots.push(manager.snapshot());
   }
 
-  scheduler.flush(manager);
   return { source, final: manager.snapshot(), snapshots };
 }

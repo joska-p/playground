@@ -30,11 +30,6 @@ export class Pipeline {
     return this.add("resize", options);
   }
 
-  snapshot() {
-    this.steps.push({ id: "snapshot" });
-    return this;
-  }
-
   async run(): Promise<PipelineResult> {
     return pipelineGateway.run({
       sourceImageData: this.sourceImageData,

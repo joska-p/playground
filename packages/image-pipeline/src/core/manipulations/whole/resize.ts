@@ -1,7 +1,12 @@
-import type { ResizeOptions } from "./image-pipeline.types";
+import { defineWhole } from "../../manipulation-factories";
 
-/** Bilinear interpolation resize. Returns a new ImageData. */
-export function resizeImageData({
+type ResizeOptions =
+  | { width: number; height?: never; maximumPixels?: never; fit?: never }
+  | { height: number; width?: never; maximumPixels?: never; fit?: never }
+  | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maximumPixels?: never }
+  | { maximumPixels: number; width?: never; height?: never; fit?: never };
+
+function bilinearResize({
   source,
   targetWidth,
   targetHeight,
@@ -51,8 +56,7 @@ export function resizeImageData({
   return destination;
 }
 
-/** Compute target dimensions from ResizeOptions. Returns null if no resize needed. */
-export function computeTargetDimensions({
+function computeTargetDimensions({
   sourceWidth,
   sourceHeight,
   options,
@@ -94,3 +98,19 @@ export function computeTargetDimensions({
     ? null
     : { width: targetWidth, height: targetHeight };
 }
+
+export const resize = defineWhole<ResizeOptions>("resize", ({ imageData, options }) => {
+  const dimensions = computeTargetDimensions({
+    sourceWidth: imageData.width,
+    sourceHeight: imageData.height,
+    options,
+  });
+
+  if (!dimensions) return imageData;
+
+  return bilinearResize({
+    source: imageData,
+    targetWidth: dimensions.width,
+    targetHeight: dimensions.height,
+  });
+});

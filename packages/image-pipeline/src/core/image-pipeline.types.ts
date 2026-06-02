@@ -56,12 +56,6 @@ export type ManipulationDefinition<
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────
 
-export type ResizeOptions =
-  | { width: number; height?: never; maximumPixels?: never; fit?: never }
-  | { height: number; width?: never; maximumPixels?: never; fit?: never }
-  | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maximumPixels?: never }
-  | { maximumPixels: number; width?: never; height?: never; fit?: never };
-
 export type PipelineContext = {
   registry: Registry;
   maximumPixels: number;

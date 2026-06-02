@@ -1,4 +1,4 @@
-import type { ManipulationDefinition, ResizeOptions } from "../image-pipeline.types";
+import type { ManipulationDefinition } from "../image-pipeline.types";
 import { boxBlur } from "./neighborhood/box-blur";
 import { edgeDetect } from "./neighborhood/edge-detect";
 import { gaussianBlur } from "./neighborhood/gaussian-blur";
@@ -15,6 +15,7 @@ import { threshold } from "./pixel/threshold";
 import { flipHorizontal } from "./whole/flip-horizontal";
 import { flipVertical } from "./whole/flip-vertical";
 import { histogramEqualize } from "./whole/histogram-equalize";
+import { resize } from "./whole/resize";
 import { rotate90Cw } from "./whole/rotate-90cw";
 
 // ─── Single Source of Truth ─────────────────────────────────────────────────
@@ -36,6 +37,7 @@ export const ALL_MANIPULATIONS = [
   histogramEqualize,
   flipHorizontal,
   flipVertical,
+  resize,
   rotate90Cw,
 ] as const satisfies readonly ManipulationDefinition[];
 
@@ -45,12 +47,9 @@ type ManipulationLookup = {
   [Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation["id"]]: Manipulation["options"];
 };
 
-export type Step =
-  | {
-      [Identifier in keyof ManipulationLookup]: {
-        id: Identifier;
-        options?: ManipulationLookup[Identifier];
-      };
-    }[keyof ManipulationLookup]
-  | { id: "resize"; options: ResizeOptions }
-  | { id: "snapshot" };
+export type Step = {
+  [Identifier in keyof ManipulationLookup]: {
+    id: Identifier;
+    options?: ManipulationLookup[Identifier];
+  };
+}[keyof ManipulationLookup];
