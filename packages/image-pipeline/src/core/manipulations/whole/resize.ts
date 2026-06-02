@@ -99,9 +99,9 @@ function computeTargetDimensions({
     : { width: targetWidth, height: targetHeight };
 }
 
-export const resize = defineWhole<ResizeOptions>(
-  "resize",
-  ({ imageData, options }) => {
+export const resize = defineWhole<ResizeOptions>({
+  id: "resize",
+  execute: ({ imageData, options }) => {
     const dimensions = computeTargetDimensions({
       sourceWidth: imageData.width,
       sourceHeight: imageData.height,
@@ -116,7 +116,7 @@ export const resize = defineWhole<ResizeOptions>(
       targetHeight: dimensions.height,
     });
   },
-  {
+  ui: {
     name: "Resize",
     description: "Resizes the image to the specified dimensions.",
     defaultArgs: {},
@@ -124,5 +124,5 @@ export const resize = defineWhole<ResizeOptions>(
       { key: "width", label: "Width", min: 1, max: 4096, step: 1 },
       { key: "height", label: "Height", min: 1, max: 4096, step: 1 },
     ],
-  }
-);
+  },
+});

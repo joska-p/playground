@@ -7,36 +7,42 @@ import type {
 } from "./image-pipeline.types";
 
 export const definePixel = <Options, Identifier extends string = string>(
-  id: Identifier,
-  manipulationFunction: PixelFunction<Options>,
-  ui: ManipulationUIMetadata
+  { id, execute, ui }: {
+    id: Identifier;
+    execute: PixelFunction<Options>;
+    ui: ManipulationUIMetadata;
+  }
 ): ManipulationDefinition<Options> & { id: Identifier } => ({
   id,
   type: "pixel",
-  function: manipulationFunction,
+  function: execute,
   ui,
 });
 
 export const defineNeighbor = <Options, Identifier extends string = string>(
-  id: Identifier,
-  radius: number,
-  manipulationFunction: NeighborhoodFunction<Options>,
-  ui: ManipulationUIMetadata
+  { id, radius, execute, ui }: {
+    id: Identifier;
+    radius: number;
+    execute: NeighborhoodFunction<Options>;
+    ui: ManipulationUIMetadata;
+  }
 ): ManipulationDefinition<Options> & { id: Identifier } => ({
   id,
   type: "neighborhood",
   radius,
-  function: manipulationFunction,
+  function: execute,
   ui,
 });
 
 export const defineWhole = <Options, Identifier extends string = string>(
-  id: Identifier,
-  manipulationFunction: WholeImageFunction<Options>,
-  ui: ManipulationUIMetadata
+  { id, execute, ui }: {
+    id: Identifier;
+    execute: WholeImageFunction<Options>;
+    ui: ManipulationUIMetadata;
+  }
 ): ManipulationDefinition<Options> & { id: Identifier } => ({
   id,
   type: "whole",
-  function: manipulationFunction,
+  function: execute,
   ui,
 });

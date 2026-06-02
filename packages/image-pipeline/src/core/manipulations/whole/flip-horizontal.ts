@@ -1,8 +1,8 @@
 import { defineWhole } from "../../manipulation-factories";
 
-export const flipHorizontal = defineWhole(
-  "flip-horizontal",
-  ({ imageData }) => {
+export const flipHorizontal = defineWhole({
+  id: "flip-horizontal",
+  execute: ({ imageData }) => {
     const { width, height, data } = imageData;
     const out = new ImageData(width, height);
     for (let y = 0; y < height; y++) {
@@ -17,10 +17,10 @@ export const flipHorizontal = defineWhole(
     }
     return out;
   },
-  {
+  ui: {
     name: "Flip Horizontal",
     description: "Mirrors the image left-to-right.",
     defaultArgs: {},
     argDefinitions: [],
-  }
-);
+  },
+});

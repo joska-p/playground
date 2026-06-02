@@ -1,10 +1,10 @@
 import { defineNeighbor } from "../../manipulation-factories";
 import { clamp, getPixel } from "./helpers";
 
-export const edgeDetect = defineNeighbor(
-  "edge-detect",
-  1,
-  ({ source, destination, width, height }) => {
+export const edgeDetect = defineNeighbor({
+  id: "edge-detect",
+  radius: 1,
+  execute: ({ source, destination, width, height }) => {
     const sobelX = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
     const sobelY = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
     const half = 1;
@@ -32,10 +32,10 @@ export const edgeDetect = defineNeighbor(
       }
     }
   },
-  {
+  ui: {
     name: "Edge Detect",
     description: "Detects edges using the Sobel operator.",
     defaultArgs: {},
     argDefinitions: [],
-  }
-);
+  },
+});

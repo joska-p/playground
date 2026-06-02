@@ -1,8 +1,8 @@
+import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
 import { Button } from "@repo/ui/Button";
 import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
 import { useRef, useState } from "react";
-import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
 import { useImageUpload } from "../../hooks/useImageUpload";
 import type { ManipulationId } from "../../manipulations/manipulations";
 import { manipulations, manipulationsIds } from "../../manipulations/manipulations";
@@ -37,14 +37,14 @@ function Controls() {
     runningRef.current = true;
 
     try {
-      const result = await pipelineGateway.run({
+      const { snapshots, final } = await pipelineGateway.run({
         sourceImageData: sourceImage.imageData,
-        steps: workflow.map((s) => ({ id: s.id, options: s.options })),
+        steps: workflow.map((step) => ({ id: step.id, options: step.options })),
       });
 
-      const stepOffset = result.snapshots.length - workflow.length;
       clearManipulatorOutputs();
-      result.snapshots.slice(stepOffset).forEach((imageData, i) => {
+
+      [...snapshots, final].forEach((imageData, i) => {
         addToManipulatorOutputs({
           id: `step-${i}`,
           name: `Step ${i + 1}`,

@@ -1,8 +1,8 @@
 import { defineWhole } from "../../manipulation-factories";
 
-export const rotate90Cw = defineWhole(
-  "rotate-90cw",
-  ({ imageData }) => {
+export const rotate90Cw = defineWhole({
+  id: "rotate-90cw",
+  execute: ({ imageData }) => {
     const { width, height, data } = imageData;
     const out = new ImageData(height, width);
     for (let y = 0; y < height; y++) {
@@ -17,10 +17,10 @@ export const rotate90Cw = defineWhole(
     }
     return out;
   },
-  {
+  ui: {
     name: "Rotate 90° CW",
     description: "Rotates the image 90 degrees clockwise.",
     defaultArgs: {},
     argDefinitions: [],
-  }
-);
+  },
+});

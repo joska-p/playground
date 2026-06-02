@@ -1,10 +1,10 @@
 import { defineNeighbor } from "../../manipulation-factories";
 import { clamp, getPixel } from "./helpers";
 
-export const energyMap = defineNeighbor(
-  "energy-map",
-  1,
-  ({ source, destination, width, height }) => {
+export const energyMap = defineNeighbor({
+  id: "energy-map",
+  radius: 1,
+  execute: ({ source, destination, width, height }) => {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const getLuminance = (px: number, py: number): number => {
@@ -40,10 +40,10 @@ export const energyMap = defineNeighbor(
       }
     }
   },
-  {
+  ui: {
     name: "Energy Map",
     description: "Computes the Sobel energy map for seam carving.",
     defaultArgs: {},
     argDefinitions: [],
-  }
-);
+  },
+});

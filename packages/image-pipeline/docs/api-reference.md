@@ -190,19 +190,29 @@ Built-in manipulations are declared via type-safe factories that capture the ID 
 import { definePixel, defineNeighbor, defineWhole } from "@repo/image-pipeline/core/manipulation-factories";
 
 // Pixel manipulation with typed options
-definePixel("brightness", ({ red, green, blue, alpha, options }: PixelParameters<{ value?: number }>) => {
-  const value = options.value ?? 1;
-  return [red * value, green * value, blue * value, alpha];
+definePixel({
+  id: "brightness",
+  execute: ({ red, green, blue, alpha, options }: PixelParameters<{ value?: number }>) => {
+    const value = options.value ?? 1;
+    return [red * value, green * value, blue * value, alpha];
+  },
 });
 
 // Neighborhood manipulation with radius
-defineNeighbor("sharpen", 1, ({ source, destination, width, height, options }: NeighborhoodParameters<{ strength?: number }>) => {
-  // ...
+defineNeighbor({
+  id: "sharpen",
+  radius: 1,
+  execute: ({ source, destination, width, height, options }: NeighborhoodParameters<{ strength?: number }>) => {
+    // ...
+  },
 });
 
 // Whole-image transform (no options)
-defineWhole("flip-horizontal", ({ imageData }: WholeImageParameters<Record<string, never>>) => {
-  // ...
+defineWhole({
+  id: "flip-horizontal",
+  execute: ({ imageData }: WholeImageParameters<Record<string, never>>) => {
+    // ...
+  },
 });
 ```
 

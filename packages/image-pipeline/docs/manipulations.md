@@ -5,9 +5,12 @@ All manipulations are defined in [`manifest.ts`](../src/core/manipulations/manif
 Each manipulation is declared via a type-safe factory that captures its ID as a literal and its options shape as a generic parameter:
 
 ```typescript
-const brightness = definePixel("brightness", ({ red, green, blue, alpha, options }: PixelParameters<{ value?: number }>) => {
-  const value = options.value ?? 1;
-  return [red * value, green * value, blue * value, alpha];
+const brightness = definePixel({
+  id: "brightness",
+  execute: ({ red, green, blue, alpha, options }: PixelParameters<{ value?: number }>) => {
+    const value = options.value ?? 1;
+    return [red * value, green * value, blue * value, alpha];
+  },
 });
 ```
 
