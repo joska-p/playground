@@ -15,6 +15,7 @@ const BADGE_CLASSES: Record<string, string> = {
   neighborhood: "bg-category-image",
   whole: "bg-category-color",
   pipeline: "bg-primary text-primary-foreground",
+  internals: "bg-muted-foreground/20 text-muted-foreground",
 };
 
 const BADGE_LABELS: Record<string, string> = {
@@ -23,6 +24,7 @@ const BADGE_LABELS: Record<string, string> = {
   neighborhood: "NEIGHBOR",
   whole: "WHOLE",
   pipeline: "PIPELINE",
+  internals: "INTERNALS",
 };
 
 function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProps) {
@@ -39,6 +41,8 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
       onSelect({ kind: "overview" });
     } else if (item.type === "pipeline") {
       onSelect({ kind: "pipeline", id: item.id as "resize" | "chaining" });
+    } else if (item.type === "internals") {
+      onSelect({ kind: "internals", id: item.id });
     } else {
       onSelect({ kind: "manip", id: item.id });
     }
@@ -72,11 +76,10 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                     item.type === "overview"
                       ? { kind: "overview" }
                       : item.type === "pipeline"
-                        ? {
-                            kind: "pipeline",
-                            id: item.id as "resize" | "chaining",
-                          }
-                        : { kind: "manip", id: item.id }
+                        ? { kind: "pipeline", id: item.id as "resize" | "chaining" }
+                        : item.type === "internals"
+                          ? { kind: "internals", id: item.id }
+                          : { kind: "manip", id: item.id }
                   );
                   return (
                     <li key={item.id}>
