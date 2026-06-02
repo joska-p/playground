@@ -23,9 +23,7 @@ function putImageData(canvas: HTMLCanvasElement, imageData: ImageData): void {
  * This is the entry point — go from a loaded <img> to raw pixel data.
  */
 function imageElementToImageData(image: HTMLImageElement): ImageData {
-  const offscreen = document.createElement("canvas");
-  offscreen.width = image.width;
-  offscreen.height = image.height;
+  const offscreen = new OffscreenCanvas(image.width, image.height);
   const ctx = offscreen.getContext("2d");
   if (!ctx) throw new Error("Could not get offscreen canvas context");
   ctx.drawImage(image, 0, 0);
