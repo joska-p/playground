@@ -48,11 +48,8 @@ export function addToManipulatorOutputs(output: OutputType) {
 }
 
 export function clearManipulatorOutputs() {
-  const outputs = manipulatorStore.getState().outputs;
-  const originalOutput = outputs[0];
-
   manipulatorStore.setState({
-    outputs: [originalOutput],
+    outputs: [],
   });
 }
 

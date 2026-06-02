@@ -9,7 +9,7 @@ const STEPS = [
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
   const pipelineResult = usePipeline(sourceData, STEPS);
-  const pipelineResultImage = pipelineResult?.final ?? null;
+  const pipelineResultImage = pipelineResult?.at(-1) ?? null;
   const loading = sourceData !== null && pipelineResult === null;
 
   return (

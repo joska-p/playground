@@ -31,7 +31,7 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
     pipelineGateway
       .run({ sourceImageData: sourceData, steps: [{ id: manip.id, options }] })
       .then((pipelineResult) => {
-        if (!cancelled) setPipelineResultImage(pipelineResult.final);
+        if (!cancelled) setPipelineResultImage(pipelineResult.at(-1)!);
       })
       .catch((error) => {
         console.error(error);

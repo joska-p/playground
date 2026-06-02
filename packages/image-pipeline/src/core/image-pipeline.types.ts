@@ -78,9 +78,3 @@ export type PipelineContext = {
   registry: Registry;
   maximumPixels: number;
 };
-
-export type PipelineResult = {
-  source: ImageData;
-  final: ImageData;
-  snapshots: ImageData[];
-};

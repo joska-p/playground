@@ -1,5 +1,4 @@
 import type { Step } from "../core/manipulations/manifest";
-import type { PipelineResult } from "./pipeline-worker";
 import PipelineWorker from "./pipeline-worker?worker&inline";
 
 type PoolEntry = {
@@ -11,7 +10,7 @@ type QueuedJob = {
   sourceImageData: ImageData;
   steps: Step[];
   maximumPixels?: number;
-  resolve: (result: PipelineResult) => void;
+  resolve: (result: ImageData[]) => void;
   reject: (error: Error) => void;
 };
 
@@ -45,13 +44,13 @@ export class PipelineGateway {
     poolEntry: PoolEntry;
     sourceImageData: ImageData;
     steps: Step[];
-    resolve: (result: PipelineResult) => void;
+    resolve: (result: ImageData[]) => void;
     reject: (error: Error) => void;
     maximumPixels?: number;
   }): void {
     poolEntry.busy = true;
 
-    const onMessage = (event: MessageEvent<PipelineResult | { error: string }>) => {
+    const onMessage = (event: MessageEvent<ImageData[] | { error: string }>) => {
       cleanup();
       if ("error" in event.data) {
         reject(new Error(event.data.error));
@@ -98,7 +97,7 @@ export class PipelineGateway {
     sourceImageData: ImageData;
     steps: Step[];
     maximumPixels?: number;
-  }): Promise<PipelineResult> {
+  }): Promise<ImageData[]> {
     const poolEntry = this.acquireWorker();
 
     if (poolEntry) {

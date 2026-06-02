@@ -4,12 +4,6 @@ import { Registry } from "../core/registry";
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 
-export type PipelineResult = {
-  source: ImageData;
-  final: ImageData;
-  snapshots: ImageData[];
-};
-
 type WorkerMessage = {
   sourceImageData: ImageData;
   steps: Step[];
@@ -31,11 +25,8 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
       },
     });
 
-    const transferables = [
-      pipelineResult.source.data.buffer,
-      pipelineResult.final.data.buffer,
-      ...pipelineResult.snapshots.map((snapshot) => snapshot.data.buffer),
-    ];
+    const transferables = pipelineResult.map((imageData) => imageData.data.buffer);
+
 
     self.postMessage(pipelineResult, { transfer: transferables });
   } catch (error) {

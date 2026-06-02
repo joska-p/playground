@@ -37,18 +37,19 @@ function Controls() {
     runningRef.current = true;
 
     try {
-      const { snapshots, final } = await pipelineGateway.run({
+      const results = await pipelineGateway.run({
         sourceImageData: sourceImage.imageData,
         steps: workflow.map((step) => ({ id: step.id, options: step.options })),
       });
 
       clearManipulatorOutputs();
 
-      [...snapshots, final].forEach((imageData, i) => {
+      results.forEach((imageData, i) => {
         addToManipulatorOutputs({
           id: `step-${i}`,
-          name: `Step ${i + 1}`,
-          description: workflow[i]?.id ?? "",
+          name: `Step ${i}`,
+          description: i === 0 ? "Image source" : workflow[i - 1].id,
+          // workflow[i - 1] The first output is the source image. There is 1 workflow step less than outputs
           imageData,
         });
       });

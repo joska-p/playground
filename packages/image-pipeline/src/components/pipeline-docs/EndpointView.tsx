@@ -7,7 +7,7 @@ import type { EndpointId, ManipInfo } from "./manipData";
 import { ENDPOINT_GROUPS, findItemForEndpoint, findManipById } from "./manipData";
 import { ParamTable } from "./ParamTable";
 import { ResizeDemo } from "./ResizeDemo";
-import { SnapshotDemo } from "./SnapshotDemo";
+
 import { TryItOut } from "./TryItOut";
 
 type EndpointViewProps = {
@@ -97,23 +97,11 @@ function PipelineView({
   id,
   sourceData,
 }: {
-  id: "snapshots" | "resize" | "chaining";
+  id: "resize" | "chaining";
   sourceData: ImageData | null;
 }) {
   const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: "pipeline", id });
   const codeSamples: Record<string, string> = {
-    snapshots: [
-      `pipelineGateway.run({`,
-      `  sourceImageData: source,`,
-      `  steps: [`,
-      `    { id: "grayscale" },`,
-      `    { id: "snapshot" },`,
-      `    { id: "invert" },`,
-      `    { id: "snapshot" },`,
-      `    { id: "edge-detect" },`,
-      `  ]`,
-      `});`,
-    ].join("\n"),
     resize: [
       `pipelineGateway.run({`,
       `  sourceImageData: source,`,
@@ -135,7 +123,6 @@ function PipelineView({
   };
 
   const demos: Record<string, (props: { sourceData: ImageData | null }) => React.JSX.Element> = {
-    snapshots: SnapshotDemo,
     resize: ResizeDemo,
     chaining: ChainDemo,
   };
@@ -201,16 +188,6 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
               </div>
             </div>
             <div>
-              <div className="text-primary mb-1 font-semibold">Pipeline</div>
-              <div className="text-muted-foreground space-y-0.5 font-mono text-xs">
-                <div>.from(src, context)</div>
-                <div>.add(id, options?)</div>
-                <div>.resize(options)</div>
-                <div>.snapshot()</div>
-                <div>.run()</div>
-              </div>
-            </div>
-            <div>
               <div className="text-primary mb-1 font-semibold">Gateway</div>
               <div className="text-muted-foreground space-y-0.5 font-mono text-xs">
                 <div>.run(&#123; sourceImageData, steps &#125;)</div>
@@ -230,7 +207,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           automatically — no registry setup needed.
         </p>
         <CodeBlock
-          code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "snapshot" },\n    { id: "edge-detect" },\n  ]\n});\n\n// result.final      → ImageData\n// result.snapshots  → ImageData[]`}
+          code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "edge-detect" },\n  ]\n});\n\n// result[0]       → source ImageData\n// result.at(-1)   → final ImageData`}
         />
       </div>
 

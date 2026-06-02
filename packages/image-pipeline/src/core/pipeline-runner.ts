@@ -1,6 +1,6 @@
 import { BufferManager } from "./buffer-manager";
 import { FusionScheduler } from "./fusion-scheduler";
-import type { PipelineContext, PipelineResult } from "./image-pipeline.types";
+import type { PipelineContext } from "./image-pipeline.types";
 import type { Step } from "./manipulations/manifest";
 import { dispatchStep } from "./step-dispatcher";
 
@@ -31,7 +31,7 @@ export async function runPipeline({
   source: ImageData;
   steps: Step[];
   context: PipelineContext;
-}): Promise<PipelineResult> {
+}): Promise<ImageData[]> {
   const downscale = buildAutoDownscaleStep({
     source,
     steps,
@@ -55,5 +55,5 @@ export async function runPipeline({
     snapshots.push(manager.snapshot());
   }
 
-  return { source, final: manager.snapshot(), snapshots };
+  return [source, ...snapshots];
 }

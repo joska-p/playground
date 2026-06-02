@@ -19,7 +19,7 @@ type ManipInfo = {
 type EndpointId =
   | { kind: "overview" }
   | { kind: "manip"; id: string }
-  | { kind: "pipeline"; id: "snapshots" | "resize" | "chaining" };
+  | { kind: "pipeline"; id: "resize" | "chaining" };
 
 type EndpointItemType = "overview" | "pixel" | "neighborhood" | "whole" | "pipeline";
 
@@ -217,13 +217,6 @@ function manipToItem(m: ManipInfo): EndpointItem {
 }
 
 const PIPELINE_ITEMS: EndpointItem[] = [
-  {
-    id: "snapshots",
-    label: "Snapshots",
-    type: "pipeline",
-    path: "/pipeline/snapshots",
-    description: "Capture intermediate results mid-pipeline with snapshot steps",
-  },
   {
     id: "resize",
     label: "Resize",

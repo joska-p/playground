@@ -38,7 +38,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
     if (item.type === "overview") {
       onSelect({ kind: "overview" });
     } else if (item.type === "pipeline") {
-      onSelect({ kind: "pipeline", id: item.id as "snapshots" | "resize" | "chaining" });
+      onSelect({ kind: "pipeline", id: item.id as "resize" | "chaining" });
     } else {
       onSelect({ kind: "manip", id: item.id });
     }
@@ -74,7 +74,7 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                       : item.type === "pipeline"
                         ? {
                             kind: "pipeline",
-                            id: item.id as "snapshots" | "resize" | "chaining",
+                            id: item.id as "resize" | "chaining",
                           }
                         : { kind: "manip", id: item.id }
                   );

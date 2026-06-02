@@ -28,7 +28,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
   const [mode, setMode] = useState("width");
   const modeItem = MODES.find((item) => item.id === mode)!;
   const pipelineResult = usePipeline(sourceData, [{ id: "resize", options: modeItem.options }]);
-  const pipelineResultImage = pipelineResult?.final ?? null;
+  const pipelineResultImage = pipelineResult?.at(-1) ?? null;
   const loading = sourceData !== null && pipelineResult === null;
 
   return (
