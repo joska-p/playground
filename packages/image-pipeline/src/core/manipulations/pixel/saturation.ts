@@ -6,5 +6,11 @@ export const saturation = definePixel<{ value?: number }>(
     const value = options.value ?? 1;
     const l = red * 0.2126 + green * 0.7152 + blue * 0.0722;
     return [l + (red - l) * value, l + (green - l) * value, l + (blue - l) * value, alpha];
+  },
+  {
+    name: "Saturation",
+    description: "Adjusts color saturation by a factor.",
+    defaultArgs: { value: 1 },
+    argDefinitions: [{ key: "value", label: "Value", min: 0, max: 3, step: 0.1 }],
   }
 );

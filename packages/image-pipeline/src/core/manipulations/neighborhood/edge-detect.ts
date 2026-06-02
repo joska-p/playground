@@ -31,5 +31,11 @@ export const edgeDetect = defineNeighbor(
         destination[i + 3] = getPixel(source, x, y, width, height, 3);
       }
     }
+  },
+  {
+    name: "Edge Detect",
+    description: "Detects edges using the Sobel operator.",
+    defaultArgs: {},
+    argDefinitions: [],
   }
 );

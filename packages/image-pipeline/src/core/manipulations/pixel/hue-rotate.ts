@@ -13,5 +13,11 @@ export const hueRotate = definePixel<{ degrees?: number }>(
     const newGreen = red * (base + s3 * sinA) + green * (cosA + base) + blue * (base - s3 * sinA);
     const newBlue = red * (base - s3 * sinA) + green * (base + s3 * sinA) + blue * (cosA + base);
     return [newRed, newGreen, newBlue, alpha];
+  },
+  {
+    name: "Hue Rotate",
+    description: "Rotates hues by an angle in degrees.",
+    defaultArgs: { degrees: 0 },
+    argDefinitions: [{ key: "degrees", label: "Degrees", min: 0, max: 360, step: 1 }],
   }
 );

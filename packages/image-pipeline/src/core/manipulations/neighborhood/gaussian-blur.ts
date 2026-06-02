@@ -20,5 +20,11 @@ export const gaussianBlur = defineNeighbor<{ radius?: number }>(
       }
     }
     applyKernel(source, destination, width, height, kernel, size, total);
+  },
+  {
+    name: "Gaussian Blur",
+    description: "Applies a gaussian blur.",
+    defaultArgs: { radius: 1 },
+    argDefinitions: [{ key: "radius", label: "Radius", min: 1, max: 10, step: 1 }],
   }
 );

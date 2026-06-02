@@ -17,6 +17,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/image-pipeline": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/toolbox": "workspace:*",
     "zustand": "catalog:"

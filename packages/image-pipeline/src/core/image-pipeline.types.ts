@@ -1,5 +1,22 @@
 import type { Registry } from "./registry";
 
+// ─── UI Metadata ──────────────────────────────────────────────────────────────
+
+export type ArgDefinition = {
+  key: string;
+  label: string;
+  min: number;
+  max: number;
+  step: number;
+};
+
+export type ManipulationUIMetadata = {
+  name: string;
+  description: string;
+  defaultArgs: Record<string, number>;
+  argDefinitions: ArgDefinition[];
+};
+
 // ─── Manipulation Function Parameters ────────────────────────────────────────
 
 export type PixelParameters<Options> = {
@@ -48,6 +65,7 @@ export type ManipulationDefinition<
 > = {
   id: string;
   options?: Options;
+  ui: ManipulationUIMetadata;
 } & (
   | { type: "pixel"; function: PixelFunction<Options> }
   | { type: "neighborhood"; radius: number; function: NeighborhoodFunction<Options> }

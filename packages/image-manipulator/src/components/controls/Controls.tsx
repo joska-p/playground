@@ -2,6 +2,7 @@ import { Button } from "@repo/ui/Button";
 import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
 import { useRef, useState } from "react";
+import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
 import { useImageUpload } from "../../hooks/useImageUpload";
 import type { ManipulationId } from "../../manipulations/manipulations";
 import { manipulations, manipulationsIds } from "../../manipulations/manipulations";
@@ -23,6 +24,7 @@ function Controls() {
   const workflow = useWorkflow();
   const [selectedPreset, setSelectedPreset] = useState(0);
   const { handleImageUpload } = useImageUpload();
+  const runningRef = useRef(false);
 
   function loadWorkflowPreset() {
     const preset = WORKFLOW_PRESETS[selectedPreset];
@@ -30,37 +32,38 @@ function Controls() {
     setWorkflow(preset.steps);
   }
 
-  const workerRef = useRef<Worker | null>(null);
-  function executeWorkflow() {
-    if (!workflow || workflow.length === 0) return;
-    workerRef.current?.terminate();
+  async function executeWorkflow() {
+    if (!workflow.length || !sourceImage?.imageData || runningRef.current) return;
+    runningRef.current = true;
 
-    const worker = new Worker(new URL("../../workers/executeWorkflow.worker.ts", import.meta.url), {
-      type: "module",
-    });
-    workerRef.current = worker;
+    try {
+      const result = await pipelineGateway.run({
+        sourceImageData: sourceImage.imageData,
+        steps: workflow.map((s) => ({ id: s.id, options: s.options })),
+      });
 
-    worker.onmessage = (e: MessageEvent<ImageData[]>) => {
-      const results = e.data;
+      const stepOffset = result.snapshots.length - workflow.length;
       clearManipulatorOutputs();
-      results.slice(1).forEach((imageData, i) => {
+      result.snapshots.slice(stepOffset).forEach((imageData, i) => {
         addToManipulatorOutputs({
           id: `step-${i}`,
           name: `Step ${i + 1}`,
-          description: workflow[i].id,
+          description: workflow[i]?.id ?? "",
           imageData,
         });
       });
-    };
-
-    worker.postMessage({ imageData: sourceImage.imageData, workflow });
+    } catch (err) {
+      console.error("Pipeline execution failed:", err);
+    } finally {
+      runningRef.current = false;
+    }
   }
 
   return (
     <div className="grid md:grid-cols-2 p-2 gap-x-2 gap-y-4 justify-center items-end max-w-[40ch]">
       <Input type="file" accept="image/*" onChange={handleImageUpload} label="upload an image" />
       <Button variant="outline" onClick={() => clearManipulatorOutputs()}>
-        Clear Ouputs
+        Clear Outputs
       </Button>
 
       <Select
@@ -90,18 +93,18 @@ function Controls() {
       >
         {manipulationsIds.map((id) => (
           <option key={id} value={id}>
-            {manipulations[id].name}
+            {manipulations[id]?.name ?? id}
           </option>
         ))}
       </Select>
 
-      <Button onClick={() => addToWorkflow(manipulationId)}>Add to Worflow</Button>
+      <Button onClick={() => addToWorkflow(manipulationId)}>Add to Workflow</Button>
 
       <Workflow steps={workflow} />
 
       <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
       <Button variant="outline" onClick={() => clearWorkflow()}>
-        Clear Worflow
+        Clear Workflow
       </Button>
     </div>
   );

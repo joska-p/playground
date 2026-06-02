@@ -1,10 +1,9 @@
 import { create } from "zustand";
-import type { ManipulationId } from "../manipulations/manipulations";
 import { manipulations } from "../manipulations/manipulations";
 
 type WorkflowStep = {
-  id: ManipulationId;
-  args: Record<string, number>;
+  id: string;
+  options: Record<string, number>;
 };
 
 type WorkflowState = {
@@ -19,10 +18,11 @@ function useWorkflow(): WorkflowStep[] {
   return workflowStore((s) => s.workflow);
 }
 
-function addToWorkflow(id: ManipulationId) {
+function addToWorkflow(id: string) {
   const workflow = workflowStore.getState().workflow;
+  const manipData = manipulations[id];
   workflowStore.setState({
-    workflow: [...workflow, { id, args: { ...manipulations[id].defaultArgs } }],
+    workflow: [...workflow, { id, options: { ...(manipData?.defaultArgs ?? {}) } }],
   });
 }
 
@@ -43,9 +43,9 @@ function moveWorkflowStep(index: number, direction: -1 | 1) {
   workflowStore.setState({ workflow: updated });
 }
 
-function updateWorkflowStepArgs(index: number, args: Record<string, number>) {
+function updateWorkflowStepOptions(index: number, options: Record<string, number>) {
   const workflow = workflowStore.getState().workflow;
-  const updated = workflow.map((step, i) => (i === index ? { ...step, args } : step));
+  const updated = workflow.map((step, i) => (i === index ? { ...step, options } : step));
   workflowStore.setState({ workflow: updated });
 }
 
@@ -63,7 +63,7 @@ export {
   moveWorkflowStep,
   removeWorkflowStep,
   setWorkflow,
-  updateWorkflowStepArgs,
+  updateWorkflowStepOptions,
   useWorkflow,
 };
 export type { WorkflowStep };

@@ -99,18 +99,30 @@ function computeTargetDimensions({
     : { width: targetWidth, height: targetHeight };
 }
 
-export const resize = defineWhole<ResizeOptions>("resize", ({ imageData, options }) => {
-  const dimensions = computeTargetDimensions({
-    sourceWidth: imageData.width,
-    sourceHeight: imageData.height,
-    options,
-  });
+export const resize = defineWhole<ResizeOptions>(
+  "resize",
+  ({ imageData, options }) => {
+    const dimensions = computeTargetDimensions({
+      sourceWidth: imageData.width,
+      sourceHeight: imageData.height,
+      options,
+    });
 
-  if (!dimensions) return imageData;
+    if (!dimensions) return imageData;
 
-  return bilinearResize({
-    source: imageData,
-    targetWidth: dimensions.width,
-    targetHeight: dimensions.height,
-  });
-});
+    return bilinearResize({
+      source: imageData,
+      targetWidth: dimensions.width,
+      targetHeight: dimensions.height,
+    });
+  },
+  {
+    name: "Resize",
+    description: "Resizes the image to the specified dimensions.",
+    defaultArgs: {},
+    argDefinitions: [
+      { key: "width", label: "Width", min: 1, max: 4096, step: 1 },
+      { key: "height", label: "Height", min: 1, max: 4096, step: 1 },
+    ],
+  }
+);

@@ -10,5 +10,11 @@ export const contrast = definePixel<{ value?: number }>(
       (blue - 128) * value + 128,
       alpha,
     ];
+  },
+  {
+    name: "Contrast",
+    description: "Adjusts contrast by a factor.",
+    defaultArgs: { value: 1 },
+    argDefinitions: [{ key: "value", label: "Value", min: 0, max: 3, step: 0.1 }],
   }
 );

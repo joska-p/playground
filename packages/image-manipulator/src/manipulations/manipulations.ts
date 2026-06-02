@@ -1,34 +1,22 @@
-import { brightness } from "./brightness";
-import { contrast } from "./contrast";
-import { energyMap } from "./energyMap";
-import { grayscale } from "./grayscale";
-import { invert } from "./invert";
-import { saturate } from "./saturate";
-import { sepia } from "./sepia";
-import { threshold } from "./threshold";
+import { ALL_MANIPULATIONS } from "@repo/image-pipeline/manipulations";
 
-const manipulationsIds = [
-  "brightness",
-  "contrast",
-  "energyMap",
-  "grayscale",
-  "invert",
-  "saturate",
-  "sepia",
-  "threshold",
-] as const;
-const manipulations = {
-  brightness,
-  contrast,
-  energyMap,
-  grayscale,
-  invert,
-  saturate,
-  sepia,
-  threshold,
-} as const;
+const pixelManipulations = ALL_MANIPULATIONS.filter((m) => m.type === "pixel");
 
-type ManipulationId = (typeof manipulationsIds)[number];
+const manipulationsIds = pixelManipulations.map((m) => m.id) as readonly string[];
+const manipulations: Record<
+  string,
+  { name: string; description: string; defaultArgs: Record<string, number>; argDefinitions: { key: string; label: string; min: number; max: number; step: number }[] }
+> = {};
+for (const m of pixelManipulations) {
+  manipulations[m.id] = {
+    name: m.ui.name,
+    description: m.ui.description,
+    defaultArgs: m.ui.defaultArgs,
+    argDefinitions: m.ui.argDefinitions,
+  };
+}
+
+type ManipulationId = string;
 
 export { manipulations, manipulationsIds };
 export type { ManipulationId };

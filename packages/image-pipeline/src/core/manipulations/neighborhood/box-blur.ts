@@ -16,5 +16,11 @@ export const boxBlur = defineNeighbor<{ radius?: number }>(
       size,
       size * size
     );
+  },
+  {
+    name: "Box Blur",
+    description: "Applies a uniform box blur.",
+    defaultArgs: { radius: 1 },
+    argDefinitions: [{ key: "radius", label: "Radius", min: 1, max: 10, step: 1 }],
   }
 );

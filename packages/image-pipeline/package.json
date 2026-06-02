@@ -8,7 +8,9 @@
     "./Registry": "./src/core/registry.ts",
     "./usePipeline": "./src/hooks/usePipeline.ts",
     "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx",
-    "./styles": "./src/styles/styles.css"
+    "./styles": "./src/styles/styles.css",
+    "./manipulations": "./src/core/manipulations/manifest.ts",
+    "./runPipeline": "./src/core/pipeline-runner.ts"
   },
   "scripts": {
     "dev": "vite --host",

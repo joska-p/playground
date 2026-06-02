@@ -4,7 +4,7 @@ import type { WorkflowStep } from "../../../store/workflowStore";
 import {
   moveWorkflowStep,
   removeWorkflowStep,
-  updateWorkflowStepArgs,
+  updateWorkflowStepOptions,
 } from "../../../store/workflowStore";
 import { WorkflowStepArgSlider } from "./WorkflowStepArgSlider";
 
@@ -22,7 +22,7 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
     <div className="py-1.5">
       <div className="flex items-center justify-between gap-2">
         <p className="text-sm font-medium">
-          {index + 1}. {manip.name}
+          {index + 1}. {manip?.name ?? step.id}
         </p>
         <div className="flex gap-0.5">
           <Button
@@ -56,16 +56,16 @@ function WorkflowStepItem({ step, index, isFirst, isLast }: WorkflowStepItemProp
           </Button>
         </div>
       </div>
-      {manip.argDefinitions.length > 0 && (
+      {manip && manip.argDefinitions.length > 0 && (
         <div className="mt-1 flex flex-col gap-1">
           {manip.argDefinitions.map((def) => (
             <WorkflowStepArgSlider
               key={def.key}
               def={def}
-              value={step.args[def.key] ?? def.min}
+              value={step.options[def.key] ?? def.min}
               onChange={(value) =>
-                updateWorkflowStepArgs(index, {
-                  ...step.args,
+                updateWorkflowStepOptions(index, {
+                  ...step.options,
                   [def.key]: value,
                 })
               }

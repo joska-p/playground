@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import type { ManipulationId } from "../manipulations/manipulations";
 import { manipulationsIds } from "../manipulations/manipulations";
 
 export type OutputType = {
@@ -11,13 +10,13 @@ export type OutputType = {
 
 type ManipulatorState = {
   imageFile: string | null;
-  manipulationId: ManipulationId;
+  manipulationId: string;
   outputs: OutputType[];
 };
 
 const manipulatorStore = create<ManipulatorState>(() => ({
   imageFile: null,
-  manipulationId: manipulationsIds[0],
+  manipulationId: manipulationsIds[0] ?? "brightness",
   outputs: [],
 }));
 
@@ -25,7 +24,7 @@ export function useManipulatorImageFile(): string | null {
   return manipulatorStore((s) => s.imageFile);
 }
 
-export function useManipulatorManipulationId(): ManipulationId {
+export function useManipulatorManipulationId(): string {
   return manipulatorStore((s) => s.manipulationId);
 }
 
@@ -37,7 +36,7 @@ export function setManipulatorImageFile(imageFile: string) {
   manipulatorStore.setState({ imageFile });
 }
 
-export function setManipulatorManipulationId(manipulationId: ManipulationId) {
+export function setManipulatorManipulationId(manipulationId: string) {
   manipulatorStore.setState({ manipulationId });
 }
 
@@ -54,5 +53,13 @@ export function clearManipulatorOutputs() {
 
   manipulatorStore.setState({
     outputs: [originalOutput],
+  });
+}
+
+export function setPipelineResults(results: OutputType[]) {
+  const outputs = manipulatorStore.getState().outputs;
+  const source = outputs[0];
+  manipulatorStore.setState({
+    outputs: source ? [source, ...results] : results,
   });
 }
