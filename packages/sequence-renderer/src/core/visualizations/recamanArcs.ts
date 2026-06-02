@@ -1,8 +1,13 @@
-import { findBiggestInterval } from "../../utils/findBiggestInterval";
+import { findBiggestInterval } from "../../utils/find-biggest-interval";
 
 function calculateValueScale(
-  sequence: number[],
-  containerSize: { width: number; height: number }
+  {
+    sequence,
+    containerSize,
+  }: {
+    sequence: number[];
+    containerSize: { width: number; height: number };
+  }
 ): number {
   const maxVal = Math.max(...sequence, 0);
   const maxInterval = findBiggestInterval(sequence);
@@ -14,7 +19,15 @@ function calculateValueScale(
   return Math.min(horizontalScale, verticalScale);
 }
 
-function drawSequence(context: CanvasRenderingContext2D, sequence: number[], valueScale: number) {
+function drawSequence({
+  context,
+  sequence,
+  valueScale,
+}: {
+  context: CanvasRenderingContext2D;
+  sequence: number[];
+  valueScale: number;
+}): void {
   sequence.forEach((value, index) => {
     const previousValue = sequence[index - 1];
     if (index > 0 && previousValue !== undefined) {
@@ -32,7 +45,7 @@ function drawSequence(context: CanvasRenderingContext2D, sequence: number[], val
   });
 }
 
-function draw(canvas: HTMLCanvasElement, sequence: number[]) {
+function draw({ canvas, sequence }: { canvas: HTMLCanvasElement; sequence: number[] }): void {
   if (!canvas.parentElement) return;
 
   const containerSize = {
@@ -42,8 +55,9 @@ function draw(canvas: HTMLCanvasElement, sequence: number[]) {
   canvas.width = containerSize.width;
   canvas.height = containerSize.height;
 
-  const context = canvas.getContext("2d") as CanvasRenderingContext2D;
-  const valueScale = calculateValueScale(sequence, containerSize);
+  const context = canvas.getContext("2d");
+  if (!context) return;
+  const valueScale = calculateValueScale({ sequence, containerSize });
 
   context.save();
 
@@ -57,7 +71,7 @@ function draw(canvas: HTMLCanvasElement, sequence: number[]) {
   context.strokeStyle = color;
   context.lineWidth = 1;
 
-  drawSequence(context, sequence, valueScale);
+  drawSequence({ context, sequence, valueScale });
 
   context.restore();
 }

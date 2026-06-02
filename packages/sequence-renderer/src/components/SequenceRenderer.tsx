@@ -1,8 +1,9 @@
 import { Sidebar } from "@repo/ui/Sidebar";
+import type { JSX } from "react";
 import { Controls } from "./controls/Controls";
 import { SequenceDisplay } from "./sequence-display/SequenceDisplay";
 
-function SequenceRenderer() {
+function SequenceRenderer(): JSX.Element {
   return (
     <Sidebar desktopPosition="bottom" mobilePosition="bottom">
       <Sidebar.Main>

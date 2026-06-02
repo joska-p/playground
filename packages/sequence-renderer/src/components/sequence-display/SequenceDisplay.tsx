@@ -1,17 +1,19 @@
 import { useEffect, useRef } from "react";
+import type { JSX } from "react";
 import { visualizations } from "../../core/visualizations/visualizations";
 import { useSequenceSequence, useSequenceVisualizationId } from "../../store/sequenceStore";
 
-function SequenceDisplay() {
+function SequenceDisplay(): JSX.Element {
   const sequence = useSequenceSequence();
   const visualizationId = useSequenceVisualizationId();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (canvasRef.current) {
-      const viz = visualizations.find((v: { id: string }) => v.id === visualizationId);
-      viz?.draw(canvasRef.current, sequence);
-    }
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const visualization = visualizations.find((v) => v.id === visualizationId);
+    visualization?.draw({ canvas, sequence });
   }, [sequence, visualizationId]);
 
   return <canvas ref={canvasRef} className="h-full w-full" />;

@@ -1,6 +1,7 @@
 import { Card } from "@repo/ui/Card";
 import { Select } from "@repo/ui/Select";
 import { Slider } from "@repo/ui/Slider";
+import type { ChangeEvent, JSX } from "react";
 import { visualizations } from "../../core/visualizations/visualizations";
 import {
   setSequenceSteps,
@@ -11,7 +12,7 @@ import {
 } from "../../store/sequenceStore";
 import { SequenceSelector } from "./SequenceSelector";
 
-function Controls() {
+function Controls(): JSX.Element {
   const sequenceRule = useSequenceRule();
   const steps = useSequenceSteps();
   const visualizationId = useSequenceVisualizationId();
@@ -28,7 +29,7 @@ function Controls() {
         max={sequenceRule.maxSteps}
         step={1}
         value={steps}
-        onChange={setSequenceSteps}
+        onChange={(steps) => setSequenceSteps({ steps })}
         className="max-w-xs"
       />
 
@@ -37,12 +38,12 @@ function Controls() {
         <Select
           variant="secondary"
           value={visualizationId}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setSequenceVisualizationId(e.target.value)
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            setSequenceVisualizationId({ visualizationId: e.target.value })
           }
           className="w-auto min-w-35"
         >
-          {visualizations.map((v: { id: string; name: string }) => (
+          {visualizations.map((v) => (
             <option key={v.id} value={v.id}>
               {v.name}
             </option>

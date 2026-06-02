@@ -1,14 +1,14 @@
 import { Select } from "@repo/ui/Select";
-import type { SequenceRule } from "../../core/sequencesRule";
-import { sequencesRule } from "../../core/sequencesRule";
-import { useSequenceRule as _useSequenceRule, setSequenceRule } from "../../store/sequenceStore";
+import type { ChangeEvent, JSX } from "react";
+import { sequenceRules } from "../../core/sequence-rules";
+import { setSequenceRule, useSequenceRule } from "../../store/sequenceStore";
 
-function SequenceSelector() {
-  const sequenceRule = _useSequenceRule();
+function SequenceSelector(): JSX.Element {
+  const sequenceRule = useSequenceRule();
 
-  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const selectedRule = sequencesRule.find((rule: SequenceRule) => rule.id === e.target.value);
-    if (selectedRule) setSequenceRule(selectedRule);
+  function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
+    const selectedRule = sequenceRules.find((rule) => rule.id === e.target.value);
+    if (selectedRule) setSequenceRule({ sequenceRule: selectedRule });
   }
 
   return (
@@ -20,9 +20,9 @@ function SequenceSelector() {
         onChange={handleChange}
         className="flex-1 pr-6"
       >
-        {sequencesRule.map((sequenceRule: SequenceRule) => (
-          <option key={`${sequenceRule.id}`} value={sequenceRule.id}>
-            {sequenceRule.name}
+        {sequenceRules.map((rule) => (
+          <option key={rule.id} value={rule.id}>
+            {rule.name}
           </option>
         ))}
       </Select>

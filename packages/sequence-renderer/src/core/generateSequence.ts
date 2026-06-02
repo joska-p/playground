@@ -1,13 +1,19 @@
-import type { SequenceRule } from "./sequencesRule";
+import type { SequenceRule } from "./sequence-rules";
 
-function generateSequence(rule: SequenceRule, steps: number): number[] {
+function generateSequence({
+  sequenceRule,
+  steps,
+}: {
+  sequenceRule: SequenceRule;
+  steps: number;
+}): number[] {
   const sequence: number[] = [0];
   const seen = new Set([0]);
   let current = 0;
-  const safeSteps = Math.min(steps, rule.maxSteps);
+  const safeSteps = Math.min(steps, sequenceRule.maxSteps);
 
   for (let i = 1; i < safeSteps; i++) {
-    current = rule.getNext({
+    current = sequenceRule.getNext({
       index: i,
       current,
       sequence,

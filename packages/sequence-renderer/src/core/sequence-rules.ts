@@ -1,4 +1,4 @@
-export type NextStepParams = {
+export type NextStepOptions = {
   index: number;
   current: number;
   sequence: number[];
@@ -10,7 +10,7 @@ export type SequenceRule = {
   id: string;
   description: string;
   maxSteps: number;
-  getNext: (params: NextStepParams) => number;
+  getNext: (options: NextStepOptions) => number;
 };
 
 const recamanRule: SequenceRule = {
@@ -41,7 +41,7 @@ const primesRule: SequenceRule = {
   description: "The sequence of prime numbers: 2, 3, 5, 7, 11...",
   maxSteps: 300,
   getNext: ({ current }) => {
-    function isPrime(num: number) {
+    function isPrime(num: number): boolean {
       if (num <= 1) return false;
       if (num <= 3) return true;
       if (num % 2 === 0) return false;
@@ -77,7 +77,7 @@ const collatzRule: SequenceRule = {
   },
 };
 
-const sequencesRule: SequenceRule[] = [
+const sequenceRules: SequenceRule[] = [
   recamanRule,
   fibonacciRule,
   primesRule,
@@ -85,4 +85,4 @@ const sequencesRule: SequenceRule[] = [
   collatzRule,
 ];
 
-export { recamanRule, sequencesRule };
+export { recamanRule, sequenceRules };

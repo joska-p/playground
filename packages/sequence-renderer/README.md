@@ -20,7 +20,7 @@ export default function MyViz() {
 
 Decouple **generation** from **visualization**:
 
-1. **Rules** — Define sequences via `getNext()` in `src/core/rules.ts`.
+1. **Rules** — Define sequences via `getNext()` in `src/core/sequence-rules.ts`.
 2. **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
 3. **Zustand Store** — State management (`sequenceStore`).
 
