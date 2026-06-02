@@ -1,4 +1,3 @@
-import { Badge } from "@repo/ui/Badge";
 import { Card } from "@repo/ui/Card";
 import { ChainDemo } from "./ChainDemo";
 import { CodeBlock } from "./CodeBlock";
@@ -9,6 +8,15 @@ import { ParamTable } from "./ParamTable";
 import { ResizeDemo } from "./ResizeDemo";
 
 import { TryItOut } from "./TryItOut";
+
+const TYPE_ACCENT: Record<string, string> = {
+  pixel: "var(--utility-6)",
+  neighborhood: "var(--utility-3)",
+  whole: "var(--utility-2)",
+  pipeline: "var(--utility-1)",
+  internals: "var(--utility-8)",
+  overview: "var(--utility-4)",
+};
 
 type EndpointViewProps = {
   activeEndpoint: EndpointId;
@@ -46,25 +54,20 @@ function ManipView({
   ];
 
   return (
-    <div className="space-y-6">
+    <div
+      className="space-y-6"
+      style={{ "--accent": TYPE_ACCENT[manip.type] ?? "var(--utility-4)" } as React.CSSProperties}
+    >
       <div className="flex items-center gap-3">
-        <Badge
-          variant={
-            manip.type === "pixel"
-              ? "secondary"
-              : manip.type === "neighborhood"
-                ? "accent"
-                : "outline"
-          }
-        >
-          {manip.type.toUpperCase()}
-        </Badge>
+        <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
+          {manip.type === "neighborhood" ? "NEIGHBOR" : manip.type.toUpperCase()}
+        </span>
         <h2 className="text-2xl font-bold">{manip.label}</h2>
       </div>
       <p className="text-muted-foreground max-w-2xl text-sm">{manip.description}</p>
       <p className="font-mono text-xs opacity-60">{manip.path}</p>
 
-      <div className="border-border bg-muted/30 max-w-2xl rounded-lg border p-4">
+      <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-2 border-l-(--accent) p-4">
         <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">How It Works</h3>
         <p className="text-muted-foreground text-sm leading-relaxed">{manip.longDescription}</p>
       </div>
@@ -77,7 +80,9 @@ function ManipView({
       )}
 
       <section>
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider">Try It Out</h3>
+        <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
+          Try It Out
+        </h3>
         <Card>
           <div className="p-4">
             <TryItOut
@@ -91,7 +96,9 @@ function ManipView({
       </section>
 
       <section>
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider">Code Sample</h3>
+        <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
+          Code Sample
+        </h3>
         <CodeBlock code={codeLines.join("\n")} />
       </section>
     </div>
@@ -135,9 +142,14 @@ function PipelineView({
   const DemoComponent = demos[id];
 
   return (
-    <div className="space-y-6">
+    <div
+      className="space-y-6"
+      style={{ "--accent": "var(--utility-1)" } as React.CSSProperties}
+    >
       <div className="flex items-center gap-3">
-        <Badge variant="primary">PIPELINE</Badge>
+        <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
+          PIPELINE
+        </span>
         <h2 className="text-2xl font-bold">{item?.label ?? id}</h2>
       </div>
       <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
@@ -169,7 +181,7 @@ function PipelineView({
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">string</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">fill | contain | cover. Default: fill</td>
               </tr>
-              <tr className="border-border">
+              <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">maximumPixels</td>
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">Downscale to fit pixel budget, maintain aspect.</td>
@@ -180,7 +192,7 @@ function PipelineView({
       )}
 
       {id === "chaining" && (
-        <div className="border-border bg-muted/30 max-w-2xl rounded-lg border p-4">
+        <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-(--accent) border-l-2 p-4">
           <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">How Chaining Works</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Steps execute in order. Consecutive pixel-type operations are fused into a single pass
@@ -197,7 +209,9 @@ function PipelineView({
       </Card>
 
       <section>
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider">Code Sample</h3>
+        <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
+          Code Sample
+        </h3>
         <CodeBlock code={codeSamples[id]} />
       </section>
     </div>
@@ -219,7 +233,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border p-6 lg:col-span-1">
+        <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 border-t-utility-5 p-6 lg:col-span-1">
           <h2 className="text-2xl font-bold">Why a Pipeline API?</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Canvas 2D&apos;s built-in filters are limited, synchronous, and single-purpose. For
@@ -228,7 +242,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             near-zero overhead, and without leaving the browser.
           </p>
         </div>
-        <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border p-6 lg:col-span-2">
+        <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 border-t-utility-4 p-6 lg:col-span-2">
           <h3 className="text-sm font-bold uppercase tracking-wider">Architecture</h3>
           <div className="grid gap-3 text-sm sm:grid-cols-3">
             <div>
@@ -264,7 +278,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         </div>
       </div>
 
-      <div className="border-border rounded-lg border p-5">
+      <div className="border-border rounded-lg border border-t-2 border-t-utility-1 p-5">
         <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
           pipelineGateway (recommended)
         </h3>
@@ -277,7 +291,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         />
       </div>
 
-      <div className="border-border rounded-lg border p-5">
+      <div className="border-border rounded-lg border border-t-2 border-t-utility-5 p-5">
         <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
           Pipeline (builder API)
         </h3>
@@ -289,7 +303,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         />
       </div>
 
-      <div className="border-border rounded-lg border p-5">
+      <div className="border-border rounded-lg border border-t-2 border-t-utility-2 p-5">
         <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
           Registry — selective manipulation loading
         </h3>
@@ -303,7 +317,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         />
       </div>
 
-      <div className="border-border rounded-lg border p-5">
+      <div className="border-border rounded-lg border border-t-2 border-t-utility-6 p-5">
         <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
           usePipeline — React hook
         </h3>
@@ -320,7 +334,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
       </div>
 
       {sourceData && (
-        <div className="border-border bg-muted/30 flex items-center gap-4 rounded-lg border p-4">
+        <div className="border-border bg-muted/30 flex items-center gap-4 rounded-lg border border-l-2 border-l-utility-4 p-4">
           <div className="w-20 shrink-0">
             <p className="text-muted-foreground mb-1 text-xs">Demo Image</p>
             <img
@@ -352,7 +366,7 @@ function InternalsView({ id }: { id: string }) {
         <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-8 p-4 font-mono text-xs leading-relaxed whitespace-pre">
 {`runPipeline({ source, steps, context })
   │
   ├── BufferManager(source)     ← double-buffered pixel arrays
@@ -372,7 +386,7 @@ function InternalsView({ id }: { id: string }) {
   └── return { source, final, snapshots }`}
         </div>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">BufferManager</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Double-buffering avoids allocating a new array for every pixel operation. Two
@@ -400,7 +414,7 @@ function InternalsView({ id }: { id: string }) {
           The scheduler queues pixel ops and runs them in one pass when flushed.
         </p>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4 font-mono text-xs leading-relaxed whitespace-pre">
 {`For each pixel (i = 0 .. pixelCount-1):
   red,green,blue,alpha = current[i]
   for each (definition, options) in batch:
@@ -432,7 +446,7 @@ swap()`}
           edge pixels have neighbors available.
         </p>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-3 p-4 font-mono text-xs leading-relaxed whitespace-pre">
 {`TILE_SIZE = 512 pixels per edge
 
 For each tile:
@@ -466,7 +480,7 @@ For each tile:
           source pixels and interpolates.
         </p>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-4 p-4 font-mono text-xs leading-relaxed whitespace-pre">
 {`sourceX = x * (sourceWidth / targetWidth)
 sourceY = y * (sourceHeight / targetHeight)
 
@@ -527,7 +541,7 @@ output = top * (1 - dy) + bottom * dy`}
         <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-1 p-4">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">pipeline-worker.ts</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Stateless worker. Each message rebuilds the registry from
@@ -537,7 +551,7 @@ output = top * (1 - dy) + bottom * dy`}
           </p>
         </div>
 
-        <div className="border-border bg-muted/30 rounded-lg border p-4">
+        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-6 p-4">
           <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">pipeline-gateway.ts</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Main-thread pool manager. Workers are lazily created on first call. If all workers

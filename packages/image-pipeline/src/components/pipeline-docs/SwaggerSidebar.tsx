@@ -10,12 +10,12 @@ type SwaggerSidebarProps = {
 };
 
 const BADGE_CLASSES: Record<string, string> = {
-  overview: "bg-category-data-viz",
-  pixel: "bg-secondary text-secondary-foreground",
-  neighborhood: "bg-category-image",
-  whole: "bg-category-color",
-  pipeline: "bg-primary text-primary-foreground",
-  internals: "bg-muted-foreground/20 text-muted-foreground",
+  overview: "bg-utility-4 text-white",
+  pixel: "bg-utility-6 text-white",
+  neighborhood: "bg-utility-3 text-white",
+  whole: "bg-utility-2 text-white",
+  pipeline: "bg-utility-1 text-white",
+  internals: "bg-utility-8 text-white",
 };
 
 const BADGE_LABELS: Record<string, string> = {
@@ -25,6 +25,15 @@ const BADGE_LABELS: Record<string, string> = {
   whole: "WHOLE",
   pipeline: "PIPELINE",
   internals: "INTERNALS",
+};
+
+const TYPE_VAR: Record<string, string> = {
+  overview: "var(--utility-4)",
+  pixel: "var(--utility-6)",
+  neighborhood: "var(--utility-3)",
+  whole: "var(--utility-2)",
+  pipeline: "var(--utility-1)",
+  internals: "var(--utility-8)",
 };
 
 function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProps) {
@@ -87,11 +96,12 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                         type="button"
                         onClick={() => handleSelect(item)}
                         aria-current={isActive ? "page" : undefined}
+                        style={{ "--accent": TYPE_VAR[item.type] ?? "var(--utility-4)" } as React.CSSProperties}
                         className={cn(
                           "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
                           isActive
-                            ? "bg-accent/20 text-foreground font-medium"
-                            : "text-foreground/70 hover:bg-muted/50 hover:text-foreground"
+                            ? "bg-accent/20 text-foreground font-medium border-l-(--accent) border-l-2 pl-[6px]"
+                            : "text-foreground/70 hover:bg-muted/50 hover:text-foreground border-l-2 border-l-transparent pl-[6px]"
                         )}
                       >
                         <span

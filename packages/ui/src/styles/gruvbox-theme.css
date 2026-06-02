@@ -49,14 +49,14 @@
       0px 8px 10px -1px oklch(0.331 0.02 76.196 / 0.06);
     --shadow-2xl: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.15);
 
-    --utility-color-1: oklch(0.558 0.097 167.141);
-    --utility-color-2: oklch(0.544 0.164 313.001);
-    --utility-color-3: oklch(0.559 0.143 38.532);
-    --utility-color-4: oklch(0.619 0.128 237.422);
-    --utility-color-5: oklch(0.597 0.154 81.796);
-    --utility-color-6: oklch(0.568 0.135 130.491);
-    --utility-color-7: oklch(0.582 0.139 18.679);
-    --utility-color-8: oklch(0.603 0.098 275.88);
+    --utility-1: oklch(0.558 0.097 167.141);
+    --utility-2: oklch(0.544 0.164 313.001);
+    --utility-3: oklch(0.559 0.143 38.532);
+    --utility-4: oklch(0.619 0.128 237.422);
+    --utility-5: oklch(0.597 0.154 81.796);
+    --utility-6: oklch(0.568 0.135 130.491);
+    --utility-7: oklch(0.582 0.139 18.679);
+    --utility-8: oklch(0.603 0.098 275.88);
 
     --category-generative: var(--utility-1);
     --category-color: var(--utility-2);
