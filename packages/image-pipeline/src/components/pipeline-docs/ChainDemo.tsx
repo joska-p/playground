@@ -9,7 +9,6 @@ const STEPS = [
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
   const pipelineResult = usePipeline(sourceData, STEPS);
-  const pipelineResultImage = pipelineResult?.at(-1) ?? null;
   const loading = sourceData !== null && pipelineResult === null;
 
   return (
@@ -28,20 +27,25 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
       <div className="flex shrink-0 items-center self-center">
         <span className="text-muted-foreground text-xl sm:text-2xl">→</span>
       </div>
-      <div className="w-28 sm:w-36">
+      <div className="">
         <p className="text-muted-foreground mb-1 text-xs">Brightness → Contrast → Sharpen</p>
         {loading ? (
           <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
             ...
           </div>
-        ) : pipelineResultImage ? (
-          <img
-            src={imageDataToUrl(pipelineResultImage)}
-            alt="chained"
-            className="border-border w-full rounded border"
-            style={{ imageRendering: "pixelated" }}
-          />
-        ) : null}
+        ) : (
+          <div className="flex gap-2 flex-wrap">
+            {pipelineResult?.slice(1).map((imageData, i) => (
+              <img
+                key={i}
+                src={imageDataToUrl(imageData)}
+                alt={`chained-${i}`}
+                className="border-border w-28 sm:w-36 rounded border"
+                style={{ imageRendering: "pixelated" }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
