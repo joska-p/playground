@@ -8,8 +8,6 @@ tags:
 
 # Codebase Conventions
 
-> **Agent use:** rules only — no rationale, no examples. For the authoritative terse reference, see [`CONVENTIONS.md`] at the project root.
-
 Stack: `Turborepo` · `Vite` · `React` · `Astro` · `TypeScript` · `Tailwind` · `Zustand` · `Zod` · `TanStack Query` · `Storybook` · `Vitest`
 
 ---
