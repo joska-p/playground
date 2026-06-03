@@ -153,6 +153,16 @@ Two rules cover every file:
 - No test should depend on another test's side effects. Each test is fully isolated.
 - Prefer `describe` blocks that read like sentences: `describe('Button', () => { it('renders disabled when prop is set') })`.
 
+## Documentation
+
+- Each package's `README.md` is the **source of truth** for its documentation.
+- READMEs must document both **consumer usage** (API, examples) and **contributor internals** (architecture, rationale, gotchas).
+- After updating a package README, sync it to the Astro docs site:
+  ```bash
+  node scripts/sync-package-readmes.mjs
+  ```
+  This script copies each `packages/*/README.md` into `apps/playground/src/content/docs/reference/packages/*.md` as an Astro content collection entry.
+
 ## General rules
 
 - Types co-located with usage. No shared `types/` package.
