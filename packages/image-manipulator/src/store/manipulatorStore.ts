@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { manipulationsIds } from "../manipulations/manipulations";
+import { manipulationsIds } from "../core/manipulations/manipulations";
 
 export type OutputType = {
   id: string;

@@ -3,9 +3,10 @@ import { Button } from "@repo/ui/Button";
 import { Input } from "@repo/ui/Input";
 import { Select } from "@repo/ui/Select";
 import { useRef, useState } from "react";
+import type { ManipulationId } from "../../core/manipulations/manipulations";
+import { manipulations, manipulationsIds } from "../../core/manipulations/manipulations";
+import { WORKFLOW_PRESETS } from "../../core/workflows/workflows";
 import { useImageUpload } from "../../hooks/useImageUpload";
-import type { ManipulationId } from "../../manipulations/manipulations";
-import { manipulations, manipulationsIds } from "../../manipulations/manipulations";
 import {
   addToManipulatorOutputs,
   clearManipulatorOutputs,
@@ -14,7 +15,6 @@ import {
   useManipulatorOutputs,
 } from "../../store/manipulatorStore";
 import { addToWorkflow, clearWorkflow, setWorkflow, useWorkflow } from "../../store/workflowStore";
-import { WORKFLOW_PRESETS } from "../../workflows/workflows";
 import { Workflow } from "./workflow/Workflow";
 
 function Controls() {

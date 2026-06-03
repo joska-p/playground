@@ -1,5 +1,5 @@
 import { Button } from "@repo/ui/Button";
-import { manipulations } from "../../../manipulations/manipulations";
+import { manipulations } from "../../../core/manipulations/manipulations";
 import type { WorkflowStep } from "../../../store/workflowStore";
 import {
   moveWorkflowStep,

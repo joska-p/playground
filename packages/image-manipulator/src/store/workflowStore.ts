@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { manipulations } from "../manipulations/manipulations";
+import { manipulations } from "../core/manipulations/manipulations";
 
 type WorkflowStep = {
   id: string;
