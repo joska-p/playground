@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Output } from "./Output";
+import { Output } from "../atoms/Output";
 
 type ImageLightboxProps = {
   imageData: ImageData;
@@ -34,3 +34,4 @@ function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
 }
 
 export { ImageLightbox };
+export type { ImageLightboxProps };

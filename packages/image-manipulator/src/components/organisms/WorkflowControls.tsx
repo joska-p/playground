@@ -7,7 +7,7 @@ import {
   usePipelineImageSource,
 } from "../../store/pipelineStore";
 import { clearWorkflow, useWorkflow } from "../../store/workflowStore";
-import { Workflow } from "./workflow/Workflow";
+import { WorkflowList } from "./WorkflowList";
 
 function WorkflowControls() {
   const workflow = useWorkflow();
@@ -41,7 +41,7 @@ function WorkflowControls() {
 
   return (
     <>
-      <Workflow steps={workflow} />
+      <WorkflowList steps={workflow} />
       <Button isLoading={isProcessing} onClick={() => executeWorkflow()}>
         Execute workflow
       </Button>

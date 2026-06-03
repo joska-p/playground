@@ -1,24 +1,24 @@
 # TypeScript + React 19 Code Review Report
 
-| Entry | Details |
-| :--- | :--- |
-| **Date** | 2026-06-03 14:05 |
-| **Reviewer** | AI (typescript-react-reviewer) |
-| **Scope** | Full source audit — `packages/image-manipulator/src/` |
-| **Project Stack** | React 19 + TypeScript (strictest) + Zustand + Tailwind CSS v4 |
-| **Overall Assessment** | **REQUEST_CHANGES** |
+| Entry                  | Details                                                       |
+| :--------------------- | :------------------------------------------------------------ |
+| **Date**               | 2026-06-03 14:05                                              |
+| **Reviewer**           | AI (typescript-react-reviewer)                                |
+| **Scope**              | Full source audit — `packages/image-manipulator/src/`         |
+| **Project Stack**      | React 19 + TypeScript (strictest) + Zustand + Tailwind CSS v4 |
+| **Overall Assessment** | **REQUEST_CHANGES**                                           |
 
 ---
 
 ## Summary
 
-| Metric | Value |
-|--------|-------|
-| Files Reviewed | 18 source files |
-| Lines Changed | — (full audit) |
-| Critical Issues | 1 |
-| High Priority | 2 |
-| Architecture Issues | 3 |
+| Metric              | Value           |
+| ------------------- | --------------- |
+| Files Reviewed      | 18 source files |
+| Lines Changed       | — (full audit)  |
+| Critical Issues     | 1               |
+| High Priority       | 2               |
+| Architecture Issues | 3               |
 
 ---
 
@@ -49,8 +49,8 @@ Add a unique ID to `WorkflowStep`:
 ```ts
 // store/workflowStore.ts
 type WorkflowStep = {
-  uid: string;       // unique-instance ID
-  id: string;        // manipulation type
+  uid: string; // unique-instance ID
+  id: string; // manipulation type
   options: Record<string, number>;
 };
 ```
@@ -62,11 +62,14 @@ function addToWorkflow(id: string) {
   const workflow = workflowStore.getState().workflow;
   const manipData = manipulations[id];
   workflowStore.setState({
-    workflow: [...workflow, {
-      uid: crypto.randomUUID(),
-      id,
-      options: { ...(manipData?.defaultArgs ?? {}) },
-    }],
+    workflow: [
+      ...workflow,
+      {
+        uid: crypto.randomUUID(),
+        id,
+        options: { ...(manipData?.defaultArgs ?? {}) },
+      },
+    ],
   });
 }
 ```
@@ -161,7 +164,7 @@ The exact same shape `{ key: string; label: string; min: number; max: number; st
 export function clearPipelineOutputs() {
   const outputs = pipelineStore.getState().outputs;
   pipelineStore.setState({
-    outputs: [outputs[0]],   // [undefined] when outputs is empty
+    outputs: [outputs[0]], // [undefined] when outputs is empty
   });
 }
 ```

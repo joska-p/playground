@@ -1,6 +1,6 @@
 import { Button } from "@repo/ui/Button";
 import { clearPipelineOutputs } from "../../store/pipelineStore";
-import { UploadZone } from "./upload-zone/UploadZone";
+import { UploadZone } from "./UploadZone";
 
 function ImageSourceControls() {
   return (

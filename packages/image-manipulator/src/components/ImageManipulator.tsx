@@ -1,7 +1,7 @@
 import { Sidebar } from "@repo/ui/Sidebar";
 import { ErrorBoundary } from "react-error-boundary";
-import { Outputs } from "../components/display/Outputs";
-import { Controls } from "./controls/Controls";
+import { Controls } from "./organisms/Controls";
+import { Outputs } from "./organisms/Outputs";
 
 function ImageManipulator() {
   return (

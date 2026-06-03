@@ -15,10 +15,7 @@ import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 
 const source = imageElementToImageData(img);
 
-const result = manipulate(source)
-  .apply(grayscale())
-  .apply(brightness(1.3))
-  .toImageData();
+const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
 
 putImageData(canvas, result);
 ```
@@ -42,18 +39,18 @@ All transformations read from a source `ImageData` and produce a **new**
 
 ## Core Primitives
 
-| Export / method                    | Purpose                                      |
-| ---------------------------------- | -------------------------------------------- |
-| `imageElementToImageData(image)`   | Convert a loaded `<img>` into raw pixel data |
-| `putImageData(canvas, imageData)`  | Render `ImageData` onto a `<canvas>`         |
-| `getImageData(canvas)`             | Snapshot current canvas pixels               |
-| `drawImageOnCanvas(canvas, image)` | Draw an `<img>` onto a canvas                |
-| `manipulate(imageData)`            | Create a fluent pipeline builder             |
-| `── .apply(callback)`              | Add a manipulation step (returns `this`)     |
-| `── .toImageData()`                | Execute all steps, return final `ImageData`  |
+| Export / method                    | Purpose                                             |
+| ---------------------------------- | --------------------------------------------------- |
+| `imageElementToImageData(image)`   | Convert a loaded `<img>` into raw pixel data        |
+| `putImageData(canvas, imageData)`  | Render `ImageData` onto a `<canvas>`                |
+| `getImageData(canvas)`             | Snapshot current canvas pixels                      |
+| `drawImageOnCanvas(canvas, image)` | Draw an `<img>` onto a canvas                       |
+| `manipulate(imageData)`            | Create a fluent pipeline builder                    |
+| `── .apply(callback)`              | Add a manipulation step (returns `this`)            |
+| `── .toImageData()`                | Execute all steps, return final `ImageData`         |
 | `── .toArray()`                    | Execute step-by-step, return `[original, step1, …]` |
-| `── .toCanvas(canvas)`             | Execute and write result to a canvas         |
-| `iteratePixels(source, callbacks)` | Low-level loop primitive                     |
+| `── .toCanvas(canvas)`             | Execute and write result to a canvas                |
+| `iteratePixels(source, callbacks)` | Low-level loop primitive                            |
 
 ## Types
 
@@ -61,10 +58,15 @@ All transformations read from a source `ImageData` and produce a **new**
 type RGBA = { r: number; g: number; b: number; a: number };
 
 type PixelContext = {
-  r; g; b; a: number;       // current pixel value (may be modified by earlier callbacks)
-  x; y: number;              // pixel position
-  index: number;             // byte offset in Uint8ClampedArray
-  width; height: number;
+  r;
+  g;
+  b;
+  a: number; // current pixel value (may be modified by earlier callbacks)
+  x;
+  y: number; // pixel position
+  index: number; // byte offset in Uint8ClampedArray
+  width;
+  height: number;
   sourceData: Uint8ClampedArray; // original unmodified data (for neighbour reads)
 };
 
@@ -75,16 +77,16 @@ type PixelCallback = (ctx: PixelContext) => RGBA;
 
 Built-in `PixelCallback` factories:
 
-| Factory                   | Args                  | Description                              |
-| ------------------------- | --------------------- | ---------------------------------------- |
-| `grayscale()`             | —                     | Luminance-weighted `0.299R + 0.587G + 0.114B` |
-| `brightness(factor)`      | `factor` (0–3)        | Multiply RGB by `factor`                 |
-| `contrast(factor)`        | `factor` (0–3)        | Adjust contrast around midpoint 128      |
-| `saturate(amount)`        | `amount` (0–3)        | Adjust saturation via luminance blend    |
-| `sepia()`                 | —                     | Classic sepia tone matrix                |
-| `invert()`                | —                     | `255 - channel` per component            |
-| `threshold(threshold)`    | `threshold` (0–255)   | Binary black/white by luminance          |
-| `energyMap()`             | —                     | Sobel gradient magnitude (edge detection)|
+| Factory                | Args                | Description                                   |
+| ---------------------- | ------------------- | --------------------------------------------- |
+| `grayscale()`          | —                   | Luminance-weighted `0.299R + 0.587G + 0.114B` |
+| `brightness(factor)`   | `factor` (0–3)      | Multiply RGB by `factor`                      |
+| `contrast(factor)`     | `factor` (0–3)      | Adjust contrast around midpoint 128           |
+| `saturate(amount)`     | `amount` (0–3)      | Adjust saturation via luminance blend         |
+| `sepia()`              | —                   | Classic sepia tone matrix                     |
+| `invert()`             | —                   | `255 - channel` per component                 |
+| `threshold(threshold)` | `threshold` (0–255) | Binary black/white by luminance               |
+| `energyMap()`          | —                   | Sobel gradient magnitude (edge detection)     |
 
 ## Usage
 
@@ -100,10 +102,7 @@ import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 
 const source = imageElementToImageData(imgElement);
 
-const result = manipulate(source)
-  .apply(grayscale())
-  .apply(brightness(1.3))
-  .toImageData();
+const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
 
 putImageData(canvasElement, result);
 ```
@@ -126,7 +125,8 @@ A manipulation is just a factory that returns a `PixelCallback`:
 ```ts
 import type { PixelCallback } from "@repo/image-manipulator";
 
-const tint = (hue: number): PixelCallback =>
+const tint =
+  (hue: number): PixelCallback =>
   ({ r, g, b, a }) => ({
     r: Math.min(255, r + hue),
     g,
@@ -134,10 +134,7 @@ const tint = (hue: number): PixelCallback =>
     a,
   });
 
-manipulate(source)
-  .apply(grayscale())
-  .apply(tint(30))
-  .toImageData();
+manipulate(source).apply(grayscale()).apply(tint(30)).toImageData();
 ```
 
 Use `sourceData` on `PixelContext` for neighbour-dependent effects
@@ -150,17 +147,17 @@ The built-in UI includes 9 pre-configured multi-step workflows.
 Selecting a preset and clicking **Load Workflow** populates the workflow editor
 with all steps and their tuned arguments.
 
-| Preset           | Steps                                      |
-| ---------------- | ------------------------------------------ |
-| Vintage          | sepia → brightness(1.2) → contrast(0.8)   |
-| Dramatic B&W     | grayscale → contrast(2.0)                  |
-| Neon             | saturate(2.5) → brightness(1.2) → contrast(1.5) |
-| Blueprint        | invert → threshold(200)                    |
-| Soft Pastel      | saturate(1.1) → brightness(1.3) → contrast(0.7) |
-| Dark & Moody     | brightness(0.5) → contrast(1.8) → saturate(0.6) |
-| Overexposed      | brightness(2.2) → contrast(0.5)            |
-| High Contrast    | contrast(2.5) → saturate(1.6)              |
-| Edge Ink         | grayscale → energyMap                      |
+| Preset        | Steps                                           |
+| ------------- | ----------------------------------------------- |
+| Vintage       | sepia → brightness(1.2) → contrast(0.8)         |
+| Dramatic B&W  | grayscale → contrast(2.0)                       |
+| Neon          | saturate(2.5) → brightness(1.2) → contrast(1.5) |
+| Blueprint     | invert → threshold(200)                         |
+| Soft Pastel   | saturate(1.1) → brightness(1.3) → contrast(0.7) |
+| Dark & Moody  | brightness(0.5) → contrast(1.8) → saturate(0.6) |
+| Overexposed   | brightness(2.2) → contrast(0.5)                 |
+| High Contrast | contrast(2.5) → saturate(1.6)                   |
+| Edge Ink      | grayscale → energyMap                           |
 
 Once loaded, steps can be reordered, removed, or tuned via sliders before executing.
 

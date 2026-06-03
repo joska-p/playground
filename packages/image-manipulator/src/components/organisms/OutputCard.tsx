@@ -3,9 +3,9 @@ import { Button } from "@repo/ui/Button";
 import { Card, CardContent, CardFooter, CardHeader } from "@repo/ui/Card";
 import { useRef, useState } from "react";
 import type { OutputType } from "../../store/pipelineStore";
-import { downloadCanvas } from "./download";
+import { downloadCanvas } from "../../utils/download";
+import { Output } from "../atoms/Output";
 import { ImageLightbox } from "./ImageLightbox";
-import { Output } from "./Output";
 
 type OutputCardProps = {
   output: OutputType;
@@ -78,3 +78,4 @@ function OutputCard({
 }
 
 export { OutputCard };
+export type { OutputCardProps };

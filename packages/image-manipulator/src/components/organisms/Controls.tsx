@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useWorkflow } from "../../store/workflowStore";
+import { ControlSection } from "../molecules/ControlSection";
 import { ImageSourceControls } from "./ImageSourceControls";
 import { ManipulationSelector } from "./ManipulationSelector";
 import { PresetSelector } from "./PresetSelector";
-import { ControlSection } from "./sections/ControlSection";
 import { WorkflowControls } from "./WorkflowControls";
 
 type Section = "source" | "presets" | "manipulations" | "workflow";

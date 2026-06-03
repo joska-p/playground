@@ -1,17 +1,14 @@
 import { useState } from "react";
-import {
-  useIsProcessing,
-  usePipelineImageSource,
-  usePipelineOutputs,
-} from "../../store/pipelineStore";
+import { usePipelineImageSource, usePipelineOutputs } from "../../store/pipelineStore";
+import { EmptyState } from "../atoms/EmptyState";
+import { CompareToggle } from "../molecules/CompareToggle";
 import { CompareSlider } from "./CompareSlider";
-import { CompareToggle } from "./CompareToggle";
 import { OutputCard } from "./OutputCard";
+import { ProcessingOverlay } from "./ProcessingOverlay";
 
 function Outputs() {
   const imageSource = usePipelineImageSource();
   const outputs = usePipelineOutputs();
-  const isProcessing = useIsProcessing();
   const [mode, setMode] = useState<"grid" | "compare">("grid");
   const [selectedOutputId, setSelectedOutputId] = useState<string | null>(null);
 
@@ -25,9 +22,7 @@ function Outputs() {
   const selectedOutput = outputs.find((o) => o.id === activeOutputId) ?? null;
 
   if (!imageSource && outputs.length === 0) {
-    return (
-      <p className="text-muted-foreground p-16 text-center text-sm">Upload an image to begin</p>
-    );
+    return <EmptyState message="Upload an image to begin" />;
   }
 
   return (
@@ -57,14 +52,7 @@ function Outputs() {
         ))}
       </div>
 
-      {isProcessing && imageSource && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-background/80 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-3">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-            <p className="text-muted-foreground text-sm">Processing&hellip;</p>
-          </div>
-        </div>
-      )}
+      <ProcessingOverlay />
     </div>
   );
 }
