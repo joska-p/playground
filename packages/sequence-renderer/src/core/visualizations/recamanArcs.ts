@@ -1,14 +1,12 @@
 import { findBiggestInterval } from "../../utils/find-biggest-interval";
 
-function calculateValueScale(
-  {
-    sequence,
-    containerSize,
-  }: {
-    sequence: number[];
-    containerSize: { width: number; height: number };
-  }
-): number {
+function calculateValueScale({
+  sequence,
+  containerSize,
+}: {
+  sequence: number[];
+  containerSize: { width: number; height: number };
+}): number {
   const maxVal = Math.max(...sequence, 0);
   const maxInterval = findBiggestInterval(sequence);
 

@@ -67,10 +67,6 @@ export function setSequenceSteps({ steps }: { steps: number }): void {
   });
 }
 
-export function setSequenceVisualizationId({
-  visualizationId,
-}: {
-  visualizationId: string;
-}): void {
+export function setSequenceVisualizationId({ visualizationId }: { visualizationId: string }): void {
   sequenceStore.setState({ visualizationId });
 }

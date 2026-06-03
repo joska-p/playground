@@ -142,10 +142,7 @@ function PipelineView({
   const DemoComponent = demos[id];
 
   return (
-    <div
-      className="space-y-6"
-      style={{ "--accent": "var(--utility-1)" } as React.CSSProperties}
-    >
+    <div className="space-y-6" style={{ "--accent": "var(--utility-1)" } as React.CSSProperties}>
       <div className="flex items-center gap-3">
         <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
           PIPELINE
@@ -169,22 +166,30 @@ function PipelineView({
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">width</td>
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Target width. Height auto-proportional.</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Target width. Height auto-proportional.
+                </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">height</td>
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Target height. Width auto-proportional.</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Target height. Width auto-proportional.
+                </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">fit</td>
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">string</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">fill | contain | cover. Default: fill</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  fill | contain | cover. Default: fill
+                </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">maximumPixels</td>
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Downscale to fit pixel budget, maintain aspect.</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Downscale to fit pixel budget, maintain aspect.
+                </td>
               </tr>
             </tbody>
           </table>
@@ -193,7 +198,9 @@ function PipelineView({
 
       {id === "chaining" && (
         <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-(--accent) border-l-2 p-4">
-          <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">How Chaining Works</h3>
+          <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">
+            How Chaining Works
+          </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Steps execute in order. Consecutive pixel-type operations are fused into a single pass
             for performance. Neighborhood and whole-image ops flush pending pixel ops first. Use
@@ -308,9 +315,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           Registry — selective manipulation loading
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-          Pick only the manipulations you need from the manifest, build a custom
-          Registry, and pass it directly to <code>runPipeline</code>. No unused code
-          leaves the bundle.
+          Pick only the manipulations you need from the manifest, build a custom Registry, and pass
+          it directly to <code>runPipeline</code>. No unused code leaves the bundle.
         </p>
         <CodeBlock
           code={`import { Registry } from "@repo/image-pipeline/Registry";\nimport { runPipeline } from "@repo/image-pipeline/runPipeline";\nimport { ALL_MANIPULATIONS } from "@repo/image-pipeline/manipulations";\n\nconst myManips = ALL_MANIPULATIONS.filter(\n  (m) => m.id === "brightness" || m.id === "sharpen"\n);\n\nconst registry = Registry.from(myManips);\n\nconst result = await runPipeline({\n  source: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 2 } },\n  ],\n  context: { registry, maximumPixels: 16_000_000 },\n});\n// result is ImageData[] — same shape as pipelineGateway`}
@@ -325,8 +331,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           Thin <code>useEffect</code>/<code>useState</code> wrapper around
           <code className="mx-1">pipelineGateway.run()</code>. Re-runs whenever
           <code className="mx-1">sourceImageData</code> or
-          <code className="mx-1">steps</code> change.
-          Returns <code className="mx-1">ImageData[] | null</code> (null while loading).
+          <code className="mx-1">steps</code> change. Returns{" "}
+          <code className="mx-1">ImageData[] | null</code> (null while loading).
         </p>
         <CodeBlock
           code={`import { usePipeline } from "@repo/image-pipeline/usePipeline";\n\nfunction Demo({ sourceData }: { sourceData: ImageData | null }) {\n  const result = usePipeline(sourceData, [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n  ]);\n\n  const finalImage = result?.at(-1) ?? null;\n  // ...render finalImage\n}`}
@@ -367,7 +373,7 @@ function InternalsView({ id }: { id: string }) {
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-8 p-4 font-mono text-xs leading-relaxed whitespace-pre">
-{`runPipeline({ source, steps, context })
+          {`runPipeline({ source, steps, context })
   │
   ├── BufferManager(source)     ← double-buffered pixel arrays
   ├── FusionScheduler()         ← fuses consecutive pixel ops
@@ -391,9 +397,9 @@ function InternalsView({ id }: { id: string }) {
           <p className="text-muted-foreground text-sm leading-relaxed">
             Double-buffering avoids allocating a new array for every pixel operation. Two
             <code className="mx-1">Uint8ClampedArray</code> buffers swap on each pass via O(1)
-            pointer flip. <code className="mx-1">snapshot()</code> clones the current buffer into
-            a new ImageData; <code className="mx-1">replaceWith()</code> resets both buffers
-            when resize or whole-image ops change geometry.
+            pointer flip. <code className="mx-1">snapshot()</code> clones the current buffer into a
+            new ImageData; <code className="mx-1">replaceWith()</code> resets both buffers when
+            resize or whole-image ops change geometry.
           </p>
         </div>
       </div>
@@ -410,12 +416,12 @@ function InternalsView({ id }: { id: string }) {
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Consecutive pixel-type steps are fused into a single pixel loop to avoid N full-image passes.
-          The scheduler queues pixel ops and runs them in one pass when flushed.
+          Consecutive pixel-type steps are fused into a single pixel loop to avoid N full-image
+          passes. The scheduler queues pixel ops and runs them in one pass when flushed.
         </p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4 font-mono text-xs leading-relaxed whitespace-pre">
-{`For each pixel (i = 0 .. pixelCount-1):
+          {`For each pixel (i = 0 .. pixelCount-1):
   red,green,blue,alpha = current[i]
   for each (definition, options) in batch:
     [red,green,blue,alpha] = definition.function({ red, green, blue, alpha, options })
@@ -442,12 +448,12 @@ swap()`}
 
         <p className="text-muted-foreground text-sm leading-relaxed">
           Large neighborhood operations are tiled to avoid allocating full-size temporary buffers.
-          Each tile includes a halo border of <code className="mx-1">radius</code> pixels so
-          edge pixels have neighbors available.
+          Each tile includes a halo border of <code className="mx-1">radius</code> pixels so edge
+          pixels have neighbors available.
         </p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-3 p-4 font-mono text-xs leading-relaxed whitespace-pre">
-{`TILE_SIZE = 512 pixels per edge
+          {`TILE_SIZE = 512 pixels per edge
 
 For each tile:
   1. extractTile({ tileX, tileY, tileWidth, tileHeight, halo })
@@ -459,8 +465,8 @@ For each tile:
 
         <p className="text-muted-foreground text-sm leading-relaxed">
           Peak memory drops from <code className="mx-1">(width × height)</code> to
-          <code className="mx-1">(TILE_SIZE + 2×halo)²</code>. The result is identical to
-          running convolution on the full image.
+          <code className="mx-1">(TILE_SIZE + 2×halo)²</code>. The result is identical to running
+          convolution on the full image.
         </p>
       </div>
     );
@@ -476,12 +482,12 @@ For each tile:
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Resize uses bilinear interpolation. For each output pixel, it samples the 4 nearest
-          source pixels and interpolates.
+          Resize uses bilinear interpolation. For each output pixel, it samples the 4 nearest source
+          pixels and interpolates.
         </p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-4 p-4 font-mono text-xs leading-relaxed whitespace-pre">
-{`sourceX = x * (sourceWidth / targetWidth)
+          {`sourceX = x * (sourceWidth / targetWidth)
 sourceY = y * (sourceHeight / targetHeight)
 
 x0 = floor(sourceX), x1 = min(x0+1, sourceWidth-1)
@@ -503,27 +509,45 @@ output = top * (1 - dy) + bottom * dy`}
             <tbody>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">maximumPixels</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Scale to fit pixel budget, aspect-ratio-preserved</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Scale to fit pixel budget, aspect-ratio-preserved
+                </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">width + height + fill</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Exact dimensions (stretch)</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  width + height + fill
+                </td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Exact dimensions (stretch)
+                </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">width + height + contain</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Fit within bounds, aspect-ratio-preserved</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  width + height + contain
+                </td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Fit within bounds, aspect-ratio-preserved
+                </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">width + height + cover</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Fill bounds, aspect-ratio-preserved (crops)</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  width + height + cover
+                </td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Fill bounds, aspect-ratio-preserved (crops)
+                </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">width only</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Scale proportionally by width</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Scale proportionally by width
+                </td>
               </tr>
               <tr className="border-border">
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">height only</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">Scale proportionally by height</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  Scale proportionally by height
+                </td>
               </tr>
             </tbody>
           </table>
@@ -542,25 +566,29 @@ output = top * (1 - dy) + bottom * dy`}
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-1 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">pipeline-worker.ts</h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">
+            pipeline-worker.ts
+          </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Stateless worker. Each message rebuilds the registry from
             <code className="mx-1">ALL_MANIPULATIONS</code> and calls
-            <code className="mx-1">runPipeline()</code>. Results are transferred back
-            (zero-copy) via <code className="mx-1">postMessage</code> Transferables.
+            <code className="mx-1">runPipeline()</code>. Results are transferred back (zero-copy)
+            via <code className="mx-1">postMessage</code> Transferables.
           </p>
         </div>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-6 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">pipeline-gateway.ts</h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">
+            pipeline-gateway.ts
+          </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Main-thread pool manager. Workers are lazily created on first call. If all workers
-            are busy, jobs queue in FIFO order and dispatch as workers free up. Call
+            Main-thread pool manager. Workers are lazily created on first call. If all workers are
+            busy, jobs queue in FIFO order and dispatch as workers free up. Call
             <code className="mx-1">pipelineGateway.teardown()</code> on app unmount to terminate
             workers.
           </p>
           <div className="border-border bg-background mt-3 rounded border p-3 font-mono text-xs leading-relaxed whitespace-pre">
-{`Pool:     up to min(hardwareConcurrency, 4) workers
+            {`Pool:     up to min(hardwareConcurrency, 4) workers
 Queue:    FIFO for overflow
 Dispatch: postMessage with Transferable buffers
           (zero-copy pixel transfer)`}
@@ -590,9 +618,14 @@ Dispatch: postMessage with Transferable buffers
             </thead>
             <tbody>
               <tr className="border-border">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">DEFAULT_MAXIMUM_PIXELS</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  DEFAULT_MAXIMUM_PIXELS
+                </td>
                 <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">16,000,000</td>
-                <td className="text-muted-foreground px-4 py-2.5 text-xs">~16 megapixel default cap. Auto-downscale if source exceeds this value. Also triggers tiled path for neighborhood ops.</td>
+                <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                  ~16 megapixel default cap. Auto-downscale if source exceeds this value. Also
+                  triggers tiled path for neighborhood ops.
+                </td>
               </tr>
             </tbody>
           </table>
@@ -601,9 +634,7 @@ Dispatch: postMessage with Transferable buffers
     );
   }
 
-  return (
-    <div className="text-muted-foreground py-12 text-center text-sm">Section not found</div>
-  );
+  return <div className="text-muted-foreground py-12 text-center text-sm">Section not found</div>;
 }
 
 function EndpointView({

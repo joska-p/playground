@@ -5,7 +5,12 @@ const pixelManipulations = ALL_MANIPULATIONS.filter((m) => m.type === "pixel");
 const manipulationsIds = pixelManipulations.map((m) => m.id) as readonly string[];
 const manipulations: Record<
   string,
-  { name: string; description: string; defaultArgs: Record<string, number>; argDefinitions: { key: string; label: string; min: number; max: number; step: number }[] }
+  {
+    name: string;
+    description: string;
+    defaultArgs: Record<string, number>;
+    argDefinitions: { key: string; label: string; min: number; max: number; step: number }[];
+  }
 > = {};
 for (const m of pixelManipulations) {
   manipulations[m.id] = {

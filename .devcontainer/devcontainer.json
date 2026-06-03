@@ -7,7 +7,7 @@
   // Build from the local ContainerFile (Podman-compatible)
   "build": {
     "dockerfile": "ContainerFile",
-    "context": ".."
+    "context": "..",
   },
 
   // Run as the boffin user (UID 1000 = your host user)
@@ -15,7 +15,7 @@
   "containerUser": "boffin",
   "containerEnv": {
     "HOME": "/home/boffin",
-    "USER": "boffin"
+    "USER": "boffin",
   },
 
   // -------------------------------------------------------------------------
@@ -29,8 +29,8 @@
     {
       "type": "bind",
       "source": "${localWorkspaceFolder}/.container_home",
-      "target": "/home/boffin"
-    }
+      "target": "/home/boffin",
+    },
   ],
 
   // -------------------------------------------------------------------------
@@ -51,14 +51,4 @@
   //   Ensure the local mount target exists before the container starts.
   // -------------------------------------------------------------------------
   "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.container_home",
-
-  // -------------------------------------------------------------------------
-  // Start SSH server automatically when the container starts
-  // -------------------------------------------------------------------------
-  "postStartCommand": "bash -lc 'pgrep -x sshd >/dev/null || sudo /usr/sbin/sshd'"
-
-  // -------------------------------------------------------------------------
-  // Run setup script after the container is created
-  // -------------------------------------------------------------------------
-  // "postCreateCommand": "GITLAB_USER=jpotin bash .devcontainer/scripts/setup.sh all"
 }

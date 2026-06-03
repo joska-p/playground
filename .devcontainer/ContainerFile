@@ -1,37 +1,50 @@
 # =============================================================================
 # ContainerFile — boffin-lab
 #
+# Base: mcr.microsoft.com/devcontainers/base:debian (bookworm)
+#
+# Already provided by the base image (no need to install):
+#   bash, bash-completion, curl, wget, gnupg, ca-certificates, git,
+#   less, lsb-release, locales (en_US.UTF-8), procps, sudo, unzip, zip,
+#   non-root user scaffold (UID 1000), passwordless sudo
+#
 # Layer strategy:
-#   - Everything here is STABLE and benefits from Docker layer caching.
+#   - Everything here is STABLE and benefits from layer caching.
 #   - Fast-changing things (dotfiles, tool versions, SSH keys) live in setup.sh.
 #   - Rebuild this image rarely; run setup.sh often.
 # =============================================================================
-FROM debian:bookworm-slim
+FROM mcr.microsoft.com/devcontainers/base:debian
 
 # -----------------------------------------------------------------------------
-# System packages
+# Rename the default "vscode" user (UID 1000) to "boffin" and set zsh as shell
+# -----------------------------------------------------------------------------
+RUN usermod -l boffin -d /home/boffin -m vscode \
+    && groupmod -n boffin vscode \
+    && chsh -s /bin/zsh boffin \
+    && echo "boffin ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/boffin \
+    && chmod 0440 /etc/sudoers.d/boffin
+
+# -----------------------------------------------------------------------------
+# Additional packages — only what the base does NOT already provide
 #
-# Organised by purpose so it's easy to add/remove groups:
-#   • Shell & terminal utilities
-#   • Build toolchain (needed by pyenv to compile Python)
-#   • Crypto / TLS
-#   • Media tools  ← NEW: ffmpeg + imagemagick for creative-coding exports
+#   • Shell & terminal extras
+#   • Build toolchain (required by pyenv to compile Python)
+#   • Media tools (ffmpeg + imagemagick for creative-coding exports)
+#   • Fonts (needed by imagemagick + some canvas renderers)
 #   • SSH server
-#   • Misc helpers
+#   • Misc extras
 # -----------------------------------------------------------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
     \
-    # --- Shell & terminal ---
-    bash \
-    bash-completion \
+    # --- Shell & terminal extras ---
     bat \
     dnsutils \
     iputils-ping \
-    less \
     lsof \
     man-db \
     net-tools \
     tree \
+    vim \
     zsh \
     zsh-common \
     \
@@ -51,12 +64,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xz-utils \
     zlib1g-dev \
     \
-    # --- Crypto / TLS / Downloads ---
-    ca-certificates \
-    curl \
-    gnupg \
-    wget \
-    \
     # --- Media tools (creative coding: export canvas to video/image) ---
     ffmpeg \
     imagemagick \
@@ -65,49 +72,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fontconfig \
     fonts-dejavu-core \
     \
-    # --- Git ---
-    git \
-    \
     # --- SSH server ---
     openssh-server \
     \
-    # --- System utilities ---
+    # --- Misc extras ---
     htop \
-    locales \
-    lsb-release \
-    procps \
-    sudo \
-    unzip \
-    vim \
-    zip \
     \
     && rm -rf /var/lib/apt/lists/* \
     # sshd needs this directory to exist at startup
     && mkdir -p /run/sshd
-
-# -----------------------------------------------------------------------------
-# Locale — set to UTF-8 so Python, Node, and terminal tools all agree
-# -----------------------------------------------------------------------------
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
-ENV LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8
-
-# -----------------------------------------------------------------------------
-# Create the "boffin" user — UID/GID 1000 matches the typical host user.
-# Passwordless sudo is intentional: this is a local experiment sandbox,
-# not a production server.
-# -----------------------------------------------------------------------------
-RUN groupadd --gid 1000 boffin \
-    && useradd \
-        --uid 1000 \
-        --gid 1000 \
-        --create-home \
-        --shell /bin/zsh \
-        --comment "The Boffin — chief experimentalist" \
-        boffin \
-    && echo "boffin ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/boffin \
-    && chmod 0440 /etc/sudoers.d/boffin
 
 # -----------------------------------------------------------------------------
 # SSH server configuration
@@ -115,7 +88,7 @@ RUN groupadd --gid 1000 boffin \
 #   - Password auth disabled — key-only, set up by setup.sh at first run.
 #   - Only the boffin user is allowed in.
 # -----------------------------------------------------------------------------
-RUN sed -i 's/#Port 22/Port 2222/'                                  /etc/ssh/sshd_config \
+RUN sed -i 's/#Port 22/Port 2222/'                                      /etc/ssh/sshd_config \
     && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
     && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/'    /etc/ssh/sshd_config \
     && echo "PermitRootLogin no"  >> /etc/ssh/sshd_config \
@@ -137,11 +110,12 @@ RUN sed -i 's/#Port 22/Port 2222/'                                  /etc/ssh/ssh
 # -----------------------------------------------------------------------------
 EXPOSE 2222 3000 4321 4322 5000 5173 5174 6006 8080 8888
 
+# -----------------------------------------------------------------------------
+# Entrypoint — starts sshd then drops into zsh
+# -----------------------------------------------------------------------------
+COPY .devcontainer/scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 USER boffin
 WORKDIR /home/boffin
-# -----------------------------------------------------------------------------
-# Default command — drops into zsh. sshd is started by devcontainer's
-# postStartCommand so it runs as root (required by sshd).
-# -----------------------------------------------------------------------------
-CMD ["/bin/zsh"]
+CMD ["/usr/local/bin/entrypoint.sh"]

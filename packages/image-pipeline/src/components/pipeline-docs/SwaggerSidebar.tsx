@@ -96,7 +96,11 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                         type="button"
                         onClick={() => handleSelect(item)}
                         aria-current={isActive ? "page" : undefined}
-                        style={{ "--accent": TYPE_VAR[item.type] ?? "var(--utility-4)" } as React.CSSProperties}
+                        style={
+                          {
+                            "--accent": TYPE_VAR[item.type] ?? "var(--utility-4)",
+                          } as React.CSSProperties
+                        }
                         className={cn(
                           "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
                           isActive

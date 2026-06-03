@@ -60,4 +60,8 @@ alias jl='jupyter lab --no-browser --port=8888'
 alias serve='npx serve'
 alias bat='batcat'
 
+
 . "$HOME/.local/bin/env"
+
+# Start sshd if not already running (useful for zed)
+pgrep -x sshd >/dev/null || sudo /usr/sbin/sshd

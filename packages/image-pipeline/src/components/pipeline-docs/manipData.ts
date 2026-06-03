@@ -119,7 +119,8 @@ const PIXEL_MANIPS: ManipInfo[] = [
     type: "pixel",
     path: "/manip/invert",
     description: "Invert all RGB channels",
-    longDescription: "Inverts each channel independently: output = 255 − input. Alpha is preserved unchanged.",
+    longDescription:
+      "Inverts each channel independently: output = 255 − input. Alpha is preserved unchanged.",
   },
   {
     id: "saturation",

@@ -40,6 +40,10 @@ export function setManipulatorManipulationId(manipulationId: string) {
   manipulatorStore.setState({ manipulationId });
 }
 
+export function setManipulatorOutputs(outputs: OutputType[]) {
+  manipulatorStore.setState({ outputs });
+}
+
 export function addToManipulatorOutputs(output: OutputType) {
   const outputs = manipulatorStore.getState().outputs;
   manipulatorStore.setState({
@@ -48,8 +52,9 @@ export function addToManipulatorOutputs(output: OutputType) {
 }
 
 export function clearManipulatorOutputs() {
+  const outputs = manipulatorStore.getState().outputs;
   manipulatorStore.setState({
-    outputs: [],
+    outputs: [outputs[0]],
   });
 }
 

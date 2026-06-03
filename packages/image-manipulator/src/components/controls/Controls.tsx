@@ -45,10 +45,11 @@ function Controls() {
       clearManipulatorOutputs();
 
       results.forEach((imageData, i) => {
+        if (i === 0) return;
         addToManipulatorOutputs({
           id: `step-${i}`,
           name: `Step ${i}`,
-          description: i === 0 ? "Image source" : workflow[i - 1].id,
+          description: workflow[i - 1].id,
           // workflow[i - 1] The first output is the source image. There is 1 workflow step less than outputs
           imageData,
         });

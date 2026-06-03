@@ -27,7 +27,6 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
 
     const transferables = pipelineResult.map((imageData) => imageData.data.buffer);
 
-
     self.postMessage(pipelineResult, { transfer: transferables });
   } catch (error) {
     self.postMessage({

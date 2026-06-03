@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
 import type { JSX } from "react";
+import { useEffect, useRef } from "react";
 import { visualizations } from "../../core/visualizations/visualizations";
 import { useSequenceSequence, useSequenceVisualizationId } from "../../store/sequenceStore";
 
