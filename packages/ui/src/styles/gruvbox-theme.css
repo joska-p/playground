@@ -62,6 +62,8 @@
     --category-color: var(--utility-2);
     --category-image: var(--utility-3);
     --category-data-viz: var(--utility-4);
+    --category-random: var(--utility-5);
+
     --category-tutorial: var(--utility-5);
     --category-how-to: var(--utility-6);
     --category-explanation: var(--utility-7);
@@ -111,6 +113,8 @@
     --category-color: var(--utility-2);
     --category-image: var(--utility-3);
     --category-data-viz: var(--utility-4);
+    --category-random: var(--utility-5);
+
     --category-tutorial: var(--utility-5);
     --category-how-to: var(--utility-6);
     --category-explanation: var(--utility-7);
@@ -166,14 +170,16 @@
   --color-utility-7: var(--utility-7);
   --color-utility-8: var(--utility-8);
 
-  --color-category-generative: var(--utility-1);
-  --color-category-color: var(--utility-2);
-  --color-category-image: var(--utility-3);
-  --color-category-data-viz: var(--utility-4);
-  --color-category-tutorial: var(--utility-5);
-  --color-category-how-to: var(--utility-6);
-  --color-category-explanation: var(--utility-7);
-  --color-category-reference: var(--utility-8);
+  --color-category-generative: var(--category-generative);
+  --color-category-color: var(--category-color);
+  --color-category-image: var(--category-image);
+  --color-category-data-viz: var(--category-data-viz);
+  --color-category-random: var(--category-random);
+
+  --color-category-tutorial: var(--category-tutorial);
+  --color-category-how-to: var(--category-how-to);
+  --color-category-explanation: var(--category-explanation);
+  --color-category-reference: var(--category-reference);
 }
 
 @utility prose-playground {
