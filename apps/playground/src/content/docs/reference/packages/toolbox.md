@@ -1,3 +1,13 @@
+---
+title: "Toolbox"
+description: "Reusable patterns and utilities: a generic Web Worker hook, Zustand + Zod state management demo, and reference patterns."
+category: "reference"
+tags:
+  - reference
+  - toolbox
+order: 20
+---
+
 # @repo/toolbox
 
 > Reusable patterns and utilities: a generic Web Worker hook, Zustand + Zod state management demo, and reference patterns.
@@ -97,3 +107,4 @@ const demoSchema = z.object({
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+

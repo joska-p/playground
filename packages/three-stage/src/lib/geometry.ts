@@ -2,8 +2,7 @@ import * as THREE from "three";
 
 const box = {
   label: "Box",
-  geometry: (width = 2, heigh = 2, depth = 2) =>
-    new THREE.BoxGeometry(width, heigh, depth),
+  geometry: (width = 2, heigh = 2, depth = 2) => new THREE.BoxGeometry(width, heigh, depth),
 } as const;
 
 const sphere = {

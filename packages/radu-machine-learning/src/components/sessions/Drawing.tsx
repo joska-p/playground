@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { drawSample } from "./draw.ts";
 import type { Paths } from "../../core/drawing.types.ts";
+import { drawSample } from "./draw.ts";
 
 type DrawingProps = {
   paths: Paths;

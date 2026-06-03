@@ -1,6 +1,6 @@
 ---
 title: "Image Manipulator"
-description: "Image Manipulator package"
+description: "Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data."
 category: "reference"
 tags:
   - reference
@@ -10,11 +10,30 @@ order: 20
 
 # @repo/image-manipulator
 
-Fluent pixel-manipulation pipeline for the browser. Build image-processing
-effects by chaining small, testable `PixelCallback` functions into a single
-loop pass over the image data.
+> Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.
 
-## Pipeline model
+## Quick Start
+
+```bash
+pnpm add @repo/image-manipulator
+```
+
+```ts
+import { manipulate } from "@repo/image-manipulator";
+import { grayscale, brightness } from "@repo/image-manipulator";
+import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
+
+const source = imageElementToImageData(img);
+
+const result = manipulate(source)
+  .apply(grayscale())
+  .apply(brightness(1.3))
+  .toImageData();
+
+putImageData(canvas, result);
+```
+
+## Pipeline Model
 
 ```
 HTMLImageElement
@@ -31,13 +50,7 @@ imageElementToImageData()      ──►  ImageData
 All transformations read from a source `ImageData` and produce a **new**
 `ImageData` without mutating the original.
 
-## Install
-
-```bash
-pnpm add @repo/image-manipulator
-```
-
-## Core primitives
+## Core Primitives
 
 | Export / method                    | Purpose                                      |
 | ---------------------------------- | -------------------------------------------- |
@@ -52,21 +65,16 @@ pnpm add @repo/image-manipulator
 | `── .toCanvas(canvas)`             | Execute and write result to a canvas         |
 | `iteratePixels(source, callbacks)` | Low-level loop primitive                     |
 
-### Types
+## Types
 
 ```ts
 type RGBA = { r: number; g: number; b: number; a: number };
 
 type PixelContext = {
-  r;
-  g;
-  b;
-  a: number; // current pixel value (may be modified by earlier callbacks)
-  x;
-  y: number; // pixel position
-  index: number; // byte offset in Uint8ClampedArray
-  width;
-  height: number;
+  r; g; b; a: number;       // current pixel value (may be modified by earlier callbacks)
+  x; y: number;              // pixel position
+  index: number;             // byte offset in Uint8ClampedArray
+  width; height: number;
   sourceData: Uint8ClampedArray; // original unmodified data (for neighbour reads)
 };
 
@@ -88,7 +96,9 @@ Built-in `PixelCallback` factories:
 | `threshold(threshold)`    | `threshold` (0–255)   | Binary black/white by luminance          |
 | `energyMap()`             | —                     | Sobel gradient magnitude (edge detection)|
 
-## Creating a pipeline
+## Usage
+
+### Creating a pipeline
 
 Callbacks are chained with `manipulate`. They run **in a single pixel loop** —
 the output of each callback feeds into the next per pixel:
@@ -98,16 +108,13 @@ import { manipulate } from "@repo/image-manipulator";
 import { grayscale, brightness, energyMap } from "@repo/image-manipulator";
 import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
 
-// 1. Load source
 const source = imageElementToImageData(imgElement);
 
-// 2. Build and execute pipeline (one pass)
 const result = manipulate(source)
   .apply(grayscale())
   .apply(brightness(1.3))
   .toImageData();
 
-// 3. Render
 putImageData(canvasElement, result);
 ```
 
@@ -120,21 +127,16 @@ const [original, grayed, brightened] = manipulate(source)
   .apply(grayscale())
   .apply(brightness(1.3))
   .toArray();
-
-// original   = source (unmodified)
-// grayed     = after grayscale()
-// brightened = after brightness(1.3)
 ```
 
-### Writing a custom manipulation
+## Custom Manipulations
 
 A manipulation is just a factory that returns a `PixelCallback`:
 
 ```ts
 import type { PixelCallback } from "@repo/image-manipulator";
 
-const tint =
-  (hue: number): PixelCallback =>
+const tint = (hue: number): PixelCallback =>
   ({ r, g, b, a }) => ({
     r: Math.min(255, r + hue),
     g,
@@ -142,22 +144,21 @@ const tint =
     a,
   });
 
-// Use it in a pipeline
 manipulate(source)
   .apply(grayscale())
   .apply(tint(30))
   .toImageData();
 ```
 
-Use `sourceData` on `PixelContext` for neighbour-dependent effects (blur, edge
-detection, etc.) — it always points to the original unmodified data for the
-current pass.
+Use `sourceData` on `PixelContext` for neighbour-dependent effects
+(blur, edge detection, etc.) — it always points to the original unmodified data
+for the current pass.
 
-## Workflow presets
+## Workflow Presets
 
-The built-in UI includes 9 pre-configured multi-step workflows. Selecting a
-preset and clicking **Load Workflow** populates the workflow editor with all
-steps and their tuned arguments — no manual assembly required.
+The built-in UI includes 9 pre-configured multi-step workflows.
+Selecting a preset and clicking **Load Workflow** populates the workflow editor
+with all steps and their tuned arguments.
 
 | Preset           | Steps                                      |
 | ---------------- | ------------------------------------------ |
@@ -171,10 +172,9 @@ steps and their tuned arguments — no manual assembly required.
 | High Contrast    | contrast(2.5) → saturate(1.6)              |
 | Edge Ink         | grayscale → energyMap                      |
 
-Once loaded, steps can be reordered, removed, or tuned via sliders before
-executing.
+Once loaded, steps can be reordered, removed, or tuned via sliders before executing.
 
-## React component
+## React Component
 
 ```tsx
 import { ImageManipulator } from "@repo/image-manipulator";

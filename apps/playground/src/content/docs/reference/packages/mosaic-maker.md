@@ -69,15 +69,21 @@ core/
 
 ## Initialization
 
-When `MosaicDisplay` mounts, two independent effects fire:
+When `MosaicDisplay` mounts, two independent effects fire.
 
 ### 1. Palette fetch (one-shot)
 
-`initMosaicPalettes()` checks localStorage cache (`"palettes"`, v2, 7-day TTL). On miss: fetches `unpkg.com/nice-color-palettes@3.0.0/1000.json` → Zod validates → transforms to `--color-N` CSS var map → caches → sets store. On hit: returns cached. The UI renders immediately with a grayscale fallback; the palette swap happens asynchronously.
+`initMosaicPalettes()` checks localStorage cache (`"palettes"`, v2, 7-day TTL).
+On miss: fetches `unpkg.com/nice-color-palettes@3.0.0/1000.json` → Zod validates
+→ transforms to `--color-N` CSS var map → caches → sets store.
+On hit: returns cached.
+The UI renders immediately with a grayscale fallback; the palette swap happens asynchronously.
 
 ### 2. Resize + tile generation (continuous)
 
-`useResizeObserver` binds a `ResizeObserver` to the mosaic `<div>`. Dimension changes pass through a 150ms debounce, then call `setMosaicRef()` which persists the ref and triggers `regenerateMosaicTiles()`.
+`useResizeObserver` binds a `ResizeObserver` to the mosaic `<div>`.
+Dimension changes pass through a 150ms debounce, then call `setMosaicRef()`
+which persists the ref and triggers `regenerateMosaicTiles()`.
 
 ```
 dimensions change
@@ -110,7 +116,10 @@ tilesPerColumn = Math.floor((height + gap) / (tileSize + gap));
 return tilesPerRow * tilesPerColumn;
 ```
 
-Derivation: `n` tiles × `tileSize` + `(n - 1)` gaps ≤ `width` → `n × (tileSize + gap) ≤ width + gap`. The `+ gap` in the numerator accounts for the last tile having no trailing gap. The grid's CSS declaration `grid-template-columns: repeat(auto-fill, var(--tile-size))` uses the same arithmetic, so JS count and CSS grid always agree.
+Derivation: `n` tiles × `tileSize` + `(n - 1)` gaps ≤ `width` → `n × (tileSize + gap) ≤ width + gap`.
+The `+ gap` in the numerator accounts for the last tile having no trailing gap.
+The grid's CSS declaration `grid-template-columns: repeat(auto-fill, var(--tile-size))`
+uses the same arithmetic, so JS count and CSS grid always agree.
 
 ## Tile System
 
@@ -138,7 +147,8 @@ Each tile instance gets:
 
 ### Renderer (`Tile.tsx`)
 
-Looks up `name` in registry → renders SVG primitives with `fill: var(--color-N)` and CSS transitions → applies rotation via `transform: rotate(var(--rotation-N))`.
+Looks up `name` in registry → renders SVG primitives with `fill: var(--color-N)`
+and CSS transitions → applies rotation via `transform: rotate(var(--rotation-N))`.
 
 ## Palette System
 
@@ -167,13 +177,14 @@ type Palette = {
 
 ### Cycling
 
-`cycleMosaicPalettes()` slides a window of 33 over `paletteStock`. When it reaches the end it wraps to 0.
+`cycleMosaicPalettes()` slides a window of 33 over `paletteStock`.
+When it reaches the end it wraps to 0.
 
 ## State Management
 
-Uses Zustand with an unexported store. Consumers interact only through exported getter hooks and setter functions.
+Uses Zustand with an unexported store. Consumers interact only through exported
+getter hooks and setter functions.
 
-**State shape:**
 ```ts
 type MosaicState = {
   mosaicRef:            RefObject<HTMLDivElement | null>;
@@ -186,7 +197,8 @@ type MosaicState = {
 };
 ```
 
-Fine-grained Zustand selectors (`useMosaicTiles`, etc.) isolate re-renders — sidebar controls don't repaint on tile regeneration and vice versa.
+Fine-grained Zustand selectors (`useMosaicTiles`, etc.) isolate re-renders —
+sidebar controls don't repaint on tile regeneration and vice versa.
 
 ## CSS Strategy
 
@@ -199,7 +211,10 @@ Fine-grained Zustand selectors (`useMosaicTiles`, etc.) isolate re-renders — s
 | Grid | `grid-template-columns: repeat(auto-fill, var(--tile-size))` |
 | Theme | Tailwind v4 with gruvbox theme from `@repo/ui` |
 
-High-frequency updates (slider drags) write CSS custom properties directly via `style.setProperty()` — no React re-render. Palette changes use `updateElementStyles()` to batch-set all `--color-N` vars at once. SVG shapes use `transition-all duration-500` for smooth cross-fades.
+High-frequency updates (slider drags) write CSS custom properties directly via
+`style.setProperty()` — no React re-render. Palette changes use
+`updateElementStyles()` to batch-set all `--color-N` vars at once.
+SVG shapes use `transition-all duration-500` for smooth cross-fades.
 
 ## Performance
 
@@ -212,14 +227,21 @@ High-frequency updates (slider drags) write CSS custom properties directly via `
 | **Zustand isolation** | Per-slice selectors prevent cascade re-renders |
 | **Slider updates** | Direct DOM — no React overhead during drag |
 
-## Notable Patterns & Gotchas
+## Patterns & Gotchas
 
-- **`setMosaicRef` doubles as regeneration trigger** — persists the ref **and** calls `regenerateMosaicTiles()` internally.
-- **`shuffleObject`** preserves insertion order of keys but shuffles values. Used for both color and rotation shuffling.
-- **`getPaletteId`** sorts hex values alphabetically and joins with `-` for order-independent palette comparison.
-- **Palette fetch is fire-and-forget** — UI mounts with grayscale fallback; palette loads asynchronously causing a brief grayscale flash on first load.
-- **Identity instability** — tile IDs use random suffixes (`${i}-${randomStr}`), preventing React reconciliation across regenerations. Stable property-derived IDs would fix this but add complexity.
-- **Dev-mode double fire** — React StrictMode unmounts and remounts every component. Init chain runs twice in development.
+- **`setMosaicRef` doubles as regeneration trigger** — persists the ref **and**
+  calls `regenerateMosaicTiles()` internally.
+- **`shuffleObject`** preserves insertion order of keys but shuffles values.
+  Used for both color and rotation shuffling.
+- **`getPaletteId`** sorts hex values alphabetically and joins with `-` for
+  order-independent palette comparison.
+- **Palette fetch is fire-and-forget** — UI mounts with grayscale fallback;
+  palette loads asynchronously causing a brief grayscale flash on first load.
+- **Identity instability** — tile IDs use random suffixes (`${i}-${randomStr}`),
+  preventing React reconciliation across regenerations. Stable property-derived
+  IDs would fix this but add complexity.
+- **Dev-mode double fire** — React StrictMode unmounts and remounts every
+  component. Init chain runs twice in development.
 
 ---
 

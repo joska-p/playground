@@ -1,3 +1,13 @@
+---
+title: "Radu Machine Learning"
+description: "Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration."
+category: "reference"
+tags:
+  - reference
+  - radu-machine-learning
+order: 20
+---
+
 # @repo/radu-machine-learning
 
 > Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration.
@@ -66,3 +76,4 @@ No state management library. Data is loaded from the bundled `sampleData.json` a
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+

@@ -1,3 +1,13 @@
+---
+title: "Image Pipeline"
+description: "TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies."
+category: "reference"
+tags:
+  - reference
+  - image-pipeline
+order: 20
+---
+
 # @repo/image-pipeline
 
 > TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.
@@ -148,3 +158,4 @@ Returns `null` while processing. Cancellation-safe — aborts on unmount or depe
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+

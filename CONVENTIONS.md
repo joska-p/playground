@@ -157,11 +157,15 @@ Two rules cover every file:
 
 - Each package's `README.md` is the **source of truth** for its documentation.
 - READMEs must document both **consumer usage** (API, examples) and **contributor internals** (architecture, rationale, gotchas).
-- After updating a package README, sync it to the Astro docs site:
+- After updating a package README, sync it to the Astro docs site by running from repo root:
   ```bash
-  node scripts/sync-package-readmes.mjs
+  pnpm --filter @repo/playground sync-package-docs
   ```
-  This script copies each `packages/*/README.md` into `apps/playground/src/content/docs/reference/packages/*.md` as an Astro content collection entry.
+  The script **overwrites** `apps/playground/src/content/docs/reference/packages/<name>.md` with the README content wrapped in Astro frontmatter. The README is the single source of truth — do not edit reference docs directly.
+- To remove reference docs whose source package is gone, append `--prune`:
+  ```bash
+  pnpm --filter @repo/playground sync-package-docs -- --prune
+  ```
 
 ## General rules
 

@@ -1,6 +1,6 @@
 ---
 title: "Sequence Renderer"
-description: "Visualize mathematical sequences—Recamán, Fibonacci, and more."
+description: "Visualize mathematical sequences — Recamán, Fibonacci, and more."
 category: "reference"
 tags:
   - reference
@@ -10,11 +10,9 @@ order: 20
 
 # @repo/sequence-renderer
 
-> Visualize mathematical sequences—Recamán, Fibonacci, and more.
+> Visualize mathematical sequences — Recamán, Fibonacci, and more.
 
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 pnpm add @repo/sequence-renderer
@@ -28,15 +26,15 @@ export default function MyViz() {
 }
 ```
 
-## 🏗️ Core Philosophy
+## Core Philosophy
 
 Decouple **generation** from **visualization**:
 
-1.  **Rules** — Define sequences via `getNext()` function in `src/core/rules.ts`.
-2.  **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
-3.  **Zustand Store** — State management (`sequenceStore`).
+1. **Rules** — Define sequences via `getNext()` in `src/core/rules.ts`.
+2. **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
+3. **Zustand Store** — State management (`sequenceStore`).
 
-## 🧮 Available Sequences
+## Available Sequences
 
 | Sequence       | Rule                       | Description           |
 | :------------- | :------------------------- | :-------------------- |
@@ -46,12 +44,11 @@ Decouple **generation** from **visualization**:
 | **Triangular** | 1, 3, 6, 10, 15...         | Triangle numbers      |
 | **Collatz**    | Even: n/2, Odd: 3n+1       | The 3n+1 problem      |
 
-## 🎨 Visualization System
+## Visualization System
 
 Visualizations are pluggable renderers:
 
 ```typescript
-// recaman-arcs.ts
 export const recamanArcs = {
   id: "recaman-arcs",
   name: "Recamán Arcs",
@@ -61,7 +58,7 @@ export const recamanArcs = {
 };
 ```
 
-## 💾 State & Actions
+## State & Actions
 
 ```typescript
 const sequenceRule = useSequenceRule();
@@ -76,22 +73,18 @@ const sequence = useSequenceSequence();
 | `setSteps(n)`            | Change step count    |
 | `setVisualizationId(id)` | Switch visualization |
 
-## 🔄 Data Flow
+## Data Flow
 
 `User changes` → `Store updates` → `Sequence recalculates` → `Canvas renders`
 
----
+## How to Add a New Sequence
 
-## ➕ Add a New Sequence
+1. Define in `src/core/rules.ts` by adding a `SequenceRule` object.
+2. Add to the rules array — it will automatically appear in the UI.
 
-1.  Define in `src/core/rules.ts` by adding a `SequenceRule` object.
-2.  Add to the rules array—it will automatically appear in UI.
+## How to Add a New Visualization
 
----
-
-## 🚀 How to Add a New Visualization
-
-### Step 1: Create the Visualization
+### Step 1: Create the visualization
 
 Create a new file in `src/core/visualizations/` (e.g., `my-viz.ts`):
 
@@ -103,8 +96,6 @@ export const myViz: Visualization = {
   name: "My Awesome Visualization",
   draw: (ctx, sequence, bounds) => {
     const { width, height } = bounds;
-
-    // Your drawing logic here
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, 50, 0, Math.PI * 2);
     ctx.fill();
@@ -112,7 +103,7 @@ export const myViz: Visualization = {
 };
 ```
 
-### Step 2: Register It
+### Step 2: Register it
 
 Import and add your visualization to the registry in `src/core/visualizations/index.ts`:
 
@@ -127,13 +118,11 @@ export const visualizations: Visualization[] = [
 
 ### Step 3: Drawing API
 
-#### Canvas Context
-
 - `ctx`: `CanvasRenderingContext2D`
 - `sequence`: `number[]`
 - `bounds`: `{ width: number, height: number }`
 
-#### Common Patterns
+#### Common patterns
 
 - **Lines**: `ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();`
 - **Circles**: `ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();`

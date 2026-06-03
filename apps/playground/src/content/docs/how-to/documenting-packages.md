@@ -1,6 +1,6 @@
 ---
 title: "Documenting a Package"
-description: "How to write package-level documentation that works on GitHub and the Astro site."
+description: "How to write package documentation — the README is the single source of truth."
 category: "how-to"
 tags:
   - how-to
@@ -8,17 +8,19 @@ tags:
 
 # Documenting a Package
 
-Every package in this repo has two documentation surfaces: a thin README on GitHub/npm and a deep reference doc on the Astro site. This guide walks through the process end-to-end.
+Every package's `README.md` is the **single source of truth** for its documentation.
+It covers everything — consumer API, architecture, internals, gotchas.
+The Astro site renders it automatically via the sync script.
 
 ## Before You Start
 
 The package should already be scaffolded. See [Scaffolding Packages](./scaffolding-packages/) if it isn't.
 
-## 1. Write the Thin README
+## 1. Write the README
 
-The `README.md` at the package root is for **GitHub/npm browsing context** — identity, install, minimal usage, and a link to the full docs online.
+The README lives at `packages/<name>/README.md`. It documents both **consumer usage** and **contributor internals**.
 
-Template:
+### Template
 
 ```markdown
 # @repo/<name>
@@ -27,57 +29,75 @@ Template:
 
 ## Quick Start
 
-```bash
+\`\`\`bash
 pnpm add @repo/<name>
-```
+\`\`\`
 
-```tsx
-import { Component } from "@repo/<name>/Component";
+\`\`\`tsx
+import { Component } from "@repo/<name>";
 
 export default function Example() {
   return <Component />;
 }
-```
+\`\`\`
+
+## Exports
+
+| Export | Path | Description |
+|--------|------|-------------|
+
+## Architecture
+
+Component tree, data flow, directory structure.
+
+## Usage Examples
+
+Longer contextual examples showing how the package is used in practice.
+
+## Patterns & Gotchas
+
+Key design decisions, edge cases, pitfalls to avoid.
+
+## State Management (if applicable)
+
+Store shape, actions, selectors.
+
+## CSS Strategy (if applicable)
+
+How styling works — CSS variables, Tailwind, theme tokens.
+
+## Performance (if applicable)
+
+Rendering considerations, memoization, debouncing.
 
 ---
-
-Full reference: [/docs/reference/packages/<name>/](/docs/reference/packages/<name>/)
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
 ```
 
-The README should be **15–25 lines** at most. No architecture diagrams, no API tables, no state management internals — those go in the reference doc on the site.
+Adapt the sections to what the package actually needs. Some packages may not need State Management, CSS Strategy, or Performance sections — omit them.
 
-## 2. Bootstrap the Reference Doc
+### Style guidelines
 
-Run the sync script to generate an initial reference doc from the README:
+- Start with a `> ` tagline — the sync script uses it for the frontmatter `description` field.
+- Use tables for API exports (name, path, description).
+- Use ASCII diagrams or Markdown code blocks for architecture, not images.
+- Named exports only (matches project convention).
+- No emojis in section headings.
+
+## 2. Sync to the Astro Site
+
+Run from repo root:
 
 ```bash
 pnpm --filter @repo/playground sync-package-docs
 ```
 
-This creates `src/content/docs/reference/packages/<name>.md` with frontmatter and the README content.
-The file appears automatically in the docs sidebar (under **Reference → Packages**) and on the [docs index](/docs/).
+This copies the README into `src/content/docs/reference/packages/<name>.md`, wrapping it in frontmatter. The doc appears automatically in the sidebar under **Reference → Packages** and on the [docs index](/docs/).
 
-## 3. Curate the Reference Doc
+**The sync script overwrites the reference doc.** Never edit `reference/packages/*.md` directly — all changes go in the README.
 
-Open the generated file at `src/content/docs/reference/packages/<name>.md` and add depth:
-
-- **Architecture** — how the package is structured (component tree, data flow)
-- **API reference** — exported components, hooks, utilities, with signatures
-- **Key patterns** — state management approach, CSS strategy, gotchas
-- **Usage examples** — longer, contextual examples beyond the README snippet
-
-The reference doc is the canonical home for everything that doesn't fit in the thin README. It can use MDX for interactive components (see [`design-tokens.mdx`](/docs/reference/design-tokens/) for an example).
-
-## 4. Link from Related Docs
-
-If the package is referenced by an existing explanation, how-to, or tutorial, add a link:
-
-- **Explanation**: add a "Package Reference" paragraph that points to the new reference doc
-- **How-to guides**: if the package is a prerequisite, mention it early and link
-
-## 5. Verify
+## 3. Verify
 
 ```bash
 pnpm --filter @repo/playground build
@@ -86,18 +106,30 @@ pnpm --filter @repo/playground check-types
 ```
 
 Check that:
-- The new reference doc appears in the sidebar under **Reference**
-- The README renders cleanly on GitHub (no broken relative links)
-- Links between the README and the reference doc resolve correctly
-
----
+- The doc appears in the sidebar under **Reference**
+- The README renders cleanly on GitHub
+- No broken internal links
 
 ## Maintenance
 
 When the package's API or architecture changes:
 
-1. Update the README (keep it thin — update the link, one-liner, or usage snippet)
-2. Update the reference doc with the deeper changes
-3. **Do not** duplicate content — if something belongs in the README, don't also write it in the reference doc, and vice versa
+1. Update the `README.md`.
+2. Re-run the sync script.
 
-The sync script (`sync-package-docs`) is available if you ever want to re-bootstrap from the README, but it overwrites any manual curation. Use it as a one-time bootstrap, not a regular update step.
+That's it. One file to maintain, one command to publish.
+
+### Pruning stale docs
+
+If a package is removed from the repo, its reference doc becomes orphaned.
+Clean it up:
+
+```bash
+pnpm --filter @repo/playground sync-package-docs -- --prune
+```
+
+### Adding a new package
+
+1. Create `packages/<name>/README.md` following the template above.
+2. Run the sync script — it detects new READMEs automatically.
+3. If the package needs a custom display name in the sidebar title, add an entry to the `PACKAGE_NAMES` map in `scripts/sync-package-readmes.mjs`.

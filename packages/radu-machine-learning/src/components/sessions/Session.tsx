@@ -1,5 +1,5 @@
-import { Drawing } from "./Drawing.tsx";
 import type { Paths } from "../../core/drawing.types.ts";
+import { Drawing } from "./Drawing.tsx";
 
 type SessionProps = {
   drawings: Record<string, Paths>;

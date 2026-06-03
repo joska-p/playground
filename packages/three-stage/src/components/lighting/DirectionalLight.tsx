@@ -1,7 +1,7 @@
-import { folder, useControls } from "leva";
 import { useHelper } from "@react-three/drei";
-import { DirectionalLightHelper } from "three";
+import { folder, useControls } from "leva";
 import { useRef } from "react";
+import { DirectionalLightHelper } from "three";
 
 export function DirectionalLight() {
   const light = useRef(null!);

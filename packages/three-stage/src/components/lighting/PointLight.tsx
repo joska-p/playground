@@ -1,7 +1,7 @@
-import { folder, useControls } from "leva";
 import { useHelper } from "@react-three/drei";
-import { PointLightHelper } from "three";
+import { folder, useControls } from "leva";
 import { useRef } from "react";
+import { PointLightHelper } from "three";
 
 export function PointLight() {
   const light = useRef(null!);
