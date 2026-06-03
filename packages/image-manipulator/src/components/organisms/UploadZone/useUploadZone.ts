@@ -1,10 +1,8 @@
 import { useCallback, useRef, useState } from "react";
-import { useImageUpload } from "../../hooks/useImageUpload";
-import { usePipelineFileName, usePipelineImageSource } from "../../store/pipelineStore";
-import { UploadDropzone } from "../molecules/UploadDropzone";
-import { UploadedPreview } from "../molecules/UploadedPreview";
+import { useImageUpload } from "../../../hooks/useImageUpload";
+import { usePipelineFileName, usePipelineImageSource } from "../../../store/pipelineStore";
 
-function UploadZone() {
+export function useUploadZone() {
   const { handleImageUpload, handleFileDrop, clearImage } = useImageUpload();
   const imageSource = usePipelineImageSource();
   const fileName = usePipelineFileName();
@@ -52,22 +50,17 @@ function UploadZone() {
     [handleFileDrop]
   );
 
-  if (imageSource) {
-    return <UploadedPreview imageSource={imageSource} fileName={fileName} onClear={clearImage} />;
-  }
-
-  return (
-    <UploadDropzone
-      isDragging={isDragging}
-      onClick={handleClick}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-      inputRef={inputRef}
-      onFileChange={handleImageUpload}
-    />
-  );
+  return {
+    imageSource,
+    fileName,
+    isDragging,
+    inputRef,
+    handleClick,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    handleImageUpload,
+    clearImage,
+  };
 }
-
-export { UploadZone };

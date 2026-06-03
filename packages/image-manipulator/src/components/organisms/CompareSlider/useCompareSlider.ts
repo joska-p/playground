@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { renderCompareSlider } from "./compareSliderRenderer";
 
-type CompareSliderProps = {
+type UseCompareSliderArgs = {
   source: ImageData;
   result: ImageData;
 };
 
-function CompareSlider({ source, result }: CompareSliderProps) {
+export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [sliderPos, setSliderPos] = useState(50);
   const isDragging = useRef(false);
+
   const offscreenRef = useRef<{ source: HTMLCanvasElement; result: HTMLCanvasElement } | null>(
     null
   );
@@ -45,36 +47,15 @@ function CompareSlider({ source, result }: CompareSliderProps) {
     if (!ctx) return;
     if (!offscreenRef.current) return;
     const { source: srcCanvas, result: resCanvas } = offscreenRef.current;
-    if (!srcCanvas || !resCanvas) return;
 
-    const sliderX = (sliderPos / 100) * width;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    ctx.drawImage(resCanvas, 0, 0);
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(0, 0, sliderX, height);
-    ctx.clip();
-    ctx.drawImage(srcCanvas, 0, 0);
-    ctx.restore();
-
-    ctx.beginPath();
-    ctx.moveTo(sliderX, 0);
-    ctx.lineTo(sliderX, height);
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(sliderX, height / 2, 10, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffffff";
-    ctx.fill();
-    ctx.strokeStyle = "#1d2021";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    renderCompareSlider({
+      ctx,
+      srcCanvas,
+      resCanvas,
+      sliderPos,
+      width,
+      height,
+    });
   }, [source, result, sliderPos, width, height]);
 
   const updateSliderPosition = useCallback((clientX: number) => {
@@ -95,6 +76,26 @@ function CompareSlider({ source, result }: CompareSliderProps) {
     [updateSliderPosition]
   );
 
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      isDragging.current = true;
+      updateSliderPosition(e.touches[0].clientX);
+    },
+    [updateSliderPosition]
+  );
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!isDragging.current) return;
+      updateSliderPosition(e.touches[0].clientX);
+    },
+    [updateSliderPosition]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    isDragging.current = false;
+  }, []);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging.current) return;
@@ -111,32 +112,14 @@ function CompareSlider({ source, result }: CompareSliderProps) {
     };
   }, [updateSliderPosition]);
 
-  return (
-    <div
-      ref={containerRef}
-      className="relative mx-auto select-none overflow-hidden rounded-lg"
-      style={{
-        width: "100%",
-        maxWidth: width,
-        aspectRatio: `${width} / ${height}`,
-        cursor: "ew-resize",
-      }}
-      onMouseDown={handleMouseDown}
-      onTouchStart={(e) => {
-        isDragging.current = true;
-        updateSliderPosition(e.touches[0].clientX);
-      }}
-      onTouchMove={(e) => {
-        if (!isDragging.current) return;
-        updateSliderPosition(e.touches[0].clientX);
-      }}
-      onTouchEnd={() => {
-        isDragging.current = false;
-      }}
-    >
-      <canvas ref={canvasRef} className="h-full w-full" />
-    </div>
-  );
+  return {
+    containerRef,
+    canvasRef,
+    width,
+    height,
+    handleMouseDown,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+  };
 }
-
-export { CompareSlider };
