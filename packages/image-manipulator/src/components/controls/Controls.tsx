@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useWorkflow } from "../../store/workflowStore";
-import { ControlSection } from "./sections/ControlSection";
 import { ImageSourceControls } from "./ImageSourceControls";
 import { ManipulationSelector } from "./ManipulationSelector";
 import { PresetSelector } from "./PresetSelector";
+import { ControlSection } from "./sections/ControlSection";
 import { WorkflowControls } from "./WorkflowControls";
 
 type Section = "source" | "presets" | "manipulations" | "workflow";
@@ -11,7 +11,7 @@ type Section = "source" | "presets" | "manipulations" | "workflow";
 function Controls() {
   const workflow = useWorkflow();
   const [openSection, setOpenSection] = useState<Section | null>(
-    workflow.length > 0 ? "workflow" : "source",
+    workflow.length > 0 ? "workflow" : "source"
   );
 
   function toggleSection(section: Section) {

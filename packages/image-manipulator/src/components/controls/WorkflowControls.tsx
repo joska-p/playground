@@ -45,11 +45,7 @@ function WorkflowControls() {
       <Button isLoading={isProcessing} onClick={() => executeWorkflow()}>
         Execute workflow
       </Button>
-      <Button
-        variant="outline"
-        isLoading={isProcessing}
-        onClick={() => clearWorkflow()}
-      >
+      <Button variant="outline" isLoading={isProcessing} onClick={() => clearWorkflow()}>
         Clear Workflow
       </Button>
     </>

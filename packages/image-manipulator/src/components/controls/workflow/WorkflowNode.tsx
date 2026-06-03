@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Button } from "@repo/ui/Button";
+import { useState } from "react";
 import type { ArgDefinition } from "../../../core/manipulations/manipulations";
 import type { WorkflowStep } from "../../../store/workflowStore";
 import {
@@ -28,9 +28,7 @@ function WorkflowNode({ step, index, isFirst, isLast, name, argDefinitions }: Wo
           {index + 1}
         </span>
 
-        <span className="text-sm font-medium flex-1 truncate">
-          {name}
-        </span>
+        <span className="text-sm font-medium flex-1 truncate">{name}</span>
 
         {argDefinitions.length > 0 && (
           <button

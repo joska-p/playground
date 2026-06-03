@@ -47,9 +47,7 @@ function Workflow({ steps }: WorkflowProps) {
           <path d="M12 12 12 22" />
           <circle cx="12" cy="12" r="10" />
         </svg>
-        <p className="text-muted-foreground text-sm">
-          Add manipulations to build your pipeline
-        </p>
+        <p className="text-muted-foreground text-sm">Add manipulations to build your pipeline</p>
       </div>
     );
   }

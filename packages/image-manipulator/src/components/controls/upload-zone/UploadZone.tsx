@@ -67,7 +67,7 @@ function UploadZone() {
       const file = e.dataTransfer.files?.[0];
       if (file) handleFileDrop(file);
     },
-    [handleFileDrop],
+    [handleFileDrop]
   );
 
   if (imageSource) {
@@ -92,7 +92,13 @@ function UploadZone() {
             {imageSource.imageData.width} × {imageSource.imageData.height}
           </p>
         </div>
-        <Button variant="ghost" size="icon" onClick={clearImage} aria-label="Remove image" className="shrink-0">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={clearImage}
+          aria-label="Remove image"
+          className="shrink-0"
+        >
           <svg
             className="h-4 w-4"
             viewBox="0 0 24 24"
@@ -126,16 +132,13 @@ function UploadZone() {
         "border-2 border-dashed rounded-lg px-4 py-6 text-center cursor-pointer transition-all",
         isDragging
           ? "border-primary bg-primary/10"
-          : "border-border hover:border-primary/50 hover:bg-primary/5",
+          : "border-border hover:border-primary/50 hover:bg-primary/5"
       )}
     >
       <input ref={inputRef} type="file" accept="image/*" onChange={handleImageUpload} hidden />
       <UploadIcon />
       <p
-        className={cn(
-          "text-sm font-medium",
-          isDragging ? "text-primary" : "text-muted-foreground",
-        )}
+        className={cn("text-sm font-medium", isDragging ? "text-primary" : "text-muted-foreground")}
       >
         {isDragging ? "Drop to upload" : "Drop image here or click to browse"}
       </p>

@@ -6,7 +6,12 @@ function ImageSourceControls() {
   return (
     <div className="flex flex-col gap-2">
       <UploadZone />
-      <Button variant="ghost" size="small" onClick={() => clearPipelineOutputs()} className="self-end">
+      <Button
+        variant="ghost"
+        size="small"
+        onClick={() => clearPipelineOutputs()}
+        className="self-end"
+      >
         Clear Outputs
       </Button>
     </div>
