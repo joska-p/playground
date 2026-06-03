@@ -1,10 +1,10 @@
 import { useSourceImage } from "../../hooks/useSourceImage";
-import { useManipulatorOutputs } from "../../store/manipulatorStore";
+import { usePipelineOutputs } from "../../store/pipelineStore";
 import { OutputCard } from "./OutputCard";
 
 function Outputs() {
   useSourceImage();
-  const outputs = useManipulatorOutputs();
+  const outputs = usePipelineOutputs();
 
   if (outputs.length === 0) {
     return (

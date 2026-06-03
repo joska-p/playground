@@ -55,5 +55,5 @@ export async function runPipeline({
     snapshots.push(manager.snapshot());
   }
 
-  return [source, ...snapshots];
+  return snapshots;
 }

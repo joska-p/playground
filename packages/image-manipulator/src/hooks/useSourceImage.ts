@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { imageElementToImageData } from "../core/imageData";
-import type { OutputType } from "../store/manipulatorStore";
-import { addToManipulatorOutputs, useManipulatorImageFile } from "../store/manipulatorStore";
+import type { OutputType } from "../store/pipelineStore";
+import { addToPipelineOutputs, usePipelineImageFile } from "../store/pipelineStore";
 
 function useSourceImage() {
-  const imageFile = useManipulatorImageFile();
+  const imageFile = usePipelineImageFile();
 
   useEffect(() => {
     if (!imageFile) return;
@@ -23,7 +23,7 @@ function useSourceImage() {
           description: "image source",
           imageData: imageElementToImageData(image),
         };
-        addToManipulatorOutputs(sourceImage);
+        addToPipelineOutputs(sourceImage);
       } catch (e) {
         console.error("Failed to process image data:", e);
       }

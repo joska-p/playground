@@ -294,7 +294,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           available automatically — no registry setup needed.
         </p>
         <CodeBlock
-          code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "edge-detect" },\n  ]\n});\n\n// result[0]       → source ImageData\n// result.at(-1)   → final ImageData`}
+          code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "edge-detect" },\n  ]\n});\n\n// result[0]       → first step\n// result.at(-1)   → final result`}
         />
       </div>
 
@@ -306,7 +306,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           Synchronous, chainable builder. Runs on whichever thread you call it from.
         </p>
         <CodeBlock
-          code={`import { Pipeline } from "@repo/image-pipeline/core/pipeline";\n\nconst result = await Pipeline.from(sourceImageData, { maximumPixels: 16_000_000 })\n  .resize({ width: 800 })\n  .add("grayscale")\n  .snapshot()\n  .add("gaussian-blur", { radius: 3 })\n  .run();\n\n// result[0]       → original ImageData\n// result[1]       → grayscale mid-pipeline\n// result.at(-1)   → blurred grayscale`}
+          code={`import { Pipeline } from "@repo/image-pipeline/core/pipeline";\n\nconst result = await Pipeline.from(sourceImageData, { maximumPixels: 16_000_000 })\n  .resize({ width: 800 })\n  .add("grayscale")\n  .snapshot()\n  .add("gaussian-blur", { radius: 3 })\n  .run();\n\n// result[0]       → resized + grayscale\n// result[1]       → grayscale mid-pipeline\n// result.at(-1)   → blurred grayscale`}
         />
       </div>
 

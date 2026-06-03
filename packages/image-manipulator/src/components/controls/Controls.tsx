@@ -8,19 +8,19 @@ import { manipulations, manipulationsIds } from "../../core/manipulations/manipu
 import { WORKFLOW_PRESETS } from "../../core/workflows/workflows";
 import { useImageUpload } from "../../hooks/useImageUpload";
 import {
-  addToManipulatorOutputs,
-  clearManipulatorOutputs,
-  setManipulatorManipulationId,
-  useManipulatorManipulationId,
-  useManipulatorOutputs,
-} from "../../store/manipulatorStore";
+  clearPipelineOutputs,
+  setPipelineManipulationId,
+  setPipelineResults,
+  usePipelineManipulationId,
+  usePipelineOutputs,
+} from "../../store/pipelineStore";
 import { addToWorkflow, clearWorkflow, setWorkflow, useWorkflow } from "../../store/workflowStore";
 import { Workflow } from "./workflow/Workflow";
 
 function Controls() {
-  const outputs = useManipulatorOutputs();
+  const outputs = usePipelineOutputs();
   const sourceImage = outputs[0];
-  const manipulationId = useManipulatorManipulationId();
+  const manipulationId = usePipelineManipulationId();
   const workflow = useWorkflow();
   const [selectedPreset, setSelectedPreset] = useState(0);
   const { handleImageUpload } = useImageUpload();
@@ -42,18 +42,14 @@ function Controls() {
         steps: workflow.map((step) => ({ id: step.id, options: step.options })),
       });
 
-      clearManipulatorOutputs();
-
-      results.forEach((imageData, i) => {
-        if (i === 0) return;
-        addToManipulatorOutputs({
-          id: `step-${i}`,
-          name: `Step ${i}`,
-          description: workflow[i - 1].id,
-          // workflow[i - 1] The first output is the source image. There is 1 workflow step less than outputs
+      setPipelineResults(
+        results.map((imageData, i) => ({
+          id: `step-${i + 1}`,
+          name: `Step ${i + 1}`,
+          description: workflow[i].id,
           imageData,
-        });
-      });
+        }))
+      );
     } catch (err) {
       console.error("Pipeline execution failed:", err);
     } finally {
@@ -64,7 +60,7 @@ function Controls() {
   return (
     <div className="grid md:grid-cols-2 p-2 gap-x-2 gap-y-4 justify-center items-end max-w-[40ch]">
       <Input type="file" accept="image/*" onChange={handleImageUpload} label="upload an image" />
-      <Button variant="outline" onClick={() => clearManipulatorOutputs()}>
+      <Button variant="outline" onClick={() => clearPipelineOutputs()}>
         Clear Outputs
       </Button>
 
@@ -89,7 +85,7 @@ function Controls() {
       <Select
         variant="primary"
         value={manipulationId}
-        onChange={(e) => setManipulatorManipulationId(e.target.value as ManipulationId)}
+        onChange={(e) => setPipelineManipulationId(e.target.value as ManipulationId)}
         className="flex-1"
         label="Manipulation"
       >

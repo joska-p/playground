@@ -1,4 +1,4 @@
-import { setManipulatorImageFile } from "../store/manipulatorStore";
+import { setPipelineImageFile } from "../store/pipelineStore";
 
 type UseImageUploadReturn = {
   handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,7 +11,7 @@ function useImageUpload(): UseImageUploadReturn {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      setManipulatorImageFile(e.target?.result as string);
+      setPipelineImageFile(e.target?.result as string);
     };
     reader.readAsDataURL(file);
   }

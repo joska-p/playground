@@ -1,4 +1,4 @@
-import type { OutputType } from "../../store/manipulatorStore";
+import type { OutputType } from "../../store/pipelineStore";
 import { Output } from "./Output";
 
 type OutputCardProps = {

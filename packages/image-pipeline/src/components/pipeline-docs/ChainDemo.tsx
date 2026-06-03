@@ -35,7 +35,7 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
           </div>
         ) : (
           <div className="flex gap-2 flex-wrap">
-            {pipelineResult?.slice(1).map((imageData, i) => (
+            {pipelineResult?.map((imageData, i) => (
               <img
                 key={i}
                 src={imageDataToUrl(imageData)}

@@ -23,10 +23,11 @@ import { runPipeline, Registry } from "@repo/image-pipeline";
 import { ALL_MANIPULATIONS } from "@repo/image-pipeline/manipulations";
 
 const registry = Registry.from(ALL_MANIPULATIONS);
-const [source, result] = await runPipeline(imageData, [
+const snapshots = await runPipeline(imageData, [
   { id: "grayscale" },
   { id: "brightness", options: { factor: 1.3 } },
 ], { registry });
+// snapshots[0] = grayscale result, snapshots[1] = brightness result
 ```
 
 ## Architecture
@@ -43,7 +44,7 @@ runPipeline(source, steps, context)
        ├─ neighborhood → flush scheduler → run convolution
        │                   └─ Tiling for large images (512×512 tiles + halo)
        └─ whole       → flush scheduler → run transform function
-            └─ Return: [source, ...step snapshots]
+            └─ Return: step snapshots (source excluded — caller manages it)
 ```
 
 ## Step Types
@@ -120,7 +121,7 @@ The `PipelineGateway` manages a pool of Web Workers for off-thread execution:
 import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
 
 // Automatically uses up to navigator.hardwareConcurrency workers
-const result = await pipelineGateway.run(imageData, steps);
+const result = await pipelineGateway.run({ sourceImageData: imageData, steps });
 ```
 
 - Lazy-creates up to `min(hardwareConcurrency, 4)` workers
@@ -149,7 +150,7 @@ function Editor({ source }: { source: ImageData | null }) {
   const steps = [{ id: "grayscale" }, { id: "sharpen" }];
   const result = usePipeline(source, steps); // ImageData[] | null
 
-  return <img src={imageDataToUrl(result?.[1])} />;
+  return <img src={imageDataToUrl(result?.[0])} />;
 }
 ```
 
