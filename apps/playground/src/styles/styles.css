@@ -15,6 +15,7 @@
 @source "../../node_modules/@repo/sequence-renderer";
 @source "../../node_modules/@repo/image-manipulator";
 @source "../../node_modules/@repo/image-pipeline";
+@source "../../node_modules/@repo/three-stage";
 
 @view-transition {
   navigation: auto;

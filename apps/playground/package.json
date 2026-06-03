@@ -27,6 +27,7 @@
     "@repo/mosaic-maker": "workspace:*",
     "@repo/palette-generator": "workspace:*",
     "@repo/sequence-renderer": "workspace:*",
+    "@repo/three-stage": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
     "astro": "^6.3.7",

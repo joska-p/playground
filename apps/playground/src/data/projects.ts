@@ -1,4 +1,5 @@
 import {
+  Box,
   Flame,
   Grid,
   Grid3X3,
@@ -12,7 +13,7 @@ import type { ComponentType } from "react";
 /**
  * Project categories
  */
-export type Category = "generative" | "color" | "image" | "data-viz";
+export type Category = "generative" | "color" | "image" | "data-viz" | "random";
 
 /**
  * Category metadata
@@ -36,6 +37,11 @@ export const CATEGORIES = {
   image: {
     name: "Image Processing",
     description: "Transform, deconstruct, and visualize images through creative algorithms.",
+  },
+  random: {
+    name: "Random & Misc",
+    description:
+      "A collection of miscellaneous projects that don't fit into other categories but are fun and interesting.",
   },
 } as const;
 
@@ -128,6 +134,15 @@ export const projects: Record<string, Project> = {
     tags: ["Graph", "D3"],
     icon: Grid,
     featured: true,
+  },
+  "three-stage": {
+    slug: "three-stage",
+    name: "Three Stage",
+    description: "A 3D stage for rendering and animate 3D objects.",
+    category: "random",
+    tags: ["Threejs", "3D", "WebGL"],
+    icon: Box,
+    featured: false,
   },
 };
 
