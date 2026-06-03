@@ -10,22 +10,38 @@ export type OutputType = {
 
 type ManipulatorState = {
   imageSource: OutputType | null;
+  fileName: string | null;
   manipulationId: string;
   outputs: OutputType[];
+  isProcessing: boolean;
 };
 
 const pipelineStore = create<ManipulatorState>(() => ({
   imageSource: null,
+  fileName: null,
   manipulationId: manipulationsIds[0] ?? "brightness",
   outputs: [],
+  isProcessing: false,
 }));
 
 export function usePipelineImageSource(): OutputType | null {
   return pipelineStore((s) => s.imageSource);
 }
 
+export function usePipelineFileName(): string | null {
+  return pipelineStore((s) => s.fileName);
+}
+
 export function setPipelineImageSource(imageSource: OutputType | null) {
   pipelineStore.setState({ imageSource });
+}
+
+export function setPipelineFileName(fileName: string | null) {
+  pipelineStore.setState({ fileName });
+}
+
+export function clearPipelineSource() {
+  pipelineStore.setState({ imageSource: null, fileName: null });
 }
 
 export function usePipelineManipulationId(): string {
@@ -46,4 +62,12 @@ export function setPipelineOutputs(outputs: OutputType[]) {
 
 export function clearPipelineOutputs() {
   pipelineStore.setState({ outputs: [] });
+}
+
+export function useIsProcessing(): boolean {
+  return pipelineStore((s) => s.isProcessing);
+}
+
+export function setProcessing(isProcessing: boolean) {
+  pipelineStore.setState({ isProcessing });
 }

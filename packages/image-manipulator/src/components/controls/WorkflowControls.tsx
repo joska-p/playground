@@ -1,18 +1,22 @@
 import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
 import { Button } from "@repo/ui/Button";
-import { useRef } from "react";
-import { setPipelineOutputs, usePipelineImageSource } from "../../store/pipelineStore";
+import {
+  setPipelineOutputs,
+  setProcessing,
+  useIsProcessing,
+  usePipelineImageSource,
+} from "../../store/pipelineStore";
 import { clearWorkflow, useWorkflow } from "../../store/workflowStore";
 import { Workflow } from "./workflow/Workflow";
 
 function WorkflowControls() {
   const workflow = useWorkflow();
   const imageSource = usePipelineImageSource();
-  const runningRef = useRef(false);
+  const isProcessing = useIsProcessing();
 
   async function executeWorkflow() {
-    if (!workflow.length || !imageSource?.imageData || runningRef.current) return;
-    runningRef.current = true;
+    if (!workflow.length || !imageSource?.imageData || isProcessing) return;
+    setProcessing(true);
 
     try {
       const results = await pipelineGateway.run({
@@ -31,15 +35,21 @@ function WorkflowControls() {
     } catch (err) {
       console.error("Pipeline execution failed:", err);
     } finally {
-      runningRef.current = false;
+      setProcessing(false);
     }
   }
 
   return (
     <>
       <Workflow steps={workflow} />
-      <Button onClick={() => executeWorkflow()}>Execute workflow</Button>
-      <Button variant="outline" onClick={() => clearWorkflow()}>
+      <Button isLoading={isProcessing} onClick={() => executeWorkflow()}>
+        Execute workflow
+      </Button>
+      <Button
+        variant="outline"
+        isLoading={isProcessing}
+        onClick={() => clearWorkflow()}
+      >
         Clear Workflow
       </Button>
     </>
