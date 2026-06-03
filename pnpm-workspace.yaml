@@ -63,3 +63,4 @@ catalog:
   "vitest-browser-react": "^2.2.0"
   "playwright": "^1.60.0"
   "jsdom": "^26.1.0"
+  "react-error-boundary": "^6.1.2"

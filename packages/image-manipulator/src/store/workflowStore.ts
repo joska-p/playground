@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { manipulations } from "../core/manipulations/manipulations";
 
 type WorkflowStep = {
+  uid: string;
   id: string;
   options: Record<string, number>;
 };
@@ -22,7 +23,14 @@ function addToWorkflow(id: string) {
   const workflow = workflowStore.getState().workflow;
   const manipData = manipulations[id];
   workflowStore.setState({
-    workflow: [...workflow, { id, options: { ...(manipData?.defaultArgs ?? {}) } }],
+    workflow: [
+      ...workflow,
+      {
+        uid: crypto.randomUUID(),
+        id,
+        options: { ...(manipData?.defaultArgs ?? {}) },
+      },
+    ],
   });
 }
 

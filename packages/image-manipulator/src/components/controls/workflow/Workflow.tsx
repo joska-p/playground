@@ -14,7 +14,7 @@ function Workflow({ steps }: WorkflowProps) {
     <div className="flex flex-col gap-3 col-span-full">
       {steps.map((step, index) => (
         <WorkflowStepItem
-          key={index}
+          key={step.uid}
           step={step}
           index={index}
           isFirst={index === 0}

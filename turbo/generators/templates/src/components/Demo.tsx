@@ -38,71 +38,73 @@ function Demo() {
   }
 
   return (
-    <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4 sm:p-8">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Zustand + Zod Demo</CardTitle>
-          <CardDescription>
-            A minimal showcase of state management with Zustand and runtime validation with Zod.
-          </CardDescription>
-        </CardHeader>
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4 sm:p-8">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Zustand + Zod Demo</CardTitle>
+            <CardDescription>
+              A minimal showcase of state management with Zustand and runtime validation with Zod.
+            </CardDescription>
+          </CardHeader>
 
-        <CardContent className="flex flex-col gap-6">
-          <div className="flex items-center gap-3">
-            <span className="text-sm">Submissions:</span>
-            <Badge variant="secondary">{count}</Badge>
-            {lastMessage && (
-              <span className="text-muted-foreground truncate text-sm">
-                Last: &ldquo;{lastMessage}&rdquo;
-              </span>
-            )}
-          </div>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-            className="flex flex-col gap-4"
-          >
-            <Input
-              label="New message"
-              placeholder="Type something..."
-              value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-                if (error) setError(null);
-              }}
-              helperText={error ?? undefined}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-
-          {submissions.length > 0 && (
-            <div className="border-border/30 flex flex-col gap-2 border-t pt-4">
-              <span className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
-                History
-              </span>
-              <ul className="flex flex-col gap-1">
-                {[...submissions].reverse().map((sub) => (
-                  <li key={sub.timestamp} className="text-sm">
-                    {sub.text}
-                  </li>
-                ))}
-              </ul>
+          <CardContent className="flex flex-col gap-6">
+            <div className="flex items-center gap-3">
+              <span className="text-sm">Submissions:</span>
+              <Badge variant="secondary">{count}</Badge>
+              {lastMessage && (
+                <span className="text-muted-foreground truncate text-sm">
+                  Last: &ldquo;{lastMessage}&rdquo;
+                </span>
+              )}
             </div>
-          )}
-        </CardContent>
 
-        {count > 0 && (
-          <CardFooter>
-            <Button variant="ghost" onClick={resetDemo} size="small">
-              Reset
-            </Button>
-          </CardFooter>
-        )}
-      </Card>
-    </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+              className="flex flex-col gap-4"
+            >
+              <Input
+                label="New message"
+                placeholder="Type something..."
+                value={input}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  if (error) setError(null);
+                }}
+                helperText={error ?? undefined}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+
+            {submissions.length > 0 && (
+              <div className="border-border/30 flex flex-col gap-2 border-t pt-4">
+                <span className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+                  History
+                </span>
+                <ul className="flex flex-col gap-1">
+                  {[...submissions].reverse().map((sub) => (
+                    <li key={sub.timestamp} className="text-sm">
+                      {sub.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+
+          {count > 0 && (
+            <CardFooter>
+              <Button variant="ghost" onClick={resetDemo} size="small">
+                Reset
+              </Button>
+            </CardFooter>
+          )}
+        </Card>
+      </div>
+    </ErrorBoundary>
   );
 }
 

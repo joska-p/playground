@@ -93,6 +93,9 @@ catalogs:
     react-dom:
       specifier: ^19.2.6
       version: 19.2.6
+    react-error-boundary:
+      specifier: ^6.1.2
+      version: 6.1.2
     tailwind-merge:
       specifier: ^3.6.0
       version: 3.6.0
@@ -468,6 +471,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
+      react-error-boundary:
+        specifier: 'catalog:'
+        version: 6.1.2(react@19.2.6)
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.15)(react@19.2.6)(use-sync-external-store@1.6.0(react@19.2.6))
@@ -5697,6 +5703,11 @@ packages:
     engines: {node: '>= 10.13'}
     peerDependencies:
       react: '>= 16.8'
+
+  react-error-boundary@6.1.2:
+    resolution: {integrity: sha512-3DpCr5HVdZ0caUjYE/kIHBEJN0mNP3ZCgf16c48uJ5TbWjorKVp+YG8W3XqlJ7vJAVNw6wNIImyPXmFydwmyng==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -11551,6 +11562,10 @@ snapshots:
       attr-accept: 2.2.5
       file-selector: 0.5.0
       prop-types: 15.8.1
+      react: 19.2.6
+
+  react-error-boundary@6.1.2(react@19.2.6):
+    dependencies:
       react: 19.2.6
 
   react-is@16.13.1: {}

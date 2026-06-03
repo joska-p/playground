@@ -9,13 +9,13 @@ function Output({ imageData }: OutputProps) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!imageData || !ref.current) return;
+    if (!ref.current) return;
 
     putImageData(ref.current, imageData);
   }, [imageData]);
 
-  const width = imageData?.width || 0;
-  const height = imageData?.height || 0;
+  const width = imageData.width;
+  const height = imageData.height;
 
   return <canvas ref={ref} width={width} height={height} className="max-h-full max-w-full" />;
 }

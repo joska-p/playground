@@ -78,11 +78,6 @@ const WORKFLOW_PRESETS: WorkflowPreset[] = [
       { id: "saturation", options: { value: 1.6 } },
     ],
   },
-  {
-    name: "Edge Ink",
-    description: "Sobel edge detection on grayscale",
-    steps: [{ id: "grayscale", options: {} }],
-  },
 ];
 
 export { WORKFLOW_PRESETS };
