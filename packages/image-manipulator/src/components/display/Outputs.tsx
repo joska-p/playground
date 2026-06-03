@@ -15,7 +15,9 @@ function Outputs() {
   return (
     <div className="relative">
       <div className="grid grid-cols-2 gap-4 p-4 lg:grid-cols-3">
-        {imageSource && <OutputCard key={imageSource.id} output={imageSource} index={0} />}
+        {imageSource && (
+          <OutputCard key={imageSource.id} output={imageSource} index={0} isSource />
+        )}
         {outputs.map((output, index) => (
           <OutputCard key={output.id} output={output} index={index + 1} />
         ))}
