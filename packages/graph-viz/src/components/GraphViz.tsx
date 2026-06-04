@@ -1,5 +1,5 @@
 /**
- * GraphVisualization.tsx
+ * GraphViz.tsx
  *
  * Three.js 3-D force-directed graph — single unified effect, no stale closures.
  *
@@ -7,26 +7,19 @@
  *
  * Usage:
  *   import graphData from './graph.json';
- *   import GraphVisualization from './GraphVisualization';
+ *   import { GraphViz } from './GraphViz';
  *   <div style={{ width: '100vw', height: '100vh' }}>
- *     <GraphVisualization data={graphData} onNodeSelect={n => console.log(n)} />
+ *     <GraphViz data={graphData} onNodeSelect={n => console.log(n)} />
  *   </div>
  */
 
-import {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-  CSSProperties,
-  FC,
-} from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import type { CSSProperties } from 'react';
 import * as THREE from 'three';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export interface GraphNode {
+export type GraphNode = {
   id: string;
   label: string;
   file_type?: string;
@@ -34,9 +27,9 @@ export interface GraphNode {
   source_location?: string;
   community?: number;
   norm_label?: string;
-}
+};
 
-export interface GraphLink {
+export type GraphLink = {
   source: string;
   target: string;
   relation?: string;
@@ -45,9 +38,9 @@ export interface GraphLink {
   weight?: number;
   source_file?: string;
   source_location?: string | null;
-}
+};
 
-export interface GraphHyperedge {
+export type GraphHyperedge = {
   id: string;
   label: string;
   nodes: string[];
@@ -55,9 +48,9 @@ export interface GraphHyperedge {
   confidence?: string;
   confidence_score?: number;
   source_file?: string;
-}
+};
 
-export interface GraphData {
+export type GraphData = {
   nodes: GraphNode[];
   links?: GraphLink[];
   edges?: GraphLink[];
@@ -66,15 +59,15 @@ export interface GraphData {
   directed?: boolean;
   multigraph?: boolean;
   built_at_commit?: string;
-}
+};
 
-export interface GraphVisualizationProps {
+export type GraphVizProps = {
   data: GraphData;
   width?: number;
   height?: number;
   maxNodes?: number;
   onNodeSelect?: (node: GraphNode | null) => void;
-}
+};
 
 // ─── Palette ──────────────────────────────────────────────────────────────────
 
@@ -164,21 +157,21 @@ function makeWorkerSrc(nodes: GraphNode[], links: GraphLink[]): string {
 
 // ─── Spherical orbit helper ───────────────────────────────────────────────────
 
-interface Spherical {
+type Spherical = {
   theta: number;
   phi: number;
   radius: number;
-}
+};
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-const GraphVisualization: FC<GraphVisualizationProps> = ({
+export function GraphViz({
   data,
   width,
   height,
   maxNodes = 4000,
   onNodeSelect,
-}) => {
+}: GraphVizProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   // Shared mutable state accessed inside the single effect
   const threeRef = useRef<{
@@ -392,8 +385,8 @@ const GraphVisualization: FC<GraphVisualizationProps> = ({
 
     // --- Resize --------------------------------------------------------------
     function onResize() {
-      const W2 = mount.clientWidth || window.innerWidth;
-      const H2 = mount.clientHeight || window.innerHeight;
+      const W2 = mount?.clientWidth || window.innerWidth;
+      const H2 = mount?.clientHeight || window.innerHeight;
       renderer.setSize(W2, H2);
       camera.aspect = W2 / H2;
       camera.updateProjectionMatrix();
@@ -483,7 +476,7 @@ const GraphVisualization: FC<GraphVisualizationProps> = ({
       } else {
         const n = getNodeAt(e);
         setHoveredNode(n);
-        canvas.style.cursor = n ? 'pointer' : 'default';
+        if (canvas) canvas.style.cursor = n ? 'pointer' : 'default';
       }
     }
     function onUp(e: MouseEvent) {
@@ -513,7 +506,6 @@ const GraphVisualization: FC<GraphVisualizationProps> = ({
       canvas.removeEventListener('wheel', onWheel);
     };
     // Re-attach when nodes change (new canvas after scene rebuild)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes, getNodeAt, onNodeSelect]);
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -575,39 +567,39 @@ const GraphVisualization: FC<GraphVisualizationProps> = ({
       </div>
     </div>
   );
-};
-
-export default GraphVisualization;
+}
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
-const Dot: FC<{ c: string }> = ({ c }) => (
-  <span
-    style={{
-      display: 'inline-block',
-      width: 8,
-      height: 8,
-      borderRadius: '50%',
-      background: c,
-      marginRight: 5,
-    }}
-  />
-);
+function Dot({ c }: { c: string }) {
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        width: 8,
+        height: 8,
+        borderRadius: '50%',
+        background: c,
+        marginRight: 5,
+      }}
+    />
+  );
+}
 
-interface NodePanelProps {
+type NodePanelProps = {
   node: GraphNode;
   links: GraphLink[];
   nodes: GraphNode[];
   onClose: () => void;
-}
-interface Neighbour {
+};
+type Neighbour = {
   dir: '→' | '←';
   rel?: string;
   node?: GraphNode;
   rawId: string;
-}
+};
 
-const NodePanel: FC<NodePanelProps> = ({ node, links, nodes, onClose }) => {
+function NodePanel({ node, links, nodes, onClose }: NodePanelProps) {
   const nodeMap = useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes]);
   const neighbours = useMemo<Neighbour[]>(() => {
     const out: Neighbour[] = [];
@@ -666,26 +658,28 @@ const NodePanel: FC<NodePanelProps> = ({ node, links, nodes, onClose }) => {
       </div>
     </div>
   );
-};
+}
 
-const Legend: FC = () => (
-  <div style={s.legend}>
-    {[
-      { c: communityColor(32), label: 'Community cluster' },
-      { c: '#4cc9f0', label: 'Code node' },
-      { c: '#f77f00', label: 'Document node' },
-      { c: '#06d6a0', label: 'Image node' },
-    ].map((it) => (
-      <div
-        key={it.label}
-        style={{ display: 'flex', alignItems: 'center' }}
-      >
-        <Dot c={it.c} />
-        <span style={s.legendLabel}>{it.label}</span>
-      </div>
-    ))}
-  </div>
-);
+function Legend() {
+  return (
+    <div style={s.legend}>
+      {[
+        { c: communityColor(32), label: 'Community cluster' },
+        { c: '#4cc9f0', label: 'Code node' },
+        { c: '#f77f00', label: 'Document node' },
+        { c: '#06d6a0', label: 'Image node' },
+      ].map((it) => (
+        <div
+          key={it.label}
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Dot c={it.c} />
+          <span style={s.legendLabel}>{it.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
