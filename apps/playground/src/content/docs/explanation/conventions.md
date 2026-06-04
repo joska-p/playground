@@ -1,7 +1,7 @@
 ---
-title: "Codebase Conventions"
-description: "Architecture, naming, and coding patterns used across the project."
-category: "explanation"
+title: 'Codebase Conventions'
+description: 'Architecture, naming, and coding patterns used across the project.'
+category: 'explanation'
 tags:
   - explanation
 ---
@@ -68,7 +68,7 @@ Two rules cover every file:
 | React component files | `PascalCase.tsx`                          | `Button.tsx`              |
 | Astro component files | `PascalCase.astro`                        | `SectionHeader.astro`     |
 | Hook files            | `camelCase.ts` — must start with `use`    | `useImageUpload.ts`       |
-| Zustand store files   | `camelCase.ts`                         | `store.ts`                 |
+| Zustand store files   | `camelCase.ts`                            | `store.ts`                |
 | All other files       | `kebab-case.ts`                           | `fetch-palettes.ts`       |
 | Zod schema files      | `kebab-case.schema.ts`                    | `color-palette.schema.ts` |
 | Type-only files       | `kebab-case.types.ts`                     | `color-palette.types.ts`  |
@@ -85,7 +85,7 @@ Two rules cover every file:
 | React + Astro components | PascalCase                            | `Button`, `SectionHeader`         |
 | Hooks                    | `use` + camelCase                     | `useImageUpload`                  |
 | Zustand store variable   | `camelCase[Domain]Store` (exported)   | `graphStore`                      |
-| Zustand getter hooks     | `use` + Slice (no domain prefix)      | `useNodes`                         |
+| Zustand getter hooks     | `use` + Slice (no domain prefix)      | `useNodes`                        |
 | Zustand setter fns       | camelCase verb + Domain + target      | `addGraphNode`, `selectGraphNode` |
 | Props types              | `XxxProps`, co-located                | `ButtonProps`                     |
 | Module-level constants   | SCREAMING_SNAKE_CASE                  | `MAX_RETRIES`                     |
@@ -137,6 +137,14 @@ Why `function` declarations?
 
 ---
 
+## Null & Undefined
+
+- **Prefer `undefined` over `null`.** TypeScript uses `undefined` for optional fields natively; `null` requires explicit opt-in and adds noise to type unions.
+- Use optional chaining (`?.`) and nullish coalescing (`??`) rather than null checks.
+- Only use `null` when interfacing with an external API or library that explicitly returns it.
+
+---
+
 ## Data Fetching
 
 - **TanStack Query** for all server/async data. No fetching inside Zustand actions or `useEffect`.
@@ -148,7 +156,7 @@ Why `function` declarations?
 ## Error Handling
 
 - **Prefer safe defaults over throwing.** Return a fallback value when a missing value is recoverable.
-- **React Error Boundaries** catch unexpected render errors. Place boundaries at meaningful subtree roots, not wrapping every component.
+- **React Error Boundaries** must be placed at a minimum at every route boundary. Add a second boundary at the feature level for any widget that is self-contained and whose failure should not take down the whole page. Do not wrap every component.
 - Only throw when the error is truly unrecoverable and the subtree must be replaced.
 - Never silently swallow errors (`catch (e) {}`). Log or surface them.
 
@@ -162,9 +170,35 @@ Why `function` declarations?
 
 ---
 
+## Commits
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/). Every commit message must be structured as:
+
+```
+<type>(<scope>): <subject>
+```
+
+Common types:
+
+| Type       | When to use                                     |
+| ---------- | ----------------------------------------------- |
+| `feat`     | New feature                                     |
+| `fix`      | Bug fix                                         |
+| `refactor` | Code change that is neither a fix nor a feature |
+| `chore`    | Tooling, config, dependencies                   |
+| `docs`     | Documentation only                              |
+| `test`     | Adding or updating tests                        |
+| `perf`     | Performance improvement                         |
+
+Scope is the package or domain name (e.g. `feat(ui): add Button variant`). Enforced via `commitlint` + `husky`.
+
+Breaking changes must append `!` after the type and include a `BREAKING CHANGE:` footer.
+
+---
+
 ## Zustand Stores
 
-Store files live in `stores/[domain]/` with exactly 4 files per domain:
+Store files live in `stores/[domain]/`. For small domains (any single file under ~120 lines), a single `store.ts` is acceptable. Split into the 4-file structure once a file exceeds that threshold or when clear separation of concerns emerges:
 
 - `store.ts` — `create()` + raw store export (internal only)
 - `actions.ts` — all mutators + async orchestration
@@ -173,19 +207,29 @@ Store files live in `stores/[domain]/` with exactly 4 files per domain:
 
 The raw store is named `camelCase[Domain]Store` (e.g., `graphStore`, `manipulatorStore`) and exported — but only imported in its own `actions.ts` and `selectors.ts` files, never in components.
 
+- **Local state first.** Single-component UI state (dropdown selection, toggle, file name) → `useState`. Only promote to Zustand when state is consumed by multiple unrelated components.
 - Getter hooks: `use[Slice]` — select a **single slice**, drop the domain prefix. (`useNodes`, `useEdges`)
 - Setter functions: plain `camelCase`, not hooks. (`addNode`, `selectNode`)
 - Store files use `.ts`, never `.tsx`.
 - Actions mutate; selectors read. Don't mix.
 - Subscribe to minimal slices. Heavyweight path (structural) → full reconciliation. Lightweight path (cosmetic) → direct DOM/style mutations.
 - **Async orchestration** (e.g., executing a workflow, calling a pipeline) lives in `actions.ts` as a plain async function using `getState()`/`setState()`. No thunk middleware needed.
+- **Domain boundary test:** if an action in one domain reads from another domain's store (e.g. `pipeline/actions` imports `workflow/store`), those domains are coupled — merge them into one domain.
 
 ---
 
 ## Zod Schemas
 
 - Co-located next to the code they validate. Use `.schema.ts` suffix.
-- Runtime validation only — write TS types separately, don't use `z.infer<>` as source of truth.
+- **Use `z.infer<typeof schema>` as the source of truth for TypeScript types.** Do not write parallel hand-maintained types — they will drift. Export the inferred type alongside the schema:
+
+```typescript
+// color-palette.schema.ts
+export const colorPaletteSchema = z.object({ ... });
+export type ColorPalette = z.infer<typeof colorPaletteSchema>;
+```
+
+- The only exception is when a type must exist before its schema (e.g. recursive types that Zod cannot infer cleanly) — document why with a comment.
 
 ---
 
@@ -200,7 +244,14 @@ The raw store is named `camelCase[Domain]Store` (e.g., `graphStore`, `manipulato
 ## Tailwind & CSS Approach
 
 - **Default:** Tailwind utility classes for layout, spacing, color, typography.
-- **CSS Modules** (`*.module.css`) are reserved for styles that utilities cannot express: complex animations, pseudo-element tricks, or deeply scoped third-party overrides.
+- **CSS Modules** (`*.module.css`) are reserved for styles that Tailwind utilities genuinely cannot express. Concrete cases that warrant a module:
+  - Multi-step `@keyframes` animations
+  - `::before` / `::after` pseudo-elements with `content`
+  - `:has()` / `:is()` chains that would require more than 2 levels of Tailwind's `[&...]` syntax
+  - Deeply scoped third-party component overrides
+
+  If you find yourself reaching for a module for any other reason, default to Tailwind first.
+
 - **Global CSS** is limited to base resets and CSS custom properties (design tokens) declared in a single `global.css` per app.
 - Do not mix Tailwind and inline `style={{}}` props for the same concern.
 
@@ -234,6 +285,15 @@ The raw store is named `camelCase[Domain]Store` (e.g., `graphStore`, `manipulato
 | `type` over `interface`             | `@typescript-eslint/consistent-type-definitions` |
 | `import type` for type-only imports | `@typescript-eslint/consistent-type-imports`     |
 | No circular dependencies            | `import/no-cycle`                                |
+| Import order enforced               | handled by import-sort plugin (auto-fixable)     |
+
+Import order groups (auto-sorted by plugin, listed here for reference):
+
+1. Node built-ins (`node:fs`, `node:path`)
+2. External packages (`react`, `zod`, `zustand`)
+3. Internal monorepo aliases (`@repo/ui`, `@repo/core`)
+4. Relative imports (`./Button`, `../utils`)
+5. Type-only imports (grouped with their source by `consistent-type-imports`)
 
 Tool config files (`vite.config.ts`, etc.) are exempt from `import/no-default-export`.
 
@@ -282,6 +342,22 @@ apps/storybook/stories/
 ```
 
 Import via `@repo/` aliases only. Story files use `[ComponentName].stories.tsx`.
+
+---
+
+## Documentation
+
+- Each package's `README.md` is the **source of truth** for its documentation.
+- READMEs must document both **consumer usage** (API, examples) and **contributor internals** (architecture, rationale, gotchas).
+- After updating a package README, sync it to the Astro docs site by running from repo root:
+  ```bash
+  pnpm --filter @repo/playground sync-package-docs
+  ```
+  The script **overwrites** `apps/playground/src/content/docs/reference/packages/<name>.md` with the README content wrapped in Astro frontmatter. The README is the single source of truth — do not edit reference docs directly.
+- To remove reference docs whose source package is gone, append `--prune`:
+  ```bash
+  pnpm --filter @repo/playground sync-package-docs -- --prune
+  ```
 
 ---
 
