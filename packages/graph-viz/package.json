@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "exports": {
+    "exports": {
     ".": "./src/components/GraphViz.tsx",
-    "./styles": "./src/styles/graph-viz.css"
+    "./styles": "./src/styles/global.css"
   },
   "scripts": {
     "dev": "vite --host",
