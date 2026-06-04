@@ -10,16 +10,16 @@ function Outputs() {
   const imageSource = useImageSource();
   const outputs = useOutputs();
   const [mode, setMode] = useState<'grid' | 'compare'>('grid');
-  const [selectedOutputId, setSelectedOutputId] = useState<string | null>(null);
+  const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(undefined);
 
   const hasComparableContent = imageSource && outputs.length > 0;
 
   const activeOutputId =
     selectedOutputId && outputs.some((o) => o.id === selectedOutputId)
       ? selectedOutputId
-      : (outputs[0]?.id ?? null);
+      : outputs[0]?.id;
 
-  const selectedOutput = outputs.find((o) => o.id === activeOutputId) ?? null;
+  const selectedOutput = outputs.find((o) => o.id === activeOutputId);
 
   if (!imageSource && outputs.length === 0) {
     return <EmptyState message="Upload an image to begin" />;

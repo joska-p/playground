@@ -1,7 +1,7 @@
 import { manipulatorStore } from './store';
 import type { OutputType, WorkflowStep } from './types';
 
-function useImageSource(): OutputType | null {
+function useImageSource(): OutputType | undefined {
   return manipulatorStore((s) => s.imageSource);
 }
 

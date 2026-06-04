@@ -3,12 +3,12 @@ import { manipulations } from '../../core/manipulations/manipulations';
 import { manipulatorStore } from './store';
 import type { OutputType, WorkflowStep } from './types';
 
-function setImageSource(imageSource: OutputType | null) {
+function setImageSource(imageSource?: OutputType) {
   manipulatorStore.setState({ imageSource });
 }
 
 function clearImageSource() {
-  manipulatorStore.setState({ imageSource: null });
+  manipulatorStore.setState({ imageSource: undefined });
 }
 
 function setOutputs(outputs: OutputType[]) {

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { readFileAsImageData } from '../core/fileReader';
+import { readFileAsImageData } from '../core/file-reader';
 import {
   clearImageSource,
   setImageSource,
 } from '../stores/manipulator/actions';
 
 function useImageUpload() {
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | undefined>(undefined);
 
   async function processFile(file: File) {
     if (!file.type.startsWith('image/')) return;
@@ -37,7 +37,7 @@ function useImageUpload() {
   }
 
   function clearImage() {
-    setFileName(null);
+    setFileName(undefined);
     clearImageSource();
   }
 

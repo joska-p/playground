@@ -5,7 +5,7 @@ import { CloseIcon } from '../shared/CloseIcon';
 
 type UploadedPreviewProps = {
   imageSource: OutputType;
-  fileName: string | null;
+  fileName?: string;
   onClear: () => void;
 };
 

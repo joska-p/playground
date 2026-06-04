@@ -1,4 +1,4 @@
-import { imageElementToImageData } from './imageData';
+import { imageElementToImageData } from './image-data';
 
 function readFileAsImageData(file: File): Promise<ImageData> {
   return new Promise((resolve, reject) => {

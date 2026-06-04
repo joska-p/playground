@@ -10,12 +10,12 @@ type Section = 'source' | 'presets' | 'manipulations' | 'workflow';
 
 function Controls() {
   const workflow = useWorkflowSteps();
-  const [openSection, setOpenSection] = useState<Section | null>(
+  const [openSection, setOpenSection] = useState<Section | undefined>(
     workflow.length > 0 ? 'workflow' : 'source'
   );
 
   function toggleSection(section: Section) {
-    setOpenSection((prev) => (prev === section ? null : section));
+    setOpenSection((prev) => (prev === section ? undefined : section));
   }
 
   return (

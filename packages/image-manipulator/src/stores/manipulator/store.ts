@@ -2,14 +2,13 @@ import { create } from 'zustand';
 import type { OutputType, WorkflowStep } from './types';
 
 type ManipulatorState = {
-  imageSource: OutputType | null;
+  imageSource?: OutputType;
   outputs: OutputType[];
   isProcessing: boolean;
   workflow: WorkflowStep[];
 };
 
 const manipulatorStore = create<ManipulatorState>(() => ({
-  imageSource: null,
   outputs: [],
   isProcessing: false,
   workflow: [],

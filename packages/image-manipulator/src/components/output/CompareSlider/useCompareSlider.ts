@@ -15,9 +15,9 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
   const offscreenRef = useRef<{
     source: HTMLCanvasElement;
     result: HTMLCanvasElement;
-  } | null>(null);
-  const prevSourceRef = useRef<ImageData | null>(null);
-  const prevResultRef = useRef<ImageData | null>(null);
+  } | undefined>(undefined);
+  const prevSourceRef = useRef<ImageData | undefined>(undefined);
+  const prevResultRef = useRef<ImageData | undefined>(undefined);
 
   const width = source.width;
   const height = source.height;

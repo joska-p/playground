@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { putImageData } from '../../core/imageData';
+import { putImageData } from '../../core/image-data';
 
 type OutputProps = {
   imageData: ImageData;
