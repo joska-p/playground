@@ -1,6 +1,7 @@
 # @repo/graph-viz
 
-> Interactive D3-based graph visualization with force-directed layout, detail panel, and legend.
+> Interactive D3-based graph visualization with force-directed layout, detail panel, and legend.  
+> Renders the output of [`graphify`](https://opencode.ai) — a workspace dependency graph.
 
 ## Quick Start
 
@@ -14,6 +15,12 @@ import { GraphViz } from "@repo/graph-viz";
 export default function Graph() {
   return <GraphViz />;
 }
+```
+
+The graph renders automatically from `src/data/graph.json`, which is a copy of `graphify-out/graph.json` synced by the `graphify` script:
+
+```bash
+pnpm graphify   # runs graphify update + copies into the package
 ```
 
 ## Architecture
@@ -34,17 +41,42 @@ GraphViz
 
 ## Data Model
 
-The graph renders a `GraphData` structure of ~2000 nodes representing the workspace's configuration, scripts, dependencies, and pages, validated through Zod schemas:
+The graph renders a `GraphData` structure (currently ~4250 nodes, ~6100 edges) sourced from `graphify`'s workspace analysis. Data flows through a two-layer validation pipeline:
 
-```typescript
-// schemas live in src/data/graph-data.schema.ts — source of truth
-const rawNodeSchema = z.object({ id: z.string(), label: z.string(), ft: z.string(), c: z.number(), sf: z.string() });
-type RawNode = z.infer<typeof rawNodeSchema>;
+```
+graphify CLI → graphify-out/graph.json
+                   │ (cp in root graphify script)
+   src/data/graph.json
+       │ (validate against graphify-format Zod schema)
+   src/data/load-graph.ts
+       │ (map fields + validate against internal Zod schema)
+   RAW_GRAPH
 ```
 
-- **ft** — file type: code, document, concept, image, rationale
-- **c** — community cluster id
-- **r** — relation type: contains, references, imports, runs, defines
+Internal node schema:
+
+```typescript
+// src/data/graph-data.schema.ts
+const rawNodeSchema = z.object({
+  id: z.string(), label: z.string(),
+  ft: z.string(),   // file type: code, document, concept, image, rationale
+  c: z.number(),    // Louvain community cluster id
+  sf: z.string(),   // source file path
+});
+```
+
+### Adapter boundary
+
+Graphify's raw format is validated by `src/data/graphify-schema.ts`. If graphify's output changes, only that schema and the mapper in `load-graph.ts` need updating — no component code is affected.
+
+### Sync workflow
+
+```bash
+pnpm graphify   # regenerates graphify-out/graph.json
+                # automatically copies it into this package
+```
+
+The copy lives at `src/data/graph.json` and is tracked in git so the visualization stays reproducible between graphify runs.
 
 ## D3 Simulation
 
@@ -73,8 +105,11 @@ Filters (`filterFT`, `filterRel`, `showHyper`) trigger a full simulation restart
 src/
   stores/graph/store.ts      ← Zustand store (create + selectors + actions)
   data/
-    graph-data.schema.ts      ← Zod schemas + inferred types (source of truth)
-    graph-data.ts             ← RAW_GRAPH constant
+    graph.json                ← synced copy of graphify-out/graph.json
+    graph-data.schema.ts      ← internal Zod schemas + inferred types
+    graph-data.ts             ← exports RAW_GRAPH (loads from graph.json)
+    graphify-schema.ts        ← graphify-format Zod schemas (adapter boundary)
+    load-graph.ts             ← validates + maps graphify data to internal format
     example-graph.ts          ← minimal sample graph
   hooks/
     useGraphSimulation.ts     ← D3 force simulation lifecycle

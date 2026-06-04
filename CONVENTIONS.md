@@ -76,6 +76,7 @@ Enforced via `commitlint` + `husky`.
 - **CSS Modules** (`*.module.css`) — only for: multi-step `@keyframes`, `::before`/`::after` with `content`, `:has()`/`:is()` chains beyond 2 levels of `[&...]`, deeply scoped third-party overrides. Default to Tailwind for everything else.
 - **Global CSS** — base resets and CSS custom properties only, in a single `global.css` per app.
 - Do not mix Tailwind and inline `style={{}}` for the same concern.
+- **Dynamic Tailwind Colors with CSS Variables** css trick documented in `apps/playground/src/content/docs/explanation/dynamic-tailwind.md`. Use `style={{ '--color-primary': dynamicValue }}` + `text-[color:var(--color-primary)]` — never inline styles for color directly.
 
 ## Storybook
 
