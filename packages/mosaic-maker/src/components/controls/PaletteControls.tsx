@@ -1,8 +1,11 @@
-import { ColorPalette } from "@repo/ui/ColorPalette";
-import { applyMosaicPalette } from "../../store/actions";
-import { useMosaicCurrentPalette, useMosaicCurrentPalettes } from "../../store/selectors";
-import { arePalettesEqual } from "../../utils/palettes/arePalettesEqual";
-import { getPaletteId } from "../../utils/palettes/getPaletteId";
+import { ColorPalette } from '@repo/ui/ColorPalette';
+import { applyMosaicPalette } from '../../store/actions';
+import {
+  useMosaicCurrentPalette,
+  useMosaicCurrentPalettes,
+} from '../../store/selectors';
+import { arePalettesEqual } from '../../utils/palettes/arePalettesEqual';
+import { getPaletteId } from '../../utils/palettes/getPaletteId';
 
 function PaletteControls() {
   const currentPalettes = useMosaicCurrentPalettes();

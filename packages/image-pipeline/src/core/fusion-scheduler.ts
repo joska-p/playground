@@ -1,5 +1,5 @@
-import type { BufferManager } from "./buffer-manager";
-import type { ManipulationDefinition } from "./image-pipeline.types";
+import type { BufferManager } from './buffer-manager';
+import type { ManipulationDefinition } from './image-pipeline.types';
 
 function runFusedPixelBatch({
   source,
@@ -23,7 +23,7 @@ function runFusedPixelBatch({
     let alpha = source[offset + 3];
 
     for (const { definition, options } of batch) {
-      if (definition.type === "pixel") {
+      if (definition.type === 'pixel') {
         [red, green, blue, alpha] = definition.function({
           options,
           red,

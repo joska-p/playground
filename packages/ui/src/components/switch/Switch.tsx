@@ -1,15 +1,15 @@
-import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
-import { useId } from "react";
-import { cn } from "../../utils/cn";
-import { switchThumbVariants, switchVariants } from "./switchVariants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
+import { useId } from 'react';
+import { cn } from '../../utils/cn';
+import { switchThumbVariants, switchVariants } from './switchVariants';
 
 type SwitchProps = {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   label?: string;
   helperText?: string;
-} & Omit<ComponentProps<"button">, "onChange"> &
+} & Omit<ComponentProps<'button'>, 'onChange'> &
   VariantProps<typeof switchVariants>;
 
 /**
@@ -34,7 +34,10 @@ function Switch({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label htmlFor={switchId} className="text-foreground/80 cursor-pointer text-xs">
+        <label
+          htmlFor={switchId}
+          className="text-foreground/80 cursor-pointer text-xs"
+        >
           {label}
         </label>
       )}
@@ -43,22 +46,24 @@ function Switch({
         role="switch"
         aria-checked={checked}
         id={switchId}
-        data-state={checked ? "checked" : "unchecked"}
+        data-state={checked ? 'checked' : 'unchecked'}
         onClick={() => onCheckedChange?.(!checked)}
         className={cn(switchVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       >
         <span
-          data-state={checked ? "checked" : "unchecked"}
+          data-state={checked ? 'checked' : 'unchecked'}
           className={cn(switchThumbVariants({ size }))}
         />
       </button>
       {helperText && (
         <p
           className={cn(
-            "text-xs italic",
-            variant === "destructive" ? "text-destructive" : "text-muted-foreground"
+            'text-xs italic',
+            variant === 'destructive'
+              ? 'text-destructive'
+              : 'text-muted-foreground'
           )}
         >
           {helperText}

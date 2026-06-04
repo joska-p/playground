@@ -1,6 +1,6 @@
 function createRemap(inMin: number, inMax: number) {
   if (inMin === inMax) {
-    throw new Error("Input range cannot be zero (inMin === inMax)");
+    throw new Error('Input range cannot be zero (inMin === inMax)');
   }
   return {
     to(outMin: number, outMax: number) {
@@ -8,7 +8,9 @@ function createRemap(inMin: number, inMax: number) {
         asFloat: (value: number): number =>
           outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin),
         asInt: (value: number): number =>
-          Math.round(outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin)),
+          Math.round(
+            outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin)
+          ),
       };
     },
   };

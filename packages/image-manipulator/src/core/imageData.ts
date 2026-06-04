@@ -2,8 +2,8 @@
  * Reads the current pixel data from a canvas.
  */
 function getImageData(canvas: HTMLCanvasElement): ImageData {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Could not get canvas context");
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not get canvas context');
   return ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
@@ -13,8 +13,8 @@ function getImageData(canvas: HTMLCanvasElement): ImageData {
 function putImageData(canvas: HTMLCanvasElement, imageData: ImageData): void {
   canvas.width = imageData.width;
   canvas.height = imageData.height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Could not get canvas context");
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not get canvas context');
   ctx.putImageData(imageData, 0, 0);
 }
 
@@ -24,8 +24,8 @@ function putImageData(canvas: HTMLCanvasElement, imageData: ImageData): void {
  */
 function imageElementToImageData(image: HTMLImageElement): ImageData {
   const offscreen = new OffscreenCanvas(image.width, image.height);
-  const ctx = offscreen.getContext("2d");
-  if (!ctx) throw new Error("Could not get offscreen canvas context");
+  const ctx = offscreen.getContext('2d');
+  if (!ctx) throw new Error('Could not get offscreen canvas context');
   ctx.drawImage(image, 0, 0);
   return ctx.getImageData(0, 0, image.width, image.height);
 }

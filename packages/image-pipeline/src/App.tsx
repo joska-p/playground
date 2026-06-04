@@ -1,4 +1,4 @@
-import { PipelineDocs } from "./components/pipeline-docs/PipelineDocs";
+import { PipelineDocs } from './components/pipeline-docs/PipelineDocs';
 
 function App() {
   return (

@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { initialPalette } from "../core/initialPalette";
-import { initialTileSet } from "../core/initialTileSet";
-import type { MosaicState } from "./types";
+import { create } from 'zustand';
+import { initialPalette } from '../core/initialPalette';
+import { initialTileSet } from '../core/initialTileSet';
+import type { MosaicState } from './types';
 
 const mosaicStore = create<MosaicState>(() => ({
   mosaicRef: { current: null },

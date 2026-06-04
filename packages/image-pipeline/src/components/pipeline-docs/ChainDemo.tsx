@@ -1,10 +1,10 @@
-import { usePipeline } from "../../hooks/usePipeline";
-import { imageDataToUrl } from "./helpers";
+import { usePipeline } from '../../hooks/usePipeline';
+import { imageDataToUrl } from './helpers';
 
 const STEPS = [
-  { id: "brightness", options: { value: 1.2 } },
-  { id: "contrast", options: { value: 1.3 } },
-  { id: "sharpen", options: { strength: 1.5 } },
+  { id: 'brightness', options: { value: 1.2 } },
+  { id: 'contrast', options: { value: 1.3 } },
+  { id: 'sharpen', options: { strength: 1.5 } },
 ] as const;
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
@@ -20,7 +20,7 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
             src={imageDataToUrl(sourceData)}
             alt="original"
             className="border-border w-full rounded border"
-            style={{ imageRendering: "pixelated" }}
+            style={{ imageRendering: 'pixelated' }}
           />
         )}
       </div>
@@ -28,7 +28,9 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
         <span className="text-muted-foreground text-xl sm:text-2xl">→</span>
       </div>
       <div className="">
-        <p className="text-muted-foreground mb-1 text-xs">Brightness → Contrast → Sharpen</p>
+        <p className="text-muted-foreground mb-1 text-xs">
+          Brightness → Contrast → Sharpen
+        </p>
         {loading ? (
           <div className="border-border flex aspect-square items-center justify-center rounded border text-xs opacity-50">
             ...
@@ -41,7 +43,7 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
                 src={imageDataToUrl(imageData)}
                 alt={`chained-${i}`}
                 className="border-border w-28 sm:w-36 rounded border"
-                style={{ imageRendering: "pixelated" }}
+                style={{ imageRendering: 'pixelated' }}
               />
             ))}
           </div>

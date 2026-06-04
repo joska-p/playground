@@ -1,4 +1,4 @@
-import type { SequenceRule } from "./sequence-rules";
+import type { SequenceRule } from './sequence-rules';
 
 function generateSequence({
   sequenceRule,

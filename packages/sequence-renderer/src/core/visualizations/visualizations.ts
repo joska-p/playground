@@ -1,4 +1,4 @@
-import { recamanArcs } from "./recamanArcs";
+import { recamanArcs } from './recamanArcs';
 
 export type Visualization = {
   id: string;

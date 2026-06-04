@@ -1,5 +1,5 @@
-import * as fs from "node:fs/promises";
-import { PATHS } from "./paths";
+import * as fs from 'node:fs/promises';
+import { PATHS } from './paths';
 
 type Sample = {
   session: number;
@@ -16,7 +16,7 @@ const rawToSamples = async () => {
 
   for (const rawFile of rawFiles) {
     const rawFilePath = `${rawDataDir}/${rawFile}`;
-    const rawFileContent = await fs.readFile(rawFilePath, "utf8");
+    const rawFileContent = await fs.readFile(rawFilePath, 'utf8');
     const rawFileData = JSON.parse(rawFileContent);
 
     const session = rawFileData.session;

@@ -1,3 +1,3 @@
-import { rawToObject } from "./rawToObject";
+import { rawToObject } from './rawToObject';
 
 await rawToObject();

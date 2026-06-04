@@ -7,39 +7,40 @@ import {
   Infinity as InfinityIcon,
   Palette,
   PieChart,
-} from "lucide-react";
-import type { ComponentType } from "react";
+} from 'lucide-react';
+import type { ComponentType } from 'react';
 
 /**
  * Project categories
  */
-export type Category = "generative" | "color" | "image" | "data-viz" | "random";
+export type Category = 'generative' | 'color' | 'image' | 'data-viz' | 'random';
 
 /**
  * Category metadata
  */
 export const CATEGORIES = {
   generative: {
-    name: "Generative Art",
+    name: 'Generative Art',
     description:
-      "Procedural patterns and mathematical visualizations that create art from algorithms.",
+      'Procedural patterns and mathematical visualizations that create art from algorithms.',
   },
   color: {
-    name: "Color & Design",
+    name: 'Color & Design',
     description:
-      "Tools for exploring color theory, generating harmonious palettes, and design utilities.",
+      'Tools for exploring color theory, generating harmonious palettes, and design utilities.',
   },
-  "data-viz": {
-    name: "Data Visualization",
+  'data-viz': {
+    name: 'Data Visualization',
     description:
-      "Interactive charts, graphs, and visual representations of data using D3 and other libraries.",
+      'Interactive charts, graphs, and visual representations of data using D3 and other libraries.',
   },
   image: {
-    name: "Image Processing",
-    description: "Transform, deconstruct, and visualize images through creative algorithms.",
+    name: 'Image Processing',
+    description:
+      'Transform, deconstruct, and visualize images through creative algorithms.',
   },
   random: {
-    name: "Random & Misc",
+    name: 'Random & Misc',
     description:
       "A collection of miscellaneous projects that don't fit into other categories but are fun and interesting.",
   },
@@ -60,87 +61,90 @@ export type Project = {
  */
 export const projects: Record<string, Project> = {
   mosaic: {
-    slug: "mosaic",
-    name: "Mosaic Maker",
+    slug: 'mosaic',
+    name: 'Mosaic Maker',
     description:
-      "Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.",
-    category: "generative",
-    tags: ["Canvas", "Zustand"],
+      'Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.',
+    category: 'generative',
+    tags: ['Canvas', 'Zustand'],
     icon: Grid3X3,
     featured: true,
   },
   sequences: {
-    slug: "sequences",
-    name: "Sequence Renderer",
+    slug: 'sequences',
+    name: 'Sequence Renderer',
     description:
-      "Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.",
-    category: "generative",
-    tags: ["Math", "SVG"],
+      'Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.',
+    category: 'generative',
+    tags: ['Math', 'SVG'],
     icon: InfinityIcon,
     featured: true,
   },
   palettes: {
-    slug: "palettes",
-    name: "Palettes Generator",
-    description: "Generate harmonious color schemes using mathematical color theory models.",
-    category: "color",
-    tags: ["Design", "Theory"],
+    slug: 'palettes',
+    name: 'Palettes Generator',
+    description:
+      'Generate harmonious color schemes using mathematical color theory models.',
+    category: 'color',
+    tags: ['Design', 'Theory'],
     icon: Palette,
     featured: true,
   },
   particles: {
-    slug: "particles",
-    name: "Image to Particles",
+    slug: 'particles',
+    name: 'Image to Particles',
     description:
-      "Deconstruct images into physics-based particle systems with real-time interaction.",
-    category: "image",
-    tags: ["Physics", "Canvas"],
+      'Deconstruct images into physics-based particle systems with real-time interaction.',
+    category: 'image',
+    tags: ['Physics', 'Canvas'],
     icon: Flame,
     featured: false,
   },
   imageManipulator: {
-    slug: "image-manipulator",
-    name: "Image Manipulator",
-    description: "A tool for manipulating images using canvas and webb workers.",
-    category: "image",
-    tags: ["Images", "Canvas"],
+    slug: 'image-manipulator',
+    name: 'Image Manipulator',
+    description:
+      'A tool for manipulating images using canvas and webb workers.',
+    category: 'image',
+    tags: ['Images', 'Canvas'],
     icon: Flame,
     featured: false,
   },
   pipeline: {
-    slug: "pipeline",
-    name: "Image Pipeline",
+    slug: 'pipeline',
+    name: 'Image Pipeline',
     description:
-      "Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.",
-    category: "image",
-    tags: ["Pipeline", "Docs"],
+      'Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.',
+    category: 'image',
+    tags: ['Pipeline', 'Docs'],
     icon: ImageDown,
     featured: false,
   },
-  "pie-chart": {
-    slug: "pie-chart",
-    name: "Pie Chart",
-    description: "Interactive D3-based pie chart examples for data visualization.",
-    category: "data-viz",
-    tags: ["D3", "Charts"],
+  'pie-chart': {
+    slug: 'pie-chart',
+    name: 'Pie Chart',
+    description:
+      'Interactive D3-based pie chart examples for data visualization.',
+    category: 'data-viz',
+    tags: ['D3', 'Charts'],
     icon: PieChart,
     featured: false,
   },
   graphify: {
-    slug: "graphify",
-    name: "Graphify",
-    description: "Interactive graph, click nodes, search, filter by community.",
-    category: "data-viz",
-    tags: ["Graph", "D3"],
+    slug: 'graphify',
+    name: 'Graphify',
+    description: 'Interactive graph, click nodes, search, filter by community.',
+    category: 'data-viz',
+    tags: ['Graph', 'D3'],
     icon: Grid,
     featured: true,
   },
-  "three-stage": {
-    slug: "three-stage",
-    name: "Three Stage",
-    description: "A 3D stage for rendering and animate 3D objects.",
-    category: "random",
-    tags: ["Threejs", "3D", "WebGL"],
+  'three-stage': {
+    slug: 'three-stage',
+    name: 'Three Stage',
+    description: 'A 3D stage for rendering and animate 3D objects.',
+    category: 'random',
+    tags: ['Threejs', '3D', 'WebGL'],
     icon: Box,
     featured: false,
   },
@@ -163,7 +167,9 @@ export function getProjectsByCategory(category?: Category) {
       {
         id: category,
         ...meta,
-        projects: Object.values(projects).filter((p) => p.category === category),
+        projects: Object.values(projects).filter(
+          (p) => p.category === category
+        ),
       },
     ];
   }

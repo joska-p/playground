@@ -1,4 +1,4 @@
-import { useCompareSlider } from "./useCompareSlider";
+import { useCompareSlider } from './useCompareSlider';
 
 type CompareSliderProps = {
   source: ImageData;
@@ -22,17 +22,20 @@ function CompareSlider({ source, result }: CompareSliderProps) {
       ref={containerRef}
       className="relative mx-auto select-none overflow-hidden rounded-lg"
       style={{
-        width: "100%",
+        width: '100%',
         maxWidth: width,
         aspectRatio: `${width} / ${height}`,
-        cursor: "ew-resize",
+        cursor: 'ew-resize',
       }}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <canvas ref={canvasRef} className="h-full w-full" />
+      <canvas
+        ref={canvasRef}
+        className="h-full w-full"
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import type { ManipulationDefinition } from "./image-pipeline.types";
+import type { ManipulationDefinition } from './image-pipeline.types';
 
 const TILE_SIZE = 512; // pixels per tile edge
 
@@ -88,10 +88,17 @@ export function runNeighborhoodTiled({
       const tileWidth = Math.min(TILE_SIZE, source.width - tileX);
       const tileHeight = Math.min(TILE_SIZE, source.height - tileY);
 
-      const tile = extractTile({ imageData: source, tileX, tileY, tileWidth, tileHeight, halo });
+      const tile = extractTile({
+        imageData: source,
+        tileX,
+        tileY,
+        tileWidth,
+        tileHeight,
+        halo,
+      });
       const tileOutput = new ImageData(tile.width, tile.height);
 
-      if (definition.type === "neighborhood") {
+      if (definition.type === 'neighborhood') {
         definition.function({
           options,
           source: tile.data,

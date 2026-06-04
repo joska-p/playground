@@ -1,9 +1,14 @@
-import { defineWhole } from "../../manipulation-factories";
+import { defineWhole } from '../../manipulation-factories';
 
 type ResizeOptions =
   | { width: number; height?: never; maximumPixels?: never; fit?: never }
   | { height: number; width?: never; maximumPixels?: never; fit?: never }
-  | { width: number; height: number; fit?: "fill" | "cover" | "contain"; maximumPixels?: never }
+  | {
+      width: number;
+      height: number;
+      fit?: 'fill' | 'cover' | 'contain';
+      maximumPixels?: never;
+    }
   | { maximumPixels: number; width?: never; height?: never; fit?: never };
 
 function bilinearResize({
@@ -44,9 +49,11 @@ function bilinearResize({
 
       for (let channel = 0; channel < 4; channel++) {
         const top =
-          sourceData[i00 + channel] * (1 - xFraction) + sourceData[i10 + channel] * xFraction;
+          sourceData[i00 + channel] * (1 - xFraction) +
+          sourceData[i10 + channel] * xFraction;
         const bottom =
-          sourceData[i01 + channel] * (1 - xFraction) + sourceData[i11 + channel] * xFraction;
+          sourceData[i01 + channel] * (1 - xFraction) +
+          sourceData[i11 + channel] * xFraction;
         destinationData[destinationIndex + channel] = Math.round(
           top * (1 - yFraction) + bottom * yFraction
         );
@@ -67,31 +74,45 @@ function computeTargetDimensions({
 }) {
   let targetWidth: number, targetHeight: number;
 
-  if ("maximumPixels" in options && options.maximumPixels) {
+  if ('maximumPixels' in options && options.maximumPixels) {
     const totalPixels = sourceWidth * sourceHeight;
     if (totalPixels <= options.maximumPixels) return null;
     const scale = Math.sqrt(options.maximumPixels / totalPixels);
     targetWidth = Math.max(1, Math.round(sourceWidth * scale));
     targetHeight = Math.max(1, Math.round(sourceHeight * scale));
-  } else if ("width" in options && options.width && "height" in options && options.height) {
-    const fit = options.fit ?? "fill";
-    if (fit === "fill") {
+  } else if (
+    'width' in options &&
+    options.width &&
+    'height' in options &&
+    options.height
+  ) {
+    const fit = options.fit ?? 'fill';
+    if (fit === 'fill') {
       targetWidth = options.width;
       targetHeight = options.height;
     } else {
       const scale =
-        fit === "contain"
+        fit === 'contain'
           ? Math.min(options.width / sourceWidth, options.height / sourceHeight)
-          : Math.max(options.width / sourceWidth, options.height / sourceHeight);
+          : Math.max(
+              options.width / sourceWidth,
+              options.height / sourceHeight
+            );
       targetWidth = Math.round(sourceWidth * scale);
       targetHeight = Math.round(sourceHeight * scale);
     }
-  } else if ("width" in options && options.width) {
+  } else if ('width' in options && options.width) {
     targetWidth = options.width;
-    targetHeight = Math.max(1, Math.round(sourceHeight * (options.width / sourceWidth)));
-  } else if ("height" in options && options.height) {
+    targetHeight = Math.max(
+      1,
+      Math.round(sourceHeight * (options.width / sourceWidth))
+    );
+  } else if ('height' in options && options.height) {
     targetHeight = options.height;
-    targetWidth = Math.max(1, Math.round(sourceWidth * (options.height / sourceHeight)));
+    targetWidth = Math.max(
+      1,
+      Math.round(sourceWidth * (options.height / sourceHeight))
+    );
   } else return null;
 
   return targetWidth === sourceWidth && targetHeight === sourceHeight
@@ -100,7 +121,7 @@ function computeTargetDimensions({
 }
 
 export const resize = defineWhole<ResizeOptions>({
-  id: "resize",
+  id: 'resize',
   execute: ({ imageData, options }) => {
     const dimensions = computeTargetDimensions({
       sourceWidth: imageData.width,
@@ -117,12 +138,12 @@ export const resize = defineWhole<ResizeOptions>({
     });
   },
   ui: {
-    name: "Resize",
-    description: "Resizes the image to the specified dimensions.",
+    name: 'Resize',
+    description: 'Resizes the image to the specified dimensions.',
     defaultArgs: {},
     argDefinitions: [
-      { key: "width", label: "Width", min: 1, max: 4096, step: 1 },
-      { key: "height", label: "Height", min: 1, max: 4096, step: 1 },
+      { key: 'width', label: 'Width', min: 1, max: 4096, step: 1 },
+      { key: 'height', label: 'Height', min: 1, max: 4096, step: 1 },
     ],
   },
 });

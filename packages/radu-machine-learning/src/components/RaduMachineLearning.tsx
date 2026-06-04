@@ -1,5 +1,5 @@
-import { Charts } from "./Charts.tsx";
-import { Sessions } from "./sessions/Sessions.tsx";
+import { Charts } from './Charts.tsx';
+import { Sessions } from './sessions/Sessions.tsx';
 
 function RaduMachineLearning() {
   return (

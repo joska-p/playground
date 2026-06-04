@@ -1,11 +1,15 @@
-import { useResizeObserver } from "@repo/ui/useResizeObserver";
-import { useEffect } from "react";
-import { initialGapSize, initialRotations, initialTileSize } from "../core/constants";
-import { CSS_VARS } from "../core/cssVars";
-import { initialPalette } from "../core/initialPalette";
-import { initMosaicPalettes, setMosaicRef } from "../store/actions";
-import { useMosaicTiles } from "../store/selectors";
-import { Tile } from "./Tile";
+import { useResizeObserver } from '@repo/ui/useResizeObserver';
+import { useEffect } from 'react';
+import {
+  initialGapSize,
+  initialRotations,
+  initialTileSize,
+} from '../core/constants';
+import { CSS_VARS } from '../core/cssVars';
+import { initialPalette } from '../core/initialPalette';
+import { initMosaicPalettes, setMosaicRef } from '../store/actions';
+import { useMosaicTiles } from '../store/selectors';
+import { Tile } from './Tile';
 
 const MOSAIC_STYLES = {
   ...initialPalette,
@@ -40,7 +44,12 @@ function MosaicDisplay() {
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (
-        <Tile key={tile.id} name={tile.name} colors={tile.colors} rotation={tile.rotation} />
+        <Tile
+          key={tile.id}
+          name={tile.name}
+          colors={tile.colors}
+          rotation={tile.rotation}
+        />
       ))}
     </div>
   );

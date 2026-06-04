@@ -1,5 +1,5 @@
-import { Input } from "@repo/ui/Input";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Input } from '@repo/ui/Input';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 function MailIcon() {
   return (
@@ -14,7 +14,13 @@ function MailIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <rect
+        width="20"
+        height="16"
+        x="2"
+        y="4"
+        rx="2"
+      />
       <path d="m22 7-8.97 8.99-4.97-4.96-3.03 3.03" />
     </svg>
   );
@@ -33,7 +39,11 @@ function GlobeIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle cx="12" cy="12" r="10" />
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+      />
       <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
       <path d="M2 12h20" />
     </svg>
@@ -46,47 +56,54 @@ function GlobeIcon() {
  * and automated ID generation.
  */
 const meta: Meta<typeof Input> = {
-  title: "Components/Input",
+  title: 'Components/Input',
   component: Input,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     label: {
-      description: "The floating label text above the input.",
-      control: "text",
+      description: 'The floating label text above the input.',
+      control: 'text',
     },
     helperText: {
-      description: "Supportive text displayed below the input field.",
-      control: "text",
+      description: 'Supportive text displayed below the input field.',
+      control: 'text',
     },
     variant: {
-      description: "Visual style variant based on the Gruvbox color palette.",
-      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
-      control: { type: "select" },
+      description: 'Visual style variant based on the Gruvbox color palette.',
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
+      control: { type: 'select' },
     },
     type: {
-      description: "Standard HTML input types.",
-      options: ["text", "email", "number", "password", "file", "color"],
-      control: { type: "select" },
+      description: 'Standard HTML input types.',
+      options: ['text', 'email', 'number', 'password', 'file', 'color'],
+      control: { type: 'select' },
     },
     disabled: {
-      description: "Disables user interaction and applies dimmed styling.",
-      control: "boolean",
+      description: 'Disables user interaction and applies dimmed styling.',
+      control: 'boolean',
     },
     isLoading: {
-      description: "Shows a loading spinner and disables the input.",
-      control: "boolean",
+      description: 'Shows a loading spinner and disables the input.',
+      control: 'boolean',
     },
     startIcon: {
-      description: "Icon displayed before the input text.",
+      description: 'Icon displayed before the input text.',
       control: false,
     },
     endIcon: {
-      description: "Icon displayed after the input text.",
+      description: 'Icon displayed after the input text.',
       control: false,
     },
     placeholder: {
-      description: "Placeholder text inside the input.",
-      control: "text",
+      description: 'Placeholder text inside the input.',
+      control: 'text',
     },
   },
 };
@@ -102,10 +119,10 @@ type Story = StoryObj<typeof Input>;
  */
 export const Primary: Story = {
   args: {
-    label: "Username",
-    placeholder: "e.g. josh_creative",
-    variant: "primary",
-    helperText: "Choose a unique name for the playground.",
+    label: 'Username',
+    placeholder: 'e.g. josh_creative',
+    variant: 'primary',
+    helperText: 'Choose a unique name for the playground.',
   },
 };
 
@@ -115,9 +132,9 @@ export const Primary: Story = {
  */
 export const Secondary: Story = {
   args: {
-    label: "Additional Notes",
-    placeholder: "Optional details…",
-    variant: "secondary",
+    label: 'Additional Notes',
+    placeholder: 'Optional details…',
+    variant: 'secondary',
   },
 };
 
@@ -127,10 +144,10 @@ export const Secondary: Story = {
  */
 export const Accent: Story = {
   args: {
-    label: "Promo Code",
-    placeholder: "Enter code",
-    variant: "accent",
-    helperText: "Enter your promotional code.",
+    label: 'Promo Code',
+    placeholder: 'Enter code',
+    variant: 'accent',
+    helperText: 'Enter your promotional code.',
   },
 };
 
@@ -140,11 +157,11 @@ export const Accent: Story = {
  */
 export const Destructive: Story = {
   args: {
-    label: "Email Address",
-    type: "email",
-    defaultValue: "invalid-email",
-    variant: "destructive",
-    helperText: "Please enter a valid email address.",
+    label: 'Email Address',
+    type: 'email',
+    defaultValue: 'invalid-email',
+    variant: 'destructive',
+    helperText: 'Please enter a valid email address.',
   },
 };
 
@@ -154,9 +171,9 @@ export const Destructive: Story = {
  */
 export const Outline: Story = {
   args: {
-    label: "Hidden Field",
-    placeholder: "Optional…",
-    variant: "outline",
+    label: 'Hidden Field',
+    placeholder: 'Optional…',
+    variant: 'outline',
   },
 };
 
@@ -166,17 +183,17 @@ export const Outline: Story = {
  */
 export const Ghost: Story = {
   args: {
-    label: "Quick Search",
-    placeholder: "Search…",
-    variant: "ghost",
+    label: 'Quick Search',
+    placeholder: 'Search…',
+    variant: 'ghost',
   },
 };
 
 export const Password: Story = {
   args: {
-    label: "Password",
-    type: "password",
-    placeholder: "Enter password",
+    label: 'Password',
+    type: 'password',
+    placeholder: 'Enter password',
   },
 };
 
@@ -185,10 +202,10 @@ export const Password: Story = {
  */
 export const Disabled: Story = {
   args: {
-    label: "Read Only Field",
+    label: 'Read Only Field',
     disabled: true,
-    placeholder: "You cannot edit this content",
-    helperText: "This field is currently locked.",
+    placeholder: 'You cannot edit this content',
+    helperText: 'This field is currently locked.',
   },
 };
 
@@ -197,10 +214,10 @@ export const Disabled: Story = {
  */
 export const Loading: Story = {
   args: {
-    label: "Search",
-    placeholder: "Searching…",
+    label: 'Search',
+    placeholder: 'Searching…',
     isLoading: true,
-    helperText: "Searching for results…",
+    helperText: 'Searching for results…',
   },
 };
 
@@ -209,9 +226,9 @@ export const Loading: Story = {
  */
 export const WithStartIcon: Story = {
   args: {
-    label: "Email",
-    type: "email",
-    placeholder: "you@example.com",
+    label: 'Email',
+    type: 'email',
+    placeholder: 'you@example.com',
     startIcon: <MailIcon />,
     helperText: "We'll never share your email.",
   },
@@ -222,10 +239,10 @@ export const WithStartIcon: Story = {
  */
 export const WithEndIcon: Story = {
   args: {
-    label: "Website",
-    type: "url",
-    placeholder: "https://",
+    label: 'Website',
+    type: 'url',
+    placeholder: 'https://',
     endIcon: <GlobeIcon />,
-    helperText: "Your personal portfolio URL.",
+    helperText: 'Your personal portfolio URL.',
   },
 };

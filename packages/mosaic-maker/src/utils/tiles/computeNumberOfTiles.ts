@@ -1,4 +1,4 @@
-import { CSS_VARS } from "../../core/cssVars";
+import { CSS_VARS } from '../../core/cssVars';
 
 function parseNumericValue(value: string): number {
   const parsed = Number.parseFloat(value);
@@ -24,7 +24,7 @@ function computeNumberOfTiles(element: HTMLDivElement): number {
 
     return Math.max(0, tilesPerRow * tilesPerColumn);
   } catch (error) {
-    console.error("Failed to compute number of tiles:", error);
+    console.error('Failed to compute number of tiles:', error);
     return 0;
   }
 }

@@ -1,8 +1,8 @@
-import { Slider } from "@repo/ui/Slider";
-import { useRef, useState } from "react";
-import { colorSpaces } from "../../../core/colorSpaces";
-import { setPaletteBaseColor } from "../../../store/paletteStore";
-import { ColorSpaceCanvas } from "./ColorSpaceCanvas";
+import { Slider } from '@repo/ui/Slider';
+import { useRef, useState } from 'react';
+import { colorSpaces } from '../../../core/colorSpaces';
+import { setPaletteBaseColor } from '../../../store/paletteStore';
+import { ColorSpaceCanvas } from './ColorSpaceCanvas';
 
 type ColorSliceProps = {
   spaceId?: keyof typeof colorSpaces;
@@ -10,7 +10,10 @@ type ColorSliceProps = {
   isActive?: boolean;
 };
 
-function ColorSpaceControls({ spaceId = "oklch", size = 200 }: ColorSliceProps) {
+function ColorSpaceControls({
+  spaceId = 'oklch',
+  size = 200,
+}: ColorSliceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { zSlider, getColor, xAxis, yAxis } = colorSpaces[spaceId];
   const { label, min, max, step } = zSlider;

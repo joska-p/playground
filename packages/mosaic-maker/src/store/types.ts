@@ -1,5 +1,5 @@
-import type { Palette } from "../core/initialPalette";
-import type { TileNames, TileSet } from "../core/initialTileSet";
+import type { Palette } from '../core/initialPalette';
+import type { TileNames, TileSet } from '../core/initialTileSet';
 
 export type TileInstance = {
   id: string;

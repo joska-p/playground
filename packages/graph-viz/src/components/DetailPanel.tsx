@@ -1,8 +1,11 @@
-import { cn } from "@repo/ui/cn";
-import { FT_COLOR, REL_COLORS } from "../constants";
-import { RAW_GRAPH } from "../data/graphData";
-import { setGraphSelectedNode, useGraphSelectedNode } from "../store/graphStore";
-import { communityColor } from "../utils/colors";
+import { cn } from '@repo/ui/cn';
+import { FT_COLOR, REL_COLORS } from '../constants';
+import { RAW_GRAPH } from '../data/graphData';
+import {
+  setGraphSelectedNode,
+  useGraphSelectedNode,
+} from '../store/graphStore';
+import { communityColor } from '../utils/colors';
 
 export function DetailPanel() {
   const selectedNode = useGraphSelectedNode();
@@ -17,7 +20,9 @@ export function DetailPanel() {
     <div className="flex w-65 shrink-0 flex-col overflow-y-auto border-l border-border bg-background p-4 text-sm">
       {/* Header */}
       <div className="mb-3 flex items-start justify-between">
-        <span className="flex-1 wrap-break-words font-bold text-primary">{selectedNode.label}</span>
+        <span className="flex-1 wrap-break-words font-bold text-primary">
+          {selectedNode.label}
+        </span>
         <button
           onClick={() => setGraphSelectedNode(null)}
           className="p-0 pl-2 text-base leading-none text-muted-foreground hover:text-foreground"
@@ -28,10 +33,14 @@ export function DetailPanel() {
 
       {/* Metadata grid */}
       <div className="grid grid-cols-[auto_1fr] items-start gap-x-3 gap-y-2">
-        <MetaRow label="ID" value={selectedNode.id} mono />
+        <MetaRow
+          label="ID"
+          value={selectedNode.id}
+          mono
+        />
         <MetaRow
           label="Type"
-          value={selectedNode.ft || "—"}
+          value={selectedNode.ft || '—'}
           color={FT_COLOR[selectedNode.ft]}
           bold
         />
@@ -41,7 +50,12 @@ export function DetailPanel() {
           color={communityColor(selectedNode.c)}
           bold
         />
-        <MetaRow label="Source" value={selectedNode.sf || "—"} mono small />
+        <MetaRow
+          label="Source"
+          value={selectedNode.sf || '—'}
+          mono
+          small
+        />
       </div>
 
       {/* Connections list */}
@@ -58,13 +72,13 @@ export function DetailPanel() {
               key={otherId}
               onClick={() => other && setGraphSelectedNode(other)}
               className={cn(
-                "mb-2 cursor-pointer rounded border-l-2 bg-card pl-1 pr-2 py-1",
-                `border-l-[${REL_COLORS[l.r] ?? "#334155"}]`
+                'mb-2 cursor-pointer rounded border-l-2 bg-card pl-1 pr-2 py-1',
+                `border-l-[${REL_COLORS[l.r] ?? '#334155'}]`
               )}
             >
               <span
                 className="mb-1 block text-xs uppercase tracking-[0.06em]"
-                style={{ color: REL_COLORS[l.r] ?? "#64748b" }}
+                style={{ color: REL_COLORS[l.r] ?? '#64748b' }}
               >
                 {l.r}
               </span>
@@ -102,9 +116,9 @@ function MetaRow({ label, value, color, bold, small }: MetaRowProps) {
       <span className="pt-1 text-xs text-muted-foreground">{label}</span>
       <span
         className={cn(
-          "break-all text-foreground",
-          bold && "font-semibold",
-          small ? "text-xs" : "text-sm"
+          'break-all text-foreground',
+          bold && 'font-semibold',
+          small ? 'text-xs' : 'text-sm'
         )}
         style={{ color: color ?? undefined }}
       >

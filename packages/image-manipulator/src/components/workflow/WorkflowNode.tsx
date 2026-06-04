@@ -1,14 +1,14 @@
-import { useState } from "react";
-import type { ArgDefinition } from "../../core/manipulations/manipulations";
-import type { WorkflowStep } from "../../store/workflowStore";
+import { useState } from 'react';
+import type { ArgDefinition } from '../../core/manipulations/manipulations';
+import type { WorkflowStep } from '../../stores/manipulator/types';
 import {
   moveWorkflowStep,
   removeWorkflowStep,
-  updateWorkflowStepOptions,
-} from "../../store/workflowStore";
-import { WorkflowNodeControls } from "./WorkflowNodeControls";
-import { WorkflowNodeHeader } from "./WorkflowNodeHeader";
-import { WorkflowStepArgSlider } from "./WorkflowStepArgSlider";
+  updateStepOptions,
+} from '../../stores/manipulator/actions';
+import { WorkflowNodeControls } from './WorkflowNodeControls';
+import { WorkflowNodeHeader } from './WorkflowNodeHeader';
+import { WorkflowStepArgSlider } from './WorkflowStepArgSlider';
 
 type WorkflowNodeProps = {
   step: WorkflowStep;
@@ -19,7 +19,14 @@ type WorkflowNodeProps = {
   argDefinitions: ArgDefinition[];
 };
 
-function WorkflowNode({ step, index, isFirst, isLast, name, argDefinitions }: WorkflowNodeProps) {
+function WorkflowNode({
+  step,
+  index,
+  isFirst,
+  isLast,
+  name,
+  argDefinitions,
+}: WorkflowNodeProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -50,7 +57,7 @@ function WorkflowNode({ step, index, isFirst, isLast, name, argDefinitions }: Wo
               def={def}
               value={step.options[def.key] ?? def.min}
               onChange={(value) =>
-                updateWorkflowStepOptions(index, {
+                updateStepOptions(index, {
                   ...step.options,
                   [def.key]: value,
                 })

@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from "react";
-import { colorSpaces } from "../../../core/colorSpaces";
-import { scaleTo255 } from "../../../utils/color";
+import { useEffect, useMemo } from 'react';
+import { colorSpaces } from '../../../core/colorSpaces';
+import { scaleTo255 } from '../../../utils/color';
 
 type ColorSpaceCanvasProps = {
   ref?: React.RefObject<HTMLCanvasElement | null>;
@@ -21,7 +21,7 @@ function ColorSpaceCanvas({
 
   useEffect(() => {
     const canvas = ref?.current;
-    const ctx = canvas?.getContext("2d");
+    const ctx = canvas?.getContext('2d');
     if (!ctx) return;
 
     const { xAxis, yAxis, getColor } = config;
@@ -50,7 +50,13 @@ function ColorSpaceCanvas({
   }, [config, zValue, size, ref]);
 
   return (
-    <canvas ref={ref} width={size} height={size} onPointerDown={onPick} onPointerMove={onPick} />
+    <canvas
+      ref={ref}
+      width={size}
+      height={size}
+      onPointerDown={onPick}
+      onPointerMove={onPick}
+    />
   );
 }
 

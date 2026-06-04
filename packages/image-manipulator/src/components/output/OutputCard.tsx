@@ -1,11 +1,11 @@
-import { Badge } from "@repo/ui/Badge";
-import { Button } from "@repo/ui/Button";
-import { Card, CardContent, CardFooter, CardHeader } from "@repo/ui/Card";
-import { useRef, useState } from "react";
-import type { OutputType } from "../../store/pipelineStore";
-import { downloadCanvas } from "../../utils/download";
-import { Output } from "./Output";
-import { ImageLightbox } from "./ImageLightbox";
+import { Badge } from '@repo/ui/Badge';
+import { Button } from '@repo/ui/Button';
+import { Card, CardContent, CardFooter, CardHeader } from '@repo/ui/Card';
+import { useRef, useState } from 'react';
+import type { OutputType } from '../../stores/manipulator/types';
+import { downloadCanvas } from '../../utils/download';
+import { Output } from './Output';
+import { ImageLightbox } from './ImageLightbox';
 
 type OutputCardProps = {
   output: OutputType;
@@ -27,7 +27,7 @@ function OutputCard({
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const canvas = cardRef.current?.querySelector("canvas");
+    const canvas = cardRef.current?.querySelector('canvas');
     if (!canvas) return;
     downloadCanvas(canvas, `${output.name}.png`);
   };
@@ -39,10 +39,14 @@ function OutputCard({
 
   return (
     <>
-      <div ref={cardRef} onClick={onSelect} className={onSelect ? "cursor-pointer" : ""}>
+      <div
+        ref={cardRef}
+        onClick={onSelect}
+        className={onSelect ? 'cursor-pointer' : ''}
+      >
         <Card
           className={`transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
-            isSelected ? "ring-2 ring-primary" : ""
+            isSelected ? 'ring-2 ring-primary' : ''
           }`}
         >
           <CardHeader className="flex flex-row items-start justify-between gap-2 p-3 pb-0">
@@ -60,10 +64,18 @@ function OutputCard({
             <Output imageData={output.imageData} />
           </CardContent>
           <CardFooter className="flex gap-2 p-3 pt-0">
-            <Button variant="ghost" size="small" onClick={handleDownload}>
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={handleDownload}
+            >
               Download
             </Button>
-            <Button variant="ghost" size="small" onClick={handleZoom}>
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={handleZoom}
+            >
               Zoom
             </Button>
           </CardFooter>
@@ -71,7 +83,10 @@ function OutputCard({
       </div>
 
       {isZoomed && (
-        <ImageLightbox imageData={output.imageData} onClose={() => setIsZoomed(false)} />
+        <ImageLightbox
+          imageData={output.imageData}
+          onClose={() => setIsZoomed(false)}
+        />
       )}
     </>
   );

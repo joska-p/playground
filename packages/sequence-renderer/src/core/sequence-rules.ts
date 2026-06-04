@@ -15,7 +15,7 @@ export type SequenceRule = {
 
 const recamanRule: SequenceRule = {
   name: "Recaman's Rule",
-  id: "recaman",
+  id: 'recaman',
   description: "Jump back by 'n' if possible, otherwise jump forward.",
   maxSteps: 1000,
   getNext: ({ index, current, seen }) => {
@@ -25,9 +25,9 @@ const recamanRule: SequenceRule = {
 };
 
 const fibonacciRule: SequenceRule = {
-  name: "Fibonacci",
-  id: "fibonacci",
-  description: "F(n) = F(n-1) + F(n-2). Grows exponentially.",
+  name: 'Fibonacci',
+  id: 'fibonacci',
+  description: 'F(n) = F(n-1) + F(n-2). Grows exponentially.',
   maxSteps: 20,
   getNext: ({ index, current, sequence }) => {
     if (index <= 1) return index;
@@ -36,9 +36,9 @@ const fibonacciRule: SequenceRule = {
 };
 
 const primesRule: SequenceRule = {
-  name: "Primes",
-  id: "primes",
-  description: "The sequence of prime numbers: 2, 3, 5, 7, 11...",
+  name: 'Primes',
+  id: 'primes',
+  description: 'The sequence of prime numbers: 2, 3, 5, 7, 11...',
   maxSteps: 300,
   getNext: ({ current }) => {
     function isPrime(num: number): boolean {
@@ -59,17 +59,17 @@ const primesRule: SequenceRule = {
 };
 
 const triangularRule: SequenceRule = {
-  name: "Triangular",
-  id: "triangular",
-  description: "Sum of integers up to n: 1, 3, 6, 10, 15...",
+  name: 'Triangular',
+  id: 'triangular',
+  description: 'Sum of integers up to n: 1, 3, 6, 10, 15...',
   maxSteps: 500,
   getNext: ({ index }) => (index * (index + 1)) / 2,
 };
 
 const collatzRule: SequenceRule = {
-  name: "Collatz",
-  id: "collatz",
-  description: "Even: n/2 | Odd: 3n + 1. Eventually hits 1.",
+  name: 'Collatz',
+  id: 'collatz',
+  description: 'Even: n/2 | Odd: 3n + 1. Eventually hits 1.',
   maxSteps: 500,
   getNext: ({ current }) => {
     if (current <= 1) return 1;

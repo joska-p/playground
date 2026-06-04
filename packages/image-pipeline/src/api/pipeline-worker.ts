@@ -1,6 +1,6 @@
-import { ALL_MANIPULATIONS, type Step } from "../core/manipulations/manifest";
-import { runPipeline } from "../core/pipeline-runner";
-import { Registry } from "../core/registry";
+import { ALL_MANIPULATIONS, type Step } from '../core/manipulations/manifest';
+import { runPipeline } from '../core/pipeline-runner';
+import { Registry } from '../core/registry';
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 
@@ -10,7 +10,7 @@ type WorkerMessage = {
   maximumPixels?: number;
 };
 
-self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
+self.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
   const { sourceImageData, steps, maximumPixels } = event.data;
 
   try {
@@ -25,7 +25,9 @@ self.addEventListener("message", async (event: MessageEvent<WorkerMessage>) => {
       },
     });
 
-    const transferables = pipelineResult.map((imageData) => imageData.data.buffer);
+    const transferables = pipelineResult.map(
+      (imageData) => imageData.data.buffer
+    );
 
     self.postMessage(pipelineResult, { transfer: transferables });
   } catch (error) {

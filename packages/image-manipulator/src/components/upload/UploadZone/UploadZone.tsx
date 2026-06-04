@@ -1,6 +1,6 @@
-import { UploadDropzone } from "../UploadDropzone";
-import { UploadedPreview } from "../UploadedPreview";
-import { useUploadZone } from "./useUploadZone";
+import { UploadDropzone } from '../UploadDropzone';
+import { UploadedPreview } from '../UploadedPreview';
+import { useUploadZone } from './useUploadZone';
 
 function UploadZone() {
   const {
@@ -18,7 +18,13 @@ function UploadZone() {
   } = useUploadZone();
 
   if (imageSource) {
-    return <UploadedPreview imageSource={imageSource} fileName={fileName} onClear={clearImage} />;
+    return (
+      <UploadedPreview
+        imageSource={imageSource}
+        fileName={fileName}
+        onClear={clearImage}
+      />
+    );
   }
 
   return (

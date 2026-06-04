@@ -1,4 +1,4 @@
-import { Demo } from "./components/Demo.tsx";
+import { Demo } from './components/Demo.tsx';
 
 function App() {
   return (

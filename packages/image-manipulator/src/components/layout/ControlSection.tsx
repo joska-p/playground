@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { ChevronIcon } from "../shared/ChevronIcon";
+import type { ReactNode } from 'react';
+import { ChevronIcon } from '../shared/ChevronIcon';
 
 type ControlSectionProps = {
   title: string;
@@ -8,7 +8,12 @@ type ControlSectionProps = {
   children: ReactNode;
 };
 
-function ControlSection({ title, isOpen, onToggle, children }: ControlSectionProps) {
+function ControlSection({
+  title,
+  isOpen,
+  onToggle,
+  children,
+}: ControlSectionProps) {
   return (
     <div className="border-border rounded-lg border">
       <button
@@ -18,7 +23,9 @@ function ControlSection({ title, isOpen, onToggle, children }: ControlSectionPro
         {title}
         <ChevronIcon isOpen={isOpen} />
       </button>
-      {isOpen && <div className="border-border border-t px-3 py-3">{children}</div>}
+      {isOpen && (
+        <div className="border-border border-t px-3 py-3">{children}</div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { Select } from "@repo/ui/Select";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Select } from '@repo/ui/Select';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const options = (
   <>
@@ -60,42 +60,49 @@ const options6 = (
  * Supports label, helperText, and uses the same variant system as Input and Button.
  */
 const meta: Meta<typeof Select> = {
-  title: "Components/Select",
+  title: 'Components/Select',
   component: Select,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     label: {
-      description: "The label text displayed above the select.",
-      control: "text",
+      description: 'The label text displayed above the select.',
+      control: 'text',
     },
     helperText: {
-      description: "Supportive text displayed below the select.",
-      control: "text",
+      description: 'Supportive text displayed below the select.',
+      control: 'text',
     },
     variant: {
-      description: "Visual style variant based on the theme colors.",
-      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
-      control: { type: "select" },
+      description: 'Visual style variant based on the theme colors.',
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
+      control: { type: 'select' },
     },
     disabled: {
-      description: "Disables user interaction and applies dimmed styling.",
-      control: "boolean",
+      description: 'Disables user interaction and applies dimmed styling.',
+      control: 'boolean',
     },
     value: {
-      description: "The selected value.",
+      description: 'The selected value.',
       control: false,
     },
     onChange: {
-      description: "Callback when the selection changes.",
+      description: 'Callback when the selection changes.',
       control: false,
     },
     children: {
-      description: "The select options (option elements).",
+      description: 'The select options (option elements).',
       control: false,
     },
   },
   args: {
-    label: "Select Option",
+    label: 'Select Option',
   },
 };
 
@@ -110,9 +117,9 @@ type Story = StoryObj<typeof Select>;
  */
 export const Primary: Story = {
   args: {
-    variant: "primary",
+    variant: 'primary',
     children: options,
-    helperText: "Select an option from the dropdown.",
+    helperText: 'Select an option from the dropdown.',
   },
 };
 
@@ -122,10 +129,10 @@ export const Primary: Story = {
  */
 export const Secondary: Story = {
   args: {
-    label: "Category",
-    variant: "secondary",
+    label: 'Category',
+    variant: 'secondary',
     children: options2,
-    helperText: "Choose a category (optional).",
+    helperText: 'Choose a category (optional).',
   },
 };
 
@@ -135,10 +142,10 @@ export const Secondary: Story = {
  */
 export const Accent: Story = {
   args: {
-    label: "Theme",
-    variant: "accent",
+    label: 'Theme',
+    variant: 'accent',
     children: options3,
-    helperText: "Select your preferred theme.",
+    helperText: 'Select your preferred theme.',
   },
 };
 
@@ -148,10 +155,10 @@ export const Accent: Story = {
  */
 export const Destructive: Story = {
   args: {
-    label: "Country",
-    variant: "destructive",
+    label: 'Country',
+    variant: 'destructive',
     children: options4,
-    helperText: "Please select a valid country.",
+    helperText: 'Please select a valid country.',
   },
 };
 
@@ -161,10 +168,10 @@ export const Destructive: Story = {
  */
 export const Outline: Story = {
   args: {
-    label: "Difficulty",
-    variant: "outline",
+    label: 'Difficulty',
+    variant: 'outline',
     children: options5,
-    helperText: "Select the difficulty level.",
+    helperText: 'Select the difficulty level.',
   },
 };
 
@@ -174,10 +181,10 @@ export const Outline: Story = {
  */
 export const Ghost: Story = {
   args: {
-    label: "Language",
-    variant: "ghost",
+    label: 'Language',
+    variant: 'ghost',
     children: options6,
-    helperText: "Choose a language.",
+    helperText: 'Choose a language.',
   },
 };
 
@@ -186,10 +193,10 @@ export const Ghost: Story = {
  */
 export const Disabled: Story = {
   args: {
-    label: "Locked Option",
-    variant: "primary",
+    label: 'Locked Option',
+    variant: 'primary',
     children: options,
     disabled: true,
-    helperText: "This field is currently locked.",
+    helperText: 'This field is currently locked.',
   },
 };

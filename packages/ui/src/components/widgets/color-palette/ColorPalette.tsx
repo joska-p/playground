@@ -1,7 +1,7 @@
-import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
-import { cn } from "../../../utils/cn";
-import { colorPaletteVariants } from "./colorPaletteVariants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
+import { cn } from '../../../utils/cn';
+import { colorPaletteVariants } from './colorPaletteVariants';
 
 type ColorPaletteProps = {
   colors: string[];
@@ -9,7 +9,7 @@ type ColorPaletteProps = {
   value?: string;
   checked?: boolean;
   onChange?: (palette: unknown) => void;
-} & Omit<ComponentProps<"label">, "onChange"> &
+} & Omit<ComponentProps<'label'>, 'onChange'> &
   VariantProps<typeof colorPaletteVariants>;
 
 /**
@@ -18,7 +18,7 @@ type ColorPaletteProps = {
 function ColorPalette({
   ref,
   colors,
-  name = "palette",
+  name = 'palette',
   value,
   checked,
   onChange,

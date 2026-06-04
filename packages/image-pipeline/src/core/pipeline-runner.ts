@@ -1,8 +1,8 @@
-import { BufferManager } from "./buffer-manager";
-import { FusionScheduler } from "./fusion-scheduler";
-import type { PipelineContext } from "./image-pipeline.types";
-import type { Step } from "./manipulations/manifest";
-import { dispatchStep } from "./step-dispatcher";
+import { BufferManager } from './buffer-manager';
+import { FusionScheduler } from './fusion-scheduler';
+import type { PipelineContext } from './image-pipeline.types';
+import type { Step } from './manipulations/manifest';
+import { dispatchStep } from './step-dispatcher';
 
 function buildAutoDownscaleStep({
   source,
@@ -13,12 +13,15 @@ function buildAutoDownscaleStep({
   steps: Step[];
   maximumPixels: number;
 }) {
-  if (steps.some((step) => step.id === "resize") || source.width * source.height <= maximumPixels) {
+  if (
+    steps.some((step) => step.id === 'resize') ||
+    source.width * source.height <= maximumPixels
+  ) {
     return null;
   }
 
   return {
-    id: "resize" as const,
+    id: 'resize' as const,
     options: { maximumPixels },
   };
 }

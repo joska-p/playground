@@ -1,11 +1,11 @@
-import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
-import { cn } from "../../utils/cn";
-import { buttonVariants } from "./buttonVariants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
+import { cn } from '../../utils/cn';
+import { buttonVariants } from './buttonVariants';
 
 type ButtonProps = {
   isLoading?: boolean;
-} & ComponentProps<"button"> &
+} & ComponentProps<'button'> &
   VariantProps<typeof buttonVariants>;
 
 function Button({
@@ -16,7 +16,7 @@ function Button({
   size,
   isLoading,
   disabled,
-  type = "button",
+  type = 'button',
   ...props
 }: ButtonProps) {
   return (
@@ -29,7 +29,10 @@ function Button({
     >
       {isLoading ? (
         <span className="flex items-center gap-2">
-          <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
+          <svg
+            className="h-4 w-4 animate-spin"
+            viewBox="0 0 24 24"
+          >
             <circle
               className="opacity-25"
               cx="12"

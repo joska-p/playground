@@ -28,20 +28,20 @@ export class PieChart extends HTMLElement {
 
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: "open" });
-    const gap = this.getAttribute("gap") ?? "0";
-    const donut = this.getAttribute("donut") ?? "0";
-    const colors = this.getAttribute("colors")?.split(";") ?? [
-      "#55095c",
-      "#7e025f",
-      "#a3075c",
-      "#c42054",
-      "#df3e48",
-      "#f25f39",
-      "#fd8224",
-      "#ffa600",
+    const shadow = this.attachShadow({ mode: 'open' });
+    const gap = this.getAttribute('gap') ?? '0';
+    const donut = this.getAttribute('donut') ?? '0';
+    const colors = this.getAttribute('colors')?.split(';') ?? [
+      '#55095c',
+      '#7e025f',
+      '#a3075c',
+      '#c42054',
+      '#df3e48',
+      '#f25f39',
+      '#fd8224',
+      '#ffa600',
     ];
-    const labels = this.getAttribute("labels")?.split(";") ?? [];
+    const labels = this.getAttribute('labels')?.split(';') ?? [];
     const svg = strToDom(`<svg viewBox="-1 -1 2 2">
       <g mask="url(#graphMask)"></g>
         <mask id="graphMask">
@@ -49,40 +49,48 @@ export class PieChart extends HTMLElement {
         <circle fill="#000" r="${donut}"
       </mask>
     </svg>`) as SVGSVGElement;
-    const pathGroup = svg.querySelector("g");
-    const maskGroup = svg.querySelector("mask");
+    const pathGroup = svg.querySelector('g');
+    const maskGroup = svg.querySelector('mask');
 
-    this.data = (this.getAttribute("data") ?? "").split(";").map((v) => Number.parseFloat(v));
+    this.data = (this.getAttribute('data') ?? '')
+      .split(';')
+      .map((v) => Number.parseFloat(v));
 
     this.paths = this.data.map((_, index) => {
-      const color = colors[index % colors.length] ?? "#000";
-      const uiPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      uiPath.setAttribute("fill", color);
-      uiPath.addEventListener("mouseover", () => this.handlePathHover(index));
-      uiPath.addEventListener("mouseout", () => this.handlePathOut(index));
+      const color = colors[index % colors.length] ?? '#000';
+      const uiPath = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path'
+      );
+      uiPath.setAttribute('fill', color);
+      uiPath.addEventListener('mouseover', () => this.handlePathHover(index));
+      uiPath.addEventListener('mouseout', () => this.handlePathOut(index));
       pathGroup?.appendChild(uiPath);
       return uiPath;
     });
 
     this.lines = this.data.map(() => {
-      const uiLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      uiLine.setAttribute("stroke", "#000");
-      uiLine.setAttribute("stroke-width", gap);
-      uiLine.setAttribute("x1", "0");
-      uiLine.setAttribute("y1", "0");
+      const uiLine = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'line'
+      );
+      uiLine.setAttribute('stroke', '#000');
+      uiLine.setAttribute('stroke-width', gap);
+      uiLine.setAttribute('x1', '0');
+      uiLine.setAttribute('y1', '0');
       maskGroup?.appendChild(uiLine);
       return uiLine;
     });
 
     this.labels = labels.map((label) => {
-      const uiLabel = document.createElement("div");
-      uiLabel.className = "label";
+      const uiLabel = document.createElement('div');
+      uiLabel.className = 'label';
       uiLabel.innerText = label;
       shadow.appendChild(uiLabel);
       return uiLabel;
     });
 
-    const style = document.createElement("style");
+    const style = document.createElement('style');
     style.innerHTML = `
     :host {
       display: block;
@@ -144,39 +152,40 @@ export class PieChart extends HTMLElement {
       const label = this.labels[index];
       const path = this.paths[index];
       const line = this.lines[index];
-      if (progress === 1 && label) this.positionLabel(label, angle + ratio * Math.PI);
+      if (progress === 1 && label)
+        this.positionLabel(label, angle + ratio * Math.PI);
       angle += ratio * 2 * Math.PI;
       const end = Point.fromAngle(angle);
-      const largeFlag = ratio > 0.5 ? "1" : "0";
+      const largeFlag = ratio > 0.5 ? '1' : '0';
       if (path) {
         path.setAttribute(
-          "d",
+          'd',
           `M 0 0 L ${start.toSvgPath()} A 1 1 0 ${largeFlag} 1 ${end.toSvgPath()} L 0 0`
         );
       }
       if (line) {
-        line.setAttribute("x2", String(end.x));
-        line.setAttribute("y2", String(end.y));
+        line.setAttribute('x2', String(end.x));
+        line.setAttribute('y2', String(end.y));
       }
       start = end;
     });
   }
 
   handlePathHover(index: number) {
-    this.dispatchEvent(new CustomEvent("sectionhover", { detail: index }));
-    this.labels[index]?.classList.add("is-active");
+    this.dispatchEvent(new CustomEvent('sectionhover', { detail: index }));
+    this.labels[index]?.classList.add('is-active');
   }
 
   handlePathOut(index: number) {
-    this.labels[index]?.classList.remove("is-active");
+    this.labels[index]?.classList.remove('is-active');
   }
 
   positionLabel(label: HTMLDivElement, angle: number) {
     if (!label || !angle) return;
     const point = Point.fromAngle(angle);
-    label.style.setProperty("top", `${(point.y * 0.8 * 0.5 + 0.5) * 100}%`);
-    label.style.setProperty("left", `${(point.x * 0.8 * 0.5 + 0.5) * 100}%`);
+    label.style.setProperty('top', `${(point.y * 0.8 * 0.5 + 0.5) * 100}%`);
+    label.style.setProperty('left', `${(point.x * 0.8 * 0.5 + 0.5) * 100}%`);
   }
 }
 
-customElements.define("pie-chart", PieChart);
+customElements.define('pie-chart', PieChart);

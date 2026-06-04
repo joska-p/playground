@@ -1,4 +1,4 @@
-import type Color from "colorjs.io";
+import type Color from 'colorjs.io';
 
 export type Palette = {
   colors: Color[];

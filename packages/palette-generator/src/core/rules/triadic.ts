@@ -1,5 +1,5 @@
-import type Color from "colorjs.io";
-import type { Rule } from "./harmonyRule.types";
+import type Color from 'colorjs.io';
+import type { Rule } from './harmonyRule.types';
 
 /**
  * Triadic color rule.
@@ -7,21 +7,23 @@ import type { Rule } from "./harmonyRule.types";
  */
 const triadic: Rule = {
   apply: (color: Color) => {
-    const base = color.clone().to("oklch");
+    const base = color.clone().to('oklch');
 
     const colors: Color[] = [];
     const angles = [0, 120, 240];
 
     for (const angle of angles) {
       const c = base.clone();
-      if (c.oklch["h"] != null) {
-        c.oklch["h"] = (c.oklch["h"] + angle) % 360;
+      if (c.oklch['h'] != null) {
+        c.oklch['h'] = (c.oklch['h'] + angle) % 360;
       }
 
       const variation = c.clone();
-      if (variation.oklch["l"] != null) {
-        variation.oklch["l"] =
-          variation.oklch["l"] > 0.5 ? variation.oklch["l"] - 0.2 : variation.oklch["l"] + 0.2;
+      if (variation.oklch['l'] != null) {
+        variation.oklch['l'] =
+          variation.oklch['l'] > 0.5
+            ? variation.oklch['l'] - 0.2
+            : variation.oklch['l'] + 0.2;
       }
 
       colors.push(c);
@@ -31,8 +33,8 @@ const triadic: Rule = {
     return colors;
   },
   info: {
-    name: "Triadic",
-    description: "Three colors evenly spaced around the color wheel.",
+    name: 'Triadic',
+    description: 'Three colors evenly spaced around the color wheel.',
   },
 };
 

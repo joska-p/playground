@@ -1,15 +1,17 @@
-import { Sidebar } from "@repo/ui/Sidebar";
-import { useEffect, useState } from "react";
-import { EndpointView } from "./EndpointView";
-import { loadDemoImage } from "./helpers";
-import type { EndpointId } from "./manipData";
-import { ENDPOINT_GROUPS } from "./manipData";
-import { SwaggerSidebar } from "./SwaggerSidebar";
+import { Sidebar } from '@repo/ui/Sidebar';
+import { useEffect, useState } from 'react';
+import { EndpointView } from './EndpointView';
+import { loadDemoImage } from './helpers';
+import type { EndpointId } from './manipData';
+import { ENDPOINT_GROUPS } from './manipData';
+import { SwaggerSidebar } from './SwaggerSidebar';
 
 const CANVAS_SIZE = 200;
 
 function PipelineDocs() {
-  const [activeEndpoint, setActiveEndpoint] = useState<EndpointId>({ kind: "overview" });
+  const [activeEndpoint, setActiveEndpoint] = useState<EndpointId>({
+    kind: 'overview',
+  });
   const [sourceData, setSourceData] = useState<ImageData | null>(null);
   const [paramValues, setParamValues] = useState<Record<string, number>>({});
 

@@ -1,5 +1,5 @@
-import { z } from "astro/zod";
-import { categoriesIds } from "./notebook";
+import { z } from 'astro/zod';
+import { categoriesIds } from './notebook';
 
 export const notebookSchema = z.object({
   title: z.string(),

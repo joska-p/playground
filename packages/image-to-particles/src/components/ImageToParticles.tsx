@@ -1,6 +1,6 @@
-import { Button } from "@repo/ui/Button";
-import { Input } from "@repo/ui/Input";
-import { useCallback, useEffect, useRef } from "react";
+import { Button } from '@repo/ui/Button';
+import { Input } from '@repo/ui/Input';
+import { useCallback, useEffect, useRef } from 'react';
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -9,9 +9,13 @@ import {
   INITIAL_VELOCITY,
   POSITION_THRESHOLD,
   RETURN_FORCE,
-} from "../core/config";
-import { calculateImageDimensions, drawImageToCanvas, initParticles } from "../core/utils";
-import { useImageUpload } from "../hooks/useImageUpload";
+} from '../core/config';
+import {
+  calculateImageDimensions,
+  drawImageToCanvas,
+  initParticles,
+} from '../core/utils';
+import { useImageUpload } from '../hooks/useImageUpload';
 
 export type Particle = {
   x: number;
@@ -24,7 +28,7 @@ export type Particle = {
     x: number;
     y: number;
   };
-  state: "waiting" | "falling" | "landed";
+  state: 'waiting' | 'falling' | 'landed';
   delay: number;
 };
 
@@ -48,7 +52,7 @@ export function ImageToParticles() {
           INITIAL_VELOCITY.MIN_Y +
           Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y),
       },
-      state: "waiting",
+      state: 'waiting',
       delay: (currentDelay += Math.random() * 5),
     }));
   }, []);
@@ -56,9 +60,9 @@ export function ImageToParticles() {
   useEffect(() => {
     if (!imageFile || !canvasRef.current) return;
 
-    const ctx = canvasRef.current.getContext("2d");
+    const ctx = canvasRef.current.getContext('2d');
     if (!ctx) {
-      throw new Error("Could not get canvas context");
+      throw new Error('Could not get canvas context');
       return;
     }
 
@@ -85,30 +89,36 @@ export function ImageToParticles() {
 
         function animate() {
           if (!canvasRef.current) return;
-          const context = canvasRef.current.getContext("2d");
+          const context = canvasRef.current.getContext('2d');
           if (!context) return;
 
           context.clearRect(0, 0, context.canvas.width, context.canvas.height);
           const time = performance.now();
 
           particles.current.forEach((particle) => {
-            if (particle.state === "waiting" && time > particle.delay) {
-              particle.state = "falling";
+            if (particle.state === 'waiting' && time > particle.delay) {
+              particle.state = 'falling';
             }
 
-            if (particle.state === "falling" || particle.state === "landed") {
+            if (particle.state === 'falling' || particle.state === 'landed') {
               context.fillStyle = particle.color;
               context.beginPath();
-              context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+              context.arc(
+                particle.x,
+                particle.y,
+                particle.size,
+                0,
+                Math.PI * 2
+              );
               context.fill();
 
-              if (particle.state === "falling") {
+              if (particle.state === 'falling') {
                 particle.velocity.y += GRAVITY;
                 particle.x += particle.velocity.x;
                 particle.y += particle.velocity.y;
 
                 if (particle.y >= particle.originY) {
-                  particle.state = "landed";
+                  particle.state = 'landed';
                   particle.y = particle.originY;
                 }
               } else {
@@ -132,13 +142,14 @@ export function ImageToParticles() {
 
         animate();
       } catch (error) {
-        if (error instanceof Error) throw new Error("Error processing image", error);
+        if (error instanceof Error)
+          throw new Error('Error processing image', error);
         throw error;
       }
     };
 
     image.onerror = (error) => {
-      if (error instanceof Error) throw new Error("Error loading image", error);
+      if (error instanceof Error) throw new Error('Error loading image', error);
     };
 
     return cleanup;
@@ -146,11 +157,21 @@ export function ImageToParticles() {
 
   return (
     <div className="min-h-dvh mx-auto my-8 flex w-fit flex-col items-center gap-8">
-      <Input type="file" accept="image/*" onChange={handleImageUpload} />
-      <Button onClick={resetParticles} className="m-2.5 cursor-pointer px-4 py-2">
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+      />
+      <Button
+        onClick={resetParticles}
+        className="m-2.5 cursor-pointer px-4 py-2"
+      >
         Replay Animation
       </Button>
-      <canvas ref={canvasRef} className="bg-black" />
+      <canvas
+        ref={canvasRef}
+        className="bg-black"
+      />
     </div>
   );
 }

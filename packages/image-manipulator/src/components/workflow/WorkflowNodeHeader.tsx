@@ -1,5 +1,5 @@
-import { ChevronIcon } from "../shared/ChevronIcon";
-import { StepBadge } from "./StepBadge";
+import { ChevronIcon } from '../shared/ChevronIcon';
+import { StepBadge } from './StepBadge';
 
 type WorkflowNodeHeaderProps = {
   index: number;
@@ -24,7 +24,7 @@ function WorkflowNodeHeader({
         <button
           onClick={onToggleExpand}
           className="text-muted-foreground hover:text-foreground"
-          aria-label={expanded ? "Collapse arguments" : "Expand arguments"}
+          aria-label={expanded ? 'Collapse arguments' : 'Expand arguments'}
         >
           <ChevronIcon isOpen={expanded} />
         </button>

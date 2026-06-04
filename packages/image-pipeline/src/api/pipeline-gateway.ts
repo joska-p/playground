@@ -1,5 +1,5 @@
-import type { Step } from "../core/manipulations/manifest";
-import PipelineWorker from "./pipeline-worker?worker&inline";
+import type { Step } from '../core/manipulations/manifest';
+import PipelineWorker from './pipeline-worker?worker&inline';
 
 type PoolEntry = {
   worker: Worker;
@@ -50,9 +50,11 @@ export class PipelineGateway {
   }): void {
     poolEntry.busy = true;
 
-    const onMessage = (event: MessageEvent<ImageData[] | { error: string }>) => {
+    const onMessage = (
+      event: MessageEvent<ImageData[] | { error: string }>
+    ) => {
       cleanup();
-      if ("error" in event.data) {
+      if ('error' in event.data) {
         reject(new Error(event.data.error));
       } else {
         resolve(event.data);
@@ -61,24 +63,29 @@ export class PipelineGateway {
 
     const onError = (error: ErrorEvent) => {
       cleanup();
-      reject(new Error(error.message ?? "Unknown worker error"));
+      reject(new Error(error.message ?? 'Unknown worker error'));
     };
 
     const cleanup = () => {
-      poolEntry.worker.removeEventListener("message", onMessage);
-      poolEntry.worker.removeEventListener("error", onError);
+      poolEntry.worker.removeEventListener('message', onMessage);
+      poolEntry.worker.removeEventListener('error', onError);
       poolEntry.busy = false;
       this.drainQueue();
     };
 
-    poolEntry.worker.addEventListener("message", onMessage);
-    poolEntry.worker.addEventListener("error", onError);
+    poolEntry.worker.addEventListener('message', onMessage);
+    poolEntry.worker.addEventListener('error', onError);
 
     const clampedCopy = new Uint8ClampedArray(sourceImageData.data);
-    const imageDataCopy = new ImageData(clampedCopy, sourceImageData.width, sourceImageData.height);
-    poolEntry.worker.postMessage({ sourceImageData: imageDataCopy, steps, maximumPixels }, [
-      imageDataCopy.data.buffer,
-    ]);
+    const imageDataCopy = new ImageData(
+      clampedCopy,
+      sourceImageData.width,
+      sourceImageData.height
+    );
+    poolEntry.worker.postMessage(
+      { sourceImageData: imageDataCopy, steps, maximumPixels },
+      [imageDataCopy.data.buffer]
+    );
   }
 
   private drainQueue(): void {

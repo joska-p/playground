@@ -1,6 +1,6 @@
-import { Button } from "@repo/ui/Button";
-import { clearPipelineOutputs } from "../../store/pipelineStore";
-import { UploadZone } from "./UploadZone";
+import { Button } from '@repo/ui/Button';
+import { clearOutputs } from '../../stores/manipulator/actions';
+import { UploadZone } from './UploadZone';
 
 function ImageSourceControls() {
   return (
@@ -9,7 +9,7 @@ function ImageSourceControls() {
       <Button
         variant="ghost"
         size="small"
-        onClick={() => clearPipelineOutputs()}
+        onClick={() => clearOutputs()}
         className="self-end"
       >
         Clear Outputs

@@ -1,7 +1,7 @@
-import type { Palette } from "../core/initialPalette";
-import type { TileSet } from "../core/initialTileSet";
-import { mosaicStore } from "./store";
-import type { TileInstance } from "./types";
+import type { Palette } from '../core/initialPalette';
+import type { TileSet } from '../core/initialTileSet';
+import { mosaicStore } from './store';
+import type { TileInstance } from './types';
 
 export function useMosaicRef(): React.RefObject<HTMLDivElement | null> {
   return mosaicStore((s) => s.mosaicRef);

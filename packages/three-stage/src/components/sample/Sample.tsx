@@ -1,23 +1,23 @@
-import { useFrame } from "@react-three/fiber";
-import { useControls } from "leva";
-import { useRef, useState } from "react";
-import type * as THREE from "three";
-import type { Mesh } from "three";
-import { geometries } from "../../lib/geometry";
-import { materials } from "../../lib/material";
+import { useFrame } from '@react-three/fiber';
+import { useControls } from 'leva';
+import { useRef, useState } from 'react';
+import type * as THREE from 'three';
+import type { Mesh } from 'three';
+import { geometries } from '../../lib/geometry';
+import { materials } from '../../lib/material';
 
 export function Sample() {
   const sampleRef = useRef<Mesh>(null!);
-  const { speed, geometry, color, material } = useControls("Object", {
+  const { speed, geometry, color, material } = useControls('Object', {
     speed: {
-      label: "Rotation speed",
+      label: 'Rotation speed',
       value: 0.005,
       min: 0.0,
       max: 0.03,
       step: 0.001,
     },
     geometry: {
-      label: "Geometry",
+      label: 'Geometry',
       options: geometries.reduce(
         (accumulator, currentValue) => {
           accumulator[currentValue.label] = currentValue.geometry();
@@ -27,11 +27,11 @@ export function Sample() {
       ),
     },
     color: {
-      label: "Color",
-      value: "#00bfff",
+      label: 'Color',
+      value: '#00bfff',
     },
     material: {
-      label: "Material",
+      label: 'Material',
       options: materials.reduce(
         (accumulator, currentValue) => {
           accumulator[currentValue.label] = currentValue.material();
@@ -55,9 +55,18 @@ export function Sample() {
   };
 
   return (
-    <mesh ref={sampleRef} castShadow onClick={handleClick} position={[0, 3, 0]}>
+    <mesh
+      ref={sampleRef}
+      castShadow
+      onClick={handleClick}
+      position={[0, 3, 0]}
+    >
       <primitive object={geometry} />
-      <primitive object={material} color={color} wireframe={wireframe} />
+      <primitive
+        object={material}
+        color={color}
+        wireframe={wireframe}
+      />
     </mesh>
   );
 }

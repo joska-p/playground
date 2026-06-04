@@ -5,7 +5,10 @@ export class BufferManager {
   private imageHeight: number;
 
   constructor(source: ImageData) {
-    this.buffers = [new Uint8ClampedArray(source.data), new Uint8ClampedArray(source.data.length)];
+    this.buffers = [
+      new Uint8ClampedArray(source.data),
+      new Uint8ClampedArray(source.data.length),
+    ];
     this.imageWidth = source.width;
     this.imageHeight = source.height;
   }
@@ -38,7 +41,9 @@ export class BufferManager {
 
   replaceWith(imageData: ImageData) {
     this.buffers[this.pointer] = new Uint8ClampedArray(imageData.data);
-    this.buffers[1 - this.pointer] = new Uint8ClampedArray(imageData.width * imageData.height * 4);
+    this.buffers[1 - this.pointer] = new Uint8ClampedArray(
+      imageData.width * imageData.height * 4
+    );
     this.imageWidth = imageData.width;
     this.imageHeight = imageData.height;
   }

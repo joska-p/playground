@@ -1,6 +1,6 @@
-import type { SessionData } from "../../core/drawing.types.ts";
-import sampleData from "../../data/sampleData.json";
-import { Session } from "./Session.tsx";
+import type { SessionData } from '../../core/drawing.types.ts';
+import sampleData from '../../data/sampleData.json';
+import { Session } from './Session.tsx';
 
 const sessions = sampleData as SessionData[];
 

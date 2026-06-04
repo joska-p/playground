@@ -1,13 +1,15 @@
-import { Select } from "@repo/ui/Select";
-import type { ChangeEvent, JSX } from "react";
-import { sequenceRules } from "../../core/sequence-rules";
-import { setSequenceRule, useSequenceRule } from "../../store/sequenceStore";
+import { Select } from '@repo/ui/Select';
+import type { ChangeEvent, JSX } from 'react';
+import { sequenceRules } from '../../core/sequence-rules';
+import { setSequenceRule, useSequenceRule } from '../../store/sequenceStore';
 
 function SequenceSelector(): JSX.Element {
   const sequenceRule = useSequenceRule();
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    const selectedRule = sequenceRules.find((rule) => rule.id === e.target.value);
+    const selectedRule = sequenceRules.find(
+      (rule) => rule.id === e.target.value
+    );
     if (selectedRule) setSequenceRule({ sequenceRule: selectedRule });
   }
 
@@ -21,7 +23,10 @@ function SequenceSelector(): JSX.Element {
         className="flex-1 pr-6"
       >
         {sequenceRules.map((rule) => (
-          <option key={rule.id} value={rule.id}>
+          <option
+            key={rule.id}
+            value={rule.id}
+          >
             {rule.name}
           </option>
         ))}

@@ -4,7 +4,7 @@ import {
   INITIAL_VELOCITY,
   MAX_PARTICLES,
   PARTICLE_SIZE,
-} from "./config";
+} from './config';
 
 export type ImageDimensions = {
   width: number;
@@ -24,12 +24,18 @@ export type Particle = {
     x: number;
     y: number;
   };
-  state: "waiting" | "falling" | "landed";
+  state: 'waiting' | 'falling' | 'landed';
   delay: number;
 };
 
-function calculateImageDimensions(imageWidth: number, imageHeight: number): ImageDimensions {
-  const scale = Math.min(CANVAS_WIDTH / imageWidth, CANVAS_HEIGHT / imageHeight);
+function calculateImageDimensions(
+  imageWidth: number,
+  imageHeight: number
+): ImageDimensions {
+  const scale = Math.min(
+    CANVAS_WIDTH / imageWidth,
+    CANVAS_HEIGHT / imageHeight
+  );
   const scaledWidth = imageWidth * scale;
   const scaledHeight = imageHeight * scale;
 
@@ -88,7 +94,8 @@ function initParticles(imageData: ImageData) {
           INITIAL_VELOCITY.MIN_Y +
           Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y);
         const randomSize =
-          PARTICLE_SIZE.MIN + Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
+          PARTICLE_SIZE.MIN +
+          Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
 
         const colorVariation = Math.random() * 20 - 10;
         const adjustedR = Math.min(255, Math.max(0, r + colorVariation));
@@ -106,7 +113,7 @@ function initParticles(imageData: ImageData) {
             x: randomVelocityX,
             y: randomVelocityY,
           },
-          state: "waiting",
+          state: 'waiting',
           delay: currentDelay,
         });
         currentDelay += Math.random() * 5;

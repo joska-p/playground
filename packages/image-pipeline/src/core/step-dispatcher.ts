@@ -1,8 +1,11 @@
-import type { BufferManager } from "./buffer-manager";
-import type { FusionScheduler } from "./fusion-scheduler";
-import type { ManipulationDefinition, PipelineContext } from "./image-pipeline.types";
-import type { Step } from "./manipulations/manifest";
-import { runNeighborhoodTiled } from "./neighborhood-tiling";
+import type { BufferManager } from './buffer-manager';
+import type { FusionScheduler } from './fusion-scheduler';
+import type {
+  ManipulationDefinition,
+  PipelineContext,
+} from './image-pipeline.types';
+import type { Step } from './manipulations/manifest';
+import { runNeighborhoodTiled } from './neighborhood-tiling';
 
 type ExecutorParameters = {
   definition: ManipulationDefinition;
@@ -19,16 +22,24 @@ const executors: Record<string, ExecutorFunction> = {
     scheduler.add(definition, options);
   },
 
-  neighborhood: ({ definition, options, context, bufferManager, scheduler }) => {
+  neighborhood: ({
+    definition,
+    options,
+    context,
+    bufferManager,
+    scheduler,
+  }) => {
     scheduler.flush(bufferManager);
     const source = bufferManager.snapshot();
 
     if (source.width * source.height > context.maximumPixels) {
-      bufferManager.replaceWith(runNeighborhoodTiled({ source, definition, options }));
+      bufferManager.replaceWith(
+        runNeighborhoodTiled({ source, definition, options })
+      );
     } else {
       const destination = new Uint8ClampedArray(bufferManager.current.length);
 
-      if (definition.type === "neighborhood") {
+      if (definition.type === 'neighborhood') {
         definition.function({
           options,
           source: bufferManager.current,
@@ -38,7 +49,10 @@ const executors: Record<string, ExecutorFunction> = {
         });
       }
 
-      const imageData = new ImageData(bufferManager.width, bufferManager.height);
+      const imageData = new ImageData(
+        bufferManager.width,
+        bufferManager.height
+      );
       imageData.data.set(destination);
       bufferManager.replaceWith(imageData);
     }
@@ -46,7 +60,7 @@ const executors: Record<string, ExecutorFunction> = {
 
   whole: ({ definition, options, bufferManager, scheduler }) => {
     scheduler.flush(bufferManager);
-    if (definition.type === "whole") {
+    if (definition.type === 'whole') {
       bufferManager.replaceWith(
         definition.function({
           options,

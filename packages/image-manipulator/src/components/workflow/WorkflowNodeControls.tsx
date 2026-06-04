@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/Button";
+import { Button } from '@repo/ui/Button';
 
 type WorkflowNodeControlsProps = {
   isFirst: boolean;

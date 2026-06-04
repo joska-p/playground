@@ -1,10 +1,13 @@
-import { Sidebar } from "@repo/ui/Sidebar";
-import { Controls } from "./controls/Controls";
-import { MosaicDisplay } from "./MosaicDisplay";
+import { Sidebar } from '@repo/ui/Sidebar';
+import { Controls } from './controls/Controls';
+import { MosaicDisplay } from './MosaicDisplay';
 
 function MosaicMaker() {
   return (
-    <Sidebar desktopPosition="right" mobilePosition="bottom">
+    <Sidebar
+      desktopPosition="right"
+      mobilePosition="bottom"
+    >
       <Sidebar.Main>
         <MosaicDisplay />
       </Sidebar.Main>

@@ -1,4 +1,4 @@
-import type { ManipulationDefinition } from "./image-pipeline.types";
+import type { ManipulationDefinition } from './image-pipeline.types';
 
 export class Registry {
   private readonly manipulationsMap = new Map<string, ManipulationDefinition>();
@@ -13,11 +13,13 @@ export class Registry {
 
   register(definition: ManipulationDefinition) {
     if (!definition.id) {
-      throw new Error(`[image-pipeline] Manipulation must have a non-empty string identifier`);
+      throw new Error(
+        `[image-pipeline] Manipulation must have a non-empty string identifier`
+      );
     }
 
     if (
-      definition.type === "neighborhood" &&
+      definition.type === 'neighborhood' &&
       (definition.radius == null || definition.radius < 0)
     ) {
       throw new Error(
@@ -26,7 +28,9 @@ export class Registry {
     }
 
     if (this.manipulationsMap.has(definition.id)) {
-      console.warn(`[image-pipeline] Overwriting existing manipulation "${definition.id}"`);
+      console.warn(
+        `[image-pipeline] Overwriting existing manipulation "${definition.id}"`
+      );
     }
     this.manipulationsMap.set(definition.id, definition);
   }
@@ -34,7 +38,9 @@ export class Registry {
   get(identifier: string) {
     const definition = this.manipulationsMap.get(identifier);
     if (!definition) {
-      throw new Error(`[image-pipeline] Manipulation "${identifier}" is not registered.`);
+      throw new Error(
+        `[image-pipeline] Manipulation "${identifier}" is not registered.`
+      );
     }
     return definition;
   }

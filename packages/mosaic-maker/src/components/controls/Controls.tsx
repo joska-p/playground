@@ -1,13 +1,20 @@
-import { Button } from "@repo/ui/Button";
-import { DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from "../../core/constants";
-import { CSS_VARS } from "../../core/cssVars";
-import { cycleMosaicPalettes, regenerateMosaicTiles } from "../../store/actions";
-import { useMosaicCurrentPalette, useMosaicRef } from "../../store/selectors";
-import { shuffleObject } from "../../utils/random/shuffleObject";
-import { updateElementStyles } from "../../utils/updateElementStyles";
-import { PaletteControls } from "./PaletteControls";
-import { SliderControls } from "./SliderControls";
-import { TileSetControls } from "./TileSetControls";
+import { Button } from '@repo/ui/Button';
+import {
+  DEFAULT_GAP_SIZE,
+  DEFAULT_TILE_SIZE,
+  initialRotations,
+} from '../../core/constants';
+import { CSS_VARS } from '../../core/cssVars';
+import {
+  cycleMosaicPalettes,
+  regenerateMosaicTiles,
+} from '../../store/actions';
+import { useMosaicCurrentPalette, useMosaicRef } from '../../store/selectors';
+import { shuffleObject } from '../../utils/random/shuffleObject';
+import { updateElementStyles } from '../../utils/updateElementStyles';
+import { PaletteControls } from './PaletteControls';
+import { SliderControls } from './SliderControls';
+import { TileSetControls } from './TileSetControls';
 
 function Controls() {
   const mosaicRef = useMosaicRef();
@@ -26,16 +33,33 @@ function Controls() {
   return (
     <form className="flex flex-wrap justify-center lg:max-w-[45ch] p-4 gap-4 lg:flex-col lg:gap-8">
       <fieldset className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2">
-        <Button variant="primary" type="button" onClick={() => shuffleColors()} size="small">
+        <Button
+          variant="primary"
+          type="button"
+          onClick={() => shuffleColors()}
+          size="small"
+        >
           Shuffle colors
         </Button>
-        <Button type="button" onClick={() => shuffleRotations()} size="small">
+        <Button
+          type="button"
+          onClick={() => shuffleRotations()}
+          size="small"
+        >
           Shuffle rotations
         </Button>
-        <Button type="button" onClick={() => cycleMosaicPalettes()} size="small">
+        <Button
+          type="button"
+          onClick={() => cycleMosaicPalettes()}
+          size="small"
+        >
           New palettes
         </Button>
-        <Button type="button" onClick={() => regenerateMosaicTiles()} size="small">
+        <Button
+          type="button"
+          onClick={() => regenerateMosaicTiles()}
+          size="small"
+        >
           New tiles
         </Button>
       </fieldset>

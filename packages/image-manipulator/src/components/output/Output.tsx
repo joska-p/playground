@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { putImageData } from "../../core/imageData";
+import { useEffect, useRef } from 'react';
+import { putImageData } from '../../core/imageData';
 
 type OutputProps = {
   imageData: ImageData;
@@ -17,7 +17,14 @@ function Output({ imageData }: OutputProps) {
   const width = imageData.width;
   const height = imageData.height;
 
-  return <canvas ref={ref} width={width} height={height} className="max-h-full max-w-full" />;
+  return (
+    <canvas
+      ref={ref}
+      width={width}
+      height={height}
+      className="max-h-full max-w-full"
+    />
+  );
 }
 
 export { Output };

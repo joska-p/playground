@@ -1,5 +1,5 @@
-import { cn } from "@repo/ui/cn";
-import { UploadIcon } from "./UploadIcon";
+import { cn } from '@repo/ui/cn';
+import { UploadIcon } from './UploadIcon';
 
 type UploadDropzoneProps = {
   isDragging: boolean;
@@ -32,23 +32,34 @@ function UploadDropzone({
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick();
+        if (e.key === 'Enter' || e.key === ' ') onClick();
       }}
       className={cn(
-        "border-2 border-dashed rounded-lg px-4 py-6 text-center cursor-pointer transition-all",
+        'border-2 border-dashed rounded-lg px-4 py-6 text-center cursor-pointer transition-all',
         isDragging
-          ? "border-primary bg-primary/10"
-          : "border-border hover:border-primary/50 hover:bg-primary/5"
+          ? 'border-primary bg-primary/10'
+          : 'border-border hover:border-primary/50 hover:bg-primary/5'
       )}
     >
-      <input ref={inputRef} type="file" accept="image/*" onChange={onFileChange} hidden />
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        onChange={onFileChange}
+        hidden
+      />
       <UploadIcon />
       <p
-        className={cn("text-sm font-medium", isDragging ? "text-primary" : "text-muted-foreground")}
+        className={cn(
+          'text-sm font-medium',
+          isDragging ? 'text-primary' : 'text-muted-foreground'
+        )}
       >
-        {isDragging ? "Drop to upload" : "Drop image here or click to browse"}
+        {isDragging ? 'Drop to upload' : 'Drop image here or click to browse'}
       </p>
-      <p className="text-muted-foreground/60 mt-1 text-xs">PNG, JPG, WebP — max 50MB</p>
+      <p className="text-muted-foreground/60 mt-1 text-xs">
+        PNG, JPG, WebP — max 50MB
+      </p>
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
-import { useId } from "react";
-import { cn } from "../../utils/cn";
-import { inputVariants } from "./inputVariants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps, ReactNode } from 'react';
+import { useId } from 'react';
+import { cn } from '../../utils/cn';
+import { inputVariants } from './inputVariants';
 
 type InputProps = {
   label?: string;
@@ -10,7 +10,7 @@ type InputProps = {
   isLoading?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
-} & ComponentProps<"input"> &
+} & ComponentProps<'input'> &
   VariantProps<typeof inputVariants>;
 
 function Input({
@@ -23,7 +23,7 @@ function Input({
   startIcon,
   endIcon,
   id,
-  type = "text",
+  type = 'text',
   disabled,
   ...props
 }: InputProps) {
@@ -33,7 +33,10 @@ function Input({
   return (
     <div className="flex flex-col gap-1.5">
       {label && (
-        <label htmlFor={inputId} className="text-foreground/80 text-xs">
+        <label
+          htmlFor={inputId}
+          className="text-foreground/80 text-xs"
+        >
           {label}
         </label>
       )}
@@ -45,7 +48,10 @@ function Input({
         )}
         {isLoading && (
           <span className="text-muted-foreground absolute left-3">
-            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
+            <svg
+              className="h-4 w-4 animate-spin"
+              viewBox="0 0 24 24"
+            >
               <circle
                 className="opacity-25"
                 cx="12"
@@ -70,8 +76,8 @@ function Input({
           disabled={isLoading ?? disabled}
           className={cn(
             inputVariants({ variant, className }),
-            (startIcon ?? isLoading) && "pl-10",
-            endIcon && "pr-10"
+            (startIcon ?? isLoading) && 'pl-10',
+            endIcon && 'pr-10'
           )}
           {...props}
         />
@@ -84,8 +90,10 @@ function Input({
       {helperText && (
         <p
           className={cn(
-            "text-xs italic",
-            variant === "destructive" ? "text-destructive" : "text-muted-foreground"
+            'text-xs italic',
+            variant === 'destructive'
+              ? 'text-destructive'
+              : 'text-muted-foreground'
           )}
         >
           {helperText}

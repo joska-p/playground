@@ -1,32 +1,35 @@
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-const baseUrl = import.meta.env.BASE_URL || "/";
+const baseUrl = import.meta.env.BASE_URL || '/';
 export const notebookBaseUrl = `${baseUrl}notebook/`;
 
 export const CATEGORY_METADATA = {
   maths: {
-    label: "Maths",
-    description: "Maths notes",
+    label: 'Maths',
+    description: 'Maths notes',
   },
   canvas: {
-    label: "Canvas",
-    description: "Canvas notes",
+    label: 'Canvas',
+    description: 'Canvas notes',
   },
   tailwind: {
-    label: "Tailwind",
-    description: "Tailwind notes",
+    label: 'Tailwind',
+    description: 'Tailwind notes',
   },
 } as const;
 
 export type CategoryId = keyof typeof CATEGORY_METADATA;
-export const categoriesIds = Object.keys(CATEGORY_METADATA) as [CategoryId, ...CategoryId[]];
+export const categoriesIds = Object.keys(CATEGORY_METADATA) as [
+  CategoryId,
+  ...CategoryId[],
+];
 
 export function getTagMetadata(id: CategoryId) {
   return CATEGORY_METADATA[id];
 }
 
 export async function getNotesByCategory() {
-  const notes = await getCollection("notebook", ({ data }) => !data.draft);
+  const notes = await getCollection('notebook', ({ data }) => !data.draft);
 
   return Object.entries(CATEGORY_METADATA).map(([id, meta]) => ({
     id: id as CategoryId,
@@ -38,5 +41,5 @@ export async function getNotesByCategory() {
 }
 
 export async function getFeaturedNotes() {
-  return getCollection("notebook", ({ data }) => data.featured && !data.draft);
+  return getCollection('notebook', ({ data }) => data.featured && !data.draft);
 }

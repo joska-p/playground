@@ -1,5 +1,5 @@
-import { Badge } from "@repo/ui/Badge";
-import { Button } from "@repo/ui/Button";
+import { Badge } from '@repo/ui/Badge';
+import { Button } from '@repo/ui/Button';
 import {
   Card,
   CardContent,
@@ -7,23 +7,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@repo/ui/Card";
-import { Input } from "@repo/ui/Input";
-import { useState } from "react";
-import { demoSchema } from "../demo.schema.ts";
+} from '@repo/ui/Card';
+import { Input } from '@repo/ui/Input';
+import { useState } from 'react';
+import { demoSchema } from '../demo.schema.ts';
 import {
   addDemoSubmission,
   resetDemo,
   useDemoCount,
   useDemoLastMessage,
   useDemoSubmissions,
-} from "../demoStore.ts";
+} from '../demoStore.ts';
 
 function Demo() {
   const count = useDemoCount();
   const lastMessage = useDemoLastMessage();
   const submissions = useDemoSubmissions();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   function handleSubmit() {
@@ -34,7 +34,7 @@ function Demo() {
     }
     setError(null);
     addDemoSubmission(result.data.text);
-    setInput("");
+    setInput('');
   }
 
   return (
@@ -44,7 +44,8 @@ function Demo() {
           <CardHeader>
             <CardTitle>Zustand + Zod Demo</CardTitle>
             <CardDescription>
-              A minimal showcase of state management with Zustand and runtime validation with Zod.
+              A minimal showcase of state management with Zustand and runtime
+              validation with Zod.
             </CardDescription>
           </CardHeader>
 
@@ -86,7 +87,10 @@ function Demo() {
                 </span>
                 <ul className="flex flex-col gap-1">
                   {[...submissions].reverse().map((sub) => (
-                    <li key={sub.timestamp} className="text-sm">
+                    <li
+                      key={sub.timestamp}
+                      className="text-sm"
+                    >
                       {sub.text}
                     </li>
                   ))}
@@ -97,7 +101,11 @@ function Demo() {
 
           {count > 0 && (
             <CardFooter>
-              <Button variant="ghost" onClick={resetDemo} size="small">
+              <Button
+                variant="ghost"
+                onClick={resetDemo}
+                size="small"
+              >
                 Reset
               </Button>
             </CardFooter>

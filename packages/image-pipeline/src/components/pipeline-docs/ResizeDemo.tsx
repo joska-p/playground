@@ -1,33 +1,39 @@
-import { Button } from "@repo/ui/Button";
-import { useState } from "react";
-import { usePipeline } from "../../hooks/usePipeline";
-import { imageDataToUrl } from "./helpers";
+import { Button } from '@repo/ui/Button';
+import { useState } from 'react';
+import { usePipeline } from '../../hooks/usePipeline';
+import { imageDataToUrl } from './helpers';
 
 const MODES = [
-  { id: "width", label: "Width (100px)", options: { width: 100 } as const },
-  { id: "height", label: "Height (100px)", options: { height: 100 } as const },
+  { id: 'width', label: 'Width (100px)', options: { width: 100 } as const },
+  { id: 'height', label: 'Height (100px)', options: { height: 100 } as const },
   {
-    id: "fill",
-    label: "Fill (100×100)",
-    options: { width: 100, height: 100, fit: "fill" as const },
+    id: 'fill',
+    label: 'Fill (100×100)',
+    options: { width: 100, height: 100, fit: 'fill' as const },
   },
   {
-    id: "contain",
-    label: "Contain (100×100)",
-    options: { width: 100, height: 100, fit: "contain" as const },
+    id: 'contain',
+    label: 'Contain (100×100)',
+    options: { width: 100, height: 100, fit: 'contain' as const },
   },
   {
-    id: "cover",
-    label: "Cover (100×100)",
-    options: { width: 100, height: 100, fit: "cover" as const },
+    id: 'cover',
+    label: 'Cover (100×100)',
+    options: { width: 100, height: 100, fit: 'cover' as const },
   },
-  { id: "maximumpixels", label: "Max Pixels (5000)", options: { maximumPixels: 5000 } as const },
+  {
+    id: 'maximumpixels',
+    label: 'Max Pixels (5000)',
+    options: { maximumPixels: 5000 } as const,
+  },
 ] as const;
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
-  const [mode, setMode] = useState("width");
+  const [mode, setMode] = useState('width');
   const modeItem = MODES.find((item) => item.id === mode)!;
-  const pipelineResult = usePipeline(sourceData, [{ id: "resize", options: modeItem.options }]);
+  const pipelineResult = usePipeline(sourceData, [
+    { id: 'resize', options: modeItem.options },
+  ]);
   const pipelineResultImage = pipelineResult?.at(-1) ?? null;
   const loading = sourceData !== null && pipelineResult === null;
 
@@ -37,7 +43,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
         {MODES.map((item) => (
           <Button
             key={item.id}
-            variant={mode === item.id ? "primary" : "outline"}
+            variant={mode === item.id ? 'primary' : 'outline'}
             size="small"
             onClick={() => setMode(item.id)}
           >
@@ -53,7 +59,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
               src={imageDataToUrl(sourceData)}
               alt="original"
               className="border-border w-full rounded border"
-              style={{ imageRendering: "pixelated" }}
+              style={{ imageRendering: 'pixelated' }}
             />
           )}
           <p className="text-muted-foreground mt-1 text-[10px] font-mono">
@@ -71,7 +77,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
               src={imageDataToUrl(pipelineResultImage)}
               alt="resized"
               className="border-border w-full rounded border"
-              style={{ imageRendering: "pixelated" }}
+              style={{ imageRendering: 'pixelated' }}
             />
           ) : null}
           <p className="text-muted-foreground mt-1 text-[10px] font-mono">

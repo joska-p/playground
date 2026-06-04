@@ -1,4 +1,4 @@
-import { findBiggestInterval } from "../../utils/find-biggest-interval";
+import { findBiggestInterval } from '../../utils/find-biggest-interval';
 
 function calculateValueScale({
   sequence,
@@ -43,7 +43,13 @@ function drawSequence({
   });
 }
 
-function draw({ canvas, sequence }: { canvas: HTMLCanvasElement; sequence: number[] }): void {
+function draw({
+  canvas,
+  sequence,
+}: {
+  canvas: HTMLCanvasElement;
+  sequence: number[];
+}): void {
   if (!canvas.parentElement) return;
 
   const containerSize = {
@@ -53,7 +59,7 @@ function draw({ canvas, sequence }: { canvas: HTMLCanvasElement; sequence: numbe
   canvas.width = containerSize.width;
   canvas.height = containerSize.height;
 
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext('2d');
   if (!context) return;
   const valueScale = calculateValueScale({ sequence, containerSize });
 
@@ -65,7 +71,7 @@ function draw({ canvas, sequence }: { canvas: HTMLCanvasElement; sequence: numbe
 
   context.translate(offsetX, offsetY);
 
-  const color = getComputedStyle(canvas).color || "black";
+  const color = getComputedStyle(canvas).color || 'black';
   context.strokeStyle = color;
   context.lineWidth = 1;
 
@@ -75,7 +81,7 @@ function draw({ canvas, sequence }: { canvas: HTMLCanvasElement; sequence: numbe
 }
 
 export const recamanArcs = {
-  id: "recaman-arcs",
-  name: "Recamán Arcs",
+  id: 'recaman-arcs',
+  name: 'Recamán Arcs',
   draw,
 };

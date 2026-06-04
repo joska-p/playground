@@ -1,21 +1,15 @@
 {
-  "semi": true,
-  "singleQuote": false,
+  "printWidth": 80,
   "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
   "trailingComma": "es5",
-  "printWidth": 100,
-  "plugins": [
-    "prettier-plugin-astro",
-    "prettier-plugin-tailwindcss",
-    "prettier-plugin-organize-imports"
-  ],
-  "overrides": [
-    {
-      "files": "*.astro",
-      "options": {
-        "parser": "astro"
-      }
-    }
-  ],
-  "tailwindFunctions": ["cva", "cn", "clsx"]
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "singleAttributePerLine": true
 }

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { renderCompareSlider } from "./compareSliderRenderer";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { renderCompareSlider } from './compareSliderRenderer';
 
 type UseCompareSliderArgs = {
   source: ImageData;
@@ -12,9 +12,10 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
   const [sliderPos, setSliderPos] = useState(50);
   const isDragging = useRef(false);
 
-  const offscreenRef = useRef<{ source: HTMLCanvasElement; result: HTMLCanvasElement } | null>(
-    null
-  );
+  const offscreenRef = useRef<{
+    source: HTMLCanvasElement;
+    result: HTMLCanvasElement;
+  } | null>(null);
   const prevSourceRef = useRef<ImageData | null>(null);
   const prevResultRef = useRef<ImageData | null>(null);
 
@@ -23,18 +24,20 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
 
   useEffect(() => {
     const needsRebuild =
-      !offscreenRef.current || prevSourceRef.current !== source || prevResultRef.current !== result;
+      !offscreenRef.current ||
+      prevSourceRef.current !== source ||
+      prevResultRef.current !== result;
 
     if (needsRebuild) {
-      const s = document.createElement("canvas");
+      const s = document.createElement('canvas');
       s.width = source.width;
       s.height = source.height;
-      s.getContext("2d")!.putImageData(source, 0, 0);
+      s.getContext('2d')!.putImageData(source, 0, 0);
 
-      const r = document.createElement("canvas");
+      const r = document.createElement('canvas');
       r.width = result.width;
       r.height = result.height;
-      r.getContext("2d")!.putImageData(result, 0, 0);
+      r.getContext('2d')!.putImageData(result, 0, 0);
 
       offscreenRef.current = { source: s, result: r };
       prevSourceRef.current = source;
@@ -43,7 +46,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
     if (!offscreenRef.current) return;
     const { source: srcCanvas, result: resCanvas } = offscreenRef.current;
@@ -104,11 +107,11 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
     const handleMouseUp = () => {
       isDragging.current = false;
     };
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [updateSliderPosition]);
 

@@ -1,4 +1,4 @@
-import { RaduMachineLearning } from "./components/RaduMachineLearning.tsx";
+import { RaduMachineLearning } from './components/RaduMachineLearning.tsx';
 
 function App() {
   return <RaduMachineLearning />;

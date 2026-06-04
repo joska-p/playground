@@ -1,4 +1,4 @@
-import { CSS_VARS } from "./cssVars";
+import { CSS_VARS } from './cssVars';
 
 const MAX_NUMBER_OF_PALETTES = 33;
 const DEFAULT_TILE_SIZE = 64;
@@ -13,10 +13,10 @@ const defaultGapSize = {
 };
 
 const defaultRotations = {
-  "--rotation-0": "0deg",
-  "--rotation-1": "90deg",
-  "--rotation-2": "180deg",
-  "--rotation-3": "270deg",
+  '--rotation-0': '0deg',
+  '--rotation-1': '90deg',
+  '--rotation-2': '180deg',
+  '--rotation-3': '270deg',
 };
 
 const initialTileSize = defaultTileSize;

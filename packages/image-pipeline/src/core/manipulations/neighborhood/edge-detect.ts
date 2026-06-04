@@ -1,8 +1,8 @@
-import { defineNeighbor } from "../../manipulation-factories";
-import { clamp, getPixel } from "./helpers";
+import { defineNeighbor } from '../../manipulation-factories';
+import { clamp, getPixel } from './helpers';
 
 export const edgeDetect = defineNeighbor({
-  id: "edge-detect",
+  id: 'edge-detect',
   radius: 1,
   execute: ({ source, destination, width, height }) => {
     const sobelX = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
@@ -17,8 +17,24 @@ export const edgeDetect = defineNeighbor({
             const wx = sobelX[ky * 3 + kx] ?? 0;
             const wy = sobelY[ky * 3 + kx] ?? 0;
             for (let c = 0; c < 3; c++) {
-              gradientX[c] += getPixel(source, x + kx - half, y + ky - half, width, height, c) * wx;
-              gradientY[c] += getPixel(source, x + kx - half, y + ky - half, width, height, c) * wy;
+              gradientX[c] +=
+                getPixel(
+                  source,
+                  x + kx - half,
+                  y + ky - half,
+                  width,
+                  height,
+                  c
+                ) * wx;
+              gradientY[c] +=
+                getPixel(
+                  source,
+                  x + kx - half,
+                  y + ky - half,
+                  width,
+                  height,
+                  c
+                ) * wy;
             }
           }
         }
@@ -33,8 +49,8 @@ export const edgeDetect = defineNeighbor({
     }
   },
   ui: {
-    name: "Edge Detect",
-    description: "Detects edges using the Sobel operator.",
+    name: 'Edge Detect',
+    description: 'Detects edges using the Sobel operator.',
     defaultArgs: {},
     argDefinitions: [],
   },

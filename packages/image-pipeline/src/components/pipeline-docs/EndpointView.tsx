@@ -1,21 +1,25 @@
-import { Card } from "@repo/ui/Card";
-import { ChainDemo } from "./ChainDemo";
-import { CodeBlock } from "./CodeBlock";
-import { imageDataToUrl } from "./helpers";
-import type { EndpointId, ManipInfo } from "./manipData";
-import { ENDPOINT_GROUPS, findItemForEndpoint, findManipById } from "./manipData";
-import { ParamTable } from "./ParamTable";
-import { ResizeDemo } from "./ResizeDemo";
+import { Card } from '@repo/ui/Card';
+import { ChainDemo } from './ChainDemo';
+import { CodeBlock } from './CodeBlock';
+import { imageDataToUrl } from './helpers';
+import type { EndpointId, ManipInfo } from './manipData';
+import {
+  ENDPOINT_GROUPS,
+  findItemForEndpoint,
+  findManipById,
+} from './manipData';
+import { ParamTable } from './ParamTable';
+import { ResizeDemo } from './ResizeDemo';
 
-import { TryItOut } from "./TryItOut";
+import { TryItOut } from './TryItOut';
 
 const TYPE_ACCENT: Record<string, string> = {
-  pixel: "var(--utility-6)",
-  neighborhood: "var(--utility-3)",
-  whole: "var(--utility-2)",
-  pipeline: "var(--utility-1)",
-  internals: "var(--utility-8)",
-  overview: "var(--utility-4)",
+  pixel: 'var(--utility-6)',
+  neighborhood: 'var(--utility-3)',
+  whole: 'var(--utility-2)',
+  pipeline: 'var(--utility-1)',
+  internals: 'var(--utility-8)',
+  overview: 'var(--utility-4)',
 };
 
 type EndpointViewProps = {
@@ -42,12 +46,15 @@ function ManipView({
     `  steps: [`,
     `    { id: "${manip.id}"${
       manip.params && manip.params.length > 0
-        ? ", options: { " +
+        ? ', options: { ' +
           manip.params
-            .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
-            .join(", ") +
-          " }"
-        : ""
+            .map(
+              (p) =>
+                `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`
+            )
+            .join(', ') +
+          ' }'
+        : ''
     } }`,
     `  ]`,
     `});`,
@@ -56,25 +63,39 @@ function ManipView({
   return (
     <div
       className="space-y-6"
-      style={{ "--accent": TYPE_ACCENT[manip.type] ?? "var(--utility-4)" } as React.CSSProperties}
+      style={
+        {
+          '--accent': TYPE_ACCENT[manip.type] ?? 'var(--utility-4)',
+        } as React.CSSProperties
+      }
     >
       <div className="flex items-center gap-3">
         <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
-          {manip.type === "neighborhood" ? "NEIGHBOR" : manip.type.toUpperCase()}
+          {manip.type === 'neighborhood'
+            ? 'NEIGHBOR'
+            : manip.type.toUpperCase()}
         </span>
         <h2 className="text-2xl font-bold">{manip.label}</h2>
       </div>
-      <p className="text-muted-foreground max-w-2xl text-sm">{manip.description}</p>
+      <p className="text-muted-foreground max-w-2xl text-sm">
+        {manip.description}
+      </p>
       <p className="font-mono text-xs opacity-60">{manip.path}</p>
 
       <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-2 border-l-(--accent) p-4">
-        <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">How It Works</h3>
-        <p className="text-muted-foreground text-sm leading-relaxed">{manip.longDescription}</p>
+        <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">
+          How It Works
+        </h3>
+        <p className="text-muted-foreground text-sm leading-relaxed">
+          {manip.longDescription}
+        </p>
       </div>
 
       {manip.params && manip.params.length > 0 && (
         <section>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider">Parameters</h3>
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider">
+            Parameters
+          </h3>
           <ParamTable params={manip.params} />
         </section>
       )}
@@ -99,7 +120,7 @@ function ManipView({
         <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
           Code Sample
         </h3>
-        <CodeBlock code={codeLines.join("\n")} />
+        <CodeBlock code={codeLines.join('\n')} />
       </section>
     </div>
   );
@@ -109,10 +130,10 @@ function PipelineView({
   id,
   sourceData,
 }: {
-  id: "resize" | "chaining";
+  id: 'resize' | 'chaining';
   sourceData: ImageData | null;
 }) {
-  const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: "pipeline", id });
+  const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: 'pipeline', id });
   const codeSamples: Record<string, string> = {
     resize: [
       `pipelineGateway.run({`,
@@ -121,7 +142,7 @@ function PipelineView({
       `    { id: "resize", options: { width: 100 } }`,
       `  ]`,
       `});`,
-    ].join("\n"),
+    ].join('\n'),
     chaining: [
       `const result = await pipelineGateway.run({`,
       `  sourceImageData: source,`,
@@ -131,10 +152,13 @@ function PipelineView({
       `    { id: "sharpen", options: { strength: 1.5 } }`,
       `  ]`,
       `});`,
-    ].join("\n"),
+    ].join('\n'),
   };
 
-  const demos: Record<string, (props: { sourceData: ImageData | null }) => React.JSX.Element> = {
+  const demos: Record<
+    string,
+    (props: { sourceData: ImageData | null }) => React.JSX.Element
+  > = {
     resize: ResizeDemo,
     chaining: ChainDemo,
   };
@@ -142,17 +166,22 @@ function PipelineView({
   const DemoComponent = demos[id];
 
   return (
-    <div className="space-y-6" style={{ "--accent": "var(--utility-1)" } as React.CSSProperties}>
+    <div
+      className="space-y-6"
+      style={{ '--accent': 'var(--utility-1)' } as React.CSSProperties}
+    >
       <div className="flex items-center gap-3">
         <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
           PIPELINE
         </span>
         <h2 className="text-2xl font-bold">{item?.label ?? id}</h2>
       </div>
-      <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+      <p className="text-muted-foreground max-w-2xl text-sm">
+        {item?.description}
+      </p>
       <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
-      {id === "resize" && (
+      {id === 'resize' && (
         <div className="border-border overflow-hidden rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead>
@@ -164,29 +193,45 @@ function PipelineView({
             </thead>
             <tbody>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">width</td>
-                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  width
+                </td>
+                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                  number
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Target width. Height auto-proportional.
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">height</td>
-                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  height
+                </td>
+                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                  number
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Target height. Width auto-proportional.
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">fit</td>
-                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">string</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  fit
+                </td>
+                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                  string
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   fill | contain | cover. Default: fill
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">maximumPixels</td>
-                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  maximumPixels
+                </td>
+                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                  number
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Downscale to fit pixel budget, maintain aspect.
                 </td>
@@ -196,15 +241,17 @@ function PipelineView({
         </div>
       )}
 
-      {id === "chaining" && (
+      {id === 'chaining' && (
         <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-(--accent) border-l-2 p-4">
           <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">
             How Chaining Works
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Steps execute in order. Consecutive pixel-type operations are fused into a single pass
-            for performance. Neighborhood and whole-image ops flush pending pixel ops first. Use
-            <code className="mx-1">snapshot</code> to capture intermediate results.
+            Steps execute in order. Consecutive pixel-type operations are fused
+            into a single pass for performance. Neighborhood and whole-image ops
+            flush pending pixel ops first. Use
+            <code className="mx-1">snapshot</code> to capture intermediate
+            results.
           </p>
         </div>
       )}
@@ -233,9 +280,9 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           <span className="text-primary">@repo/</span>image-pipeline
         </h1>
         <p className="text-muted-foreground mt-2 max-w-3xl text-base leading-relaxed">
-          TypeScript-first, browser-based image manipulation pipeline. Zero dependencies. Chain
-          built-in manipulations into reusable pipelines. Runs off the main thread via a Web Worker
-          pool for non-blocking UI.
+          TypeScript-first, browser-based image manipulation pipeline. Zero
+          dependencies. Chain built-in manipulations into reusable pipelines.
+          Runs off the main thread via a Web Worker pool for non-blocking UI.
         </p>
       </div>
 
@@ -243,14 +290,17 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 border-t-utility-5 p-6 lg:col-span-1">
           <h2 className="text-2xl font-bold">Why a Pipeline API?</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Canvas 2D&apos;s built-in filters are limited, synchronous, and single-purpose. For
-            anything beyond basic brightness or blur you need direct pixel access — which blocks the
-            main thread. This pipeline gives you composable, off-thread image processing with
+            Canvas 2D&apos;s built-in filters are limited, synchronous, and
+            single-purpose. For anything beyond basic brightness or blur you
+            need direct pixel access — which blocks the main thread. This
+            pipeline gives you composable, off-thread image processing with
             near-zero overhead, and without leaving the browser.
           </p>
         </div>
         <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 border-t-utility-4 p-6 lg:col-span-2">
-          <h3 className="text-sm font-bold uppercase tracking-wider">Architecture</h3>
+          <h3 className="text-sm font-bold uppercase tracking-wider">
+            Architecture
+          </h3>
           <div className="grid gap-3 text-sm sm:grid-cols-3">
             <div>
               <div className="text-primary mb-1 font-semibold">Registry</div>
@@ -279,8 +329,9 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             </div>
           </div>
           <p className="text-muted-foreground mt-2 text-xs leading-relaxed">
-            <strong>3 operation types:</strong> pixel (per-pixel transform), neighborhood
-            (convolution kernel), whole (dimension-changing transform).
+            <strong>3 operation types:</strong> pixel (per-pixel transform),
+            neighborhood (convolution kernel), whole (dimension-changing
+            transform).
           </p>
         </div>
       </div>
@@ -290,8 +341,9 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           pipelineGateway (recommended)
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-          Offloads to a Web Worker pool (up to min(hardwareConcurrency, 4)). Built-in manipulations
-          available automatically — no registry setup needed.
+          Offloads to a Web Worker pool (up to min(hardwareConcurrency, 4)).
+          Built-in manipulations available automatically — no registry setup
+          needed.
         </p>
         <CodeBlock
           code={`import { pipelineGateway } from "@repo/image-pipeline/api/pipeline-gateway";\n\nconst result = await pipelineGateway.run({\n  sourceImageData: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 1.5 } },\n    { id: "edge-detect" },\n  ]\n});\n\n// result[0]       → first step\n// result.at(-1)   → final result`}
@@ -303,7 +355,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           Pipeline (builder API)
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-          Synchronous, chainable builder. Runs on whichever thread you call it from.
+          Synchronous, chainable builder. Runs on whichever thread you call it
+          from.
         </p>
         <CodeBlock
           code={`import { Pipeline } from "@repo/image-pipeline/core/pipeline";\n\nconst result = await Pipeline.from(sourceImageData, { maximumPixels: 16_000_000 })\n  .resize({ width: 800 })\n  .add("grayscale")\n  .snapshot()\n  .add("gaussian-blur", { radius: 3 })\n  .run();\n\n// result[0]       → resized + grayscale\n// result[1]       → grayscale mid-pipeline\n// result.at(-1)   → blurred grayscale`}
@@ -315,8 +368,9 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           Registry — selective manipulation loading
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-          Pick only the manipulations you need from the manifest, build a custom Registry, and pass
-          it directly to <code>runPipeline</code>. No unused code leaves the bundle.
+          Pick only the manipulations you need from the manifest, build a custom
+          Registry, and pass it directly to <code>runPipeline</code>. No unused
+          code leaves the bundle.
         </p>
         <CodeBlock
           code={`import { Registry } from "@repo/image-pipeline/Registry";\nimport { runPipeline } from "@repo/image-pipeline/runPipeline";\nimport { ALL_MANIPULATIONS } from "@repo/image-pipeline/manipulations";\n\nconst myManips = ALL_MANIPULATIONS.filter(\n  (m) => m.id === "brightness" || m.id === "sharpen"\n);\n\nconst registry = Registry.from(myManips);\n\nconst result = await runPipeline({\n  source: sourceData,\n  steps: [\n    { id: "brightness", options: { value: 1.2 } },\n    { id: "sharpen", options: { strength: 2 } },\n  ],\n  context: { registry, maximumPixels: 16_000_000 },\n});\n// result is ImageData[] — same shape as pipelineGateway`}
@@ -331,7 +385,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           Thin <code>useEffect</code>/<code>useState</code> wrapper around
           <code className="mx-1">pipelineGateway.run()</code>. Re-runs whenever
           <code className="mx-1">sourceImageData</code> or
-          <code className="mx-1">steps</code> change. Returns{" "}
+          <code className="mx-1">steps</code> change. Returns{' '}
           <code className="mx-1">ImageData[] | null</code> (null while loading).
         </p>
         <CodeBlock
@@ -347,12 +401,12 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
               src={imageDataToUrl(sourceData)}
               alt="demo"
               className="border-border w-full rounded border"
-              style={{ imageRendering: "pixelated" }}
+              style={{ imageRendering: 'pixelated' }}
             />
           </div>
           <p className="text-muted-foreground text-xs leading-relaxed">
-            All manipulations in this documentation run against this source image. Browse the
-            sidebar to explore each endpoint.
+            All manipulations in this documentation run against this source
+            image. Browse the sidebar to explore each endpoint.
           </p>
         </div>
       )}
@@ -361,15 +415,17 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
 }
 
 function InternalsView({ id }: { id: string }) {
-  const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: "internals", id });
+  const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: 'internals', id });
 
-  if (id === "execution-engine") {
+  if (id === 'execution-engine') {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-bold">{item?.label}</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+        <p className="text-muted-foreground max-w-2xl text-sm">
+          {item?.description}
+        </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-8 p-4 font-mono text-xs leading-relaxed whitespace-pre">
@@ -393,12 +449,16 @@ function InternalsView({ id }: { id: string }) {
         </div>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">BufferManager</h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">
+            BufferManager
+          </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Double-buffering avoids allocating a new array for every pixel operation. Two
-            <code className="mx-1">Uint8ClampedArray</code> buffers swap on each pass via O(1)
-            pointer flip. <code className="mx-1">snapshot()</code> clones the current buffer into a
-            new ImageData; <code className="mx-1">replaceWith()</code> resets both buffers when
+            Double-buffering avoids allocating a new array for every pixel
+            operation. Two
+            <code className="mx-1">Uint8ClampedArray</code> buffers swap on each
+            pass via O(1) pointer flip. <code className="mx-1">snapshot()</code>{' '}
+            clones the current buffer into a new ImageData;{' '}
+            <code className="mx-1">replaceWith()</code> resets both buffers when
             resize or whole-image ops change geometry.
           </p>
         </div>
@@ -406,18 +466,21 @@ function InternalsView({ id }: { id: string }) {
     );
   }
 
-  if (id === "fusion-scheduler") {
+  if (id === 'fusion-scheduler') {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-bold">{item?.label}</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+        <p className="text-muted-foreground max-w-2xl text-sm">
+          {item?.description}
+        </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Consecutive pixel-type steps are fused into a single pixel loop to avoid N full-image
-          passes. The scheduler queues pixel ops and runs them in one pass when flushed.
+          Consecutive pixel-type steps are fused into a single pixel loop to
+          avoid N full-image passes. The scheduler queues pixel ops and runs
+          them in one pass when flushed.
         </p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4 font-mono text-xs leading-relaxed whitespace-pre">
@@ -430,26 +493,29 @@ swap()`}
         </div>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Non-pixel operations (neighborhood, whole, resize, snapshot) force a flush before
-          executing, ensuring pending pixel ops are applied first.
+          Non-pixel operations (neighborhood, whole, resize, snapshot) force a
+          flush before executing, ensuring pending pixel ops are applied first.
         </p>
       </div>
     );
   }
 
-  if (id === "tiling") {
+  if (id === 'tiling') {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-bold">{item?.label}</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+        <p className="text-muted-foreground max-w-2xl text-sm">
+          {item?.description}
+        </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Large neighborhood operations are tiled to avoid allocating full-size temporary buffers.
-          Each tile includes a halo border of <code className="mx-1">radius</code> pixels so edge
-          pixels have neighbors available.
+          Large neighborhood operations are tiled to avoid allocating full-size
+          temporary buffers. Each tile includes a halo border of{' '}
+          <code className="mx-1">radius</code> pixels so edge pixels have
+          neighbors available.
         </p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-3 p-4 font-mono text-xs leading-relaxed whitespace-pre">
@@ -464,26 +530,29 @@ For each tile:
         </div>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Peak memory drops from <code className="mx-1">(width × height)</code> to
-          <code className="mx-1">(TILE_SIZE + 2×halo)²</code>. The result is identical to running
-          convolution on the full image.
+          Peak memory drops from <code className="mx-1">(width × height)</code>{' '}
+          to
+          <code className="mx-1">(TILE_SIZE + 2×halo)²</code>. The result is
+          identical to running convolution on the full image.
         </p>
       </div>
     );
   }
 
-  if (id === "resize-algorithm") {
+  if (id === 'resize-algorithm') {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-bold">{item?.label}</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+        <p className="text-muted-foreground max-w-2xl text-sm">
+          {item?.description}
+        </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Resize uses bilinear interpolation. For each output pixel, it samples the 4 nearest source
-          pixels and interpolates.
+          Resize uses bilinear interpolation. For each output pixel, it samples
+          the 4 nearest source pixels and interpolates.
         </p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-4 p-4 font-mono text-xs leading-relaxed whitespace-pre">
@@ -508,7 +577,9 @@ output = top * (1 - dy) + bottom * dy`}
             </thead>
             <tbody>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">maximumPixels</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  maximumPixels
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale to fit pixel budget, aspect-ratio-preserved
                 </td>
@@ -538,13 +609,17 @@ output = top * (1 - dy) + bottom * dy`}
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">width only</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  width only
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale proportionally by width
                 </td>
               </tr>
               <tr className="border-border">
-                <td className="text-primary px-4 py-2.5 font-mono text-xs">height only</td>
+                <td className="text-primary px-4 py-2.5 font-mono text-xs">
+                  height only
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale proportionally by height
                 </td>
@@ -556,13 +631,15 @@ output = top * (1 - dy) + bottom * dy`}
     );
   }
 
-  if (id === "worker-architecture") {
+  if (id === 'worker-architecture') {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-bold">{item?.label}</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+        <p className="text-muted-foreground max-w-2xl text-sm">
+          {item?.description}
+        </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-1 p-4">
@@ -572,8 +649,9 @@ output = top * (1 - dy) + bottom * dy`}
           <p className="text-muted-foreground text-sm leading-relaxed">
             Stateless worker. Each message rebuilds the registry from
             <code className="mx-1">ALL_MANIPULATIONS</code> and calls
-            <code className="mx-1">runPipeline()</code>. Results are transferred back (zero-copy)
-            via <code className="mx-1">postMessage</code> Transferables.
+            <code className="mx-1">runPipeline()</code>. Results are transferred
+            back (zero-copy) via <code className="mx-1">postMessage</code>{' '}
+            Transferables.
           </p>
         </div>
 
@@ -582,10 +660,11 @@ output = top * (1 - dy) + bottom * dy`}
             pipeline-gateway.ts
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Main-thread pool manager. Workers are lazily created on first call. If all workers are
-            busy, jobs queue in FIFO order and dispatch as workers free up. Call
-            <code className="mx-1">pipelineGateway.teardown()</code> on app unmount to terminate
-            workers.
+            Main-thread pool manager. Workers are lazily created on first call.
+            If all workers are busy, jobs queue in FIFO order and dispatch as
+            workers free up. Call
+            <code className="mx-1">pipelineGateway.teardown()</code> on app
+            unmount to terminate workers.
           </p>
           <div className="border-border bg-background mt-3 rounded border p-3 font-mono text-xs leading-relaxed whitespace-pre">
             {`Pool:     up to min(hardwareConcurrency, 4) workers
@@ -598,13 +677,15 @@ Dispatch: postMessage with Transferable buffers
     );
   }
 
-  if (id === "configuration") {
+  if (id === 'configuration') {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-bold">{item?.label}</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
+        <p className="text-muted-foreground max-w-2xl text-sm">
+          {item?.description}
+        </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
         <div className="border-border overflow-hidden rounded-lg border">
@@ -621,10 +702,12 @@ Dispatch: postMessage with Transferable buffers
                 <td className="text-primary px-4 py-2.5 font-mono text-xs">
                   DEFAULT_MAXIMUM_PIXELS
                 </td>
-                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">16,000,000</td>
+                <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                  16,000,000
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
-                  ~16 megapixel default cap. Auto-downscale if source exceeds this value. Also
-                  triggers tiled path for neighborhood ops.
+                  ~16 megapixel default cap. Auto-downscale if source exceeds
+                  this value. Also triggers tiled path for neighborhood ops.
                 </td>
               </tr>
             </tbody>
@@ -634,7 +717,11 @@ Dispatch: postMessage with Transferable buffers
     );
   }
 
-  return <div className="text-muted-foreground py-12 text-center text-sm">Section not found</div>;
+  return (
+    <div className="text-muted-foreground py-12 text-center text-sm">
+      Section not found
+    </div>
+  );
 }
 
 function EndpointView({
@@ -643,22 +730,29 @@ function EndpointView({
   paramValues,
   onParamChange,
 }: EndpointViewProps) {
-  if (activeEndpoint.kind === "overview") {
+  if (activeEndpoint.kind === 'overview') {
     return <OverviewView sourceData={sourceData} />;
   }
 
-  if (activeEndpoint.kind === "pipeline") {
-    return <PipelineView id={activeEndpoint.id} sourceData={sourceData} />;
+  if (activeEndpoint.kind === 'pipeline') {
+    return (
+      <PipelineView
+        id={activeEndpoint.id}
+        sourceData={sourceData}
+      />
+    );
   }
 
-  if (activeEndpoint.kind === "internals") {
+  if (activeEndpoint.kind === 'internals') {
     return <InternalsView id={activeEndpoint.id} />;
   }
 
   const manip = findManipById(activeEndpoint.id);
   if (!manip) {
     return (
-      <div className="text-muted-foreground py-12 text-center text-sm">Endpoint not found</div>
+      <div className="text-muted-foreground py-12 text-center text-sm">
+        Endpoint not found
+      </div>
     );
   }
 

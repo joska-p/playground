@@ -1,14 +1,14 @@
-import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
-import { useId } from "react";
-import { cn } from "../../utils/cn";
-import { selectVariants } from "./selectVariants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps, ReactNode } from 'react';
+import { useId } from 'react';
+import { cn } from '../../utils/cn';
+import { selectVariants } from './selectVariants';
 
 type SelectProps = {
   label?: string;
   helperText?: string;
   children: ReactNode;
-} & ComponentProps<"select"> &
+} & ComponentProps<'select'> &
   VariantProps<typeof selectVariants>;
 
 function Select({
@@ -27,7 +27,10 @@ function Select({
   return (
     <div className="flex flex-col gap-1.5">
       {label && (
-        <label htmlFor={selectId} className="text-foreground/80 text-xs">
+        <label
+          htmlFor={selectId}
+          className="text-foreground/80 text-xs"
+        >
           {label}
         </label>
       )}
@@ -41,16 +44,28 @@ function Select({
           {children}
         </select>
         <div className="text-foreground/50 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </div>
       </div>
       {helperText && (
         <p
           className={cn(
-            "text-xs italic",
-            variant === "destructive" ? "text-destructive" : "text-muted-foreground"
+            'text-xs italic',
+            variant === 'destructive'
+              ? 'text-destructive'
+              : 'text-muted-foreground'
           )}
         >
           {helperText}

@@ -1,4 +1,4 @@
-import type { ParamDef } from "./manipData";
+import type { ParamDef } from './manipData';
 
 type ParamTableProps = {
   params: ParamDef[];
@@ -18,15 +18,22 @@ function ParamTable({ params }: ParamTableProps) {
         </thead>
         <tbody>
           {params.map((parameter) => (
-            <tr key={parameter.key} className="border-border border-b last:border-b-0">
+            <tr
+              key={parameter.key}
+              className="border-border border-b last:border-b-0"
+            >
               <td className="text-primary px-4 py-2.5 font-mono text-xs font-medium">
                 {parameter.key}
               </td>
-              <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">number</td>
+              <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
+                number
+              </td>
               <td className="text-foreground/80 px-4 py-2.5 font-mono text-xs">
                 {parameter.default}
               </td>
-              <td className="text-muted-foreground px-4 py-2.5 text-xs">{parameter.label}</td>
+              <td className="text-muted-foreground px-4 py-2.5 text-xs">
+                {parameter.label}
+              </td>
             </tr>
           ))}
         </tbody>

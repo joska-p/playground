@@ -1,7 +1,7 @@
-import { Slider } from "@repo/ui/Slider";
-import { useEffect, useRef, useState } from "react";
-import { regenerateMosaicTiles } from "../../store/actions";
-import { useMosaicRef } from "../../store/selectors";
+import { Slider } from '@repo/ui/Slider';
+import { useEffect, useRef, useState } from 'react';
+import { regenerateMosaicTiles } from '../../store/actions';
+import { useMosaicRef } from '../../store/selectors';
 
 export type SliderControlsProps = {
   label: string;
@@ -12,7 +12,14 @@ export type SliderControlsProps = {
   step: number;
 };
 
-function SliderControls({ label, defaultValue, cssVar, min, max, step }: SliderControlsProps) {
+function SliderControls({
+  label,
+  defaultValue,
+  cssVar,
+  min,
+  max,
+  step,
+}: SliderControlsProps) {
   const mosaicRef = useMosaicRef();
   const [value, setValue] = useState(defaultValue);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(150);

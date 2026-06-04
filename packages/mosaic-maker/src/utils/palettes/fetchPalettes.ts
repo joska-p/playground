@@ -1,7 +1,7 @@
-import type { Palette } from "../../core/initialPalette";
-import { initialPalette } from "../../core/initialPalette";
-import { paletteSchema } from "./fetchPalettes.schema";
-import { fetchWithValidation } from "./fetchWithValidation";
+import type { Palette } from '../../core/initialPalette';
+import { initialPalette } from '../../core/initialPalette';
+import { paletteSchema } from './fetchPalettes.schema';
+import { fetchWithValidation } from './fetchWithValidation';
 
 export type CachedPalettes = {
   palettes: Palette[];
@@ -9,10 +9,10 @@ export type CachedPalettes = {
   version: number;
 };
 
-const CACHE_KEY = "palettes";
+const CACHE_KEY = 'palettes';
 const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
 const CACHE_VERSION = 2;
-const PALETTE_URL = "https://unpkg.com/nice-color-palettes@3.0.0/1000.json";
+const PALETTE_URL = 'https://unpkg.com/nice-color-palettes@3.0.0/1000.json';
 
 const colorNames = Object.keys(initialPalette) as (keyof Palette)[];
 
@@ -33,7 +33,7 @@ function isCacheValid(cache: CachedPalettes): boolean {
 
 function transformPalette(colors: string[]): Palette {
   return colorNames.reduce((acc, colorName, index) => {
-    acc[colorName] = colors[index] ?? "#000000";
+    acc[colorName] = colors[index] ?? '#000000';
     return acc;
   }, {} as Palette);
 }
@@ -59,7 +59,7 @@ async function fetchPalettes(): Promise<Palette[]> {
     cachePalettes(palettes);
     return palettes;
   } catch (error) {
-    console.error("Failed to fetch palettes:", error);
+    console.error('Failed to fetch palettes:', error);
     return [initialPalette];
   }
 }

@@ -1,9 +1,9 @@
-import { cn } from "@repo/ui/cn";
-import { initialPalette } from "../../core/initialPalette";
-import { initialTileSet } from "../../core/initialTileSet";
-import { toggleTileInSet } from "../../store/actions";
-import { useMosaicTileSet } from "../../store/selectors";
-import { Tile } from "../Tile";
+import { cn } from '@repo/ui/cn';
+import { initialPalette } from '../../core/initialPalette';
+import { initialTileSet } from '../../core/initialTileSet';
+import { toggleTileInSet } from '../../store/actions';
+import { useMosaicTileSet } from '../../store/selectors';
+import { Tile } from '../Tile';
 
 function TileSetControls() {
   const tileSet = useMosaicTileSet();
@@ -15,7 +15,11 @@ function TileSetControls() {
     >
       {initialTileSet.map((tileName) => {
         return (
-          <label key={tileName} aria-label={tileName} className="flex flex-col gap-2">
+          <label
+            key={tileName}
+            aria-label={tileName}
+            className="flex flex-col gap-2"
+          >
             <input
               type="checkbox"
               checked={tileSet.includes(tileName)}
@@ -24,11 +28,17 @@ function TileSetControls() {
             />
             <Tile
               name={tileName}
-              colors={["--color-0", "--color-1", "--color-2", "--color-3", "--color-4"]}
+              colors={[
+                '--color-0',
+                '--color-1',
+                '--color-2',
+                '--color-3',
+                '--color-4',
+              ]}
               className={cn(
-                "opacity-70 transition-opacity",
-                "peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4",
-                "peer-focus-visible:ring-accent peer-focus-visible:ring-4"
+                'opacity-70 transition-opacity',
+                'peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4',
+                'peer-focus-visible:ring-accent peer-focus-visible:ring-4'
               )}
               rotation="--rotation-0"
             />

@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-import { DetailPanel } from "./DetailPanel";
-import { GraphCanvas } from "./GraphCanvas";
-import { Legend } from "./Legend";
-import { TopBar } from "./TopBar";
+import { DetailPanel } from './DetailPanel';
+import { GraphCanvas } from './GraphCanvas';
+import { Legend } from './Legend';
+import { TopBar } from './TopBar';
 
 /**
  * Root component — purely structural layout.

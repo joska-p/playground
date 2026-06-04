@@ -1,15 +1,17 @@
-import { MAX_NUMBER_OF_PALETTES } from "../core/constants";
-import type { Palette } from "../core/initialPalette";
-import type { TileNames } from "../core/initialTileSet";
-import { fetchPalettes } from "../utils/palettes/fetchPalettes";
-import { computeInitialTiles } from "../utils/tiles/computeInitialTiles";
-import { updateElementStyles } from "../utils/updateElementStyles";
-import { mosaicStore } from "./store";
+import { MAX_NUMBER_OF_PALETTES } from '../core/constants';
+import type { Palette } from '../core/initialPalette';
+import type { TileNames } from '../core/initialTileSet';
+import { fetchPalettes } from '../utils/palettes/fetchPalettes';
+import { computeInitialTiles } from '../utils/tiles/computeInitialTiles';
+import { updateElementStyles } from '../utils/updateElementStyles';
+import { mosaicStore } from './store';
 
 export function regenerateMosaicTiles() {
   const { mosaicRef, tileSet } = mosaicStore.getState();
   if (!mosaicRef.current) return;
-  mosaicStore.setState({ tiles: computeInitialTiles(mosaicRef.current, tileSet) });
+  mosaicStore.setState({
+    tiles: computeInitialTiles(mosaicRef.current, tileSet),
+  });
 }
 
 function updateCurrentPalettes() {
@@ -18,7 +20,10 @@ function updateCurrentPalettes() {
     currentPalettesIndex >= paletteStock.length - MAX_NUMBER_OF_PALETTES
       ? 0
       : currentPalettesIndex + MAX_NUMBER_OF_PALETTES;
-  const currentPalettes = paletteStock.slice(newIndex, newIndex + MAX_NUMBER_OF_PALETTES);
+  const currentPalettes = paletteStock.slice(
+    newIndex,
+    newIndex + MAX_NUMBER_OF_PALETTES
+  );
   mosaicStore.setState({ currentPalettesIndex: newIndex, currentPalettes });
 }
 

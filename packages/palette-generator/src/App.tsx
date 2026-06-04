@@ -1,4 +1,4 @@
-import { PaletteGenerator } from "./components/PaletteGenerator";
+import { PaletteGenerator } from './components/PaletteGenerator';
 
 function App() {
   return (

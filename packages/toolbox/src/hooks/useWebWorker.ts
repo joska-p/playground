@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from 'react';
 
 type WorkerFunction<TInput, TOutput> = (input: TInput) => TOutput;
 
@@ -34,7 +34,7 @@ function useWebWorker<TInput, TOutput>(
       };
     `;
 
-      const blob = new Blob([workerScript], { type: "application/javascript" });
+      const blob = new Blob([workerScript], { type: 'application/javascript' });
       const url = URL.createObjectURL(blob);
       const worker = new Worker(url);
       workerRef.current = worker;

@@ -1,8 +1,8 @@
-import { manipulations } from "../../core/manipulations/manipulations";
-import type { WorkflowStep } from "../../store/workflowStore";
-import { ArrowDownIcon } from "./ArrowDownIcon";
-import { EmptyState } from "../shared/EmptyState";
-import { WorkflowNode } from "./WorkflowNode";
+import { manipulations } from '../../core/manipulations/manipulations';
+import type { WorkflowStep } from '../../stores/manipulator/types';
+import { ArrowDownIcon } from './ArrowDownIcon';
+import { EmptyState } from '../shared/EmptyState';
+import { WorkflowNode } from './WorkflowNode';
 
 type WorkflowListProps = {
   steps: WorkflowStep[];
@@ -29,7 +29,11 @@ function WorkflowList({ steps }: WorkflowListProps) {
             <path d="M12 12 4.93 4.93" />
             <path d="M12 12 2 12" />
             <path d="M12 12 12 22" />
-            <circle cx="12" cy="12" r="10" />
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
           </svg>
         }
       />

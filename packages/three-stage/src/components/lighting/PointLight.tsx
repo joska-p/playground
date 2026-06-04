@@ -1,46 +1,46 @@
-import { useHelper } from "@react-three/drei";
-import { folder, useControls } from "leva";
-import { useRef } from "react";
-import { PointLightHelper } from "three";
+import { useHelper } from '@react-three/drei';
+import { folder, useControls } from 'leva';
+import { useRef } from 'react';
+import { PointLightHelper } from 'three';
 
 export function PointLight() {
   const light = useRef(null!);
   useHelper(light, PointLightHelper, 1);
 
-  const { intensity, color, decay, x, y, z } = useControls("Lighting", {
+  const { intensity, color, decay, x, y, z } = useControls('Lighting', {
     Point: folder({
       intensity: {
         value: 1,
-        label: "Intensity",
+        label: 'Intensity',
         min: 0,
         max: 5,
         step: 0.1,
       },
-      color: { value: "#ffffff", label: "color" },
+      color: { value: '#ffffff', label: 'color' },
       decay: {
         value: 0,
-        label: "Decay",
+        label: 'Decay',
         min: 0,
         max: 5,
         step: 0.1,
       },
       x: {
         value: 10,
-        label: "Position X",
+        label: 'Position X',
         min: -20,
         max: 20,
         step: 1,
       },
       y: {
         value: 10,
-        label: "Position Y",
+        label: 'Position Y',
         min: -20,
         max: 20,
         step: 1,
       },
       z: {
         value: 10,
-        label: "Position Z",
+        label: 'Position Z',
         min: -20,
         max: 20,
         step: 1,

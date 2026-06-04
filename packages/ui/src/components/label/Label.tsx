@@ -1,17 +1,29 @@
-import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
-import { cn } from "../../utils/cn";
-import { labelVariants } from "./labelVariants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
+import { cn } from '../../utils/cn';
+import { labelVariants } from './labelVariants';
 
-type LabelProps = {} & ComponentProps<"label"> & VariantProps<typeof labelVariants>;
+type LabelProps = {} & ComponentProps<'label'> &
+  VariantProps<typeof labelVariants>;
 
 /**
  * A primitive label component used for form field accessibility.
  * Styled with a mono font to match the Creative Playground aesthetic.
  */
-function Label({ children, ref, className, variant, size, ...props }: LabelProps) {
+function Label({
+  children,
+  ref,
+  className,
+  variant,
+  size,
+  ...props
+}: LabelProps) {
   return (
-    <label className={cn(labelVariants({ variant, size, className }))} ref={ref} {...props}>
+    <label
+      className={cn(labelVariants({ variant, size, className }))}
+      ref={ref}
+      {...props}
+    >
       {children}
     </label>
   );

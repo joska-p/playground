@@ -2,7 +2,7 @@ type CloseIconProps = {
   className?: string;
 };
 
-function CloseIcon({ className = "" }: CloseIconProps) {
+function CloseIcon({ className = '' }: CloseIconProps) {
   return (
     <svg
       className={`h-4 w-4 ${className}`}

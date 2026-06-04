@@ -1,5 +1,5 @@
-import type * as d3 from "d3";
-import type { RawNode } from "../data/graphData.types";
+import type * as d3 from 'd3';
+import type { RawNode } from '../data/graphData.types';
 
 export type SimNode = {
   x?: number;

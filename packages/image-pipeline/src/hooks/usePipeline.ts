@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { pipelineGateway } from "../api/pipeline-gateway";
-import type { Step } from "../core/manipulations/manifest";
+import { useEffect, useState } from 'react';
+import { pipelineGateway } from '../api/pipeline-gateway';
+import type { Step } from '../core/manipulations/manifest';
 
 export function usePipeline<const T extends readonly Step[]>(
   sourceImageData: ImageData | null,

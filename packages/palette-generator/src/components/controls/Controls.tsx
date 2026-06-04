@@ -1,13 +1,13 @@
-import { Button } from "@repo/ui/Button";
-import type { ColorSpacesKey } from "../../core/colorSpaces";
-import { colorSpaces } from "../../core/colorSpaces";
-import { generatePalette } from "../../core/generatePalette";
-import { analogous } from "../../core/rules/analogous";
-import { complementary } from "../../core/rules/complementary";
-import { monochromatic } from "../../core/rules/monochromatic";
-import { triadic } from "../../core/rules/triadic";
-import { addPalette, usePaletteBaseColor } from "../../store/paletteStore";
-import { ColorSpaceControls } from "./color-picker/ColorSpaceControls";
+import { Button } from '@repo/ui/Button';
+import type { ColorSpacesKey } from '../../core/colorSpaces';
+import { colorSpaces } from '../../core/colorSpaces';
+import { generatePalette } from '../../core/generatePalette';
+import { analogous } from '../../core/rules/analogous';
+import { complementary } from '../../core/rules/complementary';
+import { monochromatic } from '../../core/rules/monochromatic';
+import { triadic } from '../../core/rules/triadic';
+import { addPalette, usePaletteBaseColor } from '../../store/paletteStore';
+import { ColorSpaceControls } from './color-picker/ColorSpaceControls';
 
 const rules = { analogous, complementary, monochromatic, triadic } as const;
 type RuleKey = keyof typeof rules;

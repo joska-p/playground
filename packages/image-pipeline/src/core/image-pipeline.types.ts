@@ -1,4 +1,4 @@
-import type { Registry } from "./registry";
+import type { Registry } from './registry';
 
 // ─── UI Metadata ──────────────────────────────────────────────────────────────
 
@@ -67,9 +67,13 @@ export type ManipulationDefinition<
   options?: Options;
   ui: ManipulationUIMetadata;
 } & (
-  | { type: "pixel"; function: PixelFunction<Options> }
-  | { type: "neighborhood"; radius: number; function: NeighborhoodFunction<Options> }
-  | { type: "whole"; function: WholeImageFunction<Options> }
+  | { type: 'pixel'; function: PixelFunction<Options> }
+  | {
+      type: 'neighborhood';
+      radius: number;
+      function: NeighborhoodFunction<Options>;
+    }
+  | { type: 'whole'; function: WholeImageFunction<Options> }
 );
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────

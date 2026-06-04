@@ -1,39 +1,47 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 const standard = {
-  label: "Standard",
+  label: 'Standard',
   material: () => new THREE.MeshStandardMaterial(),
 } as const;
 
 const basic = {
-  label: "Basic",
+  label: 'Basic',
   material: () => new THREE.MeshBasicMaterial(),
 } as const;
 
 const lambert = {
-  label: "Lambert",
+  label: 'Lambert',
   material: () => new THREE.MeshLambertMaterial(),
 } as const;
 
 const normal = {
-  label: "Normal",
+  label: 'Normal',
   material: () => new THREE.MeshNormalMaterial(),
 } as const;
 
 const phong = {
-  label: "Phong",
+  label: 'Phong',
   material: () => new THREE.MeshPhongMaterial(),
 } as const;
 
 const toon = {
-  label: "Toon",
+  label: 'Toon',
   material: () => new THREE.MeshToonMaterial(),
 } as const;
 
 const depth = {
-  label: "Depth",
+  label: 'Depth',
   material: () => new THREE.MeshDepthMaterial(),
 };
 
-export const materials = [standard, toon, basic, lambert, normal, phong, depth] as const;
+export const materials = [
+  standard,
+  toon,
+  basic,
+  lambert,
+  normal,
+  phong,
+  depth,
+] as const;
 export type Material = (typeof materials)[number];

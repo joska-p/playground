@@ -1,7 +1,7 @@
-import { defineWhole } from "../../manipulation-factories";
+import { defineWhole } from '../../manipulation-factories';
 
 export const histogramEqualize = defineWhole({
-  id: "histogram-equalize",
+  id: 'histogram-equalize',
   execute: ({ imageData }) => {
     const data = imageData.data;
     const n = imageData.width * imageData.height;
@@ -45,8 +45,8 @@ export const histogramEqualize = defineWhole({
     return out;
   },
   ui: {
-    name: "Histogram Equalize",
-    description: "Equalizes the luminance histogram for improved contrast.",
+    name: 'Histogram Equalize',
+    description: 'Equalizes the luminance histogram for improved contrast.',
     defaultArgs: {},
     argDefinitions: [],
   },

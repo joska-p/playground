@@ -1,6 +1,6 @@
-import { Sidebar } from "@repo/ui/Sidebar";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
+import { Sidebar } from '@repo/ui/Sidebar';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import React from 'react';
 
 type Story = StoryObj<typeof Sidebar>;
 
@@ -9,28 +9,28 @@ type Story = StoryObj<typeof Sidebar>;
  * The Toggle automatically stays accessible and positions itself based on the sidebar's location.
  */
 const meta: Meta<typeof Sidebar> = {
-  title: "Widgets/Sidebar",
+  title: 'Widgets/Sidebar',
   component: Sidebar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: "The background theme of the sidebar panel.",
-      options: ["normal", "primary", "secondary", "accent"],
-      control: { type: "select" },
+      description: 'The background theme of the sidebar panel.',
+      options: ['normal', 'primary', 'secondary', 'accent'],
+      control: { type: 'select' },
     },
     mobilePosition: {
-      description: "Layout of the sidebar on mobile screens.",
-      options: ["top", "right", "bottom", "left"],
-      control: { type: "select" },
+      description: 'Layout of the sidebar on mobile screens.',
+      options: ['top', 'right', 'bottom', 'left'],
+      control: { type: 'select' },
     },
     desktopPosition: {
-      description: "Layout of the sidebar on desktop screens.",
-      options: ["top", "right", "bottom", "left"],
-      control: { type: "select" },
+      description: 'Layout of the sidebar on desktop screens.',
+      options: ['top', 'right', 'bottom', 'left'],
+      control: { type: 'select' },
     },
     defaultOpen: {
-      description: "Whether the sidebar is open by default.",
-      control: "boolean",
+      description: 'Whether the sidebar is open by default.',
+      control: 'boolean',
     },
   },
   args: {
@@ -44,13 +44,20 @@ export default meta;
 function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
   return (
     <div className="border-muted-foreground/20 bg-background h-[500px] w-full overflow-hidden border border-dashed">
-      <Sidebar {...args} className="h-full">
+      <Sidebar
+        {...args}
+        className="h-full"
+      >
         <Sidebar.Toggle />
         <Sidebar.Panel className="p-4 pt-12">
           <h3 className="mb-4 font-bold">Controls</h3>
           <nav className="space-y-2">
-            <div className="cursor-pointer rounded p-2 hover:bg-black/5">Brush Settings</div>
-            <div className="cursor-pointer rounded p-2 hover:bg-black/5">Layer Manager</div>
+            <div className="cursor-pointer rounded p-2 hover:bg-black/5">
+              Brush Settings
+            </div>
+            <div className="cursor-pointer rounded p-2 hover:bg-black/5">
+              Layer Manager
+            </div>
           </nav>
         </Sidebar.Panel>
         <Sidebar.Main className="p-8">
@@ -70,20 +77,20 @@ function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
 
 export const NormalLeft: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: "normal", desktopPosition: "left" },
+  args: { variant: 'normal', desktopPosition: 'left' },
 };
 
 export const PrimaryRight: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: "primary", desktopPosition: "right" },
+  args: { variant: 'primary', desktopPosition: 'right' },
 };
 
 export const SecondaryTop: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: "secondary", desktopPosition: "top" },
+  args: { variant: 'secondary', desktopPosition: 'top' },
 };
 
 export const AccentBottom: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: "accent", desktopPosition: "bottom" },
+  args: { variant: 'accent', desktopPosition: 'bottom' },
 };

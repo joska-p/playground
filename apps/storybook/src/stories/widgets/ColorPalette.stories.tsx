@@ -1,6 +1,6 @@
-import { ColorPalette } from "@repo/ui/ColorPalette";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
+import { ColorPalette } from '@repo/ui/ColorPalette';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 
 type Story = StoryObj<typeof ColorPalette>;
 
@@ -9,38 +9,38 @@ type Story = StoryObj<typeof ColorPalette>;
  * It functions as a radio input, allowing users to select a palette.
  */
 const meta: Meta<typeof ColorPalette> = {
-  title: "Widgets/ColorPalette",
+  title: 'Widgets/ColorPalette',
   component: ColorPalette,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     colors: {
-      description: "An array of CSS color strings to display in the palette.",
-      control: "object",
+      description: 'An array of CSS color strings to display in the palette.',
+      control: 'object',
     },
     orientation: {
-      description: "The layout orientation of the color cells.",
-      options: ["horizontal", "vertical"],
-      control: { type: "radio" },
+      description: 'The layout orientation of the color cells.',
+      options: ['horizontal', 'vertical'],
+      control: { type: 'radio' },
     },
     size: {
-      description: "The size of each color cell.",
-      options: ["small", "medium", "large"],
-      control: { type: "select" },
+      description: 'The size of each color cell.',
+      options: ['small', 'medium', 'large'],
+      control: { type: 'select' },
     },
     variant: {
-      description: "Visual style of the palette border and selection ring.",
-      options: ["primary", "secondary", "accent"],
-      control: { type: "select" },
+      description: 'Visual style of the palette border and selection ring.',
+      options: ['primary', 'secondary', 'accent'],
+      control: { type: 'select' },
     },
     checked: {
-      description: "Whether this palette is currently selected.",
-      control: "boolean",
+      description: 'Whether this palette is currently selected.',
+      control: 'boolean',
     },
   },
   args: {
     onChange: fn(),
-    colors: ["#282828", "#cc241d", "#98971a", "#d79921", "#458588"],
-    name: "demo-palette",
+    colors: ['#282828', '#cc241d', '#98971a', '#d79921', '#458588'],
+    name: 'demo-palette',
   },
 };
 
@@ -52,8 +52,8 @@ export default meta;
  */
 export const PrimaryHorizontal: Story = {
   args: {
-    variant: "primary",
-    orientation: "horizontal",
+    variant: 'primary',
+    orientation: 'horizontal',
     checked: true,
   },
 };
@@ -63,9 +63,9 @@ export const PrimaryHorizontal: Story = {
  */
 export const SecondaryVertical: Story = {
   args: {
-    variant: "secondary",
-    orientation: "vertical",
-    colors: ["#fb4934", "#b8bb26", "#fabd2f", "#83a598", "#d3869b"],
+    variant: 'secondary',
+    orientation: 'vertical',
+    colors: ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b'],
     checked: true,
   },
 };
@@ -75,9 +75,9 @@ export const SecondaryVertical: Story = {
  */
 export const AccentLarge: Story = {
   args: {
-    variant: "accent",
-    size: "large",
-    colors: ["#ebdbb2", "#d5c4a1", "#bdae93", "#a89984", "#928374"],
+    variant: 'accent',
+    size: 'large',
+    colors: ['#ebdbb2', '#d5c4a1', '#bdae93', '#a89984', '#928374'],
     checked: true,
   },
 };
@@ -87,7 +87,7 @@ export const AccentLarge: Story = {
  */
 export const SmallCompact: Story = {
   args: {
-    size: "small",
-    variant: "primary",
+    size: 'small',
+    variant: 'primary',
   },
 };

@@ -1,11 +1,11 @@
-import { useCallback, useRef, useState } from "react";
-import { useImageUpload } from "../../../hooks/useImageUpload";
-import { usePipelineFileName, usePipelineImageSource } from "../../../store/pipelineStore";
+import { useCallback, useRef, useState } from 'react';
+import { useImageUpload } from '../../../hooks/useImageUpload';
+import { useImageSource } from '../../../stores/manipulator/selectors';
 
 export function useUploadZone() {
-  const { handleImageUpload, handleFileDrop, clearImage } = useImageUpload();
-  const imageSource = usePipelineImageSource();
-  const fileName = usePipelineFileName();
+  const { handleImageUpload, handleFileDrop, clearImage, fileName } =
+    useImageUpload();
+  const imageSource = useImageSource();
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);

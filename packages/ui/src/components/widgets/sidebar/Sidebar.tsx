@@ -1,30 +1,30 @@
-import type { ComponentProps } from "react";
-import { useCallback, useMemo, useState } from "react";
-import { cn } from "../../../utils/cn";
-import styles from "./sidebar.module.css";
-import type { SidebarContextValue } from "./sidebarContext";
-import { SidebarContext } from "./sidebarContext";
-import { SidebarMain } from "./SidebarMain";
-import { SidebarPanel } from "./SidebarPanel";
-import { SidebarToggle } from "./SidebarToggle";
-import { useSidebarContext } from "./useSidebarContext";
+import type { ComponentProps } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { cn } from '../../../utils/cn';
+import styles from './sidebar.module.css';
+import type { SidebarContextValue } from './sidebarContext';
+import { SidebarContext } from './sidebarContext';
+import { SidebarMain } from './SidebarMain';
+import { SidebarPanel } from './SidebarPanel';
+import { SidebarToggle } from './SidebarToggle';
+import { useSidebarContext } from './useSidebarContext';
 
 export type SidebarProps = {
   defaultOpen?: boolean;
-  mobilePosition?: "top" | "right" | "bottom" | "left";
-  desktopPosition?: "top" | "right" | "bottom" | "left";
-  variant?: "normal" | "primary" | "secondary" | "accent";
+  mobilePosition?: 'top' | 'right' | 'bottom' | 'left';
+  desktopPosition?: 'top' | 'right' | 'bottom' | 'left';
+  variant?: 'normal' | 'primary' | 'secondary' | 'accent';
   panelWidth?: string;
   panelHeight?: string;
-} & ComponentProps<"div">;
+} & ComponentProps<'div'>;
 
 export function Sidebar({
   children,
   ref,
   className,
-  mobilePosition = "bottom",
-  desktopPosition = "bottom",
-  variant = "normal",
+  mobilePosition = 'bottom',
+  desktopPosition = 'bottom',
+  variant = 'normal',
   defaultOpen = true,
   panelWidth,
   panelHeight,
@@ -41,8 +41,8 @@ export function Sidebar({
     (): SidebarContextValue => ({
       isOpen,
       toggleSidebar,
-      desktopPosition: desktopPosition ?? "bottom",
-      mobilePosition: mobilePosition ?? "bottom",
+      desktopPosition: desktopPosition ?? 'bottom',
+      mobilePosition: mobilePosition ?? 'bottom',
     }),
     [isOpen, toggleSidebar, desktopPosition, mobilePosition]
   );
@@ -50,8 +50,8 @@ export function Sidebar({
   const sidebarStyles = useMemo(
     () => ({
       ...style,
-      ...(panelWidth && { "--sidebar-width": panelWidth }),
-      ...(panelHeight && { "--sidebar-height": panelHeight }),
+      ...(panelWidth && { '--sidebar-width': panelWidth }),
+      ...(panelHeight && { '--sidebar-height': panelHeight }),
     }),
     [style, panelWidth, panelHeight]
   );
@@ -60,11 +60,11 @@ export function Sidebar({
     <SidebarContext.Provider value={value}>
       <div
         ref={ref}
-        data-state={isOpen ? "open" : "closed"}
+        data-state={isOpen ? 'open' : 'closed'}
         data-mobile-position={mobilePosition}
         data-desktop-position={desktopPosition}
         data-variant={variant}
-        className={cn(styles.sidebar, "group", className)}
+        className={cn(styles.sidebar, 'group', className)}
         style={sidebarStyles as React.CSSProperties}
         {...props}
       >

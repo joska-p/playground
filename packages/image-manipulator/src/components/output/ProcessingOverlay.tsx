@@ -1,8 +1,11 @@
-import { useIsProcessing, usePipelineImageSource } from "../../store/pipelineStore";
+import {
+  useImageSource,
+  useIsProcessing,
+} from '../../stores/manipulator/selectors';
 
 function ProcessingOverlay() {
   const isProcessing = useIsProcessing();
-  const imageSource = usePipelineImageSource();
+  const imageSource = useImageSource();
 
   if (!isProcessing || !imageSource) {
     return null;

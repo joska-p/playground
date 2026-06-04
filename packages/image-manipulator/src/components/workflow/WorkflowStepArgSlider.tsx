@@ -1,5 +1,5 @@
-import { Slider } from "@repo/ui/Slider";
-import type { ArgDefinition } from "../../core/manipulations/manipulations";
+import { Slider } from '@repo/ui/Slider';
+import type { ArgDefinition } from '../../core/manipulations/manipulations';
 
 type WorkflowStepArgSliderProps = {
   def: ArgDefinition;
@@ -7,7 +7,11 @@ type WorkflowStepArgSliderProps = {
   onChange: (value: number) => void;
 };
 
-function WorkflowStepArgSlider({ def, value, onChange }: WorkflowStepArgSliderProps) {
+function WorkflowStepArgSlider({
+  def,
+  value,
+  onChange,
+}: WorkflowStepArgSliderProps) {
   return (
     <Slider
       label={def.label}

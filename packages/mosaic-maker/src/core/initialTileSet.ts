@@ -1,12 +1,12 @@
 const defaultTileSet = [
-  "CornerCircles",
-  "Diamond",
-  "MiddleCircle",
-  "OppositeCircles",
-  "Rainbow",
-  "Square",
-  "Triangles",
-  "Cube",
+  'CornerCircles',
+  'Diamond',
+  'MiddleCircle',
+  'OppositeCircles',
+  'Rainbow',
+  'Square',
+  'Triangles',
+  'Cube',
 ] as const;
 
 export type TileSet = (typeof defaultTileSet)[number][];

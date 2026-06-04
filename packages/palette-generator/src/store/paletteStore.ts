@@ -1,13 +1,13 @@
-import Color from "colorjs.io";
-import { create } from "zustand";
-import type { Palette } from "../core/rules/harmonyRule.types";
+import Color from 'colorjs.io';
+import { create } from 'zustand';
+import type { Palette } from '../core/rules/harmonyRule.types';
 
 type PaletteState = {
   palettes: Palette[];
   baseColor: Color;
 };
 
-const initialBaseColor = new Color("oklch", [0.7, 0.1, 196]);
+const initialBaseColor = new Color('oklch', [0.7, 0.1, 196]);
 
 const paletteStore = create<PaletteState>(() => ({
   palettes: [],

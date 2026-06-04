@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import type { RawNode } from "../data/graphData.types";
-import type { ColorMode, GraphStats } from "./graphStore.types";
+import { create } from 'zustand';
+import type { RawNode } from '../data/graphData.types';
+import type { ColorMode, GraphStats } from './graphStore.types';
 
 type GraphStore = {
   colorMode: ColorMode;
@@ -14,10 +14,10 @@ type GraphStore = {
 };
 
 const graphStore = create<GraphStore>(() => ({
-  colorMode: "community",
+  colorMode: 'community',
   filterFT: null,
   filterRel: null,
-  search: "",
+  search: '',
   showHyper: true,
   selectedNode: null,
   isReady: false,
@@ -89,5 +89,10 @@ export function setGraphStats(stats: GraphStats): void {
 }
 
 export function resetGraphFilters(): void {
-  graphStore.setState({ filterFT: null, filterRel: null, search: "", selectedNode: null });
+  graphStore.setState({
+    filterFT: null,
+    filterRel: null,
+    search: '',
+    selectedNode: null,
+  });
 }

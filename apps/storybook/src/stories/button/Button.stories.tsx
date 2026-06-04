@@ -1,42 +1,49 @@
-import { Button } from "@repo/ui/Button";
-import type { Meta } from "@storybook/react-vite";
-import { fn } from "storybook/test";
+import { Button } from '@repo/ui/Button';
+import type { Meta } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 
 /**
  * A versatile Button component themed for the Creative Playground.
  * Utilizes the shared Gruvbox palette and supports various states like loading and disabled.
  */
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     children: {
-      description: "the content to display inside the button.",
-      control: "text",
+      description: 'the content to display inside the button.',
+      control: 'text',
     },
     variant: {
-      description: "Visual style of the button based on the theme palette.",
-      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
-      control: { type: "select" },
+      description: 'Visual style of the button based on the theme palette.',
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
+      control: { type: 'select' },
     },
     size: {
-      description: "Controls the physical dimensions of the button.",
-      options: ["default", "sm", "lg", "icon"],
-      control: { type: "select" },
+      description: 'Controls the physical dimensions of the button.',
+      options: ['default', 'sm', 'lg', 'icon'],
+      control: { type: 'select' },
     },
     isLoading: {
-      description: "Shows a loading spinner and disables the button.",
-      control: "boolean",
+      description: 'Shows a loading spinner and disables the button.',
+      control: 'boolean',
     },
     disabled: {
-      description: "Disables interaction and dims the appearance.",
-      control: "boolean",
+      description: 'Disables interaction and dims the appearance.',
+      control: 'boolean',
     },
   },
   args: {
     onClick: fn(),
-    children: "Button Text",
+    children: 'Button Text',
   },
 };
 
@@ -49,7 +56,7 @@ export default meta;
  */
 export const Primary: Story = {
   args: {
-    variant: "primary",
+    variant: 'primary',
   },
 };
 
@@ -59,8 +66,8 @@ export const Primary: Story = {
  */
 export const Secondary: Story = {
   args: {
-    variant: "secondary",
-    children: "Secondary Action",
+    variant: 'secondary',
+    children: 'Secondary Action',
   },
 };
 
@@ -70,8 +77,8 @@ export const Secondary: Story = {
  */
 export const Accent: Story = {
   args: {
-    variant: "accent",
-    children: "Accent Action",
+    variant: 'accent',
+    children: 'Accent Action',
   },
 };
 
@@ -81,8 +88,8 @@ export const Accent: Story = {
  */
 export const Destructive: Story = {
   args: {
-    variant: "destructive",
-    children: "Clear Data",
+    variant: 'destructive',
+    children: 'Clear Data',
   },
 };
 
@@ -92,8 +99,8 @@ export const Destructive: Story = {
  */
 export const Outline: Story = {
   args: {
-    variant: "outline",
-    children: "Documentation",
+    variant: 'outline',
+    children: 'Documentation',
   },
 };
 
@@ -103,8 +110,8 @@ export const Outline: Story = {
  */
 export const Ghost: Story = {
   args: {
-    variant: "ghost",
-    children: "Settings",
+    variant: 'ghost',
+    children: 'Settings',
   },
 };
 
@@ -115,6 +122,6 @@ export const Ghost: Story = {
 export const Loading: Story = {
   args: {
     isLoading: true,
-    children: "Generating…",
+    children: 'Generating…',
   },
 };

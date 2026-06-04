@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 export type Submission = {
   text: string;
@@ -13,7 +13,7 @@ type DemoStore = {
 
 const demoStore = create<DemoStore>(() => ({
   count: 0,
-  lastMessage: "",
+  lastMessage: '',
   submissions: [],
 }));
 
@@ -39,5 +39,5 @@ export function addDemoSubmission(text: string): void {
 }
 
 export function resetDemo(): void {
-  demoStore.setState({ count: 0, lastMessage: "", submissions: [] });
+  demoStore.setState({ count: 0, lastMessage: '', submissions: [] });
 }

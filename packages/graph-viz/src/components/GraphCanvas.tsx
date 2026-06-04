@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import { useGraphSimulation } from "../hooks/useGraphSimulation";
-import { useResetZoom } from "../hooks/useResetZoom";
-import { LoadingOverlay } from "./LoadingOverlay";
+import { useEffect, useRef } from 'react';
+import { useGraphSimulation } from '../hooks/useGraphSimulation';
+import { useResetZoom } from '../hooks/useResetZoom';
+import { LoadingOverlay } from './LoadingOverlay';
 
 type GraphCanvasProps = {
   /** Callback so the parent (or TopBar) can trigger a zoom reset */
@@ -25,9 +25,17 @@ export function GraphCanvas({ onResetZoomReady }: GraphCanvasProps) {
   }, [onResetZoomReady, resetZoom]);
 
   return (
-    <div ref={containerRef} className="relative flex-1 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative flex-1 overflow-hidden"
+    >
       <LoadingOverlay />
-      <svg ref={svgRef} width="100%" height="100%" className="block" />
+      <svg
+        ref={svgRef}
+        width="100%"
+        height="100%"
+        className="block"
+      />
     </div>
   );
 }

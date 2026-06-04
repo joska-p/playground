@@ -1,17 +1,17 @@
-import { withThemeByDataAttribute } from "@storybook/addon-themes";
-import type { Preview } from "@storybook/react-vite";
-import { themes } from "storybook/theming";
-import "../src/styles/styles.css";
+import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import type { Preview } from '@storybook/react-vite';
+import { themes } from 'storybook/theming';
+import '../src/styles/styles.css';
 
 const preview: Preview = {
   decorators: [
     withThemeByDataAttribute({
       themes: {
-        light: "light",
-        dark: "dark",
+        light: 'light',
+        dark: 'dark',
       },
-      defaultTheme: "dark",
-      attributeName: "data-theme",
+      defaultTheme: 'dark',
+      attributeName: 'data-theme',
     }),
   ],
   parameters: {
@@ -26,10 +26,10 @@ const preview: Preview = {
       },
     },
     a11y: {
-      test: "todo",
+      test: 'todo',
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default preview;

@@ -1,4 +1,4 @@
-import { GraphViz } from "./components/GraphViz";
+import { GraphViz } from './components/GraphViz';
 
 function App() {
   return (

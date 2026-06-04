@@ -1,5 +1,5 @@
-import type { JSX } from "react";
-import { SequenceRenderer } from "./components/SequenceRenderer";
+import type { JSX } from 'react';
+import { SequenceRenderer } from './components/SequenceRenderer';
 
 function App(): JSX.Element {
   return (

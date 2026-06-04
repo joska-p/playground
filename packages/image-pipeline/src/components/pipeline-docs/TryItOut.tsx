@@ -1,8 +1,8 @@
-import { Slider } from "@repo/ui/Slider";
-import { useEffect, useState } from "react";
-import { pipelineGateway } from "../../api/pipeline-gateway";
-import { imageDataToUrl } from "./helpers";
-import type { ManipInfo } from "./manipData";
+import { Slider } from '@repo/ui/Slider';
+import { useEffect, useState } from 'react';
+import { pipelineGateway } from '../../api/pipeline-gateway';
+import { imageDataToUrl } from './helpers';
+import type { ManipInfo } from './manipData';
 
 type TryItOutProps = {
   sourceData: ImageData | null;
@@ -11,8 +11,14 @@ type TryItOutProps = {
   onParamChange: (id: string, key: string, value: number) => void;
 };
 
-function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutProps) {
-  const [pipelineResultImage, setPipelineResultImage] = useState<ImageData | null>(null);
+function TryItOut({
+  sourceData,
+  manip,
+  paramValues,
+  onParamChange,
+}: TryItOutProps) {
+  const [pipelineResultImage, setPipelineResultImage] =
+    useState<ImageData | null>(null);
 
   const loading = sourceData !== null && pipelineResultImage === null;
 
@@ -24,7 +30,8 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
     if (manip.params) {
       for (const parameterDefinition of manip.params) {
         options[parameterDefinition.key] =
-          paramValues[`${manip.id}:${parameterDefinition.key}`] ?? parameterDefinition.default;
+          paramValues[`${manip.id}:${parameterDefinition.key}`] ??
+          parameterDefinition.default;
       }
     }
 
@@ -53,7 +60,7 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
               src={imageDataToUrl(sourceData)}
               alt="source"
               className="border-border w-full rounded border"
-              style={{ imageRendering: "pixelated" }}
+              style={{ imageRendering: 'pixelated' }}
             />
           )}
         </div>
@@ -71,7 +78,7 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
               src={imageDataToUrl(pipelineResultImage)}
               alt={manip.label}
               className="border-border w-full rounded border"
-              style={{ imageRendering: "pixelated" }}
+              style={{ imageRendering: 'pixelated' }}
             />
           ) : (
             sourceData && (
@@ -92,9 +99,12 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
               max={parameterDefinition.max}
               step={parameterDefinition.step}
               value={
-                paramValues[`${manip.id}:${parameterDefinition.key}`] ?? parameterDefinition.default
+                paramValues[`${manip.id}:${parameterDefinition.key}`] ??
+                parameterDefinition.default
               }
-              onChange={(value) => onParamChange(manip.id, parameterDefinition.key, value)}
+              onChange={(value) =>
+                onParamChange(manip.id, parameterDefinition.key, value)
+              }
             />
           ))}
         </div>

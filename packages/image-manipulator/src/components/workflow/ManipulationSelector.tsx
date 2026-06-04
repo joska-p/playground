@@ -1,30 +1,38 @@
-import { Button } from "@repo/ui/Button";
-import { Select } from "@repo/ui/Select";
-import type { ManipulationId } from "../../core/manipulations/manipulations";
-import { manipulations, manipulationsIds } from "../../core/manipulations/manipulations";
-import { setPipelineManipulationId, usePipelineManipulationId } from "../../store/pipelineStore";
-import { addToWorkflow } from "../../store/workflowStore";
+import { useState } from 'react';
+import { Button } from '@repo/ui/Button';
+import { Select } from '@repo/ui/Select';
+import type { ManipulationId } from '../../core/manipulations/manipulations';
+import {
+  manipulations,
+  manipulationsIds,
+} from '../../core/manipulations/manipulations';
+import { addWorkflowStep } from '../../stores/manipulator/actions';
 
 function ManipulationSelector() {
-  const manipulationId = usePipelineManipulationId();
+  const [manipulationId, setManipulationId] = useState(manipulationsIds[0]);
 
   return (
     <>
       <Select
         variant="primary"
         value={manipulationId}
-        onChange={(e) => setPipelineManipulationId(e.target.value as ManipulationId)}
+        onChange={(e) => setManipulationId(e.target.value as ManipulationId)}
         className="flex-1"
         label="Manipulation"
       >
         {manipulationsIds.map((id) => (
-          <option key={id} value={id}>
+          <option
+            key={id}
+            value={id}
+          >
             {manipulations[id]?.name ?? id}
           </option>
         ))}
       </Select>
 
-      <Button onClick={() => addToWorkflow(manipulationId)}>Add to Workflow</Button>
+      <Button onClick={() => addWorkflowStep(manipulationId)}>
+        Add to Workflow
+      </Button>
     </>
   );
 }

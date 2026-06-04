@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-import type { Paths } from "../../core/drawing.types.ts";
-import { drawSample } from "./draw.ts";
+import { useEffect, useRef } from 'react';
+import type { Paths } from '../../core/drawing.types.ts';
+import { drawSample } from './draw.ts';
 
 type DrawingProps = {
   paths: Paths;
@@ -12,7 +12,7 @@ function Drawing({ paths }: DrawingProps) {
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
       drawSample(canvas, ctx, paths);
 
       return () => {
@@ -23,7 +23,10 @@ function Drawing({ paths }: DrawingProps) {
 
   return (
     <div>
-      <canvas ref={canvasRef} className="w-full" />
+      <canvas
+        ref={canvasRef}
+        className="w-full"
+      />
     </div>
   );
 }

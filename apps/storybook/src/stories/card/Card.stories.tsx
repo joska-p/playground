@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/Button";
+import { Button } from '@repo/ui/Button';
 import {
   Card,
   CardContent,
@@ -6,22 +6,22 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@repo/ui/Card";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+} from '@repo/ui/Card';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 /**
  * The Card component provides a flexible container for grouping related content and actions.
  * It is a core part of the Mosaic Maker and Data Viz layouts in the playground.
  */
 const meta: Meta<typeof Card> = {
-  title: "Components/Card",
+  title: 'Components/Card',
   component: Card,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: "Controls the background and border style of the card.",
-      options: ["primary", "secondary", "accent", "outline", "ghost", "muted"],
-      control: { type: "select" },
+      description: 'Controls the background and border style of the card.',
+      options: ['primary', 'secondary', 'accent', 'outline', 'ghost', 'muted'],
+      control: { type: 'select' },
     },
   },
 };
@@ -37,17 +37,21 @@ type Story = StoryObj<typeof Card>;
  */
 export const Primary: Story = {
   args: {
-    variant: "primary",
+    variant: 'primary',
   },
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
         <CardHeader>
           <CardTitle>Project Configuration</CardTitle>
-          <CardDescription>Adjust the parameters for your current experiment.</CardDescription>
+          <CardDescription>
+            Adjust the parameters for your current experiment.
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Configure particle density and canvas resolution before generating.</p>
+          <p>
+            Configure particle density and canvas resolution before generating.
+          </p>
         </CardContent>
         <CardFooter className="flex justify-end gap-2">
           <Button variant="outline">Reset</Button>
@@ -64,7 +68,7 @@ export const Primary: Story = {
  */
 export const Secondary: Story = {
   args: {
-    variant: "secondary",
+    variant: 'secondary',
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -87,7 +91,7 @@ export const Secondary: Story = {
  */
 export const Accent: Story = {
   args: {
-    variant: "accent",
+    variant: 'accent',
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -113,7 +117,7 @@ export const Accent: Story = {
  */
 export const Outline: Story = {
   args: {
-    variant: "outline",
+    variant: 'outline',
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -135,7 +139,7 @@ export const Outline: Story = {
  */
 export const Ghost: Story = {
   args: {
-    variant: "ghost",
+    variant: 'ghost',
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -154,7 +158,7 @@ export const Ghost: Story = {
  */
 export const Muted: Story = {
   args: {
-    variant: "muted",
+    variant: 'muted',
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -163,7 +167,9 @@ export const Muted: Story = {
           <CardTitle>Metadata</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-xs">Generated on 2024-05-20. Version 1.0.4-beta.</p>
+          <p className="text-xs">
+            Generated on 2024-05-20. Version 1.0.4-beta.
+          </p>
         </CardContent>
       </Card>
     </div>

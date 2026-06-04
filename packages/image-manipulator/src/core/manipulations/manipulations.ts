@@ -1,10 +1,18 @@
-import { ALL_MANIPULATIONS } from "@repo/image-pipeline/manipulations";
+import { ALL_MANIPULATIONS } from '@repo/image-pipeline/manipulations';
 
-const pixelManipulations = ALL_MANIPULATIONS.filter((m) => m.type === "pixel");
+const pixelManipulations = ALL_MANIPULATIONS.filter((m) => m.type === 'pixel');
 
-const manipulationsIds = pixelManipulations.map((m) => m.id) as readonly string[];
+const manipulationsIds = pixelManipulations.map(
+  (m) => m.id
+) as readonly string[];
 
-type ArgDefinition = { key: string; label: string; min: number; max: number; step: number };
+type ArgDefinition = {
+  key: string;
+  label: string;
+  min: number;
+  max: number;
+  step: number;
+};
 
 const manipulations: Record<
   string,

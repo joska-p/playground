@@ -1,5 +1,5 @@
-import { z } from "astro/zod";
-import { categoryIds } from "./docs";
+import { z } from 'astro/zod';
+import { categoryIds } from './docs';
 
 export const docSchema = z.object({
   title: z.string(),

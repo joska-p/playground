@@ -1,36 +1,43 @@
-import { Label } from "@repo/ui/Label";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Label } from '@repo/ui/Label';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 /**
  * The Label component provides an accessible caption for an item in a user interface.
  * Styled with a mono font to match the Creative Playground aesthetic.
  */
 const meta: Meta<typeof Label> = {
-  title: "Components/Label",
+  title: 'Components/Label',
   component: Label,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     children: {
-      description: "The text content of the label.",
-      control: "text",
+      description: 'The text content of the label.',
+      control: 'text',
     },
     htmlFor: {
-      description: "The ID of the form element this label is associated with.",
-      control: "text",
+      description: 'The ID of the form element this label is associated with.',
+      control: 'text',
     },
     variant: {
-      description: "Visual style variant based on the theme colors.",
-      options: ["primary", "secondary", "accent", "destructive", "outline", "ghost"],
-      control: { type: "select" },
+      description: 'Visual style variant based on the theme colors.',
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
+      control: { type: 'select' },
     },
     size: {
-      description: "Controls the physical dimensions of the label.",
-      options: ["default", "sm", "lg"],
-      control: { type: "select" },
+      description: 'Controls the physical dimensions of the label.',
+      options: ['default', 'sm', 'lg'],
+      control: { type: 'select' },
     },
   },
   args: {
-    children: "Label Text",
+    children: 'Label Text',
   },
 };
 
@@ -45,8 +52,8 @@ type Story = StoryObj<typeof Label>;
  */
 export const Primary: Story = {
   args: {
-    variant: "primary",
-    children: "Username",
+    variant: 'primary',
+    children: 'Username',
   },
 };
 
@@ -56,8 +63,8 @@ export const Primary: Story = {
  */
 export const Secondary: Story = {
   args: {
-    variant: "secondary",
-    children: "(Optional)",
+    variant: 'secondary',
+    children: '(Optional)',
   },
 };
 
@@ -67,8 +74,8 @@ export const Secondary: Story = {
  */
 export const Accent: Story = {
   args: {
-    variant: "accent",
-    children: "Promo Code",
+    variant: 'accent',
+    children: 'Promo Code',
   },
 };
 
@@ -78,8 +85,8 @@ export const Accent: Story = {
  */
 export const Destructive: Story = {
   args: {
-    variant: "destructive",
-    children: "Invalid email address",
+    variant: 'destructive',
+    children: 'Invalid email address',
   },
 };
 
@@ -89,8 +96,8 @@ export const Destructive: Story = {
  */
 export const Outline: Story = {
   args: {
-    variant: "outline",
-    children: "New",
+    variant: 'outline',
+    children: 'New',
   },
 };
 
@@ -100,7 +107,7 @@ export const Outline: Story = {
  */
 export const Ghost: Story = {
   args: {
-    variant: "ghost",
-    children: "Click me",
+    variant: 'ghost',
+    children: 'Click me',
   },
 };

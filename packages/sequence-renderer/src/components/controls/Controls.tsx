@@ -1,16 +1,16 @@
-import { Card } from "@repo/ui/Card";
-import { Select } from "@repo/ui/Select";
-import { Slider } from "@repo/ui/Slider";
-import type { ChangeEvent, JSX } from "react";
-import { visualizations } from "../../core/visualizations/visualizations";
+import { Card } from '@repo/ui/Card';
+import { Select } from '@repo/ui/Select';
+import { Slider } from '@repo/ui/Slider';
+import type { ChangeEvent, JSX } from 'react';
+import { visualizations } from '../../core/visualizations/visualizations';
 import {
   setSequenceSteps,
   setSequenceVisualizationId,
   useSequenceRule,
   useSequenceSteps,
   useSequenceVisualizationId,
-} from "../../store/sequenceStore";
-import { SequenceSelector } from "./SequenceSelector";
+} from '../../store/sequenceStore';
+import { SequenceSelector } from './SequenceSelector';
 
 function Controls(): JSX.Element {
   const sequenceRule = useSequenceRule();
@@ -44,7 +44,10 @@ function Controls(): JSX.Element {
           className="w-auto min-w-35"
         >
           {visualizations.map((v) => (
-            <option key={v.id} value={v.id}>
+            <option
+              key={v.id}
+              value={v.id}
+            >
               {v.name}
             </option>
           ))}

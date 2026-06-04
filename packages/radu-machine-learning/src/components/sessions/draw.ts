@@ -1,4 +1,4 @@
-import type { Paths } from "../../core/drawing.types.ts";
+import type { Paths } from '../../core/drawing.types.ts';
 
 const getMinMax = (paths: Paths) => {
   let xMin = +Infinity;
@@ -16,7 +16,11 @@ const getMinMax = (paths: Paths) => {
   return { xMin, xMax, yMin, yMax };
 };
 
-const drawSample = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, paths: Paths) => {
+const drawSample = (
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D,
+  paths: Paths
+) => {
   const { width, height } = canvas;
   const { canvasWidth, canvasHeight } =
     width > height
@@ -35,10 +39,10 @@ const drawSample = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, pa
 
   ctx.save();
   ctx.scale(scaleX, scaleY);
-  ctx.strokeStyle = "white";
-  ctx.fillStyle = "transparent ";
+  ctx.strokeStyle = 'white';
+  ctx.fillStyle = 'transparent ';
   ctx.lineWidth = 2;
-  ctx.lineCap = "round";
+  ctx.lineCap = 'round';
   ctx.beginPath();
 
   for (const path of paths) {

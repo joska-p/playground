@@ -32,15 +32,15 @@ export function renderCompareSlider({
   ctx.beginPath();
   ctx.moveTo(sliderX, 0);
   ctx.lineTo(sliderX, height);
-  ctx.strokeStyle = "#ffffff";
+  ctx.strokeStyle = '#ffffff';
   ctx.lineWidth = 2;
   ctx.stroke();
 
   ctx.beginPath();
   ctx.arc(sliderX, height / 2, 10, 0, Math.PI * 2);
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = '#ffffff';
   ctx.fill();
-  ctx.strokeStyle = "#1d2021";
+  ctx.strokeStyle = '#1d2021';
   ctx.lineWidth = 2;
   ctx.stroke();
 }
