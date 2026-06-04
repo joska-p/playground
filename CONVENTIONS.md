@@ -32,10 +32,18 @@ Three-layer unidirectional flow — dependencies point **downward only**:
 
 ## Zustand stores
 
-- Store files live in `stores/[domain]/` alongside its associated files.
-- The store hook is named `use[Domain]Store` and is exported — but only imported in its own `actions.ts` (setters) and `selectors.ts` (getters) files, never in components.
+- Store files live in `stores/[domain]/` with exactly 4 files per domain:
+  - `store.ts` — `create()` + raw store export (internal only)
+  - `actions.ts` — all mutators + async orchestration
+  - `selectors.ts` — all read hooks (components only import from here and `actions.ts`)
+  - `types.ts` — store-specific types
+- The raw store is named `camelCase[Domain]Store` (e.g. `graphStore`, `manipulatorStore`) and exported — but only imported in its own `actions.ts` and `selectors.ts` files, never in components.
+- Selector and action names drop the domain prefix (e.g. `useImageSource` not `usePipelineImageSource`). The file path already scopes the domain.
 - Actions mutate; selectors read. Don't mix.
 - Subscribe to minimal slices. Heavyweight path (structural) → reconciliation. Lightweight path (cosmetic) → direct DOM/style mutations.
+- **Local state first.** Single-component UI state (dropdown selection, file name, toggle) → `useState`. Only promote to Zustand when the state is consumed by multiple unrelated components.
+- **Async orchestration** (e.g. executing a workflow, calling a pipeline) lives in `actions.ts` as a plain async function using `getState()`/`setState()`. No thunk middleware needed.
+- **Domain boundary test:** if an action in one domain reads from another domain's store (e.g. `pipeline/actions` imports `workflow/store`), those domains are coupled — merge them into one domain.
 
 ## Zod schemas
 

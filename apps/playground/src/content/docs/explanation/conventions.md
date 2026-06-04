@@ -68,7 +68,7 @@ Two rules cover every file:
 | React component files | `PascalCase.tsx`                          | `Button.tsx`              |
 | Astro component files | `PascalCase.astro`                        | `SectionHeader.astro`     |
 | Hook files            | `camelCase.ts` — must start with `use`    | `useImageUpload.ts`       |
-| Zustand store files   | `camelCase.ts` — must start with `use`    | `useGraphStore.ts`        |
+| Zustand store files   | `camelCase.ts`                         | `store.ts`                 |
 | All other files       | `kebab-case.ts`                           | `fetch-palettes.ts`       |
 | Zod schema files      | `kebab-case.schema.ts`                    | `color-palette.schema.ts` |
 | Type-only files       | `kebab-case.types.ts`                     | `color-palette.types.ts`  |
@@ -84,8 +84,8 @@ Two rules cover every file:
 | Variables, functions     | camelCase                             | `fetchPalettes`                   |
 | React + Astro components | PascalCase                            | `Button`, `SectionHeader`         |
 | Hooks                    | `use` + camelCase                     | `useImageUpload`                  |
-| Zustand store variable   | `use` + Domain + `Store` (unexported) | `useGraphStore`                   |
-| Zustand getter hooks     | `use` + Domain + Slice                | `useGraphNodes`                   |
+| Zustand store variable   | `camelCase[Domain]Store` (exported)   | `graphStore`                      |
+| Zustand getter hooks     | `use` + Slice (no domain prefix)      | `useNodes`                         |
 | Zustand setter fns       | camelCase verb + Domain + target      | `addGraphNode`, `selectGraphNode` |
 | Props types              | `XxxProps`, co-located                | `ButtonProps`                     |
 | Module-level constants   | SCREAMING_SNAKE_CASE                  | `MAX_RETRIES`                     |
@@ -108,7 +108,7 @@ Two rules cover every file:
 ## Exports
 
 - **Named exports only.** No `export default`. Filename matches primary export.
-- **No barrel files** (`index.ts`). Import directly from source.
+- **No barrel files** (`index.ts`) at the top level. Barrel files are allowed inside component directories to expose the component while keeping internal helpers (hooks, renderers) private.
 - **No wildcard re-exports** (`export * from`).
 - **Package public API** declared via `package.json` `exports` — one subpath per component.
 
@@ -164,15 +164,21 @@ Why `function` declarations?
 
 ## Zustand Stores
 
-Store files live in `stores/[domain]/` alongside its associated files.
+Store files live in `stores/[domain]/` with exactly 4 files per domain:
 
-The store hook is named `use[Domain]Store` and is exported — but only imported in its own `actions.ts` (setters) and `selectors.ts` (getters) files, never in components.
+- `store.ts` — `create()` + raw store export (internal only)
+- `actions.ts` — all mutators + async orchestration
+- `selectors.ts` — all read hooks (components only import from here and `actions.ts`)
+- `types.ts` — store-specific types
 
-- Getter hooks: `use[Domain][Slice]` — select a **single slice** and export it. (`useGraphNodes`, `useGraphEdges`)
-- Setter functions: plain `camelCase`, not hooks. (`addGraphNode`, `selectGraphNode`)
+The raw store is named `camelCase[Domain]Store` (e.g., `graphStore`, `manipulatorStore`) and exported — but only imported in its own `actions.ts` and `selectors.ts` files, never in components.
+
+- Getter hooks: `use[Slice]` — select a **single slice**, drop the domain prefix. (`useNodes`, `useEdges`)
+- Setter functions: plain `camelCase`, not hooks. (`addNode`, `selectNode`)
 - Store files use `.ts`, never `.tsx`.
 - Actions mutate; selectors read. Don't mix.
 - Subscribe to minimal slices. Heavyweight path (structural) → full reconciliation. Lightweight path (cosmetic) → direct DOM/style mutations.
+- **Async orchestration** (e.g., executing a workflow, calling a pipeline) lives in `actions.ts` as a plain async function using `getState()`/`setState()`. No thunk middleware needed.
 
 ---
 
