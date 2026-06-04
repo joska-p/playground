@@ -17,7 +17,7 @@ const keywords = `${project["tags"].join(", ")}`;
     description={project["description"]}
   />
 
-  <div class="min-h-screen">
+  <div class="min-h-screen snap-start">
     <StrictMode>
       <PipelineDocs client:only="react" />
     </StrictMode>

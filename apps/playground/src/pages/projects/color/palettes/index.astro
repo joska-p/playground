@@ -17,7 +17,7 @@ const keywords = `${project["tags"].join(", ")}`;
     description={project["description"]}
   />
 
-  <div class="h-screen">
+  <div class="h-screen snap-start">
     <StrictMode>
       <PaletteGenerator client:only="react" />
     </StrictMode>
