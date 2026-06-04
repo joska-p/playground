@@ -14,7 +14,7 @@ const cameraOptions = {
 function Scene() {
   return (
     <>
-      <Canvas camera={cameraOptions} shadows>
+      <Canvas camera={cameraOptions} shadows className="h-dvh w-full">
         <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
           <planeGeometry args={[20, 20]} />
           <meshStandardMaterial />

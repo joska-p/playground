@@ -32,7 +32,7 @@ function PipelineDocs() {
       desktopPosition="left"
       mobilePosition="bottom"
       panelWidth="280px"
-      className="min-h-150"
+      className="min-h-dvh"
     >
       <Sidebar.Toggle />
       <Sidebar.Panel className="border-border border-r">

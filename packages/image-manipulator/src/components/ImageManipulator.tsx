@@ -6,7 +6,7 @@ import { Outputs } from "./organisms/Outputs";
 function ImageManipulator() {
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
-      <Sidebar desktopPosition="left" mobilePosition="bottom" className="min-h-screen flex-1">
+      <Sidebar desktopPosition="left" mobilePosition="bottom" className="min-h-dvh flex-1">
         <Sidebar.Main>
           <Outputs />
         </Sidebar.Main>

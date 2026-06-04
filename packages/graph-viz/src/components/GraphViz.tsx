@@ -16,7 +16,7 @@ export function GraphViz() {
   const resetZoomRef = useRef<() => void>(() => {});
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground">
+    <div className="flex h-dvh w-full flex-col overflow-hidden bg-background text-foreground">
       <TopBar onResetZoom={() => resetZoomRef.current()} />
 
       <div className="flex flex-1 overflow-hidden">

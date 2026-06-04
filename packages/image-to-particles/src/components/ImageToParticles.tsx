@@ -145,7 +145,7 @@ export function ImageToParticles() {
   }, [imageFile]);
 
   return (
-    <div className="mx-auto my-8 flex w-fit flex-col items-center gap-8">
+    <div className="min-h-dvh mx-auto my-8 flex w-fit flex-col items-center gap-8">
       <Input type="file" accept="image/*" onChange={handleImageUpload} />
       <Button onClick={resetParticles} className="m-2.5 cursor-pointer px-4 py-2">
         Replay Animation
