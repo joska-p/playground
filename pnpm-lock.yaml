@@ -12,6 +12,12 @@ catalogs:
     '@eslint/js':
       specifier: ^10.0.1
       version: 10.0.1
+    '@react-three/drei':
+      specifier: ^10.7.7
+      version: 10.7.7
+    '@react-three/fiber':
+      specifier: ^9.6.1
+      version: 9.6.1
     '@rolldown/plugin-babel':
       specifier: ^0.2.3
       version: 0.2.3
@@ -36,6 +42,9 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.2.3
       version: 19.2.3
+    '@types/three':
+      specifier: ^0.184.1
+      version: 0.184.1
     '@vitejs/plugin-react':
       specifier: ^6.0.1
       version: 6.0.2
@@ -102,6 +111,9 @@ catalogs:
     tailwindcss:
       specifier: ^4.3.0
       version: 4.3.0
+    three:
+      specifier: ^0.184.0
+      version: 0.184.0
     typescript:
       specifier: ~6.0.3
       version: 6.0.3
@@ -386,12 +398,24 @@ importers:
 
   packages/graph-viz:
     dependencies:
+      '@react-three/drei':
+        specifier: 'catalog:'
+        version: 10.7.7(@react-three/fiber@9.6.1(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(three@0.184.0))(@types/react@19.2.15)(@types/three@0.184.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(three@0.184.0)
+      '@react-three/fiber':
+        specifier: 'catalog:'
+        version: 9.6.1(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(three@0.184.0)
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
+      '@types/three':
+        specifier: 'catalog:'
+        version: 0.184.1
       d3:
         specifier: 'catalog:'
         version: 7.9.0
+      three:
+        specifier: 'catalog:'
+        version: 0.184.0
       zod:
         specifier: 'catalog:'
         version: 4.4.3
