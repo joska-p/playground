@@ -4,7 +4,10 @@ import { GraphViz } from './components/GraphViz';
 function App() {
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <GraphViz data={graphData} onNodeSelect={(node) => console.log(node)} />
+      <GraphViz
+        data={graphData}
+        onNodeSelect={(node) => console.log(node)}
+      />
     </div>
   );
 }
