@@ -1,14 +1,14 @@
 import { cn } from '@repo/ui/cn';
 import { FT_COLOR, REL_COLORS } from '../constants';
-import { RAW_GRAPH } from '../data/graphData';
+import { RAW_GRAPH } from '../data/graph-data';
 import {
-  setGraphSelectedNode,
-  useGraphSelectedNode,
-} from '../store/graphStore';
+  setSelectedNode,
+  useSelectedNode,
+} from '../stores/graph/store';
 import { communityColor } from '../utils/colors';
 
 export function DetailPanel() {
-  const selectedNode = useGraphSelectedNode();
+  const selectedNode = useSelectedNode();
 
   if (!selectedNode) return null;
 
@@ -24,7 +24,7 @@ export function DetailPanel() {
           {selectedNode.label}
         </span>
         <button
-          onClick={() => setGraphSelectedNode(null)}
+          onClick={() => setSelectedNode(undefined)}
           className="p-0 pl-2 text-base leading-none text-muted-foreground hover:text-foreground"
         >
           ×
@@ -70,7 +70,7 @@ export function DetailPanel() {
           return (
             <div
               key={otherId}
-              onClick={() => other && setGraphSelectedNode(other)}
+              onClick={() => other && setSelectedNode(other)}
               className={cn(
                 'mb-2 cursor-pointer rounded border-l-2 bg-card pl-1 pr-2 py-1',
                 `border-l-[${REL_COLORS[l.r] ?? '#334155'}]`

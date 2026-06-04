@@ -1,4 +1,4 @@
-import type { GraphData } from './graphData.types';
+import type { GraphData } from './graph-data.schema';
 
 export const exampleGraph: GraphData = {
   nodes: [

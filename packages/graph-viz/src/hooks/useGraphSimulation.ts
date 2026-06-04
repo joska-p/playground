@@ -2,19 +2,19 @@ import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
 import { REL_COLORS, SIM_CONFIG } from '../constants';
-import { RAW_GRAPH } from '../data/graphData';
+import { RAW_GRAPH } from '../data/graph-data';
 import {
-  setGraphIsReady,
-  setGraphSelectedNode,
-  setGraphStats,
-  useGraphColorMode,
-  useGraphFilterFT,
-  useGraphFilterRel,
-  useGraphSearch,
-  useGraphShowHyper,
-} from '../store/graphStore';
+  setIsReady,
+  setSelectedNode,
+  setStats,
+  useColorMode,
+  useFilterFT,
+  useFilterRel,
+  useSearch,
+  useShowHyper,
+} from '../stores/graph/store';
 import { buildDegreeMap, nodeColor, nodeRadius } from '../utils/colors';
-import type { SimLink, SimNode } from './useGraphSimulation.types';
+import type { SimLink, SimNode } from './use-graph-simulation.types';
 
 /**
  * Owns the entire D3 lifecycle: builds the filtered graph, runs the force
@@ -26,11 +26,11 @@ export function useGraphSimulation() {
   const containerRef = useRef<HTMLDivElement>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
-  const filterFT = useGraphFilterFT();
-  const filterRel = useGraphFilterRel();
-  const showHyper = useGraphShowHyper();
-  const colorMode = useGraphColorMode();
-  const search = useGraphSearch();
+  const filterFT = useFilterFT();
+  const filterRel = useFilterRel();
+  const showHyper = useShowHyper();
+  const colorMode = useColorMode();
+  const search = useSearch();
 
   // ── Rebuild simulation when structural state changes ───────────────────────
   useEffect(() => {
@@ -41,7 +41,7 @@ export function useGraphSimulation() {
     const H = containerRef.current.clientHeight;
 
     svg.selectAll('*').remove();
-    setGraphIsReady(false);
+    setIsReady(false);
 
     // 1. Filter data
     let nodes: SimNode[] = RAW_GRAPH.nodes.map((n) => ({ ...n }));
@@ -70,7 +70,7 @@ export function useGraphSimulation() {
       (l) => nodeMap.has(l.s) && nodeMap.has(l.t)
     );
 
-    setGraphStats({ nodes: nodes.length, links: validLinks.length });
+    setStats({ nodes: nodes.length, links: validLinks.length });
 
     // 2. SVG layers (back → front)
     const g = svg.append('g');
@@ -110,7 +110,7 @@ export function useGraphSimulation() {
       .style('cursor', 'pointer')
       .on('click', (e: MouseEvent, d: SimNode) => {
         e.stopPropagation();
-        setGraphSelectedNode(d);
+        setSelectedNode(d);
         highlight(d.id);
       })
       .call(
@@ -179,7 +179,7 @@ export function useGraphSimulation() {
     }
 
     svg.on('click', () => {
-      setGraphSelectedNode(null);
+      setSelectedNode(undefined);
       highlight(null);
     });
 
@@ -259,7 +259,7 @@ export function useGraphSimulation() {
       renderHulls();
     });
 
-    sim.on('end', () => setGraphIsReady(true));
+    sim.on('end', () => setIsReady(true));
 
     return () => {
       sim.stop();

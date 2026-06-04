@@ -34,12 +34,12 @@ GraphViz
 
 ## Data Model
 
-The graph renders a `GraphData` structure of ~2000 nodes representing the workspace's configuration, scripts, dependencies, and pages:
+The graph renders a `GraphData` structure of ~2000 nodes representing the workspace's configuration, scripts, dependencies, and pages, validated through Zod schemas:
 
 ```typescript
-type RawNode = { id: string; label: string; ft: string; c: number; sf: string };
-type RawLink = { s: string; t: string; r: string; w: number };
-type RawHyperedge = { id: string; label: string; nodes: string[]; rel: string };
+// schemas live in src/data/graph-data.schema.ts — source of truth
+const rawNodeSchema = z.object({ id: z.string(), label: z.string(), ft: z.string(), c: z.number(), sf: z.string() });
+type RawNode = z.infer<typeof rawNodeSchema>;
 ```
 
 - **ft** — file type: code, document, concept, image, rationale
@@ -67,17 +67,44 @@ Filters (`filterFT`, `filterRel`, `showHyper`) trigger a full simulation restart
 | `GraphViz` | `@repo/graph-viz` | Main graph visualization component |
 | `./styles` | `@repo/graph-viz/styles` | Graph CSS |
 
+## Internal Structure
+
+```
+src/
+  stores/graph/store.ts      ← Zustand store (create + selectors + actions)
+  data/
+    graph-data.schema.ts      ← Zod schemas + inferred types (source of truth)
+    graph-data.ts             ← RAW_GRAPH constant
+    example-graph.ts          ← minimal sample graph
+  hooks/
+    useGraphSimulation.ts     ← D3 force simulation lifecycle
+    use-graph-simulation.types.ts  ← SimNode/SimLink types
+    useResetZoom.ts           ← zoom reset callback
+  components/
+    GraphViz.tsx              ← root layout
+    GraphCanvas.tsx           ← SVG mount + simulation binder
+    DetailPanel.tsx           ← selected-node sidebar
+    Legend.tsx                ← color/relation legend
+    LoadingOverlay.tsx        ← simulation-in-progress indicator
+    TopBar.tsx                ← search, filters, toggles
+  utils/
+    colors.ts                 ← node color/radius helpers
+  constants.ts                ← palettes, config, labels
+  styles/
+    graph-viz.css             ← package styles
+```
+
 ## State Management
 
-Zustand store with individual selectors:
+Zustand store at `src/stores/graph/store.ts` with individual selectors (domain prefix dropped per convention):
 
 ```typescript
-const colorMode = useGraphColorMode();        // "community" | "filetype"
-const selectedNode = useGraphSelectedNode();
-const search = useGraphSearch();
-setGraphColorMode("filetype");
-resetGraphFilters();
-toggleGraphHyper();
+const colorMode = useColorMode();        // "community" | "filetype"
+const selectedNode = useSelectedNode();
+const search = useSearch();
+setColorMode("filetype");
+resetFilters();
+toggleHyper();
 ```
 
 ## Coloring Modes

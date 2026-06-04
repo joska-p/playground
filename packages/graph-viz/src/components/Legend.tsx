@@ -1,11 +1,11 @@
 import { FT_COLOR, FT_LABEL, REL_COLORS } from '../constants';
-import { useGraphColorMode } from '../store/graphStore';
+import { useColorMode } from '../stores/graph/store';
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
 const REL_PREVIEW = Object.entries(REL_COLORS).slice(0, 6);
 
 export function Legend() {
-  const colorMode = useGraphColorMode();
+  const colorMode = useColorMode();
 
   return (
     <div className="flex flex-wrap items-center gap-4 border-t border-border bg-background px-4 py-1.5 text-sm">
