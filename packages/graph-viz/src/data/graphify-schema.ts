@@ -4,7 +4,10 @@ export const graphifyNodeSchema = z.object({
   id: z.string(),
   label: z.string(),
   file_type: z.string(),
-  source_file: z.string().nullish().transform((v) => v ?? ''),
+  source_file: z
+    .string()
+    .nullish()
+    .transform((v) => v ?? ''),
   source_location: z.union([z.string(), z.number()]).nullish(),
   community: z.number(),
   norm_label: z.string(),
@@ -21,10 +24,16 @@ export const graphifyLinkSchema = z.object({
   source: z.string(),
   target: z.string(),
   relation: z.string(),
-  weight: z.number().nullish().transform((v) => v ?? 1),
+  weight: z
+    .number()
+    .nullish()
+    .transform((v) => v ?? 1),
   confidence: z.string(),
   confidence_score: z.number(),
-  source_file: z.string().nullish().transform((v) => v ?? ''),
+  source_file: z
+    .string()
+    .nullish()
+    .transform((v) => v ?? ''),
   source_location: z.union([z.string(), z.number()]).nullish(),
   context: z.string().nullish(),
 });

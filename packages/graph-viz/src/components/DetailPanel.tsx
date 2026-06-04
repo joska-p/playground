@@ -1,10 +1,7 @@
 import { cn } from '@repo/ui/cn';
 import { FT_COLOR, REL_COLORS } from '../constants';
 import { RAW_GRAPH } from '../data/graph-data';
-import {
-  setSelectedNode,
-  useSelectedNode,
-} from '../stores/graph/store';
+import { setSelectedNode, useSelectedNode } from '../stores/graph/store';
 import { communityColor } from '../utils/colors';
 
 export function DetailPanel() {

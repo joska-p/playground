@@ -1,7 +1,12 @@
 import graphifyRaw from './graph.json';
 
 import { graphifyGraphSchema } from './graphify-schema';
-import type { GraphData, RawHyperedge, RawLink, RawNode } from './graph-data.schema';
+import type {
+  GraphData,
+  RawHyperedge,
+  RawLink,
+  RawNode,
+} from './graph-data.schema';
 
 function mapNode(raw: {
   id: string;
@@ -54,7 +59,7 @@ export function loadGraph(): GraphData {
     nodes: graph.nodes.map(mapNode),
     links: graph.links.map(mapLink),
     hyperedges: (graph.graph?.hyperedges ?? graph.hyperedges ?? []).map(
-      mapHyperedge,
+      mapHyperedge
     ),
   };
 }

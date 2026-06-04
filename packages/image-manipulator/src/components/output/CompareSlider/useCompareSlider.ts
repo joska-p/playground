@@ -12,10 +12,13 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
   const [sliderPos, setSliderPos] = useState(50);
   const isDragging = useRef(false);
 
-  const offscreenRef = useRef<{
-    source: HTMLCanvasElement;
-    result: HTMLCanvasElement;
-  } | undefined>(undefined);
+  const offscreenRef = useRef<
+    | {
+        source: HTMLCanvasElement;
+        result: HTMLCanvasElement;
+      }
+    | undefined
+  >(undefined);
   const prevSourceRef = useRef<ImageData | undefined>(undefined);
   const prevResultRef = useRef<ImageData | undefined>(undefined);
 

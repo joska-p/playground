@@ -10,7 +10,9 @@ function Outputs() {
   const imageSource = useImageSource();
   const outputs = useOutputs();
   const [mode, setMode] = useState<'grid' | 'compare'>('grid');
-  const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(undefined);
+  const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(
+    undefined
+  );
 
   const hasComparableContent = imageSource && outputs.length > 0;
 

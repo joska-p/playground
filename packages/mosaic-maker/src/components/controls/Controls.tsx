@@ -5,10 +5,7 @@ import {
   initialRotations,
 } from '../../core/constants';
 import { CSS_VARS } from '../../core/cssVars';
-import {
-  cyclePalettes,
-  regenerateTiles,
-} from '../../stores/mosaic/actions';
+import { cyclePalettes, regenerateTiles } from '../../stores/mosaic/actions';
 import { useCurrentPalette, useMosaicRef } from '../../stores/mosaic/selectors';
 import { shuffleObject } from '../../utils/random/shuffleObject';
 import { updateElementStyles } from '../../utils/updateElementStyles';
