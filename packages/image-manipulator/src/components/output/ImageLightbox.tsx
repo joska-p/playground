@@ -1,5 +1,5 @@
 import { useEscapeKey } from "../../hooks/useEscapeKey";
-import { Output } from "../atoms/Output";
+import { Output } from "./Output";
 
 type ImageLightboxProps = {
   imageData: ImageData;

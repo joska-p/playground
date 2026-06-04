@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./ImageManipulator": "./src/components/ImageManipulator.tsx",
+    "./ImageManipulator": "./src/components/layout/ImageManipulator.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {

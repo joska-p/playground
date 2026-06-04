@@ -1,7 +1,7 @@
 import { Button } from "@repo/ui/Button";
 import { useEffect, useRef } from "react";
 import type { OutputType } from "../../store/pipelineStore";
-import { CloseIcon } from "../atoms/CloseIcon";
+import { CloseIcon } from "../shared/CloseIcon";
 
 type UploadedPreviewProps = {
   imageSource: OutputType;

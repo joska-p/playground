@@ -1,4 +1,4 @@
-import { ImageManipulator } from "./components/ImageManipulator";
+import { ImageManipulator } from "./components/layout/ImageManipulator";
 
 function App() {
   return (

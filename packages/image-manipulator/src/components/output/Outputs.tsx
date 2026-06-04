@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePipelineImageSource, usePipelineOutputs } from "../../store/pipelineStore";
-import { EmptyState } from "../atoms/EmptyState";
-import { CompareToggle } from "../molecules/CompareToggle";
+import { EmptyState } from "../shared/EmptyState";
+import { CompareToggle } from "./CompareToggle";
 import { CompareSlider } from "./CompareSlider";
 import { OutputCard } from "./OutputCard";
 import { ProcessingOverlay } from "./ProcessingOverlay";

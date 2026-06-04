@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@repo/ui/Card";
 import { useRef, useState } from "react";
 import type { OutputType } from "../../store/pipelineStore";
 import { downloadCanvas } from "../../utils/download";
-import { Output } from "../atoms/Output";
+import { Output } from "./Output";
 import { ImageLightbox } from "./ImageLightbox";
 
 type OutputCardProps = {

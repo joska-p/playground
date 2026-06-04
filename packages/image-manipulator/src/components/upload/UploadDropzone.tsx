@@ -1,5 +1,5 @@
 import { cn } from "@repo/ui/cn";
-import { UploadIcon } from "../atoms/UploadIcon";
+import { UploadIcon } from "./UploadIcon";
 
 type UploadDropzoneProps = {
   isDragging: boolean;

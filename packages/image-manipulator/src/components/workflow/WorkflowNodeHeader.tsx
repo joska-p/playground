@@ -1,5 +1,5 @@
-import { ChevronIcon } from "../atoms/ChevronIcon";
-import { StepBadge } from "../atoms/StepBadge";
+import { ChevronIcon } from "../shared/ChevronIcon";
+import { StepBadge } from "./StepBadge";
 
 type WorkflowNodeHeaderProps = {
   index: number;

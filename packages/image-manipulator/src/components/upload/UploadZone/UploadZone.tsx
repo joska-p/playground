@@ -1,5 +1,5 @@
-import { UploadDropzone } from "../../molecules/UploadDropzone";
-import { UploadedPreview } from "../../molecules/UploadedPreview";
+import { UploadDropzone } from "../UploadDropzone";
+import { UploadedPreview } from "../UploadedPreview";
 import { useUploadZone } from "./useUploadZone";
 
 function UploadZone() {

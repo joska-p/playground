@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ChevronIcon } from "../atoms/ChevronIcon";
+import { ChevronIcon } from "../shared/ChevronIcon";
 
 type ControlSectionProps = {
   title: string;

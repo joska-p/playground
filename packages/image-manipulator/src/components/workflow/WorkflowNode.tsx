@@ -6,9 +6,9 @@ import {
   removeWorkflowStep,
   updateWorkflowStepOptions,
 } from "../../store/workflowStore";
-import { WorkflowNodeControls } from "../molecules/WorkflowNodeControls";
-import { WorkflowNodeHeader } from "../molecules/WorkflowNodeHeader";
-import { WorkflowStepArgSlider } from "../molecules/WorkflowStepArgSlider";
+import { WorkflowNodeControls } from "./WorkflowNodeControls";
+import { WorkflowNodeHeader } from "./WorkflowNodeHeader";
+import { WorkflowStepArgSlider } from "./WorkflowStepArgSlider";
 
 type WorkflowNodeProps = {
   step: WorkflowStep;
