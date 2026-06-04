@@ -2,6 +2,7 @@ import { useRef } from 'react';
 
 import { DetailPanel } from './DetailPanel';
 import { GraphCanvas } from './GraphCanvas';
+import { HierarchyInfo } from './HierarchyInfo';
 import { Legend } from './Legend';
 import { TopBar } from './TopBar';
 

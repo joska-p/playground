@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { RawNode } from '../../data/graph-data.schema';
+import type { NodeHierarchy } from '../../utils/hierarchy';
 
 export type ColorMode = 'community' | 'filetype';
 
@@ -7,6 +8,18 @@ export type GraphStats = {
   nodes: number;
   links: number;
 };
+
+export type HierarchyStats = {
+  total: number;
+  core: number;
+  secondary: number;
+  detail: number;
+  corePercent: string;
+  secondaryPercent: string;
+  detailPercent: string;
+};
+
+type HierarchyVisibilityMode = 'core' | 'core-secondary' | 'all';
 
 type GraphStore = {
   colorMode: ColorMode;
@@ -17,6 +30,8 @@ type GraphStore = {
   selectedNode: RawNode | undefined;
   isReady: boolean;
   stats: GraphStats;
+  hierarchyStats: HierarchyStats | null;
+  hierarchyVisibility: HierarchyVisibilityMode;
 };
 
 const graphStore = create<GraphStore>(() => ({
@@ -28,6 +43,8 @@ const graphStore = create<GraphStore>(() => ({
   selectedNode: undefined,
   isReady: false,
   stats: { nodes: 0, links: 0 },
+  hierarchyStats: null,
+  hierarchyVisibility: 'core-secondary',
 }));
 
 export function useColorMode(): ColorMode {
@@ -62,6 +79,14 @@ export function useStats(): GraphStats {
   return graphStore((s) => s.stats);
 }
 
+export function useHierarchyStats(): HierarchyStats | null {
+  return graphStore((s) => s.hierarchyStats);
+}
+
+export function useHierarchyVisibility(): HierarchyVisibilityMode {
+  return graphStore((s) => s.hierarchyVisibility);
+}
+
 export function setColorMode(colorMode: ColorMode): void {
   graphStore.setState({ colorMode });
 }
@@ -92,6 +117,27 @@ export function setIsReady(isReady: boolean): void {
 
 export function setStats(stats: GraphStats): void {
   graphStore.setState({ stats });
+}
+
+export function setHierarchyStats(hierarchyStats: HierarchyStats): void {
+  graphStore.setState({ hierarchyStats });
+}
+
+export function setHierarchyVisibility(
+  hierarchyVisibility: HierarchyVisibilityMode
+): void {
+  graphStore.setState({ hierarchyVisibility });
+}
+
+export function cycleHierarchyVisibility(): void {
+  graphStore.setState((s) => ({
+    hierarchyVisibility:
+      s.hierarchyVisibility === 'core'
+        ? 'core-secondary'
+        : s.hierarchyVisibility === 'core-secondary'
+          ? 'all'
+          : 'core',
+  }));
 }
 
 export function resetFilters(): void {

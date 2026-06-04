@@ -1,15 +1,21 @@
-import { OrthographicCamera, Text } from '@react-three/drei';
+import {
+  GizmoHelper,
+  GizmoViewport,
+  OrbitControls,
+  Text,
+} from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 import { REL_COLORS } from '../constants';
 import { useGraphSimulation } from '../hooks/useGraphSimulation';
-import { useResetZoom } from '../hooks/useResetZoom';
-import { setSelectedNode } from '../stores/graph/store';
+import { setSelectedNode, useHierarchyVisibility } from '../stores/graph/store';
+import { HierarchyInfo } from './HierarchyInfo';
 import { LoadingOverlay } from './LoadingOverlay';
 
 import type { SimLink, SimNode } from '../hooks/use-graph-simulation.types';
+import type { NodeHierarchy } from '../utils/hierarchy';
 
 const DPR = Math.min(window.devicePixelRatio, 2);
 
@@ -31,6 +37,7 @@ export function GraphCanvas({ onResetZoomReady }: GraphCanvasProps) {
     connectedNodesRef,
     nodes,
     links,
+    hierarchyRef,
   } = useGraphSimulation();
 
   const readyRef = useRef(false);
@@ -61,7 +68,6 @@ export function GraphCanvas({ onResetZoomReady }: GraphCanvasProps) {
     >
       <LoadingOverlay />
       <Canvas
-        orthographic
         dpr={DPR}
         style={{ display: 'block', width: '100%', height: '100%' }}
       >
@@ -82,25 +88,28 @@ export function GraphCanvas({ onResetZoomReady }: GraphCanvasProps) {
           resetFnRef={resetFnRef}
           nodes={nodes}
           links={links}
+          hierarchyRef={hierarchyRef}
         />
       </Canvas>
+      <HierarchyInfo />
     </div>
   );
 }
 
 type SceneContentProps = {
-  nodePositionsRef: React.MutableRefObject<Float32Array>;
-  nodeColorsRef: React.MutableRefObject<Float32Array>;
-  linkPositionsRef: React.MutableRefObject<Float32Array>;
-  nodesRef: React.MutableRefObject<SimNode[]>;
-  linksRef: React.MutableRefObject<SimLink[]>;
-  hullsRef: React.MutableRefObject<Array<Array<[number, number]>>>;
-  highlightedNodeRef: React.MutableRefObject<string | null>;
-  connectedNodesRef: React.MutableRefObject<Set<string>>;
-  simRef: React.MutableRefObject<d3.Simulation<SimNode, SimLink> | null>;
-  resetFnRef: React.MutableRefObject<() => void>;
+  nodePositionsRef: React.RefObject<Float32Array>;
+  nodeColorsRef: React.RefObject<Float32Array>;
+  linkPositionsRef: React.RefObject<Float32Array>;
+  nodesRef: React.RefObject<SimNode[]>;
+  linksRef: React.RefObject<SimLink[]>;
+  hullsRef: React.RefObject<Array<Array<[number, number]>>>;
+  highlightedNodeRef: React.RefObject<string | null>;
+  connectedNodesRef: React.RefObject<Set<string>>;
+  simRef: React.RefObject<d3.Simulation<SimNode, SimLink> | null>;
+  resetFnRef: React.RefObject<() => void>;
   nodes: SimNode[];
   links: SimLink[];
+  hierarchyRef: React.RefObject<Map<string, NodeHierarchy>>;
 };
 
 function SceneContent({
@@ -116,25 +125,26 @@ function SceneContent({
   resetFnRef,
   nodes,
   links,
+  hierarchyRef,
 }: SceneContentProps) {
   const gl = useThree((state) => state.gl);
-  const cameraRef = useRef<THREE.OrthographicCamera>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const orbitControlsRef = useRef<any>(null);
 
-  const targetZoomRef = useRef(0.5);
-  const targetXRef = useRef(0);
-  const targetYRef = useRef(0);
-  const isAnimatingResetRef = useRef(false);
+  const hierarchyVisibility = useHierarchyVisibility();
 
-  const resetZoom = useResetZoom(
-    targetXRef,
-    targetYRef,
-    targetZoomRef,
-    isAnimatingResetRef
-  );
+  // Simple reset function for OrbitControls
+  const resetCamera = () => {
+    if (orbitControlsRef.current) {
+      orbitControlsRef.current.target.set(0, 0, 0);
+      orbitControlsRef.current.object.position.set(0, 0, 250);
+      orbitControlsRef.current.update();
+    }
+  };
 
   useEffect(() => {
-    resetFnRef.current = resetZoom;
-  }, [resetZoom, resetFnRef]);
+    resetFnRef.current = resetCamera;
+  }, [resetFnRef]);
 
   const handleNodeClick = useCallback(
     (nodeId: string) => {
@@ -232,8 +242,11 @@ function SceneContent({
         dragNode.fy = world.y;
       }
       if (isPanning) {
-        const dx = (e.clientX - lastPanX) / cam.zoom;
-        const dy = (e.clientY - lastPanY) / cam.zoom;
+        // For perspective camera, scale pan by distance from camera
+        const zDistance = cam.position.z;
+        const scale = zDistance / 200; // normalize to default distance
+        const dx = (e.clientX - lastPanX) * 0.1 * scale;
+        const dy = (e.clientY - lastPanY) * 0.1 * scale;
         cam.position.x -= dx;
         cam.position.y += dy;
         lastPanX = e.clientX;
@@ -265,22 +278,13 @@ function SceneContent({
       e.preventDefault();
       const cam = cameraRef.current;
       if (!cam) return;
-      const delta = e.deltaY > 0 ? 0.9 : 1 / 0.9;
-      const oldZoom = cam.zoom;
-      const newZoom = Math.max(0.1, Math.min(20, oldZoom * delta));
-      const rect = canvas.getBoundingClientRect();
-      const ndcX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const ndcY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      const worldBefore = new THREE.Vector3(ndcX, ndcY, 0).unproject(cam);
-      cam.zoom = newZoom;
+
+      // For perspective camera, adjust FOV for zoom effect
+      const oldFov = cam.fov;
+      const delta = e.deltaY > 0 ? 1.1 : 0.9;
+      const newFov = Math.max(10, Math.min(100, oldFov * delta));
+      cam.fov = newFov;
       cam.updateProjectionMatrix();
-      const worldAfter = new THREE.Vector3(ndcX, ndcY, 0).unproject(cam);
-      cam.position.x += worldBefore.x - worldAfter.x;
-      cam.position.y += worldBefore.y - worldAfter.y;
-      cam.updateProjectionMatrix();
-      targetZoomRef.current = newZoom;
-      targetXRef.current = cam.position.x;
-      targetYRef.current = cam.position.y;
     }
 
     canvas.addEventListener('pointerdown', onPointerDown);
@@ -304,9 +308,6 @@ function SceneContent({
     connectedNodesRef,
     linksRef,
     handleNodeClick,
-    targetZoomRef,
-    targetXRef,
-    targetYRef,
   ]);
 
   const degMap = useMemo(() => {
@@ -338,15 +339,46 @@ function SceneContent({
     return map;
   }, [nodes]);
 
+  // Track current camera zoom
+  useFrame(() => {
+    if (cameraRef.current) {
+      currentZoomRef.current = cameraRef.current.position.z / 200;
+    }
+  });
+
   return (
     <>
-      <OrthographicCamera
-        makeDefault
+      <perspectiveCamera
         ref={cameraRef}
-        zoom={0.5}
-        position={[0, 0, 100]}
-        near={-1000}
-        far={1000}
+        fov={75}
+        aspect={window.innerWidth / window.innerHeight}
+        near={0.1}
+        far={2000}
+        position={[0, 0, 250]}
+      />
+      <OrbitControls
+        ref={orbitControlsRef}
+        target={[0, 0, 0]}
+        enablePan
+        enableRotate
+        enableZoom
+        autoRotate={false}
+      />
+      <GizmoHelper
+        alignment="bottom-right"
+        margin={[80, 80]}
+      >
+        <GizmoViewport
+          axisHeadScale={1.1}
+        />
+      </GizmoHelper>
+      <OrbitControls
+        ref={orbitControlsRef}
+        target={[0, 0, 0]}
+        enablePan
+        enableRotate
+        enableZoom
+        autoRotate={false}
       />
       <NodesRenderer
         nodePositionsRef={nodePositionsRef}
@@ -354,11 +386,16 @@ function SceneContent({
         nodesRef={nodesRef}
         highlightedNodeRef={highlightedNodeRef}
         connectedNodesRef={connectedNodesRef}
+        hierarchyRef={hierarchyRef}
+        hierarchyVisibility={hierarchyVisibility}
       />
       <LinksRenderer
         linkPositionsRef={linkPositionsRef}
         linksRef={linksRef}
         highlightedNodeRef={highlightedNodeRef}
+        nodesRef={nodesRef}
+        hierarchyRef={hierarchyRef}
+        hierarchyVisibility={hierarchyVisibility}
       />
       <HullsRenderer hullsRef={hullsRef} />
       <LabelsRenderer
@@ -371,13 +408,6 @@ function SceneContent({
         nodesRef={nodesRef}
         highlightedNodeRef={highlightedNodeRef}
       />
-      <ResetAnimator
-        targetZoomRef={targetZoomRef}
-        targetXRef={targetXRef}
-        targetYRef={targetYRef}
-        isAnimatingResetRef={isAnimatingResetRef}
-        cameraRef={cameraRef}
-      />
     </>
   );
 }
@@ -388,6 +418,8 @@ type NodesProps = {
   nodesRef: React.MutableRefObject<SimNode[]>;
   highlightedNodeRef: React.MutableRefObject<string | null>;
   connectedNodesRef: React.MutableRefObject<Set<string>>;
+  hierarchyRef: React.MutableRefObject<Map<string, NodeHierarchy>>;
+  hierarchyVisibility: string;
 };
 
 function NodesRenderer({
@@ -396,23 +428,56 @@ function NodesRenderer({
   nodesRef,
   highlightedNodeRef,
   connectedNodesRef,
+  hierarchyRef,
+  hierarchyVisibility,
 }: NodesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummyRef = useRef(new THREE.Object3D());
   const tempColorRef = useRef(new THREE.Color());
+
+  // Determine which nodes should be visible based on hierarchy level
+  const shouldShowNode = (nodeId: string) => {
+    const hierarchy = hierarchyRef.current.get(nodeId);
+    if (!hierarchy) return true;
+
+    const { level } = hierarchy;
+    switch (hierarchyVisibility) {
+      case 'core':
+        return level === 'core';
+      case 'core-secondary':
+        return level === 'core' || level === 'secondary';
+      case 'all':
+        return true;
+      default:
+        return true;
+    }
+  };
 
   useFrame(() => {
     const mesh = meshRef.current;
     if (!mesh) return;
     const positions = nodePositionsRef.current;
     const colors = nodeColorsRef.current;
-    const count = positions.length / 3;
+    const allNodes = nodesRef.current;
     const hl = highlightedNodeRef.current;
     const conn = connectedNodesRef.current;
 
-    mesh.count = count;
+    // Count visible nodes
+    let visibleCount = 0;
+    const visibilityMap = new Map<number, boolean>();
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < allNodes.length; i++) {
+      const isVisible = shouldShowNode(allNodes[i].id);
+      visibilityMap.set(i, isVisible);
+      if (isVisible) visibleCount++;
+    }
+
+    mesh.count = visibleCount;
+
+    let instanceIndex = 0;
+    for (let i = 0; i < allNodes.length; i++) {
+      if (!visibilityMap.get(i)) continue;
+
       const x = positions[i * 3];
       const y = positions[i * 3 + 1];
       const r = positions[i * 3 + 2];
@@ -420,9 +485,9 @@ function NodesRenderer({
       dummyRef.current.position.set(x, y, 0);
       dummyRef.current.scale.setScalar(r);
       dummyRef.current.updateMatrix();
-      mesh.setMatrixAt(i, dummyRef.current.matrix);
+      mesh.setMatrixAt(instanceIndex, dummyRef.current.matrix);
 
-      if (hl && !conn.has(nodesRef.current[i].id)) {
+      if (hl && !conn.has(allNodes[i].id)) {
         tempColorRef.current.setRGB(0.06, 0.09, 0.16);
       } else {
         tempColorRef.current.setRGB(
@@ -431,7 +496,8 @@ function NodesRenderer({
           colors[i * 3 + 2]
         );
       }
-      mesh.setColorAt(i, tempColorRef.current);
+      mesh.setColorAt(instanceIndex, tempColorRef.current);
+      instanceIndex++;
     }
 
     mesh.instanceMatrix.needsUpdate = true;
@@ -453,46 +519,92 @@ type LinksProps = {
   linkPositionsRef: React.MutableRefObject<Float32Array>;
   linksRef: React.MutableRefObject<SimLink[]>;
   highlightedNodeRef: React.MutableRefObject<string | null>;
+  nodesRef: React.MutableRefObject<SimNode[]>;
+  hierarchyRef: React.MutableRefObject<Map<string, NodeHierarchy>>;
+  hierarchyVisibility: string;
 };
 
 function LinksRenderer({
   linkPositionsRef,
   linksRef,
   highlightedNodeRef,
+  nodesRef,
+  hierarchyRef,
+  hierarchyVisibility,
 }: LinksProps) {
   const geomRef = useRef<THREE.BufferGeometry>(null);
   const lineRef = useRef<THREE.LineSegments>(null);
   const lastHlRef = useRef<string | null>(null);
+
+  // Determine which nodes are visible
+  const shouldShowNode = (nodeId: string) => {
+    const hierarchy = hierarchyRef.current.get(nodeId);
+    if (!hierarchy) return true;
+
+    const { level } = hierarchy;
+    switch (hierarchyVisibility) {
+      case 'core':
+        return level === 'core';
+      case 'core-secondary':
+        return level === 'core' || level === 'secondary';
+      case 'all':
+        return true;
+      default:
+        return true;
+    }
+  };
 
   useFrame(() => {
     const geom = geomRef.current;
     const line = lineRef.current;
     if (!geom || !line) return;
     const positions = linkPositionsRef.current;
-    const count = positions.length / 4;
+    const allLinks = linksRef.current;
     const hl = highlightedNodeRef.current;
+
+    // Filter visible links (both endpoints visible)
+    const visibleLinks: number[] = [];
+    for (let i = 0; i < allLinks.length; i++) {
+      const link = allLinks[i];
+      const s =
+        typeof link.source === 'object'
+          ? (link.source as SimNode).id
+          : String(link.source);
+      const t =
+        typeof link.target === 'object'
+          ? (link.target as SimNode).id
+          : String(link.target);
+
+      if (shouldShowNode(s) && shouldShowNode(t)) {
+        visibleLinks.push(i);
+      }
+    }
+
+    const count = visibleLinks.length;
 
     const posAttr = geom.getAttribute('position') as THREE.BufferAttribute;
     if (!posAttr || posAttr.count !== count * 2) {
       const arr = new Float32Array(count * 6);
-      for (let i = 0; i < count; i++) {
-        arr[i * 6] = positions[i * 4];
-        arr[i * 6 + 1] = positions[i * 4 + 1];
-        arr[i * 6 + 2] = 0;
-        arr[i * 6 + 3] = positions[i * 4 + 2];
-        arr[i * 6 + 4] = positions[i * 4 + 3];
-        arr[i * 6 + 5] = 0;
+      for (let vi = 0; vi < count; vi++) {
+        const i = visibleLinks[vi];
+        arr[vi * 6] = positions[i * 4];
+        arr[vi * 6 + 1] = positions[i * 4 + 1];
+        arr[vi * 6 + 2] = 0;
+        arr[vi * 6 + 3] = positions[i * 4 + 2];
+        arr[vi * 6 + 4] = positions[i * 4 + 3];
+        arr[vi * 6 + 5] = 0;
       }
       geom.setAttribute('position', new THREE.BufferAttribute(arr, 3));
     } else {
       const arr = posAttr.array as Float32Array;
-      for (let i = 0; i < count; i++) {
-        arr[i * 6] = positions[i * 4];
-        arr[i * 6 + 1] = positions[i * 4 + 1];
-        arr[i * 6 + 2] = 0;
-        arr[i * 6 + 3] = positions[i * 4 + 2];
-        arr[i * 6 + 4] = positions[i * 4 + 3];
-        arr[i * 6 + 5] = 0;
+      for (let vi = 0; vi < count; vi++) {
+        const i = visibleLinks[vi];
+        arr[vi * 6] = positions[i * 4];
+        arr[vi * 6 + 1] = positions[i * 4 + 1];
+        arr[vi * 6 + 2] = 0;
+        arr[vi * 6 + 3] = positions[i * 4 + 2];
+        arr[vi * 6 + 4] = positions[i * 4 + 3];
+        arr[vi * 6 + 5] = 0;
       }
       posAttr.needsUpdate = true;
     }
@@ -508,28 +620,29 @@ function LinksRenderer({
         colorAttr && colorAttr.count === count * 2
           ? (colorAttr.array as Float32Array)
           : new Float32Array(count * 6);
-      const links = linksRef.current;
-      for (let i = 0; i < count && i < links.length; i++) {
-        const hex = REL_COLORS[links[i].r] ?? '#334155';
+      for (let vi = 0; vi < count; vi++) {
+        const i = visibleLinks[vi];
+        const link = allLinks[i];
+        const hex = REL_COLORS[link.r] ?? '#334155';
         const col = new THREE.Color(hex);
         let dim = 0.55;
         if (hl) {
           const s =
-            typeof links[i].source === 'object'
-              ? (links[i].source as SimNode).id
-              : String(links[i].source);
+            typeof link.source === 'object'
+              ? (link.source as SimNode).id
+              : String(link.source);
           const t =
-            typeof links[i].target === 'object'
-              ? (links[i].target as SimNode).id
-              : String(links[i].target);
+            typeof link.target === 'object'
+              ? (link.target as SimNode).id
+              : String(link.target);
           dim = s === hl || t === hl ? 0.9 : 0.05;
         }
-        colArr[i * 6] = col.r * dim;
-        colArr[i * 6 + 1] = col.g * dim;
-        colArr[i * 6 + 2] = col.b * dim;
-        colArr[i * 6 + 3] = col.r * dim;
-        colArr[i * 6 + 4] = col.g * dim;
-        colArr[i * 6 + 5] = col.b * dim;
+        colArr[vi * 6] = col.r * dim;
+        colArr[vi * 6 + 1] = col.g * dim;
+        colArr[vi * 6 + 2] = col.b * dim;
+        colArr[vi * 6 + 3] = col.r * dim;
+        colArr[vi * 6 + 4] = col.g * dim;
+        colArr[vi * 6 + 5] = col.b * dim;
       }
       if (!colorAttr || colorAttr.count !== count * 2) {
         geom.setAttribute('color', new THREE.BufferAttribute(colArr, 3));

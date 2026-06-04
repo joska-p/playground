@@ -6,6 +6,7 @@ import { RAW_GRAPH } from '../data/graph-data';
 import {
   setIsReady,
   setStats,
+  setHierarchyStats,
   useColorMode,
   useFilterFT,
   useFilterRel,
@@ -13,6 +14,7 @@ import {
   useShowHyper,
 } from '../stores/graph/store';
 import { buildDegreeMap, nodeColor, nodeRadius } from '../utils/colors';
+import { useHierarchy } from './useHierarchy';
 import { hexToRGB } from './sim-utils';
 import type { SimLink, SimNode } from './use-graph-simulation.types';
 
@@ -48,6 +50,15 @@ export function useGraphSimulation() {
 
   const [nodes, setNodes] = useState<SimNode[]>([]);
   const [links, setLinks] = useState<SimLink[]>([]);
+
+  // Compute hierarchy for current nodes/links
+  const { stats: hierarchyStats, hierarchyRef } = useHierarchy(nodes, links);
+
+  useEffect(() => {
+    if (hierarchyStats.total > 0) {
+      setHierarchyStats(hierarchyStats);
+    }
+  }, [hierarchyStats]);
 
   useEffect(() => {
     colorModeRef.current = colorMode;
@@ -241,5 +252,6 @@ export function useGraphSimulation() {
     connectedNodesRef,
     nodes,
     links,
+    hierarchyRef,
   };
 }

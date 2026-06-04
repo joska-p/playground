@@ -11,12 +11,14 @@ import {
   setFilterRel,
   setSearch,
   toggleHyper,
+  cycleHierarchyVisibility,
   useColorMode,
   useFilterFT,
   useFilterRel,
   useSearch,
   useShowHyper,
   useStats,
+  useHierarchyVisibility,
 } from '../stores/graph/store';
 
 const FT_OPTIONS = Object.keys(FT_LABEL);
@@ -33,6 +35,7 @@ export function TopBar({ onResetZoom }: TopBarProps) {
   const search = useSearch();
   const showHyper = useShowHyper();
   const stats = useStats();
+  const hierarchyVisibility = useHierarchyVisibility();
 
   return (
     <div className="flex flex-wrap items-center gap-2 border-b border-border bg-background px-4 py-2 text-xs text-foreground">
@@ -110,6 +113,25 @@ export function TopBar({ onResetZoom }: TopBarProps) {
         )}
       >
         {showHyper ? 'Hyper ✓' : 'Hyper ○'}
+      </Button>
+
+      <Button
+        variant={hierarchyVisibility === 'all' ? 'secondary' : 'outline'}
+        size="small"
+        onClick={cycleHierarchyVisibility}
+        className={cn(
+          'text-xs uppercase tracking-wider',
+          hierarchyVisibility !== 'core-secondary'
+            ? 'border-primary bg-secondary text-secondary-foreground'
+            : 'border-border text-muted-foreground'
+        )}
+        title="Cycle: Core only → Core+Secondary → All"
+      >
+        {hierarchyVisibility === 'core'
+          ? '●'
+          : hierarchyVisibility === 'core-secondary'
+            ? '●●'
+            : '●●●'}
       </Button>
 
       <Button
