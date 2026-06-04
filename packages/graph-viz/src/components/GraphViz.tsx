@@ -1,10 +1,3 @@
-/**
- * GraphViz — Three.js 3-D force-directed graph visualisation.
- *
- * Thin orchestrator: composes hooks for scene, simulation, interaction, and
- * highlight, then renders lightweight overlay components.
- */
-
 import { useRef } from 'react';
 import type { CSSProperties } from 'react';
 import graphData from '../data/graph.json';
