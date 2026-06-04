@@ -95,6 +95,15 @@ RUN sed -i 's/#Port 22/Port 2222/'                                      /etc/ssh
     && echo "AllowUsers boffin"   >> /etc/ssh/sshd_config
 
 # -----------------------------------------------------------------------------
+# Switch to boffin — all subsequent steps land in /home/boffin (UID 1000).
+# Note: the bind-mount in devcontainer.json overlays /home/boffin at runtime,
+# so files written here are fallback defaults only (used when .container_home
+# is empty on first start).
+# -----------------------------------------------------------------------------
+USER boffin
+WORKDIR /home/boffin
+
+# -----------------------------------------------------------------------------
 # Exposed ports (documentation only — actual forwarding is in devcontainer.json)
 #
 #   2222  SSH
@@ -110,12 +119,5 @@ RUN sed -i 's/#Port 22/Port 2222/'                                      /etc/ssh
 # -----------------------------------------------------------------------------
 EXPOSE 2222 3000 4321 4322 5000 5173 5174 6006 8080 8888
 
-# -----------------------------------------------------------------------------
-# Entrypoint — starts sshd then drops into zsh
-# -----------------------------------------------------------------------------
-COPY .devcontainer/scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-USER boffin
-WORKDIR /home/boffin
-CMD ["/usr/local/bin/entrypoint.sh"]
+RUN service ssh start
+CMD ["/bin/zsh"]
