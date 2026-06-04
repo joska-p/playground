@@ -6,10 +6,10 @@ import {
 } from '../../core/constants';
 import { CSS_VARS } from '../../core/cssVars';
 import {
-  cycleMosaicPalettes,
-  regenerateMosaicTiles,
-} from '../../store/actions';
-import { useMosaicCurrentPalette, useMosaicRef } from '../../store/selectors';
+  cyclePalettes,
+  regenerateTiles,
+} from '../../stores/mosaic/actions';
+import { useCurrentPalette, useMosaicRef } from '../../stores/mosaic/selectors';
 import { shuffleObject } from '../../utils/random/shuffleObject';
 import { updateElementStyles } from '../../utils/updateElementStyles';
 import { PaletteControls } from './PaletteControls';
@@ -18,7 +18,7 @@ import { TileSetControls } from './TileSetControls';
 
 function Controls() {
   const mosaicRef = useMosaicRef();
-  const currentPalette = useMosaicCurrentPalette();
+  const currentPalette = useCurrentPalette();
 
   function shuffleColors() {
     if (!mosaicRef.current) return;
@@ -50,14 +50,14 @@ function Controls() {
         </Button>
         <Button
           type="button"
-          onClick={() => cycleMosaicPalettes()}
+          onClick={() => cyclePalettes()}
           size="small"
         >
           New palettes
         </Button>
         <Button
           type="button"
-          onClick={() => regenerateMosaicTiles()}
+          onClick={() => regenerateTiles()}
           size="small"
         >
           New tiles

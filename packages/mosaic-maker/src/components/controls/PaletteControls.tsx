@@ -1,15 +1,15 @@
 import { ColorPalette } from '@repo/ui/ColorPalette';
-import { applyMosaicPalette } from '../../store/actions';
+import { applyPalette } from '../../stores/mosaic/actions';
 import {
-  useMosaicCurrentPalette,
-  useMosaicCurrentPalettes,
-} from '../../store/selectors';
+  useCurrentPalette,
+  useCurrentPalettes,
+} from '../../stores/mosaic/selectors';
 import { arePalettesEqual } from '../../utils/palettes/arePalettesEqual';
 import { getPaletteId } from '../../utils/palettes/getPaletteId';
 
 function PaletteControls() {
-  const currentPalettes = useMosaicCurrentPalettes();
-  const currentPalette = useMosaicCurrentPalette();
+  const currentPalettes = useCurrentPalettes();
+  const currentPalette = useCurrentPalette();
 
   return (
     <fieldset className="border-border/30 mt-4 flex flex-wrap items-center justify-center gap-2 border-t p-4">
@@ -18,7 +18,7 @@ function PaletteControls() {
           key={getPaletteId(palette)}
           colors={Object.values(palette)}
           checked={arePalettesEqual(palette, currentPalette)}
-          onChange={() => applyMosaicPalette(palette)}
+          onChange={() => applyPalette(palette)}
           variant="primary"
           size="small"
           orientation="horizontal"

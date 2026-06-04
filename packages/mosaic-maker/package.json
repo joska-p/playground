@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     "./MosaicMaker": "./src/components/MosaicMaker.tsx",
-    "./styles": "./src/styles/styles.css"
+    "./styles": "./src/styles/global.css"
   },
   "scripts": {
     "dev": "vite --host",

@@ -7,8 +7,8 @@ import {
 } from '../core/constants';
 import { CSS_VARS } from '../core/cssVars';
 import { initialPalette } from '../core/initialPalette';
-import { initMosaicPalettes, setMosaicRef } from '../store/actions';
-import { useMosaicTiles } from '../store/selectors';
+import { initPalettes, setRef } from '../stores/mosaic/actions';
+import { useTiles } from '../stores/mosaic/selectors';
 import { Tile } from './Tile';
 
 const MOSAIC_STYLES = {
@@ -22,19 +22,19 @@ const MOSAIC_STYLES = {
 } as React.CSSProperties;
 
 function MosaicDisplay() {
-  const tiles = useMosaicTiles();
+  const tiles = useTiles();
   const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
 
   useEffect(() => {
     if (dimensions.width <= 0 || dimensions.height <= 0) return;
     const id = setTimeout(() => {
-      setMosaicRef(mosaicRef);
+      setRef(mosaicRef);
     }, 150);
     return () => clearTimeout(id);
   }, [dimensions.width, dimensions.height, mosaicRef]);
 
   useEffect(() => {
-    initMosaicPalettes();
+    initPalettes();
   }, []);
 
   return (

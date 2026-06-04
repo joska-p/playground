@@ -1,5 +1,5 @@
-import type { Palette } from '../core/initialPalette';
-import type { TileSet } from '../core/initialTileSet';
+import type { TileSet } from '../../core/initialTileSet';
+import type { Palette } from '../../core/palette.schema';
 import { mosaicStore } from './store';
 import type { TileInstance } from './types';
 
@@ -7,18 +7,18 @@ export function useMosaicRef(): React.RefObject<HTMLDivElement | null> {
   return mosaicStore((s) => s.mosaicRef);
 }
 
-export function useMosaicTiles(): TileInstance[] {
+export function useTiles(): TileInstance[] {
   return mosaicStore((s) => s.tiles);
 }
 
-export function useMosaicCurrentPalette(): Palette {
+export function useCurrentPalette(): Palette {
   return mosaicStore((s) => s.currentPalette);
 }
 
-export function useMosaicCurrentPalettes(): Palette[] {
+export function useCurrentPalettes(): Palette[] {
   return mosaicStore((s) => s.currentPalettes);
 }
 
-export function useMosaicTileSet(): TileSet {
+export function useTileSet(): TileSet {
   return mosaicStore((s) => s.tileSet);
 }

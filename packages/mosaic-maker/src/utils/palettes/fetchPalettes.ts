@@ -1,5 +1,5 @@
-import type { Palette } from '../../core/initialPalette';
 import { initialPalette } from '../../core/initialPalette';
+import type { Palette } from '../../core/palette.schema';
 import { paletteSchema } from './fetchPalettes.schema';
 import { fetchWithValidation } from './fetchWithValidation';
 
@@ -14,7 +14,13 @@ const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
 const CACHE_VERSION = 2;
 const PALETTE_URL = 'https://unpkg.com/nice-color-palettes@3.0.0/1000.json';
 
-const colorNames = Object.keys(initialPalette) as (keyof Palette)[];
+const COLOR_NAMES: (keyof Palette)[] = [
+  '--color-0',
+  '--color-1',
+  '--color-2',
+  '--color-3',
+  '--color-4',
+];
 
 function getCachedPalettes(): CachedPalettes | null {
   const stored = localStorage.getItem(CACHE_KEY);
@@ -32,7 +38,7 @@ function isCacheValid(cache: CachedPalettes): boolean {
 }
 
 function transformPalette(colors: string[]): Palette {
-  return colorNames.reduce((acc, colorName, index) => {
+  return COLOR_NAMES.reduce((acc, colorName, index) => {
     acc[colorName] = colors[index] ?? '#000000';
     return acc;
   }, {} as Palette);

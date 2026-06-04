@@ -1,5 +1,5 @@
 import type { TileSet } from '../../core/initialTileSet';
-import type { TileInstance } from '../../store/types';
+import type { TileInstance } from '../../stores/mosaic/types';
 import { getRandom } from '../random/getRandom';
 import { computeNumberOfTiles } from './computeNumberOfTiles';
 import { generateTileColors } from './generateTileColors';

@@ -1,12 +1,12 @@
-import { MAX_NUMBER_OF_PALETTES } from '../core/constants';
-import type { Palette } from '../core/initialPalette';
-import type { TileNames } from '../core/initialTileSet';
-import { fetchPalettes } from '../utils/palettes/fetchPalettes';
-import { computeInitialTiles } from '../utils/tiles/computeInitialTiles';
-import { updateElementStyles } from '../utils/updateElementStyles';
+import { MAX_NUMBER_OF_PALETTES } from '../../core/constants';
+import type { TileNames } from '../../core/initialTileSet';
+import type { Palette } from '../../core/palette.schema';
+import { fetchPalettes } from '../../utils/palettes/fetchPalettes';
+import { computeInitialTiles } from '../../utils/tiles/computeInitialTiles';
+import { updateElementStyles } from '../../utils/updateElementStyles';
 import { mosaicStore } from './store';
 
-export function regenerateMosaicTiles() {
+export function regenerateTiles() {
   const { mosaicRef, tileSet } = mosaicStore.getState();
   if (!mosaicRef.current) return;
   mosaicStore.setState({
@@ -27,17 +27,17 @@ function updateCurrentPalettes() {
   mosaicStore.setState({ currentPalettesIndex: newIndex, currentPalettes });
 }
 
-export function setMosaicPaletteStock(palettes: Palette[]) {
+export function setPaletteStock(palettes: Palette[]) {
   const currentPalettes = palettes.slice(0, MAX_NUMBER_OF_PALETTES);
   mosaicStore.setState({ paletteStock: palettes, currentPalettes });
 }
 
-export function setMosaicRef(ref: React.RefObject<HTMLDivElement | null>) {
+export function setRef(ref: React.RefObject<HTMLDivElement | null>) {
   mosaicStore.setState({ mosaicRef: ref });
-  regenerateMosaicTiles();
+  regenerateTiles();
 }
 
-export function applyMosaicPalette(palette: Palette) {
+export function applyPalette(palette: Palette) {
   mosaicStore.setState({ currentPalette: palette });
   const { mosaicRef } = mosaicStore.getState();
   if (mosaicRef.current) {
@@ -52,14 +52,14 @@ export function toggleTileInSet(tileName: TileNames) {
     ? tileSet.filter((tile) => tile !== tileName)
     : [...tileSet, tileName];
   mosaicStore.setState({ tileSet: newTileSet });
-  regenerateMosaicTiles();
+  regenerateTiles();
 }
 
-export function cycleMosaicPalettes() {
+export function cyclePalettes() {
   updateCurrentPalettes();
 }
 
-export async function initMosaicPalettes() {
+export async function initPalettes() {
   const palettes = await fetchPalettes();
-  setMosaicPaletteStock(palettes);
+  setPaletteStock(palettes);
 }

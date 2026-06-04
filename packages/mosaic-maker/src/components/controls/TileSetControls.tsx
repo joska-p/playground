@@ -1,12 +1,12 @@
 import { cn } from '@repo/ui/cn';
 import { initialPalette } from '../../core/initialPalette';
 import { initialTileSet } from '../../core/initialTileSet';
-import { toggleTileInSet } from '../../store/actions';
-import { useMosaicTileSet } from '../../store/selectors';
+import { toggleTileInSet } from '../../stores/mosaic/actions';
+import { useTileSet } from '../../stores/mosaic/selectors';
 import { Tile } from '../Tile';
 
 function TileSetControls() {
-  const tileSet = useMosaicTileSet();
+  const tileSet = useTileSet();
 
   return (
     <fieldset

@@ -1,7 +1,7 @@
 import { Slider } from '@repo/ui/Slider';
 import { useEffect, useRef, useState } from 'react';
-import { regenerateMosaicTiles } from '../../store/actions';
-import { useMosaicRef } from '../../store/selectors';
+import { regenerateTiles } from '../../stores/mosaic/actions';
+import { useMosaicRef } from '../../stores/mosaic/selectors';
 
 export type SliderControlsProps = {
   label: string;
@@ -28,7 +28,7 @@ function SliderControls({
     setValue(newValue);
     mosaicRef.current?.style.setProperty(cssVar, `${newValue}px`);
     clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(regenerateMosaicTiles, 150);
+    debounceRef.current = setTimeout(regenerateTiles, 150);
   }
 
   useEffect(() => {
