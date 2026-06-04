@@ -1,15 +1,15 @@
 import { forwardRef, useMemo } from 'react';
-import { Color, Mesh } from 'three';
+import { Color, type Mesh } from 'three';
 
 import type { Node3D } from '../types/graph';
 
-interface NodeProps {
+type NodeProps = {
   node: Node3D;
   selected?: boolean;
   hovered?: boolean;
   onHover?: (id: string | undefined) => void;
   onClick?: (id: string) => void;
-}
+};
 
 const Node = forwardRef<Mesh, NodeProps>(
   ({ node, selected, hovered, onHover, onClick }, ref) => {
@@ -38,7 +38,11 @@ const Node = forwardRef<Mesh, NodeProps>(
         onClick={() => onClick?.(node.id)}
       >
         <sphereGeometry args={[2, 16, 16]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={selected || hovered ? 0.5 : 0.2} />
+        <meshStandardMaterial
+          color={color}
+          emissive={color}
+          emissiveIntensity={selected || hovered ? 0.5 : 0.2}
+        />
       </mesh>
     );
   }
