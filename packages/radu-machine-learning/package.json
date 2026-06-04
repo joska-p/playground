@@ -12,7 +12,7 @@
     "build": "tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,js,mjs,css,cjs,astro}\"",
+    "format": "prettier --write .",
     "preview": "vite preview --host",
     "check-types": "tsc --noEmit",
     "process-data": "npx tsx _dev/scripts/processData.ts"
