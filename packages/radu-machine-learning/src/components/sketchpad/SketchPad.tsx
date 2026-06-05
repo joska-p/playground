@@ -26,7 +26,6 @@ export function SketchPad() {
 
   const startDrawing = (e: React.MouseEvent) => {
     const ctx = canvasRef.current?.getContext('2d');
-
     if (!ctx) return;
 
     isDrawing.current = true;
