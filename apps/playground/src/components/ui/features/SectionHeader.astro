@@ -1,8 +1,10 @@
 ---
-import type { LucideIcon } from "lucide-react";
+import { iconMap } from "@repo/ui/iconMap";
+import { IconArrowRight } from "@repo/ui/icons/ArrowRight";
+import type { IconName } from "@repo/ui/iconMap";
 
 type Props = {
-  icon?: LucideIcon;
+  icon?: IconName;
   title: string;
   description?: string;
   href?: string;
@@ -10,7 +12,8 @@ type Props = {
   className?: string;
 };
 
-const { icon: Icon, title, description, href, align = "left", className = "mb-8" } = Astro.props;
+const { icon, title, description, href, align = "left", className = "mb-8" } = Astro.props;
+const Icon = icon ? iconMap[icon] : undefined;
 const isCenter = align === "center";
 ---
 
@@ -55,22 +58,10 @@ const isCenter = align === "center";
         ]}
       >
         <slot name="link-text">View all</slot>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="11"
-          height="11"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="transition-transform group-hover:translate-x-0.5"
-          aria-hidden="true"
-        >
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
+        <IconArrowRight
+          className="transition-transform group-hover:translate-x-0.5"
+          size={11}
+        />
       </a>
     )
   }

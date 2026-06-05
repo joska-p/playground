@@ -2,6 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
+import { IconChevronDown } from '../icon/IconChevronDown';
 import { selectVariants } from './selectVariants';
 
 type SelectProps = {
@@ -44,19 +45,7 @@ function Select({
           {children}
         </select>
         <div className="text-foreground/50 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
+          <IconChevronDown className="h-4 w-4" />
         </div>
       </div>
       {helperText && (

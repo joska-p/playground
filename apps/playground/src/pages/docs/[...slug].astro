@@ -3,7 +3,6 @@ import { render, getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocNav from "../../components/ui/docs/DocNav.astro";
 import SectionHeader from "../../components/ui/features/SectionHeader.astro";
-import { Book } from "lucide-react";
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs");
@@ -24,7 +23,7 @@ const { Content } = await render(doc);
     <div class="flex-1">
       <div class="mx-auto max-w-3xl px-6 py-12 md:px-10 lg:py-16">
         <article class="prose prose-playground">
-          <SectionHeader title={doc.data.category} description={doc.data.description} icon={Book} />
+          <SectionHeader title={doc.data.category} description={doc.data.description} icon="book" />
           <Content />
         </article>
       </div>

@@ -1,9 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Hero from "../../components/ui/features/Hero.astro";
-import DocCard from "../../components/ui/cards/DocCard.astro";
-import { getDocsByCategory, docsBaseUrl } from "../../data/docs";
-import Footer from "../../layouts/Footer.astro";
+import { iconMap } from '@repo/ui/iconMap';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/ui/features/Hero.astro';
+import DocCard from '../../components/ui/cards/DocCard.astro';
+import { getDocsByCategory, docsBaseUrl } from '../../data/docs';
+import Footer from '../../layouts/Footer.astro';
 
 const docsByCategory = await getDocsByCategory();
 ---
@@ -18,49 +19,60 @@ const docsByCategory = await getDocsByCategory();
   <div class="mx-auto w-full max-w-5xl px-6 py-16 lg:py-20">
     <div class="space-y-16">
       {
-        docsByCategory.map((category) => (
-          <section id={category.id} class="scroll-mt-20">
-            <header class="mb-8 flex items-start gap-4">
-              <span
-                class="border-border bg-card mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border"
-                style={{ color: `var(--category-${category.id}, var(--primary))` }}
-              >
-                <category.Icon className="h-3.5 w-3.5" />
-              </span>
-              <div>
-                <div class="mb-1 flex items-center gap-3">
-                  <h2
-                    class="m-0 text-xs font-bold tracking-[0.18em] uppercase"
-                    style={{ color: `var(--category-${category.id}, var(--primary))` }}
-                  >
-                    {category.label}
-                  </h2>
-                  <span class="bg-border h-px flex-1" />
-                </div>
-                {category.description && (
-                  <p class="text-muted-foreground max-w-2xl text-sm leading-relaxed">
-                    {category.description}
-                  </p>
-                )}
-              </div>
-            </header>
+        docsByCategory.map((category) => {
+          const CatIcon = iconMap[category.icon as keyof typeof iconMap];
 
-            <div class="grid gap-4 sm:grid-cols-2">
-              {category.articles.map((doc) => {
-                const docUrl = `${docsBaseUrl}${doc.id}/`;
-                const categoryId = doc.data.category || "explanation";
-                return (
-                  <DocCard
-                    href={docUrl}
-                    title={doc.data.title}
-                    description={doc.data.description}
-                    type={categoryId}
-                  />
-                );
-              })}
-            </div>
-          </section>
-        ))
+          return (
+            <section
+              id={category.id}
+              class="scroll-mt-20"
+            >
+              <header class="mb-8 flex items-start gap-4">
+                <span
+                  class="border-border bg-card mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border"
+                  style={{
+                    color: `var(--category-${category.id}, var(--primary))`,
+                  }}
+                >
+                  <CatIcon className="h-3.5 w-3.5" />
+                </span>
+                <div>
+                  <div class="mb-1 flex items-center gap-3">
+                    <h2
+                      class="m-0 text-xs font-bold tracking-[0.18em] uppercase"
+                      style={{
+                        color: `var(--category-${category.id}, var(--primary))`,
+                      }}
+                    >
+                      {category.label}
+                    </h2>
+                    <span class="bg-border h-px flex-1" />
+                  </div>
+                  {category.description && (
+                    <p class="text-muted-foreground max-w-2xl text-sm leading-relaxed">
+                      {category.description}
+                    </p>
+                  )}
+                </div>
+              </header>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                {category.articles.map((doc) => {
+                  const docUrl = `${docsBaseUrl}${doc.id}/`;
+                  const categoryId = doc.data.category || 'explanation';
+                  return (
+                    <DocCard
+                      href={docUrl}
+                      title={doc.data.title}
+                      description={doc.data.description}
+                      type={categoryId}
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })
       }
     </div>
   </div>

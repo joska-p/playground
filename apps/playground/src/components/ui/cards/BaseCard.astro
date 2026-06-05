@@ -1,4 +1,6 @@
 ---
+import { IconArrowDiagonal } from "@repo/ui/icons/ArrowDiagonal";
+
 type Props = {
   href: string;
   accentColor: string;
@@ -23,19 +25,8 @@ const { href, accentColor, variant, className } = Astro.props;
 >
   <slot />
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="13"
-    height="13"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="text-primary absolute right-3 bottom-3 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-    aria-hidden="true"
-  >
-    <path d="M7 7h10v10"></path><path d="M7 17 17 7"></path>
-  </svg>
+  <IconArrowDiagonal
+    className="text-primary absolute right-3 bottom-3 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+    size={13}
+  />
 </a>

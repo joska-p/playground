@@ -1,5 +1,4 @@
 import { getCollection } from 'astro:content';
-import { Book, Code, Lightbulb, Wrench } from 'lucide-react';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 export const docsBaseUrl = `${baseUrl}docs/`;
@@ -8,28 +7,28 @@ export const CATEGORY_METADATA = {
   tutorial: {
     label: 'Tutorials',
     description: 'Step-by-step guides.',
-    Icon: Book,
+    icon: 'book',
     color: 'text-blue-500',
     bgColor: 'bg-blue-50',
   },
   'how-to': {
     label: 'How-To Guides',
     description: 'Practical recipes.',
-    Icon: Wrench,
+    icon: 'wrench',
     color: 'text-amber-500',
     bgColor: 'bg-amber-50',
   },
   explanation: {
     label: 'Explanations',
     description: 'Deep dives.',
-    Icon: Lightbulb,
+    icon: 'lightbulb',
     color: 'text-emerald-500',
     bgColor: 'bg-emerald-50',
   },
   reference: {
     label: 'Reference',
     description: 'Technical specs.',
-    Icon: Code,
+    icon: 'code',
     color: 'text-purple-500',
     bgColor: 'bg-purple-50',
   },

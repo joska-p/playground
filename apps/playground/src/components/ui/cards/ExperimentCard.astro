@@ -1,13 +1,14 @@
 ---
-import type { ComponentType } from "react";
+import { iconMap } from "@repo/ui/iconMap";
 import type { Category } from "../../../data/projects";
+import type { IconName } from "@repo/ui/iconMap";
 import BaseCard from "./BaseCard.astro";
 
 type Props = {
   href: string;
   title: string;
   description?: string;
-  icon: ComponentType<{ className?: string }>;
+  icon: IconName;
   category?: Category;
   tags?: string[];
   className?: string;
@@ -17,12 +18,13 @@ const {
   href,
   title,
   description,
-  icon: Icon,
+  icon,
   category = "generative",
   tags = [],
   className,
 } = Astro.props;
 
+const Icon = iconMap[icon];
 const accentColor = `var(--category-${category}, var(--color-primary))`;
 ---
 

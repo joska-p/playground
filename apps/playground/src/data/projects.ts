@@ -1,14 +1,4 @@
-import {
-  Box,
-  Flame,
-  Grid,
-  Grid3X3,
-  ImageDown,
-  Infinity as InfinityIcon,
-  Palette,
-  PieChart,
-} from 'lucide-react';
-import type { ComponentType } from 'react';
+import type { IconName } from '@repo/ui/iconMap';
 
 /**
  * Project categories
@@ -52,12 +42,12 @@ export type Project = {
   description: string;
   category: Category;
   tags: string[];
-  icon: ComponentType<{ className?: string }>;
+  icon: IconName;
   featured: boolean;
 };
 
 /**
- * All projects - icons assigned directly from imports
+ * All projects - icons referenced by name
  */
 export const projects: Record<string, Project> = {
   mosaic: {
@@ -67,7 +57,7 @@ export const projects: Record<string, Project> = {
       'Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.',
     category: 'generative',
     tags: ['Canvas', 'Zustand'],
-    icon: Grid3X3,
+    icon: 'grid-3x3',
     featured: true,
   },
   sequences: {
@@ -77,7 +67,7 @@ export const projects: Record<string, Project> = {
       'Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.',
     category: 'generative',
     tags: ['Math', 'SVG'],
-    icon: InfinityIcon,
+    icon: 'infinity',
     featured: true,
   },
   palettes: {
@@ -87,7 +77,7 @@ export const projects: Record<string, Project> = {
       'Generate harmonious color schemes using mathematical color theory models.',
     category: 'color',
     tags: ['Design', 'Theory'],
-    icon: Palette,
+    icon: 'palette',
     featured: true,
   },
   particles: {
@@ -97,7 +87,7 @@ export const projects: Record<string, Project> = {
       'Deconstruct images into physics-based particle systems with real-time interaction.',
     category: 'image',
     tags: ['Physics', 'Canvas'],
-    icon: Flame,
+    icon: 'flame',
     featured: false,
   },
   imageManipulator: {
@@ -107,7 +97,7 @@ export const projects: Record<string, Project> = {
       'A tool for manipulating images using canvas and webb workers.',
     category: 'image',
     tags: ['Images', 'Canvas'],
-    icon: Flame,
+    icon: 'flame',
     featured: false,
   },
   pipeline: {
@@ -117,7 +107,7 @@ export const projects: Record<string, Project> = {
       'Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.',
     category: 'image',
     tags: ['Pipeline', 'Docs'],
-    icon: ImageDown,
+    icon: 'image-down',
     featured: false,
   },
   'pie-chart': {
@@ -127,7 +117,7 @@ export const projects: Record<string, Project> = {
       'Interactive D3-based pie chart examples for data visualization.',
     category: 'data-viz',
     tags: ['D3', 'Charts'],
-    icon: PieChart,
+    icon: 'pie-chart',
     featured: false,
   },
   graphify: {
@@ -136,7 +126,7 @@ export const projects: Record<string, Project> = {
     description: 'Interactive graph, click nodes, search, filter by community.',
     category: 'data-viz',
     tags: ['Graph', 'D3'],
-    icon: Grid,
+    icon: 'grid',
     featured: true,
   },
   'three-stage': {
@@ -145,7 +135,7 @@ export const projects: Record<string, Project> = {
     description: 'A 3D stage for rendering and animate 3D objects.',
     category: 'random',
     tags: ['Threejs', '3D', 'WebGL'],
-    icon: Box,
+    icon: 'box',
     featured: false,
   },
 };
