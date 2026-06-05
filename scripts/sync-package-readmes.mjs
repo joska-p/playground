@@ -1,37 +1,39 @@
 #!/usr/bin/env node
-import { mkdir, readdir, readFile, writeFile, unlink } from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
+import { mkdir, readdir, readFile, writeFile, unlink } from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..");
-const PACKAGES_DIR = path.join(ROOT, "packages");
-const REF_DIR = path.join(ROOT, "apps/playground/src/content/docs/reference/packages");
+const ROOT = path.resolve(__dirname, '..');
+const PACKAGES_DIR = path.join(ROOT, 'packages');
+const REF_DIR = path.join(
+  ROOT,
+  'apps/playground/src/content/docs/reference/packages'
+);
 
 const PACKAGE_NAMES = {
-  "mosaic-maker": "Mosaic Maker",
-  "sequence-renderer": "Sequence Renderer",
-  "image-manipulator": "Image Manipulator",
-  "image-to-particles": "Image to Particles",
-  "palette-generator": "Palette Generator",
-  "graph-viz": "Graph Visualization",
-  "image-pipeline": "Image Pipeline",
-  "three-stage": "Three Stage",
-  "radu-machine-learning": "Radu Machine Learning",
-  toolbox: "Toolbox",
-  ui: "UI Components",
+  'mosaic-maker': 'Mosaic Maker',
+  'sequence-renderer': 'Sequence Renderer',
+  'image-manipulator': 'Image Manipulator',
+  'image-to-particles': 'Image to Particles',
+  'palette-generator': 'Palette Generator',
+  'graph-viz': 'Graph Visualization',
+  'image-pipeline': 'Image Pipeline',
+  'three-stage': 'Three Stage',
+  'radu-machine-learning': 'Radu Machine Learning',
+  ui: 'UI Components',
 };
 
 function kebabToTitle(name) {
   return name
     .split(/[-_]/)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 async function hasPackageJson(dir) {
   try {
-    await readFile(path.join(dir, "package.json"), "utf-8");
+    await readFile(path.join(dir, 'package.json'), 'utf-8');
     return true;
   } catch {
     return false;
@@ -39,7 +41,7 @@ async function hasPackageJson(dir) {
 }
 
 function escapeFrontmatter(value) {
-  return value.replace(/"/g, '\\"').replace(/\n/g, " ");
+  return value.replace(/"/g, '\\"').replace(/\n/g, ' ');
 }
 
 async function main() {
@@ -57,10 +59,10 @@ async function main() {
       continue;
     }
 
-    const readmePath = path.join(pkgDir, "README.md");
+    const readmePath = path.join(pkgDir, 'README.md');
     let content;
     try {
-      content = await readFile(readmePath, "utf-8");
+      content = await readFile(readmePath, 'utf-8');
     } catch {
       console.warn(`  ⚠  ${entry.name} — no README.md`);
       continue;
@@ -68,9 +70,10 @@ async function main() {
 
     const displayName = PACKAGE_NAMES[entry.name] || kebabToTitle(entry.name);
 
-    const lines = content.split("\n");
+    const lines = content.split('\n');
     const tagline =
-      lines.find((l) => l.startsWith("> "))?.slice(2) || `${displayName} package`;
+      lines.find((l) => l.startsWith('> '))?.slice(2) ||
+      `${displayName} package`;
 
     const doc = `---
 title: "${escapeFrontmatter(displayName)}"
@@ -92,30 +95,30 @@ ${content}
 
   console.log(`\nDone. ${count} package docs synced.`);
 
-  const prune = process.argv.includes("--prune");
+  const prune = process.argv.includes('--prune');
   if (prune) {
-    console.log("\nPruning stale reference docs…");
+    console.log('\nPruning stale reference docs…');
     let pruned = 0;
     const refFiles = await readdir(REF_DIR);
     for (const file of refFiles) {
-      if (!file.endsWith(".md")) continue;
-      const pkgName = file.replace(/\.md$/, "");
+      if (!file.endsWith('.md')) continue;
+      const pkgName = file.replace(/\.md$/, '');
       const pkgDir = path.join(PACKAGES_DIR, pkgName);
-      const readmePath = path.join(pkgDir, "README.md");
+      const readmePath = path.join(pkgDir, 'README.md');
       try {
-        await readFile(readmePath, "utf-8");
+        await readFile(readmePath, 'utf-8');
       } catch {
         await unlink(path.join(REF_DIR, file));
         console.log(`  ✗  ${file} — source package removed`);
         pruned++;
       }
     }
-    if (pruned === 0) console.log("  (none to prune)");
+    if (pruned === 0) console.log('  (none to prune)');
     console.log(`\nPruned ${pruned} stale doc(s).`);
   }
 }
 
 main().catch((err) => {
-  console.error("Fatal:", err.message);
+  console.error('Fatal:', err.message);
   process.exit(1);
 });
