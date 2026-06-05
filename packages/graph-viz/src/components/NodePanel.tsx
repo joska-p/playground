@@ -4,7 +4,7 @@
 import { useMemo } from 'react';
 import type { GraphNode, GraphLink } from './types';
 import { communityColor } from './palette';
-import s from './styles';
+import { styles } from './styles';
 
 type Neighbour = {
   dir: '→' | '←';
@@ -46,40 +46,44 @@ const NodePanel = ({ node, links, nodes, onClose }: Props) => {
   }, [node, links, nodeMap]);
 
   return (
-    <div style={s.panel}>
+    <div style={styles.panel}>
       <button
-        style={s.panelClose}
+        style={styles.panelClose}
         onClick={onClose}
       >
         ✕
       </button>
 
-      <div style={{ ...s.panelType, color: communityColor(node.community) }}>
+      <div
+        style={{ ...styles.panelType, color: communityColor(node.community) }}
+      >
         {(node.file_type ?? 'node').toUpperCase()} · community {node.community}
       </div>
 
-      <div style={s.panelTitle}>{node.label}</div>
-      <div style={s.panelMeta}>{node.source_file}</div>
+      <div style={styles.panelTitle}>{node.label}</div>
+      <div style={styles.panelMeta}>{node.source_file}</div>
       {node.source_location && (
-        <div style={s.panelMeta}>{node.source_location}</div>
+        <div style={styles.panelMeta}>{node.source_location}</div>
       )}
 
-      <div style={s.panelDivider} />
+      <div style={styles.panelDivider} />
 
-      <div style={s.panelSectionTitle}>
+      <div style={styles.panelSectionTitle}>
         Connections ({neighbours.length}
         {neighbours.length === 20 ? '+' : ''})
       </div>
 
-      <div style={s.neighbourList}>
+      <div style={styles.neighbourList}>
         {neighbours.map((nb, i) => (
           <div
             key={i}
-            style={s.neighbourRow}
+            style={styles.neighbourRow}
           >
-            <span style={s.neighbourDir}>{nb.dir}</span>
-            <span style={s.neighbourRel}>{nb.rel}</span>
-            <span style={s.neighbourLabel}>{nb.node?.label ?? nb.rawId}</span>
+            <span style={styles.neighbourDir}>{nb.dir}</span>
+            <span style={styles.neighbourRel}>{nb.rel}</span>
+            <span style={styles.neighbourLabel}>
+              {nb.node?.label ?? nb.rawId}
+            </span>
           </div>
         ))}
       </div>

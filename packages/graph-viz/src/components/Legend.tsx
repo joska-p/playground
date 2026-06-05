@@ -2,7 +2,7 @@
 // Fixed legend overlay + reusable Dot indicator.
 
 import { communityColor } from './palette';
-import s from './styles';
+import { styles } from './styles';
 
 const Dot = ({ c }: { c: string }) => (
   <span
@@ -25,14 +25,14 @@ const ITEMS = [
 ];
 
 const Legend = () => (
-  <div style={s.legend}>
+  <div style={styles.legend}>
     {ITEMS.map((it) => (
       <div
         key={it.label}
         style={{ display: 'flex', alignItems: 'center' }}
       >
         <Dot c={it.c} />
-        <span style={s.legendLabel}>{it.label}</span>
+        <span style={styles.legendLabel}>{it.label}</span>
       </div>
     ))}
   </div>

@@ -14,7 +14,7 @@ import { NodeMesh } from './NodeMesh';
 import { EdgeLines } from './EdgeLines';
 import { NodePanel } from './NodePanel';
 import { Legend, Dot } from './Legend';
-import s from './styles';
+import { styles } from './styles';
 import graphify from '../data/graph.json';
 import type { GraphData } from './types';
 
@@ -87,7 +87,7 @@ const Scene = ({
 
 // ─── Root component ───────────────────────────────────────────────────────────
 
-const GraphVisualization = ({
+const GraphViz = ({
   data = graphify as GraphData,
   width,
   height,
@@ -219,25 +219,27 @@ const GraphVisualization = ({
 
       {/* ── Simulation progress bar ─────────────────────────────────────────── */}
       {!simDone && (
-        <div style={s.progressWrap}>
-          <div style={s.progressLabel}>Simulating layout… {simProgress}%</div>
-          <div style={s.progressTrack}>
-            <div style={{ ...s.progressBar, width: `${simProgress}%` }} />
+        <div style={styles.progressWrap}>
+          <div style={styles.progressLabel}>
+            Simulating layout… {simProgress}%
+          </div>
+          <div style={styles.progressTrack}>
+            <div style={{ ...styles.progressBar, width: `${simProgress}%` }} />
           </div>
         </div>
       )}
 
       {/* ── Stats pill ──────────────────────────────────────────────────────── */}
-      <div style={s.stats}>
-        <span style={s.statItem}>
+      <div style={styles.stats}>
+        <span style={styles.statItem}>
           <Dot c="#4cc9f0" />
           {nodes.length.toLocaleString()} nodes
         </span>
-        <span style={s.statItem}>
+        <span style={styles.statItem}>
           <Dot c="#7209b7" />
           {links.length.toLocaleString()} edges
         </span>
-        <span style={s.statItem}>
+        <span style={styles.statItem}>
           <Dot c="#f72585" />
           {hyperedges.length} hyperedges
         </span>
@@ -258,11 +260,11 @@ const GraphVisualization = ({
 
       {/* ── Hover tooltip ───────────────────────────────────────────────────── */}
       {hoveredNode && !selectedNode && (
-        <div style={s.tooltip}>{hoveredNode.label}</div>
+        <div style={styles.tooltip}>{hoveredNode.label}</div>
       )}
 
       <Legend />
-      <div style={s.controls}>
+      <div style={styles.controls}>
         Drag to orbit · Scroll to zoom · Right-drag to pan · Click node for
         details
       </div>
@@ -270,4 +272,4 @@ const GraphVisualization = ({
   );
 };
 
-export { GraphVisualization };
+export { GraphViz };

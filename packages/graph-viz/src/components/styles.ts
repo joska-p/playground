@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from 'react';
 
-const s: Record<string, CSSProperties> = {
+const styles: Record<string, CSSProperties> = {
   progressWrap: {
     position: 'absolute',
     bottom: 60,
@@ -169,4 +169,4 @@ const s: Record<string, CSSProperties> = {
   },
 };
 
-export default s;
+export { styles };
