@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-    "exports": {
-    ".": "./src/components/GraphViz.tsx",
+  "exports": {
+    ".": "./src/components/graph-viz/index.ts",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {
@@ -20,10 +20,7 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
-    "@types/three": "catalog:",
-    "d3": "catalog:",
     "three": "catalog:",
-    "zod": "catalog:",
     "zustand": "catalog:"
   },
   "peerDependencies": {
@@ -37,7 +34,7 @@
     "@tailwindcss/vite": "catalog:",
     "@tsconfig/strictest": "catalog:",
     "@types/babel__core": "catalog:",
-    "@types/d3": "catalog:",
+    "@types/three": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

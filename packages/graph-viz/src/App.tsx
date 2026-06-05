@@ -1,13 +1,17 @@
+import { GraphVisualization } from './components/GraphVisualization';
 import graphData from './data/graph.json';
-import { GraphViz } from './components/GraphViz';
+import type { GraphData } from './components/types';
 
 function App() {
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <GraphViz
-        data={graphData}
-        onNodeSelect={(node) => console.log(node)}
-      />
+      <div style={{ width: '100vw', height: '100vh' }}>
+        <GraphVisualization
+          data={graphData as GraphData}
+          onNodeSelect={(n) => console.log(n)}
+        />
+      </div>
+      ;
     </div>
   );
 }

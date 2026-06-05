@@ -1,3 +1,14 @@
+// graph/types.ts — shared data interfaces
+
+// Fix: Pull out the three types into a top-level import statement
+import type {
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  InstancedMesh,
+  LineSegments,
+} from 'three';
+
 export type GraphNode = {
   id: string;
   label: string;
@@ -40,10 +51,28 @@ export type GraphData = {
   built_at_commit?: string;
 };
 
-export type GraphVizProps = {
-  data?: GraphData;
+export type GraphVisualizationProps = {
+  data: GraphData;
   width?: number;
   height?: number;
   maxNodes?: number;
   onNodeSelect?: (node: GraphNode | null) => void;
+};
+
+/** Mutable spherical-coordinate camera state (stored in a ref). */
+export type Spherical = {
+  theta: number;
+  phi: number;
+  radius: number;
+};
+
+/** Everything the Three.js scene exposes to the rest of the component. */
+export type ThreeContext = {
+  renderer: WebGLRenderer;
+  scene: Scene;
+  camera: PerspectiveCamera;
+  mesh: InstancedMesh;
+  lines: LineSegments;
+  nodes: GraphNode[];
+  idToIdx: Map<string, number>;
 };
