@@ -40,7 +40,7 @@ function MosaicDisplay() {
   return (
     <div
       ref={mosaicRef}
-      className="h-dvh grid content-center justify-center overflow-hidden"
+      className="min-h-full grid content-center justify-center overflow-hidden"
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (
