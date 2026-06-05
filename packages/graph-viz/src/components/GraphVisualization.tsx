@@ -15,6 +15,8 @@ import { EdgeLines } from './EdgeLines';
 import { NodePanel } from './NodePanel';
 import { Legend, Dot } from './Legend';
 import s from './styles';
+import graphify from '../data/graph.json';
+import type { GraphData } from './types';
 
 // ─── Inner scene (has access to R3F context) ──────────────────────────────────
 
@@ -86,7 +88,7 @@ const Scene = ({
 // ─── Root component ───────────────────────────────────────────────────────────
 
 const GraphVisualization = ({
-  data,
+  data = graphify as GraphData,
   width,
   height,
   maxNodes = 4000,
