@@ -1,23 +1,27 @@
 ---
-import { Scene } from "@repo/three-stage/Scene";
-import { StrictMode } from "react";
-import BaseLayout from "../../../../layouts/BaseLayout.astro";
-import { projects } from "../../../../data/projects";
-import Hero from "../../../../components/ui/features/Hero.astro";
+import { Scene } from '@repo/three-stage/Scene';
+import { StrictMode } from 'react';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { projects } from '../../../../data/projects';
+import Hero from '../../../../components/ui/features/Hero.astro';
 
-const project = projects["three-stage"];
-const keywords = `${project["tags"].join(", ")}`;
+const project = projects['three-stage'];
+const keywords = `${project['tags'].join(', ')}`;
 ---
 
-<BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>
+<BaseLayout
+  title={project['name']}
+  description={project['description']}
+  keywords={keywords}
+>
   <Hero
     badgeText={keywords}
-    title={project["name"]}
-    highlight={project["category"]}
-    description={project["description"]}
+    title={project['name']}
+    highlight={project['category']}
+    description={project['description']}
   />
 
-  <div class="min-h-full snap-start">
+  <div class="h-dvh snap-start">
     <StrictMode>
       <Scene client:only="react" />
     </StrictMode>
