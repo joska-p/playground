@@ -1,7 +1,11 @@
-import { RaduMachineLearning } from './components/RaduMachineLearning.tsx';
+import { SketchPad } from './components/sketchpad/SketchPad';
 
 function App() {
-  return <RaduMachineLearning />;
+  return (
+    <div className="bg-background text-foreground h-dvh">
+      <SketchPad />
+    </div>
+  );
 }
 
 export { App };
