@@ -1,5 +1,9 @@
 # @repo/radu-machine-learning
 
+Machine Learning Course Contents: https://github.com/gniziemazity/ml-course
+
+Course Link: https://www.youtube.com/playlist?list=PLB0Tybl0UNfYe9aJXfWw-Dw_4VnFrqRC4
+
 > Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration.
 
 ## Quick Start
@@ -9,7 +13,7 @@ pnpm add @repo/radu-machine-learning
 ```
 
 ```tsx
-import { RaduMachineLearning } from "@repo/radu-machine-learning";
+import { RaduMachineLearning } from '@repo/radu-machine-learning';
 
 export default function App() {
   return <RaduMachineLearning />;
@@ -32,12 +36,12 @@ The package reads hand-drawn stroke data from a bundled JSON file. Each stroke i
 ## Data Model
 
 ```typescript
-type Paths = number[][][];  // Array of strokes, each is an array of [x, y] points
+type Paths = number[][][]; // Array of strokes, each is an array of [x, y] points
 
 type SessionData = {
   session: number;
   student: string;
-  drawings: Record<string, Paths>;  // label → stroke data
+  drawings: Record<string, Paths>; // label → stroke data
 };
 ```
 
@@ -54,10 +58,10 @@ All drawings are scaled uniformly to preserve aspect ratio.
 
 ## Exports
 
-| Export | Path | Description |
-|---|---|---|
+| Export                | Path                                              | Description    |
+| --------------------- | ------------------------------------------------- | -------------- |
 | `RaduMachineLearning` | `@repo/radu-machine-learning/RaduMachineLearning` | Root component |
-| `./styles` | `@repo/radu-machine-learning/styles` | Component CSS |
+| `./styles`            | `@repo/radu-machine-learning/styles`              | Component CSS  |
 
 ## State Management
 
