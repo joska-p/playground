@@ -38,19 +38,20 @@ main.tsx
           │   ├─ constants.ts            ← defaults (size, gap, rotations)
           │   ├─ cssVars.ts              ← CSS custom property names
           │   ├─ initialPalette.ts       ← grayscale fallback
-          │   ├─ actions.ts              ← store mutations
-          │   └─ selectors.ts            ← reactive store reads
+          │   └─ stores/mosaic/
+          │       ├─ actions.ts          ← store mutations
+          │       └─ selectors.ts        ← reactive store reads
           └─ controls/
               ├─ Controls.tsx            ← orchestrator
               ├─ SliderControls.tsx       ← tile size / gap sliders
               ├─ PaletteControls.tsx      ← palette picker grid
               └─ TileSetControls.tsx      ← checkbox grid of tile types
 
-store/
+stores/mosaic/
   ├─ store.ts        ← Zustand store (unexported)
   ├─ types.ts        ← MosaicState, TileInstance
   ├─ actions.ts      ← all state mutations
-  └─ selectors.ts    ← reactive hooks
+  └─ selectors.ts    ← reactive hooks (drop domain prefix)
 
 utils/
   ├─ updateElementStyles.ts   ← batch-set CSS vars on HTMLElement
@@ -63,6 +64,7 @@ core/
   ├─ constants.ts          ← DEFAULT_TILE_SIZE (64), DEFAULT_GAP_SIZE (0), rotations
   ├─ cssVars.ts            ← CSS_VARS map { size, gap }
   ├─ TILE_REGISTRY.ts      ← 8 tile definitions (shapes with colorIndex)
+  ├─ palette.schema.ts     ← Palette Zod schema + inferred type
   ├─ initialPalette.ts     ← grayscale fallback
   └─ initialTileSet.ts     ← ordered list of all 8 tile names
 ```
@@ -73,7 +75,7 @@ When `MosaicDisplay` mounts, two independent effects fire.
 
 ### 1. Palette fetch (one-shot)
 
-`initMosaicPalettes()` checks localStorage cache (`"palettes"`, v2, 7-day TTL).
+`initPalettes()` checks localStorage cache (`"palettes"`, v2, 7-day TTL).
 On miss: fetches `unpkg.com/nice-color-palettes@3.0.0/1000.json` → Zod validates
 → transforms to `--color-N` CSS var map → caches → sets store.
 On hit: returns cached.
@@ -82,13 +84,13 @@ The UI renders immediately with a grayscale fallback; the palette swap happens a
 ### 2. Resize + tile generation (continuous)
 
 `useResizeObserver` binds a `ResizeObserver` to the mosaic `<div>`.
-Dimension changes pass through a 150ms debounce, then call `setMosaicRef()`
-which persists the ref and triggers `regenerateMosaicTiles()`.
+Dimension changes pass through a 150ms debounce, then call `setRef()`
+which persists the ref and triggers `regenerateTiles()`.
 
 ```
 dimensions change
   → 150 ms debounce
-    → setMosaicRef(ref)
+    → setRef(ref)
       → computeInitialTiles(element, tileSet)
         ├─ computeNumberOfTiles()   ← CSS grid math
         └─ Array.from({length: N}) → TileInstance[]
@@ -96,7 +98,7 @@ dimensions change
 
 ### What triggers regeneration
 
-| Trigger | Fires `regenerateMosaicTiles`? |
+| Trigger | Fires `regenerateTiles`? |
 |---|---|
 | Window / container resize | Yes (debounced 150 ms) |
 | Tile set checkbox toggle | Yes |
@@ -177,7 +179,7 @@ type Palette = {
 
 ### Cycling
 
-`cycleMosaicPalettes()` slides a window of 33 over `paletteStock`.
+`cyclePalettes()` slides a window of 33 over `paletteStock`.
 When it reaches the end it wraps to 0.
 
 ## State Management
@@ -197,8 +199,7 @@ type MosaicState = {
 };
 ```
 
-Fine-grained Zustand selectors (`useMosaicTiles`, etc.) isolate re-renders —
-sidebar controls don't repaint on tile regeneration and vice versa.
+Fine-grained Zustand selectors (`useTiles`, `useCurrentPalette`, etc.) isolate re-renders — sidebar controls don't repaint on tile regeneration and vice versa.
 
 ## CSS Strategy
 
@@ -229,8 +230,8 @@ SVG shapes use `transition-all duration-500` for smooth cross-fades.
 
 ## Patterns & Gotchas
 
-- **`setMosaicRef` doubles as regeneration trigger** — persists the ref **and**
-  calls `regenerateMosaicTiles()` internally.
+- **`setRef` doubles as regeneration trigger** — persists the ref **and**
+  calls `regenerateTiles()` internally.
 - **`shuffleObject`** preserves insertion order of keys but shuffles values.
   Used for both color and rotation shuffling.
 - **`getPaletteId`** sorts hex values alphabetically and joins with `-` for

@@ -46,4 +46,12 @@ type CAStoreActions = {
 
 type CAStore = CAState & CAStoreActions;
 
-export type { CAStore, CAStoreActions, CAStoreInit, CAState, SimSlice, ToolMode, UISlice };
+export type {
+  CAStore,
+  CAStoreActions,
+  CAStoreInit,
+  CAState,
+  SimSlice,
+  ToolMode,
+  UISlice,
+};

@@ -34,13 +34,21 @@ function GridLines({ cols, rows }: { cols: number; rows: number }) {
       vertices.push(0, j, 0.01, cols, j, 0.01);
     }
     const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute(
+      'position',
+      new THREE.Float32BufferAttribute(vertices, 3)
+    );
     return geometry;
   }, [cols, rows]);
 
   return (
     <lineSegments geometry={geo}>
-      <lineBasicMaterial color="white" transparent opacity={0.15} depthWrite={false} />
+      <lineBasicMaterial
+        color="white"
+        transparent
+        opacity={0.15}
+        depthWrite={false}
+      />
     </lineSegments>
   );
 }
@@ -214,7 +222,12 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
           fragmentShader={fragmentShader}
         />
       </mesh>
-      {showDebug && <GridLines cols={cols} rows={rows} />}
+      {showDebug && (
+        <GridLines
+          cols={cols}
+          rows={rows}
+        />
+      )}
     </>
   );
 }

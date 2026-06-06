@@ -40,10 +40,9 @@ const createCAStore = (opts: CAStoreInit) => {
       fillRandom(grid, opts.initialDensity, opts.seed);
       set({ generation: 0 });
 
-      worker = new Worker(
-        new URL('../../engine/worker.ts', import.meta.url),
-        { type: 'module' },
-      );
+      worker = new Worker(new URL('../../engine/worker.ts', import.meta.url), {
+        type: 'module',
+      });
 
       worker.onmessage = (e: MessageEvent<StepResponse>) => {
         if (e.data.type !== 'step') return;
@@ -76,7 +75,7 @@ const createCAStore = (opts: CAStoreInit) => {
           cols: state.cols,
           rows: state.rows,
         } satisfies StepRequest,
-        [state.grid.buffer],
+        [state.grid.buffer]
       );
     },
 

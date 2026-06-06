@@ -12,6 +12,7 @@ const REF_DIR = path.join(
 );
 
 const PACKAGE_NAMES = {
+  automa: 'automa',
   'mosaic-maker': 'Mosaic Maker',
   'sequence-renderer': 'Sequence Renderer',
   'image-manipulator': 'Image Manipulator',

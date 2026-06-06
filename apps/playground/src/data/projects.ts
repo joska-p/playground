@@ -1,6 +1,6 @@
 import type { IconName } from '@repo/ui/icons';
 
-export type Category = 'generative' | 'color' | 'image' | 'data-viz' | 'random';
+export type Category = 'generative' | 'color' | 'image' | 'data-viz' | 'random' | 'simulation';
 
 export const CATEGORIES = {
   generative: {
@@ -27,6 +27,11 @@ export const CATEGORIES = {
     name: 'Random & Misc',
     description:
       "A collection of miscellaneous projects that don't fit into other categories but are fun and interesting.",
+  },
+  simulation: {
+    name: 'Simulation',
+    description:
+      'Cellular automata, particle systems, and process simulations that model emergent behavior from simple rules.',
   },
 } as const;
 
@@ -128,6 +133,16 @@ export const projects: Record<string, Project> = {
     tags: ['Threejs', '3D', 'WebGL'],
     icon: 'box',
     featured: false,
+  },
+  automa: {
+    slug: 'automa',
+    name: 'Automa',
+    description:
+      'Interactive Conway\'s Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.',
+    category: 'simulation',
+    tags: ['Three.js', 'Simulation', 'WebGL'],
+    icon: 'sparkles',
+    featured: true,
   },
 };
 

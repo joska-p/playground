@@ -158,6 +158,9 @@ importers:
       '@astrojs/react':
         specifier: ^5.0.5
         version: 5.0.6(@types/node@24.12.4)(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(jiti@2.7.0)(lightningcss@1.32.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(yaml@2.9.0)
+      '@repo/automa':
+        specifier: workspace:*
+        version: link:../../packages/automa
       '@repo/graph-viz':
         specifier: workspace:*
         version: link:../../packages/graph-viz

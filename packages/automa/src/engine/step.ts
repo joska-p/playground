@@ -4,7 +4,7 @@ const stepConway = (
   current: Grid,
   next: Grid,
   cols: number,
-  rows: number,
+  rows: number
 ): void => {
   for (let index = 0; index < current.length; index++) {
     const row = (index / cols) | 0;
@@ -27,8 +27,13 @@ const stepConway = (
 
     const alive = current[index] === 1;
 
-    next[index] =
-      alive ? (neighbors === 2 || neighbors === 3 ? 1 : 0) : neighbors === 3 ? 1 : 0;
+    next[index] = alive
+      ? neighbors === 2 || neighbors === 3
+        ? 1
+        : 0
+      : neighbors === 3
+        ? 1
+        : 0;
   }
 };
 

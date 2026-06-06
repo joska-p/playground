@@ -63,6 +63,7 @@
     --category-image: var(--utility-3);
     --category-data-viz: var(--utility-4);
     --category-random: var(--utility-5);
+    --category-simulation: var(--utility-6);
 
     --category-tutorial: var(--utility-5);
     --category-how-to: var(--utility-6);
@@ -114,6 +115,7 @@
     --category-image: var(--utility-3);
     --category-data-viz: var(--utility-4);
     --category-random: var(--utility-5);
+    --category-simulation: var(--utility-6);
 
     --category-tutorial: var(--utility-5);
     --category-how-to: var(--utility-6);

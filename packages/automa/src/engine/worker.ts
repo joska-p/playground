@@ -27,7 +27,7 @@ self.onmessage = (e: MessageEvent<StepRequest>) => {
 
   (self as unknown as Worker).postMessage(
     { type: 'step', grid: scratch } satisfies StepResponse,
-    { transfer: [scratch.buffer] },
+    { transfer: [scratch.buffer] }
   );
 
   scratch = null;

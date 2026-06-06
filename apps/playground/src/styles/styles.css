@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-@import "@repo/ui/gruvbox-theme";
+@import '@repo/ui/gruvbox-theme';
 /* @import "@repo/ui/blade-runner-theme"; */
 /* @import "@repo/ui/candy-coated-theme"; */
 /* @import "@repo/ui/pale-asylum-theme"; */
@@ -16,6 +16,7 @@
 @source "../../node_modules/@repo/image-manipulator";
 @source "../../node_modules/@repo/image-pipeline";
 @source "../../node_modules/@repo/three-stage";
+@source "../../node_modules/@repo/automa";
 
 @view-transition {
   navigation: auto;
@@ -27,7 +28,11 @@
 
 @layer components {
   .dot-grid {
-    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-image: radial-gradient(
+      circle,
+      var(--border) 1px,
+      transparent 1px
+    );
     background-size: 28px 28px;
     opacity: 0.5;
   }
