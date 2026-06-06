@@ -43,6 +43,11 @@ fileNames.forEach((fileName) => {
 
 fs.writeFileSync(CONSTANTS.SAMPLE, JSON.stringify(samples));
 
+fs.writeFileSync(
+  CONSTANTS.SAMPLES_TS,
+  `export const samples = ${JSON.stringify(samples)} as const;`
+);
+
 function generateImageFile(outFile: string, paths: Paths) {
   const canvas = createCanvas(400, 400);
   const ctx = canvas.getContext('2d');
