@@ -1,10 +1,10 @@
 {
-  "name": "@repo/three-stage",
+  "name": "@repo/automa",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./Scene": "./src/components/scene/Scene.tsx",
+    "./Demo": "./src/components/Demo.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
@@ -14,18 +14,18 @@
     "lint-fix": "eslint . --fix",
     "format": "prettier --write .",
     "preview": "vite preview --host",
-    "check-types": "tsc --noEmit",
-    "clean": "rm -rf node_modules dist .turbo"
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
-    "@repo/ui": "workspace:*",
     "@types/three": "catalog:",
     "leva": "catalog:",
     "three": "catalog:",
+    "@repo/ui": "workspace:*",
     "zod": "catalog:",
-    "zustand": "catalog:"
+    "zustand": "catalog:",
+    "react-error-boundary": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
+    "eslint": "catalog:",
     "@repo/config-eslint": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
@@ -42,12 +43,11 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
-    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
