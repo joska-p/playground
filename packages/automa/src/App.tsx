@@ -12,7 +12,12 @@ type AppProps = {
 function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
   return (
     <div className="h-dvh w-full overflow-hidden bg-[#0f172a]">
-      <AutomatonProvider rows={rows} cols={cols} seed={seed} initialDensity={initialDensity}>
+      <AutomatonProvider
+        rows={rows}
+        cols={cols}
+        seed={seed}
+        initialDensity={initialDensity}
+      >
         <div className="relative h-full w-full">
           <AutomatonCanvas className="h-full w-full" />
           <Controls className="absolute left-2 top-2 z-10" />

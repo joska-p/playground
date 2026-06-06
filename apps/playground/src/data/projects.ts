@@ -1,6 +1,12 @@
 import type { IconName } from '@repo/ui/icons';
 
-export type Category = 'generative' | 'color' | 'image' | 'data-viz' | 'random' | 'simulation';
+export type Category =
+  | 'generative'
+  | 'color'
+  | 'image'
+  | 'data-viz'
+  | 'random'
+  | 'simulation';
 
 export const CATEGORIES = {
   generative: {
@@ -138,7 +144,7 @@ export const projects: Record<string, Project> = {
     slug: 'automa',
     name: 'Automa',
     description:
-      'Interactive Conway\'s Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.',
+      "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.",
     category: 'simulation',
     tags: ['Three.js', 'Simulation', 'WebGL'],
     icon: 'sparkles',
