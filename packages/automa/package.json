@@ -3,8 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "exports": {
-    "./Demo": "./src/components/Demo.tsx",
+    ".": "./src/index.ts",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
