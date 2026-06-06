@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useCAStore } from '../stores/automaton/context.ts';
+import { useShowDebug } from '../stores/automaton/selectors.ts';
 
 const vertexShader = `
 varying vec2 vUv;
@@ -23,6 +24,27 @@ void main() {
 }
 `;
 
+function GridLines({ cols, rows }: { cols: number; rows: number }) {
+  const geo = useMemo(() => {
+    const vertices: number[] = [];
+    for (let i = 0; i <= cols; i++) {
+      vertices.push(i, 0, 0.01, i, rows, 0.01);
+    }
+    for (let j = 0; j <= rows; j++) {
+      vertices.push(0, j, 0.01, cols, j, 0.01);
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    return geometry;
+  }, [cols, rows]);
+
+  return (
+    <lineSegments geometry={geo}>
+      <lineBasicMaterial color="white" transparent opacity={0.15} depthWrite={false} />
+    </lineSegments>
+  );
+}
+
 type SceneProps = {
   aliveColor: string;
   deadColor: string;
@@ -31,6 +53,7 @@ type SceneProps = {
 function Scene({ aliveColor, deadColor }: SceneProps) {
   const store = useCAStore();
   const { camera } = useThree();
+  const showDebug = useShowDebug();
   const meshRef = useRef<THREE.Mesh>(null);
   const lastGeneration = useRef(-1);
   const isPointerDown = useRef(false);
@@ -191,6 +214,7 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
           fragmentShader={fragmentShader}
         />
       </mesh>
+      {showDebug && <GridLines cols={cols} rows={rows} />}
     </>
   );
 }
