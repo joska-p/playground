@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { generateSVG } from './generate-svg.ts';
-import { drawPaths } from './draw-paths.ts';
-import type { Paths } from './draw-paths.ts';
 import { CONSTANTS } from './constants.ts';
 import { printProgress } from './utils.ts';
 
