@@ -10,7 +10,7 @@
     "lint-fix": "eslint . --fix",
     "format": "prettier --write .",
     "check-types": "tsc --noEmit",
-    "clean": "rm -rf storybook-static dist .turbo"
+    "clean": "rm -rf node_modules storybook-static dist .turbo"
   },
   "dependencies": {
     "react": "^19.2.6",

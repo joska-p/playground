@@ -1,7 +1,5 @@
-import type { Paths } from './draw-paths.ts';
-
 type SVGProps = {
-  paths: Paths;
+  paths: [number, number][][];
   width?: number;
   height?: number;
   lineWidth?: number;
@@ -13,7 +11,7 @@ function generateSVG({
   width = 400,
   height = 400,
   lineWidth = 2,
-  color = 'currentColor',
+  color = '#777777',
 }: SVGProps): string {
   // Use <polyline> for multi-point paths or construct a single 'd' path string
   const shapes = paths

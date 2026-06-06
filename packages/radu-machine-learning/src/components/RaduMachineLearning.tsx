@@ -1,9 +1,9 @@
-import { DisplayGroups } from './DisplayGroups';
+import { DisplaySamples } from './DisplaySamples';
 
 function RaduMachineLearning() {
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <DisplayGroups />
+      <DisplaySamples />
     </div>
   );
 }

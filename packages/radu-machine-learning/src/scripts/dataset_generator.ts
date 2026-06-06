@@ -7,8 +7,21 @@ import { printProgress } from './utils.ts';
 fs.mkdirSync(CONSTANTS.JSON_DIR, { recursive: true });
 fs.mkdirSync(CONSTANTS.IMG_DIR, { recursive: true });
 
+type Drawing = {
+  id: number;
+  label: string;
+  paths: [number, number][][];
+};
+
+type Samples = {
+  student_id: string;
+  student_name: string;
+  drawings: Drawing[];
+};
+
 const fileNames = fs.readdirSync(CONSTANTS.RAW_DIR);
-const samples = [];
+
+const samplesMap: Record<string, Samples> = {};
 let id = 1;
 
 fileNames.forEach((fileName) => {
@@ -18,15 +31,24 @@ fileNames.forEach((fileName) => {
   );
   const { session, student, drawings } = JSON.parse(fileContent);
 
+  if (!samplesMap[session]) {
+    samplesMap[session] = {
+      student_id: String(session),
+      student_name: student,
+      drawings: [],
+    };
+  }
+
   for (const label in drawings) {
-    samples.push({
+    const paths = drawings[label];
+
+    // Push the sample directly into that specific student's sample array
+    samplesMap[session].drawings.push({
       id,
       label,
-      student_name: student,
-      student_id: session,
+      paths,
     });
 
-    const paths = drawings[label];
     fs.writeFileSync(
       path.join(CONSTANTS.JSON_DIR, `${id}.json`),
       JSON.stringify(paths)
@@ -41,9 +63,14 @@ fileNames.forEach((fileName) => {
   }
 });
 
-fs.writeFileSync(CONSTANTS.SAMPLE, JSON.stringify(samples));
+// Convert the map back into a clean array of students for easy rendering
+const samplesArray = Object.values(samplesMap);
 
+// Save the raw JSON data if needed
+fs.writeFileSync(CONSTANTS.SAMPLE, JSON.stringify(samplesArray));
+
+// 2. Write the perfectly pre-grouped data directly to your TS file!
 fs.writeFileSync(
   CONSTANTS.SAMPLES_TS,
-  `export const samples = ${JSON.stringify(samples)} as const;`
+  `export const samples = ${JSON.stringify(samplesArray)} as const;`
 );

@@ -21,7 +21,7 @@
     "preview": "vite preview --host",
     "check-types": "tsc --noEmit",
     "test": "vitest run",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",

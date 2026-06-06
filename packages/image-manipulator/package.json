@@ -15,7 +15,7 @@
     "format": "prettier --write .",
     "preview": "vite preview --host",
     "check-types": "tsc --noEmit",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {
     "@repo/image-pipeline": "workspace:*",
