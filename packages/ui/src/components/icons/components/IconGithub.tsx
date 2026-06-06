@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconGithub = createIcon('github', {
+export const IconGithub = createIcon({
+  name: 'github',
   viewBox: '0 0 19 19',
   children: (
     <path

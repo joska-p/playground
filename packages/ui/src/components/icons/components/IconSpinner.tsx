@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconSpinner = createIcon('spinner', {
+export const IconSpinner = createIcon({
+  name: 'spinner',
   children: (
     <>
       <circle

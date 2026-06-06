@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconHamburger = createIcon('hamburger', {
+export const IconHamburger = createIcon({
+  name: 'hamburger',
   children: (
     <>
       <line

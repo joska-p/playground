@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconGrid = createIcon('grid', {
+export const IconGrid = createIcon({
+  name: 'grid',
   children: (
     <>
       <rect

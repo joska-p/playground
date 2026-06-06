@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconArrowDiagonal = createIcon('arrow-diagonal', {
+export const IconArrowDiagonal = createIcon({
+  name: 'arrow-diagonal',
   children: (
     <>
       <path d="M7 7h10v10" />

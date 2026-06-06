@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconClose = createIcon('close', {
+export const IconClose = createIcon({
+  name: 'close',
   children: (
     <>
       <path d="M18 6 6 18" />

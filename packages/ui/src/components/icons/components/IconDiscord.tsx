@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconDiscord = createIcon('discord', {
+export const IconDiscord = createIcon({
+  name: 'discord',
   viewBox: '0 0 20 19',
   children: (
     <path

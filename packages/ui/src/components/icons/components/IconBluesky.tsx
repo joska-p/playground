@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconBluesky = createIcon('bluesky', {
+export const IconBluesky = createIcon({
+  name: 'bluesky',
   viewBox: '0 0 16 17',
   children: (
     <g clipPath="url(#bluesky-clip)">

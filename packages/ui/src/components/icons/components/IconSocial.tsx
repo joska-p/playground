@@ -1,6 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconSocial = createIcon('social', {
+export const IconSocial = createIcon({
+  name: 'social',
   viewBox: '0 0 20 20',
   children: (
     <>
