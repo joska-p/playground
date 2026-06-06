@@ -1,14 +1,15 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { IconHome } from "@repo/ui/icons/Home";
-import { IconSparkles } from "@repo/ui/icons/Sparkles";
-import Footer from "../layouts/Footer.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from '@repo/ui/Icon';
+import Footer from '../layouts/Footer.astro';
 
-const baseUrl = import.meta.env.BASE_URL || "/";
+const baseUrl = import.meta.env.BASE_URL || '/';
 ---
 
 <BaseLayout title="404 — Not Found">
-  <div class="relative flex flex-1 items-center justify-center overflow-hidden px-6 py-24">
+  <div
+    class="relative flex flex-1 items-center justify-center overflow-hidden px-6 py-24"
+  >
     <!-- Grid bg -->
     <div
       class="absolute inset-0 z-0 opacity-10"
@@ -45,9 +46,11 @@ const baseUrl = import.meta.env.BASE_URL || "/";
         Page not found
       </h1>
 
-      <p class="text-muted-foreground mx-auto mb-10 max-w-sm text-sm leading-relaxed">
-        You've ventured into the void. This page doesn't exist — perhaps it was lost in the
-        multiverse, or maybe it never was.
+      <p
+        class="text-muted-foreground mx-auto mb-10 max-w-sm text-sm leading-relaxed"
+      >
+        You've ventured into the void. This page doesn't exist — perhaps it was
+        lost in the multiverse, or maybe it never was.
       </p>
 
       <!-- Actions -->
@@ -56,14 +59,20 @@ const baseUrl = import.meta.env.BASE_URL || "/";
           href={`${baseUrl}/`}
           class="bg-primary text-primary-foreground inline-flex h-10 items-center gap-2 rounded-md px-6 text-xs font-bold tracking-widest uppercase transition-all hover:-translate-y-px hover:opacity-90 active:translate-y-0"
         >
-          <IconHome className="h-3.5 w-3.5" />
+          <Icon
+            name="home"
+            className="h-3.5 w-3.5"
+          />
           Go Home
         </a>
         <a
           href={`${baseUrl}projects/`}
           class="border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-foreground inline-flex h-10 items-center gap-2 rounded-md border px-6 text-xs font-bold tracking-widest uppercase transition-all active:scale-95"
         >
-          <IconSparkles className="h-3.5 w-3.5" />
+          <Icon
+            name="sparkles"
+            className="h-3.5 w-3.5"
+          />
           Explore
         </a>
       </div>

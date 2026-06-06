@@ -1,8 +1,8 @@
 ---
-import DocCard from "../cards/DocCard.astro";
-import SectionHeader from "../features/SectionHeader.astro";
-import { IconArrowRight } from "@repo/ui/icons/ArrowRight";
-import { getFeaturedDocs, docsBaseUrl } from "../../../data/docs";
+import DocCard from '../cards/DocCard.astro';
+import SectionHeader from '../features/SectionHeader.astro';
+import { Icon } from '@repo/ui/Icon';
+import { getFeaturedDocs, docsBaseUrl } from '../../../data/docs';
 
 const featuredDocs = await getFeaturedDocs();
 ---
@@ -19,7 +19,7 @@ const featuredDocs = await getFeaturedDocs();
   {
     featuredDocs.map((doc) => {
       const docUrl = `${docsBaseUrl}${doc.id}/`;
-      const categoryId = doc.data.category || "explanation";
+      const categoryId = doc.data.category || 'explanation';
       return (
         <DocCard
           href={docUrl}
@@ -38,6 +38,10 @@ const featuredDocs = await getFeaturedDocs();
     class="group text-primary/60 hover:text-primary inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors"
   >
     Browse all docs
-    <IconArrowRight className="transition-transform group-hover:translate-x-0.5" size={11} />
+    <Icon
+      name="arrow-right"
+      className="transition-transform group-hover:translate-x-0.5"
+      size={11}
+    />
   </a>
 </div>
