@@ -89,10 +89,10 @@ export function SketchPad() {
         <canvas
           ref={canvasRef}
           className="cursor-crosshair w-full"
-          onMouseDown={startDrawing}
-          onMouseMove={draw}
+          onPointerDown={startDrawing}
+          onPointerMove={draw}
           onMouseUp={stopDrawing}
-          onMouseLeave={stopDrawing}
+          onPointerUp={stopDrawing}
         />
       </Card>
       <div className="flex gap-2">
