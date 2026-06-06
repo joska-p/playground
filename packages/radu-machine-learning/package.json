@@ -15,11 +15,13 @@
     "format": "prettier --write .",
     "preview": "vite preview --host",
     "check-types": "tsc --noEmit",
-    "process-data": "npx tsx _dev/scripts/processData.ts",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf dist .turbo",
+    "process-data": "pnpm exec node ./src/scripts/processData.ts",
+    "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "canvas": "^3.2.3",
     "zod": "catalog:",
     "zustand": "catalog:"
   },
@@ -29,7 +31,6 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "eslint": "catalog:",
     "@repo/config-eslint": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
@@ -39,11 +40,12 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
+    "eslint": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"

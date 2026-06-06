@@ -2,7 +2,7 @@ packages:
   - 'apps/*'
   - 'packages/*'
 allowBuilds:
-  canvas: set this to true or false
+  canvas: true
   esbuild: true
   sharp: true
   unrs-resolver: true
