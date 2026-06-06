@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
-import { IconSpinner } from '../icon/IconSpinner';
+import { IconSpinner } from '../icons/components/IconSpinner';
 import { inputVariants } from './inputVariants';
 
 type InputProps = {

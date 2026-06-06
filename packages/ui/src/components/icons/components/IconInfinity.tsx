@@ -1,4 +1,4 @@
-import { createIcon } from './lib';
+import { createIcon } from '../lib';
 
 export const IconInfinity = createIcon('infinity', {
   children: (

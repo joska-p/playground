@@ -1,5 +1,5 @@
 ---
-import { iconMap } from '@repo/ui/iconMap';
+import { Icon } from '@repo/ui/icons';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/ui/features/Hero.astro';
 import DocCard from '../../components/ui/cards/DocCard.astro';
@@ -20,8 +20,6 @@ const docsByCategory = await getDocsByCategory();
     <div class="space-y-16">
       {
         docsByCategory.map((category) => {
-          const CatIcon = iconMap[category.icon as keyof typeof iconMap];
-
           return (
             <section
               id={category.id}
@@ -34,7 +32,10 @@ const docsByCategory = await getDocsByCategory();
                     color: `var(--category-${category.id}, var(--primary))`,
                   }}
                 >
-                  <CatIcon className="h-3.5 w-3.5" />
+                  <Icon
+                    name={category.iconName}
+                    className="h-3.5 w-3.5"
+                  />
                 </span>
                 <div>
                   <div class="mb-1 flex items-center gap-3">

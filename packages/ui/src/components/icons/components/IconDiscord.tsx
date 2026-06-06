@@ -1,4 +1,4 @@
-import { createIcon } from './lib';
+import { createIcon } from '../lib';
 
 export const IconDiscord = createIcon('discord', {
   viewBox: '0 0 20 19',

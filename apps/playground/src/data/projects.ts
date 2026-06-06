@@ -1,13 +1,7 @@
-import type { IconName } from '@repo/ui/iconMap';
+import type { IconName } from '@repo/ui/icons';
 
-/**
- * Project categories
- */
 export type Category = 'generative' | 'color' | 'image' | 'data-viz' | 'random';
 
-/**
- * Category metadata
- */
 export const CATEGORIES = {
   generative: {
     name: 'Generative Art',
@@ -46,9 +40,6 @@ export type Project = {
   featured: boolean;
 };
 
-/**
- * All projects - icons referenced by name
- */
 export const projects: Record<string, Project> = {
   mosaic: {
     slug: 'mosaic',

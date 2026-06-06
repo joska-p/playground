@@ -1,4 +1,4 @@
-import { createIcon } from './lib';
+import { createIcon } from '../lib';
 
 export const IconDocumentation = createIcon('documentation', {
   viewBox: '0 0 21 20',

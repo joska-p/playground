@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { cn } from '../../utils/cn';
-import { IconSpinner } from '../icon/IconSpinner';
+import { IconSpinner } from '../icons/components/IconSpinner';
 import { buttonVariants } from './buttonVariants';
 
 type ButtonProps = {

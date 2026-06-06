@@ -1,4 +1,4 @@
-import { createIcon } from './lib';
+import { createIcon } from '../lib';
 
 export const IconGrid3x3 = createIcon('grid-3x3', {
   children: (

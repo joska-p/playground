@@ -1,10 +1,9 @@
 ---
-import { iconMap } from "@repo/ui/iconMap";
+import { Icon, type IconName } from "@repo/ui/icons";
 import { IconArrowRight } from "@repo/ui/icons/ArrowRight";
-import type { IconName } from "@repo/ui/iconMap";
 
 type Props = {
-  icon?: IconName;
+  iconName?: IconName;
   title: string;
   description?: string;
   href?: string;
@@ -12,8 +11,7 @@ type Props = {
   className?: string;
 };
 
-const { icon, title, description, href, align = "left", className = "mb-8" } = Astro.props;
-const Icon = icon ? iconMap[icon] : undefined;
+const { iconName, title, description, href, align = "left", className = "mb-8" } = Astro.props;
 const isCenter = align === "center";
 ---
 
@@ -22,9 +20,9 @@ const isCenter = align === "center";
 >
   <div class:list={["flex items-center gap-3", isCenter && "justify-center"]}>
     {
-      Icon && (
+      iconName && (
         <span class="border-primary/30 bg-primary/10 text-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-md border">
-          <Icon className="h-3.5 w-3.5" />
+          <Icon name={iconName} className="h-3.5 w-3.5" />
         </span>
       )
     }
@@ -40,7 +38,7 @@ const isCenter = align === "center";
         class:list={[
           "text-muted-foreground max-w-xl text-sm leading-relaxed",
           isCenter && "text-center",
-          Icon ? "ml-10" : "",
+          iconName ? "ml-10" : "",
         ]}
       >
         {description}
@@ -54,7 +52,7 @@ const isCenter = align === "center";
         href={href}
         class:list={[
           "group text-primary/60 hover:text-primary mt-1 inline-flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase transition-colors",
-          Icon ? "ml-10" : "",
+          iconName ? "ml-10" : "",
         ]}
       >
         <slot name="link-text">View all</slot>

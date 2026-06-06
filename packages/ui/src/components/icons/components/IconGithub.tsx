@@ -1,4 +1,4 @@
-import { createIcon } from './lib';
+import { createIcon } from '../lib';
 
 export const IconGithub = createIcon('github', {
   viewBox: '0 0 19 19',

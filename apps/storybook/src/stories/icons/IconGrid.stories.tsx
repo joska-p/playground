@@ -1,5 +1,4 @@
-import { iconMap } from '@repo/ui/iconMap';
-import type { IconName, IconProps } from '@repo/ui/icons';
+import { iconMap, type IconName, type IconProps } from '@repo/ui/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const icons = Object.keys(iconMap) as IconName[];

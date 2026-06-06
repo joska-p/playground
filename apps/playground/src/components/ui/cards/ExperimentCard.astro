@@ -1,14 +1,13 @@
 ---
-import { iconMap } from "@repo/ui/iconMap";
+import { Icon, type IconName } from "@repo/ui/icons";
 import type { Category } from "../../../data/projects";
-import type { IconName } from "@repo/ui/iconMap";
 import BaseCard from "./BaseCard.astro";
 
 type Props = {
   href: string;
   title: string;
   description?: string;
-  icon: IconName;
+  iconName: IconName;
   category?: Category;
   tags?: string[];
   className?: string;
@@ -18,13 +17,13 @@ const {
   href,
   title,
   description,
-  icon,
+  iconName,
   category = "generative",
   tags = [],
   className,
 } = Astro.props;
 
-const Icon = iconMap[icon];
+
 const accentColor = `var(--category-${category}, var(--color-primary))`;
 ---
 
@@ -38,7 +37,7 @@ const accentColor = `var(--category-${category}, var(--color-primary))`;
     <div
       class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[color-mix(in_srgb,var(--card-accent)_30%,transparent)] bg-[color-mix(in_srgb,var(--card-accent)_9%,var(--color-card))] text-(--card-accent) transition-transform duration-200 group-hover:scale-[1.06]"
     >
-      <Icon className="h-4 w-4" />
+      <Icon name={iconName} className="h-4 w-4" />
     </div>
 
     <h3 class="text-card-foreground leading-snug font-semibold">

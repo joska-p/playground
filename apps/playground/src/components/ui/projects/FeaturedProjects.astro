@@ -9,7 +9,7 @@ const featuredProjects = getFeaturedProjects();
 ---
 
 <SectionHeader
-  icon="sparkles"
+  iconName="sparkles"
   title="Engines & Labs"
   description="Volatile experiments in high-interactivity canvas rendering."
   href="https://jpotin.gitlab.io/playground/"
@@ -25,7 +25,7 @@ const featuredProjects = getFeaturedProjects();
         href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
         title={project.name}
         description={project.description}
-        icon={project.icon}
+        iconName={project.icon}
         category={project.category}
         tags={project.tags}
       />

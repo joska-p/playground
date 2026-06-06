@@ -1,38 +1,37 @@
+import type { IconName } from '@repo/ui/icons';
 import { getCollection } from 'astro:content';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 export const docsBaseUrl = `${baseUrl}docs/`;
 
+type CategoryMeta = {
+  label: string;
+  description: string;
+  iconName: IconName;
+};
+
 export const CATEGORY_METADATA = {
   tutorial: {
     label: 'Tutorials',
     description: 'Step-by-step guides.',
-    icon: 'book',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-50',
+    iconName: 'book',
   },
   'how-to': {
     label: 'How-To Guides',
     description: 'Practical recipes.',
-    icon: 'wrench',
-    color: 'text-amber-500',
-    bgColor: 'bg-amber-50',
+    iconName: 'wrench',
   },
   explanation: {
     label: 'Explanations',
     description: 'Deep dives.',
-    icon: 'lightbulb',
-    color: 'text-emerald-500',
-    bgColor: 'bg-emerald-50',
+    iconName: 'lightbulb',
   },
   reference: {
     label: 'Reference',
     description: 'Technical specs.',
-    icon: 'code',
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-50',
+    iconName: 'code',
   },
-} as const;
+} as const satisfies Record<string, CategoryMeta>;
 
 export type CategoryId = keyof typeof CATEGORY_METADATA;
 export const categoryIds = Object.keys(CATEGORY_METADATA) as [

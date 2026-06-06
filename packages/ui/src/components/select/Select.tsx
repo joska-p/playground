@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
-import { IconChevronDown } from '../icon/IconChevronDown';
+import { IconChevronDown } from '../icons/components/IconChevronDown';
 import { selectVariants } from './selectVariants';
 
 type SelectProps = {
