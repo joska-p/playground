@@ -17,14 +17,14 @@ function DisplayStudent({ samples }: DisplayStudentProps) {
           return (
             <div
               key={index}
-              className="flex flex-col group/col"
+              className="flex gap-2  flex-col group/col "
             >
               <label className="text-xs text-muted text-center group-hover/col:text-foreground">
                 {label}
               </label>
               <img
                 loading="lazy"
-                className="object-cover rounded"
+                className="object-cover p-2  border border-border/10 rounded bg-black/50"
                 src={`/img/${id}.png`}
                 alt={label}
               />
