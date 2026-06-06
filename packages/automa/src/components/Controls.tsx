@@ -1,12 +1,7 @@
 import { useStore } from 'zustand';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { cameraControlRef, useCAStore } from '../stores/automaton/context.ts';
-import {
-  useRunning,
-  useShowDebug,
-  useSpeedMs,
-  useToolMode,
-} from '../stores/automaton/selectors.ts';
+import { useCAStore } from '../stores/automaton/context.ts';
+import { useRunning, useShowDebug, useSpeedMs, useToolMode } from '../stores/automaton/selectors.ts';
 import type { ToolMode } from '../stores/automaton/types.ts';
 
 type ControlsProps = {
@@ -30,27 +25,18 @@ const Controls = ({ className }: ControlsProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const toggleRunning = useCallback(
-    () => store.getState().toggleRunning(),
-    [store]
-  );
+  const toggleRunning = useCallback(() => store.getState().toggleRunning(), [store]);
   const step = useCallback(() => {
     lastStepTime.current = performance.now();
     store.getState().step();
   }, [store]);
   const clear = useCallback(() => store.getState().clear(), [store]);
   const randomize = useCallback(() => store.getState().randomize(), [store]);
-  const setSpeed = useCallback(
-    (ms: number) => store.getState().setSpeed(ms),
-    [store]
-  );
-  const setToolMode = useCallback(
-    (mode: ToolMode) => store.getState().setToolMode(mode),
-    [store]
-  );
+  const setSpeed = useCallback((ms: number) => store.getState().setSpeed(ms), [store]);
+  const setToolMode = useCallback((mode: ToolMode) => store.getState().setToolMode(mode), [store]);
   const setShowDebug = useCallback(
     (v: boolean) => store.setState({ showDebug: v }),
-    [store]
+    [store],
   );
 
   const handleExport = useCallback(() => {
@@ -82,56 +68,8 @@ const Controls = ({ className }: ControlsProps) => {
       reader.readAsText(file);
       e.target.value = '';
     },
-    [store]
+    [store],
   );
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const cam = cameraControlRef.current;
-
-      switch (e.code) {
-        case 'Space':
-          e.preventDefault();
-          toggleRunning();
-          break;
-        case 'KeyN':
-          step();
-          break;
-        case 'KeyR':
-          randomize();
-          break;
-        case 'KeyC':
-          clear();
-          break;
-        case 'KeyD':
-          setShowDebug(!showDebug);
-          break;
-        case 'Equal':
-        case 'NumpadAdd':
-          cam?.zoomIn();
-          break;
-        case 'Minus':
-        case 'NumpadSubtract':
-          cam?.zoomOut();
-          break;
-        case 'ArrowUp':
-          cam?.pan(0, 1);
-          break;
-        case 'ArrowDown':
-          cam?.pan(0, -1);
-          break;
-        case 'ArrowLeft':
-          cam?.pan(-1, 0);
-          break;
-        case 'ArrowRight':
-          cam?.pan(1, 0);
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleRunning, step, randomize, clear, showDebug, setShowDebug]);
 
   useEffect(() => {
     const unsub = store.subscribe((state, prev) => {
@@ -283,9 +221,7 @@ const Controls = ({ className }: ControlsProps) => {
       {showDebug && (
         <div className="mt-2 w-fit rounded bg-black/70 px-3 py-2 text-xs text-green-400 font-mono">
           <div>Generation: {generation}</div>
-          <div>
-            Grid: {cols}×{rows}
-          </div>
+          <div>Grid: {cols}×{rows}</div>
           <div>Step: {stepTime.toFixed(1)}ms</div>
           <div>Round-trip: {roundTripTime.toFixed(1)}ms</div>
           <div>Render: —</div>

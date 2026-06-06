@@ -1,7 +1,8 @@
+import { GizmoHelper, GizmoViewport, OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { cameraControlRef, useCAStore } from '../stores/automaton/context.ts';
+import { useCAStore } from '../stores/automaton/context.ts';
 
 const vertexShader = `
 varying vec2 vUv;
@@ -94,27 +95,6 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
     }
     cam.position.set(cols / 2, rows / 2, 10);
     cam.updateProjectionMatrix();
-
-    cameraControlRef.current = {
-      zoomIn: () => {
-        cam.zoom = Math.min(cam.zoom * 1.2, 20);
-        cam.updateProjectionMatrix();
-      },
-      zoomOut: () => {
-        cam.zoom = Math.max(cam.zoom / 1.2, 0.1);
-        cam.updateProjectionMatrix();
-      },
-      pan: (dx: number, dy: number) => {
-        const speed = 5 / cam.zoom;
-        cam.position.x += dx * speed;
-        cam.position.y += dy * speed;
-        cam.updateProjectionMatrix();
-      },
-    };
-
-    return () => {
-      cameraControlRef.current = null;
-    };
   }, [camera, cols, rows]);
 
   useEffect(() => {
@@ -149,7 +129,7 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
   });
 
   const paintAtPointer = useCallback(
-    (point: THREE.Vector3, shiftKey: boolean, button: number) => {
+    (point: THREE.Vector3, shiftKey: boolean) => {
       const state = store.getState();
       const col = Math.floor(point.x);
       const row = Math.floor(point.y);
@@ -159,7 +139,7 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
 
       const index = row * state.cols + col;
 
-      if (button === 2 || state.toolMode === 'erase') {
+      if (state.toolMode === 'erase') {
         state.paintCell(index, 0);
       } else {
         state.paintCell(index, 1);
@@ -169,29 +149,49 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
   );
 
   return (
-    <mesh
-      ref={meshRef}
-      onPointerDown={(e) => {
-        isPointerDown.current = true;
-        (e.target as HTMLElement).setPointerCapture(e.pointerId);
-        paintAtPointer(e.point, e.shiftKey, e.button);
-      }}
-      onPointerMove={(e) => {
-        if (!isPointerDown.current) return;
-        paintAtPointer(e.point, e.shiftKey, e.button);
-      }}
-      onPointerUp={() => {
-        isPointerDown.current = false;
-      }}
-      onContextMenu={(e) => e.nativeEvent.preventDefault()}
-    >
-      <planeGeometry args={[cols, rows]} />
-      <shaderMaterial
-        uniforms={uniforms}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+    <>
+      <OrbitControls
+        makeDefault
+        enableRotate={false}
+        target={[cols / 2, rows / 2, 0]}
+        mouseButtons={{
+          MIDDLE: THREE.MOUSE.PAN,
+        }}
       />
-    </mesh>
+      <GizmoHelper
+        alignment="bottom-left"
+        margin={[80, 80]}
+      >
+        <GizmoViewport />
+      </GizmoHelper>
+      <mesh
+        ref={meshRef}
+        position={[cols / 2, rows / 2, 0]}
+        onPointerDown={(e) => {
+          if (e.object !== meshRef.current) return;
+          if (e.button !== 0) return;
+          isPointerDown.current = true;
+          paintAtPointer(e.point, e.shiftKey);
+        }}
+        onPointerMove={(e) => {
+          if (!isPointerDown.current) return;
+          if (e.object !== meshRef.current) return;
+          if (e.buttons !== 1) return;
+          paintAtPointer(e.point, e.shiftKey);
+        }}
+        onPointerUp={() => {
+          isPointerDown.current = false;
+        }}
+        onContextMenu={(e) => e.nativeEvent.preventDefault()}
+      >
+        <planeGeometry args={[cols, rows]} />
+        <shaderMaterial
+          uniforms={uniforms}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+        />
+      </mesh>
+    </>
   );
 }
 
