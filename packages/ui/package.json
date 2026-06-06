@@ -63,7 +63,8 @@
     "lint-fix": "eslint . --fix",
     "format": "prettier --write .",
     "preview": "vite preview --host",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo"
   },
   "dependencies": {
     "class-variance-authority": "catalog:",

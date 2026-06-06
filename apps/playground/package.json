@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "format": "prettier --write .",
-    "check-types": "astro check"
+    "check-types": "astro check",
+    "clean": "rm -rf .astro dist .turbo"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

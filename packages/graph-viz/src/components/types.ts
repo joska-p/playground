@@ -52,7 +52,7 @@ export type GraphData = {
 };
 
 export type GraphVisualizationProps = {
-  data: GraphData;
+  data?: GraphData;
   width?: number;
   height?: number;
   maxNodes?: number;

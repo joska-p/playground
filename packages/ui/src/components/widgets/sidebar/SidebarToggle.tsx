@@ -24,7 +24,12 @@ export function SidebarToggle({
       aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
       {...props}
     >
-      {children ?? (isOpen ? <IconClose className="h-4 w-4" /> : <IconHamburger className="h-4 w-4" />)}
+      {children ??
+        (isOpen ? (
+          <IconClose className="h-4 w-4" />
+        ) : (
+          <IconHamburger className="h-4 w-4" />
+        ))}
     </Button>
   );
 }

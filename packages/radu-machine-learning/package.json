@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "preview": "vite preview --host",
     "check-types": "tsc --noEmit",
-    "process-data": "npx tsx _dev/scripts/processData.ts"
+    "process-data": "npx tsx _dev/scripts/processData.ts",
+    "clean": "rm -rf dist .turbo"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",

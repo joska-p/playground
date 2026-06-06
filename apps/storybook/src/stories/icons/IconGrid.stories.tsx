@@ -87,8 +87,13 @@ export const AllIcons: Story = {
                 key={v}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/50"
               >
-                <Icon size={18} variant={v} />
-                <span className="font-mono text-[10px] text-muted-foreground">{v}</span>
+                <Icon
+                  size={18}
+                  variant={v}
+                />
+                <span className="font-mono text-[10px] text-muted-foreground">
+                  {v}
+                </span>
               </div>
             );
           })}
@@ -103,9 +108,14 @@ export const AllIcons: Story = {
           {[12, 16, 20, 24, 32, 40, 48].map((s) => {
             const Icon = iconMap['box'];
             return (
-              <div key={s} className="flex flex-col items-center gap-1.5">
+              <div
+                key={s}
+                className="flex flex-col items-center gap-1.5"
+              >
                 <Icon size={s} />
-                <span className="font-mono text-[9px] text-muted-foreground">{s}px</span>
+                <span className="font-mono text-[9px] text-muted-foreground">
+                  {s}px
+                </span>
               </div>
             );
           })}

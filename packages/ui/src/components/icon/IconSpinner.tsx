@@ -19,5 +19,11 @@ export const IconSpinner = createIcon('spinner', {
       />
     </>
   ),
-  defaultProps: { fill: undefined, stroke: undefined, strokeWidth: undefined, strokeLinecap: undefined, strokeLinejoin: undefined },
+  defaultProps: {
+    fill: undefined,
+    stroke: undefined,
+    strokeWidth: undefined,
+    strokeLinecap: undefined,
+    strokeLinejoin: undefined,
+  },
 });
