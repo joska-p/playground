@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { createCanvas } from 'canvas';
+import { generateSVG } from './generate-svg.ts';
 import { drawPaths } from './draw-paths.ts';
 import type { Paths } from './draw-paths.ts';
 import { CONSTANTS } from './constants.ts';
@@ -34,7 +34,9 @@ fileNames.forEach((fileName) => {
       JSON.stringify(paths)
     );
 
-    generateImageFile(path.join(CONSTANTS.IMG_DIR, `${id}.png`), paths);
+    const svgPath = path.join(CONSTANTS.IMG_DIR, `${id}.svg`);
+    const svgContent = generateSVG({ paths });
+    fs.writeFileSync(svgPath, svgContent);
 
     printProgress({ count: id, max: fileNames.length * 8 });
     id++;
@@ -47,12 +49,3 @@ fs.writeFileSync(
   CONSTANTS.SAMPLES_TS,
   `export const samples = ${JSON.stringify(samples)} as const;`
 );
-
-function generateImageFile(outFile: string, paths: Paths) {
-  const canvas = createCanvas(400, 400);
-  const ctx = canvas.getContext('2d');
-  drawPaths({ ctx, paths });
-
-  const buffer = canvas.toBuffer('image/png');
-  fs.writeFileSync(outFile, buffer);
-}

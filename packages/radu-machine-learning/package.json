@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "canvas": "^3.2.3",
     "zod": "catalog:",
     "zustand": "catalog:"
   },

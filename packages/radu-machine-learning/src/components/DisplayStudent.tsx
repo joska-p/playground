@@ -25,7 +25,7 @@ function DisplayStudent({ samples }: DisplayStudentProps) {
               <img
                 loading="lazy"
                 className="object-cover p-2  border border-border/10 rounded bg-black/50"
-                src={`/img/${id}.png`}
+                src={`/img/${id}.svg`}
                 alt={label}
               />
             </div>
