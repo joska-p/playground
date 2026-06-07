@@ -66,7 +66,6 @@ function EditControls() {
         onClick={() => clear()}
         title="Clear (C)"
         aria-label="Clear grid"
-        className="flex items-center gap-1.5"
       >
         <ClearIcon />
         Clear
@@ -77,7 +76,6 @@ function EditControls() {
         onClick={() => randomize()}
         title="Randomize (R)"
         aria-label="Randomize grid"
-        className="flex items-center gap-1.5"
       >
         <RandomizeIcon />
         Randomize

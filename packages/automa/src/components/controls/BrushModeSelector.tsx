@@ -68,7 +68,7 @@ function BrushModeSelector() {
   const brushMode = useBrushMode();
 
   return (
-    <div className="flex items-center gap-1">
+    <>
       {brushModes.map(({ value, label, key, Icon }) => (
         <Button
           key={value}
@@ -76,13 +76,12 @@ function BrushModeSelector() {
           size="small"
           onClick={() => setToolMode(value)}
           title={`${label} (${key})`}
-          className="flex items-center gap-1.5"
         >
           <Icon />
           {label}
         </Button>
       ))}
-    </div>
+    </>
   );
 }
 

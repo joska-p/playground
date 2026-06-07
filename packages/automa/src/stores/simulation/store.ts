@@ -1,6 +1,11 @@
 import { createStore } from 'zustand/vanilla';
 import { createGrid } from '../../core/grid.ts';
 import type { Grid } from '../../core/types.ts';
+import {
+  GRID_DEFAULT_ROWS,
+  GRID_DEFAULT_COLS,
+  GRID_DEFAULT_SEED,
+} from '../../config.ts';
 
 type SimulationState = {
   grid: Grid;
@@ -12,12 +17,12 @@ type SimulationState = {
 };
 
 const simulationStore = createStore<SimulationState>(() => ({
-  grid: createGrid(100, 100),
-  backBuffer: createGrid(100, 100),
+  grid: createGrid(GRID_DEFAULT_ROWS, GRID_DEFAULT_COLS),
+  backBuffer: createGrid(GRID_DEFAULT_ROWS, GRID_DEFAULT_COLS),
   generation: 0,
-  cols: 100,
-  rows: 100,
-  seed: 42,
+  cols: GRID_DEFAULT_COLS,
+  rows: GRID_DEFAULT_ROWS,
+  seed: GRID_DEFAULT_SEED,
 }));
 
 export { simulationStore };

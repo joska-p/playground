@@ -74,7 +74,7 @@ function InteractiveSlider(
 ) {
   const [value, setValue] = useState(args.value ?? 50);
   return (
-    <div className="flex w-[300px] flex-col gap-4">
+    <div className="flex w-75 flex-col gap-4">
       <Slider
         {...args}
         value={value}

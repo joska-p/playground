@@ -73,7 +73,7 @@ function StepIcon() {
   );
 }
 
-function TransportControls() {
+function PlaybackControls() {
   const running = useRunning();
 
   return (
@@ -84,7 +84,6 @@ function TransportControls() {
         onClick={toggleRunning}
         title="Play/Pause (Space)"
         aria-label={running ? 'Pause' : 'Play'}
-        className="flex items-center gap-1.5"
       >
         {running ? <PauseIcon /> : <PlayIcon />}
         {running ? 'Pause' : 'Play'}
@@ -96,7 +95,6 @@ function TransportControls() {
         disabled={running}
         title="Step (N)"
         aria-label="Step forward"
-        className="flex items-center gap-1.5"
       >
         <StepIcon />
         Step
@@ -105,4 +103,4 @@ function TransportControls() {
   );
 }
 
-export { TransportControls };
+export { PlaybackControls };

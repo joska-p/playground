@@ -1,23 +1,24 @@
 import { evolveGrid } from './step.ts';
+import { WORKER_MESSAGE_STEP } from '../config.ts';
 
 let nextGrid: Uint8Array | undefined;
 
 type StepRequest = {
-  type: 'step';
+  type: typeof WORKER_MESSAGE_STEP;
   grid: Uint8Array;
   cols: number;
   rows: number;
 };
 
 type StepResponse = {
-  type: 'step';
+  type: typeof WORKER_MESSAGE_STEP;
   grid: Uint8Array;
 };
 
 self.onmessage = (e: MessageEvent<StepRequest>) => {
   const { type, grid, cols, rows } = e.data;
 
-  if (type !== 'step') return;
+  if (type !== WORKER_MESSAGE_STEP) return;
 
   if (!nextGrid || nextGrid.length !== grid.length) {
     nextGrid = new Uint8Array(grid.length);
@@ -26,7 +27,7 @@ self.onmessage = (e: MessageEvent<StepRequest>) => {
   evolveGrid(grid, nextGrid, cols, rows);
 
   (self as unknown as Worker).postMessage(
-    { type: 'step', grid: nextGrid } satisfies StepResponse,
+    { type: WORKER_MESSAGE_STEP, grid: nextGrid } satisfies StepResponse,
     { transfer: [nextGrid.buffer] }
   );
 

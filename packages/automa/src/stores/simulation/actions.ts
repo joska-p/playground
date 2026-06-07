@@ -2,6 +2,9 @@ import { createGrid, seedGrid } from '../../core/grid.ts';
 import { patternSchema } from '../../core/pattern.schema.ts';
 import type { Pattern } from '../../core/pattern.schema.ts';
 import type { CellValue, Grid } from '../../core/types.ts';
+import { WORKER_MESSAGE_STEP, GRID_DEFAULT_DENSITY } from '../../config.ts';
+import { simulationStore } from './store.ts';
+import { uiStore } from '../ui/store.ts';
 
 type SimulationInit = {
   rows: number;
@@ -9,21 +12,19 @@ type SimulationInit = {
   initialDensity: number;
   seed: number;
 };
-import { simulationStore } from './store.ts';
-import { uiStore } from '../ui/store.ts';
 
 let worker: Worker | undefined;
 let intervalId: ReturnType<typeof setInterval> | undefined;
 
 type StepRequest = {
-  type: 'step';
+  type: typeof WORKER_MESSAGE_STEP;
   grid: Uint8Array;
   cols: number;
   rows: number;
 };
 
 type StepResponse = {
-  type: 'step';
+  type: typeof WORKER_MESSAGE_STEP;
   grid: Uint8Array;
 };
 
@@ -45,7 +46,7 @@ const init = (opts: SimulationInit): void => {
   });
 
   worker.onmessage = (e: MessageEvent<StepResponse>) => {
-    if (e.data.type !== 'step') return;
+    if (e.data.type !== WORKER_MESSAGE_STEP) return;
     const state = simulationStore.getState();
     simulationStore.setState({
       grid: e.data.grid,
@@ -70,7 +71,7 @@ const step = (): void => {
   const state = simulationStore.getState();
   worker.postMessage(
     {
-      type: 'step',
+      type: WORKER_MESSAGE_STEP,
       grid: state.grid,
       cols: state.cols,
       rows: state.rows,
@@ -121,7 +122,7 @@ const clear = (): void => {
 
 const randomize = (density?: number): void => {
   const state = simulationStore.getState();
-  seedGrid(state.grid, density ?? 0.2, state.seed);
+  seedGrid(state.grid, density ?? GRID_DEFAULT_DENSITY, state.seed);
   simulationStore.setState({ generation: state.generation + 1 });
 };
 

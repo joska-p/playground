@@ -7,6 +7,7 @@ import {
   importPattern,
 } from '../../stores/simulation/actions.ts';
 import { useAutoDismiss } from '../../hooks/useAutoDismiss.ts';
+import { AUTO_DISMISS_MS } from '../../config.ts';
 
 function ExportIcon() {
   return (
@@ -78,7 +79,11 @@ function FileControls() {
     undefined
   );
 
-  useAutoDismiss(errorMessage, () => setErrorMessage(undefined), 3000);
+  useAutoDismiss(
+    errorMessage,
+    () => setErrorMessage(undefined),
+    AUTO_DISMISS_MS
+  );
 
   const handleExport = useCallback(() => {
     const pattern = exportPattern('pattern');
@@ -108,7 +113,6 @@ function FileControls() {
         size="small"
         onClick={handleExport}
         title="Export as JSON"
-        className="flex items-center gap-1.5"
       >
         <ExportIcon />
         Export
@@ -118,7 +122,6 @@ function FileControls() {
         size="small"
         onClick={() => fileInputRef.current?.click()}
         title="Import JSON pattern"
-        className="flex items-center gap-1.5"
       >
         <ImportIcon />
         Import

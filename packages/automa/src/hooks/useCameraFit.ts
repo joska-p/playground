@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import type { OrthographicCamera } from 'three';
 import { fitCameraToGrid } from '../core/fit-camera.ts';
+import { CAMERA_Z } from '../config.ts';
 
 const useCameraFit = (
   camera: OrthographicCamera | undefined,
@@ -25,7 +26,8 @@ const useCameraFit = (
     cam.right = bounds.right;
     cam.top = bounds.top;
     cam.bottom = bounds.bottom;
-    cam.position.set(cols / 2, rows / 2, 10);
+
+    cam.position.set(cols / 2, rows / 2, CAMERA_Z);
     cam.updateProjectionMatrix();
   }, [cols, rows, size.width, size.height]);
 

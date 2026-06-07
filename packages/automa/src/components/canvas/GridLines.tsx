@@ -7,7 +7,7 @@ type GridLinesProps = {
 };
 
 function GridLines({ cols, rows }: GridLinesProps) {
-  const geo = useMemo(() => {
+  const memoizeGeometry = useMemo(() => {
     const vertices: number[] = [];
     for (let i = 0; i <= cols; i++) {
       vertices.push(i, 0, 0.01, i, rows, 0.01);
@@ -24,7 +24,7 @@ function GridLines({ cols, rows }: GridLinesProps) {
   }, [cols, rows]);
 
   return (
-    <lineSegments geometry={geo}>
+    <lineSegments geometry={memoizeGeometry}>
       <lineBasicMaterial
         color="white"
         transparent

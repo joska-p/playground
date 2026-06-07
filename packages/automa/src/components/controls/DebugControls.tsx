@@ -110,7 +110,7 @@ function DebugPanel() {
   if (!showDebug) return null;
 
   return (
-    <div className="mt-3 w-fit rounded border border-[var(--color-ca-panel-border)] bg-[var(--color-ca-panel)] px-3 py-2 font-mono text-[11px] leading-relaxed tracking-wide text-[var(--color-ca-icon)] backdrop-blur-sm">
+    <div className="mt-3 w-fit rounded border border-border bg-card px-3 py-2 text-sm">
       <div>generation: {generation}</div>
       <div>
         grid: {cols}&times;{rows}

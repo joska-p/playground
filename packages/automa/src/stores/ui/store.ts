@@ -1,4 +1,5 @@
 import { createStore } from 'zustand/vanilla';
+import { SPEED_DEFAULT_MS } from '../../config.ts';
 
 export type BrushMode = 'draw' | 'erase';
 
@@ -11,7 +12,7 @@ type UiState = {
 
 const uiStore = createStore<UiState>(() => ({
   running: false,
-  speedMs: 100,
+  speedMs: SPEED_DEFAULT_MS,
   toolMode: 'draw' as const,
   showDebug: false,
 }));

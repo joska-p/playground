@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import { Sidebar } from '@repo/ui/Sidebar';
-import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
 import { Controls } from './components/controls/Controls.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import { init, destroy } from './stores/simulation/actions.ts';
+import {
+  GRID_DEFAULT_ROWS,
+  GRID_DEFAULT_COLS,
+  GRID_DEFAULT_DENSITY,
+} from './config.ts';
 
 type AppProps = {
   rows?: number;
@@ -13,57 +17,34 @@ type AppProps = {
   initialDensity?: number;
 };
 
-const DESKTOP_BREAKPOINT = 1024;
-
-function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
-  const [viewportRef, { width }] = useResizeObserver<HTMLDivElement>();
-  const isDesktop = width >= DESKTOP_BREAKPOINT;
-
+function App({
+  rows = GRID_DEFAULT_ROWS,
+  cols = GRID_DEFAULT_COLS,
+  seed,
+  initialDensity,
+}: AppProps) {
   useEffect(() => {
     init({
       rows,
       cols,
-      initialDensity: initialDensity ?? 0.2,
+      initialDensity: initialDensity ?? GRID_DEFAULT_DENSITY,
       seed: seed ?? Date.now(),
     });
     return destroy;
   }, [cols, initialDensity, rows, seed]);
 
   return (
-    <div
-      ref={viewportRef}
-      className="h-dvh w-full overflow-hidden bg-[#070a14] ca-grain"
-    >
+    <div className="h-dvh bg-background text-foreground">
       <ErrorBoundary>
         <Sidebar
-          defaultOpen
           mobilePosition="bottom"
           desktopPosition="left"
-          variant="normal"
-          panelWidth="min(70vw, 220px)"
-          panelHeight="min(30vh, 180px)"
         >
           <Sidebar.Main>
-            <div className="animate-fade-in h-full w-full">
-              <AutomatonCanvas className="h-full w-full" />
-            </div>
+            <AutomatonCanvas className="h-full w-full" />
           </Sidebar.Main>
           <Sidebar.Panel>
-            <div className="animate-slide-up px-1 pt-1">
-              <div className="mb-3 flex items-center gap-2 px-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-[var(--ca-alive)] shadow-[0_0_6px_2px_var(--ca-glow)]" />
-                <span
-                  className="text-[11px] font-medium tracking-[0.15em] uppercase"
-                  style={{
-                    fontFamily: 'var(--font-ca-ui)',
-                    color: 'var(--color-ca-icon-muted)',
-                  }}
-                >
-                  Automa
-                </span>
-              </div>
-              <Controls orientation={isDesktop ? 'vertical' : 'horizontal'} />
-            </div>
+            <Controls />
           </Sidebar.Panel>
           <Sidebar.Toggle />
         </Sidebar>

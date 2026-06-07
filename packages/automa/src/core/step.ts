@@ -1,4 +1,5 @@
 import type { Grid } from './types.ts';
+import { RULE_SURVIVE_MIN, RULE_SURVIVE_MAX, RULE_BIRTH } from '../config.ts';
 
 const evolveGrid = (
   current: Grid,
@@ -28,10 +29,10 @@ const evolveGrid = (
     const alive = current[index] === 1;
 
     next[index] = alive
-      ? neighbors === 2 || neighbors === 3
+      ? neighbors >= RULE_SURVIVE_MIN && neighbors <= RULE_SURVIVE_MAX
         ? 1
         : 0
-      : neighbors === 3
+      : neighbors === RULE_BIRTH
         ? 1
         : 0;
   }
