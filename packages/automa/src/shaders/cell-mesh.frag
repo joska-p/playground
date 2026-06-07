@@ -1,3 +1,5 @@
+precision mediump float;
+
 uniform sampler2D gridTexture;
 uniform vec3 aliveColor;
 uniform vec3 glowColor;

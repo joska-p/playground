@@ -9,4 +9,18 @@ const useBrushMode = () => useStore(uiStore, (s) => s.toolMode);
 
 const useShowDebug = () => useStore(uiStore, (s) => s.showDebug);
 
-export { useBrushMode, useRunning, useShowDebug, useSpeedMs };
+const useAliveColor = () => useStore(uiStore, (s) => s.aliveColor);
+
+const useGlowColor = () => useStore(uiStore, (s) => s.glowColor);
+
+const useDeadColor = () => useStore(uiStore, (s) => s.deadColor);
+
+export {
+  useAliveColor,
+  useBrushMode,
+  useDeadColor,
+  useGlowColor,
+  useRunning,
+  useShowDebug,
+  useSpeedMs,
+};

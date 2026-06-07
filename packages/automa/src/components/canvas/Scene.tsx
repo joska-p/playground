@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import type { OrthographicCamera } from 'three';
+import { useEffect } from 'react';
 import { MOUSE } from 'three';
 import { useCols, useRows } from '../../stores/simulation/selectors.ts';
 import { useShowDebug } from '../../stores/ui/selectors.ts';
@@ -8,42 +8,35 @@ import { useCameraFit } from '../../hooks/useCameraFit.ts';
 import { CellMesh } from './CellMesh.tsx';
 import { GridLines } from './GridLines.tsx';
 
-type SceneProps = {
-  aliveColor: string;
-  glowColor: string;
-  deadColor: string;
-};
+function PixelRatioCap() {
+  const gl = useThree((s) => s.gl);
+  useEffect(() => {
+    gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  }, [gl]);
+  return null;
+}
 
-function Scene({ aliveColor, glowColor, deadColor }: SceneProps) {
-  const { camera } = useThree();
+function Scene() {
   const showDebug = useShowDebug();
   const cols = useCols();
   const rows = useRows();
 
-  const orthoCamera =
-    camera.type === 'OrthographicCamera'
-      ? (camera as OrthographicCamera)
-      : undefined;
-
-  useCameraFit(orthoCamera, cols, rows);
+  useCameraFit(cols, rows);
 
   return (
     <>
+      <PixelRatioCap />
       <OrbitControls
         enableRotate={false}
         enableZoom={true}
         enablePan={true}
-        target={[cols / 2, rows / 2, 0]}
+        target={[0, 0, 0]}
         mouseButtons={{
           MIDDLE: MOUSE.DOLLY,
           RIGHT: MOUSE.PAN,
         }}
       />
-      <CellMesh
-        aliveColor={aliveColor}
-        glowColor={glowColor}
-        deadColor={deadColor}
-      />
+      <CellMesh />
       {showDebug && (
         <GridLines
           cols={cols}

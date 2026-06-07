@@ -57,9 +57,10 @@ gl={{
 ```
 
 And add to `Scene.tsx`:
+
 ```tsx
 useEffect(() => {
-  const gl = useThree(s => s.gl);
+  const gl = useThree((s) => s.gl);
   gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }, []);
 ```
@@ -171,16 +172,16 @@ The camera is stored in a ref rather than used directly. The `useEffect` depende
 
 ## Summary
 
-| Priority | Issue | File |
-|----------|-------|------|
-| CRITICAL | DataTexture never disposed | `useGridTexture.ts:20` |
-| HIGH | Missing `precision` in frag shader | `cell-mesh.frag:1` |
-| HIGH | No pixel ratio cap | `AutomatonCanvas.tsx:45` |
-| HIGH | Unconditional useFrame | `useGridTexture.ts:42` |
-| HIGH | CellMesh re-renders every generation | `CellMesh.tsx:21-25` |
-| HIGH | Inline array allocations | `Scene.tsx:36`, `CellMesh.tsx:42` |
-| MEDIUM | GridLines not memoized | `GridLines.tsx:9` |
-| MEDIUM | Shader branching cost | `cell-mesh.frag:12-18` |
+| Priority | Issue                                | File                              |
+| -------- | ------------------------------------ | --------------------------------- |
+| CRITICAL | DataTexture never disposed           | `useGridTexture.ts:20`            |
+| HIGH     | Missing `precision` in frag shader   | `cell-mesh.frag:1`                |
+| HIGH     | No pixel ratio cap                   | `AutomatonCanvas.tsx:45`          |
+| HIGH     | Unconditional useFrame               | `useGridTexture.ts:42`            |
+| HIGH     | CellMesh re-renders every generation | `CellMesh.tsx:21-25`              |
+| HIGH     | Inline array allocations             | `Scene.tsx:36`, `CellMesh.tsx:42` |
+| MEDIUM   | GridLines not memoized               | `GridLines.tsx:9`                 |
+| MEDIUM   | Shader branching cost                | `cell-mesh.frag:12-18`            |
 
 ### What's done well
 

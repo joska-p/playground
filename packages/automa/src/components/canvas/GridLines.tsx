@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import * as THREE from 'three';
 
 type GridLinesProps = {
@@ -7,24 +6,22 @@ type GridLinesProps = {
 };
 
 function GridLines({ cols, rows }: GridLinesProps) {
-  const memoizeGeometry = useMemo(() => {
-    const vertices: number[] = [];
-    for (let i = 0; i <= cols; i++) {
-      vertices.push(i, 0, 0.01, i, rows, 0.01);
-    }
-    for (let j = 0; j <= rows; j++) {
-      vertices.push(0, j, 0.01, cols, j, 0.01);
-    }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute(
-      'position',
-      new THREE.Float32BufferAttribute(vertices, 3)
-    );
-    return geometry;
-  }, [cols, rows]);
+  const vertices: number[] = [];
+  for (let i = 0; i <= cols; i++) {
+    vertices.push(i, 0, 0.01, i, rows, 0.01);
+  }
+  for (let j = 0; j <= rows; j++) {
+    vertices.push(0, j, 0.01, cols, j, 0.01);
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(vertices, 3)
+  );
 
   return (
-    <lineSegments geometry={memoizeGeometry}>
+    <lineSegments geometry={geometry}>
       <lineBasicMaterial
         color="white"
         transparent

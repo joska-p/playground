@@ -1,27 +1,18 @@
 import { Canvas } from '@react-three/fiber';
 import { Scene } from './Scene.tsx';
 import {
-  COLOR_ALIVE,
-  COLOR_GLOW,
-  COLOR_DEAD,
   CAMERA_Z,
   CAMERA_NEAR,
   CAMERA_FAR,
+  COLOR_ALIVE,
+  COLOR_DEAD,
 } from '../../config.ts';
 
 type CACanvasProps = {
-  aliveColor?: string;
-  glowColor?: string;
-  deadColor?: string;
   className?: string;
 };
 
-function AutomatonCanvas({
-  aliveColor = COLOR_ALIVE,
-  glowColor = COLOR_GLOW,
-  deadColor = COLOR_DEAD,
-  className,
-}: CACanvasProps) {
+function AutomatonCanvas({ className }: CACanvasProps) {
   return (
     <div
       className={className}
@@ -30,8 +21,8 @@ function AutomatonCanvas({
           width: '100%',
           height: '100%',
           touchAction: 'manipulation',
-          '--ca-alive': aliveColor,
-          '--ca-dead': deadColor,
+          '--ca-alive': COLOR_ALIVE,
+          '--ca-dead': COLOR_DEAD,
         } as React.CSSProperties
       }
     >
@@ -42,13 +33,12 @@ function AutomatonCanvas({
           near: CAMERA_NEAR,
           far: CAMERA_FAR,
         }}
-        gl={{ preserveDrawingBuffer: true }}
+        gl={{
+          preserveDrawingBuffer: true,
+          powerPreference: 'high-performance',
+        }}
       >
-        <Scene
-          aliveColor={aliveColor}
-          glowColor={glowColor}
-          deadColor={deadColor}
-        />
+        <Scene />
       </Canvas>
     </div>
   );
