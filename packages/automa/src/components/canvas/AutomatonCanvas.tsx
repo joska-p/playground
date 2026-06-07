@@ -3,13 +3,15 @@ import { Scene } from './Scene.tsx';
 
 type CACanvasProps = {
   aliveColor?: string;
+  glowColor?: string;
   deadColor?: string;
   className?: string;
 };
 
 const AutomatonCanvas = ({
-  aliveColor = '#22d3ee',
-  deadColor = '#0f172a',
+  aliveColor = '#d97706',
+  glowColor = '#fbbf24',
+  deadColor = '#070a14',
   className,
 }: CACanvasProps) => (
   <div
@@ -31,6 +33,7 @@ const AutomatonCanvas = ({
     >
       <Scene
         aliveColor={aliveColor}
+        glowColor={glowColor}
         deadColor={deadColor}
       />
     </Canvas>

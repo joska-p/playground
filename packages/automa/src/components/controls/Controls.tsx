@@ -15,19 +15,17 @@ const Controls = ({ className, orientation = 'vertical' }: ControlsProps) => {
 
   return (
     <div className={className}>
-      <div
-        className={`rounded bg-card/60 p-2 text-card-foreground backdrop-blur-sm ${
-          vert ? 'flex flex-col gap-1.5 min-w-0' : 'flex flex-col gap-1'
-        }`}
-      >
+      <div className="rounded-lg border border-[var(--color-ca-panel-border)] bg-[var(--color-ca-panel)] p-2 text-foreground backdrop-blur-xl transition-all duration-300">
         <div
           className={`flex items-center gap-1 ${vert ? 'flex-wrap' : 'overflow-x-auto'}`}
         >
           <TransportControls />
+          <span className="mx-1 h-4 w-px bg-[var(--color-ca-panel-border)]" />
           <EditControls />
+          <span className="mx-1 h-4 w-px bg-[var(--color-ca-panel-border)]" />
           <BrushModeSelector />
         </div>
-        <div className="flex items-center gap-2 overflow-x-auto">
+        <div className="mt-1.5 flex items-center gap-2 overflow-x-auto border-t border-[var(--color-ca-panel-border)] pt-1.5">
           <div className="min-w-24 flex-1">
             <SpeedSlider orientation={orientation} />
           </div>

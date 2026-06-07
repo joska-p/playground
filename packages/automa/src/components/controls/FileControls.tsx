@@ -6,6 +6,70 @@ import { useImportPattern } from '../../stores/automaton/actions.ts';
 import { useCAStore } from '../../stores/automaton/context.ts';
 import { useAutoDismiss } from '../../hooks/useAutoDismiss.ts';
 
+function ExportIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M7 1.5V8.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 5.5L7 8.5L10 5.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2 9V11.5C2 12.0523 2.44772 12.5 3 12.5H11C11.5523 12.5 12 12.0523 12 11.5V9"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function ImportIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M7 8.5V1.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10 4.5L7 1.5L4 4.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2 9V11.5C2 12.0523 2.44772 12.5 3 12.5H11C11.5523 12.5 12 12.0523 12 11.5V9"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function FileControls() {
   const store = useCAStore();
   const importPattern = useImportPattern();
@@ -44,16 +108,20 @@ function FileControls() {
         size="small"
         onClick={handleExport}
         title="Export as JSON"
+        className="flex items-center gap-1.5"
       >
-        <span aria-hidden="true">⭳</span> Export
+        <ExportIcon />
+        Export
       </Button>
       <Button
         variant="secondary"
         size="small"
         onClick={() => fileInputRef.current?.click()}
         title="Import JSON pattern"
+        className="flex items-center gap-1.5"
       >
-        <span aria-hidden="true">⤒</span> Import
+        <ImportIcon />
+        Import
       </Button>
       <input
         ref={fileInputRef}

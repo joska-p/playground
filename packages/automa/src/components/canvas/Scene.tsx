@@ -13,10 +13,11 @@ import { GridLines } from './GridLines.tsx';
 
 type SceneProps = {
   aliveColor: string;
+  glowColor: string;
   deadColor: string;
 };
 
-function Scene({ aliveColor, deadColor }: SceneProps) {
+function Scene({ aliveColor, glowColor, deadColor }: SceneProps) {
   const { camera } = useThree();
   const showDebug = useShowDebug();
   const cols = useCols();
@@ -42,6 +43,7 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
       />
       <CellMesh
         aliveColor={aliveColor}
+        glowColor={glowColor}
         deadColor={deadColor}
       />
       {showDebug && (

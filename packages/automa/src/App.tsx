@@ -20,7 +20,7 @@ function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
   return (
     <div
       ref={viewportRef}
-      className="h-dvh w-full overflow-hidden bg-ca-dead"
+      className="h-dvh w-full overflow-hidden bg-[#070a14] ca-grain"
     >
       <AutomatonProvider
         rows={rows}
@@ -37,10 +37,26 @@ function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
           panelHeight="min(30vh, 180px)"
         >
           <Sidebar.Main>
-            <AutomatonCanvas className="h-full w-full" />
+            <div className="animate-fade-in h-full w-full">
+              <AutomatonCanvas className="h-full w-full" />
+            </div>
           </Sidebar.Main>
           <Sidebar.Panel>
-            <Controls orientation={isDesktop ? 'vertical' : 'horizontal'} />
+            <div className="animate-slide-up px-1 pt-1">
+              <div className="mb-3 flex items-center gap-2 px-2">
+                <span className="inline-block h-2 w-2 rounded-full bg-[var(--ca-alive)] shadow-[0_0_6px_2px_var(--ca-glow)]" />
+                <span
+                  className="text-[11px] font-medium tracking-[0.15em] uppercase"
+                  style={{
+                    fontFamily: 'var(--font-ca-ui)',
+                    color: 'var(--color-ca-icon-muted)',
+                  }}
+                >
+                  Automa
+                </span>
+              </div>
+              <Controls orientation={isDesktop ? 'vertical' : 'horizontal'} />
+            </div>
           </Sidebar.Panel>
           <Sidebar.Toggle />
         </Sidebar>

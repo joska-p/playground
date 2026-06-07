@@ -10,6 +10,7 @@ const useGridTexture = (
   cols: number,
   rows: number,
   aliveColor: string,
+  glowColor: string,
   deadColor: string
 ) => {
   const lastRenderedGeneration = useRef(-1);
@@ -29,14 +30,15 @@ const useGridTexture = (
     return {
       gridTexture: { value: tex },
       aliveColor: { value: new THREE.Color(aliveColor) },
+      glowColor: { value: new THREE.Color(glowColor) },
       deadColor: { value: new THREE.Color(deadColor) },
+      texelSize: { value: new THREE.Vector2(1 / cols, 1 / rows) },
     };
-  }, [cols, rows, aliveColor, deadColor]);
+  }, [cols, rows, aliveColor, glowColor, deadColor]);
 
   const texRef = useRef(uniforms.gridTexture.value);
   const dataRef = useRef(uniforms.gridTexture.value.image.data as Uint8Array);
 
-  // sync initial grid to texture on first mount; intentionally no deps
   useEffect(() => {
     const state = store.getState();
     copyGridToTextureData(state.grid, dataRef.current);
@@ -54,8 +56,9 @@ const useGridTexture = (
 
   useEffect(() => {
     uniforms.aliveColor.value.set(aliveColor);
+    uniforms.glowColor.value.set(glowColor);
     uniforms.deadColor.value.set(deadColor);
-  }, [aliveColor, deadColor, uniforms]);
+  }, [aliveColor, glowColor, deadColor, uniforms]);
 
   return { uniforms };
 };

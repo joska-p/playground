@@ -7,39 +7,30 @@ import {
   useBrushMode,
 } from '../../stores/automaton/selectors.ts';
 import { usePaintCell } from '../../stores/automaton/actions.ts';
-
-const vertexShader = `
-varying vec2 vUv;
-void main() {
-  vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
-
-const fragmentShader = `
-uniform sampler2D gridTexture;
-uniform vec3 aliveColor;
-uniform vec3 deadColor;
-varying vec2 vUv;
-void main() {
-  float val = texture2D(gridTexture, vUv).r;
-  gl_FragColor = vec4(val > 0.5 ? aliveColor : deadColor, 1.0);
-}
-`;
+import vertexShader from '../../shaders/cell-mesh.vert?raw';
+import fragmentShader from '../../shaders/cell-mesh.frag?raw';
 
 type CellMeshProps = {
   aliveColor: string;
+  glowColor: string;
   deadColor: string;
 };
 
-function CellMesh({ aliveColor, deadColor }: CellMeshProps) {
+function CellMesh({ aliveColor, glowColor, deadColor }: CellMeshProps) {
   const store = useCAStore();
   const cols = useCols();
   const rows = useRows();
   const brushMode = useBrushMode();
   const paintCell = usePaintCell();
 
-  const { uniforms } = useGridTexture(store, cols, rows, aliveColor, deadColor);
+  const { uniforms } = useGridTexture(
+    store,
+    cols,
+    rows,
+    aliveColor,
+    glowColor,
+    deadColor
+  );
   const { meshRef, onPointerDown, onPointerMove, onPointerUp, onContextMenu } =
     useCellPainting(cols, rows, brushMode, paintCell);
 
