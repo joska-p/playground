@@ -85,18 +85,16 @@ function DebugToggle() {
   const showDebug = useShowDebug();
 
   return (
-    import.meta.env.DEV && (
-      <Button
-        variant={showDebug ? 'accent' : 'ghost'}
-        size="small"
-        onClick={() => setShowDebug(!showDebug)}
-        title="Toggle debug overlay (D)"
-        className="flex items-center gap-1.5"
-      >
-        <DebugIcon />
-        Debug
-      </Button>
-    )
+    <Button
+      variant={showDebug ? 'accent' : 'ghost'}
+      size="small"
+      onClick={() => setShowDebug(!showDebug)}
+      title="Toggle debug overlay (D)"
+      className="flex items-center gap-1.5"
+    >
+      <DebugIcon />
+      Debug
+    </Button>
   );
 }
 
