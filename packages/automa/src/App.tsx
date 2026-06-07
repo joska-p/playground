@@ -1,6 +1,6 @@
-import { AutomatonCanvas } from './components/AutomatonCanvas.tsx';
+import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
 import { AutomatonProvider } from './components/AutomatonProvider.tsx';
-import { Controls } from './components/Controls.tsx';
+import { Controls } from './components/controls/Controls.tsx';
 
 type AppProps = {
   rows?: number;

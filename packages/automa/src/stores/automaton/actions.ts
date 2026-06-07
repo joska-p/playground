@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { downloadJson } from '../../core/download-json.ts';
 import { useCAStore } from './context.ts';
 import type { CellValue } from '../../core/types.ts';
 import type { ToolMode } from './types.ts';
@@ -30,7 +31,10 @@ const useSetSpeed = () => {
 
 const useSetToolMode = () => {
   const store = useCAStore();
-  return useCallback((mode: ToolMode) => store.getState().setToolMode(mode), [store]);
+  return useCallback(
+    (mode: ToolMode) => store.getState().setToolMode(mode),
+    [store],
+  );
 };
 
 const useSetShowDebug = () => {
@@ -42,14 +46,7 @@ const useExportPattern = () => {
   const store = useCAStore();
   return useCallback(() => {
     const pattern = store.getState().exportPattern('pattern');
-    const json = JSON.stringify(pattern, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${pattern.name}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadJson(pattern, `${pattern.name}.json`);
   }, [store]);
 };
 
@@ -64,7 +61,8 @@ const useImportPattern = () => {
 const usePaintCell = () => {
   const store = useCAStore();
   return useCallback(
-    (index: number, value: CellValue) => store.getState().paintCell(index, value),
+    (index: number, value: CellValue) =>
+      store.getState().paintCell(index, value),
     [store],
   );
 };

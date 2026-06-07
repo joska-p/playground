@@ -1,0 +1,59 @@
+import { OrbitControls } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import type { OrthographicCamera } from 'three';
+import { MOUSE } from 'three';
+import { useCAStore } from '../../stores/automaton/context.ts';
+import { useCols, useRows, useShowDebug } from '../../stores/automaton/selectors.ts';
+import { useCameraFit } from '../../hooks/useCameraFit.ts';
+import { CellMesh } from './CellMesh.tsx';
+import { GridLines } from './GridLines.tsx';
+
+type SceneProps = {
+  aliveColor: string;
+  deadColor: string;
+};
+
+function Scene({ aliveColor, deadColor }: SceneProps) {
+  const store = useCAStore();
+  const { camera } = useThree();
+  const showDebug = useShowDebug();
+  const cols = useCols();
+  const rows = useRows();
+
+  const orthoCamera =
+    camera.type === 'OrthographicCamera'
+      ? (camera as OrthographicCamera)
+      : undefined;
+
+  useCameraFit(orthoCamera, cols, rows);
+
+  const { cols: gridCols, rows: gridRows } = store.getState();
+
+  return (
+    <>
+      <OrbitControls
+        enableRotate={false}
+        enableZoom={true}
+        enablePan={true}
+        target={[cols / 2, rows / 2, 0]}
+        mouseButtons={{
+          LEFT: null,
+          MIDDLE: MOUSE.DOLLY,
+          RIGHT: null,
+        }}
+      />
+      <CellMesh
+        aliveColor={aliveColor}
+        deadColor={deadColor}
+      />
+      {showDebug && (
+        <GridLines
+          cols={gridCols}
+          rows={gridRows}
+        />
+      )}
+    </>
+  );
+}
+
+export { Scene };
