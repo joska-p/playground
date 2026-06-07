@@ -1,8 +1,7 @@
 import { createStore } from 'zustand/vanilla';
-import { createGrid, fillRandom } from '../../engine/grid.ts';
-import { patternSchema } from '../../engine/pattern.schema.ts';
-import type { Pattern } from '../../engine/pattern.schema.ts';
-import type { CellValue } from '../../engine/types.ts';
+import { createGrid, fillRandom } from '../../core/grid.ts';
+import { patternSchema, type Pattern } from '../../core/pattern.schema.ts';
+import type { CellValue } from '../../core/types.ts';
 import type { CAStore, CAStoreInit, ToolMode } from './types.ts';
 
 type StepRequest = {
@@ -21,8 +20,8 @@ const createCAStore = (opts: CAStoreInit) => {
   const grid = createGrid(opts.rows, opts.cols);
   const backBuffer = createGrid(opts.rows, opts.cols);
 
-  let worker: Worker | null = null;
-  let intervalId: ReturnType<typeof setInterval> | null = null;
+  let worker: Worker | undefined;
+  let intervalId: ReturnType<typeof setInterval> | undefined;
 
   return createStore<CAStore>()((set, get) => ({
     running: false,
@@ -40,7 +39,7 @@ const createCAStore = (opts: CAStoreInit) => {
       fillRandom(grid, opts.initialDensity, opts.seed);
       set({ generation: 0 });
 
-      worker = new Worker(new URL('../../engine/worker.ts', import.meta.url), {
+      worker = new Worker(new URL('../../core/worker.ts', import.meta.url), {
         type: 'module',
       });
 
@@ -59,14 +58,14 @@ const createCAStore = (opts: CAStoreInit) => {
 
     pause: () => {
       set({ running: false });
-      if (intervalId !== null) {
+      if (intervalId) {
         clearInterval(intervalId);
-        intervalId = null;
+        intervalId = undefined;
       }
     },
 
     step: () => {
-      if (worker === null) return;
+      if (!worker) return;
       const state = get();
       worker.postMessage(
         {
@@ -154,13 +153,13 @@ const createCAStore = (opts: CAStoreInit) => {
     },
 
     destroy: () => {
-      if (intervalId !== null) {
+      if (intervalId) {
         clearInterval(intervalId);
-        intervalId = null;
+        intervalId = undefined;
       }
-      if (worker !== null) {
+      if (worker) {
         worker.terminate();
-        worker = null;
+        worker = undefined;
       }
     },
   }));

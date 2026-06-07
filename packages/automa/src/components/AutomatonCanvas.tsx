@@ -2,8 +2,9 @@ import { GizmoHelper, GizmoViewport, OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { usePaintCell } from '../stores/automaton/actions.ts';
 import { useCAStore } from '../stores/automaton/context.ts';
-import { useShowDebug } from '../stores/automaton/selectors.ts';
+import { useCols, useRows, useShowDebug, useToolMode } from '../stores/automaton/selectors.ts';
 
 const vertexShader = `
 varying vec2 vUv;
@@ -36,7 +37,7 @@ function GridLines({ cols, rows }: { cols: number; rows: number }) {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute(
       'position',
-      new THREE.Float32BufferAttribute(vertices, 3)
+      new THREE.Float32BufferAttribute(vertices, 3),
     );
     return geometry;
   }, [cols, rows]);
@@ -62,14 +63,16 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
   const store = useCAStore();
   const { camera } = useThree();
   const showDebug = useShowDebug();
-  const meshRef = useRef<THREE.Mesh>(null);
+  const cols = useCols();
+  const rows = useRows();
+  const toolMode = useToolMode();
+  const paintCell = usePaintCell();
+  const meshRef = useRef<THREE.Mesh>(undefined);
   const lastGeneration = useRef(-1);
   const isPointerDown = useRef(false);
-  const texRef = useRef<THREE.DataTexture | null>(null);
-  const gridDataRef = useRef<Uint8Array | null>(null);
-  const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
-
-  const { cols, rows } = store.getState();
+  const texRef = useRef<THREE.DataTexture | undefined>(undefined);
+  const gridDataRef = useRef<Uint8Array | undefined>(undefined);
+  const cameraRef = useRef<THREE.OrthographicCamera | undefined>(undefined);
 
   const uniforms = useMemo(() => {
     const data = new Uint8Array(cols * rows);
@@ -78,7 +81,7 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
       cols,
       rows,
       THREE.RedFormat,
-      THREE.UnsignedByteType
+      THREE.UnsignedByteType,
     );
     tex.magFilter = THREE.NearestFilter;
     tex.minFilter = THREE.NearestFilter;
@@ -161,22 +164,21 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
 
   const paintAtPointer = useCallback(
     (point: THREE.Vector3, shiftKey: boolean) => {
-      const state = store.getState();
       const col = Math.floor(point.x);
       const row = Math.floor(point.y);
 
-      if (col < 0 || col >= state.cols || row < 0 || row >= state.rows) return;
-      if (shiftKey || state.toolMode === 'pan') return;
+      if (col < 0 || col >= cols || row < 0 || row >= rows) return;
+      if (shiftKey || toolMode === 'pan') return;
 
-      const index = row * state.cols + col;
+      const index = row * cols + col;
 
-      if (state.toolMode === 'erase') {
-        state.paintCell(index, 0);
+      if (toolMode === 'erase') {
+        paintCell(index, 0);
       } else {
-        state.paintCell(index, 1);
+        paintCell(index, 1);
       }
     },
-    [store]
+    [cols, rows, toolMode, paintCell],
   );
 
   return (

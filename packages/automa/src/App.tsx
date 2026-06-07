@@ -11,7 +11,7 @@ type AppProps = {
 
 function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
   return (
-    <div className="h-dvh w-full overflow-hidden bg-[#0f172a]">
+    <div className="h-dvh w-full overflow-hidden bg-ca-dead">
       <AutomatonProvider
         rows={rows}
         cols={cols}

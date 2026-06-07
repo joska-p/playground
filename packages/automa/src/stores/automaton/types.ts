@@ -1,5 +1,5 @@
-import type { Pattern } from '../../engine/pattern.schema.ts';
-import type { CellValue, Grid } from '../../engine/types.ts';
+import type { Pattern } from '../../core/pattern.schema.ts';
+import type { CellValue, Grid } from '../../core/types.ts';
 
 type ToolMode = 'draw' | 'erase' | 'pan';
 

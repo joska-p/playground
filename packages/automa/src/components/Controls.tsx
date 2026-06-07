@@ -1,7 +1,20 @@
-import { useStore } from 'zustand';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useClear,
+  useExportPattern,
+  useImportPattern,
+  useRandomize,
+  useSetShowDebug,
+  useSetSpeed,
+  useSetToolMode,
+  useStep,
+  useToggleRunning,
+} from '../stores/automaton/actions.ts';
 import { useCAStore } from '../stores/automaton/context.ts';
 import {
+  useCols,
+  useGeneration,
+  useRows,
   useRunning,
   useShowDebug,
   useSpeedMs,
@@ -19,51 +32,31 @@ const Controls = ({ className }: ControlsProps) => {
   const speedMs = useSpeedMs();
   const toolMode = useToolMode();
   const showDebug = useShowDebug();
-
-  const generation = useStore(store, (s) => s.generation);
-  const cols = useStore(store, (s) => s.cols);
-  const rows = useStore(store, (s) => s.rows);
+  const generation = useGeneration();
+  const cols = useCols();
+  const rows = useRows();
 
   const [stepTime, setStepTime] = useState(0);
   const [roundTripTime, setRoundTripTime] = useState(0);
   const lastStepTime = useRef(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
 
-  const toggleRunning = useCallback(
-    () => store.getState().toggleRunning(),
-    [store]
-  );
-  const step = useCallback(() => {
-    lastStepTime.current = performance.now();
-    store.getState().step();
-  }, [store]);
-  const clear = useCallback(() => store.getState().clear(), [store]);
-  const randomize = useCallback(() => store.getState().randomize(), [store]);
-  const setSpeed = useCallback(
-    (ms: number) => store.getState().setSpeed(ms),
-    [store]
-  );
-  const setToolMode = useCallback(
-    (mode: ToolMode) => store.getState().setToolMode(mode),
-    [store]
-  );
-  const setShowDebug = useCallback(
-    (v: boolean) => store.setState({ showDebug: v }),
-    [store]
-  );
+  const toggleRunning = useToggleRunning();
+  const step = useStep();
+  const clear = useClear();
+  const randomize = useRandomize();
+  const setSpeed = useSetSpeed();
+  const setToolMode = useSetToolMode();
+  const setShowDebug = useSetShowDebug();
+  const exportPattern = useExportPattern();
+  const importPattern = useImportPattern();
 
   const handleExport = useCallback(() => {
-    const pattern = store.getState().exportPattern('pattern');
-    const json = JSON.stringify(pattern, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${pattern.name}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }, [store]);
+    exportPattern();
+  }, [exportPattern]);
 
   const handleImport = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,8 +66,8 @@ const Controls = ({ className }: ControlsProps) => {
       reader.onload = () => {
         try {
           const raw = JSON.parse(reader.result as string);
-          store.getState().importPattern(raw);
-          setErrorMessage(null);
+          importPattern(raw);
+          setErrorMessage(undefined);
         } catch {
           setErrorMessage('Failed to parse JSON file');
         }
@@ -82,7 +75,7 @@ const Controls = ({ className }: ControlsProps) => {
       reader.readAsText(file);
       e.target.value = '';
     },
-    [store]
+    [importPattern]
   );
 
   useEffect(() => {
@@ -97,7 +90,7 @@ const Controls = ({ className }: ControlsProps) => {
 
   useEffect(() => {
     if (errorMessage) {
-      const timer = setTimeout(() => setErrorMessage(null), 3000);
+      const timer = setTimeout(() => setErrorMessage(undefined), 3000);
       return () => clearTimeout(timer);
     }
   }, [errorMessage]);

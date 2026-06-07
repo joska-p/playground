@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { createCAStore } from '../stores/automaton/store.ts';
 import { CAStoreContext } from '../stores/automaton/context.ts';
 import type { CAStoreInit } from '../stores/automaton/types.ts';

@@ -1,6 +1,6 @@
 import { stepConway } from './step.ts';
 
-let scratch: Uint8Array | null = null;
+let scratch: Uint8Array | undefined;
 
 type StepRequest = {
   type: 'step';
@@ -30,5 +30,5 @@ self.onmessage = (e: MessageEvent<StepRequest>) => {
     { transfer: [scratch.buffer] }
   );
 
-  scratch = null;
+  scratch = undefined;
 };

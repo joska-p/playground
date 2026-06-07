@@ -1,5 +1,6 @@
 import { useStore } from 'zustand';
 import { useCAStore } from './context.ts';
+import type { Grid } from '../../core/types.ts';
 import type { ToolMode } from './types.ts';
 
 const useRunning = (): boolean => {
@@ -27,4 +28,28 @@ const useShowDebug = (): boolean => {
   return useStore(store, (s) => s.showDebug);
 };
 
-export { useGeneration, useRunning, useShowDebug, useSpeedMs, useToolMode };
+const useCols = (): number => {
+  const store = useCAStore();
+  return useStore(store, (s) => s.cols);
+};
+
+const useRows = (): number => {
+  const store = useCAStore();
+  return useStore(store, (s) => s.rows);
+};
+
+const useGrid = (): Grid => {
+  const store = useCAStore();
+  return useStore(store, (s) => s.grid);
+};
+
+export {
+  useCols,
+  useGeneration,
+  useGrid,
+  useRows,
+  useRunning,
+  useShowDebug,
+  useSpeedMs,
+  useToolMode,
+};
