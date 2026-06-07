@@ -24,3 +24,5 @@ storybook-static/
 *.p12
 drafts/
 graphify-out/
+toolbox/
+logs/
