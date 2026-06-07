@@ -7,21 +7,38 @@ import { DebugToggle, DebugPanel } from './DebugControls.tsx';
 
 type ControlsProps = {
   className?: string;
+  orientation?: 'vertical' | 'horizontal';
 };
 
-const Controls = ({ className }: ControlsProps) => (
-  <div className={className}>
-    <div className="flex flex-wrap items-center gap-2 rounded bg-black/60 p-3 text-white backdrop-blur-sm">
-      <TransportControls />
-      <EditControls />
-      <SpeedSlider />
-      <BrushModeSelector />
-      <FileControls />
-      <DebugToggle />
+const Controls = ({ className, orientation = 'vertical' }: ControlsProps) => {
+  const vert = orientation === 'vertical';
+
+  return (
+    <div className={className}>
+      <div
+        className={`rounded bg-card/60 p-2 text-card-foreground backdrop-blur-sm ${
+          vert ? 'flex flex-col gap-1.5 min-w-0' : 'flex flex-col gap-1'
+        }`}
+      >
+        <div
+          className={`flex items-center gap-1 ${vert ? 'flex-wrap' : 'overflow-x-auto'}`}
+        >
+          <TransportControls />
+          <EditControls />
+          <BrushModeSelector />
+        </div>
+        <div className="flex items-center gap-2 overflow-x-auto">
+          <div className="min-w-24 flex-1">
+            <SpeedSlider orientation={orientation} />
+          </div>
+          <FileControls />
+          <DebugToggle />
+        </div>
+      </div>
+      <DebugPanel />
     </div>
-    <DebugPanel />
-  </div>
-);
+  );
+};
 
 export { Controls };
 export type { ControlsProps };

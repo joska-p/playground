@@ -1,3 +1,4 @@
+import { Button } from '@repo/ui/Button';
 import { useStep, useToggleRunning } from '../../stores/automaton/actions.ts';
 import { useRunning } from '../../stores/automaton/selectors.ts';
 
@@ -8,21 +9,25 @@ function TransportControls() {
 
   return (
     <>
-      <button
+      <Button
+        variant="primary"
+        size="small"
         onClick={toggleRunning}
-        className="rounded bg-blue-600 px-3 py-1 text-sm font-medium hover:bg-blue-700"
         title="Play/Pause (Space)"
+        aria-label={running ? 'Pause' : 'Play'}
       >
-        {running ? '⏸ Pause' : '▶ Play'}
-      </button>
-      <button
+        {running ? '⏸' : '▶'} {running ? 'Pause' : 'Play'}
+      </Button>
+      <Button
+        variant="secondary"
+        size="small"
         onClick={step}
         disabled={running}
-        className="rounded bg-gray-600 px-3 py-1 text-sm font-medium hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
         title="Step (N)"
+        aria-label="Step forward"
       >
         ⏭ Step
-      </button>
+      </Button>
     </>
   );
 }

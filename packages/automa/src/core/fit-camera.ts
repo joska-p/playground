@@ -16,8 +16,8 @@ const fitCameraToGrid = (
 
   if (gridAspect > aspect) {
     return {
-      left: 0,
-      right: cols,
+      left: -cols / 2,
+      right: cols / 2,
       top: cols / aspect / 2,
       bottom: -cols / aspect / 2,
     };

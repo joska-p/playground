@@ -1,3 +1,4 @@
+import { Button } from '@repo/ui/Button';
 import { useClear, useRandomize } from '../../stores/automaton/actions.ts';
 
 function EditControls() {
@@ -6,20 +7,24 @@ function EditControls() {
 
   return (
     <>
-      <button
+      <Button
+        variant="destructive"
+        size="small"
         onClick={clear}
-        className="rounded bg-red-700 px-3 py-1 text-sm font-medium hover:bg-red-800"
         title="Clear (C)"
+        aria-label="Clear grid"
       >
         ✕ Clear
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="accent"
+        size="small"
         onClick={randomize}
-        className="rounded bg-green-700 px-3 py-1 text-sm font-medium hover:bg-green-800"
         title="Randomize (R)"
+        aria-label="Randomize grid"
       >
-        ↻ Random
-      </button>
+        ↻ Randomize
+      </Button>
     </>
   );
 }

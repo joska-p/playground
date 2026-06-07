@@ -18,6 +18,7 @@ const AutomatonCanvas = ({
       {
         width: '100%',
         height: '100%',
+        touchAction: 'manipulation',
         '--ca-alive': aliveColor,
         '--ca-dead': deadColor,
       } as React.CSSProperties

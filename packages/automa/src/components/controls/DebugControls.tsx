@@ -1,4 +1,4 @@
-import { useCAStore } from '../../stores/automaton/context.ts';
+import { Button } from '@repo/ui/Button';
 import { useSetShowDebug } from '../../stores/automaton/actions.ts';
 import {
   useCols,
@@ -6,6 +6,7 @@ import {
   useRows,
   useShowDebug,
 } from '../../stores/automaton/selectors.ts';
+import { useCAStore } from '../../stores/automaton/context.ts';
 import { useStepTimer } from '../../hooks/useStepTimer.ts';
 
 function DebugToggle() {
@@ -14,17 +15,14 @@ function DebugToggle() {
 
   return (
     import.meta.env.DEV && (
-      <button
+      <Button
+        variant={showDebug ? 'accent' : 'ghost'}
+        size="small"
         onClick={() => setShowDebug(!showDebug)}
-        className={`rounded px-2 py-1 text-xs ${
-          showDebug
-            ? 'bg-yellow-600 text-white'
-            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-        }`}
         title="Toggle debug overlay (D)"
       >
         Debug
-      </button>
+      </Button>
     )
   );
 }
@@ -40,7 +38,7 @@ function DebugPanel() {
   if (!showDebug) return null;
 
   return (
-    <div className="mt-2 w-fit rounded bg-black/70 px-3 py-2 text-xs text-green-400 font-mono">
+    <div className="mt-2 w-fit rounded bg-card/80 px-3 py-2 font-mono text-xs text-accent">
       <div>Generation: {generation}</div>
       <div>
         Grid: {cols}&times;{rows}

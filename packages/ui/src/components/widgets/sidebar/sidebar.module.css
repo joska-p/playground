@@ -1,7 +1,8 @@
 @reference "../../../styles/styles.css";
 
 .sidebar {
-  @apply relative grid h-full w-full overflow-hidden transition-all duration-300 ease-in-out;
+  @apply relative grid h-full w-full overflow-hidden touch-manipulation;
+  transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
 
   /* CSS Variables for dimensions with sensible defaults */
   /*--sidebar-width: min(80vw, 300px);
@@ -68,8 +69,23 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .sidebar {
+    transition: none !important;
+  }
+
+  .panel {
+    transition: none !important;
+  }
+
+  .toggle {
+    transition: none !important;
+  }
+}
+
 .panel {
-  @apply relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out [grid-area:panel];
+  @apply relative flex flex-col overflow-hidden overscroll-contain [grid-area:panel];
+  transition: width 300ms ease-in-out, height 300ms ease-in-out, opacity 300ms ease-in-out, visibility 300ms ease-in-out;
 
   /* Width handling */
   .sidebar[data-mobile-position="left"] &,

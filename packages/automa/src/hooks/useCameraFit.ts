@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { useThree } from '@react-three/fiber';
 import type { OrthographicCamera } from 'three';
 import { fitCameraToGrid } from '../core/fit-camera.ts';
 
@@ -8,6 +9,7 @@ const useCameraFit = (
   rows: number
 ): void => {
   const cameraRef = useRef<OrthographicCamera | undefined>(undefined);
+  const { size } = useThree();
 
   useEffect(() => {
     cameraRef.current = camera;
@@ -15,14 +17,9 @@ const useCameraFit = (
 
   const fit = useCallback(() => {
     const cam = cameraRef.current;
-    if (!cam) return;
+    if (!cam || !size.width || !size.height) return;
 
-    const bounds = fitCameraToGrid(
-      cols,
-      rows,
-      window.innerWidth,
-      window.innerHeight
-    );
+    const bounds = fitCameraToGrid(cols, rows, size.width, size.height);
 
     cam.left = bounds.left;
     cam.right = bounds.right;
@@ -30,7 +27,7 @@ const useCameraFit = (
     cam.bottom = bounds.bottom;
     cam.position.set(cols / 2, rows / 2, 10);
     cam.updateProjectionMatrix();
-  }, [cols, rows]);
+  }, [cols, rows, size.width, size.height]);
 
   useEffect(() => {
     fit();

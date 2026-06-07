@@ -1,8 +1,0 @@
-@import "tailwindcss";
-@import "@repo/ui/gruvbox-theme";
-
-@source "../../node_modules/@repo/ui/src/components";
-
-@theme {
-  --color-ca-dead: #0f172a;
-}

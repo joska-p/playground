@@ -1,3 +1,4 @@
+import { Button } from '@repo/ui/Button';
 import { useCallback, useRef, useState } from 'react';
 import { readJsonFile } from '../../core/read-json-file.ts';
 import { downloadJson } from '../../core/download-json.ts';
@@ -38,20 +39,22 @@ function FileControls() {
 
   return (
     <>
-      <button
+      <Button
+        variant="secondary"
+        size="small"
         onClick={handleExport}
-        className="rounded bg-gray-700 px-2 py-1 text-xs text-gray-300 hover:bg-gray-600"
         title="Export as JSON"
       >
-        ⭳ Export
-      </button>
-      <button
+        <span aria-hidden="true">⭳</span> Export
+      </Button>
+      <Button
+        variant="secondary"
+        size="small"
         onClick={() => fileInputRef.current?.click()}
-        className="rounded bg-gray-700 px-2 py-1 text-xs text-gray-300 hover:bg-gray-600"
         title="Import JSON pattern"
       >
-        ⤒ Import
-      </button>
+        <span aria-hidden="true">⤒</span> Import
+      </Button>
       <input
         ref={fileInputRef}
         type="file"
@@ -60,7 +63,7 @@ function FileControls() {
         className="hidden"
       />
       {errorMessage && (
-        <div className="mt-2 rounded bg-red-800/80 px-3 py-2 text-sm text-white">
+        <div className="mt-2 rounded bg-destructive/80 px-3 py-2 text-sm text-destructive-foreground">
           {errorMessage}
         </div>
       )}

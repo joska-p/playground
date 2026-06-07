@@ -25,7 +25,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (this.state.hasError) {
       return (
         this.props.fallback ?? (
-          <div className="flex min-h-50 items-center justify-center rounded border border-red-400 bg-red-50 p-4 text-red-800">
+          <div className="flex min-h-[200px] items-center justify-center rounded border border-destructive bg-destructive/10 p-4 text-destructive">
             <div className="text-center">
               <p className="font-semibold">Something went wrong</p>
               <p className="mt-1 text-sm">{this.state.error?.message}</p>

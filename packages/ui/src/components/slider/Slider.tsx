@@ -79,9 +79,8 @@ function Slider({
         aria-valuetext={unit ? `${value}${unit}` : undefined}
         aria-describedby={helperText ? helperId : undefined}
         aria-label={!label ? (props['aria-label'] ?? 'Slider') : undefined}
-        className={cn('cursor-pointer disabled:cursor-not-allowed', {
-          'flex-1': isHorizontal,
-          'mt-2 w-full': !isHorizontal,
+        className={cn('cursor-pointer disabled:cursor-not-allowed min-w-0', {
+          'w-full': !isHorizontal,
         })}
         {...props}
       />

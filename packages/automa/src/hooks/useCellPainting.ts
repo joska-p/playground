@@ -49,7 +49,6 @@ const useCellPainting = (
     (e: ThreeEvent<PointerEvent>) => {
       if (!isPainting.current) return;
       if (e.object !== meshRef.current) return;
-      if (e.buttons !== 1) return;
       paintAtGridPosition(e.point, e.shiftKey);
     },
     [paintAtGridPosition]
