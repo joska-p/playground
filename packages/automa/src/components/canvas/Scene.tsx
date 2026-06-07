@@ -33,9 +33,7 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
         enablePan={true}
         target={[cols / 2, rows / 2, 0]}
         mouseButtons={{
-          LEFT: null,
           MIDDLE: MOUSE.DOLLY,
-          RIGHT: null,
         }}
       />
       <CellMesh

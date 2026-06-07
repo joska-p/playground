@@ -1,8 +1,8 @@
 import { createStore } from 'zustand/vanilla';
-import { createGrid, fillRandom } from '../../core/grid.ts';
+import { createGrid, seedGrid } from '../../core/grid.ts';
 import { patternSchema, type Pattern } from '../../core/pattern.schema.ts';
 import type { CellValue } from '../../core/types.ts';
-import type { CAStore, CAStoreInit, ToolMode } from './types.ts';
+import type { BrushMode, CAStore, CAStoreInit } from './types.ts';
 
 type StepRequest = {
   type: 'step';
@@ -18,7 +18,7 @@ type StepResponse = {
 
 const createCAStore = (opts: CAStoreInit) => {
   const grid = createGrid(opts.rows, opts.cols);
-  const backBuffer = createGrid(opts.rows, opts.cols);
+  const nextGrid = createGrid(opts.rows, opts.cols);
 
   let worker: Worker | undefined;
   let intervalId: ReturnType<typeof setInterval> | undefined;
@@ -26,17 +26,17 @@ const createCAStore = (opts: CAStoreInit) => {
   return createStore<CAStore>()((set, get) => ({
     running: false,
     speedMs: 100,
-    toolMode: 'draw' as ToolMode,
+    toolMode: 'draw' as BrushMode,
     showDebug: false,
     grid,
-    backBuffer,
+    backBuffer: nextGrid,
     generation: 0,
     cols: opts.cols,
     rows: opts.rows,
     seed: opts.seed,
 
     init: () => {
-      fillRandom(grid, opts.initialDensity, opts.seed);
+      seedGrid(grid, opts.initialDensity, opts.seed);
       set({ generation: 0 });
 
       worker = new Worker(new URL('../../core/worker.ts', import.meta.url), {
@@ -95,7 +95,7 @@ const createCAStore = (opts: CAStoreInit) => {
 
     randomize: (density?: number) => {
       const state = get();
-      fillRandom(state.grid, density ?? 0.2, state.seed);
+      seedGrid(state.grid, density ?? 0.2, state.seed);
       set({ generation: state.generation + 1 });
     },
 
@@ -108,7 +108,7 @@ const createCAStore = (opts: CAStoreInit) => {
       }
     },
 
-    setToolMode: (mode: ToolMode) => {
+    setToolMode: (mode: BrushMode) => {
       set({ toolMode: mode });
     },
 

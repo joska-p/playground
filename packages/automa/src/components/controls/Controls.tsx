@@ -1,7 +1,7 @@
 import { TransportControls } from './TransportControls.tsx';
 import { EditControls } from './EditControls.tsx';
 import { SpeedSlider } from './SpeedSlider.tsx';
-import { ToolModeSelector } from './ToolModeSelector.tsx';
+import { BrushModeSelector } from './BrushModeSelector.tsx';
 import { FileControls } from './FileControls.tsx';
 import { DebugToggle, DebugPanel } from './DebugControls.tsx';
 
@@ -15,7 +15,7 @@ const Controls = ({ className }: ControlsProps) => (
       <TransportControls />
       <EditControls />
       <SpeedSlider />
-      <ToolModeSelector />
+      <BrushModeSelector />
       <FileControls />
       <DebugToggle />
     </div>

@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import type { StoreApi } from 'zustand/vanilla';
-import { gridToTexture } from '../core/grid-to-texture.ts';
+import { copyGridToTextureData } from '../core/grid-to-texture.ts';
 import type { CAStore } from '../stores/automaton/types.ts';
 
 const useGridTexture = (
@@ -12,7 +12,7 @@ const useGridTexture = (
   aliveColor: string,
   deadColor: string,
 ) => {
-  const lastGeneration = useRef(-1);
+  const lastRenderedGeneration = useRef(-1);
 
   const uniforms = useMemo(() => {
     const data = new Uint8Array(cols * rows);
@@ -39,16 +39,16 @@ const useGridTexture = (
   // sync initial grid to texture on first mount; intentionally no deps
   useEffect(() => {
     const state = store.getState();
-    gridToTexture(state.grid, dataRef.current);
+    copyGridToTextureData(state.grid, dataRef.current);
     texRef.current.needsUpdate = true;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useFrame(() => {
     const state = store.getState();
-    if (state.generation !== lastGeneration.current) {
-      gridToTexture(state.grid, dataRef.current);
+    if (state.generation !== lastRenderedGeneration.current) {
+      copyGridToTextureData(state.grid, dataRef.current);
       texRef.current.needsUpdate = true;
-      lastGeneration.current = state.generation;
+      lastRenderedGeneration.current = state.generation;
     }
   });
 

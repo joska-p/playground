@@ -1,6 +1,6 @@
 import type { Grid } from './types.ts';
 
-const stepConway = (
+const evolveGrid = (
   current: Grid,
   next: Grid,
   cols: number,
@@ -37,4 +37,4 @@ const stepConway = (
   }
 };
 
-export { stepConway };
+export { evolveGrid };

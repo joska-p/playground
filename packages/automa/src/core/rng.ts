@@ -1,4 +1,4 @@
-const createRng = (seed: number): (() => number) => {
+const createSeededRandom = (seed: number): (() => number) => {
   let s = seed | 0;
 
   return () => {
@@ -11,4 +11,4 @@ const createRng = (seed: number): (() => number) => {
   };
 };
 
-export { createRng };
+export { createSeededRandom };

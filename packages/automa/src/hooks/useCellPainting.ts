@@ -2,9 +2,9 @@ import { useCallback, useRef } from 'react';
 import type * as THREE from 'three';
 import type { ThreeEvent } from '@react-three/fiber';
 import type { CellValue } from '../core/types.ts';
-import type { ToolMode } from '../stores/automaton/types.ts';
+import type { BrushMode } from '../stores/automaton/types.ts';
 
-type PointerHandlers = {
+type CellPaintingHandlers = {
   meshRef: React.RefObject<THREE.Mesh | undefined>;
   onPointerDown: (e: ThreeEvent<PointerEvent>) => void;
   onPointerMove: (e: ThreeEvent<PointerEvent>) => void;
@@ -12,51 +12,51 @@ type PointerHandlers = {
   onContextMenu: (e: ThreeEvent<MouseEvent>) => void;
 };
 
-const usePointerPaint = (
+const useCellPainting = (
   cols: number,
   rows: number,
-  toolMode: ToolMode,
+  brushMode: BrushMode,
   paintCell: (index: number, value: CellValue) => void,
-): PointerHandlers => {
+): CellPaintingHandlers => {
   const meshRef = useRef<THREE.Mesh>(undefined);
-  const isPointerDown = useRef(false);
+  const isPainting = useRef(false);
 
-  const paintAtPointer = useCallback(
+  const paintAtGridPosition = useCallback(
     (point: THREE.Vector3, shiftKey: boolean) => {
       const col = Math.floor(point.x);
       const row = Math.floor(point.y);
 
       if (col < 0 || col >= cols || row < 0 || row >= rows) return;
-      if (shiftKey || toolMode === 'pan') return;
+      if (shiftKey) return;
 
       const index = row * cols + col;
-      paintCell(index, toolMode === 'erase' ? 0 : 1);
+      paintCell(index, brushMode === 'erase' ? 0 : 1);
     },
-    [cols, rows, toolMode, paintCell],
+    [cols, rows, brushMode, paintCell],
   );
 
   const onPointerDown = useCallback(
     (e: ThreeEvent<PointerEvent>) => {
       if (e.object !== meshRef.current) return;
       if (e.button !== 0) return;
-      isPointerDown.current = true;
-      paintAtPointer(e.point, e.shiftKey);
+      isPainting.current = true;
+      paintAtGridPosition(e.point, e.shiftKey);
     },
-    [paintAtPointer],
+    [paintAtGridPosition],
   );
 
   const onPointerMove = useCallback(
     (e: ThreeEvent<PointerEvent>) => {
-      if (!isPointerDown.current) return;
+      if (!isPainting.current) return;
       if (e.object !== meshRef.current) return;
       if (e.buttons !== 1) return;
-      paintAtPointer(e.point, e.shiftKey);
+      paintAtGridPosition(e.point, e.shiftKey);
     },
-    [paintAtPointer],
+    [paintAtGridPosition],
   );
 
   const onPointerUp = useCallback(() => {
-    isPointerDown.current = false;
+    isPainting.current = false;
   }, []);
 
   const onContextMenu = useCallback((e: ThreeEvent<MouseEvent>) => {
@@ -72,5 +72,5 @@ const usePointerPaint = (
   };
 };
 
-export { usePointerPaint };
-export type { PointerHandlers };
+export { useCellPainting };
+export type { CellPaintingHandlers };

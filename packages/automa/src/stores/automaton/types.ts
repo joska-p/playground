@@ -1,16 +1,16 @@
 import type { Pattern } from '../../core/pattern.schema.ts';
 import type { CellValue, Grid } from '../../core/types.ts';
 
-type ToolMode = 'draw' | 'erase' | 'pan';
+type BrushMode = 'draw' | 'erase';
 
-type UISlice = {
+type UIState = {
   running: boolean;
   speedMs: number;
-  toolMode: ToolMode;
+  toolMode: BrushMode;
   showDebug: boolean;
 };
 
-type SimSlice = {
+type SimulationState = {
   grid: Grid;
   backBuffer: Grid;
   generation: number;
@@ -26,7 +26,7 @@ type CAStoreInit = {
   seed: number;
 };
 
-type CAState = UISlice & SimSlice;
+type CAState = UIState & SimulationState;
 
 type CAStoreActions = {
   init: () => void;
@@ -37,7 +37,7 @@ type CAStoreActions = {
   toggleRunning: () => void;
   randomize: (density?: number) => void;
   setSpeed: (ms: number) => void;
-  setToolMode: (mode: ToolMode) => void;
+  setToolMode: (mode: BrushMode) => void;
   paintCell: (index: number, value: CellValue) => void;
   importPattern: (raw: unknown) => void;
   exportPattern: (name: string) => Pattern;
@@ -47,11 +47,11 @@ type CAStoreActions = {
 type CAStore = CAState & CAStoreActions;
 
 export type {
+  BrushMode,
   CAStore,
   CAStoreActions,
   CAStoreInit,
   CAState,
-  SimSlice,
-  ToolMode,
-  UISlice,
+  SimulationState,
+  UIState,
 };

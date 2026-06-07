@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { downloadJson } from '../../core/download-json.ts';
 import { useCAStore } from './context.ts';
 import type { CellValue } from '../../core/types.ts';
-import type { ToolMode } from './types.ts';
+import type { BrushMode } from './types.ts';
 
 const useToggleRunning = () => {
   const store = useCAStore();
@@ -29,10 +29,10 @@ const useSetSpeed = () => {
   return useCallback((ms: number) => store.getState().setSpeed(ms), [store]);
 };
 
-const useSetToolMode = () => {
+const useSetBrushMode = () => {
   const store = useCAStore();
   return useCallback(
-    (mode: ToolMode) => store.getState().setToolMode(mode),
+    (mode: BrushMode) => store.getState().setToolMode(mode),
     [store],
   );
 };
@@ -73,9 +73,9 @@ export {
   useImportPattern,
   usePaintCell,
   useRandomize,
+  useSetBrushMode,
   useSetShowDebug,
   useSetSpeed,
-  useSetToolMode,
   useStep,
   useToggleRunning,
 };

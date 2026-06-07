@@ -1,7 +1,7 @@
 import { useGridTexture } from '../../hooks/useGridTexture.ts';
-import { usePointerPaint } from '../../hooks/usePointerPaint.ts';
+import { useCellPainting } from '../../hooks/useCellPainting.ts';
 import { useCAStore } from '../../stores/automaton/context.ts';
-import { useCols, useRows, useToolMode } from '../../stores/automaton/selectors.ts';
+import { useCols, useRows, useBrushMode } from '../../stores/automaton/selectors.ts';
 import { usePaintCell } from '../../stores/automaton/actions.ts';
 
 const vertexShader = `
@@ -32,12 +32,12 @@ function CellMesh({ aliveColor, deadColor }: CellMeshProps) {
   const store = useCAStore();
   const cols = useCols();
   const rows = useRows();
-  const toolMode = useToolMode();
+  const brushMode = useBrushMode();
   const paintCell = usePaintCell();
 
   const { uniforms } = useGridTexture(store, cols, rows, aliveColor, deadColor);
   const { meshRef, onPointerDown, onPointerMove, onPointerUp, onContextMenu } =
-    usePointerPaint(cols, rows, toolMode, paintCell);
+    useCellPainting(cols, rows, brushMode, paintCell);
 
   return (
     <mesh

@@ -1,6 +1,6 @@
-import { stepConway } from './step.ts';
+import { evolveGrid } from './step.ts';
 
-let scratch: Uint8Array | undefined;
+let nextGrid: Uint8Array | undefined;
 
 type StepRequest = {
   type: 'step';
@@ -19,16 +19,16 @@ self.onmessage = (e: MessageEvent<StepRequest>) => {
 
   if (type !== 'step') return;
 
-  if (!scratch || scratch.length !== grid.length) {
-    scratch = new Uint8Array(grid.length);
+  if (!nextGrid || nextGrid.length !== grid.length) {
+    nextGrid = new Uint8Array(grid.length);
   }
 
-  stepConway(grid, scratch, cols, rows);
+  evolveGrid(grid, nextGrid, cols, rows);
 
   (self as unknown as Worker).postMessage(
-    { type: 'step', grid: scratch } satisfies StepResponse,
-    { transfer: [scratch.buffer] }
+    { type: 'step', grid: nextGrid } satisfies StepResponse,
+    { transfer: [nextGrid.buffer] }
   );
 
-  scratch = undefined;
+  nextGrid = undefined;
 };
