@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { StoreApi } from 'zustand/vanilla';
-import type { CAStore } from '../stores/automaton/types.ts';
+import type { AutomaStore } from '../stores/automaton/types.ts';
 
 type StepTimer = {
   stepTime: number;
   roundTripTime: number;
-  tickStartTime: React.MutableRefObject<number>;
+  tickStartTime: React.RefObject<number>;
 };
 
-const useStepTimer = (store: StoreApi<CAStore>): StepTimer => {
+const useStepTimer = (store: StoreApi<AutomaStore>): StepTimer => {
   const [stepTime, setStepTime] = useState(0);
   const [roundTripTime, setRoundTripTime] = useState(0);
   const tickStartTime = useRef(0);

@@ -19,16 +19,16 @@ type SimulationState = {
   seed: number;
 };
 
-type CAStoreInit = {
+type AutomaStoreInit = {
   rows: number;
   cols: number;
   initialDensity: number;
   seed: number;
 };
 
-type CAState = UIState & SimulationState;
+type AutomaStat = UIState & SimulationState;
 
-type CAStoreActions = {
+type AutomaStoreActions = {
   init: () => void;
   play: () => void;
   pause: () => void;
@@ -44,14 +44,14 @@ type CAStoreActions = {
   destroy: () => void;
 };
 
-type CAStore = CAState & CAStoreActions;
+type AutomaStore = AutomaStat & AutomaStoreActions;
 
 export type {
   BrushMode,
-  CAStore,
-  CAStoreActions,
-  CAStoreInit,
-  CAState,
+  AutomaStore,
+  AutomaStoreActions,
+  AutomaStoreInit,
+  AutomaStat,
   SimulationState,
   UIState,
 };

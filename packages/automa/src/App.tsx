@@ -1,7 +1,7 @@
 import { Sidebar } from '@repo/ui/Sidebar';
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
-import { AutomatonProvider } from './components/AutomatonProvider.tsx';
+import { AutomaProvider } from './components/AutomatonProvider.tsx';
 import { Controls } from './components/controls/Controls.tsx';
 
 type AppProps = {
@@ -22,7 +22,7 @@ function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
       ref={viewportRef}
       className="h-dvh w-full overflow-hidden bg-[#070a14] ca-grain"
     >
-      <AutomatonProvider
+      <AutomaProvider
         rows={rows}
         cols={cols}
         seed={seed}
@@ -60,7 +60,7 @@ function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
           </Sidebar.Panel>
           <Sidebar.Toggle />
         </Sidebar>
-      </AutomatonProvider>
+      </AutomaProvider>
     </div>
   );
 }

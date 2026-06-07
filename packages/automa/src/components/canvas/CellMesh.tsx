@@ -1,6 +1,6 @@
 import { useGridTexture } from '../../hooks/useGridTexture.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
-import { useCAStore } from '../../stores/automaton/context.ts';
+import { useAutomaStore } from '../../stores/automaton/context.ts';
 import {
   useCols,
   useRows,
@@ -17,7 +17,7 @@ type CellMeshProps = {
 };
 
 function CellMesh({ aliveColor, glowColor, deadColor }: CellMeshProps) {
-  const store = useCAStore();
+  const store = useAutomaStore();
   const cols = useCols();
   const rows = useRows();
   const brushMode = useBrushMode();

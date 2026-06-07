@@ -2,7 +2,7 @@ import { createStore } from 'zustand/vanilla';
 import { createGrid, seedGrid } from '../../core/grid.ts';
 import { patternSchema, type Pattern } from '../../core/pattern.schema.ts';
 import type { CellValue } from '../../core/types.ts';
-import type { BrushMode, CAStore, CAStoreInit } from './types.ts';
+import type { BrushMode, AutomaStore, AutomaStoreInit } from './types.ts';
 
 type StepRequest = {
   type: 'step';
@@ -16,14 +16,14 @@ type StepResponse = {
   grid: Uint8Array;
 };
 
-const createCAStore = (opts: CAStoreInit) => {
+const createAutomaStore = (opts: AutomaStoreInit) => {
   const grid = createGrid(opts.rows, opts.cols);
   const nextGrid = createGrid(opts.rows, opts.cols);
 
   let worker: Worker | undefined;
   let intervalId: ReturnType<typeof setInterval> | undefined;
 
-  return createStore<CAStore>()((set, get) => ({
+  return createStore<AutomaStore>()((set, get) => ({
     running: false,
     speedMs: 100,
     toolMode: 'draw' as BrushMode,
@@ -166,4 +166,4 @@ const createCAStore = (opts: CAStoreInit) => {
   }));
 };
 
-export { createCAStore };
+export { createAutomaStore };

@@ -6,7 +6,7 @@ import {
   useRows,
   useShowDebug,
 } from '../../stores/automaton/selectors.ts';
-import { useCAStore } from '../../stores/automaton/context.ts';
+import { useAutomaStore } from '../../stores/automaton/context.ts';
 import { useStepTimer } from '../../hooks/useStepTimer.ts';
 
 function DebugIcon() {
@@ -103,7 +103,7 @@ function DebugToggle() {
 }
 
 function DebugPanel() {
-  const store = useCAStore();
+  const store = useAutomaStore();
   const showDebug = useShowDebug();
   const generation = useGeneration();
   const cols = useCols();

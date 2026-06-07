@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from 'react';
 import { readJsonFile } from '../../core/read-json-file.ts';
 import { downloadJson } from '../../core/download-json.ts';
 import { useImportPattern } from '../../stores/automaton/actions.ts';
-import { useCAStore } from '../../stores/automaton/context.ts';
+import { useAutomaStore } from '../../stores/automaton/context.ts';
 import { useAutoDismiss } from '../../hooks/useAutoDismiss.ts';
 
 function ExportIcon() {
@@ -71,7 +71,7 @@ function ImportIcon() {
 }
 
 function FileControls() {
-  const store = useCAStore();
+  const store = useAutomaStore();
   const importPattern = useImportPattern();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(

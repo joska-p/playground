@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { createCAStore } from '../stores/automaton/store.ts';
-import { CAStoreContext } from '../stores/automaton/context.ts';
-import type { CAStoreInit } from '../stores/automaton/types.ts';
+import { createAutomaStore } from '../stores/automaton/store.ts';
+import { AutomaStoreContext } from '../stores/automaton/context.ts';
+import type { AutomaStoreInit } from '../stores/automaton/types.ts';
 import { ErrorBoundary } from './ErrorBoundary.tsx';
 
-type CAProviderProps = {
+type AutomaProviderProps = {
   rows?: number;
   cols?: number;
   initialDensity?: number;
@@ -12,21 +12,21 @@ type CAProviderProps = {
   children: ReactNode;
 };
 
-const AutomatonProvider = ({
+const AutomaProvider = ({
   rows = 100,
   cols = 100,
   initialDensity = 0.2,
   seed,
   children,
-}: CAProviderProps) => {
+}: AutomaProviderProps) => {
   const [store] = useState(() => {
     const resolvedSeed = seed ?? Date.now();
-    return createCAStore({
+    return createAutomaStore({
       rows,
       cols,
       initialDensity,
       seed: resolvedSeed,
-    } satisfies CAStoreInit);
+    } satisfies AutomaStoreInit);
   });
 
   useEffect(() => {
@@ -35,11 +35,11 @@ const AutomatonProvider = ({
   }, [store]);
 
   return (
-    <CAStoreContext.Provider value={store}>
+    <AutomaStoreContext.Provider value={store}>
       <ErrorBoundary>{children}</ErrorBoundary>
-    </CAStoreContext.Provider>
+    </AutomaStoreContext.Provider>
   );
 };
 
-export { AutomatonProvider };
-export type { CAProviderProps };
+export { AutomaProvider };
+export type { AutomaProviderProps };

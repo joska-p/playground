@@ -1,15 +1,17 @@
 import { createContext, useContext } from 'react';
 import type { StoreApi } from 'zustand/vanilla';
-import type { CAStore } from './types.ts';
+import type { AutomaStore } from './types.ts';
 
-const CAStoreContext = createContext<StoreApi<CAStore> | undefined>(undefined);
+const AutomaStoreContext = createContext<StoreApi<AutomaStore> | undefined>(
+  undefined
+);
 
-const useCAStore = (): StoreApi<CAStore> => {
-  const store = useContext(CAStoreContext);
+const useAutomaStore = (): StoreApi<AutomaStore> => {
+  const store = useContext(AutomaStoreContext);
   if (store === undefined) {
-    throw new Error('useCAStore must be used within AutomatonProvider');
+    throw new Error('useAutomaStore must be used within AutomatonProvider');
   }
   return store;
 };
 
-export { CAStoreContext, useCAStore };
+export { AutomaStoreContext, useAutomaStore };

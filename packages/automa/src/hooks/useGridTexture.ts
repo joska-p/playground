@@ -3,10 +3,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import type { StoreApi } from 'zustand/vanilla';
 import { copyGridToTextureData } from '../core/grid-to-texture.ts';
-import type { CAStore } from '../stores/automaton/types.ts';
+import type { AutomaStore } from '../stores/automaton/types.ts';
 
 const useGridTexture = (
-  store: StoreApi<CAStore>,
+  store: StoreApi<AutomaStore>,
   cols: number,
   rows: number,
   aliveColor: string,
