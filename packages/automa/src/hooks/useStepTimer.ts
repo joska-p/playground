@@ -14,10 +14,13 @@ const useStepTimer = (store: StoreApi<CAStore>): StepTimer => {
   const lastStepTime = useRef(0);
 
   useEffect(() => {
+    lastStepTime.current = performance.now();
     const unsub = store.subscribe((state, prev) => {
       if (state.generation !== prev.generation) {
-        setStepTime(performance.now() - lastStepTime.current);
-        setRoundTripTime(performance.now() - lastStepTime.current);
+        const now = performance.now();
+        setStepTime(now - lastStepTime.current);
+        setRoundTripTime(now - lastStepTime.current);
+        lastStepTime.current = now;
       }
     });
     return unsub;

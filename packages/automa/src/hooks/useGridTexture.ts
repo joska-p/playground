@@ -36,6 +36,7 @@ const useGridTexture = (
   const texRef = useRef(uniforms.gridTexture.value);
   const dataRef = useRef(uniforms.gridTexture.value.image.data as Uint8Array);
 
+  // sync initial grid to texture on first mount; intentionally no deps
   useEffect(() => {
     const state = store.getState();
     gridToTexture(state.grid, dataRef.current);

@@ -2,7 +2,6 @@ import { OrbitControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import type { OrthographicCamera } from 'three';
 import { MOUSE } from 'three';
-import { useCAStore } from '../../stores/automaton/context.ts';
 import { useCols, useRows, useShowDebug } from '../../stores/automaton/selectors.ts';
 import { useCameraFit } from '../../hooks/useCameraFit.ts';
 import { CellMesh } from './CellMesh.tsx';
@@ -14,7 +13,6 @@ type SceneProps = {
 };
 
 function Scene({ aliveColor, deadColor }: SceneProps) {
-  const store = useCAStore();
   const { camera } = useThree();
   const showDebug = useShowDebug();
   const cols = useCols();
@@ -26,8 +24,6 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
       : undefined;
 
   useCameraFit(orthoCamera, cols, rows);
-
-  const { cols: gridCols, rows: gridRows } = store.getState();
 
   return (
     <>
@@ -48,8 +44,8 @@ function Scene({ aliveColor, deadColor }: SceneProps) {
       />
       {showDebug && (
         <GridLines
-          cols={gridCols}
-          rows={gridRows}
+          cols={cols}
+          rows={rows}
         />
       )}
     </>

@@ -52,18 +52,4 @@ function DebugPanel() {
   );
 }
 
-type ErrorToastProps = {
-  message: string | undefined;
-};
-
-function ErrorToast({ message }: ErrorToastProps) {
-  if (!message) return null;
-
-  return (
-    <div className="mt-2 rounded bg-red-800/80 px-3 py-2 text-sm text-white">
-      {message}
-    </div>
-  );
-}
-
-export { DebugPanel, DebugToggle, ErrorToast };
+export { DebugPanel, DebugToggle };
