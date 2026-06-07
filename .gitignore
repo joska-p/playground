@@ -2,6 +2,8 @@
 # This directory is the container home — never commit it.
 .container_home
 
+toolbox
+
 # Local workspace config
 .pnpm-store
 
