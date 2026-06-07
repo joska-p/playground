@@ -1,6 +1,6 @@
 import { Button } from '@repo/ui/Button';
-import { useStep, useToggleRunning } from '../../stores/automaton/actions.ts';
-import { useRunning } from '../../stores/automaton/selectors.ts';
+import { step, toggleRunning } from '../../stores/simulation/actions.ts';
+import { useRunning } from '../../stores/ui/selectors.ts';
 
 function PlayIcon() {
   return (
@@ -75,8 +75,6 @@ function StepIcon() {
 
 function TransportControls() {
   const running = useRunning();
-  const toggleRunning = useToggleRunning();
-  const step = useStep();
 
   return (
     <>

@@ -2,11 +2,8 @@ import { OrbitControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import type { OrthographicCamera } from 'three';
 import { MOUSE } from 'three';
-import {
-  useCols,
-  useRows,
-  useShowDebug,
-} from '../../stores/automaton/selectors.ts';
+import { useCols, useRows } from '../../stores/simulation/selectors.ts';
+import { useShowDebug } from '../../stores/ui/selectors.ts';
 import { useCameraFit } from '../../hooks/useCameraFit.ts';
 import { CellMesh } from './CellMesh.tsx';
 import { GridLines } from './GridLines.tsx';

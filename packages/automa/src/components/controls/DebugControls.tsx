@@ -1,12 +1,11 @@
 import { Button } from '@repo/ui/Button';
-import { useSetShowDebug } from '../../stores/automaton/actions.ts';
+import { setShowDebug } from '../../stores/ui/actions.ts';
+import { useShowDebug } from '../../stores/ui/selectors.ts';
 import {
   useCols,
   useGeneration,
   useRows,
-  useShowDebug,
-} from '../../stores/automaton/selectors.ts';
-import { useAutomaStore } from '../../stores/automaton/context.ts';
+} from '../../stores/simulation/selectors.ts';
 import { useStepTimer } from '../../hooks/useStepTimer.ts';
 
 function DebugIcon() {
@@ -84,7 +83,6 @@ function DebugIcon() {
 
 function DebugToggle() {
   const showDebug = useShowDebug();
-  const setShowDebug = useSetShowDebug();
 
   return (
     import.meta.env.DEV && (
@@ -103,12 +101,11 @@ function DebugToggle() {
 }
 
 function DebugPanel() {
-  const store = useAutomaStore();
   const showDebug = useShowDebug();
   const generation = useGeneration();
   const cols = useCols();
   const rows = useRows();
-  const { stepTime, roundTripTime } = useStepTimer(store);
+  const { stepTime, roundTripTime } = useStepTimer(generation);
 
   if (!showDebug) return null;
 

@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
-import { useSetBrushMode } from '../../stores/automaton/actions.ts';
-import { useBrushMode } from '../../stores/automaton/selectors.ts';
-import type { BrushMode } from '../../stores/automaton/types.ts';
+import { setToolMode } from '../../stores/ui/actions.ts';
+import { useBrushMode } from '../../stores/ui/selectors.ts';
+import type { BrushMode } from '../../stores/types.ts';
 
 function DrawIcon() {
   return (
@@ -66,7 +66,6 @@ const brushModes: {
 
 function BrushModeSelector() {
   const brushMode = useBrushMode();
-  const setBrushMode = useSetBrushMode();
 
   return (
     <div className="flex items-center gap-1">
@@ -75,7 +74,7 @@ function BrushModeSelector() {
           key={value}
           variant={brushMode === value ? 'primary' : 'ghost'}
           size="small"
-          onClick={() => setBrushMode(value)}
+          onClick={() => setToolMode(value)}
           title={`${label} (${key})`}
           className="flex items-center gap-1.5"
         >

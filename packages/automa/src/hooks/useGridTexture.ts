@@ -1,12 +1,12 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import type { StoreApi } from 'zustand/vanilla';
 import { copyGridToTextureData } from '../core/grid-to-texture.ts';
-import type { AutomaStore } from '../stores/automaton/types.ts';
+import type { Grid } from '../core/types.ts';
 
 const useGridTexture = (
-  store: StoreApi<AutomaStore>,
+  grid: Grid,
+  generation: number,
   cols: number,
   rows: number,
   aliveColor: string,
@@ -39,18 +39,11 @@ const useGridTexture = (
   const texRef = useRef(uniforms.gridTexture.value);
   const dataRef = useRef(uniforms.gridTexture.value.image.data as Uint8Array);
 
-  useEffect(() => {
-    const state = store.getState();
-    copyGridToTextureData(state.grid, dataRef.current);
-    texRef.current.needsUpdate = true;
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   useFrame(() => {
-    const state = store.getState();
-    if (state.generation !== lastRenderedGeneration.current) {
-      copyGridToTextureData(state.grid, dataRef.current);
+    if (generation !== lastRenderedGeneration.current) {
+      copyGridToTextureData(grid, dataRef.current);
       texRef.current.needsUpdate = true;
-      lastRenderedGeneration.current = state.generation;
+      lastRenderedGeneration.current = generation;
     }
   });
 

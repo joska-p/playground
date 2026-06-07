@@ -10,7 +10,7 @@ type ControlsProps = {
   orientation?: 'vertical' | 'horizontal';
 };
 
-const Controls = ({ className, orientation = 'vertical' }: ControlsProps) => {
+function Controls({ className, orientation = 'vertical' }: ControlsProps) {
   const vert = orientation === 'vertical';
 
   return (
@@ -36,7 +36,7 @@ const Controls = ({ className, orientation = 'vertical' }: ControlsProps) => {
       <DebugPanel />
     </div>
   );
-};
+}
 
 export { Controls };
 export type { ControlsProps };

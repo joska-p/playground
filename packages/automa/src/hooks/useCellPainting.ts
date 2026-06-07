@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import type * as THREE from 'three';
 import type { ThreeEvent } from '@react-three/fiber';
 import type { CellValue } from '../core/types.ts';
-import type { BrushMode } from '../stores/automaton/types.ts';
+import type { BrushMode } from '../stores/types.ts';
 
 type CellPaintingHandlers = {
   meshRef: React.RefObject<THREE.Mesh | undefined>;

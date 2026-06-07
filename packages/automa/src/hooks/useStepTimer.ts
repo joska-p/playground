@@ -1,33 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
-import type { StoreApi } from 'zustand/vanilla';
-import type { AutomaStore } from '../stores/automaton/types.ts';
 
-type StepTimer = {
-  stepTime: number;
-  roundTripTime: number;
-  tickStartTime: React.RefObject<number>;
-};
-
-const useStepTimer = (store: StoreApi<AutomaStore>): StepTimer => {
+const useStepTimer = (generation: number) => {
   const [stepTime, setStepTime] = useState(0);
   const [roundTripTime, setRoundTripTime] = useState(0);
-  const tickStartTime = useRef(0);
+  const prevGen = useRef<number | null>(null);
+  const genTime = useRef(0);
 
   useEffect(() => {
-    tickStartTime.current = performance.now();
-    const unsub = store.subscribe((state, prev) => {
-      if (state.generation !== prev.generation) {
-        const now = performance.now();
-        setStepTime(now - tickStartTime.current);
-        setRoundTripTime(now - tickStartTime.current);
-        tickStartTime.current = now;
-      }
-    });
-    return unsub;
-  }, [store]);
+    const genChanged =
+      prevGen.current !== null && generation !== prevGen.current;
+    if (genChanged) {
+      const now = performance.now();
+      setStepTime(now - genTime.current);
+      setRoundTripTime(now - genTime.current);
+    }
+    genTime.current = performance.now();
+    prevGen.current = generation;
+  }, [generation]);
 
-  return { stepTime, roundTripTime, tickStartTime };
+  return { stepTime, roundTripTime };
 };
 
 export { useStepTimer };
-export type { StepTimer };

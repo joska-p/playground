@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/Button';
-import { useClear, useRandomize } from '../../stores/automaton/actions.ts';
+import { clear, randomize } from '../../stores/simulation/actions.ts';
 
 function ClearIcon() {
   return (
@@ -58,15 +58,12 @@ function RandomizeIcon() {
 }
 
 function EditControls() {
-  const clear = useClear();
-  const randomize = useRandomize();
-
   return (
     <>
       <Button
         variant="destructive"
         size="small"
-        onClick={clear}
+        onClick={() => clear()}
         title="Clear (C)"
         aria-label="Clear grid"
         className="flex items-center gap-1.5"
@@ -77,7 +74,7 @@ function EditControls() {
       <Button
         variant="accent"
         size="small"
-        onClick={randomize}
+        onClick={() => randomize()}
         title="Randomize (R)"
         aria-label="Randomize grid"
         className="flex items-center gap-1.5"

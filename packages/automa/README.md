@@ -9,18 +9,17 @@ pnpm add @repo/automa
 ```
 
 ```tsx
-import { AutomatonProvider, AutomatonCanvas, Controls } from '@repo/automa';
+import { App } from '@repo/automa';
 
-export default function App() {
+export default function Page() {
   return (
-    <AutomatonProvider
-      rows={60}
-      cols={80}
-      initialDensity={0.3}
-    >
-      <AutomatonCanvas />
-      <Controls />
-    </AutomatonProvider>
+    <StrictMode>
+      <App
+        rows={80}
+        cols={60}
+        seed={42}
+      />
+    </StrictMode>
   );
 }
 ```
@@ -28,7 +27,7 @@ export default function App() {
 ## Architecture
 
 ```
-AutomatonProvider
+App
   └─ ErrorBoundary
        ├─ AutomatonCanvas
        │   └─ <Canvas> (R3F — orthographic, OrbitControls)
@@ -42,6 +41,16 @@ AutomatonProvider
            ├─ brush mode (draw / erase)
            ├─ import / export pattern
            └─ debug overlay (D)
+
+automatonStore (global Zustand singleton)
+  ├─ Pure state mutations only (setGrid, clear, randomize, ...)
+  └─ Consumer via selectors (useGrid, useRunning, ...)
+
+actions.ts (plain functions, no hooks)
+  ├─ init / destroy — Worker + timer lifecycle
+  ├─ step / play / pause — animation orchestration
+  ├─ clear / randomize / paintCell — grid edits
+  └─ importPattern / exportPattern — file I/O
 ```
 
 ## Engine
@@ -65,26 +74,6 @@ types.ts           CellValue, Grid type aliases
 | Scroll wheel / middle-click | Zoom                            |
 | D                           | Toggle debug overlay            |
 | Space                       | Play / pause                    |
-
-## Exports
-
-| Export              | Path                  | Description                                            |
-| ------------------- | --------------------- | ------------------------------------------------------ |
-| `AutomatonCanvas`   | `@repo/automa`        | R3F orthographic grid with shader rendering            |
-| `AutomatonProvider` | `@repo/automa`        | Provider wrapping the CA Zustand store                 |
-| `Controls`          | `@repo/automa`        | UI panel: play, step, speed, brush mode, import/export |
-| `./styles`          | `@repo/automa/styles` | Component CSS                                          |
-
-## Key Dependencies
-
-| Package              | Role                                        |
-| -------------------- | ------------------------------------------- |
-| `three`              | 3D rendering engine                         |
-| `@react-three/fiber` | React renderer for Three.js                 |
-| `@react-three/drei`  | R3F utilities (OrbitControls)               |
-| `zustand`            | State management                            |
-| `zod`                | Pattern import/export schema validation     |
-| `@repo/ui`           | Shared UI components (Button, Slider, etc.) |
 
 ---
 

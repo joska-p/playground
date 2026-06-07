@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { Sidebar } from '@repo/ui/Sidebar';
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
-import { AutomaProvider } from './components/AutomatonProvider.tsx';
 import { Controls } from './components/controls/Controls.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary.tsx';
+import { init, destroy } from './stores/simulation/actions.ts';
 
 type AppProps = {
   rows?: number;
@@ -17,17 +19,22 @@ function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
   const [viewportRef, { width }] = useResizeObserver<HTMLDivElement>();
   const isDesktop = width >= DESKTOP_BREAKPOINT;
 
+  useEffect(() => {
+    init({
+      rows,
+      cols,
+      initialDensity: initialDensity ?? 0.2,
+      seed: seed ?? Date.now(),
+    });
+    return destroy;
+  }, [cols, initialDensity, rows, seed]);
+
   return (
     <div
       ref={viewportRef}
       className="h-dvh w-full overflow-hidden bg-[#070a14] ca-grain"
     >
-      <AutomaProvider
-        rows={rows}
-        cols={cols}
-        seed={seed}
-        initialDensity={initialDensity}
-      >
+      <ErrorBoundary>
         <Sidebar
           defaultOpen
           mobilePosition="bottom"
@@ -60,7 +67,7 @@ function App({ rows = 100, cols = 100, seed, initialDensity }: AppProps) {
           </Sidebar.Panel>
           <Sidebar.Toggle />
         </Sidebar>
-      </AutomaProvider>
+      </ErrorBoundary>
     </div>
   );
 }

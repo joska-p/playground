@@ -3,10 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./src/App.tsx",
     "./theme": "./src/styles/theme.css",
     "./styles": "./src/styles/styles.css"
   },
@@ -27,8 +25,7 @@
     "three": "catalog:",
     "@repo/ui": "workspace:*",
     "zod": "catalog:",
-    "zustand": "catalog:",
-    "react-error-boundary": "catalog:"
+    "zustand": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",

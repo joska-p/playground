@@ -2,8 +2,10 @@ import { Button } from '@repo/ui/Button';
 import { useCallback, useRef, useState } from 'react';
 import { readJsonFile } from '../../core/read-json-file.ts';
 import { downloadJson } from '../../core/download-json.ts';
-import { useImportPattern } from '../../stores/automaton/actions.ts';
-import { useAutomaStore } from '../../stores/automaton/context.ts';
+import {
+  exportPattern,
+  importPattern,
+} from '../../stores/simulation/actions.ts';
 import { useAutoDismiss } from '../../hooks/useAutoDismiss.ts';
 
 function ExportIcon() {
@@ -71,8 +73,6 @@ function ImportIcon() {
 }
 
 function FileControls() {
-  const store = useAutomaStore();
-  const importPattern = useImportPattern();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
@@ -81,9 +81,9 @@ function FileControls() {
   useAutoDismiss(errorMessage, () => setErrorMessage(undefined), 3000);
 
   const handleExport = useCallback(() => {
-    const pattern = store.getState().exportPattern('pattern');
+    const pattern = exportPattern('pattern');
     downloadJson(pattern, `${pattern.name}.json`);
-  }, [store]);
+  }, []);
 
   const handleImport = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +98,7 @@ function FileControls() {
       }
       e.target.value = '';
     },
-    [importPattern]
+    []
   );
 
   return (

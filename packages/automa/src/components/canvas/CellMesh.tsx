@@ -1,12 +1,13 @@
 import { useGridTexture } from '../../hooks/useGridTexture.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
-import { useAutomaStore } from '../../stores/automaton/context.ts';
+import { paintCell } from '../../stores/simulation/actions.ts';
+import { useBrushMode } from '../../stores/ui/selectors.ts';
 import {
   useCols,
   useRows,
-  useBrushMode,
-} from '../../stores/automaton/selectors.ts';
-import { usePaintCell } from '../../stores/automaton/actions.ts';
+  useGrid,
+  useGeneration,
+} from '../../stores/simulation/selectors.ts';
 import vertexShader from '../../shaders/cell-mesh.vert?raw';
 import fragmentShader from '../../shaders/cell-mesh.frag?raw';
 
@@ -17,14 +18,15 @@ type CellMeshProps = {
 };
 
 function CellMesh({ aliveColor, glowColor, deadColor }: CellMeshProps) {
-  const store = useAutomaStore();
   const cols = useCols();
   const rows = useRows();
   const brushMode = useBrushMode();
-  const paintCell = usePaintCell();
+  const grid = useGrid();
+  const generation = useGeneration();
 
   const { uniforms } = useGridTexture(
-    store,
+    grid,
+    generation,
     cols,
     rows,
     aliveColor,
