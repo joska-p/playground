@@ -10,7 +10,7 @@ const useGridTexture = (
   cols: number,
   rows: number,
   aliveColor: string,
-  deadColor: string,
+  deadColor: string
 ) => {
   const lastRenderedGeneration = useRef(-1);
 
@@ -21,7 +21,7 @@ const useGridTexture = (
       cols,
       rows,
       THREE.RedFormat,
-      THREE.UnsignedByteType,
+      THREE.UnsignedByteType
     );
     tex.magFilter = THREE.NearestFilter;
     tex.minFilter = THREE.NearestFilter;

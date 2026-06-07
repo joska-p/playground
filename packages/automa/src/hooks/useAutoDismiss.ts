@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const useAutoDismiss = (
   value: unknown,
   clear: () => void,
-  ms: number,
+  ms: number
 ): void => {
   useEffect(() => {
     if (value) {

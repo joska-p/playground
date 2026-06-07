@@ -35,27 +35,17 @@ export default function App() {
 
 ```
 AutomatonProvider
-  ├─ CAStore (Zustand)
-  │   ├─ init / destroy
-  │   ├─ step (→ Web Worker)
-  │   ├─ clear / randomize
-  │   ├─ paintCell
-  │   ├─ importPattern / exportPattern
-  │   ├─ toggleRunning / play / pause
-  │   └─ setSpeed / setToolMode
-  │
   └─ ErrorBoundary
        ├─ AutomatonCanvas
-       │   └─ <Canvas> (R3F — orthographic, OrbitControls, GizmoHelper)
-       │       ├─ <OrbitControls> (pan + zoom, no rotation)
-       │       ├─ <GizmoHelper> + <GizmoViewport>
+       │   └─ <Canvas> (R3F — orthographic, OrbitControls)
+       │       ├─ <OrbitControls> (zoom via middle-click, no rotation, no pan)
        │       ├─ <mesh> (shaderMaterial ← DataTexture)
        │       └─ <GridLines> (debug overlay)
        │
        └─ Controls
            ├─ play / pause / step / clear / randomize
            ├─ speed slider
-           ├─ tool mode (draw / erase / pan)
+           ├─ brush mode (draw / erase)
            ├─ import / export pattern
            └─ debug overlay (D)
 ```
@@ -65,24 +55,22 @@ AutomatonProvider
 The engine runs Conway's Game of Life in a **Web Worker** to avoid blocking the UI thread:
 
 ```
-step.ts            Core algorithm (toroidal wrap-around)
+step.ts            Core algorithm (toroidal wrap-around) — evolveGrid
 worker.ts          Off-main-thread computation, transferrable ArrayBuffers
-grid.ts            Grid allocation / initialisation
-rng.ts            Seeded PRNG (simple LCG)
-pattern.schema.ts Zod schema for import/export of `.json` patterns
-types.ts          CellValue, Grid, etc.
+grid.ts            Grid allocation / seeding — createGrid, seedGrid
+rng.ts             Seeded PRNG — createSeededRandom
+pattern.schema.ts  Zod schema for import/export of `.json` patterns
+types.ts           CellValue, Grid type aliases
 ```
 
 ## Controls
 
 | Input | Action |
 |---|---|
-| Left-click + drag | Draw / erase cells (tool mode) |
-| Scroll wheel | Zoom |
-| Middle-click + drag | Pan camera |
+| Left-click + drag | Draw / erase cells (brush mode) |
+| Scroll wheel / middle-click | Zoom |
 | D | Toggle debug overlay |
 | Space | Play / pause |
-| Gizmo axes | Snap camera to top / right / front view |
 
 ## Exports
 
@@ -90,7 +78,7 @@ types.ts          CellValue, Grid, etc.
 |---|---|---|
 | `AutomatonCanvas` | `@repo/automa` | R3F orthographic grid with shader rendering |
 | `AutomatonProvider` | `@repo/automa` | Provider wrapping the CA Zustand store |
-| `Controls` | `@repo/automa` | UI panel: play, step, speed, tool mode, import/export |
+| `Controls` | `@repo/automa` | UI panel: play, step, speed, brush mode, import/export |
 | `./styles` | `@repo/automa/styles` | Component CSS |
 
 ## Key Dependencies
@@ -99,7 +87,7 @@ types.ts          CellValue, Grid, etc.
 |---|---|
 | `three` | 3D rendering engine |
 | `@react-three/fiber` | React renderer for Three.js |
-| `@react-three/drei` | R3F utilities (OrbitControls, GizmoHelper) |
+| `@react-three/drei` | R3F utilities (OrbitControls) |
 | `zustand` | State management |
 | `zod` | Pattern import/export schema validation |
 | `@repo/ui` | Shared UI components (Button, Slider, etc.) |

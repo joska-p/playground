@@ -5,7 +5,7 @@ import { fitCameraToGrid } from '../core/fit-camera.ts';
 const useCameraFit = (
   camera: OrthographicCamera | undefined,
   cols: number,
-  rows: number,
+  rows: number
 ): void => {
   const cameraRef = useRef<OrthographicCamera | undefined>(undefined);
 
@@ -17,7 +17,12 @@ const useCameraFit = (
     const cam = cameraRef.current;
     if (!cam) return;
 
-    const bounds = fitCameraToGrid(cols, rows, window.innerWidth, window.innerHeight);
+    const bounds = fitCameraToGrid(
+      cols,
+      rows,
+      window.innerWidth,
+      window.innerHeight
+    );
 
     cam.left = bounds.left;
     cam.right = bounds.right;

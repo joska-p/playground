@@ -9,7 +9,9 @@ function FileControls() {
   const store = useCAStore();
   const importPattern = useImportPattern();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
 
   useAutoDismiss(errorMessage, () => setErrorMessage(undefined), 3000);
 
@@ -31,7 +33,7 @@ function FileControls() {
       }
       e.target.value = '';
     },
-    [importPattern],
+    [importPattern]
   );
 
   return (

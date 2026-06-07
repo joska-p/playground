@@ -9,7 +9,7 @@ const fitCameraToGrid = (
   cols: number,
   rows: number,
   viewWidth: number,
-  viewHeight: number,
+  viewHeight: number
 ): CameraBounds => {
   const aspect = viewWidth / viewHeight;
   const gridAspect = cols / rows;

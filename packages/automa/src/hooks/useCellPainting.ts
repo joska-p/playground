@@ -16,7 +16,7 @@ const useCellPainting = (
   cols: number,
   rows: number,
   brushMode: BrushMode,
-  paintCell: (index: number, value: CellValue) => void,
+  paintCell: (index: number, value: CellValue) => void
 ): CellPaintingHandlers => {
   const meshRef = useRef<THREE.Mesh>(undefined);
   const isPainting = useRef(false);
@@ -32,7 +32,7 @@ const useCellPainting = (
       const index = row * cols + col;
       paintCell(index, brushMode === 'erase' ? 0 : 1);
     },
-    [cols, rows, brushMode, paintCell],
+    [cols, rows, brushMode, paintCell]
   );
 
   const onPointerDown = useCallback(
@@ -42,7 +42,7 @@ const useCellPainting = (
       isPainting.current = true;
       paintAtGridPosition(e.point, e.shiftKey);
     },
-    [paintAtGridPosition],
+    [paintAtGridPosition]
   );
 
   const onPointerMove = useCallback(
@@ -52,7 +52,7 @@ const useCellPainting = (
       if (e.buttons !== 1) return;
       paintAtGridPosition(e.point, e.shiftKey);
     },
-    [paintAtGridPosition],
+    [paintAtGridPosition]
   );
 
   const onPointerUp = useCallback(() => {

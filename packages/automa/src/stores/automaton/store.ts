@@ -129,8 +129,9 @@ const createCAStore = (opts: CAStoreInit) => {
       const pattern = result.data;
       const state = get();
       state.grid.fill(0);
+      const maxIdx = state.grid.length;
       for (const idx of pattern.aliveCells) {
-        if (idx >= 0 && idx < state.grid.length) {
+        if (idx < maxIdx) {
           state.grid[idx] = 1;
         }
       }

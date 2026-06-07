@@ -33,7 +33,7 @@ const useSetBrushMode = () => {
   const store = useCAStore();
   return useCallback(
     (mode: BrushMode) => store.getState().setToolMode(mode),
-    [store],
+    [store]
   );
 };
 
@@ -54,7 +54,7 @@ const useImportPattern = () => {
   const store = useCAStore();
   return useCallback(
     (raw: unknown) => store.getState().importPattern(raw),
-    [store],
+    [store]
   );
 };
 
@@ -63,7 +63,7 @@ const usePaintCell = () => {
   return useCallback(
     (index: number, value: CellValue) =>
       store.getState().paintCell(index, value),
-    [store],
+    [store]
   );
 };
 

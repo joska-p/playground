@@ -1,7 +1,11 @@
 import { useGridTexture } from '../../hooks/useGridTexture.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
 import { useCAStore } from '../../stores/automaton/context.ts';
-import { useCols, useRows, useBrushMode } from '../../stores/automaton/selectors.ts';
+import {
+  useCols,
+  useRows,
+  useBrushMode,
+} from '../../stores/automaton/selectors.ts';
 import { usePaintCell } from '../../stores/automaton/actions.ts';
 
 const vertexShader = `
