@@ -1,4 +1,4 @@
-import type { BrushMode } from '../types.ts';
+import type { BrushMode } from './store.ts';
 import { uiStore } from './store.ts';
 
 const setRunning = (v: boolean): void => {

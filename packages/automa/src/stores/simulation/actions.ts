@@ -2,7 +2,13 @@ import { createGrid, seedGrid } from '../../core/grid.ts';
 import { patternSchema } from '../../core/pattern.schema.ts';
 import type { Pattern } from '../../core/pattern.schema.ts';
 import type { CellValue, Grid } from '../../core/types.ts';
-import type { AutomaStoreInit } from '../types.ts';
+
+type SimulationInit = {
+  rows: number;
+  cols: number;
+  initialDensity: number;
+  seed: number;
+};
 import { simulationStore } from './store.ts';
 import { uiStore } from '../ui/store.ts';
 
@@ -21,7 +27,7 @@ type StepResponse = {
   grid: Uint8Array;
 };
 
-const init = (opts: AutomaStoreInit): void => {
+const init = (opts: SimulationInit): void => {
   const grid = createGrid(opts.rows, opts.cols);
   seedGrid(grid, opts.initialDensity, opts.seed);
 

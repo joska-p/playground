@@ -1,5 +1,6 @@
 import { createStore } from 'zustand/vanilla';
-import type { BrushMode } from '../types.ts';
+
+export type BrushMode = 'draw' | 'erase';
 
 type UiState = {
   running: boolean;
