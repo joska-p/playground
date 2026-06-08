@@ -22,8 +22,8 @@ const useCellPainting = (
   const isPainting = useRef(false);
 
   const paintAtGridPosition = (point: THREE.Vector3, shiftKey: boolean) => {
-    const col = Math.floor(point.x);
-    const row = Math.floor(point.y);
+    const col = Math.floor(point.x + cols / 2);
+    const row = Math.floor(point.y + rows / 2);
 
     if (col < 0 || col >= cols || row < 0 || row >= rows) return;
     if (shiftKey) return;
