@@ -7,11 +7,9 @@
     },
     "ghcr.io/devcontainers-extra/features/ffmpeg-apt-get:1": {},
     "ghcr.io/devcontainers/features/sshd:1": {},
-    // Installs the system Python runtime
     "ghcr.io/devcontainers/features/python:1": {
       "version": "latest"
     },
-    // Installs the blazing-fast 'uv' package manager
     "ghcr.io/devcontainers-extra/features/uv:1": {}
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/playground,type=bind,consistency=cached",
@@ -27,5 +25,14 @@
   "forwardPorts": [
     2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888
   ],
-  "runArgs": ["--userns=keep-id"]
+  "runArgs": ["--userns=keep-id", "--name", "playground"],
+  "customizations": {
+    "zed": {
+      "settings": {
+        "terminal": {
+          "shell": "zsh"
+        }
+      }
+    }
+  }
 }
