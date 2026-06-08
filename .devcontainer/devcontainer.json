@@ -1,54 +1,31 @@
 {
-  // -------------------------------------------------------------------------
-  // Dev Container — "boffin" experiment sandbox
-  // Spec: https://containers.dev/implementors/json_reference/
-  // -------------------------------------------------------------------------
-  "name": "playground-dev",
-  // Build from the local ContainerFile (Podman-compatible)
-  "build": {
-    "dockerfile": "ContainerFile",
-    "context": "..",
+  "name": "creative-playground",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers-extra/features/ffmpeg-apt-get:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    // Installs the system Python runtime
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "latest"
+    },
+    // Installs the blazing-fast 'uv' package manager
+    "ghcr.io/devcontainers-extra/features/uv:1": {}
   },
-
-  // Run as the boffin user (UID 1000 = your host user)
-  "remoteUser": "boffin",
-  "containerUser": "boffin",
-  "containerEnv": {
-    "HOME": "/home/boffin",
-    "USER": "boffin",
-  },
-
-  // -------------------------------------------------------------------------
-  // Mounts
-  //   - Bind the container home to your local playground directory so that
-  //     everything boffin installs or creates persists across container runs.
-  //   - The source path must already exist on the host (or be created before
-  //     starting the container).
-  // -------------------------------------------------------------------------
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/playground,type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces/playground",
+  "remoteUser": "node",
   "mounts": [
     {
-      "type": "bind",
-      "source": "${localWorkspaceFolder}/.container_home",
-      "target": "/home/boffin",
-    },
+      "source": "playground-home-volume",
+      "target": "/home/node",
+      "type": "volume"
+    }
   ],
-
-  // -------------------------------------------------------------------------
-  // Port forwarding — all ports are forwarded to the same host port
-  // -------------------------------------------------------------------------
-  "forwardPorts": [2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888],
-
-  // -------------------------------------------------------------------------
-  // Container run arguments (Podman / Docker)
-  //   --userns=keep-id  → Podman maps your host UID into the container so
-  //                        bind-mount ownership stays consistent.
-  //                        Remove this line if you use Docker instead.
-  // -------------------------------------------------------------------------
-  "runArgs": ["--userns=keep-id", "--name", "playground-dev"],
-
-  // -------------------------------------------------------------------------
-  // Lifecycle hooks
-  //   Ensure the local mount target exists before the container starts.
-  // -------------------------------------------------------------------------
-  "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.container_home",
+  "forwardPorts": [
+    2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888
+  ],
+  "runArgs": ["--userns=keep-id"]
 }
