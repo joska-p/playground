@@ -1,24 +1,27 @@
 import { useGridTexture } from '../../hooks/useGridTexture.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
 import { paintCell } from '../../stores/simulation/actions.ts';
-import { useBrushMode } from '../../stores/ui/selectors.ts';
+import { useBrushMode, useShaderId } from '../../stores/ui/selectors.ts';
 import { useCols, useRows } from '../../stores/simulation/selectors.ts';
-import vertexShader from '../../shaders/cell-mesh.vert?raw';
-import fragmentShader from '../../shaders/cell-mesh.frag?raw';
+import { getShader } from '../../core/shaders/registry.ts';
 
 function CellMesh() {
   const cols = useCols();
   const rows = useRows();
   const brushMode = useBrushMode();
+  const shaderId = useShaderId();
+  const shader = getShader(shaderId);
 
   const { uniforms } = useGridTexture({ cols, rows });
 
   const { meshRef, onPointerDown, onPointerMove, onPointerUp, onContextMenu } =
     useCellPainting(cols, rows, brushMode, paintCell);
 
+  if (!shader) return null;
+
   return (
     <mesh
-      ref={meshRef} // Pass it directly
+      ref={meshRef}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -27,8 +30,8 @@ function CellMesh() {
       <planeGeometry args={[cols, rows]} />
       <shaderMaterial
         uniforms={uniforms}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+        vertexShader={shader.vert}
+        fragmentShader={shader.frag}
       />
     </mesh>
   );

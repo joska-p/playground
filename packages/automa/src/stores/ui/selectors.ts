@@ -13,11 +13,14 @@ const useStateColors = () => useStore(uiStore, (s) => s.stateColors);
 
 const useGlowColor = () => useStore(uiStore, (s) => s.glowColor);
 
+const useShaderId = () => useStore(uiStore, (s) => s.shaderId);
+
 export {
   useBrushMode,
   useGlowColor,
   useRunning,
   useShowDebug,
+  useShaderId,
   useSpeedMs,
   useStateColors,
 };

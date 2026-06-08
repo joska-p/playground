@@ -29,9 +29,14 @@ const setGlowColor = (color: string): void => {
   uiStore.setState({ glowColor: color });
 };
 
+const setShader = (id: string): void => {
+  uiStore.setState({ shaderId: id });
+};
+
 export {
   setGlowColor,
   setRunning,
+  setShader,
   setShowDebug,
   setSpeedMs,
   setStateColor,
