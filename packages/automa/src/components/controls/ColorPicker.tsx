@@ -35,8 +35,7 @@ function ColorPicker() {
   return (
     <div className="flex flex-col gap-1">
       {stateColors.slice(0, rule.stateCount).map((color, i) => {
-        const label =
-          i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${i}`;
+        const label = i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${i}`;
         return (
           <ColorRow
             key={i}

@@ -29,4 +29,11 @@ const setGlowColor = (color: string): void => {
   uiStore.setState({ glowColor: color });
 };
 
-export { setGlowColor, setRunning, setShowDebug, setSpeedMs, setStateColor, setToolMode };
+export {
+  setGlowColor,
+  setRunning,
+  setShowDebug,
+  setSpeedMs,
+  setStateColor,
+  setToolMode,
+};
