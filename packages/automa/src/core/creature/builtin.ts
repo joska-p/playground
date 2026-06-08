@@ -1,10 +1,14 @@
 import type { Creature } from './types.ts';
 
-function creatureFactory(
-  id: string,
-  name: string,
-  cells: number[][]
-): Creature {
+function creatureFactory({
+  id,
+  name,
+  cells,
+}: {
+  id: string;
+  name: string;
+  cells: number[][];
+}): Creature {
   return {
     id,
     name,
@@ -15,119 +19,263 @@ function creatureFactory(
 }
 
 // ── Still lifes ──────────────────────────────────────────
+const block = creatureFactory({
+  id: 'block',
+  name: 'Block',
+  cells: [
+    [1, 1],
+    [1, 1],
+  ],
+});
 
-const block = creatureFactory('block', 'Block', [
-  [1, 1],
-  [1, 1],
-]);
+const beehive = creatureFactory({
+  id: 'beehive',
+  name: 'Beehive',
+  cells: [
+    [0, 1, 1, 0],
+    [1, 0, 0, 1],
+    [0, 1, 1, 0],
+  ],
+});
 
-const beehive = creatureFactory('beehive', 'Beehive', [
-  [0, 1, 1, 0],
-  [1, 0, 0, 1],
-  [0, 1, 1, 0],
-]);
-
-const loaf = creatureFactory('loaf', 'Loaf', [
-  [0, 1, 1, 0],
-  [1, 0, 0, 1],
-  [0, 1, 0, 1],
-  [0, 0, 1, 0],
-]);
-
-const boat = creatureFactory('boat', 'Boat', [
-  [1, 1, 0],
-  [1, 0, 1],
-  [0, 1, 0],
-]);
-
-const tub = creatureFactory('tub', 'Tub', [
-  [0, 1, 0],
-  [1, 0, 1],
-  [0, 1, 0],
-]);
+const loaf = creatureFactory({
+  id: 'loaf',
+  name: 'Loaf',
+  cells: [
+    [0, 1, 1, 0],
+    [1, 0, 0, 1],
+    [0, 1, 0, 1],
+    [0, 0, 1, 0],
+  ],
+});
 
 // ── Oscillators ──────────────────────────────────────────
+const blinker = creatureFactory({
+  id: 'blinker',
+  name: 'Blinker',
+  cells: [[1, 1, 1]],
+});
 
-const blinker = creatureFactory('blinker', 'Blinker', [[1, 1, 1]]);
+const toad = creatureFactory({
+  id: 'toad',
+  name: 'Toad',
+  cells: [
+    [0, 1, 1, 1],
+    [1, 1, 1, 0],
+  ],
+});
 
-const toad = creatureFactory('toad', 'Toad', [
-  [0, 1, 1, 1],
-  [1, 1, 1, 0],
-]);
+const beacon = creatureFactory({
+  id: 'beacon',
+  name: 'Beacon',
+  cells: [
+    [1, 1, 0, 0],
+    [1, 1, 0, 0],
+    [0, 0, 1, 1],
+    [0, 0, 1, 1],
+  ],
+});
 
-const beacon = creatureFactory('beacon', 'Beacon', [
-  [1, 1, 0, 0],
-  [1, 1, 0, 0],
-  [0, 0, 1, 1],
-  [0, 0, 1, 1],
-]);
+// Period-3, beautiful symmetric oscillator
+const pulsar = creatureFactory({
+  id: 'pulsar',
+  name: 'Pulsar',
+  cells: [
+    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+  ],
+});
 
-const pulsar = creatureFactory('pulsar', 'Pulsar', [
-  [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-  [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-  [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-]);
+// Period-15 — oscillates through 15 distinct phases
+const pentadecathlon = creatureFactory({
+  id: 'pentadecathlon',
+  name: 'Pentadecathlon',
+  cells: [
+    [0, 1, 0],
+    [0, 1, 0],
+    [1, 0, 1],
+    [0, 1, 0],
+    [0, 1, 0],
+    [0, 1, 0],
+    [0, 1, 0],
+    [1, 0, 1],
+    [0, 1, 0],
+    [0, 1, 0],
+  ],
+});
 
 // ── Spaceships ───────────────────────────────────────────
+// Travels diagonally across the grid
+const glider = creatureFactory({
+  id: 'glider',
+  name: 'Glider',
+  cells: [
+    [0, 0, 1],
+    [1, 0, 1],
+    [0, 1, 1],
+  ],
+});
 
-const glider = creatureFactory('glider', 'Glider', [
-  [0, 0, 1],
-  [1, 0, 1],
-  [0, 1, 1],
-]);
+// Travels horizontally, period 4
+const lwss = creatureFactory({
+  id: 'lwss',
+  name: 'LWSS',
+  cells: [
+    [0, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0],
+  ],
+});
 
-const lwss = creatureFactory('lwss', 'LWSS', [
-  [0, 1, 1, 1, 1],
-  [1, 0, 0, 0, 1],
-  [0, 0, 0, 0, 1],
-  [1, 0, 0, 1, 0],
-]);
+// Medium-weight spaceship — wider body, same period as LWSS
+const mwss = creatureFactory({
+  id: 'mwss',
+  name: 'MWSS',
+  cells: [
+    [0, 0, 1, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1],
+    [0, 1, 1, 1, 1, 1],
+  ],
+});
 
 // ── Methuselahs ──────────────────────────────────────────
+// 5 cells → stabilizes after 1103 generations
+const rPentomino = creatureFactory({
+  id: 'r-pentomino',
+  name: 'R-pentomino',
+  cells: [
+    [0, 1, 1],
+    [1, 1, 0],
+    [0, 1, 0],
+  ],
+});
 
-const rPentomino = creatureFactory('r-pentomino', 'R-pentomino', [
-  [0, 1, 1],
-  [1, 1, 0],
-  [0, 1, 0],
-]);
+// 7 cells → dies completely after exactly 130 generations
+const diehard = creatureFactory({
+  id: 'diehard',
+  name: 'Diehard',
+  cells: [
+    [0, 0, 0, 0, 0, 0, 1, 0],
+    [1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1, 1, 1],
+  ],
+});
 
-const diehard = creatureFactory('diehard', 'Diehard', [
-  [0, 0, 0, 0, 0, 0, 1, 0],
-  [1, 1, 0, 0, 0, 0, 0, 0],
-  [0, 1, 0, 0, 0, 1, 1, 1],
-]);
+// 7 cells → explodes into ~633 cells after 5206 generations
+const acorn = creatureFactory({
+  id: 'acorn',
+  name: 'Acorn',
+  cells: [
+    [0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [1, 1, 0, 0, 1, 1, 1],
+  ],
+});
 
-const acorn = creatureFactory('acorn', 'Acorn', [
-  [0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 0, 0],
-  [1, 1, 0, 0, 1, 1, 1],
-]);
+// 7 cells → stabilizes after 173 generations
+const piHeptomino = creatureFactory({
+  id: 'pi-heptomino',
+  name: 'Pi-heptomino',
+  cells: [
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 0, 1],
+  ],
+});
 
-const builtinCreatures: Creature[] = [
+// 7 cells → stabilizes after 243 generations
+const bHeptomino = creatureFactory({
+  id: 'b-heptomino',
+  name: 'B-heptomino',
+  cells: [
+    [0, 1, 1],
+    [1, 1, 0],
+    [0, 1, 0],
+    [0, 1, 0],
+  ],
+});
+
+// ── Infinite growth ──────────────────────────────────────
+// The first pattern discovered that grows without bound.
+// Every 30 generations it fires a new glider — population grows forever.
+const gosperGliderGun = creatureFactory({
+  id: 'gosper-glider-gun',
+  name: 'Gosper Glider Gun',
+  cells: [
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    ],
+    [
+      1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+    [
+      1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ],
+  ],
+});
+
+export {
+  // Still lifes
   block,
   beehive,
   loaf,
-  boat,
-  tub,
+  // Oscillators
   blinker,
   toad,
   beacon,
   pulsar,
+  pentadecathlon,
+  // Spaceships
   glider,
   lwss,
+  mwss,
+  // Methuselahs
   rPentomino,
   diehard,
   acorn,
-];
-
-export { builtinCreatures };
+  piHeptomino,
+  bHeptomino,
+  // Infinite growth
+  gosperGliderGun,
+};
