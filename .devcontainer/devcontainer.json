@@ -1,6 +1,6 @@
 {
   "name": "creative-playground",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": true
@@ -14,11 +14,11 @@
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/playground,type=bind,consistency=cached",
   "workspaceFolder": "/workspaces/playground",
-  "remoteUser": "node",
+  "remoteUser": "vscode",
   "mounts": [
     {
       "source": "playground-home-volume",
-      "target": "/home/node",
+      "target": "/home/vscode",
       "type": "volume"
     }
   ],
@@ -26,13 +26,5 @@
     2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888
   ],
   "runArgs": ["--userns=keep-id", "--name", "playground"],
-  "customizations": {
-    "zed": {
-      "settings": {
-        "terminal": {
-          "shell": "zsh"
-        }
-      }
-    }
-  }
+  "postCreateCommand": "sudo chsh -s $(which zsh) vscode"
 }
