@@ -1,7 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { useStore } from 'zustand';
 import { Scene } from './Scene.tsx';
-import { CAMERA_Z, CAMERA_NEAR, CAMERA_FAR } from '../../core/config.ts';
+import {
+  CAMERA_Z,
+  CAMERA_FOV,
+  CAMERA_NEAR,
+  CAMERA_FAR,
+} from '../../core/config.ts';
 import { uiStore } from '../../stores/ui/store.ts';
 
 type CACanvasProps = {
@@ -27,9 +32,10 @@ function AutomatonCanvas({ className }: CACanvasProps) {
       <Canvas
         orthographic
         camera={{
-          position: [0, 0, CAMERA_Z],
+          fov: CAMERA_FOV,
           near: CAMERA_NEAR,
           far: CAMERA_FAR,
+          position: [0, 0, CAMERA_Z],
         }}
         gl={{
           preserveDrawingBuffer: true,

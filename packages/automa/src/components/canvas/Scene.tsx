@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { MOUSE } from 'three';
 import { useCols, useRows } from '../../stores/simulation/selectors.ts';
 import { useShowDebug } from '../../stores/ui/selectors.ts';
-import { useCameraFit } from '../../hooks/useCameraFit.ts';
 import { CellMesh } from './CellMesh.tsx';
 import { GridLines } from './GridLines.tsx';
 
@@ -20,8 +19,6 @@ function Scene() {
   const showDebug = useShowDebug();
   const cols = useCols();
   const rows = useRows();
-
-  useCameraFit(cols, rows);
 
   return (
     <>

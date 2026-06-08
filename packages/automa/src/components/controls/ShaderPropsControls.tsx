@@ -9,7 +9,7 @@ type ColorRowProps = {
 
 function ColorRow({ label, color, onChange }: ColorRowProps) {
   return (
-    <label className="grid grid-cols-3 place-content-center gap-2 w-full text-xs">
+    <label className="grid grid-cols-3 items-center justify-items-start gap-2 w-full text-xs">
       <span className="text-right text-muted-foreground">{label}</span>
       <input
         type="color"
@@ -26,7 +26,7 @@ function ShaderPropsControls() {
   const glowColor = useGlowColor();
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       <ColorRow
         label="Glow"
         color={glowColor}

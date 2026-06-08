@@ -21,7 +21,10 @@ function GridLines({ cols, rows }: GridLinesProps) {
   );
 
   return (
-    <lineSegments geometry={geometry}>
+    <lineSegments
+      geometry={geometry}
+      position={[-cols / 2, -rows / 2, 0]}
+    >
       <lineBasicMaterial
         color="white"
         transparent

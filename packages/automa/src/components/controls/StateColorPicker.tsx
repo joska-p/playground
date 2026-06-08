@@ -11,7 +11,7 @@ type ColorRowProps = {
 
 function ColorRow({ label, color, onChange }: ColorRowProps) {
   return (
-    <label className="grid grid-cols-3 place-content-center gap-2 w-full text-xs">
+    <label className="grid grid-cols-3 items-center justify-items-start w-full text-xs">
       <span className="text-right text-muted-foreground">{label}</span>
       <input
         type="color"
@@ -32,7 +32,7 @@ function StateColorPicker() {
   if (!rule) return null;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       {stateColors.slice(0, rule.stateCount).map((color, i) => {
         const label = i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${i}`;
         return (

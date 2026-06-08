@@ -3,9 +3,10 @@ export const GRID_DEFAULT_COLS = 100;
 export const GRID_DEFAULT_DENSITY = 0.2;
 export const GRID_DEFAULT_SEED = 42;
 
-export const CAMERA_Z = 10;
+export const CAMERA_Z = 1;
 export const CAMERA_NEAR = 0.1;
 export const CAMERA_FAR = 100;
+export const CAMERA_FOV = 75;
 
 export const SPEED_MIN_MS = 50;
 export const SPEED_MAX_MS = 1000;
