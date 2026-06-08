@@ -9,4 +9,6 @@ const useCols = () => useStore(simulationStore, (s) => s.cols);
 
 const useRows = () => useStore(simulationStore, (s) => s.rows);
 
-export { useCols, useGeneration, useGrid, useRows };
+const useRuleId = () => useStore(simulationStore, (s) => s.ruleId);
+
+export { useCols, useGeneration, useGrid, useRows, useRuleId };

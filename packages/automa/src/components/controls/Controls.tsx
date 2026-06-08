@@ -2,7 +2,7 @@ import { PlaybackControls } from './PlaybackControls.tsx';
 import { EditControls } from './EditControls.tsx';
 import { SpeedSlider } from './SpeedSlider.tsx';
 import { BrushModeSelector } from './BrushModeSelector.tsx';
-import { FileControls } from './FileControls.tsx';
+import { RuleSelector } from './RuleSelector.tsx';
 import { DebugToggle, DebugPanel } from './DebugControls.tsx';
 import { cn } from '@repo/ui/cn';
 
@@ -22,7 +22,7 @@ function Controls({ className }: ControlsProps) {
       <EditControls />
       <BrushModeSelector />
       <SpeedSlider />
-      <FileControls />
+      <RuleSelector />
       <DebugToggle />
       <DebugPanel />
     </div>

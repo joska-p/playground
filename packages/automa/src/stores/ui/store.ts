@@ -4,7 +4,7 @@ import {
   COLOR_DEAD,
   COLOR_GLOW,
   SPEED_DEFAULT_MS,
-} from '../../config.ts';
+} from '../../core/config.ts';
 
 export type BrushMode = 'draw' | 'erase';
 

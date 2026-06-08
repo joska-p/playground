@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { fitCameraToGrid } from '../core/fit-camera.ts';
-import { CAMERA_Z } from '../config.ts';
+import { fitCameraToGrid } from '../utils/camera.ts';
+import { CAMERA_Z } from '../core/config.ts';
 
 const useCameraFit = (cols: number, rows: number): void => {
   const get = useThree((state) => state.get);

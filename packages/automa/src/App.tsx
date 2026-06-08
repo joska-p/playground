@@ -8,7 +8,7 @@ import {
   GRID_DEFAULT_ROWS,
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
-} from './config.ts';
+} from './core/config.ts';
 
 type AppProps = {
   rows?: number;

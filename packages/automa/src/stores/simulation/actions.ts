@@ -1,8 +1,9 @@
 import { createGrid, seedGrid } from '../../core/grid.ts';
-import { patternSchema } from '../../core/pattern.schema.ts';
-import type { Pattern } from '../../core/pattern.schema.ts';
 import type { CellValue, Grid } from '../../core/types.ts';
-import { WORKER_MESSAGE_STEP, GRID_DEFAULT_DENSITY } from '../../config.ts';
+import {
+  WORKER_MESSAGE_STEP,
+  GRID_DEFAULT_DENSITY,
+} from '../../core/config.ts';
 import { simulationStore } from './store.ts';
 import { uiStore } from '../ui/store.ts';
 
@@ -21,6 +22,7 @@ type StepRequest = {
   grid: Uint8Array;
   cols: number;
   rows: number;
+  ruleId: string;
 };
 
 type StepResponse = {
@@ -75,9 +77,14 @@ const step = (): void => {
       grid: state.grid,
       cols: state.cols,
       rows: state.rows,
+      ruleId: state.ruleId,
     } satisfies StepRequest,
     [state.grid.buffer]
   );
+};
+
+const setRule = (ruleId: string): void => {
+  simulationStore.setState({ ruleId });
 };
 
 const play = (): void => {
@@ -134,47 +141,16 @@ const paintCell = (index: number, value: CellValue): void => {
   }
 };
 
-const importPattern = (raw: unknown): void => {
-  const result = patternSchema.safeParse(raw);
-  if (!result.success) {
-    console.error('Pattern validation failed:', result.error);
-    return;
-  }
-  const pattern = result.data;
-  const state = simulationStore.getState();
-  state.grid.fill(0);
-  for (const idx of pattern.aliveCells) {
-    if (idx < state.grid.length) state.grid[idx] = 1;
-  }
-  simulationStore.setState({ generation: state.generation + 1 });
-};
-
-const exportPattern = (name: string): Pattern => {
-  const state = simulationStore.getState();
-  const aliveCells: number[] = [];
-  for (let i = 0; i < state.grid.length; i++) {
-    if (state.grid[i] === 1) aliveCells.push(i);
-  }
-  return {
-    name,
-    cols: state.cols,
-    rows: state.rows,
-    generation: state.generation,
-    aliveCells,
-  };
-};
-
 export {
   clear,
   destroy,
-  exportPattern,
-  importPattern,
   init,
   paintCell,
   pause,
   play,
   randomize,
   setGrid,
+  setRule,
   setSpeed,
   step,
   toggleRunning,

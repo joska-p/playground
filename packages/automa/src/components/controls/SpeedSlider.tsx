@@ -1,7 +1,11 @@
 import { Slider } from '@repo/ui/Slider';
 import { setSpeed } from '../../stores/simulation/actions.ts';
 import { useSpeedMs } from '../../stores/ui/selectors.ts';
-import { SPEED_MIN_MS, SPEED_MAX_MS, SPEED_STEP_MS } from '../../config.ts';
+import {
+  SPEED_MIN_MS,
+  SPEED_MAX_MS,
+  SPEED_STEP_MS,
+} from '../../core/config.ts';
 
 function SpeedSlider() {
   const speedMs = useSpeedMs();

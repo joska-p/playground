@@ -6,7 +6,7 @@ import {
   CAMERA_FAR,
   COLOR_ALIVE,
   COLOR_DEAD,
-} from '../../config.ts';
+} from '../../core/config.ts';
 
 type CACanvasProps = {
   className?: string;

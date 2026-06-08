@@ -1,6 +1,6 @@
 # @repo/automa
 
-> Interactive Cellular Automaton simulator — Conway's Game of Life on an editable 2D grid with Web Worker stepping, Zustand state management, and React Three Fiber rendering.
+> Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering.
 
 ## Quick Start
 
@@ -36,11 +36,11 @@ App
        │       └─ <GridLines> (debug overlay)
        │
        └─ Controls
-           ├─ play / pause / step / clear / randomize
-           ├─ speed slider
-           ├─ brush mode (draw / erase)
-           ├─ import / export pattern
-           └─ debug overlay (D)
+            ├─ play / pause / step / clear / randomize
+            ├─ speed slider
+            ├─ brush mode (draw / erase)
+            ├─ rule selector
+            └─ debug overlay (D)
 
 automatonStore (global Zustand singleton)
   ├─ Pure state mutations only (setGrid, clear, randomize, ...)
@@ -49,21 +49,19 @@ automatonStore (global Zustand singleton)
 actions.ts (plain functions, no hooks)
   ├─ init / destroy — Worker + timer lifecycle
   ├─ step / play / pause — animation orchestration
-  ├─ clear / randomize / paintCell — grid edits
-  └─ importPattern / exportPattern — file I/O
+  └─ clear / randomize / paintCell / setRule — grid edits
 ```
 
 ## Engine
 
-The engine runs Conway's Game of Life in a **Web Worker** to avoid blocking the UI thread:
+Cellular automaton rules run in a **Web Worker** to avoid blocking the UI thread:
 
 ```
-step.ts            Core algorithm (toroidal wrap-around) — evolveGrid
+engine.ts          Generic evolve (lookup tables + multi-state support)
 worker.ts          Off-main-thread computation, transferrable ArrayBuffers
 grid.ts            Grid allocation / seeding — createGrid, seedGrid
-rng.ts             Seeded PRNG — createSeededRandom
-pattern.schema.ts  Zod schema for import/export of `.json` patterns
 types.ts           CellValue, Grid type aliases
+rules/             Rule definitions — Conway, HighLife, registry
 ```
 
 ## Controls

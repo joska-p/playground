@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useStore } from 'zustand';
-import { copyGridToTextureData } from '../core/grid-to-texture.ts';
+import { copyGridToTextureData } from '../utils/grid-to-texture.ts';
 import { simulationStore } from '../stores/simulation/store.ts';
 import { uiStore } from '../stores/ui/store.ts';
 
