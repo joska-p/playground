@@ -1,9 +1,14 @@
 import { useGridTexture } from '../../hooks/useGridTexture.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
-import { paintCell } from '../../stores/simulation/actions.ts';
-import { useBrushMode, useShaderId } from '../../stores/ui/selectors.ts';
+import { paintCell, placePattern } from '../../stores/simulation/actions.ts';
+import {
+  useBrushMode,
+  useShaderId,
+  usePaletteBrush,
+} from '../../stores/ui/selectors.ts';
 import { useCols, useRows } from '../../stores/simulation/selectors.ts';
 import { getShader } from '../../core/shaders/registry.ts';
+import { getCreature } from '../../core/creature/registry.ts';
 
 function CellMesh() {
   const cols = useCols();
@@ -12,10 +17,15 @@ function CellMesh() {
   const shaderId = useShaderId();
   const shader = getShader(shaderId);
 
+  const paletteBrushId = usePaletteBrush();
+  const creature = paletteBrushId
+    ? (getCreature(paletteBrushId) ?? null)
+    : null;
+
   const { uniforms } = useGridTexture({ cols, rows });
 
   const { meshRef, onPointerDown, onPointerMove, onPointerUp, onContextMenu } =
-    useCellPainting(cols, rows, brushMode, paintCell);
+    useCellPainting(cols, rows, brushMode, paintCell, creature, placePattern);
 
   if (!shader) return null;
 

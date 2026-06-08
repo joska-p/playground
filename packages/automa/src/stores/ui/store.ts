@@ -15,6 +15,7 @@ type UiState = {
   stateColors: string[];
   glowColor: string;
   shaderId: string;
+  paletteBrush: string | null;
 };
 
 const uiStore = createStore<UiState>(() => ({
@@ -25,6 +26,7 @@ const uiStore = createStore<UiState>(() => ({
   stateColors: [...DEFAULT_STATE_COLORS],
   glowColor: COLOR_GLOW,
   shaderId: 'glow',
+  paletteBrush: null,
 }));
 
 export { uiStore };

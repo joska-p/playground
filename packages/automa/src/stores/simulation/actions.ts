@@ -8,6 +8,7 @@ import {
 import { getRule } from '../../core/rules/registry.ts';
 import { simulationStore } from './store.ts';
 import { uiStore } from '../ui/store.ts';
+import type { Creature } from '../../core/creature/types.ts';
 
 type SimulationInit = {
   rows: number;
@@ -155,11 +156,40 @@ const paintCell = (index: number, value: CellValue): void => {
   }
 };
 
+// Place an entire creature pattern centered on (col, row)
+const placePattern = (col: number, row: number, creature: Creature): void => {
+  const state = simulationStore.getState();
+  const grid = state.grid;
+  const ccols = state.cols;
+  const rrows = state.rows;
+
+  const offsetX = Math.floor(creature.width / 2);
+  const offsetY = Math.floor(creature.height / 2);
+
+  let changed = false;
+  for (let y = 0; y < creature.height; y++) {
+    for (let x = 0; x < creature.width; x++) {
+      const val = creature.cells[y][x];
+      if (!val) continue;
+      const gx = col - offsetX + x;
+      const gy = row - offsetY + y;
+      if (gx < 0 || gx >= ccols || gy < 0 || gy >= rrows) continue;
+      grid[gy * ccols + gx] = val as CellValue;
+      changed = true;
+    }
+  }
+
+  if (changed) {
+    simulationStore.setState({ generation: state.generation + 1 });
+  }
+};
+
 export {
   clear,
   destroy,
   init,
   paintCell,
+  placePattern,
   pause,
   play,
   randomize,

@@ -3,6 +3,7 @@ import type * as THREE from 'three';
 import type { ThreeEvent } from '@react-three/fiber';
 import type { CellValue } from '../core/types.ts';
 import type { BrushMode } from '../stores/ui/store.ts';
+import type { Creature } from '../core/creature/types.ts';
 
 type CellPaintingHandlers = {
   meshRef: React.RefObject<THREE.Mesh | null>;
@@ -16,7 +17,9 @@ const useCellPainting = (
   cols: number,
   rows: number,
   brushMode: BrushMode,
-  paintCell: (index: number, value: CellValue) => void
+  paintCell: (index: number, value: CellValue) => void,
+  creature: Creature | null = null,
+  paintCreature?: (col: number, row: number, creature: Creature) => void
 ): CellPaintingHandlers => {
   const meshRef = useRef<THREE.Mesh>(null);
   const isPainting = useRef(false);
@@ -27,6 +30,12 @@ const useCellPainting = (
 
     if (col < 0 || col >= cols || row < 0 || row >= rows) return;
     if (shiftKey) return;
+
+    // If a creature brush is active, delegate to the paintCreature handler
+    if (creature && paintCreature && brushMode !== 'erase') {
+      paintCreature(col, row, creature);
+      return;
+    }
 
     const index = row * cols + col;
     paintCell(index, brushMode === 'erase' ? 0 : 1);

@@ -15,9 +15,12 @@ const useGlowColor = () => useStore(uiStore, (s) => s.glowColor);
 
 const useShaderId = () => useStore(uiStore, (s) => s.shaderId);
 
+const usePaletteBrush = () => useStore(uiStore, (s) => s.paletteBrush);
+
 export {
   useBrushMode,
   useGlowColor,
+  usePaletteBrush,
   useRunning,
   useShowDebug,
   useShaderId,

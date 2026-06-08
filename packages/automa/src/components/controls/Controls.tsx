@@ -5,6 +5,7 @@ import { BrushModeSelector } from './BrushModeSelector.tsx';
 import { RuleSelector } from './RuleSelector.tsx';
 import { ShaderSelector } from './ShaderSelector.tsx';
 import { DebugToggle, DebugPanel } from './DebugControls.tsx';
+import { CreatureSelector } from './CreatureSelector.tsx';
 import { cn } from '@repo/ui/cn';
 
 type ControlsProps = {
@@ -22,6 +23,7 @@ function Controls({ className }: ControlsProps) {
       <PlaybackControls />
       <EditControls />
       <BrushModeSelector />
+      <CreatureSelector />
       <SpeedSlider />
       <RuleSelector />
       <ShaderSelector />

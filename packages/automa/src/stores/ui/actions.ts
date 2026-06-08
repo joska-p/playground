@@ -33,8 +33,13 @@ const setShader = (id: string): void => {
   uiStore.setState({ shaderId: id });
 };
 
+const setPaletteBrush = (id: string | null): void => {
+  uiStore.setState({ paletteBrush: id });
+};
+
 export {
   setGlowColor,
+  setPaletteBrush,
   setRunning,
   setShader,
   setShowDebug,
