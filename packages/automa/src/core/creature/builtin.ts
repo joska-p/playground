@@ -1,7 +1,10 @@
 import type { Creature } from './types.ts';
-import { registerCreature } from './registry.ts';
 
-function c(id: string, name: string, cells: number[][]): Creature {
+function creatureFactory(
+  id: string,
+  name: string,
+  cells: number[][]
+): Creature {
   return {
     id,
     name,
@@ -13,31 +16,31 @@ function c(id: string, name: string, cells: number[][]): Creature {
 
 // ── Still lifes ──────────────────────────────────────────
 
-const block = c('block', 'Block', [
+const block = creatureFactory('block', 'Block', [
   [1, 1],
   [1, 1],
 ]);
 
-const beehive = c('beehive', 'Beehive', [
+const beehive = creatureFactory('beehive', 'Beehive', [
   [0, 1, 1, 0],
   [1, 0, 0, 1],
   [0, 1, 1, 0],
 ]);
 
-const loaf = c('loaf', 'Loaf', [
+const loaf = creatureFactory('loaf', 'Loaf', [
   [0, 1, 1, 0],
   [1, 0, 0, 1],
   [0, 1, 0, 1],
   [0, 0, 1, 0],
 ]);
 
-const boat = c('boat', 'Boat', [
+const boat = creatureFactory('boat', 'Boat', [
   [1, 1, 0],
   [1, 0, 1],
   [0, 1, 0],
 ]);
 
-const tub = c('tub', 'Tub', [
+const tub = creatureFactory('tub', 'Tub', [
   [0, 1, 0],
   [1, 0, 1],
   [0, 1, 0],
@@ -45,21 +48,21 @@ const tub = c('tub', 'Tub', [
 
 // ── Oscillators ──────────────────────────────────────────
 
-const blinker = c('blinker', 'Blinker', [[1, 1, 1]]);
+const blinker = creatureFactory('blinker', 'Blinker', [[1, 1, 1]]);
 
-const toad = c('toad', 'Toad', [
+const toad = creatureFactory('toad', 'Toad', [
   [0, 1, 1, 1],
   [1, 1, 1, 0],
 ]);
 
-const beacon = c('beacon', 'Beacon', [
+const beacon = creatureFactory('beacon', 'Beacon', [
   [1, 1, 0, 0],
   [1, 1, 0, 0],
   [0, 0, 1, 1],
   [0, 0, 1, 1],
 ]);
 
-const pulsar = c('pulsar', 'Pulsar', [
+const pulsar = creatureFactory('pulsar', 'Pulsar', [
   [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
@@ -77,13 +80,13 @@ const pulsar = c('pulsar', 'Pulsar', [
 
 // ── Spaceships ───────────────────────────────────────────
 
-const glider = c('glider', 'Glider', [
+const glider = creatureFactory('glider', 'Glider', [
   [0, 0, 1],
   [1, 0, 1],
   [0, 1, 1],
 ]);
 
-const lwss = c('lwss', 'LWSS', [
+const lwss = creatureFactory('lwss', 'LWSS', [
   [0, 1, 1, 1, 1],
   [1, 0, 0, 0, 1],
   [0, 0, 0, 0, 1],
@@ -92,19 +95,19 @@ const lwss = c('lwss', 'LWSS', [
 
 // ── Methuselahs ──────────────────────────────────────────
 
-const rPentomino = c('r-pentomino', 'R-pentomino', [
+const rPentomino = creatureFactory('r-pentomino', 'R-pentomino', [
   [0, 1, 1],
   [1, 1, 0],
   [0, 1, 0],
 ]);
 
-const diehard = c('diehard', 'Diehard', [
+const diehard = creatureFactory('diehard', 'Diehard', [
   [0, 0, 0, 0, 0, 0, 1, 0],
   [1, 1, 0, 0, 0, 0, 0, 0],
   [0, 1, 0, 0, 0, 1, 1, 1],
 ]);
 
-const acorn = c('acorn', 'Acorn', [
+const acorn = creatureFactory('acorn', 'Acorn', [
   [0, 1, 0, 0, 0, 0, 0],
   [0, 0, 0, 1, 0, 0, 0],
   [1, 1, 0, 0, 1, 1, 1],
@@ -126,7 +129,5 @@ const builtinCreatures: Creature[] = [
   diehard,
   acorn,
 ];
-
-builtinCreatures.forEach(registerCreature);
 
 export { builtinCreatures };
