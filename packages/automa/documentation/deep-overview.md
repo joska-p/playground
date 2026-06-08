@@ -5,6 +5,10 @@
 
 ---
 
+> **Stale-content warning:** This document was written against an older API that used separate `aliveColor` / `deadColor` uniforms. The current code uses a `stateColors[]` array uniform (up to 8 states) and supports glow color as a separate uniform. Sections below reflect the live API; non-functional comments from the old version have been removed.
+
+---
+
 ## Purpose
 
 `useGridTexture` is the high-performance bridge between React's state management and WebGL's GPU rendering pipeline.
@@ -31,7 +35,7 @@ const { uniforms } = useGridTexture({ cols, rows });
 | `cols` | `number` | Number of grid columns (texture width) |
 | `rows` | `number` | Number of grid rows (texture height)   |
 
-> Colors (`aliveColor`, `glowColor`, `deadColor`) are **not** parameters. They are read directly from the `uiStore` — see [Colour Synchronisation](#4-colour-synchronisation) below.
+> Colors (`stateColors[]`, `glowColor`) are **not** parameters. They are read directly from the `uiStore` — see [Colour Synchronisation](#4-colour-synchronisation) below.
 
 ### Return value
 
@@ -46,15 +50,12 @@ const { uniforms } = useGridTexture({ cols, rows });
   gridTexture: {
     value: THREE.DataTexture;
   } // 1 pixel = 1 cell (RED channel)
-  aliveColor: {
-    value: THREE.Color;
-  } // colour of a living cell
+  stateColors: {
+    value: THREE.Color[];
+  } // colour palette, index = cell state (0 = dead, 1 = alive, ...)
   glowColor: {
     value: THREE.Color;
   } // colour of the neighbour glow
-  deadColor: {
-    value: THREE.Color;
-  } // colour of a dead cell
   texelSize: {
     value: THREE.Vector2;
   } // vec2(1/cols, 1/rows) for neighbour sampling
@@ -122,12 +123,12 @@ The `generation` counter acts as a cheap change-detection gate — the texture u
 // src/core/grid-to-texture.ts
 const copyGridToTextureData = (grid: Grid, data: Uint8Array): void => {
   for (let i = 0; i < grid.length; i++) {
-    data[i] = grid[i] === 1 ? 255 : 0;
+    data[i] = grid[i];
   }
 };
 ```
 
-A tight loop that maps each `CellValue` (`0 | 1`) to a byte value (`0 | 255`) in place — no allocations, no garbage created per frame.
+A tight loop that copies raw cell values into the texture data array in place — no allocations, no garbage created per frame. Cell values `0`, `1`, `2`, ... are stored as-is; the fragment shader scales with `int(raw * 255.0 + 0.5)`.
 
 ---
 
@@ -153,23 +154,23 @@ useLayoutEffect(() => {
 
 ```ts
 useEffect(() => {
-  uniforms.aliveColor.value.set(aliveColor);
+  for (let i = 0; i < MAX_STATE_COUNT; i++) {
+    uniforms.stateColors.value[i].set(stateColors[i] ?? '#000000');
+  }
   uniforms.glowColor.value.set(glowColor);
-  uniforms.deadColor.value.set(deadColor);
-}, [aliveColor, glowColor, deadColor, uniforms]);
+}, [stateColors, glowColor, uniforms]);
 ```
 
 Colors are read from `uiStore` via `useStore`:
 
 ```ts
-const aliveColor = useStore(uiStore, (s) => s.aliveColor);
+const stateColors = useStore(uiStore, (s) => s.stateColors);
 const glowColor = useStore(uiStore, (s) => s.glowColor);
-const deadColor = useStore(uiStore, (s) => s.deadColor);
 ```
 
-When the user changes a colour, this effect mutates the `THREE.Color` object **in place** using `.set()`. No new `DataTexture` is allocated. The GPU picks up the change on the very next render without any React component re-rendering.
+When the user changes a colour, this effect mutates the `THREE.Color` objects **in place** using `.set()`. No new `DataTexture` is allocated. The GPU picks up the change on the very next render without any React component re-rendering.
 
-> **To change a colour at runtime**, call `uiStore.setState({ aliveColor: '#ff0000' })` from anywhere in the app — e.g. from a colour-picker control.
+> **To change a colour at runtime**, call `uiStore.setState({ stateColors: ['#000', '#f00'] })` from anywhere in the app — e.g. from a colour-picker control.
 
 ---
 
@@ -193,37 +194,37 @@ This cleanup fires in two situations:
 
 ## Shader contract
 
-`useGridTexture` must stay in sync with `src/shaders/cell-mesh.frag`. The fragment shader expects exactly these uniform names:
+`useGridTexture` must stay in sync with `src/shaders/glow/cell-mesh.frag`. The fragment shader expects exactly these uniform names:
 
 ```glsl
 uniform sampler2D gridTexture; // the DataTexture — 1 texel = 1 cell
-uniform vec3      aliveColor;
-uniform vec3      glowColor;
-uniform vec3      deadColor;
-uniform vec2      texelSize;   // vec2(1/cols, 1/rows) — used to sample neighbours
+uniform vec3      stateColors[8]; // colour palette, index = cell state
+uniform vec3      glowColor;      // colour of the neighbour glow
+uniform vec2      texelSize;      // vec2(1/cols, 1/rows) — used to sample neighbours
 ```
 
 The shader samples the 8 neighbours of each cell to compute a glow contribution:
 
 ```glsl
-float center = texture2D(gridTexture, vUv).r; // 1.0 = alive, 0.0 = dead
+float raw = texture2D(gridTexture, vUv).r;
+int   state = int(raw * 255.0 + 0.5);
+vec3  base = stateColors[state];
 
 float glow = 0.0;
 for (int x = -1; x <= 1; x++) {
   for (int y = -1; y <= 1; y++) {
     if (x == 0 && y == 0) continue;
     vec2 offset = vec2(float(x), float(y)) * texelSize;
-    glow += texture2D(gridTexture, vUv + offset).r;
+    float nRaw = texture2D(gridTexture, vUv + offset).r;
+    float nState = nRaw * 255.0;
+    glow += (nState > 0.5 && nState < 1.5) ? 1.0 : 0.0;
   }
 }
-glow = glow / 8.0; // normalise neighbour sum to [0, 1]
+glow = glow / 8.0;
 
-vec3  base        = center > 0.5 ? aliveColor : deadColor;
-vec3  glowContrib = glow * glowColor * 0.35;
-float alpha       = center > 0.5 ? 1.0 : 0.6;
-vec3  finalColor  = mix(base, base + glowContrib, alpha);
+vec3 glowContrib = glow * glowColor * 0.35;
 
-gl_FragColor = vec4(finalColor, 1.0);
+gl_FragColor = vec4(base + glowContrib, 1.0);
 ```
 
 `texelSize` must equal `vec2(1.0 / cols, 1.0 / rows)` — which is exactly what `createGridUniforms` computes. If `texelSize` is wrong, the glow samples will land on incorrect neighbours.
@@ -233,33 +234,34 @@ gl_FragColor = vec4(finalColor, 1.0);
 ## Data flow diagram
 
 ```
-uiStore                     simulationStore
-(aliveColor/glowColor/       (grid: Uint8Array,
- deadColor)                   generation: number)
+uiStore                       simulationStore
+(stateColors[]/glowColor)     (grid: Uint8Array,
+                                generation: number)
       │                              │
       │ useStore()                   │ getState()  ← imperative, inside useFrame
       ▼                              ▼
-┌─────────────────────────────────────────────────────┐
-│                  useGridTexture                      │
-│                                                      │
-│  useMemo → createGridUniforms(cols, rows, colors)    │
-│    ├─ THREE.DataTexture  (cols × rows, RedFormat)    │
-│    ├─ THREE.Color × 3   (alive / glow / dead)        │
-│    └─ THREE.Vector2     (1/cols, 1/rows)             │
-│                                                      │
-│  useLayoutEffect → textureRef ← uniforms.gridTexture │
-│                                                      │
-│  useEffect [uniforms] → tex.dispose() on cleanup     │
-│                                                      │
-│  useEffect [colors]   → uniforms.*.value.set(color)  │
-│                                                      │
-│  useFrame (every tick)                               │
-│    generation changed?                               │
-│      ├─ copyGridToTextureData(grid, tex.image.data)  │
-│      └─ tex.needsUpdate = true  →  GPU re-upload     │
-│                                                      │
-│  returns { uniforms }                                │
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│                  useGridTexture                          │
+│                                                          │
+│  useMemo → createGridUniforms(cols, rows, stateColors)   │
+│    ├─ THREE.DataTexture  (cols × rows, RedFormat)        │
+│    ├─ THREE.Color[8]    (state palette)                  │
+│    ├─ THREE.Color       (glowColor)                      │
+│    └─ THREE.Vector2     (1/cols, 1/rows)                 │
+│                                                          │
+│  useLayoutEffect → textureRef ← uniforms.gridTexture     │
+│                                                          │
+│  useEffect [uniforms] → tex.dispose() on cleanup         │
+│                                                          │
+│  useEffect [stateColors, glowColor] → uniform .set()     │
+│                                                          │
+│  useFrame (every tick)                                   │
+│    generation changed?                                   │
+│      ├─ copyGridToTextureData(grid, tex.image.data)      │
+│      └─ tex.needsUpdate = true  →  GPU re-upload         │
+│                                                          │
+│  returns { uniforms }                                    │
+└─────────────────────────────────────────────────────────┘
         │
         ▼
    CellMesh → <shaderMaterial uniforms={uniforms} />
@@ -272,10 +274,11 @@ uiStore                     simulationStore
 
 ## Pitfalls & gotchas
 
-| Pitfall                                                                 | Why it matters                                                                                                                                                                                                                  |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Never add color values to `useMemo` deps**                            | It would re-create the `DataTexture` on every colour change, causing VRAM churn and a frame drop. Colour updates use `.set()` mutation instead.                                                                                 |
-| **`textureRef` must be updated via `useLayoutEffect`, not `useEffect`** | `useEffect` fires after paint; there is a one-frame window where `useFrame` could run with a stale `textureRef` after a grid resize. `useLayoutEffect` is synchronous and closes that gap.                                      |
-| **`tex.dispose()` must always run on cleanup**                          | Forgetting it leaks VRAM. On a long session with many grid resizes this accumulates into a GPU memory crash.                                                                                                                    |
-| **Use `uiStore.getState()` inside `useFrame`, never `useStore()`**      | `useStore()` is a React hook and cannot be called inside `useFrame`. `getState()` is the correct imperative escape hatch inside the render loop.                                                                                |
-| **`texelSize` must match actual grid dimensions**                       | The fragment shader uses it to locate neighbouring cells. A stale value (e.g. from a previous grid size) causes the glow to bleed onto the wrong cells. It is recomputed automatically in `createGridUniforms` on every resize. |
+| Pitfall                                                                  | Why it matters                                                                                                                                                                                                                  |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Never add color values to `useMemo` deps**                             | It would re-create the `DataTexture` on every colour change, causing VRAM churn and a frame drop. Colour updates use `.set()` mutation instead.                                                                                 |
+| **`textureRef` must be updated via `useLayoutEffect`, not `useEffect`**  | `useEffect` fires after paint; there is a one-frame window where `useFrame` could run with a stale `textureRef` after a grid resize. `useLayoutEffect` is synchronous and closes that gap.                                      |
+| **`tex.dispose()` must always run on cleanup**                           | Forgetting it leaks VRAM. On a long session with many grid resizes this accumulates into a GPU memory crash.                                                                                                                    |
+| **Use `uiStore.getState()` inside `useFrame`, never `useStore()`**       | `useStore()` is a React hook and cannot be called inside `useFrame`. `getState()` is the correct imperative escape hatch inside the render loop.                                                                                |
+| **`texelSize` must match actual grid dimensions**                        | The fragment shader uses it to locate neighbouring cells. A stale value (e.g. from a previous grid size) causes the glow to bleed onto the wrong cells. It is recomputed automatically in `createGridUniforms` on every resize. |
+| **Grid values are stored raw (`0`, `1`, `2`...), not multiplied by 255** | `copyGridToTextureData` does a direct byte copy. The fragment shader reads the raw value and converts with `int(raw * 255.0 + 0.5)` to reconstruct the cell state. `THREE.UnsignedByteType` maps `0` → `0.0` and `255` → `1.0`. |

@@ -41,7 +41,7 @@ App
   └─ ErrorBoundary
        ├─ AutomatonCanvas
        │   └─ <Canvas> (R3F — orthographic, OrbitControls)
-       │       ├─ <OrbitControls> (zoom via middle-click, no rotation, no pan)
+       │       ├─ <OrbitControls> (zoom via middle-click, pan via right-click)
        │       ├─ <mesh> (shaderMaterial ← DataTexture)
        │       └─ <GridLines> (debug overlay)
        │
@@ -52,6 +52,12 @@ App
             ├─ rule selector
             ├─ color picker (per-state colors)
             └─ debug overlay (D)
+
+Hooks
+  ├─ useCameraFitter — auto-fits orthographic camera to grid dimensions on mount/resize
+  ├─ useCellPainting — maps pointer events → grid cell mutation
+  ├─ useGridTexture  — bridges grid state ↔ GPU DataTexture every frame
+  └─ useStepTimer    — measures simulation step performance
 
 automatonStore (global Zustand singleton)
   ├─ Pure state mutations only (setGrid, clear, randomize, ...)
@@ -71,8 +77,8 @@ Rules are plain data objects — no custom `if/else` per rule type.
 type Rule = {
   id: string;
   name: string;
-  stateCount: number;       // 2 = Conway, 3 = Brian's Brain, etc.
-  birth: readonly boolean[];   // length 9, index = neighbor count
+  stateCount: number; // 2 = Conway, 3 = Brian's Brain, etc.
+  birth: readonly boolean[]; // length 9, index = neighbor count
   survive: readonly boolean[]; // length 9, index = neighbor count
 };
 ```
@@ -80,17 +86,18 @@ type Rule = {
 **B/S notation** is parsed into lookup arrays. `parseRule(id, name, 'B3/S23')` produces `birth[3] = true`, `survive[2] = survive[3] = true`.
 
 **Multi-state rules** (`stateCount > 2`) add an aging/refractory layer:
+
 - State `0` — Dead
 - State `1` — Alive (counts toward neighbor totals)
 - State `2` to `N-1` — Dying (age by +1 each tick, ignore neighbors, don't breed)
 
 ### Built-in examples
 
-| Rule | ID | Notation | States | Behavior |
-|---|---|---|---|---|
-| Conway's Game of Life | `conway` | `B3/S23` | 2 | Classic |
-| HighLife | `highlife` | `B36/S23` | 2 | Conway + B6 |
-| Brian's Brain | `brians-brain` | `B2/S` | 3 | Birth on 2, no survival, cells decay through refractory state |
+| Rule                  | ID             | Notation  | States | Behavior                                                      |
+| --------------------- | -------------- | --------- | ------ | ------------------------------------------------------------- |
+| Conway's Game of Life | `conway`       | `B3/S23`  | 2      | Classic                                                       |
+| HighLife              | `highlife`     | `B36/S23` | 2      | Conway + B6                                                   |
+| Brian's Brain         | `brians-brain` | `B2/S`    | 3      | Birth on 2, no survival, cells decay through refractory state |
 
 ### Adding a new rule
 
@@ -139,9 +146,18 @@ Each state gets its own color swatch. The number of swatches is driven by the ac
 | Input                       | Action                          |
 | --------------------------- | ------------------------------- |
 | Left-click + drag           | Draw / erase cells (brush mode) |
+| Right-click + drag          | Pan                             |
 | Scroll wheel / middle-click | Zoom                            |
 | D                           | Toggle debug overlay            |
 | Space                       | Play / pause                    |
+
+## Camera
+
+On mount the orthographic camera auto-fits the grid with a 15% margin via `useCameraFitter` (`src/hooks/useCameraFitter.ts`). The camera is updated whenever the grid dimensions or viewport size change — no manual `zoom`/`position` needed. Pan and zoom via OrbitControls work normally after the initial framing.
+
+## Drawing
+
+Drawing maps pointer events on the 3D plane to grid cell indices using `useCellPainting` (`src/hooks/useCellPainting.ts`). The plane geometry is centered at the origin, so pointer world coordinates are shifted by `(+cols/2, +rows/2)` to align with the grid's row-major storage. The Y axis is consistent between Three.js world space and grid space (no flip).
 
 ---
 
