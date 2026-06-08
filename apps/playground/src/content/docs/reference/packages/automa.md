@@ -1,6 +1,6 @@
 ---
 title: "automa"
-description: "Interactive Cellular Automaton simulator — Conway's Game of Life on an editable 2D grid with Web Worker stepping, Zustand state management, and React Three Fiber rendering."
+description: "Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering."
 category: "reference"
 tags:
   - reference
@@ -10,7 +10,7 @@ order: 20
 
 # @repo/automa
 
-> Interactive Cellular Automaton simulator — Conway's Game of Life on an editable 2D grid with Web Worker stepping, Zustand state management, and React Three Fiber rendering.
+> Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering.
 
 ## Quick Start
 
@@ -19,14 +19,17 @@ pnpm add @repo/automa
 ```
 
 ```tsx
-import { AutomatonProvider, AutomatonCanvas, Controls } from "@repo/automa";
+import { App } from '@repo/automa';
 
-export default function App() {
+export default function Page() {
   return (
-    <AutomatonProvider rows={60} cols={80} initialDensity={0.3}>
-      <AutomatonCanvas />
-      <Controls />
-    </AutomatonProvider>
+    <StrictMode>
+      <App
+        rows={80}
+        cols={60}
+        seed={42}
+      />
+    </StrictMode>
   );
 }
 ```
@@ -34,7 +37,7 @@ export default function App() {
 ## Architecture
 
 ```
-AutomatonProvider
+App
   └─ ErrorBoundary
        ├─ AutomatonCanvas
        │   └─ <Canvas> (R3F — orthographic, OrbitControls)
@@ -43,54 +46,102 @@ AutomatonProvider
        │       └─ <GridLines> (debug overlay)
        │
        └─ Controls
-           ├─ play / pause / step / clear / randomize
-           ├─ speed slider
-           ├─ brush mode (draw / erase)
-           ├─ import / export pattern
-           └─ debug overlay (D)
+            ├─ play / pause / step / clear / randomize
+            ├─ speed slider
+            ├─ brush mode (draw / erase)
+            ├─ rule selector
+            ├─ color picker (per-state colors)
+            └─ debug overlay (D)
+
+automatonStore (global Zustand singleton)
+  ├─ Pure state mutations only (setGrid, clear, randomize, ...)
+  └─ Consumer via selectors (useGrid, useRunning, ...)
+
+actions.ts (plain functions, no hooks)
+  ├─ init / destroy — Worker + timer lifecycle
+  ├─ step / play / pause — animation orchestration
+  └─ clear / randomize / paintCell / setRule — grid edits
+```
+
+## Rules
+
+Rules are plain data objects — no custom `if/else` per rule type.
+
+```ts
+type Rule = {
+  id: string;
+  name: string;
+  stateCount: number;       // 2 = Conway, 3 = Brian's Brain, etc.
+  birth: readonly boolean[];   // length 9, index = neighbor count
+  survive: readonly boolean[]; // length 9, index = neighbor count
+};
+```
+
+**B/S notation** is parsed into lookup arrays. `parseRule(id, name, 'B3/S23')` produces `birth[3] = true`, `survive[2] = survive[3] = true`.
+
+**Multi-state rules** (`stateCount > 2`) add an aging/refractory layer:
+- State `0` — Dead
+- State `1` — Alive (counts toward neighbor totals)
+- State `2` to `N-1` — Dying (age by +1 each tick, ignore neighbors, don't breed)
+
+### Built-in examples
+
+| Rule | ID | Notation | States | Behavior |
+|---|---|---|---|---|
+| Conway's Game of Life | `conway` | `B3/S23` | 2 | Classic |
+| HighLife | `highlife` | `B36/S23` | 2 | Conway + B6 |
+| Brian's Brain | `brians-brain` | `B2/S` | 3 | Birth on 2, no survival, cells decay through refractory state |
+
+### Adding a new rule
+
+```ts
+import { parseRule } from '../rules/parse.ts';
+import { registerRule } from '../rules/registry.ts';
+
+const myRule = parseRule('my-rule', 'My Rule', 'B1/S', 2);
+registerRule(myRule);
+```
+
+For multi-state rules, pass the `stateCount` as the fourth argument:
+
+```ts
+const briansBrain = parseRule('brians-brain', "Brian's Brain", 'B2/S', 3);
+```
+
+The rule will automatically appear in the UI selector and the color picker will show one swatch per state.
+
+### File layout
+
+```
+core/
+  engine.ts          Generic evolve (lookup tables + multi-state aging)
+  worker.ts          Off-main-thread step, transferrable ArrayBuffers
+  grid.ts            Grid allocation / seeding
+  rules/
+    types.ts         Rule type definition
+    parse.ts         B/S notation → Rule
+    registry.ts      Rule registry (register / get / getAll)
+    conway.ts        Conway's Game of Life
+    highlife.ts      HighLife
+    brians-brain.ts  Brian's Brain
 ```
 
 ## Engine
 
-The engine runs Conway's Game of Life in a **Web Worker** to avoid blocking the UI thread:
+Simulation runs in a **Web Worker** to avoid blocking the UI thread. The `evolve` function in `engine.ts` is fully generic — it reads `birth[]`/`survive[]` lookups from the rule object and handles multi-state aging via the `stateCount` field.
 
-```
-step.ts            Core algorithm (toroidal wrap-around) — evolveGrid
-worker.ts          Off-main-thread computation, transferrable ArrayBuffers
-grid.ts            Grid allocation / seeding — createGrid, seedGrid
-rng.ts             Seeded PRNG — createSeededRandom
-pattern.schema.ts  Zod schema for import/export of `.json` patterns
-types.ts           CellValue, Grid type aliases
-```
+## Color picker
+
+Each state gets its own color swatch. The number of swatches is driven by the active rule's `stateCount` — switch to a 3-state rule and a third row appears automatically.
 
 ## Controls
 
-| Input | Action |
-|---|---|
-| Left-click + drag | Draw / erase cells (brush mode) |
-| Scroll wheel / middle-click | Zoom |
-| D | Toggle debug overlay |
-| Space | Play / pause |
-
-## Exports
-
-| Export | Path | Description |
-|---|---|---|
-| `AutomatonCanvas` | `@repo/automa` | R3F orthographic grid with shader rendering |
-| `AutomatonProvider` | `@repo/automa` | Provider wrapping the CA Zustand store |
-| `Controls` | `@repo/automa` | UI panel: play, step, speed, brush mode, import/export |
-| `./styles` | `@repo/automa/styles` | Component CSS |
-
-## Key Dependencies
-
-| Package | Role |
-|---|---|
-| `three` | 3D rendering engine |
-| `@react-three/fiber` | React renderer for Three.js |
-| `@react-three/drei` | R3F utilities (OrbitControls) |
-| `zustand` | State management |
-| `zod` | Pattern import/export schema validation |
-| `@repo/ui` | Shared UI components (Button, Slider, etc.) |
+| Input                       | Action                          |
+| --------------------------- | ------------------------------- |
+| Left-click + drag           | Draw / erase cells (brush mode) |
+| Scroll wheel / middle-click | Zoom                            |
+| D                           | Toggle debug overlay            |
+| Space                       | Play / pause                    |
 
 ---
 

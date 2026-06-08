@@ -2,6 +2,7 @@
   "name": "playground",
   "private": true,
   "scripts": {
+    "sync-package-docs": "node ./scripts/sync-package-readmes.mjs",
     "deploy": "pnpm build && mkdir -p ./apps/playground/dist/storybook && cp -r ./apps/storybook/storybook-static/. ./apps/playground/dist/storybook/",
     "build": "turbo run build",
     "dev": "turbo run dev",
