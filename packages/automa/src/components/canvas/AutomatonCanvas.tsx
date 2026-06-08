@@ -1,18 +1,20 @@
 import { Canvas } from '@react-three/fiber';
+import { useStore } from 'zustand';
 import { Scene } from './Scene.tsx';
 import {
   CAMERA_Z,
   CAMERA_NEAR,
   CAMERA_FAR,
-  COLOR_ALIVE,
-  COLOR_DEAD,
 } from '../../core/config.ts';
+import { uiStore } from '../../stores/ui/store.ts';
 
 type CACanvasProps = {
   className?: string;
 };
 
 function AutomatonCanvas({ className }: CACanvasProps) {
+  const stateColors = useStore(uiStore, (s) => s.stateColors);
+
   return (
     <div
       className={className}
@@ -21,8 +23,8 @@ function AutomatonCanvas({ className }: CACanvasProps) {
           width: '100%',
           height: '100%',
           touchAction: 'manipulation',
-          '--ca-alive': COLOR_ALIVE,
-          '--ca-dead': COLOR_DEAD,
+          '--ca-alive': stateColors[1] ?? '#d97706',
+          '--ca-dead': stateColors[0] ?? '#070a14',
         } as React.CSSProperties
       }
     >

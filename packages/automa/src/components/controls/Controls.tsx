@@ -3,6 +3,7 @@ import { EditControls } from './EditControls.tsx';
 import { SpeedSlider } from './SpeedSlider.tsx';
 import { BrushModeSelector } from './BrushModeSelector.tsx';
 import { RuleSelector } from './RuleSelector.tsx';
+import { ColorPicker } from './ColorPicker.tsx';
 import { DebugToggle, DebugPanel } from './DebugControls.tsx';
 import { cn } from '@repo/ui/cn';
 
@@ -23,6 +24,7 @@ function Controls({ className }: ControlsProps) {
       <BrushModeSelector />
       <SpeedSlider />
       <RuleSelector />
+      <ColorPicker />
       <DebugToggle />
       <DebugPanel />
     </div>

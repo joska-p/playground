@@ -17,4 +17,16 @@ const setShowDebug = (v: boolean): void => {
   uiStore.setState({ showDebug: v });
 };
 
-export { setRunning, setShowDebug, setSpeedMs, setToolMode };
+const setStateColor = (index: number, color: string): void => {
+  uiStore.setState((s) => {
+    const next = [...s.stateColors];
+    next[index] = color;
+    return { stateColors: next };
+  });
+};
+
+const setGlowColor = (color: string): void => {
+  uiStore.setState({ glowColor: color });
+};
+
+export { setGlowColor, setRunning, setShowDebug, setSpeedMs, setStateColor, setToolMode };

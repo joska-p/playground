@@ -3,7 +3,9 @@ import type { CellValue, Grid } from '../../core/types.ts';
 import {
   WORKER_MESSAGE_STEP,
   GRID_DEFAULT_DENSITY,
+  getDefaultStateColor,
 } from '../../core/config.ts';
+import { getRule } from '../../core/rules/registry.ts';
 import { simulationStore } from './store.ts';
 import { uiStore } from '../ui/store.ts';
 
@@ -85,6 +87,18 @@ const step = (): void => {
 
 const setRule = (ruleId: string): void => {
   simulationStore.setState({ ruleId });
+
+  const rule = getRule(ruleId);
+  if (!rule) return;
+
+  const { stateColors } = uiStore.getState();
+  if (rule.stateCount > stateColors.length) {
+    const next = [...stateColors];
+    for (let i = stateColors.length; i < rule.stateCount; i++) {
+      next[i] = getDefaultStateColor(i);
+    }
+    uiStore.setState({ stateColors: next });
+  }
 };
 
 const play = (): void => {

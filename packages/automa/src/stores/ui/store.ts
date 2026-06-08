@@ -1,8 +1,7 @@
 import { createStore } from 'zustand/vanilla';
 import {
-  COLOR_ALIVE,
-  COLOR_DEAD,
   COLOR_GLOW,
+  DEFAULT_STATE_COLORS,
   SPEED_DEFAULT_MS,
 } from '../../core/config.ts';
 
@@ -13,9 +12,8 @@ type UiState = {
   speedMs: number;
   toolMode: BrushMode;
   showDebug: boolean;
-  aliveColor: string;
+  stateColors: string[];
   glowColor: string;
-  deadColor: string;
 };
 
 const uiStore = createStore<UiState>(() => ({
@@ -23,9 +21,8 @@ const uiStore = createStore<UiState>(() => ({
   speedMs: SPEED_DEFAULT_MS,
   toolMode: 'draw' as const,
   showDebug: false,
-  aliveColor: COLOR_ALIVE,
+  stateColors: [...DEFAULT_STATE_COLORS],
   glowColor: COLOR_GLOW,
-  deadColor: COLOR_DEAD,
 }));
 
 export { uiStore };
