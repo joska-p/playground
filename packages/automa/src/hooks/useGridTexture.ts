@@ -19,15 +19,15 @@ const createGridUniforms = (
   glowColor: string
 ) => {
   const data = new Uint8Array(cols * rows);
-  const tex = new THREE.DataTexture(
+  const texture = new THREE.DataTexture(
     data,
     cols,
     rows,
     THREE.RedFormat,
     THREE.UnsignedByteType
   );
-  tex.magFilter = THREE.NearestFilter;
-  tex.minFilter = THREE.NearestFilter;
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.NearestFilter;
 
   const palette: THREE.Color[] = [];
   for (let i = 0; i < MAX_STATE_COUNT; i++) {
@@ -35,7 +35,7 @@ const createGridUniforms = (
   }
 
   return {
-    gridTexture: { value: tex },
+    gridTexture: { value: texture },
     stateColors: { value: palette },
     glowColor: { value: new THREE.Color(glowColor) },
     texelSize: { value: new THREE.Vector2(1 / cols, 1 / rows) },
@@ -59,8 +59,8 @@ const useGridTexture = ({ cols, rows }: UseGridTextureParams) => {
   }, [uniforms]);
 
   useEffect(() => {
-    const tex = uniforms.gridTexture.value;
-    return () => tex.dispose();
+    const texture = uniforms.gridTexture.value;
+    return () => texture.dispose();
   }, [uniforms]);
 
   useEffect(() => {
@@ -77,10 +77,10 @@ const useGridTexture = ({ cols, rows }: UseGridTextureParams) => {
     if (!running && generation === lastRenderedGeneration.current) return;
     if (generation === lastRenderedGeneration.current) return;
 
-    const tex = textureRef.current;
-    if (tex) {
-      copyGridToTextureData(grid, tex.image.data as Uint8Array);
-      tex.needsUpdate = true;
+    const texture = textureRef.current;
+    if (texture) {
+      copyGridToTextureData(grid, texture.image.data as Uint8Array);
+      texture.needsUpdate = true;
     }
 
     lastRenderedGeneration.current = generation;
