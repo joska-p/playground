@@ -3,6 +3,7 @@
 .container_home
 .pi
 .agents
+.opencode
 toolbox
 
 # Local workspace config
