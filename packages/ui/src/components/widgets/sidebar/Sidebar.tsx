@@ -13,7 +13,13 @@ export type SidebarProps = {
   defaultOpen?: boolean;
   mobilePosition?: 'top' | 'right' | 'bottom' | 'left';
   desktopPosition?: 'top' | 'right' | 'bottom' | 'left';
-  variant?: 'primary' | 'secondary' | 'accent' | 'destructive' | 'outline' | 'ghost';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'destructive'
+    | 'outline'
+    | 'ghost';
   panelWidth?: string;
   panelHeight?: string;
 } & ComponentProps<'div'>;

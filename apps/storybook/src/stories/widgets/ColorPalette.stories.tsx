@@ -29,7 +29,14 @@ const meta: Meta<typeof ColorPalette> = {
     },
     variant: {
       description: 'Visual style of the palette border and selection ring.',
-      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
       control: { type: 'select' },
     },
     checked: {

@@ -87,7 +87,10 @@ function Slider({
       />
 
       {helperText && (
-        <HelperText id={helperId} destructive={variant === 'destructive'}>
+        <HelperText
+          id={helperId}
+          destructive={variant === 'destructive'}
+        >
           {helperText}
         </HelperText>
       )}

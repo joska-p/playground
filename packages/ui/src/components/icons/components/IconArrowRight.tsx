@@ -8,5 +8,4 @@ export const IconArrowRight = createIcon({
       <path d="m12 5 7 7-7 7" />
     </>
   ),
-
 });

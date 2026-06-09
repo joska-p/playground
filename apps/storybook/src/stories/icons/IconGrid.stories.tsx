@@ -56,7 +56,10 @@ export const AllIcons: Story = {
                 key={s}
                 className="flex flex-col items-center gap-1.5"
               >
-                <Icon className="transition-all duration-200" style={{ width: s, height: s }} />
+                <Icon
+                  className="transition-all duration-200"
+                  style={{ width: s, height: s }}
+                />
                 <span className="font-mono text-[9px] text-muted-foreground">
                   {s}px
                 </span>

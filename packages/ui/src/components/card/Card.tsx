@@ -10,7 +10,8 @@ const CardContext = createContext<CardVariant>('primary');
 
 type CardProps = {
   interactive?: boolean;
-} & ComponentProps<'div'> & VariantProps<typeof cardVariants>;
+} & ComponentProps<'div'> &
+  VariantProps<typeof cardVariants>;
 
 function Card({ className, variant, interactive, ...props }: CardProps) {
   return (

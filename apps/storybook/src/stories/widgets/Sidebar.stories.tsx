@@ -15,7 +15,14 @@ const meta: Meta<typeof Sidebar> = {
   argTypes: {
     variant: {
       description: 'The background theme of the sidebar panel.',
-      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
       control: { type: 'select' },
     },
     mobilePosition: {

@@ -21,7 +21,14 @@ const meta: Meta<typeof Slider> = {
     },
     variant: {
       description: 'Controls the accent color of the slider thumb.',
-      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
       control: { type: 'select' },
     },
     layout: {

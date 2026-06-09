@@ -14,7 +14,9 @@ export function useResizeObserver<T extends HTMLElement>(): [
   Dimensions | undefined,
 ] {
   const ref = useRef<T>(null);
-  const [dimensions, setDimensions] = useState<Dimensions | undefined>(undefined);
+  const [dimensions, setDimensions] = useState<Dimensions | undefined>(
+    undefined
+  );
 
   const handleResize = useCallback((entries: ResizeObserverEntry[]) => {
     if (!entries[0]) return;
