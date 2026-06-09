@@ -1,7 +1,7 @@
 # __ IMPORTANT / SECURITY RISK __
 # This directory is the container home — never commit it.
 .container_home
-.agents
+.agent
 toolbox
 
 # Local workspace config
