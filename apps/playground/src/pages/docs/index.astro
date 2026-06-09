@@ -16,21 +16,18 @@ const docsByCategory = await getDocsByCategory();
     title="Base"
     description="Manifesto, guides, and references for collaborators and contributors."
   />
-  <div class="mx-auto w-full max-w-5xl px-6 py-16 lg:py-20">
-    <div class="space-y-16">
+  <div class="mx-auto w-full max-w-5xl space-y-16 px-6 py-16 lg:py-20">
       {
         docsByCategory.map((category) => {
           return (
             <section
               id={category.id}
-              class="scroll-mt-20"
+              class="scroll-mt-20 "
             >
               <header class="mb-8 flex items-start gap-4">
                 <span
-                  class="border-border bg-card mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border"
-                  style={{
-                    color: `var(--category-${category.id}, var(--primary))`,
-                  }}
+                  class="border-border bg-card mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-(--color-current)"
+                  style={{ '--color-current': `var(--category-${category.id}, var(--color-primary))` }}
                 >
                   <Icon
                     name={category.iconName}
@@ -40,10 +37,8 @@ const docsByCategory = await getDocsByCategory();
                 <div>
                   <div class="mb-1 flex items-center gap-3">
                     <h2
-                      class="m-0 text-xs font-bold tracking-[0.18em] uppercase"
-                      style={{
-                        color: `var(--category-${category.id}, var(--primary))`,
-                      }}
+                      class="m-0 text-xs font-bold tracking-widest uppercase text-(--color-current)"
+                      style={{ '--color-current': `var(--category-${category.id}, var(--color-primary))` }}
                     >
                       {category.label}
                     </h2>
@@ -57,7 +52,7 @@ const docsByCategory = await getDocsByCategory();
                 </div>
               </header>
 
-              <div class="grid gap-4 sm:grid-cols-2">
+              <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
                 {category.articles.map((doc) => {
                   const docUrl = `${docsBaseUrl}${doc.id}/`;
                   const categoryId = doc.data.category || 'explanation';
@@ -75,7 +70,6 @@ const docsByCategory = await getDocsByCategory();
           );
         })
       }
-    </div>
   </div>
 
   <Footer>

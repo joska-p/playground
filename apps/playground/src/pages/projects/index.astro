@@ -19,13 +19,12 @@ const categories = getProjectsByCategory();
     description="Interactive tools, visualizations, and creative engines built with Astro + React 19. Browse by category to find the right experiment."
   />
 
-  <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
-    <div class="space-y-16">
+  <div class="mx-auto w-full max-w-6xl space-y-16 px-6 py-16 lg:py-20">
       {
         categories.map(({ name, description, projects }) => (
           <section>
             <SectionHeader title={name} description={description} className="mb-12" />
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
               {projects.map((project) => (
                 <ExperimentCard
                   href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
@@ -40,7 +39,6 @@ const categories = getProjectsByCategory();
           </section>
         ))
       }
-    </div>
   </div>
 
   <Footer>

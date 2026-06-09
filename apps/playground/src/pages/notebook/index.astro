@@ -17,23 +17,22 @@ const notesByCategory = await getNotesByCategory();
     description="A repository of ideas and notes that don't fit anywhere else."
   />
 
-  <div class="mx-auto w-full max-w-5xl px-6 py-16 lg:py-20">
-    <div class="space-y-16">
+  <div class="mx-auto w-full max-w-5xl space-y-16 px-6 py-16 lg:py-20">
       {notesByCategory.map((category) => (
         <section id={category.id} class="scroll-mt-20">
 
           <!-- Category header -->
           <header class="mb-8 flex items-start gap-4">
             <span
-              class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-card"
-              style={{ color: `var(--category-${category.id}, var(--primary))` }}
+              class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-card text-(--color-current)"
+              style={{ '--color-current': `var(--category-${category.id}, var(--color-primary))` }}
             >
             </span>
             <div>
               <div class="flex items-center gap-3 mb-1">
                 <h2
-                  class="text-xs font-bold tracking-[0.18em] uppercase m-0"
-                  style={{ color: `var(--category-${category.id}, var(--primary))` }}
+                  class="m-0 text-xs font-bold tracking-widest uppercase text-(--color-current)"
+                  style={{ '--color-current': `var(--category-${category.id}, var(--color-primary))` }}
                 >
                   {category.label}
                 </h2>
@@ -48,7 +47,7 @@ const notesByCategory = await getNotesByCategory();
           </header>
 
           <!-- Cards -->
-          <div class="grid gap-4 sm:grid-cols-2">
+          <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
             {category.articles.map((note) => {
               const noteUrl     = `${notebookBaseUrl}${note.id}/`;
               return (
@@ -63,7 +62,6 @@ const notesByCategory = await getNotesByCategory();
 
         </section>
       ))}
-    </div>
   </div>
 
   <Footer>

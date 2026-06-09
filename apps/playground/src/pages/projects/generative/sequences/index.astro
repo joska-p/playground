@@ -16,7 +16,7 @@ const keywords = `${project["tags"].join(", ")}`;
     highlight={project["category"]}
     description={project["description"]}
   />
-  <div class="h-dvh snap-start">
+  <div class="min-h-screen snap-start">
     <StrictMode>
       <App client:only="react" />
     </StrictMode>
