@@ -1,10 +1,6 @@
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useEffect } from 'react';
-import {
-  initialGapSize,
-  initialRotations,
-  initialTileSize,
-} from '../core/constants';
+import { initialGapSize, initialRotations, initialTileSize } from '../core/constants';
 import { CSS_VARS } from '../core/cssVars';
 import { initialPalette } from '../core/initialPalette';
 import { initPalettes, setRef } from '../stores/mosaic/actions';
@@ -16,8 +12,8 @@ const MOSAIC_STYLES = {
   ...initialTileSize,
   ...initialGapSize,
   ...initialRotations,
-  gridTemplateColumns: `repeat(auto-fill,var(${CSS_VARS.size}))`,
-  gridTemplateRows: `repeat(auto-fill,var(${CSS_VARS.size}))`,
+  gridTemplateColumns: `repeat(auto-fit,var(${CSS_VARS.size}))`,
+  gridTemplateRows: `repeat(auto-fit,var(${CSS_VARS.size}))`,
   gap: `var(${CSS_VARS.gap})`,
 } as React.CSSProperties;
 

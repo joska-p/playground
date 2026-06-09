@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const paletteRecordSchema = z.object({
+  id: z.string(),
   '--color-0': z.string(),
   '--color-1': z.string(),
   '--color-2': z.string(),

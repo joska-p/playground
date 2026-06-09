@@ -1,6 +1,6 @@
 import { CSS_VARS } from './cssVars';
 
-const MAX_NUMBER_OF_PALETTES = 33;
+const MAX_NUMBER_OF_PALETTES = 21;
 const DEFAULT_TILE_SIZE = 64;
 const DEFAULT_GAP_SIZE = 0;
 

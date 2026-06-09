@@ -49,9 +49,9 @@ function ColorPalette({
         onChange={(e) => onChange?.(e.target.value)}
         className="sr-only"
       />
-      {colors.map((color) => (
+      {colors.map((color, index) => (
         <div
-          key={color}
+          key={index}
           style={{ backgroundColor: color }}
           className="size-(--cell-size) shrink-0 transition-transform"
         />

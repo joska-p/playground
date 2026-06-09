@@ -10,8 +10,6 @@ tags:
 
 Write code that reads like a sentence. Prefer clarity over brevity, but cut every unnecessary word.
 
-> **Agent use:** rules only. For rationale and examples, see the [Codebase Conventions](/apps/playground/src/content/docs/explanation/conventions.md) docs page.
-
 ## Architecture
 
 Three-layer unidirectional flow — dependencies point **downward only**:
@@ -71,6 +69,36 @@ Use Zod to validate external data (API responses, user input). Validate at the e
 - When adding a new design decision, define a token first.
 - Prefer Tailwind scale values over arbitrary ones (`text-xs` over `text-[11px]`). If you reach for an arbitrary value, ask yourself if a token is missing first.
 
+## UI Components — Responsive Layout
+
+Prefer **intrinsic layout** over breakpoint-driven layout. Let content reflow based on available space — not a fixed viewport width.
+
+- Use `repeat(auto-fit, minmax(..., 1fr))` for grids that reflow naturally. Use `auto-fill` when empty tracks should be preserved (e.g. to maintain grid alignment), `auto-fit` when they should collapse.
+- Use `clamp()` for fluid typography and spacing instead of overriding values at breakpoints.
+- If a value is reused, define it as a token in `@theme` rather than repeating the arbitrary value:
+
+  ```css
+  @theme {
+    --text-fluid-base: clamp(1rem, 2.5vw, 1.5rem);
+    --grid-cols-cards: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  ```
+
+- In JSX, use Tailwind's arbitrary value syntax to keep intrinsic layout out of `style`:
+
+  ```tsx
+  // ✅ Intrinsic grid — reflows without breakpoints
+  <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4" />
+
+  // ✅ Fluid type with clamp
+  <p className="text-[clamp(1rem,2.5vw,1.5rem)]" />
+
+  // ❌ Breakpoint-switching column counts
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
+  ```
+
+- Breakpoints (`sm:`, `md:`, `lg:`) are a last resort — only when the layout genuinely cannot adapt intrinsically. If you're writing a responsive prefix to change a column count or font size, ask whether `minmax()` or `clamp()` solves it first.
+
 ## Dynamic Tailwind Colors
 
 Use CSS variables set via `style` + Tailwind's CSS variable shorthand to apply dynamic colors:
@@ -95,6 +123,16 @@ See `apps/playground/src/content/docs/explanation/dynamic-tailwind.md` for the f
   ```bash
   pnpm --filter @repo/playground sync-package-docs
   ```
+
+## Imports & Exports
+
+- Public API is declared in `package.json` `exports` — one subpath per public symbol, no root barrel.
+- No barrel files (`index.ts`).
+- Named exports only — no `export default`.
+- No wildcard re-exports (`export * from`). List identifiers explicitly.
+- Filename must match the primary exported identifier exactly.
+- Use `export type { ... }` for type-only exports.
+- Consumers import via subpath: `import { Button } from "@repo/ui/Button"`.
 
 ## Performance
 

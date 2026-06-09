@@ -22,3 +22,7 @@ export function useCurrentPalettes(): Palette[] {
 export function useTileSet(): TileSet {
   return mosaicStore((s) => s.tileSet);
 }
+
+export function useIsPalettesLoading(): boolean {
+  return mosaicStore((s) => s.isPalettesLoading);
+}

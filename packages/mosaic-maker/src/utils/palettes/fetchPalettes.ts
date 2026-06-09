@@ -37,11 +37,17 @@ function isCacheValid(cache: CachedPalettes): boolean {
   return cache.expiration > Date.now() && cache.version === CACHE_VERSION;
 }
 
-function transformPalette(colors: string[]): Palette {
-  return COLOR_NAMES.reduce((acc, colorName, index) => {
-    acc[colorName] = colors[index] ?? '#000000';
-    return acc;
-  }, {} as Palette);
+function getPaletteId(colors: string[]): string {
+  return [...colors].sort().join('-');
+}
+
+function paletteFactory(colors: string[]): Palette {
+  const palette = {} as Palette;
+  for (let i = 0; i < COLOR_NAMES.length; i++) {
+    palette[COLOR_NAMES[i]] = colors[i] ?? '#000000';
+  }
+  palette.id = getPaletteId(colors);
+  return palette;
 }
 
 function cachePalettes(palettes: Palette[]): void {
@@ -61,7 +67,7 @@ async function fetchPalettes(): Promise<Palette[]> {
 
   try {
     const palettesArray = await fetchWithValidation(PALETTE_URL, paletteSchema);
-    const palettes = palettesArray.map(transformPalette);
+    const palettes = palettesArray.map(paletteFactory);
     cachePalettes(palettes);
     return palettes;
   } catch (error) {

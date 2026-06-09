@@ -16,4 +16,5 @@ export type MosaicState = {
   currentPalettes: Palette[];
   tileSet: TileSet;
   tiles: TileInstance[];
+  isPalettesLoading: boolean;
 };

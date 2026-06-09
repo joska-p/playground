@@ -4,28 +4,31 @@ import {
   useCurrentPalette,
   useCurrentPalettes,
 } from '../../stores/mosaic/selectors';
-import { arePalettesEqual } from '../../utils/palettes/arePalettesEqual';
-import { getPaletteId } from '../../utils/palettes/getPaletteId';
 
 function PaletteControls() {
   const currentPalettes = useCurrentPalettes();
   const currentPalette = useCurrentPalette();
 
   return (
-    <fieldset className="border-border/30 mt-4 flex flex-wrap items-center justify-center gap-2 border-t p-4">
-      {currentPalettes.map((palette) => (
-        <ColorPalette
-          key={getPaletteId(palette)}
-          colors={Object.values(palette)}
-          checked={arePalettesEqual(palette, currentPalette)}
-          onChange={() => applyPalette(palette)}
-          variant="primary"
-          size="sm"
-          orientation="horizontal"
-          className="transition-transform hover:scale-105 lg:flex-col lg:[--cell-size:--spacing(6)]"
-        />
-      ))}
-    </fieldset>
+    <>
+      <h3 className="text-xs text-foreground/60">Palettes</h3>
+      <div className="flex flex-nowrap items-center min-h-12 justify-between gap-2 overflow-x-auto p-2 md:flex-wrap md:overflow-x-hidden">
+        {currentPalettes.map((palette) => (
+          <ColorPalette
+            key={palette.id}
+            colors={Object.values(palette).filter(
+              (item) => item !== palette.id
+            )}
+            checked={palette.id === currentPalette.id}
+            onChange={() => applyPalette(palette)}
+            variant="primary"
+            size="sm"
+            orientation="horizontal"
+            className="shrink-0 transition-transform duration-150 hover:scale-105  md:flex-col md:[--cell-size:--spacing(6)]"
+          />
+        ))}
+      </div>
+    </>
   );
 }
 

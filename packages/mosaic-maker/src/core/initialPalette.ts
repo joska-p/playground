@@ -1,6 +1,7 @@
 import type { Palette } from './palette.schema';
 
 const initialPalette: Palette = {
+  id: 'initial',
   '--color-0': '#333333',
   '--color-1': '#555555',
   '--color-2': '#777777',

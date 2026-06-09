@@ -60,6 +60,8 @@ export function cyclePalettes() {
 }
 
 export async function initPalettes() {
+  mosaicStore.setState({ isPalettesLoading: true });
   const palettes = await fetchPalettes();
   setPaletteStock(palettes);
+  mosaicStore.setState({ isPalettesLoading: false });
 }
