@@ -116,3 +116,4 @@ graphify-out/cost.json
 *.db-wal
 dump.sql
 *.sql.gz
+.fallow/

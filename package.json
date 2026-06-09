@@ -13,16 +13,15 @@
     "gen": "turbo gen",
     "graphify": "graphify update && cp graphify-out/graph.json packages/graph-viz/src/data/graph.json",
     "clean": "turbo clean && turbo run clean && rm -rf node_modules /**/node_modules",
-    "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build"
+    "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
+    "fallow": "fallow"
   },
   "devDependencies": {
     "@turbo/gen": "^2.9.14",
+    "fallow": "^2.89.0",
     "prettier": "^3.7.4",
-    "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "0.8.0",
-    "turbo": "^2.9.14",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "turbo": "^2.9.14"
   },
   "packageManager": "pnpm@11.5.1+sha512.93f7b57422ea7068257235b4c16eb60762eb68e1dc23723199cc739043ea9be2c4143274a399d8c6defa2b1176226d9ca1c4b63482d6200c1a8fbaa78c1d1485",
   "engines": {
