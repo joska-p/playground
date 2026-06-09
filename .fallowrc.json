@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  "entry": ["src/index.{js,jsx,mjs}", "src/main.{js,jsx,mjs}"],
+  "workspaces": {
+    "packages": ["apps/*", "packages/*"]
+  },
+  "duplicates": {
+    "minOccurrences": 3,
+    "ignore": [
+      "graphify-out/**",
+      "**/generated/**",
+      "turbo/**",
+      "**/__tests__/**",
+      "**/test/**",
+      "**/stories/**"
+    ],
+    "mode": "semantic"
+  },
+  "rules": {}
+}
