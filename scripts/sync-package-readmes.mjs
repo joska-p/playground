@@ -72,9 +72,32 @@ async function main() {
     const displayName = PACKAGE_NAMES[entry.name] || kebabToTitle(entry.name);
 
     const lines = content.split('\n');
+
+    // Gather the first contiguous blockquote as the tagline (package subtitle),
+    // then strip it from content to avoid duplication — SectionHeader shows it.
+    const taglineStart = lines.findIndex((l) => l.startsWith('> '));
+    let taglineEnd = taglineStart;
+    if (taglineStart !== -1) {
+      while (taglineEnd < lines.length && lines[taglineEnd].startsWith('> ')) {
+        taglineEnd++;
+      }
+    }
+
     const tagline =
-      lines.find((l) => l.startsWith('> '))?.slice(2) ||
-      `${displayName} package`;
+      taglineStart !== -1
+        ? lines
+            .slice(taglineStart, taglineEnd)
+            .map((l) => l.slice(2).trim())
+            .join(' ')
+        : `${displayName} package`;
+
+    // Remove the tagline blockquote lines from the content
+    const cleanContent =
+      taglineStart !== -1
+        ? [...lines.slice(0, taglineStart), ...lines.slice(taglineEnd)]
+            .join('\n')
+            .replace(/\n{3,}/g, '\n\n')
+        : content;
 
     const doc = `---
 title: "${escapeFrontmatter(displayName)}"
@@ -86,7 +109,7 @@ tags:
 order: 20
 ---
 
-${content}
+${cleanContent}
 `;
 
     await writeFile(path.join(REF_DIR, `${entry.name}.md`), doc);

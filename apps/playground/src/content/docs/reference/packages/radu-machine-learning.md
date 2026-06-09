@@ -14,8 +14,6 @@ Machine Learning Course Contents: https://github.com/gniziemazity/ml-course
 
 Course Link: https://www.youtube.com/playlist?list=PLB0Tybl0UNfYe9aJXfWw-Dw_4VnFrqRC4
 
-> Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration.
-
 ## Quick Start
 
 ```bash

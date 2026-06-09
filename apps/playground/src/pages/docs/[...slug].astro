@@ -24,7 +24,6 @@ const { Content } = await render(doc);
       <div class="mx-auto max-w-3xl px-6 py-12 md:px-10 lg:py-16">
         <article class="prose prose-playground">
           <SectionHeader title={doc.data.category} description={doc.data.description} iconName="book" />
-          <h1 class="text-foreground mb-8 mt-6 text-3xl font-black tracking-tight">{doc.data.title}</h1>
           <Content />
         </article>
       </div>

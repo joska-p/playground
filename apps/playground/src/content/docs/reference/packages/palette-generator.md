@@ -10,8 +10,6 @@ order: 20
 
 # @repo/palette-generator
 
-> Color palette generation and manipulation tool. Pick, edit, and preview color schemes using colorjs.io.
-
 ## Quick Start
 
 ```bash

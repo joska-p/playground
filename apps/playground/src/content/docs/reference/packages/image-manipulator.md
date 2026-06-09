@@ -10,8 +10,6 @@ order: 20
 
 # @repo/image-manipulator
 
-> Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.
-
 ## Quick Start
 
 ```bash

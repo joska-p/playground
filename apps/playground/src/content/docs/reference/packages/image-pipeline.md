@@ -10,8 +10,6 @@ order: 20
 
 # @repo/image-pipeline
 
-> TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.
-
 ## Quick Start
 
 ```bash

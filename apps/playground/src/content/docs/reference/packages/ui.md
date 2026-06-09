@@ -10,8 +10,6 @@ order: 20
 
 # @repo/ui
 
-> Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.
-
 ## Quick Start
 
 ```bash
@@ -133,9 +131,9 @@ import { Slider } from "@repo/ui/Slider";
 ```typescript
 import { Sidebar } from "@repo/ui/Sidebar";
 
-<Sidebar variant="normal" desktopPosition="left">
-  <Sidebar.Toggle />
+<Sidebar variant="primary" desktopPosition="left">
   <Sidebar.Panel>
+    <Sidebar.Toggle />
     <p>Controls</p>
   </Sidebar.Panel>
   <Sidebar.Main>

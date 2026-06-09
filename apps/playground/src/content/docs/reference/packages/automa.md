@@ -10,8 +10,6 @@ order: 20
 
 # @repo/automa
 
-> Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering.
-
 ## Quick Start
 
 ```bash

@@ -10,8 +10,6 @@ order: 20
 
 # @repo/sequence-renderer
 
-> Visualize mathematical sequences — Recamán, Fibonacci, and more.
-
 ## Quick Start
 
 ```bash

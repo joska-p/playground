@@ -10,8 +10,6 @@ order: 20
 
 # @repo/image-to-particles
 
-> Transform images into interactive falling particle animations.
-
 ## Quick Start
 
 ```bash

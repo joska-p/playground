@@ -10,8 +10,6 @@ order: 20
 
 # @repo/mosaic-maker
 
-> Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering.
-
 ## Quick Start
 
 ```bash

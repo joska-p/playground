@@ -10,8 +10,6 @@ order: 20
 
 # @repo/three-stage
 
-> React Three Fiber 3D scene explorer with interactive Leva controls for geometry, material, and lighting.
-
 ## Quick Start
 
 ```bash
