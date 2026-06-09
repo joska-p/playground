@@ -1,5 +1,5 @@
 ---
-import { ImageToParticles } from "@repo/image-to-particles/ImageToParticles";
+import { App } from "@repo/image-to-particles";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import { projects } from "../../../../data/projects";
@@ -19,7 +19,7 @@ const keywords = `${project["tags"].join(", ")}`;
 
   <div class="min-h-screen snap-start">
     <StrictMode>
-      <ImageToParticles client:only="react" />
+      <App client:only="react" />
     </StrictMode>
   </div>
 </BaseLayout>

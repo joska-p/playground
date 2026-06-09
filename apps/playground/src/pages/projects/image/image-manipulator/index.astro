@@ -1,5 +1,5 @@
 ---
-import { ImageManipulator } from "@repo/image-manipulator/ImageManipulator";
+import { App } from "@repo/image-manipulator";
 import { StrictMode } from "react";
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import { projects } from "../../../../data/projects";
@@ -19,7 +19,7 @@ const keywords = `${project["tags"].join(", ")}`;
 
   <div class="min-h-screen snap-start">
     <StrictMode>
-      <ImageManipulator client:only="react" />
+      <App client:only="react" />
     </StrictMode>
   </div>
 </BaseLayout>

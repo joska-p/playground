@@ -1,5 +1,5 @@
 ---
-import { MosaicMaker } from '@repo/mosaic-maker/MosaicMaker';
+import { App } from '@repo/mosaic-maker';
 import { StrictMode } from 'react';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { projects } from '../../../../data/projects';
@@ -22,7 +22,7 @@ const keywords = `${project['tags'].join(', ')}`;
   />
   <div class="snap-start h-dvh">
     <StrictMode>
-      <MosaicMaker client:only="react" />
+      <App client:only="react" />
     </StrictMode>
   </div>
 </BaseLayout>

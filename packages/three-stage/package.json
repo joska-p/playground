@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./Scene": "./src/components/scene/Scene.tsx",
+    ".": "./src/App.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {

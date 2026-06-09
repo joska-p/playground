@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./GraphViz": "./src/components/GraphViz.tsx",
+    ".": "./src/App.tsx",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {

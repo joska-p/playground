@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./SequenceRenderer": "./src/components/SequenceRenderer.tsx",
+    ".": "./src/App.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {

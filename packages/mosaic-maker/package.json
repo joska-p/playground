@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./MosaicMaker": "./src/components/MosaicMaker.tsx",
+    ".": "./src/App.tsx",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {

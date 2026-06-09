@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./PaletteGenerator": "./src/components/PaletteGenerator.tsx",
-    "./Controls": "./src/components/controls/Controls.tsx",
-    "./Display": "./src/components/display/Display.tsx",
+    ".": "./src/App.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {

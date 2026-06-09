@@ -1,7 +1,6 @@
-import type { JSX } from 'react';
 import { SequenceRenderer } from './components/SequenceRenderer';
 
-function App(): JSX.Element {
+function App() {
   return (
     <div className="bg-background text-foreground h-screen">
       <SequenceRenderer />

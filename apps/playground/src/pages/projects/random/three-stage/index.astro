@@ -1,5 +1,5 @@
 ---
-import { Scene } from '@repo/three-stage/Scene';
+import { App } from '@repo/three-stage';
 import { StrictMode } from 'react';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { projects } from '../../../../data/projects';
@@ -23,7 +23,7 @@ const keywords = `${project['tags'].join(', ')}`;
 
   <div class="h-dvh snap-start">
     <StrictMode>
-      <Scene client:only="react" />
+      <App client:only="react" />
     </StrictMode>
   </div>
 </BaseLayout>

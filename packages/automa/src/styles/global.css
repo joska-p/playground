@@ -1,5 +1,4 @@
 @import 'tailwindcss';
 @import '@repo/ui/gruvbox-theme';
-@import './theme.css';
 
 @source '../../node_modules/@repo/ui/src/components';
