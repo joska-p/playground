@@ -1,7 +1,11 @@
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useEffect } from 'react';
-import { initialGapSize, initialRotations, initialTileSize } from '../core/constants';
-import { CSS_VARS } from '../core/cssVars';
+import {
+  CSS_VARS,
+  initialGapSize,
+  initialRotations,
+  initialTileSize,
+} from '../core/constants';
 import { initialPalette } from '../core/initialPalette';
 import { initPalettes, setRef } from '../stores/mosaic/actions';
 import { useTiles } from '../stores/mosaic/selectors';

@@ -1,10 +1,10 @@
 import { Button } from '@repo/ui/Button';
 import {
+  CSS_VARS,
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
   initialRotations,
 } from '../../core/constants';
-import { CSS_VARS } from '../../core/cssVars';
 import { cyclePalettes, regenerateTiles } from '../../stores/mosaic/actions';
 import {
   useCurrentPalette,

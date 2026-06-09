@@ -1,4 +1,4 @@
-const defaultTileSet = [
+const initialTileSet = [
   'CornerCircles',
   'Diamond',
   'MiddleCircle',
@@ -9,9 +9,7 @@ const defaultTileSet = [
   'Cube',
 ] as const;
 
-export type TileSet = (typeof defaultTileSet)[number][];
-export type TileNames = (typeof defaultTileSet)[number];
-
-const initialTileSet = defaultTileSet;
+export type TileNames = (typeof initialTileSet)[number];
+export type TileSet = TileNames[];
 
 export { initialTileSet };

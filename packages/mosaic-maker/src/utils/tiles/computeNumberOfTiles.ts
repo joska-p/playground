@@ -1,4 +1,4 @@
-import { CSS_VARS } from '../../core/cssVars';
+import { CSS_VARS } from '../../core/constants';
 
 function parseNumericValue(value: string): number {
   const parsed = Number.parseFloat(value);
