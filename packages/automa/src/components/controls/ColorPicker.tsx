@@ -1,7 +1,7 @@
 import { getRule } from '../../core/rules/registry.ts';
+import { useRuleId } from '../../stores/simulation/selectors';
 import { setGlowColor, setStateColor } from '../../stores/ui/actions.ts';
-import { useGlowColor, useStateColors } from '../../stores/ui/selectors.ts';
-import { useRuleId } from '../../stores/simulation/selectors.ts';
+import { useGlowColor, useStateColors } from '../../stores/ui/selectors';
 
 type ColorRowProps = {
   label: string;
@@ -12,7 +12,7 @@ type ColorRowProps = {
 function ColorRow({ label, color, onChange }: ColorRowProps) {
   return (
     <label className="flex items-center gap-2 font-mono text-xs">
-      <span className="w-10 text-right text-foreground/70">{label}</span>
+      <span className="text-foreground/70 w-10 text-right">{label}</span>
       <input
         type="color"
         value={color}

@@ -1,6 +1,6 @@
-import { evolveGrid } from './step.ts';
-import { getRule } from './rules/registry.ts';
 import { WORKER_MESSAGE_STEP } from './config.ts';
+import { getRule } from './rules/registry.ts';
+import { evolveGrid } from './step.ts';
 
 let nextGrid: Uint8Array | undefined;
 

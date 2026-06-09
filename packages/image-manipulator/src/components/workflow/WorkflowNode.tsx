@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import type { ArgDefinition } from '../../core/manipulations/manipulations';
-import type { WorkflowStep } from '../../stores/manipulator/types';
 import {
   moveWorkflowStep,
   removeWorkflowStep,
   updateStepOptions,
 } from '../../stores/manipulator/actions';
+import type { WorkflowStep } from '../../stores/manipulator/types';
 import { WorkflowNodeControls } from './WorkflowNodeControls';
 import { WorkflowNodeHeader } from './WorkflowNodeHeader';
 import { WorkflowStepArgSlider } from './WorkflowStepArgSlider';

@@ -2,12 +2,12 @@
 // Renders all graph nodes as a single R3F <instancedMesh>.
 // Reads positions from posRef each frame via useFrame — zero React re-renders.
 
-import { useRef, useEffect, useMemo } from 'react';
-import type { RefObject, Ref } from 'react';
 import { useFrame } from '@react-three/fiber';
+import type { Ref, RefObject } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import type { GraphNode } from './types';
 import { communityColor } from './palette';
+import type { GraphNode } from './types';
 
 type Props = {
   nodes: GraphNode[];

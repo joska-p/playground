@@ -2,11 +2,11 @@
 
 // Fix: Pull out the three types into a top-level import statement
 import type {
-  WebGLRenderer,
-  Scene,
-  PerspectiveCamera,
   InstancedMesh,
   LineSegments,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
 } from 'three';
 
 export type GraphNode = {

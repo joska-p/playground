@@ -2,9 +2,9 @@
 // Runs the force-simulation Web Worker and writes node positions into a
 // shared Float32Array ref so Three.js objects can read them each frame.
 
-import { useEffect, useRef } from 'react';
 import type { RefObject } from 'react';
-import type { GraphNode, GraphLink } from './types';
+import { useEffect, useRef } from 'react';
+import type { GraphLink, GraphNode } from './types';
 import { makeWorkerSrc } from './workerSrc';
 
 type Options = {

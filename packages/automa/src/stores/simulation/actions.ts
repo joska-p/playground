@@ -1,14 +1,14 @@
-import { createGrid, seedGrid } from '../../core/grid.ts';
-import type { CellValue, Grid } from '../../core/types.ts';
 import {
-  WORKER_MESSAGE_STEP,
   GRID_DEFAULT_DENSITY,
+  WORKER_MESSAGE_STEP,
   getDefaultStateColor,
 } from '../../core/config.ts';
-import { getRule } from '../../core/rules/registry.ts';
-import { simulationStore } from './store.ts';
-import { uiStore } from '../ui/store.ts';
 import type { Creature } from '../../core/creature/types.ts';
+import { createGrid, seedGrid } from '../../core/grid.ts';
+import { getRule } from '../../core/rules/registry.ts';
+import type { CellValue, Grid } from '../../core/types.ts';
+import { uiStore } from '../ui/store.ts';
+import { simulationStore } from './store.ts';
 
 type SimulationInit = {
   rows: number;
@@ -189,8 +189,8 @@ export {
   destroy,
   init,
   paintCell,
-  placePattern,
   pause,
+  placePattern,
   play,
   randomize,
   setGrid,

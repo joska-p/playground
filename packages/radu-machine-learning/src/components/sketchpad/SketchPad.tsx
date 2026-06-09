@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
 import { Button } from '@repo/ui/Button';
 import { Card } from '@repo/ui/Card';
+import { useRef, useState } from 'react';
 
 type Point = { x: number; y: number };
 type Stroke = Point[];
@@ -84,11 +84,11 @@ export function SketchPad() {
   };
 
   return (
-    <div className="w-[60ch] grid items-center gap-2 p-2">
+    <div className="grid w-[60ch] items-center gap-2 p-2">
       <Card>
         <canvas
           ref={canvasRef}
-          className="cursor-crosshair w-full"
+          className="w-full cursor-crosshair"
           onPointerDown={startDrawing}
           onPointerMove={draw}
           onMouseUp={stopDrawing}

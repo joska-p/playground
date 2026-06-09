@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
 import { Sidebar } from '@repo/ui/Sidebar';
+import { useEffect } from 'react';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
 import { Controls } from './components/controls/Controls.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
-import { init, destroy } from './stores/simulation/actions.ts';
 import {
-  GRID_DEFAULT_ROWS,
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
+  GRID_DEFAULT_ROWS,
 } from './core/config.ts';
+import { destroy, init } from './stores/simulation/actions.ts';
 
 type AppProps = {
   rows?: number;
@@ -34,7 +34,7 @@ function App({
   }, [cols, initialDensity, rows, seed]);
 
   return (
-    <div className="h-dvh bg-background text-foreground">
+    <div className="bg-background text-foreground h-dvh">
       <ErrorBoundary>
         <Sidebar
           mobilePosition="bottom"

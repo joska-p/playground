@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { Button } from '@repo/ui/Button';
 import { Select } from '@repo/ui/Select';
+import { useState } from 'react';
 import type { ManipulationId } from '../../core/manipulations/manipulations';
 import {
   manipulations,

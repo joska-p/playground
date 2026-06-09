@@ -18,7 +18,7 @@ function ControlSection({
     <div className="border-border rounded-lg border">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between px-3 py-2 text-sm font-medium hover:bg-foreground/5"
+        className="hover:bg-foreground/5 flex w-full items-center justify-between px-3 py-2 text-sm font-medium"
       >
         {title}
         <ChevronIcon isOpen={isOpen} />

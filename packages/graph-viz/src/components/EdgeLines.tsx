@@ -2,9 +2,9 @@
 // Renders all graph edges as a single <lineSegments> updated via useFrame.
 // Avoids computeBoundingSphere by pre-setting a static bounding sphere.
 
-import { useRef, useEffect, useMemo } from 'react';
-import type { RefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
+import type { RefObject } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import type { GraphLink } from './types';
 

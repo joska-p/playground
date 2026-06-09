@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { generateSVG } from './generate-svg.ts';
 import { CONSTANTS } from './constants.ts';
+import { generateSVG } from './generate-svg.ts';
 import { printProgress } from './utils.ts';
 
 fs.mkdirSync(CONSTANTS.JSON_DIR, { recursive: true });

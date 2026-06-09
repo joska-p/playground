@@ -1,4 +1,4 @@
-import type { Drawings, Drawing, Student_name } from '../core/types';
+import type { Drawing, Drawings, Student_name } from '../core/types';
 
 type DisplayStudentProps = {
   student_name: Student_name;
@@ -7,8 +7,8 @@ type DisplayStudentProps = {
 
 function DisplayStudent({ student_name, drawings }: DisplayStudentProps) {
   return (
-    <div className="grid grid-cols-[10%_1fr] items-center gap-4 group/row">
-      <h3 className="overflow-hidden text-ellipsis text-muted group-hover/row:text-foreground">
+    <div className="group/row grid grid-cols-[10%_1fr] items-center gap-4">
+      <h3 className="text-muted group-hover/row:text-foreground overflow-hidden text-ellipsis">
         {student_name}
       </h3>
       <div className="flex gap-4 overflow-y-auto">
@@ -16,14 +16,14 @@ function DisplayStudent({ student_name, drawings }: DisplayStudentProps) {
           return (
             <div
               key={drawing.id}
-              className="flex gap-2  flex-col group/col "
+              className="group/col flex flex-col gap-2"
             >
-              <label className="text-xs text-muted text-center group-hover/col:text-foreground">
+              <label className="text-muted group-hover/col:text-foreground text-center text-xs">
                 {drawing.label}
               </label>
               <img
                 loading="lazy"
-                className="object-cover p-2  border border-border/10 rounded bg-black/50"
+                className="border-border/10 rounded border bg-black/50 object-cover p-2"
                 src={`/img/${drawing.id}.svg`}
                 alt={drawing.label}
               />

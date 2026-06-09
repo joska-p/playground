@@ -19,7 +19,7 @@ function WorkflowNodeHeader({
   return (
     <>
       <StepBadge stepNumber={index + 1} />
-      <span className="text-sm font-medium flex-1 truncate">{name}</span>
+      <span className="flex-1 truncate text-sm font-medium">{name}</span>
       {hasArgs && (
         <button
           onClick={onToggleExpand}

@@ -1,6 +1,6 @@
-import vertexShader from './cell-mesh.vert?raw';
-import fragmentShader from './cell-mesh.frag?raw';
 import type { Shader } from '../types.ts';
+import fragmentShader from './cell-mesh.frag?raw';
+import vertexShader from './cell-mesh.vert?raw';
 
 const glowShader: Shader = {
   id: 'glow',

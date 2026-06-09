@@ -1,5 +1,5 @@
-import { ErrorBoundary } from 'react-error-boundary';
 import { Sidebar } from '@repo/ui/Sidebar';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Controls } from './components/controls/Controls';
 import { MosaicDisplay } from './components/MosaicDisplay';
 
@@ -28,7 +28,7 @@ function App() {
             <MosaicDisplay />
           </Sidebar.Main>
 
-          <Sidebar.Panel className="md:w-96 h-32 md:h-auto">
+          <Sidebar.Panel className="h-32 md:h-auto md:w-96">
             <Controls />
           </Sidebar.Panel>
         </Sidebar>

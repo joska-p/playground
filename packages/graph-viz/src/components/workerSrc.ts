@@ -2,7 +2,7 @@
 // Builds the inline Web Worker source string for the force-directed simulation.
 // The worker runs entirely off the main thread and posts progress + done messages.
 
-import type { GraphNode, GraphLink } from './types';
+import type { GraphLink, GraphNode } from './types';
 
 /**
  * Returns a self-contained JS string suitable for a Blob Worker.

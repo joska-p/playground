@@ -33,7 +33,7 @@ function Controls() {
   }
 
   return (
-    <div className="flex flex-1 min-h-0 flex-col gap-[clamp(1rem,3vw,2rem)] overflow-y-auto p-4 lg:overflow-hidden">
+    <div className="flex min-h-0 flex-1 flex-col gap-[clamp(1rem,3vw,2rem)] overflow-y-auto p-4 lg:overflow-hidden">
       <h2 className="sr-only">Mosaic controls</h2>
       <div className="shrink-0 space-y-[clamp(1rem,3vw,2rem)]">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4">
@@ -92,7 +92,7 @@ function Controls() {
       </div>
       <div className="min-h-0 lg:flex-1 lg:overflow-y-auto">
         {isPalettesLoading ? (
-          <div className="flex items-center justify-center gap-2 border-t border-border/30 pt-4 text-sm text-foreground/60">
+          <div className="border-border/30 text-foreground/60 flex items-center justify-center gap-2 border-t pt-4 text-sm">
             <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
             Loading palettes...
           </div>

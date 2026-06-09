@@ -26,8 +26,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       return (
         this.props.fallback ?? (
           <div className="flex items-center justify-center">
-            <div className="rounded-lg border border-border bg-card px-6 py-5 text-center">
-              <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-destructive/30 bg-destructive/10">
+            <div className="border-border bg-card rounded-lg border px-6 py-5 text-center">
+              <div className="border-destructive/30 bg-destructive/10 mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
                 <svg
                   width="18"
                   height="18"
@@ -57,10 +57,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                   />
                 </svg>
               </div>
-              <p className="font-medium text-foreground">
+              <p className="text-foreground font-medium">
                 Something went wrong
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-sm">
                 {this.state.error?.message}
               </p>
             </div>

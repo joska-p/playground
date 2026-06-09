@@ -1,12 +1,12 @@
-import { PlaybackControls } from './PlaybackControls.tsx';
-import { EditControls } from './EditControls.tsx';
-import { SpeedSlider } from './SpeedSlider.tsx';
+import { cn } from '@repo/ui/cn';
 import { BrushModeSelector } from './BrushModeSelector.tsx';
+import { CreatureSelector } from './CreatureSelector.tsx';
+import { DebugPanel, DebugToggle } from './DebugControls.tsx';
+import { EditControls } from './EditControls.tsx';
+import { PlaybackControls } from './PlaybackControls.tsx';
 import { RuleSelector } from './RuleSelector.tsx';
 import { ShaderSelector } from './ShaderSelector.tsx';
-import { DebugToggle, DebugPanel } from './DebugControls.tsx';
-import { CreatureSelector } from './CreatureSelector.tsx';
-import { cn } from '@repo/ui/cn';
+import { SpeedSlider } from './SpeedSlider.tsx';
 
 type ControlsProps = {
   className?: string;
@@ -17,7 +17,7 @@ function Controls({ className }: ControlsProps) {
     <div
       className={cn(
         className,
-        'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:flex lg:flex-col p-2 gap-4'
+        'grid grid-cols-2 gap-4 p-2 sm:grid-cols-3 md:grid-cols-5 lg:flex lg:flex-col'
       )}
     >
       <PlaybackControls />

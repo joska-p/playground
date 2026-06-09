@@ -35,7 +35,7 @@ function UploadDropzone({
         if (e.key === 'Enter' || e.key === ' ') onClick();
       }}
       className={cn(
-        'border-2 border-dashed rounded-lg px-4 py-6 text-center cursor-pointer transition-all',
+        'cursor-pointer rounded-lg border-2 border-dashed px-4 py-6 text-center transition-all',
         isDragging
           ? 'border-primary bg-primary/10'
           : 'border-border hover:border-primary/50 hover:bg-primary/5'

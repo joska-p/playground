@@ -1,12 +1,12 @@
 import { Button } from '@repo/ui/Button';
-import { setShowDebug } from '../../stores/ui/actions.ts';
-import { useShowDebug } from '../../stores/ui/selectors.ts';
+import { useStepTimer } from '../../hooks/useStepTimer.ts';
 import {
   useCols,
   useGeneration,
   useRows,
-} from '../../stores/simulation/selectors.ts';
-import { useStepTimer } from '../../hooks/useStepTimer.ts';
+} from '../../stores/simulation/selectors';
+import { setShowDebug } from '../../stores/ui/actions.ts';
+import { useShowDebug } from '../../stores/ui/selectors';
 
 function DebugIcon() {
   return (
@@ -108,7 +108,7 @@ function DebugPanel() {
   if (!showDebug) return null;
 
   return (
-    <div className="mt-3 w-fit rounded border border-border bg-card px-3 py-2 text-sm">
+    <div className="border-border bg-card mt-3 w-fit rounded border px-3 py-2 text-sm">
       <div>generation: {generation}</div>
       <div>
         grid: {cols}&times;{rows}

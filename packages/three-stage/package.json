@@ -23,9 +23,7 @@
     "@repo/ui": "workspace:*",
     "@types/three": "catalog:",
     "leva": "catalog:",
-    "three": "catalog:",
-    "zod": "catalog:",
-    "zustand": "catalog:"
+    "three": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",

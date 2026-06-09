@@ -3,9 +3,9 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useStore } from 'zustand';
 import { MAX_STATE_COUNT } from '../core/config.ts';
-import { copyGridToTextureData } from '../utils/grid-to-texture.ts';
 import { simulationStore } from '../stores/simulation/store.ts';
 import { uiStore } from '../stores/ui/store.ts';
+import { copyGridToTextureData } from '../utils/grid-to-texture.ts';
 
 type UseGridTextureParams = {
   cols: number;

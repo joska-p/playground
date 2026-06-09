@@ -1,7 +1,7 @@
 import { manipulations } from '../../core/manipulations/manipulations';
 import type { WorkflowStep } from '../../stores/manipulator/types';
-import { ArrowDownIcon } from './ArrowDownIcon';
 import { EmptyState } from '../shared/EmptyState';
+import { ArrowDownIcon } from './ArrowDownIcon';
 import { WorkflowNode } from './WorkflowNode';
 
 type WorkflowListProps = {

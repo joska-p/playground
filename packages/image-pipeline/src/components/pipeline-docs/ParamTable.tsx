@@ -9,7 +9,7 @@ function ParamTable({ params }: ParamTableProps) {
     <div className="border-border overflow-hidden rounded-lg border">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold uppercase tracking-wider">
+          <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold tracking-wider uppercase">
             <th className="px-4 py-2.5">Name</th>
             <th className="px-4 py-2.5">Type</th>
             <th className="px-4 py-2.5">Default</th>

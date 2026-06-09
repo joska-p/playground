@@ -2,21 +2,25 @@
 // Root component: R3F Canvas + UI overlays.
 // Owns selection/hover state and wires everything together.
 
-import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
+import { GizmoHelper, GizmoViewport, OrbitControls } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls, GizmoHelper, GizmoViewport } from '@react-three/drei';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-import type { GraphNode, GraphLink, GraphVisualizationProps } from './types';
-import { useSimulation } from './useSimulation';
-import { SceneSetup } from './SceneSetup';
-import { NodeMesh } from './NodeMesh';
-import { EdgeLines } from './EdgeLines';
-import { NodePanel } from './NodePanel';
-import { Legend, Dot } from './Legend';
-import { styles } from './styles';
 import graphify from '../data/graph.json';
-import type { GraphData } from './types';
+import { EdgeLines } from './EdgeLines';
+import { Dot, Legend } from './Legend';
+import { NodeMesh } from './NodeMesh';
+import { NodePanel } from './NodePanel';
+import { SceneSetup } from './SceneSetup';
+import { styles } from './styles';
+import type {
+  GraphData,
+  GraphLink,
+  GraphNode,
+  GraphVisualizationProps,
+} from './types';
+import { useSimulation } from './useSimulation';
 
 // ─── Inner scene (has access to R3F context) ──────────────────────────────────
 

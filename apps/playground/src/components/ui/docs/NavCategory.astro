@@ -33,11 +33,11 @@ const hasActiveArticle = category.articles.some((doc) => {
   <summary
     class="mb-1.5 flex cursor-pointer list-none items-center justify-between gap-2 px-2 py-1 outline-none [&::-webkit-details-marker]:hidden"
   >
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2" style={{ '--color-current': `var(--category-${category.id}, var(--color-primary))` }}>
       <Icon
         name={category.iconName}
         className="h-4 w-4 shrink-0 text-(--color-current)"
-        style={{ '--color-current': `var(--category-${category.id}, var(--color-primary))` }}
+
         aria-hidden="true"
       />
       <span

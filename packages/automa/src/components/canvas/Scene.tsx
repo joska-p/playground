@@ -2,9 +2,9 @@ import { OrbitControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { useEffect } from 'react';
 import { MOUSE } from 'three';
-import { useCols, useRows } from '../../stores/simulation/selectors.ts';
-import { useShowDebug } from '../../stores/ui/selectors.ts';
 import { useCameraFitter } from '../../hooks/useCameraFitter.ts';
+import { useCols, useRows } from '../../stores/simulation/selectors';
+import { useShowDebug } from '../../stores/ui/selectors';
 import { CellMesh } from './CellMesh.tsx';
 import { GridLines } from './GridLines.tsx';
 

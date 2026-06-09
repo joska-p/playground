@@ -40,7 +40,7 @@ function WorkflowNodeControls({
       <Button
         variant="ghost"
         size="icon"
-        className="h-6 w-6 text-destructive"
+        className="text-destructive h-6 w-6"
         onClick={onRemove}
         aria-label="Remove step"
       >

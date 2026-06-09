@@ -2,9 +2,9 @@
 // Detail panel shown when a node is selected.
 
 import { useMemo } from 'react';
-import type { GraphNode, GraphLink } from './types';
 import { communityColor } from './palette';
 import { styles } from './styles';
+import type { GraphLink, GraphNode } from './types';
 
 type Neighbour = {
   dir: '→' | '←';

@@ -36,13 +36,13 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
             ...
           </div>
         ) : (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {pipelineResult?.map((imageData, i) => (
               <img
                 key={i}
                 src={imageDataToUrl(imageData)}
                 alt={`chained-${i}`}
-                className="border-border w-28 sm:w-36 rounded border"
+                className="border-border w-28 rounded border sm:w-36"
                 style={{ imageRendering: 'pixelated' }}
               />
             ))}

@@ -1,9 +1,9 @@
+import type { ThreeEvent } from '@react-three/fiber';
 import { useRef } from 'react';
 import type * as THREE from 'three';
-import type { ThreeEvent } from '@react-three/fiber';
+import type { Creature } from '../core/creature/types.ts';
 import type { CellValue } from '../core/types.ts';
 import type { BrushMode } from '../stores/ui/store.ts';
-import type { Creature } from '../core/creature/types.ts';
 
 type CellPaintingHandlers = {
   meshRef: React.RefObject<THREE.Mesh | null>;

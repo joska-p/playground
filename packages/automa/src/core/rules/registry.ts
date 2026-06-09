@@ -1,6 +1,6 @@
+import { briansBrainRule } from './brians-brain.ts';
 import { conwayRule } from './conway.ts';
 import { highlifeRule } from './highlife.ts';
-import { briansBrainRule } from './brians-brain.ts';
 import type { Rule } from './types.ts';
 
 const rules = new Map<string, Rule>([

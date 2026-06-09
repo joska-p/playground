@@ -1,13 +1,13 @@
 import { Canvas } from '@react-three/fiber';
 import { useStore } from 'zustand';
-import { Scene } from './Scene.tsx';
 import {
-  CAMERA_Z,
+  CAMERA_FAR,
   CAMERA_FOV,
   CAMERA_NEAR,
-  CAMERA_FAR,
+  CAMERA_Z,
 } from '../../core/config.ts';
 import { uiStore } from '../../stores/ui/store.ts';
+import { Scene } from './Scene.tsx';
 
 type CACanvasProps = {
   className?: string;

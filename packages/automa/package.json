@@ -23,7 +23,6 @@
     "leva": "catalog:",
     "three": "catalog:",
     "@repo/ui": "workspace:*",
-    "zod": "catalog:",
     "zustand": "catalog:"
   },
   "peerDependencies": {

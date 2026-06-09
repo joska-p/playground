@@ -156,7 +156,7 @@ export function ImageToParticles() {
   }, [imageFile]);
 
   return (
-    <div className="min-h-dvh mx-auto my-8 flex w-fit flex-col items-center gap-8">
+    <div className="mx-auto my-8 flex min-h-dvh w-fit flex-col items-center gap-8">
       <Input
         type="file"
         accept="image/*"

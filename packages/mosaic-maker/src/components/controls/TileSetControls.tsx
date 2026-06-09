@@ -21,7 +21,7 @@ function TileSetControls() {
 
   return (
     <div>
-      <h3 className="mb-2 text-xs font-medium text-foreground/60">
+      <h3 className="text-foreground/60 mb-2 text-xs font-medium">
         Tile types
       </h3>
       <div
@@ -57,7 +57,7 @@ function TileSetControls() {
                 )}
                 rotation="--rotation-0"
               />
-              <span className="text-[10px] text-foreground/50">
+              <span className="text-foreground/50 text-[10px]">
                 {displayNames[tileName]}
               </span>
             </label>

@@ -1,7 +1,7 @@
 import { getRule } from '../../core/rules/registry.ts';
+import { useRuleId } from '../../stores/simulation/selectors';
 import { setStateColor } from '../../stores/ui/actions.ts';
-import { useStateColors } from '../../stores/ui/selectors.ts';
-import { useRuleId } from '../../stores/simulation/selectors.ts';
+import { useStateColors } from '../../stores/ui/selectors';
 
 type ColorRowProps = {
   label: string;
@@ -11,8 +11,8 @@ type ColorRowProps = {
 
 function ColorRow({ label, color, onChange }: ColorRowProps) {
   return (
-    <label className="grid grid-cols-3 items-center justify-items-start w-full text-xs">
-      <span className="text-right text-muted-foreground">{label}</span>
+    <label className="grid w-full grid-cols-3 items-center justify-items-start text-xs">
+      <span className="text-muted-foreground text-right">{label}</span>
       <input
         type="color"
         value={color}

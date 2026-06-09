@@ -1,5 +1,5 @@
-import { DisplayStudent } from './DisplayStudent';
 import { samples } from '../data/dataset/ts_objects/samples';
+import { DisplayStudent } from './DisplayStudent';
 
 function DisplaySamples() {
   return (

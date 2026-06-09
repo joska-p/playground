@@ -4,8 +4,8 @@ import { Card, CardContent, CardFooter, CardHeader } from '@repo/ui/Card';
 import { useRef, useState } from 'react';
 import type { OutputType } from '../../stores/manipulator/types';
 import { downloadCanvas } from '../../utils/download';
-import { Output } from './Output';
 import { ImageLightbox } from './ImageLightbox';
+import { Output } from './Output';
 
 type OutputCardProps = {
   output: OutputType;
@@ -46,7 +46,7 @@ function OutputCard({
       >
         <Card
           className={`transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
-            isSelected ? 'ring-2 ring-primary' : ''
+            isSelected ? 'ring-primary ring-2' : ''
           }`}
         >
           <CardHeader className="flex flex-row items-start justify-between gap-2 p-3 pb-0">

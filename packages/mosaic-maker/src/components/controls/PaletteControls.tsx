@@ -11,8 +11,8 @@ function PaletteControls() {
 
   return (
     <>
-      <h3 className="text-xs text-foreground/60">Palettes</h3>
-      <div className="flex flex-nowrap items-center min-h-12 justify-between gap-2 overflow-x-auto p-2 md:flex-wrap md:overflow-x-hidden">
+      <h3 className="text-foreground/60 text-xs">Palettes</h3>
+      <div className="flex min-h-12 flex-nowrap items-center justify-between gap-2 overflow-x-auto p-2 md:flex-wrap md:overflow-x-hidden">
         {currentPalettes.map((palette) => (
           <ColorPalette
             key={palette.id}
@@ -24,7 +24,7 @@ function PaletteControls() {
             variant="primary"
             size="sm"
             orientation="horizontal"
-            className="shrink-0 transition-transform duration-150 hover:scale-105  md:flex-col md:[--cell-size:--spacing(6)]"
+            className="shrink-0 transition-transform duration-150 hover:scale-105 md:flex-col md:[--cell-size:--spacing(6)]"
           />
         ))}
       </div>

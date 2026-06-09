@@ -20,7 +20,7 @@ function CompareSlider({ source, result }: CompareSliderProps) {
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto select-none overflow-hidden rounded-lg"
+      className="relative mx-auto overflow-hidden rounded-lg select-none"
       style={{
         width: '100%',
         maxWidth: width,

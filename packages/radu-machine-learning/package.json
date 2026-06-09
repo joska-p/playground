@@ -20,9 +20,7 @@
     "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "zod": "catalog:",
-    "zustand": "catalog:"
+    "@repo/ui": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:",

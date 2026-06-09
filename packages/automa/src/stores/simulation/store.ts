@@ -1,11 +1,11 @@
 import { createStore } from 'zustand/vanilla';
-import { createGrid } from '../../core/grid.ts';
-import type { Grid } from '../../core/types.ts';
 import {
-  GRID_DEFAULT_ROWS,
   GRID_DEFAULT_COLS,
+  GRID_DEFAULT_ROWS,
   GRID_DEFAULT_SEED,
 } from '../../core/config.ts';
+import { createGrid } from '../../core/grid.ts';
+import type { Grid } from '../../core/types.ts';
 
 type SimulationState = {
   grid: Grid;

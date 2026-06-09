@@ -256,26 +256,26 @@ const gosperGliderGun = creatureFactory({
 });
 
 export {
-  // Still lifes
-  block,
+  acorn,
+  beacon,
   beehive,
-  loaf,
+  bHeptomino,
   // Oscillators
   blinker,
-  toad,
-  beacon,
-  pulsar,
-  pentadecathlon,
+  // Still lifes
+  block,
+  diehard,
   // Spaceships
   glider,
-  lwss,
-  mwss,
-  // Methuselahs
-  rPentomino,
-  diehard,
-  acorn,
-  piHeptomino,
-  bHeptomino,
   // Infinite growth
   gosperGliderGun,
+  loaf,
+  lwss,
+  mwss,
+  pentadecathlon,
+  piHeptomino,
+  pulsar,
+  // Methuselahs
+  rPentomino,
+  toad,
 };

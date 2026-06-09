@@ -14,12 +14,12 @@ type Story = StoryObj<ComponentPropsWithoutRef<'svg'>>;
 
 export const AllIcons: Story = {
   render: () => (
-    <div className="flex flex-col gap-8 p-8 w-full max-w-4xl">
-      <div className="flex items-center gap-3 border-b border-border pb-4">
-        <h1 className="font-mono text-xs tracking-widest uppercase text-foreground">
+    <div className="flex w-full max-w-4xl flex-col gap-8 p-8">
+      <div className="border-border flex items-center gap-3 border-b pb-4">
+        <h1 className="text-foreground font-mono text-xs tracking-widest uppercase">
           Icon Library
         </h1>
-        <span className="font-mono text-[10px] text-muted-foreground">
+        <span className="text-muted-foreground font-mono text-[10px]">
           {icons.length} icons
         </span>
       </div>
@@ -31,11 +31,11 @@ export const AllIcons: Story = {
             return (
               <div
                 key={name}
-                className="group flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-muted transition-all duration-200 cursor-pointer"
+                className="group hover:bg-muted flex cursor-pointer flex-col items-center gap-1.5 rounded-xl p-2.5 transition-all duration-200"
                 title={name}
               >
-                <Icon className="size-6 transition-all duration-200 group-hover:scale-110 group-hover:-translate-y-0.5" />
-                <span className="font-mono text-[8px] text-muted-foreground text-center truncate w-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <Icon className="size-6 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:scale-110" />
+                <span className="text-muted-foreground w-full truncate text-center font-mono text-[8px] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   {name}
                 </span>
               </div>
@@ -44,8 +44,8 @@ export const AllIcons: Story = {
         </div>
       </div>
 
-      <div className="border-t border-border pt-6">
-        <h2 className="font-mono text-xs tracking-widest uppercase mb-3 text-muted-foreground">
+      <div className="border-border border-t pt-6">
+        <h2 className="text-muted-foreground mb-3 font-mono text-xs tracking-widest uppercase">
           Size Scale
         </h2>
         <div className="flex items-end gap-4">
@@ -60,7 +60,7 @@ export const AllIcons: Story = {
                   className="transition-all duration-200"
                   style={{ width: s, height: s }}
                 />
-                <span className="font-mono text-[9px] text-muted-foreground">
+                <span className="text-muted-foreground font-mono text-[9px]">
                   {s}px
                 </span>
               </div>

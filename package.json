@@ -20,6 +20,8 @@
     "@turbo/gen": "^2.9.14",
     "fallow": "^2.89.0",
     "prettier": "^3.7.4",
+    "prettier-plugin-organize-imports": "catalog:",
+    "prettier-plugin-tailwindcss": "catalog:",
     "typescript": "5.9.2",
     "turbo": "^2.9.14"
   },

@@ -82,7 +82,7 @@ function Demo() {
 
             {submissions.length > 0 && (
               <div className="border-border/30 flex flex-col gap-2 border-t pt-4">
-                <span className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+                <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                   History
                 </span>
                 <ul className="flex flex-col gap-1">

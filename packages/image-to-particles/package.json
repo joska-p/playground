@@ -18,8 +18,7 @@
     "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "zustand": "catalog:"
+    "@repo/ui": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:",

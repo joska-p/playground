@@ -38,4 +38,4 @@ const Legend = () => (
   </div>
 );
 
-export { Legend, Dot };
+export { Dot, Legend };

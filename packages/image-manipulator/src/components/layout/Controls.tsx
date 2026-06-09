@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useWorkflowSteps } from '../../stores/manipulator/selectors';
-import { ControlSection } from './ControlSection';
 import { ImageSourceControls } from '../upload/ImageSourceControls';
 import { ManipulationSelector } from '../workflow/ManipulationSelector';
 import { PresetSelector } from '../workflow/PresetSelector';
 import { WorkflowControls } from '../workflow/WorkflowControls';
+import { ControlSection } from './ControlSection';
 
 type Section = 'source' | 'presets' | 'manipulations' | 'workflow';
 

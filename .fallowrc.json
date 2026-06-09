@@ -1,9 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-  "entry": ["src/index.{js,jsx,mjs}", "src/main.{js,jsx,mjs}"],
+  "entry": ["src/index.{ts,tsx,js,jsx,mjs}", "src/main.{ts,tsx,js,jsx,mjs}"],
   "workspaces": {
     "packages": ["apps/*", "packages/*"]
   },
+  "ignorePatterns": [
+    "turbo/generators/templates/**",
+    "**/data/dataset/**",
+    "**/*.generated.*",
+    ".fallow/**"
+  ],
   "duplicates": {
     "minOccurrences": 3,
     "ignore": [
@@ -12,9 +18,17 @@
       "turbo/**",
       "**/__tests__/**",
       "**/test/**",
-      "**/stories/**"
+      "**/stories/**",
+      "**/data/dataset/**"
     ],
     "mode": "semantic"
   },
+  "ignoreDependencies": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss",
+    "@chromatic-com/storybook",
+    "@storybook/addon-a11y",
+    "@storybook/addon-docs"
+  ],
   "rules": {}
 }

@@ -70,7 +70,7 @@ function ManipView({
       }
     >
       <div className="flex items-center gap-3">
-        <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
+        <span className="inline-flex shrink-0 items-center rounded bg-(--accent) px-2 py-0.5 text-xs leading-tight font-bold tracking-wide text-white uppercase">
           {manip.type === 'neighborhood'
             ? 'NEIGHBOR'
             : manip.type.toUpperCase()}
@@ -83,7 +83,7 @@ function ManipView({
       <p className="font-mono text-xs opacity-60">{manip.path}</p>
 
       <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-2 border-l-(--accent) p-4">
-        <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">
+        <h3 className="mb-1.5 text-xs font-semibold tracking-wider uppercase">
           How It Works
         </h3>
         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -93,7 +93,7 @@ function ManipView({
 
       {manip.params && manip.params.length > 0 && (
         <section>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider">
+          <h3 className="mb-3 text-sm font-semibold tracking-wider uppercase">
             Parameters
           </h3>
           <ParamTable params={manip.params} />
@@ -101,7 +101,7 @@ function ManipView({
       )}
 
       <section>
-        <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
+        <h3 className="mb-3 inline-block border-b-2 border-b-(--accent) pb-1 text-sm font-semibold tracking-wider uppercase">
           Try It Out
         </h3>
         <Card>
@@ -117,7 +117,7 @@ function ManipView({
       </section>
 
       <section>
-        <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
+        <h3 className="mb-3 inline-block border-b-2 border-b-(--accent) pb-1 text-sm font-semibold tracking-wider uppercase">
           Code Sample
         </h3>
         <CodeBlock code={codeLines.join('\n')} />
@@ -171,7 +171,7 @@ function PipelineView({
       style={{ '--accent': 'var(--utility-1)' } as React.CSSProperties}
     >
       <div className="flex items-center gap-3">
-        <span className="inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold uppercase leading-tight tracking-wide text-white bg-(--accent)">
+        <span className="inline-flex shrink-0 items-center rounded bg-(--accent) px-2 py-0.5 text-xs leading-tight font-bold tracking-wide text-white uppercase">
           PIPELINE
         </span>
         <h2 className="text-2xl font-bold">{item?.label ?? id}</h2>
@@ -185,7 +185,7 @@ function PipelineView({
         <div className="border-border overflow-hidden rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold uppercase tracking-wider">
+              <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold tracking-wider uppercase">
                 <th className="px-4 py-2.5">Option</th>
                 <th className="px-4 py-2.5">Type</th>
                 <th className="px-4 py-2.5">Description</th>
@@ -242,8 +242,8 @@ function PipelineView({
       )}
 
       {id === 'chaining' && (
-        <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-(--accent) border-l-2 p-4">
-          <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wider">
+        <div className="border-border bg-muted/30 max-w-2xl rounded-lg border border-l-2 border-l-(--accent) p-4">
+          <h3 className="mb-1.5 text-xs font-semibold tracking-wider uppercase">
             How Chaining Works
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -263,7 +263,7 @@ function PipelineView({
       </Card>
 
       <section>
-        <h3 className="mb-3 inline-block border-b-(--accent) border-b-2 pb-1 text-sm font-semibold uppercase tracking-wider">
+        <h3 className="mb-3 inline-block border-b-2 border-b-(--accent) pb-1 text-sm font-semibold tracking-wider uppercase">
           Code Sample
         </h3>
         <CodeBlock code={codeSamples[id]} />
@@ -287,7 +287,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 border-t-utility-5 p-6 lg:col-span-1">
+        <div className="border-border bg-muted/30 border-t-utility-5 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 p-6 lg:col-span-1">
           <h2 className="text-2xl font-bold">Why a Pipeline API?</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Canvas 2D&apos;s built-in filters are limited, synchronous, and
@@ -297,8 +297,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
             near-zero overhead, and without leaving the browser.
           </p>
         </div>
-        <div className="border-border bg-muted/30 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 border-t-utility-4 p-6 lg:col-span-2">
-          <h3 className="text-sm font-bold uppercase tracking-wider">
+        <div className="border-border bg-muted/30 border-t-utility-4 col-span-full flex flex-col gap-3 rounded-lg border border-t-2 p-6 lg:col-span-2">
+          <h3 className="text-sm font-bold tracking-wider uppercase">
             Architecture
           </h3>
           <div className="grid gap-3 text-sm sm:grid-cols-3">
@@ -336,8 +336,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         </div>
       </div>
 
-      <div className="border-border rounded-lg border border-t-2 border-t-utility-1 p-5">
-        <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
+      <div className="border-border border-t-utility-1 rounded-lg border border-t-2 p-5">
+        <h3 className="text-primary mb-3 text-sm font-bold tracking-wider uppercase">
           pipelineGateway (recommended)
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
@@ -350,8 +350,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         />
       </div>
 
-      <div className="border-border rounded-lg border border-t-2 border-t-utility-5 p-5">
-        <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
+      <div className="border-border border-t-utility-5 rounded-lg border border-t-2 p-5">
+        <h3 className="text-primary mb-3 text-sm font-bold tracking-wider uppercase">
           Pipeline (builder API)
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
@@ -363,8 +363,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         />
       </div>
 
-      <div className="border-border rounded-lg border border-t-2 border-t-utility-2 p-5">
-        <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
+      <div className="border-border border-t-utility-2 rounded-lg border border-t-2 p-5">
+        <h3 className="text-primary mb-3 text-sm font-bold tracking-wider uppercase">
           Registry — selective manipulation loading
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
@@ -377,8 +377,8 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
         />
       </div>
 
-      <div className="border-border rounded-lg border border-t-2 border-t-utility-6 p-5">
-        <h3 className="text-primary mb-3 text-sm font-bold uppercase tracking-wider">
+      <div className="border-border border-t-utility-6 rounded-lg border border-t-2 p-5">
+        <h3 className="text-primary mb-3 text-sm font-bold tracking-wider uppercase">
           usePipeline — React hook
         </h3>
         <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
@@ -394,7 +394,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
       </div>
 
       {sourceData && (
-        <div className="border-border bg-muted/30 flex items-center gap-4 rounded-lg border border-l-2 border-l-utility-4 p-4">
+        <div className="border-border bg-muted/30 border-l-utility-4 flex items-center gap-4 rounded-lg border border-l-2 p-4">
           <div className="w-20 shrink-0">
             <p className="text-muted-foreground mb-1 text-xs">Demo Image</p>
             <img
@@ -428,7 +428,7 @@ function InternalsView({ id }: { id: string }) {
         </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-8 p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 border-l-utility-8 rounded-lg border border-l-2 p-4 font-mono text-xs leading-relaxed whitespace-pre">
           {`runPipeline({ source, steps, context })
   │
   ├── BufferManager(source)     ← double-buffered pixel arrays
@@ -448,8 +448,8 @@ function InternalsView({ id }: { id: string }) {
   └── return { source, final, snapshots }`}
         </div>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">
+        <div className="border-border bg-muted/30 border-l-utility-5 rounded-lg border border-l-2 p-4">
+          <h3 className="mb-2 text-xs font-semibold tracking-wider uppercase">
             BufferManager
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -483,7 +483,7 @@ function InternalsView({ id }: { id: string }) {
           them in one pass when flushed.
         </p>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-5 p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 border-l-utility-5 rounded-lg border border-l-2 p-4 font-mono text-xs leading-relaxed whitespace-pre">
           {`For each pixel (i = 0 .. pixelCount-1):
   red,green,blue,alpha = current[i]
   for each (definition, options) in batch:
@@ -518,7 +518,7 @@ swap()`}
           neighbors available.
         </p>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-3 p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 border-l-utility-3 rounded-lg border border-l-2 p-4 font-mono text-xs leading-relaxed whitespace-pre">
           {`TILE_SIZE = 512 pixels per edge
 
 For each tile:
@@ -555,7 +555,7 @@ For each tile:
           the 4 nearest source pixels and interpolates.
         </p>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-4 p-4 font-mono text-xs leading-relaxed whitespace-pre">
+        <div className="border-border bg-muted/30 border-l-utility-4 rounded-lg border border-l-2 p-4 font-mono text-xs leading-relaxed whitespace-pre">
           {`sourceX = x * (sourceWidth / targetWidth)
 sourceY = y * (sourceHeight / targetHeight)
 
@@ -570,7 +570,7 @@ output = top * (1 - dy) + bottom * dy`}
         <div className="border-border overflow-hidden rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold uppercase tracking-wider">
+              <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold tracking-wider uppercase">
                 <th className="px-4 py-2.5">Case</th>
                 <th className="px-4 py-2.5">Result</th>
               </tr>
@@ -642,8 +642,8 @@ output = top * (1 - dy) + bottom * dy`}
         </p>
         <p className="font-mono text-xs opacity-60">{item?.path}</p>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-1 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">
+        <div className="border-border bg-muted/30 border-l-utility-1 rounded-lg border border-l-2 p-4">
+          <h3 className="mb-2 text-xs font-semibold tracking-wider uppercase">
             pipeline-worker.ts
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -655,8 +655,8 @@ output = top * (1 - dy) + bottom * dy`}
           </p>
         </div>
 
-        <div className="border-border bg-muted/30 rounded-lg border border-l-2 border-l-utility-6 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider">
+        <div className="border-border bg-muted/30 border-l-utility-6 rounded-lg border border-l-2 p-4">
+          <h3 className="mb-2 text-xs font-semibold tracking-wider uppercase">
             pipeline-gateway.ts
           </h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -691,7 +691,7 @@ Dispatch: postMessage with Transferable buffers
         <div className="border-border overflow-hidden rounded-lg border">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold uppercase tracking-wider">
+              <tr className="bg-muted/50 text-muted-foreground border-border border-b text-xs font-semibold tracking-wider uppercase">
                 <th className="px-4 py-2.5">Constant</th>
                 <th className="px-4 py-2.5">Value</th>
                 <th className="px-4 py-2.5">Description</th>

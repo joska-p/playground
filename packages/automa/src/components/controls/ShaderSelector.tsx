@@ -1,7 +1,7 @@
 import { Select } from '@repo/ui/Select';
 import { getAllShaders } from '../../core/shaders/registry.ts';
 import { setShader } from '../../stores/ui/actions.ts';
-import { useShaderId } from '../../stores/ui/selectors.ts';
+import { useShaderId } from '../../stores/ui/selectors';
 import { ShaderPropsControls } from './ShaderPropsControls.tsx';
 
 function ShaderSelector() {

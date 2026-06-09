@@ -1,6 +1,6 @@
 import { GraphViz } from './components/GraphViz';
-import graphData from './data/graph.json';
 import type { GraphData } from './components/types';
+import graphData from './data/graph.json';
 
 function App() {
   return (

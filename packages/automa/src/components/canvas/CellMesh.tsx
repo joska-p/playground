@@ -1,14 +1,14 @@
-import { useGridTexture } from '../../hooks/useGridTexture.ts';
+import { getCreature } from '../../core/creature/registry.ts';
+import { getShader } from '../../core/shaders/registry.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
+import { useGridTexture } from '../../hooks/useGridTexture.ts';
 import { paintCell, placePattern } from '../../stores/simulation/actions.ts';
+import { useCols, useRows } from '../../stores/simulation/selectors';
 import {
   useBrushMode,
-  useShaderId,
   usePaletteBrush,
-} from '../../stores/ui/selectors.ts';
-import { useCols, useRows } from '../../stores/simulation/selectors.ts';
-import { getShader } from '../../core/shaders/registry.ts';
-import { getCreature } from '../../core/creature/registry.ts';
+  useShaderId,
+} from '../../stores/ui/selectors';
 
 function CellMesh() {
   const cols = useCols();
