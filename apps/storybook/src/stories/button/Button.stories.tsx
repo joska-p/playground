@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/Button';
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
 /**
@@ -47,8 +47,9 @@ const meta: Meta<typeof Button> = {
   },
 };
 
-// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
+
+type Story = StoryObj<typeof Button>;
 
 /**
  * The primary action style using the core theme colors.

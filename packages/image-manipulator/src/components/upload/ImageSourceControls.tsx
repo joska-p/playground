@@ -8,7 +8,7 @@ function ImageSourceControls() {
       <UploadZone />
       <Button
         variant="ghost"
-        size="small"
+        size="sm"
         onClick={() => clearOutputs()}
         className="self-end"
       >

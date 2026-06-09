@@ -80,7 +80,7 @@ function PlaybackControls() {
     <>
       <Button
         variant="primary"
-        size="small"
+        size="sm"
         onClick={toggleRunning}
         title="Play/Pause (Space)"
         aria-label={running ? 'Pause' : 'Play'}
@@ -90,7 +90,7 @@ function PlaybackControls() {
       </Button>
       <Button
         variant="secondary"
-        size="small"
+        size="sm"
         onClick={step}
         disabled={running}
         title="Step (N)"

@@ -30,12 +30,8 @@
 
     --radius: 0.5rem;
 
-    --shadow-2xs: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.03);
     --shadow-xs: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.03);
     --shadow-sm:
-      0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.06),
-      0px 1px 2px -1px oklch(0.331 0.02 76.196 / 0.06);
-    --shadow:
       0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.06),
       0px 1px 2px -1px oklch(0.331 0.02 76.196 / 0.06);
     --shadow-md:
@@ -92,10 +88,8 @@
     --input: oklch(0.341 0.006 48.534);
     --ring: oklch(0.862 0.135 84.271);
 
-    --shadow-2xs: 0px 1px 2px 0px oklch(0 0 0 / 0.01);
     --shadow-xs: 0px 1px 2px 0px oklch(0 0 0 / 0.01);
     --shadow-sm: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 1px 2px -1px oklch(0 0 0 / 0.01);
-    --shadow: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 1px 2px -1px oklch(0 0 0 / 0.01);
     --shadow-md: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 2px 4px -1px oklch(0 0 0 / 0.01);
     --shadow-lg: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 4px 6px -1px oklch(0 0 0 / 0.01);
     --shadow-xl: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 8px 10px -1px oklch(0 0 0 / 0.01);
@@ -154,10 +148,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
-  --shadow: var(--shadow);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
@@ -217,4 +209,14 @@
   --tw-prose-invert-pre-bg: var(--card);
   --tw-prose-invert-th-borders: var(--border);
   --tw-prose-invert-td-borders: var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

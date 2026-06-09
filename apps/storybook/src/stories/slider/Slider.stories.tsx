@@ -21,12 +21,12 @@ const meta: Meta<typeof Slider> = {
     },
     variant: {
       description: 'Controls the accent color of the slider thumb.',
-      options: ['primary', 'secondary', 'accent', 'destructive'],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' },
     },
     layout: {
       description: 'Controls the layout direction.',
-      options: ['vertical', 'horizontal'],
+      options: ['stacked', 'inline'],
       control: { type: 'select' },
     },
     unit: {
@@ -53,7 +53,7 @@ const meta: Meta<typeof Slider> = {
   args: {
     label: 'Intensity',
     variant: 'primary',
-    layout: 'vertical',
+    layout: 'stacked',
     min: 0,
     max: 100,
     step: 1,
@@ -157,7 +157,7 @@ export const Horizontal: Story = {
   args: {
     label: 'Volume',
     variant: 'secondary',
-    layout: 'horizontal',
+    layout: 'inline',
     max: 100,
     step: 10,
     unit: '%',

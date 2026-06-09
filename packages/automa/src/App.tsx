@@ -44,9 +44,9 @@ function App({
             <AutomatonCanvas className="h-full w-full" />
           </Sidebar.Main>
           <Sidebar.Panel>
+            <Sidebar.Toggle />
             <Controls />
           </Sidebar.Panel>
-          <Sidebar.Toggle />
         </Sidebar>
       </ErrorBoundary>
     </div>

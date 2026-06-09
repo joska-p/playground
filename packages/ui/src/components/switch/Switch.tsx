@@ -2,6 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
+import { HelperText } from '../helper-text/HelperText';
 import { switchThumbVariants, switchVariants } from './switchVariants';
 
 type SwitchProps = {
@@ -58,16 +59,9 @@ function Switch({
         />
       </button>
       {helperText && (
-        <p
-          className={cn(
-            'text-xs italic',
-            variant === 'destructive'
-              ? 'text-destructive'
-              : 'text-muted-foreground'
-          )}
-        >
+        <HelperText destructive={variant === 'destructive'}>
           {helperText}
-        </p>
+        </HelperText>
       )}
     </div>
   );

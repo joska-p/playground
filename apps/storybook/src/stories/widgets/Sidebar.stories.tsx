@@ -15,7 +15,7 @@ const meta: Meta<typeof Sidebar> = {
   argTypes: {
     variant: {
       description: 'The background theme of the sidebar panel.',
-      options: ['normal', 'primary', 'secondary', 'accent'],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' },
     },
     mobilePosition: {
@@ -48,8 +48,8 @@ function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
         {...args}
         className="h-full"
       >
-        <Sidebar.Toggle />
-        <Sidebar.Panel className="p-4 pt-12">
+        <Sidebar.Panel className="p-4">
+          <Sidebar.Toggle />
           <h3 className="mb-4 font-bold">Controls</h3>
           <nav className="space-y-2">
             <div className="cursor-pointer rounded p-2 hover:bg-black/5">
@@ -77,7 +77,7 @@ function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
 
 export const NormalLeft: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: 'normal', desktopPosition: 'left' },
+  args: { variant: 'primary', desktopPosition: 'left' },
 };
 
 export const PrimaryRight: Story = {

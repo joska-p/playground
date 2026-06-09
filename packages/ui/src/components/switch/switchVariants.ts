@@ -13,16 +13,20 @@ export const switchVariants = cva(
           'data-[state=checked]:bg-accent data-[state=unchecked]:bg-accent/30',
         destructive:
           'data-[state=checked]:bg-destructive data-[state=unchecked]:bg-destructive/30',
+        outline:
+          'data-[state=checked]:bg-foreground/20 data-[state=unchecked]:bg-foreground/10 border-border border',
+        ghost:
+          'data-[state=checked]:bg-foreground/10 data-[state=unchecked]:bg-transparent',
       },
       size: {
-        small: 'h-5 w-9',
-        medium: 'h-6 w-11',
-        large: 'h-7 w-14',
+        sm: 'h-5 w-9',
+        md: 'h-6 w-11',
+        lg: 'h-7 w-14',
       },
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'medium',
+      size: 'md',
     },
   }
 );
@@ -32,13 +36,13 @@ export const switchThumbVariants = cva(
   {
     variants: {
       size: {
-        small: 'h-4 w-4 data-[state=checked]:translate-x-4',
-        medium: 'h-5 w-5 data-[state=checked]:translate-x-5',
-        large: 'h-6 w-6 data-[state=checked]:translate-x-6',
+        sm: 'h-4 w-4 data-[state=checked]:translate-x-4',
+        md: 'h-5 w-5 data-[state=checked]:translate-x-5',
+        lg: 'h-6 w-6 data-[state=checked]:translate-x-6',
       },
     },
     defaultVariants: {
-      size: 'medium',
+      size: 'md',
     },
   }
 );

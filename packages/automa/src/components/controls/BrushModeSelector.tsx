@@ -73,7 +73,7 @@ function BrushModeSelector() {
         <Button
           key={value}
           variant={brushMode === value ? 'primary' : 'ghost'}
-          size="small"
+          size="sm"
           onClick={() => setToolMode(value)}
           title={`${label} (${key})`}
         >

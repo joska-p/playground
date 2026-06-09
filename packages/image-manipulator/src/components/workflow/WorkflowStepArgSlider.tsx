@@ -19,7 +19,7 @@ function WorkflowStepArgSlider({
       min={def.min}
       max={def.max}
       step={def.step}
-      layout="horizontal"
+      layout="inline"
       onChange={onChange}
       className="gap-4"
     />

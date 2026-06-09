@@ -36,8 +36,8 @@ function PipelineDocs() {
       panelWidth="280px"
       className="min-h-dvh"
     >
-      <Sidebar.Toggle />
       <Sidebar.Panel className="border-border border-r">
+        <Sidebar.Toggle />
         <SwaggerSidebar
           groups={ENDPOINT_GROUPS}
           activeEndpoint={activeEndpoint}

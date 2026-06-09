@@ -23,7 +23,7 @@ function Controls(): JSX.Element {
 
       <Slider
         variant="secondary"
-        layout="horizontal"
+        layout="inline"
         label="Steps"
         min={2}
         max={sequenceRule.maxSteps}

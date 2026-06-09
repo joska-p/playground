@@ -2,6 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
+import { HelperText } from '../helper-text/HelperText';
 import { IconSpinner } from '../icons/components/IconSpinner';
 import { inputVariants } from './inputVariants';
 
@@ -11,6 +12,7 @@ type InputProps = {
   isLoading?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  fullWidth?: boolean;
 } & ComponentProps<'input'> &
   VariantProps<typeof inputVariants>;
 
@@ -23,6 +25,7 @@ function Input({
   isLoading,
   startIcon,
   endIcon,
+  fullWidth,
   id,
   type = 'text',
   disabled,
@@ -32,7 +35,7 @@ function Input({
   const inputId = id ?? generatedId;
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className={cn('flex flex-col gap-1.5', fullWidth && 'w-full')}>
       {label && (
         <label
           htmlFor={inputId}
@@ -42,7 +45,7 @@ function Input({
         </label>
       )}
       <div className="relative flex items-center">
-        {startIcon && (
+        {startIcon && !isLoading && (
           <span className="text-muted-foreground absolute left-3 [&_svg]:size-4 [&_svg]:shrink-0">
             {startIcon}
           </span>
@@ -60,7 +63,8 @@ function Input({
           className={cn(
             inputVariants({ variant, className }),
             (startIcon ?? isLoading) && 'pl-10',
-            endIcon && 'pr-10'
+            endIcon && 'pr-10',
+            fullWidth && 'w-full'
           )}
           {...props}
         />
@@ -71,16 +75,9 @@ function Input({
         )}
       </div>
       {helperText && (
-        <p
-          className={cn(
-            'text-xs italic',
-            variant === 'destructive'
-              ? 'text-destructive'
-              : 'text-muted-foreground'
-          )}
-        >
+        <HelperText destructive={variant === 'destructive'}>
           {helperText}
-        </p>
+        </HelperText>
       )}
     </div>
   );

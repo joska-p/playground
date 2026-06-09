@@ -66,14 +66,14 @@ function OutputCard({
           <CardFooter className="flex gap-2 p-3 pt-0">
             <Button
               variant="ghost"
-              size="small"
+              size="sm"
               onClick={handleDownload}
             >
               Download
             </Button>
             <Button
               variant="ghost"
-              size="small"
+              size="sm"
               onClick={handleZoom}
             >
               Zoom

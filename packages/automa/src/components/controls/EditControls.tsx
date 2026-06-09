@@ -62,7 +62,7 @@ function EditControls() {
     <>
       <Button
         variant="destructive"
-        size="small"
+        size="sm"
         onClick={() => clear()}
         title="Clear (C)"
         aria-label="Clear grid"
@@ -72,7 +72,7 @@ function EditControls() {
       </Button>
       <Button
         variant="accent"
-        size="small"
+        size="sm"
         onClick={() => randomize()}
         title="Randomize (R)"
         aria-label="Randomize grid"

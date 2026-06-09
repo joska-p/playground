@@ -34,28 +34,28 @@ function Controls() {
           variant="primary"
           type="button"
           onClick={() => shuffleColors()}
-          size="small"
+          size="sm"
         >
           Shuffle colors
         </Button>
         <Button
           type="button"
           onClick={() => shuffleRotations()}
-          size="small"
+          size="sm"
         >
           Shuffle rotations
         </Button>
         <Button
           type="button"
           onClick={() => cyclePalettes()}
-          size="small"
+          size="sm"
         >
           New palettes
         </Button>
         <Button
           type="button"
           onClick={() => regenerateTiles()}
-          size="small"
+          size="sm"
         >
           New tiles
         </Button>

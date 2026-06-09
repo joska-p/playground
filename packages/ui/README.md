@@ -123,9 +123,9 @@ import { Slider } from "@repo/ui/Slider";
 ```typescript
 import { Sidebar } from "@repo/ui/Sidebar";
 
-<Sidebar variant="normal" desktopPosition="left">
-  <Sidebar.Toggle />
+<Sidebar variant="primary" desktopPosition="left">
   <Sidebar.Panel>
+    <Sidebar.Toggle />
     <p>Controls</p>
   </Sidebar.Panel>
   <Sidebar.Main>

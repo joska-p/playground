@@ -10,14 +10,14 @@ function CompareToggle({ mode, onChange }: CompareToggleProps) {
     <div className="flex items-center gap-1 rounded-lg border border-border p-1">
       <Button
         variant={mode === 'grid' ? 'primary' : 'ghost'}
-        size="small"
+        size="sm"
         onClick={() => onChange('grid')}
       >
         Grid View
       </Button>
       <Button
         variant={mode === 'compare' ? 'primary' : 'ghost'}
-        size="small"
+        size="sm"
         onClick={() => onChange('compare')}
       >
         Compare

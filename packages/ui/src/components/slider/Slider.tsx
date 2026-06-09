@@ -2,6 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
+import { HelperText } from '../helper-text/HelperText';
 import { sliderVariants } from './sliderVariants';
 
 type SliderProps = {
@@ -32,7 +33,7 @@ function Slider({
   const generatedId = useId();
   const sliderId = id ?? generatedId;
   const helperId = `${sliderId}-helper`;
-  const isHorizontal = layout === 'horizontal';
+  const isInline = layout === 'inline';
 
   const valueColorClass = cn('font-mono text-xs', {
     'text-primary': !variant || variant === 'primary',
@@ -51,7 +52,7 @@ function Slider({
       {label && (
         <div
           className={cn('flex items-center gap-2', {
-            'justify-between': !isHorizontal,
+            'justify-between': !isInline,
           })}
         >
           <label
@@ -80,23 +81,15 @@ function Slider({
         aria-describedby={helperText ? helperId : undefined}
         aria-label={!label ? (props['aria-label'] ?? 'Slider') : undefined}
         className={cn('cursor-pointer disabled:cursor-not-allowed min-w-0', {
-          'w-full': !isHorizontal,
+          'w-full': !isInline,
         })}
         {...props}
       />
 
       {helperText && (
-        <p
-          id={helperId}
-          className={cn(
-            'text-xs italic',
-            variant === 'destructive'
-              ? 'text-destructive'
-              : 'text-muted-foreground'
-          )}
-        >
+        <HelperText id={helperId} destructive={variant === 'destructive'}>
           {helperText}
-        </p>
+        </HelperText>
       )}
     </div>
   );

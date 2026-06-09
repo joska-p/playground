@@ -44,7 +44,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
           <Button
             key={item.id}
             variant={mode === item.id ? 'primary' : 'outline'}
-            size="small"
+            size="sm"
             onClick={() => setMode(item.id)}
           >
             {item.label}

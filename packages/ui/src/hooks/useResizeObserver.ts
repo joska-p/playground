@@ -11,13 +11,10 @@ type Dimensions = {
  */
 export function useResizeObserver<T extends HTMLElement>(): [
   React.RefObject<T | null>,
-  Dimensions,
+  Dimensions | undefined,
 ] {
   const ref = useRef<T>(null);
-  const [dimensions, setDimensions] = useState<Dimensions>({
-    width: 0,
-    height: 0,
-  });
+  const [dimensions, setDimensions] = useState<Dimensions | undefined>(undefined);
 
   const handleResize = useCallback((entries: ResizeObserverEntry[]) => {
     if (!entries[0]) return;

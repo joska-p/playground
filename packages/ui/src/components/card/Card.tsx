@@ -1,19 +1,28 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
+import { createContext, useContext } from 'react';
 import { cn } from '../../utils/cn';
 import { cardVariants } from './cardVariants';
 
-type CardProps = {} & ComponentProps<'div'> & VariantProps<typeof cardVariants>;
+type CardVariant = VariantProps<typeof cardVariants>['variant'];
 
-/**
- * A layout container component based on the Gruvbox theme.
- */
-function Card({ className, variant, ...props }: CardProps) {
+const CardContext = createContext<CardVariant>('primary');
+
+type CardProps = {
+  interactive?: boolean;
+} & ComponentProps<'div'> & VariantProps<typeof cardVariants>;
+
+function Card({ className, variant, interactive, ...props }: CardProps) {
   return (
-    <div
-      className={cn(cardVariants({ variant, className }))}
-      {...props}
-    />
+    <CardContext.Provider value={variant ?? 'primary'}>
+      <div
+        className={cn(
+          cardVariants({ variant, className }),
+          interactive && 'cursor-pointer'
+        )}
+        {...props}
+      />
+    </CardContext.Provider>
   );
 }
 
@@ -48,18 +57,22 @@ function CardDescription({ className, ...props }: ComponentProps<'p'>) {
 }
 
 function CardContent({ className, ...props }: ComponentProps<'div'>) {
+  const variant = useContext(CardContext);
   return (
     <div
       className={cn('p-6 pt-0 font-mono', className)}
+      data-card-variant={variant}
       {...props}
     />
   );
 }
 
 function CardFooter({ className, ...props }: ComponentProps<'div'>) {
+  const variant = useContext(CardContext);
   return (
     <div
       className={cn('flex items-center p-6 pt-0', className)}
+      data-card-variant={variant}
       {...props}
     />
   );

@@ -2,6 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
+import { HelperText } from '../helper-text/HelperText';
 import { IconChevronDown } from '../icons/components/IconChevronDown';
 import { selectVariants } from './selectVariants';
 
@@ -9,6 +10,7 @@ type SelectProps = {
   label?: string;
   helperText?: string;
   children: ReactNode;
+  fullWidth?: boolean;
 } & ComponentProps<'select'> &
   VariantProps<typeof selectVariants>;
 
@@ -18,6 +20,7 @@ function Select({
   variant,
   label,
   helperText,
+  fullWidth,
   id,
   children,
   ...props
@@ -35,11 +38,14 @@ function Select({
           {label}
         </label>
       )}
-      <div className="relative">
+      <div className={cn('relative', fullWidth && 'w-full')}>
         <select
           id={selectId}
           ref={ref}
-          className={cn(selectVariants({ variant, className }))}
+          className={cn(
+            selectVariants({ variant, className }),
+            fullWidth && 'w-full'
+          )}
           {...props}
         >
           {children}
@@ -49,16 +55,9 @@ function Select({
         </div>
       </div>
       {helperText && (
-        <p
-          className={cn(
-            'text-xs italic',
-            variant === 'destructive'
-              ? 'text-destructive'
-              : 'text-muted-foreground'
-          )}
-        >
+        <HelperText destructive={variant === 'destructive'}>
           {helperText}
-        </p>
+        </HelperText>
       )}
     </div>
   );

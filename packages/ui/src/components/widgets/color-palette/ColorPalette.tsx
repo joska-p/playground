@@ -8,7 +8,7 @@ type ColorPaletteProps = {
   name?: string;
   value?: string;
   checked?: boolean;
-  onChange?: (palette: unknown) => void;
+  onChange?: (palette: string) => void;
 } & Omit<ComponentProps<'label'>, 'onChange'> &
   VariantProps<typeof colorPaletteVariants>;
 
@@ -46,7 +46,7 @@ function ColorPalette({
         name={name}
         value={value}
         checked={checked}
-        onChange={() => onChange?.(true)}
+        onChange={(e) => onChange?.(e.target.value)}
         className="sr-only"
       />
       {colors.map((color) => (

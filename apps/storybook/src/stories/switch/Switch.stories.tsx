@@ -26,7 +26,7 @@ const meta: Meta<typeof Switch> = {
     },
     size: {
       description: 'The size of the switch.',
-      options: ['medium', 'small', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'select' },
     },
     checked: {
@@ -41,7 +41,7 @@ const meta: Meta<typeof Switch> = {
   args: {
     label: 'Enable Feature',
     variant: 'primary',
-    size: 'medium',
+    size: 'md',
   },
 };
 

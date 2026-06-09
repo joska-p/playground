@@ -1,8 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-export type IconProps = ComponentPropsWithoutRef<'svg'> & {
-  size?: number;
-};
+export type IconProps = ComponentPropsWithoutRef<'svg'>;
 
 type CreateIconConfig = {
   name: string;
@@ -17,14 +15,11 @@ export function createIcon(config: CreateIconConfig) {
 
   // This is the actual React component that will be returned
   function Icon(userProps: IconProps) {
-    // Separate size and className, group the rest into 'remainingProps'
-    const { className, size = 16, ...remainingProps } = userProps;
+    const { className, ...remainingProps } = userProps;
 
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
         viewBox={viewBox}
         fill="none"
         stroke="currentColor"
@@ -33,8 +28,8 @@ export function createIcon(config: CreateIconConfig) {
         strokeLinejoin="round"
         aria-hidden="true"
         className={className}
-        {...defaultProps} // Base props assigned by the factory
-        {...remainingProps} // Overrides passed by the developer using the icon
+        {...defaultProps}
+        {...remainingProps}
       >
         {children}
       </svg>

@@ -24,12 +24,12 @@ const meta: Meta<typeof ColorPalette> = {
     },
     size: {
       description: 'The size of each color cell.',
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'select' },
     },
     variant: {
       description: 'Visual style of the palette border and selection ring.',
-      options: ['primary', 'secondary', 'accent'],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' },
     },
     checked: {
@@ -76,7 +76,7 @@ export const SecondaryVertical: Story = {
 export const AccentLarge: Story = {
   args: {
     variant: 'accent',
-    size: 'large',
+    size: 'lg',
     colors: ['#ebdbb2', '#d5c4a1', '#bdae93', '#a89984', '#928374'],
     checked: true,
   },
@@ -87,7 +87,7 @@ export const AccentLarge: Story = {
  */
 export const SmallCompact: Story = {
   args: {
-    size: 'small',
+    size: 'sm',
     variant: 'primary',
   },
 };

@@ -24,14 +24,16 @@ const MOSAIC_STYLES = {
 function MosaicDisplay() {
   const tiles = useTiles();
   const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
+  const { width, height } = dimensions ?? {};
 
   useEffect(() => {
-    if (dimensions.width <= 0 || dimensions.height <= 0) return;
+    if (!width || !height || width <= 0 || height <= 0) return;
+
     const id = setTimeout(() => {
       setRef(mosaicRef);
     }, 150);
     return () => clearTimeout(id);
-  }, [dimensions.width, dimensions.height, mosaicRef]);
+  }, [width, height, mosaicRef]);
 
   useEffect(() => {
     initPalettes();

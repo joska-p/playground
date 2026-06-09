@@ -87,7 +87,7 @@ function DebugToggle() {
   return (
     <Button
       variant={showDebug ? 'accent' : 'ghost'}
-      size="small"
+      size="sm"
       onClick={() => setShowDebug(!showDebug)}
       title="Toggle debug overlay (D)"
       className="flex items-center gap-1.5"
