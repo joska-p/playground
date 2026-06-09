@@ -50,13 +50,12 @@ export default meta;
 
 function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
   return (
-    <div className="border-muted-foreground/20 bg-background h-[500px] w-full overflow-hidden border border-dashed">
+    <div className="border-muted-foreground/20 bg-background h-125 w-full overflow-hidden border border-dashed">
       <Sidebar
         {...args}
         className="h-full"
       >
         <Sidebar.Panel className="p-4">
-          <Sidebar.Toggle />
           <h3 className="mb-4 font-bold">Controls</h3>
           <nav className="space-y-2">
             <div className="cursor-pointer rounded p-2 hover:bg-black/5">
@@ -68,6 +67,7 @@ function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
           </nav>
         </Sidebar.Panel>
         <Sidebar.Main className="p-8">
+          <Sidebar.Toggle />
           <div className="mx-auto max-w-md text-center">
             <h2 className="mb-2 text-2xl font-bold">Workspace Area</h2>
             <p className="text-muted-foreground">

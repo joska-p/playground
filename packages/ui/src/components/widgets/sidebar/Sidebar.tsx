@@ -1,16 +1,21 @@
 import type { ComponentProps } from 'react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useId, useMemo, useState } from 'react';
 import { cn } from '../../../utils/cn';
 import styles from './sidebar.module.css';
-import type { SidebarContextValue } from './sidebarContext';
-import { SidebarContext } from './sidebarContext';
+import type { SidebarContextValue } from './SidebarContext';
+import { SidebarContext } from './SidebarContext';
 import { SidebarMain } from './SidebarMain';
 import { SidebarPanel } from './SidebarPanel';
 import { SidebarToggle } from './SidebarToggle';
 import { useSidebarContext } from './useSidebarContext';
 
 export type SidebarProps = {
+  /** Uncontrolled: initial open state. Ignored when `open` is provided. */
   defaultOpen?: boolean;
+  /** Controlled: drives the open state from the outside. */
+  open?: boolean;
+  /** Fires whenever the sidebar wants to change state. */
+  onOpenChange?: (open: boolean) => void;
   mobilePosition?: 'top' | 'right' | 'bottom' | 'left';
   desktopPosition?: 'top' | 'right' | 'bottom' | 'left';
   variant?:
@@ -22,7 +27,7 @@ export type SidebarProps = {
     | 'ghost';
   panelWidth?: string;
   panelHeight?: string;
-} & ComponentProps<'div'>;
+} & Omit<ComponentProps<'div'>, 'open'>;
 
 export function Sidebar({
   children,
@@ -32,25 +37,57 @@ export function Sidebar({
   desktopPosition = 'bottom',
   variant = 'primary',
   defaultOpen = true,
+  open: controlledOpen,
+  onOpenChange,
   panelWidth,
   panelHeight,
   style,
   ...props
 }: SidebarProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const generatedId = useId();
+  const panelId = `sidebar-panel-${generatedId}`;
+
+  // Uncontrolled internal state — ignored when `open` is provided.
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+
+  const isControlled = controlledOpen !== undefined;
+  const isOpen = isControlled ? controlledOpen : internalOpen;
+
+  const openSidebar = useCallback(() => {
+    if (!isControlled) setInternalOpen(true);
+    onOpenChange?.(true);
+  }, [isControlled, onOpenChange]);
+
+  const closeSidebar = useCallback(() => {
+    if (!isControlled) setInternalOpen(false);
+    onOpenChange?.(false);
+  }, [isControlled, onOpenChange]);
 
   const toggleSidebar = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
+    const next = !isOpen;
+    if (!isControlled) setInternalOpen(next);
+    onOpenChange?.(next);
+  }, [isControlled, isOpen, onOpenChange]);
 
   const value = useMemo(
     (): SidebarContextValue => ({
       isOpen,
       toggleSidebar,
+      openSidebar,
+      closeSidebar,
+      panelId,
       desktopPosition: desktopPosition ?? 'bottom',
       mobilePosition: mobilePosition ?? 'bottom',
     }),
-    [isOpen, toggleSidebar, desktopPosition, mobilePosition]
+    [
+      isOpen,
+      toggleSidebar,
+      openSidebar,
+      closeSidebar,
+      panelId,
+      desktopPosition,
+      mobilePosition,
+    ]
   );
 
   const sidebarStyles = useMemo(
@@ -70,7 +107,7 @@ export function Sidebar({
         data-mobile-position={mobilePosition}
         data-desktop-position={desktopPosition}
         data-variant={variant}
-        className={cn(styles.sidebar, 'group', className)}
+        className={cn(styles.sidebar, className)}
         style={sidebarStyles as React.CSSProperties}
         {...props}
       >

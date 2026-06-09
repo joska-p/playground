@@ -21,15 +21,14 @@ function App() {
     <ErrorBoundary FallbackComponent={Fallback}>
       <div className="bg-background text-foreground h-dvh">
         <Sidebar
-          desktopPosition="right"
+          desktopPosition="left"
           mobilePosition="bottom"
         >
-          <Sidebar.Toggle />
           <Sidebar.Main>
             <MosaicDisplay />
           </Sidebar.Main>
 
-          <Sidebar.Panel>
+          <Sidebar.Panel className="md:w-96 h-32 md:h-auto">
             <Controls />
           </Sidebar.Panel>
         </Sidebar>
