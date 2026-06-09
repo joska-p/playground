@@ -1,34 +1,34 @@
 // @ts-check
-import react from "@astrojs/react";
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, fontProviders } from "astro/config";
-import process from "node:process";
-import rehypeKatex from "rehype-katex";
-import remarkMath from "remark-math";
-import { remarkBaseUrl } from "./src/lib/remarkBaseUrl.ts";
+import react from '@astrojs/react';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, fontProviders } from 'astro/config';
+import process from 'node:process';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
+import { remarkBaseUrl } from './src/lib/remarkBaseUrl.ts';
 
-import mdx from "@astrojs/mdx";
+import mdx from '@astrojs/mdx';
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
-const gitlabUrl = "https://jpotin.gitlab.io";
-const vercelUrl = "https://playground-ten-sand.vercel.app";
+const gitlabUrl = 'https://jpotin.gitlab.io';
+const vercelUrl = 'https://playground-ten-sand.vercel.app';
 
 const siteUrl = isVercel ? vercelUrl : gitlabUrl;
 
-const basePath = isVercel ? "/" : "/playground";
+const basePath = isVercel ? '/' : '/playground';
 
 // https://astro.build/config
 export default defineConfig({
   site: siteUrl,
   base: basePath,
-  trailingSlash: "always",
+  trailingSlash: 'always',
 
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "JetBrains Mono",
-      cssVariable: "--font-jetbrains-mono",
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
     },
   ],
   vite: {
