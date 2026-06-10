@@ -9,13 +9,16 @@ pnpm add @repo/image-manipulator
 ```
 
 ```ts
-import { manipulate } from "@repo/image-manipulator";
-import { grayscale, brightness } from "@repo/image-manipulator";
-import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
+import { manipulate } from '@repo/image-manipulator';
+import { grayscale, brightness } from '@repo/image-manipulator';
+import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
 
 const source = imageElementToImageData(img);
 
-const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
+const result = manipulate(source)
+  .apply(grayscale())
+  .apply(brightness(1.3))
+  .toImageData();
 
 putImageData(canvas, result);
 ```
@@ -96,13 +99,16 @@ Callbacks are chained with `manipulate`. They run **in a single pixel loop** —
 the output of each callback feeds into the next per pixel:
 
 ```ts
-import { manipulate } from "@repo/image-manipulator";
-import { grayscale, brightness, energyMap } from "@repo/image-manipulator";
-import { imageElementToImageData, putImageData } from "@repo/image-manipulator";
+import { manipulate } from '@repo/image-manipulator';
+import { grayscale, brightness, energyMap } from '@repo/image-manipulator';
+import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
 
 const source = imageElementToImageData(imgElement);
 
-const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
+const result = manipulate(source)
+  .apply(grayscale())
+  .apply(brightness(1.3))
+  .toImageData();
 
 putImageData(canvasElement, result);
 ```
@@ -123,7 +129,7 @@ const [original, grayed, brightened] = manipulate(source)
 A manipulation is just a factory that returns a `PixelCallback`:
 
 ```ts
-import type { PixelCallback } from "@repo/image-manipulator";
+import type { PixelCallback } from '@repo/image-manipulator';
 
 const tint =
   (hue: number): PixelCallback =>
@@ -164,7 +170,7 @@ Once loaded, steps can be reordered, removed, or tuned via sliders before execut
 ## React Component
 
 ```tsx
-import { ImageManipulator } from "@repo/image-manipulator";
+import { ImageManipulator } from '@repo/image-manipulator';
 
 function App() {
   return <ImageManipulator />;

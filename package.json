@@ -8,7 +8,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint-fix": "turbo run lint-fix",
-    "format": "prettier --write \"**/*.{ts,tsx,astro}\"",
+    "format": "prettier --write .",
     "check-types": "turbo run check-types",
     "gen": "turbo gen",
     "graphify": "graphify update && cp graphify-out/graph.json packages/graph-viz/src/data/graph.json",

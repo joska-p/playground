@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import '@repo/ui/gruvbox-theme';
 
-@source "../../node_modules/@repo/ui/src/components";
+@source '../../node_modules/@repo/ui/src/components';
 
 @theme {
   --color-palette-0: #4cc9f0;

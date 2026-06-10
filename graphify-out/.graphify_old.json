@@ -36987,13 +36987,7 @@
     {
       "id": "form_components_set",
       "label": "Form Input Components",
-      "nodes": [
-        "ui_Input",
-        "ui_Select",
-        "ui_Slider",
-        "ui_Switch",
-        "ui_Label"
-      ],
+      "nodes": ["ui_Input", "ui_Select", "ui_Slider", "ui_Switch", "ui_Label"],
       "relation": "participate_in",
       "confidence": "INFERRED",
       "confidence_score": 0.8,

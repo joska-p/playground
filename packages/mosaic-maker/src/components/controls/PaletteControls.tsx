@@ -12,7 +12,7 @@ function PaletteControls() {
   return (
     <>
       <h3 className="text-foreground/60 sr-only text-xs">Palettes</h3>
-      <div className="grid grid-flow-col grid-rows-2 gap-2 overflow-x-auto p-2 h-16 lg:flex lg:flex-wrap lg:h-auto lg:justify-center">
+      <div className="grid h-16 grid-flow-col grid-rows-2 gap-2 overflow-x-auto p-2 lg:flex lg:h-auto lg:flex-wrap lg:justify-center">
         {currentPalettes.map((palette) => (
           <ColorPalette
             key={palette.id}

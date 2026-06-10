@@ -582,17 +582,8 @@
       "emergence-complexite_the-nested-sets-diagram",
       "emergence-complexite_the-rationals"
     ],
-    "33": [
-      "getRandom",
-      "getRandomValue",
-      "shuffleArray",
-      "shuffleObject"
-    ],
-    "34": [
-      "Palette",
-      "arePalettesEqual",
-      "getPaletteId"
-    ],
+    "33": ["getRandom", "getRandomValue", "shuffleArray", "shuffleObject"],
+    "34": ["Palette", "arePalettesEqual", "getPaletteId"],
     "35": [
       "adding_visualization_guide",
       "first_visualization_tutorial",
@@ -618,35 +609,16 @@
       "tailwindcss",
       "ui_package_devdependencies_tailwindcss"
     ],
-    "40": [
-      "tsconfig_app",
-      "tsconfig_node",
-      "tsconfig_root"
-    ],
-    "41": [
-      "adding_components_guide",
-      "cva_variant_framework"
-    ],
-    "42": [
-      "data_docs",
-      "data_notebook"
-    ],
+    "40": ["tsconfig_app", "tsconfig_node", "tsconfig_root"],
+    "41": ["adding_components_guide", "cva_variant_framework"],
+    "42": ["data_docs", "data_notebook"],
     "43": [
       "emergence-complexite_StepConsequence",
       "emergence-complexite_StepQuestion"
     ],
-    "44": [
-      "graphviz_tsconfig",
-      "graphviz_tsconfig_app"
-    ],
-    "45": [
-      "paletteStore_store",
-      "palettestate_type"
-    ],
-    "46": [
-      "adding_sequence_rule_guide",
-      "sequence_rule_interface"
-    ],
+    "44": ["graphviz_tsconfig", "graphviz_tsconfig_app"],
+    "45": ["paletteStore_store", "palettestate_type"],
+    "46": ["adding_sequence_rule_guide", "sequence_rule_interface"],
     "47": [
       "apps_playground_src_content_notebook_emergence_complexite_math_box_astro"
     ],
@@ -662,105 +634,39 @@
     "51": [
       "apps_playground_src_content_notebook_emergence_complexite_stepconsequence_astro"
     ],
-    "52": [
-      "import_export_strategy"
-    ],
-    "53": [
-      "ui_components_reference"
-    ],
-    "54": [
-      "default-og-image"
-    ],
-    "55": [
-      "repo_playground"
-    ],
-    "56": [
-      "AstroConfig"
-    ],
-    "57": [
-      "HeroSection"
-    ],
-    "58": [
-      "MathBox"
-    ],
-    "59": [
-      "StepDivider"
-    ],
-    "60": [
-      "EmergenceComplexiteNotebook"
-    ],
-    "61": [
-      "emergence-complexite_SvgNode"
-    ],
-    "62": [
-      "emergence-complexite_canvas-utils"
-    ],
-    "63": [
-      "layouts_base-layout"
-    ],
-    "64": [
-      "pages_404"
-    ],
-    "65": [
-      "pages_index"
-    ],
-    "66": [
-      "pages_docs_slug"
-    ],
-    "67": [
-      "grafikart_piechart_tutorial"
-    ],
-    "68": [
-      "favicon_svg"
-    ],
-    "69": [
-      "ui_themes"
-    ],
-    "70": [
-      "docsdata"
-    ],
-    "71": [
-      "remarkBaseUrl"
-    ],
-    "72": [
-      "getFeaturedNotes"
-    ],
-    "73": [
-      "graphviz_FT_LABEL"
-    ],
-    "74": [
-      "graphviz_eslint_config"
-    ],
-    "75": [
-      "updateElementStyles"
-    ],
-    "76": [
-      "styleUtils"
-    ],
-    "77": [
-      "palette_generator_tsconfig_node"
-    ],
-    "78": [
-      "palette_generator_turbo_json"
-    ],
-    "79": [
-      "axis_type"
-    ],
-    "80": [
-      "colorspacedef_type"
-    ],
-    "81": [
-      "colorspaceskey_type"
-    ],
-    "82": [
-      "usePaletteBaseColor_hook"
-    ],
-    "83": [
-      "setPaletteBaseColor_function"
-    ],
-    "84": [
-      "eslint_config"
-    ]
+    "52": ["import_export_strategy"],
+    "53": ["ui_components_reference"],
+    "54": ["default-og-image"],
+    "55": ["repo_playground"],
+    "56": ["AstroConfig"],
+    "57": ["HeroSection"],
+    "58": ["MathBox"],
+    "59": ["StepDivider"],
+    "60": ["EmergenceComplexiteNotebook"],
+    "61": ["emergence-complexite_SvgNode"],
+    "62": ["emergence-complexite_canvas-utils"],
+    "63": ["layouts_base-layout"],
+    "64": ["pages_404"],
+    "65": ["pages_index"],
+    "66": ["pages_docs_slug"],
+    "67": ["grafikart_piechart_tutorial"],
+    "68": ["favicon_svg"],
+    "69": ["ui_themes"],
+    "70": ["docsdata"],
+    "71": ["remarkBaseUrl"],
+    "72": ["getFeaturedNotes"],
+    "73": ["graphviz_FT_LABEL"],
+    "74": ["graphviz_eslint_config"],
+    "75": ["updateElementStyles"],
+    "76": ["styleUtils"],
+    "77": ["palette_generator_tsconfig_node"],
+    "78": ["palette_generator_turbo_json"],
+    "79": ["axis_type"],
+    "80": ["colorspacedef_type"],
+    "81": ["colorspaceskey_type"],
+    "82": ["usePaletteBaseColor_hook"],
+    "83": ["setPaletteBaseColor_function"],
+    "84": ["eslint_config"]
   },
   "cohesion": {
     "0": 0.06970128022759602,

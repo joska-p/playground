@@ -1753,12 +1753,7 @@
       "emergence-complexite_the-nested-sets-diagram",
       "emergence-complexite_the-rationals"
     ],
-    "93": [
-      "navbar_brand",
-      "navbar_component",
-      "navbar_link",
-      "theme_toggle"
-    ],
+    "93": ["navbar_brand", "navbar_component", "navbar_link", "theme_toggle"],
     "94": [
       "color_projects_page",
       "dataviz_projects_page",
@@ -1821,11 +1816,7 @@
       "steps_06_quality_step_quality_setup",
       "workspaces_playground_devcontainer_scripts_steps_06_quality_sh__entry"
     ],
-    "106": [
-      "doc_slug_page",
-      "docs_index_page",
-      "piechart_project_page"
-    ],
+    "106": ["doc_slug_page", "docs_index_page", "piechart_project_page"],
     "107": [
       "emergence-complexite_the-exponentiation",
       "emergence-complexite_the-linear-vs-logarithmic-growth",
@@ -1841,11 +1832,7 @@
       "fnm_node_manager",
       "pnpm_package_manager"
     ],
-    "110": [
-      "monochromatic_Rule",
-      "triadic_Rule",
-      "types_Rule"
-    ],
+    "110": ["monochromatic_Rule", "triadic_Rule", "types_Rule"],
     "111": [
       "mosaic_maker_Controls",
       "mosaic_maker_MosaicMaker",
@@ -1881,11 +1868,7 @@
       "palette_generator_tsconfig_files",
       "palette_generator_tsconfig_references"
     ],
-    "118": [
-      "devcontainer_python_setup",
-      "pyenv",
-      "uv_package_installer"
-    ],
+    "118": ["devcontainer_python_setup", "pyenv", "uv_package_installer"],
     "119": [
       "devcontainer_scripts_setup_sh",
       "scripts_setup_run_step",
@@ -1901,233 +1884,84 @@
       "first_visualization_tutorial",
       "visualization_interface"
     ],
-    "122": [
-      "adding_sequence_rule_guide",
-      "sequence_rule_interface"
-    ],
-    "123": [
-      "data_docs",
-      "data_notebook"
-    ],
-    "124": [
-      "content_config",
-      "doc_schema_zod"
-    ],
+    "122": ["adding_sequence_rule_guide", "sequence_rule_interface"],
+    "123": ["data_docs", "data_notebook"],
+    "124": ["content_config", "doc_schema_zod"],
     "125": [
       "emergence-complexite_StepConsequence",
       "emergence-complexite_StepQuestion"
     ],
-    "126": [
-      "favicon_playground_favicon",
-      "svg_theme_aware_path"
-    ],
+    "126": ["favicon_playground_favicon", "svg_theme_aware_path"],
     "127": [
       "apps_playground_src_generated_graph_ts",
       "generated_graph_graphdata"
     ],
-    "128": [
-      "graphviz_brand_logo",
-      "graphviz_favicon_svg"
-    ],
-    "129": [
-      "imagetoparticles_brand_logo",
-      "imagetoparticles_favicon_svg"
-    ],
-    "130": [
-      "color_ScaleTo255",
-      "maths_CreateRemap"
-    ],
-    "131": [
-      "mosaic_maker_PaletteControls",
-      "mosaic_maker_palette_utils"
-    ],
-    "132": [
-      "mosaicmaker_brand_logo",
-      "mosaicmaker_favicon_svg"
-    ],
-    "133": [
-      "piechart_demo",
-      "piechart_web_component"
-    ],
+    "128": ["graphviz_brand_logo", "graphviz_favicon_svg"],
+    "129": ["imagetoparticles_brand_logo", "imagetoparticles_favicon_svg"],
+    "130": ["color_ScaleTo255", "maths_CreateRemap"],
+    "131": ["mosaic_maker_PaletteControls", "mosaic_maker_palette_utils"],
+    "132": ["mosaicmaker_brand_logo", "mosaicmaker_favicon_svg"],
+    "133": ["piechart_demo", "piechart_web_component"],
     "134": [
       "apps_storybook_storybook_preview_tsx",
       "storybook_preview_preview"
     ],
-    "135": [
-      "types_Palette",
-      "usePaletteStore_Store"
-    ],
-    "136": [
-      "gruvbox_DesignSystem",
-      "ui_Documentation"
-    ],
-    "137": [
-      "ui_Input",
-      "ui_InputVariants"
-    ],
-    "138": [
-      "ui_Label",
-      "ui_LabelVariants"
-    ],
-    "139": [
-      "ui_Select",
-      "ui_SelectVariants"
-    ],
-    "140": [
-      "ui_Slider",
-      "ui_SliderVariants"
-    ],
-    "141": [
-      "ui_Switch",
-      "ui_SwitchVariants"
-    ],
-    "142": [
-      "apps_playground_eslint_config_js"
-    ],
-    "143": [
-      "apps_playground_src_env_d_ts"
-    ],
-    "144": [
-      "apps_storybook_eslint_config_js"
-    ],
-    "145": [
-      "apps_storybook_vite_config_ts"
-    ],
-    "146": [
-      "apps_storybook_vitest_shims_d_ts"
-    ],
-    "147": [
-      "apps_storybook_storybook_manager_ts"
-    ],
-    "148": [
-      "packages_ui_vite_config_ts"
-    ],
-    "149": [
-      "packages_ui_eslint_config_js"
-    ],
-    "150": [
-      "packages_mosaic_maker_eslint_config_js"
-    ],
-    "151": [
-      "packages_mosaic_maker_vite_config_ts"
-    ],
-    "152": [
-      "packages_sequence_renderer_eslint_config_js"
-    ],
-    "153": [
-      "packages_sequence_renderer_vite_config_ts"
-    ],
-    "154": [
-      "packages_palette_generator_eslint_config_js"
-    ],
-    "155": [
-      "packages_palette_generator_vite_config_ts"
-    ],
-    "156": [
-      "packages_image_to_particles_eslint_config_js"
-    ],
-    "157": [
-      "packages_image_to_particles_vite_config_ts"
-    ],
-    "158": [
-      "packages_graph_viz_eslint_config_js"
-    ],
-    "159": [
-      "packages_graph_viz_vite_config_ts"
-    ],
-    "160": [
-      "astro_logo_svg"
-    ],
-    "161": [
-      "favicon_storybook_favicon"
-    ],
-    "162": [
-      "hero_png"
-    ],
-    "163": [
-      "react_svg"
-    ],
-    "164": [
-      "vite_svg"
-    ],
-    "165": [
-      "favicon_svg"
-    ],
-    "166": [
-      "ssh_setup_script"
-    ],
-    "167": [
-      "zsh_setup_script"
-    ],
-    "168": [
-      "devcontainer_git_setup"
-    ],
-    "169": [
-      "devcontainer_quality_setup"
-    ],
-    "170": [
-      "tsconfig_strict"
-    ],
-    "171": [
-      "playground_readme"
-    ],
-    "172": [
-      "env_type_declarations"
-    ],
-    "173": [
-      "experiment_card_component"
-    ],
-    "174": [
-      "footer_links_component"
-    ],
-    "175": [
-      "section_header_component"
-    ],
-    "176": [
-      "generated_graph_data"
-    ],
-    "177": [
-      "mobile_menu"
-    ],
-    "178": [
-      "mobile_menu_toggle"
-    ],
-    "179": [
-      "utility_links"
-    ],
-    "180": [
-      "storybook_vite_config"
-    ],
-    "181": [
-      "graph_viz_example_graph"
-    ],
-    "182": [
-      "image_to_particles_Particle"
-    ],
-    "183": [
-      "mosaic_maker_utils"
-    ],
-    "184": [
-      "palette_generator_package"
-    ],
-    "185": [
-      "sequence_renderer_Package"
-    ],
-    "186": [
-      "rules_FibonacciRule"
-    ],
-    "187": [
-      "rules_PrimesRule"
-    ],
-    "188": [
-      "rules_TriangularRule"
-    ],
-    "189": [
-      "rules_CollatzRule"
-    ],
-    "190": [
-      "hooks_useResizeObserver"
-    ],
+    "135": ["types_Palette", "usePaletteStore_Store"],
+    "136": ["gruvbox_DesignSystem", "ui_Documentation"],
+    "137": ["ui_Input", "ui_InputVariants"],
+    "138": ["ui_Label", "ui_LabelVariants"],
+    "139": ["ui_Select", "ui_SelectVariants"],
+    "140": ["ui_Slider", "ui_SliderVariants"],
+    "141": ["ui_Switch", "ui_SwitchVariants"],
+    "142": ["apps_playground_eslint_config_js"],
+    "143": ["apps_playground_src_env_d_ts"],
+    "144": ["apps_storybook_eslint_config_js"],
+    "145": ["apps_storybook_vite_config_ts"],
+    "146": ["apps_storybook_vitest_shims_d_ts"],
+    "147": ["apps_storybook_storybook_manager_ts"],
+    "148": ["packages_ui_vite_config_ts"],
+    "149": ["packages_ui_eslint_config_js"],
+    "150": ["packages_mosaic_maker_eslint_config_js"],
+    "151": ["packages_mosaic_maker_vite_config_ts"],
+    "152": ["packages_sequence_renderer_eslint_config_js"],
+    "153": ["packages_sequence_renderer_vite_config_ts"],
+    "154": ["packages_palette_generator_eslint_config_js"],
+    "155": ["packages_palette_generator_vite_config_ts"],
+    "156": ["packages_image_to_particles_eslint_config_js"],
+    "157": ["packages_image_to_particles_vite_config_ts"],
+    "158": ["packages_graph_viz_eslint_config_js"],
+    "159": ["packages_graph_viz_vite_config_ts"],
+    "160": ["astro_logo_svg"],
+    "161": ["favicon_storybook_favicon"],
+    "162": ["hero_png"],
+    "163": ["react_svg"],
+    "164": ["vite_svg"],
+    "165": ["favicon_svg"],
+    "166": ["ssh_setup_script"],
+    "167": ["zsh_setup_script"],
+    "168": ["devcontainer_git_setup"],
+    "169": ["devcontainer_quality_setup"],
+    "170": ["tsconfig_strict"],
+    "171": ["playground_readme"],
+    "172": ["env_type_declarations"],
+    "173": ["experiment_card_component"],
+    "174": ["footer_links_component"],
+    "175": ["section_header_component"],
+    "176": ["generated_graph_data"],
+    "177": ["mobile_menu"],
+    "178": ["mobile_menu_toggle"],
+    "179": ["utility_links"],
+    "180": ["storybook_vite_config"],
+    "181": ["graph_viz_example_graph"],
+    "182": ["image_to_particles_Particle"],
+    "183": ["mosaic_maker_utils"],
+    "184": ["palette_generator_package"],
+    "185": ["sequence_renderer_Package"],
+    "186": ["rules_FibonacciRule"],
+    "187": ["rules_PrimesRule"],
+    "188": ["rules_TriangularRule"],
+    "189": ["rules_CollatzRule"],
+    "190": ["hooks_useResizeObserver"],
     "191": [
       "apps_playground_src_content_notebook_emergence_complexite_math_box_astro"
     ],
@@ -2143,57 +1977,23 @@
     "195": [
       "apps_playground_src_content_notebook_emergence_complexite_stepconsequence_astro"
     ],
-    "196": [
-      "repo_playground"
-    ],
-    "197": [
-      "AstroConfig"
-    ],
-    "198": [
-      "ContentCollections"
-    ],
-    "199": [
-      "DocNav"
-    ],
-    "200": [
-      "Stats"
-    ],
-    "201": [
-      "HeroSection"
-    ],
-    "202": [
-      "MathBox"
-    ],
-    "203": [
-      "StepDivider"
-    ],
-    "204": [
-      "EmergenceComplexiteNotebook"
-    ],
-    "205": [
-      "emergence-complexite_SvgNode"
-    ],
-    "206": [
-      "emergence-complexite_canvas-utils"
-    ],
-    "207": [
-      "layouts_base-layout"
-    ],
-    "208": [
-      "pages_404"
-    ],
-    "209": [
-      "pages_index"
-    ],
-    "210": [
-      "pages_docs_slug"
-    ],
-    "211": [
-      "grafikart_piechart_tutorial"
-    ],
-    "212": [
-      "ui_themes"
-    ]
+    "196": ["repo_playground"],
+    "197": ["AstroConfig"],
+    "198": ["ContentCollections"],
+    "199": ["DocNav"],
+    "200": ["Stats"],
+    "201": ["HeroSection"],
+    "202": ["MathBox"],
+    "203": ["StepDivider"],
+    "204": ["EmergenceComplexiteNotebook"],
+    "205": ["emergence-complexite_SvgNode"],
+    "206": ["emergence-complexite_canvas-utils"],
+    "207": ["layouts_base-layout"],
+    "208": ["pages_404"],
+    "209": ["pages_index"],
+    "210": ["pages_docs_slug"],
+    "211": ["grafikart_piechart_tutorial"],
+    "212": ["ui_themes"]
   },
   "cohesion": {
     "0": 0.05092276144907724,
@@ -2466,10 +2266,7 @@
     {
       "source": "Playground Monorepo",
       "target": "pnpm Workspace Layout",
-      "source_files": [
-        "package.json",
-        "pnpm-workspace.yaml"
-      ],
+      "source_files": ["package.json", "pnpm-workspace.yaml"],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `pnpm Workspace Layout` unexpectedly reaches hub `Playground Monorepo`"
@@ -2477,10 +2274,7 @@
     {
       "source": "Playground Monorepo",
       "target": "GitLab CI Pipeline",
-      "source_files": [
-        "package.json",
-        ".gitlab-ci.yml"
-      ],
+      "source_files": ["package.json", ".gitlab-ci.yml"],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `GitLab CI Pipeline` unexpectedly reaches hub `Playground Monorepo`"
@@ -2488,10 +2282,7 @@
     {
       "source": "Playground Monorepo",
       "target": "Mosaic Maker Engine",
-      "source_files": [
-        "package.json",
-        "README.md"
-      ],
+      "source_files": ["package.json", "README.md"],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Mosaic Maker Engine` unexpectedly reaches hub `Playground Monorepo`"
@@ -2499,10 +2290,7 @@
     {
       "source": "Playground Monorepo",
       "target": "Sequences Engine",
-      "source_files": [
-        "package.json",
-        "README.md"
-      ],
+      "source_files": ["package.json", "README.md"],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Sequences Engine` unexpectedly reaches hub `Playground Monorepo`"
@@ -2510,10 +2298,7 @@
     {
       "source": "Playground Monorepo",
       "target": "Palettes Engine",
-      "source_files": [
-        "package.json",
-        "README.md"
-      ],
+      "source_files": ["package.json", "README.md"],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Palettes Engine` unexpectedly reaches hub `Playground Monorepo`"

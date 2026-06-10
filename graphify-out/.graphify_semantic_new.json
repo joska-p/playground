@@ -8025,11 +8025,7 @@
     {
       "id": "card_component_family",
       "label": "Card Component Family",
-      "nodes": [
-        "BaseCard",
-        "DocCard",
-        "ExperimentCard"
-      ],
+      "nodes": ["BaseCard", "DocCard", "ExperimentCard"],
       "relation": "form",
       "confidence": "INFERRED",
       "confidence_score": 0.9,

@@ -44,7 +44,10 @@ function Controls() {
           onClick={() => shuffleColors()}
           size="sm"
         >
-          <Icon name="sparkles" className="hidden lg:inline" />
+          <Icon
+            name="sparkles"
+            className="hidden lg:inline"
+          />
           <span>Colors</span>
         </Button>
         <Button
@@ -53,7 +56,10 @@ function Controls() {
           onClick={() => shuffleRotations()}
           size="sm"
         >
-          <Icon name="wrench" className="hidden lg:inline" />
+          <Icon
+            name="wrench"
+            className="hidden lg:inline"
+          />
           <span>Rotate</span>
         </Button>
         <Button
@@ -63,7 +69,10 @@ function Controls() {
           size="sm"
           disabled={isPalettesLoading}
         >
-          <Icon name="palette" className="hidden lg:inline" />
+          <Icon
+            name="palette"
+            className="hidden lg:inline"
+          />
           <span>Palettes</span>
         </Button>
         <Button
@@ -71,7 +80,10 @@ function Controls() {
           onClick={() => regenerateTiles()}
           size="sm"
         >
-          <Icon name="grid-3x3" className="hidden lg:inline" />
+          <Icon
+            name="grid-3x3"
+            className="hidden lg:inline"
+          />
           <span>Tiles</span>
         </Button>
       </div>

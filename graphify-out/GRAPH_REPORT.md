@@ -1,20 +1,24 @@
-# Graph Report - playground  (2026-06-09)
+# Graph Report - playground (2026-06-09)
 
 ## Corpus Check
+
 - 1425 files · ~1,314,006 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
+
 - 13458 nodes · 14694 edges · 1262 communities (1203 shown, 59 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 28 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
+
 - Built from commit: `0a14f4ad`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
+
 - [[_COMMUNITY_Community 0|Community 0]]
 - [[_COMMUNITY_Community 1|Community 1]]
 - [[_COMMUNITY_Community 2|Community 2]]
@@ -1068,6 +1072,7 @@
 - [[_COMMUNITY_Community 1261|Community 1261]]
 
 ## God Nodes (most connected - your core abstractions)
+
 1. `cn()` - 51 edges
 2. `Graph viz refactor plan` - 39 edges
 3. `ManipulationDefinition` - 35 edges
@@ -1080,21 +1085,24 @@
 10. `Project Conventions` - 20 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `The Emergence of Complexity` --conceptually_related_to--> `Nested Number Systems Diagram`  [INFERRED]
+
+- `The Emergence of Complexity` --conceptually_related_to--> `Nested Number Systems Diagram` [INFERRED]
   apps/playground/src/content/notebook/emergence-complexite/index.mdx → apps/playground/src/assets/numbers/graphic.svg
-- `The Emergence of Complexity` --conceptually_related_to--> `The Classical Tower of Numbers`  [INFERRED]
+- `The Emergence of Complexity` --conceptually_related_to--> `The Classical Tower of Numbers` [INFERRED]
   apps/playground/src/content/notebook/emergence-complexite/index.mdx → apps/playground/src/assets/numbers/masterpiece.svg
-- `The Emergence of Complexity` --conceptually_related_to--> `Expansion of Numbers Banner`  [INFERRED]
+- `The Emergence of Complexity` --conceptually_related_to--> `Expansion of Numbers Banner` [INFERRED]
   apps/playground/src/content/notebook/emergence-complexite/index.mdx → apps/playground/src/assets/numbers/text.svg
-- `Nested Number Systems Diagram` --conceptually_related_to--> `Number Expansion Tower (1→ℕ→ℤ→ℚ→ℝ→ℂ)`  [INFERRED]
+- `Nested Number Systems Diagram` --conceptually_related_to--> `Number Expansion Tower (1→ℕ→ℤ→ℚ→ℝ→ℂ)` [INFERRED]
   apps/playground/src/assets/numbers/graphic.svg → apps/playground/src/content/notebook/emergence-complexite/index.mdx
-- `The Classical Tower of Numbers` --conceptually_related_to--> `Number Expansion Tower (1→ℕ→ℤ→ℚ→ℝ→ℂ)`  [INFERRED]
+- `The Classical Tower of Numbers` --conceptually_related_to--> `Number Expansion Tower (1→ℕ→ℤ→ℚ→ℝ→ℂ)` [INFERRED]
   apps/playground/src/assets/numbers/masterpiece.svg → apps/playground/src/content/notebook/emergence-complexite/index.mdx
 
 ## Import Cycles
+
 - 1-file cycle: `apps/storybook/eslint.config.js -> apps/storybook/eslint.config.js`
 
 ## Hyperedges (group relationships)
+
 - **Creative Engines System** — sequence_engine, recaman_rule, fibonacci_rule, zustand_state_management [INFERRED 0.75]
 - **Sequence Renderer Contract** — sequence_rule_interface, visualization_interface, adding_sequence_rule_guide, adding_visualization_guide [INFERRED 0.75]
 - **Emergence-Complexite Notebook Visuals** — TheOneVisual, SuccessorVisual, ZeroVisual, IntegersVisual, DivisionVisual, RotationCycle, NotebookHero, FigureComponent, MathBox, StepDivider [INFERRED 0.90]
@@ -1107,3979 +1115,4973 @@
 ## Communities (1262 total, 59 thin omitted)
 
 ### Community 0 - "Community 0"
+
 Cohesion: 0.05
 Nodes (39): Assistant, Assistant, Assistant, Assistant, Assistant, Assistant, Assistant, Assistant (+31 more)
 
 ### Community 1 - "Community 1"
+
 Cohesion: 0.17
 Nodes (12): Doc Category Metadata, Notebook Category Metadata, Content Collections, Doc Schema, Docs Data Module, Docs List Page, getDocsByCategory, getFeaturedDocs (+4 more)
 
 ### Community 2 - "Community 2"
+
 Cohesion: 0.09
 Nodes (23): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, prettier (+15 more)
 
 ### Community 3 - "Community 3"
+
 Cohesion: 0.06
 Nodes (33): exports, ./Badge, ./badgeVariants, ./blade-runner-theme, ./Button, ./buttonVariants, ./candy-coated-theme, ./Card (+25 more)
 
 ### Community 4 - "Community 4"
+
 Cohesion: 0.27
 Nodes (9): exports, ./styles, name, peerDependencies, react, react-dom, private, type (+1 more)
 
 ### Community 6 - "Community 6"
+
 Cohesion: 0.14
 Nodes (16): docSchema, categoriesIds, CATEGORY_METADATA, CategoryId, getFeaturedNotes(), getNotesByCategory(), getTagMetadata(), notebookSchema (+8 more)
 
 ### Community 7 - "Community 7"
+
 Cohesion: 0.14
 Nodes (14): scripts, build, check-types, clean, dev, format, lint, lint-fix (+6 more)
 
 ### Community 8 - "Community 8"
+
 Cohesion: 0.12
 Nodes (26): devDependencies, prettier, prettier-plugin-astro, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, typescript, devDependencies, prettier (+18 more)
 
 ### Community 9 - "Community 9"
+
 Cohesion: 0.12
 Nodes (17): Book (lucide-react), Code (lucide-react), CATEGORY_METADATA, docs (Astro content collection), src/data/docs.ts, docs/index.astro, docs/[...slug].astro, docsBaseUrl (+9 more)
 
 ### Community 10 - "Community 10"
+
 Cohesion: 0.25
 Nodes (8): Complex Numbers ℂ, Division, Imaginary Unit i, Integers ℤ, Natural Numbers ℕ, Rational Numbers ℚ, Real Numbers ℝ, The Unit 1
 
 ### Community 11 - "Community 11"
+
 Cohesion: 0.08
 Nodes (32): IconArrowDiagonal, IconArrowRight, IconBluesky, IconBook, IconBox, IconChevronDown, IconClose, IconCode (+24 more)
 
 ### Community 12 - "Community 12"
+
 Cohesion: 0.25
 Nodes (7): Epilogue — Euler's Formula, Step 01 — The Natural Numbers — <span class="text-accent">$\mathbb{N}$</span>, Step 02 — Zero and the Negatives — <span class="text-accent">$\mathbb{Z}$</span>, Step 03 — The Rational Numbers — <span class="text-accent">$\mathbb{Q}$</span>, Step 04 — The Real Numbers — <span class="text-accent">$\mathbb{R}$</span>, Step 05 — The Imaginary Unit — <span class="text-accent">$\mathbb{I}$</span>, Step 06 — The Complex Plane — <span class="text-accent">$\mathbb{C}$</span>
 
 ### Community 13 - "Community 13"
+
 Cohesion: 0.06
-Nodes (40): BM25, detect_domain(), _load_csv(), Lowercase, split, remove punctuation, filter short words, Build BM25 index from documents, Score all documents against query, Load CSV and return list of dicts, Core search function using BM25 (+32 more)
+Nodes (40): BM25, detect_domain(), \_load_csv(), Lowercase, split, remove punctuation, filter short words, Build BM25 index from documents, Score all documents against query, Load CSV and return list of dicts, Core search function using BM25 (+32 more)
 
 ### Community 14 - "Community 14"
+
 Cohesion: 0.25
 Nodes (9): Adding Projects Guide, Engines Documentation, Fibonacci Rule, Monorepo Architecture, Overview Documentation, Recamán Rule, Sequence Renderer Engine, Stable Shell / Volatile Engines (+1 more)
 
 ### Community 15 - "Community 15"
+
 Cohesion: 0.12
 Nodes (20): Accent, Ghost, meta, Muted, Outline, Primary, Secondary, Story (+12 more)
 
 ### Community 16 - "Community 16"
+
 Cohesion: 0.07
 Nodes (29): Accessibility, Available Domains, Available Stacks, Common Rules for Professional UI, Example Workflow, How to Use This Skill, Icons & Visual Elements, Interaction (+21 more)
 
 ### Community 19 - "Community 19"
+
 Cohesion: 0.14
 Nodes (12): @storybook/addon-vitest, Gruvbox Theme, @tailwindcss/vite, @vitejs/plugin-react, @vitest/browser-playwright, @repo/storybook, Dark Theme, Live Storybook URL (+4 more)
 
 ### Community 20 - "Community 20"
+
 Cohesion: 0.07
 Nodes (38): EdgeLines(), Props, controlsStyle, GraphViz(), SceneProps, styles, tooltipStyle, Dot() (+30 more)
 
 ### Community 21 - "Community 21"
+
 Cohesion: 0.19
 Nodes (13): Button(), ButtonProps, buttonVariants, App(), Sidebar(), SidebarProps, SidebarContext, SidebarContextValue (+5 more)
 
 ### Community 22 - "Community 22"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 23 - "Community 23"
+
 Cohesion: 0.33
 Nodes (9): Cardano and Bombelli, The Emergence of Complexity, Euler's Identity, Nested Number Systems Diagram, Imaginary Unit i, The Classical Tower of Numbers, Number Expansion Tower (1→ℕ→ℤ→ℚ→ℝ→ℂ), What if we reversed that? (+1 more)
 
 ### Community 24 - "Community 24"
+
 Cohesion: 0.22
 Nodes (4): PipelineResult, WorkerMessage, Step, Registry
 
 ### Community 25 - "Community 25"
+
 Cohesion: 0.13
 Nodes (19): CellMesh(), CellMeshProps, ColorRowProps, ShaderPropsControls(), ShaderSelector(), getCreature(), glowShader, useCellPainting() (+11 more)
 
 ### Community 27 - "Community 27"
+
 Cohesion: 0.05
 Nodes (37): 1. File Map & Dependency Graph, 2.1 Initialization, 2.2 Runtime interactions, 2. Data Flow, 3. State Shape (Zustand), 4. Tile Architecture, 5. Palette System, 6. CSS Strategy (+29 more)
 
 ### Community 28 - "Community 28"
+
 Cohesion: 0.18
 Nodes (12): ../../../components/ui/cards/ExperimentCard.astro, ../components/ui/docs/FeaturedDocs.astro, ../../components/ui/features/SectionHeader.astro, ../components/ui/projects/FeaturedProjects.astro, ./BaseCard.astro, ../../components/ui/cards/ExperimentCard.astro, Category, getFeaturedProjects() (+4 more)
 
 ### Community 30 - "Community 30"
+
 Cohesion: 0.20
 Nodes (8): @storybook/addon-a11y, @chromatic-com/storybook, @storybook/addon-docs, @storybook/addon-themes, @storybook/react-vite, config, getAbsolutePath(), preview
 
 ### Community 31 - "Community 31"
+
 Cohesion: 0.12
 Nodes (12): PixelFn, definePixel(), ManipulationLookup, brightness, contrast, grayscale, hueRotate, invert (+4 more)
 
 ### Community 32 - "Community 32"
+
 Cohesion: 0.06
 Nodes (57): acquireWorker(), dispatch(), drainQueue(), getPool(), jobQueue, PipelineGateway, pool, PoolEntry (+49 more)
 
 ### Community 33 - "Community 33"
+
 Cohesion: 0.09
 Nodes (22): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, happy-dom, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss (+14 more)
 
 ### Community 34 - "Community 34"
+
 Cohesion: 0.14
 Nodes (20): acorn, beacon, beehive, bHeptomino, blinker, block, diehard, glider (+12 more)
 
 ### Community 35 - "Community 35"
+
 Cohesion: 0.67
 Nodes (3): Adding Visualization Guide, First Visualization Tutorial, Visualization Interface
 
 ### Community 36 - "Community 36"
+
 Cohesion: 0.07
 Nodes (26): Classes to remove — heritage, Classes to remove — intra-component, Classes to remove — intra-component, Classes to remove — intra-component, Classes to remove — intra-component, Classes to remove — intra-component, Classes to remove — intra-component, Classes to remove — intra-component (+18 more)
 
 ### Community 37 - "Community 37"
+
 Cohesion: 0.07
 Nodes (26): Phase 1: Global Mutable State → Injected Dependencies (Candidate 1) ✅, Phase 2: Registration by Side Effect → Explicit Composition (Candidate 4) ✅, Phase 3: Runner Decomposition (Candidate 2) ✅, Phase 4: Two API Surfaces → Unified Step[] (Candidate 3) ✅, Phase 5: Cleanup, Refactoring Plan — `@repo/image-pipeline`, Step 1.1 — `registry.ts` ✅, Step 1.2 — `config.ts` ✅ (+18 more)
 
 ### Community 38 - "Community 38"
+
 Cohesion: 0.08
 Nodes (24): ⚠ ADR Note, Architecture Review — `@repo/image-pipeline`, Before / After, Before / After, Before / After, Before / After, Benefits, Benefits (+16 more)
 
 ### Community 39 - "Community 39"
+
 Cohesion: 0.15
 Nodes (13): tailwindcss, tailwindcss, tailwindcss, tailwindcss, tailwindcss, tailwindcss, tailwindcss, tailwindcss (+5 more)
 
 ### Community 40 - "Community 40"
+
 Cohesion: 0.67
 Nodes (3): tsconfig (app), tsconfig (node), tsconfig
 
 ### Community 42 - "Community 42"
+
 Cohesion: 0.04
 Nodes (46): dependencies, leva, @react-three/drei, @react-three/fiber, @repo/ui, three, @types/three, zod (+38 more)
 
 ### Community 43 - "Community 43"
+
 Cohesion: 0.15
 Nodes (11): createGrid(), seedGrid(), CellValue, Grid, RuleFn, UseGridTextureParams, init(), SimulationState (+3 more)
 
 ### Community 45 - "Community 45"
+
 Cohesion: 0.09
 Nodes (22): Consumers to fix (16 files):, Current state — 6 components expose variants, all different:, Current state: zero responsive utilities in any core component, Execution Order, Icon consumers (1 story):, Label consumers (1 story):, New additive props (backward compatible):, Notes / Conflicts: (+14 more)
 
 ### Community 47 - "Community 47"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 48 - "Community 48"
+
 Cohesion: 0.10
 Nodes (21): dependencies, astro, @astrojs/check, @astrojs/mdx, @astrojs/react, lucide-react, react, react-dom (+13 more)
 
 ### Community 49 - "Community 49"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 50 - "Community 50"
+
 Cohesion: 0.09
 Nodes (22): `box-blur`, `brightness`, Built-in Manipulations, `contrast`, `edge-detect`, `flip-horizontal`, `flip-vertical`, `gaussian-blur` (+14 more)
 
 ### Community 51 - "Community 51"
+
 Cohesion: 0.10
 Nodes (7): Dimensions, useResizeObserver(), App(), useImageUpload(), Point, Stroke, App()
 
 ### Community 52 - "Community 52"
+
 Cohesion: 0.06
-Nodes (30): 1. Palette fetch (one-shot), 2. Resize + tile generation (continuous), Architecture, code:bash (pnpm add @repo/mosaic-maker), code:tsx (import { MosaicMaker } from "@repo/mosaic-maker";), code:block3 (main.tsx), code:block4 (dimensions change), code:ts (tilesPerRow    = Math.floor((width  + gap) / (tileSize + gap) (+22 more)
+Nodes (30): 1. Palette fetch (one-shot), 2. Resize + tile generation (continuous), Architecture, code:bash (pnpm add @repo/mosaic-maker), code:tsx (import { MosaicMaker } from "@repo/mosaic-maker";), code:block3 (main.tsx), code:block4 (dimensions change), code:ts (tilesPerRow = Math.floor((width + gap) / (tileSize + gap) (+22 more)
 
 ### Community 53 - "Community 53"
+
 Cohesion: 0.09
 Nodes (21): ➕ Add a New Sequence, Available Sequences, Canvas Context, code:bash (pnpm add @repo/sequence-renderer), code:tsx (import { SequenceRenderer } from "@repo/sequence-renderer";), code:typescript (// recaman-arcs.ts), code:typescript (const sequenceRule = useSequenceRule();), code:typescript (import type { Visualization } from "./types";) (+13 more)
 
 ### Community 55 - "Community 55"
+
 Cohesion: 0.10
 Nodes (23): code:block1 (HTMLImageElement), code:bash (pnpm add @repo/image-manipulator), code:ts (type RGBA = { r: number; g: number; b: number; a: number };), code:ts (import { manipulate } from "@repo/image-manipulator";), code:ts (const [original, grayed, brightened] = manipulate(source)), code:ts (import type { PixelCallback } from "@repo/image-manipulator"), code:tsx (import { ImageManipulator } from "@repo/image-manipulator";), code:ts (import { useImageUpload } from "@repo/image-manipulator";) (+15 more)
 
 ### Community 57 - "Community 57"
+
 Cohesion: 0.08
 Nodes (22): box, cylinder, geometries, Geometry, sphere, torusKnot, basic, depth (+14 more)
 
 ### Community 58 - "Community 58"
+
 Cohesion: 0.14
 Nodes (12): B1 — Intra-component redundancy, B2 — Heritage redundancy (cross-component), B3 — Unnecessary wrapper divs, B4 — Unknown / unverifiable, Context, Output: The Report Document, Pass A — Build the Usage Map, Pass B — Analyse Each File (+4 more)
 
 ### Community 59 - "Community 59"
+
 Cohesion: 0.14
 Nodes (12): Applying Changes, Before You Start, Context, Final Summary, Hard Rules, Output Per File, Scope Boundary — Read This First, Step 1 — Wrappers (W\_ IDs) (+4 more)
 
 ### Community 61 - "Community 61"
+
 Cohesion: 0.20
 Nodes (9): Installation, License, Release, Remove example code, Running, Update metadata, Usage, Using this template (+1 more)
 
 ### Community 62 - "Community 62"
+
 Cohesion: 0.22
 Nodes (9): scripts, build, check-types, clean, dev, format, lint, lint-fix (+1 more)
 
 ### Community 63 - "Community 63"
+
 Cohesion: 0.16
 Nodes (15): GridLines(), GridLinesProps, Scene(), SceneProps, DebugPanel(), DebugToggle(), useCameraFitter(), StepTimer (+7 more)
 
 ### Community 64 - "Community 64"
+
 Cohesion: 0.16
 Nodes (11): DisplaySamples(), DisplayStudent(), DisplayStudentProps, RaduMachineLearning(), Drawing, Drawings, Sample, Samples (+3 more)
 
 ### Community 65 - "Community 65"
+
 Cohesion: 0.23
 Nodes (12): ImageToParticles(), Particle, config, INITIAL_VELOCITY, PARTICLE_SIZE, calculateImageDimensions(), drawImageToCanvas(), ImageDimensions (+4 more)
 
 ### Community 73 - "Community 73"
+
 Cohesion: 0.33
 Nodes (5): IconSpinner(), IconSpinnerProps, Input(), InputProps, inputVariants
 
 ### Community 76 - "Community 76"
+
 Cohesion: 0.11
-Nodes (17): 1. Palette fetch (once), 2. Resize + tile generation (every dimension change), Chain of events, code:block1 (main.tsx), code:block2 (initMosaicPalettes()), code:ts (const [mosaicRef, dimensions] = useResizeObserver<HTMLDivEle), code:ts (useEffect → 150 ms debounce → setMosaicRef(mosaicRef)  // ca), code:ts (const tilesPerRow    = Math.floor((width  + gap) / (tileSize) (+9 more)
+Nodes (17): 1. Palette fetch (once), 2. Resize + tile generation (every dimension change), Chain of events, code:block1 (main.tsx), code:block2 (initMosaicPalettes()), code:ts (const [mosaicRef, dimensions] = useResizeObserver<HTMLDivEle), code:ts (useEffect → 150 ms debounce → setMosaicRef(mosaicRef) // ca), code:ts (const tilesPerRow = Math.floor((width + gap) / (tileSize) (+9 more)
 
 ### Community 77 - "Community 77"
+
 Cohesion: 0.10
 Nodes (20): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+12 more)
 
 ### Community 78 - "Community 78"
+
 Cohesion: 0.17
 Nodes (14): ColorPicker(), ColorRowProps, RuleSelector(), ColorRowProps, StateColorPicker(), DEFAULT_STATE_COLORS, getDefaultStateColor(), STATE_FALLBACK_COLORS (+6 more)
 
 ### Community 79 - "Community 79"
+
 Cohesion: 0.12
 Nodes (15): ArgDefinition, ManipulationUIMetadata, NeighborhoodFunction, NeighborhoodParameters, PixelFunction, PixelParameters, WholeImageFunction, WholeImageParameters (+7 more)
 
 ### Community 80 - "Community 80"
+
 Cohesion: 0.20
 Nodes (15): addPalette, RuleKey, rules, generatePalette(), generatePalette, Controls(), colorjs.io, analogous (+7 more)
 
 ### Community 81 - "Community 81"
+
 Cohesion: 0.18
 Nodes (12): MosaicDisplay(), CSS_VARS, initialGapSize, initialRotations, initialTileSize, cyclePalettes(), initPalettes(), regenerateTiles() (+4 more)
 
 ### Community 85 - "Community 85"
+
 Cohesion: 0.11
 Nodes (31): SequenceSelector(), generateSequence(), collatzRule, fibonacciRule, NextStepOptions, primesRule, recamanRule, SequenceRule (+23 more)
 
 ### Community 86 - "Community 86"
+
 Cohesion: 0.10
 Nodes (20): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, react (+12 more)
 
 ### Community 87 - "Community 87"
+
 Cohesion: 0.09
 Nodes (22): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, react (+14 more)
 
 ### Community 88 - "Community 88"
+
 Cohesion: 0.05
 Nodes (45): dependencies, react, react-dom, react-error-boundary, @repo/ui, zod, zustand, devDependencies (+37 more)
 
 ### Community 89 - "Community 89"
+
 Cohesion: 0.05
 Nodes (44): dependencies, react, react-dom, @repo/ui, zod, zustand, devDependencies, @babel/core (+36 more)
 
 ### Community 90 - "Community 90"
+
 Cohesion: 0.05
 Nodes (46): dependencies, react, react-dom, react-error-boundary, @repo/image-pipeline, @repo/toolbox, @repo/ui, zustand (+38 more)
 
 ### Community 91 - "Community 91"
+
 Cohesion: 0.05
 Nodes (43): dependencies, react, react-dom, @repo/ui, zustand, devDependencies, @babel/core, babel-plugin-react-compiler (+35 more)
 
 ### Community 92 - "Community 92"
+
 Cohesion: 0.07
 Nodes (27): devDependencies, @chromatic-com/storybook, eslint, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, playwright, prettier (+19 more)
 
 ### Community 93 - "Community 93"
+
 Cohesion: 0.21
 Nodes (9): getRandom(), shuffleArray(), shuffleObject(), computeInitialTiles(), computeNumberOfTiles(), parseNumericValue(), CSS_VAR_KEYS, generateTileColors() (+1 more)
 
 ### Community 94 - "Community 94"
+
 Cohesion: 0.33
 Nodes (6): code:typescript (// colorPalette.schema.ts), code:typescript (// ✅ React component — function declaration), code:block5 (color-palette/), code:block9 (features/color-palette/), Component folders, Zod Schema Pattern
 
 ### Community 95 - "Community 95"
+
 Cohesion: 0.14
 Nodes (20): ColorSpaceCanvas(), ColorSpaceCanvasProps, ColorSliceProps, ColorSpaceControls(), Axis, ColorSpaceDef, colorSpaces, ColorSpacesKey (+12 more)
 
 ### Community 96 - "Community 96"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 97 - "Community 97"
+
 Cohesion: 0.09
 Nodes (21): dependsOn, inputs, outputs, dependsOn, cache, cache, persistent, dependsOn (+13 more)
 
 ### Community 98 - "Community 98"
+
 Cohesion: 0.13
 Nodes (21): ../../../../components/data-viz/pie-chart/PieChart.astro, ../../layouts/BaseLayout.astro, @repo/automa, CATEGORIES, getProjectsByCategory(), Project, projects, ../../../../components/ui/features/Hero.astro (+13 more)
 
 ### Community 99 - "Community 99"
+
 Cohesion: 0.12
 Nodes (15): Available Sequences, code:bash (pnpm add @repo/sequence-renderer), code:tsx (import { SequenceRenderer } from "@repo/sequence-renderer";), Common patterns, Core Philosophy, Data Flow, How to Add a New Sequence, How to Add a New Visualization (+7 more)
 
 ### Community 100 - "Community 100"
+
 Cohesion: 0.10
 Nodes (19): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+11 more)
 
 ### Community 101 - "Community 101"
+
 Cohesion: 0.25
 Nodes (7): 1. Initialization Pipelines, 2. The Arithmetic behind Tile Counting, 3. Rendering vs. CSS Mutation Matrix, Context Specification: @repo/mosaic-maker, Notable Architecture Implementations & Flaws, Package Overview, Technical Lifecycles & Architecture
 
 ### Community 102 - "Community 102"
+
 Cohesion: 0.19
 Nodes (18): Demo(), demoSchema, addDemoSubmission(), DemoStore, resetDemo(), Submission, useDemoCount(), useDemoLastMessage() (+10 more)
 
 ### Community 103 - "Community 103"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 104 - "Community 104"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 105 - "Community 105"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 106 - "Community 106"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 107 - "Community 107"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 108 - "Community 108"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 109 - "Community 109"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 110 - "Community 110"
+
 Cohesion: 0.14
 Nodes (13): devDependencies, prettier, prettier-plugin-astro, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, typescript, engines, node (+5 more)
 
 ### Community 112 - "Community 112"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 113 - "Community 113"
+
 Cohesion: 0.11
 Nodes (18): CONSTANTS, DATA_DIR, DATASET_DIR, IMG_DIR, JSON_DIR, RAW_DIR, SAMPLE, SAMPLES_TS (+10 more)
 
 ### Community 114 - "Community 114"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 115 - "Community 115"
+
 Cohesion: 0.12
 Nodes (15): code:ts (import { manipulate } from "@repo/image-manipulator";), Core Primitives, Creating a pipeline, Custom Manipulations, Hook, Inspecting intermediate steps, Manipulations, Pipeline Model (+7 more)
 
 ### Community 116 - "Community 116"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 117 - "Community 117"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 118 - "Community 118"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 119 - "Community 119"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 120 - "Community 120"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 121 - "Community 121"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 122 - "Community 122"
+
 Cohesion: 0.11
 Nodes (16): Adding Components, Checklist, code:block1 (packages/ui/src/components/button/), code:block2 (packages/ui/src/components/color-palette/), code:typescript (// buttonVariants.ts), code:typescript (// Button.tsx), code:json ({), code:block6 (apps/storybook/src/stories/button/) (+8 more)
 
 ### Community 123 - "Community 123"
+
 Cohesion: 0.09
 Nodes (20): 1. Write the README, 1. Write the Thin README, 2. Bootstrap the Reference Doc, 2. Sync to the Astro Site, 3. Curate the Reference Doc, 3. Verify, 4. Link from Related Docs, 5. Verify (+12 more)
 
 ### Community 124 - "Community 124"
+
 Cohesion: 0.12
 Nodes (15): Available Components, Button, code:typescript (import { Button } from "@repo/ui/Button";), code:typescript (import { Button } from "@repo/ui/Button";), code:typescript (import { Input } from "@repo/ui/Input";), code:typescript (import { Slider } from "@repo/ui/Slider";), code:typescript (import { Sidebar } from "@repo/ui/Sidebar";), Import Pattern (+7 more)
 
 ### Community 125 - "Community 125"
+
 Cohesion: 0.10
 Nodes (27): Input, Accent, Destructive, Disabled, Ghost, GlobeIcon(), Loading, MailIcon() (+19 more)
 
 ### Community 126 - "Community 126"
+
 Cohesion: 0.12
 Nodes (14): Available Rules, Available Visualizations, code:block1 (Rule (math) → Sequence → Visualization (draw) → Canvas), code:typescript (type SequenceRule = {), code:typescript (type Visualization = {), code:typescript (// sequenceStore.ts — internal only), Data Structures, Engines (+6 more)
 
 ### Community 127 - "Community 127"
+
 Cohesion: 0.19
 Nodes (8): ./MobileMenu.astro, isActive(), ./NavActions.astro, [], isActive(), ./scripts/mobileMenu.js, ./scripts/smartNavbar.js, ./scripts/theme.js
 
 ### Community 128 - "Community 128"
+
 Cohesion: 0.15
 Nodes (15): dependencies, react, react-dom, name, private, scripts, build, check-types (+7 more)
 
 ### Community 129 - "Community 129"
+
 Cohesion: 0.12
 Nodes (16): @eslint/js, typescript-eslint, defineConfig, eslint/config, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, eslint-plugin-storybook (+8 more)
 
 ### Community 130 - "Community 130"
+
 Cohesion: 0.19
 Nodes (3): PieChart, Point, strToDom()
 
 ### Community 132 - "Community 132"
+
 Cohesion: 0.12
 Nodes (15): code:text (Si nous pouvons additionner, pouvons-nous inverser l'opérati), code:text (i n'est pas dans le monde réel. Il ne se trouve pas sur la d), Épilogue — La Formule d'Euler, Étape 01 — Les Entiers Naturels — $\mathbb{N}$, Étape 01 — Les Entiers Naturels — <span class="text-accent">$\mathbb{N}$</span>, Étape 02 — Le Zéro et les Négatifs — $\mathbb{Z}$, Étape 02 — Le Zéro et les Négatifs — <span class="text-accent">$\mathbb{Z}$</span>, Étape 03 — Les Nombres Rationnels — $\mathbb{Q}$ (+7 more)
 
 ### Community 133 - "Community 133"
+
 Cohesion: 0.15
 Nodes (11): Adding a Sequence Rule, Checklist, code:typescript (type SequenceRule = {), code:typescript (const myRule: SequenceRule = {), code:typescript (getNext: ({ index, current, seen }) => {), code:typescript (export const sequencesRule: SequenceRule[] = [), code:bash (pnpm --filter @repo/sequence-renderer build), Step 1: Define the Rule (+3 more)
 
 ### Community 134 - "Community 134"
+
 Cohesion: 0.15
 Nodes (11): Adding a Visualization, Checklist, code:typescript (type Visualization = {), code:typescript (export function drawMyViz(canvas: HTMLCanvasElement, sequenc), code:typescript (import { drawMyViz } from "./my-viz.js";), code:bash (pnpm --filter @repo/sequence-renderer build), Step 1: Create the Draw Function, Step 2: Export the Visualization (+3 more)
 
 ### Community 135 - "Community 135"
+
 Cohesion: 0.10
 Nodes (24): build, context, dockerfile, containerEnv, HOME, USER, containerUser, features (+16 more)
 
 ### Community 136 - "Community 136"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 137 - "Community 137"
+
 Cohesion: 0.09
 Nodes (20): code:bash (pnpm --filter @repo/playground dev), code:bash (pnpm --filter @repo/playground build), code:bash (pnpm --filter @repo/playground dev), code:bash (pnpm --filter @repo/playground build), Build, Built With, code:bash (pnpm --filter @repo/playground dev), code:bash (pnpm --filter @repo/playground build) (+12 more)
 
 ### Community 138 - "Community 138"
+
 Cohesion: 0.17
 Nodes (10): code:typescript (export function drawLineGraph(canvas: HTMLCanvasElement, seq), code:typescript (import { drawLineGraph } from "./line-graph.js";), code:bash (pnpm --filter @repo/sequence-renderer build), Key Takeaways, Step 1: Create the Visualization, Step 2: Export the Visualization, Step 3: Run It, What's Next? (+2 more)
 
 ### Community 139 - "Community 139"
+
 Cohesion: 0.30
 Nodes (10): Accent, Destructive, Disabled, Horizontal, InteractiveSlider(), meta, Primary, Secondary (+2 more)
 
 ### Community 140 - "Community 140"
+
 Cohesion: 0.12
 Nodes (16): Architecture (3 operation types), Auto-downscale, Image Pipeline — API Reference, `ManipulationDefinition`, Overview, `Pipeline` class (builder API), Pipeline types, `pipelineGateway` (worker pool API) (+8 more)
 
 ### Community 141 - "Community 141"
+
 Cohesion: 0.09
-Nodes (23): Architecture, Async, code:block1 (Presentation Layer  →  State Orchestration Layer  →  Core Do), code:block2 (apps/), Comments, Data fetching, Error handling, ESLint (+15 more)
+Nodes (23): Architecture, Async, code:block1 (Presentation Layer → State Orchestration Layer → Core Do), code:block2 (apps/), Comments, Data fetching, Error handling, ESLint (+15 more)
 
 ### Community 142 - "Community 142"
+
 Cohesion: 0.18
 Nodes (9): Apps, Architecture, Built With, code:block1 (User Action → Engine Rule → Data → Visualization → Canvas/DO), Creative Playground, Data Flow, Next Steps, Packages (+1 more)
 
 ### Community 143 - "Community 143"
+
 Cohesion: 0.33
 Nodes (9): Accent, Destructive, Disabled, Ghost, meta, Outline, Primary, Secondary (+1 more)
 
 ### Community 144 - "Community 144"
+
 Cohesion: 0.12
 Nodes (16): 1. WebGL object initialisation (`createGridUniforms`), 2. Bypassing React for the render loop (`useFrame`), 3. The `useLayoutEffect` / `useRef` indirection, 4. Colour synchronisation (`useEffect`), 5. Memory management (`useEffect` dispose), API, Data flow diagram, How it works — step by step (+8 more)
 
 ### Community 145 - "Community 145"
+
 Cohesion: 0.12
 Nodes (18): scripts, build, check-types, clean, dev, format, lint, lint-fix (+10 more)
 
 ### Community 146 - "Community 146"
+
 Cohesion: 0.11
 Nodes (18): node types, compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 147 - "Community 147"
+
 Cohesion: 0.20
 Nodes (8): 🎨 Browse Components, code:bash (cd apps/storybook && pnpm dev), code:block2 (packages/ui/src/components/Button/), 🛠️ Commands, 📖 Learn More, 🚀 Run It, Storybook, 🧩 Where Stories Live
 
 ### Community 148 - "Community 148"
+
 Cohesion: 0.15
 Nodes (17): Accent, Destructive, Ghost, Loading, meta, Outline, Primary, Secondary (+9 more)
 
 ### Community 149 - "Community 149"
+
 Cohesion: 0.18
 Nodes (11): settings, lsp, oxfmt, oxlint, initialization_options, initialization_options, fixKind, fmt.configPath (+3 more)
 
 ### Community 150 - "Community 150"
+
 Cohesion: 0.27
 Nodes (10): Accent, Default, Destructive, Ghost, meta, Outline, Primary, Secondary (+2 more)
 
 ### Community 151 - "Community 151"
+
 Cohesion: 0.36
 Nodes (8): Accent, Destructive, Disabled, InteractiveSwitch(), meta, Primary, Secondary, Story
 
 ### Community 152 - "Community 152"
+
 Cohesion: 0.29
 Nodes (8): PaletteGenerator(), Display(), App(), initialBaseColor, PaletteState, paletteStore, usePaletteBaseColor(), usePalettePalettes()
 
 ### Community 153 - "Community 153"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 154 - "Community 154"
+
 Cohesion: 0.52
 Nodes (3): Label(), LabelProps, labelVariants
 
 ### Community 155 - "Community 155"
+
 Cohesion: 0.39
 Nodes (7): AccentBottom, meta, NormalLeft, PrimaryRight, SecondaryTop, SidebarTemplate(), Story
 
 ### Community 156 - "Community 156"
+
 Cohesion: 0.11
 Nodes (16): Available Components, Button, code:bash (pnpm add @repo/ui), code:tsx (import { Button, Sidebar, Card } from "@repo/ui";), 🧩 Components, Design Tokens, 📖 Documentation, Import Pattern (+8 more)
 
 ### Community 157 - "Community 157"
+
 Cohesion: 0.10
 Nodes (23): dependencies, class-variance-authority, clsx, lucide-react, react, react-dom, tailwind-merge, name (+15 more)
 
 ### Community 158 - "Community 158"
+
 Cohesion: 0.25
 Nodes (6): code:bash (pnpm --filter @repo/<package> <cmd>), code:bash (pnpm --filter @repo/ui build), Conventions, Orientation, Running commands, Scope discipline
 
 ### Community 159 - "Community 159"
+
 Cohesion: 0.33
-Nodes (9): __dirname, escapeFrontmatter(), hasPackageJson(), kebabToTitle(), main(), PACKAGE_NAMES, PACKAGES_DIR, REF_DIR (+1 more)
+Nodes (9): \_\_dirname, escapeFrontmatter(), hasPackageJson(), kebabToTitle(), main(), PACKAGE_NAMES, PACKAGES_DIR, REF_DIR (+1 more)
 
 ### Community 160 - "Community 160"
+
 Cohesion: 0.12
 Nodes (19): scripts, build, check-types, dev, format, lint, lint-fix, scripts (+11 more)
 
 ### Community 161 - "Community 161"
+
 Cohesion: 0.15
 Nodes (11): Architecture, code:tsx (import { GraphViz } from "@repo/graph-viz";), Coloring Modes, D3 Simulation, Data Model, Exports, Interaction, Quick Start (+3 more)
 
 ### Community 162 - "Community 162"
+
 Cohesion: 0.25
 Nodes (6): Add a Project, Adding Projects, code:typescript (export const projects: Record<string, Project> = {), code:astro (---), That's It, The Data Model
 
 ### Community 163 - "Community 163"
+
 Cohesion: 0.36
 Nodes (6): compilerOptions, jsx, jsxImportSource, exclude, extends, include
 
 ### Community 164 - "Community 164"
+
 Cohesion: 0.17
 Nodes (12): dependsOn, cache, cache, persistent, dependsOn, tasks, check-types, clean (+4 more)
 
 ### Community 165 - "Community 165"
+
 Cohesion: 0.22
 Nodes (11): devDependencies, eslint-plugin-import-x, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, exports, name, peerDependencies (+3 more)
 
 ### Community 166 - "Community 166"
+
 Cohesion: 0.52
 Nodes (3): Select(), SelectProps, selectVariants
 
 ### Community 167 - "Community 167"
+
 Cohesion: 0.12
 Nodes (15): Available Components, Button, code:bash (pnpm add @repo/ui), code:tsx (import { Button, Sidebar, Card } from "@repo/ui";), Components, Design Tokens, Import Pattern, Input with Label (+7 more)
 
 ### Community 168 - "Community 168"
+
 Cohesion: 0.11
 Nodes (16): Adding to the Playground, Architecture, Built-in Manipulations, Conventions, Documentation, Exports, Fusion Optimization, Neighborhood operations (4) (+8 more)
 
 ### Community 169 - "Community 169"
+
 Cohesion: 0.43
 Nodes (6): AccentLarge, meta, PrimaryHorizontal, SecondaryVertical, SmallCompact, Story
 
 ### Community 170 - "Community 170"
+
 Cohesion: 0.17
 Nodes (10): Architecture, code:bash (pnpm add @repo/image-to-particles), code:tsx (import { ImageToParticles } from "@repo/image-to-particles";), Configuration, Exports, Hook, Particle Lifecycle, Particle Sampling (+2 more)
 
 ### Community 171 - "Community 171"
+
 Cohesion: 0.08
 Nodes (22): 1. Palette fetch (one-shot), 2. Resize + tile generation (continuous), Architecture, code:bash (pnpm add @repo/mosaic-maker), code:tsx (import { MosaicMaker } from "@repo/mosaic-maker";), CSS Strategy, Cycling, Data shape (+14 more)
 
 ### Community 172 - "Community 172"
+
 Cohesion: 0.15
 Nodes (11): Architecture, code:bash (pnpm add @repo/image-to-particles), code:tsx (import { ImageToParticles } from "@repo/image-to-particles";), Configuration, Exports, Hook, 🎯 Live Example, Particle Lifecycle (+3 more)
 
 ### Community 173 - "Community 173"
+
 Cohesion: 0.18
 Nodes (9): Architecture, code:tsx (import { PaletteGenerator } from "@repo/palette-generator";), Color Spaces, Exports, Harmony Rules, Quick Start, @repo/palette-generator, State Management (+1 more)
 
 ### Community 174 - "Community 174"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 175 - "Community 175"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 176 - "Community 176"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 177 - "Community 177"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 178 - "Community 178"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 179 - "Community 179"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, build
 
 ### Community 180 - "Community 180"
+
 Cohesion: 0.15
 Nodes (16): ArgDefinition, ManipulationId, manipulations, manipulationsIds, pixelManipulations, addWorkflowStep(), executeWorkflow(), moveWorkflowStep() (+8 more)
 
 ### Community 181 - "Community 181"
+
 Cohesion: 0.20
 Nodes (9): Bugs, code:block1 (components/), Component structure, Dead / empty files, mosaic-maker — Refactor TODO, Naming / conventions, Potential issues, Store structure (+1 more)
 
 ### Community 182 - "Community 182"
+
 Cohesion: 0.60
 Nodes (3): applyTheme(), getThemePreference(), setupThemeToggle()
 
 ### Community 183 - "Community 183"
+
 Cohesion: 0.18
 Nodes (11): dependencies, d3, react, react-dom, @react-three/drei, @react-three/fiber, three, @types/d3 (+3 more)
 
 ### Community 185 - "Community 185"
+
 Cohesion: 0.31
 Nodes (9): useImageSource(), useIsProcessing(), useOutputs(), ManipulatorState, manipulatorStore, OutputType, WorkflowStep, ProcessingOverlay() (+1 more)
 
 ### Community 186 - "Community 186"
+
 Cohesion: 0.22
 Nodes (8): categories, correctness, env, builtin, ignorePatterns, overrides, plugins, $schema
 
 ### Community 187 - "Community 187"
+
 Cohesion: 0.40
 Nodes (5): Analogous, Complementary, Monochromatic, OKLCh, Triadic
 
 ### Community 188 - "Community 188"
+
 Cohesion: 0.29
 Nodes (7): @turbo/gen, devDependencies, prettier, prettier-plugin-astro, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, typescript
 
 ### Community 190 - "Community 190"
+
 Cohesion: 0.33
 Nodes (5): engines, node, name, packageManager, private
 
 ### Community 191 - "Community 191"
+
 Cohesion: 0.40
 Nodes (5): format_on_save, formatter, prettier, CSS, allowed
 
 ### Community 192 - "Community 192"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 193 - "Community 193"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 194 - "Community 194"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 195 - "Community 195"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 196 - "Community 196"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 197 - "Community 197"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 198 - "Community 198"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 199 - "Community 199"
+
 Cohesion: 0.43
 Nodes (5): compilerOptions, strict, extends, files, references
 
 ### Community 200 - "Community 200"
+
 Cohesion: 0.47
 Nodes (4): compilerOptions, lib, extends, include
 
 ### Community 201 - "Community 201"
+
 Cohesion: 0.13
 Nodes (14): BufferManager (`buffer-manager.ts`), Configuration (`pipeline-config.ts`), Data flow summary, Execution Engine (`run/`), FusionScheduler (`fusion-scheduler.ts`), Image Pipeline — Internals, Pipeline execution flow, pipeline-gateway.ts (+6 more)
 
 ### Community 202 - "Community 202"
+
 Cohesion: 0.11
 Nodes (19): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, prettier, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, react (+11 more)
 
 ### Community 205 - "Community 205"
+
 Cohesion: 0.07
 Nodes (30): App, main, dependencies, react, react-dom, @repo/ui, zustand, exports (+22 more)
 
 ### Community 206 - "Community 206"
+
 Cohesion: 0.31
 Nodes (7): readFileAsImageData(), getImageData(), imageElementToImageData(), UseImageUploadReturn, clearImageSource(), setImageSource(), useImageUpload()
 
 ### Community 211 - "Community 211"
+
 Cohesion: 0.40
 Nodes (5): format_on_save, formatter, prettier, languages, GraphQL
 
 ### Community 212 - "Community 212"
+
 Cohesion: 0.12
 Nodes (14): Adapter boundary, Architecture, code:bash (pnpm add @repo/graph-viz), code:tsx (import { GraphViz } from "@repo/graph-viz";), Coloring Modes, D3 Simulation, Data Model, Exports (+6 more)
 
 ### Community 216 - "Community 216"
+
 Cohesion: 0.18
 Nodes (11): Controls(), Section, ControlSection(), ControlSectionProps, ImageManipulator(), clearWorkflowSteps(), useWorkflowSteps(), Outputs() (+3 more)
 
 ### Community 217 - "Community 217"
+
 Cohesion: 0.17
 Nodes (17): @repo/ui, @repo/ui, analogous rule, color utils, ColorSpaceCanvas, ColorSpaceControls, complementary rule, Controls (+9 more)
 
 ### Community 218 - "Community 218"
+
 Cohesion: 0.10
 Nodes (21): BufferManager, FusionScheduler, runFusedPixelBatch(), ManipulationDefinition, PipelineContext, PipelineResult, ResizeOptions, blitTile() (+13 more)
 
 ### Community 219 - "Community 219"
+
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 220 - "Community 220"
+
 Cohesion: 0.23
 Nodes (9): putImageData(), useEscapeKey(), ImageLightbox(), ImageLightboxProps, Output(), OutputProps, OutputCard(), OutputCardProps (+1 more)
 
 ### Community 221 - "Community 221"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 223 - "Community 223"
+
 Cohesion: 0.17
 Nodes (10): Architecture, code:bash (pnpm add @repo/palette-generator), code:tsx (import { PaletteGenerator } from "@repo/palette-generator";), Color Spaces, Exports, Harmony Rules, Quick Start, @repo/palette-generator (+2 more)
 
 ### Community 227 - "Community 227"
+
 Cohesion: 0.14
 Nodes (13): Architecture, Built-in Manipulations, Exports, Fusion Optimization, Neighborhood operations (4), Pixel operations (9), Quick Start, React Hook (+5 more)
 
 ### Community 228 - "Community 228"
+
 Cohesion: 0.12
 Nodes (14): Adding to the Playground Website, After Generation, code:bash (pnpm gen new-package), code:bash (pnpm gen new-package --args my-visualization), code:block3 (packages/<name>/), code:bash (pnpm install), code:astro (---), code:block6 (turbo/generators/) (+6 more)
 
 ### Community 229 - "Community 229"
+
 Cohesion: 0.18
-Nodes (9): code:block1 (node_modules   .turbo   dist   .next   .astro), code:bash (pnpm clean), code:bash (pnpm clean --yes), code:bash (pnpm clean --yes), code:bash (pnpm reset), `pnpm clean`, `pnpm reset`, Project Maintenance (+1 more)
+Nodes (9): code:block1 (node_modules .turbo dist .next .astro), code:bash (pnpm clean), code:bash (pnpm clean --yes), code:bash (pnpm clean --yes), code:bash (pnpm reset), `pnpm clean`, `pnpm reset`, Project Maintenance (+1 more)
 
 ### Community 230 - "Community 230"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 233 - "Community 233"
+
 Cohesion: 0.25
 Nodes (9): NeighborhoodFn, defineNeighbor(), boxBlur, edgeDetect, gaussianBlur, applyKernel(), clamp(), getPixel() (+1 more)
 
 ### Community 236 - "Community 236"
+
 Cohesion: 0.24
 Nodes (10): dependencies, zod, zustand, name, peerDependencies, react, react-dom, private (+2 more)
 
 ### Community 237 - "Community 237"
+
 Cohesion: 0.25
 Nodes (10): Card(), CardContent(), CardContext, CardDescription(), CardFooter(), CardHeader(), CardProps, CardTitle() (+2 more)
 
 ### Community 238 - "Community 238"
+
 Cohesion: 0.15
 Nodes (11): Adding to the Playground, Conventions, Demo Component, Documentation, Exports, Patterns, Quick Start, @repo/toolbox (+3 more)
 
 ### Community 239 - "Community 239"
+
 Cohesion: 0.20
 Nodes (6): AutomatonCanvas(), ErrorBoundary, ErrorBoundaryProps, ErrorBoundaryState, destroy(), AppProps
 
 ### Community 240 - "Community 240"
+
 Cohesion: 0.40
 Nodes (5): Project Categories, getFeaturedProjects, getProjectsByCategory, Projects Data Module, Projects List Page
 
 ### Community 245 - "Community 245"
+
 Cohesion: 0.67
 Nodes (3): code:json ({), code:typescript (import { Button } from "@repo/ui/Button";), Package exports in `package.json`
 
 ### Community 247 - "Community 247"
+
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 248 - "Community 248"
+
 Cohesion: 0.07
-Nodes (26): Architecture, code:block1 (Presentation Layer  →  State Orchestration Layer  →  Core Do), code:typescript (// Button.tsx → exports Button, ButtonProps), code:typescript (// sequenceStore.ts — file name: camelCase.ts), Data Fetching, Data Validation, Documentation, Dynamic Tailwind Colors (+18 more)
+Nodes (26): Architecture, code:block1 (Presentation Layer → State Orchestration Layer → Core Do), code:typescript (// Button.tsx → exports Button, ButtonProps), code:typescript (// sequenceStore.ts — file name: camelCase.ts), Data Fetching, Data Validation, Documentation, Dynamic Tailwind Colors (+18 more)
 
 ### Community 249 - "Community 249"
+
 Cohesion: 0.16
 Nodes (10): clearOutputs(), CloseIcon(), CloseIconProps, ImageSourceControls(), UploadDropzone(), UploadDropzoneProps, UploadedPreview(), UploadedPreviewProps (+2 more)
 
 ### Community 250 - "Community 250"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 251 - "Community 251"
+
 Cohesion: 0.10
 Nodes (20): ControlsProps, EditControls(), PlaybackControls(), SpeedSlider(), SpeedSliderProps, Controls(), clear(), paintCell() (+12 more)
 
 ### Community 270 - "Community 270"
+
 Cohesion: 0.04
 Nodes (44): dependencies, @repo/ui, zod, zustand, devDependencies, @babel/core, babel-plugin-react-compiler, eslint (+36 more)
 
 ### Community 271 - "Community 271"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 272 - "Community 272"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 273 - "Community 273"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 274 - "Community 274"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 275 - "Community 275"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 276 - "Community 276"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 277 - "Community 277"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 278 - "Community 278"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 279 - "Community 279"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 280 - "Community 280"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 281 - "Community 281"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 282 - "Community 282"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 283 - "Community 283"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 284 - "Community 284"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 285 - "Community 285"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 286 - "Community 286"
+
 Cohesion: 0.17
-Nodes (11): Built With, code:bash (pnpm install && pnpm dev), Creative Playground, Dev Container (Recommended), Documentation, License, Manual Setup, code:bash (mkdir .container_home   # only once — persists shell state a) (+3 more)
+Nodes (11): Built With, code:bash (pnpm install && pnpm dev), Creative Playground, Dev Container (Recommended), Documentation, License, Manual Setup, code:bash (mkdir .container_home # only once — persists shell state a) (+3 more)
 
 ### Community 287 - "Community 287"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 288 - "Community 288"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 289 - "Community 289"
+
 Cohesion: 0.18
 Nodes (10): Architecture, Controls (Leva GUI), Exports, Geometry Library, Key Dependencies, Lighting, Material Library, Quick Start (+2 more)
 
 ### Community 290 - "Community 290"
+
 Cohesion: 0.18
 Nodes (10): Architecture, Controls (Leva GUI), Exports, Geometry Library, Key Dependencies, Lighting, Material Library, Quick Start (+2 more)
 
 ### Community 291 - "Community 291"
+
 Cohesion: 0.17
 Nodes (11): engines, node, name, engines, node, name, engines, node (+3 more)
 
 ### Community 292 - "Community 292"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 293 - "Community 293"
+
 Cohesion: 0.31
 Nodes (6): CompareSlider(), CompareSliderProps, renderCompareSlider(), RenderCompareSliderArgs, useCompareSlider(), UseCompareSliderArgs
 
 ### Community 294 - "Community 294"
+
 Cohesion: 0.25
 Nodes (8): exports, ./manipulations, ./Pipeline, ./PipelineGateway, ./Registry, ./runPipeline, ./styles, ./usePipeline
 
 ### Community 295 - "Community 295"
+
 Cohesion: 0.20
 Nodes (10): scripts, build, check-types, clean, dev, format, lint, lint-fix (+2 more)
 
 ### Community 296 - "Community 296"
+
 Cohesion: 0.22
 Nodes (8): Demo Component, Exports, Patterns, Quick Start, @repo/toolbox, State Management Pattern, useWebWorker Hook, Validation Schema
 
 ### Community 297 - "Community 297"
+
 Cohesion: 0.28
 Nodes (6): ChevronIcon(), ChevronIconProps, StepBadge(), StepBadgeProps, WorkflowNodeHeader(), WorkflowNodeHeaderProps
 
 ### Community 298 - "Community 298"
+
 Cohesion: 0.21
 Nodes (8): CompareToggle(), CompareToggleProps, EmptyState(), EmptyStateProps, ArrowDownIcon(), WorkflowList(), WorkflowListProps, WorkflowNode()
 
 ### Community 299 - "Community 299"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 300 - "Community 300"
+
 Cohesion: 0.46
 Nodes (4): Badge(), BadgeProps, BadgeVariant, badgeVariants
 
 ### Community 301 - "Community 301"
+
 Cohesion: 0.25
 Nodes (7): Architecture, Data Model, Drawing Rendering, Exports, Quick Start, @repo/radu-machine-learning, State Management
 
 ### Community 304 - "Community 304"
+
 Cohesion: 0.25
 Nodes (7): Architecture, Data Model, Drawing Rendering, Exports, Quick Start, @repo/radu-machine-learning, State Management
 
 ### Community 305 - "Community 305"
+
 Cohesion: 0.24
 Nodes (13): PaletteControls(), SliderControls(), SliderControlsProps, applyPalette(), useCurrentPalette(), useCurrentPalettes(), useIsPalettesLoading(), useMosaicRef() (+5 more)
 
 ### Community 306 - "Community 306"
+
 Cohesion: 0.52
 Nodes (3): ColorPalette(), ColorPaletteProps, colorPaletteVariants
 
 ### Community 307 - "Community 307"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 308 - "Community 308"
+
 Cohesion: 0.40
 Nodes (5): code_action, format_on_save, formatter, prettier, JavaScript
 
 ### Community 309 - "Community 309"
+
 Cohesion: 0.22
 Nodes (9): HelperText(), HelperTextProps, Slider(), SliderProps, sliderVariants, Switch(), SwitchProps, switchThumbVariants (+1 more)
 
 ### Community 310 - "Community 310"
+
 Cohesion: 0.50
 Nodes (4): format_on_save, formatter, prettier, Handlebars
 
 ### Community 311 - "Community 311"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 312 - "Community 312"
+
 Cohesion: 0.33
 Nodes (4): Conventions, Orientation, Running commands, Scope discipline
 
 ### Community 313 - "Community 313"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 314 - "Community 314"
+
 Cohesion: 0.23
 Nodes (7): ../components/ui/features/Stats.astro, @repo/ui/Icon, ../../layouts/Footer.astro, date, formatedDate, getStaticPaths(), options
 
 ### Community 315 - "Community 315"
+
 Cohesion: 0.33
 Nodes (5): Dynamic Tailwind Colors with CSS Variables, Step 1: Map types to CSS variable references, Step 2: Set the variable on a parent element, Step 3: Use the variable in Tailwind classes, Supported properties
 
 ### Community 316 - "Community 316"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 317 - "Community 317"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 318 - "Community 318"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 319 - "Community 319"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 320 - "Community 320"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 325 - "Community 325"
+
 Cohesion: 0.50
 Nodes (4): format_on_save, formatter, prettier, HTML
 
 ### Community 352 - "Community 352"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 354 - "Community 354"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 355 - "Community 355"
+
 Cohesion: 0.23
 Nodes (10): displayNames, TileSetControls(), initialPalette, initialTileSet, TileNames, TileSet, toggleTileInSet(), useTileSet() (+2 more)
 
 ### Community 356 - "Community 356"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 357 - "Community 357"
+
 Cohesion: 0.13
 Nodes (22): ../../components/ui/cards/DocCard.astro, ../../components/ui/docs/DocNav.astro, ../../components/ui/cards/DocCard.astro, formattedType, { Icon }, { iconName }, CategoryId, categoryIds (+14 more)
 
 ### Community 358 - "Community 358"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 359 - "Community 359"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 360 - "Community 360"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 361 - "Community 361"
+
 Cohesion: 0.24
 Nodes (11): CachedPalettes, cachePalettes(), COLOR_NAMES, colorNames, fetchPalettes(), getCachedPalettes(), getPaletteId(), isCacheValid() (+3 more)
 
 ### Community 362 - "Community 362"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 363 - "Community 363"
+
 Cohesion: 0.26
 Nodes (7): MOSAIC_STYLES, ShapeRenderer(), Tile(), TileProps, Shape, TILE_REGISTRY, TileDefinition
 
 ### Community 365 - "Community 365"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 366 - "Community 366"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 367 - "Community 367"
+
 Cohesion: 0.36
 Nodes (6): defaultPalette, Palette, Palette, paletteRecordSchema, arePalettesEqual(), getPaletteId()
 
 ### Community 368 - "Community 368"
+
 Cohesion: 0.33
 Nodes (5): setWorkflowSteps(), PresetSelector(), WORKFLOW_PRESETS, WorkflowPreset, WorkflowPresetStep
 
 ### Community 369 - "Community 369"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 370 - "Community 370"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 371 - "Community 371"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 372 - "Community 372"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 373 - "Community 373"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 374 - "Community 374"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 375 - "Community 375"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 376 - "Community 376"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 377 - "Community 377"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 378 - "Community 378"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 379 - "Community 379"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 380 - "Community 380"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 381 - "Community 381"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 382 - "Community 382"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 383 - "Community 383"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 384 - "Community 384"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 385 - "Community 385"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 386 - "Community 386"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 387 - "Community 387"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 388 - "Community 388"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 389 - "Community 389"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 390 - "Community 390"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 391 - "Community 391"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 392 - "Community 392"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 393 - "Community 393"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 394 - "Community 394"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 395 - "Community 395"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 396 - "Community 396"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 397 - "Community 397"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 398 - "Community 398"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 399 - "Community 399"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 400 - "Community 400"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 401 - "Community 401"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 402 - "Community 402"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 403 - "Community 403"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 404 - "Community 404"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 405 - "Community 405"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 406 - "Community 406"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 407 - "Community 407"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 408 - "Community 408"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 409 - "Community 409"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 410 - "Community 410"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 411 - "Community 411"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 412 - "Community 412"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 413 - "Community 413"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 414 - "Community 414"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 415 - "Community 415"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 416 - "Community 416"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 417 - "Community 417"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 418 - "Community 418"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 419 - "Community 419"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 420 - "Community 420"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 421 - "Community 421"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 422 - "Community 422"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 423 - "Community 423"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 424 - "Community 424"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 425 - "Community 425"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 426 - "Community 426"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 427 - "Community 427"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 428 - "Community 428"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 429 - "Community 429"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 430 - "Community 430"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 431 - "Community 431"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 432 - "Community 432"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 433 - "Community 433"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 434 - "Community 434"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 435 - "Community 435"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 436 - "Community 436"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 437 - "Community 437"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 438 - "Community 438"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 439 - "Community 439"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 440 - "Community 440"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 441 - "Community 441"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 442 - "Community 442"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 443 - "Community 443"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 444 - "Community 444"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 445 - "Community 445"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 446 - "Community 446"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 447 - "Community 447"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 448 - "Community 448"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 449 - "Community 449"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 450 - "Community 450"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 451 - "Community 451"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 452 - "Community 452"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 453 - "Community 453"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 454 - "Community 454"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 455 - "Community 455"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 456 - "Community 456"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 457 - "Community 457"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 458 - "Community 458"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 459 - "Community 459"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 460 - "Community 460"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 461 - "Community 461"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 462 - "Community 462"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 463 - "Community 463"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 464 - "Community 464"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 465 - "Community 465"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 466 - "Community 466"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 467 - "Community 467"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 468 - "Community 468"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 469 - "Community 469"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 470 - "Community 470"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 471 - "Community 471"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 472 - "Community 472"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 473 - "Community 473"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 474 - "Community 474"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 475 - "Community 475"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 476 - "Community 476"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 477 - "Community 477"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 478 - "Community 478"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 479 - "Community 479"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 480 - "Community 480"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 481 - "Community 481"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 482 - "Community 482"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 483 - "Community 483"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 484 - "Community 484"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 485 - "Community 485"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 486 - "Community 486"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 487 - "Community 487"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 488 - "Community 488"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 489 - "Community 489"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 490 - "Community 490"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 491 - "Community 491"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 492 - "Community 492"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 493 - "Community 493"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 494 - "Community 494"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 495 - "Community 495"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 496 - "Community 496"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 497 - "Community 497"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 498 - "Community 498"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 499 - "Community 499"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 500 - "Community 500"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 501 - "Community 501"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 502 - "Community 502"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 503 - "Community 503"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 504 - "Community 504"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 505 - "Community 505"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 506 - "Community 506"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 507 - "Community 507"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 508 - "Community 508"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 509 - "Community 509"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 510 - "Community 510"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 511 - "Community 511"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 512 - "Community 512"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 513 - "Community 513"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 514 - "Community 514"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 515 - "Community 515"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 516 - "Community 516"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 517 - "Community 517"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 518 - "Community 518"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 519 - "Community 519"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 520 - "Community 520"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 521 - "Community 521"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 522 - "Community 522"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 523 - "Community 523"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 524 - "Community 524"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 525 - "Community 525"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 526 - "Community 526"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 527 - "Community 527"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 528 - "Community 528"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 529 - "Community 529"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 530 - "Community 530"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 531 - "Community 531"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 532 - "Community 532"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 533 - "Community 533"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 534 - "Community 534"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 535 - "Community 535"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 536 - "Community 536"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 537 - "Community 537"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 538 - "Community 538"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 539 - "Community 539"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 540 - "Community 540"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 541 - "Community 541"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 542 - "Community 542"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 543 - "Community 543"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 544 - "Community 544"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 545 - "Community 545"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 546 - "Community 546"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 547 - "Community 547"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 548 - "Community 548"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 549 - "Community 549"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 550 - "Community 550"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 551 - "Community 551"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 552 - "Community 552"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 553 - "Community 553"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 554 - "Community 554"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 555 - "Community 555"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 556 - "Community 556"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 557 - "Community 557"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 558 - "Community 558"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 559 - "Community 559"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 560 - "Community 560"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 561 - "Community 561"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 562 - "Community 562"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 563 - "Community 563"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 564 - "Community 564"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 565 - "Community 565"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 566 - "Community 566"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 567 - "Community 567"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 568 - "Community 568"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 569 - "Community 569"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 570 - "Community 570"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 571 - "Community 571"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 572 - "Community 572"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 573 - "Community 573"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 574 - "Community 574"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 575 - "Community 575"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 576 - "Community 576"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 577 - "Community 577"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 578 - "Community 578"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 579 - "Community 579"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 580 - "Community 580"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 581 - "Community 581"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 582 - "Community 582"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 583 - "Community 583"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 584 - "Community 584"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 585 - "Community 585"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 586 - "Community 586"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 587 - "Community 587"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 588 - "Community 588"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 589 - "Community 589"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 590 - "Community 590"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 591 - "Community 591"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 592 - "Community 592"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 593 - "Community 593"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 594 - "Community 594"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 595 - "Community 595"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 596 - "Community 596"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 597 - "Community 597"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 598 - "Community 598"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 599 - "Community 599"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 600 - "Community 600"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 601 - "Community 601"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 602 - "Community 602"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 603 - "Community 603"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 604 - "Community 604"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 605 - "Community 605"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 606 - "Community 606"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 607 - "Community 607"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 608 - "Community 608"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 609 - "Community 609"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 610 - "Community 610"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 611 - "Community 611"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 612 - "Community 612"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 613 - "Community 613"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 614 - "Community 614"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 615 - "Community 615"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 616 - "Community 616"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 617 - "Community 617"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 618 - "Community 618"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 619 - "Community 619"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 620 - "Community 620"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 621 - "Community 621"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 622 - "Community 622"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 623 - "Community 623"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 624 - "Community 624"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 625 - "Community 625"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 626 - "Community 626"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 627 - "Community 627"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 628 - "Community 628"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 629 - "Community 629"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 630 - "Community 630"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 631 - "Community 631"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 632 - "Community 632"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 633 - "Community 633"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 634 - "Community 634"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 635 - "Community 635"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 636 - "Community 636"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 637 - "Community 637"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 638 - "Community 638"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 639 - "Community 639"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 640 - "Community 640"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 641 - "Community 641"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 642 - "Community 642"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 643 - "Community 643"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 644 - "Community 644"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 645 - "Community 645"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 646 - "Community 646"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 647 - "Community 647"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 648 - "Community 648"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 649 - "Community 649"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 650 - "Community 650"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 651 - "Community 651"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 652 - "Community 652"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 653 - "Community 653"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 654 - "Community 654"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 655 - "Community 655"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 656 - "Community 656"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 657 - "Community 657"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 658 - "Community 658"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 659 - "Community 659"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 660 - "Community 660"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 661 - "Community 661"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 662 - "Community 662"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 663 - "Community 663"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 664 - "Community 664"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 665 - "Community 665"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 666 - "Community 666"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 667 - "Community 667"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 668 - "Community 668"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 669 - "Community 669"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 670 - "Community 670"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 671 - "Community 671"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 672 - "Community 672"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 673 - "Community 673"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 674 - "Community 674"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 675 - "Community 675"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 676 - "Community 676"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 677 - "Community 677"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 678 - "Community 678"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 679 - "Community 679"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 680 - "Community 680"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 681 - "Community 681"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 682 - "Community 682"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 683 - "Community 683"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 684 - "Community 684"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 685 - "Community 685"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 686 - "Community 686"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 687 - "Community 687"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 688 - "Community 688"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 689 - "Community 689"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 690 - "Community 690"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 691 - "Community 691"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 692 - "Community 692"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 693 - "Community 693"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 694 - "Community 694"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 695 - "Community 695"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 696 - "Community 696"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 697 - "Community 697"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 698 - "Community 698"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 699 - "Community 699"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 700 - "Community 700"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 701 - "Community 701"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 702 - "Community 702"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 703 - "Community 703"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 704 - "Community 704"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 705 - "Community 705"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 706 - "Community 706"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 707 - "Community 707"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 708 - "Community 708"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 709 - "Community 709"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 710 - "Community 710"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 711 - "Community 711"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 712 - "Community 712"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 713 - "Community 713"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 714 - "Community 714"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 715 - "Community 715"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 716 - "Community 716"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 717 - "Community 717"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 718 - "Community 718"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 719 - "Community 719"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 720 - "Community 720"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 721 - "Community 721"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 722 - "Community 722"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 723 - "Community 723"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 724 - "Community 724"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 725 - "Community 725"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 726 - "Community 726"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 727 - "Community 727"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 728 - "Community 728"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 729 - "Community 729"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 730 - "Community 730"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 731 - "Community 731"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 732 - "Community 732"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 733 - "Community 733"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 734 - "Community 734"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 735 - "Community 735"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 736 - "Community 736"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 737 - "Community 737"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 738 - "Community 738"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 739 - "Community 739"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 740 - "Community 740"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 741 - "Community 741"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 742 - "Community 742"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 743 - "Community 743"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 744 - "Community 744"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 745 - "Community 745"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 746 - "Community 746"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 747 - "Community 747"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 748 - "Community 748"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 749 - "Community 749"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 750 - "Community 750"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 751 - "Community 751"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 752 - "Community 752"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 753 - "Community 753"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 754 - "Community 754"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 755 - "Community 755"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 756 - "Community 756"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 757 - "Community 757"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 758 - "Community 758"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 759 - "Community 759"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 760 - "Community 760"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 761 - "Community 761"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 762 - "Community 762"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 763 - "Community 763"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 764 - "Community 764"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 765 - "Community 765"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 766 - "Community 766"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 767 - "Community 767"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 768 - "Community 768"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 769 - "Community 769"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 770 - "Community 770"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 771 - "Community 771"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 772 - "Community 772"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 773 - "Community 773"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 774 - "Community 774"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 775 - "Community 775"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 776 - "Community 776"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 777 - "Community 777"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 778 - "Community 778"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 779 - "Community 779"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 780 - "Community 780"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 781 - "Community 781"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 782 - "Community 782"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 783 - "Community 783"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 784 - "Community 784"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 785 - "Community 785"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 786 - "Community 786"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 787 - "Community 787"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 788 - "Community 788"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 789 - "Community 789"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 790 - "Community 790"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 791 - "Community 791"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 792 - "Community 792"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 793 - "Community 793"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 794 - "Community 794"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 795 - "Community 795"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 796 - "Community 796"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 797 - "Community 797"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 798 - "Community 798"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 799 - "Community 799"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 800 - "Community 800"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 801 - "Community 801"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 802 - "Community 802"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 803 - "Community 803"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 804 - "Community 804"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 805 - "Community 805"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 806 - "Community 806"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 807 - "Community 807"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 808 - "Community 808"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 809 - "Community 809"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 810 - "Community 810"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 811 - "Community 811"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 812 - "Community 812"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 813 - "Community 813"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 814 - "Community 814"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 815 - "Community 815"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 816 - "Community 816"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 817 - "Community 817"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 818 - "Community 818"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 819 - "Community 819"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 820 - "Community 820"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 821 - "Community 821"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 822 - "Community 822"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 823 - "Community 823"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 824 - "Community 824"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 825 - "Community 825"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 826 - "Community 826"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 827 - "Community 827"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 828 - "Community 828"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 829 - "Community 829"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 830 - "Community 830"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 831 - "Community 831"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 832 - "Community 832"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 833 - "Community 833"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 834 - "Community 834"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 835 - "Community 835"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 836 - "Community 836"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 837 - "Community 837"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 838 - "Community 838"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 839 - "Community 839"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 840 - "Community 840"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 841 - "Community 841"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 842 - "Community 842"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 843 - "Community 843"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 844 - "Community 844"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 845 - "Community 845"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 846 - "Community 846"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 847 - "Community 847"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 848 - "Community 848"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 849 - "Community 849"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 850 - "Community 850"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 851 - "Community 851"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 852 - "Community 852"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 853 - "Community 853"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 854 - "Community 854"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 855 - "Community 855"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 856 - "Community 856"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 857 - "Community 857"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 858 - "Community 858"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 859 - "Community 859"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 860 - "Community 860"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 861 - "Community 861"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 862 - "Community 862"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 863 - "Community 863"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 864 - "Community 864"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 865 - "Community 865"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 866 - "Community 866"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 867 - "Community 867"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 868 - "Community 868"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 869 - "Community 869"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 870 - "Community 870"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 871 - "Community 871"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 872 - "Community 872"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 873 - "Community 873"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 874 - "Community 874"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 875 - "Community 875"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 876 - "Community 876"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 877 - "Community 877"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 878 - "Community 878"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 879 - "Community 879"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 880 - "Community 880"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 881 - "Community 881"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 882 - "Community 882"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 883 - "Community 883"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 884 - "Community 884"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 885 - "Community 885"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 886 - "Community 886"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 887 - "Community 887"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 888 - "Community 888"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 889 - "Community 889"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 890 - "Community 890"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 891 - "Community 891"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 892 - "Community 892"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 893 - "Community 893"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 894 - "Community 894"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 895 - "Community 895"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 896 - "Community 896"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 897 - "Community 897"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 898 - "Community 898"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 899 - "Community 899"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 900 - "Community 900"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 901 - "Community 901"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 902 - "Community 902"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 903 - "Community 903"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 904 - "Community 904"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 905 - "Community 905"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 906 - "Community 906"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 907 - "Community 907"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 908 - "Community 908"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 909 - "Community 909"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 910 - "Community 910"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 911 - "Community 911"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 912 - "Community 912"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 913 - "Community 913"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 914 - "Community 914"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 915 - "Community 915"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 916 - "Community 916"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 917 - "Community 917"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 918 - "Community 918"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 919 - "Community 919"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 920 - "Community 920"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 921 - "Community 921"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 922 - "Community 922"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 923 - "Community 923"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 924 - "Community 924"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 925 - "Community 925"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 926 - "Community 926"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 927 - "Community 927"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 928 - "Community 928"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 929 - "Community 929"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 930 - "Community 930"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 931 - "Community 931"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 932 - "Community 932"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 933 - "Community 933"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 934 - "Community 934"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 935 - "Community 935"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 936 - "Community 936"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 937 - "Community 937"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 938 - "Community 938"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 939 - "Community 939"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 940 - "Community 940"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 941 - "Community 941"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 942 - "Community 942"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 943 - "Community 943"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 944 - "Community 944"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 945 - "Community 945"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 946 - "Community 946"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 947 - "Community 947"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 948 - "Community 948"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 949 - "Community 949"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 950 - "Community 950"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 951 - "Community 951"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 952 - "Community 952"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 953 - "Community 953"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 954 - "Community 954"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 955 - "Community 955"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 956 - "Community 956"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 957 - "Community 957"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 958 - "Community 958"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 959 - "Community 959"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 960 - "Community 960"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 961 - "Community 961"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 962 - "Community 962"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 963 - "Community 963"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 964 - "Community 964"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 965 - "Community 965"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 966 - "Community 966"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 967 - "Community 967"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 968 - "Community 968"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 969 - "Community 969"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 970 - "Community 970"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 971 - "Community 971"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 972 - "Community 972"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 973 - "Community 973"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 974 - "Community 974"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 975 - "Community 975"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 976 - "Community 976"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 977 - "Community 977"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 978 - "Community 978"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 979 - "Community 979"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 980 - "Community 980"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 981 - "Community 981"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 982 - "Community 982"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 983 - "Community 983"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 984 - "Community 984"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 985 - "Community 985"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 986 - "Community 986"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 987 - "Community 987"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 988 - "Community 988"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 989 - "Community 989"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 990 - "Community 990"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 991 - "Community 991"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 992 - "Community 992"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 993 - "Community 993"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 994 - "Community 994"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 995 - "Community 995"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 996 - "Community 996"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 997 - "Community 997"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 998 - "Community 998"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 999 - "Community 999"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1000 - "Community 1000"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1001 - "Community 1001"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1002 - "Community 1002"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1003 - "Community 1003"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1004 - "Community 1004"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1005 - "Community 1005"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1006 - "Community 1006"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1007 - "Community 1007"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1008 - "Community 1008"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1009 - "Community 1009"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1010 - "Community 1010"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1011 - "Community 1011"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1012 - "Community 1012"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1013 - "Community 1013"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1014 - "Community 1014"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1015 - "Community 1015"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1016 - "Community 1016"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1017 - "Community 1017"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1018 - "Community 1018"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1019 - "Community 1019"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1020 - "Community 1020"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1021 - "Community 1021"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1022 - "Community 1022"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1023 - "Community 1023"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1024 - "Community 1024"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1025 - "Community 1025"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1026 - "Community 1026"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1027 - "Community 1027"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1028 - "Community 1028"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1029 - "Community 1029"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1030 - "Community 1030"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1031 - "Community 1031"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1032 - "Community 1032"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1033 - "Community 1033"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1034 - "Community 1034"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1035 - "Community 1035"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1036 - "Community 1036"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1037 - "Community 1037"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1038 - "Community 1038"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1039 - "Community 1039"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1040 - "Community 1040"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1041 - "Community 1041"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1042 - "Community 1042"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1043 - "Community 1043"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1044 - "Community 1044"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1045 - "Community 1045"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1046 - "Community 1046"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1047 - "Community 1047"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1048 - "Community 1048"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1049 - "Community 1049"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1050 - "Community 1050"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1051 - "Community 1051"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1052 - "Community 1052"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1053 - "Community 1053"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1054 - "Community 1054"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1055 - "Community 1055"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1056 - "Community 1056"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1057 - "Community 1057"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1058 - "Community 1058"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1059 - "Community 1059"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1060 - "Community 1060"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1061 - "Community 1061"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1062 - "Community 1062"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1063 - "Community 1063"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1064 - "Community 1064"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1065 - "Community 1065"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1066 - "Community 1066"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1067 - "Community 1067"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1068 - "Community 1068"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1069 - "Community 1069"
+
 Cohesion: 0.17
 Nodes (11): drawings, bicycle, car, clock, fish, guitar, house, pencil (+3 more)
 
 ### Community 1070 - "Community 1070"
+
 Cohesion: 0.50
 Nodes (4): format_on_save, formatter, prettier, JSON5
 
 ### Community 1072 - "Community 1072"
+
 Cohesion: 0.09
 Nodes (21): dependencies, leva, react-error-boundary, @react-three/drei, @react-three/fiber, @repo/ui, three, @types/three (+13 more)
 
 ### Community 1073 - "Community 1073"
+
 Cohesion: 0.50
 Nodes (4): format_on_save, formatter, prettier, JSON
 
 ### Community 1075 - "Community 1075"
+
 Cohesion: 0.25
 Nodes (8): scripts, build, check-types, dev, format, lint, lint-fix, preview
 
 ### Community 1076 - "Community 1076"
+
 Cohesion: 0.13
 Nodes (14): Adding a new rule, Architecture, Built-in examples, Camera, Color picker, Controls, Drawing, Engine (+6 more)
 
 ### Community 1077 - "Community 1077"
+
 Cohesion: 0.50
 Nodes (4): format_on_save, formatter, prettier, JSONC
 
 ### Community 1078 - "Community 1078"
+
 Cohesion: 0.50
 Nodes (4): format_on_save, formatter, prettier, JSX
 
 ### Community 1079 - "Community 1079"
+
 Cohesion: 0.13
 Nodes (14): Adding a new rule, Architecture, Built-in examples, Camera, Color picker, Controls, Drawing, Engine (+6 more)
 
 ### Community 1080 - "Community 1080"
+
 Cohesion: 0.14
 Nodes (11): CACanvasProps, brushModes, BrushModeSelector(), CreatureSelector(), getAllCreatures(), setPaletteBrush(), setShowDebug(), setToolMode() (+3 more)
 
 ### Community 1081 - "Community 1081"
+
 Cohesion: 0.60
 Nodes (3): extends, files, references
 
 ### Community 1082 - "Community 1082"
+
 Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 1083 - "Community 1083"
+
 Cohesion: 0.50
 Nodes (4): Less, format_on_save, formatter, prettier
 
 ### Community 1084 - "Community 1084"
+
 Cohesion: 0.21
 Nodes (11): countActiveNeighbors(), evolve(), evolveGrid(), StepRequest, StepResponse, briansBrainRule, conwayRule, highlifeRule (+3 more)
 
 ### Community 1085 - "Community 1085"
+
 Cohesion: 0.50
 Nodes (4): Markdown, format_on_save, formatter, prettier
 
 ### Community 1249 - "Community 1249"
+
 Cohesion: 0.50
 Nodes (4): MDX, format_on_save, formatter, prettier
 
 ### Community 1250 - "Community 1250"
+
 Cohesion: 0.50
 Nodes (4): SCSS, format_on_save, formatter, prettier
 
 ### Community 1251 - "Community 1251"
+
 Cohesion: 0.50
 Nodes (4): TSX, format_on_save, formatter, prettier
 
 ### Community 1252 - "Community 1252"
+
 Cohesion: 0.50
 Nodes (4): TypeScript, format_on_save, formatter, prettier
 
 ### Community 1253 - "Community 1253"
+
 Cohesion: 0.50
 Nodes (4): Vue.js, format_on_save, formatter, prettier
 
 ### Community 1254 - "Community 1254"
+
 Cohesion: 0.50
 Nodes (4): YAML, format_on_save, formatter, prettier
 
 ### Community 1255 - "Community 1255"
+
 Cohesion: 0.50
 Nodes (3): turbo, $schema, ui
 
 ### Community 1256 - "Community 1256"
+
 Cohesion: 0.50
 Nodes (4): dependsOn, inputs, outputs, build
 
 ### Community 1260 - "Community 1260"
+
 Cohesion: 0.67
 Nodes (3): dependsOn, outputs, lint
 
 ## Knowledge Gaps
+
 - **9380 isolated node(s):** `$schema`, `plugins`, `correctness`, `builtin`, `ignorePatterns` (+9375 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **59 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
+
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Tailwind CSS` connect `Community 39` to `Community 8`, `Community 19`?**

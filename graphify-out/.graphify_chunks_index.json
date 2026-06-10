@@ -436,9 +436,7 @@
   },
   {
     "num": 26,
-    "files": [
-      "/workspaces/playground/scripts/clean.mjs"
-    ],
+    "files": ["/workspaces/playground/scripts/clean.mjs"],
     "count": 1
   }
 ]

@@ -20,7 +20,10 @@ function ManipulationSelector() {
         label="Manipulation"
       >
         {manipulationsIds.map((id) => (
-          <option key={id} value={id}>
+          <option
+            key={id}
+            value={id}
+          >
             {manipulations[id]?.name ?? id}
           </option>
         ))}
