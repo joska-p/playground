@@ -121,8 +121,8 @@ function SwaggerSidebar({
                         className={cn(
                           'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors',
                           isActive
-                            ? 'bg-accent/20 text-foreground border-l-2 border-l-(--accent) pl-[6px] font-medium'
-                            : 'text-foreground/70 hover:bg-muted/50 hover:text-foreground border-l-2 border-l-transparent pl-[6px]'
+                            ? 'bg-accent/20 text-foreground border-l-accent) border-l-2 pl-2 font-medium'
+                            : 'text-foreground/70 hover:bg-muted/50 hover:text-foreground border-l-2 border-l-transparent pl-2'
                         )}
                       >
                         <span
