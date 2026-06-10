@@ -36,7 +36,7 @@ const isActive = (href: string): boolean => {
           <a
             href={route.href}
             data-active={active ? '' : undefined}
-            class="text-muted-foreground data-active:bg-primary/10 data-active:text-primary flex items-center rounded-xl px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all active:scale-95"
+            class="text-muted-foreground data-active:bg-primary/10 data-active:text-primary flex items-center rounded-xl px-4 py-3 text-sm font-bold uppercase transition-all active:scale-95"
             aria-current={active ? 'page' : undefined}
           >
             {route.label}
@@ -51,14 +51,14 @@ const isActive = (href: string): boolean => {
       href="https://gitlab.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="text-muted-foreground hover:text-primary flex items-center gap-2 font-mono text-xs"
+      class="text-muted-foreground hover:text-primary flex items-center gap-2 text-xs"
       >GitLab</a
     >
     <a
       href="https://github.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="text-muted-foreground hover:text-primary flex items-center gap-2 font-mono text-xs"
+      class="text-muted-foreground hover:text-primary flex items-center gap-2 text-xs"
       >GitHub</a
     >
   </div>

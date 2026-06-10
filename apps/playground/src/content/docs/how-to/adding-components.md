@@ -41,7 +41,7 @@ Use `class-variance-authority` (CVA) for variant management.
 import { cva } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-mono text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md  text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {

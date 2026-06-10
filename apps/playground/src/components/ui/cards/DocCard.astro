@@ -31,7 +31,7 @@ const { iconName } = getCategoryMetadata(type);
 
   <div class="flex flex-1 flex-col gap-4 p-4">
     <div
-      class="flex w-fit items-center gap-1 rounded-md bg-[color-mix(in_srgb,var(--card-accent)_12%,transparent)] px-2 py-0.5 text-[10px] font-semibold tracking-widest text-(--card-accent) uppercase [border:0.5px_solid_color-mix(in_srgb,var(--card-accent)_25%,transparent)]"
+      class="flex w-fit items-center gap-1 rounded-md bg-[color-mix(in_srgb,var(--card-accent)_12%,transparent)] px-2 py-0.5 text-[10px] font-semibold text-(--card-accent) uppercase [border:0.5px_solid_color-mix(in_srgb,var(--card-accent)_25%,transparent)]"
     >
       <Icon
         name={iconName}
@@ -40,12 +40,12 @@ const { iconName } = getCategoryMetadata(type);
       <span>{type}</span>
     </div>
 
-    <h3 class="text-card-foreground text-sm leading-snug font-semibold">
+    <h3 class="text-card-foreground text-sm font-semibold">
       {title}
     </h3>
     {
       description && (
-        <p class="text-muted-foreground line-clamp-2 flex-1 text-sm leading-relaxed">
+        <p class="text-muted-foreground line-clamp-2 flex-1 text-sm">
           {description}
         </p>
       )

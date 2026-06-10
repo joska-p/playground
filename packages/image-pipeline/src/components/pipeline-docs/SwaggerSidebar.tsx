@@ -69,7 +69,7 @@ function SwaggerSidebar({
       aria-label="API Endpoints"
       className="flex h-full flex-col overflow-y-auto p-3"
     >
-      <div className="text-foreground mb-4 px-2 text-xs font-bold tracking-wider uppercase opacity-60">
+      <div className="text-foreground mb-4 px-2 text-xs font-bold uppercase opacity-60">
         Endpoints
       </div>
       {groups.map((group) => {
@@ -83,7 +83,7 @@ function SwaggerSidebar({
               type="button"
               onClick={() => toggleGroup(group.label)}
               aria-expanded={isExpanded}
-              className="text-foreground/70 hover:text-foreground flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-xs font-semibold tracking-wider uppercase transition-colors"
+              className="text-foreground/70 hover:text-foreground flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-xs font-semibold uppercase transition-colors"
             >
               <span className="shrink-0 text-xs transition-transform duration-150">
                 {isExpanded ? '▼' : '▶'}
@@ -127,7 +127,7 @@ function SwaggerSidebar({
                       >
                         <span
                           className={cn(
-                            'inline-flex shrink-0 items-center rounded px-1.5 py-0.5 text-xs leading-tight font-semibold uppercase',
+                            'inline-flex shrink-0 items-center rounded px-1.5 py-0.5 text-xs font-semibold uppercase',
                             BADGE_CLASSES[item.type] ??
                               'bg-muted text-muted-foreground'
                           )}

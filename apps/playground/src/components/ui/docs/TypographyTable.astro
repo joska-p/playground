@@ -27,19 +27,19 @@ const { tokens } = Astro.props;
           tokens.map((token) => (
             <tr class="hover:bg-muted/10 transition-colors">
               <td class="px-4 py-4 align-top">
-                <code class="bg-muted text-primary rounded px-2 py-0.5 font-mono text-xs font-medium">
+                <code class="bg-muted text-primary rounded px-2 py-0.5 text-xs font-medium">
                   {token.name}
                 </code>
               </td>
               <td class="px-4 py-4 align-top">
                 <div
-                  class="text-foreground text-lg leading-tight"
+                  class="text-foreground text-lg"
                   style={{ fontFamily: `var(${token.name})` }}
                 >
                   {token.example}
                 </div>
               </td>
-              <td class="text-muted-foreground max-w-xs px-4 py-4 align-top font-mono text-xs break-all">
+              <td class="text-muted-foreground max-w-xs px-4 py-4 align-top text-xs break-all">
                 {token.stack}
               </td>
             </tr>

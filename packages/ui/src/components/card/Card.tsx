@@ -39,7 +39,7 @@ function CardHeader({ className, ...props }: ComponentProps<'div'>) {
 function CardTitle({ className, ...props }: ComponentProps<'h3'>) {
   return (
     <h3
-      className={cn('font-mono text-xl', className)}
+      className={cn('text-xl', className)}
       {...props}
     />
   );
@@ -48,10 +48,7 @@ function CardTitle({ className, ...props }: ComponentProps<'h3'>) {
 function CardDescription({ className, ...props }: ComponentProps<'p'>) {
   return (
     <p
-      className={cn(
-        'text-muted-foreground font-mono text-sm italic',
-        className
-      )}
+      className={cn('text-muted-foreground text-sm italic', className)}
       {...props}
     />
   );
@@ -61,7 +58,7 @@ function CardContent({ className, ...props }: ComponentProps<'div'>) {
   const variant = useContext(CardContext);
   return (
     <div
-      className={cn('p-6 pt-0 font-mono', className)}
+      className={cn('p-6 pt-0', className)}
       data-card-variant={variant}
       {...props}
     />

@@ -35,7 +35,7 @@ function Slider({
   const helperId = `${sliderId}-helper`;
   const isInline = layout === 'inline';
 
-  const valueColorClass = cn('font-mono text-xs', {
+  const valueColorClass = cn(' text-xs', {
     'text-primary': !variant || variant === 'primary',
     'text-secondary': variant === 'secondary',
     'text-accent': variant === 'accent',

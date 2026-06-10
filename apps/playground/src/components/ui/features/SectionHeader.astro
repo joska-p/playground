@@ -39,7 +39,7 @@ const isCenter = align === 'center';
         </span>
       )
     }
-    <h2 class="text-primary m-0 text-xs font-bold tracking-widest uppercase">
+    <h2 class="text-primary m-0 text-xs font-bold uppercase">
       {title}
     </h2>
     <span class="bg-border h-px flex-1"></span>
@@ -49,7 +49,7 @@ const isCenter = align === 'center';
     description && (
       <p
         class:list={[
-          'text-muted-foreground max-w-xl text-sm leading-relaxed',
+          'text-muted-foreground max-w-xl text-sm',
           isCenter && 'text-center',
           iconName ? 'ml-10' : '',
         ]}
@@ -64,7 +64,7 @@ const isCenter = align === 'center';
       <a
         href={href}
         class:list={[
-          'group text-primary/60 hover:text-primary mt-1 inline-flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase transition-colors',
+          'group text-primary/60 hover:text-primary mt-1 inline-flex items-center gap-1.5 text-xs font-bold uppercase transition-colors',
           iconName ? 'ml-10' : '',
         ]}
       >

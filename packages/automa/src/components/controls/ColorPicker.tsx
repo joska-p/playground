@@ -11,7 +11,7 @@ type ColorRowProps = {
 
 function ColorRow({ label, color, onChange }: ColorRowProps) {
   return (
-    <label className="flex items-center gap-2 font-mono text-xs">
+    <label className="flex items-center gap-2 text-xs">
       <span className="text-foreground/70 w-10 text-right">{label}</span>
       <input
         type="color"

@@ -16,10 +16,8 @@ export const AllIcons: Story = {
   render: () => (
     <div className="flex w-full max-w-4xl flex-col gap-8 p-8">
       <div className="border-border flex items-center gap-3 border-b pb-4">
-        <h1 className="text-foreground font-mono text-xs tracking-widest uppercase">
-          Icon Library
-        </h1>
-        <span className="text-muted-foreground font-mono text-[10px]">
+        <h1 className="text-foreground text-xs uppercase">Icon Library</h1>
+        <span className="text-muted-foreground text-xs">
           {icons.length} icons
         </span>
       </div>
@@ -35,7 +33,7 @@ export const AllIcons: Story = {
                 title={name}
               >
                 <Icon className="size-6 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:scale-110" />
-                <span className="text-muted-foreground w-full truncate text-center font-mono text-[8px] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                <span className="text-muted-foreground w-full truncate text-center font-mono text-xs opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   {name}
                 </span>
               </div>
@@ -45,7 +43,7 @@ export const AllIcons: Story = {
       </div>
 
       <div className="border-border border-t pt-6">
-        <h2 className="text-muted-foreground mb-3 font-mono text-xs tracking-widest uppercase">
+        <h2 className="text-muted-foreground mb-3 text-xs uppercase">
           Size Scale
         </h2>
         <div className="flex items-end gap-4">
@@ -60,9 +58,7 @@ export const AllIcons: Story = {
                   className="transition-all duration-200"
                   style={{ width: s, height: s }}
                 />
-                <span className="text-muted-foreground font-mono text-[9px]">
-                  {s}px
-                </span>
+                <span className="text-muted-foreground text-xs">{s}px</span>
               </div>
             );
           })}

@@ -62,7 +62,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
               style={{ imageRendering: 'pixelated' }}
             />
           )}
-          <p className="text-muted-foreground mt-1 font-mono text-[10px]">
+          <p className="text-muted-foreground mt-1 text-[10px]">
             {sourceData?.width}×{sourceData?.height}
           </p>
         </div>
@@ -80,7 +80,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
               style={{ imageRendering: 'pixelated' }}
             />
           ) : null}
-          <p className="text-muted-foreground mt-1 font-mono text-[10px]">
+          <p className="text-muted-foreground mt-1 text-[10px]">
             {pipelineResultImage?.width}×{pipelineResultImage?.height}
           </p>
         </div>

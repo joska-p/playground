@@ -39,7 +39,7 @@ const docsByCategory = await getDocsByCategory();
               <div>
                 <div class="mb-1 flex items-center gap-3">
                   <h2
-                    class="m-0 text-xs font-bold tracking-widest text-(--color-current) uppercase"
+                    class="m-0 text-xs font-bold text-(--color-current) uppercase"
                     style={{
                       '--color-current': `var(--category-${category.id}, var(--color-primary))`,
                     }}
@@ -49,7 +49,7 @@ const docsByCategory = await getDocsByCategory();
                   <span class="bg-border h-px flex-1" />
                 </div>
                 {category.description && (
-                  <p class="text-muted-foreground max-w-2xl text-sm leading-relaxed">
+                  <p class="text-muted-foreground max-w-2xl text-sm">
                     {category.description}
                   </p>
                 )}
