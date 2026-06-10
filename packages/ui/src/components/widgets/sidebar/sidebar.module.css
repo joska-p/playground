@@ -76,7 +76,7 @@
   @apply bg-destructive/20;
 }
 .sidebar[data-variant='outline'] .panel {
-  @apply bg-transparent border border-border;
+  @apply border-border border bg-transparent;
 }
 .sidebar[data-variant='ghost'] .panel {
   @apply bg-transparent;
@@ -84,22 +84,22 @@
 
 /* Variants — Toggle styles */
 .sidebar[data-variant='primary'] .toggle {
-  @apply text-card-foreground    bg-accent/10      hover:bg-accent/20;
+  @apply text-card-foreground bg-accent/10 hover:bg-accent/20;
 }
 .sidebar[data-variant='secondary'] .toggle {
   @apply text-secondary-foreground bg-secondary/20 hover:bg-secondary/50;
 }
 .sidebar[data-variant='accent'] .toggle {
-  @apply text-accent-foreground  bg-accent/20      hover:bg-accent/50;
+  @apply text-accent-foreground bg-accent/20 hover:bg-accent/50;
 }
 .sidebar[data-variant='destructive'] .toggle {
   @apply text-destructive-foreground bg-destructive/20 hover:bg-destructive/50;
 }
 .sidebar[data-variant='outline'] .toggle {
-  @apply text-foreground         bg-transparent border border-border hover:bg-foreground/10;
+  @apply text-foreground border-border hover:bg-foreground/10 border bg-transparent;
 }
 .sidebar[data-variant='ghost'] .toggle {
-  @apply text-foreground/70      bg-transparent    hover:bg-foreground/10;
+  @apply text-foreground/70 hover:bg-foreground/10 bg-transparent;
 }
 
 /* ─────────────────────────────────────────────────────────────

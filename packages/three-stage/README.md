@@ -9,7 +9,7 @@ pnpm add @repo/three-stage
 ```
 
 ```tsx
-import { Scene } from "@repo/three-stage/Scene";
+import { Scene } from '@repo/three-stage/Scene';
 
 export default function App() {
   return <Scene />;
@@ -41,11 +41,11 @@ The Leva panel exposes controls grouped under folders.
 
 ### Sample Object
 
-| Control | Type | Default | Description |
-|---|---|---|---|
-| `speed` | 0–0.03 | 0.005 | Rotation speed on all axes |
-| `geometry` | select | Box | Box, TorusKnot, Sphere, Cylinder |
-| `color` | color | #ff0000 | Mesh color |
+| Control    | Type   | Default  | Description                                          |
+| ---------- | ------ | -------- | ---------------------------------------------------- |
+| `speed`    | 0–0.03 | 0.005    | Rotation speed on all axes                           |
+| `geometry` | select | Box      | Box, TorusKnot, Sphere, Cylinder                     |
+| `color`    | color  | #ff0000  | Mesh color                                           |
 | `material` | select | Standard | Standard, Toon, Basic, Lambert, Normal, Phong, Depth |
 
 Click the mesh to toggle wireframe mode.
@@ -56,40 +56,40 @@ Each light type has position (x, y, z), intensity, and color controls, organized
 
 ## Geometry Library
 
-| Label | Geometry |
-|---|---|
-| Box | `BoxGeometry(width, height, depth)` |
+| Label     | Geometry                                 |
+| --------- | ---------------------------------------- |
+| Box       | `BoxGeometry(width, height, depth)`      |
 | TorusKnot | `TorusKnotGeometry(1, 0.4, 64, 8, 2, 3)` |
-| Sphere | `SphereGeometry(2, 8, 8)` |
-| Cylinder | `CylinderGeometry(2, 2, 2, 8)` |
+| Sphere    | `SphereGeometry(2, 8, 8)`                |
+| Cylinder  | `CylinderGeometry(2, 2, 2, 8)`           |
 
 ## Material Library
 
-| Label | Three.js Material |
-|---|---|
+| Label    | Three.js Material      |
+| -------- | ---------------------- |
 | Standard | `MeshStandardMaterial` |
-| Toon | `MeshToonMaterial` |
-| Basic | `MeshBasicMaterial` |
-| Lambert | `MeshLambertMaterial` |
-| Normal | `MeshNormalMaterial` |
-| Phong | `MeshPhongMaterial` |
-| Depth | `MeshDepthMaterial` |
+| Toon     | `MeshToonMaterial`     |
+| Basic    | `MeshBasicMaterial`    |
+| Lambert  | `MeshLambertMaterial`  |
+| Normal   | `MeshNormalMaterial`   |
+| Phong    | `MeshPhongMaterial`    |
+| Depth    | `MeshDepthMaterial`    |
 
 ## Exports
 
-| Export | Path | Description |
-|---|---|---|
-| `Scene` | `@repo/three-stage/Scene` | Root 3D scene component |
-| `./styles` | `@repo/three-stage/styles` | Component CSS |
+| Export     | Path                       | Description             |
+| ---------- | -------------------------- | ----------------------- |
+| `Scene`    | `@repo/three-stage/Scene`  | Root 3D scene component |
+| `./styles` | `@repo/three-stage/styles` | Component CSS           |
 
 ## Key Dependencies
 
-| Package | Role |
-|---|---|
-| `three` | 3D rendering engine |
-| `@react-three/fiber` | React renderer for Three.js |
-| `@react-three/drei` | R3F utilities (OrbitControls, helpers, gizmo) |
-| `leva` | Debug GUI panel |
+| Package              | Role                                          |
+| -------------------- | --------------------------------------------- |
+| `three`              | 3D rendering engine                           |
+| `@react-three/fiber` | React renderer for Three.js                   |
+| `@react-three/drei`  | R3F utilities (OrbitControls, helpers, gizmo) |
+| `leva`               | Debug GUI panel                               |
 
 ---
 
