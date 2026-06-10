@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { ArgDefinition } from '../../core/manipulations/manipulations';
 import {
   moveWorkflowStep,
@@ -27,17 +26,12 @@ function WorkflowNode({
   name,
   argDefinitions,
 }: WorkflowNodeProps) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <div className="bg-card border-border rounded-lg border">
       <div className="flex items-center gap-2 px-3 py-2">
         <WorkflowNodeHeader
           index={index}
           name={name}
-          hasArgs={argDefinitions.length > 0}
-          expanded={expanded}
-          onToggleExpand={() => setExpanded((v) => !v)}
         />
 
         <WorkflowNodeControls
@@ -49,7 +43,7 @@ function WorkflowNode({
         />
       </div>
 
-      {argDefinitions.length > 0 && expanded && (
+      {argDefinitions.length > 0 && (
         <div className="border-border flex flex-col gap-2 border-t px-3 py-2">
           {argDefinitions.map((def) => (
             <WorkflowStepArgSlider

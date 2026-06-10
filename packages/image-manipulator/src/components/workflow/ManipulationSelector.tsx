@@ -12,19 +12,15 @@ function ManipulationSelector() {
   const [manipulationId, setManipulationId] = useState(manipulationsIds[0]);
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <Select
         variant="primary"
         value={manipulationId}
         onChange={(e) => setManipulationId(e.target.value as ManipulationId)}
-        className="flex-1"
         label="Manipulation"
       >
         {manipulationsIds.map((id) => (
-          <option
-            key={id}
-            value={id}
-          >
+          <option key={id} value={id}>
             {manipulations[id]?.name ?? id}
           </option>
         ))}
@@ -33,7 +29,7 @@ function ManipulationSelector() {
       <Button onClick={() => addWorkflowStep(manipulationId)}>
         Add to Workflow
       </Button>
-    </>
+    </div>
   );
 }
 

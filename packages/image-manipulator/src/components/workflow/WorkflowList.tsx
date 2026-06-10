@@ -1,7 +1,6 @@
 import { manipulations } from '../../core/manipulations/manipulations';
 import type { WorkflowStep } from '../../stores/manipulator/types';
 import { EmptyState } from '../shared/EmptyState';
-import { ArrowDownIcon } from './ArrowDownIcon';
 import { WorkflowNode } from './WorkflowNode';
 
 type WorkflowListProps = {
@@ -41,7 +40,7 @@ function WorkflowList({ steps }: WorkflowListProps) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       {steps.map((step, index) => {
         const manip = manipulations[step.id];
         if (!manip) return null;
@@ -56,7 +55,6 @@ function WorkflowList({ steps }: WorkflowListProps) {
               name={manip.name}
               argDefinitions={manip.argDefinitions}
             />
-            {index < steps.length - 1 && <ArrowDownIcon />}
           </div>
         );
       })}
