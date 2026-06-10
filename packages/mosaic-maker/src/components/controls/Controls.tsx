@@ -1,4 +1,5 @@
 import { Button } from '@repo/ui/Button';
+import { Icon } from '@repo/ui/Icon';
 import {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
@@ -33,74 +34,78 @@ function Controls() {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-[clamp(1rem,3vw,2rem)] overflow-y-auto p-4 lg:overflow-hidden">
+    <>
       <h2 className="sr-only">Mosaic controls</h2>
-      <div className="shrink-0 space-y-[clamp(1rem,3vw,2rem)]">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4">
-          <Button
-            variant="primary"
-            type="button"
-            onClick={() => shuffleColors()}
-            size="sm"
-          >
-            Shuffle colors
-          </Button>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={() => shuffleRotations()}
-            size="sm"
-          >
-            Shuffle rotations
-          </Button>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={() => cyclePalettes()}
-            size="sm"
-            disabled={isPalettesLoading}
-          >
-            New palettes
-          </Button>
-          <Button
-            type="button"
-            onClick={() => regenerateTiles()}
-            size="sm"
-          >
-            New tiles
-          </Button>
-        </div>
-        <div className="grid grid-cols-2 gap-4 px-2">
-          <SliderControls
-            label="Tile size"
-            defaultValue={DEFAULT_TILE_SIZE}
-            cssVar={CSS_VARS.size}
-            min={32}
-            max={256}
-            step={2}
-          />
-          <SliderControls
-            label="Gap size"
-            defaultValue={DEFAULT_GAP_SIZE}
-            cssVar={CSS_VARS.gap}
-            min={0}
-            max={64}
-            step={2}
-          />
-        </div>
-        <TileSetControls />
+
+      <div className="grid grid-cols-4 gap-4 md:grid-cols-2">
+        <Button
+          variant="primary"
+          type="button"
+          onClick={() => shuffleColors()}
+          size="sm"
+        >
+          <Icon name="sparkles" />
+          <span className="hidden sm:inline">Shuffle colors</span>
+        </Button>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => shuffleRotations()}
+          size="sm"
+        >
+          <Icon name="wrench" />
+          <span className="hidden sm:inline">Shuffle rotations</span>
+        </Button>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => cyclePalettes()}
+          size="sm"
+          disabled={isPalettesLoading}
+        >
+          <Icon name="palette" />
+          <span className="hidden sm:inline">New palettes</span>
+        </Button>
+        <Button
+          type="button"
+          onClick={() => regenerateTiles()}
+          size="sm"
+        >
+          <Icon name="grid-3x3" />
+          <span className="hidden sm:inline">New tiles</span>
+        </Button>
       </div>
-      <div className="min-h-0 lg:flex-1 lg:overflow-y-auto">
-        {isPalettesLoading ? (
-          <div className="border-border/30 text-foreground/60 flex items-center justify-center gap-2 border-t pt-4 text-sm">
-            <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
-            Loading palettes...
-          </div>
-        ) : (
-          <PaletteControls />
-        )}
+
+      <div className="grid grid-cols-2 gap-4">
+        <SliderControls
+          label="Tile size"
+          defaultValue={DEFAULT_TILE_SIZE}
+          cssVar={CSS_VARS.size}
+          min={32}
+          max={256}
+          step={2}
+        />
+        <SliderControls
+          label="Gap size"
+          defaultValue={DEFAULT_GAP_SIZE}
+          cssVar={CSS_VARS.gap}
+          min={0}
+          max={64}
+          step={2}
+        />
       </div>
-    </div>
+
+      <TileSetControls />
+
+      {isPalettesLoading ? (
+        <div className="border-border/30 text-foreground/60 grid grid-flow-col place-content-center gap-2 border-t pt-4 text-sm">
+          <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          Loading palettes...
+        </div>
+      ) : (
+        <PaletteControls />
+      )}
+    </>
   );
 }
 

@@ -71,7 +71,17 @@ Use Zod to validate external data (API responses, user input). Validate at the e
 
 ## UI Components — Responsive Layout
 
-Prefer **intrinsic layout** over breakpoint-driven layout. Let content reflow based on available space — not a fixed viewport width.
+## Layout: Grid > Flexbox
+
+**Default Choice:** Use CSS Grid (Tailwind: `grid`, `grid-cols-*`, etc.) for all layout structures.
+**Rationale:** Grid provides explicit control over both axes, better gap handling, and simpler responsive design.
+
+**Exceptions:** Use Flexbox (`flex`, `justify-*`, `items-*`) for:
+
+- Single-axis alignment (e.g., navbars, button groups).
+- Dynamic or wrapping content (e.g., tag lists).
+
+Prefer **intrinsic layout** over breakpoint-driven layout for typography. Let content reflow based on available space — not a fixed viewport width.
 
 - Use `repeat(auto-fit, minmax(..., 1fr))` for grids that reflow naturally. Use `auto-fill` when empty tracks should be preserved (e.g. to maintain grid alignment), `auto-fit` when they should collapse.
 - Use `clamp()` for fluid typography and spacing instead of overriding values at breakpoints.

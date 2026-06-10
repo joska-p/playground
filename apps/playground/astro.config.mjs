@@ -48,4 +48,8 @@ export default defineConfig({
       remarkRehype: { allowDangerousHtml: true },
     }),
   ],
+
+  preferences: {
+    devToolbar: false,
+  },
 });
