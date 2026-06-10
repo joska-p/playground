@@ -30,7 +30,7 @@ function App() {
             <MosaicDisplay />
           </Sidebar.Main>
 
-          <Sidebar.Panel className="grid grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-y-auto p-4 md:w-96">
+          <Sidebar.Panel className="grid grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-y-auto p-4 lg:w-96">
             <Controls />
           </Sidebar.Panel>
         </Sidebar>

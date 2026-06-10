@@ -37,14 +37,14 @@ function Controls() {
     <>
       <h2 className="sr-only">Mosaic controls</h2>
 
-      <div className="grid grid-cols-4 gap-2 md:grid-cols-2 md:gap-4">
+      <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-4">
         <Button
           variant="primary"
           type="button"
           onClick={() => shuffleColors()}
           size="sm"
         >
-          <Icon name="sparkles" className="hidden md:inline" />
+          <Icon name="sparkles" className="hidden lg:inline" />
           <span>Colors</span>
         </Button>
         <Button
@@ -53,7 +53,7 @@ function Controls() {
           onClick={() => shuffleRotations()}
           size="sm"
         >
-          <Icon name="wrench" className="hidden md:inline" />
+          <Icon name="wrench" className="hidden lg:inline" />
           <span>Rotate</span>
         </Button>
         <Button
@@ -63,7 +63,7 @@ function Controls() {
           size="sm"
           disabled={isPalettesLoading}
         >
-          <Icon name="palette" className="hidden md:inline" />
+          <Icon name="palette" className="hidden lg:inline" />
           <span>Palettes</span>
         </Button>
         <Button
@@ -71,7 +71,7 @@ function Controls() {
           onClick={() => regenerateTiles()}
           size="sm"
         >
-          <Icon name="grid-3x3" className="hidden md:inline" />
+          <Icon name="grid-3x3" className="hidden lg:inline" />
           <span>Tiles</span>
         </Button>
       </div>

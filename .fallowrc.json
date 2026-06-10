@@ -19,7 +19,9 @@
       "**/__tests__/**",
       "**/test/**",
       "**/stories/**",
-      "**/data/dataset/**"
+      "**/data/dataset/**",
+      "**/node_modules/**",
+      "**/dist/**"
     ],
     "mode": "semantic"
   },
@@ -30,5 +32,5 @@
     "@storybook/addon-a11y",
     "@storybook/addon-docs"
   ],
-  "rules": {}
+  "rules": { "no-console": "error", "no-unused-vars": "warn" }
 }
