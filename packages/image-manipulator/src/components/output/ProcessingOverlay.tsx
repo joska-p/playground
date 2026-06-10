@@ -12,11 +12,13 @@ function ProcessingOverlay() {
   }
 
   return (
-    <div className="bg-background/80 absolute inset-0 z-10 flex items-center justify-center rounded-lg backdrop-blur-sm">
-      <div className="flex flex-col items-center gap-3">
-        <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
-        <p className="text-muted-foreground text-sm">Processing&hellip;</p>
-      </div>
+    <div
+      className="bg-background/80 absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 rounded-lg backdrop-blur-sm"
+      role="status"
+      aria-live="polite"
+    >
+      <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+      <p className="text-muted-foreground text-sm">Processing&hellip;</p>
     </div>
   );
 }

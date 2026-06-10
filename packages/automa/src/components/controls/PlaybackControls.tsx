@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/Button';
-import { step, toggleRunning } from '../../stores/simulation/actions.ts';
+import { step, toggleRunning } from '../../stores/simulation/actions';
 import { useRunning } from '../../stores/ui/selectors';
 
 function PlayIcon() {

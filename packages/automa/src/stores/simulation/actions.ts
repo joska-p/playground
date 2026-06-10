@@ -2,13 +2,13 @@ import {
   GRID_DEFAULT_DENSITY,
   WORKER_MESSAGE_STEP,
   getDefaultStateColor,
-} from '../../core/config.ts';
-import type { Creature } from '../../core/creature/types.ts';
-import { createGrid, seedGrid } from '../../core/grid.ts';
-import { getRule } from '../../core/rules/registry.ts';
-import type { CellValue } from '../../core/types.ts';
-import { uiStore } from '../ui/store.ts';
-import { simulationStore } from './store.ts';
+} from '../../core/config';
+import type { Creature } from '../../core/creature/types';
+import { createGrid, seedGrid } from '../../core/grid';
+import { getRule } from '../../core/rules/registry';
+import type { CellValue } from '../../core/types';
+import { uiStore } from '../ui/store';
+import { simulationStore } from './store';
 
 type SimulationInit = {
   rows: number;
@@ -46,7 +46,7 @@ const init = (opts: SimulationInit): void => {
     generation: 0,
   });
 
-  worker = new Worker(new URL('../../core/worker.ts', import.meta.url), {
+  worker = new Worker(new URL('../../core/worker', import.meta.url), {
     type: 'module',
   });
 

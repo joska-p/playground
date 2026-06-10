@@ -1,9 +1,9 @@
 import type { EndpointId } from '../data/pipeline-docs-data';
 import { findManipById } from '../data/pipeline-docs-data';
-import { ManipView } from './ManipView';
-import { PipelineView } from './PipelineView';
-import { OverviewView } from './OverviewView';
 import { InternalsView } from './InternalsView';
+import { ManipView } from './ManipView';
+import { OverviewView } from './OverviewView';
+import { PipelineView } from './PipelineView';
 
 type EndpointViewProps = {
   activeEndpoint: EndpointId;

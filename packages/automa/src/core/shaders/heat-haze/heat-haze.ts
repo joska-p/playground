@@ -1,4 +1,4 @@
-import type { Shader } from '../types.ts';
+import type { Shader } from '../types';
 import fragmentShader from './heat-haze.frag?raw';
 import vertexShader from './heat-haze.vert?raw';
 

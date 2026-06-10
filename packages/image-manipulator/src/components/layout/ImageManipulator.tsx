@@ -15,7 +15,7 @@ function ImageManipulator() {
           <Outputs />
         </Sidebar.Main>
 
-        <Sidebar.Panel className="flex h-full w-80 gap-4 p-2">
+        <Sidebar.Panel className="flex h-full w-80 gap-4 overflow-y-auto overscroll-auto p-2">
           <Controls />
         </Sidebar.Panel>
       </Sidebar>

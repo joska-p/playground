@@ -1,4 +1,4 @@
-import type { Shader } from '../types.ts';
+import type { Shader } from '../types';
 import fragmentShader from './blur.frag?raw';
 import vertexShader from './blur.vert?raw';
 

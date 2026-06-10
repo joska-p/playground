@@ -1,6 +1,6 @@
 import { Select } from '@repo/ui/Select';
-import { getAllShaders } from '../../core/shaders/registry.ts';
-import { setShader } from '../../stores/ui/actions.ts';
+import { getAllShaders } from '../../core/shaders/registry';
+import { setShader } from '../../stores/ui/actions';
 import { useShaderId } from '../../stores/ui/selectors';
 import { ShaderPropsControls } from './ShaderPropsControls.tsx';
 

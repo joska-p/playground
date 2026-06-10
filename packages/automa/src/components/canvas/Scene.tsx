@@ -2,7 +2,7 @@ import { OrbitControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { useEffect } from 'react';
 import { MOUSE } from 'three';
-import { useCameraFitter } from '../../hooks/useCameraFitter.ts';
+import { useCameraFitter } from '../../hooks/useCameraFitter';
 import { useCols, useRows } from '../../stores/simulation/selectors';
 import { useShowDebug } from '../../stores/ui/selectors';
 import { CellMesh } from './CellMesh.tsx';

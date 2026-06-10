@@ -1,6 +1,6 @@
 import { Select } from '@repo/ui/Select';
-import { getAllRules } from '../../core/rules/registry.ts';
-import { setRule } from '../../stores/simulation/actions.ts';
+import { getAllRules } from '../../core/rules/registry';
+import { setRule } from '../../stores/simulation/actions';
 import { useRuleId } from '../../stores/simulation/selectors';
 import { StateColorPicker } from './StateColorPicker.tsx';
 

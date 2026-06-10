@@ -1,6 +1,6 @@
-import { getRule } from '../../core/rules/registry.ts';
+import { getRule } from '../../core/rules/registry';
 import { useRuleId } from '../../stores/simulation/selectors';
-import { setStateColor } from '../../stores/ui/actions.ts';
+import { setStateColor } from '../../stores/ui/actions';
 import { useStateColors } from '../../stores/ui/selectors';
 
 type ColorRowProps = {

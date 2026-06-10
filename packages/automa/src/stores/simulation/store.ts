@@ -3,9 +3,9 @@ import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_ROWS,
   GRID_DEFAULT_SEED,
-} from '../../core/config.ts';
-import { createGrid } from '../../core/grid.ts';
-import type { Grid } from '../../core/types.ts';
+} from '../../core/config';
+import { createGrid } from '../../core/grid';
+import type { Grid } from '../../core/types';
 
 type SimulationState = {
   grid: Grid;

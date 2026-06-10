@@ -1,5 +1,5 @@
 import { initialPalette } from '../../core/initialPalette';
-import type { Palette } from '../../core/palette.schema';
+import type { Palette } from '../../core/palette-types';
 import { paletteSchema } from './fetchPalettes.schema';
 import { fetchWithValidation } from './fetchWithValidation';
 

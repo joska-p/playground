@@ -16,21 +16,19 @@ function WorkflowControls() {
   return (
     <div className="flex flex-col gap-2">
       <WorkflowList steps={workflow} />
-      <div className="flex flex-col gap-1.5">
-        <Button
-          isLoading={isProcessing}
-          onClick={() => executeWorkflow()}
-        >
-          Execute workflow
-        </Button>
-        <Button
-          variant="outline"
-          isLoading={isProcessing}
-          onClick={() => clearWorkflowSteps()}
-        >
-          Clear Workflow
-        </Button>
-      </div>
+      <Button
+        isLoading={isProcessing}
+        onClick={() => executeWorkflow()}
+      >
+        Execute workflow
+      </Button>
+      <Button
+        variant="outline"
+        isLoading={isProcessing}
+        onClick={() => clearWorkflowSteps()}
+      >
+        Clear Workflow
+      </Button>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Select } from '@repo/ui/Select';
-import { getAllCreatures } from '../../core/creature/registry.ts';
-import { setPaletteBrush } from '../../stores/ui/actions.ts';
+import { getAllCreatures } from '../../core/creature/registry';
+import { setPaletteBrush } from '../../stores/ui/actions';
 import { usePaletteBrush } from '../../stores/ui/selectors';
 
 function CreatureSelector() {

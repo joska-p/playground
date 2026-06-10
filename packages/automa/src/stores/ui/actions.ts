@@ -1,5 +1,5 @@
-import type { BrushMode } from './store.ts';
-import { uiStore } from './store.ts';
+import type { BrushMode } from './store';
+import { uiStore } from './store';
 
 const setToolMode = (mode: BrushMode): void => {
   uiStore.setState({ toolMode: mode });

@@ -1,4 +1,4 @@
-import type { Rule } from './types.ts';
+import type { Rule } from './types';
 
 function parseRule(
   id: string,

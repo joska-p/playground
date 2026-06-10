@@ -113,8 +113,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  overscroll-behavior: contain;
   transition:
     width 300ms ease-in-out,
     height 300ms ease-in-out,

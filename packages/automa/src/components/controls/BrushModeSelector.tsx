@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
-import { setToolMode } from '../../stores/ui/actions.ts';
+import { setToolMode } from '../../stores/ui/actions';
 import { useBrushMode } from '../../stores/ui/selectors';
-import type { BrushMode } from '../../stores/ui/store.ts';
+import type { BrushMode } from '../../stores/ui/store';
 
 function DrawIcon() {
   return (

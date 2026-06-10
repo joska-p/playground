@@ -1,4 +1,4 @@
-import type { Shader } from '../types.ts';
+import type { Shader } from '../types';
 import fragmentShader from './edge-detect.frag?raw';
 import vertexShader from './edge-detect.vert?raw';
 

@@ -3,7 +3,6 @@ import { UploadIcon } from './UploadIcon';
 
 type UploadDropzoneProps = {
   isDragging: boolean;
-  onClick: () => void;
   onDragEnter: (e: React.DragEvent) => void;
   onDragLeave: (e: React.DragEvent) => void;
   onDragOver: (e: React.DragEvent) => void;
@@ -14,7 +13,6 @@ type UploadDropzoneProps = {
 
 function UploadDropzone({
   isDragging,
-  onClick,
   onDragEnter,
   onDragLeave,
   onDragOver,
@@ -23,17 +21,11 @@ function UploadDropzone({
   onFileChange,
 }: UploadDropzoneProps) {
   return (
-    <div
-      onClick={onClick}
+    <label
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
       onDrop={onDrop}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') onClick();
-      }}
       className={cn(
         'cursor-pointer rounded-lg border-2 border-dashed px-4 py-6 text-center transition-all',
         isDragging
@@ -60,7 +52,7 @@ function UploadDropzone({
       <p className="text-muted-foreground/60 mt-1 text-xs">
         PNG, JPG, WebP — max 50MB
       </p>
-    </div>
+    </label>
   );
 }
 

@@ -1,4 +1,4 @@
-import type { Rule } from './rules/types.ts';
+import type { Rule } from './rules/types';
 
 function countActiveNeighbors(
   current: Uint8Array,

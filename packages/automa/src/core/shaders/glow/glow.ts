@@ -1,4 +1,4 @@
-import type { Shader } from '../types.ts';
+import type { Shader } from '../types';
 import fragmentShader from './cell-mesh.frag?raw';
 import vertexShader from './cell-mesh.vert?raw';
 

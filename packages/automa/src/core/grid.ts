@@ -1,5 +1,5 @@
-import { createSeededRandom } from '../utils/rng.ts';
-import type { Grid } from './types.ts';
+import { createSeededRandom } from '../utils/rng';
+import type { Grid } from './types';
 
 const createGrid = (rows: number, cols: number): Grid =>
   new Uint8Array(rows * cols);

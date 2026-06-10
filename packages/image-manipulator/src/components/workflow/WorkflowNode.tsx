@@ -27,8 +27,8 @@ function WorkflowNode({
   argDefinitions,
 }: WorkflowNodeProps) {
   return (
-    <div className="bg-card border-border rounded-lg border">
-      <div className="flex items-center gap-2 px-3 py-2">
+    <li className="bg-card border-border rounded-lg border">
+      <header className="flex items-center gap-2 px-3 py-2">
         <WorkflowNodeHeader
           index={index}
           name={name}
@@ -41,10 +41,10 @@ function WorkflowNode({
           onMoveDown={() => moveWorkflowStep(index, 1)}
           onRemove={() => removeWorkflowStep(index)}
         />
-      </div>
+      </header>
 
       {argDefinitions.length > 0 && (
-        <div className="border-border flex flex-col gap-2 border-t px-3 py-2">
+        <section className="border-border flex flex-col gap-2 border-t px-3 py-2">
           {argDefinitions.map((def) => (
             <WorkflowStepArgSlider
               key={def.key}
@@ -58,9 +58,9 @@ function WorkflowNode({
               }
             />
           ))}
-        </div>
+        </section>
       )}
-    </div>
+    </li>
   );
 }
 

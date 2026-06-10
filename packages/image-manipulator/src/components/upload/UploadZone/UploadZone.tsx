@@ -8,7 +8,6 @@ function UploadZone() {
     fileName,
     isDragging,
     inputRef,
-    handleClick,
     handleDragEnter,
     handleDragLeave,
     handleDragOver,
@@ -30,7 +29,6 @@ function UploadZone() {
   return (
     <UploadDropzone
       isDragging={isDragging}
-      onClick={handleClick}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}

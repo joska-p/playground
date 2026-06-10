@@ -1,4 +1,4 @@
-import type { Palette } from './palette.schema';
+import type { Palette } from './palette-types';
 
 const initialPalette: Palette = {
   id: 'initial',

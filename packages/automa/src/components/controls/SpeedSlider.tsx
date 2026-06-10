@@ -1,10 +1,6 @@
 import { Slider } from '@repo/ui/Slider';
-import {
-  SPEED_MAX_MS,
-  SPEED_MIN_MS,
-  SPEED_STEP_MS,
-} from '../../core/config.ts';
-import { setSpeed } from '../../stores/simulation/actions.ts';
+import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '../../core/config';
+import { setSpeed } from '../../stores/simulation/actions';
 import { useSpeedMs } from '../../stores/ui/selectors';
 
 function SpeedSlider() {

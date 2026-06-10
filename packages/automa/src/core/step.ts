@@ -1,6 +1,6 @@
-import { evolve } from './engine.ts';
-import type { Rule } from './rules/types.ts';
-import type { Grid } from './types.ts';
+import { evolve } from './engine';
+import type { Rule } from './rules/types';
+import type { Grid } from './types';
 
 function evolveGrid(
   current: Grid,

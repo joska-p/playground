@@ -16,8 +16,8 @@ import {
   pulsar,
   rPentomino,
   toad,
-} from './builtin.ts';
-import type { Creature } from './types.ts';
+} from './builtin';
+import type { Creature } from './types';
 
 const creatures = new Map<string, Creature>([
   [block.id, block],

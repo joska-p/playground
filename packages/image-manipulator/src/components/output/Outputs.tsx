@@ -47,29 +47,31 @@ function Outputs() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4 p-4 lg:grid-cols-3">
+      <ul className="grid grid-cols-2 gap-4 p-4 lg:grid-cols-3">
         {imageSource && (
-          <OutputCard
-            key={imageSource.id}
-            output={imageSource}
-            index={0}
-            isSource
-          />
+          <li key={imageSource.id}>
+            <OutputCard
+              output={imageSource}
+              index={0}
+              isSource
+            />
+          </li>
         )}
         {outputs.map((output, index) => (
-          <OutputCard
-            key={output.id}
-            output={output}
-            index={index + 1}
-            isSelected={mode === 'compare' && activeOutputId === output.id}
-            onSelect={
-              mode === 'compare'
-                ? () => setSelectedOutputId(output.id)
-                : undefined
-            }
-          />
+          <li key={output.id}>
+            <OutputCard
+              output={output}
+              index={index + 1}
+              isSelected={mode === 'compare' && activeOutputId === output.id}
+              onSelect={
+                mode === 'compare'
+                  ? () => setSelectedOutputId(output.id)
+                  : undefined
+              }
+            />
+          </li>
         ))}
-      </div>
+      </ul>
 
       <ProcessingOverlay />
     </div>

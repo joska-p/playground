@@ -1,8 +1,8 @@
 import { Card } from '@repo/ui/Card';
 import { CodeBlock } from '../CodeBlock';
 import { ParamTable } from '../ParamTable';
-import { TryItOut } from '../demos/TryItOut';
 import type { ManipInfo } from '../data/pipeline-docs-data';
+import { TryItOut } from '../demos/TryItOut';
 
 const TYPE_ACCENT: Record<string, string> = {
   pixel: 'var(--utility-6)',

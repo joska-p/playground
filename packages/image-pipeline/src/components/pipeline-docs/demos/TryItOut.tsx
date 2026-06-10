@@ -1,8 +1,8 @@
 import { Slider } from '@repo/ui/Slider';
 import { useEffect, useState } from 'react';
 import { pipelineGateway } from '../../../api/pipeline-gateway';
-import { imageDataToUrl } from '../helpers';
 import type { ManipInfo } from '../data/pipeline-docs-data';
+import { imageDataToUrl } from '../helpers';
 
 type TryItOutProps = {
   sourceData: ImageData | null;

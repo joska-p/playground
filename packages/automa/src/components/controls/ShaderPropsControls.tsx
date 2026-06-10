@@ -1,4 +1,4 @@
-import { setGlowColor } from '../../stores/ui/actions.ts';
+import { setGlowColor } from '../../stores/ui/actions';
 import { useGlowColor } from '../../stores/ui/selectors';
 
 type ColorRowProps = {

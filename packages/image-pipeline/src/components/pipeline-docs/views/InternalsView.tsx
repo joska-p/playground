@@ -1,4 +1,7 @@
-import { ENDPOINT_GROUPS, findItemForEndpoint } from '../data/pipeline-docs-data';
+import {
+  ENDPOINT_GROUPS,
+  findItemForEndpoint,
+} from '../data/pipeline-docs-data';
 
 function InternalsView({ id }: { id: string }) {
   const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: 'internals', id });
@@ -163,25 +166,33 @@ output = top * (1 - dy) + bottom * dy`}
             </thead>
             <tbody>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">maximumPixels</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  maximumPixels
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale to fit pixel budget, aspect-ratio-preserved
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">width + height + fill</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  width + height + fill
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Exact dimensions (stretch)
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">width + height + contain</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  width + height + contain
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Fit within bounds, aspect-ratio-preserved
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">width + height + cover</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  width + height + cover
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Fill bounds, aspect-ratio-preserved (crops)
                 </td>
@@ -193,7 +204,9 @@ output = top * (1 - dy) + bottom * dy`}
                 </td>
               </tr>
               <tr className="border-border">
-                <td className="text-primary px-4 py-2.5 text-xs">height only</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  height only
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale proportionally by height
                 </td>
@@ -273,8 +286,12 @@ Dispatch: postMessage with Transferable buffers
             </thead>
             <tbody>
               <tr className="border-border">
-                <td className="text-primary px-4 py-2.5 text-xs">DEFAULT_MAXIMUM_PIXELS</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">16,000,000</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  DEFAULT_MAXIMUM_PIXELS
+                </td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">
+                  16,000,000
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   ~16 megapixel default cap. Auto-downscale if source exceeds
                   this value. Also triggers tiled path for neighborhood ops.

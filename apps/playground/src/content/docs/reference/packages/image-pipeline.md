@@ -1,7 +1,7 @@
 ---
-title: "Image Pipeline"
-description: "TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies."
-category: "reference"
+title: 'Image Pipeline'
+description: 'TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.'
+category: 'reference'
 tags:
   - reference
   - image-pipeline
@@ -48,11 +48,11 @@ runPipeline(source, steps, context)
 
 ## Step Types
 
-| Type           | Description                 | Examples                                       | Execution                               |
-| -------------- | --------------------------- | ---------------------------------------------- | --------------------------------------- |
-| `pixel`        | Per-pixel transformation    | brightness, contrast, grayscale                | Fused — single pass over all pixels     |
-| `neighborhood` | Convolution or buffer remap | gaussian-blur, sharpen, flip-h, flip-v         | Immediate, uses tiling for large images |
-| `global`       | Geometry-changing transform | resize, rotate-90cw, histogram-equalize        | Immediate                               |
+| Type           | Description                 | Examples                                | Execution                               |
+| -------------- | --------------------------- | --------------------------------------- | --------------------------------------- |
+| `pixel`        | Per-pixel transformation    | brightness, contrast, grayscale         | Fused — single pass over all pixels     |
+| `neighborhood` | Convolution or buffer remap | gaussian-blur, sharpen, flip-h, flip-v  | Immediate, uses tiling for large images |
+| `global`       | Geometry-changing transform | resize, rotate-90cw, histogram-equalize | Immediate                               |
 
 ## Built-in Manipulations
 
@@ -72,22 +72,22 @@ runPipeline(source, steps, context)
 
 ### Neighborhood operations (6)
 
-| ID              | Factory         | Radius | Options                 |
-| --------------- | --------------- | ------ | ----------------------- |
-| `gaussian-blur` | `defineManip()` | 3      | `radius: number` (1–10) |
-| `box-blur`      | `defineManip()` | 2      | `radius: number` (1–10) |
-| `sharpen`       | `defineManip()` | 1      | `strength: number` (0–5)|
-| `edge-detect`   | `defineManip()` | 1      | —                       |
-| `flip-horizontal`| `defineManip()`| 0      | —                       |
-| `flip-vertical`  | `defineManip()`| 0      | —                       |
+| ID                | Factory         | Radius | Options                  |
+| ----------------- | --------------- | ------ | ------------------------ |
+| `gaussian-blur`   | `defineManip()` | 3      | `radius: number` (1–10)  |
+| `box-blur`        | `defineManip()` | 2      | `radius: number` (1–10)  |
+| `sharpen`         | `defineManip()` | 1      | `strength: number` (0–5) |
+| `edge-detect`     | `defineManip()` | 1      | —                        |
+| `flip-horizontal` | `defineManip()` | 0      | —                        |
+| `flip-vertical`   | `defineManip()` | 0      | —                        |
 
 ### Global operations (3)
 
-| ID                   | Factory         | Options                                                               |
-| -------------------- | --------------- | --------------------------------------------------------------------- |
+| ID                   | Factory         | Options                                                              |
+| -------------------- | --------------- | -------------------------------------------------------------------- |
 | `resize`             | `defineManip()` | `width: number`, `height: number`, `fit: "fill"\|"cover"\|"contain"` |
-| `rotate-90cw`        | `defineManip()` | —                                                                     |
-| `histogram-equalize` | `defineManip()` | —                                                                     |
+| `rotate-90cw`        | `defineManip()` | —                                                                    |
+| `histogram-equalize` | `defineManip()` | —                                                                    |
 
 ## Fusion Optimization
 
@@ -162,4 +162,3 @@ Returns `null` while processing. Cancellation-safe — aborts on unmount or depe
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
-

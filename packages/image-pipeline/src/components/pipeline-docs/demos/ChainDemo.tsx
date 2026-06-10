@@ -21,9 +21,7 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
           {result.map((imageData, index) => (
             <div key={index}>
               <p className="text-muted-foreground mb-1 text-[10px] font-medium uppercase">
-                {index === 0
-                  ? 'Source'
-                  : `${STEPS[index - 1]?.id ?? ''}`}
+                {index === 0 ? 'Source' : `${STEPS[index - 1]?.id ?? ''}`}
               </p>
               <img
                 src={imageDataToUrl(imageData)}

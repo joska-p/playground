@@ -1,5 +1,5 @@
-import { parseRule } from './parse.ts';
-import type { Rule } from './types.ts';
+import { parseRule } from './parse';
+import type { Rule } from './types';
 
 const briansBrainRule: Rule = parseRule(
   'brians-brain',

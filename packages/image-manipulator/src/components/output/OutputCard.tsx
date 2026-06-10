@@ -23,7 +23,7 @@ function OutputCard({
   onSelect,
 }: OutputCardProps) {
   const [isZoomed, setIsZoomed] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -39,7 +39,7 @@ function OutputCard({
 
   return (
     <>
-      <div
+      <article
         ref={cardRef}
         onClick={onSelect}
         className={onSelect ? 'cursor-pointer' : ''}
@@ -50,9 +50,9 @@ function OutputCard({
           }`}
         >
           <CardHeader className="flex flex-row items-start justify-between gap-2 p-3 pb-0">
-            <p className="text-sm">
+            <h3 className="text-sm">
               {index}. {output.description}
-            </p>
+            </h3>
             <div className="flex shrink-0 items-center gap-1.5">
               {isSource && <Badge variant="primary">Original</Badge>}
               <Badge variant="outline">
@@ -80,7 +80,7 @@ function OutputCard({
             </Button>
           </CardFooter>
         </Card>
-      </div>
+      </article>
 
       {isZoomed && (
         <ImageLightbox

@@ -1,4 +1,4 @@
-import type { Creature } from './types.ts';
+import type { Creature } from './types';
 
 function creatureFactory({
   id,

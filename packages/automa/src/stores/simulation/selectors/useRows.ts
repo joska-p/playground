@@ -1,5 +1,5 @@
 import { useStore } from 'zustand';
-import { simulationStore } from '../store.ts';
+import { simulationStore } from '../store';
 
 const useRows = () => useStore(simulationStore, (s) => s.rows);
 

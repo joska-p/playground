@@ -40,25 +40,24 @@ function WorkflowList({ steps }: WorkflowListProps) {
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <ol className="flex flex-col gap-1">
       {steps.map((step, index) => {
         const manip = manipulations[step.id];
         if (!manip) return null;
 
         return (
-          <div key={step.uid}>
-            <WorkflowNode
-              step={step}
-              index={index}
-              isFirst={index === 0}
-              isLast={index === steps.length - 1}
-              name={manip.name}
-              argDefinitions={manip.argDefinitions}
-            />
-          </div>
+          <WorkflowNode
+            key={step.uid}
+            step={step}
+            index={index}
+            isFirst={index === 0}
+            isLast={index === steps.length - 1}
+            name={manip.name}
+            argDefinitions={manip.argDefinitions}
+          />
         );
       })}
-    </div>
+    </ol>
   );
 }
 

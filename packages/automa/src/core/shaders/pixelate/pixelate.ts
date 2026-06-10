@@ -1,4 +1,4 @@
-import type { Shader } from '../types.ts';
+import type { Shader } from '../types';
 import fragmentShader from './pixelate.frag?raw';
 import vertexShader from './pixelate.vert?raw';
 

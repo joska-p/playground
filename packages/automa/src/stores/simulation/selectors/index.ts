@@ -1,4 +1,5 @@
-export { useCols } from './useCols.ts';
-export { useGeneration } from './useGeneration.ts';
-export { useRows } from './useRows.ts';
-export { useRuleId } from './useRuleId.ts';
+export { useCols } from './useCols';
+export { useGeneration } from './useGeneration';
+export { useGrid } from './useGrid';
+export { useRows } from './useRows';
+export { useRuleId } from './useRuleId';

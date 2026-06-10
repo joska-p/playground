@@ -13,6 +13,8 @@ function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
     >
       <div
         className="relative max-h-[90vh] max-w-[90vw]"
@@ -21,6 +23,7 @@ function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
         <button
           onClick={onClose}
           className="bg-background text-foreground hover:bg-muted absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full shadow-md"
+          aria-label="Close"
         >
           ✕
         </button>

@@ -1,4 +1,4 @@
-import type { Shader } from '../types.ts';
+import type { Shader } from '../types';
 import fragmentShader from './dissolve.frag?raw';
 import vertexShader from './dissolve.vert?raw';
 

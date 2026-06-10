@@ -5,8 +5,8 @@ import {
   CAMERA_FOV,
   CAMERA_NEAR,
   CAMERA_Z,
-} from '../../core/config.ts';
-import { uiStore } from '../../stores/ui/store.ts';
+} from '../../core/config';
+import { uiStore } from '../../stores/ui/store';
 import { Scene } from './Scene.tsx';
 
 type CACanvasProps = {

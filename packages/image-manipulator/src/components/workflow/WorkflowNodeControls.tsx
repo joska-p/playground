@@ -16,7 +16,10 @@ function WorkflowNodeControls({
   onRemove,
 }: WorkflowNodeControlsProps) {
   return (
-    <div className="flex gap-0.5">
+    <div
+      className="flex gap-0.5"
+      role="toolbar"
+    >
       <Button
         variant="ghost"
         size="icon"

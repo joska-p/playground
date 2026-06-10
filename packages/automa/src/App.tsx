@@ -7,8 +7,8 @@ import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
   GRID_DEFAULT_ROWS,
-} from './core/config.ts';
-import { destroy, init } from './stores/simulation/actions.ts';
+} from './core/config';
+import { destroy, init } from './stores/simulation/actions';
 
 type AppProps = {
   rows?: number;

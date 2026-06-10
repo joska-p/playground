@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/Button';
-import { clear, randomize } from '../../stores/simulation/actions.ts';
+import { clear, randomize } from '../../stores/simulation/actions';
 
 function ClearIcon() {
   return (

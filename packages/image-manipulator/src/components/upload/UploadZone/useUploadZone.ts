@@ -10,10 +10,6 @@ export function useUploadZone() {
   const inputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
 
-  const handleClick = useCallback(() => {
-    inputRef.current?.click();
-  }, []);
-
   const handleDragEnter = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -55,7 +51,6 @@ export function useUploadZone() {
     fileName,
     isDragging,
     inputRef,
-    handleClick,
     handleDragEnter,
     handleDragLeave,
     handleDragOver,

@@ -1,5 +1,5 @@
 import { useStore } from 'zustand';
-import { uiStore } from '../store.ts';
+import { uiStore } from '../store';
 
 const useRunning = () => useStore(uiStore, (s) => s.running);
 

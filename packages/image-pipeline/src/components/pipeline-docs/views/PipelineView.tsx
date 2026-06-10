@@ -1,11 +1,11 @@
 import { Card } from '@repo/ui/Card';
 import { CodeBlock } from '../CodeBlock';
-import { ResizeDemo } from '../demos/ResizeDemo';
-import { ChainDemo } from '../demos/ChainDemo';
 import {
   ENDPOINT_GROUPS,
   findItemForEndpoint,
 } from '../data/pipeline-docs-data';
+import { ChainDemo } from '../demos/ChainDemo';
+import { ResizeDemo } from '../demos/ResizeDemo';
 
 function PipelineView({
   id,
@@ -75,28 +75,38 @@ function PipelineView({
             <tbody>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 text-xs">width</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">number</td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">
+                  number
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Target width. Height auto-proportional.
                 </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 text-xs">height</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">number</td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">
+                  number
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Target height. Width auto-proportional.
                 </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 text-xs">fit</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">string</td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">
+                  string
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   fill | contain | cover. Default: fill
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">maximumPixels</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">number</td>
+                <td className="text-primary px-4 py-2.5 text-xs">
+                  maximumPixels
+                </td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">
+                  number
+                </td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Downscale to fit pixel budget, maintain aspect.
                 </td>
