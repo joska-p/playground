@@ -2,8 +2,8 @@ import { Sidebar } from '@repo/ui/Sidebar';
 import { useEffect, useState } from 'react';
 import { EndpointView } from './EndpointView';
 import { loadDemoImage } from './helpers';
-import type { EndpointId } from './manipData';
-import { ENDPOINT_GROUPS } from './manipData';
+import type { EndpointId } from './pipeline-docs-data';
+import { ENDPOINT_GROUPS } from './pipeline-docs-data';
 import { SwaggerSidebar } from './SwaggerSidebar';
 
 const CANVAS_SIZE = 200;

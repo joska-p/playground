@@ -19,10 +19,6 @@ function clearOutputs() {
   manipulatorStore.setState({ outputs: [] });
 }
 
-function setProcessing(isProcessing: boolean) {
-  manipulatorStore.setState({ isProcessing });
-}
-
 function addWorkflowStep(id: string) {
   const { workflow } = manipulatorStore.getState();
   const manipData = manipulations[id];
@@ -109,8 +105,6 @@ export {
   moveWorkflowStep,
   removeWorkflowStep,
   setImageSource,
-  setOutputs,
-  setProcessing,
   setWorkflowSteps,
   updateStepOptions,
 };

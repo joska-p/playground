@@ -34,17 +34,17 @@ runPipeline(source, steps, context)
        ├─ pixel       → queue in FusionScheduler (deferred)
        ├─ neighborhood → flush scheduler → run convolution
        │                   └─ Tiling for large images (512×512 tiles + halo)
-       └─ whole       → flush scheduler → run transform function
+       └─ global      → flush scheduler → run transform function
             └─ Return: step snapshots (source excluded — caller manages it)
 ```
 
 ## Step Types
 
-| Type           | Description                 | Examples                            | Execution                               |
-| -------------- | --------------------------- | ----------------------------------- | --------------------------------------- |
-| `pixel`        | Per-pixel transformation    | brightness, contrast, grayscale     | Fused — single pass over all pixels     |
-| `neighborhood` | Convolution with kernel     | gaussian-blur, sharpen, edge-detect | Immediate, uses tiling for large images |
-| `whole`        | Geometry-changing transform | resize, flip, rotate                | Immediate                               |
+| Type           | Description                 | Examples                                       | Execution                               |
+| -------------- | --------------------------- | ---------------------------------------------- | --------------------------------------- |
+| `pixel`        | Per-pixel transformation    | brightness, contrast, grayscale                | Fused — single pass over all pixels     |
+| `neighborhood` | Convolution or buffer remap | gaussian-blur, sharpen, flip-h, flip-v         | Immediate, uses tiling for large images |
+| `global`       | Geometry-changing transform | resize, rotate-90cw, histogram-equalize        | Immediate                               |
 
 ## Built-in Manipulations
 
@@ -52,34 +52,34 @@ runPipeline(source, steps, context)
 
 | ID           | Factory         | Options                     |
 | ------------ | --------------- | --------------------------- |
-| `brightness` | `definePixel()` | `factor: number` (0–3)      |
-| `contrast`   | `definePixel()` | `factor: number` (0–3)      |
-| `grayscale`  | `definePixel()` | —                           |
-| `sepia`      | `definePixel()` | —                           |
-| `invert`     | `definePixel()` | —                           |
-| `saturation` | `definePixel()` | `amount: number` (0–3)      |
-| `hue-rotate` | `definePixel()` | `degrees: number` (0–360)   |
-| `opacity`    | `definePixel()` | `alpha: number` (0–1)       |
-| `threshold`  | `definePixel()` | `threshold: number` (0–255) |
+| `brightness` | `defineManip()` | `value: number` (0–3)       |
+| `contrast`   | `defineManip()` | `value: number` (0–3)       |
+| `grayscale`  | `defineManip()` | —                           |
+| `sepia`      | `defineManip()` | —                           |
+| `invert`     | `defineManip()` | —                           |
+| `saturation` | `defineManip()` | `value: number` (0–3)       |
+| `hue-rotate` | `defineManip()` | `degrees: number` (0–360)   |
+| `opacity`    | `defineManip()` | `value: number` (0–1)       |
+| `threshold`  | `defineManip()` | `threshold: number` (0–255) |
 
-### Neighborhood operations (4)
+### Neighborhood operations (6)
 
-| ID              | Factory            | Radius | Options |
-| --------------- | ------------------ | ------ | ------- |
-| `gaussian-blur` | `defineNeighbor()` | 3      | —       |
-| `box-blur`      | `defineNeighbor()` | 2      | —       |
-| `sharpen`       | `defineNeighbor()` | 1      | —       |
-| `edge-detect`   | `defineNeighbor()` | 1      | —       |
+| ID              | Factory         | Radius | Options                 |
+| --------------- | --------------- | ------ | ----------------------- |
+| `gaussian-blur` | `defineManip()` | 3      | `radius: number` (1–10) |
+| `box-blur`      | `defineManip()` | 2      | `radius: number` (1–10) |
+| `sharpen`       | `defineManip()` | 1      | `strength: number` (0–5)|
+| `edge-detect`   | `defineManip()` | 1      | —                       |
+| `flip-horizontal`| `defineManip()`| 0      | —                       |
+| `flip-vertical`  | `defineManip()`| 0      | —                       |
 
-### Whole-image operations (5)
+### Global operations (3)
 
 | ID                   | Factory         | Options                                                               |
 | -------------------- | --------------- | --------------------------------------------------------------------- |
-| `resize`             | `defineWhole()` | `mode: "fit" \| "fill" \| "scale"`, `width: number`, `height: number` |
-| `flip-horizontal`    | `defineWhole()` | —                                                                     |
-| `flip-vertical`      | `defineWhole()` | —                                                                     |
-| `rotate-90cw`        | `defineWhole()` | —                                                                     |
-| `histogram-equalize` | `defineWhole()` | —                                                                     |
+| `resize`             | `defineManip()` | `width: number`, `height: number`, `fit: "fill"\|"cover"\|"contain"` |
+| `rotate-90cw`        | `defineManip()` | —                                                                     |
+| `histogram-equalize` | `defineManip()` | —                                                                     |
 
 ## Fusion Optimization
 
@@ -98,7 +98,7 @@ const result = await runPipeline(
 ); // still produces 3 intermediate snapshots
 ```
 
-The `FusionScheduler` queues pixel ops and applies them per-pixel when flushed. Neighbor and whole-image ops flush the scheduler before executing.
+The `FusionScheduler` queues pixel ops and applies them per-pixel when flushed. Neighborhood and global ops flush the scheduler before executing.
 
 ## Tiling for Large Images
 

@@ -30,4 +30,3 @@ const uiStore = createStore<UiState>(() => ({
 }));
 
 export { uiStore };
-export type { UiState };

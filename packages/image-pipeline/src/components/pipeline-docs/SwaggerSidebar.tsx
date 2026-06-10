@@ -1,7 +1,7 @@
 import { cn } from '@repo/ui/cn';
 import { useState } from 'react';
-import type { EndpointGroup, EndpointId } from './manipData';
-import { isActiveEndpoint } from './manipData';
+import type { EndpointGroup, EndpointId } from './pipeline-docs-data';
+import { isActiveEndpoint } from './pipeline-docs-data';
 
 type SwaggerSidebarProps = {
   groups: EndpointGroup[];
@@ -13,7 +13,7 @@ const BADGE_CLASSES: Record<string, string> = {
   overview: 'bg-utility-4 text-white',
   pixel: 'bg-utility-6 text-white',
   neighborhood: 'bg-utility-3 text-white',
-  whole: 'bg-utility-2 text-white',
+  global: 'bg-utility-2 text-white',
   pipeline: 'bg-utility-1 text-white',
   internals: 'bg-utility-8 text-white',
 };
@@ -22,7 +22,7 @@ const BADGE_LABELS: Record<string, string> = {
   overview: 'OVERVIEW',
   pixel: 'PIXEL',
   neighborhood: 'NEIGHBOR',
-  whole: 'WHOLE',
+  global: 'GLOBAL',
   pipeline: 'PIPELINE',
   internals: 'INTERNALS',
 };
@@ -31,7 +31,7 @@ const TYPE_VAR: Record<string, string> = {
   overview: 'var(--utility-4)',
   pixel: 'var(--utility-6)',
   neighborhood: 'var(--utility-3)',
-  whole: 'var(--utility-2)',
+  global: 'var(--utility-2)',
   pipeline: 'var(--utility-1)',
   internals: 'var(--utility-8)',
 };

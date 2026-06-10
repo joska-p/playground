@@ -1,6 +1,7 @@
-import { defineWhole } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
-export const histogramEqualize = defineWhole({
+export const histogramEqualize = defineManip({
+  access: 'global',
   id: 'histogram-equalize',
   execute: ({ imageData }) => {
     const data = imageData.data;
@@ -47,6 +48,8 @@ export const histogramEqualize = defineWhole({
   ui: {
     name: 'Histogram Equalize',
     description: 'Equalizes the luminance histogram for improved contrast.',
+    longDescription:
+      'Improves contrast by spreading luminance values across the full 0–255 range. Computes the luminance histogram, builds a CDF-based lookup table, and remaps each pixel while preserving per-channel color ratios.',
     defaultArgs: {},
     argDefinitions: [],
   },

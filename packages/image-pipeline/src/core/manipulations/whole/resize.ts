@@ -1,4 +1,4 @@
-import { defineWhole } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
 type ResizeOptions =
   | { width: number; height?: never; maximumPixels?: never; fit?: never }
@@ -120,7 +120,8 @@ function computeTargetDimensions({
     : { width: targetWidth, height: targetHeight };
 }
 
-export const resize = defineWhole<ResizeOptions>({
+export const resize = defineManip<ResizeOptions>({
+  access: 'global',
   id: 'resize',
   execute: ({ imageData, options }) => {
     const dimensions = computeTargetDimensions({
@@ -140,6 +141,8 @@ export const resize = defineWhole<ResizeOptions>({
   ui: {
     name: 'Resize',
     description: 'Resizes the image to the specified dimensions.',
+    longDescription:
+      'Resizes the image using bilinear interpolation. Supports absolute width/height, proportional scaling by specifying only one dimension, and fit modes (fill, cover, contain). Can also limit total pixel count via maximumPixels.',
     defaultArgs: {},
     argDefinitions: [
       { key: 'width', label: 'Width', min: 1, max: 4096, step: 1 },

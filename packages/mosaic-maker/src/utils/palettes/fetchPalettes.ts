@@ -3,7 +3,7 @@ import type { Palette } from '../../core/palette.schema';
 import { paletteSchema } from './fetchPalettes.schema';
 import { fetchWithValidation } from './fetchWithValidation';
 
-export type CachedPalettes = {
+type CachedPalettes = {
   palettes: Palette[];
   expiration: number;
   version: number;

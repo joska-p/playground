@@ -57,4 +57,4 @@ const colorSpaces = { oklab, oklch, hsl, srgb };
 type ColorSpacesKey = keyof typeof colorSpaces;
 
 export { colorSpaces };
-export type { Axis, ColorSpacesKey };
+export type { ColorSpacesKey };

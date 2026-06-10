@@ -98,8 +98,8 @@ export function runNeighborhoodTiled({
       });
       const tileOutput = new ImageData(tile.width, tile.height);
 
-      if (definition.type === 'neighborhood') {
-        definition.function({
+      if (definition.access === 'neighborhood') {
+        definition.execute({
           options,
           source: tile.data,
           destination: tileOutput.data,

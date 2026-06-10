@@ -1,6 +1,7 @@
-import { definePixel } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
-export const invert = definePixel({
+export const invert = defineManip({
+  access: 'pixel',
   id: 'invert',
   execute: ({ red, green, blue, alpha }) => [
     255 - red,
@@ -11,6 +12,8 @@ export const invert = definePixel({
   ui: {
     name: 'Invert',
     description: 'Inverts all color channels.',
+    longDescription:
+      'Inverts each channel independently: output = 255 − input. Alpha is preserved unchanged.',
     defaultArgs: {},
     argDefinitions: [],
   },

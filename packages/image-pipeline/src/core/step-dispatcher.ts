@@ -39,8 +39,8 @@ const executors: Record<string, ExecutorFunction> = {
     } else {
       const destination = new Uint8ClampedArray(bufferManager.current.length);
 
-      if (definition.type === 'neighborhood') {
-        definition.function({
+      if (definition.access === 'neighborhood') {
+        definition.execute({
           options,
           source: bufferManager.current,
           destination,
@@ -58,11 +58,11 @@ const executors: Record<string, ExecutorFunction> = {
     }
   },
 
-  whole: ({ definition, options, bufferManager, scheduler }) => {
+  global: ({ definition, options, bufferManager, scheduler }) => {
     scheduler.flush(bufferManager);
-    if (definition.type === 'whole') {
+    if (definition.access === 'global') {
       bufferManager.replaceWith(
-        definition.function({
+        definition.execute({
           options,
           imageData: bufferManager.snapshot(),
         })
@@ -85,7 +85,7 @@ export function dispatchStep({
   const definition = context.registry.get(step.id);
   const options = (step as { options?: Record<string, unknown> }).options || {};
 
-  const executor = executors[definition.type];
+  const executor = executors[definition.access];
   if (executor) {
     executor({ definition, options, context, bufferManager, scheduler });
   }

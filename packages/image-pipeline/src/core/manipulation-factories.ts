@@ -6,50 +6,22 @@ import type {
   WholeImageFunction,
 } from './image-pipeline.types';
 
-export const definePixel = <Options, Identifier extends string = string>({
-  id,
-  execute,
-  ui,
-}: {
+type DefineManipParams<Options, Identifier extends string> = {
   id: Identifier;
-  execute: PixelFunction<Options>;
   ui: ManipulationUIMetadata;
-}): ManipulationDefinition<Options> & { id: Identifier } => ({
-  id,
-  type: 'pixel',
-  function: execute,
-  ui,
-});
+  options?: Options;
+} & (
+  | { access: 'pixel'; execute: PixelFunction<Options> }
+  | {
+      access: 'neighborhood';
+      radius: number;
+      execute: NeighborhoodFunction<Options>;
+    }
+  | { access: 'global'; execute: WholeImageFunction<Options> }
+);
 
-export const defineNeighbor = <Options, Identifier extends string = string>({
-  id,
-  radius,
-  execute,
-  ui,
-}: {
-  id: Identifier;
-  radius: number;
-  execute: NeighborhoodFunction<Options>;
-  ui: ManipulationUIMetadata;
-}): ManipulationDefinition<Options> & { id: Identifier } => ({
-  id,
-  type: 'neighborhood',
-  radius,
-  function: execute,
-  ui,
-});
-
-export const defineWhole = <Options, Identifier extends string = string>({
-  id,
-  execute,
-  ui,
-}: {
-  id: Identifier;
-  execute: WholeImageFunction<Options>;
-  ui: ManipulationUIMetadata;
-}): ManipulationDefinition<Options> & { id: Identifier } => ({
-  id,
-  type: 'whole',
-  function: execute,
-  ui,
-});
+export function defineManip<Options, Identifier extends string = string>(
+  params: DefineManipParams<Options, Identifier>
+): ManipulationDefinition<Options> & { id: Identifier } {
+  return params as ManipulationDefinition<Options> & { id: Identifier };
+}

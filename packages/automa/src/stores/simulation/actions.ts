@@ -6,7 +6,7 @@ import {
 import type { Creature } from '../../core/creature/types.ts';
 import { createGrid, seedGrid } from '../../core/grid.ts';
 import { getRule } from '../../core/rules/registry.ts';
-import type { CellValue, Grid } from '../../core/types.ts';
+import type { CellValue } from '../../core/types.ts';
 import { uiStore } from '../ui/store.ts';
 import { simulationStore } from './store.ts';
 
@@ -131,11 +131,6 @@ const setSpeed = (ms: number): void => {
   }
 };
 
-const setGrid = (grid: Grid): void => {
-  const state = simulationStore.getState();
-  simulationStore.setState({ grid, generation: state.generation + 1 });
-};
-
 const clear = (): void => {
   const state = simulationStore.getState();
   state.grid.fill(0);
@@ -189,11 +184,8 @@ export {
   destroy,
   init,
   paintCell,
-  pause,
   placePattern,
-  play,
   randomize,
-  setGrid,
   setRule,
   setSpeed,
   step,

@@ -8,7 +8,7 @@ export type Category =
   | 'random'
   | 'simulation';
 
-export const CATEGORIES = {
+const CATEGORIES = {
   generative: {
     name: 'Generative Art',
     description:

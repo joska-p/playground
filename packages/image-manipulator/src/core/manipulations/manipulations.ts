@@ -1,6 +1,8 @@
 import { ALL_MANIPULATIONS } from '@repo/image-pipeline/manipulations';
 
-const pixelManipulations = ALL_MANIPULATIONS.filter((m) => m.type === 'pixel');
+const pixelManipulations = ALL_MANIPULATIONS.filter(
+  (m) => m.access === 'pixel'
+);
 
 const manipulationsIds = pixelManipulations.map(
   (m) => m.id

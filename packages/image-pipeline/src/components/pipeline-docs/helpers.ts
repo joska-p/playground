@@ -86,4 +86,4 @@ function imageDataToUrl(imageData: ImageData): string {
   return canvas.toDataURL();
 }
 
-export { generateTestImage, imageDataToUrl, loadDemoImage };
+export { imageDataToUrl, loadDemoImage };

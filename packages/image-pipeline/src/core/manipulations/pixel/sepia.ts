@@ -1,6 +1,7 @@
-import { definePixel } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
-export const sepia = definePixel({
+export const sepia = defineManip({
+  access: 'pixel',
   id: 'sepia',
   execute: ({ red, green, blue, alpha }) => [
     red * 0.393 + green * 0.769 + blue * 0.189,
@@ -11,6 +12,8 @@ export const sepia = definePixel({
   ui: {
     name: 'Sepia',
     description: 'Applies a sepia tone effect.',
+    longDescription:
+      'Applies a classic sepia tone matrix transformation. The output RGB values are computed as weighted combinations of the input RGB channels to produce a warm brownish tone.',
     defaultArgs: {},
     argDefinitions: [],
   },

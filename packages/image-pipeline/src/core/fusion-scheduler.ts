@@ -23,8 +23,8 @@ function runFusedPixelBatch({
     let alpha = source[offset + 3];
 
     for (const { definition, options } of batch) {
-      if (definition.type === 'pixel') {
-        [red, green, blue, alpha] = definition.function({
+      if (definition.access === 'pixel') {
+        [red, green, blue, alpha] = definition.execute({
           options,
           red,
           green,

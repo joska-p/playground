@@ -1,6 +1,7 @@
-import { definePixel } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
-export const hueRotate = definePixel<{ degrees?: number }>({
+export const hueRotate = defineManip<{ degrees?: number }>({
+  access: 'pixel',
   id: 'hue-rotate',
   execute: ({ options, red, green, blue, alpha }) => {
     const degrees = options.degrees ?? 0;
@@ -26,6 +27,8 @@ export const hueRotate = definePixel<{ degrees?: number }>({
   ui: {
     name: 'Hue Rotate',
     description: 'Rotates hues by an angle in degrees.',
+    longDescription:
+      'Rotates hue in a YUV-like color space using a rotation matrix. Each pixel is converted to YUV, the UV vector is rotated by the given angle, then converted back to RGB.',
     defaultArgs: { degrees: 0 },
     argDefinitions: [
       { key: 'degrees', label: 'Degrees', min: 0, max: 360, step: 1 },

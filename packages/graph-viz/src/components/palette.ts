@@ -1,6 +1,6 @@
 // graph/palette.ts — community colour helpers
 
-export const PALETTE = [
+const PALETTE = [
   '#4cc9f0',
   '#4361ee',
   '#7209b7',

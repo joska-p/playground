@@ -1,7 +1,7 @@
 ---
-title: 'Image to Particles'
-description: 'Transform images into interactive falling particle animations.'
-category: 'reference'
+title: "Image to Particles"
+description: "Transform images into interactive falling particle animations."
+category: "reference"
 tags:
   - reference
   - image-to-particles
@@ -89,3 +89,4 @@ import { useImageUpload } from '@repo/image-to-particles';
 ---
 
 _Part of @repo/playground_
+

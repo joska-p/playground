@@ -11,6 +11,4 @@ const seedGrid = (grid: Grid, density: number, seed: number): void => {
   }
 };
 
-const createEmptyGrid = (size: number): Grid => new Uint8Array(size);
-
-export { createEmptyGrid, createGrid, seedGrid };
+export { createGrid, seedGrid };

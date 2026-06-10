@@ -1,7 +1,7 @@
 ---
-title: 'Sequence Renderer'
-description: 'Visualize mathematical sequences — Recamán, Fibonacci, and more.'
-category: 'reference'
+title: "Sequence Renderer"
+description: "Visualize mathematical sequences — Recamán, Fibonacci, and more."
+category: "reference"
 tags:
   - reference
   - sequence-renderer
@@ -128,3 +128,4 @@ export const visualizations: Visualization[] = [
 ---
 
 _Part of @repo/playground_
+

@@ -13,9 +13,6 @@ export const SPEED_MAX_MS = 1000;
 export const SPEED_STEP_MS = 10;
 export const SPEED_DEFAULT_MS = 100;
 
-export const MAX_COLS = 2000;
-export const MAX_ROWS = 2000;
-
 export const MAX_STATE_COUNT = 8;
 
 export const COLOR_GLOW = '#fbbf24';

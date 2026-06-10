@@ -13,6 +13,7 @@ export type ArgDefinition = {
 export type ManipulationUIMetadata = {
   name: string;
   description: string;
+  longDescription: string;
   defaultArgs: Record<string, number>;
   argDefinitions: ArgDefinition[];
 };
@@ -67,13 +68,13 @@ export type ManipulationDefinition<
   options?: Options;
   ui: ManipulationUIMetadata;
 } & (
-  | { type: 'pixel'; function: PixelFunction<Options> }
+  | { access: 'pixel'; execute: PixelFunction<Options> }
   | {
-      type: 'neighborhood';
+      access: 'neighborhood';
       radius: number;
-      function: NeighborhoodFunction<Options>;
+      execute: NeighborhoodFunction<Options>;
     }
-  | { type: 'whole'; function: WholeImageFunction<Options> }
+  | { access: 'global'; execute: WholeImageFunction<Options> }
 );
 
 // ─── Pipeline Types ──────────────────────────────────────────────────────────

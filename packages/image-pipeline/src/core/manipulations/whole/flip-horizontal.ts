@@ -1,25 +1,26 @@
-import { defineWhole } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
-export const flipHorizontal = defineWhole({
+export const flipHorizontal = defineManip({
   id: 'flip-horizontal',
-  execute: ({ imageData }) => {
-    const { width, height, data } = imageData;
-    const out = new ImageData(width, height);
+  access: 'neighborhood',
+  radius: 0,
+  execute: ({ source, destination, width, height }) => {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const source = (y * width + x) * 4;
-        const destinationIndex = (y * width + (width - 1 - x)) * 4;
-        out.data[destinationIndex] = data[source] ?? 0;
-        out.data[destinationIndex + 1] = data[source + 1] ?? 0;
-        out.data[destinationIndex + 2] = data[source + 2] ?? 0;
-        out.data[destinationIndex + 3] = data[source + 3] ?? 255;
+        const si = (y * width + x) * 4;
+        const di = (y * width + (width - 1 - x)) * 4;
+        destination[di] = source[si] ?? 0;
+        destination[di + 1] = source[si + 1] ?? 0;
+        destination[di + 2] = source[si + 2] ?? 0;
+        destination[di + 3] = source[si + 3] ?? 255;
       }
     }
-    return out;
   },
   ui: {
     name: 'Flip Horizontal',
     description: 'Mirrors the image left-to-right.',
+    longDescription:
+      'Mirrors the image horizontally by reversing pixel order within each row. Pixel at (x, y) moves to (width − 1 − x, y).',
     defaultArgs: {},
     argDefinitions: [],
   },

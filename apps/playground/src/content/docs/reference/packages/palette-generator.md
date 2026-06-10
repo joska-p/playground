@@ -1,7 +1,7 @@
 ---
-title: 'Palette Generator'
-description: 'Color palette generation and manipulation tool. Pick, edit, and preview color schemes using colorjs.io.'
-category: 'reference'
+title: "Palette Generator"
+description: "Color palette generation and manipulation tool. Pick, edit, and preview color schemes using colorjs.io."
+category: "reference"
 tags:
   - reference
   - palette-generator
@@ -98,3 +98,4 @@ Uses `colorjs.io` for color math and Zustand for state management.
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+

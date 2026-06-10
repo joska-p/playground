@@ -1,7 +1,7 @@
 ---
-title: 'Three Stage'
-description: 'React Three Fiber 3D scene explorer with interactive Leva controls for geometry, material, and lighting.'
-category: 'reference'
+title: "Three Stage"
+description: "React Three Fiber 3D scene explorer with interactive Leva controls for geometry, material, and lighting."
+category: "reference"
 tags:
   - reference
   - three-stage
@@ -102,3 +102,4 @@ Each light type has position (x, y, z), intensity, and color controls, organized
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+

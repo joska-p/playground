@@ -20,7 +20,6 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@types/three": "catalog:",
-    "leva": "catalog:",
     "three": "catalog:",
     "@repo/ui": "workspace:*",
     "zustand": "catalog:"

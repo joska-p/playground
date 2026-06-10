@@ -2,7 +2,7 @@ function strToDom(str: string) {
   return document.createRange().createContextualFragment(str).firstChild;
 }
 
-export class Point {
+class Point {
   x: number;
   y: number;
 

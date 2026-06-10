@@ -41,4 +41,3 @@ function CompareSlider({ source, result }: CompareSliderProps) {
 }
 
 export { CompareSlider };
-export type { CompareSliderProps };

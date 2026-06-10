@@ -19,7 +19,7 @@ export class Registry {
     }
 
     if (
-      definition.type === 'neighborhood' &&
+      definition.access === 'neighborhood' &&
       (definition.radius == null || definition.radius < 0)
     ) {
       throw new Error(

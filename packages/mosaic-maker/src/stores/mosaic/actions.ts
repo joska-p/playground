@@ -27,7 +27,7 @@ function updateCurrentPalettes() {
   mosaicStore.setState({ currentPalettesIndex: newIndex, currentPalettes });
 }
 
-export function setPaletteStock(palettes: Palette[]) {
+function setPaletteStock(palettes: Palette[]) {
   const currentPalettes = palettes.slice(0, MAX_NUMBER_OF_PALETTES);
   mosaicStore.setState({ paletteStock: palettes, currentPalettes });
 }

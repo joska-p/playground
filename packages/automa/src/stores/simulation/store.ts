@@ -28,4 +28,3 @@ const simulationStore = createStore<SimulationState>(() => ({
 }));
 
 export { simulationStore };
-export type { SimulationState };

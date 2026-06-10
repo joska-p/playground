@@ -2,13 +2,13 @@ import { Card } from '@repo/ui/Card';
 import { ChainDemo } from './ChainDemo';
 import { CodeBlock } from './CodeBlock';
 import { imageDataToUrl } from './helpers';
-import type { EndpointId, ManipInfo } from './manipData';
+import { ParamTable } from './ParamTable';
+import type { EndpointId, ManipInfo } from './pipeline-docs-data';
 import {
   ENDPOINT_GROUPS,
   findItemForEndpoint,
   findManipById,
-} from './manipData';
-import { ParamTable } from './ParamTable';
+} from './pipeline-docs-data';
 import { ResizeDemo } from './ResizeDemo';
 
 import { TryItOut } from './TryItOut';
@@ -16,7 +16,7 @@ import { TryItOut } from './TryItOut';
 const TYPE_ACCENT: Record<string, string> = {
   pixel: 'var(--utility-6)',
   neighborhood: 'var(--utility-3)',
-  whole: 'var(--utility-2)',
+  global: 'var(--utility-2)',
   pipeline: 'var(--utility-1)',
   internals: 'var(--utility-8)',
   overview: 'var(--utility-4)',
@@ -236,7 +236,7 @@ function PipelineView({
           </h3>
           <p className="text-muted-foreground text-sm">
             Steps execute in order. Consecutive pixel-type operations are fused
-            into a single pass for performance. Neighborhood and whole-image ops
+            into a single pass for performance. Neighborhood and global ops
             flush pending pixel ops first. Use
             <code className="mx-1">snapshot</code> to capture intermediate
             results.
@@ -316,7 +316,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           </div>
           <p className="text-muted-foreground mt-2 text-xs">
             <strong>3 operation types:</strong> pixel (per-pixel transform),
-            neighborhood (convolution kernel), whole (dimension-changing
+            neighborhood (convolution kernel), global (dimension-changing
             transform).
           </p>
         </div>
@@ -428,7 +428,7 @@ function InternalsView({ id }: { id: string }) {
                             ├── pixel     → FusionScheduler.add() (deferred)
                             ├── neighbor  → flush scheduler, run convolution
                             │               (tiled if image > maximumPixels)
-                            └── whole     → flush scheduler, run transform
+                            └── global    → flush scheduler, run transform
   │
   └── final flush
   └── return { source, final, snapshots }`}
@@ -445,7 +445,7 @@ function InternalsView({ id }: { id: string }) {
             pass via O(1) pointer flip. <code className="mx-1">snapshot()</code>{' '}
             clones the current buffer into a new ImageData;{' '}
             <code className="mx-1">replaceWith()</code> resets both buffers when
-            resize or whole-image ops change geometry.
+            resize or global ops change geometry.
           </p>
         </div>
       </div>
@@ -479,7 +479,7 @@ swap()`}
         </div>
 
         <p className="text-muted-foreground text-sm">
-          Non-pixel operations (neighborhood, whole, resize, snapshot) force a
+          Non-pixel operations (neighborhood, global, resize, snapshot) force a
           flush before executing, ensuring pending pixel ops are applied first.
         </p>
       </div>

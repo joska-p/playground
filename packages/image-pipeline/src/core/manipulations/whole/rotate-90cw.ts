@@ -1,6 +1,7 @@
-import { defineWhole } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 
-export const rotate90Cw = defineWhole({
+export const rotate90Cw = defineManip({
+  access: 'global',
   id: 'rotate-90cw',
   execute: ({ imageData }) => {
     const { width, height, data } = imageData;
@@ -20,6 +21,8 @@ export const rotate90Cw = defineWhole({
   ui: {
     name: 'Rotate 90° CW',
     description: 'Rotates the image 90 degrees clockwise.',
+    longDescription:
+      'Rotates the image 90 degrees clockwise. The output dimensions swap: output width = input height, output height = input width. Pixel at (x, y) maps to (height − 1 − y, x).',
     defaultArgs: {},
     argDefinitions: [],
   },

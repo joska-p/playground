@@ -19,15 +19,3 @@ export const PARTICLE_SIZE = {
 export const RETURN_FORCE = 0.05;
 export const DAMPING = 0.95;
 export const POSITION_THRESHOLD = 0.5;
-
-export const config = {
-  CANVAS_WIDTH,
-  CANVAS_HEIGHT,
-  MAX_PARTICLES,
-  GRAVITY,
-  INITIAL_VELOCITY,
-  PARTICLE_SIZE,
-  RETURN_FORCE,
-  DAMPING,
-  POSITION_THRESHOLD,
-};

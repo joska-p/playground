@@ -10,7 +10,7 @@ type CategoryMeta = {
   iconName: IconName;
 };
 
-export const CATEGORY_METADATA = {
+const CATEGORY_METADATA = {
   tutorial: {
     label: 'Tutorials',
     description: 'Step-by-step guides.',

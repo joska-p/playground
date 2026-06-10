@@ -1,9 +1,3 @@
-function getImageData(canvas: HTMLCanvasElement): ImageData {
-  const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('Could not get canvas context');
-  return ctx.getImageData(0, 0, canvas.width, canvas.height);
-}
-
 function putImageData(canvas: HTMLCanvasElement, imageData: ImageData): void {
   canvas.width = imageData.width;
   canvas.height = imageData.height;
@@ -20,4 +14,4 @@ function imageElementToImageData(image: HTMLImageElement): ImageData {
   return ctx.getImageData(0, 0, image.width, image.height);
 }
 
-export { getImageData, imageElementToImageData, putImageData };
+export { imageElementToImageData, putImageData };

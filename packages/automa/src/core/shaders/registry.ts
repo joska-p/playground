@@ -19,10 +19,6 @@ const shaders = new Map<string, Shader>([
   [rippleShader.id, rippleShader],
 ]);
 
-function registerShader(shader: Shader): void {
-  shaders.set(shader.id, shader);
-}
-
 function getShader(id: string): Shader | undefined {
   return shaders.get(id);
 }
@@ -31,4 +27,4 @@ function getAllShaders(): Shader[] {
   return Array.from(shaders.values());
 }
 
-export { getAllShaders, getShader, registerShader };
+export { getAllShaders, getShader };

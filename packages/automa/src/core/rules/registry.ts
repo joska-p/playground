@@ -9,10 +9,6 @@ const rules = new Map<string, Rule>([
   [briansBrainRule.id, briansBrainRule],
 ]);
 
-function registerRule(rule: Rule): void {
-  rules.set(rule.id, rule);
-}
-
 function getRule(id: string): Rule | undefined {
   return rules.get(id);
 }
@@ -21,4 +17,4 @@ function getAllRules(): Rule[] {
   return Array.from(rules.values());
 }
 
-export { getAllRules, getRule, registerRule };
+export { getAllRules, getRule };

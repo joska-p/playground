@@ -1,7 +1,8 @@
-import { defineNeighbor } from '../../manipulation-factories';
+import { defineManip } from '../../manipulation-factories';
 import { clamp, getPixel } from './helpers';
 
-export const edgeDetect = defineNeighbor({
+export const edgeDetect = defineManip({
+  access: 'neighborhood',
   id: 'edge-detect',
   radius: 1,
   execute: ({ source, destination, width, height }) => {
@@ -51,6 +52,8 @@ export const edgeDetect = defineNeighbor({
   ui: {
     name: 'Edge Detect',
     description: 'Detects edges using the Sobel operator.',
+    longDescription:
+      'Sobel edge detection. Computes gradient magnitude from Sobel X and Sobel Y kernels per channel: G = sqrt(Gx² + Gy²). Strong gradients (edges) appear bright, uniform areas appear dark.',
     defaultArgs: {},
     argDefinitions: [],
   },

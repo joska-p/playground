@@ -22,4 +22,3 @@ const torusKnot = {
 } as const;
 
 export const geometries = [box, torusKnot, sphere, cylinder] as const;
-export type Geometry = (typeof geometries)[number];

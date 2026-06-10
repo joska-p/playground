@@ -2,7 +2,7 @@ import { Slider } from '@repo/ui/Slider';
 import { useEffect, useState } from 'react';
 import { pipelineGateway } from '../../api/pipeline-gateway';
 import { imageDataToUrl } from './helpers';
-import type { ManipInfo } from './manipData';
+import type { ManipInfo } from './pipeline-docs-data';
 
 type TryItOutProps = {
   sourceData: ImageData | null;

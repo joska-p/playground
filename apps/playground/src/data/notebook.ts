@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 const baseUrl = import.meta.env.BASE_URL || '/';
 export const notebookBaseUrl = `${baseUrl}notebook/`;
 
-export const CATEGORY_METADATA = {
+const CATEGORY_METADATA = {
   maths: {
     label: 'Maths',
     description: 'Maths notes',
@@ -24,7 +24,7 @@ export const categoriesIds = Object.keys(CATEGORY_METADATA) as [
   ...CategoryId[],
 ];
 
-export function getTagMetadata(id: CategoryId) {
+function getTagMetadata(id: CategoryId) {
   return CATEGORY_METADATA[id];
 }
 
@@ -40,6 +40,6 @@ export async function getNotesByCategory() {
   }));
 }
 
-export async function getFeaturedNotes() {
+async function getFeaturedNotes() {
   return getCollection('notebook', ({ data }) => data.featured && !data.draft);
 }

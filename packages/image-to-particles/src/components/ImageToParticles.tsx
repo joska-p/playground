@@ -17,7 +17,7 @@ import {
 } from '../core/utils';
 import { useImageUpload } from '../hooks/useImageUpload';
 
-export type Particle = {
+type Particle = {
   x: number;
   y: number;
   originX: number;

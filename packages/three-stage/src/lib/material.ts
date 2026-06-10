@@ -44,4 +44,3 @@ export const materials = [
   phong,
   depth,
 ] as const;
-export type Material = (typeof materials)[number];
