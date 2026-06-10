@@ -110,7 +110,7 @@ export const projects: Record<string, Project> = {
     category: 'image',
     tags: ['Pipeline', 'Docs'],
     icon: 'image-down',
-    featured: false,
+    featured: true,
   },
   'pie-chart': {
     slug: 'pie-chart',
