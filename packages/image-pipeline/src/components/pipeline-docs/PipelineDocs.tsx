@@ -1,10 +1,10 @@
 import { Sidebar } from '@repo/ui/Sidebar';
 import { useEffect, useState } from 'react';
-import { EndpointView } from './EndpointView';
+import type { EndpointId } from './data/pipeline-docs-data';
+import { ENDPOINT_GROUPS } from './data/pipeline-docs-data';
 import { loadDemoImage } from './helpers';
-import type { EndpointId } from './pipeline-docs-data';
-import { ENDPOINT_GROUPS } from './pipeline-docs-data';
 import { SwaggerSidebar } from './SwaggerSidebar';
+import { EndpointView } from './views/EndpointView';
 
 const CANVAS_SIZE = 200;
 
@@ -37,7 +37,6 @@ function PipelineDocs() {
       className="min-h-dvh"
     >
       <Sidebar.Panel className="border-border border-r">
-        <Sidebar.Toggle />
         <SwaggerSidebar
           groups={ENDPOINT_GROUPS}
           activeEndpoint={activeEndpoint}
@@ -45,17 +44,13 @@ function PipelineDocs() {
         />
       </Sidebar.Panel>
 
-      <Sidebar.Main>
-        <div className="relative h-full">
-          <div className="h-full overflow-y-auto p-6">
-            <EndpointView
-              activeEndpoint={activeEndpoint}
-              sourceData={sourceData}
-              paramValues={paramValues}
-              onParamChange={handleParamChange}
-            />
-          </div>
-        </div>
+      <Sidebar.Main className="p-6">
+        <EndpointView
+          activeEndpoint={activeEndpoint}
+          sourceData={sourceData}
+          paramValues={paramValues}
+          onParamChange={handleParamChange}
+        />
       </Sidebar.Main>
     </Sidebar>
   );

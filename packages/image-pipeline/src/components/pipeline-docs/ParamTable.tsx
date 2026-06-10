@@ -1,4 +1,4 @@
-import type { ParamDef } from './pipeline-docs-data';
+import type { ParamDef } from './data/pipeline-docs-data';
 
 type ParamTableProps = {
   params: ParamDef[];

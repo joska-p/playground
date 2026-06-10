@@ -1,4 +1,4 @@
-import { ALL_MANIPULATIONS } from '../../core/manipulations/manifest';
+import { ALL_MANIPULATIONS } from '../../../core/manipulations/manifest';
 
 export type ParamDef = {
   key: string;
