@@ -80,7 +80,7 @@ export const projects: Record<string, Project> = {
     category: 'color',
     tags: ['Design', 'Theory'],
     icon: 'palette',
-    featured: true,
+    featured: false,
   },
   particles: {
     slug: 'particles',
@@ -100,7 +100,7 @@ export const projects: Record<string, Project> = {
     category: 'image',
     tags: ['Images', 'Canvas'],
     icon: 'flame',
-    featured: false,
+    featured: true,
   },
   pipeline: {
     slug: 'pipeline',
