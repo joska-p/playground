@@ -1,7 +1,7 @@
 ---
-title: "Documenting a Package"
-description: "How to write package documentation — the README is the single source of truth."
-category: "how-to"
+title: 'Documenting a Package'
+description: 'How to write package documentation — the README is the single source of truth.'
+category: 'how-to'
 tags:
   - how-to
 ---
@@ -37,14 +37,14 @@ pnpm add @repo/<name>
 import { Component } from "@repo/<name>";
 
 export default function Example() {
-  return <Component />;
+return <Component />;
 }
 \`\`\`
 
 ## Exports
 
 | Export | Path | Description |
-|--------|------|-------------|
+| ------ | ---- | ----------- |
 
 ## Architecture
 
@@ -106,6 +106,7 @@ pnpm --filter @repo/playground check-types
 ```
 
 Check that:
+
 - The doc appears in the sidebar under **Reference**
 - The README renders cleanly on GitHub
 - No broken internal links

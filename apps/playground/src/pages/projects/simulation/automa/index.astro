@@ -23,7 +23,12 @@ const keywords = `${project['tags'].join(', ')}`;
 
   <div class="min-h-screen snap-start">
     <StrictMode>
-      <App rows={150} cols={150} seed={42} client:only="react" />
+      <App
+        rows={150}
+        cols={150}
+        seed={42}
+        client:only="react"
+      />
     </StrictMode>
   </div>
 </BaseLayout>

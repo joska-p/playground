@@ -1,19 +1,23 @@
 ---
-import Piechart from "../../../../components/data-viz/pie-chart/PieChart.astro";
-import BaseLayout from "../../../../layouts/BaseLayout.astro";
-import { projects } from "../../../../data/projects";
-import Hero from "../../../../components/ui/features/Hero.astro";
+import Piechart from '../../../../components/data-viz/pie-chart/PieChart.astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { projects } from '../../../../data/projects';
+import Hero from '../../../../components/ui/features/Hero.astro';
 
-const project = projects["pie-chart"];
-const keywords = `${project["tags"].join(", ")}`;
+const project = projects['pie-chart'];
+const keywords = `${project['tags'].join(', ')}`;
 ---
 
-<BaseLayout title={project["name"]} description={project["description"]} keywords={keywords}>
+<BaseLayout
+  title={project['name']}
+  description={project['description']}
+  keywords={keywords}
+>
   <Hero
     badgeText={keywords}
-    title={project["name"]}
-    highlight={project["category"]}
-    description={project["description"]}
+    title={project['name']}
+    highlight={project['category']}
+    description={project['description']}
   />
   <div class="min-h-screen snap-start">
     <Piechart />

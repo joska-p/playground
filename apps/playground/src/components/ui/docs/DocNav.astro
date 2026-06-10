@@ -1,22 +1,36 @@
 ---
-import { getDocsByCategory } from "../../../data/docs";
-import NavCategory from "./NavCategory.astro";
+import { getDocsByCategory } from '../../../data/docs';
+import NavCategory from './NavCategory.astro';
 
 const currentPath = Astro.url.pathname;
 const categories = await getDocsByCategory();
 ---
 
-<aside class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex">
+<aside
+  class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex"
+>
   <div class="flex h-12 items-center gap-2.5 px-5">
     <span class="bg-primary h-1.5 w-1.5 rounded-full"></span>
-    <span class="text-muted-foreground text-[10px] font-semibold tracking-widest uppercase">
+    <span
+      class="text-muted-foreground text-[10px] font-semibold tracking-widest uppercase"
+    >
       ~/docs
     </span>
   </div>
 
-  <nav class="min-h-full flex-1 overflow-y-auto p-3" aria-label="Documentation navigation">
+  <nav
+    class="min-h-full flex-1 overflow-y-auto p-3"
+    aria-label="Documentation navigation"
+  >
     <div class="space-y-5 py-1">
-      {categories.map((category) => <NavCategory category={category} currentPath={currentPath} />)}
+      {
+        categories.map((category) => (
+          <NavCategory
+            category={category}
+            currentPath={currentPath}
+          />
+        ))
+      }
     </div>
   </nav>
 </aside>

@@ -1,7 +1,7 @@
 ---
-title: "Your First Visualization"
-description: "A step-by-step guide to creating your first visualization in the playground."
-category: "tutorial"
+title: 'Your First Visualization'
+description: 'A step-by-step guide to creating your first visualization in the playground.'
+category: 'tutorial'
 tags:
   - tutorial
 featured: true
@@ -32,7 +32,7 @@ export function drawLineGraph(canvas: HTMLCanvasElement, sequence: number[]) {
   canvas.width = width;
   canvas.height = height;
 
-  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   // Clear canvas
   ctx.clearRect(0, 0, width, height);
@@ -44,7 +44,7 @@ export function drawLineGraph(canvas: HTMLCanvasElement, sequence: number[]) {
 
   // Draw line
   ctx.beginPath();
-  ctx.strokeStyle = "hsl(160, 50%, 50%)";
+  ctx.strokeStyle = 'hsl(160, 50%, 50%)';
   ctx.lineWidth = 2;
 
   sequence.forEach((value, index) => {
@@ -61,7 +61,7 @@ export function drawLineGraph(canvas: HTMLCanvasElement, sequence: number[]) {
   ctx.stroke();
 
   // Draw points
-  ctx.fillStyle = "hsl(160, 50%, 50%)";
+  ctx.fillStyle = 'hsl(160, 50%, 50%)';
   sequence.forEach((value, index) => {
     const x = index * stepX;
     const y = height - value * scaleY;
@@ -79,11 +79,11 @@ export function drawLineGraph(canvas: HTMLCanvasElement, sequence: number[]) {
 In `packages/sequence-renderer/src/core/visualizations/index.ts`:
 
 ```typescript
-import { drawLineGraph } from "./line-graph.js";
+import { drawLineGraph } from './line-graph.js';
 
 export const visualizations = [
   // ...existing visualizations
-  { id: "line-graph", name: "Line Graph", draw: drawLineGraph },
+  { id: 'line-graph', name: 'Line Graph', draw: drawLineGraph },
 ];
 ```
 

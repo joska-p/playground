@@ -1,12 +1,12 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/ui/features/Hero.astro";
-import Stats from "../components/ui/features/Stats.astro";
-import FeaturedProjects from "../components/ui/projects/FeaturedProjects.astro";
-import FeaturedDocs from "../components/ui/docs/FeaturedDocs.astro";
-import Footer from "../layouts/Footer.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/features/Hero.astro';
+import Stats from '../components/ui/features/Stats.astro';
+import FeaturedProjects from '../components/ui/projects/FeaturedProjects.astro';
+import FeaturedDocs from '../components/ui/docs/FeaturedDocs.astro';
+import Footer from '../layouts/Footer.astro';
 
-const baseUrl = import.meta.env.BASE_URL || "/";
+const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
 ---
 
@@ -36,7 +36,12 @@ const projectsBaseUrl = `${baseUrl}projects/`;
           aria-hidden="true"
         >
           <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
+          <line
+            x1="12"
+            y1="19"
+            x2="20"
+            y2="19"
+          ></line>
         </svg>
         Explore
       </a>
@@ -52,7 +57,10 @@ const projectsBaseUrl = `${baseUrl}projects/`;
 
   <Stats />
   <div class="mx-auto w-full max-w-6xl px-6 py-20 lg:py-24">
-    <section id="experiments" class="mb-24 scroll-mt-20">
+    <section
+      id="experiments"
+      class="mb-24 scroll-mt-20"
+    >
       <FeaturedProjects />
     </section>
     <div class="border-border bg-card/30 rounded-xl border p-8 lg:p-12">

@@ -1,7 +1,7 @@
 ---
-title: "Project Maintenance"
-description: "Clean build artifacts and reset your local environment."
-category: "how-to"
+title: 'Project Maintenance'
+description: 'Clean build artifacts and reset your local environment.'
+category: 'how-to'
 tags:
   - how-to
 featured: true
@@ -47,6 +47,7 @@ pnpm reset
 ```
 
 Use this when:
+
 - You pull new changes and hit type errors or missing modules
 - A dependency update leaves the lockfile in a bad state
 - `turbo` caches are stale and causing incorrect incremental builds
@@ -54,9 +55,9 @@ Use this when:
 
 ## What Gets Removed
 
-| Path        | Contents                                |
-| ----------- | --------------------------------------- |
-| `node_modules/`  | All installed dependencies        |
+| Path            | Contents                          |
+| --------------- | --------------------------------- |
+| `node_modules/` | All installed dependencies        |
 | `.turbo/`       | Turborepo incremental build cache |
 | `dist/`         | Build output from packages        |
 | `.next/`        | Next.js build cache               |

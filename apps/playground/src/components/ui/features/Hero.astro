@@ -6,24 +6,28 @@ type Props = {
   highlight?: string;
   description?: string;
   className?: string; // Added to allow safe layout overrides per-page
-}
+};
 
 const {
-  badgeText = "Stateless first · Astro + React 19",
-  title = "Creative",
-  highlight = "Playground",
-  description = "A high-performance lab for interactive visualizations, math sequences, and color tools. Built to experiment without limits.",
-  className = "",
+  badgeText = 'Stateless first · Astro + React 19',
+  title = 'Creative',
+  highlight = 'Playground',
+  description = 'A high-performance lab for interactive visualizations, math sequences, and color tools. Built to experiment without limits.',
+  className = '',
 } = Astro.props;
 ---
 
 <section
   class:list={[
-    "border-border relative flex min-h-[65vh] flex-col justify-center overflow-hidden border-b px-6 py-[clamp(5rem,8vw,8rem)]",
+    'border-border relative flex min-h-[65vh] flex-col justify-center overflow-hidden border-b px-6 py-[clamp(5rem,8vw,8rem)]',
     className,
   ]}
 >
-  <div class="dot-grid absolute inset-0 z-0 opacity-50" aria-hidden="true"></div>
+  <div
+    class="dot-grid absolute inset-0 z-0 opacity-50"
+    aria-hidden="true"
+  >
+  </div>
 
   <div
     class="bg-primary absolute -bottom-24 -left-32 z-0 h-96 w-96 rounded-full opacity-10 blur-3xl"
@@ -47,10 +51,12 @@ const {
     }
 
     <h1
-      class="text-[clamp(2.75rem,7.5vw,5.5rem)] font-black tracking-tight leading-none"
+      class="text-[clamp(2.75rem,7.5vw,5.5rem)] leading-none font-black tracking-tight"
     >
       {highlight}<br />
-      <span class="from-primary to-primary/70 bg-linear-to-r bg-clip-text text-transparent">
+      <span
+        class="from-primary to-primary/70 bg-linear-to-r bg-clip-text text-transparent"
+      >
         {title}<span class="text-primary cursor ml-1 font-light">_</span>
       </span>
     </h1>
@@ -64,7 +70,7 @@ const {
     }
 
     {
-      Astro.slots.has("cta") && (
+      Astro.slots.has('cta') && (
         <div class="mt-10 flex flex-wrap items-center gap-4">
           <slot name="cta" />
         </div>

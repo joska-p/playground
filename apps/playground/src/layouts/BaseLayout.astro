@@ -1,70 +1,143 @@
 ---
-import Navbar from "./nav-bar/NavBar.astro";
-import { Font } from "astro:assets";
-import "../styles/styles.css";
+import Navbar from './nav-bar/NavBar.astro';
+import { Font } from 'astro:assets';
+import '../styles/styles.css';
 
-const baseUrl = import.meta.env.BASE_URL || "";
+const baseUrl = import.meta.env.BASE_URL || '';
 
 const {
   title,
-  description = "A creative and technical playground: generative art, mathematics, data visualization, and frontend tutorials.",
-  keywords = "Generative Art, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathematics, Frontend",
+  description = 'A creative and technical playground: generative art, mathematics, data visualization, and frontend tutorials.',
+  keywords = 'Generative Art, D3.js, Canvas, Astro, Tailwind, TypeScript, Mathematics, Frontend',
   ogImage = `${baseUrl}default-og-image.jpg`, // Une image par défaut à la racine de votre dossier public
   katex = false,
 } = Astro.props;
 
-const siteTitle = title ? `${title} — Playground` : "Playground — Generative Art & Dev Notes";
+const siteTitle = title
+  ? `${title} — Playground`
+  : 'Playground — Generative Art & Dev Notes';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const {className} = Astro.props;
+const { className } = Astro.props;
 ---
 
 <!-- Theme must be is:inline to run before first paint (prevents flash) -->
 <script is:inline>
   const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
     }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
   };
   const applyTheme = (theme) => {
     const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
+    root.classList.toggle('dark', theme === 'dark');
     root.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
+    localStorage.setItem('theme', theme);
   };
   applyTheme(getThemePreference());
 </script>
 
-<html lang="en" data-theme="dark" class="snap-y snap-proximity">
+<html
+  lang="en"
+  data-theme="dark"
+  class="snap-y snap-proximity"
+>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.svg`} />
-    <link rel="sitemap" href={`${baseUrl}sitemap-index.xml`} />
-    <meta name="robots" content="noindex" />
-    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="viewport"
+      content="width=device-width"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href={`${baseUrl}favicon.svg`}
+    />
+    <link
+      rel="sitemap"
+      href={`${baseUrl}sitemap-index.xml`}
+    />
+    <meta
+      name="robots"
+      content="noindex"
+    />
+    <meta
+      name="generator"
+      content={Astro.generator}
+    />
 
     <title>{siteTitle}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
-    <link rel="canonical" href={canonicalURL} />
-    <meta name="author" content="Votre Nom / Pseudo" />
+    <meta
+      name="description"
+      content={description}
+    />
+    <meta
+      name="keywords"
+      content={keywords}
+    />
+    <link
+      rel="canonical"
+      href={canonicalURL}
+    />
+    <meta
+      name="author"
+      content="Votre Nom / Pseudo"
+    />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={siteTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta
+      property="og:type"
+      content="website"
+    />
+    <meta
+      property="og:url"
+      content={canonicalURL}
+    />
+    <meta
+      property="og:title"
+      content={siteTitle}
+    />
+    <meta
+      property="og:description"
+      content={description}
+    />
+    <meta
+      property="og:image"
+      content={ogImage}
+    />
 
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={siteTitle} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
+    <meta
+      property="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      property="twitter:url"
+      content={canonicalURL}
+    />
+    <meta
+      property="twitter:title"
+      content={siteTitle}
+    />
+    <meta
+      property="twitter:description"
+      content={description}
+    />
+    <meta
+      property="twitter:image"
+      content={ogImage}
+    />
 
     <Font cssVariable="--font-jetbrains-mono" />
-    {katex && <link rel="stylesheet" href={`${baseUrl}katex.css`} />}
+    {
+      katex && (
+        <link
+          rel="stylesheet"
+          href={`${baseUrl}katex.css`}
+        />
+      )
+    }
   </head>
   <body class="bg-background text-foreground min-h-screen antialiased">
     <Navbar />

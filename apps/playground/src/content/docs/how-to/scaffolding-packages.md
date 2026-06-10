@@ -1,7 +1,7 @@
 ---
-title: "Scaffolding Packages"
-description: "Generate new Vite + React packages with a single command."
-category: "how-to"
+title: 'Scaffolding Packages'
+description: 'Generate new Vite + React packages with a single command.'
+category: 'how-to'
 tags:
   - how-to
 featured: true
@@ -78,8 +78,8 @@ Follow [Adding Projects](./adding-projects/) to register the new package as a pr
 
 ```astro
 ---
-import { Demo } from "@repo/<name>/Demo";
-import { StrictMode } from "react";
+import { Demo } from '@repo/<name>/Demo';
+import { StrictMode } from 'react';
 ---
 
 <StrictMode>

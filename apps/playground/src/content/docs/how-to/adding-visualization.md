@@ -1,7 +1,7 @@
 ---
-title: "Adding a Visualization"
-description: "Add a new visualization to the Sequence Renderer engine."
-category: "how-to"
+title: 'Adding a Visualization'
+description: 'Add a new visualization to the Sequence Renderer engine.'
+category: 'how-to'
 tags:
   - how-to
 ---
@@ -39,7 +39,7 @@ export function drawMyViz(canvas: HTMLCanvasElement, sequence: number[]) {
   canvas.width = width;
   canvas.height = height;
 
-  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
   ctx.clearRect(0, 0, width, height);
 
   // Your drawing logic here
@@ -48,7 +48,7 @@ export function drawMyViz(canvas: HTMLCanvasElement, sequence: number[]) {
   const scaleY = height / maxVal;
 
   ctx.beginPath();
-  ctx.strokeStyle = "hsl(160, 50%, 50%)";
+  ctx.strokeStyle = 'hsl(160, 50%, 50%)';
   ctx.lineWidth = 2;
 
   sequence.forEach((value, index) => {
@@ -69,11 +69,11 @@ export function drawMyViz(canvas: HTMLCanvasElement, sequence: number[]) {
 In `packages/sequence-renderer/src/core/visualizations/index.ts`:
 
 ```typescript
-import { drawMyViz } from "./my-viz.js";
+import { drawMyViz } from './my-viz.js';
 
 export const visualizations = [
   // ...existing visualizations
-  { id: "my-viz", name: "My Visualization", draw: drawMyViz },
+  { id: 'my-viz', name: 'My Visualization', draw: drawMyViz },
 ];
 ```
 

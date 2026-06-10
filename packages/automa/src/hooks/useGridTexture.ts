@@ -39,6 +39,8 @@ const createGridUniforms = (
     stateColors: { value: palette },
     glowColor: { value: new THREE.Color(glowColor) },
     texelSize: { value: new THREE.Vector2(1 / cols, 1 / rows) },
+    time: { value: 0 },
+    mouse: { value: new THREE.Vector2(0.5, 0.5) },
   };
 };
 
@@ -70,7 +72,9 @@ const useGridTexture = ({ cols, rows }: UseGridTextureParams) => {
     uniforms.glowColor.value.set(glowColor);
   }, [stateColors, glowColor, uniforms]);
 
-  useFrame(() => {
+  useFrame((state) => {
+    uniforms.time.value = state.clock.elapsedTime;
+
     const { running } = uiStore.getState();
     const { grid, generation } = simulationStore.getState();
 

@@ -1,7 +1,7 @@
 ---
-title: "Mosaic Maker"
-description: "Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering."
-category: "reference"
+title: 'Mosaic Maker'
+description: 'Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering.'
+category: 'reference'
 tags:
   - reference
   - mosaic-maker
@@ -17,7 +17,7 @@ pnpm add @repo/mosaic-maker
 ```
 
 ```tsx
-import { MosaicMaker } from "@repo/mosaic-maker";
+import { MosaicMaker } from '@repo/mosaic-maker';
 
 export default function Patterns() {
   return <MosaicMaker />;
@@ -96,13 +96,13 @@ dimensions change
 
 ### What triggers regeneration
 
-| Trigger | Fires `regenerateTiles`? |
-|---|---|
-| Window / container resize | Yes (debounced 150 ms) |
-| Tile set checkbox toggle | Yes |
-| "New tiles" button | Yes |
-| Tile size / gap slider | Yes (debounced 150 ms) |
-| Palette / color change | No — CSS variables only |
+| Trigger                   | Fires `regenerateTiles`? |
+| ------------------------- | ------------------------ |
+| Window / container resize | Yes (debounced 150 ms)   |
+| Tile set checkbox toggle  | Yes                      |
+| "New tiles" button        | Yes                      |
+| Tile size / gap slider    | Yes (debounced 150 ms)   |
+| Palette / color change    | No — CSS variables only  |
 
 React `<StrictMode>` double-fires the init chain in dev; production runs once.
 
@@ -111,7 +111,7 @@ React `<StrictMode>` double-fires the init chain in dev; production runs once.
 `computeNumberOfTiles.ts` mirrors CSS Grid's `auto-fill` arithmetic exactly:
 
 ```ts
-tilesPerRow    = Math.floor((width  + gap) / (tileSize + gap));
+tilesPerRow = Math.floor((width + gap) / (tileSize + gap));
 tilesPerColumn = Math.floor((height + gap) / (tileSize + gap));
 return tilesPerRow * tilesPerColumn;
 ```
@@ -129,10 +129,17 @@ Each tile in `TILE_REGISTRY.ts` is a `TileDefinition` with an array of `Shape` o
 
 ```ts
 type Shape =
-  | { type: "circle";  cx: number; cy: number; r: number; colorIndex: number }
-  | { type: "rect";    x: number; y: number; width: number; height: number; colorIndex: number }
-  | { type: "path";    d: string; colorIndex: number }
-  | { type: "polygon"; points: string; colorIndex: number }
+  | { type: 'circle'; cx: number; cy: number; r: number; colorIndex: number }
+  | {
+      type: 'rect';
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      colorIndex: number;
+    }
+  | { type: 'path'; d: string; colorIndex: number }
+  | { type: 'polygon'; points: string; colorIndex: number };
 ```
 
 `colorIndex` maps into the 5-element `--color-N` array. Tiles use subsets of indices 0–4.
@@ -140,6 +147,7 @@ type Shape =
 ### Instance generation (`computeInitialTiles.ts`)
 
 Each tile instance gets:
+
 - `id`: `"${i}"` — stable index-based key (preserves DOM nodes across regenerations)
 - `name`: random pick from active `tileSet`
 - `colors`: shuffled copy of CSS var key array
@@ -169,8 +177,8 @@ fetchPalettes()
 
 ```ts
 type Palette = {
-  "--color-0": "#333333";
-  "--color-1": "#555555";
+  '--color-0': '#333333';
+  '--color-1': '#555555';
   // ... up to --color-4
 };
 ```
@@ -187,13 +195,13 @@ getter hooks and setter functions.
 
 ```ts
 type MosaicState = {
-  mosaicRef:            RefObject<HTMLDivElement | null>;
-  paletteStock:         Palette[];           // full fetched list
-  currentPalettesIndex: number;              // window start in paletteStock
-  currentPalette:       Palette;             // actively displayed
-  currentPalettes:      Palette[];           // window of 33
-  tileSet:              TileSet;             // active tile names
-  tiles:                TileInstance[];      // current rendered tiles
+  mosaicRef: RefObject<HTMLDivElement | null>;
+  paletteStock: Palette[]; // full fetched list
+  currentPalettesIndex: number; // window start in paletteStock
+  currentPalette: Palette; // actively displayed
+  currentPalettes: Palette[]; // window of 33
+  tileSet: TileSet; // active tile names
+  tiles: TileInstance[]; // current rendered tiles
 };
 ```
 
@@ -201,14 +209,14 @@ Fine-grained Zustand selectors (`useTiles`, `useCurrentPalette`, etc.) isolate r
 
 ## CSS Strategy
 
-| Property | Mechanism |
-|---|---|
-| Tile size | CSS var `--tile-size`, set via JS on the mosaic div |
-| Gap | CSS var `--mosaicGap`, set via JS |
-| Colors | CSS vars `--color-0` through `--color-4` |
-| Rotations | CSS vars `--rotation-0` through `--rotation-3` |
-| Grid | `grid-template-columns: repeat(auto-fill, var(--tile-size))` |
-| Theme | Tailwind v4 with gruvbox theme from `@repo/ui` |
+| Property  | Mechanism                                                    |
+| --------- | ------------------------------------------------------------ |
+| Tile size | CSS var `--tile-size`, set via JS on the mosaic div          |
+| Gap       | CSS var `--mosaicGap`, set via JS                            |
+| Colors    | CSS vars `--color-0` through `--color-4`                     |
+| Rotations | CSS vars `--rotation-0` through `--rotation-3`               |
+| Grid      | `grid-template-columns: repeat(auto-fill, var(--tile-size))` |
+| Theme     | Tailwind v4 with gruvbox theme from `@repo/ui`               |
 
 High-frequency updates (slider drags) write CSS custom properties directly via
 `style.setProperty()` — no React re-render. Palette changes use
@@ -217,14 +225,14 @@ SVG shapes use `transition-all duration-500` for smooth cross-fades.
 
 ## Performance
 
-| Concern | Notes |
-|---|---|
-| **Resize thrashing** | Debounced at 150ms — fires once after stabilization |
-| **Tile identity** | IDs are random per regeneration → React unmounts/remounts all SVGs. Acceptable for ~50–200 tile grids |
-| **Color transitions** | CSS `transition-all duration-500` on SVG shapes |
-| **Palette caching** | localStorage with 7-day TTL, version-bumped key |
-| **Zustand isolation** | Per-slice selectors prevent cascade re-renders |
-| **Slider updates** | Direct DOM — no React overhead during drag |
+| Concern               | Notes                                                                                                 |
+| --------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Resize thrashing**  | Debounced at 150ms — fires once after stabilization                                                   |
+| **Tile identity**     | IDs are random per regeneration → React unmounts/remounts all SVGs. Acceptable for ~50–200 tile grids |
+| **Color transitions** | CSS `transition-all duration-500` on SVG shapes                                                       |
+| **Palette caching**   | localStorage with 7-day TTL, version-bumped key                                                       |
+| **Zustand isolation** | Per-slice selectors prevent cascade re-renders                                                        |
+| **Slider updates**    | Direct DOM — no React overhead during drag                                                            |
 
 ## Patterns & Gotchas
 
@@ -245,4 +253,3 @@ SVG shapes use `transition-all duration-500` for smooth cross-fades.
 ---
 
 _Part of the [Creative Playground](https://playground-beryl-omega.vercel.app)_
-

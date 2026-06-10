@@ -70,10 +70,15 @@
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <circle cx="12" cy="12" r="4"></circle>
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+      ></circle>
       <path
         d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
-        stroke-dasharray="none"></path>
+        stroke-dasharray="none"
+      ></path>
     </svg>
     <svg
       id="icon-moon"
@@ -100,24 +105,27 @@
   >
     <span
       class="h-0.5 w-4 rounded-full bg-current transition-transform duration-300"
-      id="burger-top"></span>
-    <span class="h-0.5 w-4 rounded-full bg-current transition-all duration-300" id="burger-bottom"
+      id="burger-top"
+    ></span>
+    <span
+      class="h-0.5 w-4 rounded-full bg-current transition-all duration-300"
+      id="burger-bottom"
     ></span>
   </button>
 </div>
 
 <style>
-  html[data-theme="dark"] #icon-moon {
+  html[data-theme='dark'] #icon-moon {
     display: none;
   }
-  html[data-theme="light"] #icon-sun {
+  html[data-theme='light'] #icon-sun {
     display: none;
   }
 
-  #mobile-menu-toggle[aria-expanded="true"] #burger-top {
+  #mobile-menu-toggle[aria-expanded='true'] #burger-top {
     transform: translateY(4px) rotate(45deg);
   }
-  #mobile-menu-toggle[aria-expanded="true"] #burger-bottom {
+  #mobile-menu-toggle[aria-expanded='true'] #burger-bottom {
     transform: translateY(-4px) rotate(-45deg);
   }
 </style>

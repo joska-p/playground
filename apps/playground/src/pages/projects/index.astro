@@ -1,12 +1,12 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Hero from "../../components/ui/features/Hero.astro";
-import ExperimentCard from "../../components/ui/cards/ExperimentCard.astro";
-import SectionHeader from "../../components/ui/features/SectionHeader.astro";
-import { getProjectsByCategory } from "../../data/projects";
-import Footer from "../../layouts/Footer.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/ui/features/Hero.astro';
+import ExperimentCard from '../../components/ui/cards/ExperimentCard.astro';
+import SectionHeader from '../../components/ui/features/SectionHeader.astro';
+import { getProjectsByCategory } from '../../data/projects';
+import Footer from '../../layouts/Footer.astro';
 
-const baseUrl = import.meta.env.BASE_URL || "/";
+const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
 const categories = getProjectsByCategory();
 ---
@@ -20,25 +20,29 @@ const categories = getProjectsByCategory();
   />
 
   <div class="mx-auto w-full max-w-6xl space-y-16 px-6 py-16 lg:py-20">
-      {
-        categories.map(({ name, description, projects }) => (
-          <section>
-            <SectionHeader title={name} description={description} className="mb-12" />
-            <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
-              {projects.map((project) => (
-                <ExperimentCard
-                  href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
-                  title={project.name}
-                  description={project.description}
-                  iconName={project.icon}
-                  category={project.category}
-                  tags={project.tags}
-                />
-              ))}
-            </div>
-          </section>
-        ))
-      }
+    {
+      categories.map(({ name, description, projects }) => (
+        <section>
+          <SectionHeader
+            title={name}
+            description={description}
+            className="mb-12"
+          />
+          <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+            {projects.map((project) => (
+              <ExperimentCard
+                href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
+                title={project.name}
+                description={project.description}
+                iconName={project.icon}
+                category={project.category}
+                tags={project.tags}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    }
   </div>
 
   <Footer>

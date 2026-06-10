@@ -1,15 +1,15 @@
 ---
-title: "Design Tokens"
-description: "Colors, typography, spacing — the Gruvbox theme and design token reference."
-category: "reference"
+title: 'Design Tokens'
+description: 'Colors, typography, spacing — the Gruvbox theme and design token reference.'
+category: 'reference'
 tags:
   - reference
 order: 10
 ---
 
-import TokenTable from "../../../components/ui/docs/TokenTable.astro";
-import TypographyTable from "../../../components/ui/docs/TypographyTable.astro";
-import RadiusTable from "../../../components/ui/docs/RadiusTable.astro";
+import TokenTable from '../../../components/ui/docs/TokenTable.astro';
+import TypographyTable from '../../../components/ui/docs/TypographyTable.astro';
+import RadiusTable from '../../../components/ui/docs/RadiusTable.astro';
 
 # Design Tokens
 
@@ -25,25 +25,40 @@ These tokens form the backbone of the UI. They automatically switch values betwe
 
 <TokenTable
   tokens={[
-    { name: "--background", usage: "Page background" },
-    { name: "--foreground", usage: "Primary text color" },
-    { name: "--card", usage: "Card background color" },
-    { name: "--card-foreground", usage: "Text color on cards" },
-    { name: "--popover", usage: "Popover and menu background" },
-    { name: "--popover-foreground", usage: "Text color on popovers" },
-    { name: "--primary", usage: "Primary actions, links, and highlights" },
-    { name: "--primary-foreground", usage: "Text color on primary backgrounds" },
-    { name: "--secondary", usage: "Secondary actions and subtle backgrounds" },
-    { name: "--secondary-foreground", usage: "Text color on secondary backgrounds" },
-    { name: "--muted", usage: "Disabled states and decorative elements" },
-    { name: "--muted-foreground", usage: "Muted text and secondary information" },
-    { name: "--accent", usage: "Accent highlights and active states" },
-    { name: "--accent-foreground", usage: "Text color on accent backgrounds" },
-    { name: "--destructive", usage: "Error states, delete actions, and alerts" },
-    { name: "--destructive-foreground", usage: "Text color on destructive backgrounds" },
-    { name: "--border", usage: "Borders and separators" },
-    { name: "--input", usage: "Form input backgrounds" },
-    { name: "--ring", usage: "Focus rings and selection outlines" },
+    { name: '--background', usage: 'Page background' },
+    { name: '--foreground', usage: 'Primary text color' },
+    { name: '--card', usage: 'Card background color' },
+    { name: '--card-foreground', usage: 'Text color on cards' },
+    { name: '--popover', usage: 'Popover and menu background' },
+    { name: '--popover-foreground', usage: 'Text color on popovers' },
+    { name: '--primary', usage: 'Primary actions, links, and highlights' },
+    {
+      name: '--primary-foreground',
+      usage: 'Text color on primary backgrounds',
+    },
+    { name: '--secondary', usage: 'Secondary actions and subtle backgrounds' },
+    {
+      name: '--secondary-foreground',
+      usage: 'Text color on secondary backgrounds',
+    },
+    { name: '--muted', usage: 'Disabled states and decorative elements' },
+    {
+      name: '--muted-foreground',
+      usage: 'Muted text and secondary information',
+    },
+    { name: '--accent', usage: 'Accent highlights and active states' },
+    { name: '--accent-foreground', usage: 'Text color on accent backgrounds' },
+    {
+      name: '--destructive',
+      usage: 'Error states, delete actions, and alerts',
+    },
+    {
+      name: '--destructive-foreground',
+      usage: 'Text color on destructive backgrounds',
+    },
+    { name: '--border', usage: 'Borders and separators' },
+    { name: '--input', usage: 'Form input backgrounds' },
+    { name: '--ring', usage: 'Focus rings and selection outlines' },
   ]}
 />
 
@@ -55,10 +70,13 @@ Used for project badges and category identification across the playground.
 
 <TokenTable
   tokens={[
-    { name: "--category-generative", usage: "Generative art and algorithmic projects" },
-    { name: "--category-color", usage: "Color theory and palette tools" },
-    { name: "--category-image", usage: "Image manipulation and processing" },
-    { name: "--category-data-viz", usage: "Data visualization and charting" },
+    {
+      name: '--category-generative',
+      usage: 'Generative art and algorithmic projects',
+    },
+    { name: '--category-color', usage: 'Color theory and palette tools' },
+    { name: '--category-image', usage: 'Image manipulation and processing' },
+    { name: '--category-data-viz', usage: 'Data visualization and charting' },
   ]}
 />
 
@@ -66,10 +84,13 @@ Used for project badges and category identification across the playground.
 
 <TokenTable
   tokens={[
-    { name: "--category-tutorial", usage: "Step-by-step guides" },
-    { name: "--category-how-to", usage: "Practical task-based instructions" },
-    { name: "--category-explanation", usage: "High-level concepts and background" },
-    { name: "--category-reference", usage: "Technical descriptions and APIs" },
+    { name: '--category-tutorial', usage: 'Step-by-step guides' },
+    { name: '--category-how-to', usage: 'Practical task-based instructions' },
+    {
+      name: '--category-explanation',
+      usage: 'High-level concepts and background',
+    },
+    { name: '--category-reference', usage: 'Technical descriptions and APIs' },
   ]}
 />
 
@@ -82,18 +103,18 @@ The typography system uses a set of stack tokens for different contexts.
 <TypographyTable
   tokens={[
     {
-      name: "--font-sans",
-      example: "The quick brown fox jumps over the lazy dog.",
+      name: '--font-sans',
+      example: 'The quick brown fox jumps over the lazy dog.',
       stack:
         'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
     },
     {
-      name: "--font-serif",
-      example: "The quick brown fox jumps over the lazy dog.",
+      name: '--font-serif',
+      example: 'The quick brown fox jumps over the lazy dog.',
       stack: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
     },
     {
-      name: "--font-mono",
+      name: '--font-mono',
       example: "const playground = () => 'gruvbox';",
       stack:
         'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
@@ -109,10 +130,10 @@ Standardized radii for consistent component rounding.
 
 <RadiusTable
   tokens={[
-    { name: "--radius-sm", value: "calc(var(--radius) - 4px)" },
-    { name: "--radius-md", value: "calc(var(--radius) - 2px)" },
-    { name: "--radius-lg", value: "0.5rem (Default)" },
-    { name: "--radius-xl", value: "calc(var(--radius) + 4px)" },
+    { name: '--radius-sm', value: 'calc(var(--radius) - 4px)' },
+    { name: '--radius-md', value: 'calc(var(--radius) - 2px)' },
+    { name: '--radius-lg', value: '0.5rem (Default)' },
+    { name: '--radius-xl', value: 'calc(var(--radius) + 4px)' },
   ]}
 />
 

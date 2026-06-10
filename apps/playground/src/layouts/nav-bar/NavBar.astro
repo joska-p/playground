@@ -1,18 +1,18 @@
 ---
-import NavLogo from "./NavLogo.astro";
-import NavLinks from "./NavLinks.astro";
-import NavActions from "./NavActions.astro";
-import MobileMenu from "./MobileMenu.astro";
+import NavLogo from './NavLogo.astro';
+import NavLinks from './NavLinks.astro';
+import NavActions from './NavActions.astro';
+import MobileMenu from './MobileMenu.astro';
 
 const currentPath = Astro.url.pathname;
-const baseUrl = import.meta.env.BASE_URL || "/";
+const baseUrl = import.meta.env.BASE_URL || '/';
 
 type Route = { label: string; href: string };
 const routes: Route[] = [
-  { label: "~/home", href: baseUrl },
-  { label: "~/projects", href: `${baseUrl}projects/` },
-  { label: "~/notebook", href: `${baseUrl}notebook/` },
-  { label: "~/docs", href: `${baseUrl}docs/` },
+  { label: '~/home', href: baseUrl },
+  { label: '~/projects', href: `${baseUrl}projects/` },
+  { label: '~/notebook', href: `${baseUrl}notebook/` },
+  { label: '~/docs', href: `${baseUrl}docs/` },
 ];
 ---
 
@@ -21,16 +21,24 @@ const routes: Route[] = [
     class="border-border/50 bg-background/90 md:hover:border-primary/30 relative z-30 mx-auto flex h-14 max-w-7xl items-center justify-between border-b px-4 shadow-sm backdrop-blur-md transition-colors md:rounded-2xl md:border-2"
   >
     <NavLogo href={baseUrl} />
-    <NavLinks routes={routes} currentPath={currentPath} baseUrl={baseUrl} />
+    <NavLinks
+      routes={routes}
+      currentPath={currentPath}
+      baseUrl={baseUrl}
+    />
     <NavActions />
   </div>
 
-  <MobileMenu routes={routes} currentPath={currentPath} baseUrl={baseUrl} />
+  <MobileMenu
+    routes={routes}
+    currentPath={currentPath}
+    baseUrl={baseUrl}
+  />
 </header>
 
 <!-- Bundled scripts: Astro deduplicates these automatically -->
 <script>
-  import "./scripts/theme.js";
-  import "./scripts/mobileMenu.js";
-  import "./scripts/smartNavbar.js";
+  import './scripts/theme.js';
+  import './scripts/mobileMenu.js';
+  import './scripts/smartNavbar.js';
 </script>

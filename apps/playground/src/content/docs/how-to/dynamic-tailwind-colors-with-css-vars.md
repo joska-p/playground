@@ -1,7 +1,7 @@
 ---
-title: "Dynamic Tailwind Colors with CSS Variables"
+title: 'Dynamic Tailwind Colors with CSS Variables'
 description: "Use CSS custom properties to apply dynamic colors via Tailwind v4's arbitrary value syntax."
-category: "how-to"
+category: 'how-to'
 tags:
   - how-to
 ---
@@ -18,10 +18,10 @@ Define a lookup that returns a `var(--token)` string, not a Tailwind class name:
 
 ```typescript
 const TYPE_ACCENT: Record<string, string> = {
-  pixel: "var(--utility-6)",
-  neighborhood: "var(--utility-3)",
-  whole: "var(--utility-2)",
-  pipeline: "var(--utility-1)",
+  pixel: 'var(--utility-6)',
+  neighborhood: 'var(--utility-3)',
+  whole: 'var(--utility-2)',
+  pipeline: 'var(--utility-1)',
 };
 ```
 
@@ -34,7 +34,11 @@ Use inline `style` to inject the CSS custom property. The `as React.CSSPropertie
 ```tsx
 <div
   className="space-y-6"
-  style={{ "--accent": TYPE_ACCENT[manip.type] ?? "var(--utility-4)" } as React.CSSProperties}
+  style={
+    {
+      '--accent': TYPE_ACCENT[manip.type] ?? 'var(--utility-4)',
+    } as React.CSSProperties
+  }
 >
   ...
 </div>
@@ -45,20 +49,20 @@ Use inline `style` to inject the CSS custom property. The `as React.CSSPropertie
 Reference `--accent` anywhere in the subtree with Tailwind v4's parenthetical arbitrary value syntax. These class names are fully static — the JIT compiles them ahead of time.
 
 ```tsx
-{/* Background */}
-<span className="bg-(--accent) text-white ...">
-  PIXEL
-</span>
+{
+  /* Background */
+}
+<span className="bg-(--accent) text-white ...">PIXEL</span>;
 
-{/* Border left */}
-<div className="border-l-(--accent) border-l-2 ...">
-  How It Works
-</div>
+{
+  /* Border left */
+}
+<div className="border-l-2 border-l-(--accent) ...">How It Works</div>;
 
-{/* Border bottom */}
-<h3 className="border-b-(--accent) border-b-2 ...">
-  Section Title
-</h3>
+{
+  /* Border bottom */
+}
+<h3 className="border-b-2 border-b-(--accent) ...">Section Title</h3>;
 ```
 
 For side-by-side context, here's the **wrong** approach (JIT-invisible) and the **correct** one:
@@ -77,18 +81,18 @@ const color = "var(--utility-6)";
 
 Any Tailwind utility that accepts a color value works with `(--prop)`:
 
-| Utility         | Syntax                  |
-|-----------------|-------------------------|
-| Text color      | `text-(--accent)`       |
-| Background      | `bg-(--accent)`         |
-| Border color    | `border-(--accent)`, `border-l-(--accent)` |
-| Border bottom   | `border-b-(--accent)`   |
-| Ring            | `ring-(--accent)`       |
-| Outline         | `outline-(--accent)`    |
-| Divide          | `divide-(--accent)`     |
-| Shadow          | `shadow-(--accent)`     |
-| Decoration      | `decoration-(--accent)` |
-| Accent          | `accent-(--accent)`     |
-| Caret           | `caret-(--accent)`      |
+| Utility       | Syntax                                     |
+| ------------- | ------------------------------------------ |
+| Text color    | `text-(--accent)`                          |
+| Background    | `bg-(--accent)`                            |
+| Border color  | `border-(--accent)`, `border-l-(--accent)` |
+| Border bottom | `border-b-(--accent)`                      |
+| Ring          | `ring-(--accent)`                          |
+| Outline       | `outline-(--accent)`                       |
+| Divide        | `divide-(--accent)`                        |
+| Shadow        | `shadow-(--accent)`                        |
+| Decoration    | `decoration-(--accent)`                    |
+| Accent        | `accent-(--accent)`                        |
+| Caret         | `caret-(--accent)`                         |
 
 The variable name is arbitrary — `--accent`, `--card-accent`, `--brand` — as long as the inline style and the class reference match.

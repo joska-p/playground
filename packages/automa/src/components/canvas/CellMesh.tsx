@@ -1,3 +1,5 @@
+import type { ThreeEvent } from '@react-three/fiber';
+import { useCallback } from 'react';
 import { getCreature } from '../../core/creature/registry.ts';
 import { getShader } from '../../core/shaders/registry.ts';
 import { useCellPainting } from '../../hooks/useCellPainting.ts';
@@ -24,8 +26,18 @@ function CellMesh() {
 
   const { uniforms } = useGridTexture({ cols, rows });
 
-  const { meshRef, onPointerDown, onPointerMove, onPointerUp, onContextMenu } =
+  const { meshRef, onPointerDown, onPointerUp, onContextMenu } =
     useCellPainting(cols, rows, brushMode, paintCell, creature, placePattern);
+
+  const onPointerMove = useCallback(
+    (e: ThreeEvent<PointerEvent>) => {
+      uniforms.mouse.value.set(
+        (e.point.x + cols / 2) / cols,
+        (e.point.y + rows / 2) / rows
+      );
+    },
+    [uniforms, cols, rows]
+  );
 
   if (!shader) return null;
 
@@ -39,6 +51,7 @@ function CellMesh() {
     >
       <planeGeometry args={[cols, rows]} />
       <shaderMaterial
+        key={shaderId}
         uniforms={uniforms}
         vertexShader={shader.vert}
         fragmentShader={shader.frag}

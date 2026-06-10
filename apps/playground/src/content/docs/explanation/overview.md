@@ -1,7 +1,7 @@
 ---
-title: "Overview"
-description: "What Creative Playground is, its principles, and architecture."
-category: "explanation"
+title: 'Overview'
+description: 'What Creative Playground is, its principles, and architecture.'
+category: 'explanation'
 tags:
   - explanation
 featured: true

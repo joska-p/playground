@@ -1,7 +1,7 @@
 ---
-title: "Image Pipeline"
-description: "TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies."
-category: "reference"
+title: 'Image Pipeline'
+description: 'TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.'
+category: 'reference'
 tags:
   - reference
   - image-pipeline
@@ -17,14 +17,15 @@ pnpm add @repo/image-pipeline
 ```
 
 ```typescript
-import { runPipeline, Registry } from "@repo/image-pipeline";
-import { ALL_MANIPULATIONS } from "@repo/image-pipeline/manipulations";
+import { runPipeline, Registry } from '@repo/image-pipeline';
+import { ALL_MANIPULATIONS } from '@repo/image-pipeline/manipulations';
 
 const registry = Registry.from(ALL_MANIPULATIONS);
-const snapshots = await runPipeline(imageData, [
-  { id: "grayscale" },
-  { id: "brightness", options: { factor: 1.3 } },
-], { registry });
+const snapshots = await runPipeline(
+  imageData,
+  [{ id: 'grayscale' }, { id: 'brightness', options: { factor: 1.3 } }],
+  { registry }
+);
 // snapshots[0] = grayscale result, snapshots[1] = brightness result
 ```
 
@@ -47,46 +48,46 @@ runPipeline(source, steps, context)
 
 ## Step Types
 
-| Type | Description | Examples | Execution |
-|---|---|---|---|
-| `pixel` | Per-pixel transformation | brightness, contrast, grayscale | Fused — single pass over all pixels |
-| `neighborhood` | Convolution with kernel | gaussian-blur, sharpen, edge-detect | Immediate, uses tiling for large images |
-| `whole` | Geometry-changing transform | resize, flip, rotate | Immediate |
+| Type           | Description                 | Examples                            | Execution                               |
+| -------------- | --------------------------- | ----------------------------------- | --------------------------------------- |
+| `pixel`        | Per-pixel transformation    | brightness, contrast, grayscale     | Fused — single pass over all pixels     |
+| `neighborhood` | Convolution with kernel     | gaussian-blur, sharpen, edge-detect | Immediate, uses tiling for large images |
+| `whole`        | Geometry-changing transform | resize, flip, rotate                | Immediate                               |
 
 ## Built-in Manipulations
 
 ### Pixel operations (9)
 
-| ID | Factory | Options |
-|---|---|---|
-| `brightness` | `definePixel()` | `factor: number` (0–3) |
-| `contrast` | `definePixel()` | `factor: number` (0–3) |
-| `grayscale` | `definePixel()` | — |
-| `sepia` | `definePixel()` | — |
-| `invert` | `definePixel()` | — |
-| `saturation` | `definePixel()` | `amount: number` (0–3) |
-| `hue-rotate` | `definePixel()` | `degrees: number` (0–360) |
-| `opacity` | `definePixel()` | `alpha: number` (0–1) |
-| `threshold` | `definePixel()` | `threshold: number` (0–255) |
+| ID           | Factory         | Options                     |
+| ------------ | --------------- | --------------------------- |
+| `brightness` | `definePixel()` | `factor: number` (0–3)      |
+| `contrast`   | `definePixel()` | `factor: number` (0–3)      |
+| `grayscale`  | `definePixel()` | —                           |
+| `sepia`      | `definePixel()` | —                           |
+| `invert`     | `definePixel()` | —                           |
+| `saturation` | `definePixel()` | `amount: number` (0–3)      |
+| `hue-rotate` | `definePixel()` | `degrees: number` (0–360)   |
+| `opacity`    | `definePixel()` | `alpha: number` (0–1)       |
+| `threshold`  | `definePixel()` | `threshold: number` (0–255) |
 
 ### Neighborhood operations (4)
 
-| ID | Factory | Radius | Options |
-|---|---|---|---|
-| `gaussian-blur` | `defineNeighbor()` | 3 | — |
-| `box-blur` | `defineNeighbor()` | 2 | — |
-| `sharpen` | `defineNeighbor()` | 1 | — |
-| `edge-detect` | `defineNeighbor()` | 1 | — |
+| ID              | Factory            | Radius | Options |
+| --------------- | ------------------ | ------ | ------- |
+| `gaussian-blur` | `defineNeighbor()` | 3      | —       |
+| `box-blur`      | `defineNeighbor()` | 2      | —       |
+| `sharpen`       | `defineNeighbor()` | 1      | —       |
+| `edge-detect`   | `defineNeighbor()` | 1      | —       |
 
 ### Whole-image operations (5)
 
-| ID | Factory | Options |
-|---|---|---|
-| `resize` | `defineWhole()` | `mode: "fit" \| "fill" \| "scale"`, `width: number`, `height: number` |
-| `flip-horizontal` | `defineWhole()` | — |
-| `flip-vertical` | `defineWhole()` | — |
-| `rotate-90cw` | `defineWhole()` | — |
-| `histogram-equalize` | `defineWhole()` | — |
+| ID                   | Factory         | Options                                                               |
+| -------------------- | --------------- | --------------------------------------------------------------------- |
+| `resize`             | `defineWhole()` | `mode: "fit" \| "fill" \| "scale"`, `width: number`, `height: number` |
+| `flip-horizontal`    | `defineWhole()` | —                                                                     |
+| `flip-vertical`      | `defineWhole()` | —                                                                     |
+| `rotate-90cw`        | `defineWhole()` | —                                                                     |
+| `histogram-equalize` | `defineWhole()` | —                                                                     |
 
 ## Fusion Optimization
 
@@ -94,11 +95,15 @@ Consecutive pixel-type operations are automatically fused into a single pass:
 
 ```typescript
 // These 3 operations run in ONE pixel loop:
-const result = await runPipeline(source, [
-  { id: "grayscale" },
-  { id: "brightness", options: { factor: 1.2 } },
-  { id: "contrast", options: { factor: 1.1 } },
-], { registry }); // still produces 3 intermediate snapshots
+const result = await runPipeline(
+  source,
+  [
+    { id: 'grayscale' },
+    { id: 'brightness', options: { factor: 1.2 } },
+    { id: 'contrast', options: { factor: 1.1 } },
+  ],
+  { registry }
+); // still produces 3 intermediate snapshots
 ```
 
 The `FusionScheduler` queues pixel ops and applies them per-pixel when flushed. Neighbor and whole-image ops flush the scheduler before executing.
@@ -116,7 +121,7 @@ W×H image → split into (512+2r)² tiles → convolve per tile → blit non-ha
 The `PipelineGateway` manages a pool of Web Workers for off-thread execution:
 
 ```typescript
-import { pipelineGateway } from "@repo/image-pipeline/PipelineGateway";
+import { pipelineGateway } from '@repo/image-pipeline/PipelineGateway';
 
 // Automatically uses up to navigator.hardwareConcurrency workers
 const result = await pipelineGateway.run({ sourceImageData: imageData, steps });
@@ -129,15 +134,15 @@ const result = await pipelineGateway.run({ sourceImageData: imageData, steps });
 
 ## Exports
 
-| Export | Path | Description |
-|---|---|---|
-| `Registry` | `@repo/image-pipeline/Registry` | Manipulation registry (register, get, has, clear) |
-| `PipelineGateway` | `@repo/image-pipeline/PipelineGateway` | Web Worker pool manager (singleton) |
-| `usePipeline` | `@repo/image-pipeline/usePipeline` | React hook wrapping pipeline gateway |
-| `PipelineDocs` | `@repo/image-pipeline/PipelineDocs` | Interactive docs UI component |
-| `runPipeline` | `@repo/image-pipeline/runPipeline` | Core pipeline orchestrator |
-| `ALL_MANIPULATIONS` | `@repo/image-pipeline/manipulations` | All built-in manipulation definitions |
-| `./styles` | `@repo/image-pipeline/styles` | Component CSS |
+| Export              | Path                                   | Description                                       |
+| ------------------- | -------------------------------------- | ------------------------------------------------- |
+| `Registry`          | `@repo/image-pipeline/Registry`        | Manipulation registry (register, get, has, clear) |
+| `PipelineGateway`   | `@repo/image-pipeline/PipelineGateway` | Web Worker pool manager (singleton)               |
+| `usePipeline`       | `@repo/image-pipeline/usePipeline`     | React hook wrapping pipeline gateway              |
+| `PipelineDocs`      | `@repo/image-pipeline/PipelineDocs`    | Interactive docs UI component                     |
+| `runPipeline`       | `@repo/image-pipeline/runPipeline`     | Core pipeline orchestrator                        |
+| `ALL_MANIPULATIONS` | `@repo/image-pipeline/manipulations`   | All built-in manipulation definitions             |
+| `./styles`          | `@repo/image-pipeline/styles`          | Component CSS                                     |
 
 ## React Hook
 
@@ -157,4 +162,3 @@ Returns `null` while processing. Cancellation-safe — aborts on unmount or depe
 ---
 
 _Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
-

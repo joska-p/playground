@@ -1,7 +1,7 @@
 ---
-title: "Adding a Sequence Rule"
-description: "Add a new math rule to the Sequence Renderer engine."
-category: "how-to"
+title: 'Adding a Sequence Rule'
+description: 'Add a new math rule to the Sequence Renderer engine.'
+category: 'how-to'
 tags:
   - how-to
 ---
@@ -40,9 +40,9 @@ Edit `packages/sequence-renderer/src/core/rules.ts`:
 
 ```typescript
 const myRule: SequenceRule = {
-  name: "My Rule",
-  id: "my-rule",
-  description: "What it does.",
+  name: 'My Rule',
+  id: 'my-rule',
+  description: 'What it does.',
   maxSteps: 100,
   getNext: ({ index, current, seen }) => {
     // Your math here

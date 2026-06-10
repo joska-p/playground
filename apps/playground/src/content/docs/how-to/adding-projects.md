@@ -1,7 +1,7 @@
 ---
-title: "Adding Projects"
-description: "Add new visualizations to the playground."
-category: "how-to"
+title: 'Adding Projects'
+description: 'Add new visualizations to the playground.'
+category: 'how-to'
 tags:
   - how-to
 featured: true
@@ -16,11 +16,11 @@ All project metadata lives in `apps/playground/src/data/projects.ts`.
 ```typescript
 export const projects: Record<string, Project> = {
   myproject: {
-    slug: "myproject",
-    name: "My Project",
-    description: "What it does.",
-    category: "generative", // generative | color | image | data-viz
-    tags: ["Canvas"],
+    slug: 'myproject',
+    name: 'My Project',
+    description: 'What it does.',
+    category: 'generative', // generative | color | image | data-viz
+    tags: ['Canvas'],
     icon: Sparkles, // Lucide icon
   },
 };
@@ -34,8 +34,8 @@ export const projects: Record<string, Project> = {
 
 ```astro
 ---
-import BaseLayout from "../../../../layouts/BaseLayout.astro";
-import { projects } from "../../../../data/projects";
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { projects } from '../../../../data/projects';
 
 const { slug } = Astro.params;
 const project = projects[slug!];

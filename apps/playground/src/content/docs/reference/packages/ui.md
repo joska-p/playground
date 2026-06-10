@@ -1,7 +1,7 @@
 ---
-title: "UI Components"
-description: "Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system."
-category: "reference"
+title: 'UI Components'
+description: 'Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.'
+category: 'reference'
 tags:
   - reference
   - ui
@@ -17,7 +17,7 @@ pnpm add @repo/ui
 ```
 
 ```tsx
-import { Button, Sidebar, Card } from "@repo/ui";
+import { Button, Sidebar, Card } from '@repo/ui';
 
 export function MyComponent() {
   return (
@@ -30,18 +30,18 @@ export function MyComponent() {
 
 ## Available Components
 
-| Component | Export Subpath | Description |
-|---|---|---|
-| `Button` | `@repo/ui/Button` | Actions, links, form submits |
-| `Input` | `@repo/ui/Input` | Text input with label and helper text |
-| `Select` | `@repo/ui/Select` | Dropdown selection |
-| `Slider` | `@repo/ui/Slider` | Range input with label and unit display |
-| `Switch` | `@repo/ui/Switch` | Toggle switch |
-| `Card` | `@repo/ui/Card` | Content container |
-| `Badge` | `@repo/ui/Badge` | Small label/tag |
-| `Label` | `@repo/ui/Label` | Form label |
-| `ColorPalette` | `@repo/ui/ColorPalette` | Color swatch display |
-| `Sidebar` | `@repo/ui/Sidebar` | Collapsible sidebar with panel/main areas |
+| Component      | Export Subpath          | Description                               |
+| -------------- | ----------------------- | ----------------------------------------- |
+| `Button`       | `@repo/ui/Button`       | Actions, links, form submits              |
+| `Input`        | `@repo/ui/Input`        | Text input with label and helper text     |
+| `Select`       | `@repo/ui/Select`       | Dropdown selection                        |
+| `Slider`       | `@repo/ui/Slider`       | Range input with label and unit display   |
+| `Switch`       | `@repo/ui/Switch`       | Toggle switch                             |
+| `Card`         | `@repo/ui/Card`         | Content container                         |
+| `Badge`        | `@repo/ui/Badge`        | Small label/tag                           |
+| `Label`        | `@repo/ui/Label`        | Form label                                |
+| `ColorPalette` | `@repo/ui/ColorPalette` | Color swatch display                      |
+| `Sidebar`      | `@repo/ui/Sidebar`      | Collapsible sidebar with panel/main areas |
 
 Each component also exports its CVA variants (e.g. `@repo/ui/buttonVariants`) and types (e.g. `@repo/ui/Button`).
 
@@ -49,35 +49,35 @@ Each component also exports its CVA variants (e.g. `@repo/ui/buttonVariants`) an
 
 Most components support these variants:
 
-| Variant | Usage |
-|---|---|
-| `primary` | Main action (default) |
-| `secondary` | Alternative action |
-| `accent` | Highlight, emphasis |
-| `destructive` | Delete, reset, danger |
-| `outline` | Secondary with border |
-| `ghost` | Minimal, no background |
+| Variant       | Usage                  |
+| ------------- | ---------------------- |
+| `primary`     | Main action (default)  |
+| `secondary`   | Alternative action     |
+| `accent`      | Highlight, emphasis    |
+| `destructive` | Delete, reset, danger  |
+| `outline`     | Secondary with border  |
+| `ghost`       | Minimal, no background |
 
 ## Sizes
 
-| Size | Usage |
-|---|---|
-| `small` / `sm` | Compact UI |
-| `medium` / `md` | Default |
-| `large` / `lg` | Emphasis |
-| `icon` | Square, icon-only |
+| Size            | Usage             |
+| --------------- | ----------------- |
+| `small` / `sm`  | Compact UI        |
+| `medium` / `md` | Default           |
+| `large` / `lg`  | Emphasis          |
+| `icon`          | Square, icon-only |
 
 ## Import Pattern
 
 All components are imported via subpath exports, not from a root barrel:
 
 ```typescript
-import { Button } from "@repo/ui/Button";
-import { Input } from "@repo/ui/Input";
-import { Sidebar } from "@repo/ui/Sidebar";
+import { Button } from '@repo/ui/Button';
+import { Input } from '@repo/ui/Input';
+import { Sidebar } from '@repo/ui/Sidebar';
 
-import type { ButtonProps } from "@repo/ui/Button";
-import { buttonVariants } from "@repo/ui/buttonVariants";
+import type { ButtonProps } from '@repo/ui/Button';
+import { buttonVariants } from '@repo/ui/buttonVariants';
 ```
 
 The public API is declared in `package.json` under the `exports` field — one subpath per component.
@@ -151,4 +151,3 @@ Full design token reference (colors, typography, spacing, radii) is available at
 ---
 
 _Part of the [Creative Playground](https://playground-beryl-omega.vercel.app)_
-

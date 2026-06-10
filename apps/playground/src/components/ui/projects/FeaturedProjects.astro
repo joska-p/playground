@@ -1,9 +1,9 @@
 ---
-import SectionHeader from "../features/SectionHeader.astro";
-import ExperimentCard from "../cards/ExperimentCard.astro";
-import { getFeaturedProjects } from "../../../data/projects";
+import SectionHeader from '../features/SectionHeader.astro';
+import ExperimentCard from '../cards/ExperimentCard.astro';
+import { getFeaturedProjects } from '../../../data/projects';
 
-const baseUrl = import.meta.env.BASE_URL || "/";
+const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
 const featuredProjects = getFeaturedProjects();
 ---

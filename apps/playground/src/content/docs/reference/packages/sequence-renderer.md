@@ -1,7 +1,7 @@
 ---
-title: "Sequence Renderer"
-description: "Visualize mathematical sequences — Recamán, Fibonacci, and more."
-category: "reference"
+title: 'Sequence Renderer'
+description: 'Visualize mathematical sequences — Recamán, Fibonacci, and more.'
+category: 'reference'
 tags:
   - reference
   - sequence-renderer
@@ -17,7 +17,7 @@ pnpm add @repo/sequence-renderer
 ```
 
 ```tsx
-import { SequenceRenderer } from "@repo/sequence-renderer";
+import { SequenceRenderer } from '@repo/sequence-renderer';
 
 export default function MyViz() {
   return <SequenceRenderer />;
@@ -48,8 +48,8 @@ Visualizations are pluggable renderers:
 
 ```typescript
 export const recamanArcs = {
-  id: "recaman-arcs",
-  name: "Recamán Arcs",
+  id: 'recaman-arcs',
+  name: 'Recamán Arcs',
   draw: (ctx, sequence, bounds) => {
     // Your drawing magic here
   },
@@ -87,11 +87,11 @@ const sequence = useSequenceSequence();
 Create a new file in `src/core/visualizations/` (e.g., `my-viz.ts`):
 
 ```typescript
-import type { Visualization } from "./types";
+import type { Visualization } from './types';
 
 export const myViz: Visualization = {
-  id: "my-viz",
-  name: "My Awesome Visualization",
+  id: 'my-viz',
+  name: 'My Awesome Visualization',
   draw: (ctx, sequence, bounds) => {
     const { width, height } = bounds;
     ctx.beginPath();
@@ -106,7 +106,7 @@ export const myViz: Visualization = {
 Import and add your visualization to the registry in `src/core/visualizations/index.ts`:
 
 ```typescript
-import { myViz } from "./my-viz";
+import { myViz } from './my-viz';
 
 export const visualizations: Visualization[] = [
   myViz,
@@ -128,4 +128,3 @@ export const visualizations: Visualization[] = [
 ---
 
 _Part of @repo/playground_
-

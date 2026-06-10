@@ -1,11 +1,11 @@
 ---
-import { render, getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import DocNav from "../../components/ui/docs/DocNav.astro";
-import SectionHeader from "../../components/ui/features/SectionHeader.astro";
+import { render, getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DocNav from '../../components/ui/docs/DocNav.astro';
+import SectionHeader from '../../components/ui/features/SectionHeader.astro';
 
 export async function getStaticPaths() {
-  const docs = await getCollection("docs");
+  const docs = await getCollection('docs');
   return docs.map((doc) => ({
     params: { slug: doc.id },
     props: { doc },
@@ -16,10 +16,19 @@ const { doc } = Astro.props;
 const { Content } = await render(doc);
 ---
 
-<BaseLayout title={doc.data.title} className="flex">
+<BaseLayout
+  title={doc.data.title}
+  className="flex"
+>
   <DocNav />
-  <article class="prose mx-auto flex-1 prose-playground max-w-3xl px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)]">
-    <SectionHeader title={doc.data.category} description={doc.data.description} iconName="book" />
+  <article
+    class="prose prose-playground mx-auto max-w-3xl flex-1 px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)]"
+  >
+    <SectionHeader
+      title={doc.data.category}
+      description={doc.data.description}
+      iconName="book"
+    />
     <Content />
   </article>
 </BaseLayout>

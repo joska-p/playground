@@ -1,7 +1,7 @@
 ---
-title: "Engines"
-description: "How the creative engines work — rules, generators, and pluggable systems."
-category: "explanation"
+title: 'Engines'
+description: 'How the creative engines work — rules, generators, and pluggable systems.'
+category: 'explanation'
 tags:
   - explanation
 ---
@@ -77,7 +77,7 @@ Engines use **Zustand** with a store-per-domain pattern. The store itself is nev
 const sequenceStore = create<SequenceState>(() => ({
   sequenceRule: recamanRule,
   steps: 2,
-  visualizationId: "recaman-arcs",
+  visualizationId: 'recaman-arcs',
   sequence: [],
 }));
 
@@ -96,12 +96,16 @@ export function setSequenceSteps(steps: number) {
   const max = state.sequenceRule.maxSteps;
   sequenceStore.setState({
     steps: Math.min(Math.max(steps, 2), max),
-    sequence: generateSequence(state.sequenceRule, Math.min(Math.max(steps, 2), max)),
+    sequence: generateSequence(
+      state.sequenceRule,
+      Math.min(Math.max(steps, 2), max)
+    ),
   });
 }
 ```
 
 Key rules:
+
 - The store variable is **never exported**
 - Getter hooks select a **single slice** — never the whole state
 - Setter functions are **not hooks** — no `use` prefix
