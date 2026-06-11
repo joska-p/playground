@@ -23,20 +23,16 @@ const {
     className,
   ]}
 >
+  <!-- Grid bg -->
   <div
-    class="dot-grid absolute inset-0 z-0 opacity-50"
+    class="absolute inset-0 z-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(to_right,var(--border)_1px,transparent_1px)] bg-[length:4rem_4rem] opacity-10"
     aria-hidden="true"
   >
   </div>
 
+  <!-- Radial fade mask -->
   <div
-    class="bg-primary absolute -bottom-24 -left-32 z-0 h-96 w-96 rounded-full opacity-10 blur-3xl"
-    aria-hidden="true"
-  >
-  </div>
-
-  <div
-    class="bg-primary absolute -top-24 -right-32 z-0 h-96 w-96 rounded-full opacity-5 blur-3xl"
+    class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,transparent_50%,var(--background)_100%)]"
     aria-hidden="true"
   >
   </div>
@@ -50,13 +46,11 @@ const {
       )
     }
 
-    <h1 class="text-[clamp(2.75rem,7.5vw,5.5rem)] font-black">
+    <h1
+      class="from-primary via-accent to-secondary bg-linear-to-br bg-clip-text text-[clamp(2.75rem,7.5vw,5.5rem)] leading-tight font-black text-transparent"
+    >
       {highlight}<br />
-      <span
-        class="from-primary to-primary/70 bg-linear-to-r bg-clip-text text-transparent"
-      >
-        {title}<span class="text-primary cursor ml-1 font-light">_</span>
-      </span>
+      {title}<span class="cursor ml-1 font-light">_</span>
     </h1>
 
     {
@@ -76,14 +70,3 @@ const {
     }
   </div>
 </section>
-
-<style>
-  /* Fallback template if your global CSS doesn't have a dot-grid background class defined */
-  .dot-grid {
-    background-image: radial-gradient(
-      rgba(var(--primary-rgb, 120, 119, 198), 0.15) 1px,
-      transparent 1px
-    );
-    background-size: 24px 24px;
-  }
-</style>
