@@ -8,38 +8,56 @@ export type Category =
   | 'random'
   | 'simulation';
 
-const CATEGORIES = {
+export const CATEGORIES = {
   generative: {
     name: 'Generative Art',
     description:
       'Procedural patterns and mathematical visualizations that create art from algorithms.',
+    icon: 'generative',
+    order: 0,
   },
   color: {
     name: 'Color & Design',
     description:
       'Tools for exploring color theory, generating harmonious palettes, and design utilities.',
+    icon: 'color',
+    order: 1,
   },
   'data-viz': {
     name: 'Data Visualization',
     description:
       'Interactive charts, graphs, and visual representations of data using D3 and other libraries.',
+    icon: 'data-viz',
+    order: 3,
   },
   image: {
     name: 'Image Processing',
     description:
       'Transform, deconstruct, and visualize images through creative algorithms.',
+    icon: 'image',
+    order: 2,
   },
-  random: {
+  'random': {
     name: 'Random & Misc',
     description:
       "A collection of miscellaneous projects that don't fit into other categories but are fun and interesting.",
+    icon: 'random',
+    order: 4,
   },
   simulation: {
     name: 'Simulation',
     description:
       'Cellular automata, particle systems, and process simulations that model emergent behavior from simple rules.',
+    icon: 'simulation',
+    order: 5,
   },
 } as const;
+
+type CategoryMeta = (typeof CATEGORIES)[Category];
+
+export const SORTED_CATEGORIES = (
+  Object.entries(CATEGORIES) as [Category, CategoryMeta][]
+).sort((a, b) => a[1].order - b[1].order);
 
 export type Project = {
   slug: string;
@@ -59,7 +77,7 @@ export const projects: Record<string, Project> = {
       'Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.',
     category: 'generative',
     tags: ['Canvas', 'Zustand'],
-    icon: 'grid-3x3',
+    icon: 'generative',
     featured: true,
   },
   sequences: {
@@ -69,7 +87,7 @@ export const projects: Record<string, Project> = {
       'Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.',
     category: 'generative',
     tags: ['Math', 'SVG'],
-    icon: 'infinity',
+    icon: 'generative',
     featured: true,
   },
   palettes: {
@@ -79,7 +97,7 @@ export const projects: Record<string, Project> = {
       'Generate harmonious color schemes using mathematical color theory models.',
     category: 'color',
     tags: ['Design', 'Theory'],
-    icon: 'palette',
+    icon: 'color',
     featured: false,
   },
   particles: {
@@ -89,7 +107,7 @@ export const projects: Record<string, Project> = {
       'Deconstruct images into physics-based particle systems with real-time interaction.',
     category: 'image',
     tags: ['Physics', 'Canvas'],
-    icon: 'flame',
+    icon: 'image',
     featured: false,
   },
   imageManipulator: {
@@ -99,7 +117,7 @@ export const projects: Record<string, Project> = {
       'A tool for manipulating images using canvas and webb workers.',
     category: 'image',
     tags: ['Images', 'Canvas'],
-    icon: 'flame',
+    icon: 'image',
     featured: true,
   },
   pipeline: {
@@ -109,7 +127,7 @@ export const projects: Record<string, Project> = {
       'Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.',
     category: 'image',
     tags: ['Pipeline', 'Docs'],
-    icon: 'image-down',
+    icon: 'image',
     featured: true,
   },
   'pie-chart': {
@@ -119,7 +137,7 @@ export const projects: Record<string, Project> = {
       'Interactive D3-based pie chart examples for data visualization.',
     category: 'data-viz',
     tags: ['D3', 'Charts'],
-    icon: 'pie-chart',
+    icon: 'data-viz',
     featured: false,
   },
   graphify: {
@@ -128,7 +146,7 @@ export const projects: Record<string, Project> = {
     description: 'Interactive graph, click nodes, search, filter by community.',
     category: 'data-viz',
     tags: ['Graph', 'D3'],
-    icon: 'grid',
+    icon: 'data-viz',
     featured: true,
   },
   'three-stage': {
@@ -137,7 +155,7 @@ export const projects: Record<string, Project> = {
     description: 'A 3D stage for rendering and animate 3D objects.',
     category: 'random',
     tags: ['Threejs', '3D', 'WebGL'],
-    icon: 'box',
+    icon: 'random',
     featured: false,
   },
   automa: {
@@ -147,7 +165,7 @@ export const projects: Record<string, Project> = {
       "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.",
     category: 'simulation',
     tags: ['Three.js', 'Simulation', 'WebGL'],
-    icon: 'sparkles',
+    icon: 'simulation',
     featured: true,
   },
 };

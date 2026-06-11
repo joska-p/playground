@@ -1,2 +1,2 @@
 export { ExperimentsPreview } from './ExperimentsPreview';
-export type { Category, GroupedCategory, CategoryMeta } from './types';
+export type { Category } from '../../../../data/projects';
