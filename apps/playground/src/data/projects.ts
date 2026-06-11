@@ -37,7 +37,7 @@ export const CATEGORIES = {
     icon: 'image',
     order: 2,
   },
-  'random': {
+  random: {
     name: 'Random & Misc',
     description:
       "A collection of miscellaneous projects that don't fit into other categories but are fun and interesting.",

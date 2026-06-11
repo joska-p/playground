@@ -5,8 +5,24 @@ export const IconPieChart = createIcon({
   viewBox: '0 0 80 60',
   children: (
     <>
-      <circle cx="40" cy="30" r="24" fill="none" stroke="currentColor" strokeWidth="2" opacity={0.3} />
-      <circle cx="40" cy="30" r="13" fill="none" stroke="currentColor" strokeWidth="1" opacity={0.2} />
+      <circle
+        cx="40"
+        cy="30"
+        r="24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        opacity={0.3}
+      />
+      <circle
+        cx="40"
+        cy="30"
+        r="13"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        opacity={0.2}
+      />
       <path
         d="M40,6 A24,24 0 0,1 63,18 L40,30 Z"
         fill="currentColor"

@@ -12,8 +12,20 @@ export const IconSequences = createIcon({
         fill="none"
         opacity={0.4}
       />
-      <circle cx="4" cy="40" r="3" fill="currentColor" opacity={0.9} />
-      <circle cx="76" cy="40" r="3" fill="currentColor" opacity={0.9} />
+      <circle
+        cx="4"
+        cy="40"
+        r="3"
+        fill="currentColor"
+        opacity={0.9}
+      />
+      <circle
+        cx="76"
+        cy="40"
+        r="3"
+        fill="currentColor"
+        opacity={0.9}
+      />
       {[12, 28, 20, 40, 12, 20, 48].map((y, i) => (
         <circle
           key={i}
