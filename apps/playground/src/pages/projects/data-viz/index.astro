@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExperimentCard from '../../../components/ui/cards/ExperimentCard.astro';
+import SectionHeader from '../../../components/ui/features/SectionHeader.astro';
+import Footer from '../../../layouts/Footer.astro';
+import { CATEGORIES, projects } from '../../../data/projects';
+import type { Category } from '../../../data/projects';
+
+const categoryId = 'data-viz' as Category;
+const category = CATEGORIES[categoryId];
+const categoryProjects = Object.values(projects).filter(p => p.category === categoryId);
+const baseUrl = import.meta.env.BASE_URL || '/';
+const projectsBaseUrl = `${baseUrl}projects/`;
+---
+
+<BaseLayout title={`${category.name} — Projects`}>
+  <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
+    <SectionHeader
+      title={category.name}
+      description={category.description}
+      iconName={category.icon}
+      category={categoryId}
+    />
+
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+      {categoryProjects.map((project) => (
+        <ExperimentCard
+          href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
+          title={project.name}
+          description={project.description}
+          iconName={project.icon}
+          category={project.category}
+          tags={project.tags}
+        />
+      ))}
+    </div>
+  </div>
+
+  <Footer>
+    <span slot="default">Crafted with creativity.</span>
+  </Footer>
+</BaseLayout>

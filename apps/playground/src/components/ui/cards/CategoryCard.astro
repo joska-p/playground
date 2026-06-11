@@ -1,0 +1,57 @@
+---
+import { Icon } from '@repo/ui/icons';
+import type { Category } from '../../../data/projects';
+import { CATEGORIES } from '../../../data/projects';
+
+const baseUrl = import.meta.env.BASE_URL || '/';
+
+export type Props = {
+  id: Category;
+  label: string;
+  description: string;
+  count: number;
+};
+
+const { id, label, description, count } = Astro.props;
+const accentStyle = `var(--category-${id})`;
+const iconName = CATEGORIES[id as keyof typeof CATEGORIES].icon;
+---
+
+<a
+  href={`${baseUrl}projects/${id}/`}
+  class="group border-border bg-card hover:border-accent) focus-visible:ring-ring relative flex cursor-pointer flex-col rounded-lg border transition-[border-color,box-shadow] duration-300 select-none hover:shadow-[0_0_28px_-6px_var(--accent)] focus-visible:ring-2 focus-visible:outline-none"
+  style={{ '--accent': accentStyle }}
+>
+  <div
+    class="text-accent flex items-center justify-center px-4 pt-5 pb-3"
+    aria-hidden="true"
+  >
+    <div class="w-full max-w-22">
+      <Icon name={iconName} />
+    </div>
+  </div>
+
+  <div
+    class="bg-muted group-hover:bg-accent mx-4 h-px transition-colors duration-300"
+  >
+  </div>
+
+  <div class="space-y-0.5 px-4 pt-3 pb-4">
+    <p
+      class="text-muted-foreground truncate text-sm leading-none tracking-wider uppercase"
+    >
+      {label}
+    </p>
+    <p class="text-muted-foreground/60 hidden truncate text-xs sm:block">
+      {description}
+    </p>
+    <div class="flex items-baseline gap-1 pt-1">
+      <span
+        class="text-accent text-xl leading-none font-bold transition-colors duration-300"
+      >
+        {count}
+      </span>
+      <span class="text-muted-foreground/60 text-xs"> exp </span>
+    </div>
+  </div>
+</a>
