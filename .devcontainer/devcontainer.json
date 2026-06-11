@@ -3,11 +3,17 @@
   "image": "mcr.microsoft.com/devcontainers/base:debian",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
-      "configureZshAsDefaultShell": true
+      "configureZshAsDefaultShell": true,
+      "username": "vscode",
+      "uid": "1000",
+      "gid": "1000",
+      "password": "vscode"
     },
     "ghcr.io/devcontainers-extra/features/ffmpeg-apt-get:1": {},
-    "ghcr.io/devcontainers/features/sshd:1": {},
-    "ghcr.io/devcontainers-extra/features/uv:1": {}
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "startSshd": true,
+      "passwordAuthentication": true
+    }
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/playground,type=bind,consistency=cached",
   "workspaceFolder": "/workspaces/playground",
@@ -23,5 +29,5 @@
     2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888
   ],
   "runArgs": ["--userns=keep-id", "--name", "playground"],
-  "postCreateCommand": "uv python install 3.14 && echo 'alias python=\"uv run python\"' >> /home/vscode/.zshrc && echo 'alias python3=\"uv run python3\"' >> /home/vscode/.zshrc && echo 'alias pip=\"uv run pip\"' >> /home/vscode/.zshrc && echo 'alias pip3=\"uv run pip3\"' >> /home/vscode/.zshrc && sudo chsh -s $(which zsh) vscode"
+  "postStartCommand": "usermod --shell /bin/zsh vscode"
 }
