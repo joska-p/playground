@@ -8,7 +8,7 @@ type OutputType = {
 type WorkflowStep = {
   uid: string;
   id: string;
-  options: Record<string, number>;
+  options: Record<string, unknown>;
 };
 
 export type { OutputType, WorkflowStep };

@@ -1,4 +1,4 @@
-import { manipulations } from '../../core/manipulations/manipulations';
+import { imagePipeline } from '@repo/image-pipeline';
 import type { WorkflowStep } from '../../stores/manipulator/types';
 import { EmptyState } from '../shared/EmptyState';
 import { WorkflowNode } from './WorkflowNode';
@@ -42,7 +42,7 @@ function WorkflowList({ steps }: WorkflowListProps) {
   return (
     <ol className="flex flex-col gap-1">
       {steps.map((step, index) => {
-        const manip = manipulations[step.id];
+        const manip = imagePipeline.manipulations[step.id];
         if (!manip) return null;
 
         return (

@@ -1,5 +1,5 @@
 ---
-import { App } from '@repo/image-pipeline';
+import { PipelineDocs } from '@repo/image-pipeline/PipelineDocs';
 import { StrictMode } from 'react';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { projects } from '../../../../data/projects';
@@ -23,7 +23,7 @@ const keywords = `${project['tags'].join(', ')}`;
 
   <div class="min-h-screen">
     <StrictMode>
-      <App client:only="react" />
+      <PipelineDocs client:only="react" />
     </StrictMode>
   </div>
 </BaseLayout>

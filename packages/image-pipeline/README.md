@@ -9,23 +9,70 @@ pnpm add @repo/image-pipeline
 ```
 
 ```typescript
-import { runPipeline, Registry } from '@repo/image-pipeline';
-import { ALL_MANIPULATIONS } from '@repo/image-pipeline/manipulations';
+import { imagePipeline } from '@repo/image-pipeline';
 
-const registry = Registry.from(ALL_MANIPULATIONS);
-const snapshots = await runPipeline(
-  imageData,
-  [{ id: 'grayscale' }, { id: 'brightness', options: { factor: 1.3 } }],
-  { registry }
-);
-// snapshots[0] = grayscale result, snapshots[1] = brightness result
+const results = await imagePipeline.run({
+  sourceImageData: imageData,
+  steps: [{ id: 'grayscale' }, { id: 'brightness', options: { value: 1.3 } }],
+});
+// results[0] = grayscale, results[1] = brightness
+```
+
+## Usage
+
+### Run a pipeline
+
+```typescript
+import { imagePipeline } from '@repo/image-pipeline';
+
+const snapshots = await imagePipeline.run({
+  sourceImageData: imageData,
+  steps: [{ id: 'sepia' }, { id: 'brightness', options: { value: 1.2 } }],
+});
+```
+
+Returns one `ImageData` snapshot per step. Work is dispatched to a Web Worker pool (up to 4 workers). If all workers are busy the job is queued.
+
+### Browse available manipulations
+
+```typescript
+import { imagePipeline } from '@repo/image-pipeline';
+
+// All manipulations (pixel, neighborhood, global)
+imagePipeline.manipulations;
+
+// Filter by access type
+imagePipeline.getManipulationsByAccess('pixel');
+imagePipeline.getManipulationsByAccess('neighborhood');
+imagePipeline.getManipulationsByAccess('global');
+```
+
+### Compile-time-safe steps
+
+The `Step` type is derived from the manifest — invalid step IDs and option shapes are caught at compile time:
+
+```typescript
+import type { Step } from '@repo/image-pipeline';
+
+const preset: Step = { id: 'brightness', options: { value: 1.2 } }; // OK
+const bad: Step = { id: 'brightness', options: { wrong: 1.2 } }; // type error
+```
+
+### Teardown
+
+```typescript
+import { imagePipeline } from '@repo/image-pipeline';
+
+// On app teardown — terminates workers and clears queue
+imagePipeline.teardown();
 ```
 
 ## Architecture
 
 ```
-runPipeline(source, steps, context)
+imagePipeline.run(config)
   │
+  ├─ Web Worker pool (lazy, up to 4 workers)
   ├─ Auto-downscale (if source exceeds maximumPixels)
   ├─ BufferManager (double-buffered Uint8ClampedArray)
   ├─ FusionScheduler (batches consecutive pixel ops)
@@ -37,6 +84,8 @@ runPipeline(source, steps, context)
        └─ global      → flush scheduler → run transform function
             └─ Return: step snapshots (source excluded — caller manages it)
 ```
+
+Everything below `imagePipeline.run()` is an implementation detail — the gateway, registry, buffer manager, and fusion scheduler are hidden behind the facade.
 
 ## Step Types
 
@@ -50,52 +99,53 @@ runPipeline(source, steps, context)
 
 ### Pixel operations (9)
 
-| ID           | Factory         | Options                     |
-| ------------ | --------------- | --------------------------- |
-| `brightness` | `defineManip()` | `value: number` (0–3)       |
-| `contrast`   | `defineManip()` | `value: number` (0–3)       |
-| `grayscale`  | `defineManip()` | —                           |
-| `sepia`      | `defineManip()` | —                           |
-| `invert`     | `defineManip()` | —                           |
-| `saturation` | `defineManip()` | `value: number` (0–3)       |
-| `hue-rotate` | `defineManip()` | `degrees: number` (0–360)   |
-| `opacity`    | `defineManip()` | `value: number` (0–1)       |
-| `threshold`  | `defineManip()` | `threshold: number` (0–255) |
+| ID           | Options                     |
+| ------------ | --------------------------- |
+| `brightness` | `value: number` (0–3)       |
+| `contrast`   | `value: number` (0–3)       |
+| `grayscale`  | —                           |
+| `sepia`      | —                           |
+| `invert`     | —                           |
+| `saturation` | `value: number` (0–3)       |
+| `hue-rotate` | `degrees: number` (0–360)   |
+| `opacity`    | `value: number` (0–1)       |
+| `threshold`  | `threshold: number` (0–255) |
 
 ### Neighborhood operations (6)
 
-| ID                | Factory         | Radius | Options                  |
-| ----------------- | --------------- | ------ | ------------------------ |
-| `gaussian-blur`   | `defineManip()` | 3      | `radius: number` (1–10)  |
-| `box-blur`        | `defineManip()` | 2      | `radius: number` (1–10)  |
-| `sharpen`         | `defineManip()` | 1      | `strength: number` (0–5) |
-| `edge-detect`     | `defineManip()` | 1      | —                        |
-| `flip-horizontal` | `defineManip()` | 0      | —                        |
-| `flip-vertical`   | `defineManip()` | 0      | —                        |
+| ID                | Radius | Options                  |
+| ----------------- | ------ | ------------------------ |
+| `gaussian-blur`   | 3      | `radius: number` (1–10)  |
+| `box-blur`        | 2      | `radius: number` (1–10)  |
+| `sharpen`         | 1      | `strength: number` (0–5) |
+| `edge-detect`     | 1      | —                        |
+| `flip-horizontal` | 0      | —                        |
+| `flip-vertical`   | 0      | —                        |
 
 ### Global operations (3)
 
-| ID                   | Factory         | Options                                                              |
-| -------------------- | --------------- | -------------------------------------------------------------------- |
-| `resize`             | `defineManip()` | `width: number`, `height: number`, `fit: "fill"\|"cover"\|"contain"` |
-| `rotate-90cw`        | `defineManip()` | —                                                                    |
-| `histogram-equalize` | `defineManip()` | —                                                                    |
+| ID                   | Options                                                              |
+| -------------------- | -------------------------------------------------------------------- |
+| `resize`             | `width: number`, `height: number`, `fit: "fill"\|"cover"\|"contain"` |
+| `rotate-90cw`        | —                                                                    |
+| `histogram-equalize` | —                                                                    |
 
 ## Fusion Optimization
 
 Consecutive pixel-type operations are automatically fused into a single pass:
 
 ```typescript
+import { imagePipeline } from '@repo/image-pipeline';
+
 // These 3 operations run in ONE pixel loop:
-const result = await runPipeline(
-  source,
-  [
+const result = await imagePipeline.run({
+  sourceImageData: source,
+  steps: [
     { id: 'grayscale' },
-    { id: 'brightness', options: { factor: 1.2 } },
-    { id: 'contrast', options: { factor: 1.1 } },
+    { id: 'brightness', options: { value: 1.2 } },
+    { id: 'contrast', options: { value: 1.1 } },
   ],
-  { registry }
-); // still produces 3 intermediate snapshots
+}); // still produces 3 intermediate snapshots
 ```
 
 The `FusionScheduler` queues pixel ops and applies them per-pixel when flushed. Neighborhood and global ops flush the scheduler before executing.
@@ -110,46 +160,23 @@ W×H image → split into (512+2r)² tiles → convolve per tile → blit non-ha
 
 ## Web Worker Support
 
-The `PipelineGateway` manages a pool of Web Workers for off-thread execution:
-
-```typescript
-import { pipelineGateway } from '@repo/image-pipeline/PipelineGateway';
-
-// Automatically uses up to navigator.hardwareConcurrency workers
-const result = await pipelineGateway.run({ sourceImageData: imageData, steps });
-```
+The `imagePipeline.run()` method automatically uses a pool of Web Workers for off-thread execution:
 
 - Lazy-creates up to `min(hardwareConcurrency, 4)` workers
 - FIFO queue when all workers are busy
 - Uses `Transferable` buffers for zero-copy memory transfer
 - Workers are stateless (registry rebuilt per invocation)
+- Call `imagePipeline.teardown()` on app shutdown
 
-## Exports
+## Single Entry Point
 
-| Export              | Path                                   | Description                                       |
-| ------------------- | -------------------------------------- | ------------------------------------------------- |
-| `Registry`          | `@repo/image-pipeline/Registry`        | Manipulation registry (register, get, has, clear) |
-| `PipelineGateway`   | `@repo/image-pipeline/PipelineGateway` | Web Worker pool manager (singleton)               |
-| `usePipeline`       | `@repo/image-pipeline/usePipeline`     | React hook wrapping pipeline gateway              |
-| `PipelineDocs`      | `@repo/image-pipeline/PipelineDocs`    | Interactive docs UI component                     |
-| `runPipeline`       | `@repo/image-pipeline/runPipeline`     | Core pipeline orchestrator                        |
-| `ALL_MANIPULATIONS` | `@repo/image-pipeline/manipulations`   | All built-in manipulation definitions             |
-| `./styles`          | `@repo/image-pipeline/styles`          | Component CSS                                     |
+The package exports a single entry — no sub-path imports:
 
-## React Hook
-
-```typescript
-import { usePipeline } from "@repo/image-pipeline";
-
-function Editor({ source }: { source: ImageData | null }) {
-  const steps = [{ id: "grayscale" }, { id: "sharpen" }];
-  const result = usePipeline(source, steps); // ImageData[] | null
-
-  return <img src={imageDataToUrl(result?.[0])} />;
-}
+```
+@repo/image-pipeline   →   imagePipeline facade + types
 ```
 
-Returns `null` while processing. Cancellation-safe — aborts on unmount or dependency change.
+Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`, `/runPipeline`, `/usePipeline`) are now internal implementation details.
 
 ---
 

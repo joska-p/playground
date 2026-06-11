@@ -1,0 +1,1605 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Architecture review — Creative Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'neutral',
+        securityLevel: 'loose',
+      });
+    </script>
+    <style>
+      .seam {
+        stroke-dasharray: 4 4;
+      }
+      .leak {
+        stroke: #dc2626;
+      }
+      .deep {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+      }
+      .mass-interface {
+        background: #e2e8f0;
+        border: 1px solid #94a3b8;
+      }
+      .mass-impl {
+        background: #1e293b;
+        border: 1px solid #0f172a;
+      }
+      .module-box {
+        border: 2px solid #334155;
+        background: #f8fafc;
+      }
+      .module-box-deep {
+        border: 3px solid #0f172a;
+        background: #1e293b;
+        color: #e2e8f0;
+      }
+      .module-box-internal {
+        border: 1px dashed #94a3b8;
+        background: #f1f5f9;
+      }
+      .arrow-line {
+        stroke: #475569;
+        stroke-width: 2;
+        fill: none;
+      }
+      .arrow-head {
+        fill: #475569;
+      }
+      .leak-line {
+        stroke: #dc2626;
+        stroke-width: 2;
+        stroke-dasharray: 6 3;
+        fill: none;
+      }
+    </style>
+  </head>
+  <body class="bg-stone-50 font-sans text-slate-900">
+    <main class="mx-auto max-w-5xl space-y-12 px-6 py-12">
+      <!-- Header -->
+      <header class="border-b border-slate-200 pb-8">
+        <h1 class="font-serif text-3xl font-bold tracking-tight">
+          Architecture review
+        </h1>
+        <p class="mt-1 text-sm text-slate-500">
+          Creative Playground · 2026-06-11
+        </p>
+        <div class="mt-4 flex flex-wrap gap-3 text-xs tracking-wider uppercase">
+          <span
+            ><span
+              class="mr-1 inline-block h-3 w-3 border-2 border-slate-600 bg-white align-middle"
+            ></span>
+            Module</span
+          >
+          <span
+            ><span
+              class="mr-1 inline-block h-3 w-3 border-t-2 border-dashed border-slate-400 align-middle"
+              style="width: 12px"
+            ></span>
+            Seam</span
+          >
+          <span
+            ><span
+              class="mr-1 inline-block h-3 w-3 bg-red-500 align-middle"
+            ></span>
+            Leakage</span
+          >
+          <span
+            ><span
+              class="mr-1 inline-block h-3 w-3 bg-slate-800 align-middle"
+            ></span>
+            Deep module</span
+          >
+        </div>
+      </header>
+
+      <!-- Candidates -->
+      <section
+        id="candidates"
+        class="space-y-16"
+      >
+        <!-- Candidate 1: image-pipeline seam -->
+        <article class="space-y-4">
+          <div class="flex items-start gap-3">
+            <h2 class="font-serif text-2xl font-bold">
+              Deepen the <code class="text-base">image-manipulator</code>→<code
+                class="text-base"
+                >image-pipeline</code
+              >
+              seam
+            </h2>
+            <span
+              class="inline-block shrink-0 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold tracking-wider text-emerald-800 uppercase"
+              >Strong</span
+            >
+          </div>
+          <p class="text-xs tracking-wider text-slate-400 uppercase">
+            in-process · ports &amp; adapters
+          </p>
+
+          <div class="space-y-0.5 font-mono text-sm text-slate-600">
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/image-pipeline/src/core/manipulations/manifest.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/image-pipeline/src/api/pipeline-gateway.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/image-manipulator/src/core/manipulations/manipulations.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/image-manipulator/src/stores/manipulator/actions.ts</code
+              >
+            </p>
+          </div>
+
+          <!-- Before/After diagram -->
+          <div class="grid grid-cols-2 gap-6">
+            <!-- Before -->
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                Before — two leaky import paths
+              </p>
+              <div class="flex justify-center">
+                <svg
+                  viewBox="0 0 280 220"
+                  class="w-full max-w-[280px]"
+                  style="height: 200px"
+                >
+                  <!-- image-manipulator module -->
+                  <rect
+                    x="10"
+                    y="10"
+                    width="120"
+                    height="80"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="70"
+                    y="35"
+                    text-anchor="middle"
+                    class="text-xs"
+                    font-family="monospace"
+                    font-size="10"
+                  >
+                    image-manipulator
+                  </text>
+                  <text
+                    x="70"
+                    y="55"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    actions.ts
+                  </text>
+                  <text
+                    x="70"
+                    y="70"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    manipulations.ts
+                  </text>
+
+                  <!-- image-pipeline module -->
+                  <rect
+                    x="150"
+                    y="80"
+                    width="120"
+                    height="120"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="210"
+                    y="100"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="10"
+                  >
+                    image-pipeline
+                  </text>
+                  <text
+                    x="210"
+                    y="118"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    PipelineGateway
+                  </text>
+                  <text
+                    x="210"
+                    y="135"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    ALL_MANIPULATIONS
+                  </text>
+                  <text
+                    x="210"
+                    y="155"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    ManipulationDefinition
+                  </text>
+                  <text
+                    x="210"
+                    y="172"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    (neighborhood + global
+                  </text>
+                  <text
+                    x="210"
+                    y="185"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    types unreachable)
+                  </text>
+
+                  <!-- Two leaky arrows -->
+                  <line
+                    x1="130"
+                    y1="35"
+                    x2="150"
+                    y2="100"
+                    class="leak-line"
+                  />
+                  <polygon
+                    points="150,100 140,95 145,105"
+                    class="arrow-head"
+                    style="fill: #dc2626"
+                  />
+                  <text
+                    x="115"
+                    y="60"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#dc2626"
+                    transform="rotate(-45,115,60)"
+                  >
+                    pipelineGateway.run()
+                  </text>
+
+                  <line
+                    x1="130"
+                    y1="60"
+                    x2="150"
+                    y2="130"
+                    class="leak-line"
+                  />
+                  <polygon
+                    points="150,130 140,125 145,135"
+                    class="arrow-head"
+                    style="fill: #dc2626"
+                  />
+                  <text
+                    x="110"
+                    y="90"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#dc2626"
+                    transform="rotate(-20,110,90)"
+                  >
+                    ALL_MANIPULATIONS
+                  </text>
+
+                  <!-- Lost types badge -->
+                  <rect
+                    x="155"
+                    y="190"
+                    width="110"
+                    height="20"
+                    rx="3"
+                    fill="#fef2f2"
+                    stroke="#dc2626"
+                  />
+                  <text
+                    x="210"
+                    y="204"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#dc2626"
+                  >
+                    ⚠ 2/3 access types lost
+                  </text>
+                </svg>
+              </div>
+            </div>
+            <!-- After -->
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                After — one interface, one seam
+              </p>
+              <div class="flex justify-center">
+                <svg
+                  viewBox="0 0 280 220"
+                  class="w-full max-w-[280px]"
+                  style="height: 200px"
+                >
+                  <!-- image-manipulator (slimmer) -->
+                  <rect
+                    x="10"
+                    y="40"
+                    width="100"
+                    height="60"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="60"
+                    y="62"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="10"
+                  >
+                    image-manipulator
+                  </text>
+                  <text
+                    x="60"
+                    y="80"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#64748b"
+                  >
+                    only calls Pipeline
+                  </text>
+
+                  <!-- Seam -->
+                  <rect
+                    x="115"
+                    y="30"
+                    width="10"
+                    height="80"
+                    rx="2"
+                    class="mass-interface"
+                  />
+                  <text
+                    x="120"
+                    y="122"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#64748b"
+                  >
+                    seam
+                  </text>
+
+                  <!-- Pipeline module (deep) -->
+                  <rect
+                    x="130"
+                    y="10"
+                    width="130"
+                    height="150"
+                    rx="4"
+                    class="module-box-deep"
+                  />
+                  <text
+                    x="195"
+                    y="30"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="10"
+                    fill="#e2e8f0"
+                  >
+                    ImagePipeline
+                  </text>
+
+                  <!-- Internal modules faded -->
+                  <rect
+                    x="140"
+                    y="40"
+                    width="110"
+                    height="25"
+                    rx="2"
+                    fill="#334155"
+                    opacity="0.5"
+                  />
+                  <text
+                    x="195"
+                    y="56"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#94a3b8"
+                  >
+                    PipelineGateway (internal)
+                  </text>
+
+                  <rect
+                    x="140"
+                    y="70"
+                    width="110"
+                    height="25"
+                    rx="2"
+                    fill="#334155"
+                    opacity="0.5"
+                  />
+                  <text
+                    x="195"
+                    y="86"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#94a3b8"
+                  >
+                    ManipulationRegistry (internal)
+                  </text>
+
+                  <rect
+                    x="140"
+                    y="100"
+                    width="110"
+                    height="25"
+                    rx="2"
+                    fill="#334155"
+                    opacity="0.5"
+                  />
+                  <text
+                    x="195"
+                    y="116"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#94a3b8"
+                  >
+                    FusionScheduler (internal)
+                  </text>
+
+                  <rect
+                    x="140"
+                    y="130"
+                    width="110"
+                    height="20"
+                    rx="2"
+                    fill="#334155"
+                    opacity="0.5"
+                  />
+                  <text
+                    x="195"
+                    y="143"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#94a3b8"
+                  >
+                    (all 3 access types)
+                  </text>
+
+                  <!-- Clean arrow -->
+                  <line
+                    x1="110"
+                    y1="70"
+                    x2="130"
+                    y2="70"
+                    class="arrow-line"
+                  />
+                  <polygon
+                    points="130,70 122,66 122,74"
+                    class="arrow-head"
+                  />
+                  <text
+                    x="93"
+                    y="105"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#475569"
+                  >
+                    Pipeline.run()
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Problem
+              </p>
+              <p class="text-slate-700">
+                <code class="bg-slate-100 px-1">image-manipulator</code> reaches
+                into
+                <code class="bg-slate-100 px-1">image-pipeline</code> through
+                two export paths (<code class="bg-slate-100 px-1"
+                  >/manipulations</code
+                >
+                and <code class="bg-slate-100 px-1">/PipelineGateway</code>),
+                and only uses pixel-level manipulations. Two thirds of the
+                pipeline's capabilities — neighborhood and global — are
+                unreachable through this consumer. If
+                <code class="bg-slate-100 px-1">ManipulationDefinition</code>
+                changes, both packages break.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Solution
+              </p>
+              <p class="text-slate-700">
+                Consolidate to a single
+                <code class="bg-slate-100 px-1">Pipeline</code> module that
+                exposes a narrow interface:
+                <code class="bg-slate-100 px-1"
+                  >run(definition[], source) → result</code
+                >. The gateway, registry, and scheduler become implementation
+                details behind the seam.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Wins
+              </p>
+              <ul
+                class="list-inside list-disc space-y-0.5 text-xs text-slate-600"
+              >
+                <li>
+                  <strong>Leverage</strong>: one interface for all 3 access
+                  types
+                </li>
+                <li>
+                  <strong>Locality</strong>: pipeline internals change without
+                  touching consumers
+                </li>
+                <li>
+                  <strong>Tests</strong>: the
+                  <code class="bg-slate-100 px-1">Pipeline</code> interface is
+                  the test surface; swap gateway for a mock adapter
+                </li>
+                <li>
+                  <strong>Deletion test</strong>: complexity concentrates in the
+                  pipeline module, not across two packages
+                </li>
+                <li>
+                  One adapter today (<code class="bg-slate-100 px-1"
+                    >image-manipulator</code
+                  >) → seam justified by second consumer emerging
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Candidate 2: UI variant sprawl -->
+        <article class="space-y-4">
+          <div class="flex items-start gap-3">
+            <h2 class="font-serif text-2xl font-bold">
+              Consolidate the UI variant system into a single seam
+            </h2>
+            <span
+              class="inline-block shrink-0 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold tracking-wider text-emerald-800 uppercase"
+              >Strong</span
+            >
+          </div>
+          <p class="text-xs tracking-wider text-slate-400 uppercase">
+            in-process · 8 known bugs
+          </p>
+
+          <div class="space-y-0.5 font-mono text-sm text-slate-600">
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/ui/src/components/*/</code
+              >
+              (9 component directories)
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/ui/UI-REFACTOR-PLAN.md</code
+              >
+            </p>
+          </div>
+
+          <!-- Mass diagram -->
+          <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <div class="grid grid-cols-2 gap-8">
+              <!-- Before -->
+              <div>
+                <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                  Before — 9 shallow variant modules
+                </p>
+                <div class="space-y-1.5">
+                  <!-- Button -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Button
+                    </div>
+                    <div class="mass-interface h-6 w-16 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Input -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Input
+                    </div>
+                    <div class="mass-interface h-6 w-14 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Select -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Select
+                    </div>
+                    <div class="mass-interface h-6 w-14 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Label -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Label
+                    </div>
+                    <div class="mass-interface h-6 w-16 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Slider -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Slider
+                    </div>
+                    <div class="mass-interface h-6 w-16 rounded"></div>
+                    <div class="mass-impl h-6 w-22 rounded"></div>
+                  </div>
+                  <!-- Switch -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Switch
+                    </div>
+                    <div class="mass-interface h-6 w-16 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Badge -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Badge
+                    </div>
+                    <div class="mass-interface h-6 w-12 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Card -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Card
+                    </div>
+                    <div class="mass-interface h-6 w-14 rounded"></div>
+                    <div class="mass-impl h-6 w-20 rounded"></div>
+                  </div>
+                  <!-- Sidebar -->
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                    >
+                      Sidebar
+                    </div>
+                    <div
+                      class="mass-interface h-6 w-20 rounded"
+                      style="background: #fef2f2; border-color: #dc2626"
+                    ></div>
+                    <div class="mass-impl h-6 w-24 rounded"></div>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2">
+                    <div
+                      class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-400"
+                    >
+                      Legend:
+                    </div>
+                    <div class="mass-interface h-4 w-8 rounded"></div>
+                    <span class="text-[10px] text-slate-400">Interface</span>
+                    <div class="mass-impl ml-2 h-4 w-8 rounded"></div>
+                    <span class="text-[10px] text-slate-400"
+                      >Implementation</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- After -->
+              <div>
+                <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                  After — one variant seam
+                </p>
+                <div class="mb-4 flex items-center gap-2">
+                  <div
+                    class="w-24 shrink-0 text-right font-mono text-[10px] text-slate-500"
+                  >
+                    variantConfig
+                  </div>
+                  <div class="mass-interface h-6 w-12 rounded"></div>
+                  <div class="mass-impl deep h-10 w-32 rounded"></div>
+                </div>
+                <div class="ml-26 pl-26">
+                  <div class="mb-1.5 flex items-center gap-2">
+                    <div
+                      class="w-20 shrink-0 text-right font-mono text-[10px] text-slate-400"
+                    >
+                      Button
+                    </div>
+                    <div
+                      class="h-4 flex-1 rounded"
+                      style="background: #334155; opacity: 0.4"
+                    ></div>
+                    <span class="text-[10px] text-slate-400"
+                      >declares schema</span
+                    >
+                  </div>
+                  <div class="mb-1.5 flex items-center gap-2">
+                    <div
+                      class="w-20 shrink-0 text-right font-mono text-[10px] text-slate-400"
+                    >
+                      Input
+                    </div>
+                    <div
+                      class="h-4 flex-1 rounded"
+                      style="background: #334155; opacity: 0.4"
+                    ></div>
+                    <span class="text-[10px] text-slate-400"
+                      >declares schema</span
+                    >
+                  </div>
+                  <div class="mb-1.5 flex items-center gap-2">
+                    <div
+                      class="w-20 shrink-0 text-right font-mono text-[10px] text-slate-400"
+                    >
+                      All others
+                    </div>
+                    <div
+                      class="h-4 flex-1 rounded"
+                      style="background: #334155; opacity: 0.4"
+                    ></div>
+                    <span class="text-[10px] text-slate-400"
+                      >declare schemas</span
+                    >
+                  </div>
+                </div>
+                <p class="mt-3 text-[10px] text-slate-400">
+                  Interface stays small; implementation absorbs variant logic
+                  for all 9 components.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Problem
+              </p>
+              <p class="text-slate-700">
+                Nine UI components each define their own variant system (<code
+                  class="bg-slate-100 px-1"
+                  >buttonVariants</code
+                >, <code class="bg-slate-100 px-1">badgeVariants</code>, etc.),
+                with different sets, naming, and defaults. This duplication
+                causes 8 documented bugs (invisible error text, overlapping
+                icons, always-<code class="bg-slate-100 px-1">true</code>
+                onChange). The interface for each component is nearly as complex
+                as its implementation — shallow.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Solution
+              </p>
+              <p class="text-slate-700">
+                Extract a single
+                <code class="bg-slate-100 px-1">variantConfig</code> module.
+                Each component declares its variant schema as data. One module
+                applies them, resolves conflicts, and provides a single
+                function:
+                <code class="bg-slate-100 px-1"
+                  >resolveVariants(config, props) → classNames</code
+                >.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Wins
+              </p>
+              <ul
+                class="list-inside list-disc space-y-0.5 text-xs text-slate-600"
+              >
+                <li>
+                  <strong>Locality</strong>: all variant logic in one place —
+                  fix a bug once
+                </li>
+                <li>
+                  <strong>Leverage</strong>: 9 call sites, one resolution
+                  interface
+                </li>
+                <li>
+                  <strong>Tests</strong>: one seam to test instead of 9; 8 known
+                  bugs become 8 test cases
+                </li>
+                <li>
+                  <strong>Deletion test</strong>: removing the old 9 variant
+                  files concentrates complexity in one module
+                </li>
+                <li>
+                  Adding a new component's variants requires only a schema
+                  declaration
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Candidate 3: sequence-renderer shallowness -->
+        <article class="space-y-4">
+          <div class="flex items-start gap-3">
+            <h2 class="font-serif text-2xl font-bold">
+              Absorb the
+              <code class="text-base">generateSequence</code> wrapper; deepen
+              the rule seam
+            </h2>
+            <span
+              class="inline-block shrink-0 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wider text-amber-800 uppercase"
+              >Worth exploring</span
+            >
+          </div>
+          <p class="text-xs tracking-wider text-slate-400 uppercase">
+            in-process
+          </p>
+
+          <div class="space-y-0.5 font-mono text-sm text-slate-600">
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/sequence-renderer/src/core/generateSequence.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/sequence-renderer/src/core/sequence-rules.ts</code
+              >
+            </p>
+          </div>
+
+          <!-- Call-graph collapse diagram -->
+          <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <div class="grid grid-cols-2 gap-6">
+              <!-- Before -->
+              <div>
+                <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                  Before — shallow wrapper + noisy rule
+                </p>
+                <svg
+                  viewBox="0 0 240 180"
+                  class="w-full"
+                  style="height: 180px"
+                >
+                  <!-- Caller -->
+                  <rect
+                    x="60"
+                    y="0"
+                    width="120"
+                    height="30"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="120"
+                    y="20"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    useSequence / store
+                  </text>
+
+                  <!-- Wrapper -->
+                  <rect
+                    x="65"
+                    y="45"
+                    width="110"
+                    height="30"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="120"
+                    y="65"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    generateSequence()
+                  </text>
+
+                  <!-- Rules -->
+                  <rect
+                    x="10"
+                    y="95"
+                    width="100"
+                    height="65"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="60"
+                    y="112"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    5 SequenceRule
+                  </text>
+                  <text
+                    x="60"
+                    y="125"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#dc2626"
+                  >
+                    collatzRule has bug
+                  </text>
+                  <text
+                    x="60"
+                    y="140"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#dc2626"
+                  >
+                    fibonacciRule off-by-one
+                  </text>
+
+                  <!-- Seam -->
+                  <rect
+                    x="125"
+                    y="95"
+                    width="10"
+                    height="65"
+                    rx="2"
+                    class="mass-interface"
+                  />
+                  <text
+                    x="130"
+                    y="168"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#64748b"
+                  >
+                    seam
+                  </text>
+
+                  <!-- Caller -->
+                  <rect
+                    x="150"
+                    y="95"
+                    width="80"
+                    height="65"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="190"
+                    y="112"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    canvas renderer
+                  </text>
+                  <text
+                    x="190"
+                    y="128"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    visualizations
+                  </text>
+                  <text
+                    x="190"
+                    y="145"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#64748b"
+                  >
+                    (no tests)
+                  </text>
+
+                  <!-- Arrows -->
+                  <line
+                    x1="120"
+                    y1="30"
+                    x2="120"
+                    y2="45"
+                    class="arrow-line"
+                  />
+                  <polygon
+                    points="120,45 116,38 124,38"
+                    class="arrow-head"
+                  />
+                  <line
+                    x1="120"
+                    y1="75"
+                    x2="60"
+                    y2="95"
+                    class="arrow-line"
+                  />
+                  <polygon
+                    points="60,95 68,91 68,99"
+                    class="arrow-head"
+                  />
+                </svg>
+              </div>
+              <!-- After -->
+              <div>
+                <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                  After — rule logic deepened into rule module
+                </p>
+                <svg
+                  viewBox="0 0 240 180"
+                  class="w-full"
+                  style="height: 180px"
+                >
+                  <!-- Caller -->
+                  <rect
+                    x="60"
+                    y="0"
+                    width="120"
+                    height="30"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="120"
+                    y="20"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    useSequence / store
+                  </text>
+
+                  <!-- Deepened rule module -->
+                  <rect
+                    x="20"
+                    y="45"
+                    width="200"
+                    height="80"
+                    rx="4"
+                    class="module-box-deep"
+                  />
+                  <text
+                    x="120"
+                    y="63"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="10"
+                    fill="#e2e8f0"
+                  >
+                    SequenceRules
+                  </text>
+                  <text
+                    x="120"
+                    y="80"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#94a3b8"
+                  >
+                    generateSequence() internal
+                  </text>
+                  <text
+                    x="120"
+                    y="95"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#94a3b8"
+                  >
+                    SequenceRule[] with fixed
+                  </text>
+                  <text
+                    x="120"
+                    y="110"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                    fill="#94a3b8"
+                  >
+                    collatz + fibonacci logic
+                  </text>
+
+                  <!-- Seam -->
+                  <rect
+                    x="125"
+                    y="135"
+                    width="10"
+                    height="30"
+                    rx="2"
+                    class="mass-interface"
+                  />
+                  <text
+                    x="130"
+                    y="172"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="7"
+                    fill="#64748b"
+                  >
+                    seam
+                  </text>
+
+                  <!-- Caller -->
+                  <rect
+                    x="150"
+                    y="135"
+                    width="80"
+                    height="30"
+                    rx="4"
+                    class="module-box"
+                  />
+                  <text
+                    x="190"
+                    y="152"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="8"
+                  >
+                    canvas renderer
+                  </text>
+
+                  <!-- Arrow -->
+                  <line
+                    x1="120"
+                    y1="30"
+                    x2="120"
+                    y2="45"
+                    class="arrow-line"
+                  />
+                  <polygon
+                    points="120,45 116,38 124,38"
+                    class="arrow-head"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Problem
+              </p>
+              <p class="text-slate-700">
+                <code class="bg-slate-100 px-1">generateSequence.ts</code> is a
+                28-line pure function extracted for testability, but has zero
+                tests — and the real bugs (<code class="bg-slate-100 px-1"
+                  >collatzRule</code
+                >
+                never terminating,
+                <code class="bg-slate-100 px-1">fibonacciRule</code> off-by-one)
+                are in how the rules interact with the generation loop, not in
+                isolation. The module is shallow: the interface is nearly as
+                complex as the body.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Solution
+              </p>
+              <p class="text-slate-700">
+                Merge
+                <code class="bg-slate-100 px-1">generateSequence</code> into the
+                rule module. The
+                <code class="bg-slate-100 px-1">SequenceRule</code> interface
+                stays as the seam; the generation loop becomes an implementation
+                detail. Rules gain the loop context so bugs like termination
+                conditions are testable in one place.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Wins
+              </p>
+              <ul
+                class="list-inside list-disc space-y-0.5 text-xs text-slate-600"
+              >
+                <li>
+                  <strong>Locality</strong>: sequence generation + rules in one
+                  module — bugs visible in one file
+                </li>
+                <li>
+                  <strong>Leverage</strong>: callers import one module instead
+                  of two
+                </li>
+                <li>
+                  <strong>Tests</strong>: the rule module's interface is the
+                  test surface; collatz bug gets a test case
+                </li>
+                <li>
+                  <strong>Deletion test</strong>: deleting
+                  <code class="bg-slate-100 px-1">generateSequence.ts</code>
+                  moves 28 lines into the rule module — complexity concentrates
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Candidate 4: image-to-particles elimination -->
+        <article class="space-y-4">
+          <div class="flex items-start gap-3">
+            <h2 class="font-serif text-2xl font-bold">
+              Fold <code class="text-base">image-to-particles</code> into the
+              playground app
+            </h2>
+            <span
+              class="inline-block shrink-0 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wider text-amber-800 uppercase"
+              >Worth exploring</span
+            >
+          </div>
+          <p class="text-xs tracking-wider text-slate-400 uppercase">
+            local-substitutable
+          </p>
+
+          <div class="space-y-0.5 font-mono text-sm text-slate-600">
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/image-to-particles/</code
+              >
+              (entire package)
+            </p>
+          </div>
+
+          <!-- Cross-section diagram -->
+          <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <div class="grid grid-cols-2 gap-6">
+              <!-- Before -->
+              <div>
+                <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                  Before — 4 thin layers, one component
+                </p>
+                <div class="space-y-0.5">
+                  <div
+                    class="flex h-8 items-center rounded-r border-l-4 border-slate-300 bg-slate-100 px-2 font-mono text-xs"
+                  >
+                    packages/image-to-particles/package.json
+                  </div>
+                  <div
+                    class="flex h-8 items-center rounded-r border-l-4 border-slate-300 bg-slate-100 px-2 font-mono text-xs"
+                  >
+                    src/core/config.ts
+                  </div>
+                  <div
+                    class="flex h-8 items-center rounded-r border-l-4 border-slate-300 bg-slate-100 px-2 font-mono text-xs"
+                  >
+                    src/core/utils.ts
+                  </div>
+                  <div
+                    class="flex h-10 items-center rounded-r border-l-4 border-slate-300 bg-blue-50 px-2 font-mono text-xs"
+                  >
+                    src/components/ImageToParticles.tsx
+                  </div>
+                  <div class="mt-3 text-xs text-slate-400 italic">
+                    Empty hooks/ directory
+                  </div>
+                </div>
+              </div>
+              <!-- After -->
+              <div>
+                <p class="mb-3 text-xs tracking-wider text-slate-400 uppercase">
+                  After — one thick module in the app
+                </p>
+                <div class="space-y-0.5">
+                  <div
+                    class="flex h-8 items-center rounded-r border-l-4 border-slate-300 bg-slate-100 px-2 font-mono text-xs"
+                  >
+                    apps/playground/src/features/image-to-particles/
+                  </div>
+                  <div
+                    class="flex h-20 items-center rounded-r border-l-4 border-slate-800 bg-slate-800 px-2 font-mono text-xs text-slate-200"
+                  >
+                    ImageToParticles.tsx (config + utils inlined)
+                  </div>
+                  <div class="mt-3 text-xs text-slate-400 italic">
+                    No package boundary to maintain
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Problem
+              </p>
+              <p class="text-slate-700">
+                <code class="bg-slate-100 px-1">image-to-particles</code> has a
+                2-file <code class="bg-slate-100 px-1">core/</code>, an empty
+                <code class="bg-slate-100 px-1">hooks/</code>, and one
+                component. The seam between package and consumer carries no
+                leverage: the interface (importing from
+                <code class="bg-slate-100 px-1">@repo/image-to-particles</code>)
+                is no simpler than inlining the component.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Solution
+              </p>
+              <p class="text-slate-700">
+                Move the component and its helpers into
+                <code class="bg-slate-100 px-1"
+                  >apps/playground/src/features/image-to-particles/</code
+                >. Delete the package. If a second consumer emerges, extract
+                then — the seam will be real, not hypothetical.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Wins
+              </p>
+              <ul
+                class="list-inside list-disc space-y-0.5 text-xs text-slate-600"
+              >
+                <li>
+                  <strong>Locality</strong>: all particle code in one app
+                  directory
+                </li>
+                <li>
+                  <strong>Leverage</strong>: zero interfaces to maintain for a
+                  single-consumer feature
+                </li>
+                <li>
+                  Removes a package.json, build config, and versioning overhead
+                </li>
+                <li>
+                  Deletion test: complexity vanishes (nothing depends on it)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Candidate 5: Worker pattern consolidation -->
+        <article class="space-y-4">
+          <div class="flex items-start gap-3">
+            <h2 class="font-serif text-2xl font-bold">
+              Consolidate Web Worker patterns into a shared seam
+            </h2>
+            <span
+              class="inline-block shrink-0 rounded-full bg-slate-100 px-3 py-1 text-xs font-bold tracking-wider text-slate-700 uppercase"
+              >Speculative</span
+            >
+          </div>
+          <p class="text-xs tracking-wider text-slate-400 uppercase">
+            ports &amp; adapters
+          </p>
+
+          <div class="space-y-0.5 font-mono text-sm text-slate-600">
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/automa/src/core/worker.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/automa/src/core/step.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/graph-viz/src/components/workerSrc.ts</code
+              >
+            </p>
+            <p>
+              <code class="bg-slate-100 px-1"
+                >packages/image-pipeline/src/api/pipeline-gateway.ts</code
+              >
+            </p>
+          </div>
+
+          <!-- Mermaid diagram -->
+          <div class="rounded-lg border border-slate-200 bg-white p-4">
+            <pre class="mermaid">
+              flowchart LR
+                subgraph Today ["Before — 3 worker patterns, no shared interface"]
+                  A[automa] --> W1[worker.ts<br/>Transferable buffers]
+                  B[graph-viz] --> W2[workerSrc.ts<br/>String-template blob]
+                  C[image-pipeline] --> W3[PipelineGateway<br/>Worker pool facade]
+                end
+
+                subgraph Tomorrow ["After — one WorkerPool seam"]
+                  D[automa] --> WP[WorkerPool]
+                  E[graph-viz] --> WP
+                  F[image-pipeline] --> WP
+                  WP --> G[Worker adapter 1]
+                  WP --> H[Worker adapter 2]
+                  WP --> I[Worker adapter N]
+                end
+
+                classDef today fill:#fee2e2,stroke:#dc2626
+                classDef tomorrow fill:#dbeafe,stroke:#3b82f6
+                class A,B,C today
+                class D,E,F tomorrow
+            </pre>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Problem
+              </p>
+              <p class="text-slate-700">
+                Three packages (<code class="bg-slate-100 px-1">automa</code>,
+                <code class="bg-slate-100 px-1">graph-viz</code>,
+                <code class="bg-slate-100 px-1">image-pipeline</code>) use Web
+                Workers in three different patterns: Transferable buffers,
+                string-template Blob URLs, and a worker pool. None share a
+                common interface. Adding a new worker-based feature means
+                picking a pattern from scratch.
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Solution
+              </p>
+              <p class="text-slate-700">
+                Extract a
+                <code class="bg-slate-100 px-1">@repo/worker-pool</code> module
+                with a
+                <code class="bg-slate-100 px-1">WorkerPool</code> interface.
+                <code class="bg-slate-100 px-1">image-pipeline</code>'s
+                <code class="bg-slate-100 px-1">PipelineGateway</code> is a
+                strong starting pattern — generalize from it. Each consumer
+                provides an adapter (a concrete
+                <code class="bg-slate-100 px-1">WorkerPool</code>
+                implementation).
+              </p>
+            </div>
+            <div>
+              <p
+                class="mb-1 text-xs font-bold tracking-wider text-slate-500 uppercase"
+              >
+                Wins
+              </p>
+              <ul
+                class="list-inside list-disc space-y-0.5 text-xs text-slate-600"
+              >
+                <li>
+                  <strong>Leverage</strong>: one worker interface, three
+                  consumers
+                </li>
+                <li>
+                  <strong>Seam</strong>: swap worker implementations — main
+                  thread, worker pool, mock — behind the same interface
+                </li>
+                <li>
+                  <strong>Tests</strong>: mock adapter for all worker-dependent
+                  code
+                </li>
+                <li>
+                  <strong>Locality</strong>: worker lifecycle bugs fixed in one
+                  module
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Top Recommendation -->
+      <section
+        id="top-recommendation"
+        class="border-t border-slate-200 pt-10"
+      >
+        <h2 class="mb-4 font-serif text-2xl font-bold">Top recommendation</h2>
+        <article class="rounded-lg border-2 border-emerald-500 bg-white p-6">
+          <div class="mb-2 flex items-start gap-3">
+            <h3 class="font-serif text-xl font-bold">
+              <a
+                href="#candidates"
+                class="text-emerald-700 hover:underline"
+                >Candidate 1: Deepen the image-manipulator→image-pipeline
+                seam</a
+              >
+            </h3>
+            <span
+              class="inline-block shrink-0 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold tracking-wider text-emerald-800 uppercase"
+              >Strong</span
+            >
+          </div>
+          <p class="text-sm text-slate-700">
+            <code class="bg-slate-100 px-1">image-pipeline</code> is the deepest
+            module in the monorepo — well-layered, with typed seams, a plugin
+            registry, fusion scheduling, and worker pool management. But its
+            consumer (<code class="bg-slate-100 px-1">image-manipulator</code>)
+            reaches past the intended interface through two separate import
+            paths and ignores 2/3 of the pipeline's capabilities. Tackle this
+            first because the foundation is already strong: you're fixing a
+            leaky seam, not building new architecture. The payoff is immediate —
+            a clean <code class="bg-slate-100 px-1">Pipeline</code> interface
+            means all three access types (pixel, neighborhood, global) become
+            testable through one seam, and the
+            <code class="bg-slate-100 px-1">image-pipeline</code> refactoring
+            plan (documented in Community 37 of the graph report) shows this was
+            already a known concern. Second choice: the UI variant
+            consolidation, which fixes 8 bugs and reduces duplication across 9
+            components.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

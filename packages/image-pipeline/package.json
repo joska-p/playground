@@ -4,13 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/App.tsx",
-    "./Registry": "./src/core/registry.ts",
-    "./PipelineGateway": "./src/api/pipeline-gateway.ts",
-    "./usePipeline": "./src/hooks/usePipeline.ts",
-    "./styles": "./src/styles/styles.css",
-    "./manipulations": "./src/core/manipulations/manifest.ts",
-    "./runPipeline": "./src/core/pipeline-runner.ts"
+    ".": "./src/api/image-pipeline.ts",
+    "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx"
   },
   "scripts": {
     "dev": "vite --host",

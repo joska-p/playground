@@ -1,5 +1,4 @@
-import { pipelineGateway } from '@repo/image-pipeline/PipelineGateway';
-import { manipulations } from '../../core/manipulations/manipulations';
+import { imagePipeline } from '@repo/image-pipeline';
 import { manipulatorStore } from './store';
 import type { OutputType, WorkflowStep } from './types';
 
@@ -21,14 +20,14 @@ function clearOutputs() {
 
 function addWorkflowStep(id: string) {
   const { workflow } = manipulatorStore.getState();
-  const manipData = manipulations[id];
+  const entry = imagePipeline.manipulations[id];
   manipulatorStore.setState({
     workflow: [
       ...workflow,
       {
         uid: crypto.randomUUID(),
         id,
-        options: { ...(manipData?.defaultArgs ?? {}) },
+        options: { ...(entry?.defaultArgs ?? {}) },
       },
     ],
   });
@@ -76,7 +75,7 @@ async function executeWorkflow() {
 
   manipulatorStore.setState({ isProcessing: true });
   try {
-    const results = await pipelineGateway.run({
+    const results = await imagePipeline.run({
       sourceImageData: imageSource.imageData,
       steps: workflow.map((step) => ({ id: step.id, options: step.options })),
     });

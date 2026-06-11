@@ -1,7 +1,6 @@
-type WorkflowPresetStep = {
-  id: string;
-  options: Record<string, number>;
-};
+import type { Step } from '@repo/image-pipeline';
+
+type WorkflowPresetStep = Step;
 
 type WorkflowPreset = {
   name: string;

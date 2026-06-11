@@ -1,5 +1,5 @@
+import type { ArgDefinition } from '@repo/image-pipeline';
 import { Slider } from '@repo/ui/Slider';
-import type { ArgDefinition } from '../../core/manipulations/manipulations';
 
 type WorkflowStepArgSliderProps = {
   def: ArgDefinition;

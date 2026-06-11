@@ -6,7 +6,11 @@ function PresetSelector() {
     const preset = WORKFLOW_PRESETS[index];
     if (!preset) return;
     setWorkflowSteps(
-      preset.steps.map((step) => ({ ...step, uid: crypto.randomUUID() }))
+      preset.steps.map((step) => ({
+        ...step,
+        options: step.options ?? {},
+        uid: crypto.randomUUID(),
+      }))
     );
   }
 

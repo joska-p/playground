@@ -1,4 +1,4 @@
-import type { ArgDefinition } from '../../core/manipulations/manipulations';
+import type { ArgDefinition } from '@repo/image-pipeline';
 import {
   moveWorkflowStep,
   removeWorkflowStep,
@@ -15,7 +15,7 @@ type WorkflowNodeProps = {
   isFirst: boolean;
   isLast: boolean;
   name: string;
-  argDefinitions: ArgDefinition[];
+  argDefinitions: readonly ArgDefinition[];
 };
 
 function WorkflowNode({
@@ -49,12 +49,12 @@ function WorkflowNode({
             <WorkflowStepArgSlider
               key={def.key}
               def={def}
-              value={step.options[def.key] ?? def.min}
+              value={(step.options[def.key] as number | undefined) ?? def.min}
               onChange={(value) =>
                 updateStepOptions(index, {
                   ...step.options,
                   [def.key]: value,
-                })
+                } as Record<string, number>)
               }
             />
           ))}
