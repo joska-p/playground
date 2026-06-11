@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 # =============================================================================
-# steps/01-ssh.sh — add SSH authorized_keys
-#
-# Key source priority:
-#   1. SSH_PUBLIC_KEY env var (inline key string)
-#   2. SSH_PUBLIC_KEY_FILE env var (path to a .pub file)
-#   3. ~/.ssh/id_ed25519.pub  (already in the container home)
-#   4. ~/.ssh/id_rsa.pub
-#   5. GITLAB_USER env var    (fetches from gitlab.com/<user>.keys)
+# steps/01-ssh.sh — Install, run, and add SSH authorized_keys
 # =============================================================================
 
 step_ssh_setup() {
+  # 1. Install the missing SSH binaries
+  log "Installing OpenSSH Server..."
+  sudo apt-get update && sudo apt-get install -y openssh-server
+
+  # 2. Configure system paths and host keys required by the daemon
+  log "Configuring SSH daemon environment..."
+  sudo ssh-keygen -A
+  sudo mkdir -p /run/shd
+  sudo mkdir -p /var/run/sshd
+
+  # 3. Keep your existing logic for public keys
   log "Setting up SSH authorized_keys..."
   mkdir -p "$HOME/.ssh"
   chmod 700 "$HOME/.ssh"
@@ -68,7 +72,14 @@ step_ssh_setup() {
     return
   fi
 
-  warn "No SSH key source configured. Set one of:"
-  warn "  SSH_PUBLIC_KEY, SSH_PUBLIC_KEY_FILE, GITLAB_USER"
-  warn "  or place a key at ~/.ssh/id_ed25519.pub"
+  warn "No SSH key source configured."
+
+  # 4. Start the daemon explicitly on the port you forwarded
+  log "Starting SSH Daemon on port 2222..."
+  if ! pgrep -x "sshd" > /dev/null; then
+    sudo /usr/sbin/sshd -p 2222
+    ok "SSH server successfully started."
+  else
+    ok "SSH server is already running."
+  fi
 }

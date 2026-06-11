@@ -23,7 +23,7 @@ skip()  { echo -e "${MUTED}–${NC}  $*"; }
 # Confirm we're running as boffin — exit early before any step functions run
 require_vscode_user() {
   if [ "$(whoami)" != "vscode" ]; then
-    error "This script must be run as boffin, not $(whoami)."
+    error "This script must be run as vscode, not $(whoami)."
   fi
 }
 
@@ -50,7 +50,6 @@ print_ready_banner() {
   echo -e "  ${FG}2.${NC} ${BLUE}git config --global user.name 'You'${NC}  — set git identity"
   echo -e "  ${FG}3.${NC} ${BLUE}git config --global user.email 'you@'${NC}"
   echo -e "  ${FG}4.${NC} ${BLUE}nano ~/.env.local${NC}                     — add API tokens"
-  echo -e "  ${FG}5.${NC} ${BLUE}glab auth login${NC}                       — connect GitLab CLI"
   echo ""
   echo -e "${YELLOW}SSH key sources (choose one):${NC}"
   echo -e "  ${BLUE}GITLAB_USER=you bash .devcontainer/scripts/setup.sh ssh${NC}"
