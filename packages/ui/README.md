@@ -142,4 +142,4 @@ Full design token reference (colors, typography, spacing, radii) is available at
 
 ---
 
-_Part of the [Creative Playground](https://playground-beryl-omega.vercel.app)_
+_Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_

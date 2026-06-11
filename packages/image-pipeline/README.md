@@ -153,4 +153,4 @@ Returns `null` while processing. Cancellation-safe — aborts on unmount or depe
 
 ---
 
-_Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+_Part of [Creative Playground](https://jpotin.gitlab.io/playground)_

@@ -151,4 +151,4 @@ Drawing maps pointer events on the 3D plane to grid cell indices using `useCellP
 
 ---
 
-_Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+_Part of [Creative Playground](https://jpotin.gitlab.io/playground)_

@@ -53,21 +53,21 @@ pnpm install && pnpm dev
 
 ## Documentation
 
-| Doc                                                                                                            | Description                                                |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [Documentation hub](https://playground-beryl-omega.vercel.app/docs/)                                           | Documentation hub                                          |
-| [Overview](https://playground-beryl-omega.vercel.app/docs/explanation/overview/)                               | What this is, principles, architecture                     |
-| [Engines](https://playground-beryl-omega.vercel.app/docs/explanation/engines/)                                 | How rules and visualizations work                          |
-| [Your First Visualization](https://playground-beryl-omega.vercel.app/docs/tutorial/first-visualization/)       | Step-by-step tutorial                                      |
-| [Scaffolding Packages](https://playground-beryl-omega.vercel.app/docs/how-to/scaffolding-packages/)            | Generate new packages with `turbo gen`                     |
-| [Project Maintenance](https://playground-beryl-omega.vercel.app/docs/how-to/maintenance/)                      | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
-| [Adding Projects](https://playground-beryl-omega.vercel.app/docs/how-to/adding-projects/)                      | How to add new visualizations                              |
-| [Adding Components](https://playground-beryl-omega.vercel.app/docs/how-to/adding-components/)                  | How to add UI components                                   |
-| [Adding a Rule](https://playground-beryl-omega.vercel.app/docs/how-to/adding-sequence-rule/)                   | Add sequence rules                                         |
-| [Adding a Visualization](https://playground-beryl-omega.vercel.app/docs/how-to/adding-visualization/)          | Add visualization types                                    |
-| [Import and Export Strategy](https://playground-beryl-omega.vercel.app/docs/reference/import-export-strategy/) | Public API and barrel rules                                |
-| [Design Tokens](https://playground-beryl-omega.vercel.app/docs/reference/design-tokens/)                       | Color palette and typography                               |
-| [UI Components](https://playground-beryl-omega.vercel.app/docs/reference/ui-components/)                       | Component library reference                                |
+| Doc                                                                                                      | Description                                                |
+| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [Documentation hub](https://jpotin.gitlab.io/playground/docs/)                                           | Documentation hub                                          |
+| [Overview](https://jpotin.gitlab.io/playground/docs/explanation/overview/)                               | What this is, principles, architecture                     |
+| [Engines](https://jpotin.gitlab.io/playground/docs/explanation/engines/)                                 | How rules and visualizations work                          |
+| [Your First Visualization](https://jpotin.gitlab.io/playground/docs/tutorial/first-visualization/)       | Step-by-step tutorial                                      |
+| [Scaffolding Packages](https://jpotin.gitlab.io/playground/docs/how-to/scaffolding-packages/)            | Generate new packages with `turbo gen`                     |
+| [Project Maintenance](https://jpotin.gitlab.io/playground/docs/how-to/maintenance/)                      | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
+| [Adding Projects](https://jpotin.gitlab.io/playground/docs/how-to/adding-projects/)                      | How to add new visualizations                              |
+| [Adding Components](https://jpotin.gitlab.io/playground/docs/how-to/adding-components/)                  | How to add UI components                                   |
+| [Adding a Rule](https://jpotin.gitlab.io/playground/docs/how-to/adding-sequence-rule/)                   | Add sequence rules                                         |
+| [Adding a Visualization](https://jpotin.gitlab.io/playground/docs/how-to/adding-visualization/)          | Add visualization types                                    |
+| [Import and Export Strategy](https://jpotin.gitlab.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules                                |
+| [Design Tokens](https://jpotin.gitlab.io/playground/docs/reference/design-tokens/)                       | Color palette and typography                               |
+| [UI Components](https://jpotin.gitlab.io/playground/docs/reference/ui-components/)                       | Component library reference                                |
 
 ---
 

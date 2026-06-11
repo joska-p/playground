@@ -69,4 +69,4 @@ No state management library. Data is loaded from the bundled `sampleData.json` a
 
 ---
 
-_Part of [Creative Playground](https://playground-beryl-omega.vercel.app)_
+_Part of [Creative Playground](https://jpotin.gitlab.io/playground)_
