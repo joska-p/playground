@@ -1,0 +1,36 @@
+import { createIcon } from '../lib';
+
+export const IconImageManipulator = createIcon({
+  name: 'image-manipulator',
+  viewBox: '0 0 80 60',
+  children: (
+    <>
+      <rect
+        x="6"
+        y="4"
+        width="68"
+        height="42"
+        rx="3"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        opacity={0.4}
+      />
+      <line x1="20" y1="4" x2="20" y2="46" stroke="currentColor" strokeWidth="1" opacity={0.2} />
+      <line x1="40" y1="4" x2="40" y2="46" stroke="currentColor" strokeWidth="1" opacity={0.2} />
+      <line x1="60" y1="4" x2="60" y2="46" stroke="currentColor" strokeWidth="1" opacity={0.2} />
+      <line x1="6" y1="16" x2="74" y2="16" stroke="currentColor" strokeWidth="1" opacity={0.2} />
+      <line x1="6" y1="28" x2="74" y2="28" stroke="currentColor" strokeWidth="1" opacity={0.2} />
+      <rect
+        x="18"
+        y="6"
+        width="16"
+        height="12"
+        fill="currentColor"
+        opacity={0.15}
+      />
+      <circle cx="64" cy="50" r="6" fill="none" stroke="currentColor" strokeWidth="2" opacity={0.5} />
+      <line x1="62" y1="48" x2="58" y2="44" stroke="currentColor" strokeWidth="2" opacity={0.7} />
+    </>
+  ),
+});

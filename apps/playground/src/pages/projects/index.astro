@@ -21,12 +21,14 @@ const categories = getProjectsByCategory();
 
   <div class="mx-auto w-full max-w-6xl space-y-16 px-6 py-16 lg:py-20">
     {
-      categories.map(({ name, description, projects }) => (
+      categories.map(({ name, description, icon, projects, id }) => (
         <section>
           <SectionHeader
             title={name}
             description={description}
+            iconName={icon}
             className="mb-12"
+            category={id}
           />
           <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
             {projects.map((project) => (

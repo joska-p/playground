@@ -77,7 +77,7 @@ export const projects: Record<string, Project> = {
       'Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.',
     category: 'generative',
     tags: ['Canvas', 'Zustand'],
-    icon: 'generative',
+    icon: 'mosaic',
     featured: true,
   },
   sequences: {
@@ -87,7 +87,7 @@ export const projects: Record<string, Project> = {
       'Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.',
     category: 'generative',
     tags: ['Math', 'SVG'],
-    icon: 'generative',
+    icon: 'sequences',
     featured: true,
   },
   palettes: {
@@ -97,7 +97,7 @@ export const projects: Record<string, Project> = {
       'Generate harmonious color schemes using mathematical color theory models.',
     category: 'color',
     tags: ['Design', 'Theory'],
-    icon: 'color',
+    icon: 'palettes',
     featured: false,
   },
   particles: {
@@ -107,7 +107,7 @@ export const projects: Record<string, Project> = {
       'Deconstruct images into physics-based particle systems with real-time interaction.',
     category: 'image',
     tags: ['Physics', 'Canvas'],
-    icon: 'image',
+    icon: 'particles',
     featured: false,
   },
   imageManipulator: {
@@ -117,7 +117,7 @@ export const projects: Record<string, Project> = {
       'A tool for manipulating images using canvas and webb workers.',
     category: 'image',
     tags: ['Images', 'Canvas'],
-    icon: 'image',
+    icon: 'image-manipulator',
     featured: true,
   },
   pipeline: {
@@ -127,7 +127,7 @@ export const projects: Record<string, Project> = {
       'Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.',
     category: 'image',
     tags: ['Pipeline', 'Docs'],
-    icon: 'image',
+    icon: 'pipeline',
     featured: true,
   },
   'pie-chart': {
@@ -146,7 +146,7 @@ export const projects: Record<string, Project> = {
     description: 'Interactive graph, click nodes, search, filter by community.',
     category: 'data-viz',
     tags: ['Graph', 'D3'],
-    icon: 'data-viz',
+    icon: 'graphify',
     featured: true,
   },
   'three-stage': {
@@ -155,7 +155,7 @@ export const projects: Record<string, Project> = {
     description: 'A 3D stage for rendering and animate 3D objects.',
     category: 'random',
     tags: ['Threejs', '3D', 'WebGL'],
-    icon: 'random',
+    icon: 'three-stage',
     featured: false,
   },
   automa: {
@@ -165,7 +165,7 @@ export const projects: Record<string, Project> = {
       "Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.",
     category: 'simulation',
     tags: ['Three.js', 'Simulation', 'WebGL'],
-    icon: 'simulation',
+    icon: 'automa',
     featured: true,
   },
 };
