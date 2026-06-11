@@ -11,6 +11,10 @@ Before diving in, use these two tools to understand the project:
 
 Read `./apps/playground/src/content/docs/explanation/conventions.md` before writing or editing any file. Apply only the rules relevant to the current task. When in doubt, ask — do not guess.
 
+## Write documentations
+
+Read `./apps/playground/src/content/docs/how-to/documenting-packages.md` before writing or editing any docs.
+
 ## Running commands
 
 Always run from the **repo root**. Never `cd` into a package.
