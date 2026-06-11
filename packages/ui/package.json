@@ -17,7 +17,7 @@
     "./Input": "./src/components/input/Input.tsx",
     "./inputVariants": "./src/components/input/inputVariants.ts",
     "./Label": "./src/components/label/Label.tsx",
-    "./labelVariants": "./src/components/label/labelVariants.ts",
+    "./variantConfig": "./src/lib/variants/variantConfig.ts",
     "./Select": "./src/components/select/Select.tsx",
     "./selectVariants": "./src/components/select/selectVariants.ts",
     "./Sidebar": "./src/components/widgets/sidebar/Sidebar.tsx",

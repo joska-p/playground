@@ -1,6 +1,7 @@
-import { cva } from 'class-variance-authority';
+import { variantFactory } from '../../lib/variants/variantFactory';
 
-export const sliderVariants = cva('w-full rounded-md py-2 transition-colors', {
+export const sliderVariants = variantFactory({
+  base: 'w-full rounded-md py-2 transition-colors',
   variants: {
     variant: {
       primary: 'accent-primary text-primary',
