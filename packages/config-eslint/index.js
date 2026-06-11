@@ -1,5 +1,5 @@
 import js from '@eslint/js';
-import importPluginX from 'eslint-plugin-import-x'; // 👈 Native flat-config fork
+import importPluginX from 'eslint-plugin-import-x';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
@@ -8,7 +8,7 @@ import tseslint from 'typescript-eslint';
 
 export default function createConfig(dirname) {
   return defineConfig([
-    globalIgnores(['dist']),
+    globalIgnores(['dist', '.astro']),
     {
       files: ['**/*.{ts,tsx}'],
       extends: [
@@ -18,7 +18,6 @@ export default function createConfig(dirname) {
         reactRefresh.configs.vite,
       ],
       plugins: {
-        // We alias it as 'import' so you don't have to change your rule strings!
         import: importPluginX,
       },
       languageOptions: {
@@ -29,7 +28,6 @@ export default function createConfig(dirname) {
         },
       },
       rules: {
-        // These will now run flawlessly on ESLint v10
         'import/no-default-export': 'error',
         'import/no-cycle': ['error', { maxDepth: 2 }],
 

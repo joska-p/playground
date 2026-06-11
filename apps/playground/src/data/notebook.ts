@@ -24,10 +24,6 @@ export const categoriesIds = Object.keys(CATEGORY_METADATA) as [
   ...CategoryId[],
 ];
 
-function getTagMetadata(id: CategoryId) {
-  return CATEGORY_METADATA[id];
-}
-
 export async function getNotesByCategory() {
   const notes = await getCollection('notebook', ({ data }) => !data.draft);
 
@@ -38,8 +34,4 @@ export async function getNotesByCategory() {
       .filter((note) => note.data.category === (id as CategoryId))
       .sort((a, b) => a.data.order - b.data.order),
   }));
-}
-
-async function getFeaturedNotes() {
-  return getCollection('notebook', ({ data }) => data.featured && !data.draft);
 }

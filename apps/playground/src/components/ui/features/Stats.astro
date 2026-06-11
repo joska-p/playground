@@ -1,19 +1,8 @@
-<div class="border-border bg-card/40 border-b">
-  <dl class="bg-border mx-auto grid max-w-6xl grid-cols-4 gap-px">
-    {
-      [
-        { value: '24+', label: 'Experiments' },
-        { value: '4', label: 'Categories' },
-        { value: '60fps', label: 'Target Perf' },
-        { value: '0', label: 'Runtime Deps' },
-      ].map(({ value, label }) => (
-        <div class="bg-card flex flex-col px-6 py-5">
-          <dt class="text-muted-foreground text-xs font-bold uppercase">
-            {label}
-          </dt>
-          <dd class="mt-1.5 text-2xl font-black">{value}</dd>
-        </div>
-      ))
-    }
-  </dl>
-</div>
+---
+import { StrictMode } from 'react';
+import { TerminalPreview } from './TerminalPreview';
+---
+
+<StrictMode>
+  <TerminalPreview client:only="react" />
+</StrictMode>
