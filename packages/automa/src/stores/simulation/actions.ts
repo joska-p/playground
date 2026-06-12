@@ -34,7 +34,9 @@ type StepResponse = {
 const pool = new WorkerPool<StepRequest, StepResponse>({
   maxPoolSize: 1,
   workerFactory: () =>
-    new Worker(new URL('../../core/worker', import.meta.url), { type: 'module' }),
+    new Worker(new URL('../../core/worker', import.meta.url), {
+      type: 'module'
+    }),
   serialize: (task) => ({
     message: task,
     transfer: [task.grid.buffer]

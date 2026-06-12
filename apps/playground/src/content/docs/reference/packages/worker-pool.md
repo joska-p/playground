@@ -1,7 +1,7 @@
 ---
-title: "A pool of worker"
-description: "You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown."
-category: "reference"
+title: 'A pool of worker'
+description: 'You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.'
+category: 'reference'
 tags:
   - reference
   - worker-pool
@@ -14,7 +14,7 @@ order: 20
 
 You already know how to write a Web Worker: you create it with `new Worker(...)`, send messages with `postMessage`, and listen for responses. What you don't want to write is the boilerplate around it — deciding when to create a worker, when to reuse one, what to do when all workers are busy, and how to clean up on unmount.
 
-This package does that. You provide three hooks (`workerFactory`, `serialize`, `deserialize`) that describe *your* worker. It handles dispatch, concurrency, queuing, and teardown.
+This package does that. You provide three hooks (`workerFactory`, `serialize`, `deserialize`) that describe _your_ worker. It handles dispatch, concurrency, queuing, and teardown.
 
 Three packages (`automa`, `graph-viz`, `image-pipeline`) each invented their own version of this same boilerplate. This module extracts the common shape into a single, testable interface.
 
@@ -91,7 +91,7 @@ import { WorkerPool } from '@repo/worker-pool';
 const pool = new WorkerPool<number, number>({
   workerFactory: () => new Worker(new URL('./doubler', import.meta.url)),
   serialize: (n) => ({ message: n }),
-  deserialize: (event) => ({ ok: true, value: event.data }),
+  deserialize: (event) => ({ ok: true, value: event.data })
 });
 
 const result = await pool.run(21); // 42
@@ -118,11 +118,15 @@ const pool = new WorkerPool<Task, Result>({
     const copy = new ImageData(
       new Uint8ClampedArray(task.image.data),
       task.image.width,
-      task.image.height,
+      task.image.height
     );
     return {
-      message: { sourceImageData: copy, steps: task.steps, maximumPixels: task.maxPixels },
-      transfer: [copy.data.buffer],
+      message: {
+        sourceImageData: copy,
+        steps: task.steps,
+        maximumPixels: task.maxPixels
+      },
+      transfer: [copy.data.buffer]
     };
   },
 
@@ -132,7 +136,7 @@ const pool = new WorkerPool<Task, Result>({
       return { ok: false, error: new Error(data.error) };
     }
     return { ok: true, value: data as ImageData[] };
-  },
+  }
 });
 ```
 
@@ -158,21 +162,21 @@ type StepResponse = {
 };
 
 const pool = new WorkerPool<StepRequest, StepResponse>({
-  workerFactory: () => new Worker(
-    new URL('../../core/worker', import.meta.url),
-    { type: 'module' },
-  ),
+  workerFactory: () =>
+    new Worker(new URL('../../core/worker', import.meta.url), {
+      type: 'module'
+    }),
   maxPoolSize: 1, // single dedicated worker
 
   serialize: (task) => ({
     message: task satisfies StepRequest,
-    transfer: [task.grid.buffer], // transfer ownership to worker
+    transfer: [task.grid.buffer] // transfer ownership to worker
   }),
 
   deserialize: (event) => ({
     ok: true,
-    value: event.data as StepResponse, // worker returns transferred-back buffer
-  }),
+    value: event.data as StepResponse // worker returns transferred-back buffer
+  })
 });
 ```
 
@@ -238,4 +242,3 @@ pnpm --filter @repo/worker-pool check-types
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
-

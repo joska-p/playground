@@ -12,11 +12,11 @@ Read the existing worker pattern for each target package:
 
 ## Migration plan
 
-| # | Package | Current pattern | Adapter | Risk |
-|---|---------|----------------|---------|------|
-| 1 | `image-pipeline` | `PipelineGateway` (hand-rolled pool, size 4, FIFO queue) | `WorkerPool<RunConfig, ImageData[]>` | Low — API shape is nearly identical |
-| 2 | `automa` | Single module worker, transferable buffer round-trip | `WorkerPool<StepRequest, StepResponse>` with maxPoolSize: 1 | Low — single worker, simple protocol |
-| 3 | `graph-viz` | Blob URL worker, one-shot fire-and-forget | `MockWorkerPool<GraphData, Float32Array>` (simulation runs inline) | Medium — blob pattern is unusual; may need a custom workerFactory |
+| #   | Package          | Current pattern                                          | Adapter                                                            | Risk                                                              |
+| --- | ---------------- | -------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| 1   | `image-pipeline` | `PipelineGateway` (hand-rolled pool, size 4, FIFO queue) | `WorkerPool<RunConfig, ImageData[]>`                               | Low — API shape is nearly identical                               |
+| 2   | `automa`         | Single module worker, transferable buffer round-trip     | `WorkerPool<StepRequest, StepResponse>` with maxPoolSize: 1        | Low — single worker, simple protocol                              |
+| 3   | `graph-viz`      | Blob URL worker, one-shot fire-and-forget                | `MockWorkerPool<GraphData, Float32Array>` (simulation runs inline) | Medium — blob pattern is unusual; may need a custom workerFactory |
 
 ## Steps per package
 

@@ -24,7 +24,9 @@ export type RunConfig = {
 const pool = new WorkerPool<RunConfig, ImageData[]>({
   maxPoolSize: navigator.hardwareConcurrency ?? 4,
   workerFactory: () =>
-    new Worker(new URL('./pipeline-worker', import.meta.url), { type: 'module' }),
+    new Worker(new URL('./pipeline-worker', import.meta.url), {
+      type: 'module'
+    }),
   serialize: (task) => {
     const clampedCopy = new Uint8ClampedArray(task.sourceImageData.data);
     const imageDataCopy = new ImageData(
@@ -42,7 +44,8 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
     };
   },
   deserialize: (event) => {
-    if ('error' in event.data) return { ok: false, error: new Error(event.data.error) };
+    if ('error' in event.data)
+      return { ok: false, error: new Error(event.data.error) };
     return { ok: true, value: event.data as ImageData[] };
   }
 });

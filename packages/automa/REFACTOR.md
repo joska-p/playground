@@ -6,18 +6,19 @@ Replace the module-level `Worker` in `stores/simulation/actions.ts` with `Worker
 
 ## Why
 
-| Current (raw Worker) | Target (WorkerPool) | Benefit |
-|----------------------|---------------------|---------|
-| Manual worker lifecycle (init/destroy) | `pool.teardown()` handles cleanup | Less boilerplate |
-| No queue — drops steps if worker busy | Internal FIFO queue | No lost steps under load |
-| `setInterval` fires regardless of completion | Async loop awaits each `pool.run()` | Self-regulating, no queue buildup |
-| Message protocol inline in actions.ts | Declarative `serialize`/`deserialize` | Separation of concerns |
-| Single worker hardcoded | `maxPoolSize: 1` explicit | Clear intent, extensible |
+| Current (raw Worker)                         | Target (WorkerPool)                   | Benefit                           |
+| -------------------------------------------- | ------------------------------------- | --------------------------------- |
+| Manual worker lifecycle (init/destroy)       | `pool.teardown()` handles cleanup     | Less boilerplate                  |
+| No queue — drops steps if worker busy        | Internal FIFO queue                   | No lost steps under load          |
+| `setInterval` fires regardless of completion | Async loop awaits each `pool.run()`   | Self-regulating, no queue buildup |
+| Message protocol inline in actions.ts        | Declarative `serialize`/`deserialize` | Separation of concerns            |
+| Single worker hardcoded                      | `maxPoolSize: 1` explicit             | Clear intent, extensible          |
 
 ## Migration Steps
 
 1. **Add dependency**: `pnpm add @repo/worker-pool` in automa
 2. **Create WorkerPool instance** in `actions.ts` (module level):
+
    ```ts
    import { WorkerPool } from '@repo/worker-pool';
    import { WORKER_MESSAGE_STEP } from '../../core/config';
@@ -37,7 +38,10 @@ Replace the module-level `Worker` in `stores/simulation/actions.ts` with `Worker
 
    const pool = new WorkerPool<StepRequest, StepResponse>({
      maxPoolSize: 1,
-     workerFactory: () => new Worker(new URL('../../core/worker', import.meta.url), { type: 'module' }),
+     workerFactory: () =>
+       new Worker(new URL('../../core/worker', import.meta.url), {
+         type: 'module'
+       }),
      serialize: (task) => ({
        message: task,
        transfer: [task.grid.buffer]
@@ -48,6 +52,7 @@ Replace the module-level `Worker` in `stores/simulation/actions.ts` with `Worker
      }
    });
    ```
+
 3. **Update `init()`** — remove `new Worker(...)`, keep store initialization
 4. **Update `destroy()`** — replace `worker.terminate()` with `pool.teardown()`
 5. **Replace `step()`** with async loop in `play()`:
@@ -63,7 +68,7 @@ Replace the module-level `Worker` in `stores/simulation/actions.ts` with `Worker
          rows: state.rows,
          ruleId: state.ruleId
        });
-       await new Promise(r => setTimeout(r, uiStore.getState().speedMs));
+       await new Promise((r) => setTimeout(r, uiStore.getState().speedMs));
      }
    };
    ```
@@ -76,6 +81,7 @@ Replace the module-level `Worker` in `stores/simulation/actions.ts` with `Worker
 Current `setInterval(step, speedMs)` has a flaw: if a step takes longer than `speedMs`, multiple steps queue up in the worker, causing lag and memory pressure.
 
 The async loop:
+
 - Awaits `pool.run()` → next step starts only after previous completes
 - Naturally adapts to variable step duration
 - `speedMs` becomes minimum delay between steps, not fixed interval

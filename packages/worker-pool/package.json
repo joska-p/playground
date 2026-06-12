@@ -12,13 +12,18 @@
     "test-watch": "vitest",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "format": "prettier --write .",
+    "clean": "rm -rf node_modules dist .turbo"
   },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
-    "eslint": "catalog:"
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "prettier-plugin-tailwindcss": "catalog:"
   }
 }

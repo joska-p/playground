@@ -12,10 +12,12 @@ function createFakeWorker() {
 
   const worker = {
     postMessage: vi.fn(),
-    addEventListener: vi.fn((type: string, handler: (...args: unknown[]) => void) => {
-      if (type === 'message') messageCb = handler;
-      if (type === 'error') errorCb = handler;
-    }),
+    addEventListener: vi.fn(
+      (type: string, handler: (...args: unknown[]) => void) => {
+        if (type === 'message') messageCb = handler;
+        if (type === 'error') errorCb = handler;
+      }
+    ),
     removeEventListener: vi.fn(),
     terminate: vi.fn()
   } as unknown as Worker;
