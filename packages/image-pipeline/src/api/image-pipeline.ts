@@ -1,7 +1,7 @@
+import { WorkerPool } from '@repo/worker-pool';
 import type { ArgDefinition } from '../core/image-pipeline.types';
 import type { Step } from '../core/manipulations/manifest';
 import { ALL_MANIPULATIONS } from '../core/manipulations/manifest';
-import { pipelineGateway } from './pipeline-gateway';
 
 export type { ArgDefinition, Step };
 
@@ -20,6 +20,32 @@ export type RunConfig = {
   steps: readonly Step[];
   maximumPixels?: number;
 };
+
+const pool = new WorkerPool<RunConfig, ImageData[]>({
+  maxPoolSize: navigator.hardwareConcurrency ?? 4,
+  workerFactory: () =>
+    new Worker(new URL('./pipeline-worker', import.meta.url), { type: 'module' }),
+  serialize: (task) => {
+    const clampedCopy = new Uint8ClampedArray(task.sourceImageData.data);
+    const imageDataCopy = new ImageData(
+      clampedCopy,
+      task.sourceImageData.width,
+      task.sourceImageData.height
+    );
+    return {
+      message: {
+        sourceImageData: imageDataCopy,
+        steps: task.steps,
+        maximumPixels: task.maximumPixels
+      },
+      transfer: [imageDataCopy.data.buffer]
+    };
+  },
+  deserialize: (event) => {
+    if ('error' in event.data) return { ok: false, error: new Error(event.data.error) };
+    return { ok: true, value: event.data as ImageData[] };
+  }
+});
 
 function buildCatalog(): Record<string, ManipulationInfo> {
   const catalog: Record<string, ManipulationInfo> = {};
@@ -55,14 +81,10 @@ export const imagePipeline = {
   },
 
   run(config: RunConfig): Promise<ImageData[]> {
-    return pipelineGateway.run({
-      sourceImageData: config.sourceImageData,
-      steps: [...config.steps] as Step[],
-      maximumPixels: config.maximumPixels
-    });
+    return pool.run(config);
   },
 
   teardown(): void {
-    pipelineGateway.teardown();
+    pool.teardown();
   }
 };

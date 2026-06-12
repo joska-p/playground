@@ -626,6 +626,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
+      '@repo/worker-pool':
+        specifier: workspace:*
+        version: link:../worker-pool
     devDependencies:
       '@babel/core':
         specifier: 'catalog:'

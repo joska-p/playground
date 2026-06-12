@@ -1,6 +1,6 @@
 import { Slider } from '@repo/ui/Slider';
 import { useEffect, useState } from 'react';
-import { pipelineGateway } from '../../../api/pipeline-gateway';
+import { imagePipeline } from '../../../api/image-pipeline';
 import type { ManipInfo } from '../data/pipeline-docs-data';
 import { imageDataToUrl } from '../helpers';
 
@@ -31,7 +31,7 @@ function TryItOut({
       }
     }
 
-    pipelineGateway
+    imagePipeline
       .run({
         sourceImageData: sourceData,
         steps: [{ id: manip.id, options }]

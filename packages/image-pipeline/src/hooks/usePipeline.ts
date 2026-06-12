@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { pipelineGateway } from '../api/pipeline-gateway';
+import { imagePipeline } from '../api/image-pipeline';
 import type { Step } from '../core/manipulations/manifest';
 
 export function usePipeline<const T extends readonly Step[]>(
@@ -12,8 +12,8 @@ export function usePipeline<const T extends readonly Step[]>(
     if (!sourceImageData) return;
     let cancelled = false;
 
-    pipelineGateway
-      .run({ sourceImageData, steps: [...steps] })
+    imagePipeline
+      .run({ sourceImageData, steps })
       .then((pipelineResult) => {
         if (!cancelled) setResult(pipelineResult);
       })

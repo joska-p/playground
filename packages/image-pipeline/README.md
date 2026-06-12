@@ -31,7 +31,7 @@ const snapshots = await imagePipeline.run({
 });
 ```
 
-Returns one `ImageData` snapshot per step. Work is dispatched to a Web Worker pool (up to 4 workers). If all workers are busy the job is queued.
+Returns one `ImageData` snapshot per step. Work is dispatched to a Web Worker pool (up to `hardwareConcurrency` workers). If all workers are busy the job is queued.
 
 ### Browse available manipulations
 
@@ -72,7 +72,7 @@ imagePipeline.teardown();
 ```
 imagePipeline.run(config)
   │
-  ├─ Web Worker pool (lazy, up to 4 workers)
+  ├─ Web Worker pool (lazy, up to hardwareConcurrency)
   ├─ Auto-downscale (if source exceeds maximumPixels)
   ├─ BufferManager (double-buffered Uint8ClampedArray)
   ├─ FusionScheduler (batches consecutive pixel ops)
@@ -85,7 +85,7 @@ imagePipeline.run(config)
             └─ Return: step snapshots (source excluded — caller manages it)
 ```
 
-Everything below `imagePipeline.run()` is an implementation detail — the gateway, registry, buffer manager, and fusion scheduler are hidden behind the facade.
+Everything below `imagePipeline.run()` is an implementation detail — the `WorkerPool`, registry, buffer manager, and fusion scheduler are hidden behind the facade.
 
 ## Step Types
 
@@ -160,9 +160,9 @@ W×H image → split into (512+2r)² tiles → convolve per tile → blit non-ha
 
 ## Web Worker Support
 
-The `imagePipeline.run()` method automatically uses a pool of Web Workers for off-thread execution:
+The `imagePipeline.run()` method automatically uses a pool of Web Workers (via `@repo/worker-pool`) for off-thread execution:
 
-- Lazy-creates up to `min(hardwareConcurrency, 4)` workers
+- Lazy-creates up to `hardwareConcurrency` workers
 - FIFO queue when all workers are busy
 - Uses `Transferable` buffers for zero-copy memory transfer
 - Workers are stateless (registry rebuilt per invocation)
@@ -176,7 +176,7 @@ The package exports a single entry — no sub-path imports:
 @repo/image-pipeline   →   imagePipeline facade + types
 ```
 
-Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`, `/runPipeline`, `/usePipeline`) are now internal implementation details.
+Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`, `/runPipeline`, `/usePipeline`) have been replaced by the `imagePipeline` facade. The hand-rolled `PipelineGateway` has been replaced with `@repo/worker-pool`'s `WorkerPool`.
 
 ---
 
