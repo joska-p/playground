@@ -8,5 +8,5 @@ export const docSchema = z.object({
   order: z.number().default(0),
   draft: z.boolean().default(false),
   category: z.enum(categoryIds),
-  tags: z.array(z.string()).default([]).optional(),
+  tags: z.array(z.string()).default([]).optional()
 });

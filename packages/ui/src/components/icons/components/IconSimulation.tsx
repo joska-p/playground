@@ -6,7 +6,7 @@ const nodes = [
   { id: 'c', cx: 66, cy: 18 },
   { id: 'd', cx: 72, cy: 46 },
   { id: 'e', cx: 42, cy: 52 },
-  { id: 'f', cx: 20, cy: 52 },
+  { id: 'f', cx: 20, cy: 52 }
 ];
 const edges = [
   ['a', 'b'],
@@ -16,7 +16,7 @@ const edges = [
   ['c', 'd'],
   ['d', 'e'],
   ['e', 'f'],
-  ['b', 'f'],
+  ['b', 'f']
 ] as const;
 
 const pos = Object.fromEntries(nodes.map((n) => [n.id, n]));
@@ -49,5 +49,5 @@ export const IconSimulation = createIcon({
         />
       ))}
     </>
-  ),
+  )
 });

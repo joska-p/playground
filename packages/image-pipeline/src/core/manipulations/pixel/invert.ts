@@ -7,7 +7,7 @@ export const invert = defineManip({
     255 - red,
     255 - green,
     255 - blue,
-    alpha,
+    alpha
   ],
   ui: {
     name: 'Invert',
@@ -15,6 +15,6 @@ export const invert = defineManip({
     longDescription:
       'Inverts each channel independently: output = 255 − input. Alpha is preserved unchanged.',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

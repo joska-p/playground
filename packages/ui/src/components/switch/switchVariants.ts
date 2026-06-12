@@ -15,18 +15,18 @@ export const switchVariants = variantFactory({
       outline:
         'data-[state=checked]:bg-foreground/20 data-[state=unchecked]:bg-foreground/10 border-border border',
       ghost:
-        'data-[state=checked]:bg-foreground/10 data-[state=unchecked]:bg-transparent',
+        'data-[state=checked]:bg-foreground/10 data-[state=unchecked]:bg-transparent'
     },
     size: {
       sm: 'h-5 w-9',
       md: 'h-6 w-11',
-      lg: 'h-7 w-14',
-    },
+      lg: 'h-7 w-14'
+    }
   },
   defaultVariants: {
     variant: 'primary',
-    size: 'md',
-  },
+    size: 'md'
+  }
 });
 
 export const switchThumbVariants = variantFactory({
@@ -35,10 +35,10 @@ export const switchThumbVariants = variantFactory({
     size: {
       sm: 'h-4 w-4 data-[state=checked]:translate-x-4',
       md: 'h-5 w-5 data-[state=checked]:translate-x-5',
-      lg: 'h-6 w-6 data-[state=checked]:translate-x-6',
-    },
+      lg: 'h-6 w-6 data-[state=checked]:translate-x-6'
+    }
   },
   defaultVariants: {
-    size: 'md',
-  },
+    size: 'md'
+  }
 });

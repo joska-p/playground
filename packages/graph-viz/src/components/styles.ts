@@ -13,25 +13,25 @@ const styles: Record<string, CSSProperties> = {
     borderRadius: 8,
     padding: '10px 16px',
     minWidth: 260,
-    backdropFilter: 'blur(8px)',
+    backdropFilter: 'blur(8px)'
   },
   progressLabel: {
     color: '#4cc9f0',
     fontSize: 12,
     fontFamily: 'monospace',
-    marginBottom: 6,
+    marginBottom: 6
   },
   progressTrack: {
     height: 4,
     borderRadius: 2,
     background: 'rgba(255,255,255,0.1)',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   progressBar: {
     height: '100%',
     background: 'linear-gradient(90deg,#4361ee,#4cc9f0)',
     transition: 'width 0.2s ease',
-    borderRadius: 2,
+    borderRadius: 2
   },
   stats: {
     position: 'absolute',
@@ -44,14 +44,14 @@ const styles: Record<string, CSSProperties> = {
     border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: 20,
     padding: '6px 18px',
-    backdropFilter: 'blur(10px)',
+    backdropFilter: 'blur(10px)'
   },
   statItem: {
     color: '#c0d0e8',
     fontSize: 12,
     fontFamily: 'monospace',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   panel: {
     position: 'absolute',
@@ -66,7 +66,7 @@ const styles: Record<string, CSSProperties> = {
     padding: '18px 20px',
     backdropFilter: 'blur(16px)',
     color: '#e0eaf8',
-    fontFamily: 'monospace',
+    fontFamily: 'monospace'
   },
   panelClose: {
     position: 'absolute',
@@ -76,37 +76,37 @@ const styles: Record<string, CSSProperties> = {
     border: 'none',
     color: '#6080a0',
     cursor: 'pointer',
-    fontSize: 14,
+    fontSize: 14
   },
   panelType: {
     fontSize: 10,
     letterSpacing: '0.12em',
     textTransform: 'uppercase',
-    marginBottom: 6,
+    marginBottom: 6
   },
   panelTitle: {
     fontSize: 15,
     fontWeight: 600,
     color: '#e8f4ff',
     marginBottom: 4,
-    wordBreak: 'break-word',
+    wordBreak: 'break-word'
   },
   panelMeta: {
     fontSize: 11,
     color: '#5a7a9a',
     marginBottom: 2,
-    wordBreak: 'break-word',
+    wordBreak: 'break-word'
   },
   panelDivider: {
     height: 1,
     background: 'rgba(255,255,255,0.07)',
-    margin: '12px 0',
+    margin: '12px 0'
   },
   panelSectionTitle: {
     fontSize: 11,
     color: '#4cc9f0',
     letterSpacing: '0.1em',
-    marginBottom: 8,
+    marginBottom: 8
   },
   neighbourList: { display: 'flex', flexDirection: 'column', gap: 4 },
   neighbourRow: { display: 'flex', alignItems: 'center', gap: 6 },
@@ -117,7 +117,7 @@ const styles: Record<string, CSSProperties> = {
     background: 'rgba(255,255,255,0.05)',
     borderRadius: 4,
     padding: '1px 5px',
-    minWidth: 60,
+    minWidth: 60
   },
   neighbourLabel: {
     fontSize: 11,
@@ -125,7 +125,7 @@ const styles: Record<string, CSSProperties> = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    maxWidth: 160,
+    maxWidth: 160
   },
   tooltip: {
     position: 'absolute',
@@ -140,7 +140,7 @@ const styles: Record<string, CSSProperties> = {
     fontSize: 12,
     fontFamily: 'monospace',
     pointerEvents: 'none',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'nowrap'
   },
   legend: {
     position: 'absolute',
@@ -153,7 +153,7 @@ const styles: Record<string, CSSProperties> = {
     border: '1px solid rgba(255,255,255,0.06)',
     borderRadius: 8,
     padding: '10px 14px',
-    backdropFilter: 'blur(8px)',
+    backdropFilter: 'blur(8px)'
   },
   legendLabel: { color: '#6a90b0', fontSize: 11, fontFamily: 'monospace' },
   controls: {
@@ -165,8 +165,8 @@ const styles: Record<string, CSSProperties> = {
     fontSize: 11,
     fontFamily: 'monospace',
     pointerEvents: 'none',
-    whiteSpace: 'nowrap',
-  },
+    whiteSpace: 'nowrap'
+  }
 };
 
 export { styles };

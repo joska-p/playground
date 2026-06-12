@@ -137,7 +137,7 @@ const tint =
     r: Math.min(255, r + hue),
     g,
     b: Math.max(0, b - hue),
-    a,
+    a
   });
 
 manipulate(source).apply(grayscale()).apply(tint(30)).toImageData();

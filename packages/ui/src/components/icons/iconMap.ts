@@ -80,7 +80,7 @@ export const iconMap = {
   spinner: IconSpinner,
   'three-stage': IconThreeStage,
   wrench: IconWrench,
-  x: IconX,
+  x: IconX
 } as const;
 
 export type IconName = keyof typeof iconMap;

@@ -39,7 +39,7 @@ function Slider({
     'text-primary': !variant || variant === 'primary',
     'text-secondary': variant === 'secondary',
     'text-accent': variant === 'accent',
-    'text-destructive': variant === 'destructive',
+    'text-destructive': variant === 'destructive'
   });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -52,7 +52,7 @@ function Slider({
       {label && (
         <div
           className={cn('flex items-center gap-2', {
-            'justify-between': !isInline,
+            'justify-between': !isInline
           })}
         >
           <label
@@ -81,7 +81,7 @@ function Slider({
         aria-describedby={helperText ? helperId : undefined}
         aria-label={!label ? (props['aria-label'] ?? 'Slider') : undefined}
         className={cn('min-w-0 cursor-pointer disabled:cursor-not-allowed', {
-          'w-full': !isInline,
+          'w-full': !isInline
         })}
         {...props}
       />

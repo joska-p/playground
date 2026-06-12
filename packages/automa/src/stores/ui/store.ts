@@ -2,7 +2,7 @@ import { createStore } from 'zustand/vanilla';
 import {
   COLOR_GLOW,
   DEFAULT_STATE_COLORS,
-  SPEED_DEFAULT_MS,
+  SPEED_DEFAULT_MS
 } from '../../core/config';
 
 export type BrushMode = 'draw' | 'erase';
@@ -26,7 +26,7 @@ const uiStore = createStore<UiState>(() => ({
   stateColors: [...DEFAULT_STATE_COLORS],
   glowColor: COLOR_GLOW,
   shaderId: 'glow',
-  paletteBrush: null,
+  paletteBrush: null
 }));
 
 export { uiStore };

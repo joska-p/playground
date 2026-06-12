@@ -34,8 +34,8 @@ const triadic: Rule = {
   },
   info: {
     name: 'Triadic',
-    description: 'Three colors evenly spaced around the color wheel.',
-  },
+    description: 'Three colors evenly spaced around the color wheel.'
+  }
 };
 
 export { triadic };

@@ -2,7 +2,7 @@ import type { BufferManager } from './buffer-manager';
 import type { FusionScheduler } from './fusion-scheduler';
 import type {
   ManipulationDefinition,
-  PipelineContext,
+  PipelineContext
 } from './image-pipeline.types';
 import type { Step } from './manipulations/manifest';
 import { runNeighborhoodTiled } from './neighborhood-tiling';
@@ -27,7 +27,7 @@ const executors: Record<string, ExecutorFunction> = {
     options,
     context,
     bufferManager,
-    scheduler,
+    scheduler
   }) => {
     scheduler.flush(bufferManager);
     const source = bufferManager.snapshot();
@@ -45,7 +45,7 @@ const executors: Record<string, ExecutorFunction> = {
           source: bufferManager.current,
           destination,
           width: bufferManager.width,
-          height: bufferManager.height,
+          height: bufferManager.height
         });
       }
 
@@ -64,18 +64,18 @@ const executors: Record<string, ExecutorFunction> = {
       bufferManager.replaceWith(
         definition.execute({
           options,
-          imageData: bufferManager.snapshot(),
+          imageData: bufferManager.snapshot()
         })
       );
     }
-  },
+  }
 };
 
 export function dispatchStep({
   step,
   context,
   bufferManager,
-  scheduler,
+  scheduler
 }: {
   step: Step;
   context: PipelineContext;

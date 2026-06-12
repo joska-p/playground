@@ -7,7 +7,7 @@ const dots = [
   { cx: 22, cy: 44, r: 3.5 },
   { cx: 66, cy: 36, r: 5.5 },
   { cx: 48, cy: 50, r: 3 },
-  { cx: 8, cy: 52, r: 2.5 },
+  { cx: 8, cy: 52, r: 2.5 }
 ];
 
 const connections = [
@@ -19,7 +19,7 @@ const connections = [
   [4, 1],
   [3, 5],
   [4, 5],
-  [3, 6],
+  [3, 6]
 ];
 
 export const IconParticles = createIcon({
@@ -50,5 +50,5 @@ export const IconParticles = createIcon({
         />
       ))}
     </>
-  ),
+  )
 });

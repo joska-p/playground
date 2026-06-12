@@ -24,6 +24,6 @@ export const rotate90Cw = defineManip({
     longDescription:
       'Rotates the image 90 degrees clockwise. The output dimensions swap: output width = input height, output height = input width. Pixel at (x, y) maps to (height − 1 − y, x).',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

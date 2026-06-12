@@ -6,7 +6,7 @@ const edgeDetectShader: Shader = {
   id: 'edge-detect',
   name: 'Edge Detect',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { edgeDetectShader };

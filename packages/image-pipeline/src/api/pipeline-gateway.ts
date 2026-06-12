@@ -23,7 +23,7 @@ export class PipelineGateway {
       const size = Math.min(navigator.hardwareConcurrency ?? 2, 4);
       this.pool = Array.from({ length: size }, () => ({
         worker: new PipelineWorker(),
-        busy: false,
+        busy: false
       }));
     }
     return this.pool;
@@ -39,7 +39,7 @@ export class PipelineGateway {
     steps,
     resolve,
     reject,
-    maximumPixels,
+    maximumPixels
   }: {
     poolEntry: PoolEntry;
     sourceImageData: ImageData;
@@ -99,7 +99,7 @@ export class PipelineGateway {
   run({
     sourceImageData,
     steps,
-    maximumPixels,
+    maximumPixels
   }: {
     sourceImageData: ImageData;
     steps: Step[];
@@ -115,7 +115,7 @@ export class PipelineGateway {
           steps,
           resolve,
           reject,
-          maximumPixels,
+          maximumPixels
         });
       });
     }
@@ -126,7 +126,7 @@ export class PipelineGateway {
         steps,
         maximumPixels,
         resolve,
-        reject,
+        reject
       });
     });
   }

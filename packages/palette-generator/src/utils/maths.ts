@@ -10,9 +10,9 @@ function createRemap(inMin: number, inMax: number) {
         asInt: (value: number): number =>
           Math.round(
             outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin)
-          ),
+          )
       };
-    },
+    }
   };
 }
 

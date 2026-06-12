@@ -15,6 +15,6 @@ export const IconGithub = createIcon({
     stroke: undefined,
     strokeWidth: undefined,
     strokeLinecap: undefined,
-    strokeLinejoin: undefined,
-  },
+    strokeLinejoin: undefined
+  }
 });

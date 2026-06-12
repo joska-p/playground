@@ -2,5 +2,5 @@ import { createIcon } from '../lib';
 
 export const IconChevronDown = createIcon({
   name: 'chevron-down',
-  children: <path d="M19 9l-7 7-7-7" />,
+  children: <path d="M19 9l-7 7-7-7" />
 });

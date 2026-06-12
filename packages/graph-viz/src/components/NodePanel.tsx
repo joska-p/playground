@@ -31,14 +31,14 @@ const NodePanel = ({ node, links, nodes, onClose }: Props) => {
           dir: '→',
           rel: l.relation,
           node: nodeMap.get(l.target),
-          rawId: l.target,
+          rawId: l.target
         });
       else if (l.target === node.id)
         out.push({
           dir: '←',
           rel: l.relation,
           node: nodeMap.get(l.source),
-          rawId: l.source,
+          rawId: l.source
         });
       if (out.length >= 20) break;
     }

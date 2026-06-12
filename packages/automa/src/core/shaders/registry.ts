@@ -16,7 +16,7 @@ const shaders = new Map<string, Shader>([
   [heatHazeShader.id, heatHazeShader],
   [kaleidoscopeShader.id, kaleidoscopeShader],
   [pixelateShader.id, pixelateShader],
-  [rippleShader.id, rippleShader],
+  [rippleShader.id, rippleShader]
 ]);
 
 function getShader(id: string): Shader | undefined {

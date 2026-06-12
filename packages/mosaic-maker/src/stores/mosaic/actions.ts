@@ -10,7 +10,7 @@ export function regenerateTiles() {
   const { mosaicRef, tileSet } = mosaicStore.getState();
   if (!mosaicRef.current) return;
   mosaicStore.setState({
-    tiles: computeInitialTiles(mosaicRef.current, tileSet),
+    tiles: computeInitialTiles(mosaicRef.current, tileSet)
   });
 }
 

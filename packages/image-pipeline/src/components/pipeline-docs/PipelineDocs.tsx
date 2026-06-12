@@ -10,7 +10,7 @@ const CANVAS_SIZE = 200;
 
 function PipelineDocs() {
   const [activeEndpoint, setActiveEndpoint] = useState<EndpointId>({
-    kind: 'overview',
+    kind: 'overview'
   });
   const [sourceData, setSourceData] = useState<ImageData | null>(null);
   const [paramValues, setParamValues] = useState<Record<string, number>>({});

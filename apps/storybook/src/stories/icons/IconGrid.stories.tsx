@@ -6,7 +6,7 @@ const icons = Object.keys(iconMap) as IconName[];
 
 const meta: Meta<ComponentPropsWithoutRef<'svg'>> = {
   title: 'Components/Icons',
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered' }
 };
 
 export default meta;
@@ -65,5 +65,5 @@ export const AllIcons: Story = {
         </div>
       </div>
     </div>
-  ),
+  )
 };

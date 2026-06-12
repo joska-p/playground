@@ -10,7 +10,7 @@ export const saturation = defineManip<{ value?: number }>({
       l + (red - l) * value,
       l + (green - l) * value,
       l + (blue - l) * value,
-      alpha,
+      alpha
     ];
   },
   ui: {
@@ -20,7 +20,7 @@ export const saturation = defineManip<{ value?: number }>({
       "Scales each channel's deviation from luminance. For each channel: output = L + (input − L) × value. 0 produces grayscale, 1 is unchanged, values above 1 oversaturate.",
     defaultArgs: { value: 1 },
     argDefinitions: [
-      { key: 'value', label: 'Value', min: 0, max: 3, step: 0.1 },
-    ],
-  },
+      { key: 'value', label: 'Value', min: 0, max: 3, step: 0.1 }
+    ]
+  }
 });

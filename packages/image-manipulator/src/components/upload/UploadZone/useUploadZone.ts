@@ -56,6 +56,6 @@ export function useUploadZone() {
     handleDragOver,
     handleDrop,
     handleImageUpload,
-    clearImage,
+    clearImage
   };
 }

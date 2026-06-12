@@ -13,7 +13,7 @@ import { imagePipeline } from '@repo/image-pipeline';
 
 const results = await imagePipeline.run({
   sourceImageData: imageData,
-  steps: [{ id: 'grayscale' }, { id: 'brightness', options: { value: 1.3 } }],
+  steps: [{ id: 'grayscale' }, { id: 'brightness', options: { value: 1.3 } }]
 });
 // results[0] = grayscale, results[1] = brightness
 ```
@@ -27,7 +27,7 @@ import { imagePipeline } from '@repo/image-pipeline';
 
 const snapshots = await imagePipeline.run({
   sourceImageData: imageData,
-  steps: [{ id: 'sepia' }, { id: 'brightness', options: { value: 1.2 } }],
+  steps: [{ id: 'sepia' }, { id: 'brightness', options: { value: 1.2 } }]
 });
 ```
 
@@ -143,8 +143,8 @@ const result = await imagePipeline.run({
   steps: [
     { id: 'grayscale' },
     { id: 'brightness', options: { value: 1.2 } },
-    { id: 'contrast', options: { value: 1.1 } },
-  ],
+    { id: 'contrast', options: { value: 1.1 } }
+  ]
 }); // still produces 3 intermediate snapshots
 ```
 

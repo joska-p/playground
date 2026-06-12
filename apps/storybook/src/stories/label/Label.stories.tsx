@@ -8,16 +8,16 @@ const meta: Meta<typeof Label> = {
   argTypes: {
     children: {
       description: 'The text content of the label.',
-      control: 'text',
+      control: 'text'
     },
     htmlFor: {
       description: 'The ID of the form element this label is associated with.',
-      control: 'text',
-    },
+      control: 'text'
+    }
   },
   args: {
-    children: 'Label Text',
-  },
+    children: 'Label Text'
+  }
 };
 
 export default meta;
@@ -26,13 +26,13 @@ type Story = StoryObj<typeof Label>;
 
 export const Default: Story = {
   args: {
-    children: 'Username',
-  },
+    children: 'Username'
+  }
 };
 
 export const WithHtmlFor: Story = {
   args: {
     children: 'Email Address',
-    htmlFor: 'email',
-  },
+    htmlFor: 'email'
+  }
 };

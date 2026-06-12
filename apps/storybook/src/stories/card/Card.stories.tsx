@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@repo/ui/Card';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -21,9 +21,9 @@ const meta: Meta<typeof Card> = {
     variant: {
       description: 'Controls the background and border style of the card.',
       options: ['primary', 'secondary', 'accent', 'outline', 'ghost', 'muted'],
-      control: { type: 'select' },
-    },
-  },
+      control: { type: 'select' }
+    }
+  }
 };
 
 // Required by Storybook CSF (Component Story Format) tooling
@@ -37,7 +37,7 @@ type Story = StoryObj<typeof Card>;
  */
 export const Primary: Story = {
   args: {
-    variant: 'primary',
+    variant: 'primary'
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -59,7 +59,7 @@ export const Primary: Story = {
         </CardFooter>
       </Card>
     </div>
-  ),
+  )
 };
 
 /**
@@ -68,7 +68,7 @@ export const Primary: Story = {
  */
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
+    variant: 'secondary'
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -82,7 +82,7 @@ export const Secondary: Story = {
         </CardContent>
       </Card>
     </div>
-  ),
+  )
 };
 
 /**
@@ -91,7 +91,7 @@ export const Secondary: Story = {
  */
 export const Accent: Story = {
   args: {
-    variant: 'accent',
+    variant: 'accent'
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -108,7 +108,7 @@ export const Accent: Story = {
         </CardFooter>
       </Card>
     </div>
-  ),
+  )
 };
 
 /**
@@ -117,7 +117,7 @@ export const Accent: Story = {
  */
 export const Outline: Story = {
   args: {
-    variant: 'outline',
+    variant: 'outline'
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -130,7 +130,7 @@ export const Outline: Story = {
         </CardContent>
       </Card>
     </div>
-  ),
+  )
 };
 
 /**
@@ -139,7 +139,7 @@ export const Outline: Story = {
  */
 export const Ghost: Story = {
   args: {
-    variant: 'ghost',
+    variant: 'ghost'
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -149,7 +149,7 @@ export const Ghost: Story = {
         </CardContent>
       </Card>
     </div>
-  ),
+  )
 };
 
 /**
@@ -158,7 +158,7 @@ export const Ghost: Story = {
  */
 export const Muted: Story = {
   args: {
-    variant: 'muted',
+    variant: 'muted'
   },
   render: (args) => (
     <div className="w-full max-w-sm">
@@ -173,5 +173,5 @@ export const Muted: Story = {
         </CardContent>
       </Card>
     </div>
-  ),
+  )
 };

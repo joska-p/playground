@@ -60,7 +60,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
       resCanvas,
       sliderPos,
       width,
-      height,
+      height
     });
   }, [source, result, sliderPos, width, height]);
 
@@ -126,6 +126,6 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
     handleMouseDown,
     handleTouchStart,
     handleTouchMove,
-    handleTouchEnd,
+    handleTouchEnd
   };
 }

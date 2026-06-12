@@ -15,17 +15,17 @@ export default function createConfig(dirname) {
         js.configs.recommended,
         ...tseslint.configs.recommended,
         reactHooks.configs.flat.recommended,
-        reactRefresh.configs.vite,
+        reactRefresh.configs.vite
       ],
       plugins: {
-        import: importPluginX,
+        import: importPluginX
       },
       languageOptions: {
         globals: globals.browser,
         parser: tseslint.parser,
         parserOptions: {
-          tsconfigRootDir: dirname,
-        },
+          tsconfigRootDir: dirname
+        }
       },
       rules: {
         'import/no-default-export': 'error',
@@ -40,20 +40,20 @@ export default function createConfig(dirname) {
         // enforce import type for type-only imports
         '@typescript-eslint/consistent-type-imports': [
           'error',
-          { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
-        ],
-      },
+          { prefer: 'type-imports', fixStyle: 'inline-type-imports' }
+        ]
+      }
     },
     {
       files: [
         '*.config.ts',
         '*.config.js',
         'vite.config.ts',
-        'tailwind.config.ts',
+        'tailwind.config.ts'
       ],
       rules: {
-        'import/no-default-export': 'off',
-      },
-    },
+        'import/no-default-export': 'off'
+      }
+    }
   ]);
 }

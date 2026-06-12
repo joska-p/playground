@@ -30,8 +30,8 @@ const complementary: Rule = {
   info: {
     name: 'Complementary',
     description:
-      'The base color and its opposite on the hue wheel, with lightness variations.',
-  },
+      'The base color and its opposite on the hue wheel, with lightness variations.'
+  }
 };
 
 export { complementary };

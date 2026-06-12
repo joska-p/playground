@@ -39,7 +39,7 @@ export class PieChart extends HTMLElement {
       '#df3e48',
       '#f25f39',
       '#fd8224',
-      '#ffa600',
+      '#ffa600'
     ];
     const labels = this.getAttribute('labels')?.split(';') ?? [];
     const svg = strToDom(`<svg viewBox="-1 -1 2 2">

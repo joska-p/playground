@@ -14,7 +14,7 @@ type ResizeOptions =
 function bilinearResize({
   source,
   targetWidth,
-  targetHeight,
+  targetHeight
 }: {
   source: ImageData;
   targetWidth: number;
@@ -66,7 +66,7 @@ function bilinearResize({
 function computeTargetDimensions({
   sourceWidth,
   sourceHeight,
-  options,
+  options
 }: {
   sourceWidth: number;
   sourceHeight: number;
@@ -127,7 +127,7 @@ export const resize = defineManip<ResizeOptions>({
     const dimensions = computeTargetDimensions({
       sourceWidth: imageData.width,
       sourceHeight: imageData.height,
-      options,
+      options
     });
 
     if (!dimensions) return imageData;
@@ -135,7 +135,7 @@ export const resize = defineManip<ResizeOptions>({
     return bilinearResize({
       source: imageData,
       targetWidth: dimensions.width,
-      targetHeight: dimensions.height,
+      targetHeight: dimensions.height
     });
   },
   ui: {
@@ -146,7 +146,7 @@ export const resize = defineManip<ResizeOptions>({
     defaultArgs: {},
     argDefinitions: [
       { key: 'width', label: 'Width', min: 1, max: 4096, step: 1 },
-      { key: 'height', label: 'Height', min: 1, max: 4096, step: 1 },
-    ],
-  },
+      { key: 'height', label: 'Height', min: 1, max: 4096, step: 1 }
+    ]
+  }
 });

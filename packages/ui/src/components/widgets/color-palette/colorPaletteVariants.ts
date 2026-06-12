@@ -5,12 +5,12 @@ export const colorPaletteVariants = variantFactory({
   variants: {
     orientation: {
       horizontal: 'flex-row',
-      vertical: 'flex-col',
+      vertical: 'flex-col'
     },
     size: {
       sm: '[--cell-size:--spacing(4)]',
       md: '[--cell-size:--spacing(6)]',
-      lg: '[--cell-size:--spacing(8)]',
+      lg: '[--cell-size:--spacing(8)]'
     },
     variant: {
       primary:
@@ -24,12 +24,12 @@ export const colorPaletteVariants = variantFactory({
       outline:
         'hover:ring-border has-checked:ring-foreground has-checked:shadow-md has-checked:ring-4 border',
       ghost:
-        'hover:ring-foreground/20 has-checked:ring-foreground/50 has-checked:shadow-none has-checked:ring-2',
-    },
+        'hover:ring-foreground/20 has-checked:ring-foreground/50 has-checked:shadow-none has-checked:ring-2'
+    }
   },
   defaultVariants: {
     orientation: 'horizontal',
     size: 'md',
-    variant: 'primary',
-  },
+    variant: 'primary'
+  }
 });

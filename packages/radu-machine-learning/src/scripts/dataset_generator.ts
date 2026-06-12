@@ -35,7 +35,7 @@ fileNames.forEach((fileName) => {
     samplesMap[session] = {
       student_id: String(session),
       student_name: student,
-      drawings: [],
+      drawings: []
     };
   }
 
@@ -46,7 +46,7 @@ fileNames.forEach((fileName) => {
     samplesMap[session].drawings.push({
       id,
       label,
-      paths,
+      paths
     });
 
     fs.writeFileSync(

@@ -2,7 +2,7 @@ import { findBiggestInterval } from '../../utils/find-biggest-interval';
 
 function calculateValueScale({
   sequence,
-  containerSize,
+  containerSize
 }: {
   sequence: number[];
   containerSize: { width: number; height: number };
@@ -20,7 +20,7 @@ function calculateValueScale({
 function drawSequence({
   context,
   sequence,
-  valueScale,
+  valueScale
 }: {
   context: CanvasRenderingContext2D;
   sequence: number[];
@@ -45,7 +45,7 @@ function drawSequence({
 
 function draw({
   canvas,
-  sequence,
+  sequence
 }: {
   canvas: HTMLCanvasElement;
   sequence: number[];
@@ -54,7 +54,7 @@ function draw({
 
   const containerSize = {
     width: canvas.parentElement.clientWidth,
-    height: canvas.parentElement.clientHeight,
+    height: canvas.parentElement.clientHeight
   };
   canvas.width = containerSize.width;
   canvas.height = containerSize.height;
@@ -83,5 +83,5 @@ function draw({
 export const recamanArcs = {
   id: 'recaman-arcs',
   name: 'Recamán Arcs',
-  draw,
+  draw
 };

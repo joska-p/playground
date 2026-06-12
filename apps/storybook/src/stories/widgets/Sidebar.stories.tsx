@@ -21,28 +21,28 @@ const meta: Meta<typeof Sidebar> = {
         'accent',
         'destructive',
         'outline',
-        'ghost',
+        'ghost'
       ],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     mobilePosition: {
       description: 'Layout of the sidebar on mobile screens.',
       options: ['top', 'right', 'bottom', 'left'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     desktopPosition: {
       description: 'Layout of the sidebar on desktop screens.',
       options: ['top', 'right', 'bottom', 'left'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     defaultOpen: {
       description: 'Whether the sidebar is open by default.',
-      control: 'boolean',
-    },
+      control: 'boolean'
+    }
   },
   args: {
-    defaultOpen: true,
-  },
+    defaultOpen: true
+  }
 };
 
 // Required by Storybook CSF (Component Story Format) tooling
@@ -84,20 +84,20 @@ function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
 
 export const NormalLeft: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: 'primary', desktopPosition: 'left' },
+  args: { variant: 'primary', desktopPosition: 'left' }
 };
 
 export const PrimaryRight: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: 'primary', desktopPosition: 'right' },
+  args: { variant: 'primary', desktopPosition: 'right' }
 };
 
 export const SecondaryTop: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: 'secondary', desktopPosition: 'top' },
+  args: { variant: 'secondary', desktopPosition: 'top' }
 };
 
 export const AccentBottom: Story = {
   render: (args) => <SidebarTemplate {...args} />,
-  args: { variant: 'accent', desktopPosition: 'bottom' },
+  args: { variant: 'accent', desktopPosition: 'bottom' }
 };

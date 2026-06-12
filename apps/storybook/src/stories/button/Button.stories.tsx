@@ -13,7 +13,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     children: {
       description: 'the content to display inside the button.',
-      control: 'text',
+      control: 'text'
     },
     variant: {
       description: 'Visual style of the button based on the theme palette.',
@@ -23,28 +23,28 @@ const meta: Meta<typeof Button> = {
         'accent',
         'destructive',
         'outline',
-        'ghost',
+        'ghost'
       ],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     size: {
       description: 'Controls the physical dimensions of the button.',
       options: ['default', 'sm', 'lg', 'icon'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     isLoading: {
       description: 'Shows a loading spinner and disables the button.',
-      control: 'boolean',
+      control: 'boolean'
     },
     disabled: {
       description: 'Disables interaction and dims the appearance.',
-      control: 'boolean',
-    },
+      control: 'boolean'
+    }
   },
   args: {
     onClick: fn(),
-    children: 'Button Text',
-  },
+    children: 'Button Text'
+  }
 };
 
 export default meta;
@@ -57,8 +57,8 @@ type Story = StoryObj<typeof Button>;
  */
 export const Primary: Story = {
   args: {
-    variant: 'primary',
-  },
+    variant: 'primary'
+  }
 };
 
 /**
@@ -68,8 +68,8 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
-    children: 'Secondary Action',
-  },
+    children: 'Secondary Action'
+  }
 };
 
 /**
@@ -79,8 +79,8 @@ export const Secondary: Story = {
 export const Accent: Story = {
   args: {
     variant: 'accent',
-    children: 'Accent Action',
-  },
+    children: 'Accent Action'
+  }
 };
 
 /**
@@ -90,8 +90,8 @@ export const Accent: Story = {
 export const Destructive: Story = {
   args: {
     variant: 'destructive',
-    children: 'Clear Data',
-  },
+    children: 'Clear Data'
+  }
 };
 
 /**
@@ -101,8 +101,8 @@ export const Destructive: Story = {
 export const Outline: Story = {
   args: {
     variant: 'outline',
-    children: 'Documentation',
-  },
+    children: 'Documentation'
+  }
 };
 
 /**
@@ -112,8 +112,8 @@ export const Outline: Story = {
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
-    children: 'Settings',
-  },
+    children: 'Settings'
+  }
 };
 
 /**
@@ -123,6 +123,6 @@ export const Ghost: Story = {
 export const Loading: Story = {
   args: {
     isLoading: true,
-    children: 'Generating…',
-  },
+    children: 'Generating…'
+  }
 };

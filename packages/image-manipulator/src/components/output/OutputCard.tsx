@@ -20,7 +20,7 @@ function OutputCard({
   index,
   isSource = false,
   isSelected = false,
-  onSelect,
+  onSelect
 }: OutputCardProps) {
   const [isZoomed, setIsZoomed] = useState(false);
   const cardRef = useRef<HTMLElement>(null);

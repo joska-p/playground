@@ -6,22 +6,22 @@ export const notebookBaseUrl = `${baseUrl}notebook/`;
 const CATEGORY_METADATA = {
   maths: {
     label: 'Maths',
-    description: 'Maths notes',
+    description: 'Maths notes'
   },
   canvas: {
     label: 'Canvas',
-    description: 'Canvas notes',
+    description: 'Canvas notes'
   },
   tailwind: {
     label: 'Tailwind',
-    description: 'Tailwind notes',
-  },
+    description: 'Tailwind notes'
+  }
 } as const;
 
 export type CategoryId = keyof typeof CATEGORY_METADATA;
 export const categoriesIds = Object.keys(CATEGORY_METADATA) as [
   CategoryId,
-  ...CategoryId[],
+  ...CategoryId[]
 ];
 
 export async function getNotesByCategory() {
@@ -32,6 +32,6 @@ export async function getNotesByCategory() {
     ...meta,
     articles: notes
       .filter((note) => note.data.category === (id as CategoryId))
-      .sort((a, b) => a.data.order - b.data.order),
+      .sort((a, b) => a.data.order - b.data.order)
   }));
 }

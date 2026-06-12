@@ -16,5 +16,5 @@ export const IconGrid3x3 = createIcon({
       <path d="M9 3v18" />
       <path d="M15 3v18" />
     </>
-  ),
+  )
 });

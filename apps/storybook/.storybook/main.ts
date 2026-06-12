@@ -15,11 +15,11 @@ const config: StorybookConfig = {
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-docs'),
-    getAbsolutePath('@storybook/addon-themes'),
+    getAbsolutePath('@storybook/addon-themes')
   ],
   framework: getAbsolutePath('@storybook/react-vite'),
   core: {
-    disableTelemetry: true,
-  },
+    disableTelemetry: true
+  }
 };
 export default config;

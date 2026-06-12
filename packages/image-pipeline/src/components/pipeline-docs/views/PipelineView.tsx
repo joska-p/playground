@@ -2,14 +2,14 @@ import { Card } from '@repo/ui/Card';
 import { CodeBlock } from '../CodeBlock';
 import {
   ENDPOINT_GROUPS,
-  findItemForEndpoint,
+  findItemForEndpoint
 } from '../data/pipeline-docs-data';
 import { ChainDemo } from '../demos/ChainDemo';
 import { ResizeDemo } from '../demos/ResizeDemo';
 
 function PipelineView({
   id,
-  sourceData,
+  sourceData
 }: {
   id: 'resize' | 'chaining';
   sourceData: ImageData | null;
@@ -22,7 +22,7 @@ function PipelineView({
       `  steps: [`,
       `    { id: "resize", options: { width: 100 } }`,
       `  ]`,
-      `});`,
+      `});`
     ].join('\n'),
     chaining: [
       `const result = await pipelineGateway.run({`,
@@ -32,8 +32,8 @@ function PipelineView({
       `    { id: "contrast", options: { value: 1.3 } },`,
       `    { id: "sharpen", options: { strength: 1.5 } }`,
       `  ]`,
-      `});`,
-    ].join('\n'),
+      `});`
+    ].join('\n')
   };
 
   const demos: Record<
@@ -41,7 +41,7 @@ function PipelineView({
     (props: { sourceData: ImageData | null }) => React.JSX.Element
   > = {
     resize: ResizeDemo,
-    chaining: ChainDemo,
+    chaining: ChainDemo
   };
 
   const DemoComponent = demos[id];

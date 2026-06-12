@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export function variantFactory<
-  V extends Record<string, Record<string, string>>,
+  V extends Record<string, Record<string, string>>
 >(config: {
   base: string;
   variants: V;
@@ -9,7 +9,7 @@ export function variantFactory<
 }) {
   return cva<V>(config.base, {
     variants: config.variants,
-    defaultVariants: config.defaultVariants,
+    defaultVariants: config.defaultVariants
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 }

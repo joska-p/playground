@@ -11,7 +11,7 @@ type ManipulatorState = {
 const manipulatorStore = create<ManipulatorState>(() => ({
   outputs: [],
   isProcessing: false,
-  workflow: [],
+  workflow: []
 }));
 
 export { manipulatorStore };

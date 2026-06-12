@@ -72,5 +72,5 @@ export const IconThreeStage = createIcon({
         opacity={0.6}
       />
     </>
-  ),
+  )
 });

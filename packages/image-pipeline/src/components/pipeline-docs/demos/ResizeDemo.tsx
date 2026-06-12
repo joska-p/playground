@@ -9,18 +9,18 @@ const MODES = [
   {
     id: 'fill',
     label: 'Fill (100×100)',
-    options: { width: 100, height: 100, fit: 'fill' as const },
+    options: { width: 100, height: 100, fit: 'fill' as const }
   },
   {
     id: 'contain',
     label: 'Contain (100×100)',
-    options: { width: 100, height: 100, fit: 'contain' as const },
+    options: { width: 100, height: 100, fit: 'contain' as const }
   },
   {
     id: 'cover',
     label: 'Cover (100×100)',
-    options: { width: 100, height: 100, fit: 'cover' as const },
-  },
+    options: { width: 100, height: 100, fit: 'cover' as const }
+  }
 ] as const;
 
 type ModeId = (typeof MODES)[number]['id'];

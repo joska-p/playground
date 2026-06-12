@@ -27,16 +27,16 @@ function addWorkflowStep(id: string) {
       {
         uid: crypto.randomUUID(),
         id,
-        options: { ...(entry?.defaultArgs ?? {}) },
-      },
-    ],
+        options: { ...(entry?.defaultArgs ?? {}) }
+      }
+    ]
   });
 }
 
 function removeWorkflowStep(index: number) {
   const { workflow } = manipulatorStore.getState();
   manipulatorStore.setState({
-    workflow: workflow.filter((_, i) => i !== index),
+    workflow: workflow.filter((_, i) => i !== index)
   });
 }
 
@@ -48,7 +48,7 @@ function moveWorkflowStep(index: number, direction: -1 | 1) {
   const updated = [...workflow];
   [updated[index], updated[targetIndex]] = [
     updated[targetIndex],
-    updated[index],
+    updated[index]
   ];
   manipulatorStore.setState({ workflow: updated });
 }
@@ -77,7 +77,7 @@ async function executeWorkflow() {
   try {
     const results = await imagePipeline.run({
       sourceImageData: imageSource.imageData,
-      steps: workflow.map((step) => ({ id: step.id, options: step.options })),
+      steps: workflow.map((step) => ({ id: step.id, options: step.options }))
     });
 
     setOutputs(
@@ -85,7 +85,7 @@ async function executeWorkflow() {
         id: `step-${i + 1}`,
         name: `Step ${i + 1}`,
         description: workflow[i].id,
-        imageData,
+        imageData
       }))
     );
   } catch (err) {
@@ -105,5 +105,5 @@ export {
   removeWorkflowStep,
   setImageSource,
   setWorkflowSteps,
-  updateStepOptions,
+  updateStepOptions
 };

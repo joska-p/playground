@@ -21,8 +21,8 @@ export const projects: Record<string, Project> = {
     description: 'What it does.',
     category: 'generative', // generative | color | image | data-viz
     tags: ['Canvas'],
-    icon: Sparkles, // Lucide icon
-  },
+    icon: Sparkles // Lucide icon
+  }
 };
 ```
 

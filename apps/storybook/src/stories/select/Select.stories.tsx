@@ -66,11 +66,11 @@ const meta: Meta<typeof Select> = {
   argTypes: {
     label: {
       description: 'The label text displayed above the select.',
-      control: 'text',
+      control: 'text'
     },
     helperText: {
       description: 'Supportive text displayed below the select.',
-      control: 'text',
+      control: 'text'
     },
     variant: {
       description: 'Visual style variant based on the theme colors.',
@@ -80,30 +80,30 @@ const meta: Meta<typeof Select> = {
         'accent',
         'destructive',
         'outline',
-        'ghost',
+        'ghost'
       ],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     disabled: {
       description: 'Disables user interaction and applies dimmed styling.',
-      control: 'boolean',
+      control: 'boolean'
     },
     value: {
       description: 'The selected value.',
-      control: false,
+      control: false
     },
     onChange: {
       description: 'Callback when the selection changes.',
-      control: false,
+      control: false
     },
     children: {
       description: 'The select options (option elements).',
-      control: false,
-    },
+      control: false
+    }
   },
   args: {
-    label: 'Select Option',
-  },
+    label: 'Select Option'
+  }
 };
 
 // Required by Storybook CSF (Component Story Format) tooling
@@ -119,8 +119,8 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     children: options,
-    helperText: 'Select an option from the dropdown.',
-  },
+    helperText: 'Select an option from the dropdown.'
+  }
 };
 
 /**
@@ -132,8 +132,8 @@ export const Secondary: Story = {
     label: 'Category',
     variant: 'secondary',
     children: options2,
-    helperText: 'Choose a category (optional).',
-  },
+    helperText: 'Choose a category (optional).'
+  }
 };
 
 /**
@@ -145,8 +145,8 @@ export const Accent: Story = {
     label: 'Theme',
     variant: 'accent',
     children: options3,
-    helperText: 'Select your preferred theme.',
-  },
+    helperText: 'Select your preferred theme.'
+  }
 };
 
 /**
@@ -158,8 +158,8 @@ export const Destructive: Story = {
     label: 'Country',
     variant: 'destructive',
     children: options4,
-    helperText: 'Please select a valid country.',
-  },
+    helperText: 'Please select a valid country.'
+  }
 };
 
 /**
@@ -171,8 +171,8 @@ export const Outline: Story = {
     label: 'Difficulty',
     variant: 'outline',
     children: options5,
-    helperText: 'Select the difficulty level.',
-  },
+    helperText: 'Select the difficulty level.'
+  }
 };
 
 /**
@@ -184,8 +184,8 @@ export const Ghost: Story = {
     label: 'Language',
     variant: 'ghost',
     children: options6,
-    helperText: 'Choose a language.',
-  },
+    helperText: 'Choose a language.'
+  }
 };
 
 /**
@@ -197,6 +197,6 @@ export const Disabled: Story = {
     variant: 'primary',
     children: options,
     disabled: true,
-    helperText: 'This field is currently locked.',
-  },
+    helperText: 'This field is currently locked.'
+  }
 };

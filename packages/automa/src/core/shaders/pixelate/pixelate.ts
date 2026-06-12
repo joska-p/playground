@@ -6,7 +6,7 @@ const pixelateShader: Shader = {
   id: 'pixelate',
   name: 'Pixelate',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { pixelateShader };

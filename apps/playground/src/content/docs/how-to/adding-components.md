@@ -53,19 +53,19 @@ export const buttonVariants = cva(
           'bg-destructive text-destructive-foreground hover:bg-destructive/80',
         outline:
           'border-border hover:bg-foreground/5 hover:text-foreground border bg-transparent',
-        ghost: 'hover:bg-foreground/10 hover:text-foreground',
+        ghost: 'hover:bg-foreground/10 hover:text-foreground'
       },
       size: {
         small: 'h-8 px-3 text-xs',
         medium: 'h-10 px-4 py-2',
         large: 'h-12 px-8 text-base',
-        icon: 'h-10 w-10',
-      },
+        icon: 'h-10 w-10'
+      }
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'medium',
-    },
+      size: 'medium'
+    }
   }
 );
 ```
@@ -163,26 +163,26 @@ const meta: Meta<typeof Button> = {
         'accent',
         'destructive',
         'outline',
-        'ghost',
+        'ghost'
       ],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     size: {
       options: ['default', 'sm', 'lg', 'icon'],
-      control: { type: 'select' },
-    },
+      control: { type: 'select' }
+    }
   },
-  args: { onClick: fn(), children: 'Button Text' },
+  args: { onClick: fn(), children: 'Button Text' }
 };
 
 export default meta;
 
 export const Primary = {
-  args: { variant: 'primary' },
+  args: { variant: 'primary' }
 };
 
 export const Secondary = {
-  args: { variant: 'secondary', children: 'Secondary Action' },
+  args: { variant: 'secondary', children: 'Secondary Action' }
 };
 ```
 

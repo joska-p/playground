@@ -27,5 +27,5 @@ export const IconColor = createIcon({
         opacity={0.4}
       />
     </>
-  ),
+  )
 });

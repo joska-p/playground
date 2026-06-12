@@ -23,5 +23,5 @@ export const IconHamburger = createIcon({
         y2="18"
       />
     </>
-  ),
+  )
 });

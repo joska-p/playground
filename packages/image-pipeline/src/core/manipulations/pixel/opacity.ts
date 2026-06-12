@@ -14,7 +14,7 @@ export const opacity = defineManip<{ value?: number }>({
       'Multiplies the alpha channel by the given value. A value of 1 preserves full opacity, 0 makes the image fully transparent.',
     defaultArgs: { value: 1 },
     argDefinitions: [
-      { key: 'value', label: 'Value', min: 0, max: 1, step: 0.05 },
-    ],
-  },
+      { key: 'value', label: 'Value', min: 0, max: 1, step: 0.05 }
+    ]
+  }
 });

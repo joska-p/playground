@@ -31,7 +31,7 @@ function buildCatalog(): Record<string, ManipulationInfo> {
       description: def.ui.description,
       longDescription: def.ui.longDescription,
       defaultArgs: def.ui.defaultArgs,
-      argDefinitions: def.ui.argDefinitions,
+      argDefinitions: def.ui.argDefinitions
     };
   }
   return catalog;
@@ -58,11 +58,11 @@ export const imagePipeline = {
     return pipelineGateway.run({
       sourceImageData: config.sourceImageData,
       steps: [...config.steps] as Step[],
-      maximumPixels: config.maximumPixels,
+      maximumPixels: config.maximumPixels
     });
   },
 
   teardown(): void {
     pipelineGateway.teardown();
-  },
+  }
 };

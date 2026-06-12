@@ -21,7 +21,7 @@ const recamanRule: SequenceRule = {
   getNext: ({ index, current, seen }) => {
     const backward = current - index;
     return backward > 0 && !seen.has(backward) ? backward : current + index;
-  },
+  }
 };
 
 const fibonacciRule: SequenceRule = {
@@ -32,7 +32,7 @@ const fibonacciRule: SequenceRule = {
   getNext: ({ index, current, sequence }) => {
     if (index <= 1) return index;
     return current + (sequence[index - 2] ?? 0);
-  },
+  }
 };
 
 const primesRule: SequenceRule = {
@@ -55,7 +55,7 @@ const primesRule: SequenceRule = {
     let next = start + 1;
     while (!isPrime(next)) next++;
     return next;
-  },
+  }
 };
 
 const triangularRule: SequenceRule = {
@@ -63,7 +63,7 @@ const triangularRule: SequenceRule = {
   id: 'triangular',
   description: 'Sum of integers up to n: 1, 3, 6, 10, 15...',
   maxSteps: 500,
-  getNext: ({ index }) => (index * (index + 1)) / 2,
+  getNext: ({ index }) => (index * (index + 1)) / 2
 };
 
 const collatzRule: SequenceRule = {
@@ -74,7 +74,7 @@ const collatzRule: SequenceRule = {
   getNext: ({ current }) => {
     if (current <= 1) return 1;
     return current % 2 === 0 ? current / 2 : 3 * current + 1;
-  },
+  }
 };
 
 const sequenceRules: SequenceRule[] = [
@@ -82,12 +82,12 @@ const sequenceRules: SequenceRule[] = [
   fibonacciRule,
   primesRule,
   triangularRule,
-  collatzRule,
+  collatzRule
 ];
 
 function generateSequence({
   sequenceRule,
-  steps,
+  steps
 }: {
   sequenceRule: SequenceRule;
   steps: number;
@@ -102,7 +102,7 @@ function generateSequence({
       index: i,
       current,
       sequence,
-      seen,
+      seen
     });
     sequence.push(current);
     seen.add(current);

@@ -18,7 +18,7 @@ function SliderControls({
   cssVar,
   min,
   max,
-  step,
+  step
 }: SliderControlsProps) {
   const mosaicRef = useMosaicRef();
   const [value, setValue] = useState(defaultValue);

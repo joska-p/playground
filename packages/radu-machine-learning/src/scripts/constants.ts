@@ -19,5 +19,5 @@ export const CONSTANTS = {
   IMG_DIR,
   SAMPLE,
   TS_OBJECTS,
-  SAMPLES_TS,
+  SAMPLES_TS
 };

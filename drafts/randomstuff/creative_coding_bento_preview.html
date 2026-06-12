@@ -56,28 +56,28 @@
       id: 'generative',
       label: 'Generative Art',
       color: '#83a598',
-      draw: drawGenerative,
+      draw: drawGenerative
     },
     { id: 'color', label: 'Color & Design', color: '#d3869b', draw: drawColor },
     {
       id: 'image',
       label: 'Image Processing',
       color: '#fabd2f',
-      draw: drawImage,
+      draw: drawImage
     },
     { id: 'data-viz', label: 'Data Viz', color: '#b8bb26', draw: drawDataViz },
     {
       id: 'simulation',
       label: 'Simulation',
       color: '#fe8019',
-      draw: drawSimulation,
+      draw: drawSimulation
     },
     {
       id: 'random',
       label: 'Random & Misc',
       color: '#8ec07c',
-      draw: drawRandom,
-    },
+      draw: drawRandom
+    }
   ];
 
   const bento = document.getElementById('bento');
@@ -118,7 +118,7 @@
         x: Math.random() * W,
         y: Math.random() * H,
         angle: Math.random() * Math.PI * 2,
-        speed: 0.8 + Math.random(),
+        speed: 0.8 + Math.random()
       }));
     }
     ctx.fillStyle = 'rgba(29,32,33,.18)';
@@ -278,7 +278,7 @@
         vx: (Math.random() - 0.5) * 2.8,
         vy: (Math.random() - 0.5) * 2.8,
         r: 3 + Math.random() * 4,
-        hue: Math.random() * 40 + 10,
+        hue: Math.random() * 40 + 10
       }));
     }
     ctx.fillStyle = 'rgba(29,32,33,.22)';
@@ -340,7 +340,7 @@
         rot: Math.random() * Math.PI * 2,
         rotSpeed: (Math.random() - 0.5) * 0.04,
         hue: Math.random() * 360,
-        alpha: 0.5 + Math.random() * 0.5,
+        alpha: 0.5 + Math.random() * 0.5
       }));
     }
     ctx.fillStyle = 'rgba(29,32,33,.12)';

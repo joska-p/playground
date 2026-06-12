@@ -10,7 +10,7 @@ const dots = [
   { cx: 68, cy: 46, r: 5.5 },
   { cx: 8, cy: 52, r: 3 },
   { cx: 40, cy: 54, r: 4.5 },
-  { cx: 76, cy: 34, r: 2.5 },
+  { cx: 76, cy: 34, r: 2.5 }
 ];
 
 export const IconRandom = createIcon({
@@ -29,5 +29,5 @@ export const IconRandom = createIcon({
         />
       ))}
     </>
-  ),
+  )
 });

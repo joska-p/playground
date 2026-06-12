@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { visualizations } from '../../core/visualizations/visualizations';
 import {
   useSequenceSequence,
-  useSequenceVisualizationId,
+  useSequenceVisualizationId
 } from '../../store/sequenceStore';
 
 function SequenceDisplay(): JSX.Element {

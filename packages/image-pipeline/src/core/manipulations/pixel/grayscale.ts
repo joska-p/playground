@@ -13,6 +13,6 @@ export const grayscale = defineManip({
     longDescription:
       'Converts to luminance using ITU-R BT.601 weights: L = 0.2126R + 0.7152G + 0.0722B. Each channel is set to the luminance value, preserving perceived brightness.',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

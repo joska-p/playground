@@ -18,6 +18,6 @@ export const flipVertical = defineManip({
     longDescription:
       'Mirrors the image vertically by reversing row order. Pixel at (x, y) moves to (x, height − 1 − y).',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

@@ -15,7 +15,7 @@ const BADGE_CLASSES: Record<string, string> = {
   neighborhood: 'bg-utility-3 text-white',
   global: 'bg-utility-2 text-white',
   pipeline: 'bg-utility-1 text-white',
-  internals: 'bg-utility-8 text-white',
+  internals: 'bg-utility-8 text-white'
 };
 
 const BADGE_LABELS: Record<string, string> = {
@@ -24,7 +24,7 @@ const BADGE_LABELS: Record<string, string> = {
   neighborhood: 'NEIGHBOR',
   global: 'GLOBAL',
   pipeline: 'PIPELINE',
-  internals: 'INTERNALS',
+  internals: 'INTERNALS'
 };
 
 const TYPE_VAR: Record<string, string> = {
@@ -33,13 +33,13 @@ const TYPE_VAR: Record<string, string> = {
   neighborhood: 'var(--utility-3)',
   global: 'var(--utility-2)',
   pipeline: 'var(--utility-1)',
-  internals: 'var(--utility-8)',
+  internals: 'var(--utility-8)'
 };
 
 function SwaggerSidebar({
   groups,
   activeEndpoint,
-  onSelect,
+  onSelect
 }: SwaggerSidebarProps) {
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
     () => Object.fromEntries(groups.map((group) => [group.label, true]))
@@ -48,7 +48,7 @@ function SwaggerSidebar({
   function toggleGroup(label: string) {
     setExpandedGroups((previousState) => ({
       ...previousState,
-      [label]: !previousState[label],
+      [label]: !previousState[label]
     }));
   }
 
@@ -100,7 +100,7 @@ function SwaggerSidebar({
                       : item.type === 'pipeline'
                         ? {
                             kind: 'pipeline',
-                            id: item.id as 'resize' | 'chaining',
+                            id: item.id as 'resize' | 'chaining'
                           }
                         : item.type === 'internals'
                           ? { kind: 'internals', id: item.id }
@@ -115,7 +115,7 @@ function SwaggerSidebar({
                         style={
                           {
                             '--accent':
-                              TYPE_VAR[item.type] ?? 'var(--utility-4)',
+                              TYPE_VAR[item.type] ?? 'var(--utility-4)'
                           } as React.CSSProperties
                         }
                         className={cn(

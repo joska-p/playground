@@ -6,7 +6,7 @@ const dissolveShader: Shader = {
   id: 'dissolve',
   name: 'Dissolve',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { dissolveShader };

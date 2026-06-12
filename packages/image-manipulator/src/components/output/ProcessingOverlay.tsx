@@ -1,6 +1,6 @@
 import {
   useImageSource,
-  useIsProcessing,
+  useIsProcessing
 } from '../../stores/manipulator/selectors';
 
 function ProcessingOverlay() {

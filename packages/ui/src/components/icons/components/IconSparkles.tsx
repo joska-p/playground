@@ -13,5 +13,5 @@ export const IconSparkles = createIcon({
         r="2"
       />
     </>
-  ),
+  )
 });

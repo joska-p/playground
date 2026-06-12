@@ -55,6 +55,6 @@ export const edgeDetect = defineManip({
     longDescription:
       'Sobel edge detection. Computes gradient magnitude from Sobel X and Sobel Y kernels per channel: G = sqrt(Gx² + Gy²). Strong gradients (edges) appear bright, uniform areas appear dark.',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

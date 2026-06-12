@@ -9,5 +9,5 @@ export const notebookSchema = z.object({
   order: z.number().default(0),
   draft: z.boolean().default(false),
   category: z.enum(categoriesIds),
-  tags: z.array(z.string()).default([]).optional(),
+  tags: z.array(z.string()).default([]).optional()
 });

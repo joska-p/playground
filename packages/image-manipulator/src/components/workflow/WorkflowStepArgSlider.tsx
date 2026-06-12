@@ -10,7 +10,7 @@ type WorkflowStepArgSliderProps = {
 function WorkflowStepArgSlider({
   def,
   value,
-  onChange,
+  onChange
 }: WorkflowStepArgSliderProps) {
   return (
     <Slider

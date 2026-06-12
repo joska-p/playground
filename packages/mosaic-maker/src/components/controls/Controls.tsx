@@ -4,13 +4,13 @@ import {
   CSS_VARS,
   DEFAULT_GAP_SIZE,
   DEFAULT_TILE_SIZE,
-  initialRotations,
+  initialRotations
 } from '../../core/constants';
 import { cyclePalettes, regenerateTiles } from '../../stores/mosaic/actions';
 import {
   useCurrentPalette,
   useIsPalettesLoading,
-  useMosaicRef,
+  useMosaicRef
 } from '../../stores/mosaic/selectors';
 import { shuffleObject } from '../../utils/random/shuffleObject';
 import { updateElementStyles } from '../../utils/updateElementStyles';

@@ -6,10 +6,10 @@ const routes: Route[] = [
   {
     label: 'GitLab',
     href: 'https://gitlab.com/jpotin/playground',
-    icon: 'gitlab',
+    icon: 'gitlab'
   },
   { label: 'Storybook', href: `${baseUrl}storybook/`, icon: 'storybook' },
-  { label: 'Docs', href: `${baseUrl}docs/`, icon: 'docs' },
+  { label: 'Docs', href: `${baseUrl}docs/`, icon: 'docs' }
 ];
 
 const credits = [
@@ -20,7 +20,7 @@ const credits = [
   'Storybook',
   'TypeScript',
   'Nix',
-  'pnpm',
+  'pnpm'
 ];
 type Props = { class?: string };
 const { class: className } = Astro.props;
@@ -29,7 +29,7 @@ const { class: className } = Astro.props;
 <footer
   class:list={[
     'bg-background/50 relative w-full pt-12 pb-8 backdrop-blur-sm transition-colors',
-    className,
+    className
   ]}
 >
   <div class="mx-auto max-w-7xl px-6 lg:px-8">

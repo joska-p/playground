@@ -36,7 +36,7 @@ function ColorPalette({
           orientation,
           size,
           variant,
-          className,
+          className
         })
       )}
       {...props}

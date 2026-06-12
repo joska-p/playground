@@ -16,7 +16,7 @@ const groups: GroupedCategory[] = SORTED_CATEGORIES.map(([id, meta]) => ({
   description: meta.description,
   count: Object.values(projects).filter(
     (p: { category: Category }) => p.category === id
-  ).length,
+  ).length
 })).filter((g: GroupedCategory) => g.count > 0);
 ---
 

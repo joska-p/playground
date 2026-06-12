@@ -14,7 +14,7 @@ export function Sample() {
       value: 0.005,
       min: 0.0,
       max: 0.03,
-      step: 0.001,
+      step: 0.001
     },
     geometry: {
       label: 'Geometry',
@@ -24,11 +24,11 @@ export function Sample() {
           return accumulator;
         },
         {} as Record<string, THREE.BufferGeometry>
-      ),
+      )
     },
     color: {
       label: 'Color',
-      value: '#00bfff',
+      value: '#00bfff'
     },
     material: {
       label: 'Material',
@@ -38,8 +38,8 @@ export function Sample() {
           return accumulator;
         },
         {} as Record<string, THREE.Material>
-      ),
-    },
+      )
+    }
   });
 
   useFrame(() => {

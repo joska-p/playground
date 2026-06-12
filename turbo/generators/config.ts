@@ -14,21 +14,21 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
             return 'Must be kebab-case: lowercase letters, numbers, and hyphens only.';
           }
           return true;
-        },
-      },
+        }
+      }
     ],
     actions: [
       {
         type: 'addMany',
         destination: 'packages/{{name}}',
         base: 'templates',
-        templateFiles: 'templates/**/*',
+        templateFiles: 'templates/**/*'
       },
       {
         type: 'add',
         path: 'packages/{{name}}/.gitignore',
-        templateFile: 'templates/.gitignore.hbs',
-      },
-    ],
+        templateFile: 'templates/.gitignore.hbs'
+      }
+    ]
   });
 }

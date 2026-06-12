@@ -9,7 +9,7 @@ import { useCols, useRows } from '../../stores/simulation/selectors';
 import {
   useBrushMode,
   usePaletteBrush,
-  useShaderId,
+  useShaderId
 } from '../../stores/ui/selectors';
 
 function CellMesh() {

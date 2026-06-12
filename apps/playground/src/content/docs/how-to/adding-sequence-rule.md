@@ -47,7 +47,7 @@ const myRule: SequenceRule = {
   getNext: ({ index, current, seen }) => {
     // Your math here
     return current + index;
-  },
+  }
 };
 ```
 
@@ -69,7 +69,7 @@ Add it to the `sequencesRule` array in the same file:
 ```typescript
 export const sequencesRule: SequenceRule[] = [
   // ...existing rules
-  myRule,
+  myRule
 ];
 ```
 

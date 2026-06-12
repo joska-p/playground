@@ -1,6 +1,6 @@
 import {
   usePaletteBaseColor,
-  usePalettePalettes,
+  usePalettePalettes
 } from '../../store/paletteStore';
 
 function Display() {
@@ -12,7 +12,7 @@ function Display() {
       <div
         className="h-10 w-10"
         style={{
-          backgroundColor: baseColor.to('lch').toString({ precision: 3 }),
+          backgroundColor: baseColor.to('lch').toString({ precision: 3 })
         }}
       />
       {palettes.map((palette) => {
@@ -27,7 +27,7 @@ function Display() {
                 key={color.to('lch').toString()}
                 className="h-10 w-10"
                 style={{
-                  backgroundColor: color.to('lch').toString({ precision: 3 }),
+                  backgroundColor: color.to('lch').toString({ precision: 3 })
                 }}
               />
             ))}

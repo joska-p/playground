@@ -11,7 +11,7 @@ const initialBaseColor = new Color('oklch', [0.7, 0.1, 196]);
 
 const paletteStore = create<PaletteState>(() => ({
   palettes: [],
-  baseColor: initialBaseColor,
+  baseColor: initialBaseColor
 }));
 
 export function usePalettePalettes(): Palette[] {

@@ -7,14 +7,14 @@ export default defineConfig({
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
-    tailwindcss(),
+    tailwindcss()
   ],
   resolve: {
-    tsconfigPaths: true,
+    tsconfigPaths: true
   },
   test: {
     environment: 'happy-dom',
     include: ['src/**/*.test.ts'],
-    setupFiles: ['./vitest.setup.ts'],
-  },
+    setupFiles: ['./vitest.setup.ts']
+  }
 });

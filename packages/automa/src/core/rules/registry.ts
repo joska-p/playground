@@ -6,7 +6,7 @@ import type { Rule } from './types';
 const rules = new Map<string, Rule>([
   [conwayRule.id, conwayRule],
   [highlifeRule.id, highlifeRule],
-  [briansBrainRule.id, briansBrainRule],
+  [briansBrainRule.id, briansBrainRule]
 ]);
 
 function getRule(id: string): Rule | undefined {

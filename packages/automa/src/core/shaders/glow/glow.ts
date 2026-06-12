@@ -6,7 +6,7 @@ const glowShader: Shader = {
   id: 'glow',
   name: 'Glow',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { glowShader };

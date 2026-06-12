@@ -3,7 +3,7 @@ import {
   CANVAS_WIDTH,
   INITIAL_VELOCITY,
   MAX_PARTICLES,
-  PARTICLE_SIZE,
+  PARTICLE_SIZE
 } from './config';
 
 export type ImageDimensions = {
@@ -45,8 +45,8 @@ function calculateImageDimensions(
     scale,
     offset: {
       x: (CANVAS_WIDTH - scaledWidth) / 2,
-      y: (CANVAS_HEIGHT - scaledHeight) / 2,
-    },
+      y: (CANVAS_HEIGHT - scaledHeight) / 2
+    }
   };
 }
 
@@ -111,10 +111,10 @@ function initParticles(imageData: ImageData) {
           size: randomSize,
           velocity: {
             x: randomVelocityX,
-            y: randomVelocityY,
+            y: randomVelocityY
           },
           state: 'waiting',
-          delay: currentDelay,
+          delay: currentDelay
         });
         currentDelay += Math.random() * 5;
       }

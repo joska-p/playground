@@ -12,7 +12,7 @@ type UploadedPreviewProps = {
 function UploadedPreview({
   imageSource,
   fileName,
-  onClear,
+  onClear
 }: UploadedPreviewProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 

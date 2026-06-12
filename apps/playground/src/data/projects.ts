@@ -14,43 +14,43 @@ export const CATEGORIES = {
     description:
       'Procedural patterns and mathematical visualizations that create art from algorithms.',
     icon: 'generative',
-    order: 0,
+    order: 0
   },
   color: {
     name: 'Color & Design',
     description:
       'Tools for exploring color theory, generating harmonious palettes, and design utilities.',
     icon: 'color',
-    order: 1,
+    order: 1
   },
   'data-viz': {
     name: 'Data Visualization',
     description:
       'Interactive charts, graphs, and visual representations of data using D3 and other libraries.',
     icon: 'data-viz',
-    order: 3,
+    order: 3
   },
   image: {
     name: 'Image Processing',
     description:
       'Transform, deconstruct, and visualize images through creative algorithms.',
     icon: 'image',
-    order: 2,
+    order: 2
   },
   random: {
     name: 'Random & Misc',
     description:
       "A collection of miscellaneous projects that don't fit into other categories but are fun and interesting.",
     icon: 'random',
-    order: 4,
+    order: 4
   },
   simulation: {
     name: 'Simulation',
     description:
       'Cellular automata, particle systems, and process simulations that model emergent behavior from simple rules.',
     icon: 'simulation',
-    order: 5,
-  },
+    order: 5
+  }
 } as const;
 
 type CategoryMeta = (typeof CATEGORIES)[Category];
@@ -78,7 +78,7 @@ export const projects: Record<string, Project> = {
     category: 'generative',
     tags: ['Canvas', 'Zustand'],
     icon: 'mosaic',
-    featured: true,
+    featured: true
   },
   sequences: {
     slug: 'sequences',
@@ -88,7 +88,7 @@ export const projects: Record<string, Project> = {
     category: 'generative',
     tags: ['Math', 'SVG'],
     icon: 'sequences',
-    featured: true,
+    featured: true
   },
   palettes: {
     slug: 'palettes',
@@ -98,7 +98,7 @@ export const projects: Record<string, Project> = {
     category: 'color',
     tags: ['Design', 'Theory'],
     icon: 'palettes',
-    featured: false,
+    featured: false
   },
   particles: {
     slug: 'particles',
@@ -108,7 +108,7 @@ export const projects: Record<string, Project> = {
     category: 'image',
     tags: ['Physics', 'Canvas'],
     icon: 'particles',
-    featured: false,
+    featured: false
   },
   imageManipulator: {
     slug: 'image-manipulator',
@@ -118,7 +118,7 @@ export const projects: Record<string, Project> = {
     category: 'image',
     tags: ['Images', 'Canvas'],
     icon: 'image-manipulator',
-    featured: true,
+    featured: true
   },
   pipeline: {
     slug: 'pipeline',
@@ -128,7 +128,7 @@ export const projects: Record<string, Project> = {
     category: 'image',
     tags: ['Pipeline', 'Docs'],
     icon: 'pipeline',
-    featured: true,
+    featured: true
   },
   'pie-chart': {
     slug: 'pie-chart',
@@ -138,7 +138,7 @@ export const projects: Record<string, Project> = {
     category: 'data-viz',
     tags: ['D3', 'Charts'],
     icon: 'data-viz',
-    featured: false,
+    featured: false
   },
   graphify: {
     slug: 'graphify',
@@ -147,7 +147,7 @@ export const projects: Record<string, Project> = {
     category: 'data-viz',
     tags: ['Graph', 'D3'],
     icon: 'graphify',
-    featured: true,
+    featured: true
   },
   'three-stage': {
     slug: 'three-stage',
@@ -156,7 +156,7 @@ export const projects: Record<string, Project> = {
     category: 'random',
     tags: ['Threejs', '3D', 'WebGL'],
     icon: 'three-stage',
-    featured: false,
+    featured: false
   },
   automa: {
     slug: 'automa',
@@ -166,8 +166,8 @@ export const projects: Record<string, Project> = {
     category: 'simulation',
     tags: ['Three.js', 'Simulation', 'WebGL'],
     icon: 'automa',
-    featured: true,
-  },
+    featured: true
+  }
 };
 
 /**
@@ -187,15 +187,13 @@ export function getProjectsByCategory(category?: Category) {
       {
         id: category,
         ...meta,
-        projects: Object.values(projects).filter(
-          (p) => p.category === category
-        ),
-      },
+        projects: Object.values(projects).filter((p) => p.category === category)
+      }
     ];
   }
   return Object.entries(CATEGORIES).map(([id, meta]) => ({
     id: id as Category,
     ...meta,
-    projects: Object.values(projects).filter((p) => p.category === id),
+    projects: Object.values(projects).filter((p) => p.category === id)
   }));
 }

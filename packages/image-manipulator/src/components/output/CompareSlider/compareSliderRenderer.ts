@@ -13,7 +13,7 @@ export function renderCompareSlider({
   resCanvas,
   sliderPos,
   width,
-  height,
+  height
 }: RenderCompareSliderArgs) {
   const sliderX = (sliderPos / 100) * width;
 

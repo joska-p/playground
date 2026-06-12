@@ -15,7 +15,7 @@ function ColorSpaceCanvas({
   spaceId,
   zValue,
   size = 200,
-  onPick = () => {},
+  onPick = () => {}
 }: ColorSpaceCanvasProps) {
   const config = useMemo(() => colorSpaces[spaceId], [spaceId]);
 

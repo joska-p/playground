@@ -6,7 +6,7 @@ const initialTileSet = [
   'Rainbow',
   'Square',
   'Triangles',
-  'Cube',
+  'Cube'
 ] as const;
 
 export type TileNames = (typeof initialTileSet)[number];

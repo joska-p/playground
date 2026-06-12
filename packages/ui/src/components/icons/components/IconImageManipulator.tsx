@@ -88,5 +88,5 @@ export const IconImageManipulator = createIcon({
         opacity={0.7}
       />
     </>
-  ),
+  )
 });

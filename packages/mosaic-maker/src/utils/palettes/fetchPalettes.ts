@@ -19,7 +19,7 @@ const COLOR_NAMES: (keyof Palette)[] = [
   '--color-1',
   '--color-2',
   '--color-3',
-  '--color-4',
+  '--color-4'
 ];
 
 function getCachedPalettes(): CachedPalettes | null {
@@ -54,7 +54,7 @@ function cachePalettes(palettes: Palette[]): void {
   const cache: CachedPalettes = {
     palettes,
     expiration: Date.now() + CACHE_DURATION_MS,
-    version: CACHE_VERSION,
+    version: CACHE_VERSION
   };
   localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
 }

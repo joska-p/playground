@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { readFileAsImageData } from '../core/file-reader';
 import {
   clearImageSource,
-  setImageSource,
+  setImageSource
 } from '../stores/manipulator/actions';
 
 function useImageUpload() {
@@ -19,7 +19,7 @@ function useImageUpload() {
         id: 'source',
         name: 'source',
         description: 'image source',
-        imageData,
+        imageData
       });
     } catch (err) {
       console.error('Failed to process image data:', err);

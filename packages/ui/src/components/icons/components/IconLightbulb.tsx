@@ -8,5 +8,5 @@ export const IconLightbulb = createIcon({
       <path d="M9 18h6" />
       <path d="M10 22h4" />
     </>
-  ),
+  )
 });

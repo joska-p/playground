@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { generateSequence, recamanRule } from '../core/sequence-rules';
 import type { SequenceRule } from '../core/sequence-rules';
+import { generateSequence, recamanRule } from '../core/sequence-rules';
 import { visualizations } from '../core/visualizations/visualizations';
 
 type SequenceState = {
@@ -12,7 +12,7 @@ type SequenceState = {
 
 function generateInitial({
   sequenceRule,
-  steps,
+  steps
 }: {
   sequenceRule: SequenceRule;
   steps: number;
@@ -22,7 +22,7 @@ function generateInitial({
 
 function clampSteps({
   steps,
-  maxSteps,
+  maxSteps
 }: {
   steps: number;
   maxSteps: number;
@@ -34,7 +34,7 @@ const sequenceStore = create<SequenceState>(() => ({
   sequenceRule: recamanRule,
   steps: 2,
   visualizationId: visualizations[0]?.id ?? 'recaman-arcs',
-  sequence: generateInitial({ sequenceRule: recamanRule, steps: 2 }),
+  sequence: generateInitial({ sequenceRule: recamanRule, steps: 2 })
 }));
 
 export function useSequenceRule(): SequenceRule {
@@ -54,19 +54,19 @@ export function useSequenceSequence(): number[] {
 }
 
 export function setSequenceRule({
-  sequenceRule,
+  sequenceRule
 }: {
   sequenceRule: SequenceRule;
 }): void {
   const currentSteps = sequenceStore.getState().steps;
   const clampedSteps = clampSteps({
     steps: currentSteps,
-    maxSteps: sequenceRule.maxSteps,
+    maxSteps: sequenceRule.maxSteps
   });
   sequenceStore.setState({
     sequenceRule,
     steps: clampedSteps,
-    sequence: generateSequence({ sequenceRule, steps: clampedSteps }),
+    sequence: generateSequence({ sequenceRule, steps: clampedSteps })
   });
 }
 
@@ -74,19 +74,19 @@ export function setSequenceSteps({ steps }: { steps: number }): void {
   const state = sequenceStore.getState();
   const clampedSteps = clampSteps({
     steps,
-    maxSteps: state.sequenceRule.maxSteps,
+    maxSteps: state.sequenceRule.maxSteps
   });
   sequenceStore.setState({
     steps: clampedSteps,
     sequence: generateSequence({
       sequenceRule: state.sequenceRule,
-      steps: clampedSteps,
-    }),
+      steps: clampedSteps
+    })
   });
 }
 
 export function setSequenceVisualizationId({
-  visualizationId,
+  visualizationId
 }: {
   visualizationId: string;
 }): void {

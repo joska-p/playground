@@ -22,6 +22,6 @@ export const flipHorizontal = defineManip({
     longDescription:
       'Mirrors the image horizontally by reversing pixel order within each row. Pixel at (x, y) moves to (width − 1 − x, y).',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

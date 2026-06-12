@@ -10,10 +10,10 @@ export const selectVariants = variantFactory({
       destructive:
         'border-destructive text-destructive focus-visible:ring-destructive',
       outline: 'border-border hover:border-primary/50 bg-transparent',
-      ghost: 'hover:bg-foreground/5 border-transparent bg-transparent',
-    },
+      ghost: 'hover:bg-foreground/5 border-transparent bg-transparent'
+    }
   },
   defaultVariants: {
-    variant: 'primary',
-  },
+    variant: 'primary'
+  }
 });

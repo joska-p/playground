@@ -104,7 +104,7 @@ function paramsFromDefinition(
     min: arg.min,
     max: arg.max,
     step: arg.step,
-    default: defaults[arg.key] ?? 0,
+    default: defaults[arg.key] ?? 0
   }));
 }
 
@@ -118,7 +118,7 @@ function manipToInfo(
     path: `/manip/${definition.id}`,
     params: paramsFromDefinition(definition),
     description: definition.ui.description,
-    longDescription: definition.ui.longDescription,
+    longDescription: definition.ui.longDescription
   };
 }
 
@@ -131,7 +131,7 @@ function manipToItem(
     type: definition.access,
     description: definition.ui.description,
     path: `/manip/${definition.id}`,
-    params: paramsFromDefinition(definition),
+    params: paramsFromDefinition(definition)
   };
 }
 
@@ -140,7 +140,7 @@ type Access = (typeof ALL_MANIPULATIONS)[number]['access'];
 const GROUP_MAP: Record<Access, string> = {
   pixel: 'Pixel',
   neighborhood: 'Neighbor',
-  global: 'Global',
+  global: 'Global'
 };
 
 const ACCESS_ORDER: Access[] = ['pixel', 'neighborhood', 'global'];
@@ -151,15 +151,15 @@ const PIPELINE_ITEMS: EndpointItem[] = [
     label: 'Resize',
     type: 'pipeline',
     path: '/pipeline/resize',
-    description: 'Resize images at any point in the pipeline',
+    description: 'Resize images at any point in the pipeline'
   },
   {
     id: 'chaining',
     label: 'Chaining',
     type: 'pipeline',
     path: '/pipeline/chaining',
-    description: 'Compose multiple manipulations into a single pipeline run',
-  },
+    description: 'Compose multiple manipulations into a single pipeline run'
+  }
 ];
 
 const OVERVIEW_ITEM: EndpointItem = {
@@ -167,7 +167,7 @@ const OVERVIEW_ITEM: EndpointItem = {
   label: 'API Overview',
   type: 'overview',
   path: '/overview',
-  description: 'Architecture, API surfaces, and quick start guide',
+  description: 'Architecture, API surfaces, and quick start guide'
 };
 
 const INTERNAL_SECTIONS: EndpointItem[] = [
@@ -176,14 +176,14 @@ const INTERNAL_SECTIONS: EndpointItem[] = [
     label: 'Execution Engine',
     type: 'internals',
     path: '/internals/execution-engine',
-    description: 'Pipeline run loop, double-buffering, and step routing',
+    description: 'Pipeline run loop, double-buffering, and step routing'
   },
   {
     id: 'fusion-scheduler',
     label: 'Fusion Scheduler',
     type: 'internals',
     path: '/internals/fusion-scheduler',
-    description: 'Batching consecutive pixel ops into a single pass',
+    description: 'Batching consecutive pixel ops into a single pass'
   },
   {
     id: 'tiling',
@@ -191,41 +191,41 @@ const INTERNAL_SECTIONS: EndpointItem[] = [
     type: 'internals',
     path: '/internals/tiling',
     description:
-      'Tile-based convolution for memory-efficient large-image processing',
+      'Tile-based convolution for memory-efficient large-image processing'
   },
   {
     id: 'resize-algorithm',
     label: 'Resize Algorithm',
     type: 'internals',
     path: '/internals/resize-algorithm',
-    description: 'Bilinear interpolation and dimension logic',
+    description: 'Bilinear interpolation and dimension logic'
   },
   {
     id: 'worker-architecture',
     label: 'Worker Architecture',
     type: 'internals',
     path: '/internals/worker-architecture',
-    description: 'Web Worker pool, FIFO queue, and zero-copy Transferables',
+    description: 'Web Worker pool, FIFO queue, and zero-copy Transferables'
   },
   {
     id: 'configuration',
     label: 'Configuration',
     type: 'internals',
     path: '/internals/configuration',
-    description: 'Default limits and environment settings',
-  },
+    description: 'Default limits and environment settings'
+  }
 ];
 
 const MANIP_GROUPS: EndpointGroup[] = ACCESS_ORDER.map((access) => ({
   label: GROUP_MAP[access],
-  items: ALL_MANIPULATIONS.filter((m) => m.access === access).map(manipToItem),
+  items: ALL_MANIPULATIONS.filter((m) => m.access === access).map(manipToItem)
 }));
 
 export const ENDPOINT_GROUPS: EndpointGroup[] = [
   { label: 'Overview', items: [OVERVIEW_ITEM] },
   ...MANIP_GROUPS,
   { label: 'Pipeline', items: PIPELINE_ITEMS },
-  { label: 'Internals', items: INTERNAL_SECTIONS },
+  { label: 'Internals', items: INTERNAL_SECTIONS }
 ];
 
 export function findManipById(id: string): ManipInfo | undefined {

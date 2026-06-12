@@ -14,7 +14,7 @@ function computeInitialTiles(
     id: `${i}`,
     name: getRandom(tileSet),
     colors: generateTileColors(),
-    rotation: generateTileRotation(),
+    rotation: generateTileRotation()
   }));
 }
 

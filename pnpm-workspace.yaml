@@ -57,3 +57,4 @@ catalog:
   '@types/three': '^0.184.1'
   'leva': '^0.10.1'
   'three': '^0.184.0'
+  'vitest': '^4.1.8'

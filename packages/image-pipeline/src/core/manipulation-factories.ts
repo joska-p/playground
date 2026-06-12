@@ -3,7 +3,7 @@ import type {
   ManipulationUIMetadata,
   NeighborhoodFunction,
   PixelFunction,
-  WholeImageFunction,
+  WholeImageFunction
 } from './image-pipeline.types';
 
 type DefineManipParams<Options, Identifier extends string> = {

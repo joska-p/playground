@@ -14,6 +14,6 @@ export const IconDiscord = createIcon({
     stroke: undefined,
     strokeWidth: undefined,
     strokeLinecap: undefined,
-    strokeLinejoin: undefined,
-  },
+    strokeLinejoin: undefined
+  }
 });

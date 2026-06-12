@@ -5,7 +5,7 @@ const swatches = [
   { w: 48, op: 0.6 },
   { w: 56, op: 0.75 },
   { w: 36, op: 0.4 },
-  { w: 52, op: 0.8 },
+  { w: 52, op: 0.8 }
 ];
 
 const yStart = 6;
@@ -30,5 +30,5 @@ export const IconPalettes = createIcon({
         />
       ))}
     </>
-  ),
+  )
 });

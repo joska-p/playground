@@ -10,14 +10,14 @@ const TYPE_ACCENT: Record<string, string> = {
   global: 'var(--utility-2)',
   pipeline: 'var(--utility-1)',
   internals: 'var(--utility-8)',
-  overview: 'var(--utility-4)',
+  overview: 'var(--utility-4)'
 };
 
 function ManipView({
   manip,
   sourceData,
   paramValues,
-  onParamChange,
+  onParamChange
 }: {
   manip: ManipInfo;
   sourceData: ImageData | null;
@@ -41,7 +41,7 @@ function ManipView({
         : ''
     } }`,
     `  ]`,
-    `});`,
+    `});`
   ];
 
   return (
@@ -49,7 +49,7 @@ function ManipView({
       className="space-y-6"
       style={
         {
-          '--accent': TYPE_ACCENT[manip.type] ?? 'var(--utility-4)',
+          '--accent': TYPE_ACCENT[manip.type] ?? 'var(--utility-4)'
         } as React.CSSProperties
       }
     >

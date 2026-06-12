@@ -1,7 +1,7 @@
 import {
   GRID_DEFAULT_DENSITY,
   WORKER_MESSAGE_STEP,
-  getDefaultStateColor,
+  getDefaultStateColor
 } from '../../core/config';
 import type { Creature } from '../../core/creature/types';
 import { createGrid, seedGrid } from '../../core/grid';
@@ -43,11 +43,11 @@ const init = (opts: SimulationInit): void => {
     cols: opts.cols,
     rows: opts.rows,
     seed: opts.seed,
-    generation: 0,
+    generation: 0
   });
 
   worker = new Worker(new URL('../../core/worker', import.meta.url), {
-    type: 'module',
+    type: 'module'
   });
 
   worker.onmessage = (e: MessageEvent<StepResponse>) => {
@@ -55,7 +55,7 @@ const init = (opts: SimulationInit): void => {
     const state = simulationStore.getState();
     simulationStore.setState({
       grid: e.data.grid,
-      generation: state.generation + 1,
+      generation: state.generation + 1
     });
   };
 };
@@ -80,7 +80,7 @@ const step = (): void => {
       grid: state.grid,
       cols: state.cols,
       rows: state.rows,
-      ruleId: state.ruleId,
+      ruleId: state.ruleId
     } satisfies StepRequest,
     [state.grid.buffer]
   );
@@ -189,5 +189,5 @@ export {
   setRule,
   setSpeed,
   step,
-  toggleRunning,
+  toggleRunning
 };

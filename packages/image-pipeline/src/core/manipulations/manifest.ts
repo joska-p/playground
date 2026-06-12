@@ -38,7 +38,7 @@ export const ALL_MANIPULATIONS = [
   flipHorizontal,
   flipVertical,
   resize,
-  rotate90Cw,
+  rotate90Cw
 ] as const satisfies readonly ManipulationDefinition[];
 
 // ─── Derive Step type from the manifest ─────────────────────────────────────

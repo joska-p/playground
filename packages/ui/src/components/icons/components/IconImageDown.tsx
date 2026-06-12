@@ -13,5 +13,5 @@ export const IconImageDown = createIcon({
         r="2"
       />
     </>
-  ),
+  )
 });

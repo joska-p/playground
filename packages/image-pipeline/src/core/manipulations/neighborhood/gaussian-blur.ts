@@ -29,7 +29,7 @@ export const gaussianBlur = defineManip<{ radius?: number }>({
       'Convolves the image with a Gaussian kernel. Kernel size = radius × 2 + 1, sigma = radius / 2 + 0.5. The kernel weights follow a Gaussian distribution centered on the pixel.',
     defaultArgs: { radius: 1 },
     argDefinitions: [
-      { key: 'radius', label: 'Radius', min: 1, max: 10, step: 1 },
-    ],
-  },
+      { key: 'radius', label: 'Radius', min: 1, max: 10, step: 1 }
+    ]
+  }
 });

@@ -16,14 +16,14 @@ export default defineConfig([
       js.configs.recommended,
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
+      reactRefresh.configs.vite
     ],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
+        tsconfigRootDir: import.meta.dirname
+      }
+    }
   },
-  ...storybook.configs['flat/recommended'],
+  ...storybook.configs['flat/recommended']
 ]);

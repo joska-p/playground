@@ -8,28 +8,28 @@ const preview: Preview = {
     withThemeByDataAttribute({
       themes: {
         light: 'light',
-        dark: 'dark',
+        dark: 'dark'
       },
       defaultTheme: 'dark',
-      attributeName: 'data-theme',
-    }),
+      attributeName: 'data-theme'
+    })
   ],
   parameters: {
     docs: {
       theme: themes.dark,
-      toc: true,
+      toc: true
     },
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/i,
-      },
+        date: /Date$/i
+      }
     },
     a11y: {
-      test: 'todo',
-    },
+      test: 'todo'
+    }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs']
 };
 
 export default preview;

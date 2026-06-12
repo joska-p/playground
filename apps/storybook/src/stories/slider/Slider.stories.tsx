@@ -13,11 +13,11 @@ const meta: Meta<typeof Slider> = {
   argTypes: {
     label: {
       description: 'The label text displayed above the slider.',
-      control: 'text',
+      control: 'text'
     },
     helperText: {
       description: 'Supportive text displayed below the slider.',
-      control: 'text',
+      control: 'text'
     },
     variant: {
       description: 'Controls the accent color of the slider thumb.',
@@ -27,35 +27,35 @@ const meta: Meta<typeof Slider> = {
         'accent',
         'destructive',
         'outline',
-        'ghost',
+        'ghost'
       ],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     layout: {
       description: 'Controls the layout direction.',
       options: ['stacked', 'inline'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     unit: {
       description: 'Unit suffix displayed after value.',
-      control: 'text',
+      control: 'text'
     },
     min: {
       description: 'Minimum possible value.',
-      control: { type: 'number' },
+      control: { type: 'number' }
     },
     max: {
       description: 'Maximum possible value.',
-      control: { type: 'number' },
+      control: { type: 'number' }
     },
     step: {
       description: 'The granularity of the slider.',
-      control: { type: 'number' },
+      control: { type: 'number' }
     },
     disabled: {
       description: 'Disables user interaction and applies dimmed styling.',
-      control: 'boolean',
-    },
+      control: 'boolean'
+    }
   },
   args: {
     label: 'Intensity',
@@ -63,8 +63,8 @@ const meta: Meta<typeof Slider> = {
     layout: 'stacked',
     min: 0,
     max: 100,
-    step: 1,
-  },
+    step: 1
+  }
 };
 
 // Required by Storybook CSF (Component Story Format) tooling
@@ -97,9 +97,9 @@ function InteractiveSlider(
  */
 export const Primary: Story = {
   args: {
-    variant: 'primary',
+    variant: 'primary'
   },
-  render: (args) => <InteractiveSlider {...args} />,
+  render: (args) => <InteractiveSlider {...args} />
 };
 
 /**
@@ -110,9 +110,9 @@ export const Secondary: Story = {
   args: {
     label: 'Volume',
     variant: 'secondary',
-    helperText: 'Adjust the volume level.',
+    helperText: 'Adjust the volume level.'
   },
-  render: (args) => <InteractiveSlider {...args} />,
+  render: (args) => <InteractiveSlider {...args} />
 };
 
 /**
@@ -123,9 +123,9 @@ export const Accent: Story = {
   args: {
     label: 'Brightness',
     variant: 'accent',
-    helperText: 'Adjust the display brightness.',
+    helperText: 'Adjust the display brightness.'
   },
-  render: (args) => <InteractiveSlider {...args} />,
+  render: (args) => <InteractiveSlider {...args} />
 };
 
 /**
@@ -138,9 +138,9 @@ export const Destructive: Story = {
     variant: 'destructive',
     max: 1000,
     step: 10,
-    helperText: 'Warning: High values may affect performance.',
+    helperText: 'Warning: High values may affect performance.'
   },
-  render: (args) => <InteractiveSlider {...args} />,
+  render: (args) => <InteractiveSlider {...args} />
 };
 
 /**
@@ -152,9 +152,9 @@ export const Disabled: Story = {
     variant: 'primary',
     value: 50,
     disabled: true,
-    helperText: 'This slider is currently locked.',
+    helperText: 'This slider is currently locked.'
   },
-  render: (args) => <InteractiveSlider {...args} />,
+  render: (args) => <InteractiveSlider {...args} />
 };
 
 /**
@@ -167,12 +167,12 @@ export const Horizontal: Story = {
     layout: 'inline',
     max: 100,
     step: 10,
-    unit: '%',
+    unit: '%'
   },
   render: (args) => (
     <InteractiveSlider
       {...args}
       className="max-w-xs"
     />
-  ),
+  )
 };

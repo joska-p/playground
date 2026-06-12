@@ -6,7 +6,7 @@ const blurShader: Shader = {
   id: 'blur',
   name: 'Blur',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { blurShader };

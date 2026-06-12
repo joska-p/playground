@@ -21,8 +21,8 @@ self.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
       steps,
       context: {
         registry,
-        maximumPixels: maximumPixels ?? DEFAULT_MAXIMUM_PIXELS,
-      },
+        maximumPixels: maximumPixels ?? DEFAULT_MAXIMUM_PIXELS
+      }
     });
 
     const transferables = pipelineResult.map(
@@ -32,7 +32,7 @@ self.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
     self.postMessage(pipelineResult, { transfer: transferables });
   } catch (error) {
     self.postMessage({
-      error: error instanceof Error ? error.message : String(error),
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 });

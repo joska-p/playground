@@ -83,7 +83,7 @@ import { drawLineGraph } from './line-graph.js';
 
 export const visualizations = [
   // ...existing visualizations
-  { id: 'line-graph', name: 'Line Graph', draw: drawLineGraph },
+  { id: 'line-graph', name: 'Line Graph', draw: drawLineGraph }
 ];
 ```
 

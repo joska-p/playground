@@ -14,29 +14,29 @@ const CATEGORY_METADATA = {
   tutorial: {
     label: 'Tutorials',
     description: 'Step-by-step guides.',
-    iconName: 'book',
+    iconName: 'book'
   },
   'how-to': {
     label: 'How-To Guides',
     description: 'Practical recipes.',
-    iconName: 'wrench',
+    iconName: 'wrench'
   },
   explanation: {
     label: 'Explanations',
     description: 'Deep dives.',
-    iconName: 'lightbulb',
+    iconName: 'lightbulb'
   },
   reference: {
     label: 'Reference',
     description: 'Technical specs.',
-    iconName: 'code',
-  },
+    iconName: 'code'
+  }
 } as const satisfies Record<string, CategoryMeta>;
 
 export type CategoryId = keyof typeof CATEGORY_METADATA;
 export const categoryIds = Object.keys(CATEGORY_METADATA) as [
   CategoryId,
-  ...CategoryId[],
+  ...CategoryId[]
 ];
 
 // 3. UI Helper Function
@@ -52,7 +52,7 @@ export async function getDocsByCategory() {
     ...meta,
     articles: allDocs
       .filter((doc) => doc.data.category === (id as CategoryId)) // Simple string check
-      .sort((a, b) => a.data.order - b.data.order),
+      .sort((a, b) => a.data.order - b.data.order)
   }));
 }
 

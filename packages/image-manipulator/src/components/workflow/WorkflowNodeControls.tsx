@@ -13,7 +13,7 @@ function WorkflowNodeControls({
   isLast,
   onMoveUp,
   onMoveDown,
-  onRemove,
+  onRemove
 }: WorkflowNodeControlsProps) {
   return (
     <div

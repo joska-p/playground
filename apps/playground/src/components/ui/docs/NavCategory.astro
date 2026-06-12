@@ -36,7 +36,7 @@ const hasActiveArticle = category.articles.some((doc) => {
     <div
       class="flex items-center gap-2"
       style={{
-        '--color-current': `var(--category-${category.id}, var(--color-primary))`,
+        '--color-current': `var(--category-${category.id}, var(--color-primary))`
       }}
     >
       <Icon
@@ -80,7 +80,7 @@ const hasActiveArticle = category.articles.some((doc) => {
                 'group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs transition-all duration-150',
                 isActive
                   ? 'bg-primary/10 text-primary font-semibold'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               ]}
               aria-current={isActive ? 'page' : undefined}
             >
@@ -89,7 +89,7 @@ const hasActiveArticle = category.articles.some((doc) => {
                   'h-1 w-1 shrink-0 rounded-full transition-colors',
                   isActive
                     ? 'bg-primary'
-                    : 'bg-border group-hover:bg-muted-foreground/50',
+                    : 'bg-border group-hover:bg-muted-foreground/50'
                 ]}
               />
               {doc.data.title}

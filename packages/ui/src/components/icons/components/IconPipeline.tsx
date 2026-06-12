@@ -64,5 +64,5 @@ export const IconPipeline = createIcon({
         opacity={0.9}
       />
     </>
-  ),
+  )
 });

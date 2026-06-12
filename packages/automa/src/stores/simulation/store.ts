@@ -2,7 +2,7 @@ import { createStore } from 'zustand/vanilla';
 import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_ROWS,
-  GRID_DEFAULT_SEED,
+  GRID_DEFAULT_SEED
 } from '../../core/config';
 import { createGrid } from '../../core/grid';
 import type { Grid } from '../../core/types';
@@ -24,7 +24,7 @@ const simulationStore = createStore<SimulationState>(() => ({
   cols: GRID_DEFAULT_COLS,
   rows: GRID_DEFAULT_ROWS,
   seed: GRID_DEFAULT_SEED,
-  ruleId: 'conway',
+  ruleId: 'conway'
 }));
 
 export { simulationStore };

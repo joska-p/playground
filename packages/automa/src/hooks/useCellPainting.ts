@@ -67,7 +67,7 @@ const useCellPainting = (
     onPointerDown,
     onPointerMove,
     onPointerUp,
-    onContextMenu,
+    onContextMenu
   };
 };
 

@@ -5,12 +5,12 @@ import { notebookSchema } from './data/notebook.schema';
 
 const notebook = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notebook' }),
-  schema: notebookSchema,
+  schema: notebookSchema
 });
 
 const docs = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/docs' }),
-  schema: docSchema,
+  schema: docSchema
 });
 
 export const collections = { docs, notebook };

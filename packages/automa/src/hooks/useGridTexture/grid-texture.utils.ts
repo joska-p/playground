@@ -38,5 +38,5 @@ export const buildGridUniforms = (
   glowColor: { value: new THREE.Color(glowColor) },
   texelSize: { value: new THREE.Vector2(1 / cols, 1 / rows) },
   time: { value: 0 },
-  mouse: { value: new THREE.Vector2(0.5, 0.5) },
+  mouse: { value: new THREE.Vector2(0.5, 0.5) }
 });

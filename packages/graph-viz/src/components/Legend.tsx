@@ -12,7 +12,7 @@ const Dot = ({ c }: { c: string }) => (
       height: 8,
       borderRadius: '50%',
       background: c,
-      marginRight: 5,
+      marginRight: 5
     }}
   />
 );
@@ -21,7 +21,7 @@ const ITEMS = [
   { c: communityColor(32), label: 'Community cluster' },
   { c: '#4cc9f0', label: 'Code node' },
   { c: '#f77f00', label: 'Document node' },
-  { c: '#06d6a0', label: 'Image node' },
+  { c: '#06d6a0', label: 'Image node' }
 ];
 
 const Legend = () => (

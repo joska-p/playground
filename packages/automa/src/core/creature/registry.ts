@@ -15,7 +15,7 @@ import {
   piHeptomino,
   pulsar,
   rPentomino,
-  toad,
+  toad
 } from './builtin';
 import type { Creature } from './types';
 
@@ -36,7 +36,7 @@ const creatures = new Map<string, Creature>([
   [acorn.id, acorn],
   [piHeptomino.id, piHeptomino],
   [bHeptomino.id, bHeptomino],
-  [gosperGliderGun.id, gosperGliderGun],
+  [gosperGliderGun.id, gosperGliderGun]
 ]);
 
 function getCreature(id: string): Creature | undefined {

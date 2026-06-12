@@ -6,7 +6,7 @@ const heatHazeShader: Shader = {
   id: 'heat-haze',
   name: 'Heat Haze',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { heatHazeShader };

@@ -27,8 +27,8 @@ const analogous: Rule = {
   },
   info: {
     name: 'Analogous',
-    description: 'Colors that are next to each other on the color wheel.',
-  },
+    description: 'Colors that are next to each other on the color wheel.'
+  }
 };
 
 export { analogous };

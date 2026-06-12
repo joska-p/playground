@@ -62,11 +62,11 @@ const meta: Meta<typeof Input> = {
   argTypes: {
     label: {
       description: 'The floating label text above the input.',
-      control: 'text',
+      control: 'text'
     },
     helperText: {
       description: 'Supportive text displayed below the input field.',
-      control: 'text',
+      control: 'text'
     },
     variant: {
       description: 'Visual style variant based on the Gruvbox color palette.',
@@ -76,36 +76,36 @@ const meta: Meta<typeof Input> = {
         'accent',
         'destructive',
         'outline',
-        'ghost',
+        'ghost'
       ],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     type: {
       description: 'Standard HTML input types.',
       options: ['text', 'email', 'number', 'password', 'file', 'color'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     disabled: {
       description: 'Disables user interaction and applies dimmed styling.',
-      control: 'boolean',
+      control: 'boolean'
     },
     isLoading: {
       description: 'Shows a loading spinner and disables the input.',
-      control: 'boolean',
+      control: 'boolean'
     },
     startIcon: {
       description: 'Icon displayed before the input text.',
-      control: false,
+      control: false
     },
     endIcon: {
       description: 'Icon displayed after the input text.',
-      control: false,
+      control: false
     },
     placeholder: {
       description: 'Placeholder text inside the input.',
-      control: 'text',
-    },
-  },
+      control: 'text'
+    }
+  }
 };
 
 // Required by Storybook CSF (Component Story Format) tooling
@@ -122,8 +122,8 @@ export const Primary: Story = {
     label: 'Username',
     placeholder: 'e.g. josh_creative',
     variant: 'primary',
-    helperText: 'Choose a unique name for the playground.',
-  },
+    helperText: 'Choose a unique name for the playground.'
+  }
 };
 
 /**
@@ -134,8 +134,8 @@ export const Secondary: Story = {
   args: {
     label: 'Additional Notes',
     placeholder: 'Optional details…',
-    variant: 'secondary',
-  },
+    variant: 'secondary'
+  }
 };
 
 /**
@@ -147,8 +147,8 @@ export const Accent: Story = {
     label: 'Promo Code',
     placeholder: 'Enter code',
     variant: 'accent',
-    helperText: 'Enter your promotional code.',
-  },
+    helperText: 'Enter your promotional code.'
+  }
 };
 
 /**
@@ -161,8 +161,8 @@ export const Destructive: Story = {
     type: 'email',
     defaultValue: 'invalid-email',
     variant: 'destructive',
-    helperText: 'Please enter a valid email address.',
-  },
+    helperText: 'Please enter a valid email address.'
+  }
 };
 
 /**
@@ -173,8 +173,8 @@ export const Outline: Story = {
   args: {
     label: 'Hidden Field',
     placeholder: 'Optional…',
-    variant: 'outline',
-  },
+    variant: 'outline'
+  }
 };
 
 /**
@@ -185,16 +185,16 @@ export const Ghost: Story = {
   args: {
     label: 'Quick Search',
     placeholder: 'Search…',
-    variant: 'ghost',
-  },
+    variant: 'ghost'
+  }
 };
 
 export const Password: Story = {
   args: {
     label: 'Password',
     type: 'password',
-    placeholder: 'Enter password',
-  },
+    placeholder: 'Enter password'
+  }
 };
 
 /**
@@ -205,8 +205,8 @@ export const Disabled: Story = {
     label: 'Read Only Field',
     disabled: true,
     placeholder: 'You cannot edit this content',
-    helperText: 'This field is currently locked.',
-  },
+    helperText: 'This field is currently locked.'
+  }
 };
 
 /**
@@ -217,8 +217,8 @@ export const Loading: Story = {
     label: 'Search',
     placeholder: 'Searching…',
     isLoading: true,
-    helperText: 'Searching for results…',
-  },
+    helperText: 'Searching for results…'
+  }
 };
 
 /**
@@ -230,8 +230,8 @@ export const WithStartIcon: Story = {
     type: 'email',
     placeholder: 'you@example.com',
     startIcon: <MailIcon />,
-    helperText: "We'll never share your email.",
-  },
+    helperText: "We'll never share your email."
+  }
 };
 
 /**
@@ -243,6 +243,6 @@ export const WithEndIcon: Story = {
     type: 'url',
     placeholder: 'https://',
     endIcon: <GlobeIcon />,
-    helperText: 'Your personal portfolio URL.',
-  },
+    helperText: 'Your personal portfolio URL.'
+  }
 };

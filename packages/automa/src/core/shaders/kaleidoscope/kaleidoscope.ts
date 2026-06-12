@@ -6,7 +6,7 @@ const kaleidoscopeShader: Shader = {
   id: 'kaleidoscope',
   name: 'Kaleidoscope',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { kaleidoscopeShader };

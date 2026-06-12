@@ -4,7 +4,7 @@ import {
   CSS_VARS,
   initialGapSize,
   initialRotations,
-  initialTileSize,
+  initialTileSize
 } from '../core/constants';
 import { initialPalette } from '../core/initialPalette';
 import { initPalettes, setRef } from '../stores/mosaic/actions';
@@ -18,7 +18,7 @@ const MOSAIC_STYLES = {
   ...initialRotations,
   gridTemplateColumns: `repeat(auto-fit,var(${CSS_VARS.size}))`,
   gridTemplateRows: `repeat(auto-fit,var(${CSS_VARS.size}))`,
-  gap: `var(${CSS_VARS.gap})`,
+  gap: `var(${CSS_VARS.gap})`
 } as React.CSSProperties;
 
 function MosaicDisplay() {

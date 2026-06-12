@@ -35,5 +35,5 @@ export {
   setShader,
   setShowDebug,
   setStateColor,
-  setToolMode,
+  setToolMode
 };

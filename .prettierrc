@@ -11,7 +11,7 @@
   "singleQuote": true,
   "quoteProps": "as-needed",
   "jsxSingleQuote": false,
-  "trailingComma": "",
+  "trailingComma": "none",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "always",

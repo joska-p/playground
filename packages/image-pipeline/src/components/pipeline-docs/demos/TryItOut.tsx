@@ -15,7 +15,7 @@ function TryItOut({
   sourceData,
   manip,
   paramValues,
-  onParamChange,
+  onParamChange
 }: TryItOutProps) {
   const [result, setResult] = useState<ImageData | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +34,7 @@ function TryItOut({
     pipelineGateway
       .run({
         sourceImageData: sourceData,
-        steps: [{ id: manip.id, options }],
+        steps: [{ id: manip.id, options }]
       })
       .then((snapshots) => {
         if (!cancelled) setResult(snapshots[0]);

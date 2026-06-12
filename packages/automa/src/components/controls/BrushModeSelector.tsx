@@ -61,7 +61,7 @@ const brushModes: {
   Icon: React.FC;
 }[] = [
   { value: 'draw', label: 'Draw', key: 'D', Icon: DrawIcon },
-  { value: 'erase', label: 'Erase', key: 'E', Icon: EraseIcon },
+  { value: 'erase', label: 'Erase', key: 'E', Icon: EraseIcon }
 ];
 
 function BrushModeSelector() {

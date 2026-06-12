@@ -28,16 +28,16 @@ export default defineConfig({
     {
       provider: fontProviders.fontsource(),
       name: 'JetBrains Mono',
-      cssVariable: '--font-jetbrains-mono',
-    },
+      cssVariable: '--font-jetbrains-mono'
+    }
   ],
   vite: {
     // @ts-expect-error — Vite 7 types vs Vite 8 tailwindcss plugin mismatch
     plugins: [tailwindcss()],
     resolve: {
       // @ts-expect-error — Vite 7 types lack tsconfigPaths, but Vite 8/Rolldown requires it
-      tsconfigPaths: true,
-    },
+      tsconfigPaths: true
+    }
   },
 
   integrations: [
@@ -45,11 +45,11 @@ export default defineConfig({
     mdx({
       remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]], // the order matter math before katex
       rehypePlugins: [rehypeKatex],
-      remarkRehype: { allowDangerousHtml: true },
-    }),
+      remarkRehype: { allowDangerousHtml: true }
+    })
   ],
 
   preferences: {
-    devToolbar: false,
-  },
+    devToolbar: false
+  }
 });

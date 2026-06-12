@@ -21,7 +21,7 @@ const TYPE_ACCENT: Record<string, string> = {
   pixel: 'var(--utility-6)',
   neighborhood: 'var(--utility-3)',
   whole: 'var(--utility-2)',
-  pipeline: 'var(--utility-1)',
+  pipeline: 'var(--utility-1)'
 };
 ```
 
@@ -36,7 +36,7 @@ Use inline `style` to inject the CSS custom property. The `as React.CSSPropertie
   className="space-y-6"
   style={
     {
-      '--accent': TYPE_ACCENT[manip.type] ?? 'var(--utility-4)',
+      '--accent': TYPE_ACCENT[manip.type] ?? 'var(--utility-4)'
     } as React.CSSProperties
   }
 >

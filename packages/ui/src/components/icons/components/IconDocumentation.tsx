@@ -31,5 +31,5 @@ export const IconDocumentation = createIcon({
       />
     </>
   ),
-  defaultProps: { fill: undefined, stroke: undefined, strokeWidth: undefined },
+  defaultProps: { fill: undefined, stroke: undefined, strokeWidth: undefined }
 });

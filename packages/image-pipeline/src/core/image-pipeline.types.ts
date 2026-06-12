@@ -44,15 +44,15 @@ export type WholeImageParameters<Options> = {
 // ─── Manipulation Function Signatures ────────────────────────────────────────
 
 export type PixelFunction<
-  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */,
+  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = (parameters: PixelParameters<Options>) => [number, number, number, number];
 
 export type NeighborhoodFunction<
-  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */,
+  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = (parameters: NeighborhoodParameters<Options>) => void;
 
 export type WholeImageFunction<
-  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */,
+  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = (parameters: WholeImageParameters<Options>) => ImageData;
 
 // ─── Manipulation Definition ─────────────────────────────────────────────────
@@ -62,7 +62,7 @@ export type WholeImageFunction<
  * The 'options' property is a type-only marker to simplify Step derivation.
  */
 export type ManipulationDefinition<
-  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */,
+  Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
 > = {
   id: string;
   options?: Options;

@@ -73,7 +73,7 @@ import { drawMyViz } from './my-viz.js';
 
 export const visualizations = [
   // ...existing visualizations
-  { id: 'my-viz', name: 'My Visualization', draw: drawMyViz },
+  { id: 'my-viz', name: 'My Visualization', draw: drawMyViz }
 ];
 ```
 

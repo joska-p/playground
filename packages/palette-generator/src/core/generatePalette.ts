@@ -3,7 +3,7 @@ import type { Palette, Rule } from './rules/harmonyRule.types';
 
 function generatePalette(baseColor: Color, rule: Rule): Palette {
   return {
-    colors: rule.apply(baseColor),
+    colors: rule.apply(baseColor)
   };
 }
 

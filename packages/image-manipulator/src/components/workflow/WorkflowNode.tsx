@@ -2,7 +2,7 @@ import type { ArgDefinition } from '@repo/image-pipeline';
 import {
   moveWorkflowStep,
   removeWorkflowStep,
-  updateStepOptions,
+  updateStepOptions
 } from '../../stores/manipulator/actions';
 import type { WorkflowStep } from '../../stores/manipulator/types';
 import { WorkflowNodeControls } from './WorkflowNodeControls';
@@ -24,7 +24,7 @@ function WorkflowNode({
   isFirst,
   isLast,
   name,
-  argDefinitions,
+  argDefinitions
 }: WorkflowNodeProps) {
   return (
     <li className="bg-card border-border rounded-lg border">
@@ -53,7 +53,7 @@ function WorkflowNode({
               onChange={(value) =>
                 updateStepOptions(index, {
                   ...step.options,
-                  [def.key]: value,
+                  [def.key]: value
                 } as Record<string, number>)
               }
             />

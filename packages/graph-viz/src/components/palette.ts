@@ -24,7 +24,7 @@ const PALETTE = [
   '#a8dadc',
   '#457b9d',
   '#e63946',
-  '#2a9d8f',
+  '#2a9d8f'
 ] as const;
 
 export function communityColor(id?: number): string {

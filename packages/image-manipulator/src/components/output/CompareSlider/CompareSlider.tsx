@@ -14,7 +14,7 @@ function CompareSlider({ source, result }: CompareSliderProps) {
     handleMouseDown,
     handleTouchStart,
     handleTouchMove,
-    handleTouchEnd,
+    handleTouchEnd
   } = useCompareSlider({ source, result });
 
   return (
@@ -25,7 +25,7 @@ function CompareSlider({ source, result }: CompareSliderProps) {
         width: '100%',
         maxWidth: width,
         aspectRatio: `${width} / ${height}`,
-        cursor: 'ew-resize',
+        cursor: 'ew-resize'
       }}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}

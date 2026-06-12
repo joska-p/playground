@@ -49,5 +49,5 @@ export const IconPieChart = createIcon({
         opacity={0.6}
       />
     </>
-  ),
+  )
 });

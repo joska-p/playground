@@ -27,8 +27,8 @@ const monochromatic: Rule = {
   info: {
     name: 'Monochromatic',
     description:
-      'Variations of the same hue with different lightness and chroma.',
-  },
+      'Variations of the same hue with different lightness and chroma.'
+  }
 };
 
 export { monochromatic };

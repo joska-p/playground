@@ -13,36 +13,36 @@ const meta: Meta<typeof Switch> = {
   argTypes: {
     label: {
       description: 'The label text displayed above the switch.',
-      control: 'text',
+      control: 'text'
     },
     helperText: {
       description: 'Supportive text displayed below the switch.',
-      control: 'text',
+      control: 'text'
     },
     variant: {
       description: "Changes the 'on' state color palette.",
       options: ['primary', 'secondary', 'accent', 'destructive'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     size: {
       description: 'The size of the switch.',
       options: ['sm', 'md', 'lg'],
-      control: { type: 'select' },
+      control: { type: 'select' }
     },
     checked: {
       description: 'The current state of the switch.',
-      control: 'boolean',
+      control: 'boolean'
     },
     disabled: {
       description: 'Disables user interaction and applies dimmed styling.',
-      control: 'boolean',
-    },
+      control: 'boolean'
+    }
   },
   args: {
     label: 'Enable Feature',
     variant: 'primary',
-    size: 'md',
-  },
+    size: 'md'
+  }
 };
 
 // Required by Storybook CSF (Component Story Format) tooling
@@ -66,7 +66,7 @@ function InteractiveSwitch(args: React.ComponentProps<typeof Switch>) {
  * Use as the default switch for most settings.
  */
 export const Primary: Story = {
-  render: (args) => <InteractiveSwitch {...args} />,
+  render: (args) => <InteractiveSwitch {...args} />
 };
 
 /**
@@ -77,9 +77,9 @@ export const Secondary: Story = {
   args: {
     label: 'Dark Mode',
     variant: 'secondary',
-    helperText: 'Switch to dark theme.',
+    helperText: 'Switch to dark theme.'
   },
-  render: (args) => <InteractiveSwitch {...args} />,
+  render: (args) => <InteractiveSwitch {...args} />
 };
 
 /**
@@ -90,9 +90,9 @@ export const Accent: Story = {
   args: {
     label: 'Notifications',
     variant: 'accent',
-    helperText: 'Receive push notifications.',
+    helperText: 'Receive push notifications.'
   },
-  render: (args) => <InteractiveSwitch {...args} />,
+  render: (args) => <InteractiveSwitch {...args} />
 };
 
 /**
@@ -103,9 +103,9 @@ export const Destructive: Story = {
   args: {
     label: 'Reset Data',
     variant: 'destructive',
-    helperText: 'Warning: This action cannot be undone.',
+    helperText: 'Warning: This action cannot be undone.'
   },
-  render: (args) => <InteractiveSwitch {...args} />,
+  render: (args) => <InteractiveSwitch {...args} />
 };
 
 /**
@@ -117,6 +117,6 @@ export const Disabled: Story = {
     variant: 'primary',
     checked: true,
     disabled: true,
-    helperText: 'This switch is currently locked.',
-  },
+    helperText: 'This switch is currently locked.'
+  }
 };

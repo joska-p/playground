@@ -1,6 +1,6 @@
 import {
   ENDPOINT_GROUPS,
-  findItemForEndpoint,
+  findItemForEndpoint
 } from '../data/pipeline-docs-data';
 
 function InternalsView({ id }: { id: string }) {

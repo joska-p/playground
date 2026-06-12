@@ -14,10 +14,10 @@ export const badgeVariants = variantFactory({
         'bg-destructive text-destructive-foreground hover:bg-destructive/80 border-transparent',
       outline: 'text-foreground',
       ghost:
-        'bg-transparent text-foreground/70 border-transparent hover:bg-foreground/5',
-    },
+        'bg-transparent text-foreground/70 border-transparent hover:bg-foreground/5'
+    }
   },
   defaultVariants: {
-    variant: 'primary',
-  },
+    variant: 'primary'
+  }
 });

@@ -19,7 +19,7 @@ const fitCameraToGrid = (
       left: -cols / 2,
       right: cols / 2,
       top: cols / aspect / 2,
-      bottom: -cols / aspect / 2,
+      bottom: -cols / aspect / 2
     };
   }
 
@@ -27,7 +27,7 @@ const fitCameraToGrid = (
     left: (-rows * aspect) / 2,
     right: (rows * aspect) / 2,
     top: rows / 2,
-    bottom: -rows / 2,
+    bottom: -rows / 2
   };
 };
 

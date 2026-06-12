@@ -8,7 +8,7 @@ import {
   setSequenceVisualizationId,
   useSequenceRule,
   useSequenceSteps,
-  useSequenceVisualizationId,
+  useSequenceVisualizationId
 } from '../../store/sequenceStore';
 import { SequenceSelector } from './SequenceSelector';
 

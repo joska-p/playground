@@ -14,7 +14,7 @@ export function PointLight() {
         label: 'Intensity',
         min: 0,
         max: 5,
-        step: 0.1,
+        step: 0.1
       },
       color: { value: '#ffffff', label: 'color' },
       decay: {
@@ -22,30 +22,30 @@ export function PointLight() {
         label: 'Decay',
         min: 0,
         max: 5,
-        step: 0.1,
+        step: 0.1
       },
       x: {
         value: 10,
         label: 'Position X',
         min: -20,
         max: 20,
-        step: 1,
+        step: 1
       },
       y: {
         value: 10,
         label: 'Position Y',
         min: -20,
         max: 20,
-        step: 1,
+        step: 1
       },
       z: {
         value: 10,
         label: 'Position Z',
         min: -20,
         max: 20,
-        step: 1,
-      },
-    }),
+        step: 1
+      }
+    })
   });
 
   return (

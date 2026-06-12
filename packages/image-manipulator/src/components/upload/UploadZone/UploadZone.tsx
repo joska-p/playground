@@ -13,7 +13,7 @@ function UploadZone() {
     handleDragOver,
     handleDrop,
     handleImageUpload,
-    clearImage,
+    clearImage
   } = useUploadZone();
 
   if (imageSource) {

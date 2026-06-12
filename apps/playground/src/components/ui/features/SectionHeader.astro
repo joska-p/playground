@@ -18,7 +18,7 @@ const {
   href,
   align = 'left',
   className = 'mb-8',
-  category,
+  category
 } = Astro.props;
 const isCenter = align === 'center';
 const accentColor = `var(--category-${category}, var(--color-primary))`;
@@ -28,7 +28,7 @@ const accentColor = `var(--category-${category}, var(--color-primary))`;
   class:list={[
     'flex flex-col gap-2',
     isCenter ? 'items-center text-center' : 'items-start',
-    className,
+    className
   ]}
   style={{ '--accent': accentColor }}
 >
@@ -55,7 +55,7 @@ const accentColor = `var(--category-${category}, var(--color-primary))`;
         class:list={[
           'text-muted-foreground max-w-xl text-sm',
           isCenter && 'text-center',
-          iconName ? 'ml-10' : '',
+          iconName ? 'ml-10' : ''
         ]}
       >
         {description}
@@ -69,7 +69,7 @@ const accentColor = `var(--category-${category}, var(--color-primary))`;
         href={href}
         class:list={[
           'group text-accent/60 hover:text-accent mt-1 inline-flex items-center gap-1.5 text-xs font-bold uppercase transition-colors',
-          iconName ? 'ml-10' : '',
+          iconName ? 'ml-10' : ''
         ]}
       >
         <slot name="link-text">View all</slot>

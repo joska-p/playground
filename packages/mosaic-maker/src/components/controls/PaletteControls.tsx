@@ -2,7 +2,7 @@ import { ColorPalette } from '@repo/ui/ColorPalette';
 import { applyPalette } from '../../stores/mosaic/actions';
 import {
   useCurrentPalette,
-  useCurrentPalettes,
+  useCurrentPalettes
 } from '../../stores/mosaic/selectors';
 
 function PaletteControls() {

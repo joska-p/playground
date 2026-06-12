@@ -28,7 +28,7 @@ const docsByCategory = await getDocsByCategory();
               <span
                 class="border-border bg-card mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-(--color-current)"
                 style={{
-                  '--color-current': `var(--category-${category.id}, var(--color-primary))`,
+                  '--color-current': `var(--category-${category.id}, var(--color-primary))`
                 }}
               >
                 <Icon
@@ -41,7 +41,7 @@ const docsByCategory = await getDocsByCategory();
                   <h2
                     class="m-0 text-xs font-bold text-(--color-current) uppercase"
                     style={{
-                      '--color-current': `var(--category-${category.id}, var(--color-primary))`,
+                      '--color-current': `var(--category-${category.id}, var(--color-primary))`
                     }}
                   >
                     {category.label}

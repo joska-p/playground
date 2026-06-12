@@ -6,7 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
-  GRID_DEFAULT_ROWS,
+  GRID_DEFAULT_ROWS
 } from './core/config';
 import { destroy, init } from './stores/simulation/actions';
 
@@ -21,14 +21,14 @@ function App({
   rows = GRID_DEFAULT_ROWS,
   cols = GRID_DEFAULT_COLS,
   seed,
-  initialDensity,
+  initialDensity
 }: AppProps) {
   useEffect(() => {
     init({
       rows,
       cols,
       initialDensity: initialDensity ?? GRID_DEFAULT_DENSITY,
-      seed: seed ?? Date.now(),
+      seed: seed ?? Date.now()
     });
     return destroy;
   }, [cols, initialDensity, rows, seed]);

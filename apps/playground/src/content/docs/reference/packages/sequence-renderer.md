@@ -52,7 +52,7 @@ export const recamanArcs = {
   name: 'Recamán Arcs',
   draw: (ctx, sequence, bounds) => {
     // Your drawing magic here
-  },
+  }
 };
 ```
 
@@ -97,7 +97,7 @@ export const myViz: Visualization = {
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, 50, 0, Math.PI * 2);
     ctx.fill();
-  },
+  }
 };
 ```
 
@@ -109,7 +109,7 @@ Import and add your visualization to the registry in `src/core/visualizations/in
 import { myViz } from './my-viz';
 
 export const visualizations: Visualization[] = [
-  myViz,
+  myViz
   // ...others
 ];
 ```

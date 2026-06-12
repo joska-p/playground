@@ -8,7 +8,7 @@ import { Sample } from '../sample/Sample';
 
 const cameraOptions = {
   position: [-15, 10, 20],
-  fov: 60,
+  fov: 60
 } as const;
 
 function Scene() {

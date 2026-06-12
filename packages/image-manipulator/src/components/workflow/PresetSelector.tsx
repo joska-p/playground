@@ -9,7 +9,7 @@ function PresetSelector() {
       preset.steps.map((step) => ({
         ...step,
         options: step.options ?? {},
-        uid: crypto.randomUUID(),
+        uid: crypto.randomUUID()
       }))
     );
   }

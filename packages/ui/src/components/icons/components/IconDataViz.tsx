@@ -5,7 +5,7 @@ const bars = [
   { x: 20, h: 42 },
   { x: 34, h: 30 },
   { x: 48, h: 52 },
-  { x: 62, h: 18 },
+  { x: 62, h: 18 }
 ];
 const baseline = 56;
 const barW = 12;
@@ -36,5 +36,5 @@ export const IconDataViz = createIcon({
         />
       ))}
     </>
-  ),
+  )
 });

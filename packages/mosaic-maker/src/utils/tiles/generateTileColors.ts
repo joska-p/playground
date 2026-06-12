@@ -5,7 +5,7 @@ const CSS_VAR_KEYS = [
   '--color-1',
   '--color-2',
   '--color-3',
-  '--color-4',
+  '--color-4'
 ] as const;
 
 function generateTileColors(): [string, string, string, string, string] {
@@ -14,7 +14,7 @@ function generateTileColors(): [string, string, string, string, string] {
     string,
     string,
     string,
-    string,
+    string
   ];
 }
 

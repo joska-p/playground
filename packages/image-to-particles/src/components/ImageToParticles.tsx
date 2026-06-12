@@ -8,12 +8,12 @@ import {
   GRAVITY,
   INITIAL_VELOCITY,
   POSITION_THRESHOLD,
-  RETURN_FORCE,
+  RETURN_FORCE
 } from '../core/config';
 import {
   calculateImageDimensions,
   drawImageToCanvas,
-  initParticles,
+  initParticles
 } from '../core/utils';
 import { useImageUpload } from '../hooks/useImageUpload';
 
@@ -50,10 +50,10 @@ export function ImageToParticles() {
           Math.random() * (INITIAL_VELOCITY.MAX_X - INITIAL_VELOCITY.MIN_X),
         y:
           INITIAL_VELOCITY.MIN_Y +
-          Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y),
+          Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y)
       },
       state: 'waiting',
-      delay: (currentDelay += Math.random() * 5),
+      delay: (currentDelay += Math.random() * 5)
     }));
   }, []);
 

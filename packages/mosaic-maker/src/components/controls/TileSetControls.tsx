@@ -13,7 +13,7 @@ const displayNames: Record<string, string> = {
   Rainbow: 'Rainbow',
   Square: 'Square',
   Triangles: 'Triangles',
-  Cube: 'Cube',
+  Cube: 'Cube'
 };
 
 function TileSetControls() {
@@ -46,7 +46,7 @@ function TileSetControls() {
                   '--color-1',
                   '--color-2',
                   '--color-3',
-                  '--color-4',
+                  '--color-4'
                 ]}
                 className={cn(
                   'opacity-70 transition-opacity',

@@ -14,7 +14,7 @@ export function DirectionalLight() {
         label: 'Intensity',
         min: 0,
         max: 1,
-        step: 0.1,
+        step: 0.1
       },
       color: { value: '#ffffff', label: 'color' },
       x: {
@@ -22,23 +22,23 @@ export function DirectionalLight() {
         label: 'Position X',
         min: -20,
         max: 20,
-        step: 1,
+        step: 1
       },
       y: {
         value: 8,
         label: 'Position Y',
         min: -20,
         max: 20,
-        step: 1,
+        step: 1
       },
       z: {
         value: 0,
         label: 'Position Z',
         min: -20,
         max: 20,
-        step: 1,
-      },
-    }),
+        step: 1
+      }
+    })
   });
 
   return (

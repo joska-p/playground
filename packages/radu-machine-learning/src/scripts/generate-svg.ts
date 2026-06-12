@@ -11,7 +11,7 @@ function generateSVG({
   width = 400,
   height = 400,
   lineWidth = 2,
-  color = '#777777',
+  color = '#777777'
 }: SVGProps): string {
   // Use <polyline> for multi-point paths or construct a single 'd' path string
   const shapes = paths

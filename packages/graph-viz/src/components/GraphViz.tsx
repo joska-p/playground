@@ -18,7 +18,7 @@ import type {
   GraphData,
   GraphLink,
   GraphNode,
-  GraphVisualizationProps,
+  GraphVisualizationProps
 } from './types';
 import { useSimulation } from './useSimulation';
 
@@ -41,7 +41,7 @@ const Scene = ({
   selectedId,
   hoveredId,
   onMeshReady,
-  onCameraReady,
+  onCameraReady
 }: SceneProps) => {
   const { camera } = useThree();
 
@@ -96,7 +96,7 @@ const GraphViz = ({
   width,
   height,
   maxNodes = 4000,
-  onNodeSelect,
+  onNodeSelect
 }: GraphVisualizationProps) => {
   // ── Derived graph data ──────────────────────────────────────────────────────
   const { nodes, links, hyperedges } = useMemo(() => {
@@ -132,7 +132,7 @@ const GraphViz = ({
     links,
     posRef,
     onProgress: setSimProgress,
-    onDone: () => setSimDone(true),
+    onDone: () => setSimDone(true)
   });
 
   // ── Camera ref & setter callback ────────────────────────────────────────────
@@ -189,7 +189,7 @@ const GraphViz = ({
   // ── Render ──────────────────────────────────────────────────────────────────
   const canvasStyle: React.CSSProperties = {
     width: width ?? '100%',
-    height: height ?? '100%',
+    height: height ?? '100%'
   };
 
   return (
@@ -198,7 +198,7 @@ const GraphViz = ({
         position: 'relative',
         width: '100%',
         height: '100%',
-        cursor: hoveredNode ? 'pointer' : 'default',
+        cursor: hoveredNode ? 'pointer' : 'default'
       }}
       onClick={handleClick}
       onMouseMove={handleMouseMove}

@@ -4,7 +4,7 @@ import {
   CAMERA_FAR,
   CAMERA_FOV,
   CAMERA_NEAR,
-  CAMERA_Z,
+  CAMERA_Z
 } from '../../core/config';
 import { uiStore } from '../../stores/ui/store';
 import { Scene } from './Scene.tsx';
@@ -25,7 +25,7 @@ function AutomatonCanvas({ className }: CACanvasProps) {
           height: '100%',
           touchAction: 'manipulation',
           '--ca-alive': stateColors[1] ?? '#d97706',
-          '--ca-dead': stateColors[0] ?? '#070a14',
+          '--ca-dead': stateColors[0] ?? '#070a14'
         } as React.CSSProperties
       }
     >
@@ -35,11 +35,11 @@ function AutomatonCanvas({ className }: CACanvasProps) {
           fov: CAMERA_FOV,
           near: CAMERA_NEAR,
           far: CAMERA_FAR,
-          position: [0, 0, CAMERA_Z],
+          position: [0, 0, CAMERA_Z]
         }}
         gl={{
           preserveDrawingBuffer: true,
-          powerPreference: 'high-performance',
+          powerPreference: 'high-performance'
         }}
       >
         <Scene />

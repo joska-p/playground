@@ -5,7 +5,7 @@ function runFusedPixelBatch({
   source,
   destination,
   pixelCount,
-  batch,
+  batch
 }: {
   source: Uint8ClampedArray;
   destination: Uint8ClampedArray;
@@ -29,7 +29,7 @@ function runFusedPixelBatch({
           red,
           green,
           blue,
-          alpha,
+          alpha
         });
       }
     }
@@ -58,7 +58,7 @@ export class FusionScheduler {
       source: bufferManager.current,
       destination: bufferManager.other,
       pixelCount: bufferManager.width * bufferManager.height,
-      batch: this.batch,
+      batch: this.batch
     });
 
     bufferManager.swap();

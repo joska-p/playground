@@ -4,7 +4,7 @@ import { imageDataToUrl } from '../helpers';
 const STEPS = [
   { id: 'brightness', options: { value: 1.2 } },
   { id: 'contrast', options: { value: 1.3 } },
-  { id: 'sharpen', options: { strength: 1.5 } },
+  { id: 'sharpen', options: { strength: 1.5 } }
 ] as const;
 
 function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {

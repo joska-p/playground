@@ -22,7 +22,7 @@ const PACKAGE_NAMES = {
   'image-pipeline': 'Image Pipeline',
   'three-stage': 'Three Stage',
   'radu-machine-learning': 'Radu Machine Learning',
-  ui: 'UI Components',
+  ui: 'UI Components'
 };
 
 function kebabToTitle(name) {

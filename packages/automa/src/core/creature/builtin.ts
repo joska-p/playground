@@ -3,7 +3,7 @@ import type { Creature } from './types';
 function creatureFactory({
   id,
   name,
-  cells,
+  cells
 }: {
   id: string;
   name: string;
@@ -14,7 +14,7 @@ function creatureFactory({
     name,
     width: cells[0].length,
     height: cells.length,
-    cells,
+    cells
   };
 }
 
@@ -24,8 +24,8 @@ const block = creatureFactory({
   name: 'Block',
   cells: [
     [1, 1],
-    [1, 1],
-  ],
+    [1, 1]
+  ]
 });
 
 const beehive = creatureFactory({
@@ -34,8 +34,8 @@ const beehive = creatureFactory({
   cells: [
     [0, 1, 1, 0],
     [1, 0, 0, 1],
-    [0, 1, 1, 0],
-  ],
+    [0, 1, 1, 0]
+  ]
 });
 
 const loaf = creatureFactory({
@@ -45,15 +45,15 @@ const loaf = creatureFactory({
     [0, 1, 1, 0],
     [1, 0, 0, 1],
     [0, 1, 0, 1],
-    [0, 0, 1, 0],
-  ],
+    [0, 0, 1, 0]
+  ]
 });
 
 // ── Oscillators ──────────────────────────────────────────
 const blinker = creatureFactory({
   id: 'blinker',
   name: 'Blinker',
-  cells: [[1, 1, 1]],
+  cells: [[1, 1, 1]]
 });
 
 const toad = creatureFactory({
@@ -61,8 +61,8 @@ const toad = creatureFactory({
   name: 'Toad',
   cells: [
     [0, 1, 1, 1],
-    [1, 1, 1, 0],
-  ],
+    [1, 1, 1, 0]
+  ]
 });
 
 const beacon = creatureFactory({
@@ -72,8 +72,8 @@ const beacon = creatureFactory({
     [1, 1, 0, 0],
     [1, 1, 0, 0],
     [0, 0, 1, 1],
-    [0, 0, 1, 1],
-  ],
+    [0, 0, 1, 1]
+  ]
 });
 
 // Period-3, beautiful symmetric oscillator
@@ -93,8 +93,8 @@ const pulsar = creatureFactory({
     [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-  ],
+    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
+  ]
 });
 
 // Period-15 — oscillates through 15 distinct phases
@@ -111,8 +111,8 @@ const pentadecathlon = creatureFactory({
     [0, 1, 0],
     [1, 0, 1],
     [0, 1, 0],
-    [0, 1, 0],
-  ],
+    [0, 1, 0]
+  ]
 });
 
 // ── Spaceships ───────────────────────────────────────────
@@ -123,8 +123,8 @@ const glider = creatureFactory({
   cells: [
     [0, 0, 1],
     [1, 0, 1],
-    [0, 1, 1],
-  ],
+    [0, 1, 1]
+  ]
 });
 
 // Travels horizontally, period 4
@@ -135,8 +135,8 @@ const lwss = creatureFactory({
     [0, 1, 1, 1, 1],
     [1, 0, 0, 0, 1],
     [0, 0, 0, 0, 1],
-    [1, 0, 0, 1, 0],
-  ],
+    [1, 0, 0, 1, 0]
+  ]
 });
 
 // Medium-weight spaceship — wider body, same period as LWSS
@@ -148,8 +148,8 @@ const mwss = creatureFactory({
     [1, 0, 0, 0, 1, 0],
     [0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 1],
-    [0, 1, 1, 1, 1, 1],
-  ],
+    [0, 1, 1, 1, 1, 1]
+  ]
 });
 
 // ── Methuselahs ──────────────────────────────────────────
@@ -160,8 +160,8 @@ const rPentomino = creatureFactory({
   cells: [
     [0, 1, 1],
     [1, 1, 0],
-    [0, 1, 0],
-  ],
+    [0, 1, 0]
+  ]
 });
 
 // 7 cells → dies completely after exactly 130 generations
@@ -171,8 +171,8 @@ const diehard = creatureFactory({
   cells: [
     [0, 0, 0, 0, 0, 0, 1, 0],
     [1, 1, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 1, 1, 1],
-  ],
+    [0, 1, 0, 0, 0, 1, 1, 1]
+  ]
 });
 
 // 7 cells → explodes into ~633 cells after 5206 generations
@@ -182,8 +182,8 @@ const acorn = creatureFactory({
   cells: [
     [0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 0, 0, 0],
-    [1, 1, 0, 0, 1, 1, 1],
-  ],
+    [1, 1, 0, 0, 1, 1, 1]
+  ]
 });
 
 // 7 cells → stabilizes after 173 generations
@@ -193,8 +193,8 @@ const piHeptomino = creatureFactory({
   cells: [
     [1, 1, 1],
     [1, 0, 1],
-    [1, 0, 1],
-  ],
+    [1, 0, 1]
+  ]
 });
 
 // 7 cells → stabilizes after 243 generations
@@ -205,8 +205,8 @@ const bHeptomino = creatureFactory({
     [0, 1, 1],
     [1, 1, 0],
     [0, 1, 0],
-    [0, 1, 0],
-  ],
+    [0, 1, 0]
+  ]
 });
 
 // ── Infinite growth ──────────────────────────────────────
@@ -218,41 +218,41 @@ const gosperGliderGun = creatureFactory({
   cells: [
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ],
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ],
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
     ],
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
     ],
     [
       1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ],
     [
       1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ],
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ],
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ],
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ],
-  ],
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ]
+  ]
 });
 
 export {
@@ -277,5 +277,5 @@ export {
   pulsar,
   // Methuselahs
   rPentomino,
-  toad,
+  toad
 };

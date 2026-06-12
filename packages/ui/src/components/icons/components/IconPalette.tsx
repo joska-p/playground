@@ -30,5 +30,5 @@ export const IconPalette = createIcon({
         fill="currentColor"
       />
     </>
-  ),
+  )
 });

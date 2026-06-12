@@ -26,7 +26,7 @@ export function useSimulation({
   links,
   posRef,
   onProgress,
-  onDone,
+  onDone
 }: Options) {
   // Track whether the effect is still mounted so stale worker messages are ignored.
   const activeRef = useRef(true);

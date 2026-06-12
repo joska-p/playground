@@ -100,7 +100,7 @@ const result = await runPipeline(
   [
     { id: 'grayscale' },
     { id: 'brightness', options: { factor: 1.2 } },
-    { id: 'contrast', options: { factor: 1.1 } },
+    { id: 'contrast', options: { factor: 1.1 } }
   ],
   { registry }
 ); // still produces 3 intermediate snapshots

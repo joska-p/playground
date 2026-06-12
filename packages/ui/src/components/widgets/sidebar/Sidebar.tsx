@@ -77,7 +77,7 @@ export function Sidebar({
       closeSidebar,
       panelId,
       desktopPosition: desktopPosition ?? 'bottom',
-      mobilePosition: mobilePosition ?? 'bottom',
+      mobilePosition: mobilePosition ?? 'bottom'
     }),
     [
       isOpen,
@@ -86,7 +86,7 @@ export function Sidebar({
       closeSidebar,
       panelId,
       desktopPosition,
-      mobilePosition,
+      mobilePosition
     ]
   );
 
@@ -94,7 +94,7 @@ export function Sidebar({
     () => ({
       ...style,
       ...(panelWidth && { '--sidebar-width': panelWidth }),
-      ...(panelHeight && { '--sidebar-height': panelHeight }),
+      ...(panelHeight && { '--sidebar-height': panelHeight })
     }),
     [style, panelWidth, panelHeight]
   );

@@ -7,7 +7,7 @@ import { dispatchStep } from './step-dispatcher';
 function buildAutoDownscaleStep({
   source,
   steps,
-  maximumPixels,
+  maximumPixels
 }: {
   source: ImageData;
   steps: Step[];
@@ -22,14 +22,14 @@ function buildAutoDownscaleStep({
 
   return {
     id: 'resize' as const,
-    options: { maximumPixels },
+    options: { maximumPixels }
   };
 }
 
 export async function runPipeline({
   source,
   steps,
-  context,
+  context
 }: {
   source: ImageData;
   steps: Step[];
@@ -38,7 +38,7 @@ export async function runPipeline({
   const downscale = buildAutoDownscaleStep({
     source,
     steps,
-    maximumPixels: context.maximumPixels,
+    maximumPixels: context.maximumPixels
   });
 
   if (downscale) {

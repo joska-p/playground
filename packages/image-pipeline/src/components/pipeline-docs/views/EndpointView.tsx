@@ -16,7 +16,7 @@ function EndpointView({
   activeEndpoint,
   sourceData,
   paramValues,
-  onParamChange,
+  onParamChange
 }: EndpointViewProps) {
   if (activeEndpoint.kind === 'overview') {
     return <OverviewView sourceData={sourceData} />;

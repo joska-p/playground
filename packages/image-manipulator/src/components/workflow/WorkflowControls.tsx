@@ -1,11 +1,11 @@
 import { Button } from '@repo/ui/Button';
 import {
   clearWorkflowSteps,
-  executeWorkflow,
+  executeWorkflow
 } from '../../stores/manipulator/actions';
 import {
   useIsProcessing,
-  useWorkflowSteps,
+  useWorkflowSteps
 } from '../../stores/manipulator/selectors';
 import { WorkflowList } from './WorkflowList';
 

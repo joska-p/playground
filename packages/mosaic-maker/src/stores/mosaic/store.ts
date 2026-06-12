@@ -11,7 +11,7 @@ const mosaicStore = create<MosaicState>(() => ({
   currentPalettes: [initialPalette],
   tileSet: [...initialTileSet],
   tiles: [],
-  isPalettesLoading: true,
+  isPalettesLoading: true
 }));
 
 export { mosaicStore };

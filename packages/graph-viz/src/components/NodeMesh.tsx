@@ -27,7 +27,7 @@ const NodeMesh = ({
   selectedId,
   hoveredId,
   onMeshReady,
-  ref,
+  ref
 }: Props) => {
   const meshRef = useRef<THREE.InstancedMesh>(null!);
 

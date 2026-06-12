@@ -78,7 +78,7 @@ const sequenceStore = create<SequenceState>(() => ({
   sequenceRule: recamanRule,
   steps: 2,
   visualizationId: 'recaman-arcs',
-  sequence: [],
+  sequence: []
 }));
 
 // Getter hooks — reactive selectors
@@ -99,7 +99,7 @@ export function setSequenceSteps(steps: number) {
     sequence: generateSequence(
       state.sequenceRule,
       Math.min(Math.max(steps, 2), max)
-    ),
+    )
   });
 }
 ```

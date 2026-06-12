@@ -8,7 +8,7 @@ function extractTile({
   tileY,
   tileWidth,
   tileHeight,
-  halo,
+  halo
 }: {
   imageData: ImageData;
   tileX: number;
@@ -43,7 +43,7 @@ function blitTile({
   tileY,
   tileWidth,
   tileHeight,
-  halo,
+  halo
 }: {
   destination: ImageData;
   tile: ImageData;
@@ -69,7 +69,7 @@ function blitTile({
 export function runNeighborhoodTiled({
   source,
   definition,
-  options,
+  options
 }: {
   source: ImageData;
   definition: ManipulationDefinition;
@@ -94,7 +94,7 @@ export function runNeighborhoodTiled({
         tileY,
         tileWidth,
         tileHeight,
-        halo,
+        halo
       });
       const tileOutput = new ImageData(tile.width, tile.height);
 
@@ -104,7 +104,7 @@ export function runNeighborhoodTiled({
           source: tile.data,
           destination: tileOutput.data,
           width: tile.width,
-          height: tile.height,
+          height: tile.height
         });
       }
 
@@ -115,7 +115,7 @@ export function runNeighborhoodTiled({
         tileY,
         tileWidth,
         tileHeight,
-        halo,
+        halo
       });
     }
   }

@@ -29,7 +29,7 @@ function Scene() {
         target={[0, 0, 0]}
         mouseButtons={{
           MIDDLE: MOUSE.DOLLY,
-          RIGHT: MOUSE.PAN,
+          RIGHT: MOUSE.PAN
         }}
       />
       <CellMesh />

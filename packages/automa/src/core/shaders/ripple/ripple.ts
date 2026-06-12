@@ -6,7 +6,7 @@ const rippleShader: Shader = {
   id: 'ripple',
   name: 'Ripple',
   vert: vertexShader,
-  frag: fragmentShader,
+  frag: fragmentShader
 };
 
 export { rippleShader };

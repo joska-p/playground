@@ -18,7 +18,7 @@ function UploadDropzone({
   onDragOver,
   onDrop,
   inputRef,
-  onFileChange,
+  onFileChange
 }: UploadDropzoneProps) {
   return (
     <label

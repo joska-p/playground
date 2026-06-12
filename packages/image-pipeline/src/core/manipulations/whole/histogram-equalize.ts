@@ -51,6 +51,6 @@ export const histogramEqualize = defineManip({
     longDescription:
       'Improves contrast by spreading luminance values across the full 0–255 range. Computes the luminance histogram, builds a CDF-based lookup table, and remaps each pixel while preserving per-channel color ratios.',
     defaultArgs: {},
-    argDefinitions: [],
-  },
+    argDefinitions: []
+  }
 });

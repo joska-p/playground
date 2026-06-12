@@ -2,7 +2,7 @@ import type { Root } from 'mdast';
 import { visit } from 'unist-util-visit';
 
 export function remarkBaseUrl({
-  base,
+  base
 }: {
   base: string;
 }): (tree: Root) => void {

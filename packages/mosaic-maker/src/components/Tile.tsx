@@ -11,7 +11,7 @@ export type TileProps = {
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
   const commonProps = {
     fill: `var(${colors[shape.colorIndex]})`,
-    className: 'transition-all duration-500',
+    className: 'transition-all duration-500'
   };
 
   switch (shape.type) {

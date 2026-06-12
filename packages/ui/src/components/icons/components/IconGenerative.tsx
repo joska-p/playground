@@ -27,5 +27,5 @@ export const IconGenerative = createIcon({
         fill="none"
       />
     </>
-  ),
+  )
 });

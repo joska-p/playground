@@ -9,7 +9,7 @@ const cells = [
   { x: 18, y: 28, w: 32, h: 14, op: 0.85 },
   { x: 18, y: 44, w: 16, h: 14, op: 0.35 },
   { x: 36, y: 28, w: 14, h: 30, op: 0.2 },
-  { x: 52, y: 28, w: 26, h: 30, op: 0.55 },
+  { x: 52, y: 28, w: 26, h: 30, op: 0.55 }
 ];
 
 export const IconMosaic = createIcon({
@@ -29,5 +29,5 @@ export const IconMosaic = createIcon({
         />
       ))}
     </>
-  ),
+  )
 });

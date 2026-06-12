@@ -10,10 +10,10 @@ export const cardVariants = variantFactory({
       destructive: 'bg-destructive/10 border-destructive/30',
       outline: 'border-border bg-transparent',
       ghost: 'border-transparent bg-transparent shadow-none',
-      muted: 'bg-muted/30 border-muted-foreground/30 border-dashed',
-    },
+      muted: 'bg-muted/30 border-muted-foreground/30 border-dashed'
+    }
   },
   defaultVariants: {
-    variant: 'primary',
-  },
+    variant: 'primary'
+  }
 });

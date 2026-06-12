@@ -7,7 +7,7 @@ export class BufferManager {
   constructor(source: ImageData) {
     this.buffers = [
       new Uint8ClampedArray(source.data),
-      new Uint8ClampedArray(source.data.length),
+      new Uint8ClampedArray(source.data.length)
     ];
     this.imageWidth = source.width;
     this.imageHeight = source.height;
