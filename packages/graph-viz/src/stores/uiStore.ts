@@ -60,5 +60,5 @@ export const useUiStore = create<UiStore>((set) => ({
 
   setShowNodeLabels: (showNodeLabels) => set({ showNodeLabels }),
 
-  togglePanel: () => set((s) => ({ isPanelOpen: !s.isPanelOpen })),
+  togglePanel: () => set((s) => ({ isPanelOpen: !s.isPanelOpen }))
 }));

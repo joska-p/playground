@@ -1,4 +1,4 @@
-import type { GraphNode, GraphLink } from '../types';
+import type { GraphLink, GraphNode } from '../types';
 
 /**
  * Compute degree (number of incident edges) for each node.
@@ -7,7 +7,7 @@ import type { GraphNode, GraphLink } from '../types';
 export function computeDegrees(
   nodes: GraphNode[],
   links: GraphLink[],
-  nodeIndex: Map<string, number>,
+  nodeIndex: Map<string, number>
 ): Float32Array {
   const degrees = new Float32Array(nodes.length);
   for (const link of links) {
@@ -27,8 +27,8 @@ export function computeDegrees(
 export function degreeToSize(
   degree: number,
   maxDegree: number,
-  minSize = 2,
-  maxSize = 10,
+  minSize = 0.8,
+  maxSize = 3
 ): number {
   if (maxDegree === 0) return minSize;
   return minSize + (degree / maxDegree) * (maxSize - minSize);
@@ -41,7 +41,7 @@ export function degreeToSize(
 export function degreeToBrightness(
   degree: number,
   maxDegree: number,
-  minBrightness = 0.35,
+  minBrightness = 0.35
 ): number {
   if (maxDegree === 0) return 0.7;
   return minBrightness + (degree / maxDegree) * (1 - minBrightness);

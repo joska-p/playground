@@ -14,7 +14,7 @@ function CommunityLabel({
   position,
   fontSize = 1.8,
   color = '#ffffff',
-  offsetY = 2,
+  offsetY = 2
 }: CommunityLabelProps) {
   return (
     <Text

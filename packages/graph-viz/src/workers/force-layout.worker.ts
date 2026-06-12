@@ -29,7 +29,7 @@ function computeLayout(input: LayoutInput): Float32Array {
   const goldenRatio = (1 + Math.sqrt(5)) / 2;
   for (let i = 0; i < n; i++) {
     const theta = (2 * Math.PI * i) / goldenRatio;
-    const phi = Math.acos(1 - 2 * (i + 0.5) / n);
+    const phi = Math.acos(1 - (2 * (i + 0.5)) / n);
     const r = radius * Math.cbrt(i / n);
     positions[i * 3] = center[0] + r * Math.sin(phi) * Math.cos(theta);
     positions[i * 3 + 1] = center[1] + r * Math.sin(phi) * Math.sin(theta);

@@ -1,4 +1,4 @@
-import type { GraphNode, GraphLink, CommunityData } from '../types';
+import type { CommunityData, GraphLink, GraphNode } from '../types';
 import { communityColor } from './colors';
 
 export type InterCommunityEdge = {
@@ -10,7 +10,7 @@ export type InterCommunityEdge = {
 
 export function computeCommunities(
   nodes: GraphNode[],
-  positions: Float32Array,
+  positions: Float32Array
 ): Map<number, CommunityData> {
   // Group node indices by community
   const groups = new Map<number, number[]>();
@@ -43,10 +43,15 @@ export function computeCommunities(
       const sf = nodes[idx]!.source_file;
       if (sf && sf.includes('.Trash-1000')) hasTrash = true;
       const parts = sf ? sf.split('/') : [];
-      const prefix = parts.length >= 2 ? parts.slice(0, 2).join('/') : (parts[0] ?? 'unknown');
+      const prefix =
+        parts.length >= 2
+          ? parts.slice(0, 2).join('/')
+          : (parts[0] ?? 'unknown');
       prefixCounts.set(prefix, (prefixCounts.get(prefix) ?? 0) + 1);
     }
-    const label = [...prefixCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? `C${cid}`;
+    const label =
+      [...prefixCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ??
+      `C${cid}`;
 
     // Radius proportional to node count (cubic root for visual scale)
     const radius = Math.max(0.5, Math.cbrt(indices.length) * 1.5);
@@ -61,7 +66,7 @@ export function computeCommunities(
       nodeIndices: indices,
       hasTrash,
       interCommunityEdgeCount: 0,
-      cohesion: 0,
+      cohesion: 0
     });
   }
 
@@ -72,7 +77,7 @@ export function computeInterCommunityEdges(
   links: GraphLink[],
   nodes: GraphNode[],
   nodeIndex: Map<string, number>,
-  communities: Map<number, CommunityData>,
+  communities: Map<number, CommunityData>
 ): Map<string, InterCommunityEdge> {
   const edgeMap = new Map<string, InterCommunityEdge>();
 
@@ -90,7 +95,12 @@ export function computeInterCommunityEdges(
     if (existing) {
       existing.count++;
     } else {
-      edgeMap.set(key, { sourceCid: sc, targetCid: tc, count: 1, relation: link.relation });
+      edgeMap.set(key, {
+        sourceCid: sc,
+        targetCid: tc,
+        count: 1,
+        relation: link.relation
+      });
     }
   }
 
@@ -150,7 +160,7 @@ export type FilteredSubset = {
  */
 export function normalizeCommunityPositions(
   positions: Float32Array,
-  maxSpread = 15,
+  maxSpread = 15
 ): Float32Array {
   const n = positions.length / 3;
   if (n === 0) return new Float32Array(0);
@@ -195,7 +205,7 @@ export function filterByCommunity(
   positions: Float32Array,
   nodes: GraphNode[],
   links: GraphLink[],
-  degrees?: Float32Array,
+  degrees?: Float32Array
 ): FilteredSubset | null {
   // Build map of which original indices belong to this community
   const communityNodeIds = new Map<string, number>();
@@ -213,7 +223,9 @@ export function filterByCommunity(
   // Build filtered positions
   const filteredPos = new Float32Array(communityIndices.length * 3);
   const filteredNodes: GraphNode[] = [];
-  const filteredDegrees = degrees ? new Float32Array(communityIndices.length) : new Float32Array(0);
+  const filteredDegrees = degrees
+    ? new Float32Array(communityIndices.length)
+    : new Float32Array(0);
 
   for (let i = 0; i < communityIndices.length; i++) {
     const origIdx = communityIndices[i]!;
@@ -228,7 +240,7 @@ export function filterByCommunity(
 
   // Filter links
   const filteredLinks = links.filter(
-    (l) => communityNodeIds.has(l.source) && communityNodeIds.has(l.target),
+    (l) => communityNodeIds.has(l.source) && communityNodeIds.has(l.target)
   );
 
   return {
@@ -236,6 +248,6 @@ export function filterByCommunity(
     nodes: filteredNodes,
     links: filteredLinks,
     nodeIndex: communityNodeIds,
-    degrees: filteredDegrees,
+    degrees: filteredDegrees
   };
 }

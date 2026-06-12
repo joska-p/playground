@@ -1,5 +1,5 @@
-import { BufferGeometry, Float32BufferAttribute } from 'three';
 import type {} from '@react-three/fiber';
+import { BufferGeometry, Float32BufferAttribute } from 'three';
 import type { GraphLink } from '../types';
 
 type GraphEdgesProps = {
@@ -10,7 +10,7 @@ type GraphEdgesProps = {
 
 function GraphEdges({ positions, links, nodeIndex }: GraphEdgesProps) {
   const validLinks = links.filter(
-    (l) => nodeIndex.has(l.source) && nodeIndex.has(l.target),
+    (l) => nodeIndex.has(l.source) && nodeIndex.has(l.target)
   );
 
   const verts = new Float32Array(validLinks.length * 6);
@@ -30,7 +30,12 @@ function GraphEdges({ positions, links, nodeIndex }: GraphEdgesProps) {
 
   return (
     <lineSegments geometry={geometry}>
-      <lineBasicMaterial color="#888888" opacity={0.25} transparent depthWrite={false} />
+      <lineBasicMaterial
+        color="#888888"
+        opacity={0.25}
+        transparent
+        depthWrite={false}
+      />
     </lineSegments>
   );
 }

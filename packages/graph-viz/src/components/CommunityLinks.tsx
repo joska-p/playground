@@ -1,6 +1,6 @@
-import { BufferGeometry, Float32BufferAttribute } from 'three';
-import { useMemo } from 'react';
 import type {} from '@react-three/fiber';
+import { useMemo } from 'react';
+import { BufferGeometry, Float32BufferAttribute } from 'three';
 import { useDataStore } from '../stores/dataStore';
 
 type CommunityLinksProps = {
@@ -49,18 +49,26 @@ function CommunityLinks({ selectedCommunityId }: CommunityLinksProps) {
         count: edge.count,
         geometry,
         color: other.color,
-        opacity: Math.min(0.6, 0.15 + edge.count * 0.02),
+        opacity: Math.min(0.6, 0.15 + edge.count * 0.02)
       });
     }
 
     result.sort((a, b) => b.count - a.count);
     return result;
-  }, [selectedCommunityId, communities, interCommunityEdges, selectedCommunity]);
+  }, [
+    selectedCommunityId,
+    communities,
+    interCommunityEdges,
+    selectedCommunity
+  ]);
 
   return (
     <>
       {links.map((link) => (
-        <lineSegments key={`cross-${selectedCommunityId}-${link.targetCid}`} geometry={link.geometry}>
+        <lineSegments
+          key={`cross-${selectedCommunityId}-${link.targetCid}`}
+          geometry={link.geometry}
+        >
           <lineBasicMaterial
             color={link.color}
             opacity={link.opacity}

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
 import { Card } from '@repo/ui/Card';
@@ -6,6 +5,7 @@ import { Icon } from '@repo/ui/Icon';
 import { Input } from '@repo/ui/Input';
 import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
+import { useMemo } from 'react';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 
@@ -48,9 +48,8 @@ function GraphPanel() {
   }, [communities, minCommunitySize]);
 
   // Selected community info
-  const selectedCommunity = selectedCommunityId !== null
-    ? communities.get(selectedCommunityId)
-    : null;
+  const selectedCommunity =
+    selectedCommunityId !== null ? communities.get(selectedCommunityId) : null;
 
   if (!graphData) return null;
 
@@ -61,17 +60,19 @@ function GraphPanel() {
         size="icon"
         variant="ghost"
         onClick={togglePanel}
-        className="absolute right-3 top-3 z-50"
+        className="absolute top-3 right-3 z-50"
         aria-label={isPanelOpen ? 'Close panel' : 'Open panel'}
       >
-        <Icon name="wrench" className="h-4 w-4" />
+        <Icon
+          name="wrench"
+          className="h-4 w-4"
+        />
       </Button>
 
       {/* Panel */}
       {isPanelOpen && (
-        <Card className="absolute right-3 top-12 z-50 w-72 max-h-[calc(100vh-4rem)] overflow-y-auto backdrop-blur-md">
+        <Card className="absolute top-12 right-3 z-50 max-h-[calc(100vh-4rem)] w-72 overflow-y-auto backdrop-blur-md">
           <div className="flex flex-col gap-4 p-4">
-
             {/* Back to overview (detail mode) */}
             {viewMode === 'detail' && (
               <Button
@@ -138,12 +139,8 @@ function GraphPanel() {
                   ? `1/${communities.size} comm`
                   : `${communityList.length}/${communities.size} comms`}
               </Badge>
-              <Badge variant="secondary">
-                {graphData.nodes.length} nodes
-              </Badge>
-              <Badge variant="secondary">
-                {graphData.links.length} edges
-              </Badge>
+              <Badge variant="secondary">{graphData.nodes.length} nodes</Badge>
+              <Badge variant="secondary">{graphData.links.length} edges</Badge>
             </div>
 
             {/* Selected community info */}
@@ -154,62 +151,79 @@ function GraphPanel() {
                     className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
                     style={{ backgroundColor: selectedCommunity.color }}
                   />
-                  <span className="font-medium truncate">
+                  <span className="truncate font-medium">
                     {selectedCommunity.label}
                   </span>
                 </div>
                 <span className="text-muted-foreground">
-                  Community {selectedCommunity.id} · {selectedCommunity.nodeCount} nodes
+                  Community {selectedCommunity.id} ·{' '}
+                  {selectedCommunity.nodeCount} nodes
                 </span>
                 {selectedCommunity.hasTrash && (
-                  <span className="text-destructive">Contains .Trash files</span>
+                  <span className="text-destructive">
+                    Contains .Trash files
+                  </span>
                 )}
 
                 {/* Linked communities in detail mode */}
-                {viewMode === 'detail' && (() => {
-                  // Find actual inter-community edges for the selected community
-                  const linkedEdges = [...interCommunityEdges.values()]
-                    .filter((e) => e.sourceCid === selectedCommunity.id || e.targetCid === selectedCommunity.id)
-                    .sort((a, b) => b.count - a.count)
-                    .slice(0, 8);
+                {viewMode === 'detail' &&
+                  (() => {
+                    // Find actual inter-community edges for the selected community
+                    const linkedEdges = [...interCommunityEdges.values()]
+                      .filter(
+                        (e) =>
+                          e.sourceCid === selectedCommunity.id ||
+                          e.targetCid === selectedCommunity.id
+                      )
+                      .sort((a, b) => b.count - a.count)
+                      .slice(0, 8);
 
-                  if (linkedEdges.length === 0) return null;
+                    if (linkedEdges.length === 0) return null;
 
-                  return (
-                    <div className="mt-1 flex flex-col gap-1">
-                      <span className="text-muted-foreground text-[10px] uppercase tracking-wider font-medium">
-                        Connected to
-                      </span>
-                      {linkedEdges.map((e) => {
-                        const otherCid = e.sourceCid === selectedCommunity.id ? e.targetCid : e.sourceCid;
-                        const other = communities.get(otherCid);
-                        if (!other) return null;
-                        return (
-                          <button
-                            key={otherCid}
-                            type="button"
-                            onClick={() => setCommunityFilter(String(otherCid))}
-                            className="flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors hover:bg-accent"
-                          >
-                            <span
-                              className="inline-block h-2 w-2 flex-shrink-0 rounded-full"
-                              style={{ backgroundColor: other.color }}
-                            />
-                            <span className="truncate flex-1 text-left">{other.label}</span>
-                            <span className="text-muted-foreground flex-shrink-0">{e.count}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  );
-                })()}
+                    return (
+                      <div className="mt-1 flex flex-col gap-1">
+                        <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
+                          Connected to
+                        </span>
+                        {linkedEdges.map((e) => {
+                          const otherCid =
+                            e.sourceCid === selectedCommunity.id
+                              ? e.targetCid
+                              : e.sourceCid;
+                          const other = communities.get(otherCid);
+                          if (!other) return null;
+                          return (
+                            <button
+                              key={otherCid}
+                              type="button"
+                              onClick={() =>
+                                setCommunityFilter(String(otherCid))
+                              }
+                              className="hover:bg-accent flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
+                            >
+                              <span
+                                className="inline-block h-2 w-2 flex-shrink-0 rounded-full"
+                                style={{ backgroundColor: other.color }}
+                              />
+                              <span className="flex-1 truncate text-left">
+                                {other.label}
+                              </span>
+                              <span className="text-muted-foreground flex-shrink-0">
+                                {e.count}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
               </div>
             )}
 
             {/* Community list (overview mode) */}
             {viewMode === 'overview' && communityList.length > 0 && (
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-medium text-muted-foreground">
+                <span className="text-muted-foreground text-xs font-medium">
                   Communities
                 </span>
                 {communityList.map((c) => (
@@ -217,13 +231,13 @@ function GraphPanel() {
                     key={c.id}
                     type="button"
                     onClick={() => setCommunityFilter(String(c.id))}
-                    className="flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors hover:bg-accent"
+                    className="hover:bg-accent flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors"
                   >
                     <span
                       className="inline-block h-2.5 w-2.5 flex-shrink-0 rounded-full"
                       style={{ backgroundColor: c.color }}
                     />
-                    <span className="truncate flex-1 text-left">{c.label}</span>
+                    <span className="flex-1 truncate text-left">{c.label}</span>
                     <span className="text-muted-foreground flex-shrink-0">
                       {c.nodeCount}
                     </span>
@@ -236,7 +250,9 @@ function GraphPanel() {
             {selectedNode && (
               <div className="flex flex-col gap-1.5 rounded-lg border p-3 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium truncate">{selectedNode.label}</span>
+                  <span className="truncate font-medium">
+                    {selectedNode.label}
+                  </span>
                   <Button
                     size="icon"
                     variant="ghost"
@@ -244,12 +260,21 @@ function GraphPanel() {
                     className="h-5 w-5 flex-shrink-0"
                     aria-label="Deselect"
                   >
-                    <Icon name="close" className="h-3 w-3" />
+                    <Icon
+                      name="close"
+                      className="h-3 w-3"
+                    />
                   </Button>
                 </div>
-                <span className="text-muted-foreground truncate">{selectedNode.id}</span>
-                <span className="text-muted-foreground">{selectedNode.file_type}</span>
-                <span className="text-muted-foreground truncate">{selectedNode.source_file}</span>
+                <span className="text-muted-foreground truncate">
+                  {selectedNode.id}
+                </span>
+                <span className="text-muted-foreground">
+                  {selectedNode.file_type}
+                </span>
+                <span className="text-muted-foreground truncate">
+                  {selectedNode.source_file}
+                </span>
               </div>
             )}
           </div>

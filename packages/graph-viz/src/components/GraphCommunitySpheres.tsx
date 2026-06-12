@@ -1,6 +1,6 @@
-import { useRef, useEffect, useMemo } from 'react';
-import * as THREE from 'three';
 import type {} from '@react-three/fiber';
+import { useEffect, useMemo, useRef } from 'react';
+import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 import { hexToRgb } from '../utils/colors';
@@ -10,7 +10,10 @@ type GraphCommunitySpheresProps = {
   visibleIds?: Set<number> | null;
 };
 
-function GraphCommunitySpheres({ ghost, visibleIds }: GraphCommunitySpheresProps) {
+function GraphCommunitySpheres({
+  ghost,
+  visibleIds
+}: GraphCommunitySpheresProps) {
   const ref = useRef<THREE.InstancedMesh>(null);
   const communities = useDataStore((s) => s.communities);
   const communityFilter = useUiStore((s) => s.communityFilter);
@@ -55,7 +58,10 @@ function GraphCommunitySpheres({ ghost, visibleIds }: GraphCommunitySpheresProps
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   }, [communityList]);
 
-  function handlePointerOver(event: { stopPropagation: () => void; instanceId?: number }) {
+  function handlePointerOver(event: {
+    stopPropagation: () => void;
+    instanceId?: number;
+  }) {
     if (ghost) return;
     event.stopPropagation();
     document.body.style.cursor = 'pointer';
@@ -71,7 +77,10 @@ function GraphCommunitySpheres({ ghost, visibleIds }: GraphCommunitySpheresProps
     setHoveredCommunityId(null);
   }
 
-  function handleClick(event: { stopPropagation: () => void; instanceId?: number }) {
+  function handleClick(event: {
+    stopPropagation: () => void;
+    instanceId?: number;
+  }) {
     if (ghost) return;
     event.stopPropagation();
     if (event.instanceId === undefined) return;

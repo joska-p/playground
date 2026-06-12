@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
-import { Object3D, Color, SphereGeometry, MeshBasicMaterial } from 'three';
-import type { InstancedMesh } from 'three';
 import type { ThreeEvent } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import type { InstancedMesh } from 'three';
+import { Color, MeshBasicMaterial, Object3D, SphereGeometry } from 'three';
 import type { GraphNode } from '../types';
 import { communityColor, hexToRgb } from '../utils/colors';
-import { degreeToSize, degreeToBrightness } from '../utils/nodes';
+import { degreeToBrightness, degreeToSize } from '../utils/nodes';
 
 const sphereGeometry = new SphereGeometry(0.5, 12, 8);
 const baseMaterial = new MeshBasicMaterial();
@@ -26,7 +26,7 @@ function GraphNodes({
   size = 6,
   opacity = 1,
   onNodeClick,
-  onPointerMoveNode,
+  onPointerMoveNode
 }: GraphNodesProps) {
   const meshRef = useRef<InstancedMesh>(null);
   const count = nodes.length;
@@ -68,7 +68,11 @@ function GraphNodes({
       meshRef.current.setMatrixAt(i, dummy.matrix);
 
       const rgb = hexToRgb(communityColor(nodes[i]!.community));
-      color.setRGB(rgb[0] * brightness, rgb[1] * brightness, rgb[2] * brightness);
+      color.setRGB(
+        rgb[0] * brightness,
+        rgb[1] * brightness,
+        rgb[2] * brightness
+      );
       meshRef.current.setColorAt(i, color);
     }
 

@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { WorkerPool } from '@repo/worker-pool';
-import type { GraphData, LayoutInput } from '../types';
+import { useEffect } from 'react';
 import { useDataStore } from '../stores/dataStore';
-import { Scene } from './Scene';
+import type { GraphData, LayoutInput } from '../types';
 import { GraphPanel } from './GraphPanel';
 import { LoadingFallback } from './LoadingFallback';
+import { Scene } from './Scene';
 
 function GraphCanvas() {
   const graphData = useDataStore((s) => s.graphData);
@@ -37,11 +37,11 @@ function GraphCanvas() {
     const pool = new WorkerPool<LayoutInput, Float32Array>({
       workerFactory: () =>
         new Worker(new URL('../workers/force-layout.worker', import.meta.url), {
-          type: 'module',
+          type: 'module'
         }),
       maxPoolSize: 1,
       serialize: (task) => ({ message: task }),
-      deserialize: (event) => ({ ok: true, value: event.data as Float32Array }),
+      deserialize: (event) => ({ ok: true, value: event.data as Float32Array })
     });
 
     pool
@@ -49,7 +49,7 @@ function GraphCanvas() {
         nodes: graphData.nodes,
         links: graphData.links,
         center: [0, 0, 0],
-        radius: 30,
+        radius: 30
       })
       .then((result) => {
         setPositions(result);

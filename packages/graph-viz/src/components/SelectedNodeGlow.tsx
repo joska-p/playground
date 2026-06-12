@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { Sprite } from 'three';
 import { CanvasTexture } from 'three';
 import { useDataStore } from '../stores/dataStore';
@@ -32,14 +32,17 @@ function SelectedNodeGlow() {
     ref.current.position.set(
       positions[idx * 3],
       positions[idx * 3 + 1],
-      positions[idx * 3 + 2],
+      positions[idx * 3 + 2]
     );
   }, [selectedNode, positions, nodeIndex]);
 
   if (!selectedNode) return null;
 
   return (
-    <sprite ref={ref} scale={[12, 12, 1]}>
+    <sprite
+      ref={ref}
+      scale={[12, 12, 1]}
+    >
       <spriteMaterial
         map={texture}
         transparent

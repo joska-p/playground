@@ -1,8 +1,11 @@
 import { create } from 'zustand';
-import type { GraphData, GraphNode, CommunityData } from '../types';
-import { computeCommunities, computeInterCommunityEdges } from '../utils/communities';
-import { computeDegrees } from '../utils/nodes';
+import type { CommunityData, GraphData, GraphNode } from '../types';
 import type { InterCommunityEdge } from '../utils/communities';
+import {
+  computeCommunities,
+  computeInterCommunityEdges
+} from '../utils/communities';
+import { computeDegrees } from '../utils/nodes';
 
 type DataStore = {
   graphData: GraphData | null;
@@ -47,9 +50,15 @@ export const useDataStore = create<DataStore>((set, get) => ({
       graphData.links,
       graphData.nodes,
       nodeIndex,
-      communities,
+      communities
     );
 
-    set({ positions, degrees, communities, interCommunityEdges, isLoaded: true });
-  },
+    set({
+      positions,
+      degrees,
+      communities,
+      interCommunityEdges,
+      isLoaded: true
+    });
+  }
 }));

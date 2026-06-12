@@ -7,7 +7,7 @@ export type GraphNode = {
   source_file: string;
   source_location: string;
   _origin?: string;
-}
+};
 
 export type GraphLink = {
   source: string;
@@ -18,7 +18,7 @@ export type GraphLink = {
   confidence_score?: number;
   source_file?: string;
   source_location?: string;
-}
+};
 
 export type GraphData = {
   directed: boolean;
@@ -36,14 +36,14 @@ export type GraphData = {
   };
   nodes: GraphNode[];
   links: GraphLink[];
-}
+};
 
 export type LayoutInput = {
   nodes: GraphNode[];
   links: GraphLink[];
   center: [number, number, number];
   radius: number;
-}
+};
 
 export type CommunityData = {
   id: number;
@@ -56,4 +56,4 @@ export type CommunityData = {
   hasTrash: boolean;
   interCommunityEdgeCount: number;
   cohesion: number;
-}
+};

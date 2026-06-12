@@ -3,7 +3,11 @@ import { useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
-import { filterByCommunity, normalizeCommunityPositions, parseCommunityFilter } from '../utils/communities';
+import {
+  filterByCommunity,
+  normalizeCommunityPositions,
+  parseCommunityFilter
+} from '../utils/communities';
 import { CommunityEdges } from './CommunityEdges';
 import { CommunityLabel } from './CommunityLabel';
 import { CommunityLinks } from './CommunityLinks';
@@ -49,7 +53,7 @@ function Scene() {
       return new Set(
         [...communities.values()]
           .filter((c) => c.nodeCount >= minCommunitySize)
-          .map((c) => c.id),
+          .map((c) => c.id)
       );
     }
     return null;
@@ -68,9 +72,8 @@ function Scene() {
   }, [communities, viewMode, visibleCommunityIds]);
 
   // Hovered community for label
-  const hoveredCommunity = hoveredCommunityId !== null
-    ? communities.get(hoveredCommunityId)
-    : null;
+  const hoveredCommunity =
+    hoveredCommunityId !== null ? communities.get(hoveredCommunityId) : null;
 
   // Reset camera when going back to overview
   useEffect(() => {
@@ -98,24 +101,31 @@ function Scene() {
       positions,
       graphData.nodes,
       graphData.links,
-      degrees ?? undefined,
+      degrees ?? undefined
     );
     if (!filtered) return null;
     return {
       ...filtered,
-      positions: normalizeCommunityPositions(filtered.positions, COMMUNITY_MAX_SPREAD),
+      positions: normalizeCommunityPositions(
+        filtered.positions,
+        COMMUNITY_MAX_SPREAD
+      )
     };
   }, [viewMode, selectedCommunityId, graphData, positions, degrees]);
 
   // Fly camera to community — distance proportional to actual spread
   useEffect(() => {
-    if (!controlsRef.current || selectedCommunityId === null || !detailData) return;
+    if (!controlsRef.current || selectedCommunityId === null || !detailData)
+      return;
 
     const pos = detailData.positions;
     const n = pos.length / 3;
-    let minX = Infinity, maxX = -Infinity;
-    let minY = Infinity, maxY = -Infinity;
-    let minZ = Infinity, maxZ = -Infinity;
+    let minX = Infinity,
+      maxX = -Infinity;
+    let minY = Infinity,
+      maxY = -Infinity;
+    let minZ = Infinity,
+      maxZ = -Infinity;
     for (let i = 0; i < n; i++) {
       const x = pos[i * 3]!;
       if (x < minX) minX = x;
@@ -158,7 +168,7 @@ function Scene() {
     return [
       detailData.positions[idx * 3],
       detailData.positions[idx * 3 + 1],
-      detailData.positions[idx * 3 + 2],
+      detailData.positions[idx * 3 + 2]
     ];
   }, [selectedNode, detailData]);
 
@@ -167,8 +177,14 @@ function Scene() {
   return (
     <>
       <ambientLight intensity={0.6} />
-      <directionalLight position={[10, 20, 10]} intensity={1.2} />
-      <directionalLight position={[-10, 0, -20]} intensity={0.4} />
+      <directionalLight
+        position={[10, 20, 10]}
+        intensity={1.2}
+      />
+      <directionalLight
+        position={[-10, 0, -20]}
+        intensity={0.4}
+      />
 
       <OrbitControls
         ref={controlsRef}
@@ -219,7 +235,7 @@ function Scene() {
             positions={detailData.positions}
             nodes={detailData.nodes}
             degrees={detailData.degrees}
-            size={10}
+            size={6}
             opacity={1}
             onNodeClick={selectNode}
             onPointerMoveNode={setHoveredNodeIndex}
@@ -254,28 +270,25 @@ function Scene() {
           )}
 
           {/* If showNodeLabels toggle is on, render all */}
-          {showNodeLabels && detailData.nodes.map((node, i) => {
-            // Skip if already shown as hovered/selected
-            if (
-              (hoveredNode && node.id === hoveredNode.id) ||
-              (selectedNode && node.id === selectedNode.id)
-            ) {
-              return null;
-            }
-            const pos = detailData.positions;
-            return (
-              <NodeLabel
-                key={`node-label-${node.id}`}
-                node={node}
-                position={[
-                  pos[i * 3]!,
-                  pos[i * 3 + 1]!,
-                  pos[i * 3 + 2]!,
-                ]}
-                fontSize={0.5}
-              />
-            );
-          })}
+          {showNodeLabels &&
+            detailData.nodes.map((node, i) => {
+              // Skip if already shown as hovered/selected
+              if (
+                (hoveredNode && node.id === hoveredNode.id) ||
+                (selectedNode && node.id === selectedNode.id)
+              ) {
+                return null;
+              }
+              const pos = detailData.positions;
+              return (
+                <NodeLabel
+                  key={`node-label-${node.id}`}
+                  node={node}
+                  position={[pos[i * 3]!, pos[i * 3 + 1]!, pos[i * 3 + 2]!]}
+                  fontSize={0.5}
+                />
+              );
+            })}
         </>
       )}
 

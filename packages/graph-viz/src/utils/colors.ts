@@ -22,7 +22,7 @@ const PALETTE = [
   '#a8dadc',
   '#457b9d',
   '#e63946',
-  '#2a9d8f',
+  '#2a9d8f'
 ] as const;
 
 export function communityColor(community: number): string {
@@ -35,6 +35,6 @@ export function hexToRgb(hex: string): [number, number, number] {
   return [
     Number.parseInt(result[1]!, 16) / 255,
     Number.parseInt(result[2]!, 16) / 255,
-    Number.parseInt(result[3]!, 16) / 255,
+    Number.parseInt(result[3]!, 16) / 255
   ];
 }

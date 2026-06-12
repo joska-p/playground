@@ -1,6 +1,6 @@
+import type {} from '@react-three/fiber';
 import { useMemo } from 'react';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import type {} from '@react-three/fiber';
 import { useDataStore } from '../stores/dataStore';
 import { hexToRgb } from '../utils/colors';
 
@@ -13,12 +13,11 @@ function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
   const interCommunityEdges = useDataStore((s) => s.interCommunityEdges);
 
   const { geometry, hasEdges } = useMemo(() => {
-    const edges = [...interCommunityEdges.values()]
-      .filter((e) => {
-        if (e.count < 2) return false;
-        if (!visibleIds) return true;
-        return visibleIds.has(e.sourceCid) && visibleIds.has(e.targetCid);
-      });
+    const edges = [...interCommunityEdges.values()].filter((e) => {
+      if (e.count < 2) return false;
+      if (!visibleIds) return true;
+      return visibleIds.has(e.sourceCid) && visibleIds.has(e.targetCid);
+    });
     if (edges.length === 0) return { geometry: null, hasEdges: false };
 
     const verts = new Float32Array(edges.length * 6);

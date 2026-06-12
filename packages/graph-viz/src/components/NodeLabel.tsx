@@ -9,7 +9,12 @@ type NodeLabelProps = {
   color?: string;
 };
 
-function NodeLabel({ node, position, fontSize = 0.6, color = '#ffffff' }: NodeLabelProps) {
+function NodeLabel({
+  node,
+  position,
+  fontSize = 0.6,
+  color = '#ffffff'
+}: NodeLabelProps) {
   // Shorten label for display: strip path prefix, keep last segment
   const shortLabel = useMemo(() => {
     const raw = node.label;
