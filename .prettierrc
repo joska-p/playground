@@ -11,7 +11,7 @@
   "singleQuote": true,
   "quoteProps": "as-needed",
   "jsxSingleQuote": false,
-  "trailingComma": "es5",
+  "trailingComma": "",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "always",
