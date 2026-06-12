@@ -373,6 +373,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
+      '@repo/worker-pool':
+        specifier: workspace:*
+        version: link:../worker-pool
       '@types/three':
         specifier: 'catalog:'
         version: 0.184.1

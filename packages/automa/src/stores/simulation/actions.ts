@@ -1,3 +1,4 @@
+import { WorkerPool } from '@repo/worker-pool';
 import {
   GRID_DEFAULT_DENSITY,
   WORKER_MESSAGE_STEP,
@@ -17,9 +18,6 @@ type SimulationInit = {
   seed: number;
 };
 
-let worker: Worker | undefined;
-let intervalId: ReturnType<typeof setInterval> | undefined;
-
 type StepRequest = {
   type: typeof WORKER_MESSAGE_STEP;
   grid: Uint8Array;
@@ -33,6 +31,20 @@ type StepResponse = {
   grid: Uint8Array;
 };
 
+const pool = new WorkerPool<StepRequest, StepResponse>({
+  maxPoolSize: 1,
+  workerFactory: () =>
+    new Worker(new URL('../../core/worker', import.meta.url), { type: 'module' }),
+  serialize: (task) => ({
+    message: task,
+    transfer: [task.grid.buffer]
+  }),
+  deserialize: (event) => {
+    const data = event.data as StepResponse;
+    return { ok: true, value: data };
+  }
+});
+
 const init = (opts: SimulationInit): void => {
   const grid = createGrid(opts.rows, opts.cols);
   seedGrid(grid, opts.initialDensity, opts.seed);
@@ -45,45 +57,25 @@ const init = (opts: SimulationInit): void => {
     seed: opts.seed,
     generation: 0
   });
-
-  worker = new Worker(new URL('../../core/worker', import.meta.url), {
-    type: 'module'
-  });
-
-  worker.onmessage = (e: MessageEvent<StepResponse>) => {
-    if (e.data.type !== WORKER_MESSAGE_STEP) return;
-    const state = simulationStore.getState();
-    simulationStore.setState({
-      grid: e.data.grid,
-      generation: state.generation + 1
-    });
-  };
 };
 
 const destroy = (): void => {
-  if (intervalId) {
-    clearInterval(intervalId);
-    intervalId = undefined;
-  }
-  if (worker) {
-    worker.terminate();
-    worker = undefined;
-  }
+  pool.teardown();
 };
 
-const step = (): void => {
-  if (!worker) return;
+const step = async (): Promise<void> => {
   const state = simulationStore.getState();
-  worker.postMessage(
-    {
-      type: WORKER_MESSAGE_STEP,
-      grid: state.grid,
-      cols: state.cols,
-      rows: state.rows,
-      ruleId: state.ruleId
-    } satisfies StepRequest,
-    [state.grid.buffer]
-  );
+  const response = await pool.run({
+    type: WORKER_MESSAGE_STEP,
+    grid: state.grid,
+    cols: state.cols,
+    rows: state.rows,
+    ruleId: state.ruleId
+  });
+  simulationStore.setState({
+    grid: response.grid,
+    generation: state.generation + 1
+  });
 };
 
 const setRule = (ruleId: string): void => {
@@ -102,17 +94,16 @@ const setRule = (ruleId: string): void => {
   }
 };
 
-const play = (): void => {
+const play = async (): Promise<void> => {
   uiStore.setState({ running: true });
-  intervalId = setInterval(step, uiStore.getState().speedMs);
+  while (uiStore.getState().running) {
+    await step();
+    await new Promise((r) => setTimeout(r, uiStore.getState().speedMs));
+  }
 };
 
 const pause = (): void => {
   uiStore.setState({ running: false });
-  if (intervalId) {
-    clearInterval(intervalId);
-    intervalId = undefined;
-  }
 };
 
 const toggleRunning = (): void => {
@@ -125,10 +116,6 @@ const toggleRunning = (): void => {
 
 const setSpeed = (ms: number): void => {
   uiStore.setState({ speedMs: ms });
-  if (uiStore.getState().running) {
-    pause();
-    play();
-  }
 };
 
 const clear = (): void => {

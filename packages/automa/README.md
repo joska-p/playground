@@ -1,6 +1,6 @@
 # @repo/automa
 
-> Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering.
+> Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping (via `@repo/worker-pool`), Zustand state management, and React Three Fiber rendering.
 
 ## Quick Start
 
@@ -54,8 +54,8 @@ automatonStore (global Zustand singleton)
   └─ Consumer via selectors (useGrid, useRunning, ...)
 
 actions.ts (plain functions, no hooks)
-  ├─ init / destroy — Worker + timer lifecycle
-  ├─ step / play / pause — animation orchestration
+  ├─ init / destroy — WorkerPool lifecycle (via @repo/worker-pool)
+  ├─ step / play / pause — async animation orchestration
   └─ clear / randomize / paintCell / setRule — grid edits
 ```
 
@@ -125,7 +125,7 @@ core/
 
 ## Engine
 
-Simulation runs in a **Web Worker** to avoid blocking the UI thread. The `evolve` function in `engine.ts` is fully generic — it reads `birth[]`/`survive[]` lookups from the rule object and handles multi-state aging via the `stateCount` field.
+Simulation runs in a **Web Worker** (via `@repo/worker-pool`) to avoid blocking the UI thread. The pool is configured with `maxPoolSize: 1` and uses `Transferable` buffers for zero-copy grid transfer. The `evolve` function in `engine.ts` is fully generic — it reads `birth[]`/`survive[]` lookups from the rule object and handles multi-state aging via the `stateCount` field.
 
 ## Color picker
 
