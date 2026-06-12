@@ -14,6 +14,7 @@
 Aggregate communities below a **dynamic size threshold** into a single "Other communities" group when the camera is beyond a certain distance.
 
 The threshold is distance-dependent:
+
 - At default zoom (distance ~60): show communities with >= 3 nodes, cluster the rest
 - At max zoom-out: show communities with >= 10 nodes, cluster the rest
 - At close zoom (distance < 30): show all communities
@@ -23,11 +24,11 @@ The threshold is distance-dependent:
 ```tsx
 export const clustering = {
   enabled: true,
-  minClusterSize: 3,              // communities smaller than this may be clustered
-  clusterDistanceThreshold: 40,   // camera distance below which all communities show
+  minClusterSize: 3, // communities smaller than this may be clustered
+  clusterDistanceThreshold: 40, // camera distance below which all communities show
   clusterLabel: 'Other communities',
   clusterColor: '#555555',
-  clusterOpacity: 0.3,
+  clusterOpacity: 0.3
 } as const;
 ```
 
@@ -45,7 +46,7 @@ const clusteredCommunities = (() => {
 
   const threshold = Math.max(
     clustering.minClusterSize,
-    Math.floor(distance / 10)  // scale threshold with distance
+    Math.floor(distance / 10) // scale threshold with distance
   );
 
   const regular: CommunityData[] = [];
@@ -81,8 +82,8 @@ const clusteredCommunities = (() => {
     cluster: {
       centroid: clusterCentroid,
       nodeCount: clusterNodeCount,
-      count: small.length,
-    },
+      count: small.length
+    }
   };
 })();
 ```
@@ -91,9 +92,11 @@ Then pass the clustered data to `GraphCommunitySpheres`:
 
 ```tsx
 <GraphCommunitySpheres
-  visibleIds={clusteredCommunities
-    ? new Set(clusteredCommunities.regular.map(c => c.id))
-    : visibleCommunityIds}
+  visibleIds={
+    clusteredCommunities
+      ? new Set(clusteredCommunities.regular.map((c) => c.id))
+      : visibleCommunityIds
+  }
   cluster={clusteredCommunities?.cluster}
 />
 ```
@@ -112,7 +115,7 @@ type ClusterInfo = {
 type GraphCommunitySpheresProps = {
   ghost?: boolean;
   visibleIds?: Set<number> | null;
-  cluster?: ClusterInfo;  // new
+  cluster?: ClusterInfo; // new
 };
 ```
 
@@ -123,7 +126,11 @@ When `cluster` is provided, render an additional larger, dim sphere at the clust
 if (cluster) {
   // Set the last instance to the cluster sphere
   const i = communityList.length; // the (N+1)th instance
-  dummy.position.set(cluster.centroid[0], cluster.centroid[1], cluster.centroid[2]);
+  dummy.position.set(
+    cluster.centroid[0],
+    cluster.centroid[1],
+    cluster.centroid[2]
+  );
   const clusterRadius = Math.cbrt(cluster.nodeCount) * 0.5; // approximate visual size
   dummy.scale.setScalar(clusterRadius);
   dummy.updateMatrix();
@@ -135,6 +142,7 @@ if (cluster) {
 ```
 
 ### Files touched
+
 - `src/config.ts` — add `clustering` config
 - `src/components/Scene.tsx` — derive `clusteredCommunities` from camera distance
 - `src/components/GraphCommunitySpheres.tsx` — accept and render `cluster` prop
@@ -178,7 +186,7 @@ The current WorkerPool setup expects a single result message. We need to handle 
 // In @repo/worker-pool
 type WorkerTask<TInput, TOutput> = {
   input: TInput;
-  onProgress?: (progress: number) => void;  // new
+  onProgress?: (progress: number) => void; // new
 };
 ```
 
@@ -197,7 +205,14 @@ useEffect(() => {
     { type: 'module' }
   );
 
-  worker.postMessage({ message: { nodes: graphData.nodes, links: graphData.links, center: [0,0,0], radius: 30 } });
+  worker.postMessage({
+    message: {
+      nodes: graphData.nodes,
+      links: graphData.links,
+      center: [0, 0, 0],
+      radius: 30
+    }
+  });
 
   worker.onmessage = (event) => {
     const msg = event.data;
@@ -301,14 +316,16 @@ function LoadingFallback({ progress }: LoadingFallbackProps) {
   const percent = Math.round(progress * 100);
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-background">
+    <div className="bg-background flex h-full w-full items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-foreground border-t-transparent" />
+        <div className="border-foreground h-8 w-8 animate-spin rounded-full border-2 border-t-transparent" />
         <div className="flex flex-col items-center gap-1">
-          <p className="text-muted-foreground text-sm">Computing graph layout...</p>
-          <div className="h-2 w-48 overflow-hidden rounded-full bg-muted">
+          <p className="text-muted-foreground text-sm">
+            Computing graph layout...
+          </p>
+          <div className="bg-muted h-2 w-48 overflow-hidden rounded-full">
             <div
-              className="h-full rounded-full bg-foreground transition-all duration-300"
+              className="bg-foreground h-full rounded-full transition-all duration-300"
               style={{ width: `${percent}%` }}
             />
           </div>
@@ -335,6 +352,7 @@ if (!isLoaded) {
 ```
 
 ### Files touched
+
 - `src/workers/force-layout.worker.ts` — add progress messages
 - `src/components/GraphCanvas.tsx` — use raw worker with progress listener
 - `src/components/LoadingFallback.tsx` — accept and render progress bar
@@ -349,12 +367,12 @@ if (!isLoaded) {
 
 Check each component's frustum culling setting:
 
-| Component | `frustumCulled` | Should be |
-|-----------|----------------|-----------|
-| `GraphNodes` | `false` (line 111) | `true` (default) |
-| `GraphCommunitySpheres` | not set → default `true` | `true` ✓ |
-| `GraphEdges` | `lineSegments` — no frustumCulled property | N/A |
-| `CommunityEdges` | `lineSegments` — no frustumCulled property | N/A |
+| Component               | `frustumCulled`                            | Should be        |
+| ----------------------- | ------------------------------------------ | ---------------- |
+| `GraphNodes`            | `false` (line 111)                         | `true` (default) |
+| `GraphCommunitySpheres` | not set → default `true`                   | `true` ✓         |
+| `GraphEdges`            | `lineSegments` — no frustumCulled property | N/A              |
+| `CommunityEdges`        | `lineSegments` — no frustumCulled property | N/A              |
 
 ### GraphNodes changes
 
@@ -396,6 +414,7 @@ useEffect(() => {
 ```
 
 ### Files touched
+
 - `src/components/GraphNodes.tsx` — remove `frustumCulled={false}` (or compute proper bounding sphere)
 
 ---
@@ -413,14 +432,14 @@ Use Three.js `LOD` (Level of Detail) object, or simplify: since `InstancedMesh` 
 ```tsx
 export const communitySphere = {
   radius: 1,
-  widthSegments: 16,      // was: 16
-  heightSegments: 12,     // was: 12
+  widthSegments: 16, // was: 16
+  heightSegments: 12, // was: 12
   // LOD settings
   lod: {
-    enabled: false,       // opt-in: requires refactoring InstancedMesh
-    farSegments: 8,       // segments at distance
-    farThreshold: 80,     // switch at this camera distance
-  },
+    enabled: false, // opt-in: requires refactoring InstancedMesh
+    farSegments: 8, // segments at distance
+    farThreshold: 80 // switch at this camera distance
+  }
 } as const;
 ```
 
@@ -450,8 +469,8 @@ The simplest approach with no code complexity: reduce the default segments since
 ```tsx
 export const communitySphere = {
   radius: 1,
-  widthSegments: 8,    // was 16
-  heightSegments: 6,   // was 12
+  widthSegments: 8, // was 16
+  heightSegments: 6 // was 12
   // ...
 };
 ```
@@ -459,6 +478,7 @@ export const communitySphere = {
 Test visually — the spheres at overview scale (< 2% of viewport typically) won't show faceting at 8×6 segments.
 
 ### Files touched
+
 - `src/config.ts` — document LOD config, consider reducing default segments
 - `src/components/GraphCommunitySpheres.tsx` — if implementing dynamic LOD (low priority)
 
@@ -466,18 +486,19 @@ Test visually — the spheres at overview scale (< 2% of viewport typically) won
 
 ## Files Changed Summary
 
-| # | Change | New Files | Modified Files |
-|---|--------|-----------|----------------|
-| 4.1 | Community clustering at zoom-out | — | `config.ts`, `Scene.tsx`, `GraphCommunitySpheres.tsx` |
-| 4.2 | Loading progress | — | `force-layout.worker.ts`, `GraphCanvas.tsx`, `LoadingFallback.tsx` |
-| 4.3 | Frustum culling audit | — | `GraphNodes.tsx` |
-| 4.4 | LOD for community spheres | — | `config.ts` (documentation, low priority) |
+| #   | Change                           | New Files | Modified Files                                                     |
+| --- | -------------------------------- | --------- | ------------------------------------------------------------------ |
+| 4.1 | Community clustering at zoom-out | —         | `config.ts`, `Scene.tsx`, `GraphCommunitySpheres.tsx`              |
+| 4.2 | Loading progress                 | —         | `force-layout.worker.ts`, `GraphCanvas.tsx`, `LoadingFallback.tsx` |
+| 4.3 | Frustum culling audit            | —         | `GraphNodes.tsx`                                                   |
+| 4.4 | LOD for community spheres        | —         | `config.ts` (documentation, low priority)                          |
 
 **Total: 0 new files, ~6 files modified.** (This phase is primarily optimization and polish.)
 
 ## Acceptance Criteria
 
 After Phase 4:
+
 - [ ] Small communities cluster into a single "Other" sphere when camera is zoomed out
 - [ ] Zooming in reveals individual communities
 - [ ] Loading shows a progress bar with percentage

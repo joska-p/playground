@@ -25,9 +25,9 @@ export const communityEdge = {
   coupling: {
     minOpacity: 0.1,
     maxOpacity: 0.9,
-    thicknessTiers: 3,          // render N parallel lines for heavy coupling
-    tierThresholds: [1, 10, 50], // counts per tier
-  },
+    thicknessTiers: 3, // render N parallel lines for heavy coupling
+    tierThresholds: [1, 10, 50] // counts per tier
+  }
 } as const;
 ```
 
@@ -44,7 +44,10 @@ const tierEdges: Record<Tier, InterCommunityEdge[]> = { 0: [], 1: [], 2: [] };
 
 for (const edge of interCommunityEdges.values()) {
   if (edge.count < communityEdge.minCount) continue;
-  if (!visibleIds || (visibleIds.has(edge.sourceCid) && visibleIds.has(edge.targetCid))) {
+  if (
+    !visibleIds ||
+    (visibleIds.has(edge.sourceCid) && visibleIds.has(edge.targetCid))
+  ) {
     if (edge.count >= communityEdge.coupling.tierThresholds[2]) {
       tierEdges[2].push(edge);
     } else if (edge.count >= communityEdge.coupling.tierThresholds[1]) {
@@ -62,17 +65,32 @@ Then render each tier with different visual properties:
 <>
   {/* Tier 0 — weak coupling, thin + faint */}
   <lineSegments geometry={geometries[0]}>
-    <lineBasicMaterial vertexColors transparent opacity={0.1} depthWrite={false} />
+    <lineBasicMaterial
+      vertexColors
+      transparent
+      opacity={0.1}
+      depthWrite={false}
+    />
   </lineSegments>
 
   {/* Tier 1 — medium coupling, medium opacity */}
   <lineSegments geometry={geometries[1]}>
-    <lineBasicMaterial vertexColors transparent opacity={0.4} depthWrite={false} />
+    <lineBasicMaterial
+      vertexColors
+      transparent
+      opacity={0.4}
+      depthWrite={false}
+    />
   </lineSegments>
 
   {/* Tier 2 — strong coupling, thick + bright */}
   <lineSegments geometry={geometries[2]}>
-    <lineBasicMaterial vertexColors transparent opacity={0.8} depthWrite={false} />
+    <lineBasicMaterial
+      vertexColors
+      transparent
+      opacity={0.8}
+      depthWrite={false}
+    />
   </lineSegments>
 </>
 ```
@@ -87,9 +105,10 @@ for (const edge of interCommunityEdges.values()) {
 }
 
 // Per-edge opacity:
-const normalizedOpacity = communityEdge.coupling.minOpacity +
+const normalizedOpacity =
+  communityEdge.coupling.minOpacity +
   (edge.count / maxCount) *
-  (communityEdge.coupling.maxOpacity - communityEdge.coupling.minOpacity);
+    (communityEdge.coupling.maxOpacity - communityEdge.coupling.minOpacity);
 ```
 
 This gives a smoother visual but requires per-edge opacity, which `lineBasicMaterial` can't do per-segment easily. You'd need individual `lineSegments` per edge (too many draw calls) or vertex colors with alpha.
@@ -101,6 +120,7 @@ This gives a smoother visual but requires per-edge opacity, which `lineBasicMate
 The inter-community edges already have `count` — no new data needed.
 
 ### Files touched
+
 - `src/config.ts` — add `coupling` config
 - `src/components/CommunityEdges.tsx` — split rendering by coupling tier
 
@@ -119,11 +139,12 @@ Since nodes are positioned in 3D space, compute the **convex hull** of each hype
 ### Data model
 
 Hyperedge data from `graph.json`:
+
 ```ts
 type Hyperedge = {
   id: string;
   label: string;
-  nodes: string[];       // node IDs
+  nodes: string[]; // node IDs
   relation: string;
   confidence?: string;
   confidence_score?: number;
@@ -140,7 +161,7 @@ type HyperedgeData = {
   id: string;
   label: string;
   confidence?: string;
-  nodeIndices: number[];      // resolved indices into positions array
+  nodeIndices: number[]; // resolved indices into positions array
 };
 
 function computeHyperedgeHull(
@@ -194,12 +215,13 @@ function HyperedgeLayer() {
 
         if (indices.length < 3) return null;
 
-        const points = indices.map((idx) =>
-          new THREE.Vector3(
-            positions[idx * 3],
-            positions[idx * 3 + 1],
-            positions[idx * 3 + 2]
-          )
+        const points = indices.map(
+          (idx) =>
+            new THREE.Vector3(
+              positions[idx * 3],
+              positions[idx * 3 + 1],
+              positions[idx * 3 + 2]
+            )
         );
 
         // Compute centroid for label position
@@ -208,7 +230,9 @@ function HyperedgeLayer() {
         centroid.divideScalar(points.length);
 
         // Compute convex hull for the wireframe
-        const { ConvexGeometry } = require('three/addons/geometries/ConvexGeometry.js');
+        const {
+          ConvexGeometry
+        } = require('three/addons/geometries/ConvexGeometry.js');
         const geometry = new ConvexGeometry(points);
         const edges = new THREE.EdgesGeometry(geometry);
 
@@ -229,7 +253,10 @@ function HyperedgeLayer() {
       {meshes.map((m) => (
         <group key={m.id}>
           {/* Translucent hull */}
-          <mesh geometry={m.edges} frustumCulled={false}>
+          <mesh
+            geometry={m.edges}
+            frustumCulled={false}
+          >
             <meshBasicMaterial
               color={hullColor}
               transparent
@@ -239,7 +266,10 @@ function HyperedgeLayer() {
             />
           </mesh>
           {/* Wireframe overlay */}
-          <lineSegments geometry={m.edges} frustumCulled={false}>
+          <lineSegments
+            geometry={m.edges}
+            frustumCulled={false}
+          >
             <lineBasicMaterial
               color={wireColor}
               transparent
@@ -272,17 +302,19 @@ function HyperedgeLayer() {
 In `src/components/Scene.tsx`, add `HyperedgeLayer` in overview mode:
 
 ```tsx
-{viewMode === 'overview' && (
-  <>
-    <GraphCommunitySpheres visibleIds={visibleCommunityIds} />
-    {showEdges && <CommunityEdges visibleIds={visibleCommunityIds} />}
-    
-    {/* New: hyperedge layer */}
-    <HyperedgeLayer />
+{
+  viewMode === 'overview' && (
+    <>
+      <GraphCommunitySpheres visibleIds={visibleCommunityIds} />
+      {showEdges && <CommunityEdges visibleIds={visibleCommunityIds} />}
 
-    {/* Labels ... */}
-  </>
-)}
+      {/* New: hyperedge layer */}
+      <HyperedgeLayer />
+
+      {/* Labels ... */}
+    </>
+  );
+}
 ```
 
 ### Toggle for hyperedges
@@ -298,7 +330,11 @@ setShowHyperedges: (on: boolean) => void;
 Add a switch in the Display section of the panel:
 
 ```tsx
-<Switch label="Show hyperedges" checked={showHyperedges} onCheckedChange={setShowHyperedges} />
+<Switch
+  label="Show hyperedges"
+  checked={showHyperedges}
+  onCheckedChange={setShowHyperedges}
+/>
 ```
 
 ### Config changes (`src/config.ts`)
@@ -309,11 +345,12 @@ export const hyperedge = {
   hullColor: '#8888ff',
   wireColor: '#aaaaff',
   labelFontSize: 0.8,
-  labelColor: '#aaaaff',
+  labelColor: '#aaaaff'
 } as const;
 ```
 
 ### Files touched
+
 - `src/utils/hyperedges.ts` — new file (hull computation helper)
 - `src/components/HyperedgeLayer.tsx` — new file
 - `src/components/Scene.tsx` — add HyperedgeLayer in overview mode
@@ -330,6 +367,7 @@ export const hyperedge = {
 ### Strategy
 
 Two visual cues:
+
 1. **Isolated nodes** (degree = 0) — render with a dashed outline or a distinct desaturated color
 2. **Low-confidence nodes** (all edges are `INFERRED`) — render with reduced opacity and a warning indicator
 
@@ -351,10 +389,16 @@ export function classifyNodeHealth(
   if (deg === 0) return 'isolated';
 
   // Check if all edges for this node are INFERRED
-  const nodeLinks = links.filter(l => l.source === nodeId || l.target === nodeId);
-  const allInferred = nodeLinks.length > 0 && nodeLinks.every(l =>
-    l.confidence === 'INFERRED' || (l.confidence_score !== undefined && l.confidence_score < 0.3)
+  const nodeLinks = links.filter(
+    (l) => l.source === nodeId || l.target === nodeId
   );
+  const allInferred =
+    nodeLinks.length > 0 &&
+    nodeLinks.every(
+      (l) =>
+        l.confidence === 'INFERRED' ||
+        (l.confidence_score !== undefined && l.confidence_score < 0.3)
+    );
   if (allInferred) return 'low-confidence';
 
   return 'active';
@@ -367,16 +411,16 @@ export function classifyNodeHealth(
 export const nodeHealth = {
   isolated: {
     opacity: 0.4,
-    desaturate: 0.8,       // how much to fade the community color
-    ringColor: '#ff4444',
+    desaturate: 0.8, // how much to fade the community color
+    ringColor: '#ff4444'
   },
   lowConfidence: {
     opacity: 0.6,
-    ringColor: '#ffaa00',
+    ringColor: '#ffaa00'
   },
   active: {
     // normal rendering — no changes
-  },
+  }
 } as const;
 ```
 
@@ -406,6 +450,7 @@ if (health === 'isolated') {
 **The InstancedMesh opacity problem again.** Same as 1.1 — we can't do per-instance opacity easily.
 
 **Solution:** Split into two (or three) instancedMeshes:
+
 - Health group `active` — full opacity (the default)
 - Health group `low-confidence` — reduced opacity
 - Health group `isolated` — further reduced opacity
@@ -418,11 +463,17 @@ const healthGroups = useMemo(() => {
   const groups: Record<NodeHealth, number[]> = {
     active: [],
     'low-confidence': [],
-    isolated: [],
+    isolated: []
   };
 
   for (let i = 0; i < nodes.length; i++) {
-    const health = classifyNodeHealth(nodes[i]!.id, links, degrees, nodeIndex, i);
+    const health = classifyNodeHealth(
+      nodes[i]!.id,
+      links,
+      degrees,
+      nodeIndex,
+      i
+    );
     groups[health].push(i);
   }
   return groups;
@@ -467,6 +518,7 @@ Then render each group:
 For the **health ring**: Add a torus ring (similar to Phase 0.3's file type indicator) colored by health status. This makes isolated/low-confidence nodes visible even at low opacity.
 
 ### Files touched
+
 - `src/utils/nodes.ts` — add `classifyNodeHealth` and `NodeHealth` type
 - `src/config.ts` — add `nodeHealth` config
 - `src/components/GraphNodes.tsx` — split into health groups, add ring indicators
@@ -487,9 +539,15 @@ const insights = (() => {
   if (!graphData || !positions || !degrees) return null;
 
   // Top 10 community concentration
-  const sortedComms = [...communities.values()].sort((a, b) => b.nodeCount - a.nodeCount);
-  const top10Nodes = sortedComms.slice(0, 10).reduce((sum, c) => sum + c.nodeCount, 0);
-  const concentration = ((top10Nodes / graphData.nodes.length) * 100).toFixed(0);
+  const sortedComms = [...communities.values()].sort(
+    (a, b) => b.nodeCount - a.nodeCount
+  );
+  const top10Nodes = sortedComms
+    .slice(0, 10)
+    .reduce((sum, c) => sum + c.nodeCount, 0);
+  const concentration = ((top10Nodes / graphData.nodes.length) * 100).toFixed(
+    0
+  );
 
   // Coupling density
   const totalPossiblePairs = (communities.size * (communities.size - 1)) / 2;
@@ -500,7 +558,13 @@ const insights = (() => {
   let isolated = 0;
   let lowConfidence = 0;
   for (let i = 0; i < graphData.nodes.length; i++) {
-    const health = classifyNodeHealth(graphData.nodes[i]!.id, graphData.links, degrees, nodeIndex, i);
+    const health = classifyNodeHealth(
+      graphData.nodes[i]!.id,
+      graphData.links,
+      degrees,
+      nodeIndex,
+      i
+    );
     if (health === 'isolated') isolated++;
     if (health === 'low-confidence') lowConfidence++;
   }
@@ -510,14 +574,23 @@ const insights = (() => {
   let maxCouplingComm = '';
   for (const [cidStr, edges] of interCommunityEdges) {
     // edges is InterCommunityEdge with .count
-    const comm = communities.get(edges.sourceCid === cidStr ? edges.sourceCid : edges.targetCid);
+    const comm = communities.get(
+      edges.sourceCid === cidStr ? edges.sourceCid : edges.targetCid
+    );
     if (edges.count > maxCoupling) {
       maxCoupling = edges.count;
       maxCouplingComm = comm?.label ?? `Community ${cidStr}`;
     }
   }
 
-  return { concentration, couplingDensity, isolated, lowConfidence, maxCoupling, maxCouplingComm };
+  return {
+    concentration,
+    couplingDensity,
+    isolated,
+    lowConfidence,
+    maxCoupling,
+    maxCouplingComm
+  };
 })();
 ```
 
@@ -548,7 +621,10 @@ Render as a compact insight panel:
     <div className="mt-0.5 border-t pt-1.5 text-[10px]">
       <span className="text-muted-foreground">Strongest coupling: </span>
       <span className="font-medium">{insights.maxCouplingComm}</span>
-      <span className="text-muted-foreground"> ({insights.maxCoupling} edges)</span>
+      <span className="text-muted-foreground">
+        {' '}
+        ({insights.maxCoupling} edges)
+      </span>
     </div>
   )}
 </div>
@@ -557,6 +633,7 @@ Render as a compact insight panel:
 This replaces the raw stat badges, making the panel actually informative about codebase health.
 
 ### Files touched
+
 - `src/components/GraphPanel.tsx` — replace stats badges with computed insights
 
 ---
@@ -578,7 +655,7 @@ export const directedEdge = {
   arrowColor: '#ffffff',
   opacity: 0.5,
   // Only show on edges with directed semantics
-  directedRelations: ['imports', 'imports_from', 'calls', 're_exports'],
+  directedRelations: ['imports', 'imports_from', 'calls', 're_exports']
 } as const;
 ```
 
@@ -598,8 +675,8 @@ type InterCommunityEdge = {
   count: number;
   directed: boolean;
   // New:
-  sourceToTargetCount: number;  // how many edges go sourceCid → targetCid
-  targetToSourceCount: number;  // how many go targetCid → sourceCid
+  sourceToTargetCount: number; // how many edges go sourceCid → targetCid
+  targetToSourceCount: number; // how many go targetCid → sourceCid
 };
 ```
 
@@ -609,7 +686,11 @@ type InterCommunityEdge = {
 
 ```tsx
 // In a new DirectedArrowhead component:
-function DirectedArrowhead({ from, to, color }: {
+function DirectedArrowhead({
+  from,
+  to,
+  color
+}: {
   from: [number, number, number];
   to: [number, number, number];
   color: string;
@@ -620,7 +701,9 @@ function DirectedArrowhead({ from, to, color }: {
     if (!ref.current) return;
     // Point from → to
     const direction = new THREE.Vector3(
-      to[0] - from[0], to[1] - from[1], to[2] - from[2]
+      to[0] - from[0],
+      to[1] - from[1],
+      to[2] - from[2]
     ).normalize();
     ref.current.position.set(to[0], to[1], to[2]);
     ref.current.quaternion.setFromUnitVectors(
@@ -632,7 +715,11 @@ function DirectedArrowhead({ from, to, color }: {
   return (
     <mesh ref={ref}>
       <coneGeometry args={[0.15, 0.3, 6]} />
-      <meshBasicMaterial color={color} transparent opacity={0.5} />
+      <meshBasicMaterial
+        color={color}
+        transparent
+        opacity={0.5}
+      />
     </mesh>
   );
 }
@@ -656,7 +743,7 @@ export function computeInterCommunityEdges(...) {
   // Track direction:
   if (sourceComm === targetComm) continue;
   const key = `${Math.min(sourceComm, targetComm)}-${Math.max(sourceComm, targetComm)}`;
-  
+
   if (!map.has(key)) {
     map.set(key, {
       sourceCid: sourceComm,
@@ -667,7 +754,7 @@ export function computeInterCommunityEdges(...) {
       targetToSourceCount: 0,
     });
   }
-  
+
   const entry = map.get(key)!;
   entry.count++;
   if (link.source === sourceNodeId) {
@@ -686,6 +773,7 @@ export function computeInterCommunityEdges(...) {
 **Recommendation:** For Phase 3.5, start with inter-community edge direction only. Intra-community edges are numerous and arrowheads at scale would be visual noise. Inter-community edges (fewer in number) benefit more from showing "who depends on who."
 
 ### Files touched
+
 - `src/config.ts` — add `directedEdge` config
 - `src/utils/communities.ts` — extend `InterCommunityEdge` type and computation
 - `src/components/CommunityEdges.tsx` — add arrowhead rendering at the dominant direction end
@@ -694,19 +782,20 @@ export function computeInterCommunityEdges(...) {
 
 ## Files Changed Summary
 
-| # | Change | New Files | Modified Files |
-|---|--------|-----------|----------------|
-| 3.1 | Coupling heatmap | — | `config.ts`, `CommunityEdges.tsx` |
-| 3.2 | Hyperedge layer | `utils/hyperedges.ts`, `HyperedgeLayer.tsx` | `Scene.tsx`, `uiStore.ts`, `GraphPanel.tsx`, `config.ts` |
-| 3.3 | Dead-code visualization | — | `utils/nodes.ts`, `config.ts`, `GraphNodes.tsx` |
-| 3.4 | Stats → insights | — | `GraphPanel.tsx` |
-| 3.5 | Directional edges | — | `config.ts`, `utils/communities.ts`, `CommunityEdges.tsx` |
+| #   | Change                  | New Files                                   | Modified Files                                            |
+| --- | ----------------------- | ------------------------------------------- | --------------------------------------------------------- |
+| 3.1 | Coupling heatmap        | —                                           | `config.ts`, `CommunityEdges.tsx`                         |
+| 3.2 | Hyperedge layer         | `utils/hyperedges.ts`, `HyperedgeLayer.tsx` | `Scene.tsx`, `uiStore.ts`, `GraphPanel.tsx`, `config.ts`  |
+| 3.3 | Dead-code visualization | —                                           | `utils/nodes.ts`, `config.ts`, `GraphNodes.tsx`           |
+| 3.4 | Stats → insights        | —                                           | `GraphPanel.tsx`                                          |
+| 3.5 | Directional edges       | —                                           | `config.ts`, `utils/communities.ts`, `CommunityEdges.tsx` |
 
 **Total: 2 new files, ~9 files modified.**
 
 ## Acceptance Criteria
 
 After Phase 3:
+
 - [ ] Inter-community edges visually encode coupling strength (thick/bright vs thin/faint)
 - [ ] Hyperedge hulls are visible in overview mode when toggled on
 - [ ] Isolated nodes (degree = 0) are visually distinct (dim + red ring)

@@ -8,7 +8,7 @@
 
 ## 0.1 — Edge color by relation type
 
-**Why:** 11 relation types (`imports`, `calls`, `references`, etc.) all render as `#888888` lines. The user can't tell *how* two things are connected without clicking and checking the panel. This is the single highest-leverage visual change.
+**Why:** 11 relation types (`imports`, `calls`, `references`, etc.) all render as `#888888` lines. The user can't tell _how_ two things are connected without clicking and checking the panel. This is the single highest-leverage visual change.
 
 ### Config changes (`src/config.ts`)
 
@@ -18,23 +18,23 @@ Add a relation-to-color palette. Group related types into hue families so the ey
 // Grouped by semantic family — import-related, call-related, structure, similarity
 export const relationPalette: Record<string, string> = {
   // Import family — blues
-  imports:            '#4cc9f0',
-  imports_from:       '#3aa8d0',
-  re_exports:         '#2d8bb5',
+  imports: '#4cc9f0',
+  imports_from: '#3aa8d0',
+  re_exports: '#2d8bb5',
 
   // Call/use family — greens
-  calls:              '#06d6a0',
-  references:         '#2a9d8f',
-  uses:               '#81b29a',
+  calls: '#06d6a0',
+  references: '#2a9d8f',
+  uses: '#81b29a',
 
   // Structure family — oranges/yellows
-  contains:           '#f77f00',
-  method:             '#ffd166',
-  implements:         '#e85d04',
+  contains: '#f77f00',
+  method: '#ffd166',
+  implements: '#e85d04',
 
   // Similarity family — purples
   conceptually_related_to: '#9b5de5',
-  semantically_similar_to: '#7b3bc0',
+  semantically_similar_to: '#7b3bc0'
 } as const;
 
 // Fallback for unknown relations
@@ -42,15 +42,16 @@ export const relationFallbackColor = '#666666';
 ```
 
 Add a config for the opacity base:
+
 ```ts
 export const graphEdge = {
-  color: '#888888',         // kept as fallback
-  opacity: 0.25,            // kept
+  color: '#888888', // kept as fallback
+  opacity: 0.25, // kept
   opacityByConfidence: {
     CONFIDENT: 0.3,
     INFERRED: 0.1,
-    default: 0.15,
-  },
+    default: 0.15
+  }
 } as const;
 ```
 
@@ -90,7 +91,7 @@ for (let i = 0; i < validLinks.length; i++) {
   const ti = nodeIndex.get(link.target)!;
 
   // Position
-  verts[i * 6]     = positions[si * 3];
+  verts[i * 6] = positions[si * 3];
   verts[i * 6 + 1] = positions[si * 3 + 1];
   verts[i * 6 + 2] = positions[si * 3 + 2];
   verts[i * 6 + 3] = positions[ti * 3];
@@ -100,7 +101,7 @@ for (let i = 0; i < validLinks.length; i++) {
   // Color from relation type
   const hex = relationPalette[link.relation] ?? relationFallbackColor;
   color.set(hex);
-  colors[i * 6]     = color.r;
+  colors[i * 6] = color.r;
   colors[i * 6 + 1] = color.g;
   colors[i * 6 + 2] = color.b;
   colors[i * 6 + 3] = color.r;
@@ -114,6 +115,7 @@ geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 ```
 
 Keep the material but switch to `vertexColors`:
+
 ```tsx
 <lineBasicMaterial
   vertexColors
@@ -128,6 +130,7 @@ The `opacity` will be the base; confidence adjustments happen in 0.2.
 **Also update `HighlightedEdges.tsx`** similarly — use the relation color of the highlighted edge instead of white.
 
 ### Files touched
+
 - `src/config.ts` — add `relationPalette`, `relationFallbackColor`, extend `graphEdge`
 - `src/components/GraphEdges.tsx` — add vertex colors from relation type
 - `src/components/HighlightedEdges.tsx` — use relation color instead of hardcoded white
@@ -157,11 +160,9 @@ The simplest approach that avoids per-edge alpha complexity: **render two separa
 ```ts
 // Split links by confidence
 const confidentLinks = validLinks.filter(
-  l => !l.confidence || l.confidence === 'CONFIDENT'
+  (l) => !l.confidence || l.confidence === 'CONFIDENT'
 );
-const inferredLinks = validLinks.filter(
-  l => l.confidence === 'INFERRED'
-);
+const inferredLinks = validLinks.filter((l) => l.confidence === 'INFERRED');
 ```
 
 Then render two `<lineSegments>` groups with different opacity:
@@ -196,6 +197,7 @@ Both groups use the same vertex-color encoding from 0.1 — the only difference 
 **Future enhancement:** Later (Phase 3), nodes connected only via inferred edges can get a distinct visual treatment (dashed outline, desaturated color).
 
 ### Files touched
+
 - `src/config.ts` — already extended in 0.1 with `opacityByConfidence`
 - `src/components/GraphEdges.tsx` — split rendering into two confidence tiers
 
@@ -219,11 +221,11 @@ Node sphere (size = degree, color = community)
 
 ```ts
 export const fileTypeIndicator = {
-  code:     { color: '#000000', opacity: 0 },     // invisible — code is the default, no badge needed
-  document: { color: '#4cc9f0', opacity: 0.7 },    // blue ring
-  image:    { color: '#06d6a0', opacity: 0.7 },    // green ring
+  code: { color: '#000000', opacity: 0 }, // invisible — code is the default, no badge needed
+  document: { color: '#4cc9f0', opacity: 0.7 }, // blue ring
+  image: { color: '#06d6a0', opacity: 0.7 }, // green ring
   torusRadius: 0.7,
-  torusTube: 0.04,
+  torusTube: 0.04
 } as const;
 ```
 
@@ -342,6 +344,7 @@ In `src/components/Scene.tsx`, add the component alongside `GraphNodes` in detai
 ```
 
 ### Files touched
+
 - `src/config.ts` — add `fileTypeIndicator`
 - `src/components/NodeTypeIndicators.tsx` — new file
 - `src/components/Scene.tsx` — add NodeTypeIndicators in detail mode
@@ -384,7 +387,7 @@ function ColorLegend() {
   const [collapsed, setCollapsed] = useState(false);
 
   const list = [...communities.values()]
-    .filter(c => c.nodeCount >= minCommunitySize)
+    .filter((c) => c.nodeCount >= minCommunitySize)
     .sort((a, b) => b.nodeCount - a.nodeCount)
     .slice(0, 50);
 
@@ -414,7 +417,9 @@ function ColorLegend() {
                 style={{ backgroundColor: c.color }}
               />
               <span className="flex-1 truncate text-left">{c.label}</span>
-              <span className="text-muted-foreground flex-shrink-0">{c.nodeCount}</span>
+              <span className="text-muted-foreground flex-shrink-0">
+                {c.nodeCount}
+              </span>
             </button>
           ))}
         </div>
@@ -425,6 +430,7 @@ function ColorLegend() {
 ```
 
 **Key behaviors:**
+
 - Clicking a swatch navigates to that community's detail mode (same as clicking the sphere)
 - Collapsible so it doesn't dominate the panel
 - Respects `minCommunitySize` filter
@@ -436,16 +442,19 @@ function ColorLegend() {
 In `GraphPanel.tsx`, **replace the existing "Communities" list** (lines 223-246) with the new `ColorLegend` component. The existing list is nearly identical in function but lacks the color-name association in the heading — the legend makes the purpose explicit.
 
 Before:
+
 ```
 <Communities> list (generic section)
 ```
 
 After (import + use):
+
 ```tsx
 <ColorLegend />
 ```
 
 ### Files touched
+
 - `src/components/ColorLegend.tsx` — new file
 - `src/components/GraphPanel.tsx` — replace community list with ColorLegend
 
@@ -464,10 +473,10 @@ export const communityLabel = {
   // ... existing values ...
   smartLabel: {
     enabled: true,
-    baseThreshold: 10,           // show label if nodeCount >= this at default zoom
-    distanceScale: 0.05,         // additional threshold per unit of camera distance
-    maxLabels: 40,               // absolute cap to prevent clutter
-  },
+    baseThreshold: 10, // show label if nodeCount >= this at default zoom
+    distanceScale: 0.05, // additional threshold per unit of camera distance
+    maxLabels: 40 // absolute cap to prevent clutter
+  }
 } as const;
 ```
 
@@ -528,6 +537,7 @@ Then `cameraDistance` is available for the label computation. The `useFrame` app
 **Note:** `useFrame` only fires when the R3F canvas is rendering. This is fine — if the user isn't interacting, labels don't need to recalculate.
 
 ### Files touched
+
 - `src/config.ts` — add `smartLabel` config
 - `src/components/Scene.tsx` — replace label computation with distance-aware version
 
@@ -535,19 +545,20 @@ Then `cameraDistance` is available for the label computation. The `useFrame` app
 
 ## Summary of Phase 0 Changes
 
-| # | Change | New Files | Modified Files | Draw Calls Added |
-|---|--------|-----------|----------------|-----------------|
-| 0.1 | Edge color by relation | — | `config.ts`, `GraphEdges.tsx`, `HighlightedEdges.tsx` | 0 (same geometry, added vertex colors) |
-| 0.2 | Edge opacity by confidence | — | `GraphEdges.tsx` | +1 (split into confident/inferred) |
-| 0.3 | File type indicators | `NodeTypeIndicators.tsx` | `config.ts`, `Scene.tsx` | +2 (up to 2 instancedMeshes) |
-| 0.4 | Color legend | `ColorLegend.tsx` | `GraphPanel.tsx` | 0 (DOM only) |
-| 0.5 | Smart labels | — | `config.ts`, `Scene.tsx` | 0 |
+| #   | Change                     | New Files                | Modified Files                                        | Draw Calls Added                       |
+| --- | -------------------------- | ------------------------ | ----------------------------------------------------- | -------------------------------------- |
+| 0.1 | Edge color by relation     | —                        | `config.ts`, `GraphEdges.tsx`, `HighlightedEdges.tsx` | 0 (same geometry, added vertex colors) |
+| 0.2 | Edge opacity by confidence | —                        | `GraphEdges.tsx`                                      | +1 (split into confident/inferred)     |
+| 0.3 | File type indicators       | `NodeTypeIndicators.tsx` | `config.ts`, `Scene.tsx`                              | +2 (up to 2 instancedMeshes)           |
+| 0.4 | Color legend               | `ColorLegend.tsx`        | `GraphPanel.tsx`                                      | 0 (DOM only)                           |
+| 0.5 | Smart labels               | —                        | `config.ts`, `Scene.tsx`                              | 0                                      |
 
 **Total: 3 new files, ~7 files modified. At most 3 additional draw calls.**
 
 ## Acceptance criteria
 
 After Phase 0:
+
 - [ ] Edge colors distinguish `imports` from `calls` from `references` at a glance
 - [ ] Low-confidence edges are visibly fainter than confident ones
 - [ ] Document and image nodes have visible rings in detail mode

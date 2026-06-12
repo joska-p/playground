@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useRef } from 'react';
 import type { InstancedMesh } from 'three';
 import { Color, Object3D, TorusGeometry } from 'three';
-import { degree, fileTypeColors, nodes as nodeConfig, torusRing } from '../config';
+import {
+  degree,
+  fileTypeColors,
+  nodes as nodeConfig,
+  torusRing
+} from '../config';
 import type { GraphNode } from '../types';
 import { degreeToSize } from '../utils/nodes';
 

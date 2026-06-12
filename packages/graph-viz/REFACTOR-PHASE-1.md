@@ -12,6 +12,7 @@
 ### Strategy
 
 Search becomes a cross-cutting concern. When `searchQuery` changes, the Scene computes two sets:
+
 - `matchingNodeIds` — nodes whose label or id contains the query (case-insensitive)
 - `matchingCommunityIds` — communities whose label or id contains the query
 
@@ -62,6 +63,7 @@ const searchMatch = (() => {
 ### Component changes
 
 **`GraphCommunitySpheres.tsx`** — accept a `highlightIds?: Set<number>` prop:
+
 - When `highlightIds` is set, non-matching spheres get `ghostOpacity` (0.12)
 - Matching spheres stay at full opacity
 
@@ -69,7 +71,7 @@ const searchMatch = (() => {
 // In the useEffect that sets up instances:
 const isHighlighted = highlightIds === null || highlightIds.has(c.id);
 const opacity = isHighlighted ? 1 : communitySphere.ghostOpacity;
-// Apply opacity per instance... 
+// Apply opacity per instance...
 ```
 
 **Problem:** InstancedMesh doesn't support per-instance opacity easily (it's a material property, not per-instance). Options:
@@ -83,7 +85,7 @@ Option A is simpler and the toggle happens infrequently (on search query change,
 ```tsx
 function GraphCommunitySpheres({ ghost, visibleIds, highlightIds }: Props) {
   const ref = useRef<THREE.InstancedMesh>(null);
-  
+
   // Split into two groups when highlightIds is active
   const { regularIds, dimmedIds } = useMemo(() => {
     if (!highlightIds) return { regularIds: null, dimmedIds: null };
@@ -98,20 +100,34 @@ function GraphCommunitySpheres({ ghost, visibleIds, highlightIds }: Props) {
 
   // If no highlight filter, render single mesh (current behavior)
   if (!highlightIds) {
-    return <SingleMesh communities={communityList} ghost={ghost} />;
+    return (
+      <SingleMesh
+        communities={communityList}
+        ghost={ghost}
+      />
+    );
   }
 
   // If highlight filter is active, render two meshes
   return (
     <>
-      <InstanceMeshGroup communities={communityList.filter(c => highlightIds.has(c.id))} opacity={1} ghost={ghost} />
-      <InstanceMeshGroup communities={communityList.filter(c => !highlightIds.has(c.id))} opacity={ghostOpacity} ghost={ghost} />
+      <InstanceMeshGroup
+        communities={communityList.filter((c) => highlightIds.has(c.id))}
+        opacity={1}
+        ghost={ghost}
+      />
+      <InstanceMeshGroup
+        communities={communityList.filter((c) => !highlightIds.has(c.id))}
+        opacity={ghostOpacity}
+        ghost={ghost}
+      />
     </>
   );
 }
 ```
 
 **`GraphNodes.tsx`** — accept a `highlightIndices?: Set<number>` prop (already exists for selected-node highlighting):
+
 - Extend the existing highlight mechanism
 - When a search query is active AND no node is selected, use the search match set as the highlight
 - Non-matching nodes get dimmed (brightness 0.15 instead of the normal brightness)
@@ -127,6 +143,7 @@ const brightness = isHighlighted
 ```
 
 ### Files touched
+
 - `src/components/Scene.tsx` — compute `searchMatch` derived sets from `searchQuery`
 - `src/components/GraphCommunitySpheres.tsx` — accept `highlightIds` prop, render dimmed layer when active
 - `src/components/GraphNodes.tsx` — existing `highlightIndices` already handles the behavior, just needs the right data passed
@@ -145,18 +162,20 @@ Add a local search state for communities, separate from the global node search:
 const [communitySearch, setCommunitySearch] = useState('');
 
 // In the render, before the community list / ColorLegend:
-{viewMode === 'overview' && (
-  <>
-    <Input
-      placeholder="Filter communities..."
-      value={communitySearch}
-      onChange={(e) => setCommunitySearch(e.target.value)}
-      fullWidth
-    />
-    {/* The community list / ColorLegend */}
-    <ColorLegend searchFilter={communitySearch} />
-  </>
-)}
+{
+  viewMode === 'overview' && (
+    <>
+      <Input
+        placeholder="Filter communities..."
+        value={communitySearch}
+        onChange={(e) => setCommunitySearch(e.target.value)}
+        fullWidth
+      />
+      {/* The community list / ColorLegend */}
+      <ColorLegend searchFilter={communitySearch} />
+    </>
+  );
+}
 ```
 
 **Note:** The community search is a **local** `useState` in `GraphPanel`, not in the store. It's a panel-only concern — no need to add it to `uiStore`.
@@ -171,14 +190,11 @@ type ColorLegendProps = {
 function ColorLegend({ searchFilter = '' }: ColorLegendProps) {
   // ...
   const list = [...communities.values()]
-    .filter(c => c.nodeCount >= minCommunitySize)
-    .filter(c => {
+    .filter((c) => c.nodeCount >= minCommunitySize)
+    .filter((c) => {
       if (!searchFilter) return true;
       const q = searchFilter.toLowerCase();
-      return (
-        c.label.toLowerCase().includes(q) ||
-        String(c.id).includes(q)
-      );
+      return c.label.toLowerCase().includes(q) || String(c.id).includes(q);
     })
     .sort((a, b) => b.nodeCount - a.nodeCount)
     .slice(0, 50);
@@ -199,6 +215,7 @@ function ColorLegend({ searchFilter = '' }: ColorLegendProps) {
 ```
 
 ### Files touched
+
 - `src/components/GraphPanel.tsx` — add community search Input + state
 - `src/components/ColorLegend.tsx` — accept `searchFilter` prop and apply it
 
@@ -211,6 +228,7 @@ function ColorLegend({ searchFilter = '' }: ColorLegendProps) {
 ### Strategy
 
 A DOM overlay (not a 3D element) that appears when a node is hovered. It shows:
+
 - Node label (short)
 - File type (with icon/color)
 - Community label
@@ -223,6 +241,7 @@ Since the hover info already exists in Scene (`hoveredNode`, `hoveredNodePos`), 
 ### Store changes
 
 The hover state is already in `uiStore`:
+
 - `hoveredNodeIndex: number | null`
 - `selectors` can derive the node data from `dataStore`
 
@@ -248,7 +267,7 @@ function NodeTooltip() {
   const community = communities.get(node.community);
 
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-50 rounded-lg border bg-background/80 p-3 text-xs shadow-lg backdrop-blur-sm">
+    <div className="bg-background/80 pointer-events-none fixed right-4 bottom-4 z-50 rounded-lg border p-3 text-xs shadow-lg backdrop-blur-sm">
       <div className="flex items-center gap-2">
         {community && (
           <span
@@ -287,6 +306,7 @@ return (
 Note: The tooltip uses `pointer-events-none` so it doesn't steal clicks from the panel or canvas.
 
 ### Files touched
+
 - `src/components/NodeTooltip.tsx` — new file
 - `src/components/GraphCanvas.tsx` — add NodeTooltip
 
@@ -295,6 +315,7 @@ Note: The tooltip uses `pointer-events-none` so it doesn't steal clicks from the
 ## 1.4 — Better node info panel
 
 **Why:** When a node is selected, the panel shows `id`, `file_type`, `source_file`. It omits:
+
 - Degree count (number of connections)
 - Community label and color
 - Connected neighbors (top-N)
@@ -390,12 +411,14 @@ Replace the current "Selected node info" section (lines 249-278) with an enriche
 ```
 
 New data store selectors needed:
+
 ```tsx
 const nodeIndex = useDataStore((s) => s.nodeIndex);
 const degrees = useDataStore((s) => s.degrees);
 ```
 
 ### Files touched
+
 - `src/components/GraphPanel.tsx` — enrich the selected node info section
 
 ---
@@ -457,7 +480,14 @@ export function useKeyboardShortcuts() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [communityFilter, setCommunityFilter, selectNode, togglePanel, setSearchQuery, searchQuery]);
+  }, [
+    communityFilter,
+    setCommunityFilter,
+    selectNode,
+    togglePanel,
+    setSearchQuery,
+    searchQuery
+  ]);
 }
 ```
 
@@ -482,6 +512,7 @@ function GraphCanvas() {
 ```
 
 ### Files touched
+
 - `src/hooks/useKeyboardShortcuts.ts` — new file
 - `src/components/GraphCanvas.tsx` — add hook call
 
@@ -489,19 +520,20 @@ function GraphCanvas() {
 
 ## Files Changed Summary
 
-| # | Change | New Files | Modified Files |
-|---|--------|-----------|----------------|
-| 1.1 | Search highlights in 3D | — | `Scene.tsx`, `GraphCommunitySpheres.tsx`, `GraphNodes.tsx` |
-| 1.2 | Community search in panel | — | `GraphPanel.tsx`, `ColorLegend.tsx` |
-| 1.3 | Node hover tooltip | `NodeTooltip.tsx` | `GraphCanvas.tsx` |
-| 1.4 | Better node info panel | — | `GraphPanel.tsx` |
-| 1.5 | Keyboard shortcuts | `useKeyboardShortcuts.ts` | `GraphCanvas.tsx` |
+| #   | Change                    | New Files                 | Modified Files                                             |
+| --- | ------------------------- | ------------------------- | ---------------------------------------------------------- |
+| 1.1 | Search highlights in 3D   | —                         | `Scene.tsx`, `GraphCommunitySpheres.tsx`, `GraphNodes.tsx` |
+| 1.2 | Community search in panel | —                         | `GraphPanel.tsx`, `ColorLegend.tsx`                        |
+| 1.3 | Node hover tooltip        | `NodeTooltip.tsx`         | `GraphCanvas.tsx`                                          |
+| 1.4 | Better node info panel    | —                         | `GraphPanel.tsx`                                           |
+| 1.5 | Keyboard shortcuts        | `useKeyboardShortcuts.ts` | `GraphCanvas.tsx`                                          |
 
 **Total: 2 new files, ~6 files modified.**
 
 ## Acceptance Criteria
 
 After Phase 1:
+
 - [ ] Typing a search query dims non-matching communities/nodes in the 3D scene
 - [ ] Clearing the search restores full visibility
 - [ ] Panel has a text filter for the community list / color legend

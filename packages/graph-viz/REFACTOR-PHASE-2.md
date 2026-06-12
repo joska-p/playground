@@ -37,7 +37,8 @@ When `selectedCommunityId` changes and we're entering detail mode, compute the t
 
 ```tsx
 useEffect(() => {
-  if (!controlsRef.current || selectedCommunityId === null || !detailData) return;
+  if (!controlsRef.current || selectedCommunityId === null || !detailData)
+    return;
   if (lastDetailCommunityRef.current === selectedCommunityId) return;
   lastDetailCommunityRef.current = selectedCommunityId;
 
@@ -55,7 +56,7 @@ useEffect(() => {
     startTarget: controlsRef.current.target.clone(),
     endTarget: new THREE.Vector3(0, 0, 0),
     progress: 0,
-    duration: 600, // ms
+    duration: 600 // ms
   };
 }, [selectedCommunityId, camera, detailData]);
 ```
@@ -74,7 +75,7 @@ useEffect(() => {
     startTarget: controlsRef.current.target.clone(),
     endTarget: new THREE.Vector3(0, 0, 0),
     progress: 0,
-    duration: 600,
+    duration: 600
   };
   lastDetailCommunityRef.current = null;
 }, [viewMode, camera]);
@@ -94,7 +95,11 @@ useFrame((_, delta) => {
   const ease = 1 - Math.pow(1 - t, 3);
 
   camera.position.lerpVectors(anim.startPos, anim.endPos, ease);
-  controlsRef.current.target.lerpVectors(anim.startTarget, anim.endTarget, ease);
+  controlsRef.current.target.lerpVectors(
+    anim.startTarget,
+    anim.endTarget,
+    ease
+  );
   controlsRef.current.update();
 
   if (t >= 1) {
@@ -111,9 +116,9 @@ useFrame((_, delta) => {
   ref={controlsRef}
   enableDamping
   dampingFactor={controls.dampingFactor}
-  autoRotate={!flyAnimation.current?.active && autoRotate}  // pause auto-rotate during fly
+  autoRotate={!flyAnimation.current?.active && autoRotate} // pause auto-rotate during fly
   // ... other props
-  enabled={!flyAnimation.current?.active}  // disable input during fly
+  enabled={!flyAnimation.current?.active} // disable input during fly
 />
 ```
 
@@ -122,12 +127,13 @@ useFrame((_, delta) => {
 ```tsx
 export const camera = {
   // ... existing ...
-  flyDuration: 600,        // ms
-  flyEasing: 'ease-out-cubic', // for documentation; implementation uses lerp with cubic ease
+  flyDuration: 600, // ms
+  flyEasing: 'ease-out-cubic' // for documentation; implementation uses lerp with cubic ease
 } as const;
 ```
 
 ### Files touched
+
 - `src/components/Scene.tsx` — replace instant camera set with animated fly-to
 - `src/config.ts` — add `flyDuration`
 
@@ -144,7 +150,7 @@ Simple flip:
 ```tsx
 export const useUiStore = create<UiStore>((set) => ({
   // ...
-  autoRotate: false,  // was: true
+  autoRotate: false // was: true
   // ...
 }));
 ```
@@ -166,8 +172,9 @@ useEffect(() => {
 }, [showHint]);
 
 return showHint ? (
-  <div className="pointer-events-none absolute top-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-background/80 px-4 py-2 text-xs shadow-lg backdrop-blur-sm animate-fade-out">
-    Press <kbd className="rounded border px-1 font-mono">R</kbd> to toggle rotation
+  <div className="bg-background/80 animate-fade-out pointer-events-none absolute top-4 left-1/2 z-50 -translate-x-1/2 rounded-lg px-4 py-2 text-xs shadow-lg backdrop-blur-sm">
+    Press <kbd className="rounded border px-1 font-mono">R</kbd> to toggle
+    rotation
   </div>
 ) : null;
 ```
@@ -175,6 +182,7 @@ return showHint ? (
 **Recommendation:** Flip the default AND add the hint. Users who open the app get a stable scene first. The hint teaches the shortcut if they want rotation.
 
 ### Files touched
+
 - `src/stores/uiStore.ts` — `autoRotate: false`
 
 ---
@@ -248,7 +256,11 @@ type PanelSectionProps = {
   children: ReactNode;
 };
 
-function PanelSection({ title, defaultOpen = true, children }: PanelSectionProps) {
+function PanelSection({
+  title,
+  defaultOpen = true,
+  children
+}: PanelSectionProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
@@ -316,6 +328,7 @@ function PanelSection({ title, defaultOpen = true, children }: PanelSectionProps
 This is a large internal restructure of the panel render tree but the actual logic stays the same — just grouped differently. The section headers make it trivial to find what you need.
 
 ### Files touched
+
 - `src/components/PanelSection.tsx` — new file
 - `src/components/GraphPanel.tsx` — reorganize content into collapsible sections
 
@@ -335,7 +348,7 @@ Replace with CSS-based approach or use `onPointerEnter`/`onPointerLeave` on the 
 function handlePointerOver(event) {
   if (ghost) return;
   event.stopPropagation();
-  document.body.style.cursor = 'pointer';  // ← fragile
+  document.body.style.cursor = 'pointer'; // ← fragile
   // ...
 }
 
@@ -373,6 +386,7 @@ function handlePointerOut() {
 ```
 
 ### Files touched
+
 - `src/components/GraphNodes.tsx` — add cursor change on pointer enter/leave
 
 ---
@@ -393,15 +407,17 @@ The panel approach is simpler and doesn't require 3D raycasting on thin lines:
 // Already in Phase 1.4 — neighbors list with click-to-navigate-to-node.
 // Extend with a "Show community" button or make the community label clickable:
 
-{community && (
-  <button
-    type="button"
-    onClick={() => setCommunityFilter(String(community.id))}
-    className="hover:underline"
-  >
-    <span>Community: {community.label}</span>
-  </button>
-)}
+{
+  community && (
+    <button
+      type="button"
+      onClick={() => setCommunityFilter(String(community.id))}
+      className="hover:underline"
+    >
+      <span>Community: {community.label}</span>
+    </button>
+  );
+}
 ```
 
 **For the 3D scene:** Make `CommunityLinks` clickable. Currently they're `lineSegments` with no event handlers. To make them interactive:
@@ -415,25 +431,27 @@ Option C: In the panel "Connected to" section for the selected community (alread
 **Recommendation:** Panel approach only for now. The "Connected to" section in the community info panel already calls `setCommunityFilter(String(otherCid))`. Just move it from the community info to the node info as well, and add the community label as a clickable link.
 
 ### Files touched
+
 - `src/components/GraphPanel.tsx` — make community label clickable in node info section
 
 ---
 
 ## Files Changed Summary
 
-| # | Change | New Files | Modified Files |
-|---|--------|-----------|----------------|
-| 2.1 | Animate camera fly-to | — | `Scene.tsx`, `config.ts` |
-| 2.2 | Auto-rotate off by default | — | `uiStore.ts` |
-| 2.3 | Panel reorganization | `PanelSection.tsx` | `GraphPanel.tsx` |
-| 2.4 | Consistent cursor feedback | — | `GraphNodes.tsx` |
-| 2.5 | Node-to-community navigation | — | `GraphPanel.tsx` |
+| #   | Change                       | New Files          | Modified Files           |
+| --- | ---------------------------- | ------------------ | ------------------------ |
+| 2.1 | Animate camera fly-to        | —                  | `Scene.tsx`, `config.ts` |
+| 2.2 | Auto-rotate off by default   | —                  | `uiStore.ts`             |
+| 2.3 | Panel reorganization         | `PanelSection.tsx` | `GraphPanel.tsx`         |
+| 2.4 | Consistent cursor feedback   | —                  | `GraphNodes.tsx`         |
+| 2.5 | Node-to-community navigation | —                  | `GraphPanel.tsx`         |
 
 **Total: 1 new file, ~5 files modified.**
 
 ## Acceptance Criteria
 
 After Phase 2:
+
 - [ ] Switching between overview and detail is a smooth camera fly (not instant teleport)
 - [ ] Auto-rotate is off by default; the scene is stable on load
 - [ ] Panel has collapsible sections (Navigation, Search & Filter, Display, Selection)
