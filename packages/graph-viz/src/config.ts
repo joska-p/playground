@@ -116,14 +116,61 @@ export const communityEdge = {
   opacity: 0.3
 } as const;
 
+export const relationPalette: Record<string, string> = {
+  // Imports — blues
+  imports: '#4a9eff',
+  imports_from: '#2d7dd2',
+  re_exports: '#7ab8ff',
+  // Calls — greens
+  calls: '#2ecc71',
+  method: '#27ae60',
+  uses: '#58d68d',
+  // Structure — oranges
+  contains: '#e67e22',
+  implements: '#d35400',
+  // References — teals
+  references: '#1abc9c',
+  // Similarity — purples
+  conceptually_related_to: '#9b59b6',
+  semantically_similar_to: '#8e44ad'
+} as const;
+
 export const graphEdge = {
   color: '#888888',
-  opacity: 0.25
+  opacity: 0.25,
+  opacityByConfidence: {
+    CONFIDENT: 0.25,
+    INFERRED: 0.08
+  }
 } as const;
 
 export const highlightedEdge = {
   color: '#ffffff',
-  opacity: 0.35
+  opacity: 0.35,
+  useRelationColor: true
+} as const;
+
+export const fileTypeColors: Record<string, string> = {
+  code: '#888888',
+  document: '#f0db4f',
+  image: '#2ecc71'
+} as const;
+
+export const torusRing = {
+  radius: 0.7,
+  tube: 0.04,
+  radialSegments: 16,
+  tubularSegments: 24
+} as const;
+
+export const smartLabel = {
+  baseThreshold: 20,
+  distanceScale: 30,
+  maxLabels: 100,
+  fontSizeBase: 0.6,
+  fontSizeScale: 0.4,
+  fontSizeMax: 3,
+  cameraUpdateThreshold: 1
 } as const;
 
 export const communityLink = {
@@ -134,8 +181,6 @@ export const communityLink = {
 
 export const detailView = {
   maxSpread: 15,
-  topLabelMinNodeCount: 10,
-  topLabelMaxCount: 25,
   communityListMax: 50,
   linkedEdgesMax: 8
 } as const;

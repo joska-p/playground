@@ -1,6 +1,6 @@
 import { ContactShadows, OrbitControls } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import { useEffect, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useRef, useState } from 'react';
 import {
   camera as cameraConfig,
   communityLabel,
@@ -13,7 +13,8 @@ import {
   keyLight,
   nodes as nodeConfig,
   nodeLabel,
-  rimLight
+  rimLight,
+  smartLabel
 } from '../config';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
@@ -30,12 +31,12 @@ import { GraphEdges } from './GraphEdges';
 import { GraphNodes } from './GraphNodes';
 import { HighlightedEdges } from './HighlightedEdges';
 import { NodeLabel } from './NodeLabel';
+import { NodeTypeIndicators } from './NodeTypeIndicators';
 
 function Scene() {
   const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const cameraState = useRef<'default' | 'detail' | 'overview'>('default');
   const lastDetailCommunityRef = useRef<number | null>(null);
-  const camera = useThree((s) => s.camera);
 
   const graphData = useDataStore((s) => s.graphData);
   const positions = useDataStore((s) => s.positions);
@@ -74,20 +75,30 @@ function Scene() {
     return null;
   })();
 
-  // Top communities for persistent labels (overview only)
-  const topLabels = (() => {
+  // Camera distance tracking for smart labels
+  const [cameraDistance, setCameraDistance] = useState(80);
+  const camera = useThree((s) => s.camera);
+
+  useFrame(() => {
+    const dist = camera.position.length();
+    setCameraDistance((prev) =>
+      Math.abs(prev - dist) > smartLabel.cameraUpdateThreshold ? dist : prev
+    );
+  });
+
+  // Distance-aware community labels — more labels as camera zooms in
+  const smartLabels = (() => {
     if (viewMode !== 'overview') return [];
+    const threshold =
+      smartLabel.baseThreshold *
+      (1 + cameraDistance / smartLabel.distanceScale);
     return [...communities.values()]
       .filter((c) => {
-        if (!visibleCommunityIds)
-          return c.nodeCount >= detailView.topLabelMinNodeCount;
-        return (
-          visibleCommunityIds.has(c.id) &&
-          c.nodeCount >= detailView.topLabelMinNodeCount
-        );
+        if (!visibleCommunityIds) return c.nodeCount >= threshold;
+        return visibleCommunityIds.has(c.id) && c.nodeCount >= threshold;
       })
       .sort((a, b) => b.nodeCount - a.nodeCount)
-      .slice(0, detailView.topLabelMaxCount);
+      .slice(0, smartLabel.maxLabels);
   })();
 
   // Hovered community for label
@@ -302,7 +313,7 @@ function Scene() {
           {showEdges && <CommunityEdges visibleIds={visibleCommunityIds} />}
 
           {/* Persistent labels for largest communities */}
-          {topLabels.map((c) => (
+          {smartLabels.map((c) => (
             <CommunityLabel
               key={`label-${c.id}`}
               label={c.label}
@@ -342,6 +353,12 @@ function Scene() {
             highlightIndices={connectedNodeIndices}
             onNodeClick={selectNode}
             onPointerMoveNode={setHoveredNodeIndex}
+          />
+          <NodeTypeIndicators
+            positions={detailData.positions}
+            nodes={detailData.nodes}
+            degrees={detailData.degrees}
+            size={nodeConfig.defaultSize}
           />
           {showEdges && (
             <GraphEdges

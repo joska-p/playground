@@ -7,6 +7,7 @@ import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
+import { ColorLegend } from './ColorLegend';
 
 function GraphPanel() {
   const graphData = useDataStore((s) => s.graphData);
@@ -219,31 +220,8 @@ function GraphPanel() {
               </div>
             )}
 
-            {/* Community list (overview mode) */}
-            {viewMode === 'overview' && communityList.length > 0 && (
-              <div className="flex flex-col gap-1">
-                <span className="text-muted-foreground text-xs font-medium">
-                  Communities
-                </span>
-                {communityList.map((c) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    onClick={() => setCommunityFilter(String(c.id))}
-                    className="hover:bg-accent flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors"
-                  >
-                    <span
-                      className="inline-block h-2.5 w-2.5 flex-shrink-0 rounded-full"
-                      style={{ backgroundColor: c.color }}
-                    />
-                    <span className="flex-1 truncate text-left">{c.label}</span>
-                    <span className="text-muted-foreground flex-shrink-0">
-                      {c.nodeCount}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* Color legend (overview mode) */}
+            {viewMode === 'overview' && <ColorLegend />}
 
             {/* Selected node info */}
             {selectedNode && (
