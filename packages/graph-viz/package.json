@@ -21,6 +21,7 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
+    "@repo/worker-pool": "workspace:*",
     "three": "catalog:"
   },
   "peerDependencies": {
