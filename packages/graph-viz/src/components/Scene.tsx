@@ -18,7 +18,7 @@ import { NodeLabel } from './NodeLabel';
 import { SelectedNodeGlow } from './SelectedNodeGlow';
 
 function Scene() {
-  const controlsRef = useRef(null);
+  const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const cameraState = useRef<'default' | 'detail' | 'overview'>('default');
   const camera = useThree((s) => s.camera);
 
@@ -249,7 +249,7 @@ function Scene() {
           )}
 
           {/* Cross-community links */}
-          <CommunityLinks selectedCommunityId={selectedCommunityId} />
+          <CommunityLinks selectedCommunityId={selectedCommunityId!} />
 
           {/* Node labels: always show for selected + hovered */}
           {selectedNode && selectedNodePos && (

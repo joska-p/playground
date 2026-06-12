@@ -1,4 +1,3 @@
-import type {} from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
@@ -94,7 +93,7 @@ function GraphCommunitySpheres({
   return (
     <instancedMesh
       ref={ref}
-      args={[null, null, communityList.length]}
+      args={[undefined, undefined, communityList.length]}
       onClick={ghost ? undefined : handleClick}
       onPointerOver={ghost ? undefined : handlePointerOver}
       onPointerOut={ghost ? undefined : handlePointerOut}
