@@ -15,6 +15,7 @@ type GraphNodesProps = {
   degrees?: Float32Array | null;
   size?: number;
   opacity?: number;
+  highlightIndices?: Set<number>;
   onNodeClick?: (node: GraphNode) => void;
   onPointerMoveNode?: (nodeIndex: number | null) => void;
 };
@@ -25,6 +26,7 @@ function GraphNodes({
   degrees = null,
   size = 6,
   opacity = 1,
+  highlightIndices,
   onNodeClick,
   onPointerMoveNode
 }: GraphNodesProps) {
@@ -60,7 +62,8 @@ function GraphNodes({
 
       const deg = degrees?.[i] ?? 0;
       const s = degreeToSize(deg, maxDegree, 0.3, 1.8) * baseScale;
-      const brightness = degreeToBrightness(deg, maxDegree);
+      const isHighlighted = highlightIndices?.has(i) ?? false;
+      const brightness = isHighlighted ? 1 : degreeToBrightness(deg, maxDegree);
 
       dummy.position.set(px, py, pz);
       dummy.scale.set(s, s, s);
@@ -80,7 +83,7 @@ function GraphNodes({
     if (meshRef.current.instanceColor) {
       meshRef.current.instanceColor.needsUpdate = true;
     }
-  }, [positions, nodes, degrees, maxDegree, size, count]);
+  }, [positions, nodes, degrees, maxDegree, size, count, highlightIndices]);
 
   function handleClick(e: ThreeEvent<PointerEvent>) {
     if (e.instanceId !== undefined && onNodeClick) {

@@ -14,8 +14,8 @@ import { CommunityLinks } from './CommunityLinks';
 import { GraphCommunitySpheres } from './GraphCommunitySpheres';
 import { GraphEdges } from './GraphEdges';
 import { GraphNodes } from './GraphNodes';
+import { HighlightedEdges } from './HighlightedEdges';
 import { NodeLabel } from './NodeLabel';
-import { SelectedNodeGlow } from './SelectedNodeGlow';
 
 function Scene() {
   const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
@@ -160,6 +160,29 @@ function Scene() {
     return [pos[i * 3]!, pos[i * 3 + 1]!, pos[i * 3 + 2]!];
   }, [hoveredNodeIndex, detailData]);
 
+  // Connected node IDs → local indices for highlighting
+  const connectedNodeIds = useMemo(() => {
+    if (!selectedNode || !detailData) return new Set<string>();
+    const ids = new Set<string>();
+    ids.add(selectedNode.id);
+    for (const link of detailData.links) {
+      if (link.source === selectedNode.id) ids.add(link.target);
+      if (link.target === selectedNode.id) ids.add(link.source);
+    }
+    return ids;
+  }, [selectedNode, detailData]);
+
+  const connectedNodeIndices = useMemo(() => {
+    if (!selectedNode || !detailData) return new Set<number>();
+    const indices = new Set<number>();
+    for (let i = 0; i < detailData.nodes.length; i++) {
+      if (connectedNodeIds.has(detailData.nodes[i]!.id)) {
+        indices.add(i);
+      }
+    }
+    return indices;
+  }, [connectedNodeIds, detailData]);
+
   // Position of selected node
   const selectedNodePos = useMemo((): [number, number, number] | null => {
     if (!selectedNode || !detailData) return null;
@@ -237,6 +260,7 @@ function Scene() {
             degrees={detailData.degrees}
             size={6}
             opacity={1}
+            highlightIndices={connectedNodeIndices}
             onNodeClick={selectNode}
             onPointerMoveNode={setHoveredNodeIndex}
           />
@@ -245,6 +269,16 @@ function Scene() {
               positions={detailData.positions}
               links={detailData.links}
               nodeIndex={detailData.nodeIndex}
+            />
+          )}
+
+          {/* Highlighted edges for selected node */}
+          {selectedNode && (
+            <HighlightedEdges
+              positions={detailData.positions}
+              links={detailData.links}
+              nodeIndex={detailData.nodeIndex}
+              selectedNodeId={selectedNode.id}
             />
           )}
 
@@ -291,8 +325,6 @@ function Scene() {
             })}
         </>
       )}
-
-      <SelectedNodeGlow />
     </>
   );
 }
