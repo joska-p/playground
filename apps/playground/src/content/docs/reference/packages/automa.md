@@ -1,7 +1,7 @@
 ---
-title: 'automa'
-description: 'Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering.'
-category: 'reference'
+title: "automa"
+description: "Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering."
+category: "reference"
 tags:
   - reference
   - automa
@@ -160,3 +160,4 @@ Drawing maps pointer events on the 3D plane to grid cell indices using `useCellP
 ---
 
 _Part of [Creative Playground](https://jpotin.gitlab.io/playground)_
+
