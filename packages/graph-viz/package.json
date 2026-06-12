@@ -22,7 +22,8 @@
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
     "@repo/worker-pool": "workspace:*",
-    "three": "catalog:"
+    "three": "catalog:",
+    "zustand": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -35,10 +36,10 @@
     "@tailwindcss/vite": "catalog:",
     "@tsconfig/strictest": "catalog:",
     "@types/babel__core": "catalog:",
-    "@types/three": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@types/three": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "eslint": "catalog:",

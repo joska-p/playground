@@ -1,14 +1,17 @@
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import type {} from '@react-three/fiber';
+import type { ThreeEvent } from '@react-three/fiber';
 import type { GraphNode } from '../types';
 import { communityColor, hexToRgb } from '../utils/colors';
 
 type GraphNodesProps = {
   positions: Float32Array;
   nodes: GraphNode[];
+  size?: number;
+  opacity?: number;
+  onNodeClick?: (node: GraphNode) => void;
 };
 
-function GraphNodes({ positions, nodes }: GraphNodesProps) {
+function GraphNodes({ positions, nodes, size = 6, opacity = 0.9, onNodeClick }: GraphNodesProps) {
   const geometry = new BufferGeometry();
   geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
 
@@ -21,15 +24,21 @@ function GraphNodes({ positions, nodes }: GraphNodesProps) {
   }
   geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
 
+  function handleClick(e: ThreeEvent<PointerEvent>) {
+    if (e.index !== undefined && onNodeClick) {
+      onNodeClick(nodes[e.index]!);
+    }
+  }
+
   return (
-    <points geometry={geometry}>
+    <points geometry={geometry} onClick={handleClick}>
       <pointsMaterial
-        size={6}
+        size={size}
         vertexColors
         sizeAttenuation
         depthWrite={false}
         transparent
-        opacity={0.9}
+        opacity={opacity}
       />
     </points>
   );

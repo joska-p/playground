@@ -26,3 +26,7 @@ drafts/
 graphify-out/
 toolbox/
 logs/
+apps/storybook/
+.Trash-1000/
+session-*.md
+.devcontainer/

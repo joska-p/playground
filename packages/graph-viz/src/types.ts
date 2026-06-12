@@ -44,3 +44,16 @@ export type LayoutInput = {
   center: [number, number, number];
   radius: number;
 }
+
+export type CommunityData = {
+  id: number;
+  centroid: [number, number, number];
+  nodeCount: number;
+  radius: number;
+  label: string;
+  color: string;
+  nodeIndices: number[];
+  hasTrash: boolean;
+  interCommunityEdgeCount: number;
+  cohesion: number;
+}
