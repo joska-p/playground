@@ -1,6 +1,6 @@
 import type {} from '@react-three/fiber';
-import { useMemo } from 'react';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
+import { communityEdge } from '../config';
 import { useDataStore } from '../stores/dataStore';
 import { hexToRgb } from '../utils/colors';
 
@@ -12,9 +12,9 @@ function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
   const communities = useDataStore((s) => s.communities);
   const interCommunityEdges = useDataStore((s) => s.interCommunityEdges);
 
-  const { geometry, hasEdges } = useMemo(() => {
+  const { geometry, hasEdges } = (() => {
     const edges = [...interCommunityEdges.values()].filter((e) => {
-      if (e.count < 2) return false;
+      if (e.count < communityEdge.minCount) return false;
       if (!visibleIds) return true;
       return visibleIds.has(e.sourceCid) && visibleIds.has(e.targetCid);
     });
@@ -55,7 +55,7 @@ function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
     geo.setAttribute('color', new Float32BufferAttribute(colors, 3));
 
     return { geometry: geo, hasEdges: true };
-  }, [interCommunityEdges, communities, visibleIds]);
+  })();
 
   if (!hasEdges || !geometry) return null;
 
@@ -64,7 +64,7 @@ function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
       <lineBasicMaterial
         vertexColors
         transparent
-        opacity={0.3}
+        opacity={communityEdge.opacity}
         depthWrite={false}
       />
     </lineSegments>

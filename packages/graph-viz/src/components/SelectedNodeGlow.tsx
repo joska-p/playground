@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Sprite } from 'three';
 import { CanvasTexture } from 'three';
 import { useDataStore } from '../stores/dataStore';
@@ -10,7 +10,7 @@ function SelectedNodeGlow() {
   const nodeIndex = useDataStore((s) => s.nodeIndex);
   const selectedNode = useUiStore((s) => s.selectedNode);
 
-  const texture = useMemo(() => {
+  const texture = (() => {
     const canvas = document.createElement('canvas');
     canvas.width = 64;
     canvas.height = 64;
@@ -23,7 +23,7 @@ function SelectedNodeGlow() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 64, 64);
     return new CanvasTexture(canvas);
-  }, []);
+  })();
 
   useEffect(() => {
     if (!selectedNode || !positions || !ref.current) return;

@@ -1,5 +1,6 @@
 import { Text } from '@react-three/drei';
 import type {} from '@react-three/fiber';
+import { communityLabel } from '../config';
 
 type CommunityLabelProps = {
   label: string;
@@ -12,9 +13,9 @@ type CommunityLabelProps = {
 function CommunityLabel({
   label,
   position,
-  fontSize = 1.8,
+  fontSize = communityLabel.defaultFontSize,
   color = '#ffffff',
-  offsetY = 2
+  offsetY = communityLabel.defaultOffsetY
 }: CommunityLabelProps) {
   return (
     <Text
@@ -23,9 +24,9 @@ function CommunityLabel({
       color={color}
       anchorX="center"
       anchorY="middle"
-      outlineWidth={0.04}
-      outlineColor="#000000"
-      outlineOpacity={0.8}
+      outlineWidth={communityLabel.outlineWidth}
+      outlineColor={communityLabel.outlineColor}
+      outlineOpacity={communityLabel.outlineOpacity}
     >
       {label}
     </Text>

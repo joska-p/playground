@@ -5,7 +5,6 @@ import { Icon } from '@repo/ui/Icon';
 import { Input } from '@repo/ui/Input';
 import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
-import { useMemo } from 'react';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 
@@ -33,19 +32,19 @@ function GraphPanel() {
   const togglePanel = useUiStore((s) => s.togglePanel);
 
   // Derive view mode from communityFilter
-  const selectedCommunityId = useMemo(() => {
+  const selectedCommunityId = (() => {
     const trimmed = communityFilter.trim();
     return /^\d+$/.test(trimmed) ? Number.parseInt(trimmed, 10) : null;
-  }, [communityFilter]);
+  })();
   const viewMode = selectedCommunityId !== null ? 'detail' : 'overview';
 
   // Sorted community list for display (overview only)
-  const communityList = useMemo(() => {
+  const communityList = (() => {
     return [...communities.values()]
       .filter((c) => c.nodeCount >= minCommunitySize)
       .sort((a, b) => b.nodeCount - a.nodeCount)
       .slice(0, 50);
-  }, [communities, minCommunitySize]);
+  })();
 
   // Selected community info
   const selectedCommunity =

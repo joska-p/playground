@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { communitySphere } from '../config';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 import { hexToRgb } from '../utils/colors';
@@ -15,21 +16,14 @@ function GraphCommunitySpheres({
 }: GraphCommunitySpheresProps) {
   const ref = useRef<THREE.InstancedMesh>(null);
   const communities = useDataStore((s) => s.communities);
-  const communityFilter = useUiStore((s) => s.communityFilter);
   const setCommunityFilter = useUiStore((s) => s.setCommunityFilter);
   const setHoveredCommunityId = useUiStore((s) => s.setHoveredCommunityId);
 
-  // Derive whether a community is currently selected
-  const hasSelection = useMemo(() => {
-    const trimmed = communityFilter.trim();
-    return /^\d+$/.test(trimmed);
-  }, [communityFilter]);
-
-  const communityList = useMemo(() => {
+  const communityList = (() => {
     const all = [...communities.values()];
     if (!visibleIds) return all;
     return all.filter((c) => visibleIds.has(c.id));
-  }, [communities, visibleIds]);
+  })();
 
   useEffect(() => {
     const mesh = ref.current;
@@ -94,15 +88,22 @@ function GraphCommunitySpheres({
     <instancedMesh
       ref={ref}
       args={[undefined, undefined, communityList.length]}
+      castShadow
+      receiveShadow
       onClick={ghost ? undefined : handleClick}
       onPointerOver={ghost ? undefined : handlePointerOver}
       onPointerOut={ghost ? undefined : handlePointerOut}
     >
-      <sphereGeometry args={[1, 16, 12]} />
+      <sphereGeometry
+        args={[
+          communitySphere.radius,
+          communitySphere.widthSegments,
+          communitySphere.heightSegments
+        ]}
+      />
       <meshStandardMaterial
-        transparent
-        opacity={ghost ? 0.12 : hasSelection ? 0.4 : 0.7}
-        depthWrite={false}
+        transparent={ghost}
+        opacity={ghost ? communitySphere.ghostOpacity : 1}
       />
     </instancedMesh>
   );

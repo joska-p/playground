@@ -1,5 +1,6 @@
 import type {} from '@react-three/fiber';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
+import { graphEdge } from '../config';
 import type { GraphLink } from '../types';
 
 type GraphEdgesProps = {
@@ -31,8 +32,8 @@ function GraphEdges({ positions, links, nodeIndex }: GraphEdgesProps) {
   return (
     <lineSegments geometry={geometry}>
       <lineBasicMaterial
-        color="#888888"
-        opacity={0.25}
+        color={graphEdge.color}
+        opacity={graphEdge.opacity}
         transparent
         depthWrite={false}
       />

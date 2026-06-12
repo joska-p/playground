@@ -1,3 +1,4 @@
+import { community } from '../config';
 import type { CommunityData, GraphLink, GraphNode } from '../types';
 import { communityColor } from './colors';
 
@@ -54,7 +55,10 @@ export function computeCommunities(
       `C${cid}`;
 
     // Radius proportional to node count (cubic root for visual scale)
-    const radius = Math.max(0.5, Math.cbrt(indices.length) * 1.5);
+    const radius = Math.max(
+      community.radiusMin,
+      Math.cbrt(indices.length) * community.radiusMultiplier
+    );
 
     communities.set(cid, {
       id: cid,

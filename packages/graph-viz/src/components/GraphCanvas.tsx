@@ -1,11 +1,15 @@
 import { Canvas } from '@react-three/fiber';
 import { WorkerPool } from '@repo/worker-pool';
 import { useEffect } from 'react';
+import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
 import type { GraphData, LayoutInput } from '../types';
 import { GraphPanel } from './GraphPanel';
 import { LoadingFallback } from './LoadingFallback';
 import { Scene } from './Scene';
+
+// Graph data is bundled at build time — never fetch at runtime
+import graphDataRaw from '../data/graph.json';
 
 function GraphCanvas() {
   const graphData = useDataStore((s) => s.graphData);
@@ -13,20 +17,10 @@ function GraphCanvas() {
   const setGraphData = useDataStore((s) => s.setGraphData);
   const setPositions = useDataStore((s) => s.setPositions);
 
-  // ── Load graph data ──
+  // ── Load graph data on mount ──
 
   useEffect(() => {
-    async function loadData() {
-      try {
-        const response = await fetch('/src/data/graph.json');
-        const data = (await response.json()) as GraphData;
-        setGraphData(data);
-      } catch {
-        const mod = await import('../data/graph.json');
-        setGraphData(mod.default as unknown as GraphData);
-      }
-    }
-    loadData();
+    setGraphData(graphDataRaw as unknown as GraphData);
   }, [setGraphData]);
 
   // ── Run force layout ──
@@ -65,6 +59,7 @@ function GraphCanvas() {
   return (
     <div className="relative h-full w-full">
       <Canvas
+        shadows={{ type: THREE.PCFShadowMap }}
         camera={{ position: [50, 40, 60], fov: 50 }}
         dpr={[1, 2]}
         className="h-full w-full"

@@ -1,20 +1,23 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type { InstancedMesh } from 'three';
-import { Color, MeshBasicMaterial, Object3D, SphereGeometry } from 'three';
+import { Color, Object3D, SphereGeometry } from 'three';
+import { degree, nodes as nodeConfig } from '../config';
 import type { GraphNode } from '../types';
 import { communityColor, hexToRgb } from '../utils/colors';
 import { degreeToBrightness, degreeToSize } from '../utils/nodes';
 
-const sphereGeometry = new SphereGeometry(0.5, 12, 8);
-const baseMaterial = new MeshBasicMaterial();
+const sphereGeometry = new SphereGeometry(
+  nodeConfig.geometryRadius,
+  nodeConfig.geometryWidthSegments,
+  nodeConfig.geometryHeightSegments
+);
 
 type GraphNodesProps = {
   positions: Float32Array;
   nodes: GraphNode[];
   degrees?: Float32Array | null;
   size?: number;
-  opacity?: number;
   highlightIndices?: Set<number>;
   onNodeClick?: (node: GraphNode) => void;
   onPointerMoveNode?: (nodeIndex: number | null) => void;
@@ -24,22 +27,13 @@ function GraphNodes({
   positions,
   nodes,
   degrees = null,
-  size = 6,
-  opacity = 1,
+  size = nodeConfig.defaultSize,
   highlightIndices,
   onNodeClick,
   onPointerMoveNode
 }: GraphNodesProps) {
   const meshRef = useRef<InstancedMesh>(null);
   const count = nodes.length;
-
-  // Apply opacity to the shared material
-  useEffect(() => {
-    baseMaterial.transparent = opacity < 1;
-    baseMaterial.opacity = opacity;
-    baseMaterial.depthWrite = opacity >= 1;
-    baseMaterial.needsUpdate = true;
-  }, [opacity]);
 
   // Find max degree for normalization
   let maxDegree = 0;
@@ -53,7 +47,7 @@ function GraphNodes({
     if (!meshRef.current) return;
     const dummy = new Object3D();
     const color = new Color();
-    const baseScale = size / 6;
+    const baseScale = size / nodeConfig.defaultSizeBase;
 
     for (let i = 0; i < count; i++) {
       const px = positions[i * 3]!;
@@ -61,9 +55,13 @@ function GraphNodes({
       const pz = positions[i * 3 + 2]!;
 
       const deg = degrees?.[i] ?? 0;
-      const s = degreeToSize(deg, maxDegree, 0.3, 1.8) * baseScale;
+      const s =
+        degreeToSize(deg, maxDegree, degree.sizeMin, degree.sizeMax) *
+        baseScale;
       const isHighlighted = highlightIndices?.has(i) ?? false;
-      const brightness = isHighlighted ? 1 : degreeToBrightness(deg, maxDegree);
+      const brightness = isHighlighted
+        ? 1
+        : degreeToBrightness(deg, maxDegree, degree.brightnessMin);
 
       dummy.position.set(px, py, pz);
       dummy.scale.set(s, s, s);
@@ -106,12 +104,17 @@ function GraphNodes({
   return (
     <instancedMesh
       ref={meshRef}
-      args={[sphereGeometry, baseMaterial, count]}
+      args={[sphereGeometry, undefined, count]}
       onClick={handleClick}
       onPointerMove={handlePointerMove}
       onPointerOut={handlePointerOut}
       frustumCulled={false}
-    />
+    >
+      <meshStandardMaterial
+        roughness={nodeConfig.roughness}
+        metalness={nodeConfig.metalness}
+      />
+    </instancedMesh>
   );
 }
 

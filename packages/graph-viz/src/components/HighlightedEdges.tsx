@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
+import { highlightedEdge } from '../config';
 import type { GraphLink } from '../types';
 
 type HighlightedEdgesProps = {
@@ -19,13 +19,13 @@ function HighlightedEdges({
   nodeIndex,
   selectedNodeId
 }: HighlightedEdgesProps) {
-  const connectedEdges = useMemo(() => {
+  const connectedEdges = (() => {
     return links.filter(
       (l) => l.source === selectedNodeId || l.target === selectedNodeId
     );
-  }, [links, selectedNodeId]);
+  })();
 
-  const geometry = useMemo(() => {
+  const geometry = (() => {
     const verts = new Float32Array(connectedEdges.length * 6);
     for (let i = 0; i < connectedEdges.length; i++) {
       const si = nodeIndex.get(connectedEdges[i]!.source)!;
@@ -41,15 +41,15 @@ function HighlightedEdges({
     const geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute(verts, 3));
     return geometry;
-  }, [connectedEdges, positions, nodeIndex]);
+  })();
 
   if (connectedEdges.length === 0) return null;
 
   return (
     <lineSegments geometry={geometry}>
       <lineBasicMaterial
-        color="#ffffff"
-        opacity={0.35}
+        color={highlightedEdge.color}
+        opacity={highlightedEdge.opacity}
         transparent
         depthWrite={false}
       />

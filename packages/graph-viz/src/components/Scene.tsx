@@ -1,6 +1,20 @@
-import { OrbitControls } from '@react-three/drei';
+import { ContactShadows, OrbitControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import {
+  camera as cameraConfig,
+  communityLabel,
+  contactShadow,
+  controls,
+  detailView,
+  fillLight,
+  fog,
+  hemisphereLight,
+  keyLight,
+  nodes as nodeConfig,
+  nodeLabel,
+  rimLight
+} from '../config';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 import {
@@ -20,6 +34,7 @@ import { NodeLabel } from './NodeLabel';
 function Scene() {
   const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const cameraState = useRef<'default' | 'detail' | 'overview'>('default');
+  const lastDetailCommunityRef = useRef<number | null>(null);
   const camera = useThree((s) => s.camera);
 
   const graphData = useDataStore((s) => s.graphData);
@@ -39,14 +54,14 @@ function Scene() {
   const setHoveredNodeIndex = useUiStore((s) => s.setHoveredNodeIndex);
 
   // Derive view mode from communityFilter — single numeric ID = detail mode
-  const selectedCommunityId = useMemo(() => {
+  const selectedCommunityId = (() => {
     const trimmed = communityFilter.trim();
     return /^\d+$/.test(trimmed) ? Number.parseInt(trimmed, 10) : null;
-  }, [communityFilter]);
+  })();
   const viewMode = selectedCommunityId !== null ? 'detail' : 'overview';
 
   // Communities to show in overview mode
-  const visibleCommunityIds = useMemo(() => {
+  const visibleCommunityIds = (() => {
     const filterIds = parseCommunityFilter(communityFilter);
     if (filterIds) return filterIds;
     if (minCommunitySize > 1) {
@@ -57,19 +72,23 @@ function Scene() {
       );
     }
     return null;
-  }, [communityFilter, minCommunitySize, communities]);
+  })();
 
   // Top communities for persistent labels (overview only)
-  const topLabels = useMemo(() => {
+  const topLabels = (() => {
     if (viewMode !== 'overview') return [];
     return [...communities.values()]
       .filter((c) => {
-        if (!visibleCommunityIds) return c.nodeCount >= 10;
-        return visibleCommunityIds.has(c.id) && c.nodeCount >= 10;
+        if (!visibleCommunityIds)
+          return c.nodeCount >= detailView.topLabelMinNodeCount;
+        return (
+          visibleCommunityIds.has(c.id) &&
+          c.nodeCount >= detailView.topLabelMinNodeCount
+        );
       })
       .sort((a, b) => b.nodeCount - a.nodeCount)
-      .slice(0, 25);
-  }, [communities, viewMode, visibleCommunityIds]);
+      .slice(0, detailView.topLabelMaxCount);
+  })();
 
   // Hovered community for label
   const hoveredCommunity =
@@ -79,15 +98,20 @@ function Scene() {
   useEffect(() => {
     if (!controlsRef.current || viewMode !== 'overview') return;
     if (cameraState.current === 'overview') return;
-    camera.position.set(50, 40, 60);
+    camera.position.set(
+      cameraConfig.overviewPosition[0],
+      cameraConfig.overviewPosition[1],
+      cameraConfig.overviewPosition[2]
+    );
     controlsRef.current.target.set(0, 0, 0);
     controlsRef.current.update();
     cameraState.current = 'overview';
+    lastDetailCommunityRef.current = null;
   }, [viewMode, camera]);
 
   // Filtered data for detail view — positions normalized to compact volume
-  const COMMUNITY_MAX_SPREAD = 15;
-  const detailData = useMemo(() => {
+  const MAX_SPREAD = detailView.maxSpread;
+  const detailData = (() => {
     if (
       viewMode !== 'detail' ||
       selectedCommunityId === null ||
@@ -106,17 +130,17 @@ function Scene() {
     if (!filtered) return null;
     return {
       ...filtered,
-      positions: normalizeCommunityPositions(
-        filtered.positions,
-        COMMUNITY_MAX_SPREAD
-      )
+      positions: normalizeCommunityPositions(filtered.positions, MAX_SPREAD)
     };
-  }, [viewMode, selectedCommunityId, graphData, positions, degrees]);
+  })();
 
   // Fly camera to community — distance proportional to actual spread
   useEffect(() => {
     if (!controlsRef.current || selectedCommunityId === null || !detailData)
       return;
+    // Guard: skip if camera already positioned for this community
+    if (lastDetailCommunityRef.current === selectedCommunityId) return;
+    lastDetailCommunityRef.current = selectedCommunityId;
 
     const pos = detailData.positions;
     const n = pos.length / 3;
@@ -137,31 +161,43 @@ function Scene() {
       if (z < minZ) minZ = z;
       if (z > maxZ) maxZ = z;
     }
-    const spread = Math.max(maxX - minX, maxY - minY, maxZ - minZ, 0.1);
-    const distance = Math.max(spread * 1.5, 8);
+    const spread = Math.max(
+      maxX - minX,
+      maxY - minY,
+      maxZ - minZ,
+      cameraConfig.detailMinSpread
+    );
+    const distance = Math.max(
+      spread * cameraConfig.detailSpreadMultiplier,
+      cameraConfig.detailMinDistance
+    );
 
-    camera.position.set(distance * 0.6, distance * 0.4, distance);
+    camera.position.set(
+      distance * cameraConfig.detailXRatio,
+      distance * cameraConfig.detailYRatio,
+      distance
+    );
     controlsRef.current.target.set(0, 0, 0);
     controlsRef.current.update();
     cameraState.current = 'detail';
   }, [selectedCommunityId, camera, detailData]);
 
   // Hovered node for label display
-  const hoveredNode = useMemo(() => {
+  const hoveredNode = (() => {
     if (hoveredNodeIndex === null || !detailData) return null;
     return detailData.nodes[hoveredNodeIndex] ?? null;
-  }, [hoveredNodeIndex, detailData]);
+  })();
 
   // Position of hovered node
-  const hoveredNodePos = useMemo((): [number, number, number] | null => {
+  const hoveredNodePos = ((): [number, number, number] | null => {
     if (hoveredNodeIndex === null || !detailData) return null;
     const i = hoveredNodeIndex;
     const pos = detailData.positions;
     return [pos[i * 3]!, pos[i * 3 + 1]!, pos[i * 3 + 2]!];
-  }, [hoveredNodeIndex, detailData]);
+  })();
 
   // Connected node IDs → local indices for highlighting
-  const connectedNodeIds = useMemo(() => {
+  const connectedNodeIds = (() => {
     if (!selectedNode || !detailData) return new Set<string>();
     const ids = new Set<string>();
     ids.add(selectedNode.id);
@@ -170,9 +206,9 @@ function Scene() {
       if (link.target === selectedNode.id) ids.add(link.source);
     }
     return ids;
-  }, [selectedNode, detailData]);
+  })();
 
-  const connectedNodeIndices = useMemo(() => {
+  const connectedNodeIndices = (() => {
     if (!selectedNode || !detailData) return new Set<number>();
     const indices = new Set<number>();
     for (let i = 0; i < detailData.nodes.length; i++) {
@@ -181,10 +217,10 @@ function Scene() {
       }
     }
     return indices;
-  }, [connectedNodeIds, detailData]);
+  })();
 
   // Position of selected node
-  const selectedNodePos = useMemo((): [number, number, number] | null => {
+  const selectedNodePos = ((): [number, number, number] | null => {
     if (!selectedNode || !detailData) return null;
     const idx = detailData.nodes.indexOf(selectedNode);
     if (idx === -1) return null;
@@ -193,30 +229,70 @@ function Scene() {
       detailData.positions[idx * 3 + 1],
       detailData.positions[idx * 3 + 2]
     ];
-  }, [selectedNode, detailData]);
+  })();
 
   if (!positions || !graphData) return null;
 
   return (
     <>
-      <ambientLight intensity={0.6} />
-      <directionalLight
-        position={[10, 20, 10]}
-        intensity={1.2}
+      {/* Fog for depth perception */}
+      <fog
+        attach="fog"
+        args={[fog.color, fog.near, fog.far]}
       />
+
+      {/* Ambient fill from sky/ground */}
+      <hemisphereLight
+        args={[
+          hemisphereLight.skyColor,
+          hemisphereLight.groundColor,
+          hemisphereLight.intensity
+        ]}
+      />
+
+      {/* Main key light — casts shadows */}
       <directionalLight
-        position={[-10, 0, -20]}
-        intensity={0.4}
+        position={keyLight.position}
+        intensity={keyLight.intensity}
+        castShadow
+        shadow-mapSize-width={keyLight.shadowMapSize}
+        shadow-mapSize-height={keyLight.shadowMapSize}
+        shadow-camera-far={keyLight.shadowCameraFar}
+        shadow-camera-left={keyLight.shadowCameraLeft}
+        shadow-camera-right={keyLight.shadowCameraRight}
+        shadow-camera-top={keyLight.shadowCameraTop}
+        shadow-camera-bottom={keyLight.shadowCameraBottom}
+      />
+
+      {/* Cool fill light from opposite side */}
+      <directionalLight
+        position={fillLight.position}
+        intensity={fillLight.intensity}
+      />
+
+      {/* Subtle rim light from behind */}
+      <directionalLight
+        position={rimLight.position}
+        intensity={rimLight.intensity}
+      />
+
+      {/* Soft contact shadow beneath the graph */}
+      <ContactShadows
+        position={contactShadow.position}
+        opacity={contactShadow.opacity}
+        scale={contactShadow.scale}
+        blur={contactShadow.blur}
+        far={contactShadow.far}
       />
 
       <OrbitControls
         ref={controlsRef}
         enableDamping
-        dampingFactor={0.1}
+        dampingFactor={controls.dampingFactor}
         autoRotate={autoRotate}
-        autoRotateSpeed={0.5}
-        minDistance={1}
-        maxDistance={2000}
+        autoRotateSpeed={controls.autoRotateSpeed}
+        minDistance={controls.minDistance}
+        maxDistance={controls.maxDistance}
       />
 
       {/* Overview mode */}
@@ -231,8 +307,12 @@ function Scene() {
               key={`label-${c.id}`}
               label={c.label}
               position={c.centroid}
-              fontSize={Math.min(3, 0.6 + Math.cbrt(c.nodeCount) * 0.4)}
-              offsetY={c.radius + 1.5}
+              fontSize={Math.min(
+                communityLabel.fontSizeMax,
+                communityLabel.fontSizeBase +
+                  Math.cbrt(c.nodeCount) * communityLabel.fontSizeScale
+              )}
+              offsetY={c.radius + communityLabel.defaultOffsetY - 0.5}
             />
           ))}
 
@@ -242,9 +322,9 @@ function Scene() {
               key={`hover-label-${hoveredCommunity.id}`}
               label={`${hoveredCommunity.label} (${hoveredCommunity.nodeCount})`}
               position={hoveredCommunity.centroid}
-              fontSize={2.5}
+              fontSize={communityLabel.hoverFontSize}
               color="#ffd166"
-              offsetY={hoveredCommunity.radius + 4}
+              offsetY={hoveredCommunity.radius + communityLabel.hoverOffsetYPad}
             />
           )}
         </>
@@ -258,8 +338,7 @@ function Scene() {
             positions={detailData.positions}
             nodes={detailData.nodes}
             degrees={detailData.degrees}
-            size={6}
-            opacity={1}
+            size={nodeConfig.defaultSize}
             highlightIndices={connectedNodeIndices}
             onNodeClick={selectNode}
             onPointerMoveNode={setHoveredNodeIndex}
@@ -290,7 +369,7 @@ function Scene() {
             <NodeLabel
               node={selectedNode}
               position={selectedNodePos}
-              fontSize={0.9}
+              fontSize={nodeLabel.selectedFontSize}
               color="#ffd166"
             />
           )}
@@ -298,7 +377,7 @@ function Scene() {
             <NodeLabel
               node={hoveredNode}
               position={hoveredNodePos}
-              fontSize={0.7}
+              fontSize={nodeLabel.hoveredFontSize}
               color="#ffffff"
             />
           )}
@@ -319,7 +398,7 @@ function Scene() {
                   key={`node-label-${node.id}`}
                   node={node}
                   position={[pos[i * 3]!, pos[i * 3 + 1]!, pos[i * 3 + 2]!]}
-                  fontSize={0.5}
+                  fontSize={nodeLabel.defaultFontSize}
                 />
               );
             })}

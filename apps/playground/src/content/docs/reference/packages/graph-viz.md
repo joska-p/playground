@@ -183,6 +183,44 @@ function JumpToPackage() {
 }
 ```
 
+### Customizing visuals
+
+All visual constants live in `src/config.ts` — lighting, node appearance, label offsets, edge opacities, and more. Import and override at the config level:
+
+```tsx
+// src/config.ts — grouped visual constants
+import {
+  fog,
+  keyLight,
+  nodes as nodeConfig,
+  nodeLabel
+} from '@repo/graph-viz/config';
+
+// Override before mounting: spread then patch
+const myConfig = {
+  ...keyLight,
+  position: [30, 40, 20] as [number, number, number],
+  intensity: 2.0
+};
+
+// Or import individual groups to read at runtime
+console.log(nodeConfig.roughness); // 0.85
+console.log(nodeLabel.offsetY); // 2
+```
+
+To override defaults for a whole project, re-export patched config:
+
+```tsx
+// my-app/graph-viz-config.ts
+export { fog, controls, camera } from '@repo/graph-viz/config';
+
+export const keyLight = {
+  position: [30, 40, 20] as const,
+  intensity: 2.0
+  // ...spread remaining defaults from the source config.ts
+};
+```
+
 ## State Management
 
 Two Zustand stores separate concerns:
