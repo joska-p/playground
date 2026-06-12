@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 import type { GraphData, GraphNode, CommunityData } from '../types';
 import { computeCommunities, computeInterCommunityEdges } from '../utils/communities';
+import { computeDegrees } from '../utils/nodes';
 import type { InterCommunityEdge } from '../utils/communities';
 
 type DataStore = {
   graphData: GraphData | null;
   positions: Float32Array | null;
+  degrees: Float32Array | null;
   nodeIndex: Map<string, number>;
   communities: Map<number, CommunityData>;
   interCommunityEdges: Map<string, InterCommunityEdge>;
@@ -24,6 +26,7 @@ function buildNodeIndex(nodes: GraphNode[]): Map<string, number> {
 export const useDataStore = create<DataStore>((set, get) => ({
   graphData: null,
   positions: null,
+  degrees: null,
   nodeIndex: new Map(),
   communities: new Map(),
   interCommunityEdges: new Map(),
@@ -38,6 +41,7 @@ export const useDataStore = create<DataStore>((set, get) => ({
     const { graphData, nodeIndex } = get();
     if (!graphData) return;
 
+    const degrees = computeDegrees(graphData.nodes, graphData.links, nodeIndex);
     const communities = computeCommunities(graphData.nodes, positions);
     const interCommunityEdges = computeInterCommunityEdges(
       graphData.links,
@@ -46,6 +50,6 @@ export const useDataStore = create<DataStore>((set, get) => ({
       communities,
     );
 
-    set({ positions, communities, interCommunityEdges, isLoaded: true });
+    set({ positions, degrees, communities, interCommunityEdges, isLoaded: true });
   },
 }));

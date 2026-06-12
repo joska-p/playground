@@ -15,6 +15,7 @@ function GraphCommunitySpheres({ ghost, visibleIds }: GraphCommunitySpheresProps
   const communities = useDataStore((s) => s.communities);
   const communityFilter = useUiStore((s) => s.communityFilter);
   const setCommunityFilter = useUiStore((s) => s.setCommunityFilter);
+  const setHoveredCommunityId = useUiStore((s) => s.setHoveredCommunityId);
 
   // Derive whether a community is currently selected
   const hasSelection = useMemo(() => {
@@ -54,7 +55,24 @@ function GraphCommunitySpheres({ ghost, visibleIds }: GraphCommunitySpheresProps
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   }, [communityList]);
 
+  function handlePointerOver(event: { stopPropagation: () => void; instanceId?: number }) {
+    if (ghost) return;
+    event.stopPropagation();
+    document.body.style.cursor = 'pointer';
+    if (event.instanceId === undefined) return;
+    const community = communityList[event.instanceId];
+    if (!community) return;
+    setHoveredCommunityId(community.id);
+  }
+
+  function handlePointerOut() {
+    if (ghost) return;
+    document.body.style.cursor = 'auto';
+    setHoveredCommunityId(null);
+  }
+
   function handleClick(event: { stopPropagation: () => void; instanceId?: number }) {
+    if (ghost) return;
     event.stopPropagation();
     if (event.instanceId === undefined) return;
     const community = communityList[event.instanceId];
@@ -68,7 +86,9 @@ function GraphCommunitySpheres({ ghost, visibleIds }: GraphCommunitySpheresProps
     <instancedMesh
       ref={ref}
       args={[null, null, communityList.length]}
-      onClick={handleClick}
+      onClick={ghost ? undefined : handleClick}
+      onPointerOver={ghost ? undefined : handlePointerOver}
+      onPointerOut={ghost ? undefined : handlePointerOut}
     >
       <sphereGeometry args={[1, 16, 12]} />
       <meshStandardMaterial

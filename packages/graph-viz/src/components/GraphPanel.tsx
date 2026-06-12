@@ -12,6 +12,7 @@ import { useUiStore } from '../stores/uiStore';
 function GraphPanel() {
   const graphData = useDataStore((s) => s.graphData);
   const communities = useDataStore((s) => s.communities);
+  const interCommunityEdges = useDataStore((s) => s.interCommunityEdges);
 
   const selectedNode = useUiStore((s) => s.selectedNode);
   const searchQuery = useUiStore((s) => s.searchQuery);
@@ -19,6 +20,7 @@ function GraphPanel() {
   const communityFilter = useUiStore((s) => s.communityFilter);
   const autoRotate = useUiStore((s) => s.autoRotate);
   const showEdges = useUiStore((s) => s.showEdges);
+  const showNodeLabels = useUiStore((s) => s.showNodeLabels);
   const isPanelOpen = useUiStore((s) => s.isPanelOpen);
 
   const selectNode = useUiStore((s) => s.selectNode);
@@ -27,6 +29,7 @@ function GraphPanel() {
   const setCommunityFilter = useUiStore((s) => s.setCommunityFilter);
   const setAutoRotate = useUiStore((s) => s.setAutoRotate);
   const setShowEdges = useUiStore((s) => s.setShowEdges);
+  const setShowNodeLabels = useUiStore((s) => s.setShowNodeLabels);
   const togglePanel = useUiStore((s) => s.togglePanel);
 
   // Derive view mode from communityFilter
@@ -119,6 +122,13 @@ function GraphPanel() {
                 checked={showEdges}
                 onCheckedChange={setShowEdges}
               />
+              {viewMode === 'detail' && (
+                <Switch
+                  label="Show labels"
+                  checked={showNodeLabels}
+                  onCheckedChange={setShowNodeLabels}
+                />
+              )}
             </div>
 
             {/* Stats */}
@@ -154,6 +164,45 @@ function GraphPanel() {
                 {selectedCommunity.hasTrash && (
                   <span className="text-destructive">Contains .Trash files</span>
                 )}
+
+                {/* Linked communities in detail mode */}
+                {viewMode === 'detail' && (() => {
+                  // Find actual inter-community edges for the selected community
+                  const linkedEdges = [...interCommunityEdges.values()]
+                    .filter((e) => e.sourceCid === selectedCommunity.id || e.targetCid === selectedCommunity.id)
+                    .sort((a, b) => b.count - a.count)
+                    .slice(0, 8);
+
+                  if (linkedEdges.length === 0) return null;
+
+                  return (
+                    <div className="mt-1 flex flex-col gap-1">
+                      <span className="text-muted-foreground text-[10px] uppercase tracking-wider font-medium">
+                        Connected to
+                      </span>
+                      {linkedEdges.map((e) => {
+                        const otherCid = e.sourceCid === selectedCommunity.id ? e.targetCid : e.sourceCid;
+                        const other = communities.get(otherCid);
+                        if (!other) return null;
+                        return (
+                          <button
+                            key={otherCid}
+                            type="button"
+                            onClick={() => setCommunityFilter(String(otherCid))}
+                            className="flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors hover:bg-accent"
+                          >
+                            <span
+                              className="inline-block h-2 w-2 flex-shrink-0 rounded-full"
+                              style={{ backgroundColor: other.color }}
+                            />
+                            <span className="truncate flex-1 text-left">{other.label}</span>
+                            <span className="text-muted-foreground flex-shrink-0">{e.count}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
               </div>
             )}
 

@@ -139,13 +139,63 @@ export type FilteredSubset = {
   nodes: GraphNode[];
   links: GraphLink[];
   nodeIndex: Map<string, number>;
+  degrees: Float32Array;
 };
+
+/**
+ * Center a set of positions at the origin.
+ * Only scales down if community is very spread out (> 15 units).
+ * Never inflates tight communities — preserves internal proportions.
+ * Returns a new Float32Array — does not mutate the input.
+ */
+export function normalizeCommunityPositions(
+  positions: Float32Array,
+  maxSpread = 15,
+): Float32Array {
+  const n = positions.length / 3;
+  if (n === 0) return new Float32Array(0);
+
+  let minX = Infinity;
+  let minY = Infinity;
+  let minZ = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  let maxZ = -Infinity;
+
+  for (let i = 0; i < n; i++) {
+    const x = positions[i * 3]!;
+    const y = positions[i * 3 + 1]!;
+    const z = positions[i * 3 + 2]!;
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
+    if (z < minZ) minZ = z;
+    if (z > maxZ) maxZ = z;
+  }
+
+  const cx = (minX + maxX) / 2;
+  const cy = (minY + maxY) / 2;
+  const cz = (minZ + maxZ) / 2;
+  const extent = Math.max(maxX - minX, maxY - minY, maxZ - minZ, 1);
+  const scale = extent > maxSpread ? maxSpread / extent : 1;
+
+  const normalized = new Float32Array(positions.length);
+  for (let i = 0; i < n; i++) {
+    normalized[i * 3] = (positions[i * 3]! - cx) * scale;
+    normalized[i * 3 + 1] = (positions[i * 3 + 1]! - cy) * scale;
+    normalized[i * 3 + 2] = (positions[i * 3 + 2]! - cz) * scale;
+  }
+
+  return normalized;
+}
 
 export function filterByCommunity(
   communityId: number,
   positions: Float32Array,
   nodes: GraphNode[],
   links: GraphLink[],
+  degrees?: Float32Array,
 ): FilteredSubset | null {
   // Build map of which original indices belong to this community
   const communityNodeIds = new Map<string, number>();
@@ -163,6 +213,7 @@ export function filterByCommunity(
   // Build filtered positions
   const filteredPos = new Float32Array(communityIndices.length * 3);
   const filteredNodes: GraphNode[] = [];
+  const filteredDegrees = degrees ? new Float32Array(communityIndices.length) : new Float32Array(0);
 
   for (let i = 0; i < communityIndices.length; i++) {
     const origIdx = communityIndices[i]!;
@@ -170,6 +221,9 @@ export function filterByCommunity(
     filteredPos[i * 3 + 1] = positions[origIdx * 3 + 1];
     filteredPos[i * 3 + 2] = positions[origIdx * 3 + 2];
     filteredNodes.push(nodes[origIdx]!);
+    if (degrees) {
+      filteredDegrees[i] = degrees[origIdx]!;
+    }
   }
 
   // Filter links
@@ -182,5 +236,6 @@ export function filterByCommunity(
     nodes: filteredNodes,
     links: filteredLinks,
     nodeIndex: communityNodeIds,
+    degrees: filteredDegrees,
   };
 }
