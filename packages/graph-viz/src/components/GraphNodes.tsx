@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import type { InstancedMesh } from 'three';
 import { Color, Object3D, SphereGeometry } from 'three';
 import { degree, nodes as nodeConfig } from '../config';
+import { useUiStore } from '../stores/uiStore';
 import type { GraphNode } from '../types';
 import { communityColor, hexToRgb } from '../utils/colors';
 import { degreeToBrightness, degreeToSize } from '../utils/nodes';
@@ -33,6 +34,7 @@ function GraphNodes({
   onPointerMoveNode
 }: GraphNodesProps) {
   const meshRef = useRef<InstancedMesh>(null);
+  const setPointerPosition = useUiStore((s) => s.setPointerPosition);
   const count = nodes.length;
 
   // Find max degree for normalization
@@ -90,6 +92,7 @@ function GraphNodes({
   }
 
   function handlePointerMove(e: ThreeEvent<PointerEvent>) {
+    setPointerPosition(e.clientX, e.clientY);
     if (onPointerMoveNode) {
       onPointerMoveNode(e.instanceId ?? null);
     }

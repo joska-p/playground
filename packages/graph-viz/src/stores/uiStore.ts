@@ -12,6 +12,8 @@ type UiStore = {
   showEdges: boolean;
   showNodeLabels: boolean;
   isPanelOpen: boolean;
+  pointerX: number | null;
+  pointerY: number | null;
 
   selectNode: (node: GraphNode | null) => void;
   setHoveredCommunityId: (id: number | null) => void;
@@ -23,6 +25,7 @@ type UiStore = {
   setShowEdges: (on: boolean) => void;
   setShowNodeLabels: (on: boolean) => void;
   togglePanel: () => void;
+  setPointerPosition: (x: number, y: number) => void;
 };
 
 export const useUiStore = create<UiStore>((set) => ({
@@ -36,6 +39,8 @@ export const useUiStore = create<UiStore>((set) => ({
   showEdges: true,
   showNodeLabels: false,
   isPanelOpen: true,
+  pointerX: null,
+  pointerY: null,
 
   selectNode: (selectedNode) => set({ selectedNode, hoveredNodeIndex: null }),
 
@@ -60,5 +65,7 @@ export const useUiStore = create<UiStore>((set) => ({
 
   setShowNodeLabels: (showNodeLabels) => set({ showNodeLabels }),
 
-  togglePanel: () => set((s) => ({ isPanelOpen: !s.isPanelOpen }))
+  togglePanel: () => set((s) => ({ isPanelOpen: !s.isPanelOpen })),
+
+  setPointerPosition: (pointerX, pointerY) => set({ pointerX, pointerY })
 }));

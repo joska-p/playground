@@ -53,6 +53,7 @@ function Scene() {
   const selectedNode = useUiStore((s) => s.selectedNode);
   const selectNode = useUiStore((s) => s.selectNode);
   const setHoveredNodeIndex = useUiStore((s) => s.setHoveredNodeIndex);
+  const searchQuery = useUiStore((s) => s.searchQuery);
 
   // Derive view mode from communityFilter — single numeric ID = detail mode
   const selectedCommunityId = (() => {
@@ -60,6 +61,36 @@ function Scene() {
     return /^\d+$/.test(trimmed) ? Number.parseInt(trimmed, 10) : null;
   })();
   const viewMode = selectedCommunityId !== null ? 'detail' : 'overview';
+
+  // Derive search highlights from searchQuery
+  const searchHighlights = (() => {
+    if (!searchQuery.trim() || !graphData) return null;
+    const q = searchQuery.toLowerCase();
+
+    const matchingNodeIndices = new Set<number>();
+    const matchingCommunityIds = new Set<number>();
+
+    // Match against nodes
+    for (let i = 0; i < graphData.nodes.length; i++) {
+      const node = graphData.nodes[i]!;
+      if (
+        node.label.toLowerCase().includes(q) ||
+        node.id.toLowerCase().includes(q)
+      ) {
+        matchingNodeIndices.add(i);
+        matchingCommunityIds.add(node.community);
+      }
+    }
+
+    // Match against communities
+    for (const [cid, comm] of communities) {
+      if (comm.label.toLowerCase().includes(q)) {
+        matchingCommunityIds.add(cid);
+      }
+    }
+
+    return { matchingNodeIndices, matchingCommunityIds };
+  })();
 
   // Communities to show in overview mode
   const visibleCommunityIds = (() => {
@@ -230,6 +261,19 @@ function Scene() {
     return indices;
   })();
 
+  // Map search highlights to detail data indices
+  const searchHighlightIndicesInDetail = (() => {
+    if (!searchHighlights || !detailData) return null;
+    const indices = new Set<number>();
+    for (let i = 0; i < detailData.nodes.length; i++) {
+      const globalIdx = graphData!.nodes.indexOf(detailData.nodes[i]!);
+      if (globalIdx !== -1 && searchHighlights.matchingNodeIndices.has(globalIdx)) {
+        indices.add(i);
+      }
+    }
+    return indices.size > 0 ? indices : null;
+  })();
+
   // Position of selected node
   const selectedNodePos = ((): [number, number, number] | null => {
     if (!selectedNode || !detailData) return null;
@@ -309,7 +353,10 @@ function Scene() {
       {/* Overview mode */}
       {viewMode === 'overview' && (
         <>
-          <GraphCommunitySpheres visibleIds={visibleCommunityIds} />
+          <GraphCommunitySpheres
+            visibleIds={visibleCommunityIds}
+            highlightIds={searchHighlights?.matchingCommunityIds}
+          />
           {showEdges && <CommunityEdges visibleIds={visibleCommunityIds} />}
 
           {/* Persistent labels for largest communities */}
@@ -342,7 +389,7 @@ function Scene() {
       )}
 
       {/* Detail mode */}
-      {viewMode === 'detail' && detailData && (
+       {viewMode === 'detail' && detailData && (
         <>
           <GraphCommunitySpheres ghost />
           <GraphNodes
@@ -350,7 +397,9 @@ function Scene() {
             nodes={detailData.nodes}
             degrees={detailData.degrees}
             size={nodeConfig.defaultSize}
-            highlightIndices={connectedNodeIndices}
+            highlightIndices={
+              searchHighlightIndicesInDetail ?? connectedNodeIndices
+            }
             onNodeClick={selectNode}
             onPointerMoveNode={setHoveredNodeIndex}
           />

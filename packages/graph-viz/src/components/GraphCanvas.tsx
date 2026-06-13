@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
 import type { GraphData, LayoutInput } from '../types';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { GraphPanel } from './GraphPanel';
 import { LoadingFallback } from './LoadingFallback';
+import { NodeTooltip } from './NodeTooltip';
 import { Scene } from './Scene';
 
 // Graph data is bundled at build time — never fetch at runtime
@@ -16,6 +18,9 @@ function GraphCanvas() {
   const isLoaded = useDataStore((s) => s.isLoaded);
   const setGraphData = useDataStore((s) => s.setGraphData);
   const setPositions = useDataStore((s) => s.setPositions);
+
+  // Setup keyboard shortcuts
+  useKeyboardShortcuts();
 
   // ── Load graph data on mount ──
 
@@ -68,6 +73,7 @@ function GraphCanvas() {
       </Canvas>
 
       <GraphPanel />
+      <NodeTooltip />
     </div>
   );
 }

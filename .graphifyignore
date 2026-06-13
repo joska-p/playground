@@ -30,3 +30,4 @@ apps/storybook/
 .Trash-1000/
 session-*.md
 .devcontainer/
+.*

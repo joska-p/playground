@@ -5,6 +5,7 @@ import { Icon } from '@repo/ui/Icon';
 import { Input } from '@repo/ui/Input';
 import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
+import { useEffect, useState } from 'react';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 import { ColorLegend } from './ColorLegend';
@@ -50,6 +51,45 @@ function GraphPanel() {
   // Selected community info
   const selectedCommunity =
     selectedCommunityId !== null ? communities.get(selectedCommunityId) : null;
+
+  // Focused index for keyboard navigation of the ColorLegend list.
+  // Clamped to stay within the valid range when the list changes.
+  const [rawFocusedIndex, setRawFocusedIndex] = useState(0);
+  const maxIndex = communityList.length - 1;
+  const focusedIndex = Math.min(rawFocusedIndex, Math.max(0, maxIndex));
+
+  // Keyboard navigation for the community list
+  useEffect(() => {
+    if (viewMode !== 'overview') return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+
+      switch (e.key) {
+        case 'ArrowDown': {
+          e.preventDefault();
+          setRawFocusedIndex((prev) => Math.min(prev + 1, maxIndex));
+          break;
+        }
+        case 'ArrowUp': {
+          e.preventDefault();
+          setRawFocusedIndex((prev) => Math.max(prev - 1, 0));
+          break;
+        }
+        case 'Enter': {
+          if (communityList.length > 0 && communityList[focusedIndex]) {
+            setCommunityFilter(String(communityList[focusedIndex]!.id));
+            e.preventDefault();
+          }
+          break;
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [viewMode, communityList, focusedIndex, maxIndex, setCommunityFilter]);
 
   if (!graphData) return null;
 
@@ -221,39 +261,117 @@ function GraphPanel() {
             )}
 
             {/* Color legend (overview mode) */}
-            {viewMode === 'overview' && <ColorLegend />}
+            {viewMode === 'overview' && (
+              <ColorLegend
+                focusedIndex={focusedIndex}
+                onFocusChange={setRawFocusedIndex}
+              />
+            )}
 
             {/* Selected node info */}
-            {selectedNode && (
-              <div className="flex flex-col gap-1.5 rounded-lg border p-3 text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="truncate font-medium">
-                    {selectedNode.label}
-                  </span>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => selectNode(null)}
-                    className="h-5 w-5 flex-shrink-0"
-                    aria-label="Deselect"
-                  >
-                    <Icon
-                      name="close"
-                      className="h-3 w-3"
-                    />
-                  </Button>
+            {selectedNode && (() => {
+              const nodeIndex = useDataStore.getState().nodeIndex;
+              const degrees = useDataStore.getState().degrees;
+              const idx = nodeIndex.get(selectedNode.id);
+              const deg = idx !== undefined && degrees ? degrees[idx] : 0;
+              const community = communities.get(selectedNode.community);
+
+              // Find connected neighbors
+              const neighbors: Array<{ node: typeof selectedNode; relation: string }> = [];
+              for (const link of graphData.links) {
+                if (link.source === selectedNode.id) {
+                  const targetIdx = nodeIndex.get(link.target);
+                  if (targetIdx !== undefined) {
+                    neighbors.push({
+                      node: graphData.nodes[targetIdx]!,
+                      relation: link.relation
+                    });
+                  }
+                } else if (link.target === selectedNode.id) {
+                  const sourceIdx = nodeIndex.get(link.source);
+                  if (sourceIdx !== undefined) {
+                    neighbors.push({
+                      node: graphData.nodes[sourceIdx]!,
+                      relation: link.relation
+                    });
+                  }
+                }
+              }
+              neighbors.sort((a, b) => {
+                const degA = degrees?.[nodeIndex.get(a.node.id)!] ?? 0;
+                const degB = degrees?.[nodeIndex.get(b.node.id)!] ?? 0;
+                return degB - degA;
+              });
+
+              return (
+                <div className="flex flex-col gap-2 rounded-lg border p-3 text-xs">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 min-w-0">
+                      {community && (
+                        <span
+                          className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
+                          style={{ backgroundColor: community.color }}
+                        />
+                      )}
+                      <span className="truncate font-medium">
+                        {selectedNode.label}
+                      </span>
+                    </div>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => selectNode(null)}
+                      className="h-5 w-5 flex-shrink-0"
+                      aria-label="Deselect"
+                    >
+                      <Icon
+                        name="close"
+                        className="h-3 w-3"
+                      />
+                    </Button>
+                  </div>
+
+                  {/* Metadata */}
+                  <div className="text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
+                    <span className="truncate">ID: {selectedNode.id}</span>
+                    <span>Type: {selectedNode.file_type}</span>
+                    <span>Degree: {deg}</span>
+                    {community && (
+                      <span>Community: {community.label}</span>
+                    )}
+                    <span className="truncate">File: {selectedNode.source_file}</span>
+                  </div>
+
+                  {/* Connected neighbors (top 8) */}
+                  {neighbors.length > 0 && (
+                    <div className="mt-1 flex flex-col gap-1">
+                      <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
+                        Connected to ({neighbors.length})
+                      </span>
+                      <div className="flex flex-col gap-0.5">
+                        {neighbors.slice(0, 8).map((n) => (
+                          <button
+                            key={n.node.id}
+                            type="button"
+                            onClick={() => selectNode(n.node)}
+                            className="hover:bg-accent flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
+                          >
+                            <span className="flex-1 truncate text-left">
+                              {n.node.label}
+                            </span>
+                            <span className="text-muted-foreground flex-shrink-0 text-[10px]">
+                              {n.relation}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <span className="text-muted-foreground truncate">
-                  {selectedNode.id}
-                </span>
-                <span className="text-muted-foreground">
-                  {selectedNode.file_type}
-                </span>
-                <span className="text-muted-foreground truncate">
-                  {selectedNode.source_file}
-                </span>
-              </div>
-            )}
+              );
+            })()}
+
           </div>
         </Card>
       )}
