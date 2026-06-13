@@ -72,7 +72,7 @@ export function useInstanceMesh(
 
     mesh.computeBoundingSphere();
     // deps is consumed by the effect but we intentionally use indices in the logic
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [
     positions,
     indices,

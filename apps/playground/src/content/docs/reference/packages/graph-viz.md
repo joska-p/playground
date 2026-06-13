@@ -1,7 +1,7 @@
 ---
-title: "Graph Visualization"
-description: "Interactive 3D graph visualization using React Three Fiber (R3F), drei, and Zustand. Renders the output of `graphify` — a workspace-level dependency and concept graph — with a build-time enrichment pipeline that adds semantic labels, entity types, and package metadata."
-category: "reference"
+title: 'Graph Visualization'
+description: 'Interactive 3D graph visualization using React Three Fiber (R3F), drei, and Zustand. Renders the output of `graphify` — a workspace-level dependency and concept graph — with a build-time enrichment pipeline that adds semantic labels, entity types, and package metadata.'
+category: 'reference'
 tags:
   - reference
   - graph-viz
@@ -34,11 +34,11 @@ pnpm --filter @repo/graph-viz dev
 
 The graph data pipeline is **build-time only** — no Web Worker at runtime.
 
-| Step | Input | Command | Output |
-|------|-------|---------|--------|
-| Extract | source code | `graphify update .` | `graph.json` |
-| Enrich + layout | `graph.json` | `pnpm --filter @repo/graph-viz prepare-data` | `graph-prepared.json` |
-| Serve | `graph-prepared.json` | `pnpm dev` | loaded at startup |
+| Step            | Input                 | Command                                      | Output                |
+| --------------- | --------------------- | -------------------------------------------- | --------------------- |
+| Extract         | source code           | `graphify update .`                          | `graph.json`          |
+| Enrich + layout | `graph.json`          | `pnpm --filter @repo/graph-viz prepare-data` | `graph-prepared.json` |
+| Serve           | `graph-prepared.json` | `pnpm dev`                                   | loaded at startup     |
 
 To regenerate from a fresh `graphify` run:
 
@@ -149,45 +149,45 @@ The `prepare-data` script (`src/data/prepare.ts`) runs three stages:
 
 ## Exports
 
-| Export | Path | Description |
-| ------ | ---- | ----------- |
-| `App` | `./src/App.tsx` | Full-screen wrapper rendering `GraphCanvas` |
-| — | `./src/styles` | Global CSS (full-screen layout, dark background) |
+| Export | Path            | Description                                      |
+| ------ | --------------- | ------------------------------------------------ |
+| `App`  | `./src/App.tsx` | Full-screen wrapper rendering `GraphCanvas`      |
+| —      | `./src/styles`  | Global CSS (full-screen layout, dark background) |
 
 ### Internal components (not part of public API)
 
-| File | Export | Role |
-| ---- | ------ | ---- |
-| `src/components/GraphCanvas` | `GraphCanvas` | Loads prepared data, creates R3F Canvas + panel |
-| `src/features/scene/components/Scene` | `Scene` | Mode switching, camera, all 3D objects |
-| `src/features/graph/components/GraphNodes` | `GraphNodes` | InstancedMesh spheres — per-instance size + color by degree |
-| `src/features/graph/components/GraphNodesGroup` | `GraphNodesGroup` | Single InstancedMesh group (split by health) |
-| `src/features/graph/components/GraphEdges` | `GraphEdges` | LineSegments for intra-community edges, relation-type filtered |
-| `src/features/graph/components/GraphCommunitySpheres` | `GraphCommunitySpheres` | InstancedMesh spheres at community centroids |
-| `src/features/graph/components/CommunityEdges` | `CommunityEdges` | LineSegments for inter-community edges, relation-type filtered |
-| `src/features/graph/components/CommunityLinks` | `CommunityLinks` | Ghosted lines to linked communities in detail mode |
-| `src/features/graph/components/HyperedgeLayer` | `HyperedgeLayer` | Transparent hulls for hyperedge clusters |
-| `src/features/graph/components/HighlightedEdges` | `HighlightedEdges` | Relation-colored lines from selected node |
-| `src/features/graph/services/edgeGeometry` | — | Edge BufferGeometry builder |
-| `src/features/graph/services/communityGeometry` | — | Community edge geometries, clustering logic |
-| `src/features/graph/hooks/useInstanceMesh` | — | InstancedMesh matrix/color updater |
-| `src/features/annotation/components/NodeLabel` | `NodeLabel` | drei `Text` label for a single node |
-| `src/features/annotation/components/NodeTypeIndicators` | `NodeTypeIndicators` | Small icons for entity types |
-| `src/features/annotation/components/CommunityLabel` | `CommunityLabel` | drei `Text` label for a community |
-| `src/features/panel/components/GraphPanel` | `GraphPanel` | DOM overlay — community list, filters, node info |
-| `src/features/panel/components/ColorLegend` | `ColorLegend` | Searchable community swatch list |
-| `src/features/scene/hooks/useFlyAnimation` | — | Camera fly-to between overview/detail with ease-out cubic |
-| `src/features/scene/hooks/useCameraDistance` | — | Tracks camera distance for LOD |
-| `src/features/scene/services/cameraUtils` | — | Fly animation creation + tick, LOD segment selection |
-| `src/stores/dataStore` | `useDataStore` | Zustand store: raw + derived graph data |
-| `src/stores/uiStore` | `useUiStore` | Zustand store: selection, filters, view settings |
-| `src/data/prepare` | — | Node.js build script: enrichment + layout + community computation |
-| `src/data/enrich` | — | Entity type classification, package extraction, semantic labels |
-| `src/data/layout` | — | Force-directed 3D layout via `ngtx/layout` |
-| `src/utils/colors` | — | 24-color community palette, `hexToRgb` |
-| `src/utils/communities` | — | Centroid computation, position normalization, community filtering |
-| `src/utils/nodes` | — | Degree computation, size/brightness mapping |
-| `src/types` | `GraphNode`, `GraphLink`, `GraphData`, `CommunityData`, ... | Shared type definitions |
+| File                                                    | Export                                                      | Role                                                              |
+| ------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
+| `src/components/GraphCanvas`                            | `GraphCanvas`                                               | Loads prepared data, creates R3F Canvas + panel                   |
+| `src/features/scene/components/Scene`                   | `Scene`                                                     | Mode switching, camera, all 3D objects                            |
+| `src/features/graph/components/GraphNodes`              | `GraphNodes`                                                | InstancedMesh spheres — per-instance size + color by degree       |
+| `src/features/graph/components/GraphNodesGroup`         | `GraphNodesGroup`                                           | Single InstancedMesh group (split by health)                      |
+| `src/features/graph/components/GraphEdges`              | `GraphEdges`                                                | LineSegments for intra-community edges, relation-type filtered    |
+| `src/features/graph/components/GraphCommunitySpheres`   | `GraphCommunitySpheres`                                     | InstancedMesh spheres at community centroids                      |
+| `src/features/graph/components/CommunityEdges`          | `CommunityEdges`                                            | LineSegments for inter-community edges, relation-type filtered    |
+| `src/features/graph/components/CommunityLinks`          | `CommunityLinks`                                            | Ghosted lines to linked communities in detail mode                |
+| `src/features/graph/components/HyperedgeLayer`          | `HyperedgeLayer`                                            | Transparent hulls for hyperedge clusters                          |
+| `src/features/graph/components/HighlightedEdges`        | `HighlightedEdges`                                          | Relation-colored lines from selected node                         |
+| `src/features/graph/services/edgeGeometry`              | —                                                           | Edge BufferGeometry builder                                       |
+| `src/features/graph/services/communityGeometry`         | —                                                           | Community edge geometries, clustering logic                       |
+| `src/features/graph/hooks/useInstanceMesh`              | —                                                           | InstancedMesh matrix/color updater                                |
+| `src/features/annotation/components/NodeLabel`          | `NodeLabel`                                                 | drei `Text` label for a single node                               |
+| `src/features/annotation/components/NodeTypeIndicators` | `NodeTypeIndicators`                                        | Small icons for entity types                                      |
+| `src/features/annotation/components/CommunityLabel`     | `CommunityLabel`                                            | drei `Text` label for a community                                 |
+| `src/features/panel/components/GraphPanel`              | `GraphPanel`                                                | DOM overlay — community list, filters, node info                  |
+| `src/features/panel/components/ColorLegend`             | `ColorLegend`                                               | Searchable community swatch list                                  |
+| `src/features/scene/hooks/useFlyAnimation`              | —                                                           | Camera fly-to between overview/detail with ease-out cubic         |
+| `src/features/scene/hooks/useCameraDistance`            | —                                                           | Tracks camera distance for LOD                                    |
+| `src/features/scene/services/cameraUtils`               | —                                                           | Fly animation creation + tick, LOD segment selection              |
+| `src/stores/dataStore`                                  | `useDataStore`                                              | Zustand store: raw + derived graph data                           |
+| `src/stores/uiStore`                                    | `useUiStore`                                                | Zustand store: selection, filters, view settings                  |
+| `src/data/prepare`                                      | —                                                           | Node.js build script: enrichment + layout + community computation |
+| `src/data/enrich`                                       | —                                                           | Entity type classification, package extraction, semantic labels   |
+| `src/data/layout`                                       | —                                                           | Force-directed 3D layout via `ngtx/layout`                        |
+| `src/utils/colors`                                      | —                                                           | 24-color community palette, `hexToRgb`                            |
+| `src/utils/communities`                                 | —                                                           | Centroid computation, position normalization, community filtering |
+| `src/utils/nodes`                                       | —                                                           | Degree computation, size/brightness mapping                       |
+| `src/types`                                             | `GraphNode`, `GraphLink`, `GraphData`, `CommunityData`, ... | Shared type definitions                                           |
 
 ## Usage Examples
 
@@ -279,31 +279,31 @@ Two Zustand stores separate concerns:
 
 ### `dataStore` — graph data (set once on load)
 
-| State | Type | Description |
-| ----- | ---- | ----------- |
-| `graphData` | `GraphData \| null` | Raw graph.json nodes and links |
-| `positions` | `Float32Array \| null` | 3D positions from force layout |
-| `degrees` | `Float32Array \| null` | Per-node connection count |
-| `nodeIndex` | `Map<string, number>` | Node ID → array index lookup |
-| `communities` | `Map<number, CommunityData>` | Community metadata (centroid, size, color, semantic labels) |
-| `interCommunityEdges` | `Map<string, InterCommunityEdge>` | Edges between communities |
-| `isLoaded` | `boolean` | True after prepared data is loaded |
+| State                 | Type                              | Description                                                 |
+| --------------------- | --------------------------------- | ----------------------------------------------------------- |
+| `graphData`           | `GraphData \| null`               | Raw graph.json nodes and links                              |
+| `positions`           | `Float32Array \| null`            | 3D positions from force layout                              |
+| `degrees`             | `Float32Array \| null`            | Per-node connection count                                   |
+| `nodeIndex`           | `Map<string, number>`             | Node ID → array index lookup                                |
+| `communities`         | `Map<number, CommunityData>`      | Community metadata (centroid, size, color, semantic labels) |
+| `interCommunityEdges` | `Map<string, InterCommunityEdge>` | Edges between communities                                   |
+| `isLoaded`            | `boolean`                         | True after prepared data is loaded                          |
 
 ### `uiStore` — interactive state (frequently read/written)
 
-| State | Type | Description |
-| ----- | ---- | ----------- |
-| `selectedNode` | `GraphNode \| null` | Currently clicked node |
-| `communityFilter` | `string` | Single ID → detail mode; empty / multi → overview |
-| `searchQuery` | `string` | Node label filter |
-| `minCommunitySize` | `number` | Minimum community size for overview visibility |
-| `hiddenRelationTypes` | `Set<RelationType>` | Edge relation types to hide (default: none) |
-| `entityTypeFilter` | `string` | Entity type to isolate (empty = all) |
-| `autoRotate` | `boolean` | OrbitControls auto-rotation toggle |
-| `showEdges` | `boolean` | Edge visibility toggle |
-| `showHyperedges` | `boolean` | Hyperedge hull toggle |
-| `showNodeLabels` | `boolean` | Toggle all node labels in detail mode |
-| `isPanelOpen` | `boolean` | DOM overlay visibility |
+| State                 | Type                | Description                                       |
+| --------------------- | ------------------- | ------------------------------------------------- |
+| `selectedNode`        | `GraphNode \| null` | Currently clicked node                            |
+| `communityFilter`     | `string`            | Single ID → detail mode; empty / multi → overview |
+| `searchQuery`         | `string`            | Node label filter                                 |
+| `minCommunitySize`    | `number`            | Minimum community size for overview visibility    |
+| `hiddenRelationTypes` | `Set<RelationType>` | Edge relation types to hide (default: none)       |
+| `entityTypeFilter`    | `string`            | Entity type to isolate (empty = all)              |
+| `autoRotate`          | `boolean`           | OrbitControls auto-rotation toggle                |
+| `showEdges`           | `boolean`           | Edge visibility toggle                            |
+| `showHyperedges`      | `boolean`           | Hyperedge hull toggle                             |
+| `showNodeLabels`      | `boolean`           | Toggle all node labels in detail mode             |
+| `isPanelOpen`         | `boolean`           | DOM overlay visibility                            |
 
 View mode is **derived** from `communityFilter`: a single numeric ID enters detail mode; anything else shows overview.
 
@@ -339,12 +339,12 @@ The panel exposes several filter controls:
 
 ## Performance
 
-| Area | Strategy |
-| ---- | -------- |
-| **Layout** | Node.js build step (not a Web Worker). Sampled repulsion instead of all-pairs. Early stopping when energy converges. |
-| **Rendering** | `InstancedMesh` for nodes and community spheres (single draw call). `LineSegments` for edges. |
-| **Event handling** | `onPointerMove` for hover, click via instance ID mapped to data index. |
-| **Re-renders** | Zustand selectors isolate subscribers. React compiler memoizes inline computations. |
+| Area               | Strategy                                                                                                             |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| **Layout**         | Node.js build step (not a Web Worker). Sampled repulsion instead of all-pairs. Early stopping when energy converges. |
+| **Rendering**      | `InstancedMesh` for nodes and community spheres (single draw call). `LineSegments` for edges.                        |
+| **Event handling** | `onPointerMove` for hover, click via instance ID mapped to data index.                                               |
+| **Re-renders**     | Zustand selectors isolate subscribers. React compiler memoizes inline computations.                                  |
 
 ## Testing
 
@@ -365,4 +365,3 @@ Follows SemVer. See [CHANGELOG.md](./CHANGELOG.md).
 ---
 
 _Part of [Creative Playground](https://jpotin.gitlab.io/playground/)_
-
