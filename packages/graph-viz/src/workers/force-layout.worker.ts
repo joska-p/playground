@@ -12,6 +12,7 @@ const ATTRACTION_STRENGTH = 0.008;
 const CENTER_STRENGTH = 0.015;
 const IDEAL_EDGE_LENGTH = 3;
 const ENERGY_THRESHOLD = 0.5;
+const PROGRESS_INTERVAL = 5; // Send progress every N iterations
 
 function computeLayout(input: LayoutInput): Float32Array {
   const { nodes, links, center, radius } = input;
@@ -116,6 +117,12 @@ function computeLayout(input: LayoutInput): Float32Array {
         velocities[iz]! * velocities[iz]!;
     }
 
+    // Send progress update every PROGRESS_INTERVAL iterations
+    if (iter % PROGRESS_INTERVAL === 0 || iter === MAX_ITERATIONS - 1) {
+      const progress = Math.min((iter + 1) / MAX_ITERATIONS, 1);
+      self.postMessage({ type: 'progress', progress });
+    }
+
     alpha *= ALPHA_DECAY;
     if (alpha < MIN_ALPHA) break;
     if (totalEnergy / n < ENERGY_THRESHOLD) break;
@@ -126,5 +133,5 @@ function computeLayout(input: LayoutInput): Float32Array {
 
 self.onmessage = (event: MessageEvent<LayoutInput>) => {
   const positions = computeLayout(event.data);
-  self.postMessage(positions, [positions.buffer]);
+  self.postMessage({ type: 'result', positions }, [positions.buffer]);
 };

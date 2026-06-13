@@ -401,6 +401,7 @@ function Scene() {
           <GraphCommunitySpheres
             visibleIds={visibleCommunityIds}
             highlightIds={searchHighlights?.matchingCommunityIds}
+            cameraDistance={cameraDistance}
           />
           {showEdges && <CommunityEdges visibleIds={visibleCommunityIds} />}
 

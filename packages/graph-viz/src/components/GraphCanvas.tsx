@@ -1,5 +1,4 @@
 import { Canvas } from '@react-three/fiber';
-import { WorkerPool } from '@repo/worker-pool';
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
@@ -19,6 +18,9 @@ function GraphCanvas() {
   const setGraphData = useDataStore((s) => s.setGraphData);
   const setPositions = useDataStore((s) => s.setPositions);
 
+  // Loading progress: 0-1
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
   // Setup keyboard shortcuts
   useKeyboardShortcuts();
 
@@ -37,38 +39,48 @@ function GraphCanvas() {
     setGraphData(graphDataRaw as unknown as GraphData);
   }, [setGraphData]);
 
-  // ── Run force layout ──
+  // ── Run force layout with progress tracking ──
 
   useEffect(() => {
     if (!graphData) return;
 
-    const pool = new WorkerPool<LayoutInput, Float32Array>({
-      workerFactory: () =>
-        new Worker(new URL('../workers/force-layout.worker', import.meta.url), {
-          type: 'module'
-        }),
-      maxPoolSize: 1,
-      serialize: (task) => ({ message: task }),
-      deserialize: (event) => ({ ok: true, value: event.data as Float32Array })
+    const worker = new Worker(
+      new URL('../workers/force-layout.worker', import.meta.url),
+      { type: 'module' }
+    );
+
+    worker.addEventListener('message', (event) => {
+      const data = event.data;
+
+      if (data.type === 'progress') {
+        setLoadingProgress(data.progress as number);
+      } else if (data.type === 'result') {
+        setPositions(data.positions as Float32Array);
+        setLoadingProgress(1);
+        worker.terminate();
+      }
     });
 
-    pool
-      .run({
-        nodes: graphData.nodes,
-        links: graphData.links,
-        center: [0, 0, 0],
-        radius: 30
-      })
-      .then((result) => {
-        setPositions(result);
-      });
+    worker.addEventListener('error', () => {
+      setLoadingProgress(0);
+      worker.terminate();
+    });
+
+    const task: LayoutInput = {
+      nodes: graphData.nodes,
+      links: graphData.links,
+      center: [0, 0, 0],
+      radius: 30
+    };
+
+    worker.postMessage(task);
 
     return () => {
-      pool.teardown();
+      worker.terminate();
     };
   }, [graphData, setPositions]);
 
-  if (!isLoaded) return <LoadingFallback />;
+  if (!isLoaded) return <LoadingFallback progress={loadingProgress} />;
 
   return (
     <div className="relative h-full w-full">

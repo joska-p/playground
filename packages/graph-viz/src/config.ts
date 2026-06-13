@@ -255,3 +255,26 @@ export const glow = {
   scale: 12,
   opacity: 0.8
 } as const;
+
+export const communityClustering = {
+  enabled: true,
+  // Communities with fewer nodes than this threshold are considered "small"
+  smallThreshold: 5,
+  // Camera distance beyond which clustering activates
+  // Default camera is at ~88 units; set high so clustering only triggers
+  // when the user zooms out significantly past the default view
+  farDistanceThreshold: 250,
+  // Color for the aggregated "Other" cluster
+  otherClusterColor: '#555555',
+  // Radius multiplier for the aggregated cluster
+  otherClusterRadiusMultiplier: 0.8
+} as const;
+
+export const communityLOD = {
+  // [widthSegments, heightSegments] levels from high to low detail
+  levels: [
+    { distance: 0, widthSegments: 16, heightSegments: 12 },   // high detail (close)
+    { distance: 60, widthSegments: 12, heightSegments: 8 },    // medium
+    { distance: 120, widthSegments: 8, heightSegments: 6 }     // low detail (far)
+  ] as Array<{ distance: number; widthSegments: number; heightSegments: number }>
+} as const;

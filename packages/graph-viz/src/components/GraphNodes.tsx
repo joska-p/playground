@@ -95,6 +95,11 @@ function GraphNodesGroup({
       meshRef.current.instanceColor.needsUpdate = true;
     }
 
+    // Compute bounding sphere from actual instance positions
+    // so Three.js frustum culling correctly culls the mesh
+    // when the entire graph is outside the view frustum
+    meshRef.current.computeBoundingSphere();
+
     // Update ring positions if ringColor is set
     if (ringColor && ringRef.current) {
       for (let i = 0; i < count; i++) {
@@ -108,6 +113,7 @@ function GraphNodesGroup({
         ringRef.current.setMatrixAt(i, dummy.matrix);
       }
       ringRef.current.instanceMatrix.needsUpdate = true;
+      ringRef.current.computeBoundingSphere();
     }
   }, [indices, positions, nodes, degrees, maxDegree, size, count, highlightIndices, ringColor]);
 
