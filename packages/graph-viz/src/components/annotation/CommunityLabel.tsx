@@ -1,6 +1,6 @@
 import { Text } from '@react-three/drei';
 import type {} from '@react-three/fiber';
-import { communityLabel } from '../config';
+import { communityLabel } from '../../config';
 
 type CommunityLabelProps = {
   label: string;

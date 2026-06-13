@@ -1,5 +1,3 @@
-/// <reference lib="webworker" />
-
 import type { LayoutInput } from '../types';
 
 const VELOCITY_DECAY = 0.85;
@@ -12,9 +10,22 @@ const ATTRACTION_STRENGTH = 0.008;
 const CENTER_STRENGTH = 0.015;
 const IDEAL_EDGE_LENGTH = 3;
 const ENERGY_THRESHOLD = 0.5;
-const PROGRESS_INTERVAL = 5; // Send progress every N iterations
+const PROGRESS_INTERVAL = 5;
 
-function computeLayout(input: LayoutInput): Float32Array {
+/**
+ * Force-directed 3D layout.
+ *
+ * Implements sampled repulsion, spring attraction along edges,
+ * center gravity, and adaptive cooling with early stopping.
+ *
+ * Accepts an optional progress callback (0-1). The callback
+ * receives updates every PROGRESS_INTERVAL iterations.
+ * Not needed for build-time usage.
+ */
+export function computeLayout(
+  input: LayoutInput,
+  onProgress?: (fraction: number) => void
+): Float32Array {
   const { nodes, links, center, radius } = input;
   const n = nodes.length;
   const positions = new Float32Array(n * 3);
@@ -117,10 +128,9 @@ function computeLayout(input: LayoutInput): Float32Array {
         velocities[iz]! * velocities[iz]!;
     }
 
-    // Send progress update every PROGRESS_INTERVAL iterations
     if (iter % PROGRESS_INTERVAL === 0 || iter === MAX_ITERATIONS - 1) {
       const progress = Math.min((iter + 1) / MAX_ITERATIONS, 1);
-      self.postMessage({ type: 'progress', progress });
+      onProgress?.(progress);
     }
 
     alpha *= ALPHA_DECAY;
@@ -130,8 +140,3 @@ function computeLayout(input: LayoutInput): Float32Array {
 
   return positions;
 }
-
-self.onmessage = (event: MessageEvent<LayoutInput>) => {
-  const positions = computeLayout(event.data);
-  self.postMessage({ type: 'result', positions }, [positions.buffer]);
-};

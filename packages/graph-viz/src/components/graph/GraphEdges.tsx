@@ -1,8 +1,8 @@
 import type {} from '@react-three/fiber';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import { graphEdge, relationPalette } from '../config';
-import type { GraphLink } from '../types';
-import { hexToRgb } from '../utils/colors';
+import { graphEdge, relationPalette } from '../../config';
+import type { GraphLink } from '../../types';
+import { hexToRgb } from '../../utils/colors';
 
 type GraphEdgesProps = {
   positions: Float32Array;

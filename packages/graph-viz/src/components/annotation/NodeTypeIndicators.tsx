@@ -6,9 +6,9 @@ import {
   fileTypeColors,
   nodes as nodeConfig,
   torusRing
-} from '../config';
-import type { GraphNode } from '../types';
-import { degreeToSize } from '../utils/nodes';
+} from '../../config';
+import type { GraphNode } from '../../types';
+import { degreeToSize } from '../../utils/nodes';
 
 const torusGeometry = new TorusGeometry(
   torusRing.radius,

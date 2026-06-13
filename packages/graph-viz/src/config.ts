@@ -250,12 +250,6 @@ export const directedEdge = {
   directedRelations: ['imports', 'imports_from', 'calls', 're_exports']
 } as const;
 
-export const glow = {
-  canvasSize: 64,
-  scale: 12,
-  opacity: 0.8
-} as const;
-
 export const communityClustering = {
   enabled: true,
   // Communities with fewer nodes than this threshold are considered "small"

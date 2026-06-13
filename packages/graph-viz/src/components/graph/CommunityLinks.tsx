@@ -1,7 +1,7 @@
 import type {} from '@react-three/fiber';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import { communityLink } from '../config';
-import { useDataStore } from '../stores/dataStore';
+import { communityLink } from '../../config';
+import { useDataStore } from '../../stores/dataStore';
 
 type CommunityLinksProps = {
   selectedCommunityId: number;

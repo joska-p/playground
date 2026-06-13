@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b",
+    "prepare-data": "npx tsx src/data/prepare.ts",
+    "build": "pnpm prepare-data && tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
@@ -20,7 +21,7 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
-    "@repo/worker-pool": "workspace:*",
+
     "three": "catalog:",
     "zustand": "catalog:"
   },

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDataStore } from '../stores/dataStore';
-import { useUiStore } from '../stores/uiStore';
+import { useDataStore } from '../../stores/dataStore';
+import { useUiStore } from '../../stores/uiStore';
 
 const TOOLTIP_MARGIN = 10;
 const TOOLTIP_WIDTH = 220;

@@ -1,7 +1,7 @@
 import { Input } from '@repo/ui/Input';
 import { useEffect, useRef, useState } from 'react';
-import { useDataStore } from '../stores/dataStore';
-import { useUiStore } from '../stores/uiStore';
+import { useDataStore } from '../../stores/dataStore';
+import { useUiStore } from '../../stores/uiStore';
 
 type ColorLegendProps = {
   focusedIndex?: number;

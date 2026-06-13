@@ -1,7 +1,7 @@
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import { highlightedEdge, relationPalette } from '../config';
-import type { GraphLink } from '../types';
-import { hexToRgb } from '../utils/colors';
+import { highlightedEdge, relationPalette } from '../../config';
+import type { GraphLink } from '../../types';
+import { hexToRgb } from '../../utils/colors';
 
 type HighlightedEdgesProps = {
   positions: Float32Array;

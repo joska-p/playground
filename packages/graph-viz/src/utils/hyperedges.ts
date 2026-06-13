@@ -1,13 +1,6 @@
 import * as THREE from 'three';
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry.js';
 
-type HyperedgeHullData = {
-  id: string;
-  label: string;
-  confidence?: string;
-  nodeIndices: number[];
-};
-
 function computeHyperedgeHull(
   positions: Float32Array,
   nodeIndices: number[]
@@ -26,5 +19,4 @@ function computeHyperedgeHull(
   return geometry;
 }
 
-export type { HyperedgeHullData };
 export { computeHyperedgeHull };

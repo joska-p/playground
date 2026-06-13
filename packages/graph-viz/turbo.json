@@ -1,6 +1,17 @@
 {
   "extends": ["//"],
   "tasks": {
+    "prepare-data": {
+      "inputs": [
+        "src/data/graph.json",
+        "src/data/layout.ts",
+        "src/data/prepare.ts",
+        "src/utils/*.ts",
+        "src/types.ts",
+        "src/config.ts"
+      ],
+      "outputs": ["src/data/graph-prepared.json"]
+    },
     "check-types": {
       "dependsOn": ["@repo/ui#build"]
     }

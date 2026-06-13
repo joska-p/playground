@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import { Text } from '@react-three/drei';
-import { hyperedge } from '../config';
-import { useDataStore } from '../stores/dataStore';
-import { useUiStore } from '../stores/uiStore';
-import { computeHyperedgeHull } from '../utils/hyperedges';
+import { hyperedge } from '../../config';
+import { useDataStore } from '../../stores/dataStore';
+import { useUiStore } from '../../stores/uiStore';
+import { computeHyperedgeHull } from '../../utils/hyperedges';
 
 function HyperedgeLayer() {
   const graphData = useDataStore((s) => s.graphData);

@@ -1,11 +1,5 @@
 import { create } from 'zustand';
-import type { CommunityData, GraphData, GraphNode } from '../types';
-import type { InterCommunityEdge } from '../utils/communities';
-import {
-  computeCommunities,
-  computeInterCommunityEdges
-} from '../utils/communities';
-import { computeDegrees } from '../utils/nodes';
+import type { CommunityData, GraphData, GraphNode, InterCommunityEdge, PreparedGraphData } from '../types';
 
 type DataStore = {
   graphData: GraphData | null;
@@ -16,8 +10,8 @@ type DataStore = {
   interCommunityEdges: Map<string, InterCommunityEdge>;
   isLoaded: boolean;
 
-  setGraphData: (data: GraphData) => void;
-  setPositions: (positions: Float32Array) => void;
+  /** One-shot load from build-time prepared data — replaces worker + derivation path. */
+  setPreparedData: (data: PreparedGraphData) => void;
 };
 
 function buildNodeIndex(nodes: GraphNode[]): Map<string, number> {
@@ -26,7 +20,7 @@ function buildNodeIndex(nodes: GraphNode[]): Map<string, number> {
   return idx;
 }
 
-export const useDataStore = create<DataStore>((set, get) => ({
+export const useDataStore = create<DataStore>((set) => ({
   graphData: null,
   positions: null,
   degrees: null,
@@ -35,30 +29,35 @@ export const useDataStore = create<DataStore>((set, get) => ({
   interCommunityEdges: new Map(),
   isLoaded: false,
 
-  setGraphData: (graphData) => {
-    const nodeIndex = buildNodeIndex(graphData.nodes);
-    set({ graphData, nodeIndex });
-  },
+  setPreparedData: (data) => {
+    const nodeIndex = buildNodeIndex(data.nodes);
 
-  setPositions: (positions) => {
-    const { graphData, nodeIndex } = get();
-    if (!graphData) return;
+    // Build the same structure `graphData` is typed as
+    const graphData: GraphData = {
+      directed: data.directed,
+      multigraph: data.multigraph,
+      graph: data.graph,
+      nodes: data.nodes,
+      links: data.links,
+    };
 
-    const degrees = computeDegrees(graphData.nodes, graphData.links, nodeIndex);
-    const communities = computeCommunities(graphData.nodes, positions);
-    const interCommunityEdges = computeInterCommunityEdges(
-      graphData.links,
-      graphData.nodes,
-      nodeIndex,
-      communities
+    const communities = new Map<number, CommunityData>();
+    for (const [key, val] of Object.entries(data.communities)) {
+      communities.set(Number(key), val);
+    }
+
+    const interCommunityEdges = new Map<string, InterCommunityEdge>(
+      Object.entries(data.interCommunityEdges)
     );
 
     set({
-      positions,
-      degrees,
+      graphData,
+      positions: Float32Array.from(data.positions),
+      degrees: Float32Array.from(data.degrees),
+      nodeIndex,
       communities,
       interCommunityEdges,
-      isLoaded: true
+      isLoaded: true,
     });
-  }
+  },
 }));

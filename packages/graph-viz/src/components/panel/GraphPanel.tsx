@@ -5,9 +5,9 @@ import { Input } from '@repo/ui/Input';
 import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
 import { useEffect, useState } from 'react';
-import { useDataStore } from '../stores/dataStore';
-import { useUiStore } from '../stores/uiStore';
-import { classifyNodeHealth } from '../utils/nodes';
+import { useDataStore } from '../../stores/dataStore';
+import { useUiStore } from '../../stores/uiStore';
+import { classifyNodeHealth } from '../../utils/nodes';
 import { ColorLegend } from './ColorLegend';
 import { PanelSection } from './PanelSection';
 

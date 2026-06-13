@@ -2,13 +2,11 @@ import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type { InstancedMesh } from 'three';
 import { Color, Object3D, SphereGeometry, TorusGeometry } from 'three';
-import { degree, nodes as nodeConfig, nodeHealth, torusRing } from '../config';
-import { useDataStore } from '../stores/dataStore';
-import { useUiStore } from '../stores/uiStore';
-import type { GraphLink, GraphNode } from '../types';
-import { communityColor, hexToRgb } from '../utils/colors';
-import { classifyNodeHealth, degreeToBrightness, degreeToSize } from '../utils/nodes';
-import type { NodeHealth } from '../utils/nodes';
+import { degree, nodes as nodeConfig, torusRing } from '../../config';
+import { useUiStore } from '../../stores/uiStore';
+import type { GraphNode } from '../../types';
+import { communityColor, hexToRgb } from '../../utils/colors';
+import { degreeToBrightness, degreeToSize } from '../../utils/nodes';
 
 const sphereGeometry = new SphereGeometry(
   nodeConfig.geometryRadius,
@@ -175,100 +173,4 @@ function GraphNodesGroup({
   );
 }
 
-type GraphNodesProps = {
-  positions: Float32Array;
-  nodes: GraphNode[];
-  degrees?: Float32Array | null;
-  size?: number;
-  highlightIndices?: Set<number>;
-  links?: GraphLink[];
-  onNodeClick?: (node: GraphNode) => void;
-  onPointerMoveNode?: (nodeIndex: number | null) => void;
-};
-
-function GraphNodes({
-  positions,
-  nodes,
-  degrees = null,
-  size = nodeConfig.defaultSize,
-  highlightIndices,
-  links: linksProp,
-  onNodeClick,
-  onPointerMoveNode
-}: GraphNodesProps) {
-  // Find max degree for normalization
-  let maxDegree = 0;
-  if (degrees) {
-    for (let i = 0; i < degrees.length; i++) {
-      if (degrees[i]! > maxDegree) maxDegree = degrees[i]!;
-    }
-  }
-
-  const rawLinks = useDataStore((s) => s.graphData?.links ?? []);
-  const allLinks = linksProp ?? rawLinks;
-  const nodeIndex = useDataStore((s) => s.nodeIndex);
-
-  const healthGroups = (() => {
-    const groups: Record<NodeHealth, number[]> = {
-      active: [],
-      'low-confidence': [],
-      isolated: []
-    };
-    for (let i = 0; i < nodes.length; i++) {
-      const health = classifyNodeHealth(
-        nodes[i]!.id,
-        allLinks,
-        degrees,
-        nodeIndex,
-        i
-      );
-      groups[health].push(i);
-    }
-    return groups;
-  })();
-
-  return (
-    <>
-      <GraphNodesGroup
-        indices={healthGroups.active}
-        opacity={1}
-        positions={positions}
-        nodes={nodes}
-        degrees={degrees}
-        maxDegree={maxDegree}
-        size={size}
-        highlightIndices={highlightIndices}
-        onNodeClick={onNodeClick}
-        onPointerMoveNode={onPointerMoveNode}
-      />
-      <GraphNodesGroup
-        indices={healthGroups['low-confidence']}
-        opacity={nodeHealth.lowConfidence.opacity}
-        ringColor={nodeHealth.lowConfidence.ringColor}
-        positions={positions}
-        nodes={nodes}
-        degrees={degrees}
-        maxDegree={maxDegree}
-        size={size}
-        highlightIndices={highlightIndices}
-        onNodeClick={onNodeClick}
-        onPointerMoveNode={onPointerMoveNode}
-      />
-      <GraphNodesGroup
-        indices={healthGroups.isolated}
-        opacity={nodeHealth.isolated.opacity}
-        ringColor={nodeHealth.isolated.ringColor}
-        positions={positions}
-        nodes={nodes}
-        degrees={degrees}
-        maxDegree={maxDegree}
-        size={size}
-        highlightIndices={highlightIndices}
-        onNodeClick={onNodeClick}
-        onPointerMoveNode={onPointerMoveNode}
-      />
-    </>
-  );
-}
-
-export { GraphNodes, GraphNodesGroup };
+export { GraphNodesGroup };

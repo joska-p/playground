@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { communityClustering, communityLOD, communitySphere } from '../config';
-import { useDataStore } from '../stores/dataStore';
-import { useUiStore } from '../stores/uiStore';
-import type { CommunityData } from '../types';
-import { hexToRgb } from '../utils/colors';
-import { computeOtherCluster } from '../utils/communities';
-import type { OtherCluster } from '../utils/communities';
+import { communityClustering, communityLOD, communitySphere } from '../../config';
+import { useDataStore } from '../../stores/dataStore';
+import { useUiStore } from '../../stores/uiStore';
+import type { CommunityData } from '../../types';
+import { hexToRgb } from '../../utils/colors';
+import { computeOtherCluster } from '../../utils/communities';
+import type { OtherCluster } from '../../utils/communities';
 
 type GraphCommunitySpheresProps = {
   ghost?: boolean;

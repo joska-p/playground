@@ -1,11 +1,9 @@
-import type {} from '@react-three/fiber';
-import { useRef, useLayoutEffect } from 'react';
-import * as THREE from 'three';
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import { communityEdge, directedEdge } from '../config';
-import { useDataStore } from '../stores/dataStore';
-import { hexToRgb } from '../utils/colors';
-import type { InterCommunityEdge } from '../utils/communities';
+import { communityEdge, directedEdge } from '../../config';
+import { useDataStore } from '../../stores/dataStore';
+import type { InterCommunityEdge } from '../../types';
+import { hexToRgb } from '../../utils/colors';
+import { DirectedArrowhead } from './DirectedArrowhead';
 
 type CommunityEdgesProps = {
   visibleIds?: Set<number> | null;
@@ -14,43 +12,6 @@ type CommunityEdgesProps = {
 type Tier = 0 | 1 | 2;
 
 const TIER_OPACITIES: Record<Tier, number> = { 0: 0.1, 1: 0.4, 2: 0.8 };
-
-function DirectedArrowhead({
-  from,
-  to,
-  color,
-}: {
-  from: [number, number, number];
-  to: [number, number, number];
-  color: string;
-}) {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-    const direction = new THREE.Vector3(
-      to[0] - from[0],
-      to[1] - from[1],
-      to[2] - from[2],
-    ).normalize();
-    ref.current.position.set(to[0], to[1], to[2]);
-    ref.current.quaternion.setFromUnitVectors(
-      new THREE.Vector3(0, 1, 0),
-      direction,
-    );
-  }, [from, to]);
-
-  return (
-    <mesh ref={ref}>
-      <coneGeometry args={[directedEdge.arrowSize, directedEdge.arrowSize, 6]} />
-      <meshBasicMaterial
-        color={color}
-        transparent
-        opacity={directedEdge.opacity}
-      />
-    </mesh>
-  );
-}
 
 function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
   const communities = useDataStore((s) => s.communities);

@@ -1,6 +1,6 @@
 import { Text } from '@react-three/drei';
-import { nodeLabel } from '../config';
-import type { GraphNode } from '../types';
+import { nodeLabel } from '../../config';
+import type { GraphNode } from '../../types';
 
 type NodeLabelProps = {
   node: GraphNode;

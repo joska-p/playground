@@ -1,15 +1,6 @@
 import { community, communityClustering } from '../config';
-import type { CommunityData, GraphLink, GraphNode } from '../types';
+import type { CommunityData, GraphLink, GraphNode, InterCommunityEdge } from '../types';
 import { communityColor } from './colors';
-
-export type InterCommunityEdge = {
-  sourceCid: number;
-  targetCid: number;
-  count: number;
-  relation?: string;
-  sourceToTargetCount: number;
-  targetToSourceCount: number;
-};
 
 export function computeCommunities(
   nodes: GraphNode[],
@@ -30,14 +21,30 @@ export function computeCommunities(
     let cx = 0;
     let cy = 0;
     let cz = 0;
+
+    let minX = Infinity, maxX = -Infinity;
+    let minY = Infinity, maxY = -Infinity;
+    let minZ = Infinity, maxZ = -Infinity;
+
     for (const idx of indices) {
-      cx += positions[idx * 3];
-      cy += positions[idx * 3 + 1];
-      cz += positions[idx * 3 + 2];
+      const x = positions[idx * 3];
+      const y = positions[idx * 3 + 1];
+      const z = positions[idx * 3 + 2];
+      cx += x;
+      cy += y;
+      cz += z;
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
+      if (z < minZ) minZ = z;
+      if (z > maxZ) maxZ = z;
     }
     cx /= indices.length;
     cy /= indices.length;
     cz /= indices.length;
+
+    const spread = Math.max(maxX - minX, maxY - minY, maxZ - minZ, 0);
 
     // Label = most common source_file prefix
     const prefixCounts = new Map<string, number>();
@@ -72,7 +79,8 @@ export function computeCommunities(
       nodeIndices: indices,
       hasTrash,
       interCommunityEdgeCount: 0,
-      cohesion: 0
+      cohesion: 0,
+      spread
     });
   }
 
