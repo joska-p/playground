@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
 import { ColorLegend } from './ColorLegend';
+import { PanelSection } from './PanelSection';
 
 function GraphPanel() {
   const graphData = useDataStore((s) => s.graphData);
@@ -113,265 +114,272 @@ function GraphPanel() {
       {isPanelOpen && (
         <Card className="absolute top-12 right-3 z-50 max-h-[calc(100vh-4rem)] w-72 overflow-y-auto backdrop-blur-md">
           <div className="flex flex-col gap-4 p-4">
-            {/* Back to overview (detail mode) */}
-            {viewMode === 'detail' && (
-              <Button
-                variant="ghost"
-                onClick={() => setCommunityFilter('')}
-                className="self-start text-xs"
-              >
-                ← Back to overview
-              </Button>
-            )}
-
-            {/* Search */}
-            <Input
-              placeholder="Search nodes..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              fullWidth
-            />
-
-            {/* Community size filter */}
-            <Slider
-              label="Min community size"
-              min={1}
-              max={20}
-              value={minCommunitySize}
-              onChange={setMinCommunitySize}
-            />
-
-            {/* Community IDs filter */}
-            <Input
-              label="Community IDs"
-              placeholder="e.g. 1, 5, 12-20"
-              value={communityFilter}
-              onChange={(e) => setCommunityFilter(e.target.value)}
-              helperText="Filter specific communities"
-              fullWidth
-            />
-
-            {/* Toggles */}
-            <div className="flex flex-col gap-2">
-              <Switch
-                label="Auto-rotate"
-                checked={autoRotate}
-                onCheckedChange={setAutoRotate}
-              />
-              <Switch
-                label="Show edges"
-                checked={showEdges}
-                onCheckedChange={setShowEdges}
-              />
+            {/* Navigation section */}
+            <PanelSection title="Navigation" defaultOpen={true}>
               {viewMode === 'detail' && (
-                <Switch
-                  label="Show labels"
-                  checked={showNodeLabels}
-                  onCheckedChange={setShowNodeLabels}
+                <Button
+                  variant="ghost"
+                  onClick={() => setCommunityFilter('')}
+                  className="self-start text-xs"
+                >
+                  ← Back to overview
+                </Button>
+              )}
+              {viewMode === 'overview' && (
+                <ColorLegend
+                  focusedIndex={focusedIndex}
+                  onFocusChange={setRawFocusedIndex}
                 />
               )}
-            </div>
+            </PanelSection>
 
-            {/* Stats */}
-            <div className="flex flex-wrap gap-1.5">
-              <Badge variant="secondary">
-                {viewMode === 'detail' && selectedCommunity
-                  ? `1/${communities.size} comm`
-                  : `${communityList.length}/${communities.size} comms`}
-              </Badge>
-              <Badge variant="secondary">{graphData.nodes.length} nodes</Badge>
-              <Badge variant="secondary">{graphData.links.length} edges</Badge>
-            </div>
-
-            {/* Selected community info */}
-            {selectedCommunity && (
-              <div className="flex flex-col gap-1.5 rounded-lg border p-3 text-xs">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
-                    style={{ backgroundColor: selectedCommunity.color }}
-                  />
-                  <span className="truncate font-medium">
-                    {selectedCommunity.label}
-                  </span>
-                </div>
-                <span className="text-muted-foreground">
-                  Community {selectedCommunity.id} ·{' '}
-                  {selectedCommunity.nodeCount} nodes
-                </span>
-                {selectedCommunity.hasTrash && (
-                  <span className="text-destructive">
-                    Contains .Trash files
-                  </span>
-                )}
-
-                {/* Linked communities in detail mode */}
-                {viewMode === 'detail' &&
-                  (() => {
-                    // Find actual inter-community edges for the selected community
-                    const linkedEdges = [...interCommunityEdges.values()]
-                      .filter(
-                        (e) =>
-                          e.sourceCid === selectedCommunity.id ||
-                          e.targetCid === selectedCommunity.id
-                      )
-                      .sort((a, b) => b.count - a.count)
-                      .slice(0, 8);
-
-                    if (linkedEdges.length === 0) return null;
-
-                    return (
-                      <div className="mt-1 flex flex-col gap-1">
-                        <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
-                          Connected to
-                        </span>
-                        {linkedEdges.map((e) => {
-                          const otherCid =
-                            e.sourceCid === selectedCommunity.id
-                              ? e.targetCid
-                              : e.sourceCid;
-                          const other = communities.get(otherCid);
-                          if (!other) return null;
-                          return (
-                            <button
-                              key={otherCid}
-                              type="button"
-                              onClick={() =>
-                                setCommunityFilter(String(otherCid))
-                              }
-                              className="hover:bg-accent flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
-                            >
-                              <span
-                                className="inline-block h-2 w-2 flex-shrink-0 rounded-full"
-                                style={{ backgroundColor: other.color }}
-                              />
-                              <span className="flex-1 truncate text-left">
-                                {other.label}
-                              </span>
-                              <span className="text-muted-foreground flex-shrink-0">
-                                {e.count}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    );
-                  })()}
-              </div>
-            )}
-
-            {/* Color legend (overview mode) */}
-            {viewMode === 'overview' && (
-              <ColorLegend
-                focusedIndex={focusedIndex}
-                onFocusChange={setRawFocusedIndex}
+            {/* Search & Filter section */}
+            <PanelSection title="Search & Filter" defaultOpen={false}>
+              <Input
+                placeholder="Search nodes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                fullWidth
               />
-            )}
+              <Slider
+                label="Min community size"
+                min={1}
+                max={20}
+                value={minCommunitySize}
+                onChange={setMinCommunitySize}
+              />
+              <Input
+                label="Community IDs"
+                placeholder="e.g. 1, 5, 12-20"
+                value={communityFilter}
+                onChange={(e) => setCommunityFilter(e.target.value)}
+                helperText="Filter specific communities"
+                fullWidth
+              />
+            </PanelSection>
 
-            {/* Selected node info */}
-            {selectedNode && (() => {
-              const nodeIndex = useDataStore.getState().nodeIndex;
-              const degrees = useDataStore.getState().degrees;
-              const idx = nodeIndex.get(selectedNode.id);
-              const deg = idx !== undefined && degrees ? degrees[idx] : 0;
-              const community = communities.get(selectedNode.community);
+            {/* Display section */}
+            <PanelSection title="Display" defaultOpen={false}>
+              <div className="flex flex-col gap-2">
+                <Switch
+                  label="Auto-rotate"
+                  checked={autoRotate}
+                  onCheckedChange={setAutoRotate}
+                />
+                <Switch
+                  label="Show edges"
+                  checked={showEdges}
+                  onCheckedChange={setShowEdges}
+                />
+                {viewMode === 'detail' && (
+                  <Switch
+                    label="Show labels"
+                    checked={showNodeLabels}
+                    onCheckedChange={setShowNodeLabels}
+                  />
+                )}
+              </div>
+            </PanelSection>
 
-              // Find connected neighbors
-              const neighbors: Array<{ node: typeof selectedNode; relation: string }> = [];
-              for (const link of graphData.links) {
-                if (link.source === selectedNode.id) {
-                  const targetIdx = nodeIndex.get(link.target);
-                  if (targetIdx !== undefined) {
-                    neighbors.push({
-                      node: graphData.nodes[targetIdx]!,
-                      relation: link.relation
-                    });
-                  }
-                } else if (link.target === selectedNode.id) {
-                  const sourceIdx = nodeIndex.get(link.source);
-                  if (sourceIdx !== undefined) {
-                    neighbors.push({
-                      node: graphData.nodes[sourceIdx]!,
-                      relation: link.relation
-                    });
+            {/* Selection section */}
+            <PanelSection title="Selection" defaultOpen={true}>
+              <div className="flex flex-wrap gap-1.5">
+                <Badge variant="secondary">
+                  {viewMode === 'detail' && selectedCommunity
+                    ? `1/${communities.size} comm`
+                    : `${communityList.length}/${communities.size} comms`}
+                </Badge>
+                <Badge variant="secondary">{graphData.nodes.length} nodes</Badge>
+                <Badge variant="secondary">{graphData.links.length} edges</Badge>
+              </div>
+
+              {/* Selected community info */}
+              {selectedCommunity && (
+                <div className="flex flex-col gap-1.5 rounded-lg border p-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
+                      style={{ backgroundColor: selectedCommunity.color }}
+                    />
+                    <span className="truncate font-medium">
+                      {selectedCommunity.label}
+                    </span>
+                  </div>
+                  <span className="text-muted-foreground">
+                    Community {selectedCommunity.id} ·{' '}
+                    {selectedCommunity.nodeCount} nodes
+                  </span>
+                  {selectedCommunity.hasTrash && (
+                    <span className="text-destructive">
+                      Contains .Trash files
+                    </span>
+                  )}
+
+                  {/* Linked communities in detail mode */}
+                  {viewMode === 'detail' &&
+                    (() => {
+                      // Find actual inter-community edges for the selected community
+                      const linkedEdges = [...interCommunityEdges.values()]
+                        .filter(
+                          (e) =>
+                            e.sourceCid === selectedCommunity.id ||
+                            e.targetCid === selectedCommunity.id
+                        )
+                        .sort((a, b) => b.count - a.count)
+                        .slice(0, 8);
+
+                      if (linkedEdges.length === 0) return null;
+
+                      return (
+                        <div className="mt-1 flex flex-col gap-1">
+                          <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
+                            Connected to
+                          </span>
+                          {linkedEdges.map((e) => {
+                            const otherCid =
+                              e.sourceCid === selectedCommunity.id
+                                ? e.targetCid
+                                : e.sourceCid;
+                            const other = communities.get(otherCid);
+                            if (!other) return null;
+                            return (
+                              <button
+                                key={otherCid}
+                                type="button"
+                                onClick={() =>
+                                  setCommunityFilter(String(otherCid))
+                                }
+                                className="hover:bg-accent flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
+                              >
+                                <span
+                                  className="inline-block h-2 w-2 flex-shrink-0 rounded-full"
+                                  style={{ backgroundColor: other.color }}
+                                />
+                                <span className="flex-1 truncate text-left">
+                                  {other.label}
+                                </span>
+                                <span className="text-muted-foreground flex-shrink-0">
+                                  {e.count}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      );
+                    })()}
+                </div>
+              )}
+
+              {/* Selected node info */}
+              {selectedNode && (() => {
+                const nodeIndex = useDataStore.getState().nodeIndex;
+                const degrees = useDataStore.getState().degrees;
+                const idx = nodeIndex.get(selectedNode.id);
+                const deg = idx !== undefined && degrees ? degrees[idx] : 0;
+                const community = communities.get(selectedNode.community);
+
+                // Find connected neighbors
+                const neighbors: Array<{ node: typeof selectedNode; relation: string }> = [];
+                for (const link of graphData.links) {
+                  if (link.source === selectedNode.id) {
+                    const targetIdx = nodeIndex.get(link.target);
+                    if (targetIdx !== undefined) {
+                      neighbors.push({
+                        node: graphData.nodes[targetIdx]!,
+                        relation: link.relation
+                      });
+                    }
+                  } else if (link.target === selectedNode.id) {
+                    const sourceIdx = nodeIndex.get(link.source);
+                    if (sourceIdx !== undefined) {
+                      neighbors.push({
+                        node: graphData.nodes[sourceIdx]!,
+                        relation: link.relation
+                      });
+                    }
                   }
                 }
-              }
-              neighbors.sort((a, b) => {
-                const degA = degrees?.[nodeIndex.get(a.node.id)!] ?? 0;
-                const degB = degrees?.[nodeIndex.get(b.node.id)!] ?? 0;
-                return degB - degA;
-              });
+                neighbors.sort((a, b) => {
+                  const degA = degrees?.[nodeIndex.get(a.node.id)!] ?? 0;
+                  const degB = degrees?.[nodeIndex.get(b.node.id)!] ?? 0;
+                  return degB - degA;
+                });
 
-              return (
-                <div className="flex flex-col gap-2 rounded-lg border p-3 text-xs">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 min-w-0">
-                      {community && (
-                        <span
-                          className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
-                          style={{ backgroundColor: community.color }}
-                        />
-                      )}
-                      <span className="truncate font-medium">
-                        {selectedNode.label}
-                      </span>
-                    </div>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => selectNode(null)}
-                      className="h-5 w-5 flex-shrink-0"
-                      aria-label="Deselect"
-                    >
-                      <Icon
-                        name="close"
-                        className="h-3 w-3"
-                      />
-                    </Button>
-                  </div>
-
-                  {/* Metadata */}
-                  <div className="text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
-                    <span className="truncate">ID: {selectedNode.id}</span>
-                    <span>Type: {selectedNode.file_type}</span>
-                    <span>Degree: {deg}</span>
-                    {community && (
-                      <span>Community: {community.label}</span>
-                    )}
-                    <span className="truncate">File: {selectedNode.source_file}</span>
-                  </div>
-
-                  {/* Connected neighbors (top 8) */}
-                  {neighbors.length > 0 && (
-                    <div className="mt-1 flex flex-col gap-1">
-                      <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
-                        Connected to ({neighbors.length})
-                      </span>
-                      <div className="flex flex-col gap-0.5">
-                        {neighbors.slice(0, 8).map((n) => (
-                          <button
-                            key={n.node.id}
-                            type="button"
-                            onClick={() => selectNode(n.node)}
-                            className="hover:bg-accent flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
-                          >
-                            <span className="flex-1 truncate text-left">
-                              {n.node.label}
-                            </span>
-                            <span className="text-muted-foreground flex-shrink-0 text-[10px]">
-                              {n.relation}
-                            </span>
-                          </button>
-                        ))}
+                return (
+                  <div className="flex flex-col gap-2 rounded-lg border p-3 text-xs">
+                    {/* Header */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 min-w-0">
+                        {community && (
+                          <span
+                            className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
+                            style={{ backgroundColor: community.color }}
+                          />
+                        )}
+                        <span className="truncate font-medium">
+                          {selectedNode.label}
+                        </span>
                       </div>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => selectNode(null)}
+                        className="h-5 w-5 flex-shrink-0"
+                        aria-label="Deselect"
+                      >
+                        <Icon
+                          name="close"
+                          className="h-3 w-3"
+                        />
+                      </Button>
                     </div>
-                  )}
-                </div>
-              );
-            })()}
 
+                    {/* Metadata */}
+                    <div className="text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
+                      <span className="truncate">ID: {selectedNode.id}</span>
+                      <span>Type: {selectedNode.file_type}</span>
+                      <span>Degree: {deg}</span>
+                      {community && (
+                        <button
+                          type="button"
+                          onClick={() => setCommunityFilter(String(community.id))}
+                          className="hover:underline"
+                        >
+                          Community: {community.label}
+                        </button>
+                      )}
+                      <span className="truncate">File: {selectedNode.source_file}</span>
+                    </div>
+
+                    {/* Connected neighbors (top 8) */}
+                    {neighbors.length > 0 && (
+                      <div className="mt-1 flex flex-col gap-1">
+                        <span className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
+                          Connected to ({neighbors.length})
+                        </span>
+                        <div className="flex flex-col gap-0.5">
+                          {neighbors.slice(0, 8).map((n) => (
+                            <button
+                              key={n.node.id}
+                              type="button"
+                              onClick={() => selectNode(n.node)}
+                              className="hover:bg-accent flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
+                            >
+                              <span className="flex-1 truncate text-left">
+                                {n.node.label}
+                              </span>
+                              <span className="text-muted-foreground flex-shrink-0 text-[10px]">
+                                {n.relation}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+            </PanelSection>
           </div>
         </Card>
       )}

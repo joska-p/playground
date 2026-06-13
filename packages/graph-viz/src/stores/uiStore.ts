@@ -35,7 +35,7 @@ export const useUiStore = create<UiStore>((set) => ({
   searchQuery: '',
   minCommunitySize: 1,
   communityFilter: '',
-  autoRotate: true,
+  autoRotate: false,
   showEdges: true,
   showNodeLabels: false,
   isPanelOpen: true,

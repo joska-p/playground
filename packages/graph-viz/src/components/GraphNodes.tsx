@@ -92,6 +92,7 @@ function GraphNodes({
   }
 
   function handlePointerMove(e: ThreeEvent<PointerEvent>) {
+    document.body.style.cursor = 'pointer';
     setPointerPosition(e.clientX, e.clientY);
     if (onPointerMoveNode) {
       onPointerMoveNode(e.instanceId ?? null);
@@ -99,6 +100,7 @@ function GraphNodes({
   }
 
   function handlePointerOut() {
+    document.body.style.cursor = 'auto';
     if (onPointerMoveNode) {
       onPointerMoveNode(null);
     }

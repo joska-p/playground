@@ -48,7 +48,8 @@ export const camera = {
   detailMinDistance: 8,
   detailXRatio: 0.6,
   detailYRatio: 0.4,
-  detailMinSpread: 0.1
+  detailMinSpread: 0.1,
+  flyDuration: 600
 } as const;
 
 export const controls = {

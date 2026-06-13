@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { WorkerPool } from '@repo/worker-pool';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
 import type { GraphData, LayoutInput } from '../types';
@@ -21,6 +21,15 @@ function GraphCanvas() {
 
   // Setup keyboard shortcuts
   useKeyboardShortcuts();
+
+  // Toast hint for rotation toggle
+  const [showHint, setShowHint] = useState(true);
+
+  useEffect(() => {
+    if (!showHint) return;
+    const timer = setTimeout(() => setShowHint(false), 4000);
+    return () => clearTimeout(timer);
+  }, [showHint]);
 
   // ── Load graph data on mount ──
 
@@ -74,6 +83,11 @@ function GraphCanvas() {
 
       <GraphPanel />
       <NodeTooltip />
+      {showHint && (
+        <div className="bg-background/80 pointer-events-none absolute top-4 left-1/2 z-50 -translate-x-1/2 rounded-lg px-4 py-2 text-xs shadow-lg backdrop-blur-sm">
+          Press <kbd className="rounded border px-1 font-mono">R</kbd> to toggle rotation
+        </div>
+      )}
     </div>
   );
 }

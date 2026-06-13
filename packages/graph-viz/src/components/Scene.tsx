@@ -1,6 +1,7 @@
 import { ContactShadows, OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
 import {
   camera as cameraConfig,
   communityLabel,
@@ -37,6 +38,16 @@ function Scene() {
   const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const cameraState = useRef<'default' | 'detail' | 'overview'>('default');
   const lastDetailCommunityRef = useRef<number | null>(null);
+  const flyAnimation = useRef<{
+    active: boolean;
+    startPos: THREE.Vector3;
+    endPos: THREE.Vector3;
+    startTarget: THREE.Vector3;
+    endTarget: THREE.Vector3;
+    progress: number;
+    duration: number;
+  } | null>(null);
+  const [flyActive, setFlyActive] = useState(false);
 
   const graphData = useDataStore((s) => s.graphData);
   const positions = useDataStore((s) => s.positions);
@@ -110,11 +121,31 @@ function Scene() {
   const [cameraDistance, setCameraDistance] = useState(80);
   const camera = useThree((s) => s.camera);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
+    // Camera distance tracking for smart labels
     const dist = camera.position.length();
     setCameraDistance((prev) =>
       Math.abs(prev - dist) > smartLabel.cameraUpdateThreshold ? dist : prev
     );
+
+    // Fly animation
+    if (!flyAnimation.current?.active || !controlsRef.current) return;
+    const anim = flyAnimation.current;
+    anim.progress += delta * 1000; // delta is in seconds, convert to ms
+
+    const t = Math.min(anim.progress / anim.duration, 1);
+    // Ease-out cubic for natural deceleration
+    const ease = 1 - Math.pow(1 - t, 3);
+
+    camera.position.lerpVectors(anim.startPos, anim.endPos, ease);
+    controlsRef.current.target.lerpVectors(anim.startTarget, anim.endTarget, ease);
+    controlsRef.current.update();
+
+    if (t >= 1) {
+      anim.active = false;
+      setFlyActive(false);
+      cameraState.current = selectedCommunityId !== null ? 'detail' : 'overview';
+    }
   });
 
   // Distance-aware community labels — more labels as camera zooms in
@@ -136,18 +167,25 @@ function Scene() {
   const hoveredCommunity =
     hoveredCommunityId !== null ? communities.get(hoveredCommunityId) : null;
 
-  // Reset camera when going back to overview
+  // Animate camera fly-to when returning to overview
   useEffect(() => {
     if (!controlsRef.current || viewMode !== 'overview') return;
     if (cameraState.current === 'overview') return;
-    camera.position.set(
-      cameraConfig.overviewPosition[0],
-      cameraConfig.overviewPosition[1],
-      cameraConfig.overviewPosition[2]
-    );
-    controlsRef.current.target.set(0, 0, 0);
-    controlsRef.current.update();
-    cameraState.current = 'overview';
+
+    setFlyActive(true);
+    flyAnimation.current = {
+      active: true,
+      startPos: camera.position.clone(),
+      endPos: new THREE.Vector3(
+        cameraConfig.overviewPosition[0],
+        cameraConfig.overviewPosition[1],
+        cameraConfig.overviewPosition[2]
+      ),
+      startTarget: controlsRef.current.target.clone(),
+      endTarget: new THREE.Vector3(0, 0, 0),
+      progress: 0,
+      duration: cameraConfig.flyDuration
+    };
     lastDetailCommunityRef.current = null;
   }, [viewMode, camera]);
 
@@ -176,11 +214,10 @@ function Scene() {
     };
   })();
 
-  // Fly camera to community — distance proportional to actual spread
+  // Animate camera fly-to when entering detail mode
   useEffect(() => {
     if (!controlsRef.current || selectedCommunityId === null || !detailData)
       return;
-    // Guard: skip if camera already positioned for this community
     if (lastDetailCommunityRef.current === selectedCommunityId) return;
     lastDetailCommunityRef.current = selectedCommunityId;
 
@@ -214,14 +251,20 @@ function Scene() {
       cameraConfig.detailMinDistance
     );
 
-    camera.position.set(
-      distance * cameraConfig.detailXRatio,
-      distance * cameraConfig.detailYRatio,
-      distance
-    );
-    controlsRef.current.target.set(0, 0, 0);
-    controlsRef.current.update();
-    cameraState.current = 'detail';
+    setFlyActive(true);
+    flyAnimation.current = {
+      active: true,
+      startPos: camera.position.clone(),
+      endPos: new THREE.Vector3(
+        distance * cameraConfig.detailXRatio,
+        distance * cameraConfig.detailYRatio,
+        distance
+      ),
+      startTarget: controlsRef.current.target.clone(),
+      endTarget: new THREE.Vector3(0, 0, 0),
+      progress: 0,
+      duration: cameraConfig.flyDuration
+    };
   }, [selectedCommunityId, camera, detailData]);
 
   // Hovered node for label display
@@ -344,10 +387,11 @@ function Scene() {
         ref={controlsRef}
         enableDamping
         dampingFactor={controls.dampingFactor}
-        autoRotate={autoRotate}
+        autoRotate={!flyActive && autoRotate}
         autoRotateSpeed={controls.autoRotateSpeed}
         minDistance={controls.minDistance}
         maxDistance={controls.maxDistance}
+        enabled={!flyActive}
       />
 
       {/* Overview mode */}
