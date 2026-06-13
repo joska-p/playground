@@ -46,3 +46,31 @@ export function degreeToBrightness(
   if (maxDegree === 0) return 0.7;
   return minBrightness + (degree / maxDegree) * (1 - minBrightness);
 }
+
+export type NodeHealth = 'active' | 'low-confidence' | 'isolated';
+
+export function classifyNodeHealth(
+  nodeId: string,
+  links: GraphLink[],
+  degrees: Float32Array | null,
+  _nodeIndex: Map<string, number>,
+  idx: number
+): NodeHealth {
+  const deg = degrees?.[idx] ?? 0;
+  if (deg === 0) return 'isolated';
+
+  // Check if all edges for this node are INFERRED
+  const nodeLinks = links.filter(
+    (l) => l.source === nodeId || l.target === nodeId
+  );
+  const allInferred =
+    nodeLinks.length > 0 &&
+    nodeLinks.every(
+      (l) =>
+        l.confidence === 'INFERRED' ||
+        (l.confidence_score !== undefined && l.confidence_score < 0.3)
+    );
+  if (allInferred) return 'low-confidence';
+
+  return 'active';
+}

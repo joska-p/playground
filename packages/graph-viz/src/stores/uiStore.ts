@@ -10,6 +10,7 @@ type UiStore = {
   communityFilter: string;
   autoRotate: boolean;
   showEdges: boolean;
+  showHyperedges: boolean;
   showNodeLabels: boolean;
   isPanelOpen: boolean;
   pointerX: number | null;
@@ -23,6 +24,7 @@ type UiStore = {
   setCommunityFilter: (filter: string) => void;
   setAutoRotate: (on: boolean) => void;
   setShowEdges: (on: boolean) => void;
+  setShowHyperedges: (on: boolean) => void;
   setShowNodeLabels: (on: boolean) => void;
   togglePanel: () => void;
   setPointerPosition: (x: number, y: number) => void;
@@ -37,6 +39,7 @@ export const useUiStore = create<UiStore>((set) => ({
   communityFilter: '',
   autoRotate: false,
   showEdges: true,
+  showHyperedges: false,
   showNodeLabels: false,
   isPanelOpen: true,
   pointerX: null,
@@ -62,6 +65,8 @@ export const useUiStore = create<UiStore>((set) => ({
   setAutoRotate: (autoRotate) => set({ autoRotate }),
 
   setShowEdges: (showEdges) => set({ showEdges }),
+
+  setShowHyperedges: (showHyperedges) => set({ showHyperedges }),
 
   setShowNodeLabels: (showNodeLabels) => set({ showNodeLabels }),
 

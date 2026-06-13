@@ -1,4 +1,3 @@
-import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
 import { Card } from '@repo/ui/Card';
 import { Icon } from '@repo/ui/Icon';
@@ -8,11 +7,15 @@ import { Switch } from '@repo/ui/Switch';
 import { useEffect, useState } from 'react';
 import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
+import { classifyNodeHealth } from '../utils/nodes';
 import { ColorLegend } from './ColorLegend';
 import { PanelSection } from './PanelSection';
 
 function GraphPanel() {
   const graphData = useDataStore((s) => s.graphData);
+  const positions = useDataStore((s) => s.positions);
+  const degrees = useDataStore((s) => s.degrees);
+  const nodeIndex = useDataStore((s) => s.nodeIndex);
   const communities = useDataStore((s) => s.communities);
   const interCommunityEdges = useDataStore((s) => s.interCommunityEdges);
 
@@ -22,6 +25,7 @@ function GraphPanel() {
   const communityFilter = useUiStore((s) => s.communityFilter);
   const autoRotate = useUiStore((s) => s.autoRotate);
   const showEdges = useUiStore((s) => s.showEdges);
+  const showHyperedges = useUiStore((s) => s.showHyperedges);
   const showNodeLabels = useUiStore((s) => s.showNodeLabels);
   const isPanelOpen = useUiStore((s) => s.isPanelOpen);
 
@@ -31,6 +35,7 @@ function GraphPanel() {
   const setCommunityFilter = useUiStore((s) => s.setCommunityFilter);
   const setAutoRotate = useUiStore((s) => s.setAutoRotate);
   const setShowEdges = useUiStore((s) => s.setShowEdges);
+  const setShowHyperedges = useUiStore((s) => s.setShowHyperedges);
   const setShowNodeLabels = useUiStore((s) => s.setShowNodeLabels);
   const togglePanel = useUiStore((s) => s.togglePanel);
 
@@ -91,6 +96,70 @@ function GraphPanel() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [viewMode, communityList, focusedIndex, maxIndex, setCommunityFilter]);
+
+  // Compute codebase health insights from graph data
+  const insights = (() => {
+    if (!graphData || !positions || !degrees) return null;
+
+    // Top 10 community concentration
+    const sortedComms = [...communities.values()].sort(
+      (a, b) => b.nodeCount - a.nodeCount
+    );
+    const top10Nodes = sortedComms
+      .slice(0, 10)
+      .reduce((sum, c) => sum + c.nodeCount, 0);
+    const concentration = (
+      (top10Nodes / graphData.nodes.length) *
+      100
+    ).toFixed(0);
+
+    // Coupling density
+    const totalPossiblePairs =
+      (communities.size * (communities.size - 1)) / 2;
+    const actualPairs = interCommunityEdges.size;
+    const couplingDensity =
+      totalPossiblePairs > 0
+        ? ((actualPairs / totalPossiblePairs) * 100).toFixed(1)
+        : '0.0';
+
+    // Health counts
+    let isolated = 0;
+    let lowConfidence = 0;
+    for (let i = 0; i < graphData.nodes.length; i++) {
+      const health = classifyNodeHealth(
+        graphData.nodes[i]!.id,
+        graphData.links,
+        degrees,
+        nodeIndex,
+        i
+      );
+      if (health === 'isolated') isolated++;
+      else if (health === 'low-confidence') lowConfidence++;
+    }
+
+    // Most coupled community pair
+    let maxCoupling = 0;
+    let maxCouplingPair = '';
+    for (const edge of interCommunityEdges.values()) {
+      if (edge.count > maxCoupling) {
+        maxCoupling = edge.count;
+        const a = communities.get(edge.sourceCid);
+        const b = communities.get(edge.targetCid);
+        const aLabel = a?.label ?? `C${edge.sourceCid}`;
+        const bLabel = b?.label ?? `C${edge.targetCid}`;
+        maxCouplingPair = `${aLabel} ↔ ${bLabel}`;
+      }
+    }
+
+    return {
+      concentration,
+      couplingDensity,
+      isolated,
+      lowConfidence,
+      maxCoupling,
+      maxCouplingPair
+    };
+  })();
 
   if (!graphData) return null;
 
@@ -171,6 +240,11 @@ function GraphPanel() {
                   checked={showEdges}
                   onCheckedChange={setShowEdges}
                 />
+                <Switch
+                  label="Show hyperedges"
+                  checked={showHyperedges}
+                  onCheckedChange={setShowHyperedges}
+                />
                 {viewMode === 'detail' && (
                   <Switch
                     label="Show labels"
@@ -183,15 +257,51 @@ function GraphPanel() {
 
             {/* Selection section */}
             <PanelSection title="Selection" defaultOpen={true}>
-              <div className="flex flex-wrap gap-1.5">
-                <Badge variant="secondary">
-                  {viewMode === 'detail' && selectedCommunity
-                    ? `1/${communities.size} comm`
-                    : `${communityList.length}/${communities.size} comms`}
-                </Badge>
-                <Badge variant="secondary">{graphData.nodes.length} nodes</Badge>
-                <Badge variant="secondary">{graphData.links.length} edges</Badge>
-              </div>
+              {insights && (
+                <div className="flex flex-col gap-1.5 rounded-lg border p-2.5 text-[11px]">
+                  <div className="text-muted-foreground mb-0.5 text-[10px] font-medium tracking-wider uppercase">
+                    Insights
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Top 10 communities</span>
+                    <span className="font-medium">
+                      {insights.concentration}% of nodes
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Coupling density</span>
+                    <span className="font-medium">
+                      {insights.couplingDensity}%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Isolated nodes</span>
+                    <span className="font-medium text-red-400">
+                      {insights.isolated}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Low-confidence</span>
+                    <span className="font-medium text-amber-400">
+                      {insights.lowConfidence}
+                    </span>
+                  </div>
+                  {insights.maxCoupling > 0 && (
+                    <div className="mt-0.5 border-t pt-1.5 text-[10px]">
+                      <span className="text-muted-foreground">
+                        Strongest coupling:{' '}
+                      </span>
+                      <span className="font-medium">
+                        {insights.maxCouplingPair}
+                      </span>
+                      <span className="text-muted-foreground">
+                        {' '}
+                        ({insights.maxCoupling} edges)
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Selected community info */}
               {selectedCommunity && (

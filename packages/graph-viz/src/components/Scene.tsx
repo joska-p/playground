@@ -32,6 +32,7 @@ import { GraphEdges } from './GraphEdges';
 import { GraphNodes } from './GraphNodes';
 import { HighlightedEdges } from './HighlightedEdges';
 import { NodeLabel } from './NodeLabel';
+import { HyperedgeLayer } from './HyperedgeLayer';
 import { NodeTypeIndicators } from './NodeTypeIndicators';
 
 function Scene() {
@@ -402,6 +403,8 @@ function Scene() {
             highlightIds={searchHighlights?.matchingCommunityIds}
           />
           {showEdges && <CommunityEdges visibleIds={visibleCommunityIds} />}
+
+          <HyperedgeLayer />
 
           {/* Persistent labels for largest communities */}
           {smartLabels.map((c) => (

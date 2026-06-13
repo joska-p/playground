@@ -1,12 +1,14 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type { InstancedMesh } from 'three';
-import { Color, Object3D, SphereGeometry } from 'three';
-import { degree, nodes as nodeConfig } from '../config';
+import { Color, Object3D, SphereGeometry, TorusGeometry } from 'three';
+import { degree, nodes as nodeConfig, nodeHealth, torusRing } from '../config';
+import { useDataStore } from '../stores/dataStore';
 import { useUiStore } from '../stores/uiStore';
-import type { GraphNode } from '../types';
+import type { GraphLink, GraphNode } from '../types';
 import { communityColor, hexToRgb } from '../utils/colors';
-import { degreeToBrightness, degreeToSize } from '../utils/nodes';
+import { classifyNodeHealth, degreeToBrightness, degreeToSize } from '../utils/nodes';
+import type { NodeHealth } from '../utils/nodes';
 
 const sphereGeometry = new SphereGeometry(
   nodeConfig.geometryRadius,
@@ -14,36 +16,44 @@ const sphereGeometry = new SphereGeometry(
   nodeConfig.geometryHeightSegments
 );
 
-type GraphNodesProps = {
+const torusGeometry = new TorusGeometry(
+  torusRing.radius,
+  torusRing.tube,
+  torusRing.radialSegments,
+  torusRing.tubularSegments
+);
+
+type GraphNodesGroupProps = {
+  indices: number[];
+  opacity: number;
+  ringColor?: string | null;
+  highlightIndices?: Set<number>;
   positions: Float32Array;
   nodes: GraphNode[];
-  degrees?: Float32Array | null;
-  size?: number;
-  highlightIndices?: Set<number>;
+  degrees: Float32Array | null;
+  maxDegree: number;
+  size: number;
   onNodeClick?: (node: GraphNode) => void;
   onPointerMoveNode?: (nodeIndex: number | null) => void;
 };
 
-function GraphNodes({
+function GraphNodesGroup({
+  indices,
+  opacity,
+  ringColor,
+  highlightIndices,
   positions,
   nodes,
-  degrees = null,
-  size = nodeConfig.defaultSize,
-  highlightIndices,
+  degrees,
+  maxDegree,
+  size,
   onNodeClick,
   onPointerMoveNode
-}: GraphNodesProps) {
+}: GraphNodesGroupProps) {
   const meshRef = useRef<InstancedMesh>(null);
+  const ringRef = useRef<InstancedMesh>(null);
   const setPointerPosition = useUiStore((s) => s.setPointerPosition);
-  const count = nodes.length;
-
-  // Find max degree for normalization
-  let maxDegree = 0;
-  if (degrees) {
-    for (let i = 0; i < degrees.length; i++) {
-      if (degrees[i]! > maxDegree) maxDegree = degrees[i]!;
-    }
-  }
+  const count = indices.length;
 
   useEffect(() => {
     if (!meshRef.current) return;
@@ -52,15 +62,16 @@ function GraphNodes({
     const baseScale = size / nodeConfig.defaultSizeBase;
 
     for (let i = 0; i < count; i++) {
-      const px = positions[i * 3]!;
-      const py = positions[i * 3 + 1]!;
-      const pz = positions[i * 3 + 2]!;
+      const idx = indices[i]!;
+      const px = positions[idx * 3]!;
+      const py = positions[idx * 3 + 1]!;
+      const pz = positions[idx * 3 + 2]!;
 
-      const deg = degrees?.[i] ?? 0;
+      const deg = degrees?.[idx] ?? 0;
       const s =
         degreeToSize(deg, maxDegree, degree.sizeMin, degree.sizeMax) *
         baseScale;
-      const isHighlighted = highlightIndices?.has(i) ?? false;
+      const isHighlighted = highlightIndices?.has(idx) ?? false;
       const brightness = isHighlighted
         ? 1
         : degreeToBrightness(deg, maxDegree, degree.brightnessMin);
@@ -70,7 +81,7 @@ function GraphNodes({
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
 
-      const rgb = hexToRgb(communityColor(nodes[i]!.community));
+      const rgb = hexToRgb(communityColor(nodes[idx]!.community));
       color.setRGB(
         rgb[0] * brightness,
         rgb[1] * brightness,
@@ -83,11 +94,26 @@ function GraphNodes({
     if (meshRef.current.instanceColor) {
       meshRef.current.instanceColor.needsUpdate = true;
     }
-  }, [positions, nodes, degrees, maxDegree, size, count, highlightIndices]);
+
+    // Update ring positions if ringColor is set
+    if (ringColor && ringRef.current) {
+      for (let i = 0; i < count; i++) {
+        const idx = indices[i]!;
+        const px = positions[idx * 3]!;
+        const py = positions[idx * 3 + 1]!;
+        const pz = positions[idx * 3 + 2]!;
+        dummy.position.set(px, py, pz);
+        dummy.scale.set(1, 1, 1);
+        dummy.updateMatrix();
+        ringRef.current.setMatrixAt(i, dummy.matrix);
+      }
+      ringRef.current.instanceMatrix.needsUpdate = true;
+    }
+  }, [indices, positions, nodes, degrees, maxDegree, size, count, highlightIndices, ringColor]);
 
   function handleClick(e: ThreeEvent<PointerEvent>) {
     if (e.instanceId !== undefined && onNodeClick) {
-      onNodeClick(nodes[e.instanceId]!);
+      onNodeClick(nodes[indices[e.instanceId]!]!);
     }
   }
 
@@ -95,7 +121,7 @@ function GraphNodes({
     document.body.style.cursor = 'pointer';
     setPointerPosition(e.clientX, e.clientY);
     if (onPointerMoveNode) {
-      onPointerMoveNode(e.instanceId ?? null);
+      onPointerMoveNode(e.instanceId !== undefined ? indices[e.instanceId]! : null);
     }
   }
 
@@ -106,21 +132,137 @@ function GraphNodes({
     }
   }
 
+  if (count === 0) return null;
+
   return (
-    <instancedMesh
-      ref={meshRef}
-      args={[sphereGeometry, undefined, count]}
-      onClick={handleClick}
-      onPointerMove={handlePointerMove}
-      onPointerOut={handlePointerOut}
-      frustumCulled={false}
-    >
-      <meshStandardMaterial
-        roughness={nodeConfig.roughness}
-        metalness={nodeConfig.metalness}
-      />
-    </instancedMesh>
+    <group>
+      <instancedMesh
+        ref={meshRef}
+        args={[sphereGeometry, undefined, count]}
+        onClick={handleClick}
+        onPointerMove={handlePointerMove}
+        onPointerOut={handlePointerOut}
+        frustumCulled={false}
+      >
+        <meshStandardMaterial
+          roughness={nodeConfig.roughness}
+          metalness={nodeConfig.metalness}
+          transparent={opacity < 1}
+          opacity={opacity}
+        />
+      </instancedMesh>
+      {ringColor && (
+        <instancedMesh
+          ref={ringRef}
+          args={[torusGeometry, undefined, count]}
+          frustumCulled={false}
+        >
+          <meshBasicMaterial
+            color={ringColor}
+            transparent
+            opacity={0.8}
+            depthWrite={false}
+          />
+        </instancedMesh>
+      )}
+    </group>
   );
 }
 
-export { GraphNodes };
+type GraphNodesProps = {
+  positions: Float32Array;
+  nodes: GraphNode[];
+  degrees?: Float32Array | null;
+  size?: number;
+  highlightIndices?: Set<number>;
+  links?: GraphLink[];
+  onNodeClick?: (node: GraphNode) => void;
+  onPointerMoveNode?: (nodeIndex: number | null) => void;
+};
+
+function GraphNodes({
+  positions,
+  nodes,
+  degrees = null,
+  size = nodeConfig.defaultSize,
+  highlightIndices,
+  links: linksProp,
+  onNodeClick,
+  onPointerMoveNode
+}: GraphNodesProps) {
+  // Find max degree for normalization
+  let maxDegree = 0;
+  if (degrees) {
+    for (let i = 0; i < degrees.length; i++) {
+      if (degrees[i]! > maxDegree) maxDegree = degrees[i]!;
+    }
+  }
+
+  const rawLinks = useDataStore((s) => s.graphData?.links ?? []);
+  const allLinks = linksProp ?? rawLinks;
+  const nodeIndex = useDataStore((s) => s.nodeIndex);
+
+  const healthGroups = (() => {
+    const groups: Record<NodeHealth, number[]> = {
+      active: [],
+      'low-confidence': [],
+      isolated: []
+    };
+    for (let i = 0; i < nodes.length; i++) {
+      const health = classifyNodeHealth(
+        nodes[i]!.id,
+        allLinks,
+        degrees,
+        nodeIndex,
+        i
+      );
+      groups[health].push(i);
+    }
+    return groups;
+  })();
+
+  return (
+    <>
+      <GraphNodesGroup
+        indices={healthGroups.active}
+        opacity={1}
+        positions={positions}
+        nodes={nodes}
+        degrees={degrees}
+        maxDegree={maxDegree}
+        size={size}
+        highlightIndices={highlightIndices}
+        onNodeClick={onNodeClick}
+        onPointerMoveNode={onPointerMoveNode}
+      />
+      <GraphNodesGroup
+        indices={healthGroups['low-confidence']}
+        opacity={nodeHealth.lowConfidence.opacity}
+        ringColor={nodeHealth.lowConfidence.ringColor}
+        positions={positions}
+        nodes={nodes}
+        degrees={degrees}
+        maxDegree={maxDegree}
+        size={size}
+        highlightIndices={highlightIndices}
+        onNodeClick={onNodeClick}
+        onPointerMoveNode={onPointerMoveNode}
+      />
+      <GraphNodesGroup
+        indices={healthGroups.isolated}
+        opacity={nodeHealth.isolated.opacity}
+        ringColor={nodeHealth.isolated.ringColor}
+        positions={positions}
+        nodes={nodes}
+        degrees={degrees}
+        maxDegree={maxDegree}
+        size={size}
+        highlightIndices={highlightIndices}
+        onNodeClick={onNodeClick}
+        onPointerMoveNode={onPointerMoveNode}
+      />
+    </>
+  );
+}
+
+export { GraphNodes, GraphNodesGroup };

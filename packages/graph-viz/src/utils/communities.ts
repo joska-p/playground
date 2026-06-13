@@ -7,6 +7,8 @@ export type InterCommunityEdge = {
   targetCid: number;
   count: number;
   relation?: string;
+  sourceToTargetCount: number;
+  targetToSourceCount: number;
 };
 
 export function computeCommunities(
@@ -93,17 +95,23 @@ export function computeInterCommunityEdges(
     const tc = nodes[ti]!.community;
     if (sc === tc) continue;
 
-    // Count relations too
     const key = `${Math.min(sc, tc)}-${Math.max(sc, tc)}`;
     const existing = edgeMap.get(key);
     if (existing) {
       existing.count++;
+      if (sc === existing.sourceCid && tc === existing.targetCid) {
+        existing.sourceToTargetCount++;
+      } else {
+        existing.targetToSourceCount++;
+      }
     } else {
       edgeMap.set(key, {
         sourceCid: sc,
         targetCid: tc,
         count: 1,
-        relation: link.relation
+        relation: link.relation,
+        sourceToTargetCount: 1,
+        targetToSourceCount: 0
       });
     }
   }

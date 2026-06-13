@@ -114,7 +114,13 @@ export const community = {
 
 export const communityEdge = {
   minCount: 2,
-  opacity: 0.3
+  opacity: 0.3,
+  coupling: {
+    minOpacity: 0.1,
+    maxOpacity: 0.9,
+    thicknessTiers: 3,
+    tierThresholds: [1, 10, 50]
+  }
 } as const;
 
 export const relationPalette: Record<string, string> = {
@@ -215,6 +221,33 @@ export const colors = {
   ] as const,
   fallback: [0.5, 0.5, 0.5] as const,
   defaultCommunity: '#888888'
+} as const;
+
+export const hyperedge = {
+  hullOpacity: 0.08,
+  hullColor: '#8888ff',
+  wireColor: '#aaaaff',
+  labelFontSize: 0.8,
+  labelColor: '#aaaaff'
+} as const;
+
+export const nodeHealth = {
+  isolated: {
+    opacity: 0.4,
+    ringColor: '#ff4444'
+  },
+  lowConfidence: {
+    opacity: 0.6,
+    ringColor: '#ffaa00'
+  }
+} as const;
+
+export const directedEdge = {
+  enabled: true,
+  arrowSize: 0.3,
+  arrowColor: '#ffffff',
+  opacity: 0.5,
+  directedRelations: ['imports', 'imports_from', 'calls', 're_exports']
 } as const;
 
 export const glow = {
