@@ -32,17 +32,17 @@ function NodeTooltip() {
   return (
     <div
       ref={tooltipRef}
-      className="pointer-events-none fixed z-50 rounded-lg border border-border bg-background/80 p-3 text-xs shadow-lg backdrop-blur-sm"
+      className="border-border bg-background/80 pointer-events-none fixed z-50 rounded-lg border p-3 text-xs shadow-lg backdrop-blur-sm"
       style={{ left: position.left, top: position.top, width: TOOLTIP_WIDTH }}
     >
       <div className="flex items-center gap-2">
         {community && (
           <span
-            className="inline-block h-2.5 w-2.5 rounded-full flex-shrink-0"
+            className="inline-block h-2.5 w-2.5 flex-shrink-0 rounded-full"
             style={{ backgroundColor: community.color }}
           />
         )}
-        <span className="font-medium truncate">{node.label}</span>
+        <span className="truncate font-medium">{node.label}</span>
       </div>
       <div className="text-muted-foreground mt-1 flex flex-col gap-0.5">
         <span>Type: {node.file_type}</span>

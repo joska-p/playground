@@ -267,8 +267,12 @@ export const communityClustering = {
 export const communityLOD = {
   // [widthSegments, heightSegments] levels from high to low detail
   levels: [
-    { distance: 0, widthSegments: 16, heightSegments: 12 },   // high detail (close)
-    { distance: 60, widthSegments: 12, heightSegments: 8 },    // medium
-    { distance: 120, widthSegments: 8, heightSegments: 6 }     // low detail (far)
-  ] as Array<{ distance: number; widthSegments: number; heightSegments: number }>
+    { distance: 0, widthSegments: 16, heightSegments: 12 }, // high detail (close)
+    { distance: 60, widthSegments: 12, heightSegments: 8 }, // medium
+    { distance: 120, widthSegments: 8, heightSegments: 6 } // low detail (far)
+  ] as Array<{
+    distance: number;
+    widthSegments: number;
+    heightSegments: number;
+  }>
 } as const;

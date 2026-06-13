@@ -1,5 +1,10 @@
 import { community } from '../config';
-import type { CommunityData, GraphLink, GraphNode, InterCommunityEdge } from '../types';
+import type {
+  CommunityData,
+  GraphLink,
+  GraphNode,
+  InterCommunityEdge
+} from '../types';
 import { communityColor } from './colors';
 
 export function computeCommunities(
@@ -22,9 +27,12 @@ export function computeCommunities(
     let cy = 0;
     let cz = 0;
 
-    let minX = Infinity, maxX = -Infinity;
-    let minY = Infinity, maxY = -Infinity;
-    let minZ = Infinity, maxZ = -Infinity;
+    let minX = Infinity,
+      maxX = -Infinity;
+    let minY = Infinity,
+      maxY = -Infinity;
+    let minZ = Infinity,
+      maxZ = -Infinity;
 
     for (const idx of indices) {
       const x = positions[idx * 3];

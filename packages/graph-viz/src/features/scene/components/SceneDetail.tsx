@@ -1,19 +1,19 @@
-import { nodeLabel, nodes as nodeConfig } from '../../../config';
+import { nodes as nodeConfig, nodeLabel } from '../../../config';
+import {
+  computeConnectedNodeIndices,
+  computeSearchHighlights,
+  findNodePosition
+} from '../../../core/utils/searchUtils';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
-import { useDetailData } from '../hooks/useDetailData';
-import {
-  computeSearchHighlights,
-  computeConnectedNodeIndices,
-  findNodePosition,
-} from '../../../core/utils/searchUtils';
+import { NodeLabel } from '../../annotation/components/NodeLabel';
+import { NodeTypeIndicators } from '../../annotation/components/NodeTypeIndicators';
 import { CommunityLinks } from '../../graph/components/CommunityLinks';
 import { GraphCommunitySpheres } from '../../graph/components/GraphCommunitySpheres';
 import { GraphEdges } from '../../graph/components/GraphEdges';
 import { GraphNodes } from '../../graph/components/GraphNodes';
 import { HighlightedEdges } from '../../graph/components/HighlightedEdges';
-import { NodeLabel } from '../../annotation/components/NodeLabel';
-import { NodeTypeIndicators } from '../../annotation/components/NodeTypeIndicators';
+import { useDetailData } from '../hooks/useDetailData';
 
 type SceneDetailProps = {
   selectedCommunityId: number;
@@ -39,31 +39,82 @@ function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
   const showNodeLabels = useUiStore((s) => s.showNodeLabels);
   const selectNode = useUiStore((s) => s.selectNode);
   const setHoveredNodeIndex = useUiStore((s) => s.setHoveredNodeIndex);
+  const entityTypeFilter = useUiStore((s) => s.entityTypeFilter);
 
   // ── Filtered + normalized subset for the selected community ──
   const detailData = useDetailData(
     selectedCommunityId,
     graphData,
     positions,
-    degrees,
+    degrees
   );
+
+  // ── Entity type filter: narrow down displayed nodes ──
+  const {
+    filteredNodes,
+    filteredPositions,
+    filteredDegrees,
+    filteredNodeIndex,
+    filteredLinks
+  } = (() => {
+    if (!detailData || !entityTypeFilter) {
+      return {
+        filteredNodes: detailData?.nodes ?? [],
+        filteredPositions: detailData?.positions ?? new Float32Array(0),
+        filteredDegrees: detailData?.degrees ?? new Float32Array(0),
+        filteredNodeIndex: detailData?.nodeIndex ?? new Map(),
+        filteredLinks: detailData?.links ?? []
+      };
+    }
+    const keep: number[] = [];
+    for (let i = 0; i < detailData.nodes.length; i++) {
+      if (detailData.nodes[i]!.entity_type === entityTypeFilter) {
+        keep.push(i);
+      }
+    }
+    const n = keep.length;
+    const pos = new Float32Array(n * 3);
+    const deg = new Float32Array(n);
+    const nodes: typeof detailData.nodes = [];
+    const idx = new Map<string, number>();
+    for (let j = 0; j < n; j++) {
+      const origI = keep[j]!;
+      pos[j * 3] = detailData.positions[origI * 3]!;
+      pos[j * 3 + 1] = detailData.positions[origI * 3 + 1]!;
+      pos[j * 3 + 2] = detailData.positions[origI * 3 + 2]!;
+      deg[j] = detailData.degrees[origI]!;
+      nodes.push(detailData.nodes[origI]!);
+      idx.set(detailData.nodes[origI]!.id, j);
+    }
+    // Only keep links where both endpoints are in the filtered set
+    const links = detailData.links.filter(
+      (l) => idx.has(l.source) && idx.has(l.target)
+    );
+    return {
+      filteredNodes: nodes,
+      filteredPositions: pos,
+      filteredDegrees: deg,
+      filteredNodeIndex: idx,
+      filteredLinks: links
+    };
+  })();
 
   // ── Search highlight indices within this detail subset ──
   const searchHighlightIndices = (() => {
     if (!searchQuery.trim() || !detailData) return null;
-    return computeSearchHighlights(searchQuery, detailData.nodes);
+    return computeSearchHighlights(searchQuery, filteredNodes);
   })();
 
   // ── Hovered node ──
   const hoveredNode =
     hoveredNodeIndex !== null
-      ? detailData?.nodes[hoveredNodeIndex] ?? null
+      ? (filteredNodes[hoveredNodeIndex] ?? null)
       : null;
 
   const hoveredNodePos = (() => {
     if (hoveredNodeIndex === null || !detailData) return null;
     const i = hoveredNodeIndex;
-    const pos = detailData.positions;
+    const pos = filteredPositions;
     return [pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]] as
       | [number, number, number]
       | null;
@@ -74,15 +125,15 @@ function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
     if (!selectedNode || !detailData) return new Set<number>();
     return computeConnectedNodeIndices(
       selectedNode.id,
-      detailData.nodes,
-      detailData.links,
+      filteredNodes,
+      detailData.links
     );
   })();
 
   // ── Selected node position ──
   const selectedNodePos = (() => {
     if (!selectedNode || !detailData) return null;
-    return findNodePosition(selectedNode, detailData.nodes, detailData.positions);
+    return findNodePosition(selectedNode, filteredNodes, filteredPositions);
   })();
 
   if (!detailData) return null;
@@ -92,9 +143,9 @@ function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
       <GraphCommunitySpheres ghost />
 
       <GraphNodes
-        positions={detailData.positions}
-        nodes={detailData.nodes}
-        degrees={detailData.degrees}
+        positions={filteredPositions}
+        nodes={filteredNodes}
+        degrees={filteredDegrees}
         size={nodeConfig.defaultSize}
         highlightIndices={searchHighlightIndices ?? connectedNodeIndices}
         onNodeClick={selectNode}
@@ -102,25 +153,25 @@ function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
       />
 
       <NodeTypeIndicators
-        positions={detailData.positions}
-        nodes={detailData.nodes}
-        degrees={detailData.degrees}
+        positions={filteredPositions}
+        nodes={filteredNodes}
+        degrees={filteredDegrees}
         size={nodeConfig.defaultSize}
       />
 
       {showEdges && (
         <GraphEdges
-          positions={detailData.positions}
-          links={detailData.links}
-          nodeIndex={detailData.nodeIndex}
+          positions={filteredPositions}
+          links={filteredLinks}
+          nodeIndex={filteredNodeIndex}
         />
       )}
 
       {selectedNode && (
         <HighlightedEdges
-          positions={detailData.positions}
-          links={detailData.links}
-          nodeIndex={detailData.nodeIndex}
+          positions={filteredPositions}
+          links={filteredLinks}
+          nodeIndex={filteredNodeIndex}
           selectedNodeId={selectedNode.id}
         />
       )}
@@ -146,14 +197,14 @@ function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
       )}
 
       {showNodeLabels &&
-        detailData.nodes.map((node, i) => {
+        filteredNodes.map((node, i) => {
           if (
             (hoveredNode && node.id === hoveredNode.id) ||
             (selectedNode && node.id === selectedNode.id)
           ) {
             return null;
           }
-          const pos = detailData.positions;
+          const pos = filteredPositions;
           return (
             <NodeLabel
               key={`node-label-${node.id}`}

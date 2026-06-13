@@ -1,6 +1,6 @@
 import type { GraphLink, GraphNode } from '../../../types';
-import { classifyNodeHealth } from '../../../utils/nodes';
 import type { NodeHealth } from '../../../utils/nodes';
+import { classifyNodeHealth } from '../../../utils/nodes';
 
 export type NodeHealthGroups = Record<NodeHealth, number[]>;
 
@@ -17,7 +17,7 @@ export function useNodeHealthGroups(
   const groups: NodeHealthGroups = {
     active: [],
     'low-confidence': [],
-    isolated: [],
+    isolated: []
   };
   for (let i = 0; i < nodes.length; i++) {
     const health = classifyNodeHealth(

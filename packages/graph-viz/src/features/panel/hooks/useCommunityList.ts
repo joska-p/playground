@@ -2,7 +2,7 @@ import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
 import {
   buildCommunityList,
-  getSelectedCommunityId,
+  getSelectedCommunityId
 } from '../services/communityFilterUtils';
 
 /**
@@ -30,6 +30,6 @@ export function useCommunityList() {
     selectedCommunity,
     selectedCommunityId,
     viewMode,
-    maxIndex,
+    maxIndex
   };
 }

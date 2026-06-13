@@ -1,5 +1,6 @@
 import type {} from '@react-three/fiber';
 import { graphEdge } from '../../../config';
+import { useUiStore } from '../../../stores/uiStore';
 import type { GraphLink } from '../../../types';
 import { buildEdgeGroups } from '../services/edgeGeometry';
 
@@ -10,10 +11,18 @@ type GraphEdgesProps = {
 };
 
 function GraphEdges({ positions, links, nodeIndex }: GraphEdgesProps) {
-  // Filter to valid links (simple filter, kept inline)
-  const validLinks = links.filter(
-    (l) => nodeIndex.has(l.source) && nodeIndex.has(l.target)
-  );
+  const hiddenRelationTypes = useUiStore((s) => s.hiddenRelationTypes);
+
+  // Filter to valid links, then apply relation-type filter
+  const validLinks = links.filter((l) => {
+    if (!nodeIndex.has(l.source) || !nodeIndex.has(l.target)) return false;
+    if (
+      hiddenRelationTypes.size > 0 &&
+      hiddenRelationTypes.has(l.relation as never)
+    )
+      return false;
+    return true;
+  });
 
   // Delegate edge geometry computation to the service
   const { confidentGeometry, inferredGeometry } = buildEdgeGroups(

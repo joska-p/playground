@@ -1,5 +1,5 @@
-import * as THREE from 'three';
 import { Text } from '@react-three/drei';
+import * as THREE from 'three';
 import { hyperedge } from '../../../config';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
@@ -55,7 +55,10 @@ function HyperedgeLayer() {
       {meshes.map((m) => (
         <group key={m.id}>
           {/* Translucent hull */}
-          <mesh geometry={m.edges} frustumCulled={false}>
+          <mesh
+            geometry={m.edges}
+            frustumCulled={false}
+          >
             <meshBasicMaterial
               color={hyperedge.hullColor}
               transparent
@@ -65,7 +68,10 @@ function HyperedgeLayer() {
             />
           </mesh>
           {/* Wireframe overlay */}
-          <lineSegments geometry={m.edges} frustumCulled={false}>
+          <lineSegments
+            geometry={m.edges}
+            frustumCulled={false}
+          >
             <lineBasicMaterial
               color={hyperedge.wireColor}
               transparent

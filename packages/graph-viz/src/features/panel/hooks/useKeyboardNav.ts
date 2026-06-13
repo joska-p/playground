@@ -45,6 +45,6 @@ export function useKeyboardNav(maxIndex: number) {
   return {
     focusedIndex,
     setFocusedIndex: setRawFocusedIndex,
-    viewMode,
+    viewMode
   };
 }

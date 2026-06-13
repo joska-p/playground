@@ -5,13 +5,17 @@ import { Input } from '@repo/ui/Input';
 import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
 import { useDataStore } from '../../../stores/dataStore';
-import { useUiStore } from '../../../stores/uiStore';
+import {
+  ENTITY_TYPES,
+  RELATION_TYPES,
+  useUiStore
+} from '../../../stores/uiStore';
 import { useCommunityInsights } from '../hooks/useCommunityInsights';
 import { useCommunityList } from '../hooks/useCommunityList';
 import { useKeyboardNav } from '../hooks/useKeyboardNav';
 import {
   findNodeNeighbors,
-  getLinkedCommunities,
+  getLinkedCommunities
 } from '../services/insightsCalculator';
 import { ColorLegend } from './ColorLegend';
 import { PanelSection } from './PanelSection';
@@ -32,6 +36,10 @@ function GraphPanel() {
   const showHyperedges = useUiStore((s) => s.showHyperedges);
   const showNodeLabels = useUiStore((s) => s.showNodeLabels);
   const isPanelOpen = useUiStore((s) => s.isPanelOpen);
+  const hiddenRelationTypes = useUiStore((s) => s.hiddenRelationTypes);
+  const toggleRelationType = useUiStore((s) => s.toggleRelationType);
+  const entityTypeFilter = useUiStore((s) => s.entityTypeFilter);
+  const setEntityTypeFilter = useUiStore((s) => s.setEntityTypeFilter);
 
   const selectNode = useUiStore((s) => s.selectNode);
   const setSearchQuery = useUiStore((s) => s.setSearchQuery);
@@ -70,7 +78,10 @@ function GraphPanel() {
         className="absolute top-3 right-3 z-50"
         aria-label={isPanelOpen ? 'Close panel' : 'Open panel'}
       >
-        <Icon name="wrench" className="h-4 w-4" />
+        <Icon
+          name="wrench"
+          className="h-4 w-4"
+        />
       </Button>
 
       {/* Panel */}
@@ -78,7 +89,10 @@ function GraphPanel() {
         <Card className="absolute top-12 right-3 z-50 max-h-[calc(100vh-4rem)] w-72 overflow-y-auto backdrop-blur-md">
           <div className="flex flex-col gap-4 p-4">
             {/* Navigation section */}
-            <PanelSection title="Navigation" defaultOpen={true}>
+            <PanelSection
+              title="Navigation"
+              defaultOpen={true}
+            >
               {viewMode === 'detail' && (
                 <Button
                   variant="ghost"
@@ -97,7 +111,10 @@ function GraphPanel() {
             </PanelSection>
 
             {/* Search & Filter section */}
-            <PanelSection title="Search & Filter" defaultOpen={false}>
+            <PanelSection
+              title="Search & Filter"
+              defaultOpen={false}
+            >
               <Input
                 placeholder="Search nodes..."
                 value={searchQuery}
@@ -122,7 +139,10 @@ function GraphPanel() {
             </PanelSection>
 
             {/* Display section */}
-            <PanelSection title="Display" defaultOpen={false}>
+            <PanelSection
+              title="Display"
+              defaultOpen={false}
+            >
               <div className="flex flex-col gap-2">
                 <Switch
                   label="Auto-rotate"
@@ -149,8 +169,73 @@ function GraphPanel() {
               </div>
             </PanelSection>
 
+            {/* Edge-type filters — hide noisy 'contains' by default */}
+            <PanelSection
+              title="Edge Types"
+              defaultOpen={false}
+            >
+              <div className="flex flex-col gap-1">
+                {RELATION_TYPES.map((rel) => {
+                  const hidden = hiddenRelationTypes.has(rel);
+                  return (
+                    <button
+                      key={rel}
+                      type="button"
+                      onClick={() => toggleRelationType(rel)}
+                      className={`flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors ${
+                        hidden
+                          ? 'text-muted-foreground line-through opacity-50'
+                          : 'hover:bg-accent'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-2 w-2 rounded-sm ${
+                          hidden ? 'bg-muted' : 'bg-foreground'
+                        }`}
+                      />
+                      {rel}
+                    </button>
+                  );
+                })}
+              </div>
+            </PanelSection>
+
+            {/* Entity type filter — highlight a single entity kind */}
+            <PanelSection
+              title="Entity Types"
+              defaultOpen={false}
+            >
+              <div className="flex flex-col gap-1">
+                {ENTITY_TYPES.map((type) => {
+                  const active = entityTypeFilter === type;
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setEntityTypeFilter(active ? '' : type)}
+                      className={`flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors ${
+                        active
+                          ? 'bg-accent font-medium'
+                          : 'text-muted-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-2 w-2 rounded-sm ${
+                          active ? 'bg-foreground' : 'bg-muted'
+                        }`}
+                      />
+                      {type}
+                    </button>
+                  );
+                })}
+              </div>
+            </PanelSection>
+
             {/* Selection section */}
-            <PanelSection title="Selection" defaultOpen={true}>
+            <PanelSection
+              title="Selection"
+              defaultOpen={true}
+            >
               {insights && (
                 <div className="flex flex-col gap-1.5 rounded-lg border p-2.5 text-[11px]">
                   <div className="text-muted-foreground mb-0.5 text-[10px] font-medium tracking-wider uppercase">
@@ -206,13 +291,19 @@ function GraphPanel() {
                       style={{ backgroundColor: selectedCommunity.color }}
                     />
                     <span className="truncate font-medium">
-                      {selectedCommunity.label}
+                      {selectedCommunity.semantic_label ??
+                        selectedCommunity.label}
                     </span>
                   </div>
-                  <span className="text-muted-foreground">
-                    Community {selectedCommunity.id} ·{' '}
-                    {selectedCommunity.nodeCount} nodes
-                  </span>
+                  <div className="text-muted-foreground flex flex-wrap gap-x-2">
+                    <span>Community {selectedCommunity.id}</span>
+                    <span>· {selectedCommunity.nodeCount} nodes</span>
+                    {selectedCommunity.dominant_package && (
+                      <span className="text-[10px]">
+                        · {selectedCommunity.dominant_package}
+                      </span>
+                    )}
+                  </div>
                   {selectedCommunity.hasTrash && (
                     <span className="text-destructive">
                       Contains .Trash files
@@ -249,7 +340,7 @@ function GraphPanel() {
                                 style={{ backgroundColor: other.color }}
                               />
                               <span className="flex-1 truncate text-left">
-                                {other.label}
+                                {other.semantic_label ?? other.label}
                               </span>
                               <span className="text-muted-foreground flex-shrink-0">
                                 {count}
@@ -268,8 +359,7 @@ function GraphPanel() {
                   const nodeIndex = useDataStore.getState().nodeIndex;
                   const degrees = useDataStore.getState().degrees;
                   const idx = nodeIndex.get(selectedNode.id);
-                  const deg =
-                    idx !== undefined && degrees ? degrees[idx] : 0;
+                  const deg = idx !== undefined && degrees ? degrees[idx] : 0;
                   const community = communities.get(selectedNode.community);
 
                   const neighbors = findNodeNeighbors(
@@ -284,7 +374,7 @@ function GraphPanel() {
                     <div className="flex flex-col gap-2 rounded-lg border p-3 text-xs">
                       {/* Header */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex min-w-0 items-center gap-2">
                           {community && (
                             <span
                               className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
@@ -302,14 +392,22 @@ function GraphPanel() {
                           className="h-5 w-5 flex-shrink-0"
                           aria-label="Deselect"
                         >
-                          <Icon name="close" className="h-3 w-3" />
+                          <Icon
+                            name="close"
+                            className="h-3 w-3"
+                          />
                         </Button>
                       </div>
 
                       {/* Metadata */}
                       <div className="text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
                         <span className="truncate">ID: {selectedNode.id}</span>
-                        <span>Type: {selectedNode.file_type}</span>
+                        <span>
+                          {selectedNode.entity_type ?? selectedNode.file_type}
+                        </span>
+                        {selectedNode.package_name && (
+                          <span>{selectedNode.package_name}</span>
+                        )}
                         <span>Degree: {deg}</span>
                         {community && (
                           <button
@@ -319,11 +417,11 @@ function GraphPanel() {
                             }
                             className="hover:underline"
                           >
-                            Community: {community.label}
+                            {community.semantic_label ?? community.label}
                           </button>
                         )}
                         <span className="truncate">
-                          File: {selectedNode.source_file}
+                          {selectedNode.source_file}
                         </span>
                       </div>
 

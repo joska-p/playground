@@ -87,5 +87,12 @@ export function useKeyboardShortcuts(config?: KeyboardConfig) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [communityFilter, setCommunityFilter, selectNode, autoRotate, setAutoRotate, config]);
+  }, [
+    communityFilter,
+    setCommunityFilter,
+    selectNode,
+    autoRotate,
+    setAutoRotate,
+    config
+  ]);
 }

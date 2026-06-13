@@ -63,7 +63,9 @@ function GraphNodesGroup({
   for (let i = 0; i < count; i++) {
     const idx = indices[i]!;
     const deg = degrees?.[idx] ?? 0;
-    scaleValues.push(degreeToSize(deg, maxDegree, degree.sizeMin, degree.sizeMax));
+    scaleValues.push(
+      degreeToSize(deg, maxDegree, degree.sizeMin, degree.sizeMax)
+    );
 
     const isHighlighted = highlightIndices?.has(idx) ?? false;
     const brightness = isHighlighted
@@ -71,7 +73,10 @@ function GraphNodesGroup({
       : degreeToBrightness(deg, maxDegree, degree.brightnessMin);
     const baseHex = communityColor(nodes[idx]!.community);
     const [r, g, b] = hexToRgb(baseHex);
-    const toHex = (v: number) => Math.round(v * brightness * 255).toString(16).padStart(2, '0');
+    const toHex = (v: number) =>
+      Math.round(v * brightness * 255)
+        .toString(16)
+        .padStart(2, '0');
     colorValues.push(`#${toHex(r)}${toHex(g)}${toHex(b)}`);
   }
 
@@ -80,7 +85,7 @@ function GraphNodesGroup({
     indices,
     scaleValues,
     colorValues,
-    baseScale,
+    baseScale
   });
 
   // Companion ring mesh (only updates when ringColor is present)
@@ -96,7 +101,9 @@ function GraphNodesGroup({
     document.body.style.cursor = 'pointer';
     setPointerPosition(e.clientX, e.clientY);
     if (onPointerMoveNode) {
-      onPointerMoveNode(e.instanceId !== undefined ? indices[e.instanceId]! : null);
+      onPointerMoveNode(
+        e.instanceId !== undefined ? indices[e.instanceId]! : null
+      );
     }
   }
 

@@ -1,13 +1,13 @@
+import type { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
-import type { OrbitControls } from '@react-three/drei';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
 import {
-  createOverviewFlyAnimation,
   createDetailFlyAnimation,
+  createOverviewFlyAnimation,
   tickFlyAnimation,
-  type FlyAnimation,
+  type FlyAnimation
 } from '../services/cameraUtils';
 
 type CameraState = 'default' | 'detail' | 'overview';
@@ -45,7 +45,12 @@ export function useFlyAnimation(selectedCommunityId: number | null) {
     const anim = flyAnimationRef.current;
     if (!anim?.active || !controlsRef.current) return;
 
-    const updated = tickFlyAnimation(anim, delta * 1000, camera, controlsRef.current.target);
+    const updated = tickFlyAnimation(
+      anim,
+      delta * 1000,
+      camera,
+      controlsRef.current.target
+    );
     flyAnimationRef.current = updated;
     controlsRef.current.update();
 
@@ -61,7 +66,10 @@ export function useFlyAnimation(selectedCommunityId: number | null) {
     if (cameraStateRef.current === 'overview') return;
 
     pendingAnimationRef.current = true;
-    flyAnimationRef.current = createOverviewFlyAnimation(camera, controlsRef.current.target);
+    flyAnimationRef.current = createOverviewFlyAnimation(
+      camera,
+      controlsRef.current.target
+    );
     lastDetailCommunityRef.current = null;
   }, [viewMode, camera]);
 
@@ -75,13 +83,17 @@ export function useFlyAnimation(selectedCommunityId: number | null) {
     if (!community) return;
 
     pendingAnimationRef.current = true;
-    flyAnimationRef.current = createDetailFlyAnimation(camera, controlsRef.current.target, community);
+    flyAnimationRef.current = createDetailFlyAnimation(
+      camera,
+      controlsRef.current.target,
+      community
+    );
   }, [selectedCommunityId, camera, communities]);
 
   return {
     controlsRef,
     flyActive,
     autoRotate,
-    controlsEnabled: !flyActive,
+    controlsEnabled: !flyActive
   };
 }

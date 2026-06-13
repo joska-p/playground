@@ -1,7 +1,7 @@
 ---
-title: 'A pool of worker'
-description: 'You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.'
-category: 'reference'
+title: "A pool of worker"
+description: "You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown."
+category: "reference"
 tags:
   - reference
   - worker-pool
@@ -242,3 +242,4 @@ pnpm --filter @repo/worker-pool check-types
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+

@@ -1,3 +1,13 @@
+export type EntityType =
+  | 'file'
+  | 'function'
+  | 'method'
+  | 'type'
+  | 'variable'
+  | 'config-key'
+  | 'package'
+  | 'unknown';
+
 export type GraphNode = {
   id: string;
   label: string;
@@ -7,6 +17,10 @@ export type GraphNode = {
   source_file: string;
   source_location: string;
   _origin?: string;
+  /** Enriched at build time — entity kind derived from label pattern */
+  entity_type?: EntityType;
+  /** Enriched at build time — package name extracted from source_file */
+  package_name?: string;
 };
 
 export type GraphLink = {
@@ -51,6 +65,10 @@ export type CommunityData = {
   nodeCount: number;
   radius: number;
   label: string;
+  /** Enriched at build time — semantic name from children labels */
+  semantic_label?: string;
+  /** Most common package within this community */
+  dominant_package?: string;
   color: string;
   nodeIndices: number[];
   hasTrash: boolean;

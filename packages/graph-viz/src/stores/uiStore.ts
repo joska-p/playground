@@ -1,6 +1,33 @@
 import { create } from 'zustand';
 import type { GraphNode } from '../types';
 
+/** All known edge relation types — used for filtering */
+export const RELATION_TYPES = [
+  'contains',
+  'imports',
+  'imports_from',
+  'calls',
+  're_exports',
+  'method',
+  'references'
+] as const;
+
+export type RelationType = (typeof RELATION_TYPES)[number];
+
+/** All entity types discovered during enrichment — used for filtering */
+export const ENTITY_TYPES = [
+  'function',
+  'method',
+  'type',
+  'file',
+  'variable',
+  'config-key',
+  'package',
+  'unknown'
+] as const;
+
+export type EntityTypeLabel = (typeof ENTITY_TYPES)[number];
+
 type UiStore = {
   selectedNode: GraphNode | null;
   hoveredCommunityId: number | null;
@@ -15,6 +42,10 @@ type UiStore = {
   isPanelOpen: boolean;
   pointerX: number | null;
   pointerY: number | null;
+  /** Which relation types are visible — empty = all visible */
+  hiddenRelationTypes: Set<RelationType>;
+  /** Which entity types to highlight — empty = all */
+  entityTypeFilter: string;
 
   selectNode: (node: GraphNode | null) => void;
   setHoveredCommunityId: (id: number | null) => void;
@@ -28,6 +59,10 @@ type UiStore = {
   setShowNodeLabels: (on: boolean) => void;
   togglePanel: () => void;
   setPointerPosition: (x: number, y: number) => void;
+  /** Toggle a relation type on/off */
+  toggleRelationType: (type: RelationType) => void;
+  /** Set entity type filter */
+  setEntityTypeFilter: (type: string) => void;
 };
 
 export const useUiStore = create<UiStore>((set) => ({
@@ -44,6 +79,8 @@ export const useUiStore = create<UiStore>((set) => ({
   isPanelOpen: true,
   pointerX: null,
   pointerY: null,
+  hiddenRelationTypes: new Set(),
+  entityTypeFilter: '',
 
   selectNode: (selectedNode) => set({ selectedNode, hoveredNodeIndex: null }),
 
@@ -56,9 +93,6 @@ export const useUiStore = create<UiStore>((set) => ({
   setMinCommunitySize: (minCommunitySize) => set({ minCommunitySize }),
 
   setCommunityFilter: (communityFilter) => {
-    // Single action for ALL community selection paths.
-    // Single numeric ID → component derives detail mode.
-    // Empty/multi → component derives overview mode.
     set({ communityFilter, selectedNode: null, hoveredNodeIndex: null });
   },
 
@@ -72,5 +106,15 @@ export const useUiStore = create<UiStore>((set) => ({
 
   togglePanel: () => set((s) => ({ isPanelOpen: !s.isPanelOpen })),
 
-  setPointerPosition: (pointerX, pointerY) => set({ pointerX, pointerY })
+  setPointerPosition: (pointerX, pointerY) => set({ pointerX, pointerY }),
+
+  toggleRelationType: (type) =>
+    set((s) => {
+      const next = new Set(s.hiddenRelationTypes);
+      if (next.has(type)) next.delete(type);
+      else next.add(type);
+      return { hiddenRelationTypes: next };
+    }),
+
+  setEntityTypeFilter: (entityTypeFilter) => set({ entityTypeFilter })
 }));

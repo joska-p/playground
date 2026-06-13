@@ -21,7 +21,6 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
-
     "three": "catalog:",
     "zustand": "catalog:"
   },

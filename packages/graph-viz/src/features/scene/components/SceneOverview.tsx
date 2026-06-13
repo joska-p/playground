@@ -1,16 +1,16 @@
 import { communityLabel, smartLabel } from '../../../config';
+import {
+  computeOverviewSearchHighlights,
+  computeSmartLabels
+} from '../../../core/utils/searchUtils';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
 import { parseCommunityFilter } from '../../../utils/communities';
-import { useCameraDistance } from '../hooks/useCameraDistance';
-import {
-  computeOverviewSearchHighlights,
-  computeSmartLabels,
-} from '../../../core/utils/searchUtils';
-import { CommunityEdges } from '../../graph/components/CommunityEdges';
 import { CommunityLabel } from '../../annotation/components/CommunityLabel';
+import { CommunityEdges } from '../../graph/components/CommunityEdges';
 import { GraphCommunitySpheres } from '../../graph/components/GraphCommunitySpheres';
 import { HyperedgeLayer } from '../../graph/components/HyperedgeLayer';
+import { useCameraDistance } from '../hooks/useCameraDistance';
 
 /**
  * Overview mode: renders community spheres, inter-community edges,
@@ -36,7 +36,7 @@ function SceneOverview() {
   const searchHighlights = computeOverviewSearchHighlights(
     searchQuery,
     graphData?.nodes ?? [],
-    communities,
+    communities
   );
 
   // ── Visible community IDs (filtered + min size) ──
@@ -47,7 +47,7 @@ function SceneOverview() {
       return new Set(
         [...communities.values()]
           .filter((c) => c.nodeCount >= minCommunitySize)
-          .map((c) => c.id),
+          .map((c) => c.id)
       );
     }
     return null;
@@ -60,7 +60,7 @@ function SceneOverview() {
     smartLabel.baseThreshold,
     smartLabel.distanceScale,
     smartLabel.maxLabels,
-    visibleCommunityIds ?? undefined,
+    visibleCommunityIds ?? undefined
   );
 
   const hoveredCommunity =
@@ -86,7 +86,7 @@ function SceneOverview() {
           fontSize={Math.min(
             communityLabel.fontSizeMax,
             communityLabel.fontSizeBase +
-              Math.cbrt(c.nodeCount) * communityLabel.fontSizeScale,
+              Math.cbrt(c.nodeCount) * communityLabel.fontSizeScale
           )}
           offsetY={c.radius + communityLabel.defaultOffsetY - 0.5}
         />

@@ -105,11 +105,7 @@ export function findNodePosition(
 ): [number, number, number] | null {
   const idx = nodes.indexOf(targetNode);
   if (idx === -1) return null;
-  return [
-    positions[idx * 3],
-    positions[idx * 3 + 1],
-    positions[idx * 3 + 2],
-  ];
+  return [positions[idx * 3], positions[idx * 3 + 1], positions[idx * 3 + 2]];
 }
 
 /**
@@ -125,9 +121,8 @@ export function computeSmartLabels<T extends { nodeCount: number; id: number }>(
   visibleIds?: Set<number> | null
 ): T[] {
   const threshold = baseThreshold * (1 + cameraDistance / distanceScale);
-  const items = communities instanceof Map
-    ? [...communities.values()]
-    : [...communities];
+  const items =
+    communities instanceof Map ? [...communities.values()] : [...communities];
 
   return items
     .filter((c) => {

@@ -1,11 +1,15 @@
 import { useRef } from 'react';
 import type * as THREE from 'three';
-import { communityClustering, communityLOD, communitySphere } from '../../../config';
+import {
+  communityClustering,
+  communityLOD,
+  communitySphere
+} from '../../../config';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
+import { getLODSegments } from '../../scene/services/cameraUtils';
 import { useInstanceMesh } from '../hooks/useInstanceMesh';
 import { splitCommunitiesForDisplay } from '../services/communityGeometry';
-import { getLODSegments } from '../../scene/services/cameraUtils';
 
 type GraphCommunitySpheresProps = {
   ghost?: boolean;
@@ -31,7 +35,10 @@ function GraphCommunitySpheres({
   const [lodW, lodH] = getLODSegments(cameraDistance, communityLOD.levels);
 
   // Determine whether clustering is active based on camera distance
-  const clusteringActive = !ghost && communityClustering.enabled && cameraDistance > communityClustering.farDistanceThreshold;
+  const clusteringActive =
+    !ghost &&
+    communityClustering.enabled &&
+    cameraDistance > communityClustering.farDistanceThreshold;
 
   // Delegate community splitting to the service
   const { mainCommunities, otherCluster } = splitCommunitiesForDisplay(
@@ -114,7 +121,7 @@ function GraphCommunitySpheres({
     positions: highlightedPositions,
     indices: displayList.map((_, i) => i),
     scaleValues: highlightedScales,
-    colorValues: highlightedColors,
+    colorValues: highlightedColors
   });
 
   // Set up dimmed instanced mesh
@@ -122,14 +129,14 @@ function GraphCommunitySpheres({
     positions: dimmedPositions,
     indices: dimmedIndices,
     scaleValues: dimmedScales,
-    colorValues: dimmedColors,
+    colorValues: dimmedColors
   });
 
   // Set up "other" cluster instanced mesh (no per-instance colors; material color is used)
   useInstanceMesh(otherRef, {
     positions: otherPositions,
     indices: otherIndices,
-    scaleValues: otherScales,
+    scaleValues: otherScales
   });
 
   function handlePointerOver(event: {
@@ -165,7 +172,8 @@ function GraphCommunitySpheres({
     setCommunityFilter(String(community.id));
   }
 
-  if (highlightedCount === 0 && dimmedCount === 0 && !hasOtherCluster) return null;
+  if (highlightedCount === 0 && dimmedCount === 0 && !hasOtherCluster)
+    return null;
 
   return (
     <>

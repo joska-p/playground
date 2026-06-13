@@ -6,7 +6,11 @@ type PanelSectionProps = {
   children: ReactNode;
 };
 
-function PanelSection({ title, defaultOpen = true, children }: PanelSectionProps) {
+function PanelSection({
+  title,
+  defaultOpen = true,
+  children
+}: PanelSectionProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (

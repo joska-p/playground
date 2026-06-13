@@ -1,4 +1,8 @@
-import type { CommunityData, GraphData, InterCommunityEdge } from '../../../types';
+import type {
+  CommunityData,
+  GraphData,
+  InterCommunityEdge
+} from '../../../types';
 import { classifyNodeHealth } from '../../../utils/nodes';
 
 export type GraphInsights = {
@@ -29,14 +33,12 @@ export function computeGraphInsights(
   const top10Nodes = sortedComms
     .slice(0, 10)
     .reduce((sum, c) => sum + c.nodeCount, 0);
-  const concentration = (
-    (top10Nodes / graphData.nodes.length) *
-    100
-  ).toFixed(0);
+  const concentration = ((top10Nodes / graphData.nodes.length) * 100).toFixed(
+    0
+  );
 
   // Coupling density
-  const totalPossiblePairs =
-    (communities.size * (communities.size - 1)) / 2;
+  const totalPossiblePairs = (communities.size * (communities.size - 1)) / 2;
   const actualPairs = interCommunityEdges.size;
   const couplingDensity =
     totalPossiblePairs > 0
@@ -78,7 +80,7 @@ export function computeGraphInsights(
     isolated,
     lowConfidence,
     maxCoupling,
-    maxCouplingPair,
+    maxCouplingPair
   };
 }
 
@@ -93,7 +95,8 @@ export function findNodeNeighbors(
   nodeIndex: Map<string, number>,
   degrees: Float32Array | null
 ): Array<{ node: (typeof nodes)[number]; relation: string }> {
-  const neighbors: Array<{ node: (typeof nodes)[number]; relation: string }> = [];
+  const neighbors: Array<{ node: (typeof nodes)[number]; relation: string }> =
+    [];
 
   for (const link of links) {
     if (link.source === nodeId) {
@@ -101,7 +104,7 @@ export function findNodeNeighbors(
       if (targetIdx !== undefined) {
         neighbors.push({
           node: nodes[targetIdx]!,
-          relation: link.relation,
+          relation: link.relation
         });
       }
     } else if (link.target === nodeId) {
@@ -109,7 +112,7 @@ export function findNodeNeighbors(
       if (sourceIdx !== undefined) {
         neighbors.push({
           node: nodes[sourceIdx]!,
-          relation: link.relation,
+          relation: link.relation
         });
       }
     }
@@ -150,9 +153,7 @@ export function getLinkedCommunities(
   return linkedEdges
     .map((e) => {
       const otherCid =
-        e.sourceCid === selectedCommunityId
-          ? e.targetCid
-          : e.sourceCid;
+        e.sourceCid === selectedCommunityId ? e.targetCid : e.sourceCid;
       const other = communities.get(otherCid);
       if (!other) return null;
       return { otherCid, other, count: e.count };

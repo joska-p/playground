@@ -1,12 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
+import { NodeTooltip } from '../features/annotation/components/NodeTooltip';
+import { GraphPanel } from '../features/panel/components/GraphPanel';
+import { Scene } from '../features/scene/components/Scene';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { useDataStore } from '../stores/dataStore';
 import type { PreparedGraphData } from '../types';
-import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
-import { GraphPanel } from '../features/panel/components/GraphPanel';
-import { NodeTooltip } from '../features/annotation/components/NodeTooltip';
-import { Scene } from '../features/scene/components/Scene';
 
 // Graph data is bundled at build time — never fetch or compute at runtime
 import graphPreparedData from '../data/graph-prepared.json';
@@ -48,7 +48,8 @@ function GraphCanvas() {
       <NodeTooltip />
       {showHint && (
         <div className="bg-background/80 pointer-events-none absolute top-4 left-1/2 z-50 -translate-x-1/2 rounded-lg px-4 py-2 text-xs shadow-lg backdrop-blur-sm">
-          Press <kbd className="rounded border px-1 font-mono">R</kbd> to toggle rotation
+          Press <kbd className="rounded border px-1 font-mono">R</kbd> to toggle
+          rotation
         </div>
       )}
     </div>

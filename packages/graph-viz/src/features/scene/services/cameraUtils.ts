@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { camera as cameraConfig } from '../../../config';
+import { camera as cameraConfig, detailView } from '../../../config';
 import type { CommunityData } from '../../../types';
 
 export type FlyAnimation = {
@@ -26,7 +26,7 @@ export function createOverviewFlyAnimation(
     startTarget: controlsTarget.clone(),
     endTarget: new THREE.Vector3(0, 0, 0),
     progress: 0,
-    duration: cameraConfig.flyDuration,
+    duration: cameraConfig.flyDuration
   };
 }
 
@@ -39,7 +39,11 @@ export function createDetailFlyAnimation(
   controlsTarget: THREE.Vector3,
   community: CommunityData
 ): FlyAnimation {
-  const spread = Math.max(community.spread, cameraConfig.detailMinSpread);
+  // Spread is capped at detailView.maxSpread because node positions get normalized
+  // to that bound in useDetailData. Without this cap, communities with large original
+  // layout spread cause the camera to zoom too far out, making nodes appear as a blob.
+  const effectiveSpread = Math.min(community.spread, detailView.maxSpread);
+  const spread = Math.max(effectiveSpread, cameraConfig.detailMinSpread);
   const distance = Math.max(
     spread * cameraConfig.detailSpreadMultiplier,
     cameraConfig.detailMinDistance
@@ -56,7 +60,7 @@ export function createDetailFlyAnimation(
     startTarget: controlsTarget.clone(),
     endTarget: new THREE.Vector3(0, 0, 0),
     progress: 0,
-    duration: cameraConfig.flyDuration,
+    duration: cameraConfig.flyDuration
   };
 }
 
@@ -82,7 +86,7 @@ export function tickFlyAnimation(
   return {
     ...anim,
     progress: newProgress,
-    active: t < 1,
+    active: t < 1
   };
 }
 
@@ -91,7 +95,11 @@ export function tickFlyAnimation(
  */
 export function getLODSegments(
   distance: number,
-  levels: ReadonlyArray<{ distance: number; widthSegments: number; heightSegments: number }>
+  levels: ReadonlyArray<{
+    distance: number;
+    widthSegments: number;
+    heightSegments: number;
+  }>
 ): [number, number] {
   let best = levels[levels.length - 1]!;
 

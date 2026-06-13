@@ -37,7 +37,10 @@ export function useTooltipPosition(
   }
 
   // Clamp to viewport edges
-  left = Math.max(TOOLTIP_MARGIN, Math.min(left, vw - TOOLTIP_WIDTH - TOOLTIP_MARGIN));
+  left = Math.max(
+    TOOLTIP_MARGIN,
+    Math.min(left, vw - TOOLTIP_WIDTH - TOOLTIP_MARGIN)
+  );
   top = Math.max(TOOLTIP_MARGIN, top);
 
   return { left, top };

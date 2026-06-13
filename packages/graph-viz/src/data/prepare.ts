@@ -1,7 +1,8 @@
 /**
  * Build-time data preparation script for @repo/graph-viz.
  *
- * Reads `graph.json`, runs the force-directed layout, computes all derived data
+ * Reads `graph.json`, enriches nodes with semantic metadata,
+ * runs the force-directed layout, computes all derived data
  * (degrees, community metadata, inter-community edges), and writes
  * `graph-prepared.json` — a single file the runtime app imports directly.
  *
@@ -10,9 +11,18 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { CommunityData, GraphData, InterCommunityEdge, PreparedGraphData } from '../types';
-import { computeCommunities, computeInterCommunityEdges } from '../utils/communities';
+import type {
+  CommunityData,
+  GraphData,
+  InterCommunityEdge,
+  PreparedGraphData
+} from '../types';
+import {
+  computeCommunities,
+  computeInterCommunityEdges
+} from '../utils/communities';
 import { computeDegrees } from '../utils/nodes';
+import { enrichCommunities, enrichNodes } from './enrich';
 import { computeLayout } from './layout';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -31,6 +41,10 @@ function main(): void {
 
   const { nodes, links } = graphData;
   console.log(`  Nodes: ${nodes.length}, Links: ${links.length}`);
+
+  // ── 0. Semantic enrichment ──
+  console.log('Enriching nodes with entity types and package names...');
+  enrichNodes(nodes);
 
   // ── 1. Force-directed layout ──
   console.log('Running force-directed layout...');
@@ -54,6 +68,7 @@ function main(): void {
 
   // ── 3. Community metadata ──
   const communities = computeCommunities(nodes, positionsFloat);
+  enrichCommunities(communities, nodes);
 
   // ── 4. Inter-community edges ──
   const interCommunityEdges = computeInterCommunityEdges(
@@ -84,7 +99,7 @@ function main(): void {
     positions,
     degrees,
     communities: communitiesRecord,
-    interCommunityEdges: edgesRecord,
+    interCommunityEdges: edgesRecord
   };
 
   console.log(`Writing ${OUTPUT}...`);
@@ -92,7 +107,9 @@ function main(): void {
 
   const communityCount = Object.keys(communitiesRecord).length;
   const edgeCount = Object.keys(edgesRecord).length;
-  console.log(`Done — ${nodes.length} nodes, ${communityCount} communities, ${edgeCount} inter-community edges`);
+  console.log(
+    `Done — ${nodes.length} nodes, ${communityCount} communities, ${edgeCount} inter-community edges`
+  );
 }
 
 main();

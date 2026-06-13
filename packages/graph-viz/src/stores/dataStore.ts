@@ -1,5 +1,11 @@
 import { create } from 'zustand';
-import type { CommunityData, GraphData, GraphNode, InterCommunityEdge, PreparedGraphData } from '../types';
+import type {
+  CommunityData,
+  GraphData,
+  GraphNode,
+  InterCommunityEdge,
+  PreparedGraphData
+} from '../types';
 
 type DataStore = {
   graphData: GraphData | null;
@@ -38,7 +44,7 @@ export const useDataStore = create<DataStore>((set) => ({
       multigraph: data.multigraph,
       graph: data.graph,
       nodes: data.nodes,
-      links: data.links,
+      links: data.links
     };
 
     const communities = new Map<number, CommunityData>();
@@ -57,7 +63,7 @@ export const useDataStore = create<DataStore>((set) => ({
       nodeIndex,
       communities,
       interCommunityEdges,
-      isLoaded: true,
+      isLoaded: true
     });
-  },
+  }
 }));

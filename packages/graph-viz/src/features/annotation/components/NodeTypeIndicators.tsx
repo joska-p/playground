@@ -3,12 +3,12 @@ import type { InstancedMesh } from 'three';
 import { TorusGeometry } from 'three';
 import {
   degree,
+  fileTypeColors,
   nodes as nodeConfig,
   torusRing
 } from '../../../config';
 import type { GraphNode } from '../../../types';
 import { degreeToSize } from '../../../utils/nodes';
-import { fileTypeColors } from '../../../config';
 import { useInstanceMesh } from '../../graph/hooks/useInstanceMesh';
 
 const torusGeometry = new TorusGeometry(
@@ -92,21 +92,29 @@ function NodeTypeIndicators({
     [imgIndices]
   );
 
-  useInstanceMesh(docRef, {
-    positions,
-    indices: docIndices,
-    scaleValues: docScaleValues,
-    baseScale,
-    colorValues: docColorValues,
-  }, [nodes, maxDegree, size]);
+  useInstanceMesh(
+    docRef,
+    {
+      positions,
+      indices: docIndices,
+      scaleValues: docScaleValues,
+      baseScale,
+      colorValues: docColorValues
+    },
+    [nodes, maxDegree, size]
+  );
 
-  useInstanceMesh(imgRef, {
-    positions,
-    indices: imgIndices,
-    scaleValues: imgScaleValues,
-    baseScale,
-    colorValues: imgColorValues,
-  }, [nodes, maxDegree, size]);
+  useInstanceMesh(
+    imgRef,
+    {
+      positions,
+      indices: imgIndices,
+      scaleValues: imgScaleValues,
+      baseScale,
+      colorValues: imgColorValues
+    },
+    [nodes, maxDegree, size]
+  );
 
   // Use a shared material — color is on the instance
   const sharedMaterial = <meshBasicMaterial />;

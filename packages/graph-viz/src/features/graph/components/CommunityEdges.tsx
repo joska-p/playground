@@ -1,5 +1,7 @@
 import { communityEdge } from '../../../config';
 import { useDataStore } from '../../../stores/dataStore';
+import { useUiStore } from '../../../stores/uiStore';
+import type { InterCommunityEdge } from '../../../types';
 import type { Tier } from '../services/communityGeometry';
 import { buildCommunityEdgeGeometries } from '../services/communityGeometry';
 import { DirectedArrowhead } from './DirectedArrowhead';
@@ -11,9 +13,22 @@ type CommunityEdgesProps = {
 function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
   const communities = useDataStore((s) => s.communities);
   const interCommunityEdges = useDataStore((s) => s.interCommunityEdges);
+  const hiddenRelationTypes = useUiStore((s) => s.hiddenRelationTypes);
+
+  // Filter inter-community edges by hidden relation types
+  const edges = (() => {
+    if (hiddenRelationTypes.size === 0) return interCommunityEdges;
+    const filtered = new Map<string, InterCommunityEdge>();
+    for (const [key, edge] of interCommunityEdges) {
+      if (edge.relation && hiddenRelationTypes.has(edge.relation as never))
+        continue;
+      filtered.set(key, edge);
+    }
+    return filtered;
+  })();
 
   const { geometries, arrowheads, hasEdges } = buildCommunityEdgeGeometries(
-    interCommunityEdges,
+    edges,
     communities,
     visibleIds,
     communityEdge.minCount,
@@ -28,7 +43,10 @@ function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
         const entry = geometries?.[tier];
         if (!entry) return null;
         return (
-          <lineSegments key={tier} geometry={entry.geometry}>
+          <lineSegments
+            key={tier}
+            geometry={entry.geometry}
+          >
             <lineBasicMaterial
               vertexColors
               transparent

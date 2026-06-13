@@ -1,10 +1,10 @@
 import { detailView } from '../../../config';
 import type { GraphData } from '../../../types';
+import type { FilteredSubset } from '../../../utils/communities';
 import {
   filterByCommunity,
-  normalizeCommunityPositions,
+  normalizeCommunityPositions
 } from '../../../utils/communities';
-import type { FilteredSubset } from '../../../utils/communities';
 
 /**
  * Compute the filtered + normalized data subset for a single community's detail view.
@@ -29,6 +29,6 @@ export function useDetailData(
     positions: normalizeCommunityPositions(
       filtered.positions,
       detailView.maxSpread
-    ),
+    )
   };
 }

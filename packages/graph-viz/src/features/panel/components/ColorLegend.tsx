@@ -27,7 +27,11 @@ function ColorLegend({ focusedIndex, onFocusChange }: ColorLegendProps) {
     return buildCommunityList(communities, minCommunitySize).filter((c) => {
       if (!searchFilter) return true;
       const q = searchFilter.toLowerCase();
-      return c.label.toLowerCase().includes(q) || String(c.id).includes(q);
+      return (
+        c.label.toLowerCase().includes(q) ||
+        String(c.id).includes(q) ||
+        (c.semantic_label ?? '').toLowerCase().includes(q)
+      );
     });
   })();
 
@@ -65,27 +69,41 @@ function ColorLegend({ focusedIndex, onFocusChange }: ColorLegendProps) {
             fullWidth
             className="text-xs"
           />
-          <div ref={listRef} className="flex flex-col gap-0.5">
-            {communityList.map((c, i) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setCommunityFilter(String(c.id))}
-                className={`flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors ${
-                  focusedIndex === i ? 'bg-accent' : 'hover:bg-accent'
-                }`}
-                onMouseEnter={() => onFocusChange?.(i)}
-              >
-                <span
-                  className="inline-block h-2.5 w-2.5 flex-shrink-0 rounded-full"
-                  style={{ backgroundColor: c.color }}
-                />
-                <span className="flex-1 truncate text-left">{c.label}</span>
-                <span className="text-muted-foreground flex-shrink-0">
-                  {c.nodeCount}
-                </span>
-              </button>
-            ))}
+          <div
+            ref={listRef}
+            className="flex flex-col gap-0.5"
+          >
+            {communityList.map((c, i) => {
+              const displayLabel = c.semantic_label ?? c.label;
+              const pkg = c.dominant_package;
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setCommunityFilter(String(c.id))}
+                  className={`flex items-center gap-2 rounded px-1.5 py-1 text-xs transition-colors ${
+                    focusedIndex === i ? 'bg-accent' : 'hover:bg-accent'
+                  }`}
+                  onMouseEnter={() => onFocusChange?.(i)}
+                >
+                  <span
+                    className="inline-block h-2.5 w-2.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: c.color }}
+                  />
+                  <span className="flex-1 truncate text-left">
+                    {displayLabel}
+                    {pkg && displayLabel !== pkg && (
+                      <span className="text-muted-foreground ml-1 text-[10px]">
+                        ({pkg})
+                      </span>
+                    )}
+                  </span>
+                  <span className="text-muted-foreground flex-shrink-0">
+                    {c.nodeCount}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </>
       )}

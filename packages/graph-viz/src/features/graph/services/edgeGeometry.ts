@@ -1,5 +1,5 @@
 import { BufferGeometry, Float32BufferAttribute } from 'three';
-import { relationPalette, highlightedEdge } from '../../../config';
+import { highlightedEdge, relationPalette } from '../../../config';
 import type { GraphLink } from '../../../types';
 import { hexToRgb } from '../../../utils/colors';
 

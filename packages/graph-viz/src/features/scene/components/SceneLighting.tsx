@@ -5,7 +5,7 @@ import {
   fog,
   hemisphereLight,
   keyLight,
-  rimLight,
+  rimLight
 } from '../../../config';
 
 /**
@@ -16,14 +16,17 @@ function SceneLighting() {
   return (
     <>
       {/* Fog for depth perception */}
-      <fog attach="fog" args={[fog.color, fog.near, fog.far]} />
+      <fog
+        attach="fog"
+        args={[fog.color, fog.near, fog.far]}
+      />
 
       {/* Ambient fill from sky/ground */}
       <hemisphereLight
         args={[
           hemisphereLight.skyColor,
           hemisphereLight.groundColor,
-          hemisphereLight.intensity,
+          hemisphereLight.intensity
         ]}
       />
 

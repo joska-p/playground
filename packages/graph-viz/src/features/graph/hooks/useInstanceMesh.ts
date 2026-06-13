@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Color, Object3D } from 'three';
 import type { InstancedMesh } from 'three';
+import { Color, Object3D } from 'three';
 
 export type InstanceConfig = {
   positions: Float32Array;
@@ -24,7 +24,13 @@ export function useInstanceMesh(
   config: InstanceConfig,
   deps: React.DependencyList = []
 ): void {
-  const { positions, indices, scaleValues, colorValues, baseScale = 1 } = config;
+  const {
+    positions,
+    indices,
+    scaleValues,
+    colorValues,
+    baseScale = 1
+  } = config;
 
   useEffect(() => {
     const mesh = meshRef.current;
@@ -67,7 +73,15 @@ export function useInstanceMesh(
     mesh.computeBoundingSphere();
     // deps is consumed by the effect but we intentionally use indices in the logic
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [positions, indices, scaleValues, colorValues, baseScale, meshRef, ...deps]);
+  }, [
+    positions,
+    indices,
+    scaleValues,
+    colorValues,
+    baseScale,
+    meshRef,
+    ...deps
+  ]);
 }
 
 /**
@@ -100,7 +114,7 @@ export function useCompanionMesh(
 
     mesh.instanceMatrix.needsUpdate = true;
     mesh.computeBoundingSphere();
-  // deps is consumed by the effect but we intentionally use indices in the logic
+    // deps is consumed by the effect but we intentionally use indices in the logic
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [positions, indices, meshRef, ...deps]);
 }

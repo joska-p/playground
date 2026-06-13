@@ -1,6 +1,10 @@
-import type { CommunityData, GraphData, InterCommunityEdge } from '../../../types';
-import { computeGraphInsights } from '../services/insightsCalculator';
+import type {
+  CommunityData,
+  GraphData,
+  InterCommunityEdge
+} from '../../../types';
 import type { GraphInsights } from '../services/insightsCalculator';
+import { computeGraphInsights } from '../services/insightsCalculator';
 
 /**
  * Hook that computes codebase health insights from graph data.

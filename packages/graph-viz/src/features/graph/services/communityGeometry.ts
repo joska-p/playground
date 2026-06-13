@@ -8,7 +8,10 @@ export type Tier = 0 | 1 | 2;
 const TIER_OPACITIES: Record<Tier, number> = { 0: 0.1, 1: 0.4, 2: 0.8 };
 
 export type CommunityEdgeGeometries = {
-  geometries: Record<Tier, { geometry: BufferGeometry; opacity: number } | null>;
+  geometries: Record<
+    Tier,
+    { geometry: BufferGeometry; opacity: number } | null
+  >;
   arrowheads: Array<{
     from: [number, number, number];
     to: [number, number, number];
@@ -38,7 +41,7 @@ export function buildCommunityEdgeGeometries(
     return {
       geometries: { 0: null, 1: null, 2: null },
       arrowheads: [],
-      hasEdges: false,
+      hasEdges: false
     };
   }
 
@@ -57,10 +60,13 @@ export function buildCommunityEdgeGeometries(
   }
 
   // Build BufferGeometry per tier
-  const geometries: Record<Tier, { geometry: BufferGeometry; opacity: number } | null> = {
+  const geometries: Record<
+    Tier,
+    { geometry: BufferGeometry; opacity: number } | null
+  > = {
     0: null,
     1: null,
-    2: null,
+    2: null
   };
 
   for (const tier of [0, 1, 2] as Tier[]) {
@@ -115,7 +121,8 @@ export function buildCommunityEdgeGeometries(
     const total = e.sourceToTargetCount + e.targetToSourceCount;
     if (total === 0) continue;
 
-    const ratio = Math.max(e.sourceToTargetCount, e.targetToSourceCount) / total;
+    const ratio =
+      Math.max(e.sourceToTargetCount, e.targetToSourceCount) / total;
     if (ratio <= 0.7) continue;
 
     const sc = communities.get(e.sourceCid);
@@ -182,7 +189,7 @@ export function buildCommunityLinkGeometries(
       opacity: Math.min(
         communityLink.opacityMax,
         communityLink.opacityBase + edge.count * communityLink.opacityPerCount
-      ),
+      )
     });
   }
 
@@ -217,7 +224,7 @@ export function splitCommunitiesForDisplay(
     if (!visibleIds) return { mainCommunities: all, otherCluster: null };
     return {
       mainCommunities: all.filter((c) => visibleIds.has(c.id)),
-      otherCluster: null,
+      otherCluster: null
     };
   }
 
@@ -238,7 +245,9 @@ export function splitCommunitiesForDisplay(
 
   // Compute weighted centroid
   let totalNodes = 0;
-  let cx = 0, cy = 0, cz = 0;
+  let cx = 0,
+    cy = 0,
+    cz = 0;
   for (const c of small) {
     const n = c.nodeCount;
     totalNodes += n;
@@ -267,7 +276,7 @@ export function splitCommunitiesForDisplay(
       centroid: [cx, cy, cz],
       radius,
       nodeCount: totalNodes,
-      communityCount: small.length,
-    },
+      communityCount: small.length
+    }
   };
 }
