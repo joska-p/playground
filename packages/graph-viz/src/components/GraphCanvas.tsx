@@ -4,9 +4,9 @@ import * as THREE from 'three';
 import { useDataStore } from '../stores/dataStore';
 import type { PreparedGraphData } from '../types';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
-import { GraphPanel } from './panel/GraphPanel';
-import { NodeTooltip } from './annotation/NodeTooltip';
-import { Scene } from './scene/Scene';
+import { GraphPanel } from '../features/panel/components/GraphPanel';
+import { NodeTooltip } from '../features/annotation/components/NodeTooltip';
+import { Scene } from '../features/scene/components/Scene';
 
 // Graph data is bundled at build time — never fetch or compute at runtime
 import graphPreparedData from '../data/graph-prepared.json';

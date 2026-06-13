@@ -1,4 +1,4 @@
-import { community, communityClustering } from '../config';
+import { community } from '../config';
 import type { CommunityData, GraphLink, GraphNode, InterCommunityEdge } from '../types';
 import { communityColor } from './colors';
 
@@ -85,65 +85,6 @@ export function computeCommunities(
   }
 
   return communities;
-}
-
-export type OtherCluster = {
-  centroid: [number, number, number];
-  radius: number;
-  nodeCount: number;
-  communityCount: number;
-};
-
-/**
- * Compute an aggregated "Other" cluster from small communities.
- * Returns null if no communities qualify for clustering.
- */
-export function computeOtherCluster(
-  communities: Map<number, CommunityData>,
-  smallThreshold?: number
-): OtherCluster | null {
-  const threshold = smallThreshold ?? communityClustering.smallThreshold;
-  const small: CommunityData[] = [];
-
-  for (const c of communities.values()) {
-    if (c.nodeCount < threshold) {
-      small.push(c);
-    }
-  }
-
-  if (small.length === 0) return null;
-
-  // Weighted centroid by node count
-  let totalNodes = 0;
-  let cx = 0, cy = 0, cz = 0;
-  for (const c of small) {
-    const n = c.nodeCount;
-    totalNodes += n;
-    cx += c.centroid[0] * n;
-    cy += c.centroid[1] * n;
-    cz += c.centroid[2] * n;
-  }
-  cx /= totalNodes;
-  cy /= totalNodes;
-  cz /= totalNodes;
-
-  // Radius based on collective spread
-  let maxDistSq = 0;
-  for (const c of small) {
-    const dx = c.centroid[0] - cx;
-    const dy = c.centroid[1] - cy;
-    const dz = c.centroid[2] - cz;
-    const dSq = dx * dx + dy * dy + dz * dz;
-    if (dSq > maxDistSq) maxDistSq = dSq;
-  }
-  const radius = Math.max(community.radiusMin, Math.sqrt(maxDistSq)) * communityClustering.otherClusterRadiusMultiplier;
-
-  return {
-    centroid: [cx, cy, cz],
-    radius,
-    nodeCount: totalNodes,
-    communityCount: small.length
-  };
 }
 
 export function computeInterCommunityEdges(
