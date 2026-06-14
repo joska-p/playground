@@ -8,6 +8,7 @@ export type GraphNode = {
   outDegree: number;
   community: number;
   file_type: string;
+  color: string;
 };
 
 export type GraphLink = {
@@ -19,5 +20,9 @@ export type GraphLink = {
 export type GraphData = {
   nodes: GraphNode[];
   links: GraphLink[];
-  communities: { id: number; centroid: { x: number; y: number; z: number } }[];
+  communities: {
+    id: number;
+    color: string;
+    centroid: { x: number; y: number; z: number };
+  }[];
 };

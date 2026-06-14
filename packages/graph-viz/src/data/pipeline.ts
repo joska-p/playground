@@ -22,12 +22,6 @@ export type PipelineConfig = {
   simulation: Partial<SimulationConfig>;
   normalization: Partial<NormalizeConfig>;
 };
-
-export const DEFAULT_PIPELINE_CONFIG: PipelineConfig = {
-  simulation: {},
-  normalization: {}
-};
-
 // ── Result ───────────────────────────────────────────────────────────────────
 
 export type PipelineResult = {

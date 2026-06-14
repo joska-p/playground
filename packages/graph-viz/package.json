@@ -5,8 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/App.tsx",
-    "./styles": "./src/styles/global.css",
-    "./theme": "./src/styles/theme.css"
+    "./styles": "./src/styles/global.css"
   },
   "scripts": {
     "dev": "vite --host",

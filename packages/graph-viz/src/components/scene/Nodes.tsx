@@ -8,118 +8,123 @@ import {
   useVisibleCommunities
 } from '../../stores/graph/selectors';
 
-const PALETTE = [
-  '#4cc9f0',
-  '#4361ee',
-  '#7209b7',
-  '#f72585',
-  '#f77f00',
-  '#06d6a0',
-  '#ffd166',
-  '#ef476f',
-  '#118ab2',
-  '#06a77d',
-  '#d62246',
-  '#9b5de5',
-  '#f15bb5',
-  '#fee440',
-  '#00bbf9',
-  '#00f5d4',
-  '#e07a5f',
-  '#3d405b',
-  '#81b29a',
-  '#f2cc8f',
-  '#a8dadc',
-  '#457b9d',
-  '#e63946',
-  '#2a9d8f'
-];
-const PALETTE_SIZE = PALETTE.length;
-const paletteCache: THREE.Color[] = [];
-
-function getPaletteColor(index: number): THREE.Color {
-  const slot = index % PALETTE_SIZE;
-  if (!paletteCache[slot]) {
-    paletteCache[slot] = new THREE.Color(PALETTE[slot]);
-  }
-  return paletteCache[slot];
-}
+const DIM_COLOR = new THREE.Color(0x333333);
+const WHITE = new THREE.Color(0xffffff);
 
 function getSize(node: GraphNode): number {
   const degree = node.inDegree + node.outDegree;
   return Math.log(degree + 1) * 0.3 + 0.8;
 }
 
-const DIM_COLOR = new THREE.Color(0x333333);
+/**
+ * Splits node indices by file_type and returns lookup maps
+ * from local instanced-mesh index → global nodes array index.
+ */
+function splitNodes(nodes: GraphNode[]) {
+  const codeToGlobal: number[] = [];
+  const docToGlobal: number[] = [];
+
+  nodes.forEach((n, globalIdx) => {
+    if (n.file_type === 'code') codeToGlobal.push(globalIdx);
+    else docToGlobal.push(globalIdx);
+  });
+
+  return { codeToGlobal, docToGlobal };
+}
 
 type NodesProps = {
   nodes: GraphNode[];
 };
 
 function Nodes({ nodes }: NodesProps) {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const codeMeshRef = useRef<THREE.InstancedMesh>(null);
+  const docMeshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useRef(new THREE.Object3D());
   const tmpColor = useRef(new THREE.Color());
 
   const selectedNodeIdx = useSelectedNodeIdx();
   const visibleCommunities = useVisibleCommunities();
 
-  // Update instance matrices and colors when nodes or visibility changes
-  useEffect(() => {
-    const mesh = meshRef.current;
-    if (!mesh) return;
+  const { codeToGlobal, docToGlobal } = splitNodes(nodes);
 
-    const count = nodes.length;
-    for (let i = 0; i < count; i++) {
-      const node = nodes[i];
-      const s = getSize(node);
+  // Single effect updates both meshes in one pass over the full node list.
+  useEffect(() => {
+    const codeMesh = codeMeshRef.current;
+    const docMesh = docMeshRef.current;
+    if (!codeMesh || !docMesh) return;
+
+    let codeLocalIdx = 0;
+    let docLocalIdx = 0;
+
+    nodes.forEach((node, globalIdx) => {
+      const isCode = node.file_type === 'code';
+      const mesh = isCode ? codeMesh : docMesh;
+      const localIdx = isCode ? codeLocalIdx++ : docLocalIdx++;
+
       const isVisible = visibleCommunities.has(node.community);
+      const scale = isVisible ? getSize(node) : 0.001;
 
       dummy.current.position.set(node.x, node.y, node.z);
-      // Scale to 0 for hidden nodes to avoid raycasting them
-      const scale = isVisible ? s : 0.001;
-      dummy.current.scale.set(scale, scale, scale);
+      dummy.current.scale.setScalar(scale);
       dummy.current.updateMatrix();
-      mesh.setMatrixAt(i, dummy.current.matrix);
+      mesh.setMatrixAt(localIdx, dummy.current.matrix);
 
-      // Color: dim hidden nodes, normal visible ones, bright highlight selected
       if (!isVisible) {
         tmpColor.current.copy(DIM_COLOR);
-      } else if (i === selectedNodeIdx) {
-        tmpColor.current.copy(getPaletteColor(node.community));
-        tmpColor.current.lerp(new THREE.Color(0xffffff), 0.4);
       } else {
-        tmpColor.current.copy(getPaletteColor(node.community));
+        tmpColor.current.set(node.color);
+        if (globalIdx === selectedNodeIdx) {
+          tmpColor.current.lerp(WHITE, 0.4);
+        }
       }
-      mesh.setColorAt(i, tmpColor.current);
-    }
+      mesh.setColorAt(localIdx, tmpColor.current);
+    });
 
-    mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    codeMesh.instanceMatrix.needsUpdate = true;
+    if (codeMesh.instanceColor) codeMesh.instanceColor.needsUpdate = true;
+
+    docMesh.instanceMatrix.needsUpdate = true;
+    if (docMesh.instanceColor) docMesh.instanceColor.needsUpdate = true;
   }, [nodes, visibleCommunities, selectedNodeIdx]);
 
-  // Handle click on instancedMesh
-  const handleClick = (event: ThreeEvent<MouseEvent>) => {
+  function handleClick(event: ThreeEvent<MouseEvent>) {
     event.stopPropagation();
-    const instanceId = event.instanceId;
-    if (instanceId !== undefined && instanceId < nodes.length) {
-      const node = nodes[instanceId];
-      if (visibleCommunities.has(node.community)) {
-        selectNode(selectedNodeIdx === instanceId ? null : instanceId);
-      }
-    }
-  };
+    const { instanceId } = event;
+    if (instanceId === undefined) return;
+
+    const node = nodes[instanceId];
+    if (!visibleCommunities.has(node.community)) return;
+
+    // Toggle: clicking the already-selected node deselects it.
+    selectNode(selectedNodeIdx === instanceId ? null : instanceId);
+  }
 
   return (
-    <instancedMesh
-      ref={meshRef}
-      args={[undefined, undefined, nodes.length]}
-      frustumCulled={false}
-      onClick={handleClick}
-    >
-      <sphereGeometry args={[1, 10, 10]} />
-      <meshStandardMaterial toneMapped={false} />
-    </instancedMesh>
+    <>
+      {/* Code nodes → spheres */}
+      <instancedMesh
+        key={codeToGlobal.length}
+        ref={codeMeshRef}
+        args={[undefined, undefined, codeToGlobal.length]}
+        frustumCulled={false}
+        onClick={handleClick}
+      >
+        <sphereGeometry args={[1, 10, 10]} />
+        <meshStandardMaterial toneMapped={false} />
+      </instancedMesh>
+
+      {/* Doc nodes → boxes */}
+      <instancedMesh
+        key={docToGlobal.length}
+        ref={docMeshRef}
+        args={[undefined, undefined, docToGlobal.length]}
+        frustumCulled={false}
+        onClick={handleClick}
+      >
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial toneMapped={false} />
+      </instancedMesh>
+    </>
   );
 }
 

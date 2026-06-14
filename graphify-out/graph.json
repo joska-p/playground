@@ -2239,7 +2239,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 175,
+      "community": 194,
       "norm_label": "turbo"
     },
     {
@@ -2849,7 +2849,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "canvas_cellmesh",
-      "community": 31,
+      "community": 43,
       "norm_label": "cellmesh.tsx"
     },
     {
@@ -2859,7 +2859,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "canvas_cellmesh_cellmesh",
-      "community": 31,
+      "community": 43,
       "norm_label": "cellmesh()"
     },
     {
@@ -2959,7 +2959,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "controls_brushmodeselector_brushmodeselector",
-      "community": 93,
+      "community": 18,
       "norm_label": "brushmodeselector()"
     },
     {
@@ -2969,7 +2969,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_components_controls_controls_tsx_controls_controls",
-      "community": 93,
+      "community": 20,
       "norm_label": "controls.tsx"
     },
     {
@@ -2979,7 +2979,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "controls_controls_controlsprops",
-      "community": 93,
+      "community": 20,
       "norm_label": "controlsprops"
     },
     {
@@ -2989,7 +2989,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "packages_automa_src_components_controls_controls_tsx_controls_controls_controls",
-      "community": 93,
+      "community": 20,
       "norm_label": "controls()"
     },
     {
@@ -2999,7 +2999,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_creatureselector",
-      "community": 93,
+      "community": 18,
       "norm_label": "creatureselector.tsx"
     },
     {
@@ -3009,7 +3009,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_creatureselector_creatureselector",
-      "community": 93,
+      "community": 18,
       "norm_label": "creatureselector()"
     },
     {
@@ -3139,7 +3139,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "controls_playbackcontrols_playbackcontrols",
-      "community": 93,
+      "community": 20,
       "norm_label": "playbackcontrols()"
     },
     {
@@ -3149,7 +3149,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_ruleselector",
-      "community": 78,
+      "community": 20,
       "norm_label": "ruleselector.tsx"
     },
     {
@@ -3159,7 +3159,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_ruleselector_ruleselector",
-      "community": 78,
+      "community": 20,
       "norm_label": "ruleselector()"
     },
     {
@@ -3169,7 +3169,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols",
-      "community": 18,
+      "community": 93,
       "norm_label": "shaderpropscontrols.tsx"
     },
     {
@@ -3179,7 +3179,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols_colorrowprops",
-      "community": 18,
+      "community": 93,
       "norm_label": "colorrowprops"
     },
     {
@@ -3189,7 +3189,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols_colorrow",
-      "community": 18,
+      "community": 93,
       "norm_label": "colorrow()"
     },
     {
@@ -3199,7 +3199,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols_shaderpropscontrols",
-      "community": 18,
+      "community": 93,
       "norm_label": "shaderpropscontrols()"
     },
     {
@@ -3209,7 +3209,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_shaderselector",
-      "community": 18,
+      "community": 93,
       "norm_label": "shaderselector.tsx"
     },
     {
@@ -3219,7 +3219,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_shaderselector_shaderselector",
-      "community": 18,
+      "community": 93,
       "norm_label": "shaderselector()"
     },
     {
@@ -3229,7 +3229,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_speedslider",
-      "community": 93,
+      "community": 20,
       "norm_label": "speedslider.tsx"
     },
     {
@@ -3239,7 +3239,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_speedslider_speedslider",
-      "community": 93,
+      "community": 20,
       "norm_label": "speedslider()"
     },
     {
@@ -3249,7 +3249,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_statecolorpicker",
-      "community": 78,
+      "community": 20,
       "norm_label": "statecolorpicker.tsx"
     },
     {
@@ -3259,7 +3259,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrowprops",
-      "community": 78,
+      "community": 20,
       "norm_label": "colorrowprops"
     },
     {
@@ -3269,7 +3269,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrow",
-      "community": 78,
+      "community": 20,
       "norm_label": "colorrow()"
     },
     {
@@ -3279,7 +3279,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "controls_statecolorpicker_statecolorpicker",
-      "community": 78,
+      "community": 20,
       "norm_label": "statecolorpicker()"
     },
     {
@@ -3289,7 +3289,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_config_ts_core_config",
-      "community": 78,
+      "community": 20,
       "norm_label": "config.ts"
     },
     {
@@ -3299,7 +3299,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_config_default_state_colors",
-      "community": 78,
+      "community": 20,
       "norm_label": "default_state_colors"
     },
     {
@@ -3309,7 +3309,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "core_config_state_fallback_colors",
-      "community": 78,
+      "community": 20,
       "norm_label": "state_fallback_colors"
     },
     {
@@ -3319,7 +3319,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "core_config_getdefaultstatecolor",
-      "community": 78,
+      "community": 20,
       "norm_label": "getdefaultstatecolor()"
     },
     {
@@ -3539,7 +3539,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "creature_registry_getcreature",
-      "community": 31,
+      "community": 43,
       "norm_label": "getcreature()"
     },
     {
@@ -3549,7 +3549,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "creature_registry_getallcreatures",
-      "community": 93,
+      "community": 18,
       "norm_label": "getallcreatures()"
     },
     {
@@ -3609,7 +3609,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_grid",
-      "community": 20,
+      "community": 114,
       "norm_label": "grid.ts"
     },
     {
@@ -3619,7 +3619,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_grid_creategrid",
-      "community": 20,
+      "community": 114,
       "norm_label": "creategrid()"
     },
     {
@@ -3629,7 +3629,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_grid_seedgrid",
-      "community": 20,
+      "community": 114,
       "norm_label": "seedgrid()"
     },
     {
@@ -3739,7 +3739,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "rules_registry_getrule",
-      "community": 78,
+      "community": 20,
       "norm_label": "getrule()"
     },
     {
@@ -3749,7 +3749,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "rules_registry_getallrules",
-      "community": 78,
+      "community": 20,
       "norm_label": "getallrules()"
     },
     {
@@ -3939,7 +3939,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "shaders_registry_getshader",
-      "community": 31,
+      "community": 43,
       "norm_label": "getshader()"
     },
     {
@@ -3949,7 +3949,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "shaders_registry_getallshaders",
-      "community": 18,
+      "community": 93,
       "norm_label": "getallshaders()"
     },
     {
@@ -4019,7 +4019,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_types_ts_core_types",
-      "community": 20,
+      "community": 114,
       "norm_label": "types.ts"
     },
     {
@@ -4029,7 +4029,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_types_cellvalue",
-      "community": 20,
+      "community": 114,
       "norm_label": "cellvalue"
     },
     {
@@ -4039,7 +4039,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_types_grid",
-      "community": 20,
+      "community": 114,
       "norm_label": "grid"
     },
     {
@@ -4099,7 +4099,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usecellpainting",
-      "community": 31,
+      "community": 18,
       "norm_label": "usecellpainting.ts"
     },
     {
@@ -4109,7 +4109,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "hooks_usecellpainting_cellpaintinghandlers",
-      "community": 31,
+      "community": 18,
       "norm_label": "cellpaintinghandlers"
     },
     {
@@ -4119,7 +4119,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "hooks_usecellpainting_usecellpainting",
-      "community": 31,
+      "community": 43,
       "norm_label": "usecellpainting()"
     },
     {
@@ -4349,7 +4349,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "simulation_actions_init",
-      "community": 20,
+      "community": 114,
       "norm_label": "init()"
     },
     {
@@ -4379,7 +4379,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "simulation_actions_setrule",
-      "community": 78,
+      "community": 20,
       "norm_label": "setrule()"
     },
     {
@@ -4419,7 +4419,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "simulation_actions_setspeed",
-      "community": 93,
+      "community": 20,
       "norm_label": "setspeed()"
     },
     {
@@ -4449,7 +4449,7 @@
       "source_location": "L135",
       "_origin": "ast",
       "id": "simulation_actions_paintcell",
-      "community": 31,
+      "community": 20,
       "norm_label": "paintcell()"
     },
     {
@@ -4459,7 +4459,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "simulation_actions_placepattern",
-      "community": 31,
+      "community": 20,
       "norm_label": "placepattern()"
     },
     {
@@ -4513,26 +4513,6 @@
       "norm_label": "usegeneration()"
     },
     {
-      "label": "useGrid.ts",
-      "file_type": "code",
-      "source_file": "packages/automa/src/stores/simulation/selectors/useGrid.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "selectors_usegrid",
-      "community": 114,
-      "norm_label": "usegrid.ts"
-    },
-    {
-      "label": "useGrid()",
-      "file_type": "code",
-      "source_file": "packages/automa/src/stores/simulation/selectors/useGrid.ts",
-      "source_location": "L4",
-      "_origin": "ast",
-      "id": "selectors_usegrid_usegrid",
-      "community": 114,
-      "norm_label": "usegrid()"
-    },
-    {
       "label": "useRows.ts",
       "file_type": "code",
       "source_file": "packages/automa/src/stores/simulation/selectors/useRows.ts",
@@ -4569,7 +4549,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useruleid_useruleid",
-      "community": 78,
+      "community": 20,
       "norm_label": "useruleid()"
     },
     {
@@ -4629,7 +4609,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "ui_actions_setshowdebug",
-      "community": 18,
+      "community": 43,
       "norm_label": "setshowdebug()"
     },
     {
@@ -4639,7 +4619,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "ui_actions_setstatecolor",
-      "community": 78,
+      "community": 18,
       "norm_label": "setstatecolor()"
     },
     {
@@ -4649,7 +4629,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "ui_actions_setglowcolor",
-      "community": 18,
+      "community": 93,
       "norm_label": "setglowcolor()"
     },
     {
@@ -4659,7 +4639,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "ui_actions_setshader",
-      "community": 18,
+      "community": 93,
       "norm_label": "setshader()"
     },
     {
@@ -4669,7 +4649,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "ui_actions_setpalettebrush",
-      "community": 93,
+      "community": 18,
       "norm_label": "setpalettebrush()"
     },
     {
@@ -4699,7 +4679,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usebrushmode_usebrushmode",
-      "community": 31,
+      "community": 18,
       "norm_label": "usebrushmode()"
     },
     {
@@ -4719,7 +4699,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useglowcolor_useglowcolor",
-      "community": 18,
+      "community": 93,
       "norm_label": "useglowcolor()"
     },
     {
@@ -4739,7 +4719,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usepalettebrush_usepalettebrush",
-      "community": 93,
+      "community": 18,
       "norm_label": "usepalettebrush()"
     },
     {
@@ -4759,7 +4739,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_userunning_userunning",
-      "community": 18,
+      "community": 20,
       "norm_label": "userunning()"
     },
     {
@@ -4779,7 +4759,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useshaderid_useshaderid",
-      "community": 18,
+      "community": 93,
       "norm_label": "useshaderid()"
     },
     {
@@ -4819,7 +4799,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usespeedms_usespeedms",
-      "community": 93,
+      "community": 20,
       "norm_label": "usespeedms()"
     },
     {
@@ -4839,7 +4819,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usestatecolors_usestatecolors",
-      "community": 78,
+      "community": 82,
       "norm_label": "usestatecolors()"
     },
     {
@@ -4939,7 +4919,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng",
-      "community": 20,
+      "community": 114,
       "norm_label": "rng.ts"
     },
     {
@@ -4949,7 +4929,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng_createseededrandom",
-      "community": 20,
+      "community": 114,
       "norm_label": "createseededrandom()"
     },
     {
@@ -5683,20 +5663,10 @@
       "norm_label": "./styles"
     },
     {
-      "label": "./theme",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/package.json",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "graph_viz_package_exports_theme",
-      "community": 5,
-      "norm_label": "./theme"
-    },
-    {
       "label": "scripts",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L11",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "graph_viz_package_scripts",
       "community": 5,
@@ -5706,7 +5676,7 @@
       "label": "dev",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L12",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_dev",
       "community": 5,
@@ -5716,7 +5686,7 @@
       "label": "prepare-data",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L13",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_prepare_data",
       "community": 5,
@@ -5726,7 +5696,7 @@
       "label": "build",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L14",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_build",
       "community": 5,
@@ -5736,7 +5706,7 @@
       "label": "lint",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L15",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_lint",
       "community": 5,
@@ -5746,7 +5716,7 @@
       "label": "lint-fix",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L16",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_lint_fix",
       "community": 5,
@@ -5756,7 +5726,7 @@
       "label": "preview",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L17",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_preview",
       "community": 5,
@@ -5766,7 +5736,7 @@
       "label": "check-types",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L18",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_check_types",
       "community": 5,
@@ -5776,7 +5746,7 @@
       "label": "clean",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L19",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "graph_viz_package_scripts_clean",
       "community": 5,
@@ -5786,7 +5756,7 @@
       "label": "dependencies",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L21",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies",
       "community": 5,
@@ -5796,7 +5766,7 @@
       "label": "@react-three/drei",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L22",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies_react_three_drei",
       "community": 5,
@@ -5806,7 +5776,7 @@
       "label": "@react-three/fiber",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L23",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies_react_three_fiber",
       "community": 5,
@@ -5816,7 +5786,7 @@
       "label": "@repo/ui",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L24",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies_repo_ui",
       "community": 5,
@@ -5826,7 +5796,7 @@
       "label": "react-error-boundary",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies_react_error_boundary",
       "community": 5,
@@ -5836,7 +5806,7 @@
       "label": "three",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L26",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies_three",
       "community": 5,
@@ -5846,7 +5816,7 @@
       "label": "zustand",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L27",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "graph_viz_package_dependencies_zustand",
       "community": 5,
@@ -5856,7 +5826,7 @@
       "label": "peerDependencies",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L29",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "graph_viz_package_peerdependencies",
       "community": 5,
@@ -5866,7 +5836,7 @@
       "label": "react",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L30",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "graph_viz_package_peerdependencies_react",
       "community": 5,
@@ -5876,7 +5846,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L31",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "graph_viz_package_peerdependencies_react_dom",
       "community": 5,
@@ -5886,7 +5856,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L33",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies",
       "community": 5,
@@ -5896,7 +5866,7 @@
       "label": "@babel/core",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L34",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_babel_core",
       "community": 5,
@@ -5906,7 +5876,7 @@
       "label": "@repo/config-eslint",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L35",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_repo_config_eslint",
       "community": 5,
@@ -5916,7 +5886,7 @@
       "label": "@rolldown/plugin-babel",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L36",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_rolldown_plugin_babel",
       "community": 5,
@@ -5926,7 +5896,7 @@
       "label": "@tailwindcss/vite",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L37",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_tailwindcss_vite",
       "community": 5,
@@ -5936,7 +5906,7 @@
       "label": "@tsconfig/strictest",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L38",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_tsconfig_strictest",
       "community": 5,
@@ -5946,7 +5916,7 @@
       "label": "@types/babel__core",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L39",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_types_babel_core",
       "community": 5,
@@ -5956,7 +5926,7 @@
       "label": "@types/node",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L40",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_types_node",
       "community": 5,
@@ -5966,7 +5936,7 @@
       "label": "@types/react",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L41",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_types_react",
       "community": 5,
@@ -5976,7 +5946,7 @@
       "label": "@types/react-dom",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L42",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_types_react_dom",
       "community": 5,
@@ -5986,7 +5956,7 @@
       "label": "@types/three",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L43",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_types_three",
       "community": 5,
@@ -5996,7 +5966,7 @@
       "label": "@vitejs/plugin-react",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L44",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_vitejs_plugin_react",
       "community": 5,
@@ -6006,7 +5976,7 @@
       "label": "babel-plugin-react-compiler",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L45",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_babel_plugin_react_compiler",
       "community": 5,
@@ -6016,7 +5986,7 @@
       "label": "d3-force-3d",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L46",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_d3_force_3d",
       "community": 5,
@@ -6026,7 +5996,7 @@
       "label": "eslint",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L47",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_eslint",
       "community": 5,
@@ -6036,7 +6006,7 @@
       "label": "react",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L48",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_react",
       "community": 5,
@@ -6046,7 +6016,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L49",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_react_dom",
       "community": 5,
@@ -6056,7 +6026,7 @@
       "label": "tailwindcss",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L50",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_tailwindcss",
       "community": 5,
@@ -6066,7 +6036,7 @@
       "label": "tsx",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L51",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_tsx",
       "community": 5,
@@ -6076,7 +6046,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L52",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_typescript",
       "community": 5,
@@ -6086,7 +6056,7 @@
       "label": "vite",
       "file_type": "code",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L53",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "graph_viz_package_devdependencies_vite",
       "community": 5,
@@ -6106,7 +6076,7 @@
       "label": "data",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/App.tsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_data",
       "community": 56,
@@ -6116,7 +6086,7 @@
       "label": "App()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/App.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "packages_graph_viz_src_app_tsx_src_app_app",
       "community": 56,
@@ -6363,60 +6333,50 @@
       "norm_label": "nodes.tsx"
     },
     {
-      "label": "PALETTE",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "scene_nodes_palette",
-      "community": 25,
-      "norm_label": "palette"
-    },
-    {
-      "label": "paletteCache",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "scene_nodes_palettecache",
-      "community": 25,
-      "norm_label": "palettecache"
-    },
-    {
-      "label": "getPaletteColor()",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "scene_nodes_getpalettecolor",
-      "community": 25,
-      "norm_label": "getpalettecolor()"
-    },
-    {
-      "label": "getSize()",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L48",
-      "_origin": "ast",
-      "id": "scene_nodes_getsize",
-      "community": 25,
-      "norm_label": "getsize()"
-    },
-    {
       "label": "DIM_COLOR",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L53",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "scene_nodes_dim_color",
       "community": 25,
       "norm_label": "dim_color"
     },
     {
+      "label": "WHITE",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "scene_nodes_white",
+      "community": 25,
+      "norm_label": "white"
+    },
+    {
+      "label": "getSize()",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "scene_nodes_getsize",
+      "community": 25,
+      "norm_label": "getsize()"
+    },
+    {
+      "label": "splitNodes()",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "scene_nodes_splitnodes",
+      "community": 25,
+      "norm_label": "splitnodes()"
+    },
+    {
       "label": "NodesProps",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L55",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "scene_nodes_nodesprops",
       "community": 25,
@@ -6426,11 +6386,31 @@
       "label": "Nodes()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L59",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "scene_nodes_nodes",
       "community": 25,
       "norm_label": "nodes()"
+    },
+    {
+      "label": "config.ts",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_config",
+      "community": 22,
+      "norm_label": "config.ts"
+    },
+    {
+      "label": "PALETTE",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_config_palette",
+      "community": 22,
+      "norm_label": "palette"
     },
     {
       "label": "graphData.types.ts",
@@ -6456,7 +6436,7 @@
       "label": "GraphLink",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/graphData.types.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "data_graphdata_types_graphlink",
       "community": 17,
@@ -6466,7 +6446,7 @@
       "label": "GraphData",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/graphData.types.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "data_graphdata_types_graphdata",
       "community": 56,
@@ -6493,20 +6473,10 @@
       "norm_label": "pipelineconfig"
     },
     {
-      "label": "DEFAULT_PIPELINE_CONFIG",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/pipeline.ts",
-      "source_location": "L26",
-      "_origin": "ast",
-      "id": "data_pipeline_default_pipeline_config",
-      "community": 22,
-      "norm_label": "default_pipeline_config"
-    },
-    {
       "label": "PipelineResult",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/pipeline.ts",
-      "source_location": "L33",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "data_pipeline_pipelineresult",
       "community": 22,
@@ -6516,7 +6486,7 @@
       "label": "runPipeline()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/pipeline.ts",
-      "source_location": "L40",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "data_pipeline_runpipeline",
       "community": 22,
@@ -6596,7 +6566,7 @@
       "label": "BuildOutputResult",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
-      "source_location": "L10",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "stages_build_output_buildoutputresult",
       "community": 22,
@@ -6606,7 +6576,7 @@
       "label": "buildOutput()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
-      "source_location": "L17",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "stages_build_output_buildoutput",
       "community": 22,
@@ -6933,20 +6903,10 @@
       "norm_label": "toggleedges()"
     },
     {
-      "label": "setEdgesVisible()",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "graph_actions_setedgesvisible",
-      "community": 56,
-      "norm_label": "setedgesvisible()"
-    },
-    {
       "label": "toggleCommunity()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
-      "source_location": "L15",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "graph_actions_togglecommunity",
       "community": 56,
@@ -6956,7 +6916,7 @@
       "label": "showAllCommunities()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
-      "source_location": "L27",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "graph_actions_showallcommunities",
       "community": 56,
@@ -6966,7 +6926,7 @@
       "label": "hideAllCommunities()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
-      "source_location": "L35",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "graph_actions_hideallcommunities",
       "community": 56,
@@ -6976,7 +6936,7 @@
       "label": "initCommunities()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
-      "source_location": "L39",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "graph_actions_initcommunities",
       "community": 56,
@@ -7021,16 +6981,6 @@
       "id": "graph_selectors_usevisiblecommunities",
       "community": 25,
       "norm_label": "usevisiblecommunities()"
-    },
-    {
-      "label": "useTotalCommunities()",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/stores/graph/selectors.ts",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "graph_selectors_usetotalcommunities",
-      "community": 25,
-      "norm_label": "usetotalcommunities()"
     },
     {
       "label": "store.ts",
@@ -8359,7 +8309,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_processingoverlay",
-      "community": 107,
+      "community": 122,
       "norm_label": "processingoverlay.tsx"
     },
     {
@@ -8369,7 +8319,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "output_processingoverlay_processingoverlay",
-      "community": 107,
+      "community": 122,
       "norm_label": "processingoverlay()"
     },
     {
@@ -8439,7 +8389,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols",
-      "community": 61,
+      "community": 74,
       "norm_label": "imagesourcecontrols.tsx"
     },
     {
@@ -8449,7 +8399,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols_imagesourcecontrols",
-      "community": 61,
+      "community": 74,
       "norm_label": "imagesourcecontrols()"
     },
     {
@@ -8539,7 +8489,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_useuploadzone",
-      "community": 107,
+      "community": 122,
       "norm_label": "useuploadzone.ts"
     },
     {
@@ -8549,7 +8499,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_useuploadzone_useuploadzone",
-      "community": 107,
+      "community": 122,
       "norm_label": "useuploadzone()"
     },
     {
@@ -8589,7 +8539,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_manipulationselector",
-      "community": 21,
+      "community": 61,
       "norm_label": "manipulationselector.tsx"
     },
     {
@@ -8599,7 +8549,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "workflow_manipulationselector_manipulationids",
-      "community": 21,
+      "community": 61,
       "norm_label": "manipulationids"
     },
     {
@@ -8609,7 +8559,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "workflow_manipulationselector_manipulationselector",
-      "community": 21,
+      "community": 61,
       "norm_label": "manipulationselector()"
     },
     {
@@ -8639,7 +8589,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_stepbadge",
-      "community": 72,
+      "community": 21,
       "norm_label": "stepbadge.tsx"
     },
     {
@@ -8649,7 +8599,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_stepbadge_stepbadgeprops",
-      "community": 72,
+      "community": 21,
       "norm_label": "stepbadgeprops"
     },
     {
@@ -8659,7 +8609,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "workflow_stepbadge_stepbadge",
-      "community": 72,
+      "community": 21,
       "norm_label": "stepbadge()"
     },
     {
@@ -8779,7 +8729,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflownodeheader",
-      "community": 72,
+      "community": 21,
       "norm_label": "workflownodeheader.tsx"
     },
     {
@@ -8789,7 +8739,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "workflow_workflownodeheader_workflownodeheaderprops",
-      "community": 72,
+      "community": 21,
       "norm_label": "workflownodeheaderprops"
     },
     {
@@ -8799,7 +8749,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "workflow_workflownodeheader_workflownodeheader",
-      "community": 72,
+      "community": 21,
       "norm_label": "workflownodeheader()"
     },
     {
@@ -8889,7 +8839,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflows_workflows",
-      "community": 61,
+      "community": 19,
       "norm_label": "workflows.ts"
     },
     {
@@ -8899,7 +8849,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "workflows_workflows_workflowpresetstep",
-      "community": 61,
+      "community": 19,
       "norm_label": "workflowpresetstep"
     },
     {
@@ -8909,7 +8859,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "workflows_workflows_workflowpreset",
-      "community": 61,
+      "community": 19,
       "norm_label": "workflowpreset"
     },
     {
@@ -9019,7 +8969,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "manipulator_actions_clearoutputs",
-      "community": 61,
+      "community": 74,
       "norm_label": "clearoutputs()"
     },
     {
@@ -9029,7 +8979,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "manipulator_actions_addworkflowstep",
-      "community": 21,
+      "community": 61,
       "norm_label": "addworkflowstep()"
     },
     {
@@ -9119,7 +9069,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useimagesource_useimagesource",
-      "community": 107,
+      "community": 122,
       "norm_label": "useimagesource()"
     },
     {
@@ -10189,7 +10139,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_pipeline_src_app_tsx_src_app",
-      "community": 2,
+      "community": 191,
       "norm_label": "app.tsx"
     },
     {
@@ -10199,7 +10149,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_pipeline_src_app_tsx_src_app_app",
-      "community": 2,
+      "community": 191,
       "norm_label": "app()"
     },
     {
@@ -10209,7 +10159,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_image_pipeline",
-      "community": 21,
+      "community": 31,
       "norm_label": "image-pipeline.ts"
     },
     {
@@ -10219,7 +10169,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "api_image_pipeline_manipulationinfo",
-      "community": 21,
+      "community": 31,
       "norm_label": "manipulationinfo"
     },
     {
@@ -10229,7 +10179,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "api_image_pipeline_runconfig",
-      "community": 21,
+      "community": 31,
       "norm_label": "runconfig"
     },
     {
@@ -10239,7 +10189,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "api_image_pipeline_pool",
-      "community": 21,
+      "community": 31,
       "norm_label": "pool"
     },
     {
@@ -10249,7 +10199,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "api_image_pipeline_buildcatalog",
-      "community": 21,
+      "community": 31,
       "norm_label": "buildcatalog()"
     },
     {
@@ -10259,7 +10209,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "api_image_pipeline_manipulations",
-      "community": 21,
+      "community": 31,
       "norm_label": "manipulations"
     },
     {
@@ -10269,7 +10219,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "api_image_pipeline_imagepipeline",
-      "community": 21,
+      "community": 31,
       "norm_label": "imagepipeline"
     },
     {
@@ -10299,7 +10249,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_codeblock",
-      "community": 2,
+      "community": 72,
       "norm_label": "codeblock.tsx"
     },
     {
@@ -10309,7 +10259,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_codeblock_codeblock",
-      "community": 2,
+      "community": 72,
       "norm_label": "codeblock()"
     },
     {
@@ -10319,7 +10269,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_paramtable",
-      "community": 2,
+      "community": 31,
       "norm_label": "paramtable.tsx"
     },
     {
@@ -10329,7 +10279,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "pipeline_docs_paramtable_paramtableprops",
-      "community": 2,
+      "community": 31,
       "norm_label": "paramtableprops"
     },
     {
@@ -10339,7 +10289,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "pipeline_docs_paramtable_paramtable",
-      "community": 2,
+      "community": 31,
       "norm_label": "paramtable()"
     },
     {
@@ -10349,7 +10299,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_pipelinedocs",
-      "community": 2,
+      "community": 191,
       "norm_label": "pipelinedocs.tsx"
     },
     {
@@ -10359,7 +10309,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pipeline_docs_pipelinedocs_pipelinedocs",
-      "community": 2,
+      "community": 191,
       "norm_label": "pipelinedocs()"
     },
     {
@@ -10439,7 +10389,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_paramdef",
-      "community": 2,
+      "community": 31,
       "norm_label": "paramdef"
     },
     {
@@ -10449,7 +10399,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_manipinfo",
-      "community": 2,
+      "community": 31,
       "norm_label": "manipinfo"
     },
     {
@@ -10509,7 +10459,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_finditemforendpoint",
-      "community": 2,
+      "community": 175,
       "norm_label": "finditemforendpoint()"
     },
     {
@@ -10619,7 +10569,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_endpoint_groups",
-      "community": 2,
+      "community": 72,
       "norm_label": "endpoint_groups"
     },
     {
@@ -10629,7 +10579,7 @@
       "source_location": "L231",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_findmanipbyid",
-      "community": 2,
+      "community": 175,
       "norm_label": "findmanipbyid()"
     },
     {
@@ -10639,7 +10589,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "demos_chaindemo",
-      "community": 2,
+      "community": 72,
       "norm_label": "chaindemo.tsx"
     },
     {
@@ -10649,7 +10599,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "demos_chaindemo_steps",
-      "community": 2,
+      "community": 72,
       "norm_label": "steps"
     },
     {
@@ -10659,7 +10609,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "demos_chaindemo_chaindemo",
-      "community": 2,
+      "community": 72,
       "norm_label": "chaindemo()"
     },
     {
@@ -10669,7 +10619,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "demos_resizedemo",
-      "community": 2,
+      "community": 72,
       "norm_label": "resizedemo.tsx"
     },
     {
@@ -10679,7 +10629,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "demos_resizedemo_modes",
-      "community": 2,
+      "community": 72,
       "norm_label": "modes"
     },
     {
@@ -10689,7 +10639,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "demos_resizedemo_modeid",
-      "community": 2,
+      "community": 72,
       "norm_label": "modeid"
     },
     {
@@ -10699,7 +10649,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "demos_resizedemo_resizedemo",
-      "community": 2,
+      "community": 72,
       "norm_label": "resizedemo()"
     },
     {
@@ -10709,7 +10659,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "demos_tryitout",
-      "community": 2,
+      "community": 31,
       "norm_label": "tryitout.tsx"
     },
     {
@@ -10719,7 +10669,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "demos_tryitout_tryitoutprops",
-      "community": 2,
+      "community": 31,
       "norm_label": "tryitoutprops"
     },
     {
@@ -10729,7 +10679,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "demos_tryitout_tryitout",
-      "community": 2,
+      "community": 31,
       "norm_label": "tryitout()"
     },
     {
@@ -10739,7 +10689,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_helpers",
-      "community": 2,
+      "community": 191,
       "norm_label": "helpers.ts"
     },
     {
@@ -10749,7 +10699,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_loadimage",
-      "community": 2,
+      "community": 191,
       "norm_label": "loadimage()"
     },
     {
@@ -10759,7 +10709,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_loaddemoimage",
-      "community": 2,
+      "community": 191,
       "norm_label": "loaddemoimage()"
     },
     {
@@ -10769,7 +10719,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_generatetestimage",
-      "community": 2,
+      "community": 191,
       "norm_label": "generatetestimage()"
     },
     {
@@ -10779,7 +10729,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_imagedatatourl",
-      "community": 2,
+      "community": 72,
       "norm_label": "imagedatatourl()"
     },
     {
@@ -10789,7 +10739,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_endpointview",
-      "community": 2,
+      "community": 175,
       "norm_label": "endpointview.tsx"
     },
     {
@@ -10799,7 +10749,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "views_endpointview_endpointviewprops",
-      "community": 2,
+      "community": 175,
       "norm_label": "endpointviewprops"
     },
     {
@@ -10809,7 +10759,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "views_endpointview_endpointview",
-      "community": 2,
+      "community": 175,
       "norm_label": "endpointview()"
     },
     {
@@ -10819,7 +10769,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_internalsview",
-      "community": 2,
+      "community": 175,
       "norm_label": "internalsview.tsx"
     },
     {
@@ -10829,7 +10779,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "views_internalsview_internalsview",
-      "community": 2,
+      "community": 175,
       "norm_label": "internalsview()"
     },
     {
@@ -10839,7 +10789,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_manipview",
-      "community": 2,
+      "community": 31,
       "norm_label": "manipview.tsx"
     },
     {
@@ -10849,7 +10799,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "views_manipview_type_accent",
-      "community": 2,
+      "community": 31,
       "norm_label": "type_accent"
     },
     {
@@ -10859,7 +10809,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "views_manipview_manipview",
-      "community": 2,
+      "community": 31,
       "norm_label": "manipview()"
     },
     {
@@ -10869,7 +10819,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_overviewview",
-      "community": 2,
+      "community": 72,
       "norm_label": "overviewview.tsx"
     },
     {
@@ -10879,7 +10829,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "views_overviewview_overviewview",
-      "community": 2,
+      "community": 72,
       "norm_label": "overviewview()"
     },
     {
@@ -10889,7 +10839,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_pipelineview",
-      "community": 2,
+      "community": 72,
       "norm_label": "pipelineview.tsx"
     },
     {
@@ -10899,7 +10849,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "views_pipelineview_pipelineview",
-      "community": 2,
+      "community": 175,
       "norm_label": "pipelineview()"
     },
     {
@@ -10909,7 +10859,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_buffer_manager",
-      "community": 19,
+      "community": 78,
       "norm_label": "buffer-manager.ts"
     },
     {
@@ -10919,7 +10869,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager",
-      "community": 19,
+      "community": 78,
       "norm_label": "buffermanager"
     },
     {
@@ -10929,7 +10879,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_constructor",
-      "community": 19,
+      "community": 78,
       "norm_label": ".constructor()"
     },
     {
@@ -10939,7 +10889,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_current",
-      "community": 19,
+      "community": 78,
       "norm_label": ".current()"
     },
     {
@@ -10949,7 +10899,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_other",
-      "community": 19,
+      "community": 78,
       "norm_label": ".other()"
     },
     {
@@ -10959,7 +10909,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_width",
-      "community": 19,
+      "community": 78,
       "norm_label": ".width()"
     },
     {
@@ -10969,7 +10919,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_height",
-      "community": 19,
+      "community": 78,
       "norm_label": ".height()"
     },
     {
@@ -10979,7 +10929,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_swap",
-      "community": 19,
+      "community": 78,
       "norm_label": ".swap()"
     },
     {
@@ -10989,7 +10939,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_snapshot",
-      "community": 19,
+      "community": 78,
       "norm_label": ".snapshot()"
     },
     {
@@ -10999,7 +10949,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_replacewith",
-      "community": 19,
+      "community": 78,
       "norm_label": ".replacewith()"
     },
     {
@@ -11009,7 +10959,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_fusion_scheduler",
-      "community": 19,
+      "community": 78,
       "norm_label": "fusion-scheduler.ts"
     },
     {
@@ -11019,7 +10969,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_fusion_scheduler_runfusedpixelbatch",
-      "community": 19,
+      "community": 78,
       "norm_label": "runfusedpixelbatch()"
     },
     {
@@ -11049,7 +10999,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_flush",
-      "community": 19,
+      "community": 78,
       "norm_label": ".flush()"
     },
     {
@@ -11219,7 +11169,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 21,
+      "community": 19,
       "norm_label": "step"
     },
     {
@@ -11849,7 +11799,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usepipeline",
-      "community": 21,
+      "community": 72,
       "norm_label": "usepipeline.ts"
     },
     {
@@ -11859,7 +11809,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "hooks_usepipeline_usepipeline",
-      "community": 2,
+      "community": 72,
       "norm_label": "usepipeline()"
     },
     {
@@ -23729,7 +23679,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_mock_worker_pool",
-      "community": 36,
+      "community": 192,
       "norm_label": "mock-worker-pool.ts"
     },
     {
@@ -23739,7 +23689,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_mock_worker_pool_handler",
-      "community": 36,
+      "community": 192,
       "norm_label": "handler"
     },
     {
@@ -23749,7 +23699,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool",
-      "community": 36,
+      "community": 192,
       "norm_label": "mockworkerpool"
     },
     {
@@ -23759,7 +23709,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool_constructor",
-      "community": 36,
+      "community": 192,
       "norm_label": ".constructor()"
     },
     {
@@ -23769,7 +23719,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool_run",
-      "community": 36,
+      "community": 192,
       "norm_label": ".run()"
     },
     {
@@ -23779,7 +23729,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool_teardown",
-      "community": 36,
+      "community": 192,
       "norm_label": ".teardown()"
     },
     {
@@ -23819,7 +23769,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_worker_pool_test",
-      "community": 36,
+      "community": 192,
       "norm_label": "worker-pool.test.ts"
     },
     {
@@ -23829,7 +23779,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_worker_pool_test_createfakeworker",
-      "community": 36,
+      "community": 192,
       "norm_label": "createfakeworker()"
     },
     {
@@ -24259,7 +24209,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 175,
+      "community": 194,
       "norm_label": "turbo.json"
     },
     {
@@ -24269,7 +24219,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 175,
+      "community": 194,
       "norm_label": "$schema"
     },
     {
@@ -24279,7 +24229,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 175,
+      "community": 194,
       "norm_label": "ui"
     },
     {
@@ -30479,9 +30429,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/ConnectionRow.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_connectionrow",
-      "target": "icon",
-      "confidence_score": 1.0
+      "target": "icon"
     },
     {
       "relation": "imports_from",
@@ -33852,9 +33802,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "react",
-      "confidence_score": 1.0
+      "target": "react"
     },
     {
       "relation": "imports_from",
@@ -33863,9 +33813,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "react",
-      "confidence_score": 1.0
+      "target": "react"
     },
     {
       "relation": "imports_from",
@@ -39615,28 +39565,6 @@
       "context": "export",
       "confidence": "EXTRACTED",
       "source_file": "packages/automa/src/stores/simulation/selectors/index.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_automa_src_stores_simulation_selectors_index_ts_selectors_index",
-      "target": "selectors_usegrid"
-    },
-    {
-      "relation": "re_exports",
-      "context": "re-export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/automa/src/stores/simulation/selectors/index.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_automa_src_stores_simulation_selectors_index_ts_selectors_index",
-      "target": "selectors_usegrid_usegrid"
-    },
-    {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/automa/src/stores/simulation/selectors/index.ts",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -39738,38 +39666,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "selectors_usegeneration",
-      "target": "simulation_store_simulationstore"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/automa/src/stores/simulation/selectors/useGrid.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "selectors_usegrid",
-      "target": "selectors_usegrid_usegrid"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/automa/src/stores/simulation/selectors/useGrid.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "selectors_usegrid",
-      "target": "simulation_store"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/automa/src/stores/simulation/selectors/useGrid.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "selectors_usegrid",
       "target": "simulation_store_simulationstore"
     },
     {
@@ -41257,16 +41153,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/package.json",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "graph_viz_package_exports",
-      "target": "graph_viz_package_exports_theme"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/package.json",
       "source_location": "L12",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -41539,9 +41425,9 @@
       "source_file": "packages/graph-viz/package.json",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_viz_package_devdependencies",
-      "target": "graph_viz_package_devdependencies_tsx",
-      "confidence_score": 1.0
+      "target": "graph_viz_package_devdependencies_tsx"
     },
     {
       "relation": "contains",
@@ -41630,9 +41516,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "controls_filtercontrols",
-      "confidence_score": 1.0
+      "target": "controls_filtercontrols"
     },
     {
       "relation": "imports",
@@ -41641,9 +41527,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "controls_filtercontrols_filtercontrols",
-      "confidence_score": 1.0
+      "target": "controls_filtercontrols_filtercontrols"
     },
     {
       "relation": "imports_from",
@@ -41652,9 +41538,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -41663,9 +41549,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "data_graphdata_types_graphdata",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphdata"
     },
     {
       "relation": "imports_from",
@@ -41674,9 +41560,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "details_panel_detailspanel",
-      "confidence_score": 1.0
+      "target": "details_panel_detailspanel"
     },
     {
       "relation": "imports",
@@ -41685,9 +41571,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "details_panel_detailspanel_detailspanel",
-      "confidence_score": 1.0
+      "target": "details_panel_detailspanel_detailspanel"
     },
     {
       "relation": "imports_from",
@@ -41750,9 +41636,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "scene_graphcanvas",
-      "confidence_score": 1.0
+      "target": "scene_graphcanvas"
     },
     {
       "relation": "imports",
@@ -41761,9 +41647,9 @@
       "source_file": "packages/graph-viz/src/App.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_graph_viz_src_app_tsx_src_app",
-      "target": "scene_graphcanvas_graphcanvas",
-      "confidence_score": 1.0
+      "target": "scene_graphcanvas_graphcanvas"
     },
     {
       "relation": "contains",
@@ -41792,9 +41678,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "controls_filtercontrols_filtercontrols",
-      "confidence_score": 1.0
+      "target": "controls_filtercontrols_filtercontrols"
     },
     {
       "relation": "contains",
@@ -41802,9 +41688,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "controls_filtercontrols_filtercontrolsprops",
-      "confidence_score": 1.0
+      "target": "controls_filtercontrols_filtercontrolsprops"
     },
     {
       "relation": "imports_from",
@@ -41813,9 +41699,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -41824,9 +41710,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "imports_from",
@@ -41835,9 +41721,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_actions",
-      "confidence_score": 1.0
+      "target": "graph_actions"
     },
     {
       "relation": "imports",
@@ -41846,9 +41732,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_actions_hideallcommunities",
-      "confidence_score": 1.0
+      "target": "graph_actions_hideallcommunities"
     },
     {
       "relation": "imports",
@@ -41857,9 +41743,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_actions_showallcommunities",
-      "confidence_score": 1.0
+      "target": "graph_actions_showallcommunities"
     },
     {
       "relation": "imports",
@@ -41868,9 +41754,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_actions_togglecommunity",
-      "confidence_score": 1.0
+      "target": "graph_actions_togglecommunity"
     },
     {
       "relation": "imports",
@@ -41879,9 +41765,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_actions_toggleedges",
-      "confidence_score": 1.0
+      "target": "graph_actions_toggleedges"
     },
     {
       "relation": "imports_from",
@@ -41890,9 +41776,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_selectors",
-      "confidence_score": 1.0
+      "target": "graph_selectors"
     },
     {
       "relation": "imports",
@@ -41901,9 +41787,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_selectors_useedgesvisible",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useedgesvisible"
     },
     {
       "relation": "imports",
@@ -41912,9 +41798,9 @@
       "source_file": "packages/graph-viz/src/components/controls/FilterControls.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_filtercontrols",
-      "target": "graph_selectors_usevisiblecommunities",
-      "confidence_score": 1.0
+      "target": "graph_selectors_usevisiblecommunities"
     },
     {
       "relation": "calls",
@@ -41945,9 +41831,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -41956,9 +41842,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphlink"
     },
     {
       "relation": "imports",
@@ -41967,9 +41853,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "contains",
@@ -41977,9 +41863,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "details_panel_detailspanel_detailspanel",
-      "confidence_score": 1.0
+      "target": "details_panel_detailspanel_detailspanel"
     },
     {
       "relation": "contains",
@@ -41987,9 +41873,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "details_panel_detailspanel_detailspanelprops",
-      "confidence_score": 1.0
+      "target": "details_panel_detailspanel_detailspanelprops"
     },
     {
       "relation": "imports_from",
@@ -41998,9 +41884,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "graph_overview_graphoverview",
-      "confidence_score": 1.0
+      "target": "graph_overview_graphoverview"
     },
     {
       "relation": "imports",
@@ -42009,9 +41895,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "graph_overview_graphoverview_graphoverview",
-      "confidence_score": 1.0
+      "target": "graph_overview_graphoverview_graphoverview"
     },
     {
       "relation": "imports_from",
@@ -42020,9 +41906,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "graph_selectors",
-      "confidence_score": 1.0
+      "target": "graph_selectors"
     },
     {
       "relation": "imports",
@@ -42031,9 +41917,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "graph_selectors_useselectednodeidx",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useselectednodeidx"
     },
     {
       "relation": "imports_from",
@@ -42042,9 +41928,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "node_details_nodedetails",
-      "confidence_score": 1.0
+      "target": "node_details_nodedetails"
     },
     {
       "relation": "imports",
@@ -42053,9 +41939,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel",
-      "target": "node_details_nodedetails_nodedetails",
-      "confidence_score": 1.0
+      "target": "node_details_nodedetails_nodedetails"
     },
     {
       "relation": "calls",
@@ -42064,9 +41950,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/DetailsPanel.tsx",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_detailspanel_detailspanel",
-      "target": "graph_selectors_useselectednodeidx",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useselectednodeidx"
     },
     {
       "relation": "imports_from",
@@ -42075,9 +41961,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42086,9 +41972,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphlink"
     },
     {
       "relation": "imports",
@@ -42097,9 +41983,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "imports_from",
@@ -42108,9 +41994,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "details_panel_utils",
-      "confidence_score": 1.0
+      "target": "details_panel_utils"
     },
     {
       "relation": "imports",
@@ -42119,9 +42005,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "details_panel_utils_getstats",
-      "confidence_score": 1.0
+      "target": "details_panel_utils_getstats"
     },
     {
       "relation": "contains",
@@ -42129,9 +42015,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "graph_overview_graphoverview_graphoverview",
-      "confidence_score": 1.0
+      "target": "graph_overview_graphoverview_graphoverview"
     },
     {
       "relation": "imports_from",
@@ -42140,9 +42026,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "graph_overview_stat",
-      "confidence_score": 1.0
+      "target": "graph_overview_stat"
     },
     {
       "relation": "imports",
@@ -42151,9 +42037,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview",
-      "target": "graph_overview_stat_stat",
-      "confidence_score": 1.0
+      "target": "graph_overview_stat_stat"
     },
     {
       "relation": "calls",
@@ -42162,9 +42048,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/GraphOverview.tsx",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_graphoverview_graphoverview",
-      "target": "details_panel_utils_getstats",
-      "confidence_score": 1.0
+      "target": "details_panel_utils_getstats"
     },
     {
       "relation": "contains",
@@ -42172,9 +42058,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/graph-overview/Stat.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_overview_stat",
-      "target": "graph_overview_stat_stat",
-      "confidence_score": 1.0
+      "target": "graph_overview_stat_stat"
     },
     {
       "relation": "imports_from",
@@ -42183,9 +42069,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/ConnectionRow.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_connectionrow",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42194,9 +42080,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/ConnectionRow.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_connectionrow",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "contains",
@@ -42204,9 +42090,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/ConnectionRow.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_connectionrow",
-      "target": "node_details_connectionrow_connectionrow",
-      "confidence_score": 1.0
+      "target": "node_details_connectionrow_connectionrow"
     },
     {
       "relation": "imports_from",
@@ -42215,9 +42101,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "node_details_connectionrow",
-      "confidence_score": 1.0
+      "target": "node_details_connectionrow"
     },
     {
       "relation": "imports",
@@ -42226,9 +42112,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "node_details_connectionrow_connectionrow",
-      "confidence_score": 1.0
+      "target": "node_details_connectionrow_connectionrow"
     },
     {
       "relation": "imports_from",
@@ -42237,9 +42123,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42248,9 +42134,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphlink"
     },
     {
       "relation": "imports",
@@ -42259,9 +42145,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "imports_from",
@@ -42270,9 +42156,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "details_panel_utils",
-      "confidence_score": 1.0
+      "target": "details_panel_utils"
     },
     {
       "relation": "imports",
@@ -42281,9 +42167,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "details_panel_utils_getconnections",
-      "confidence_score": 1.0
+      "target": "details_panel_utils_getconnections"
     },
     {
       "relation": "contains",
@@ -42291,9 +42177,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/node-details/NodeDetails.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "node_details_nodedetails",
-      "target": "node_details_nodedetails_nodedetails",
-      "confidence_score": 1.0
+      "target": "node_details_nodedetails_nodedetails"
     },
     {
       "relation": "calls",
@@ -42313,9 +42199,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/utils.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_utils",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42324,9 +42210,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/utils.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_utils",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphlink"
     },
     {
       "relation": "imports",
@@ -42335,9 +42221,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/utils.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_utils",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "contains",
@@ -42345,9 +42231,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/utils.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_utils",
-      "target": "details_panel_utils_getconnections",
-      "confidence_score": 1.0
+      "target": "details_panel_utils_getconnections"
     },
     {
       "relation": "contains",
@@ -42355,9 +42241,9 @@
       "source_file": "packages/graph-viz/src/components/details-panel/utils.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "details_panel_utils",
-      "target": "details_panel_utils_getstats",
-      "confidence_score": 1.0
+      "target": "details_panel_utils_getstats"
     },
     {
       "relation": "imports_from",
@@ -42366,9 +42252,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42377,9 +42263,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphlink"
     },
     {
       "relation": "imports",
@@ -42388,9 +42274,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "imports_from",
@@ -42399,9 +42285,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "graph_selectors",
-      "confidence_score": 1.0
+      "target": "graph_selectors"
     },
     {
       "relation": "imports",
@@ -42410,9 +42296,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "graph_selectors_useedgesvisible",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useedgesvisible"
     },
     {
       "relation": "imports",
@@ -42421,9 +42307,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "graph_selectors_useselectednodeidx",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useselectednodeidx"
     },
     {
       "relation": "imports",
@@ -42432,9 +42318,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "graph_selectors_usevisiblecommunities",
-      "confidence_score": 1.0
+      "target": "graph_selectors_usevisiblecommunities"
     },
     {
       "relation": "contains",
@@ -42442,9 +42328,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "scene_edges_edges",
-      "confidence_score": 1.0
+      "target": "scene_edges_edges"
     },
     {
       "relation": "contains",
@@ -42452,9 +42338,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges",
-      "target": "scene_edges_edgesprops",
-      "confidence_score": 1.0
+      "target": "scene_edges_edgesprops"
     },
     {
       "relation": "imports_from",
@@ -42463,9 +42349,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "scene_edges",
-      "confidence_score": 1.0
+      "target": "scene_edges"
     },
     {
       "relation": "calls",
@@ -42474,9 +42360,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges_edges",
-      "target": "graph_selectors_useedgesvisible",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useedgesvisible"
     },
     {
       "relation": "calls",
@@ -42485,9 +42371,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges_edges",
-      "target": "graph_selectors_useselectednodeidx",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useselectednodeidx"
     },
     {
       "relation": "calls",
@@ -42496,9 +42382,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_edges_edges",
-      "target": "graph_selectors_usevisiblecommunities",
-      "confidence_score": 1.0
+      "target": "graph_selectors_usevisiblecommunities"
     },
     {
       "relation": "imports",
@@ -42507,9 +42393,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "scene_edges_edges",
-      "confidence_score": 1.0
+      "target": "scene_edges_edges"
     },
     {
       "relation": "imports_from",
@@ -42518,9 +42404,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42529,9 +42415,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "data_graphdata_types_graphdata",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphdata"
     },
     {
       "relation": "imports_from",
@@ -42540,9 +42426,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "graph_actions",
-      "confidence_score": 1.0
+      "target": "graph_actions"
     },
     {
       "relation": "imports",
@@ -42551,9 +42437,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "graph_actions_initcommunities",
-      "confidence_score": 1.0
+      "target": "graph_actions_initcommunities"
     },
     {
       "relation": "imports",
@@ -42562,9 +42448,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "graph_actions_selectnode",
-      "confidence_score": 1.0
+      "target": "graph_actions_selectnode"
     },
     {
       "relation": "contains",
@@ -42572,9 +42458,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "scene_graphcanvas_graphcanvas",
-      "confidence_score": 1.0
+      "target": "scene_graphcanvas_graphcanvas"
     },
     {
       "relation": "contains",
@@ -42582,9 +42468,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "scene_graphcanvas_graphcanvasprops",
-      "confidence_score": 1.0
+      "target": "scene_graphcanvas_graphcanvasprops"
     },
     {
       "relation": "imports_from",
@@ -42593,9 +42479,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "scene_nodes",
-      "confidence_score": 1.0
+      "target": "scene_nodes"
     },
     {
       "relation": "imports",
@@ -42604,9 +42490,9 @@
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_graphcanvas",
-      "target": "scene_nodes_nodes",
-      "confidence_score": 1.0
+      "target": "scene_nodes_nodes"
     },
     {
       "relation": "imports_from",
@@ -42615,9 +42501,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types"
     },
     {
       "relation": "imports",
@@ -42626,9 +42512,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "imports_from",
@@ -42637,9 +42523,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "graph_actions",
-      "confidence_score": 1.0
+      "target": "graph_actions"
     },
     {
       "relation": "imports",
@@ -42648,9 +42534,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "graph_actions_selectnode",
-      "confidence_score": 1.0
+      "target": "graph_actions_selectnode"
     },
     {
       "relation": "imports_from",
@@ -42659,9 +42545,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "graph_selectors",
-      "confidence_score": 1.0
+      "target": "graph_selectors"
     },
     {
       "relation": "imports",
@@ -42670,9 +42556,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "graph_selectors_useselectednodeidx",
-      "confidence_score": 1.0
+      "target": "graph_selectors_useselectednodeidx"
     },
     {
       "relation": "imports",
@@ -42681,9 +42567,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "graph_selectors_usevisiblecommunities",
-      "confidence_score": 1.0
+      "target": "graph_selectors_usevisiblecommunities"
     },
     {
       "relation": "contains",
@@ -42691,19 +42577,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "scene_nodes_dim_color",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "scene_nodes",
-      "target": "scene_nodes_getpalettecolor",
-      "confidence_score": 1.0
+      "target": "scene_nodes_dim_color"
     },
     {
       "relation": "contains",
@@ -42711,9 +42587,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "scene_nodes_getsize",
-      "confidence_score": 1.0
+      "target": "scene_nodes_getsize"
     },
     {
       "relation": "contains",
@@ -42721,9 +42597,9 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "scene_nodes_nodes",
-      "confidence_score": 1.0
+      "target": "scene_nodes_nodes"
     },
     {
       "relation": "contains",
@@ -42731,29 +42607,40 @@
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "scene_nodes_nodesprops",
-      "confidence_score": 1.0
+      "target": "scene_nodes_nodesprops"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L11",
+      "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "scene_nodes_palette",
-      "confidence_score": 1.0
+      "target": "scene_nodes_splitnodes"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
-      "source_location": "L38",
+      "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scene_nodes",
-      "target": "scene_nodes_palettecache",
-      "confidence_score": 1.0
+      "target": "scene_nodes_white"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/Nodes.tsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scene_nodes_nodes",
+      "target": "scene_nodes_splitnodes"
     },
     {
       "relation": "calls",
@@ -42780,12 +42667,44 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/config.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config",
+      "target": "src_config_palette"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "stages_build_output",
+      "target": "src_config"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "stages_build_output",
+      "target": "src_config_palette"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/data/graphData.types.ts",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "data_graphdata_types",
-      "target": "data_graphdata_types_graphdata",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphdata"
     },
     {
       "relation": "contains",
@@ -42793,9 +42712,9 @@
       "source_file": "packages/graph-viz/src/data/graphData.types.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "data_graphdata_types",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphlink"
     },
     {
       "relation": "contains",
@@ -42803,9 +42722,9 @@
       "source_file": "packages/graph-viz/src/data/graphData.types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "data_graphdata_types",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
+      "target": "data_graphdata_types_graphnode"
     },
     {
       "relation": "imports_from",
@@ -42813,75 +42732,65 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/data/pipeline.ts",
       "source_location": "L6",
-      "weight": 1.0,
-      "source": "data_pipeline",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "stages_build_output",
-      "target": "data_graphdata_types",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "stages_build_output",
-      "target": "data_graphdata_types_graphnode",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "stages_build_output",
-      "target": "data_graphdata_types_graphlink",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/pipeline.ts",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "data_pipeline",
-      "target": "data_graphdata_types_graphdata",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "stages_build_output",
-      "target": "data_graphdata_types_graphdata",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/pipeline.ts",
-      "source_location": "L26",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "data_pipeline",
-      "target": "data_pipeline_default_pipeline_config"
+      "target": "data_graphdata_types"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "stages_build_output",
+      "target": "data_graphdata_types"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "stages_build_output",
+      "target": "data_graphdata_types_graphnode"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "stages_build_output",
+      "target": "data_graphdata_types_graphlink"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/pipeline.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_pipeline",
+      "target": "data_graphdata_types_graphdata"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/stages/build-output.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "stages_build_output",
+      "target": "data_graphdata_types_graphdata"
     },
     {
       "relation": "contains",
@@ -43632,16 +43541,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "graph_actions",
-      "target": "graph_actions_setedgesvisible"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/stores/graph/actions.ts",
       "source_location": "L27",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -43714,16 +43613,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/stores/graph/selectors.ts",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "graph_selectors",
-      "target": "graph_selectors_usetotalcommunities"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/stores/graph/selectors.ts",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -43783,17 +43672,6 @@
       "source_location": "L8",
       "weight": 1.0,
       "source": "graph_selectors_usevisiblecommunities",
-      "target": "graph_store_graphstore"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "packages/graph-viz/src/stores/graph/selectors.ts",
-      "source_location": "L10",
-      "weight": 1.0,
-      "source": "graph_selectors_usetotalcommunities",
       "target": "graph_store_graphstore"
     },
     {
@@ -64448,9 +64326,9 @@
       "source_file": "packages/ui/src/components/icons/components/IconArrowLeft.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_iconarrowleft",
-      "target": "components_iconarrowleft_iconarrowleft",
-      "confidence_score": 1.0
+      "target": "components_iconarrowleft_iconarrowleft"
     },
     {
       "relation": "imports_from",
@@ -64459,9 +64337,9 @@
       "source_file": "packages/ui/src/components/icons/components/IconArrowLeft.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_iconarrowleft",
-      "target": "icons_lib",
-      "confidence_score": 1.0
+      "target": "icons_lib"
     },
     {
       "relation": "imports",
@@ -64470,9 +64348,9 @@
       "source_file": "packages/ui/src/components/icons/components/IconArrowLeft.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_iconarrowleft",
-      "target": "icons_lib_createicon",
-      "confidence_score": 1.0
+      "target": "icons_lib_createicon"
     },
     {
       "relation": "imports_from",
@@ -64481,9 +64359,9 @@
       "source_file": "packages/ui/src/components/icons/iconMap.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "icons_iconmap",
-      "target": "components_iconarrowleft",
-      "confidence_score": 1.0
+      "target": "components_iconarrowleft"
     },
     {
       "relation": "imports",
@@ -64492,9 +64370,9 @@
       "source_file": "packages/ui/src/components/icons/iconMap.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "icons_iconmap",
-      "target": "components_iconarrowleft_iconarrowleft",
-      "confidence_score": 1.0
+      "target": "components_iconarrowleft_iconarrowleft"
     },
     {
       "relation": "contains",
@@ -74456,5 +74334,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f2b87a28ca539484bca6a1ba0fe0304c0171da55"
+  "built_at_commit": "b357c04a6b8fdee46a731af81109f750931939e4"
 }

@@ -21,10 +21,14 @@ function FilterControls({ nodes }: FilterControlsProps) {
   const edgesVisible = useEdgesVisible();
   const visibleCommunities = useVisibleCommunities();
 
-  // Extract unique community IDs sorted, with node counts
+  // Extract unique community IDs sorted, with node counts and colors
   const counts = new Map<number, number>();
+  const communityColor = new Map<number, string>();
   for (const n of nodes) {
     counts.set(n.community, (counts.get(n.community) ?? 0) + 1);
+    if (!communityColor.has(n.community)) {
+      communityColor.set(n.community, n.color);
+    }
   }
   const communities = Array.from(counts.entries())
     .sort((a, b) => a[0] - b[0])
@@ -84,7 +88,7 @@ function FilterControls({ nodes }: FilterControlsProps) {
                   <span
                     style={
                       {
-                        '--node-color': `var(--color-palette-${c.id % 24})`
+                        '--node-color': communityColor.get(c.id) ?? '#888'
                       } as React.CSSProperties
                     }
                     className={`h-2.5 w-2.5 shrink-0 rounded-full ${isActive ? 'bg-(--node-color)' : 'border border-current bg-transparent'}`}

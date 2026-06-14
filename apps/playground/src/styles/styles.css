@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @import '@repo/ui/gruvbox-theme';
-@import '@repo/graph-viz/theme';
 
 /* @import "@repo/ui/blade-runner-theme"; */
 /* @import "@repo/ui/candy-coated-theme"; */

@@ -27,7 +27,7 @@ export type SimulationConfig = {
   alphaDecay: number;
 };
 
-export const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
+const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
   ticks: 300,
   linkDistance: 30,
   chargeStrength: -120,

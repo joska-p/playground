@@ -1,18 +1,11 @@
-/**
- * Stage 4: Map simulation results back to the output schema
- * and compute community centroids.
- */
+import { PALETTE } from '../../config.js';
 import type { GraphData, GraphLink, GraphNode } from '../graphData.types.js';
 import type { SimLink, SimNode } from './sim-types.js';
-
-// ── Result ───────────────────────────────────────────────────────────────────
 
 export type BuildOutputResult = {
   result: GraphData;
   stats: string[];
 };
-
-// ── Stage implementation ─────────────────────────────────────────────────────
 
 export function buildOutput(
   simNodes: SimNode[],
@@ -29,10 +22,10 @@ export function buildOutput(
     inDegree: n.inDegree,
     outDegree: n.outDegree,
     community: n.community,
-    file_type: n.file_type
+    file_type: n.file_type,
+    color: '#888888'
   }));
 
-  // Build an index to resolve link endpoints
   const nodeById = new Map<string, SimNode>();
   for (const n of simNodes) {
     nodeById.set(n.id, n);
@@ -55,7 +48,6 @@ export function buildOutput(
     };
   });
 
-  // Compute community centroids
   const commAccum = new Map<
     number,
     { sumX: number; sumY: number; sumZ: number; count: number }
@@ -73,15 +65,30 @@ export function buildOutput(
   }
 
   const communities: GraphData['communities'] = [];
+
+  const communitySizeRank = Array.from(commAccum.entries())
+    .sort((a, b) => b[1].count - a[1].count)
+    .map(([id], rank) => ({ id, color: PALETTE[rank % PALETTE.length] }));
+
+  const communityColor = new Map<number, string>();
+  for (const c of communitySizeRank) {
+    communityColor.set(c.id, c.color);
+  }
+
   for (const [id, data] of commAccum) {
     communities.push({
       id,
+      color: communityColor.get(id)!,
       centroid: {
         x: data.sumX / data.count,
         y: data.sumY / data.count,
         z: data.sumZ / data.count
       }
     });
+  }
+
+  for (const node of nodes) {
+    node.color = communityColor.get(node.community) ?? '#888888';
   }
 
   return {

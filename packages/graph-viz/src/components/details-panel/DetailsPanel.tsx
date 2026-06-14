@@ -10,9 +10,9 @@ type DetailsPanelProps = {
 
 function DetailsPanel({ nodes, links }: DetailsPanelProps) {
   const selectedNodeIdx = useSelectedNodeIdx();
-  const selectedNode = selectedNodeIdx ? nodes[selectedNodeIdx] : null;
+  const selectedNode = selectedNodeIdx !== null ? nodes[selectedNodeIdx] : null;
 
-  if (selectedNode && selectedNodeIdx) {
+  if (selectedNode && selectedNodeIdx !== null) {
     return (
       <NodeDetails
         node={selectedNode}

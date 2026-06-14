@@ -8,10 +8,6 @@ export function toggleEdges(): void {
   graphStore.setState((s) => ({ edgesVisible: !s.edgesVisible }));
 }
 
-export function setEdgesVisible(visible: boolean): void {
-  graphStore.setState({ edgesVisible: visible });
-}
-
 export function toggleCommunity(communityId: number): void {
   graphStore.setState((s) => {
     const next = new Set(s.visibleCommunities);

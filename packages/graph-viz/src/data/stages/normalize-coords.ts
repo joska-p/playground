@@ -11,7 +11,7 @@ export type NormalizeConfig = {
   targetMax: number;
 };
 
-export const DEFAULT_NORMALIZE_CONFIG: NormalizeConfig = {
+const DEFAULT_NORMALIZE_CONFIG: NormalizeConfig = {
   targetMax: 500
 };
 
