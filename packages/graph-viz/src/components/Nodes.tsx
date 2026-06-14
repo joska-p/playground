@@ -1,20 +1,21 @@
-import { useThree } from '@react-three/fiber';
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { selectNode } from '../stores/graph/actions';
 import { useSelectedNodeIdx, useVisibleCommunities } from '../stores/graph/selectors';
 import type { GraphNode } from './graphData.types';
 
-const PALETTE_SIZE = 24;
+const PALETTE = [
+  '#4cc9f0', '#4361ee', '#7209b7', '#f72585', '#f77f00', '#06d6a0', '#ffd166', '#ef476f',
+  '#118ab2', '#06a77d', '#d62246', '#9b5de5', '#f15bb5', '#fee440', '#00bbf9', '#00f5d4',
+  '#e07a5f', '#3d405b', '#81b29a', '#f2cc8f', '#a8dadc', '#457b9d', '#e63946', '#2a9d8f'
+];
+const PALETTE_SIZE = PALETTE.length;
 const paletteCache: THREE.Color[] = [];
 
 function getPaletteColor(index: number): THREE.Color {
   const slot = index % PALETTE_SIZE;
   if (!paletteCache[slot]) {
-    const css = getComputedStyle(document.documentElement)
-      .getPropertyValue(`--color-palette-${slot}`)
-      .trim();
-    paletteCache[slot] = new THREE.Color(css);
+    paletteCache[slot] = new THREE.Color(PALETTE[slot]);
   }
   return paletteCache[slot];
 }
@@ -34,7 +35,6 @@ function Nodes({ nodes }: NodesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useRef(new THREE.Object3D());
   const tmpColor = useRef(new THREE.Color());
-  const { raycaster, camera } = useThree();
 
   const selectedNodeIdx = useSelectedNodeIdx();
   const visibleCommunities = useVisibleCommunities();
@@ -74,36 +74,17 @@ function Nodes({ nodes }: NodesProps) {
 
   }, [nodes, visibleCommunities, selectedNodeIdx]);
 
-  // Handle click on instancedMesh — raycast to find which instance was hit
-  const handleClick = useCallback(
-    (event: THREE.Event) => {
-      const mesh = meshRef.current;
-      if (!mesh) return;
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const nativeEvent = (event as any).nativeEvent ?? event;
-      const pointer = new THREE.Vector2(
-        ((nativeEvent.clientX ?? 0) / window.innerWidth) * 2 - 1,
-        -((nativeEvent.clientY ?? 0) / window.innerHeight) * 2 + 1
-      );
-
-      raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObject(mesh, false);
-
-      if (intersects.length > 0) {
-        const instanceId = intersects[0].instanceId;
-        if (instanceId !== undefined && instanceId < nodes.length) {
-          const node = nodes[instanceId];
-          if (visibleCommunities.has(node.community)) {
-            selectNode(selectedNodeIdx === instanceId ? null : instanceId);
-          }
-        }
-      } else {
-        selectNode(null);
+  // Handle click on instancedMesh
+  const handleClick = (event: any) => {
+    event.stopPropagation();
+    const instanceId = event.instanceId;
+    if (instanceId !== undefined && instanceId < nodes.length) {
+      const node = nodes[instanceId];
+      if (visibleCommunities.has(node.community)) {
+        selectNode(selectedNodeIdx === instanceId ? null : instanceId);
       }
-    },
-    [nodes, selectedNodeIdx, visibleCommunities, raycaster, camera]
-  );
+    }
+  };
 
   return (
     <instancedMesh

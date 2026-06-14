@@ -2,7 +2,6 @@ import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@repo/ui/Card';
 import { Switch } from '@repo/ui/Switch';
-import { useMemo } from 'react';
 import {
   hideAllCommunities,
   showAllCommunities,
@@ -21,15 +20,13 @@ function FilterControls({ nodes }: FilterControlsProps) {
   const visibleCommunities = useVisibleCommunities();
 
   // Extract unique community IDs sorted, with node counts
-  const communities = useMemo(() => {
-    const counts = new Map<number, number>();
-    for (const n of nodes) {
-      counts.set(n.community, (counts.get(n.community) ?? 0) + 1);
-    }
-    return Array.from(counts.entries())
-      .sort((a, b) => a[0] - b[0])
-      .map(([id, count]) => ({ id, count }));
-  }, [nodes]);
+  const counts = new Map<number, number>();
+  for (const n of nodes) {
+    counts.set(n.community, (counts.get(n.community) ?? 0) + 1);
+  }
+  const communities = Array.from(counts.entries())
+    .sort((a, b) => a[0] - b[0])
+    .map(([id, count]) => ({ id, count }));
 
   return (
     <Card>
