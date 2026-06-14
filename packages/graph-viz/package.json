@@ -41,6 +41,7 @@
     "@types/three": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
+    "d3-force-3d": "^3.0.6",
     "eslint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",

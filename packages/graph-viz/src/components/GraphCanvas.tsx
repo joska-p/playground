@@ -1,59 +1,47 @@
+import { type FC, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
-import * as THREE from 'three';
-import { NodeTooltip } from '../features/annotation/components/NodeTooltip';
-import { GraphPanel } from '../features/panel/components/GraphPanel';
-import { Scene } from '../features/scene/components/Scene';
-import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
-import { useDataStore } from '../stores/dataStore';
-import type { PreparedGraphData } from '../types';
+import { OrbitControls } from '@react-three/drei';
+import type { GraphData } from './useGraphData.ts';
+import Nodes from './Nodes.tsx';
+import Edges from './Edges.tsx';
+import { useGraphStore } from '../store/graphStore.ts';
 
-// Graph data is bundled at build time — never fetch or compute at runtime
-import graphPreparedData from '../data/graph-prepared.json';
-
-function GraphCanvas() {
-  const isLoaded = useDataStore((s) => s.isLoaded);
-  const setPreparedData = useDataStore((s) => s.setPreparedData);
-
-  // Toast hint for rotation toggle
-  const [showHint, setShowHint] = useState(true);
-
-  useKeyboardShortcuts();
-
-  useEffect(() => {
-    if (!showHint) return;
-    const timer = setTimeout(() => setShowHint(false), 4000);
-    return () => clearTimeout(timer);
-  }, [showHint]);
-
-  // ── Load precomputed data on mount ──
-  useEffect(() => {
-    setPreparedData(graphPreparedData as unknown as PreparedGraphData);
-  }, [setPreparedData]);
-
-  if (!isLoaded) return null;
-
-  return (
-    <div className="relative h-full w-full">
-      <Canvas
-        shadows={{ type: THREE.PCFShadowMap }}
-        camera={{ position: [50, 40, 60], fov: 50 }}
-        dpr={[1, 2]}
-        className="h-full w-full"
-      >
-        <Scene />
-      </Canvas>
-
-      <GraphPanel />
-      <NodeTooltip />
-      {showHint && (
-        <div className="bg-background/80 pointer-events-none absolute top-4 left-1/2 z-50 -translate-x-1/2 rounded-lg px-4 py-2 text-xs shadow-lg backdrop-blur-sm">
-          Press <kbd className="rounded border px-1 font-mono">R</kbd> to toggle
-          rotation
-        </div>
-      )}
-    </div>
-  );
+interface GraphCanvasProps {
+  data: GraphData;
 }
 
-export { GraphCanvas };
+const GraphCanvas: FC<GraphCanvasProps> = ({ data }) => {
+  // Initialise the community set on mount
+  const initCommunities = useGraphStore((s) => s.initCommunities);
+
+  useEffect(() => {
+    const communityIds = data.communities.map((c) => c.id).sort((a, b) => a - b);
+    initCommunities(communityIds);
+  }, [data.communities, initCommunities]);
+
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 12000], far: 30000 }}
+      style={{ width: '100%', height: '100%', display: 'block' }}
+      gl={{ antialias: true, alpha: false }}
+      onPointerMissed={() => {
+        useGraphStore.getState().selectNode(null);
+      }}
+    >
+      <color attach="background" args={['#1a1a2e']} />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[1, 1, 1]} intensity={0.8} />
+      <directionalLight position={[-1, -1, -1]} intensity={0.3} />
+      <Nodes nodes={data.nodes} />
+      <Edges nodes={data.nodes} links={data.links} />
+      <OrbitControls
+        enableDamping
+        dampingFactor={0.1}
+        minDistance={100}
+        maxDistance={50000}
+      />
+    </Canvas>
+  );
+};
+
+export default GraphCanvas;

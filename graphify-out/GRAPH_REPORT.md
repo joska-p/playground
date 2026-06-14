@@ -1,16 +1,16 @@
-# Graph Report - playground  (2026-06-13)
+# Graph Report - playground  (2026-06-14)
 
 ## Corpus Check
-- 1491 files · ~9,587,925 words
+- 1438 files · ~9,257,906 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3108 nodes · 4712 edges · 220 communities (198 shown, 22 thin omitted)
+- 2873 nodes · 4077 edges · 210 communities (190 shown, 20 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `74cd0cb0`
+- Built from commit: `9f9ab4a4`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -40,11 +40,10 @@
 - [[_COMMUNITY_Community 22|Community 22]]
 - [[_COMMUNITY_Community 23|Community 23]]
 - [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 25|Community 25]]
 - [[_COMMUNITY_Community 26|Community 26]]
-- [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 28|Community 28]]
 - [[_COMMUNITY_Community 29|Community 29]]
-- [[_COMMUNITY_Community 30|Community 30]]
 - [[_COMMUNITY_Community 32|Community 32]]
 - [[_COMMUNITY_Community 33|Community 33]]
 - [[_COMMUNITY_Community 34|Community 34]]
@@ -53,7 +52,6 @@
 - [[_COMMUNITY_Community 37|Community 37]]
 - [[_COMMUNITY_Community 38|Community 38]]
 - [[_COMMUNITY_Community 39|Community 39]]
-- [[_COMMUNITY_Community 40|Community 40]]
 - [[_COMMUNITY_Community 41|Community 41]]
 - [[_COMMUNITY_Community 42|Community 42]]
 - [[_COMMUNITY_Community 43|Community 43]]
@@ -69,7 +67,6 @@
 - [[_COMMUNITY_Community 53|Community 53]]
 - [[_COMMUNITY_Community 54|Community 54]]
 - [[_COMMUNITY_Community 55|Community 55]]
-- [[_COMMUNITY_Community 56|Community 56]]
 - [[_COMMUNITY_Community 57|Community 57]]
 - [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Community 59|Community 59]]
@@ -85,7 +82,6 @@
 - [[_COMMUNITY_Community 69|Community 69]]
 - [[_COMMUNITY_Community 70|Community 70]]
 - [[_COMMUNITY_Community 71|Community 71]]
-- [[_COMMUNITY_Community 72|Community 72]]
 - [[_COMMUNITY_Community 73|Community 73]]
 - [[_COMMUNITY_Community 74|Community 74]]
 - [[_COMMUNITY_Community 75|Community 75]]
@@ -115,7 +111,6 @@
 - [[_COMMUNITY_Community 101|Community 101]]
 - [[_COMMUNITY_Community 102|Community 102]]
 - [[_COMMUNITY_Community 103|Community 103]]
-- [[_COMMUNITY_Community 104|Community 104]]
 - [[_COMMUNITY_Community 105|Community 105]]
 - [[_COMMUNITY_Community 106|Community 106]]
 - [[_COMMUNITY_Community 107|Community 107]]
@@ -201,25 +196,19 @@
 - [[_COMMUNITY_Community 191|Community 191]]
 - [[_COMMUNITY_Community 192|Community 192]]
 - [[_COMMUNITY_Community 193|Community 193]]
-- [[_COMMUNITY_Community 194|Community 194]]
-- [[_COMMUNITY_Community 195|Community 195]]
-- [[_COMMUNITY_Community 196|Community 196]]
-- [[_COMMUNITY_Community 197|Community 197]]
-- [[_COMMUNITY_Community 198|Community 198]]
-- [[_COMMUNITY_Community 199|Community 199]]
 - [[_COMMUNITY_Community 201|Community 201]]
 - [[_COMMUNITY_Community 206|Community 206]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `createIcon()` - 43 edges
 2. `cn()` - 37 edges
-3. `useDataStore` - 29 edges
-4. `../../../layouts/BaseLayout.astro` - 27 edges
-5. `useUiStore` - 27 edges
-6. `exports` - 26 edges
-7. `defineManip()` - 19 edges
-8. `projects` - 18 edges
-9. `compilerOptions` - 18 edges
+3. `../../../layouts/BaseLayout.astro` - 27 edges
+4. `exports` - 26 edges
+5. `defineManip()` - 19 edges
+6. `projects` - 18 edges
+7. `compilerOptions` - 18 edges
+8. `compilerOptions` - 17 edges
+9. `compilerOptions` - 17 edges
 10. `compilerOptions` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -237,7 +226,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (220 total, 22 thin omitted)
+## Communities (210 total, 20 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -248,8 +237,8 @@ Cohesion: 0.05
 Nodes (64): @repo/automa, ./BaseCard.astro, ../cards/CategoryCard.astro, ../../components/ui/cards/DocCard.astro, { iconName }, ../../../components/ui/cards/ExperimentCard.astro, categoryProjects, docSchema (+56 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.06
-Nodes (48): Access, ACCESS_ORDER, ENDPOINT_GROUPS, EndpointGroup, EndpointId, EndpointItem, EndpointItemType, findItemForEndpoint() (+40 more)
+Cohesion: 0.05
+Nodes (54): imagePipeline, ManipulationInfo, MANIPULATIONS, pool, RunConfig, Access, ACCESS_ORDER, ENDPOINT_GROUPS (+46 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.07
@@ -308,60 +297,40 @@ Cohesion: 0.05
 Nodes (36): dependencies, @repo/ui, zustand, devDependencies, @babel/core, babel-plugin-react-compiler, eslint, @repo/config-eslint (+28 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.18
-Nodes (12): CommunityLinks(), CommunityLinksProps, NodeLabel(), NodeLabelProps, SceneDetailProps, buildCommunityLinkGeometries(), shortenLabel(), communityLink (+4 more)
+Cohesion: 0.43
+Nodes (3): Button(), ButtonProps, buttonVariants
 
 ### Community 18 - "Community 18"
-Cohesion: 0.17
-Nodes (9): brushModes, BrushModeSelector(), CellPaintingHandlers, useBrushMode(), useRunning(), setToolMode(), BrushMode, UiState (+1 more)
+Cohesion: 0.18
+Nodes (8): brushModes, BrushModeSelector(), CellPaintingHandlers, useBrushMode(), setToolMode(), BrushMode, UiState, uiStore
 
 ### Community 19 - "Community 19"
-Cohesion: 0.12
-Nodes (14): BufferManager, FusionScheduler, runFusedPixelBatch(), ManipulationDefinition, PipelineContext, blitTile(), extractTile(), runNeighborhoodTiled() (+6 more)
+Cohesion: 0.11
+Nodes (13): WorkerMessage, BufferManager, runFusedPixelBatch(), PipelineContext, blitTile(), extractTile(), runNeighborhoodTiled(), buildAutoDownscaleStep() (+5 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.11
-Nodes (17): EditControls(), createGrid(), seedGrid(), CellValue, Grid, clear(), init(), pause() (+9 more)
+Cohesion: 0.08
+Nodes (22): EditControls(), PlaybackControls(), SpeedSlider(), DEFAULT_STATE_COLORS, getDefaultStateColor(), STATE_FALLBACK_COLORS, useRunning(), useSpeedMs() (+14 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.12
-Nodes (19): imagePipeline, ManipulationInfo, MANIPULATIONS, pool, RunConfig, ArgDefinition, addWorkflowStep(), executeWorkflow() (+11 more)
-
-### Community 22 - "Community 22"
-Cohesion: 0.20
-Nodes (12): GraphCommunitySpheres(), GraphCommunitySpheresProps, CameraState, createDetailFlyAnimation(), createOverviewFlyAnimation(), FlyAnimation, getLODSegments(), tickFlyAnimation() (+4 more)
-
-### Community 23 - "Community 23"
-Cohesion: 0.40
-Nodes (4): StepBadge(), StepBadgeProps, WorkflowNodeHeader(), WorkflowNodeHeaderProps
-
-### Community 24 - "Community 24"
-Cohesion: 0.16
-Nodes (23): CameraController(), CameraControllerProps, CommunityLabel(), CommunityLabelProps, SceneLighting(), SceneOverview(), useCameraDistance(), useFlyAnimation() (+15 more)
+Cohesion: 0.14
+Nodes (15): ArgDefinition, executeWorkflow(), moveWorkflowStep(), removeWorkflowStep(), setOutputs(), updateStepOptions(), StepBadge(), StepBadgeProps (+7 more)
 
 ### Community 26 - "Community 26"
 Cohesion: 0.08
 Nodes (26): exports, ./Badge, ./badgeVariants, ./Button, ./buttonVariants, ./Card, ./cardVariants, ./cn (+18 more)
 
-### Community 27 - "Community 27"
-Cohesion: 0.13
-Nodes (22): ColorLegend(), ColorLegendProps, GraphCanvas(), GraphPanel(), HyperedgeLayer(), NodeTooltip(), PanelSection(), PanelSectionProps (+14 more)
-
 ### Community 28 - "Community 28"
-Cohesion: 0.12
-Nodes (12): IconArrowDiagonal, IconBluesky, IconBox, IconDiscord, IconGenerative, IconGrid3x3, IconHamburger, IconImageDown (+4 more)
+Cohesion: 0.11
+Nodes (13): IconArrowDiagonal, IconBluesky, IconBook, IconBox, IconChevronDown, IconDocumentation, IconGenerative, IconHome (+5 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.16
 Nodes (19): acorn, beacon, beehive, bHeptomino, blinker, block, diehard, glider (+11 more)
 
-### Community 30 - "Community 30"
-Cohesion: 0.08
-Nodes (23): Architecture, Changelog, Component tree, Contributing, Customizing visuals, Data, Data flow, `dataStore` — graph data (rarely mutates after load) (+15 more)
-
 ### Community 32 - "Community 32"
 Cohesion: 0.08
-Nodes (23): Architecture, Changelog, Component tree, Contributing, Customizing visuals, Data, Data flow, `dataStore` — graph data (rarely mutates after load) (+15 more)
+Nodes (25): Architecture, Changelog, Component tree, Contributing, Customizing visuals, Data, Data flow, `dataStore` — graph data (set once on load) (+17 more)
 
 ### Community 33 - "Community 33"
 Cohesion: 0.11
@@ -388,12 +357,8 @@ Cohesion: 0.23
 Nodes (10): blurShader, dissolveShader, edgeDetectShader, glowShader, heatHazeShader, kaleidoscopeShader, pixelateShader, rippleShader (+2 more)
 
 ### Community 39 - "Community 39"
-Cohesion: 0.23
-Nodes (11): countActiveNeighbors(), evolve(), evolveGrid(), StepRequest, StepResponse, briansBrainRule, conwayRule, highlifeRule (+3 more)
-
-### Community 40 - "Community 40"
-Cohesion: 0.11
-Nodes (26): SceneDetail(), computeLayout(), CENTER, __dirname, INPUT, main(), OUTPUT, useCommunityInsights() (+18 more)
+Cohesion: 0.22
+Nodes (12): countActiveNeighbors(), evolve(), evolveGrid(), StepRequest, StepResponse, briansBrainRule, conwayRule, highlifeRule (+4 more)
 
 ### Community 41 - "Community 41"
 Cohesion: 0.10
@@ -404,8 +369,8 @@ Cohesion: 0.11
 Nodes (18): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, jsx, lib, module, moduleDetection, moduleResolution (+10 more)
 
 ### Community 43 - "Community 43"
-Cohesion: 0.15
-Nodes (18): CellMesh(), GridLines(), GridLinesProps, Scene(), DebugPanel(), DebugToggle(), getCreature(), useCameraFitter() (+10 more)
+Cohesion: 0.16
+Nodes (17): CellMesh(), GridLines(), GridLinesProps, Scene(), DebugPanel(), DebugToggle(), getCreature(), useCameraFitter() (+9 more)
 
 ### Community 44 - "Community 44"
 Cohesion: 0.10
@@ -455,10 +420,6 @@ Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
-### Community 56 - "Community 56"
-Cohesion: 0.11
-Nodes (17): 1. "Transform `graph.json` → interactive 3D scene", 2. "Overview mode — community spheres, inter-community edges, hover labels", 3. "Detail mode — drill into nodes, size/brightness = degree, cross-community links", 4. "Understand architecture at a glance", 5. "Answer questions about codebase health: coupling, hotspots, dead code, coverage", Core Problem, Goal-by-Goal Assessment, 🔴 High (+9 more)
-
 ### Community 57 - "Community 57"
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
@@ -476,8 +437,8 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 61 - "Community 61"
-Cohesion: 0.17
-Nodes (10): ControlSection(), ControlSectionProps, clearOutputs(), setWorkflowSteps(), ImageSourceControls(), UploadZone(), PresetSelector(), WORKFLOW_PRESETS (+2 more)
+Cohesion: 0.14
+Nodes (13): ControlSection(), ControlSectionProps, addWorkflowStep(), clearOutputs(), setWorkflowSteps(), ImageSourceControls(), UploadZone(), manipulationIds (+5 more)
 
 ### Community 63 - "Community 63"
 Cohesion: 0.11
@@ -515,10 +476,6 @@ Nodes (18): devDependencies, @babel/core, babel-plugin-react-compiler, eslint, r
 Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
-### Community 72 - "Community 72"
-Cohesion: 0.11
-Nodes (25): CommunityEdges(), CommunityEdgesProps, DirectedArrowhead(), DirectedArrowheadProps, GraphEdges(), GraphEdgesProps, HighlightedEdges(), HighlightedEdgesProps (+17 more)
-
 ### Community 73 - "Community 73"
 Cohesion: 0.12
 Nodes (16): 1. WebGL object initialisation (`createGridUniforms`), 2. Bypassing React for the render loop (`useFrame`), 3. The `useLayoutEffect` / `useRef` indirection, 4. Colour synchronisation (`useEffect`), 5. Memory management (`useEffect` dispose), API, Data flow diagram, How it works — step by step (+8 more)
@@ -528,8 +485,8 @@ Cohesion: 0.23
 Nodes (7): CloseIcon(), CloseIconProps, UploadDropzone(), UploadDropzoneProps, UploadedPreview(), UploadedPreviewProps, UploadIcon()
 
 ### Community 75 - "Community 75"
-Cohesion: 0.17
-Nodes (15): Card(), CardContent(), CardContext, CardDescription(), CardFooter(), CardHeader(), CardProps, CardTitle() (+7 more)
+Cohesion: 0.19
+Nodes (14): Card(), CardContent(), CardContext, CardDescription(), CardFooter(), CardHeader(), CardProps, CardTitle() (+6 more)
 
 ### Community 76 - "Community 76"
 Cohesion: 0.19
@@ -540,8 +497,8 @@ Cohesion: 0.12
 Nodes (15): devDependencies, @eslint/js, eslint-plugin-import-x, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, typescript-eslint, exports (+7 more)
 
 ### Community 78 - "Community 78"
-Cohesion: 0.19
-Nodes (12): RuleSelector(), ColorRowProps, StateColorPicker(), DEFAULT_STATE_COLORS, getDefaultStateColor(), STATE_FALLBACK_COLORS, getAllRules(), getRule() (+4 more)
+Cohesion: 0.39
+Nodes (6): RuleSelector(), ColorRowProps, StateColorPicker(), getAllRules(), useRuleId(), useStateColors()
 
 ### Community 79 - "Community 79"
 Cohesion: 0.12
@@ -567,21 +524,17 @@ Nodes (15): Behaviour contract, Cellular automaton — single worker, buffer rou
 Cohesion: 0.12
 Nodes (15): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleResolution, noEmit, noFallthroughCasesInSwitch (+7 more)
 
-### Community 86 - "Community 86"
-Cohesion: 0.13
-Nodes (9): IconArrowRight, IconBook, IconDocumentation, IconImage, opacities, cells, IconMosaic, IconPieChart (+1 more)
-
 ### Community 87 - "Community 87"
-Cohesion: 0.13
-Nodes (8): IconChevronDown, IconClose, bars, IconDataViz, IconSocial, IconThreeStage, IconWrench, CreateIconConfig
+Cohesion: 0.14
+Nodes (8): IconArrowRight, bars, IconDataViz, IconDiscord, IconImageManipulator, IconSparkles, IconWrench, createIcon()
 
 ### Community 88 - "Community 88"
-Cohesion: 0.23
+Cohesion: 0.24
 Nodes (7): Badge(), BadgeProps, badgeVariants, ColorPalette(), ColorPaletteProps, colorPaletteVariants, variantFactory()
 
 ### Community 89 - "Community 89"
-Cohesion: 0.21
-Nodes (8): Button(), ButtonProps, buttonVariants, IconSpinner(), IconSpinnerProps, Input(), InputProps, inputVariants
+Cohesion: 0.36
+Nodes (5): IconSpinner(), IconSpinnerProps, Input(), InputProps, inputVariants
 
 ### Community 90 - "Community 90"
 Cohesion: 0.16
@@ -596,8 +549,8 @@ Cohesion: 0.21
 Nodes (9): ImageToParticles(), Particle, INITIAL_VELOCITY, PARTICLE_SIZE, calculateImageDimensions(), drawImageToCanvas(), ImageDimensions, initParticles() (+1 more)
 
 ### Community 93 - "Community 93"
-Cohesion: 0.13
-Nodes (18): ControlsProps, CreatureSelector(), PlaybackControls(), ColorRowProps, ShaderPropsControls(), ShaderSelector(), SpeedSlider(), getAllCreatures() (+10 more)
+Cohesion: 0.15
+Nodes (15): ControlsProps, CreatureSelector(), ColorRowProps, ShaderPropsControls(), ShaderSelector(), getAllCreatures(), Controls(), usePaletteBrush() (+7 more)
 
 ### Community 94 - "Community 94"
 Cohesion: 0.23
@@ -624,8 +577,8 @@ Cohesion: 0.14
 Nodes (13): Available Sequences, Common patterns, Core Philosophy, Data Flow, How to Add a New Sequence, How to Add a New Visualization, Quick Start, @repo/sequence-renderer (+5 more)
 
 ### Community 101 - "Community 101"
-Cohesion: 0.40
-Nodes (6): Sidebar(), SidebarProps, SidebarContext, SidebarContextValue, SidebarToggle(), useSidebarContext()
+Cohesion: 0.31
+Nodes (7): Sidebar(), SidebarProps, SidebarContext, SidebarContextValue, SidebarPanel(), SidebarToggle(), useSidebarContext()
 
 ### Community 102 - "Community 102"
 Cohesion: 0.18
@@ -634,10 +587,6 @@ Nodes (3): PieChart, Point, strToDom()
 ### Community 103 - "Community 103"
 Cohesion: 0.15
 Nodes (12): Adding a new rule, Architecture, Built-in examples, Camera, Color picker, Controls, Drawing, Engine (+4 more)
-
-### Community 104 - "Community 104"
-Cohesion: 0.14
-Nodes (25): GraphNodes(), GraphNodesProps, GraphNodesGroup(), GraphNodesGroupProps, sphereGeometry, torusGeometry, NodeTypeIndicators(), NodeTypeIndicatorsProps (+17 more)
 
 ### Community 105 - "Community 105"
 Cohesion: 0.23
@@ -648,8 +597,8 @@ Cohesion: 0.27
 Nodes (7): clearWorkflowSteps(), EmptyState(), EmptyStateProps, WorkflowControls(), WorkflowList(), WorkflowListProps, WorkflowNode()
 
 ### Community 107 - "Community 107"
-Cohesion: 0.40
-Nodes (6): ManipulatorState, manipulatorStore, OutputType, WorkflowStep, useOutputs(), useWorkflowSteps()
+Cohesion: 0.26
+Nodes (10): ManipulatorState, manipulatorStore, OutputType, WorkflowStep, ProcessingOverlay(), useImageSource(), useIsProcessing(), useOutputs() (+2 more)
 
 ### Community 108 - "Community 108"
 Cohesion: 0.15
@@ -676,8 +625,8 @@ Cohesion: 0.18
 Nodes (10): Available Rules, Available Visualizations, Data Structures, Engines, Extending, Pluggable Architecture, Sequence Renderer, Shared Patterns (+2 more)
 
 ### Community 114 - "Community 114"
-Cohesion: 0.38
-Nodes (4): useGeneration(), useGrid(), SimulationState, simulationStore
+Cohesion: 0.19
+Nodes (9): createGrid(), seedGrid(), CellValue, Grid, useGrid(), init(), SimulationState, simulationStore (+1 more)
 
 ### Community 115 - "Community 115"
 Cohesion: 0.18
@@ -688,8 +637,8 @@ Cohesion: 0.18
 Nodes (10): Architecture, Controls (Leva GUI), Exports, Geometry Library, Key Dependencies, Lighting, Material Library, Quick Start (+2 more)
 
 ### Community 117 - "Community 117"
-Cohesion: 0.27
-Nodes (3): WorkerMessage, Registry, Step
+Cohesion: 0.31
+Nodes (3): FusionScheduler, ManipulationDefinition, Registry
 
 ### Community 119 - "Community 119"
 Cohesion: 0.29
@@ -704,8 +653,8 @@ Cohesion: 0.20
 Nodes (9): Adding Components, Checklist, File Structure, Standard Sizes, Standard Variants, Step 1: Define Variants, Step 2: Build the Component, Step 3: Register the Export (+1 more)
 
 ### Community 122 - "Community 122"
-Cohesion: 0.20
-Nodes (9): Controls(), ImageManipulator(), CompareToggle(), CompareToggleProps, Outputs(), ProcessingOverlay(), useImageSource(), useIsProcessing() (+1 more)
+Cohesion: 0.27
+Nodes (5): Controls(), ImageManipulator(), CompareToggle(), CompareToggleProps, Outputs()
 
 ### Community 123 - "Community 123"
 Cohesion: 0.22
@@ -927,25 +876,29 @@ Nodes (4): dependencies, class-variance-authority, clsx, tailwind-merge
 Cohesion: 0.67
 Nodes (3): cache, persistent, dev
 
+### Community 190 - "Community 190"
+Cohesion: 0.14
+Nodes (7): IconCode, IconGrid3x3, IconGrid, IconPipeline, IconSequences, IconX, CreateIconConfig
+
 ## Knowledge Gaps
-- **1592 isolated node(s):** `isVercel`, `name`, `type`, `version`, `node` (+1587 more)
+- **1529 isolated node(s):** `isVercel`, `name`, `type`, `version`, `node` (+1524 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `react` connect `Community 7` to `Community 62`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
+  _High betweenness centrality (0.024) - this node is a cross-community bridge._
+- **Why does `react` connect `Community 16` to `Community 62`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `cn()` (e.g. with `Tile()` and `Controls()`) actually correct?**
   _`cn()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `isVercel`, `name`, `type` to the rest of the system?**
-  _1592 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1529 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.050505050505050504 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.05196717862402693 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.061057692307692306 - nodes in this community are weakly interconnected._
-- **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.07137254901960784 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05289193302891933 - nodes in this community are weakly interconnected._
