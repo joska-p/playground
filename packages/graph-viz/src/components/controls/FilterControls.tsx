@@ -1,48 +1,66 @@
 import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
 import { Switch } from '@repo/ui/Switch';
-import type { GraphNode } from '../../data/graphData.types';
+import type { GraphData, GraphNode } from '../../data/graphData.types';
 import {
   hideAllCommunities,
   showAllCommunities,
   toggleCommunity,
-  toggleEdges
+  toggleEdges,
+  toggleLabels
 } from '../../stores/graph/actions';
 import {
   useEdgesVisible,
+  useLabelsVisible,
   useVisibleCommunities
 } from '../../stores/graph/selectors';
 
 type FilterControlsProps = {
   nodes: GraphNode[];
+  communities: GraphData['communities'];
 };
 
-function FilterControls({ nodes }: FilterControlsProps) {
+function FilterControls({ nodes, communities }: FilterControlsProps) {
   const edgesVisible = useEdgesVisible();
+  const labelsVisible = useLabelsVisible();
   const visibleCommunities = useVisibleCommunities();
 
-  // Extract unique community IDs sorted, with node counts and colors
+  // Extract unique community IDs sorted, with node counts, colors, and names
   const counts = new Map<number, number>();
   const communityColor = new Map<number, string>();
+  const communityName = new Map<number, string>();
   for (const n of nodes) {
     counts.set(n.community, (counts.get(n.community) ?? 0) + 1);
     if (!communityColor.has(n.community)) {
       communityColor.set(n.community, n.color);
     }
   }
-  const communities = Array.from(counts.entries())
+  for (const c of communities) {
+    communityName.set(c.id, c.name);
+  }
+  const commList = Array.from(counts.entries())
     .sort((a, b) => a[0] - b[0])
-    .map(([id, count]) => ({ id, count }));
+    .map(([id, count]) => ({
+      id,
+      count,
+      name: communityName.get(id) ?? `Group ${id}`
+    }));
 
   return (
     <>
       <h2 className="text-base">Filters</h2>
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="item-center grid grid-cols-2 gap-4">
           <Switch
             checked={edgesVisible}
             onCheckedChange={toggleEdges}
             label="Show edges"
+            size="sm"
+          />
+          <Switch
+            checked={labelsVisible}
+            onCheckedChange={toggleLabels}
+            label="Show labels"
             size="sm"
           />
         </div>
@@ -50,7 +68,7 @@ function FilterControls({ nodes }: FilterControlsProps) {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground text-xs">
-              Communities ({visibleCommunities.size}/{communities.length})
+              Communities ({visibleCommunities.size}/{commList.length})
             </span>
             <div className="flex gap-1">
               <Button
@@ -73,7 +91,7 @@ function FilterControls({ nodes }: FilterControlsProps) {
           </div>
 
           <div className="max-h-60 space-y-0.5 overflow-y-auto pr-1">
-            {communities.map((c) => {
+            {commList.map((c) => {
               const isActive = visibleCommunities.has(c.id);
               return (
                 <button
@@ -93,7 +111,7 @@ function FilterControls({ nodes }: FilterControlsProps) {
                     }
                     className={`h-2.5 w-2.5 shrink-0 rounded-full ${isActive ? 'bg-(--node-color)' : 'border border-current bg-transparent'}`}
                   />
-                  <span className="flex-1 truncate">Group {c.id}</span>
+                  <span className="flex-1 truncate">{c.name}</span>
                   <Badge
                     variant="ghost"
                     className="px-1.5 py-0 font-mono text-xs"

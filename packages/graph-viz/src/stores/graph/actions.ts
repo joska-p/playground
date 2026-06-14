@@ -32,6 +32,10 @@ export function hideAllCommunities(): void {
   graphStore.setState({ visibleCommunities: new Set() });
 }
 
+export function toggleLabels(): void {
+  graphStore.setState((s) => ({ labelsVisible: !s.labelsVisible }));
+}
+
 export function initCommunities(communities: number[]): void {
   graphStore.setState({
     totalCommunities: communities.length,

@@ -22,6 +22,7 @@ export type GraphData = {
   links: GraphLink[];
   communities: {
     id: number;
+    name: string;
     color: string;
     centroid: { x: number; y: number; z: number };
   }[];

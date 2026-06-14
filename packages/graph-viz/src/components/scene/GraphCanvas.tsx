@@ -1,8 +1,10 @@
 import { OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, type RootState } from '@react-three/fiber';
 import { useEffect } from 'react';
+import * as THREE from 'three';
 import type { GraphData } from '../../data/graphData.types.ts';
 import { initCommunities, selectNode } from '../../stores/graph/actions';
+import { CommunityLabels } from './CommunityLabels.tsx';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
 
@@ -24,6 +26,12 @@ function GraphCanvas({ data }: GraphCanvasProps) {
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
       onContextMenu={(e: React.MouseEvent) => e.preventDefault()}
+      onCreated={(state: RootState) => {
+        const bg = getComputedStyle(
+          state.gl.domElement.parentElement!
+        ).backgroundColor;
+        state.gl.setClearColor(new THREE.Color(bg));
+      }}
       onPointerMissed={(event: MouseEvent) => {
         if (event.button === 0) selectNode(null);
       }}
@@ -38,6 +46,7 @@ function GraphCanvas({ data }: GraphCanvasProps) {
         intensity={0.3}
       />
       <Nodes nodes={data.nodes} />
+      <CommunityLabels communities={data.communities} />
       <Edges
         nodes={data.nodes}
         links={data.links}

@@ -32,12 +32,16 @@ function App() {
           <GraphCanvas data={data} />
         </Sidebar.Main>
 
-        <Sidebar.Panel className="space-y-4 p-4">
+        <Sidebar.Panel className="w-100 space-y-4 p-4">
           <DetailsPanel
             nodes={data.nodes}
             links={data.links}
+            communities={data.communities}
           />
-          <FilterControls nodes={data.nodes} />
+          <FilterControls
+            nodes={data.nodes}
+            communities={data.communities}
+          />
         </Sidebar.Panel>
       </Sidebar>
     </ErrorBoundary>

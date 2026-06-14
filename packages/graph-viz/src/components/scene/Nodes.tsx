@@ -88,22 +88,26 @@ function Nodes({ nodes }: NodesProps) {
   }, [nodes, visibleCommunities, selectedNodeIdx]);
 
   function handleClick(event: ThreeEvent<MouseEvent>) {
+    console.log(event);
     event.stopPropagation();
     const { instanceId } = event;
     if (instanceId === undefined) return;
 
-    const node = nodes[instanceId];
+    const isCode = event.object === codeMeshRef.current;
+    const lookup = isCode ? codeToGlobal : docToGlobal;
+    const globalIdx = lookup[instanceId];
+    if (globalIdx === undefined) return;
+
+    const node = nodes[globalIdx];
     if (!visibleCommunities.has(node.community)) return;
 
-    // Toggle: clicking the already-selected node deselects it.
-    selectNode(selectedNodeIdx === instanceId ? null : instanceId);
+    selectNode(selectedNodeIdx === globalIdx ? null : globalIdx);
   }
 
   return (
     <>
       {/* Code nodes → spheres */}
       <instancedMesh
-        key={codeToGlobal.length}
         ref={codeMeshRef}
         args={[undefined, undefined, codeToGlobal.length]}
         frustumCulled={false}
@@ -115,7 +119,6 @@ function Nodes({ nodes }: NodesProps) {
 
       {/* Doc nodes → boxes */}
       <instancedMesh
-        key={docToGlobal.length}
         ref={docMeshRef}
         args={[undefined, undefined, docToGlobal.length]}
         frustumCulled={false}

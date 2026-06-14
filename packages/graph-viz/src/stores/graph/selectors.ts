@@ -6,3 +6,5 @@ export const useEdgesVisible = () => graphStore((s) => s.edgesVisible);
 
 export const useVisibleCommunities = () =>
   graphStore((s) => s.visibleCommunities);
+
+export const useLabelsVisible = () => graphStore((s) => s.labelsVisible);

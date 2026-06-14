@@ -7,4 +7,6 @@ export type GraphState = {
   visibleCommunities: Set<number>;
   /** Total communities in the dataset */
   totalCommunities: number;
+  /** Whether floating community labels are visible */
+  labelsVisible: boolean;
 };

@@ -1,5 +1,9 @@
 import { Badge } from '@repo/ui/Badge';
-import type { GraphLink, GraphNode } from '../../../data/graphData.types';
+import type {
+  GraphData,
+  GraphLink,
+  GraphNode
+} from '../../../data/graphData.types';
 import { getConnections } from '../utils';
 import { ConnectionRow } from './ConnectionRow';
 
@@ -9,12 +13,14 @@ function NodeDetails({
   node,
   nodes,
   links,
-  idx
+  idx,
+  communities
 }: {
   node: GraphNode;
   nodes: GraphNode[];
   links: GraphLink[];
   idx: number;
+  communities?: GraphData['communities'];
 }) {
   const { incoming, outgoing } = getConnections(nodes, links, idx);
   const total = incoming.length + outgoing.length;
@@ -26,10 +32,19 @@ function NodeDetails({
     <>
       <div className="truncate text-base leading-tight">{node.label}</div>
       <div className="space-y-4">
-        <dl className="grid grid-cols-2 gap-2 text-xs">
+        <dl className="grid grid-cols-[auto_1fr] items-center gap-4 text-xs">
           <dt className="text-muted-foreground">Community</dt>
           <dd>
             <Badge variant="accent">{node.community}</Badge>
+            {communities &&
+              (() => {
+                const comm = communities.find((c) => c.id === node.community);
+                return comm ? (
+                  <span className="text-muted-foreground ml-1 text-xs">
+                    {comm.name}
+                  </span>
+                ) : null;
+              })()}
           </dd>
           <dt className="text-muted-foreground">Type</dt>
           <dd>

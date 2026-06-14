@@ -7,6 +7,36 @@ export type BuildOutputResult = {
   stats: string[];
 };
 
+function deriveCommunityName(nodes: Pick<GraphNode, 'id'>[]): string {
+  const prefixCounts = new Map<string, number>();
+  for (const n of nodes) {
+    const id = n.id.replace(/\(.*\)$/, '');
+    const parts = id.split('_');
+    for (let d = 2; d <= 4 && d <= parts.length; d++) {
+      const prefix = parts.slice(0, d).join('/');
+      prefixCounts.set(prefix, (prefixCounts.get(prefix) || 0) + 1);
+    }
+  }
+  const sorted = [...prefixCounts.entries()].sort(
+    (a, b) => b[1] - a[1] || b[0].length - a[0].length
+  );
+  let name = sorted[0]?.[0] ?? 'unknown';
+  for (const [prefix, count] of sorted) {
+    const parts = prefix.split('/');
+    if (
+      (parts[0] === 'packages' || parts[0] === 'apps') &&
+      parts.length <= 3 &&
+      count >= 3
+    ) {
+      name = prefix;
+      break;
+    }
+  }
+  if (name.startsWith('packages/')) name = name.slice('packages/'.length);
+  if (name.startsWith('apps/')) name = name.slice('apps/'.length);
+  return name.replace(/\//g, ' / ');
+}
+
 export function buildOutput(
   simNodes: SimNode[],
   simLinks: SimLink[]
@@ -64,6 +94,17 @@ export function buildOutput(
     acc.count += 1;
   }
 
+  const communityNodes = new Map<number, Pick<GraphNode, 'id'>[]>();
+  for (const n of nodes) {
+    if (!communityNodes.has(n.community)) communityNodes.set(n.community, []);
+    communityNodes.get(n.community)!.push(n);
+  }
+
+  const communityNames = new Map<number, string>();
+  for (const [id, members] of communityNodes) {
+    communityNames.set(id, deriveCommunityName(members));
+  }
+
   const communities: GraphData['communities'] = [];
 
   const communitySizeRank = Array.from(commAccum.entries())
@@ -78,6 +119,7 @@ export function buildOutput(
   for (const [id, data] of commAccum) {
     communities.push({
       id,
+      name: communityNames.get(id) ?? `Group ${id}`,
       color: communityColor.get(id)!,
       centroid: {
         x: data.sumX / data.count,
