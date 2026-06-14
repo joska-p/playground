@@ -4,5 +4,6 @@ coverage
 dist
 graphify-out
 
+packages/graph-viz/src/data/processes-graph.json
 packages/radu-machine-learning/src/data/
 turbo/generators/templates
