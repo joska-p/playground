@@ -23,8 +23,9 @@ function GraphCanvas({ data }: GraphCanvasProps) {
       camera={{ position: [0, 0, 800], far: 5000 }}
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
-      onPointerMissed={() => {
-        selectNode(null);
+      onContextMenu={(e: React.MouseEvent) => e.preventDefault()}
+      onPointerMissed={(event: MouseEvent) => {
+        if (event.button === 0) selectNode(null);
       }}
     >
       <ambientLight intensity={0.6} />
