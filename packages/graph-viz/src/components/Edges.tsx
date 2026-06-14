@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { useGraphStore } from '../store/graphStore.ts';
-import type { GraphLink, GraphNode } from './useGraphData.ts';
+import { useEdgesVisible, useSelectedNodeIdx, useVisibleCommunities } from '../stores/graph/selectors';
+import type { GraphLink, GraphNode } from './graphData.types';
 
 type EdgesProps = {
   nodes: GraphNode[];
@@ -11,9 +11,9 @@ type EdgesProps = {
 function Edges({ nodes, links }: EdgesProps) {
   const ref = useRef<THREE.LineSegments>(null);
 
-  const edgesVisible = useGraphStore((s) => s.edgesVisible);
-  const visibleCommunities = useGraphStore((s) => s.visibleCommunities);
-  const selectedNodeIdx = useGraphStore((s) => s.selectedNodeIdx);
+  const edgesVisible = useEdgesVisible();
+  const visibleCommunities = useVisibleCommunities();
+  const selectedNodeIdx = useSelectedNodeIdx();
 
   useEffect(() => {
     const lineSegments = ref.current;

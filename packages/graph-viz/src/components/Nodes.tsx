@@ -1,21 +1,22 @@
 import { useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { useGraphStore } from '../store/graphStore.ts';
-import type { GraphNode } from './useGraphData.ts';
+import { selectNode } from '../stores/graph/actions';
+import { useSelectedNodeIdx, useVisibleCommunities } from '../stores/graph/selectors';
+import type { GraphNode } from './graphData.types';
 
-const GOLDEN_ANGLE = 0.618033988749895;
-const colorCache = new Map<number, THREE.Color>();
-let lastHue = 0;
+const PALETTE_SIZE = 24;
+const paletteCache: THREE.Color[] = [];
 
-function getColor(community: number): THREE.Color {
-  let color = colorCache.get(community);
-  if (!color) {
-    lastHue = (lastHue + GOLDEN_ANGLE) % 1;
-    color = new THREE.Color().setHSL(lastHue, 0.7, 0.55);
-    colorCache.set(community, color);
+function getPaletteColor(index: number): THREE.Color {
+  const slot = index % PALETTE_SIZE;
+  if (!paletteCache[slot]) {
+    const css = getComputedStyle(document.documentElement)
+      .getPropertyValue(`--color-palette-${slot}`)
+      .trim();
+    paletteCache[slot] = new THREE.Color(css);
   }
-  return color;
+  return paletteCache[slot];
 }
 
 function getSize(node: GraphNode): number {
@@ -35,9 +36,8 @@ function Nodes({ nodes }: NodesProps) {
   const tmpColor = useRef(new THREE.Color());
   const { raycaster, camera } = useThree();
 
-  const selectNode = useGraphStore((s) => s.selectNode);
-  const selectedNodeIdx = useGraphStore((s) => s.selectedNodeIdx);
-  const visibleCommunities = useGraphStore((s) => s.visibleCommunities);
+  const selectedNodeIdx = useSelectedNodeIdx();
+  const visibleCommunities = useVisibleCommunities();
 
   // Update instance matrices and colors when nodes or visibility changes
   useEffect(() => {
@@ -61,10 +61,10 @@ function Nodes({ nodes }: NodesProps) {
       if (!isVisible) {
         tmpColor.current.copy(DIM_COLOR);
       } else if (i === selectedNodeIdx) {
-        tmpColor.current.copy(getColor(node.community));
+        tmpColor.current.copy(getPaletteColor(node.community));
         tmpColor.current.lerp(new THREE.Color(0xffffff), 0.4);
       } else {
-        tmpColor.current.copy(getColor(node.community));
+        tmpColor.current.copy(getPaletteColor(node.community));
       }
       mesh.setColorAt(i, tmpColor.current);
     }
@@ -72,10 +72,6 @@ function Nodes({ nodes }: NodesProps) {
     mesh.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
 
-    return () => {
-      colorCache.clear();
-      lastHue = 0;
-    };
   }, [nodes, visibleCommunities, selectedNodeIdx]);
 
   // Handle click on instancedMesh — raycast to find which instance was hit
@@ -84,6 +80,7 @@ function Nodes({ nodes }: NodesProps) {
       const mesh = meshRef.current;
       if (!mesh) return;
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const nativeEvent = (event as any).nativeEvent ?? event;
       const pointer = new THREE.Vector2(
         ((nativeEvent.clientX ?? 0) / window.innerWidth) * 2 - 1,
@@ -105,12 +102,13 @@ function Nodes({ nodes }: NodesProps) {
         selectNode(null);
       }
     },
-    [nodes, selectNode, selectedNodeIdx, visibleCommunities, raycaster, camera]
+    [nodes, selectedNodeIdx, visibleCommunities, raycaster, camera]
   );
 
   return (
     <instancedMesh
       ref={meshRef}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       args={[null as any, null as any, nodes.length]}
       frustumCulled={false}
       onClick={handleClick}

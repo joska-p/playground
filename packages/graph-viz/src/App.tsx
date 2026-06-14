@@ -3,15 +3,16 @@ import { type FC, useState } from 'react';
 import { DetailsPanel } from './components/DetailsPanel.tsx';
 import { FilterControls } from './components/FilterControls.tsx';
 import { GraphCanvas } from './components/GraphCanvas.tsx';
-import type { GraphData } from './components/useGraphData.ts';
+import type { GraphData } from './components/graphData.types';
 import rawData from './data/processed-graph.json' with { type: 'json' };
-import { useGraphStore } from './store/graphStore.ts';
+import { selectNode } from './stores/graph/actions';
+import { useSelectedNodeIdx } from './stores/graph/selectors';
 
 const data = rawData as unknown as GraphData;
 
 const App: FC = () => {
   const [panelOpen, setPanelOpen] = useState(true);
-  const selectedNodeIdx = useGraphStore((s) => s.selectedNodeIdx);
+  const selectedNodeIdx = useSelectedNodeIdx();
 
   return (
     <div className="bg-background text-foreground relative h-screen w-screen overflow-hidden">
@@ -69,8 +70,7 @@ const App: FC = () => {
 
 /** Small badge at the bottom when a node is selected but panel is closed */
 function QuickNodeBadge({ nodes }: { nodes: GraphData['nodes'] }) {
-  const selectedNodeIdx = useGraphStore((s) => s.selectedNodeIdx);
-  const selectNode = useGraphStore((s) => s.selectNode);
+  const selectedNodeIdx = useSelectedNodeIdx();
   const node = selectedNodeIdx !== null ? nodes[selectedNodeIdx] : null;
   if (!node) return null;
 

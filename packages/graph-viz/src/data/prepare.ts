@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -22,7 +21,7 @@ const outputPath = resolve(__dirname, 'processed-graph.json');
 
 // ── Raw data types (mirrors graphify output) ─────────────────────────────────
 
-interface RawNode {
+type RawNode = {
   id: string;
   label?: string;
   norm_label?: string;
@@ -31,21 +30,21 @@ interface RawNode {
   [key: string]: unknown;
 }
 
-interface RawLink {
+type RawLink = {
   source: string;
   target: string;
   relation?: string;
   [key: string]: unknown;
 }
 
-interface RawGraph {
+type RawGraph = {
   nodes: RawNode[];
   links: RawLink[];
 }
 
 // ── Simulation node / link (extends the d3 datum so it can go into the sim) ──
 
-interface SimNode {
+type SimNode = {
   index?: number;
   id: string;
   label: string;
@@ -62,7 +61,7 @@ interface SimNode {
   vz?: number;
 }
 
-interface SimLink {
+type SimLink = {
   source: SimNode | string;
   target: SimNode | string;
   relation: string;
@@ -70,7 +69,7 @@ interface SimLink {
 
 // ── Optimised output types ───────────────────────────────────────────────────
 
-interface ProcessedNode {
+type ProcessedNode = {
   id: string;
   label: string;
   x: number;
@@ -82,18 +81,18 @@ interface ProcessedNode {
   file_type: string;
 }
 
-interface ProcessedLink {
+type ProcessedLink = {
   sourceIdx: number;
   targetIdx: number;
   relation: string;
 }
 
-interface CommunityMeta {
+type CommunityMeta = {
   id: number;
   centroid: { x: number; y: number; z: number };
 }
 
-interface ProcessedGraph {
+type ProcessedGraph = {
   nodes: ProcessedNode[];
   links: ProcessedLink[];
   communities: CommunityMeta[];

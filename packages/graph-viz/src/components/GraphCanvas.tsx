@@ -1,25 +1,22 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useEffect } from 'react';
-import { useGraphStore } from '../store/graphStore.ts';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
-import type { GraphData } from './useGraphData.ts';
+import type { GraphData } from './graphData.types';
+import { initCommunities, selectNode } from '../stores/graph/actions';
 
 type GraphCanvasProps = {
   data: GraphData;
 };
 
 function GraphCanvas({ data }: GraphCanvasProps) {
-  // Initialise the community set on mount
-  const initCommunities = useGraphStore((s) => s.initCommunities);
-
   useEffect(() => {
     const communityIds = data.communities
       .map((c) => c.id)
       .sort((a, b) => a - b);
     initCommunities(communityIds);
-  }, [data.communities, initCommunities]);
+  }, [data.communities]);
 
   return (
     <Canvas
@@ -27,7 +24,7 @@ function GraphCanvas({ data }: GraphCanvasProps) {
       style={{ width: '100%', height: '100%', display: 'block' }}
       gl={{ antialias: true, alpha: false }}
       onPointerMissed={() => {
-        useGraphStore.getState().selectNode(null);
+        selectNode(null);
       }}
     >
       <ambientLight intensity={0.6} />

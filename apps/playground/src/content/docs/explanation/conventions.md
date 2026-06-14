@@ -143,6 +143,7 @@ See `apps/playground/src/content/docs/explanation/dynamic-tailwind.md` for the f
 - Filename must match the primary exported identifier exactly.
 - Use `export type { ... }` for type-only exports.
 - Consumers import via subpath: `import { Button } from "@repo/ui/Button"`.
+- In **bundle mode** (Vite, webpack, etc.), file extensions are not required in import paths. Omit `.ts` / `.tsx` extensions when the bundler resolves them automatically.
 
 ## Performance
 

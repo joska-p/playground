@@ -1,8 +1,9 @@
 import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@repo/ui/Card';
-import { useGraphStore } from '../store/graphStore';
-import type { GraphLink, GraphNode } from './useGraphData';
+import { selectNode } from '../stores/graph/actions';
+import { useSelectedNodeIdx } from '../stores/graph/selectors';
+import type { GraphLink, GraphNode } from './graphData.types';
 
 type DetailsPanelProps = {
   nodes: GraphNode[];
@@ -47,8 +48,7 @@ function getConnexions({
 }
 
 function DetailsPanel({ nodes, links }: DetailsPanelProps) {
-  const selectedNodeIdx = useGraphStore((s) => s.selectedNodeIdx);
-  const selectNode = useGraphStore((s) => s.selectNode);
+  const selectedNodeIdx = useSelectedNodeIdx();
   const stats = getStats({ nodes, links });
   const selectedNode = selectedNodeIdx !== null ? nodes[selectedNodeIdx] : null;
   const connections = getConnexions({ nodes, links, selectedNodeIdx });
