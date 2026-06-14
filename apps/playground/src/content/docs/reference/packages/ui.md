@@ -1,7 +1,7 @@
 ---
-title: 'UI Components'
-description: 'Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.'
-category: 'reference'
+title: "UI Components"
+description: "Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system."
+category: "reference"
 tags:
   - reference
   - ui
@@ -151,3 +151,4 @@ Full design token reference (colors, typography, spacing, radii) is available at
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+
