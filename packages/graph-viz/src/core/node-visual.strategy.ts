@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import type { GraphNode } from '../data/graphData.schema';
+import { CONFIG } from './config.ts';
 
 export type NodeVisualStrategy = {
   type: string;
@@ -11,8 +12,14 @@ const strategies = new Map<string, NodeVisualStrategy>();
 
 const defaultStrategy: NodeVisualStrategy = {
   type: '__default__',
-  createGeometry: () => new THREE.BoxGeometry(1, 1, 1),
-  getSize: (node) => Math.log(node.inDegree + node.outDegree + 1) * 0.3 + 0.8,
+  createGeometry: () =>
+    new THREE.BoxGeometry(
+      CONFIG.nodes.boxGeometry.width,
+      CONFIG.nodes.boxGeometry.height,
+      CONFIG.nodes.boxGeometry.depth
+    ),
+  getSize: (node) =>
+    Math.log(node.inDegree + node.outDegree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase,
 };
 
 export function registerStrategy(strategy: NodeVisualStrategy): void {
@@ -29,6 +36,12 @@ export function getRegisteredTypes(): string[] {
 
 registerStrategy({
   type: 'code',
-  createGeometry: () => new THREE.SphereGeometry(1, 10, 10),
-  getSize: (node) => Math.log(node.inDegree + node.outDegree + 1) * 0.3 + 0.8,
+  createGeometry: () =>
+    new THREE.SphereGeometry(
+      CONFIG.nodes.sphereGeometry.radius,
+      CONFIG.nodes.sphereGeometry.widthSegments,
+      CONFIG.nodes.sphereGeometry.heightSegments
+    ),
+  getSize: (node) =>
+    Math.log(node.inDegree + node.outDegree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase,
 });

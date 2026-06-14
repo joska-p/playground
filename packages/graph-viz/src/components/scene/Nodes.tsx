@@ -1,6 +1,7 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type * as THREE from 'three';
+import { CONFIG } from '../../core/config.ts';
 import {
   splitNodeIndices,
   writeInstanceData
@@ -11,6 +12,8 @@ import {
   useSelectedNodeIdx,
   useVisibleCommunities
 } from '../../stores/view/selectors';
+
+const { sphereGeometry, boxGeometry } = CONFIG.nodes;
 
 function Nodes() {
   const codeMeshRef = useRef<THREE.InstancedMesh>(null);
@@ -67,7 +70,9 @@ function Nodes() {
         frustumCulled={false}
         onClick={handleClick}
       >
-        <sphereGeometry args={[1, 10, 10]} />
+        <sphereGeometry
+          args={[sphereGeometry.radius, sphereGeometry.widthSegments, sphereGeometry.heightSegments]}
+        />
         <meshStandardMaterial toneMapped={false} />
       </instancedMesh>
 
@@ -77,7 +82,9 @@ function Nodes() {
         frustumCulled={false}
         onClick={handleClick}
       >
-        <boxGeometry args={[1, 1, 1]} />
+        <boxGeometry
+          args={[boxGeometry.width, boxGeometry.height, boxGeometry.depth]}
+        />
         <meshStandardMaterial toneMapped={false} />
       </instancedMesh>
     </>

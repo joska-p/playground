@@ -2,11 +2,14 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas, type RootState } from '@react-three/fiber';
 import { useEffect } from 'react';
 import * as THREE from 'three';
+import { CONFIG } from '../../core/config.ts';
 import { useCommunities } from '../../stores/content/selectors';
 import { initCommunities, selectNode } from '../../stores/view/actions';
 import { CommunityLabels } from './CommunityLabels.tsx';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
+
+const { camera, ambientLight, directionalLights, orbitControls } = CONFIG.scene;
 
 function GraphCanvas() {
   const communities = useCommunities();
@@ -20,7 +23,10 @@ function GraphCanvas() {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 800], far: 5000 }}
+      camera={{
+        position: [camera.position[0], camera.position[1], camera.position[2]],
+        far: camera.far,
+      }}
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
       onContextMenu={(e: React.MouseEvent) => e.preventDefault()}
@@ -34,23 +40,31 @@ function GraphCanvas() {
         if (event.button === 0) selectNode(null);
       }}
     >
-      <ambientLight intensity={0.6} />
+      <ambientLight intensity={ambientLight.intensity} />
       <directionalLight
-        position={[1, 1, 1]}
-        intensity={0.8}
+        position={[
+          directionalLights[0].position[0],
+          directionalLights[0].position[1],
+          directionalLights[0].position[2],
+        ]}
+        intensity={directionalLights[0].intensity}
       />
       <directionalLight
-        position={[-1, -1, -1]}
-        intensity={0.3}
+        position={[
+          directionalLights[1].position[0],
+          directionalLights[1].position[1],
+          directionalLights[1].position[2],
+        ]}
+        intensity={directionalLights[1].intensity}
       />
       <Nodes />
       <CommunityLabels />
       <Edges />
       <OrbitControls
         enableDamping
-        dampingFactor={0.1}
-        minDistance={10}
-        maxDistance={3000}
+        dampingFactor={orbitControls.dampingFactor}
+        minDistance={orbitControls.minDistance}
+        maxDistance={orbitControls.maxDistance}
       />
     </Canvas>
   );

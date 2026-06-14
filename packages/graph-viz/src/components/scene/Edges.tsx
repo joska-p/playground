@@ -1,3 +1,4 @@
+import { CONFIG } from '../../core/config.ts';
 import { computeEdgeBuffers } from '../../core/compute-edges.ts';
 import { useLinks, useNodes } from '../../stores/content/selectors';
 import {
@@ -5,6 +6,8 @@ import {
   useSelectedNodeIdx,
   useVisibleCommunities
 } from '../../stores/view/selectors';
+
+const { connected, disconnected } = CONFIG.edges;
 
 type EdgeGroupProps = {
   positions: Float32Array;
@@ -51,14 +54,14 @@ function Edges() {
     <>
       <EdgeGroup
         positions={connectedPositions}
-        color="#888888"
-        opacity={0.9}
+        color={connected.color}
+        opacity={connected.opacity}
       />
       {selectedNodeIdx !== null && (
         <EdgeGroup
           positions={disconnectedPositions}
-          color="#444444"
-          opacity={0.4}
+          color={disconnected.color}
+          opacity={disconnected.opacity}
         />
       )}
     </>

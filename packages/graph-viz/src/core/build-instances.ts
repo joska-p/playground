@@ -1,14 +1,15 @@
 import * as THREE from 'three';
 import type { GraphNode } from '../data/graphData.schema';
+import { CONFIG } from './config.ts';
 
-const DIM_COLOR = new THREE.Color(0x333333);
-const WHITE = new THREE.Color(0xffffff);
+const DIM_COLOR = new THREE.Color(CONFIG.nodes.dimColor);
+const HIGHLIGHT_COLOR = new THREE.Color(CONFIG.nodes.highlightColor);
 const dummy = new THREE.Object3D();
 const tmpColor = new THREE.Color();
 
 export function getNodeSize(node: GraphNode): number {
   const degree = node.inDegree + node.outDegree;
-  return Math.log(degree + 1) * 0.3 + 0.8;
+  return Math.log(degree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase;
 }
 
 export function writeInstanceData(
@@ -22,7 +23,7 @@ export function writeInstanceData(
   for (const globalIdx of globalIndices) {
     const node = nodes[globalIdx];
     const isVisible = visibleCommunities.has(node.community);
-    const scale = isVisible ? getNodeSize(node) : 0.001;
+    const scale = isVisible ? getNodeSize(node) : CONFIG.nodes.hiddenScale;
 
     dummy.position.set(node.x, node.y, node.z);
     dummy.scale.setScalar(scale);
@@ -34,7 +35,7 @@ export function writeInstanceData(
     } else {
       tmpColor.set(node.color);
       if (globalIdx === selectedNodeIdx) {
-        tmpColor.lerp(WHITE, 0.4);
+        tmpColor.lerp(HIGHLIGHT_COLOR, CONFIG.nodes.highlightLerp);
       }
     }
     mesh.setColorAt(localIdx, tmpColor);

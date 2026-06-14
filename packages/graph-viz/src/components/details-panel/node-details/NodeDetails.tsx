@@ -1,4 +1,5 @@
 import { Badge } from '@repo/ui/Badge';
+import { CONFIG } from '../../../core/config.ts';
 import type { GraphNode } from '../../../data/graphData.schema';
 import {
   useCommunities,
@@ -8,7 +9,7 @@ import {
 import { getConnections } from '../utils';
 import { ConnectionRow } from './ConnectionRow';
 
-const MAX_CONNECTIONS_SHOWN = 100;
+const MAX_CONNECTIONS_SHOWN = CONFIG.ui.maxConnectionsShown;
 
 function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
   const nodes = useNodes();
