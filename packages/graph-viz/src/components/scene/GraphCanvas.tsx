@@ -20,7 +20,7 @@ function GraphCanvas({ data }: GraphCanvasProps) {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 1200], far: 5000 }}
+      camera={{ position: [0, 0, 800], far: 5000 }}
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
       onPointerMissed={() => {

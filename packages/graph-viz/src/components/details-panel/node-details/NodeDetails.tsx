@@ -3,7 +3,7 @@ import type { GraphLink, GraphNode } from '../../../data/graphData.types';
 import { getConnections } from '../utils';
 import { ConnectionRow } from './ConnectionRow';
 
-const MAX_CONNECTIONS_SHOWN = 10;
+const MAX_CONNECTIONS_SHOWN = 100;
 
 function NodeDetails({
   node,

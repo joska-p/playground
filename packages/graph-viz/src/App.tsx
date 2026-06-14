@@ -1,4 +1,5 @@
 import { Sidebar } from '@repo/ui/Sidebar';
+import { ErrorBoundary, getErrorMessage } from 'react-error-boundary';
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
 import { GraphCanvas } from './components/scene/GraphCanvas.tsx';
@@ -9,24 +10,37 @@ const data = rawData as unknown as GraphData;
 
 function App() {
   return (
-    <Sidebar
-      mobilePosition="bottom"
-      desktopPosition="right"
-      variant="ghost"
-      className="bg-background text-foreground min-h-screen"
+    <ErrorBoundary
+      fallbackRender={({ error }) => (
+        <div role="alert">
+          <p>Something went wrong:</p>
+          <pre>{getErrorMessage(error)}</pre>
+        </div>
+      )}
+      onError={(error, info) => {
+        console.log('Error', error);
+        console.log('Info', info);
+      }}
     >
-      <Sidebar.Main>
-        <GraphCanvas data={data} />
-      </Sidebar.Main>
+      <Sidebar
+        mobilePosition="bottom"
+        desktopPosition="right"
+        variant="ghost"
+        className="bg-background text-foreground min-h-screen"
+      >
+        <Sidebar.Main>
+          <GraphCanvas data={data} />
+        </Sidebar.Main>
 
-      <Sidebar.Panel className="space-y-4 p-4">
-        <DetailsPanel
-          nodes={data.nodes}
-          links={data.links}
-        />
-        <FilterControls nodes={data.nodes} />
-      </Sidebar.Panel>
-    </Sidebar>
+        <Sidebar.Panel className="space-y-4 p-4">
+          <DetailsPanel
+            nodes={data.nodes}
+            links={data.links}
+          />
+          <FilterControls nodes={data.nodes} />
+        </Sidebar.Panel>
+      </Sidebar>
+    </ErrorBoundary>
   );
 }
 

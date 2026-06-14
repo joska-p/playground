@@ -92,7 +92,7 @@ function FilterControls({ nodes }: FilterControlsProps) {
                   <span className="flex-1 truncate">Group {c.id}</span>
                   <Badge
                     variant="ghost"
-                    className="px-1.5 py-0 font-mono text-[10px]"
+                    className="px-1.5 py-0 font-mono text-xs"
                   >
                     {c.count}
                   </Badge>
