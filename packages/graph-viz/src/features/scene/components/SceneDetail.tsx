@@ -3,7 +3,7 @@ import {
   computeConnectedNodeIndices,
   computeSearchHighlights,
   findNodePosition
-} from '../../../core/utils/searchUtils';
+} from '../../../utils/searchUtils';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
 import { NodeLabel } from '../../annotation/components/NodeLabel';
@@ -14,6 +14,7 @@ import { GraphEdges } from '../../graph/components/GraphEdges';
 import { GraphNodes } from '../../graph/components/GraphNodes';
 import { HighlightedEdges } from '../../graph/components/HighlightedEdges';
 import { useDetailData } from '../hooks/useDetailData';
+import { useFilteredByEntityType } from '../hooks/useFilteredByEntityType';
 
 type SceneDetailProps = {
   selectedCommunityId: number;
@@ -24,8 +25,8 @@ type SceneDetailProps = {
  * file-type indicators, and cross-community links in a compact,
  * normalized coordinate space.
  *
- * All derived data is delegated to the useDetailData hook and
- * pure utility functions — no useMemo wrappers needed (React 19).
+ * All derived data is delegated to focused hooks and pure utility
+ * functions — no useMemo wrappers needed (React 19).
  */
 function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
   const graphData = useDataStore((s) => s.graphData);
@@ -56,48 +57,7 @@ function SceneDetail({ selectedCommunityId }: SceneDetailProps) {
     filteredDegrees,
     filteredNodeIndex,
     filteredLinks
-  } = (() => {
-    if (!detailData || !entityTypeFilter) {
-      return {
-        filteredNodes: detailData?.nodes ?? [],
-        filteredPositions: detailData?.positions ?? new Float32Array(0),
-        filteredDegrees: detailData?.degrees ?? new Float32Array(0),
-        filteredNodeIndex: detailData?.nodeIndex ?? new Map(),
-        filteredLinks: detailData?.links ?? []
-      };
-    }
-    const keep: number[] = [];
-    for (let i = 0; i < detailData.nodes.length; i++) {
-      if (detailData.nodes[i]!.entity_type === entityTypeFilter) {
-        keep.push(i);
-      }
-    }
-    const n = keep.length;
-    const pos = new Float32Array(n * 3);
-    const deg = new Float32Array(n);
-    const nodes: typeof detailData.nodes = [];
-    const idx = new Map<string, number>();
-    for (let j = 0; j < n; j++) {
-      const origI = keep[j]!;
-      pos[j * 3] = detailData.positions[origI * 3]!;
-      pos[j * 3 + 1] = detailData.positions[origI * 3 + 1]!;
-      pos[j * 3 + 2] = detailData.positions[origI * 3 + 2]!;
-      deg[j] = detailData.degrees[origI]!;
-      nodes.push(detailData.nodes[origI]!);
-      idx.set(detailData.nodes[origI]!.id, j);
-    }
-    // Only keep links where both endpoints are in the filtered set
-    const links = detailData.links.filter(
-      (l) => idx.has(l.source) && idx.has(l.target)
-    );
-    return {
-      filteredNodes: nodes,
-      filteredPositions: pos,
-      filteredDegrees: deg,
-      filteredNodeIndex: idx,
-      filteredLinks: links
-    };
-  })();
+  } = useFilteredByEntityType(detailData, entityTypeFilter);
 
   // ── Search highlight indices within this detail subset ──
   const searchHighlightIndices = (() => {

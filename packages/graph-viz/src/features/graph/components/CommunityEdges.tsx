@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { communityEdge } from '../../../config';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
@@ -34,6 +35,15 @@ function CommunityEdges({ visibleIds }: CommunityEdgesProps) {
     communityEdge.minCount,
     communityEdge.coupling.tierThresholds
   );
+
+  // Dispose geometries when they are replaced or the component unmounts
+  useEffect(() => {
+    return () => {
+      for (const tier of [0, 1, 2] as Tier[]) {
+        geometries?.[tier]?.geometry.dispose();
+      }
+    };
+  }, [geometries]);
 
   if (!hasEdges) return null;
 

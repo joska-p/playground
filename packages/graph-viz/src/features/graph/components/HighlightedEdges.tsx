@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { highlightedEdge } from '../../../config';
 import type { GraphLink } from '../../../types';
 import { buildHighlightedEdgeGeometry } from '../services/edgeGeometry';
@@ -25,6 +26,12 @@ function HighlightedEdges({
     nodeIndex,
     selectedNodeId
   );
+
+  useEffect(() => {
+    return () => {
+      geometry?.dispose();
+    };
+  }, [geometry]);
 
   if (count === 0) return null;
 

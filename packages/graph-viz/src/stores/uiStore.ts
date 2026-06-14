@@ -19,6 +19,7 @@ export const ENTITY_TYPES = [
   'function',
   'method',
   'type',
+  'constant',
   'file',
   'variable',
   'config-key',

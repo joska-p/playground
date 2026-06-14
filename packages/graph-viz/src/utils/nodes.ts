@@ -51,18 +51,15 @@ export type NodeHealth = 'active' | 'low-confidence' | 'isolated';
 
 export function classifyNodeHealth(
   nodeId: string,
-  links: GraphLink[],
+  linksByNode: Map<string, GraphLink[]>,
   degrees: Float32Array | null,
-  _nodeIndex: Map<string, number>,
   idx: number
 ): NodeHealth {
   const deg = degrees?.[idx] ?? 0;
   if (deg === 0) return 'isolated';
 
   // Check if all edges for this node are INFERRED
-  const nodeLinks = links.filter(
-    (l) => l.source === nodeId || l.target === nodeId
-  );
+  const nodeLinks = linksByNode.get(nodeId) ?? [];
   const allInferred =
     nodeLinks.length > 0 &&
     nodeLinks.every(

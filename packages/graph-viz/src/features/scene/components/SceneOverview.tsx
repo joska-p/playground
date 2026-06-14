@@ -2,7 +2,7 @@ import { communityLabel, smartLabel } from '../../../config';
 import {
   computeOverviewSearchHighlights,
   computeSmartLabels
-} from '../../../core/utils/searchUtils';
+} from '../../../utils/searchUtils';
 import { useDataStore } from '../../../stores/dataStore';
 import { useUiStore } from '../../../stores/uiStore';
 import { parseCommunityFilter } from '../../../utils/communities';

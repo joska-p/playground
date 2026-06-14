@@ -16,7 +16,7 @@ import type { CommunityData, EntityType, GraphNode } from '../types';
 const FUNCTION_RE = /^\w*\(\)$/;
 const METHOD_RE = /^\.\w+\(\)$/;
 const UPPER_CASE_RE = /^[A-Z][a-zA-Z0-9]+$/;
-const CONSTANT_RE = /^[A-Z][A-Z0-9_]+$/;
+const SCREAMING_CASE_RE = /^[A-Z][A-Z0-9_]+$/;
 const FILE_EXT_RE = /\.\w+$/;
 const PACKAGE_RE = /^@[\w/-]+$/;
 
@@ -29,7 +29,7 @@ export function classifyEntity(label: string): EntityType {
   if (FUNCTION_RE.test(label)) return 'function';
   if (PACKAGE_RE.test(label)) return 'package';
   if (FILE_EXT_RE.test(label) && label.includes('.')) return 'file';
-  if (CONSTANT_RE.test(label)) return 'variable';
+  if (SCREAMING_CASE_RE.test(label)) return 'constant';
   if (UPPER_CASE_RE.test(label)) return 'type';
   // Lower-case generic tokens like "name", "version", "scripts"
   if (/^[a-z][a-zA-Z0-9]*$/.test(label)) return 'config-key';
@@ -146,18 +146,19 @@ export function enrichNodes(nodes: GraphNode[]): void {
 
 /**
  * Build a human-readable label for a community from its children.
+ * Also returns the dominant package so callers avoid recomputing it.
  *
  * Strategy:
  *  1. Find the dominant package name
  *  2. Collect non-generic, non-file labels
- *  3. Take the top 3-5 most frequent meaningful terms
+ *  3. Take the top 3 most frequent meaningful terms
  *  4. Format as "Package — Term1, Term2, Term3"
  */
 export function buildCommunityLabel(
   communityId: number,
   nodeIndices: number[],
   nodes: GraphNode[]
-): string {
+): { label: string; dominantPackage: string } {
   const childLabels: string[] = [];
   const packageCounts = new Map<string, number>();
 
@@ -177,13 +178,15 @@ export function buildCommunityLabel(
   }
 
   // Dominant package
-  const dominantPkg =
+  const dominantPackage =
     [...packageCounts.entries()]
       .sort((a, b) => b[1] - a[1])
       .slice(0, 1)
       .map(([pkg]) => pkg)[0] ?? `C${communityId}`;
 
-  if (childLabels.length === 0) return dominantPkg;
+  if (childLabels.length === 0) {
+    return { label: dominantPackage, dominantPackage };
+  }
 
   // Count label frequency
   const freq = new Map<string, number>();
@@ -197,7 +200,10 @@ export function buildCommunityLabel(
     .slice(0, 3)
     .map(([label]) => label);
 
-  return `${dominantPkg} — ${topTerms.join(', ')}`;
+  return {
+    label: `${dominantPackage} — ${topTerms.join(', ')}`,
+    dominantPackage
+  };
 }
 
 /**
@@ -209,18 +215,12 @@ export function enrichCommunities(
   nodes: GraphNode[]
 ): void {
   for (const [cid, comm] of communities) {
-    comm.semantic_label = buildCommunityLabel(cid, comm.nodeIndices, nodes);
-
-    // Dominant package
-    const pkgCounts = new Map<string, number>();
-    for (const idx of comm.nodeIndices) {
-      const pkg = extractPackage(nodes[idx]!.source_file);
-      pkgCounts.set(pkg, (pkgCounts.get(pkg) ?? 0) + 1);
-    }
-    comm.dominant_package =
-      [...pkgCounts.entries()]
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 1)
-        .map(([pkg]) => pkg)[0] ?? 'unknown';
+    const { label, dominantPackage } = buildCommunityLabel(
+      cid,
+      comm.nodeIndices,
+      nodes
+    );
+    comm.semantic_label = label;
+    comm.dominant_package = dominantPackage;
   }
 }

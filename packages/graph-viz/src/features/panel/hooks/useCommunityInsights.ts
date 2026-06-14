@@ -12,7 +12,6 @@ import { computeGraphInsights } from '../services/insightsCalculator';
 export function useCommunityInsights(
   graphData: GraphData | null,
   degrees: Float32Array | null,
-  nodeIndex: Map<string, number>,
   communities: Map<number, CommunityData>,
   interCommunityEdges: Map<string, InterCommunityEdge>
 ): GraphInsights | null {
@@ -20,7 +19,6 @@ export function useCommunityInsights(
   return computeGraphInsights(
     graphData,
     degrees,
-    nodeIndex,
     communities,
     interCommunityEdges
   );

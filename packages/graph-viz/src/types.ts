@@ -3,6 +3,7 @@ export type EntityType =
   | 'function'
   | 'method'
   | 'type'
+  | 'constant'
   | 'variable'
   | 'config-key'
   | 'package'

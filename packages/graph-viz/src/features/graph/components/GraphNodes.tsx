@@ -33,13 +33,12 @@ function GraphNodes({
     }
   }
 
-  // Fallback store reads for rawLinks and nodeIndex (global data, not component logic)
+  // Fallback store read for rawLinks (global data, not component logic)
   const rawLinks = useDataStore((s) => s.graphData?.links ?? []);
   const allLinks = linksProp ?? rawLinks;
-  const nodeIndex = useDataStore((s) => s.nodeIndex);
 
   // Delegate health classification to the hook
-  const healthGroups = useNodeHealthGroups(nodes, allLinks, degrees, nodeIndex);
+  const healthGroups = useNodeHealthGroups(nodes, allLinks, degrees);
 
   return (
     <>

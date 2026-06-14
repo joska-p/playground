@@ -1,4 +1,4 @@
-import type { GraphNode } from '../../types';
+import type { GraphNode } from '../types';
 
 /**
  * Compute search-highlighted node indices for a detail view (within a subset of nodes).

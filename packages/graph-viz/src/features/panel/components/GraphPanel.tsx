@@ -61,7 +61,6 @@ function GraphPanel() {
   const insights = useCommunityInsights(
     graphData,
     degrees,
-    nodeIndex,
     communities,
     interCommunityEdges
   );
@@ -356,8 +355,6 @@ function GraphPanel() {
               {/* Selected node info */}
               {selectedNode &&
                 (() => {
-                  const nodeIndex = useDataStore.getState().nodeIndex;
-                  const degrees = useDataStore.getState().degrees;
                   const idx = nodeIndex.get(selectedNode.id);
                   const deg = idx !== undefined && degrees ? degrees[idx] : 0;
                   const community = communities.get(selectedNode.community);

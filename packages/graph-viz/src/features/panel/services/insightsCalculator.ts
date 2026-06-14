@@ -22,7 +22,6 @@ export type GraphInsights = {
 export function computeGraphInsights(
   graphData: GraphData,
   degrees: Float32Array,
-  nodeIndex: Map<string, number>,
   communities: Map<number, CommunityData>,
   interCommunityEdges: Map<string, InterCommunityEdge>
 ): GraphInsights | null {
@@ -45,15 +44,21 @@ export function computeGraphInsights(
       ? ((actualPairs / totalPossiblePairs) * 100).toFixed(1)
       : '0.0';
 
-  // Health counts
+  // Health counts — build adjacency map once for O(N + L) classification
   let isolated = 0;
   let lowConfidence = 0;
+  const linksByNode = new Map<string, typeof graphData.links>();
+  for (const l of graphData.links) {
+    if (!linksByNode.has(l.source)) linksByNode.set(l.source, []);
+    if (!linksByNode.has(l.target)) linksByNode.set(l.target, []);
+    linksByNode.get(l.source)!.push(l);
+    linksByNode.get(l.target)!.push(l);
+  }
   for (let i = 0; i < graphData.nodes.length; i++) {
     const health = classifyNodeHealth(
       graphData.nodes[i]!.id,
-      graphData.links,
+      linksByNode,
       degrees,
-      nodeIndex,
       i
     );
     if (health === 'isolated') isolated++;

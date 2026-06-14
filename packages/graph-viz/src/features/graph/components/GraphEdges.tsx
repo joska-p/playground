@@ -1,4 +1,6 @@
 import type {} from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import type { BufferGeometry } from 'three';
 import { graphEdge } from '../../../config';
 import { useUiStore } from '../../../stores/uiStore';
 import type { GraphLink } from '../../../types';
@@ -12,6 +14,9 @@ type GraphEdgesProps = {
 
 function GraphEdges({ positions, links, nodeIndex }: GraphEdgesProps) {
   const hiddenRelationTypes = useUiStore((s) => s.hiddenRelationTypes);
+
+  const confidentRef = useRef<BufferGeometry | null>(null);
+  const inferredRef = useRef<BufferGeometry | null>(null);
 
   // Filter to valid links, then apply relation-type filter
   const validLinks = links.filter((l) => {
@@ -30,6 +35,16 @@ function GraphEdges({ positions, links, nodeIndex }: GraphEdgesProps) {
     positions,
     nodeIndex
   );
+
+  // Dispose previous geometries before replacing them
+  useEffect(() => {
+    confidentRef.current = confidentGeometry;
+    inferredRef.current = inferredGeometry;
+    return () => {
+      confidentGeometry?.dispose();
+      inferredGeometry?.dispose();
+    };
+  }, [confidentGeometry, inferredGeometry]);
 
   return (
     <>
