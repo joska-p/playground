@@ -1,4 +1,5 @@
 import { IconArrowDiagonal } from './components/IconArrowDiagonal';
+import { IconArrowLeft } from './components/IconArrowLeft';
 import { IconArrowRight } from './components/IconArrowRight';
 import { IconAutoma } from './components/IconAutoma';
 import { IconBluesky } from './components/IconBluesky';
@@ -42,6 +43,7 @@ import { IconX } from './components/IconX';
 export const iconMap = {
   'arrow-diagonal': IconArrowDiagonal,
   'arrow-right': IconArrowRight,
+  'arrow-left': IconArrowLeft,
   automa: IconAutoma,
   bluesky: IconBluesky,
   book: IconBook,

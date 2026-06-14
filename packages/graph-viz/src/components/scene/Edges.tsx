@@ -1,9 +1,9 @@
+import type { GraphLink, GraphNode } from '../../data/graphData.types';
 import {
   useEdgesVisible,
   useSelectedNodeIdx,
   useVisibleCommunities
-} from '../stores/graph/selectors';
-import type { GraphLink, GraphNode } from './graphData.types';
+} from '../../stores/graph/selectors';
 
 type EdgesProps = {
   nodes: GraphNode[];

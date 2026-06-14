@@ -1,12 +1,12 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { selectNode } from '../stores/graph/actions';
+import type { GraphNode } from '../../data/graphData.types';
+import { selectNode } from '../../stores/graph/actions';
 import {
   useSelectedNodeIdx,
   useVisibleCommunities
-} from '../stores/graph/selectors';
-import type { GraphNode } from './graphData.types';
+} from '../../stores/graph/selectors';
 
 const PALETTE = [
   '#4cc9f0',

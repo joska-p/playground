@@ -1,10 +1,10 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useEffect } from 'react';
-import { initCommunities, selectNode } from '../stores/graph/actions';
+import type { GraphData } from '../../data/graphData.types.ts';
+import { initCommunities, selectNode } from '../../stores/graph/actions';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
-import type { GraphData } from './graphData.types';
 
 type GraphCanvasProps = {
   data: GraphData;
@@ -21,7 +21,7 @@ function GraphCanvas({ data }: GraphCanvasProps) {
   return (
     <Canvas
       camera={{ position: [0, 0, 1200], far: 5000 }}
-      style={{ width: '100%', height: '100%', display: 'block' }}
+      className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
       onPointerMissed={() => {
         selectNode(null);

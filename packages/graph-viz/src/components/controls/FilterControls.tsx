@@ -1,18 +1,17 @@
 import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@repo/ui/Card';
 import { Switch } from '@repo/ui/Switch';
+import type { GraphNode } from '../../data/graphData.types';
 import {
   hideAllCommunities,
   showAllCommunities,
   toggleCommunity,
   toggleEdges
-} from '../stores/graph/actions';
+} from '../../stores/graph/actions';
 import {
   useEdgesVisible,
   useVisibleCommunities
-} from '../stores/graph/selectors';
-import type { GraphNode } from './graphData.types';
+} from '../../stores/graph/selectors';
 
 type FilterControlsProps = {
   nodes: GraphNode[];
@@ -32,12 +31,9 @@ function FilterControls({ nodes }: FilterControlsProps) {
     .map(([id, count]) => ({ id, count }));
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Filters</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {/* Edge visibility toggle */}
+    <>
+      <h2 className="text-base">Filters</h2>
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
           <Switch
             checked={edgesVisible}
@@ -47,7 +43,6 @@ function FilterControls({ nodes }: FilterControlsProps) {
           />
         </div>
 
-        {/* Community filter */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground text-xs">
@@ -106,8 +101,8 @@ function FilterControls({ nodes }: FilterControlsProps) {
             })}
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </>
   );
 }
 

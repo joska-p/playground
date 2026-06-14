@@ -2,11 +2,7 @@
  * Stage 4: Map simulation results back to the output schema
  * and compute community centroids.
  */
-import type {
-  GraphData,
-  GraphLink,
-  GraphNode
-} from '../../components/graphData.types.js';
+import type { GraphData, GraphLink, GraphNode } from '../graphData.types.js';
 import type { SimLink, SimNode } from './sim-types.js';
 
 // ── Result ───────────────────────────────────────────────────────────────────
