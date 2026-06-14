@@ -1,8 +1,8 @@
-import { useRef, useEffect, useCallback, type FC } from 'react';
 import { useThree } from '@react-three/fiber';
+import { useCallback, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import type { GraphNode } from './useGraphData.ts';
 import { useGraphStore } from '../store/graphStore.ts';
+import type { GraphNode } from './useGraphData.ts';
 
 const GOLDEN_ANGLE = 0.618033988749895;
 const colorCache = new Map<number, THREE.Color>();
@@ -25,11 +25,11 @@ function getSize(node: GraphNode): number {
 
 const DIM_COLOR = new THREE.Color(0x333333);
 
-interface NodesProps {
+type NodesProps = {
   nodes: GraphNode[];
-}
+};
 
-const Nodes: FC<NodesProps> = ({ nodes }) => {
+function Nodes({ nodes }: NodesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useRef(new THREE.Object3D());
   const tmpColor = useRef(new THREE.Color());
@@ -87,7 +87,7 @@ const Nodes: FC<NodesProps> = ({ nodes }) => {
       const nativeEvent = (event as any).nativeEvent ?? event;
       const pointer = new THREE.Vector2(
         ((nativeEvent.clientX ?? 0) / window.innerWidth) * 2 - 1,
-        -((nativeEvent.clientY ?? 0) / window.innerHeight) * 2 + 1,
+        -((nativeEvent.clientY ?? 0) / window.innerHeight) * 2 + 1
       );
 
       raycaster.setFromCamera(pointer, camera);
@@ -105,7 +105,7 @@ const Nodes: FC<NodesProps> = ({ nodes }) => {
         selectNode(null);
       }
     },
-    [nodes, selectNode, selectedNodeIdx, visibleCommunities, raycaster, camera],
+    [nodes, selectNode, selectedNodeIdx, visibleCommunities, raycaster, camera]
   );
 
   return (
@@ -119,6 +119,6 @@ const Nodes: FC<NodesProps> = ({ nodes }) => {
       <meshStandardMaterial toneMapped={false} />
     </instancedMesh>
   );
-};
+}
 
-export default Nodes;
+export { Nodes };

@@ -1,19 +1,14 @@
-import { type FC, useMemo } from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@repo/ui/Card';
-import { Switch } from '@repo/ui/Switch';
-import { Button } from '@repo/ui/Button';
 import { Badge } from '@repo/ui/Badge';
+import { Button } from '@repo/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@repo/ui/Card';
+import { Switch } from '@repo/ui/Switch';
+import { useMemo } from 'react';
 import { useGraphStore } from '../store/graphStore';
 import type { GraphNode } from './useGraphData';
 
-interface FilterControlsProps {
+type FilterControlsProps = {
   nodes: GraphNode[];
-}
+};
 
 /** Deterministic hue for each community — mirrors Nodes.tsx golden angle logic */
 const GOLDEN_ANGLE = 0.618033988749895;
@@ -30,7 +25,7 @@ function communityColor(communityId: number): string {
   return css;
 }
 
-const FilterControls: FC<FilterControlsProps> = ({ nodes }) => {
+function FilterControls({ nodes }: FilterControlsProps) {
   const edgesVisible = useGraphStore((s) => s.edgesVisible);
   const toggleEdges = useGraphStore((s) => s.toggleEdges);
   const visibleCommunities = useGraphStore((s) => s.visibleCommunities);
@@ -50,7 +45,7 @@ const FilterControls: FC<FilterControlsProps> = ({ nodes }) => {
   }, [nodes]);
 
   return (
-    <Card variant="secondary" className="w-80 backdrop-blur-md bg-secondary/80 border-secondary/30">
+    <Card>
       <CardHeader>
         <CardTitle className="text-base">Filters</CardTitle>
       </CardHeader>
@@ -68,7 +63,7 @@ const FilterControls: FC<FilterControlsProps> = ({ nodes }) => {
         {/* Community filter */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">
+            <span className="text-muted-foreground text-xs">
               Communities ({visibleCommunities.size}/{communities.length})
             </span>
             <div className="flex gap-1">
@@ -91,28 +86,30 @@ const FilterControls: FC<FilterControlsProps> = ({ nodes }) => {
             </div>
           </div>
 
-          <div className="max-h-60 overflow-y-auto space-y-0.5 pr-1">
+          <div className="max-h-60 space-y-0.5 overflow-y-auto pr-1">
             {communities.map((c) => {
               const isActive = visibleCommunities.has(c.id);
               return (
                 <button
                   key={c.id}
                   onClick={() => toggleCommunity(c.id)}
-                  className={`
-                    flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs
-                    transition-colors cursor-pointer
-                    ${isActive
+                  className={`flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors ${
+                    isActive
                       ? 'bg-background/50 text-foreground'
-                      : 'bg-transparent text-muted-foreground/50'
-                    }
-                  `}
+                      : 'text-muted-foreground/50 bg-transparent'
+                  } `}
                 >
                   <span
-                    style={{ '--community-color': c.color } as React.CSSProperties}
-                    className={`h-2.5 w-2.5 shrink-0 rounded-full ${isActive ? 'bg-(--community-color)' : 'border-[1.5px] border-currentColor bg-transparent'}`}
+                    style={
+                      { '--community-color': c.color } as React.CSSProperties
+                    }
+                    className={`h-2.5 w-2.5 shrink-0 rounded-full ${isActive ? 'bg-(--community-color)' : 'border-currentColor border-[1.5px] bg-transparent'}`}
                   />
                   <span className="flex-1 truncate">Group {c.id}</span>
-                  <Badge variant="ghost" className="font-mono text-[10px] px-1.5 py-0">
+                  <Badge
+                    variant="ghost"
+                    className="px-1.5 py-0 font-mono text-[10px]"
+                  >
                     {c.count}
                   </Badge>
                 </button>
@@ -123,6 +120,6 @@ const FilterControls: FC<FilterControlsProps> = ({ nodes }) => {
       </CardContent>
     </Card>
   );
-};
+}
 
-export default FilterControls;
+export { FilterControls };

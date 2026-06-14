@@ -171,6 +171,24 @@ function main() {
   simulation.stop();
   console.log('Simulation finished (300 ticks)');
 
+  // 4.5 Normalise coordinates to max range [-500, 500] for predictable rendering
+  let maxCoord = 0;
+  for (const n of simNodes) {
+    if (n.x !== undefined && Math.abs(n.x) > maxCoord) maxCoord = Math.abs(n.x);
+    if (n.y !== undefined && Math.abs(n.y) > maxCoord) maxCoord = Math.abs(n.y);
+    if (n.z !== undefined && Math.abs(n.z) > maxCoord) maxCoord = Math.abs(n.z);
+  }
+  const TARGET_MAX = 500;
+  if (maxCoord > 0) {
+    const scale = TARGET_MAX / maxCoord;
+    for (const n of simNodes) {
+      if (n.x !== undefined) n.x *= scale;
+      if (n.y !== undefined) n.y *= scale;
+      if (n.z !== undefined) n.z *= scale;
+    }
+    console.log(`Normalised coordinates (scale factor: ${scale.toFixed(4)})`);
+  }
+
   // 5. Build optimised payload
   const processedNodes: ProcessedNode[] = simNodes.map((n) => ({
     id: n.id,

@@ -1,10 +1,10 @@
-import { type FC, useState } from 'react';
-import rawData from './data/processed-graph.json' with { type: 'json' };
-import type { GraphData } from './components/useGraphData.ts';
-import GraphCanvas from './components/GraphCanvas.tsx';
-import DetailsPanel from './components/DetailsPanel.tsx';
-import FilterControls from './components/FilterControls.tsx';
 import { Button } from '@repo/ui/Button';
+import { type FC, useState } from 'react';
+import { DetailsPanel } from './components/DetailsPanel.tsx';
+import { FilterControls } from './components/FilterControls.tsx';
+import { GraphCanvas } from './components/GraphCanvas.tsx';
+import type { GraphData } from './components/useGraphData.ts';
+import rawData from './data/processed-graph.json' with { type: 'json' };
 import { useGraphStore } from './store/graphStore.ts';
 
 const data = rawData as unknown as GraphData;
@@ -14,7 +14,7 @@ const App: FC = () => {
   const selectedNodeIdx = useGraphStore((s) => s.selectedNodeIdx);
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-[#1a1a2e]">
+    <div className="bg-background text-foreground relative h-screen w-screen overflow-hidden">
       {/* 3D Canvas — fills the entire viewport */}
       <div className="absolute inset-0">
         <GraphCanvas data={data} />
@@ -24,9 +24,9 @@ const App: FC = () => {
       <div className="pointer-events-none absolute inset-0 z-10">
         {/* Toggle button — always visible */}
         <Button
-          variant="secondary"
+          variant="primary"
           size="sm"
-          className="pointer-events-auto absolute left-4 top-4 backdrop-blur-md bg-secondary/80 border-secondary/30"
+          className="bg-primary/80 border-primary/30 text-primary-foreground pointer-events-auto absolute top-4 left-4 backdrop-blur-md"
           onClick={() => setPanelOpen((p) => !p)}
         >
           <svg
@@ -47,8 +47,11 @@ const App: FC = () => {
 
         {/* Side panel — slides in from the right */}
         {panelOpen && (
-          <div className="pointer-events-auto absolute right-4 top-14 bottom-4 flex flex-col gap-4 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary/30 scrollbar-track-transparent">
-            <DetailsPanel nodes={data.nodes} links={data.links} />
+          <div className="scrollbar-thumb-primary/30 pointer-events-auto absolute top-14 right-4 bottom-4 flex scrollbar-thin scrollbar-track-transparent flex-col gap-4 overflow-y-auto">
+            <DetailsPanel
+              nodes={data.nodes}
+              links={data.links}
+            />
             <FilterControls nodes={data.nodes} />
           </div>
         )}
@@ -72,16 +75,28 @@ function QuickNodeBadge({ nodes }: { nodes: GraphData['nodes'] }) {
   if (!node) return null;
 
   return (
-    <div className="flex items-center gap-3 rounded-full border border-secondary/30 bg-secondary/80 px-4 py-2 backdrop-blur-md shadow-lg">
-      <span className="text-sm font-semibold truncate max-w-60">{node.label}</span>
+    <div className="border-primary/30 bg-primary/80 text-primary-foreground flex items-center gap-3 rounded-full border px-4 py-2 shadow-lg backdrop-blur-md">
+      <span className="max-w-60 truncate text-sm font-semibold">
+        {node.label}
+      </span>
       <Button
         variant="ghost"
         size="icon"
         className="h-6 w-6"
         onClick={() => selectNode(null)}
       >
-        <svg className="h-3 w-3" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" />
+        <svg
+          className="h-3 w-3"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+          />
         </svg>
       </Button>
     </div>
