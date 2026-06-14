@@ -5,12 +5,11 @@
   "type": "module",
   "exports": {
     ".": "./src/App.tsx",
-    "./styles": "./src/styles/global.css",
-    "./theme": "./src/styles/theme.css"
+    "./styles": "./src/styles/global.css"
   },
   "scripts": {
     "dev": "vite --host",
-    "prepare-data": "npx tsx src/data/prepare.ts",
+    "prepare-data": "tsx src/data/prepare.ts",
     "build": "pnpm prepare-data && tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
@@ -48,6 +47,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:",
+    "tsx": "^4.22.4",
     "typescript": "catalog:",
     "vite": "catalog:"
   }
