@@ -3,7 +3,7 @@
  * Composes the four stages: parse → simulate → normalise → build output.
  * Returns `{ result, stats }` — no I/O, no side effects.
  */
-import type { GraphData } from './graphData.types.js';
+import type { GraphData } from './graphData.schema.js';
 import { buildOutput } from './stages/build-output.js';
 import {
   normalizeCoords,

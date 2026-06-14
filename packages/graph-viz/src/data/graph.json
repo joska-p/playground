@@ -6473,19 +6473,19 @@
       "norm_label": "palette"
     },
     {
-      "label": "graphData.types.ts",
+      "label": "graphData.schema.ts",
       "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L1",
       "_origin": "ast",
       "id": "data_graphdata_types",
       "community": 17,
-      "norm_label": "graphdata.types.ts"
+      "norm_label": "graphData.schema.ts"
     },
     {
       "label": "GraphNode",
       "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L1",
       "_origin": "ast",
       "id": "data_graphdata_types_graphnode",
@@ -6495,7 +6495,7 @@
     {
       "label": "GraphLink",
       "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L14",
       "_origin": "ast",
       "id": "data_graphdata_types_graphlink",
@@ -6505,7 +6505,7 @@
     {
       "label": "GraphData",
       "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L20",
       "_origin": "ast",
       "id": "data_graphdata_types_graphdata",
@@ -43105,7 +43105,7 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L19",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -43115,7 +43115,7 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L13",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -43125,7 +43125,7 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/graphData.types.ts",
+      "source_file": "packages/graph-viz/src/data/graphData.schema.ts",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,

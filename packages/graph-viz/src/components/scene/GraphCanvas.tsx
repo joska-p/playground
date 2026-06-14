@@ -2,23 +2,21 @@ import { OrbitControls } from '@react-three/drei';
 import { Canvas, type RootState } from '@react-three/fiber';
 import { useEffect } from 'react';
 import * as THREE from 'three';
-import type { GraphData } from '../../data/graphData.types.ts';
-import { initCommunities, selectNode } from '../../stores/graph/actions';
+import { useCommunities } from '../../stores/content/selectors';
+import { initCommunities, selectNode } from '../../stores/view/actions';
 import { CommunityLabels } from './CommunityLabels.tsx';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
 
-type GraphCanvasProps = {
-  data: GraphData;
-};
+function GraphCanvas() {
+  const communities = useCommunities();
 
-function GraphCanvas({ data }: GraphCanvasProps) {
   useEffect(() => {
-    const communityIds = data.communities
+    const communityIds = communities
       .map((c) => c.id)
       .sort((a, b) => a - b);
     initCommunities(communityIds);
-  }, [data.communities]);
+  }, [communities]);
 
   return (
     <Canvas
@@ -45,12 +43,9 @@ function GraphCanvas({ data }: GraphCanvasProps) {
         position={[-1, -1, -1]}
         intensity={0.3}
       />
-      <Nodes nodes={data.nodes} />
-      <CommunityLabels communities={data.communities} />
-      <Edges
-        nodes={data.nodes}
-        links={data.links}
-      />
+      <Nodes />
+      <CommunityLabels />
+      <Edges />
       <OrbitControls
         enableDamping
         dampingFactor={0.1}

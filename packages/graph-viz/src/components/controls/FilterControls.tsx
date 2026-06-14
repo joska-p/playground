@@ -1,31 +1,27 @@
 import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
 import { Switch } from '@repo/ui/Switch';
-import type { GraphData, GraphNode } from '../../data/graphData.types';
+import { useNodes, useCommunities } from '../../stores/content/selectors';
 import {
   hideAllCommunities,
   showAllCommunities,
   toggleCommunity,
   toggleEdges,
   toggleLabels
-} from '../../stores/graph/actions';
+} from '../../stores/view/actions';
 import {
   useEdgesVisible,
   useLabelsVisible,
   useVisibleCommunities
-} from '../../stores/graph/selectors';
+} from '../../stores/view/selectors';
 
-type FilterControlsProps = {
-  nodes: GraphNode[];
-  communities: GraphData['communities'];
-};
-
-function FilterControls({ nodes, communities }: FilterControlsProps) {
+function FilterControls() {
+  const nodes = useNodes();
+  const communities = useCommunities();
   const edgesVisible = useEdgesVisible();
   const labelsVisible = useLabelsVisible();
   const visibleCommunities = useVisibleCommunities();
 
-  // Extract unique community IDs sorted, with node counts, colors, and names
   const counts = new Map<number, number>();
   const communityColor = new Map<number, string>();
   const communityName = new Map<number, string>();

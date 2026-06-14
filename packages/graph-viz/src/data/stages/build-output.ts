@@ -1,5 +1,5 @@
-import { PALETTE } from '../../config.js';
-import type { GraphData, GraphLink, GraphNode } from '../graphData.types.js';
+import { PALETTE } from '../../core/config.js';
+import type { GraphData, GraphLink, GraphNode } from '../graphData.schema.js';
 import type { SimLink, SimNode } from './sim-types.js';
 
 export type BuildOutputResult = {

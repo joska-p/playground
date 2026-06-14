@@ -1,14 +1,10 @@
-import type { GraphLink, GraphNode } from '../../data/graphData.types';
+import { computeEdgeBuffers } from '../../core/compute-edges.ts';
+import { useLinks, useNodes } from '../../stores/content/selectors';
 import {
   useEdgesVisible,
   useSelectedNodeIdx,
   useVisibleCommunities
-} from '../../stores/graph/selectors';
-
-type EdgesProps = {
-  nodes: GraphNode[];
-  links: GraphLink[];
-};
+} from '../../stores/view/selectors';
 
 type EdgeGroupProps = {
   positions: Float32Array;
@@ -36,46 +32,20 @@ function EdgeGroup({ positions, color, opacity }: EdgeGroupProps) {
   );
 }
 
-const EMPTY = new Float32Array();
-
-function Edges({ nodes, links }: EdgesProps) {
+function Edges() {
+  const nodes = useNodes();
+  const links = useLinks();
   const edgesVisible = useEdgesVisible();
   const visibleCommunities = useVisibleCommunities();
   const selectedNodeIdx = useSelectedNodeIdx();
 
-  let connectedPositions = EMPTY;
-  let disconnectedPositions = EMPTY;
-
-  if (edgesVisible) {
-    const connArr: number[] = [];
-    const discArr: number[] = [];
-
-    for (let i = 0; i < links.length; i++) {
-      const link = links[i];
-      const source = nodes[link.sourceIdx];
-      const target = nodes[link.targetIdx];
-
-      if (
-        !visibleCommunities.has(source.community) ||
-        !visibleCommunities.has(target.community)
-      ) {
-        continue;
-      }
-
-      const isConnected =
-        selectedNodeIdx !== null &&
-        (link.sourceIdx === selectedNodeIdx ||
-          link.targetIdx === selectedNodeIdx);
-
-      const buf = isConnected ? connArr : discArr;
-      buf.push(source.x, source.y, source.z, target.x, target.y, target.z);
-    }
-
-    connectedPositions = new Float32Array(connArr);
-    if (selectedNodeIdx !== null) {
-      disconnectedPositions = new Float32Array(discArr);
-    }
-  }
+  const { connectedPositions, disconnectedPositions } = computeEdgeBuffers(
+    nodes,
+    links,
+    edgesVisible,
+    visibleCommunities,
+    selectedNodeIdx
+  );
 
   return (
     <>

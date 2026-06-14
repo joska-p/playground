@@ -1,17 +1,14 @@
 import { Text } from '@react-three/drei';
 import { useMemo } from 'react';
 import * as THREE from 'three';
-import type { GraphData } from '../../data/graphData.types';
+import { useCommunities } from '../../stores/content/selectors';
 import {
   useLabelsVisible,
   useVisibleCommunities
-} from '../../stores/graph/selectors';
+} from '../../stores/view/selectors';
 
-type CommunityLabelsProps = {
-  communities: GraphData['communities'];
-};
-
-function CommunityLabels({ communities }: CommunityLabelsProps) {
+function CommunityLabels() {
+  const communities = useCommunities();
   const labelsVisible = useLabelsVisible();
   const visibleCommunities = useVisibleCommunities();
 

@@ -1,27 +1,19 @@
 import { Badge } from '@repo/ui/Badge';
-import type {
-  GraphData,
-  GraphLink,
-  GraphNode
-} from '../../../data/graphData.types';
+import type { GraphNode } from '../../../data/graphData.schema';
+import {
+  useCommunities,
+  useLinks,
+  useNodes
+} from '../../../stores/content/selectors';
 import { getConnections } from '../utils';
 import { ConnectionRow } from './ConnectionRow';
 
 const MAX_CONNECTIONS_SHOWN = 100;
 
-function NodeDetails({
-  node,
-  nodes,
-  links,
-  idx,
-  communities
-}: {
-  node: GraphNode;
-  nodes: GraphNode[];
-  links: GraphLink[];
-  idx: number;
-  communities?: GraphData['communities'];
-}) {
+function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
+  const nodes = useNodes();
+  const links = useLinks();
+  const communities = useCommunities();
   const { incoming, outgoing } = getConnections(nodes, links, idx);
   const total = incoming.length + outgoing.length;
   const shown = outgoing
@@ -36,15 +28,14 @@ function NodeDetails({
           <dt className="text-muted-foreground">Community</dt>
           <dd>
             <Badge variant="accent">{node.community}</Badge>
-            {communities &&
-              (() => {
-                const comm = communities.find((c) => c.id === node.community);
-                return comm ? (
-                  <span className="text-muted-foreground ml-1 text-xs">
-                    {comm.name}
-                  </span>
-                ) : null;
-              })()}
+            {(() => {
+              const comm = communities.find((c) => c.id === node.community);
+              return comm ? (
+                <span className="text-muted-foreground ml-1 text-xs">
+                  {comm.name}
+                </span>
+              ) : null;
+            })()}
           </dd>
           <dt className="text-muted-foreground">Type</dt>
           <dd>

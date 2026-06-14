@@ -1,19 +1,10 @@
-import type {
-  GraphData,
-  GraphLink,
-  GraphNode
-} from '../../data/graphData.types';
-import { useSelectedNodeIdx } from '../../stores/graph/selectors';
+import { useNodes } from '../../stores/content/selectors';
+import { useSelectedNodeIdx } from '../../stores/view/selectors';
 import { GraphOverview } from './graph-overview/GraphOverview';
 import { NodeDetails } from './node-details/NodeDetails';
 
-type DetailsPanelProps = {
-  nodes: GraphNode[];
-  links: GraphLink[];
-  communities: GraphData['communities'];
-};
-
-function DetailsPanel({ nodes, links, communities }: DetailsPanelProps) {
+function DetailsPanel() {
+  const nodes = useNodes();
   const selectedNodeIdx = useSelectedNodeIdx();
   const selectedNode = selectedNodeIdx !== null ? nodes[selectedNodeIdx] : null;
 
@@ -21,20 +12,12 @@ function DetailsPanel({ nodes, links, communities }: DetailsPanelProps) {
     return (
       <NodeDetails
         node={selectedNode}
-        nodes={nodes}
-        links={links}
         idx={selectedNodeIdx}
-        communities={communities}
       />
     );
   }
 
-  return (
-    <GraphOverview
-      nodes={nodes}
-      links={links}
-    />
-  );
+  return <GraphOverview />;
 }
 
 export { DetailsPanel };

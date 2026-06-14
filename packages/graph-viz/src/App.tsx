@@ -3,12 +3,26 @@ import { ErrorBoundary, getErrorMessage } from 'react-error-boundary';
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
 import { GraphCanvas } from './components/scene/GraphCanvas.tsx';
-import type { GraphData } from './data/graphData.types.ts';
+import { graphDataSchema } from './data/graphData.schema.ts';
 import rawData from './data/processed-graph.json' with { type: 'json' };
+import { initGraphData } from './stores/content/actions';
 
-const data = rawData as unknown as GraphData;
+const parseResult = graphDataSchema.safeParse(rawData);
+
+if (parseResult.success) {
+  initGraphData(parseResult.data);
+}
 
 function App() {
+  if (!parseResult.success) {
+    return (
+      <div role="alert">
+        <p>Invalid graph data:</p>
+        <pre className="whitespace-pre-wrap text-xs">{parseResult.error.toString()}</pre>
+      </div>
+    );
+  }
+
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => (
@@ -29,19 +43,12 @@ function App() {
         className="bg-background text-foreground min-h-screen"
       >
         <Sidebar.Main>
-          <GraphCanvas data={data} />
+          <GraphCanvas />
         </Sidebar.Main>
 
         <Sidebar.Panel className="w-100 space-y-4 p-4">
-          <DetailsPanel
-            nodes={data.nodes}
-            links={data.links}
-            communities={data.communities}
-          />
-          <FilterControls
-            nodes={data.nodes}
-            communities={data.communities}
-          />
+          <DetailsPanel />
+          <FilterControls />
         </Sidebar.Panel>
       </Sidebar>
     </ErrorBoundary>

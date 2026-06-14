@@ -1,4 +1,4 @@
-import type { GraphLink, GraphNode } from '../../data/graphData.types';
+import type { GraphLink, GraphNode } from '../../data/graphData.schema';
 
 function getStats(nodes: GraphNode[], links: GraphLink[]) {
   const communities = new Set(nodes.map((n) => n.community));

@@ -1,15 +1,11 @@
 import { Badge } from '@repo/ui/Badge';
-import type { GraphLink, GraphNode } from '../../../data/graphData.types';
+import { useNodes, useLinks } from '../../../stores/content/selectors';
 import { getStats } from '../utils';
 import { Stat } from './Stat';
 
-function GraphOverview({
-  nodes,
-  links
-}: {
-  nodes: GraphNode[];
-  links: GraphLink[];
-}) {
+function GraphOverview() {
+  const nodes = useNodes();
+  const links = useLinks();
   const stats = getStats(nodes, links);
 
   return (
