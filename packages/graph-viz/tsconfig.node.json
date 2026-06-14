@@ -20,5 +20,12 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "src/data/prepare.ts", "srv/data/enrich.ts", "src/data/types.d.ts"]
+  "include": [
+    "vite.config.ts",
+    "src/data/prepare.ts",
+    "src/data/pipeline.ts",
+    "src/data/stages/*.ts",
+    "srv/data/enrich.ts",
+    "src/data/types.d.ts"
+  ]
 }

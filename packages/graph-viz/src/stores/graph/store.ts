@@ -6,5 +6,5 @@ export const graphStore = create<GraphState>(() => ({
   selectedNodeIdx: null,
   edgesVisible: true,
   visibleCommunities: new Set<number>(),
-  totalCommunities: 0,
+  totalCommunities: 0
 }));

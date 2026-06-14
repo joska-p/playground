@@ -1,13 +1,10 @@
 import { graphStore } from './store';
 
-export const useSelectedNodeIdx = () =>
-  graphStore((s) => s.selectedNodeIdx);
+export const useSelectedNodeIdx = () => graphStore((s) => s.selectedNodeIdx);
 
-export const useEdgesVisible = () =>
-  graphStore((s) => s.edgesVisible);
+export const useEdgesVisible = () => graphStore((s) => s.edgesVisible);
 
 export const useVisibleCommunities = () =>
   graphStore((s) => s.visibleCommunities);
 
-export const useTotalCommunities = () =>
-  graphStore((s) => s.totalCommunities);
+export const useTotalCommunities = () => graphStore((s) => s.totalCommunities);

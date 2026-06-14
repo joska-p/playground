@@ -6,9 +6,12 @@ import {
   hideAllCommunities,
   showAllCommunities,
   toggleCommunity,
-  toggleEdges,
+  toggleEdges
 } from '../stores/graph/actions';
-import { useEdgesVisible, useVisibleCommunities } from '../stores/graph/selectors';
+import {
+  useEdgesVisible,
+  useVisibleCommunities
+} from '../stores/graph/selectors';
 import type { GraphNode } from './graphData.types';
 
 type FilterControlsProps = {
@@ -85,7 +88,9 @@ function FilterControls({ nodes }: FilterControlsProps) {
                 >
                   <span
                     style={
-                      { '--node-color': `var(--color-palette-${c.id % 24})` } as React.CSSProperties
+                      {
+                        '--node-color': `var(--color-palette-${c.id % 24})`
+                      } as React.CSSProperties
                     }
                     className={`h-2.5 w-2.5 shrink-0 rounded-full ${isActive ? 'bg-(--node-color)' : 'border border-current bg-transparent'}`}
                   />

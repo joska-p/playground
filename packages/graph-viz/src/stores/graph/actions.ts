@@ -27,8 +27,8 @@ export function toggleCommunity(communityId: number): void {
 export function showAllCommunities(): void {
   graphStore.setState((s) => ({
     visibleCommunities: new Set(
-      Array.from({ length: s.totalCommunities }, (_, i) => i),
-    ),
+      Array.from({ length: s.totalCommunities }, (_, i) => i)
+    )
   }));
 }
 
@@ -39,6 +39,6 @@ export function hideAllCommunities(): void {
 export function initCommunities(communities: number[]): void {
   graphStore.setState({
     totalCommunities: communities.length,
-    visibleCommunities: new Set(communities),
+    visibleCommunities: new Set(communities)
   });
 }

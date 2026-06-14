@@ -1,10 +1,10 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useEffect } from 'react';
+import { initCommunities, selectNode } from '../stores/graph/actions';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
 import type { GraphData } from './graphData.types';
-import { initCommunities, selectNode } from '../stores/graph/actions';
 
 type GraphCanvasProps = {
   data: GraphData;

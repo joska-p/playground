@@ -1,13 +1,38 @@
+import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { selectNode } from '../stores/graph/actions';
-import { useSelectedNodeIdx, useVisibleCommunities } from '../stores/graph/selectors';
+import {
+  useSelectedNodeIdx,
+  useVisibleCommunities
+} from '../stores/graph/selectors';
 import type { GraphNode } from './graphData.types';
 
 const PALETTE = [
-  '#4cc9f0', '#4361ee', '#7209b7', '#f72585', '#f77f00', '#06d6a0', '#ffd166', '#ef476f',
-  '#118ab2', '#06a77d', '#d62246', '#9b5de5', '#f15bb5', '#fee440', '#00bbf9', '#00f5d4',
-  '#e07a5f', '#3d405b', '#81b29a', '#f2cc8f', '#a8dadc', '#457b9d', '#e63946', '#2a9d8f'
+  '#4cc9f0',
+  '#4361ee',
+  '#7209b7',
+  '#f72585',
+  '#f77f00',
+  '#06d6a0',
+  '#ffd166',
+  '#ef476f',
+  '#118ab2',
+  '#06a77d',
+  '#d62246',
+  '#9b5de5',
+  '#f15bb5',
+  '#fee440',
+  '#00bbf9',
+  '#00f5d4',
+  '#e07a5f',
+  '#3d405b',
+  '#81b29a',
+  '#f2cc8f',
+  '#a8dadc',
+  '#457b9d',
+  '#e63946',
+  '#2a9d8f'
 ];
 const PALETTE_SIZE = PALETTE.length;
 const paletteCache: THREE.Color[] = [];
@@ -71,11 +96,10 @@ function Nodes({ nodes }: NodesProps) {
 
     mesh.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-
   }, [nodes, visibleCommunities, selectedNodeIdx]);
 
   // Handle click on instancedMesh
-  const handleClick = (event: any) => {
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
     const instanceId = event.instanceId;
     if (instanceId !== undefined && instanceId < nodes.length) {
@@ -89,8 +113,7 @@ function Nodes({ nodes }: NodesProps) {
   return (
     <instancedMesh
       ref={meshRef}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      args={[null as any, null as any, nodes.length]}
+      args={[undefined, undefined, nodes.length]}
       frustumCulled={false}
       onClick={handleClick}
     >
