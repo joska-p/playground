@@ -150,7 +150,9 @@ function main() {
   console.log(`Simulation links: ${simLinks.length} (${links.length - simLinks.length} dropped due to missing endpoints)`);
 
   // 4. Run d3-force-3d simulation (300 ticks)
-  const simulation = forceSimulation(simNodes as unknown[])
+  const simulation = forceSimulation()
+    .numDimensions(3)
+    .nodes(simNodes as unknown[])
     .force(
       'link',
       forceLink(simLinks)
