@@ -27,7 +27,11 @@ function CommunityLabels() {
         return (
           <Text
             key={c.id}
-            position={[c.centroid.x, c.centroid.y + labels.offsetY, c.centroid.z]}
+            position={[
+              c.centroid.x,
+              c.centroid.y + labels.offsetY,
+              c.centroid.z
+            ]}
             fontSize={labels.fontSize}
             color={color.getStyle()}
             anchorX="center"

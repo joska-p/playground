@@ -45,6 +45,6 @@ export function computeEdgeBuffers(
   return {
     connectedPositions: new Float32Array(connArr),
     disconnectedPositions:
-      selectedNodeIdx !== null ? new Float32Array(discArr) : EMPTY,
+      selectedNodeIdx !== null ? new Float32Array(discArr) : EMPTY
   };
 }

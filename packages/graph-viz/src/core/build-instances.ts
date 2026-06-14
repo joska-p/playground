@@ -46,9 +46,10 @@ export function writeInstanceData(
   if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
 }
 
-export function splitNodeIndices(
-  nodes: GraphNode[]
-): { codeToGlobal: number[]; docToGlobal: number[] } {
+export function splitNodeIndices(nodes: GraphNode[]): {
+  codeToGlobal: number[];
+  docToGlobal: number[];
+} {
   const codeToGlobal: number[] = [];
   const docToGlobal: number[] = [];
 

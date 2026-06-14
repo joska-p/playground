@@ -19,7 +19,8 @@ const defaultStrategy: NodeVisualStrategy = {
       CONFIG.nodes.boxGeometry.depth
     ),
   getSize: (node) =>
-    Math.log(node.inDegree + node.outDegree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase,
+    Math.log(node.inDegree + node.outDegree + 1) * CONFIG.nodes.sizeScale +
+    CONFIG.nodes.sizeBase
 };
 
 export function registerStrategy(strategy: NodeVisualStrategy): void {
@@ -43,5 +44,6 @@ registerStrategy({
       CONFIG.nodes.sphereGeometry.heightSegments
     ),
   getSize: (node) =>
-    Math.log(node.inDegree + node.outDegree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase,
+    Math.log(node.inDegree + node.outDegree + 1) * CONFIG.nodes.sizeScale +
+    CONFIG.nodes.sizeBase
 });

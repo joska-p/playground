@@ -22,7 +22,7 @@ export const PALETTE = [
   '#a8dadc',
   '#457b9d',
   '#e63946',
-  '#2a9d8f',
+  '#2a9d8f'
 ] as const;
 
 export const CONFIG = {
@@ -31,13 +31,13 @@ export const CONFIG = {
     ambientLight: { intensity: 0.6 },
     directionalLights: [
       { position: [1, 1, 1] as const, intensity: 0.8 },
-      { position: [-1, -1, -1] as const, intensity: 0.3 },
+      { position: [-1, -1, -1] as const, intensity: 0.3 }
     ],
     orbitControls: {
       dampingFactor: 0.1,
       minDistance: 10,
-      maxDistance: 3000,
-    },
+      maxDistance: 3000
+    }
   },
   nodes: {
     dimColor: '#333333',
@@ -47,20 +47,20 @@ export const CONFIG = {
     sizeScale: 0.3,
     sizeBase: 0.8,
     sphereGeometry: { radius: 1, widthSegments: 10, heightSegments: 10 },
-    boxGeometry: { width: 1, height: 1, depth: 1 },
+    boxGeometry: { width: 1, height: 1, depth: 1 }
   },
   edges: {
     connected: { color: '#888888', opacity: 0.9 },
-    disconnected: { color: '#444444', opacity: 0.4 },
+    disconnected: { color: '#444444', opacity: 0.4 }
   },
   labels: {
     offsetY: 14,
     fontSize: 3.5,
     colorLerp: 0.6,
     outlineWidth: 0.3,
-    outlineColor: '#000000',
+    outlineColor: '#000000'
   },
   ui: {
-    maxConnectionsShown: 100,
-  },
+    maxConnectionsShown: 100
+  }
 } as const;

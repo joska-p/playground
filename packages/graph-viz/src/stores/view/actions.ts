@@ -3,7 +3,7 @@ import { graphStore } from './store';
 export function initCommunities(communityIds: number[]): void {
   graphStore.setState({
     totalCommunities: communityIds.length,
-    visibleCommunities: new Set(communityIds),
+    visibleCommunities: new Set(communityIds)
   });
 }
 
@@ -31,7 +31,7 @@ export function showAllCommunities(): void {
   graphStore.setState((s) => ({
     visibleCommunities: new Set(
       Array.from({ length: s.totalCommunities }, (_, i) => i)
-    ),
+    )
   }));
 }
 

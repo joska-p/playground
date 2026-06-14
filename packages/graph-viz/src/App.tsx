@@ -18,7 +18,9 @@ function App() {
     return (
       <div role="alert">
         <p>Invalid graph data:</p>
-        <pre className="whitespace-pre-wrap text-xs">{parseResult.error.toString()}</pre>
+        <pre className="text-xs whitespace-pre-wrap">
+          {parseResult.error.toString()}
+        </pre>
       </div>
     );
   }

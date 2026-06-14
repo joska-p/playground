@@ -1,5 +1,5 @@
 import { Badge } from '@repo/ui/Badge';
-import { useNodes, useLinks } from '../../../stores/content/selectors';
+import { useLinks, useNodes } from '../../../stores/content/selectors';
 import { getStats } from '../utils';
 import { Stat } from './Stat';
 

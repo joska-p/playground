@@ -1,5 +1,5 @@
-import { CONFIG } from '../../core/config.ts';
 import { computeEdgeBuffers } from '../../core/compute-edges.ts';
+import { CONFIG } from '../../core/config.ts';
 import { useLinks, useNodes } from '../../stores/content/selectors';
 import {
   useEdgesVisible,

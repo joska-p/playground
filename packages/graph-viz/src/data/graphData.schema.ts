@@ -10,13 +10,13 @@ export const graphNodeSchema = z.object({
   outDegree: z.number(),
   community: z.number(),
   file_type: z.string(),
-  color: z.string(),
+  color: z.string()
 });
 
 export const graphLinkSchema = z.object({
   sourceIdx: z.number(),
   targetIdx: z.number(),
-  relation: z.string(),
+  relation: z.string()
 });
 
 export const communitySchema = z.object({
@@ -26,14 +26,14 @@ export const communitySchema = z.object({
   centroid: z.object({
     x: z.number(),
     y: z.number(),
-    z: z.number(),
-  }),
+    z: z.number()
+  })
 });
 
 export const graphDataSchema = z.object({
   nodes: z.array(graphNodeSchema),
   links: z.array(graphLinkSchema),
-  communities: z.array(communitySchema),
+  communities: z.array(communitySchema)
 });
 
 export type GraphNode = z.infer<typeof graphNodeSchema>;

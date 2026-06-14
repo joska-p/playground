@@ -1,11 +1,11 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type * as THREE from 'three';
-import { CONFIG } from '../../core/config.ts';
 import {
   splitNodeIndices,
   writeInstanceData
 } from '../../core/build-instances.ts';
+import { CONFIG } from '../../core/config.ts';
 import { useNodes } from '../../stores/content/selectors';
 import { selectNode } from '../../stores/view/actions';
 import {
@@ -71,7 +71,11 @@ function Nodes() {
         onClick={handleClick}
       >
         <sphereGeometry
-          args={[sphereGeometry.radius, sphereGeometry.widthSegments, sphereGeometry.heightSegments]}
+          args={[
+            sphereGeometry.radius,
+            sphereGeometry.widthSegments,
+            sphereGeometry.heightSegments
+          ]}
         />
         <meshStandardMaterial toneMapped={false} />
       </instancedMesh>

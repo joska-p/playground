@@ -15,9 +15,7 @@ function GraphCanvas() {
   const communities = useCommunities();
 
   useEffect(() => {
-    const communityIds = communities
-      .map((c) => c.id)
-      .sort((a, b) => a - b);
+    const communityIds = communities.map((c) => c.id).sort((a, b) => a - b);
     initCommunities(communityIds);
   }, [communities]);
 
@@ -25,7 +23,7 @@ function GraphCanvas() {
     <Canvas
       camera={{
         position: [camera.position[0], camera.position[1], camera.position[2]],
-        far: camera.far,
+        far: camera.far
       }}
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
@@ -45,7 +43,7 @@ function GraphCanvas() {
         position={[
           directionalLights[0].position[0],
           directionalLights[0].position[1],
-          directionalLights[0].position[2],
+          directionalLights[0].position[2]
         ]}
         intensity={directionalLights[0].intensity}
       />
@@ -53,7 +51,7 @@ function GraphCanvas() {
         position={[
           directionalLights[1].position[0],
           directionalLights[1].position[1],
-          directionalLights[1].position[2],
+          directionalLights[1].position[2]
         ]}
         intensity={directionalLights[1].intensity}
       />
