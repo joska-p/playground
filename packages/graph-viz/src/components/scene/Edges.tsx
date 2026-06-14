@@ -10,43 +10,14 @@ type EdgesProps = {
   links: GraphLink[];
 };
 
-function Edges({ nodes, links }: EdgesProps) {
-  const edgesVisible = useEdgesVisible();
-  const visibleCommunities = useVisibleCommunities();
-  const selectedNodeIdx = useSelectedNodeIdx();
+type EdgeGroupProps = {
+  positions: Float32Array;
+  color: string;
+  opacity: number;
+};
 
-  // Compute positions declaratively (React Compiler handles memoization)
-  let positions = new Float32Array();
-  if (edgesVisible) {
-    const tempPositions: number[] = [];
-
-    for (let i = 0; i < links.length; i++) {
-      const link = links[i];
-      const source = nodes[link.sourceIdx];
-      const target = nodes[link.targetIdx];
-
-      const sourceVisible = visibleCommunities.has(source.community);
-      const targetVisible = visibleCommunities.has(target.community);
-
-      if (sourceVisible && targetVisible) {
-        tempPositions.push(
-          source.x,
-          source.y,
-          source.z,
-          target.x,
-          target.y,
-          target.z
-        );
-      }
-    }
-
-    positions = new Float32Array(tempPositions);
-  }
-
-  // Determine edge color: highlight edges connected to selected node
-  const edgeColor = selectedNodeIdx !== null ? '#888888' : '#666666';
-  const edgeOpacity = selectedNodeIdx !== null ? 0.4 : 0.25;
-
+function EdgeGroup({ positions, color, opacity }: EdgeGroupProps) {
+  if (positions.length === 0) return null;
   return (
     <lineSegments>
       <bufferGeometry>
@@ -56,12 +27,71 @@ function Edges({ nodes, links }: EdgesProps) {
         />
       </bufferGeometry>
       <lineBasicMaterial
-        color={edgeColor}
-        opacity={edgeOpacity}
+        color={color}
+        opacity={opacity}
         transparent
         depthWrite={false}
       />
     </lineSegments>
+  );
+}
+
+const EMPTY = new Float32Array();
+
+function Edges({ nodes, links }: EdgesProps) {
+  const edgesVisible = useEdgesVisible();
+  const visibleCommunities = useVisibleCommunities();
+  const selectedNodeIdx = useSelectedNodeIdx();
+
+  let connectedPositions = EMPTY;
+  let disconnectedPositions = EMPTY;
+
+  if (edgesVisible) {
+    const connArr: number[] = [];
+    const discArr: number[] = [];
+
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      const source = nodes[link.sourceIdx];
+      const target = nodes[link.targetIdx];
+
+      if (
+        !visibleCommunities.has(source.community) ||
+        !visibleCommunities.has(target.community)
+      ) {
+        continue;
+      }
+
+      const isConnected =
+        selectedNodeIdx !== null &&
+        (link.sourceIdx === selectedNodeIdx ||
+          link.targetIdx === selectedNodeIdx);
+
+      const buf = isConnected ? connArr : discArr;
+      buf.push(source.x, source.y, source.z, target.x, target.y, target.z);
+    }
+
+    connectedPositions = new Float32Array(connArr);
+    if (selectedNodeIdx !== null) {
+      disconnectedPositions = new Float32Array(discArr);
+    }
+  }
+
+  return (
+    <>
+      <EdgeGroup
+        positions={connectedPositions}
+        color="#888888"
+        opacity={0.9}
+      />
+      {selectedNodeIdx !== null && (
+        <EdgeGroup
+          positions={disconnectedPositions}
+          color="#444444"
+          opacity={0.4}
+        />
+      )}
+    </>
   );
 }
 

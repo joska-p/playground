@@ -2999,7 +2999,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_creatureselector",
-      "community": 18,
+      "community": 93,
       "norm_label": "creatureselector.tsx"
     },
     {
@@ -3009,7 +3009,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_creatureselector_creatureselector",
-      "community": 18,
+      "community": 93,
       "norm_label": "creatureselector()"
     },
     {
@@ -3039,7 +3039,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugtoggle",
-      "community": 43,
+      "community": 20,
       "norm_label": "debugtoggle()"
     },
     {
@@ -3149,7 +3149,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_ruleselector",
-      "community": 20,
+      "community": 31,
       "norm_label": "ruleselector.tsx"
     },
     {
@@ -3159,7 +3159,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_ruleselector_ruleselector",
-      "community": 20,
+      "community": 31,
       "norm_label": "ruleselector()"
     },
     {
@@ -3249,7 +3249,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_statecolorpicker",
-      "community": 20,
+      "community": 31,
       "norm_label": "statecolorpicker.tsx"
     },
     {
@@ -3259,7 +3259,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrowprops",
-      "community": 20,
+      "community": 31,
       "norm_label": "colorrowprops"
     },
     {
@@ -3269,7 +3269,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrow",
-      "community": 20,
+      "community": 31,
       "norm_label": "colorrow()"
     },
     {
@@ -3279,7 +3279,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "controls_statecolorpicker_statecolorpicker",
-      "community": 20,
+      "community": 31,
       "norm_label": "statecolorpicker()"
     },
     {
@@ -3289,7 +3289,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_config_ts_core_config",
-      "community": 20,
+      "community": 31,
       "norm_label": "config.ts"
     },
     {
@@ -3299,7 +3299,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_config_default_state_colors",
-      "community": 20,
+      "community": 31,
       "norm_label": "default_state_colors"
     },
     {
@@ -3309,7 +3309,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "core_config_state_fallback_colors",
-      "community": 20,
+      "community": 31,
       "norm_label": "state_fallback_colors"
     },
     {
@@ -3319,7 +3319,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "core_config_getdefaultstatecolor",
-      "community": 20,
+      "community": 31,
       "norm_label": "getdefaultstatecolor()"
     },
     {
@@ -3549,7 +3549,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "creature_registry_getallcreatures",
-      "community": 18,
+      "community": 93,
       "norm_label": "getallcreatures()"
     },
     {
@@ -3739,7 +3739,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "rules_registry_getrule",
-      "community": 20,
+      "community": 31,
       "norm_label": "getrule()"
     },
     {
@@ -3749,7 +3749,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "rules_registry_getallrules",
-      "community": 20,
+      "community": 31,
       "norm_label": "getallrules()"
     },
     {
@@ -4379,7 +4379,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "simulation_actions_setrule",
-      "community": 20,
+      "community": 31,
       "norm_label": "setrule()"
     },
     {
@@ -4449,7 +4449,7 @@
       "source_location": "L135",
       "_origin": "ast",
       "id": "simulation_actions_paintcell",
-      "community": 20,
+      "community": 43,
       "norm_label": "paintcell()"
     },
     {
@@ -4509,7 +4509,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usegeneration_usegeneration",
-      "community": 114,
+      "community": 43,
       "norm_label": "usegeneration()"
     },
     {
@@ -4549,7 +4549,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useruleid_useruleid",
-      "community": 20,
+      "community": 31,
       "norm_label": "useruleid()"
     },
     {
@@ -4589,7 +4589,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ui_actions",
-      "community": 18,
+      "community": 93,
       "norm_label": "actions.ts"
     },
     {
@@ -4609,7 +4609,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "ui_actions_setshowdebug",
-      "community": 43,
+      "community": 93,
       "norm_label": "setshowdebug()"
     },
     {
@@ -4619,7 +4619,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "ui_actions_setstatecolor",
-      "community": 18,
+      "community": 31,
       "norm_label": "setstatecolor()"
     },
     {
@@ -4649,7 +4649,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "ui_actions_setpalettebrush",
-      "community": 18,
+      "community": 93,
       "norm_label": "setpalettebrush()"
     },
     {
@@ -4699,7 +4699,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useglowcolor_useglowcolor",
-      "community": 93,
+      "community": 82,
       "norm_label": "useglowcolor()"
     },
     {
@@ -4719,7 +4719,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usepalettebrush_usepalettebrush",
-      "community": 18,
+      "community": 93,
       "norm_label": "usepalettebrush()"
     },
     {
@@ -6099,7 +6099,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_filtercontrols",
-      "community": 56,
+      "community": 25,
       "norm_label": "filtercontrols.tsx"
     },
     {
@@ -6109,7 +6109,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "controls_filtercontrols_filtercontrolsprops",
-      "community": 56,
+      "community": 25,
       "norm_label": "filtercontrolsprops"
     },
     {
@@ -6283,10 +6283,40 @@
       "norm_label": "edgesprops"
     },
     {
-      "label": "Edges()",
+      "label": "EdgeGroupProps",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L13",
+      "_origin": "ast",
+      "id": "scene_edges_edgegroupprops",
+      "community": 25,
+      "norm_label": "edgegroupprops"
+    },
+    {
+      "label": "EdgeGroup()",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "scene_edges_edgegroup",
+      "community": 25,
+      "norm_label": "edgegroup()"
+    },
+    {
+      "label": "EMPTY",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "scene_edges_empty",
+      "community": 25,
+      "norm_label": "empty"
+    },
+    {
+      "label": "Edges()",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "scene_edges_edges",
       "community": 25,
@@ -6329,7 +6359,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_nodes",
-      "community": 25,
+      "community": 56,
       "norm_label": "nodes.tsx"
     },
     {
@@ -6339,7 +6369,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "scene_nodes_dim_color",
-      "community": 25,
+      "community": 56,
       "norm_label": "dim_color"
     },
     {
@@ -6349,7 +6379,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "scene_nodes_white",
-      "community": 25,
+      "community": 56,
       "norm_label": "white"
     },
     {
@@ -6359,7 +6389,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "scene_nodes_getsize",
-      "community": 25,
+      "community": 56,
       "norm_label": "getsize()"
     },
     {
@@ -6369,7 +6399,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "scene_nodes_splitnodes",
-      "community": 25,
+      "community": 56,
       "norm_label": "splitnodes()"
     },
     {
@@ -6379,7 +6409,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "scene_nodes_nodesprops",
-      "community": 25,
+      "community": 56,
       "norm_label": "nodesprops"
     },
     {
@@ -6389,7 +6419,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "scene_nodes_nodes",
-      "community": 25,
+      "community": 56,
       "norm_label": "nodes()"
     },
     {
@@ -6449,7 +6479,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "data_graphdata_types_graphdata",
-      "community": 56,
+      "community": 22,
       "norm_label": "graphdata"
     },
     {
@@ -6879,7 +6909,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_actions",
-      "community": 56,
+      "community": 25,
       "norm_label": "actions.ts"
     },
     {
@@ -6899,7 +6929,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "graph_actions_toggleedges",
-      "community": 56,
+      "community": 25,
       "norm_label": "toggleedges()"
     },
     {
@@ -6909,7 +6939,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "graph_actions_togglecommunity",
-      "community": 56,
+      "community": 25,
       "norm_label": "togglecommunity()"
     },
     {
@@ -6919,7 +6949,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "graph_actions_showallcommunities",
-      "community": 56,
+      "community": 25,
       "norm_label": "showallcommunities()"
     },
     {
@@ -6929,7 +6959,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "graph_actions_hideallcommunities",
-      "community": 56,
+      "community": 25,
       "norm_label": "hideallcommunities()"
     },
     {
@@ -6959,7 +6989,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "graph_selectors_useselectednodeidx",
-      "community": 25,
+      "community": 56,
       "norm_label": "useselectednodeidx()"
     },
     {
@@ -8589,7 +8619,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_stepbadge",
-      "community": 21,
+      "community": 72,
       "norm_label": "stepbadge.tsx"
     },
     {
@@ -8599,7 +8629,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_stepbadge_stepbadgeprops",
-      "community": 21,
+      "community": 72,
       "norm_label": "stepbadgeprops"
     },
     {
@@ -8609,7 +8639,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "workflow_stepbadge_stepbadge",
-      "community": 21,
+      "community": 72,
       "norm_label": "stepbadge()"
     },
     {
@@ -8729,7 +8759,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflownodeheader",
-      "community": 21,
+      "community": 72,
       "norm_label": "workflownodeheader.tsx"
     },
     {
@@ -8739,7 +8769,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "workflow_workflownodeheader_workflownodeheaderprops",
-      "community": 21,
+      "community": 72,
       "norm_label": "workflownodeheaderprops"
     },
     {
@@ -8749,7 +8779,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "workflow_workflownodeheader_workflownodeheader",
-      "community": 21,
+      "community": 72,
       "norm_label": "workflownodeheader()"
     },
     {
@@ -8839,7 +8869,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflows_workflows",
-      "community": 19,
+      "community": 61,
       "norm_label": "workflows.ts"
     },
     {
@@ -8849,7 +8879,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "workflows_workflows_workflowpresetstep",
-      "community": 19,
+      "community": 61,
       "norm_label": "workflowpresetstep"
     },
     {
@@ -8859,7 +8889,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "workflows_workflows_workflowpreset",
-      "community": 19,
+      "community": 61,
       "norm_label": "workflowpreset"
     },
     {
@@ -10139,7 +10169,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_pipeline_src_app_tsx_src_app",
-      "community": 191,
+      "community": 2,
       "norm_label": "app.tsx"
     },
     {
@@ -10149,7 +10179,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_pipeline_src_app_tsx_src_app_app",
-      "community": 191,
+      "community": 2,
       "norm_label": "app()"
     },
     {
@@ -10159,7 +10189,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_image_pipeline",
-      "community": 31,
+      "community": 21,
       "norm_label": "image-pipeline.ts"
     },
     {
@@ -10169,7 +10199,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "api_image_pipeline_manipulationinfo",
-      "community": 31,
+      "community": 21,
       "norm_label": "manipulationinfo"
     },
     {
@@ -10179,7 +10209,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "api_image_pipeline_runconfig",
-      "community": 31,
+      "community": 21,
       "norm_label": "runconfig"
     },
     {
@@ -10189,7 +10219,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "api_image_pipeline_pool",
-      "community": 31,
+      "community": 21,
       "norm_label": "pool"
     },
     {
@@ -10199,7 +10229,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "api_image_pipeline_buildcatalog",
-      "community": 31,
+      "community": 21,
       "norm_label": "buildcatalog()"
     },
     {
@@ -10209,7 +10239,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "api_image_pipeline_manipulations",
-      "community": 31,
+      "community": 21,
       "norm_label": "manipulations"
     },
     {
@@ -10219,7 +10249,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "api_image_pipeline_imagepipeline",
-      "community": 31,
+      "community": 21,
       "norm_label": "imagepipeline"
     },
     {
@@ -10249,7 +10279,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_codeblock",
-      "community": 72,
+      "community": 2,
       "norm_label": "codeblock.tsx"
     },
     {
@@ -10259,7 +10289,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_codeblock_codeblock",
-      "community": 72,
+      "community": 2,
       "norm_label": "codeblock()"
     },
     {
@@ -10269,7 +10299,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_paramtable",
-      "community": 31,
+      "community": 2,
       "norm_label": "paramtable.tsx"
     },
     {
@@ -10279,7 +10309,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "pipeline_docs_paramtable_paramtableprops",
-      "community": 31,
+      "community": 2,
       "norm_label": "paramtableprops"
     },
     {
@@ -10289,7 +10319,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "pipeline_docs_paramtable_paramtable",
-      "community": 31,
+      "community": 2,
       "norm_label": "paramtable()"
     },
     {
@@ -10299,7 +10329,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_pipelinedocs",
-      "community": 191,
+      "community": 2,
       "norm_label": "pipelinedocs.tsx"
     },
     {
@@ -10309,7 +10339,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pipeline_docs_pipelinedocs_pipelinedocs",
-      "community": 191,
+      "community": 2,
       "norm_label": "pipelinedocs()"
     },
     {
@@ -10389,7 +10419,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_paramdef",
-      "community": 31,
+      "community": 2,
       "norm_label": "paramdef"
     },
     {
@@ -10399,7 +10429,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_manipinfo",
-      "community": 31,
+      "community": 2,
       "norm_label": "manipinfo"
     },
     {
@@ -10459,7 +10489,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_finditemforendpoint",
-      "community": 175,
+      "community": 2,
       "norm_label": "finditemforendpoint()"
     },
     {
@@ -10569,7 +10599,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_endpoint_groups",
-      "community": 72,
+      "community": 2,
       "norm_label": "endpoint_groups"
     },
     {
@@ -10579,7 +10609,7 @@
       "source_location": "L231",
       "_origin": "ast",
       "id": "data_pipeline_docs_data_findmanipbyid",
-      "community": 175,
+      "community": 2,
       "norm_label": "findmanipbyid()"
     },
     {
@@ -10589,7 +10619,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "demos_chaindemo",
-      "community": 72,
+      "community": 2,
       "norm_label": "chaindemo.tsx"
     },
     {
@@ -10599,7 +10629,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "demos_chaindemo_steps",
-      "community": 72,
+      "community": 2,
       "norm_label": "steps"
     },
     {
@@ -10609,7 +10639,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "demos_chaindemo_chaindemo",
-      "community": 72,
+      "community": 2,
       "norm_label": "chaindemo()"
     },
     {
@@ -10619,7 +10649,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "demos_resizedemo",
-      "community": 72,
+      "community": 2,
       "norm_label": "resizedemo.tsx"
     },
     {
@@ -10629,7 +10659,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "demos_resizedemo_modes",
-      "community": 72,
+      "community": 2,
       "norm_label": "modes"
     },
     {
@@ -10639,7 +10669,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "demos_resizedemo_modeid",
-      "community": 72,
+      "community": 2,
       "norm_label": "modeid"
     },
     {
@@ -10649,7 +10679,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "demos_resizedemo_resizedemo",
-      "community": 72,
+      "community": 2,
       "norm_label": "resizedemo()"
     },
     {
@@ -10659,7 +10689,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "demos_tryitout",
-      "community": 31,
+      "community": 2,
       "norm_label": "tryitout.tsx"
     },
     {
@@ -10669,7 +10699,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "demos_tryitout_tryitoutprops",
-      "community": 31,
+      "community": 2,
       "norm_label": "tryitoutprops"
     },
     {
@@ -10679,7 +10709,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "demos_tryitout_tryitout",
-      "community": 31,
+      "community": 2,
       "norm_label": "tryitout()"
     },
     {
@@ -10689,7 +10719,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pipeline_docs_helpers",
-      "community": 191,
+      "community": 2,
       "norm_label": "helpers.ts"
     },
     {
@@ -10699,7 +10729,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_loadimage",
-      "community": 191,
+      "community": 2,
       "norm_label": "loadimage()"
     },
     {
@@ -10709,7 +10739,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_loaddemoimage",
-      "community": 191,
+      "community": 2,
       "norm_label": "loaddemoimage()"
     },
     {
@@ -10719,7 +10749,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_generatetestimage",
-      "community": 191,
+      "community": 2,
       "norm_label": "generatetestimage()"
     },
     {
@@ -10729,7 +10759,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "pipeline_docs_helpers_imagedatatourl",
-      "community": 72,
+      "community": 2,
       "norm_label": "imagedatatourl()"
     },
     {
@@ -10739,7 +10769,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_endpointview",
-      "community": 175,
+      "community": 2,
       "norm_label": "endpointview.tsx"
     },
     {
@@ -10749,7 +10779,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "views_endpointview_endpointviewprops",
-      "community": 175,
+      "community": 2,
       "norm_label": "endpointviewprops"
     },
     {
@@ -10759,7 +10789,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "views_endpointview_endpointview",
-      "community": 175,
+      "community": 2,
       "norm_label": "endpointview()"
     },
     {
@@ -10769,7 +10799,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_internalsview",
-      "community": 175,
+      "community": 2,
       "norm_label": "internalsview.tsx"
     },
     {
@@ -10779,7 +10809,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "views_internalsview_internalsview",
-      "community": 175,
+      "community": 2,
       "norm_label": "internalsview()"
     },
     {
@@ -10789,7 +10819,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_manipview",
-      "community": 31,
+      "community": 2,
       "norm_label": "manipview.tsx"
     },
     {
@@ -10799,7 +10829,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "views_manipview_type_accent",
-      "community": 31,
+      "community": 2,
       "norm_label": "type_accent"
     },
     {
@@ -10809,7 +10839,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "views_manipview_manipview",
-      "community": 31,
+      "community": 2,
       "norm_label": "manipview()"
     },
     {
@@ -10819,7 +10849,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_overviewview",
-      "community": 72,
+      "community": 2,
       "norm_label": "overviewview.tsx"
     },
     {
@@ -10829,7 +10859,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "views_overviewview_overviewview",
-      "community": 72,
+      "community": 2,
       "norm_label": "overviewview()"
     },
     {
@@ -10839,7 +10869,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "views_pipelineview",
-      "community": 72,
+      "community": 2,
       "norm_label": "pipelineview.tsx"
     },
     {
@@ -10849,7 +10879,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "views_pipelineview_pipelineview",
-      "community": 175,
+      "community": 2,
       "norm_label": "pipelineview()"
     },
     {
@@ -10859,7 +10889,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_buffer_manager",
-      "community": 78,
+      "community": 19,
       "norm_label": "buffer-manager.ts"
     },
     {
@@ -10869,7 +10899,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager",
-      "community": 78,
+      "community": 19,
       "norm_label": "buffermanager"
     },
     {
@@ -10879,7 +10909,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_constructor",
-      "community": 78,
+      "community": 19,
       "norm_label": ".constructor()"
     },
     {
@@ -10889,7 +10919,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_current",
-      "community": 78,
+      "community": 19,
       "norm_label": ".current()"
     },
     {
@@ -10899,7 +10929,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_other",
-      "community": 78,
+      "community": 19,
       "norm_label": ".other()"
     },
     {
@@ -10909,7 +10939,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_width",
-      "community": 78,
+      "community": 19,
       "norm_label": ".width()"
     },
     {
@@ -10919,7 +10949,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_height",
-      "community": 78,
+      "community": 19,
       "norm_label": ".height()"
     },
     {
@@ -10929,7 +10959,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_swap",
-      "community": 78,
+      "community": 19,
       "norm_label": ".swap()"
     },
     {
@@ -10939,7 +10969,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_snapshot",
-      "community": 78,
+      "community": 19,
       "norm_label": ".snapshot()"
     },
     {
@@ -10949,7 +10979,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_replacewith",
-      "community": 78,
+      "community": 19,
       "norm_label": ".replacewith()"
     },
     {
@@ -10959,7 +10989,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_fusion_scheduler",
-      "community": 78,
+      "community": 19,
       "norm_label": "fusion-scheduler.ts"
     },
     {
@@ -10969,7 +10999,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_fusion_scheduler_runfusedpixelbatch",
-      "community": 78,
+      "community": 19,
       "norm_label": "runfusedpixelbatch()"
     },
     {
@@ -10999,7 +11029,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_flush",
-      "community": 78,
+      "community": 19,
       "norm_label": ".flush()"
     },
     {
@@ -11169,7 +11199,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 19,
+      "community": 21,
       "norm_label": "step"
     },
     {
@@ -11799,7 +11829,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usepipeline",
-      "community": 72,
+      "community": 21,
       "norm_label": "usepipeline.ts"
     },
     {
@@ -11809,7 +11839,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "hooks_usepipeline_usepipeline",
-      "community": 72,
+      "community": 2,
       "norm_label": "usepipeline()"
     },
     {
@@ -23679,7 +23709,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_mock_worker_pool",
-      "community": 192,
+      "community": 36,
       "norm_label": "mock-worker-pool.ts"
     },
     {
@@ -23689,7 +23719,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_mock_worker_pool_handler",
-      "community": 192,
+      "community": 36,
       "norm_label": "handler"
     },
     {
@@ -23699,7 +23729,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool",
-      "community": 192,
+      "community": 36,
       "norm_label": "mockworkerpool"
     },
     {
@@ -23709,7 +23739,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool_constructor",
-      "community": 192,
+      "community": 36,
       "norm_label": ".constructor()"
     },
     {
@@ -23719,7 +23749,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool_run",
-      "community": 192,
+      "community": 36,
       "norm_label": ".run()"
     },
     {
@@ -23729,7 +23759,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_mock_worker_pool_mockworkerpool_teardown",
-      "community": 192,
+      "community": 36,
       "norm_label": ".teardown()"
     },
     {
@@ -23769,7 +23799,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_worker_pool_test",
-      "community": 192,
+      "community": 36,
       "norm_label": "worker-pool.test.ts"
     },
     {
@@ -23779,7 +23809,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_worker_pool_test_createfakeworker",
-      "community": 192,
+      "community": 36,
       "norm_label": "createfakeworker()"
     },
     {
@@ -26406,41 +26436,41 @@
       "label": "Quick Start",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L26",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "packages_graph_viz_quick_start",
       "community": 32,
       "norm_label": "quick start"
     },
     {
-      "label": "Data",
+      "label": "Data preparation",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L33",
+      "source_location": "L23",
       "_origin": "ast",
-      "id": "packages_graph_viz_data",
+      "id": "packages_graph_viz_data_preparation",
       "community": 32,
-      "norm_label": "data"
+      "norm_label": "data preparation"
+    },
+    {
+      "label": "Exports",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "packages_graph_viz_exports",
+      "community": 32,
+      "norm_label": "exports"
     },
     {
       "label": "Architecture",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L53",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "packages_graph_viz_architecture",
       "community": 32,
       "norm_label": "architecture"
-    },
-    {
-      "label": "Component tree",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L55",
-      "_origin": "ast",
-      "id": "packages_graph_viz_component_tree",
-      "community": 32,
-      "norm_label": "component tree"
     },
     {
       "label": "Data flow",
@@ -26453,150 +26483,70 @@
       "norm_label": "data flow"
     },
     {
-      "label": "Layout algorithm",
+      "label": "Rendering",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L123",
+      "source_location": "L99",
       "_origin": "ast",
-      "id": "packages_graph_viz_layout_algorithm",
+      "id": "packages_graph_viz_rendering",
       "community": 32,
-      "norm_label": "layout algorithm"
-    },
-    {
-      "label": "Enrichment pipeline",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L133",
-      "_origin": "ast",
-      "id": "packages_graph_viz_enrichment_pipeline",
-      "community": 32,
-      "norm_label": "enrichment pipeline"
-    },
-    {
-      "label": "Exports",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L150",
-      "_origin": "ast",
-      "id": "packages_graph_viz_exports",
-      "community": 32,
-      "norm_label": "exports"
-    },
-    {
-      "label": "Internal components (not part of public API)",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L157",
-      "_origin": "ast",
-      "id": "packages_graph_viz_internal_components_not_part_of_public_api",
-      "community": 32,
-      "norm_label": "internal components (not part of public api)"
+      "norm_label": "rendering"
     },
     {
       "label": "Usage Examples",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L192",
+      "source_location": "L108",
       "_origin": "ast",
       "id": "packages_graph_viz_usage_examples",
       "community": 32,
       "norm_label": "usage examples"
     },
     {
-      "label": "Standalone page",
+      "label": "Standalone embed",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L194",
+      "source_location": "L110",
       "_origin": "ast",
-      "id": "packages_graph_viz_standalone_page",
+      "id": "packages_graph_viz_standalone_embed",
       "community": 32,
-      "norm_label": "standalone page"
+      "norm_label": "standalone embed"
     },
     {
-      "label": "Embedded in a larger app",
+      "label": "As a docs site widget",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L208",
+      "source_location": "L120",
       "_origin": "ast",
-      "id": "packages_graph_viz_embedded_in_a_larger_app",
+      "id": "packages_graph_viz_as_a_docs_site_widget",
       "community": 32,
-      "norm_label": "embedded in a larger app"
-    },
-    {
-      "label": "Programmatic community selection",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L222",
-      "_origin": "ast",
-      "id": "packages_graph_viz_programmatic_community_selection",
-      "community": 32,
-      "norm_label": "programmatic community selection"
-    },
-    {
-      "label": "Customizing visuals",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L238",
-      "_origin": "ast",
-      "id": "packages_graph_viz_customizing_visuals",
-      "community": 32,
-      "norm_label": "customizing visuals"
-    },
-    {
-      "label": "State Management",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L276",
-      "_origin": "ast",
-      "id": "packages_graph_viz_state_management",
-      "community": 32,
-      "norm_label": "state management"
-    },
-    {
-      "label": "`dataStore` \u2014 graph data (set once on load)",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L280",
-      "_origin": "ast",
-      "id": "packages_graph_viz_datastore_graph_data_set_once_on_load",
-      "community": 32,
-      "norm_label": "`datastore` \u2014 graph data (set once on load)"
-    },
-    {
-      "label": "`uiStore` \u2014 interactive state (frequently read/written)",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L292",
-      "_origin": "ast",
-      "id": "packages_graph_viz_uistore_interactive_state_frequently_read_written",
-      "community": 32,
-      "norm_label": "`uistore` \u2014 interactive state (frequently read/written)"
-    },
-    {
-      "label": "Filtering",
-      "file_type": "document",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L320",
-      "_origin": "ast",
-      "id": "packages_graph_viz_filtering",
-      "community": 32,
-      "norm_label": "filtering"
+      "norm_label": "as a docs site widget"
     },
     {
       "label": "Patterns & Gotchas",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L330",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "packages_graph_viz_patterns_gotchas",
       "community": 32,
       "norm_label": "patterns & gotchas"
     },
     {
+      "label": "State Management",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "packages_graph_viz_state_management",
+      "community": 32,
+      "norm_label": "state management"
+    },
+    {
       "label": "Performance",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L340",
+      "source_location": "L144",
       "_origin": "ast",
       "id": "packages_graph_viz_performance",
       "community": 32,
@@ -26606,7 +26556,7 @@
       "label": "Testing",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L349",
+      "source_location": "L152",
       "_origin": "ast",
       "id": "packages_graph_viz_testing",
       "community": 32,
@@ -26616,7 +26566,7 @@
       "label": "Contributing",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L357",
+      "source_location": "L159",
       "_origin": "ast",
       "id": "packages_graph_viz_contributing",
       "community": 32,
@@ -26626,7 +26576,7 @@
       "label": "Changelog",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L361",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "packages_graph_viz_changelog",
       "community": 32,
@@ -28361,6 +28311,176 @@
       "id": "graph_viz_readme",
       "community": 30,
       "norm_label": "readme.md"
+    },
+    {
+      "label": "@repo/graph-viz",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "graph_viz_readme_repo_graph_viz",
+      "community": 30,
+      "norm_label": "@repo/graph-viz"
+    },
+    {
+      "label": "Purpose",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "graph_viz_readme_purpose",
+      "community": 30,
+      "norm_label": "purpose"
+    },
+    {
+      "label": "Quick Start",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "graph_viz_readme_quick_start",
+      "community": 30,
+      "norm_label": "quick start"
+    },
+    {
+      "label": "Data preparation",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "graph_viz_readme_data_preparation",
+      "community": 30,
+      "norm_label": "data preparation"
+    },
+    {
+      "label": "Exports",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "graph_viz_readme_exports",
+      "community": 30,
+      "norm_label": "exports"
+    },
+    {
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "graph_viz_readme_architecture",
+      "community": 30,
+      "norm_label": "architecture"
+    },
+    {
+      "label": "Data flow",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "graph_viz_readme_data_flow",
+      "community": 30,
+      "norm_label": "data flow"
+    },
+    {
+      "label": "Rendering",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L91",
+      "_origin": "ast",
+      "id": "graph_viz_readme_rendering",
+      "community": 30,
+      "norm_label": "rendering"
+    },
+    {
+      "label": "Usage Examples",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L100",
+      "_origin": "ast",
+      "id": "graph_viz_readme_usage_examples",
+      "community": 30,
+      "norm_label": "usage examples"
+    },
+    {
+      "label": "Standalone embed",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L102",
+      "_origin": "ast",
+      "id": "graph_viz_readme_standalone_embed",
+      "community": 30,
+      "norm_label": "standalone embed"
+    },
+    {
+      "label": "As a docs site widget",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L112",
+      "_origin": "ast",
+      "id": "graph_viz_readme_as_a_docs_site_widget",
+      "community": 30,
+      "norm_label": "as a docs site widget"
+    },
+    {
+      "label": "Patterns & Gotchas",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L116",
+      "_origin": "ast",
+      "id": "graph_viz_readme_patterns_gotchas",
+      "community": 30,
+      "norm_label": "patterns & gotchas"
+    },
+    {
+      "label": "State Management",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "graph_viz_readme_state_management",
+      "community": 30,
+      "norm_label": "state management"
+    },
+    {
+      "label": "Performance",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L136",
+      "_origin": "ast",
+      "id": "graph_viz_readme_performance",
+      "community": 30,
+      "norm_label": "performance"
+    },
+    {
+      "label": "Testing",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L144",
+      "_origin": "ast",
+      "id": "graph_viz_readme_testing",
+      "community": 30,
+      "norm_label": "testing"
+    },
+    {
+      "label": "Contributing",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L151",
+      "_origin": "ast",
+      "id": "graph_viz_readme_contributing",
+      "community": 30,
+      "norm_label": "contributing"
+    },
+    {
+      "label": "Changelog",
+      "file_type": "document",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L155",
+      "_origin": "ast",
+      "id": "graph_viz_readme_changelog",
+      "community": 30,
+      "norm_label": "changelog"
     },
     {
       "label": "README.md",
@@ -42326,6 +42446,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "scene_edges",
+      "target": "scene_edges_edgegroup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "scene_edges",
+      "target": "scene_edges_edgegroupprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L13",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -42343,6 +42483,16 @@
       "target": "scene_edges_edgesprops"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "scene_edges",
+      "target": "scene_edges_empty",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -42357,10 +42507,10 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scene_edges_edges",
       "target": "graph_selectors_useedgesvisible"
     },
@@ -42368,10 +42518,10 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L16",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scene_edges_edges",
       "target": "graph_selectors_useselectednodeidx"
     },
@@ -42379,10 +42529,10 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "packages/graph-viz/src/components/scene/Edges.tsx",
       "source_location": "L15",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scene_edges_edges",
       "target": "graph_selectors_usevisiblecommunities"
     },
@@ -71316,16 +71466,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L320",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_repo_graph_viz",
-      "target": "packages_graph_viz_filtering"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
       "source_location": "L265",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -71396,21 +71536,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L31",
+      "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_graph_viz_quick_start",
-      "target": "packages_graph_viz_data"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_architecture",
-      "target": "packages_graph_viz_component_tree"
+      "target": "packages_graph_viz_data_preparation",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -71426,91 +71556,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L133",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_architecture",
-      "target": "packages_graph_viz_enrichment_pipeline"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
       "source_location": "L99",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_graph_viz_architecture",
-      "target": "packages_graph_viz_layout_algorithm"
+      "target": "packages_graph_viz_rendering",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L116",
+      "source_location": "L120",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_exports",
-      "target": "packages_graph_viz_internal_components_not_part_of_public_api"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L186",
-      "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_graph_viz_usage_examples",
-      "target": "packages_graph_viz_customizing_visuals"
+      "target": "packages_graph_viz_as_a_docs_site_widget",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L156",
+      "source_location": "L110",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_graph_viz_usage_examples",
-      "target": "packages_graph_viz_embedded_in_a_larger_app"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L170",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_usage_examples",
-      "target": "packages_graph_viz_programmatic_community_selection"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L142",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_usage_examples",
-      "target": "packages_graph_viz_standalone_page"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L280",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_state_management",
-      "target": "packages_graph_viz_datastore_graph_data_set_once_on_load"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/graph-viz.md",
-      "source_location": "L240",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_graph_viz_state_management",
-      "target": "packages_graph_viz_uistore_interactive_state_frequently_read_written"
+      "target": "packages_graph_viz_standalone_embed",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -73095,6 +73165,176 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "graph_viz_readme",
+      "target": "graph_viz_readme_repo_graph_viz",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L155",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_changelog",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L151",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_contributing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_exports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_patterns_gotchas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L136",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_performance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_purpose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_quick_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_state_management",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_testing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "graph_viz_readme_repo_graph_viz",
+      "target": "graph_viz_readme_usage_examples",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "graph_viz_readme_quick_start",
+      "target": "graph_viz_readme_data_preparation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "graph_viz_readme_architecture",
+      "target": "graph_viz_readme_data_flow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "graph_viz_readme_architecture",
+      "target": "graph_viz_readme_rendering",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "graph_viz_readme_usage_examples",
+      "target": "graph_viz_readme_as_a_docs_site_widget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/README.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "graph_viz_readme_usage_examples",
+      "target": "graph_viz_readme_standalone_embed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "packages/image-manipulator/README.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -74334,5 +74574,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "b357c04a6b8fdee46a731af81109f750931939e4"
+  "built_at_commit": "4669958ccef0761e0283b902e3d3579c6d4b10ac"
 }
