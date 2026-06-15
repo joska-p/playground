@@ -10,7 +10,9 @@ import { useState } from 'react';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
 
 function App() {
-  const [text, setText] = useState('Turborepo Rocks');
+  const [text, setText] = useState(
+    "De deux choses lune l'autre c'est le soleil"
+  );
 
   return (
     <div className="bg-background grid min-h-screen place-items-center">
