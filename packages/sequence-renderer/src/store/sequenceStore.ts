@@ -1,7 +1,8 @@
 import { create } from 'zustand';
-import type { SequenceRule } from '../core/sequence-rules';
-import { generateSequence, recamanRule } from '../core/sequence-rules';
-import { visualizations } from '../core/visualizations/visualizations';
+import type { SequenceRule } from '../core/rules/types';
+import { generateSequence } from '../core/engine';
+import { recamanRule } from '../core/rules/recaman';
+import { getAllVisualizations } from '../core/visualizations/registry';
 
 type SequenceState = {
   sequenceRule: SequenceRule;
@@ -33,7 +34,7 @@ function clampSteps({
 const sequenceStore = create<SequenceState>(() => ({
   sequenceRule: recamanRule,
   steps: 2,
-  visualizationId: visualizations[0]?.id ?? 'recaman-arcs',
+  visualizationId: getAllVisualizations()[0]?.id ?? 'recaman-arcs',
   sequence: generateInitial({ sequenceRule: recamanRule, steps: 2 })
 }));
 
