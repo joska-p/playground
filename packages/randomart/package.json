@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/App.tsx",
+    "./renderPixelMapAsBase64": "./src/utils/randomart-engine.ts",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {
@@ -17,9 +18,10 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "fast-png": "catalog:",
     "react-error-boundary": "catalog:",
-    "zustand": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "zustand": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -27,7 +29,6 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "eslint": "catalog:",
     "@repo/config-eslint": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
@@ -37,6 +38,7 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
+    "eslint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:",

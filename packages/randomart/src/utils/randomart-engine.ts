@@ -1,3 +1,4 @@
+import { encode } from 'fast-png';
 import { SeededRandom } from './SeededRandom';
 
 export type ExpressionNode =
@@ -87,14 +88,15 @@ export function buildTree(
   }
 }
 
-export function renderPixelMap(
+/**
+ * Generates raw RGBA pixel data as a server-safe Uint8ClampedArray
+ */
+function renderPixelBuffer(
   seedString: string,
   size: number,
   maxDepth: number
-): ImageData {
-  const canvas = new OffscreenCanvas(size, size);
-  const ctx = canvas.getContext('2d')!;
-  const imgData = ctx.createImageData(size, size);
+): Uint8ClampedArray {
+  const buffer = new Uint8ClampedArray(size * size * 4);
 
   const rngR = new SeededRandom(seedString + '_red');
   const rngG = new SeededRandom(seedString + '_green');
@@ -108,19 +110,52 @@ export function renderPixelMap(
     const y = (py / size) * 2 - 1;
     for (let px = 0; px < size; px++) {
       const x = (px / size) * 2 - 1;
+
       const rVal = evaluateNode(treeR, x, y);
       const gVal = evaluateNode(treeG, x, y);
       const bVal = evaluateNode(treeB, x, y);
+
       const r = Math.floor(((rVal + 1) / 2) * 255);
       const g = Math.floor(((gVal + 1) / 2) * 255);
       const b = Math.floor(((bVal + 1) / 2) * 255);
+
       const index = (py * size + px) * 4;
-      imgData.data[index] = r;
-      imgData.data[index + 1] = g;
-      imgData.data[index + 2] = b;
-      imgData.data[index + 3] = 255;
+      buffer[index] = r;
+      buffer[index + 1] = g;
+      buffer[index + 2] = b;
+      buffer[index + 3] = 255; // Alpha channel
     }
   }
 
-  return imgData;
+  return buffer;
 }
+
+/**
+ * Generates a Base64 Data URI string of the random art at build time
+ */
+function renderPixelMapAsBase64(
+  seedString: string,
+  size: number,
+  maxDepth: number
+): string {
+  const buffer = renderPixelBuffer(seedString, size, maxDepth);
+
+  // Encode the raw RGBA buffer into a valid PNG file structure
+  const pngBuffer = encode({
+    width: size,
+    height: size,
+    data: buffer,
+    channels: 4,
+    depth: 8
+  });
+
+  // Convert the array buffer to a base64 string
+  const binaryString = Array.from(pngBuffer)
+    .map((byte) => String.fromCharCode(byte))
+    .join('');
+
+  const base64 = btoa(binaryString);
+  return `data:image/png;base64,${base64}`;
+}
+
+export { renderPixelBuffer, renderPixelMapAsBase64 };

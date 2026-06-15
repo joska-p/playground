@@ -1,5 +1,5 @@
 import { useEffect, useRef, useTransition } from 'react';
-import { renderPixelMap } from '../utils/randomart-engine';
+import { renderPixelBuffer } from '../utils/randomart-engine';
 
 type Props = {
   seedString: string;
@@ -21,7 +21,15 @@ export function RandomArtCanvas({
     startTransition(() => {
       const canvas = canvasRef.current!;
       const ctx = canvas.getContext('2d')!;
-      const imgData = renderPixelMap(seedString, size, maxDepth);
+
+      const pixelBuffer = renderPixelBuffer(seedString, size, maxDepth);
+
+      const imgData = new ImageData(
+        new Uint8ClampedArray(pixelBuffer),
+        size,
+        size
+      );
+
       ctx.putImageData(imgData, 0, 0);
     });
   }, [seedString, size, maxDepth]);

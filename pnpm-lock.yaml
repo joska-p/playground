@@ -69,6 +69,9 @@ catalogs:
     eslint-plugin-react-refresh:
       specifier: ^0.5.2
       version: 0.5.2
+    fast-png:
+      specifier: ^8.0.0
+      version: 8.0.0
     globals:
       specifier: ^17.6.0
       version: 17.6.0
@@ -897,6 +900,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
+      fast-png:
+        specifier: 'catalog:'
+        version: 8.0.0
       react-error-boundary:
         specifier: 'catalog:'
         version: 6.1.2(react@19.2.7)
@@ -6432,6 +6438,12 @@ packages:
         integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
       }
 
+  fast-png@8.0.0:
+    resolution:
+      {
+        integrity: sha512-gCysNasJ8KEMgfdYIKd/wTDo6ENK1PWT0RJO7O+0pgmuHPw2O6tA1WvdxFRJoLf9V8yFYpG0FA1YgI8X97OhJA==
+      }
+
   fast-string-truncated-width@3.0.3:
     resolution:
       {
@@ -6867,6 +6879,12 @@ packages:
     resolution:
       {
         integrity: sha512-Nb2ctOyNR8DqQoR0OwRG95uNWIC0C1lCgf5Naz5H6Ji72KZ8OcFZLz2P5sNgwlyoJ8Yif11oMuYs5pBQa86csA==
+      }
+
+  iobuffer@6.0.1:
+    resolution:
+      {
+        integrity: sha512-SZWYkWNfjIXIBYSDpXDYIgshqtbOPsi4lviawAEceR1Kqk+sHDlcQjWrzNQsii80AyBY0q5c8HCTNjqo74ul+Q==
       }
 
   iron-webcrypto@1.2.1:
@@ -13110,6 +13128,11 @@ snapshots:
 
   fast-levenshtein@2.0.6: {}
 
+  fast-png@8.0.0:
+    dependencies:
+      fflate: 0.8.3
+      iobuffer: 6.0.1
+
   fast-string-truncated-width@3.0.3: {}
 
   fast-string-width@3.0.2:
@@ -13421,6 +13444,8 @@ snapshots:
   indent-string@4.0.0: {}
 
   inline-style-parser@0.2.7: {}
+
+  iobuffer@6.0.1: {}
 
   iron-webcrypto@1.2.1: {}
 

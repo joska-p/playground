@@ -582,7 +582,7 @@
       "confidence": "EXTRACTED",
       "_origin": "ast",
       "id": "icons",
-      "community": 88,
+      "community": 78,
       "norm_label": "@repo/ui/icons"
     },
     {
@@ -646,7 +646,7 @@
       "_origin": "ast",
       "source_location": "L1",
       "id": "docs_navcategory",
-      "community": 88,
+      "community": 78,
       "norm_label": "navcategory.astro"
     },
     {
@@ -678,7 +678,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "docs_navcategory_hasactivearticle",
-      "community": 88,
+      "community": 78,
       "norm_label": "hasactivearticle"
     },
     {
@@ -744,6 +744,16 @@
       "norm_label": "../../components/ui/features/hero.astro"
     },
     {
+      "label": "@repo/randomart/renderPixelMapAsBase64",
+      "file_type": "code",
+      "source_file": "@repo/randomart/renderPixelMapAsBase64",
+      "confidence": "EXTRACTED",
+      "_origin": "ast",
+      "id": "renderpixelmapasbase64",
+      "community": 1,
+      "norm_label": "@repo/randomart/renderpixelmapasbase64"
+    },
+    {
       "label": "../components/ui/projects/FeaturedProjects.astro",
       "file_type": "code",
       "source_file": "apps/playground/src/components/ui/projects/FeaturedProjects.astro",
@@ -751,7 +761,7 @@
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "id": "projects_featuredprojects",
-      "community": 78,
+      "community": 88,
       "norm_label": "../components/ui/projects/featuredprojects.astro"
     },
     {
@@ -761,7 +771,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "projects_featuredprojects_featuredprojects",
-      "community": 78,
+      "community": 88,
       "norm_label": "featuredprojects"
     },
     {
@@ -882,7 +892,7 @@
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "id": "layouts_baselayout",
-      "community": 1,
+      "community": 241,
       "norm_label": "../../../../layouts/baselayout.astro"
     },
     {
@@ -892,7 +902,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "layouts_baselayout_canonicalurl",
-      "community": 1,
+      "community": 241,
       "norm_label": "canonicalurl"
     },
     {
@@ -913,7 +923,7 @@
       "confidence": "EXTRACTED",
       "_origin": "ast",
       "id": "astro_assets",
-      "community": 1,
+      "community": 241,
       "norm_label": "astro:assets"
     },
     {
@@ -923,7 +933,7 @@
       "confidence": "EXTRACTED",
       "_origin": "ast",
       "id": "workspaces_playground_apps_playground_src_styles_styles_css",
-      "community": 1,
+      "community": 241,
       "norm_label": "../styles/styles.css"
     },
     {
@@ -1168,7 +1178,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_index",
-      "community": 1,
+      "community": 78,
       "norm_label": "index.astro"
     },
     {
@@ -1178,7 +1188,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "pages_index",
-      "community": 78,
+      "community": 88,
       "norm_label": "index.astro"
     },
     {
@@ -1378,7 +1388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tag_index",
-      "community": 25,
+      "community": 241,
       "norm_label": "index.astro"
     },
     {
@@ -1388,7 +1398,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tag_index_getstaticpaths",
-      "community": 25,
+      "community": 241,
       "norm_label": "getstaticpaths()"
     },
     {
@@ -1398,7 +1408,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "tag_index_tagmeta",
-      "community": 25,
+      "community": 241,
       "norm_label": "tagmeta"
     },
     {
@@ -1408,7 +1418,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "tag_index_tagprojects",
-      "community": 25,
+      "community": 241,
       "norm_label": "tagprojects"
     },
     {
@@ -1758,7 +1768,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 135,
+      "community": 242,
       "norm_label": "turbo"
     },
     {
@@ -5548,7 +5558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_filtercontrols",
-      "community": 56,
+      "community": 238,
       "norm_label": "filtercontrols.tsx"
     },
     {
@@ -5558,7 +5568,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "controls_filtercontrols_filtercontrols",
-      "community": 56,
+      "community": 238,
       "norm_label": "filtercontrols()"
     },
     {
@@ -5568,7 +5578,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "details_panel_detailspanel",
-      "community": 56,
+      "community": 233,
       "norm_label": "detailspanel.tsx"
     },
     {
@@ -5578,7 +5588,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "details_panel_detailspanel_detailspanel",
-      "community": 56,
+      "community": 233,
       "norm_label": "detailspanel()"
     },
     {
@@ -5588,7 +5598,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_graphoverview",
-      "community": 56,
+      "community": 233,
       "norm_label": "graphoverview.tsx"
     },
     {
@@ -5598,7 +5608,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "graph_overview_graphoverview_graphoverview",
-      "community": 56,
+      "community": 233,
       "norm_label": "graphoverview()"
     },
     {
@@ -5608,7 +5618,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_stat",
-      "community": 56,
+      "community": 233,
       "norm_label": "stat.tsx"
     },
     {
@@ -5618,7 +5628,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_stat_stat",
-      "community": 56,
+      "community": 233,
       "norm_label": "stat()"
     },
     {
@@ -5658,7 +5668,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "node_details_nodedetails_nodedetails",
-      "community": 56,
+      "community": 233,
       "norm_label": "nodedetails()"
     },
     {
@@ -5678,7 +5688,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "details_panel_utils_getstats",
-      "community": 56,
+      "community": 233,
       "norm_label": "getstats()"
     },
     {
@@ -5698,7 +5708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_communitylabels",
-      "community": 56,
+      "community": 238,
       "norm_label": "communitylabels.tsx"
     },
     {
@@ -5708,7 +5718,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "scene_communitylabels_communitylabels",
-      "community": 56,
+      "community": 238,
       "norm_label": "communitylabels()"
     },
     {
@@ -5718,7 +5728,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_edges",
-      "community": 56,
+      "community": 233,
       "norm_label": "edges.tsx"
     },
     {
@@ -5728,7 +5738,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "scene_edges_edgegroupprops",
-      "community": 56,
+      "community": 233,
       "norm_label": "edgegroupprops"
     },
     {
@@ -5738,7 +5748,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scene_edges_edgegroup",
-      "community": 56,
+      "community": 233,
       "norm_label": "edgegroup()"
     },
     {
@@ -5748,7 +5758,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "scene_edges_edges",
-      "community": 56,
+      "community": 233,
       "norm_label": "edges()"
     },
     {
@@ -5758,7 +5768,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_graphcanvas",
-      "community": 56,
+      "community": 239,
       "norm_label": "graphcanvas.tsx"
     },
     {
@@ -5778,7 +5788,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_nodes",
-      "community": 56,
+      "community": 239,
       "norm_label": "nodes.tsx"
     },
     {
@@ -5788,7 +5798,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scene_nodes_nodes",
-      "community": 56,
+      "community": 239,
       "norm_label": "nodes()"
     },
     {
@@ -5798,7 +5808,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_build_instances",
-      "community": 56,
+      "community": 239,
       "norm_label": "build-instances.ts"
     },
     {
@@ -5808,7 +5818,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "core_build_instances_dim_color",
-      "community": 56,
+      "community": 239,
       "norm_label": "dim_color"
     },
     {
@@ -5818,7 +5828,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "core_build_instances_highlight_color",
-      "community": 56,
+      "community": 239,
       "norm_label": "highlight_color"
     },
     {
@@ -5828,7 +5838,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_build_instances_dummy",
-      "community": 56,
+      "community": 239,
       "norm_label": "dummy"
     },
     {
@@ -5838,7 +5848,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "core_build_instances_tmpcolor",
-      "community": 56,
+      "community": 239,
       "norm_label": "tmpcolor"
     },
     {
@@ -5848,7 +5858,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "core_build_instances_getnodesize",
-      "community": 56,
+      "community": 239,
       "norm_label": "getnodesize()"
     },
     {
@@ -5858,7 +5868,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "core_build_instances_writeinstancedata",
-      "community": 56,
+      "community": 239,
       "norm_label": "writeinstancedata()"
     },
     {
@@ -5868,7 +5878,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "core_build_instances_splitnodeindices",
-      "community": 56,
+      "community": 239,
       "norm_label": "splitnodeindices()"
     },
     {
@@ -5878,7 +5888,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_compute_edges",
-      "community": 56,
+      "community": 233,
       "norm_label": "compute-edges.ts"
     },
     {
@@ -5888,7 +5898,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_compute_edges_edgebuffers",
-      "community": 56,
+      "community": 233,
       "norm_label": "edgebuffers"
     },
     {
@@ -5898,7 +5908,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "core_compute_edges_computeedgebuffers",
-      "community": 56,
+      "community": 233,
       "norm_label": "computeedgebuffers()"
     },
     {
@@ -5908,7 +5918,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_graph_viz_src_core_config_ts_core_config",
-      "community": 22,
+      "community": 239,
       "norm_label": "config.ts"
     },
     {
@@ -5918,7 +5928,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_config_palette",
-      "community": 22,
+      "community": 239,
       "norm_label": "palette"
     },
     {
@@ -5928,7 +5938,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "core_config_config",
-      "community": 56,
+      "community": 239,
       "norm_label": "config"
     },
     {
@@ -6018,7 +6028,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "data_graphdata_schema_graphdata",
-      "community": 56,
+      "community": 22,
       "norm_label": "graphdata"
     },
     {
@@ -6338,7 +6348,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "stages_run_simulation_runsimulation",
-      "community": 22,
+      "community": 240,
       "norm_label": "runsimulation()"
     },
     {
@@ -6378,7 +6388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "data_types_d",
-      "community": 22,
+      "community": 240,
       "norm_label": "types.d.ts"
     },
     {
@@ -6388,7 +6398,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "data_types_d_simulationnodedatum",
-      "community": 22,
+      "community": 240,
       "norm_label": "simulationnodedatum"
     },
     {
@@ -6398,7 +6408,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "data_types_d_simulationlinkdatum",
-      "community": 22,
+      "community": 240,
       "norm_label": "simulationlinkdatum"
     },
     {
@@ -6408,7 +6418,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "data_types_d_simulation",
-      "community": 22,
+      "community": 240,
       "norm_label": "simulation"
     },
     {
@@ -6418,7 +6428,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "data_types_d_force",
-      "community": 22,
+      "community": 240,
       "norm_label": "force"
     },
     {
@@ -6428,7 +6438,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "data_types_d_forcelink",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcelink"
     },
     {
@@ -6438,7 +6448,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "data_types_d_forcemanybody",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcemanybody"
     },
     {
@@ -6448,7 +6458,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "data_types_d_forcecenter",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcecenter"
     },
     {
@@ -6458,7 +6468,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "data_types_d_forcecollide",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcecollide"
     },
     {
@@ -6498,7 +6508,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "content_selectors",
-      "community": 56,
+      "community": 233,
       "norm_label": "selectors.ts"
     },
     {
@@ -6508,7 +6518,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "content_selectors_usenodes",
-      "community": 56,
+      "community": 233,
       "norm_label": "usenodes()"
     },
     {
@@ -6518,7 +6528,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "content_selectors_uselinks",
-      "community": 56,
+      "community": 233,
       "norm_label": "uselinks()"
     },
     {
@@ -6528,7 +6538,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "content_selectors_usecommunities",
-      "community": 56,
+      "community": 238,
       "norm_label": "usecommunities()"
     },
     {
@@ -6548,7 +6558,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "content_store_graphdatastore",
-      "community": 56,
+      "community": 233,
       "norm_label": "graphdatastore"
     },
     {
@@ -6578,7 +6588,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_actions",
-      "community": 56,
+      "community": 238,
       "norm_label": "actions.ts"
     },
     {
@@ -6588,7 +6598,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "view_actions_initcommunities",
-      "community": 56,
+      "community": 238,
       "norm_label": "initcommunities()"
     },
     {
@@ -6598,7 +6608,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "view_actions_selectnode",
-      "community": 56,
+      "community": 239,
       "norm_label": "selectnode()"
     },
     {
@@ -6608,7 +6618,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "view_actions_toggleedges",
-      "community": 56,
+      "community": 238,
       "norm_label": "toggleedges()"
     },
     {
@@ -6618,7 +6628,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "view_actions_togglecommunity",
-      "community": 56,
+      "community": 238,
       "norm_label": "togglecommunity()"
     },
     {
@@ -6628,7 +6638,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "view_actions_showallcommunities",
-      "community": 56,
+      "community": 238,
       "norm_label": "showallcommunities()"
     },
     {
@@ -6638,7 +6648,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "view_actions_hideallcommunities",
-      "community": 56,
+      "community": 238,
       "norm_label": "hideallcommunities()"
     },
     {
@@ -6648,7 +6658,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "view_actions_togglelabels",
-      "community": 56,
+      "community": 238,
       "norm_label": "togglelabels()"
     },
     {
@@ -6658,7 +6668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_selectors",
-      "community": 56,
+      "community": 238,
       "norm_label": "selectors.ts"
     },
     {
@@ -6668,7 +6678,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "view_selectors_useselectednodeidx",
-      "community": 56,
+      "community": 233,
       "norm_label": "useselectednodeidx()"
     },
     {
@@ -6678,7 +6688,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "view_selectors_useedgesvisible",
-      "community": 56,
+      "community": 238,
       "norm_label": "useedgesvisible()"
     },
     {
@@ -6688,7 +6698,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "view_selectors_usevisiblecommunities",
-      "community": 56,
+      "community": 238,
       "norm_label": "usevisiblecommunities()"
     },
     {
@@ -6698,7 +6708,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "view_selectors_uselabelsvisible",
-      "community": 56,
+      "community": 238,
       "norm_label": "uselabelsvisible()"
     },
     {
@@ -6708,7 +6718,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_store",
-      "community": 56,
+      "community": 238,
       "norm_label": "store.ts"
     },
     {
@@ -6718,7 +6728,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "view_store_graphstore",
-      "community": 56,
+      "community": 238,
       "norm_label": "graphstore"
     },
     {
@@ -6728,7 +6738,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_types",
-      "community": 56,
+      "community": 238,
       "norm_label": "types.ts"
     },
     {
@@ -6738,7 +6748,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_types_graphstate",
-      "community": 56,
+      "community": 238,
       "norm_label": "graphstate"
     },
     {
@@ -7688,7 +7698,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app",
-      "community": 231,
+      "community": 61,
       "norm_label": "app.tsx"
     },
     {
@@ -7698,7 +7708,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app_app",
-      "community": 231,
+      "community": 61,
       "norm_label": "app()"
     },
     {
@@ -7748,7 +7758,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "layout_controls_controls",
-      "community": 231,
+      "community": 61,
       "norm_label": "controls()"
     },
     {
@@ -7758,7 +7768,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_imagemanipulator",
-      "community": 231,
+      "community": 61,
       "norm_label": "imagemanipulator.tsx"
     },
     {
@@ -7768,7 +7778,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "layout_imagemanipulator_imagemanipulator",
-      "community": 231,
+      "community": 61,
       "norm_label": "imagemanipulator()"
     },
     {
@@ -8008,7 +8018,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "output_outputs_outputs",
-      "community": 231,
+      "community": 61,
       "norm_label": "outputs()"
     },
     {
@@ -8098,7 +8108,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols",
-      "community": 61,
+      "community": 74,
       "norm_label": "imagesourcecontrols.tsx"
     },
     {
@@ -8108,7 +8118,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols_imagesourcecontrols",
-      "community": 61,
+      "community": 74,
       "norm_label": "imagesourcecontrols()"
     },
     {
@@ -8178,7 +8188,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_uploadzone_uploadzone",
-      "community": 61,
+      "community": 74,
       "norm_label": "uploadzone()"
     },
     {
@@ -8188,7 +8198,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_index",
-      "community": 61,
+      "community": 74,
       "norm_label": "index.ts"
     },
     {
@@ -8678,7 +8688,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "manipulator_actions_clearoutputs",
-      "community": 61,
+      "community": 74,
       "norm_label": "clearoutputs()"
     },
     {
@@ -9938,7 +9948,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_pipeline_worker",
-      "community": 117,
+      "community": 19,
       "norm_label": "pipeline-worker.ts"
     },
     {
@@ -9948,7 +9958,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "api_pipeline_worker_workermessage",
-      "community": 117,
+      "community": 19,
       "norm_label": "workermessage"
     },
     {
@@ -10688,7 +10698,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler",
-      "community": 19,
+      "community": 117,
       "norm_label": "fusionscheduler"
     },
     {
@@ -10698,7 +10708,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_add",
-      "community": 19,
+      "community": 117,
       "norm_label": ".add()"
     },
     {
@@ -10808,7 +10818,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "core_image_pipeline_types_manipulationdefinition",
-      "community": 19,
+      "community": 117,
       "norm_label": "manipulationdefinition"
     },
     {
@@ -10878,7 +10888,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 117,
+      "community": 61,
       "norm_label": "step"
     },
     {
@@ -17772,10 +17782,20 @@
       "norm_label": "exports"
     },
     {
-      "label": "./styles",
+      "label": "./renderPixelMapAsBase64",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
       "source_location": "L8",
+      "_origin": "ast",
+      "id": "randomart_package_exports_renderpixelmapasbase64",
+      "community": 17,
+      "norm_label": "./renderpixelmapasbase64"
+    },
+    {
+      "label": "./styles",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "randomart_package_exports_styles",
       "community": 17,
@@ -17785,7 +17805,7 @@
       "label": "scripts",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "randomart_package_scripts",
       "community": 17,
@@ -17795,7 +17815,7 @@
       "label": "dev",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "randomart_package_scripts_dev",
       "community": 17,
@@ -17805,7 +17825,7 @@
       "label": "build",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "randomart_package_scripts_build",
       "community": 17,
@@ -17815,7 +17835,7 @@
       "label": "lint",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "randomart_package_scripts_lint",
       "community": 17,
@@ -17825,7 +17845,7 @@
       "label": "lint-fix",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "randomart_package_scripts_lint_fix",
       "community": 17,
@@ -17835,7 +17855,7 @@
       "label": "preview",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "randomart_package_scripts_preview",
       "community": 17,
@@ -17845,7 +17865,7 @@
       "label": "check-types",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "randomart_package_scripts_check_types",
       "community": 17,
@@ -17855,7 +17875,7 @@
       "label": "dependencies",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "randomart_package_dependencies",
       "community": 17,
@@ -17865,47 +17885,57 @@
       "label": "@repo/ui",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "randomart_package_dependencies_repo_ui",
       "community": 17,
       "norm_label": "@repo/ui"
     },
     {
+      "label": "fast-png",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies_fast_png",
+      "community": 17,
+      "norm_label": "fast-png"
+    },
+    {
       "label": "react-error-boundary",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "randomart_package_dependencies_react_error_boundary",
       "community": 17,
       "norm_label": "react-error-boundary"
     },
     {
-      "label": "zustand",
-      "file_type": "code",
-      "source_file": "packages/randomart/package.json",
-      "source_location": "L21",
-      "_origin": "ast",
-      "id": "randomart_package_dependencies_zustand",
-      "community": 17,
-      "norm_label": "zustand"
-    },
-    {
       "label": "zod",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "randomart_package_dependencies_zod",
       "community": 17,
       "norm_label": "zod"
     },
     {
-      "label": "peerDependencies",
+      "label": "zustand",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
       "source_location": "L24",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies_zustand",
+      "community": 17,
+      "norm_label": "zustand"
+    },
+    {
+      "label": "peerDependencies",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "randomart_package_peerdependencies",
       "community": 17,
@@ -17915,7 +17945,7 @@
       "label": "react",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L25",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "randomart_package_peerdependencies_react",
       "community": 17,
@@ -17925,7 +17955,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L26",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "randomart_package_peerdependencies_react_dom",
       "community": 17,
@@ -17935,7 +17965,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L28",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "randomart_package_devdependencies",
       "community": 17,
@@ -17945,27 +17975,17 @@
       "label": "@babel/core",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L29",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_babel_core",
       "community": 17,
       "norm_label": "@babel/core"
     },
     {
-      "label": "eslint",
-      "file_type": "code",
-      "source_file": "packages/randomart/package.json",
-      "source_location": "L30",
-      "_origin": "ast",
-      "id": "randomart_package_devdependencies_eslint",
-      "community": 17,
-      "norm_label": "eslint"
-    },
-    {
       "label": "@repo/config-eslint",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L31",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_repo_config_eslint",
       "community": 17,
@@ -17975,7 +17995,7 @@
       "label": "@rolldown/plugin-babel",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L32",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_rolldown_plugin_babel",
       "community": 17,
@@ -17985,7 +18005,7 @@
       "label": "@tailwindcss/vite",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L33",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_tailwindcss_vite",
       "community": 17,
@@ -17995,7 +18015,7 @@
       "label": "@types/babel__core",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L34",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_types_babel_core",
       "community": 17,
@@ -18005,7 +18025,7 @@
       "label": "@types/node",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_types_node",
       "community": 17,
@@ -18015,7 +18035,7 @@
       "label": "@types/react",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L36",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_types_react",
       "community": 17,
@@ -18025,7 +18045,7 @@
       "label": "@types/react-dom",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L37",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_types_react_dom",
       "community": 17,
@@ -18035,7 +18055,7 @@
       "label": "@vitejs/plugin-react",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L38",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_vitejs_plugin_react",
       "community": 17,
@@ -18045,17 +18065,27 @@
       "label": "babel-plugin-react-compiler",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L39",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_babel_plugin_react_compiler",
       "community": 17,
       "norm_label": "babel-plugin-react-compiler"
     },
     {
+      "label": "eslint",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_eslint",
+      "community": 17,
+      "norm_label": "eslint"
+    },
+    {
       "label": "react",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L40",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_react",
       "community": 17,
@@ -18065,7 +18095,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L41",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_react_dom",
       "community": 17,
@@ -18075,7 +18105,7 @@
       "label": "tailwindcss",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L42",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_tailwindcss",
       "community": 17,
@@ -18085,7 +18115,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L43",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_typescript",
       "community": 17,
@@ -18095,7 +18125,7 @@
       "label": "vite",
       "file_type": "code",
       "source_file": "packages/randomart/package.json",
-      "source_location": "L44",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "randomart_package_devdependencies_vite",
       "community": 17,
@@ -18225,7 +18255,7 @@
       "label": "ExpressionNode",
       "file_type": "code",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L3",
+      "source_location": "L4",
       "_origin": "ast",
       "id": "utils_randomart_engine_expressionnode",
       "community": 198,
@@ -18235,7 +18265,7 @@
       "label": "evaluateNode()",
       "file_type": "code",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "utils_randomart_engine_evaluatenode",
       "community": 198,
@@ -18245,21 +18275,31 @@
       "label": "buildTree()",
       "file_type": "code",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "utils_randomart_engine_buildtree",
       "community": 198,
       "norm_label": "buildtree()"
     },
     {
-      "label": "renderPixelMap()",
+      "label": "renderPixelBuffer()",
       "file_type": "code",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L90",
+      "source_location": "L94",
       "_origin": "ast",
-      "id": "utils_randomart_engine_renderpixelmap",
+      "id": "utils_randomart_engine_renderpixelbuffer",
       "community": 198,
-      "norm_label": "renderpixelmap()"
+      "norm_label": "renderpixelbuffer()"
+    },
+    {
+      "label": "renderPixelMapAsBase64()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L136",
+      "_origin": "ast",
+      "id": "utils_randomart_engine_renderpixelmapasbase64",
+      "community": 198,
+      "norm_label": "renderpixelmapasbase64()"
     },
     {
       "label": "tsconfig.app.json",
@@ -23208,7 +23248,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_iconhamburger",
-      "community": 27,
+      "community": 243,
       "norm_label": "iconhamburger.tsx"
     },
     {
@@ -23218,7 +23258,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_iconhamburger_iconhamburger",
-      "community": 27,
+      "community": 243,
       "norm_label": "iconhamburger"
     },
     {
@@ -24218,7 +24258,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sidebar_sidebartoggle",
-      "community": 27,
+      "community": 75,
       "norm_label": "sidebartoggle.tsx"
     },
     {
@@ -25518,7 +25558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 135,
+      "community": 242,
       "norm_label": "turbo.json"
     },
     {
@@ -25528,7 +25568,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 135,
+      "community": 242,
       "norm_label": "$schema"
     },
     {
@@ -25538,7 +25578,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 135,
+      "community": 242,
       "norm_label": "ui"
     },
     {
@@ -25618,7 +25658,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "turbo_tasks_lint",
-      "community": 233,
+      "community": 112,
       "norm_label": "lint"
     },
     {
@@ -25628,7 +25668,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "turbo_lint_dependson",
-      "community": 233,
+      "community": 112,
       "norm_label": "dependson"
     },
     {
@@ -25638,7 +25678,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "turbo_lint_outputs",
-      "community": 233,
+      "community": 112,
       "norm_label": "outputs"
     },
     {
@@ -33113,12 +33153,31 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "category_index",
+      "target": "features_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/docs/index.astro",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_index",
       "target": "features_hero"
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/components/ui/features/Hero.astro",
+      "source": "features_hero",
+      "target": "renderpixelmapasbase64",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -60269,6 +60328,16 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L8",
       "weight": 1.0,
+      "source": "randomart_package_exports",
+      "target": "randomart_package_exports_renderpixelmapasbase64",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "randomart_package_exports",
       "target": "randomart_package_exports_styles"
@@ -60332,6 +60401,16 @@
       "confidence_score": 1.0,
       "source": "randomart_package_scripts",
       "target": "randomart_package_scripts_preview"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "randomart_package_dependencies",
+      "target": "randomart_package_dependencies_fast_png",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -60623,9 +60702,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L2",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "utils_randomart_engine_renderpixelmap"
+      "target": "utils_randomart_engine_renderpixelbuffer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -60723,33 +60802,54 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L90",
+      "source_location": "L94",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_randomart_engine_renderpixelmap"
+      "target": "utils_randomart_engine_renderpixelbuffer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_randomart_engine_renderpixelmapasbase64",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L111",
+      "source_location": "L114",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_randomart_engine_renderpixelmap",
-      "target": "utils_randomart_engine_evaluatenode"
+      "source": "utils_randomart_engine_renderpixelbuffer",
+      "target": "utils_randomart_engine_evaluatenode",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
-      "source_location": "L103",
+      "source_location": "L105",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_randomart_engine_renderpixelmap",
-      "target": "utils_randomart_engine_buildtree"
+      "source": "utils_randomart_engine_renderpixelbuffer",
+      "target": "utils_randomart_engine_buildtree",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L141",
+      "weight": 1.0,
+      "source": "utils_randomart_engine_renderpixelmapasbase64",
+      "target": "utils_randomart_engine_renderpixelbuffer",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -62357,9 +62457,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawBaseline.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawbaseline",
-      "target": "visualizations_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory"
     },
     {
       "relation": "imports_from",
@@ -62368,9 +62468,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawFactorWaves.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawfactorwaves",
-      "target": "visualizations_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory"
     },
     {
       "relation": "imports_from",
@@ -62379,9 +62479,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawPlottedNumbers.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawplottednumbers",
-      "target": "visualizations_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory"
     },
     {
       "relation": "imports_from",
@@ -62390,9 +62490,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawRecamanArcs.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawrecamanarcs",
-      "target": "visualizations_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory"
     },
     {
       "relation": "contains",
@@ -62400,9 +62500,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layerFactory.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_layerfactory",
-      "target": "visualizations_layerfactory_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory_layerfactory"
     },
     {
       "relation": "imports_from",
@@ -62411,9 +62511,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layerFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_layerfactory",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -62422,9 +62522,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layerFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_layerfactory",
-      "target": "visualizations_types_drawingcontext",
-      "confidence_score": 1.0
+      "target": "visualizations_types_drawingcontext"
     },
     {
       "relation": "imports",
@@ -62433,9 +62533,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layerFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_layerfactory",
-      "target": "visualizations_types_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_types_layerfactory"
     },
     {
       "relation": "imports",
@@ -62444,9 +62544,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawBaseline.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawbaseline",
-      "target": "visualizations_layerfactory_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory_layerfactory"
     },
     {
       "relation": "imports",
@@ -62455,9 +62555,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawFactorWaves.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawfactorwaves",
-      "target": "visualizations_layerfactory_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory_layerfactory"
     },
     {
       "relation": "imports",
@@ -62466,9 +62566,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawPlottedNumbers.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawplottednumbers",
-      "target": "visualizations_layerfactory_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory_layerfactory"
     },
     {
       "relation": "imports",
@@ -62477,9 +62577,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawRecamanArcs.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawrecamanarcs",
-      "target": "visualizations_layerfactory_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_layerfactory_layerfactory"
     },
     {
       "relation": "contains",
@@ -62487,9 +62587,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawBaseline.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawbaseline",
-      "target": "layers_drawbaseline_drawbaseline",
-      "confidence_score": 1.0
+      "target": "layers_drawbaseline_drawbaseline"
     },
     {
       "relation": "contains",
@@ -62497,9 +62597,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawBaseline.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawbaseline",
-      "target": "layers_drawbaseline_drawbaselineoptions",
-      "confidence_score": 1.0
+      "target": "layers_drawbaseline_drawbaselineoptions"
     },
     {
       "relation": "imports_from",
@@ -62508,9 +62608,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "layers_drawbaseline",
-      "confidence_score": 1.0
+      "target": "layers_drawbaseline"
     },
     {
       "relation": "imports_from",
@@ -62519,9 +62619,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawbaseline",
-      "confidence_score": 1.0
+      "target": "layers_drawbaseline"
     },
     {
       "relation": "imports",
@@ -62530,9 +62630,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "layers_drawbaseline_drawbaseline",
-      "confidence_score": 1.0
+      "target": "layers_drawbaseline_drawbaseline"
     },
     {
       "relation": "imports",
@@ -62541,9 +62641,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawbaseline_drawbaseline",
-      "confidence_score": 1.0
+      "target": "layers_drawbaseline_drawbaseline"
     },
     {
       "relation": "contains",
@@ -62551,9 +62651,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawFactorWaves.ts",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawfactorwaves",
-      "target": "layers_drawfactorwaves_drawfactorwaves",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves_drawfactorwaves"
     },
     {
       "relation": "contains",
@@ -62561,9 +62661,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawFactorWaves.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawfactorwaves",
-      "target": "layers_drawfactorwaves_drawfactorwavesoptions",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves_drawfactorwavesoptions"
     },
     {
       "relation": "contains",
@@ -62571,9 +62671,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawFactorWaves.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawfactorwaves",
-      "target": "layers_drawfactorwaves_isprime",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves_isprime"
     },
     {
       "relation": "imports_from",
@@ -62582,9 +62682,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "layers_drawfactorwaves",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves"
     },
     {
       "relation": "imports_from",
@@ -62593,9 +62693,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawfactorwaves",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves"
     },
     {
       "relation": "imports",
@@ -62604,9 +62704,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "layers_drawfactorwaves_drawfactorwaves",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves_drawfactorwaves"
     },
     {
       "relation": "imports",
@@ -62615,9 +62715,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawfactorwaves_drawfactorwaves",
-      "confidence_score": 1.0
+      "target": "layers_drawfactorwaves_drawfactorwaves"
     },
     {
       "relation": "contains",
@@ -62625,9 +62725,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawPlottedNumbers.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawplottednumbers",
-      "target": "layers_drawplottednumbers_drawplottednumbers",
-      "confidence_score": 1.0
+      "target": "layers_drawplottednumbers_drawplottednumbers"
     },
     {
       "relation": "contains",
@@ -62635,9 +62735,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawPlottedNumbers.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawplottednumbers",
-      "target": "layers_drawplottednumbers_drawplottednumbersoptions",
-      "confidence_score": 1.0
+      "target": "layers_drawplottednumbers_drawplottednumbersoptions"
     },
     {
       "relation": "imports_from",
@@ -62646,9 +62746,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "layers_drawplottednumbers",
-      "confidence_score": 1.0
+      "target": "layers_drawplottednumbers"
     },
     {
       "relation": "imports_from",
@@ -62657,9 +62757,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawplottednumbers",
-      "confidence_score": 1.0
+      "target": "layers_drawplottednumbers"
     },
     {
       "relation": "imports",
@@ -62668,9 +62768,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "layers_drawplottednumbers_drawplottednumbers",
-      "confidence_score": 1.0
+      "target": "layers_drawplottednumbers_drawplottednumbers"
     },
     {
       "relation": "imports",
@@ -62679,9 +62779,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawplottednumbers_drawplottednumbers",
-      "confidence_score": 1.0
+      "target": "layers_drawplottednumbers_drawplottednumbers"
     },
     {
       "relation": "contains",
@@ -62689,9 +62789,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawRecamanArcs.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawrecamanarcs",
-      "target": "layers_drawrecamanarcs_drawrecamanarcs",
-      "confidence_score": 1.0
+      "target": "layers_drawrecamanarcs_drawrecamanarcs"
     },
     {
       "relation": "contains",
@@ -62699,9 +62799,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/layers/drawRecamanArcs.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "layers_drawrecamanarcs",
-      "target": "layers_drawrecamanarcs_drawrecamanarcsoptions",
-      "confidence_score": 1.0
+      "target": "layers_drawrecamanarcs_drawrecamanarcsoptions"
     },
     {
       "relation": "imports_from",
@@ -62710,9 +62810,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "layers_drawrecamanarcs",
-      "confidence_score": 1.0
+      "target": "layers_drawrecamanarcs"
     },
     {
       "relation": "imports_from",
@@ -62721,9 +62821,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawrecamanarcs",
-      "confidence_score": 1.0
+      "target": "layers_drawrecamanarcs"
     },
     {
       "relation": "imports",
@@ -62732,9 +62832,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "layers_drawrecamanarcs_drawrecamanarcs",
-      "confidence_score": 1.0
+      "target": "layers_drawrecamanarcs_drawrecamanarcs"
     },
     {
       "relation": "imports",
@@ -62743,9 +62843,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "layers_drawrecamanarcs_drawrecamanarcs",
-      "confidence_score": 1.0
+      "target": "layers_drawrecamanarcs_drawrecamanarcs"
     },
     {
       "relation": "contains",
@@ -62753,9 +62853,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "presets_base_basepreset",
-      "confidence_score": 1.0
+      "target": "presets_base_basepreset"
     },
     {
       "relation": "imports_from",
@@ -62764,9 +62864,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -62775,9 +62875,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/base.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_base",
-      "target": "visualizations_types_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_types_layerfactory"
     },
     {
       "relation": "imports_from",
@@ -62786,9 +62886,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "presets_base",
-      "confidence_score": 1.0
+      "target": "presets_base"
     },
     {
       "relation": "imports_from",
@@ -62797,9 +62897,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "presets_base",
-      "confidence_score": 1.0
+      "target": "presets_base"
     },
     {
       "relation": "imports",
@@ -62808,9 +62908,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "presets_base_basepreset",
-      "confidence_score": 1.0
+      "target": "presets_base_basepreset"
     },
     {
       "relation": "imports",
@@ -62819,9 +62919,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "presets_base_basepreset",
-      "confidence_score": 1.0
+      "target": "presets_base_basepreset"
     },
     {
       "relation": "contains",
@@ -62829,9 +62929,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "presets_factorwave_factorwave",
-      "confidence_score": 1.0
+      "target": "presets_factorwave_factorwave"
     },
     {
       "relation": "imports_from",
@@ -62840,9 +62940,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -62851,9 +62951,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "visualizations_types_visualization",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualization"
     },
     {
       "relation": "imports_from",
@@ -62862,9 +62962,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "visualizations_visualisationfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_visualisationfactory"
     },
     {
       "relation": "imports",
@@ -62873,9 +62973,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/factorWave.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_factorwave",
-      "target": "visualizations_visualisationfactory_visualisationfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_visualisationfactory_visualisationfactory"
     },
     {
       "relation": "imports_from",
@@ -62884,9 +62984,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "presets_factorwave",
-      "confidence_score": 1.0
+      "target": "presets_factorwave"
     },
     {
       "relation": "imports",
@@ -62895,9 +62995,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "presets_factorwave_factorwave",
-      "confidence_score": 1.0
+      "target": "presets_factorwave_factorwave"
     },
     {
       "relation": "contains",
@@ -62905,9 +63005,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "presets_recamanarcs_recamanarcs",
-      "confidence_score": 1.0
+      "target": "presets_recamanarcs_recamanarcs"
     },
     {
       "relation": "imports_from",
@@ -62916,9 +63016,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "utils_calculaterecamanscale",
-      "confidence_score": 1.0
+      "target": "utils_calculaterecamanscale"
     },
     {
       "relation": "imports",
@@ -62927,9 +63027,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "utils_calculaterecamanscale_calculaterecamanscale",
-      "confidence_score": 1.0
+      "target": "utils_calculaterecamanscale_calculaterecamanscale"
     },
     {
       "relation": "imports_from",
@@ -62938,9 +63038,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -62949,9 +63049,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "visualizations_types_visualization",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualization"
     },
     {
       "relation": "imports_from",
@@ -62960,9 +63060,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "visualizations_visualisationfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_visualisationfactory"
     },
     {
       "relation": "imports",
@@ -62971,9 +63071,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/presets/recamanArcs.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "presets_recamanarcs",
-      "target": "visualizations_visualisationfactory_visualisationfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_visualisationfactory_visualisationfactory"
     },
     {
       "relation": "imports_from",
@@ -62982,9 +63082,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "presets_recamanarcs",
-      "confidence_score": 1.0
+      "target": "presets_recamanarcs"
     },
     {
       "relation": "imports",
@@ -62993,9 +63093,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "presets_recamanarcs_recamanarcs",
-      "confidence_score": 1.0
+      "target": "presets_recamanarcs_recamanarcs"
     },
     {
       "relation": "imports_from",
@@ -63015,9 +63115,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "utils_calculaterecamanscale",
-      "confidence_score": 1.0
+      "target": "utils_calculaterecamanscale"
     },
     {
       "relation": "imports",
@@ -63026,9 +63126,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "utils_calculaterecamanscale_calculaterecamanscale",
-      "confidence_score": 1.0
+      "target": "utils_calculaterecamanscale_calculaterecamanscale"
     },
     {
       "relation": "contains",
@@ -63036,9 +63136,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_registry_getalllayers",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getalllayers"
     },
     {
       "relation": "contains",
@@ -63056,9 +63156,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_registry_getlayer",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getlayer"
     },
     {
       "relation": "contains",
@@ -63076,9 +63176,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_registry_layerregistry",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_layerregistry"
     },
     {
       "relation": "contains",
@@ -63108,9 +63208,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_types_layerentry",
-      "confidence_score": 1.0
+      "target": "visualizations_types_layerentry"
     },
     {
       "relation": "imports",
@@ -63141,9 +63241,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/calculateRecamanScale.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_calculaterecamanscale",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports_from",
@@ -63152,9 +63252,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/combineScales.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_combinescales",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "contains",
@@ -63162,9 +63262,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_drawingcontext",
-      "confidence_score": 1.0
+      "target": "visualizations_types_drawingcontext"
     },
     {
       "relation": "contains",
@@ -63172,9 +63272,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_layerentry",
-      "confidence_score": 1.0
+      "target": "visualizations_types_layerentry"
     },
     {
       "relation": "contains",
@@ -63182,9 +63282,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_layerfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_types_layerfactory"
     },
     {
       "relation": "contains",
@@ -63192,9 +63292,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_scalecalculator",
-      "confidence_score": 1.0
+      "target": "visualizations_types_scalecalculator"
     },
     {
       "relation": "contains",
@@ -63212,9 +63312,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_visualizationconfig",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualizationconfig"
     },
     {
       "relation": "contains",
@@ -63222,9 +63322,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_visualizationlayer",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualizationlayer"
     },
     {
       "relation": "imports_from",
@@ -63233,9 +63333,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/visualisationFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_visualisationfactory",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -63244,9 +63344,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/visualisationFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_visualisationfactory",
-      "target": "visualizations_types_drawingcontext",
-      "confidence_score": 1.0
+      "target": "visualizations_types_drawingcontext"
     },
     {
       "relation": "imports",
@@ -63255,9 +63355,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/calculateRecamanScale.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_calculaterecamanscale",
-      "target": "visualizations_types_scalecalculator",
-      "confidence_score": 1.0
+      "target": "visualizations_types_scalecalculator"
     },
     {
       "relation": "imports",
@@ -63266,9 +63366,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/combineScales.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_combinescales",
-      "target": "visualizations_types_scalecalculator",
-      "confidence_score": 1.0
+      "target": "visualizations_types_scalecalculator"
     },
     {
       "relation": "imports",
@@ -63277,9 +63377,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/visualisationFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_visualisationfactory",
-      "target": "visualizations_types_visualization",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualization"
     },
     {
       "relation": "imports",
@@ -63288,9 +63388,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/visualisationFactory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_visualisationfactory",
-      "target": "visualizations_types_visualizationconfig",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualizationconfig"
     },
     {
       "relation": "contains",
@@ -63298,9 +63398,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/calculateRecamanScale.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_calculaterecamanscale",
-      "target": "utils_calculaterecamanscale_calculaterecamanscale",
-      "confidence_score": 1.0
+      "target": "utils_calculaterecamanscale_calculaterecamanscale"
     },
     {
       "relation": "imports_from",
@@ -63309,9 +63409,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/calculateRecamanScale.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_calculaterecamanscale",
-      "target": "utils_find_biggest_interval",
-      "confidence_score": 1.0
+      "target": "utils_find_biggest_interval"
     },
     {
       "relation": "imports",
@@ -63320,9 +63420,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/calculateRecamanScale.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_calculaterecamanscale",
-      "target": "utils_find_biggest_interval_findbiggestinterval",
-      "confidence_score": 1.0
+      "target": "utils_find_biggest_interval_findbiggestinterval"
     },
     {
       "relation": "calls",
@@ -63341,9 +63441,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/utils/combineScales.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_combinescales",
-      "target": "utils_combinescales_combinescales",
-      "confidence_score": 1.0
+      "target": "utils_combinescales_combinescales"
     },
     {
       "relation": "contains",
@@ -63351,9 +63451,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/visualisationFactory.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_visualisationfactory",
-      "target": "visualizations_visualisationfactory_defaultscalecalculator",
-      "confidence_score": 1.0
+      "target": "visualizations_visualisationfactory_defaultscalecalculator"
     },
     {
       "relation": "contains",
@@ -63361,9 +63461,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/visualisationFactory.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_visualisationfactory",
-      "target": "visualizations_visualisationfactory_visualisationfactory",
-      "confidence_score": 1.0
+      "target": "visualizations_visualisationfactory_visualisationfactory"
     },
     {
       "relation": "contains",
@@ -77912,5 +78012,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3ca4b88861ba9f18e9c11bb7aaf8bc120de43e05"
+  "built_at_commit": "33ec5b224681722d598471999fa5718b044c57b1"
 }

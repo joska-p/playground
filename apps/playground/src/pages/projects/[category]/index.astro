@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ExperimentCard from '../../../components/ui/cards/ExperimentCard.astro';
-import SectionHeader from '../../../components/ui/features/SectionHeader.astro';
+import Hero from '../../../components/ui/features/Hero.astro';
 import Footer from '../../../layouts/Footer.astro';
 
 export async function getStaticPaths() {
@@ -27,18 +27,17 @@ const categoryProjects = allProjects.filter(
 );
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
-const { name, description, icon } = categoryMeta.data;
+const { name, description } = categoryMeta.data;
 ---
 
 <BaseLayout title={`${name} — Projects`}>
+  <Hero
+    badgeText="project"
+    title={name}
+    highlight={category}
+    description={description}
+  />
   <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
-    <SectionHeader
-      title={name}
-      description={description}
-      iconName={icon}
-      category={category}
-    />
-
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
       {
         categoryProjects.map((project) => (

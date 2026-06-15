@@ -1,5 +1,6 @@
 ---
-// src/components/ui/Hero.astro
+import { renderPixelMapAsBase64 } from '@repo/randomart/renderPixelMapAsBase64';
+
 type Props = {
   badgeText?: string;
   title?: string;
@@ -15,6 +16,8 @@ const {
   description = 'A high-performance lab for interactive visualizations, math sequences, and color tools. Built to experiment without limits.',
   className = ''
 } = Astro.props;
+
+const dataUri = renderPixelMapAsBase64(description, 300, 8);
 ---
 
 <section
@@ -45,13 +48,26 @@ const {
         </div>
       )
     }
-
-    <h1
-      class="from-primary via-accent to-secondary bg-linear-to-br bg-clip-text text-[clamp(2.75rem,7.5vw,5.5rem)] leading-tight font-black text-transparent"
-    >
-      {highlight}<br />
-      {title}<span class="cursor ml-1 font-light">_</span>
-    </h1>
+    <div class="flex gap-4">
+      <h1
+        class="from-primary via-accent to-secondary bg-linear-to-br bg-clip-text text-[clamp(2.75rem,7.5vw,5.5rem)] leading-tight font-black text-transparent"
+      >
+        {highlight}<br />
+        {title}<span class="cursor ml-1 font-light">_</span>
+      </h1>
+      <figure class="ml-auto hidden md:flex md:flex-col">
+        <img
+          src={dataUri}
+          width="200"
+          height="200"
+          alt="randomart generated from the description"
+          class="filtering-pixelated max-h-min"
+        />
+        <figcaption class="text-muted-foreground mt-4 text-center text-xs">
+          randomart
+        </figcaption>
+      </figure>
+    </div>
 
     {
       description && (
