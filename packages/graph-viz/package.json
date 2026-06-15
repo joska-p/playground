@@ -21,7 +21,6 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
-    "react-error-boundary": "catalog:",
     "zod": "catalog:",
     "three": "catalog:",
     "zustand": "catalog:"

@@ -14,7 +14,7 @@ type DemoStore = {
 const demoStore = create<DemoStore>(() => ({
   count: 0,
   lastMessage: '',
-  submissions: [],
+  submissions: []
 }));
 
 export function useDemoCount(): number {
@@ -34,7 +34,7 @@ export function addDemoSubmission(text: string): void {
   demoStore.setState((s) => ({
     count: s.count + 1,
     lastMessage: text,
-    submissions: [...s.submissions, submission],
+    submissions: [...s.submissions, submission]
   }));
 }
 

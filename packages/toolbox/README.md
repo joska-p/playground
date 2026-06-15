@@ -26,11 +26,12 @@ Then apply the React-specific extras:
 
 1. Add `"@repo/toolbox": "workspace:*"` to `apps/playground/package.json` (under `dependencies`).
 2. Create the Astro page at `apps/playground/src/pages/projects/<category>/<slug>/index.astro`:
+
    ```astro
    ---
-   import { Demo } from "@repo/toolbox/Demo";
-   import { StrictMode } from "react";
-   import BaseLayout from "../../../../layouts/base-layout.astro";
+   import { Demo } from '@repo/toolbox/Demo';
+   import { StrictMode } from 'react';
+   import BaseLayout from '../../../../layouts/base-layout.astro';
    ---
 
    <BaseLayout title="toolbox">
@@ -41,10 +42,11 @@ Then apply the React-specific extras:
      </div>
    </BaseLayout>
    ```
+
 3. Register the project in `apps/playground/src/data/projects.ts`.
 4. Add the `@source` directive in `apps/playground/src/styles/styles.css`:
    ```css
-   @source "../../node_modules/@repo/toolbox";
+   @source '../../node_modules/@repo/toolbox';
    ```
 
 ## Conventions

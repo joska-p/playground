@@ -1,10 +1,13 @@
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { RaduMachineLearning } from './components/RaduMachineLearning';
 
 function App() {
   return (
-    <div className="bg-background text-foreground h-dvh">
-      <RaduMachineLearning />
-    </div>
+    <ErrorBoundary>
+      <div className="bg-background text-foreground h-dvh">
+        <RaduMachineLearning />
+      </div>
+    </ErrorBoundary>
   );
 }
 

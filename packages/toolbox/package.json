@@ -18,7 +18,8 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "react-error-boundary": "catalog:",
-    "zustand": "catalog:"
+    "zustand": "catalog:",
+    "zod": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",

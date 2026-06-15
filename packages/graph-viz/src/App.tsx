@@ -1,5 +1,5 @@
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
-import { ErrorBoundary, getErrorMessage } from 'react-error-boundary';
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
 import { GraphCanvas } from './components/scene/GraphCanvas.tsx';
@@ -27,12 +27,6 @@ function App() {
 
   return (
     <ErrorBoundary
-      fallbackRender={({ error }) => (
-        <div role="alert">
-          <p>Something went wrong:</p>
-          <pre>{getErrorMessage(error)}</pre>
-        </div>
-      )}
       onError={(error, info) => {
         console.log('Error', error);
         console.log('Info', info);

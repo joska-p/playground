@@ -1,11 +1,11 @@
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
-import { ErrorBoundary } from 'react-error-boundary';
 import { Outputs } from '../output/Outputs';
 import { Controls } from './Controls';
 
 function ImageManipulator() {
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <ErrorBoundary>
       <Sidebar
         desktopPosition="left"
         mobilePosition="bottom"

@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "react-error-boundary": "catalog:",
     "zod": "catalog:",
     "zustand": "catalog:"
   },

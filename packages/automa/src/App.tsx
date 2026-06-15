@@ -1,8 +1,8 @@
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
 import { useEffect } from 'react';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
 import { Controls } from './components/controls/Controls.tsx';
-import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,

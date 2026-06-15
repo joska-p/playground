@@ -1,10 +1,13 @@
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Scene } from './components/scene/Scene';
 
 function App() {
   return (
-    <div className="bg-background text-foreground h-screen">
-      <Scene />
-    </div>
+    <ErrorBoundary>
+      <div className="bg-background text-foreground h-screen">
+        <Scene />
+      </div>
+    </ErrorBoundary>
   );
 }
 

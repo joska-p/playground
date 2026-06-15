@@ -6,8 +6,9 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@repo/ui/Card';
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Input } from '@repo/ui/Input';
 import { useState } from 'react';
 import { demoSchema } from '../demo.schema.ts';
@@ -16,7 +17,7 @@ import {
   resetDemo,
   useDemoCount,
   useDemoLastMessage,
-  useDemoSubmissions,
+  useDemoSubmissions
 } from '../demoStore.ts';
 
 function Demo() {
@@ -38,7 +39,7 @@ function Demo() {
   }
 
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <ErrorBoundary>
       <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4 sm:p-8">
         <Card className="w-full max-w-md">
           <CardHeader>
@@ -104,7 +105,7 @@ function Demo() {
               <Button
                 variant="ghost"
                 onClick={resetDemo}
-                size="small"
+                size="sm"
               >
                 Reset
               </Button>

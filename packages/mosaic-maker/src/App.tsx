@@ -1,24 +1,11 @@
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
-import { ErrorBoundary } from 'react-error-boundary';
 import { Controls } from './components/controls/Controls';
 import { MosaicDisplay } from './components/MosaicDisplay';
 
-function Fallback() {
-  return (
-    <div className="grid h-dvh place-content-center p-8 text-center">
-      <div>
-        <h2 className="text-xl font-bold">Something went wrong</h2>
-        <p className="text-foreground/60 mt-2">
-          Try refreshing the page to rebuild the mosaic.
-        </p>
-      </div>
-    </div>
-  );
-}
-
 function App() {
   return (
-    <ErrorBoundary FallbackComponent={Fallback}>
+    <ErrorBoundary>
       <div className="bg-background text-foreground h-dvh">
         <Sidebar
           desktopPosition="left"

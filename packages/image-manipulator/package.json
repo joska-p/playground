@@ -19,8 +19,7 @@
   "dependencies": {
     "@repo/image-pipeline": "workspace:*",
     "@repo/ui": "workspace:*",
-    "zustand": "catalog:",
-    "react-error-boundary": "catalog:"
+    "zustand": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",
