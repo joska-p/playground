@@ -1,4 +1,5 @@
 import { findBiggestInterval } from '../../utils/find-biggest-interval';
+import type { Visualization } from './types';
 
 function calculateValueScale({
   sequence,
@@ -80,7 +81,7 @@ function draw({
   context.restore();
 }
 
-export const recamanArcs = {
+export const recamanArcs: Visualization = {
   id: 'recaman-arcs',
   name: 'Recamán Arcs',
   draw
