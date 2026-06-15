@@ -16,6 +16,7 @@ function SequenceDisplay(): JSX.Element {
     if (!canvas) return;
 
     const visualization = getVisualization(visualizationId);
+
     visualization?.draw({ canvas, sequence });
   }, [sequence, visualizationId]);
 

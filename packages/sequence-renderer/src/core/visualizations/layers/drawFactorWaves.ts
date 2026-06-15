@@ -1,4 +1,4 @@
-import type { VisualizationLayer } from '../types';
+import { layerFactory } from '../layerFactory';
 
 function isPrime(num: number): boolean {
   if (num <= 1) return false;
@@ -11,34 +11,25 @@ function isPrime(num: number): boolean {
 }
 
 export type DrawFactorWavesOptions = {
-  lineWidth?: number;
-  alpha?: number;
-  amplitudeScale?: number;
-  saturation?: number;
-  lightness?: number;
+  lineWidth: number;
+  alpha: number;
+  amplitudeScale: number;
+  saturation: number;
+  lightness: number;
 };
 
-export const createDrawFactorWaves = (
-  options: DrawFactorWavesOptions = {}
-): VisualizationLayer => {
-  const {
-    lineWidth = 1.5,
-    alpha = 0.65,
-    amplitudeScale = 0.4,
-    saturation = 85,
-    lightness = 55
-  } = options;
-
-  return ({
-    context,
-    sequence,
-    maxVal,
-    valueScale,
-    offsetX,
-    offsetY,
-    containerSize
-  }) => {
-    // Draw factor waves for each prime in the sequence
+const drawFactorWaves = layerFactory<DrawFactorWavesOptions>(
+  {
+    lineWidth: 1.5,
+    alpha: 0.65,
+    amplitudeScale: 0.4,
+    saturation: 85,
+    lightness: 55
+  },
+  (
+    { context, sequence, maxVal, valueScale, offsetX, offsetY, containerSize },
+    { lineWidth, alpha, amplitudeScale, saturation, lightness }
+  ) => {
     const uniquePrimes = new Set<number>();
     sequence.forEach((val) => {
       if (isPrime(val)) {
@@ -76,7 +67,7 @@ export const createDrawFactorWaves = (
       context.stroke();
       context.restore();
     });
-  };
-};
+  }
+);
 
-export const drawFactorWaves: VisualizationLayer = createDrawFactorWaves();
+export { drawFactorWaves };

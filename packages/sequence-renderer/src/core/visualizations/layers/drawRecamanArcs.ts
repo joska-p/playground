@@ -1,24 +1,17 @@
-import type { VisualizationLayer } from '../types';
+import { layerFactory } from '../layerFactory';
 
 export type DrawRecamanArcsOptions = {
-  lineWidth?: number;
-  alpha?: number;
+  lineWidth: number;
+  alpha: number;
   color?: string;
 };
 
-export const createDrawRecamanArcs = (
-  options: DrawRecamanArcsOptions = {}
-): VisualizationLayer => {
-  const { lineWidth = 1, alpha = 1.0, color } = options;
-
-  return ({
-    context,
-    sequence,
-    valueScale,
-    offsetX,
-    offsetY,
-    textColor
-  }) => {
+const drawRecamanArcs = layerFactory<DrawRecamanArcsOptions>(
+  { lineWidth: 1, alpha: 1.0, color: undefined },
+  (
+    { context, sequence, offsetX, offsetY, valueScale, textColor },
+    { lineWidth, alpha, color }
+  ) => {
     context.save();
     context.translate(offsetX, offsetY);
     context.strokeStyle = color ?? textColor;
@@ -42,7 +35,7 @@ export const createDrawRecamanArcs = (
     });
 
     context.restore();
-  };
-};
+  }
+);
 
-export const drawRecamanArcs: VisualizationLayer = createDrawRecamanArcs();
+export { drawRecamanArcs };

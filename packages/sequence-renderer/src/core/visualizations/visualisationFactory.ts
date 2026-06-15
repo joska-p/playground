@@ -1,8 +1,7 @@
 import type {
   DrawingContext,
-  ScaleCalculator,
   Visualization,
-  VisualizationLayer
+  VisualizationConfig
 } from './types';
 
 export function defaultScaleCalculator({
@@ -18,14 +17,7 @@ export function defaultScaleCalculator({
   return (containerSize.width * padding) / maxVal;
 }
 
-export type VisualizationConfig = {
-  id: string;
-  name: string;
-  layers: VisualizationLayer[];
-  calculateScale?: ScaleCalculator;
-};
-
-export function factoryVisualization(config: VisualizationConfig): Visualization {
+function visualisationFactory(config: VisualizationConfig): Visualization {
   if (!config.id) throw new Error('Visualization id is required');
   if (!config.name) throw new Error('Visualization name is required');
   if (!Array.isArray(config.layers) || config.layers.length === 0) {
@@ -72,8 +64,10 @@ export function factoryVisualization(config: VisualizationConfig): Visualization
       };
 
       config.layers.forEach((layer) => {
-        layer(drawContext);
+        layer()(drawContext);
       });
     }
   });
 }
+
+export { visualisationFactory };
