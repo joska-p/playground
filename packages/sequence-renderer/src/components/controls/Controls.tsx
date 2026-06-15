@@ -2,7 +2,7 @@ import { Card } from '@repo/ui/Card';
 import { Select } from '@repo/ui/Select';
 import { Slider } from '@repo/ui/Slider';
 import type { ChangeEvent, JSX } from 'react';
-import { visualizations } from '../../core/visualizations/visualizations';
+import { getAllVisualizations } from '../../core/visualizations/registry';
 import {
   setSequenceSteps,
   setSequenceVisualizationId,
@@ -43,7 +43,7 @@ function Controls(): JSX.Element {
           }
           className="w-auto min-w-35"
         >
-          {visualizations.map((v) => (
+          {getAllVisualizations().map((v) => (
             <option
               key={v.id}
               value={v.id}

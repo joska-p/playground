@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { useEffect, useRef } from 'react';
-import { visualizations } from '../../core/visualizations/visualizations';
+import { getVisualization } from '../../core/visualizations/registry';
 import {
   useSequenceSequence,
   useSequenceVisualizationId
@@ -15,7 +15,7 @@ function SequenceDisplay(): JSX.Element {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const visualization = visualizations.find((v) => v.id === visualizationId);
+    const visualization = getVisualization(visualizationId);
     visualization?.draw({ canvas, sequence });
   }, [sequence, visualizationId]);
 

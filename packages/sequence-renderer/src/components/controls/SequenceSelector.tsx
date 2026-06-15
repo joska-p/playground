@@ -1,13 +1,13 @@
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
-import { sequenceRules } from '../../core/sequence-rules';
+import { getAllRules } from '../../core/rules/registry';
 import { setSequenceRule, useSequenceRule } from '../../store/sequenceStore';
 
 function SequenceSelector(): JSX.Element {
   const sequenceRule = useSequenceRule();
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    const selectedRule = sequenceRules.find(
+    const selectedRule = getAllRules().find(
       (rule) => rule.id === e.target.value
     );
     if (selectedRule) setSequenceRule({ sequenceRule: selectedRule });
@@ -22,7 +22,7 @@ function SequenceSelector(): JSX.Element {
         onChange={handleChange}
         className="flex-1 pr-6"
       >
-        {sequenceRules.map((rule) => (
+        {getAllRules().map((rule) => (
           <option
             key={rule.id}
             value={rule.id}
