@@ -1,12 +1,16 @@
 import { drawRecamanArcs } from '../layers/drawRecamanArcs';
-import type { Visualization } from '../types';
-import { calculateRecamanScale } from '../utils/calculateRecamanScale';
+import { calculateRecamanScale } from '../scales/calculateRecamanScale';
 import { visualisationFactory } from '../visualisationFactory';
 import { basePreset } from './base';
 
-export const recamanArcs: Visualization = visualisationFactory({
+// presets/recamanArcs.ts — the visualization now owns scale + compat
+export const recamanArcs = visualisationFactory({
   id: 'recaman-arcs',
   name: 'Recamán Arcs',
-  layers: [...basePreset, drawRecamanArcs],
-  calculateScale: calculateRecamanScale
+  layers: [
+    ...basePreset,
+    drawRecamanArcs.with({ lineWidth: 1, alpha: 1.0 }) // ← resolved here, no more layer()()
+  ],
+  calculateScale: calculateRecamanScale,
+  compatibleWith: (meta) => meta.hasIntervals
 });

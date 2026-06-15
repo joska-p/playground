@@ -1,3 +1,5 @@
+// ─── Drawing ────────────────────────────────────────────────────────────────
+
 export type DrawingContext = {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
@@ -10,34 +12,45 @@ export type DrawingContext = {
   textColor: string;
 };
 
-export type VisualizationLayer = (context: DrawingContext) => void;
+// ─── Layer ──────────────────────────────────────────────────────────────────
 
-export type ScaleCalculator = (options: {
+// The raw draw function, ready to be called on a context
+export type DrawFn = (context: DrawingContext) => void;
+
+// What defineLayer() returns — a builder with a .with() configurator
+export type LayerDefinition<TOptions extends Record<string, unknown>> = {
+  with(overrides?: Partial<TOptions>): DrawFn;
+};
+
+// What goes in the layer registry
+export type LayerEntry = {
+  id: string;
+  name: string;
+  layer: LayerDefinition<Record<string, unknown>>;
+};
+
+// ─── Visualization ──────────────────────────────────────────────────────────
+
+export type SequenceMeta = {
+  hasIntervals: boolean;
+};
+
+export type ScaleCalculator = (params: {
   sequence: number[];
   containerSize: { width: number; height: number };
 }) => number;
 
-export type LayerFactory<
-  TOptions extends Record<string, unknown> = Record<string, unknown>
-> = (options?: Partial<TOptions>) => VisualizationLayer;
-
-export type LayerEntry = {
+export type VisualizationConfig = {
   id: string;
   name: string;
-  layer: LayerFactory;
-  scaleCalculator?: ScaleCalculator;
-  compatibleWith?: (seqMeta: { hasIntervals: boolean }) => boolean;
+  layers: DrawFn[]; // already resolved via .with()
+  calculateScale?: ScaleCalculator;
+  compatibleWith?: (meta: SequenceMeta) => boolean;
 };
 
 export type Visualization = {
   id: string;
   name: string;
-  draw: (options: { canvas: HTMLCanvasElement; sequence: number[] }) => void;
-};
-
-export type VisualizationConfig = {
-  id: string;
-  name: string;
-  layers: LayerFactory[];
-  calculateScale?: ScaleCalculator;
+  compatibleWith?: (meta: SequenceMeta) => boolean;
+  draw: (params: { canvas: HTMLCanvasElement; sequence: number[] }) => void;
 };

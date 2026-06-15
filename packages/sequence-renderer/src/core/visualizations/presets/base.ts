@@ -1,5 +1,8 @@
 import { drawBaseline } from '../layers/drawBaseline';
 import { drawPlottedNumbers } from '../layers/drawPlottedNumbers';
-import type { LayerFactory } from '../types';
+import type { DrawFn } from '../types';
 
-export const basePreset: LayerFactory[] = [drawBaseline, drawPlottedNumbers];
+export const basePreset: DrawFn[] = [
+  drawBaseline.with(),
+  drawPlottedNumbers.with()
+];

@@ -64,7 +64,7 @@ function visualisationFactory(config: VisualizationConfig): Visualization {
       };
 
       config.layers.forEach((layer) => {
-        layer()(drawContext);
+        layer(drawContext);
       });
     }
   });

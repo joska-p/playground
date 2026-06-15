@@ -5,9 +5,6 @@ import { drawRecamanArcs } from './layers/drawRecamanArcs';
 import { factorWave } from './presets/factorWave';
 import { recamanArcs } from './presets/recamanArcs';
 import type { LayerEntry, Visualization } from './types';
-import { calculateRecamanScale } from './utils/calculateRecamanScale';
-
-// Layer registry
 
 const layerRegistry = new Map<string, LayerEntry>([
   ['baseline', { id: 'baseline', name: 'Baseline', layer: drawBaseline }],
@@ -21,13 +18,7 @@ const layerRegistry = new Map<string, LayerEntry>([
   ],
   [
     'recaman-arcs',
-    {
-      id: 'recaman-arcs',
-      name: 'Recamán Arcs',
-      layer: drawRecamanArcs,
-      scaleCalculator: calculateRecamanScale,
-      compatibleWith: (meta) => meta.hasIntervals
-    }
+    { id: 'recaman-arcs', name: 'Recamán Arcs', layer: drawRecamanArcs }
   ],
   [
     'factor-waves',
@@ -43,18 +34,17 @@ function getAllLayers(): LayerEntry[] {
   return Array.from(layerRegistry.values());
 }
 
-// Preset visualizations registry
-const visualizations = new Map<string, Visualization>([
+export const visualizationRegistry = new Map<string, Visualization>([
   [recamanArcs.id, recamanArcs],
   [factorWave.id, factorWave]
 ]);
 
 function getVisualization(id: string): Visualization | undefined {
-  return visualizations.get(id);
+  return visualizationRegistry.get(id);
 }
 
 function getAllVisualizations(): Visualization[] {
-  return Array.from(visualizations.values());
+  return Array.from(visualizationRegistry.values());
 }
 
 export { getAllLayers, getAllVisualizations, getLayer, getVisualization };
