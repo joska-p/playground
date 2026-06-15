@@ -1,5 +1,5 @@
 {
-  "name": "@repo/{{name}}",
+  "name": "@repo/toolbox",
   "private": true,
   "version": "0.0.0",
   "type": "module",
