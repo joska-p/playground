@@ -1,6 +1,5 @@
 ---
 import { Icon, type IconName } from '@repo/ui/icons';
-import type { Category } from '../../../data/projects';
 import BaseCard from './BaseCard.astro';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
   title: string;
   description?: string;
   iconName: IconName;
-  category?: Category;
+  category?: string;
   tags?: string[];
   className?: string;
 };

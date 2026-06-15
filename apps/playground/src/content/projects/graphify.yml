@@ -1,0 +1,10 @@
+order: 7
+name: Graphify
+description: Interactive graph, click nodes, search, filter by community.
+category: data-viz
+tags:
+  - graph
+  - d3
+icon: graphify
+featured: true
+packageDir: graph-viz

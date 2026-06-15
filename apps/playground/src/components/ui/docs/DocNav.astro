@@ -1,9 +1,24 @@
 ---
-import { getDocsByCategory } from '../../../data/docs';
+import { getCollection } from 'astro:content';
 import NavCategory from './NavCategory.astro';
 
 const currentPath = Astro.url.pathname;
-const categories = await getDocsByCategory();
+
+const docCategories = await getCollection('doc-categories');
+const allDocs = await getCollection('docs', ({ data }) => !data.draft);
+
+const categories = docCategories.map((cat) => {
+  const articles = allDocs
+    .filter((doc) => doc.data.category.id === cat.id)
+    .sort((a, b) => a.data.order - b.data.order);
+  return {
+    id: cat.id,
+    label: cat.data.name,
+    description: cat.data.description,
+    iconName: cat.data.icon,
+    articles
+  };
+});
 ---
 
 <aside

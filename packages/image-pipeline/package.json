@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/api/image-pipeline.ts",
-    "./PipelineDocs": "./src/components/pipeline-docs/PipelineDocs.tsx"
+    "./App": "./src/App.tsx"
   },
   "scripts": {
     "dev": "vite --host",

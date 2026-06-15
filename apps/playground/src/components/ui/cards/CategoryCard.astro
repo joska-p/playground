@@ -1,20 +1,18 @@
 ---
-import { Icon } from '@repo/ui/icons';
-import type { Category } from '../../../data/projects';
-import { CATEGORIES } from '../../../data/projects';
+import { Icon, type IconName } from '@repo/ui/icons';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 
 export type Props = {
-  id: Category;
+  id: string;
   label: string;
   description: string;
+  iconName: IconName;
   count: number;
 };
 
-const { id, label, description, count } = Astro.props;
+const { id, label, description, iconName, count } = Astro.props;
 const accentStyle = `var(--category-${id})`;
-const iconName = CATEGORIES[id as keyof typeof CATEGORIES].icon;
 ---
 
 <a

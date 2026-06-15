@@ -1,0 +1,10 @@
+order: 6
+name: Image Pipeline
+description: Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.
+category: image
+tags:
+  - pipeline
+  - docs
+icon: pipeline
+featured: true
+packageDir: image-pipeline

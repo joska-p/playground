@@ -1,5 +1,5 @@
 ---
-import { render, getCollection } from 'astro:content';
+import { render, getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DocNav from '../../components/ui/docs/DocNav.astro';
 import SectionHeader from '../../components/ui/features/SectionHeader.astro';
@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content } = await render(doc);
+const categoryEntry = await getEntry(doc.data.category);
 ---
 
 <BaseLayout
@@ -25,9 +26,9 @@ const { Content } = await render(doc);
     class="prose prose-playground mx-auto max-w-3xl flex-1 px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)]"
   >
     <SectionHeader
-      title={doc.data.category}
+      title={categoryEntry.data.name}
       description={doc.data.description}
-      iconName="book"
+      iconName={categoryEntry.data.icon}
     />
     <Content />
   </article>

@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import { DynamicProjectApp } from '../../components/DynamicProjectApp';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/ui/features/Hero.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: `${project.data.category.id}/${project.id}` }
+  }));
+}
+
+const slug = Astro.params.slug;
+const projectSlug = slug.split('/').pop()!;
+const allProjects = await getCollection('projects');
+const project = allProjects.find((p) => p.id === projectSlug);
+
+if (!project) {
+  return Astro.redirect('/404');
+}
+
+const { name, description } = project.data;
+const categoryId = project.data.category.id;
+const tagIds = project.data.tags.map((t) => t.id);
+const keywords = tagIds.join(', ');
+---
+
+<BaseLayout
+  title={name}
+  description={description}
+  keywords={keywords}
+>
+  <Hero
+    badgeText={keywords}
+    title={name}
+    highlight={categoryId}
+    description={description}
+  />
+  <div class="min-h-screen">
+    <DynamicProjectApp
+      slug={projectSlug}
+      client:only="react"
+    />
+  </div>
+</BaseLayout>

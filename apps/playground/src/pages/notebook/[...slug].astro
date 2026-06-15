@@ -1,5 +1,5 @@
 ---
-import { render, getCollection } from 'astro:content';
+import { render, getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Footer from '../../layouts/Footer.astro';
 import Hero from '../../components/ui/features/Hero.astro';
@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 
 const { note } = Astro.props;
 const { Content } = await render(note);
+const categoryEntry = await getEntry(note.data.category);
 
 const date = new Date(note.data.date);
 const options = {
@@ -32,7 +33,7 @@ const formatedDate = date.toLocaleDateString('fr-FR', options);
 >
   <Hero
     badgeText={formatedDate}
-    highlight={note.data.category}
+    highlight={categoryEntry.data.name}
     title={note.data.title}
     description={note.data.description}
   />

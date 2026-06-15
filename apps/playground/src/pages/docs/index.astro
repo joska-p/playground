@@ -1,12 +1,29 @@
 ---
 import { Icon } from '@repo/ui/icons';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/ui/features/Hero.astro';
 import DocCard from '../../components/ui/cards/DocCard.astro';
-import { getDocsByCategory, docsBaseUrl } from '../../data/docs';
 import Footer from '../../layouts/Footer.astro';
 
-const docsByCategory = await getDocsByCategory();
+const baseUrl = import.meta.env.BASE_URL || '/';
+const docsBaseUrl = `${baseUrl}docs/`;
+
+const docCategories = await getCollection('doc-categories');
+const allDocs = await getCollection('docs', ({ data }) => !data.draft);
+
+const docsByCategory = docCategories.map((cat) => {
+  const articles = allDocs
+    .filter((doc) => doc.data.category.id === cat.id)
+    .sort((a, b) => a.data.order - b.data.order);
+  return {
+    id: cat.id,
+    label: cat.data.name,
+    description: cat.data.description,
+    iconName: cat.data.icon,
+    articles
+  };
+});
 ---
 
 <BaseLayout title="Documentation">
@@ -59,13 +76,13 @@ const docsByCategory = await getDocsByCategory();
             <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
               {category.articles.map((doc) => {
                 const docUrl = `${docsBaseUrl}${doc.id}/`;
-                const categoryId = doc.data.category || 'explanation';
                 return (
                   <DocCard
                     href={docUrl}
                     title={doc.data.title}
                     description={doc.data.description}
-                    type={categoryId}
+                    type={category.id}
+                    iconName={category.iconName}
                   />
                 );
               })}

@@ -1,14 +1,28 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/ui/features/Hero.astro';
 import ExperimentCard from '../../components/ui/cards/ExperimentCard.astro';
 import SectionHeader from '../../components/ui/features/SectionHeader.astro';
-import { getProjectsByCategory } from '../../data/projects';
 import Footer from '../../layouts/Footer.astro';
 
+const allCategories = await getCollection('categories');
+const allProjects = await getCollection('projects');
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
-const categories = getProjectsByCategory();
+
+const categories = allCategories
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((cat) => ({
+    id: cat.id,
+    name: cat.data.name,
+    description: cat.data.description,
+    icon: cat.data.icon,
+    order: cat.data.order,
+    projects: allProjects
+      .filter((p) => p.data.category.id === cat.id)
+      .map((p) => ({ ...p.data, slug: p.id }))
+  }));
 ---
 
 <BaseLayout title="Projects">
@@ -21,7 +35,7 @@ const categories = getProjectsByCategory();
 
   <div class="mx-auto w-full max-w-6xl space-y-16 px-6 py-16 lg:py-20">
     {
-      categories.map(({ name, description, icon, projects, id }) => (
+      categories.map(({ name, description, icon, id, projects }) => (
         <section>
           <SectionHeader
             title={name}
@@ -33,12 +47,12 @@ const categories = getProjectsByCategory();
           <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
             {projects.map((project) => (
               <ExperimentCard
-                href={`${projectsBaseUrl}${project.category}/${project.slug}/`}
+                href={`${projectsBaseUrl}${project.category.id}/${project.slug}/`}
                 title={project.name}
                 description={project.description}
                 iconName={project.icon}
-                category={project.category}
-                tags={project.tags}
+                category={project.category.id}
+                tags={project.tags.map((t) => t.id)}
               />
             ))}
           </div>

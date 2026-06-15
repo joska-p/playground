@@ -1,0 +1,10 @@
+order: 3
+name: Palettes Generator
+description: Generate harmonious color schemes using mathematical color theory models.
+category: color
+tags:
+  - design
+  - theory
+icon: palettes
+featured: false
+packageDir: palette-generator

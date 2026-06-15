@@ -1,10 +1,26 @@
 ---
+import { getCollection, getEntry } from 'astro:content';
 import DocCard from '../cards/DocCard.astro';
 import SectionHeader from '../features/SectionHeader.astro';
 import { Icon } from '@repo/ui/Icon';
-import { getFeaturedDocs, docsBaseUrl } from '../../../data/docs';
 
-const featuredDocs = await getFeaturedDocs();
+const baseUrl = import.meta.env.BASE_URL || '/';
+const docsBaseUrl = `${baseUrl}docs/`;
+
+const featuredDocs = await getCollection(
+  'docs',
+  ({ data }) => data.featured && !data.draft
+);
+const featuredDocsWithMeta = await Promise.all(
+  featuredDocs.map(async (doc) => {
+    const categoryEntry = await getEntry(doc.data.category);
+    return {
+      ...doc,
+      categoryId: doc.data.category.id,
+      iconName: categoryEntry.data.icon
+    };
+  })
+);
 ---
 
 <SectionHeader
@@ -17,13 +33,13 @@ const featuredDocs = await getFeaturedDocs();
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
   {
-    featuredDocs.map((doc) => {
+    featuredDocsWithMeta.map((doc) => {
       const docUrl = `${docsBaseUrl}${doc.id}/`;
-      const categoryId = doc.data.category || 'explanation';
       return (
         <DocCard
           href={docUrl}
-          type={categoryId}
+          type={doc.categoryId}
+          iconName={doc.iconName}
           title={doc.data.title}
           description={doc.data.description}
         />

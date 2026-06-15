@@ -1,23 +1,19 @@
 ---
-import type { Category } from '../../../data/projects';
-import { projects, SORTED_CATEGORIES } from '../../../data/projects';
+import { getCollection } from 'astro:content';
 import CategoryCard from '../cards/CategoryCard.astro';
 
-type GroupedCategory = {
-  id: Category;
-  label: string;
-  description: string;
-  count: number;
-};
+const allCategories = await getCollection('categories');
+const allProjects = await getCollection('projects');
 
-const groups: GroupedCategory[] = SORTED_CATEGORIES.map(([id, meta]) => ({
-  id: id as Category,
-  label: meta.name,
-  description: meta.description,
-  count: Object.values(projects).filter(
-    (p: { category: Category }) => p.category === id
-  ).length
-})).filter((g: GroupedCategory) => g.count > 0);
+const groups = allCategories
+  .map((cat) => ({
+    id: cat.id,
+    label: cat.data.name,
+    description: cat.data.description,
+    icon: cat.data.icon,
+    count: allProjects.filter((p) => p.data.category.id === cat.id).length
+  }))
+  .filter((g) => g.count > 0);
 ---
 
 <section
@@ -46,6 +42,7 @@ const groups: GroupedCategory[] = SORTED_CATEGORIES.map(([id, meta]) => ({
             id={group.id}
             label={group.label}
             description={group.description}
+            iconName={group.icon}
             count={group.count}
           />
         ))

@@ -1,0 +1,10 @@
+order: 1
+name: Mosaic Maker
+description: Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.
+category: generative
+tags:
+  - canvas
+  - zustand
+icon: mosaic
+featured: true
+packageDir: mosaic-maker

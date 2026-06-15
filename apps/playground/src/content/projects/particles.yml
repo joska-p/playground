@@ -1,0 +1,10 @@
+order: 4
+name: Image to Particles
+description: Deconstruct images into physics-based particle systems with real-time interaction.
+category: image
+tags:
+  - physics
+  - canvas
+icon: particles
+featured: false
+packageDir: image-to-particles
