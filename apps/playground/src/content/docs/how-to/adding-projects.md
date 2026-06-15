@@ -52,16 +52,16 @@ packageDir: my-project
 
 **Fields:**
 
-| Field | Description |
-|---|---|
-| `order` | Sort order on the projects index (1–9 reserved) |
-| `name` | Display name |
-| `description` | Short description |
-| `category` | Reference to a category ID (`generative`, `color`, `image`, `data-viz`) |
-| `tags` | Array of tag ID references (e.g. `canvas`, `zustand`, `three`) |
-| `icon` | Icon name from the `@repo/ui/icons` icon map |
-| `featured` | Show on the homepage |
-| `packageDir` | Package directory name under `packages/` (used only for reference) |
+| Field         | Description                                                             |
+| ------------- | ----------------------------------------------------------------------- |
+| `order`       | Sort order on the projects index (1–9 reserved)                         |
+| `name`        | Display name                                                            |
+| `description` | Short description                                                       |
+| `category`    | Reference to a category ID (`generative`, `color`, `image`, `data-viz`) |
+| `tags`        | Array of tag ID references (e.g. `canvas`, `zustand`, `three`)          |
+| `icon`        | Icon name from the `@repo/ui/icons` icon map                            |
+| `featured`    | Show on the homepage                                                    |
+| `packageDir`  | Package directory name under `packages/` (used only for reference)      |
 
 ## Step 3: Register the Component
 
@@ -72,7 +72,7 @@ import { App as MyProjectApp } from '@repo/my-project';
 
 const components: Record<string, React.ComponentType> = {
   // ... existing entries ...
-  'my-project': MyProjectApp,
+  'my-project': MyProjectApp
 };
 ```
 

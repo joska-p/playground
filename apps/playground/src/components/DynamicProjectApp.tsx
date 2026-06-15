@@ -5,12 +5,14 @@ import { App as PipelineApp } from '@repo/image-pipeline/App';
 import { App as ParticlesApp } from '@repo/image-to-particles';
 import { App as MosaicApp } from '@repo/mosaic-maker';
 import { App as PaletteApp } from '@repo/palette-generator';
+import { App as RandomArtApp } from '@repo/randomart';
 import { App as SequenceApp } from '@repo/sequence-renderer';
 import { App as ThreeStageApp } from '@repo/three-stage';
 import React from 'react';
 
 const components: Record<string, React.ComponentType> = {
   mosaic: MosaicApp,
+  randomart: RandomArtApp,
   sequences: SequenceApp,
   palettes: PaletteApp,
   particles: ParticlesApp,

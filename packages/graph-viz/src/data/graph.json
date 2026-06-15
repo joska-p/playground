@@ -517,7 +517,7 @@
       "label": "components",
       "file_type": "code",
       "source_file": "apps/playground/src/components/DynamicProjectApp.tsx",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "components_dynamicprojectapp_components",
       "community": 40,
@@ -527,7 +527,7 @@
       "label": "DynamicProjectApp()",
       "file_type": "code",
       "source_file": "apps/playground/src/components/DynamicProjectApp.tsx",
-      "source_location": "L24",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "components_dynamicprojectapp_dynamicprojectapp",
       "community": 40,
@@ -1748,7 +1748,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 135,
+      "community": 227,
       "norm_label": "turbo"
     },
     {
@@ -2228,7 +2228,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_app_tsx_src_app",
-      "community": 20,
+      "community": 199,
       "norm_label": "app.tsx"
     },
     {
@@ -2238,7 +2238,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_app_appprops",
-      "community": 20,
+      "community": 199,
       "norm_label": "appprops"
     },
     {
@@ -2248,7 +2248,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "packages_automa_src_app_tsx_src_app_app",
-      "community": 20,
+      "community": 199,
       "norm_label": "app()"
     },
     {
@@ -2258,7 +2258,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "canvas_automatoncanvas",
-      "community": 20,
+      "community": 199,
       "norm_label": "automatoncanvas.tsx"
     },
     {
@@ -2268,7 +2268,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "canvas_automatoncanvas_cacanvasprops",
-      "community": 20,
+      "community": 199,
       "norm_label": "cacanvasprops"
     },
     {
@@ -2278,7 +2278,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "canvas_automatoncanvas_automatoncanvas",
-      "community": 20,
+      "community": 199,
       "norm_label": "automatoncanvas()"
     },
     {
@@ -2458,7 +2458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_debugcontrols",
-      "community": 114,
+      "community": 43,
       "norm_label": "debugcontrols.tsx"
     },
     {
@@ -2468,7 +2468,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugicon",
-      "community": 114,
+      "community": 43,
       "norm_label": "debugicon()"
     },
     {
@@ -2478,7 +2478,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugtoggle",
-      "community": 18,
+      "community": 43,
       "norm_label": "debugtoggle()"
     },
     {
@@ -2488,7 +2488,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugpanel",
-      "community": 114,
+      "community": 43,
       "norm_label": "debugpanel()"
     },
     {
@@ -3048,7 +3048,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_grid",
-      "community": 20,
+      "community": 114,
       "norm_label": "grid.ts"
     },
     {
@@ -3058,7 +3058,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_grid_creategrid",
-      "community": 20,
+      "community": 114,
       "norm_label": "creategrid()"
     },
     {
@@ -3068,7 +3068,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_grid_seedgrid",
-      "community": 20,
+      "community": 114,
       "norm_label": "seedgrid()"
     },
     {
@@ -3458,7 +3458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_types_ts_core_types",
-      "community": 20,
+      "community": 114,
       "norm_label": "types.ts"
     },
     {
@@ -3468,7 +3468,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_types_cellvalue",
-      "community": 20,
+      "community": 114,
       "norm_label": "cellvalue"
     },
     {
@@ -3478,7 +3478,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_types_grid",
-      "community": 20,
+      "community": 114,
       "norm_label": "grid"
     },
     {
@@ -3538,7 +3538,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usecellpainting",
-      "community": 18,
+      "community": 43,
       "norm_label": "usecellpainting.ts"
     },
     {
@@ -3548,7 +3548,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "hooks_usecellpainting_cellpaintinghandlers",
-      "community": 18,
+      "community": 43,
       "norm_label": "cellpaintinghandlers"
     },
     {
@@ -3708,7 +3708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usesteptimer",
-      "community": 114,
+      "community": 43,
       "norm_label": "usesteptimer.ts"
     },
     {
@@ -3718,7 +3718,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "hooks_usesteptimer_usesteptimer",
-      "community": 114,
+      "community": 43,
       "norm_label": "usesteptimer()"
     },
     {
@@ -3788,7 +3788,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "simulation_actions_init",
-      "community": 20,
+      "community": 114,
       "norm_label": "init()"
     },
     {
@@ -3798,7 +3798,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "simulation_actions_destroy",
-      "community": 20,
+      "community": 199,
       "norm_label": "destroy()"
     },
     {
@@ -3888,7 +3888,7 @@
       "source_location": "L135",
       "_origin": "ast",
       "id": "simulation_actions_paintcell",
-      "community": 43,
+      "community": 20,
       "norm_label": "paintcell()"
     },
     {
@@ -3898,7 +3898,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "simulation_actions_placepattern",
-      "community": 43,
+      "community": 20,
       "norm_label": "placepattern()"
     },
     {
@@ -3948,7 +3948,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usegeneration_usegeneration",
-      "community": 114,
+      "community": 43,
       "norm_label": "usegeneration()"
     },
     {
@@ -3968,7 +3968,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_userows_userows",
-      "community": 114,
+      "community": 43,
       "norm_label": "userows()"
     },
     {
@@ -4038,7 +4038,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "ui_actions_settoolmode",
-      "community": 18,
+      "community": 93,
       "norm_label": "settoolmode()"
     },
     {
@@ -4208,7 +4208,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "selectors_useshowdebug",
-      "community": 18,
+      "community": 43,
       "norm_label": "useshowdebug.ts"
     },
     {
@@ -4218,7 +4218,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useshowdebug_useshowdebug",
-      "community": 18,
+      "community": 43,
       "norm_label": "useshowdebug()"
     },
     {
@@ -4358,7 +4358,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng",
-      "community": 20,
+      "community": 114,
       "norm_label": "rng.ts"
     },
     {
@@ -4368,7 +4368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng_createseededrandom",
-      "community": 20,
+      "community": 114,
       "norm_label": "createseededrandom()"
     },
     {
@@ -7728,7 +7728,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app",
-      "community": 17,
+      "community": 61,
       "norm_label": "app.tsx"
     },
     {
@@ -7738,7 +7738,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app_app",
-      "community": 17,
+      "community": 61,
       "norm_label": "app()"
     },
     {
@@ -7788,7 +7788,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "layout_controls_controls",
-      "community": 17,
+      "community": 61,
       "norm_label": "controls()"
     },
     {
@@ -7798,7 +7798,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_imagemanipulator",
-      "community": 17,
+      "community": 61,
       "norm_label": "imagemanipulator.tsx"
     },
     {
@@ -7808,7 +7808,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "layout_imagemanipulator_imagemanipulator",
-      "community": 17,
+      "community": 61,
       "norm_label": "imagemanipulator()"
     },
     {
@@ -7918,7 +7918,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_comparetoggle",
-      "community": 17,
+      "community": 119,
       "norm_label": "comparetoggle.tsx"
     },
     {
@@ -7928,7 +7928,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "output_comparetoggle_comparetoggleprops",
-      "community": 17,
+      "community": 119,
       "norm_label": "comparetoggleprops"
     },
     {
@@ -7938,7 +7938,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "output_comparetoggle_comparetoggle",
-      "community": 17,
+      "community": 119,
       "norm_label": "comparetoggle()"
     },
     {
@@ -8038,7 +8038,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_outputs",
-      "community": 17,
+      "community": 119,
       "norm_label": "outputs.tsx"
     },
     {
@@ -8048,7 +8048,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "output_outputs_outputs",
-      "community": 17,
+      "community": 61,
       "norm_label": "outputs()"
     },
     {
@@ -8058,7 +8058,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_processingoverlay",
-      "community": 106,
+      "community": 119,
       "norm_label": "processingoverlay.tsx"
     },
     {
@@ -8068,7 +8068,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "output_processingoverlay_processingoverlay",
-      "community": 106,
+      "community": 119,
       "norm_label": "processingoverlay()"
     },
     {
@@ -8108,7 +8108,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_emptystate",
-      "community": 106,
+      "community": 119,
       "norm_label": "emptystate.tsx"
     },
     {
@@ -8118,7 +8118,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "shared_emptystate_emptystateprops",
-      "community": 106,
+      "community": 119,
       "norm_label": "emptystateprops"
     },
     {
@@ -8128,7 +8128,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "shared_emptystate_emptystate",
-      "community": 106,
+      "community": 119,
       "norm_label": "emptystate()"
     },
     {
@@ -8288,7 +8288,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_manipulationselector",
-      "community": 61,
+      "community": 21,
       "norm_label": "manipulationselector.tsx"
     },
     {
@@ -8298,7 +8298,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "workflow_manipulationselector_manipulationids",
-      "community": 61,
+      "community": 21,
       "norm_label": "manipulationids"
     },
     {
@@ -8308,7 +8308,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "workflow_manipulationselector_manipulationselector",
-      "community": 61,
+      "community": 21,
       "norm_label": "manipulationselector()"
     },
     {
@@ -8338,7 +8338,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_stepbadge",
-      "community": 21,
+      "community": 225,
       "norm_label": "stepbadge.tsx"
     },
     {
@@ -8348,7 +8348,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_stepbadge_stepbadgeprops",
-      "community": 21,
+      "community": 225,
       "norm_label": "stepbadgeprops"
     },
     {
@@ -8358,7 +8358,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "workflow_stepbadge_stepbadge",
-      "community": 21,
+      "community": 225,
       "norm_label": "stepbadge()"
     },
     {
@@ -8368,7 +8368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflowcontrols",
-      "community": 106,
+      "community": 107,
       "norm_label": "workflowcontrols.tsx"
     },
     {
@@ -8378,7 +8378,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "workflow_workflowcontrols_workflowcontrols",
-      "community": 106,
+      "community": 107,
       "norm_label": "workflowcontrols()"
     },
     {
@@ -8388,7 +8388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflowlist",
-      "community": 106,
+      "community": 107,
       "norm_label": "workflowlist.tsx"
     },
     {
@@ -8398,7 +8398,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "workflow_workflowlist_workflowlistprops",
-      "community": 106,
+      "community": 107,
       "norm_label": "workflowlistprops"
     },
     {
@@ -8408,7 +8408,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "workflow_workflowlist_workflowlist",
-      "community": 106,
+      "community": 107,
       "norm_label": "workflowlist()"
     },
     {
@@ -8438,7 +8438,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "workflow_workflownode_workflownode",
-      "community": 106,
+      "community": 107,
       "norm_label": "workflownode()"
     },
     {
@@ -8478,7 +8478,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflownodeheader",
-      "community": 21,
+      "community": 225,
       "norm_label": "workflownodeheader.tsx"
     },
     {
@@ -8488,7 +8488,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "workflow_workflownodeheader_workflownodeheaderprops",
-      "community": 21,
+      "community": 225,
       "norm_label": "workflownodeheaderprops"
     },
     {
@@ -8498,7 +8498,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "workflow_workflownodeheader_workflownodeheader",
-      "community": 21,
+      "community": 225,
       "norm_label": "workflownodeheader()"
     },
     {
@@ -8728,7 +8728,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "manipulator_actions_addworkflowstep",
-      "community": 61,
+      "community": 21,
       "norm_label": "addworkflowstep()"
     },
     {
@@ -8768,7 +8768,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "manipulator_actions_clearworkflowsteps",
-      "community": 106,
+      "community": 107,
       "norm_label": "clearworkflowsteps()"
     },
     {
@@ -8838,7 +8838,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "selectors_useisprocessing_useisprocessing",
-      "community": 106,
+      "community": 107,
       "norm_label": "useisprocessing()"
     },
     {
@@ -9968,7 +9968,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "api_image_pipeline_imagepipeline",
-      "community": 2,
+      "community": 21,
       "norm_label": "imagepipeline"
     },
     {
@@ -9978,7 +9978,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_pipeline_worker",
-      "community": 117,
+      "community": 19,
       "norm_label": "pipeline-worker.ts"
     },
     {
@@ -9988,7 +9988,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "api_pipeline_worker_workermessage",
-      "community": 117,
+      "community": 19,
       "norm_label": "workermessage"
     },
     {
@@ -10728,7 +10728,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler",
-      "community": 19,
+      "community": 117,
       "norm_label": "fusionscheduler"
     },
     {
@@ -10738,7 +10738,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_add",
-      "community": 19,
+      "community": 117,
       "norm_label": ".add()"
     },
     {
@@ -10848,7 +10848,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "core_image_pipeline_types_manipulationdefinition",
-      "community": 19,
+      "community": 117,
       "norm_label": "manipulationdefinition"
     },
     {
@@ -10918,7 +10918,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 117,
+      "community": 21,
       "norm_label": "step"
     },
     {
@@ -11548,7 +11548,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usepipeline",
-      "community": 2,
+      "community": 21,
       "norm_label": "usepipeline.ts"
     },
     {
@@ -17739,6 +17739,1026 @@
       "_origin": "ast",
       "id": "radu_machine_learning_vite_config",
       "community": 218,
+      "norm_label": "vite.config.ts"
+    },
+    {
+      "label": "eslint.config.js",
+      "file_type": "code",
+      "source_file": "packages/randomart/eslint.config.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_eslint_config",
+      "community": 85,
+      "norm_label": "eslint.config.js"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_package",
+      "community": 17,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "randomart_package_name",
+      "community": 17,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "randomart_package_private",
+      "community": 17,
+      "norm_label": "private"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "randomart_package_version",
+      "community": 17,
+      "norm_label": "version"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "randomart_package_type",
+      "community": 17,
+      "norm_label": "type"
+    },
+    {
+      "label": "exports",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "randomart_package_exports",
+      "community": 17,
+      "norm_label": "exports"
+    },
+    {
+      "label": "./styles",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "randomart_package_exports_styles",
+      "community": 17,
+      "norm_label": "./styles"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "randomart_package_scripts",
+      "community": 17,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "randomart_package_scripts_dev",
+      "community": 17,
+      "norm_label": "dev"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "randomart_package_scripts_build",
+      "community": 17,
+      "norm_label": "build"
+    },
+    {
+      "label": "lint",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "randomart_package_scripts_lint",
+      "community": 17,
+      "norm_label": "lint"
+    },
+    {
+      "label": "lint-fix",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "randomart_package_scripts_lint_fix",
+      "community": 17,
+      "norm_label": "lint-fix"
+    },
+    {
+      "label": "preview",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "randomart_package_scripts_preview",
+      "community": 17,
+      "norm_label": "preview"
+    },
+    {
+      "label": "check-types",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "randomart_package_scripts_check_types",
+      "community": 17,
+      "norm_label": "check-types"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies",
+      "community": 17,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "@repo/ui",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies_repo_ui",
+      "community": 17,
+      "norm_label": "@repo/ui"
+    },
+    {
+      "label": "react-error-boundary",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies_react_error_boundary",
+      "community": 17,
+      "norm_label": "react-error-boundary"
+    },
+    {
+      "label": "zustand",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies_zustand",
+      "community": 17,
+      "norm_label": "zustand"
+    },
+    {
+      "label": "zod",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "randomart_package_dependencies_zod",
+      "community": 17,
+      "norm_label": "zod"
+    },
+    {
+      "label": "peerDependencies",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "randomart_package_peerdependencies",
+      "community": 17,
+      "norm_label": "peerdependencies"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "randomart_package_peerdependencies_react",
+      "community": 17,
+      "norm_label": "react"
+    },
+    {
+      "label": "react-dom",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "randomart_package_peerdependencies_react_dom",
+      "community": 17,
+      "norm_label": "react-dom"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies",
+      "community": 17,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "@babel/core",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_babel_core",
+      "community": 17,
+      "norm_label": "@babel/core"
+    },
+    {
+      "label": "eslint",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_eslint",
+      "community": 17,
+      "norm_label": "eslint"
+    },
+    {
+      "label": "@repo/config-eslint",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_repo_config_eslint",
+      "community": 17,
+      "norm_label": "@repo/config-eslint"
+    },
+    {
+      "label": "@rolldown/plugin-babel",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_rolldown_plugin_babel",
+      "community": 17,
+      "norm_label": "@rolldown/plugin-babel"
+    },
+    {
+      "label": "@tailwindcss/vite",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_tailwindcss_vite",
+      "community": 17,
+      "norm_label": "@tailwindcss/vite"
+    },
+    {
+      "label": "@types/babel__core",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_types_babel_core",
+      "community": 17,
+      "norm_label": "@types/babel__core"
+    },
+    {
+      "label": "@types/node",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_types_node",
+      "community": 17,
+      "norm_label": "@types/node"
+    },
+    {
+      "label": "@types/react",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_types_react",
+      "community": 17,
+      "norm_label": "@types/react"
+    },
+    {
+      "label": "@types/react-dom",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_types_react_dom",
+      "community": 17,
+      "norm_label": "@types/react-dom"
+    },
+    {
+      "label": "@vitejs/plugin-react",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_vitejs_plugin_react",
+      "community": 17,
+      "norm_label": "@vitejs/plugin-react"
+    },
+    {
+      "label": "babel-plugin-react-compiler",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_babel_plugin_react_compiler",
+      "community": 17,
+      "norm_label": "babel-plugin-react-compiler"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L40",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_react",
+      "community": 17,
+      "norm_label": "react"
+    },
+    {
+      "label": "react-dom",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_react_dom",
+      "community": 17,
+      "norm_label": "react-dom"
+    },
+    {
+      "label": "tailwindcss",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_tailwindcss",
+      "community": 17,
+      "norm_label": "tailwindcss"
+    },
+    {
+      "label": "typescript",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L43",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_typescript",
+      "community": 17,
+      "norm_label": "typescript"
+    },
+    {
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "randomart_package_devdependencies_vite",
+      "community": 17,
+      "norm_label": "vite"
+    },
+    {
+      "label": "App.tsx",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/App.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_randomart_src_app_tsx_src_app",
+      "community": 198,
+      "norm_label": "app.tsx"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/App.tsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "packages_randomart_src_app_tsx_src_app_app",
+      "community": 198,
+      "norm_label": "app()"
+    },
+    {
+      "label": "RandomArtCanvas.tsx",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_randomartcanvas",
+      "community": 198,
+      "norm_label": "randomartcanvas.tsx"
+    },
+    {
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "components_randomartcanvas_props",
+      "community": 198,
+      "norm_label": "props"
+    },
+    {
+      "label": "RandomArtCanvas()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "components_randomartcanvas_randomartcanvas",
+      "community": 198,
+      "norm_label": "randomartcanvas()"
+    },
+    {
+      "label": "main.tsx",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/main.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_randomart_src_main_tsx_src_main",
+      "community": 229,
+      "norm_label": "main.tsx"
+    },
+    {
+      "label": "SeededRandom.ts",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "utils_seededrandom",
+      "community": 198,
+      "norm_label": "seededrandom.ts"
+    },
+    {
+      "label": "SeededRandom",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "utils_seededrandom_seededrandom",
+      "community": 198,
+      "norm_label": "seededrandom"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "utils_seededrandom_seededrandom_constructor",
+      "community": 198,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": ".next()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "utils_seededrandom_seededrandom_next",
+      "community": 198,
+      "norm_label": ".next()"
+    },
+    {
+      "label": ".pick()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "utils_seededrandom_seededrandom_pick",
+      "community": 198,
+      "norm_label": ".pick()"
+    },
+    {
+      "label": "randomart-engine.ts",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "utils_randomart_engine",
+      "community": 198,
+      "norm_label": "randomart-engine.ts"
+    },
+    {
+      "label": "ExpressionNode",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "utils_randomart_engine_expressionnode",
+      "community": 198,
+      "norm_label": "expressionnode"
+    },
+    {
+      "label": "evaluateNode()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "utils_randomart_engine_evaluatenode",
+      "community": 198,
+      "norm_label": "evaluatenode()"
+    },
+    {
+      "label": "buildTree()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "utils_randomart_engine_buildtree",
+      "community": 198,
+      "norm_label": "buildtree()"
+    },
+    {
+      "label": "renderPixelMap()",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L90",
+      "_origin": "ast",
+      "id": "utils_randomart_engine_renderpixelmap",
+      "community": 198,
+      "norm_label": "renderpixelmap()"
+    },
+    {
+      "label": "tsconfig.app.json",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app",
+      "community": 89,
+      "norm_label": "tsconfig.app.json"
+    },
+    {
+      "label": "compilerOptions",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions",
+      "community": 89,
+      "norm_label": "compileroptions"
+    },
+    {
+      "label": "tsBuildInfoFile",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_tsbuildinfofile",
+      "community": 89,
+      "norm_label": "tsbuildinfofile"
+    },
+    {
+      "label": "target",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_target",
+      "community": 89,
+      "norm_label": "target"
+    },
+    {
+      "label": "lib",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_lib",
+      "community": 89,
+      "norm_label": "lib"
+    },
+    {
+      "label": "module",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_module",
+      "community": 89,
+      "norm_label": "module"
+    },
+    {
+      "label": "types",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_types",
+      "community": 89,
+      "norm_label": "types"
+    },
+    {
+      "label": "skipLibCheck",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_skiplibcheck",
+      "community": 89,
+      "norm_label": "skiplibcheck"
+    },
+    {
+      "label": "moduleResolution",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_moduleresolution",
+      "community": 89,
+      "norm_label": "moduleresolution"
+    },
+    {
+      "label": "allowImportingTsExtensions",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_allowimportingtsextensions",
+      "community": 89,
+      "norm_label": "allowimportingtsextensions"
+    },
+    {
+      "label": "verbatimModuleSyntax",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_verbatimmodulesyntax",
+      "community": 89,
+      "norm_label": "verbatimmodulesyntax"
+    },
+    {
+      "label": "moduleDetection",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_moduledetection",
+      "community": 89,
+      "norm_label": "moduledetection"
+    },
+    {
+      "label": "noEmit",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_noemit",
+      "community": 89,
+      "norm_label": "noemit"
+    },
+    {
+      "label": "jsx",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_jsx",
+      "community": 89,
+      "norm_label": "jsx"
+    },
+    {
+      "label": "noUnusedLocals",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_nounusedlocals",
+      "community": 89,
+      "norm_label": "nounusedlocals"
+    },
+    {
+      "label": "noUnusedParameters",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_nounusedparameters",
+      "community": 89,
+      "norm_label": "nounusedparameters"
+    },
+    {
+      "label": "erasableSyntaxOnly",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_erasablesyntaxonly",
+      "community": 89,
+      "norm_label": "erasablesyntaxonly"
+    },
+    {
+      "label": "noFallthroughCasesInSwitch",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
+      "community": 89,
+      "norm_label": "nofallthroughcasesinswitch"
+    },
+    {
+      "label": "include",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_app_include",
+      "community": 89,
+      "norm_label": "include"
+    },
+    {
+      "label": "tsconfig.json",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_tsconfig",
+      "community": 228,
+      "norm_label": "tsconfig.json"
+    },
+    {
+      "label": "files",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_files",
+      "community": 228,
+      "norm_label": "files"
+    },
+    {
+      "label": "references",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_references",
+      "community": 228,
+      "norm_label": "references"
+    },
+    {
+      "label": "tsconfig.node.json",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node",
+      "community": 106,
+      "norm_label": "tsconfig.node.json"
+    },
+    {
+      "label": "compilerOptions",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions",
+      "community": 106,
+      "norm_label": "compileroptions"
+    },
+    {
+      "label": "tsBuildInfoFile",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_tsbuildinfofile",
+      "community": 106,
+      "norm_label": "tsbuildinfofile"
+    },
+    {
+      "label": "target",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_target",
+      "community": 106,
+      "norm_label": "target"
+    },
+    {
+      "label": "lib",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_lib",
+      "community": 106,
+      "norm_label": "lib"
+    },
+    {
+      "label": "module",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_module",
+      "community": 106,
+      "norm_label": "module"
+    },
+    {
+      "label": "types",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_types",
+      "community": 106,
+      "norm_label": "types"
+    },
+    {
+      "label": "skipLibCheck",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_skiplibcheck",
+      "community": 106,
+      "norm_label": "skiplibcheck"
+    },
+    {
+      "label": "moduleResolution",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_moduleresolution",
+      "community": 106,
+      "norm_label": "moduleresolution"
+    },
+    {
+      "label": "allowImportingTsExtensions",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_allowimportingtsextensions",
+      "community": 106,
+      "norm_label": "allowimportingtsextensions"
+    },
+    {
+      "label": "verbatimModuleSyntax",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_verbatimmodulesyntax",
+      "community": 106,
+      "norm_label": "verbatimmodulesyntax"
+    },
+    {
+      "label": "moduleDetection",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_moduledetection",
+      "community": 106,
+      "norm_label": "moduledetection"
+    },
+    {
+      "label": "noEmit",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_noemit",
+      "community": 106,
+      "norm_label": "noemit"
+    },
+    {
+      "label": "noUnusedLocals",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_nounusedlocals",
+      "community": 106,
+      "norm_label": "nounusedlocals"
+    },
+    {
+      "label": "noUnusedParameters",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_nounusedparameters",
+      "community": 106,
+      "norm_label": "nounusedparameters"
+    },
+    {
+      "label": "erasableSyntaxOnly",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_erasablesyntaxonly",
+      "community": 106,
+      "norm_label": "erasablesyntaxonly"
+    },
+    {
+      "label": "noFallthroughCasesInSwitch",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
+      "community": 106,
+      "norm_label": "nofallthroughcasesinswitch"
+    },
+    {
+      "label": "include",
+      "file_type": "code",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "randomart_tsconfig_node_include",
+      "community": 106,
+      "norm_label": "include"
+    },
+    {
+      "label": "turbo.json",
+      "file_type": "code",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_turbo",
+      "community": 226,
+      "norm_label": "turbo.json"
+    },
+    {
+      "label": "extends",
+      "file_type": "code",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "randomart_turbo_extends",
+      "community": 226,
+      "norm_label": "extends"
+    },
+    {
+      "label": "tasks",
+      "file_type": "code",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "randomart_turbo_tasks",
+      "community": 226,
+      "norm_label": "tasks"
+    },
+    {
+      "label": "check-types",
+      "file_type": "code",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "randomart_turbo_tasks_check_types",
+      "community": 226,
+      "norm_label": "check-types"
+    },
+    {
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "randomart_turbo_check_types_dependson",
+      "community": 226,
+      "norm_label": "dependson"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "packages/randomart/vite.config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_vite_config",
+      "community": 230,
       "norm_label": "vite.config.ts"
     },
     {
@@ -24058,7 +25078,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 135,
+      "community": 227,
       "norm_label": "turbo.json"
     },
     {
@@ -24068,7 +25088,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 135,
+      "community": 227,
       "norm_label": "$schema"
     },
     {
@@ -24078,7 +25098,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 135,
+      "community": 227,
       "norm_label": "ui"
     },
     {
@@ -24158,7 +25178,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "turbo_tasks_lint",
-      "community": 89,
+      "community": 112,
       "norm_label": "lint"
     },
     {
@@ -24168,7 +25188,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "turbo_lint_dependson",
-      "community": 89,
+      "community": 112,
       "norm_label": "dependson"
     },
     {
@@ -24178,7 +25198,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "turbo_lint_outputs",
-      "community": 89,
+      "community": 112,
       "norm_label": "outputs"
     },
     {
@@ -25592,34 +26612,54 @@
       "norm_label": "adding projects"
     },
     {
-      "label": "The Data Model",
+      "label": "Overview",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L12",
       "_origin": "ast",
-      "id": "how_to_adding_projects_the_data_model",
+      "id": "how_to_adding_projects_overview",
       "community": 160,
-      "norm_label": "the data model"
+      "norm_label": "overview"
     },
     {
-      "label": "Add a Project",
+      "label": "Step 1: Create the Package",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
-      "source_location": "L29",
+      "source_location": "L21",
       "_origin": "ast",
-      "id": "how_to_adding_projects_add_a_project",
+      "id": "how_to_adding_projects_step_1_create_the_package",
       "community": 160,
-      "norm_label": "add a project"
+      "norm_label": "step 1: create the package"
     },
     {
-      "label": "That's It",
+      "label": "Step 2: Add Metadata",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
-      "source_location": "L50",
+      "source_location": "L37",
       "_origin": "ast",
-      "id": "how_to_adding_projects_that_s_it",
+      "id": "how_to_adding_projects_step_2_add_metadata",
       "community": 160,
-      "norm_label": "that's it"
+      "norm_label": "step 2: add metadata"
+    },
+    {
+      "label": "Step 3: Register the Component",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "how_to_adding_projects_step_3_register_the_component",
+      "community": 160,
+      "norm_label": "step 3: register the component"
+    },
+    {
+      "label": "Automatic Routing",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
+      "source_location": "L87",
+      "_origin": "ast",
+      "id": "how_to_adding_projects_automatic_routing",
+      "community": 160,
+      "norm_label": "automatic routing"
     },
     {
       "label": "adding-sequence-rule.md",
@@ -27962,6 +29002,176 @@
       "norm_label": "index.mdx"
     },
     {
+      "label": "2026-06-15-randomart-conventions-integration-design.md",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design",
+      "community": 197,
+      "norm_label": "2026-06-15-randomart-conventions-integration-design.md"
+    },
+    {
+      "label": "RandomArt: Convention Enforcement & Astro Integration",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "community": 197,
+      "norm_label": "randomart: convention enforcement & astro integration"
+    },
+    {
+      "label": "Overview",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_overview",
+      "community": 197,
+      "norm_label": "overview"
+    },
+    {
+      "label": "Architecture Changes",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
+      "community": 197,
+      "norm_label": "architecture changes"
+    },
+    {
+      "label": "Core Engine (randomart-engine.ts)",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_core_engine_randomart_engine_ts",
+      "community": 197,
+      "norm_label": "core engine (randomart-engine.ts)"
+    },
+    {
+      "label": "Canvas Component (RandomArtCanvas.tsx)",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_canvas_component_randomartcanvas_tsx",
+      "community": 197,
+      "norm_label": "canvas component (randomartcanvas.tsx)"
+    },
+    {
+      "label": "Error Handling",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_error_handling",
+      "community": 197,
+      "norm_label": "error handling"
+    },
+    {
+      "label": "UI Redesign",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
+      "community": 197,
+      "norm_label": "ui redesign"
+    },
+    {
+      "label": "Components",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_components",
+      "community": 197,
+      "norm_label": "components"
+    },
+    {
+      "label": "CSS Tokens",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_css_tokens",
+      "community": 197,
+      "norm_label": "css tokens"
+    },
+    {
+      "label": "Layout",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L62",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_layout",
+      "community": 197,
+      "norm_label": "layout"
+    },
+    {
+      "label": "File & Export Changes",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_file_export_changes",
+      "community": 197,
+      "norm_label": "file & export changes"
+    },
+    {
+      "label": "Astro Integration",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
+      "community": 197,
+      "norm_label": "astro integration"
+    },
+    {
+      "label": "1. Metadata YAML",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L74",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_1_metadata_yaml",
+      "community": 197,
+      "norm_label": "1. metadata yaml"
+    },
+    {
+      "label": "2. Component Registration",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L90",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_2_component_registration",
+      "community": 197,
+      "norm_label": "2. component registration"
+    },
+    {
+      "label": "3. Tailwind Source Scan",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L100",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_3_tailwind_source_scan",
+      "community": 197,
+      "norm_label": "3. tailwind source scan"
+    },
+    {
+      "label": "Files Changed",
+      "file_type": "document",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L108",
+      "_origin": "ast",
+      "id": "specs_2026_06_15_randomart_conventions_integration_design_files_changed",
+      "community": 197,
+      "norm_label": "files changed"
+    },
+    {
       "label": "README.md",
       "file_type": "document",
       "source_file": "packages/automa/README.md",
@@ -29394,6 +30604,66 @@
     {
       "label": "README.md",
       "file_type": "document",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_readme",
+      "community": 206,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "@repo/randomart",
+      "file_type": "document",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "randomart_readme_repo_randomart",
+      "community": 206,
+      "norm_label": "@repo/randomart"
+    },
+    {
+      "label": "Quick Start",
+      "file_type": "document",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "randomart_readme_quick_start",
+      "community": 206,
+      "norm_label": "quick start"
+    },
+    {
+      "label": "Documentation",
+      "file_type": "document",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "randomart_readme_documentation",
+      "community": 206,
+      "norm_label": "documentation"
+    },
+    {
+      "label": "Adding to the Playground",
+      "file_type": "document",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "randomart_readme_adding_to_the_playground",
+      "community": 206,
+      "norm_label": "adding to the playground"
+    },
+    {
+      "label": "Conventions",
+      "file_type": "document",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "randomart_readme_conventions",
+      "community": 206,
+      "norm_label": "conventions"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
       "source_location": "L1",
       "_origin": "ast",
@@ -30452,9 +31722,9 @@
       "source_file": "apps/playground/src/components/DynamicProjectApp.tsx",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_dynamicprojectapp",
-      "target": "components_dynamicprojectapp_components",
-      "confidence_score": 1.0
+      "target": "components_dynamicprojectapp_components"
     },
     {
       "relation": "contains",
@@ -30462,9 +31732,9 @@
       "source_file": "apps/playground/src/components/DynamicProjectApp.tsx",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_dynamicprojectapp",
-      "target": "components_dynamicprojectapp_dynamicprojectapp",
-      "confidence_score": 1.0
+      "target": "components_dynamicprojectapp_dynamicprojectapp"
     },
     {
       "relation": "imports_from",
@@ -30473,9 +31743,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "components_dynamicprojectapp",
-      "confidence_score": 1.0
+      "target": "components_dynamicprojectapp"
     },
     {
       "relation": "imports",
@@ -30484,9 +31754,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "components_dynamicprojectapp_dynamicprojectapp",
-      "confidence_score": 1.0
+      "target": "components_dynamicprojectapp_dynamicprojectapp"
     },
     {
       "relation": "imports_from",
@@ -30628,9 +31898,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "icons",
-      "confidence_score": 1.0
+      "target": "icons"
     },
     {
       "relation": "imports_from",
@@ -30672,9 +31942,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "cards_experimentcard",
-      "confidence_score": 1.0
+      "target": "cards_experimentcard"
     },
     {
       "relation": "imports_from",
@@ -30705,17 +31975,17 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "cards_experimentcard",
-      "confidence_score": 1.0
+      "target": "cards_experimentcard"
     },
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/components/ui/docs/DocNav.astro",
+      "confidence_score": 1.0,
       "source": "docs_docnav",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "contains",
@@ -30723,9 +31993,9 @@
       "source_file": "apps/playground/src/components/ui/docs/DocNav.astro",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_docnav",
-      "target": "docs_docnav_categories",
-      "confidence_score": 1.0
+      "target": "docs_docnav_categories"
     },
     {
       "relation": "imports_from",
@@ -30753,17 +32023,17 @@
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/components/ui/docs/FeaturedDocs.astro",
+      "confidence_score": 1.0,
       "source": "docs_featureddocs",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
@@ -30772,9 +32042,9 @@
       "source_file": "apps/playground/src/pages/docs/index.astro",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
@@ -30788,17 +32058,17 @@
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/components/ui/features/ExperimentsPreview.astro",
+      "confidence_score": 1.0,
       "source": "features_experimentspreview",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/notebook/index.astro",
+      "confidence_score": 1.0,
       "source": "notebook_index",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
@@ -30812,25 +32082,25 @@
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/components/ui/projects/FeaturedProjects.astro",
+      "confidence_score": 1.0,
       "source": "projects_featuredprojects",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/projects/index.astro",
+      "confidence_score": 1.0,
       "source": "projects_index",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "imports_from",
@@ -30847,9 +32117,9 @@
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "astro_content",
-      "confidence_score": 1.0
+      "target": "astro_content"
     },
     {
       "relation": "contains",
@@ -30890,9 +32160,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "features_sectionheader",
-      "confidence_score": 1.0
+      "target": "features_sectionheader"
     },
     {
       "relation": "imports_from",
@@ -30934,9 +32204,9 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "features_sectionheader",
-      "confidence_score": 1.0
+      "target": "features_sectionheader"
     },
     {
       "relation": "contains",
@@ -30954,9 +32224,9 @@
       "source_file": "apps/playground/src/components/ui/features/ExperimentsPreview.astro",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "features_experimentspreview",
-      "target": "features_experimentspreview_groups",
-      "confidence_score": 1.0
+      "target": "features_experimentspreview_groups"
     },
     {
       "relation": "imports_from",
@@ -31031,9 +32301,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "features_hero",
-      "confidence_score": 1.0
+      "target": "features_hero"
     },
     {
       "relation": "imports_from",
@@ -31062,9 +32332,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "src_content_config_categories",
-      "confidence_score": 1.0
+      "target": "src_content_config_categories"
     },
     {
       "relation": "contains",
@@ -31082,9 +32352,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "src_content_config_doccategories",
-      "confidence_score": 1.0
+      "target": "src_content_config_doccategories"
     },
     {
       "relation": "contains",
@@ -31102,9 +32372,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "src_content_config_iconschema",
-      "confidence_score": 1.0
+      "target": "src_content_config_iconschema"
     },
     {
       "relation": "contains",
@@ -31122,9 +32392,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "src_content_config_notebookcategories",
-      "confidence_score": 1.0
+      "target": "src_content_config_notebookcategories"
     },
     {
       "relation": "contains",
@@ -31132,9 +32402,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "src_content_config_projects",
-      "confidence_score": 1.0
+      "target": "src_content_config_projects"
     },
     {
       "relation": "contains",
@@ -31142,9 +32412,9 @@
       "source_file": "apps/playground/src/content.config.ts",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_content_config",
-      "target": "src_content_config_tags",
-      "confidence_score": 1.0
+      "target": "src_content_config_tags"
     },
     {
       "relation": "imports_from",
@@ -31153,9 +32423,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "layouts_baselayout",
-      "confidence_score": 1.0
+      "target": "layouts_baselayout"
     },
     {
       "relation": "imports_from",
@@ -31275,9 +32545,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "layouts_baselayout",
-      "confidence_score": 1.0
+      "target": "layouts_baselayout"
     },
     {
       "relation": "imports_from",
@@ -31286,9 +32556,9 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "layouts_baselayout",
-      "confidence_score": 1.0
+      "target": "layouts_baselayout"
     },
     {
       "relation": "imports_from",
@@ -31372,9 +32642,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "layouts_footer",
-      "confidence_score": 1.0
+      "target": "layouts_footer"
     },
     {
       "relation": "imports_from",
@@ -31449,9 +32719,9 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "layouts_footer",
-      "confidence_score": 1.0
+      "target": "layouts_footer"
     },
     {
       "relation": "contains",
@@ -31589,9 +32859,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "projects_slug_getstaticpaths",
-      "confidence_score": 1.0
+      "target": "projects_slug_getstaticpaths"
     },
     {
       "relation": "contains",
@@ -31599,9 +32869,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "projects_slug_keywords",
-      "confidence_score": 1.0
+      "target": "projects_slug_keywords"
     },
     {
       "relation": "contains",
@@ -31609,9 +32879,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "projects_slug_project",
-      "confidence_score": 1.0
+      "target": "projects_slug_project"
     },
     {
       "relation": "contains",
@@ -31619,9 +32889,9 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "projects_slug_projectslug",
-      "confidence_score": 1.0
+      "target": "projects_slug_projectslug"
     },
     {
       "relation": "contains",
@@ -31629,17 +32899,17 @@
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "projects_slug_tagids",
-      "confidence_score": 1.0
+      "target": "projects_slug_tagids"
     },
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/pages/projects/[...slug].astro",
+      "confidence_score": 1.0,
       "source": "projects_slug",
-      "target": "workspaces_playground_apps_playground_src_components_dynamicprojectapp",
-      "confidence_score": 1.0
+      "target": "workspaces_playground_apps_playground_src_components_dynamicprojectapp"
     },
     {
       "relation": "contains",
@@ -31647,9 +32917,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "category_index_categorymeta",
-      "confidence_score": 1.0
+      "target": "category_index_categorymeta"
     },
     {
       "relation": "contains",
@@ -31657,9 +32927,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "category_index_categoryprojects",
-      "confidence_score": 1.0
+      "target": "category_index_categoryprojects"
     },
     {
       "relation": "contains",
@@ -31667,9 +32937,9 @@
       "source_file": "apps/playground/src/pages/projects/[category]/index.astro",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "category_index",
-      "target": "category_index_getstaticpaths",
-      "confidence_score": 1.0
+      "target": "category_index_getstaticpaths"
     },
     {
       "relation": "contains",
@@ -31687,9 +32957,9 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "tag_index_getstaticpaths",
-      "confidence_score": 1.0
+      "target": "tag_index_getstaticpaths"
     },
     {
       "relation": "contains",
@@ -31697,9 +32967,9 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "tag_index_tagmeta",
-      "confidence_score": 1.0
+      "target": "tag_index_tagmeta"
     },
     {
       "relation": "contains",
@@ -31707,9 +32977,9 @@
       "source_file": "apps/playground/src/pages/projects/tags/[tag]/index.astro",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tag_index",
-      "target": "tag_index_tagprojects",
-      "confidence_score": 1.0
+      "target": "tag_index_tagprojects"
     },
     {
       "relation": "contains",
@@ -38235,6 +39505,17 @@
       "confidence_score": 1.0,
       "source": "radu_machine_learning_eslint_config",
       "target": "config_eslint_index_d"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/eslint.config.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "randomart_eslint_config",
+      "target": "config_eslint_index_d",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -46163,9 +47444,9 @@
       "source_file": "packages/image-pipeline/package.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "image_pipeline_package_exports",
-      "target": "image_pipeline_package_exports_app",
-      "confidence_score": 1.0
+      "target": "image_pipeline_package_exports_app"
     },
     {
       "relation": "contains",
@@ -58296,6 +59577,994 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_exports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_peerdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "randomart_package",
+      "target": "randomart_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "randomart_package_exports",
+      "target": "randomart_package_exports_styles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "randomart_package_scripts",
+      "target": "randomart_package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "randomart_package_scripts",
+      "target": "randomart_package_scripts_check_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "randomart_package_scripts",
+      "target": "randomart_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "randomart_package_scripts",
+      "target": "randomart_package_scripts_lint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "randomart_package_scripts",
+      "target": "randomart_package_scripts_lint_fix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "randomart_package_scripts",
+      "target": "randomart_package_scripts_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "randomart_package_dependencies",
+      "target": "randomart_package_dependencies_react_error_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "randomart_package_dependencies",
+      "target": "randomart_package_dependencies_repo_ui",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "randomart_package_dependencies",
+      "target": "randomart_package_dependencies_zod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "randomart_package_dependencies",
+      "target": "randomart_package_dependencies_zustand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "randomart_package_peerdependencies",
+      "target": "randomart_package_peerdependencies_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "randomart_package_peerdependencies",
+      "target": "randomart_package_peerdependencies_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_babel_core",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_babel_plugin_react_compiler",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_eslint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_repo_config_eslint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_rolldown_plugin_babel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_tailwindcss",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_tailwindcss_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_types_babel_core",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_types_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_types_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_types_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_typescript",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/package.json",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "randomart_package_devdependencies",
+      "target": "randomart_package_devdependencies_vitejs_plugin_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/App.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_randomart_src_app_tsx_src_app",
+      "target": "components_randomartcanvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/App.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "packages_randomart_src_app_tsx_src_app",
+      "target": "components_randomartcanvas_randomartcanvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/App.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "packages_randomart_src_app_tsx_src_app",
+      "target": "packages_randomart_src_app_tsx_src_app_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_randomartcanvas",
+      "target": "components_randomartcanvas_props",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "components_randomartcanvas",
+      "target": "components_randomartcanvas_randomartcanvas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "components_randomartcanvas",
+      "target": "utils_randomart_engine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "components_randomartcanvas",
+      "target": "utils_randomart_engine_renderpixelmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_seededrandom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "utils_seededrandom",
+      "target": "utils_seededrandom_seededrandom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_seededrandom_seededrandom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "utils_seededrandom_seededrandom",
+      "target": "utils_seededrandom_seededrandom_constructor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "utils_seededrandom_seededrandom",
+      "target": "utils_seededrandom_seededrandom_next",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/SeededRandom.ts",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "utils_seededrandom_seededrandom",
+      "target": "utils_seededrandom_seededrandom_pick",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_randomart_engine_buildtree",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_randomart_engine_evaluatenode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_randomart_engine_expressionnode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "utils_randomart_engine",
+      "target": "utils_randomart_engine_renderpixelmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "utils_randomart_engine_renderpixelmap",
+      "target": "utils_randomart_engine_evaluatenode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/utils/randomart-engine.ts",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "utils_randomart_engine_renderpixelmap",
+      "target": "utils_randomart_engine_buildtree",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app",
+      "target": "randomart_tsconfig_app_compileroptions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app",
+      "target": "randomart_tsconfig_app_include",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_allowimportingtsextensions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_erasablesyntaxonly",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_jsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_lib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_module",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_moduledetection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_moduleresolution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_noemit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_nounusedlocals",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_nounusedparameters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_skiplibcheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_tsbuildinfofile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.app.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_app_compileroptions",
+      "target": "randomart_tsconfig_app_compileroptions_verbatimmodulesyntax",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "randomart_tsconfig",
+      "target": "randomart_tsconfig_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "randomart_tsconfig",
+      "target": "randomart_tsconfig_references",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node",
+      "target": "randomart_tsconfig_node_compileroptions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node",
+      "target": "randomart_tsconfig_node_include",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_allowimportingtsextensions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_erasablesyntaxonly",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_lib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_module",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_moduledetection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_moduleresolution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_noemit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_nounusedlocals",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_nounusedparameters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_skiplibcheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_tsbuildinfofile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/tsconfig.node.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "randomart_tsconfig_node_compileroptions",
+      "target": "randomart_tsconfig_node_compileroptions_verbatimmodulesyntax",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "randomart_turbo",
+      "target": "randomart_turbo_extends",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "randomart_turbo",
+      "target": "randomart_turbo_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "randomart_turbo_tasks",
+      "target": "randomart_turbo_tasks_check_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/turbo.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "randomart_turbo_tasks_check_types",
+      "target": "randomart_turbo_check_types_dependson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "packages/sequence-renderer/package.json",
       "source_location": "L19",
       "weight": 1.0,
@@ -69266,21 +71535,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
-      "source_location": "L29",
+      "source_location": "L87",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_add_a_project"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_that_s_it"
+      "target": "how_to_adding_projects_automatic_routing",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -69288,9 +71547,39 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L12",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_the_data_model"
+      "target": "how_to_adding_projects_overview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "how_to_adding_projects_adding_projects",
+      "target": "how_to_adding_projects_step_1_create_the_package",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "how_to_adding_projects_adding_projects",
+      "target": "how_to_adding_projects_step_2_add_metadata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "how_to_adding_projects_adding_projects",
+      "target": "how_to_adding_projects_step_3_register_the_component",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -71435,6 +73724,166 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_file_export_changes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_files_changed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_overview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_canvas_component_randomartcanvas_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_core_engine_randomart_engine_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_error_handling",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_components",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_css_tokens",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_1_metadata_yaml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_2_component_registration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_3_tailwind_source_scan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "packages/automa/README.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -72765,6 +75214,56 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "randomart_readme",
+      "target": "randomart_readme_repo_randomart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "randomart_readme_repo_randomart",
+      "target": "randomart_readme_adding_to_the_playground",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "randomart_readme_repo_randomart",
+      "target": "randomart_readme_conventions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "randomart_readme_repo_randomart",
+      "target": "randomart_readme_documentation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/README.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "randomart_readme_repo_randomart",
+      "target": "randomart_readme_quick_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "packages/sequence-renderer/README.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -73274,5 +75773,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "0d497f628f8d97ce7c8ba85d0ea9c9577b4b3231"
+  "built_at_commit": "ad76e993e0700437b8022e86a96fbe0057e2dbbe"
 }

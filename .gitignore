@@ -4,6 +4,7 @@
 .pi
 .agents
 .opencode
+/docs/
 
 # Local workspace config
 .pnpm-store

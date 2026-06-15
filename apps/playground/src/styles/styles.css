@@ -18,6 +18,7 @@
 @source '../../node_modules/@repo/image-pipeline';
 @source '../../node_modules/@repo/three-stage';
 @source '../../node_modules/@repo/automa';
+@source '../../node_modules/@repo/randomart';
 
 @view-transition {
   navigation: auto;
