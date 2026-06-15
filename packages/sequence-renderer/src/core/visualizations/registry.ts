@@ -1,5 +1,5 @@
-import type { Visualization } from './types';
 import { recamanArcs } from './recamanArcs';
+import type { Visualization } from './types';
 
 const visualizations = new Map<string, Visualization>([
   [recamanArcs.id, recamanArcs]

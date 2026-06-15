@@ -1,9 +1,9 @@
-import type { SequenceRule } from './types';
-import { recamanRule } from './recaman';
+import { collatzRule } from './collatz';
 import { fibonacciRule } from './fibonacci';
 import { primesRule } from './primes';
+import { recamanRule } from './recaman';
 import { triangularRule } from './triangular';
-import { collatzRule } from './collatz';
+import type { SequenceRule } from './types';
 
 const rules = new Map<string, SequenceRule>([
   [recamanRule.id, recamanRule],

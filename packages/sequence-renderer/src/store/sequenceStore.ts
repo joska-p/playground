@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import type { SequenceRule } from '../core/rules/types';
 import { generateSequence } from '../core/engine';
 import { recamanRule } from '../core/rules/recaman';
+import type { SequenceRule } from '../core/rules/types';
 import { getAllVisualizations } from '../core/visualizations/registry';
 
 type SequenceState = {

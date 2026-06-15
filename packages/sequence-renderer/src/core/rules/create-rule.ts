@@ -1,4 +1,4 @@
-import type { SequenceRule, NextStepOptions } from './types';
+import type { NextStepOptions, SequenceRule } from './types';
 
 export type RuleConfig = {
   id: string;
