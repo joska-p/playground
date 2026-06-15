@@ -1,0 +1,24 @@
+import { factoryRule } from './create-rule';
+
+function isPrime(num: number): boolean {
+  if (num <= 1) return false;
+  if (num <= 3) return true;
+  if (num % 2 === 0) return false;
+  for (let i = 3, s = Math.sqrt(num); i <= s; i += 2) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
+
+export const primesRule = factoryRule({
+  id: 'primes',
+  name: 'Primes',
+  description: 'The sequence of prime numbers: 2, 3, 5, 7, 11...',
+  maxSteps: 300,
+  getNext: ({ current }) => {
+    const start = current === undefined || current === null ? 1 : current;
+    let next = start + 1;
+    while (!isPrime(next)) next++;
+    return next;
+  }
+});
