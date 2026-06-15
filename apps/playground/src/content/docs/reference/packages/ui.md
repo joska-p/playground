@@ -1,7 +1,7 @@
 ---
-title: 'UI Components'
-description: 'Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.'
-category: 'reference'
+title: "UI Components"
+description: "Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system."
+category: "reference"
 tags:
   - reference
   - ui
@@ -30,20 +30,22 @@ export function MyComponent() {
 
 ## Available Components
 
-| Component      | Export Subpath          | Description                               |
-| -------------- | ----------------------- | ----------------------------------------- |
-| `Button`       | `@repo/ui/Button`       | Actions, links, form submits              |
-| `Input`        | `@repo/ui/Input`        | Text input with label and helper text     |
-| `Select`       | `@repo/ui/Select`       | Dropdown selection                        |
-| `Slider`       | `@repo/ui/Slider`       | Range input with label and unit display   |
-| `Switch`       | `@repo/ui/Switch`       | Toggle switch                             |
-| `Card`         | `@repo/ui/Card`         | Content container                         |
-| `Badge`        | `@repo/ui/Badge`        | Small label/tag                           |
-| `Label`        | `@repo/ui/Label`        | Form label                                |
-| `ColorPalette` | `@repo/ui/ColorPalette` | Color swatch display                      |
-| `Sidebar`      | `@repo/ui/Sidebar`      | Collapsible sidebar with panel/main areas |
+| Component         | Export Subpath             | Description                               |
+| ----------------- | -------------------------- | ----------------------------------------- |
+| `Button`          | `@repo/ui/Button`          | Actions, links, form submits              |
+| `Input`           | `@repo/ui/Input`           | Text input with label and helper text     |
+| `Select`          | `@repo/ui/Select`          | Dropdown selection                        |
+| `Slider`          | `@repo/ui/Slider`          | Range input with label and unit display   |
+| `Switch`          | `@repo/ui/Switch`          | Toggle switch                             |
+| `Card`            | `@repo/ui/Card`            | Content container                         |
+| `Badge`           | `@repo/ui/Badge`           | Small label/tag                           |
+| `Label`           | `@repo/ui/Label`           | Form label                                |
+| `DefaultFallback` | `@repo/ui/DefaultFallback` | Pre-styled error fallback UI              |
+| `ErrorBoundary`   | `@repo/ui/ErrorBoundary`   | Error boundary wrapper with variants      |
+| `ColorPalette`    | `@repo/ui/ColorPalette`    | Color swatch display                      |
+| `Sidebar`         | `@repo/ui/Sidebar`         | Collapsible sidebar with panel/main areas |
 
-Each component also exports its CVA variants (e.g. `@repo/ui/buttonVariants`) and types (e.g. `@repo/ui/Button`).
+Each component also exports its CVA variants (e.g. `@repo/ui/buttonVariants`, `@repo/ui/defaultFallbackVariants`) and types (e.g. `@repo/ui/Button`, `@repo/ui/ErrorBoundary`).
 
 ## Variants
 
@@ -142,6 +144,22 @@ import { Sidebar } from "@repo/ui/Sidebar";
 </Sidebar>;
 ```
 
+### ErrorBoundary
+
+```typescript
+import { ErrorBoundary } from "@repo/ui/ErrorBoundary";
+
+<ErrorBoundary variant="destructive">
+  <MyComponent />
+</ErrorBoundary>
+
+<ErrorBoundary variant="primary">
+  <MyComponent />
+</ErrorBoundary>
+```
+
+The `ErrorBoundary` wraps `react-error-boundary` and renders a `DefaultFallback` on error. The `variant` prop controls the fallback's background tint. Supports the same variant set as other components: `primary`, `secondary`, `accent`, `destructive`, `outline`, `ghost`.
+
 ## Design Tokens
 
 Full design token reference (colors, typography, spacing, radii) is available at:
@@ -151,3 +169,4 @@ Full design token reference (colors, typography, spacing, radii) is available at
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+

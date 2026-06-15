@@ -15,31 +15,41 @@ Rules define _what numbers to generate_. Visualizations define _how to draw them
 ## The Rule Interface
 
 ```typescript
+type NextStepOptions = {
+  index: number;
+  current: number;
+  sequence: number[];
+  seen: Set<number>;
+};
+
 type SequenceRule = {
   name: string;
   id: string;
   description: string;
   maxSteps: number;
-  getNext: (params: NextStepParams) => number;
+  getNext: (options: NextStepOptions) => number;
 };
 ```
 
-`NextStepParams` gives you:
+`NextStepOptions` gives you:
 
-| Param     | Type          | Meaning                            |
-| --------- | ------------- | ---------------------------------- |
-| `index`   | `number`      | Current step number (starts at 0)  |
-| `current` | `number`      | The previous value in the sequence |
-| `seen`    | `Set<number>` | All values generated so far        |
+| Param      | Type          | Meaning                            |
+| ---------- | ------------- | ---------------------------------- |
+| `index`    | `number`      | Current step number (starts at 0)  |
+| `current`  | `number`      | The previous value in the sequence |
+| `sequence` | `number[]`    | The full sequence generated so far |
+| `seen`     | `Set<number>` | All unique values generated so far |
 
 ---
 
 ## Step 1: Define the Rule
 
-Edit `packages/sequence-renderer/src/core/rules.ts`:
+Create a new file `packages/sequence-renderer/src/core/rules/myRule.ts`:
 
 ```typescript
-const myRule: SequenceRule = {
+import type { SequenceRule } from './types';
+
+export const myRule: SequenceRule = {
   name: 'My Rule',
   id: 'my-rule',
   description: 'What it does.',
@@ -64,13 +74,20 @@ getNext: ({ index, current, seen }) => {
 
 ## Step 2: Register the Rule
 
-Add it to the `sequencesRule` array in the same file:
+In `packages/sequence-renderer/src/core/rules/registry.ts`, import your rule and register it in the map:
 
 ```typescript
-export const sequencesRule: SequenceRule[] = [
-  // ...existing rules
-  myRule
-];
+import { myRule } from './myRule';
+
+// Inside the Map constructor in registry.ts:
+const rules = new Map<string, SequenceRule>([
+  [recamanRule.id, recamanRule],
+  [fibonacciRule.id, fibonacciRule],
+  [primesRule.id, primesRule],
+  [triangularRule.id, triangularRule],
+  [collatzRule.id, collatzRule],
+  [myRule.id, myRule]
+]);
 ```
 
 ---

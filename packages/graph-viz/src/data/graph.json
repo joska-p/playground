@@ -1758,7 +1758,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 227,
+      "community": 135,
       "norm_label": "turbo"
     },
     {
@@ -6088,7 +6088,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "data_graphdata_schema_graphdata",
-      "community": 22,
+      "community": 56,
       "norm_label": "graphdata"
     },
     {
@@ -19205,7 +19205,7 @@
       "label": "Controls()",
       "file_type": "code",
       "source_file": "packages/sequence-renderer/src/components/controls/Controls.tsx",
-      "source_location": "L15",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "packages_sequence_renderer_src_components_controls_controls_tsx_controls_controls_controls",
       "community": 12,
@@ -19482,6 +19482,46 @@
       "norm_label": "sequencerule"
     },
     {
+      "label": "factorWave.ts",
+      "file_type": "code",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "visualizations_factorwave",
+      "community": 12,
+      "norm_label": "factorwave.ts"
+    },
+    {
+      "label": "isPrime()",
+      "file_type": "code",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "visualizations_factorwave_isprime",
+      "community": 12,
+      "norm_label": "isprime()"
+    },
+    {
+      "label": "draw()",
+      "file_type": "code",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "visualizations_factorwave_draw",
+      "community": 12,
+      "norm_label": "draw()"
+    },
+    {
+      "label": "factorWave",
+      "file_type": "code",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L111",
+      "_origin": "ast",
+      "id": "visualizations_factorwave_factorwave",
+      "community": 12,
+      "norm_label": "factorwave"
+    },
+    {
       "label": "recamanArcs.ts",
       "file_type": "code",
       "source_file": "packages/sequence-renderer/src/core/visualizations/recamanArcs.ts",
@@ -19545,7 +19585,7 @@
       "label": "visualizations",
       "file_type": "code",
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
-      "source_location": "L4",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "visualizations_registry_visualizations",
       "community": 12,
@@ -19555,7 +19595,7 @@
       "label": "getVisualization()",
       "file_type": "code",
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
-      "source_location": "L8",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "visualizations_registry_getvisualization",
       "community": 12,
@@ -19565,7 +19605,7 @@
       "label": "getAllVisualizations()",
       "file_type": "code",
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
-      "source_location": "L12",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "visualizations_registry_getallvisualizations",
       "community": 12,
@@ -25268,7 +25308,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 227,
+      "community": 135,
       "norm_label": "turbo.json"
     },
     {
@@ -25278,7 +25318,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 227,
+      "community": 135,
       "norm_label": "$schema"
     },
     {
@@ -25288,7 +25328,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 227,
+      "community": 135,
       "norm_label": "ui"
     },
     {
@@ -25368,7 +25408,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "turbo_tasks_lint",
-      "community": 112,
+      "community": 233,
       "norm_label": "lint"
     },
     {
@@ -25378,7 +25418,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "turbo_lint_dependson",
-      "community": 112,
+      "community": 233,
       "norm_label": "dependson"
     },
     {
@@ -25388,7 +25428,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "turbo_lint_outputs",
-      "community": 112,
+      "community": 233,
       "norm_label": "outputs"
     },
     {
@@ -26545,7 +26585,7 @@
       "label": "Data Structures",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/explanation/engines.md",
-      "source_location": "L43",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "explanation_engines_data_structures",
       "community": 113,
@@ -26555,7 +26595,7 @@
       "label": "Shared Patterns",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/explanation/engines.md",
-      "source_location": "L69",
+      "source_location": "L75",
       "_origin": "ast",
       "id": "explanation_engines_shared_patterns",
       "community": 113,
@@ -26565,7 +26605,7 @@
       "label": "State Management",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/explanation/engines.md",
-      "source_location": "L71",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "explanation_engines_state_management",
       "community": 113,
@@ -26575,7 +26615,7 @@
       "label": "Pluggable Architecture",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/explanation/engines.md",
-      "source_location": "L114",
+      "source_location": "L120",
       "_origin": "ast",
       "id": "explanation_engines_pluggable_architecture",
       "community": 113,
@@ -26585,7 +26625,7 @@
       "label": "Extending",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/explanation/engines.md",
-      "source_location": "L126",
+      "source_location": "L132",
       "_origin": "ast",
       "id": "explanation_engines_extending",
       "community": 113,
@@ -26885,7 +26925,7 @@
       "label": "Step 1: Define the Rule",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-sequence-rule.md",
-      "source_location": "L37",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "how_to_adding_sequence_rule_step_1_define_the_rule",
       "community": 142,
@@ -26895,7 +26935,7 @@
       "label": "Step 2: Register the Rule",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-sequence-rule.md",
-      "source_location": "L65",
+      "source_location": "L75",
       "_origin": "ast",
       "id": "how_to_adding_sequence_rule_step_2_register_the_rule",
       "community": 142,
@@ -26905,7 +26945,7 @@
       "label": "Step 3: Test It",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-sequence-rule.md",
-      "source_location": "L78",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "how_to_adding_sequence_rule_step_3_test_it",
       "community": 142,
@@ -26915,7 +26955,7 @@
       "label": "Checklist",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-sequence-rule.md",
-      "source_location": "L89",
+      "source_location": "L106",
       "_origin": "ast",
       "id": "how_to_adding_sequence_rule_checklist",
       "community": 142,
@@ -26952,30 +26992,30 @@
       "norm_label": "the visualization interface"
     },
     {
-      "label": "Step 1: Create the Draw Function",
+      "label": "Step 1: Create the Visualization",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
       "source_location": "L29",
       "_origin": "ast",
-      "id": "how_to_adding_visualization_step_1_create_the_draw_function",
+      "id": "how_to_adding_visualization_step_1_create_the_visualization",
       "community": 134,
-      "norm_label": "step 1: create the draw function"
+      "norm_label": "step 1: create the visualization"
     },
     {
-      "label": "Step 2: Export the Visualization",
+      "label": "Step 2: Register the Visualization",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
-      "source_location": "L67",
+      "source_location": "L82",
       "_origin": "ast",
-      "id": "how_to_adding_visualization_step_2_export_the_visualization",
+      "id": "how_to_adding_visualization_step_2_register_the_visualization",
       "community": 134,
-      "norm_label": "step 2: export the visualization"
+      "norm_label": "step 2: register the visualization"
     },
     {
       "label": "Step 3: Test It",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
-      "source_location": "L82",
+      "source_location": "L99",
       "_origin": "ast",
       "id": "how_to_adding_visualization_step_3_test_it",
       "community": 134,
@@ -26985,7 +27025,7 @@
       "label": "Tips",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
-      "source_location": "L93",
+      "source_location": "L110",
       "_origin": "ast",
       "id": "how_to_adding_visualization_tips",
       "community": 134,
@@ -26995,7 +27035,7 @@
       "label": "Checklist",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
-      "source_location": "L102",
+      "source_location": "L119",
       "_origin": "ast",
       "id": "how_to_adding_visualization_checklist",
       "community": 134,
@@ -28562,6 +28602,66 @@
       "norm_label": "state management"
     },
     {
+      "label": "randomart.md",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_randomart",
+      "community": 227,
+      "norm_label": "randomart.md"
+    },
+    {
+      "label": "@repo/randomart",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "packages_randomart_repo_randomart",
+      "community": 227,
+      "norm_label": "@repo/randomart"
+    },
+    {
+      "label": "Quick Start",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "packages_randomart_quick_start",
+      "community": 227,
+      "norm_label": "quick start"
+    },
+    {
+      "label": "Documentation",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "packages_randomart_documentation",
+      "community": 227,
+      "norm_label": "documentation"
+    },
+    {
+      "label": "Adding to the Playground",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "packages_randomart_adding_to_the_playground",
+      "community": 227,
+      "norm_label": "adding to the playground"
+    },
+    {
+      "label": "Conventions",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "packages_randomart_conventions",
+      "community": 227,
+      "norm_label": "conventions"
+    },
+    {
       "label": "sequence-renderer.md",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
@@ -28625,7 +28725,7 @@
       "label": "State & Actions",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L59",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "packages_sequence_renderer_state_actions",
       "community": 99,
@@ -28635,7 +28735,7 @@
       "label": "Data Flow",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L74",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "packages_sequence_renderer_data_flow",
       "community": 99,
@@ -28645,7 +28745,7 @@
       "label": "How to Add a New Sequence",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L78",
+      "source_location": "L80",
       "_origin": "ast",
       "id": "packages_sequence_renderer_how_to_add_a_new_sequence",
       "community": 99,
@@ -28655,7 +28755,7 @@
       "label": "How to Add a New Visualization",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L83",
+      "source_location": "L85",
       "_origin": "ast",
       "id": "packages_sequence_renderer_how_to_add_a_new_visualization",
       "community": 99,
@@ -28665,7 +28765,7 @@
       "label": "Step 1: Create the visualization",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L85",
+      "source_location": "L87",
       "_origin": "ast",
       "id": "packages_sequence_renderer_step_1_create_the_visualization",
       "community": 99,
@@ -28675,7 +28775,7 @@
       "label": "Step 2: Register it",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L104",
+      "source_location": "L108",
       "_origin": "ast",
       "id": "packages_sequence_renderer_step_2_register_it",
       "community": 99,
@@ -28685,7 +28785,7 @@
       "label": "Step 3: Drawing API",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L117",
+      "source_location": "L123",
       "_origin": "ast",
       "id": "packages_sequence_renderer_step_3_drawing_api",
       "community": 99,
@@ -28695,7 +28795,7 @@
       "label": "Common patterns",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
-      "source_location": "L123",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "packages_sequence_renderer_common_patterns",
       "community": 99,
@@ -28812,6 +28912,66 @@
       "norm_label": "key dependencies"
     },
     {
+      "label": "toolbox.md",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "packages_toolbox",
+      "community": 232,
+      "norm_label": "toolbox.md"
+    },
+    {
+      "label": "@repo/toolbox",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "packages_toolbox_repo_toolbox",
+      "community": 232,
+      "norm_label": "@repo/toolbox"
+    },
+    {
+      "label": "Quick Start",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "packages_toolbox_quick_start",
+      "community": 232,
+      "norm_label": "quick start"
+    },
+    {
+      "label": "Documentation",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "packages_toolbox_documentation",
+      "community": 232,
+      "norm_label": "documentation"
+    },
+    {
+      "label": "Adding to the Playground",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "packages_toolbox_adding_to_the_playground",
+      "community": 232,
+      "norm_label": "adding to the playground"
+    },
+    {
+      "label": "Conventions",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "packages_toolbox_conventions",
+      "community": 232,
+      "norm_label": "conventions"
+    },
+    {
       "label": "ui.md",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
@@ -28855,7 +29015,7 @@
       "label": "Variants",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L48",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "packages_ui_variants",
       "community": 109,
@@ -28865,7 +29025,7 @@
       "label": "Sizes",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L61",
+      "source_location": "L63",
       "_origin": "ast",
       "id": "packages_ui_sizes",
       "community": 109,
@@ -28875,7 +29035,7 @@
       "label": "Import Pattern",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L70",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "packages_ui_import_pattern",
       "community": 109,
@@ -28885,7 +29045,7 @@
       "label": "Usage Examples",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L85",
+      "source_location": "L87",
       "_origin": "ast",
       "id": "packages_ui_usage_examples",
       "community": 109,
@@ -28895,7 +29055,7 @@
       "label": "Button",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L87",
+      "source_location": "L89",
       "_origin": "ast",
       "id": "packages_ui_button",
       "community": 109,
@@ -28905,7 +29065,7 @@
       "label": "Input with Label",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L101",
+      "source_location": "L103",
       "_origin": "ast",
       "id": "packages_ui_input_with_label",
       "community": 109,
@@ -28915,7 +29075,7 @@
       "label": "Slider",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L114",
+      "source_location": "L116",
       "_origin": "ast",
       "id": "packages_ui_slider",
       "community": 109,
@@ -28925,17 +29085,27 @@
       "label": "Sidebar",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L129",
+      "source_location": "L131",
       "_origin": "ast",
       "id": "packages_ui_sidebar",
       "community": 109,
       "norm_label": "sidebar"
     },
     {
+      "label": "ErrorBoundary",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
+      "source_location": "L147",
+      "_origin": "ast",
+      "id": "packages_ui_errorboundary",
+      "community": 109,
+      "norm_label": "errorboundary"
+    },
+    {
       "label": "Design Tokens",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
-      "source_location": "L145",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "packages_ui_design_tokens",
       "community": 109,
@@ -31195,7 +31365,7 @@
       "label": "State & Actions",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L51",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "sequence_renderer_readme_state_actions",
       "community": 100,
@@ -31205,7 +31375,7 @@
       "label": "Data Flow",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L66",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "sequence_renderer_readme_data_flow",
       "community": 100,
@@ -31215,7 +31385,7 @@
       "label": "How to Add a New Sequence",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L70",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "sequence_renderer_readme_how_to_add_a_new_sequence",
       "community": 100,
@@ -31225,7 +31395,7 @@
       "label": "How to Add a New Visualization",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L75",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "sequence_renderer_readme_how_to_add_a_new_visualization",
       "community": 100,
@@ -31235,7 +31405,7 @@
       "label": "Step 1: Create the visualization",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L77",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "sequence_renderer_readme_step_1_create_the_visualization",
       "community": 100,
@@ -31245,7 +31415,7 @@
       "label": "Step 2: Register it",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L96",
+      "source_location": "L100",
       "_origin": "ast",
       "id": "sequence_renderer_readme_step_2_register_it",
       "community": 100,
@@ -31255,7 +31425,7 @@
       "label": "Step 3: Drawing API",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L109",
+      "source_location": "L115",
       "_origin": "ast",
       "id": "sequence_renderer_readme_step_3_drawing_api",
       "community": 100,
@@ -31265,7 +31435,7 @@
       "label": "Common patterns",
       "file_type": "document",
       "source_file": "packages/sequence-renderer/README.md",
-      "source_location": "L115",
+      "source_location": "L122",
       "_origin": "ast",
       "id": "sequence_renderer_readme_common_patterns",
       "community": 100,
@@ -36609,9 +36779,9 @@
       "source_file": "packages/automa/src/core/engine.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_engine_ts_core_engine",
-      "target": "core_engine_countactiveneighbors",
-      "confidence_score": 1.0
+      "target": "core_engine_countactiveneighbors"
     },
     {
       "relation": "contains",
@@ -36619,9 +36789,9 @@
       "source_file": "packages/automa/src/core/engine.ts",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_engine_ts_core_engine",
-      "target": "core_engine_evolve",
-      "confidence_score": 1.0
+      "target": "core_engine_evolve"
     },
     {
       "relation": "imports",
@@ -36630,9 +36800,9 @@
       "source_file": "packages/automa/src/core/engine.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_engine_ts_core_engine",
-      "target": "rules_types_rule",
-      "confidence_score": 1.0
+      "target": "rules_types_rule"
     },
     {
       "relation": "calls",
@@ -36826,9 +36996,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_brians_brain",
-      "confidence_score": 1.0
+      "target": "rules_brians_brain"
     },
     {
       "relation": "contains",
@@ -36880,9 +37050,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_brians_brain_briansbrainrule",
-      "confidence_score": 1.0
+      "target": "rules_brians_brain_briansbrainrule"
     },
     {
       "relation": "imports_from",
@@ -36891,9 +37061,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_conway",
-      "confidence_score": 1.0
+      "target": "rules_conway"
     },
     {
       "relation": "contains",
@@ -36945,9 +37115,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_conway_conwayrule",
-      "confidence_score": 1.0
+      "target": "rules_conway_conwayrule"
     },
     {
       "relation": "imports_from",
@@ -36956,9 +37126,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_highlife",
-      "confidence_score": 1.0
+      "target": "rules_highlife"
     },
     {
       "relation": "contains",
@@ -37010,9 +37180,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_highlife_highliferule",
-      "confidence_score": 1.0
+      "target": "rules_highlife_highliferule"
     },
     {
       "relation": "contains",
@@ -37041,9 +37211,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "packages_automa_src_core_rules_registry_ts_rules_registry_getallrules",
-      "confidence_score": 1.0
+      "target": "packages_automa_src_core_rules_registry_ts_rules_registry_getallrules"
     },
     {
       "relation": "contains",
@@ -37051,9 +37221,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "packages_automa_src_core_rules_registry_ts_rules_registry_getrule",
-      "confidence_score": 1.0
+      "target": "packages_automa_src_core_rules_registry_ts_rules_registry_getrule"
     },
     {
       "relation": "contains",
@@ -37061,9 +37231,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "packages_automa_src_core_rules_registry_ts_rules_registry_rules",
-      "confidence_score": 1.0
+      "target": "packages_automa_src_core_rules_registry_ts_rules_registry_rules"
     },
     {
       "relation": "imports",
@@ -37072,9 +37242,9 @@
       "source_file": "packages/automa/src/core/rules/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_types_rule",
-      "confidence_score": 1.0
+      "target": "rules_types_rule"
     },
     {
       "relation": "contains",
@@ -37082,9 +37252,9 @@
       "source_file": "packages/automa/src/core/rules/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_automa_src_core_rules_types_ts_rules_types",
-      "target": "rules_types_rule",
-      "confidence_score": 1.0
+      "target": "rules_types_rule"
     },
     {
       "relation": "imports",
@@ -61361,9 +61531,9 @@
       "source_file": "packages/sequence-renderer/src/components/controls/Controls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_components_controls_controls_tsx_controls_controls",
-      "target": "visualizations_registry",
-      "confidence_score": 1.0
+      "target": "visualizations_registry"
     },
     {
       "relation": "imports",
@@ -61372,9 +61542,9 @@
       "source_file": "packages/sequence-renderer/src/components/controls/Controls.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_components_controls_controls_tsx_controls_controls",
-      "target": "visualizations_registry_getallvisualizations",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getallvisualizations"
     },
     {
       "relation": "calls",
@@ -61524,9 +61694,9 @@
       "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "sequence_display_sequencedisplay",
-      "target": "visualizations_registry",
-      "confidence_score": 1.0
+      "target": "visualizations_registry"
     },
     {
       "relation": "imports",
@@ -61535,9 +61705,9 @@
       "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "sequence_display_sequencedisplay",
-      "target": "visualizations_registry_getvisualization",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getvisualization"
     },
     {
       "relation": "calls",
@@ -61568,9 +61738,9 @@
       "source_file": "packages/sequence-renderer/src/components/sequence-display/SequenceDisplay.tsx",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "sequence_display_sequencedisplay_sequencedisplay",
-      "target": "visualizations_registry_getvisualization",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getvisualization"
     },
     {
       "relation": "contains",
@@ -61578,9 +61748,9 @@
       "source_file": "packages/sequence-renderer/src/core/engine.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_engine_ts_core_engine",
-      "target": "core_engine_generatesequence",
-      "confidence_score": 1.0
+      "target": "core_engine_generatesequence"
     },
     {
       "relation": "imports",
@@ -61589,9 +61759,9 @@
       "source_file": "packages/sequence-renderer/src/core/engine.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_engine_ts_core_engine",
-      "target": "rules_types_sequencerule",
-      "confidence_score": 1.0
+      "target": "rules_types_sequencerule"
     },
     {
       "relation": "imports",
@@ -61600,9 +61770,9 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore",
-      "target": "core_engine_generatesequence",
-      "confidence_score": 1.0
+      "target": "core_engine_generatesequence"
     },
     {
       "relation": "calls",
@@ -61611,9 +61781,9 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore_generateinitial",
-      "target": "core_engine_generatesequence",
-      "confidence_score": 1.0
+      "target": "core_engine_generatesequence"
     },
     {
       "relation": "calls",
@@ -61644,9 +61814,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_collatz",
-      "confidence_score": 1.0
+      "target": "rules_collatz"
     },
     {
       "relation": "contains",
@@ -61654,9 +61824,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/collatz.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_collatz",
-      "target": "rules_collatz_collatzrule",
-      "confidence_score": 1.0
+      "target": "rules_collatz_collatzrule"
     },
     {
       "relation": "imports_from",
@@ -61665,9 +61835,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/collatz.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_collatz",
-      "target": "rules_create_rule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule"
     },
     {
       "relation": "imports",
@@ -61676,9 +61846,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/collatz.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_collatz",
-      "target": "rules_create_rule_factoryrule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_factoryrule"
     },
     {
       "relation": "imports",
@@ -61687,9 +61857,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_collatz_collatzrule",
-      "confidence_score": 1.0
+      "target": "rules_collatz_collatzrule"
     },
     {
       "relation": "contains",
@@ -61697,9 +61867,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/create-rule.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_create_rule",
-      "target": "rules_create_rule_factoryrule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_factoryrule"
     },
     {
       "relation": "contains",
@@ -61707,9 +61877,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/create-rule.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_create_rule",
-      "target": "rules_create_rule_ruleconfig",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_ruleconfig"
     },
     {
       "relation": "imports",
@@ -61718,9 +61888,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/create-rule.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_create_rule",
-      "target": "rules_types_nextstepoptions",
-      "confidence_score": 1.0
+      "target": "rules_types_nextstepoptions"
     },
     {
       "relation": "imports",
@@ -61729,9 +61899,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/create-rule.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_create_rule",
-      "target": "rules_types_sequencerule",
-      "confidence_score": 1.0
+      "target": "rules_types_sequencerule"
     },
     {
       "relation": "imports_from",
@@ -61740,9 +61910,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/fibonacci.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_fibonacci",
-      "target": "rules_create_rule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule"
     },
     {
       "relation": "imports_from",
@@ -61751,9 +61921,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/primes.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_primes",
-      "target": "rules_create_rule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule"
     },
     {
       "relation": "imports_from",
@@ -61762,9 +61932,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/recaman.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_recaman",
-      "target": "rules_create_rule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule"
     },
     {
       "relation": "imports_from",
@@ -61773,9 +61943,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/triangular.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_triangular",
-      "target": "rules_create_rule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule"
     },
     {
       "relation": "imports",
@@ -61784,9 +61954,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/fibonacci.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_fibonacci",
-      "target": "rules_create_rule_factoryrule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_factoryrule"
     },
     {
       "relation": "imports",
@@ -61795,9 +61965,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/primes.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_primes",
-      "target": "rules_create_rule_factoryrule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_factoryrule"
     },
     {
       "relation": "imports",
@@ -61806,9 +61976,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/recaman.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_recaman",
-      "target": "rules_create_rule_factoryrule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_factoryrule"
     },
     {
       "relation": "imports",
@@ -61817,9 +61987,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/triangular.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_triangular",
-      "target": "rules_create_rule_factoryrule",
-      "confidence_score": 1.0
+      "target": "rules_create_rule_factoryrule"
     },
     {
       "relation": "imports_from",
@@ -61828,9 +61998,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_fibonacci",
-      "confidence_score": 1.0
+      "target": "rules_fibonacci"
     },
     {
       "relation": "contains",
@@ -61838,9 +62008,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/fibonacci.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_fibonacci",
-      "target": "rules_fibonacci_fibonaccirule",
-      "confidence_score": 1.0
+      "target": "rules_fibonacci_fibonaccirule"
     },
     {
       "relation": "imports",
@@ -61849,9 +62019,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_fibonacci_fibonaccirule",
-      "confidence_score": 1.0
+      "target": "rules_fibonacci_fibonaccirule"
     },
     {
       "relation": "imports_from",
@@ -61860,9 +62030,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_primes",
-      "confidence_score": 1.0
+      "target": "rules_primes"
     },
     {
       "relation": "contains",
@@ -61870,9 +62040,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/primes.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_primes",
-      "target": "rules_primes_isprime",
-      "confidence_score": 1.0
+      "target": "rules_primes_isprime"
     },
     {
       "relation": "contains",
@@ -61880,9 +62050,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/primes.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_primes",
-      "target": "rules_primes_primesrule",
-      "confidence_score": 1.0
+      "target": "rules_primes_primesrule"
     },
     {
       "relation": "imports",
@@ -61891,9 +62061,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_primes_primesrule",
-      "confidence_score": 1.0
+      "target": "rules_primes_primesrule"
     },
     {
       "relation": "imports_from",
@@ -61902,9 +62072,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_recaman",
-      "confidence_score": 1.0
+      "target": "rules_recaman"
     },
     {
       "relation": "contains",
@@ -61912,9 +62082,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/recaman.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_recaman",
-      "target": "rules_recaman_recamanrule",
-      "confidence_score": 1.0
+      "target": "rules_recaman_recamanrule"
     },
     {
       "relation": "imports_from",
@@ -61923,9 +62093,9 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore",
-      "target": "rules_recaman",
-      "confidence_score": 1.0
+      "target": "rules_recaman"
     },
     {
       "relation": "imports",
@@ -61934,9 +62104,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_recaman_recamanrule",
-      "confidence_score": 1.0
+      "target": "rules_recaman_recamanrule"
     },
     {
       "relation": "imports",
@@ -61945,9 +62115,9 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore",
-      "target": "rules_recaman_recamanrule",
-      "confidence_score": 1.0
+      "target": "rules_recaman_recamanrule"
     },
     {
       "relation": "contains",
@@ -61955,9 +62125,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry_getallrules",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry_getallrules"
     },
     {
       "relation": "contains",
@@ -61965,9 +62135,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry_getrule",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry_getrule"
     },
     {
       "relation": "contains",
@@ -61975,9 +62145,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry_rules",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry_rules"
     },
     {
       "relation": "imports_from",
@@ -61986,9 +62156,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_triangular",
-      "confidence_score": 1.0
+      "target": "rules_triangular"
     },
     {
       "relation": "imports",
@@ -61997,9 +62167,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_triangular_triangularrule",
-      "confidence_score": 1.0
+      "target": "rules_triangular_triangularrule"
     },
     {
       "relation": "imports",
@@ -62008,9 +62178,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_registry_ts_rules_registry",
-      "target": "rules_types_sequencerule",
-      "confidence_score": 1.0
+      "target": "rules_types_sequencerule"
     },
     {
       "relation": "contains",
@@ -62018,9 +62188,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/triangular.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_triangular",
-      "target": "rules_triangular_triangularrule",
-      "confidence_score": 1.0
+      "target": "rules_triangular_triangularrule"
     },
     {
       "relation": "contains",
@@ -62028,9 +62198,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_types_ts_rules_types",
-      "target": "rules_types_nextstepoptions",
-      "confidence_score": 1.0
+      "target": "rules_types_nextstepoptions"
     },
     {
       "relation": "contains",
@@ -62038,9 +62208,9 @@
       "source_file": "packages/sequence-renderer/src/core/rules/types.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_src_core_rules_types_ts_rules_types",
-      "target": "rules_types_sequencerule",
-      "confidence_score": 1.0
+      "target": "rules_types_sequencerule"
     },
     {
       "relation": "imports",
@@ -62049,8 +62219,82 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore",
-      "target": "rules_types_sequencerule",
+      "target": "rules_types_sequencerule"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "visualizations_factorwave",
+      "target": "visualizations_factorwave_draw",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "visualizations_factorwave",
+      "target": "visualizations_factorwave_factorwave",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "visualizations_factorwave",
+      "target": "visualizations_factorwave_isprime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "visualizations_factorwave",
+      "target": "visualizations_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/factorWave.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "visualizations_factorwave",
+      "target": "visualizations_types_visualization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "visualizations_registry",
+      "target": "visualizations_factorwave",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "visualizations_registry",
+      "target": "visualizations_factorwave_factorwave",
       "confidence_score": 1.0
     },
     {
@@ -62122,9 +62366,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/recamanArcs.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_recamanarcs",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -62133,9 +62377,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/recamanArcs.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_recamanarcs",
-      "target": "visualizations_types_visualization",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualization"
     },
     {
       "relation": "imports_from",
@@ -62144,9 +62388,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_recamanarcs",
-      "confidence_score": 1.0
+      "target": "visualizations_recamanarcs"
     },
     {
       "relation": "calls",
@@ -62188,9 +62432,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_recamanarcs_recamanarcs",
-      "confidence_score": 1.0
+      "target": "visualizations_recamanarcs_recamanarcs"
     },
     {
       "relation": "imports_from",
@@ -62199,9 +62443,9 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore",
-      "target": "visualizations_registry",
-      "confidence_score": 1.0
+      "target": "visualizations_registry"
     },
     {
       "relation": "contains",
@@ -62209,9 +62453,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_registry_getallvisualizations",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getallvisualizations"
     },
     {
       "relation": "contains",
@@ -62219,9 +62463,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_registry_getvisualization",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getvisualization"
     },
     {
       "relation": "contains",
@@ -62229,9 +62473,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_registry_visualizations",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_visualizations"
     },
     {
       "relation": "imports_from",
@@ -62240,9 +62484,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_types",
-      "confidence_score": 1.0
+      "target": "visualizations_types"
     },
     {
       "relation": "imports",
@@ -62251,9 +62495,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/registry.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_registry",
-      "target": "visualizations_types_visualization",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualization"
     },
     {
       "relation": "imports",
@@ -62262,9 +62506,9 @@
       "source_file": "packages/sequence-renderer/src/store/sequenceStore.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "store_sequencestore",
-      "target": "visualizations_registry_getallvisualizations",
-      "confidence_score": 1.0
+      "target": "visualizations_registry_getallvisualizations"
     },
     {
       "relation": "contains",
@@ -62272,9 +62516,9 @@
       "source_file": "packages/sequence-renderer/src/core/visualizations/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "visualizations_types",
-      "target": "visualizations_types_visualization",
-      "confidence_score": 1.0
+      "target": "visualizations_types_visualization"
     },
     {
       "relation": "contains",
@@ -72347,19 +72591,19 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "how_to_adding_visualization_adding_a_visualization",
-      "target": "how_to_adding_visualization_step_1_create_the_draw_function"
+      "target": "how_to_adding_visualization_step_1_create_the_visualization",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/how-to/adding-visualization.md",
-      "source_location": "L67",
+      "source_location": "L82",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "how_to_adding_visualization_adding_a_visualization",
-      "target": "how_to_adding_visualization_step_2_export_the_visualization"
+      "target": "how_to_adding_visualization_step_2_register_the_visualization",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -73834,6 +74078,56 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "packages_randomart",
+      "target": "packages_randomart_repo_randomart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "packages_randomart_repo_randomart",
+      "target": "packages_randomart_adding_to_the_playground",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "packages_randomart_repo_randomart",
+      "target": "packages_randomart_conventions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "packages_randomart_repo_randomart",
+      "target": "packages_randomart_documentation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "packages_randomart_repo_randomart",
+      "target": "packages_randomart_quick_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L11",
       "weight": 1.0,
@@ -74064,6 +74358,56 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "packages_toolbox",
+      "target": "packages_toolbox_repo_toolbox",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "packages_toolbox_repo_toolbox",
+      "target": "packages_toolbox_adding_to_the_playground",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "packages_toolbox_repo_toolbox",
+      "target": "packages_toolbox_conventions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "packages_toolbox_repo_toolbox",
+      "target": "packages_toolbox_documentation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/toolbox.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "packages_toolbox_repo_toolbox",
+      "target": "packages_toolbox_quick_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
       "source_location": "L11",
       "weight": 1.0,
@@ -74150,6 +74494,16 @@
       "confidence_score": 1.0,
       "source": "packages_ui_usage_examples",
       "target": "packages_ui_button"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/ui.md",
+      "source_location": "L147",
+      "weight": 1.0,
+      "source": "packages_ui_usage_examples",
+      "target": "packages_ui_errorboundary",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -74407,9 +74761,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan"
     },
     {
       "relation": "contains",
@@ -74417,9 +74771,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L553",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_10_delete_old_files",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_10_delete_old_files"
     },
     {
       "relation": "contains",
@@ -74427,9 +74781,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L574",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_11_verify_everything_compiles",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_11_verify_everything_compiles"
     },
     {
       "relation": "contains",
@@ -74437,9 +74791,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_1_create_rules_types_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_1_create_rules_types_ts"
     },
     {
       "relation": "contains",
@@ -74447,9 +74801,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_2_create_rules_create_rule_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_2_create_rules_create_rule_ts"
     },
     {
       "relation": "contains",
@@ -74457,9 +74811,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L84",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_3_create_individual_rule_files",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_3_create_individual_rule_files"
     },
     {
       "relation": "contains",
@@ -74467,9 +74821,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L198",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_4_create_rules_registry_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_4_create_rules_registry_ts"
     },
     {
       "relation": "contains",
@@ -74477,9 +74831,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L239",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_5_create_engine_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_5_create_engine_ts"
     },
     {
       "relation": "contains",
@@ -74487,9 +74841,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L288",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_6_create_visualizations_types_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_6_create_visualizations_types_ts"
     },
     {
       "relation": "contains",
@@ -74497,9 +74851,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L312",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_7_create_visualizations_registry_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_7_create_visualizations_registry_ts"
     },
     {
       "relation": "contains",
@@ -74507,9 +74861,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L366",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_8_update_sequencestore_ts",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_8_update_sequencestore_ts"
     },
     {
       "relation": "contains",
@@ -74517,9 +74871,9 @@
       "source_file": "docs/superpowers/plans/2026-06-15-sequence-renderer-automa-lite.md",
       "source_location": "L435",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_2026_06_15_sequence_renderer_automa_lite_sequence_renderer_automa_lite_implementation_plan",
-      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_9_update_components_to_use_registries",
-      "confidence_score": 1.0
+      "target": "plans_2026_06_15_sequence_renderer_automa_lite_task_9_update_components_to_use_registries"
     },
     {
       "relation": "contains",
@@ -74687,9 +75041,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture"
     },
     {
       "relation": "contains",
@@ -74697,9 +75051,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_components"
     },
     {
       "relation": "contains",
@@ -74707,9 +75061,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_directory_structure",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_directory_structure"
     },
     {
       "relation": "contains",
@@ -74717,9 +75071,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_files_to_delete",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_files_to_delete"
     },
     {
       "relation": "contains",
@@ -74727,9 +75081,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_non_goals",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_non_goals"
     },
     {
       "relation": "contains",
@@ -74737,9 +75091,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_store_component_changes",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_store_component_changes"
     },
     {
       "relation": "contains",
@@ -74747,9 +75101,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_sequence_renderer_automa_lite_architecture",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_summary",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_summary"
     },
     {
       "relation": "contains",
@@ -74757,9 +75111,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_engine_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_engine_ts"
     },
     {
       "relation": "contains",
@@ -74767,9 +75121,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_per_rule_files",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_per_rule_files"
     },
     {
       "relation": "contains",
@@ -74777,9 +75131,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_rules_create_rule_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_rules_create_rule_ts"
     },
     {
       "relation": "contains",
@@ -74787,9 +75141,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_rules_registry_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_rules_registry_ts"
     },
     {
       "relation": "contains",
@@ -74797,9 +75151,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_rules_types_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_rules_types_ts"
     },
     {
       "relation": "contains",
@@ -74807,9 +75161,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_visualizations_registry_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_visualizations_registry_ts"
     },
     {
       "relation": "contains",
@@ -74817,9 +75171,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-sequence-renderer-automa-lite-design.md",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_sequence_renderer_automa_lite_design_components",
-      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_visualizations_types_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_sequence_renderer_automa_lite_design_visualizations_types_ts"
     },
     {
       "relation": "contains",
@@ -76713,5 +77067,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "dc7655eefc029e1bde3bfc4618ba27b412dfc6a1"
+  "built_at_commit": "83f772b254d86700a7405d77d1740bca0e10f29b"
 }

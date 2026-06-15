@@ -34,23 +34,29 @@ Rule (math) → Sequence → Visualization (draw) → Canvas
 
 ### Available Visualizations
 
-| Visualization    | ID           | Description                         |
-| ---------------- | ------------ | ----------------------------------- |
-| **Line Graph**   | `line-graph` | Connected points, stock-chart style |
-| **Scatter Plot** | `scatter`    | Dots positioned by sequence value   |
-| **Bars**         | `bars`       | Vertical bars per sequence step     |
+| Visualization    | ID             | Description                                            |
+| ---------------- | -------------- | ------------------------------------------------------ |
+| **Recamán Arcs** | `recaman-arcs` | Arcs connecting sequence points                        |
+| **Factor Wave**  | `factor-wave`  | Sine waves starting at primes crossing their multiples |
 
 ### Data Structures
 
 **Rule interface:**
 
 ```typescript
+type NextStepOptions = {
+  index: number;
+  current: number;
+  sequence: number[];
+  seen: Set<number>;
+};
+
 type SequenceRule = {
   name: string;
   id: string;
   description: string;
   maxSteps: number;
-  getNext: (params: NextStepParams) => number;
+  getNext: (options: NextStepOptions) => number;
 };
 ```
 
@@ -60,7 +66,7 @@ type SequenceRule = {
 type Visualization = {
   id: string;
   name: string;
-  draw: (canvas, sequence) => void;
+  draw: (options: { canvas: HTMLCanvasElement; sequence: number[] }) => void;
 };
 ```
 

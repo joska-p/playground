@@ -1,7 +1,7 @@
 ---
-title: 'Sequence Renderer'
-description: 'Visualize mathematical sequences — Recamán, Fibonacci, and more.'
-category: 'reference'
+title: "Sequence Renderer"
+description: "Visualize mathematical sequences — Recamán, Fibonacci, and more."
+category: "reference"
 tags:
   - reference
   - sequence-renderer
@@ -28,7 +28,7 @@ export default function MyViz() {
 
 Decouple **generation** from **visualization**:
 
-1. **Rules** — Define sequences via `getNext()` in `src/core/rules.ts`.
+1. **Rules** — Define sequences via `getNext()` in `src/core/rules/`.
 2. **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
 3. **Zustand Store** — State management (`sequenceStore`).
 
@@ -47,10 +47,12 @@ Decouple **generation** from **visualization**:
 Visualizations are pluggable renderers:
 
 ```typescript
-export const recamanArcs = {
+import type { Visualization } from './types';
+
+export const recamanArcs: Visualization = {
   id: 'recaman-arcs',
   name: 'Recamán Arcs',
-  draw: (ctx, sequence, bounds) => {
+  draw: ({ canvas, sequence }) => {
     // Your drawing magic here
   }
 };
@@ -77,14 +79,14 @@ const sequence = useSequenceSequence();
 
 ## How to Add a New Sequence
 
-1. Define in `src/core/rules.ts` by adding a `SequenceRule` object.
-2. Add to the rules array — it will automatically appear in the UI.
+1. Define a rule file in `src/core/rules/` (e.g., `myRule.ts`) using the `SequenceRule` type.
+2. Register the rule in `src/core/rules/registry.ts` inside the `rules` map.
 
 ## How to Add a New Visualization
 
 ### Step 1: Create the visualization
 
-Create a new file in `src/core/visualizations/` (e.g., `my-viz.ts`):
+Create a new file in `src/core/visualizations/` (e.g., `myViz.ts`):
 
 ```typescript
 import type { Visualization } from './types';
@@ -92,8 +94,10 @@ import type { Visualization } from './types';
 export const myViz: Visualization = {
   id: 'my-viz',
   name: 'My Awesome Visualization',
-  draw: (ctx, sequence, bounds) => {
-    const { width, height } = bounds;
+  draw: ({ canvas, sequence }) => {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const { width, height } = canvas;
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, 50, 0, Math.PI * 2);
     ctx.fill();
@@ -103,28 +107,40 @@ export const myViz: Visualization = {
 
 ### Step 2: Register it
 
-Import and add your visualization to the registry in `src/core/visualizations/index.ts`:
+Import and register your visualization in the map in `src/core/visualizations/registry.ts`:
 
 ```typescript
-import { myViz } from './my-viz';
+import { myViz } from './myViz';
 
-export const visualizations: Visualization[] = [
-  myViz
-  // ...others
-];
+// Inside the Map constructor in registry.ts:
+const visualizations = new Map<string, Visualization>([
+  [recamanArcs.id, recamanArcs],
+  [factorWave.id, factorWave],
+  [myViz.id, myViz]
+]);
 ```
 
 ### Step 3: Drawing API
 
-- `ctx`: `CanvasRenderingContext2D`
+The `draw` function receives a single options object:
+
+- `canvas`: `HTMLCanvasElement`
 - `sequence`: `number[]`
-- `bounds`: `{ width: number, height: number }`
 
 #### Common patterns
 
+- **Get 2D context**: `const ctx = canvas.getContext('2d');`
+- **Resize canvas**:
+  ```typescript
+  if (!canvas.parentElement) return;
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
+  ```
+- **Clear canvas**: `ctx.clearRect(0, 0, canvas.width, canvas.height);`
 - **Lines**: `ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();`
 - **Circles**: `ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();`
 
 ---
 
 _Part of @repo/playground_
+

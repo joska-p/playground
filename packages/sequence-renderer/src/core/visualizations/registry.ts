@@ -1,8 +1,10 @@
+import { factorWave } from './factorWave';
 import { recamanArcs } from './recamanArcs';
 import type { Visualization } from './types';
 
 const visualizations = new Map<string, Visualization>([
-  [recamanArcs.id, recamanArcs]
+  [recamanArcs.id, recamanArcs],
+  [factorWave.id, factorWave]
 ]);
 
 export function getVisualization(id: string): Visualization | undefined {

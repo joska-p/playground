@@ -1,16 +1,16 @@
 # Graph Report - playground  (2026-06-15)
 
 ## Corpus Check
-- 1480 files · ~9,517,553 words
+- 1483 files · ~9,521,653 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3166 nodes · 4335 edges · 233 communities (212 shown, 21 thin omitted)
+- 3183 nodes · 4353 edges · 235 communities (214 shown, 21 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `dc7655ee`
+- Built from commit: `83f772b2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -208,6 +208,8 @@
 - [[_COMMUNITY_Community 227|Community 227]]
 - [[_COMMUNITY_Community 228|Community 228]]
 - [[_COMMUNITY_Community 231|Community 231]]
+- [[_COMMUNITY_Community 232|Community 232]]
+- [[_COMMUNITY_Community 233|Community 233]]
 - [[_COMMUNITY_Community 234|Community 234]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -237,7 +239,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (233 total, 21 thin omitted)
+## Communities (235 total, 21 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -288,8 +290,8 @@ Cohesion: 0.05
 Nodes (39): dependencies, @repo/ui, zod, zustand, devDependencies, @babel/core, babel-plugin-react-compiler, eslint (+31 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.08
-Nodes (34): SequenceSelector(), generateSequence(), Controls(), rules, collatzRule, factoryRule(), RuleConfig, fibonacciRule (+26 more)
+Cohesion: 0.07
+Nodes (35): SequenceSelector(), generateSequence(), Controls(), rules, collatzRule, factoryRule(), RuleConfig, fibonacciRule (+27 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.05
@@ -329,7 +331,7 @@ Nodes (19): imagePipeline, ManipulationInfo, MANIPULATIONS, pool, RunConfig, Arg
 
 ### Community 22 - "Community 22"
 Cohesion: 0.07
-Nodes (38): PALETTE, GraphData, PipelineConfig, PipelineResult, runPipeline(), checksumPath, __dirname, fileChecksum() (+30 more)
+Nodes (37): PALETTE, PipelineConfig, PipelineResult, runPipeline(), checksumPath, __dirname, fileChecksum(), __filename (+29 more)
 
 ### Community 23 - "Community 23"
 Cohesion: 0.13
@@ -457,7 +459,7 @@ Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib
 
 ### Community 56 - "Community 56"
 Cohesion: 0.06
-Nodes (53): initGraphData(), useCommunities(), useLinks(), useNodes(), graphDataStore, GraphDataState, FilterControls(), DIM_COLOR (+45 more)
+Nodes (54): initGraphData(), useCommunities(), useLinks(), useNodes(), graphDataStore, GraphDataState, FilterControls(), DIM_COLOR (+46 more)
 
 ### Community 57 - "Community 57"
 Cohesion: 0.11
@@ -636,8 +638,8 @@ Cohesion: 0.15
 Nodes (12): Adding a new rule, Architecture, Built-in examples, Camera, Color picker, Controls, Drawing, Engine (+4 more)
 
 ### Community 109 - "Community 109"
-Cohesion: 0.15
-Nodes (12): Available Components, Button, Design Tokens, Import Pattern, Input with Label, Quick Start, @repo/ui, Sidebar (+4 more)
+Cohesion: 0.14
+Nodes (13): Available Components, Button, Design Tokens, ErrorBoundary, Import Pattern, Input with Label, Quick Start, @repo/ui (+5 more)
 
 ### Community 110 - "Community 110"
 Cohesion: 0.14
@@ -648,8 +650,8 @@ Cohesion: 0.17
 Nodes (11): 1. Write the README, 2. Sync to the Astro Site, 3. Verify, Adding a new package, Before You Start, Documenting a Package, Feedback, Maintenance (+3 more)
 
 ### Community 112 - "Community 112"
-Cohesion: 0.17
-Nodes (12): dependsOn, cache, dependsOn, dependsOn, outputs, tasks, check-types, clean (+4 more)
+Cohesion: 0.22
+Nodes (9): dependsOn, cache, dependsOn, tasks, check-types, clean, lint-fix, test (+1 more)
 
 ### Community 113 - "Community 113"
 Cohesion: 0.18
@@ -725,11 +727,11 @@ Nodes (5): readFileAsImageData(), imageElementToImageData(), clearImageSource(),
 
 ### Community 134 - "Community 134"
 Cohesion: 0.25
-Nodes (7): Adding a Visualization, Checklist, Step 1: Create the Draw Function, Step 2: Export the Visualization, Step 3: Test It, The Visualization Interface, Tips
+Nodes (7): Adding a Visualization, Checklist, Step 1: Create the Visualization, Step 2: Register the Visualization, Step 3: Test It, The Visualization Interface, Tips
 
 ### Community 135 - "Community 135"
-Cohesion: 0.25
-Nodes (8): fallow, prettier, prettier-plugin-astro, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, @turbo/gen, devDependencies, typescript
+Cohesion: 0.17
+Nodes (11): fallow, prettier, prettier-plugin-astro, prettier-plugin-organize-imports, prettier-plugin-tailwindcss, turbo, @turbo/gen, devDependencies (+3 more)
 
 ### Community 136 - "Community 136"
 Cohesion: 0.25
@@ -920,19 +922,27 @@ Cohesion: 0.40
 Nodes (4): dependsOn, extends, tasks, check-types
 
 ### Community 227 - "Community 227"
-Cohesion: 0.50
-Nodes (3): turbo, $schema, ui
+Cohesion: 0.33
+Nodes (5): Adding to the Playground, Conventions, Documentation, Quick Start, @repo/randomart
 
 ### Community 231 - "Community 231"
 Cohesion: 0.20
 Nodes (9): Controls(), ImageManipulator(), CompareToggle(), CompareToggleProps, Outputs(), ProcessingOverlay(), useImageSource(), useIsProcessing() (+1 more)
+
+### Community 232 - "Community 232"
+Cohesion: 0.33
+Nodes (5): Adding to the Playground, Conventions, Documentation, Quick Start, @repo/toolbox
+
+### Community 233 - "Community 233"
+Cohesion: 0.67
+Nodes (3): dependsOn, outputs, lint
 
 ### Community 234 - "Community 234"
 Cohesion: 0.27
 Nodes (7): clearWorkflowSteps(), EmptyState(), EmptyStateProps, WorkflowControls(), WorkflowList(), WorkflowListProps, WorkflowNode()
 
 ## Knowledge Gaps
-- **1733 isolated node(s):** `isVercel`, `name`, `type`, `version`, `node` (+1728 more)
+- **1742 isolated node(s):** `isVercel`, `name`, `type`, `version`, `node` (+1737 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -940,15 +950,15 @@ Nodes (7): clearWorkflowSteps(), EmptyState(), EmptyStateProps, WorkflowControls
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `cn()` connect `Community 75` to `Community 0`, `Community 74`, `Community 27`?**
-  _High betweenness centrality (0.078) - this node is a cross-community bridge._
+  _High betweenness centrality (0.077) - this node is a cross-community bridge._
 - **Why does `Tile()` connect `Community 0` to `Community 75`?**
-  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+  _High betweenness centrality (0.052) - this node is a cross-community bridge._
 - **Why does `Controls()` connect `Community 75` to `Community 104`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+  _High betweenness centrality (0.041) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `cn()` (e.g. with `Tile()` and `Controls()`) actually correct?**
   _`cn()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `isVercel`, `name`, `type` to the rest of the system?**
-  _1733 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1742 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.05133599831685252 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**

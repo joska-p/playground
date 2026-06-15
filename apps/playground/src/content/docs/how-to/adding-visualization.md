@@ -18,20 +18,28 @@ Visualizations define _how to draw_ a sequence. Rules define _what numbers_ to g
 type Visualization = {
   id: string;
   name: string;
-  draw: (canvas: HTMLCanvasElement, sequence: number[]) => void;
+  draw: (options: { canvas: HTMLCanvasElement; sequence: number[] }) => void;
 };
 ```
 
-The `draw` function receives a canvas element and the generated sequence array.
+The `draw` function receives an options object containing the canvas element and the generated sequence array.
 
 ---
 
-## Step 1: Create the Draw Function
+## Step 1: Create the Visualization
 
-Create `packages/sequence-renderer/src/core/visualizations/my-viz.ts`:
+Create `packages/sequence-renderer/src/core/visualizations/myViz.ts`:
 
 ```typescript
-export function drawMyViz(canvas: HTMLCanvasElement, sequence: number[]) {
+import type { Visualization } from './types';
+
+function draw({
+  canvas,
+  sequence
+}: {
+  canvas: HTMLCanvasElement;
+  sequence: number[];
+}): void {
   if (!canvas.parentElement) return;
 
   const width = canvas.parentElement.clientWidth;
@@ -39,7 +47,8 @@ export function drawMyViz(canvas: HTMLCanvasElement, sequence: number[]) {
   canvas.width = width;
   canvas.height = height;
 
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
   ctx.clearRect(0, 0, width, height);
 
   // Your drawing logic here
@@ -60,21 +69,29 @@ export function drawMyViz(canvas: HTMLCanvasElement, sequence: number[]) {
 
   ctx.stroke();
 }
+
+export const myViz: Visualization = {
+  id: 'my-viz',
+  name: 'My Visualization',
+  draw
+};
 ```
 
 ---
 
-## Step 2: Export the Visualization
+## Step 2: Register the Visualization
 
-In `packages/sequence-renderer/src/core/visualizations/index.ts`:
+In `packages/sequence-renderer/src/core/visualizations/registry.ts`, import your visualization and register it in the map:
 
 ```typescript
-import { drawMyViz } from './my-viz.js';
+import { myViz } from './myViz';
 
-export const visualizations = [
-  // ...existing visualizations
-  { id: 'my-viz', name: 'My Visualization', draw: drawMyViz }
-];
+// Inside the Map constructor in registry.ts:
+const visualizations = new Map<string, Visualization>([
+  [recamanArcs.id, recamanArcs],
+  [factorWave.id, factorWave],
+  [myViz.id, myViz]
+]);
 ```
 
 ---

@@ -1,4 +1,3 @@
-import { Card } from '@repo/ui/Card';
 import { Select } from '@repo/ui/Select';
 import { Slider } from '@repo/ui/Slider';
 import type { ChangeEvent, JSX } from 'react';
@@ -18,7 +17,7 @@ function Controls(): JSX.Element {
   const visualizationId = useSequenceVisualizationId();
 
   return (
-    <Card className="flex w-full items-center justify-center gap-8 px-4 py-2">
+    <div className="flex w-full items-center justify-center gap-8 px-4 py-2">
       <SequenceSelector />
 
       <Slider
@@ -53,7 +52,7 @@ function Controls(): JSX.Element {
           ))}
         </Select>
       </div>
-    </Card>
+    </div>
   );
 }
 
