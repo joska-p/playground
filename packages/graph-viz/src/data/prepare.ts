@@ -2,6 +2,7 @@
  * CLI entrypoint — file I/O and shell execution only.
  * All computation is delegated to the pipeline.
  */
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,6 +18,14 @@ const __dirname = dirname(__filename);
 const inputPath = resolve(__dirname, '../../../../graphify-out/graph.json');
 /** Output: written next to this script */
 const outputPath = resolve(__dirname, 'processed-graph.json');
+/** Checksum sentinel — stored next to the output */
+const checksumPath = resolve(__dirname, '.processed-checksum');
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function fileChecksum(path: string): string {
+  return createHash('sha256').update(readFileSync(path)).digest('hex');
+}
 
 // ── Main ─────────────────────────────────────────────────────────────────────
 
@@ -24,6 +33,15 @@ function main() {
   if (!existsSync(inputPath)) {
     console.error(`Input not found: ${inputPath}`);
     process.exit(1);
+  }
+
+  const inputChecksum = fileChecksum(inputPath);
+  if (existsSync(checksumPath) && existsSync(outputPath)) {
+    const cached = readFileSync(checksumPath, 'utf-8').trim();
+    if (cached === inputChecksum) {
+      console.log('Input unchanged — skipping pipeline');
+      return;
+    }
   }
 
   const raw: RawGraph = JSON.parse(readFileSync(inputPath, 'utf-8'));
@@ -37,6 +55,7 @@ function main() {
   // Write output
   const payload = JSON.stringify(result);
   writeFileSync(outputPath, payload, 'utf-8');
+  writeFileSync(checksumPath, inputChecksum, 'utf-8');
 
   const bytes = Buffer.byteLength(payload, 'utf-8');
   console.log(`Written ${outputPath}`);

@@ -26,7 +26,7 @@ pnpm --filter @repo/<package> <cmd>
 Example:
 
 ```bash
-pnpm --filter @repo/ui build
+pnpm --filter @repo/ui check-types
 ```
 
 Use the scope (`@repo/`) exactly as it appears in the package's `package.json` `"name"` field.

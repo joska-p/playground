@@ -324,10 +324,20 @@
       "norm_label": "@repo/three-stage"
     },
     {
-      "label": "@repo/ui",
+      "label": "@repo/randomart",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
       "source_location": "L32",
+      "_origin": "ast",
+      "id": "playground_package_dependencies_repo_randomart",
+      "community": 4,
+      "norm_label": "@repo/randomart"
+    },
+    {
+      "label": "@repo/ui",
+      "file_type": "code",
+      "source_file": "apps/playground/package.json",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "playground_package_dependencies_repo_ui",
       "community": 4,
@@ -337,7 +347,7 @@
       "label": "@tailwindcss/typography",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L33",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "playground_package_dependencies_tailwindcss_typography",
       "community": 4,
@@ -347,7 +357,7 @@
       "label": "astro",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L34",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "playground_package_dependencies_astro",
       "community": 4,
@@ -357,7 +367,7 @@
       "label": "react",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "playground_package_dependencies_react",
       "community": 4,
@@ -367,7 +377,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L36",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "playground_package_dependencies_react_dom",
       "community": 4,
@@ -377,7 +387,7 @@
       "label": "rehype-katex",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L37",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "playground_package_dependencies_rehype_katex",
       "community": 4,
@@ -387,7 +397,7 @@
       "label": "remark-math",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L38",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "playground_package_dependencies_remark_math",
       "community": 4,
@@ -397,7 +407,7 @@
       "label": "unist-util-visit",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L39",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "playground_package_dependencies_unist_util_visit",
       "community": 4,
@@ -407,7 +417,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "apps_playground_package_json_package_devdependencies",
       "community": 4,
@@ -417,7 +427,7 @@
       "label": "@tailwindcss/vite",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L42",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "playground_package_devdependencies_tailwindcss_vite",
       "community": 4,
@@ -427,7 +437,7 @@
       "label": "@types/mdast",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L43",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "playground_package_devdependencies_types_mdast",
       "community": 4,
@@ -437,7 +447,7 @@
       "label": "@types/react",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L44",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "playground_package_devdependencies_types_react",
       "community": 4,
@@ -447,7 +457,7 @@
       "label": "@types/react-dom",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "playground_package_devdependencies_types_react_dom",
       "community": 4,
@@ -457,7 +467,7 @@
       "label": "eslint",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L46",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "playground_package_devdependencies_eslint",
       "community": 4,
@@ -467,7 +477,7 @@
       "label": "eslint-plugin-astro",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L47",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "playground_package_devdependencies_eslint_plugin_astro",
       "community": 4,
@@ -477,7 +487,7 @@
       "label": "sharp",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L48",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "playground_package_devdependencies_sharp",
       "community": 4,
@@ -487,7 +497,7 @@
       "label": "tailwindcss",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L49",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "playground_package_devdependencies_tailwindcss",
       "community": 4,
@@ -497,7 +507,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "apps/playground/package.json",
-      "source_location": "L50",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "apps_playground_package_json_package_devdependencies_typescript",
       "community": 4,
@@ -2228,7 +2238,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_app_tsx_src_app",
-      "community": 199,
+      "community": 20,
       "norm_label": "app.tsx"
     },
     {
@@ -2238,7 +2248,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_app_appprops",
-      "community": 199,
+      "community": 20,
       "norm_label": "appprops"
     },
     {
@@ -2248,7 +2258,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "packages_automa_src_app_tsx_src_app_app",
-      "community": 199,
+      "community": 20,
       "norm_label": "app()"
     },
     {
@@ -2258,7 +2268,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "canvas_automatoncanvas",
-      "community": 199,
+      "community": 20,
       "norm_label": "automatoncanvas.tsx"
     },
     {
@@ -2268,7 +2278,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "canvas_automatoncanvas_cacanvasprops",
-      "community": 199,
+      "community": 20,
       "norm_label": "cacanvasprops"
     },
     {
@@ -2278,7 +2288,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "canvas_automatoncanvas_automatoncanvas",
-      "community": 199,
+      "community": 20,
       "norm_label": "automatoncanvas()"
     },
     {
@@ -2458,7 +2468,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_debugcontrols",
-      "community": 43,
+      "community": 114,
       "norm_label": "debugcontrols.tsx"
     },
     {
@@ -2468,7 +2478,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugicon",
-      "community": 43,
+      "community": 114,
       "norm_label": "debugicon()"
     },
     {
@@ -2478,7 +2488,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugtoggle",
-      "community": 43,
+      "community": 18,
       "norm_label": "debugtoggle()"
     },
     {
@@ -2488,7 +2498,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "controls_debugcontrols_debugpanel",
-      "community": 43,
+      "community": 114,
       "norm_label": "debugpanel()"
     },
     {
@@ -3048,7 +3058,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_grid",
-      "community": 114,
+      "community": 20,
       "norm_label": "grid.ts"
     },
     {
@@ -3058,7 +3068,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_grid_creategrid",
-      "community": 114,
+      "community": 20,
       "norm_label": "creategrid()"
     },
     {
@@ -3068,7 +3078,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_grid_seedgrid",
-      "community": 114,
+      "community": 20,
       "norm_label": "seedgrid()"
     },
     {
@@ -3458,7 +3468,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_types_ts_core_types",
-      "community": 114,
+      "community": 20,
       "norm_label": "types.ts"
     },
     {
@@ -3468,7 +3478,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_types_cellvalue",
-      "community": 114,
+      "community": 20,
       "norm_label": "cellvalue"
     },
     {
@@ -3478,7 +3488,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_types_grid",
-      "community": 114,
+      "community": 20,
       "norm_label": "grid"
     },
     {
@@ -3538,7 +3548,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usecellpainting",
-      "community": 43,
+      "community": 18,
       "norm_label": "usecellpainting.ts"
     },
     {
@@ -3548,7 +3558,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "hooks_usecellpainting_cellpaintinghandlers",
-      "community": 43,
+      "community": 18,
       "norm_label": "cellpaintinghandlers"
     },
     {
@@ -3708,7 +3718,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usesteptimer",
-      "community": 43,
+      "community": 114,
       "norm_label": "usesteptimer.ts"
     },
     {
@@ -3718,7 +3728,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "hooks_usesteptimer_usesteptimer",
-      "community": 43,
+      "community": 114,
       "norm_label": "usesteptimer()"
     },
     {
@@ -3788,7 +3798,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "simulation_actions_init",
-      "community": 114,
+      "community": 20,
       "norm_label": "init()"
     },
     {
@@ -3798,7 +3808,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "simulation_actions_destroy",
-      "community": 199,
+      "community": 20,
       "norm_label": "destroy()"
     },
     {
@@ -3888,7 +3898,7 @@
       "source_location": "L135",
       "_origin": "ast",
       "id": "simulation_actions_paintcell",
-      "community": 20,
+      "community": 43,
       "norm_label": "paintcell()"
     },
     {
@@ -3898,7 +3908,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "simulation_actions_placepattern",
-      "community": 20,
+      "community": 43,
       "norm_label": "placepattern()"
     },
     {
@@ -3948,7 +3958,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usegeneration_usegeneration",
-      "community": 43,
+      "community": 114,
       "norm_label": "usegeneration()"
     },
     {
@@ -3968,7 +3978,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_userows_userows",
-      "community": 43,
+      "community": 114,
       "norm_label": "userows()"
     },
     {
@@ -4038,7 +4048,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "ui_actions_settoolmode",
-      "community": 93,
+      "community": 18,
       "norm_label": "settoolmode()"
     },
     {
@@ -4208,7 +4218,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "selectors_useshowdebug",
-      "community": 43,
+      "community": 18,
       "norm_label": "useshowdebug.ts"
     },
     {
@@ -4218,7 +4228,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useshowdebug_useshowdebug",
-      "community": 43,
+      "community": 18,
       "norm_label": "useshowdebug()"
     },
     {
@@ -4358,7 +4368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng",
-      "community": 114,
+      "community": 20,
       "norm_label": "rng.ts"
     },
     {
@@ -4368,7 +4378,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng_createseededrandom",
-      "community": 114,
+      "community": 20,
       "norm_label": "createseededrandom()"
     },
     {
@@ -5538,7 +5548,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_filtercontrols",
-      "community": 56,
+      "community": 104,
       "norm_label": "filtercontrols.tsx"
     },
     {
@@ -5548,7 +5558,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "controls_filtercontrols_filtercontrols",
-      "community": 56,
+      "community": 104,
       "norm_label": "filtercontrols()"
     },
     {
@@ -5558,7 +5568,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "details_panel_detailspanel",
-      "community": 56,
+      "community": 199,
       "norm_label": "detailspanel.tsx"
     },
     {
@@ -5568,7 +5578,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "details_panel_detailspanel_detailspanel",
-      "community": 56,
+      "community": 199,
       "norm_label": "detailspanel()"
     },
     {
@@ -5578,7 +5588,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_graphoverview",
-      "community": 56,
+      "community": 199,
       "norm_label": "graphoverview.tsx"
     },
     {
@@ -5588,7 +5598,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "graph_overview_graphoverview_graphoverview",
-      "community": 56,
+      "community": 199,
       "norm_label": "graphoverview()"
     },
     {
@@ -5598,7 +5608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_stat",
-      "community": 56,
+      "community": 199,
       "norm_label": "stat.tsx"
     },
     {
@@ -5608,7 +5618,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_stat_stat",
-      "community": 56,
+      "community": 199,
       "norm_label": "stat()"
     },
     {
@@ -5638,7 +5648,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "node_details_nodedetails",
-      "community": 56,
+      "community": 199,
       "norm_label": "nodedetails.tsx"
     },
     {
@@ -5648,7 +5658,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "node_details_nodedetails_nodedetails",
-      "community": 56,
+      "community": 199,
       "norm_label": "nodedetails()"
     },
     {
@@ -5658,7 +5668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "details_panel_utils",
-      "community": 56,
+      "community": 199,
       "norm_label": "utils.ts"
     },
     {
@@ -5668,7 +5678,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "details_panel_utils_getstats",
-      "community": 56,
+      "community": 199,
       "norm_label": "getstats()"
     },
     {
@@ -5678,7 +5688,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "details_panel_utils_getconnections",
-      "community": 56,
+      "community": 199,
       "norm_label": "getconnections()"
     },
     {
@@ -5688,7 +5698,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_communitylabels",
-      "community": 56,
+      "community": 104,
       "norm_label": "communitylabels.tsx"
     },
     {
@@ -5698,7 +5708,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "scene_communitylabels_communitylabels",
-      "community": 56,
+      "community": 104,
       "norm_label": "communitylabels()"
     },
     {
@@ -5708,7 +5718,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_edges",
-      "community": 56,
+      "community": 235,
       "norm_label": "edges.tsx"
     },
     {
@@ -5718,7 +5728,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "scene_edges_edgegroupprops",
-      "community": 56,
+      "community": 235,
       "norm_label": "edgegroupprops"
     },
     {
@@ -5728,7 +5738,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scene_edges_edgegroup",
-      "community": 56,
+      "community": 235,
       "norm_label": "edgegroup()"
     },
     {
@@ -5738,7 +5748,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "scene_edges_edges",
-      "community": 56,
+      "community": 235,
       "norm_label": "edges()"
     },
     {
@@ -5748,7 +5758,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_graphcanvas",
-      "community": 56,
+      "community": 232,
       "norm_label": "graphcanvas.tsx"
     },
     {
@@ -5768,7 +5778,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_nodes",
-      "community": 56,
+      "community": 232,
       "norm_label": "nodes.tsx"
     },
     {
@@ -5778,7 +5788,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scene_nodes_nodes",
-      "community": 56,
+      "community": 232,
       "norm_label": "nodes()"
     },
     {
@@ -5788,7 +5798,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_build_instances",
-      "community": 56,
+      "community": 232,
       "norm_label": "build-instances.ts"
     },
     {
@@ -5798,7 +5808,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "core_build_instances_dim_color",
-      "community": 56,
+      "community": 232,
       "norm_label": "dim_color"
     },
     {
@@ -5808,7 +5818,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "core_build_instances_highlight_color",
-      "community": 56,
+      "community": 232,
       "norm_label": "highlight_color"
     },
     {
@@ -5818,7 +5828,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_build_instances_dummy",
-      "community": 56,
+      "community": 232,
       "norm_label": "dummy"
     },
     {
@@ -5828,7 +5838,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "core_build_instances_tmpcolor",
-      "community": 56,
+      "community": 232,
       "norm_label": "tmpcolor"
     },
     {
@@ -5838,7 +5848,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "core_build_instances_getnodesize",
-      "community": 56,
+      "community": 232,
       "norm_label": "getnodesize()"
     },
     {
@@ -5848,7 +5858,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "core_build_instances_writeinstancedata",
-      "community": 56,
+      "community": 232,
       "norm_label": "writeinstancedata()"
     },
     {
@@ -5858,7 +5868,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "core_build_instances_splitnodeindices",
-      "community": 56,
+      "community": 232,
       "norm_label": "splitnodeindices()"
     },
     {
@@ -5868,7 +5878,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_compute_edges",
-      "community": 56,
+      "community": 235,
       "norm_label": "compute-edges.ts"
     },
     {
@@ -5878,7 +5888,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_compute_edges_edgebuffers",
-      "community": 56,
+      "community": 235,
       "norm_label": "edgebuffers"
     },
     {
@@ -5888,7 +5898,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "core_compute_edges_computeedgebuffers",
-      "community": 56,
+      "community": 235,
       "norm_label": "computeedgebuffers()"
     },
     {
@@ -5898,7 +5908,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_graph_viz_src_core_config_ts_core_config",
-      "community": 22,
+      "community": 232,
       "norm_label": "config.ts"
     },
     {
@@ -5908,7 +5918,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_config_palette",
-      "community": 22,
+      "community": 232,
       "norm_label": "palette"
     },
     {
@@ -5918,7 +5928,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "core_config_config",
-      "community": 56,
+      "community": 232,
       "norm_label": "config"
     },
     {
@@ -5928,7 +5938,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_node_visual_strategy",
-      "community": 56,
+      "community": 236,
       "norm_label": "node-visual.strategy.ts"
     },
     {
@@ -5938,7 +5948,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "core_node_visual_strategy_nodevisualstrategy",
-      "community": 56,
+      "community": 236,
       "norm_label": "nodevisualstrategy"
     },
     {
@@ -5948,7 +5958,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "core_node_visual_strategy_strategies",
-      "community": 56,
+      "community": 236,
       "norm_label": "strategies"
     },
     {
@@ -5958,7 +5968,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "core_node_visual_strategy_defaultstrategy",
-      "community": 56,
+      "community": 236,
       "norm_label": "defaultstrategy"
     },
     {
@@ -5968,7 +5978,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "core_node_visual_strategy_registerstrategy",
-      "community": 56,
+      "community": 236,
       "norm_label": "registerstrategy()"
     },
     {
@@ -5978,7 +5988,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "core_node_visual_strategy_getstrategy",
-      "community": 56,
+      "community": 236,
       "norm_label": "getstrategy()"
     },
     {
@@ -5988,7 +5998,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "core_node_visual_strategy_getregisteredtypes",
-      "community": 56,
+      "community": 236,
       "norm_label": "getregisteredtypes()"
     },
     {
@@ -6135,7 +6145,7 @@
       "label": "__filename",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/prepare.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "data_prepare_filename",
       "community": 22,
@@ -6145,7 +6155,7 @@
       "label": "__dirname",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/prepare.ts",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "data_prepare_dirname",
       "community": 22,
@@ -6155,7 +6165,7 @@
       "label": "inputPath",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/prepare.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "data_prepare_inputpath",
       "community": 22,
@@ -6165,17 +6175,37 @@
       "label": "outputPath",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/prepare.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "data_prepare_outputpath",
       "community": 22,
       "norm_label": "outputpath"
     },
     {
+      "label": "checksumPath",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/data/prepare.ts",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "data_prepare_checksumpath",
+      "community": 22,
+      "norm_label": "checksumpath"
+    },
+    {
+      "label": "fileChecksum()",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/data/prepare.ts",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "data_prepare_filechecksum",
+      "community": 22,
+      "norm_label": "filechecksum()"
+    },
+    {
       "label": "main()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/prepare.ts",
-      "source_location": "L23",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "data_prepare_main",
       "community": 22,
@@ -6378,7 +6408,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "stages_run_simulation_runsimulation",
-      "community": 22,
+      "community": 233,
       "norm_label": "runsimulation()"
     },
     {
@@ -6418,7 +6448,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "data_types_d",
-      "community": 22,
+      "community": 233,
       "norm_label": "types.d.ts"
     },
     {
@@ -6428,7 +6458,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "data_types_d_simulationnodedatum",
-      "community": 22,
+      "community": 233,
       "norm_label": "simulationnodedatum"
     },
     {
@@ -6438,7 +6468,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "data_types_d_simulationlinkdatum",
-      "community": 22,
+      "community": 233,
       "norm_label": "simulationlinkdatum"
     },
     {
@@ -6448,7 +6478,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "data_types_d_simulation",
-      "community": 22,
+      "community": 233,
       "norm_label": "simulation"
     },
     {
@@ -6458,7 +6488,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "data_types_d_force",
-      "community": 22,
+      "community": 233,
       "norm_label": "force"
     },
     {
@@ -6468,7 +6498,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "data_types_d_forcelink",
-      "community": 22,
+      "community": 233,
       "norm_label": "forcelink"
     },
     {
@@ -6478,7 +6508,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "data_types_d_forcemanybody",
-      "community": 22,
+      "community": 233,
       "norm_label": "forcemanybody"
     },
     {
@@ -6488,7 +6518,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "data_types_d_forcecenter",
-      "community": 22,
+      "community": 233,
       "norm_label": "forcecenter"
     },
     {
@@ -6498,7 +6528,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "data_types_d_forcecollide",
-      "community": 22,
+      "community": 233,
       "norm_label": "forcecollide"
     },
     {
@@ -6538,7 +6568,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "content_selectors",
-      "community": 56,
+      "community": 199,
       "norm_label": "selectors.ts"
     },
     {
@@ -6548,7 +6578,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "content_selectors_usenodes",
-      "community": 56,
+      "community": 199,
       "norm_label": "usenodes()"
     },
     {
@@ -6558,7 +6588,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "content_selectors_uselinks",
-      "community": 56,
+      "community": 199,
       "norm_label": "uselinks()"
     },
     {
@@ -6568,7 +6598,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "content_selectors_usecommunities",
-      "community": 56,
+      "community": 199,
       "norm_label": "usecommunities()"
     },
     {
@@ -6588,7 +6618,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "content_store_graphdatastore",
-      "community": 56,
+      "community": 199,
       "norm_label": "graphdatastore"
     },
     {
@@ -6618,7 +6648,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_actions",
-      "community": 56,
+      "community": 104,
       "norm_label": "actions.ts"
     },
     {
@@ -6628,7 +6658,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "view_actions_initcommunities",
-      "community": 56,
+      "community": 104,
       "norm_label": "initcommunities()"
     },
     {
@@ -6638,7 +6668,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "view_actions_selectnode",
-      "community": 56,
+      "community": 232,
       "norm_label": "selectnode()"
     },
     {
@@ -6648,7 +6678,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "view_actions_toggleedges",
-      "community": 56,
+      "community": 104,
       "norm_label": "toggleedges()"
     },
     {
@@ -6658,7 +6688,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "view_actions_togglecommunity",
-      "community": 56,
+      "community": 104,
       "norm_label": "togglecommunity()"
     },
     {
@@ -6668,7 +6698,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "view_actions_showallcommunities",
-      "community": 56,
+      "community": 104,
       "norm_label": "showallcommunities()"
     },
     {
@@ -6678,7 +6708,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "view_actions_hideallcommunities",
-      "community": 56,
+      "community": 104,
       "norm_label": "hideallcommunities()"
     },
     {
@@ -6688,7 +6718,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "view_actions_togglelabels",
-      "community": 56,
+      "community": 104,
       "norm_label": "togglelabels()"
     },
     {
@@ -6698,7 +6728,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_selectors",
-      "community": 56,
+      "community": 104,
       "norm_label": "selectors.ts"
     },
     {
@@ -6708,7 +6738,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "view_selectors_useselectednodeidx",
-      "community": 56,
+      "community": 235,
       "norm_label": "useselectednodeidx()"
     },
     {
@@ -6718,7 +6748,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "view_selectors_useedgesvisible",
-      "community": 56,
+      "community": 104,
       "norm_label": "useedgesvisible()"
     },
     {
@@ -6728,7 +6758,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "view_selectors_usevisiblecommunities",
-      "community": 56,
+      "community": 104,
       "norm_label": "usevisiblecommunities()"
     },
     {
@@ -6738,7 +6768,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "view_selectors_uselabelsvisible",
-      "community": 56,
+      "community": 104,
       "norm_label": "uselabelsvisible()"
     },
     {
@@ -6748,7 +6778,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_store",
-      "community": 56,
+      "community": 104,
       "norm_label": "store.ts"
     },
     {
@@ -6758,7 +6788,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "view_store_graphstore",
-      "community": 56,
+      "community": 104,
       "norm_label": "graphstore"
     },
     {
@@ -6768,7 +6798,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_types",
-      "community": 56,
+      "community": 104,
       "norm_label": "types.ts"
     },
     {
@@ -6778,7 +6808,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_types_graphstate",
-      "community": 56,
+      "community": 104,
       "norm_label": "graphstate"
     },
     {
@@ -7728,7 +7758,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app",
-      "community": 61,
+      "community": 231,
       "norm_label": "app.tsx"
     },
     {
@@ -7738,7 +7768,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app_app",
-      "community": 61,
+      "community": 231,
       "norm_label": "app()"
     },
     {
@@ -7788,7 +7818,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "layout_controls_controls",
-      "community": 61,
+      "community": 231,
       "norm_label": "controls()"
     },
     {
@@ -7798,7 +7828,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_imagemanipulator",
-      "community": 61,
+      "community": 231,
       "norm_label": "imagemanipulator.tsx"
     },
     {
@@ -7808,7 +7838,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "layout_imagemanipulator_imagemanipulator",
-      "community": 61,
+      "community": 231,
       "norm_label": "imagemanipulator()"
     },
     {
@@ -7918,7 +7948,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_comparetoggle",
-      "community": 119,
+      "community": 231,
       "norm_label": "comparetoggle.tsx"
     },
     {
@@ -7928,7 +7958,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "output_comparetoggle_comparetoggleprops",
-      "community": 119,
+      "community": 231,
       "norm_label": "comparetoggleprops"
     },
     {
@@ -7938,7 +7968,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "output_comparetoggle_comparetoggle",
-      "community": 119,
+      "community": 231,
       "norm_label": "comparetoggle()"
     },
     {
@@ -8038,7 +8068,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_outputs",
-      "community": 119,
+      "community": 231,
       "norm_label": "outputs.tsx"
     },
     {
@@ -8048,7 +8078,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "output_outputs_outputs",
-      "community": 61,
+      "community": 231,
       "norm_label": "outputs()"
     },
     {
@@ -8058,7 +8088,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_processingoverlay",
-      "community": 119,
+      "community": 231,
       "norm_label": "processingoverlay.tsx"
     },
     {
@@ -8068,7 +8098,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "output_processingoverlay_processingoverlay",
-      "community": 119,
+      "community": 231,
       "norm_label": "processingoverlay()"
     },
     {
@@ -8108,7 +8138,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "shared_emptystate",
-      "community": 119,
+      "community": 234,
       "norm_label": "emptystate.tsx"
     },
     {
@@ -8118,7 +8148,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "shared_emptystate_emptystateprops",
-      "community": 119,
+      "community": 234,
       "norm_label": "emptystateprops"
     },
     {
@@ -8128,7 +8158,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "shared_emptystate_emptystate",
-      "community": 119,
+      "community": 234,
       "norm_label": "emptystate()"
     },
     {
@@ -8218,7 +8248,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_uploadzone_uploadzone",
-      "community": 74,
+      "community": 61,
       "norm_label": "uploadzone()"
     },
     {
@@ -8228,7 +8258,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_index",
-      "community": 74,
+      "community": 61,
       "norm_label": "index.ts"
     },
     {
@@ -8238,7 +8268,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_useuploadzone",
-      "community": 74,
+      "community": 231,
       "norm_label": "useuploadzone.ts"
     },
     {
@@ -8248,7 +8278,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_useuploadzone_useuploadzone",
-      "community": 74,
+      "community": 231,
       "norm_label": "useuploadzone()"
     },
     {
@@ -8368,7 +8398,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflowcontrols",
-      "community": 107,
+      "community": 234,
       "norm_label": "workflowcontrols.tsx"
     },
     {
@@ -8378,7 +8408,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "workflow_workflowcontrols_workflowcontrols",
-      "community": 107,
+      "community": 234,
       "norm_label": "workflowcontrols()"
     },
     {
@@ -8388,7 +8418,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflow_workflowlist",
-      "community": 107,
+      "community": 234,
       "norm_label": "workflowlist.tsx"
     },
     {
@@ -8398,7 +8428,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "workflow_workflowlist_workflowlistprops",
-      "community": 107,
+      "community": 234,
       "norm_label": "workflowlistprops"
     },
     {
@@ -8408,7 +8438,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "workflow_workflowlist_workflowlist",
-      "community": 107,
+      "community": 234,
       "norm_label": "workflowlist()"
     },
     {
@@ -8438,7 +8468,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "workflow_workflownode_workflownode",
-      "community": 107,
+      "community": 234,
       "norm_label": "workflownode()"
     },
     {
@@ -8768,7 +8798,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "manipulator_actions_clearworkflowsteps",
-      "community": 107,
+      "community": 234,
       "norm_label": "clearworkflowsteps()"
     },
     {
@@ -8818,7 +8848,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useimagesource_useimagesource",
-      "community": 74,
+      "community": 231,
       "norm_label": "useimagesource()"
     },
     {
@@ -8838,7 +8868,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "selectors_useisprocessing_useisprocessing",
-      "community": 107,
+      "community": 231,
       "norm_label": "useisprocessing()"
     },
     {
@@ -9978,7 +10008,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_pipeline_worker",
-      "community": 19,
+      "community": 117,
       "norm_label": "pipeline-worker.ts"
     },
     {
@@ -9988,7 +10018,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "api_pipeline_worker_workermessage",
-      "community": 19,
+      "community": 117,
       "norm_label": "workermessage"
     },
     {
@@ -10728,7 +10758,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler",
-      "community": 117,
+      "community": 19,
       "norm_label": "fusionscheduler"
     },
     {
@@ -10738,7 +10768,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_add",
-      "community": 117,
+      "community": 19,
       "norm_label": ".add()"
     },
     {
@@ -10848,7 +10878,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "core_image_pipeline_types_manipulationdefinition",
-      "community": 117,
+      "community": 19,
       "norm_label": "manipulationdefinition"
     },
     {
@@ -10918,7 +10948,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 21,
+      "community": 117,
       "norm_label": "step"
     },
     {
@@ -11548,7 +11578,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usepipeline",
-      "community": 21,
+      "community": 2,
       "norm_label": "usepipeline.ts"
     },
     {
@@ -22768,7 +22798,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_iconhamburger",
-      "community": 104,
+      "community": 27,
       "norm_label": "iconhamburger.tsx"
     },
     {
@@ -22778,7 +22808,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_iconhamburger_iconhamburger",
-      "community": 104,
+      "community": 27,
       "norm_label": "iconhamburger"
     },
     {
@@ -23778,7 +23808,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sidebar_sidebartoggle",
-      "community": 75,
+      "community": 27,
       "norm_label": "sidebartoggle.tsx"
     },
     {
@@ -30655,7 +30685,7 @@
       "label": "Conventions",
       "file_type": "document",
       "source_file": "packages/randomart/README.md",
-      "source_location": "L50",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "randomart_readme_conventions",
       "community": 206,
@@ -31575,6 +31605,16 @@
       "confidence_score": 1.0,
       "source": "playground_package_dependencies",
       "target": "playground_package_dependencies_repo_palette_generator"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/package.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "playground_package_dependencies",
+      "target": "playground_package_dependencies_repo_randomart",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -39513,9 +39553,9 @@
       "source_file": "packages/randomart/eslint.config.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_eslint_config",
-      "target": "config_eslint_index_d",
-      "confidence_score": 1.0
+      "target": "config_eslint_index_d"
     },
     {
       "relation": "imports_from",
@@ -42440,11 +42480,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/data/prepare.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "data_prepare",
+      "target": "data_prepare_checksumpath",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/prepare.ts",
       "source_location": "L14",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "data_prepare",
       "target": "data_prepare_dirname"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/prepare.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "data_prepare",
+      "target": "data_prepare_filechecksum",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -42507,6 +42567,17 @@
       "confidence_score": 1.0,
       "source": "data_prepare",
       "target": "stages_parse_graph_rawgraph"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/data/prepare.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "data_prepare_main",
+      "target": "data_prepare_filechecksum",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -59580,9 +59651,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_dependencies",
-      "confidence_score": 1.0
+      "target": "randomart_package_dependencies"
     },
     {
       "relation": "contains",
@@ -59590,9 +59661,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_devdependencies",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies"
     },
     {
       "relation": "contains",
@@ -59600,9 +59671,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_exports",
-      "confidence_score": 1.0
+      "target": "randomart_package_exports"
     },
     {
       "relation": "contains",
@@ -59610,9 +59681,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_name",
-      "confidence_score": 1.0
+      "target": "randomart_package_name"
     },
     {
       "relation": "contains",
@@ -59620,9 +59691,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_peerdependencies",
-      "confidence_score": 1.0
+      "target": "randomart_package_peerdependencies"
     },
     {
       "relation": "contains",
@@ -59630,9 +59701,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_private",
-      "confidence_score": 1.0
+      "target": "randomart_package_private"
     },
     {
       "relation": "contains",
@@ -59640,9 +59711,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_scripts",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts"
     },
     {
       "relation": "contains",
@@ -59650,9 +59721,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_type",
-      "confidence_score": 1.0
+      "target": "randomart_package_type"
     },
     {
       "relation": "contains",
@@ -59660,9 +59731,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package",
-      "target": "randomart_package_version",
-      "confidence_score": 1.0
+      "target": "randomart_package_version"
     },
     {
       "relation": "contains",
@@ -59670,9 +59741,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_exports",
-      "target": "randomart_package_exports_styles",
-      "confidence_score": 1.0
+      "target": "randomart_package_exports_styles"
     },
     {
       "relation": "contains",
@@ -59680,9 +59751,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_scripts",
-      "target": "randomart_package_scripts_build",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts_build"
     },
     {
       "relation": "contains",
@@ -59690,9 +59761,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_scripts",
-      "target": "randomart_package_scripts_check_types",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts_check_types"
     },
     {
       "relation": "contains",
@@ -59700,9 +59771,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_scripts",
-      "target": "randomart_package_scripts_dev",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts_dev"
     },
     {
       "relation": "contains",
@@ -59710,9 +59781,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_scripts",
-      "target": "randomart_package_scripts_lint",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts_lint"
     },
     {
       "relation": "contains",
@@ -59720,9 +59791,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_scripts",
-      "target": "randomart_package_scripts_lint_fix",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts_lint_fix"
     },
     {
       "relation": "contains",
@@ -59730,9 +59801,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_scripts",
-      "target": "randomart_package_scripts_preview",
-      "confidence_score": 1.0
+      "target": "randomart_package_scripts_preview"
     },
     {
       "relation": "contains",
@@ -59740,9 +59811,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_dependencies",
-      "target": "randomart_package_dependencies_react_error_boundary",
-      "confidence_score": 1.0
+      "target": "randomart_package_dependencies_react_error_boundary"
     },
     {
       "relation": "contains",
@@ -59750,9 +59821,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_dependencies",
-      "target": "randomart_package_dependencies_repo_ui",
-      "confidence_score": 1.0
+      "target": "randomart_package_dependencies_repo_ui"
     },
     {
       "relation": "contains",
@@ -59760,9 +59831,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_dependencies",
-      "target": "randomart_package_dependencies_zod",
-      "confidence_score": 1.0
+      "target": "randomart_package_dependencies_zod"
     },
     {
       "relation": "contains",
@@ -59770,9 +59841,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_dependencies",
-      "target": "randomart_package_dependencies_zustand",
-      "confidence_score": 1.0
+      "target": "randomart_package_dependencies_zustand"
     },
     {
       "relation": "contains",
@@ -59780,9 +59851,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_peerdependencies",
-      "target": "randomart_package_peerdependencies_react",
-      "confidence_score": 1.0
+      "target": "randomart_package_peerdependencies_react"
     },
     {
       "relation": "contains",
@@ -59790,9 +59861,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_peerdependencies",
-      "target": "randomart_package_peerdependencies_react_dom",
-      "confidence_score": 1.0
+      "target": "randomart_package_peerdependencies_react_dom"
     },
     {
       "relation": "contains",
@@ -59800,9 +59871,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_babel_core",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_babel_core"
     },
     {
       "relation": "contains",
@@ -59810,9 +59881,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_babel_plugin_react_compiler",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_babel_plugin_react_compiler"
     },
     {
       "relation": "contains",
@@ -59820,9 +59891,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_eslint",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_eslint"
     },
     {
       "relation": "contains",
@@ -59830,9 +59901,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_react",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_react"
     },
     {
       "relation": "contains",
@@ -59840,9 +59911,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_react_dom",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_react_dom"
     },
     {
       "relation": "contains",
@@ -59850,9 +59921,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_repo_config_eslint",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_repo_config_eslint"
     },
     {
       "relation": "contains",
@@ -59860,9 +59931,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_rolldown_plugin_babel",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_rolldown_plugin_babel"
     },
     {
       "relation": "contains",
@@ -59870,9 +59941,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_tailwindcss",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_tailwindcss"
     },
     {
       "relation": "contains",
@@ -59880,9 +59951,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_tailwindcss_vite",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_tailwindcss_vite"
     },
     {
       "relation": "contains",
@@ -59890,9 +59961,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_types_babel_core",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_types_babel_core"
     },
     {
       "relation": "contains",
@@ -59900,9 +59971,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_types_node",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_types_node"
     },
     {
       "relation": "contains",
@@ -59910,9 +59981,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_types_react",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_types_react"
     },
     {
       "relation": "contains",
@@ -59920,9 +59991,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_types_react_dom",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_types_react_dom"
     },
     {
       "relation": "contains",
@@ -59930,9 +60001,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_typescript",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_typescript"
     },
     {
       "relation": "contains",
@@ -59940,9 +60011,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_vite",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_vite"
     },
     {
       "relation": "contains",
@@ -59950,9 +60021,9 @@
       "source_file": "packages/randomart/package.json",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_package_devdependencies",
-      "target": "randomart_package_devdependencies_vitejs_plugin_react",
-      "confidence_score": 1.0
+      "target": "randomart_package_devdependencies_vitejs_plugin_react"
     },
     {
       "relation": "imports_from",
@@ -59961,9 +60032,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "components_randomartcanvas",
-      "confidence_score": 1.0
+      "target": "components_randomartcanvas"
     },
     {
       "relation": "imports",
@@ -59972,9 +60043,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "components_randomartcanvas_randomartcanvas",
-      "confidence_score": 1.0
+      "target": "components_randomartcanvas_randomartcanvas"
     },
     {
       "relation": "contains",
@@ -59982,9 +60053,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "packages_randomart_src_app_tsx_src_app_app",
-      "confidence_score": 1.0
+      "target": "packages_randomart_src_app_tsx_src_app_app"
     },
     {
       "relation": "contains",
@@ -59992,9 +60063,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "components_randomartcanvas_props",
-      "confidence_score": 1.0
+      "target": "components_randomartcanvas_props"
     },
     {
       "relation": "contains",
@@ -60002,9 +60073,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "components_randomartcanvas_randomartcanvas",
-      "confidence_score": 1.0
+      "target": "components_randomartcanvas_randomartcanvas"
     },
     {
       "relation": "imports_from",
@@ -60013,9 +60084,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "utils_randomart_engine",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine"
     },
     {
       "relation": "imports",
@@ -60024,9 +60095,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "utils_randomart_engine_renderpixelmap",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_renderpixelmap"
     },
     {
       "relation": "imports_from",
@@ -60035,9 +60106,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_seededrandom",
-      "confidence_score": 1.0
+      "target": "utils_seededrandom"
     },
     {
       "relation": "contains",
@@ -60045,9 +60116,9 @@
       "source_file": "packages/randomart/src/utils/SeededRandom.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_seededrandom",
-      "target": "utils_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "utils_seededrandom_seededrandom"
     },
     {
       "relation": "imports",
@@ -60056,9 +60127,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "utils_seededrandom_seededrandom"
     },
     {
       "relation": "method",
@@ -60066,9 +60137,9 @@
       "source_file": "packages/randomart/src/utils/SeededRandom.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_seededrandom_seededrandom",
-      "target": "utils_seededrandom_seededrandom_constructor",
-      "confidence_score": 1.0
+      "target": "utils_seededrandom_seededrandom_constructor"
     },
     {
       "relation": "method",
@@ -60076,9 +60147,9 @@
       "source_file": "packages/randomart/src/utils/SeededRandom.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_seededrandom_seededrandom",
-      "target": "utils_seededrandom_seededrandom_next",
-      "confidence_score": 1.0
+      "target": "utils_seededrandom_seededrandom_next"
     },
     {
       "relation": "method",
@@ -60086,9 +60157,9 @@
       "source_file": "packages/randomart/src/utils/SeededRandom.ts",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_seededrandom_seededrandom",
-      "target": "utils_seededrandom_seededrandom_pick",
-      "confidence_score": 1.0
+      "target": "utils_seededrandom_seededrandom_pick"
     },
     {
       "relation": "contains",
@@ -60096,9 +60167,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_randomart_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_buildtree"
     },
     {
       "relation": "contains",
@@ -60106,9 +60177,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_randomart_engine_evaluatenode",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_evaluatenode"
     },
     {
       "relation": "contains",
@@ -60116,9 +60187,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_randomart_engine_expressionnode",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_expressionnode"
     },
     {
       "relation": "contains",
@@ -60126,9 +60197,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L90",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine",
-      "target": "utils_randomart_engine_renderpixelmap",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_renderpixelmap"
     },
     {
       "relation": "calls",
@@ -60137,9 +60208,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L111",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine_renderpixelmap",
-      "target": "utils_randomart_engine_evaluatenode",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_evaluatenode"
     },
     {
       "relation": "calls",
@@ -60148,9 +60219,9 @@
       "source_file": "packages/randomart/src/utils/randomart-engine.ts",
       "source_location": "L103",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_randomart_engine_renderpixelmap",
-      "target": "utils_randomart_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "utils_randomart_engine_buildtree"
     },
     {
       "relation": "contains",
@@ -60158,9 +60229,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app",
-      "target": "randomart_tsconfig_app_compileroptions",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions"
     },
     {
       "relation": "contains",
@@ -60168,9 +60239,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app",
-      "target": "randomart_tsconfig_app_include",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_include"
     },
     {
       "relation": "contains",
@@ -60178,9 +60249,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_allowimportingtsextensions"
     },
     {
       "relation": "contains",
@@ -60188,9 +60259,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_erasablesyntaxonly"
     },
     {
       "relation": "contains",
@@ -60198,9 +60269,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_jsx",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_jsx"
     },
     {
       "relation": "contains",
@@ -60208,9 +60279,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_lib",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_lib"
     },
     {
       "relation": "contains",
@@ -60218,9 +60289,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_module",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_module"
     },
     {
       "relation": "contains",
@@ -60228,9 +60299,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_moduledetection",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_moduledetection"
     },
     {
       "relation": "contains",
@@ -60238,9 +60309,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_moduleresolution",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_moduleresolution"
     },
     {
       "relation": "contains",
@@ -60248,9 +60319,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_noemit",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_noemit"
     },
     {
       "relation": "contains",
@@ -60258,9 +60329,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_nofallthroughcasesinswitch"
     },
     {
       "relation": "contains",
@@ -60268,9 +60339,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_nounusedlocals",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_nounusedlocals"
     },
     {
       "relation": "contains",
@@ -60278,9 +60349,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_nounusedparameters",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_nounusedparameters"
     },
     {
       "relation": "contains",
@@ -60288,9 +60359,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_skiplibcheck",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_skiplibcheck"
     },
     {
       "relation": "contains",
@@ -60298,9 +60369,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_target",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_target"
     },
     {
       "relation": "contains",
@@ -60308,9 +60379,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_tsbuildinfofile",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_tsbuildinfofile"
     },
     {
       "relation": "contains",
@@ -60318,9 +60389,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_types",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_types"
     },
     {
       "relation": "contains",
@@ -60328,9 +60399,9 @@
       "source_file": "packages/randomart/tsconfig.app.json",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_app_compileroptions",
-      "target": "randomart_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_app_compileroptions_verbatimmodulesyntax"
     },
     {
       "relation": "contains",
@@ -60338,9 +60409,9 @@
       "source_file": "packages/randomart/tsconfig.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig",
-      "target": "randomart_tsconfig_files",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_files"
     },
     {
       "relation": "contains",
@@ -60348,9 +60419,9 @@
       "source_file": "packages/randomart/tsconfig.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig",
-      "target": "randomart_tsconfig_references",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_references"
     },
     {
       "relation": "contains",
@@ -60358,9 +60429,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node",
-      "target": "randomart_tsconfig_node_compileroptions",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions"
     },
     {
       "relation": "contains",
@@ -60368,9 +60439,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node",
-      "target": "randomart_tsconfig_node_include",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_include"
     },
     {
       "relation": "contains",
@@ -60378,9 +60449,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_allowimportingtsextensions"
     },
     {
       "relation": "contains",
@@ -60388,9 +60459,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_erasablesyntaxonly"
     },
     {
       "relation": "contains",
@@ -60398,9 +60469,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_lib",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_lib"
     },
     {
       "relation": "contains",
@@ -60408,9 +60479,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_module",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_module"
     },
     {
       "relation": "contains",
@@ -60418,9 +60489,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_moduledetection",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_moduledetection"
     },
     {
       "relation": "contains",
@@ -60428,9 +60499,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_moduleresolution",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_moduleresolution"
     },
     {
       "relation": "contains",
@@ -60438,9 +60509,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_noemit",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_noemit"
     },
     {
       "relation": "contains",
@@ -60448,9 +60519,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_nofallthroughcasesinswitch"
     },
     {
       "relation": "contains",
@@ -60458,9 +60529,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_nounusedlocals",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_nounusedlocals"
     },
     {
       "relation": "contains",
@@ -60468,9 +60539,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_nounusedparameters",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_nounusedparameters"
     },
     {
       "relation": "contains",
@@ -60478,9 +60549,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_skiplibcheck",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_skiplibcheck"
     },
     {
       "relation": "contains",
@@ -60488,9 +60559,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_target",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_target"
     },
     {
       "relation": "contains",
@@ -60498,9 +60569,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_tsbuildinfofile",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_tsbuildinfofile"
     },
     {
       "relation": "contains",
@@ -60508,9 +60579,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_types",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_types"
     },
     {
       "relation": "contains",
@@ -60518,9 +60589,9 @@
       "source_file": "packages/randomart/tsconfig.node.json",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_tsconfig_node_compileroptions",
-      "target": "randomart_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "confidence_score": 1.0
+      "target": "randomart_tsconfig_node_compileroptions_verbatimmodulesyntax"
     },
     {
       "relation": "contains",
@@ -60528,9 +60599,9 @@
       "source_file": "packages/randomart/turbo.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_turbo",
-      "target": "randomart_turbo_extends",
-      "confidence_score": 1.0
+      "target": "randomart_turbo_extends"
     },
     {
       "relation": "contains",
@@ -60538,9 +60609,9 @@
       "source_file": "packages/randomart/turbo.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_turbo",
-      "target": "randomart_turbo_tasks",
-      "confidence_score": 1.0
+      "target": "randomart_turbo_tasks"
     },
     {
       "relation": "contains",
@@ -60548,9 +60619,9 @@
       "source_file": "packages/randomart/turbo.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_turbo_tasks",
-      "target": "randomart_turbo_tasks_check_types",
-      "confidence_score": 1.0
+      "target": "randomart_turbo_tasks_check_types"
     },
     {
       "relation": "contains",
@@ -60558,9 +60629,9 @@
       "source_file": "packages/randomart/turbo.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_turbo_tasks_check_types",
-      "target": "randomart_turbo_check_types_dependson",
-      "confidence_score": 1.0
+      "target": "randomart_turbo_check_types_dependson"
     },
     {
       "relation": "contains",
@@ -71537,9 +71608,9 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_automatic_routing",
-      "confidence_score": 1.0
+      "target": "how_to_adding_projects_automatic_routing"
     },
     {
       "relation": "contains",
@@ -71547,9 +71618,9 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_overview",
-      "confidence_score": 1.0
+      "target": "how_to_adding_projects_overview"
     },
     {
       "relation": "contains",
@@ -71557,9 +71628,9 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_step_1_create_the_package",
-      "confidence_score": 1.0
+      "target": "how_to_adding_projects_step_1_create_the_package"
     },
     {
       "relation": "contains",
@@ -71567,9 +71638,9 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_step_2_add_metadata",
-      "confidence_score": 1.0
+      "target": "how_to_adding_projects_step_2_add_metadata"
     },
     {
       "relation": "contains",
@@ -71577,9 +71648,9 @@
       "source_file": "apps/playground/src/content/docs/how-to/adding-projects.md",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "how_to_adding_projects_adding_projects",
-      "target": "how_to_adding_projects_step_3_register_the_component",
-      "confidence_score": 1.0
+      "target": "how_to_adding_projects_step_3_register_the_component"
     },
     {
       "relation": "contains",
@@ -73727,9 +73798,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration"
     },
     {
       "relation": "contains",
@@ -73737,9 +73808,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes"
     },
     {
       "relation": "contains",
@@ -73747,9 +73818,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration"
     },
     {
       "relation": "contains",
@@ -73757,9 +73828,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_file_export_changes",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_file_export_changes"
     },
     {
       "relation": "contains",
@@ -73767,9 +73838,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L108",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_files_changed",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_files_changed"
     },
     {
       "relation": "contains",
@@ -73777,9 +73848,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_overview",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_overview"
     },
     {
       "relation": "contains",
@@ -73787,9 +73858,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_randomart_convention_enforcement_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign"
     },
     {
       "relation": "contains",
@@ -73797,9 +73868,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_canvas_component_randomartcanvas_tsx",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_canvas_component_randomartcanvas_tsx"
     },
     {
       "relation": "contains",
@@ -73807,9 +73878,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_core_engine_randomart_engine_ts",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_core_engine_randomart_engine_ts"
     },
     {
       "relation": "contains",
@@ -73817,9 +73888,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_architecture_changes",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_error_handling",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_error_handling"
     },
     {
       "relation": "contains",
@@ -73827,9 +73898,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_components",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_components"
     },
     {
       "relation": "contains",
@@ -73837,9 +73908,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_css_tokens",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_css_tokens"
     },
     {
       "relation": "contains",
@@ -73847,9 +73918,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_ui_redesign",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_layout",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_layout"
     },
     {
       "relation": "contains",
@@ -73857,9 +73928,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_1_metadata_yaml",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_1_metadata_yaml"
     },
     {
       "relation": "contains",
@@ -73867,9 +73938,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L90",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_2_component_registration",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_2_component_registration"
     },
     {
       "relation": "contains",
@@ -73877,9 +73948,9 @@
       "source_file": "docs/superpowers/specs/2026-06-15-randomart-conventions-integration-design.md",
       "source_location": "L100",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "specs_2026_06_15_randomart_conventions_integration_design_astro_integration",
-      "target": "specs_2026_06_15_randomart_conventions_integration_design_3_tailwind_source_scan",
-      "confidence_score": 1.0
+      "target": "specs_2026_06_15_randomart_conventions_integration_design_3_tailwind_source_scan"
     },
     {
       "relation": "contains",
@@ -75217,9 +75288,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme",
-      "target": "randomart_readme_repo_randomart",
-      "confidence_score": 1.0
+      "target": "randomart_readme_repo_randomart"
     },
     {
       "relation": "contains",
@@ -75227,9 +75298,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_repo_randomart",
-      "target": "randomart_readme_adding_to_the_playground",
-      "confidence_score": 1.0
+      "target": "randomart_readme_adding_to_the_playground"
     },
     {
       "relation": "contains",
@@ -75237,9 +75308,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_repo_randomart",
-      "target": "randomart_readme_conventions",
-      "confidence_score": 1.0
+      "target": "randomart_readme_conventions"
     },
     {
       "relation": "contains",
@@ -75247,9 +75318,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_repo_randomart",
-      "target": "randomart_readme_documentation",
-      "confidence_score": 1.0
+      "target": "randomart_readme_documentation"
     },
     {
       "relation": "contains",
@@ -75257,9 +75328,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_repo_randomart",
-      "target": "randomart_readme_quick_start",
-      "confidence_score": 1.0
+      "target": "randomart_readme_quick_start"
     },
     {
       "relation": "contains",
@@ -75773,5 +75844,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "ad76e993e0700437b8022e86a96fbe0057e2dbbe"
+  "built_at_commit": "6b8b6fd5b2e564ec286d9c421b5dacd427d0f384"
 }
