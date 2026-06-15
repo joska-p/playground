@@ -2,8 +2,8 @@ import { drawBaseline } from './layers/drawBaseline';
 import { drawFactorWaves } from './layers/drawFactorWaves';
 import { drawPlottedNumbers } from './layers/drawPlottedNumbers';
 import { drawRecamanArcs } from './layers/drawRecamanArcs';
-import { factorWave } from './presets/factorWave';
-import { recamanArcs } from './presets/recamanArcs';
+import { frontWave } from './presets/frontWave';
+import { recamanWalk } from './presets/recamanWalk';
 import type { LayerEntry, Visualization } from './types';
 
 const layerRegistry = new Map<string, LayerEntry>([
@@ -17,12 +17,12 @@ const layerRegistry = new Map<string, LayerEntry>([
     }
   ],
   [
-    'recaman-arcs',
-    { id: 'recaman-arcs', name: 'Recamán Arcs', layer: drawRecamanArcs }
+    'recamanWalk',
+    { id: 'recamanWalk', name: 'Recamán Walk', layer: drawRecamanArcs }
   ],
   [
-    'factor-waves',
-    { id: 'factor-waves', name: 'Factor Waves', layer: drawFactorWaves }
+    'frontWaves',
+    { id: 'frontWaves', name: 'Front Waves', layer: drawFactorWaves }
   ]
 ]);
 
@@ -35,8 +35,8 @@ function getAllLayers(): LayerEntry[] {
 }
 
 export const visualizationRegistry = new Map<string, Visualization>([
-  [recamanArcs.id, recamanArcs],
-  [factorWave.id, factorWave]
+  [frontWave.id, frontWave],
+  [recamanWalk.id, recamanWalk]
 ]);
 
 function getVisualization(id: string): Visualization | undefined {
