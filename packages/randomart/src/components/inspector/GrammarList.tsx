@@ -1,3 +1,4 @@
+import { Badge } from '@repo/ui/Badge';
 import { getAllRules } from '../../core/grammar/registry';
 
 export function GrammarList() {
@@ -10,12 +11,12 @@ export function GrammarList() {
       </h3>
       <div className="flex flex-wrap gap-2">
         {rules.map((rule) => (
-          <span
+          <Badge
             key={rule.id}
-            className="text-muted-foreground font-mono text-xs"
+            className="text-xs"
           >
             {rule.name}
-          </span>
+          </Badge>
         ))}
       </div>
     </div>

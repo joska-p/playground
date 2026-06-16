@@ -13,22 +13,19 @@ function App() {
         mobilePosition="bottom"
         className="bg-background text-foreground"
       >
-        <Sidebar.Main className="flex min-h-screen flex-col items-center gap-8 p-4 sm:p-8">
-          <Sidebar.Toggle />
-          <header className="space-y-8 text-center">
+        <Sidebar.Main className="grid min-h-screen grid-rows-[auto_1fr] place-content-center gap-8 p-4 sm:p-8">
+          <header className="space-y-4 text-center">
             <h1 className="text-utility-4 text-3xl font-extrabold tracking-tight">
               AST &amp; Grammar Inspector
             </h1>
-            <p className="text-muted-foreground mt-1 text-sm">
+            <p className="text-muted-foreground text-sm">
               Peek inside the execution logs of your visual language
             </p>
           </header>
 
-          <div className="border-border bg-card flex w-full max-w-2xl flex-col gap-8 rounded-2xl border p-4 sm:p-8">
+          <div className="border-border bg-card flex max-w-2xl flex-col gap-8 rounded-2xl border p-4 sm:p-8">
             <Controls />
-            <div className="border-border bg-background flex justify-center rounded-xl border py-4">
-              <RandomArtCanvas />
-            </div>
+            <RandomArtCanvas />
             <GrammarList />
           </div>
         </Sidebar.Main>
