@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "check-types": "turbo run check-types",
     "gen": "turbo gen",
-    "graphify": "graphify update && cp graphify-out/graph.json packages/graph-viz/src/data/graph.json",
+    "graphify": "graphify update",
     "clean": "turbo clean && turbo run clean && rm -rf node_modules /**/node_modules",
     "reset": "pnpm clean && pnpm i && pnpm format && pnpm lint-fix && pnpm check-types && pnpm build",
     "fallow": "fallow"
