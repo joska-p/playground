@@ -1,7 +1,7 @@
 ---
-title: 'Sequence Renderer'
-description: 'Visualize mathematical sequences — Recamán, Fibonacci, and more.'
-category: 'reference'
+title: "Sequence Renderer"
+description: "Visualize mathematical sequences — Recamán, Fibonacci, and more."
+category: "reference"
 tags:
   - reference
   - sequence-renderer
@@ -17,19 +17,25 @@ pnpm add @repo/sequence-renderer
 ```
 
 ```tsx
-import { SequenceRenderer } from '@repo/sequence-renderer';
+import { App } from '@repo/sequence-renderer';
 
 export default function MyViz() {
-  return <SequenceRenderer />;
+  return <App />;
 }
+```
+
+Import styles:
+
+```tsx
+import '@repo/sequence-renderer/styles';
 ```
 
 ## Core Philosophy
 
 Decouple **generation** from **visualization**:
 
-1. **Rules** — Define sequences via `getNext()` in `src/core/rules/`.
-2. **Visualizations** — Pluggable drawing functions in `src/core/visualizations/`.
+1. **Rules** — Define sequences via `factoryRule()` in `src/core/rules/`.
+2. **Visualizations** — Composable layers built with `defineLayer()` + `visualisationFactory()` in `src/core/visualizations/`.
 3. **Zustand Store** — State management (`sequenceStore`).
 
 ## Available Sequences
@@ -44,19 +50,68 @@ Decouple **generation** from **visualization**:
 
 ## Visualization System
 
-Visualizations are pluggable renderers:
+Visualizations are composed of **layers** bundled into **presets**.
+
+### Layers
+
+Individual drawing units created with `defineLayer()`:
 
 ```typescript
-import type { Visualization } from './types';
+import { defineLayer } from '../layerFactory';
 
-export const recamanArcs: Visualization = {
-  id: 'recaman-arcs',
-  name: 'Recamán Arcs',
-  draw: ({ canvas, sequence }) => {
-    // Your drawing magic here
-  }
-};
+type MyOptions = { lineWidth: number; alpha: number };
+
+const myLayer = defineLayer<MyOptions>()
+  .defaults({ lineWidth: 1, alpha: 0.8 })
+  .draw((ctx, options) => {
+    // ctx: DrawingContext (pre-computed canvas, scale, offsets, etc.)
+    // options: resolved MyOptions
+  });
+
+export { myLayer };
 ```
+
+Available layers in `src/core/visualizations/layers/`:
+
+| Layer                | What it draws                     |
+| :------------------- | :-------------------------------- |
+| `drawBaseline`       | Horizontal baseline at y=0        |
+| `drawPlottedNumbers` | Dots at each unique value         |
+| `drawRecamanArcs`    | Recamán's semicircle arcs         |
+| `drawFactorWaves`    | Sine waves from each prime factor |
+
+### Presets
+
+Presets compose layers into ready-to-use `Visualization` objects via `visualisationFactory()`:
+
+```typescript
+import { visualisationFactory } from '../visualisationFactory';
+import { basePreset } from './base';
+import { myLayer } from '../layers/myLayer';
+
+export const myViz = visualisationFactory({
+  id: 'my-viz',
+  name: 'My Visualization',
+  layers: [...basePreset, myLayer.with()],
+  calculateScale: myCustomScale, // optional
+  compatibleWith: (meta) => meta.hasIntervals // optional
+});
+```
+
+Available presets in `src/core/visualizations/presets/`:
+
+| Preset        | Composed from                                  |
+| :------------ | :--------------------------------------------- |
+| `base`        | `drawBaseline` + `drawPlottedNumbers`          |
+| `frontWave`   | `base` + `drawFactorWaves`                     |
+| `recamanWalk` | `base` + `drawRecamanArcs` (with custom scale) |
+
+### Scale Calculators
+
+Custom scaling functions in `src/core/visualizations/scales/`:
+
+- `calculateRecamanScale` — Uses `findBiggestInterval` for both axes
+- `combineScales(...calculators)` — Composes multiple scale calculators
 
 ## State & Actions
 
@@ -67,79 +122,113 @@ const visualizationId = useSequenceVisualizationId();
 const sequence = useSequenceSequence();
 ```
 
-| Action                   | What                 |
-| :----------------------- | :------------------- |
-| `setSequenceRule(rule)`  | Change sequence type |
-| `setSteps(n)`            | Change step count    |
-| `setVisualizationId(id)` | Switch visualization |
+| Action                                            | What                 |
+| :------------------------------------------------ | :------------------- |
+| `setSequenceRule({ sequenceRule })`               | Change sequence type |
+| `setSequenceSteps({ steps })`                     | Change step count    |
+| `setSequenceVisualizationId({ visualizationId })` | Switch visualization |
 
 ## Data Flow
 
 `User changes` → `Store updates` → `Sequence recalculates` → `Canvas renders`
 
+Rules clamp step input to their `maxSteps` boundary via `clampSteps()`.
+
 ## How to Add a New Sequence
 
-1. Define a rule file in `src/core/rules/` (e.g., `myRule.ts`) using the `SequenceRule` type.
-2. Register the rule in `src/core/rules/registry.ts` inside the `rules` map.
+1. Create a rule file in `src/core/rules/` using `factoryRule()`:
+
+   ```typescript
+   import { factoryRule } from './create-rule';
+
+   export const myRule = factoryRule({
+     id: 'my-rule',
+     name: 'My Rule',
+     description: 'What it does',
+     maxSteps: 500,
+     getNext: ({ index, current, sequence, seen }) => {
+       // return next value
+     }
+   });
+   ```
+
+2. Register in `src/core/rules/registry.ts`:
+   ```typescript
+   import { myRule } from './myRule';
+   // add to the `rules` Map
+   ```
 
 ## How to Add a New Visualization
 
-### Step 1: Create the visualization
+### Step 1: Create a layer
 
-Create a new file in `src/core/visualizations/` (e.g., `myViz.ts`):
+Create a file in `src/core/visualizations/layers/` (e.g., `myLayer.ts`):
 
 ```typescript
-import type { Visualization } from './types';
+import { defineLayer } from '../layerFactory';
 
-export const myViz: Visualization = {
+type MyOptions = { lineWidth: number; alpha: number };
+
+const myLayer = defineLayer<MyOptions>()
+  .defaults({ lineWidth: 2, alpha: 0.5 })
+  .draw((ctx, { lineWidth, alpha }) => {
+    ctx.context.save();
+    ctx.context.lineWidth = lineWidth;
+    ctx.context.globalAlpha = alpha;
+    // ... draw using ctx.context (CanvasRenderingContext2D)
+    ctx.context.restore();
+  });
+
+export { myLayer };
+```
+
+### Step 2: Create a preset
+
+Create a file in `src/core/visualizations/presets/`:
+
+```typescript
+import { visualisationFactory } from '../visualisationFactory';
+import { basePreset } from './base';
+import { myLayer } from '../layers/myLayer';
+
+export const myViz = visualisationFactory({
   id: 'my-viz',
-  name: 'My Awesome Visualization',
-  draw: ({ canvas, sequence }) => {
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    const { width, height } = canvas;
-    ctx.beginPath();
-    ctx.arc(width / 2, height / 2, 50, 0, Math.PI * 2);
-    ctx.fill();
-  }
-};
+  name: 'My Visualization',
+  layers: [...basePreset, myLayer.with({ lineWidth: 3 })]
+});
 ```
 
-### Step 2: Register it
+### Step 3: Register it
 
-Import and register your visualization in the map in `src/core/visualizations/registry.ts`:
+Add to the `visualizationRegistry` map in `src/core/visualizations/registry.ts`.
 
-```typescript
-import { myViz } from './myViz';
+### Step 4: Optional — Custom scale
 
-// Inside the Map constructor in registry.ts:
-const visualizations = new Map<string, Visualization>([
-  [recamanArcs.id, recamanArcs],
-  [factorWave.id, factorWave],
-  [myViz.id, myViz]
-]);
-```
+Create a scale calculator in `src/core/visualizations/scales/` and pass it as `calculateScale`.
 
-### Step 3: Drawing API
+## Drawing API
 
-The `draw` function receives a single options object:
+Layers receive a `DrawingContext` object:
 
-- `canvas`: `HTMLCanvasElement`
-- `sequence`: `number[]`
+| Property        | Type                       | Description                         |
+| :-------------- | :------------------------- | :---------------------------------- |
+| `canvas`        | `HTMLCanvasElement`        | The canvas element                  |
+| `context`       | `CanvasRenderingContext2D` | 2D drawing context (pre-fetched)    |
+| `sequence`      | `number[]`                 | The generated sequence              |
+| `containerSize` | `{ width, height }`        | Canvas dimensions from parent       |
+| `maxVal`        | `number`                   | Max value in sequence               |
+| `valueScale`    | `number`                   | Pixels-per-unit scale               |
+| `offsetX`       | `number`                   | Horizontal centering offset         |
+| `offsetY`       | `number`                   | Vertical centering offset (midline) |
+| `textColor`     | `string`                   | Computed CSS color of the canvas    |
 
-#### Common patterns
+Canvas sizing, clearing, and centering offsets are handled automatically by `visualisationFactory`.
 
-- **Get 2D context**: `const ctx = canvas.getContext('2d');`
-- **Resize canvas**:
-  ```typescript
-  if (!canvas.parentElement) return;
-  canvas.width = canvas.parentElement.clientWidth;
-  canvas.height = canvas.parentElement.clientHeight;
-  ```
-- **Clear canvas**: `ctx.clearRect(0, 0, canvas.width, canvas.height);`
-- **Lines**: `ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();`
-- **Circles**: `ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();`
+## Available Utilities
+
+- `src/utils/find-biggest-interval.ts` — Finds the largest step between consecutive values (used by Recamán scale)
 
 ---
 
 _Part of @repo/playground_
+
