@@ -69,6 +69,7 @@ function Nodes() {
         args={[undefined, undefined, codeToGlobal.length]}
         frustumCulled={false}
         onClick={handleClick}
+        onPointerDown={(e) => e.stopPropagation()}
       >
         <sphereGeometry
           args={[
@@ -85,6 +86,7 @@ function Nodes() {
         args={[undefined, undefined, docToGlobal.length]}
         frustumCulled={false}
         onClick={handleClick}
+        onPointerDown={(e) => e.stopPropagation()}
       >
         <boxGeometry
           args={[boxGeometry.width, boxGeometry.height, boxGeometry.depth]}

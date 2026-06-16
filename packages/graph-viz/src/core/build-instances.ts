@@ -44,6 +44,7 @@ export function writeInstanceData(
 
   mesh.instanceMatrix.needsUpdate = true;
   if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+  mesh.computeBoundingSphere();
 }
 
 export function splitNodeIndices(nodes: GraphNode[]): {

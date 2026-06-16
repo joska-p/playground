@@ -14,7 +14,7 @@ export function computeEdgeBuffers(
 ): EdgeBuffers {
   const EMPTY = new Float32Array();
 
-  if (!edgesVisible) {
+  if (!edgesVisible && selectedNodeIdx === null) {
     return { connectedPositions: EMPTY, disconnectedPositions: EMPTY };
   }
 
@@ -27,8 +27,10 @@ export function computeEdgeBuffers(
     const target = nodes[link.targetIdx];
 
     if (
-      !visibleCommunities.has(source.community) ||
-      !visibleCommunities.has(target.community)
+      (visibleCommunities.size > 0 &&
+        !visibleCommunities.has(source.community)) ||
+      (visibleCommunities.size > 0 &&
+        !visibleCommunities.has(target.community))
     ) {
       continue;
     }
@@ -38,13 +40,17 @@ export function computeEdgeBuffers(
       (link.sourceIdx === selectedNodeIdx ||
         link.targetIdx === selectedNodeIdx);
 
-    const buf = isConnected ? connArr : discArr;
-    buf.push(source.x, source.y, source.z, target.x, target.y, target.z);
+    if (isConnected) {
+      connArr.push(source.x, source.y, source.z, target.x, target.y, target.z);
+    } else if (edgesVisible) {
+      discArr.push(source.x, source.y, source.z, target.x, target.y, target.z);
+    }
   }
 
   return {
-    connectedPositions: new Float32Array(connArr),
+    connectedPositions:
+      connArr.length > 0 ? new Float32Array(connArr) : EMPTY,
     disconnectedPositions:
-      selectedNodeIdx !== null ? new Float32Array(discArr) : EMPTY
+      discArr.length > 0 ? new Float32Array(discArr) : EMPTY
   };
 }

@@ -53,17 +53,15 @@ function Edges() {
   return (
     <>
       <EdgeGroup
+        positions={disconnectedPositions}
+        color={disconnected.color}
+        opacity={disconnected.opacity}
+      />
+      <EdgeGroup
         positions={connectedPositions}
         color={connected.color}
         opacity={connected.opacity}
       />
-      {selectedNodeIdx !== null && (
-        <EdgeGroup
-          positions={disconnectedPositions}
-          color={disconnected.color}
-          opacity={disconnected.opacity}
-        />
-      )}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Text } from '@react-three/drei';
+import { Billboard, Text } from '@react-three/drei';
 import { useMemo } from 'react';
 import * as THREE from 'three';
 import { CONFIG } from '../../core/config.ts';
@@ -25,23 +25,26 @@ function CommunityLabels() {
         color.lerp(new THREE.Color(0xffffff), labels.colorLerp);
 
         return (
-          <Text
+          <Billboard
             key={c.id}
             position={[
               c.centroid.x,
               c.centroid.y + labels.offsetY,
               c.centroid.z
             ]}
-            fontSize={labels.fontSize}
-            color={color.getStyle()}
-            anchorX="center"
-            anchorY="bottom"
-            font={undefined}
-            outlineWidth={labels.outlineWidth}
-            outlineColor={labels.outlineColor}
           >
-            {c.name}
-          </Text>
+            <Text
+              fontSize={labels.fontSize}
+              color={color.getStyle()}
+              anchorX="center"
+              anchorY="bottom"
+              font={undefined}
+              outlineWidth={labels.outlineWidth}
+              outlineColor={labels.outlineColor}
+            >
+              {c.name}
+            </Text>
+          </Billboard>
         );
       });
   }, [communities, labelsVisible, visibleCommunities]);
