@@ -1,46 +1,41 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@repo/ui/Card';
-import { Input } from '@repo/ui/Input';
-import { useState } from 'react';
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
+import { Sidebar } from '@repo/ui/Sidebar';
+import { Controls } from './components/controls/Controls';
+import { GrammarList } from './components/inspector/GrammarList';
+import { InspectorPanel } from './components/inspector/InspectorPanel';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
 
 function App() {
-  const [text, setText] = useState(
-    "De deux choses lune l'autre c'est le soleil"
-  );
-
   return (
-    <div className="bg-background grid min-h-screen place-items-center">
-      <Card
-        variant="outline"
-        className="w-fit"
+    <ErrorBoundary>
+      <Sidebar
+        desktopPosition="right"
+        mobilePosition="bottom"
+        className="bg-background text-foreground"
       >
-        <CardHeader>
-          <CardTitle>RandomArt Generator</CardTitle>
-          <CardDescription>Inspired by Perrig & Song (CMU)</CardDescription>
-        </CardHeader>
+        <Sidebar.Main className="flex min-h-screen flex-col items-center gap-8 p-8 font-sans">
+          <header className="space-y-8 text-center">
+            <h1 className="text-utility-4 text-3xl font-extrabold tracking-tight">
+              AST &amp; Grammar Inspector
+            </h1>
+            <p className="text-muted-foreground mt-1 text-sm">
+              Peek inside the execution logs of your visual language
+            </p>
+          </header>
 
-        <CardContent className="space-y-4">
-          <RandomArtCanvas
-            seedString={text}
-            size={350}
-            maxDepth={7}
-          />
-
-          <Input
-            label="Seed text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Type something to morph the art..."
-          />
-        </CardContent>
-      </Card>
-    </div>
+          <div className="border-border bg-card flex w-full max-w-2xl flex-col gap-8 rounded-2xl border p-8">
+            <Controls />
+            <div className="border-border bg-background flex justify-center rounded-xl border py-4">
+              <RandomArtCanvas />
+            </div>
+            <GrammarList />
+          </div>
+        </Sidebar.Main>
+        <Sidebar.Panel className="flex h-full w-96 flex-col gap-4 overflow-y-auto p-4">
+          <InspectorPanel />
+        </Sidebar.Panel>
+      </Sidebar>
+    </ErrorBoundary>
   );
 }
 

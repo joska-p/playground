@@ -1,45 +1,53 @@
-import { useEffect, useRef, useTransition } from 'react';
-import { renderPixelBuffer } from '../core/randomart-engine';
+import { useEffect, useRef } from 'react';
+import { evaluateNode } from '../core/engine';
+import {
+  useTreeB,
+  useTreeG,
+  useTreeR
+} from '../stores/randomart/selectors/useTrees';
 
 type Props = {
-  seedString: string;
   size?: number;
-  maxDepth?: number;
 };
 
-export function RandomArtCanvas({
-  seedString,
-  size = 300,
-  maxDepth = 8
-}: Props) {
+export function RandomArtCanvas({ size = 320 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [, startTransition] = useTransition();
+  const treeR = useTreeR();
+  const treeG = useTreeG();
+  const treeB = useTreeB();
 
   useEffect(() => {
-    if (!canvasRef.current || !seedString) return;
+    if (!canvasRef.current) return;
 
-    startTransition(() => {
-      const canvas = canvasRef.current!;
-      const ctx = canvas.getContext('2d')!;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d')!;
+    const imgData = ctx.createImageData(size, size);
 
-      const pixelBuffer = renderPixelBuffer(seedString, size, maxDepth);
+    for (let py = 0; py < size; py++) {
+      const y = (py / size) * 2 - 1;
+      for (let px = 0; px < size; px++) {
+        const x = (px / size) * 2 - 1;
 
-      const imgData = new ImageData(
-        new Uint8ClampedArray(pixelBuffer),
-        size,
-        size
-      );
+        const r = Math.floor(((evaluateNode(treeR, x, y) + 1) / 2) * 255);
+        const g = Math.floor(((evaluateNode(treeG, x, y) + 1) / 2) * 255);
+        const b = Math.floor(((evaluateNode(treeB, x, y) + 1) / 2) * 255);
 
-      ctx.putImageData(imgData, 0, 0);
-    });
-  }, [seedString, size, maxDepth]);
+        const index = (py * size + px) * 4;
+        imgData.data[index] = r;
+        imgData.data[index + 1] = g;
+        imgData.data[index + 2] = b;
+        imgData.data[index + 3] = 255;
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+  }, [treeR, treeG, treeB, size]);
 
   return (
     <canvas
       ref={canvasRef}
       width={size}
       height={size}
-      className="border-border bg-card rounded-xl shadow-lg"
+      className="border-border rounded-xl border shadow-lg"
     />
   );
 }

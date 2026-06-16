@@ -1,7 +1,7 @@
 ---
-title: "Randomart"
-description: "Scaffolded demo showcasing Zustand + Zod."
-category: "reference"
+title: 'Randomart'
+description: 'Scaffolded demo showcasing Zustand + Zod.'
+category: 'reference'
 tags:
   - reference
   - randomart
@@ -71,4 +71,3 @@ This package follows [project conventions](../../CONVENTIONS.md):
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
-
