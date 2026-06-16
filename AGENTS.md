@@ -2,35 +2,25 @@
 
 ## Orientation
 
-Before diving in, use these two tools to understand the project:
+Before diving in, use these tools to understand the project:
 
 - **Broad architecture** → read `./graphify-out/GRAPH_REPORT.md`
 - **Focused question** → `graphify query "<question>"` (returns a scoped subgraph, much faster)
+- **Dead code / Clean up** → Use the root-level tool `fallow` to check for unused files, exports, or dependencies before refactoring.
 
-## Conventions
+## Conventions & Rules (Read On-Demand Only)
 
-Read `./apps/playground/src/content/docs/explanation/conventions.md` before writing or editing any file. Apply only the rules relevant to the current task. When in doubt, ask — do not guess.
+To save tokens, do not scan these files upfront. Only open them when triggered by the current task:
 
-## Write documentations
+- **Modifying/Writing Source Code:** Read `./apps/playground/src/content/docs/explanation/conventions.md`. Apply _only_ the rules relevant to the task
+- **Creating/Editing Documentation:** Read `./apps/playground/src/content/docs/how-to/documenting-packages.md`.
+- **Rules/Engine/View Pattern:** Read `./apps/playground/src/content/docs/explanation/engine.md`
+- **Looking for information not in the precedent files:** Search in the docs `./apps/playground/src/content/docs/`
 
-Read `./apps/playground/src/content/docs/how-to/documenting-packages.md` before writing or editing any docs.
+## Running Commands
 
-## Running commands
-
-Always run from the **repo root**. Never `cd` into a package.
+Always run from the **repo root**. Never `cd` into a package.[cite: 1]
 
 ```bash
 pnpm --filter @repo/<package> <cmd>
 ```
-
-Example:
-
-```bash
-pnpm --filter @repo/ui check-types
-```
-
-Use the scope (`@repo/`) exactly as it appears in the package's `package.json` `"name"` field.
-
-## Scope discipline
-
-Only touch files relevant to the current task. Do not refactor outside the requested scope.
