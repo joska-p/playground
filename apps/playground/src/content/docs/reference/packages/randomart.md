@@ -1,7 +1,7 @@
 ---
-title: "Randomart"
-description: "Random expression-tree art generator. Uses the engine pattern: pluggable grammar definitions, registry-driven tree builder, Zustand store, and React presentation layer."
-category: "reference"
+title: 'Randomart'
+description: 'Random expression-tree art generator. Uses the engine pattern: pluggable grammar definitions, registry-driven tree builder, Zustand store, and React presentation layer.'
+category: 'reference'
 tags:
   - reference
   - randomart
@@ -88,4 +88,3 @@ This package follows [project conventions](../../CONVENTIONS.md):
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
-

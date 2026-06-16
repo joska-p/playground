@@ -1,7 +1,7 @@
 ---
-title: "Graph Visualization"
-description: "3D force-directed graph visualisation using Three.js, React Three Fiber, and Zustand."
-category: "reference"
+title: 'Graph Visualization'
+description: '3D force-directed graph visualisation using Three.js, React Three Fiber, and Zustand.'
+category: 'reference'
 tags:
   - reference
   - graph-viz
@@ -414,4 +414,3 @@ Follows SemVer. See [CHANGELOG.md](../../CHANGELOG.md).
 ---
 
 _Part of [Creative Playground](https://jpotin.gitlab.io/playground/)_
-
