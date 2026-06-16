@@ -29,8 +29,7 @@ export function computeEdgeBuffers(
     if (
       (visibleCommunities.size > 0 &&
         !visibleCommunities.has(source.community)) ||
-      (visibleCommunities.size > 0 &&
-        !visibleCommunities.has(target.community))
+      (visibleCommunities.size > 0 && !visibleCommunities.has(target.community))
     ) {
       continue;
     }
@@ -48,8 +47,7 @@ export function computeEdgeBuffers(
   }
 
   return {
-    connectedPositions:
-      connArr.length > 0 ? new Float32Array(connArr) : EMPTY,
+    connectedPositions: connArr.length > 0 ? new Float32Array(connArr) : EMPTY,
     disconnectedPositions:
       discArr.length > 0 ? new Float32Array(discArr) : EMPTY
   };

@@ -7,5 +7,5 @@ export const graphStore = create<GraphState>(() => ({
   edgesVisible: true,
   visibleCommunities: new Set<number>(),
   totalCommunities: 0,
-  labelsVisible: false
+  labelsVisible: true
 }));

@@ -572,7 +572,7 @@
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "id": "cards_categorycard",
-      "community": 78,
+      "community": 88,
       "norm_label": "../cards/categorycard.astro"
     },
     {
@@ -582,7 +582,7 @@
       "confidence": "EXTRACTED",
       "_origin": "ast",
       "id": "icons",
-      "community": 78,
+      "community": 88,
       "norm_label": "@repo/ui/icons"
     },
     {
@@ -604,7 +604,7 @@
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "id": "cards_experimentcard",
-      "community": 78,
+      "community": 25,
       "norm_label": "../../../../components/ui/cards/experimentcard.astro"
     },
     {
@@ -646,7 +646,7 @@
       "_origin": "ast",
       "source_location": "L1",
       "id": "docs_navcategory",
-      "community": 78,
+      "community": 88,
       "norm_label": "navcategory.astro"
     },
     {
@@ -678,7 +678,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "docs_navcategory_hasactivearticle",
-      "community": 78,
+      "community": 88,
       "norm_label": "hasactivearticle"
     },
     {
@@ -761,7 +761,7 @@
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "id": "projects_featuredprojects",
-      "community": 88,
+      "community": 25,
       "norm_label": "../components/ui/projects/featuredprojects.astro"
     },
     {
@@ -771,7 +771,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "projects_featuredprojects_featuredprojects",
-      "community": 88,
+      "community": 25,
       "norm_label": "featuredprojects"
     },
     {
@@ -1198,7 +1198,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "notebook_slug",
-      "community": 233,
+      "community": 1,
       "norm_label": "[...slug].astro"
     },
     {
@@ -1208,7 +1208,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "notebook_slug_getstaticpaths",
-      "community": 233,
+      "community": 1,
       "norm_label": "getstaticpaths()"
     },
     {
@@ -1218,7 +1218,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "notebook_slug_date",
-      "community": 233,
+      "community": 1,
       "norm_label": "date"
     },
     {
@@ -1228,7 +1228,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "notebook_slug_options",
-      "community": 233,
+      "community": 1,
       "norm_label": "options"
     },
     {
@@ -1238,7 +1238,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "notebook_slug_formateddate",
-      "community": 233,
+      "community": 1,
       "norm_label": "formateddate"
     },
     {
@@ -1368,7 +1368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "projects_index",
-      "community": 1,
+      "community": 25,
       "norm_label": "index.astro"
     },
     {
@@ -1378,7 +1378,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "projects_index_categories",
-      "community": 1,
+      "community": 25,
       "norm_label": "categories"
     },
     {
@@ -1768,7 +1768,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_turbo",
-      "community": 135,
+      "community": 114,
       "norm_label": "turbo"
     },
     {
@@ -2248,7 +2248,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_app_tsx_src_app",
-      "community": 231,
+      "community": 20,
       "norm_label": "app.tsx"
     },
     {
@@ -2258,7 +2258,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_app_appprops",
-      "community": 231,
+      "community": 20,
       "norm_label": "appprops"
     },
     {
@@ -2268,7 +2268,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "packages_automa_src_app_tsx_src_app_app",
-      "community": 231,
+      "community": 20,
       "norm_label": "app()"
     },
     {
@@ -2278,7 +2278,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "canvas_automatoncanvas",
-      "community": 231,
+      "community": 20,
       "norm_label": "automatoncanvas.tsx"
     },
     {
@@ -2288,7 +2288,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "canvas_automatoncanvas_cacanvasprops",
-      "community": 231,
+      "community": 20,
       "norm_label": "cacanvasprops"
     },
     {
@@ -2298,7 +2298,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "canvas_automatoncanvas_automatoncanvas",
-      "community": 231,
+      "community": 20,
       "norm_label": "automatoncanvas()"
     },
     {
@@ -2458,7 +2458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_creatureselector",
-      "community": 241,
+      "community": 93,
       "norm_label": "creatureselector.tsx"
     },
     {
@@ -2468,7 +2468,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_creatureselector_creatureselector",
-      "community": 241,
+      "community": 93,
       "norm_label": "creatureselector()"
     },
     {
@@ -2608,7 +2608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_ruleselector",
-      "community": 114,
+      "community": 31,
       "norm_label": "ruleselector.tsx"
     },
     {
@@ -2618,7 +2618,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_ruleselector_ruleselector",
-      "community": 114,
+      "community": 31,
       "norm_label": "ruleselector()"
     },
     {
@@ -2628,7 +2628,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols",
-      "community": 114,
+      "community": 18,
       "norm_label": "shaderpropscontrols.tsx"
     },
     {
@@ -2638,7 +2638,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols_colorrowprops",
-      "community": 114,
+      "community": 18,
       "norm_label": "colorrowprops"
     },
     {
@@ -2648,7 +2648,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols_colorrow",
-      "community": 114,
+      "community": 18,
       "norm_label": "colorrow()"
     },
     {
@@ -2658,7 +2658,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "controls_shaderpropscontrols_shaderpropscontrols",
-      "community": 114,
+      "community": 18,
       "norm_label": "shaderpropscontrols()"
     },
     {
@@ -2668,7 +2668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_shaderselector",
-      "community": 114,
+      "community": 18,
       "norm_label": "shaderselector.tsx"
     },
     {
@@ -2678,7 +2678,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_shaderselector_shaderselector",
-      "community": 114,
+      "community": 18,
       "norm_label": "shaderselector()"
     },
     {
@@ -2708,7 +2708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_statecolorpicker",
-      "community": 114,
+      "community": 31,
       "norm_label": "statecolorpicker.tsx"
     },
     {
@@ -2718,7 +2718,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrowprops",
-      "community": 114,
+      "community": 31,
       "norm_label": "colorrowprops"
     },
     {
@@ -2728,7 +2728,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrow",
-      "community": 114,
+      "community": 31,
       "norm_label": "colorrow()"
     },
     {
@@ -2738,7 +2738,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "controls_statecolorpicker_statecolorpicker",
-      "community": 114,
+      "community": 31,
       "norm_label": "statecolorpicker()"
     },
     {
@@ -2748,7 +2748,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_config_ts_core_config",
-      "community": 18,
+      "community": 20,
       "norm_label": "config.ts"
     },
     {
@@ -2758,7 +2758,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_config_default_state_colors",
-      "community": 18,
+      "community": 20,
       "norm_label": "default_state_colors"
     },
     {
@@ -2768,7 +2768,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "core_config_state_fallback_colors",
-      "community": 18,
+      "community": 20,
       "norm_label": "state_fallback_colors"
     },
     {
@@ -3008,7 +3008,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "creature_registry_getallcreatures",
-      "community": 241,
+      "community": 93,
       "norm_label": "getallcreatures()"
     },
     {
@@ -3408,7 +3408,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "shaders_registry_getallshaders",
-      "community": 114,
+      "community": 18,
       "norm_label": "getallshaders()"
     },
     {
@@ -3558,7 +3558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usecellpainting",
-      "community": 18,
+      "community": 29,
       "norm_label": "usecellpainting.ts"
     },
     {
@@ -3568,7 +3568,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "hooks_usecellpainting_cellpaintinghandlers",
-      "community": 18,
+      "community": 29,
       "norm_label": "cellpaintinghandlers"
     },
     {
@@ -3818,7 +3818,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "simulation_actions_destroy",
-      "community": 231,
+      "community": 20,
       "norm_label": "destroy()"
     },
     {
@@ -4008,7 +4008,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useruleid_useruleid",
-      "community": 114,
+      "community": 31,
       "norm_label": "useruleid()"
     },
     {
@@ -4048,7 +4048,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ui_actions",
-      "community": 114,
+      "community": 18,
       "norm_label": "actions.ts"
     },
     {
@@ -4068,7 +4068,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "ui_actions_setshowdebug",
-      "community": 114,
+      "community": 93,
       "norm_label": "setshowdebug()"
     },
     {
@@ -4078,7 +4078,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "ui_actions_setstatecolor",
-      "community": 114,
+      "community": 31,
       "norm_label": "setstatecolor()"
     },
     {
@@ -4088,7 +4088,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "ui_actions_setglowcolor",
-      "community": 114,
+      "community": 18,
       "norm_label": "setglowcolor()"
     },
     {
@@ -4098,7 +4098,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "ui_actions_setshader",
-      "community": 114,
+      "community": 18,
       "norm_label": "setshader()"
     },
     {
@@ -4108,7 +4108,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "ui_actions_setpalettebrush",
-      "community": 241,
+      "community": 93,
       "norm_label": "setpalettebrush()"
     },
     {
@@ -4158,7 +4158,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useglowcolor_useglowcolor",
-      "community": 114,
+      "community": 18,
       "norm_label": "useglowcolor()"
     },
     {
@@ -4178,7 +4178,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usepalettebrush_usepalettebrush",
-      "community": 241,
+      "community": 93,
       "norm_label": "usepalettebrush()"
     },
     {
@@ -4218,7 +4218,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useshaderid_useshaderid",
-      "community": 114,
+      "community": 18,
       "norm_label": "useshaderid()"
     },
     {
@@ -5772,10 +5772,50 @@
       "norm_label": "graphcanvas.tsx"
     },
     {
+      "label": "OC",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "scene_graphcanvas_oc",
+      "community": 56,
+      "norm_label": "oc"
+    },
+    {
+      "label": "animTarget",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "scene_graphcanvas_animtarget",
+      "community": 56,
+      "norm_label": "animtarget"
+    },
+    {
+      "label": "animCamera",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "scene_graphcanvas_animcamera",
+      "community": 56,
+      "norm_label": "animcamera"
+    },
+    {
+      "label": "CameraAnimator()",
+      "file_type": "code",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "scene_graphcanvas_cameraanimator",
+      "community": 56,
+      "norm_label": "cameraanimator()"
+    },
+    {
       "label": "GraphCanvas()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
-      "source_location": "L14",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "scene_graphcanvas_graphcanvas",
       "community": 56,
@@ -5875,7 +5915,7 @@
       "label": "splitNodeIndices()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/core/build-instances.ts",
-      "source_location": "L49",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "core_build_instances_splitnodeindices",
       "community": 56,
@@ -6332,40 +6372,20 @@
       "norm_label": "default_simulation_config"
     },
     {
-      "label": "FILE_TYPE_LAYERS",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "stages_run_simulation_file_type_layers",
-      "community": 22,
-      "norm_label": "file_type_layers"
-    },
-    {
       "label": "SimulationResult",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L50",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "stages_run_simulation_simulationresult",
       "community": 22,
       "norm_label": "simulationresult"
     },
     {
-      "label": "ConstrainedSimNode",
-      "file_type": "code",
-      "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L57",
-      "_origin": "ast",
-      "id": "stages_run_simulation_constrainedsimnode",
-      "community": 22,
-      "norm_label": "constrainedsimnode"
-    },
-    {
       "label": "runSimulation()",
       "file_type": "code",
       "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L64",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "stages_run_simulation_runsimulation",
       "community": 22,
@@ -7718,7 +7738,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app",
-      "community": 61,
+      "community": 197,
       "norm_label": "app.tsx"
     },
     {
@@ -7728,7 +7748,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app_app",
-      "community": 61,
+      "community": 197,
       "norm_label": "app()"
     },
     {
@@ -7778,7 +7798,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "layout_controls_controls",
-      "community": 61,
+      "community": 197,
       "norm_label": "controls()"
     },
     {
@@ -7788,7 +7808,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_imagemanipulator",
-      "community": 61,
+      "community": 197,
       "norm_label": "imagemanipulator.tsx"
     },
     {
@@ -7798,7 +7818,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "layout_imagemanipulator_imagemanipulator",
-      "community": 61,
+      "community": 197,
       "norm_label": "imagemanipulator()"
     },
     {
@@ -8038,7 +8058,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "output_outputs_outputs",
-      "community": 61,
+      "community": 197,
       "norm_label": "outputs()"
     },
     {
@@ -8128,7 +8148,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols",
-      "community": 74,
+      "community": 61,
       "norm_label": "imagesourcecontrols.tsx"
     },
     {
@@ -8138,7 +8158,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols_imagesourcecontrols",
-      "community": 74,
+      "community": 61,
       "norm_label": "imagesourcecontrols()"
     },
     {
@@ -8208,7 +8228,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_uploadzone_uploadzone",
-      "community": 74,
+      "community": 61,
       "norm_label": "uploadzone()"
     },
     {
@@ -8218,7 +8238,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_index",
-      "community": 74,
+      "community": 61,
       "norm_label": "index.ts"
     },
     {
@@ -8708,7 +8728,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "manipulator_actions_clearoutputs",
-      "community": 74,
+      "community": 61,
       "norm_label": "clearoutputs()"
     },
     {
@@ -9968,7 +9988,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_pipeline_worker",
-      "community": 19,
+      "community": 117,
       "norm_label": "pipeline-worker.ts"
     },
     {
@@ -9978,7 +9998,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "api_pipeline_worker_workermessage",
-      "community": 19,
+      "community": 117,
       "norm_label": "workermessage"
     },
     {
@@ -10718,7 +10738,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler",
-      "community": 117,
+      "community": 19,
       "norm_label": "fusionscheduler"
     },
     {
@@ -10728,7 +10748,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_add",
-      "community": 117,
+      "community": 19,
       "norm_label": ".add()"
     },
     {
@@ -10838,7 +10858,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "core_image_pipeline_types_manipulationdefinition",
-      "community": 117,
+      "community": 19,
       "norm_label": "manipulationdefinition"
     },
     {
@@ -10908,7 +10928,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 61,
+      "community": 117,
       "norm_label": "step"
     },
     {
@@ -26348,7 +26368,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "turbo",
-      "community": 135,
+      "community": 114,
       "norm_label": "turbo.json"
     },
     {
@@ -26358,7 +26378,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "turbo_schema",
-      "community": 135,
+      "community": 114,
       "norm_label": "$schema"
     },
     {
@@ -26368,7 +26388,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "turbo_ui",
-      "community": 135,
+      "community": 114,
       "norm_label": "ui"
     },
     {
@@ -26448,7 +26468,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "turbo_tasks_lint",
-      "community": 199,
+      "community": 112,
       "norm_label": "lint"
     },
     {
@@ -26458,7 +26478,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "turbo_lint_dependson",
-      "community": 199,
+      "community": 112,
       "norm_label": "dependson"
     },
     {
@@ -26468,7 +26488,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "turbo_lint_outputs",
-      "community": 199,
+      "community": 112,
       "norm_label": "outputs"
     },
     {
@@ -42706,6 +42726,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "content_selectors_usenodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -42716,11 +42747,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "scene_graphcanvas_animcamera",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "scene_graphcanvas_animtarget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "scene_graphcanvas_cameraanimator",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
       "source_location": "L13",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "scene_graphcanvas",
       "target": "scene_graphcanvas_graphcanvas"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "scene_graphcanvas_oc",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -42778,6 +42849,28 @@
       "target": "view_actions_selectnode"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "view_selectors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scene_graphcanvas",
+      "target": "view_selectors_useselectednodeidx",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -42787,6 +42880,28 @@
       "weight": 1.0,
       "source": "scene_graphcanvas_graphcanvas",
       "target": "content_selectors_usecommunities"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "scene_graphcanvas_graphcanvas",
+      "target": "content_selectors_usenodes"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/graph-viz/src/components/scene/GraphCanvas.tsx",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "scene_graphcanvas_graphcanvas",
+      "target": "view_selectors_useselectednodeidx"
     },
     {
       "relation": "imports_from",
@@ -43949,31 +44064,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "stages_run_simulation",
-      "target": "stages_run_simulation_constrainedsimnode",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
       "source_location": "L30",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "stages_run_simulation",
       "target": "stages_run_simulation_default_simulation_config"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "stages_run_simulation",
-      "target": "stages_run_simulation_file_type_layers",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -44037,17 +44132,6 @@
       "confidence_score": 1.0,
       "source": "stages_run_simulation",
       "target": "stages_sim_types_simnode"
-    },
-    {
-      "relation": "inherits",
-      "context": "type",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/graph-viz/src/data/stages/run-simulation.ts",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "stages_run_simulation_constrainedsimnode",
-      "target": "stages_sim_types_simnode",
-      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -80721,5 +80805,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d82db4e569c53f35d5452070fd0a76c1879526cd"
+  "built_at_commit": "3c985897c38b1369cc0af50474d3ed5fb50b7468"
 }
