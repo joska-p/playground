@@ -1,10 +1,11 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, type RootState } from '@react-three/fiber';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { CONFIG } from '../../core/config.ts';
-import { useCommunities } from '../../stores/content/selectors';
+import { useCommunities, useNodes } from '../../stores/content/selectors';
 import { initCommunities, selectNode } from '../../stores/view/actions';
+import { useSelectedNodeIdx } from '../../stores/view/selectors';
 import { CommunityLabels } from './CommunityLabels.tsx';
 import { Edges } from './Edges.tsx';
 import { Nodes } from './Nodes.tsx';
@@ -12,12 +13,28 @@ import { Nodes } from './Nodes.tsx';
 const { camera, ambientLight, directionalLights, orbitControls } = CONFIG.scene;
 
 function GraphCanvas() {
+  const controlsRef = useRef<THREE.OrbitControls>(null);
   const communities = useCommunities();
+  const nodes = useNodes();
+  const selectedNodeIdx = useSelectedNodeIdx();
 
   useEffect(() => {
     const communityIds = communities.map((c) => c.id).sort((a, b) => a - b);
     initCommunities(communityIds);
   }, [communities]);
+
+  useEffect(() => {
+    const controls = controlsRef.current;
+    if (selectedNodeIdx === null || !controls) return;
+    const node = nodes[selectedNodeIdx];
+    if (!node) return;
+
+    const target = new THREE.Vector3(node.x, node.y, node.z);
+    const delta = target.clone().sub(controls.target);
+    controls.target.copy(target);
+    controls.object.position.add(delta);
+    controls.update();
+  }, [selectedNodeIdx, nodes]);
 
   return (
     <Canvas
@@ -59,6 +76,7 @@ function GraphCanvas() {
       <CommunityLabels />
       <Edges />
       <OrbitControls
+        ref={controlsRef}
         enableDamping
         dampingFactor={orbitControls.dampingFactor}
         minDistance={orbitControls.minDistance}
