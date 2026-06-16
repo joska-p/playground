@@ -61,7 +61,8 @@ export function RandomArtCanvas({ size = 400 }: Props) {
           width={size}
           height={size}
           aria-label={`Generative art for seed "${seedText}"`}
-          className="border-border rounded-xl border shadow-lg"
+          className="w-full max-w-[400px] rounded-xl border border-border shadow-lg"
+          style={{ aspectRatio: '1' }}
         />
       </div>
       <button

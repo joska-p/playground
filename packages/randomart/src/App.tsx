@@ -13,7 +13,8 @@ function App() {
         mobilePosition="bottom"
         className="bg-background text-foreground"
       >
-        <Sidebar.Main className="flex min-h-screen flex-col items-center gap-8 p-8">
+        <Sidebar.Main className="flex min-h-screen flex-col items-center gap-8 p-4 sm:p-8">
+          <Sidebar.Toggle />
           <header className="space-y-8 text-center">
             <h1 className="text-utility-4 text-3xl font-extrabold tracking-tight">
               AST &amp; Grammar Inspector
@@ -23,7 +24,7 @@ function App() {
             </p>
           </header>
 
-          <div className="border-border bg-card flex w-full max-w-2xl flex-col gap-8 rounded-2xl border p-8">
+          <div className="border-border bg-card flex w-full max-w-2xl flex-col gap-8 rounded-2xl border p-4 sm:p-8">
             <Controls />
             <div className="border-border bg-background flex justify-center rounded-xl border py-4">
               <RandomArtCanvas />
@@ -31,7 +32,8 @@ function App() {
             <GrammarList />
           </div>
         </Sidebar.Main>
-        <Sidebar.Panel className="flex h-full w-96 flex-col gap-4 overflow-y-auto p-4">
+
+        <Sidebar.Panel className="flex flex-col gap-4 overflow-y-auto p-4 lg:h-full lg:w-96">
           <InspectorPanel />
         </Sidebar.Panel>
       </Sidebar>
