@@ -1,16 +1,16 @@
-# Graph Report - playground  (2026-06-15)
+# Graph Report - playground  (2026-06-16)
 
 ## Corpus Check
-- 1492 files · ~9,417,000 words
+- 1488 files · ~9,525,009 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3210 nodes · 4411 edges · 239 communities (218 shown, 21 thin omitted)
+- 3178 nodes · 4381 edges · 241 communities (218 shown, 23 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `294dd918`
+- Built from commit: `329a5eb9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -213,6 +213,9 @@
 - [[_COMMUNITY_Community 234|Community 234]]
 - [[_COMMUNITY_Community 235|Community 235]]
 - [[_COMMUNITY_Community 236|Community 236]]
+- [[_COMMUNITY_Community 237|Community 237]]
+- [[_COMMUNITY_Community 238|Community 238]]
+- [[_COMMUNITY_Community 239|Community 239]]
 - [[_COMMUNITY_Community 242|Community 242]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -242,7 +245,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (239 total, 21 thin omitted)
+## Communities (241 total, 23 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -333,8 +336,8 @@ Cohesion: 0.12
 Nodes (19): imagePipeline, ManipulationInfo, MANIPULATIONS, pool, RunConfig, ArgDefinition, addWorkflowStep(), executeWorkflow() (+11 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.07
-Nodes (37): PALETTE, PipelineConfig, PipelineResult, runPipeline(), checksumPath, __dirname, fileChecksum(), __filename (+29 more)
+Cohesion: 0.10
+Nodes (28): GraphData, PipelineConfig, PipelineResult, runPipeline(), checksumPath, __dirname, fileChecksum(), __filename (+20 more)
 
 ### Community 23 - "Community 23"
 Cohesion: 0.13
@@ -461,8 +464,8 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 56 - "Community 56"
-Cohesion: 0.07
-Nodes (51): initGraphData(), useCommunities(), useLinks(), useNodes(), graphDataStore, GraphDataState, FilterControls(), DIM_COLOR (+43 more)
+Cohesion: 0.15
+Nodes (14): initGraphData(), GraphDataState, EdgeBuffers, Community, communitySchema, graphDataSchema, GraphLink, graphLinkSchema (+6 more)
 
 ### Community 57 - "Community 57"
 Cohesion: 0.11
@@ -617,8 +620,8 @@ Cohesion: 0.14
 Nodes (13): Available Sequences, Common patterns, Core Philosophy, Data Flow, How to Add a New Sequence, How to Add a New Visualization, Quick Start, @repo/sequence-renderer (+5 more)
 
 ### Community 100 - "Community 100"
-Cohesion: 0.14
-Nodes (13): Available Sequences, Common patterns, Core Philosophy, Data Flow, How to Add a New Sequence, How to Add a New Visualization, Quick Start, @repo/sequence-renderer (+5 more)
+Cohesion: 0.11
+Nodes (18): Available Sequences, Available Utilities, Core Philosophy, Data Flow, Drawing API, How to Add a New Sequence, How to Add a New Visualization, Layers (+10 more)
 
 ### Community 103 - "Community 103"
 Cohesion: 0.15
@@ -657,12 +660,12 @@ Cohesion: 0.17
 Nodes (12): dependsOn, cache, dependsOn, dependsOn, outputs, tasks, check-types, clean (+4 more)
 
 ### Community 113 - "Community 113"
-Cohesion: 0.18
-Nodes (10): Available Rules, Available Visualizations, Data Structures, Engines, Extending, Pluggable Architecture, Sequence Renderer, Shared Patterns (+2 more)
+Cohesion: 0.12
+Nodes (16): Common Architecture, Component Architecture, Constraint-driven generator (`mosaic-maker`), Definition & Registry System, Engine Comparison, Engines, Execution Models, Extending (+8 more)
 
 ### Community 114 - "Community 114"
-Cohesion: 0.13
-Nodes (14): Components, Directory structure, `engine.ts`, Files to delete, Non-goals, Per-rule files, `rules/create-rule.ts`, `rules/registry.ts` (+6 more)
+Cohesion: 0.23
+Nodes (14): useCommunities(), FilterControls(), CommunityLabels(), hideAllCommunities(), initCommunities(), showAllCommunities(), toggleCommunity(), toggleEdges() (+6 more)
 
 ### Community 115 - "Community 115"
 Cohesion: 0.18
@@ -729,8 +732,8 @@ Cohesion: 0.46
 Nodes (5): readFileAsImageData(), imageElementToImageData(), clearImageSource(), setImageSource(), useImageUpload()
 
 ### Community 134 - "Community 134"
-Cohesion: 0.25
-Nodes (7): Adding a Visualization, Checklist, Step 1: Create the Visualization, Step 2: Register the Visualization, Step 3: Test It, The Visualization Interface, Tips
+Cohesion: 0.18
+Nodes (10): Adding a Visualization, Checklist, Layer Type, Optional — compatibility, Optional — custom scale, Step 1: Create a Layer, Step 2: Create a Preset, Step 3: Register It (+2 more)
 
 ### Community 135 - "Community 135"
 Cohesion: 0.25
@@ -762,7 +765,7 @@ Nodes (5): Conventions, Orientation, Running commands, Scope discipline, Write d
 
 ### Community 142 - "Community 142"
 Cohesion: 0.29
-Nodes (6): Adding a Sequence Rule, Checklist, Step 1: Define the Rule, Step 2: Register the Rule, Step 3: Test It, The Rule Interface
+Nodes (6): Adding a Sequence Rule, Checklist, Rule Type, Step 1: Define the Rule, Step 2: Register the Rule, Step 3: Test It
 
 ### Community 143 - "Community 143"
 Cohesion: 0.48
@@ -901,16 +904,12 @@ Cohesion: 0.67
 Nodes (3): cache, persistent, dev
 
 ### Community 197 - "Community 197"
-Cohesion: 0.12
-Nodes (16): 1. Metadata YAML, 2. Component Registration, 3. Tailwind Source Scan, Architecture Changes, Astro Integration, Canvas Component (RandomArtCanvas.tsx), Components, Core Engine (randomart-engine.ts) (+8 more)
-
-### Community 198 - "Community 198"
-Cohesion: 0.17
-Nodes (8): Props, RandomArtCanvas(), buildTree(), evaluateNode(), ExpressionNode, renderPixelBuffer(), renderPixelMapAsBase64(), SeededRandom
+Cohesion: 0.25
+Nodes (12): useLinks(), useNodes(), graphDataStore, computeEdgeBuffers(), DetailsPanel(), getStats(), GraphOverview(), Stat() (+4 more)
 
 ### Community 199 - "Community 199"
-Cohesion: 0.15
-Nodes (12): Sequence Renderer: Automa-lite Implementation Plan, Task 10: Delete old files, Task 11: Verify everything compiles, Task 1: Create `rules/types.ts`, Task 2: Create `rules/create-rule.ts`, Task 3: Create individual rule files, Task 4: Create `rules/registry.ts`, Task 5: Create `engine.ts` (+4 more)
+Cohesion: 0.23
+Nodes (11): DIM_COLOR, dummy, getNodeSize(), HIGHLIGHT_COLOR, splitNodeIndices(), tmpColor, writeInstanceData(), CONFIG (+3 more)
 
 ### Community 206 - "Community 206"
 Cohesion: 0.33
@@ -952,28 +951,36 @@ Nodes (10): rules, collatzRule, factoryRule(), RuleConfig, fibonacciRule, primes
 Cohesion: 0.17
 Nodes (10): calculateRecamanScale(), findBiggestInterval(), DrawFn, DrawingContext, LayerDefinition, LayerEntry, ScaleCalculator, SequenceMeta (+2 more)
 
+### Community 237 - "Community 237"
+Cohesion: 0.25
+Nodes (6): buildTree(), evaluateNode(), ExpressionNode, renderPixelBuffer(), renderPixelMapAsBase64(), SeededRandom
+
+### Community 238 - "Community 238"
+Cohesion: 0.27
+Nodes (9): Force, ForceCenter, ForceCollide, ForceLink, ForceManyBody, Simulation, SimulationLinkDatum, SimulationNodeDatum (+1 more)
+
 ### Community 242 - "Community 242"
 Cohesion: 0.50
 Nodes (3): turbo, $schema, ui
 
 ## Knowledge Gaps
-- **1748 isolated node(s):** `isVercel`, `name`, `type`, `version`, `node` (+1743 more)
+- **1727 isolated node(s):** `isVercel`, `name`, `type`, `version`, `node` (+1722 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Community 75` to `Community 0`, `Community 74`, `Community 27`, `Community 93`?**
+- **Why does `cn()` connect `Community 75` to `Community 0`, `Community 74`, `Community 93`?**
   _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Why does `Tile()` connect `Community 0` to `Community 75`?**
-  _High betweenness centrality (0.047) - this node is a cross-community bridge._
+  _High betweenness centrality (0.048) - this node is a cross-community bridge._
 - **Why does `Controls()` connect `Community 93` to `Community 75`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
+  _High betweenness centrality (0.039) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `cn()` (e.g. with `Tile()` and `Controls()`) actually correct?**
   _`cn()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `isVercel`, `name`, `type` to the rest of the system?**
-  _1748 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1727 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.05133599831685252 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**

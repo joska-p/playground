@@ -1,6 +1,6 @@
 ---
 title: 'Adding a Visualization'
-description: 'Add a new visualization to the Sequence Renderer engine.'
+description: 'Add a new visualization to the Sequence Renderer engine using the layered architecture.'
 category: 'how-to'
 tags:
   - how-to
@@ -8,117 +8,175 @@ tags:
 
 # Adding a Visualization
 
-Visualizations define _how to draw_ a sequence. Rules define _what numbers_ to generate. This guide shows how to add a new visualization.
+Visualizations define _how to draw_ a sequence. The system uses a layered
+architecture — individual drawing units called **layers** are composed into
+**presets** via `visualisationFactory()`.
 
 ---
 
-## The Visualization Interface
+## Layer Type
+
+Layers receive a pre-computed `DrawingContext` — canvas sizing, clearing, and
+centering offsets are handled automatically:
 
 ```typescript
-type Visualization = {
-  id: string;
-  name: string;
-  draw: (options: { canvas: HTMLCanvasElement; sequence: number[] }) => void;
+export type DrawingContext = {
+  canvas: HTMLCanvasElement;
+  context: CanvasRenderingContext2D;
+  sequence: number[];
+  containerSize: { width: number; height: number };
+  maxVal: number;
+  valueScale: number;
+  offsetX: number;
+  offsetY: number;
+  textColor: string;
 };
 ```
 
-The `draw` function receives an options object containing the canvas element and the generated sequence array.
+Layers are created with `defineLayer()` which provides a `.defaults()` /
+`.draw()` builder and returns a `.with()` configurator.
 
 ---
 
-## Step 1: Create the Visualization
+## Step 1: Create a Layer
 
-Create `packages/sequence-renderer/src/core/visualizations/myViz.ts`:
+Create `packages/sequence-renderer/src/core/visualizations/layers/myLayer.ts`:
 
 ```typescript
-import type { Visualization } from './types';
+import { defineLayer } from '../layerFactory';
 
-function draw({
-  canvas,
-  sequence
-}: {
-  canvas: HTMLCanvasElement;
-  sequence: number[];
-}): void {
-  if (!canvas.parentElement) return;
+type MyLayerOptions = { lineWidth: number; alpha: number };
 
-  const width = canvas.parentElement.clientWidth;
-  const height = canvas.parentElement.clientHeight;
-  canvas.width = width;
-  canvas.height = height;
+const myLayer = defineLayer<MyLayerOptions>()
+  .defaults({ lineWidth: 2, alpha: 0.8 })
+  .draw((ctx, options) => {
+    ctx.context.save();
+    ctx.context.strokeStyle = 'hsl(160, 50%, 50%)';
+    ctx.context.lineWidth = options.lineWidth;
+    ctx.context.globalAlpha = options.alpha;
 
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-  ctx.clearRect(0, 0, width, height);
+    // ctx.offsetX, ctx.offsetY — pre-computed centering offsets
+    // ctx.valueScale — pixels per unit
+    // ctx.sequence — the generated numbers
+    // ctx.context — CanvasRenderingContext2D
 
-  // Your drawing logic here
-  const maxVal = Math.max(...sequence, 0);
-  const stepX = width / (sequence.length - 1 || 1);
-  const scaleY = height / maxVal;
-
-  ctx.beginPath();
-  ctx.strokeStyle = 'hsl(160, 50%, 50%)';
-  ctx.lineWidth = 2;
-
-  sequence.forEach((value, index) => {
-    const x = index * stepX;
-    const y = height - value * scaleY;
-    if (index === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+    ctx.context.beginPath();
+    ctx.context.moveTo(ctx.offsetX, ctx.offsetY);
+    ctx.context.lineTo(
+      ctx.offsetX + (ctx.maxVal * ctx.valueScale) / 2,
+      ctx.offsetY - 50
+    );
+    ctx.context.stroke();
+    ctx.context.restore();
   });
 
-  ctx.stroke();
-}
+export { myLayer };
+```
 
-export const myViz: Visualization = {
+The layer can be configured at composition time via `.with({ lineWidth: 3 })`.
+
+---
+
+## Step 2: Create a Preset
+
+Create `packages/sequence-renderer/src/core/visualizations/presets/myViz.ts`:
+
+```typescript
+import { visualisationFactory } from '../visualisationFactory';
+import { basePreset } from './base';
+import { myLayer } from '../layers/myLayer';
+
+export const myViz = visualisationFactory({
   id: 'my-viz',
   name: 'My Visualization',
-  draw
+  layers: [...basePreset, myLayer.with({ lineWidth: 3 })]
+});
+```
+
+The `basePreset` includes `drawBaseline` (horizontal axis line) and
+`drawPlottedNumbers` (dots at each value). You can use it as a starting
+point or build entirely from your own layers.
+
+### Optional — custom scale
+
+Pass a `calculateScale` function to control how sequence values map to
+pixels:
+
+```typescript
+import type { ScaleCalculator } from '../types';
+
+const myScale: ScaleCalculator = ({ sequence, containerSize }) => {
+  const maxVal = Math.max(...sequence, 0);
+  return (containerSize.width * 0.9) / (maxVal || 1);
 };
+
+export const myViz = visualisationFactory({
+  id: 'my-viz',
+  name: 'My Visualization',
+  layers: [...basePreset, myLayer.with()],
+  calculateScale: myScale
+});
+```
+
+### Optional — compatibility
+
+Use `compatibleWith` to restrict which sequences the visualization works
+with:
+
+```typescript
+compatibleWith: (meta) => meta.hasIntervals;
 ```
 
 ---
 
-## Step 2: Register the Visualization
+## Step 3: Register It
 
-In `packages/sequence-renderer/src/core/visualizations/registry.ts`, import your visualization and register it in the map:
+In `packages/sequence-renderer/src/core/visualizations/registry.ts`, import
+your preset and add it to the `visualizationRegistry` Map:
 
 ```typescript
-import { myViz } from './myViz';
+import { myViz } from './presets/myViz';
 
-// Inside the Map constructor in registry.ts:
-const visualizations = new Map<string, Visualization>([
-  [recamanArcs.id, recamanArcs],
-  [factorWave.id, factorWave],
+export const visualizationRegistry = new Map<string, Visualization>([
+  [frontWave.id, frontWave],
+  [recamanWalk.id, recamanWalk],
   [myViz.id, myViz]
 ]);
 ```
 
+The visualization appears in the UI dropdown automatically.
+
 ---
 
-## Step 3: Test It
+## Step 4: Test It
 
 ```bash
 pnpm --filter @repo/sequence-renderer build
 pnpm --filter @repo/playground dev
 ```
 
-Visit `http://localhost:4321/projects/generative/sequences/` and select your new visualization from the dropdown.
+Visit `http://localhost:4321/projects/generative/sequences/` and select your
+new visualization from the dropdown.
 
 ---
 
 ## Tips
 
-- **Canvas sizing**: Always size canvas to its parent container
-- **Cleanup**: Call `ctx.clearRect()` before drawing
-- **Scaling**: Account for `maxVal` when mapping sequence values to pixel coordinates
-- **Styling**: Use HSL colors for easy theming
+- **Use `defineLayer()`** — it handles `save`/`restore` and provides
+  configurable defaults
+- **Share layers across presets** — layers are composable units, not tied to
+  one visualization
+- **`DrawingContext` is pre-computed** — canvas sizing, clearing, and
+  centering offsets are handled by `visualisationFactory`
+- **Scale calculators** go in `src/core/visualizations/scales/` and can be
+  composed with `combineScales()`
 
 ---
 
 ## Checklist
 
-- [ ] Visualization has a unique `id`
+- [ ] Layer has a unique `id`
+- [ ] Preset has a unique `id`
 - [ ] Handles empty sequences gracefully
-- [ ] Canvas resizes with its container
+- [ ] Uses `DrawingContext` properties instead of manual canvas sizing
 - [ ] Appears in the UI dropdown

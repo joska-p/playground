@@ -12,7 +12,7 @@ Rules define _what numbers to generate_. Visualizations define _how to draw them
 
 ---
 
-## The Rule Interface
+## Rule Type
 
 ```typescript
 type NextStepOptions = {
@@ -20,14 +20,6 @@ type NextStepOptions = {
   current: number;
   sequence: number[];
   seen: Set<number>;
-};
-
-type SequenceRule = {
-  name: string;
-  id: string;
-  description: string;
-  maxSteps: number;
-  getNext: (options: NextStepOptions) => number;
 };
 ```
 
@@ -40,16 +32,19 @@ type SequenceRule = {
 | `sequence` | `number[]`    | The full sequence generated so far |
 | `seen`     | `Set<number>` | All unique values generated so far |
 
+Rules are created with `factoryRule()` which validates the config and returns
+a frozen `SequenceRule` object.
+
 ---
 
 ## Step 1: Define the Rule
 
-Create a new file `packages/sequence-renderer/src/core/rules/myRule.ts`:
+Create `packages/sequence-renderer/src/core/rules/myRule.ts`:
 
 ```typescript
-import type { SequenceRule } from './types';
+import { factoryRule } from './create-rule';
 
-export const myRule: SequenceRule = {
+export const myRule = factoryRule({
   name: 'My Rule',
   id: 'my-rule',
   description: 'What it does.',
@@ -58,7 +53,7 @@ export const myRule: SequenceRule = {
     // Your math here
     return current + index;
   }
-};
+});
 ```
 
 Example — Recamán's Rule:
@@ -70,16 +65,19 @@ getNext: ({ index, current, seen }) => {
 };
 ```
 
+`factoryRule` validates that `id`, `name`, and `getNext` are present and
+that `maxSteps >= 2`. It returns an immutable frozen object.
+
 ---
 
 ## Step 2: Register the Rule
 
-In `packages/sequence-renderer/src/core/rules/registry.ts`, import your rule and register it in the map:
+In `packages/sequence-renderer/src/core/rules/registry.ts`, import your rule
+and add it to the `rules` Map:
 
 ```typescript
 import { myRule } from './myRule';
 
-// Inside the Map constructor in registry.ts:
 const rules = new Map<string, SequenceRule>([
   [recamanRule.id, recamanRule],
   [fibonacciRule.id, fibonacciRule],
@@ -90,6 +88,8 @@ const rules = new Map<string, SequenceRule>([
 ]);
 ```
 
+The rule appears in the UI dropdown automatically — no extra wiring.
+
 ---
 
 ## Step 3: Test It
@@ -99,7 +99,8 @@ pnpm --filter @repo/sequence-renderer build
 pnpm --filter @repo/playground dev
 ```
 
-Visit `http://localhost:4321/projects/generative/sequences/` and select your new rule from the dropdown.
+Visit `http://localhost:4321/projects/generative/sequences/` and select your
+new rule from the dropdown.
 
 ---
 

@@ -39,15 +39,19 @@ The codebase follows a **monorepo** structure with clear separation between the 
 
 ### Packages
 
-| Package                       | Purpose                                   |
-| ----------------------------- | ----------------------------------------- |
-| `packages/ui`                 | Shared React components with CVA variants |
-| `packages/mosaic-maker`       | CSS Grid patterns from color palettes     |
-| `packages/sequence-renderer`  | Math sequence visualization engine        |
-| `packages/palette-generator`  | Color theory scheme generator             |
-| `packages/image-to-particles` | Image → particle physics deconstruction   |
-| `packages/graph-viz`          | Interactive graph visualization           |
-| `packages/image-manipulator`  | Image manipulation with particles         |
+| Package                       | Purpose                                                 |
+| ----------------------------- | ------------------------------------------------------- |
+| `packages/ui`                 | Shared React components with CVA variants               |
+| `packages/worker-pool`        | Typed Web Worker pool for off-thread computation        |
+| `packages/automa`             | Cellular automaton simulator with WebGL rendering       |
+| `packages/mosaic-maker`       | CSS Grid patterns from color palettes                   |
+| `packages/sequence-renderer`  | Math sequence visualization engine                      |
+| `packages/palette-generator`  | Color theory scheme generator                           |
+| `packages/randomart`          | Procedural art from mathematical expression trees       |
+| `packages/image-pipeline`     | Image processing pipeline (runs transforms via workers) |
+| `packages/image-to-particles` | Image → particle physics deconstruction                 |
+| `packages/image-manipulator`  | Image upload, transform, and compare UI                 |
+| `packages/graph-viz`          | Interactive graph visualization                         |
 
 ### Data Flow
 

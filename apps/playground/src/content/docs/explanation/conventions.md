@@ -33,17 +33,17 @@ Use Zod to validate external data (API responses, user input). Validate at the e
 
 ## Error Handling
 
-- Use `react-error-boundary` — don't create one from scratch. Place at every route boundary minimum. Add a feature-level boundary for self-contained widgets. Do not wrap every component.
+- Use `@repo/ui/ErrorBoundary` — don't create one from scratch. Place at every route boundary minimum. Add a feature-level boundary for self-contained widgets. Do not wrap every component.
 - Never silently swallow errors (`catch (e) {}`).
 
 ## Zustand Stores
 
 - Store files live in `stores/[domain]/`.
 - Single-component UI state → `useState`. Promote to Zustand only when consumed by multiple unrelated components.
-- Single-file store is acceptable under ~120 lines. Split into 4 files beyond that:
+- Single-file store is acceptable under ~120 lines. Split into a domain directory beyond that:
   - `store.ts` — `create()` + raw store export (internal only)
   - `actions.ts` — all mutators + async orchestration
-  - `selectors.ts` — all read hooks
+  - `selectors/` — one file per selector hook, each named after the hook it exports (e.g. `useRows.ts` exports `useRows()`)
   - `types.ts` — store-specific types
 - Raw store named `camelCase[Domain]Store` — never imported in components.
 - Async orchestration in `actions.ts` as a plain async function using `getState()`/`setState()`. No thunk middleware:

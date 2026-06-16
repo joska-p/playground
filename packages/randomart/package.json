@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/App.tsx",
-    "./renderPixelMapAsBase64": "./src/utils/randomart-engine.ts",
+    "./renderPixelMapAsBase64": "./src/core/randomart-engine.ts",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {

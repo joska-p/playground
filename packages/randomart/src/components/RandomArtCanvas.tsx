@@ -1,5 +1,5 @@
 import { useEffect, useRef, useTransition } from 'react';
-import { renderPixelBuffer } from '../utils/randomart-engine';
+import { renderPixelBuffer } from '../core/randomart-engine';
 
 type Props = {
   seedString: string;
