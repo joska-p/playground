@@ -1,14 +1,15 @@
-import { App as AutomaApp } from '@repo/automa';
-import { App as GraphifyApp } from '@repo/graph-viz';
-import { App as ImageManipulatorApp } from '@repo/image-manipulator';
-import { App as PipelineApp } from '@repo/image-pipeline/App';
-import { App as ParticlesApp } from '@repo/image-to-particles';
-import { App as MosaicApp } from '@repo/mosaic-maker';
-import { App as PaletteApp } from '@repo/palette-generator';
-import { App as RandomArtApp } from '@repo/randomart';
-import { App as SequenceApp } from '@repo/sequence-renderer';
-import { App as ThreeStageApp } from '@repo/three-stage';
-import React from 'react';
+import React, { Suspense } from 'react';
+
+const AutomaApp = React.lazy(() => import('@repo/automa').then(m => ({ default: m.App })));
+const GraphifyApp = React.lazy(() => import('@repo/graph-viz').then(m => ({ default: m.App })));
+const ImageManipulatorApp = React.lazy(() => import('@repo/image-manipulator').then(m => ({ default: m.App })));
+const PipelineApp = React.lazy(() => import('@repo/image-pipeline/App').then(m => ({ default: m.App })));
+const ParticlesApp = React.lazy(() => import('@repo/image-to-particles').then(m => ({ default: m.App })));
+const MosaicApp = React.lazy(() => import('@repo/mosaic-maker').then(m => ({ default: m.App })));
+const PaletteApp = React.lazy(() => import('@repo/palette-generator').then(m => ({ default: m.App })));
+const RandomArtApp = React.lazy(() => import('@repo/randomart').then(m => ({ default: m.App })));
+const SequenceApp = React.lazy(() => import('@repo/sequence-renderer').then(m => ({ default: m.App })));
+const ThreeStageApp = React.lazy(() => import('@repo/three-stage').then(m => ({ default: m.App })));
 
 const components: Record<string, React.ComponentType> = {
   mosaic: MosaicApp,
@@ -25,5 +26,10 @@ const components: Record<string, React.ComponentType> = {
 
 export function DynamicProjectApp({ slug }: { slug: string }) {
   const Component = components[slug];
-  return <Component />;
+  if (!Component) return null;
+  return (
+    <Suspense fallback={<div>Loading project...</div>}>
+      <Component />
+    </Suspense>
+  );
 }

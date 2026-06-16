@@ -37,6 +37,18 @@ export default defineConfig({
     resolve: {
       // @ts-expect-error — Vite 7 types lack tsconfigPaths, but Vite 8/Rolldown requires it
       tsconfigPaths: true
+    },
+    build: {
+      chunkSizeWarningLimit: 1200,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/three')) return 'vendor-three';
+            if (id.includes('node_modules/@react-three')) return 'vendor-r3f';
+            if (id.includes('node_modules/colorjs.io')) return 'vendor-colorjs';
+          }
+        }
+      }
     }
   },
 
