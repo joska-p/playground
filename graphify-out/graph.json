@@ -2458,7 +2458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_creatureselector",
-      "community": 237,
+      "community": 114,
       "norm_label": "creatureselector.tsx"
     },
     {
@@ -2468,7 +2468,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_creatureselector_creatureselector",
-      "community": 237,
+      "community": 114,
       "norm_label": "creatureselector()"
     },
     {
@@ -2608,7 +2608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_ruleselector",
-      "community": 114,
+      "community": 199,
       "norm_label": "ruleselector.tsx"
     },
     {
@@ -2618,7 +2618,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_ruleselector_ruleselector",
-      "community": 114,
+      "community": 199,
       "norm_label": "ruleselector()"
     },
     {
@@ -2708,7 +2708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_statecolorpicker",
-      "community": 114,
+      "community": 199,
       "norm_label": "statecolorpicker.tsx"
     },
     {
@@ -2718,7 +2718,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrowprops",
-      "community": 114,
+      "community": 199,
       "norm_label": "colorrowprops"
     },
     {
@@ -2728,7 +2728,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrow",
-      "community": 114,
+      "community": 199,
       "norm_label": "colorrow()"
     },
     {
@@ -2738,7 +2738,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "controls_statecolorpicker_statecolorpicker",
-      "community": 114,
+      "community": 199,
       "norm_label": "statecolorpicker()"
     },
     {
@@ -2748,7 +2748,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_config_ts_core_config",
-      "community": 18,
+      "community": 20,
       "norm_label": "config.ts"
     },
     {
@@ -2758,7 +2758,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_config_default_state_colors",
-      "community": 18,
+      "community": 20,
       "norm_label": "default_state_colors"
     },
     {
@@ -2768,7 +2768,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "core_config_state_fallback_colors",
-      "community": 18,
+      "community": 20,
       "norm_label": "state_fallback_colors"
     },
     {
@@ -3008,7 +3008,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "creature_registry_getallcreatures",
-      "community": 237,
+      "community": 114,
       "norm_label": "getallcreatures()"
     },
     {
@@ -3068,7 +3068,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_grid",
-      "community": 20,
+      "community": 31,
       "norm_label": "grid.ts"
     },
     {
@@ -3078,7 +3078,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_grid_creategrid",
-      "community": 20,
+      "community": 31,
       "norm_label": "creategrid()"
     },
     {
@@ -3088,7 +3088,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_grid_seedgrid",
-      "community": 20,
+      "community": 31,
       "norm_label": "seedgrid()"
     },
     {
@@ -3478,7 +3478,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_types_ts_core_types",
-      "community": 20,
+      "community": 31,
       "norm_label": "types.ts"
     },
     {
@@ -3488,7 +3488,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_types_cellvalue",
-      "community": 20,
+      "community": 31,
       "norm_label": "cellvalue"
     },
     {
@@ -3498,7 +3498,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_types_grid",
-      "community": 20,
+      "community": 31,
       "norm_label": "grid"
     },
     {
@@ -3808,7 +3808,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "simulation_actions_init",
-      "community": 20,
+      "community": 31,
       "norm_label": "init()"
     },
     {
@@ -4008,7 +4008,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useruleid_useruleid",
-      "community": 114,
+      "community": 199,
       "norm_label": "useruleid()"
     },
     {
@@ -4058,7 +4058,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "ui_actions_settoolmode",
-      "community": 18,
+      "community": 114,
       "norm_label": "settoolmode()"
     },
     {
@@ -4078,7 +4078,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "ui_actions_setstatecolor",
-      "community": 114,
+      "community": 199,
       "norm_label": "setstatecolor()"
     },
     {
@@ -4108,7 +4108,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "ui_actions_setpalettebrush",
-      "community": 237,
+      "community": 114,
       "norm_label": "setpalettebrush()"
     },
     {
@@ -4178,7 +4178,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usepalettebrush_usepalettebrush",
-      "community": 237,
+      "community": 114,
       "norm_label": "usepalettebrush()"
     },
     {
@@ -4378,7 +4378,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng",
-      "community": 20,
+      "community": 31,
       "norm_label": "rng.ts"
     },
     {
@@ -4388,7 +4388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng_createseededrandom",
-      "community": 20,
+      "community": 31,
       "norm_label": "createseededrandom()"
     },
     {
@@ -7698,7 +7698,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app",
-      "community": 61,
+      "community": 197,
       "norm_label": "app.tsx"
     },
     {
@@ -7708,7 +7708,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_image_manipulator_src_app_tsx_src_app_app",
-      "community": 61,
+      "community": 197,
       "norm_label": "app()"
     },
     {
@@ -7758,7 +7758,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "layout_controls_controls",
-      "community": 61,
+      "community": 197,
       "norm_label": "controls()"
     },
     {
@@ -7768,7 +7768,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "layout_imagemanipulator",
-      "community": 61,
+      "community": 197,
       "norm_label": "imagemanipulator.tsx"
     },
     {
@@ -7778,7 +7778,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "layout_imagemanipulator_imagemanipulator",
-      "community": 61,
+      "community": 197,
       "norm_label": "imagemanipulator()"
     },
     {
@@ -7888,7 +7888,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_comparetoggle",
-      "community": 107,
+      "community": 197,
       "norm_label": "comparetoggle.tsx"
     },
     {
@@ -7898,7 +7898,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "output_comparetoggle_comparetoggleprops",
-      "community": 107,
+      "community": 197,
       "norm_label": "comparetoggleprops"
     },
     {
@@ -7908,7 +7908,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "output_comparetoggle_comparetoggle",
-      "community": 107,
+      "community": 197,
       "norm_label": "comparetoggle()"
     },
     {
@@ -8008,7 +8008,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_outputs",
-      "community": 107,
+      "community": 197,
       "norm_label": "outputs.tsx"
     },
     {
@@ -8018,7 +8018,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "output_outputs_outputs",
-      "community": 107,
+      "community": 197,
       "norm_label": "outputs()"
     },
     {
@@ -8028,7 +8028,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "output_processingoverlay",
-      "community": 107,
+      "community": 197,
       "norm_label": "processingoverlay.tsx"
     },
     {
@@ -8038,7 +8038,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "output_processingoverlay_processingoverlay",
-      "community": 107,
+      "community": 197,
       "norm_label": "processingoverlay()"
     },
     {
@@ -8108,7 +8108,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "upload_imagesourcecontrols",
-      "community": 74,
+      "community": 61,
       "norm_label": "imagesourcecontrols.tsx"
     },
     {
@@ -8188,7 +8188,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_uploadzone_uploadzone",
-      "community": 74,
+      "community": 61,
       "norm_label": "uploadzone()"
     },
     {
@@ -8198,7 +8198,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_index",
-      "community": 74,
+      "community": 61,
       "norm_label": "index.ts"
     },
     {
@@ -8208,7 +8208,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "uploadzone_useuploadzone",
-      "community": 74,
+      "community": 197,
       "norm_label": "useuploadzone.ts"
     },
     {
@@ -8218,7 +8218,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "uploadzone_useuploadzone_useuploadzone",
-      "community": 74,
+      "community": 197,
       "norm_label": "useuploadzone()"
     },
     {
@@ -8558,7 +8558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workflows_workflows",
-      "community": 19,
+      "community": 61,
       "norm_label": "workflows.ts"
     },
     {
@@ -8568,7 +8568,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "workflows_workflows_workflowpresetstep",
-      "community": 19,
+      "community": 61,
       "norm_label": "workflowpresetstep"
     },
     {
@@ -8578,7 +8578,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "workflows_workflows_workflowpreset",
-      "community": 19,
+      "community": 61,
       "norm_label": "workflowpreset"
     },
     {
@@ -8688,7 +8688,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "manipulator_actions_clearoutputs",
-      "community": 74,
+      "community": 61,
       "norm_label": "clearoutputs()"
     },
     {
@@ -8788,7 +8788,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useimagesource_useimagesource",
-      "community": 107,
+      "community": 197,
       "norm_label": "useimagesource()"
     },
     {
@@ -8808,7 +8808,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "selectors_useisprocessing_useisprocessing",
-      "community": 107,
+      "community": 197,
       "norm_label": "useisprocessing()"
     },
     {
@@ -8848,7 +8848,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useworkflowsteps_useworkflowsteps",
-      "community": 234,
+      "community": 107,
       "norm_label": "useworkflowsteps()"
     },
     {
@@ -9948,7 +9948,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "api_pipeline_worker",
-      "community": 19,
+      "community": 117,
       "norm_label": "pipeline-worker.ts"
     },
     {
@@ -9958,7 +9958,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "api_pipeline_worker_workermessage",
-      "community": 19,
+      "community": 117,
       "norm_label": "workermessage"
     },
     {
@@ -10578,7 +10578,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_buffer_manager",
-      "community": 199,
+      "community": 19,
       "norm_label": "buffer-manager.ts"
     },
     {
@@ -10588,7 +10588,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager",
-      "community": 199,
+      "community": 19,
       "norm_label": "buffermanager"
     },
     {
@@ -10598,7 +10598,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_constructor",
-      "community": 199,
+      "community": 19,
       "norm_label": ".constructor()"
     },
     {
@@ -10608,7 +10608,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_current",
-      "community": 199,
+      "community": 19,
       "norm_label": ".current()"
     },
     {
@@ -10618,7 +10618,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_other",
-      "community": 199,
+      "community": 19,
       "norm_label": ".other()"
     },
     {
@@ -10628,7 +10628,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_width",
-      "community": 199,
+      "community": 19,
       "norm_label": ".width()"
     },
     {
@@ -10638,7 +10638,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_height",
-      "community": 199,
+      "community": 19,
       "norm_label": ".height()"
     },
     {
@@ -10648,7 +10648,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_swap",
-      "community": 199,
+      "community": 19,
       "norm_label": ".swap()"
     },
     {
@@ -10658,7 +10658,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_snapshot",
-      "community": 199,
+      "community": 19,
       "norm_label": ".snapshot()"
     },
     {
@@ -10668,7 +10668,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "core_buffer_manager_buffermanager_replacewith",
-      "community": 199,
+      "community": 19,
       "norm_label": ".replacewith()"
     },
     {
@@ -10678,7 +10678,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_fusion_scheduler",
-      "community": 199,
+      "community": 19,
       "norm_label": "fusion-scheduler.ts"
     },
     {
@@ -10688,7 +10688,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_fusion_scheduler_runfusedpixelbatch",
-      "community": 199,
+      "community": 19,
       "norm_label": "runfusedpixelbatch()"
     },
     {
@@ -10698,7 +10698,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler",
-      "community": 117,
+      "community": 19,
       "norm_label": "fusionscheduler"
     },
     {
@@ -10708,7 +10708,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_add",
-      "community": 117,
+      "community": 19,
       "norm_label": ".add()"
     },
     {
@@ -10718,7 +10718,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "core_fusion_scheduler_fusionscheduler_flush",
-      "community": 199,
+      "community": 19,
       "norm_label": ".flush()"
     },
     {
@@ -10818,7 +10818,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "core_image_pipeline_types_manipulationdefinition",
-      "community": 117,
+      "community": 19,
       "norm_label": "manipulationdefinition"
     },
     {
@@ -10888,7 +10888,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "manipulations_manifest_step",
-      "community": 19,
+      "community": 117,
       "norm_label": "step"
     },
     {
@@ -18165,7 +18165,7 @@
       "label": "Props",
       "file_type": "code",
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
-      "source_location": "L9",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "components_randomartcanvas_props",
       "community": 198,
@@ -18175,7 +18175,7 @@
       "label": "RandomArtCanvas()",
       "file_type": "code",
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
-      "source_location": "L13",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "components_randomartcanvas_randomartcanvas",
       "community": 198,
@@ -18195,7 +18195,7 @@
       "label": "Controls()",
       "file_type": "code",
       "source_file": "packages/randomart/src/components/controls/Controls.tsx",
-      "source_location": "L3",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "packages_randomart_src_components_controls_controls_tsx_controls_controls_controls",
       "community": 198,
@@ -18215,7 +18215,7 @@
       "label": "SeedInput()",
       "file_type": "code",
       "source_file": "packages/randomart/src/components/controls/SeedInput.tsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "controls_seedinput_seedinput",
       "community": 198,
@@ -18305,7 +18305,7 @@
       "label": "GrammarList()",
       "file_type": "code",
       "source_file": "packages/randomart/src/components/inspector/GrammarList.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "_origin": "ast",
       "id": "inspector_grammarlist_grammarlist",
       "community": 198,
@@ -27192,44 +27192,24 @@
       "norm_label": "orientation"
     },
     {
-      "label": "Conventions",
+      "label": "Conventions & Rules (Read On-Demand Only)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
-      "id": "agents_conventions",
+      "id": "agents_conventions_rules_read_on_demand_only",
       "community": 141,
-      "norm_label": "conventions"
+      "norm_label": "conventions & rules (read on-demand only)"
     },
     {
-      "label": "Write documentations",
+      "label": "Running Commands",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L14",
-      "_origin": "ast",
-      "id": "agents_write_documentations",
-      "community": 141,
-      "norm_label": "write documentations"
-    },
-    {
-      "label": "Running commands",
-      "file_type": "document",
-      "source_file": "AGENTS.md",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "agents_running_commands",
       "community": 141,
       "norm_label": "running commands"
-    },
-    {
-      "label": "Scope discipline",
-      "file_type": "document",
-      "source_file": "AGENTS.md",
-      "source_location": "L34",
-      "_origin": "ast",
-      "id": "agents_scope_discipline",
-      "community": 141,
-      "norm_label": "scope discipline"
     },
     {
       "label": "README.md",
@@ -29715,37 +29695,67 @@
       "label": "Quick Start",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
-      "source_location": "L15",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "packages_randomart_quick_start",
       "community": 227,
       "norm_label": "quick start"
     },
     {
-      "label": "Documentation",
+      "label": "Architecture",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
-      "source_location": "L23",
+      "source_location": "L19",
       "_origin": "ast",
-      "id": "packages_randomart_documentation",
+      "id": "packages_randomart_architecture",
       "community": 227,
-      "norm_label": "documentation"
+      "norm_label": "architecture"
     },
     {
-      "label": "Adding to the Playground",
+      "label": "Core Domain (`src/core/`)",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
-      "source_location": "L29",
+      "source_location": "L39",
       "_origin": "ast",
-      "id": "packages_randomart_adding_to_the_playground",
+      "id": "packages_randomart_core_domain_src_core",
       "community": 227,
-      "norm_label": "adding to the playground"
+      "norm_label": "core domain (`src/core/`)"
+    },
+    {
+      "label": "Grammar System (`src/core/grammar/`)",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "packages_randomart_grammar_system_src_core_grammar",
+      "community": 227,
+      "norm_label": "grammar system (`src/core/grammar/`)"
+    },
+    {
+      "label": "Store (`src/stores/randomart/`)",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L55",
+      "_origin": "ast",
+      "id": "packages_randomart_store_src_stores_randomart",
+      "community": 227,
+      "norm_label": "store (`src/stores/randomart/`)"
+    },
+    {
+      "label": "Exports",
+      "file_type": "document",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L69",
+      "_origin": "ast",
+      "id": "packages_randomart_exports",
+      "community": 227,
+      "norm_label": "exports"
     },
     {
       "label": "Conventions",
       "file_type": "document",
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
-      "source_location": "L60",
+      "source_location": "L78",
       "_origin": "ast",
       "id": "packages_randomart_conventions",
       "community": 227,
@@ -32020,206 +32030,6 @@
       "id": "randomart_readme_conventions",
       "community": 206,
       "norm_label": "conventions"
-    },
-    {
-      "label": "REFACTOR-PLAN.md",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan",
-      "community": 197,
-      "norm_label": "refactor-plan.md"
-    },
-    {
-      "label": "Refactor Plan: Apply Engine Pattern to `@repo/randomart`",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "community": 197,
-      "norm_label": "refactor plan: apply engine pattern to `@repo/randomart`"
-    },
-    {
-      "label": "Architecture Target",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L3",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_architecture_target",
-      "community": 197,
-      "norm_label": "architecture target"
-    },
-    {
-      "label": "Phase 0 \u2014 Convention Cleanup",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L25",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_phase_0_convention_cleanup",
-      "community": 197,
-      "norm_label": "phase 0 \u2014 convention cleanup"
-    },
-    {
-      "label": "Phase 1 \u2014 Core Domain: Grammar Definition / Registry",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L36",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "community": 197,
-      "norm_label": "phase 1 \u2014 core domain: grammar definition / registry"
-    },
-    {
-      "label": "New ExpressionNode type (`src/core/types.ts`)",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_new_expressionnode_type_src_core_types_ts",
-      "community": 197,
-      "norm_label": "new expressionnode type (`src/core/types.ts`)"
-    },
-    {
-      "label": "GrammarRule type (`src/core/grammar/types.ts`)",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L48",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_grammarrule_type_src_core_grammar_types_ts",
-      "community": 197,
-      "norm_label": "grammarrule type (`src/core/grammar/types.ts`)"
-    },
-    {
-      "label": "Files to create",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L65",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_files_to_create",
-      "community": 197,
-      "norm_label": "files to create"
-    },
-    {
-      "label": "Files to modify",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L84",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_files_to_modify",
-      "community": 197,
-      "norm_label": "files to modify"
-    },
-    {
-      "label": "Files to delete",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_files_to_delete",
-      "community": 197,
-      "norm_label": "files to delete"
-    },
-    {
-      "label": "Phase 2 \u2014 State Orchestration: Zustand Store",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L99",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_phase_2_state_orchestration_zustand_store",
-      "community": 197,
-      "norm_label": "phase 2 \u2014 state orchestration: zustand store"
-    },
-    {
-      "label": "Store structure",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L101",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_store_structure",
-      "community": 197,
-      "norm_label": "store structure"
-    },
-    {
-      "label": "State shape",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L115",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_state_shape",
-      "community": 197,
-      "norm_label": "state shape"
-    },
-    {
-      "label": "Pattern",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L133",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_pattern",
-      "community": 197,
-      "norm_label": "pattern"
-    },
-    {
-      "label": "Phase 3 \u2014 Presentation: Sidebar + Decomposed Components",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L142",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_phase_3_presentation_sidebar_decomposed_components",
-      "community": 197,
-      "norm_label": "phase 3 \u2014 presentation: sidebar + decomposed components"
-    },
-    {
-      "label": "Component tree",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L144",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_component_tree",
-      "community": 197,
-      "norm_label": "component tree"
-    },
-    {
-      "label": "Files to create",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L163",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_files_to_create_163",
-      "community": 197,
-      "norm_label": "files to create"
-    },
-    {
-      "label": "Files to modify",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L178",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_files_to_modify_178",
-      "community": 197,
-      "norm_label": "files to modify"
-    },
-    {
-      "label": "Files to delete",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L187",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_files_to_delete_187",
-      "community": 197,
-      "norm_label": "files to delete"
-    },
-    {
-      "label": "Verification",
-      "file_type": "document",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L193",
-      "_origin": "ast",
-      "id": "randomart_refactor_plan_verification",
-      "community": 197,
-      "norm_label": "verification"
     },
     {
       "label": "README.md",
@@ -61371,9 +61181,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "inspector_grammarlist",
-      "confidence_score": 1.0
+      "target": "inspector_grammarlist"
     },
     {
       "relation": "imports",
@@ -61382,9 +61192,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "inspector_grammarlist_grammarlist",
-      "confidence_score": 1.0
+      "target": "inspector_grammarlist_grammarlist"
     },
     {
       "relation": "imports_from",
@@ -61393,9 +61203,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "inspector_inspectorpanel",
-      "confidence_score": 1.0
+      "target": "inspector_inspectorpanel"
     },
     {
       "relation": "imports",
@@ -61404,9 +61214,9 @@
       "source_file": "packages/randomart/src/App.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_app_tsx_src_app",
-      "target": "inspector_inspectorpanel_inspectorpanel",
-      "confidence_score": 1.0
+      "target": "inspector_inspectorpanel_inspectorpanel"
     },
     {
       "relation": "contains",
@@ -61445,8 +61255,30 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "core_engine_evaluatenode",
+      "target": "core_engine_evaluatenode"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_randomartcanvas",
+      "target": "selectors_useseedtext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_randomartcanvas",
+      "target": "selectors_useseedtext_useseedtext",
       "confidence_score": 1.0
     },
     {
@@ -61456,9 +61288,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "selectors_usetrees",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees"
     },
     {
       "relation": "imports",
@@ -61467,9 +61299,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "selectors_usetrees_usetreeb",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeb"
     },
     {
       "relation": "imports",
@@ -61478,9 +61310,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "selectors_usetrees_usetreeg",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeg"
     },
     {
       "relation": "imports",
@@ -61489,9 +61321,20 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "selectors_usetrees_usetreer",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreer"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "components_randomartcanvas_randomartcanvas",
+      "target": "selectors_useseedtext_useseedtext"
     },
     {
       "relation": "calls",
@@ -61533,9 +61376,9 @@
       "source_file": "packages/randomart/src/components/controls/Controls.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
-      "target": "controls_seedinput",
-      "confidence_score": 1.0
+      "target": "controls_seedinput"
     },
     {
       "relation": "imports",
@@ -61544,9 +61387,9 @@
       "source_file": "packages/randomart/src/components/controls/Controls.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
-      "target": "controls_seedinput_seedinput",
-      "confidence_score": 1.0
+      "target": "controls_seedinput_seedinput"
     },
     {
       "relation": "contains",
@@ -61554,8 +61397,30 @@
       "source_file": "packages/randomart/src/components/controls/Controls.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
-      "target": "packages_randomart_src_components_controls_controls_tsx_controls_controls_controls",
+      "target": "packages_randomart_src_components_controls_controls_tsx_controls_controls_controls"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/controls/Controls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
+      "target": "randomart_actions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/components/controls/Controls.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
+      "target": "randomart_actions_setseedtext",
       "confidence_score": 1.0
     },
     {
@@ -61564,9 +61429,9 @@
       "source_file": "packages/randomart/src/components/controls/SeedInput.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_seedinput",
-      "target": "controls_seedinput_seedinput",
-      "confidence_score": 1.0
+      "target": "controls_seedinput_seedinput"
     },
     {
       "relation": "imports_from",
@@ -61575,9 +61440,9 @@
       "source_file": "packages/randomart/src/components/controls/SeedInput.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_seedinput",
-      "target": "randomart_actions",
-      "confidence_score": 1.0
+      "target": "randomart_actions"
     },
     {
       "relation": "imports",
@@ -61586,9 +61451,9 @@
       "source_file": "packages/randomart/src/components/controls/SeedInput.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_seedinput",
-      "target": "randomart_actions_setseedtext",
-      "confidence_score": 1.0
+      "target": "randomart_actions_setseedtext"
     },
     {
       "relation": "imports_from",
@@ -61597,9 +61462,9 @@
       "source_file": "packages/randomart/src/components/controls/SeedInput.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_seedinput",
-      "target": "selectors_useseedtext",
-      "confidence_score": 1.0
+      "target": "selectors_useseedtext"
     },
     {
       "relation": "imports",
@@ -61608,9 +61473,9 @@
       "source_file": "packages/randomart/src/components/controls/SeedInput.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "controls_seedinput",
-      "target": "selectors_useseedtext_useseedtext",
-      "confidence_score": 1.0
+      "target": "selectors_useseedtext_useseedtext"
     },
     {
       "relation": "calls",
@@ -61630,9 +61495,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "core_treeprinter",
-      "confidence_score": 1.0
+      "target": "core_treeprinter"
     },
     {
       "relation": "imports",
@@ -61641,9 +61506,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "core_treeprinter_nodetotreeview",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_nodetotreeview"
     },
     {
       "relation": "contains",
@@ -61651,9 +61516,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "inspector_asttreeview_asttreeview",
-      "confidence_score": 1.0
+      "target": "inspector_asttreeview_asttreeview"
     },
     {
       "relation": "imports_from",
@@ -61662,9 +61527,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "selectors_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel"
     },
     {
       "relation": "imports",
@@ -61673,9 +61538,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "selectors_useactivechannel_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel_useactivechannel"
     },
     {
       "relation": "imports_from",
@@ -61684,9 +61549,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "selectors_usetrees",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees"
     },
     {
       "relation": "imports",
@@ -61695,9 +61560,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "selectors_usetrees_usetreeb",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeb"
     },
     {
       "relation": "imports",
@@ -61706,9 +61571,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "selectors_usetrees_usetreeg",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeg"
     },
     {
       "relation": "imports",
@@ -61717,9 +61582,9 @@
       "source_file": "packages/randomart/src/components/inspector/AstTreeView.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_asttreeview",
-      "target": "selectors_usetrees_usetreer",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreer"
     },
     {
       "relation": "imports_from",
@@ -61728,9 +61593,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_asttreeview",
-      "confidence_score": 1.0
+      "target": "inspector_asttreeview"
     },
     {
       "relation": "calls",
@@ -61794,9 +61659,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_asttreeview_asttreeview",
-      "confidence_score": 1.0
+      "target": "inspector_asttreeview_asttreeview"
     },
     {
       "relation": "contains",
@@ -61804,9 +61669,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChannelTabs.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_channeltabs",
-      "target": "inspector_channeltabs_channels",
-      "confidence_score": 1.0
+      "target": "inspector_channeltabs_channels"
     },
     {
       "relation": "contains",
@@ -61814,9 +61679,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChannelTabs.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_channeltabs",
-      "target": "inspector_channeltabs_channeltabs",
-      "confidence_score": 1.0
+      "target": "inspector_channeltabs_channeltabs"
     },
     {
       "relation": "imports_from",
@@ -61825,9 +61690,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChannelTabs.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_channeltabs",
-      "target": "randomart_actions",
-      "confidence_score": 1.0
+      "target": "randomart_actions"
     },
     {
       "relation": "imports",
@@ -61836,9 +61701,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChannelTabs.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_channeltabs",
-      "target": "randomart_actions_setactivechannel",
-      "confidence_score": 1.0
+      "target": "randomart_actions_setactivechannel"
     },
     {
       "relation": "imports_from",
@@ -61847,9 +61712,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChannelTabs.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_channeltabs",
-      "target": "selectors_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel"
     },
     {
       "relation": "imports",
@@ -61858,9 +61723,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChannelTabs.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_channeltabs",
-      "target": "selectors_useactivechannel_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel_useactivechannel"
     },
     {
       "relation": "imports_from",
@@ -61869,9 +61734,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_channeltabs",
-      "confidence_score": 1.0
+      "target": "inspector_channeltabs"
     },
     {
       "relation": "calls",
@@ -61891,9 +61756,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_channeltabs_channeltabs",
-      "confidence_score": 1.0
+      "target": "inspector_channeltabs_channeltabs"
     },
     {
       "relation": "contains",
@@ -61901,9 +61766,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "inspector_choicehistory_choicehistory",
-      "confidence_score": 1.0
+      "target": "inspector_choicehistory_choicehistory"
     },
     {
       "relation": "imports_from",
@@ -61912,9 +61777,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "selectors_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel"
     },
     {
       "relation": "imports",
@@ -61923,9 +61788,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "selectors_useactivechannel_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel_useactivechannel"
     },
     {
       "relation": "imports_from",
@@ -61934,9 +61799,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "selectors_usernginstances",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances"
     },
     {
       "relation": "imports",
@@ -61945,9 +61810,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "selectors_usernginstances_userngb",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngb"
     },
     {
       "relation": "imports",
@@ -61956,9 +61821,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "selectors_usernginstances_userngg",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngg"
     },
     {
       "relation": "imports",
@@ -61967,9 +61832,9 @@
       "source_file": "packages/randomart/src/components/inspector/ChoiceHistory.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_choicehistory",
-      "target": "selectors_usernginstances_userngr",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngr"
     },
     {
       "relation": "imports_from",
@@ -61978,9 +61843,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_choicehistory",
-      "confidence_score": 1.0
+      "target": "inspector_choicehistory"
     },
     {
       "relation": "calls",
@@ -62033,9 +61898,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_choicehistory_choicehistory",
-      "confidence_score": 1.0
+      "target": "inspector_choicehistory_choicehistory"
     },
     {
       "relation": "imports_from",
@@ -62044,9 +61909,9 @@
       "source_file": "packages/randomart/src/components/inspector/GrammarList.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_grammarlist",
-      "target": "grammar_registry",
-      "confidence_score": 1.0
+      "target": "grammar_registry"
     },
     {
       "relation": "imports",
@@ -62055,9 +61920,9 @@
       "source_file": "packages/randomart/src/components/inspector/GrammarList.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_grammarlist",
-      "target": "grammar_registry_getallrules",
-      "confidence_score": 1.0
+      "target": "grammar_registry_getallrules"
     },
     {
       "relation": "contains",
@@ -62065,9 +61930,9 @@
       "source_file": "packages/randomart/src/components/inspector/GrammarList.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_grammarlist",
-      "target": "inspector_grammarlist_grammarlist",
-      "confidence_score": 1.0
+      "target": "inspector_grammarlist_grammarlist"
     },
     {
       "relation": "calls",
@@ -62086,9 +61951,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_inspectorpanel_inspectorpanel",
-      "confidence_score": 1.0
+      "target": "inspector_inspectorpanel_inspectorpanel"
     },
     {
       "relation": "imports_from",
@@ -62097,9 +61962,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_mathformula",
-      "confidence_score": 1.0
+      "target": "inspector_mathformula"
     },
     {
       "relation": "imports",
@@ -62108,9 +61973,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_mathformula_mathformula",
-      "confidence_score": 1.0
+      "target": "inspector_mathformula_mathformula"
     },
     {
       "relation": "imports_from",
@@ -62119,9 +61984,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_seedinfo",
-      "confidence_score": 1.0
+      "target": "inspector_seedinfo"
     },
     {
       "relation": "imports",
@@ -62130,9 +61995,9 @@
       "source_file": "packages/randomart/src/components/inspector/InspectorPanel.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_inspectorpanel",
-      "target": "inspector_seedinfo_seedinfo",
-      "confidence_score": 1.0
+      "target": "inspector_seedinfo_seedinfo"
     },
     {
       "relation": "imports_from",
@@ -62141,9 +62006,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "core_treeprinter",
-      "confidence_score": 1.0
+      "target": "core_treeprinter"
     },
     {
       "relation": "imports",
@@ -62152,9 +62017,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "core_treeprinter_nodetomathstring",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_nodetomathstring"
     },
     {
       "relation": "contains",
@@ -62162,9 +62027,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "inspector_mathformula_mathformula",
-      "confidence_score": 1.0
+      "target": "inspector_mathformula_mathformula"
     },
     {
       "relation": "imports_from",
@@ -62173,9 +62038,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "selectors_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel"
     },
     {
       "relation": "imports",
@@ -62184,9 +62049,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "selectors_useactivechannel_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel_useactivechannel"
     },
     {
       "relation": "imports_from",
@@ -62195,9 +62060,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "selectors_usetrees",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees"
     },
     {
       "relation": "imports",
@@ -62206,9 +62071,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "selectors_usetrees_usetreeb",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeb"
     },
     {
       "relation": "imports",
@@ -62217,9 +62082,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "selectors_usetrees_usetreeg",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeg"
     },
     {
       "relation": "imports",
@@ -62228,9 +62093,9 @@
       "source_file": "packages/randomart/src/components/inspector/MathFormula.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_mathformula",
-      "target": "selectors_usetrees_usetreer",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreer"
     },
     {
       "relation": "calls",
@@ -62293,9 +62158,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "inspector_seedinfo_seedinfo",
-      "confidence_score": 1.0
+      "target": "inspector_seedinfo_seedinfo"
     },
     {
       "relation": "imports_from",
@@ -62304,9 +62169,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "selectors_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel"
     },
     {
       "relation": "imports",
@@ -62315,9 +62180,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "selectors_useactivechannel_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel_useactivechannel"
     },
     {
       "relation": "imports_from",
@@ -62326,9 +62191,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "selectors_usernginstances",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances"
     },
     {
       "relation": "imports",
@@ -62337,9 +62202,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "selectors_usernginstances_userngb",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngb"
     },
     {
       "relation": "imports",
@@ -62348,9 +62213,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "selectors_usernginstances_userngg",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngg"
     },
     {
       "relation": "imports",
@@ -62359,9 +62224,9 @@
       "source_file": "packages/randomart/src/components/inspector/SeedInfo.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "inspector_seedinfo",
-      "target": "selectors_usernginstances_userngr",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngr"
     },
     {
       "relation": "calls",
@@ -62414,9 +62279,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "contains",
@@ -62435,9 +62300,9 @@
       "source_file": "packages/randomart/src/core/grammar/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_types",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "imports_from",
@@ -62446,9 +62311,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "imports_from",
@@ -62457,9 +62322,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "imports_from",
@@ -62468,9 +62333,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "imports_from",
@@ -62479,9 +62344,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/constant.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_constant",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "imports_from",
@@ -62490,9 +62355,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "core_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom"
     },
     {
       "relation": "imports",
@@ -62501,9 +62366,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "method",
@@ -62542,9 +62407,9 @@
       "source_file": "packages/randomart/src/core/grammar/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_types",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "imports",
@@ -62553,9 +62418,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "imports",
@@ -62564,9 +62429,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "imports",
@@ -62575,9 +62440,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "imports",
@@ -62586,9 +62451,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/constant.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_constant",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "imports",
@@ -62597,9 +62462,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "core_seededrandom_seededrandom",
-      "confidence_score": 1.0
+      "target": "core_seededrandom_seededrandom"
     },
     {
       "relation": "contains",
@@ -62607,9 +62472,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "contains",
@@ -62617,9 +62482,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "core_engine_evaluatenode",
-      "confidence_score": 1.0
+      "target": "core_engine_evaluatenode"
     },
     {
       "relation": "contains",
@@ -62627,9 +62492,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L58",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "core_engine_generatetrees",
-      "confidence_score": 1.0
+      "target": "core_engine_generatetrees"
     },
     {
       "relation": "imports",
@@ -62638,9 +62503,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "imports_from",
@@ -62649,9 +62514,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "grammar_registry",
-      "confidence_score": 1.0
+      "target": "grammar_registry"
     },
     {
       "relation": "imports",
@@ -62660,9 +62525,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "grammar_registry_getallrules",
-      "confidence_score": 1.0
+      "target": "grammar_registry_getallrules"
     },
     {
       "relation": "imports",
@@ -62671,9 +62536,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_engine_ts_core_engine",
-      "target": "grammar_registry_getrule",
-      "confidence_score": 1.0
+      "target": "grammar_registry_getrule"
     },
     {
       "relation": "imports",
@@ -62682,9 +62547,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer",
-      "target": "core_engine_evaluatenode",
-      "confidence_score": 1.0
+      "target": "core_engine_evaluatenode"
     },
     {
       "relation": "calls",
@@ -62693,9 +62558,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer_renderpixelbuffer",
-      "target": "core_engine_evaluatenode",
-      "confidence_score": 1.0
+      "target": "core_engine_evaluatenode"
     },
     {
       "relation": "calls",
@@ -62704,9 +62569,9 @@
       "source_file": "packages/randomart/src/core/engine.ts",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_engine_generatetrees",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "imports",
@@ -62715,9 +62580,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "calls",
@@ -62726,9 +62591,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer_renderpixelbuffer",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "imports",
@@ -62737,9 +62602,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "calls",
@@ -62748,9 +62613,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions_regeneratetrees",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "imports",
@@ -62759,9 +62624,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "calls",
@@ -62770,9 +62635,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store_generateinitial",
-      "target": "core_engine_buildtree",
-      "confidence_score": 1.0
+      "target": "core_engine_buildtree"
     },
     {
       "relation": "contains",
@@ -62780,9 +62645,9 @@
       "source_file": "packages/randomart/src/core/grammar/factory.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_factory",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports_from",
@@ -62791,9 +62656,9 @@
       "source_file": "packages/randomart/src/core/grammar/factory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_factory",
-      "target": "grammar_types",
-      "confidence_score": 1.0
+      "target": "grammar_types"
     },
     {
       "relation": "imports",
@@ -62802,9 +62667,9 @@
       "source_file": "packages/randomart/src/core/grammar/factory.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_factory",
-      "target": "grammar_types_grammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_types_grammarrule"
     },
     {
       "relation": "imports_from",
@@ -62813,9 +62678,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/add.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_add",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62824,9 +62689,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/constant.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_constant",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62835,9 +62700,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/cos.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_cos",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62846,9 +62711,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/modulo.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_modulo",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62857,9 +62722,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/multiply.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_multiply",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62868,9 +62733,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/sin.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_sin",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62879,9 +62744,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/terminal-x.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_terminal_x",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports_from",
@@ -62890,9 +62755,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/terminal-y.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_terminal_y",
-      "target": "grammar_factory",
-      "confidence_score": 1.0
+      "target": "grammar_factory"
     },
     {
       "relation": "imports",
@@ -62901,9 +62766,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/add.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_add",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62912,9 +62777,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/constant.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_constant",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62923,9 +62788,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/cos.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_cos",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62934,9 +62799,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/modulo.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_modulo",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62945,9 +62810,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/multiply.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_multiply",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62956,9 +62821,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/sin.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_sin",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62967,9 +62832,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/terminal-x.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_terminal_x",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports",
@@ -62978,9 +62843,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/terminal-y.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_terminal_y",
-      "target": "grammar_factory_definegrammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_factory_definegrammarrule"
     },
     {
       "relation": "imports_from",
@@ -62989,9 +62854,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter",
-      "target": "grammar_registry",
-      "confidence_score": 1.0
+      "target": "grammar_registry"
     },
     {
       "relation": "contains",
@@ -62999,9 +62864,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "grammar_registry_getallrules",
-      "confidence_score": 1.0
+      "target": "grammar_registry_getallrules"
     },
     {
       "relation": "contains",
@@ -63009,9 +62874,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "grammar_registry_getrule",
-      "confidence_score": 1.0
+      "target": "grammar_registry_getrule"
     },
     {
       "relation": "contains",
@@ -63019,9 +62884,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "grammar_registry_rules",
-      "confidence_score": 1.0
+      "target": "grammar_registry_rules"
     },
     {
       "relation": "imports_from",
@@ -63030,9 +62895,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "grammar_types",
-      "confidence_score": 1.0
+      "target": "grammar_types"
     },
     {
       "relation": "imports",
@@ -63041,9 +62906,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "grammar_types_grammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_types_grammarrule"
     },
     {
       "relation": "imports_from",
@@ -63052,9 +62917,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_add",
-      "confidence_score": 1.0
+      "target": "rules_add"
     },
     {
       "relation": "imports",
@@ -63063,9 +62928,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_add_addrule",
-      "confidence_score": 1.0
+      "target": "rules_add_addrule"
     },
     {
       "relation": "imports_from",
@@ -63074,9 +62939,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_constant",
-      "confidence_score": 1.0
+      "target": "rules_constant"
     },
     {
       "relation": "imports",
@@ -63085,9 +62950,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_constant_constantrule",
-      "confidence_score": 1.0
+      "target": "rules_constant_constantrule"
     },
     {
       "relation": "imports_from",
@@ -63096,9 +62961,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_cos",
-      "confidence_score": 1.0
+      "target": "rules_cos"
     },
     {
       "relation": "imports",
@@ -63107,9 +62972,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_cos_cosrule",
-      "confidence_score": 1.0
+      "target": "rules_cos_cosrule"
     },
     {
       "relation": "imports_from",
@@ -63118,9 +62983,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_modulo",
-      "confidence_score": 1.0
+      "target": "rules_modulo"
     },
     {
       "relation": "imports",
@@ -63129,9 +62994,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_modulo_modulorule",
-      "confidence_score": 1.0
+      "target": "rules_modulo_modulorule"
     },
     {
       "relation": "imports_from",
@@ -63140,9 +63005,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_multiply",
-      "confidence_score": 1.0
+      "target": "rules_multiply"
     },
     {
       "relation": "imports",
@@ -63151,9 +63016,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_multiply_multiplyrule",
-      "confidence_score": 1.0
+      "target": "rules_multiply_multiplyrule"
     },
     {
       "relation": "imports_from",
@@ -63162,9 +63027,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_sin",
-      "confidence_score": 1.0
+      "target": "rules_sin"
     },
     {
       "relation": "imports",
@@ -63173,9 +63038,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_sin_sinrule",
-      "confidence_score": 1.0
+      "target": "rules_sin_sinrule"
     },
     {
       "relation": "imports_from",
@@ -63184,9 +63049,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_terminal_x",
-      "confidence_score": 1.0
+      "target": "rules_terminal_x"
     },
     {
       "relation": "imports",
@@ -63195,9 +63060,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_terminal_x_terminalxrule",
-      "confidence_score": 1.0
+      "target": "rules_terminal_x_terminalxrule"
     },
     {
       "relation": "imports_from",
@@ -63206,9 +63071,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_terminal_y",
-      "confidence_score": 1.0
+      "target": "rules_terminal_y"
     },
     {
       "relation": "imports",
@@ -63217,9 +63082,9 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_registry",
-      "target": "rules_terminal_y_terminalyrule",
-      "confidence_score": 1.0
+      "target": "rules_terminal_y_terminalyrule"
     },
     {
       "relation": "imports",
@@ -63228,9 +63093,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter",
-      "target": "grammar_registry_getrule",
-      "confidence_score": 1.0
+      "target": "grammar_registry_getrule"
     },
     {
       "relation": "calls",
@@ -63260,9 +63125,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/add.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_add",
-      "target": "rules_add_addrule",
-      "confidence_score": 1.0
+      "target": "rules_add_addrule"
     },
     {
       "relation": "imports",
@@ -63271,9 +63136,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/constant.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_constant",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "contains",
@@ -63281,9 +63146,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/constant.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_constant",
-      "target": "rules_constant_constantrule",
-      "confidence_score": 1.0
+      "target": "rules_constant_constantrule"
     },
     {
       "relation": "contains",
@@ -63291,9 +63156,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/cos.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_cos",
-      "target": "rules_cos_cosrule",
-      "confidence_score": 1.0
+      "target": "rules_cos_cosrule"
     },
     {
       "relation": "contains",
@@ -63301,9 +63166,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/modulo.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_modulo",
-      "target": "rules_modulo_modulorule",
-      "confidence_score": 1.0
+      "target": "rules_modulo_modulorule"
     },
     {
       "relation": "contains",
@@ -63311,9 +63176,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/multiply.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_multiply",
-      "target": "rules_multiply_multiplyrule",
-      "confidence_score": 1.0
+      "target": "rules_multiply_multiplyrule"
     },
     {
       "relation": "contains",
@@ -63321,9 +63186,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/sin.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_sin",
-      "target": "rules_sin_sinrule",
-      "confidence_score": 1.0
+      "target": "rules_sin_sinrule"
     },
     {
       "relation": "contains",
@@ -63331,9 +63196,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/terminal-x.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_terminal_x",
-      "target": "rules_terminal_x_terminalxrule",
-      "confidence_score": 1.0
+      "target": "rules_terminal_x_terminalxrule"
     },
     {
       "relation": "contains",
@@ -63341,9 +63206,9 @@
       "source_file": "packages/randomart/src/core/grammar/rules/terminal-y.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "rules_terminal_y",
-      "target": "rules_terminal_y_terminalyrule",
-      "confidence_score": 1.0
+      "target": "rules_terminal_y_terminalyrule"
     },
     {
       "relation": "imports",
@@ -63352,9 +63217,9 @@
       "source_file": "packages/randomart/src/core/grammar/types.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_types",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "contains",
@@ -63362,9 +63227,9 @@
       "source_file": "packages/randomart/src/core/grammar/types.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "grammar_types",
-      "target": "grammar_types_grammarrule",
-      "confidence_score": 1.0
+      "target": "grammar_types_grammarrule"
     },
     {
       "relation": "contains",
@@ -63372,9 +63237,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer",
-      "target": "core_renderer_renderpixelbuffer",
-      "confidence_score": 1.0
+      "target": "core_renderer_renderpixelbuffer"
     },
     {
       "relation": "contains",
@@ -63382,9 +63247,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer",
-      "target": "core_renderer_renderpixelmapasbase64",
-      "confidence_score": 1.0
+      "target": "core_renderer_renderpixelmapasbase64"
     },
     {
       "relation": "calls",
@@ -63393,9 +63258,9 @@
       "source_file": "packages/randomart/src/core/renderer.ts",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_renderer_renderpixelmapasbase64",
-      "target": "core_renderer_renderpixelbuffer",
-      "confidence_score": 1.0
+      "target": "core_renderer_renderpixelbuffer"
     },
     {
       "relation": "contains",
@@ -63403,9 +63268,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter",
-      "target": "core_treeprinter_formatnodevalue",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_formatnodevalue"
     },
     {
       "relation": "contains",
@@ -63413,9 +63278,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter",
-      "target": "core_treeprinter_nodetomathstring",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_nodetomathstring"
     },
     {
       "relation": "contains",
@@ -63423,9 +63288,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter",
-      "target": "core_treeprinter_nodetotreeview",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_nodetotreeview"
     },
     {
       "relation": "imports",
@@ -63434,9 +63299,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "calls",
@@ -63445,9 +63310,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter_nodetomathstring",
-      "target": "core_treeprinter_formatnodevalue",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_formatnodevalue"
     },
     {
       "relation": "calls",
@@ -63456,9 +63321,9 @@
       "source_file": "packages/randomart/src/core/treePrinter.ts",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_treeprinter_nodetotreeview",
-      "target": "core_treeprinter_formatnodevalue",
-      "confidence_score": 1.0
+      "target": "core_treeprinter_formatnodevalue"
     },
     {
       "relation": "contains",
@@ -63466,9 +63331,9 @@
       "source_file": "packages/randomart/src/core/types.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_core_types_ts_core_types",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "imports",
@@ -63477,9 +63342,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "imports",
@@ -63488,9 +63353,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useTrees.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usetrees",
-      "target": "core_types_expressionnode",
-      "confidence_score": 1.0
+      "target": "core_types_expressionnode"
     },
     {
       "relation": "contains",
@@ -63498,9 +63363,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_actions_regenerate",
-      "confidence_score": 1.0
+      "target": "randomart_actions_regenerate"
     },
     {
       "relation": "contains",
@@ -63508,9 +63373,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_actions_regeneratetrees",
-      "confidence_score": 1.0
+      "target": "randomart_actions_regeneratetrees"
     },
     {
       "relation": "contains",
@@ -63518,9 +63383,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_actions_setactivechannel",
-      "confidence_score": 1.0
+      "target": "randomart_actions_setactivechannel"
     },
     {
       "relation": "contains",
@@ -63528,9 +63393,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_actions_setmaxdepth",
-      "confidence_score": 1.0
+      "target": "randomart_actions_setmaxdepth"
     },
     {
       "relation": "contains",
@@ -63538,9 +63403,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_actions_setseedtext",
-      "confidence_score": 1.0
+      "target": "randomart_actions_setseedtext"
     },
     {
       "relation": "imports_from",
@@ -63549,9 +63414,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_store",
-      "confidence_score": 1.0
+      "target": "randomart_store"
     },
     {
       "relation": "imports",
@@ -63560,9 +63425,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "calls",
@@ -63571,9 +63436,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions_regenerate",
-      "target": "randomart_actions_regeneratetrees",
-      "confidence_score": 1.0
+      "target": "randomart_actions_regeneratetrees"
     },
     {
       "relation": "calls",
@@ -63582,9 +63447,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions_setmaxdepth",
-      "target": "randomart_actions_regeneratetrees",
-      "confidence_score": 1.0
+      "target": "randomart_actions_regeneratetrees"
     },
     {
       "relation": "calls",
@@ -63593,9 +63458,9 @@
       "source_file": "packages/randomart/src/stores/randomart/actions.ts",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_actions_setseedtext",
-      "target": "randomart_actions_regeneratetrees",
-      "confidence_score": 1.0
+      "target": "randomart_actions_regeneratetrees"
     },
     {
       "relation": "imports_from",
@@ -63604,9 +63469,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useActiveChannel.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_useactivechannel",
-      "target": "randomart_store",
-      "confidence_score": 1.0
+      "target": "randomart_store"
     },
     {
       "relation": "imports",
@@ -63615,9 +63480,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useActiveChannel.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_useactivechannel",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "contains",
@@ -63625,9 +63490,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useActiveChannel.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_useactivechannel",
-      "target": "selectors_useactivechannel_useactivechannel",
-      "confidence_score": 1.0
+      "target": "selectors_useactivechannel_useactivechannel"
     },
     {
       "relation": "imports_from",
@@ -63636,9 +63501,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useMaxDepth.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usemaxdepth",
-      "target": "randomart_store",
-      "confidence_score": 1.0
+      "target": "randomart_store"
     },
     {
       "relation": "imports",
@@ -63647,9 +63512,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useMaxDepth.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usemaxdepth",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "contains",
@@ -63657,9 +63522,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useMaxDepth.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usemaxdepth",
-      "target": "selectors_usemaxdepth_usemaxdepth",
-      "confidence_score": 1.0
+      "target": "selectors_usemaxdepth_usemaxdepth"
     },
     {
       "relation": "imports_from",
@@ -63668,9 +63533,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "randomart_store",
-      "confidence_score": 1.0
+      "target": "randomart_store"
     },
     {
       "relation": "imports",
@@ -63679,9 +63544,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "contains",
@@ -63689,9 +63554,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "selectors_usernginstances_userngb",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngb"
     },
     {
       "relation": "contains",
@@ -63699,9 +63564,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "selectors_usernginstances_userngg",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngg"
     },
     {
       "relation": "contains",
@@ -63709,9 +63574,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useRngInstances.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usernginstances",
-      "target": "selectors_usernginstances_userngr",
-      "confidence_score": 1.0
+      "target": "selectors_usernginstances_userngr"
     },
     {
       "relation": "imports_from",
@@ -63720,9 +63585,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useSeedText.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_useseedtext",
-      "target": "randomart_store",
-      "confidence_score": 1.0
+      "target": "randomart_store"
     },
     {
       "relation": "imports",
@@ -63731,9 +63596,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useSeedText.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_useseedtext",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "contains",
@@ -63741,9 +63606,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useSeedText.ts",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_useseedtext",
-      "target": "selectors_useseedtext_useseedtext",
-      "confidence_score": 1.0
+      "target": "selectors_useseedtext_useseedtext"
     },
     {
       "relation": "imports_from",
@@ -63752,9 +63617,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useTrees.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usetrees",
-      "target": "randomart_store",
-      "confidence_score": 1.0
+      "target": "randomart_store"
     },
     {
       "relation": "imports",
@@ -63763,9 +63628,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useTrees.ts",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usetrees",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "contains",
@@ -63773,9 +63638,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useTrees.ts",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usetrees",
-      "target": "selectors_usetrees_usetreeb",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeb"
     },
     {
       "relation": "contains",
@@ -63783,9 +63648,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useTrees.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usetrees",
-      "target": "selectors_usetrees_usetreeg",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreeg"
     },
     {
       "relation": "contains",
@@ -63793,9 +63658,9 @@
       "source_file": "packages/randomart/src/stores/randomart/selectors/useTrees.ts",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "selectors_usetrees",
-      "target": "selectors_usetrees_usetreer",
-      "confidence_score": 1.0
+      "target": "selectors_usetrees_usetreer"
     },
     {
       "relation": "contains",
@@ -63803,9 +63668,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "randomart_store_generateinitial",
-      "confidence_score": 1.0
+      "target": "randomart_store_generateinitial"
     },
     {
       "relation": "contains",
@@ -63813,9 +63678,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "randomart_store_randomartstate",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstate"
     },
     {
       "relation": "contains",
@@ -63823,9 +63688,9 @@
       "source_file": "packages/randomart/src/stores/randomart/store.ts",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_store",
-      "target": "randomart_store_randomartstore",
-      "confidence_score": 1.0
+      "target": "randomart_store_randomartstore"
     },
     {
       "relation": "contains",
@@ -75723,11 +75588,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "agents_agents_md",
-      "target": "agents_conventions"
+      "target": "agents_conventions_rules_read_on_demand_only",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -75748,26 +75613,6 @@
       "confidence_score": 1.0,
       "source": "agents_agents_md",
       "target": "agents_running_commands"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L34",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "agents_agents_md",
-      "target": "agents_scope_discipline"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "agents_agents_md",
-      "target": "agents_write_documentations"
     },
     {
       "relation": "contains",
@@ -78033,11 +77878,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
-      "source_location": "L29",
+      "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "packages_randomart_repo_randomart",
-      "target": "packages_randomart_adding_to_the_playground"
+      "target": "packages_randomart_architecture",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -78053,21 +77898,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
-      "source_location": "L23",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "packages_randomart_repo_randomart",
-      "target": "packages_randomart_documentation"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
       "source_location": "L15",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "packages_randomart_repo_randomart",
       "target": "packages_randomart_quick_start"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "packages_randomart_architecture",
+      "target": "packages_randomart_core_domain_src_core",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "packages_randomart_architecture",
+      "target": "packages_randomart_exports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "packages_randomart_architecture",
+      "target": "packages_randomart_grammar_system_src_core_grammar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "packages_randomart_architecture",
+      "target": "packages_randomart_store_src_stores_randomart",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -78095,9 +77970,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L227",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_repo_sequence_renderer",
-      "target": "packages_sequence_renderer_available_utilities",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_available_utilities"
     },
     {
       "relation": "contains",
@@ -78125,9 +78000,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L209",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_repo_sequence_renderer",
-      "target": "packages_sequence_renderer_drawing_api",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_drawing_api"
     },
     {
       "relation": "contains",
@@ -78185,9 +78060,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_visualization_system",
-      "target": "packages_sequence_renderer_layers",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_layers"
     },
     {
       "relation": "contains",
@@ -78195,9 +78070,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_visualization_system",
-      "target": "packages_sequence_renderer_presets",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_presets"
     },
     {
       "relation": "contains",
@@ -78205,9 +78080,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L109",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_visualization_system",
-      "target": "packages_sequence_renderer_scale_calculators",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_scale_calculators"
     },
     {
       "relation": "contains",
@@ -78215,9 +78090,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L163",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_how_to_add_a_new_visualization",
-      "target": "packages_sequence_renderer_step_1_create_a_layer",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_step_1_create_a_layer"
     },
     {
       "relation": "contains",
@@ -78225,9 +78100,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L185",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_how_to_add_a_new_visualization",
-      "target": "packages_sequence_renderer_step_2_create_a_preset",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_step_2_create_a_preset"
     },
     {
       "relation": "contains",
@@ -78235,9 +78110,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L201",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_how_to_add_a_new_visualization",
-      "target": "packages_sequence_renderer_step_3_register_it",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_step_3_register_it"
     },
     {
       "relation": "contains",
@@ -78245,9 +78120,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/sequence-renderer.md",
       "source_location": "L205",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_sequence_renderer_how_to_add_a_new_visualization",
-      "target": "packages_sequence_renderer_step_4_optional_custom_scale",
-      "confidence_score": 1.0
+      "target": "packages_sequence_renderer_step_4_optional_custom_scale"
     },
     {
       "relation": "contains",
@@ -80095,9 +79970,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_repo_randomart",
-      "target": "randomart_readme_architecture",
-      "confidence_score": 1.0
+      "target": "randomart_readme_architecture"
     },
     {
       "relation": "contains",
@@ -80125,9 +80000,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_architecture",
-      "target": "randomart_readme_core_domain_src_core",
-      "confidence_score": 1.0
+      "target": "randomart_readme_core_domain_src_core"
     },
     {
       "relation": "contains",
@@ -80135,9 +80010,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_architecture",
-      "target": "randomart_readme_exports",
-      "confidence_score": 1.0
+      "target": "randomart_readme_exports"
     },
     {
       "relation": "contains",
@@ -80145,9 +80020,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_architecture",
-      "target": "randomart_readme_grammar_system_src_core_grammar",
-      "confidence_score": 1.0
+      "target": "randomart_readme_grammar_system_src_core_grammar"
     },
     {
       "relation": "contains",
@@ -80155,199 +80030,9 @@
       "source_file": "packages/randomart/README.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "randomart_readme_architecture",
-      "target": "randomart_readme_store_src_stores_randomart",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan",
-      "target": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L3",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "target": "randomart_refactor_plan_architecture_target",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "target": "randomart_refactor_plan_phase_0_convention_cleanup",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "target": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L99",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "target": "randomart_refactor_plan_phase_2_state_orchestration_zustand_store",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L142",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "target": "randomart_refactor_plan_phase_3_presentation_sidebar_decomposed_components",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L193",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_refactor_plan_apply_engine_pattern_to_repo_randomart",
-      "target": "randomart_refactor_plan_verification",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L65",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "target": "randomart_refactor_plan_files_to_create",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L91",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "target": "randomart_refactor_plan_files_to_delete",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L84",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "target": "randomart_refactor_plan_files_to_modify",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L48",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "target": "randomart_refactor_plan_grammarrule_type_src_core_grammar_types_ts",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L38",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_1_core_domain_grammar_definition_registry",
-      "target": "randomart_refactor_plan_new_expressionnode_type_src_core_types_ts",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L133",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_2_state_orchestration_zustand_store",
-      "target": "randomart_refactor_plan_pattern",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L115",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_2_state_orchestration_zustand_store",
-      "target": "randomart_refactor_plan_state_shape",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L101",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_2_state_orchestration_zustand_store",
-      "target": "randomart_refactor_plan_store_structure",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L144",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_3_presentation_sidebar_decomposed_components",
-      "target": "randomart_refactor_plan_component_tree",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L163",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_3_presentation_sidebar_decomposed_components",
-      "target": "randomart_refactor_plan_files_to_create_163",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L187",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_3_presentation_sidebar_decomposed_components",
-      "target": "randomart_refactor_plan_files_to_delete_187",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/randomart/REFACTOR-PLAN.md",
-      "source_location": "L178",
-      "weight": 1.0,
-      "source": "randomart_refactor_plan_phase_3_presentation_sidebar_decomposed_components",
-      "target": "randomart_refactor_plan_files_to_modify_178",
-      "confidence_score": 1.0
+      "target": "randomart_readme_store_src_stores_randomart"
     },
     {
       "relation": "contains",
@@ -80911,5 +80596,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "7340bf8d848262163d60a6f1d2f9ffebad7c77dd"
+  "built_at_commit": "588fc77028ebe335eeec5825075bfb531f7b8fb7"
 }

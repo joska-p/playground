@@ -1,3 +1,4 @@
+import { Button } from '@repo/ui/Button';
 import { useEffect, useRef } from 'react';
 import { evaluateNode } from '../core/engine';
 import { useSeedText } from '../stores/randomart/selectors/useSeedText';
@@ -65,10 +66,10 @@ export function RandomArtCanvas({ size = 200 }: Props) {
           style={{ aspectRatio: '1' }}
         />
       </div>
-      <button
+      <Button
         type="button"
         onClick={handleDownload}
-        className="border-border bg-card text-foreground hover:bg-background focus:border-primary inline-flex cursor-pointer items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors focus:outline-none"
+        variant="primary"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +91,7 @@ export function RandomArtCanvas({ size = 200 }: Props) {
           />
         </svg>
         Download PNG
-      </button>
+      </Button>
     </div>
   );
 }

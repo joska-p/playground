@@ -14,6 +14,7 @@ export function GrammarList() {
           <Badge
             key={rule.id}
             className="text-xs"
+            variant="secondary"
           >
             {rule.name}
           </Badge>

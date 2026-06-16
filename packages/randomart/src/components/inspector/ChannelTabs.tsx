@@ -16,7 +16,8 @@ export function ChannelTabs() {
           onClick={() => setActiveChannel(channel)}
           variant="primary"
           className={cn('inline-flex flex-col text-xs break-all', {
-            'bg-background text-muted-foreground': activeChannel != channel
+            'bg-background text-muted-foreground hover:text-primary-foreground':
+              activeChannel != channel
           })}
         >
           <span className="flex items-center gap-1.5">
@@ -27,7 +28,6 @@ export function ChannelTabs() {
             />
             {channel}
           </span>
-          Channel Tree
         </Button>
       ))}
     </div>
