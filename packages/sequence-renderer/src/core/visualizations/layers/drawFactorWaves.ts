@@ -10,7 +10,7 @@ function isPrime(num: number): boolean {
   return true;
 }
 
-export type DrawFactorWavesOptions = {
+type DrawFactorWavesOptions = {
   lineWidth: number;
   alpha: number;
   amplitudeScale: number;

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const graphNodeSchema = z.object({
+const graphNodeSchema = z.object({
   id: z.string(),
   label: z.string(),
   x: z.number(),
@@ -13,13 +13,13 @@ export const graphNodeSchema = z.object({
   color: z.string()
 });
 
-export const graphLinkSchema = z.object({
+const graphLinkSchema = z.object({
   sourceIdx: z.number(),
   targetIdx: z.number(),
   relation: z.string()
 });
 
-export const communitySchema = z.object({
+const communitySchema = z.object({
   id: z.number(),
   name: z.string(),
   color: z.string(),

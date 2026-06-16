@@ -44,12 +44,4 @@ export class Registry {
     }
     return definition;
   }
-
-  has(identifier: string) {
-    return this.manipulationsMap.has(identifier);
-  }
-
-  clear() {
-    this.manipulationsMap.clear();
-  }
 }

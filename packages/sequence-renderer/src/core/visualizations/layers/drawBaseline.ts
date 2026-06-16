@@ -1,6 +1,6 @@
 import { defineLayer } from '../define-layer';
 
-export type DrawBaselineOptions = {
+type DrawBaselineOptions = {
   lineWidth: number;
   alpha: number;
   color?: string;

@@ -13,10 +13,6 @@ const rules = new Map<string, SequenceRule>([
   [collatzRule.id, collatzRule]
 ]);
 
-export function getRule(id: string): SequenceRule | undefined {
-  return rules.get(id);
-}
-
 export function getAllRules(): SequenceRule[] {
   return Array.from(rules.values());
 }

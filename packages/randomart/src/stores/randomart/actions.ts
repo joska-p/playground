@@ -23,15 +23,3 @@ export function setSeedText(seedText: string): void {
 export function setActiveChannel(channel: 'red' | 'green' | 'blue'): void {
   randomartStore.setState({ activeChannel: channel });
 }
-
-export function setMaxDepth(maxDepth: number): void {
-  const state = randomartStore.getState();
-  const trees = regenerateTrees(state.seedText, maxDepth);
-  randomartStore.setState({ maxDepth, ...trees });
-}
-
-export function regenerate(): void {
-  const state = randomartStore.getState();
-  const trees = regenerateTrees(state.seedText, state.maxDepth);
-  randomartStore.setState(trees);
-}

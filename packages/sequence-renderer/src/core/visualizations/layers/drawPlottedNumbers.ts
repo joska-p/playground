@@ -1,6 +1,6 @@
 import { defineLayer } from '../define-layer';
 
-export type DrawPlottedNumbersOptions = {
+type DrawPlottedNumbersOptions = {
   radius: number;
   alpha: number;
   color?: string;

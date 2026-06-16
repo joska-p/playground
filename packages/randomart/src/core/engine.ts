@@ -1,5 +1,5 @@
-import { SeededRandom } from './SeededRandom';
 import { getAllRules, getRule } from './grammar/registry';
+import type { SeededRandom } from './SeededRandom';
 import type { ExpressionNode } from './types';
 
 export function evaluateNode(
@@ -10,16 +10,13 @@ export function evaluateNode(
   const rule = getRule(node.ruleId);
   if (!rule) return 0;
 
-  // Create standard shortcuts for x and y leaf nodes
   if (node.ruleId === 'x') return x;
   if (node.ruleId === 'y') return y;
 
-  // Turn child nodes into executable triggers instead of numbers
   const lazyArgs = node.args.map((child) => {
     return () => evaluateNode(child, x, y);
   });
 
-  // Handle constants directly by passing a wrapper function
   if (rule.id === 'constant' && node.constantValue !== undefined) {
     return node.constantValue;
   }
@@ -57,26 +54,4 @@ export function buildTree(
   return pool[idx].buildNode(rng, () =>
     buildTree(rng, currentDepth + 1, maxDepth)
   );
-}
-
-export function generateTrees(
-  seedText: string,
-  maxDepth: number
-): {
-  treeR: ExpressionNode;
-  treeG: ExpressionNode;
-  treeB: ExpressionNode;
-  rngR: SeededRandom;
-  rngG: SeededRandom;
-  rngB: SeededRandom;
-} {
-  const rngR = new SeededRandom(seedText + '_red');
-  const rngG = new SeededRandom(seedText + '_green');
-  const rngB = new SeededRandom(seedText + '_blue');
-
-  const treeR = buildTree(rngR, 0, maxDepth);
-  const treeG = buildTree(rngG, 0, maxDepth);
-  const treeB = buildTree(rngB, 0, maxDepth);
-
-  return { treeR, treeG, treeB, rngR, rngG, rngB };
 }

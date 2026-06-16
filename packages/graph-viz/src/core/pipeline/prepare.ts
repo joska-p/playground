@@ -17,9 +17,9 @@ const __dirname = dirname(__filename);
 /** Input: repo-root-level graphify-out/graph.json */
 const inputPath = resolve(__dirname, '../../../../../graphify-out/graph.json');
 /** Output: written next to this script */
-const outputPath = resolve(__dirname, 'processed-graph.json');
+const outputPath = resolve(__dirname, '../../data/processed-graph.json');
 /** Checksum sentinel — stored next to the output */
-const checksumPath = resolve(__dirname, '.processed-checksum');
+const checksumPath = resolve(__dirname, '../../data/processed-checksum');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 

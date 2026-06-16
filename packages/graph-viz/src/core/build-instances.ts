@@ -7,7 +7,7 @@ const HIGHLIGHT_COLOR = new THREE.Color(CONFIG.nodes.highlightColor);
 const dummy = new THREE.Object3D();
 const tmpColor = new THREE.Color();
 
-export function getNodeSize(node: GraphNode): number {
+function getNodeSize(node: GraphNode): number {
   const degree = node.inDegree + node.outDegree;
   return Math.log(degree + 1) * CONFIG.nodes.sizeScale + CONFIG.nodes.sizeBase;
 }

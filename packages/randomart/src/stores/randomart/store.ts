@@ -3,7 +3,7 @@ import { SeededRandom } from '../../core/SeededRandom';
 import { buildTree } from '../../core/engine';
 import type { ExpressionNode } from '../../core/types';
 
-export type RandomartState = {
+type RandomartState = {
   seedText: string;
   activeChannel: 'red' | 'green' | 'blue';
   maxDepth: number;

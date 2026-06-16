@@ -19,8 +19,6 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "fast-png": "catalog:",
-    "react-error-boundary": "catalog:",
-    "zod": "catalog:",
     "zustand": "catalog:"
   },
   "peerDependencies": {

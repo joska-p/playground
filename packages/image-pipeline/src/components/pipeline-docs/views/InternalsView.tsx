@@ -1,7 +1,22 @@
+import type { EndpointItem } from '../data/pipeline-docs-data';
 import {
   ENDPOINT_GROUPS,
   findItemForEndpoint
 } from '../data/pipeline-docs-data';
+
+function SectionHeader({ item }: { item: EndpointItem | undefined }) {
+  return (
+    <>
+      <div className="flex items-center gap-3">
+        <h2 className="text-2xl font-bold">{item?.label}</h2>
+      </div>
+      <p className="text-muted-foreground max-w-2xl text-sm">
+        {item?.description}
+      </p>
+      <p className="text-xs opacity-60">{item?.path}</p>
+    </>
+  );
+}
 
 function InternalsView({ id }: { id: string }) {
   const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: 'internals', id });
@@ -9,13 +24,7 @@ function InternalsView({ id }: { id: string }) {
   if (id === 'execution-engine') {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{item?.label}</h2>
-        </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">
-          {item?.description}
-        </p>
-        <p className="text-xs opacity-60">{item?.path}</p>
+        <SectionHeader item={item} />
 
         <div className="border-border bg-muted/30 border-l-utility-8 rounded-lg border border-l-2 p-4 text-xs whitespace-pre">
           {`runPipeline({ source, steps, context })
@@ -58,13 +67,7 @@ function InternalsView({ id }: { id: string }) {
   if (id === 'fusion-scheduler') {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{item?.label}</h2>
-        </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">
-          {item?.description}
-        </p>
-        <p className="text-xs opacity-60">{item?.path}</p>
+        <SectionHeader item={item} />
 
         <p className="text-muted-foreground text-sm">
           Consecutive pixel-type steps are fused into a single pixel loop to
@@ -92,13 +95,7 @@ swap()`}
   if (id === 'tiling') {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{item?.label}</h2>
-        </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">
-          {item?.description}
-        </p>
-        <p className="text-xs opacity-60">{item?.path}</p>
+        <SectionHeader item={item} />
 
         <p className="text-muted-foreground text-sm">
           Large neighborhood operations are tiled to avoid allocating full-size
@@ -131,13 +128,7 @@ For each tile:
   if (id === 'resize-algorithm') {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{item?.label}</h2>
-        </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">
-          {item?.description}
-        </p>
-        <p className="text-xs opacity-60">{item?.path}</p>
+        <SectionHeader item={item} />
 
         <p className="text-muted-foreground text-sm">
           Resize uses bilinear interpolation. For each output pixel, it samples
@@ -221,13 +212,7 @@ output = top * (1 - dy) + bottom * dy`}
   if (id === 'worker-architecture') {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{item?.label}</h2>
-        </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">
-          {item?.description}
-        </p>
-        <p className="text-xs opacity-60">{item?.path}</p>
+        <SectionHeader item={item} />
 
         <div className="border-border bg-muted/30 border-l-utility-1 rounded-lg border border-l-2 p-4">
           <h3 className="mb-2 text-xs font-semibold uppercase">
@@ -267,13 +252,7 @@ Dispatch: postMessage with Transferable buffers
   if (id === 'configuration') {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <h2 className="text-2xl font-bold">{item?.label}</h2>
-        </div>
-        <p className="text-muted-foreground max-w-2xl text-sm">
-          {item?.description}
-        </p>
-        <p className="text-xs opacity-60">{item?.path}</p>
+        <SectionHeader item={item} />
 
         <div className="border-border overflow-hidden rounded-lg border">
           <table className="w-full text-left text-sm">

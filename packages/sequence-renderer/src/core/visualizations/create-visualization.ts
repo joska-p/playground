@@ -4,7 +4,7 @@ import type {
   VisualizationConfig
 } from './types';
 
-export function defaultScaleCalculator({
+function defaultScaleCalculator({
   sequence,
   containerSize
 }: {

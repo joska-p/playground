@@ -26,12 +26,7 @@ function App() {
   }
 
   return (
-    <ErrorBoundary
-      onError={(error, info) => {
-        console.log('Error', error);
-        console.log('Info', info);
-      }}
-    >
+    <ErrorBoundary>
       <Sidebar
         mobilePosition="bottom"
         desktopPosition="right"

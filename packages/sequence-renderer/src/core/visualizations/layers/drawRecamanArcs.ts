@@ -1,6 +1,6 @@
 import { defineLayer } from '../define-layer';
 
-export type DrawRecamanArcsOptions = {
+type DrawRecamanArcsOptions = {
   lineWidth: number;
   alpha: number;
   color?: string;
