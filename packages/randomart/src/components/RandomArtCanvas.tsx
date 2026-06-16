@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { evaluateNode } from '../core/engine';
+import { useSeedText } from '../stores/randomart/selectors/useSeedText';
 import {
   useTreeB,
   useTreeG,
@@ -10,11 +11,12 @@ type Props = {
   size?: number;
 };
 
-export function RandomArtCanvas({ size = 320 }: Props) {
+export function RandomArtCanvas({ size = 400 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
+  const seedText = useSeedText();
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -42,12 +44,38 @@ export function RandomArtCanvas({ size = 320 }: Props) {
     ctx.putImageData(imgData, 0, 0);
   }, [treeR, treeG, treeB, size]);
 
+  function handleDownload() {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
+
   return (
-    <canvas
-      ref={canvasRef}
-      width={size}
-      height={size}
-      className="border-border rounded-xl border shadow-lg"
-    />
+    <div className="flex flex-col items-center gap-4">
+      <div className="animate-fade-in">
+        <canvas
+          ref={canvasRef}
+          width={size}
+          height={size}
+          aria-label={`Generative art for seed "${seedText}"`}
+          className="border-border rounded-xl border shadow-lg"
+        />
+      </div>
+      <button
+        type="button"
+        onClick={handleDownload}
+        className="border-border bg-card text-foreground hover:bg-background focus:border-primary inline-flex cursor-pointer items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors focus:outline-none"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Download PNG
+      </button>
+    </div>
   );
 }

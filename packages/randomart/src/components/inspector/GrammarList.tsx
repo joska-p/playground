@@ -12,7 +12,7 @@ export function GrammarList() {
         {rules.map((rule) => (
           <span
             key={rule.id}
-            className="border-border bg-background text-utility-1 rounded-md border px-2.5 py-1 font-mono text-xs"
+            className="text-muted-foreground font-mono text-xs"
           >
             {rule.name}
           </span>

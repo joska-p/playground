@@ -19,7 +19,15 @@ export function ChannelTabs() {
             'bg-background text-muted-foreground': activeChannel != channel
           })}
         >
-          <span>● {channel}</span> Channel Tree
+          <span className="flex items-center gap-1.5">
+            <span
+              className="inline-block h-2 w-2 rounded-full"
+              style={{ backgroundColor: channel }}
+              aria-hidden="true"
+            />
+            {channel}
+          </span>
+          Channel Tree
         </Button>
       ))}
     </div>

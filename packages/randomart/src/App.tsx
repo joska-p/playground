@@ -13,7 +13,7 @@ function App() {
         mobilePosition="bottom"
         className="bg-background text-foreground"
       >
-        <Sidebar.Main className="flex min-h-screen flex-col items-center gap-8 p-8 font-sans">
+        <Sidebar.Main className="flex min-h-screen flex-col items-center gap-8 p-8">
           <header className="space-y-8 text-center">
             <h1 className="text-utility-4 text-3xl font-extrabold tracking-tight">
               AST &amp; Grammar Inspector

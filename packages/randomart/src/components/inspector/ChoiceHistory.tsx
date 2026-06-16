@@ -18,7 +18,7 @@ export function ChoiceHistory() {
       <h4 className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
         Deterministic Choice Stream (.next())
       </h4>
-      <div className="flex max-h-22 flex-wrap gap-1.5 overflow-y-auto text-sm">
+      <div className="flex max-h-48 flex-wrap gap-1.5 overflow-y-auto text-sm">
         {selectedRng.choiceHistory.map((val, idx) => (
           <span
             key={idx}
