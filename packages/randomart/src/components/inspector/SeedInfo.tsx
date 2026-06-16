@@ -19,7 +19,7 @@ export function SeedInfo() {
         <h4 className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
           Generated Base Seed
         </h4>
-        <div className="border-border/60 bg-card text-utility-1 rounded-lg border px-3 py-2 font-mono text-sm font-bold">
+        <div className="bg-card text-utility-1 rounded-sm px-3 py-2 text-sm font-bold">
           #{selectedRng.initialHash}
         </div>
       </div>

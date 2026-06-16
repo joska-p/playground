@@ -19,7 +19,7 @@ export function AstTreeView() {
       <h4 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
         Abstract Syntax Tree (AST)
       </h4>
-      <pre className="border-border bg-background text-utility-3 overflow-x-auto rounded-xl border p-4 font-mono text-xs leading-normal whitespace-pre shadow-inner">
+      <pre className="bg-background text-utility-3 overflow-x-auto rounded-sm p-4 text-xs leading-normal whitespace-pre shadow-inner">
         {nodeToTreeView(selectedTree)}
       </pre>
     </div>

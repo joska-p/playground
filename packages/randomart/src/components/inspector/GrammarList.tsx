@@ -5,7 +5,7 @@ export function GrammarList() {
   const rules = getAllRules();
 
   return (
-    <div>
+    <>
       <h3 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wider uppercase">
         Enabled Engine Grammar Rules
       </h3>
@@ -20,6 +20,6 @@ export function GrammarList() {
           </Badge>
         ))}
       </div>
-    </div>
+    </>
   );
 }

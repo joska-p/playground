@@ -12,7 +12,7 @@ type Props = {
   size?: number;
 };
 
-export function RandomArtCanvas({ size = 200 }: Props) {
+export function RandomArtCanvas({ size = 350 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const treeR = useTreeR();
   const treeG = useTreeG();
@@ -55,17 +55,15 @@ export function RandomArtCanvas({ size = 200 }: Props) {
   }
 
   return (
-    <div className="border-border bg-background flex grow flex-col items-center gap-4 rounded-xl border py-4">
-      <div className="animate-fade-in grow">
-        <canvas
-          ref={canvasRef}
-          width={size}
-          height={size}
-          aria-label={`Generative art for seed "${seedText}"`}
-          className="border-border h-full rounded-xl border shadow-lg"
-          style={{ aspectRatio: '1' }}
-        />
-      </div>
+    <>
+      <canvas
+        ref={canvasRef}
+        width={size}
+        height={size}
+        aria-label={`Generative art for seed "${seedText}"`}
+        className="border-border max-w-full rounded-xl border shadow-lg"
+        style={{ aspectRatio: '1' }}
+      />
       <Button
         type="button"
         onClick={handleDownload}
@@ -92,6 +90,6 @@ export function RandomArtCanvas({ size = 200 }: Props) {
         </svg>
         Download PNG
       </Button>
-    </div>
+    </>
   );
 }

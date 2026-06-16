@@ -22,7 +22,7 @@ export function ChoiceHistory() {
         {selectedRng.choiceHistory.map((val, idx) => (
           <span
             key={idx}
-            className="border-border bg-background text-utility-2 rounded border px-1.5 py-0.5"
+            className="bg-background text-utility-2 rounded-sm px-1.5 py-0.5"
           >
             <span className="text-muted-foreground/70 mr-0.5">{idx}:</span>
             {val.toFixed(4)}

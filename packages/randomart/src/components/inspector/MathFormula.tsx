@@ -19,7 +19,7 @@ export function MathFormula() {
       <h4 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
         Evaluated Math String Formula
       </h4>
-      <div className="border-border bg-background text-foreground overflow-x-auto rounded-xl border p-4 font-mono text-sm leading-relaxed break-all whitespace-normal shadow-inner">
+      <div className="bg-background text-foreground overflow-x-auto rounded-sm p-4 text-sm leading-relaxed break-all whitespace-normal shadow-inner">
         f(x, y) = {nodeToMathString(selectedTree)}
       </div>
     </div>
