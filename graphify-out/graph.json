@@ -2458,7 +2458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_creatureselector",
-      "community": 114,
+      "community": 241,
       "norm_label": "creatureselector.tsx"
     },
     {
@@ -2468,7 +2468,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_creatureselector_creatureselector",
-      "community": 114,
+      "community": 241,
       "norm_label": "creatureselector()"
     },
     {
@@ -2608,7 +2608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_ruleselector",
-      "community": 199,
+      "community": 114,
       "norm_label": "ruleselector.tsx"
     },
     {
@@ -2618,7 +2618,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "controls_ruleselector_ruleselector",
-      "community": 199,
+      "community": 114,
       "norm_label": "ruleselector()"
     },
     {
@@ -2708,7 +2708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_statecolorpicker",
-      "community": 199,
+      "community": 114,
       "norm_label": "statecolorpicker.tsx"
     },
     {
@@ -2718,7 +2718,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrowprops",
-      "community": 199,
+      "community": 114,
       "norm_label": "colorrowprops"
     },
     {
@@ -2728,7 +2728,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "controls_statecolorpicker_colorrow",
-      "community": 199,
+      "community": 114,
       "norm_label": "colorrow()"
     },
     {
@@ -2738,7 +2738,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "controls_statecolorpicker_statecolorpicker",
-      "community": 199,
+      "community": 114,
       "norm_label": "statecolorpicker()"
     },
     {
@@ -2748,7 +2748,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_config_ts_core_config",
-      "community": 20,
+      "community": 18,
       "norm_label": "config.ts"
     },
     {
@@ -2758,7 +2758,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "core_config_default_state_colors",
-      "community": 20,
+      "community": 18,
       "norm_label": "default_state_colors"
     },
     {
@@ -2768,7 +2768,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "core_config_state_fallback_colors",
-      "community": 20,
+      "community": 18,
       "norm_label": "state_fallback_colors"
     },
     {
@@ -3008,7 +3008,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "creature_registry_getallcreatures",
-      "community": 114,
+      "community": 241,
       "norm_label": "getallcreatures()"
     },
     {
@@ -3068,7 +3068,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_grid",
-      "community": 31,
+      "community": 20,
       "norm_label": "grid.ts"
     },
     {
@@ -3078,7 +3078,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "core_grid_creategrid",
-      "community": 31,
+      "community": 20,
       "norm_label": "creategrid()"
     },
     {
@@ -3088,7 +3088,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_grid_seedgrid",
-      "community": 31,
+      "community": 20,
       "norm_label": "seedgrid()"
     },
     {
@@ -3478,7 +3478,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_automa_src_core_types_ts_core_types",
-      "community": 31,
+      "community": 20,
       "norm_label": "types.ts"
     },
     {
@@ -3488,7 +3488,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_types_cellvalue",
-      "community": 31,
+      "community": 20,
       "norm_label": "cellvalue"
     },
     {
@@ -3498,7 +3498,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_types_grid",
-      "community": 31,
+      "community": 20,
       "norm_label": "grid"
     },
     {
@@ -3808,7 +3808,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "simulation_actions_init",
-      "community": 31,
+      "community": 20,
       "norm_label": "init()"
     },
     {
@@ -4008,7 +4008,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_useruleid_useruleid",
-      "community": 199,
+      "community": 114,
       "norm_label": "useruleid()"
     },
     {
@@ -4058,7 +4058,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "ui_actions_settoolmode",
-      "community": 114,
+      "community": 18,
       "norm_label": "settoolmode()"
     },
     {
@@ -4078,7 +4078,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "ui_actions_setstatecolor",
-      "community": 199,
+      "community": 114,
       "norm_label": "setstatecolor()"
     },
     {
@@ -4108,7 +4108,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "ui_actions_setpalettebrush",
-      "community": 114,
+      "community": 241,
       "norm_label": "setpalettebrush()"
     },
     {
@@ -4178,7 +4178,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "selectors_usepalettebrush_usepalettebrush",
-      "community": 114,
+      "community": 241,
       "norm_label": "usepalettebrush()"
     },
     {
@@ -4378,7 +4378,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng",
-      "community": 31,
+      "community": 20,
       "norm_label": "rng.ts"
     },
     {
@@ -4388,7 +4388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "utils_rng_createseededrandom",
-      "community": 31,
+      "community": 20,
       "norm_label": "createseededrandom()"
     },
     {
@@ -5558,7 +5558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "controls_filtercontrols",
-      "community": 56,
+      "community": 237,
       "norm_label": "filtercontrols.tsx"
     },
     {
@@ -5568,7 +5568,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "controls_filtercontrols_filtercontrols",
-      "community": 56,
+      "community": 237,
       "norm_label": "filtercontrols()"
     },
     {
@@ -5578,7 +5578,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "details_panel_detailspanel",
-      "community": 56,
+      "community": 199,
       "norm_label": "detailspanel.tsx"
     },
     {
@@ -5588,7 +5588,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "details_panel_detailspanel_detailspanel",
-      "community": 56,
+      "community": 199,
       "norm_label": "detailspanel()"
     },
     {
@@ -5598,7 +5598,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_graphoverview",
-      "community": 56,
+      "community": 199,
       "norm_label": "graphoverview.tsx"
     },
     {
@@ -5608,7 +5608,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "graph_overview_graphoverview_graphoverview",
-      "community": 56,
+      "community": 199,
       "norm_label": "graphoverview()"
     },
     {
@@ -5618,7 +5618,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_stat",
-      "community": 56,
+      "community": 199,
       "norm_label": "stat.tsx"
     },
     {
@@ -5628,7 +5628,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "graph_overview_stat_stat",
-      "community": 56,
+      "community": 199,
       "norm_label": "stat()"
     },
     {
@@ -5668,7 +5668,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "node_details_nodedetails_nodedetails",
-      "community": 56,
+      "community": 199,
       "norm_label": "nodedetails()"
     },
     {
@@ -5688,7 +5688,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "details_panel_utils_getstats",
-      "community": 56,
+      "community": 199,
       "norm_label": "getstats()"
     },
     {
@@ -5708,7 +5708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_communitylabels",
-      "community": 56,
+      "community": 237,
       "norm_label": "communitylabels.tsx"
     },
     {
@@ -5718,7 +5718,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "scene_communitylabels_communitylabels",
-      "community": 56,
+      "community": 237,
       "norm_label": "communitylabels()"
     },
     {
@@ -5728,7 +5728,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_edges",
-      "community": 56,
+      "community": 199,
       "norm_label": "edges.tsx"
     },
     {
@@ -5738,7 +5738,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "scene_edges_edgegroupprops",
-      "community": 56,
+      "community": 199,
       "norm_label": "edgegroupprops"
     },
     {
@@ -5748,7 +5748,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scene_edges_edgegroup",
-      "community": 56,
+      "community": 199,
       "norm_label": "edgegroup()"
     },
     {
@@ -5758,7 +5758,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "scene_edges_edges",
-      "community": 56,
+      "community": 199,
       "norm_label": "edges()"
     },
     {
@@ -5768,7 +5768,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_graphcanvas",
-      "community": 56,
+      "community": 238,
       "norm_label": "graphcanvas.tsx"
     },
     {
@@ -5788,7 +5788,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scene_nodes",
-      "community": 56,
+      "community": 238,
       "norm_label": "nodes.tsx"
     },
     {
@@ -5798,7 +5798,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scene_nodes_nodes",
-      "community": 56,
+      "community": 238,
       "norm_label": "nodes()"
     },
     {
@@ -5808,7 +5808,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_build_instances",
-      "community": 56,
+      "community": 238,
       "norm_label": "build-instances.ts"
     },
     {
@@ -5818,7 +5818,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "core_build_instances_dim_color",
-      "community": 56,
+      "community": 238,
       "norm_label": "dim_color"
     },
     {
@@ -5828,7 +5828,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "core_build_instances_highlight_color",
-      "community": 56,
+      "community": 238,
       "norm_label": "highlight_color"
     },
     {
@@ -5838,7 +5838,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "core_build_instances_dummy",
-      "community": 56,
+      "community": 238,
       "norm_label": "dummy"
     },
     {
@@ -5848,7 +5848,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "core_build_instances_tmpcolor",
-      "community": 56,
+      "community": 238,
       "norm_label": "tmpcolor"
     },
     {
@@ -5858,7 +5858,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "core_build_instances_getnodesize",
-      "community": 56,
+      "community": 238,
       "norm_label": "getnodesize()"
     },
     {
@@ -5868,7 +5868,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "core_build_instances_writeinstancedata",
-      "community": 56,
+      "community": 238,
       "norm_label": "writeinstancedata()"
     },
     {
@@ -5878,7 +5878,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "core_build_instances_splitnodeindices",
-      "community": 56,
+      "community": 238,
       "norm_label": "splitnodeindices()"
     },
     {
@@ -5888,7 +5888,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_compute_edges",
-      "community": 56,
+      "community": 199,
       "norm_label": "compute-edges.ts"
     },
     {
@@ -5898,7 +5898,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "core_compute_edges_edgebuffers",
-      "community": 56,
+      "community": 199,
       "norm_label": "edgebuffers"
     },
     {
@@ -5908,7 +5908,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "core_compute_edges_computeedgebuffers",
-      "community": 56,
+      "community": 199,
       "norm_label": "computeedgebuffers()"
     },
     {
@@ -5918,7 +5918,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_graph_viz_src_core_config_ts_core_config",
-      "community": 22,
+      "community": 238,
       "norm_label": "config.ts"
     },
     {
@@ -5928,7 +5928,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "core_config_palette",
-      "community": 22,
+      "community": 238,
       "norm_label": "palette"
     },
     {
@@ -5938,7 +5938,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "core_config_config",
-      "community": 56,
+      "community": 238,
       "norm_label": "config"
     },
     {
@@ -6028,7 +6028,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "data_graphdata_schema_graphdata",
-      "community": 56,
+      "community": 22,
       "norm_label": "graphdata"
     },
     {
@@ -6348,7 +6348,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "stages_run_simulation_runsimulation",
-      "community": 22,
+      "community": 240,
       "norm_label": "runsimulation()"
     },
     {
@@ -6388,7 +6388,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "data_types_d",
-      "community": 22,
+      "community": 240,
       "norm_label": "types.d.ts"
     },
     {
@@ -6398,7 +6398,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "data_types_d_simulationnodedatum",
-      "community": 22,
+      "community": 240,
       "norm_label": "simulationnodedatum"
     },
     {
@@ -6408,7 +6408,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "data_types_d_simulationlinkdatum",
-      "community": 22,
+      "community": 240,
       "norm_label": "simulationlinkdatum"
     },
     {
@@ -6418,7 +6418,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "data_types_d_simulation",
-      "community": 22,
+      "community": 240,
       "norm_label": "simulation"
     },
     {
@@ -6428,7 +6428,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "data_types_d_force",
-      "community": 22,
+      "community": 240,
       "norm_label": "force"
     },
     {
@@ -6438,7 +6438,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "data_types_d_forcelink",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcelink"
     },
     {
@@ -6448,7 +6448,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "data_types_d_forcemanybody",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcemanybody"
     },
     {
@@ -6458,7 +6458,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "data_types_d_forcecenter",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcecenter"
     },
     {
@@ -6468,7 +6468,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "data_types_d_forcecollide",
-      "community": 22,
+      "community": 240,
       "norm_label": "forcecollide"
     },
     {
@@ -6508,7 +6508,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "content_selectors",
-      "community": 56,
+      "community": 199,
       "norm_label": "selectors.ts"
     },
     {
@@ -6518,7 +6518,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "content_selectors_usenodes",
-      "community": 56,
+      "community": 199,
       "norm_label": "usenodes()"
     },
     {
@@ -6528,7 +6528,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "content_selectors_uselinks",
-      "community": 56,
+      "community": 199,
       "norm_label": "uselinks()"
     },
     {
@@ -6538,7 +6538,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "content_selectors_usecommunities",
-      "community": 56,
+      "community": 237,
       "norm_label": "usecommunities()"
     },
     {
@@ -6558,7 +6558,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "content_store_graphdatastore",
-      "community": 56,
+      "community": 199,
       "norm_label": "graphdatastore"
     },
     {
@@ -6588,7 +6588,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_actions",
-      "community": 56,
+      "community": 237,
       "norm_label": "actions.ts"
     },
     {
@@ -6598,7 +6598,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "view_actions_initcommunities",
-      "community": 56,
+      "community": 237,
       "norm_label": "initcommunities()"
     },
     {
@@ -6608,7 +6608,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "view_actions_selectnode",
-      "community": 56,
+      "community": 238,
       "norm_label": "selectnode()"
     },
     {
@@ -6618,7 +6618,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "view_actions_toggleedges",
-      "community": 56,
+      "community": 237,
       "norm_label": "toggleedges()"
     },
     {
@@ -6628,7 +6628,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "view_actions_togglecommunity",
-      "community": 56,
+      "community": 237,
       "norm_label": "togglecommunity()"
     },
     {
@@ -6638,7 +6638,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "view_actions_showallcommunities",
-      "community": 56,
+      "community": 237,
       "norm_label": "showallcommunities()"
     },
     {
@@ -6648,7 +6648,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "view_actions_hideallcommunities",
-      "community": 56,
+      "community": 237,
       "norm_label": "hideallcommunities()"
     },
     {
@@ -6658,7 +6658,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "view_actions_togglelabels",
-      "community": 56,
+      "community": 237,
       "norm_label": "togglelabels()"
     },
     {
@@ -6668,7 +6668,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_selectors",
-      "community": 56,
+      "community": 237,
       "norm_label": "selectors.ts"
     },
     {
@@ -6678,7 +6678,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "view_selectors_useselectednodeidx",
-      "community": 56,
+      "community": 199,
       "norm_label": "useselectednodeidx()"
     },
     {
@@ -6688,7 +6688,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "view_selectors_useedgesvisible",
-      "community": 56,
+      "community": 237,
       "norm_label": "useedgesvisible()"
     },
     {
@@ -6698,7 +6698,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "view_selectors_usevisiblecommunities",
-      "community": 56,
+      "community": 237,
       "norm_label": "usevisiblecommunities()"
     },
     {
@@ -6708,7 +6708,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "view_selectors_uselabelsvisible",
-      "community": 56,
+      "community": 237,
       "norm_label": "uselabelsvisible()"
     },
     {
@@ -6718,7 +6718,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_store",
-      "community": 56,
+      "community": 237,
       "norm_label": "store.ts"
     },
     {
@@ -6728,7 +6728,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "view_store_graphstore",
-      "community": 56,
+      "community": 237,
       "norm_label": "graphstore"
     },
     {
@@ -6738,7 +6738,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_types",
-      "community": 56,
+      "community": 237,
       "norm_label": "types.ts"
     },
     {
@@ -6748,7 +6748,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "view_types_graphstate",
-      "community": 56,
+      "community": 237,
       "norm_label": "graphstate"
     },
     {
@@ -18445,7 +18445,7 @@
       "label": "buildTree()",
       "file_type": "code",
       "source_file": "packages/randomart/src/core/engine.ts",
-      "source_location": "L26",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "core_engine_buildtree",
       "community": 198,
@@ -18455,7 +18455,7 @@
       "label": "generateTrees()",
       "file_type": "code",
       "source_file": "packages/randomart/src/core/engine.ts",
-      "source_location": "L58",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "core_engine_generatetrees",
       "community": 198,
@@ -18495,7 +18495,7 @@
       "label": "rules",
       "file_type": "code",
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "grammar_registry_rules",
       "community": 198,
@@ -18505,7 +18505,7 @@
       "label": "getRule()",
       "file_type": "code",
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
-      "source_location": "L23",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "grammar_registry_getrule",
       "community": 198,
@@ -18515,7 +18515,7 @@
       "label": "getAllRules()",
       "file_type": "code",
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
-      "source_location": "L27",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "grammar_registry_getallrules",
       "community": 198,
@@ -18580,6 +18580,26 @@
       "id": "rules_cos_cosrule",
       "community": 198,
       "norm_label": "cosrule"
+    },
+    {
+      "label": "if-less-than.ts",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/core/grammar/rules/if-less-than.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "rules_if_less_than",
+      "community": 198,
+      "norm_label": "if-less-than.ts"
+    },
+    {
+      "label": "ifLessThanRule",
+      "file_type": "code",
+      "source_file": "packages/randomart/src/core/grammar/rules/if-less-than.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "rules_if_less_than_iflessthanrule",
+      "community": 198,
+      "norm_label": "iflessthanrule"
     },
     {
       "label": "modulo.ts",
@@ -18765,7 +18785,7 @@
       "label": "nodeToTreeView()",
       "file_type": "code",
       "source_file": "packages/randomart/src/core/treePrinter.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "core_treeprinter_nodetotreeview",
       "community": 198,
@@ -61266,9 +61286,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "selectors_useseedtext",
-      "confidence_score": 1.0
+      "target": "selectors_useseedtext"
     },
     {
       "relation": "imports",
@@ -61277,9 +61297,9 @@
       "source_file": "packages/randomart/src/components/RandomArtCanvas.tsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_randomartcanvas",
-      "target": "selectors_useseedtext_useseedtext",
-      "confidence_score": 1.0
+      "target": "selectors_useseedtext_useseedtext"
     },
     {
       "relation": "imports_from",
@@ -61408,9 +61428,9 @@
       "source_file": "packages/randomart/src/components/controls/Controls.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
-      "target": "randomart_actions",
-      "confidence_score": 1.0
+      "target": "randomart_actions"
     },
     {
       "relation": "imports",
@@ -61419,9 +61439,9 @@
       "source_file": "packages/randomart/src/components/controls/Controls.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_src_components_controls_controls_tsx_controls_controls",
-      "target": "randomart_actions_setseedtext",
-      "confidence_score": 1.0
+      "target": "randomart_actions_setseedtext"
     },
     {
       "relation": "contains",
@@ -62708,6 +62728,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/core/grammar/rules/if-less-than.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "rules_if_less_than",
+      "target": "grammar_factory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "packages/randomart/src/core/grammar/rules/modulo.ts",
       "source_location": "L1",
       "weight": 1.0,
@@ -62791,6 +62822,17 @@
       "confidence_score": 1.0,
       "source": "rules_cos",
       "target": "grammar_factory_definegrammarrule"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/core/grammar/rules/if-less-than.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "rules_if_less_than",
+      "target": "grammar_factory_definegrammarrule",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -62983,6 +63025,28 @@
       "source_file": "packages/randomart/src/core/grammar/registry.ts",
       "source_location": "L6",
       "weight": 1.0,
+      "source": "grammar_registry",
+      "target": "rules_if_less_than",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/core/grammar/registry.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "grammar_registry",
+      "target": "rules_if_less_than_iflessthanrule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/core/grammar/registry.ts",
+      "source_location": "L6",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "grammar_registry",
       "target": "rules_modulo"
@@ -63159,6 +63223,16 @@
       "confidence_score": 1.0,
       "source": "rules_cos",
       "target": "rules_cos_cosrule"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/randomart/src/core/grammar/rules/if-less-than.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "rules_if_less_than",
+      "target": "rules_if_less_than_iflessthanrule",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -75590,9 +75664,9 @@
       "source_file": "AGENTS.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_agents_md",
-      "target": "agents_conventions_rules_read_on_demand_only",
-      "confidence_score": 1.0
+      "target": "agents_conventions_rules_read_on_demand_only"
     },
     {
       "relation": "contains",
@@ -77880,9 +77954,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_repo_randomart",
-      "target": "packages_randomart_architecture",
-      "confidence_score": 1.0
+      "target": "packages_randomart_architecture"
     },
     {
       "relation": "contains",
@@ -77910,9 +77984,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_architecture",
-      "target": "packages_randomart_core_domain_src_core",
-      "confidence_score": 1.0
+      "target": "packages_randomart_core_domain_src_core"
     },
     {
       "relation": "contains",
@@ -77920,9 +77994,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_architecture",
-      "target": "packages_randomart_exports",
-      "confidence_score": 1.0
+      "target": "packages_randomart_exports"
     },
     {
       "relation": "contains",
@@ -77930,9 +78004,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_architecture",
-      "target": "packages_randomart_grammar_system_src_core_grammar",
-      "confidence_score": 1.0
+      "target": "packages_randomart_grammar_system_src_core_grammar"
     },
     {
       "relation": "contains",
@@ -77940,9 +78014,9 @@
       "source_file": "apps/playground/src/content/docs/reference/packages/randomart.md",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "packages_randomart_architecture",
-      "target": "packages_randomart_store_src_stores_randomart",
-      "confidence_score": 1.0
+      "target": "packages_randomart_store_src_stores_randomart"
     },
     {
       "relation": "contains",
@@ -80596,5 +80670,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "588fc77028ebe335eeec5825075bfb531f7b8fb7"
+  "built_at_commit": "cc92ece93c2c4250e01fcd6b1b766a87d54374af"
 }

@@ -3,6 +3,7 @@ import type { GrammarRule } from './types';
 import { addRule } from './rules/add';
 import { constantRule } from './rules/constant';
 import { cosRule } from './rules/cos';
+import { ifLessThanRule } from './rules/if-less-than';
 import { moduloRule } from './rules/modulo';
 import { multiplyRule } from './rules/multiply';
 import { sinRule } from './rules/sin';
@@ -17,7 +18,8 @@ const rules = new Map<string, GrammarRule>([
   [cosRule.id, cosRule],
   [multiplyRule.id, multiplyRule],
   [addRule.id, addRule],
-  [moduloRule.id, moduloRule]
+  [moduloRule.id, moduloRule],
+  [ifLessThanRule.id, ifLessThanRule]
 ]);
 
 export function getRule(id: string): GrammarRule | undefined {

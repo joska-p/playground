@@ -1,16 +1,16 @@
 # Graph Report - playground  (2026-06-16)
 
 ## Corpus Check
-- 1518 files · ~9,536,277 words
+- 1519 files · ~9,422,554 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3261 nodes · 4607 edges · 239 communities (217 shown, 22 thin omitted)
+- 3263 nodes · 4612 edges · 243 communities (221 shown, 22 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `588fc770`
+- Built from commit: `cc92ece9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -213,7 +213,11 @@
 - [[_COMMUNITY_Community 234|Community 234]]
 - [[_COMMUNITY_Community 235|Community 235]]
 - [[_COMMUNITY_Community 236|Community 236]]
+- [[_COMMUNITY_Community 237|Community 237]]
+- [[_COMMUNITY_Community 238|Community 238]]
 - [[_COMMUNITY_Community 239|Community 239]]
+- [[_COMMUNITY_Community 240|Community 240]]
+- [[_COMMUNITY_Community 241|Community 241]]
 - [[_COMMUNITY_Community 242|Community 242]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -243,7 +247,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (239 total, 22 thin omitted)
+## Communities (243 total, 22 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -318,24 +322,24 @@ Cohesion: 0.05
 Nodes (40): dependencies, fast-png, react-error-boundary, @repo/ui, zod, zustand, devDependencies, @babel/core (+32 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.19
-Nodes (7): brushModes, BrushModeSelector(), CellPaintingHandlers, useBrushMode(), BrushMode, UiState, uiStore
+Cohesion: 0.15
+Nodes (10): brushModes, BrushModeSelector(), DEFAULT_STATE_COLORS, STATE_FALLBACK_COLORS, CellPaintingHandlers, useBrushMode(), setToolMode(), BrushMode (+2 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.12
 Nodes (14): BufferManager, FusionScheduler, runFusedPixelBatch(), ManipulationDefinition, PipelineContext, blitTile(), extractTile(), runNeighborhoodTiled() (+6 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.10
-Nodes (19): EditControls(), PlaybackControls(), DEFAULT_STATE_COLORS, getDefaultStateColor(), STATE_FALLBACK_COLORS, useRunning(), clear(), paintCell() (+11 more)
+Cohesion: 0.09
+Nodes (23): EditControls(), PlaybackControls(), getDefaultStateColor(), createGrid(), seedGrid(), CellValue, Grid, useRunning() (+15 more)
 
 ### Community 21 - "Community 21"
 Cohesion: 0.12
 Nodes (19): imagePipeline, ManipulationInfo, MANIPULATIONS, pool, RunConfig, ArgDefinition, addWorkflowStep(), executeWorkflow() (+11 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.07
-Nodes (37): PALETTE, PipelineConfig, PipelineResult, runPipeline(), checksumPath, __dirname, fileChecksum(), __filename (+29 more)
+Cohesion: 0.10
+Nodes (28): GraphData, PipelineConfig, PipelineResult, runPipeline(), checksumPath, __dirname, fileChecksum(), __filename (+20 more)
 
 ### Community 23 - "Community 23"
 Cohesion: 0.13
@@ -362,8 +366,8 @@ Cohesion: 0.06
 Nodes (31): Architecture, As a docs site widget, Changelog, Community Labels (`src/components/scene/CommunityLabels.tsx`), Configuration, Content store (`stores/content/`), Contributing, Data preparation (+23 more)
 
 ### Community 31 - "Community 31"
-Cohesion: 0.20
-Nodes (9): createGrid(), seedGrid(), CellValue, Grid, useGeneration(), init(), SimulationState, simulationStore (+1 more)
+Cohesion: 0.44
+Nodes (3): useGeneration(), SimulationState, simulationStore
 
 ### Community 32 - "Community 32"
 Cohesion: 0.06
@@ -462,8 +466,8 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 56 - "Community 56"
-Cohesion: 0.07
-Nodes (51): initGraphData(), useCommunities(), useLinks(), useNodes(), graphDataStore, GraphDataState, FilterControls(), DIM_COLOR (+43 more)
+Cohesion: 0.16
+Nodes (13): initGraphData(), GraphDataState, Community, communitySchema, graphDataSchema, GraphLink, graphLinkSchema, GraphNode (+5 more)
 
 ### Community 57 - "Community 57"
 Cohesion: 0.11
@@ -662,8 +666,8 @@ Cohesion: 0.12
 Nodes (16): Common Architecture, Component Architecture, Constraint-driven generator (`mosaic-maker`), Definition & Registry System, Engine Comparison, Engines, Execution Models, Extending (+8 more)
 
 ### Community 114 - "Community 114"
-Cohesion: 0.16
-Nodes (14): CreatureSelector(), ColorRowProps, ShaderPropsControls(), ShaderSelector(), getAllCreatures(), useGlowColor(), usePaletteBrush(), useShaderId() (+6 more)
+Cohesion: 0.15
+Nodes (14): RuleSelector(), ColorRowProps, ShaderPropsControls(), ShaderSelector(), ColorRowProps, StateColorPicker(), useGlowColor(), useRuleId() (+6 more)
 
 ### Community 115 - "Community 115"
 Cohesion: 0.18
@@ -907,11 +911,11 @@ Nodes (9): Controls(), ImageManipulator(), CompareToggle(), CompareToggleProps, 
 
 ### Community 198 - "Community 198"
 Cohesion: 0.06
-Nodes (50): Props, RandomArtCanvas(), SeedInput(), buildTree(), evaluateNode(), generateTrees(), renderPixelBuffer(), renderPixelMapAsBase64() (+42 more)
+Nodes (51): Props, RandomArtCanvas(), SeedInput(), buildTree(), evaluateNode(), generateTrees(), renderPixelBuffer(), renderPixelMapAsBase64() (+43 more)
 
 ### Community 199 - "Community 199"
-Cohesion: 0.39
-Nodes (5): RuleSelector(), ColorRowProps, StateColorPicker(), useRuleId(), setStateColor()
+Cohesion: 0.22
+Nodes (13): useLinks(), useNodes(), graphDataStore, computeEdgeBuffers(), EdgeBuffers, DetailsPanel(), getStats(), GraphOverview() (+5 more)
 
 ### Community 206 - "Community 206"
 Cohesion: 0.22
@@ -953,6 +957,22 @@ Nodes (10): rules, collatzRule, factoryRule(), RuleConfig, fibonacciRule, primes
 Cohesion: 0.17
 Nodes (10): calculateRecamanScale(), findBiggestInterval(), DrawFn, DrawingContext, LayerDefinition, LayerEntry, ScaleCalculator, SequenceMeta (+2 more)
 
+### Community 237 - "Community 237"
+Cohesion: 0.23
+Nodes (14): useCommunities(), FilterControls(), CommunityLabels(), hideAllCommunities(), initCommunities(), showAllCommunities(), toggleCommunity(), toggleEdges() (+6 more)
+
+### Community 238 - "Community 238"
+Cohesion: 0.23
+Nodes (11): DIM_COLOR, dummy, getNodeSize(), HIGHLIGHT_COLOR, splitNodeIndices(), tmpColor, writeInstanceData(), CONFIG (+3 more)
+
+### Community 240 - "Community 240"
+Cohesion: 0.27
+Nodes (9): Force, ForceCenter, ForceCollide, ForceLink, ForceManyBody, Simulation, SimulationLinkDatum, SimulationNodeDatum (+1 more)
+
+### Community 241 - "Community 241"
+Cohesion: 0.60
+Nodes (4): CreatureSelector(), getAllCreatures(), usePaletteBrush(), setPaletteBrush()
+
 ### Community 242 - "Community 242"
 Cohesion: 0.50
 Nodes (3): turbo, $schema, ui
@@ -966,7 +986,7 @@ Nodes (3): turbo, $schema, ui
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `cn()` connect `Community 75` to `Community 0`, `Community 74`, `Community 93`?**
-  _High betweenness centrality (0.072) - this node is a cross-community bridge._
+  _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Why does `Tile()` connect `Community 0` to `Community 75`?**
   _High betweenness centrality (0.047) - this node is a cross-community bridge._
 - **Why does `Controls()` connect `Community 93` to `Community 75`?**

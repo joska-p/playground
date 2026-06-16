@@ -10,17 +10,21 @@ export function evaluateNode(
   const rule = getRule(node.ruleId);
   if (!rule) return 0;
 
-  const args = node.args.map((child) => {
-    if (child.ruleId === 'x') return x;
-    if (child.ruleId === 'y') return y;
-    return evaluateNode(child, x, y);
+  // Create standard shortcuts for x and y leaf nodes
+  if (node.ruleId === 'x') return x;
+  if (node.ruleId === 'y') return y;
+
+  // Turn child nodes into executable triggers instead of numbers
+  const lazyArgs = node.args.map((child) => {
+    return () => evaluateNode(child, x, y);
   });
 
+  // Handle constants directly by passing a wrapper function
   if (rule.id === 'constant' && node.constantValue !== undefined) {
-    args[0] = node.constantValue;
+    return node.constantValue;
   }
 
-  return rule.evaluate(args, x, y);
+  return rule.evaluate(lazyArgs, x, y);
 }
 
 export function buildTree(
