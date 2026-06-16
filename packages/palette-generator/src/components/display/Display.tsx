@@ -1,7 +1,7 @@
 import {
   usePaletteBaseColor,
   usePalettePalettes
-} from '../../store/paletteStore';
+} from '../../stores/palette/store';
 
 function Display() {
   const palettes = usePalettePalettes();

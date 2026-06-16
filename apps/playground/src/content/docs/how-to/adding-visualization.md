@@ -10,7 +10,7 @@ tags:
 
 Visualizations define _how to draw_ a sequence. The system uses a layered
 architecture — individual drawing units called **layers** are composed into
-**presets** via `visualisationFactory()`.
+**presets** via `createVisualization()`.
 
 ---
 
@@ -43,7 +43,7 @@ Layers are created with `defineLayer()` which provides a `.defaults()` /
 Create `packages/sequence-renderer/src/core/visualizations/layers/myLayer.ts`:
 
 ```typescript
-import { defineLayer } from '../layerFactory';
+import { defineLayer } from '../define-layer';
 
 type MyLayerOptions = { lineWidth: number; alpha: number };
 
@@ -82,11 +82,11 @@ The layer can be configured at composition time via `.with({ lineWidth: 3 })`.
 Create `packages/sequence-renderer/src/core/visualizations/presets/myViz.ts`:
 
 ```typescript
-import { visualisationFactory } from '../visualisationFactory';
+import { createVisualization } from '../create-visualization';
 import { basePreset } from './base';
 import { myLayer } from '../layers/myLayer';
 
-export const myViz = visualisationFactory({
+export const myViz = createVisualization({
   id: 'my-viz',
   name: 'My Visualization',
   layers: [...basePreset, myLayer.with({ lineWidth: 3 })]
@@ -110,7 +110,7 @@ const myScale: ScaleCalculator = ({ sequence, containerSize }) => {
   return (containerSize.width * 0.9) / (maxVal || 1);
 };
 
-export const myViz = visualisationFactory({
+export const myViz = createVisualization({
   id: 'my-viz',
   name: 'My Visualization',
   layers: [...basePreset, myLayer.with()],
@@ -167,7 +167,7 @@ new visualization from the dropdown.
 - **Share layers across presets** — layers are composable units, not tied to
   one visualization
 - **`DrawingContext` is pre-computed** — canvas sizing, clearing, and
-  centering offsets are handled by `visualisationFactory`
+  centering offsets are handled by `createVisualization`
 - **Scale calculators** go in `src/core/visualizations/scales/` and can be
   composed with `combineScales()`
 

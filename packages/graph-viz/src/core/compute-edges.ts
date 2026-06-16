@@ -1,4 +1,4 @@
-import type { GraphLink, GraphNode } from '../data/graphData.schema';
+import type { GraphLink, GraphNode } from '../core/pipeline/graphData.schema';
 
 export type EdgeBuffers = {
   connectedPositions: Float32Array;

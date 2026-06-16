@@ -4,7 +4,7 @@ import type {
   NeighborhoodFunction,
   PixelFunction,
   WholeImageFunction
-} from './image-pipeline.types';
+} from './types';
 
 type DefineManipParams<Options, Identifier extends string> = {
   id: Identifier;

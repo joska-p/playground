@@ -8,7 +8,7 @@ import {
   useSequenceRule,
   useSequenceSteps,
   useSequenceVisualizationId
-} from '../../store/sequenceStore';
+} from '../../stores/sequence/store';
 import { SequenceSelector } from './SequenceSelector';
 
 function Controls(): JSX.Element {

@@ -1,5 +1,5 @@
 import { Icon } from '@repo/ui/Icon';
-import type { GraphNode } from '../../../data/graphData.schema';
+import type { GraphNode } from '../../../core/pipeline/graphData.schema';
 
 function ConnectionRow({
   node,

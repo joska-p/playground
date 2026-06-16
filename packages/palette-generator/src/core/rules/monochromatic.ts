@@ -1,5 +1,5 @@
 import type Color from 'colorjs.io';
-import type { Rule } from './harmonyRule.types';
+import type { Rule } from './types';
 
 /**
  * Monochromatic color rule.

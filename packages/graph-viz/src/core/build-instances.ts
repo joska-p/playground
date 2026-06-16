@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { GraphNode } from '../data/graphData.schema';
+import type { GraphNode } from '../core/pipeline/graphData.schema';
 import { CONFIG } from './config.ts';
 
 const DIM_COLOR = new THREE.Color(CONFIG.nodes.dimColor);

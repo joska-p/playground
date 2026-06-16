@@ -3,8 +3,7 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, fontProviders } from 'astro/config';
 import process from 'node:process';
-import rehypeKatex from 'rehype-katex';
-import remarkMath from 'remark-math';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { remarkBaseUrl } from './src/lib/remarkBaseUrl.ts';
 
 import mdx from '@astrojs/mdx';
@@ -33,7 +32,7 @@ export default defineConfig({
   ],
   vite: {
     // @ts-expect-error — Vite 7 types vs Vite 8 tailwindcss plugin mismatch
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), visualizer()],
     resolve: {
       // @ts-expect-error — Vite 7 types lack tsconfigPaths, but Vite 8/Rolldown requires it
       tsconfigPaths: true
@@ -55,8 +54,7 @@ export default defineConfig({
   integrations: [
     react(),
     mdx({
-      remarkPlugins: [remarkMath, [remarkBaseUrl, { base: basePath }]], // the order matter math before katex
-      rehypePlugins: [rehypeKatex],
+      remarkPlugins: [[remarkBaseUrl, { base: basePath }]], // the order matter math before katex
       remarkRehype: { allowDangerousHtml: true }
     })
   ],

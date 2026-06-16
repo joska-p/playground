@@ -46,7 +46,7 @@ function that encodes a specific behavior. Definitions are registered in a
 
 | Package             | Definition       | Creation helper        | Registry location                                         |
 | :------------------ | :--------------- | :--------------------- | :-------------------------------------------------------- |
-| `sequence-renderer` | `SequenceRule`   | `factoryRule()`        | `src/core/rules/registry.ts`                              |
+| `sequence-renderer` | `SequenceRule`   | `createRule()`         | `src/core/rules/registry.ts`                              |
 | `automa`            | `Rule`           | `parseRule()`          | `src/core/rules/registry.ts`                              |
 | `image-pipeline`    | `Manipulation`   | inline manifest object | `src/core/registry.ts` (implicit in facade)               |
 | `image-manipulator` | `PixelCallback`  | factory function       | `src/manipulations/` (exported, no explicit registry Map) |

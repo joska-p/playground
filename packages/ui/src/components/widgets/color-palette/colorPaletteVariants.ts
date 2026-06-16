@@ -1,6 +1,6 @@
-import { variantFactory } from '../../../lib/variants/variantFactory';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const colorPaletteVariants = variantFactory({
+export const colorPaletteVariants = createVariant({
   base: 'border-border flex w-fit cursor-pointer overflow-hidden border transition-all hover:ring-4',
   variants: {
     orientation: {

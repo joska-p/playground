@@ -1,6 +1,6 @@
 # @repo/graph-viz
 
-> 3D force-directed graph visualisation using Three.js, React Three Fiber, and Zustand.
+> 3D force-directed graph visualization using Three.js, React Three Fiber, and Zustand.
 
 ## Purpose
 

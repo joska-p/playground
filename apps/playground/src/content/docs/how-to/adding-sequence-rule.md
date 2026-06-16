@@ -32,7 +32,7 @@ type NextStepOptions = {
 | `sequence` | `number[]`    | The full sequence generated so far |
 | `seen`     | `Set<number>` | All unique values generated so far |
 
-Rules are created with `factoryRule()` which validates the config and returns
+Rules are created with `createRule()` which validates the config and returns
 a frozen `SequenceRule` object.
 
 ---
@@ -42,9 +42,9 @@ a frozen `SequenceRule` object.
 Create `packages/sequence-renderer/src/core/rules/myRule.ts`:
 
 ```typescript
-import { factoryRule } from './create-rule';
+import { createRule } from './create-rule';
 
-export const myRule = factoryRule({
+export const myRule = createRule({
   name: 'My Rule',
   id: 'my-rule',
   description: 'What it does.',
@@ -65,7 +65,7 @@ getNext: ({ index, current, seen }) => {
 };
 ```
 
-`factoryRule` validates that `id`, `name`, and `getNext` are present and
+`createRule` validates that `id`, `name`, and `getNext` are present and
 that `maxSteps >= 2`. It returns an immutable frozen object.
 
 ---

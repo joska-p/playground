@@ -1,6 +1,6 @@
-import { factoryRule } from './create-rule';
+import { createRule } from './create-rule';
 
-export const recamanRule = factoryRule({
+export const recamanRule = createRule({
   id: 'recaman',
   name: "Recaman's Rule",
   description: "Jump back by 'n' if possible, otherwise jump forward.",

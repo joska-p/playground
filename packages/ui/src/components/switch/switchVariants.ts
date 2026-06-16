@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const switchVariants = variantFactory({
+export const switchVariants = createVariant({
   base: 'focus-visible:ring-ring inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
   variants: {
     variant: {
@@ -29,7 +29,7 @@ export const switchVariants = variantFactory({
   }
 });
 
-export const switchThumbVariants = variantFactory({
+export const switchThumbVariants = createVariant({
   base: 'bg-background pointer-events-none block rounded-full shadow-md ring-0 transition-transform data-[state=unchecked]:translate-x-0',
   variants: {
     size: {

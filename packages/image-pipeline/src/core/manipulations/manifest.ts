@@ -1,4 +1,4 @@
-import type { ManipulationDefinition } from '../image-pipeline.types';
+import type { ManipulationDefinition } from '../types';
 import { boxBlur } from './neighborhood/box-blur';
 import { edgeDetect } from './neighborhood/edge-detect';
 import { gaussianBlur } from './neighborhood/gaussian-blur';

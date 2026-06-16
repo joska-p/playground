@@ -8,7 +8,7 @@ export type RuleConfig = {
   getNext: (options: NextStepOptions) => number;
 };
 
-export function factoryRule(config: RuleConfig): SequenceRule {
+export function createRule(config: RuleConfig): SequenceRule {
   if (!config.id) throw new Error('Rule id is required');
   if (!config.name) throw new Error('Rule name is required');
   if (config.maxSteps < 2) throw new Error('maxSteps must be >= 2');

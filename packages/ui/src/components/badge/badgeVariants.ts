@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const badgeVariants = variantFactory({
+export const badgeVariants = createVariant({
   base: 'focus-visible:ring-ring inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
   variants: {
     variant: {

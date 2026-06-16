@@ -1,6 +1,6 @@
 ---
 title: 'Graph Visualization'
-description: '3D force-directed graph visualisation using Three.js, React Three Fiber, and Zustand.'
+description: '3D force-directed graph visualization using Three.js, React Three Fiber, and Zustand.'
 category: 'reference'
 tags:
   - reference

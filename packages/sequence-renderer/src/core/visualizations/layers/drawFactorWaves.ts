@@ -1,4 +1,4 @@
-import { defineLayer } from '../layerFactory';
+import { defineLayer } from '../define-layer';
 
 function isPrime(num: number): boolean {
   if (num <= 1) return false;

@@ -1,4 +1,4 @@
-import type { GraphData } from '../../data/graphData.schema';
+import type { GraphData } from '../../core/pipeline/graphData.schema';
 import { graphDataStore } from './store';
 
 export function initGraphData(data: GraphData): void {

@@ -1,4 +1,4 @@
-import { factoryRule } from './create-rule';
+import { createRule } from './create-rule';
 
 function isPrime(num: number): boolean {
   if (num <= 1) return false;
@@ -10,7 +10,7 @@ function isPrime(num: number): boolean {
   return true;
 }
 
-export const primesRule = factoryRule({
+export const primesRule = createRule({
   id: 'primes',
   name: 'Primes',
   description: 'The sequence of prime numbers: 2, 3, 5, 7, 11...',

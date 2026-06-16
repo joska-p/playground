@@ -1,4 +1,4 @@
-import { defineLayer } from '../layerFactory';
+import { defineLayer } from '../define-layer';
 
 export type DrawBaselineOptions = {
   lineWidth: number;

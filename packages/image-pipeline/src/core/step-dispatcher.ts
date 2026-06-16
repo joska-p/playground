@@ -1,11 +1,8 @@
 import type { BufferManager } from './buffer-manager';
 import type { FusionScheduler } from './fusion-scheduler';
-import type {
-  ManipulationDefinition,
-  PipelineContext
-} from './image-pipeline.types';
 import type { Step } from './manipulations/manifest';
 import { runNeighborhoodTiled } from './neighborhood-tiling';
+import type { ManipulationDefinition, PipelineContext } from './types';
 
 type ExecutorParameters = {
   definition: ManipulationDefinition;

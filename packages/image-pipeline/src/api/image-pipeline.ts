@@ -1,7 +1,7 @@
 import { WorkerPool } from '@repo/worker-pool';
-import type { ArgDefinition } from '../core/image-pipeline.types';
 import type { Step } from '../core/manipulations/manifest';
 import { ALL_MANIPULATIONS } from '../core/manipulations/manifest';
+import type { ArgDefinition } from '../core/types';
 
 export type { ArgDefinition, Step };
 

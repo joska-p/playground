@@ -6,7 +6,7 @@ import { analogous } from '../../core/rules/analogous';
 import { complementary } from '../../core/rules/complementary';
 import { monochromatic } from '../../core/rules/monochromatic';
 import { triadic } from '../../core/rules/triadic';
-import { addPalette, usePaletteBaseColor } from '../../store/paletteStore';
+import { addPalette, usePaletteBaseColor } from '../../stores/palette/store';
 import { ColorSpaceControls } from './color-picker/ColorSpaceControls';
 
 const rules = { analogous, complementary, monochromatic, triadic } as const;

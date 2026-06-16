@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const buttonVariants = variantFactory({
+export const buttonVariants = createVariant({
   base: 'focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md  text-sm whitespace-nowrap shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-px disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   variants: {
     variant: {

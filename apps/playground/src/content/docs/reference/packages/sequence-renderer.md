@@ -34,8 +34,8 @@ import '@repo/sequence-renderer/styles';
 
 Decouple **generation** from **visualization**:
 
-1. **Rules** — Define sequences via `factoryRule()` in `src/core/rules/`.
-2. **Visualizations** — Composable layers built with `defineLayer()` + `visualisationFactory()` in `src/core/visualizations/`.
+1. **Rules** — Define sequences via `createRule()` in `src/core/rules/`.
+2. **Visualizations** — Composable layers built with `defineLayer()` + `createVisualization()` in `src/core/visualizations/`.
 3. **Zustand Store** — State management (`sequenceStore`).
 
 ## Available Sequences
@@ -57,7 +57,7 @@ Visualizations are composed of **layers** bundled into **presets**.
 Individual drawing units created with `defineLayer()`:
 
 ```typescript
-import { defineLayer } from '../layerFactory';
+import { defineLayer } from '../define-layer';
 
 type MyOptions = { lineWidth: number; alpha: number };
 
@@ -82,14 +82,14 @@ Available layers in `src/core/visualizations/layers/`:
 
 ### Presets
 
-Presets compose layers into ready-to-use `Visualization` objects via `visualisationFactory()`:
+Presets compose layers into ready-to-use `Visualization` objects via `createVisualization()`:
 
 ```typescript
-import { visualisationFactory } from '../visualisationFactory';
+import { createVisualization } from '../create-visualization';
 import { basePreset } from './base';
 import { myLayer } from '../layers/myLayer';
 
-export const myViz = visualisationFactory({
+export const myViz = createVisualization({
   id: 'my-viz',
   name: 'My Visualization',
   layers: [...basePreset, myLayer.with()],
@@ -136,12 +136,12 @@ Rules clamp step input to their `maxSteps` boundary via `clampSteps()`.
 
 ## How to Add a New Sequence
 
-1. Create a rule file in `src/core/rules/` using `factoryRule()`:
+1. Create a rule file in `src/core/rules/` using `createRule()`:
 
    ```typescript
-   import { factoryRule } from './create-rule';
+   import { createRule } from './create-rule';
 
-   export const myRule = factoryRule({
+   export const myRule = createRule({
      id: 'my-rule',
      name: 'My Rule',
      description: 'What it does',
@@ -165,7 +165,7 @@ Rules clamp step input to their `maxSteps` boundary via `clampSteps()`.
 Create a file in `src/core/visualizations/layers/` (e.g., `myLayer.ts`):
 
 ```typescript
-import { defineLayer } from '../layerFactory';
+import { defineLayer } from '../define-layer';
 
 type MyOptions = { lineWidth: number; alpha: number };
 
@@ -187,11 +187,11 @@ export { myLayer };
 Create a file in `src/core/visualizations/presets/`:
 
 ```typescript
-import { visualisationFactory } from '../visualisationFactory';
+import { createVisualization } from '../create-visualization';
 import { basePreset } from './base';
 import { myLayer } from '../layers/myLayer';
 
-export const myViz = visualisationFactory({
+export const myViz = createVisualization({
   id: 'my-viz',
   name: 'My Visualization',
   layers: [...basePreset, myLayer.with({ lineWidth: 3 })]
@@ -222,7 +222,7 @@ Layers receive a `DrawingContext` object:
 | `offsetY`       | `number`                   | Vertical centering offset (midline) |
 | `textColor`     | `string`                   | Computed CSS color of the canvas    |
 
-Canvas sizing, clearing, and centering offsets are handled automatically by `visualisationFactory`.
+Canvas sizing, clearing, and centering offsets are handled automatically by `createVisualization`.
 
 ## Available Utilities
 

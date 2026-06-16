@@ -1,4 +1,4 @@
-import type { Palette } from '../../../core/palette-types';
+import type { Palette } from '../../../core/types';
 import { mosaicStore } from '../store';
 
 export function useCurrentPalettes(): Palette[] {

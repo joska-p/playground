@@ -1,7 +1,7 @@
 import { Slider } from '@repo/ui/Slider';
 import { useRef, useState } from 'react';
 import { colorSpaces } from '../../../core/colorSpaces';
-import { setPaletteBaseColor } from '../../../store/paletteStore';
+import { setPaletteBaseColor } from '../../../stores/palette/store';
 import { ColorSpaceCanvas } from './ColorSpaceCanvas';
 
 type ColorSliceProps = {

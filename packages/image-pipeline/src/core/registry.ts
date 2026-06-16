@@ -1,4 +1,4 @@
-import type { ManipulationDefinition } from './image-pipeline.types';
+import type { ManipulationDefinition } from './types';
 
 export class Registry {
   private readonly manipulationsMap = new Map<string, ManipulationDefinition>();

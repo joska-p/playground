@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const cardVariants = variantFactory({
+export const cardVariants = createVariant({
   base: 'bg-card text-card-foreground w-full rounded-lg border shadow-sm transition-colors',
   variants: {
     variant: {

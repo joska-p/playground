@@ -1,6 +1,6 @@
 import { MAX_NUMBER_OF_PALETTES } from '../../core/constants';
 import type { TileNames } from '../../core/initialTileSet';
-import type { Palette } from '../../core/palette-types';
+import type { Palette } from '../../core/types';
 import { fetchPalettes } from '../../utils/palettes/fetchPalettes';
 import { computeInitialTiles } from '../../utils/tiles/computeInitialTiles';
 import { updateElementStyles } from '../../utils/updateElementStyles';

@@ -2,7 +2,7 @@ import type {
   Community,
   GraphLink,
   GraphNode
-} from '../../data/graphData.schema';
+} from '../../core/pipeline/graphData.schema';
 
 export type GraphDataState = {
   nodes: GraphNode[];

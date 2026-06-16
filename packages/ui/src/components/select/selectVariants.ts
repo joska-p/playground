@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const selectVariants = variantFactory({
+export const selectVariants = createVariant({
   base: 'bg-input ring-offset-background focus-visible:ring-ring flex h-10 w-full cursor-pointer appearance-none rounded-md border px-3 py-2  text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
   variants: {
     variant: {

@@ -1,6 +1,6 @@
 import type { Creature } from './types';
 
-function creatureFactory({
+function createCreature({
   id,
   name,
   cells
@@ -19,7 +19,7 @@ function creatureFactory({
 }
 
 // ── Still lifes ──────────────────────────────────────────
-const block = creatureFactory({
+const block = createCreature({
   id: 'block',
   name: 'Block',
   cells: [
@@ -28,7 +28,7 @@ const block = creatureFactory({
   ]
 });
 
-const beehive = creatureFactory({
+const beehive = createCreature({
   id: 'beehive',
   name: 'Beehive',
   cells: [
@@ -38,7 +38,7 @@ const beehive = creatureFactory({
   ]
 });
 
-const loaf = creatureFactory({
+const loaf = createCreature({
   id: 'loaf',
   name: 'Loaf',
   cells: [
@@ -50,13 +50,13 @@ const loaf = creatureFactory({
 });
 
 // ── Oscillators ──────────────────────────────────────────
-const blinker = creatureFactory({
+const blinker = createCreature({
   id: 'blinker',
   name: 'Blinker',
   cells: [[1, 1, 1]]
 });
 
-const toad = creatureFactory({
+const toad = createCreature({
   id: 'toad',
   name: 'Toad',
   cells: [
@@ -65,7 +65,7 @@ const toad = creatureFactory({
   ]
 });
 
-const beacon = creatureFactory({
+const beacon = createCreature({
   id: 'beacon',
   name: 'Beacon',
   cells: [
@@ -77,7 +77,7 @@ const beacon = creatureFactory({
 });
 
 // Period-3, beautiful symmetric oscillator
-const pulsar = creatureFactory({
+const pulsar = createCreature({
   id: 'pulsar',
   name: 'Pulsar',
   cells: [
@@ -98,7 +98,7 @@ const pulsar = creatureFactory({
 });
 
 // Period-15 — oscillates through 15 distinct phases
-const pentadecathlon = creatureFactory({
+const pentadecathlon = createCreature({
   id: 'pentadecathlon',
   name: 'Pentadecathlon',
   cells: [
@@ -117,7 +117,7 @@ const pentadecathlon = creatureFactory({
 
 // ── Spaceships ───────────────────────────────────────────
 // Travels diagonally across the grid
-const glider = creatureFactory({
+const glider = createCreature({
   id: 'glider',
   name: 'Glider',
   cells: [
@@ -128,7 +128,7 @@ const glider = creatureFactory({
 });
 
 // Travels horizontally, period 4
-const lwss = creatureFactory({
+const lwss = createCreature({
   id: 'lwss',
   name: 'LWSS',
   cells: [
@@ -140,7 +140,7 @@ const lwss = creatureFactory({
 });
 
 // Medium-weight spaceship — wider body, same period as LWSS
-const mwss = creatureFactory({
+const mwss = createCreature({
   id: 'mwss',
   name: 'MWSS',
   cells: [
@@ -154,7 +154,7 @@ const mwss = creatureFactory({
 
 // ── Methuselahs ──────────────────────────────────────────
 // 5 cells → stabilizes after 1103 generations
-const rPentomino = creatureFactory({
+const rPentomino = createCreature({
   id: 'r-pentomino',
   name: 'R-pentomino',
   cells: [
@@ -165,7 +165,7 @@ const rPentomino = creatureFactory({
 });
 
 // 7 cells → dies completely after exactly 130 generations
-const diehard = creatureFactory({
+const diehard = createCreature({
   id: 'diehard',
   name: 'Diehard',
   cells: [
@@ -176,7 +176,7 @@ const diehard = creatureFactory({
 });
 
 // 7 cells → explodes into ~633 cells after 5206 generations
-const acorn = creatureFactory({
+const acorn = createCreature({
   id: 'acorn',
   name: 'Acorn',
   cells: [
@@ -187,7 +187,7 @@ const acorn = creatureFactory({
 });
 
 // 7 cells → stabilizes after 173 generations
-const piHeptomino = creatureFactory({
+const piHeptomino = createCreature({
   id: 'pi-heptomino',
   name: 'Pi-heptomino',
   cells: [
@@ -198,7 +198,7 @@ const piHeptomino = creatureFactory({
 });
 
 // 7 cells → stabilizes after 243 generations
-const bHeptomino = creatureFactory({
+const bHeptomino = createCreature({
   id: 'b-heptomino',
   name: 'B-heptomino',
   cells: [
@@ -212,7 +212,7 @@ const bHeptomino = creatureFactory({
 // ── Infinite growth ──────────────────────────────────────
 // The first pattern discovered that grows without bound.
 // Every 30 generations it fires a new glider — population grows forever.
-const gosperGliderGun = creatureFactory({
+const gosperGliderGun = createCreature({
   id: 'gosper-glider-gun',
   name: 'Gosper Glider Gun',
   cells: [

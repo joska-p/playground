@@ -1,8 +1,8 @@
 import { BufferManager } from './buffer-manager';
 import { FusionScheduler } from './fusion-scheduler';
-import type { PipelineContext } from './image-pipeline.types';
 import type { Step } from './manipulations/manifest';
 import { dispatchStep } from './step-dispatcher';
+import type { PipelineContext } from './types';
 
 function buildAutoDownscaleStep({
   source,

@@ -1,6 +1,6 @@
-import { factoryRule } from './create-rule';
+import { createRule } from './create-rule';
 
-export const collatzRule = factoryRule({
+export const collatzRule = createRule({
   id: 'collatz',
   name: 'Collatz',
   description: 'Even: n/2 | Odd: 3n + 1. Eventually hits 1.',

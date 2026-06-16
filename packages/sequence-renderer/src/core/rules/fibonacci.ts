@@ -1,6 +1,6 @@
-import { factoryRule } from './create-rule';
+import { createRule } from './create-rule';
 
-export const fibonacciRule = factoryRule({
+export const fibonacciRule = createRule({
   id: 'fibonacci',
   name: 'Fibonacci',
   description: 'F(n) = F(n-1) + F(n-2). Grows exponentially.',

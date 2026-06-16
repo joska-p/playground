@@ -3,7 +3,7 @@ import { Sidebar } from '@repo/ui/Sidebar';
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
 import { GraphCanvas } from './components/scene/GraphCanvas.tsx';
-import { graphDataSchema } from './data/graphData.schema.ts';
+import { graphDataSchema } from './core/pipeline/graphData.schema.ts';
 import rawData from './data/processed-graph.json' with { type: 'json' };
 import { initGraphData } from './stores/content/actions';
 

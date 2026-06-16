@@ -1,5 +1,5 @@
 import type { BufferManager } from './buffer-manager';
-import type { ManipulationDefinition } from './image-pipeline.types';
+import type { ManipulationDefinition } from './types';
 
 function runFusedPixelBatch({
   source,

@@ -4,7 +4,7 @@ import { getVisualization } from '../../core/visualizations/registry';
 import {
   useSequenceSequence,
   useSequenceVisualizationId
-} from '../../store/sequenceStore';
+} from '../../stores/sequence/store';
 
 function SequenceDisplay(): JSX.Element {
   const sequence = useSequenceSequence();

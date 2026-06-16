@@ -1,6 +1,6 @@
-import { factoryRule } from './create-rule';
+import { createRule } from './create-rule';
 
-export const triangularRule = factoryRule({
+export const triangularRule = createRule({
   id: 'triangular',
   name: 'Triangular',
   description: 'Sum of integers up to n: 1, 3, 6, 10, 15...',

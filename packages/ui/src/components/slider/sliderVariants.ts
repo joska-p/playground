@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const sliderVariants = variantFactory({
+export const sliderVariants = createVariant({
   base: 'w-full rounded-md py-2 transition-colors',
   variants: {
     variant: {

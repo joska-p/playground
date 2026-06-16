@@ -1,9 +1,9 @@
+import { createVisualization } from '../create-visualization';
 import { drawFactorWaves } from '../layers/drawFactorWaves';
-import { visualisationFactory } from '../visualisationFactory';
 
 import { basePreset } from './base';
 
-export const frontWave = visualisationFactory({
+export const frontWave = createVisualization({
   id: 'frontWave',
   name: 'Front Wave',
   layers: [...basePreset, drawFactorWaves.with()]

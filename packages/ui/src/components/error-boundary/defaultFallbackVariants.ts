@@ -1,6 +1,6 @@
-import { variantFactory } from '../../lib/variants/variantFactory';
+import { createVariant } from '../../lib/variants/create-variant';
 
-export const defaultFallbackVariants = variantFactory({
+export const defaultFallbackVariants = createVariant({
   base: 'flex items-center justify-center',
   variants: {
     variant: {

@@ -1,5 +1,5 @@
 import { initialPalette } from '../../core/initialPalette';
-import type { Palette } from '../../core/palette-types';
+import type { Palette } from '../../core/types';
 import { paletteSchema } from './fetchPalettes.schema';
 import { fetchWithValidation } from './fetchWithValidation';
 
@@ -41,7 +41,7 @@ function getPaletteId(colors: string[]): string {
   return [...colors].sort().join('-');
 }
 
-function paletteFactory(colors: string[]): Palette {
+function createPalette(colors: string[]): Palette {
   const palette = {} as Palette;
   for (let i = 0; i < COLOR_NAMES.length; i++) {
     palette[COLOR_NAMES[i]] = colors[i] ?? '#000000';
@@ -67,7 +67,7 @@ async function fetchPalettes(): Promise<Palette[]> {
 
   try {
     const palettesArray = await fetchWithValidation(PALETTE_URL, paletteSchema);
-    const palettes = palettesArray.map(paletteFactory);
+    const palettes = palettesArray.map(createPalette);
     cachePalettes(palettes);
     return palettes;
   } catch (error) {

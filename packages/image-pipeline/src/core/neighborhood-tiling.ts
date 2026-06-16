@@ -1,4 +1,4 @@
-import type { ManipulationDefinition } from './image-pipeline.types';
+import type { ManipulationDefinition } from './types';
 
 const TILE_SIZE = 512; // pixels per tile edge
 
