@@ -1,7 +1,7 @@
 ---
-title: 'Randomart'
-description: 'Scaffolded demo showcasing Zustand + Zod.'
-category: 'reference'
+title: "Randomart"
+description: "Random expression-tree art generator. Uses the engine pattern: pluggable grammar definitions, registry-driven tree builder, Zustand store, and React presentation layer."
+category: "reference"
 tags:
   - reference
   - randomart
@@ -10,64 +10,82 @@ order: 20
 
 # @repo/randomart
 
----
-
 ## Quick Start
 
 ```bash
 pnpm --filter @repo/randomart dev
 ```
 
-> **Note:** All `turbo` commands are run via `pnpm gen` (`pnpm gen` wraps `turbo gen`).
+## Architecture
 
-## Documentation
+Three-layer unidirectional flow:
 
-Full reference: [/docs/reference/packages/randomart/](/docs/reference/packages/randomart/)
+```
+Grammar Definitions (core/grammar/rules/)
+    │
+    ▼
+Registry (core/grammar/registry.ts) — Map<id, GrammarRule>
+    │
+    ▼
+Engine Core (core/engine.ts) — buildTree(), evaluateNode()
+    │
+    ▼
+Zustand Store (stores/randomart/) — unexported, getter hooks + setter functions
+    │
+    ▼
+Presentation Layer (components/) — React, Sidebar layout, Canvas 2D
+```
 
-After scaffolding, run `pnpm --filter @repo/playground sync-package-docs` to bootstrap the reference doc, then curate it with architecture details. See [Documenting a Package](/docs/how-to/documenting-packages/) for the full workflow.
+### Core Domain (`src/core/`)
 
-## Adding to the Playground
+- **`types.ts`** — `ExpressionNode` type (ruleId + args + optional constantValue)
+- **`SeededRandom.ts`** — Deterministic PRNG with choice history tracking
+- **`engine.ts`** — `buildTree()` and `evaluateNode()` driven by the grammar registry
+- **`renderer.ts`** — `renderPixelBuffer()` and `renderPixelMapAsBase64()` (server-safe PNG export)
+- **`treePrinter.ts`** — `nodeToMathString()` and `nodeToTreeView()` for AST inspection
 
-Follow the official guide: [Adding Projects](/docs/how-to/adding-projects/).
+### Grammar System (`src/core/grammar/`)
 
-Then apply the React-specific extras:
+Each operator/terminal is a pluggable `GrammarRule` definition created via `defineGrammarRule()` and registered in a `Map`. Adding a new operator:
 
-1. Add `"@repo/randomart": "workspace:*"` to `apps/playground/package.json` (under `dependencies`).
-2. Create the Astro page at `apps/playground/src/pages/projects/<category>/<slug>/index.astro`:
+1. Create a rule file in `rules/` using `defineGrammarRule()`
+2. Register it in `registry.ts`
+3. The UI auto-discovers it via `getAllRules()`
 
-   ```astro
-   ---
-   import { Demo } from '@repo/randomart/Demo';
-   import { StrictMode } from 'react';
-   import BaseLayout from '../../../../layouts/base-layout.astro';
-   ---
+### Store (`src/stores/randomart/`)
 
-   <BaseLayout title="randomart">
-     <div class="min-h-screen">
-       <StrictMode>
-         <Demo client:only="react" />
-       </StrictMode>
-     </div>
-   </BaseLayout>
-   ```
+Vanilla Zustand store with selector hooks and setter functions (conventions doc pattern):
 
-3. Register the project in `apps/playground/src/data/projects.ts`.
-4. Add the `@source` directive in `apps/playground/src/styles/styles.css`:
-   ```css
-   @source '../../node_modules/@repo/randomart';
-   ```
+| File                            | Purpose                                                                |
+| ------------------------------- | ---------------------------------------------------------------------- |
+| `store.ts`                      | `createStore()` — never imported by components                         |
+| `actions.ts`                    | `setSeedText()`, `setActiveChannel()`, `setMaxDepth()`, `regenerate()` |
+| `selectors/useSeedText.ts`      | Hook to read seed text                                                 |
+| `selectors/useActiveChannel.ts` | Hook to read active channel                                            |
+| `selectors/useMaxDepth.ts`      | Hook to read max depth                                                 |
+| `selectors/useTrees.ts`         | Hook to read expression trees                                          |
+| `selectors/useRngInstances.ts`  | Hook to read PRNG instances                                            |
+
+### Exports
+
+| Subpath                    | Target                                  |
+| -------------------------- | --------------------------------------- |
+| `.`                        | `App.tsx` — for DynamicProjectApp       |
+| `./Demo`                   | `Demo.tsx` — wrapped with ErrorBoundary |
+| `./renderPixelMapAsBase64` | `renderer.ts` — for Hero.astro SSR      |
+| `./styles`                 | `global.css`                            |
 
 ## Conventions
 
 This package follows [project conventions](../../CONVENTIONS.md):
 
-- **Named exports only** — no `export default`.
-- **Function declarations** for components and top-level functions.
-- **Zustand store** in `src/demoStore.ts` — unexported `create()`, getter hooks (`useDemo*`), setter functions.
-- **Zod schema** in `src/demo.schema.ts` — runtime validation; TS types written independently.
-- **`@repo/ui` components** for all UI.
-- **No barrel files** — import directly from source paths.
+- **Named exports only** — no `export default`
+- **No barrel files** — import directly from source paths
+- **Zustand store** — unexported `createStore()`, getter hooks (`use*`), plain setter functions
+- **`@repo/ui` components** for all UI
+- **CSS tokens** — no hardcoded colors, spacing, or radius values
 
 ---
 
 _Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+

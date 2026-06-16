@@ -1,7 +1,7 @@
 ---
-title: 'Sequence Renderer'
-description: 'Visualize mathematical sequences — Recamán, Fibonacci, and more.'
-category: 'reference'
+title: "Sequence Renderer"
+description: "Visualize mathematical sequences — Recamán, Fibonacci, and more."
+category: "reference"
 tags:
   - reference
   - sequence-renderer
@@ -231,3 +231,4 @@ Canvas sizing, clearing, and centering offsets are handled automatically by `vis
 ---
 
 _Part of @repo/playground_
+
