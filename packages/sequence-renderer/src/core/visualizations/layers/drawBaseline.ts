@@ -1,3 +1,4 @@
+import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
 
 type DrawBaselineOptions = {
@@ -23,4 +24,23 @@ const drawBaseline = defineLayer<DrawBaselineOptions>()
     }
   );
 
-export { drawBaseline };
+const drawBaselineMeta = {
+  id: 'baseline',
+  name: 'Baseline',
+  description: 'Horizontal line at y=0',
+  definition: drawBaseline,
+  defaultParams: { lineWidth: 1, alpha: 0.15, color: undefined },
+  params: {
+    lineWidth: {
+      label: 'Line Width',
+      type: 'number',
+      min: 0.5,
+      max: 5,
+      step: 0.5
+    },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    color: { label: 'Color', type: 'color' }
+  }
+} satisfies LayerMeta<DrawBaselineOptions>;
+
+export { drawBaseline, drawBaselineMeta };

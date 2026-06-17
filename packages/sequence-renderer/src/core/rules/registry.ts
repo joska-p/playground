@@ -1,4 +1,3 @@
-import { collatzRule } from './collatz';
 import { fibonacciRule } from './fibonacci';
 import { primesRule } from './primes';
 import { recamanRule } from './recaman';
@@ -9,8 +8,7 @@ const rules = new Map<string, SequenceRule>([
   [recamanRule.id, recamanRule],
   [fibonacciRule.id, fibonacciRule],
   [primesRule.id, primesRule],
-  [triangularRule.id, triangularRule],
-  [collatzRule.id, collatzRule]
+  [triangularRule.id, triangularRule]
 ]);
 
 export function getAllRules(): SequenceRule[] {

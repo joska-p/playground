@@ -1,14 +1,5 @@
+import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
-
-function isPrime(num: number): boolean {
-  if (num <= 1) return false;
-  if (num <= 3) return true;
-  if (num % 2 === 0) return false;
-  for (let i = 3, s = Math.sqrt(num); i <= s; i += 2) {
-    if (num % i === 0) return false;
-  }
-  return true;
-}
 
 type DrawFactorWavesOptions = {
   lineWidth: number;
@@ -39,16 +30,9 @@ const drawFactorWaves = defineLayer<DrawFactorWavesOptions>()
       },
       { lineWidth, alpha, amplitudeScale, saturation, lightness }
     ) => {
-      const uniquePrimes = new Set<number>();
-      sequence.forEach((val) => {
-        if (isPrime(val)) {
-          uniquePrimes.add(val);
-        }
-      });
-
       const maxAmplitude = containerSize.height * amplitudeScale;
 
-      uniquePrimes.forEach((p) => {
+      sequence.forEach((p) => {
         if (maxVal <= 0) return;
         const amplitude = (p / maxVal) * maxAmplitude;
         const hue = (p * 137.5) % 360;
@@ -63,9 +47,9 @@ const drawFactorWaves = defineLayer<DrawFactorWavesOptions>()
 
         for (let canvasX = startX; canvasX <= endX; canvasX++) {
           const v = (canvasX - offsetX) / valueScale;
-          // The wave crosses 0 at p, 2p, 3p, etc.
-          // So Math.sin(Math.PI * (v - p) / p) is 0 at v = p, 2p, 3p...
-          const y = offsetY + amplitude * Math.sin((Math.PI * (v - p)) / p);
+          const y =
+            offsetY +
+            amplitude * Math.sin((Math.PI * (v - p)) / p);
 
           if (canvasX === startX) {
             context.moveTo(canvasX, y);
@@ -79,4 +63,49 @@ const drawFactorWaves = defineLayer<DrawFactorWavesOptions>()
     }
   );
 
-export { drawFactorWaves };
+const drawFactorWavesMeta = {
+  id: 'factor-waves',
+  name: 'Factor Waves',
+  description: 'Per-value sine waves radiating from each point',
+  definition: drawFactorWaves,
+  defaultParams: {
+    lineWidth: 1.5,
+    alpha: 0.65,
+    amplitudeScale: 0.4,
+    saturation: 85,
+    lightness: 55
+  },
+  params: {
+    lineWidth: {
+      label: 'Line Width',
+      type: 'number',
+      min: 0.5,
+      max: 5,
+      step: 0.5
+    },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    amplitudeScale: {
+      label: 'Amplitude',
+      type: 'number',
+      min: 0.05,
+      max: 1,
+      step: 0.05
+    },
+    saturation: {
+      label: 'Saturation',
+      type: 'number',
+      min: 0,
+      max: 100,
+      step: 5
+    },
+    lightness: {
+      label: 'Lightness',
+      type: 'number',
+      min: 0,
+      max: 100,
+      step: 5
+    }
+  }
+} satisfies LayerMeta<DrawFactorWavesOptions>;
+
+export { drawFactorWaves, drawFactorWavesMeta };

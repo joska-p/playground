@@ -1,3 +1,4 @@
+import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
 
 type DrawPlottedNumbersOptions = {
@@ -30,4 +31,23 @@ const drawPlottedNumbers = defineLayer<DrawPlottedNumbersOptions>()
     }
   );
 
-export { drawPlottedNumbers };
+const drawPlottedNumbersMeta = {
+  id: 'plotted-numbers',
+  name: 'Plotted Numbers',
+  description: 'Dots at each unique sequence value',
+  definition: drawPlottedNumbers,
+  defaultParams: { radius: 3, alpha: 0.4, color: undefined },
+  params: {
+    radius: {
+      label: 'Radius',
+      type: 'number',
+      min: 1,
+      max: 20,
+      step: 1
+    },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    color: { label: 'Color', type: 'color' }
+  }
+} satisfies LayerMeta<DrawPlottedNumbersOptions>;
+
+export { drawPlottedNumbers, drawPlottedNumbersMeta };

@@ -1,24 +1,33 @@
 import type { JSX } from 'react';
-import { useEffect, useRef } from 'react';
-import { getVisualization } from '../../core/visualizations/registry';
+import { useEffect, useMemo, useRef } from 'react';
+import { resolveVisualization } from '../../core/visualizations/resolve-visualization';
 import {
   useSequenceSequence,
-  useSequenceVisualizationId
+  useLayersConfig,
+  useScaleConfig
 } from '../../stores/sequence/store';
 
 function SequenceDisplay(): JSX.Element {
   const sequence = useSequenceSequence();
-  const visualizationId = useSequenceVisualizationId();
+  const layers = useLayersConfig();
+  const scale = useScaleConfig();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const visualization = useMemo(
+    () =>
+      resolveVisualization({
+        layers,
+        scale
+      }),
+    [layers, scale]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const visualization = getVisualization(visualizationId);
-
-    visualization?.draw({ canvas, sequence });
-  }, [sequence, visualizationId]);
+    visualization.draw({ canvas, sequence });
+  }, [visualization, sequence]);
 
   return (
     <canvas

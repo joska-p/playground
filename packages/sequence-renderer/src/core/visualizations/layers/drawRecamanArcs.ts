@@ -1,4 +1,6 @@
+import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
+import { recamanScale } from '../scales/recaman';
 
 type DrawRecamanArcsOptions = {
   lineWidth: number;
@@ -38,4 +40,24 @@ const drawRecamanArcs = defineLayer<DrawRecamanArcsOptions>()
     }
   );
 
-export { drawRecamanArcs };
+const drawRecamanArcsMeta = {
+  id: 'recaman-arcs',
+  name: 'Recamán Arcs',
+  description: 'Semicircle arcs between consecutive sequence values',
+  definition: drawRecamanArcs,
+  defaultParams: { lineWidth: 1, alpha: 1.0, color: undefined },
+  params: {
+    lineWidth: {
+      label: 'Line Width',
+      type: 'number',
+      min: 0.5,
+      max: 5,
+      step: 0.5
+    },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    color: { label: 'Color', type: 'color' }
+  },
+  preferredScale: recamanScale
+} satisfies LayerMeta<DrawRecamanArcsOptions>;
+
+export { drawRecamanArcs, drawRecamanArcsMeta };
