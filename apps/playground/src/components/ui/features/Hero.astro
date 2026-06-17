@@ -1,12 +1,12 @@
 ---
-import { renderPixelMapAsBase64 } from '@repo/randomart/renderPixelMapAsBase64';
+// import { renderPixelMapAsBase64 } from '@repo/randomart/renderPixelMapAsBase64';
 
 type Props = {
   badgeText?: string;
   title?: string;
   highlight?: string;
   description?: string;
-  className?: string; // Added to allow safe layout overrides per-page
+  className?: string;
 };
 
 const {
@@ -55,6 +55,7 @@ const dataUri = renderPixelMapAsBase64(description, 300, 8);
         {highlight}<br />
         {title}<span class="cursor ml-1 font-light">_</span>
       </h1>
+      <!-- TODO: find a way to not generate the image at each build
       <figure class="ml-auto hidden md:flex md:flex-col">
         <img
           src={dataUri}
@@ -67,6 +68,7 @@ const dataUri = renderPixelMapAsBase64(description, 300, 8);
           randomart
         </figcaption>
       </figure>
+      -->
     </div>
 
     {
