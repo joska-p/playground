@@ -6,8 +6,7 @@ import { getLayer } from '../../core/visualizations/layers/registry';
 import {
   builtInPresets,
   getAllPresets,
-  savePreset as persistPreset,
-  deletePreset as removePreset
+  savePreset as persistPreset
 } from '../../core/visualizations/registry';
 import type {
   CanvasViewport,
@@ -86,10 +85,6 @@ export function useLayersConfig(): LayerConfigEntry[] {
   return sequenceStore((s) => s.layers);
 }
 
-export function useCustomPresets(): PresetRecord[] {
-  return sequenceStore((s) => s.customPresets);
-}
-
 export function useBasePresetId(): string | null {
   return sequenceStore((s) => s.basePresetId);
 }
@@ -157,14 +152,6 @@ export function saveCurrentPreset(name: string): void {
   persistPreset(preset);
   sequenceStore.setState({
     customPresets: [...state.customPresets, preset]
-  });
-}
-
-export function deleteCustomPreset(presetId: string): void {
-  removePreset(presetId);
-  const state = sequenceStore.getState();
-  sequenceStore.setState({
-    customPresets: state.customPresets.filter((p) => p.id !== presetId)
   });
 }
 

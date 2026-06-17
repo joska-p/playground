@@ -1,4 +1,4 @@
-import type { LayerCategory, VisualLayer } from '../types';
+import type { VisualLayer } from '../types';
 import { drawBaseline } from './drawBaseline';
 import { drawFactorWaves } from './drawFactorWaves';
 import { drawPlottedNumbers } from './drawPlottedNumbers';
@@ -21,8 +21,4 @@ function getLayer(id: string): VisualLayer | undefined {
   return layerMap.get(id);
 }
 
-function getLayersByCategory(category: LayerCategory): VisualLayer[] {
-  return layers.filter((l) => l.category === category);
-}
-
-export { getAllLayers, getLayer, getLayersByCategory };
+export { getAllLayers, getLayer };

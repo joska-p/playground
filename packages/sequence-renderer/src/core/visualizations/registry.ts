@@ -30,10 +30,6 @@ function getAllPresets(): PresetRecord[] {
   return [...builtInPresets, ...loadCustomPresets()];
 }
 
-function getPreset(id: string): PresetRecord | undefined {
-  return getAllPresets().find((p) => p.id === id);
-}
-
 function savePreset(preset: PresetRecord): void {
   const customs = loadCustomPresets();
   const existing = customs.findIndex((p) => p.id === preset.id);
@@ -50,4 +46,4 @@ function deletePreset(id: string): void {
   saveCustomPresets(customs);
 }
 
-export { builtInPresets, deletePreset, getAllPresets, getPreset, savePreset };
+export { builtInPresets, deletePreset, getAllPresets, savePreset };

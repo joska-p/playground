@@ -1,10 +1,7 @@
 import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
 import type { JSX } from 'react';
-import {
-  setViewport,
-  useViewport
-} from '../../stores/sequence/store';
+import { setViewport, useViewport } from '../../stores/sequence/store';
 
 function ViewportControls(): JSX.Element {
   const viewport = useViewport();
@@ -19,7 +16,9 @@ function ViewportControls(): JSX.Element {
           variant="secondary"
           size="sm"
           checked={viewport.enabled}
-          onCheckedChange={(enabled) => setViewport({ enabled, zoom: 1, panX: 0, panY: 0 })}
+          onCheckedChange={(enabled) =>
+            setViewport({ enabled, zoom: 1, panX: 0, panY: 0 })
+          }
           label="Enable Manual Viewport"
         />
       </div>

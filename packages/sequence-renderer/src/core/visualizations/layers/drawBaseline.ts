@@ -7,12 +7,22 @@ const drawBaseline: VisualLayer = {
   category: 'cosmetic',
   defaults: { lineWidth: 1, alpha: 0.15, color: undefined },
   params: {
-    lineWidth: { label: 'Line Width', type: 'number', min: 0.5, max: 5, step: 0.5 },
+    lineWidth: {
+      label: 'Line Width',
+      type: 'number',
+      min: 0.5,
+      max: 5,
+      step: 0.5
+    },
     alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
     color: { label: 'Color', type: 'color' }
   },
   draw: (ctx, _data, params, layout) => {
-    const { lineWidth = 1, alpha = 0.15, color } = params as Record<string, unknown>;
+    const {
+      lineWidth = 1,
+      alpha = 0.15,
+      color
+    } = params as Record<string, unknown>;
     const { minVal, maxVal, valueScale, offsetX, offsetY } = layout;
     const textColor = getComputedStyle(ctx.canvas).color || 'black';
 

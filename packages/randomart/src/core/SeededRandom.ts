@@ -19,11 +19,6 @@ class SeededRandom {
     this.choiceHistory.push(result); // 👈 Save the decimal number choice
     return result;
   }
-
-  pick<T>(array: T[]): T {
-    const index = Math.floor(this.next() * array.length);
-    return array[index];
-  }
 }
 
 export { SeededRandom };

@@ -31,12 +31,20 @@ function SequenceDisplay(): JSX.Element {
   }
 
   // Keep refs in sync for rAF reads
-  useEffect(() => { sequenceRef.current = sequence; }, [sequence]);
-  useEffect(() => { layersRef.current = layers; }, [layers]);
-  useEffect(() => { viewportRef.current = viewport; }, [viewport]);
+  useEffect(() => {
+    sequenceRef.current = sequence;
+  }, [sequence]);
+  useEffect(() => {
+    layersRef.current = layers;
+  }, [layers]);
+  useEffect(() => {
+    viewportRef.current = viewport;
+  }, [viewport]);
 
   // Sequence/layers change → render immediately
-  useEffect(() => { draw(); }, [sequence, layers]);
+  useEffect(() => {
+    draw();
+  }, [sequence, layers]);
 
   // Viewport change → throttle via rAF
   useEffect(() => {
@@ -76,7 +84,12 @@ function SequenceDisplay(): JSX.Element {
       const newPanX = mx - (mx - vp.panX) * (newZoom / vp.zoom);
       const newPanY = my - (my - vp.panY) * (newZoom / vp.zoom);
 
-      setViewport({ enabled: true, zoom: newZoom, panX: newPanX, panY: newPanY });
+      setViewport({
+        enabled: true,
+        zoom: newZoom,
+        panX: newPanX,
+        panY: newPanY
+      });
     }
 
     function handleMouseDown(e: MouseEvent) {

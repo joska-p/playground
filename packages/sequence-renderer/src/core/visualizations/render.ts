@@ -1,8 +1,19 @@
-import type { CanvasLayout, CanvasViewport, LayerConfigEntry } from './types';
 import { getLayer } from './layers/registry';
-import { maxAbsInterval } from './scale';
+import type { CanvasLayout, CanvasViewport, LayerConfigEntry } from './types';
 
-function computeLayout(canvas: HTMLCanvasElement, data: number[]): CanvasLayout {
+function maxAbsInterval(data: number[]): number {
+  let max = 0;
+  for (let i = 1; i < data.length; i++) {
+    const abs = Math.abs(data[i] - data[i - 1]);
+    if (abs > max) max = abs;
+  }
+  return max || 1;
+}
+
+function computeLayout(
+  canvas: HTMLCanvasElement,
+  data: number[]
+): CanvasLayout {
   let maxVal = 0;
   let minVal = 0;
   for (let i = 0; i < data.length; i++) {
@@ -11,14 +22,16 @@ function computeLayout(canvas: HTMLCanvasElement, data: number[]): CanvasLayout 
     if (v < minVal) minVal = v;
   }
   const dataRange = maxVal - minVal;
-  const horizontalScale = (canvas.width * 0.95) / (dataRange || Math.max(maxVal, -minVal) || 1);
+  const horizontalScale =
+    (canvas.width * 0.95) / (dataRange || Math.max(maxVal, -minVal) || 1);
   const verticalScale = (canvas.height * 0.85) / maxAbsInterval(data);
   const valueScale = Math.min(horizontalScale, verticalScale);
   return {
     maxVal,
     minVal,
     valueScale,
-    offsetX: (canvas.width - (maxVal - minVal) * valueScale) / 2 - minVal * valueScale,
+    offsetX:
+      (canvas.width - (maxVal - minVal) * valueScale) / 2 - minVal * valueScale,
     offsetY: canvas.height / 2
   };
 }
