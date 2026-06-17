@@ -1,13 +1,5 @@
+import { maxAbsInterval } from '../scale';
 import type { VisualLayer } from '../types';
-
-function maxAbsInterval(data: number[]): number {
-  let max = 0;
-  for (let i = 1; i < data.length; i++) {
-    const abs = Math.abs(data[i] - data[i - 1]);
-    if (abs > max) max = abs;
-  }
-  return max || 1;
-}
 
 const drawRecamanArcs: VisualLayer = {
   id: 'recaman-arcs',
@@ -16,12 +8,22 @@ const drawRecamanArcs: VisualLayer = {
   category: 'drawing',
   defaults: { lineWidth: 1, alpha: 1.0, color: undefined },
   params: {
-    lineWidth: { label: 'Line Width', type: 'number', min: 0.5, max: 5, step: 0.5 },
+    lineWidth: {
+      label: 'Line Width',
+      type: 'number',
+      min: 0.5,
+      max: 5,
+      step: 0.5
+    },
     alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
     color: { label: 'Color', type: 'color' }
   },
   draw: (ctx, data, params) => {
-    const { lineWidth = 1, alpha = 1.0, color } = params as Record<string, unknown>;
+    const {
+      lineWidth = 1,
+      alpha = 1.0,
+      color
+    } = params as Record<string, unknown>;
     if (data.length < 2) return;
 
     const maxVal = Math.max(...data, 0);
