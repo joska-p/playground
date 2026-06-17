@@ -1,42 +1,28 @@
-import type { DrawFn, LayerMeta } from '../types';
-import { drawBaselineMeta } from './drawBaseline';
-import { drawFactorWavesMeta } from './drawFactorWaves';
-import { drawPlottedNumbersMeta } from './drawPlottedNumbers';
-import { drawRecamanArcsMeta } from './drawRecamanArcs';
+import type { LayerCategory, VisualLayer } from '../types';
+import { drawBaseline } from './drawBaseline';
+import { drawFactorWaves } from './drawFactorWaves';
+import { drawPlottedNumbers } from './drawPlottedNumbers';
+import { drawRecamanArcs } from './drawRecamanArcs';
 
-const layerRegistry = new Map<string, LayerMeta<Record<string, unknown>>>([
-  [drawBaselineMeta.id, drawBaselineMeta as LayerMeta<Record<string, unknown>>],
-  [
-    drawPlottedNumbersMeta.id,
-    drawPlottedNumbersMeta as LayerMeta<Record<string, unknown>>
-  ],
-  [
-    drawFactorWavesMeta.id,
-    drawFactorWavesMeta as LayerMeta<Record<string, unknown>>
-  ],
-  [
-    drawRecamanArcsMeta.id,
-    drawRecamanArcsMeta as LayerMeta<Record<string, unknown>>
-  ]
-]);
+const layers: VisualLayer[] = [
+  drawBaseline,
+  drawPlottedNumbers,
+  drawFactorWaves,
+  drawRecamanArcs
+];
 
-function getAllLayerMetas(): LayerMeta<Record<string, unknown>>[] {
-  return Array.from(layerRegistry.values());
+const layerMap = new Map<string, VisualLayer>(layers.map((l) => [l.id, l]));
+
+function getAllLayers(): VisualLayer[] {
+  return layers;
 }
 
-function getLayerMeta(
-  id: string
-): LayerMeta<Record<string, unknown>> | undefined {
-  return layerRegistry.get(id);
+function getLayer(id: string): VisualLayer | undefined {
+  return layerMap.get(id);
 }
 
-function buildDrawFn(
-  layerId: string,
-  params: Record<string, unknown>
-): DrawFn | undefined {
-  const meta = layerRegistry.get(layerId);
-  if (!meta) return undefined;
-  return meta.definition.with(params);
+function getLayersByCategory(category: LayerCategory): VisualLayer[] {
+  return layers.filter((l) => l.category === category);
 }
 
-export { buildDrawFn, getAllLayerMetas, getLayerMeta };
+export { getAllLayers, getLayer, getLayersByCategory };

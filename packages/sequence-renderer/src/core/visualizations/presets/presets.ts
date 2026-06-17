@@ -9,7 +9,6 @@ const builtInPresets: PresetRecord[] = [
       { layerId: 'plotted-numbers', enabled: true, params: {} },
       { layerId: 'factor-waves', enabled: true, params: {} }
     ],
-    scale: { id: 'linear', params: {} },
     isBuiltIn: true
   },
   {
@@ -18,13 +17,8 @@ const builtInPresets: PresetRecord[] = [
     layers: [
       { layerId: 'baseline', enabled: true, params: {} },
       { layerId: 'plotted-numbers', enabled: true, params: {} },
-      {
-        layerId: 'recaman-arcs',
-        enabled: true,
-        params: { lineWidth: 1, alpha: 1.0 }
-      }
+      { layerId: 'recaman-arcs', enabled: true, params: { lineWidth: 1, alpha: 1.0 } }
     ],
-    scale: { id: 'recaman', params: {} },
     isBuiltIn: true
   }
 ];

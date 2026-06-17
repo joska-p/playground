@@ -2,13 +2,13 @@ import { Button } from '@repo/ui/Button';
 import { Switch } from '@repo/ui/Switch';
 import type { JSX } from 'react';
 import type {
-  LayerMeta,
-  ParamDescriptor
+  ParamDescriptor,
+  VisualLayer
 } from '../../core/visualizations/types';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 
 type LayerRowProps = {
-  meta: LayerMeta<Record<string, unknown>>;
+  meta: VisualLayer;
   enabled: boolean;
   params: Record<string, unknown>;
   isExpanded: boolean;

@@ -1,109 +1,53 @@
-import { defineLayer } from '../define-layer';
-import type { LayerMeta } from '../types';
+import type { VisualLayer } from '../types';
 
-type DrawFactorWavesOptions = {
-  lineWidth: number;
-  alpha: number;
-  amplitudeScale: number;
-  saturation: number;
-  lightness: number;
-};
-
-const drawFactorWaves = defineLayer<DrawFactorWavesOptions>()
-  .defaults({
-    lineWidth: 1.5,
-    alpha: 0.65,
-    amplitudeScale: 0.4,
-    saturation: 85,
-    lightness: 55
-  })
-  .draw(
-    (
-      {
-        context,
-        sequence,
-        maxVal,
-        valueScale,
-        offsetX,
-        offsetY,
-        containerSize
-      },
-      { lineWidth, alpha, amplitudeScale, saturation, lightness }
-    ) => {
-      const maxAmplitude = containerSize.height * amplitudeScale;
-
-      sequence.forEach((p) => {
-        if (maxVal <= 0) return;
-        const amplitude = (p / maxVal) * maxAmplitude;
-        const hue = (p * 137.5) % 360;
-
-        context.save();
-        context.strokeStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
-        context.lineWidth = lineWidth;
-        context.beginPath();
-
-        const startX = offsetX + p * valueScale;
-        const endX = offsetX + maxVal * valueScale;
-
-        for (let canvasX = startX; canvasX <= endX; canvasX++) {
-          const v = (canvasX - offsetX) / valueScale;
-          const y = offsetY + amplitude * Math.sin((Math.PI * (v - p)) / p);
-
-          if (canvasX === startX) {
-            context.moveTo(canvasX, y);
-          } else {
-            context.lineTo(canvasX, y);
-          }
-        }
-        context.stroke();
-        context.restore();
-      });
-    }
-  );
-
-const drawFactorWavesMeta = {
+const drawFactorWaves: VisualLayer = {
   id: 'factor-waves',
   name: 'Factor Waves',
   description: 'Per-value sine waves radiating from each point',
-  definition: drawFactorWaves,
-  defaultParams: {
-    lineWidth: 1.5,
-    alpha: 0.65,
-    amplitudeScale: 0.4,
-    saturation: 85,
-    lightness: 55
-  },
+  category: 'drawing',
+  defaults: { lineWidth: 1.5, alpha: 0.65, amplitudeScale: 0.4, saturation: 85, lightness: 55 },
   params: {
-    lineWidth: {
-      label: 'Line Width',
-      type: 'number',
-      min: 0.5,
-      max: 5,
-      step: 0.5
-    },
+    lineWidth: { label: 'Line Width', type: 'number', min: 0.5, max: 5, step: 0.5 },
     alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
-    amplitudeScale: {
-      label: 'Amplitude',
-      type: 'number',
-      min: 0.05,
-      max: 1,
-      step: 0.05
-    },
-    saturation: {
-      label: 'Saturation',
-      type: 'number',
-      min: 0,
-      max: 100,
-      step: 5
-    },
-    lightness: {
-      label: 'Lightness',
-      type: 'number',
-      min: 0,
-      max: 100,
-      step: 5
-    }
-  }
-} satisfies LayerMeta<DrawFactorWavesOptions>;
+    amplitudeScale: { label: 'Amplitude', type: 'number', min: 0.05, max: 1, step: 0.05 },
+    saturation: { label: 'Saturation', type: 'number', min: 0, max: 100, step: 5 },
+    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 }
+  },
+  draw: (ctx, data, params) => {
+    const { lineWidth = 1.5, alpha = 0.65, amplitudeScale = 0.4, saturation = 85, lightness = 55 } = params as Record<string, unknown>;
+    const maxVal = Math.max(...data, 0);
+    if (maxVal <= 0) return;
 
-export { drawFactorWaves, drawFactorWavesMeta };
+    const valueScale = (ctx.canvas.width * 0.95) / maxVal;
+    const offsetX = (ctx.canvas.width - maxVal * valueScale) / 2;
+    const offsetY = ctx.canvas.height / 2;
+    const maxAmplitude = ctx.canvas.height * (amplitudeScale as number);
+
+    data.forEach((p) => {
+      const amplitude = (p / maxVal) * maxAmplitude;
+      const hue = (p * 137.5) % 360;
+
+      ctx.save();
+      ctx.strokeStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+      ctx.lineWidth = lineWidth as number;
+      ctx.beginPath();
+
+      const startX = offsetX + p * valueScale;
+      const endX = offsetX + maxVal * valueScale;
+
+      for (let canvasX = startX; canvasX <= endX; canvasX++) {
+        const v = (canvasX - offsetX) / valueScale;
+        const y = offsetY + amplitude * Math.sin((Math.PI * (v - p)) / p);
+        if (canvasX === startX) {
+          ctx.moveTo(canvasX, y);
+        } else {
+          ctx.lineTo(canvasX, y);
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+};
+
+export { drawFactorWaves };

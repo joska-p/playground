@@ -1,33 +1,27 @@
 import { Button } from '@repo/ui/Button';
 import type { JSX } from 'react';
 import { useState } from 'react';
-import { getAllLayerMetas } from '../../core/visualizations/layers/registry';
+import { getAllLayers } from '../../core/visualizations/layers/registry';
 import {
   addLayer,
   moveLayerDown,
   moveLayerUp,
   removeLayer,
   saveCurrentPreset,
-  setScale,
   toggleLayer,
   updateLayerParams,
-  updateScaleParams,
-  useLayersConfig,
-  useScaleConfig
+  useLayersConfig
 } from '../../stores/sequence/store';
 import { LayerRow } from './LayerRow';
 import { SavePresetDialog } from './SavePresetDialog';
-import { ScaleSelector } from './ScaleSelector';
 
 function LayerStackEditor(): JSX.Element {
   const layers = useLayersConfig();
-  const scale = useScaleConfig();
   const [expandedLayerId, setExpandedLayerId] = useState<string | null>(null);
-  const [scaleExpanded, setScaleExpanded] = useState(false);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [showAddDropdown, setShowAddDropdown] = useState(false);
 
-  const allLayerMetas = getAllLayerMetas();
+  const allLayerMetas = getAllLayers();
   const enabledCount = layers.filter((l) => l.enabled).length;
 
   const availableLayers = allLayerMetas.filter(
@@ -57,14 +51,6 @@ function LayerStackEditor(): JSX.Element {
 
   return (
     <div className="border-border flex w-full flex-col gap-2 border-t px-3 py-2">
-      <ScaleSelector
-        scale={scale}
-        expanded={scaleExpanded}
-        onToggleExpand={() => setScaleExpanded(!scaleExpanded)}
-        onChange={(id) => setScale(id)}
-        onParamChange={(key, value) => updateScaleParams({ [key]: value })}
-      />
-
       <div className="flex flex-col gap-1">
         <span className="text-muted-foreground text-xs font-medium">
           Layers
