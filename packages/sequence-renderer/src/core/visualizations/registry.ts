@@ -1,4 +1,4 @@
-import { builtInPresets } from './presets/presets';
+import { builtInPresets } from './presets';
 import type { PresetRecord } from './types';
 
 const CUSTOM_PRESETS_KEY = 'sequence-renderer:custom-presets';

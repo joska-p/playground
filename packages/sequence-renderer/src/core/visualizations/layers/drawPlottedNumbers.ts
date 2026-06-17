@@ -11,12 +11,9 @@ const drawPlottedNumbers: VisualLayer = {
     alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
     color: { label: 'Color', type: 'color' }
   },
-  draw: (ctx, data, params) => {
+  draw: (ctx, data, params, layout) => {
     const { radius = 3, alpha = 0.4, color } = params as Record<string, unknown>;
-    const maxVal = Math.max(...data, 0);
-    const valueScale = (ctx.canvas.width * 0.95) / (maxVal || 1);
-    const offsetX = (ctx.canvas.width - maxVal * valueScale) / 2;
-    const offsetY = ctx.canvas.height / 2;
+    const { valueScale, offsetX, offsetY } = layout;
     const textColor = getComputedStyle(ctx.canvas).color || 'black';
 
     const plotted = new Set<number>();

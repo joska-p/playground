@@ -11,6 +11,7 @@ import {
 } from '../../stores/sequence/store';
 import { LayerStackEditor } from './LayerStackEditor';
 import { SequenceSelector } from './SequenceSelector';
+import { ViewportControls } from './ViewportControls';
 
 function Controls(): JSX.Element {
   const sequenceRule = useSequenceRule();
@@ -85,6 +86,7 @@ function Controls(): JSX.Element {
       </div>
 
       <LayerStackEditor />
+      <ViewportControls />
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { maxAbsInterval } from '../scale';
 import type { VisualLayer } from '../types';
 
 const drawRecamanArcs: VisualLayer = {
@@ -8,33 +7,15 @@ const drawRecamanArcs: VisualLayer = {
   category: 'drawing',
   defaults: { lineWidth: 1, alpha: 1.0, color: undefined },
   params: {
-    lineWidth: {
-      label: 'Line Width',
-      type: 'number',
-      min: 0.5,
-      max: 5,
-      step: 0.5
-    },
+    lineWidth: { label: 'Line Width', type: 'number', min: 0.5, max: 5, step: 0.5 },
     alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
     color: { label: 'Color', type: 'color' }
   },
-  draw: (ctx, data, params) => {
-    const {
-      lineWidth = 1,
-      alpha = 1.0,
-      color
-    } = params as Record<string, unknown>;
+  draw: (ctx, data, params, layout) => {
+    const { lineWidth = 1, alpha = 1.0, color } = params as Record<string, unknown>;
+    const { valueScale, offsetX, offsetY } = layout;
     if (data.length < 2) return;
 
-    const maxVal = Math.max(...data, 0);
-    const maxInterval = maxAbsInterval(data);
-
-    const horizontalScale = (ctx.canvas.width * 0.95) / (maxVal || 1);
-    const verticalScale = (ctx.canvas.height * 0.85) / maxInterval;
-    const valueScale = Math.min(horizontalScale, verticalScale);
-
-    const offsetX = (ctx.canvas.width - maxVal * valueScale) / 2;
-    const offsetY = ctx.canvas.height / 2;
     const textColor = getComputedStyle(ctx.canvas).color || 'black';
 
     ctx.save();

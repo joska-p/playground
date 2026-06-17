@@ -11,12 +11,9 @@ const drawBaseline: VisualLayer = {
     alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
     color: { label: 'Color', type: 'color' }
   },
-  draw: (ctx, data, params) => {
+  draw: (ctx, _data, params, layout) => {
     const { lineWidth = 1, alpha = 0.15, color } = params as Record<string, unknown>;
-    const maxVal = Math.max(...data, 0);
-    const valueScale = (ctx.canvas.width * 0.95) / (maxVal || 1);
-    const offsetX = (ctx.canvas.width - maxVal * valueScale) / 2;
-    const offsetY = ctx.canvas.height / 2;
+    const { minVal, maxVal, valueScale, offsetX, offsetY } = layout;
     const textColor = getComputedStyle(ctx.canvas).color || 'black';
 
     ctx.save();
@@ -24,7 +21,7 @@ const drawBaseline: VisualLayer = {
     ctx.lineWidth = lineWidth as number;
     ctx.globalAlpha = alpha as number;
     ctx.beginPath();
-    ctx.moveTo(offsetX, offsetY);
+    ctx.moveTo(offsetX + minVal * valueScale, offsetY);
     ctx.lineTo(offsetX + maxVal * valueScale, offsetY);
     ctx.stroke();
     ctx.restore();

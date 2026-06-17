@@ -10,6 +10,7 @@ import {
   deletePreset as removePreset
 } from '../../core/visualizations/registry';
 import type {
+  CanvasViewport,
   LayerConfigEntry,
   PresetRecord
 } from '../../core/visualizations/types';
@@ -21,6 +22,7 @@ type SequenceState = {
   sequence: number[];
   customPresets: PresetRecord[];
   basePresetId: string | null;
+  viewport: CanvasViewport;
 };
 
 function generateInitial({
@@ -58,7 +60,13 @@ const sequenceStore = create<SequenceState>(() => {
     layers: defaultLayers,
     sequence: generateInitial({ sequenceRule: recamanRule, steps: 2 }),
     customPresets: getAllPresets().filter((p) => !p.isBuiltIn),
-    basePresetId: builtInPresets[0]?.id ?? null
+    basePresetId: builtInPresets[0]?.id ?? null,
+    viewport: {
+      enabled: false,
+      zoom: 1,
+      panX: 0,
+      panY: 0
+    }
   };
 });
 
@@ -84,6 +92,10 @@ export function useCustomPresets(): PresetRecord[] {
 
 export function useBasePresetId(): string | null {
   return sequenceStore((s) => s.basePresetId);
+}
+
+export function useViewport(): CanvasViewport {
+  return sequenceStore((s) => s.viewport);
 }
 
 function regenerateSequence(
@@ -209,6 +221,11 @@ export function moveLayerDown(layerId: string): void {
   const layers = [...state.layers];
   [layers[idx], layers[idx + 1]] = [layers[idx + 1], layers[idx]];
   sequenceStore.setState({ layers, basePresetId: null });
+}
+
+export function setViewport(v: Partial<CanvasViewport>): void {
+  const current = sequenceStore.getState().viewport;
+  sequenceStore.setState({ viewport: { ...current, ...v } });
 }
 
 export function updateLayerParams(

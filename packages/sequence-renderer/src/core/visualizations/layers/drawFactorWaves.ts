@@ -13,14 +13,11 @@ const drawFactorWaves: VisualLayer = {
     saturation: { label: 'Saturation', type: 'number', min: 0, max: 100, step: 5 },
     lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 }
   },
-  draw: (ctx, data, params) => {
+  draw: (ctx, data, params, layout) => {
     const { lineWidth = 1.5, alpha = 0.65, amplitudeScale = 0.4, saturation = 85, lightness = 55 } = params as Record<string, unknown>;
-    const maxVal = Math.max(...data, 0);
+    const { maxVal, valueScale, offsetX, offsetY } = layout;
     if (maxVal <= 0) return;
 
-    const valueScale = (ctx.canvas.width * 0.95) / maxVal;
-    const offsetX = (ctx.canvas.width - maxVal * valueScale) / 2;
-    const offsetY = ctx.canvas.height / 2;
     const maxAmplitude = ctx.canvas.height * (amplitudeScale as number);
 
     data.forEach((p) => {

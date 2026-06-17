@@ -3,12 +3,14 @@ import { useEffect, useRef } from 'react';
 import { render } from '../../core/visualizations/render';
 import {
   useLayersConfig,
-  useSequenceSequence
+  useSequenceSequence,
+  useViewport
 } from '../../stores/sequence/store';
 
 function SequenceDisplay(): JSX.Element {
   const sequence = useSequenceSequence();
   const layers = useLayersConfig();
+  const viewport = useViewport();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -20,8 +22,8 @@ function SequenceDisplay(): JSX.Element {
 
     canvas.width = parent.clientWidth;
     canvas.height = parent.clientHeight;
-    render(canvas, sequence, layers);
-  }, [sequence, layers]);
+    render(canvas, sequence, layers, viewport);
+  }, [sequence, layers, viewport]);
 
   return (
     <canvas
