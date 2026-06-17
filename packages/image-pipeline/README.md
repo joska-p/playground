@@ -180,4 +180,4 @@ Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`,
 
 ---
 
-_Part of [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of [Creative Playground](https://joska-p.github.io/playground)_

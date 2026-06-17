@@ -168,4 +168,4 @@ Full design token reference (colors, typography, spacing, radii) is available at
 
 ---
 
-_Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_

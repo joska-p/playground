@@ -252,4 +252,4 @@ SVG shapes use `transition-all duration-500` for smooth cross-fades.
 
 ---
 
-_Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_

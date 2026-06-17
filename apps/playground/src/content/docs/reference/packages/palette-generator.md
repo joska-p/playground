@@ -97,4 +97,4 @@ Uses `colorjs.io` for color math and Zustand for state management.
 
 ---
 
-_Part of [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of [Creative Playground](https://joska-p.github.io/playground)_

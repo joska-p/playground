@@ -101,4 +101,4 @@ Each light type has position (x, y, z), intensity, and color controls, organized
 
 ---
 
-_Part of [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of [Creative Playground](https://joska-p.github.io/playground)_

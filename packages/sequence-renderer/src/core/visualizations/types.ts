@@ -22,13 +22,6 @@ export type LayerDefinition<TOptions extends Record<string, unknown>> = {
   with(overrides?: Partial<TOptions>): DrawFn;
 };
 
-// What goes in the layer registry
-export type LayerEntry = {
-  id: string;
-  name: string;
-  layer: LayerDefinition<Record<string, unknown>>;
-};
-
 // ─── Visualization ──────────────────────────────────────────────────────────
 
 export type SequenceMeta = {

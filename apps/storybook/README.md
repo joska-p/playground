@@ -43,11 +43,11 @@ packages/ui/src/components/Button/
 
 ## 📖 Learn More
 
-| Topic              | Link                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------ |
-| Component patterns | [docs/how-to/creating-components](../docs/how-to/creating-components.md)                         |
-| Design tokens      | [docs/reference/design-tokens](../docs/reference/design-tokens.md)                               |
-| Live Storybook     | [https://jpotin.gitlab.io/playground/storybook/](https://jpotin.gitlab.io/playground/storybook/) |
+| Topic              | Link                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
+| Component patterns | [docs/how-to/creating-components](../docs/how-to/creating-components.md)                           |
+| Design tokens      | [docs/reference/design-tokens](../docs/reference/design-tokens.md)                                 |
+| Live Storybook     | [https://joska-p.github.io/playground/storybook/](https://joska-p.github.io/playground/storybook/) |
 
 ---
 

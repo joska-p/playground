@@ -100,7 +100,7 @@ Follows SemVer. See [CHANGELOG.md].
 
 ---
 
-_Part of [Creative Playground](https://jpotin.gitlab.io/playground/)_
+_Part of [Creative Playground](https://joska-p.github.io/playground/)_
 
 ````
 

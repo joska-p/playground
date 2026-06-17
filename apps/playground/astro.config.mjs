@@ -10,7 +10,7 @@ import mdx from '@astrojs/mdx';
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
-const gitlabUrl = 'https://jpotin.gitlab.io';
+const gitlabUrl = 'https://joska-p.github.io';
 const vercelUrl = 'https://playground-ten-sand.vercel.app';
 
 const siteUrl = isVercel ? vercelUrl : gitlabUrl;

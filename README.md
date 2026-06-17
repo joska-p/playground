@@ -1,7 +1,7 @@
 # Creative Playground
 
 [![Pipeline Status](https://gitlab.com/jpotin/playground/badges/main/pipeline.svg)](https://gitlab.com/jpotin/playground/-/pipelines)
-[![Website](https://img.shields.io/badge/Live_Demo-GitLab_Pages-orange?style=flat&logo=gitlab)](https://jpotin.gitlab.io/playground/)
+[![Website](https://img.shields.io/badge/Live_Demo-GitLab_Pages-orange?style=flat&logo=gitlab)](https://joska-p.github.io/playground/)
 
 > A creative coding playground where I experiment with generative art, data viz, and visual toys. Built for fun, documented for collaborators.
 
@@ -26,17 +26,11 @@ by [@jpotin](https://gitlab.com/jpotin)
 
 Requires [Podman](https://podman.io) and an editor with devcontainer support (Zed, VS Code, etc.).
 
-```bash
-mkdir .container_home   # only once — persists shell state across rebuilds
-```
-
 Then open the project in your editor and choose **Reopen in Container**.
 
 ```bash
 pnpm install && pnpm dev
 ```
-
-> **Rebuilding?** Run `rm -rf .container_home/*` before reopening so the fresh image is copied cleanly.
 
 ### Manual Setup
 
@@ -53,21 +47,21 @@ pnpm install && pnpm dev
 
 ## Documentation
 
-| Doc                                                                                                      | Description                                                |
-| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [Documentation hub](https://jpotin.gitlab.io/playground/docs/)                                           | Documentation hub                                          |
-| [Overview](https://jpotin.gitlab.io/playground/docs/explanation/overview/)                               | What this is, principles, architecture                     |
-| [Engines](https://jpotin.gitlab.io/playground/docs/explanation/engines/)                                 | How rules and visualizations work                          |
-| [Your First Visualization](https://jpotin.gitlab.io/playground/docs/tutorial/first-visualization/)       | Step-by-step tutorial                                      |
-| [Scaffolding Packages](https://jpotin.gitlab.io/playground/docs/how-to/scaffolding-packages/)            | Generate new packages with `turbo gen`                     |
-| [Project Maintenance](https://jpotin.gitlab.io/playground/docs/how-to/maintenance/)                      | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
-| [Adding Projects](https://jpotin.gitlab.io/playground/docs/how-to/adding-projects/)                      | How to add new visualizations                              |
-| [Adding Components](https://jpotin.gitlab.io/playground/docs/how-to/adding-components/)                  | How to add UI components                                   |
-| [Adding a Rule](https://jpotin.gitlab.io/playground/docs/how-to/adding-sequence-rule/)                   | Add sequence rules                                         |
-| [Adding a Visualization](https://jpotin.gitlab.io/playground/docs/how-to/adding-visualization/)          | Add visualization types                                    |
-| [Import and Export Strategy](https://jpotin.gitlab.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules                                |
-| [Design Tokens](https://jpotin.gitlab.io/playground/docs/reference/design-tokens/)                       | Color palette and typography                               |
-| [UI Components](https://jpotin.gitlab.io/playground/docs/reference/ui-components/)                       | Component library reference                                |
+| Doc                                                                                                       | Description                                                |
+| --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [Documentation hub](https://joska-p.github.io/playground/docs/)                                           | Documentation hub                                          |
+| [Overview](https://joska-p.github.io/playground/docs/explanation/overview/)                               | What this is, principles, architecture                     |
+| [Engines](https://joska-p.github.io/playground/docs/explanation/engines/)                                 | How rules and visualizations work                          |
+| [Your First Visualization](https://joska-p.github.io/playground/docs/tutorial/first-visualization/)       | Step-by-step tutorial                                      |
+| [Scaffolding Packages](https://joska-p.github.io/playground/docs/how-to/scaffolding-packages/)            | Generate new packages with `turbo gen`                     |
+| [Project Maintenance](https://joska-p.github.io/playground/docs/how-to/maintenance/)                      | Clean artifacts and reset with `pnpm clean` / `pnpm reset` |
+| [Adding Projects](https://joska-p.github.io/playground/docs/how-to/adding-projects/)                      | How to add new visualizations                              |
+| [Adding Components](https://joska-p.github.io/playground/docs/how-to/adding-components/)                  | How to add UI components                                   |
+| [Adding a Rule](https://joska-p.github.io/playground/docs/how-to/adding-sequence-rule/)                   | Add sequence rules                                         |
+| [Adding a Visualization](https://joska-p.github.io/playground/docs/how-to/adding-visualization/)          | Add visualization types                                    |
+| [Import and Export Strategy](https://joska-p.github.io/playground/docs/reference/import-export-strategy/) | Public API and barrel rules                                |
+| [Design Tokens](https://joska-p.github.io/playground/docs/reference/design-tokens/)                       | Color palette and typography                               |
+| [UI Components](https://joska-p.github.io/playground/docs/reference/ui-components/)                       | Component library reference                                |
 
 ---
 

@@ -233,4 +233,4 @@ pnpm --filter @repo/worker-pool check-types
 
 ---
 
-_Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_

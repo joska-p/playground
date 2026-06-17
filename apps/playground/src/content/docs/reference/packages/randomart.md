@@ -87,4 +87,4 @@ This package follows [project conventions](../../CONVENTIONS.md):
 
 ---
 
-_Part of the [Creative Playground](https://jpotin.gitlab.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_
