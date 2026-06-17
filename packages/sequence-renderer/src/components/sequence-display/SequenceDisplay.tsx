@@ -2,9 +2,9 @@ import type { JSX } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import { resolveVisualization } from '../../core/visualizations/resolve-visualization';
 import {
-  useSequenceSequence,
   useLayersConfig,
-  useScaleConfig
+  useScaleConfig,
+  useSequenceSequence
 } from '../../stores/sequence/store';
 
 function SequenceDisplay(): JSX.Element {

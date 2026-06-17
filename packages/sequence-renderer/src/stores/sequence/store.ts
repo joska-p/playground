@@ -2,11 +2,20 @@ import { create } from 'zustand';
 import { generateSequence } from '../../core/engine';
 import { recamanRule } from '../../core/rules/recaman';
 import type { SequenceRule } from '../../core/rules/types';
-import { builtInPresets, getAllPresets, savePreset as persistPreset, deletePreset as removePreset } from '../../core/visualizations/registry';
-import { detectPreferredScale } from '../../core/visualizations/resolve-visualization';
 import { getLayerMeta } from '../../core/visualizations/layers/registry';
+import {
+  builtInPresets,
+  getAllPresets,
+  savePreset as persistPreset,
+  deletePreset as removePreset
+} from '../../core/visualizations/registry';
+import { detectPreferredScale } from '../../core/visualizations/resolve-visualization';
 import { getScaleMeta } from '../../core/visualizations/scales/registry';
-import type { LayerConfigEntry, ScaleConfigEntry, PresetRecord } from '../../core/visualizations/types';
+import type {
+  LayerConfigEntry,
+  PresetRecord,
+  ScaleConfigEntry
+} from '../../core/visualizations/types';
 
 type SequenceState = {
   sequenceRule: SequenceRule;
@@ -40,14 +49,19 @@ function clampSteps({
 
 function buildDefaultLayers(): LayerConfigEntry[] {
   const firstPreset = builtInPresets[0];
-  if (firstPreset) return firstPreset.layers.map((l) => ({ ...l, params: { ...l.params } }));
+  if (firstPreset)
+    return firstPreset.layers.map((l) => ({ ...l, params: { ...l.params } }));
   return [];
 }
 
 function detectDefaultScale(layers: LayerConfigEntry[]): ScaleConfigEntry {
   const preferred = detectPreferredScale(layers);
   if (preferred) {
-    return { id: preferred.id, params: { ...preferred.params }, autoDetected: true };
+    return {
+      id: preferred.id,
+      params: { ...preferred.params },
+      autoDetected: true
+    };
   }
   return { id: 'linear', params: {}, autoDetected: true };
 }
@@ -136,7 +150,11 @@ export function loadPreset(presetId: string): void {
 
   sequenceStore.setState({
     layers: preset.layers.map((l) => ({ ...l, params: { ...l.params } })),
-    scale: { ...preset.scale, params: { ...preset.scale.params }, autoDetected: true },
+    scale: {
+      ...preset.scale,
+      params: { ...preset.scale.params },
+      autoDetected: true
+    },
     basePresetId: presetId
   });
 }
@@ -235,9 +253,7 @@ export function updateLayerParams(
 ): void {
   const state = sequenceStore.getState();
   const layers = state.layers.map((l) =>
-    l.layerId === layerId
-      ? { ...l, params: { ...l.params, ...params } }
-      : l
+    l.layerId === layerId ? { ...l, params: { ...l.params, ...params } } : l
   );
   sequenceStore.setState({ layers, basePresetId: null });
 }
@@ -254,9 +270,7 @@ export function setScale(scaleId: string): void {
   });
 }
 
-export function updateScaleParams(
-  params: Record<string, unknown>
-): void {
+export function updateScaleParams(params: Record<string, unknown>): void {
   const state = sequenceStore.getState();
   sequenceStore.setState({
     scale: { ...state.scale, params: { ...state.scale.params, ...params } },

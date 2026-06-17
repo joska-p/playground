@@ -1,14 +1,11 @@
+import type { DrawFn, LayerMeta } from '../types';
 import { drawBaselineMeta } from './drawBaseline';
-import { drawPlottedNumbersMeta } from './drawPlottedNumbers';
 import { drawFactorWavesMeta } from './drawFactorWaves';
+import { drawPlottedNumbersMeta } from './drawPlottedNumbers';
 import { drawRecamanArcsMeta } from './drawRecamanArcs';
-import type { LayerMeta, DrawFn } from '../types';
 
 const layerRegistry = new Map<string, LayerMeta<Record<string, unknown>>>([
-  [
-    drawBaselineMeta.id,
-    drawBaselineMeta as LayerMeta<Record<string, unknown>>
-  ],
+  [drawBaselineMeta.id, drawBaselineMeta as LayerMeta<Record<string, unknown>>],
   [
     drawPlottedNumbersMeta.id,
     drawPlottedNumbersMeta as LayerMeta<Record<string, unknown>>
@@ -42,4 +39,4 @@ function buildDrawFn(
   return meta.definition.with(params);
 }
 
-export { getAllLayerMetas, getLayerMeta, buildDrawFn };
+export { buildDrawFn, getAllLayerMetas, getLayerMeta };

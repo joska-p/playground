@@ -3,8 +3,8 @@ import { buildDrawFn, getAllLayerMetas } from './layers/registry';
 import { buildScaleCalculator, getAllScaleMetas } from './scales/registry';
 import type {
   LayerConfigEntry,
-  ScaleConfigEntry,
   ScaleCalculator,
+  ScaleConfigEntry,
   Visualization
 } from './types';
 
@@ -58,4 +58,4 @@ function resolveVisualization(params: {
   });
 }
 
-export { resolveVisualization, detectPreferredScale };
+export { detectPreferredScale, resolveVisualization };

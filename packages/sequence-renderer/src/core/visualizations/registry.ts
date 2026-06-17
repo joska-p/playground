@@ -50,10 +50,4 @@ function deletePreset(id: string): void {
   saveCustomPresets(customs);
 }
 
-export {
-  getAllPresets,
-  getPreset,
-  savePreset,
-  deletePreset,
-  builtInPresets
-};
+export { builtInPresets, deletePreset, getAllPresets, getPreset, savePreset };

@@ -1,22 +1,23 @@
+import { Button } from '@repo/ui/Button';
 import type { JSX } from 'react';
 import { useState } from 'react';
 import { getAllLayerMetas } from '../../core/visualizations/layers/registry';
 import {
-  useLayersConfig,
-  useScaleConfig,
-  toggleLayer,
   addLayer,
-  removeLayer,
-  moveLayerUp,
   moveLayerDown,
-  updateLayerParams,
+  moveLayerUp,
+  removeLayer,
+  saveCurrentPreset,
   setScale,
+  toggleLayer,
+  updateLayerParams,
   updateScaleParams,
-  saveCurrentPreset
+  useLayersConfig,
+  useScaleConfig
 } from '../../stores/sequence/store';
 import { LayerRow } from './LayerRow';
-import { ScaleSelector } from './ScaleSelector';
 import { SavePresetDialog } from './SavePresetDialog';
+import { ScaleSelector } from './ScaleSelector';
 
 function LayerStackEditor(): JSX.Element {
   const layers = useLayersConfig();
@@ -55,7 +56,7 @@ function LayerStackEditor(): JSX.Element {
   }
 
   return (
-    <div className="flex w-full flex-col gap-2 border-t border-zinc-700 px-4 py-2">
+    <div className="border-border flex w-full flex-col gap-2 border-t px-3 py-2">
       <ScaleSelector
         scale={scale}
         expanded={scaleExpanded}
@@ -65,12 +66,12 @@ function LayerStackEditor(): JSX.Element {
       />
 
       <div className="flex flex-col gap-1">
-        <span className="text-xs font-medium text-zinc-400">Layers</span>
+        <span className="text-muted-foreground text-xs font-medium">
+          Layers
+        </span>
 
         {layers.map((entry, index) => {
-          const meta = allLayerMetas.find(
-            (m) => m.id === entry.layerId
-          );
+          const meta = allLayerMetas.find((m) => m.id === entry.layerId);
           if (!meta) return null;
 
           return (
@@ -103,22 +104,22 @@ function LayerStackEditor(): JSX.Element {
       <div className="flex items-center gap-2">
         {availableLayers.length > 0 && (
           <div className="relative">
-            <button
-              type="button"
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setShowAddDropdown(!showAddDropdown)}
-              className="rounded border border-dashed border-zinc-600 px-2 py-0.5 text-xs text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
             >
               + Add Layer
-            </button>
+            </Button>
 
             {showAddDropdown && (
-              <div className="absolute bottom-full left-0 mb-1 w-44 rounded border border-zinc-600 bg-zinc-800 shadow-lg">
+              <div className="border-border bg-card absolute bottom-full left-0 mb-1 w-44 rounded border shadow-lg">
                 {availableLayers.map((meta) => (
                   <button
                     key={meta.id}
                     type="button"
                     onClick={() => handleAddLayer(meta.id)}
-                    className="w-full px-2 py-1 text-left text-xs text-zinc-300 transition-colors hover:bg-zinc-700"
+                    className="text-foreground hover:bg-muted w-full cursor-pointer px-2 py-1 text-left text-xs transition-colors"
                   >
                     {meta.name}
                   </button>
@@ -134,13 +135,13 @@ function LayerStackEditor(): JSX.Element {
             onCancel={() => setShowSaveDialog(false)}
           />
         ) : (
-          <button
-            type="button"
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => setShowSaveDialog(true)}
-            className="rounded border border-zinc-600 px-2 py-0.5 text-xs text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
           >
             Save as...
-          </button>
+          </Button>
         )}
       </div>
     </div>

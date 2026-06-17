@@ -1,6 +1,6 @@
-import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
 import { recamanScale } from '../scales/recaman';
+import type { LayerMeta } from '../types';
 
 type DrawRecamanArcsOptions = {
   lineWidth: number;

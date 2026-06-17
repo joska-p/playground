@@ -24,8 +24,7 @@ const recamanScale = defineScale<RecamanScaleOptions>()
 const recamanScaleMeta = {
   id: 'recaman',
   name: 'Recamán',
-  description:
-    'Considers both horizontal and vertical space for Recamán arcs',
+  description: 'Considers both horizontal and vertical space for Recamán arcs',
   definition: recamanScale,
   defaultParams: { padding: 0.95, verticalPadding: 0.85 },
   params: {

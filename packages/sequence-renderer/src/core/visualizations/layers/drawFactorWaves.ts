@@ -1,5 +1,5 @@
-import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
+import type { LayerMeta } from '../types';
 
 type DrawFactorWavesOptions = {
   lineWidth: number;
@@ -47,9 +47,7 @@ const drawFactorWaves = defineLayer<DrawFactorWavesOptions>()
 
         for (let canvasX = startX; canvasX <= endX; canvasX++) {
           const v = (canvasX - offsetX) / valueScale;
-          const y =
-            offsetY +
-            amplitude * Math.sin((Math.PI * (v - p)) / p);
+          const y = offsetY + amplitude * Math.sin((Math.PI * (v - p)) / p);
 
           if (canvasX === startX) {
             context.moveTo(canvasX, y);

@@ -1,6 +1,11 @@
-import type { JSX } from 'react';
+import { Button } from '@repo/ui/Button';
+import { Select } from '@repo/ui/Select';
+import type { ChangeEvent, JSX } from 'react';
 import { getAllScaleMetas } from '../../core/visualizations/scales/registry';
-import type { ScaleConfigEntry, ParamDescriptor } from '../../core/visualizations/types';
+import type {
+  ParamDescriptor,
+  ScaleConfigEntry
+} from '../../core/visualizations/types';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 
 type ScaleSelectorProps = {
@@ -22,35 +27,48 @@ function ScaleSelector({
   const currentMeta = allScales.find((s) => s.id === scale.id);
 
   return (
-    <div className="flex flex-col rounded border border-zinc-700 bg-zinc-800/50 px-2 py-1.5">
+    <div className="border-border bg-card flex flex-col gap-2 rounded border px-2 py-1.5">
       <div className="flex items-center gap-2">
-        <label className="text-xs font-medium text-zinc-300 shrink-0">
-          Scale:
-        </label>
-
-        <select
+        <Select
+          variant="secondary"
           value={scale.id}
-          onChange={(e) => onChange(e.target.value)}
-          className="flex-1 rounded border border-zinc-600 bg-zinc-800 px-2 py-1 text-xs text-zinc-200"
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            onChange(e.target.value)
+          }
+          className="flex-1"
         >
           {allScales.map((s) => (
-            <option key={s.id} value={s.id}>
+            <option
+              key={s.id}
+              value={s.id}
+            >
               {s.name}
               {scale.autoDetected ? ' (auto)' : ''}
             </option>
           ))}
-        </select>
+        </Select>
 
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onToggleExpand}
-          className={`rounded px-1 py-0.5 text-xs transition-colors hover:bg-zinc-700 ${
-            expanded ? 'text-zinc-200' : 'text-zinc-400'
-          }`}
           title="Scale options"
+          className={`shrink-0 ${expanded ? 'text-foreground' : 'text-muted-foreground'}`}
         >
-          &#9881;
-        </button>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </Button>
       </div>
 
       {expanded && currentMeta && (

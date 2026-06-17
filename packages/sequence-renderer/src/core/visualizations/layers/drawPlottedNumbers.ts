@@ -1,5 +1,5 @@
-import type { LayerMeta } from '../types';
 import { defineLayer } from '../define-layer';
+import type { LayerMeta } from '../types';
 
 type DrawPlottedNumbersOptions = {
   radius: number;

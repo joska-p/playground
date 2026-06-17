@@ -80,9 +80,12 @@ function Slider({
         aria-valuetext={unit ? `${value}${unit}` : undefined}
         aria-describedby={helperText ? helperId : undefined}
         aria-label={!label ? (props['aria-label'] ?? 'Slider') : undefined}
-        className={cn('min-w-0 cursor-pointer disabled:cursor-not-allowed', {
-          'w-full': !isInline
-        })}
+        className={cn(
+          'w-full min-w-0 cursor-pointer disabled:cursor-not-allowed',
+          {
+            'w-full': !isInline
+          }
+        )}
         {...props}
       />
 

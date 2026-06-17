@@ -1,5 +1,10 @@
+import { Button } from '@repo/ui/Button';
+import { Switch } from '@repo/ui/Switch';
 import type { JSX } from 'react';
-import type { LayerMeta, ParamDescriptor } from '../../core/visualizations/types';
+import type {
+  LayerMeta,
+  ParamDescriptor
+} from '../../core/visualizations/types';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 
 type LayerRowProps = {
@@ -34,63 +39,122 @@ function LayerRow({
   onParamChange
 }: LayerRowProps): JSX.Element {
   return (
-    <div className="flex flex-col rounded border border-zinc-700 bg-zinc-800/50 px-2 py-1.5">
+    <div className="border-border bg-card flex flex-col gap-2 rounded border px-2 py-1.5">
       <div className="flex items-center gap-1.5">
-        <input
-          type="checkbox"
+        <Switch
+          variant="secondary"
+          size="sm"
           checked={enabled}
-          onChange={onToggle}
-          className="h-3.5 w-3.5 cursor-pointer accent-zinc-400"
+          onCheckedChange={onToggle}
         />
 
         <span
-          className={`flex-1 text-xs font-medium ${
-            enabled ? 'text-zinc-200' : 'text-zinc-500'
+          className={`flex-1 cursor-pointer text-xs font-medium ${
+            enabled ? 'text-foreground' : 'text-muted-foreground'
           }`}
+          onClick={onToggle}
         >
           {meta.name}
         </span>
 
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onToggleExpand}
-          className={`rounded px-1 py-0.5 text-xs transition-colors hover:bg-zinc-700 ${
-            isExpanded ? 'text-zinc-200' : 'text-zinc-400'
-          }`}
           title="Options"
+          className={isExpanded ? 'text-foreground' : 'text-muted-foreground'}
         >
-          &#9881;
-        </button>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onMoveUp}
           disabled={!canMoveUp}
-          className="rounded px-1 py-0.5 text-xs text-zinc-500 transition-colors hover:bg-zinc-700 hover:text-zinc-300 disabled:opacity-20 disabled:cursor-not-allowed"
           title="Move up"
         >
-          &#9650;
-        </button>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onMoveDown}
           disabled={!canMoveDown}
-          className="rounded px-1 py-0.5 text-xs text-zinc-500 transition-colors hover:bg-zinc-700 hover:text-zinc-300 disabled:opacity-20 disabled:cursor-not-allowed"
           title="Move down"
         >
-          &#9660;
-        </button>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onRemove}
           disabled={!canRemove}
-          className="rounded px-1 py-0.5 text-xs text-zinc-500 transition-colors hover:bg-zinc-700 hover:text-red-400 disabled:opacity-20 disabled:cursor-not-allowed"
           title="Remove layer"
+          className="hover:text-destructive"
         >
-          &#10005;
-        </button>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </Button>
       </div>
 
       {isExpanded && (

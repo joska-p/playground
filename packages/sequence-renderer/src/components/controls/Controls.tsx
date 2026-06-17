@@ -5,12 +5,12 @@ import { getAllPresets } from '../../core/visualizations/registry';
 import {
   loadPreset,
   setSequenceSteps,
+  useBasePresetId,
   useSequenceRule,
-  useSequenceSteps,
-  useBasePresetId
+  useSequenceSteps
 } from '../../stores/sequence/store';
-import { SequenceSelector } from './SequenceSelector';
 import { LayerStackEditor } from './LayerStackEditor';
+import { SequenceSelector } from './SequenceSelector';
 
 function Controls(): JSX.Element {
   const sequenceRule = useSequenceRule();
@@ -26,7 +26,7 @@ function Controls(): JSX.Element {
 
   return (
     <div className="flex w-full flex-col">
-      <div className="flex w-full items-center justify-center gap-8 px-4 py-2">
+      <div className="flex flex-col gap-3 px-3 py-3">
         <SequenceSelector />
 
         <Slider
@@ -38,35 +38,45 @@ function Controls(): JSX.Element {
           step={1}
           value={steps}
           onChange={(steps) => setSequenceSteps({ steps })}
-          className="max-w-xs"
         />
 
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">Visualization:</span>
+          <span className="text-sm font-medium whitespace-nowrap">
+            Visualization:
+          </span>
           <Select
             variant="secondary"
             value={currentPresetId}
             onChange={(e: ChangeEvent<HTMLSelectElement>) =>
               loadPreset(e.target.value)
             }
-            className="w-auto min-w-35"
+            className="flex-1"
           >
             {builtInPresets.map((p) => (
-              <option key={p.id} value={p.id}>
+              <option
+                key={p.id}
+                value={p.id}
+              >
                 {p.name}
               </option>
             ))}
             {customPresets.length > 0 && (
               <optgroup label="Custom">
                 {customPresets.map((p) => (
-                  <option key={p.id} value={p.id}>
+                  <option
+                    key={p.id}
+                    value={p.id}
+                  >
                     {p.name}
                   </option>
                 ))}
               </optgroup>
             )}
             {isCustom && (
-              <option value="custom" disabled>
+              <option
+                value="custom"
+                disabled
+              >
                 (Custom)
               </option>
             )}

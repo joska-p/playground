@@ -1,6 +1,6 @@
+import type { ScaleCalculator, ScaleMeta } from '../types';
 import { linearScaleMeta } from './linear';
 import { recamanScaleMeta } from './recaman';
-import type { ScaleMeta, ScaleCalculator } from '../types';
 
 const scaleRegistry = new Map<string, ScaleMeta<Record<string, unknown>>>([
   [linearScaleMeta.id, linearScaleMeta as ScaleMeta<Record<string, unknown>>],
@@ -26,4 +26,4 @@ function buildScaleCalculator(
   return meta.definition.with(params);
 }
 
-export { getAllScaleMetas, getScaleMeta, buildScaleCalculator };
+export { buildScaleCalculator, getAllScaleMetas, getScaleMeta };
