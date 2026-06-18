@@ -1,7 +1,8 @@
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
 import { getAllRules } from '../../core/rules/registry';
-import { setSequenceRule, useSequenceRule } from '../../stores/sequence/store';
+import { setSequenceRule } from '../../stores/sequence/actions';
+import { useSequenceRule } from '../../stores/sequence/selectors/useSequenceRule';
 
 function SequenceSelector(): JSX.Element {
   const sequenceRule = useSequenceRule();

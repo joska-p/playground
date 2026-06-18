@@ -2,11 +2,9 @@ import { useRef } from 'react';
 import type { JSX } from 'react';
 import { useCanvasInteraction } from '../../hooks/useCanvasInteraction';
 import { useCanvasRenderer } from '../../hooks/useCanvasRenderer';
-import {
-  useLayersConfig,
-  useSequenceSequence,
-  useViewport
-} from '../../stores/sequence/store';
+import { useLayersConfig } from '../../stores/sequence/selectors/useLayersConfig';
+import { useSequenceSequence } from '../../stores/sequence/selectors/useSequenceSequence';
+import { useViewport } from '../../stores/sequence/selectors/useViewport';
 
 function SequenceCanvas(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);

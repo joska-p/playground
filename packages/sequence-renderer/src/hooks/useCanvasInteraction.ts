@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { sequenceStore, setViewport } from '../stores/sequence/store';
+import { getViewportState, setViewport } from '../stores/sequence/actions';
 
 export function useCanvasInteraction(
   canvasRef: React.RefObject<HTMLCanvasElement | null>
@@ -17,7 +17,7 @@ export function useCanvasInteraction(
 
     function handleWheel(e: WheelEvent) {
       e.preventDefault();
-      const vp = sequenceStore.getState().viewport;
+      const vp = getViewportState();
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
@@ -40,7 +40,7 @@ export function useCanvasInteraction(
       isPanning = true;
       startX = e.clientX;
       startY = e.clientY;
-      const vp = sequenceStore.getState().viewport;
+      const vp = getViewportState();
       startPanX = vp.panX;
       startPanY = vp.panY;
       if (!vp.enabled) {

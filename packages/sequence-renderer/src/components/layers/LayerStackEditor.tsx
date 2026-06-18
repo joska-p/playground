@@ -9,9 +9,9 @@ import {
   removeLayer,
   saveCurrentPreset,
   toggleLayer,
-  updateLayerParams,
-  useLayersConfig
-} from '../../stores/sequence/store';
+  updateLayerParams
+} from '../../stores/sequence/actions';
+import { useLayersConfig } from '../../stores/sequence/selectors/useLayersConfig';
 import { LayerRow } from './LayerRow';
 import { SavePresetDialog } from '../presets/SavePresetDialog';
 

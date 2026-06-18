@@ -1,10 +1,8 @@
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
 import { getAllPresets } from '../../core/visualizations/registry';
-import {
-  loadPreset,
-  useBasePresetId
-} from '../../stores/sequence/store';
+import { loadPreset } from '../../stores/sequence/actions';
+import { useBasePresetId } from '../../stores/sequence/selectors/useBasePresetId';
 
 function PresetSelector(): JSX.Element {
   const basePresetId = useBasePresetId();
