@@ -15,6 +15,9 @@ type RandomartState = {
   rngR: SeededRandom;
   rngG: SeededRandom;
   rngB: SeededRandom;
+  running: boolean;
+  time: number;
+  timeRef: { current: number };
 };
 
 function generateInitial(): RandomartState {
@@ -40,7 +43,10 @@ function generateInitial(): RandomartState {
     treeB,
     rngR,
     rngG,
-    rngB
+    rngB,
+    running: false,
+    time: 0,
+    timeRef: { current: 0 }
   };
 }
 

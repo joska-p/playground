@@ -8,7 +8,7 @@ export type GrammarRule = {
   weight: number;
 
   // Update args to use lazy thunks so conditional branching works!
-  evaluate: (args: (() => number)[], x: number, y: number) => number;
+  evaluate: (args: (() => number)[], x: number, y: number, t: number) => number;
 
   toMathString: (args: string[]) => string;
   toTreeView: (args: string[], depth: number) => string;

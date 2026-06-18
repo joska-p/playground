@@ -1,13 +1,15 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
 import { renderTreesToPngBase64Async } from '../../core/renderer';
-import { setSeedText } from '../../stores/randomart/actions';
+import { setSeedText, setTime, toggleRunning } from '../../stores/randomart/actions';
+import { useRunning } from '../../stores/randomart/selectors/useRunning';
 import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
 import {
   useTreeB,
   useTreeG,
   useTreeR
 } from '../../stores/randomart/selectors/useTrees';
+import { randomartStore } from '../../stores/randomart/store';
 import { SeedInput } from './SeedInput';
 
 const DOWNLOAD_SIZE = 1024;
@@ -18,15 +20,18 @@ export function Controls() {
   const treeG = useTreeG();
   const treeB = useTreeB();
   const seedText = useSeedText();
+  const running = useRunning();
 
   async function handleDownload() {
     setDownloading(true);
     try {
+      const currentTime = randomartStore.getState().time;
       const dataUri = await renderTreesToPngBase64Async(
         treeR,
         treeG,
         treeB,
-        DOWNLOAD_SIZE
+        DOWNLOAD_SIZE,
+        currentTime
       );
       const link = document.createElement('a');
       link.download = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
@@ -64,6 +69,68 @@ export function Controls() {
           <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
         </svg>
         Shuffle
+      </Button>
+      <Button
+        type="button"
+        onClick={toggleRunning}
+        variant="outline"
+        className="w-fit"
+      >
+        {running ? (
+          <>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+            >
+              <rect x="6" y="4" width="4" height="16" />
+              <rect x="14" y="4" width="4" height="16" />
+            </svg>
+            Pause
+          </>
+        ) : (
+          <>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+            >
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            Play
+          </>
+        )}
+      </Button>
+      <Button
+        type="button"
+        onClick={() => setTime(0)}
+        variant="outline"
+        className="w-fit"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-4 w-4"
+        >
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+        </svg>
+        Reset Time
       </Button>
       <Button
         type="button"

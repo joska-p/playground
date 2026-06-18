@@ -24,7 +24,8 @@ function regenerateTrees(seedText: string, maxDepth: number) {
 export function setSeedText(seedText: string): void {
   const state = randomartStore.getState();
   const trees = regenerateTrees(seedText, state.maxDepth);
-  randomartStore.setState({ seedText, ...trees });
+  state.timeRef.current = 0;
+  randomartStore.setState({ seedText, time: 0, ...trees });
 }
 
 export function setActiveChannel(channel: 'red' | 'green' | 'blue'): void {
@@ -57,6 +58,7 @@ export function toggleRule(ruleId: string): void {
   const treeG = buildTree(rngG, 0, state.maxDepth, rules);
   const treeB = buildTree(rngB, 0, state.maxDepth, rules);
 
+  state.timeRef.current = 0;
   randomartStore.setState({
     enabledRuleIds: enabled,
     treeR,
@@ -64,6 +66,22 @@ export function toggleRule(ruleId: string): void {
     treeB,
     rngR,
     rngG,
-    rngB
+    rngB,
+    time: 0
   });
+}
+
+export function toggleRunning(): void {
+  const state = randomartStore.getState();
+  randomartStore.setState({ running: !state.running });
+}
+
+export function setRunning(running: boolean): void {
+  randomartStore.setState({ running });
+}
+
+export function setTime(time: number): void {
+  const state = randomartStore.getState();
+  state.timeRef.current = time;
+  randomartStore.setState({ time });
 }

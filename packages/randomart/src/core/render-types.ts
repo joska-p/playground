@@ -7,6 +7,7 @@ export type RenderTask = {
   rowStart: number;
   rowEnd: number;
   size: number;
+  time: number;
 };
 
 export type RenderResult = {

@@ -1,11 +1,13 @@
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useEffect, useRef } from 'react';
 import { renderTreesToImageDataAsync } from '../core/renderer';
+import { useRunning } from '../stores/randomart/selectors/useRunning';
 import {
   useTreeB,
   useTreeG,
   useTreeR
 } from '../stores/randomart/selectors/useTrees';
+import { randomartStore } from '../stores/randomart/store';
 
 const MAX_CANVAS_SIZE = 1024;
 const MIN_CANVAS_SIZE = 100;
@@ -20,6 +22,7 @@ export function RandomArtCanvas() {
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
+  const running = useRunning();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -29,11 +32,30 @@ export function RandomArtCanvas() {
     canvas.classList.add('opacity-60');
 
     let cancelled = false;
+    let animationFrameId: number;
+    let lastTime = performance.now();
+    let elapsed = randomartStore.getState().time;
+    let isRendering = false;
 
-    async function render() {
-      // Container hasn't been measured yet (or has no size) — skip this
-      // pass rather than rendering a throwaway MIN_CANVAS_SIZE image.
-      if (dimensions.width === 0 || dimensions.height === 0) return;
+    async function tick() {
+      if (cancelled) return;
+
+      const now = performance.now();
+      const delta = now - lastTime;
+      lastTime = now;
+
+      if (running) {
+        elapsed += delta / 1000;
+        randomartStore.getState().timeRef.current = elapsed;
+        randomartStore.setState({ time: elapsed });
+      }
+
+      if (dimensions.width === 0 || dimensions.height === 0) {
+        if (running && !cancelled) {
+          animationFrameId = requestAnimationFrame(tick);
+        }
+        return;
+      }
 
       const logicalSize = Math.max(
         MIN_CANVAS_SIZE,
@@ -49,45 +71,55 @@ export function RandomArtCanvas() {
         MAX_BITMAP_SIZE
       );
 
-      try {
-        const imageData = await renderTreesToImageDataAsync(
-          treeR,
-          treeG,
-          treeB,
-          bitmapSize
-        );
-        if (!canvas || cancelled) return;
+      if (!isRendering) {
+        isRendering = true;
+        try {
+          const imageData = await renderTreesToImageDataAsync(
+            treeR,
+            treeG,
+            treeB,
+            bitmapSize,
+            elapsed
+          );
+          if (!canvas || cancelled) return;
 
-        // Bitmap is rendered at device pixel density...
-        canvas.width = bitmapSize;
-        canvas.height = bitmapSize;
-        // ...but displayed at the logical (CSS-pixel) size, so it stays
-        // the same physical size on screen while looking sharp.
-        canvas.style.width = `${logicalSize}px`;
-        canvas.style.height = `${logicalSize}px`;
+          // Bitmap is rendered at device pixel density...
+          canvas.width = bitmapSize;
+          canvas.height = bitmapSize;
+          // ...but displayed at the logical (CSS-pixel) size, so it stays
+          // the same physical size on screen while looking sharp.
+          canvas.style.width = `${logicalSize}px`;
+          canvas.style.height = `${logicalSize}px`;
 
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-          console.error('Canvas render failed: 2d context unavailable');
-          return;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            console.error('Canvas render failed: 2d context unavailable');
+            return;
+          }
+          ctx.putImageData(imageData, 0, 0);
+        } catch (err) {
+          if (!cancelled) console.error('Canvas render failed:', err);
+        } finally {
+          isRendering = false;
+          if (canvas && !cancelled && !running) {
+            canvas.classList.remove('opacity-60');
+            canvas.classList.add('opacity-100');
+          }
         }
-        ctx.putImageData(imageData, 0, 0);
-      } catch (err) {
-        if (!cancelled) console.error('Canvas render failed:', err);
-      } finally {
-        if (canvas && !cancelled) {
-          canvas.classList.remove('opacity-60');
-          canvas.classList.add('opacity-100');
-        }
+      }
+
+      if (running && !cancelled) {
+        animationFrameId = requestAnimationFrame(tick);
       }
     }
 
-    render();
+    tick();
 
     return () => {
       cancelled = true;
+      cancelAnimationFrame(animationFrameId);
     };
-  }, [dimensions, treeR, treeG, treeB]);
+  }, [dimensions, treeR, treeG, treeB, running]);
 
   return (
     <div

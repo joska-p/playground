@@ -42,7 +42,8 @@ function renderTreesToBuffer(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
   treeB: ExpressionNode,
-  size: number
+  size: number,
+  time: number = 0
 ): Uint8ClampedArray {
   const buffer = new Uint8ClampedArray(size * size * 4);
 
@@ -51,9 +52,9 @@ function renderTreesToBuffer(
     for (let px = 0; px < size; px++) {
       const x = (px / size) * 2 - 1;
 
-      const r = Math.floor(((evaluateNode(treeR, x, y) + 1) / 2) * 255);
-      const g = Math.floor(((evaluateNode(treeG, x, y) + 1) / 2) * 255);
-      const b = Math.floor(((evaluateNode(treeB, x, y) + 1) / 2) * 255);
+      const r = Math.floor(((evaluateNode(treeR, x, y, time) + 1) / 2) * 255);
+      const g = Math.floor(((evaluateNode(treeG, x, y, time) + 1) / 2) * 255);
+      const b = Math.floor(((evaluateNode(treeB, x, y, time) + 1) / 2) * 255);
 
       const index = (py * size + px) * 4;
       buffer[index] = r;
@@ -70,10 +71,11 @@ function renderTreesToImageData(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
   treeB: ExpressionNode,
-  size: number
+  size: number,
+  time: number = 0
 ): ImageData {
   const imageData = new ImageData(size, size);
-  const buffer = renderTreesToBuffer(treeR, treeG, treeB, size);
+  const buffer = renderTreesToBuffer(treeR, treeG, treeB, size, time);
   imageData.data.set(buffer);
   return imageData;
 }
@@ -84,7 +86,8 @@ async function renderTreesToImageDataAsync(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
   treeB: ExpressionNode,
-  size: number
+  size: number,
+  time: number = 0
 ): Promise<ImageData> {
   const renderPool = getRenderPool();
   const promises: Promise<RenderResult>[] = [];
@@ -92,7 +95,7 @@ async function renderTreesToImageDataAsync(
   for (let rowStart = 0; rowStart < size; rowStart += STRIP_HEIGHT) {
     const rowEnd = Math.min(rowStart + STRIP_HEIGHT, size);
     promises.push(
-      renderPool.run({ treeR, treeG, treeB, rowStart, rowEnd, size })
+      renderPool.run({ treeR, treeG, treeB, rowStart, rowEnd, size, time })
     );
   }
 
@@ -113,9 +116,10 @@ function renderTreesToPngBase64(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
   treeB: ExpressionNode,
-  size: number
+  size: number,
+  time: number = 0
 ): string {
-  const buffer = renderTreesToBuffer(treeR, treeG, treeB, size);
+  const buffer = renderTreesToBuffer(treeR, treeG, treeB, size, time);
 
   const pngBuffer = encode({
     width: size,
@@ -136,13 +140,15 @@ async function renderTreesToPngBase64Async(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
   treeB: ExpressionNode,
-  size: number
+  size: number,
+  time: number = 0
 ): Promise<string> {
   const imageData = await renderTreesToImageDataAsync(
     treeR,
     treeG,
     treeB,
-    size
+    size,
+    time
   );
 
   const pngBuffer = encode({
