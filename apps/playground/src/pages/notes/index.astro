@@ -6,10 +6,10 @@ import DocCard from '../../components/ui/cards/DocCard.astro';
 import Footer from '../../layouts/Footer.astro';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
-const notebookBaseUrl = `${baseUrl}notebook/`;
+const notesBaseUrl = `${baseUrl}notes/`;
 
-const notebookCategories = await getCollection('notebook-categories');
-const allNotes = await getCollection('notebook', ({ data }) => !data.draft);
+const notebookCategories = await getCollection('notes-categories');
+const allNotes = await getCollection('notes', ({ data }) => !data.draft);
 
 const notesByCategory = notebookCategories.map((cat) => {
   const articles = allNotes
@@ -25,11 +25,11 @@ const notesByCategory = notebookCategories.map((cat) => {
 ---
 
 <BaseLayout
-  title="Notebook"
+  title="Notes"
   katex={true}
 >
   <Hero
-    badgeText="Notebook"
+    badgeText="Notes"
     highlight="WIP"
     title="Not a Blog"
     description="A repository of ideas and notes that don't fit anywhere else."
@@ -71,7 +71,7 @@ const notesByCategory = notebookCategories.map((cat) => {
 
           <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
             {category.articles.map((note) => {
-              const noteUrl = `${notebookBaseUrl}${note.id}/`;
+              const noteUrl = `${notesBaseUrl}${note.id}/`;
               return (
                 <DocCard
                   href={noteUrl}

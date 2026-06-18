@@ -6,20 +6,12 @@ import { defineCollection, reference } from 'astro:content';
 
 const iconSchema = z.enum(Object.keys(iconMap) as [IconName, ...IconName[]]);
 
-const docCategories = defineCollection({
-  loader: glob({ pattern: '*.yml', base: './src/content/doc-categories' }),
+const docsCategories = defineCollection({
+  loader: glob({ pattern: '*.yml', base: './src/content/docs-categories' }),
   schema: z.object({
     name: z.string(),
     description: z.string(),
     icon: iconSchema
-  })
-});
-
-const notebookCategories = defineCollection({
-  loader: glob({ pattern: '*.yml', base: './src/content/notebook-categories' }),
-  schema: z.object({
-    name: z.string(),
-    description: z.string()
   })
 });
 
@@ -31,13 +23,21 @@ const docs = defineCollection({
     featured: z.boolean().default(false),
     order: z.number().default(0),
     draft: z.boolean().default(false),
-    category: reference('doc-categories'),
+    category: reference('docs-categories'),
     tags: z.array(z.string()).default([])
   })
 });
 
-const notebook = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notebook' }),
+const notesCategories = defineCollection({
+  loader: glob({ pattern: '*.yml', base: './src/content/notes-categories' }),
+  schema: z.object({
+    name: z.string(),
+    description: z.string()
+  })
+});
+
+const notes = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notes' }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -45,26 +45,18 @@ const notebook = defineCollection({
     featured: z.boolean().default(false),
     order: z.number().default(0),
     draft: z.boolean().default(false),
-    category: reference('notebook-categories'),
+    category: reference('notes-categories'),
     tags: z.array(z.string()).default([])
   })
 });
 
-const categories = defineCollection({
-  loader: glob({ pattern: '*.yml', base: './src/content/categories' }),
+const projectsCategories = defineCollection({
+  loader: glob({ pattern: '*.yml', base: './src/content/projects-categories' }),
   schema: z.object({
     name: z.string(),
     description: z.string(),
     icon: iconSchema,
     order: z.number().default(0)
-  })
-});
-
-const tags = defineCollection({
-  loader: glob({ pattern: '*.yml', base: './src/content/tags' }),
-  schema: z.object({
-    name: z.string(),
-    description: z.string()
   })
 });
 
@@ -77,17 +69,25 @@ const projects = defineCollection({
     packageDir: z.string(),
     featured: z.boolean().default(false),
     order: z.number().default(0),
-    category: reference('categories'),
+    category: reference('projects-categories'),
     tags: z.array(reference('tags')).default([])
   })
 });
 
+const tags = defineCollection({
+  loader: glob({ pattern: '*.yml', base: './src/content/tags' }),
+  schema: z.object({
+    name: z.string(),
+    description: z.string()
+  })
+});
+
 export const collections = {
-  categories,
-  tags,
-  projects,
-  'doc-categories': docCategories,
-  'notebook-categories': notebookCategories,
+  'docs-categories': docsCategories,
   docs,
-  notebook
+  'notes-categories': notesCategories,
+  notes,
+  'projects-categories': projectsCategories,
+  projects,
+  tags
 };

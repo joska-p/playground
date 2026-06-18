@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import CategoryCard from '../cards/CategoryCard.astro';
 
-const allCategories = await getCollection('categories');
+const allCategories = await getCollection('projects-categories');
 const allProjects = await getCollection('projects');
 
 const groups = allCategories

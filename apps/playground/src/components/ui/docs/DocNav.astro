@@ -4,7 +4,7 @@ import NavCategory from './NavCategory.astro';
 
 const currentPath = Astro.url.pathname;
 
-const docCategories = await getCollection('doc-categories');
+const docCategories = await getCollection('docs-categories');
 const allDocs = await getCollection('docs', ({ data }) => !data.draft);
 
 const categories = docCategories.map((cat) => {

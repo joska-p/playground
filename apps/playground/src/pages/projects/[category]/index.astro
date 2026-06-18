@@ -6,7 +6,7 @@ import Hero from '../../../components/ui/features/Hero.astro';
 import Footer from '../../../layouts/Footer.astro';
 
 export async function getStaticPaths() {
-  const categories = await getCollection('categories');
+  const categories = await getCollection('projects-categories');
   return categories.map((cat) => ({
     params: { category: cat.id }
   }));
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { category } = Astro.params;
 
-const allCategories = await getCollection('categories');
+const allCategories = await getCollection('projects-categories');
 const categoryMeta = allCategories.find((c) => c.id === category);
 
 if (!categoryMeta) {
