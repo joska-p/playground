@@ -12,7 +12,5 @@
   "warnings": {
     "anthropicExtraUsage": false
   },
-  "prompts": [
-    "./prompts"
-  ]
+  "prompts": ["./prompts"]
 }
