@@ -1,4 +1,5 @@
 import { getAllRules, getRule } from './grammar/registry';
+import type { GrammarRule } from './grammar/types';
 import type { SeededRandom } from './SeededRandom';
 import type { ExpressionNode } from './types';
 
@@ -27,16 +28,17 @@ export function evaluateNode(
 export function buildTree(
   rng: SeededRandom,
   currentDepth: number,
-  maxDepth: number
+  maxDepth: number,
+  rules?: GrammarRule[]
 ): ExpressionNode {
-  const rules = getAllRules();
-  const terminals = rules.filter((r) => r.arity === 0);
-  const operators = rules.filter((r) => r.arity > 0);
+  const availableRules = rules ?? getAllRules();
+  const terminals = availableRules.filter((r) => r.arity === 0);
+  const operators = availableRules.filter((r) => r.arity > 0);
 
   if (currentDepth >= maxDepth || terminals.length === 0) {
     const idx = Math.floor(rng.next() * terminals.length);
     return terminals[idx].buildNode(rng, () =>
-      buildTree(rng, currentDepth + 1, maxDepth)
+      buildTree(rng, currentDepth + 1, maxDepth, rules)
     );
   }
 
@@ -46,12 +48,12 @@ export function buildTree(
   if (pool.length === 0) {
     const idx = Math.floor(rng.next() * terminals.length);
     return terminals[idx].buildNode(rng, () =>
-      buildTree(rng, currentDepth + 1, maxDepth)
+      buildTree(rng, currentDepth + 1, maxDepth, rules)
     );
   }
 
   const idx = Math.floor(rng.next() * pool.length);
   return pool[idx].buildNode(rng, () =>
-    buildTree(rng, currentDepth + 1, maxDepth)
+    buildTree(rng, currentDepth + 1, maxDepth, rules)
   );
 }

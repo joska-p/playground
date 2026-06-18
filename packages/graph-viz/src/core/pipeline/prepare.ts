@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 /** Input: repo-root-level graphify-out/graph.json */
-const inputPath = resolve(__dirname, '../../../../../graphify-out/graph.json');
+const inputPath = resolve(__dirname, '../../data/graph.json');
 /** Output: written next to this script */
 const outputPath = resolve(__dirname, '../../data/processed-graph.json');
 /** Checksum sentinel — stored next to the output */
