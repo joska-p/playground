@@ -1,7 +1,6 @@
 # __ IMPORTANT / SECURITY RISK __
 # This directory is the container home — never commit it.
 .container_home
-.pi
 .agents
 .opencode
 /docs/

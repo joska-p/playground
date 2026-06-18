@@ -1,26 +1,29 @@
-# AGENTS.md
+# Playground
 
-## Orientation
+Monorepo with pnpm workspaces + Turborepo.
 
-Before diving in, use these tools to understand the project:
+## Start of session
 
-- **Broad architecture** → read `./graphify-out/GRAPH_REPORT.md`
-- **Focused question** → `graphify query "<question>"` (returns a scoped subgraph, much faster)
-- **Dead code / Clean up** → Use the root-level tool `fallow` to check for unused files, exports, or dependencies before refactoring.
+Read `.agents/skills/project-knowledge/` — this is the curated knowledge base with architecture, conventions, patterns, and gotchas accumulated across sessions.
 
-## Conventions & Rules (Read On-Demand Only)
+## Commands
 
-To save tokens, do not scan these files upfront. Only open them when triggered by the current task:
-
-- **Modifying/Writing Source Code:** Read `./apps/playground/src/content/docs/explanation/conventions.md`. Apply _only_ the rules relevant to the task
-- **Creating/Editing Documentation:** Read `./apps/playground/src/content/docs/how-to/documenting-packages.md`.
-- **Rules/Engine/View Pattern:** Read `./apps/playground/src/content/docs/explanation/engine.md`
-- **Looking for information not in the precedent files:** Search in the docs `./apps/playground/src/content/docs/`
-
-## Running Commands
-
-Always run from the **repo root**. Never `cd` into a package.[cite: 1]
+Always run from repo root:
 
 ```bash
 pnpm --filter @repo/<package> <cmd>
 ```
+
+## Deep docs (on-demand, not always loaded)
+
+- **Graph report** → `./graphify-out/GRAPH_REPORT.md` (full codebase graph)
+- **Graph query** → `graphify query "<question>"` (scoped subgraph)
+- **Conventions (code)** → `./apps/playground/src/content/docs/explanation/conventions.md`
+- **Engine architecture** → `./apps/playground/src/content/docs/explanation/engine.md`
+- **Package documentation** → `./apps/playground/src/content/docs/how-to/documenting-packages.md`
+- **Other docs** → `./apps/playground/src/content/docs/`
+
+## Prompt templates
+
+Type `/` in the pi editor for:
+`/build`, `/dev`, `/check`, `/review`, `/package`, `/docs`, `/graph`, `/add-package`, `/fallow`
