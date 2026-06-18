@@ -56,14 +56,8 @@ const drawConnectionLines: VisualLayer = {
       const hue = ((i / data.length) * (hueCycle as number)) % 360;
       ctx.strokeStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
       ctx.beginPath();
-      ctx.moveTo(
-        offsetX + data[i - 1] * valueScale,
-        offsetY
-      );
-      ctx.lineTo(
-        offsetX + data[i] * valueScale,
-        offsetY
-      );
+      ctx.moveTo(offsetX + data[i - 1] * valueScale, offsetY);
+      ctx.lineTo(offsetX + data[i] * valueScale, offsetY);
       ctx.stroke();
     }
 

@@ -1,5 +1,5 @@
-import { sequenceStore } from '../store';
 import type { CanvasViewport } from '../../../core/visualizations/types';
+import { sequenceStore } from '../store';
 
 export function useViewport(): CanvasViewport {
   return sequenceStore((s) => s.viewport);

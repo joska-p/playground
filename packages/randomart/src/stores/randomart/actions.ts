@@ -1,6 +1,6 @@
 import { SeededRandom } from '../../core/SeededRandom';
-import { getAllRules, getRule } from '../../core/grammar/registry';
 import { buildTree } from '../../core/engine';
+import { getAllRules, getRule } from '../../core/grammar/registry';
 import { randomartStore } from './store';
 
 function getEnabledRules(): string[] {
@@ -38,7 +38,8 @@ export function toggleRule(ruleId: string): void {
 
   if (state.enabledRuleIds.includes(ruleId) && rule.arity === 0) {
     const otherTerminals = getAllRules().filter(
-      (r) => r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
+      (r) =>
+        r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
     );
     if (otherTerminals.length === 0) return;
   }

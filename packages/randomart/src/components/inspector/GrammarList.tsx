@@ -19,7 +19,7 @@ export function GrammarList() {
           return (
             <Badge
               key={rule.id}
-              className={cn('cursor-pointer select-none text-xs', {
+              className={cn('cursor-pointer text-xs select-none', {
                 'line-through opacity-50': !enabled
               })}
               variant={enabled ? 'secondary' : 'outline'}

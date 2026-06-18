@@ -1,5 +1,5 @@
 import { evaluateNode } from './engine';
-import type { RenderTask, RenderResult } from './render-types';
+import type { RenderResult, RenderTask } from './render-types';
 
 self.onmessage = (event: MessageEvent<RenderTask>) => {
   const { treeR, treeG, treeB, rowStart, rowEnd, size } = event.data;

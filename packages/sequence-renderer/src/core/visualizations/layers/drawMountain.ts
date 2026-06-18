@@ -22,7 +22,13 @@ const drawMountain: VisualLayer = {
       max: 100,
       step: 5
     },
-    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 },
+    lightness: {
+      label: 'Lightness',
+      type: 'number',
+      min: 0,
+      max: 100,
+      step: 5
+    },
     gradientHeight: {
       label: 'Gradient Height',
       type: 'number',
@@ -51,10 +57,7 @@ const drawMountain: VisualLayer = {
       0,
       `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`
     );
-    gradient.addColorStop(
-      1,
-      `hsla(${hue}, ${saturation}%, ${lightness}%, 0)`
-    );
+    gradient.addColorStop(1, `hsla(${hue}, ${saturation}%, ${lightness}%, 0)`);
 
     ctx.save();
     ctx.fillStyle = gradient;
@@ -65,7 +68,10 @@ const drawMountain: VisualLayer = {
       ctx.lineTo(offsetX + data[i] * valueScale, offsetY);
     }
 
-    ctx.lineTo(offsetX + data[data.length - 1] * valueScale, offsetY + gradHeight);
+    ctx.lineTo(
+      offsetX + data[data.length - 1] * valueScale,
+      offsetY + gradHeight
+    );
     ctx.lineTo(offsetX + data[0] * valueScale, offsetY + gradHeight);
     ctx.closePath();
     ctx.fill();

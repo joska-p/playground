@@ -1,9 +1,9 @@
-import { encode } from 'fast-png';
 import { WorkerPool } from '@repo/worker-pool';
-import type { ExpressionNode } from './types';
+import { encode } from 'fast-png';
 import { SeededRandom } from './SeededRandom';
 import { buildTree, evaluateNode } from './engine';
-import type { RenderTask, RenderResult } from './render-types';
+import type { RenderResult, RenderTask } from './render-types';
+import type { ExpressionNode } from './types';
 
 const MAX_POOL_SIZE = 4;
 
@@ -12,9 +12,14 @@ let pool: WorkerPool<RenderTask, RenderResult> | null = null;
 function getRenderPool(): WorkerPool<RenderTask, RenderResult> {
   if (!pool) {
     pool = new WorkerPool<RenderTask, RenderResult>({
-      maxPoolSize: Math.min(navigator.hardwareConcurrency ?? MAX_POOL_SIZE, MAX_POOL_SIZE),
+      maxPoolSize: Math.min(
+        navigator.hardwareConcurrency ?? MAX_POOL_SIZE,
+        MAX_POOL_SIZE
+      ),
       workerFactory: () =>
-        new Worker(new URL('./render-worker', import.meta.url), { type: 'module' }),
+        new Worker(new URL('./render-worker', import.meta.url), {
+          type: 'module'
+        }),
       serialize: (task) => ({ message: task }),
       deserialize: (event) => {
         const data = event.data;
@@ -86,7 +91,9 @@ async function renderTreesToImageDataAsync(
 
   for (let rowStart = 0; rowStart < size; rowStart += STRIP_HEIGHT) {
     const rowEnd = Math.min(rowStart + STRIP_HEIGHT, size);
-    promises.push(renderPool.run({ treeR, treeG, treeB, rowStart, rowEnd, size }));
+    promises.push(
+      renderPool.run({ treeR, treeG, treeB, rowStart, rowEnd, size })
+    );
   }
 
   const results = await Promise.all(promises);
@@ -131,7 +138,12 @@ async function renderTreesToPngBase64Async(
   treeB: ExpressionNode,
   size: number
 ): Promise<string> {
-  const imageData = await renderTreesToImageDataAsync(treeR, treeG, treeB, size);
+  const imageData = await renderTreesToImageDataAsync(
+    treeR,
+    treeG,
+    treeB,
+    size
+  );
 
   const pngBuffer = encode({
     width: size,
@@ -188,11 +200,11 @@ function renderPixelMapAsBase64(
 }
 
 export {
+  renderPixelBuffer,
+  renderPixelMapAsBase64,
   renderTreesToBuffer,
   renderTreesToImageData,
   renderTreesToImageDataAsync,
   renderTreesToPngBase64,
-  renderTreesToPngBase64Async,
-  renderPixelBuffer,
-  renderPixelMapAsBase64
+  renderTreesToPngBase64Async
 };

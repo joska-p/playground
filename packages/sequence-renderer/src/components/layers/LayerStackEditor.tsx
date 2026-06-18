@@ -12,8 +12,8 @@ import {
   updateLayerParams
 } from '../../stores/sequence/actions';
 import { useLayersConfig } from '../../stores/sequence/selectors/useLayersConfig';
-import { LayerRow } from './LayerRow';
 import { SavePresetDialog } from '../presets/SavePresetDialog';
+import { LayerRow } from './LayerRow';
 
 function LayerStackEditor(): JSX.Element {
   const layers = useLayersConfig();

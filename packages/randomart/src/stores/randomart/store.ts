@@ -1,7 +1,7 @@
 import { createStore } from 'zustand';
 import { SeededRandom } from '../../core/SeededRandom';
-import { getAllRules } from '../../core/grammar/registry';
 import { buildTree } from '../../core/engine';
+import { getAllRules } from '../../core/grammar/registry';
 import type { ExpressionNode } from '../../core/types';
 
 type RandomartState = {

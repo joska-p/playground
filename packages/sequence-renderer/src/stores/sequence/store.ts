@@ -1,7 +1,10 @@
 import { create } from 'zustand';
 import { generateSequence } from '../../core/engine';
 import { recamanRule } from '../../core/rules/recaman';
-import { builtInPresets, getAllPresets } from '../../core/visualizations/registry';
+import {
+  builtInPresets,
+  getAllPresets
+} from '../../core/visualizations/registry';
 import type { LayerConfigEntry } from '../../core/visualizations/types';
 import type { SequenceState } from './types';
 

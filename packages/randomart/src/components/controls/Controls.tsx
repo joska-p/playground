@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { Button } from '@repo/ui/Button';
+import { useState } from 'react';
 import { renderTreesToPngBase64Async } from '../../core/renderer';
 import { setSeedText } from '../../stores/randomart/actions';
+import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
 import {
   useTreeB,
   useTreeG,
   useTreeR
 } from '../../stores/randomart/selectors/useTrees';
-import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
 import { SeedInput } from './SeedInput';
 
 const DOWNLOAD_SIZE = 1024;
@@ -22,7 +22,12 @@ export function Controls() {
   async function handleDownload() {
     setDownloading(true);
     try {
-      const dataUri = await renderTreesToPngBase64Async(treeR, treeG, treeB, DOWNLOAD_SIZE);
+      const dataUri = await renderTreesToPngBase64Async(
+        treeR,
+        treeG,
+        treeB,
+        DOWNLOAD_SIZE
+      );
       const link = document.createElement('a');
       link.download = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
       link.href = dataUri;

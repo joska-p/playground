@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { render } from '../core/visualizations/render';
-import type { CanvasViewport, LayerConfigEntry } from '../core/visualizations/types';
+import type {
+  CanvasViewport,
+  LayerConfigEntry
+} from '../core/visualizations/types';
 
 export function useCanvasRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,

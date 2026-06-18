@@ -8,8 +8,7 @@ export const ifRule = {
     const condition = args[0]();
     return condition > 0 ? args[1]() : args[2]();
   },
-  toMathString: (args) =>
-    `(if ${args[0]} > 0 ? ${args[1]} : ${args[2]})`,
+  toMathString: (args) => `(if ${args[0]} > 0 ? ${args[1]} : ${args[2]})`,
   toTreeView: (args, depth) => {
     const indent = '  '.repeat(depth);
     return `${indent}├── if\n${args[0]}${args[1]}${args[2]}`;

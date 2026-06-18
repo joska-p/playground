@@ -27,6 +27,10 @@ export function RandomArtCanvas() {
     let cancelled = false;
 
     async function render() {
+      // Container hasn't been measured yet (or has no size) — skip this
+      // pass rather than rendering a throwaway MIN_CANVAS_SIZE image.
+      if (dimensions.width === 0 || dimensions.height === 0) return;
+
       const size = Math.max(
         MIN_CANVAS_SIZE,
         Math.min(
@@ -45,7 +49,13 @@ export function RandomArtCanvas() {
         if (!canvas || cancelled) return;
         canvas.width = size;
         canvas.height = size;
-        canvas.getContext('2d')!.putImageData(imageData, 0, 0);
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          console.error('Canvas render failed: 2d context unavailable');
+          return;
+        }
+        ctx.putImageData(imageData, 0, 0);
       } catch (err) {
         if (!cancelled) console.error('Canvas render failed:', err);
       } finally {

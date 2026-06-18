@@ -3,7 +3,8 @@ import type { VisualLayer } from '../types';
 const drawRadialSpokes: VisualLayer = {
   id: 'radial-spokes',
   name: 'Radial Spokes',
-  description: 'Values mapped to polar coordinates — each point is a spoke from center',
+  description:
+    'Values mapped to polar coordinates — each point is a spoke from center',
   category: 'drawing',
   defaults: {
     lineWidth: 1,
@@ -36,7 +37,13 @@ const drawRadialSpokes: VisualLayer = {
       max: 100,
       step: 5
     },
-    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 },
+    lightness: {
+      label: 'Lightness',
+      type: 'number',
+      min: 0,
+      max: 100,
+      step: 5
+    },
     scale: { label: 'Scale', type: 'number', min: 0.1, max: 2, step: 0.1 }
   },
   draw: (ctx, data, params, layout) => {
@@ -53,7 +60,8 @@ const drawRadialSpokes: VisualLayer = {
 
     const cx = offsetX;
     const cy = offsetY;
-    const maxR = Math.min(ctx.canvas.width, ctx.canvas.height) * 0.4 * (scale as number);
+    const maxR =
+      Math.min(ctx.canvas.width, ctx.canvas.height) * 0.4 * (scale as number);
     const maxData = maxVal || 1;
 
     ctx.save();

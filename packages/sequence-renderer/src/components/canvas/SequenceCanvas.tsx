@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import type { JSX } from 'react';
+import { useRef } from 'react';
 import { useCanvasInteraction } from '../../hooks/useCanvasInteraction';
 import { useCanvasRenderer } from '../../hooks/useCanvasRenderer';
 import { useLayersConfig } from '../../stores/sequence/selectors/useLayersConfig';
