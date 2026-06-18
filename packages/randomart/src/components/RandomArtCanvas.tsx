@@ -9,6 +9,10 @@ import {
 
 const MAX_CANVAS_SIZE = 1024;
 const MIN_CANVAS_SIZE = 100;
+// Hard ceiling on the actual bitmap we render, regardless of DPR, so a
+// large container on a high-DPI display can't push the renderer into
+// rendering an excessively large image.
+const MAX_BITMAP_SIZE = 2048;
 
 export function RandomArtCanvas() {
   const [containerRef, dimensions] = useResizeObserver<HTMLDivElement>();
@@ -31,7 +35,7 @@ export function RandomArtCanvas() {
       // pass rather than rendering a throwaway MIN_CANVAS_SIZE image.
       if (dimensions.width === 0 || dimensions.height === 0) return;
 
-      const size = Math.max(
+      const logicalSize = Math.max(
         MIN_CANVAS_SIZE,
         Math.min(
           Math.floor(Math.min(dimensions.width, dimensions.height)),
@@ -39,16 +43,28 @@ export function RandomArtCanvas() {
         )
       );
 
+      const dpr = window.devicePixelRatio || 1;
+      const bitmapSize = Math.min(
+        Math.round(logicalSize * dpr),
+        MAX_BITMAP_SIZE
+      );
+
       try {
         const imageData = await renderTreesToImageDataAsync(
           treeR,
           treeG,
           treeB,
-          size
+          bitmapSize
         );
         if (!canvas || cancelled) return;
-        canvas.width = size;
-        canvas.height = size;
+
+        // Bitmap is rendered at device pixel density...
+        canvas.width = bitmapSize;
+        canvas.height = bitmapSize;
+        // ...but displayed at the logical (CSS-pixel) size, so it stays
+        // the same physical size on screen while looking sharp.
+        canvas.style.width = `${logicalSize}px`;
+        canvas.style.height = `${logicalSize}px`;
 
         const ctx = canvas.getContext('2d');
         if (!ctx) {
