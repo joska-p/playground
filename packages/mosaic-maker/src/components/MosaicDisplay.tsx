@@ -1,5 +1,4 @@
-import { useResizeObserver } from '@repo/ui/useResizeObserver';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   CSS_VARS,
   initialGapSize,
@@ -23,17 +22,11 @@ const MOSAIC_STYLES = {
 
 function MosaicDisplay() {
   const tiles = useTiles();
-  const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
-  const { width, height } = dimensions;
+  const mosaicRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!width || !height || width <= 0 || height <= 0) return;
-
-    const id = setTimeout(() => {
-      setRef(mosaicRef);
-    }, 150);
-    return () => clearTimeout(id);
-  }, [width, height, mosaicRef]);
+    if (mosaicRef) setRef(mosaicRef);
+  }, [mosaicRef]);
 
   useEffect(() => {
     initPalettes();
