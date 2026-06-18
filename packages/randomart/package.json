@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "@repo/worker-pool": "workspace:*",
     "fast-png": "catalog:",
     "zustand": "catalog:"
   },

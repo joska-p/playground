@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
-import { renderTreesToImageData } from '../core/renderer';
+import { renderTreesToImageDataAsync } from '../core/renderer';
 import {
   useTreeB,
   useTreeG,
@@ -18,23 +18,35 @@ export function RandomArtCanvas() {
   const treeB = useTreeB();
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    let cancelled = false;
 
-    const size = Math.max(
-      MIN_CANVAS_SIZE,
-      Math.min(
-        Math.floor(Math.min(dimensions.width, dimensions.height)),
-        MAX_CANVAS_SIZE
-      )
-    );
+    async function render() {
+      const size = Math.max(
+        MIN_CANVAS_SIZE,
+        Math.min(
+          Math.floor(Math.min(dimensions.width, dimensions.height)),
+          MAX_CANVAS_SIZE
+        )
+      );
 
-    const canvas = canvasRef.current;
-    canvas.width = size;
-    canvas.height = size;
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
-    const ctx = canvas.getContext('2d')!;
-    const imageData = renderTreesToImageData(treeR, treeG, treeB, size);
-    ctx.putImageData(imageData, 0, 0);
+      try {
+        const imageData = await renderTreesToImageDataAsync(treeR, treeG, treeB, size);
+        if (cancelled) return;
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d')!;
+        ctx.putImageData(imageData, 0, 0);
+      } catch (err) {
+        if (!cancelled) console.error('Canvas render failed:', err);
+      }
+    }
+
+    render();
+
+    return () => { cancelled = true; };
   }, [dimensions, treeR, treeG, treeB]);
 
   return (

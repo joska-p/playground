@@ -1,7 +1,37 @@
 import { encode } from 'fast-png';
+import { WorkerPool } from '@repo/worker-pool';
 import type { ExpressionNode } from './types';
 import { SeededRandom } from './SeededRandom';
 import { buildTree, evaluateNode } from './engine';
+import type { RenderTask, RenderResult } from './render-types';
+
+const MAX_POOL_SIZE = 4;
+
+let pool: WorkerPool<RenderTask, RenderResult> | null = null;
+
+function getRenderPool(): WorkerPool<RenderTask, RenderResult> {
+  if (!pool) {
+    pool = new WorkerPool<RenderTask, RenderResult>({
+      maxPoolSize: Math.min(navigator.hardwareConcurrency ?? MAX_POOL_SIZE, MAX_POOL_SIZE),
+      workerFactory: () =>
+        new Worker(new URL('./render-worker', import.meta.url), { type: 'module' }),
+      serialize: (task) => ({ message: task }),
+      deserialize: (event) => {
+        const data = event.data;
+        if ('error' in data) {
+          return { ok: false, error: new Error(String(data.error)) };
+        }
+        return { ok: true, value: data as RenderResult };
+      }
+    });
+  }
+  return pool;
+}
+
+export function teardownRenderPool(): void {
+  pool?.teardown();
+  pool = null;
+}
 
 function renderTreesToBuffer(
   treeR: ExpressionNode,
@@ -43,6 +73,35 @@ function renderTreesToImageData(
   return imageData;
 }
 
+const STRIP_HEIGHT = 64;
+
+async function renderTreesToImageDataAsync(
+  treeR: ExpressionNode,
+  treeG: ExpressionNode,
+  treeB: ExpressionNode,
+  size: number
+): Promise<ImageData> {
+  const renderPool = getRenderPool();
+  const promises: Promise<RenderResult>[] = [];
+
+  for (let rowStart = 0; rowStart < size; rowStart += STRIP_HEIGHT) {
+    const rowEnd = Math.min(rowStart + STRIP_HEIGHT, size);
+    promises.push(renderPool.run({ treeR, treeG, treeB, rowStart, rowEnd, size }));
+  }
+
+  const results = await Promise.all(promises);
+  results.sort((a, b) => a.rowStart - b.rowStart);
+
+  const imageData = new ImageData(size, size);
+  let offset = 0;
+  for (const result of results) {
+    imageData.data.set(result.buffer, offset);
+    offset += result.buffer.length;
+  }
+
+  return imageData;
+}
+
 function renderTreesToPngBase64(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
@@ -55,6 +114,29 @@ function renderTreesToPngBase64(
     width: size,
     height: size,
     data: buffer,
+    channels: 4,
+    depth: 8
+  });
+
+  const binaryString = Array.from(pngBuffer)
+    .map((byte) => String.fromCharCode(byte))
+    .join('');
+
+  return `data:image/png;base64,${btoa(binaryString)}`;
+}
+
+async function renderTreesToPngBase64Async(
+  treeR: ExpressionNode,
+  treeG: ExpressionNode,
+  treeB: ExpressionNode,
+  size: number
+): Promise<string> {
+  const imageData = await renderTreesToImageDataAsync(treeR, treeG, treeB, size);
+
+  const pngBuffer = encode({
+    width: size,
+    height: size,
+    data: imageData.data,
     channels: 4,
     depth: 8
   });
@@ -108,7 +190,9 @@ function renderPixelMapAsBase64(
 export {
   renderTreesToBuffer,
   renderTreesToImageData,
+  renderTreesToImageDataAsync,
   renderTreesToPngBase64,
+  renderTreesToPngBase64Async,
   renderPixelBuffer,
   renderPixelMapAsBase64
 };

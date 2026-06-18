@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Button } from '@repo/ui/Button';
-import { renderTreesToPngBase64 } from '../../core/renderer';
+import { renderTreesToPngBase64Async } from '../../core/renderer';
 import { setSeedText } from '../../stores/randomart/actions';
 import {
   useTreeB,
@@ -12,17 +13,25 @@ import { SeedInput } from './SeedInput';
 const DOWNLOAD_SIZE = 1024;
 
 export function Controls() {
+  const [downloading, setDownloading] = useState(false);
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
   const seedText = useSeedText();
 
-  function handleDownload() {
-    const dataUri = renderTreesToPngBase64(treeR, treeG, treeB, DOWNLOAD_SIZE);
-    const link = document.createElement('a');
-    link.download = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
-    link.href = dataUri;
-    link.click();
+  async function handleDownload() {
+    setDownloading(true);
+    try {
+      const dataUri = await renderTreesToPngBase64Async(treeR, treeG, treeB, DOWNLOAD_SIZE);
+      const link = document.createElement('a');
+      link.download = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
+      link.href = dataUri;
+      link.click();
+    } catch (err) {
+      console.error('Download render failed:', err);
+    } finally {
+      setDownloading(false);
+    }
   }
 
   return (
@@ -55,6 +64,7 @@ export function Controls() {
         type="button"
         onClick={handleDownload}
         variant="primary"
+        disabled={downloading}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +85,7 @@ export function Controls() {
             y2="3"
           />
         </svg>
-        Download PNG
+        {downloading ? 'Rendering...' : 'Download PNG'}
       </Button>
     </div>
   );
