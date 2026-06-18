@@ -24,7 +24,7 @@ const MOSAIC_STYLES = {
 function MosaicDisplay() {
   const tiles = useTiles();
   const [mosaicRef, dimensions] = useResizeObserver<HTMLDivElement>();
-  const { width, height } = dimensions ?? {};
+  const { width, height } = dimensions;
 
   useEffect(() => {
     if (!width || !height || width <= 0 || height <= 0) return;
