@@ -14,14 +14,6 @@ function App() {
         className="bg-background text-foreground min-h-dvh"
       >
         <Sidebar.Main className="mx-auto flex w-full flex-col gap-6 overflow-y-auto p-4 sm:p-8">
-          <header className="space-y-4 text-center">
-            <h1 className="text-utility-4 text-3xl font-extrabold tracking-tight">
-              randomart
-            </h1>
-            <p className="text-muted-foreground text-sm">
-              generative art from expression trees
-            </p>
-          </header>
           <Controls />
           <div className="flex min-h-0 flex-1 items-center justify-center">
             <RandomArtCanvas />

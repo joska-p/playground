@@ -1,7 +1,11 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
 import { renderTreesToPngBase64Async } from '../../core/renderer';
-import { setSeedText, setTime, toggleRunning } from '../../stores/randomart/actions';
+import {
+  setSeedText,
+  setTime,
+  toggleRunning
+} from '../../stores/randomart/actions';
 import { useRunning } from '../../stores/randomart/selectors/useRunning';
 import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
 import {
@@ -10,6 +14,7 @@ import {
   useTreeR
 } from '../../stores/randomart/selectors/useTrees';
 import { randomartStore } from '../../stores/randomart/store';
+import { MaxDepth } from './MaxDepth';
 import { SeedInput } from './SeedInput';
 
 const DOWNLOAD_SIZE = 1024;
@@ -47,6 +52,7 @@ export function Controls() {
   return (
     <div className="flex flex-wrap items-end gap-4">
       <SeedInput />
+      <MaxDepth />
       <Button
         type="button"
         onClick={() => setSeedText(Math.random().toString(36).slice(2, 10))}
@@ -88,8 +94,18 @@ export function Controls() {
               strokeLinejoin="round"
               className="h-4 w-4"
             >
-              <rect x="6" y="4" width="4" height="16" />
-              <rect x="14" y="4" width="4" height="16" />
+              <rect
+                x="6"
+                y="4"
+                width="4"
+                height="16"
+              />
+              <rect
+                x="14"
+                y="4"
+                width="4"
+                height="16"
+              />
             </svg>
             Pause
           </>

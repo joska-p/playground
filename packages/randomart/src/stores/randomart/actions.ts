@@ -28,6 +28,14 @@ export function setSeedText(seedText: string): void {
   randomartStore.setState({ seedText, time: 0, ...trees });
 }
 
+export function setMaxDepth(maxDepth: number): void {
+  const seedText = randomartStore.getState().seedText;
+  const state = randomartStore.getState();
+  const trees = regenerateTrees(seedText, maxDepth);
+  state.timeRef.current = 0;
+  randomartStore.setState({ maxDepth, time: 0, ...trees });
+}
+
 export function setActiveChannel(channel: 'red' | 'green' | 'blue'): void {
   randomartStore.setState({ activeChannel: channel });
 }
