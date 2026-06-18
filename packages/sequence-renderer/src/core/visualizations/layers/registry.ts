@@ -1,14 +1,24 @@
 import type { VisualLayer } from '../types';
+import { drawBarChart } from './drawBarChart';
 import { drawBaseline } from './drawBaseline';
+import { drawConnectionLines } from './drawConnectionLines';
 import { drawFactorWaves } from './drawFactorWaves';
+import { drawMountain } from './drawMountain';
 import { drawPlottedNumbers } from './drawPlottedNumbers';
+import { drawRadialSpokes } from './drawRadialSpokes';
 import { drawRecamanArcs } from './drawRecamanArcs';
+import { drawStemPlot } from './drawStemPlot';
 
 const layers: VisualLayer[] = [
   drawBaseline,
   drawPlottedNumbers,
   drawFactorWaves,
-  drawRecamanArcs
+  drawRecamanArcs,
+  drawConnectionLines,
+  drawRadialSpokes,
+  drawMountain,
+  drawBarChart,
+  drawStemPlot
 ];
 
 const layerMap = new Map<string, VisualLayer>(layers.map((l) => [l.id, l]));
