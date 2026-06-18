@@ -1,4 +1,4 @@
-import { createRule } from './create-rule';
+import type { SequenceRule } from './types';
 
 function isPrime(num: number): boolean {
   if (num <= 1) return false;
@@ -10,7 +10,7 @@ function isPrime(num: number): boolean {
   return true;
 }
 
-export const primesRule = createRule({
+export const primesRule: SequenceRule = {
   id: 'primes',
   name: 'Primes',
   description: 'The sequence of prime numbers: 2, 3, 5, 7, 11...',
@@ -21,4 +21,4 @@ export const primesRule = createRule({
     while (!isPrime(next)) next++;
     return next;
   }
-});
+};

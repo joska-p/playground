@@ -1,6 +1,6 @@
-import { createRule } from './create-rule';
+import type { SequenceRule } from './types';
 
-export const fibonacciRule = createRule({
+export const fibonacciRule: SequenceRule = {
   id: 'fibonacci',
   name: 'Fibonacci',
   description: 'F(n) = F(n-1) + F(n-2). Grows exponentially.',
@@ -9,4 +9,4 @@ export const fibonacciRule = createRule({
     if (index <= 1) return index;
     return current + (sequence[index - 2] ?? 0);
   }
-});
+};

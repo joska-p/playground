@@ -1,6 +1,6 @@
-import { createRule } from './create-rule';
+import type { SequenceRule } from './types';
 
-export const recamanRule = createRule({
+export const recamanRule: SequenceRule = {
   id: 'recaman',
   name: "Recaman's Rule",
   description: "Jump back by 'n' if possible, otherwise jump forward.",
@@ -9,4 +9,4 @@ export const recamanRule = createRule({
     const backward = current - index;
     return backward > 0 && !seen.has(backward) ? backward : current + index;
   }
-});
+};
