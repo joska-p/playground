@@ -7,6 +7,7 @@ export const terminalTRule = {
   weight: 2,
   evaluate: () => 0,
   toMathString: () => 't',
+  toGLSL: () => 'u_time',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── t\n`,
   buildNode: () => ({ ruleId: 't', args: [] })
 } satisfies GrammarRule;

@@ -7,6 +7,7 @@ export const lessThanRule = {
   weight: 1,
   evaluate: (args) => (args[0]() < args[1]() ? 1 : 0),
   toMathString: (args) => `(${args[0]} < ${args[1]} ? 1 : 0)`,
+  toGLSL: (args) => `(${args[0]} < ${args[1]} ? 1 : 0)`,
   toTreeView: (args, depth) =>
     `${'  '.repeat(depth)}├── less-than\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({

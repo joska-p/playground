@@ -9,6 +9,7 @@ export const constantRule = {
   weight: 2,
   evaluate: (args) => args[0](),
   toMathString: (args) => args[0],
+  toGLSL: (args) => args[0],
   toTreeView: (args, depth) => `${'  '.repeat(depth)}└── const(${args[0]})\n`,
   buildNode: (rng: SeededRandom) => {
     const value = rng.next() * 2 - 1;

@@ -11,6 +11,7 @@ export type GrammarRule = {
   evaluate: (args: (() => number)[], x: number, y: number, t: number) => number;
 
   toMathString: (args: string[]) => string;
+  toGLSL: (args: string[]) => string;
   toTreeView: (args: string[], depth: number) => string;
   buildNode: (
     rng: SeededRandom,

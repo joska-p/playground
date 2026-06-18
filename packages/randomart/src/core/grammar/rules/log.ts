@@ -7,6 +7,7 @@ export const logRule = {
   weight: 1,
   evaluate: (args) => Math.log(Math.abs(args[0]()) + 1e-10),
   toMathString: (args) => `log(|${args[0]}|)`,
+  toGLSL: (args) => `log(abs(${args[0]}) + 1e-10)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── log\n${args[0]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'log',

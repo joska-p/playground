@@ -7,6 +7,7 @@ export const addRule = {
   weight: 2,
   evaluate: (args) => (args[0]() + args[1]()) / 2,
   toMathString: (args) => `((${args[0]} + ${args[1]}) / 2)`,
+  toGLSL: (args) => `((${args[0]} + ${args[1]}) / 2.0)`,
   toTreeView: (args, depth) =>
     `${'  '.repeat(depth)}├── add\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({

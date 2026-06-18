@@ -7,6 +7,7 @@ export const terminalXRule = {
   weight: 2,
   evaluate: () => 0,
   toMathString: () => 'x',
+  toGLSL: () => 'v_texCoord.x',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── x\n`,
   buildNode: () => ({ ruleId: 'x', args: [] })
 } satisfies GrammarRule;
