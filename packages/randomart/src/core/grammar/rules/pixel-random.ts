@@ -1,0 +1,20 @@
+import type { GrammarRule } from '../types';
+
+function pixelHash(x: number, y: number): number {
+  const dot = x * 12.9898 + y * 78.233;
+  const val = Math.sin(dot) * 43758.5453;
+  return val - Math.floor(val);
+}
+
+export const pixelRandomRule = {
+  id: 'random',
+  name: 'Pixel Random',
+  arity: 0,
+  evaluate: (_args, x, y) => pixelHash(x, y) * 2 - 1,
+  toMathString: () => 'random',
+  toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── random\n`,
+  buildNode: () => ({
+    ruleId: 'random',
+    args: []
+  })
+} satisfies GrammarRule;
