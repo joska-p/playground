@@ -1,8 +1,8 @@
 import type { SeededRandom } from '../../SeededRandom';
 import type { ExpressionNode } from '../../types';
-import { defineGrammarRule } from '../factory';
+import type { GrammarRule } from '../types';
 
-export const constantRule = defineGrammarRule({
+export const constantRule = {
   id: 'constant',
   name: 'Constant',
   arity: 0,
@@ -17,4 +17,4 @@ export const constantRule = defineGrammarRule({
       constantValue: value
     } satisfies ExpressionNode;
   }
-});
+} satisfies GrammarRule;

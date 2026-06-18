@@ -1,6 +1,6 @@
-import { defineGrammarRule } from '../factory';
+import type { GrammarRule } from '../types';
 
-export const cosRule = defineGrammarRule({
+export const cosRule = {
   id: 'cos',
   name: 'Cosine',
   arity: 1,
@@ -11,4 +11,4 @@ export const cosRule = defineGrammarRule({
     ruleId: 'cos',
     args: [buildChild()]
   })
-});
+} satisfies GrammarRule;

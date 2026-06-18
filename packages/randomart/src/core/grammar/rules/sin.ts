@@ -1,6 +1,6 @@
-import { defineGrammarRule } from '../factory';
+import type { GrammarRule } from '../types';
 
-export const sinRule = defineGrammarRule({
+export const sinRule = {
   id: 'sin',
   name: 'Sine',
   arity: 1,
@@ -11,4 +11,4 @@ export const sinRule = defineGrammarRule({
     ruleId: 'sin',
     args: [buildChild()]
   })
-});
+} satisfies GrammarRule;

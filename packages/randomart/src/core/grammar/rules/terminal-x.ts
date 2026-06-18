@@ -1,6 +1,6 @@
-import { defineGrammarRule } from '../factory';
+import type { GrammarRule } from '../types';
 
-export const terminalXRule = defineGrammarRule({
+export const terminalXRule = {
   id: 'x',
   name: 'Terminal X',
   arity: 0,
@@ -8,4 +8,4 @@ export const terminalXRule = defineGrammarRule({
   toMathString: () => 'x',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── x\n`,
   buildNode: () => ({ ruleId: 'x', args: [] })
-});
+} satisfies GrammarRule;

@@ -1,6 +1,6 @@
-import { defineGrammarRule } from '../factory';
+import type { GrammarRule } from '../types';
 
-export const ifLessThanRule = defineGrammarRule({
+export const ifLessThanRule = {
   id: 'if-less-than',
   name: 'If Less Than',
   arity: 4, // 4 Arguments: [Left, Right, Then, Else]
@@ -25,4 +25,4 @@ export const ifLessThanRule = defineGrammarRule({
     ruleId: 'if-less-than',
     args: [buildChild(), buildChild(), buildChild(), buildChild()]
   })
-});
+} satisfies GrammarRule;
