@@ -48,6 +48,8 @@ function fmtCost(cost: number): string {
 }
 
 function updateFooter(ctx: ExtensionContext) {
+	if (!ctx.hasUI) return;
+
 	const theme = ctx.ui.theme;
 	const text = theme.fg(
 		"dim",
@@ -64,11 +66,11 @@ function notifyTurnUsage(ctx: ExtensionContext, input: number, output: number, t
 	const line = [
 		theme.fg("accent", `turn #${sessionUsage.turns}`),
 		theme.fg("dim", " tokens: ↑"),
-		theme.fg("", fmtNumber(input)),
+		theme.fg("text", fmtNumber(input)),
 		theme.fg("dim", " ↓"),
-		theme.fg("", fmtNumber(output)),
+		theme.fg("text", fmtNumber(output)),
 		theme.fg("dim", " = "),
-		theme.fg("", fmtNumber(total)),
+		theme.fg("text", fmtNumber(total)),
 	];
 
 	if (cost > 0) {
@@ -76,7 +78,7 @@ function notifyTurnUsage(ctx: ExtensionContext, input: number, output: number, t
 	}
 
 	// Running total
-	line.push(theme.fg("dim", " (session: "), theme.fg("", fmtNumber(sessionUsage.total)), theme.fg("dim", ")"));
+	line.push(theme.fg("dim", " (session: "), theme.fg("text", fmtNumber(sessionUsage.total)), theme.fg("dim", ")"));
 
 	ctx.ui.notify(line.join(""), "info");
 }
@@ -149,7 +151,7 @@ export default function (pi: ExtensionAPI) {
 			lines.push("");
 			lines.push(`  ${theme.fg("dim", "Input tokens:")}     ${fmtNumber(sessionUsage.input)}`);
 			lines.push(`  ${theme.fg("dim", "Output tokens:")}    ${fmtNumber(sessionUsage.output)}`);
-			lines.push(`  ${theme.fg("dim", "Total tokens:")}     ${theme.fg("", fmtNumber(sessionUsage.total))}`);
+			lines.push(`  ${theme.fg("dim", "Total tokens:")}     ${theme.fg("text", fmtNumber(sessionUsage.total))}`);
 
 			// Cost (if applicable)
 			if (sessionUsage.costTotal > 0) {

@@ -56,6 +56,7 @@ export default function (pi: ExtensionAPI) {
 	let lastCompactTurn = -Infinity;
 	let lastCompactTime = 0;
 	let turnCount = 0;
+	let isCompacting = false;
 
 	// Cross-threshold detection: only fire once when crossing low → high.
 	let wasBelowThreshold = true;
@@ -97,19 +98,36 @@ export default function (pi: ExtensionAPI) {
 		return theme.fg("success", `${bar} ${pctLabel}`);
 	}
 
-	/** Trigger compaction if we haven't done so recently. */
-	function tryCompact(ctx: ExtensionContext, customInstructions?: string): boolean {
-		const now = Date.now();
-		const turnAge = turnCount - lastCompactTurn;
-		const timeAge = now - lastCompactTime;
-
-		if (turnAge < COOLDOWN_TURNS && timeAge < COOLDOWN_MS) {
-			return false; // still in cooldown
+	/** Trigger compaction if we haven't done so recently. Set `force` to bypass the cooldown (e.g. explicit /compact-now). */
+	function tryCompact(ctx: ExtensionContext, customInstructions?: string, force = false): boolean {
+		if (isCompacting) {
+			if (ctx.hasUI) ctx.ui.notify("compact-smart: a compaction is already in progress", "warning");
+			return false;
 		}
 
+		if (!force) {
+			const now = Date.now();
+			const turnAge = turnCount - lastCompactTurn;
+			const timeAge = now - lastCompactTime;
+
+			// Still cooling down if EITHER window hasn't elapsed yet — both must clear.
+			if (turnAge < COOLDOWN_TURNS || timeAge < COOLDOWN_MS) {
+				if (ctx.hasUI) {
+					const remainingTurns = Math.max(0, COOLDOWN_TURNS - turnAge);
+					const remainingSec = Math.ceil(Math.max(0, COOLDOWN_MS - timeAge) / 1000);
+					ctx.ui.notify(
+						`compact-smart: still cooling down (${remainingTurns} turn(s) / ${remainingSec}s remaining)`,
+						"info",
+					);
+				}
+				return false; // still in cooldown
+			}
+		}
+
+		isCompacting = true;
 		lastCompactTurn = turnCount;
-		lastCompactTime = now;
-		wasBelowThreshold = false; // we just compacted, so we're "low" again
+		lastCompactTime = Date.now();
+		wasBelowThreshold = false; // suppress re-trigger while still over threshold
 
 		if (ctx.hasUI) {
 			const pct = ((effectiveThreshold / contextWindow) * 100).toFixed(0);
@@ -124,10 +142,12 @@ export default function (pi: ExtensionAPI) {
 				customInstructions ??
 				"Focus on preserving: current goals, key decisions, completed work, file changes, blockers, and next steps.",
 			onComplete: () => {
+				isCompacting = false;
 				if (ctx.hasUI) ctx.ui.notify("compact-smart: compaction done", "info");
 				updateFooter(ctx, 0); // 0 tokens after compaction
 			},
 			onError: (err: Error) => {
+				isCompacting = false;
 				if (ctx.hasUI) ctx.ui.notify(`compact-smart: compaction failed — ${err.message}`, "error");
 			},
 		});
@@ -171,8 +191,6 @@ export default function (pi: ExtensionAPI) {
 
 	pi.on("turn_start", async (_event, ctx) => {
 		turnCount++;
-		// Show spinner while working
-		const theme = ctx.ui.theme;
 		const usage = ctx.getContextUsage();
 		const tokens = usage?.tokens ?? null;
 		if (tokens != null) {
@@ -215,7 +233,7 @@ export default function (pi: ExtensionAPI) {
 			}
 
 			const instructions = trimmed || undefined;
-			tryCompact(ctx, instructions);
+			tryCompact(ctx, instructions, true);
 		},
 	});
 
