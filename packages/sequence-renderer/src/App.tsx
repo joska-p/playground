@@ -1,7 +1,7 @@
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
-import { Controls } from './components/controls/Controls';
-import { SequenceDisplay } from './components/sequence-display/SequenceDisplay';
+import { SequenceCanvas } from './components/canvas/SequenceCanvas';
+import { SidebarControls } from './components/sidebar/SidebarControls';
 
 function App() {
   return (
@@ -12,11 +12,11 @@ function App() {
           mobilePosition="bottom"
         >
           <Sidebar.Main>
-            <SequenceDisplay />
+            <SequenceCanvas />
           </Sidebar.Main>
 
           <Sidebar.Panel className="h-fit w-full overflow-y-auto lg:max-w-80">
-            <Controls />
+            <SidebarControls />
           </Sidebar.Panel>
         </Sidebar>
       </div>

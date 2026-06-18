@@ -69,6 +69,8 @@ const sequenceStore = create<SequenceState>(() => {
   };
 });
 
+export { sequenceStore };
+
 export function useSequenceRule(): SequenceRule {
   return sequenceStore((s) => s.sequenceRule);
 }
