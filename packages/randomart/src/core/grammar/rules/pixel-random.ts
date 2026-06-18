@@ -10,6 +10,7 @@ export const pixelRandomRule = {
   id: 'random',
   name: 'Pixel Random',
   arity: 0,
+  weight: 2,
   evaluate: (_args, x, y) => pixelHash(x, y) * 2 - 1,
   toMathString: () => 'random',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── random\n`,

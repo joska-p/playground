@@ -4,6 +4,7 @@ export const expRule = {
   id: 'exp',
   name: 'Exp',
   arity: 1,
+  weight: 1,
   evaluate: (args) => Math.exp(args[0]()),
   toMathString: (args) => `e^(${args[0]})`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── exp\n${args[0]}`,

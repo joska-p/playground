@@ -3,6 +3,16 @@ import type { GrammarRule } from './grammar/types';
 import type { SeededRandom } from './SeededRandom';
 import type { ExpressionNode } from './types';
 
+function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
+  const totalWeight = rules.reduce((sum, r) => sum + r.weight, 0);
+  let threshold = rng.next() * totalWeight;
+  for (let i = 0; i < rules.length; i++) {
+    threshold -= rules[i].weight;
+    if (threshold <= 0) return i;
+  }
+  return rules.length - 1;
+}
+
 export function evaluateNode(
   node: ExpressionNode,
   x: number,
@@ -32,27 +42,16 @@ export function buildTree(
   rules?: GrammarRule[]
 ): ExpressionNode {
   const availableRules = rules ?? getAllRules();
-  const terminals = availableRules.filter((r) => r.arity === 0);
-  const operators = availableRules.filter((r) => r.arity > 0);
 
-  if (currentDepth >= maxDepth || terminals.length === 0) {
-    const idx = Math.floor(rng.next() * terminals.length);
-    return terminals[idx].buildNode(rng, () =>
-      buildTree(rng, currentDepth + 1, maxDepth, rules)
-    );
-  }
-
-  const shouldBeTerminal = rng.next() < 0.15;
-  const pool = shouldBeTerminal ? terminals : operators;
+  const pool = currentDepth >= maxDepth
+    ? availableRules.filter((r) => r.arity === 0)
+    : availableRules;
 
   if (pool.length === 0) {
-    const idx = Math.floor(rng.next() * terminals.length);
-    return terminals[idx].buildNode(rng, () =>
-      buildTree(rng, currentDepth + 1, maxDepth, rules)
-    );
+    return { ruleId: 'x', args: [] };
   }
 
-  const idx = Math.floor(rng.next() * pool.length);
+  const idx = weightedPick(rng, pool);
   return pool[idx].buildNode(rng, () =>
     buildTree(rng, currentDepth + 1, maxDepth, rules)
   );

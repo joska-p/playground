@@ -4,6 +4,7 @@ export const powRule = {
   id: 'pow',
   name: 'Power',
   arity: 2,
+  weight: 1,
   evaluate: (args) => {
     const base = args[0]();
     const exp = args[1]();

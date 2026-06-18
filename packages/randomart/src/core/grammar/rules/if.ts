@@ -4,6 +4,7 @@ export const ifRule = {
   id: 'if',
   name: 'If',
   arity: 3,
+  weight: 1,
   evaluate: (args) => {
     const condition = args[0]();
     return condition > 0 ? args[1]() : args[2]();

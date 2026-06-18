@@ -4,6 +4,7 @@ export const addRule = {
   id: 'add',
   name: 'Add',
   arity: 2,
+  weight: 2,
   evaluate: (args) => (args[0]() + args[1]()) / 2,
   toMathString: (args) => `((${args[0]} + ${args[1]}) / 2)`,
   toTreeView: (args, depth) =>

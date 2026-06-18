@@ -4,6 +4,7 @@ export const greaterThanRule = {
   id: 'greater-than',
   name: 'Greater Than',
   arity: 2,
+  weight: 1,
   evaluate: (args) => (args[0]() > args[1]() ? 1 : 0),
   toMathString: (args) => `(${args[0]} > ${args[1]} ? 1 : 0)`,
   toTreeView: (args, depth) =>

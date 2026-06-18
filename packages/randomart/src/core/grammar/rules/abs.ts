@@ -4,6 +4,7 @@ export const absRule = {
   id: 'abs',
   name: 'Abs',
   arity: 1,
+  weight: 1,
   evaluate: (args) => Math.abs(args[0]()),
   toMathString: (args) => `|${args[0]}|`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── abs\n${args[0]}`,

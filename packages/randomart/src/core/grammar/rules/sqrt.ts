@@ -4,6 +4,7 @@ export const sqrtRule = {
   id: 'sqrt',
   name: 'Sqrt',
   arity: 1,
+  weight: 1,
   evaluate: (args) => Math.sqrt(Math.abs(args[0]()) + 1e-10),
   toMathString: (args) => `sqrt(|${args[0]}|)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── sqrt\n${args[0]}`,

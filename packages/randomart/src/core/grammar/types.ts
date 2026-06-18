@@ -5,6 +5,7 @@ export type GrammarRule = {
   id: string;
   name: string;
   arity: number;
+  weight: number;
 
   // Update args to use lazy thunks so conditional branching works!
   evaluate: (args: (() => number)[], x: number, y: number) => number;
