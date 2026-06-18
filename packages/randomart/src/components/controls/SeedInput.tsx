@@ -13,6 +13,7 @@ export function SeedInput() {
       placeholder="Try 'galaxy', 'ocean', or 'sunset'..."
       variant="primary"
       label="Seed Text"
+      fullWidth
     />
   );
 }
