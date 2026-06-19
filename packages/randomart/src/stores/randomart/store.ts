@@ -6,7 +6,7 @@ import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
   const seedText = "De deux choses lune l'autre c'est le soleil";
-  const maxDepth = 6;
+  const maxDepth = 8;
   const enabledRuleIds = getAllRules().map((r) => r.id);
   const trees = generateTrees({
     seedText,
