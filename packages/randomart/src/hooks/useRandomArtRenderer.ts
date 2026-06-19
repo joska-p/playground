@@ -11,12 +11,15 @@ export function useRandomArtRenderer(
     treeG: ExpressionNode;
     treeB: ExpressionNode;
   },
-  running: boolean
+  running: boolean,
+  enabled: boolean
 ) {
   const elapsedRef = useRef(randomartStore.getState().time);
   const isRendering = useRef(false);
 
   useEffect(() => {
+    if (!enabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -86,5 +89,5 @@ export function useRandomArtRenderer(
       cancelled = true;
       cancelAnimationFrame(animationFrameId);
     };
-  }, [dimensions, trees, running, canvasRef]);
+  }, [dimensions, trees, running, canvasRef, enabled]);
 }

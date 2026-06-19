@@ -93,3 +93,7 @@ export function setTime(time: number): void {
   state.timeRef.current = time;
   randomartStore.setState({ time });
 }
+
+export function setRenderMode(renderMode: 'canvas' | 'glsl'): void {
+  randomartStore.setState({ renderMode });
+}

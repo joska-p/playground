@@ -18,6 +18,7 @@ type RandomartState = {
   running: boolean;
   time: number;
   timeRef: { current: number };
+  renderMode: 'canvas' | 'glsl';
 };
 
 function generateInitial(): RandomartState {
@@ -46,7 +47,8 @@ function generateInitial(): RandomartState {
     rngB,
     running: false,
     time: 0,
-    timeRef: { current: 0 }
+    timeRef: { current: 0 },
+    renderMode: 'glsl'
   };
 }
 
