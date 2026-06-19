@@ -5,7 +5,7 @@ export const terminalTRule = {
   name: 'Terminal T',
   arity: 0,
   weight: 2,
-  evaluate: () => 0,
+  evaluate: (_args, _x, _y, t) => t,
   toMathString: () => 't',
   toGLSL: () => 'u_time',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── t\n`,

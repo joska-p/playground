@@ -13,7 +13,7 @@ export const pixelRandomRule = {
   weight: 2,
   evaluate: (_args, x, y) => pixelHash(x, y) * 2 - 1,
   toMathString: () => 'random',
-  toGLSL: () => 'random2d(v_texCoord)',
+  toGLSL: () => '(random2d(vec2(v_texCoord.x * 2.0 - 1.0, 1.0 - 2.0 * v_texCoord.y)) * 2.0 - 1.0)',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── random\n`,
   buildNode: () => ({
     ruleId: 'random',
