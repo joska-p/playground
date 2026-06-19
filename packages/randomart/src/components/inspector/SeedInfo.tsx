@@ -1,15 +1,7 @@
-import { useActiveChannel } from '../../stores/randomart/selectors/useActiveChannel';
-import { useRngB } from '../../stores/randomart/selectors/useRngB';
-import { useRngG } from '../../stores/randomart/selectors/useRngG';
-import { useRngR } from '../../stores/randomart/selectors/useRngR';
+import { useSelectedRng } from '../../stores/randomart/selectors';
 
 export function SeedInfo() {
-  const activeChannel = useActiveChannel();
-  const rngR = useRngR();
-  const rngG = useRngG();
-  const rngB = useRngB();
-  const selectedRng =
-    activeChannel === 'red' ? rngR : activeChannel === 'green' ? rngG : rngB;
+  const selectedRng = useSelectedRng();
 
   return (
     <div className="grid grid-cols-2 gap-4">

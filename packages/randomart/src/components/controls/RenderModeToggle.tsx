@@ -1,6 +1,6 @@
 import { Button } from '@repo/ui/Button';
-import { setRenderMode } from '../../stores/randomart/actions/render';
-import { useRenderMode } from '../../stores/randomart/selectors/useRenderMode';
+import { setRenderMode } from '../../stores/randomart/actions/display';
+import { useRenderMode } from '../../stores/randomart/selectors';
 
 export function RenderModeToggle() {
   const renderMode = useRenderMode();

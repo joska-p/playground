@@ -14,7 +14,6 @@ export type RandomartState = {
   rngB: SeededRandom;
   running: boolean;
   time: number;
-  timeRef: { current: number };
   renderMode: 'canvas' | 'glsl';
   correlatedRGB: boolean;
 };

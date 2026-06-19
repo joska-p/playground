@@ -1,6 +1,6 @@
 import { Button } from '@repo/ui/Button';
-import { setCorrelatedRGB } from '../../stores/randomart/actions/render';
-import { useCorrelatedRGB } from '../../stores/randomart/selectors/useCorrelatedRGB';
+import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
+import { useCorrelatedRGB } from '../../stores/randomart/selectors';
 
 export function CorrelatedToggle() {
   const correlatedRGB = useCorrelatedRGB();

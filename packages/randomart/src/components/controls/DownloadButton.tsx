@@ -1,10 +1,10 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
 import { renderTreesToPngBase64Async } from '../../core/render/png-export';
-import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
-import { useTreeB } from '../../stores/randomart/selectors/useTreeB';
-import { useTreeG } from '../../stores/randomart/selectors/useTreeG';
-import { useTreeR } from '../../stores/randomart/selectors/useTreeR';
+import { useSeedText } from '../../stores/randomart/selectors';
+import { useTreeB } from '../../stores/randomart/selectors';
+import { useTreeG } from '../../stores/randomart/selectors';
+import { useTreeR } from '../../stores/randomart/selectors';
 import { randomartStore } from '../../stores/randomart/store';
 
 const DOWNLOAD_SIZE = 1024;

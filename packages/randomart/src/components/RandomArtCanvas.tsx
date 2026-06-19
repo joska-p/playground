@@ -2,45 +2,30 @@ import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useRef } from 'react';
 import { useCanvasRenderer } from '../hooks/useCanvasRenderer';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
-import { useCorrelatedRGB } from '../stores/randomart/selectors/useCorrelatedRGB';
-import { useRenderMode } from '../stores/randomart/selectors/useRenderMode';
-import { useRunning } from '../stores/randomart/selectors/useRunning';
-import { useTreeB } from '../stores/randomart/selectors/useTreeB';
-import { useTreeG } from '../stores/randomart/selectors/useTreeG';
-import { useTreeR } from '../stores/randomart/selectors/useTreeR';
-import { randomartStore } from '../stores/randomart/store';
+import { useRunning, useRenderMode, useCPUTrees, useGLSLTrees } from '../stores/randomart/selectors';
 
 export function RandomArtCanvas() {
   const [containerRef, dimensions] = useResizeObserver<HTMLDivElement>();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const treeR = useTreeR();
-  const treeG = useTreeG();
-  const treeB = useTreeB();
+  const cpuTrees = useCPUTrees();
+  const glslTrees = useGLSLTrees();
   const running = useRunning();
   const renderMode = useRenderMode();
-  const correlatedRGB = useCorrelatedRGB();
-
-  const timeRef = randomartStore.getState().timeRef;
-
-  const canvasTreeR = correlatedRGB ? treeR.args[0] : treeR;
-  const canvasTreeG = correlatedRGB ? treeR.args[1] : treeG;
-  const canvasTreeB = correlatedRGB ? treeR.args[2] : treeB;
 
   useCanvasRenderer(
     canvasRef,
     dimensions,
-    canvasTreeR,
-    canvasTreeG,
-    canvasTreeB,
+    cpuTrees.treeR,
+    cpuTrees.treeG,
+    cpuTrees.treeB,
     renderMode === 'canvas'
   );
   useWebGLRenderer(
     canvasRef,
     dimensions,
-    { treeR, treeG, treeB },
+    glslTrees,
     running,
-    timeRef,
     renderMode === 'glsl'
   );
 

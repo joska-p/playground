@@ -1,6 +1,6 @@
 import { Button } from '@repo/ui/Button';
 import { toggleRunning } from '../../stores/randomart/actions/playback';
-import { useRunning } from '../../stores/randomart/selectors/useRunning';
+import { useRunning } from '../../stores/randomart/selectors';
 
 export function PlaybackButton() {
   const running = useRunning();

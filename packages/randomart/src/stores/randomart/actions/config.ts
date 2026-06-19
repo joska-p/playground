@@ -1,6 +1,13 @@
 import { getAllRules, getRule } from '../../../core/grammar/registry';
 import { randomartStore } from '../store';
-import { regenerateTrees } from './trees';
+
+export function setSeedText(seedText: string): void {
+  randomartStore.setState({ seedText }, false, 'config/setSeedText');
+}
+
+export function setMaxDepth(maxDepth: number): void {
+  randomartStore.setState({ maxDepth }, false, 'config/setMaxDepth');
+}
 
 export function toggleRule(ruleId: string): void {
   const state = randomartStore.getState();
@@ -9,8 +16,7 @@ export function toggleRule(ruleId: string): void {
 
   if (state.enabledRuleIds.includes(ruleId) && rule.arity === 0) {
     const otherTerminals = getAllRules().filter(
-      (r) =>
-        r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
+      (r) => r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
     );
     if (otherTerminals.length === 0) return;
   }
@@ -19,14 +25,5 @@ export function toggleRule(ruleId: string): void {
     ? state.enabledRuleIds.filter((id) => id !== ruleId)
     : [...state.enabledRuleIds, ruleId];
 
-  state.timeRef.current = 0;
-  randomartStore.setState(
-    {
-      enabledRuleIds: enabled,
-      ...regenerateTrees(state.seedText, state.maxDepth, state.correlatedRGB),
-      time: 0
-    },
-    false,
-    `rules/toggleRule (${ruleId})`
-  );
+  randomartStore.setState({ enabledRuleIds: enabled }, false, `config/toggleRule (${ruleId})`);
 }

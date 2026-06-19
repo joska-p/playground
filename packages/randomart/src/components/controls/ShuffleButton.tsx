@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/Button';
-import { setSeedText } from '../../stores/randomart/actions/seed';
+import { setSeedText } from '../../stores/randomart/actions/config';
 
 export function ShuffleButton() {
   return (

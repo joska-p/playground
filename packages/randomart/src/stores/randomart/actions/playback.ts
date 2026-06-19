@@ -14,7 +14,5 @@ export function setRunning(running: boolean): void {
 }
 
 export function setTime(time: number): void {
-  const state = randomartStore.getState();
-  state.timeRef.current = time;
   randomartStore.setState({ time }, false, 'playback/setTime');
 }

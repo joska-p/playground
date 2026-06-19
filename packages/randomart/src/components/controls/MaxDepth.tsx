@@ -1,6 +1,6 @@
 import { Input } from '@repo/ui/Input';
-import { setMaxDepth } from '../../stores/randomart/actions/seed';
-import { useMaxDepth } from '../../stores/randomart/selectors/useMaxDepth';
+import { setMaxDepth } from '../../stores/randomart/actions/config';
+import { useMaxDepth } from '../../stores/randomart/selectors';
 
 function MaxDepth() {
   const maxDepth = useMaxDepth();

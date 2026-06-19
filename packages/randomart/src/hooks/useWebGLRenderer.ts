@@ -25,14 +25,22 @@ export function useWebGLRenderer(
     treeB: ExpressionNode;
   },
   running: boolean,
-  timeRef: React.RefObject<number>,
   enabled: boolean
 ) {
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const programRef = useRef<WebGLProgram | null>(null);
   const timeUniformLocRef = useRef<WebGLUniformLocation | null>(null);
+  const timeRef = useRef(0);
+  const frameCountRef = useRef(0);
 
   const { logicalSize, bitmapSize } = useCanvasSize(dimensions);
+
+  // Sync local timeRef with store when running starts (handles Reset Time while paused)
+  useEffect(() => {
+    if (running) {
+      timeRef.current = randomartStore.getState().time;
+    }
+  }, [running]);
 
   // Effect 1: Recompile the shader ONLY when trees change or WebGL is enabled
   useEffect(() => {
@@ -93,10 +101,9 @@ export function useWebGLRenderer(
       }
       glRef.current = null;
     };
-  }, [enabled, trees, logicalSize, bitmapSize, canvasRef, timeRef]);
+  }, [enabled, trees, logicalSize, bitmapSize, canvasRef]);
 
   // Effect 2: Smooth frame loop uniform ticks
-  const frameCountRef = useRef(0);
   useAnimationLoop(
     running,
     (deltaMs) => {
@@ -105,7 +112,7 @@ export function useWebGLRenderer(
       }
 
       frameCountRef.current++;
-      if (frameCountRef.current % 6 === 0) {
+      if (running && frameCountRef.current % 6 === 0) {
         randomartStore.setState({ time: timeRef.current });
       }
 

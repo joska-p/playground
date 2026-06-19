@@ -1,16 +1,8 @@
 import { nodeToTreeView } from '../../core/format/treePrinter';
-import { useActiveChannel } from '../../stores/randomart/selectors/useActiveChannel';
-import { useTreeB } from '../../stores/randomart/selectors/useTreeB';
-import { useTreeG } from '../../stores/randomart/selectors/useTreeG';
-import { useTreeR } from '../../stores/randomart/selectors/useTreeR';
+import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function AstTreeView() {
-  const activeChannel = useActiveChannel();
-  const treeR = useTreeR();
-  const treeG = useTreeG();
-  const treeB = useTreeB();
-  const selectedTree =
-    activeChannel === 'red' ? treeR : activeChannel === 'green' ? treeG : treeB;
+  const selectedTree = useSelectedTree();
 
   return (
     <div className="flex flex-1 flex-col gap-2">

@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import { cn } from '@repo/ui/cn';
-import { setActiveChannel } from '../../stores/randomart/actions/channel';
-import { useActiveChannel } from '../../stores/randomart/selectors/useActiveChannel';
+import { setActiveChannel } from '../../stores/randomart/actions/display';
+import { useActiveChannel } from '../../stores/randomart/selectors';
 
 const channels: ('red' | 'green' | 'blue')[] = ['red', 'green', 'blue'];
 

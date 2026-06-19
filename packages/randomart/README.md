@@ -10,7 +10,7 @@ pnpm --filter @repo/randomart dev
 
 ## Architecture
 
-Three-layer unidirectional flow:
+Four-layer unidirectional flow:
 
 ```
 Grammar Definitions (core/grammar/rules/*.ts)
@@ -22,13 +22,17 @@ Registry (core/grammar/registry.ts) — Map<string, GrammarRule>
 Tree Builder (core/tree/build.ts) — stochastic weighted AST generation
     │
     ▼
-Zustand Store (stores/randomart/) — unexported createStore, selector hooks, action functions
+Zustand Store (stores/randomart/)
+    │  Config (seed, depth, rules, mode, correlated)
+    │  └─ subscribe auto-regenerates trees on config change
     │
     ├── GPU path (renderMode === 'glsl')
-    │   └── useWebGLRenderer → compileToGLSL → WebGL fragment shader
+    │   └── useWebGLRenderer → compileToGLSL → fragment shader
+    │       └─ Owns time locally via useRef; throttled sync to store for UI
     │
     └── CPU path (renderMode === 'canvas')
         └── useCanvasRenderer → WorkerPool → evaluateNode() → putImageData
+            └─ Single frame render (no animation loop)
 ```
 
 ## Core Domain (`src/core/`)
@@ -117,60 +121,70 @@ Vanilla Zustand store with selector hooks and action functions.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `seedText` | `string` | `"De deux choses l'une l'autre c'est le soleil"` | PRNG seed |
+| `seedText` | `string` | `"De deux choses lune l'autre c'est le soleil"` | PRNG seed |
 | `maxDepth` | `number` | `6` | Max tree depth |
 | `enabledRuleIds` | `string[]` | all rules | Enabled grammar rules |
-| `treeR`, `treeG`, `treeB` | `ExpressionNode` | generated | Per-channel ASTs |
+| `treeR`, `treeG`, `treeB` | `ExpressionNode` | generated | Per-channel ASTs, auto-regenerated on config change |
 | `rngR`, `rngG`, `rngB` | `SeededRandom` | generated | Per-channel PRNGs |
 | `running` | `boolean` | `false` | Animation state |
-| `time` | `number` | `0` | Current animation time |
-| `timeRef` | `{ current: number }` | `{ current: 0 }` | Mutable time ref |
+| `time` | `number` | `0` | Current animation time (updated by WebGL renderer; CPU reads once) |
 | `renderMode` | `'glsl' \| 'canvas'` | `'glsl'` | GPU or CPU render |
 | `correlatedRGB` | `boolean` | `false` | Linked/split RGB |
-| `activeChannel` | `'red' \| 'green' \| 'blue'` | `'red'` | Inspector channel |
+| `activeChannel` | `'red' \| 'green' \| 'blue'` | `'red'` | Inspector tab selection |
 
 ### Action files
 
 | File | Exports |
 |------|---------|
-| `actions/rules.ts` | `toggleRule(ruleId)` |
-| `actions/trees.ts` | `regenerateTrees(seed, depth, correlated)` |
-| `actions/seed.ts` | `setSeedText(text)`, `setMaxDepth(n)` |
-| `actions/playback.ts` | `toggleRunning()`, `setTime(n)` |
-| `actions/render.ts` | `setRenderMode(mode)`, `setCorrelatedRGB(bool)` |
-| `actions/channel.ts` | `setActiveChannel(channel)` |
+| `actions/config.ts` | `setSeedText(text)`, `setMaxDepth(n)`, `toggleRule(id)` |
+| `actions/display.ts` | `setActiveChannel(ch)`, `setRenderMode(mode)`, `setCorrelatedRGB(bool)` |
+| `actions/playback.ts` | `toggleRunning()`, `setRunning(bool)`, `setTime(n)` |
+| `actions/trees.ts` | `generateTrees(config)` — pure function (no store imports) |
 
-### Selector hooks
+Actions set a config field; a Zustand `subscribe` listener auto-regenerates trees when config changes. Actions no longer call tree regeneration directly.
 
-| Hook | Returns |
-|------|---------|
-| `useTreeR`, `useTreeG`, `useTreeB` | `ExpressionNode` |
-| `useRunning` | `boolean` |
-| `useRenderMode` | `'glsl' \| 'canvas'` |
-| `useCorrelatedRGB` | `boolean` |
-| `useEnabledRuleIds` | `string[]` |
+### Selectors (`stores/randomart/selectors.ts`)
+
+All selectors in a single file. Each is a thin `useStore` wrapper.
+
+| Selector | Returns |
+|----------|---------|
 | `useSeedText` | `string` |
 | `useMaxDepth` | `number` |
-| `useTime` | `number` |
+| `useEnabledRuleIds` | `string[]` |
+| `useCorrelatedRGB` | `boolean` |
 | `useActiveChannel` | `'red' \| 'green' \| 'blue'` |
+| `useRenderMode` | `'glsl' \| 'canvas'` |
+| `useRunning` | `boolean` |
+| `useTime` | `number` |
+| `useTreeR`, `useTreeG`, `useTreeB` | `ExpressionNode` |
 | `useRngR`, `useRngG`, `useRngB` | `SeededRandom` |
+| `useSelectedTree` | `ExpressionNode` — active channel only (avoids re-renders) |
+| `useSelectedRng` | `SeededRandom` — active channel only |
+| `useCPUTrees` | `{ treeR, treeG, treeB }` — unwrapped from `vec3` for correlated mode |
+| `useGLSLTrees` | `{ treeR, treeG, treeB }` — raw trees as stored |
 
 ## Rendering Pipeline
 
 ### GPU Path (`renderMode === 'glsl'`)
 
 1. `useWebGLRenderer` sets up WebGL context, vertex buffer, and fullscreen quad
-2. Each frame (when `running`) or on tree change: calls `renderFrame()`
-3. `renderFrame()` compiles the AST to a GLSL fragment shader via `compileToGLSL()`, compiles and links the program, sets uniforms (`u_time`, `u_resolution`), and draws
-4. Fragment shader evaluates the expression per-pixel in parallel on the GPU
+2. On tree change: compiles the AST to a GLSL fragment shader via `compileToGLSL()`, links the program, sets uniforms (`u_time`, `u_resolution`), and draws
+3. When `running`: a `requestAnimationFrame` loop increments a **local `useRef(0)`** (not store state) and writes `u_time` uniform each frame
+4. Every 6 frames the local time is throttled to the store for UI display (`TimeDisplay`)
+5. On `running` start, the local ref syncs from store time (handles Reset Time while paused)
+6. Fragment shader evaluates the expression per-pixel in parallel on the GPU
 
 ### CPU Path (`renderMode === 'canvas'`)
 
-1. `useCanvasRenderer` triggers rendering when trees or dimensions change
-2. `renderTreesToImageDataAsync()` splits work into horizontal strips
-3. Strips are dispatched to a Web Worker pool
-4. Workers evaluate the expression tree per-pixel via `evaluateNode()`
-5. Results are assembled into `ImageData` and drawn to the canvas via `putImageData()`
+1. `useCanvasRenderer` triggers a **single frame** render when trees or dimensions change
+2. Reads `store.time` once imperatively (no reactive subscription — no animation loop)
+3. `renderTreesToImageDataAsync()` splits work into horizontal strips
+4. Strips are dispatched to a Web Worker pool
+5. Workers evaluate the expression tree per-pixel via `evaluateNode()`
+6. Results are assembled into `ImageData` and drawn to the canvas via `putImageData()`
+
+Animation is a WebGL-only feature. The CPU path renders a static frame to avoid per-frame overhead on the main thread.
 
 ## Common Pitfalls
 
@@ -178,9 +192,9 @@ Vanilla Zustand store with selector hooks and action functions.
 
 When authoring `toGLSL()` on a new grammar rule, always use **float literals** (`1.0`, `0.0`) not integer literals (`1`, `0`). WebGL 1.0 (GLSL ES 1.0) does not perform implicit int→float conversion in binary operations like `+`, `mod()`, `*`, etc. Integer-typed expressions flowing into float-only functions will produce shader compilation errors.
 
-### Shader recompilation
+### Render mode switch
 
-The current `renderFrame()` recompiles the fragment shader on every invocation (every frame when running). This is wasteful for static expression trees. The shader should ideally be cached and only recompiled when the tree changes.
+Switching from WebGL to Canvas while animation is running pauses the time loop. The CPU path renders one frame at the current store time. If you switch back to WebGL, the renderer syncs its local time from the store.
 
 ## Conventions
 

@@ -1,43 +1,48 @@
 import { createStore } from 'zustand';
-import { devtools } from 'zustand/middleware'; // 1. Import devtools
+import { devtools } from 'zustand/middleware';
 import { getAllRules } from '../../core/grammar/registry';
-import { SeededRandom } from '../../core/random/SeededRandom';
-import { buildTree } from '../../core/tree/build';
+import { generateTrees } from './actions/trees';
 import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
   const seedText = "De deux choses lune l'autre c'est le soleil";
   const maxDepth = 6;
   const enabledRuleIds = getAllRules().map((r) => r.id);
-  const rules = getAllRules();
-  const rngR = new SeededRandom(seedText + '_red');
-  const rngG = new SeededRandom(seedText + '_green');
-  const rngB = new SeededRandom(seedText + '_blue');
-
-  const treeR = buildTree(rngR, 0, maxDepth, rules);
-  const treeG = buildTree(rngG, 0, maxDepth, rules);
-  const treeB = buildTree(rngB, 0, maxDepth, rules);
+  const trees = generateTrees({ seedText, maxDepth, enabledRuleIds, correlated: false });
 
   return {
     seedText,
     activeChannel: 'red',
     maxDepth,
     enabledRuleIds,
-    treeR,
-    treeG,
-    treeB,
-    rngR,
-    rngG,
-    rngB,
+    ...trees,
     running: false,
     time: 0,
-    timeRef: { current: 0 },
     renderMode: 'glsl',
     correlatedRGB: false
   };
 }
 
-// 2. Wrap with devtools and provide a name for the Redux/Zustand devtools tab
 export const randomartStore = createStore<RandomartState>()(
   devtools(() => generateInitial(), { name: 'RandomartStore' })
 );
+
+// Reactive subscriber: auto-regenerate trees when config changes
+randomartStore.subscribe((state, prev) => {
+  const configChanged = (
+    state.seedText !== prev.seedText ||
+    state.maxDepth !== prev.maxDepth ||
+    state.enabledRuleIds !== prev.enabledRuleIds ||
+    state.correlatedRGB !== prev.correlatedRGB
+  );
+  if (!configChanged) return;
+
+  const trees = generateTrees({
+    seedText: state.seedText,
+    maxDepth: state.maxDepth,
+    enabledRuleIds: state.enabledRuleIds,
+    correlated: state.correlatedRGB,
+  });
+
+  randomartStore.setState({ ...trees, time: 0 });
+});
