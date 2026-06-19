@@ -37,12 +37,12 @@ export const zoomBehavior: AnimationBehavior = {
     applyCode: (timeVar, speedVar) => `uv *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
 };
 
-export const wobbleBehavior: AnimationBehavior = {
-    id: 'wobble',
-    name: 'Wobble',
+export const rippleBehavior: AnimationBehavior = {
+    id: 'ripple',
+    name: 'Ripple',
     glslFunction: ``,
     type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv += 0.1 * vec2(sin(${timeVar} * ${speedVar}), cos(${timeVar} * ${speedVar}));`
+    applyCode: (timeVar, speedVar) => `uv += 0.1 * sin(uv * 5.0 + ${timeVar} * ${speedVar});`
 };
 
 export const rotateBehavior: AnimationBehavior = {
@@ -58,9 +58,24 @@ mat2 rotate2d(float _angle){
     applyCode: (timeVar, speedVar) => `uv = rotate2d(${timeVar} * ${speedVar} * 0.5) * uv;`
 };
 
+export const swirlBehavior: AnimationBehavior = {
+    id: 'swirl',
+    name: 'Swirl',
+    glslFunction: `
+vec2 swirl(vec2 uv, float angle) {
+    float r = length(uv);
+    float a = atan(uv.y, uv.x) + angle * (1.0 - r);
+    return vec2(cos(a) * r, sin(a) * r);
+}
+`,
+    type: 'spatial',
+    applyCode: (timeVar, speedVar) => `uv = swirl(uv, sin(${timeVar} * ${speedVar}) * 2.0);`
+};
+
 export const animationRegistry: AnimationBehavior[] = [
     hueShiftBehavior,
     zoomBehavior,
-    wobbleBehavior,
-    rotateBehavior
+    rippleBehavior,
+    rotateBehavior,
+    swirlBehavior
 ];
