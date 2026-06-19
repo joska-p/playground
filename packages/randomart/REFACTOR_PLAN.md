@@ -4,39 +4,28 @@ Lessons from the draft that would benefit the package (./GRAMMAR_COMPARISON.md),
 
 ---
 
-## Phase 1: Quick wins (no architectural changes)
+## Phase 1: Quick wins (COMPLETED)
 
-### Step 1 — Add `sqrt` and `abs` rules
+### Step 1 — Add `sqrt` and `abs` rules (COMPLETED)
 
-Low effort, high visual impact.
+- `sqrt` at `src/core/grammar/rules/sqrt.ts`, `abs` at `src/core/grammar/rules/abs.ts`
+- Both registered in `src/core/grammar/registry.ts`
 
-- `sqrt`: unary, evaluate as `Math.sqrt(Math.abs(args[0]()) + 1e-10)` (safe with epsilon)
-- `abs`: unary, evaluate as `Math.abs(args[0]())`
+### Step 2 — Add per-pixel `random` terminal (COMPLETED)
 
-Both slot into the existing `GrammarRule` pattern trivially. Register in `registry.ts`. The draft produces distinctive radial/ripple patterns from `sqrt` and mirror/symmetry from `abs`.
-
-### Step 2 — Add per-pixel `random` terminal
-
-Add a `random` rule (arity 0) that returns a deterministic hash of `(x, y)`. Unlike `constant` (baked at tree-build time), this varies per pixel — creating organic noise/texture.
-
-Need: a `pixelRandom` function like `hash(x, y) = fract(sin(dot(xy, vec2(12.9898, 78.233))) * 43758.5453)` (the classic GLSL hash). Since `evaluateNode` passes `(x, y)`, the rule can compute the hash directly.
-
-Change: `evaluate` signature currently receives `(args, x, y)` but terminals ignore `x, y`. This rule would use them.
+- `pixelRandomRule` at `src/core/grammar/rules/pixel-random.ts`
+- Uses GLSL-style hash `fract(sin(dot(xy, vec2(12.9898, 78.233))) * 43758.5453)` in JS and GLSL
 
 ---
 
-## Phase 2: Grammar improvements
+## Phase 2: Grammar improvements (COMPLETED)
 
-### Step 3 — Weighted grammar branches
+### Step 3 — Weighted grammar branches (COMPLETED)
 
-Add a `weight` field to `GrammarRule`. Modify `buildTree()` to use weighted random selection instead of the blunt 15% terminal-bias heuristic.
-
-- Add `weight?: number` (default 1) to the `GrammarRule` type
-- Change `buildTree` to: collect enabled rules, compute total weight, pick via `rng.next() * totalWeight`
-- Remove the hardcoded `0.15` terminal-bias constant
-- Remove the terminal vs operator pool split — let weights control the distribution naturally
-
-This makes the grammar tunable: e.g. `add` weight 3, `multiply` weight 3, `sin` weight 1, terminals weight 2 gives the draft-like distribution without hardcoded pool logic.
+- `weight` field added to `GrammarRule` type at `src/core/grammar/types.ts:8`
+- `weightedPick()` at `src/core/engine.ts:6-14` computes total weight and picks via `rng.next() * totalWeight`
+- `buildTree()` at `src/core/engine.ts:40-60` uses it for all selection
+- No hardcoded terminal-bias constants remain
 
 ---
 
@@ -55,77 +44,57 @@ The store needs a `running` boolean and a `time` ref. The `RenderTask` type need
 
 ---
 
-## Phase 4: GPU rendering (biggest change)
+## Phase 4: GPU rendering (COMPLETED)
 
-### Step 5 — GLSL compilation + WebGL renderer
+### Step 5 — GLSL compilation + WebGL renderer (COMPLETED)
 
-This is the highest-leverage change. It unlocks GPU-speed rendering, real-time `t` animation, and interactivity.
+**5a — Add `toGLSL(args: string[]): string` to `GrammarRule`** - **Done**
 
-**5a — Add `toGLSL(args: string[]): string` to `GrammarRule`**
+- Added to `GrammarRule` type at `src/core/grammar/types.ts:14`
+- Implemented on all 18 rules across `src/core/grammar/rules/*.ts`
+- Bug fix: `if.ts` `toGLSL` uses valid ternary `(... > 0.0 ? ... : ...)` instead of `if` keyword
 
-Each rule generates its GLSL expression fragment. Examples:
+**5b — `compileToGLSL(tree: ExpressionNode): string`** - **Done** at `src/core/compileToGLSL.ts`
 
-- `add`: `((${args[0]} + ${args[1]}) / 2.0)`
-- `sin`: `sin(3.14159265 * ${args[0]})`
-- `x`: `v_texCoord.x` (or `fragCoord.x` mapped to -1..1)
-- `y`: `v_texCoord.y`
-- `t`: `u_time`
-- `random`: `random2d(v_texCoord)` (using a GLSL hash function in the preamble)
-- `constant`: generated as a literal float, e.g. `0.42`
+- Recurses tree calling `toGLSL` via `compileNode()`
+- Includes `random2d` GLSL hash function in preamble (required by `pixel-random` rule)
+- Detects `vec3` root and outputs `vec3 color = <expr>` for correlated mode; falls back to `float r/g/b` for 3-tree mode
+- Wraps in complete fragment shader with `u_time`, `u_resolution`, `v_texCoord`
 
-**5b — `compileToGLSL(tree: ExpressionNode): string`**
+**5c — WebGL renderer** - **Done** at `src/hooks/useWebGLRenderer.ts`
 
-Recurses the tree calling `toGLSL`, wraps it in a complete fragment shader:
+- Raw WebGL1 fullscreen quad (no dependencies added to monorepo)
+- RAF animation loop passing `u_time` and `u_resolution`
+- Recompiles shader on tree change
+- Proper cleanup on unmount/mode switch
+- Uses `preserveDrawingBuffer: true` for static frames
 
-```glsl
-precision highp float;
-uniform float u_time;
-uniform vec2 u_resolution;
-varying vec2 v_texCoord;
+### Step 6 — Correlated RGB / single-tree vec3 (COMPLETED)
 
-// preamble: hash functions, etc.
-
-void main() {
-  vec2 uv = v_texCoord;
-  float r = <treeR.toGLSL()>;
-  float g = <treeG.toGLSL()>;
-  float b = <treeB.toGLSL()>;
-  gl_FragColor = vec4((vec3(r,g,b) + 1.0) / 2.0, 1.0);
-}
-```
-
-**5c — WebGL renderer**
-
-Replace (or augment) the Canvas 2D renderer with a full-screen quad + fragment shader. Can use raw WebGL or a thin wrapper like `regl` or `twgl`. The React component:
-
-- Compiles the shader on tree change
-- Passes `u_time` via `requestAnimationFrame`
-- Passes `u_resolution` on resize
-
-This eliminates the Worker pool entirely for the main render path (though Workers could remain for PNG export).
-
-### Step 6 — Correlated RGB / single-tree vec3
-
-Optional, complementary to the existing three-tree approach.
-
-Add a `vec3` rule (arity 3) that bundles R, G, B into one tree. The build step would optionally:
-
-- Build one tree rooted at `vec3` instead of three independent trees
-- The shader compiler sees a single `vec3` output from one expression
-
-This can coexist with the three-tree mode as a user toggle.
+- **`vec3` GrammarRule** at `src/core/grammar/rules/vec3.ts` (arity 3, `toGLSL` returns `vec3(r, g, b)`)
+- **`correlatedRGB` store toggle** at `src/stores/randomart/store.ts:22`
+- When enabled: builds one tree with `vec3` root (single shared RNG) instead of 3 independent trees
+- CPU path: extracts `tree.args[0/1/2]` for R/G/B evaluation at `src/components/RandomArtCanvas.tsx:27`
+- GLSL path: `compileToGLSL` detects `vec3` root and outputs `vec3 color = <expr>` directly
+- Coexists with 3-tree mode via UI toggle button (Linked/Split) in Controls
 
 ---
 
 ## Summary
 
-| Step                  | Effort   | Impact    | Depends on       |
-| --------------------- | -------- | --------- | ---------------- |
-| 1 — sqrt, abs rules   | 30 min   | Medium    | Nothing          |
-| 2 — per-pixel random  | 1 hr     | Medium    | Nothing          |
-| 3 — weighted branches | 2 hr     | High      | Nothing          |
-| 4 — t + animation     | 3 hr     | High      | Steps 1-3        |
-| 5 — GLSL + WebGL      | 2-3 days | Very high | Step 4 (needs t) |
-| 6 — correlated RGB    | 1 day    | Medium    | Step 5           |
+| Step                  | Effort   | Impact    | Status      |
+| --------------------- | -------- | --------- | ----------- |
+| 1 — sqrt, abs rules   | 30 min   | Medium    | ✅ Complete |
+| 2 — per-pixel random  | 1 hr     | Medium    | ✅ Complete |
+| 3 — weighted branches | 2 hr     | High      | ✅ Complete |
+| 4 — t + animation     | 3 hr     | High      | ✅ Complete |
+| 5 — GLSL + WebGL      | 2-3 days | Very high | ✅ Complete |
+| 6 — correlated RGB    | 1 day    | Medium    | ✅ Complete |
 
-Steps 1-3 can be done independently. Step 4 can be done with Canvas 2D before GLSL. Step 5 is the big one — once that's done, step 6 is small.
+All phases implemented. The package now supports:
+
+- **GPU rendering** via WebGL1 fullscreen quad (raw WebGL, no dependencies)
+- **CPU rendering** via Canvas 2D + Worker pool (preserved for export)
+- **Render mode toggle** — GPU (WebGL) / CPU (Canvas 2D)
+- **Correlated RGB mode** — single `vec3` tree via shared RNG seed
+- **Animation** via `t` terminal + RAF loop

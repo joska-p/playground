@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { renderTreesToImageDataAsync } from '../core/renderer';
+import { renderTreesToImageDataAsync } from '../core/render/cpu-renderer';
 import type { ExpressionNode } from '../core/types';
 import { randomartStore } from '../stores/randomart/store';
 

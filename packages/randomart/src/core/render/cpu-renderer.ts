@@ -1,9 +1,6 @@
 import { WorkerPool } from '@repo/worker-pool';
-import { encode } from 'fast-png';
-import { SeededRandom } from './SeededRandom';
-import { buildTree, evaluateNode } from './engine';
-import type { RenderResult, RenderTask } from './render-types';
-import type { ExpressionNode } from './types';
+import { evaluateNode } from '../tree/evaluate';
+import type { ExpressionNode, RenderResult, RenderTask } from '../types';
 
 const MAX_POOL_SIZE = 4;
 
@@ -112,105 +109,8 @@ async function renderTreesToImageDataAsync(
   return imageData;
 }
 
-function renderTreesToPngBase64(
-  treeR: ExpressionNode,
-  treeG: ExpressionNode,
-  treeB: ExpressionNode,
-  size: number,
-  time: number = 0
-): string {
-  const buffer = renderTreesToBuffer(treeR, treeG, treeB, size, time);
-
-  const pngBuffer = encode({
-    width: size,
-    height: size,
-    data: buffer,
-    channels: 4,
-    depth: 8
-  });
-
-  const binaryString = Array.from(pngBuffer)
-    .map((byte) => String.fromCharCode(byte))
-    .join('');
-
-  return `data:image/png;base64,${btoa(binaryString)}`;
-}
-
-async function renderTreesToPngBase64Async(
-  treeR: ExpressionNode,
-  treeG: ExpressionNode,
-  treeB: ExpressionNode,
-  size: number,
-  time: number = 0
-): Promise<string> {
-  const imageData = await renderTreesToImageDataAsync(
-    treeR,
-    treeG,
-    treeB,
-    size,
-    time
-  );
-
-  const pngBuffer = encode({
-    width: size,
-    height: size,
-    data: imageData.data,
-    channels: 4,
-    depth: 8
-  });
-
-  const binaryString = Array.from(pngBuffer)
-    .map((byte) => String.fromCharCode(byte))
-    .join('');
-
-  return `data:image/png;base64,${btoa(binaryString)}`;
-}
-
-function renderPixelBuffer(
-  seedString: string,
-  size: number,
-  maxDepth: number
-): Uint8ClampedArray {
-  const rngR = new SeededRandom(seedString + '_red');
-  const rngG = new SeededRandom(seedString + '_green');
-  const rngB = new SeededRandom(seedString + '_blue');
-
-  const treeR = buildTree(rngR, 0, maxDepth);
-  const treeG = buildTree(rngG, 0, maxDepth);
-  const treeB = buildTree(rngB, 0, maxDepth);
-
-  return renderTreesToBuffer(treeR, treeG, treeB, size);
-}
-
-function renderPixelMapAsBase64(
-  seedString: string,
-  size: number,
-  maxDepth: number
-): string {
-  const buffer = renderPixelBuffer(seedString, size, maxDepth);
-
-  const pngBuffer = encode({
-    width: size,
-    height: size,
-    data: buffer,
-    channels: 4,
-    depth: 8
-  });
-
-  const binaryString = Array.from(pngBuffer)
-    .map((byte) => String.fromCharCode(byte))
-    .join('');
-
-  const base64 = btoa(binaryString);
-  return `data:image/png;base64,${base64}`;
-}
-
 export {
-  renderPixelBuffer,
-  renderPixelMapAsBase64,
   renderTreesToBuffer,
   renderTreesToImageData,
-  renderTreesToImageDataAsync,
-  renderTreesToPngBase64,
-  renderTreesToPngBase64Async
+  renderTreesToImageDataAsync
 };

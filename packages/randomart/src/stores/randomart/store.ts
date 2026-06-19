@@ -1,7 +1,7 @@
 import { createStore } from 'zustand';
-import { SeededRandom } from '../../core/SeededRandom';
-import { buildTree } from '../../core/engine';
 import { getAllRules } from '../../core/grammar/registry';
+import { SeededRandom } from '../../core/random/SeededRandom';
+import { buildTree } from '../../core/tree/build';
 import type { ExpressionNode } from '../../core/types';
 
 type RandomartState = {
@@ -19,6 +19,7 @@ type RandomartState = {
   time: number;
   timeRef: { current: number };
   renderMode: 'canvas' | 'glsl';
+  correlatedRGB: boolean;
 };
 
 function generateInitial(): RandomartState {
@@ -48,7 +49,8 @@ function generateInitial(): RandomartState {
     running: false,
     time: 0,
     timeRef: { current: 0 },
-    renderMode: 'glsl'
+    renderMode: 'glsl',
+    correlatedRGB: false
   };
 }
 

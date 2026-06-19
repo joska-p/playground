@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { compileToGLSL } from '../core/compileToGLSL';
+import { compileToGLSL } from '../core/compile/compileToGLSL';
 import type { ExpressionNode } from '../core/types';
 
 const VERTEX_SHADER_SOURCE = `
@@ -11,14 +11,7 @@ void main() {
 }
 `;
 
-const POSITIONS = new Float32Array([
-  -1, -1,
-   1, -1,
-  -1,  1,
-  -1,  1,
-   1, -1,
-   1,  1,
-]);
+const POSITIONS = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
 
 function compileShader(
   gl: WebGLRenderingContext,
@@ -88,7 +81,7 @@ export function useWebGLRenderer(
     const gl = canvas2.getContext('webgl', {
       preserveDrawingBuffer: true,
       alpha: false,
-      antialias: false,
+      antialias: false
     });
 
     if (!gl) {
@@ -117,7 +110,11 @@ export function useWebGLRenderer(
       );
 
       try {
-        const program = createProgram(gl2, VERTEX_SHADER_SOURCE, fragmentSource);
+        const program = createProgram(
+          gl2,
+          VERTEX_SHADER_SOURCE,
+          fragmentSource
+        );
         if (programRef.current) {
           gl2.deleteProgram(programRef.current);
         }

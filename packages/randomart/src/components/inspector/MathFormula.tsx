@@ -1,4 +1,4 @@
-import { nodeToMathString } from '../../core/treePrinter';
+import { nodeToMathString } from '../../core/format/treePrinter';
 import { useActiveChannel } from '../../stores/randomart/selectors/useActiveChannel';
 import {
   useTreeB,

@@ -1,4 +1,4 @@
-import type { GrammarRule } from '../types';
+import type { GrammarRule } from '../../types';
 
 export const logRule = {
   id: 'log',

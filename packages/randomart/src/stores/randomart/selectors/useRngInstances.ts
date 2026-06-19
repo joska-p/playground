@@ -1,5 +1,5 @@
 import { useStore } from 'zustand';
-import type { SeededRandom } from '../../../core/SeededRandom';
+import type { SeededRandom } from '../../../core/random/SeededRandom';
 import { randomartStore } from '../store';
 
 export function useRngR(): SeededRandom {

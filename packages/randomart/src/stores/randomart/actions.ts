@@ -1,15 +1,40 @@
-import { SeededRandom } from '../../core/SeededRandom';
-import { buildTree } from '../../core/engine';
 import { getAllRules, getRule } from '../../core/grammar/registry';
+import { SeededRandom } from '../../core/random/SeededRandom';
+import { buildTree } from '../../core/tree/build';
 import { randomartStore } from './store';
 
 function getEnabledRules(): string[] {
   return randomartStore.getState().enabledRuleIds;
 }
 
-function regenerateTrees(seedText: string, maxDepth: number) {
+function regenerateTrees(
+  seedText: string,
+  maxDepth: number,
+  correlated: boolean
+) {
   const enabledIds = getEnabledRules();
   const rules = getAllRules().filter((r) => enabledIds.includes(r.id));
+
+  if (correlated) {
+    const rng = new SeededRandom(seedText + '_rgb');
+    const tree = {
+      ruleId: 'vec3',
+      args: [
+        buildTree(rng, 0, maxDepth, rules),
+        buildTree(rng, 0, maxDepth, rules),
+        buildTree(rng, 0, maxDepth, rules)
+      ]
+    };
+    return {
+      treeR: tree,
+      treeG: tree,
+      treeB: tree,
+      rngR: rng,
+      rngG: rng,
+      rngB: rng
+    };
+  }
+
   const rngR = new SeededRandom(seedText + '_red');
   const rngG = new SeededRandom(seedText + '_green');
   const rngB = new SeededRandom(seedText + '_blue');
@@ -23,15 +48,14 @@ function regenerateTrees(seedText: string, maxDepth: number) {
 
 export function setSeedText(seedText: string): void {
   const state = randomartStore.getState();
-  const trees = regenerateTrees(seedText, state.maxDepth);
+  const trees = regenerateTrees(seedText, state.maxDepth, state.correlatedRGB);
   state.timeRef.current = 0;
   randomartStore.setState({ seedText, time: 0, ...trees });
 }
 
 export function setMaxDepth(maxDepth: number): void {
-  const seedText = randomartStore.getState().seedText;
   const state = randomartStore.getState();
-  const trees = regenerateTrees(seedText, maxDepth);
+  const trees = regenerateTrees(state.seedText, maxDepth, state.correlatedRGB);
   state.timeRef.current = 0;
   randomartStore.setState({ maxDepth, time: 0, ...trees });
 }
@@ -57,24 +81,10 @@ export function toggleRule(ruleId: string): void {
     ? state.enabledRuleIds.filter((id) => id !== ruleId)
     : [...state.enabledRuleIds, ruleId];
 
-  const rules = getAllRules().filter((r) => enabled.includes(r.id));
-  const rngR = new SeededRandom(state.seedText + '_red');
-  const rngG = new SeededRandom(state.seedText + '_green');
-  const rngB = new SeededRandom(state.seedText + '_blue');
-
-  const treeR = buildTree(rngR, 0, state.maxDepth, rules);
-  const treeG = buildTree(rngG, 0, state.maxDepth, rules);
-  const treeB = buildTree(rngB, 0, state.maxDepth, rules);
-
   state.timeRef.current = 0;
   randomartStore.setState({
     enabledRuleIds: enabled,
-    treeR,
-    treeG,
-    treeB,
-    rngR,
-    rngG,
-    rngB,
+    ...regenerateTrees(state.seedText, state.maxDepth, state.correlatedRGB),
     time: 0
   });
 }
@@ -96,4 +106,11 @@ export function setTime(time: number): void {
 
 export function setRenderMode(renderMode: 'canvas' | 'glsl'): void {
   randomartStore.setState({ renderMode });
+}
+
+export function setCorrelatedRGB(correlatedRGB: boolean): void {
+  const state = randomartStore.getState();
+  const trees = regenerateTrees(state.seedText, state.maxDepth, correlatedRGB);
+  state.timeRef.current = 0;
+  randomartStore.setState({ correlatedRGB, time: 0, ...trees });
 }

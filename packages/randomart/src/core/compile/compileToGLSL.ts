@@ -1,5 +1,5 @@
-import { getRule } from './grammar/registry';
-import type { ExpressionNode } from './types';
+import { getRule } from '../grammar/registry';
+import type { ExpressionNode } from '../types';
 
 export const GLSL_PREAMBLE = `
 float random2d(vec2 co) {
@@ -26,19 +26,30 @@ export function compileToGLSL(
   treeG: ExpressionNode,
   treeB: ExpressionNode
 ): string {
+  const shaderHeader = `precision highp float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+${GLSL_PREAMBLE}
+`;
+
+  if (treeR.ruleId === 'vec3') {
+    const frag = compileNode(treeR);
+    return `${shaderHeader}void main() {
+  vec2 uv = v_texCoord;
+  vec3 color = ${frag};
+  gl_FragColor = vec4((color + 1.0) / 2.0, 1.0);
+}
+`;
+  }
+
   const fragR = compileNode(treeR);
   const fragG = compileNode(treeG);
   const fragB = compileNode(treeB);
 
-  return `precision highp float;
-
-uniform float u_time;
-uniform vec2 u_resolution;
-
-varying vec2 v_texCoord;
-
-${GLSL_PREAMBLE}
-void main() {
+  return `${shaderHeader}void main() {
   vec2 uv = v_texCoord;
   float r = ${fragR};
   float g = ${fragG};

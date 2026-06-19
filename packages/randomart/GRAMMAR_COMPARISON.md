@@ -44,13 +44,13 @@ C ||  A  ||| add(C, C)  ||| mult(C, C)  | sqrt(abs(C));
 
 ## 5. Operator/terminal differences
 
-| Feature | Draft | Package |
-|---|---|---|
-| **Terminals** | `x`, `y`, `t` (time), `random` | `x`, `y`, `constant` |
-| **Unary** | `sqrt`, `abs`, `sin` | `sin`, `cos`, `exp`, `log` |
-| **Binary** | `add`, `mult`, `mod`, `gt` | `add`, `multiply`, `pow`, `modulo`, `greater-than`, `less-than` |
-| **Ternary** | `if` | `if` |
-| **GLSL output** | Compiles to fragment shader | No shader output (CPU/Worker Canvas) |
+| Feature         | Draft                          | Package                                                         |
+| --------------- | ------------------------------ | --------------------------------------------------------------- |
+| **Terminals**   | `x`, `y`, `t` (time), `random` | `x`, `y`, `constant`                                            |
+| **Unary**       | `sqrt`, `abs`, `sin`           | `sin`, `cos`, `exp`, `log`                                      |
+| **Binary**      | `add`, `mult`, `mod`, `gt`     | `add`, `multiply`, `pow`, `modulo`, `greater-than`, `less-than` |
+| **Ternary**     | `if`                           | `if`                                                            |
+| **GLSL output** | Compiles to fragment shader    | No shader output (CPU/Worker Canvas)                            |
 
 Draft has `random` (evaluated per pixel → dynamic spatial noise) and `t` (time variable for animation). Package's `constant` is baked at tree-build time — spatially static.
 
@@ -119,6 +119,7 @@ This makes the grammar tunable: e.g. `add` weight 3, `multiply` weight 3, `sin` 
 ### Step 4 — `t` (time) terminal + animation loop
 
 Add a `t` rule (arity 0) that reads a time value. Requires:
+
 - A time source in the store (e.g. `performance.now()` / `requestAnimationFrame`)
 - `evaluateNode` passes a time parameter (or a context object) alongside `(x, y)`
 - The renderer re-renders on each animation frame while active
@@ -137,6 +138,7 @@ This is the highest-leverage change. It unlocks GPU-speed rendering, real-time `
 **5a — Add `toGLSL(args: string[]): string` to `GrammarRule`**
 
 Each rule generates its GLSL expression fragment. Examples:
+
 - `add`: `((${args[0]} + ${args[1]}) / 2.0)`
 - `sin`: `sin(3.14159265 * ${args[0]})`
 - `x`: `v_texCoord.x` (or `fragCoord.x` mapped to -1..1)
@@ -169,6 +171,7 @@ void main() {
 **5c — WebGL renderer**
 
 Replace (or augment) the Canvas 2D renderer with a full-screen quad + fragment shader. Can use raw WebGL or a thin wrapper like `regl` or `twgl`. The React component:
+
 - Compiles the shader on tree change
 - Passes `u_time` via `requestAnimationFrame`
 - Passes `u_resolution` on resize
@@ -180,6 +183,7 @@ This eliminates the Worker pool entirely for the main render path (though Worker
 Optional, complementary to the existing three-tree approach.
 
 Add a `vec3` rule (arity 3) that bundles R, G, B into one tree. The build step would optionally:
+
 - Build one tree rooted at `vec3` instead of three independent trees
 - The shader compiler sees a single `vec3` output from one expression
 
@@ -189,13 +193,13 @@ This can coexist with the three-tree mode as a user toggle.
 
 ## Summary
 
-| Step | Effort | Impact | Depends on |
-|---|---|---|---|
-| 1 — sqrt, abs rules | 30 min | Medium | Nothing |
-| 2 — per-pixel random | 1 hr | Medium | Nothing |
-| 3 — weighted branches | 2 hr | High | Nothing |
-| 4 — t + animation | 3 hr | High | Steps 1-3 |
-| 5 — GLSL + WebGL | 2-3 days | Very high | Step 4 (needs t) |
-| 6 — correlated RGB | 1 day | Medium | Step 5 |
+| Step                  | Effort   | Impact    | Depends on       |
+| --------------------- | -------- | --------- | ---------------- |
+| 1 — sqrt, abs rules   | 30 min   | Medium    | Nothing          |
+| 2 — per-pixel random  | 1 hr     | Medium    | Nothing          |
+| 3 — weighted branches | 2 hr     | High      | Nothing          |
+| 4 — t + animation     | 3 hr     | High      | Steps 1-3        |
+| 5 — GLSL + WebGL      | 2-3 days | Very high | Step 4 (needs t) |
+| 6 — correlated RGB    | 1 day    | Medium    | Step 5           |
 
 Steps 1-3 can be done independently. Step 4 can be done with Canvas 2D before GLSL. Step 5 is the big one — once that's done, step 6 is small.

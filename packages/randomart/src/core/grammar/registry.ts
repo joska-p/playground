@@ -1,4 +1,4 @@
-import type { GrammarRule } from './types';
+import type { GrammarRule } from '../types';
 
 import { absRule } from './rules/abs';
 import { addRule } from './rules/add';
@@ -18,6 +18,7 @@ import { sqrtRule } from './rules/sqrt';
 import { terminalTRule } from './rules/terminal-t';
 import { terminalXRule } from './rules/terminal-x';
 import { terminalYRule } from './rules/terminal-y';
+import { vec3Rule } from './rules/vec3';
 
 const rules = new Map<string, GrammarRule>([
   [terminalTRule.id, terminalTRule],
@@ -37,7 +38,8 @@ const rules = new Map<string, GrammarRule>([
   [powRule.id, powRule],
   [lessThanRule.id, lessThanRule],
   [greaterThanRule.id, greaterThanRule],
-  [ifRule.id, ifRule]
+  [ifRule.id, ifRule],
+  [vec3Rule.id, vec3Rule]
 ]);
 
 export function getRule(id: string): GrammarRule | undefined {

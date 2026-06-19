@@ -1,4 +1,4 @@
-import type { GrammarRule } from '../types';
+import type { GrammarRule } from '../../types';
 
 function pixelHash(x: number, y: number): number {
   const dot = x * 12.9898 + y * 78.233;

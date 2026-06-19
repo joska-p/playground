@@ -1,12 +1,14 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
-import { renderTreesToPngBase64Async } from '../../core/renderer';
+import { renderTreesToPngBase64Async } from '../../core/render/png-export';
 import {
+  setCorrelatedRGB,
   setRenderMode,
   setSeedText,
   setTime,
   toggleRunning
 } from '../../stores/randomart/actions';
+import { useCorrelatedRGB } from '../../stores/randomart/selectors/useCorrelatedRGB';
 import { useRenderMode } from '../../stores/randomart/selectors/useRenderMode';
 import { useRunning } from '../../stores/randomart/selectors/useRunning';
 import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
@@ -29,6 +31,7 @@ export function Controls() {
   const seedText = useSeedText();
   const running = useRunning();
   const renderMode = useRenderMode();
+  const correlatedRGB = useCorrelatedRGB();
 
   async function handleDownload() {
     setDownloading(true);
@@ -153,9 +156,7 @@ export function Controls() {
       </Button>
       <Button
         type="button"
-        onClick={() =>
-          setRenderMode(renderMode === 'glsl' ? 'canvas' : 'glsl')
-        }
+        onClick={() => setRenderMode(renderMode === 'glsl' ? 'canvas' : 'glsl')}
         variant="outline"
         className="w-fit"
         title={
@@ -204,11 +205,59 @@ export function Controls() {
               height="18"
               rx="2"
             />
-            <circle cx="8.5" cy="8.5" r="1.5" />
+            <circle
+              cx="8.5"
+              cy="8.5"
+              r="1.5"
+            />
             <path d="M20 13l-4-4-4 4-3-2-5 5" />
           </svg>
         )}
         <span className="text-xs">{renderMode === 'glsl' ? 'GPU' : 'CPU'}</span>
+      </Button>
+      <Button
+        type="button"
+        onClick={() => setCorrelatedRGB(!correlatedRGB)}
+        variant="outline"
+        className="w-fit"
+        title={
+          correlatedRGB
+            ? 'Switch to independent RGB'
+            : 'Switch to correlated RGB'
+        }
+      >
+        {correlatedRGB ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4"
+          >
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4"
+          >
+            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+            <path d="M10.73 5.08A3 3 0 0 1 17 8.24" />
+            <path d="M7.15 10.73a3 3 0 0 0-2.39 5.17" />
+            <path d="M4 20l3.85-3.85" />
+          </svg>
+        )}
+        <span className="text-xs">{correlatedRGB ? 'Linked' : 'Split'}</span>
       </Button>
       <Button
         type="button"

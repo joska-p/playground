@@ -2,6 +2,7 @@ import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useRef } from 'react';
 import { useRandomArtRenderer } from '../hooks/useRandomArtRenderer';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
+import { useCorrelatedRGB } from '../stores/randomart/selectors/useCorrelatedRGB';
 import { useRenderMode } from '../stores/randomart/selectors/useRenderMode';
 import { useRunning } from '../stores/randomart/selectors/useRunning';
 import {
@@ -15,14 +16,36 @@ export function RandomArtCanvas() {
   const [containerRef, dimensions] = useResizeObserver<HTMLDivElement>();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const trees = { treeR: useTreeR(), treeG: useTreeG(), treeB: useTreeB() };
+  const treeR = useTreeR();
+  const treeG = useTreeG();
+  const treeB = useTreeB();
   const running = useRunning();
   const renderMode = useRenderMode();
+  const correlatedRGB = useCorrelatedRGB();
 
   const timeRef = randomartStore.getState().timeRef;
 
-  useRandomArtRenderer(canvasRef, dimensions, trees, running, renderMode === 'canvas');
-  useWebGLRenderer(canvasRef, dimensions, trees, running, timeRef, renderMode === 'glsl');
+  const canvasTrees = correlatedRGB
+    ? { treeR: treeR.args[0], treeG: treeR.args[1], treeB: treeR.args[2] }
+    : { treeR, treeG, treeB };
+
+  const glTrees = { treeR, treeG, treeB };
+
+  useRandomArtRenderer(
+    canvasRef,
+    dimensions,
+    canvasTrees,
+    running,
+    renderMode === 'canvas'
+  );
+  useWebGLRenderer(
+    canvasRef,
+    dimensions,
+    glTrees,
+    running,
+    timeRef,
+    renderMode === 'glsl'
+  );
 
   return (
     <div

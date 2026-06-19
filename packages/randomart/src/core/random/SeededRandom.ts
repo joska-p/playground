@@ -1,7 +1,7 @@
 class SeededRandom {
   private seed: number;
-  public initialHash: number; // 👈 Track the base integer
-  public choiceHistory: number[] = []; // 👈 Record every random number generated
+  public initialHash: number;
+  public choiceHistory: number[] = [];
 
   constructor(seedString: string) {
     let hash = 0;
@@ -16,7 +16,7 @@ class SeededRandom {
     const x = Math.sin(this.seed++) * 10000;
     const result = x - Math.floor(x);
 
-    this.choiceHistory.push(result); // 👈 Save the decimal number choice
+    this.choiceHistory.push(result);
     return result;
   }
 }

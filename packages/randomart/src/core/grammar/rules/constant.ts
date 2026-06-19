@@ -1,6 +1,5 @@
-import type { SeededRandom } from '../../SeededRandom';
-import type { ExpressionNode } from '../../types';
-import type { GrammarRule } from '../types';
+import type { SeededRandom } from '../../random/SeededRandom';
+import type { ExpressionNode, GrammarRule } from '../../types';
 
 export const constantRule = {
   id: 'constant',
