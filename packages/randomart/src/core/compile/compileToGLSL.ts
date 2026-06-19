@@ -43,11 +43,10 @@ ${GLSL_PREAMBLE}
   if (treeR.ruleId === 'vec3') {
     const frag = compileNode(treeR);
     return `${shaderHeader}void main() {
-  vec2 uv = v_texCoord;
-  vec3 color = ${frag};
-  gl_FragColor = vec4((color + 1.0) / 2.0, 1.0);
-}
-`;
+    vec3 color = ${frag};
+    gl_FragColor = vec4((color + 1.0) / 2.0, 1.0);
+    }
+  `;
   }
 
   const fragR = compileNode(treeR);
@@ -55,7 +54,7 @@ ${GLSL_PREAMBLE}
   const fragB = compileNode(treeB);
 
   return `${shaderHeader}void main() {
-  vec2 uv = v_texCoord;
+  vec2 uv = v_texCoord * 2.0 - 1.0;
   float r = ${fragR};
   float g = ${fragG};
   float b = ${fragB};

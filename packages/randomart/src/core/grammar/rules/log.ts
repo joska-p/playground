@@ -5,9 +5,13 @@ export const logRule = {
   name: 'Log',
   arity: 1,
   weight: 1,
-  evaluate: (args) => Math.log(Math.abs(args[0]()) + 1e-10),
-  toMathString: (args) => `log(|${args[0]}|)`,
-  toGLSL: (args) => `log(abs(${args[0]}) + 1e-10)`,
+  evaluate: (args) => {
+    const val = Math.abs(args[0]());
+    return (Math.log(val + 1.0) / 0.69314718056) * 2.0 - 1.0;
+  },
+  toMathString: (args) => `normalized_log(${args[0]})`,
+  toGLSL: (args) =>
+    `((log(abs(${args[0]}) + 1.0) / 0.69314718056) * 2.0 - 1.0)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── log\n${args[0]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'log',

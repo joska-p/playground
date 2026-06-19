@@ -20,9 +20,13 @@ export function toggleRule(ruleId: string): void {
     : [...state.enabledRuleIds, ruleId];
 
   state.timeRef.current = 0;
-  randomartStore.setState({
-    enabledRuleIds: enabled,
-    ...regenerateTrees(state.seedText, state.maxDepth, state.correlatedRGB),
-    time: 0
-  });
+  randomartStore.setState(
+    {
+      enabledRuleIds: enabled,
+      ...regenerateTrees(state.seedText, state.maxDepth, state.correlatedRGB),
+      time: 0
+    },
+    false,
+    `rules/toggleRule (${ruleId})`
+  );
 }

@@ -46,6 +46,7 @@ function renderTreesToBuffer(
 
   for (let py = 0; py < size; py++) {
     const y = (py / size) * 2 - 1;
+
     for (let px = 0; px < size; px++) {
       const x = (px / size) * 2 - 1;
 

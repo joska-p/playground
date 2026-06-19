@@ -1,4 +1,5 @@
 import { createStore } from 'zustand';
+import { devtools } from 'zustand/middleware'; // 1. Import devtools
 import { getAllRules } from '../../core/grammar/registry';
 import { SeededRandom } from '../../core/random/SeededRandom';
 import { buildTree } from '../../core/tree/build';
@@ -36,6 +37,7 @@ function generateInitial(): RandomartState {
   };
 }
 
-export const randomartStore = createStore<RandomartState>(() =>
-  generateInitial()
+// 2. Wrap with devtools and provide a name for the Redux/Zustand devtools tab
+export const randomartStore = createStore<RandomartState>()(
+  devtools(() => generateInitial(), { name: 'RandomartStore' })
 );

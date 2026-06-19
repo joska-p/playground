@@ -7,7 +7,7 @@ export const moduloRule = {
   weight: 1,
   evaluate: (args) => (args[1]() === 0 ? 0 : args[0]() % args[1]()),
   toMathString: (args) => `(${args[0]} % ${args[1]})`,
-  toGLSL: (args) => `mod(${args[0]}, ${args[1]})`,
+  toGLSL: (args) => `(${args[1]} == 0.0 ? 0.0 : mod(${args[0]}, ${args[1]}))`,
   toTreeView: (args, depth) =>
     `${'  '.repeat(depth)}├── modulo\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({

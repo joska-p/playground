@@ -11,7 +11,7 @@ export const powRule = {
     return Math.sign(base) * Math.pow(Math.abs(base), exp);
   },
   toMathString: (args) => `(${args[0]}^${args[1]})`,
-  toGLSL: (args) => `pow(abs(${args[0]}), ${args[1]})`,
+  toGLSL: (args) => `(sign(${args[0]}) * pow(abs(${args[0]}), ${args[1]}))`,
   toTreeView: (args, depth) =>
     `${'  '.repeat(depth)}├── pow\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({

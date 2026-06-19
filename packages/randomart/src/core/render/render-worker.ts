@@ -7,7 +7,9 @@ self.onmessage = (event: MessageEvent<RenderTask>) => {
   const buffer = new Uint8ClampedArray(height * size * 4);
 
   for (let py = rowStart; py < rowEnd; py++) {
-    const y = (py / size) * 2 - 1;
+    // FIXED: Maps top row (py = 0) to y = 1.0 to perfectly match GLSL's 1.0 - 2.0 * texCoord.y
+    const y = 1.0 - (py / size) * 2.0;
+
     for (let px = 0; px < size; px++) {
       const x = (px / size) * 2 - 1;
 

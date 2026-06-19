@@ -30,7 +30,8 @@ export function buildTree(
   }
 
   const idx = weightedPick(rng, pool);
-  return pool[idx].buildNode(rng, () =>
-    buildTree(rng, currentDepth + 1, maxDepth, rules)
-  );
+
+  return pool[idx].buildNode(rng, () => {
+    return buildTree(rng, currentDepth + 1, maxDepth, rules);
+  });
 }
