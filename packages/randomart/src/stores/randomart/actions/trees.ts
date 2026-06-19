@@ -20,7 +20,9 @@ export type TreeOutput = {
 };
 
 export function generateTrees(config: TreeConfig): TreeOutput {
-  const rules = getAllRules().filter((r) => config.enabledRuleIds.includes(r.id));
+  const rules = getAllRules().filter((r) =>
+    config.enabledRuleIds.includes(r.id)
+  );
 
   if (config.correlated) {
     const rng = new SeededRandom(config.seedText + '_rgb');
@@ -32,7 +34,14 @@ export function generateTrees(config: TreeConfig): TreeOutput {
         buildTree(rng, 0, config.maxDepth, rules)
       ]
     };
-    return { treeR: tree, treeG: tree, treeB: tree, rngR: rng, rngG: rng, rngB: rng };
+    return {
+      treeR: tree,
+      treeG: tree,
+      treeB: tree,
+      rngR: rng,
+      rngG: rng,
+      rngB: rng
+    };
   }
 
   const rngR = new SeededRandom(config.seedText + '_red');

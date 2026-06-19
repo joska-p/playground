@@ -16,7 +16,8 @@ export function toggleRule(ruleId: string): void {
 
   if (state.enabledRuleIds.includes(ruleId) && rule.arity === 0) {
     const otherTerminals = getAllRules().filter(
-      (r) => r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
+      (r) =>
+        r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
     );
     if (otherTerminals.length === 0) return;
   }
@@ -25,5 +26,9 @@ export function toggleRule(ruleId: string): void {
     ? state.enabledRuleIds.filter((id) => id !== ruleId)
     : [...state.enabledRuleIds, ruleId];
 
-  randomartStore.setState({ enabledRuleIds: enabled }, false, `config/toggleRule (${ruleId})`);
+  randomartStore.setState(
+    { enabledRuleIds: enabled },
+    false,
+    `config/toggleRule (${ruleId})`
+  );
 }

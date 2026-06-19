@@ -82,15 +82,15 @@ The store needs a `running` boolean and a `time` ref. The `RenderTask` type need
 
 ## Summary
 
-| Step                  | Effort   | Impact    | Status      |
-| --------------------- | -------- | --------- | ----------- |
-| 1 — sqrt, abs rules   | 30 min   | Medium    | ✅ Complete |
-| 2 — per-pixel random  | 1 hr     | Medium    | ✅ Complete |
-| 3 — weighted branches | 2 hr     | High      | ✅ Complete |
-| 4 — t + animation     | 3 hr     | High      | ✅ Complete |
-| 5 — GLSL + WebGL      | 2-3 days | Very high | ✅ Complete |
-| 6 — correlated RGB    | 1 day    | Medium    | ✅ Complete |
-| 7 — state architecture | 2-3 days | Very high | 🟡 Pending |
+| Step                   | Effort   | Impact    | Status      |
+| ---------------------- | -------- | --------- | ----------- |
+| 1 — sqrt, abs rules    | 30 min   | Medium    | ✅ Complete |
+| 2 — per-pixel random   | 1 hr     | Medium    | ✅ Complete |
+| 3 — weighted branches  | 2 hr     | High      | ✅ Complete |
+| 4 — t + animation      | 3 hr     | High      | ✅ Complete |
+| 5 — GLSL + WebGL       | 2-3 days | Very high | ✅ Complete |
+| 6 — correlated RGB     | 1 day    | Medium    | ✅ Complete |
+| 7 — state architecture | 2-3 days | Very high | 🟡 Pending  |
 
 All phases implemented (except Phase 7). The package now supports:
 
@@ -114,21 +114,23 @@ The feature set grew organically (animation → GPU → correlated → inspector
 
 The store (`src/stores/randomart/types.ts`) mixes:
 
-| Category | Examples | Update frequency |
-|---|---|---|
-| **Config** | seedText, maxDepth, enabledRuleIds, renderMode, correlatedRGB | Rare (user-initiated) |
-| **Derived artifacts** | treeR, treeG, treeB, rngR, rngG, rngB | Medium (on config change) |
-| **Runtime** | running, time, timeRef | High (60fps during animation) |
+| Category              | Examples                                                      | Update frequency              |
+| --------------------- | ------------------------------------------------------------- | ----------------------------- |
+| **Config**            | seedText, maxDepth, enabledRuleIds, renderMode, correlatedRGB | Rare (user-initiated)         |
+| **Derived artifacts** | treeR, treeG, treeB, rngR, rngG, rngB                         | Medium (on config change)     |
+| **Runtime**           | running, time, timeRef                                        | High (60fps during animation) |
 
 These have different lifetimes and consumers. The flat structure means **every store subscriber is notified on every animation frame**, even controls that only care about config. Zustand's reference-equality bail-out masks this, but the mental model is muddy: "does this component re-render when time ticks?"
 
 **R2 — Dual time representation (`time` + `timeRef`)**
 
 `time: number` and `timeRef: { current: number }` (`types.ts:17`) represent the same logical value but are updated on different schedules:
+
 - WebGL renderer mutates `timeRef.current` every frame
 - Every 6th frame, it syncs back to `store.setState({ time: timeRef.current })`
 
 This means:
+
 - `useTime()` consumers get stale data (up to ~100ms lag at 60fps)
 - The mutable ref inside the store breaks Zustand's immutability contract
 - Two values must be kept in sync — a fragile requirement
@@ -136,6 +138,7 @@ This means:
 **R3 — Render hooks both consume state AND own UI concerns**
 
 `useWebGLRenderer` takes tree/running/timeRef as parameters but also writes back to the store (`setState({ time })`). `useCanvasRenderer` takes trees as parameters but calls `useTime()` internally. The direction of data flow is inconsistent:
+
 - Some data flows **in** (props)
 - Some data flows **out** (store mutation during render)
 
@@ -224,7 +227,7 @@ function generateTrees(config: {
   maxDepth: number;
   enabledRuleIds: string[];
   correlated: boolean;
-}): { treeR, treeG, treeB, rngR, rngG, rngB }
+}): { treeR; treeG; treeB; rngR; rngG; rngB };
 ```
 
 Then wire it with a Zustand `subscribe` listener in the store setup, as the spec prescribes:
@@ -232,18 +235,17 @@ Then wire it with a Zustand `subscribe` listener in the store setup, as the spec
 ```typescript
 // In store.ts, after createStore:
 randomartStore.subscribe((state, prev) => {
-  const changed = (
+  const changed =
     state.seedText !== prev.seedText ||
     state.maxDepth !== prev.maxDepth ||
     state.enabledRuleIds !== prev.enabledRuleIds ||
-    state.correlatedRGB !== prev.correlatedRGB
-  );
+    state.correlatedRGB !== prev.correlatedRGB;
   if (!changed) return;
   const trees = generateTrees({
     seedText: state.seedText,
     maxDepth: state.maxDepth,
     enabledRuleIds: state.enabledRuleIds,
-    correlated: state.correlatedRGB,
+    correlated: state.correlatedRGB
   });
   // Merge in updated trees + reset time
   randomartStore.setState({ ...trees, time: 0 });
@@ -260,21 +262,21 @@ Replace `selectors/*.ts` (14 files) with a single `selectors.ts`:
 
 ```typescript
 // — Whole-state access —
-export function useRandomartState(): RandomartState
+export function useRandomartState(): RandomartState;
 
 // — Config (never triggers renders for runtime changes) —
-export function useConfig(): ConfigSlice              // seedText, maxDepth, etc.
+export function useConfig(): ConfigSlice; // seedText, maxDepth, etc.
 
 // — Derived trees + rngs —
-export function useDerived(): DerivedSlice            // trees + rngs
+export function useDerived(): DerivedSlice; // trees + rngs
 
 // — Inspector: active channel only (saves re-renders, fixes R6) —
-export function useSelectedTree(): ExpressionNode
-export function useSelectedRng(): SeededRandom
+export function useSelectedTree(): ExpressionNode;
+export function useSelectedRng(): SeededRandom;
 
 // — Canvas: unwrapped trees for CPU, wrapped for GLSL (fixes R4) —
-export function useCPUTrees(): Trees                  // treeR.args[i] expanded
-export function useGLSLTrees(): Trees                 // raw treeR/G/B (vec3 intact)
+export function useCPUTrees(): Trees; // treeR.args[i] expanded
+export function useGLSLTrees(): Trees; // raw treeR/G/B (vec3 intact)
 ```
 
 The `useSelectedTree` selector reads `s.activeChannel` and the relevant tree in one lambda, so Zustand only re-renders when the active tree reference actually changes (fixing R6).
@@ -293,7 +295,7 @@ Group actions by domain in fewer files:
 
 #### Step 7e — Encapsulate correlated unwrapping in selectors (aligns with SPECS.md)
 
-The spec requires a `vec3` container (UC-2.2: *"single structural `vec3` container"*). The `vec3` wrapper is also beneficial for GLSL compilation — `compileToGLSL` outputs `vec3 color = <expr>` directly for the correlated path, saving three separate float→vec3 conversions.
+The spec requires a `vec3` container (UC-2.2: _"single structural `vec3` container"_). The `vec3` wrapper is also beneficial for GLSL compilation — `compileToGLSL` outputs `vec3 color = <expr>` directly for the correlated path, saving three separate float→vec3 conversions.
 
 Keep the `vec3` wrapper in generated trees. Instead, push the unwrapping into selectors so consumers never reach into `treeR.args[i]`:
 
@@ -306,7 +308,7 @@ export function useCanvasTrees() {
       return {
         treeR: r.args[0] as ExpressionNode,
         treeG: r.args[1] as ExpressionNode,
-        treeB: r.args[2] as ExpressionNode,
+        treeB: r.args[2] as ExpressionNode
       };
     }
     return { treeR: r, treeG: s.treeG, treeB: s.treeB };
@@ -320,9 +322,9 @@ For the GLSL path, pass the full wrapped tree so `compileToGLSL` can still produ
 
 ```typescript
 export function useRendererTrees() {
-  const treeR = useStore(randomartStore, s => s.treeR);
-  const treeG = useStore(randomartStore, s => s.treeG);
-  const treeB = useStore(randomartStore, s => s.treeB);
+  const treeR = useStore(randomartStore, (s) => s.treeR);
+  const treeG = useStore(randomartStore, (s) => s.treeG);
+  const treeB = useStore(randomartStore, (s) => s.treeB);
   return { treeR, treeG, treeB };
 }
 ```
@@ -341,12 +343,12 @@ export function useRendererTrees() {
 
 After Phase 7:
 
-| Before | After |
-|---|---|
-| 14 selector files | 1 selector file |
-| `time` + `timeRef` (dual state) | Single ref in WebGL renderer |
-| Store notified 60fps | Store notified at most ~10fps for UI |
-| All channel trees always subscribed | Only active channel subscribes |
-| correlated unwrapping in component | Encapsulated in selectors |
+| Before                                | After                                 |
+| ------------------------------------- | ------------------------------------- |
+| 14 selector files                     | 1 selector file                       |
+| `time` + `timeRef` (dual state)       | Single ref in WebGL renderer          |
+| Store notified 60fps                  | Store notified at most ~10fps for UI  |
+| All channel trees always subscribed   | Only active channel subscribes        |
+| correlated unwrapping in component    | Encapsulated in selectors             |
 | Actions call regenerateTrees manually | Reactive subscriber auto-rebuilds AST |
-| Renderers write back to store | Renderers read only, never write |
+| Renderers write back to store         | Renderers read only, never write      |

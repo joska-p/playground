@@ -6,7 +6,7 @@ export function TimeDisplay() {
 
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-foreground/50 text-xs font-medium leading-none">
+      <label className="text-foreground/50 text-xs leading-none font-medium">
         Time
       </label>
       <div className="border-input bg-background text-foreground flex h-9 w-20 items-center rounded-md border px-3 text-xs tabular-nums">

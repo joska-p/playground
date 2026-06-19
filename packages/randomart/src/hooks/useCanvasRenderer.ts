@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { renderTreesToImageDataAsync } from '../core/render/cpu-renderer';
 import type { ExpressionNode } from '../core/types';
-import { useCanvasSize } from './useCanvasSize';
 import { randomartStore } from '../stores/randomart/store';
+import { useCanvasSize } from './useCanvasSize';
 
 export function useCanvasRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,

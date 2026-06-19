@@ -1,6 +1,6 @@
 import { useStore } from 'zustand';
-import type { ExpressionNode } from '../../core/types';
 import type { SeededRandom } from '../../core/random/SeededRandom';
+import type { ExpressionNode } from '../../core/types';
 import { randomartStore } from './store';
 // — Config fields —
 export function useSeedText(): string {
@@ -40,11 +40,14 @@ export function useTreeB(): ExpressionNode {
 export function useSelectedTree(): ExpressionNode {
   return useStore(randomartStore, (s) => {
     const tree =
-      s.activeChannel === 'red' ? s.treeR
-      : s.activeChannel === 'green' ? s.treeG
-      : s.treeB;
+      s.activeChannel === 'red'
+        ? s.treeR
+        : s.activeChannel === 'green'
+          ? s.treeG
+          : s.treeB;
     if (s.correlatedRGB) {
-      const idx = s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
+      const idx =
+        s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
       return tree.args[idx] as ExpressionNode;
     }
     return tree;

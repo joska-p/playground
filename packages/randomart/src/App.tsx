@@ -11,7 +11,7 @@ function App() {
       <Sidebar
         desktopPosition="right"
         mobilePosition="bottom"
-        className="bg-background text-foreground min-h-dvh"
+        className="bg-background text-foreground h-screen"
       >
         <Sidebar.Main className="mx-auto flex w-full flex-col gap-6 overflow-y-auto p-4 sm:p-8">
           <Controls />

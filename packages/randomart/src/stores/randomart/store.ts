@@ -8,7 +8,12 @@ function generateInitial(): RandomartState {
   const seedText = "De deux choses lune l'autre c'est le soleil";
   const maxDepth = 6;
   const enabledRuleIds = getAllRules().map((r) => r.id);
-  const trees = generateTrees({ seedText, maxDepth, enabledRuleIds, correlated: false });
+  const trees = generateTrees({
+    seedText,
+    maxDepth,
+    enabledRuleIds,
+    correlated: false
+  });
 
   return {
     seedText,
@@ -29,19 +34,18 @@ export const randomartStore = createStore<RandomartState>()(
 
 // Reactive subscriber: auto-regenerate trees when config changes
 randomartStore.subscribe((state, prev) => {
-  const configChanged = (
+  const configChanged =
     state.seedText !== prev.seedText ||
     state.maxDepth !== prev.maxDepth ||
     state.enabledRuleIds !== prev.enabledRuleIds ||
-    state.correlatedRGB !== prev.correlatedRGB
-  );
+    state.correlatedRGB !== prev.correlatedRGB;
   if (!configChanged) return;
 
   const trees = generateTrees({
     seedText: state.seedText,
     maxDepth: state.maxDepth,
     enabledRuleIds: state.enabledRuleIds,
-    correlated: state.correlatedRGB,
+    correlated: state.correlatedRGB
   });
 
   randomartStore.setState({ ...trees, time: 0 });
