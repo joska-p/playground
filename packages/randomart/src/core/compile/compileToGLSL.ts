@@ -1,6 +1,6 @@
+import { type AnimationBehavior } from '../animation/behaviors';
 import { getRule } from '../grammar/registry';
 import type { ExpressionNode } from '../types';
-import { type AnimationBehavior } from '../animation/behaviors';
 
 const GLSL_PREAMBLE = (behaviors: AnimationBehavior[]) => `
 float random2d(vec2 co) {
@@ -8,7 +8,7 @@ float random2d(vec2 co) {
   return fract(sin(dot_) * 43758.5453);
 }
 
-${behaviors.map(b => b.glslFunction).join('\n')}
+${behaviors.map((b) => b.glslFunction).join('\n')}
 `;
 
 function compileNode(node: ExpressionNode): string {
@@ -45,11 +45,15 @@ varying vec2 v_texCoord;
 ${GLSL_PREAMBLE(behaviors)}
 `;
 
-  const spatialBehaviors = behaviors.filter(b => b.type === 'spatial');
-  const colorBehaviors = behaviors.filter(b => b.type === 'color');
+  const spatialBehaviors = behaviors.filter((b) => b.type === 'spatial');
+  const colorBehaviors = behaviors.filter((b) => b.type === 'color');
 
-  const spatialCode = spatialBehaviors.map(b => b.applyCode('u_time', 'u_animSpeed')).join('\n');
-  const colorCode = colorBehaviors.map(b => b.applyCode('u_time', 'u_animSpeed')).join('\n');
+  const spatialCode = spatialBehaviors
+    .map((b) => b.applyCode('u_time', 'u_animSpeed'))
+    .join('\n');
+  const colorCode = colorBehaviors
+    .map((b) => b.applyCode('u_time', 'u_animSpeed'))
+    .join('\n');
 
   if (treeR.ruleId === 'vec3') {
     const frag = compileNode(treeR).replaceAll('v_texCoord', 'uv');

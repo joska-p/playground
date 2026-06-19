@@ -14,16 +14,18 @@ export const nestedOscillationRule: GrammarRule = {
     // sin(multiply(x, sin(y)))
     return {
       ruleId: 'sin',
-      args: [{
-        ruleId: 'multiply',
-        args: [
-          { ruleId: 'x', args: [] },
-          {
-            ruleId: 'sin',
-            args: [{ ruleId: 'y', args: [] }]
-          }
-        ]
-      }]
+      args: [
+        {
+          ruleId: 'multiply',
+          args: [
+            { ruleId: 'x', args: [] },
+            {
+              ruleId: 'sin',
+              args: [{ ruleId: 'y', args: [] }]
+            }
+          ]
+        }
+      ]
     };
   }
 } satisfies GrammarRule;

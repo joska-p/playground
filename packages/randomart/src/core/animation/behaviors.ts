@@ -26,74 +26,80 @@ vec3 hueRotate(vec3 color, float angle) {
 }
 `,
   type: 'color',
-  applyCode: (timeVar, speedVar) => `color = hueRotate(color, ${timeVar} * ${speedVar});`
+  applyCode: (timeVar, speedVar) =>
+    `color = hueRotate(color, ${timeVar} * ${speedVar});`
 };
 
 export const zoomBehavior: AnimationBehavior = {
-    id: 'zoom',
-    name: 'Zoom',
-    glslFunction: ``, // No extra function needed, just math
-    type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
+  id: 'zoom',
+  name: 'Zoom',
+  glslFunction: ``, // No extra function needed, just math
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) =>
+    `uv *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
 };
 
 export const rippleBehavior: AnimationBehavior = {
-    id: 'ripple',
-    name: 'Ripple',
-    glslFunction: ``,
-    type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv += 0.1 * sin(uv * 5.0 + ${timeVar} * ${speedVar});`
+  id: 'ripple',
+  name: 'Ripple',
+  glslFunction: ``,
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) =>
+    `uv += 0.1 * sin(uv * 5.0 + ${timeVar} * ${speedVar});`
 };
 
 export const rotateBehavior: AnimationBehavior = {
-    id: 'rotate',
-    name: 'Rotate',
-    glslFunction: `
+  id: 'rotate',
+  name: 'Rotate',
+  glslFunction: `
 mat2 rotate2d(float _angle){
     return mat2(cos(_angle),-sin(_angle),
                 sin(_angle),cos(_angle));
 }
 `,
-    type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv = rotate2d(${timeVar} * ${speedVar} * 0.5) * uv;`
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) =>
+    `uv = rotate2d(${timeVar} * ${speedVar} * 0.5) * uv;`
 };
 
 export const swirlBehavior: AnimationBehavior = {
-    id: 'swirl',
-    name: 'Swirl',
-    glslFunction: `
+  id: 'swirl',
+  name: 'Swirl',
+  glslFunction: `
 vec2 swirl(vec2 uv, float angle) {
     float r = length(uv);
     float a = atan(uv.y, uv.x) + angle * (1.0 - r);
     return vec2(cos(a) * r, sin(a) * r);
 }
 `,
-    type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv = swirl(uv, sin(${timeVar} * ${speedVar}) * 2.0);`
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) =>
+    `uv = swirl(uv, sin(${timeVar} * ${speedVar}) * 2.0);`
 };
 
 export const driftBehavior: AnimationBehavior = {
-    id: 'drift',
-    name: 'Drift',
-    glslFunction: ``,
-    type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv += ${timeVar} * ${speedVar} * 0.1;`
+  id: 'drift',
+  name: 'Drift',
+  glslFunction: ``,
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) => `uv += ${timeVar} * ${speedVar} * 0.1;`
 };
 
 export const expandBehavior: AnimationBehavior = {
-    id: 'expand',
-    name: 'Expand',
-    glslFunction: ``,
-    type: 'spatial',
-    applyCode: (timeVar, speedVar) => `uv /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
+  id: 'expand',
+  name: 'Expand',
+  glslFunction: ``,
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) =>
+    `uv /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
 };
 
 export const animationRegistry: AnimationBehavior[] = [
-    hueShiftBehavior,
-    zoomBehavior,
-    rippleBehavior,
-    rotateBehavior,
-    swirlBehavior,
-    driftBehavior,
-    expandBehavior
+  hueShiftBehavior,
+  zoomBehavior,
+  rippleBehavior,
+  rotateBehavior,
+  swirlBehavior,
+  driftBehavior,
+  expandBehavior
 ];

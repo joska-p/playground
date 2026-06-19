@@ -13,17 +13,19 @@ export const radialSymmetryRule: GrammarRule = {
   buildNode: () => {
     const xNode = { ruleId: 'x', args: [] };
     const yNode = { ruleId: 'y', args: [] };
-    
+
     // sqrt(add(multiply(x,x), multiply(y,y)))
     return {
       ruleId: 'sqrt',
-      args: [{
-        ruleId: 'add',
-        args: [
-          { ruleId: 'multiply', args: [xNode, xNode] },
-          { ruleId: 'multiply', args: [yNode, yNode] }
-        ]
-      }]
+      args: [
+        {
+          ruleId: 'add',
+          args: [
+            { ruleId: 'multiply', args: [xNode, xNode] },
+            { ruleId: 'multiply', args: [yNode, yNode] }
+          ]
+        }
+      ]
     };
   }
 } satisfies GrammarRule;

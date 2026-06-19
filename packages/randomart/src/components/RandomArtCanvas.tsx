@@ -1,7 +1,3 @@
-import { useResizeObserver } from '@repo/ui/useResizeObserver';
-import { useRef } from 'react';
-import { useCanvasRenderer } from '../hooks/useCanvasRenderer';
-import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
 import {
   useCorrelatedRGB,
   useRenderMode,
@@ -10,11 +6,10 @@ import {
   useTreeG,
   useTreeR
 } from '../stores/randomart/selectors';
+import { CPUCanvas } from './CPUCanvas';
+import { WebGLCanvas } from './WebGLCanvas';
 
 export function RandomArtCanvas() {
-  const [containerRef, dimensions] = useResizeObserver<HTMLDivElement>();
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
@@ -22,38 +17,26 @@ export function RandomArtCanvas() {
   const running = useRunning();
   const renderMode = useRenderMode();
 
-  const canvasTreeR = correlatedRGB ? (treeR.args[0] as typeof treeR) : treeR;
-  const canvasTreeG = correlatedRGB ? (treeR.args[1] as typeof treeG) : treeG;
-  const canvasTreeB = correlatedRGB ? (treeR.args[2] as typeof treeB) : treeB;
+  const canvasTreeR = correlatedRGB ? treeR.args[0] : treeR;
+  const canvasTreeG = correlatedRGB ? treeR.args[1] : treeG;
+  const canvasTreeB = correlatedRGB ? treeR.args[2] : treeB;
 
-  const glslTrees = { treeR, treeG, treeB };
-
-  useCanvasRenderer(
-    canvasRef,
-    dimensions,
-    canvasTreeR,
-    canvasTreeG,
-    canvasTreeB,
-    renderMode === 'canvas'
-  );
-  useWebGLRenderer(
-    canvasRef,
-    dimensions,
-    glslTrees,
-    running,
-    renderMode === 'glsl'
-  );
+  if (renderMode === 'glsl') {
+    return (
+      <WebGLCanvas
+        treeR={treeR}
+        treeG={treeG}
+        treeB={treeB}
+        running={running}
+      />
+    );
+  }
 
   return (
-    <div
-      ref={containerRef}
-      className="flex min-h-0 flex-1 items-center justify-center self-stretch overflow-hidden"
-    >
-      <canvas
-        ref={canvasRef}
-        className="border-border max-h-full max-w-full rounded-xl border shadow-lg"
-        style={{ aspectRatio: '1' }}
-      />
-    </div>
+    <CPUCanvas
+      treeR={canvasTreeR}
+      treeG={canvasTreeG}
+      treeB={canvasTreeB}
+    />
   );
 }

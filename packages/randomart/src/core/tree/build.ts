@@ -23,7 +23,7 @@ export function buildTree(
 
   // Bias towards structural rules earlier in the tree, and terminals later
   const structuralProbability = 1 - currentDepth / maxDepth;
-  
+
   // Use shared structural RNG for first 3 levels, then channel specific RNG
   const rngToUse = currentDepth < 3 ? structureRng : channelRng;
 
@@ -33,11 +33,20 @@ export function buildTree(
   });
 
   // Ensure we have at least one rule
-  const finalPool = pool.length > 0 ? pool : availableRules.filter((r) => r.category === 'terminal');
+  const finalPool =
+    pool.length > 0
+      ? pool
+      : availableRules.filter((r) => r.category === 'terminal');
 
   const idx = weightedPick(rngToUse, finalPool);
 
   return finalPool[idx].buildNode(rngToUse, () => {
-    return buildTree(structureRng, channelRng, currentDepth + 1, maxDepth, rules);
+    return buildTree(
+      structureRng,
+      channelRng,
+      currentDepth + 1,
+      maxDepth,
+      rules
+    );
   });
 }

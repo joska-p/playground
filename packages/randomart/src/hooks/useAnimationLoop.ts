@@ -21,7 +21,6 @@ export function useAnimationLoop(
     const tick = (now: number) => {
       if (cancelled) return;
       const delta = now - lastTime;
-      // CRITICAL: Update lastTime even if we don't schedule the next frame,
       lastTime = now;
 
       onFrameRef.current(delta);

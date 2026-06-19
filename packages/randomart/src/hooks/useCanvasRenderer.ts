@@ -4,23 +4,31 @@ import type { ExpressionNode } from '../core/types';
 import { randomartStore } from '../stores/randomart/store';
 import { useCanvasSize } from './useCanvasSize';
 
+/**
+ * No enabled flag — this hook is only mounted when the CPU renderer
+ * is active. Conditional rendering in the parent handles the switch.
+ */
 export function useCanvasRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   dimensions: { width: number; height: number },
   treeR: ExpressionNode,
   treeG: ExpressionNode,
-  treeB: ExpressionNode,
-  enabled: boolean
+  treeB: ExpressionNode
 ) {
   const isRendering = useRef(false);
+  const pendingRender = useRef(false);
   const { logicalSize, bitmapSize } = useCanvasSize(dimensions);
 
   useEffect(() => {
-    if (!enabled) return;
-    if (dimensions.width <= 0 || dimensions.height <= 0) return;
-    if (isRendering.current) return;
+    if (bitmapSize <= 0) return;
+
+    if (isRendering.current) {
+      pendingRender.current = true;
+      return;
+    }
 
     isRendering.current = true;
+    pendingRender.current = false;
 
     const time = randomartStore.getState().time;
 
@@ -36,15 +44,25 @@ export function useCanvasRenderer(
       })
       .finally(() => {
         isRendering.current = false;
+        if (pendingRender.current) {
+          pendingRender.current = false;
+          const latestTime = randomartStore.getState().time;
+          isRendering.current = true;
+          renderTreesToImageDataAsync(
+            treeR,
+            treeG,
+            treeB,
+            bitmapSize,
+            latestTime
+          )
+            .then((imageData) => {
+              if (!canvasRef.current) return;
+              canvasRef.current.getContext('2d')?.putImageData(imageData, 0, 0);
+            })
+            .finally(() => {
+              isRendering.current = false;
+            });
+        }
       });
-  }, [
-    enabled,
-    dimensions,
-    treeR,
-    treeG,
-    treeB,
-    bitmapSize,
-    canvasRef,
-    logicalSize
-  ]);
+  }, [treeR, treeG, treeB, bitmapSize, logicalSize, canvasRef]);
 }
