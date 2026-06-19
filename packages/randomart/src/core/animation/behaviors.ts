@@ -72,10 +72,28 @@ vec2 swirl(vec2 uv, float angle) {
     applyCode: (timeVar, speedVar) => `uv = swirl(uv, sin(${timeVar} * ${speedVar}) * 2.0);`
 };
 
+export const driftBehavior: AnimationBehavior = {
+    id: 'drift',
+    name: 'Drift',
+    glslFunction: ``,
+    type: 'spatial',
+    applyCode: (timeVar, speedVar) => `uv += ${timeVar} * ${speedVar} * 0.1;`
+};
+
+export const expandBehavior: AnimationBehavior = {
+    id: 'expand',
+    name: 'Expand',
+    glslFunction: ``,
+    type: 'spatial',
+    applyCode: (timeVar, speedVar) => `uv /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
+};
+
 export const animationRegistry: AnimationBehavior[] = [
     hueShiftBehavior,
     zoomBehavior,
     rippleBehavior,
     rotateBehavior,
-    swirlBehavior
+    swirlBehavior,
+    driftBehavior,
+    expandBehavior
 ];
