@@ -1,7 +1,7 @@
 import { getRule } from '../grammar/registry';
 import type { ExpressionNode } from '../types';
 
-export const GLSL_PREAMBLE = `
+const GLSL_PREAMBLE = `
 float random2d(vec2 co) {
   float dot_ = dot(co, vec2(12.9898, 78.233));
   return fract(sin(dot_) * 43758.5453);

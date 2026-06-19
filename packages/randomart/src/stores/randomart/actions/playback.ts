@@ -9,10 +9,6 @@ export function toggleRunning(): void {
   );
 }
 
-export function setRunning(running: boolean): void {
-  randomartStore.setState({ running }, false, 'playback/setRunning');
-}
-
 export function setTime(time: number): void {
   randomartStore.setState({ time }, false, 'playback/setTime');
 }

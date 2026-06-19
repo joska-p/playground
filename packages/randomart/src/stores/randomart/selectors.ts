@@ -1,15 +1,7 @@
 import { useStore } from 'zustand';
-import { useShallow } from 'zustand/react/shallow';
-import type { SeededRandom } from '../../core/random/SeededRandom';
 import type { ExpressionNode } from '../../core/types';
+import type { SeededRandom } from '../../core/random/SeededRandom';
 import { randomartStore } from './store';
-import type { RandomartState } from './types';
-
-// — Whole state —
-export function useRandomartState(): RandomartState {
-  return useStore(randomartStore, (s) => s);
-}
-
 // — Config fields —
 export function useSeedText(): string {
   return useStore(randomartStore, (s) => s.seedText);
@@ -32,9 +24,6 @@ export function useRenderMode(): 'canvas' | 'glsl' {
 export function useRunning(): boolean {
   return useStore(randomartStore, (s) => s.running);
 }
-export function useTime(): number {
-  return useStore(randomartStore, (s) => s.time);
-}
 
 // — Derived artifacts —
 export function useTreeR(): ExpressionNode {
@@ -46,22 +35,19 @@ export function useTreeG(): ExpressionNode {
 export function useTreeB(): ExpressionNode {
   return useStore(randomartStore, (s) => s.treeB);
 }
-export function useRngR(): SeededRandom {
-  return useStore(randomartStore, (s) => s.rngR);
-}
-export function useRngG(): SeededRandom {
-  return useStore(randomartStore, (s) => s.rngG);
-}
-export function useRngB(): SeededRandom {
-  return useStore(randomartStore, (s) => s.rngB);
-}
 
 // — Active channel selectors: only subscribe to the relevant tree/rng (fixes R6) —
 export function useSelectedTree(): ExpressionNode {
   return useStore(randomartStore, (s) => {
-    if (s.activeChannel === 'red') return s.treeR;
-    if (s.activeChannel === 'green') return s.treeG;
-    return s.treeB;
+    const tree =
+      s.activeChannel === 'red' ? s.treeR
+      : s.activeChannel === 'green' ? s.treeG
+      : s.treeB;
+    if (s.correlatedRGB) {
+      const idx = s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
+      return tree.args[idx] as ExpressionNode;
+    }
+    return tree;
   });
 }
 
@@ -71,41 +57,4 @@ export function useSelectedRng(): SeededRandom {
     if (s.activeChannel === 'green') return s.rngG;
     return s.rngB;
   });
-}
-
-// — Canvas trees: CPU gets unwrapped, GLSL gets raw (fixes R4) —
-export function useCPUTrees(): {
-  treeR: ExpressionNode;
-  treeG: ExpressionNode;
-  treeB: ExpressionNode;
-} {
-  // Pass useShallow right into the selector wrapper itself
-  return useStore(
-    randomartStore,
-    useShallow((s) => {
-      if (s.correlatedRGB) {
-        return {
-          treeR: s.treeR.args[0] as ExpressionNode,
-          treeG: s.treeR.args[1] as ExpressionNode,
-          treeB: s.treeR.args[2] as ExpressionNode
-        };
-      }
-      return { treeR: s.treeR, treeG: s.treeG, treeB: s.treeB };
-    })
-  );
-}
-
-export function useGLSLTrees(): {
-  treeR: ExpressionNode;
-  treeG: ExpressionNode;
-  treeB: ExpressionNode;
-} {
-  return useStore(
-    randomartStore,
-    useShallow((s) => ({
-      treeR: s.treeR,
-      treeG: s.treeG,
-      treeB: s.treeB
-    }))
-  );
 }

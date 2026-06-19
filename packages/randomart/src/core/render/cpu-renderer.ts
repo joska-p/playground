@@ -30,11 +30,6 @@ function getRenderPool(): WorkerPool<RenderTask, RenderResult> {
   return pool;
 }
 
-export function teardownRenderPool(): void {
-  pool?.teardown();
-  pool = null;
-}
-
 function renderTreesToBuffer(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
@@ -63,19 +58,6 @@ function renderTreesToBuffer(
   }
 
   return buffer;
-}
-
-function renderTreesToImageData(
-  treeR: ExpressionNode,
-  treeG: ExpressionNode,
-  treeB: ExpressionNode,
-  size: number,
-  time: number = 0
-): ImageData {
-  const imageData = new ImageData(size, size);
-  const buffer = renderTreesToBuffer(treeR, treeG, treeB, size, time);
-  imageData.data.set(buffer);
-  return imageData;
 }
 
 const STRIP_HEIGHT = 64;
@@ -110,8 +92,4 @@ async function renderTreesToImageDataAsync(
   return imageData;
 }
 
-export {
-  renderTreesToBuffer,
-  renderTreesToImageData,
-  renderTreesToImageDataAsync
-};
+export { renderTreesToBuffer, renderTreesToImageDataAsync };

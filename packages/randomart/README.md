@@ -159,10 +159,8 @@ All selectors in a single file. Each is a thin `useStore` wrapper.
 | `useTime` | `number` |
 | `useTreeR`, `useTreeG`, `useTreeB` | `ExpressionNode` |
 | `useRngR`, `useRngG`, `useRngB` | `SeededRandom` |
-| `useSelectedTree` | `ExpressionNode` — active channel only (avoids re-renders) |
+| `useSelectedTree` | `ExpressionNode` — active channel only (avoids re-renders). When `correlatedRGB`, unwraps from `vec3.args[i]` |
 | `useSelectedRng` | `SeededRandom` — active channel only |
-| `useCPUTrees` | `{ treeR, treeG, treeB }` — unwrapped from `vec3` for correlated mode |
-| `useGLSLTrees` | `{ treeR, treeG, treeB }` — raw trees as stored |
 
 ## Rendering Pipeline
 
@@ -173,16 +171,18 @@ All selectors in a single file. Each is a thin `useStore` wrapper.
 3. When `running`: a `requestAnimationFrame` loop increments a **local `useRef(0)`** (not store state) and writes `u_time` uniform each frame
 4. Every 6 frames the local time is throttled to the store for UI display (`TimeDisplay`)
 5. On `running` start, the local ref syncs from store time (handles Reset Time while paused)
-6. Fragment shader evaluates the expression per-pixel in parallel on the GPU
+6. Trees passed as a plain object `{ treeR, treeG, treeB }` (raw as stored, `vec3` wrapper intact for correlated mode — the shader compiler handles unwrapping)
+7. Fragment shader evaluates the expression per-pixel in parallel on the GPU
 
 ### CPU Path (`renderMode === 'canvas'`)
 
 1. `useCanvasRenderer` triggers a **single frame** render when trees or dimensions change
 2. Reads `store.time` once imperatively (no reactive subscription — no animation loop)
-3. `renderTreesToImageDataAsync()` splits work into horizontal strips
-4. Strips are dispatched to a Web Worker pool
-5. Workers evaluate the expression tree per-pixel via `evaluateNode()`
-6. Results are assembled into `ImageData` and drawn to the canvas via `putImageData()`
+3. CPU trees are unwrapped from `vec3.args[i]` inline in `RandomArtCanvas` when `correlatedRGB` is enabled
+4. `renderTreesToImageDataAsync()` splits work into horizontal strips
+5. Strips are dispatched to a Web Worker pool
+6. Workers evaluate the expression tree per-pixel via `evaluateNode()`
+7. Results are assembled into `ImageData` and drawn to the canvas via `putImageData()`
 
 Animation is a WebGL-only feature. The CPU path renders a static frame to avoid per-frame overhead on the main thread.
 
@@ -201,6 +201,7 @@ Switching from WebGL to Canvas while animation is running pauses the time loop. 
 - **Named exports only** — no `export default`
 - **No barrel files** — import directly from source paths
 - **Zustand store** — unexported `createStore()`, getter hooks (`use*`), plain setter functions
+- **React 19 compiler** — no manual `useMemo`/`useCallback`; the compiler handles stable references
 - **`@repo/ui` components** for all UI
 - **CSS tokens** — no hardcoded colors, spacing, or radius values
 
