@@ -1,7 +1,7 @@
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
 import { Controls } from './components/controls/Controls';
-import { GrammarList } from './components/inspector/GrammarList';
+import { GrammarList } from './components/controls/GrammarList';
 import { InspectorPanel } from './components/inspector/InspectorPanel';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
 

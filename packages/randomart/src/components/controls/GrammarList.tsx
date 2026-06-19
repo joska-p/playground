@@ -1,7 +1,7 @@
 import { Badge } from '@repo/ui/Badge';
 import { cn } from '@repo/ui/cn';
 import { getAllRules } from '../../core/grammar/registry';
-import { toggleRule } from '../../stores/randomart/actions';
+import { toggleRule } from '../../stores/randomart/actions/rules';
 import { useEnabledRuleIds } from '../../stores/randomart/selectors/useEnabledRuleIds';
 
 export function GrammarList() {

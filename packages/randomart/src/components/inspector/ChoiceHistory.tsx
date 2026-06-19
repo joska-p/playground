@@ -1,9 +1,7 @@
 import { useActiveChannel } from '../../stores/randomart/selectors/useActiveChannel';
-import {
-  useRngB,
-  useRngG,
-  useRngR
-} from '../../stores/randomart/selectors/useRngInstances';
+import { useRngB } from '../../stores/randomart/selectors/useRngB';
+import { useRngG } from '../../stores/randomart/selectors/useRngG';
+import { useRngR } from '../../stores/randomart/selectors/useRngR';
 
 export function ChoiceHistory() {
   const activeChannel = useActiveChannel();

@@ -2,25 +2,7 @@ import { createStore } from 'zustand';
 import { getAllRules } from '../../core/grammar/registry';
 import { SeededRandom } from '../../core/random/SeededRandom';
 import { buildTree } from '../../core/tree/build';
-import type { ExpressionNode } from '../../core/types';
-
-type RandomartState = {
-  seedText: string;
-  activeChannel: 'red' | 'green' | 'blue';
-  maxDepth: number;
-  enabledRuleIds: string[];
-  treeR: ExpressionNode;
-  treeG: ExpressionNode;
-  treeB: ExpressionNode;
-  rngR: SeededRandom;
-  rngG: SeededRandom;
-  rngB: SeededRandom;
-  running: boolean;
-  time: number;
-  timeRef: { current: number };
-  renderMode: 'canvas' | 'glsl';
-  correlatedRGB: boolean;
-};
+import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
   const seedText = "De deux choses lune l'autre c'est le soleil";

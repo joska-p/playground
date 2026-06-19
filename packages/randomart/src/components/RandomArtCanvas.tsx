@@ -1,15 +1,13 @@
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useRef } from 'react';
-import { useRandomArtRenderer } from '../hooks/useRandomArtRenderer';
+import { useCanvasRenderer } from '../hooks/useCanvasRenderer';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
 import { useCorrelatedRGB } from '../stores/randomart/selectors/useCorrelatedRGB';
 import { useRenderMode } from '../stores/randomart/selectors/useRenderMode';
 import { useRunning } from '../stores/randomart/selectors/useRunning';
-import {
-  useTreeB,
-  useTreeG,
-  useTreeR
-} from '../stores/randomart/selectors/useTrees';
+import { useTreeB } from '../stores/randomart/selectors/useTreeB';
+import { useTreeG } from '../stores/randomart/selectors/useTreeG';
+import { useTreeR } from '../stores/randomart/selectors/useTreeR';
 import { randomartStore } from '../stores/randomart/store';
 
 export function RandomArtCanvas() {
@@ -31,7 +29,7 @@ export function RandomArtCanvas() {
 
   const glTrees = { treeR, treeG, treeB };
 
-  useRandomArtRenderer(
+  useCanvasRenderer(
     canvasRef,
     dimensions,
     canvasTrees,

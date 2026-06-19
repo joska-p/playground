@@ -1,10 +1,8 @@
 import { nodeToMathString } from '../../core/format/treePrinter';
 import { useActiveChannel } from '../../stores/randomart/selectors/useActiveChannel';
-import {
-  useTreeB,
-  useTreeG,
-  useTreeR
-} from '../../stores/randomart/selectors/useTrees';
+import { useTreeB } from '../../stores/randomart/selectors/useTreeB';
+import { useTreeG } from '../../stores/randomart/selectors/useTreeG';
+import { useTreeR } from '../../stores/randomart/selectors/useTreeR';
 
 export function MathFormula() {
   const activeChannel = useActiveChannel();

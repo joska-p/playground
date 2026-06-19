@@ -1,5 +1,5 @@
 import { Input } from '@repo/ui/Input';
-import { setSeedText } from '../../stores/randomart/actions';
+import { setSeedText } from '../../stores/randomart/actions/seed';
 import { useSeedText } from '../../stores/randomart/selectors/useSeedText';
 
 export function SeedInput() {
