@@ -5,7 +5,7 @@ export const constantRule = {
   id: 'constant',
   name: 'Constant',
   arity: 0,
-  weight: 2,
+  weight: 1,
   category: 'terminal',
   evaluate: () => 0.0,
   toMathString: (args) => args[0] ?? '0.0',

@@ -11,7 +11,7 @@ export const pixelRandomRule = {
   id: 'random',
   name: 'Pixel Random',
   arity: 0,
-  weight: 2,
+  weight: 1,
   category: 'terminal',
   evaluate: (_args, x, y) => pixelHash(x, y) * 2 - 1,
   toMathString: () => 'random',

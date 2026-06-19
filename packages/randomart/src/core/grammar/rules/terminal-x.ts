@@ -4,7 +4,7 @@ export const terminalXRule = {
   id: 'x',
   name: 'Terminal X',
   arity: 0,
-  weight: 2,
+  weight: 1,
   category: 'terminal',
   evaluate: (_args, x) => x,
   toMathString: () => 'x',

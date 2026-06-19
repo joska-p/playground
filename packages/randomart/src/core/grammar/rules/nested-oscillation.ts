@@ -4,7 +4,7 @@ export const nestedOscillationRule: GrammarRule = {
   id: 'nested-oscillation',
   name: 'Nested Oscillation',
   arity: 0,
-  weight: 3,
+  weight: 6,
   category: 'structural',
   evaluate: () => 0.0,
   toMathString: () => 'nested-oscillation',

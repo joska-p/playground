@@ -4,7 +4,7 @@ export const terminalYRule = {
   id: 'y',
   name: 'Terminal Y',
   arity: 0,
-  weight: 2,
+  weight: 1,
   category: 'terminal',
   evaluate: (_args, _x, y) => y,
   toMathString: () => 'y',

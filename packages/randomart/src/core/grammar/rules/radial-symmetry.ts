@@ -4,7 +4,7 @@ export const radialSymmetryRule: GrammarRule = {
   id: 'radial-symmetry',
   name: 'Radial Symmetry',
   arity: 0,
-  weight: 5,
+  weight: 8,
   category: 'structural',
   evaluate: () => 0.0,
   toMathString: () => 'radial-symmetry',

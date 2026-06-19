@@ -29,9 +29,9 @@ export function generateTrees(config: TreeConfig): TreeOutput {
     const tree = {
       ruleId: 'vec3',
       args: [
-        buildTree(rng, 0, config.maxDepth, rules),
-        buildTree(rng, 0, config.maxDepth, rules),
-        buildTree(rng, 0, config.maxDepth, rules)
+        buildTree(rng, rng, 0, config.maxDepth, rules),
+        buildTree(rng, rng, 0, config.maxDepth, rules),
+        buildTree(rng, rng, 0, config.maxDepth, rules)
       ]
     };
     return {
@@ -44,13 +44,14 @@ export function generateTrees(config: TreeConfig): TreeOutput {
     };
   }
 
+  const structureRng = new SeededRandom(config.seedText + '_structure');
   const rngR = new SeededRandom(config.seedText + '_red');
   const rngG = new SeededRandom(config.seedText + '_green');
   const rngB = new SeededRandom(config.seedText + '_blue');
 
-  const treeR = buildTree(rngR, 0, config.maxDepth, rules);
-  const treeG = buildTree(rngG, 0, config.maxDepth, rules);
-  const treeB = buildTree(rngB, 0, config.maxDepth, rules);
+  const treeR = buildTree(structureRng, rngR, 0, config.maxDepth, rules);
+  const treeG = buildTree(structureRng, rngG, 0, config.maxDepth, rules);
+  const treeB = buildTree(structureRng, rngB, 0, config.maxDepth, rules);
 
   return { treeR, treeG, treeB, rngR, rngG, rngB };
 }
