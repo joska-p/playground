@@ -6,6 +6,7 @@ import { RenderModeToggle } from './RenderModeToggle';
 import { ResetTimeButton } from './ResetTimeButton';
 import { SeedInput } from './SeedInput';
 import { ShuffleButton } from './ShuffleButton';
+import { TimeDisplay } from './TimeDisplay';
 
 export function Controls() {
   return (
@@ -14,6 +15,7 @@ export function Controls() {
       <MaxDepth />
       <ShuffleButton />
       <PlaybackButton />
+      <TimeDisplay />
       <ResetTimeButton />
       <RenderModeToggle />
       <CorrelatedToggle />

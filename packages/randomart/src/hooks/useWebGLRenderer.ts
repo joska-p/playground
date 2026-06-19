@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { compileToGLSL } from '../core/compile/compileToGLSL';
 import type { ExpressionNode } from '../core/types';
+import { randomartStore } from '../stores/randomart/store';
 import { useAnimationLoop } from './useAnimationLoop';
 import { useCanvasSize } from './useCanvasSize';
 
@@ -14,6 +15,48 @@ void main() {
 `;
 
 const POSITIONS = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
+
+function renderFrame(
+  gl: WebGLRenderingContext,
+  canvas: HTMLCanvasElement,
+  trees: {
+    treeR: ExpressionNode;
+    treeG: ExpressionNode;
+    treeB: ExpressionNode;
+  },
+  programRef: React.MutableRefObject<WebGLProgram | null>,
+  time: number
+): void {
+  const fragmentSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB);
+
+  try {
+    const program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentSource);
+    if (programRef.current) {
+      gl.deleteProgram(programRef.current);
+    }
+    programRef.current = program;
+
+    gl.useProgram(program);
+
+    const posLoc = gl.getAttribLocation(program, 'a_position');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const timeLoc = gl.getUniformLocation(program, 'u_time');
+    const resLoc = gl.getUniformLocation(program, 'u_resolution');
+
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.uniform1f(timeLoc, time);
+    gl.uniform2f(resLoc, canvas.width, canvas.height);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  } catch (err) {
+    console.warn('Shader compile failed, skipping frame:', err);
+  }
+}
 
 function compileShader(
   gl: WebGLRenderingContext,
@@ -111,6 +154,8 @@ export function useWebGLRenderer(
     };
   }, [enabled, canvasRef, logicalSize, bitmapSize]);
 
+  const frameCountRef = useRef(0);
+
   useAnimationLoop(
     running,
     (deltaMs) => {
@@ -118,44 +163,27 @@ export function useWebGLRenderer(
         timeRef.current += deltaMs / 1000;
       }
 
+      frameCountRef.current++;
+      if (frameCountRef.current % 6 === 0) {
+        randomartStore.setState({ time: timeRef.current });
+      }
+
       const gl = glRef.current;
       const canvas = canvasRef.current;
       if (!gl || !canvas) return;
 
-      const fragmentSource = compileToGLSL(
-        trees.treeR,
-        trees.treeG,
-        trees.treeB
-      );
-
-      try {
-        const program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentSource);
-        if (programRef.current) {
-          gl.deleteProgram(programRef.current);
-        }
-        programRef.current = program;
-
-        gl.useProgram(program);
-
-        const posLoc = gl.getAttribLocation(program, 'a_position');
-        gl.enableVertexAttribArray(posLoc);
-        gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-        const timeLoc = gl.getUniformLocation(program, 'u_time');
-        const resLoc = gl.getUniformLocation(program, 'u_resolution');
-
-        gl.viewport(0, 0, canvas.width, canvas.height);
-        gl.clearColor(0, 0, 0, 1);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-
-        gl.uniform1f(timeLoc, timeRef.current);
-        gl.uniform2f(resLoc, canvas.width, canvas.height);
-
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
-      } catch (err) {
-        console.warn('Shader compile failed, skipping frame:', err);
-      }
+      renderFrame(gl, canvas, trees, programRef, timeRef.current);
     },
     enabled
   );
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    const gl = glRef.current;
+    const canvas = canvasRef.current;
+    if (!gl || !canvas) return;
+
+    renderFrame(gl, canvas, trees, programRef, timeRef.current);
+  }, [enabled, trees]);
 }

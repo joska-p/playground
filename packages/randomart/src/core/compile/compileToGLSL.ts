@@ -9,6 +9,11 @@ float random2d(vec2 co) {
 `;
 
 function compileNode(node: ExpressionNode): string {
+  if (node.ruleId === 'vec3') {
+    const compiledArgs = node.args.map(compileNode);
+    return `vec3(${compiledArgs[0]}, ${compiledArgs[1]}, ${compiledArgs[2]})`;
+  }
+
   const rule = getRule(node.ruleId);
   if (!rule) return '0.0';
 

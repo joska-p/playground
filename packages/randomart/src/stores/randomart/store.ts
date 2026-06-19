@@ -8,7 +8,7 @@ function generateInitial(): RandomartState {
   const seedText = "De deux choses lune l'autre c'est le soleil";
   const maxDepth = 6;
   const enabledRuleIds = getAllRules().map((r) => r.id);
-  const rules = getAllRules().filter((r) => enabledRuleIds.includes(r.id));
+  const rules = getAllRules();
   const rngR = new SeededRandom(seedText + '_red');
   const rngG = new SeededRandom(seedText + '_green');
   const rngB = new SeededRandom(seedText + '_blue');

@@ -23,23 +23,22 @@ export function RandomArtCanvas() {
 
   const timeRef = randomartStore.getState().timeRef;
 
-  const canvasTrees = correlatedRGB
-    ? { treeR: treeR.args[0], treeG: treeR.args[1], treeB: treeR.args[2] }
-    : { treeR, treeG, treeB };
-
-  const glTrees = { treeR, treeG, treeB };
+  const canvasTreeR = correlatedRGB ? treeR.args[0] : treeR;
+  const canvasTreeG = correlatedRGB ? treeR.args[1] : treeG;
+  const canvasTreeB = correlatedRGB ? treeR.args[2] : treeB;
 
   useCanvasRenderer(
     canvasRef,
     dimensions,
-    canvasTrees,
-    running,
+    canvasTreeR,
+    canvasTreeG,
+    canvasTreeB,
     renderMode === 'canvas'
   );
   useWebGLRenderer(
     canvasRef,
     dimensions,
-    glTrees,
+    { treeR, treeG, treeB },
     running,
     timeRef,
     renderMode === 'glsl'
