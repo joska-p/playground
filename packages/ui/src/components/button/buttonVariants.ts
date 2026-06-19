@@ -11,7 +11,8 @@ export const buttonVariants = createVariant({
         'bg-destructive text-destructive-foreground hover:bg-destructive/80',
       outline:
         'border-border hover:bg-foreground/5 hover:text-foreground border bg-transparent',
-      ghost: 'hover:bg-foreground/10 hover:text-foreground'
+      ghost:
+        'hover:bg-foreground/10 hover:text-foreground border border-transparent'
     },
     size: {
       sm: 'h-11 sm:h-8 px-3 text-xs',

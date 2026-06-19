@@ -25,7 +25,8 @@ function generateInitial(): RandomartState {
     time: 0,
     animationSpeed: 0.3,
     renderMode: 'glsl',
-    correlatedRGB: false
+    correlatedRGB: false,
+    activeAnimationBehaviorIds: ['hue-shift']
   };
 }
 

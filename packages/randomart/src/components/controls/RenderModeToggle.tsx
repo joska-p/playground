@@ -10,7 +10,6 @@ export function RenderModeToggle() {
       type="button"
       onClick={() => setRenderMode(renderMode === 'glsl' ? 'canvas' : 'glsl')}
       variant="outline"
-      className="w-fit"
       title={
         renderMode === 'glsl'
           ? 'Switch to CPU (Canvas 2D)'

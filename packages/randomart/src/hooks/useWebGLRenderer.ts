@@ -5,6 +5,7 @@ import type { ExpressionNode } from '../core/types';
 import { randomartStore } from '../stores/randomart/store';
 import { useAnimationLoop } from './useAnimationLoop';
 import { useCanvasSize } from './useCanvasSize';
+import { animationRegistry } from '../core/animation/behaviors';
 
 const VERTEX_SHADER_SOURCE = `
 attribute vec2 a_position;
@@ -36,6 +37,7 @@ export function useWebGLRenderer(
   const frameCountRef = useRef(0);
 
   const { logicalSize, bitmapSize } = useCanvasSize(dimensions);
+  const activeAnimationBehaviorIds = useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
 
   // Sync local timeRef with store when running starts (handles Reset Time while paused)
   useEffect(() => {
@@ -71,7 +73,9 @@ export function useWebGLRenderer(
     gl.bufferData(gl.ARRAY_BUFFER, POSITIONS, gl.STATIC_DRAW);
 
     // Compile the GLSL representation safely here
-    const fragmentSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB);
+    const activeBehaviors = animationRegistry.filter(b => activeAnimationBehaviorIds.includes(b.id));
+
+    const fragmentSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB, activeBehaviors);
 
     try {
       const program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentSource);
@@ -111,7 +115,7 @@ export function useWebGLRenderer(
       }
       glRef.current = null;
     };
-  }, [enabled, trees, logicalSize, bitmapSize, canvasRef]);
+  }, [enabled, trees, logicalSize, bitmapSize, canvasRef, activeAnimationBehaviorIds]);
 
   // Effect 2: Smooth frame loop uniform ticks
   useAnimationLoop(

@@ -17,4 +17,5 @@ export type RandomartState = {
   animationSpeed: number;
   renderMode: 'canvas' | 'glsl';
   correlatedRGB: boolean;
+  activeAnimationBehaviorIds: string[];
 };

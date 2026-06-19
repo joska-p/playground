@@ -7,7 +7,6 @@ export function ResetTimeButton() {
       type="button"
       onClick={() => setTime(0)}
       variant="outline"
-      className="w-fit"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

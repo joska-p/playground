@@ -27,6 +27,9 @@ export function useRunning(): boolean {
 export function useAnimationSpeed(): number {
   return useStore(randomartStore, (s) => s.animationSpeed);
 }
+export function useActiveAnimationBehaviorIds(): string[] {
+  return useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
+}
 
 // — Derived artifacts —
 export function useTreeR(): ExpressionNode {
