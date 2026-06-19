@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { renderTreesToImageDataAsync } from '../core/render/cpu-renderer';
 import type { ExpressionNode } from '../core/types';
-import { randomartStore } from '../stores/randomart/store';
+import { useTime } from '../stores/randomart/selectors/useTime'; // Import the reactive hook
 import { useCanvasSize } from './useCanvasSize';
 
 export function useCanvasRenderer(
@@ -14,6 +14,7 @@ export function useCanvasRenderer(
 ) {
   const isRendering = useRef(false);
   const { logicalSize, bitmapSize } = useCanvasSize(dimensions);
+  const time = useTime(); // Listen to time updates reactively
 
   useEffect(() => {
     if (!enabled) return;
@@ -21,9 +22,8 @@ export function useCanvasRenderer(
     if (isRendering.current) return;
 
     isRendering.current = true;
-    const currentTime = randomartStore.getState().timeRef.current;
 
-    renderTreesToImageDataAsync(treeR, treeG, treeB, bitmapSize, currentTime)
+    renderTreesToImageDataAsync(treeR, treeG, treeB, bitmapSize, time)
       .then((imageData) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -36,5 +36,15 @@ export function useCanvasRenderer(
       .finally(() => {
         isRendering.current = false;
       });
-  }, [enabled, dimensions, treeR, treeG, treeB, canvasRef, logicalSize, bitmapSize]);
+  }, [
+    enabled,
+    dimensions,
+    treeR,
+    treeG,
+    treeB,
+    bitmapSize,
+    time,
+    canvasRef,
+    logicalSize
+  ]); // Added 'time' dependency
 }

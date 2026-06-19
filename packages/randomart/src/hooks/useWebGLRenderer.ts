@@ -16,91 +16,6 @@ void main() {
 
 const POSITIONS = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
 
-function renderFrame(
-  gl: WebGLRenderingContext,
-  canvas: HTMLCanvasElement,
-  trees: {
-    treeR: ExpressionNode;
-    treeG: ExpressionNode;
-    treeB: ExpressionNode;
-  },
-  programRef: React.MutableRefObject<WebGLProgram | null>,
-  time: number
-): void {
-  const fragmentSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB);
-
-  try {
-    const program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentSource);
-    if (programRef.current) {
-      gl.deleteProgram(programRef.current);
-    }
-    programRef.current = program;
-
-    gl.useProgram(program);
-
-    const posLoc = gl.getAttribLocation(program, 'a_position');
-    gl.enableVertexAttribArray(posLoc);
-    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-    const timeLoc = gl.getUniformLocation(program, 'u_time');
-    const resLoc = gl.getUniformLocation(program, 'u_resolution');
-
-    gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(0, 0, 0, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    gl.uniform1f(timeLoc, time);
-    gl.uniform2f(resLoc, canvas.width, canvas.height);
-
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-  } catch (err) {
-    console.warn('Shader compile failed, skipping frame:', err);
-  }
-}
-
-function compileShader(
-  gl: WebGLRenderingContext,
-  type: number,
-  source: string
-): WebGLShader {
-  const shader = gl.createShader(type)!;
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    const log = gl.getShaderInfoLog(shader);
-    gl.deleteShader(shader);
-    throw new Error(`Shader compile error: ${log}`);
-  }
-
-  return shader;
-}
-
-function createProgram(
-  gl: WebGLRenderingContext,
-  vertSrc: string,
-  fragSrc: string
-): WebGLProgram {
-  const vert = compileShader(gl, gl.VERTEX_SHADER, vertSrc);
-  const frag = compileShader(gl, gl.FRAGMENT_SHADER, fragSrc);
-
-  const program = gl.createProgram()!;
-  gl.attachShader(program, vert);
-  gl.attachShader(program, frag);
-  gl.linkProgram(program);
-
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    const log = gl.getProgramInfoLog(program);
-    gl.deleteProgram(program);
-    throw new Error(`Program link error: ${log}`);
-  }
-
-  gl.deleteShader(vert);
-  gl.deleteShader(frag);
-
-  return program;
-}
-
 export function useWebGLRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   dimensions: { width: number; height: number },
@@ -110,16 +25,18 @@ export function useWebGLRenderer(
     treeB: ExpressionNode;
   },
   running: boolean,
-  timeRef: React.MutableRefObject<number>,
+  timeRef: React.RefObject<number>,
   enabled: boolean
 ) {
-  const programRef = useRef<WebGLProgram | null>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
+  const programRef = useRef<WebGLProgram | null>(null);
+  const timeUniformLocRef = useRef<WebGLUniformLocation | null>(null);
+
   const { logicalSize, bitmapSize } = useCanvasSize(dimensions);
 
+  // Effect 1: Recompile the shader ONLY when trees change or WebGL is enabled
   useEffect(() => {
     if (!enabled) return;
-
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;
 
@@ -128,22 +45,46 @@ export function useWebGLRenderer(
       alpha: false,
       antialias: false
     });
-
-    if (!gl) {
-      console.warn('WebGL not available');
-      return;
-    }
-
+    if (!gl) return;
     glRef.current = gl;
 
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, POSITIONS, gl.STATIC_DRAW);
-
+    // Set canvas viewport size attributes
     canvasEl.width = bitmapSize;
     canvasEl.height = bitmapSize;
     canvasEl.style.width = `${logicalSize}px`;
     canvasEl.style.height = `${logicalSize}px`;
+    gl.viewport(0, 0, bitmapSize, bitmapSize);
+
+    // Setup Geometry Buffer
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, POSITIONS, gl.STATIC_DRAW);
+
+    // Compile the GLSL representation safely here
+    const fragmentSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB);
+
+    try {
+      const program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentSource);
+      if (programRef.current) gl.deleteProgram(programRef.current);
+
+      programRef.current = program;
+      gl.useProgram(program);
+
+      // Cache uniform locations to keep loop iterations hyper-fast
+      timeUniformLocRef.current = gl.getUniformLocation(program, 'u_time');
+      const resLoc = gl.getUniformLocation(program, 'u_resolution');
+      if (resLoc) gl.uniform2f(resLoc, bitmapSize, bitmapSize);
+
+      const positionLoc = gl.getAttribLocation(program, 'a_position');
+      gl.enableVertexAttribArray(positionLoc);
+      gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+
+      // Draw an initial frame instantly
+      gl.uniform1f(timeUniformLocRef.current, timeRef.current);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    } catch (e) {
+      console.error('Shader compilation failed:', e);
+    }
 
     return () => {
       if (programRef.current) {
@@ -152,10 +93,10 @@ export function useWebGLRenderer(
       }
       glRef.current = null;
     };
-  }, [enabled, canvasRef, logicalSize, bitmapSize]);
+  }, [enabled, trees, logicalSize, bitmapSize, canvasRef, timeRef]);
 
+  // Effect 2: Smooth frame loop uniform ticks
   const frameCountRef = useRef(0);
-
   useAnimationLoop(
     running,
     (deltaMs) => {
@@ -168,22 +109,51 @@ export function useWebGLRenderer(
         randomartStore.setState({ time: timeRef.current });
       }
 
-      const gl = glRef.current;
-      const canvas = canvasRef.current;
-      if (!gl || !canvas) return;
+      // Draw updates using the cached program without recompiling
+      if (enabled) {
+        const gl = glRef.current;
+        if (!gl || !programRef.current) return;
 
-      renderFrame(gl, canvas, trees, programRef, timeRef.current);
+        gl.uniform1f(timeUniformLocRef.current, timeRef.current);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      }
     },
-    enabled
+    true
   );
+}
 
-  useEffect(() => {
-    if (!enabled) return;
+// WebGL Boilerplate Helpers
+function createShader(
+  gl: WebGLRenderingContext,
+  type: number,
+  source: string
+): WebGLShader {
+  const shader = gl.createShader(type);
+  if (!shader) throw new Error('Failed to create shader');
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    const info = gl.getShaderInfoLog(shader);
+    gl.deleteShader(shader);
+    throw new Error('Shader compile error: ' + info);
+  }
+  return shader;
+}
 
-    const gl = glRef.current;
-    const canvas = canvasRef.current;
-    if (!gl || !canvas) return;
-
-    renderFrame(gl, canvas, trees, programRef, timeRef.current);
-  }, [enabled, trees]);
+function createProgram(
+  gl: WebGLRenderingContext,
+  vsSource: string,
+  fsSource: string
+): WebGLProgram {
+  const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+  const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+  const program = gl.createProgram();
+  if (!program) throw new Error('Failed to create program');
+  gl.attachShader(program, vs);
+  gl.attachShader(program, fs);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    throw new Error('Program link error: ' + gl.getProgramInfoLog(program));
+  }
+  return program;
 }
