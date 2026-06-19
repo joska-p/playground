@@ -21,7 +21,7 @@ function App() {
           <GrammarList />
         </Sidebar.Main>
 
-        <Sidebar.Panel className="hidden! flex-col gap-4 overflow-y-auto p-4 lg:flex! lg:h-full lg:w-96">
+        <Sidebar.Panel className="hidden flex-col gap-4 overflow-y-auto p-4 lg:flex! lg:h-full lg:w-96">
           <InspectorPanel />
         </Sidebar.Panel>
       </Sidebar>
