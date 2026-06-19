@@ -5,6 +5,7 @@ export const lessThanRule = {
   name: 'Less Than',
   arity: 2,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => (args[0]() < args[1]() ? 1 : 0),
   toMathString: (args) => `(${args[0]} < ${args[1]} ? 1 : 0)`,
   toGLSL: (args) => `(${args[0]} < ${args[1]} ? 1.0 : 0.0)`,

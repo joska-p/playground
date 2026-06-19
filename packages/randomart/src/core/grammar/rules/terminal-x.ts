@@ -5,6 +5,7 @@ export const terminalXRule = {
   name: 'Terminal X',
   arity: 0,
   weight: 2,
+  category: 'terminal',
   evaluate: (_args, x) => x,
   toMathString: () => 'x',
   toGLSL: () => '(v_texCoord.x * 2.0 - 1.0)',

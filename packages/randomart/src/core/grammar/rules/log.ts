@@ -5,6 +5,7 @@ export const logRule = {
   name: 'Log',
   arity: 1,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => {
     const val = Math.abs(args[0]());
     return (Math.log(val + 1.0) / 0.69314718056) * 2.0 - 1.0;

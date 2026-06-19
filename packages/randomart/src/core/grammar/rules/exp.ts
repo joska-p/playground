@@ -5,6 +5,7 @@ export const expRule = {
   name: 'Exp',
   arity: 1,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => {
     const val = args[0]();
     return (

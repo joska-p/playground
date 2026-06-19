@@ -5,6 +5,7 @@ export const absRule = {
   name: 'Abs',
   arity: 1,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => Math.abs(args[0]()),
   toMathString: (args) => `|${args[0]}|`,
   toGLSL: (args) => `abs(${args[0]})`,

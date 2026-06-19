@@ -5,6 +5,7 @@ export const moduloRule = {
   name: 'Modulo',
   arity: 2,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => (args[1]() === 0 ? 0 : args[0]() % args[1]()),
   toMathString: (args) => `(${args[0]} % ${args[1]})`,
   toGLSL: (args) => `(${args[1]} == 0.0 ? 0.0 : mod(${args[0]}, ${args[1]}))`,

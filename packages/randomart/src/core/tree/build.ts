@@ -20,18 +20,20 @@ export function buildTree(
 ): ExpressionNode {
   const availableRules = rules ?? getAllRules();
 
-  const pool =
-    currentDepth >= maxDepth
-      ? availableRules.filter((r) => r.arity === 0)
-      : availableRules;
+  // Bias towards structural rules earlier in the tree, and terminals later
+  const structuralProbability = 1 - currentDepth / maxDepth;
+  
+  const pool = availableRules.filter((r) => {
+    if (r.category === 'terminal') return true;
+    return rng.next() < structuralProbability;
+  });
 
-  if (pool.length === 0) {
-    return { ruleId: 'x', args: [] };
-  }
+  // Ensure we have at least one rule
+  const finalPool = pool.length > 0 ? pool : availableRules.filter((r) => r.category === 'terminal');
 
-  const idx = weightedPick(rng, pool);
+  const idx = weightedPick(rng, finalPool);
 
-  return pool[idx].buildNode(rng, () => {
+  return finalPool[idx].buildNode(rng, () => {
     return buildTree(rng, currentDepth + 1, maxDepth, rules);
   });
 }

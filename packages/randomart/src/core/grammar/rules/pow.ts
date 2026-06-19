@@ -5,6 +5,7 @@ export const powRule = {
   name: 'Power',
   arity: 2,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => {
     const base = args[0]();
     const exp = args[1]();

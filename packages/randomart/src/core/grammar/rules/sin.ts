@@ -5,6 +5,7 @@ export const sinRule = {
   name: 'Sine',
   arity: 1,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => Math.sin(Math.PI * args[0]()),
   toMathString: (args) => `sin(π · ${args[0]})`,
   toGLSL: (args) => `sin(3.14159265 * ${args[0]})`,

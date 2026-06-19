@@ -5,6 +5,7 @@ export const multiplyRule = {
   name: 'Multiply',
   arity: 2,
   weight: 2,
+  category: 'structural',
   evaluate: (args) => args[0]() * args[1](),
   toMathString: (args) => `(${args[0]} · ${args[1]})`,
   toGLSL: (args) => `(${args[0]} * ${args[1]})`,

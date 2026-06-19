@@ -5,6 +5,7 @@ export const cosRule = {
   name: 'Cosine',
   arity: 1,
   weight: 1,
+  category: 'structural',
   evaluate: (args) => Math.cos(Math.PI * args[0]()),
   toMathString: (args) => `cos(π · ${args[0]})`,
   toGLSL: (args) => `cos(3.14159265 * ${args[0]})`,

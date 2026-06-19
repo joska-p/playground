@@ -6,6 +6,7 @@ export const constantRule = {
   name: 'Constant',
   arity: 0,
   weight: 2,
+  category: 'terminal',
   evaluate: () => 0.0,
   toMathString: (args) => args[0] ?? '0.0',
   toGLSL: (args) => args[0] ?? '0.0',
