@@ -1,7 +1,8 @@
 import { useStore } from 'zustand';
-import { randomartStore } from './store';
-import type { ExpressionNode } from '../../core/types';
+import { useShallow } from 'zustand/react/shallow';
 import type { SeededRandom } from '../../core/random/SeededRandom';
+import type { ExpressionNode } from '../../core/types';
+import { randomartStore } from './store';
 import type { RandomartState } from './types';
 
 // — Whole state —
@@ -73,23 +74,38 @@ export function useSelectedRng(): SeededRandom {
 }
 
 // — Canvas trees: CPU gets unwrapped, GLSL gets raw (fixes R4) —
-export function useCPUTrees(): { treeR: ExpressionNode; treeG: ExpressionNode; treeB: ExpressionNode } {
-  return useStore(randomartStore, (s) => {
-    if (s.correlatedRGB) {
-      return {
-        treeR: s.treeR.args[0] as ExpressionNode,
-        treeG: s.treeR.args[1] as ExpressionNode,
-        treeB: s.treeR.args[2] as ExpressionNode,
-      };
-    }
-    return { treeR: s.treeR, treeG: s.treeG, treeB: s.treeB };
-  });
+export function useCPUTrees(): {
+  treeR: ExpressionNode;
+  treeG: ExpressionNode;
+  treeB: ExpressionNode;
+} {
+  // Pass useShallow right into the selector wrapper itself
+  return useStore(
+    randomartStore,
+    useShallow((s) => {
+      if (s.correlatedRGB) {
+        return {
+          treeR: s.treeR.args[0] as ExpressionNode,
+          treeG: s.treeR.args[1] as ExpressionNode,
+          treeB: s.treeR.args[2] as ExpressionNode
+        };
+      }
+      return { treeR: s.treeR, treeG: s.treeG, treeB: s.treeB };
+    })
+  );
 }
 
-export function useGLSLTrees(): { treeR: ExpressionNode; treeG: ExpressionNode; treeB: ExpressionNode } {
-  return useStore(randomartStore, (s) => ({
-    treeR: s.treeR,
-    treeG: s.treeG,
-    treeB: s.treeB,
-  }));
+export function useGLSLTrees(): {
+  treeR: ExpressionNode;
+  treeG: ExpressionNode;
+  treeB: ExpressionNode;
+} {
+  return useStore(
+    randomartStore,
+    useShallow((s) => ({
+      treeR: s.treeR,
+      treeG: s.treeG,
+      treeB: s.treeB
+    }))
+  );
 }
