@@ -11,8 +11,10 @@ import { lessThanRule } from './rules/less-than';
 import { logRule } from './rules/log';
 import { moduloRule } from './rules/modulo';
 import { multiplyRule } from './rules/multiply';
+import { nestedOscillationRule } from './rules/nested-oscillation';
 import { pixelRandomRule } from './rules/pixel-random';
 import { powRule } from './rules/pow';
+import { radialSymmetryRule } from './rules/radial-symmetry';
 import { sinRule } from './rules/sin';
 import { sqrtRule } from './rules/sqrt';
 import { terminalXRule } from './rules/terminal-x';
@@ -28,14 +30,18 @@ const rules = new Map<string, GrammarRule>([
   [sqrtRule.id, sqrtRule],
   [absRule.id, absRule],
   [multiplyRule.id, multiplyRule],
+  [nestedOscillationRule.id, nestedOscillationRule],
   [addRule.id, addRule],
   [moduloRule.id, moduloRule],
   [expRule.id, expRule],
   [logRule.id, logRule],
   [powRule.id, powRule],
+  [radialSymmetryRule.id, radialSymmetryRule],
   [lessThanRule.id, lessThanRule],
   [greaterThanRule.id, greaterThanRule],
-  [ifRule.id, ifRule]
+  [ifRule.id, ifRule],
+  [radialSymmetryRule.id, radialSymmetryRule],
+  [nestedOscillationRule.id, nestedOscillationRule]
 ]);
 
 export function getRule(id: string): GrammarRule | undefined {
