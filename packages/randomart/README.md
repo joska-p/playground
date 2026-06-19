@@ -27,8 +27,8 @@ Zustand Store (stores/randomart/)
     │  └─ subscribe auto-regenerates trees on config change
     │
     ├── GPU path (renderMode === 'glsl')
-    │   └── useWebGLRenderer → compileToGLSL → fragment shader
-    │       └─ Owns time locally via useRef; throttled sync to store for UI
+│   └── useWebGLRenderer → compileToGLSL → fragment shader
+│       └─ Owns time locally; applies time-based hue rotation post-process via uniform
     │
     └── CPU path (renderMode === 'canvas')
         └── useCanvasRenderer → WorkerPool → evaluateNode() → putImageData
@@ -106,7 +106,6 @@ Each operator/terminal is a pluggable `GrammarRule` registered in a `Map<string,
 | -------------- | ----- | ----------------------- | ------------------------ |
 | `x`            | 0     | Pixel X coordinate      | `v_texCoord.x`           |
 | `y`            | 0     | Pixel Y coordinate      | `v_texCoord.y`           |
-| `t`            | 0     | Time uniform            | `u_time`                 |
 | `constant`     | 0     | Random float in [-1, 1] | literal float            |
 | `random`       | 0     | Per-pixel hash random   | `random2d(v_texCoord)`   |
 | `sin`          | 1     | Sine (scaled by π)      | `sin(π · arg)`           |
@@ -144,6 +143,7 @@ Vanilla Zustand store with selector hooks and action functions.
 | `rngR`, `rngG`, `rngB`    | `SeededRandom`               | generated                                       | Per-channel PRNGs                                                  |
 | `running`                 | `boolean`                    | `false`                                         | Animation state                                                    |
 | `time`                    | `number`                     | `0`                                             | Current animation time (updated by WebGL renderer; CPU reads once) |
+| `animationSpeed`          | `number`                     | `0.3`                                           | Time-based hue rotation speed (GLSL only)                          |
 | `renderMode`              | `'glsl' \| 'canvas'`         | `'glsl'`                                        | GPU or CPU render                                                  |
 | `correlatedRGB`           | `boolean`                    | `false`                                         | Linked/split RGB                                                   |
 | `activeChannel`           | `'red' \| 'green' \| 'blue'` | `'red'`                                         | Inspector tab selection                                            |
@@ -183,12 +183,12 @@ All selectors in a single file. Each is a thin `useStore` wrapper.
 ### GPU Path (`renderMode === 'glsl'`)
 
 1. `useWebGLRenderer` sets up WebGL context, vertex buffer, and fullscreen quad
-2. On tree change: compiles the AST to a GLSL fragment shader via `compileToGLSL()`, links the program, sets uniforms (`u_time`, `u_resolution`), and draws
-3. When `running`: a `requestAnimationFrame` loop increments a **local `useRef(0)`** (not store state) and writes `u_time` uniform each frame
+2. On tree change: compiles the AST to a GLSL fragment shader via `compileToGLSL()`, links the program, sets uniforms (`u_time`, `u_animSpeed`, `u_resolution`), and draws
+3. When `running`: a `requestAnimationFrame` loop increments a **local `useRef(0)`** (not store state) and writes `u_time` and `u_animSpeed` uniforms each frame
 4. Every 6 frames the local time is throttled to the store for UI display (`TimeDisplay`)
 5. On `running` start, the local ref syncs from store time (handles Reset Time while paused)
 6. Trees passed as a plain object `{ treeR, treeG, treeB }` (raw as stored, `vec3` wrapper intact for correlated mode — the shader compiler handles unwrapping)
-7. Fragment shader evaluates the expression per-pixel in parallel on the GPU
+7. Fragment shader evaluates the expression per-pixel in parallel on the GPU and then applies a time-based hue rotation post-process (`u_time * u_animSpeed`) to the normalized color.
 
 ### CPU Path (`renderMode === 'canvas'`)
 

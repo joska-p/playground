@@ -24,6 +24,9 @@ export function useRenderMode(): 'canvas' | 'glsl' {
 export function useRunning(): boolean {
   return useStore(randomartStore, (s) => s.running);
 }
+export function useAnimationSpeed(): number {
+  return useStore(randomartStore, (s) => s.animationSpeed);
+}
 
 // — Derived artifacts —
 export function useTreeR(): ExpressionNode {

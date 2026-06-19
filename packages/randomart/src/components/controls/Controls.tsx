@@ -1,3 +1,4 @@
+import { AnimationSpeed } from './AnimationSpeed';
 import { CorrelatedToggle } from './CorrelatedToggle';
 import { DownloadButton } from './DownloadButton';
 import { MaxDepth } from './MaxDepth';
@@ -17,6 +18,7 @@ export function Controls() {
       <PlaybackButton />
       <TimeDisplay />
       <ResetTimeButton />
+      <AnimationSpeed />
       <RenderModeToggle />
       <CorrelatedToggle />
       <DownloadButton />

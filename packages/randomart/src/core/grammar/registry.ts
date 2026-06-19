@@ -15,12 +15,10 @@ import { pixelRandomRule } from './rules/pixel-random';
 import { powRule } from './rules/pow';
 import { sinRule } from './rules/sin';
 import { sqrtRule } from './rules/sqrt';
-import { terminalTRule } from './rules/terminal-t';
 import { terminalXRule } from './rules/terminal-x';
 import { terminalYRule } from './rules/terminal-y';
 
 const rules = new Map<string, GrammarRule>([
-  [terminalTRule.id, terminalTRule],
   [terminalXRule.id, terminalXRule],
   [terminalYRule.id, terminalYRule],
   [constantRule.id, constantRule],

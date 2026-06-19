@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useStore } from 'zustand';
 import { compileToGLSL } from '../core/compile/compileToGLSL';
 import type { ExpressionNode } from '../core/types';
 import { randomartStore } from '../stores/randomart/store';
@@ -30,6 +31,7 @@ export function useWebGLRenderer(
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const programRef = useRef<WebGLProgram | null>(null);
   const timeUniformLocRef = useRef<WebGLUniformLocation | null>(null);
+  const animSpeedUniformLocRef = useRef<WebGLUniformLocation | null>(null);
   const timeRef = useRef(0);
   const frameCountRef = useRef(0);
 
@@ -80,6 +82,10 @@ export function useWebGLRenderer(
 
       // Cache uniform locations to keep loop iterations hyper-fast
       timeUniformLocRef.current = gl.getUniformLocation(program, 'u_time');
+      animSpeedUniformLocRef.current = gl.getUniformLocation(
+        program,
+        'u_animSpeed'
+      );
       const resLoc = gl.getUniformLocation(program, 'u_resolution');
       if (resLoc) gl.uniform2f(resLoc, bitmapSize, bitmapSize);
 
@@ -89,6 +95,10 @@ export function useWebGLRenderer(
 
       // Draw an initial frame instantly
       gl.uniform1f(timeUniformLocRef.current, timeRef.current);
+      gl.uniform1f(
+        animSpeedUniformLocRef.current,
+        randomartStore.getState().animationSpeed
+      );
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     } catch (e) {
       console.error('Shader compilation failed:', e);
@@ -122,11 +132,27 @@ export function useWebGLRenderer(
         if (!gl || !programRef.current) return;
 
         gl.uniform1f(timeUniformLocRef.current, timeRef.current);
+        gl.uniform1f(
+          animSpeedUniformLocRef.current,
+          randomartStore.getState().animationSpeed
+        );
         gl.drawArrays(gl.TRIANGLES, 0, 6);
       }
     },
     true
   );
+
+  // Effect 3: Redraw when animationSpeed changes (even when paused)
+  const animationSpeed = useStore(randomartStore, (s) => s.animationSpeed);
+  useEffect(() => {
+    if (!enabled || running) return;
+    const gl = glRef.current;
+    if (!gl || !programRef.current) return;
+
+    gl.uniform1f(timeUniformLocRef.current, timeRef.current);
+    gl.uniform1f(animSpeedUniformLocRef.current, animationSpeed);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }, [enabled, running, animationSpeed]);
 }
 
 // WebGL Boilerplate Helpers

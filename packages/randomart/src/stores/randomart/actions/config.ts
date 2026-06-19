@@ -9,6 +9,14 @@ export function setMaxDepth(maxDepth: number): void {
   randomartStore.setState({ maxDepth }, false, 'config/setMaxDepth');
 }
 
+export function setAnimationSpeed(speed: number): void {
+  randomartStore.setState(
+    { animationSpeed: speed },
+    false,
+    'config/setAnimationSpeed'
+  );
+}
+
 export function toggleRule(ruleId: string): void {
   const state = randomartStore.getState();
   const rule = getRule(ruleId);

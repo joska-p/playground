@@ -23,6 +23,7 @@ function generateInitial(): RandomartState {
     ...trees,
     running: false,
     time: 0,
+    animationSpeed: 0.3,
     renderMode: 'glsl',
     correlatedRGB: false
   };
