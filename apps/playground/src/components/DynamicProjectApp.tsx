@@ -9,7 +9,7 @@ const GraphifyApp = React.lazy(() =>
 const ImageManipulatorApp = React.lazy(() =>
   import('@repo/image-manipulator').then((m) => ({ default: m.App }))
 );
-const PipelineApp = React.lazy(() =>
+const PixelApp = React.lazy(() =>
   import('@repo/pixel/App').then((m) => ({ default: m.App }))
 );
 const ParticlesApp = React.lazy(() =>
@@ -38,7 +38,7 @@ const components: Record<string, React.ComponentType> = {
   palettes: PaletteApp,
   particles: ParticlesApp,
   'image-manipulator': ImageManipulatorApp,
-  pipeline: PipelineApp,
+  Pixel: PixelApp,
   graphify: GraphifyApp,
   'three-stage': ThreeStageApp,
   automa: AutomaApp

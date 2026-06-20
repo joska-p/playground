@@ -1,0 +1,11 @@
+order: 10
+name: Fracture
+description: Expressions renderer.
+category: random
+tags:
+  - canvas
+  - math
+  - webgl
+icon: automa
+featured: false
+packageDir: fracture

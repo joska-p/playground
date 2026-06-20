@@ -1,5 +1,5 @@
 order: 6
-name: Image Pipeline
+name: Pixel
 description: Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.
 category: image
 tags:
@@ -7,4 +7,4 @@ tags:
   - docs
 icon: pipeline
 featured: true
-packageDir: image-pipeline
+packageDir: pixel
