@@ -57,18 +57,27 @@ function FractureGPU() {
 
     gl.useProgram(program);
 
-    const uPositionLoc = gl.getUniformLocation(program, 'uPosition');
-    gl.uniform2f(uPositionLoc, 0, -0.2);
+    const bufferData = new Float32Array([
+      0, 0, 100, 1, 0, 0, 0.5, -0.8, 32, 0, 1, 0, -0.9, 0.5, 50, 0, 0, 1
+    ]);
 
-    const uPointSizeLoc = gl.getUniformLocation(program, 'uPointSize');
-    gl.uniform1f(uPointSizeLoc, 100);
+    const aPositionLoc = 0;
+    const aPointSizeLoc = 1;
+    const aColorLoc = 2;
 
-    const uIndexLoc = gl.getUniformLocation(program, 'uIndex');
-    const uColorsLoc = gl.getUniformLocation(program, 'uColors');
-    gl.uniform1i(uIndexLoc, 1);
-    gl.uniform4fv(uColorsLoc, [1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0]);
+    gl.enableVertexAttribArray(aPositionLoc);
+    gl.enableVertexAttribArray(aPointSizeLoc);
+    gl.enableVertexAttribArray(aColorLoc);
 
-    gl.drawArrays(gl.POINTS, 0, 1);
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, bufferData, gl.STATIC_DRAW);
+
+    gl.vertexAttribPointer(aPositionLoc, 2, gl.FLOAT, false, 6 * 4, 0);
+    gl.vertexAttribPointer(aPointSizeLoc, 1, gl.FLOAT, false, 6 * 4, 2 * 4);
+    gl.vertexAttribPointer(aColorLoc, 3, gl.FLOAT, false, 6 * 4, 3 * 4);
+
+    gl.drawArrays(gl.LINE_LOOP, 0, 3);
   }, []);
 
   return (
