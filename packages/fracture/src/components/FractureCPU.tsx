@@ -11,7 +11,7 @@ const view: Viewport = {
   yMax: 3
 };
 
-function Fracture() {
+function FractureCPU() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -51,4 +51,4 @@ function Fracture() {
   );
 }
 
-export { Fracture };
+export { FractureCPU };
