@@ -1,0 +1,28 @@
+{
+  "name": "@repo/sequence-engine",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/engine.ts",
+    "./rules": "./src/rules/registry.ts",
+    "./rules/types": "./src/rules/types.ts",
+    "./rules/recaman": "./src/rules/recaman.ts",
+    "./visualizations": "./src/visualizations/registry.ts",
+    "./visualizations/render": "./src/visualizations/render.ts",
+    "./visualizations/types": "./src/visualizations/types.ts",
+    "./visualizations/layers/registry": "./src/visualizations/layers/registry.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf node_modules dist .turbo"
+  },
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@tsconfig/strictest": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

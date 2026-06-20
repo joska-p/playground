@@ -1,7 +1,7 @@
 ---
-title: 'Image Pipeline'
-description: 'TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.'
-category: 'reference'
+title: "Image Pipeline"
+description: "TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies."
+category: "reference"
 tags:
   - reference
   - image-pipeline
@@ -189,3 +189,4 @@ Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`,
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
+

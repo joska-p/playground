@@ -46,7 +46,7 @@ function that encodes a specific behavior. Definitions are registered in a
 
 | Package             | Definition       | Creation helper        | Registry location                                         |
 | :------------------ | :--------------- | :--------------------- | :-------------------------------------------------------- |
-| `sequence-renderer` | `SequenceRule`   | `createRule()`         | `src/core/rules/registry.ts`                              |
+| `sequence-engine`   | `SequenceRule`   | `createRule()`         | `packages/engines/sequence-engine/src/rules/registry.ts`  |
 | `automa`            | `Rule`           | `parseRule()`          | `src/core/rules/registry.ts`                              |
 | `image-pipeline`    | `Manipulation`   | inline manifest object | `src/core/registry.ts` (implicit in facade)               |
 | `image-manipulator` | `PixelCallback`  | factory function       | `src/manipulations/` (exported, no explicit registry Map) |
@@ -61,7 +61,7 @@ automatically. No wiring.
 
 Each engine's core processes its definitions differently:
 
-### Sequential generator (`sequence-renderer`)
+### Sequential generator (`@repo/sequence-engine`)
 
 ```
 Rule → generateSequence() → number[]
@@ -193,7 +193,7 @@ stateless (registry rebuilt per invocation). Call `teardown()` on app shutdown.
 
 | Package             | Definitions        | Execution           | Render tech    | State shape                         |
 | :------------------ | :----------------- | :------------------ | :------------- | :---------------------------------- |
-| `sequence-renderer` | 5 rules, 2 presets | Pure function       | Canvas 2D      | rule, steps, vizId, sequence        |
+| `sequence-engine`   | 5 rules, 2 presets | Pure function       | Canvas 2D      | rule, steps, vizId, sequence        |
 | `automa`            | 3 rules            | Web Worker, ticked  | R3F + shaders  | rule, grid, running, brush, colors  |
 | `image-pipeline`    | 18 manipulations   | Worker pool, fused  | Canvas 2D      | (no store — stateless facade)       |
 | `image-manipulator` | 8 callbacks        | Fluent, single loop | Canvas 2D      | image, steps, presets               |

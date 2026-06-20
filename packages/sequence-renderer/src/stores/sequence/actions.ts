@@ -1,14 +1,14 @@
-import { generateSequence } from '../../core/engine';
-import type { SequenceRule } from '../../core/rules/types';
-import { getLayer } from '../../core/visualizations/layers/registry';
+import { generateSequence } from '@repo/sequence-engine';
+import type { SequenceRule } from '@repo/sequence-engine/rules/types';
+import { getLayer } from '@repo/sequence-engine/visualizations/layers/registry';
 import {
   getAllPresets,
   savePreset as persistPreset
-} from '../../core/visualizations/registry';
+} from '@repo/sequence-engine/visualizations';
 import type {
   CanvasViewport,
   PresetRecord
-} from '../../core/visualizations/types';
+} from '@repo/sequence-engine/visualizations/types';
 import { sequenceStore } from './store';
 
 function clampSteps(steps: number, maxSteps: number): number {

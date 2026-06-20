@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const PACKAGES_DIR = path.join(ROOT, 'packages');
+const ENGINES_DIR = path.join(ROOT, 'packages/engines');
 const REF_DIR = path.join(
   ROOT,
   'apps/playground/src/content/docs/reference/packages'
@@ -15,6 +16,7 @@ const PACKAGE_NAMES = {
   automa: 'automa',
   'mosaic-maker': 'Mosaic Maker',
   'sequence-renderer': 'Sequence Renderer',
+  'sequence-engine': 'Sequence Engine',
   'image-manipulator': 'Image Manipulator',
   'image-to-particles': 'Image to Particles',
   'palette-generator': 'Palette Generator',
@@ -49,13 +51,21 @@ function escapeFrontmatter(value) {
 async function main() {
   await mkdir(REF_DIR, { recursive: true });
 
-  const entries = await readdir(PACKAGES_DIR, { withFileTypes: true });
+  const rootEntries = await readdir(PACKAGES_DIR, { withFileTypes: true });
+  const engineEntries = await readdir(ENGINES_DIR, { withFileTypes: true });
+  const allPackages = [
+    ...rootEntries
+      .filter((e) => e.isDirectory() && e.name !== 'engines')
+      .map((e) => ({ dir: PACKAGES_DIR, name: e.name })),
+    ...engineEntries
+      .filter((e) => e.isDirectory())
+      .map((e) => ({ dir: ENGINES_DIR, name: e.name }))
+  ];
+
   let count = 0;
 
-  for (const entry of entries) {
-    if (!entry.isDirectory()) continue;
-
-    const pkgDir = path.join(PACKAGES_DIR, entry.name);
+  for (const pkg of allPackages) {
+    const pkgDir = path.join(pkg.dir, pkg.name);
 
     if (!(await hasPackageJson(pkgDir))) {
       continue;
@@ -66,11 +76,11 @@ async function main() {
     try {
       content = await readFile(readmePath, 'utf-8');
     } catch {
-      console.warn(`  ⚠  ${entry.name} — no README.md`);
+      console.warn(`  ⚠  ${pkg.name} — no README.md`);
       continue;
     }
 
-    const displayName = PACKAGE_NAMES[entry.name] || kebabToTitle(entry.name);
+    const displayName = PACKAGE_NAMES[pkg.name] || kebabToTitle(pkg.name);
 
     const lines = content.split('\n');
 
@@ -106,15 +116,15 @@ description: "${escapeFrontmatter(tagline)}"
 category: "reference"
 tags:
   - reference
-  - ${entry.name}
+  - ${pkg.name}
 order: 20
 ---
 
 ${cleanContent}
 `;
 
-    await writeFile(path.join(REF_DIR, `${entry.name}.md`), doc);
-    console.log(`  ✓  ${entry.name} → reference/packages/${entry.name}.md`);
+    await writeFile(path.join(REF_DIR, `${pkg.name}.md`), doc);
+    console.log(`  ✓  ${pkg.name} → reference/packages/${pkg.name}.md`);
     count++;
   }
 
@@ -128,11 +138,22 @@ ${cleanContent}
     for (const file of refFiles) {
       if (!file.endsWith('.md')) continue;
       const pkgName = file.replace(/\.md$/, '');
-      const pkgDir = path.join(PACKAGES_DIR, pkgName);
-      const readmePath = path.join(pkgDir, 'README.md');
-      try {
-        await readFile(readmePath, 'utf-8');
-      } catch {
+      
+      const pkgDirRoot = path.join(PACKAGES_DIR, pkgName);
+      const pkgDirEngine = path.join(ENGINES_DIR, pkgName);
+      
+      let exists = false;
+      for (const dir of [pkgDirRoot, pkgDirEngine]) {
+        try {
+          await readFile(path.join(dir, 'README.md'), 'utf-8');
+          exists = true;
+          break;
+        } catch {
+          // ignore
+        }
+      }
+      
+      if (!exists) {
         await unlink(path.join(REF_DIR, file));
         console.log(`  ✗  ${file} — source package removed`);
         pruned++;

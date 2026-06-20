@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { render } from '../core/visualizations/render';
+import { render } from '@repo/sequence-engine/visualizations/render';
 import type {
   CanvasViewport,
   LayerConfigEntry
-} from '../core/visualizations/types';
+} from '@repo/sequence-engine/visualizations/types';
 
 export function useCanvasRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,

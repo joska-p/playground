@@ -1,6 +1,6 @@
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
-import { getAllRules } from '../../core/rules/registry';
+import { getAllRules } from '@repo/sequence-engine/rules';
 import { setSequenceRule } from '../../stores/sequence/actions';
 import { useSequenceRule } from '../../stores/sequence/selectors/useSequenceRule';
 

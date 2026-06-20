@@ -1,9 +1,9 @@
-import type { SequenceRule } from '../../core/rules/types';
+import type { SequenceRule } from '@repo/sequence-engine/rules/types';
 import type {
   CanvasViewport,
   LayerConfigEntry,
   PresetRecord
-} from '../../core/visualizations/types';
+} from '@repo/sequence-engine/visualizations/types';
 
 type SequenceState = {
   sequenceRule: SequenceRule;

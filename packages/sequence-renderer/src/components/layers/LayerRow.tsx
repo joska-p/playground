@@ -4,7 +4,7 @@ import type { JSX } from 'react';
 import type {
   ParamDescriptor,
   VisualLayer
-} from '../../core/visualizations/types';
+} from '@repo/sequence-engine/visualizations/types';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 
 type LayerRowProps = {

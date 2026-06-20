@@ -1,6 +1,6 @@
 import { Slider } from '@repo/ui/Slider';
 import type { JSX } from 'react';
-import type { ParamDescriptor } from '../../core/visualizations/types';
+import type { ParamDescriptor } from '@repo/sequence-engine/visualizations/types';
 
 type LayerOptionsPanelProps = {
   params: Record<string, ParamDescriptor>;

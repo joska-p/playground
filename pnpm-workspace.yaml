@@ -1,6 +1,7 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+  - 'packages/engines/*'
 allowBuilds:
   canvas: true
   esbuild: true
