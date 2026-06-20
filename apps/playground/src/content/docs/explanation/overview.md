@@ -48,7 +48,7 @@ The codebase follows a **monorepo** structure with clear separation between the 
 | `packages/sequence-renderer`  | Math sequence visualization engine                      |
 | `packages/palette-generator`  | Color theory scheme generator                           |
 | `packages/randomart`          | Procedural art from mathematical expression trees       |
-| `packages/image-pipeline`     | Image processing pipeline (runs transforms via workers) |
+| `packages/pixel`              | Image processing pipeline (runs transforms via workers) |
 | `packages/image-to-particles` | Image → particle physics deconstruction                 |
 | `packages/image-manipulator`  | Image upload, transform, and compare UI                 |
 | `packages/graph-viz`          | Interactive graph visualization                         |

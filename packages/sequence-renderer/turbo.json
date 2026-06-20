@@ -1,8 +1,0 @@
-{
-  "extends": ["//"],
-  "tasks": {
-    "build": {
-      "dependsOn": ["@repo/ui#build"]
-    }
-  }
-}

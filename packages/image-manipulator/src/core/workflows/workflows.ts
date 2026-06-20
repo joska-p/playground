@@ -1,4 +1,4 @@
-import type { Step } from '@repo/image-pipeline';
+import type { Step } from '@repo/pixel';
 
 type WorkflowPresetStep = Step;
 

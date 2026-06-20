@@ -23,7 +23,7 @@
     "@repo/config-eslint": "workspace:*",
     "@repo/graph-viz": "workspace:*",
     "@repo/image-manipulator": "workspace:*",
-    "@repo/image-pipeline": "workspace:*",
+    "@repo/pixel": "workspace:*",
     "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",
     "@repo/palette-generator": "workspace:*",

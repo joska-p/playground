@@ -22,7 +22,7 @@ const PACKAGE_NAMES = {
   'image-to-particles': 'Image to Particles',
   'palette-generator': 'Palette Generator',
   'graph-viz': 'Graph Visualization',
-  'image-pipeline': 'Image Pipeline',
+  pixel: 'Pixel',
   'three-stage': 'Three Stage',
   'radu-machine-learning': 'Radu Machine Learning',
   ui: 'UI Components',

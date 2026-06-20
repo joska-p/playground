@@ -17,7 +17,7 @@
     "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {
-    "@repo/image-pipeline": "workspace:*",
+    "@repo/pixel": "workspace:*",
     "@repo/ui": "workspace:*",
     "zustand": "catalog:"
   },

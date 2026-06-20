@@ -1,7 +1,7 @@
 ---
-title: "Randomart"
-description: "Random expression-tree art generator. Uses a grammar-driven engine to build stochastic expression trees, then renders them via CPU (Canvas 2D with Web Workers) or GPU (WebGL fragment shaders)."
-category: "reference"
+title: 'Randomart'
+description: 'Random expression-tree art generator. Uses a grammar-driven engine to build stochastic expression trees, then renders them via CPU (Canvas 2D with Web Workers) or GPU (WebGL fragment shaders).'
+category: 'reference'
 tags:
   - reference
   - randomart
@@ -232,4 +232,3 @@ Switching from WebGL to Canvas while animation is running pauses the time loop. 
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

@@ -44,13 +44,14 @@ Every engine defines a **pluggable unit** — a plain data object or factory
 function that encodes a specific behavior. Definitions are registered in a
 `Map<id, Definition>` and the UI consumes them automatically.
 
-| Package             | Definition       | Creation helper        | Registry location                                         |
-| :------------------ | :--------------- | :--------------------- | :-------------------------------------------------------- |
-| `sequence-engine`   | `SequenceRule`   | `createRule()`         | `packages/engines/sequence-engine/src/rules/registry.ts`  |
-| `automa`            | `Rule`           | `parseRule()`          | `src/core/rules/registry.ts`                              |
-| `image-pipeline`    | `Manipulation`   | inline manifest object | `src/core/registry.ts` (implicit in facade)               |
-| `image-manipulator` | `PixelCallback`  | factory function       | `src/manipulations/` (exported, no explicit registry Map) |
-| `mosaic-maker`      | `TileDefinition` | inline object array    | `core/TILE_REGISTRY.ts` (flat array)                      |
+| Package             | Definition       | Creation helper        | Registry location                                                    |
+| :------------------ | :--------------- | :--------------------- | :------------------------------------------------------------------- |
+| `sequence-engine`   | `SequenceRule`   | `createRule()`         | `packages/engines/sequence-engine/src/rules/registry.ts`             |
+| `automa`            | `Rule`           | `parseRule()`          | `src/core/rules/registry.ts`                                         |
+| `palette-engine`    | `Rule`           | inline object          | `packages/engines/palette-engine/src/rules/`                         |
+| `pixel-engine`      | `Manipulation`   | inline manifest object | `packages/engines/pixel-engine/src/registry.ts` (implicit in facade) |
+| `image-manipulator` | `PixelCallback`  | factory function       | `src/manipulations/` (exported, no explicit registry Map)            |
+| `mosaic-maker`      | `TileDefinition` | inline object array    | `core/TILE_REGISTRY.ts` (flat array)                                 |
 
 **Adding a new entry** means: define it, register it, and the UI updates
 automatically. No wiring.
@@ -81,10 +82,10 @@ Runs in a Web Worker via `@repo/worker-pool`. The `evolve` function is fully
 generic — it reads `birth[]`/`survive[]` lookups from the rule and handles
 multi-state aging. Grid data transfers use zero-copy `Transferable` buffers.
 
-### Step pipeline (`image-pipeline`)
+### Step pipeline (`pixel`)
 
 ```
-ImageData + Step[] → imagePipeline.run() → ImageData[]
+ImageData + Step[] → pixel.run() → ImageData[]
 ```
 
 Dispatches to a Web Worker pool (up to `hardwareConcurrency`). Consecutive
@@ -166,10 +167,10 @@ ErrorBoundary (@repo/ui/ErrorBoundary)
 
 Two packages offload computation to workers via `@repo/worker-pool`:
 
-| Package          | Worker use                          | Pool config                        |
-| :--------------- | :---------------------------------- | :--------------------------------- |
-| `automa`         | Single worker, `Transferable` grids | `maxPoolSize: 1`                   |
-| `image-pipeline` | Pool of N workers, FIFO queue       | `maxPoolSize: hardwareConcurrency` |
+| Package  | Worker use                          | Pool config                        |
+| :------- | :---------------------------------- | :--------------------------------- |
+| `automa` | Single worker, `Transferable` grids | `maxPoolSize: 1`                   |
+| `pixel`  | Pool of N workers, FIFO queue       | `maxPoolSize: hardwareConcurrency` |
 
 Both use `Transferable` buffers for zero-copy memory transfer. Workers are
 stateless (registry rebuilt per invocation). Call `teardown()` on app shutdown.
@@ -195,7 +196,8 @@ stateless (registry rebuilt per invocation). Call `teardown()` on app shutdown.
 | :------------------ | :----------------- | :------------------ | :------------- | :---------------------------------- |
 | `sequence-engine`   | 5 rules, 2 presets | Pure function       | Canvas 2D      | rule, steps, vizId, sequence        |
 | `automa`            | 3 rules            | Web Worker, ticked  | R3F + shaders  | rule, grid, running, brush, colors  |
-| `image-pipeline`    | 18 manipulations   | Worker pool, fused  | Canvas 2D      | (no store — stateless facade)       |
+| `palette-engine`    | 4 rules            | Pure function       | (no render)    | (no store — stateless facade)       |
+| `pixel`             | 18 manipulations   | Worker pool, fused  | Canvas 2D      | (no store — stateless facade)       |
 | `image-manipulator` | 8 callbacks        | Fluent, single loop | Canvas 2D      | image, steps, presets               |
 | `mosaic-maker`      | 8 tile shapes      | Constraint-driven   | CSS Grid + SVG | tiles, palette, tileSet, dimensions |
 

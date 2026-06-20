@@ -17,6 +17,16 @@ by [@jpotin](https://gitlab.com/jpotin)
 | **Sequences**    | Visualize mathematical sequences            | [`@repo/sequence-renderer`](./packages/sequence-renderer)   |
 | **Palettes**     | Color theory scheme generator               | [`@repo/palette-generator`](./packages/palette-generator)   |
 | **Particles**    | Physics-based particle deconstruction       | [`@repo/image-to-particles`](./packages/image-to-particles) |
+| **Pixel**        | Image manipulation pipeline                 | [`@repo/pixel`](./packages/pixel)                           |
+
+### Engines
+
+| Engine              | Description                     | Package                                                       |
+| ------------------- | ------------------------------- | ------------------------------------------------------------- |
+| **automa-engine**   | Cellular automata core          | [`@repo/automa-engine`](./packages/engines/automa-engine)     |
+| **sequence-engine** | Mathematical sequence generator | [`@repo/sequence-engine`](./packages/engines/sequence-engine) |
+| **palette-engine**  | Color spaces + harmony rules    | [`@repo/palette-engine`](./packages/engines/palette-engine)   |
+| **pixel-engine**    | Image manipulation core         | [`@repo/pixel-engine`](./packages/engines/pixel-engine)       |
 
 ---
 

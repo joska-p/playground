@@ -1,4 +1,4 @@
-import type { ArgDefinition } from '@repo/image-pipeline';
+import type { ArgDefinition } from '@repo/pixel';
 import { Slider } from '@repo/ui/Slider';
 
 type WorkflowStepArgSliderProps = {

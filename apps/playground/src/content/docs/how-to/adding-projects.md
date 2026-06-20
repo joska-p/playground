@@ -76,7 +76,7 @@ const components: Record<string, React.ComponentType> = {
 };
 ```
 
-**Note:** If your package's root export (`"."`) does not point to `src/App.tsx` (as with `@repo/image-pipeline`, whose root export is the API module), use the subpath export instead:
+**Note:** If your package's root export (`"."`) does not point to `src/App.tsx` (as with `@repo/pixel`, whose root export is the API module), use the subpath export instead:
 
 ```tsx
 import { App as MyProjectApp } from '@repo/my-project/App';

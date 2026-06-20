@@ -1,10 +1,10 @@
-import { imagePipeline } from '@repo/image-pipeline';
+import { pixel } from '@repo/pixel';
 import { Button } from '@repo/ui/Button';
 import { Select } from '@repo/ui/Select';
 import { useState } from 'react';
 import { addWorkflowStep } from '../../stores/manipulator/actions';
 
-const manipulationIds = Object.keys(imagePipeline.manipulations);
+const manipulationIds = Object.keys(pixel.manipulations);
 
 function ManipulationSelector() {
   const [manipulationId, setManipulationId] = useState(manipulationIds[0]);
@@ -22,7 +22,7 @@ function ManipulationSelector() {
             key={id}
             value={id}
           >
-            {imagePipeline.manipulations[id]?.name ?? id}
+            {pixel.manipulations[id]?.name ?? id}
           </option>
         ))}
       </Select>

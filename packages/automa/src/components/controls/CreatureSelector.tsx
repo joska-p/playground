@@ -1,5 +1,5 @@
-import { Select } from '@repo/ui/Select';
 import { getAllCreatures } from '@repo/automa-engine/creature/registry';
+import { Select } from '@repo/ui/Select';
 import { setPaletteBrush } from '../../stores/ui/actions';
 import { usePaletteBrush } from '../../stores/ui/selectors';
 

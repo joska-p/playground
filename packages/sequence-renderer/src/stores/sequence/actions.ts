@@ -1,10 +1,10 @@
 import { generateSequence } from '@repo/sequence-engine';
 import type { SequenceRule } from '@repo/sequence-engine/rules/types';
-import { getLayer } from '@repo/sequence-engine/visualizations/layers/registry';
 import {
   getAllPresets,
   savePreset as persistPreset
 } from '@repo/sequence-engine/visualizations';
+import { getLayer } from '@repo/sequence-engine/visualizations/layers/registry';
 import type {
   CanvasViewport,
   PresetRecord

@@ -1,4 +1,3 @@
-import { create } from 'zustand';
 import { generateSequence } from '@repo/sequence-engine';
 import { recamanRule } from '@repo/sequence-engine/rules/recaman';
 import {
@@ -6,12 +5,16 @@ import {
   getAllPresets
 } from '@repo/sequence-engine/visualizations';
 import type { LayerConfigEntry } from '@repo/sequence-engine/visualizations/types';
+import { create } from 'zustand';
 import type { SequenceState } from './types';
 
 function buildDefaultLayers(): LayerConfigEntry[] {
   const firstPreset = builtInPresets[0];
   if (firstPreset)
-    return firstPreset.layers.map((l: LayerConfigEntry) => ({ ...l, params: { ...l.params } }));
+    return firstPreset.layers.map((l: LayerConfigEntry) => ({
+      ...l,
+      params: { ...l.params }
+    }));
   return [];
 }
 

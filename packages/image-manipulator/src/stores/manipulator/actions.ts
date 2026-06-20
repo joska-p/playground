@@ -1,4 +1,4 @@
-import { imagePipeline } from '@repo/image-pipeline';
+import { pixel } from '@repo/pixel';
 import { manipulatorStore } from './store';
 import type { OutputType, WorkflowStep } from './types';
 
@@ -20,7 +20,7 @@ function clearOutputs() {
 
 function addWorkflowStep(id: string) {
   const { workflow } = manipulatorStore.getState();
-  const entry = imagePipeline.manipulations[id];
+  const entry = pixel.manipulations[id];
   manipulatorStore.setState({
     workflow: [
       ...workflow,
@@ -75,7 +75,7 @@ async function executeWorkflow() {
 
   manipulatorStore.setState({ isProcessing: true });
   try {
-    const results = await imagePipeline.run({
+    const results = await pixel.run({
       sourceImageData: imageSource.imageData,
       steps: workflow.map((step) => ({ id: step.id, options: step.options }))
     });

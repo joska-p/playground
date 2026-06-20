@@ -74,10 +74,7 @@ const drawMountain: VisualLayer = {
 
     const dLast = data[data.length - 1];
     if (dLast === undefined) return;
-    ctx.lineTo(
-      offsetX + dLast * valueScale,
-      offsetY + gradHeight
-    );
+    ctx.lineTo(offsetX + dLast * valueScale, offsetY + gradHeight);
     ctx.lineTo(offsetX + d0 * valueScale, offsetY + gradHeight);
     ctx.closePath();
     ctx.fill();

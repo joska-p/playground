@@ -10,7 +10,7 @@ const ImageManipulatorApp = React.lazy(() =>
   import('@repo/image-manipulator').then((m) => ({ default: m.App }))
 );
 const PipelineApp = React.lazy(() =>
-  import('@repo/image-pipeline/App').then((m) => ({ default: m.App }))
+  import('@repo/pixel/App').then((m) => ({ default: m.App }))
 );
 const ParticlesApp = React.lazy(() =>
   import('@repo/image-to-particles').then((m) => ({ default: m.App }))

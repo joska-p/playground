@@ -1,6 +1,6 @@
+import { getAllPresets } from '@repo/sequence-engine/visualizations';
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
-import { getAllPresets } from '@repo/sequence-engine/visualizations';
 import { loadPreset } from '../../stores/sequence/actions';
 import { useBasePresetId } from '../../stores/sequence/selectors/useBasePresetId';
 

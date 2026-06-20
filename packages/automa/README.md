@@ -82,5 +82,6 @@ Drawing maps pointer events on the 3D plane to grid cell indices using `useCellP
 Each state gets its own color swatch. The number of swatches is driven by the active rule's `stateCount` — switch to a 3-state rule and a third row appears automatically.
 
 ---
+
 _See [@repo/automa-engine](/docs/reference/packages/automa-engine) for core simulation logic, rules, and engine API._
 _Part of @repo/playground_

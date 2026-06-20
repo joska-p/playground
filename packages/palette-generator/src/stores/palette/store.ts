@@ -1,6 +1,6 @@
+import type { Palette } from '@repo/palette-engine/types';
 import Color from 'colorjs.io';
 import { create } from 'zustand';
-import type { Palette } from '../../core/rules/types';
 
 type PaletteState = {
   palettes: Palette[];

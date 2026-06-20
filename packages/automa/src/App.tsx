@@ -1,13 +1,13 @@
-import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
-import { Sidebar } from '@repo/ui/Sidebar';
-import { useEffect } from 'react';
-import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
-import { Controls } from './components/controls/Controls.tsx';
 import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
   GRID_DEFAULT_ROWS
 } from '@repo/automa-engine/config';
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
+import { Sidebar } from '@repo/ui/Sidebar';
+import { useEffect } from 'react';
+import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
+import { Controls } from './components/controls/Controls.tsx';
 import { destroy, init } from './stores/simulation/actions';
 
 type AppProps = {

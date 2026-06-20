@@ -1,7 +1,7 @@
 ---
-title: "A pool of worker"
-description: "You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown."
-category: "reference"
+title: 'A pool of worker'
+description: 'You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.'
+category: 'reference'
 tags:
   - reference
   - worker-pool
@@ -16,7 +16,7 @@ You already know how to write a Web Worker: you create it with `new Worker(...)`
 
 This package does that. You provide three hooks (`workerFactory`, `serialize`, `deserialize`) that describe _your_ worker. It handles dispatch, concurrency, queuing, and teardown.
 
-Three packages (`automa`, `graph-viz`, `image-pipeline`) each invented their own version of this same boilerplate. This module extracts the common shape into a single, testable interface.
+Three packages (`automa`, `graph-viz`, `pixel`) each invented their own version of this same boilerplate. This module extracts the common shape into a single, testable interface.
 
 ## Spec
 
@@ -100,11 +100,11 @@ pool.teardown();
 
 ### Image pipeline — transferables + custom error protocol
 
-The `image-pipeline` pattern: workers receive image data via zero-copy transfer, the worker may return either results or an error object.
+The `pixel` pattern: workers receive image data via zero-copy transfer, the worker may return either results or an error object.
 
 ```typescript
 import { WorkerPool } from '@repo/worker-pool';
-import type { Step } from '@repo/image-pipeline';
+import type { Step } from '@repo/pixel';
 
 type Task = { image: ImageData; steps: Step[]; maxPixels?: number };
 type Result = ImageData[];
@@ -242,4 +242,3 @@ pnpm --filter @repo/worker-pool check-types
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

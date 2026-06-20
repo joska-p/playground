@@ -1,10 +1,10 @@
-import { Button } from '@repo/ui/Button';
-import { Switch } from '@repo/ui/Switch';
-import type { JSX } from 'react';
 import type {
   ParamDescriptor,
   VisualLayer
 } from '@repo/sequence-engine/visualizations/types';
+import { Button } from '@repo/ui/Button';
+import { Switch } from '@repo/ui/Switch';
+import type { JSX } from 'react';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 
 type LayerRowProps = {

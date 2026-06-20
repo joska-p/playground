@@ -1,4 +1,3 @@
-import { createStore } from 'zustand/vanilla';
 import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_ROWS,
@@ -6,6 +5,7 @@ import {
 } from '@repo/automa-engine/config';
 import { createGrid } from '@repo/automa-engine/grid';
 import type { Grid } from '@repo/automa-engine/types';
+import { createStore } from 'zustand/vanilla';
 
 type SimulationState = {
   grid: Grid;

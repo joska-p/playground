@@ -1,7 +1,7 @@
+import { getAllLayers } from '@repo/sequence-engine/visualizations/layers/registry';
 import { Button } from '@repo/ui/Button';
 import type { JSX } from 'react';
 import { useState } from 'react';
-import { getAllLayers } from '@repo/sequence-engine/visualizations/layers/registry';
 import {
   addLayer,
   moveLayerDown,
