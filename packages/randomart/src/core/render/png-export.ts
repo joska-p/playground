@@ -2,13 +2,13 @@ import { encode } from 'fast-png';
 import type { ExpressionNode } from '../types';
 import { renderTreesToImageDataAsync } from './cpu-renderer';
 
-async function renderTreesToPngBase64Async(
+async function renderTreesToPngBlobAsync(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
   treeB: ExpressionNode,
   size: number,
   time: number = 0
-): Promise<string> {
+): Promise<Blob> {
   const imageData = await renderTreesToImageDataAsync(
     treeR,
     treeG,
@@ -25,11 +25,7 @@ async function renderTreesToPngBase64Async(
     depth: 8
   });
 
-  const binaryString = Array.from(pngBuffer)
-    .map((byte) => String.fromCharCode(byte))
-    .join('');
-
-  return `data:image/png;base64,${btoa(binaryString)}`;
+  return new Blob([new Uint8Array(pngBuffer)], { type: 'image/png' });
 }
 
-export { renderTreesToPngBase64Async };
+export { renderTreesToPngBlobAsync };

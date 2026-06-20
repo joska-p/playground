@@ -10,9 +10,9 @@ function App() {
       <Sidebar
         desktopPosition="left"
         mobilePosition="bottom"
-        className="bg-background text-foreground h-screen"
+        className="bg-background text-foreground"
       >
-        <Sidebar.Panel className="flex h-full w-96 flex-col gap-6 overflow-y-auto p-4">
+        <Sidebar.Panel className="h-screen w-96 space-y-4 overflow-y-auto p-4">
           <h2 className="text-sm font-semibold tracking-wide">RandomArt</h2>
           <Controls />
         </Sidebar.Panel>

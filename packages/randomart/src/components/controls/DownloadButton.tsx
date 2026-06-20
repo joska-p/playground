@@ -1,7 +1,9 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
-import { renderTreesToPngBase64Async } from '../../core/render/png-export';
+import { renderTreesToPngBlobAsync } from '../../core/render/png-export';
 import {
+  useCorrelatedRGB,
+  useRenderMode,
   useSeedText,
   useTreeB,
   useTreeG,
@@ -11,28 +13,60 @@ import { randomartStore } from '../../stores/randomart/store';
 
 const DOWNLOAD_SIZE = 1024;
 
+function triggerDownload(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = url;
+  link.click();
+  // Revoke after a tick so the browser has time to start the download.
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 export function DownloadButton() {
   const [downloading, setDownloading] = useState(false);
+  const renderMode = useRenderMode();
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
+  const correlatedRGB = useCorrelatedRGB();
   const seedText = useSeedText();
+
+  const filename = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
 
   async function handleDownload() {
     setDownloading(true);
     try {
+      if (renderMode === 'glsl') {
+        // GPU mode: snapshot the live canvas to capture the GLSL shader output
+        // including all animation behaviors at the current time.
+        const liveCanvas = document.querySelector<HTMLCanvasElement>('canvas');
+        const blob = liveCanvas
+          ? await new Promise<Blob | null>((resolve) =>
+              liveCanvas.toBlob(resolve, 'image/png')
+            )
+          : null;
+        if (blob && blob.size > 0) {
+          triggerDownload(blob, filename);
+          return;
+        }
+      }
+
+      // CPU mode (or GPU canvas.toBlob fallback): re-render via the worker pool.
+      // Apply the same correlatedRGB transform that RandomArtCanvas uses.
+      const exportR = correlatedRGB ? treeR.args[0] : treeR;
+      const exportG = correlatedRGB ? treeR.args[1] : treeG;
+      const exportB = correlatedRGB ? treeR.args[2] : treeB;
       const currentTime = randomartStore.getState().time;
-      const dataUri = await renderTreesToPngBase64Async(
-        treeR,
-        treeG,
-        treeB,
+
+      const blob = await renderTreesToPngBlobAsync(
+        exportR,
+        exportG,
+        exportB,
         DOWNLOAD_SIZE,
         currentTime
       );
-      const link = document.createElement('a');
-      link.download = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
-      link.href = dataUri;
-      link.click();
+      triggerDownload(blob, filename);
     } catch (err) {
       console.error('Download render failed:', err);
     } finally {

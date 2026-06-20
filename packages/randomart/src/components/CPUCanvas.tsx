@@ -18,11 +18,11 @@ export function CPUCanvas({ treeR, treeG, treeB }: Props) {
   return (
     <div
       ref={containerRef}
-      className="h-full"
+      className="h-full p-4"
     >
       <canvas
         ref={canvasRef}
-        className="aspect-square h-full"
+        className="mx-auto aspect-square h-full rounded-sm"
       />
     </div>
   );
