@@ -10,6 +10,7 @@ export function PlaybackButton() {
       type="button"
       onClick={toggleRunning}
       variant="outline"
+      size="sm"
     >
       {running ? (
         <>

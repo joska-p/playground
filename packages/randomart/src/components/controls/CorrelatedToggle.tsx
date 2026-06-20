@@ -10,7 +10,7 @@ export function CorrelatedToggle() {
       type="button"
       onClick={() => setCorrelatedRGB(!correlatedRGB)}
       variant="outline"
-      className="w-fit"
+      size="sm"
       title={
         correlatedRGB ? 'Switch to independent RGB' : 'Switch to correlated RGB'
       }

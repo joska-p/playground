@@ -1,29 +1,27 @@
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
 import { Controls } from './components/controls/Controls';
-import { GrammarList } from './components/controls/GrammarList';
-import { InspectorPanel } from './components/inspector/InspectorPanel';
+import { FloatingInspector } from './components/inspector/FloatingInspector';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
 
 function App() {
   return (
     <ErrorBoundary>
       <Sidebar
-        desktopPosition="right"
+        desktopPosition="left"
         mobilePosition="bottom"
         className="bg-background text-foreground h-screen"
       >
-        <Sidebar.Main className="mx-auto flex w-full flex-col gap-6 overflow-y-auto p-4 sm:p-8">
+        <Sidebar.Panel className="flex h-full w-96 flex-col gap-6 overflow-y-auto p-4">
+          <h2 className="text-sm font-semibold tracking-wide">RandomArt</h2>
           <Controls />
-          <div className="flex min-h-0 flex-1 items-center justify-center">
-            <RandomArtCanvas />
-          </div>
-          <GrammarList />
-        </Sidebar.Main>
-
-        <Sidebar.Panel className="hidden flex-col gap-4 overflow-y-auto p-4 lg:flex! lg:h-full lg:w-96">
-          <InspectorPanel />
         </Sidebar.Panel>
+
+        <Sidebar.Main className="bg-background border-border relative h-full overflow-hidden border-r-2 border-l">
+          <Sidebar.Toggle className="absolute top-3 left-3 z-20" />
+          <RandomArtCanvas />
+          <FloatingInspector />
+        </Sidebar.Main>
       </Sidebar>
     </ErrorBoundary>
   );

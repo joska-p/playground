@@ -7,6 +7,7 @@ export function ShuffleButton() {
       type="button"
       onClick={() => setSeedText(Math.random().toString(36).slice(2, 10))}
       variant="outline"
+      size={'sm'}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

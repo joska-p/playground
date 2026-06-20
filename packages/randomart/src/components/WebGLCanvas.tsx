@@ -2,7 +2,6 @@ import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useRef } from 'react';
 import type { ExpressionNode } from '../core/types';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
-import { CANVAS_CLASS } from './canvasClass';
 
 type Props = {
   treeR: ExpressionNode;
@@ -20,12 +19,11 @@ export function WebGLCanvas({ treeR, treeG, treeB, running }: Props) {
   return (
     <div
       ref={containerRef}
-      className={CANVAS_CLASS.container}
+      className="h-full p-4"
     >
       <canvas
         ref={canvasRef}
-        className={CANVAS_CLASS.canvas}
-        style={{ aspectRatio: '1' }}
+        className="mx-auto aspect-square h-full rounded-sm"
       />
     </div>
   );

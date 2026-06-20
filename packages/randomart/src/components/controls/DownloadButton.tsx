@@ -46,6 +46,7 @@ export function DownloadButton() {
       onClick={handleDownload}
       variant="primary"
       disabled={downloading}
+      className="col-span-2"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

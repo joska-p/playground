@@ -2,6 +2,7 @@ import { AnimationSpeed } from './AnimationSpeed';
 import { AnimationToggle } from './AnimationToggle';
 import { CorrelatedToggle } from './CorrelatedToggle';
 import { DownloadButton } from './DownloadButton';
+import { GrammarList } from './GrammarList';
 import { MaxDepth } from './MaxDepth';
 import { PlaybackButton } from './PlaybackButton';
 import { RenderModeToggle } from './RenderModeToggle';
@@ -12,18 +13,21 @@ import { TimeDisplay } from './TimeDisplay';
 
 export function Controls() {
   return (
-    <div className="flex flex-wrap items-end gap-4">
-      <SeedInput />
+    <div className="grid h-full grid-cols-3 items-end justify-between gap-2">
+      <div className="col-span-full">
+        <SeedInput />
+      </div>
       <MaxDepth />
-      <ShuffleButton />
-      <PlaybackButton />
+      <DownloadButton />
       <TimeDisplay />
-      <ResetTimeButton />
       <AnimationSpeed />
-      <AnimationToggle />
       <RenderModeToggle />
       <CorrelatedToggle />
-      <DownloadButton />
+      <ShuffleButton />
+      <PlaybackButton />
+      <ResetTimeButton />
+      <AnimationToggle />
+      <GrammarList />
     </div>
   );
 }

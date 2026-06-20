@@ -12,7 +12,7 @@ export function AnimationSpeed() {
 
   return (
     <Slider
-      className="mt-0 w-fit py-0"
+      className="col-span-2 mt-0 py-0"
       label="Animation speed"
       min={0}
       max={2}

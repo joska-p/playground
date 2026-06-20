@@ -11,7 +11,7 @@ export function TimeDisplay() {
       variant="outline"
       label="Time"
       value={`${time.toFixed(2)}s`}
-      className="w-fit"
+      readOnly
     />
   );
 }
