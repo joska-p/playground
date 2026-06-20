@@ -7,7 +7,7 @@ import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
   GRID_DEFAULT_ROWS
-} from './core/config';
+} from '@repo/automa-engine/config';
 import { destroy, init } from './stores/simulation/actions';
 
 type AppProps = {

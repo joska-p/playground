@@ -14,6 +14,7 @@ const REF_DIR = path.join(
 
 const PACKAGE_NAMES = {
   automa: 'automa',
+  'automa-engine': 'Automa Engine',
   'mosaic-maker': 'Mosaic Maker',
   'sequence-renderer': 'Sequence Renderer',
   'sequence-engine': 'Sequence Engine',
@@ -138,10 +139,10 @@ ${cleanContent}
     for (const file of refFiles) {
       if (!file.endsWith('.md')) continue;
       const pkgName = file.replace(/\.md$/, '');
-      
+
       const pkgDirRoot = path.join(PACKAGES_DIR, pkgName);
       const pkgDirEngine = path.join(ENGINES_DIR, pkgName);
-      
+
       let exists = false;
       for (const dir of [pkgDirRoot, pkgDirEngine]) {
         try {
@@ -152,7 +153,7 @@ ${cleanContent}
           // ignore
         }
       }
-      
+
       if (!exists) {
         await unlink(path.join(REF_DIR, file));
         console.log(`  ✗  ${file} — source package removed`);

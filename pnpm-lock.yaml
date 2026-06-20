@@ -352,6 +352,9 @@ importers:
       '@react-three/fiber':
         specifier: 'catalog:'
         version: 9.6.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
+      '@repo/automa-engine':
+        specifier: workspace:*
+        version: link:../engines/automa-engine
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
@@ -441,6 +444,21 @@ importers:
       typescript-eslint:
         specifier: 'catalog:'
         version: 8.61.0(eslint@10.4.1(jiti@2.7.0))(typescript@6.0.3)
+
+  packages/engines/automa-engine:
+    devDependencies:
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../../config-eslint
+      '@tsconfig/strictest':
+        specifier: 'catalog:'
+        version: 2.0.8
+      eslint:
+        specifier: 'catalog:'
+        version: 10.4.1(jiti@2.7.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
 
   packages/engines/sequence-engine:
     devDependencies:

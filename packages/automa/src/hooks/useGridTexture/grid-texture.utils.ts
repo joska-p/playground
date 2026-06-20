@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MAX_STATE_COUNT } from '../../core/config';
+import { MAX_STATE_COUNT } from '@repo/automa-engine/config';
 
 export type GridUniforms = ReturnType<typeof buildGridUniforms>;
 

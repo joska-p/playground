@@ -1,4 +1,4 @@
-import { createSeededRandom } from '../utils/rng';
+import { createSeededRandom } from './rng';
 import type { Grid } from './types';
 
 const createGrid = (rows: number, cols: number): Grid =>

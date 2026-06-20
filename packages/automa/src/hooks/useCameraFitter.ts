@@ -1,7 +1,7 @@
 import { useThree } from '@react-three/fiber';
 import { useLayoutEffect } from 'react';
 import type { OrthographicCamera } from 'three';
-import { CAMERA_Z } from '../core/config';
+import { CAMERA_Z } from '@repo/automa-engine/config';
 import { fitCameraToGrid } from '../utils/camera';
 
 const useCameraFitter = (cols: number, rows: number): void => {

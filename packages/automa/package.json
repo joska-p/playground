@@ -22,6 +22,7 @@
     "three": "catalog:",
     "@repo/ui": "workspace:*",
     "@repo/worker-pool": "workspace:*",
+    "@repo/automa-engine": "workspace:*",
     "zustand": "catalog:"
   },
   "peerDependencies": {

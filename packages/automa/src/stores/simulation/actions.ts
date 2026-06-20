@@ -3,11 +3,11 @@ import {
   GRID_DEFAULT_DENSITY,
   WORKER_MESSAGE_STEP,
   getDefaultStateColor
-} from '../../core/config';
-import type { Creature } from '../../core/creature/types';
-import { createGrid, seedGrid } from '../../core/grid';
-import { getRule } from '../../core/rules/registry';
-import type { CellValue } from '../../core/types';
+} from '@repo/automa-engine/config';
+import type { Creature } from '@repo/automa-engine/creature/types';
+import { createGrid, seedGrid } from '@repo/automa-engine/grid';
+import { getRule } from '@repo/automa-engine/rules/registry';
+import type { CellValue } from '@repo/automa-engine/types';
 import { uiStore } from '../ui/store';
 import { simulationStore } from './store';
 
@@ -34,7 +34,7 @@ type StepResponse = {
 const pool = new WorkerPool<StepRequest, StepResponse>({
   maxPoolSize: 1,
   workerFactory: () =>
-    new Worker(new URL('../../core/worker', import.meta.url), {
+    new Worker(new URL('@repo/automa-engine/worker', import.meta.url), {
       type: 'module'
     }),
   serialize: (task) => ({

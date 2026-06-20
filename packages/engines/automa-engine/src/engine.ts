@@ -35,7 +35,7 @@ function evolve(
   const maxState = rule.stateCount - 1;
 
   for (let index = 0; index < current.length; index++) {
-    const cellState = current[index];
+    const cellState = current[index]!;
     const row = (index / cols) | 0;
     const col = index % cols;
 

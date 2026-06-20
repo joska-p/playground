@@ -3,9 +3,9 @@ import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_ROWS,
   GRID_DEFAULT_SEED
-} from '../../core/config';
-import { createGrid } from '../../core/grid';
-import type { Grid } from '../../core/types';
+} from '@repo/automa-engine/config';
+import { createGrid } from '@repo/automa-engine/grid';
+import type { Grid } from '@repo/automa-engine/types';
 
 type SimulationState = {
   grid: Grid;

@@ -22,10 +22,10 @@ export const DEFAULT_STATE_COLORS: string[] = ['#070a14', '#d97706'];
 const STATE_FALLBACK_COLORS = ['#6b21a8', '#0891b2', '#059669', '#ca8a04'];
 
 export function getDefaultStateColor(index: number): string {
-  if (index < DEFAULT_STATE_COLORS.length) return DEFAULT_STATE_COLORS[index];
+  if (index < DEFAULT_STATE_COLORS.length) return DEFAULT_STATE_COLORS[index]!;
   return STATE_FALLBACK_COLORS[
     (index - DEFAULT_STATE_COLORS.length) % STATE_FALLBACK_COLORS.length
-  ];
+  ]!;
 }
 
 export const WORKER_MESSAGE_STEP = 'step';

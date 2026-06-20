@@ -1,7 +1,7 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useCallback } from 'react';
-import { getCreature } from '../../core/creature/registry';
-import { getShader } from '../../core/shaders/registry';
+import { getCreature } from '@repo/automa-engine/creature/registry';
+import { getShader } from '@repo/automa-engine/shaders/registry';
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useGridTexture } from '../../hooks/useGridTexture';
 import { paintCell, placePattern } from '../../stores/simulation/actions';

@@ -11,10 +11,10 @@ function parseRule(
 
   const [bPart, sPart] = notation.toUpperCase().split('/');
 
-  for (const ch of bPart.replace('B', '')) {
+  for (const ch of bPart!.replace('B', '')) {
     birth[Number(ch)] = true;
   }
-  for (const ch of sPart.replace('S', '')) {
+  for (const ch of sPart!.replace('S', '')) {
     survive[Number(ch)] = true;
   }
 

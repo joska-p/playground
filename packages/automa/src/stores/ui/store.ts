@@ -3,7 +3,7 @@ import {
   COLOR_GLOW,
   DEFAULT_STATE_COLORS,
   SPEED_DEFAULT_MS
-} from '../../core/config';
+} from '@repo/automa-engine/config';
 
 export type BrushMode = 'draw' | 'erase';
 

@@ -1,0 +1,31 @@
+{
+  "name": "@repo/automa-engine",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/engine.ts",
+    "./config": "./src/config.ts",
+    "./grid": "./src/grid.ts",
+    "./types": "./src/types.ts",
+    "./worker": "./src/worker.ts",
+    "./creature/builtin": "./src/creature/builtin.ts",
+    "./creature/registry": "./src/creature/registry.ts",
+    "./creature/types": "./src/creature/types.ts",
+    "./rules/registry": "./src/rules/registry.ts",
+    "./rules/types": "./src/rules/types.ts",
+    "./shaders/registry": "./src/shaders/registry.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf node_modules dist .turbo"
+  },
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@tsconfig/strictest": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

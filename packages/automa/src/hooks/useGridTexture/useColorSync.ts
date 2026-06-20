@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { MAX_STATE_COUNT } from '../../core/config';
+import { MAX_STATE_COUNT } from '@repo/automa-engine/config';
 import { type GridUniforms } from './grid-texture.utils';
 
 /**
