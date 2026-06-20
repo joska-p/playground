@@ -16,13 +16,13 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "react-error-boundary": "catalog:",
-    "zustand": "catalog:",
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
+    "@repo/ui": "workspace:*",
     "@types/three": "catalog:",
-    "three": "catalog:"
+    "react-error-boundary": "catalog:",
+    "three": "catalog:",
+    "zustand": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "eslint": "catalog:",
     "@repo/config-eslint": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
@@ -40,10 +39,12 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
+    "eslint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vite-plugin-glsl": "^1.6.0"
   }
 }

@@ -50,7 +50,7 @@ export default function createConfig(dirname) {
         '*.config.js',
         'vite.config.ts',
         'tailwind.config.ts',
-        'glsl.d.ts'
+        '**/*.d.ts'
       ],
       rules: {
         'import/no-default-export': 'off'

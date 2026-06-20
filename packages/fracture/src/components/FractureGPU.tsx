@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import fragShader from './shaders/basic.frag?raw';
-import vertShader from './shaders/basic.vert?raw';
+import fragmentShaderSrc from './shaders/basic.frag';
+import vertexShaderSrc from './shaders/basic.vert';
 
 function FractureGPU() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,65 +21,54 @@ function FractureGPU() {
     }
 
     gl.viewport(0, 0, width, height);
-
-    gl.clearColor(0.8, 0.1, 0.1, 1);
+    gl.clearColor(0.1, 0.1, 0.1, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
+    const program = gl.createProgram();
+    if (!program) {
+      console.error('program cannot be created.');
+      return;
+    }
+
     const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-    if (!vertexShader) return;
-    gl.shaderSource(vertexShader, vertShader);
+    if (!vertexShader) {
+      console.error('vertexShader cannot be created.');
+      return;
+    }
+    gl.shaderSource(vertexShader, vertexShaderSrc);
     gl.compileShader(vertexShader);
+    gl.attachShader(program, vertexShader);
 
     const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-    if (!fragmentShader) return;
-    gl.shaderSource(fragmentShader, fragShader);
+    if (!fragmentShader) {
+      console.error('fragmentShader cannot be created.');
+      return;
+    }
+    gl.shaderSource(fragmentShader, fragmentShaderSrc);
     gl.compileShader(fragmentShader);
-
-    const program = gl.createProgram();
-    if (!program) return;
-
-    gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
 
-    const bucket = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, bucket);
-
-    const vertices = new Float32Array([
-      0.0,
-      0.5, // Top Point
-      -0.5,
-      -0.5, // Bottom Left Point
-      0.5,
-      -0.5 // Bottom Right Point
-    ]);
-
-    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
     gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error(gl.getShaderInfoLog(vertexShader));
+      console.error(gl.getShaderInfoLog(fragmentShader));
+    }
+
     gl.useProgram(program);
 
-    // 1. Ask the shader program where the "position" variable lives
-    const positionAttributeLocation = gl.getAttribLocation(program, 'position');
+    const uPositionLoc = gl.getUniformLocation(program, 'uPosition');
+    gl.uniform2f(uPositionLoc, 0, -0.2);
 
-    // 2. Turn on the data stream for this attribute location
-    gl.enableVertexAttribArray(positionAttributeLocation);
+    const uPointSizeLoc = gl.getUniformLocation(program, 'uPointSize');
+    gl.uniform1f(uPointSizeLoc, 100);
 
-    // 3. Describe how to read the data (2 floating point numbers per vertex)
-    const size = 2; // 2 components per iteration (X, Y)
-    const type = gl.FLOAT; // the data is 32bit floats
-    const normalize = false; // don't normalize the data
-    const stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
-    const offset = 0; // start at the beginning of the buffer
-    gl.vertexAttribPointer(
-      positionAttributeLocation,
-      size,
-      type,
-      normalize,
-      stride,
-      offset
-    );
+    const uIndexLoc = gl.getUniformLocation(program, 'uIndex');
+    const uColorsLoc = gl.getUniformLocation(program, 'uColors');
+    gl.uniform1i(uIndexLoc, 1);
+    gl.uniform4fv(uColorsLoc, [1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0]);
 
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.drawArrays(gl.POINTS, 0, 1);
   }, []);
 
   return (
