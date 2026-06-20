@@ -38,7 +38,7 @@ const components: Record<string, React.ComponentType> = {
   palettes: PaletteApp,
   particles: ParticlesApp,
   'image-manipulator': ImageManipulatorApp,
-  Pixel: PixelApp,
+  pixel: PixelApp,
   graphify: GraphifyApp,
   'three-stage': ThreeStageApp,
   automa: AutomaApp
