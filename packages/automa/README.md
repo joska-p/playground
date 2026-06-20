@@ -84,4 +84,4 @@ Each state gets its own color swatch. The number of swatches is driven by the ac
 ---
 
 _See [@repo/automa-engine](/docs/reference/packages/automa-engine) for core simulation logic, rules, and engine API._
-_Part of @repo/playground_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_

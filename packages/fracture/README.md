@@ -1,13 +1,13 @@
-# @repo/{{name}}
+# @repo/fracture
 
-> Scaffolded demo showcasing Zustand + Zod.
+> Fractal visualization. For now.
 
 ---
 
 ## Quick Start
 
 ```bash
-pnpm --filter @repo/{{name}} dev
+pnpm --filter @repo/fracture dev
 ```
 
 ## Adding to the Playground
