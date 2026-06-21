@@ -35,7 +35,6 @@ export class Registry {
     this.manipulationsMap.set(definition.id, definition);
   }
 
-  // fallow-ignore-next-line unused-class-member
   get(identifier: string) {
     const definition = this.manipulationsMap.get(identifier);
     if (!definition) {

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./pixel": "./src/api/pixel.ts",
+    ".": "./src/api/pixel.ts",
     "./hooks/usePixel": "./src/hooks/usePixel.ts",
     "./App": "./src/App.tsx"
   },
