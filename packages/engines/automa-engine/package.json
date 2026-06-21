@@ -13,8 +13,7 @@
     "./creature/registry": "./src/creature/registry.ts",
     "./creature/types": "./src/creature/types.ts",
     "./rules/registry": "./src/rules/registry.ts",
-    "./rules/types": "./src/rules/types.ts",
-    "./shaders/registry": "./src/shaders/registry.ts"
+    "./rules/types": "./src/rules/types.ts"
   },
   "scripts": {
     "build": "tsc -b",

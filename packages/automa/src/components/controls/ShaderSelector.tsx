@@ -1,4 +1,4 @@
-import { getAllShaders } from '@repo/automa-engine/shaders/registry';
+import { getAllShaders } from '../../shaders/registry';
 import { Select } from '@repo/ui/Select';
 import { setShader } from '../../stores/ui/actions';
 import { useShaderId } from '../../stores/ui/selectors';
