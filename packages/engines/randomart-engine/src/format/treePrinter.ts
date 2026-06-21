@@ -1,24 +1,15 @@
 import { getRule } from '../grammar/registry';
 import type { ExpressionNode } from '../types';
 
-function formatNodeValue(node: ExpressionNode): string {
-  if (node.ruleId === 'constant' && node.constantValue !== undefined) {
-    return node.constantValue.toFixed(2);
-  }
-  return '';
-}
-
 export function nodeToMathString(node: ExpressionNode): string {
   if (node.ruleId === 'x') return 'x';
   if (node.ruleId === 'y') return 'y';
-  if (node.ruleId === 'constant') return formatNodeValue(node);
+  if (node.ruleId === 'constant') return (node.constantValue ?? 0).toFixed(2);
 
   const rule = getRule(node.ruleId);
   if (!rule) return '?';
 
-  const args = node.args.map(nodeToMathString);
-
-  return rule.toMathString(args);
+  return rule.toMathString(node.args.map(nodeToMathString));
 }
 
 export function nodeToTreeView(node: ExpressionNode, depth = 0): string {
@@ -28,14 +19,14 @@ export function nodeToTreeView(node: ExpressionNode, depth = 0): string {
     return `${indent}└── ${node.ruleId}\n`;
   }
   if (node.ruleId === 'constant') {
-    const val = formatNodeValue(node);
-    return `${indent}└── const(${val})\n`;
+    return `${indent}└── const(${(node.constantValue ?? 0).toFixed(2)})\n`;
   }
 
   const rule = getRule(node.ruleId);
   if (!rule) return `${indent}└── ?\n`;
 
-  const args = node.args.map((child) => nodeToTreeView(child, depth + 1));
-
-  return rule.toTreeView(args, depth);
+  return rule.toTreeView(
+    node.args.map((child) => nodeToTreeView(child, depth + 1)),
+    depth
+  );
 }

@@ -25,19 +25,13 @@ export function generateTrees(config: TreeConfig): TreeOutput {
   );
 
   if (config.correlated) {
+    // All three channels share one RNG stream so they get the same structural
+    // decisions, but they're built as separate trees — no aliasing.
     const rng = new SeededRandom(config.seedText + '_rgb');
-    const tree = {
-      ruleId: 'vec3',
-      args: [
-        buildTree(rng, rng, 0, config.maxDepth, rules),
-        buildTree(rng, rng, 0, config.maxDepth, rules),
-        buildTree(rng, rng, 0, config.maxDepth, rules)
-      ]
-    };
     return {
-      treeR: tree,
-      treeG: tree,
-      treeB: tree,
+      treeR: buildTree(rng, rng, 0, config.maxDepth, rules),
+      treeG: buildTree(rng, rng, 0, config.maxDepth, rules),
+      treeB: buildTree(rng, rng, 0, config.maxDepth, rules),
       rngR: rng,
       rngG: rng,
       rngB: rng
@@ -49,9 +43,12 @@ export function generateTrees(config: TreeConfig): TreeOutput {
   const rngG = new SeededRandom(config.seedText + '_green');
   const rngB = new SeededRandom(config.seedText + '_blue');
 
-  const treeR = buildTree(structureRng, rngR, 0, config.maxDepth, rules);
-  const treeG = buildTree(structureRng, rngG, 0, config.maxDepth, rules);
-  const treeB = buildTree(structureRng, rngB, 0, config.maxDepth, rules);
-
-  return { treeR, treeG, treeB, rngR, rngG, rngB };
+  return {
+    treeR: buildTree(structureRng, rngR, 0, config.maxDepth, rules),
+    treeG: buildTree(structureRng, rngG, 0, config.maxDepth, rules),
+    treeB: buildTree(structureRng, rngB, 0, config.maxDepth, rules),
+    rngR,
+    rngG,
+    rngB
+  };
 }

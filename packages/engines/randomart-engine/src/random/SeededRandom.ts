@@ -1,6 +1,10 @@
-class SeededRandom {
+// Maximum number of draws retained in choiceHistory.
+// Prevents unbounded growth during repeated tree generation or shader previews.
+const HISTORY_LIMIT = 1024;
+
+export class SeededRandom {
   private seed: number;
-  public initialHash: number;
+  public readonly initialHash: number;
   public choiceHistory: number[] = [];
 
   constructor(seedString: string) {
@@ -16,9 +20,10 @@ class SeededRandom {
     const x = Math.sin(this.seed++) * 10000;
     const result = x - Math.floor(x);
 
-    this.choiceHistory.push(result);
+    if (this.choiceHistory.length < HISTORY_LIMIT) {
+      this.choiceHistory.push(result);
+    }
+
     return result;
   }
 }
-
-export { SeededRandom };

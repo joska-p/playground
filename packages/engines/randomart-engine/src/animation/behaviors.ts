@@ -1,10 +1,4 @@
-export type AnimationBehavior = {
-  id: string;
-  name: string;
-  glslFunction: string;
-  type: 'spatial' | 'color';
-  applyCode: (timeVar: string, speedVar: string) => string;
-};
+import type { AnimationBehavior } from '../types';
 
 export const hueShiftBehavior: AnimationBehavior = {
   id: 'hue-shift',

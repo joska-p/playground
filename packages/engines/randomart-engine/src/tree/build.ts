@@ -2,6 +2,10 @@ import { getAllRules } from '../grammar/registry';
 import type { SeededRandom } from '../random/SeededRandom';
 import type { ExpressionNode, GrammarRule } from '../types';
 
+// Depth below which the shared structureRng drives category selection,
+// keeping the overall tree shape consistent across R/G/B channels.
+const STRUCTURE_RNG_DEPTH = 3;
+
 function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
   const totalWeight = rules.reduce((sum, r) => sum + r.weight, 0);
   let threshold = rng.next() * totalWeight;
@@ -20,30 +24,25 @@ export function buildTree(
   rules?: GrammarRule[]
 ): ExpressionNode {
   const availableRules = rules ?? getAllRules();
+  const rngToUse =
+    currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
 
+  // Decide category with a single RNG draw, then filter — avoids consuming
+  // one RNG value per structural rule (which made the sequence order-sensitive).
   const structuralProbability = 1 - currentDepth / maxDepth;
+  const useStructural = rngToUse.next() < structuralProbability;
 
-  const rngToUse = currentDepth < 3 ? structureRng : channelRng;
-
-  const pool = availableRules.filter((r) => {
-    if (r.category === 'terminal') return true;
-    return rngToUse.next() < structuralProbability;
-  });
-
-  const finalPool =
-    pool.length > 0
-      ? pool
+  const preferred = availableRules.filter((r) =>
+    useStructural ? r.category === 'structural' : r.category === 'terminal'
+  );
+  const pool =
+    preferred.length > 0
+      ? preferred
       : availableRules.filter((r) => r.category === 'terminal');
 
-  const idx = weightedPick(rngToUse, finalPool);
+  const idx = weightedPick(rngToUse, pool);
 
-  return finalPool[idx].buildNode(rngToUse, () => {
-    return buildTree(
-      structureRng,
-      channelRng,
-      currentDepth + 1,
-      maxDepth,
-      rules
-    );
-  });
+  return pool[idx].buildNode(rngToUse, () =>
+    buildTree(structureRng, channelRng, currentDepth + 1, maxDepth, rules)
+  );
 }

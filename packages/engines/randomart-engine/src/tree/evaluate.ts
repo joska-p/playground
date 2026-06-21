@@ -7,19 +7,14 @@ export function evaluateNode(
   y: number,
   t: number = 0
 ): number {
+  // Terminal nodes: early-exit before any rule lookup or arg construction
+  if (node.ruleId === 'x') return x;
+  if (node.ruleId === 'y') return y;
+  if (node.ruleId === 'constant') return node.constantValue ?? 0;
+
   const rule = getRule(node.ruleId);
   if (!rule) return 0;
 
-  if (node.ruleId === 'x') return x;
-  if (node.ruleId === 'y') return y;
-
-  const lazyArgs = node.args.map((child) => {
-    return () => evaluateNode(child, x, y, t);
-  });
-
-  if (rule.id === 'constant' && node.constantValue !== undefined) {
-    return node.constantValue;
-  }
-
+  const lazyArgs = node.args.map((child) => () => evaluateNode(child, x, y, t));
   return rule.evaluate(lazyArgs, x, y, t);
 }

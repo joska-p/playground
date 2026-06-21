@@ -23,3 +23,11 @@ export type GrammarRule = {
     buildChild: () => ExpressionNode
   ) => ExpressionNode;
 };
+
+export type AnimationBehavior = {
+  id: string;
+  name: string;
+  glslFunction: string;
+  type: 'spatial' | 'color';
+  applyCode: (timeVar: string, speedVar: string) => string;
+};
