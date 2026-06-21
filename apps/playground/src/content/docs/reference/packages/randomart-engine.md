@@ -15,43 +15,25 @@ Used by [`@repo/randomart`](../../randomart/) which adds the React UI, WebGL ren
 ## Exports
 
 ```typescript
+import type {
+  ExpressionNode,
+  GrammarRule,
+  TreeConfig,
+  TreeOutput
+} from '@repo/randomart-engine/types';
+import type { AnimationBehavior } from '@repo/randomart-engine/animation/behaviors';
+import { buildTree } from '@repo/randomart-engine/tree/build';
+import { evaluateNode } from '@repo/randomart-engine/tree/evaluate';
+import { generateTrees } from '@repo/randomart-engine/tree/generate';
+import { getRule, getAllRules } from '@repo/randomart-engine/grammar/registry';
+import { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
+import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
+import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
 import {
-  // Types
-  type ExpressionNode,
-  type GrammarRule,
-  type TreeConfig,
-  type TreeOutput,
-  type AnimationBehavior,
-
-  // Tree construction
-  buildTree,
-
-  // Tree evaluation (CPU render)
-  evaluateNode,
-
-  // Full tree generation with config
-  generateTrees,
-
-  // Grammar registry
-  getRule,
-  getAllRules,
-
-  // PRNG
-  SeededRandom,
-
-  // GLSL compilation
-  compileToGLSL,
-
-  // Animation behaviors
-  animationRegistry,
-
-  // Tree formatting
   nodeToMathString,
-  nodeToTreeView,
-
-  // CPU pixel buffer
-  renderTreesToBuffer
-} from '@repo/randomart-engine';
+  nodeToTreeView
+} from '@repo/randomart-engine/format/treePrinter';
+import { renderTreesToBuffer } from '@repo/randomart-engine/render/cpu-renderer';
 
 // PNG export (requires fast-png)
 import {

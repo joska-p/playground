@@ -1,4 +1,4 @@
-import { getAllRules } from '@repo/randomart-engine';
+import { getAllRules } from '@repo/randomart-engine/grammar/registry';
 import { Badge } from '@repo/ui/Badge';
 import { cn } from '@repo/ui/cn';
 import { toggleRule } from '../../stores/randomart/actions/config';

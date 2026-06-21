@@ -4,7 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    "./buffer-manager": "./src/buffer-manager.ts",
+    "./fusion-scheduler": "./src/fusion-scheduler.ts",
+    "./manipulation-factories": "./src/manipulation-factories.ts",
+    "./manipulations/manifest": "./src/manipulations/manifest.ts",
+    "./neighborhood-tiling": "./src/neighborhood-tiling.ts",
+    "./pipeline-runner": "./src/pipeline-runner.ts",
+    "./registry": "./src/registry.ts",
+    "./step-dispatcher": "./src/step-dispatcher.ts",
+    "./types": "./src/types.ts"
   },
   "scripts": {
     "check-types": "tsc --noEmit",

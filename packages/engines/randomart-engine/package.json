@@ -4,7 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
+    "./animation/behaviors": "./src/animation/behaviors.ts",
+    "./compile/compileToGLSL": "./src/compile/compileToGLSL.ts",
+    "./format/treePrinter": "./src/format/treePrinter.ts",
+    "./grammar/registry": "./src/grammar/registry.ts",
+    "./random/SeededRandom": "./src/random/SeededRandom.ts",
+    "./render/cpu-renderer": "./src/render/cpu-renderer.ts",
+    "./tree/build": "./src/tree/build.ts",
+    "./tree/evaluate": "./src/tree/evaluate.ts",
+    "./tree/generate": "./src/tree/generate.ts",
+    "./types": "./src/types.ts",
     "./png": "./src/png-export.ts"
   },
   "scripts": {

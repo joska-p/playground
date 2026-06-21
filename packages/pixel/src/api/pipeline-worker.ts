@@ -1,5 +1,7 @@
-import type { Step } from '@repo/pixel-engine';
-import { ALL_MANIPULATIONS, Registry, runPipeline } from '@repo/pixel-engine';
+import type { Step } from '@repo/pixel-engine/manipulations/manifest';
+import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
+import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
+import { Registry } from '@repo/pixel-engine/registry';
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;
 

@@ -1,4 +1,5 @@
-import type { ExpressionNode, SeededRandom } from '@repo/randomart-engine';
+import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
+import type { ExpressionNode } from '@repo/randomart-engine/types';
 
 export type RandomartState = {
   seedText: string;

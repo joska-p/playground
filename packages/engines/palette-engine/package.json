@@ -4,8 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/rules/types.ts"
+    "./colorSpaces": "./src/colorSpaces.ts",
+    "./generatePalette": "./src/generatePalette.ts",
+    "./rules/analogous": "./src/rules/analogous.ts",
+    "./rules/complementary": "./src/rules/complementary.ts",
+    "./rules/monochromatic": "./src/rules/monochromatic.ts",
+    "./rules/triadic": "./src/rules/triadic.ts",
+    "./types": "./src/types.ts"
   },
   "scripts": {
     "check-types": "tsc --noEmit",

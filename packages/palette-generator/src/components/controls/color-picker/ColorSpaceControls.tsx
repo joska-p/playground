@@ -1,4 +1,4 @@
-import { colorSpaces } from '@repo/palette-engine';
+import { colorSpaces } from '@repo/palette-engine/colorSpaces';
 import { Slider } from '@repo/ui/Slider';
 import { useRef, useState } from 'react';
 import { setPaletteBaseColor } from '../../../stores/palette/store';

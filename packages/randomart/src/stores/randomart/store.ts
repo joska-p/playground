@@ -1,4 +1,5 @@
-import { generateTrees, getAllRules } from '@repo/randomart-engine';
+import { getAllRules } from '@repo/randomart-engine/grammar/registry';
+import { generateTrees } from '@repo/randomart-engine/tree/generate';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import type { RandomartState } from './types';

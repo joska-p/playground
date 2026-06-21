@@ -1,4 +1,4 @@
-import type { Step } from '@repo/pixel-engine';
+import type { Step } from '@repo/pixel-engine/manipulations/manifest';
 import { useEffect, useState } from 'react';
 import { pixel } from '../api/pixel';
 

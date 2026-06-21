@@ -1,5 +1,6 @@
-import type { ArgDefinition, Step } from '@repo/pixel-engine';
-import { ALL_MANIPULATIONS } from '@repo/pixel-engine';
+import type { Step } from '@repo/pixel-engine/manipulations/manifest';
+import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
+import type { ArgDefinition } from '@repo/pixel-engine/types';
 import { WorkerPool } from '@repo/worker-pool';
 
 export type { ArgDefinition, Step };

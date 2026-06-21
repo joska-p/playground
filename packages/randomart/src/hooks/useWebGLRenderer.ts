@@ -1,4 +1,4 @@
-import type { ExpressionNode } from '@repo/randomart-engine';
+import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
 import { randomartStore } from '../stores/randomart/store';

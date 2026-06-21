@@ -1,4 +1,4 @@
-import { animationRegistry } from '@repo/randomart-engine';
+import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
 import { Button } from '@repo/ui/Button';
 import { toggleAnimationBehavior } from '../../stores/randomart/actions/animation';
 import { useActiveAnimationBehaviorIds } from '../../stores/randomart/selectors';

@@ -1,5 +1,5 @@
 import type Color from 'colorjs.io';
-import type { Rule } from './types';
+import type { Rule } from '../types';
 
 /**
  * Triadic color rule.

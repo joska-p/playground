@@ -1,4 +1,4 @@
-import { colorSpaces } from '@repo/palette-engine';
+import { colorSpaces } from '@repo/palette-engine/colorSpaces';
 import { useEffect, useMemo } from 'react';
 import { scaleTo255 } from '../../../utils/color';
 

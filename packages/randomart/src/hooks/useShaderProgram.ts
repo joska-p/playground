@@ -1,5 +1,6 @@
-import type { ExpressionNode } from '@repo/randomart-engine';
-import { animationRegistry, compileToGLSL } from '@repo/randomart-engine';
+import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
+import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
+import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
 import { randomartStore } from '../stores/randomart/store';

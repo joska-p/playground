@@ -15,23 +15,20 @@ Used by [`@repo/pixel`](../../pixel/) which adds React hooks, a Web Worker pool,
 ## Exports
 
 ```typescript
-import {
-  type Step,
-  type ManipulationDefinition,
-  type ArgDefinition,
-  type Access,
-  registry,
-  bufferManager,
-  fusionScheduler,
-  stepDispatcher,
-  pipelineRunner,
-  manipulationFactories,
-  neighborhoodTiling,
-  getManifest,
-  getManipulation,
-  getManipulationsByAccess,
-  pipelineWorker
-} from '@repo/pixel-engine';
+import { BufferManager } from '@repo/pixel-engine/buffer-manager';
+import { FusionScheduler } from '@repo/pixel-engine/fusion-scheduler';
+import { defineManip } from '@repo/pixel-engine/manipulation-factories';
+import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
+import { runNeighborhoodTiled } from '@repo/pixel-engine/neighborhood-tiling';
+import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
+import { Registry } from '@repo/pixel-engine/registry';
+import { dispatchStep } from '@repo/pixel-engine/step-dispatcher';
+import type {
+  Step,
+  ManipulationDefinition,
+  ArgDefinition,
+  Access
+} from '@repo/pixel-engine/types';
 ```
 
 ## Architecture

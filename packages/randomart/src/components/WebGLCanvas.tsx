@@ -1,4 +1,4 @@
-import type { ExpressionNode } from '@repo/randomart-engine';
+import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useRef } from 'react';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
