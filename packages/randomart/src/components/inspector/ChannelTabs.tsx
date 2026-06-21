@@ -8,6 +8,40 @@ import {
 
 const channels: ('red' | 'green' | 'blue')[] = ['red', 'green', 'blue'];
 
+const LinkIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+  </svg>
+);
+
+const SplitIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M16 3h5v5" />
+    <path d="M8 3H3v5" />
+    <path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3" />
+    <path d="m15 9 6-6" />
+  </svg>
+);
+
 export function ChannelTabs() {
   const activeChannel = useActiveChannel();
   const correlated = useCorrelatedRGB();
@@ -29,40 +63,12 @@ export function ChannelTabs() {
         >
           {correlated ? (
             <>
-              {/* link icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-2.5 w-2.5"
-              >
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-              </svg>
+              <LinkIcon className="h-2.5 w-2.5" />
               Linked
             </>
           ) : (
             <>
-              {/* split icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-2.5 w-2.5"
-              >
-                <path d="M16 3h5v5" />
-                <path d="M8 3H3v5" />
-                <path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3" />
-                <path d="m15 9 6-6" />
-              </svg>
+              <SplitIcon className="h-2.5 w-2.5" />
               Split
             </>
           )}
@@ -79,20 +85,21 @@ export function ChannelTabs() {
       {/* Tabs */}
       <div
         className={cn('grid grid-cols-3 gap-2', {
-          // Linked: wrap all tabs in a subtle amber outline to show they share a root
           'rounded-lg p-1 ring-1 ring-amber-500/20': correlated
         })}
       >
         {channels.map((channel) => (
           <Button
             key={channel}
-            onClick={() => setActiveChannel(channel)}
+            // In correlated mode all channels share one tree — switching is
+            // meaningless and causes downstream components to crash.
+            onClick={correlated ? undefined : () => setActiveChannel(channel)}
+            disabled={correlated}
             variant="primary"
             className={cn('inline-flex flex-col text-xs break-all', {
               'bg-background text-muted-foreground hover:text-primary-foreground':
-                activeChannel !== channel,
-              // Linked: tint inactive tabs amber to reinforce connection
-              'opacity-60': correlated && activeChannel !== channel
+                !correlated && activeChannel !== channel,
+              'cursor-not-allowed opacity-60': correlated
             })}
           >
             <span className="flex items-center gap-1.5">
@@ -111,19 +118,7 @@ export function ChannelTabs() {
       {correlated && (
         <div className="flex items-center gap-1 px-1">
           <div className="h-px flex-1 bg-amber-500/30" />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-3 w-3 text-amber-500/50"
-          >
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-          </svg>
+          <LinkIcon className="h-3 w-3 text-amber-500/50" />
           <div className="h-px flex-1 bg-amber-500/30" />
         </div>
       )}
