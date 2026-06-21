@@ -1,7 +1,7 @@
-import { getAllRules } from '../../../core/grammar/registry';
-import { SeededRandom } from '../../../core/random/SeededRandom';
-import { buildTree } from '../../../core/tree/build';
-import type { ExpressionNode } from '../../../core/types';
+import { getAllRules } from '../grammar/registry';
+import { SeededRandom } from '../random/SeededRandom';
+import type { ExpressionNode } from '../types';
+import { buildTree } from './build';
 
 export type TreeConfig = {
   seedText: string;

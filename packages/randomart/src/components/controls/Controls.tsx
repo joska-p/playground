@@ -5,7 +5,6 @@ import { DownloadButton } from './DownloadButton';
 import { GrammarList } from './GrammarList';
 import { MaxDepth } from './MaxDepth';
 import { PlaybackButton } from './PlaybackButton';
-import { RenderModeToggle } from './RenderModeToggle';
 import { ResetTimeButton } from './ResetTimeButton';
 import { SeedInput } from './SeedInput';
 import { ShuffleButton } from './ShuffleButton';
@@ -21,7 +20,6 @@ export function Controls() {
       <DownloadButton />
       <TimeDisplay />
       <AnimationSpeed />
-      <RenderModeToggle />
       <CorrelatedToggle />
       <ShuffleButton />
       <PlaybackButton />

@@ -21,10 +21,8 @@ export function buildTree(
 ): ExpressionNode {
   const availableRules = rules ?? getAllRules();
 
-  // Bias towards structural rules earlier in the tree, and terminals later
   const structuralProbability = 1 - currentDepth / maxDepth;
 
-  // Use shared structural RNG for first 3 levels, then channel specific RNG
   const rngToUse = currentDepth < 3 ? structureRng : channelRng;
 
   const pool = availableRules.filter((r) => {
@@ -32,7 +30,6 @@ export function buildTree(
     return rngToUse.next() < structuralProbability;
   });
 
-  // Ensure we have at least one rule
   const finalPool =
     pool.length > 0
       ? pool

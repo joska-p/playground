@@ -5,7 +5,6 @@
   "type": "module",
   "exports": {
     ".": "./src/App.tsx",
-    "./renderPixelMapAsBase64": "./src/core/renderer.ts",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {
@@ -17,9 +16,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/randomart-engine": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@repo/worker-pool": "workspace:*",
-    "fast-png": "catalog:",
     "zustand": "catalog:"
   },
   "peerDependencies": {

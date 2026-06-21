@@ -1,0 +1,23 @@
+{
+  "name": "@repo/randomart-engine",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./png": "./src/png-export.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf node_modules dist .turbo"
+  },
+  "dependencies": {
+    "fast-png": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@tsconfig/strictest": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

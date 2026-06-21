@@ -8,10 +8,6 @@ float random2d(vec2 co) {
   return fract(sin(dot_) * 43758.5453);
 }
 
-// 1D smooth value noise over time.
-// hash1 gives a pseudo-random scalar for each integer step;
-// smoothstep interpolation between steps makes it C1 continuous.
-// Looks non-repeating for all practical animation durations.
 float hash1(float n) {
   return fract(sin(n * 127.1) * 43758.5453);
 }
@@ -21,7 +17,6 @@ float smoothNoise(float t) {
   float u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
   return mix(hash1(i), hash1(i + 1.0), u);
 }
-// Two independent noise channels for vec2 output
 vec2 smoothNoise2(float t) {
   return vec2(smoothNoise(t), smoothNoise(t + 31.71));
 }
@@ -80,7 +75,6 @@ ${GLSL_PREAMBLE(behaviors)}
     ${spatialCode}
     vec3 color = (${frag} + 1.0) / 2.0;
 
-    // De-saturate mathematical clustering
     float luma = dot(color, vec3(0.299, 0.587, 0.114));
     color = mix(vec3(luma), color, 0.65);
 
@@ -102,7 +96,6 @@ ${GLSL_PREAMBLE(behaviors)}
   float b = ${fragB};
   vec3 color = (vec3(r, g, b) + 1.0) / 2.0;
 
-  // De-saturate mathematical clustering
   float luma = dot(color, vec3(0.299, 0.587, 0.114));
   color = mix(vec3(luma), color, 0.65);
 

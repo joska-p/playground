@@ -1,9 +1,8 @@
+import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
-import { renderTreesToPngBlobAsync } from '../../core/render/png-export';
 import {
   useCorrelatedRGB,
-  useRenderMode,
   useSeedText,
   useTreeB,
   useTreeG,
@@ -19,13 +18,11 @@ function triggerDownload(blob: Blob, filename: string) {
   link.download = filename;
   link.href = url;
   link.click();
-  // Revoke after a tick so the browser has time to start the download.
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 export function DownloadButton() {
   const [downloading, setDownloading] = useState(false);
-  const renderMode = useRenderMode();
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
@@ -34,32 +31,33 @@ export function DownloadButton() {
 
   const filename = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
 
-  async function handleDownload() {
+  function handleDownload() {
     setDownloading(true);
-    try {
-      if (renderMode === 'glsl') {
-        // GPU mode: snapshot the live canvas to capture the GLSL shader output
-        // including all animation behaviors at the current time.
-        const liveCanvas = document.querySelector<HTMLCanvasElement>('canvas');
-        const blob = liveCanvas
-          ? await new Promise<Blob | null>((resolve) =>
-              liveCanvas.toBlob(resolve, 'image/png')
-            )
-          : null;
+
+    const liveCanvas = document.querySelector<HTMLCanvasElement>('canvas');
+    if (liveCanvas) {
+      liveCanvas.toBlob((blob) => {
         if (blob && blob.size > 0) {
           triggerDownload(blob, filename);
+          setDownloading(false);
           return;
         }
-      }
+        fallbackDownload();
+      }, 'image/png');
+      return;
+    }
 
-      // CPU mode (or GPU canvas.toBlob fallback): re-render via the worker pool.
-      // Apply the same correlatedRGB transform that RandomArtCanvas uses.
+    fallbackDownload();
+  }
+
+  function fallbackDownload() {
+    try {
       const exportR = correlatedRGB ? treeR.args[0] : treeR;
       const exportG = correlatedRGB ? treeR.args[1] : treeG;
       const exportB = correlatedRGB ? treeR.args[2] : treeB;
       const currentTime = randomartStore.getState().time;
 
-      const blob = await renderTreesToPngBlobAsync(
+      const blob = renderTreesToPngBlob(
         exportR,
         exportG,
         exportB,
@@ -68,7 +66,7 @@ export function DownloadButton() {
       );
       triggerDownload(blob, filename);
     } catch (err) {
-      console.error('Download render failed:', err);
+      console.error('Fallback render failed:', err);
     } finally {
       setDownloading(false);
     }

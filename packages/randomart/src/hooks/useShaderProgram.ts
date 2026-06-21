@@ -1,8 +1,7 @@
+import type { ExpressionNode } from '@repo/randomart-engine';
+import { animationRegistry, compileToGLSL } from '@repo/randomart-engine';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
-import { animationRegistry } from '../core/animation/behaviors';
-import { compileToGLSL } from '../core/compile/compileToGLSL';
-import type { ExpressionNode } from '../core/types';
 import { randomartStore } from '../stores/randomart/store';
 
 const VERTEX_SHADER_SOURCE = `

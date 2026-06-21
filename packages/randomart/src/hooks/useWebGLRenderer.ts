@@ -1,6 +1,6 @@
+import type { ExpressionNode } from '@repo/randomart-engine';
 import { useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
-import type { ExpressionNode } from '../core/types';
 import { randomartStore } from '../stores/randomart/store';
 import { useAnimationLoop } from './useAnimationLoop';
 import { useShaderProgram } from './useShaderProgram';

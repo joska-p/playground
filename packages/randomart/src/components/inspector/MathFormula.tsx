@@ -1,4 +1,4 @@
-import { nodeToMathString } from '../../core/format/treePrinter';
+import { nodeToMathString } from '@repo/randomart-engine';
 import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function MathFormula() {

@@ -1,6 +1,5 @@
+import type { ExpressionNode, SeededRandom } from '@repo/randomart-engine';
 import { useStore } from 'zustand';
-import type { SeededRandom } from '../../core/random/SeededRandom';
-import type { ExpressionNode } from '../../core/types';
 import { randomartStore } from './store';
 // — Config fields —
 export function useSeedText(): string {
@@ -17,9 +16,6 @@ export function useCorrelatedRGB(): boolean {
 }
 export function useActiveChannel(): 'red' | 'green' | 'blue' {
   return useStore(randomartStore, (s) => s.activeChannel);
-}
-export function useRenderMode(): 'canvas' | 'glsl' {
-  return useStore(randomartStore, (s) => s.renderMode);
 }
 export function useRunning(): boolean {
   return useStore(randomartStore, (s) => s.running);

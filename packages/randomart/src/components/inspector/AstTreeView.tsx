@@ -1,4 +1,4 @@
-import { nodeToTreeView } from '../../core/format/treePrinter';
+import { nodeToTreeView } from '@repo/randomart-engine';
 import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function AstTreeView() {

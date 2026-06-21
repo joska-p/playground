@@ -1,6 +1,6 @@
+import { getAllRules } from '@repo/randomart-engine';
 import { Badge } from '@repo/ui/Badge';
 import { cn } from '@repo/ui/cn';
-import { getAllRules } from '../../core/grammar/registry';
 import { toggleRule } from '../../stores/randomart/actions/config';
 import { useEnabledRuleIds } from '../../stores/randomart/selectors';
 

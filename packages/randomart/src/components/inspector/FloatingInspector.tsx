@@ -12,7 +12,7 @@ export function FloatingInspector() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close inspector' : 'Open inspector'}
         aria-expanded={open}
-        className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card/80 text-foreground shadow-md backdrop-blur-sm transition-colors hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="border-border bg-card/80 text-foreground hover:bg-card focus-visible:ring-ring absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border shadow-md backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
         title={open ? 'Close inspector' : 'Open inspector'}
       >
         {open ? (
@@ -27,8 +27,18 @@ export function FloatingInspector() {
             strokeLinejoin="round"
             className="h-4 w-4"
           >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
+            <line
+              x1="18"
+              y1="6"
+              x2="6"
+              y2="18"
+            />
+            <line
+              x1="6"
+              y1="6"
+              x2="18"
+              y2="18"
+            />
           </svg>
         ) : (
           /* Microscope / inspect icon */
@@ -57,7 +67,7 @@ export function FloatingInspector() {
         <div
           role="dialog"
           aria-label="Inspector"
-          className="absolute top-12 right-3 z-10 flex w-80 max-h-[calc(100%-4rem)] flex-col gap-4 overflow-y-auto rounded-lg border border-border bg-card/90 p-4 shadow-xl backdrop-blur-md"
+          className="border-border bg-card/90 absolute top-12 right-3 z-10 flex max-h-[calc(100%-4rem)] w-80 flex-col gap-4 overflow-y-auto rounded-lg border p-4 shadow-xl backdrop-blur-md"
         >
           <InspectorPanel />
         </div>

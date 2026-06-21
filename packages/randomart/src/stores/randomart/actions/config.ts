@@ -1,4 +1,4 @@
-import { getAllRules, getRule } from '../../../core/grammar/registry';
+import { getAllRules, getRule } from '@repo/randomart-engine';
 import { randomartStore } from '../store';
 
 export function setSeedText(seedText: string): void {

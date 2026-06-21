@@ -1,5 +1,4 @@
-import type { SeededRandom } from '../../core/random/SeededRandom';
-import type { ExpressionNode } from '../../core/types';
+import type { ExpressionNode, SeededRandom } from '@repo/randomart-engine';
 
 export type RandomartState = {
   seedText: string;
@@ -15,7 +14,6 @@ export type RandomartState = {
   running: boolean;
   time: number;
   animationSpeed: number;
-  renderMode: 'canvas' | 'glsl';
   correlatedRGB: boolean;
   activeAnimationBehaviorIds: string[];
 };

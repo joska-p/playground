@@ -1,7 +1,6 @@
+import { generateTrees, getAllRules } from '@repo/randomart-engine';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { getAllRules } from '../../core/grammar/registry';
-import { generateTrees } from './actions/trees';
 import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
@@ -24,7 +23,6 @@ function generateInitial(): RandomartState {
     running: false,
     time: 0,
     animationSpeed: 0.3,
-    renderMode: 'glsl',
     correlatedRGB: false,
     activeAnimationBehaviorIds: ['hue-shift']
   };

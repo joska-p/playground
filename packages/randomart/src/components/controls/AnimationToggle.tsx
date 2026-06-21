@@ -1,5 +1,5 @@
+import { animationRegistry } from '@repo/randomart-engine';
 import { Button } from '@repo/ui/Button';
-import { animationRegistry } from '../../core/animation/behaviors';
 import { toggleAnimationBehavior } from '../../stores/randomart/actions/animation';
 import { useActiveAnimationBehaviorIds } from '../../stores/randomart/selectors';
 
