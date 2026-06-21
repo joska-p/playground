@@ -1,7 +1,7 @@
 ---
-title: "Randomart Engine"
-description: "Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React."
-category: "reference"
+title: 'Randomart Engine'
+description: 'Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React.'
+category: 'reference'
 tags:
   - reference
   - randomart-engine
@@ -50,11 +50,14 @@ import {
   nodeToTreeView,
 
   // CPU pixel buffer
-  renderTreesToBuffer,
+  renderTreesToBuffer
 } from '@repo/randomart-engine';
 
 // PNG export (requires fast-png)
-import { renderTreesToPngBuffer, renderTreesToPngBlob } from '@repo/randomart-engine/png';
+import {
+  renderTreesToPngBuffer,
+  renderTreesToPngBlob
+} from '@repo/randomart-engine/png';
 ```
 
 ## Architecture
@@ -80,7 +83,7 @@ Recursive AST node representing a mathematical expression:
 
 ```ts
 type ExpressionNode = {
-  ruleId: string;        // e.g. "sin", "add", "constant"
+  ruleId: string; // e.g. "sin", "add", "constant"
   args: ExpressionNode[]; // child nodes
   constantValue?: number; // set when ruleId === "constant"
 };
@@ -95,7 +98,7 @@ const { treeR, treeG, treeB } = generateTrees({
   seedText: 'hello world',
   maxDepth: 8,
   enabledRuleIds: ['x', 'y', 'sin', 'cos', 'add', 'multiply', 'constant'],
-  correlated: false,
+  correlated: false
 });
 ```
 
@@ -114,7 +117,10 @@ type GrammarRule = {
   toGLSL: (args: string[]) => string;
   toMathString: (args: string[]) => string;
   toTreeView: (args: string[], depth: number) => string;
-  buildNode: (rng: SeededRandom, buildChild: () => ExpressionNode) => ExpressionNode;
+  buildNode: (
+    rng: SeededRandom,
+    buildChild: () => ExpressionNode
+  ) => ExpressionNode;
 };
 ```
 
@@ -158,7 +164,7 @@ export const myRule = {
   toMathString: (args) => `2 · ${args[0]}`,
   toGLSL: (args) => `(2.0 * ${args[0]})`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── double\n${args[0]}`,
-  buildNode: (_rng, buildChild) => ({ ruleId: 'double', args: [buildChild()] }),
+  buildNode: (_rng, buildChild) => ({ ruleId: 'double', args: [buildChild()] })
 } satisfies GrammarRule;
 ```
 
@@ -171,7 +177,13 @@ import { renderTreesToBuffer } from '@repo/randomart-engine';
 import { encode } from 'fast-png';
 
 const buffer = renderTreesToBuffer(treeR, treeG, treeB, 512, 0);
-const png = encode({ width: 512, height: 512, data: buffer, channels: 4, depth: 8 });
+const png = encode({
+  width: 512,
+  height: 512,
+  data: buffer,
+  channels: 4,
+  depth: 8
+});
 ```
 
 ### GLSL compilation
@@ -179,7 +191,7 @@ const png = encode({ width: 512, height: 512, data: buffer, channels: 4, depth: 
 ```ts
 import { compileToGLSL, animationRegistry } from '@repo/randomart-engine';
 
-const activeBehaviors = animationRegistry.filter(b =>
+const activeBehaviors = animationRegistry.filter((b) =>
   ['hue-shift', 'zoom'].includes(b.id)
 );
 
@@ -215,4 +227,3 @@ src/
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

@@ -1,13 +1,12 @@
 ---
-title: "Sequence Engine"
-description: "Core engine for mathematical sequence generation and visualization, independent of UI."
-category: "reference"
+title: 'Sequence Engine'
+description: 'Core engine for mathematical sequence generation and visualization, independent of UI.'
+category: 'reference'
 tags:
   - reference
   - sequence-engine
 order: 20
 ---
-
 
 # @repo/sequence-engine
 
@@ -43,4 +42,3 @@ export const myRule = createRule({
 import { myRule } from './myRule';
 rules.set(myRule.id, myRule);
 ```
-

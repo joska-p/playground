@@ -1,7 +1,7 @@
 ---
-title: "automa"
-description: "Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering."
-category: "reference"
+title: 'automa'
+description: 'Interactive Cellular Automaton simulator with pluggable rules, Web Worker stepping, Zustand state management, and React Three Fiber rendering.'
+category: 'reference'
 tags:
   - reference
   - automa
@@ -93,4 +93,3 @@ Each state gets its own color swatch. The number of swatches is driven by the ac
 
 _See [@repo/automa-engine](/docs/reference/packages/automa-engine) for core simulation logic, rules, and engine API._
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-
