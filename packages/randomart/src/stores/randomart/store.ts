@@ -33,21 +33,33 @@ export const randomartStore = createStore<RandomartState>()(
   devtools(() => generateInitial(), { name: 'RandomartStore' })
 );
 
-// Reactive subscriber: auto-regenerate trees when config changes
-randomartStore.subscribe((state, prev) => {
-  const configChanged =
-    state.seedText !== prev.seedText ||
-    state.maxDepth !== prev.maxDepth ||
-    state.enabledRuleIds !== prev.enabledRuleIds ||
-    state.correlatedRGB !== prev.correlatedRGB;
-  if (!configChanged) return;
+/**
+ * Centrally batches updates to tree configuration fields and safely
+ * recalculates the generative math trees within the exact same atomic state transition.
+ */
+export function updateTreeConfig(
+  updater: (state: RandomartState) => Partial<RandomartState>,
+  actionName?: string
+): void {
+  const currentState = randomartStore.getState();
+  const partialNext = updater(currentState);
 
-  const trees = generateTrees({
-    seedText: state.seedText,
-    maxDepth: state.maxDepth,
-    enabledRuleIds: state.enabledRuleIds,
-    correlated: state.correlatedRGB
+  // Create an integrated next state frame to calculate next trees cleanly
+  const nextState = { ...currentState, ...partialNext };
+
+  const recalculatedTrees = generateTrees({
+    seedText: nextState.seedText,
+    maxDepth: nextState.maxDepth,
+    enabledRuleIds: nextState.enabledRuleIds,
+    correlated: nextState.correlatedRGB
   });
 
-  randomartStore.setState({ ...trees, time: 0 });
-});
+  randomartStore.setState(
+    {
+      ...partialNext,
+      ...recalculatedTrees
+    },
+    false,
+    actionName ?? 'config/updateTreeConfig'
+  );
+}

@@ -1,12 +1,12 @@
-import { getAllRules, getRule } from '@repo/randomart-engine/grammar/registry';
-import { randomartStore } from '../store';
+import { getRule } from '@repo/randomart-engine/grammar/registry';
+import { randomartStore, updateTreeConfig } from '../store';
 
 export function setSeedText(seedText: string): void {
-  randomartStore.setState({ seedText }, false, 'config/setSeedText');
+  updateTreeConfig(() => ({ seedText }), 'config/setSeedText');
 }
 
 export function setMaxDepth(maxDepth: number): void {
-  randomartStore.setState({ maxDepth }, false, 'config/setMaxDepth');
+  updateTreeConfig(() => ({ maxDepth }), 'config/setMaxDepth');
 }
 
 export function setAnimationSpeed(speed: number): void {
@@ -18,25 +18,29 @@ export function setAnimationSpeed(speed: number): void {
 }
 
 export function toggleRule(ruleId: string): void {
-  const state = randomartStore.getState();
-  const rule = getRule(ruleId);
-  if (!rule) return;
+  updateTreeConfig((state) => {
+    const rule = getRule(ruleId);
+    if (!rule) return {};
 
-  if (state.enabledRuleIds.includes(ruleId) && rule.arity === 0) {
-    const otherTerminals = getAllRules().filter(
-      (r) =>
-        r.arity === 0 && r.id !== ruleId && state.enabledRuleIds.includes(r.id)
-    );
-    if (otherTerminals.length === 0) return;
-  }
+    const isCurrentlyEnabled = state.enabledRuleIds.includes(ruleId);
 
-  const enabled = state.enabledRuleIds.includes(ruleId)
-    ? state.enabledRuleIds.filter((id) => id !== ruleId)
-    : [...state.enabledRuleIds, ruleId];
+    // Safeguard: Check if this is a terminal rule, and if disabling it leaves the pool empty
+    if (isCurrentlyEnabled && rule.category === 'terminal') {
+      const activeTerminalsCount = state.enabledRuleIds.filter((id) => {
+        const targetRule = getRule(id);
+        return targetRule && targetRule.category === 'terminal';
+      }).length;
 
-  randomartStore.setState(
-    { enabledRuleIds: enabled },
-    false,
-    `config/toggleRule (${ruleId})`
-  );
+      // Block the change explicitly if it compromises the absolute fallback terminal leaf node boundary
+      if (activeTerminalsCount <= 1) {
+        return {};
+      }
+    }
+
+    const nextEnabledIds = isCurrentlyEnabled
+      ? state.enabledRuleIds.filter((id) => id !== ruleId)
+      : [...state.enabledRuleIds, ruleId];
+
+    return { enabledRuleIds: nextEnabledIds };
+  }, `config/toggleRule (${ruleId})`);
 }

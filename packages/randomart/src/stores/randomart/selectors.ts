@@ -2,7 +2,8 @@ import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
 import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
-// — Config fields —
+
+// --- Direct Configuration Selectors ---
 export function useSeedText(): string {
   return useStore(randomartStore, (s) => s.seedText);
 }
@@ -28,7 +29,7 @@ export function useActiveAnimationBehaviorIds(): string[] {
   return useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
 }
 
-// — Derived artifacts —
+// --- Raw Channel Selectors ---
 export function useTreeR(): ExpressionNode {
   return useStore(randomartStore, (s) => s.treeR);
 }
@@ -39,28 +40,33 @@ export function useTreeB(): ExpressionNode {
   return useStore(randomartStore, (s) => s.treeB);
 }
 
-// — Active channel selectors: only subscribe to the relevant tree/rng (fixes R6) —
+// --- Defensive Structure Projection Selector ---
 export function useSelectedTree(): ExpressionNode {
   return useStore(randomartStore, (s) => {
-    const tree =
+    const rootTree =
       s.activeChannel === 'red'
         ? s.treeR
         : s.activeChannel === 'green'
           ? s.treeG
           : s.treeB;
-    if (s.correlatedRGB) {
+
+    if (s.correlatedRGB && rootTree && rootTree.args) {
       const idx =
         s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
-      return tree.args[idx] as ExpressionNode;
+      // Safely fetch channel-specific subtree, fallback cleanly to root context if layout shifts
+      return rootTree.args[idx] ?? rootTree;
     }
-    return tree;
+
+    return rootTree;
   });
 }
 
 export function useSelectedRng(): SeededRandom {
   return useStore(randomartStore, (s) => {
-    if (s.activeChannel === 'red') return s.rngR;
-    if (s.activeChannel === 'green') return s.rngG;
-    return s.rngB;
+    return s.activeChannel === 'red'
+      ? s.rngR
+      : s.activeChannel === 'green'
+        ? s.rngG
+        : s.rngB;
   });
 }

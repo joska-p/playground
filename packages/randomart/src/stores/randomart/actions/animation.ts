@@ -1,18 +1,16 @@
 import { randomartStore } from '../store';
 
-export function toggleAnimationBehavior(id: string) {
+export function toggleAnimationBehavior(id: string): void {
   const { activeAnimationBehaviorIds } = randomartStore.getState();
   const isActive = activeAnimationBehaviorIds.includes(id);
 
-  if (isActive) {
-    randomartStore.setState({
-      activeAnimationBehaviorIds: activeAnimationBehaviorIds.filter(
-        (bId) => bId !== id
-      )
-    });
-  } else {
-    randomartStore.setState({
-      activeAnimationBehaviorIds: [...activeAnimationBehaviorIds, id]
-    });
-  }
+  const nextBehaviors = isActive
+    ? activeAnimationBehaviorIds.filter((bId) => bId !== id)
+    : [...activeAnimationBehaviorIds, id];
+
+  randomartStore.setState(
+    { activeAnimationBehaviorIds: nextBehaviors },
+    false,
+    `animation/toggleAnimationBehavior (${id})`
+  );
 }
