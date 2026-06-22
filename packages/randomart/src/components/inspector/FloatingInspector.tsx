@@ -16,7 +16,7 @@ export function FloatingInspector() {
         title={open ? 'Close inspector' : 'Open inspector'}
       >
         {open ? (
-          /* X icon */
+          /* Close Icon */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -62,13 +62,14 @@ export function FloatingInspector() {
         )}
       </button>
 
-      {/* Floating panel */}
+      {/* Slide-out Sheet Panel Backdrop & Layout Container */}
       {open && (
-        <div
-          role="dialog"
-          aria-label="Inspector"
-          className="border-border bg-card/90 absolute top-12 right-3 z-10 flex max-h-[calc(100%-4rem)] w-80 flex-col gap-4 overflow-y-auto rounded-lg border p-4 shadow-xl backdrop-blur-md"
-        >
+        <div className="border-l-border bg-card/95 animate-in slide-in-from-right absolute top-0 right-0 z-10 flex h-full w-80 flex-col gap-4 overflow-y-auto border-l p-4 shadow-2xl backdrop-blur-md duration-200">
+          <div className="border-border mt-8 flex items-center justify-between border-b pb-2">
+            <h3 className="text-foreground text-sm font-bold tracking-tight">
+              Engine Diagnostics
+            </h3>
+          </div>
           <InspectorPanel />
         </div>
       )}

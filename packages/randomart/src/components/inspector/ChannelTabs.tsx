@@ -35,10 +35,8 @@ const SplitIcon = ({ className }: { className?: string }) => (
     strokeLinejoin="round"
     className={className}
   >
-    <path d="M16 3h5v5" />
-    <path d="M8 3H3v5" />
-    <path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3" />
-    <path d="m15 9 6-6" />
+    <path d="M3 12h18" />
+    <path d="M12 3v18" />
   </svg>
 );
 
@@ -48,80 +46,55 @@ export function ChannelTabs() {
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Mode badge */}
-      <div className="flex items-center gap-2">
-        <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-          Channels
-        </span>
-        <span
-          className={cn(
-            'ml-auto inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase',
-            correlated
-              ? 'bg-amber-500/15 text-amber-400 ring-1 ring-amber-500/30'
-              : 'bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30'
-          )}
-        >
+      <div className="flex items-center justify-between">
+        <h4 className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+          Color Channels
+        </h4>
+        <span className="text-muted-foreground/80 flex items-center gap-1 text-xs">
           {correlated ? (
             <>
-              <LinkIcon className="h-2.5 w-2.5" />
-              Linked
+              <LinkIcon className="h-3 w-3 text-amber-500" /> Linked (RGB Sync)
             </>
           ) : (
             <>
-              <SplitIcon className="h-2.5 w-2.5" />
-              Split
+              <SplitIcon className="h-3 w-3 text-blue-400" /> Independent
             </>
           )}
         </span>
       </div>
 
-      {/* Explanation */}
-      <p className="text-muted-foreground text-[11px] leading-snug">
-        {correlated
-          ? 'All three channels are derived from a single shared expression tree. R, G, B are sub-branches of the same root.'
-          : 'Each channel has its own independently generated expression tree seeded separately.'}
-      </p>
-
-      {/* Tabs */}
       <div
         className={cn('grid grid-cols-3 gap-2', {
           'rounded-lg p-1 ring-1 ring-amber-500/20': correlated
         })}
       >
-        {channels.map((channel) => (
-          <Button
-            key={channel}
-            // In correlated mode all channels share one tree — switching is
-            // meaningless and causes downstream components to crash.
-            onClick={correlated ? undefined : () => setActiveChannel(channel)}
-            disabled={correlated}
-            variant="primary"
-            className={cn('inline-flex flex-col text-xs break-all', {
-              'bg-background text-muted-foreground hover:text-primary-foreground':
-                !correlated && activeChannel !== channel,
-              'cursor-not-allowed opacity-60': correlated
-            })}
-          >
-            <span className="flex items-center gap-1.5">
-              <span
-                className="inline-block h-2 w-2 rounded-full"
-                style={{ backgroundColor: channel }}
-                aria-hidden="true"
-              />
-              {channel}
-            </span>
-          </Button>
-        ))}
-      </div>
+        {channels.map((channel) => {
+          const isSelected = !correlated && activeChannel === channel;
 
-      {/* Linked: show a visual connector below tabs */}
-      {correlated && (
-        <div className="flex items-center gap-1 px-1">
-          <div className="h-px flex-1 bg-amber-500/30" />
-          <LinkIcon className="h-3 w-3 text-amber-500/50" />
-          <div className="h-px flex-1 bg-amber-500/30" />
-        </div>
-      )}
+          return (
+            <Button
+              key={channel}
+              onClick={correlated ? undefined : () => setActiveChannel(channel)}
+              disabled={correlated}
+              variant="primary"
+              className={cn('inline-flex flex-col text-xs break-all', {
+                'bg-background text-muted-foreground hover:text-primary-foreground':
+                  !isSelected,
+                'cursor-not-allowed opacity-60': correlated
+              })}
+            >
+              <span className="flex items-center gap-1.5">
+                <span
+                  className="inline-block h-2 w-2 rounded-full"
+                  style={{ backgroundColor: channel }}
+                  aria-hidden="true"
+                />
+                {channel}
+              </span>
+            </Button>
+          );
+        })}
+      </div>
     </div>
   );
 }
