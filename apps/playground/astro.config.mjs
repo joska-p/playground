@@ -8,6 +8,8 @@ import { remarkBaseUrl } from './src/lib/remarkBaseUrl.ts';
 
 import mdx from '@astrojs/mdx';
 
+import sitemap from '@astrojs/sitemap';
+
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
 const gitlabUrl = 'https://joska-p.github.io';
@@ -31,8 +33,15 @@ export default defineConfig({
     }
   ],
   vite: {
-    // @ts-expect-error — Vite 7 types vs Vite 8 tailwindcss plugin mismatch
-    plugins: [tailwindcss(), visualizer()],
+    plugins: [
+      // @ts-expect-error — Vite 7 types vs Vite 8 tailwindcss plugin mismatch
+      tailwindcss(),
+      visualizer({
+        template: 'treemap',
+        filename: './public/stats.html',
+        sourcemap: true
+      })
+    ],
     resolve: {
       // @ts-expect-error — Vite 7 types lack tsconfigPaths, but Vite 8/Rolldown requires it
       tsconfigPaths: true
@@ -56,7 +65,8 @@ export default defineConfig({
     mdx({
       remarkPlugins: [[remarkBaseUrl, { base: basePath }]], // the order matter math before katex
       remarkRehype: { allowDangerousHtml: true }
-    })
+    }),
+    sitemap()
   ],
 
   preferences: {

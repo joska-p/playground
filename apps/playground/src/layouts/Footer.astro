@@ -24,7 +24,6 @@ const credits = [
   'Turborepo',
   'Storybook',
   'TypeScript',
-  'Nix',
   'pnpm'
 ];
 type Props = { class?: string };
@@ -57,10 +56,11 @@ const { class: className } = Astro.props;
               class="bg-primary group-hover:bg-accent relative h-2.5 w-2.5 rounded-full transition-colors group-hover:scale-110"
             ></span>
           </span>
-          PG_LAB
+          PG_LAB,
         </a>
         <p class="text-muted-foreground/50 text-xs">
           <slot>Made with creativity.</slot>
+          <a href="stats.html">Bundle stats</a>
         </p>
       </div>
 
