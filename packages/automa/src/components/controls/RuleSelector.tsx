@@ -1,4 +1,4 @@
-import { getAllRules } from '@repo/automa-engine/rules/registry';
+import { getAllRules } from '@repo/automa-engine/discrete/rules/registry';
 import { Select } from '@repo/ui/Select';
 import { setRule } from '../../stores/simulation/actions';
 import { useRuleId } from '../../stores/simulation/selectors';

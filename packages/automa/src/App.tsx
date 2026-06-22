@@ -2,7 +2,7 @@ import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_DENSITY,
   GRID_DEFAULT_ROWS
-} from '@repo/automa-engine/config';
+} from '@repo/automa-engine/discrete/config';
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
 import { useEffect } from 'react';

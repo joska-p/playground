@@ -4,7 +4,7 @@ import {
   CAMERA_FOV,
   CAMERA_NEAR,
   CAMERA_Z
-} from '@repo/automa-engine/config';
+} from '@repo/automa-engine/discrete/config';
 import { useStore } from 'zustand';
 import { uiStore } from '../../stores/ui/store';
 import { Scene } from './Scene.tsx';

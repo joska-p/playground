@@ -1,4 +1,4 @@
-import type { Rule } from './rules/types';
+import type { Rule } from './discrete/rules/types';
 
 function countActiveNeighbors(
   current: Uint8Array,

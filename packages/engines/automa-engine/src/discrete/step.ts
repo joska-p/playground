@@ -1,5 +1,5 @@
 import { evolve } from './engine';
-import type { Rule } from './rules/types';
+import type { Rule } from './discrete/rules/types';
 import type { Grid } from './types';
 
 function evolveGrid(

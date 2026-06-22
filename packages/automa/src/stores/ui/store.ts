@@ -2,7 +2,7 @@ import {
   COLOR_GLOW,
   DEFAULT_STATE_COLORS,
   SPEED_DEFAULT_MS
-} from '@repo/automa-engine/config';
+} from '@repo/automa-engine/discrete/config';
 import { createStore } from 'zustand/vanilla';
 
 export type BrushMode = 'draw' | 'erase';
