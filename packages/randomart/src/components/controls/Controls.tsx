@@ -18,11 +18,11 @@ export function Controls() {
       </div>
       <MaxDepth />
       <DownloadButton />
-      <TimeDisplay />
+      <PlaybackButton />
       <AnimationSpeed />
+      <TimeDisplay />
       <CorrelatedToggle />
       <ShuffleButton />
-      <PlaybackButton />
       <ResetTimeButton />
       <AnimationToggle />
       <GrammarList />

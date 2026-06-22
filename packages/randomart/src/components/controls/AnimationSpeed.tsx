@@ -7,8 +7,8 @@ export function AnimationSpeed() {
 
   return (
     <Slider
-      className="col-span-2 mt-0 py-0"
-      label="Animation speed"
+      className="mt-0 py-0"
+      label="speed"
       min={0}
       max={2}
       step={0.1}
