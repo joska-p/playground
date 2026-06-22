@@ -1,9 +1,9 @@
-import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
 import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
-import type { ExpressionNode } from '@repo/randomart-engine/types';
+import type {
+  AnimationBehavior,
+  ExpressionNode
+} from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
-import { useStore } from 'zustand';
-import { randomartStore } from '../stores/randomart/store';
 
 const VERTEX_SHADER_SOURCE = `
 attribute vec2 a_position;
@@ -21,79 +21,90 @@ export type UniformLocs = {
 
 /**
  * Owns shader compilation and the resulting WebGLProgram lifecycle.
- * Re-runs only when trees or active animation behaviors change.
+ * Re-compiles only when math trees or animation behaviors explicitly change.
  */
 export function useShaderProgram(
-  glRef: React.MutableRefObject<WebGLRenderingContext | null>,
+  glRef: React.RefObject<WebGLRenderingContext | null>,
   bitmapSize: number,
   trees: {
     treeR: ExpressionNode;
     treeG: ExpressionNode;
     treeB: ExpressionNode;
   },
+  behaviors: AnimationBehavior[],
   onReady?: (gl: WebGLRenderingContext, uniformLocs: UniformLocs) => void
 ) {
   const programRef = useRef<WebGLProgram | null>(null);
   const uniformLocsRef = useRef<UniformLocs>({ time: null, animSpeed: null });
 
-  const activeAnimationBehaviorIds = useStore(
-    randomartStore,
-    (s) => s.activeAnimationBehaviorIds
-  );
-
   useEffect(() => {
     const gl = glRef.current;
     if (!gl) return;
 
-    const activeBehaviors = animationRegistry.filter((b) =>
-      activeAnimationBehaviorIds.includes(b.id)
-    );
-    const fragmentSource = compileToGLSL(
+    // Compile trees and behaviors into an optimized fragment shader string
+    const fragmentShaderSource = compileToGLSL(
       trees.treeR,
       trees.treeG,
       trees.treeB,
-      activeBehaviors
+      behaviors
     );
 
+    let program: WebGLProgram | null = null;
+
     try {
-      const program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentSource);
+      program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentShaderSource);
+    } catch (error) {
+      console.error('Shader program generation failed:', error);
+      return;
+    }
 
-      if (programRef.current) gl.deleteProgram(programRef.current);
-      programRef.current = program;
-      gl.useProgram(program);
+    // Clean up previous program context assets
+    const oldProgram = programRef.current;
+    if (oldProgram) {
+      gl.deleteProgram(oldProgram);
+    }
 
-      uniformLocsRef.current = {
-        time: gl.getUniformLocation(program, 'u_time'),
-        animSpeed: gl.getUniformLocation(program, 'u_animSpeed')
-      };
+    programRef.current = program;
+    gl.useProgram(program);
 
-      const resLoc = gl.getUniformLocation(program, 'u_resolution');
-      if (resLoc) gl.uniform2f(resLoc, bitmapSize, bitmapSize);
+    // Bind buffer attributes to shader variables
+    const positionAttributeLocation = gl.getAttribLocation(
+      program,
+      'a_position'
+    );
+    gl.enableVertexAttribArray(positionAttributeLocation);
+    gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-      const positionLoc = gl.getAttribLocation(program, 'a_position');
-      gl.enableVertexAttribArray(positionLoc);
-      gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+    // Map and cache uniform locations
+    const locs: UniformLocs = {
+      time: gl.getUniformLocation(program, 'u_time'),
+      animSpeed: gl.getUniformLocation(program, 'u_animSpeed')
+    };
+    uniformLocsRef.current = locs;
 
-      onReady?.(gl, uniformLocsRef.current);
-    } catch (e) {
-      console.error('Shader compilation failed:', e);
+    // Bind resolution vector boundaries
+    const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+    gl.uniform2f(resolutionLocation, bitmapSize, bitmapSize);
+
+    // Callback trigger for post-compilation frame setup
+    if (onReady) {
+      onReady(gl, locs);
     }
 
     return () => {
-      if (programRef.current) {
-        gl.deleteProgram(programRef.current);
+      if (programRef.current === program) {
+        gl.deleteProgram(program);
         programRef.current = null;
+        uniformLocsRef.current = { time: null, animSpeed: null };
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trees, bitmapSize, activeAnimationBehaviorIds]);
-  // glRef intentionally excluded — ref mutations don't warrant recompilation.
+  }, [trees, bitmapSize, behaviors, glRef, onReady]);
 
   return { programRef, uniformLocsRef };
 }
 
 // ---------------------------------------------------------------------------
-// WebGL boilerplate (pure functions, no hooks)
+// WebGL boilerplate (pure functions)
 // ---------------------------------------------------------------------------
 
 function createShader(
@@ -126,7 +137,16 @@ function createProgram(
   gl.attachShader(program, fs);
   gl.linkProgram(program);
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    throw new Error('Program link error: ' + gl.getProgramInfoLog(program));
+    const info = gl.getProgramInfoLog(program);
+    gl.deleteProgram(program);
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+    throw new Error('Program link error: ' + info);
   }
+  // Safe to detach and delete individual intermediate shader objects once linked
+  gl.detachShader(program, vs);
+  gl.detachShader(program, fs);
+  gl.deleteShader(vs);
+  gl.deleteShader(fs);
   return program;
 }

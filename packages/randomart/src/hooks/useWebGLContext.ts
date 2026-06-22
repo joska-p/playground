@@ -5,8 +5,7 @@ const POSITIONS = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
 
 /**
  * Owns the WebGL context lifecycle and canvas geometry buffer.
- * Re-runs only when the canvas element or its display dimensions change —
- * never when shaders or trees change.
+ * Separates core hardware initialization from dynamic resize operations.
  */
 export function useWebGLContext(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -15,6 +14,7 @@ export function useWebGLContext(
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const { logicalSize, bitmapSize } = useCanvasSize(dimensions);
 
+  // Effect 1: Core WebGL Initialization (Runs once per canvas element lifetime)
   useEffect(() => {
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;
@@ -28,20 +28,36 @@ export function useWebGLContext(
 
     glRef.current = gl;
 
-    canvasEl.width = bitmapSize;
-    canvasEl.height = bitmapSize;
-    canvasEl.style.width = `${logicalSize}px`;
-    canvasEl.style.height = `${logicalSize}px`;
-    gl.viewport(0, 0, bitmapSize, bitmapSize);
-
+    // Create and populate the static screen-quad position buffer once
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, POSITIONS, gl.STATIC_DRAW);
 
     return () => {
+      if (gl) {
+        gl.deleteBuffer(positionBuffer);
+      }
       glRef.current = null;
     };
-  }, [canvasRef, logicalSize, bitmapSize]);
+  }, [canvasRef]);
+
+  // Effect 2: Geometry Sizing Updates (Safe to run frequently on window resizing)
+  useEffect(() => {
+    const canvasEl = canvasRef.current;
+    const gl = glRef.current;
+    if (!canvasEl || !gl) return;
+
+    // Adjust drawing buffer capacity dimensions
+    canvasEl.width = bitmapSize;
+    canvasEl.height = bitmapSize;
+
+    // Adjust CSS layout layout boundaries
+    canvasEl.style.width = `${logicalSize}px`;
+    canvasEl.style.height = `${logicalSize}px`;
+
+    // Map normalized device coordinates to the newly allocated texture size
+    gl.viewport(0, 0, bitmapSize, bitmapSize);
+  }, [bitmapSize, logicalSize, canvasRef]);
 
   return { glRef, bitmapSize };
 }

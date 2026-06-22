@@ -7,6 +7,8 @@ export function useAnimationLoop(
 ) {
   const onFrameRef = useRef(onFrame);
 
+  // Keep the mutable reference up to date with the latest callback function
+  // without triggering a re-render or resetting the animation loop timer.
   useLayoutEffect(() => {
     onFrameRef.current = onFrame;
   });
@@ -23,6 +25,7 @@ export function useAnimationLoop(
       const delta = now - lastTime;
       lastTime = now;
 
+      // Call the latest captured frame logic directly
       onFrameRef.current(delta);
 
       if (!cancelled) {
