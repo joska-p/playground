@@ -1,5 +1,5 @@
 import { WORKER_MESSAGE_STEP } from './config';
-import { getRule } from './discrete/rules/registry';
+import { getRule } from './rules/registry';
 import { evolveGrid } from './step';
 
 let nextGrid: Uint8Array | undefined;

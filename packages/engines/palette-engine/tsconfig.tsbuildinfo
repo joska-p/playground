@@ -1,0 +1,1 @@
+{"root":["./src/colorSpaces.ts","./src/generatePalette.ts","./src/types.ts","./src/rules/analogous.ts","./src/rules/complementary.ts","./src/rules/monochromatic.ts","./src/rules/triadic.ts"],"version":"6.0.3"}
