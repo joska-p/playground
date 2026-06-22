@@ -4,7 +4,7 @@ export const logRule = {
   id: 'log',
   name: 'Log',
   arity: 1,
-  weight: 1,
+  weight: 0.8,
   category: 'structural',
   evaluate: (args) => {
     const val = Math.abs(args[0]());

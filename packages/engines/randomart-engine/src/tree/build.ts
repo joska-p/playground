@@ -16,6 +16,27 @@ function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
   return rules.length - 1;
 }
 
+// Builds the candidate pool by rolling each structural rule independently
+// against structuralProbability. Each rule gets its own RNG draw, so different
+// seeds produce pools of different sizes — this per-rule variance is what drives
+// tree variety. Terminals are always included as a guaranteed fallback.
+function buildPool(
+  rng: SeededRandom,
+  rules: GrammarRule[],
+  structuralProbability: number
+): GrammarRule[] {
+  const pool: GrammarRule[] = [];
+  for (const rule of rules) {
+    if (rule.category === 'terminal' || rng.next() < structuralProbability) {
+      pool.push(rule);
+    }
+  }
+  // If no terminals were in the rule set somehow, fall back to all terminals
+  return pool.length > 0
+    ? pool
+    : rules.filter((r) => r.category === 'terminal');
+}
+
 export function buildTree(
   structureRng: SeededRandom,
   channelRng: SeededRandom,
@@ -27,19 +48,8 @@ export function buildTree(
   const rngToUse =
     currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
 
-  // Decide category with a single RNG draw, then filter — avoids consuming
-  // one RNG value per structural rule (which made the sequence order-sensitive).
   const structuralProbability = 1 - currentDepth / maxDepth;
-  const useStructural = rngToUse.next() < structuralProbability;
-
-  const preferred = availableRules.filter((r) =>
-    useStructural ? r.category === 'structural' : r.category === 'terminal'
-  );
-  const pool =
-    preferred.length > 0
-      ? preferred
-      : availableRules.filter((r) => r.category === 'terminal');
-
+  const pool = buildPool(rngToUse, availableRules, structuralProbability);
   const idx = weightedPick(rngToUse, pool);
 
   return pool[idx].buildNode(rngToUse, () =>

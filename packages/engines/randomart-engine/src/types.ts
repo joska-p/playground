@@ -13,11 +13,17 @@ export type GrammarRule = {
   weight: number;
   category: 'structural' | 'terminal';
 
-  evaluate: (args: (() => number)[], x: number, y: number, t: number) => number;
+  evaluate: (
+    args: (() => number)[],
+    x: number,
+    y: number,
+    t: number,
+    node?: ExpressionNode
+  ) => number;
+  toMathString: (args: string[], node?: ExpressionNode) => string;
+  toGLSL: (args: string[], node?: ExpressionNode) => string;
+  toTreeView: (args: string[], depth: number, node?: ExpressionNode) => string;
 
-  toMathString: (args: string[]) => string;
-  toGLSL: (args: string[]) => string;
-  toTreeView: (args: string[], depth: number) => string;
   buildNode: (
     rng: SeededRandom,
     buildChild: () => ExpressionNode

@@ -4,7 +4,7 @@ export const absRule = {
   id: 'abs',
   name: 'Abs',
   arity: 1,
-  weight: 1,
+  weight: 1.0,
   category: 'structural',
   evaluate: (args) => Math.abs(args[0]()),
   toMathString: (args) => `|${args[0]}|`,

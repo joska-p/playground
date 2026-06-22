@@ -25,7 +25,7 @@ export const zoomBehavior: AnimationBehavior = {
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
+    `p *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
 };
 
 export const rippleBehavior: AnimationBehavior = {
@@ -34,7 +34,7 @@ export const rippleBehavior: AnimationBehavior = {
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv += 0.1 * sin(uv * 5.0 + ${timeVar} * ${speedVar});`
+    `p += 0.1 * sin(p * 5.0 + ${timeVar} * ${speedVar});`
 };
 
 export const rotateBehavior: AnimationBehavior = {
@@ -48,22 +48,22 @@ mat2 rotate2d(float _angle){
 `,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv = rotate2d(${timeVar} * ${speedVar} * 0.5) * uv;`
+    `p = rotate2d(${timeVar} * ${speedVar} * 0.5) * p;`
 };
 
 export const swirlBehavior: AnimationBehavior = {
   id: 'swirl',
   name: 'Swirl',
   glslFunction: `
-vec2 swirl(vec2 uv, float angle) {
-    float r = length(uv);
-    float a = atan(uv.y, uv.x) + angle * (1.0 - r);
+vec2 swirl(vec2 coords, float angle) {
+    float r = length(coords);
+    float a = atan(coords.y, coords.x) + angle * (1.0 - r);
     return vec2(cos(a) * r, sin(a) * r);
 }
 `,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv = swirl(uv, sin(${timeVar} * ${speedVar}) * 2.0);`
+    `p = swirl(p, sin(${timeVar} * ${speedVar}) * 2.0);`
 };
 
 export const driftBehavior: AnimationBehavior = {
@@ -71,7 +71,7 @@ export const driftBehavior: AnimationBehavior = {
   name: 'Drift',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `uv += ${timeVar} * ${speedVar} * 0.1;`
+  applyCode: (timeVar, speedVar) => `p += ${timeVar} * ${speedVar} * 0.1;`
 };
 
 export const expandBehavior: AnimationBehavior = {
@@ -80,21 +80,21 @@ export const expandBehavior: AnimationBehavior = {
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
+    `p /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
 };
 
 export const kaleidoscopeBehavior: AnimationBehavior = {
   id: 'kaleidoscope',
   name: 'Kaleidoscope',
   glslFunction: `
-vec2 kaleidoscope(vec2 uv, float t, float speed) {
+vec2 kaleidoscope(vec2 coords, float t, float speed) {
   float rot = t * speed * 0.1;
   float c = cos(rot);
   float s = sin(rot);
-  uv = vec2(c * uv.x - s * uv.y, s * uv.x + c * uv.y);
+  coords = vec2(c * coords.x - s * coords.y, s * coords.x + c * coords.y);
 
-  float r = length(uv);
-  float a = atan(uv.y, uv.x);
+  float r = length(coords);
+  float a = atan(coords.y, coords.x);
 
   float slice = 3.14159265 / 6.0;
   a = mod(a + slice, 2.0 * slice) - slice;
@@ -105,24 +105,24 @@ vec2 kaleidoscope(vec2 uv, float t, float speed) {
 `,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv = kaleidoscope(uv, ${timeVar}, ${speedVar});`
+    `p = kaleidoscope(p, ${timeVar}, ${speedVar});`
 };
 
 export const domainWarpBehavior: AnimationBehavior = {
   id: 'domain-warp',
   name: 'Domain Warp',
   glslFunction: `
-vec2 domainWarp(vec2 uv, float t, float speed) {
+vec2 domainWarp(vec2 coords, float t, float speed) {
   vec2 q = vec2(
-    sin(uv.y * 1.7 + t * speed * 0.6) * 0.5 + sin(uv.x * 2.3 + 1.2) * 0.3,
-    cos(uv.x * 1.3 + t * speed * 0.4) * 0.5 + cos(uv.y * 1.9 + 0.7) * 0.3
+    sin(coords.y * 1.7 + t * speed * 0.6) * 0.5 + sin(coords.x * 2.3 + 1.2) * 0.3,
+    cos(coords.x * 1.3 + t * speed * 0.4) * 0.5 + cos(coords.y * 1.9 + 0.7) * 0.3
   );
-  return uv + q * 0.4;
+  return coords + q * 0.4;
 }
 `,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv = domainWarp(uv, ${timeVar}, ${speedVar});`
+    `p = domainWarp(p, ${timeVar}, ${speedVar});`
 };
 
 export const mirrorTileBehavior: AnimationBehavior = {
@@ -131,22 +131,22 @@ export const mirrorTileBehavior: AnimationBehavior = {
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
-    `uv = abs(mod(uv * 1.4 + ${timeVar} * ${speedVar} * 0.08, 2.0) - 1.0);`
+    `p = abs(mod(p * 1.4 + ${timeVar} * ${speedVar} * 0.08, 2.0) - 1.0);`
 };
 
 export const tunnelBehavior: AnimationBehavior = {
   id: 'tunnel',
   name: 'Tunnel',
   glslFunction: `
-vec2 tunnel(vec2 uv, float t, float speed) {
-  float r = length(uv) + 0.0001;
-  float a = atan(uv.y, uv.x);
+vec2 tunnel(vec2 coords, float t, float speed) {
+  float r = length(coords) + 0.0001;
+  float a = atan(coords.y, coords.x);
   float depth = fract(log(r) * 0.5 - t * speed * 0.2);
   return vec2(a / 3.14159265, depth * 2.0 - 1.0);
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `uv = tunnel(uv, ${timeVar}, ${speedVar});`
+  applyCode: (timeVar, speedVar) => `p = tunnel(p, ${timeVar}, ${speedVar});`
 };
 
 export const contrastPulseBehavior: AnimationBehavior = {
@@ -172,7 +172,7 @@ export const goldenWanderBehavior: AnimationBehavior = {
     const phi = '1.6180339887';
     return [
       `float gw_t = ${timeVar} * ${speedVar} * 0.3;`,
-      `uv += vec2(sin(gw_t), cos(gw_t * ${phi})) * 0.4;`
+      `p += vec2(sin(gw_t), cos(gw_t * ${phi})) * 0.4;`
     ].join('\n  ');
   }
 };
@@ -185,7 +185,7 @@ export const noiseCrawlBehavior: AnimationBehavior = {
   applyCode: (timeVar, speedVar) =>
     [
       `vec2 nc_offset = smoothNoise2(${timeVar} * ${speedVar} * 0.15) * 2.0 - 1.0;`,
-      `uv += nc_offset * 0.6;`
+      `p += nc_offset * 0.6;`
     ].join('\n  ')
 };
 

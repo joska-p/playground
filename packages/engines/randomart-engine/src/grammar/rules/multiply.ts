@@ -4,7 +4,7 @@ export const multiplyRule = {
   id: 'multiply',
   name: 'Multiply',
   arity: 2,
-  weight: 1,
+  weight: 1.0, // High structural variety
   category: 'structural',
   evaluate: (args) => args[0]() * args[1](),
   toMathString: (args) => `(${args[0]} · ${args[1]})`,

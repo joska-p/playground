@@ -77,10 +77,7 @@ export function compileToGLSL(
   treeB: ExpressionNode,
   behaviors: AnimationBehavior[]
 ): string {
-  const colorExpr = compileColorExpr(treeR, treeG, treeB).replaceAll(
-    'v_texCoord',
-    'uv'
-  );
+  const colorExpr = compileColorExpr(treeR, treeG, treeB);
   const spatialCode = applyBehaviors(behaviors, 'spatial');
   const colorCode = applyBehaviors(behaviors, 'color');
 
@@ -94,17 +91,22 @@ varying vec2 v_texCoord;
 ${buildPreamble(behaviors)}
 
 void main() {
-  vec2 uv = v_texCoord * 2.0 - 1.0;
+  // 1. Establish the clean, centered coordinate base p [-1.0, 1.0]
+  vec2 p = v_texCoord * 2.0 - 1.0;
+  p.y = -p.y; // Flip Y so up is positive standard Cartesian space
+
+  // 2. Inject spatial animations (Modifies 'p' uniformly)
+  float t_time = u_time;
+  float t_speed = u_animSpeed;
   ${spatialCode}
 
-  vec3 color = (${colorExpr} + 1.0) / 2.0;
+  // 3. Evaluate the generative color nodes (reading the animated 'p')
+  vec3 color = ${colorExpr};
 
-  // Desaturate slightly by mixing with luminance
-  float luma = dot(color, vec3(0.299, 0.587, 0.114));
-  color = mix(vec3(luma), color, 0.65);
-
+  // 4. Inject color adjustments
   ${colorCode}
-  gl_FragColor = vec4(color, 1.0);
+
+  gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
 }
 `;
 }

@@ -4,7 +4,7 @@ export const sqrtRule = {
   id: 'sqrt',
   name: 'Sqrt',
   arity: 1,
-  weight: 1,
+  weight: 0.8,
   category: 'structural',
   evaluate: (args) => Math.sqrt(Math.abs(args[0]()) + 1e-10),
   toMathString: (args) => `sqrt(|${args[0]}|)`,

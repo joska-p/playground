@@ -16,5 +16,5 @@ export function evaluateNode(
   if (!rule) return 0;
 
   const lazyArgs = node.args.map((child) => () => evaluateNode(child, x, y, t));
-  return rule.evaluate(lazyArgs, x, y, t);
+  return rule.evaluate(lazyArgs, x, y, t, node);
 }
