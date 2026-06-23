@@ -4,16 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./discrete": "./src/discrete/engine.ts",
-    "./discrete/config": "./src/discrete/config.ts",
-    "./discrete/grid": "./src/discrete/grid.ts",
-    "./discrete/types": "./src/discrete/types.ts",
-    "./discrete/worker": "./src/discrete/worker.ts",
-    "./discrete/creature/builtin": "./src/discrete/creature/builtin.ts",
-    "./discrete/creature/registry": "./src/discrete/creature/registry.ts",
-    "./discrete/creature/types": "./src/discrete/creature/types.ts",
-    "./discrete/rules/registry": "./src/discrete/rules/registry.ts",
-    "./discrete/rules/types": "./src/discrete/rules/types.ts"
+    ".": "./src/engine.ts",
+    "./config": "./src/config.ts",
+    "./grid": "./src/grid.ts",
+    "./types": "./src/types.ts",
+    "./worker": "./src/worker.ts",
+    "./creature/builtin": "./src/creature/builtin.ts",
+    "./creature/registry": "./src/creature/registry.ts",
+    "./creature/types": "./src/creature/types.ts",
+    "./rules/registry": "./src/rules/registry.ts",
+    "./rules/types": "./src/rules/types.ts"
   },
   "scripts": {
     "build": "tsc -b",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",
     "@tsconfig/strictest": "catalog:",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:"
   }

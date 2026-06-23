@@ -1,5 +1,5 @@
 {
-  "name": "@repo/automa",
+  "name": "@repo/real-life",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,9 +20,9 @@
     "@react-three/fiber": "catalog:",
     "three": "catalog:",
     "@repo/ui": "workspace:*",
-    "@repo/worker-pool": "workspace:*",
-    "@repo/automa-engine": "workspace:*",
-    "zustand": "catalog:"
+    "react-error-boundary": "catalog:",
+    "zustand": "catalog:",
+    "zod": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",

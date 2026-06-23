@@ -1,6 +1,6 @@
 import type { ThreeEvent } from '@react-three/fiber';
-import type { Creature } from '@repo/automa-engine/discrete/creature/types';
-import type { CellValue } from '@repo/automa-engine/discrete/types';
+import type { Creature } from '@repo/automa-engine/creature/types';
+import type { CellValue } from '@repo/automa-engine/types';
 import { useRef } from 'react';
 import type * as THREE from 'three';
 import type { BrushMode } from '../stores/ui/store';

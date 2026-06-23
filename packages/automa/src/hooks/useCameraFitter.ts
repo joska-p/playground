@@ -1,5 +1,5 @@
 import { useThree } from '@react-three/fiber';
-import { CAMERA_Z } from '@repo/automa-engine/discrete/config';
+import { CAMERA_Z } from '@repo/automa-engine/config';
 import { useLayoutEffect } from 'react';
 import type { OrthographicCamera } from 'three';
 import { fitCameraToGrid } from '../utils/camera';

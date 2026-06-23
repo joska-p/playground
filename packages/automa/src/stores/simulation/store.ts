@@ -2,9 +2,9 @@ import {
   GRID_DEFAULT_COLS,
   GRID_DEFAULT_ROWS,
   GRID_DEFAULT_SEED
-} from '@repo/automa-engine/discrete/config';
-import { createGrid } from '@repo/automa-engine/discrete/grid';
-import type { Grid } from '@repo/automa-engine/discrete/types';
+} from '@repo/automa-engine/config';
+import { createGrid } from '@repo/automa-engine/grid';
+import type { Grid } from '@repo/automa-engine/types';
 import { createStore } from 'zustand/vanilla';
 
 type SimulationState = {
