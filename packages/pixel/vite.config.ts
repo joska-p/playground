@@ -12,6 +12,7 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true
   },
+  build: { sourcemap: true },
   test: {
     environment: 'happy-dom',
     include: ['src/**/*.test.ts'],

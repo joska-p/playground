@@ -47,6 +47,7 @@ export default defineConfig({
       tsconfigPaths: true
     },
     build: {
+      sourcemap: true,
       chunkSizeWarningLimit: 1200,
       rollupOptions: {
         output: {

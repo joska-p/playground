@@ -23,7 +23,7 @@ function DefaultFallback({
       role="alert"
       {...props}
     >
-      <div className="bg-card text-card-foreground flex h-full w-full max-w-sm flex-col gap-4 rounded-lg border p-6 shadow-sm">
+      <div className="bg-card text-card-foreground flex w-full max-w-sm flex-col gap-4 rounded-lg border p-6 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="bg-destructive/10 text-destructive flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
             <svg
