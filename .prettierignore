@@ -3,6 +3,7 @@ build
 coverage
 dist
 graphify-out
+storybook-static
 
 packages/graph-viz/src/data/processes-graph.json
 packages/radu-machine-learning/src/data/

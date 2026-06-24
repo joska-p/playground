@@ -3,8 +3,8 @@ import { useControls } from 'leva';
 import { useRef, useState } from 'react';
 import type * as THREE from 'three';
 import type { Mesh } from 'three';
-import { geometries } from '../../utils/geometry';
-import { materials } from '../../utils/material';
+import { geometries } from '../../../utils/geometry';
+import { materials } from '../../../utils/material';
 
 export function Sample() {
   const sampleRef = useRef<Mesh>(null!);

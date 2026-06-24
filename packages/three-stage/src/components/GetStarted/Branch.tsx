@@ -1,9 +1,6 @@
 import { Instances } from '@react-three/drei';
+import { useControls } from 'leva';
 import { Euler, Quaternion, Vector3 } from 'three';
-import {
-  useLeafAmount,
-  useLeafMaxSpread
-} from '../../stores/getStarted/selectors';
 import { Leaf } from './Leaf';
 import { sharedGeometry } from './sharedGeometry';
 import { sharedMaterial } from './sharedMaterial';
@@ -17,13 +14,25 @@ function Branch({
   position = new Vector3(0, 0, 0),
   rotation = new Euler(0, 0, 0)
 }: BranchProps) {
-  const amount = useLeafAmount();
-  const maxSpread = useLeafMaxSpread();
+  const { leafAmount, leafSpread } = useControls('leaf', {
+    leafAmount: {
+      label: 'Amount of leaves',
+      value: 20,
+      min: 1,
+      max: 20
+    },
+    leafSpread: {
+      label: 'Leaf spread',
+      value: 8,
+      min: 1,
+      max: 20
+    }
+  });
 
-  const leaves = Array.from({ length: amount }, (_, i) => {
-    const relativeScale = amount > 1 ? i / (amount - 1) : 0;
+  const leaves = Array.from({ length: leafAmount }, (_, i) => {
+    const relativeScale = leafAmount > 1 ? i / (leafAmount - 1) : 0;
     const size = 0.8 * (1 - relativeScale) + 0.05;
-    const leafPosition = new Vector3(0, relativeScale * maxSpread, 0);
+    const leafPosition = new Vector3(0, relativeScale * leafSpread, 0);
     const leafRotation = new Quaternion().random();
 
     return {
@@ -38,7 +47,7 @@ function Branch({
     <Instances
       geometry={sharedGeometry}
       material={sharedMaterial}
-      limit={amount}
+      limit={leafAmount}
       position={position}
       rotation={rotation}
     >

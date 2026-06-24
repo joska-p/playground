@@ -1,16 +1,80 @@
 import { useFrame } from '@react-three/fiber';
+import { useControls } from 'leva';
 import { useRef } from 'react';
-import type { Group } from 'three';
-import { useSpawnPresetName } from '../../stores/getStarted/selectors';
+import * as THREE from 'three';
 import { Branch } from './Branch';
-import { getSpawnPoints, PRESET_CONFIG } from './spawnPresets';
+import { getSpawnPoints, type PresetName } from './getSpawnPoints';
 
-function Root() {
-  const groupRef = useRef<Group>(null);
-  const presetName = useSpawnPresetName();
+function getDebugGeometry(
+  preset: PresetName,
+  radius: number,
+  circleSegments: number
+) {
+  switch (preset) {
+    case 'circle':
+      return new THREE.RingGeometry(
+        radius - 0.02,
+        radius - 0.02,
+        circleSegments
+      );
+    case 'tetrahedron':
+      return new THREE.TetrahedronGeometry(radius, 0);
+    case 'cube':
+      return new THREE.BoxGeometry(radius * 1.5, radius * 1.5, radius * 1.5);
+    case 'octahedron':
+      return new THREE.OctahedronGeometry(radius, 0);
+    case 'dodecahedron':
+      return new THREE.DodecahedronGeometry(radius, 0);
+    case 'icosahedron':
+      return new THREE.IcosahedronGeometry(radius, 0);
+  }
+}
 
-  const { geometry, inradius } = PRESET_CONFIG[presetName];
-  const branches = getSpawnPoints(presetName, inradius);
+export function Root() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  const { preset, radius, offset, circleSegments } = useControls(
+    'Spawning System',
+    {
+      preset: {
+        label: 'Shape Preset',
+        value: 'cube' as PresetName,
+        options: [
+          'circle',
+          'tetrahedron',
+          'cube',
+          'octahedron',
+          'dodecahedron',
+          'icosahedron'
+        ] as PresetName[]
+      },
+      circleSegments: {
+        label: 'Segments',
+        value: 12,
+        min: 3,
+        max: 32,
+        step: 1,
+        render: (get) => get('Spawning System.preset') === 'circle'
+      },
+      radius: {
+        label: 'Radius',
+        value: 1.5,
+        min: 0.5,
+        max: 5,
+        step: 0.1
+      },
+      offset: {
+        label: 'Offset',
+        value: 0.2,
+        min: -2,
+        max: 2,
+        step: 0.05
+      }
+    }
+  );
+
+  const branches = getSpawnPoints({ preset, radius, offset, circleSegments });
+  const debugGeometry = getDebugGeometry(preset, radius, circleSegments);
 
   useFrame(() => {
     if (groupRef.current) {
@@ -21,7 +85,7 @@ function Root() {
 
   return (
     <group ref={groupRef}>
-      <mesh geometry={geometry}>
+      <mesh geometry={debugGeometry}>
         <meshStandardMaterial
           color="dimgray"
           wireframe
@@ -31,12 +95,10 @@ function Root() {
       {branches.map((branch) => (
         <Branch
           key={branch.id}
-          rotation={branch.rotation}
           position={branch.position}
+          rotation={branch.rotation}
         />
       ))}
     </group>
   );
 }
-
-export { Root };

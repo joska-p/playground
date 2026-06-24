@@ -10,7 +10,6 @@
   "scripts": {
     "dev": "vite --host",
     "prepare-data": "tsx src/core/pipeline/prepare.ts",
-    "build": "pnpm prepare-data && tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
