@@ -16,7 +16,6 @@
     "./rules/types": "./src/rules/types.ts"
   },
   "scripts": {
-    "build": "tsc -b",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo"

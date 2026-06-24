@@ -1,7 +1,7 @@
 import { createVariant } from '../../lib/variants/create-variant';
 
 export const defaultFallbackVariants = createVariant({
-  base: 'flex items-center justify-center',
+  base: 'flex items-center justify-center h-full',
   variants: {
     variant: {
       destructive: 'bg-destructive/5',

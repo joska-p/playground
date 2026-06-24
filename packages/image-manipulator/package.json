@@ -9,7 +9,6 @@
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",

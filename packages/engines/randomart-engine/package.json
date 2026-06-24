@@ -17,7 +17,6 @@
     "./png": "./src/png-export.ts"
   },
   "scripts": {
-    "build": "tsc -b",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo"
