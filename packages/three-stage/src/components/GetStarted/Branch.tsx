@@ -16,13 +16,13 @@ function Branch({
 }: BranchProps) {
   const { leafAmount, leafSpread } = useControls('leaf', {
     leafAmount: {
-      label: 'Amount of leaves',
+      label: 'Amount',
       value: 20,
       min: 1,
       max: 20
     },
     leafSpread: {
-      label: 'Leaf spread',
+      label: 'Spread',
       value: 8,
       min: 1,
       max: 20

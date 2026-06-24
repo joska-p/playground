@@ -14,13 +14,13 @@ function getDebugGeometry(
     case 'circle':
       return new THREE.RingGeometry(
         radius - 0.02,
-        radius - 0.02,
+        radius + 0.02,
         circleSegments
       );
     case 'tetrahedron':
       return new THREE.TetrahedronGeometry(radius, 0);
     case 'cube':
-      return new THREE.BoxGeometry(radius * 1.5, radius * 1.5, radius * 1.5);
+      return new THREE.BoxGeometry(radius * 1.15, radius * 1.15, radius * 1.15);
     case 'octahedron':
       return new THREE.OctahedronGeometry(radius, 0);
     case 'dodecahedron':
@@ -37,8 +37,8 @@ export function Root() {
     'Spawning System',
     {
       preset: {
-        label: 'Shape Preset',
-        value: 'cube' as PresetName,
+        label: 'Spawn',
+        value: 'icosahedron' as PresetName,
         options: [
           'circle',
           'tetrahedron',
@@ -56,16 +56,10 @@ export function Root() {
         step: 1,
         render: (get) => get('Spawning System.preset') === 'circle'
       },
-      radius: {
-        label: 'Radius',
-        value: 1.5,
-        min: 0.5,
-        max: 5,
-        step: 0.1
-      },
+      radius: { label: 'Radius', value: 1.5, min: 0.5, max: 5, step: 0.1 },
       offset: {
         label: 'Offset',
-        value: 0.2,
+        value: 0.0,
         min: -2,
         max: 2,
         step: 0.05
@@ -86,10 +80,7 @@ export function Root() {
   return (
     <group ref={groupRef}>
       <mesh geometry={debugGeometry}>
-        <meshStandardMaterial
-          color="dimgray"
-          wireframe
-        />
+        <meshStandardMaterial color="dimgray" />
       </mesh>
 
       {branches.map((branch) => (
