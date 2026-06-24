@@ -6,65 +6,89 @@ export type SpawnPoint = {
   rotation: THREE.Euler;
 };
 
-// Each entry is an outward face normal for the given solid.
-// Position on the surface = normal × radius (passed to getSpawnPoints).
-// Adding a new preset = just listing its face normals. Nothing else changes.
-const s = 1 / Math.sqrt(3); // 1/√3, shared by tetrahedron and octahedron faces
+// ============================================
+// Constants
+// ============================================
+
+const LOCAL_UP = new THREE.Vector3(0, 1, 0);
+const NORMALIZATION_FACTOR = 1 / Math.sqrt(3); // For tetrahedron/octahedron face normals
+
+// ============================================
+// Presets: Face normals for each shape
+// (Position on surface = normal × radius)
+// ============================================
 
 const PRESETS = {
   cube: [
     [1, 0, 0],
-    [-1, 0, 0],
+    [-1, 0, 0], // ±X
     [0, 1, 0],
-    [0, -1, 0],
+    [0, -1, 0], // ±Y
     [0, 0, 1],
-    [0, 0, -1]
+    [0, 0, -1] // ±Z
   ],
   tetrahedron: [
-    [s, s, -s],
-    [s, -s, s],
-    [-s, s, s],
-    [-s, -s, -s]
+    [NORMALIZATION_FACTOR, NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR],
+    [NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR, NORMALIZATION_FACTOR],
+    [-NORMALIZATION_FACTOR, NORMALIZATION_FACTOR, NORMALIZATION_FACTOR],
+    [-NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR]
   ],
   octahedron: [
-    [s, s, s],
-    [-s, s, s],
-    [s, -s, s],
-    [-s, -s, s],
-    [s, s, -s],
-    [-s, s, -s],
-    [s, -s, -s],
-    [-s, -s, -s]
+    [NORMALIZATION_FACTOR, NORMALIZATION_FACTOR, NORMALIZATION_FACTOR],
+    [-NORMALIZATION_FACTOR, NORMALIZATION_FACTOR, NORMALIZATION_FACTOR],
+    [NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR, NORMALIZATION_FACTOR],
+    [-NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR, NORMALIZATION_FACTOR],
+    [NORMALIZATION_FACTOR, NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR],
+    [-NORMALIZATION_FACTOR, NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR],
+    [NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR],
+    [-NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR, -NORMALIZATION_FACTOR]
   ]
 } as const satisfies Record<string, [number, number, number][]>;
 
 export type PresetName = keyof typeof PRESETS;
 
-const LOCAL_UP = new THREE.Vector3(0, 1, 0);
+// ============================================
+// Helpers
+// ============================================
 
-// radius should match the inradius (center → face center) of your display mesh:
-//   BoxGeometry(1,1,1)        → radius 0.5
-//   TetrahedronGeometry(1)    → radius ≈ 0.33
-//   OctahedronGeometry(1)     → radius ≈ 0.58
+/**
+ * Creates a rotation that aligns the local +Y axis with a target direction.
+ */
+function createAlignmentRotation(targetDirection: THREE.Vector3): THREE.Euler {
+  const quaternion = new THREE.Quaternion().setFromUnitVectors(
+    LOCAL_UP,
+    targetDirection
+  );
+  return new THREE.Euler().setFromQuaternion(quaternion);
+}
+
+/**
+ * Generates spawn points for a given preset and radius.
+ * @param preset - Name of the shape preset (e.g., 'cube', 'tetrahedron')
+ * @param radius - Distance from center to spawn points (should match the shape's inradius)
+ */
 export function getSpawnPoints(preset: PresetName, radius = 0.5): SpawnPoint[] {
-  return PRESETS[preset].map((n, id) => {
-    const normal = new THREE.Vector3(...n).normalize();
+  return PRESETS[preset].map((normalComponents, id) => {
+    const normal = new THREE.Vector3(...normalComponents).normalize();
     const position = normal.clone().multiplyScalar(radius);
-    // Rotate branch local +Y to align with the outward face normal
-    const quaternion = new THREE.Quaternion().setFromUnitVectors(
-      LOCAL_UP,
-      normal
-    );
-    const rotation = new THREE.Euler().setFromQuaternion(quaternion);
+    const rotation = createAlignmentRotation(normal);
     return { id, position, rotation };
   });
 }
+
+// ============================================
+// Geometry Config
+// (Inradius values are approximate for unit geometries)
+// ============================================
 
 export const PRESET_CONFIG: Record<
   PresetName,
   { geometry: THREE.BufferGeometry; inradius: number }
 > = {
   cube: { geometry: new THREE.BoxGeometry(1, 1, 1), inradius: 0.5 },
-  tetrahedron: { geometry: new THREE.TetrahedronGeometry(1), inradius: 0.33 },
-  octahedron: { geometry: new THREE.OctahedronGeometry(0.75), inradius: 0.43 }
+  tetrahedron: { geometry: new THREE.TetrahedronGeometry(1), inradius: 1 / 3 }, // ~0.333
+  octahedron: {
+    geometry: new THREE.OctahedronGeometry(1),
+    inradius: Math.sqrt(6) / 6
+  } // ~0.408
 };
