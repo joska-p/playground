@@ -4,11 +4,11 @@ import { GetStarted } from './components/GetStarted';
 
 function App() {
   return (
-    <ErrorBoundary>
-      <div className="bg-background text-foreground h-screen">
+    <div className="bg-background text-foreground h-screen">
+      <ErrorBoundary>
         <GetStarted />
-      </div>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </div>
   );
 }
 
