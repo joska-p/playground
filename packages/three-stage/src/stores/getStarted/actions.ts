@@ -1,3 +1,4 @@
+import type { PresetName } from '../../components/GetStarted/spawnPresets';
 import { getStartedStore } from './store';
 
 export const setLeafMaxSpread = (leafMaxSpread: number) =>
@@ -8,3 +9,5 @@ export const setBrancheOffsetFromCenter = (brancheOffsetFromCenter: number) =>
   getStartedStore.setState({ brancheOffsetFromCenter });
 export const setBranchAmount = (branchAmount: number) =>
   getStartedStore.setState({ branchAmount });
+export const setSpawnPresetName = (spawnPresetName: PresetName) =>
+  getStartedStore.setState({ spawnPresetName });

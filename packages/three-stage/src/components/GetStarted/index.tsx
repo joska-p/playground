@@ -3,19 +3,21 @@ import {
   setBranchAmount,
   setBrancheOffsetFromCenter,
   setLeafAmount,
-  setLeafMaxSpread
+  setLeafMaxSpread,
+  setSpawnPresetName
 } from '../../stores/getStarted/actions';
 import { Scene } from './Scene';
 
 function GetStarted() {
   setLeafAmount(20);
-  setLeafMaxSpread(10);
+  setLeafMaxSpread(8);
   setBranchAmount(12);
   setBrancheOffsetFromCenter(1);
+  setSpawnPresetName('octahedron');
 
   return (
     <div className="h-screen">
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
         <Scene />
       </Canvas>
     </div>

@@ -1,29 +1,16 @@
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import type { Group } from 'three';
-import { Euler, Vector3 } from 'three';
-import {
-  useBranchAmount,
-  useBrancheOffsetFromCenter
-} from '../../stores/getStarted/selectors';
+import { useSpawnPresetName } from '../../stores/getStarted/selectors';
 import { Branch } from './Branch';
+import { getSpawnPoints, PRESET_CONFIG } from './spawnPresets';
 
 function Root() {
   const groupRef = useRef<Group>(null);
-  const brancheAmount = useBranchAmount();
-  const brancheOffsetFromCenter = useBrancheOffsetFromCenter();
-  const branches = Array.from({ length: brancheAmount }, (_, i) => {
-    const relativeScale = i / brancheAmount;
-    const angleZ = relativeScale * Math.PI * 2;
-    const rotation = new Euler(0, 0, angleZ);
-    const position = new Vector3(
-      -Math.sin(angleZ) * brancheOffsetFromCenter,
-      Math.cos(angleZ) * brancheOffsetFromCenter,
-      0
-    );
+  const presetName = useSpawnPresetName();
 
-    return { id: i, rotation, position };
-  });
+  const { geometry, inradius } = PRESET_CONFIG[presetName];
+  const branches = getSpawnPoints(presetName, inradius);
 
   useFrame(() => {
     if (groupRef.current) {
@@ -34,6 +21,13 @@ function Root() {
 
   return (
     <group ref={groupRef}>
+      <mesh geometry={geometry}>
+        <meshStandardMaterial
+          color="dimgray"
+          wireframe
+        />
+      </mesh>
+
       {branches.map((branch) => (
         <Branch
           key={branch.id}

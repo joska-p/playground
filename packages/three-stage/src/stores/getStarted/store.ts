@@ -1,10 +1,12 @@
 import { createStore } from 'zustand';
+import type { PresetName } from '../../components/GetStarted/spawnPresets';
 
 export type GetStartedStore = {
   leafMaxSpread: number;
   leafAmount: number;
   brancheOffsetFromCenter: number;
   branchAmount: number;
+  spawnPresetName: PresetName;
 };
 
 function getInitialState(): GetStartedStore {
@@ -12,7 +14,8 @@ function getInitialState(): GetStartedStore {
     leafMaxSpread: 10,
     leafAmount: 20,
     brancheOffsetFromCenter: 1,
-    branchAmount: 4
+    branchAmount: 4,
+    spawnPresetName: 'cube'
   };
 }
 

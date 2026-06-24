@@ -9,3 +9,5 @@ export const useBrancheOffsetFromCenter = () =>
   useStore(getStartedStore, (state) => state.brancheOffsetFromCenter);
 export const useBranchAmount = () =>
   useStore(getStartedStore, (state) => state.branchAmount);
+export const useSpawnPresetName = () =>
+  useStore(getStartedStore, (state) => state.spawnPresetName);
