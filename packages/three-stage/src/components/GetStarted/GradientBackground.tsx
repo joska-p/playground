@@ -1,5 +1,26 @@
-import { useTexture } from '@react-three/drei';
+import { useRef } from 'react';
 import * as THREE from 'three';
+
+// Procedural radial gradient shader (goodbye PNG!)
+const RadialGradientShader = {
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 uColor;
+    uniform float uOpacity;
+    varying vec2 vUv;
+    void main() {
+      float dist = distance(vUv, vec2(0.5));
+      float alpha = smoothstep(0.5, 0.0, dist);
+      gl_FragColor = vec4(uColor, alpha * uOpacity);
+    }
+  `
+};
 
 type GetSpritesDataProps = {
   numSprites?: number;
@@ -12,17 +33,14 @@ type GetSpritesDataProps = {
 
 function getSpritesData({
   numSprites = 8,
-  radius = 10,
+  radius = 12,
   z = -15.5,
   hue = 0.5,
   sat = 0.5,
-  baseSize = 24
+  baseSize = 20
 }: GetSpritesDataProps) {
   return Array.from({ length: numSprites }).map((_, i) => {
-    // 1. Normalized angle around the circle (0 to 2*PI)
     const angle = (i / numSprites) * Math.PI * 2;
-
-    // 2. Normalized distance from the center (0 to 1)
     const distanceFactor = Math.random();
 
     const position = new THREE.Vector3(
@@ -31,7 +49,6 @@ function getSpritesData({
       z + Math.random()
     );
 
-    // 3. Size variance using a predictable modifier
     const sizeModifier = baseSize * (1 + (Math.random() - 0.5) * 0.1);
     const scale = new THREE.Vector3(sizeModifier, sizeModifier, 1);
 
@@ -44,38 +61,37 @@ function getSpritesData({
 
 type GradientBackgroundProps = {
   opacity?: number;
-  hasFog?: boolean;
-  path?: string;
+  numSprites?: number;
 };
 
 export function GradientBackground({
   opacity = 0.2,
-  hasFog = true,
-  path = './assets/rad-grad.png'
+  numSprites = 12
 }: GradientBackgroundProps) {
-  const texture = useTexture(path);
-
-  // FIX: useMemo prevents recalculating positions on every React render
-  const spritesData = getSpritesData({ radius: 12, baseSize: 20 });
+  const spritesData = getSpritesData({ numSprites });
+  const groupRef = useRef<THREE.Group>(null);
 
   return (
-    <group>
+    <group ref={groupRef}>
       {spritesData.map((sprite) => (
-        <sprite
+        <mesh
           key={sprite.id}
           position={sprite.position}
           scale={sprite.scale}
         >
-          <spriteMaterial
-            attach="material"
-            map={texture}
-            color={sprite.color}
+          <planeGeometry args={[1, 1]} />
+          <shaderMaterial
             transparent
-            opacity={opacity}
-            fog={hasFog}
-            rotation={0}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+            vertexShader={RadialGradientShader.vertexShader}
+            fragmentShader={RadialGradientShader.fragmentShader}
+            uniforms={{
+              uColor: { value: sprite.color },
+              uOpacity: { value: opacity }
+            }}
           />
-        </sprite>
+        </mesh>
       ))}
     </group>
   );
