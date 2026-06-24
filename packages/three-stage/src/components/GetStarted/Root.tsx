@@ -14,7 +14,7 @@ function getDebugGeometry(
     case 'circle':
       return new THREE.RingGeometry(
         radius - 0.02,
-        radius + 0.02,
+        radius - 0.02,
         circleSegments
       );
     case 'tetrahedron':
@@ -33,7 +33,7 @@ function getDebugGeometry(
 export function Root() {
   const groupRef = useRef<THREE.Group>(null);
 
-  const { preset, radius, offset, circleSegments } = useControls(
+  const { preset, radius, offset, circleSegments, visible } = useControls(
     'Spawning System',
     {
       preset: {
@@ -63,7 +63,8 @@ export function Root() {
         min: -2,
         max: 2,
         step: 0.05
-      }
+      },
+      visible: { label: 'Visible', value: true }
     }
   );
 
@@ -79,9 +80,11 @@ export function Root() {
 
   return (
     <group ref={groupRef}>
-      <mesh geometry={debugGeometry}>
-        <meshStandardMaterial color="dimgray" />
-      </mesh>
+      {visible && (
+        <mesh geometry={debugGeometry}>
+          <meshStandardMaterial color="dimgray" />
+        </mesh>
+      )}
 
       {branches.map((branch) => (
         <Branch
