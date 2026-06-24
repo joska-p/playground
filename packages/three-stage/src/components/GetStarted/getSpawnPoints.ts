@@ -1,12 +1,12 @@
-import * as THREE from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 
 export type SpawnPoint = {
   id: number;
-  position: THREE.Vector3;
-  rotation: THREE.Euler;
+  position: Vector3;
+  rotation: Euler;
 };
 
-const LOCAL_UP = new THREE.Vector3(0, 1, 0);
+const LOCAL_UP = new Vector3(0, 1, 0);
 
 const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2; // φ ≈ 1.618
 
@@ -81,6 +81,7 @@ const VERTEX_PRESETS: Record<string, number[][]> = {
 
 export type PresetName =
   | 'circle'
+  | 'fsphere'
   | 'tetrahedron'
   | 'cube'
   | 'octahedron'
@@ -92,13 +93,15 @@ type GetSpawnPointsProps = {
   radius: number;
   offset: number;
   circleSegments: number;
+  fsphereFaces: number;
 };
 
 export function getSpawnPoints({
   preset,
   radius,
   offset,
-  circleSegments
+  circleSegments,
+  fsphereFaces
 }: GetSpawnPointsProps): SpawnPoint[] {
   const points: SpawnPoint[] = [];
   const totalDistance = radius + offset;
@@ -107,30 +110,52 @@ export function getSpawnPoints({
   if (preset === 'circle') {
     for (let i = 0; i < circleSegments; i++) {
       const angle = (i / circleSegments) * Math.PI * 2;
-      const normal = new THREE.Vector3(Math.cos(angle), 0, Math.sin(angle));
+      const normal = new Vector3(Math.cos(angle), 0, Math.sin(angle));
 
       points.push({
         id: i,
         position: normal.clone().multiplyScalar(totalDistance),
-        rotation: new THREE.Euler().setFromQuaternion(
-          new THREE.Quaternion().setFromUnitVectors(LOCAL_UP, normal)
+        rotation: new Euler().setFromQuaternion(
+          new Quaternion().setFromUnitVectors(LOCAL_UP, normal)
         )
       });
     }
     return points;
   }
 
-  // 2. Handle pure mathematical vertex processing
+  // 2. Handle spherical spawning
+  if (preset === 'fsphere') {
+    for (let i = 0; i < fsphereFaces; i++) {
+      const y = 1 - (i / (fsphereFaces - 1)) * 2;
+      const radius = Math.sqrt(1 - y * y);
+      const theta = (i * Math.PI * (3 - Math.sqrt(5))) % (2 * Math.PI);
+      const normal = new Vector3(
+        Math.cos(theta) * radius,
+        y,
+        Math.sin(theta) * radius
+      );
+      points.push({
+        id: i,
+        position: normal.clone().multiplyScalar(totalDistance),
+        rotation: new Euler().setFromQuaternion(
+          new Quaternion().setFromUnitVectors(LOCAL_UP, normal)
+        )
+      });
+    }
+    return points;
+  }
+
+  // 3. Handle pure mathematical vertex processing
   const rawVertices = VERTEX_PRESETS[preset] || [];
-  const vertexVec = new THREE.Vector3();
+  const vertexVec = new Vector3();
 
   for (let i = 0; i < rawVertices.length; i++) {
     // Load coordinates and normalize it to make it a true direction vector pointing out from origin center
     vertexVec.fromArray(rawVertices[i]).normalize();
 
     const position = vertexVec.clone().multiplyScalar(totalDistance);
-    const rotation = new THREE.Euler().setFromQuaternion(
-      new THREE.Quaternion().setFromUnitVectors(LOCAL_UP, vertexVec)
+    const rotation = new Euler().setFromQuaternion(
+      new Quaternion().setFromUnitVectors(LOCAL_UP, vertexVec)
     );
 
     points.push({ id: i, position, rotation });
