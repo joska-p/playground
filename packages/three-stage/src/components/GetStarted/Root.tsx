@@ -7,11 +7,15 @@ import { Branch } from './Branch';
 type RootProps = {
   amount?: number;
   maxSpread?: number;
+  distanceFromCenter?: number;
 };
 
-function Root({ amount = 8, maxSpread = 10 }: RootProps) {
+function Root({
+  amount = 8,
+  maxSpread = 10,
+  distanceFromCenter = 1
+}: RootProps) {
   const groupRef = useRef<Group>(null);
-  const distanceFromCenter = 1.5;
 
   useFrame(() => {
     if (groupRef.current) {
@@ -20,28 +24,31 @@ function Root({ amount = 8, maxSpread = 10 }: RootProps) {
     }
   });
 
-  const Branches = Array.from({ length: amount }).map((_, i) => {
+  const branches = Array.from({ length: amount }, (_, i) => {
     const relativeScale = i / amount;
     const angleZ = relativeScale * Math.PI * 2;
     const rotation = new Euler(0, 0, angleZ);
-
     const position = new Vector3(
       -Math.sin(angleZ) * distanceFromCenter,
       Math.cos(angleZ) * distanceFromCenter,
       0
     );
 
-    return (
-      <Branch
-        key={i}
-        maxSpread={maxSpread}
-        rotation={rotation}
-        position={position}
-      />
-    );
+    return { id: i, rotation, position };
   });
 
-  return <group ref={groupRef}>{Branches}</group>;
+  return (
+    <group ref={groupRef}>
+      {branches.map((branch) => (
+        <Branch
+          key={branch.id}
+          maxSpread={maxSpread}
+          rotation={branch.rotation}
+          position={branch.position}
+        />
+      ))}
+    </group>
+  );
 }
 
 export { Root };
