@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import type { Mesh } from 'three';
 import { Euler, Quaternion, Vector3 } from 'three';
 
-type MeshComponentProps = {
+type LeafProps = {
   relativeScale: number; // Normalized value between 0 and 1
   maxSpread?: number;
 };
 
-function MeshComponent({ relativeScale, maxSpread = 3 }: MeshComponentProps) {
+function Leaf({ relativeScale, maxSpread = 3 }: LeafProps) {
   const meshRef = useRef<Mesh>(null);
 
   const size = 1 - relativeScale;
@@ -29,4 +29,4 @@ function MeshComponent({ relativeScale, maxSpread = 3 }: MeshComponentProps) {
   );
 }
 
-export { MeshComponent };
+export { Leaf };
