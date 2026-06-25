@@ -19,6 +19,7 @@
 @source '../../node_modules/@repo/three-stage';
 @source '../../node_modules/@repo/automa';
 @source '../../node_modules/@repo/randomart';
+@source '../../node_modules/@repo/l-system';
 
 @view-transition {
   navigation: auto;

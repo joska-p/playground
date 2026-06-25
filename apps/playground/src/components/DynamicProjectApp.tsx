@@ -30,6 +30,9 @@ const SequenceApp = React.lazy(() =>
 const ThreeStageApp = React.lazy(() =>
   import('@repo/three-stage').then((m) => ({ default: m.App }))
 );
+const LSystemApp = React.lazy(() =>
+  import('@repo/l-system').then((m) => ({ default: m.App }))
+);
 
 const components: Record<string, React.ComponentType> = {
   mosaic: MosaicApp,
@@ -41,7 +44,8 @@ const components: Record<string, React.ComponentType> = {
   pixel: PixelApp,
   graphify: GraphifyApp,
   'three-stage': ThreeStageApp,
-  automa: AutomaApp
+  automa: AutomaApp,
+  'l-system': LSystemApp
 };
 
 export function DynamicProjectApp({ slug }: { slug: string }) {

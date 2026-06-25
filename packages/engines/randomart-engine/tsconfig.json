@@ -6,7 +6,7 @@
     "target": "ESNext",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "moduleDetection": "force",
     "noEmit": true,
     "erasableSyntaxOnly": true,

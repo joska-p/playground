@@ -1,7 +1,7 @@
 import type { Word } from '@repo/l-system-engine';
 import * as THREE from 'three';
 
-export interface TurtleOptions {
+export type TurtleOptions = {
   /** Angle in degrees to turn on + / - symbols. */
   angle: number;
   /** Initial length of each forward step. */
@@ -14,14 +14,14 @@ export interface TurtleOptions {
   widthFactor: number;
 }
 
-export interface LineSegment {
+export type LineSegment = {
   start: THREE.Vector3;
   end: THREE.Vector3;
   /** Depth at which this segment was drawn — used for colouring. */
   depth: number;
 }
 
-interface TurtleState {
+type TurtleState = {
   position: THREE.Vector3;
   /** Unit direction vector. */
   direction: THREE.Vector3;

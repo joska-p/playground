@@ -185,6 +185,9 @@ importers:
       '@repo/image-to-particles':
         specifier: workspace:*
         version: link:../../packages/image-to-particles
+      '@repo/l-system':
+        specifier: workspace:*
+        version: link:../../packages/l-system
       '@repo/mosaic-maker':
         specifier: workspace:*
         version: link:../../packages/mosaic-maker
