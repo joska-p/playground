@@ -1,21 +1,21 @@
 ---
-title: "Fracture"
-description: "Fractal visualization. For now."
+title: "Real Life"
+description: "Continuous automaton"
 category: "reference"
 tags:
   - reference
-  - fracture
+  - real-life
 order: 20
 ---
 
-# @repo/fracture
+# @repo/real-life
 
 ---
 
 ## Quick Start
 
 ```bash
-pnpm --filter @repo/fracture dev
+pnpm --filter @repo/real-life dev
 ```
 
 ## Adding to the Playground

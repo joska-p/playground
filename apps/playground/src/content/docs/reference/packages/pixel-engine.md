@@ -1,7 +1,7 @@
 ---
-title: 'Pixel Engine'
-description: 'Pure TypeScript image-manipulation core — no framework, no DOM, no React.'
-category: 'reference'
+title: "Pixel Engine"
+description: "Pure TypeScript image-manipulation core — no framework, no DOM, no React."
+category: "reference"
 tags:
   - reference
   - pixel-engine
@@ -51,3 +51,4 @@ See the [pixel README](../../pixel/) for full usage docs.
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
+

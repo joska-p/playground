@@ -7,6 +7,8 @@
     ".": "./src/engine.ts"
   },
   "scripts": {
+    "test": "vitest run",
+    "test-watch": "vitest",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo"
@@ -15,6 +17,8 @@
     "@repo/config-eslint": "workspace:*",
     "@tsconfig/strictest": "catalog:",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
   }
 }

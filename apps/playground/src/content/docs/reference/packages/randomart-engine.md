@@ -1,7 +1,7 @@
 ---
-title: 'Randomart Engine'
-description: 'Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React.'
-category: 'reference'
+title: "Randomart Engine"
+description: "Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React."
+category: "reference"
 tags:
   - reference
   - randomart-engine
@@ -209,3 +209,4 @@ src/
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
+

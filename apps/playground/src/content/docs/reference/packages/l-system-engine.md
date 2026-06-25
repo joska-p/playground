@@ -1,6 +1,14 @@
-# @repo/l-system-engine
+---
+title: "L System Engine"
+description: "A grammar-agnostic L-system rewriting engine in TypeScript — pure, reproducible, and renderer-independent."
+category: "reference"
+tags:
+  - reference
+  - l-system-engine
+order: 20
+---
 
-> A grammar-agnostic L-system rewriting engine in TypeScript — pure, reproducible, and renderer-independent.
+# @repo/l-system-engine
 
 ## Purpose
 
@@ -332,3 +340,4 @@ Follows SemVer. See [CHANGELOG.md].
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground/)_
+

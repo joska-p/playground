@@ -1,21 +1,21 @@
 ---
-title: "Fracture"
-description: "Fractal visualization. For now."
+title: "L System"
+description: "Scaffolded demo showcasing Zustand + Zod."
 category: "reference"
 tags:
   - reference
-  - fracture
+  - l-system
 order: 20
 ---
 
-# @repo/fracture
+# @repo/l-system
 
 ---
 
 ## Quick Start
 
 ```bash
-pnpm --filter @repo/fracture dev
+pnpm --filter @repo/l-system dev
 ```
 
 ## Adding to the Playground

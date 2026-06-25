@@ -7,10 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const PACKAGES_DIR = path.join(ROOT, 'packages');
 const ENGINES_DIR = path.join(ROOT, 'packages/engines');
-const REF_DIR = path.join(
-  ROOT,
-  'apps/playground/src/content/docs/reference/packages'
-);
+const REF_DIR = path.join(ROOT, 'apps/playground/src/content/docs/reference/packages');
 
 const PACKAGE_NAMES = {
   automa: 'automa',
@@ -30,7 +27,8 @@ const PACKAGE_NAMES = {
   'three-stage': 'Three Stage',
   'radu-machine-learning': 'Radu Machine Learning',
   ui: 'UI Components',
-  'worker-pool': 'A pool of worker'
+  'worker-pool': 'Worker pool',
+  'l-system-engine': 'L-system engine'
 };
 
 function kebabToTitle(name) {
@@ -62,9 +60,7 @@ async function main() {
     ...rootEntries
       .filter((e) => e.isDirectory() && e.name !== 'engines')
       .map((e) => ({ dir: PACKAGES_DIR, name: e.name })),
-    ...engineEntries
-      .filter((e) => e.isDirectory())
-      .map((e) => ({ dir: ENGINES_DIR, name: e.name }))
+    ...engineEntries.filter((e) => e.isDirectory()).map((e) => ({ dir: ENGINES_DIR, name: e.name }))
   ];
 
   let count = 0;
