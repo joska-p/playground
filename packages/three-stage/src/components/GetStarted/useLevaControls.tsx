@@ -2,8 +2,8 @@ import { useControls } from 'leva';
 import { type PresetName } from './getSpawnPoints';
 
 function useLevaControls() {
-  const { preset, radius, offset, circleSegments, fsphereFaces, visible } =
-    useControls('Spawning System', {
+  const { preset, radius, offset, circleSegments, fsphereFaces, visible, autoRotation } =
+    useControls('Branches', {
       preset: {
         label: 'Spawn',
         value: 'icosahedron' as PresetName,
@@ -23,7 +23,7 @@ function useLevaControls() {
         min: 3,
         max: 32,
         step: 1,
-        render: (get) => get('Spawning System.preset') === 'circle'
+        render: (get) => get('Branches.preset') === 'circle'
       },
       fsphereFaces: {
         label: 'Faces',
@@ -31,7 +31,7 @@ function useLevaControls() {
         min: 3,
         max: 32,
         step: 1,
-        render: (get) => get('Spawning System.preset') === 'fsphere'
+        render: (get) => get('Branches.preset') === 'fsphere'
       },
       radius: { label: 'Radius', value: 1.5, min: 0.5, max: 5, step: 0.1 },
       offset: {
@@ -41,10 +41,11 @@ function useLevaControls() {
         max: 2,
         step: 0.05
       },
-      visible: { label: 'Visible', value: true }
+      visible: { label: 'Visible', value: true },
+      autoRotation: { label: 'Rotation auto', value: false }
     });
 
-  return { preset, radius, offset, circleSegments, fsphereFaces, visible };
+  return { preset, radius, offset, circleSegments, fsphereFaces, visible, autoRotation };
 }
 
 export { useLevaControls };

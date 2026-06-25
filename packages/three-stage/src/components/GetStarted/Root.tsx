@@ -8,7 +8,7 @@ import { useLevaControls } from './useLevaControls';
 
 export function Root() {
   const groupRef = useRef<Group>(null);
-  const { preset, radius, offset, circleSegments, fsphereFaces, visible } =
+  const { preset, radius, offset, circleSegments, fsphereFaces, visible, autoRotation } =
     useLevaControls();
 
   const branches = getSpawnPoints({
@@ -19,15 +19,10 @@ export function Root() {
     fsphereFaces
   });
 
-  const debugGeometry = getDebugGeometry(
-    preset,
-    radius,
-    circleSegments,
-    fsphereFaces
-  );
+  const debugGeometry = getDebugGeometry(preset, radius, circleSegments, fsphereFaces);
 
   useFrame(() => {
-    if (groupRef.current) {
+    if (groupRef.current && autoRotation) {
       groupRef.current.rotation.x += 0.001;
       groupRef.current.rotation.y += 0.002;
     }
