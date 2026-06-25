@@ -6,8 +6,9 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@repo/ui/Card';
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Input } from '@repo/ui/Input';
 import { useState } from 'react';
 import { demoSchema } from '../demo.schema.ts';
@@ -16,7 +17,7 @@ import {
   resetDemo,
   useDemoCount,
   useDemoLastMessage,
-  useDemoSubmissions,
+  useDemoSubmissions
 } from '../demoStore.ts';
 
 function Demo() {
@@ -38,14 +39,13 @@ function Demo() {
   }
 
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <ErrorBoundary>
       <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4 sm:p-8">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Zustand + Zod Demo</CardTitle>
             <CardDescription>
-              A minimal showcase of state management with Zustand and runtime
-              validation with Zod.
+              A minimal showcase of state management with Zustand and runtime validation with Zod.
             </CardDescription>
           </CardHeader>
 
@@ -82,9 +82,7 @@ function Demo() {
 
             {submissions.length > 0 && (
               <div className="border-border/30 flex flex-col gap-2 border-t pt-4">
-                <span className="text-muted-foreground text-xs font-medium uppercase">
-                  History
-                </span>
+                <span className="text-muted-foreground text-xs font-medium uppercase">History</span>
                 <ul className="flex flex-col gap-1">
                   {[...submissions].reverse().map((sub) => (
                     <li
@@ -104,7 +102,7 @@ function Demo() {
               <Button
                 variant="ghost"
                 onClick={resetDemo}
-                size="small"
+                size="sm"
               >
                 Reset
               </Button>
