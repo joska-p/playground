@@ -19,8 +19,6 @@ export function useCanvasRenderer(
   const rafRef = useRef<number | null>(null);
   const isPlaying = useIsPlaying();
 
-  isPlayingRef.current = isPlaying;
-
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -41,6 +39,9 @@ export function useCanvasRenderer(
   useEffect(() => {
     viewportRef.current = viewport;
   }, [viewport]);
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   // Sequence/layers change → render immediately
   useEffect(() => {

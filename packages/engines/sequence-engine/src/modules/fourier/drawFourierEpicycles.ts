@@ -1,9 +1,17 @@
 import type { VisualLayer } from '../../visualizations/types';
 import { fetchFourierEpicycles } from './store';
 
-const coordinateTrail: Array<{ x: number; y: number }> = [];
-let trackedDataSignature = '';
-let frozenTimestamp = 0;
+type RenderState = {
+  trail: Array<{ x: number; y: number }>;
+  dataSignature: string;
+  freezeTime: number;
+};
+
+const state: RenderState = {
+  trail: [],
+  dataSignature: '',
+  freezeTime: 0,
+};
 
 export const drawFourierEpicycles: VisualLayer = {
   id: 'fourier-epicycles',
@@ -25,12 +33,13 @@ export const drawFourierEpicycles: VisualLayer = {
     },
     paceMultiplier: { label: 'Animation Speed', type: 'number', min: 0.1, max: 3, step: 0.1 }
   },
-  draw: (ctx, data, params) => {
+  draw: (ctx, data, params, layout) => {
     const {
       precision = 40,
       orbitOverlays = true,
-      paceMultiplier = 1.0
-    } = params as Record<string, number>;
+      paceMultiplier = 1.0,
+      isPlaying = false
+    } = params as Record<string, number | boolean>;
 
     const pairs = new Float32Array(data.length * 2);
     for (let i = 0; i < data.length; i++) {
@@ -44,32 +53,25 @@ export const drawFourierEpicycles: VisualLayer = {
 
     if (!epicycles || epicycles.length === 0) return;
 
-    const currentDataSignature = `${data.length}:${data.slice(0, 5).join(',')}`;
-    if (currentDataSignature !== trackedDataSignature) {
-      coordinateTrail.length = 0;
-      trackedDataSignature = currentDataSignature;
+    const currentSignature = `${data.length}:${data.slice(0, 5).join(',')}`;
+    if (currentSignature !== state.dataSignature) {
+      state.trail = [];
+      state.dataSignature = currentSignature;
+      state.freezeTime = 0;
     }
 
-    const isPlaying = (params as Record<string, unknown>)['_isPlaying'] === true;
-    if (isPlaying || frozenTimestamp === 0) {
-      frozenTimestamp = (performance.now() / 1000) * paceMultiplier;
+    const pace = paceMultiplier as number;
+    if (isPlaying || state.freezeTime === 0) {
+      state.freezeTime = (performance.now() / 1000) * pace;
     }
-    const progress = frozenTimestamp / 300;
+    const progress = state.freezeTime / 300;
 
     ctx.save();
-    ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+    ctx.translate(layout.offsetX, layout.offsetY);
 
     let x = 0;
     let y = 0;
-    const activeLimit = Math.min(epicycles.length, precision);
-
-    let amplitudeSum = 0;
-    for (let i = 0; i < activeLimit; i++) {
-      const epi = epicycles[i];
-      if (epi) amplitudeSum += epi.amplitude;
-    }
-    const fitScale =
-      amplitudeSum > 0 ? (Math.min(ctx.canvas.width, ctx.canvas.height) * 0.4) / amplitudeSum : 1;
+    const activeLimit = Math.min(epicycles.length, precision as number);
 
     for (let i = 0; i < activeLimit; i++) {
       const epi = epicycles[i];
@@ -78,21 +80,21 @@ export const drawFourierEpicycles: VisualLayer = {
       const prevX = x;
       const prevY = y;
 
-      const radius = epi.amplitude * fitScale;
+      const radius = epi.amplitude * layout.valueScale;
       x += radius * Math.cos(2 * Math.PI * epi.frequency * progress + epi.phase);
       y += radius * Math.sin(2 * Math.PI * epi.frequency * progress + epi.phase);
 
       if (orbitOverlays && epi.frequency > 0) {
         ctx.beginPath();
         ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; // Softened the orbit rings
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; // Softened the spokes
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
         ctx.stroke();
 
         ctx.beginPath();
@@ -102,14 +104,15 @@ export const drawFourierEpicycles: VisualLayer = {
       }
     }
 
-    coordinateTrail.push({ x, y });
-    if (coordinateTrail.length > 2500) coordinateTrail.shift();
+    state.trail.push({ x, y });
+    if (state.trail.length > 2500) state.trail.shift();
 
     ctx.beginPath();
-    if (coordinateTrail.length > 0) {
-      ctx.moveTo(coordinateTrail[0]!.x, coordinateTrail[0]!.y);
-      for (const coordinate of coordinateTrail) {
-        ctx.lineTo(coordinate.x, coordinate.y);
+    const first = state.trail[0];
+    if (first) {
+      ctx.moveTo(first.x, first.y);
+      for (const pt of state.trail) {
+        ctx.lineTo(pt.x, pt.y);
       }
     }
 
@@ -117,5 +120,9 @@ export const drawFourierEpicycles: VisualLayer = {
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.restore();
+
+    requestAnimationFrame(() => {
+      ctx.canvas.dispatchEvent(new CustomEvent('sequence-renderer:request-draw'));
+    });
   }
 };

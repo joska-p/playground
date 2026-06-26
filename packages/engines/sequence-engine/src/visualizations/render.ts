@@ -64,7 +64,7 @@ function render(
     if (!entry.enabled) continue;
     const layer = getLayer(entry.layerId);
     if (!layer) continue;
-    const params = { ...layer.defaults, ...entry.params, _isPlaying: isPlaying };
+    const params = { ...layer.defaults, ...entry.params, isPlaying };
     ctx.save();
     layer.draw(ctx, data, params, layout);
     ctx.restore();

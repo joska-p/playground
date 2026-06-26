@@ -1,6 +1,6 @@
-import { fourierPathRule } from '../modules/fourier/fourierPath';
 import { collatzRule } from './collatz';
 import { fibonacciRule } from './fibonacci';
+import { harmonicPathRule } from './harmonicPath';
 import { lookAndSayRule } from './lookAndSay';
 import { padovanRule } from './padovan';
 import { primesRule } from './primes';
@@ -20,7 +20,7 @@ const rules = new Map<string, SequenceRule>([
   [padovanRule.id, padovanRule],
   [squareNumbersRule.id, squareNumbersRule],
   [sternDiatomicRule.id, sternDiatomicRule],
-  [fourierPathRule.id, fourierPathRule]
+  [harmonicPathRule.id, harmonicPathRule]
 ]);
 
 export function getAllRules(): SequenceRule[] {

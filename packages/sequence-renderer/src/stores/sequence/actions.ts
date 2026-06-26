@@ -137,6 +137,16 @@ export function togglePlayback(): void {
   sequenceStore.setState((s) => ({ isPlaying: !s.isPlaying }));
 }
 
+export function incrementSteps(): void {
+  const state = sequenceStore.getState();
+  const nextSteps = state.steps + 1;
+  if (nextSteps > state.sequenceRule.maxSteps) {
+    sequenceStore.setState({ isPlaying: false });
+    return;
+  }
+  setSequenceSteps({ steps: nextSteps });
+}
+
 export function setSeed(seed: string | undefined): void {
   const state = sequenceStore.getState();
   sequenceStore.setState({

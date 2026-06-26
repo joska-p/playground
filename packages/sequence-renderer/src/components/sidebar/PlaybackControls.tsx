@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import type { JSX } from 'react';
 import { useEffect, useRef } from 'react';
-import { togglePlayback } from '../../stores/sequence/actions';
+import { incrementSteps, togglePlayback } from '../../stores/sequence/actions';
 import { useIsPlaying } from '../../stores/sequence/selectors/useIsPlaying';
 
 function PlaybackControls(): JSX.Element {
@@ -18,10 +18,7 @@ function PlaybackControls(): JSX.Element {
     }
 
     function tick() {
-      const canvas = document.querySelector('canvas');
-      if (canvas) {
-        canvas.dispatchEvent(new CustomEvent('sequence-renderer:request-draw'));
-      }
+      incrementSteps();
       rafRef.current = requestAnimationFrame(tick);
     }
 
