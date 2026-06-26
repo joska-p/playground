@@ -1,3 +1,4 @@
+import { drawFourierEpicycles } from '../../modules/fourier/drawFourierEpicycles';
 import type { VisualLayer } from '../types';
 import { drawBarChart } from './drawBarChart';
 import { drawBaseline } from './drawBaseline';
@@ -18,7 +19,8 @@ const layers: VisualLayer[] = [
   drawRadialSpokes,
   drawMountain,
   drawBarChart,
-  drawStemPlot
+  drawStemPlot,
+  drawFourierEpicycles
 ];
 
 const layerMap = new Map<string, VisualLayer>(layers.map((l) => [l.id, l]));

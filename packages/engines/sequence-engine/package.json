@@ -15,8 +15,13 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo"
+  },
+  "dependencies": {
+    "@repo/randomart-engine": "workspace:*",
+    "@repo/worker-pool": "workspace:*"
   },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",

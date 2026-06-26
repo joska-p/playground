@@ -16,6 +16,12 @@ const builtInPresets: PresetRecord[] = [
     isBuiltIn: true
   },
   {
+    id: 'fourierPath',
+    name: 'Fourier Path',
+    layers: [{ layerId: 'fourier-epicycles', enabled: true, params: {} }],
+    isBuiltIn: true
+  },
+  {
     id: 'frontWave',
     name: 'Front Wave',
     layers: [

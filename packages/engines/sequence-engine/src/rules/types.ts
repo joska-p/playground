@@ -3,6 +3,7 @@ export type NextStepOptions = {
   current: number;
   sequence: number[];
   seen: Set<number>;
+  seed?: string | undefined;
 };
 
 export type SequenceRule = {

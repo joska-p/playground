@@ -544,6 +544,13 @@ importers:
         version: 6.0.3
 
   packages/engines/sequence-engine:
+    dependencies:
+      '@repo/randomart-engine':
+        specifier: workspace:*
+        version: link:../randomart-engine
+      '@repo/worker-pool':
+        specifier: workspace:*
+        version: link:../../worker-pool
     devDependencies:
       '@repo/config-eslint':
         specifier: workspace:*

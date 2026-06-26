@@ -1,6 +1,7 @@
 import type { ParamDescriptor } from '@repo/sequence-engine/visualizations/types';
+import { Input } from '@repo/ui/Input';
+import { Label } from '@repo/ui/Label';
 import { Slider } from '@repo/ui/Slider';
-import type { JSX } from 'react';
 
 type LayerOptionsPanelProps = {
   params: Record<string, ParamDescriptor>;
@@ -8,11 +9,7 @@ type LayerOptionsPanelProps = {
   onChange: (key: string, value: unknown) => void;
 };
 
-function LayerOptionsPanel({
-  params,
-  values,
-  onChange
-}: LayerOptionsPanelProps): JSX.Element {
+function LayerOptionsPanel({ params, values, onChange }: LayerOptionsPanelProps) {
   return (
     <div className="border-border mt-2 flex flex-col gap-2 border-t pt-2">
       {Object.entries(params).map(([key, descriptor]) => (
@@ -20,9 +17,9 @@ function LayerOptionsPanel({
           key={key}
           className="flex items-center gap-3"
         >
-          <label className="text-muted-foreground w-24 shrink-0 truncate text-xs">
+          <Label className="text-muted-foreground w-24 shrink-0 truncate text-xs">
             {descriptor.label}
-          </label>
+          </Label>
 
           {descriptor.type === 'number' && (
             <Slider
@@ -48,6 +45,24 @@ function LayerOptionsPanel({
                 {(values[key] as string) ?? 'inherit'}
               </span>
             </div>
+          )}
+
+          {descriptor.type === 'string' && (
+            <Input
+              type="text"
+              value={(values[key] as string) ?? ''}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(key, e.target.value)}
+              className="border-border h-6 w-full cursor-pointer rounded border bg-transparent"
+            />
+          )}
+
+          {descriptor.type === 'boolean' && (
+            <input
+              type="checkbox"
+              checked={(values[key] as boolean) ?? false}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(key, e.target.checked)}
+              className="border-border h-6 w-full cursor-pointer rounded border bg-transparent"
+            />
           )}
         </div>
       ))}

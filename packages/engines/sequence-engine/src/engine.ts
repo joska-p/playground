@@ -2,10 +2,12 @@ import type { SequenceRule } from './rules/types';
 
 function generateSequence({
   sequenceRule,
-  steps
+  steps,
+  seed
 }: {
   sequenceRule: SequenceRule;
   steps: number;
+  seed?: string;
 }): number[] {
   const sequence: number[] = [0];
   const seen = new Set([0]);
@@ -17,7 +19,8 @@ function generateSequence({
       index: i,
       current,
       sequence,
-      seen
+      seen,
+      seed
     });
     sequence.push(current);
     seen.add(current);

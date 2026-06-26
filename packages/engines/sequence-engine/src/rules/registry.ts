@@ -1,3 +1,4 @@
+import { fourierPathRule } from '../modules/fourier/fourierPath';
 import { collatzRule } from './collatz';
 import { fibonacciRule } from './fibonacci';
 import { lookAndSayRule } from './lookAndSay';
@@ -18,7 +19,8 @@ const rules = new Map<string, SequenceRule>([
   [lookAndSayRule.id, lookAndSayRule],
   [padovanRule.id, padovanRule],
   [squareNumbersRule.id, squareNumbersRule],
-  [sternDiatomicRule.id, sternDiatomicRule]
+  [sternDiatomicRule.id, sternDiatomicRule],
+  [fourierPathRule.id, fourierPathRule]
 ]);
 
 export function getAllRules(): SequenceRule[] {
