@@ -29,9 +29,9 @@ self.onmessage = (event: MessageEvent<Float32Array>) => {
     });
   }
 
-  // Sort epicycles descending by amplitude for clean chained orbiting visual rendering
-  epicycles.sort((a, b) => b.amplitude - a.amplitude);
+	  // Epicycles are already in natural frequency order (k=0, 1, 2, ...).
+	  // No sort needed.
 
-  // Return formatted payload matching the WorkerResult contract requirements
+	  // Return formatted payload matching the WorkerResult contract requirements
   self.postMessage({ ok: true, value: epicycles });
 };

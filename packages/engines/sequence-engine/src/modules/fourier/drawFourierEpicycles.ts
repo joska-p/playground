@@ -87,18 +87,26 @@ export const drawFourierEpicycles: VisualLayer = {
       x += radius * Math.cos(2 * Math.PI * epi.frequency * progress + epi.phase);
       y += radius * Math.sin(2 * Math.PI * epi.frequency * progress + epi.phase);
 
-	  if (orbitOverlays) {
+	  // Skip k=0 in orbit display (DC component is stationary — no visible rotation)
+      if (orbitOverlays && epi.frequency > 0) {
         ctx.beginPath();
         ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
+        // Radius line from center to current position on the orbit
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.stroke();
+
+        // Dot at current tip position to show the orbiting motion
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.fill();
       }
     }
 
