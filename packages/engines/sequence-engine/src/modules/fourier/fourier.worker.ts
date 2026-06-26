@@ -29,9 +29,10 @@ self.onmessage = (event: MessageEvent<Float32Array>) => {
     });
   }
 
-	  // Epicycles are already in natural frequency order (k=0, 1, 2, ...).
-	  // No sort needed.
+  // Sort descending by amplitude.
+  // This builds the drawing arm from the largest "shoulder" joints
+  // down to the smallest, fastest-spinning "fingers".
+  epicycles.sort((a, b) => b.amplitude - a.amplitude);
 
-	  // Return formatted payload matching the WorkerResult contract requirements
   self.postMessage({ ok: true, value: epicycles });
 };

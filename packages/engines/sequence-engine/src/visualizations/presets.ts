@@ -18,7 +18,7 @@ const builtInPresets: PresetRecord[] = [
   {
     id: 'fourierPath',
     name: 'Fourier Path',
-    layers: [{ layerId: 'fourier-epicycles', enabled: true, params: {} }],
+    layers: [{ layerId: 'fourier-epicycles', enabled: true, params: { precision: 40, orbitOverlays: true, paceMultiplier: 1 } }],
     isBuiltIn: true
   },
   {

@@ -1,4 +1,4 @@
-import type { VisualLayer } from '../../visualizations/types'; //
+import type { VisualLayer } from '../../visualizations/types';
 import { fetchFourierEpicycles } from './store';
 
 const coordinateTrail: Array<{ x: number; y: number }> = [];
@@ -10,7 +10,7 @@ export const drawFourierEpicycles: VisualLayer = {
   name: 'Fourier Epicycles',
   description:
     'Traces high-frequency geometric vector loops utilizing Discrete Fourier Transforms.',
-  category: 'drawing', //
+  category: 'drawing',
   defaults: {
     precision: 40,
     orbitOverlays: true,
@@ -23,7 +23,7 @@ export const drawFourierEpicycles: VisualLayer = {
       type: 'boolean',
       value: true
     },
-    paceMultiplier: { label: 'Animation Speed', type: 'number', min: 0.3, max: 3, step: 0.1 }
+    paceMultiplier: { label: 'Animation Speed', type: 'number', min: 0.1, max: 3, step: 0.1 }
   },
   draw: (ctx, data, params) => {
     const {
@@ -32,41 +32,37 @@ export const drawFourierEpicycles: VisualLayer = {
       paceMultiplier = 1.0
     } = params as Record<string, number>;
 
-    // 1. Build interleaved (index, value) pairs for 2D Fourier transform
     const pairs = new Float32Array(data.length * 2);
     for (let i = 0; i < data.length; i++) {
       pairs[2 * i] = i;
       pairs[2 * i + 1] = data[i] ?? 0;
     }
+
     const epicycles = fetchFourierEpicycles(pairs, () => {
       ctx.canvas.dispatchEvent(new CustomEvent('sequence-renderer:request-draw'));
     });
 
     if (!epicycles || epicycles.length === 0) return;
 
-    // Reset drawing coordinates history when user generates a brand-new dataset
     const currentDataSignature = `${data.length}:${data.slice(0, 5).join(',')}`;
     if (currentDataSignature !== trackedDataSignature) {
       coordinateTrail.length = 0;
       trackedDataSignature = currentDataSignature;
     }
 
-	    // 2. Compute normalized animation progress (one full sweep = 60s at paceMultiplier=1)
     const isPlaying = (params as Record<string, unknown>)['_isPlaying'] === true;
     if (isPlaying || frozenTimestamp === 0) {
       frozenTimestamp = (performance.now() / 1000) * paceMultiplier;
     }
-	    const progress = frozenTimestamp / 60;
+    const progress = frozenTimestamp / 300;
 
     ctx.save();
-    // Center in canvas
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
 
     let x = 0;
     let y = 0;
     const activeLimit = Math.min(epicycles.length, precision);
 
-    // Compute scale from total amplitude so drawing fits the canvas
     let amplitudeSum = 0;
     for (let i = 0; i < activeLimit; i++) {
       const epi = epicycles[i];
@@ -75,48 +71,42 @@ export const drawFourierEpicycles: VisualLayer = {
     const fitScale =
       amplitudeSum > 0 ? (Math.min(ctx.canvas.width, ctx.canvas.height) * 0.4) / amplitudeSum : 1;
 
-    // 3. Compute vector orbital branches (2π ensures frequency k completes k cycles per sweep)
     for (let i = 0; i < activeLimit; i++) {
       const epi = epicycles[i];
       if (!epi) continue;
+
       const prevX = x;
       const prevY = y;
 
-      // Scale vector radii uniformly via layout values scale constraints
       const radius = epi.amplitude * fitScale;
       x += radius * Math.cos(2 * Math.PI * epi.frequency * progress + epi.phase);
       y += radius * Math.sin(2 * Math.PI * epi.frequency * progress + epi.phase);
 
-	  // Skip k=0 in orbit display (DC component is stationary — no visible rotation)
       if (orbitOverlays && epi.frequency > 0) {
         ctx.beginPath();
         ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; // Softened the orbit rings
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Radius line from center to current position on the orbit
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; // Softened the spokes
         ctx.stroke();
 
-        // Dot at current tip position to show the orbiting motion
         ctx.beginPath();
-        ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.fill();
       }
     }
 
-    // 4. Capture drawing tip coordinate trails
     coordinateTrail.push({ x, y });
     if (coordinateTrail.length > 2500) coordinateTrail.shift();
 
-    // 5. Draw trace path matching systemic canvas typography colours
     ctx.beginPath();
-    if (coordinateTrail && coordinateTrail.length > 0) {
+    if (coordinateTrail.length > 0) {
       ctx.moveTo(coordinateTrail[0]!.x, coordinateTrail[0]!.y);
       for (const coordinate of coordinateTrail) {
         ctx.lineTo(coordinate.x, coordinate.y);
