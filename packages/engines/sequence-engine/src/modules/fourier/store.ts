@@ -16,11 +16,12 @@ const epicycleCache = new Map<string, Epicycle[]>();
 const activeQueries = new Set<string>();
 
 export function fetchFourierEpicycles(
-  data: number[],
+  pairs: Float32Array,
   triggerRedraw: () => void
 ): Epicycle[] | null {
   // Generate a distinct cache fingerprint using buffer markers
-  const cacheKey = `${data.length}:${data.slice(0, 10).join(',')}`;
+  const head = Array.from(pairs.slice(0, 20));
+  const cacheKey = `${pairs.length}:${head.join(',')}`;
 
   if (epicycleCache.has(cacheKey)) {
     return epicycleCache.get(cacheKey) ?? null;
@@ -28,14 +29,13 @@ export function fetchFourierEpicycles(
 
   if (!activeQueries.has(cacheKey)) {
     activeQueries.add(cacheKey);
-    const buffer = new Float32Array(data);
 
     fourierPool
-      .run(buffer)
+      .run(pairs)
       .then((result) => {
         epicycleCache.set(cacheKey, result);
         activeQueries.delete(cacheKey);
-        triggerRedraw(); // Fire redraw event once worker calculations complete
+        triggerRedraw();
       })
       .catch(console.error);
   }

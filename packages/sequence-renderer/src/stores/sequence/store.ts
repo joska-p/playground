@@ -25,6 +25,7 @@ const sequenceStore = create<SequenceState>(() => {
     sequence: generateSequence({ sequenceRule: recamanRule, steps: 2 }),
     customPresets: getAllPresets().filter((p) => !p.isBuiltIn),
     basePresetId: builtInPresets[0]?.id ?? null,
+    isPlaying: false,
     viewport: {
       enabled: false,
       zoom: 1,

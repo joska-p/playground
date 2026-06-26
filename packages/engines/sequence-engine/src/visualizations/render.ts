@@ -44,7 +44,8 @@ function render(
   canvas: HTMLCanvasElement,
   data: number[],
   layerEntries: LayerConfigEntry[],
-  viewport?: CanvasViewport
+  viewport?: CanvasViewport,
+  isPlaying?: boolean
 ): void {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -63,7 +64,7 @@ function render(
     if (!entry.enabled) continue;
     const layer = getLayer(entry.layerId);
     if (!layer) continue;
-    const params = { ...layer.defaults, ...entry.params };
+    const params = { ...layer.defaults, ...entry.params, _isPlaying: isPlaying };
     ctx.save();
     layer.draw(ctx, data, params, layout);
     ctx.restore();

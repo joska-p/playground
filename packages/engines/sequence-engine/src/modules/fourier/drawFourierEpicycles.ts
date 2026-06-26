@@ -3,6 +3,7 @@ import { fetchFourierEpicycles } from './store';
 
 const coordinateTrail: Array<{ x: number; y: number }> = [];
 let trackedDataSignature = '';
+let frozenTimestamp = 0;
 
 export const drawFourierEpicycles: VisualLayer = {
   id: 'fourier-epicycles',
@@ -12,7 +13,7 @@ export const drawFourierEpicycles: VisualLayer = {
   category: 'drawing', //
   defaults: {
     precision: 40,
-    orbitOverlays: 1,
+    orbitOverlays: true,
     paceMultiplier: 1.0
   },
   params: {
@@ -20,43 +21,61 @@ export const drawFourierEpicycles: VisualLayer = {
     orbitOverlays: {
       label: 'Show Orbits',
       type: 'boolean',
-      value: false
+      value: true
     },
-    paceMultiplier: { label: 'Animation Speed', type: 'number', min: 0.1, max: 4, step: 0.1 }
+    paceMultiplier: { label: 'Animation Speed', type: 'number', min: 0.3, max: 3, step: 0.1 }
   },
-  draw: (ctx, data, params, layout) => {
+  draw: (ctx, data, params) => {
     const {
       precision = 40,
-      orbitOverlays = 1,
+      orbitOverlays = true,
       paceMultiplier = 1.0
     } = params as Record<string, number>;
 
-    // 1. Route flat numbers array into the background worker pool
-    const epicycles = fetchFourierEpicycles(data, () => {
+    // 1. Build interleaved (index, value) pairs for 2D Fourier transform
+    const pairs = new Float32Array(data.length * 2);
+    for (let i = 0; i < data.length; i++) {
+      pairs[2 * i] = i;
+      pairs[2 * i + 1] = data[i] ?? 0;
+    }
+    const epicycles = fetchFourierEpicycles(pairs, () => {
       ctx.canvas.dispatchEvent(new CustomEvent('sequence-renderer:request-draw'));
     });
 
     if (!epicycles || epicycles.length === 0) return;
 
     // Reset drawing coordinates history when user generates a brand-new dataset
-    const currentDataSignature = `${data.length}:${data[0]}`;
+    const currentDataSignature = `${data.length}:${data.slice(0, 5).join(',')}`;
     if (currentDataSignature !== trackedDataSignature) {
       coordinateTrail.length = 0;
       trackedDataSignature = currentDataSignature;
     }
 
-    // 2. Compute smooth progressive runtime delta using high-res performance stamps
-    const timestamp = (performance.now() / 1000) * 0.4 * paceMultiplier;
+	    // 2. Compute normalized animation progress (one full sweep = 60s at paceMultiplier=1)
+    const isPlaying = (params as Record<string, unknown>)['_isPlaying'] === true;
+    if (isPlaying || frozenTimestamp === 0) {
+      frozenTimestamp = (performance.now() / 1000) * paceMultiplier;
+    }
+	    const progress = frozenTimestamp / 60;
 
     ctx.save();
-    // Center vector chain positions matching layout canvas calculations
-    ctx.translate(layout.offsetX, layout.offsetY);
+    // Center in canvas
+    ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
 
     let x = 0;
     let y = 0;
     const activeLimit = Math.min(epicycles.length, precision);
 
-    // 3. Compute vector orbital branches
+    // Compute scale from total amplitude so drawing fits the canvas
+    let amplitudeSum = 0;
+    for (let i = 0; i < activeLimit; i++) {
+      const epi = epicycles[i];
+      if (epi) amplitudeSum += epi.amplitude;
+    }
+    const fitScale =
+      amplitudeSum > 0 ? (Math.min(ctx.canvas.width, ctx.canvas.height) * 0.4) / amplitudeSum : 1;
+
+    // 3. Compute vector orbital branches (2π ensures frequency k completes k cycles per sweep)
     for (let i = 0; i < activeLimit; i++) {
       const epi = epicycles[i];
       if (!epi) continue;
@@ -64,11 +83,11 @@ export const drawFourierEpicycles: VisualLayer = {
       const prevY = y;
 
       // Scale vector radii uniformly via layout values scale constraints
-      const radius = epi.amplitude * layout.valueScale;
-      x += radius * Math.cos(epi.frequency * timestamp + epi.phase);
-      y += radius * Math.sin(epi.frequency * timestamp + epi.phase);
+      const radius = epi.amplitude * fitScale;
+      x += radius * Math.cos(2 * Math.PI * epi.frequency * progress + epi.phase);
+      y += radius * Math.sin(2 * Math.PI * epi.frequency * progress + epi.phase);
 
-      if (orbitOverlays === 1) {
+	  if (orbitOverlays) {
         ctx.beginPath();
         ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
@@ -100,10 +119,5 @@ export const drawFourierEpicycles: VisualLayer = {
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.restore();
-
-    // 6. Request continuous repaint loop execution without blocking the main React render pipeline
-    requestAnimationFrame(() => {
-      ctx.canvas.dispatchEvent(new CustomEvent('sequence-renderer:request-draw'));
-    });
   }
 };

@@ -3,7 +3,8 @@ import type {
   CanvasViewport,
   LayerConfigEntry
 } from '@repo/sequence-engine/visualizations/types';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { useIsPlaying } from '../stores/sequence/selectors/useIsPlaying';
 
 export function useCanvasRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -14,17 +15,21 @@ export function useCanvasRenderer(
   const sequenceRef = useRef(sequence);
   const layersRef = useRef(layers);
   const viewportRef = useRef(viewport);
+  const isPlayingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
+  const isPlaying = useIsPlaying();
 
-  function draw() {
+  isPlayingRef.current = isPlaying;
+
+  const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const parent = canvas.parentElement;
     if (!parent) return;
     canvas.width = parent.clientWidth;
     canvas.height = parent.clientHeight;
-    render(canvas, sequenceRef.current, layersRef.current, viewportRef.current);
-  }
+    render(canvas, sequenceRef.current, layersRef.current, viewportRef.current, isPlayingRef.current);
+  }, [canvasRef]);
 
   // Keep refs in sync for rAF reads
   useEffect(() => {
@@ -58,4 +63,18 @@ export function useCanvasRenderer(
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewport]);
+
+  // Playback / worker redraw requests → render immediately
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    function onRequestDraw() {
+      draw();
+    }
+    canvas.addEventListener('sequence-renderer:request-draw', onRequestDraw);
+    return () => {
+      canvas.removeEventListener('sequence-renderer:request-draw', onRequestDraw);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }

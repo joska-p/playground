@@ -14,6 +14,7 @@ type SequenceState = {
   customPresets: PresetRecord[];
   basePresetId: string | null;
   viewport: CanvasViewport;
+  isPlaying: boolean;
 };
 
 export type { SequenceState };

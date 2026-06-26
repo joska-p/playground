@@ -12,7 +12,7 @@ function generateSequence({
   const sequence: number[] = [0];
   const seen = new Set([0]);
   let current = 0;
-  const safeSteps = Math.min(steps, sequenceRule.maxSteps);
+  const safeSteps = sequenceRule.maxSteps === 0 ? steps : Math.min(steps, sequenceRule.maxSteps);
 
   for (let i = 1; i < safeSteps; i++) {
     current = sequenceRule.getNext({

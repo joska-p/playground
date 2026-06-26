@@ -6,7 +6,7 @@ export const fourierPathRule: SequenceRule = {
   id: 'fourier-hash-path',
   description:
     'Generates an alternating 2D coordinate sequence from a seed string for Fourier analysis.',
-  maxSteps: 2000, // Provides 1000 total discrete coordinate vector pairs max
+  maxSteps: 0, // Signals playback mode — see SidebarControls
 
   getNext: (options: NextStepOptions): number => {
     const { index, seed = 'default-fourier-seed' } = options;

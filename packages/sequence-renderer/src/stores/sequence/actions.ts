@@ -5,7 +5,10 @@ import { getLayer } from '@repo/sequence-engine/visualizations/layers/registry';
 import type { CanvasViewport, PresetRecord } from '@repo/sequence-engine/visualizations/types';
 import { sequenceStore } from './store';
 
+const DEFAULT_PLAYBACK_STEPS = 2000;
+
 function clampSteps(steps: number, maxSteps: number): number {
+  if (maxSteps === 0) return DEFAULT_PLAYBACK_STEPS;
   return Math.min(Math.max(steps, 2), maxSteps);
 }
 
@@ -130,6 +133,14 @@ export function updateLayerParams(layerId: string, params: Record<string, unknow
   sequenceStore.setState({ layers, basePresetId: null });
 }
 
+export function togglePlayback(): void {
+  sequenceStore.setState((s) => ({ isPlaying: !s.isPlaying }));
+}
+
 export function setSeed(seed: string | undefined): void {
-  sequenceStore.setState({ seed });
+  const state = sequenceStore.getState();
+  sequenceStore.setState({
+    seed,
+    sequence: regenerateSequence(state.sequenceRule, state.steps, seed)
+  });
 }
