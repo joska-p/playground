@@ -13,6 +13,7 @@ type InputProps = {
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   fullWidth?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & ComponentProps<'input'> &
   VariantProps<typeof inputVariants>;
 
@@ -29,6 +30,7 @@ function Input({
   id,
   type = 'text',
   disabled,
+  onChange,
   ...props
 }: InputProps) {
   const generatedId = useId();
@@ -56,6 +58,7 @@ function Input({
           </span>
         )}
         <input
+          onChange={onChange}
           id={inputId}
           ref={ref}
           type={type}
@@ -74,11 +77,7 @@ function Input({
           </span>
         )}
       </div>
-      {helperText && (
-        <HelperText destructive={variant === 'destructive'}>
-          {helperText}
-        </HelperText>
-      )}
+      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
     </div>
   );
 }

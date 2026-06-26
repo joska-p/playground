@@ -8,6 +8,7 @@ import type {
 type SequenceState = {
   sequenceRule: SequenceRule;
   steps: number;
+  seed: string | undefined;
   layers: LayerConfigEntry[];
   sequence: number[];
   customPresets: PresetRecord[];

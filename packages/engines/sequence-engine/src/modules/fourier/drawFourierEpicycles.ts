@@ -71,14 +71,14 @@ export const drawFourierEpicycles: VisualLayer = {
       if (orbitOverlays === 1) {
         ctx.beginPath();
         ctx.arc(prevX, prevY, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.stroke();
       }
     }

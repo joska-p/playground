@@ -1,51 +1,41 @@
 import { generateSequence } from '@repo/sequence-engine';
 import type { SequenceRule } from '@repo/sequence-engine/rules/types';
-import {
-  getAllPresets,
-  savePreset as persistPreset
-} from '@repo/sequence-engine/visualizations';
+import { getAllPresets, savePreset as persistPreset } from '@repo/sequence-engine/visualizations';
 import { getLayer } from '@repo/sequence-engine/visualizations/layers/registry';
-import type {
-  CanvasViewport,
-  PresetRecord
-} from '@repo/sequence-engine/visualizations/types';
+import type { CanvasViewport, PresetRecord } from '@repo/sequence-engine/visualizations/types';
 import { sequenceStore } from './store';
 
 function clampSteps(steps: number, maxSteps: number): number {
   return Math.min(Math.max(steps, 2), maxSteps);
 }
 
-function regenerateSequence(
-  sequenceRule: SequenceRule,
-  steps: number
-): number[] {
-  return generateSequence({ sequenceRule, steps });
+function regenerateSequence(sequenceRule: SequenceRule, steps: number, seed?: string): number[] {
+  return generateSequence({ sequenceRule, steps, seed });
 }
 
 export function getViewportState(): CanvasViewport {
   return sequenceStore.getState().viewport;
 }
 
-export function setSequenceRule({
-  sequenceRule
-}: {
-  sequenceRule: SequenceRule;
-}): void {
+export function setSequenceRule({ sequenceRule }: { sequenceRule: SequenceRule }): void {
   const currentSteps = sequenceStore.getState().steps;
+  const currentSeed = sequenceStore.getState().seed;
+
   const clampedSteps = clampSteps(currentSteps, sequenceRule.maxSteps);
   sequenceStore.setState({
     sequenceRule,
     steps: clampedSteps,
-    sequence: regenerateSequence(sequenceRule, clampedSteps)
+    sequence: regenerateSequence(sequenceRule, clampedSteps, currentSeed)
   });
 }
 
 export function setSequenceSteps({ steps }: { steps: number }): void {
   const state = sequenceStore.getState();
+  const currentSeed = state.seed;
   const clampedSteps = clampSteps(steps, state.sequenceRule.maxSteps);
   sequenceStore.setState({
     steps: clampedSteps,
-    sequence: regenerateSequence(state.sequenceRule, clampedSteps)
+    sequence: regenerateSequence(state.sequenceRule, clampedSteps, currentSeed)
   });
 }
 
@@ -89,10 +79,7 @@ export function addLayer(layerId: string): void {
   if (!layer) return;
 
   sequenceStore.setState({
-    layers: [
-      ...state.layers,
-      { layerId, enabled: true, params: { ...layer.defaults } }
-    ],
+    layers: [...state.layers, { layerId, enabled: true, params: { ...layer.defaults } }],
     basePresetId: null
   });
 }
@@ -135,13 +122,14 @@ export function setViewport(v: Partial<CanvasViewport>): void {
   sequenceStore.setState({ viewport: { ...current, ...v } });
 }
 
-export function updateLayerParams(
-  layerId: string,
-  params: Record<string, unknown>
-): void {
+export function updateLayerParams(layerId: string, params: Record<string, unknown>): void {
   const state = sequenceStore.getState();
   const layers = state.layers.map((l) =>
     l.layerId === layerId ? { ...l, params: { ...l.params, ...params } } : l
   );
   sequenceStore.setState({ layers, basePresetId: null });
+}
+
+export function setSeed(seed: string | undefined): void {
+  sequenceStore.setState({ seed });
 }

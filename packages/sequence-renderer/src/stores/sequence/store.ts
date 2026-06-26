@@ -1,9 +1,6 @@
 import { generateSequence } from '@repo/sequence-engine';
 import { recamanRule } from '@repo/sequence-engine/rules/recaman';
-import {
-  builtInPresets,
-  getAllPresets
-} from '@repo/sequence-engine/visualizations';
+import { builtInPresets, getAllPresets } from '@repo/sequence-engine/visualizations';
 import type { LayerConfigEntry } from '@repo/sequence-engine/visualizations/types';
 import { create } from 'zustand';
 import type { SequenceState } from './types';
@@ -23,6 +20,7 @@ const sequenceStore = create<SequenceState>(() => {
   return {
     sequenceRule: recamanRule,
     steps: 2,
+    seed: 'random seed',
     layers: defaultLayers,
     sequence: generateSequence({ sequenceRule: recamanRule, steps: 2 }),
     customPresets: getAllPresets().filter((p) => !p.isBuiltIn),
