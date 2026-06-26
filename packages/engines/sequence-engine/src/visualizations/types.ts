@@ -1,8 +1,8 @@
 export type ParamDescriptor =
   | { label: string; type: 'number'; min: number; max: number; step: number }
-  | { label: string; type: 'color'; value: string }
-  | { label: string; type: 'string'; value: string }
-  | { label: string; type: 'boolean'; value: boolean };
+  | { label: string; type: 'color'; value?: string }
+  | { label: string; type: 'string'; value?: string }
+  | { label: string; type: 'boolean'; value?: boolean };
 
 export type LayerCategory = 'cosmetic' | 'drawing';
 

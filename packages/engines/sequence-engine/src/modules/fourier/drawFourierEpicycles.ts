@@ -59,6 +59,7 @@ export const drawFourierEpicycles: VisualLayer = {
     // 3. Compute vector orbital branches
     for (let i = 0; i < activeLimit; i++) {
       const epi = epicycles[i];
+      if (!epi) continue;
       const prevX = x;
       const prevY = y;
 
@@ -89,7 +90,7 @@ export const drawFourierEpicycles: VisualLayer = {
     // 5. Draw trace path matching systemic canvas typography colours
     ctx.beginPath();
     if (coordinateTrail && coordinateTrail.length > 0) {
-      ctx.moveTo(coordinateTrail[0].x, coordinateTrail[0].y);
+      ctx.moveTo(coordinateTrail[0]!.x, coordinateTrail[0]!.y);
       for (const coordinate of coordinateTrail) {
         ctx.lineTo(coordinate.x, coordinate.y);
       }
