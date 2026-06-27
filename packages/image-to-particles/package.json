@@ -16,7 +16,8 @@
     "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*"
+    "@repo/ui": "workspace:*",
+    "p5": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -30,6 +31,7 @@
     "@tsconfig/strictest": "catalog:",
     "@types/babel__core": "catalog:",
     "@types/node": "catalog:",
+    "@types/p5": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",

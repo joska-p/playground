@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Lesson 2: Normalized Coordinates</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/../assets/lesson.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <style>
+      #sketch-container {
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+      #sketch-container canvas {
+        display: block;
+        border-radius: 8px;
+      }
+      .controls {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin: 0.5rem 0 1.5rem;
+        justify-content: center;
+      }
+      .controls button {
+        padding: 0.4rem 0.9rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-family: inherit;
+      }
+      .controls button.active {
+        background: #6366f1;
+        color: #fff;
+        border-color: #6366f1;
+      }
+      .controls button:hover:not(.active) {
+        background: #f0f0f5;
+      }
+      .comparison {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin: 1.5rem 0;
+      }
+      .comparison > div {
+        flex: 1;
+        min-width: 160px;
+        text-align: center;
+      }
+      .comparison canvas {
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+      .comparison label {
+        display: block;
+        font-size: 0.8rem;
+        color: #6b6b80;
+        margin-top: 0.3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Normalized Coordinates</h1>
+    <p class="lesson-meta">Lesson 2 · 15 min</p>
+
+    <p>
+      Every p5.js beginner writes <code>circle(200, 200, 50)</code> — hardcoded pixel values. That
+      works fine on <em>one</em> canvas size. But change the canvas, and everything breaks: shapes
+      go off-screen, proportions warp, your beautiful composition falls apart.
+    </p>
+
+    <p>
+      <strong>Normalization</strong> is the technique of designing in a unitless space (usually 0 to
+      1) and mapping to pixel coordinates at render time. It's the single most important pattern for
+      writing resolution-independent sketches — and yes, it really is as "magic" as you've heard.
+    </p>
+
+    <h2>The problem: hardcoded pixels</h2>
+
+    <pre><code>// Works perfectly at 400×400...
+circle(200, 200, 80);
+circle(150, 150, 40);
+circle(250, 150, 40);
+
+// ...completely broken at 200×600 or 800×300</code></pre>
+
+    <p>
+      Here's the same design — two eyes and a mouth — at three different canvas sizes using
+      hardcoded coordinates. Each sketch uses <code>createCanvas(w, h)</code> but the shapes don't
+      adapt:
+    </p>
+
+    <div class="comparison">
+      <div>
+        <div id="bad-small"></div>
+        <label>200×200</label>
+      </div>
+      <div>
+        <div id="bad-medium"></div>
+        <label>400×400</label>
+      </div>
+      <div>
+        <div id="bad-wide"></div>
+        <label>600×200</label>
+      </div>
+    </div>
+
+    <p class="callout">
+      <strong>Notice:</strong> the face is perfectly centered at 400×400. At 200×200 everything is
+      squeezed. At 600×200 the face is cut off and stretched. The <em>logic</em> is the same — but
+      the <em>output</em>
+      is wrong because pixel values are fixed.
+    </p>
+
+    <h2>The solution: think in proportions</h2>
+
+    <p>
+      Instead of <q>200 pixels from the left</q>, think <q>halfway across the canvas</q>. p5.js
+      gives you <code>width</code> and <code>height</code> for free inside your sketch:
+    </p>
+
+    <pre><code>// Normalized — works at ANY size
+let cx = width  * 0.5;        // center x
+let cy = height * 0.5;        // center y
+let r  = width  * 0.2;        // radius = 20% of width
+
+circle(cx, cy, r * 2);         // face
+circle(cx - r * 0.5, cy - r * 0.4, r * 0.5);  // left eye
+circle(cx + r * 0.5, cy - r * 0.4, r * 0.5);  // right eye</code></pre>
+
+    <div class="comparison">
+      <div>
+        <div id="good-small"></div>
+        <label>200×200</label>
+      </div>
+      <div>
+        <div id="good-medium"></div>
+        <label>400×400</label>
+      </div>
+      <div>
+        <div id="good-wide"></div>
+        <label>600×200</label>
+      </div>
+    </div>
+
+    <p class="tip">
+      <strong>Same code, any canvas.</strong> The normalized version produces a proportional face no
+      matter the aspect ratio. This is why normalization is the first tool professionals reach for.
+    </p>
+
+    <h2>Three strategies for normalization</h2>
+
+    <h3>1. Manual mapping (explicit)</h3>
+    <p>
+      Multiply each normalized coordinate by <code>width</code> or <code>height</code>. Most
+      readable, no p5.js magic needed:
+    </p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+}
+
+function drawFace(nx, ny, size) {
+  // nx, ny, size are all 0–1
+  let cx = nx * width;
+  let cy = ny * height;
+  let r  = size * min(width, height) * 0.5;
+
+  circle(cx, cy, r * 2);
+  circle(cx - r * 0.4, cy - r * 0.35, r * 0.4);
+  circle(cx + r * 0.4, cy - r * 0.35, r * 0.4);
+}</code></pre>
+
+    <h3>2. <code>scale()</code> transform (concise)</h3>
+    <p>Set up a virtual coordinate system once. Everything inside is in your virtual units:</p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  noLoop();          // static sketch
+}
+
+function draw() {
+  // Map width → 100 virtual units, preserving aspect ratio
+  let s = width / 100;
+  scale(s);
+
+  // Now coordinates are in 0–100 virtual space
+  circle(50, 50, 30);   // face at center, diameter 30
+  circle(40, 40, 10);   // left eye
+  circle(60, 40, 10);   // right eye
+}</code></pre>
+
+    <h3>3. Helper functions (cleanest for complex sketches)</h3>
+    <pre><code>// Reusable: add these at the top of any sketch
+function nx(v) { return v * width; }
+function ny(v) { return v * height; }
+function nd(v) { return v * min(width, height); }
+
+// Usage:
+circle(nx(0.5), ny(0.5), nd(0.3));</code></pre>
+
+    <h2>Interactive demo: compare all three</h2>
+
+    <p>Click to resize the canvas. The normalized sketch adapts; the hardcoded one breaks.</p>
+
+    <div
+      class="controls"
+      id="size-controls"
+    >
+      <button
+        data-w="200"
+        data-h="200"
+      >
+        200×200
+      </button>
+      <button
+        data-w="400"
+        data-h="300"
+        class="active"
+      >
+        400×300
+      </button>
+      <button
+        data-w="600"
+        data-h="200"
+      >
+        600×200
+      </button>
+      <button
+        data-w="300"
+        data-h="500"
+      >
+        300×500
+      </button>
+      <button
+        data-w="500"
+        data-h="500"
+      >
+        500×500
+      </button>
+    </div>
+
+    <div id="sketch-container"></div>
+
+    <script>
+      // ----- Helper functions for normalization -----
+      function nx(v) {
+        return v * this.width;
+      }
+      function ny(v) {
+        return v * this.height;
+      }
+      function nd(v) {
+        return v * Math.min(this.width, this.height);
+      }
+
+      // ----- Main sketch: side-by-side comparison -----
+      new p5((p) => {
+        let currentW = 400,
+          currentH = 300;
+        let points = [];
+
+        p.setup = () => {
+          p.createCanvas(currentW, currentH);
+          p.colorMode(p.HSB, 360, 100, 100, 100);
+
+          // Generate random points once
+          for (let i = 0; i < 12; i++) {
+            points.push({ nx: p.random(), ny: p.random(), r: p.random() * 0.06 + 0.02 });
+          }
+        };
+
+        p.draw = () => {
+          p.background(0, 0, 95);
+
+          // Draw a dividing line
+          let mid = p.width / 2;
+          p.stroke(0, 0, 80);
+          p.strokeWeight(1);
+          p.line(mid, 0, mid, p.height);
+
+          // ----- LEFT SIDE: hardcoded pixels (broken) -----
+          p.noStroke();
+          p.fill(0, 0, 30);
+          p.textSize(11);
+          p.textAlign(p.CENTER, p.TOP);
+          p.text('hardcoded pixels', mid / 2, 8);
+
+          // A "target" pattern using fixed pixel values
+          p.fill(200, 60, 90);
+          p.circle(80, 80, 60); // fixed at (80,80)
+          p.circle(80, 80, 40);
+          p.fill(200, 60, 100);
+          p.circle(80, 80, 20);
+
+          // Box at fixed position
+          p.fill(260, 50, 85);
+          p.rect(40, 140, 100, 60);
+
+          // Circles that should relate to each other spatially
+          let cx = 80,
+            cy = 100;
+          for (let i = 0; i < 5; i++) {
+            p.fill(p.map(i, 0, 5, 0, 300), 60, 90);
+            p.circle(cx + i * 20, cy + 60, 15);
+          }
+
+          // ----- RIGHT SIDE: normalized (adapts) -----
+          p.fill(0, 0, 30);
+          p.textAlign(p.CENTER, p.TOP);
+          p.text('normalized (nx, ny, nd)', mid + mid / 2, 8);
+
+          // Same design using normalized helpers bound to p
+          let nxp = (v) => v * p.width;
+          let nyp = (v) => v * p.height;
+          let ndp = (v) => v * Math.min(p.width, p.height);
+
+          p.fill(200, 60, 90);
+          let cx2 = nxp(0.25),
+            cy2 = nyp(0.3);
+          p.circle(cx2, cy2, ndp(0.2));
+          p.circle(cx2, cy2, ndp(0.13));
+          p.fill(200, 60, 100);
+          p.circle(cx2, cy2, ndp(0.07));
+
+          p.fill(260, 50, 85);
+          p.rect(nxp(0.1), nyp(0.5), nxp(0.3), ndp(0.2));
+
+          let cx3 = nxp(0.25),
+            cy3 = nyp(0.35);
+          for (let i = 0; i < 5; i++) {
+            p.fill(p.map(i, 0, 5, 0, 300), 60, 90);
+            p.circle(cx3 + nxp(i * 0.06), cy3 + ndp(0.2), ndp(0.05));
+          }
+
+          // Random stars — normalized
+          p.fill(50, 80, 95);
+          for (let pt of points) {
+            p.circle(nxp(pt.nx), nyp(pt.ny), ndp(pt.r));
+          }
+
+          // Labels for both sides
+          p.fill(0, 0, 50);
+          p.textAlign(p.CENTER, p.BOTTOM);
+          p.textSize(10);
+          p.text('Design stays the same across window sizes', mid + mid / 2, p.height - 6);
+          p.text('Design breaks when window changes', mid / 2, p.height - 6);
+        };
+
+        p.windowResized = () => {
+          // Only resize if control buttons changed it
+        };
+
+        // Expose resize function to buttons
+        p.resizeSketch = (w, h) => {
+          p.resizeCanvas(w, h);
+        };
+      }, 'sketch-container');
+    </script>
+
+    <script>
+      document.querySelectorAll('#size-controls button').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelector('#size-controls .active')?.classList.remove('active');
+          btn.classList.add('active');
+          let w = parseInt(btn.dataset.w);
+          let h = parseInt(btn.dataset.h);
+          let sketch = document.querySelector('#sketch-container canvas');
+          if (sketch) {
+            // Trigger p5 resize
+            let instance = p5.instance; // not accessible this way
+            // Instead, get the p5 instance via the canvas
+            let p5Inst = document.querySelector('#sketch-container canvas')?.__p5_instance;
+            if (p5Inst) {
+              p5Inst.resizeCanvas(w, h);
+            }
+          }
+        });
+      });
+    </script>
+
+    <script>
+      // ----- Bad hardcoded sketch (200×200) -----
+      new p5((p) => {
+        p.setup = () => {
+          p.createCanvas(200, 200);
+          p.noLoop();
+          p.noStroke();
+        };
+        p.draw = () => {
+          p.background(0, 0, 95);
+          p.fill(0, 0, 30);
+          // face — hardcoded for 400×400
+          p.fill(200, 60, 90);
+          p.circle(100, 100, 60); // face
+          p.fill(0, 0, 95);
+          p.circle(85, 85, 20); // left eye
+          p.circle(115, 85, 20); // right eye
+          p.fill(200, 60, 60);
+          p.arc(100, 110, 30, 20, 0, p.PI); // mouth
+        };
+      }, 'bad-small');
+
+      // ----- Bad hardcoded sketch (400×400) -----
+      new p5((p) => {
+        p.setup = () => {
+          p.createCanvas(400, 400);
+          p.noLoop();
+          p.noStroke();
+        };
+        p.draw = () => {
+          p.background(0, 0, 95);
+          p.fill(0, 0, 30);
+          p.fill(200, 60, 90);
+          p.circle(200, 200, 120);
+          p.fill(0, 0, 95);
+          p.circle(170, 170, 40);
+          p.circle(230, 170, 40);
+          p.fill(200, 60, 60);
+          p.arc(200, 220, 60, 40, 0, p.PI);
+        };
+      }, 'bad-medium');
+
+      // ----- Bad hardcoded sketch (600×200) -----
+      new p5((p) => {
+        p.setup = () => {
+          p.createCanvas(600, 200);
+          p.noLoop();
+          p.noStroke();
+        };
+        p.draw = () => {
+          p.background(0, 0, 95);
+          p.fill(0, 0, 30);
+          p.fill(200, 60, 90);
+          p.circle(200, 200, 120);
+          p.fill(0, 0, 95);
+          p.circle(170, 170, 40);
+          p.circle(230, 170, 40);
+          p.fill(200, 60, 60);
+          p.arc(200, 220, 60, 40, 0, p.PI);
+        };
+      }, 'bad-wide');
+
+      // ----- Good normalized sketches -----
+      function makeGoodSketch(id, w, h) {
+        new p5((p) => {
+          p.setup = () => {
+            p.createCanvas(w, h);
+            p.noLoop();
+            p.noStroke();
+          };
+          p.draw = () => {
+            p.background(0, 0, 95);
+            let cx = p.width * 0.5,
+              cy = p.height * 0.5;
+            let r = Math.min(p.width, p.height) * 0.15;
+
+            // face
+            p.fill(200, 60, 90);
+            p.circle(cx, cy, r * 2);
+
+            // eyes
+            p.fill(0, 0, 95);
+            p.circle(cx - r * 0.5, cy - r * 0.4, r * 0.6);
+            p.circle(cx + r * 0.5, cy - r * 0.4, r * 0.6);
+
+            // mouth
+            p.fill(200, 60, 60);
+            p.arc(cx, cy + r * 0.3, r * 0.9, r * 0.5, 0, p.PI);
+          };
+        }, id);
+      }
+      makeGoodSketch('good-small', 200, 200);
+      makeGoodSketch('good-medium', 400, 400);
+      makeGoodSketch('good-wide', 600, 200);
+    </script>
+
+    <h2>The key insight: <code>nd()</code> vs <code>nx()</code> / <code>ny()</code></h2>
+
+    <p>A detail that trips people up: <strong>which dimension to use for size?</strong></p>
+    <ul>
+      <li>
+        Position: use <code>nx()</code> for x (based on <code>width</code>), <code>ny()</code> for y
+        (based on <code>height</code>).
+      </li>
+      <li>
+        <strong>Size: use <code>nd()</code> — based on <code>min(width, height)</code></strong> — so
+        circles stay circular.
+      </li>
+    </ul>
+    <p>
+      If you use <code>nx()</code> for both width and height of a shape on a non-square canvas,
+      you'll stretch it horizontally. <code>nd()</code> uses the smaller dimension, keeping
+      proportions consistent while still scaling with the canvas.
+    </p>
+
+    <h2>How this relates to the three strategies from last session</h2>
+
+    <p>Recall the three responsive-canvas strategies:</p>
+    <ol>
+      <li>
+        <strong>Fixed resolution + CSS scale</strong> — render at 800×600, let CSS stretch/shrink
+        it.
+      </li>
+      <li>
+        <strong>Full responsive via <code>windowResized</code></strong> — call
+        <code>resizeCanvas()</code> on window resize, rewrite positions.
+      </li>
+      <li>
+        <strong>Virtual coordinate system via <code>scale()</code></strong> — use normalized coords
+        mapped through p5 transforms.
+      </li>
+    </ol>
+
+    <p>
+      Normalization is the <strong>engine</strong> that makes strategies 2 and 3 practical. Without
+      normalization, strategy 2 forces you to manually reposition every shape on every resize. With
+      normalization, <code>windowResized</code> just updates <code>width</code>/<code>height</code>,
+      and your proportional calculations automatically produce correct positions.
+    </p>
+
+    <div class="callout">
+      <strong>The magic:</strong> normalization separates <em>what to draw</em> from
+      <em>how big the canvas is</em>. Your design logic stays clean and mathematical. The canvas
+      becomes just a parameter. That's it — that's the magic.
+    </div>
+
+    <h2>Practice</h2>
+
+    <p>Open the sketch above in your own editor. Try these:</p>
+    <ol>
+      <li>
+        Add a triangle to the normalized side — position it with <code>nx()</code>,
+        <code>ny()</code>.
+      </li>
+      <li>Create a grid of circles: 5 columns × 4 rows, filling the canvas proportionally.</li>
+      <li>
+        Write a <code>nline(x1, y1, x2, y2)</code> helper that takes all normalized coordinates and
+        draws a line.
+      </li>
+    </ol>
+
+    <div class="tip">
+      <strong>Remember:</strong> normalization isn't just for responsive layouts. Any sketch with
+      parametric or mathematical positioning benefits from it — particle systems, noise fields,
+      geometric patterns. It becomes second nature very quickly.
+    </div>
+
+    <h2>Next</h2>
+    <p>
+      Once normalization feels natural, you're ready to start thinking about animation, velocity,
+      and vectors — where normalized thinking becomes even more powerful.
+      <a href="0001-hello-p5js.html">← Back to Lesson 1</a>
+    </p>
+  </body>
+</html>
