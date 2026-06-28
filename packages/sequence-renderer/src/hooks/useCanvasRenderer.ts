@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { render } from '../engine/render';
-import type { CanvasViewport, LayerConfigEntry } from '../engine/types';
+import { render } from '../core/render';
+import type { CanvasViewport, LayerConfigEntry } from '../core/types';
 import { useIsPlaying } from '../stores/sequence/selectors/useIsPlaying';
 
 export function useCanvasRenderer(

@@ -1,7 +1,7 @@
 import { Input } from '@repo/ui/Input';
 import { Label } from '@repo/ui/Label';
 import { Slider } from '@repo/ui/Slider';
-import type { ParamDescriptor } from '../../engine/types';
+import type { ParamDescriptor } from '../../core/types';
 
 type LayerOptionsPanelProps = {
   params: Record<string, ParamDescriptor>;

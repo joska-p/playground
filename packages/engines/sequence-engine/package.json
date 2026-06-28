@@ -7,9 +7,7 @@
     ".": "./src/engine.ts",
     "./rules": "./src/rules/registry.ts",
     "./rules/types": "./src/rules/types.ts",
-    "./rules/recaman": "./src/rules/recaman.ts",
-    "./store": "./src/store/PresetStore.ts",
-    "./types": "./src/types.ts"
+    "./rules/recaman": "./src/rules/recaman.ts"
   },
   "scripts": {
     "lint": "eslint .",

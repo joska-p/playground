@@ -1,5 +1,5 @@
 import type { SequenceRule } from '@repo/sequence-engine/rules/types';
-import type { CanvasViewport, LayerConfigEntry, PresetRecord } from '../../engine/types';
+import type { CanvasViewport, LayerConfigEntry, PresetRecord } from '../../core/types';
 
 type SequenceState = {
   sequenceRule: SequenceRule;

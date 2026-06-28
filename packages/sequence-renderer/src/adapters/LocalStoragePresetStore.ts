@@ -1,5 +1,4 @@
-import type { PresetStore } from '@repo/sequence-engine/store';
-import type { PresetRecord } from '@repo/sequence-engine/types';
+import type { PresetRecord, PresetStore } from '../core/types';
 
 const CUSTOM_PRESETS_KEY = 'sequence-renderer:custom-presets';
 

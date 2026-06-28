@@ -1,4 +1,4 @@
-import type { LayerConfigEntry } from '../../engine/types';
+import type { LayerConfigEntry } from '../../core/types';
 import { sequenceStore } from '../store';
 
 export function useLayersConfig(): LayerConfigEntry[] {

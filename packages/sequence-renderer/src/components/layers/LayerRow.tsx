@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import { Switch } from '@repo/ui/Switch';
 import type { JSX } from 'react';
-import type { ParamDescriptor, VisualLayer } from '../../engine/types';
+import type { ParamDescriptor, VisualLayer } from '../../core/types';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 
 type LayerRowProps = {

@@ -1,6 +1,6 @@
 import { generateSequence } from '@repo/sequence-engine';
 import { recamanRule } from '@repo/sequence-engine/rules/recaman';
-import type { LayerConfigEntry } from '../../engine/types';
+import type { LayerConfigEntry } from '../../core/types';
 import { create } from 'zustand';
 import { getAllPresets } from './presetStore';
 import type { SequenceState } from './types';

@@ -1,4 +1,4 @@
-import type { PresetRecord } from '../../engine/types';
+import type { PresetRecord } from '../../core/types';
 import { LocalStoragePresetStore } from '../../adapters/LocalStoragePresetStore';
 
 const customStore = new LocalStoragePresetStore();

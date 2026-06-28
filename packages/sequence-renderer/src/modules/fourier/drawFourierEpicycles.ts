@@ -1,4 +1,4 @@
-import type { VisualLayer } from '../../engine/types';
+import type { VisualLayer } from '../../core/types';
 import { fetchFourierEpicycles } from './store';
 
 type RenderState = {

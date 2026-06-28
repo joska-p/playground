@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import type { JSX } from 'react';
 import { useState } from 'react';
-import { getAllLayers } from '../../engine/layers/registry';
+import { getAllLayers } from '../../core/layers/registry';
 import {
   addLayer,
   moveLayerDown,

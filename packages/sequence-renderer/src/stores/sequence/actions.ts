@@ -1,7 +1,7 @@
 import { generateSequence } from '@repo/sequence-engine';
 import type { SequenceRule } from '@repo/sequence-engine/rules/types';
-import { getLayer } from '../../engine/layers/registry';
-import type { CanvasViewport, PresetRecord } from '../../engine/types';
+import { getLayer } from '../../core/layers/registry';
+import type { CanvasViewport, PresetRecord } from '../../core/types';
 import { getAllPresets, savePreset as persistPreset } from './presetStore';
 import { sequenceStore } from './store';
 

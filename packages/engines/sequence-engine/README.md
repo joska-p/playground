@@ -46,5 +46,4 @@ registerRule(myRule);
 | `./rules`          | `getAllRules`, `registerRule`                                          |
 | `./rules/types`    | `SequenceRule`, `NextStepOptions`                                      |
 | `./rules/recaman`  | `recamanRule`                                                          |
-| `./store`          | `PresetStore`                                                          |
 | `./types`          | `ParamDescriptor`, `LayerCategory`, `LayerConfigEntry`, `PresetRecord` |
