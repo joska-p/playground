@@ -1,6 +1,6 @@
 import { Input } from '@repo/ui/Input';
 import { setSeed } from '../../stores/sequence/actions';
-import { useSeed } from '../../stores/sequence/selectors/useSeed';
+import { useSeed } from '../../stores/sequence/selectors';
 
 function Seed() {
   const seed = useSeed();

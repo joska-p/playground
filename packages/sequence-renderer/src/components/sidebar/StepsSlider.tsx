@@ -1,8 +1,7 @@
 import { Slider } from '@repo/ui/Slider';
 import type { JSX } from 'react';
 import { setSequenceSteps } from '../../stores/sequence/actions';
-import { useSequenceRule } from '../../stores/sequence/selectors/useSequenceRule';
-import { useSequenceSteps } from '../../stores/sequence/selectors/useSequenceSteps';
+import { useSequenceRule, useSequenceSteps } from '../../stores/sequence/selectors';
 
 function StepsSlider(): JSX.Element {
   const sequenceRule = useSequenceRule();

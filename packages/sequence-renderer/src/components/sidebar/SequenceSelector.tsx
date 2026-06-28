@@ -2,7 +2,7 @@ import { getAllRules } from '@repo/sequence-engine/rules';
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
 import { setSequenceRule } from '../../stores/sequence/actions';
-import { useSequenceRule } from '../../stores/sequence/selectors/useSequenceRule';
+import { useSequenceRule } from '../../stores/sequence/selectors';
 
 function SequenceSelector(): JSX.Element {
   const sequenceRule = useSequenceRule();

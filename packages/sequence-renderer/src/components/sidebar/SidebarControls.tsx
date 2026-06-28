@@ -13,7 +13,6 @@ function SidebarControls(): JSX.Element {
         <Seed />
         <StepsSlider />
       </div>
-
       <LayerStackEditor />
       <ViewportControls />
     </div>

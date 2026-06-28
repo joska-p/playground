@@ -1,6 +1,5 @@
-import type { LayerConfigEntry } from '@repo/sequence-engine/types';
 import { getLayer } from './layers/registry';
-import type { CanvasLayout, CanvasViewport } from './types';
+import type { CanvasLayout, CanvasViewport, LayerConfigEntry } from './types';
 
 function maxAbsInterval(data: number[]): number {
   let max = 0;

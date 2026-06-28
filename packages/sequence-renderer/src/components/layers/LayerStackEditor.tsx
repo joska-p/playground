@@ -1,5 +1,4 @@
 import { Button } from '@repo/ui/Button';
-import type { JSX } from 'react';
 import { useState } from 'react';
 import { getAllLayers } from '../../core/layers/registry';
 import {
@@ -10,10 +9,10 @@ import {
   toggleLayer,
   updateLayerParams
 } from '../../stores/ui/actions';
-import { useLayersConfig } from '../../stores/ui/selectors/useLayersConfig';
+import { useLayersConfig } from '../../stores/ui/selectors';
 import { LayerRow } from './LayerRow';
 
-function LayerStackEditor(): JSX.Element {
+function LayerStackEditor() {
   const layers = useLayersConfig();
   const [expandedLayerId, setExpandedLayerId] = useState<string | null>(null);
   const [showAddDropdown, setShowAddDropdown] = useState(false);
