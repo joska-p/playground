@@ -1,6 +1,6 @@
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
-import { SequenceCanvas } from './components/canvas/SequenceCanvas';
+import { SequenceCanvas } from './components/SequenceCanvas';
 import { SidebarControls } from './components/sidebar/SidebarControls';
 import { register } from './modules/fourier';
 
