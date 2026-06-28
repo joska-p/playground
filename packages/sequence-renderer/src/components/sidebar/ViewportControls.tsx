@@ -2,7 +2,7 @@ import { Slider } from '@repo/ui/Slider';
 import { Switch } from '@repo/ui/Switch';
 import type { JSX } from 'react';
 import { setViewport } from '../../stores/ui/actions';
-import { useViewport } from '../../stores/ui/selectors/useViewport';
+import { useViewport } from '../../stores/ui/selectors';
 
 function ViewportControls(): JSX.Element {
   const viewport = useViewport();
