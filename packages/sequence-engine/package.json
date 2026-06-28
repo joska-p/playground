@@ -15,9 +15,6 @@
     "check-types": "tsc --noEmit",
     "clean": "rm -rf node_modules dist .turbo"
   },
-  "dependencies": {
-    "@repo/randomart-engine": "workspace:*"
-  },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",
     "@tsconfig/strictest": "catalog:",
