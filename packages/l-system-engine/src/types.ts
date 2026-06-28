@@ -6,7 +6,7 @@
 export type Parameter = number;
 
 /** The atomic unit of an L-system word. */
-export interface LSymbol {
+export type LSymbol = {
   readonly name: string;
   readonly params: readonly Parameter[];
   readonly metadata?: Readonly<Record<string, unknown>>;
@@ -19,7 +19,7 @@ export type Word = readonly LSymbol[];
  * Information available to a rule during matching and production.
  * The engine constructs a fresh Context for each symbol on each iteration.
  */
-export interface Context {
+export type Context = {
   /** The full current word (read-only). */
   readonly word: Word;
   /** Position of the current symbol in the word. */
@@ -32,7 +32,7 @@ export interface Context {
  * The only contract the engine cares about.
  * Every rule type implements this interface.
  */
-export interface Rule {
+export type Rule = {
   /**
    * Returns true if this rule applies to the symbol at context.index.
    * The engine calls match() on each rule in order until one returns true.
@@ -47,7 +47,7 @@ export interface Rule {
 }
 
 /** A complete grammar definition — everything the engine needs to expand. */
-export interface Grammar {
+export type Grammar = {
   readonly axiom: Word;
   readonly rules: readonly Rule[];
   /**
@@ -59,13 +59,13 @@ export interface Grammar {
 }
 
 /** A single validation problem found by `validate()`. */
-export interface ValidationError {
+export type ValidationError = {
   readonly code: string;
   readonly message: string;
 }
 
 /** Options accepted by `expand` and `steps`. */
-export interface ExpandOptions {
+export type ExpandOptions = {
   /** Seed for the random number generator. Same seed → same output. */
   readonly seed?: number;
 }

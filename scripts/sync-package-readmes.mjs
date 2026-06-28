@@ -17,7 +17,7 @@ const PACKAGE_NAMES = {
   'mosaic-maker': 'Mosaic Maker',
   'sequence-renderer': 'Sequence Renderer',
   'sequence-engine': 'Sequence Engine',
-  'image-manipulator': 'Image Manipulator',
+  'pixel-manipulator': 'Pixel Manipulator',
   'image-to-particles': 'Image to Particles',
   'palette-generator': 'Palette Generator',
   'palette-engine': 'PaletteEngine',

@@ -5,6 +5,7 @@
 ## What each package is
 
 ### `@repo/automa-engine` — Pure computation library
+
 - **Zero runtime dependencies** — only dev tooling (eslint, typescript)
 - Pure TypeScript: engine logic (`evolve`), grid creation/seeding, step runner, RNG, config constants, type definitions
 - Exports multiple entry points: `.`, `./config`, `./grid`, `./types`, `./worker`, `./creature/*`, `./rules/*`
@@ -12,6 +13,7 @@
 - No React, no Three.js, no UI code whatsoever
 
 ### `@repo/automa` — Vite application (the UI)
+
 - **Depends on**: React, React Three Fiber, three.js, zustand, `@repo/automa-engine`, `@repo/ui`, `@repo/worker-pool`
 - Contains: App component, Three.js canvas/scene, UI controls, shaders, Zustand stores, CSS styles
 - Imports from `automa-engine` for: config constants, grid creation/seeding, types, rule registry, creature types, and loads the worker via `new Worker(new URL('@repo/automa-engine/worker', import.meta.url))`
@@ -24,7 +26,7 @@
 
 3. **Testability.** The engine can be unit-tested in isolation with no DOM, no web worker setup, no canvas — just `evolve(grid, rule) → grid`. If merged, running engine tests would require spinning up a full React/Three.js environment.
 
-4. **Clear separation of concerns.** The boundary is clean: `automa-engine` is *what* the computation is, `automa` is *how it's rendered and controlled*. The engine doesn't know about React, Three.js, or UI state. It takes grids and rules in, returns grids out.
+4. **Clear separation of concerns.** The boundary is clean: `automa-engine` is _what_ the computation is, `automa` is _how it's rendered and controlled_. The engine doesn't know about React, Three.js, or UI state. It takes grids and rules in, returns grids out.
 
 5. **Multiple consumers.** `automa-engine` exports 10 entry points, suggesting it's designed to be consumed in different contexts (main thread, web worker, potentially CLI or tests). The UI app is just one consumer.
 

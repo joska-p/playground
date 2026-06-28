@@ -3,7 +3,6 @@ export const GRID_DEFAULT_COLS = 100;
 export const GRID_DEFAULT_DENSITY = 0.2;
 export const GRID_DEFAULT_SEED = 42;
 
-
 export const SPEED_MIN_MS = 50;
 export const SPEED_MAX_MS = 1000;
 export const SPEED_STEP_MS = 10;

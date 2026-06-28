@@ -23,7 +23,7 @@
     "@repo/automa": "workspace:*",
     "@repo/config-eslint": "workspace:*",
     "@repo/graph-viz": "workspace:*",
-    "@repo/image-manipulator": "workspace:*",
+    "@repo/pixel-manipulator": "workspace:*",
     "@repo/l-system": "workspace:*",
     "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",

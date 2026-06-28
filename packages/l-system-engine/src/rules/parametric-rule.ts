@@ -1,6 +1,6 @@
-import type { Context, LSymbol, Parameter, Rule, Word } from '../types';
+import type { LSymbol, Parameter, Rule, Word } from '../types';
 
-export interface ParametricOptions {
+export type ParametricOptions = {
   /** Name of the symbol this rule matches. */
   readonly name: string;
   /**
@@ -12,7 +12,7 @@ export interface ParametricOptions {
    * Produces a replacement word from the matched symbol's parameters.
    */
   readonly produce: (params: readonly Parameter[]) => Word;
-}
+};
 
 /**
  * Matches a symbol by name and an optional guard predicate on its parameters.
@@ -28,12 +28,12 @@ export interface ParametricOptions {
  */
 export function parametricRule(options: ParametricOptions): Rule {
   return {
-    match(sym: LSymbol, _context: Context): boolean {
+    match(sym: LSymbol): boolean {
       if (sym.name !== options.name) return false;
       if (options.guard !== undefined && !options.guard(sym.params)) return false;
       return true;
     },
-    apply(sym: LSymbol, _context: Context): Word {
+    apply(sym: LSymbol): Word {
       return options.produce(sym.params);
     }
   };

@@ -8,23 +8,23 @@ The two packages have a clean seam. Merging them would erase a real architectura
 
 ## What each owns
 
-| Concern | `randomart-engine` | `randomart` |
-|---|---|---|
-| Core types (`ExpressionNode`, `GrammarRule`) | ✅ | |
-| 19 grammar rules + registry | ✅ | |
-| Tree building / evaluation / GLSL compilation | ✅ | |
-| `SeededRandom` PRNG | ✅ | |
-| Animation behaviors (15 built-in) | ✅ | |
-| CPU pixel-buffer rendering | ✅ | |
-| PNG export | ✅ | |
-| AST formatting (`nodeToMathString`, `nodeToTreeView`) | ✅ | |
-| Zustand store, selectors, actions | | ✅ |
-| WebGL hooks (context, shader, animation loop) | | ✅ |
-| React components (canvas, inspector, controls) | | ✅ |
+| Concern                                               | `randomart-engine` | `randomart` |
+| ----------------------------------------------------- | ------------------ | ----------- |
+| Core types (`ExpressionNode`, `GrammarRule`)          | ✅                 |             |
+| 19 grammar rules + registry                           | ✅                 |             |
+| Tree building / evaluation / GLSL compilation         | ✅                 |             |
+| `SeededRandom` PRNG                                   | ✅                 |             |
+| Animation behaviors (15 built-in)                     | ✅                 |             |
+| CPU pixel-buffer rendering                            | ✅                 |             |
+| PNG export                                            | ✅                 |             |
+| AST formatting (`nodeToMathString`, `nodeToTreeView`) | ✅                 |             |
+| Zustand store, selectors, actions                     |                    | ✅          |
+| WebGL hooks (context, shader, animation loop)         |                    | ✅          |
+| React components (canvas, inspector, controls)        |                    | ✅          |
 
 **`randomart-engine`** is a pure TypeScript library: no DOM, no framework, no React. It could be imported from a Node script, a Deno CLI, or a different web framework without changing a line.
 
-**`randomart`** is a React + Vite application layer built *on top of* the engine. It imports the engine as a dependency.
+**`randomart`** is a React + Vite application layer built _on top of_ the engine. It imports the engine as a dependency.
 
 ## The dependency chain
 
@@ -55,11 +55,11 @@ Only **one** other package lists `@repo/randomart-engine`: `@repo/sequence-engin
 
 ## Why merge — the arguments (and why they're weak here)
 
-| Argument | Counter |
-|---|---|
-| "Only one real consumer" | True now, but a headless API surface is a cheap option. Splitting later is expensive. |
-| "Two packages = two tsconfigs, two lint configs" | Turborepo handles this trivially; the overhead is close to zero. |
-| "Coordinated changes need cross-package PRs" | The engine API is stable (types + pure functions). Nearly all UI changes touch only `randomart`. Cross-package PRs are rare in practice. |
+| Argument                                         | Counter                                                                                                                                  |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| "Only one real consumer"                         | True now, but a headless API surface is a cheap option. Splitting later is expensive.                                                    |
+| "Two packages = two tsconfigs, two lint configs" | Turborepo handles this trivially; the overhead is close to zero.                                                                         |
+| "Coordinated changes need cross-package PRs"     | The engine API is stable (types + pure functions). Nearly all UI changes touch only `randomart`. Cross-package PRs are rare in practice. |
 
 ## What could be improved
 

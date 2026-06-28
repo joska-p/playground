@@ -1,17 +1,25 @@
-# @repo/image-manipulator
+---
+title: 'Image Manipulator'
+description: 'Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.'
+category: 'reference'
+tags:
+  - reference
+  - pixel-manipulator
+order: 20
+---
 
-> Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.
+# @repo/pixel-manipulator
 
 ## Quick Start
 
 ```bash
-pnpm add @repo/image-manipulator
+pnpm add @repo/pixel-manipulator
 ```
 
 ```ts
-import { manipulate } from '@repo/image-manipulator';
-import { grayscale, brightness } from '@repo/image-manipulator';
-import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
+import { manipulate } from '@repo/pixel-manipulator';
+import { grayscale, brightness } from '@repo/pixel-manipulator';
+import { imageElementToImageData, putImageData } from '@repo/pixel-manipulator';
 
 const source = imageElementToImageData(img);
 
@@ -96,9 +104,9 @@ Callbacks are chained with `manipulate`. They run **in a single pixel loop** —
 the output of each callback feeds into the next per pixel:
 
 ```ts
-import { manipulate } from '@repo/image-manipulator';
-import { grayscale, brightness, energyMap } from '@repo/image-manipulator';
-import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
+import { manipulate } from '@repo/pixel-manipulator';
+import { grayscale, brightness, energyMap } from '@repo/pixel-manipulator';
+import { imageElementToImageData, putImageData } from '@repo/pixel-manipulator';
 
 const source = imageElementToImageData(imgElement);
 
@@ -123,7 +131,7 @@ const [original, grayed, brightened] = manipulate(source)
 A manipulation is just a factory that returns a `PixelCallback`:
 
 ```ts
-import type { PixelCallback } from '@repo/image-manipulator';
+import type { PixelCallback } from '@repo/pixel-manipulator';
 
 const tint =
   (hue: number): PixelCallback =>
@@ -164,7 +172,7 @@ Once loaded, steps can be reordered, removed, or tuned via sliders before execut
 ## React Component
 
 ```tsx
-import { ImageManipulator } from '@repo/image-manipulator';
+import { ImageManipulator } from '@repo/pixel-manipulator';
 
 function App() {
   return <ImageManipulator />;
@@ -177,7 +185,7 @@ preset support, and canvases showing the result of each pipeline step.
 ## Hook
 
 ```ts
-import { useImageUpload } from "@repo/image-manipulator";
+import { useImageUpload } from "@repo/pixel-manipulator";
 
 const [imageSrc, handleUpload] = useImageUpload();
 

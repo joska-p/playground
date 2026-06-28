@@ -22,7 +22,6 @@ import { IconHamburger } from './components/IconHamburger';
 import { IconHome } from './components/IconHome';
 import { IconImage } from './components/IconImage';
 import { IconImageDown } from './components/IconImageDown';
-import { IconImageManipulator } from './components/IconImageManipulator';
 import { IconInfinity } from './components/IconInfinity';
 import { IconLightbulb } from './components/IconLightbulb';
 import { IconMosaic } from './components/IconMosaic';
@@ -31,6 +30,7 @@ import { IconPalettes } from './components/IconPalettes';
 import { IconParticles } from './components/IconParticles';
 import { IconPieChart } from './components/IconPieChart';
 import { IconPipeline } from './components/IconPipeline';
+import { IconPixelManipulator } from './components/IconPixelManipulator';
 import { IconRandom } from './components/IconRandom';
 import { IconSequences } from './components/IconSequences';
 import { IconSimulation } from './components/IconSimulation';
@@ -65,7 +65,7 @@ export const iconMap = {
   home: IconHome,
   image: IconImage,
   'image-down': IconImageDown,
-  'image-manipulator': IconImageManipulator,
+  'pixel-manipulator': IconPixelManipulator,
   infinity: IconInfinity,
   lightbulb: IconLightbulb,
   mosaic: IconMosaic,

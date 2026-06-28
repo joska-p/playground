@@ -50,7 +50,7 @@ function that encodes a specific behavior. Definitions are registered in a
 | `automa`            | `Rule`           | `parseRule()`          | `src/core/rules/registry.ts`                                         |
 | `palette-engine`    | `Rule`           | inline object          | `packages/engines/palette-engine/src/rules/`                         |
 | `pixel-engine`      | `Manipulation`   | inline manifest object | `packages/engines/pixel-engine/src/registry.ts` (implicit in facade) |
-| `image-manipulator` | `PixelCallback`  | factory function       | `src/manipulations/` (exported, no explicit registry Map)            |
+| `pixel-manipulator` | `PixelCallback`  | factory function       | `src/manipulations/` (exported, no explicit registry Map)            |
 | `mosaic-maker`      | `TileDefinition` | inline object array    | `core/TILE_REGISTRY.ts` (flat array)                                 |
 
 **Adding a new entry** means: define it, register it, and the UI updates
@@ -92,7 +92,7 @@ Dispatches to a Web Worker pool (up to `hardwareConcurrency`). Consecutive
 `pixel`-type operations are fused into a single pass. `neighborhood` ops use
 tiling for large images. Returns one snapshot per step.
 
-### Fluent pipeline (`image-manipulator`)
+### Fluent pipeline (`pixel-manipulator`)
 
 ```
 ImageData → manipulate().apply(fn).apply(fn).toImageData() → ImageData
@@ -198,7 +198,7 @@ stateless (registry rebuilt per invocation). Call `teardown()` on app shutdown.
 | `automa`            | 3 rules            | Web Worker, ticked  | R3F + shaders  | rule, grid, running, brush, colors  |
 | `palette-engine`    | 4 rules            | Pure function       | (no render)    | (no store — stateless facade)       |
 | `pixel`             | 18 manipulations   | Worker pool, fused  | Canvas 2D      | (no store — stateless facade)       |
-| `image-manipulator` | 8 callbacks        | Fluent, single loop | Canvas 2D      | image, steps, presets               |
+| `pixel-manipulator` | 8 callbacks        | Fluent, single loop | Canvas 2D      | image, steps, presets               |
 | `mosaic-maker`      | 8 tile shapes      | Constraint-driven   | CSS Grid + SVG | tiles, palette, tileSet, dimensions |
 
 ---

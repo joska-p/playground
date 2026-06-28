@@ -1,4 +1,4 @@
-import type { Context, LSymbol, Rule, Word } from '../types';
+import type { LSymbol, Rule, Word } from '../types';
 
 /**
  * Matches any symbol whose name equals `name` and always produces the same word.
@@ -8,10 +8,10 @@ import type { Context, LSymbol, Rule, Word } from '../types';
  */
 export function deterministicRule(name: string, production: Word): Rule {
   return {
-    match(sym: LSymbol, _context: Context): boolean {
+    match(sym: LSymbol): boolean {
       return sym.name === name;
     },
-    apply(_sym: LSymbol, _context: Context): Word {
+    apply(): Word {
       return production;
     }
   };

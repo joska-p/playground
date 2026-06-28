@@ -1,7 +1,7 @@
 import { createIcon } from '../lib';
 
-export const IconImageManipulator = createIcon({
-  name: 'image-manipulator',
+export const IconPixelManipulator = createIcon({
+  name: 'pixel-manipulator',
   viewBox: '0 0 80 60',
   children: (
     <>

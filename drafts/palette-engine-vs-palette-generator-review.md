@@ -4,12 +4,12 @@
 
 **They are correctly split into two packages — keep them separate.**
 
-| | `palette-engine` | `palette-generator` |
-|---|---|---|
-| **Nature** | Pure computation library | React application |
-| **Frameworks** | None (just `colorjs.io`) | React, Zustand, Vite, Tailwind |
-| **Entry** | Tree-shakeable modules (`./types`, `./generatePalette`, etc.) | `./App.tsx` (component), `./styles` |
-| **UI** | Zero | Full UI (color picker canvas, controls, display) |
+|                | `palette-engine`                                              | `palette-generator`                              |
+| -------------- | ------------------------------------------------------------- | ------------------------------------------------ |
+| **Nature**     | Pure computation library                                      | React application                                |
+| **Frameworks** | None (just `colorjs.io`)                                      | React, Zustand, Vite, Tailwind                   |
+| **Entry**      | Tree-shakeable modules (`./types`, `./generatePalette`, etc.) | `./App.tsx` (component), `./styles`              |
+| **UI**         | Zero                                                          | Full UI (color picker canvas, controls, display) |
 
 ## What each contains
 
@@ -58,7 +58,7 @@ It imports from 4 of `palette-engine`'s 7 exports: `colorSpaces`, `generatePalet
 
 ## Potential concern (but not a problem)
 
-> *"`palette-engine` has only one consumer in the repo."*
+> _"`palette-engine` has only one consumer in the repo."_
 
 This is fine. A package doesn't need multiple consumers to justify its existence. The architectural boundary (computation vs. presentation) is the right seam, and the code is small enough that the duplication of maintaining two `package.json` files is negligible.
 

@@ -1,6 +1,6 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
-export interface ContextSensitiveOptions {
+export type ContextSensitiveOptions = {
   /** Name of the symbol this rule matches. */
   readonly name: string;
   /** Name of the symbol that must immediately precede the matched symbol (ignoring brackets). */
@@ -17,7 +17,7 @@ export interface ContextSensitiveOptions {
    * Defaults to ['[', ']'] — the Prusinkiewicz standard.
    */
   readonly ignoreBrackets?: boolean;
-}
+};
 
 const DEFAULT_IGNORED = new Set(['[', ']']);
 
@@ -81,7 +81,7 @@ export function contextSensitiveRule(options: ContextSensitiveOptions): Rule {
 
       return true;
     },
-    apply(_sym: LSymbol, _context: Context): Word {
+    apply(): Word {
       return options.produce;
     }
   };

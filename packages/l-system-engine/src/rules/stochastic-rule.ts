@@ -1,18 +1,18 @@
 import type { Context, LSymbol, Rule, Word } from '../types';
 
-export interface StochasticProduction {
+export type StochasticProduction = {
   /** Relative probability of this production being chosen. Must sum to 1.0. */
   readonly weight: number;
   readonly produce: Word;
-}
+};
 
 /** @internal Brand attached to stochastic rules for validate() introspection. */
 export const STOCHASTIC_PRODUCTIONS_KEY = '__stochasticProductions';
 
 /** @internal Branded type that validate() uses to introspect stochastic rules. */
-export interface StochasticRule extends Rule {
+export type StochasticRule = {
   readonly [STOCHASTIC_PRODUCTIONS_KEY]: readonly StochasticProduction[];
-}
+} & Rule;
 
 /**
  * Matches any symbol whose name equals `name`.
@@ -35,7 +35,7 @@ export function stochasticRule(
   return {
     [STOCHASTIC_PRODUCTIONS_KEY]: productions,
 
-    match(sym: LSymbol, _context: Context): boolean {
+    match(sym: LSymbol): boolean {
       return sym.name === name;
     },
     apply(_sym: LSymbol, context: Context): Word {

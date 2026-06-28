@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 const AutomaApp = React.lazy(() => import('@repo/automa').then((m) => ({ default: m.App })));
 const GraphifyApp = React.lazy(() => import('@repo/graph-viz').then((m) => ({ default: m.App })));
 const ImageManipulatorApp = React.lazy(() =>
-  import('@repo/image-manipulator').then((m) => ({ default: m.App }))
+  import('@repo/pixel-manipulator').then((m) => ({ default: m.App }))
 );
 const PixelApp = React.lazy(() => import('@repo/pixel/App').then((m) => ({ default: m.App })));
 const ParticlesApp = React.lazy(() =>
@@ -28,7 +28,7 @@ const components: Record<string, React.ComponentType> = {
   sequences: SequenceApp,
   palettes: PaletteApp,
   particles: ParticlesApp,
-  'image-manipulator': ImageManipulatorApp,
+  'pixel-manipulator': ImageManipulatorApp,
   pixel: PixelApp,
   graphify: GraphifyApp,
   'three-stage': ThreeStageApp,

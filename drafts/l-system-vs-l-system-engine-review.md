@@ -5,6 +5,7 @@
 ## What each package is
 
 ### `@repo/l-system-engine` — Pure rewriting engine
+
 - **Zero runtime dependencies** — only dev tooling (eslint, typescript, vitest)
 - Pure TypeScript: core rewriting iterator (`expand`, `steps`), rule factories (`deterministicRule`, `stochasticRule`, `contextSensitiveRule`, `parametricRule`), symbol helpers, seeded PRNG, grammar validation
 - Single entry point (`. → ./src/engine.ts`) re-exporting all public API
@@ -12,6 +13,7 @@
 - Well-documented README with architecture diagram, design principles, and usage examples
 
 ### `@repo/l-system` — Interactive 3D demo app
+
 - React + Three.js app (`@react-three/fiber`, `@react-three/drei`, `leva`, `zustand`)
 - **Depends on** `@repo/l-system-engine` at `workspace:*`
 - Contains:
@@ -37,14 +39,14 @@
 
 This matches every other engine split in the repo:
 
-| Engine | UI pair | Runtime deps | Consumed outside pair? | Has tests? |
-|---|---|---|---|---|
-| `automa-engine` | `automa` | none | No | No |
-| **`l-system-engine`** | **`l-system`** | **none** | **No** | **Yes (38)** |
-| `palette-engine` | `palette-generator` | `colorjs.io` | No | No |
-| `pixel-engine` | `pixel` | none | No | No |
-| `randomart-engine` | `randomart` | `fast-png` | No | No |
-| `sequence-engine` | `sequence-renderer` | none | No | No |
+| Engine                | UI pair             | Runtime deps | Consumed outside pair? | Has tests?   |
+| --------------------- | ------------------- | ------------ | ---------------------- | ------------ |
+| `automa-engine`       | `automa`            | none         | No                     | No           |
+| **`l-system-engine`** | **`l-system`**      | **none**     | **No**                 | **Yes (38)** |
+| `palette-engine`      | `palette-generator` | `colorjs.io` | No                     | No           |
+| `pixel-engine`        | `pixel`             | none         | No                     | No           |
+| `randomart-engine`    | `randomart`         | `fast-png`   | No                     | No           |
+| `sequence-engine`     | `sequence-renderer` | none         | No                     | No           |
 
 All six pairs follow the same architecture: a pure/renderer-agnostic engine library consumed by a single React-based UI app. The l-system-engine is arguably the **cleanest example** of this pattern — it has the most thoroughly documented API surface and the only test suite among the engines.
 

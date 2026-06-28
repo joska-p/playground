@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
-import { CAMERA_FAR, CAMERA_FOV, CAMERA_NEAR, CAMERA_Z } from '../../config.ts';
 import { useStore } from 'zustand';
+import { CAMERA_FAR, CAMERA_FOV, CAMERA_NEAR, CAMERA_Z } from '../../config.ts';
 import { uiStore } from '../../stores/ui/store';
 import { Scene } from './Scene.tsx';
 
