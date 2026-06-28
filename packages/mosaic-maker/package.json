@@ -27,6 +27,7 @@
   "devDependencies": {
     "@babel/core": "catalog:",
     "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@tsconfig/strictest": "catalog:",

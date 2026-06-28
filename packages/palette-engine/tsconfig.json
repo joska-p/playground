@@ -1,17 +1,4 @@
 {
-  "extends": "@tsconfig/strictest",
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "target": "ESNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "erasableSyntaxOnly": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"]
+  "extends": "@repo/config-typescript/node.json",
+  "include": ["src"]
 }
