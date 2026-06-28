@@ -1,4 +1,3 @@
-import type { JSX } from 'react';
 import { useRef } from 'react';
 import { useCanvasInteraction } from '../../hooks/useCanvasInteraction';
 import { useCanvasRenderer } from '../../hooks/useCanvasRenderer';
@@ -6,7 +5,7 @@ import { useSequenceSequence } from '../../stores/sequence/selectors/useSequence
 import { useLayersConfig } from '../../stores/ui/selectors/useLayersConfig';
 import { useViewport } from '../../stores/ui/selectors/useViewport';
 
-function SequenceCanvas(): JSX.Element {
+function SequenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sequence = useSequenceSequence();
   const layers = useLayersConfig();
