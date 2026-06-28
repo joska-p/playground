@@ -35,7 +35,6 @@ Zustand Store (bridges engine logic ↔ UI components)
     ▼
 engine/         — Canvas rendering, layer system, types (moved from @repo/sequence-engine)
 modules/fourier — DFT computation (Web Worker), Fourier epicycle rendering, harmonicPath rule
-adapters/       — LocalStoragePresetStore (implements @repo/sequence-engine's PresetStore)
     │
     ▼
 @repo/sequence-engine (pure: sequence generation, rule types, PresetStore interface, built-in presets)
@@ -51,10 +50,10 @@ The store uses a consistent Zustand pattern. Access state via selector hooks:
 
 ```typescript
 const sequenceRule = useSequenceRule(); // Current SequenceRule
-const steps = useSequenceSteps();       // Step count
+const steps = useSequenceSteps(); // Step count
 const sequence = useSequenceSequence(); // Generated number array
-const layers = useLayersConfig();       // LayerConfigEntry[]
-const viewport = useViewport();         // CanvasViewport
+const layers = useLayersConfig(); // LayerConfigEntry[]
+const viewport = useViewport(); // CanvasViewport
 ```
 
 | Mutation                             | Effect                                   |

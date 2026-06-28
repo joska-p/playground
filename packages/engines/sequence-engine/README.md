@@ -40,10 +40,10 @@ registerRule(myRule);
 
 ## Exports
 
-| Path               | Exports                                                                |
-| :----------------- | :--------------------------------------------------------------------- |
-| `.`                | `generateSequence`                                                     |
-| `./rules`          | `getAllRules`, `registerRule`                                          |
-| `./rules/types`    | `SequenceRule`, `NextStepOptions`                                      |
-| `./rules/recaman`  | `recamanRule`                                                          |
-| `./types`          | `ParamDescriptor`, `LayerCategory`, `LayerConfigEntry`, `PresetRecord` |
+| Path              | Exports                                                                |
+| :---------------- | :--------------------------------------------------------------------- |
+| `.`               | `generateSequence`                                                     |
+| `./rules`         | `getAllRules`, `registerRule`                                          |
+| `./rules/types`   | `SequenceRule`, `NextStepOptions`                                      |
+| `./rules/recaman` | `recamanRule`                                                          |
+| `./types`         | `ParamDescriptor`, `LayerCategory`, `LayerConfigEntry`, `PresetRecord` |

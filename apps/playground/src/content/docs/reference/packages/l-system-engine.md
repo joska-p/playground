@@ -1,5 +1,5 @@
 ---
-title: 'L System Engine'
+title: 'L-system engine'
 description: 'A grammar-agnostic L-system rewriting engine in TypeScript — pure, reproducible, and renderer-independent.'
 category: 'reference'
 tags:

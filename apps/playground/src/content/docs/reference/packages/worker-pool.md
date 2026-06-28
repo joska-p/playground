@@ -1,5 +1,5 @@
 ---
-title: 'A pool of worker'
+title: 'Worker pool'
 description: 'You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.'
 category: 'reference'
 tags:

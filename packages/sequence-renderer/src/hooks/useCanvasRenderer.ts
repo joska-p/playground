@@ -20,12 +20,7 @@ export function useCanvasRenderer(
     if (!parent) return;
     canvas.width = parent.clientWidth;
     canvas.height = parent.clientHeight;
-    render(
-      canvas,
-      sequenceRef.current,
-      layersRef.current,
-      viewportRef.current
-    );
+    render(canvas, sequenceRef.current, layersRef.current, viewportRef.current);
   }, [canvasRef]);
 
   // Keep refs in sync for rAF reads
