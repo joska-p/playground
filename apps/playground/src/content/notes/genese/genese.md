@@ -1,16 +1,14 @@
 ---
 title: "Généalogie d'un Système"
-description: 'Journal de bord.'
+description: 'Hallucination collective.'
 date: 2026-06-28
 draft: false
-category: 'maths'
+category: 'log'
 tags:
   - maths
   - complex-systems
   - philosophy
 ---
-
-# Généalogie d'un Système : La Cosmologie du Code
 
 ## 1. La Graine (Note originale, il y a quelques années)
 
