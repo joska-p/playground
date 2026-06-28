@@ -7,10 +7,7 @@ import { Icon } from '@repo/ui/Icon';
 const baseUrl = import.meta.env.BASE_URL || '/';
 const docsBaseUrl = `${baseUrl}docs/`;
 
-const featuredDocs = await getCollection(
-  'docs',
-  ({ data }) => data.featured && !data.draft
-);
+const featuredDocs = await getCollection('docs', ({ data }) => data.featured && !data.draft);
 const featuredDocsWithMeta = await Promise.all(
   featuredDocs.map(async (doc) => {
     const categoryEntry = await getEntry(doc.data.category);

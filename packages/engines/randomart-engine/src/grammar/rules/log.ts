@@ -11,8 +11,7 @@ export const logRule = {
     return (Math.log(val + 1.0) / 0.69314718056) * 2.0 - 1.0;
   },
   toMathString: (args) => `normalized_log(${args[0]})`,
-  toGLSL: (args) =>
-    `((log(abs(${args[0]}) + 1.0) / 0.69314718056) * 2.0 - 1.0)`,
+  toGLSL: (args) => `((log(abs(${args[0]}) + 1.0) / 0.69314718056) * 2.0 - 1.0)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── log\n${args[0]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'log',

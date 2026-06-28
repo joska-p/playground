@@ -1,10 +1,5 @@
-import {
-  deterministicRule,
-  stochasticRule,
-  parametricRule,
-  symbol,
-} from '@repo/l-system-engine';
 import type { Grammar } from '@repo/l-system-engine';
+import { deterministicRule, parametricRule, stochasticRule, symbol } from '@repo/l-system-engine';
 
 export const GRUVBOX_DEPTH = [
   '#b8bb26',
@@ -14,7 +9,7 @@ export const GRUVBOX_DEPTH = [
   '#cc241d',
   '#b16286',
   '#458588',
-  '#689d6a',
+  '#689d6a'
 ] as const;
 
 export type GrammarDef = {
@@ -25,7 +20,7 @@ export type GrammarDef = {
   defaultAngle: number;
   defaultStepLength: number;
   maxIterations: number;
-}
+};
 
 export const GRAMMARS: GrammarDef[] = [
   {
@@ -36,14 +31,21 @@ export const GRAMMARS: GrammarDef[] = [
       axiom: [symbol('F')],
       rules: [
         deterministicRule('F', [
-          symbol('F'), symbol('+'), symbol('F'), symbol('-'),
-          symbol('F'), symbol('-'), symbol('F'), symbol('+'), symbol('F'),
-        ]),
-      ],
+          symbol('F'),
+          symbol('+'),
+          symbol('F'),
+          symbol('-'),
+          symbol('F'),
+          symbol('-'),
+          symbol('F'),
+          symbol('+'),
+          symbol('F')
+        ])
+      ]
     },
     defaultAngle: 90,
     defaultStepLength: 0.5,
-    maxIterations: 6,
+    maxIterations: 6
   },
   {
     id: 'tree',
@@ -53,15 +55,23 @@ export const GRAMMARS: GrammarDef[] = [
       axiom: [symbol('F')],
       rules: [
         deterministicRule('F', [
-          symbol('F'), symbol('['), symbol('+'), symbol('F'), symbol(']'),
-          symbol('F'), symbol('['), symbol('-'), symbol('F'), symbol(']'),
           symbol('F'),
-        ]),
-      ],
+          symbol('['),
+          symbol('+'),
+          symbol('F'),
+          symbol(']'),
+          symbol('F'),
+          symbol('['),
+          symbol('-'),
+          symbol('F'),
+          symbol(']'),
+          symbol('F')
+        ])
+      ]
     },
     defaultAngle: 25,
     defaultStepLength: 0.4,
-    maxIterations: 7,
+    maxIterations: 7
   },
   {
     id: 'plant',
@@ -71,17 +81,32 @@ export const GRAMMARS: GrammarDef[] = [
       axiom: [symbol('F')],
       rules: [
         deterministicRule('F', [
-          symbol('F'), symbol('F'), symbol('-'), symbol('['),
-          symbol('-'), symbol('F'), symbol('+'), symbol('F'),
-          symbol('+'), symbol('F'), symbol(']'), symbol('+'),
-          symbol('['), symbol('+'), symbol('F'), symbol('-'),
-          symbol('F'), symbol('-'), symbol('F'), symbol(']'),
-        ]),
-      ],
+          symbol('F'),
+          symbol('F'),
+          symbol('-'),
+          symbol('['),
+          symbol('-'),
+          symbol('F'),
+          symbol('+'),
+          symbol('F'),
+          symbol('+'),
+          symbol('F'),
+          symbol(']'),
+          symbol('+'),
+          symbol('['),
+          symbol('+'),
+          symbol('F'),
+          symbol('-'),
+          symbol('F'),
+          symbol('-'),
+          symbol('F'),
+          symbol(']')
+        ])
+      ]
     },
     defaultAngle: 22.5,
     defaultStepLength: 0.3,
-    maxIterations: 6,
+    maxIterations: 6
   },
   {
     id: 'parametric',
@@ -94,20 +119,28 @@ export const GRAMMARS: GrammarDef[] = [
           name: 'F',
           guard: ([l]) => (l ?? 0) > 0.02,
           produce: ([l = 0]) => [
-            symbol('F', l * 0.6), symbol('['), symbol('+'), symbol('F', l * 0.6), symbol(']'),
-            symbol('F', l * 0.6), symbol('['), symbol('-'), symbol('F', l * 0.6), symbol(']'),
-          ],
+            symbol('F', l * 0.6),
+            symbol('['),
+            symbol('+'),
+            symbol('F', l * 0.6),
+            symbol(']'),
+            symbol('F', l * 0.6),
+            symbol('['),
+            symbol('-'),
+            symbol('F', l * 0.6),
+            symbol(']')
+          ]
         }),
         parametricRule({
           name: 'F',
           guard: ([l]) => (l ?? 0) <= 0.02,
-          produce: () => [symbol('F', 0.02)],
-        }),
-      ],
+          produce: () => [symbol('F', 0.02)]
+        })
+      ]
     },
     defaultAngle: 25,
     defaultStepLength: 1,
-    maxIterations: 8,
+    maxIterations: 8
   },
   {
     id: 'stochastic',
@@ -120,23 +153,28 @@ export const GRAMMARS: GrammarDef[] = [
           {
             weight: 0.7,
             produce: [
-              symbol('F'), symbol('['), symbol('+'), symbol('F'), symbol(']'),
-              symbol('F'), symbol('['), symbol('-'), symbol('F'), symbol(']'),
               symbol('F'),
-            ],
+              symbol('['),
+              symbol('+'),
+              symbol('F'),
+              symbol(']'),
+              symbol('F'),
+              symbol('['),
+              symbol('-'),
+              symbol('F'),
+              symbol(']'),
+              symbol('F')
+            ]
           },
           {
             weight: 0.3,
-            produce: [
-              symbol('F'), symbol('['), symbol('+'), symbol('F'), symbol(']'),
-              symbol('F'),
-            ],
-          },
-        ]),
-      ],
+            produce: [symbol('F'), symbol('['), symbol('+'), symbol('F'), symbol(']'), symbol('F')]
+          }
+        ])
+      ]
     },
     defaultAngle: 22.5,
     defaultStepLength: 0.4,
-    maxIterations: 6,
-  },
+    maxIterations: 6
+  }
 ];

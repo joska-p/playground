@@ -13,6 +13,6 @@ export function deterministicRule(name: string, production: Word): Rule {
     },
     apply(_sym: LSymbol, _context: Context): Word {
       return production;
-    },
+    }
   };
 }

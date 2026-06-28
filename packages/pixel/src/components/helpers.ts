@@ -33,14 +33,7 @@ function generateTestImage(size: number): ImageData {
   const centerY = size / 2;
   const radius = size / 2;
 
-  const gradient = context.createRadialGradient(
-    centerX,
-    centerY,
-    0,
-    centerX,
-    centerY,
-    radius
-  );
+  const gradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
   gradient.addColorStop(0, '#ff6b6b');
   gradient.addColorStop(0.2, '#feca57');
   gradient.addColorStop(0.4, '#48dbfb');

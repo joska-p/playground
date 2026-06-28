@@ -1,7 +1,7 @@
 ---
-title: "Fracture"
-description: "Fractal visualization. For now."
-category: "reference"
+title: 'Fracture'
+description: 'Fractal visualization. For now.'
+category: 'reference'
 tags:
   - reference
   - fracture
@@ -29,4 +29,3 @@ This package follows [project conventions](/docs/explanations/conventions.md):
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

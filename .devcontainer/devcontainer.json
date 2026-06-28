@@ -17,9 +17,7 @@
       "type": "volume"
     }
   ],
-  "forwardPorts": [
-    2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888
-  ],
+  "forwardPorts": [2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888],
   "runArgs": ["--name", "playground"],
   "postStartCommand": "bash .devcontainer/scripts/setup.sh && usermod --shell /bin/zsh vscode"
 }

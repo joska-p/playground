@@ -10,16 +10,12 @@ function ViewportControls(): JSX.Element {
   return (
     <div className="border-border flex w-full flex-col gap-2 border-t px-3 py-2">
       <div className="flex flex-col gap-1">
-        <span className="text-muted-foreground text-xs font-medium">
-          Viewport
-        </span>
+        <span className="text-muted-foreground text-xs font-medium">Viewport</span>
         <Switch
           variant="secondary"
           size="sm"
           checked={viewport.enabled}
-          onCheckedChange={(enabled) =>
-            setViewport({ enabled, zoom: 1, panX: 0, panY: 0 })
-          }
+          onCheckedChange={(enabled) => setViewport({ enabled, zoom: 1, panX: 0, panY: 0 })}
           label="Enable Manual Viewport"
         />
       </div>

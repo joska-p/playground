@@ -28,10 +28,7 @@ export function useWebGLRenderer(
   const { glRef, bitmapSize } = useWebGLContext(canvasRef, dimensions);
 
   // 2. Extract active animation behavior configuration states from the store
-  const activeAnimationBehaviorIds = useStore(
-    randomartStore,
-    (s) => s.activeAnimationBehaviorIds
-  );
+  const activeAnimationBehaviorIds = useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
 
   // Resolve raw behavior implementation instances from our engine registry
   const behaviors = activeAnimationBehaviorIds

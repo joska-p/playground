@@ -1,8 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export function createVariant<
-  V extends Record<string, Record<string, string>>
->(config: {
+export function createVariant<V extends Record<string, Record<string, string>>>(config: {
   base: string;
   variants: V;
   defaultVariants: Record<string, string>;

@@ -18,11 +18,7 @@ const drawRecamanArcs: VisualLayer = {
     color: { label: 'Color', type: 'color' }
   },
   draw: (ctx, data, params, layout) => {
-    const {
-      lineWidth = 1,
-      alpha = 1.0,
-      color
-    } = params as Record<string, unknown>;
+    const { lineWidth = 1, alpha = 1.0, color } = params as Record<string, unknown>;
     const { valueScale, offsetX, offsetY } = layout;
     if (data.length < 2) return;
 

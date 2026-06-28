@@ -1,10 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import {
-  CAMERA_FAR,
-  CAMERA_FOV,
-  CAMERA_NEAR,
-  CAMERA_Z
-} from '@repo/automa-engine/config';
+import { CAMERA_FAR, CAMERA_FOV, CAMERA_NEAR, CAMERA_Z } from '@repo/automa-engine/config';
 import { useStore } from 'zustand';
 import { uiStore } from '../../stores/ui/store';
 import { Scene } from './Scene.tsx';

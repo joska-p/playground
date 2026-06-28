@@ -1,10 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {
-  CSS_VARS,
-  initialGapSize,
-  initialRotations,
-  initialTileSize
-} from '../core/constants';
+import { CSS_VARS, initialGapSize, initialRotations, initialTileSize } from '../core/constants';
 import { initialPalette } from '../core/initialPalette';
 import { initPalettes, setRef } from '../stores/mosaic/actions';
 import { useTiles } from '../stores/mosaic/selectors';

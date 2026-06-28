@@ -1,7 +1,7 @@
-import { getAllLayers } from '@repo/sequence-engine/visualizations/layers/registry';
 import { Button } from '@repo/ui/Button';
 import type { JSX } from 'react';
 import { useState } from 'react';
+import { getAllLayers } from '../../engine/layers/registry';
 import {
   addLayer,
   moveLayerDown,
@@ -24,9 +24,7 @@ function LayerStackEditor(): JSX.Element {
   const allLayerMetas = getAllLayers();
   const enabledCount = layers.filter((l) => l.enabled).length;
 
-  const availableLayers = allLayerMetas.filter(
-    (m) => !layers.some((l) => l.layerId === m.id)
-  );
+  const availableLayers = allLayerMetas.filter((m) => !layers.some((l) => l.layerId === m.id));
 
   function handleToggleLayer(layerId: string) {
     toggleLayer(layerId);
@@ -52,9 +50,7 @@ function LayerStackEditor(): JSX.Element {
   return (
     <div className="border-border flex w-full flex-col gap-2 border-t px-3 py-2">
       <div className="flex flex-col gap-1">
-        <span className="text-muted-foreground text-xs font-medium">
-          Layers
-        </span>
+        <span className="text-muted-foreground text-xs font-medium">Layers</span>
 
         {layers.map((entry, index) => {
           const meta = allLayerMetas.find((m) => m.id === entry.layerId);
@@ -75,13 +71,9 @@ function LayerStackEditor(): JSX.Element {
               onMoveDown={() => moveLayerDown(entry.layerId)}
               onRemove={() => handleRemoveLayer(entry.layerId)}
               onToggleExpand={() =>
-                setExpandedLayerId(
-                  expandedLayerId === entry.layerId ? null : entry.layerId
-                )
+                setExpandedLayerId(expandedLayerId === entry.layerId ? null : entry.layerId)
               }
-              onParamChange={(key, value) =>
-                updateLayerParams(entry.layerId, { [key]: value })
-              }
+              onParamChange={(key, value) => updateLayerParams(entry.layerId, { [key]: value })}
             />
           );
         })}

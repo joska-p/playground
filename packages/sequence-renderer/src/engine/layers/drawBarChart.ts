@@ -3,8 +3,7 @@ import type { VisualLayer } from '../types';
 const drawBarChart: VisualLayer = {
   id: 'bar-chart',
   name: 'Bar Chart',
-  description:
-    'Vertical bars from baseline to each sequence value, colored by height',
+  description: 'Vertical bars from baseline to each sequence value, colored by height',
   category: 'drawing',
   defaults: {
     barWidth: 0.8,

@@ -27,9 +27,7 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
 
   useEffect(() => {
     const needsRebuild =
-      !offscreenRef.current ||
-      prevSourceRef.current !== source ||
-      prevResultRef.current !== result;
+      !offscreenRef.current || prevSourceRef.current !== source || prevResultRef.current !== result;
 
     if (needsRebuild) {
       const s = document.createElement('canvas');

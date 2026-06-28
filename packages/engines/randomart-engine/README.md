@@ -21,17 +21,11 @@ import { getRule, getAllRules } from '@repo/randomart-engine/grammar/registry';
 import { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
 import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
 import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
-import {
-  nodeToMathString,
-  nodeToTreeView
-} from '@repo/randomart-engine/format/treePrinter';
+import { nodeToMathString, nodeToTreeView } from '@repo/randomart-engine/format/treePrinter';
 import { renderTreesToBuffer } from '@repo/randomart-engine/render/cpu-renderer';
 
 // PNG export (requires fast-png)
-import {
-  renderTreesToPngBuffer,
-  renderTreesToPngBlob
-} from '@repo/randomart-engine/png';
+import { renderTreesToPngBuffer, renderTreesToPngBlob } from '@repo/randomart-engine/png';
 ```
 
 ## Architecture
@@ -91,10 +85,7 @@ type GrammarRule = {
   toGLSL: (args: string[]) => string;
   toMathString: (args: string[]) => string;
   toTreeView: (args: string[], depth: number) => string;
-  buildNode: (
-    rng: SeededRandom,
-    buildChild: () => ExpressionNode
-  ) => ExpressionNode;
+  buildNode: (rng: SeededRandom, buildChild: () => ExpressionNode) => ExpressionNode;
 };
 ```
 
@@ -165,9 +156,7 @@ const png = encode({
 ```ts
 import { compileToGLSL, animationRegistry } from '@repo/randomart-engine';
 
-const activeBehaviors = animationRegistry.filter((b) =>
-  ['hue-shift', 'zoom'].includes(b.id)
-);
+const activeBehaviors = animationRegistry.filter((b) => ['hue-shift', 'zoom'].includes(b.id));
 
 const shaderSource = compileToGLSL(treeR, treeG, treeB, activeBehaviors);
 ```

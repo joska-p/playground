@@ -1,5 +1,6 @@
+import type { LayerConfigEntry } from '@repo/sequence-engine/types';
 import { getLayer } from './layers/registry';
-import type { CanvasLayout, CanvasViewport, LayerConfigEntry } from './types';
+import type { CanvasLayout, CanvasViewport } from './types';
 
 function maxAbsInterval(data: number[]): number {
   let max = 0;
@@ -13,10 +14,7 @@ function maxAbsInterval(data: number[]): number {
   return max || 1;
 }
 
-function computeLayout(
-  canvas: HTMLCanvasElement,
-  data: number[]
-): CanvasLayout {
+function computeLayout(canvas: HTMLCanvasElement, data: number[]): CanvasLayout {
   let maxVal = 0;
   let minVal = 0;
   for (let i = 0; i < data.length; i++) {
@@ -26,16 +24,14 @@ function computeLayout(
     if (v < minVal) minVal = v;
   }
   const dataRange = maxVal - minVal;
-  const horizontalScale =
-    (canvas.width * 0.95) / (dataRange || Math.max(maxVal, -minVal) || 1);
+  const horizontalScale = (canvas.width * 0.95) / (dataRange || Math.max(maxVal, -minVal) || 1);
   const verticalScale = (canvas.height * 0.85) / maxAbsInterval(data);
   const valueScale = Math.min(horizontalScale, verticalScale);
   return {
     maxVal,
     minVal,
     valueScale,
-    offsetX:
-      (canvas.width - (maxVal - minVal) * valueScale) / 2 - minVal * valueScale,
+    offsetX: (canvas.width - (maxVal - minVal) * valueScale) / 2 - minVal * valueScale,
     offsetY: canvas.height / 2
   };
 }

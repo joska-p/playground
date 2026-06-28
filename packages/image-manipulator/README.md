@@ -15,10 +15,7 @@ import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
 
 const source = imageElementToImageData(img);
 
-const result = manipulate(source)
-  .apply(grayscale())
-  .apply(brightness(1.3))
-  .toImageData();
+const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
 
 putImageData(canvas, result);
 ```
@@ -105,10 +102,7 @@ import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
 
 const source = imageElementToImageData(imgElement);
 
-const result = manipulate(source)
-  .apply(grayscale())
-  .apply(brightness(1.3))
-  .toImageData();
+const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
 
 putImageData(canvasElement, result);
 ```

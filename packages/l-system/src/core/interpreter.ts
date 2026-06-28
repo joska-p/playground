@@ -12,14 +12,14 @@ export type TurtleOptions = {
   lineWidth: number;
   /** Multiply line width by this factor per branch depth. */
   widthFactor: number;
-}
+};
 
 export type LineSegment = {
   start: THREE.Vector3;
   end: THREE.Vector3;
   /** Depth at which this segment was drawn — used for colouring. */
   depth: number;
-}
+};
 
 type TurtleState = {
   position: THREE.Vector3;
@@ -28,7 +28,7 @@ type TurtleState = {
   /** Up vector — for 3D rolls. */
   up: THREE.Vector3;
   depth: number;
-}
+};
 
 const DEG = Math.PI / 180;
 
@@ -58,7 +58,7 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
     position: new THREE.Vector3(0, 0, 0),
     direction: initialDir.clone(),
     up: initialUp.clone(),
-    depth: 0,
+    depth: 0
   };
 
   const rad = opts.angle * DEG;
@@ -85,23 +85,37 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
   for (const sym of word) {
     switch (sym.name) {
       case 'F': {
-        const length = sym.params[0] !== undefined ? sym.params[0] * opts.lengthFactor : opts.stepLength;
+        const length =
+          sym.params[0] !== undefined ? sym.params[0] * opts.lengthFactor : opts.stepLength;
         const next = state.position.clone().addScaledVector(state.direction, length);
         segments.push({ start: state.position.clone(), end: next, depth: state.depth });
         state.position = next;
         break;
       }
       case 'f': {
-        const length = sym.params[0] !== undefined ? sym.params[0] * opts.lengthFactor : opts.stepLength;
+        const length =
+          sym.params[0] !== undefined ? sym.params[0] * opts.lengthFactor : opts.stepLength;
         state.position.addScaledVector(state.direction, length);
         break;
       }
-      case '+': yaw(1); break;
-      case '-': yaw(-1); break;
-      case '^': pitch(1); break;
-      case '&': pitch(-1); break;
-      case '\\': roll(1); break;
-      case '/': roll(-1); break;
+      case '+':
+        yaw(1);
+        break;
+      case '-':
+        yaw(-1);
+        break;
+      case '^':
+        pitch(1);
+        break;
+      case '&':
+        pitch(-1);
+        break;
+      case '\\':
+        roll(1);
+        break;
+      case '/':
+        roll(-1);
+        break;
       case '|': {
         const q = new THREE.Quaternion().setFromAxisAngle(state.up, Math.PI);
         state.direction.applyQuaternion(q).normalize();
@@ -112,7 +126,7 @@ export function interpretWord(word: Word, opts: TurtleOptions): LineSegment[] {
           position: state.position.clone(),
           direction: state.direction.clone(),
           up: state.up.clone(),
-          depth: state.depth + 1,
+          depth: state.depth + 1
         });
         state.depth += 1;
         break;

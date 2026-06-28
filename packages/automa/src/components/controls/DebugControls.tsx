@@ -1,10 +1,6 @@
 import { Button } from '@repo/ui/Button';
 import { useStepTimer } from '../../hooks/useStepTimer';
-import {
-  useCols,
-  useGeneration,
-  useRows
-} from '../../stores/simulation/selectors';
+import { useCols, useGeneration, useRows } from '../../stores/simulation/selectors';
 import { setShowDebug } from '../../stores/ui/actions';
 import { useShowDebug } from '../../stores/ui/selectors';
 

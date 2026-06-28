@@ -8,10 +8,8 @@
     "./rules": "./src/rules/registry.ts",
     "./rules/types": "./src/rules/types.ts",
     "./rules/recaman": "./src/rules/recaman.ts",
-    "./visualizations": "./src/visualizations/registry.ts",
-    "./visualizations/render": "./src/visualizations/render.ts",
-    "./visualizations/types": "./src/visualizations/types.ts",
-    "./visualizations/layers/registry": "./src/visualizations/layers/registry.ts"
+    "./store": "./src/store/PresetStore.ts",
+    "./types": "./src/types.ts"
   },
   "scripts": {
     "lint": "eslint .",
@@ -20,8 +18,7 @@
     "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {
-    "@repo/randomart-engine": "workspace:*",
-    "@repo/worker-pool": "workspace:*"
+    "@repo/randomart-engine": "workspace:*"
   },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",

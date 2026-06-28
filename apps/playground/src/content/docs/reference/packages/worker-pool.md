@@ -1,7 +1,7 @@
 ---
-title: "A pool of worker"
-description: "You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown."
-category: "reference"
+title: 'A pool of worker'
+description: 'You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.'
+category: 'reference'
 tags:
   - reference
   - worker-pool
@@ -30,9 +30,7 @@ export class WorkerPool<TTask, TResult> {
   teardown(): void;
 }
 
-export type WorkerResult<T> =
-  | { ok: true; value: T }
-  | { ok: false; error: Error };
+export type WorkerResult<T> = { ok: true; value: T } | { ok: false; error: Error };
 
 export type WorkerPoolConfig<TTask, TResult> = {
   /** Creates a fresh Worker. Consumer chooses URL, blob, inline import, etc. */
@@ -242,4 +240,3 @@ pnpm --filter @repo/worker-pool check-types
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

@@ -1,10 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import { cn } from '@repo/ui/cn';
 import { setActiveChannel } from '../../stores/randomart/actions/display';
-import {
-  useActiveChannel,
-  useCorrelatedRGB
-} from '../../stores/randomart/selectors';
+import { useActiveChannel, useCorrelatedRGB } from '../../stores/randomart/selectors';
 
 const channels: ('red' | 'green' | 'blue')[] = ['red', 'green', 'blue'];
 
@@ -78,8 +75,7 @@ export function ChannelTabs() {
               disabled={correlated}
               variant="primary"
               className={cn('inline-flex flex-col text-xs break-all', {
-                'bg-background text-muted-foreground hover:text-primary-foreground':
-                  !isSelected,
+                'bg-background text-muted-foreground hover:text-primary-foreground': !isSelected,
                 'cursor-not-allowed opacity-60': correlated
               })}
             >

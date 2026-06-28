@@ -1,7 +1,7 @@
 ---
-title: "Image Manipulator"
-description: "Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data."
-category: "reference"
+title: 'Image Manipulator'
+description: 'Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.'
+category: 'reference'
 tags:
   - reference
   - image-manipulator
@@ -23,10 +23,7 @@ import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
 
 const source = imageElementToImageData(img);
 
-const result = manipulate(source)
-  .apply(grayscale())
-  .apply(brightness(1.3))
-  .toImageData();
+const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
 
 putImageData(canvas, result);
 ```
@@ -113,10 +110,7 @@ import { imageElementToImageData, putImageData } from '@repo/image-manipulator';
 
 const source = imageElementToImageData(imgElement);
 
-const result = manipulate(source)
-  .apply(grayscale())
-  .apply(brightness(1.3))
-  .toImageData();
+const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toImageData();
 
 putImageData(canvasElement, result);
 ```
@@ -203,4 +197,3 @@ Returns `[dataUrl: string | null, onChangeHandler]`.
 ---
 
 _Part of @repo/playground_
-

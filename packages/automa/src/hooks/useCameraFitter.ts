@@ -13,12 +13,7 @@ const useCameraFitter = (cols: number, rows: number): void => {
 
     const state = getState();
     const camera = state.camera as OrthographicCamera;
-    const { left, right, top, bottom } = fitCameraToGrid(
-      cols,
-      rows,
-      size.width,
-      size.height
-    );
+    const { left, right, top, bottom } = fitCameraToGrid(cols, rows, size.width, size.height);
     const pad = 1.15;
     camera.left = left * pad;
     camera.right = right * pad;

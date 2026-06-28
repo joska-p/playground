@@ -64,10 +64,7 @@ type GradientBackgroundProps = {
   numSprites?: number;
 };
 
-export function GradientBackground({
-  opacity = 0.2,
-  numSprites = 12
-}: GradientBackgroundProps) {
+export function GradientBackground({ opacity = 0.2, numSprites = 12 }: GradientBackgroundProps) {
   const spritesData = getSpritesData({ numSprites });
   const groupRef = useRef<THREE.Group>(null);
 

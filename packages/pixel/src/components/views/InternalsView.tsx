@@ -1,8 +1,5 @@
 import type { EndpointItem } from '../data/pipeline-docs-data';
-import {
-  ENDPOINT_GROUPS,
-  findItemForEndpoint
-} from '../data/pipeline-docs-data';
+import { ENDPOINT_GROUPS, findItemForEndpoint } from '../data/pipeline-docs-data';
 
 function SectionHeader({ item }: { item: EndpointItem | undefined }) {
   return (
@@ -10,9 +7,7 @@ function SectionHeader({ item }: { item: EndpointItem | undefined }) {
       <div className="flex items-center gap-3">
         <h2 className="text-2xl font-bold">{item?.label}</h2>
       </div>
-      <p className="text-muted-foreground max-w-2xl text-sm">
-        {item?.description}
-      </p>
+      <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
       <p className="text-xs opacity-60">{item?.path}</p>
     </>
   );
@@ -47,16 +42,12 @@ function InternalsView({ id }: { id: string }) {
         </div>
 
         <div className="border-border bg-muted/30 border-l-utility-5 rounded-lg border border-l-2 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase">
-            BufferManager
-          </h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase">BufferManager</h3>
           <p className="text-muted-foreground text-sm">
-            Double-buffering avoids allocating a new array for every pixel
-            operation. Two
-            <code className="mx-1">Uint8ClampedArray</code> buffers swap on each
-            pass via O(1) pointer flip. <code className="mx-1">snapshot()</code>{' '}
-            clones the current buffer into a new ImageData;{' '}
-            <code className="mx-1">replaceWith()</code> resets both buffers when
+            Double-buffering avoids allocating a new array for every pixel operation. Two
+            <code className="mx-1">Uint8ClampedArray</code> buffers swap on each pass via O(1)
+            pointer flip. <code className="mx-1">snapshot()</code> clones the current buffer into a
+            new ImageData; <code className="mx-1">replaceWith()</code> resets both buffers when
             resize or global ops change geometry.
           </p>
         </div>
@@ -70,9 +61,8 @@ function InternalsView({ id }: { id: string }) {
         <SectionHeader item={item} />
 
         <p className="text-muted-foreground text-sm">
-          Consecutive pixel-type steps are fused into a single pixel loop to
-          avoid N full-image passes. The scheduler queues pixel ops and runs
-          them in one pass when flushed.
+          Consecutive pixel-type steps are fused into a single pixel loop to avoid N full-image
+          passes. The scheduler queues pixel ops and runs them in one pass when flushed.
         </p>
 
         <div className="border-border bg-muted/30 border-l-utility-5 rounded-lg border border-l-2 p-4 text-xs whitespace-pre">
@@ -85,8 +75,8 @@ swap()`}
         </div>
 
         <p className="text-muted-foreground text-sm">
-          Non-pixel operations (neighborhood, global, resize, snapshot) force a
-          flush before executing, ensuring pending pixel ops are applied first.
+          Non-pixel operations (neighborhood, global, resize, snapshot) force a flush before
+          executing, ensuring pending pixel ops are applied first.
         </p>
       </div>
     );
@@ -98,10 +88,9 @@ swap()`}
         <SectionHeader item={item} />
 
         <p className="text-muted-foreground text-sm">
-          Large neighborhood operations are tiled to avoid allocating full-size
-          temporary buffers. Each tile includes a halo border of{' '}
-          <code className="mx-1">radius</code> pixels so edge pixels have
-          neighbors available.
+          Large neighborhood operations are tiled to avoid allocating full-size temporary buffers.
+          Each tile includes a halo border of <code className="mx-1">radius</code> pixels so edge
+          pixels have neighbors available.
         </p>
 
         <div className="border-border bg-muted/30 border-l-utility-3 rounded-lg border border-l-2 p-4 text-xs whitespace-pre">
@@ -116,10 +105,9 @@ For each tile:
         </div>
 
         <p className="text-muted-foreground text-sm">
-          Peak memory drops from <code className="mx-1">(width × height)</code>{' '}
-          to
-          <code className="mx-1">(TILE_SIZE + 2×halo)²</code>. The result is
-          identical to running convolution on the full image.
+          Peak memory drops from <code className="mx-1">(width × height)</code> to
+          <code className="mx-1">(TILE_SIZE + 2×halo)²</code>. The result is identical to running
+          convolution on the full image.
         </p>
       </div>
     );
@@ -131,8 +119,8 @@ For each tile:
         <SectionHeader item={item} />
 
         <p className="text-muted-foreground text-sm">
-          Resize uses bilinear interpolation. For each output pixel, it samples
-          the 4 nearest source pixels and interpolates.
+          Resize uses bilinear interpolation. For each output pixel, it samples the 4 nearest source
+          pixels and interpolates.
         </p>
 
         <div className="border-border bg-muted/30 border-l-utility-4 rounded-lg border border-l-2 p-4 text-xs whitespace-pre">
@@ -157,33 +145,25 @@ output = top * (1 - dy) + bottom * dy`}
             </thead>
             <tbody>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  maximumPixels
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">maximumPixels</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale to fit pixel budget, aspect-ratio-preserved
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  width + height + fill
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">width + height + fill</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Exact dimensions (stretch)
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  width + height + contain
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">width + height + contain</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Fit within bounds, aspect-ratio-preserved
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  width + height + cover
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">width + height + cover</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Fill bounds, aspect-ratio-preserved (crops)
                 </td>
@@ -195,9 +175,7 @@ output = top * (1 - dy) + bottom * dy`}
                 </td>
               </tr>
               <tr className="border-border">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  height only
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">height only</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Scale proportionally by height
                 </td>
@@ -215,28 +193,22 @@ output = top * (1 - dy) + bottom * dy`}
         <SectionHeader item={item} />
 
         <div className="border-border bg-muted/30 border-l-utility-1 rounded-lg border border-l-2 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase">
-            pipeline-worker.ts
-          </h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase">pipeline-worker.ts</h3>
           <p className="text-muted-foreground text-sm">
             Stateless worker. Each message rebuilds the registry from
             <code className="mx-1">ALL_MANIPULATIONS</code> and calls
-            <code className="mx-1">runPipeline()</code>. Results are transferred
-            back (zero-copy) via <code className="mx-1">postMessage</code>{' '}
-            Transferables.
+            <code className="mx-1">runPipeline()</code>. Results are transferred back (zero-copy)
+            via <code className="mx-1">postMessage</code> Transferables.
           </p>
         </div>
 
         <div className="border-border bg-muted/30 border-l-utility-6 rounded-lg border border-l-2 p-4">
-          <h3 className="mb-2 text-xs font-semibold uppercase">
-            pipeline-gateway.ts
-          </h3>
+          <h3 className="mb-2 text-xs font-semibold uppercase">pipeline-gateway.ts</h3>
           <p className="text-muted-foreground text-sm">
-            Main-thread pool manager. Workers are lazily created on first call.
-            If all workers are busy, jobs queue in FIFO order and dispatch as
-            workers free up. Call
-            <code className="mx-1">pipelineGateway.teardown()</code> on app
-            unmount to terminate workers.
+            Main-thread pool manager. Workers are lazily created on first call. If all workers are
+            busy, jobs queue in FIFO order and dispatch as workers free up. Call
+            <code className="mx-1">pipelineGateway.teardown()</code> on app unmount to terminate
+            workers.
           </p>
           <div className="border-border bg-background mt-3 rounded border p-3 text-xs whitespace-pre">
             {`Pool:     up to min(hardwareConcurrency, 4) workers
@@ -265,15 +237,11 @@ Dispatch: postMessage with Transferable buffers
             </thead>
             <tbody>
               <tr className="border-border">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  DEFAULT_MAXIMUM_PIXELS
-                </td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">
-                  16,000,000
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">DEFAULT_MAXIMUM_PIXELS</td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">16,000,000</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
-                  ~16 megapixel default cap. Auto-downscale if source exceeds
-                  this value. Also triggers tiled path for neighborhood ops.
+                  ~16 megapixel default cap. Auto-downscale if source exceeds this value. Also
+                  triggers tiled path for neighborhood ops.
                 </td>
               </tr>
             </tbody>
@@ -283,11 +251,7 @@ Dispatch: postMessage with Transferable buffers
     );
   }
 
-  return (
-    <div className="text-muted-foreground py-12 text-center text-sm">
-      Section not found
-    </div>
-  );
+  return <div className="text-muted-foreground py-12 text-center text-sm">Section not found</div>;
 }
 
 export { InternalsView };

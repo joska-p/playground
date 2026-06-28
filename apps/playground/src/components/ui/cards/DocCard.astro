@@ -11,14 +11,7 @@ type Props = {
   className?: string;
 };
 
-const {
-  href,
-  title,
-  description,
-  type = 'reference',
-  iconName,
-  className
-} = Astro.props;
+const { href, title, description, type = 'reference', iconName, className } = Astro.props;
 
 const accentColor = `var(--category-${type}, var(--color-primary))`;
 ---
@@ -52,13 +45,7 @@ const accentColor = `var(--category-${type}, var(--color-primary))`;
     <h3 class="text-card-foreground font-semibold">
       {title}
     </h3>
-    {
-      description && (
-        <p class="text-muted-foreground line-clamp-2 flex-1 text-sm">
-          {description}
-        </p>
-      )
-    }
+    {description && <p class="text-muted-foreground line-clamp-2 flex-1 text-sm">{description}</p>}
     <slot />
   </div>
 </BaseCard>

@@ -19,18 +19,13 @@ export class StageContext {
   }
 
   toScreen2D(x: number, y: number): { sx: number; sy: number } {
-    const sx =
-      ((x - this.view.xMin) / (this.view.xMax - this.view.xMin)) * this.width;
+    const sx = ((x - this.view.xMin) / (this.view.xMax - this.view.xMin)) * this.width;
     const sy =
-      this.height -
-      ((y - this.view.yMin) / (this.view.yMax - this.view.yMin)) * this.height;
+      this.height - ((y - this.view.yMin) / (this.view.yMax - this.view.yMin)) * this.height;
     return { sx, sy };
   }
 
-  project(
-    vector: VectorN,
-    projectionPipeline: (v: VectorN) => { x: number; y: number }
-  ) {
+  project(vector: VectorN, projectionPipeline: (v: VectorN) => { x: number; y: number }) {
     const { x, y } = projectionPipeline(vector);
     return this.toScreen2D(x, y);
   }

@@ -62,10 +62,7 @@ const myLayer = defineLayer<MyLayerOptions>()
 
     ctx.context.beginPath();
     ctx.context.moveTo(ctx.offsetX, ctx.offsetY);
-    ctx.context.lineTo(
-      ctx.offsetX + (ctx.maxVal * ctx.valueScale) / 2,
-      ctx.offsetY - 50
-    );
+    ctx.context.lineTo(ctx.offsetX + (ctx.maxVal * ctx.valueScale) / 2, ctx.offsetY - 50);
     ctx.context.stroke();
     ctx.context.restore();
   });

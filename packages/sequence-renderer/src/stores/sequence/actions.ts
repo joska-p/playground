@@ -1,8 +1,8 @@
 import { generateSequence } from '@repo/sequence-engine';
 import type { SequenceRule } from '@repo/sequence-engine/rules/types';
-import { getAllPresets, savePreset as persistPreset } from '@repo/sequence-engine/visualizations';
-import { getLayer } from '@repo/sequence-engine/visualizations/layers/registry';
-import type { CanvasViewport, PresetRecord } from '@repo/sequence-engine/visualizations/types';
+import { getLayer } from '../../engine/layers/registry';
+import type { CanvasViewport, PresetRecord } from '../../engine/types';
+import { getAllPresets, savePreset as persistPreset } from './presetStore';
 import { sequenceStore } from './store';
 
 const DEFAULT_PLAYBACK_STEPS = 2000;

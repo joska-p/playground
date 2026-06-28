@@ -20,10 +20,7 @@ function updateCurrentPalettes() {
     currentPalettesIndex >= paletteStock.length - MAX_NUMBER_OF_PALETTES
       ? 0
       : currentPalettesIndex + MAX_NUMBER_OF_PALETTES;
-  const currentPalettes = paletteStock.slice(
-    newIndex,
-    newIndex + MAX_NUMBER_OF_PALETTES
-  );
+  const currentPalettes = paletteStock.slice(newIndex, newIndex + MAX_NUMBER_OF_PALETTES);
   mosaicStore.setState({ currentPalettesIndex: newIndex, currentPalettes });
 }
 

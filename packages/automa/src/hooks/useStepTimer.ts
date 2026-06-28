@@ -7,8 +7,7 @@ const useStepTimer = (generation: number) => {
   const genTime = useRef(0);
 
   useEffect(() => {
-    const genChanged =
-      prevGen.current !== null && generation !== prevGen.current;
+    const genChanged = prevGen.current !== null && generation !== prevGen.current;
     if (genChanged) {
       const now = performance.now();
       setStepTime(now - genTime.current);

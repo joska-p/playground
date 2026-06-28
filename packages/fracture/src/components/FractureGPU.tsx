@@ -14,9 +14,7 @@ function FractureGPU() {
 
     const gl = canvas.getContext('webgl2');
     if (!gl) {
-      console.error(
-        'Unable to initialize WebGL. Your browser or machine may not support it.'
-      );
+      console.error('Unable to initialize WebGL. Your browser or machine may not support it.');
       return;
     }
 

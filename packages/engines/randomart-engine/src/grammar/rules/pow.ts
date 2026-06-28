@@ -16,8 +16,7 @@ export const powRule = {
     const safeExp = `clamp(${args[1]}, -3.0, 3.0)`;
     return `(sign(${args[0]}) * pow(abs(${args[0]}), ${safeExp}))`;
   },
-  toTreeView: (args, depth) =>
-    `${'  '.repeat(depth)}├── pow\n${args[0]}${args[1]}`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── pow\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'pow',
     args: [buildChild(), buildChild()]

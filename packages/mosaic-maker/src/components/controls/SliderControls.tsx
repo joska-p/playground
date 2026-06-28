@@ -12,19 +12,10 @@ export type SliderControlsProps = {
   step: number;
 };
 
-function SliderControls({
-  label,
-  defaultValue,
-  cssVar,
-  min,
-  max,
-  step
-}: SliderControlsProps) {
+function SliderControls({ label, defaultValue, cssVar, min, max, step }: SliderControlsProps) {
   const mosaicRef = useMosaicRef();
   const [value, setValue] = useState(defaultValue);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined
-  );
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   function handleSetValue(newValue: number) {
     setValue(newValue);

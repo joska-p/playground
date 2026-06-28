@@ -5,12 +5,7 @@ import { defineConfig } from 'vite';
 import glsl from 'vite-plugin-glsl';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    babel({ presets: [reactCompilerPreset()] }),
-    tailwindcss(),
-    glsl()
-  ],
+  plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss(), glsl()],
   resolve: {
     tsconfigPaths: true
   },

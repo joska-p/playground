@@ -16,8 +16,7 @@ const setupSmartNavbar = () => {
   let hideTimer = null;
   let isHovered = false;
 
-  const isMobileMenuOpen = () =>
-    mobileMenu?.getAttribute('data-open') === 'true';
+  const isMobileMenuOpen = () => mobileMenu?.getAttribute('data-open') === 'true';
 
   const showNavbar = () => {
     header.style.transform = 'translateY(0)';
@@ -34,11 +33,7 @@ const setupSmartNavbar = () => {
   const scheduleHide = () => {
     clearTimeout(hideTimer);
     hideTimer = setTimeout(() => {
-      if (
-        !isHovered &&
-        !isMobileMenuOpen() &&
-        window.scrollY > SCROLL_THRESHOLD
-      ) {
+      if (!isHovered && !isMobileMenuOpen() && window.scrollY > SCROLL_THRESHOLD) {
         hideNavbar();
       }
     }, IDLE_DELAY);

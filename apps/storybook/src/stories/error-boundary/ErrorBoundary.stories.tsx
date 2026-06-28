@@ -3,34 +3,21 @@ import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
-const variants = [
-  'destructive',
-  'primary',
-  'secondary',
-  'accent',
-  'outline',
-  'ghost'
-] as const;
+const variants = ['destructive', 'primary', 'secondary', 'accent', 'outline', 'ghost'] as const;
 
 function ErrorThrower({ message }: { message?: string }) {
   throw new Error(message ?? 'Simulated error for storybook demo');
   return null;
 }
 
-function ToggleError({
-  children
-}: {
-  children: (throwIt: boolean) => React.ReactNode;
-}) {
+function ToggleError({ children }: { children: (throwIt: boolean) => React.ReactNode }) {
   const [shouldThrow, setShouldThrow] = useState(false);
 
   if (shouldThrow) return <>{children(true)}</>;
 
   return (
     <div className="flex flex-col items-center gap-4 py-8">
-      <p className="text-muted-foreground text-sm">
-        Click the button to trigger an error.
-      </p>
+      <p className="text-muted-foreground text-sm">Click the button to trigger an error.</p>
       <Button
         onClick={() => setShouldThrow(true)}
         variant="destructive"
@@ -87,9 +74,7 @@ type Story = StoryObj<typeof ErrorBoundary>;
 export const Default: Story = {
   render: () => (
     <ErrorBoundary>
-      <ToggleError>
-        {(shouldThrow) => shouldThrow && <ErrorThrower />}
-      </ToggleError>
+      <ToggleError>{(shouldThrow) => shouldThrow && <ErrorThrower />}</ToggleError>
     </ErrorBoundary>
   )
 };
@@ -106,9 +91,7 @@ export const PrimaryVariant: Story = {
   render: () => (
     <ErrorBoundary variant="primary">
       <ToggleError>
-        {(shouldThrow) =>
-          shouldThrow && <ErrorThrower message="A less destructive error" />
-        }
+        {(shouldThrow) => shouldThrow && <ErrorThrower message="A less destructive error" />}
       </ToggleError>
     </ErrorBoundary>
   )
@@ -118,9 +101,7 @@ export const SecondaryVariant: Story = {
   render: () => (
     <ErrorBoundary variant="secondary">
       <ToggleError>
-        {(shouldThrow) =>
-          shouldThrow && <ErrorThrower message="A secondary-styled error" />
-        }
+        {(shouldThrow) => shouldThrow && <ErrorThrower message="A secondary-styled error" />}
       </ToggleError>
     </ErrorBoundary>
   )
@@ -130,9 +111,7 @@ export const AccentVariant: Story = {
   render: () => (
     <ErrorBoundary variant="accent">
       <ToggleError>
-        {(shouldThrow) =>
-          shouldThrow && <ErrorThrower message="An accent-styled error" />
-        }
+        {(shouldThrow) => shouldThrow && <ErrorThrower message="An accent-styled error" />}
       </ToggleError>
     </ErrorBoundary>
   )
@@ -142,9 +121,7 @@ export const OutlineVariant: Story = {
   render: () => (
     <ErrorBoundary variant="outline">
       <ToggleError>
-        {(shouldThrow) =>
-          shouldThrow && <ErrorThrower message="A subtle outlined error" />
-        }
+        {(shouldThrow) => shouldThrow && <ErrorThrower message="A subtle outlined error" />}
       </ToggleError>
     </ErrorBoundary>
   )
@@ -154,9 +131,7 @@ export const GhostVariant: Story = {
   render: () => (
     <ErrorBoundary variant="ghost">
       <ToggleError>
-        {(shouldThrow) =>
-          shouldThrow && <ErrorThrower message="A subtle, quiet error" />
-        }
+        {(shouldThrow) => shouldThrow && <ErrorThrower message="A subtle, quiet error" />}
       </ToggleError>
     </ErrorBoundary>
   )

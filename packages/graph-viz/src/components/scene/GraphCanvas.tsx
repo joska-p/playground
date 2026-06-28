@@ -18,11 +18,7 @@ const animTarget = new THREE.Vector3();
 const animCamera = new THREE.Vector3();
 let isAnimating = false;
 
-function CameraAnimator({
-  controlsRef
-}: {
-  controlsRef: React.RefObject<OC | null>;
-}) {
+function CameraAnimator({ controlsRef }: { controlsRef: React.RefObject<OC | null> }) {
   useFrame(() => {
     const controls = controlsRef.current;
     if (!controls || !isAnimating) return;
@@ -64,9 +60,7 @@ function GraphCanvas() {
     const node = nodes[selectedNodeIdx];
     if (!node) return;
 
-    const offset = new THREE.Vector3()
-      .copy(controls.object.position)
-      .sub(controls.target);
+    const offset = new THREE.Vector3().copy(controls.object.position).sub(controls.target);
 
     // Clamp offset to a reasonable distance so clicking from
     // far away doesn't keep the camera at extreme range.
@@ -90,9 +84,7 @@ function GraphCanvas() {
       gl={{ antialias: true, alpha: false }}
       onContextMenu={(e: React.MouseEvent) => e.preventDefault()}
       onCreated={(state: RootState) => {
-        const bg = getComputedStyle(
-          state.gl.domElement.parentElement!
-        ).backgroundColor;
+        const bg = getComputedStyle(state.gl.domElement.parentElement!).backgroundColor;
         state.gl.setClearColor(new THREE.Color(bg));
       }}
       onPointerMissed={(event: MouseEvent) => {

@@ -18,6 +18,7 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "@repo/sequence-engine": "workspace:*",
+    "@repo/worker-pool": "workspace:*",
     "zustand": "catalog:"
   },
   "peerDependencies": {

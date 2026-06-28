@@ -21,9 +21,7 @@ const triadic: Rule = {
       const variation = c.clone();
       if (variation.oklch['l'] != null) {
         variation.oklch['l'] =
-          variation.oklch['l'] > 0.5
-            ? variation.oklch['l'] - 0.2
-            : variation.oklch['l'] + 0.2;
+          variation.oklch['l'] > 0.5 ? variation.oklch['l'] - 0.2 : variation.oklch['l'] + 0.2;
       }
 
       colors.push(c);

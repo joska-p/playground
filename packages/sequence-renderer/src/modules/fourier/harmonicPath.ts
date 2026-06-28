@@ -1,5 +1,5 @@
-import { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
-import type { NextStepOptions, SequenceRule } from './types';
+import type { NextStepOptions, SequenceRule } from '@repo/sequence-engine/rules/types';
+import { SeededRandom } from './SeededRandom';
 
 function generateHarmonics(seed: string) {
   const rng = new SeededRandom(seed);
@@ -17,8 +17,7 @@ function generateHarmonics(seed: string) {
 export const harmonicPathRule: SequenceRule = {
   name: 'Harmonic Hash Path',
   id: 'harmonic-path',
-  description:
-    'Generates a multi-harmonic 2D coordinate sequence derived from a seed string.',
+  description: 'Generates a multi-harmonic 2D coordinate sequence derived from a seed string.',
   maxSteps: 1000,
 
   getNext: (options: NextStepOptions): number => {

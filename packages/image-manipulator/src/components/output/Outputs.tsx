@@ -10,9 +10,7 @@ function Outputs() {
   const imageSource = useImageSource();
   const outputs = useOutputs();
   const [mode, setMode] = useState<'grid' | 'compare'>('grid');
-  const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedOutputId, setSelectedOutputId] = useState<string | undefined>(undefined);
 
   const hasComparableContent = imageSource && outputs.length > 0;
 
@@ -63,11 +61,7 @@ function Outputs() {
               output={output}
               index={index + 1}
               isSelected={mode === 'compare' && activeOutputId === output.id}
-              onSelect={
-                mode === 'compare'
-                  ? () => setSelectedOutputId(output.id)
-                  : undefined
-              }
+              onSelect={mode === 'compare' ? () => setSelectedOutputId(output.id) : undefined}
             />
           </li>
         ))}

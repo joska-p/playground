@@ -10,10 +10,7 @@ type ColorSliceProps = {
   isActive?: boolean;
 };
 
-function ColorSpaceControls({
-  spaceId = 'oklch',
-  size = 200
-}: ColorSliceProps) {
+function ColorSpaceControls({ spaceId = 'oklch', size = 200 }: ColorSliceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { zSlider, getColor, xAxis, yAxis } = colorSpaces[spaceId];
   const { label, min, max, step } = zSlider;

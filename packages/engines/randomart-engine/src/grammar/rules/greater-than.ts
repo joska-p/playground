@@ -9,8 +9,7 @@ export const greaterThanRule = {
   evaluate: (args) => (args[0]() > args[1]() ? 1.0 : -1.0),
   toMathString: (args) => `(${args[0]} > ${args[1]} ? 1 : -1)`,
   toGLSL: (args) => `(${args[0]} > ${args[1]} ? 1.0 : -1.0)`,
-  toTreeView: (args, depth) =>
-    `${'  '.repeat(depth)}├── greater-than\n${args[0]}${args[1]}`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── greater-than\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'greater-than',
     args: [buildChild(), buildChild()]

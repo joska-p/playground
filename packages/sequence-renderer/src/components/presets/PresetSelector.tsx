@@ -1,7 +1,7 @@
-import { getAllPresets } from '@repo/sequence-engine/visualizations';
 import { Select } from '@repo/ui/Select';
 import type { ChangeEvent, JSX } from 'react';
 import { loadPreset } from '../../stores/sequence/actions';
+import { getAllPresets } from '../../stores/sequence/presetStore';
 import { useBasePresetId } from '../../stores/sequence/selectors/useBasePresetId';
 
 function PresetSelector(): JSX.Element {
@@ -16,15 +16,11 @@ function PresetSelector(): JSX.Element {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm font-medium whitespace-nowrap">
-        Visualization:
-      </span>
+      <span className="text-sm font-medium whitespace-nowrap">Visualization:</span>
       <Select
         variant="secondary"
         value={currentPresetId}
-        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          loadPreset(e.target.value)
-        }
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => loadPreset(e.target.value)}
         className="flex-1"
       >
         {builtInPresets.map((p) => (

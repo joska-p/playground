@@ -25,13 +25,7 @@ export type EndpointId =
   | { kind: 'pipeline'; id: 'resize' | 'chaining' }
   | { kind: 'internals'; id: string };
 
-type EndpointItemType =
-  | 'overview'
-  | 'pixel'
-  | 'neighborhood'
-  | 'global'
-  | 'pipeline'
-  | 'internals';
+type EndpointItemType = 'overview' | 'pixel' | 'neighborhood' | 'global' | 'pipeline' | 'internals';
 
 export type EndpointItem = {
   id: string;
@@ -50,10 +44,8 @@ export type EndpointGroup = {
 export function isActiveEndpoint(a: EndpointId, b: EndpointId): boolean {
   if (a.kind === 'overview' && b.kind === 'overview') return true;
   if (a.kind === 'manip' && b.kind === 'manip' && a.id === b.id) return true;
-  if (a.kind === 'pipeline' && b.kind === 'pipeline' && a.id === b.id)
-    return true;
-  if (a.kind === 'internals' && b.kind === 'internals' && a.id === b.id)
-    return true;
+  if (a.kind === 'pipeline' && b.kind === 'pipeline' && a.id === b.id) return true;
+  if (a.kind === 'internals' && b.kind === 'internals' && a.id === b.id) return true;
   return false;
 }
 
@@ -66,25 +58,13 @@ export function findItemForEndpoint(
   }
   for (const group of groups) {
     for (const item of group.items) {
-      if (
-        endpoint.kind === 'manip' &&
-        item.id === endpoint.id &&
-        item.type !== 'pipeline'
-      ) {
+      if (endpoint.kind === 'manip' && item.id === endpoint.id && item.type !== 'pipeline') {
         return item;
       }
-      if (
-        endpoint.kind === 'pipeline' &&
-        item.id === endpoint.id &&
-        item.type === 'pipeline'
-      ) {
+      if (endpoint.kind === 'pipeline' && item.id === endpoint.id && item.type === 'pipeline') {
         return item;
       }
-      if (
-        endpoint.kind === 'internals' &&
-        item.id === endpoint.id &&
-        item.type === 'internals'
-      ) {
+      if (endpoint.kind === 'internals' && item.id === endpoint.id && item.type === 'internals') {
         return item;
       }
     }
@@ -108,9 +88,7 @@ function paramsFromDefinition(
   }));
 }
 
-function manipToInfo(
-  definition: (typeof ALL_MANIPULATIONS)[number]
-): ManipInfo {
+function manipToInfo(definition: (typeof ALL_MANIPULATIONS)[number]): ManipInfo {
   return {
     id: definition.id,
     label: definition.ui.name,
@@ -122,9 +100,7 @@ function manipToInfo(
   };
 }
 
-function manipToItem(
-  definition: (typeof ALL_MANIPULATIONS)[number]
-): EndpointItem {
+function manipToItem(definition: (typeof ALL_MANIPULATIONS)[number]): EndpointItem {
   return {
     id: definition.id,
     label: definition.ui.name,
@@ -190,8 +166,7 @@ const INTERNAL_SECTIONS: EndpointItem[] = [
     label: 'Neighborhood Tiling',
     type: 'internals',
     path: '/internals/tiling',
-    description:
-      'Tile-based convolution for memory-efficient large-image processing'
+    description: 'Tile-based convolution for memory-efficient large-image processing'
   },
   {
     id: 'resize-algorithm',

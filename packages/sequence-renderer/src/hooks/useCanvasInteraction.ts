@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { getViewportState, setViewport } from '../stores/sequence/actions';
 
-export function useCanvasInteraction(
-  canvasRef: React.RefObject<HTMLCanvasElement | null>
-): void {
+export function useCanvasInteraction(canvasRef: React.RefObject<HTMLCanvasElement | null>): void {
   useEffect(() => {
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;

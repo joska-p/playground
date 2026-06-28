@@ -29,10 +29,7 @@ function buildPreamble(behaviors: AnimationBehavior[]): string {
   return GLSL_NOISE_HELPERS + '\n' + behaviorFunctions;
 }
 
-function applyBehaviors(
-  behaviors: AnimationBehavior[],
-  type: AnimationBehavior['type']
-): string {
+function applyBehaviors(behaviors: AnimationBehavior[], type: AnimationBehavior['type']): string {
   return behaviors
     .filter((b) => b.type === type)
     .map((b) => b.applyCode('u_time', 'u_animSpeed'))

@@ -23,11 +23,7 @@ function deriveCommunityName(nodes: Pick<GraphNode, 'id'>[]): string {
   let name = sorted[0]?.[0] ?? 'unknown';
   for (const [prefix, count] of sorted) {
     const parts = prefix.split('/');
-    if (
-      (parts[0] === 'packages' || parts[0] === 'apps') &&
-      parts.length <= 3 &&
-      count >= 3
-    ) {
+    if ((parts[0] === 'packages' || parts[0] === 'apps') && parts.length <= 3 && count >= 3) {
       name = prefix;
       break;
     }
@@ -37,10 +33,7 @@ function deriveCommunityName(nodes: Pick<GraphNode, 'id'>[]): string {
   return name.replace(/\//g, ' / ');
 }
 
-export function buildOutput(
-  simNodes: SimNode[],
-  simLinks: SimLink[]
-): BuildOutputResult {
+export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutputResult {
   const stats: string[] = [];
 
   const nodes: GraphNode[] = simNodes.map((n) => ({
@@ -67,10 +60,8 @@ export function buildOutput(
   }
 
   const links: GraphLink[] = simLinks.map((l) => {
-    const srcObj =
-      typeof l.source === 'object' ? l.source : nodeById.get(l.source)!;
-    const tgtObj =
-      typeof l.target === 'object' ? l.target : nodeById.get(l.target)!;
+    const srcObj = typeof l.source === 'object' ? l.source : nodeById.get(l.source)!;
+    const tgtObj = typeof l.target === 'object' ? l.target : nodeById.get(l.target)!;
     return {
       sourceIdx: nodeIndex.get(srcObj.id)!,
       targetIdx: nodeIndex.get(tgtObj.id)!,
@@ -78,10 +69,7 @@ export function buildOutput(
     };
   });
 
-  const commAccum = new Map<
-    number,
-    { sumX: number; sumY: number; sumZ: number; count: number }
-  >();
+  const commAccum = new Map<number, { sumX: number; sumY: number; sumZ: number; count: number }>();
   for (const n of nodes) {
     let acc = commAccum.get(n.community);
     if (!acc) {

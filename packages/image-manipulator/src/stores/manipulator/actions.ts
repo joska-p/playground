@@ -46,18 +46,13 @@ function moveWorkflowStep(index: number, direction: -1 | 1) {
   if (targetIndex < 0 || targetIndex >= workflow.length) return;
 
   const updated = [...workflow];
-  [updated[index], updated[targetIndex]] = [
-    updated[targetIndex],
-    updated[index]
-  ];
+  [updated[index], updated[targetIndex]] = [updated[targetIndex], updated[index]];
   manipulatorStore.setState({ workflow: updated });
 }
 
 function updateStepOptions(index: number, options: Record<string, number>) {
   const { workflow } = manipulatorStore.getState();
-  const updated = workflow.map((step, i) =>
-    i === index ? { ...step, options } : step
-  );
+  const updated = workflow.map((step, i) => (i === index ? { ...step, options } : step));
   manipulatorStore.setState({ workflow: updated });
 }
 

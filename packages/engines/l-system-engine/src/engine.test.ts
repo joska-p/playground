@@ -8,7 +8,7 @@ import {
   stochasticRule,
   symbol,
   symbolWithMeta,
-  validate,
+  validate
 } from './engine';
 import type { Word } from './types';
 
@@ -33,7 +33,19 @@ function wordToString(word: Word): string {
 describe('EX-01 — Koch Curve (deterministic)', () => {
   const grammar = {
     axiom: [symbol('F')],
-    rules: [deterministicRule('F', [symbol('F'), symbol('+'), symbol('F'), symbol('-'), symbol('F'), symbol('-'), symbol('F'), symbol('+'), symbol('F')])],
+    rules: [
+      deterministicRule('F', [
+        symbol('F'),
+        symbol('+'),
+        symbol('F'),
+        symbol('-'),
+        symbol('F'),
+        symbol('-'),
+        symbol('F'),
+        symbol('+'),
+        symbol('F')
+      ])
+    ]
   };
 
   it('iteration 0 returns the axiom', () => {
@@ -69,8 +81,8 @@ describe('EX-02 — Binary Tree (deterministic, branching)', () => {
     axiom: [symbol('0')],
     rules: [
       deterministicRule('1', [symbol('1'), symbol('1')]),
-      deterministicRule('0', [symbol('1'), symbol('['), symbol('0'), symbol(']'), symbol('0')]),
-    ],
+      deterministicRule('0', [symbol('1'), symbol('['), symbol('0'), symbol(']'), symbol('0')])
+    ]
   };
 
   it('iteration 0 → "0"', () => {
@@ -107,8 +119,8 @@ describe('EX-03 — Signal propagation (context-sensitive)', () => {
       // an 'a' with a 'b' to its left becomes 'b'
       contextSensitiveRule({ name: 'a', leftContext: 'b', produce: [symbol('b')] }),
       // 'b' always stays 'b'
-      deterministicRule('b', [symbol('b')]),
-    ],
+      deterministicRule('b', [symbol('b')])
+    ]
   };
 
   it('iteration 0 → "baaaaa"', () => {
@@ -147,14 +159,14 @@ describe('EX-04 — Shrinking branch (parametric)', () => {
       parametricRule({
         name: 'F',
         guard: ([l]) => (l ?? 0) > 0.01,
-        produce: ([l = 0]) => [symbol('F', l * 0.5), symbol('+'), symbol('F', l * 0.5)],
+        produce: ([l = 0]) => [symbol('F', l * 0.5), symbol('+'), symbol('F', l * 0.5)]
       }),
       parametricRule({
         name: 'F',
         guard: ([l]) => (l ?? 0) <= 0.01,
-        produce: ([l = 0]) => [symbol('F', l)],
-      }),
-    ],
+        produce: ([l = 0]) => [symbol('F', l)]
+      })
+    ]
   };
 
   it('iteration 0 → F(1)', () => {
@@ -207,9 +219,9 @@ describe('EX-05 — Stochastic branching', () => {
     rules: [
       stochasticRule('F', [
         { weight: 0.7, produce: [symbol('F'), symbol('F')] },
-        { weight: 0.3, produce: [symbol('F')] },
-      ]),
-    ],
+        { weight: 0.3, produce: [symbol('F')] }
+      ])
+    ]
   };
 
   it('determinism: same seed → identical word', () => {
@@ -256,9 +268,9 @@ describe('EX-06 — Metadata passthrough', () => {
       deterministicRule('F', [
         symbolWithMeta('F', { shader: 'trunk' }),
         symbol('+'),
-        symbolWithMeta('F', { shader: 'twig' }),
-      ]),
-    ],
+        symbolWithMeta('F', { shader: 'twig' })
+      ])
+    ]
   };
 
   it('iteration 0 — axiom has shader: trunk', () => {
@@ -285,7 +297,7 @@ describe('EX-06 — Metadata passthrough', () => {
     // A plain symbol without metadata should remain metadata-less
     const grammar2 = {
       axiom: [symbolWithMeta('F', { shader: 'trunk' })],
-      rules: [deterministicRule('F', [symbol('F')])], // child has no metadata
+      rules: [deterministicRule('F', [symbol('F')])] // child has no metadata
     };
     const word = expand(grammar2, 1);
     expect(word[0]?.metadata).toBeUndefined();
@@ -303,7 +315,7 @@ describe('EX-06 — Metadata passthrough', () => {
 describe('steps() iterator', () => {
   const grammar = {
     axiom: [symbol('F')],
-    rules: [deterministicRule('F', [symbol('F'), symbol('F')])],
+    rules: [deterministicRule('F', [symbol('F'), symbol('F')])]
   };
 
   it('first value yielded is the axiom (iteration 0)', () => {
@@ -339,7 +351,7 @@ describe('unmatchedSymbol: remove', () => {
     const grammar = {
       axiom: [symbol('F'), symbol('+'), symbol('F')],
       rules: [deterministicRule('F', [symbol('F')])],
-      unmatchedSymbol: 'remove' as const,
+      unmatchedSymbol: 'remove' as const
     };
     const word = expand(grammar, 1);
     expect(word.every((s) => s.name === 'F')).toBe(true);
@@ -357,8 +369,8 @@ describe('rule priority — declaration order', () => {
       axiom: [symbol('F')],
       rules: [
         deterministicRule('F', [symbol('A')]), // declared first → wins
-        deterministicRule('F', [symbol('B')]),
-      ],
+        deterministicRule('F', [symbol('B')])
+      ]
     };
     expect(wordToString(expand(grammar, 1))).toBe('A');
   });
@@ -370,10 +382,10 @@ describe('rule priority — declaration order', () => {
         parametricRule({
           name: 'F',
           guard: ([l]) => (l ?? 0) > 0.01,
-          produce: ([l = 0]) => [symbol('F', l * 0.5), symbol('F', l * 0.5)],
+          produce: ([l = 0]) => [symbol('F', l * 0.5), symbol('F', l * 0.5)]
         }),
-        deterministicRule('F', [symbol('X')]), // fallback
-      ],
+        deterministicRule('F', [symbol('X')]) // fallback
+      ]
     };
     // 0.005 <= 0.01 → guard fails → deterministic fallback → X
     expect(wordToString(expand(grammar, 1))).toBe('X');
@@ -391,9 +403,9 @@ describe('validate()', () => {
       rules: [
         stochasticRule('F', [
           { weight: 0.7, produce: [symbol('F'), symbol('F')] },
-          { weight: 0.3, produce: [symbol('F')] },
-        ]),
-      ],
+          { weight: 0.3, produce: [symbol('F')] }
+        ])
+      ]
     };
     expect(validate(grammar)).toHaveLength(0);
   });
@@ -404,9 +416,9 @@ describe('validate()', () => {
       rules: [
         stochasticRule('F', [
           { weight: 0.6, produce: [symbol('F'), symbol('F')] },
-          { weight: 0.3, produce: [symbol('F')] },
-        ]),
-      ],
+          { weight: 0.3, produce: [symbol('F')] }
+        ])
+      ]
     };
     const errors = validate(grammar);
     expect(errors).toHaveLength(1);
@@ -416,7 +428,7 @@ describe('validate()', () => {
   it('returns no error for deterministic grammar', () => {
     const grammar = {
       axiom: [symbol('F')],
-      rules: [deterministicRule('F', [symbol('F'), symbol('F')])],
+      rules: [deterministicRule('F', [symbol('F'), symbol('F')])]
     };
     expect(validate(grammar)).toHaveLength(0);
   });
@@ -431,9 +443,7 @@ describe('contextSensitiveRule — bracket handling', () => {
     // word: A [ ] F — context lookup for F should find A (skipping brackets)
     const grammar = {
       axiom: [symbol('A'), symbol('['), symbol(']'), symbol('F')],
-      rules: [
-        contextSensitiveRule({ name: 'F', leftContext: 'A', produce: [symbol('X')] }),
-      ],
+      rules: [contextSensitiveRule({ name: 'F', leftContext: 'A', produce: [symbol('X')] })]
     };
     const word = expand(grammar, 1);
     // A passes through, brackets pass through, F → X
@@ -447,8 +457,13 @@ describe('contextSensitiveRule — bracket handling', () => {
     const grammar = {
       axiom: [symbol('A'), symbol('['), symbol(']'), symbol('F')],
       rules: [
-        contextSensitiveRule({ name: 'F', leftContext: 'A', produce: [symbol('X')], ignoreBrackets: false }),
-      ],
+        contextSensitiveRule({
+          name: 'F',
+          leftContext: 'A',
+          produce: [symbol('X')],
+          ignoreBrackets: false
+        })
+      ]
     };
     const word = expand(grammar, 1);
     const names = word.map((s) => s.name);

@@ -11,9 +11,7 @@ export function CorrelatedToggle() {
       onClick={() => setCorrelatedRGB(!correlatedRGB)}
       variant="outline"
       size="sm"
-      title={
-        correlatedRGB ? 'Switch to independent RGB' : 'Switch to correlated RGB'
-      }
+      title={correlatedRGB ? 'Switch to independent RGB' : 'Switch to correlated RGB'}
     >
       {correlatedRGB ? (
         <svg

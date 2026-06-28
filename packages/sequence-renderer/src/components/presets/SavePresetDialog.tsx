@@ -8,10 +8,7 @@ type SavePresetDialogProps = {
   onCancel: () => void;
 };
 
-function SavePresetDialog({
-  onSave,
-  onCancel
-}: SavePresetDialogProps): JSX.Element {
+function SavePresetDialog({ onSave, onCancel }: SavePresetDialogProps): JSX.Element {
   const [name, setName] = useState('');
 
   function handleSubmit(e: React.FormEvent) {

@@ -25,11 +25,7 @@ const DEFAULT_IGNORED = new Set(['[', ']']);
  * Finds the nearest non-bracket neighbor to the left of `index`.
  * Returns null when no such neighbor exists.
  */
-function findLeftNeighbor(
-  word: Word,
-  index: number,
-  ignored: ReadonlySet<string>,
-): LSymbol | null {
+function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string>): LSymbol | null {
   for (let i = index - 1; i >= 0; i--) {
     const sym = word[i]!;
     if (!ignored.has(sym.name)) return sym;
@@ -44,7 +40,7 @@ function findLeftNeighbor(
 function findRightNeighbor(
   word: Word,
   index: number,
-  ignored: ReadonlySet<string>,
+  ignored: ReadonlySet<string>
 ): LSymbol | null {
   for (let i = index + 1; i < word.length; i++) {
     const sym = word[i]!;
@@ -87,6 +83,6 @@ export function contextSensitiveRule(options: ContextSensitiveOptions): Rule {
     },
     apply(_sym: LSymbol, _context: Context): Word {
       return options.produce;
-    },
+    }
   };
 }

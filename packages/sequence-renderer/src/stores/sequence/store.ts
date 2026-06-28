@@ -1,30 +1,24 @@
 import { generateSequence } from '@repo/sequence-engine';
 import { recamanRule } from '@repo/sequence-engine/rules/recaman';
-import { builtInPresets, getAllPresets } from '@repo/sequence-engine/visualizations';
-import type { LayerConfigEntry } from '@repo/sequence-engine/visualizations/types';
+import type { LayerConfigEntry } from '../../engine/types';
 import { create } from 'zustand';
+import { getAllPresets } from './presetStore';
 import type { SequenceState } from './types';
 
-function buildDefaultLayers(): LayerConfigEntry[] {
-  const firstPreset = builtInPresets[0];
-  if (firstPreset)
-    return firstPreset.layers.map((l: LayerConfigEntry) => ({
-      ...l,
-      params: { ...l.params }
-    }));
-  return [];
-}
+const DEFAULT_LAYERS: LayerConfigEntry[] = [
+  { layerId: 'baseline', enabled: true, params: {} },
+  { layerId: 'plotted-numbers', enabled: true, params: {} }
+];
 
 const sequenceStore = create<SequenceState>(() => {
-  const defaultLayers = buildDefaultLayers();
   return {
     sequenceRule: recamanRule,
     steps: 2,
     seed: 'random seed',
-    layers: defaultLayers,
+    layers: DEFAULT_LAYERS.map((l) => ({ ...l, params: { ...l.params } })),
     sequence: generateSequence({ sequenceRule: recamanRule, steps: 2 }),
-    customPresets: getAllPresets().filter((p) => !p.isBuiltIn),
-    basePresetId: builtInPresets[0]?.id ?? null,
+    customPresets: getAllPresets(),
+    basePresetId: null,
     isPlaying: false,
     viewport: {
       enabled: false,

@@ -1,5 +1,5 @@
-import type { ExpandOptions, Grammar, Word } from './types';
 import { steps } from './steps';
+import type { ExpandOptions, Grammar, Word } from './types';
 
 /**
  * Runs the rewriting process for a given number of iterations and returns the
@@ -12,11 +12,7 @@ import { steps } from './steps';
  * @example
  * const word = expand(grammar, 5, { seed: 42 });
  */
-export function expand(
-  grammar: Grammar,
-  iterations: number,
-  options?: ExpandOptions,
-): Word {
+export function expand(grammar: Grammar, iterations: number, options?: ExpandOptions): Word {
   const iter = steps(grammar, options);
   let word: Word = grammar.axiom;
 

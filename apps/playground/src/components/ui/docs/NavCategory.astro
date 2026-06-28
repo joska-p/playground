@@ -71,8 +71,7 @@ const hasActiveArticle = category.articles.some((doc) => {
     {
       category.articles.map((doc) => {
         const docUrl = `${docsBaseUrl}${doc.id}/`;
-        const isActive =
-          currentPath === docUrl || currentPath === docUrl.slice(0, -1);
+        const isActive = currentPath === docUrl || currentPath === docUrl.slice(0, -1);
 
         return (
           <li>
@@ -89,9 +88,7 @@ const hasActiveArticle = category.articles.some((doc) => {
               <span
                 class:list={[
                   'h-1 w-1 shrink-0 rounded-full transition-colors',
-                  isActive
-                    ? 'bg-primary'
-                    : 'bg-border group-hover:bg-muted-foreground/50'
+                  isActive ? 'bg-primary' : 'bg-border group-hover:bg-muted-foreground/50'
                 ]}
               />
               {doc.data.title}

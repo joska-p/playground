@@ -12,9 +12,7 @@ const {
   ogImage = `${baseUrl}default-og-image.jpg` // Une image par défaut à la racine de votre dossier public
 } = Astro.props;
 
-const siteTitle = title
-  ? `${title} — Playground`
-  : 'Playground — Generative Art & Dev Notes';
+const siteTitle = title ? `${title} — Playground` : 'Playground — Generative Art & Dev Notes';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { className } = Astro.props;
@@ -26,9 +24,7 @@ const { className } = Astro.props;
     if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
       return localStorage.getItem('theme');
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
   const applyTheme = (theme) => {
     const root = document.documentElement;

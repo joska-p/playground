@@ -11,12 +11,7 @@ type TryItOutProps = {
   onParamChange: (id: string, key: string, value: number) => void;
 };
 
-function TryItOut({
-  sourceData,
-  manip,
-  paramValues,
-  onParamChange
-}: TryItOutProps) {
+function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutProps) {
   const [result, setResult] = useState<ImageData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,8 +48,7 @@ function TryItOut({
       {manip.params && manip.params.length > 0 && (
         <div className="space-y-3">
           {manip.params.map((parameter) => {
-            const value: number =
-              paramValues[`${manip.id}:${parameter.key}`] ?? parameter.default;
+            const value: number = paramValues[`${manip.id}:${parameter.key}`] ?? parameter.default;
             return (
               <div key={parameter.key}>
                 <div className="mb-1 flex items-center justify-between text-xs">

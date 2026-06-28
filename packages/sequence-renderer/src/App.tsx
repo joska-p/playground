@@ -2,6 +2,9 @@ import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { Sidebar } from '@repo/ui/Sidebar';
 import { SequenceCanvas } from './components/canvas/SequenceCanvas';
 import { SidebarControls } from './components/sidebar/SidebarControls';
+import { register } from './modules/fourier';
+
+register();
 
 function App() {
   return (

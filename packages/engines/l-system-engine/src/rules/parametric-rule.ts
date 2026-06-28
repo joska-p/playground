@@ -35,6 +35,6 @@ export function parametricRule(options: ParametricOptions): Rule {
     },
     apply(sym: LSymbol, _context: Context): Word {
       return options.produce(sym.params);
-    },
+    }
   };
 }

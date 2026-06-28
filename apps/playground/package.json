@@ -25,7 +25,7 @@
     "@repo/graph-viz": "workspace:*",
     "@repo/image-manipulator": "workspace:*",
     "@repo/l-system": "workspace:*",
-"@repo/image-to-particles": "workspace:*",
+    "@repo/image-to-particles": "workspace:*",
     "@repo/mosaic-maker": "workspace:*",
     "@repo/palette-generator": "workspace:*",
     "@repo/pixel": "workspace:*",

@@ -74,14 +74,7 @@ const meta: Meta<typeof Select> = {
     },
     variant: {
       description: 'Visual style variant based on the theme colors.',
-      options: [
-        'primary',
-        'secondary',
-        'accent',
-        'destructive',
-        'outline',
-        'ghost'
-      ],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' }
     },
     disabled: {

@@ -6,7 +6,7 @@ Normalization means working in a unitless 0–1 coordinate space instead of hard
 
 ## Key insight
 
-The "magic" is the separation of *design intent* from *rendering resolution*. The design lives in normalized math (`circle(0.5, 0.5, 0.2)`) and the canvas dimensions become just parameters. This makes strategies 2 (full responsive) and 3 (virtual coordinate system) from the previous session practical.
+The "magic" is the separation of _design intent_ from _rendering resolution_. The design lives in normalized math (`circle(0.5, 0.5, 0.2)`) and the canvas dimensions become just parameters. This makes strategies 2 (full responsive) and 3 (virtual coordinate system) from the previous session practical.
 
 ## Three strategies covered
 

@@ -15,8 +15,6 @@ export const threshold = defineManip<{ threshold?: number }>({
     longDescription:
       'Converts each pixel to pure black or white by comparing luminance against the threshold. Luminance uses BT.601 weights. Pixels below the threshold become black, above become white.',
     defaultArgs: { threshold: 128 },
-    argDefinitions: [
-      { key: 'threshold', label: 'Threshold', min: 0, max: 255, step: 1 }
-    ]
+    argDefinitions: [{ key: 'threshold', label: 'Threshold', min: 0, max: 255, step: 1 }]
   }
 });

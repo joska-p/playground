@@ -21,14 +21,7 @@ const meta: Meta<typeof Slider> = {
     },
     variant: {
       description: 'Controls the accent color of the slider thumb.',
-      options: [
-        'primary',
-        'secondary',
-        'accent',
-        'destructive',
-        'outline',
-        'ghost'
-      ],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' }
     },
     layout: {
@@ -76,9 +69,7 @@ type SliderStoryProps = {
   showValue?: boolean;
 };
 
-function InteractiveSlider(
-  args: SliderStoryProps & React.ComponentProps<typeof Slider>
-) {
+function InteractiveSlider(args: SliderStoryProps & React.ComponentProps<typeof Slider>) {
   const [value, setValue] = useState(args.value ?? 50);
   return (
     <div className="flex w-75 flex-col gap-4">

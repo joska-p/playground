@@ -13,9 +13,7 @@ export class Registry {
 
   register(definition: ManipulationDefinition) {
     if (!definition.id) {
-      throw new Error(
-        `[pixel-engine] Manipulation must have a non-empty string identifier`
-      );
+      throw new Error(`[pixel-engine] Manipulation must have a non-empty string identifier`);
     }
 
     if (
@@ -28,9 +26,7 @@ export class Registry {
     }
 
     if (this.manipulationsMap.has(definition.id)) {
-      console.warn(
-        `[pixel-engine] Overwriting existing manipulation "${definition.id}"`
-      );
+      console.warn(`[pixel-engine] Overwriting existing manipulation "${definition.id}"`);
     }
     this.manipulationsMap.set(definition.id, definition);
   }
@@ -38,9 +34,7 @@ export class Registry {
   get(identifier: string) {
     const definition = this.manipulationsMap.get(identifier);
     if (!definition) {
-      throw new Error(
-        `[pixel-engine] Manipulation "${identifier}" is not registered.`
-      );
+      throw new Error(`[pixel-engine] Manipulation "${identifier}" is not registered.`);
     }
     return definition;
   }

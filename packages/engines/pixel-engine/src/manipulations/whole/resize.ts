@@ -49,11 +49,9 @@ function bilinearResize({
 
       for (let channel = 0; channel < 4; channel++) {
         const top =
-          sourceData[i00 + channel] * (1 - xFraction) +
-          sourceData[i10 + channel] * xFraction;
+          sourceData[i00 + channel] * (1 - xFraction) + sourceData[i10 + channel] * xFraction;
         const bottom =
-          sourceData[i01 + channel] * (1 - xFraction) +
-          sourceData[i11 + channel] * xFraction;
+          sourceData[i01 + channel] * (1 - xFraction) + sourceData[i11 + channel] * xFraction;
         destinationData[destinationIndex + channel] = Math.round(
           top * (1 - yFraction) + bottom * yFraction
         );
@@ -80,12 +78,7 @@ function computeTargetDimensions({
     const scale = Math.sqrt(options.maximumPixels / totalPixels);
     targetWidth = Math.max(1, Math.round(sourceWidth * scale));
     targetHeight = Math.max(1, Math.round(sourceHeight * scale));
-  } else if (
-    'width' in options &&
-    options.width &&
-    'height' in options &&
-    options.height
-  ) {
+  } else if ('width' in options && options.width && 'height' in options && options.height) {
     const fit = options.fit ?? 'fill';
     if (fit === 'fill') {
       targetWidth = options.width;
@@ -94,25 +87,16 @@ function computeTargetDimensions({
       const scale =
         fit === 'contain'
           ? Math.min(options.width / sourceWidth, options.height / sourceHeight)
-          : Math.max(
-              options.width / sourceWidth,
-              options.height / sourceHeight
-            );
+          : Math.max(options.width / sourceWidth, options.height / sourceHeight);
       targetWidth = Math.round(sourceWidth * scale);
       targetHeight = Math.round(sourceHeight * scale);
     }
   } else if ('width' in options && options.width) {
     targetWidth = options.width;
-    targetHeight = Math.max(
-      1,
-      Math.round(sourceHeight * (options.width / sourceWidth))
-    );
+    targetHeight = Math.max(1, Math.round(sourceHeight * (options.width / sourceWidth)));
   } else if ('height' in options && options.height) {
     targetHeight = options.height;
-    targetWidth = Math.max(
-      1,
-      Math.round(sourceWidth * (options.height / sourceHeight))
-    );
+    targetWidth = Math.max(1, Math.round(sourceWidth * (options.height / sourceHeight)));
   } else return null;
 
   return targetWidth === sourceWidth && targetHeight === sourceHeight

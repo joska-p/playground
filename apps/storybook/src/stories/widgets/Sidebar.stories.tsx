@@ -15,14 +15,7 @@ const meta: Meta<typeof Sidebar> = {
   argTypes: {
     variant: {
       description: 'The background theme of the sidebar panel.',
-      options: [
-        'primary',
-        'secondary',
-        'accent',
-        'destructive',
-        'outline',
-        'ghost'
-      ],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' }
     },
     mobilePosition: {
@@ -58,12 +51,8 @@ function SidebarTemplate(args: React.ComponentProps<typeof Sidebar>) {
         <Sidebar.Panel className="p-4">
           <h3 className="mb-4 font-bold">Controls</h3>
           <nav className="space-y-2">
-            <div className="cursor-pointer rounded p-2 hover:bg-black/5">
-              Brush Settings
-            </div>
-            <div className="cursor-pointer rounded p-2 hover:bg-black/5">
-              Layer Manager
-            </div>
+            <div className="cursor-pointer rounded p-2 hover:bg-black/5">Brush Settings</div>
+            <div className="cursor-pointer rounded p-2 hover:bg-black/5">Layer Manager</div>
           </nav>
         </Sidebar.Panel>
         <Sidebar.Main className="p-8">

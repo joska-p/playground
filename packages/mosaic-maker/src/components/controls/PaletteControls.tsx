@@ -1,9 +1,6 @@
 import { ColorPalette } from '@repo/ui/ColorPalette';
 import { applyPalette } from '../../stores/mosaic/actions';
-import {
-  useCurrentPalette,
-  useCurrentPalettes
-} from '../../stores/mosaic/selectors';
+import { useCurrentPalette, useCurrentPalettes } from '../../stores/mosaic/selectors';
 
 function PaletteControls() {
   const currentPalettes = useCurrentPalettes();
@@ -16,9 +13,7 @@ function PaletteControls() {
         {currentPalettes.map((palette) => (
           <ColorPalette
             key={palette.id}
-            colors={Object.values(palette).filter(
-              (item) => item !== palette.id
-            )}
+            colors={Object.values(palette).filter((item) => item !== palette.id)}
             checked={palette.id === currentPalette.id}
             onChange={() => applyPalette(palette)}
             variant="primary"

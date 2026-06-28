@@ -3,8 +3,7 @@ import type { ComponentProps } from 'react';
 import { cn } from '../../utils/cn';
 import { badgeVariants } from './badgeVariants';
 
-type BadgeProps = {} & ComponentProps<'span'> &
-  VariantProps<typeof badgeVariants>;
+type BadgeProps = {} & ComponentProps<'span'> & VariantProps<typeof badgeVariants>;
 
 function Badge({ className, variant, ...props }: BadgeProps) {
   return (

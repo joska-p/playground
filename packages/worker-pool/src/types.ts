@@ -1,6 +1,4 @@
-export type WorkerResult<T> =
-  | { ok: true; value: T }
-  | { ok: false; error: Error };
+export type WorkerResult<T> = { ok: true; value: T } | { ok: false; error: Error };
 
 export type WorkerPoolConfig<TTask, TResult> = {
   workerFactory: () => Worker;

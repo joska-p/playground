@@ -9,11 +9,7 @@ type UploadedPreviewProps = {
   onClear: () => void;
 };
 
-function UploadedPreview({
-  imageSource,
-  fileName,
-  onClear
-}: UploadedPreviewProps) {
+function UploadedPreview({ imageSource, fileName, onClear }: UploadedPreviewProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -37,9 +33,7 @@ function UploadedPreview({
         />
       </div>
       <figcaption className="min-w-0 flex-1">
-        <p className="text-foreground truncate text-sm font-medium">
-          {fileName ?? 'image'}
-        </p>
+        <p className="text-foreground truncate text-sm font-medium">{fileName ?? 'image'}</p>
         <p className="text-muted-foreground text-xs">
           {imageSource.imageData.width} × {imageSource.imageData.height}
         </p>

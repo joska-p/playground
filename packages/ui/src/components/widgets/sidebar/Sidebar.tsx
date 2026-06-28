@@ -18,13 +18,7 @@ export type SidebarProps = {
   onOpenChange?: (open: boolean) => void;
   mobilePosition?: 'top' | 'right' | 'bottom' | 'left';
   desktopPosition?: 'top' | 'right' | 'bottom' | 'left';
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'destructive'
-    | 'outline'
-    | 'ghost';
+  variant?: 'primary' | 'secondary' | 'accent' | 'destructive' | 'outline' | 'ghost';
   panelWidth?: string;
   panelHeight?: string;
 } & Omit<ComponentProps<'div'>, 'open'>;
@@ -79,15 +73,7 @@ export function Sidebar({
       desktopPosition: desktopPosition ?? 'bottom',
       mobilePosition: mobilePosition ?? 'bottom'
     }),
-    [
-      isOpen,
-      toggleSidebar,
-      openSidebar,
-      closeSidebar,
-      panelId,
-      desktopPosition,
-      mobilePosition
-    ]
+    [isOpen, toggleSidebar, openSidebar, closeSidebar, panelId, desktopPosition, mobilePosition]
   );
 
   const sidebarStyles = useMemo(

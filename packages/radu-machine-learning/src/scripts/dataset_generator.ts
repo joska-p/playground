@@ -25,10 +25,7 @@ const samplesMap: Record<string, Samples> = {};
 let id = 1;
 
 fileNames.forEach((fileName) => {
-  const fileContent = fs.readFileSync(
-    path.join(CONSTANTS.RAW_DIR, fileName),
-    'utf8'
-  );
+  const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR, fileName), 'utf8');
   const { session, student, drawings } = JSON.parse(fileContent);
 
   if (!samplesMap[session]) {
@@ -49,10 +46,7 @@ fileNames.forEach((fileName) => {
       paths
     });
 
-    fs.writeFileSync(
-      path.join(CONSTANTS.JSON_DIR, `${id}.json`),
-      JSON.stringify(paths)
-    );
+    fs.writeFileSync(path.join(CONSTANTS.JSON_DIR, `${id}.json`), JSON.stringify(paths));
 
     const svgPath = path.join(CONSTANTS.IMG_DIR, `${id}.svg`);
     const svgContent = generateSVG({ paths });

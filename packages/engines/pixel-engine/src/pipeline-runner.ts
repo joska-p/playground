@@ -13,10 +13,7 @@ function buildAutoDownscaleStep({
   steps: Step[];
   maximumPixels: number;
 }) {
-  if (
-    steps.some((step) => step.id === 'resize') ||
-    source.width * source.height <= maximumPixels
-  ) {
+  if (steps.some((step) => step.id === 'resize') || source.width * source.height <= maximumPixels) {
     return null;
   }
 

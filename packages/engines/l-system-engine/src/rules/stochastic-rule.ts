@@ -30,7 +30,7 @@ export interface StochasticRule extends Rule {
  */
 export function stochasticRule(
   name: string,
-  productions: readonly StochasticProduction[],
+  productions: readonly StochasticProduction[]
 ): StochasticRule {
   return {
     [STOCHASTIC_PRODUCTIONS_KEY]: productions,
@@ -49,6 +49,6 @@ export function stochasticRule(
       }
       // Floating-point rounding guard: return the last production.
       return productions[productions.length - 1]!.produce;
-    },
+    }
   };
 }

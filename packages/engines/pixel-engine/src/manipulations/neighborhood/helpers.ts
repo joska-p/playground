@@ -33,15 +33,9 @@ export function applyKernel(
       for (let ky = 0; ky < kernelSize; ky++) {
         for (let kx = 0; kx < kernelSize; kx++) {
           const weight = kernel[ky * kernelSize + kx] ?? 0;
-          red +=
-            getPixel(source, x + kx - half, y + ky - half, width, height, 0) *
-            weight;
-          green +=
-            getPixel(source, x + kx - half, y + ky - half, width, height, 1) *
-            weight;
-          blue +=
-            getPixel(source, x + kx - half, y + ky - half, width, height, 2) *
-            weight;
+          red += getPixel(source, x + kx - half, y + ky - half, width, height, 0) * weight;
+          green += getPixel(source, x + kx - half, y + ky - half, width, height, 1) * weight;
+          blue += getPixel(source, x + kx - half, y + ky - half, width, height, 2) * weight;
         }
       }
       const alpha = getPixel(source, x, y, width, height, 3);

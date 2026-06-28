@@ -1,7 +1,4 @@
-import {
-  usePaletteBaseColor,
-  usePalettePalettes
-} from '../../stores/palette/store';
+import { usePaletteBaseColor, usePalettePalettes } from '../../stores/palette/store';
 
 function Display() {
   const palettes = usePalettePalettes();

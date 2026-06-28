@@ -10,11 +10,7 @@ import {
   POSITION_THRESHOLD,
   RETURN_FORCE
 } from '../core/config';
-import {
-  calculateImageDimensions,
-  drawImageToCanvas,
-  initParticles
-} from '../core/utils';
+import { calculateImageDimensions, drawImageToCanvas, initParticles } from '../core/utils';
 import { useImageUpload } from '../hooks/useImageUpload';
 
 type Particle = {
@@ -49,8 +45,7 @@ export function ImageToParticles() {
           INITIAL_VELOCITY.MIN_X +
           Math.random() * (INITIAL_VELOCITY.MAX_X - INITIAL_VELOCITY.MIN_X),
         y:
-          INITIAL_VELOCITY.MIN_Y +
-          Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y)
+          INITIAL_VELOCITY.MIN_Y + Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y)
       },
       state: 'waiting',
       delay: (currentDelay += Math.random() * 5)
@@ -103,13 +98,7 @@ export function ImageToParticles() {
             if (particle.state === 'falling' || particle.state === 'landed') {
               context.fillStyle = particle.color;
               context.beginPath();
-              context.arc(
-                particle.x,
-                particle.y,
-                particle.size,
-                0,
-                Math.PI * 2
-              );
+              context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
               context.fill();
 
               if (particle.state === 'falling') {
@@ -142,8 +131,7 @@ export function ImageToParticles() {
 
         animate();
       } catch (error) {
-        if (error instanceof Error)
-          throw new Error('Error processing image', error);
+        if (error instanceof Error) throw new Error('Error processing image', error);
         throw error;
       }
     };

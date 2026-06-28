@@ -11,10 +11,7 @@ function HelperText({ children, destructive, id }: HelperTextProps) {
   return (
     <p
       id={id}
-      className={cn(
-        'text-xs italic',
-        destructive ? 'text-destructive' : 'text-muted-foreground'
-      )}
+      className={cn('text-xs italic', destructive ? 'text-destructive' : 'text-muted-foreground')}
     >
       {children}
     </p>

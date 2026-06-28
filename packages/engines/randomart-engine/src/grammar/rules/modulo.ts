@@ -13,8 +13,7 @@ export const moduloRule = {
   },
   toMathString: (args) => `(${args[0]} % ${args[1]})`,
   toGLSL: (args) => `(${args[1]} == 0.0 ? 0.0 : mod(${args[0]}, ${args[1]}))`,
-  toTreeView: (args, depth) =>
-    `${'  '.repeat(depth)}├── modulo\n${args[0]}${args[1]}`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── modulo\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'modulo',
     args: [buildChild(), buildChild()]

@@ -28,14 +28,8 @@ type Particle = {
   delay: number;
 };
 
-function calculateImageDimensions(
-  imageWidth: number,
-  imageHeight: number
-): ImageDimensions {
-  const scale = Math.min(
-    CANVAS_WIDTH / imageWidth,
-    CANVAS_HEIGHT / imageHeight
-  );
+function calculateImageDimensions(imageWidth: number, imageHeight: number): ImageDimensions {
+  const scale = Math.min(CANVAS_WIDTH / imageWidth, CANVAS_HEIGHT / imageHeight);
   const scaledWidth = imageWidth * scale;
   const scaledHeight = imageHeight * scale;
 
@@ -94,8 +88,7 @@ function initParticles(imageData: ImageData) {
           INITIAL_VELOCITY.MIN_Y +
           Math.random() * (INITIAL_VELOCITY.MAX_Y - INITIAL_VELOCITY.MIN_Y);
         const randomSize =
-          PARTICLE_SIZE.MIN +
-          Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
+          PARTICLE_SIZE.MIN + Math.random() * (PARTICLE_SIZE.MAX - PARTICLE_SIZE.MIN);
 
         const colorVariation = Math.random() * 20 - 10;
         const adjustedR = Math.min(255, Math.max(0, r + colorVariation));

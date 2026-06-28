@@ -38,9 +38,7 @@ function EndpointView({
   const manip = findManipById(activeEndpoint.id);
   if (!manip) {
     return (
-      <div className="text-muted-foreground py-12 text-center text-sm">
-        Endpoint not found
-      </div>
+      <div className="text-muted-foreground py-12 text-center text-sm">Endpoint not found</div>
     );
   }
 

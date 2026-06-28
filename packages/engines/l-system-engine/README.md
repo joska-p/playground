@@ -21,9 +21,7 @@ import { deterministicRule, expand, symbol } from '@repo/l-system-engine';
 
 const grammar = {
   axiom: [symbol('F')],
-  rules: [
-    deterministicRule('F', [symbol('F'), symbol('+'), symbol('F'), symbol('-'), symbol('F')]),
-  ],
+  rules: [deterministicRule('F', [symbol('F'), symbol('+'), symbol('F'), symbol('-'), symbol('F')])]
 };
 
 const word = expand(grammar, 3);
@@ -34,27 +32,27 @@ const word = expand(grammar, 3);
 
 ## Exports
 
-| Export | Description |
-| --- | --- |
-| `symbol(name, ...params)` | Creates an `LSymbol` with no metadata |
-| `symbolWithMeta(name, metadata, ...params)` | Creates an `LSymbol` with attached metadata |
-| `deterministicRule(name, production)` | Rule factory — always produces the same word |
-| `stochasticRule(name, productions[])` | Rule factory — picks a production by weight |
-| `contextSensitiveRule(options)` | Rule factory — matches based on left/right neighbors |
-| `parametricRule(options)` | Rule factory — matches by name + guard on params |
-| `expand(grammar, iterations, options?)` | Runs N iterations, returns final word |
-| `steps(grammar, options?)` | Returns an iterator yielding one word per iteration |
-| `validate(grammar)` | Returns `ValidationError[]`, empty if grammar is valid |
-| `LSymbol` | Type — atomic unit of a word |
-| `Word` | Type — `readonly LSymbol[]` |
-| `Context` | Type — passed to each rule's `match` and `apply` |
-| `Rule` | Interface — `match + apply` contract |
-| `Grammar` | Type — `{ axiom, rules, unmatchedSymbol? }` |
-| `ValidationError` | Type — `{ code, message }` |
-| `ExpandOptions` | Type — `{ seed?: number }` |
-| `StochasticProduction` | Type — `{ weight, produce }` |
-| `ContextSensitiveOptions` | Type — options for `contextSensitiveRule` |
-| `ParametricOptions` | Type — options for `parametricRule` |
+| Export                                      | Description                                            |
+| ------------------------------------------- | ------------------------------------------------------ |
+| `symbol(name, ...params)`                   | Creates an `LSymbol` with no metadata                  |
+| `symbolWithMeta(name, metadata, ...params)` | Creates an `LSymbol` with attached metadata            |
+| `deterministicRule(name, production)`       | Rule factory — always produces the same word           |
+| `stochasticRule(name, productions[])`       | Rule factory — picks a production by weight            |
+| `contextSensitiveRule(options)`             | Rule factory — matches based on left/right neighbors   |
+| `parametricRule(options)`                   | Rule factory — matches by name + guard on params       |
+| `expand(grammar, iterations, options?)`     | Runs N iterations, returns final word                  |
+| `steps(grammar, options?)`                  | Returns an iterator yielding one word per iteration    |
+| `validate(grammar)`                         | Returns `ValidationError[]`, empty if grammar is valid |
+| `LSymbol`                                   | Type — atomic unit of a word                           |
+| `Word`                                      | Type — `readonly LSymbol[]`                            |
+| `Context`                                   | Type — passed to each rule's `match` and `apply`       |
+| `Rule`                                      | Interface — `match + apply` contract                   |
+| `Grammar`                                   | Type — `{ axiom, rules, unmatchedSymbol? }`            |
+| `ValidationError`                           | Type — `{ code, message }`                             |
+| `ExpandOptions`                             | Type — `{ seed?: number }`                             |
+| `StochasticProduction`                      | Type — `{ weight, produce }`                           |
+| `ContextSensitiveOptions`                   | Type — options for `contextSensitiveRule`              |
+| `ParametricOptions`                         | Type — options for `parametricRule`                    |
 
 ---
 
@@ -117,11 +115,17 @@ const grammar = {
   axiom: [symbol('F')],
   rules: [
     deterministicRule('F', [
-      symbol('F'), symbol('+'), symbol('F'),
-      symbol('-'), symbol('F'), symbol('-'), symbol('F'),
-      symbol('+'), symbol('F'),
-    ]),
-  ],
+      symbol('F'),
+      symbol('+'),
+      symbol('F'),
+      symbol('-'),
+      symbol('F'),
+      symbol('-'),
+      symbol('F'),
+      symbol('+'),
+      symbol('F')
+    ])
+  ]
 };
 
 expand(grammar, 0); // [F]          — 1 symbol
@@ -139,9 +143,9 @@ const grammar = {
   rules: [
     stochasticRule('F', [
       { weight: 0.7, produce: [symbol('F'), symbol('F')] },
-      { weight: 0.3, produce: [symbol('F')] },
-    ]),
-  ],
+      { weight: 0.3, produce: [symbol('F')] }
+    ])
+  ]
 };
 
 // Reproducible — same seed → same word every time
@@ -158,8 +162,8 @@ const grammar = {
   rules: [
     // an 'a' immediately after a 'b' becomes 'b'
     contextSensitiveRule({ name: 'a', leftContext: 'b', produce: [symbol('b')] }),
-    deterministicRule('b', [symbol('b')]),
-  ],
+    deterministicRule('b', [symbol('b')])
+  ]
 };
 
 // Iteration 0: b a a a
@@ -181,16 +185,14 @@ const grammar = {
     parametricRule({
       name: 'F',
       guard: ([length]) => length > 0.01,
-      produce: ([length = 0]) => [
-        symbol('F', length * 0.5), symbol('+'), symbol('F', length * 0.5),
-      ],
+      produce: ([length = 0]) => [symbol('F', length * 0.5), symbol('+'), symbol('F', length * 0.5)]
     }),
     parametricRule({
       name: 'F',
       guard: ([length]) => length <= 0.01,
-      produce: ([length = 0]) => [symbol('F', length)], // base case — stop
-    }),
-  ],
+      produce: ([length = 0]) => [symbol('F', length)] // base case — stop
+    })
+  ]
 };
 
 // F(1.0) → F(0.5)+F(0.5) → F(0.25)+F(0.25)+F(0.25)+F(0.25) → …
@@ -206,9 +208,9 @@ const grammar = {
   rules: [
     deterministicRule('F', [
       symbolWithMeta('F', { shader: 'trunk' }),
-      symbolWithMeta('F', { shader: 'twig' }),
-    ]),
-  ],
+      symbolWithMeta('F', { shader: 'twig' })
+    ])
+  ]
 };
 
 // In the renderer (outside the engine):
@@ -248,7 +250,7 @@ const myRule: Rule = {
   },
   apply(sym: LSymbol, _context: Context): Word {
     return [sym, sym]; // duplicate every other F
-  },
+  }
 };
 
 const grammar = { axiom, rules: [myRule, ...otherRules] };
@@ -280,7 +282,7 @@ By default, symbols with no matching rule are kept (`unmatchedSymbol: 'keep'`). 
 const grammar = {
   axiom,
   rules,
-  unmatchedSymbol: 'remove',
+  unmatchedSymbol: 'remove'
 };
 ```
 
@@ -290,7 +292,7 @@ Always pass a `seed` for repeatable results. Without one, a random seed is chose
 
 ```ts
 expand(grammar, 5, { seed: 42 }); // deterministic
-expand(grammar, 5);               // random each call
+expand(grammar, 5); // random each call
 ```
 
 ### Validation

@@ -3,8 +3,7 @@ import { useImageUpload } from '../../../hooks/useImageUpload';
 import { useImageSource } from '../../../stores/manipulator/selectors';
 
 export function useUploadZone() {
-  const { handleImageUpload, handleFileDrop, clearImage, fileName } =
-    useImageUpload();
+  const { handleImageUpload, handleFileDrop, clearImage, fileName } = useImageUpload();
   const imageSource = useImageSource();
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);

@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { readFileAsImageData } from '../core/file-reader';
-import {
-  clearImageSource,
-  setImageSource
-} from '../stores/manipulator/actions';
+import { clearImageSource, setImageSource } from '../stores/manipulator/actions';
 
 function useImageUpload() {
   const [fileName, setFileName] = useState<string | undefined>(undefined);

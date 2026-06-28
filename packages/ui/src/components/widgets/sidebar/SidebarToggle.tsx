@@ -6,11 +6,7 @@ import { IconHamburger } from '../../icons/components/IconHamburger';
 import styles from './sidebar.module.css';
 import { useSidebarContext } from './useSidebarContext';
 
-export function SidebarToggle({
-  className,
-  children,
-  ...props
-}: ComponentProps<'button'>) {
+export function SidebarToggle({ className, children, ...props }: ComponentProps<'button'>) {
   const { isOpen, toggleSidebar } = useSidebarContext();
 
   return (
@@ -25,11 +21,7 @@ export function SidebarToggle({
       {...props}
     >
       {children ??
-        (isOpen ? (
-          <IconClose className="h-4 w-4" />
-        ) : (
-          <IconHamburger className="h-4 w-4" />
-        ))}
+        (isOpen ? <IconClose className="h-4 w-4" /> : <IconHamburger className="h-4 w-4" />)}
     </Button>
   );
 }

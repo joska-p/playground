@@ -11,8 +11,7 @@ function stern(n: number): number {
 export const sternDiatomicRule: SequenceRule = {
   id: 'stern-diatomic',
   name: "Stern's Diatomic",
-  description:
-    'f(0)=0, f(1)=1; f(2n)=f(n), f(2n+1)=f(n)+f(n+1). Fractal series.',
+  description: 'f(0)=0, f(1)=1; f(2n)=f(n), f(2n+1)=f(n)+f(n+1). Fractal series.',
   maxSteps: 5000,
   getNext: ({ index }) => stern(index)
 };

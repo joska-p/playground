@@ -36,13 +36,9 @@ const TYPE_VAR: Record<string, string> = {
   internals: 'var(--utility-8)'
 };
 
-function SwaggerSidebar({
-  groups,
-  activeEndpoint,
-  onSelect
-}: SwaggerSidebarProps) {
-  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
-    () => Object.fromEntries(groups.map((group) => [group.label, true]))
+function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProps) {
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(groups.map((group) => [group.label, true]))
   );
 
   function toggleGroup(label: string) {
@@ -114,8 +110,7 @@ function SwaggerSidebar({
                         aria-current={isActive ? 'page' : undefined}
                         style={
                           {
-                            '--accent':
-                              TYPE_VAR[item.type] ?? 'var(--utility-4)'
+                            '--accent': TYPE_VAR[item.type] ?? 'var(--utility-4)'
                           } as React.CSSProperties
                         }
                         className={cn(
@@ -128,8 +123,7 @@ function SwaggerSidebar({
                         <span
                           className={cn(
                             'inline-flex shrink-0 items-center rounded px-1.5 py-0.5 text-xs font-semibold uppercase',
-                            BADGE_CLASSES[item.type] ??
-                              'bg-muted text-muted-foreground'
+                            BADGE_CLASSES[item.type] ?? 'bg-muted text-muted-foreground'
                           )}
                         >
                           {BADGE_LABELS[item.type] ?? item.type}

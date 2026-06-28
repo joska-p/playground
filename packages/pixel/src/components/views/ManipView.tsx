@@ -32,10 +32,7 @@ function ManipView({
       manip.params && manip.params.length > 0
         ? ', options: { ' +
           manip.params
-            .map(
-              (p) =>
-                `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`
-            )
+            .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
             .join(', ') +
           ' }'
         : ''
@@ -55,15 +52,11 @@ function ManipView({
     >
       <div className="flex items-center gap-3">
         <span className="bg-accent) inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-bold text-white uppercase">
-          {manip.type === 'neighborhood'
-            ? 'NEIGHBOR'
-            : manip.type.toUpperCase()}
+          {manip.type === 'neighborhood' ? 'NEIGHBOR' : manip.type.toUpperCase()}
         </span>
         <h2 className="text-2xl font-bold">{manip.label}</h2>
       </div>
-      <p className="text-muted-foreground max-w-2xl text-sm">
-        {manip.description}
-      </p>
+      <p className="text-muted-foreground max-w-2xl text-sm">{manip.description}</p>
       <p className="text-xs opacity-60">{manip.path}</p>
 
       <div className="border-border bg-muted/30 border-l-accent) max-w-2xl rounded-lg border border-l-2 p-4">

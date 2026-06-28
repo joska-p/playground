@@ -13,8 +13,8 @@ function ChainDemo({ sourceData }: { sourceData: ImageData | null }) {
   return (
     <div className="space-y-3">
       <p className="text-muted-foreground text-xs">
-        Runs brightness → contrast → sharpen in a single off-thread invocation.
-        All three pixel ops are fused into one pass.
+        Runs brightness → contrast → sharpen in a single off-thread invocation. All three pixel ops
+        are fused into one pass.
       </p>
       {result && (
         <div className="grid grid-cols-4 gap-3">

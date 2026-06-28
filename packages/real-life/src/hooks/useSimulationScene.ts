@@ -3,10 +3,7 @@ import * as THREE from 'three';
 import fragmentShader from '../shaders/fragmentShader.glsl?raw';
 import vertexShader from '../shaders/vertexShader.glsl?raw';
 
-export const useSimulationScene = (
-  size: number,
-  initialTexture: THREE.Texture
-) => {
+export const useSimulationScene = (size: number, initialTexture: THREE.Texture) => {
   const simObjects = useRef<{
     scene: THREE.Scene;
     camera: THREE.OrthographicCamera;

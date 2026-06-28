@@ -72,13 +72,7 @@ Instead of creating a 3D mesh for every cell (which would crash the browser on a
 
 ```ts
 const data = new Uint8Array(cols * rows); // one byte per cell, initially all 0
-const tex = new THREE.DataTexture(
-  data,
-  cols,
-  rows,
-  THREE.RedFormat,
-  THREE.UnsignedByteType
-);
+const tex = new THREE.DataTexture(data, cols, rows, THREE.RedFormat, THREE.UnsignedByteType);
 tex.magFilter = THREE.NearestFilter; // pixel-perfect, no interpolation between cells
 tex.minFilter = THREE.NearestFilter;
 ```

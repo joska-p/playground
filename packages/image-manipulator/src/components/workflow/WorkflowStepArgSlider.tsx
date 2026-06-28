@@ -7,11 +7,7 @@ type WorkflowStepArgSliderProps = {
   onChange: (value: number) => void;
 };
 
-function WorkflowStepArgSlider({
-  def,
-  value,
-  onChange
-}: WorkflowStepArgSliderProps) {
+function WorkflowStepArgSlider({ def, value, onChange }: WorkflowStepArgSliderProps) {
   return (
     <Slider
       label={def.label}

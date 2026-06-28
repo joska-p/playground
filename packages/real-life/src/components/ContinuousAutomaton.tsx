@@ -13,10 +13,7 @@ export function ContinuousAutomaton() {
   const displayMaterialRef = useRef<MeshBasicMaterial>(null);
 
   const { readBuffer, writeBuffer, swapBuffers } = useSimulationBuffers(size);
-  const { simObjects, updateGridTexture } = useSimulationScene(
-    size,
-    initialTexture
-  );
+  const { simObjects, updateGridTexture } = useSimulationScene(size, initialTexture);
   const { shouldUpdate } = useThrottledUpdate(0.1);
 
   return (

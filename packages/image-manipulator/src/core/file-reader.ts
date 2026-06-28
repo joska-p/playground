@@ -17,8 +17,7 @@ function readFileAsImageData(file: File): Promise<ImageData> {
           reject(err);
         }
       };
-      image.onerror = () =>
-        reject(new Error('Failed to load image from source'));
+      image.onerror = () => reject(new Error('Failed to load image from source'));
       image.src = reader.result as string;
     };
     reader.onerror = () => reject(new Error('Failed to read file'));

@@ -27,9 +27,7 @@ function ManipulationSelector() {
         ))}
       </Select>
 
-      <Button onClick={() => addWorkflowStep(manipulationId)}>
-        Add to Workflow
-      </Button>
+      <Button onClick={() => addWorkflowStep(manipulationId)}>Add to Workflow</Button>
     </div>
   );
 }

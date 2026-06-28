@@ -1,4 +1,4 @@
-import type { VisualLayer } from '../../visualizations/types';
+import type { VisualLayer } from '../../engine/types';
 import { fetchFourierEpicycles } from './store';
 
 type RenderState = {
@@ -10,7 +10,7 @@ type RenderState = {
 const state: RenderState = {
   trail: [],
   dataSignature: '',
-  freezeTime: 0,
+  freezeTime: 0
 };
 
 export const drawFourierEpicycles: VisualLayer = {

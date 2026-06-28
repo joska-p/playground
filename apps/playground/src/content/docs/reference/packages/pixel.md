@@ -1,7 +1,7 @@
 ---
-title: "Pixel"
-description: "TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies."
-category: "reference"
+title: 'Pixel'
+description: 'TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.'
+category: 'reference'
 tags:
   - reference
   - pixel
@@ -189,4 +189,3 @@ Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`,
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

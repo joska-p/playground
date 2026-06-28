@@ -4,10 +4,7 @@ if (typeof globalThis.ImageData === 'undefined') {
     width: number;
     height: number;
 
-    constructor(
-      dataOrWidth: Uint8ClampedArray | number,
-      widthOrHeight?: number
-    ) {
+    constructor(dataOrWidth: Uint8ClampedArray | number, widthOrHeight?: number) {
       if (typeof dataOrWidth === 'number') {
         this.width = dataOrWidth;
         this.height = widthOrHeight ?? dataOrWidth;

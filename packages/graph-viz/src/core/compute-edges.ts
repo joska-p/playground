@@ -27,8 +27,7 @@ export function computeEdgeBuffers(
     const target = nodes[link.targetIdx];
 
     if (
-      (visibleCommunities.size > 0 &&
-        !visibleCommunities.has(source.community)) ||
+      (visibleCommunities.size > 0 && !visibleCommunities.has(source.community)) ||
       (visibleCommunities.size > 0 && !visibleCommunities.has(target.community))
     ) {
       continue;
@@ -36,8 +35,7 @@ export function computeEdgeBuffers(
 
     const isConnected =
       selectedNodeIdx !== null &&
-      (link.sourceIdx === selectedNodeIdx ||
-        link.targetIdx === selectedNodeIdx);
+      (link.sourceIdx === selectedNodeIdx || link.targetIdx === selectedNodeIdx);
 
     if (isConnected) {
       connArr.push(source.x, source.y, source.z, target.x, target.y, target.z);
@@ -48,7 +46,6 @@ export function computeEdgeBuffers(
 
   return {
     connectedPositions: connArr.length > 0 ? new Float32Array(connArr) : EMPTY,
-    disconnectedPositions:
-      discArr.length > 0 ? new Float32Array(discArr) : EMPTY
+    disconnectedPositions: discArr.length > 0 ? new Float32Array(discArr) : EMPTY
   };
 }

@@ -1,10 +1,10 @@
 import type { JSX } from 'react';
 import { LayerStackEditor } from '../layers/LayerStackEditor';
 import { PresetSelector } from '../presets/PresetSelector';
+import { PlaybackControls } from './PlaybackControls';
 import { Seed } from './Seed';
 import { SequenceSelector } from './SequenceSelector';
 import { StepsSlider } from './StepsSlider';
-import { PlaybackControls } from './PlaybackControls';
 import { ViewportControls } from './ViewportControls';
 
 function SidebarControls(): JSX.Element {

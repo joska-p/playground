@@ -1,7 +1,7 @@
 ---
-title: "Real Life"
-description: "Continuous automaton"
-category: "reference"
+title: 'Real Life'
+description: 'Continuous automaton'
+category: 'reference'
 tags:
   - reference
   - real-life
@@ -29,4 +29,3 @@ This package follows [project conventions](/docs/explanations/conventions.md):
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

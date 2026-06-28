@@ -9,11 +9,7 @@ function getDebugGeometry(
 ) {
   switch (preset) {
     case 'circle':
-      return new THREE.RingGeometry(
-        radius - 0.02,
-        radius - 0.02,
-        circleSegments
-      );
+      return new THREE.RingGeometry(radius - 0.02, radius - 0.02, circleSegments);
     case 'fsphere':
       return new THREE.SphereGeometry(radius, circleSegments, sphereFaces);
     case 'tetrahedron':

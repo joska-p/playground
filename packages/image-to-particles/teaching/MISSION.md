@@ -17,7 +17,7 @@ You have an old idea — take an image and transform it through a particle syste
 
 - Teaching workspace lives inside `packages/image-to-particles/teaching/`
 - Lessons are standalone `.html` files — open in browser, no server needed
-- You want fundamentals *before* the flashy stuff
+- You want fundamentals _before_ the flashy stuff
 
 ## Out of scope
 

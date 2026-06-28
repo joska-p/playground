@@ -1,5 +1,5 @@
-import type { Context, ExpandOptions, Grammar, Word } from './types';
 import { createRandom } from './random';
+import type { Context, ExpandOptions, Grammar, Word } from './types';
 
 /**
  * Applies one rewriting step to `word` using `grammar.rules`.
@@ -43,10 +43,7 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
  * const iteration0 = iter.next().value; // axiom
  * const iteration1 = iter.next().value; // after one rewrite
  */
-export function steps(
-  grammar: Grammar,
-  options?: ExpandOptions,
-): Iterator<Word> {
+export function steps(grammar: Grammar, options?: ExpandOptions): Iterator<Word> {
   const seed = options?.seed ?? (Math.random() * 2 ** 32) | 0;
   const random = createRandom(seed);
   let current: Word = grammar.axiom;
@@ -60,6 +57,6 @@ export function steps(
       }
       current = rewrite(current, grammar, random);
       return { value: current, done: false };
-    },
+    }
   };
 }

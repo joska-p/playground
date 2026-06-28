@@ -18,11 +18,7 @@ const drawBaseline: VisualLayer = {
     color: { label: 'Color', type: 'color' }
   },
   draw: (ctx, _data, params, layout) => {
-    const {
-      lineWidth = 1,
-      alpha = 0.15,
-      color
-    } = params as Record<string, unknown>;
+    const { lineWidth = 1, alpha = 0.15, color } = params as Record<string, unknown>;
     const { minVal, maxVal, valueScale, offsetX, offsetY } = layout;
     const textColor = getComputedStyle(ctx.canvas).color || 'black';
 

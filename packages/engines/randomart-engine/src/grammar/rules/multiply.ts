@@ -9,8 +9,7 @@ export const multiplyRule = {
   evaluate: (args) => args[0]() * args[1](),
   toMathString: (args) => `(${args[0]} · ${args[1]})`,
   toGLSL: (args) => `(${args[0]} * ${args[1]})`,
-  toTreeView: (args, depth) =>
-    `${'  '.repeat(depth)}├── multiply\n${args[0]}${args[1]}`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── multiply\n${args[0]}${args[1]}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'multiply',
     args: [buildChild(), buildChild()]

@@ -1,6 +1,5 @@
 import { collatzRule } from './collatz';
 import { fibonacciRule } from './fibonacci';
-import { harmonicPathRule } from './harmonicPath';
 import { lookAndSayRule } from './lookAndSay';
 import { padovanRule } from './padovan';
 import { primesRule } from './primes';
@@ -19,10 +18,13 @@ const rules = new Map<string, SequenceRule>([
   [lookAndSayRule.id, lookAndSayRule],
   [padovanRule.id, padovanRule],
   [squareNumbersRule.id, squareNumbersRule],
-  [sternDiatomicRule.id, sternDiatomicRule],
-  [harmonicPathRule.id, harmonicPathRule]
+  [sternDiatomicRule.id, sternDiatomicRule]
 ]);
 
 export function getAllRules(): SequenceRule[] {
   return Array.from(rules.values());
+}
+
+export function registerRule(rule: SequenceRule): void {
+  rules.set(rule.id, rule);
 }

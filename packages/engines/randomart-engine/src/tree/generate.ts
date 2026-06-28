@@ -20,9 +20,7 @@ export type TreeOutput = {
 };
 
 export function generateTrees(config: TreeConfig): TreeOutput {
-  const rules = getAllRules().filter((r) =>
-    config.enabledRuleIds.includes(r.id)
-  );
+  const rules = getAllRules().filter((r) => config.enabledRuleIds.includes(r.id));
 
   if (config.correlated) {
     // All three channels share one RNG stream so they get the same structural
@@ -39,9 +37,7 @@ export function generateTrees(config: TreeConfig): TreeOutput {
   }
 
   // Mix the base seed string with unique properties so structural hashes change completely
-  const structureRng = new SeededRandom(
-    `${config.seedText}_struct_${config.maxDepth}`
-  );
+  const structureRng = new SeededRandom(`${config.seedText}_struct_${config.maxDepth}`);
   const rngR = new SeededRandom(`${config.seedText}_red`);
   const rngG = new SeededRandom(`${config.seedText}_green`);
   const rngB = new SeededRandom(`${config.seedText}_blue`);

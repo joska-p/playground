@@ -66,9 +66,7 @@ export function FloatingInspector() {
       {open && (
         <div className="border-l-border bg-card/95 animate-in slide-in-from-right absolute top-0 right-0 z-10 flex h-full w-80 flex-col gap-4 overflow-y-auto border-l p-4 shadow-2xl backdrop-blur-md duration-200">
           <div className="border-border mt-8 flex items-center justify-between border-b pb-2">
-            <h3 className="text-foreground text-sm font-bold tracking-tight">
-              Engine Diagnostics
-            </h3>
+            <h3 className="text-foreground text-sm font-bold tracking-tight">Engine Diagnostics</h3>
           </div>
           <InspectorPanel />
         </div>

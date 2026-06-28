@@ -1,31 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson 1: Hello, p5.js</title>
-  <link rel="stylesheet" href="../assets/lesson.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
-  <style>
-    #sketch-container { margin: 1.5rem 0; }
-    #sketch-container canvas { display: block; border-radius: 8px; }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Lesson 1: Hello, p5.js</title>
+    <link
+      rel="stylesheet"
+      href="../assets/lesson.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <style>
+      #sketch-container {
+        margin: 1.5rem 0;
+      }
+      #sketch-container canvas {
+        display: block;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, p5.js</h1>
+    <p class="lesson-meta">Lesson 1 · 10 min</p>
 
-<h1>Hello, p5.js</h1>
-<p class="lesson-meta">Lesson 1 · 10 min</p>
+    <p>
+      p5.js is a JavaScript library that makes drawing with code as natural as sketching with a
+      pencil. You write a <em>sketch</em> — a small program that runs in a loop, creating motion and
+      interaction.
+    </p>
 
-<p>
-  p5.js is a JavaScript library that makes drawing with code as natural as sketching with a pencil.
-  You write a <em>sketch</em> — a small program that runs in a loop, creating motion and interaction.
-</p>
+    <h2>The skeleton: setup + draw</h2>
 
-<h2>The skeleton: setup + draw</h2>
+    <p>Every p5.js sketch has two functions:</p>
 
-<p>Every p5.js sketch has two functions:</p>
-
-<pre><code>function setup() {
+    <pre><code>function setup() {
   createCanvas(400, 400);
 }
 
@@ -34,89 +45,111 @@ function draw() {
   circle(200, 200, 100);
 }</code></pre>
 
-<ul>
-  <li><strong><code>setup()</code></strong> — runs once. Set up the canvas here.</li>
-  <li><strong><code>draw()</code></strong> — runs 60 times per second (60 fps). Each call draws one frame. Clear it to animate, or let it accumulate.</li>
-</ul>
+    <ul>
+      <li>
+        <strong><code>setup()</code></strong> — runs once. Set up the canvas here.
+      </li>
+      <li>
+        <strong><code>draw()</code></strong> — runs 60 times per second (60 fps). Each call draws
+        one frame. Clear it to animate, or let it accumulate.
+      </li>
+    </ul>
 
-<h2>The coordinate system</h2>
+    <h2>The coordinate system</h2>
 
-<p>
-  Unlike math class, (0, 0) is the <strong>top-left</strong> corner. 
-  X goes right, Y goes down.
-</p>
+    <p>
+      Unlike math class, (0, 0) is the <strong>top-left</strong> corner. X goes right, Y goes down.
+    </p>
 
-<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='%23f0f0f0' stroke='%23ccc'/%3E%3Ctext x='10' y='20' font-size='12' fill='%23999'%3E(0,0)%3C/text%3E%3Ctext x='270' y='20' font-size='12' fill='%23999'%3E(width,0)%3C/text%3E%3Ctext x='10' y='195' font-size='12' fill='%23999'%3E(0,height)%3C/text%3E%3Ctext x='240' y='195' font-size='12' fill='%23999'%3E(width,height)%3C/text%3E%3C/svg%3E" alt="p5.js coordinate system" style="display:block;margin:1rem auto;border:1px solid #ddd;border-radius:6px;">
+    <img
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='%23f0f0f0' stroke='%23ccc'/%3E%3Ctext x='10' y='20' font-size='12' fill='%23999'%3E(0,0)%3C/text%3E%3Ctext x='270' y='20' font-size='12' fill='%23999'%3E(width,0)%3C/text%3E%3Ctext x='10' y='195' font-size='12' fill='%23999'%3E(0,height)%3C/text%3E%3Ctext x='240' y='195' font-size='12' fill='%23999'%3E(width,height)%3C/text%3E%3C/svg%3E"
+      alt="p5.js coordinate system"
+      style="display: block; margin: 1rem auto; border: 1px solid #ddd; border-radius: 6px"
+    />
 
-<h2>Your first live sketch</h2>
+    <h2>Your first live sketch</h2>
 
-<p>Move your mouse over the canvas below. This sketch draws circles that follow your cursor and fade over time.</p>
+    <p>
+      Move your mouse over the canvas below. This sketch draws circles that follow your cursor and
+      fade over time.
+    </p>
 
-<div id="sketch-container"></div>
+    <div id="sketch-container"></div>
 
-<script>
-new p5(p => {
-  let trail = [];
+    <script>
+      new p5((p) => {
+        let trail = [];
 
-  p.setup = () => {
-    p.createCanvas(400, 300);
-    p.colorMode(p.HSB, 360, 100, 100, 100);
-  };
+        p.setup = () => {
+          p.createCanvas(400, 300);
+          p.colorMode(p.HSB, 360, 100, 100, 100);
+        };
 
-  p.draw = () => {
-    p.background(0, 0, 95);
+        p.draw = () => {
+          p.background(0, 0, 95);
 
-    trail.push({ x: p.mouseX, y: p.mouseY, hue: (p.frameCount * 2) % 360 });
+          trail.push({ x: p.mouseX, y: p.mouseY, hue: (p.frameCount * 2) % 360 });
 
-    if (trail.length > 60) trail.shift();
+          if (trail.length > 60) trail.shift();
 
-    for (let i = 0; i < trail.length; i++) {
-      let t = trail[i];
-      let alpha = p.map(i, 0, trail.length, 20, 100);
-      let size = p.map(i, 0, trail.length, 5, 30);
-      p.fill(t.hue, 70, 90, alpha);
-      p.noStroke();
-      p.circle(t.x, t.y, size);
-    }
-  };
-}, 'sketch-container');
-</script>
+          for (let i = 0; i < trail.length; i++) {
+            let t = trail[i];
+            let alpha = p.map(i, 0, trail.length, 20, 100);
+            let size = p.map(i, 0, trail.length, 5, 30);
+            p.fill(t.hue, 70, 90, alpha);
+            p.noStroke();
+            p.circle(t.x, t.y, size);
+          }
+        };
+      }, 'sketch-container');
+    </script>
 
-<h2>Shapes you'll use most</h2>
+    <h2>Shapes you'll use most</h2>
 
-<pre><code>circle(x, y, diameter)
+    <pre><code>circle(x, y, diameter)
 rect(x, y, width, height)   // (x,y) is top-left
 ellipse(x, y, w, h)
 line(x1, y1, x2, y2)
 triangle(x1, y1, x2, y2, x3, y3)</code></pre>
 
-<h2>Fill, stroke, noStroke</h2>
+    <h2>Fill, stroke, noStroke</h2>
 
-<pre><code>fill(r, g, b)          // RGB fill (0-255)
+    <pre><code>fill(r, g, b)          // RGB fill (0-255)
 fill(r, g, b, alpha)   // with transparency
 stroke(r, g, b)        // outline color
 strokeWeight(n)        // outline thickness
 noStroke()             // no outline
 noFill()               // no fill</code></pre>
 
-<h2>Try it yourself</h2>
+    <h2>Try it yourself</h2>
 
-<p>Open your browser's console (F12) or edit the sketch above. Try changing <code>p.background(0, 0, 95)</code> to <code>p.background(0, 0, 95, 30)</code> — see how the trails smear instead of clearing completely. That's the seed of every particle system.</p>
+    <p>
+      Open your browser's console (F12) or edit the sketch above. Try changing
+      <code>p.background(0, 0, 95)</code> to <code>p.background(0, 0, 95, 30)</code> — see how the
+      trails smear instead of clearing completely. That's the seed of every particle system.
+    </p>
 
-<div class="callout">
-  <strong>Key insight:</strong> p5.js is just JavaScript. The <code>draw</code> loop is the heart of everything — animation, particles, physics. Master the loop, and you can build anything.
-</div>
+    <div class="callout">
+      <strong>Key insight:</strong> p5.js is just JavaScript. The <code>draw</code> loop is the
+      heart of everything — animation, particles, physics. Master the loop, and you can build
+      anything.
+    </div>
 
-<h2>Next</h2>
-<p>
-  Open the reference docs at <a href="https://p5js.org/reference/" target="_blank">p5js.org/reference</a> 
-  and play with the sketch above. Try adding a <code>rect()</code> that follows the mouse too.
-  When you're ready, move to lesson 2.
-</p>
+    <h2>Next</h2>
+    <p>
+      Open the reference docs at
+      <a
+        href="https://p5js.org/reference/"
+        target="_blank"
+        >p5js.org/reference</a
+      >
+      and play with the sketch above. Try adding a <code>rect()</code> that follows the mouse too.
+      When you're ready, move to lesson 2.
+    </p>
 
-<div class="tip">
-  <strong>Remember:</strong> ask me follow-up questions anytime. I'm your teacher — nothing's too basic.
-</div>
-
-</body>
+    <div class="tip">
+      <strong>Remember:</strong> ask me follow-up questions anytime. I'm your teacher — nothing's
+      too basic.
+    </div>
+  </body>
 </html>

@@ -17,9 +17,7 @@ export const AllIcons: Story = {
     <div className="flex w-full max-w-4xl flex-col gap-8 p-8">
       <div className="border-border flex items-center gap-3 border-b pb-4">
         <h1 className="text-foreground text-xs uppercase">Icon Library</h1>
-        <span className="text-muted-foreground text-xs">
-          {icons.length} icons
-        </span>
+        <span className="text-muted-foreground text-xs">{icons.length} icons</span>
       </div>
 
       <div>
@@ -43,9 +41,7 @@ export const AllIcons: Story = {
       </div>
 
       <div className="border-border border-t pt-6">
-        <h2 className="text-muted-foreground mb-3 text-xs uppercase">
-          Size Scale
-        </h2>
+        <h2 className="text-muted-foreground mb-3 text-xs uppercase">Size Scale</h2>
         <div className="flex items-end gap-4">
           {[12, 16, 20, 24, 32, 40, 48].map((s) => {
             const Icon = iconMap['box'];

@@ -56,13 +56,9 @@ function DefaultFallback({
               />
             </svg>
           </div>
-          <h3 className="text-card-foreground text-lg font-semibold">
-            Something went wrong
-          </h3>
+          <h3 className="text-card-foreground text-lg font-semibold">Something went wrong</h3>
         </div>
-        <p className="text-muted-foreground text-sm">
-          {getErrorMessage(error)}
-        </p>
+        <p className="text-muted-foreground text-sm">{getErrorMessage(error)}</p>
         {resetErrorBoundary && (
           <Button
             onClick={resetErrorBoundary}

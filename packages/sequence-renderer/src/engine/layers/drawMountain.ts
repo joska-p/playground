@@ -53,10 +53,7 @@ const drawMountain: VisualLayer = {
     const gradY = offsetY - gradHeight / 2;
 
     const gradient = ctx.createLinearGradient(0, gradY, 0, gradY + gradHeight);
-    gradient.addColorStop(
-      0,
-      `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`
-    );
+    gradient.addColorStop(0, `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`);
     gradient.addColorStop(1, `hsla(${hue}, ${saturation}%, ${lightness}%, 0)`);
 
     ctx.save();

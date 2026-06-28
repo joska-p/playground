@@ -57,13 +57,7 @@ export function DownloadButton() {
       const exportB = correlatedRGB ? treeR.args[2] : treeB;
       const currentTime = randomartStore.getState().time;
 
-      const blob = renderTreesToPngBlob(
-        exportR,
-        exportG,
-        exportB,
-        DOWNLOAD_SIZE,
-        currentTime
-      );
+      const blob = renderTreesToPngBlob(exportR, exportG, exportB, DOWNLOAD_SIZE, currentTime);
       triggerDownload(blob, filename);
     } catch (err) {
       console.error('Fallback render failed:', err);

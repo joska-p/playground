@@ -45,13 +45,7 @@ export default function createConfig(dirname) {
       }
     },
     {
-      files: [
-        '*.config.ts',
-        '*.config.js',
-        'vite.config.ts',
-        'tailwind.config.ts',
-        '**/*.d.ts'
-      ],
+      files: ['*.config.ts', '*.config.js', 'vite.config.ts', 'tailwind.config.ts', '**/*.d.ts'],
       rules: {
         'import/no-default-export': 'off'
       }

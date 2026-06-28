@@ -42,10 +42,7 @@ function Select({
         <select
           id={selectId}
           ref={ref}
-          className={cn(
-            selectVariants({ variant, className }),
-            fullWidth && 'w-full'
-          )}
+          className={cn(selectVariants({ variant, className }), fullWidth && 'w-full')}
           {...props}
         >
           {children}
@@ -54,11 +51,7 @@ function Select({
           <IconChevronDown className="h-4 w-4" />
         </div>
       </div>
-      {helperText && (
-        <HelperText destructive={variant === 'destructive'}>
-          {helperText}
-        </HelperText>
-      )}
+      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
     </div>
   );
 }

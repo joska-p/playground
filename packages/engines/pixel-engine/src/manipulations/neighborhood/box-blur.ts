@@ -24,8 +24,6 @@ export const boxBlur = defineManip<{ radius?: number }>({
     longDescription:
       'Convolves the image with a uniform kernel where all weights are equal. Faster than Gaussian for large radii. Kernel size = radius × 2 + 1.',
     defaultArgs: { radius: 1 },
-    argDefinitions: [
-      { key: 'radius', label: 'Radius', min: 1, max: 10, step: 1 }
-    ]
+    argDefinitions: [{ key: 'radius', label: 'Radius', min: 1, max: 10, step: 1 }]
   }
 });

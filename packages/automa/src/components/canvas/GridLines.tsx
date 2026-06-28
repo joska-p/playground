@@ -15,10 +15,7 @@ function GridLines({ cols, rows }: GridLinesProps) {
   }
 
   const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute(
-    'position',
-    new THREE.Float32BufferAttribute(vertices, 3)
-  );
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 
   return (
     <lineSegments

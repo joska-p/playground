@@ -1,9 +1,6 @@
-import { render } from '@repo/sequence-engine/visualizations/render';
-import type {
-  CanvasViewport,
-  LayerConfigEntry
-} from '@repo/sequence-engine/visualizations/types';
 import { useCallback, useEffect, useRef } from 'react';
+import { render } from '../engine/render';
+import type { CanvasViewport, LayerConfigEntry } from '../engine/types';
 import { useIsPlaying } from '../stores/sequence/selectors/useIsPlaying';
 
 export function useCanvasRenderer(
@@ -26,7 +23,13 @@ export function useCanvasRenderer(
     if (!parent) return;
     canvas.width = parent.clientWidth;
     canvas.height = parent.clientHeight;
-    render(canvas, sequenceRef.current, layersRef.current, viewportRef.current, isPlayingRef.current);
+    render(
+      canvas,
+      sequenceRef.current,
+      layersRef.current,
+      viewportRef.current,
+      isPlayingRef.current
+    );
   }, [canvasRef]);
 
   // Keep refs in sync for rAF reads

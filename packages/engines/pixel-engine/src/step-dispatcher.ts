@@ -19,20 +19,12 @@ const executors: Record<string, ExecutorFunction> = {
     scheduler.add(definition, options);
   },
 
-  neighborhood: ({
-    definition,
-    options,
-    context,
-    bufferManager,
-    scheduler
-  }) => {
+  neighborhood: ({ definition, options, context, bufferManager, scheduler }) => {
     scheduler.flush(bufferManager);
     const source = bufferManager.snapshot();
 
     if (source.width * source.height > context.maximumPixels) {
-      bufferManager.replaceWith(
-        runNeighborhoodTiled({ source, definition, options })
-      );
+      bufferManager.replaceWith(runNeighborhoodTiled({ source, definition, options }));
     } else {
       const destination = new Uint8ClampedArray(bufferManager.current.length);
 
@@ -46,10 +38,7 @@ const executors: Record<string, ExecutorFunction> = {
         });
       }
 
-      const imageData = new ImageData(
-        bufferManager.width,
-        bufferManager.height
-      );
+      const imageData = new ImageData(bufferManager.width, bufferManager.height);
       imageData.data.set(destination);
       bufferManager.replaceWith(imageData);
     }

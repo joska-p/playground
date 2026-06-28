@@ -1,17 +1,11 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type * as THREE from 'three';
-import {
-  splitNodeIndices,
-  writeInstanceData
-} from '../../core/build-instances.ts';
+import { splitNodeIndices, writeInstanceData } from '../../core/build-instances.ts';
 import { CONFIG } from '../../core/config.ts';
 import { useNodes } from '../../stores/content/selectors';
 import { selectNode } from '../../stores/view/actions';
-import {
-  useSelectedNodeIdx,
-  useVisibleCommunities
-} from '../../stores/view/selectors';
+import { useSelectedNodeIdx, useVisibleCommunities } from '../../stores/view/selectors';
 
 const { sphereGeometry, boxGeometry } = CONFIG.nodes;
 
@@ -30,20 +24,8 @@ function Nodes() {
     const docMesh = docMeshRef.current;
     if (!codeMesh || !docMesh) return;
 
-    writeInstanceData(
-      codeMesh,
-      nodes,
-      codeToGlobal,
-      visibleCommunities,
-      selectedNodeIdx
-    );
-    writeInstanceData(
-      docMesh,
-      nodes,
-      docToGlobal,
-      visibleCommunities,
-      selectedNodeIdx
-    );
+    writeInstanceData(codeMesh, nodes, codeToGlobal, visibleCommunities, selectedNodeIdx);
+    writeInstanceData(docMesh, nodes, docToGlobal, visibleCommunities, selectedNodeIdx);
   }, [nodes, codeToGlobal, docToGlobal, visibleCommunities, selectedNodeIdx]);
 
   function handleClick(event: ThreeEvent<MouseEvent>) {
@@ -88,9 +70,7 @@ function Nodes() {
         onClick={handleClick}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        <boxGeometry
-          args={[boxGeometry.width, boxGeometry.height, boxGeometry.depth]}
-        />
+        <boxGeometry args={[boxGeometry.width, boxGeometry.height, boxGeometry.depth]} />
         <meshStandardMaterial toneMapped={false} />
       </instancedMesh>
     </>

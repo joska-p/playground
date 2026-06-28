@@ -1,7 +1,7 @@
 ---
-title: "Pixel Engine"
-description: "Pure TypeScript image-manipulation core — no framework, no DOM, no React."
-category: "reference"
+title: 'Pixel Engine'
+description: 'Pure TypeScript image-manipulation core — no framework, no DOM, no React.'
+category: 'reference'
 tags:
   - reference
   - pixel-engine
@@ -23,12 +23,7 @@ import { runNeighborhoodTiled } from '@repo/pixel-engine/neighborhood-tiling';
 import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
 import { Registry } from '@repo/pixel-engine/registry';
 import { dispatchStep } from '@repo/pixel-engine/step-dispatcher';
-import type {
-  Step,
-  ManipulationDefinition,
-  ArgDefinition,
-  Access
-} from '@repo/pixel-engine/types';
+import type { Step, ManipulationDefinition, ArgDefinition, Access } from '@repo/pixel-engine/types';
 ```
 
 ## Architecture
@@ -51,4 +46,3 @@ See the [pixel README](../../pixel/) for full usage docs.
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

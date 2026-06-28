@@ -29,24 +29,17 @@ const accentStyle = `var(--category-${id})`;
     </div>
   </div>
 
-  <div
-    class="bg-muted group-hover:bg-accent mx-4 h-px transition-colors duration-300"
-  >
-  </div>
+  <div class="bg-muted group-hover:bg-accent mx-4 h-px transition-colors duration-300"></div>
 
   <div class="space-y-0.5 px-4 pt-3 pb-4">
-    <p
-      class="text-muted-foreground truncate text-sm leading-none tracking-wider uppercase"
-    >
+    <p class="text-muted-foreground truncate text-sm leading-none tracking-wider uppercase">
       {label}
     </p>
     <p class="text-muted-foreground/60 hidden truncate text-xs sm:block">
       {description}
     </p>
     <div class="flex items-baseline gap-1 pt-1">
-      <span
-        class="text-accent text-xl leading-none font-bold transition-colors duration-300"
-      >
+      <span class="text-accent text-xl leading-none font-bold transition-colors duration-300">
         {count}
       </span>
       <span class="text-muted-foreground/60 text-xs"> exp </span>

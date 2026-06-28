@@ -44,8 +44,7 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
     };
   },
   deserialize: (event) => {
-    if ('error' in event.data)
-      return { ok: false, error: new Error(event.data.error) };
+    if ('error' in event.data) return { ok: false, error: new Error(event.data.error) };
     return { ok: true, value: event.data as ImageData[] };
   }
 });

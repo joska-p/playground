@@ -12,11 +12,7 @@ const drawPlottedNumbers: VisualLayer = {
     color: { label: 'Color', type: 'color' }
   },
   draw: (ctx, data, params, layout) => {
-    const {
-      radius = 3,
-      alpha = 0.4,
-      color
-    } = params as Record<string, unknown>;
+    const { radius = 3, alpha = 0.4, color } = params as Record<string, unknown>;
     const { valueScale, offsetX, offsetY } = layout;
     const textColor = getComputedStyle(ctx.canvas).color || 'black';
 
@@ -28,13 +24,7 @@ const drawPlottedNumbers: VisualLayer = {
         ctx.fillStyle = (color as string) ?? textColor;
         ctx.globalAlpha = alpha as number;
         ctx.beginPath();
-        ctx.arc(
-          offsetX + val * valueScale,
-          offsetY,
-          radius as number,
-          0,
-          2 * Math.PI
-        );
+        ctx.arc(offsetX + val * valueScale, offsetY, radius as number, 0, 2 * Math.PI);
         ctx.fill();
         ctx.restore();
       }

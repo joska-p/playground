@@ -1,7 +1,4 @@
-import {
-  useSelectedChoiceCount,
-  useSelectedInitialHash
-} from '../../stores/randomart/selectors';
+import { useSelectedChoiceCount, useSelectedInitialHash } from '../../stores/randomart/selectors';
 
 export function SeedInfo() {
   const initialHash = useSelectedInitialHash();

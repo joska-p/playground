@@ -1,11 +1,7 @@
 import { Badge } from '@repo/ui/Badge';
 import { CONFIG } from '../../../core/config.ts';
 import type { GraphNode } from '../../../core/pipeline/graphData.schema';
-import {
-  useCommunities,
-  useLinks,
-  useNodes
-} from '../../../stores/content/selectors';
+import { useCommunities, useLinks, useNodes } from '../../../stores/content/selectors';
 import { getConnections } from '../utils';
 import { ConnectionRow } from './ConnectionRow';
 
@@ -32,9 +28,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
             {(() => {
               const comm = communities.find((c) => c.id === node.community);
               return comm ? (
-                <span className="text-muted-foreground ml-1 text-xs">
-                  {comm.name}
-                </span>
+                <span className="text-muted-foreground ml-1 text-xs">{comm.name}</span>
               ) : null;
             })()}
           </dd>
@@ -46,9 +40,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
 
         {total > 0 && (
           <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">
-              Connections ({total})
-            </p>
+            <p className="text-muted-foreground text-xs">Connections ({total})</p>
             <ul className="max-h-60 space-y-0.5 overflow-y-auto pr-1">
               {shown.map((n, i) => (
                 <ConnectionRow

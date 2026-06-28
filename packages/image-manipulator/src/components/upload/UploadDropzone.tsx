@@ -42,16 +42,11 @@ function UploadDropzone({
       />
       <UploadIcon />
       <p
-        className={cn(
-          'text-sm font-medium',
-          isDragging ? 'text-primary' : 'text-muted-foreground'
-        )}
+        className={cn('text-sm font-medium', isDragging ? 'text-primary' : 'text-muted-foreground')}
       >
         {isDragging ? 'Drop to upload' : 'Drop image here or click to browse'}
       </p>
-      <p className="text-muted-foreground/60 mt-1 text-xs">
-        PNG, JPG, WebP — max 50MB
-      </p>
+      <p className="text-muted-foreground/60 mt-1 text-xs">PNG, JPG, WebP — max 50MB</p>
     </label>
   );
 }

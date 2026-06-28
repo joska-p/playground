@@ -50,9 +50,7 @@ function GraphOverview() {
           </ul>
         </div>
 
-        <p className="text-muted-foreground text-xs italic">
-          Click a node to inspect it
-        </p>
+        <p className="text-muted-foreground text-xs italic">Click a node to inspect it</p>
       </div>
     </>
   );

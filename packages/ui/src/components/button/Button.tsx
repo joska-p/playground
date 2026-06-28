@@ -26,10 +26,7 @@ function Button({
 }: ButtonProps) {
   return (
     <button
-      className={cn(
-        buttonVariants({ variant, size, className }),
-        fullWidth && 'w-full'
-      )}
+      className={cn(buttonVariants({ variant, size, className }), fullWidth && 'w-full')}
       type={type}
       ref={ref}
       disabled={isLoading ?? disabled}

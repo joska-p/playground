@@ -70,14 +70,7 @@ const meta: Meta<typeof Input> = {
     },
     variant: {
       description: 'Visual style variant based on the Gruvbox color palette.',
-      options: [
-        'primary',
-        'secondary',
-        'accent',
-        'destructive',
-        'outline',
-        'ghost'
-      ],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' }
     },
     type: {

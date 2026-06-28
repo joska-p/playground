@@ -1,7 +1,4 @@
-import {
-  useImageSource,
-  useIsProcessing
-} from '../../stores/manipulator/selectors';
+import { useImageSource, useIsProcessing } from '../../stores/manipulator/selectors';
 
 function ProcessingOverlay() {
   const isProcessing = useIsProcessing();

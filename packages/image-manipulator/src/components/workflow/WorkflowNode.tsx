@@ -18,14 +18,7 @@ type WorkflowNodeProps = {
   argDefinitions: readonly ArgDefinition[];
 };
 
-function WorkflowNode({
-  step,
-  index,
-  isFirst,
-  isLast,
-  name,
-  argDefinitions
-}: WorkflowNodeProps) {
+function WorkflowNode({ step, index, isFirst, isLast, name, argDefinitions }: WorkflowNodeProps) {
   return (
     <li className="bg-card border-border rounded-lg border">
       <header className="flex items-center gap-2 px-3 py-2">

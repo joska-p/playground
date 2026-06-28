@@ -1,9 +1,6 @@
 import { Card } from '@repo/ui/Card';
 import { CodeBlock } from '../CodeBlock';
-import {
-  ENDPOINT_GROUPS,
-  findItemForEndpoint
-} from '../data/pipeline-docs-data';
+import { ENDPOINT_GROUPS, findItemForEndpoint } from '../data/pipeline-docs-data';
 import { ChainDemo } from '../demos/ChainDemo';
 import { ResizeDemo } from '../demos/ResizeDemo';
 
@@ -36,10 +33,7 @@ function PipelineView({
     ].join('\n')
   };
 
-  const demos: Record<
-    string,
-    (props: { sourceData: ImageData | null }) => React.JSX.Element
-  > = {
+  const demos: Record<string, (props: { sourceData: ImageData | null }) => React.JSX.Element> = {
     resize: ResizeDemo,
     chaining: ChainDemo
   };
@@ -57,9 +51,7 @@ function PipelineView({
         </span>
         <h2 className="text-2xl font-bold">{item?.label ?? id}</h2>
       </div>
-      <p className="text-muted-foreground max-w-2xl text-sm">
-        {item?.description}
-      </p>
+      <p className="text-muted-foreground max-w-2xl text-sm">{item?.description}</p>
       <p className="text-xs opacity-60">{item?.path}</p>
 
       {id === 'resize' && (
@@ -75,38 +67,28 @@ function PipelineView({
             <tbody>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 text-xs">width</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">
-                  number
-                </td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">number</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Target width. Height auto-proportional.
                 </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 text-xs">height</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">
-                  number
-                </td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">number</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Target height. Width auto-proportional.
                 </td>
               </tr>
               <tr className="border-border border-b">
                 <td className="text-primary px-4 py-2.5 text-xs">fit</td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">
-                  string
-                </td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">string</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   fill | contain | cover. Default: fill
                 </td>
               </tr>
               <tr className="border-border border-b">
-                <td className="text-primary px-4 py-2.5 text-xs">
-                  maximumPixels
-                </td>
-                <td className="text-foreground/80 px-4 py-2.5 text-xs">
-                  number
-                </td>
+                <td className="text-primary px-4 py-2.5 text-xs">maximumPixels</td>
+                <td className="text-foreground/80 px-4 py-2.5 text-xs">number</td>
                 <td className="text-muted-foreground px-4 py-2.5 text-xs">
                   Downscale to fit pixel budget, maintain aspect.
                 </td>
@@ -118,15 +100,11 @@ function PipelineView({
 
       {id === 'chaining' && (
         <div className="border-border bg-muted/30 border-l-accent) max-w-2xl rounded-lg border border-l-2 p-4">
-          <h3 className="mb-1.5 text-xs font-semibold uppercase">
-            How Chaining Works
-          </h3>
+          <h3 className="mb-1.5 text-xs font-semibold uppercase">How Chaining Works</h3>
           <p className="text-muted-foreground text-sm">
-            Steps execute in order. Consecutive pixel-type operations are fused
-            into a single pass for performance. Neighborhood and global ops
-            flush pending pixel ops first. Use
-            <code className="mx-1">snapshot</code> to capture intermediate
-            results.
+            Steps execute in order. Consecutive pixel-type operations are fused into a single pass
+            for performance. Neighborhood and global ops flush pending pixel ops first. Use
+            <code className="mx-1">snapshot</code> to capture intermediate results.
           </p>
         </div>
       )}

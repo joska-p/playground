@@ -1,8 +1,5 @@
 import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
-import type {
-  AnimationBehavior,
-  ExpressionNode
-} from '@repo/randomart-engine/types';
+import type { AnimationBehavior, ExpressionNode } from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
 
 const VERTEX_SHADER_SOURCE = `
@@ -42,12 +39,7 @@ export function useShaderProgram(
     if (!gl) return;
 
     // Compile trees and behaviors into an optimized fragment shader string
-    const fragmentShaderSource = compileToGLSL(
-      trees.treeR,
-      trees.treeG,
-      trees.treeB,
-      behaviors
-    );
+    const fragmentShaderSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB, behaviors);
 
     let program: WebGLProgram | null = null;
 
@@ -68,10 +60,7 @@ export function useShaderProgram(
     gl.useProgram(program);
 
     // Bind buffer attributes to shader variables
-    const positionAttributeLocation = gl.getAttribLocation(
-      program,
-      'a_position'
-    );
+    const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
     gl.enableVertexAttribArray(positionAttributeLocation);
     gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
@@ -107,11 +96,7 @@ export function useShaderProgram(
 // WebGL boilerplate (pure functions)
 // ---------------------------------------------------------------------------
 
-function createShader(
-  gl: WebGLRenderingContext,
-  type: number,
-  source: string
-): WebGLShader {
+function createShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
   const shader = gl.createShader(type);
   if (!shader) throw new Error('Failed to create shader');
   gl.shaderSource(shader, source);

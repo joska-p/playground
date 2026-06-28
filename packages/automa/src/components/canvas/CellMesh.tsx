@@ -6,11 +6,7 @@ import { useGridTexture } from '../../hooks/useGridTexture';
 import { getShader } from '../../shaders/registry';
 import { paintCell, placePattern } from '../../stores/simulation/actions';
 import { useCols, useRows } from '../../stores/simulation/selectors';
-import {
-  useBrushMode,
-  usePaletteBrush,
-  useShaderId
-} from '../../stores/ui/selectors';
+import { useBrushMode, usePaletteBrush, useShaderId } from '../../stores/ui/selectors';
 
 function CellMesh() {
   const cols = useCols();
@@ -20,21 +16,22 @@ function CellMesh() {
   const shader = getShader(shaderId);
 
   const paletteBrushId = usePaletteBrush();
-  const creature = paletteBrushId
-    ? (getCreature(paletteBrushId) ?? null)
-    : null;
+  const creature = paletteBrushId ? (getCreature(paletteBrushId) ?? null) : null;
 
   const { uniforms } = useGridTexture({ cols, rows });
 
-  const { meshRef, onPointerDown, onPointerUp, onContextMenu } =
-    useCellPainting(cols, rows, brushMode, paintCell, creature, placePattern);
+  const { meshRef, onPointerDown, onPointerUp, onContextMenu } = useCellPainting(
+    cols,
+    rows,
+    brushMode,
+    paintCell,
+    creature,
+    placePattern
+  );
 
   const onPointerMove = useCallback(
     (e: ThreeEvent<PointerEvent>) => {
-      uniforms.mouse.value.set(
-        (e.point.x + cols / 2) / cols,
-        (e.point.y + rows / 2) / rows
-      );
+      uniforms.mouse.value.set((e.point.x + cols / 2) / cols, (e.point.y + rows / 2) / rows);
     },
     [uniforms, cols, rows]
   );

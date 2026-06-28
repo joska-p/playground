@@ -44,15 +44,10 @@ export function useTreeB(): ExpressionNode {
 export function useSelectedTree(): ExpressionNode {
   return useStore(randomartStore, (s) => {
     const rootTree =
-      s.activeChannel === 'red'
-        ? s.treeR
-        : s.activeChannel === 'green'
-          ? s.treeG
-          : s.treeB;
+      s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
 
     if (s.correlatedRGB && rootTree && rootTree.args) {
-      const idx =
-        s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
+      const idx = s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
       // Safely fetch channel-specific subtree, fallback cleanly to root context if layout shifts
       return rootTree.args[idx] ?? rootTree;
     }
@@ -63,19 +58,14 @@ export function useSelectedTree(): ExpressionNode {
 
 export function useSelectedRng(): SeededRandom {
   return useStore(randomartStore, (s) => {
-    return s.activeChannel === 'red'
-      ? s.rngR
-      : s.activeChannel === 'green'
-        ? s.rngG
-        : s.rngB;
+    return s.activeChannel === 'red' ? s.rngR : s.activeChannel === 'green' ? s.rngG : s.rngB;
   });
 }
 
 export function useSelectedInitialHash(): number {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
-    const rng =
-      channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
+    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
     return rng.initialHash;
   });
 }
@@ -83,8 +73,7 @@ export function useSelectedInitialHash(): number {
 export function useSelectedChoiceCount(): number {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
-    const rng =
-      channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
+    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
     return rng.choiceHistory?.length || 0;
   });
 }
@@ -92,8 +81,7 @@ export function useSelectedChoiceCount(): number {
 export function useSelectedChoiceHistory(): number[] {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
-    const rng =
-      channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
+    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
     return rng.choiceHistory || [];
   });
 }

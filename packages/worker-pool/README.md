@@ -22,9 +22,7 @@ export class WorkerPool<TTask, TResult> {
   teardown(): void;
 }
 
-export type WorkerResult<T> =
-  | { ok: true; value: T }
-  | { ok: false; error: Error };
+export type WorkerResult<T> = { ok: true; value: T } | { ok: false; error: Error };
 
 export type WorkerPoolConfig<TTask, TResult> = {
   /** Creates a fresh Worker. Consumer chooses URL, blob, inline import, etc. */

@@ -44,14 +44,10 @@ export const Primary: Story = {
       <Card {...args}>
         <CardHeader>
           <CardTitle>Project Configuration</CardTitle>
-          <CardDescription>
-            Adjust the parameters for your current experiment.
-          </CardDescription>
+          <CardDescription>Adjust the parameters for your current experiment.</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>
-            Configure particle density and canvas resolution before generating.
-          </p>
+          <p>Configure particle density and canvas resolution before generating.</p>
         </CardContent>
         <CardFooter className="flex justify-end gap-2">
           <Button variant="outline">Reset</Button>
@@ -167,9 +163,7 @@ export const Muted: Story = {
           <CardTitle>Metadata</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-xs">
-            Generated on 2024-05-20. Version 1.0.4-beta.
-          </p>
+          <p className="text-xs">Generated on 2024-05-20. Version 1.0.4-beta.</p>
         </CardContent>
       </Card>
     </div>

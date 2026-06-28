@@ -17,10 +17,7 @@ function Card({ className, variant, interactive, ...props }: CardProps) {
   return (
     <CardContext.Provider value={variant ?? 'primary'}>
       <div
-        className={cn(
-          cardVariants({ variant, className }),
-          interactive && 'cursor-pointer'
-        )}
+        className={cn(cardVariants({ variant, className }), interactive && 'cursor-pointer')}
         {...props}
       />
     </CardContext.Provider>
@@ -76,11 +73,4 @@ function CardFooter({ className, ...props }: ComponentProps<'div'>) {
   );
 }
 
-export {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-};
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

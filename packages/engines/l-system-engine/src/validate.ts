@@ -1,8 +1,5 @@
+import { STOCHASTIC_PRODUCTIONS_KEY, type StochasticRule } from './rules/stochastic-rule';
 import type { Grammar, ValidationError } from './types';
-import {
-  STOCHASTIC_PRODUCTIONS_KEY,
-  type StochasticRule,
-} from './rules/stochastic-rule';
 
 const WEIGHT_SUM_TOLERANCE = 0.001;
 
@@ -29,7 +26,7 @@ export function validate(grammar: Grammar): ValidationError[] {
       if (Math.abs(sum - 1) > WEIGHT_SUM_TOLERANCE) {
         errors.push({
           code: 'STOCHASTIC_WEIGHT_SUM',
-          message: `Rule at index ${i.toString()}: stochastic weights sum to ${sum.toFixed(4)} but must sum to 1.0 (±${WEIGHT_SUM_TOLERANCE.toString()}).`,
+          message: `Rule at index ${i.toString()}: stochastic weights sum to ${sum.toFixed(4)} but must sum to 1.0 (±${WEIGHT_SUM_TOLERANCE.toString()}).`
         });
       }
     }

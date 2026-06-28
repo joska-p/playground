@@ -41,13 +41,7 @@ function TileSetControls() {
               />
               <Tile
                 name={tileName}
-                colors={[
-                  '--color-0',
-                  '--color-1',
-                  '--color-2',
-                  '--color-3',
-                  '--color-4'
-                ]}
+                colors={['--color-0', '--color-1', '--color-2', '--color-3', '--color-4']}
                 className={cn(
                   'opacity-70 transition-opacity',
                   'peer-checked:ring-primary peer-checked:opacity-100 peer-checked:ring-4',

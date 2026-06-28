@@ -10,11 +10,7 @@ export function setMaxDepth(maxDepth: number): void {
 }
 
 export function setAnimationSpeed(speed: number): void {
-  randomartStore.setState(
-    { animationSpeed: speed },
-    false,
-    'config/setAnimationSpeed'
-  );
+  randomartStore.setState({ animationSpeed: speed }, false, 'config/setAnimationSpeed');
 }
 
 export function toggleRule(ruleId: string): void {

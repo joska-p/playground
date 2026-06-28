@@ -1,14 +1,17 @@
-> Core engine for mathematical sequence generation and visualization, independent of UI.
+> Pure engine for mathematical sequence generation — independent of UI, no browser APIs.
 
 # @repo/sequence-engine
 
 ## Core Architecture
 
-Generation and visualization are decoupled into independent pipelines:
+Two decoupled primitives, both pure logic:
 
 1. **Rules** — Pure functions that define a sequence term-by-term (`src/rules/`)
-2. **Engine** — Generates the full sequence array from a rule + step count (`src/engine.ts`)
-3. **Visual Layers** — Composable drawing units that render onto a `<canvas>` (`src/visualizations/layers/`)
+2. **Engine** — Generates a `number[]` from a rule + step count (`src/engine.ts`)
+
+State management for optional persistence is abstracted via the **PresetStore** interface (`src/store/PresetStore.ts`). An `InMemoryPresetStore` is provided for server/test use; browser-specific adapters live in consumers (e.g., `LocalStoragePresetStore` in `@repo/sequence-renderer`).
+
+All canvas rendering, Fourier computation, and DOM interaction has been moved to `@repo/sequence-renderer`.
 
 ## How to Add a New Sequence
 
@@ -28,9 +31,20 @@ export const myRule = createRule({
 });
 ```
 
-2. Register in `src/rules/registry.ts`:
+2. Register using `registerRule()` in `src/rules/registry.ts`:
 
 ```typescript
 import { myRule } from './myRule';
-rules.set(myRule.id, myRule);
+registerRule(myRule);
 ```
+
+## Exports
+
+| Path               | Exports                                                                |
+| :----------------- | :--------------------------------------------------------------------- |
+| `.`                | `generateSequence`                                                     |
+| `./rules`          | `getAllRules`, `registerRule`                                          |
+| `./rules/types`    | `SequenceRule`, `NextStepOptions`                                      |
+| `./rules/recaman`  | `recamanRule`                                                          |
+| `./store`          | `PresetStore`                                                          |
+| `./types`          | `ParamDescriptor`, `LayerCategory`, `LayerConfigEntry`, `PresetRecord` |

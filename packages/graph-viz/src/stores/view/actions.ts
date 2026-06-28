@@ -29,9 +29,7 @@ export function toggleCommunity(communityId: number): void {
 
 export function showAllCommunities(): void {
   graphStore.setState((s) => ({
-    visibleCommunities: new Set(
-      Array.from({ length: s.totalCommunities }, (_, i) => i)
-    )
+    visibleCommunities: new Set(Array.from({ length: s.totalCommunities }, (_, i) => i))
   }));
 }
 

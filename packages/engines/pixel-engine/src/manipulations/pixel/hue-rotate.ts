@@ -10,18 +10,9 @@ export const hueRotate = defineManip<{ degrees?: number }>({
     const sinA = Math.sin(angle);
     const s3 = Math.sqrt(1 / 3);
     const base = (1 - cosA) / 3;
-    const newRed =
-      red * (cosA + base) +
-      green * (base - s3 * sinA) +
-      blue * (base + s3 * sinA);
-    const newGreen =
-      red * (base + s3 * sinA) +
-      green * (cosA + base) +
-      blue * (base - s3 * sinA);
-    const newBlue =
-      red * (base - s3 * sinA) +
-      green * (base + s3 * sinA) +
-      blue * (cosA + base);
+    const newRed = red * (cosA + base) + green * (base - s3 * sinA) + blue * (base + s3 * sinA);
+    const newGreen = red * (base + s3 * sinA) + green * (cosA + base) + blue * (base - s3 * sinA);
+    const newBlue = red * (base - s3 * sinA) + green * (base + s3 * sinA) + blue * (cosA + base);
     return [newRed, newGreen, newBlue, alpha];
   },
   ui: {
@@ -30,8 +21,6 @@ export const hueRotate = defineManip<{ degrees?: number }>({
     longDescription:
       'Rotates hue in a YUV-like color space using a rotation matrix. Each pixel is converted to YUV, the UV vector is rotated by the given angle, then converted back to RGB.',
     defaultArgs: { degrees: 0 },
-    argDefinitions: [
-      { key: 'degrees', label: 'Degrees', min: 0, max: 360, step: 1 }
-    ]
+    argDefinitions: [{ key: 'degrees', label: 'Degrees', min: 0, max: 360, step: 1 }]
   }
 });

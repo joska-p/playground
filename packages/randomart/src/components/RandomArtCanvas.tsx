@@ -1,12 +1,7 @@
 import { useResizeObserver } from '@repo/ui/useResizeObserver';
 import { useRef } from 'react';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
-import {
-  useRunning,
-  useTreeB,
-  useTreeG,
-  useTreeR
-} from '../stores/randomart/selectors';
+import { useRunning, useTreeB, useTreeG, useTreeR } from '../stores/randomart/selectors';
 
 export function RandomArtCanvas() {
   const [containerRef, dimensions] = useResizeObserver<HTMLDivElement>();

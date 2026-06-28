@@ -1,7 +1,4 @@
-import type {
-  GraphLink,
-  GraphNode
-} from '../../core/pipeline/graphData.schema';
+import type { GraphLink, GraphNode } from '../../core/pipeline/graphData.schema';
 
 function getStats(nodes: GraphNode[], links: GraphLink[]) {
   const communities = new Set(nodes.map((n) => n.community));

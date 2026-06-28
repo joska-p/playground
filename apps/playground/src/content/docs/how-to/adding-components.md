@@ -46,13 +46,10 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         accent: 'bg-accent text-accent-foreground hover:bg-accent/80',
-        destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        outline:
-          'border-border hover:bg-foreground/5 hover:text-foreground border bg-transparent',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/80',
+        outline: 'border-border hover:bg-foreground/5 hover:text-foreground border bg-transparent',
         ghost: 'hover:bg-foreground/10 hover:text-foreground'
       },
       size: {
@@ -157,14 +154,7 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: [
-        'primary',
-        'secondary',
-        'accent',
-        'destructive',
-        'outline',
-        'ghost'
-      ],
+      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
       control: { type: 'select' }
     },
     size: {

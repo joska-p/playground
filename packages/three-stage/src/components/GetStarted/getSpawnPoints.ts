@@ -129,11 +129,7 @@ export function getSpawnPoints({
       const y = 1 - (i / (fsphereFaces - 1)) * 2;
       const radius = Math.sqrt(1 - y * y);
       const theta = (i * Math.PI * (3 - Math.sqrt(5))) % (2 * Math.PI);
-      const normal = new Vector3(
-        Math.cos(theta) * radius,
-        y,
-        Math.sin(theta) * radius
-      );
+      const normal = new Vector3(Math.cos(theta) * radius, y, Math.sin(theta) * radius);
       points.push({
         id: i,
         position: normal.clone().multiplyScalar(totalDistance),

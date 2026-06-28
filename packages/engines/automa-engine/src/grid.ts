@@ -1,8 +1,7 @@
 import { createSeededRandom } from './rng';
 import type { Grid } from './types';
 
-const createGrid = (rows: number, cols: number): Grid =>
-  new Uint8Array(rows * cols);
+const createGrid = (rows: number, cols: number): Grid => new Uint8Array(rows * cols);
 
 const seedGrid = (grid: Grid, density: number, seed: number): void => {
   const rng = createSeededRandom(seed);

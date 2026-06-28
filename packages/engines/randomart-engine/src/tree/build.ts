@@ -32,9 +32,7 @@ function buildPool(
     }
   }
   // If no terminals were in the rule set somehow, fall back to all terminals
-  return pool.length > 0
-    ? pool
-    : rules.filter((r) => r.category === 'terminal');
+  return pool.length > 0 ? pool : rules.filter((r) => r.category === 'terminal');
 }
 
 export function buildTree(
@@ -45,8 +43,7 @@ export function buildTree(
   rules?: GrammarRule[]
 ): ExpressionNode {
   const availableRules = rules ?? getAllRules();
-  const rngToUse =
-    currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
+  const rngToUse = currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
 
   const structuralProbability = 1 - currentDepth / maxDepth;
   const pool = buildPool(rngToUse, availableRules, structuralProbability);

@@ -3,10 +3,7 @@ import { useMemo } from 'react';
 import * as THREE from 'three';
 import { CONFIG } from '../../core/config.ts';
 import { useCommunities } from '../../stores/content/selectors';
-import {
-  useLabelsVisible,
-  useVisibleCommunities
-} from '../../stores/view/selectors';
+import { useLabelsVisible, useVisibleCommunities } from '../../stores/view/selectors';
 
 const { labels } = CONFIG;
 
@@ -27,11 +24,7 @@ function CommunityLabels() {
         return (
           <Billboard
             key={c.id}
-            position={[
-              c.centroid.x,
-              c.centroid.y + labels.offsetY,
-              c.centroid.z
-            ]}
+            position={[c.centroid.x, c.centroid.y + labels.offsetY, c.centroid.z]}
           >
             <Text
               fontSize={labels.fontSize}

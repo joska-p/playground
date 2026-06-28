@@ -7,8 +7,7 @@ export const selectVariants = createVariant({
       primary: 'border-border hover:border-primary/50',
       secondary: 'border-secondary/50 hover:border-secondary',
       accent: 'border-accent/50 hover:border-accent',
-      destructive:
-        'border-destructive text-destructive focus-visible:ring-destructive',
+      destructive: 'border-destructive text-destructive focus-visible:ring-destructive',
       outline: 'border-border hover:border-primary/50 bg-transparent',
       ghost: 'hover:bg-foreground/5 border-transparent bg-transparent'
     }

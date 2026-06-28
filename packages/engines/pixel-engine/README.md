@@ -15,12 +15,7 @@ import { runNeighborhoodTiled } from '@repo/pixel-engine/neighborhood-tiling';
 import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
 import { Registry } from '@repo/pixel-engine/registry';
 import { dispatchStep } from '@repo/pixel-engine/step-dispatcher';
-import type {
-  Step,
-  ManipulationDefinition,
-  ArgDefinition,
-  Access
-} from '@repo/pixel-engine/types';
+import type { Step, ManipulationDefinition, ArgDefinition, Access } from '@repo/pixel-engine/types';
 ```
 
 ## Architecture

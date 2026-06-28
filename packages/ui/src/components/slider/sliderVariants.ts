@@ -13,8 +13,7 @@ export const sliderVariants = createVariant({
     },
     layout: {
       stacked: 'mt-2',
-      inline:
-        'flex items-center gap-3 py-0 max-sm:flex-col max-sm:gap-1.5 max-sm:py-2'
+      inline: 'flex items-center gap-3 py-0 max-sm:flex-col max-sm:gap-1.5 max-sm:py-2'
     }
   },
   defaultVariants: {

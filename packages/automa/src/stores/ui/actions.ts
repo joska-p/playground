@@ -29,11 +29,4 @@ const setPaletteBrush = (id: string | null): void => {
   uiStore.setState({ paletteBrush: id });
 };
 
-export {
-  setGlowColor,
-  setPaletteBrush,
-  setShader,
-  setShowDebug,
-  setStateColor,
-  setToolMode
-};
+export { setGlowColor, setPaletteBrush, setShader, setShowDebug, setStateColor, setToolMode };

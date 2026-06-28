@@ -7,10 +7,7 @@ type Dimensions = {
 
 const DEBOUNCE_MS = 120;
 
-export function useResizeObserver<T extends HTMLElement>(): [
-  (node: T | null) => void,
-  Dimensions
-] {
+export function useResizeObserver<T extends HTMLElement>(): [(node: T | null) => void, Dimensions] {
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
     height: 0
@@ -22,9 +19,7 @@ export function useResizeObserver<T extends HTMLElement>(): [
 
     function applySize(width: number, height: number) {
       setDimensions((prev) =>
-        prev.width === width && prev.height === height
-          ? prev
-          : { width, height }
+        prev.width === width && prev.height === height ? prev : { width, height }
       );
     }
 

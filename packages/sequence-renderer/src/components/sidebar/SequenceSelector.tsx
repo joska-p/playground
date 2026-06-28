@@ -8,9 +8,7 @@ function SequenceSelector(): JSX.Element {
   const sequenceRule = useSequenceRule();
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    const selectedRule = getAllRules().find(
-      (rule) => rule.id === e.target.value
-    );
+    const selectedRule = getAllRules().find((rule) => rule.id === e.target.value);
     if (selectedRule) setSequenceRule({ sequenceRule: selectedRule });
   }
 

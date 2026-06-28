@@ -58,11 +58,7 @@ function Switch({
           className={cn(switchThumbVariants({ size }))}
         />
       </button>
-      {helperText && (
-        <HelperText destructive={variant === 'destructive'}>
-          {helperText}
-        </HelperText>
-      )}
+      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
     </div>
   );
 }

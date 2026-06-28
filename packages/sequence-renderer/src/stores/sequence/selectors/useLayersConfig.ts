@@ -1,4 +1,4 @@
-import type { LayerConfigEntry } from '@repo/sequence-engine/visualizations/types';
+import type { LayerConfigEntry } from '../../engine/types';
 import { sequenceStore } from '../store';
 
 export function useLayersConfig(): LayerConfigEntry[] {

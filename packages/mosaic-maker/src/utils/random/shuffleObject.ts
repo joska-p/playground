@@ -5,9 +5,7 @@ function shuffleObject<T extends Record<string, unknown>>(object: T) {
   const values = Object.values(object);
   const shuffledValues = shuffleArray(values);
 
-  return Object.fromEntries(
-    keys.map((key, index) => [key, shuffledValues[index]])
-  ) as T;
+  return Object.fromEntries(keys.map((key, index) => [key, shuffledValues[index]])) as T;
 }
 
 export { shuffleObject };

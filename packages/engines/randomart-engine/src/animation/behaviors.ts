@@ -15,8 +15,7 @@ vec3 hueRotate(vec3 color, float angle) {
 }
 `,
   type: 'color',
-  applyCode: (timeVar, speedVar) =>
-    `color = hueRotate(color, ${timeVar} * ${speedVar});`
+  applyCode: (timeVar, speedVar) => `color = hueRotate(color, ${timeVar} * ${speedVar});`
 };
 
 export const zoomBehavior: AnimationBehavior = {
@@ -24,8 +23,7 @@ export const zoomBehavior: AnimationBehavior = {
   name: 'Zoom',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
+  applyCode: (timeVar, speedVar) => `p *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
 };
 
 export const rippleBehavior: AnimationBehavior = {
@@ -33,8 +31,7 @@ export const rippleBehavior: AnimationBehavior = {
   name: 'Ripple',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p += 0.1 * sin(p * 5.0 + ${timeVar} * ${speedVar});`
+  applyCode: (timeVar, speedVar) => `p += 0.1 * sin(p * 5.0 + ${timeVar} * ${speedVar});`
 };
 
 export const rotateBehavior: AnimationBehavior = {
@@ -47,8 +44,7 @@ mat2 rotate2d(float _angle){
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p = rotate2d(${timeVar} * ${speedVar} * 0.5) * p;`
+  applyCode: (timeVar, speedVar) => `p = rotate2d(${timeVar} * ${speedVar} * 0.5) * p;`
 };
 
 export const swirlBehavior: AnimationBehavior = {
@@ -62,8 +58,7 @@ vec2 swirl(vec2 coords, float angle) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p = swirl(p, sin(${timeVar} * ${speedVar}) * 2.0);`
+  applyCode: (timeVar, speedVar) => `p = swirl(p, sin(${timeVar} * ${speedVar}) * 2.0);`
 };
 
 export const driftBehavior: AnimationBehavior = {
@@ -79,8 +74,7 @@ export const expandBehavior: AnimationBehavior = {
   name: 'Expand',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
+  applyCode: (timeVar, speedVar) => `p /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
 };
 
 export const kaleidoscopeBehavior: AnimationBehavior = {
@@ -104,8 +98,7 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p = kaleidoscope(p, ${timeVar}, ${speedVar});`
+  applyCode: (timeVar, speedVar) => `p = kaleidoscope(p, ${timeVar}, ${speedVar});`
 };
 
 export const domainWarpBehavior: AnimationBehavior = {
@@ -121,8 +114,7 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p = domainWarp(p, ${timeVar}, ${speedVar});`
+  applyCode: (timeVar, speedVar) => `p = domainWarp(p, ${timeVar}, ${speedVar});`
 };
 
 export const mirrorTileBehavior: AnimationBehavior = {
@@ -159,8 +151,7 @@ vec3 contrastPulse(vec3 color, float t, float speed) {
 }
 `,
   type: 'color',
-  applyCode: (timeVar, speedVar) =>
-    `color = contrastPulse(color, ${timeVar}, ${speedVar});`
+  applyCode: (timeVar, speedVar) => `color = contrastPulse(color, ${timeVar}, ${speedVar});`
 };
 
 export const goldenWanderBehavior: AnimationBehavior = {
