@@ -5,36 +5,32 @@ const drawMountain: VisualLayer = {
   name: 'Mountain Fill',
   description: 'Filled area under the sequence curve with gradient',
   category: 'drawing',
-  defaults: {
-    alpha: 0.4,
-    hue: 210,
-    saturation: 70,
-    lightness: 50,
-    gradientHeight: 0.5
-  },
   params: {
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
-    hue: { label: 'Hue', type: 'number', min: 0, max: 360, step: 10 },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.4 },
+    hue: { label: 'Hue', type: 'number', min: 0, max: 360, step: 10, default: 210 },
     saturation: {
       label: 'Saturation',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 70
     },
     lightness: {
       label: 'Lightness',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 50
     },
     gradientHeight: {
       label: 'Gradient Height',
       type: 'number',
       min: 0,
       max: 1,
-      step: 0.1
+      step: 0.1,
+      default: 0.5
     }
   },
   draw: (ctx, data, params, layout) => {

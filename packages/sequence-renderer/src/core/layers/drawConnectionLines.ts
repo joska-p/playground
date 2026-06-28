@@ -5,37 +5,33 @@ const drawConnectionLines: VisualLayer = {
   name: 'Connection Lines',
   description: 'Lines connecting consecutive values, color-cycled by index',
   category: 'drawing',
-  defaults: {
-    lineWidth: 1.5,
-    alpha: 0.8,
-    hueCycle: 360,
-    saturation: 80,
-    lightness: 60
-  },
   params: {
     lineWidth: {
       label: 'Line Width',
       type: 'number',
       min: 0.5,
       max: 8,
-      step: 0.5
+      step: 0.5,
+      default: 1.5
     },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.8 },
     hueCycle: {
       label: 'Hue Cycle',
       type: 'number',
       min: 60,
       max: 720,
-      step: 30
+      step: 30,
+      default: 360
     },
     saturation: {
       label: 'Saturation',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 80
     },
-    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 }
+    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5, default: 60 }
   },
   draw: (ctx, data, params, layout) => {
     const {

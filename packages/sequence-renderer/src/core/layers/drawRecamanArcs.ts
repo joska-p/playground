@@ -1,6 +1,6 @@
-import { createVisualLayer } from './createVisualLayer';
+import type { VisualLayer } from '../types';
 
-export const drawRecamanArcs = createVisualLayer({
+export const drawRecamanArcs: VisualLayer = {
   id: 'recaman-arcs',
   name: 'Recamán Arcs',
   description: 'Semicircle arcs between consecutive sequence values',
@@ -12,14 +12,15 @@ export const drawRecamanArcs = createVisualLayer({
   },
   draw: (ctx, data, params, layout) => {
     const { valueScale, offsetX, offsetY } = layout;
+    const { lineWidth, alpha, color } = params as Record<string, unknown>;
     if (data.length < 2) return;
 
     ctx.save();
     ctx.translate(offsetX, offsetY);
 
-    ctx.strokeStyle = params.color || getComputedStyle(ctx.canvas).color || 'black';
-    ctx.lineWidth = params.lineWidth;
-    ctx.globalAlpha = params.alpha;
+    ctx.strokeStyle = (color as string) || getComputedStyle(ctx.canvas).color || 'black';
+    ctx.lineWidth = lineWidth as number;
+    ctx.globalAlpha = alpha as number;
 
     data.forEach((value, index) => {
       const previousValue = data[index - 1];
@@ -38,4 +39,4 @@ export const drawRecamanArcs = createVisualLayer({
 
     ctx.restore();
   }
-});
+};

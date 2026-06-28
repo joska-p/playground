@@ -4,18 +4,6 @@ export type ParamDescriptor =
   | { type: 'string'; label: string; default: string }
   | { type: 'boolean'; label: string; default: boolean };
 
-// Magical type inference mapping the schema type to a TS primitive
-type InferParamType<T extends ParamDescriptor> = T['type'] extends 'number'
-  ? number
-  : T['type'] extends 'boolean'
-    ? boolean
-    : string;
-
-// Maps the whole object schema into a clean, key-value primitive type
-export type InferParams<P extends Record<string, ParamDescriptor>> = {
-  [K in keyof P]: InferParamType<P[K]>;
-};
-
 export type CanvasLayout = {
   minVal: number;
   maxVal: number;
@@ -33,25 +21,22 @@ export type CanvasViewport = {
 
 export type LayerCategory = 'cosmetic' | 'drawing';
 
-// The structured shape of a visual layer
-export type VisualLayer<
-  P extends Record<string, ParamDescriptor> = Record<string, ParamDescriptor>
-> = {
+export type VisualLayer = {
   id: string;
   name: string;
   description: string;
   category: LayerCategory;
-  params: P;
+  params: Record<string, ParamDescriptor>;
   draw: (
     ctx: CanvasRenderingContext2D,
     data: number[],
-    params: InferParams<P>, // Fully autocompleted!
+    params: Record<string, unknown>,
     layout: CanvasLayout
   ) => void;
 };
 
 export type LayerConfigEntry = {
-  layerId: string;
+  id: string;
   enabled: boolean;
   params: Record<string, unknown>;
 };

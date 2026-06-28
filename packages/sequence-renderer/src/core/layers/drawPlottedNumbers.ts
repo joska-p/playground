@@ -5,11 +5,10 @@ const drawPlottedNumbers: VisualLayer = {
   name: 'Plotted Numbers',
   description: 'Dots at each unique sequence value',
   category: 'cosmetic',
-  defaults: { radius: 3, alpha: 0.4, color: undefined },
   params: {
-    radius: { label: 'Radius', type: 'number', min: 1, max: 20, step: 1 },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
-    color: { label: 'Color', type: 'color' }
+    radius: { label: 'Radius', type: 'number', min: 1, max: 20, step: 1, default: 3 },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.4 },
+    color: { label: 'Color', type: 'color', default: '' }
   },
   draw: (ctx, data, params, layout) => {
     const { radius = 3, alpha = 0.4, color } = params as Record<string, unknown>;

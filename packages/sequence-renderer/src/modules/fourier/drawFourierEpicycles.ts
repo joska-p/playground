@@ -19,19 +19,21 @@ export const drawFourierEpicycles: VisualLayer = {
   description:
     'Traces high-frequency geometric vector loops utilizing Discrete Fourier Transforms.',
   category: 'drawing',
-  defaults: {
-    precision: 40,
-    orbitOverlays: true,
-    paceMultiplier: 1.0
-  },
   params: {
-    precision: { label: 'Circle Limit', type: 'number', min: 1, max: 200, step: 1 },
+    precision: { label: 'Circle Limit', type: 'number', min: 1, max: 200, step: 1, default: 40 },
     orbitOverlays: {
       label: 'Show Orbits',
       type: 'boolean',
-      value: true
+      default: true
     },
-    paceMultiplier: { label: 'Animation Speed', type: 'number', min: 0.1, max: 3, step: 0.1 }
+    paceMultiplier: {
+      label: 'Animation Speed',
+      type: 'number',
+      min: 0.1,
+      max: 3,
+      step: 0.1,
+      default: 1.0
+    }
   },
   draw: (ctx, data, params, layout) => {
     const {

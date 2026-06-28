@@ -33,7 +33,7 @@ UI/Presentation (React components)
 Zustand Store (bridges engine logic ↔ UI components)
     │
     ▼
-engine/         — Canvas rendering, layer system, types (moved from @repo/sequence-engine)
+core/           — Canvas rendering, layer system, types
 modules/fourier — DFT computation (Web Worker), Fourier epicycle rendering, harmonicPath rule
     │
     ▼
@@ -49,6 +49,7 @@ modules/fourier — DFT computation (Web Worker), Fourier epicycle rendering, ha
 The store uses a consistent Zustand pattern. Access state via selector hooks:
 
 ```typescript
+const seed = useSeed(); // Random seed string
 const sequenceRule = useSequenceRule(); // Current SequenceRule
 const steps = useSequenceSteps(); // Step count
 const sequence = useSequenceSequence(); // Generated number array
@@ -56,15 +57,15 @@ const layers = useLayersConfig(); // LayerConfigEntry[]
 const viewport = useViewport(); // CanvasViewport
 ```
 
-| Mutation                             | Effect                                   |
-| :----------------------------------- | :--------------------------------------- |
-| `setSequenceRule({ sequenceRule })`  | Change rule, clamp steps, regenerate     |
-| `setSequenceSteps({ steps })`        | Change step count, regenerate            |
-| `loadPreset(presetId)`               | Replace layer stack with preset's config |
-| `saveCurrentPreset(name)`            | Persist current layers to localStorage   |
-| `toggleLayer(layerId)`               | Enable/disable a layer                   |
-| `updateLayerParams(layerId, params)` | Merge param overrides for a layer        |
-| `setViewport(...)`                   | Update viewport state                    |
+| Mutation                             | Effect                                 |
+| :----------------------------------- | :------------------------------------- |
+| `setSequenceRule({ sequenceRule })`  | Change rule, clamp steps, regenerate   |
+| `setSequenceSteps({ steps })`        | Change step count, regenerate          |
+| `setSeed(seed)`                      | Change random seed, regenerate         |
+| `toggleLayer(layerId)`               | Enable/disable a layer                 |
+| `addLayer(layerId)`                  | Append a new layer with default params |
+| `updateLayerParams(layerId, params)` | Merge param overrides for a layer      |
+| `setViewport(...)`                   | Update viewport state                  |
 
 ## Component Tree
 
@@ -79,9 +80,7 @@ App
           SequenceSelector      — Dropdown (rules)
           Seed                  — Text input for random seed
           StepsSlider           — Step count
-          PlaybackControls      — Play/Pause (rAF step increment)
-          PresetSelector        — Built-in / custom presets
-          LayerStackEditor      — Add/remove/reorder layers, toggle per-layer params
+          LayerStackEditor      — Add/remove layers, toggle per-layer params
           ViewportControls      — Zoom/Pan toggle + sliders
 ```
 

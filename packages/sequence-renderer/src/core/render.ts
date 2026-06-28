@@ -56,9 +56,9 @@ function render(
 
   for (const entry of layerEntries) {
     if (!entry.enabled) continue;
-    const layer = getLayer(entry.layerId);
+    const layer = getLayer(entry.id);
     if (!layer) continue;
-    const params = { ...layer.defaults, ...entry.params };
+    const params = entry.params;
     ctx.save();
     layer.draw(ctx, data, params, layout);
     ctx.restore();

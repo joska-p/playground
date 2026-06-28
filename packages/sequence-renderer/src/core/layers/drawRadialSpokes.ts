@@ -5,45 +5,41 @@ const drawRadialSpokes: VisualLayer = {
   name: 'Radial Spokes',
   description: 'Values mapped to polar coordinates — each point is a spoke from center',
   category: 'drawing',
-  defaults: {
-    lineWidth: 1,
-    alpha: 0.7,
-    dotRadius: 2,
-    saturation: 85,
-    lightness: 55,
-    scale: 0.8
-  },
   params: {
     lineWidth: {
       label: 'Line Width',
       type: 'number',
       min: 0.5,
       max: 5,
-      step: 0.5
+      step: 0.5,
+      default: 1
     },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.7 },
     dotRadius: {
       label: 'Dot Radius',
       type: 'number',
       min: 0,
       max: 10,
-      step: 1
+      step: 1,
+      default: 2
     },
     saturation: {
       label: 'Saturation',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 85
     },
     lightness: {
       label: 'Lightness',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 55
     },
-    scale: { label: 'Scale', type: 'number', min: 0.1, max: 2, step: 0.1 }
+    scale: { label: 'Scale', type: 'number', min: 0.1, max: 2, step: 0.1, default: 0.8 }
   },
   draw: (ctx, data, params, layout) => {
     const {

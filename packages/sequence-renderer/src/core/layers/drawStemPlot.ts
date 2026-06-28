@@ -5,37 +5,33 @@ const drawStemPlot: VisualLayer = {
   name: 'Stem Plot',
   description: 'Vertical stems from baseline with marker dots at each value',
   category: 'drawing',
-  defaults: {
-    lineWidth: 1,
-    alpha: 0.7,
-    markerRadius: 3,
-    saturation: 75,
-    lightness: 60
-  },
   params: {
     lineWidth: {
       label: 'Line Width',
       type: 'number',
       min: 0.5,
       max: 5,
-      step: 0.5
+      step: 0.5,
+      default: 1
     },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.7 },
     markerRadius: {
       label: 'Marker Radius',
       type: 'number',
       min: 1,
       max: 12,
-      step: 1
+      step: 1,
+      default: 3
     },
     saturation: {
       label: 'Saturation',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 75
     },
-    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 }
+    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5, default: 60 }
   },
   draw: (ctx, data, params, layout) => {
     const {

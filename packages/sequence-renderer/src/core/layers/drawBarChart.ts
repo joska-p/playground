@@ -1,6 +1,6 @@
-import { createVisualLayer } from './createVisualLayer';
+import type { VisualLayer } from '../types';
 
-export const drawBarChart = createVisualLayer({
+export const drawBarChart: VisualLayer = {
   id: 'bar-chart',
   name: 'Bar Chart',
   description: 'Vertical bars from baseline to each sequence value, colored by height',
@@ -13,12 +13,14 @@ export const drawBarChart = createVisualLayer({
   },
   draw: (ctx, data, params, layout) => {
     const { maxVal, valueScale, offsetX, offsetY } = layout;
+    const { barWidth, alpha, saturation, lightness } = params as Record<string, unknown>;
+
     if (data.length === 0 || maxVal === 0) return;
 
     ctx.save();
-    ctx.globalAlpha = params.alpha;
+    ctx.globalAlpha = alpha as number;
 
-    const width = valueScale * params.barWidth;
+    const width = valueScale * (barWidth as number);
 
     data.forEach((val) => {
       const hue = ((Math.abs(val) / maxVal) * 240) % 360;
@@ -26,10 +28,10 @@ export const drawBarChart = createVisualLayer({
       const height = Math.abs(val) * valueScale;
       const dir = val >= 0 ? -1 : 1;
 
-      ctx.fillStyle = `hsl(${hue}, ${params.saturation}%, ${params.lightness}%)`;
+      ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
       ctx.fillRect(x, offsetY, width, dir * height);
     });
 
     ctx.restore();
   }
-});
+};

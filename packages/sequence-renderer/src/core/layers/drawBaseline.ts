@@ -5,17 +5,17 @@ const drawBaseline: VisualLayer = {
   name: 'Baseline',
   description: 'Horizontal line at y=0',
   category: 'cosmetic',
-  defaults: { lineWidth: 1, alpha: 0.15, color: undefined },
   params: {
     lineWidth: {
       label: 'Line Width',
       type: 'number',
       min: 0.5,
       max: 5,
-      step: 0.5
+      step: 0.5,
+      default: 1
     },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
-    color: { label: 'Color', type: 'color' }
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.15 },
+    color: { label: 'Color', type: 'color', default: '' }
   },
   draw: (ctx, _data, params, layout) => {
     const { lineWidth = 1, alpha = 0.15, color } = params as Record<string, unknown>;

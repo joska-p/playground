@@ -23,7 +23,7 @@ const layers: VisualLayer[] = [
   drawFourierEpicycles
 ];
 
-const layerMap = new Map<string, VisualLayer>(layers.map((l) => [l.id, l]));
+const layerMap = new Map<string, VisualLayer>(layers.map((layer) => [layer.id, layer]));
 
 function getAllLayers(): VisualLayer[] {
   return layers;

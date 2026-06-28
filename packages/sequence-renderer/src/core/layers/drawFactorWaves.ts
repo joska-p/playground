@@ -5,37 +5,33 @@ const drawFactorWaves: VisualLayer = {
   name: 'Factor Waves',
   description: 'Per-value sine waves radiating from each point',
   category: 'drawing',
-  defaults: {
-    lineWidth: 1.5,
-    alpha: 0.65,
-    amplitudeScale: 0.4,
-    saturation: 85,
-    lightness: 55
-  },
   params: {
     lineWidth: {
       label: 'Line Width',
       type: 'number',
       min: 0.5,
       max: 5,
-      step: 0.5
+      step: 0.5,
+      default: 1.5
     },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
+    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05, default: 0.65 },
     amplitudeScale: {
       label: 'Amplitude',
       type: 'number',
       min: 0.05,
       max: 1,
-      step: 0.05
+      step: 0.05,
+      default: 0.4
     },
     saturation: {
       label: 'Saturation',
       type: 'number',
       min: 0,
       max: 100,
-      step: 5
+      step: 5,
+      default: 85
     },
-    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5 }
+    lightness: { label: 'Lightness', type: 'number', min: 0, max: 100, step: 5, default: 55 }
   },
   draw: (ctx, data, params, layout) => {
     const {
