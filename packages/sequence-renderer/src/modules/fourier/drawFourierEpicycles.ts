@@ -37,8 +37,7 @@ export const drawFourierEpicycles: VisualLayer = {
     const {
       precision = 40,
       orbitOverlays = true,
-      paceMultiplier = 1.0,
-      isPlaying = false
+      paceMultiplier = 1.0
     } = params as Record<string, number | boolean>;
 
     const pairs = new Float32Array(data.length * 2);
@@ -61,9 +60,7 @@ export const drawFourierEpicycles: VisualLayer = {
     }
 
     const pace = paceMultiplier as number;
-    if (isPlaying || state.freezeTime === 0) {
-      state.freezeTime = (performance.now() / 1000) * pace;
-    }
+    state.freezeTime = (performance.now() / 1000) * pace;
     const progress = state.freezeTime / 300;
 
     ctx.save();

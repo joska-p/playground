@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getViewportState, setViewport } from '../stores/sequence/actions';
+import { getViewportState, setViewport } from '../stores/ui/actions';
 
 export function useCanvasInteraction(canvasRef: React.RefObject<HTMLCanvasElement | null>): void {
   useEffect(() => {

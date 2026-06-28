@@ -1,7 +1,5 @@
 import type { JSX } from 'react';
 import { LayerStackEditor } from '../layers/LayerStackEditor';
-import { PresetSelector } from '../presets/PresetSelector';
-import { PlaybackControls } from './PlaybackControls';
 import { Seed } from './Seed';
 import { SequenceSelector } from './SequenceSelector';
 import { StepsSlider } from './StepsSlider';
@@ -14,8 +12,6 @@ function SidebarControls(): JSX.Element {
         <SequenceSelector />
         <Seed />
         <StepsSlider />
-        <PlaybackControls />
-        <PresetSelector />
       </div>
 
       <LayerStackEditor />

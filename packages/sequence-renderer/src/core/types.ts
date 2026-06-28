@@ -12,19 +12,6 @@ export type LayerConfigEntry = {
   params: Record<string, unknown>;
 };
 
-export type PresetRecord = {
-  id: string;
-  name: string;
-  layers: LayerConfigEntry[];
-  isBuiltIn: boolean;
-};
-
-export type PresetStore = {
-  getAll(): PresetRecord[];
-  save(preset: PresetRecord): void;
-  delete(id: string): void;
-};
-
 export type CanvasLayout = {
   minVal: number;
   maxVal: number;

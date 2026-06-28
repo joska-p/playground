@@ -7,18 +7,15 @@ import {
   moveLayerDown,
   moveLayerUp,
   removeLayer,
-  saveCurrentPreset,
   toggleLayer,
   updateLayerParams
-} from '../../stores/sequence/actions';
-import { useLayersConfig } from '../../stores/sequence/selectors/useLayersConfig';
-import { SavePresetDialog } from '../presets/SavePresetDialog';
+} from '../../stores/ui/actions';
+import { useLayersConfig } from '../../stores/ui/selectors/useLayersConfig';
 import { LayerRow } from './LayerRow';
 
 function LayerStackEditor(): JSX.Element {
   const layers = useLayersConfig();
   const [expandedLayerId, setExpandedLayerId] = useState<string | null>(null);
-  const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [showAddDropdown, setShowAddDropdown] = useState(false);
 
   const allLayerMetas = getAllLayers();
@@ -40,11 +37,6 @@ function LayerStackEditor(): JSX.Element {
     if (expandedLayerId === layerId) {
       setExpandedLayerId(null);
     }
-  }
-
-  function handleSave(name: string) {
-    saveCurrentPreset(name);
-    setShowSaveDialog(false);
   }
 
   return (
@@ -105,21 +97,6 @@ function LayerStackEditor(): JSX.Element {
               </div>
             )}
           </div>
-        )}
-
-        {showSaveDialog ? (
-          <SavePresetDialog
-            onSave={handleSave}
-            onCancel={() => setShowSaveDialog(false)}
-          />
-        ) : (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowSaveDialog(true)}
-          >
-            Save as...
-          </Button>
         )}
       </div>
     </div>
