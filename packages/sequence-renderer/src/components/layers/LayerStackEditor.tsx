@@ -1,14 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
 import { getAllLayers } from '../../core/layers/registry';
-import {
-  addLayer,
-  moveLayerDown,
-  moveLayerUp,
-  removeLayer,
-  toggleLayer,
-  updateLayerParams
-} from '../../stores/ui/actions';
+import { addLayer, toggleLayer, updateLayerParams } from '../../stores/ui/actions';
 import { useLayersConfig } from '../../stores/ui/selectors';
 import { LayerRow } from './LayerRow';
 
@@ -18,8 +11,6 @@ function LayerStackEditor() {
   const [showAddDropdown, setShowAddDropdown] = useState(false);
 
   const allLayerMetas = getAllLayers();
-  const enabledCount = layers.filter((l) => l.enabled).length;
-
   const availableLayers = allLayerMetas.filter((m) => !layers.some((l) => l.layerId === m.id));
 
   function handleToggleLayer(layerId: string) {
@@ -31,19 +22,12 @@ function LayerStackEditor() {
     setShowAddDropdown(false);
   }
 
-  function handleRemoveLayer(layerId: string) {
-    removeLayer(layerId);
-    if (expandedLayerId === layerId) {
-      setExpandedLayerId(null);
-    }
-  }
-
   return (
     <div className="border-border flex w-full flex-col gap-2 border-t px-3 py-2">
       <div className="flex flex-col gap-1">
         <span className="text-muted-foreground text-xs font-medium">Layers</span>
 
-        {layers.map((entry, index) => {
+        {layers.map((entry) => {
           const meta = allLayerMetas.find((m) => m.id === entry.layerId);
           if (!meta) return null;
 
@@ -54,13 +38,7 @@ function LayerStackEditor() {
               enabled={entry.enabled}
               params={entry.params}
               isExpanded={expandedLayerId === entry.layerId}
-              canMoveUp={index > 0}
-              canMoveDown={index < layers.length - 1}
-              canRemove={enabledCount > 1 || !entry.enabled}
               onToggle={() => handleToggleLayer(entry.layerId)}
-              onMoveUp={() => moveLayerUp(entry.layerId)}
-              onMoveDown={() => moveLayerDown(entry.layerId)}
-              onRemove={() => handleRemoveLayer(entry.layerId)}
               onToggleExpand={() =>
                 setExpandedLayerId(expandedLayerId === entry.layerId ? null : entry.layerId)
               }

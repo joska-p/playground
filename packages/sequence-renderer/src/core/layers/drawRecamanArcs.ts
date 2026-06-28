@@ -1,34 +1,25 @@
-import type { VisualLayer } from '../types';
+import { createVisualLayer } from './createVisualLayer';
 
-const drawRecamanArcs: VisualLayer = {
+export const drawRecamanArcs = createVisualLayer({
   id: 'recaman-arcs',
   name: 'Recamán Arcs',
   description: 'Semicircle arcs between consecutive sequence values',
   category: 'drawing',
-  defaults: { lineWidth: 1, alpha: 1.0, color: undefined },
   params: {
-    lineWidth: {
-      label: 'Line Width',
-      type: 'number',
-      min: 0.5,
-      max: 5,
-      step: 0.5
-    },
-    alpha: { label: 'Opacity', type: 'number', min: 0, max: 1, step: 0.05 },
-    color: { label: 'Color', type: 'color' }
+    lineWidth: { type: 'number', label: 'Line Width', min: 0.5, max: 5, step: 0.5, default: 1 },
+    alpha: { type: 'number', label: 'Opacity', min: 0, max: 1, step: 0.05, default: 1.0 },
+    color: { type: 'color', label: 'Color', default: '' }
   },
   draw: (ctx, data, params, layout) => {
-    const { lineWidth = 1, alpha = 1.0, color } = params as Record<string, unknown>;
     const { valueScale, offsetX, offsetY } = layout;
     if (data.length < 2) return;
 
-    const textColor = getComputedStyle(ctx.canvas).color || 'black';
-
     ctx.save();
     ctx.translate(offsetX, offsetY);
-    ctx.strokeStyle = (color as string) ?? textColor;
-    ctx.lineWidth = lineWidth as number;
-    ctx.globalAlpha = alpha as number;
+
+    ctx.strokeStyle = params.color || getComputedStyle(ctx.canvas).color || 'black';
+    ctx.lineWidth = params.lineWidth;
+    ctx.globalAlpha = params.alpha;
 
     data.forEach((value, index) => {
       const previousValue = data[index - 1];
@@ -47,6 +38,4 @@ const drawRecamanArcs: VisualLayer = {
 
     ctx.restore();
   }
-};
-
-export { drawRecamanArcs };
+});
