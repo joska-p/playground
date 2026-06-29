@@ -54,12 +54,12 @@ Most components support these variants:
 
 ## Sizes
 
-| Size            | Usage             |
-| --------------- | ----------------- |
-| `small` / `sm`  | Compact UI        |
-| `medium` / `md` | Default           |
-| `large` / `lg`  | Emphasis          |
-| `icon`          | Square, icon-only |
+| Size   | Usage             |
+| ------ | ----------------- |
+| `sm`   | Compact UI        |
+| `md`   | Default           |
+| `lg`   | Emphasis          |
+| `icon` | Square, icon-only |
 
 ## Import Pattern
 
