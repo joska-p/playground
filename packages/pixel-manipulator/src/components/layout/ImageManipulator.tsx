@@ -1,24 +1,16 @@
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
-import { Sidebar } from '@repo/ui/Sidebar';
 import { Outputs } from '../output/Outputs';
-import { Controls } from './Controls';
+import { ControlsPanel } from './ControlsPanel';
 
 function ImageManipulator() {
   return (
     <ErrorBoundary>
-      <Sidebar
-        desktopPosition="left"
-        mobilePosition="bottom"
-        className="min-h-dvh flex-1"
-      >
-        <Sidebar.Main>
+      <div className="flex min-h-dvh">
+        <main className="landscape:mr-72 min-w-0 flex-1">
           <Outputs />
-        </Sidebar.Main>
-
-        <Sidebar.Panel className="flex h-full w-80 gap-4 overflow-y-auto overscroll-auto p-2">
-          <Controls />
-        </Sidebar.Panel>
-      </Sidebar>
+        </main>
+        <ControlsPanel />
+      </div>
     </ErrorBoundary>
   );
 }
