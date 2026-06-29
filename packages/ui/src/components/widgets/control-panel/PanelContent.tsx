@@ -19,7 +19,7 @@ export function PanelContent({
       return new Set(defaultOpenSections);
     }
     // Default: first section open
-    if (sections.length > 0 && sections[0].defaultOpen !== false) {
+    if (sections[0] && sections[0].defaultOpen !== false) {
       return new Set([sections[0].id]);
     }
     return new Set();

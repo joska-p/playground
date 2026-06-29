@@ -1,4 +1,4 @@
-import { cn } from '../../utils/cn';
+import { cn } from '../../../utils/cn';
 import { ControlRenderer } from './controls';
 import type { ControlSection as ControlSectionType } from './types';
 
