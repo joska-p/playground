@@ -10,7 +10,7 @@
     "./buttonVariants": "./src/components/button/buttonVariants.ts",
     "./Card": "./src/components/card/Card.tsx",
     "./cardVariants": "./src/components/card/cardVariants.ts",
-    "./ControlPanel": "./src/components/widgets/control-panel/index.tsx",
+    "./ControlPanel": "./src/components/widgets/control-panel/index.ts",
     "./DefaultFallback": "./src/components/error-boundary/DefaultFallback.tsx",
     "./defaultFallbackVariants": "./src/components/error-boundary/defaultFallbackVariants.ts",
     "./ErrorBoundary": "./src/components/error-boundary/ErrorBoundary.tsx",

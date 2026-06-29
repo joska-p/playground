@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '../../../../utils/cn';
 import type { ToggleControl as ToggleControlType } from '../types';
 
 export function ToggleControl({ control }: { control: ToggleControlType }) {
