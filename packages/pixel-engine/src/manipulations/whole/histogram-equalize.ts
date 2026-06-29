@@ -1,5 +1,5 @@
-import { PixelData } from '../../pixel-data';
 import { defineManip } from '../../manipulation-factories';
+import { PixelData } from '../../pixel-data';
 
 export const histogramEqualize = defineManip({
   access: 'global',

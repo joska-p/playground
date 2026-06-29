@@ -1,8 +1,8 @@
-import { PixelData } from './pixel-data';
 import type { BufferManager } from './buffer-manager';
 import type { FusionScheduler } from './fusion-scheduler';
 import type { Step } from './manipulations/manifest';
 import { runNeighborhoodTiled } from './neighborhood-tiling';
+import { PixelData } from './pixel-data';
 import type { ManipulationDefinition, PipelineContext } from './types';
 
 type ExecutorParameters = {

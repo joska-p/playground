@@ -10,7 +10,7 @@ export type LSymbol = {
   readonly name: string;
   readonly params: readonly Parameter[];
   readonly metadata?: Readonly<Record<string, unknown>>;
-}
+};
 
 /** A sequence of symbols — the state of the grammar at one iteration. */
 export type Word = readonly LSymbol[];
@@ -26,7 +26,7 @@ export type Context = {
   readonly index: number;
   /** Seeded random function — value in [0, 1). Same seed → same sequence. */
   readonly random: () => number;
-}
+};
 
 /**
  * The only contract the engine cares about.
@@ -44,7 +44,7 @@ export type Rule = {
    * Only called when match() returned true.
    */
   apply(symbol: LSymbol, context: Context): Word;
-}
+};
 
 /** A complete grammar definition — everything the engine needs to expand. */
 export type Grammar = {
@@ -56,16 +56,16 @@ export type Grammar = {
    * 'remove'         — drop it from the output.
    */
   readonly unmatchedSymbol?: 'keep' | 'remove';
-}
+};
 
 /** A single validation problem found by `validate()`. */
 export type ValidationError = {
   readonly code: string;
   readonly message: string;
-}
+};
 
 /** Options accepted by `expand` and `steps`. */
 export type ExpandOptions = {
   /** Seed for the random number generator. Same seed → same output. */
   readonly seed?: number;
-}
+};

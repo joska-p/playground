@@ -1,7 +1,7 @@
-import { PixelData } from '@repo/pixel-engine/pixel-data';
 import type { Step } from '@repo/pixel-engine/manipulations/manifest';
 import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
 import { runPipeline } from '@repo/pixel-engine/pipeline-runner';
+import { PixelData } from '@repo/pixel-engine/pixel-data';
 import { Registry } from '@repo/pixel-engine/registry';
 
 const DEFAULT_MAXIMUM_PIXELS = 16_000_000;

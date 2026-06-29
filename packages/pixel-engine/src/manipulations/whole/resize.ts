@@ -1,5 +1,5 @@
-import { PixelData } from '../../pixel-data';
 import { defineManip } from '../../manipulation-factories';
+import { PixelData } from '../../pixel-data';
 
 type ResizeOptions =
   | { width: number; height?: never; maximumPixels?: never; fit?: never }
