@@ -1,14 +1,12 @@
 // @ts-check
+import { satteri } from '@astrojs/markdown-satteri';
+import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, fontProviders } from 'astro/config';
 import process from 'node:process';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { remarkBaseUrl } from './src/lib/remarkBaseUrl.ts';
-
-import mdx from '@astrojs/mdx';
-
-import sitemap from '@astrojs/sitemap';
 
 // Check for existence of the variables rather than exact string matches
 const isVercel = Boolean(process.env.VERCEL);
@@ -34,16 +32,13 @@ export default defineConfig({
   ],
   vite: {
     plugins: [
-      // @ts-expect-error — Vite 7 types vs Vite 8 tailwindcss plugin mismatch
       tailwindcss(),
       visualizer({
         template: 'treemap',
-        filename: './public/stats.html',
-        sourcemap: true
+        filename: './public/stats.html'
       })
     ],
     resolve: {
-      // @ts-expect-error — Vite 7 types lack tsconfigPaths, but Vite 8/Rolldown requires it
       tsconfigPaths: true
     },
     build: {
@@ -60,17 +55,14 @@ export default defineConfig({
       }
     }
   },
-
-  integrations: [
-    react(),
-    mdx({
-      remarkPlugins: [[remarkBaseUrl, { base: basePath }]], // the order matter math before katex
-      remarkRehype: { allowDangerousHtml: true }
-    }),
-    sitemap()
-  ],
-
-  preferences: {
-    devToolbar: false
+  integrations: [react(), mdx(), sitemap()],
+  markdown: {
+    processor: satteri({
+      features: {
+        directive: true,
+        math: true,
+        headingAttributes: true
+      }
+    })
   }
 });
