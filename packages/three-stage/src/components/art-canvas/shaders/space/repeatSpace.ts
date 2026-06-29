@@ -4,5 +4,6 @@ import code from './repeatSpace.glsl?raw';
 export const repeatSpace: ShaderModule = {
   name: 'repeatSpace',
   category: 'space',
-  code
+  code,
+  getCall: ({ uv, count }) => `uv = repeatSpace(${uv}, ${count});`
 };
