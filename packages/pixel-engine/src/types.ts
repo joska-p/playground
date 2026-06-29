@@ -1,3 +1,4 @@
+import type { PixelData } from './pixel-data';
 import type { Registry } from './registry';
 
 // ─── UI Metadata ──────────────────────────────────────────────────────────────
@@ -38,7 +39,7 @@ export type NeighborhoodParameters<Options> = {
 
 export type WholeImageParameters<Options> = {
   options: Options;
-  imageData: ImageData;
+  imageData: PixelData;
 };
 
 // ─── Manipulation Function Signatures ────────────────────────────────────────
@@ -53,7 +54,7 @@ export type NeighborhoodFunction<
 
 export type WholeImageFunction<
   Options = any /* eslint-disable-line @typescript-eslint/no-explicit-any */
-> = (parameters: WholeImageParameters<Options>) => ImageData;
+> = (parameters: WholeImageParameters<Options>) => PixelData;
 
 // ─── Manipulation Definition ─────────────────────────────────────────────────
 

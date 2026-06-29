@@ -1,3 +1,4 @@
+import { PixelData } from './pixel-data';
 import type { BufferManager } from './buffer-manager';
 import type { FusionScheduler } from './fusion-scheduler';
 import type { Step } from './manipulations/manifest';
@@ -38,9 +39,9 @@ const executors: Record<string, ExecutorFunction> = {
         });
       }
 
-      const imageData = new ImageData(bufferManager.width, bufferManager.height);
-      imageData.data.set(destination);
-      bufferManager.replaceWith(imageData);
+      const pixelData = new PixelData(bufferManager.width, bufferManager.height);
+      pixelData.data.set(destination);
+      bufferManager.replaceWith(pixelData);
     }
   },
 

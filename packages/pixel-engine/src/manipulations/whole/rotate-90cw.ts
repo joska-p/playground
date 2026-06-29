@@ -1,3 +1,4 @@
+import { PixelData } from '../../pixel-data';
 import { defineManip } from '../../manipulation-factories';
 
 export const rotate90Cw = defineManip({
@@ -5,7 +6,7 @@ export const rotate90Cw = defineManip({
   id: 'rotate-90cw',
   execute: ({ imageData }) => {
     const { width, height, data } = imageData;
-    const out = new ImageData(height, width);
+    const out = new PixelData(height, width);
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const source = (y * width + x) * 4;

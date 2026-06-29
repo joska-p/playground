@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
+    "./pixel-data": "./src/pixel-data.ts",
     "./buffer-manager": "./src/buffer-manager.ts",
     "./fusion-scheduler": "./src/fusion-scheduler.ts",
     "./manipulation-factories": "./src/manipulation-factories.ts",

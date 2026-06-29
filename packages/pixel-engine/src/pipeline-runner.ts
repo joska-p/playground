@@ -1,3 +1,4 @@
+import type { PixelData } from './pixel-data';
 import { BufferManager } from './buffer-manager';
 import { FusionScheduler } from './fusion-scheduler';
 import type { Step } from './manipulations/manifest';
@@ -9,7 +10,7 @@ function buildAutoDownscaleStep({
   steps,
   maximumPixels
 }: {
-  source: ImageData;
+  source: PixelData;
   steps: Step[];
   maximumPixels: number;
 }) {
@@ -28,10 +29,10 @@ export async function runPipeline({
   steps,
   context
 }: {
-  source: ImageData;
+  source: PixelData;
   steps: Step[];
   context: PipelineContext;
-}): Promise<ImageData[]> {
+}): Promise<PixelData[]> {
   const downscale = buildAutoDownscaleStep({
     source,
     steps,
@@ -45,7 +46,7 @@ export async function runPipeline({
   }
 
   const effectiveSteps = downscale ? [downscale, ...steps] : steps;
-  const snapshots: ImageData[] = [];
+  const snapshots: PixelData[] = [];
   const manager = new BufferManager(source);
   const scheduler = new FusionScheduler();
 

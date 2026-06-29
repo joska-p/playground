@@ -1,3 +1,4 @@
+import { PixelData } from '../../pixel-data';
 import { defineManip } from '../../manipulation-factories';
 
 type ResizeOptions =
@@ -16,7 +17,7 @@ function bilinearResize({
   targetWidth,
   targetHeight
 }: {
-  source: ImageData;
+  source: PixelData;
   targetWidth: number;
   targetHeight: number;
 }) {
@@ -25,7 +26,7 @@ function bilinearResize({
     return source;
   }
 
-  const destination = new ImageData(targetWidth, targetHeight);
+  const destination = new PixelData(targetWidth, targetHeight);
   const { data: destinationData } = destination;
   const xRatio = sourceWidth / targetWidth;
   const yRatio = sourceHeight / targetHeight;

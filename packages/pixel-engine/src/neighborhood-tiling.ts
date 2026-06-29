@@ -1,3 +1,4 @@
+import { PixelData } from './pixel-data';
 import type { ManipulationDefinition } from './types';
 
 const TILE_SIZE = 512; // pixels per tile edge
@@ -10,7 +11,7 @@ function extractTile({
   tileHeight,
   halo
 }: {
-  imageData: ImageData;
+  imageData: PixelData;
   tileX: number;
   tileY: number;
   tileWidth: number;
@@ -25,7 +26,7 @@ function extractTile({
   const paddedWidth = paddedX2 - paddedX;
   const paddedHeight = paddedY2 - paddedY;
 
-  const tile = new ImageData(paddedWidth, paddedHeight);
+  const tile = new PixelData(paddedWidth, paddedHeight);
   for (let row = 0; row < paddedHeight; row++) {
     const sourceOffset = ((paddedY + row) * imageData.width + paddedX) * 4;
     tile.data.set(
@@ -45,8 +46,8 @@ function blitTile({
   tileHeight,
   halo
 }: {
-  destination: ImageData;
-  tile: ImageData;
+  destination: PixelData;
+  tile: PixelData;
   tileX: number;
   tileY: number;
   tileWidth: number;
@@ -71,12 +72,12 @@ export function runNeighborhoodTiled({
   definition,
   options
 }: {
-  source: ImageData;
+  source: PixelData;
   definition: ManipulationDefinition;
   options: Record<string, unknown>;
 }) {
   const halo = (definition as { radius?: number }).radius ?? 1;
-  const destinationImage = new ImageData(source.width, source.height);
+  const destinationImage = new PixelData(source.width, source.height);
 
   const columns = Math.ceil(source.width / TILE_SIZE);
   const rows = Math.ceil(source.height / TILE_SIZE);
@@ -96,7 +97,7 @@ export function runNeighborhoodTiled({
         tileHeight,
         halo
       });
-      const tileOutput = new ImageData(tile.width, tile.height);
+      const tileOutput = new PixelData(tile.width, tile.height);
 
       if (definition.access === 'neighborhood') {
         definition.execute({

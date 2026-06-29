@@ -1,3 +1,4 @@
+import { PixelData } from '@repo/pixel-engine/pixel-data';
 import type { Step } from '@repo/pixel-engine/manipulations/manifest';
 import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
 import type { ArgDefinition } from '@repo/pixel-engine/types';
@@ -29,23 +30,31 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
     }),
   serialize: (task) => {
     const clampedCopy = new Uint8ClampedArray(task.sourceImageData.data);
-    const imageDataCopy = new ImageData(
-      clampedCopy,
+    const pixelData = new PixelData(
       task.sourceImageData.width,
-      task.sourceImageData.height
+      task.sourceImageData.height,
+      clampedCopy
     );
     return {
       message: {
-        sourceImageData: imageDataCopy,
+        sourceImageData: pixelData,
         steps: task.steps,
         maximumPixels: task.maximumPixels
       },
-      transfer: [imageDataCopy.data.buffer]
+      transfer: [clampedCopy.buffer]
     };
   },
   deserialize: (event) => {
     if ('error' in event.data) return { ok: false, error: new Error(event.data.error) };
-    return { ok: true, value: event.data as ImageData[] };
+    const rawResults = event.data as Array<{
+      data: Uint8ClampedArray;
+      width: number;
+      height: number;
+    }>;
+    return {
+      ok: true,
+      value: rawResults.map((r) => new ImageData(r.data, r.width, r.height))
+    };
   }
 });
 

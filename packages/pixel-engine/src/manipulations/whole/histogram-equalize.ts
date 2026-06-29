@@ -1,3 +1,4 @@
+import { PixelData } from '../../pixel-data';
 import { defineManip } from '../../manipulation-factories';
 
 export const histogramEqualize = defineManip({
@@ -30,7 +31,7 @@ export const histogramEqualize = defineManip({
     const lut = new Uint8ClampedArray(256);
     for (let i = 0; i < 256; i++)
       lut[i] = Math.round((((cdf[i] ?? 0) - cdfMin) / (n - cdfMin)) * 255);
-    const out = new ImageData(imageData.width, imageData.height);
+    const out = new PixelData(imageData.width, imageData.height);
     for (let i = 0; i < n; i++) {
       const off = i * 4;
       const red = data[off] ?? 0,
