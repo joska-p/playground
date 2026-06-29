@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/Button';
 import { useState } from 'react';
 import { getAllLayers } from '../../core/layers/registry';
-import { addLayer, toggleLayer, updateLayerParams } from '../../stores/ui/actions';
+import { addLayer, removeLayer, toggleLayer, updateLayerParams } from '../../stores/ui/actions';
 import { useLayersConfig } from '../../stores/ui/selectors';
 import { LayerRow } from './LayerRow';
 
@@ -11,14 +11,18 @@ function LayerStackEditor() {
   const [showAddDropdown, setShowAddDropdown] = useState(false);
 
   const allLayerMetas = getAllLayers();
-  const availableLayers = allLayerMetas.filter((m) => !layers.some((l) => l.layerId === m.id));
+  const availableLayers = allLayerMetas.filter((m) => !layers.some((l) => l.id === m.id));
 
-  function handleToggleLayer(layerId: string) {
-    toggleLayer(layerId);
+  function handleToggleLayer(id: string) {
+    toggleLayer(id);
   }
 
-  function handleAddLayer(layerId: string) {
-    addLayer(layerId);
+  function handleRemoveLayer(id: string) {
+    removeLayer(id);
+  }
+
+  function handleAddLayer(id: string) {
+    addLayer(id);
     setShowAddDropdown(false);
   }
 
@@ -28,21 +32,22 @@ function LayerStackEditor() {
         <span className="text-muted-foreground text-xs font-medium">Layers</span>
 
         {layers.map((entry) => {
-          const meta = allLayerMetas.find((m) => m.id === entry.layerId);
+          const meta = allLayerMetas.find((m) => m.id === entry.id);
           if (!meta) return null;
 
           return (
             <LayerRow
-              key={entry.layerId}
+              key={entry.id}
               meta={meta}
               enabled={entry.enabled}
               params={entry.params}
-              isExpanded={expandedLayerId === entry.layerId}
-              onToggle={() => handleToggleLayer(entry.layerId)}
+              isExpanded={expandedLayerId === entry.id}
+              onToggle={() => handleToggleLayer(entry.id)}
               onToggleExpand={() =>
-                setExpandedLayerId(expandedLayerId === entry.layerId ? null : entry.layerId)
+                setExpandedLayerId(expandedLayerId === entry.id ? null : entry.id)
               }
-              onParamChange={(key, value) => updateLayerParams(entry.layerId, { [key]: value })}
+              onParamChange={(key, value) => updateLayerParams(entry.id, { [key]: value })}
+              onRemove={() => handleRemoveLayer(entry.id)}
             />
           );
         })}

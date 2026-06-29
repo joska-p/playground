@@ -29,6 +29,11 @@ export function addLayer(id: string): void {
   });
 }
 
+export function removeLayer(id: string): void {
+  const state = uiStore.getState();
+  uiStore.setState({ layers: state.layers.filter((l) => l.id !== id) });
+}
+
 export function setViewport(v: Partial<CanvasViewport>): void {
   const current = uiStore.getState().viewport;
   uiStore.setState({ viewport: { ...current, ...v } });

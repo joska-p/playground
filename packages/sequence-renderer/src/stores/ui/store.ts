@@ -3,9 +3,9 @@ import type { LayerConfigEntry } from '../../core/types';
 import type { UiState } from './types';
 
 const DEFAULT_LAYERS: LayerConfigEntry[] = [
-  { layerId: 'baseline', enabled: true, params: {} },
-  { layerId: 'plotted-numbers', enabled: true, params: {} },
-  { layerId: 'recaman-arcs', enabled: true, params: {} }
+  { id: 'baseline', enabled: true, params: {} },
+  { id: 'plotted-numbers', enabled: true, params: {} },
+  { id: 'recaman-arcs', enabled: true, params: {} }
 ];
 
 const uiStore = create<UiState>(() => {

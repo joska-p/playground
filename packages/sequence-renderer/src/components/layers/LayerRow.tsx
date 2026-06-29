@@ -11,6 +11,7 @@ type LayerRowProps = {
   onToggle: () => void;
   onToggleExpand: () => void;
   onParamChange: (key: string, value: unknown) => void;
+  onRemove: () => void;
 };
 
 function LayerRow({
@@ -20,7 +21,8 @@ function LayerRow({
   isExpanded,
   onToggle,
   onToggleExpand,
-  onParamChange
+  onParamChange,
+  onRemove
 }: LayerRowProps) {
   return (
     <div className="border-border bg-card flex flex-col gap-2 rounded border px-2 py-1.5">
@@ -41,7 +43,6 @@ function LayerRow({
           {meta.name}
         </span>
 
-        {/* Action button rendering remains clean and identical */}
         <Button
           variant="ghost"
           size="icon"
@@ -75,7 +76,25 @@ function LayerRow({
           </svg>
         </Button>
 
-        {/* ... navigation buttons ... */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onRemove}
+          title="Remove layer"
+          className="text-muted-foreground hover:text-destructive"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M18 6L6 18" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </Button>
       </div>
 
       {isExpanded && (
