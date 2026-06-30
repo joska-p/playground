@@ -20,7 +20,7 @@ export function ToggleControl({ control }: { control: ToggleControlType }) {
       >
         <span
           className={cn(
-            'absolute top-[3px] h-4 w-4 rounded-full bg-white shadow-sm',
+            'absolute top-[3px] left-0 h-4 w-4 rounded-full bg-white shadow-sm',
             'transition-transform duration-150',
             control.value ? 'translate-x-[22px]' : 'translate-x-[3px]'
           )}

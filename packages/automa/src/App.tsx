@@ -4,10 +4,9 @@ import {
   GRID_DEFAULT_ROWS
 } from '@repo/automa-engine/config';
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
-import { Sidebar } from '@repo/ui/Sidebar';
 import { useEffect } from 'react';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
-import { Controls } from './components/controls/Controls.tsx';
+import { ControlsPanel } from './components/controls/ControlsPanel.tsx';
 import { destroy, init } from './stores/simulation/actions';
 
 type AppProps = {
@@ -34,20 +33,10 @@ function App({
   }, [cols, initialDensity, rows, seed]);
 
   return (
-    <div className="bg-background text-foreground h-dvh">
+    <div className="bg-background text-foreground relative h-screen overflow-hidden">
       <ErrorBoundary>
-        <Sidebar
-          mobilePosition="bottom"
-          desktopPosition="left"
-        >
-          <Sidebar.Main>
-            <AutomatonCanvas className="h-full w-full" />
-          </Sidebar.Main>
-          <Sidebar.Panel>
-            <Sidebar.Toggle />
-            <Controls />
-          </Sidebar.Panel>
-        </Sidebar>
+        <AutomatonCanvas />
+        <ControlsPanel />
       </ErrorBoundary>
     </div>
   );
