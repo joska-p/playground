@@ -111,6 +111,7 @@ export type ControlSection = {
   icon?: ComponentType<{ className?: string }>;
   controls: Control[];
   defaultOpen?: boolean;
+  flow?: 'horizontal' | 'vertical';
 };
 
 // ─── Panel ───────────────────────────────────────────────

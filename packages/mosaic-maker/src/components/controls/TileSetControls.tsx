@@ -23,7 +23,7 @@ function TileSetControls() {
     <>
       <h3 className="sr-only">Tile types</h3>
       <div
-        className="flex flex-wrap items-center justify-center gap-4 [--tile-size:32px]"
+        className="grid grid-cols-4 items-center justify-center gap-4 px-2 py-4 [--tile-size:32px]"
         style={{ ...initialPalette } as React.CSSProperties}
       >
         {initialTileSet.map((tileName) => {
@@ -31,7 +31,7 @@ function TileSetControls() {
             <label
               key={tileName}
               aria-label={tileName}
-              className="grid cursor-pointer justify-items-center gap-1"
+              className="grid cursor-pointer justify-items-center gap-2"
             >
               <input
                 type="checkbox"
@@ -49,7 +49,7 @@ function TileSetControls() {
                 )}
                 rotation="--rotation-0"
               />
-              <span className="text-foreground/50 hidden text-xs sm:inline">
+              <span className="text-foreground hidden text-xs sm:inline">
                 {displayNames[tileName]}
               </span>
             </label>

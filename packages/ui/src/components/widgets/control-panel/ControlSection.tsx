@@ -6,9 +6,15 @@ type ControlSectionProps = {
   section: ControlSectionType;
   isOpen: boolean;
   onToggle: () => void;
+  flow?: 'horizontal' | 'vertical';
 };
 
-export function ControlSection({ section, isOpen, onToggle }: ControlSectionProps) {
+export function ControlSection({
+  section,
+  isOpen,
+  onToggle,
+  flow = 'vertical'
+}: ControlSectionProps) {
   const visibleControls = section.controls.filter((c) => !c.hidden);
 
   if (visibleControls.length === 0) return null;
@@ -47,7 +53,13 @@ export function ControlSection({ section, isOpen, onToggle }: ControlSectionProp
         )}
       >
         <div className="overflow-hidden">
-          <div className="flex flex-col gap-3 px-4 pb-4">
+          <div
+            className={cn(
+              'flex flex-wrap gap-3 px-4 py-2',
+              { 'flex-row': flow === 'vertical' },
+              { 'flex-col': flow === 'horizontal' }
+            )}
+          >
             {visibleControls.map((control) => (
               <ControlRenderer
                 key={control.id}
