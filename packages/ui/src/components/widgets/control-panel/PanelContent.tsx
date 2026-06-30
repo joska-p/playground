@@ -5,7 +5,7 @@ import type { ControlSection as ControlSectionType } from './types';
 type PanelContentProps = {
   sections: ControlSectionType[];
   accordion?: boolean;
-  defaultOpenSections?: string[];
+  defaultOpenSections?: string[] | undefined;
 };
 
 export function PanelContent({

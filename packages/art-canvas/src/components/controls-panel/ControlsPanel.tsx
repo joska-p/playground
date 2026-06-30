@@ -1,4 +1,4 @@
-import type { ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
 import { setSeed, setUiMode } from '../../stores/ui/actions';
 import { useInputMode, useSeed } from '../../stores/ui/selectors';
@@ -14,30 +14,36 @@ function ControlsPanel() {
   const inputMode = useInputMode();
   const seed = useSeed();
 
+  const inputControl: Control = {
+    id: 'inputMode',
+    label: 'Mode',
+    type: 'select',
+    value: inputMode,
+    options: inputModeOptions,
+    onChange: (v: string) => setUiMode(v as InputMode)
+  };
+
+  const seedControl: Control = {
+    id: 'seed',
+    label: 'Seed',
+    type: 'text',
+    value: seed,
+    onChange: (v: string) => setSeed(v)
+  };
+
   const sections: ControlSection[] = [
     {
       id: 'input',
       label: 'Input',
       defaultOpen: true,
-      controls: [
-        {
-          id: 'inputMode',
-          label: 'Mode',
-          type: 'select',
-          value: inputMode,
-          options: inputModeOptions,
-          onChange: (v: string) => setUiMode(v as InputMode)
-        },
-        {
-          id: 'seed',
-          label: 'Seed',
-          type: 'text',
-          value: seed,
-          onChange: (v: string) => setSeed(v)
-        }
-      ]
+      controls: [inputControl]
     }
   ];
+
+  if (inputMode === 'seed') {
+    sections.find((section) => section.id === 'input')!.controls.push(seedControl);
+  }
+
   return <ControlPanel sections={sections} />;
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PanelContent } from './PanelContent';
 import type { ControlPanelProps } from './types';
 
@@ -11,24 +11,12 @@ export function ControlPanel({
   onOpenChange,
   header,
   footer,
-  className,
-  ref
+  className
 }: ControlPanelProps) {
   const [internalOpen, setInternalOpen] = useState(false);
 
   const isOpen = controlledOpen ?? internalOpen;
   const setIsOpen = onOpenChange ?? setInternalOpen;
-
-  // ─── Imperative handle ──────────────────────────────
-  useImperativeHandle(
-    ref,
-    () => ({
-      open: () => setIsOpen(true),
-      close: () => setIsOpen(false),
-      toggle: () => setIsOpen((prev) => !prev)
-    }),
-    [setIsOpen]
-  );
 
   // ─── Close drawer when switching to landscape ───────
   useEffect(() => {
@@ -83,7 +71,7 @@ export function ControlPanel({
     <>
       {/* ─── Landscape: Fixed side panel ─────────────── */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 ${width} bg-surface border-border z-40 flex flex-col border-l portrait:hidden landscape:flex ${className} `}
+        className={`absolute top-0 right-0 bottom-0 ${width} bg-surface border-border z-40 flex flex-col border-l portrait:hidden landscape:flex ${className} `}
         role="region"
         aria-label="Controls"
       >
@@ -94,7 +82,7 @@ export function ControlPanel({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="bg-primary text-primary-foreground shadow-primary/20 fixed right-5 bottom-5 z-30 flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg transition-transform duration-150 hover:scale-105 active:scale-95 portrait:flex landscape:hidden"
+        className="bg-primary text-primary-foreground shadow-primary/20 absolute right-5 bottom-5 z-30 flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg transition-transform duration-150 hover:scale-105 active:scale-95 portrait:flex landscape:hidden"
         aria-label="Open controls"
       >
         <svg
