@@ -11,7 +11,8 @@ export type Control =
   | NumberControl
   | Vec2Control
   | Vec3Control
-  | ButtonControl;
+  | ButtonControl
+  | ColorPaletteControl;
 
 type ControlBase = {
   id: string;
@@ -19,6 +20,17 @@ type ControlBase = {
   disabled?: boolean;
   hidden?: boolean;
   tooltip?: string;
+};
+
+export type ColorPaletteControl = ControlBase & {
+  type: 'color-palette';
+  value: string;
+  colors: string[];
+  name: string;
+  checked: boolean;
+  orientation: 'horizontal' | 'vertical';
+  size: 'small' | 'medium' | 'large';
+  onChange: (palette: string) => void;
 };
 
 export type TextControl = ControlBase & {

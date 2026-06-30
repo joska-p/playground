@@ -1,6 +1,7 @@
 import type { Control } from '../types';
 import { ButtonControl } from './Button';
 import { ColorControl } from './Color';
+import { ColorPaletteControl } from './ColorPalette';
 import { NumberControl } from './Number';
 import { SelectControl } from './Select';
 import { SliderControl } from './Slider';
@@ -10,6 +11,8 @@ import { VecControl } from './Vec';
 
 export function ControlRenderer({ control }: { control: Control }) {
   switch (control.type) {
+    case 'color-palette':
+      return <ColorPaletteControl control={control} />;
     case 'slider':
       return <SliderControl control={control} />;
     case 'color':
