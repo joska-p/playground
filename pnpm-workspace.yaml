@@ -1,5 +1,3 @@
-nodeVersion: '24.16.0'
-saveExact: true
 packages:
   - 'apps/*'
   - 'packages/*'
