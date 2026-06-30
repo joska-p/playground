@@ -12,7 +12,7 @@ export function FloatingInspector() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close inspector' : 'Open inspector'}
         aria-expanded={open}
-        className="border-border bg-card/80 text-foreground hover:bg-card focus-visible:ring-ring absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border shadow-md backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+        className="border-border bg-card/80 text-foreground hover:bg-card focus-visible:ring-ring absolute top-3 left-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border shadow-md backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
         title={open ? 'Close inspector' : 'Open inspector'}
       >
         {open ? (
@@ -64,7 +64,7 @@ export function FloatingInspector() {
 
       {/* Slide-out Sheet Panel Backdrop & Layout Container */}
       {open && (
-        <div className="border-l-border bg-card/95 animate-in slide-in-from-right absolute top-0 right-0 z-10 flex h-full w-80 flex-col gap-4 overflow-y-auto border-l p-4 shadow-2xl backdrop-blur-md duration-200">
+        <div className="border-r-border bg-card/95 animate-in slide-in-from-left absolute top-0 left-0 z-10 flex h-full w-80 flex-col gap-4 overflow-y-auto border-r p-4 shadow-2xl backdrop-blur-md duration-200">
           <div className="border-border mt-8 flex items-center justify-between border-b pb-2">
             <h3 className="text-foreground text-sm font-bold tracking-tight">Engine Diagnostics</h3>
           </div>

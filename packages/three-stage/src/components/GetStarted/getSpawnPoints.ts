@@ -80,13 +80,7 @@ const VERTEX_PRESETS: Record<string, number[][]> = {
 };
 
 export type PresetName =
-  | 'circle'
-  | 'fsphere'
-  | 'tetrahedron'
-  | 'cube'
-  | 'octahedron'
-  | 'dodecahedron'
-  | 'icosahedron';
+  'circle' | 'fsphere' | 'tetrahedron' | 'cube' | 'octahedron' | 'dodecahedron' | 'icosahedron';
 
 type GetSpawnPointsProps = {
   preset: PresetName;

@@ -1,6 +1,7 @@
 import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
-import { Button } from '@repo/ui/Button';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel';
 import { useState } from 'react';
+import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
 import {
   useCorrelatedRGB,
   useSeedText,
@@ -21,13 +22,21 @@ function triggerDownload(blob: Blob, filename: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export function DownloadButton() {
-  const [downloading, setDownloading] = useState(false);
+function useDisplaySection() {
+  const correlatedRGB = useCorrelatedRGB();
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
-  const correlatedRGB = useCorrelatedRGB();
   const seedText = useSeedText();
+  const [downloading, setDownloading] = useState(false);
+
+  const correlatedControl: Control = {
+    id: 'correlatedRGB',
+    type: 'toggle',
+    label: 'Correlated RGB',
+    value: correlatedRGB,
+    onChange: setCorrelatedRGB
+  };
 
   const filename = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
 
@@ -66,34 +75,23 @@ export function DownloadButton() {
     }
   }
 
-  return (
-    <Button
-      type="button"
-      onClick={handleDownload}
-      variant="primary"
-      disabled={downloading}
-      className="col-span-2"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-4 w-4"
-      >
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="7 10 12 15 17 10" />
-        <line
-          x1="12"
-          y1="15"
-          x2="12"
-          y2="3"
-        />
-      </svg>
-      {downloading ? 'Rendering...' : 'Download PNG'}
-    </Button>
-  );
+  const downloadControl: Control = {
+    id: 'download',
+    type: 'button',
+    label: downloading ? 'Rendering...' : 'Download PNG',
+    variant: 'primary',
+    disabled: downloading,
+    onClick: handleDownload
+  };
+
+  const section: ControlSection = {
+    id: 'display',
+    label: 'Display',
+    defaultOpen: true,
+    controls: [correlatedControl, downloadControl]
+  };
+
+  return section;
 }
+
+export { useDisplaySection };

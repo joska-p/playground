@@ -8,10 +8,7 @@ function ControlsPanel() {
   const sequenceSection = useSequenceSection();
   const viewportSection = useViewportSection();
 
-  const sections: ControlSection[] = [
-    sequenceSection,
-    viewportSection,
-  ];
+  const sections: ControlSection[] = [sequenceSection, viewportSection];
 
   return (
     <ControlPanel

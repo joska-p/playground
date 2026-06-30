@@ -27,11 +27,12 @@
 ## Cross-package boundary
 
 `@repo/l-system-engine` is imported by `@repo/l-system` in 3 files:
-| File | What it imports |
-|---|---|
-| `grammars.ts` | `Grammar` type, rule factories, `symbol` |
-| `core/interpreter.ts` | `Word` type |
-| `components/LSystemApp.tsx` | `expand` function |
+
+| File                        | What it imports                          |
+| --------------------------- | ---------------------------------------- |
+| `grammars.ts`               | `Grammar` type, rule factories, `symbol` |
+| `core/interpreter.ts`       | `Word` type                              |
+| `components/LSystemApp.tsx` | `expand` function                        |
 
 **`@repo/l-system-engine` is not consumed by any other package in the monorepo.** `@repo/l-system` is only consumed by `apps/playground`.
 

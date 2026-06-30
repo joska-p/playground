@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { ControlPanel } from '@repo/ui/ControlPanel';
-import type { ControlSection, Control } from '@repo/ui/ControlPanel';
-import { iconMap } from '@repo/ui/icons';
 import { pixel } from '@repo/pixel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import { ControlPanel } from '@repo/ui/ControlPanel';
+import { iconMap } from '@repo/ui/icons';
+import { useState } from 'react';
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';
 import {
   addWorkflowStep,

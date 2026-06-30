@@ -6,7 +6,7 @@ function ImageManipulator() {
   return (
     <ErrorBoundary>
       <div className="flex min-h-dvh">
-        <main className="landscape:mr-72 min-w-0 flex-1">
+        <main className="min-w-0 flex-1 landscape:mr-72">
           <Outputs />
         </main>
         <ControlsPanel />

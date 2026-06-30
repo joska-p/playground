@@ -44,7 +44,9 @@ export const ALL_MANIPULATIONS = [
 // ─── Derive Step type from the manifest ─────────────────────────────────────
 
 type ManipulationLookup = {
-  [Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation['id']]: Manipulation['options'];
+  [
+    Manipulation in (typeof ALL_MANIPULATIONS)[number] as Manipulation['id']
+  ]: Manipulation['options'];
 };
 
 export type Step = {
