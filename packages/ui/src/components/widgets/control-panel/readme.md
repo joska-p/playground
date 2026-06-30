@@ -57,8 +57,8 @@ Add `@repo/ui` to the project:
 ## Quick Start
 
 ```tsx
-import { ControlPanel } from '@repo/ui/control-panel';
-import type { ControlSection } from '@repo/ui/control-panel';
+import { ControlPanel } from '@repo/ui/ControlPanel';
+import type { ControlSection } from '@repo/ui/ControlPanel';
 
 const sections: ControlSection[] = [
   {

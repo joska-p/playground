@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 // ─── Controls ────────────────────────────────────────────
 
 export type Control =
+  | TextControl
   | SliderControl
   | ColorControl
   | ToggleControl
@@ -18,6 +19,12 @@ type ControlBase = {
   disabled?: boolean;
   hidden?: boolean;
   tooltip?: string;
+};
+
+export type TextControl = ControlBase & {
+  type: 'text';
+  value: string;
+  onChange: (value: string) => void;
 };
 
 export type SliderControl = ControlBase & {

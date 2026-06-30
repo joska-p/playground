@@ -4,6 +4,7 @@ import { ColorControl } from './Color';
 import { NumberControl } from './Number';
 import { SelectControl } from './Select';
 import { SliderControl } from './Slider';
+import { TextControl } from './Text';
 import { ToggleControl } from './Toggle';
 import { VecControl } from './Vec';
 
@@ -24,5 +25,7 @@ export function ControlRenderer({ control }: { control: Control }) {
       return <VecControl control={control} />;
     case 'button':
       return <ButtonControl control={control} />;
+    case 'text':
+      return <TextControl control={control} />;
   }
 }

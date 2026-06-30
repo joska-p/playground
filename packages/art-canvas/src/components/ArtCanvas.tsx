@@ -1,22 +1,19 @@
 import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { useInputMode, useSeed } from '../stores/ui/selectors';
+import { ControlsPanel } from './controls-panel/ControlsPanel';
+import { FoldedSpace } from './folded-space/FoldedSpace';
 import { FromSeed } from './from-seed/FromSeed';
 
-//import { FoldedSpace } from './folded-space/FoldedSpace';
-
 export function ArtCanvas() {
-  const [seed, setSeed] = useState('random seed');
+  const seed = useSeed();
+  const inputMode = useInputMode();
 
   return (
     <>
-      <input
-        className="bg-background text-foreground absolute top-3 left-3 z-10"
-        value={seed}
-        type="text"
-        onChange={(e) => setSeed(e.target.value)}
-      />
+      <ControlsPanel />
       <Canvas camera={{ position: [0, 0, 1] }}>
-        <FromSeed seed={seed} />
+        {inputMode === 'seed' && <FromSeed seed={seed} />}
+        {inputMode === 'manual' && <FoldedSpace />}
       </Canvas>
     </>
   );
