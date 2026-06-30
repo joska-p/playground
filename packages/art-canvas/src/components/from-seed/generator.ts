@@ -1,10 +1,10 @@
-import { cosinePalette } from '../shaders/effects/cosinePalette';
-import { posterize } from '../shaders/effects/posterize';
-import { sdBox } from '../shaders/shapes/sdBox';
-import { domainWarp } from '../shaders/space/domainWarp'; // Import the chaos module!
-import { polarCoords } from '../shaders/space/polarCoords';
-import { repeatSpace } from '../shaders/space/repeatSpace';
-import { rotate2d } from '../shaders/space/rotate2d';
+import { cosinePalette } from '../../shaders/effects/cosinePalette';
+import { posterize } from '../../shaders/effects/posterize';
+import { sdBox } from '../../shaders/shapes/sdBox';
+import { domainWarp } from '../../shaders/space/domainWarp';
+import { polarCoords } from '../../shaders/space/polarCoords';
+import { repeatSpace } from '../../shaders/space/repeatSpace';
+import { rotate2d } from '../../shaders/space/rotate2d';
 import { SeededRandom } from './utils/seededRandom';
 
 // 1. Add it to your selection registry

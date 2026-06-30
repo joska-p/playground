@@ -17,7 +17,7 @@
     "fallow": "fallow"
   },
   "devDependencies": {
-    "@turbo/gen": "^2.9.14",
+    "@turbo/gen": "^2.10.1",
     "fallow": "^2.91.0",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
