@@ -5,5 +5,7 @@ export const rotate2d: ShaderModule = {
   name: 'rotate2d',
   category: 'space',
   code,
-  getCall: ({ uv, angle }) => `uv = rotate2d(${uv}, ${angle});`
+  getCall: ({ uv, angle }) => {
+    return `${uv} = rotate2d(${uv}, ${angle});`;
+  }
 };

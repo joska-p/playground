@@ -1,8 +1,9 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
-import type * as THREE from 'three';
+import * as THREE from 'three';
 import { useSeed } from '../../stores/ui/selectors';
-import { generateShaderFromSeed } from './generator';
+//import { generateShaderFromSeed } from './generator';
+import { generateShaderFromSeed } from './generateShaderFromSeed';
 
 const vertexShader = `
   varying vec2 vUv;
@@ -26,8 +27,15 @@ function FromSeed() {
   }, [fragmentShader]);
 
   useFrame((state) => {
-    if (materialRef && materialRef.current?.uniforms['u_time']) {
-      materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
+    if (materialRef.current) {
+      // 1. Update time uniform
+      if (materialRef.current.uniforms['u_time']) {
+        materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime(); //
+      }
+      // 2. Pass mouse uniforms: state.pointer holds normalized device coordinates (-1 to +1)
+      if (materialRef.current.uniforms['u_mouse']) {
+        materialRef.current.uniforms['u_mouse'].value.copy(state.pointer);
+      }
     }
   });
 
@@ -39,7 +47,8 @@ function FromSeed() {
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={{
-          u_time: { value: 0.0 }
+          u_time: { value: 0.0 },
+          u_mouse: { value: new THREE.Vector2(0, 0) }
         }}
       />
     </mesh>

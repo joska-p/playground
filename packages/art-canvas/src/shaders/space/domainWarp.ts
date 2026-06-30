@@ -5,5 +5,7 @@ export const domainWarp: ShaderModule = {
   name: 'domainWarp',
   category: 'space',
   code,
-  getCall: ({ uv, time, intensity }) => `uv = domainWarp(${uv}, ${time}, ${intensity});`
+  getCall: ({ uv, time, intensity }) => {
+    return `${uv} = domainWarp(${uv}, ${time}, ${intensity});`;
+  }
 };
