@@ -1,10 +1,17 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ColorControl as ColorControlType } from '../types';
 
 export function ColorControl({ control }: { control: ColorControlType }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Focus and cleanly auto-select all characters upon click interaction
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.select();
+    }
+  }, [isEditing]);
 
   const commitEdit = () => {
     const hex = editValue.startsWith('#') ? editValue : `#${editValue}`;
@@ -15,9 +22,11 @@ export function ColorControl({ control }: { control: ColorControlType }) {
   };
 
   return (
-    <div className="flex items-center justify-between gap-3">
-      <label className="text-muted-foreground text-xs">{control.label}</label>
-      <div className="flex items-center gap-2">
+    <div className="flex w-full items-center justify-between gap-3">
+      <label className="text-muted-foreground text-xs font-medium select-none">
+        {control.label}
+      </label>
+      <div className="flex shrink-0 items-center gap-2">
         {isEditing ? (
           <input
             ref={inputRef}
@@ -30,25 +39,26 @@ export function ColorControl({ control }: { control: ColorControlType }) {
               if (e.key === 'Escape') setIsEditing(false);
             }}
             maxLength={7}
-            className="bg-muted border-border text-foreground focus:ring-primary w-20 rounded border px-2 py-0.5 font-mono text-xs focus:ring-1 focus:outline-none"
-            autoFocus
+            className="bg-muted border-border text-foreground focus:ring-primary h-7 w-20 rounded border px-1.5 text-center font-mono text-xs focus:ring-1 focus:outline-none"
           />
         ) : (
           <button
             type="button"
+            disabled={control.disabled}
             onClick={() => {
               setEditValue(control.value);
               setIsEditing(true);
             }}
-            className="text-muted-foreground hover:text-foreground hover:bg-muted rounded px-1.5 py-0.5 font-mono text-xs transition-colors duration-100"
+            className="text-muted-foreground hover:text-foreground hover:bg-muted rounded px-1.5 py-0.5 font-mono text-xs transition-colors duration-100 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {control.value}
           </button>
         )}
 
-        <div className="relative">
+        {/* Improved wrapping layout tracking clear native focus ring borders */}
+        <div className="border-border focus-within:ring-primary/40 relative h-8 w-8 overflow-hidden rounded-lg border shadow-sm focus-within:ring-2">
           <div
-            className="border-border h-8 w-8 cursor-pointer rounded-lg border shadow-sm transition-shadow hover:shadow-md"
+            className="pointer-events-none absolute inset-0"
             style={{ backgroundColor: control.value }}
           />
           <input
@@ -56,7 +66,8 @@ export function ColorControl({ control }: { control: ColorControlType }) {
             value={control.value}
             onChange={(e) => control.onChange(e.target.value)}
             disabled={control.disabled}
-            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            aria-label={`${control.label} picker`}
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
           />
         </div>
       </div>

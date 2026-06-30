@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { cn } from '../../../utils/cn';
 import { PanelContent } from './PanelContent';
 import type { ControlPanelProps } from './types';
 
@@ -14,71 +15,37 @@ export function ControlPanel({
   className
 }: ControlPanelProps) {
   const [internalOpen, setInternalOpen] = useState(false);
-
   const isOpen = controlledOpen ?? internalOpen;
   const setIsOpen = onOpenChange ?? setInternalOpen;
 
-  // ─── Close drawer when switching to landscape ───────
-  useEffect(() => {
-    const mq = window.matchMedia('(orientation: landscape)');
-
-    const closeIfLandscape = (e: MediaQueryListEvent) => {
-      if (e.matches) setIsOpen(false);
-    };
-
-    // Also close immediately if already landscape (e.g., initial load)
-    if (mq.matches) setIsOpen(false);
-
-    mq.addEventListener('change', closeIfLandscape);
-    return () => mq.removeEventListener('change', closeIfLandscape);
-  }, [setIsOpen]);
-
-  // ─── Escape to close drawer ─────────────────────────
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        e.preventDefault();
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [isOpen, setIsOpen]);
-
-  // ─── Prevent body scroll when drawer is open ────────
-  useEffect(() => {
-    if (!isOpen) return;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = original;
-    };
-  }, [isOpen]);
-
   const content = (
     <>
-      {header && <div className="border-border shrink-0 border-b">{header}</div>}
+      {header && <div className="border-border shrink-0 border-b p-3">{header}</div>}
       <PanelContent
         sections={sections}
         accordion={accordion}
         defaultOpenSections={defaultOpenSections}
       />
-      {footer && <div className="border-border shrink-0 border-t">{footer}</div>}
+      {footer && <div className="border-border shrink-0 border-t p-3">{footer}</div>}
     </>
   );
 
   return (
     <>
-      {/* ─── Landscape: Fixed side panel ─────────────── */}
+      {/* ─── Landscape Mode: Absolute Sidebar Panel ─── */}
       <aside
-        className={`absolute top-0 right-0 bottom-0 ${width} bg-surface border-border z-40 flex flex-col border-l portrait:hidden landscape:flex ${className} `}
+        className={cn(
+          'bg-surface border-border absolute top-0 right-0 z-40 flex h-full flex-col border-l portrait:hidden landscape:flex',
+          width,
+          className
+        )}
         role="region"
         aria-label="Controls"
       >
         {content}
       </aside>
 
-      {/* ─── Portrait: FAB trigger ───────────────────── */}
+      {/* ─── Portrait Mode Trigger: Floating Action Button ─── */}
       <button
         type="button"
         onClick={() => setIsOpen(true)}
@@ -100,26 +67,27 @@ export function ControlPanel({
         </svg>
       </button>
 
-      {/* ─── Portrait: Overlay ───────────────────────── */}
+      {/* ─── Portrait Overlay Backing ─── */}
       <div
         onClick={() => setIsOpen(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') setIsOpen(false);
-        }}
-        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity duration-200 portrait:block landscape:hidden ${
+        className={cn(
+          'fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity duration-200 portrait:block landscape:hidden',
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-        } `}
+        )}
         aria-hidden="true"
       />
 
-      {/* ─── Portrait: Drawer ────────────────────────── */}
+      {/* ─── Portrait Drawer Layer ─── */}
       <aside
+        id="control-panel-dialog"
         role="dialog"
         aria-modal={isOpen}
         aria-label="Controls"
-        className={`bg-surface border-border fixed inset-x-0 bottom-0 z-50 flex max-h-[85dvh] flex-col rounded-t-2xl border-t transition-transform duration-300 ease-out portrait:flex landscape:hidden ${isOpen ? 'translate-y-0' : 'translate-y-full'} `}
+        className={cn(
+          'bg-surface border-border fixed inset-x-0 bottom-0 z-50 flex max-h-[85dvh] flex-col rounded-t-2xl border-t transition-transform duration-300 ease-out portrait:flex landscape:hidden',
+          isOpen ? 'translate-y-0' : 'translate-y-full'
+        )}
       >
-        {/* Drag handle */}
         <div className="flex shrink-0 justify-center pt-3 pb-1">
           <div className="bg-border h-1 w-10 rounded-full" />
         </div>

@@ -10,6 +10,8 @@ import { ToggleControl } from './Toggle';
 import { VecControl } from './Vec';
 
 export function ControlRenderer({ control }: { control: Control }) {
+  if (control.hidden) return null;
+
   switch (control.type) {
     case 'color-palette':
       return <ColorPaletteControl control={control} />;
@@ -30,5 +32,8 @@ export function ControlRenderer({ control }: { control: Control }) {
       return <ButtonControl control={control} />;
     case 'text':
       return <TextControl control={control} />;
+    default:
+      console.warn(`[ControlRenderer] Unknown control type: ${control}`);
+      return null;
   }
 }

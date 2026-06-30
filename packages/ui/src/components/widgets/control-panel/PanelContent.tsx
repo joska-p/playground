@@ -13,12 +13,10 @@ export function PanelContent({
   accordion = true,
   defaultOpenSections = []
 }: PanelContentProps) {
-  // Initialize open state from defaults or first section
   const [openSections, setOpenSections] = useState<Set<string>>(() => {
     if (defaultOpenSections.length > 0) {
       return new Set(defaultOpenSections);
     }
-    // Default: first section open
     if (sections[0] && sections[0].defaultOpen !== false) {
       return new Set([sections[0].id]);
     }
@@ -46,6 +44,7 @@ export function PanelContent({
           section={section}
           isOpen={openSections.has(section.id)}
           onToggle={() => toggleSection(section.id)}
+          flow={section.flow ?? 'vertical'}
         />
       ))}
     </div>

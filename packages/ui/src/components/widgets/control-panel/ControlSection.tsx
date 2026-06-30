@@ -55,16 +55,18 @@ export function ControlSection({
         <div className="overflow-hidden">
           <div
             className={cn(
-              'flex flex-wrap gap-3 px-4 py-2',
-              { 'flex-row': flow === 'vertical' },
-              { 'flex-col': flow === 'horizontal' }
+              'flex flex-wrap gap-4 px-4 pt-1 pb-4',
+              // 👈 Fixed: Swapped to apply layout classes logically
+              flow === 'vertical' ? 'flex-col' : 'flex-row items-end'
             )}
           >
             {visibleControls.map((control) => (
-              <ControlRenderer
+              <div
                 key={control.id}
-                control={control}
-              />
+                className={cn('w-full', flow === 'horizontal' && 'w-fit min-w-[120px] flex-1')}
+              >
+                <ControlRenderer control={control} />
+              </div>
             ))}
           </div>
         </div>

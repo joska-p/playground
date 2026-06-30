@@ -132,9 +132,6 @@ export type ControlPanelProps = {
 
   // Styling
   className?: string;
-
-  // Ref
-  ref?: React.Ref<ControlPanelRef>;
 };
 
 export type ControlPanelRef = {

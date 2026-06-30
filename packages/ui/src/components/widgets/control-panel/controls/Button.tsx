@@ -15,7 +15,7 @@ export function ButtonControl({ control }: { control: ButtonControlType }) {
       disabled={control.disabled}
       className={cn(
         'flex w-full items-center justify-center gap-2',
-        'rounded-lg px-3 py-2 text-sm font-medium',
+        'h-8 rounded-lg px-3 text-sm font-medium',
         'transition-colors duration-100',
         'focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none',
         'disabled:cursor-not-allowed disabled:opacity-50',
