@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev --host",
     "build": "astro build",
+    "dev": "astro dev --host",
     "preview": "astro preview --host",
     "astro": "astro",
     "lint": "eslint .",
@@ -21,6 +21,7 @@
     "@astrojs/mdx": "^7.0.0",
     "@astrojs/react": "^6.0.0",
     "@astrojs/sitemap": "^3.7.3",
+    "@repo/art-canvas": "workspace:*",
     "@repo/automa": "workspace:*",
     "@repo/config-eslint": "workspace:*",
     "@repo/graph-viz": "workspace:*",

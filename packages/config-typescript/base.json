@@ -1,14 +1,5 @@
 {
-  "extends": "@tsconfig/strictest",
-  "compilerOptions": {
-    "target": "es2023",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "erasableSyntaxOnly": true,
-    "skipLibCheck": false
-  }
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "files": []
 }

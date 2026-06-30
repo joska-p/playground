@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 
+const ArtCanvasApp = React.lazy(() => import('@repo/art-canvas').then((m) => ({ default: m.App })));
 const AutomaApp = React.lazy(() => import('@repo/automa').then((m) => ({ default: m.App })));
 const GraphifyApp = React.lazy(() => import('@repo/graph-viz').then((m) => ({ default: m.App })));
 const ImageManipulatorApp = React.lazy(() =>
@@ -33,7 +34,8 @@ const components: Record<string, React.ComponentType> = {
   graphify: GraphifyApp,
   'three-stage': ThreeStageApp,
   automa: AutomaApp,
-  'l-system': LSystemApp
+  'l-system': LSystemApp,
+  'art-canvas': ArtCanvasApp
 };
 
 export function DynamicProjectApp({ slug }: { slug: string }) {

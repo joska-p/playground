@@ -1,8 +1,3 @@
 {
-  "extends": "@repo/config-typescript/node.json",
-  "compilerOptions": {
-    "noUncheckedIndexedAccess": false,
-    "lib": ["ES2023"]
-  },
-  "include": ["src"]
+  "extends": "@repo/config-typescript/node.json"
 }

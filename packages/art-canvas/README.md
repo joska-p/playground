@@ -1,6 +1,6 @@
 # @repo/art-canvas
 
-> Scaffolded demo showcasing Zustand + Zod.
+> Playground for the art canvas.
 
 ---
 

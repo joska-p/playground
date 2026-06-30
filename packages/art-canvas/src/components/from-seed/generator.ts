@@ -27,18 +27,23 @@ export function generateShaderFromSeed(seed: string): string {
 
   // 2. Handle the dynamic function arguments
   let spaceCallLine;
-  if (selectedSpaceMod.name === 'repeatSpace') {
-    spaceCallLine = selectedSpaceMod.getCall({ uv: 'uv', count: gridCount });
-  } else if (selectedSpaceMod.name === 'rotate2d') {
-    spaceCallLine = selectedSpaceMod.getCall({ uv: 'uv', angle: 'u_time * 0.15' });
-  } else if (selectedSpaceMod.name === 'domainWarp') {
-    spaceCallLine = selectedSpaceMod.getCall({
-      uv: 'uv',
-      time: 'u_time',
-      intensity: warpIntensity
-    });
-  } else {
-    spaceCallLine = selectedSpaceMod.getCall({ uv: 'uv' });
+  switch (selectedSpaceMod.name) {
+    case 'repeatSpace':
+      spaceCallLine = selectedSpaceMod.getCall({ uv: 'uv', count: gridCount });
+      break;
+    case 'rotate2d':
+      spaceCallLine = selectedSpaceMod.getCall({ uv: 'uv', angle: 'u_time * 0.15' });
+      break;
+    case 'domainWarp':
+      spaceCallLine = selectedSpaceMod.getCall({
+        uv: 'uv',
+        time: 'u_time',
+        intensity: warpIntensity
+      });
+      break;
+    default:
+      spaceCallLine = selectedSpaceMod.getCall({ uv: 'uv' });
+      break;
   }
 
   const shapeCallLine = selectedShapeMod.getCall({ uv: 'uv', width: '0.25', height: '0.25' });
