@@ -1,7 +1,8 @@
 import type { Control, ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
-import { setSeed, setUiMode } from '../../stores/ui/actions';
-import { useInputMode, useSeed } from '../../stores/ui/selectors';
+import { useFromSeedSection } from '../../features/from-seed/controls/useFromSeedSection';
+import { setUiMode } from '../../stores/ui/actions';
+import { useInputMode } from '../../stores/ui/selectors';
 import type { InputMode } from '../../stores/ui/types';
 
 const inputModes: InputMode[] = ['seed', 'controled', 'manual'];
@@ -12,7 +13,6 @@ const inputModeOptions = inputModes.map((mode) => ({
 
 function ControlsPanel() {
   const inputMode = useInputMode();
-  const seed = useSeed();
 
   const inputControl: Control = {
     id: 'inputMode',
@@ -21,14 +21,6 @@ function ControlsPanel() {
     value: inputMode,
     options: inputModeOptions,
     onChange: (v: string) => setUiMode(v as InputMode)
-  };
-
-  const seedControl: Control = {
-    id: 'seed',
-    label: 'Seed',
-    type: 'text',
-    value: seed,
-    onChange: (v: string) => setSeed(v)
   };
 
   const sections: ControlSection[] = [
@@ -40,8 +32,10 @@ function ControlsPanel() {
     }
   ];
 
+  const fromSeedSection = useFromSeedSection();
+
   if (inputMode === 'seed') {
-    sections.find((section) => section.id === 'input')!.controls.push(seedControl);
+    sections.push(fromSeedSection);
   }
 
   return <ControlPanel sections={sections} />;
