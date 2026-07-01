@@ -1,10 +1,10 @@
-import type { ShaderModule } from '../types';
-import code from './domainWarp.glsl?raw'; //
+import type { ShaderModule } from '../../types';
+import code from '../../glsl/space/domainWarp.glsl?raw';
 
 export const domainWarp: ShaderModule = {
   name: 'domainWarp',
   category: 'space',
-  weight: 2.0, // Preferred for organic results
+  weight: 2.0,
   code,
   params: {
     time: { type: 'global', value: 'u_time' },

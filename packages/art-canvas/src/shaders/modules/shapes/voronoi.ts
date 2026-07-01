@@ -1,10 +1,10 @@
-import type { ShaderModule } from '../types';
-import code from './voronoi.glsl?raw';
+import type { ShaderModule } from '../../types';
+import code from '../../glsl/shapes/voronoi.glsl?raw';
 
 export const voronoiModule: ShaderModule = {
   name: 'voronoi',
   category: 'shapes',
-  weight: 2.0, // Preferred for high organic fidelity
+  weight: 2.0,
   code,
   params: {
     scale: { type: 'range', min: 2.0, max: 7.0 },

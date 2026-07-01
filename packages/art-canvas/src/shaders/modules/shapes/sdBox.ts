@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../types';
-import code from './sdBox.glsl?raw';
+import type { ShaderModule } from '../../types';
+import code from '../../glsl/shapes/sdBox.glsl?raw';
 
 export const sdBox: ShaderModule = {
   name: 'sdBox',
