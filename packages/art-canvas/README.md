@@ -68,4 +68,29 @@ This pattern scales. As the dictionary grows to dozens of modules, any shared ut
 
 ---
 
+## Captain's log, aftermath — stardate 2026.07.01
+
+A quiet watch. The shader compiles. I've been cycling through seeds and the generator keeps producing valid programs — not always beautiful, but always valid. The collision bug is behind us. Time to reflect on what we learned.
+
+**The collision seemed like a small bug** — two modules defining the same GLSL function. But it revealed a fundamental tension in the architecture. Modules were pretending to be self-contained (each inlines everything it needs), yet they relied on shared utilities. The `Set`-based dedup worked fine when nothing shared anything. The moment `noiseField` joined `flowField`, both pulling `noise2d`, the assumption broke.
+
+The real problem wasn't the duplicate. **The assembly had no concept of shared dependencies.** It only understood "give me every module's code string, keep unique strings." That's not an abstraction — it's string deduplication masquerading as one.
+
+**Was the fix right?** Yes. The `deps` approach makes the dependency graph explicit. A module says "I need noise2d", the generator resolves it by name, and each preamble appears exactly once. No string tricks, no hope-based dedup. The extra complexity is minimal — one array per module, one flat map in the generator. And it scales: adding a shared utility to `preamble/` will never cause a collision, even if a dozen modules reference it.
+
+But more importantly, **the architecture is now honest about its composition model:**
+
+- Modules are function snippets with explicit needs (`deps`) and outputs (`getCall`)
+- Preambles are shared utilities resolved once by name
+- Templates are structural skeletons that also declare their dependencies
+- The generator is the orchestrator — it knows the dependency graph, not just the strings
+
+This means the next module, the next template, the next shared utility — none of them will require rethinking the assembly layer. The groundwork is solid.
+
+The output quality isn't there yet — two templates and a handful of modules won't produce a lifetime of art. But the system is ready to compound. Every new module is a drop-in addition. Every new template is a new way to use what exists. The limiting factor is now the **dictionary's size**, not the architecture's correctness.
+
+We fixed a bug that would have become a wall. Now we can grow.
+
+---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
