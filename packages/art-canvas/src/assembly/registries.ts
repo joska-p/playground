@@ -6,12 +6,16 @@ import { truchet } from '../shaders/modules/shapes/truchet';
 import { voronoiModule } from '../shaders/modules/shapes/voronoi';
 import { domainWarp } from '../shaders/modules/space/domainWarp';
 import { flowField } from '../shaders/modules/space/flowField';
+import { kaleidoscope } from '../shaders/modules/space/kaleidoscope';
 import { mouseAttractor } from '../shaders/modules/space/mouseAttractor';
 import { polarCoords } from '../shaders/modules/space/polarCoords';
 import { repeatSpace } from '../shaders/modules/space/repeatSpace';
 import { rotate2d } from '../shaders/modules/space/rotate2d';
+import { twirl } from '../shaders/modules/space/twirl';
+import { posterize } from '../shaders/modules/effects/posterize';
 import { ClassicTemplate } from '../shaders/templates/classic';
 import { DirectNoiseTemplate } from '../shaders/templates/DirectNoiseTemplate';
+import { SinglePassTemplate } from '../shaders/templates/SinglePassTemplate';
 import noisePreamble from '../shaders/preamble/noise2d.glsl?raw';
 import fbmPreamble from '../shaders/preamble/fbm.glsl?raw';
 import type { ShaderModule, ShaderTemplate } from '../types';
@@ -28,6 +32,8 @@ export const SPACE_REGISTRY: ShaderModule[] = [
   repeatSpace,
   polarCoords,
   mouseAttractor,
+  twirl,
+  kaleidoscope,
 ];
 
 export const SHAPE_REGISTRY: ShaderModule[] = [
@@ -42,4 +48,9 @@ export const SHAPE_REGISTRY: ShaderModule[] = [
 export const TEMPLATE_REGISTRY: ShaderTemplate[] = [
   ClassicTemplate,
   DirectNoiseTemplate,
+  SinglePassTemplate,
+];
+
+export const EFFECT_REGISTRY: ShaderModule[] = [
+  posterize,
 ];

@@ -17,7 +17,9 @@ const DirectNoiseTemplate: ShaderTemplate = {
 
       float n = noise2d(uv * 2.0 + vec2(u_time * 0.2));
 
-      float t = n * 3.0 + u_time * 0.08;
+      float wave = n;
+      ${effectBlock}
+      float t = wave * 3.0 + u_time * 0.08;
       vec3 col = ${palette.a} + ${palette.b} * cos(6.28318 * (${palette.c} * t + ${palette.d}));
 
       gl_FragColor = vec4(col, 1.0);

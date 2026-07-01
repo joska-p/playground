@@ -23,8 +23,10 @@ const ClassicTemplate: ShaderTemplate = {
         ${shapeBlock}
 
         float interest = 1.0 - smoothstep(0.0, 0.5, abs(dist));
-        float t = abs(sin(dist * 8.0 - u_time * 1.5)) + i * 0.2 + u_time * 0.04;
+        float wave = abs(sin(dist * 8.0 - u_time * 1.5));
+        ${effectBlock}
 
+        float t = wave + i * 0.2 + u_time * 0.04;
         vec3 col = a + b * cos(6.28318 * (c * t + d));
         finalColor += col * interest;
         totalWeight += interest;

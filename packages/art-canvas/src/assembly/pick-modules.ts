@@ -1,23 +1,7 @@
 import { applyMood } from './apply-mood';
+import { processArgs } from './process-args';
 import { SPACE_REGISTRY, SHAPE_REGISTRY } from './registries';
 import type { Mood, SeededRandom, ShaderModule } from '../types';
-
-function processArgs(
-  mod: ShaderModule,
-  rng: SeededRandom
-): Record<string, string> {
-  const resolvedArgs: Record<string, string> = { uv: 'uv' };
-  if (!mod.params) return resolvedArgs;
-
-  for (const [paramName, rule] of Object.entries(mod.params)) {
-    if (rule.type === 'global' || rule.type === 'literal') {
-      resolvedArgs[paramName] = String(rule.value);
-    } else if (rule.type === 'range') {
-      resolvedArgs[paramName] = rng.range(rule.min, rule.max, rule.precision ?? 3);
-    }
-  }
-  return resolvedArgs;
-}
 
 export function pickModules(
   rng: SeededRandom,

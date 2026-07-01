@@ -4,7 +4,7 @@ const MOOD_REGISTRY: Mood[] = [
   {
     name: 'organic',
     weight: 1.0,
-    templateWeights: { classic: 0.7, 'direct-noise': 2.0 },
+    templateWeights: { classic: 0.7, 'direct-noise': 2.0, 'single-pass': 1.5 },
     moduleWeights: {
       noiseField: 3.0,
       flowField: 2.0,
@@ -14,6 +14,8 @@ const MOOD_REGISTRY: Mood[] = [
       circleSdf: 0.3,
       truchet: 0.1,
       lineSdf: 0.1,
+      twirl: 0.3,
+      kaleidoscope: 0.1,
       mouseAttractor: 0.3,
     },
     paletteWeights: {
@@ -26,7 +28,7 @@ const MOOD_REGISTRY: Mood[] = [
   {
     name: 'geometric',
     weight: 1.0,
-    templateWeights: { classic: 2.5, 'direct-noise': 0.3 },
+    templateWeights: { classic: 2.5, 'direct-noise': 0.3, 'single-pass': 1.0 },
     moduleWeights: {
       noiseField: 0.2,
       sdBox: 3.0,
@@ -36,6 +38,8 @@ const MOOD_REGISTRY: Mood[] = [
       lineSdf: 1.5,
       rotate2d: 1.8,
       repeatSpace: 1.5,
+      twirl: 2.0,
+      kaleidoscope: 2.5,
       domainWarp: 0.5,
       polarCoords: 1.5,
     },
@@ -49,7 +53,7 @@ const MOOD_REGISTRY: Mood[] = [
   {
     name: 'calm',
     weight: 1.0,
-    templateWeights: { classic: 0.5, 'direct-noise': 3.0 },
+    templateWeights: { classic: 0.5, 'direct-noise': 3.0, 'single-pass': 0.5 },
     moduleWeights: {
       noiseField: 2.5,
       circleSdf: 1.5,
@@ -59,6 +63,8 @@ const MOOD_REGISTRY: Mood[] = [
       repeatSpace: 2.0,
       polarCoords: 1.5,
       voronoi: 0.3,
+      twirl: 0.2,
+      kaleidoscope: 0.1,
     },
     paletteWeights: {
       deep_ocean: 3.0,
@@ -70,12 +76,14 @@ const MOOD_REGISTRY: Mood[] = [
   {
     name: 'energetic',
     weight: 1.0,
-    templateWeights: { classic: 2.0, 'direct-noise': 0.5 },
+    templateWeights: { classic: 2.0, 'direct-noise': 0.5, 'single-pass': 0.8 },
     moduleWeights: {
       domainWarp: 2.5,
       flowField: 1.5,
       mouseAttractor: 2.0,
       rotate2d: 1.5,
+      twirl: 2.5,
+      kaleidoscope: 1.5,
       voronoi: 2.0,
       sdBox: 1.5,
       circleSdf: 1.5,
