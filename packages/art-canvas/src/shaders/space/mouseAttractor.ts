@@ -3,6 +3,7 @@ import type { ShaderModule } from '../types';
 export const mouseAttractor: ShaderModule = {
   name: 'mouseAttractor',
   category: 'space',
+  weight: 1.0, // Standard selection probability
   code: `
     vec2 mouseAttractor(vec2 uv, vec2 mouse, float strength) {
         // Gravitational pull towards the cursor position
@@ -11,5 +12,9 @@ export const mouseAttractor: ShaderModule = {
         return uv + normalize(dir) * (1.0 / (dist + 1.0)) * strength;
     }
   `,
-  getCall: ({ uv, mouse }) => `uv = mouseAttractor(${uv}, ${mouse || 'u_mouse'}, 0.05);`
+  params: {
+    mouse: { type: 'global', value: 'u_mouse' },
+    strength: { type: 'range', min: 0.02, max: 0.12 }
+  },
+  getCall: ({ uv, mouse, strength }) => `uv = mouseAttractor(${uv}, ${mouse}, ${strength});`
 };

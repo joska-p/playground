@@ -1,8 +1,13 @@
+export type ParamDefinition =
+  | { type: 'global'; value: string } // e.g. 'u_time', 'u_mouse'
+  | { type: 'range'; min: number; max: number; precision?: number } // e.g. rng scale between 2.0 and 7.0
+  | { type: 'literal'; value: string | number }; // Fixed values
+
 export type ShaderModule = {
   name: string;
   category: 'space' | 'shapes' | 'effects';
   code: string;
-  // A template function that generates the actual GLSL function call line
-  // e.g., "uv = repeatSpace(uv, 3.0);"
-  getCall: (inputs: Record<string, string | number>) => string;
+  weight?: number; // Relative priority selector weight
+  params?: Record<string, ParamDefinition>; // Declares semantic parameter requirements
+  getCall: (args: Record<string, string>) => string; // Emits direct GLSL execution line
 };

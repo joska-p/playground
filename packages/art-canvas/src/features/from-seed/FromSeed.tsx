@@ -1,8 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { useSeed } from '../../stores/ui/selectors';
-//import { generateShaderFromSeed } from './generator';
+import { useDepth, useSeed } from '../../stores/ui/selectors';
 import { generateShaderFromSeed } from './generateShaderFromSeed';
 
 const vertexShader = `
@@ -17,7 +16,9 @@ const vertexShader = `
 function FromSeed() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const seed = useSeed();
-  const fragmentShader = generateShaderFromSeed(seed);
+  const depth = useDepth();
+
+  const fragmentShader = generateShaderFromSeed(seed, depth);
 
   useEffect(() => {
     if (materialRef.current) {

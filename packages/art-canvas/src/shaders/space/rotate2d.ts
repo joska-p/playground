@@ -4,8 +4,10 @@ import code from './rotate2d.glsl?raw';
 export const rotate2d: ShaderModule = {
   name: 'rotate2d',
   category: 'space',
+  weight: 1.2,
   code,
-  getCall: ({ uv, angle }) => {
-    return `${uv} = rotate2d(${uv}, ${angle});`;
-  }
+  params: {
+    angle: { type: 'global', value: 'u_time * 0.15' }
+  },
+  getCall: ({ uv, angle }) => `${uv} = rotate2d(${uv}, ${angle});`
 };

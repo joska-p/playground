@@ -5,7 +5,6 @@ export const cosinePalette: ShaderModule = {
   name: 'cosinePalette',
   category: 'effects',
   code,
-  getCall: (inputs: Record<string, string | number>) => {
-    return `uv = ${inputs['uv']};`;
-  }
+  getCall: ({ dist, offset, a, b, c, d }) =>
+    `vec3 col = cosinePalette(${dist} + ${offset}, ${a}, ${b}, ${c}, ${d});`
 };

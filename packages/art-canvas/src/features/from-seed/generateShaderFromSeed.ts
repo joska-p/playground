@@ -1,5 +1,6 @@
 import { cosinePalette } from '../../shaders/effects/cosinePalette';
 import { posterize } from '../../shaders/effects/posterize';
+import { surfaceLighting } from '../../shaders/effects/surfaceLighting';
 import { sdBox } from '../../shaders/shapes/sdBox';
 import { voronoiModule } from '../../shaders/shapes/voronoi';
 import { domainWarp } from '../../shaders/space/domainWarp';
@@ -9,139 +10,136 @@ import { polarCoords } from '../../shaders/space/polarCoords';
 import { repeatSpace } from '../../shaders/space/repeatSpace';
 import { rotate2d } from '../../shaders/space/rotate2d';
 import type { ShaderModule } from '../../shaders/types';
+import { PALETTE_REGISTRY } from './utils/palette-registry';
 import { SeededRandom } from './utils/seededRandom';
 
-// 1. Registries categorized by their exact functional signature contracts
-const SPACE_MODIFIERS: ShaderModule[] = [
-  repeatSpace,
-  polarCoords,
-  rotate2d,
+const SPACE_REGISTRY: ShaderModule[] = [
   domainWarp,
   flowField,
+  rotate2d,
+  repeatSpace,
+  polarCoords,
   mouseAttractor
 ];
-const SHAPE_MODIFIERS: ShaderModule[] = [sdBox, voronoiModule];
+const SHAPE_REGISTRY: ShaderModule[] = [voronoiModule, sdBox];
+const EFFECT_REGISTRY: ShaderModule[] = [posterize, surfaceLighting];
 
-export function generateShaderFromSeed(seed: string): string {
+export function generateShaderFromSeed(seed: string, maxDepth: number = 3): string {
   const rng = new SeededRandom(seed);
+  const activeModules: ShaderModule[] = [];
 
-  // Determine how many space warps to chain together (e.g., between 1 and 3 sequential steps)
-  const spaceChainLength = Math.floor(rng.next() * 2) + 1;
-  const selectedSpaceMods: ShaderModule[] = [];
-  for (let i = 0; i < spaceChainLength; i++) {
-    selectedSpaceMods.push(rng.pick(SPACE_MODIFIERS));
-  }
+  const processArgs = (mod: ShaderModule): Record<string, string> => {
+    const resolvedArgs: Record<string, string> = { uv: 'uv' };
+    if (!mod.params) return resolvedArgs;
 
-  // Pick exactly one shape field generator
-  const selectedShapeMod = rng.pick(SHAPE_REGISTRY_CONTRACTABLE_FALLBACK(SHAPE_MODIFIERS));
-  const usePosterize = rng.next() > 0.6; // 40% chance for cellular posterization
-
-  // Pre-calculate randomized values from the seed to feed into the inputs safely
-  const gridCount = (rng.next() * 3.0 + 1.5).toFixed(1);
-  const coreComplexity = Math.floor(rng.next() * 2 + 2);
-  const warpIntensity = (rng.next() * 0.4 + 0.1).toFixed(3);
-  const voronoiScale = (rng.next() * 5.0 + 2.0).toFixed(1);
-  const voronoiSpeed = (rng.next() * 1.2 + 0.2).toFixed(2);
-  const flowStrength = (rng.next() * 0.2 + 0.05).toFixed(3);
-
-  const paletteVecD = `vec3(${rng.next().toFixed(3)}, ${rng.next().toFixed(3)}, ${rng.next().toFixed(3)})`;
-
-  // 2. Map all potential runtime arguments into a shared contextual payload object
-  const inputContext = {
-    uv: 'uv',
-    time: 'u_time',
-    mouse: 'u_mouse',
-    count: gridCount,
-    angle: 'u_time * 0.15',
-    intensity: warpIntensity,
-    strength: flowStrength,
-    scale: voronoiScale,
-    animSpeed: voronoiSpeed,
-    width: '0.25',
-    height: '0.25'
+    for (const [paramName, rule] of Object.entries(mod.params)) {
+      if (rule.type === 'global' || rule.type === 'literal') {
+        resolvedArgs[paramName] = String(rule.value);
+      } else if (rule.type === 'range') {
+        resolvedArgs[paramName] = rng.range(rule.min, rule.max, rule.precision ?? 3);
+      }
+    }
+    return resolvedArgs;
   };
 
-  // 3. Chain execution definitions sequentially
-  const spaceCallLines = selectedSpaceMods
-    .map((mod) => mod.getCall(inputContext))
-    .join('\n          ');
+  // 1. AST Construction
+  let spaceExecutionBlock = '';
+  for (let d = 0; d < maxDepth; d++) {
+    const pickedSpace = rng.pickWeighted(SPACE_REGISTRY);
+    activeModules.push(pickedSpace);
+    spaceExecutionBlock += `\n          ${pickedSpace.getCall(processArgs(pickedSpace))}`;
+  }
 
-  const shapeCallLine = selectedShapeMod.getCall(inputContext);
+  // 2. Select structural field evaluator
+  const pickedShape = rng.pickWeighted(SHAPE_REGISTRY);
+  activeModules.push(pickedShape);
+  const shapeExecutionLine = pickedShape.getCall(processArgs(pickedShape));
 
-  // 4. Extract unique boilerplate code definitions to prevent redefinition compile crashes
-  const uniqueInjectedCode = Array.from(
-    new Set([...selectedSpaceMods, selectedShapeMod].map((mod) => mod.code))
-  ).join('\n');
+  // 3. Post Effects
+  const hasPosterize = rng.next() > 0.6;
+  const hasLighting = rng.next() > 0.4;
+
+  EFFECT_REGISTRY.forEach((effect) => {
+    if (effect.name === 'posterize' && hasPosterize) activeModules.push(effect);
+    if (effect.name === 'surfaceLighting' && hasLighting) activeModules.push(effect);
+  });
+
+  activeModules.push(cosinePalette);
+  const uniqueInjectedCode = Array.from(new Set(activeModules.map((m) => m.code))).join('\n');
+
+  const pickedPalette = rng.pickWeighted(PALETTE_REGISTRY);
+  const rippleSpeed = rng.range(3.0, 11.0, 1);
+  const coreComplexity = Math.floor(rng.next() * 2 + 2);
 
   return `
-    uniform float u_time;
-    uniform vec2 u_mouse;
-    varying vec2 vUv;
+      uniform float u_time;
+      uniform vec2 u_mouse;
+      varying vec2 vUv;
 
-    // --- Dynamic Code Injection ---
-    ${uniqueInjectedCode}
-    ${cosinePalette.code}
-    ${usePosterize ? posterize.code : ''}
+      // --- Automated Grammar Code Injection ---
+      ${uniqueInjectedCode}
 
-    void main() {
-      vec2 uv = vUv - 0.5;
-      vec2 uv0 = uv;
-      vec3 finalColor = vec3(0.0);
+      void main() {
+        vec2 uv = vUv - 0.5;
+        uv *= 2.0; // Zoom out slightly so shapes fit nicely
+        vec2 uv0 = uv;
+        vec3 finalColor = vec3(0.0);
 
-      vec3 a = vec3(0.5, 0.5, 0.5);
-      vec3 b = vec3(0.5, 0.5, 0.5);
-      vec3 c = vec3(1.0, 1.0, 1.0);
-      vec3 d = ${paletteVecD};
+        // Aesthetic rules
+        vec3 a = ${pickedPalette.a};
+        vec3 b = ${pickedPalette.b};
+        vec3 c = ${pickedPalette.c};
+        vec3 d = ${pickedPalette.d};
+        vec3 lightDir = normalize(vec3(0.5, 0.5, 1.0));
 
-      // Define a virtual light source position in 3D space (moving organically over time)
-      vec3 lightPos = vec3(sin(u_time * 0.5) * 0.5, cos(u_time * 0.3) * 0.5, 1.0);
+        for (float i = 0.0; i < ${coreComplexity.toFixed(1)}; i++) {
 
-      for (float i = 0.0; i < ${coreComplexity.toFixed(1)}; i++) {
-        ${spaceCallLines}
-        ${shapeCallLine} // Generates 'dist'
+            // FIX 1: Reset UV at the start of the loop.
+            // This prevents domain warps from compounding into chaos across iterations.
+            uv = uv0;
 
-        // 1. CALCULATE NORMALS (For Weight)
-        // Look at neighboring coordinates to figure out slopes
-        vec2 eps = vec2(0.005, 0.0);
-        // We can estimate the gradient vector of our field
-        float dX = dist - (length(uv + eps.xy));
-        float dY = dist - (length(uv + eps.yx));
-        vec3 normal = normalize(vec3(dX, dY, 0.03)); // Smaller Z = thicker/heavier ridges
+            // Coordinate space operations
+            ${spaceExecutionBlock}
 
-        // 2. LIGHTING CALCULATION (Diffused & Specular Highlights)
-        vec3 fragPos = vec3(uv0, dist * 0.2); // Treat the distance as an actual Z height
-        vec3 lightDir = normalize(lightPos - fragPos);
+            // Shape evaluation (module declares 'float dist = ...')
+            ${shapeExecutionLine}
 
-        float diffuse = max(dot(normal, lightDir), 0.0);
+            // Vignette/falloff
+            dist *= exp(-length(uv0) * 0.5);
 
-        // Specular highlights give it a wet, slimy, or polished stone look
-        vec3 viewDir = vec3(0.0, 0.0, 1.0);
-        vec3 reflectDir = reflect(-lightDir, normal);
-        float specular = pow(max(dot(viewDir, reflectDir), 0.0), 16.0); // 16.0 is shininess
+            float wave = sin(dist * ${rippleSpeed} - u_time * 1.5);
+            wave = abs(wave);
 
-        // 3. DEPTH ATTENUATION (Visual Fog)
-        // Deeper layers (higher 'i') get darker and lose contrast
-        float depthFactor = exp(-i * 0.4);
-        float centerFalloff = exp(-length(uv0) * 1.2);
+            // Optional abstract effects evaluation
+            ${hasPosterize ? posterize.getCall(processArgs(posterize)) : ''}
 
-        float mask = smoothstep(0.5, 0.0, dist);
+            // Color generation (module declares 'vec3 col = ...')
+            ${cosinePalette.getCall({ dist: 'dist', offset: 'i * 0.15 + u_time * 0.05', a: 'a', b: 'b', c: 'c', d: 'd' })}
 
-        // Sample our palette color map
-        vec3 baseColor = cosinePalette(dist + i * 0.2 + u_time * 0.05, a, b, c, d);
+            // Optional structural surface lighting
+            ${
+              hasLighting
+                ? `
+            ${surfaceLighting.getCall({ uv: 'uv' })}
+            float diffuse = max(dot(normal, lightDir), 0.0);
+            col = col * (diffuse + 0.3) + vec3(pow(diffuse, 32.0) * 0.25);
+            `
+                : `
+            col *= (1.0 - dot(uv, uv0) * 0.5);
+            `
+            }
 
-        // Mix lighting into our base color to give it weight
-        vec3 shadedColor = baseColor * (diffuse + 0.2) + vec3(specular * 0.4);
+            // FIX 2 & 3: Clean accumulation and Absolute Distance Masking
+            // Using abs(dist) ensures the INSIDE of SDF shapes isn't pitch black.
+            // Additive blending prevents color values from clipping to white.
+            float mask = smoothstep(0.5, 0.0, abs(dist)) * 0.6;
+            finalColor += col * mask;
+        }
 
-        // Accumulate the layers using our depth factor
-        finalColor = mix(finalColor, finalColor + shadedColor, mask * 0.6 * depthFactor * centerFalloff);
+        // Subtle global vignette
+        finalColor *= 1.0 - 0.3 * length(uv0);
+
+        gl_FragColor = vec4(finalColor, 1.0);
       }
-
-      gl_FragColor = vec4(finalColor, 1.0);
-    }
-  `;
-}
-
-// Small helper to ensure typing safety during pick evaluations
-function SHAPE_REGISTRY_CONTRACTABLE_FALLBACK(mods: ShaderModule[]): ShaderModule[] {
-  return mods;
+    `;
 }

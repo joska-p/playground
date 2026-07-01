@@ -8,3 +8,7 @@ export const setUiMode = (inputMode: InputMode) => {
 export const setSeed = (seed: string) => {
   uiStore.setState({ seed });
 };
+
+export const setDepth = (depth: number) => {
+  uiStore.setState({ depth });
+};
