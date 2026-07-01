@@ -1,7 +1,7 @@
+import type { Mood, SeededRandom, ShaderModule } from '../types';
 import { applyMood } from './apply-mood';
 import { processArgs } from './process-args';
 import { EFFECT_REGISTRY } from './registries';
-import type { Mood, SeededRandom, ShaderModule } from '../types';
 
 export function pickEffects(
   rng: SeededRandom,
@@ -15,9 +15,7 @@ export function pickEffects(
     effectModules.push(effect);
   }
 
-  const effectBlock = effectModules
-    .map((m) => m.getCall(processArgs(m, rng)))
-    .join('\n');
+  const effectBlock = effectModules.map((m) => m.getCall(processArgs(m, rng))).join('\n');
 
   return { effectBlock, effectModules };
 }

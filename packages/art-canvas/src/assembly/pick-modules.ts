@@ -1,7 +1,7 @@
+import type { Mood, SeededRandom, ShaderModule } from '../types';
 import { applyMood } from './apply-mood';
 import { processArgs } from './process-args';
-import { SPACE_REGISTRY, SHAPE_REGISTRY } from './registries';
-import type { Mood, SeededRandom, ShaderModule } from '../types';
+import { SHAPE_REGISTRY, SPACE_REGISTRY } from './registries';
 
 export function pickModules(
   rng: SeededRandom,
@@ -26,6 +26,6 @@ export function pickModules(
   return {
     activeModules,
     spaceBlock,
-    shapeBlock: shape.getCall(processArgs(shape, rng)),
+    shapeBlock: shape.getCall(processArgs(shape, rng))
   };
 }

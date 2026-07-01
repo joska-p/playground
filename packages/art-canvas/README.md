@@ -12,7 +12,7 @@ The generator works. It picks modules, assembles them into a fragment shader, an
 loop: space → shape → wave → effects → color
 ```
 
-It only varies *which* module fills each slot, never the structure itself. Two different seeds produce different modules, but the same pipeline. For truly organic variation, the assembly needs to vary along deeper dimensions.
+It only varies _which_ module fills each slot, never the structure itself. Two different seeds produce different modules, but the same pipeline. For truly organic variation, the assembly needs to vary along deeper dimensions.
 
 **The problem is not the dictionary — it's the grammar.** The pieces exist. What's missing is a system that can compose them in fundamentally different ways.
 
@@ -59,7 +59,7 @@ The fix: **preamble dependencies.** Shared utility functions (`noise2d`, `fbm`) 
 
 ```
 flowField → deps: ['noise2d']
-noiseField → deps: ['noise2d', 'fbm']  
+noiseField → deps: ['noise2d', 'fbm']
 ```
 
 The generator collects all unique deps from active modules, resolves them through a `PREAMBLE_REGISTRY`, and includes each preamble exactly once — regardless of how many modules depend on it. Module code is still deduplicated by the Set, but preambles are resolved by name. The two collision domains are now separate.

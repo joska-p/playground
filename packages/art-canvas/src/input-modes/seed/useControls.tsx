@@ -6,7 +6,7 @@ const MOOD_OPTIONS = [
   { label: 'Organic', value: 'organic' },
   { label: 'Geometric', value: 'geometric' },
   { label: 'Calm', value: 'calm' },
-  { label: 'Energetic', value: 'energetic' },
+  { label: 'Energetic', value: 'energetic' }
 ];
 
 const PALETTE_OPTIONS = [
@@ -14,7 +14,7 @@ const PALETTE_OPTIONS = [
   { label: 'Neon Cyber', value: 'neon_cyber' },
   { label: 'Biomorphic Flesh', value: 'biomorphic_flesh' },
   { label: 'Volcanic Magma', value: 'volcanic_magma' },
-  { label: 'Deep Ocean', value: 'deep_ocean' },
+  { label: 'Deep Ocean', value: 'deep_ocean' }
 ];
 
 function useSeedControls(): ControlSection {
@@ -47,7 +47,7 @@ function useSeedControls(): ControlSection {
     type: 'select',
     value: mood,
     options: MOOD_OPTIONS,
-    onChange: (v: string) => setMood(v),
+    onChange: (v: string) => setMood(v)
   };
 
   const paletteControl: Control = {
@@ -56,7 +56,7 @@ function useSeedControls(): ControlSection {
     type: 'select',
     value: palette,
     options: PALETTE_OPTIONS,
-    onChange: (v: string) => setPalette(v),
+    onChange: (v: string) => setPalette(v)
   };
 
   return {

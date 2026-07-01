@@ -5,6 +5,6 @@ export function applyMood<T extends { name: string; weight?: number }>(
   if (!moodWeights) return [...registry];
   return registry.map((item) => ({
     ...item,
-    weight: (item.weight ?? 1.0) * (moodWeights[item.name] ?? 1.0),
+    weight: (item.weight ?? 1.0) * (moodWeights[item.name] ?? 1.0)
   }));
 }

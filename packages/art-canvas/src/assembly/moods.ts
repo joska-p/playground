@@ -16,14 +16,14 @@ const MOOD_REGISTRY: Mood[] = [
       lineSdf: 0.1,
       twirl: 0.3,
       kaleidoscope: 0.1,
-      mouseAttractor: 0.3,
+      mouseAttractor: 0.3
     },
     paletteWeights: {
       iridescent_opal: 1.2,
       biomorphic_flesh: 3.0,
-      deep_ocean: 0.5,
+      deep_ocean: 0.5
     },
-    complexityBias: -1,
+    complexityBias: -1
   },
   {
     name: 'geometric',
@@ -41,14 +41,14 @@ const MOOD_REGISTRY: Mood[] = [
       twirl: 2.0,
       kaleidoscope: 2.5,
       domainWarp: 0.5,
-      polarCoords: 1.5,
+      polarCoords: 1.5
     },
     paletteWeights: {
       neon_cyber: 3.0,
       iridescent_opal: 1.0,
-      biomorphic_flesh: 0.3,
+      biomorphic_flesh: 0.3
     },
-    complexityBias: 0,
+    complexityBias: 0
   },
   {
     name: 'calm',
@@ -64,14 +64,14 @@ const MOOD_REGISTRY: Mood[] = [
       polarCoords: 1.5,
       voronoi: 0.3,
       twirl: 0.2,
-      kaleidoscope: 0.1,
+      kaleidoscope: 0.1
     },
     paletteWeights: {
       deep_ocean: 3.0,
       iridescent_opal: 2.0,
-      biomorphic_flesh: 0.5,
+      biomorphic_flesh: 0.5
     },
-    complexityBias: -1,
+    complexityBias: -1
   },
   {
     name: 'energetic',
@@ -88,16 +88,16 @@ const MOOD_REGISTRY: Mood[] = [
       sdBox: 1.5,
       circleSdf: 1.5,
       lineSdf: 1.2,
-      noiseField: 0.5,
+      noiseField: 0.5
     },
     paletteWeights: {
       volcanic_magma: 3.0,
       neon_cyber: 2.0,
       biomorphic_flesh: 1.5,
-      deep_ocean: 0.3,
+      deep_ocean: 0.3
     },
-    complexityBias: 1,
-  },
+    complexityBias: 1
+  }
 ];
 
 export { MOOD_REGISTRY };

@@ -1,9 +1,6 @@
 import type { SeededRandom, ShaderModule } from '../types';
 
-export function processArgs(
-  mod: ShaderModule,
-  rng: SeededRandom
-): Record<string, string> {
+export function processArgs(mod: ShaderModule, rng: SeededRandom): Record<string, string> {
   const resolvedArgs: Record<string, string> = { uv: 'uv' };
   if (!mod.params) return resolvedArgs;
 

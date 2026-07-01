@@ -1,6 +1,6 @@
 # art-canvas — development plan
 
-Goal: make `from-seed` produce *interesting* organic images/animation reliably, then
+Goal: make `from-seed` produce _interesting_ organic images/animation reliably, then
 build the architecture to keep compounding that capability.
 
 ---
@@ -12,12 +12,12 @@ build the architecture to keep compounding that capability.
 
 **What we need for organic output:**
 
-| Category | What's missing | Why organic |
-|---|---|---|
-| Noise (new category) | fbm (fractal brownian motion), simplex noise, ridged noise, cellular noise | Smooth organic fields. Current `noise2d` is only used by `flowField` — needs to be a first-class module |
-| Shapes | metaball-like distance, circle/ring, noise-as-shape (direct noise field as `dist`) | Replace geometric sdfs with fluid, blobby, cloud-like fields |
-| Space | twirl, spherical, wave distortion, turbulence | More organic ways to twist coordinate space |
-| Color | ink-bleed blending, edge glow, secondary palette mixing, hue-shift over time | Current cosine palette is the only color path |
+| Category             | What's missing                                                                     | Why organic                                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Noise (new category) | fbm (fractal brownian motion), simplex noise, ridged noise, cellular noise         | Smooth organic fields. Current `noise2d` is only used by `flowField` — needs to be a first-class module |
+| Shapes               | metaball-like distance, circle/ring, noise-as-shape (direct noise field as `dist`) | Replace geometric sdfs with fluid, blobby, cloud-like fields                                            |
+| Space                | twirl, spherical, wave distortion, turbulence                                      | More organic ways to twist coordinate space                                                             |
+| Color                | ink-bleed blending, edge glow, secondary palette mixing, hue-shift over time       | Current cosine palette is the only color path                                                           |
 
 **Approach:** one module per PR. Add it to the registry, verify the generator picks it,
 check that `tsc --noEmit` and the app still work. Each addition automatically
@@ -33,7 +33,7 @@ compounds combinatorial variety.
 space transforms → shape → vignette → sin-wave → effects → cosine palette → lighting
 ```
 
-The generator picks *which* modules to slot in, but never varies the structure itself.
+The generator picks _which_ modules to slot in, but never varies the structure itself.
 
 **What to vary:**
 
@@ -56,6 +56,7 @@ level of selection.
 certain looks.
 
 **What to add (iterate on UX):**
+
 - **Lock a module** — re-randomize seed but keep e.g. `domainWarp` + `voronoi`
 - **Category weights** — sliders for "more space transforms" vs "more effects"
 - **Style presets** — "fluid", "crystalline", "neon", "topographic" that bias module weights
@@ -69,6 +70,7 @@ certain looks.
 compilation. Fine at 8 modules, risky at 20+.
 
 **Options to explore when it bites:**
+
 - Name-mangle each module's functions with a unique prefix (e.g. `flowField_flowField`,
   `domainWarp_domainWarp`) — auto-generated, so modules never collide
 - Hoist shared helpers (noise) into a preamble that modules reference rather than

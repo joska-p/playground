@@ -7,8 +7,7 @@ export const twirl: ShaderModule = {
   weight: 1.0,
   code,
   params: {
-    strength: { type: 'range', min: 0.5, max: 4.0 },
+    strength: { type: 'range', min: 0.5, max: 4.0 }
   },
-  getCall: ({ uv, strength }) =>
-    `uv = twirl(${uv}, ${strength}, vec2(0.0, 0.0));`,
+  getCall: ({ uv, strength }) => `uv = twirl(${uv}, ${strength}, vec2(0.0, 0.0));`
 };

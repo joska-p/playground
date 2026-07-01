@@ -7,7 +7,7 @@ export const truchet: ShaderModule = {
   weight: 1.2,
   code,
   params: {
-    scale: { type: 'range', min: 1.0, max: 6.0 },
+    scale: { type: 'range', min: 1.0, max: 6.0 }
   },
-  getCall: ({ uv, scale }) => `float dist = sdTruchet(${uv}, ${scale});`,
+  getCall: ({ uv, scale }) => `float dist = sdTruchet(${uv}, ${scale});`
 };

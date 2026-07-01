@@ -1,5 +1,5 @@
-import { pickModules } from './pick-modules';
 import { pickEffects } from './pick-effects';
+import { pickModules } from './pick-modules';
 import { effectiveComplexity, pickMood } from './pick-mood';
 import { pickPalette } from './pick-palette';
 import { pickTemplate } from './pick-template';
