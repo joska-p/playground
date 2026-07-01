@@ -1,11 +1,4 @@
-type PalettePreset = {
-  name: string;
-  weight?: number;
-  a: string;
-  b: string;
-  c: string;
-  d: string;
-};
+import type { PalettePreset } from '../types';
 
 const PALETTE_REGISTRY: PalettePreset[] = [
   {
