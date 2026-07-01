@@ -4,7 +4,7 @@ const DirectNoiseTemplate: ShaderTemplate = {
   name: 'direct-noise',
   weight: 0.6,
   deps: ['noise2d'],
-  generate: ({ spaceBlock, uniqueInjectedCode, palette }) => `
+  generate: ({ spaceBlock, uniqueInjectedCode, palette, effectBlock }) => `
     uniform float u_time;
     uniform vec2 u_mouse;
     varying vec2 vUv;
