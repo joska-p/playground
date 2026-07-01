@@ -1,10 +1,10 @@
 import type { Control, ControlSection } from '@repo/ui/ControlPanel';
-import { setDepth, setSeed } from '../../stores/ui/actions';
-import { useDepth, useSeed } from '../../stores/ui/selectors';
+import { setComplexity, setSeed } from '../../stores/ui/actions';
+import { useComplexity, useSeed } from '../../stores/ui/selectors';
 
 function useSeedControls(): ControlSection {
   const seed = useSeed();
-  const depth = useDepth();
+  const complexity = useComplexity();
 
   const seedControl: Control = {
     id: 'seed',
@@ -14,20 +14,20 @@ function useSeedControls(): ControlSection {
     onChange: (v: string) => setSeed(v)
   };
 
-  const depthControl: Control = {
-    id: 'depth',
-    label: 'Depth',
+  const complexityControl: Control = {
+    id: 'complexity',
+    label: 'Complexity',
     type: 'number',
     min: 1,
     max: 5,
-    value: depth,
-    onChange: (v: number) => setDepth(v)
+    value: complexity,
+    onChange: (v: number) => setComplexity(v)
   };
 
   return {
     id: 'seed',
     label: 'Seed',
-    controls: [seedControl, depthControl]
+    controls: [seedControl, complexityControl]
   };
 }
 

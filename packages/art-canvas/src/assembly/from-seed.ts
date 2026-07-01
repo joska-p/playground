@@ -50,19 +50,17 @@ function processArgs(mod: ShaderModule, rng: SeededRandom): Record<string, strin
   return resolvedArgs;
 }
 
-export function generateShaderFromSeed(seed: string): string {
+export function generateShaderFromSeed(seed: string, complexity: number = 3): string {
   const rng = createSeededRandom(seed);
   const activeModules: ShaderModule[] = [];
 
   // 1. Pick the structural grammar first
   const pickedTemplate = rng.pickWeighted(TEMPLATE_REGISTRY);
 
-  // 2. Resolve spaces, shapes, and effects as needed
-  // (You can even let the template dictate how many modules it wants!)
+  // 2. Resolve spaces, shapes, and effects — complexity controls how many
   let spaceBlock = '';
-  const depth = pickedTemplate.name === 'direct-noise' ? 4 : 2; // Dynamic constraints!
 
-  for (let d = 0; d < depth; d++) {
+  for (let d = 0; d < complexity; d++) {
     const space = rng.pickWeighted(SPACE_REGISTRY);
     activeModules.push(space);
     spaceBlock += `\n${space.getCall(processArgs(space, rng))}`;
@@ -87,6 +85,7 @@ export function generateShaderFromSeed(seed: string): string {
 
   // 4. Delegate compilation to the chosen grammar sentence
   return pickedTemplate.generate({
+    complexity,
     rng,
     spaceBlock,
     shapeBlock: shape.getCall(processArgs(shape, rng)),

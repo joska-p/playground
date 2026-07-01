@@ -9,6 +9,6 @@ export const setSeed = (seed: string) => {
   uiStore.setState({ seed });
 };
 
-export const setDepth = (depth: number) => {
-  uiStore.setState({ depth });
+export const setComplexity = (complexity: number) => {
+  uiStore.setState({ complexity });
 };

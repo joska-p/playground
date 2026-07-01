@@ -3,7 +3,7 @@ import type { ShaderTemplate } from '../../types';
 const ClassicTemplate: ShaderTemplate = {
   name: 'classic',
   weight: 1.0,
-  generate: ({ spaceBlock, shapeBlock, effectBlock, palette, uniqueInjectedCode }) => `
+  generate: ({ complexity, spaceBlock, shapeBlock, effectBlock, palette, uniqueInjectedCode }) => `
     uniform float u_time;
     uniform vec2 u_mouse;
     varying vec2 vUv;
@@ -17,7 +17,7 @@ const ClassicTemplate: ShaderTemplate = {
       // Palette vectors
       vec3 a = ${palette.a}; vec3 b = ${palette.b}; vec3 c = ${palette.c}; vec3 d = ${palette.d};
 
-      for (float i = 0.0; i < 3.0; i++) {
+      for (float i = 0.0; i < ${complexity + 1}.0; i++) {
         uv = uv0;
         ${spaceBlock}
         ${shapeBlock} // declares float dist

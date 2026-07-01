@@ -4,7 +4,7 @@ import type { UiStoreState } from './types';
 const uiStore = createStore<UiStoreState>(() => ({
   inputMode: 'seed',
   seed: 'random seed',
-  depth: 3
+  complexity: 3
 }));
 
 export { uiStore };

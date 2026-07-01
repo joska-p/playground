@@ -42,6 +42,7 @@ export type ShaderTemplate = {
   weight: number;
   deps?: string[];
   generate: (args: {
+    complexity: number;
     rng: SeededRandom;
     spaceBlock: string;
     shapeBlock: string;

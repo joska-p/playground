@@ -11,7 +11,7 @@ export const useSeed = () => {
   return seed;
 };
 
-export const useDepth = () => {
-  const depth = useStore(uiStore, (state) => state.depth);
-  return depth;
+export const useComplexity = () => {
+  const complexity = useStore(uiStore, (state) => state.complexity);
+  return complexity;
 };

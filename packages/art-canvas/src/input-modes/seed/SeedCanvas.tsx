@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { useSeed } from '../../stores/ui/selectors';
+import { useComplexity, useSeed } from '../../stores/ui/selectors';
 import { generateShaderFromSeed } from '../../assembly/from-seed';
 
 const vertexShader = `
@@ -16,7 +16,8 @@ const vertexShader = `
 function SeedCanvas() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const seed = useSeed();
-  const fragmentShader = generateShaderFromSeed(seed);
+  const complexity = useComplexity();
+  const fragmentShader = generateShaderFromSeed(seed, complexity);
 
   useEffect(() => {
     if (materialRef.current) {
