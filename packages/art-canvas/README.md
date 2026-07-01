@@ -115,4 +115,32 @@ The pieces are all in place. The work ahead is building — more modules, more t
 
 ---
 
+## Captain's log, the controls — stardate 2026.07.01
+
+The mood system was designed as an internal bias — pick a mood at random, let it nudge template/module/palette selection. But a mood the user can't choose is not a mood, it's a hidden parameter. And a palette locked behind a mood's weight table is a colour you can't reach when you want it.
+
+So mood and palette surfaced as independent controls — two dropdowns, passed directly to the generator alongside seed and complexity. The user picks the mood, the mood biases the template and module selection. The user picks the palette, that palette is used regardless of mood. Two axes of expression, orthogonal.
+
+The generator still works without either override — if nothing is selected, it falls back to random selection. But with the controls live, the user can now ask questions like "what does this seed look like under every mood?" or "can I run the same organic seed through a neon palette?" That's the kind of exploration the system was built for.
+
+---
+
+## Captain's log, the decomposition — stardate 2026.07.01
+
+The generator was one 130-line function that did everything — pick a mood, pick a template, pick modules, resolve dependencies, pick a palette, assemble the shader. It worked, but it was hard to read and harder to change. Every new feature meant wading through a linear wall of logic.
+
+Today it's eight small functions, each in its own file, each with exactly one job:
+
+- **pickMood** — selects a mood (or uses the user's choice)
+- **pickTemplate** — biased by mood, picks a structural skeleton
+- **pickModules** — picks space transforms and a shape, resolves their GLSL args
+- **resolveDeps** — collects preamble dependencies, deduplicates, assembles the code block
+- **pickPalette** — selects a palette (or uses the user's choice)
+
+The orchestrator (`from-seed.ts`) is now 28 lines that read like a recipe — import, call, pass results to the next step. The import graph tells the story: follow the arrows from `from-seed.ts` outward, and you see the entire pipeline without reading a single function body.
+
+This is what the codebase-design people call **depth**: each module has a small interface and a clear responsibility. The complexity hasn't gone anywhere — it's just properly distributed behind named seams. Adding a new step (say, an effects pass or a compositing strategy) means adding a new file to `assembly/` and one more call in the orchestrator. No existing step needs to change.
+
+---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_

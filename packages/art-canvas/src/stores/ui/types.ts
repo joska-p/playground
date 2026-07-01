@@ -4,4 +4,6 @@ export type UiStoreState = {
   inputMode: InputMode;
   seed: string;
   complexity: number;
+  mood: string;
+  palette: string;
 };

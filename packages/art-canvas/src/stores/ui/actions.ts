@@ -12,3 +12,11 @@ export const setSeed = (seed: string) => {
 export const setComplexity = (complexity: number) => {
   uiStore.setState({ complexity });
 };
+
+export const setMood = (mood: string) => {
+  uiStore.setState({ mood });
+};
+
+export const setPalette = (palette: string) => {
+  uiStore.setState({ palette });
+};
