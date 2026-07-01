@@ -143,4 +143,20 @@ This is what the codebase-design people call **depth**: each module has a small 
 
 ---
 
+## Captain's log, the enrichment — stardate 2026.07.01
+
+A building session. Three shapes landed last time (circleSdf, truchet, lineSdf). Today the dictionary grew again: two new space transforms, a third template, and the first effect wired into the pipeline.
+
+**Twirl** rotates UV by an angle proportional to distance from center — a spiral vortex that twists everything through it. Paired with domain warp you get smoke rings. Paired with kaleidoscope you get mandalas.
+
+**Kaleidoscope** folds UV into radial segments — 3 for triangles, 6 for hexagons, 12 for dense symmetry. It's a mirror, not a distortion: atan chops the angle, abs folds it, radius stays. Clean, fast, and transforms any shape into a rosette.
+
+**Single-pass template** has no loop. One evaluation, one color, done. The classic template accumulates layers; single-pass is a single brushstroke. It trades richness for clarity — better for shapes that speak for themselves (truchet, lineSdf) than for layered noise fields.
+
+**Posterize** finally works. It was registered as a ShaderModule but never assembled — the effectBlock was empty, so the wave variable was computed and discarded. Now the generator picks effects with 40% probability, calls `getCall()` to produce `wave = posterize(wave, 4.0)`, and inserts it between wave and the palette evaluation. One line, but it transforms a smooth color ramp into discrete bands. A small step, but it proves the effects pipeline works.
+
+The tally: 3 templates, 8 space modules, 6 shapes, 1 effect. The architecture is stable. The dictionary is growing. The output is getting richer.
+
+---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
