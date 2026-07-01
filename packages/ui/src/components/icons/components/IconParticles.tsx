@@ -10,7 +10,7 @@ const dots = [
   { cx: 8, cy: 52, r: 2.5 }
 ];
 
-const connections = [
+const connections: [number, number][] = [
   [0, 1],
   [1, 2],
   [2, 0],
@@ -29,11 +29,11 @@ export const IconParticles = createIcon({
     <>
       {connections.map(([a, b]) => (
         <line
-          key={`${a}-${b}`}
-          x1={dots[a].cx}
-          y1={dots[a].cy}
-          x2={dots[b].cx}
-          y2={dots[b].cy}
+          key={`${String(a)}-${String(b)}`}
+          x1={dots[a]?.cx ?? 0}
+          y1={dots[a]?.cy ?? 0}
+          x2={dots[b]?.cx ?? 0}
+          y2={dots[b]?.cy ?? 0}
           stroke="currentColor"
           strokeWidth="1"
           opacity={0.2}

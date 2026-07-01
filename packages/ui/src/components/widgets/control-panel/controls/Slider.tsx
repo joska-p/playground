@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { SliderControl as SliderControlType } from '../types';
 
 function formatValue(value: number, step?: number): string {
-  if (value === undefined || isNaN(value)) return '0'; // 👈 Safe execution fallback guard
+  if (isNaN(value)) return '0'; // 👈 Safe execution fallback guard
   if (step === undefined || step >= 1) return String(Math.round(value));
   const decimals = Math.max(0, -Math.floor(Math.log10(step)));
   return value.toFixed(decimals);
@@ -16,7 +16,7 @@ export function SliderControl({ control }: { control: SliderControlType }) {
   const min = control.min ?? 0;
   const max = control.max ?? 1;
   const step = control.step ?? 0.01;
-  const safeValue = control.value ?? min;
+  const safeValue = control.value;
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -43,7 +43,7 @@ export function SliderControl({ control }: { control: SliderControlType }) {
             ref={inputRef}
             type="number"
             value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
+            onChange={(e) => { setEditValue(e.target.value); }}
             onBlur={commitEdit}
             onKeyDown={(e) => {
               if (e.key === 'Enter') commitEdit();
@@ -75,7 +75,7 @@ export function SliderControl({ control }: { control: SliderControlType }) {
         max={max}
         step={step}
         value={safeValue}
-        onChange={(e) => control.onChange(parseFloat(e.target.value))}
+        onChange={(e) => { control.onChange(parseFloat(e.target.value)); }}
         disabled={control.disabled}
         className="bg-muted-foreground/20 accent-primary [&::-webkit-slider-thumb]:bg-primary [&::-moz-range-thumb]:bg-primary h-1.5 w-full cursor-pointer appearance-none rounded-full disabled:cursor-not-allowed disabled:opacity-50 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:shadow-sm [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-125"
       />

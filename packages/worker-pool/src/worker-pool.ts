@@ -49,7 +49,7 @@ export class WorkerPool<TTask, TResult> {
       job.reject(err);
     }
     this.queue.length = 0;
-    this.pool.forEach((entry) => entry.worker.terminate());
+    this.pool.forEach((entry) => { entry.worker.terminate(); });
     this.pool = [];
   }
 
@@ -75,7 +75,7 @@ export class WorkerPool<TTask, TResult> {
 
       const onError = (event: ErrorEvent) => {
         cleanup();
-        reject(new Error(event.message ?? 'Unknown worker error'));
+        reject(new Error(event.message || 'Unknown worker error'));
       };
 
       const cleanup = () => {
@@ -100,7 +100,8 @@ export class WorkerPool<TTask, TResult> {
     if (this.queue.length === 0) return;
     const entry = this.acquireWorker();
     if (!entry) return;
-    const job = this.queue.shift()!;
+    const job = this.queue.shift();
+    if (!job) return;
     this.dispatch(entry, job.task).then(job.resolve, job.reject);
   }
 }

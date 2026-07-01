@@ -16,12 +16,12 @@ function maxAbsInterval(data: number[]): number {
 function computeLayout(canvas: HTMLCanvasElement, data: number[]): CanvasLayout {
   let maxVal = 0;
   let minVal = 0;
-  for (let i = 0; i < data.length; i++) {
-    const v = data[i];
-    if (v === undefined) continue;
-    if (v > maxVal) maxVal = v;
-    if (v < minVal) minVal = v;
+
+  for (const value of data) {
+    if (value > maxVal) maxVal = value;
+    if (value < minVal) minVal = value;
   }
+
   const dataRange = maxVal - minVal;
   const horizontalScale = (canvas.width * 0.95) / (dataRange || Math.max(maxVal, -minVal) || 1);
   const verticalScale = (canvas.height * 0.85) / maxAbsInterval(data);

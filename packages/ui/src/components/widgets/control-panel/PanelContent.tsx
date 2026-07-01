@@ -43,7 +43,7 @@ export function PanelContent({
           key={section.id}
           section={section}
           isOpen={openSections.has(section.id)}
-          onToggle={() => toggleSection(section.id)}
+          onToggle={() => { toggleSection(section.id); }}
           flow={section.flow ?? 'vertical'}
         />
       ))}

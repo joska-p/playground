@@ -10,5 +10,5 @@ export const posterize: ShaderModule = {
     val: { type: 'literal', value: 'wave' },
     steps: { type: 'range', min: 3.0, max: 12.0, precision: 1 }
   },
-  getCall: ({ val, steps }) => `wave = posterize(${val}, ${steps});`
+  getCall: ({ val, steps }) => `wave = posterize(${val ?? '0.0'}, ${steps ?? '1.0'});`
 };

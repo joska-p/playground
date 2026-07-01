@@ -3,7 +3,7 @@ import { SeededRandom } from './SeededRandom';
 
 function generateHarmonics(seed: string) {
   const rng = new SeededRandom(seed);
-  const harmonics: Array<{ freqX: number; freqY: number; amp: number }> = [];
+  const harmonics: { freqX: number; freqY: number; amp: number }[] = [];
   for (let i = 0; i < 4; i++) {
     harmonics.push({
       freqX: 1 + Math.floor(rng.next() * 12),

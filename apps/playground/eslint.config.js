@@ -10,13 +10,5 @@ export default [
       'astro/no-set-html-directive': 'error',
       'import/no-default-export': 'off'
     }
-  },
-  {
-    files: ['**/*.astro/*.ts', '*.astro/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        project: null
-      }
-    }
   }
 ];

@@ -8,11 +8,11 @@ const DEFAULT_TILE_SIZE = 64;
 const DEFAULT_GAP_SIZE = 0;
 
 const initialTileSize = {
-  [CSS_VARS.size]: `${DEFAULT_TILE_SIZE}px`
+  [CSS_VARS.size]: `${String(DEFAULT_TILE_SIZE)}px`
 };
 
 const initialGapSize = {
-  [CSS_VARS.gap]: `${DEFAULT_GAP_SIZE}px`
+  [CSS_VARS.gap]: `${String(DEFAULT_GAP_SIZE)}px`
 };
 
 const initialRotations = {

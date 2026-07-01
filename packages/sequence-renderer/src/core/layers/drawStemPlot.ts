@@ -40,7 +40,7 @@ const drawStemPlot: VisualLayer = {
       markerRadius = 3,
       saturation = 75,
       lightness = 60
-    } = params as Record<string, unknown>;
+    } = params;
     const { valueScale, offsetX, offsetY, maxVal } = layout;
     if (data.length === 0 || maxVal === 0) return;
 
@@ -52,7 +52,7 @@ const drawStemPlot: VisualLayer = {
       const x = offsetX + val * valueScale;
       const stemLen = val * valueScale;
       const hue = (i * 137.5) % 360;
-      const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      const color = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
 
       ctx.strokeStyle = color;
       ctx.beginPath();

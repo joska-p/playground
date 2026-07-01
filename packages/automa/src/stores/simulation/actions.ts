@@ -112,7 +112,7 @@ const toggleRunning = (): void => {
   if (uiStore.getState().running) {
     pause();
   } else {
-    play();
+    void play();
   }
 };
 
@@ -158,7 +158,7 @@ const placePattern = (col: number, row: number, creature: Creature): void => {
       const gx = col - offsetX + x;
       const gy = row - offsetY + y;
       if (gx < 0 || gx >= ccols || gy < 0 || gy >= rrows) continue;
-      grid[gy * ccols + gx] = val as CellValue;
+      grid[gy * ccols + gx] = val;
       changed = true;
     }
   }

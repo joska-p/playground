@@ -14,95 +14,58 @@ declare module 'd3-force-3d' {
     target: number | string | NodeDatum;
   };
 
-  export type Simulation<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  > = {
-    tick(): this;
-    stop(): this;
-    restart(): this;
-    alpha(value?: number): this | number;
-    alphaDecay(value?: number): this | number;
-    numDimensions(value?: number): this | number;
-    nodes(): NodeDatum[];
-    nodes(value: NodeDatum[]): this;
-    force(name: string): Force<NodeDatum, LinkDatum> | undefined;
-    force(name: string, force: Force<NodeDatum, LinkDatum>): this;
-    find(x: number, y: number, radius?: number): NodeDatum | undefined;
-    on(type: string, listener?: (event: unknown) => void): this;
+  export type Force = (alpha: number) => void;
+
+  export type Simulation = {
+    tick(): Simulation;
+    stop(): Simulation;
+    restart(): Simulation;
+    alpha(value?: number): Simulation | number;
+    alphaDecay(value?: number): Simulation | number;
+    numDimensions(value?: number): Simulation | number;
+    nodes(): SimulationNodeDatum[];
+    nodes(value: SimulationNodeDatum[]): Simulation;
+    force(name: string): Force | undefined;
+    force(name: string, force: Force): Simulation;
+    find(x: number, y: number, radius?: number): SimulationNodeDatum | undefined;
+    on(type: string, listener?: (event: unknown) => void): Simulation;
   };
 
-  export type Force<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  > = {
-    (alpha: number): void;
-    initialize?(nodes: NodeDatum[], ...args: unknown[]): void;
-    linkDatumType?: LinkDatum;
-  };
+  export type ForceLink = {
+    links(links: SimulationLinkDatum<SimulationNodeDatum>[]): ForceLink;
+    id(accessor: (node: SimulationNodeDatum) => string | number): ForceLink;
+    distance(d: number | ((link: SimulationLinkDatum<SimulationNodeDatum>, i: number) => number)): ForceLink;
+    strength(s: number | ((link: SimulationLinkDatum<SimulationNodeDatum>, i: number) => number)): ForceLink;
+    iterations(count: number): ForceLink;
+  } & Force;
 
-  export type ForceLink<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  > = {
-    links(links: LinkDatum[]): this;
-    id(accessor: (node: NodeDatum) => string | number): this;
-    distance(d: number | ((link: LinkDatum, i: number) => number)): this;
-    strength(s: number | ((link: LinkDatum, i: number) => number)): this;
-    iterations(count: number): this;
-  } & Force<NodeDatum, LinkDatum>;
+  export type ForceManyBody = {
+    strength(s: number | ((node: SimulationNodeDatum, i: number) => number)): ForceManyBody;
+    distanceMin(min: number): ForceManyBody;
+    distanceMax(max: number): ForceManyBody;
+    theta(value: number): ForceManyBody;
+  } & Force;
 
-  export type ForceManyBody<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  > = {
-    strength(s: number | ((node: NodeDatum, i: number) => number)): this;
-    distanceMin(min: number): this;
-    distanceMax(max: number): this;
-    theta(value: number): this;
-  } & Force<NodeDatum, LinkDatum>;
+  export type ForceCenter = {
+    x(value?: number): ForceCenter | number;
+    y(value?: number): ForceCenter | number;
+    z(value?: number): ForceCenter | number;
+    strength(s?: number): ForceCenter | number;
+  } & Force;
 
-  export type ForceCenter<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  > = {
-    x(value?: number): this | number;
-    y(value?: number): this | number;
-    z(value?: number): this | number;
-    strength(s?: number): this | number;
-  } & Force<NodeDatum, LinkDatum>;
+  export type ForceCollide = {
+    radius(r: number | ((node: SimulationNodeDatum, i: number) => number)): ForceCollide;
+    strength(s: number): ForceCollide;
+    iterations(count: number): ForceCollide;
+  } & Force;
 
-  export type ForceCollide<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  > = {
-    radius(r: number | ((node: NodeDatum, i: number) => number)): this;
-    strength(s: number): this;
-    iterations(count: number): this;
-  } & Force<NodeDatum, LinkDatum>;
+  export function forceSimulation(nodes?: SimulationNodeDatum[]): Simulation;
 
-  export function forceSimulation<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  >(nodes?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
+  export function forceLink(links?: SimulationLinkDatum<SimulationNodeDatum>[]): ForceLink;
 
-  export function forceLink<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  >(links?: LinkDatum[]): ForceLink<NodeDatum, LinkDatum>;
+  export function forceManyBody(): ForceManyBody;
 
-  export function forceManyBody<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  >(): ForceManyBody<NodeDatum, LinkDatum>;
+  export function forceCenter(x?: number, y?: number, z?: number): ForceCenter;
 
-  export function forceCenter<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  >(x?: number, y?: number, z?: number): ForceCenter<NodeDatum, LinkDatum>;
-
-  export function forceCollide<
-    NodeDatum extends SimulationNodeDatum,
-    LinkDatum extends SimulationLinkDatum<NodeDatum>
-  >(radius?: number): ForceCollide<NodeDatum, LinkDatum>;
+  export function forceCollide(radius?: number): ForceCollide;
 }

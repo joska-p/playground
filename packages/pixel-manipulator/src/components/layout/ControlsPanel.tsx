@@ -31,30 +31,28 @@ function ControlsPanel() {
     {
       id: 'presets',
       label: 'Presets',
-      icon: iconMap['sparkles'],
-      controls: WORKFLOW_PRESETS.map(
-        (preset, i) =>
-          ({
-            id: `preset-${i}`,
-            label: preset.name,
-            type: 'button',
-            variant: 'default',
-            onClick: () =>
-              setWorkflowSteps(
-                preset.steps.map((step) => ({
-                  ...step,
-                  options: step.options ?? {},
-                  uid: crypto.randomUUID()
-                }))
-              ),
-            tooltip: preset.description
-          }) as Control
-      )
+      icon: iconMap.sparkles,
+      controls: WORKFLOW_PRESETS.map((preset, i) => ({
+        id: `preset-${String(i)}`,
+        label: preset.name,
+        type: 'button',
+        variant: 'default',
+        onClick: () => {
+          setWorkflowSteps(
+            preset.steps.map((step) => ({
+              ...step,
+              options: step.options ?? {},
+              uid: crypto.randomUUID()
+            }))
+          );
+        },
+        tooltip: preset.description
+      }))
     },
     {
       id: 'manipulations',
       label: 'Manipulations',
-      icon: iconMap['pipeline'],
+      icon: iconMap.pipeline,
       controls: [
         {
           id: 'select-manip',
@@ -62,14 +60,18 @@ function ControlsPanel() {
           type: 'select' as const,
           value: selectedManip,
           options: manipulationOptions,
-          onChange: (v: string) => setSelectedManip(v)
-        } as Control,
+          onChange: (v: string) => {
+            setSelectedManip(v);
+          }
+        },
         {
           id: 'add-step',
           label: 'Add to Workflow',
           type: 'button' as const,
           variant: 'primary' as const,
-          onClick: () => addWorkflowStep(selectedManip)
+          onClick: () => {
+            addWorkflowStep(selectedManip);
+          }
         }
       ]
     }
@@ -79,7 +81,7 @@ function ControlsPanel() {
     sections.push({
       id: 'source',
       label: 'Source',
-      icon: iconMap['image'],
+      icon: iconMap.image,
       controls: [
         ...(imageSource
           ? [
@@ -88,7 +90,9 @@ function ControlsPanel() {
                 label: 'Clear Source',
                 type: 'button' as const,
                 variant: 'default' as const,
-                onClick: () => clearImageSource()
+                onClick: () => {
+                  clearImageSource();
+                }
               } as Control
             ]
           : []),
@@ -99,7 +103,9 @@ function ControlsPanel() {
                 label: 'Clear Outputs',
                 type: 'button' as const,
                 variant: 'danger' as const,
-                onClick: () => clearOutputs()
+                onClick: () => {
+                  clearOutputs();
+                }
               } as Control
             ]
           : [])

@@ -37,7 +37,7 @@ export function NumberControl({ control }: { control: NumberControlType }) {
           ref={inputRef}
           type="number"
           value={editValue}
-          onChange={(e) => setEditValue(e.target.value)}
+          onChange={(e) => { setEditValue(e.target.value); }}
           onBlur={commitEdit}
           onKeyDown={(e) => {
             if (e.key === 'Enter') commitEdit();
@@ -59,8 +59,8 @@ export function NumberControl({ control }: { control: NumberControlType }) {
       <div className="border-border flex items-center overflow-hidden rounded-lg border">
         <button
           type="button"
-          onClick={() => stepValue(-1)}
-          disabled={control.disabled || control.value <= min}
+          onClick={() => { stepValue(-1); }}
+          disabled={control.disabled === true || control.value <= min}
           className="text-muted-foreground hover:text-foreground hover:bg-muted/50 px-2.5 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           aria-label="Decrease"
         >
@@ -91,8 +91,8 @@ export function NumberControl({ control }: { control: NumberControlType }) {
 
         <button
           type="button"
-          onClick={() => stepValue(1)}
-          disabled={control.disabled || control.value >= max}
+          onClick={() => { stepValue(1); }}
+          disabled={control.disabled === true || control.value >= max}
           className="text-muted-foreground hover:text-foreground hover:bg-muted/50 px-2.5 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-30"
           aria-label="Increase"
         >

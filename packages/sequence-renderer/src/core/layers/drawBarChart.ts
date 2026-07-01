@@ -13,7 +13,7 @@ export const drawBarChart: VisualLayer = {
   },
   draw: (ctx, data, params, layout) => {
     const { maxVal, valueScale, offsetX, offsetY } = layout;
-    const { barWidth, alpha, saturation, lightness } = params as Record<string, unknown>;
+    const { barWidth, alpha, saturation, lightness } = params;
 
     if (data.length === 0 || maxVal === 0) return;
 
@@ -28,7 +28,7 @@ export const drawBarChart: VisualLayer = {
       const height = Math.abs(val) * valueScale;
       const dir = val >= 0 ? -1 : 1;
 
-      ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      ctx.fillStyle = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
       ctx.fillRect(x, offsetY, width, dir * height);
     });
 

@@ -37,7 +37,7 @@ export function generateTrees(config: TreeConfig): TreeOutput {
   }
 
   // Mix the base seed string with unique properties so structural hashes change completely
-  const structureRng = new SeededRandom(`${config.seedText}_struct_${config.maxDepth}`);
+  const structureRng = new SeededRandom(`${config.seedText}_struct_${String(config.maxDepth)}`);
   const rngR = new SeededRandom(`${config.seedText}_red`);
   const rngG = new SeededRandom(`${config.seedText}_green`);
   const rngB = new SeededRandom(`${config.seedText}_blue`);

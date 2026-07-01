@@ -9,7 +9,13 @@ const fourierPool = new WorkerPool<Float32Array, Epicycle[]>({
     message: task,
     transfer: [task.buffer]
   }),
-  deserialize: (event) => event.data
+  deserialize: (event: MessageEvent<{ ok: boolean; value?: Epicycle[]; error?: string }>) => {
+    if (event.data.ok && event.data.value) {
+      return { ok: true, value: event.data.value };
+    } else {
+      return { ok: false, error: new Error(event.data.error ?? 'Unknown error in worker') };
+    }
+  }
 });
 
 const MAX_CACHE_SIZE = 20;
@@ -18,10 +24,10 @@ const activeQueries = new Set<string>();
 
 function hashPairs(pairs: Float32Array): string {
   let hash = 0;
-  for (let i = 0; i < pairs.length; i++) {
-    hash = ((hash << 5) - hash + pairs[i]!) | 0;
+  for (const pair of pairs) {
+    hash = ((hash << 5) - hash + pair) | 0;
   }
-  return `${pairs.length}:${hash}`;
+  return `${String(pairs.length)}:${String(hash)}`;
 }
 
 function cacheGet(key: string): Epicycle[] | undefined {

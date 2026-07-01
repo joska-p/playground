@@ -15,5 +15,6 @@ export const mouseAttractor: ShaderModule = {
     mouse: { type: 'global', value: 'u_mouse' },
     strength: { type: 'range', min: 0.02, max: 0.12 }
   },
-  getCall: ({ uv, mouse, strength }) => `uv = mouseAttractor(${uv}, ${mouse}, ${strength});`
+  getCall: ({ uv, mouse, strength }) =>
+    `uv = mouseAttractor(${String(uv)}, ${String(mouse)}, ${String(strength)});`
 };

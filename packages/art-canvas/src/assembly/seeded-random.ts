@@ -4,7 +4,7 @@ const HISTORY_LIMIT = 1024;
 
 export function createSeededRandom(seedString: string): SeededRandom {
   let seed: number;
-  const initialHash: number = (() => {
+  const initialHash = (() => {
     let hash = 2166136261;
     for (let i = 0; i < seedString.length; i++) {
       hash ^= seedString.charCodeAt(i);
@@ -16,7 +16,7 @@ export function createSeededRandom(seedString: string): SeededRandom {
 
   const choiceHistory: number[] = [];
 
-  const next = (): number => {
+  const next = () => {
     let z = (seed += 0x6d2b79f5);
     z = Math.imul(z ^ (z >>> 15), z | 1);
     z ^= z + Math.imul(z ^ (z >>> 7), z | 61);
@@ -29,13 +29,13 @@ export function createSeededRandom(seedString: string): SeededRandom {
     return result;
   };
 
-  const pick = <T>(arr: T[]): T => {
+  const pick = <T>(arr: T[]) => {
     if (arr.length === 0) throw new Error('Cannot pick from empty array!');
     const index = Math.floor(next() * arr.length);
-    return arr[index]!;
+    return arr[index];
   };
 
-  const pickWeighted = <T extends { weight?: number }>(arr: T[]): T => {
+  const pickWeighted = <T extends { weight?: number }>(arr: T[]) => {
     if (arr.length === 0) throw new Error('Cannot pick from empty array!');
     const totalWeight = arr.reduce((sum, item) => sum + (item.weight ?? 1.0), 0);
     let target = next() * totalWeight;
@@ -44,10 +44,10 @@ export function createSeededRandom(seedString: string): SeededRandom {
       target -= item.weight ?? 1.0;
       if (target <= 0) return item;
     }
-    return arr[arr.length - 1]!;
+    return arr[arr.length - 1];
   };
 
-  const range = (min: number, max: number, precision: number = 3): string => {
+  const range = (min: number, max: number, precision = 3): string => {
     const val = next() * (max - min) + min;
     return val.toFixed(precision);
   };

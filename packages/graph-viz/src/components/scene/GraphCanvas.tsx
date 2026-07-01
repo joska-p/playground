@@ -82,7 +82,7 @@ function GraphCanvas() {
       }}
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
-      onContextMenu={(e: React.MouseEvent) => e.preventDefault()}
+      onContextMenu={(e: React.MouseEvent) => { e.preventDefault(); }}
       onCreated={(state: RootState) => {
         const bg = getComputedStyle(state.gl.domElement.parentElement!).backgroundColor;
         state.gl.setClearColor(new THREE.Color(bg));

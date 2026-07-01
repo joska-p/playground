@@ -8,7 +8,7 @@ import { generateTileRotation } from './generateTileRotation';
 function computeInitialTiles(element: HTMLDivElement, tileSet: TileSet): TileInstance[] {
   const numberOfTiles = computeNumberOfTiles(element);
   return Array.from({ length: numberOfTiles }, (_, i) => ({
-    id: `${i}`,
+    id: String(i),
     name: getRandom(tileSet),
     colors: generateTileColors(),
     rotation: generateTileRotation()

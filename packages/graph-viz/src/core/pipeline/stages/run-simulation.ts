@@ -50,11 +50,11 @@ export function runSimulation(
 
   const simulation = forceSimulation()
     .numDimensions(3)
-    .nodes(simNodes as unknown[])
+    .nodes(simNodes)
     .force(
       'link',
       forceLink(simLinks)
-        .id((d: unknown) => (d as SimNode).id)
+        .id((d) => (d as SimNode).id)
         .distance(cfg.linkDistance)
     )
     .force('charge', forceManyBody().strength(cfg.chargeStrength))

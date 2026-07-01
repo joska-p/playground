@@ -7,7 +7,7 @@ import { useMosaicRef } from '../../stores/mosaic/selectors';
 function useSliderState(
   cssVar: string,
   defaultValue: number,
-  debounceMs: number = 150
+  debounceMs = 150
 ): { value: number; onChange: (value: number) => void } {
   const mosaicRef = useMosaicRef();
   const [value, setValue] = useState(defaultValue);
@@ -25,7 +25,7 @@ function useSliderState(
   const onChange = useCallback(
     (newValue: number) => {
       setValue(newValue);
-      mosaicRef.current?.style.setProperty(cssVar, `${newValue}px`);
+      mosaicRef.current?.style.setProperty(cssVar, `${String(newValue)}px`);
       if (debounceRef.current) {
         clearTimeout(debounceRef.current);
       }

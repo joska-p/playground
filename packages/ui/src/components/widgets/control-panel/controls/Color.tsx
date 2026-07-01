@@ -32,7 +32,7 @@ export function ColorControl({ control }: { control: ColorControlType }) {
             ref={inputRef}
             type="text"
             value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
+            onChange={(e) => { setEditValue(e.target.value); }}
             onBlur={commitEdit}
             onKeyDown={(e) => {
               if (e.key === 'Enter') commitEdit();
@@ -64,7 +64,7 @@ export function ColorControl({ control }: { control: ColorControlType }) {
           <input
             type="color"
             value={control.value}
-            onChange={(e) => control.onChange(e.target.value)}
+            onChange={(e) => { control.onChange(e.target.value); }}
             disabled={control.disabled}
             aria-label={`${control.label} picker`}
             className="absolute inset-0 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"

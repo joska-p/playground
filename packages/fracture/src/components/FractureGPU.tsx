@@ -23,10 +23,6 @@ function FractureGPU() {
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     const program = gl.createProgram();
-    if (!program) {
-      console.error('program cannot be created.');
-      return;
-    }
 
     const vertexShader = gl.createShader(gl.VERTEX_SHADER);
     if (!vertexShader) {

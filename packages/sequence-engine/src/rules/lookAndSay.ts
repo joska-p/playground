@@ -8,7 +8,7 @@ function nextLookAndSay(current: number): number {
     if (s[i] === s[i + 1]) {
       count++;
     } else {
-      result += String(count) + s[i];
+      result += String(count) + s.charAt(i);
       count = 1;
     }
   }

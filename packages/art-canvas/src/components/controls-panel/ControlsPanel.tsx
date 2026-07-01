@@ -20,7 +20,7 @@ function ControlsPanel() {
     type: 'select',
     value: inputMode,
     options: inputModeOptions,
-    onChange: (v: string) => setUiMode(v as InputMode)
+    onChange: (v: string) => { setUiMode(v as InputMode); }
   };
 
   const sections: ControlSection[] = [

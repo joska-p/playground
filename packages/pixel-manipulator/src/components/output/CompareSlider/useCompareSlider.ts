@@ -31,14 +31,18 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
 
     if (needsRebuild) {
       const s = document.createElement('canvas');
+      const sContext = s.getContext('2d');
+      if (!sContext) return;
       s.width = source.width;
       s.height = source.height;
-      s.getContext('2d')!.putImageData(source, 0, 0);
+      sContext.putImageData(source, 0, 0);
 
       const r = document.createElement('canvas');
+      const rContext = s.getContext('2d');
+      if (!rContext) return;
       r.width = result.width;
       r.height = result.height;
-      r.getContext('2d')!.putImageData(result, 0, 0);
+      rContext.putImageData(result, 0, 0);
 
       offscreenRef.current = { source: s, result: r };
       prevSourceRef.current = source;
@@ -83,7 +87,9 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
   const handleTouchStart = useCallback(
     (e: React.TouchEvent) => {
       isDragging.current = true;
-      updateSliderPosition(e.touches[0].clientX);
+      if (e.touches[0]) {
+        updateSliderPosition(e.touches[0].clientX);
+      }
     },
     [updateSliderPosition]
   );
@@ -91,7 +97,9 @@ export function useCompareSlider({ source, result }: UseCompareSliderArgs) {
   const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
       if (!isDragging.current) return;
-      updateSliderPosition(e.touches[0].clientX);
+      if (e.touches[0]) {
+        updateSliderPosition(e.touches[0].clientX);
+      }
     },
     [updateSliderPosition]
   );

@@ -54,6 +54,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Type check
+        run: pnpm check-types
+
+      - name: Lint
+        run: pnpm lint
+
       - name: Build and Prep
         run: |
           pnpm run deploy

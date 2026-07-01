@@ -10,10 +10,10 @@ function runFusedPixelBatch({
   source: Uint8ClampedArray;
   destination: Uint8ClampedArray;
   pixelCount: number;
-  batch: Array<{
+  batch: {
     definition: ManipulationDefinition;
     options: Record<string, unknown>;
-  }>;
+  }[];
 }) {
   for (let i = 0; i < pixelCount; i++) {
     const offset = i * 4;
@@ -42,10 +42,10 @@ function runFusedPixelBatch({
 }
 
 export class FusionScheduler {
-  private batch: Array<{
+  private batch: {
     definition: ManipulationDefinition;
     options: Record<string, unknown>;
-  }> = [];
+  }[] = [];
 
   add(definition: ManipulationDefinition, options: Record<string, unknown>) {
     this.batch.push({ definition, options });

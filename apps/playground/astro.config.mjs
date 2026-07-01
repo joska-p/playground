@@ -50,6 +50,7 @@ export default defineConfig({
             if (id.includes('node_modules/three')) return 'vendor-three';
             if (id.includes('node_modules/@react-three')) return 'vendor-r3f';
             if (id.includes('node_modules/colorjs.io')) return 'vendor-colorjs';
+            return undefined;
           }
         }
       }

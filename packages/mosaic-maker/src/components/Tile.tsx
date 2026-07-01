@@ -10,7 +10,7 @@ export type TileProps = {
 
 function ShapeRenderer({ shape, colors }: { shape: Shape; colors: string[] }) {
   const commonProps = {
-    fill: `var(${colors[shape.colorIndex]})`,
+    fill: `var(${String(colors[shape.colorIndex])})`,
     className: 'transition-all duration-500'
   };
 
@@ -72,7 +72,7 @@ function Tile({ name, colors, rotation, className }: TileProps) {
     >
       {definition.shapes.map((shape, index) => (
         <ShapeRenderer
-          key={`${name}-${index}`}
+          key={`${name}-${String(index)}`}
           shape={shape}
           colors={colors}
         />

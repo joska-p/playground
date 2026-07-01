@@ -11,5 +11,5 @@ export const voronoiModule: ShaderModule = {
     animSpeed: { type: 'range', min: 0.1, max: 1.2 }
   },
   getCall: ({ uv, scale, animSpeed }) =>
-    `float dist = voronoi(${uv} * ${scale}, u_time, ${animSpeed});`
+    `float dist = voronoi(${uv ?? 'uv'} * ${scale ?? '1.0'}, u_time, ${animSpeed ?? '1.0'});`
 };

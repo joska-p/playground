@@ -1,12 +1,8 @@
-import { useHelper } from '@react-three/drei';
+import { Helper } from '@react-three/drei';
 import { folder, useControls } from 'leva';
-import { useRef } from 'react';
 import { PointLightHelper } from 'three';
 
 export function PointLight() {
-  const light = useRef(null!);
-  useHelper(light, PointLightHelper, 1);
-
   const { intensity, color, decay, x, y, z } = useControls('Lighting', {
     Point: folder({
       intensity: {
@@ -51,11 +47,15 @@ export function PointLight() {
   return (
     <pointLight
       castShadow
-      ref={light}
       position={[x, y, z]}
       decay={decay}
       intensity={intensity}
       color={color}
-    />
+    >
+      <Helper
+        type={PointLightHelper}
+        args={[1]}
+      />
+    </pointLight>
   );
 }

@@ -70,8 +70,8 @@ export function Sidebar({
       openSidebar,
       closeSidebar,
       panelId,
-      desktopPosition: desktopPosition ?? 'bottom',
-      mobilePosition: mobilePosition ?? 'bottom'
+      desktopPosition,
+      mobilePosition
     }),
     [isOpen, toggleSidebar, openSidebar, closeSidebar, panelId, desktopPosition, mobilePosition]
   );
@@ -93,8 +93,8 @@ export function Sidebar({
         data-mobile-position={mobilePosition}
         data-desktop-position={desktopPosition}
         data-variant={variant}
-        className={cn(styles.sidebar, className)}
-        style={sidebarStyles as React.CSSProperties}
+        className={cn(styles['sidebar'], className)}
+        style={sidebarStyles}
         {...props}
       >
         {children}

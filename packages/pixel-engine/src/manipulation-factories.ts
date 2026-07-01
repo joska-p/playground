@@ -23,5 +23,5 @@ type DefineManipParams<Options, Identifier extends string> = {
 export function defineManip<Options, Identifier extends string = string>(
   params: DefineManipParams<Options, Identifier>
 ): ManipulationDefinition<Options> & { id: Identifier } {
-  return params as ManipulationDefinition<Options> & { id: Identifier };
+  return params;
 }

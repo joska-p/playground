@@ -1,9 +1,9 @@
 const HEIGHT = 10;
 const WIDTH = 100;
 
-const LEVELS = ' .:-=+*#%@';
+const LEVELS = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'] as const;
 
-function createCell() {
+function createCell(): string {
   return LEVELS[Math.floor(Math.random() * LEVELS.length)] as string;
 }
 
@@ -24,7 +24,7 @@ function displayGrid(grid: string[][]) {
 }
 
 function moveCursorUp(height: number) {
-  process.stdout.write(`\x1b[${height}F`);
+  process.stdout.write(`\x1b[${String(height)}F`);
 }
 
 console.clear();

@@ -15,7 +15,7 @@ export function SidebarToggle({ className, children, ...props }: ComponentProps<
       size="icon"
       variant="ghost"
       onClick={toggleSidebar}
-      className={cn(styles.toggle, className)}
+      className={cn(styles['toggle'], className)}
       aria-expanded={isOpen}
       aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
       {...props}

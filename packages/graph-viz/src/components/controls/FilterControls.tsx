@@ -92,7 +92,7 @@ function FilterControls() {
               return (
                 <button
                   key={c.id}
-                  onClick={() => toggleCommunity(c.id)}
+                  onClick={() => { toggleCommunity(c.id); }}
                   className={`flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors ${
                     isActive
                       ? 'bg-background/50 text-foreground'

@@ -18,12 +18,11 @@ const drawBaseline: VisualLayer = {
     color: { label: 'Color', type: 'color', default: '' }
   },
   draw: (ctx, _data, params, layout) => {
-    const { lineWidth = 1, alpha = 0.15, color } = params as Record<string, unknown>;
+    const { lineWidth = 1, alpha = 0.15, color } = params;
     const { minVal, maxVal, valueScale, offsetX, offsetY } = layout;
-    const textColor = getComputedStyle(ctx.canvas).color || 'black';
 
     ctx.save();
-    ctx.strokeStyle = (color as string) ?? textColor;
+    ctx.strokeStyle = color as string;
     ctx.lineWidth = lineWidth as number;
     ctx.globalAlpha = alpha as number;
     ctx.beginPath();

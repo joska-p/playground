@@ -11,5 +11,5 @@ export class MockWorkerPool<TTask, TResult> {
     return Promise.resolve(this.handler(task));
   }
 
-  teardown(): void {}
+  teardown(): void { return undefined; }
 }

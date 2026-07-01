@@ -38,7 +38,7 @@ const featuredDocsWithMeta = await Promise.all(
           type={doc.categoryId}
           iconName={doc.iconName}
           title={doc.data.title}
-          description={doc.data.description}
+          description={doc.data.description ?? ''}
         />
       );
     })

@@ -10,13 +10,7 @@ type ColorSpaceCanvasProps = {
   onPick?: (e: React.PointerEvent<HTMLCanvasElement>) => void;
 };
 
-function ColorSpaceCanvas({
-  ref,
-  spaceId,
-  zValue,
-  size = 200,
-  onPick = () => {}
-}: ColorSpaceCanvasProps) {
+function ColorSpaceCanvas({ ref, spaceId, zValue, size = 200, onPick }: ColorSpaceCanvasProps) {
   const config = useMemo(() => colorSpaces[spaceId], [spaceId]);
 
   useEffect(() => {

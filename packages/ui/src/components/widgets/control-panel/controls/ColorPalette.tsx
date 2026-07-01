@@ -11,7 +11,7 @@ export function ColorPaletteControl({ control }: { control: ColorPaletteControlT
 
   return (
     <div className="flex w-full flex-col gap-1.5">
-      <label className="sr-only">{control.label ?? control.name}</label>
+      <label className="sr-only">{control.label}</label>
 
       <label
         className={cn(
@@ -27,16 +27,16 @@ export function ColorPaletteControl({ control }: { control: ColorPaletteControlT
           value={control.value}
           checked={control.checked}
           disabled={control.disabled}
-          onChange={(e) => control.onChange?.(e.target.value)}
+          onChange={(e) => { control.onChange(e.target.value); }}
           className="sr-only"
         />
         {control.colors.map((color, index) => (
           <div
-            key={`${color}-${index}`}
+            key={`${color}-${String(index)}`}
             style={{ backgroundColor: color }}
             className={cn(
               'shrink-0 transition-transform hover:scale-105',
-              sizeMap[control.size ?? 'medium']
+              sizeMap[control.size]
             )}
             title={color}
           />

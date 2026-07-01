@@ -17,7 +17,7 @@ function Docs() {
 
   useEffect(() => {
     let cancelled = false;
-    loadDemoImage(CANVAS_SIZE).then((image) => {
+    void loadDemoImage(CANVAS_SIZE).then((image) => {
       if (!cancelled) setSourceData(image);
     });
     return () => {

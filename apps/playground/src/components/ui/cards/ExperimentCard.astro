@@ -29,7 +29,7 @@ const accentColor = `var(--category-${category}, var(--color-primary))`;
   href={href}
   accentColor={accentColor}
   variant="experiment"
-  className={className}
+  className={className ?? ''}
 >
   <!-- Hover gradient line -->
   <div

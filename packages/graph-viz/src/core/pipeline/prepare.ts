@@ -44,7 +44,7 @@ function main() {
     }
   }
 
-  const raw: RawGraph = JSON.parse(readFileSync(inputPath, 'utf-8'));
+  const raw = JSON.parse(readFileSync(inputPath, 'utf-8')) as RawGraph;
   const { result, stats } = runPipeline(raw);
 
   // Print pipeline stats

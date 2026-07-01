@@ -48,7 +48,7 @@ export function stochasticRule(
         }
       }
       // Floating-point rounding guard: return the last production.
-      return productions[productions.length - 1]!.produce;
+      return productions[productions.length - 1]?.produce ?? [];
     }
   };
 }

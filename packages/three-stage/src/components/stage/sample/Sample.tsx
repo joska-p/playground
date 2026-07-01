@@ -7,7 +7,7 @@ import { geometries } from '../../../utils/geometry';
 import { materials } from '../../../utils/material';
 
 export function Sample() {
-  const sampleRef = useRef<Mesh>(null!);
+  const sampleRef = useRef<Mesh>(null);
   const { speed, geometry, color, material } = useControls('Object', {
     speed: {
       label: 'Rotation speed',
@@ -18,12 +18,12 @@ export function Sample() {
     },
     geometry: {
       label: 'Geometry',
-      options: geometries.reduce(
+      options: geometries.reduce<Record<string, THREE.BufferGeometry>>(
         (accumulator, currentValue) => {
           accumulator[currentValue.label] = currentValue.geometry();
           return accumulator;
         },
-        {} as Record<string, THREE.BufferGeometry>
+        {}
       )
     },
     color: {
@@ -32,26 +32,25 @@ export function Sample() {
     },
     material: {
       label: 'Material',
-      options: materials.reduce(
-        (accumulator, currentValue) => {
-          accumulator[currentValue.label] = currentValue.material();
-          return accumulator;
-        },
-        {} as Record<string, THREE.Material>
-      )
+      options: materials.reduce<Record<string, THREE.Material>>((accumulator, currentValue) => {
+        accumulator[currentValue.label] = currentValue.material();
+        return accumulator;
+      }, {})
     }
   });
 
   useFrame(() => {
-    sampleRef.current.rotation.x += speed;
-    sampleRef.current.rotation.y += speed;
-    sampleRef.current.rotation.z += speed;
+    if (sampleRef.current) {
+      sampleRef.current.rotation.x += speed;
+      sampleRef.current.rotation.y += speed;
+      sampleRef.current.rotation.z += speed;
+    }
   });
 
   const [wireframe, setWireframe] = useState(false);
 
   const handleClick = () => {
-    setWireframe(wireframe === false ? true : false);
+    setWireframe(!wireframe ? true : false);
   };
 
   return (

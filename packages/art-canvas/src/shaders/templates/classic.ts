@@ -3,7 +3,7 @@ import type { ShaderTemplate } from '../../types';
 const ClassicTemplate: ShaderTemplate = {
   name: 'classic',
   weight: 1.0,
-  generate: ({ complexity, spaceBlock, shapeBlock, palette, uniqueInjectedCode }) => `
+  generate: ({ spaceBlock, shapeBlock, effectBlock, palette, uniqueInjectedCode }) => `
     uniform float u_time;
     uniform vec2 u_mouse;
     varying vec2 vUv;
@@ -13,30 +13,23 @@ const ClassicTemplate: ShaderTemplate = {
       vec2 uv = (vUv - 0.5) * 2.0;
       vec2 uv0 = uv;
       vec3 finalColor = vec3(0.0);
-      float totalWeight = 0.0;
 
+      // Palette vectors
       vec3 a = ${palette.a}; vec3 b = ${palette.b}; vec3 c = ${palette.c}; vec3 d = ${palette.d};
 
-      for (float i = 0.0; i < ${complexity + 1}.0; i += 1.0) {
+      for (float i = 0.0; i < 3.0; i++) {
         uv = uv0;
         ${spaceBlock}
-        ${shapeBlock}
+        ${shapeBlock} // declares float dist
 
-        float interest = 1.0 - smoothstep(0.0, 0.5, abs(dist));
         float wave = abs(sin(dist * 8.0 - u_time * 1.5));
         ${effectBlock}
 
-        float t = wave + i * 0.2 + u_time * 0.04;
-        vec3 col = a + b * cos(6.28318 * (c * t + d));
-        finalColor += col * interest;
-        totalWeight += interest;
+        // Cosine Palette evaluation
+        vec3 col = a + b * cos(6.28318 * (c * (dist + i * 0.15 + u_time * 0.05) + d));
+        finalColor += col * (smoothstep(0.5, 0.0, abs(dist)) * 0.6);
       }
-
-      if (totalWeight > 0.0) finalColor /= totalWeight;
-
-      vec3 bg = vec3(0.02, 0.01, 0.04);
-      vec3 color = mix(bg, finalColor, smoothstep(0.0, 0.3, length(finalColor)));
-      gl_FragColor = vec4(color, 1.0);
+      gl_FragColor = vec4(finalColor * (1.0 - 0.3 * length(uv0)), 1.0);
     }
   `
 };

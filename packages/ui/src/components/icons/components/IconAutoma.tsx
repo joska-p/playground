@@ -27,7 +27,7 @@ export const IconAutoma = createIcon({
         row.map((cell, c) =>
           cell ? (
             <rect
-              key={`${r}-${c}`}
+              key={`${String(r)}-${String(c)}`}
               x={startX + c * (size + gap)}
               y={startY + r * (size + gap)}
               width={size}

@@ -11,7 +11,7 @@ if (typeof globalThis.ImageData === 'undefined') {
         this.data = new Uint8ClampedArray(this.width * this.height * 4);
       } else {
         this.data = new Uint8ClampedArray(dataOrWidth);
-        this.width = widthOrHeight!;
+        this.width = widthOrHeight ?? 1;
         this.height = this.data.length / this.width / 4;
       }
     }

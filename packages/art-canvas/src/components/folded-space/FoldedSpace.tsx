@@ -7,7 +7,7 @@ function FoldedSpace() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
   useFrame((state) => {
-    if (materialRef && materialRef.current?.uniforms['u_time']) {
+    if (materialRef.current?.uniforms['u_time']) {
       materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
     }
   });

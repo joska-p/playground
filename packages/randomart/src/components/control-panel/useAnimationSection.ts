@@ -11,7 +11,7 @@ function useAnimationSection() {
     type: 'button',
     label: behavior.name,
     variant: activeIds.includes(behavior.id) ? 'primary' : 'default',
-    onClick: () => toggleAnimationBehavior(behavior.id)
+    onClick: () => { toggleAnimationBehavior(behavior.id); }
   }));
 
   const section: ControlSection = {

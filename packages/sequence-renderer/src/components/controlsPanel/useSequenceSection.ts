@@ -28,7 +28,7 @@ function useSequenceSection() {
     min: 2,
     max: sequenceRule.maxSteps,
     step: 1,
-    onChange: (v: number) => setSequenceSteps({ steps: v })
+    onChange: (v: number) => { setSequenceSteps({ steps: v }); }
   };
 
   const seedControl: Control = {
@@ -36,7 +36,7 @@ function useSequenceSection() {
     type: 'text',
     label: 'Seed',
     value: seed ?? '',
-    onChange: (v: string) => setSeed(v || undefined)
+    onChange: (v: string) => { setSeed(v || undefined); }
   };
 
   const section: ControlSection = {

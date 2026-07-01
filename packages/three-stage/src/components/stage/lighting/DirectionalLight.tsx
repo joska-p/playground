@@ -1,12 +1,8 @@
-import { useHelper } from '@react-three/drei';
+import { Helper } from '@react-three/drei';
 import { folder, useControls } from 'leva';
-import { useRef } from 'react';
 import { DirectionalLightHelper } from 'three';
 
 export function DirectionalLight() {
-  const light = useRef(null!);
-  useHelper(light, DirectionalLightHelper, 2, 'crimson');
-
   const { intensity, color, x, y, z } = useControls('Lighting', {
     Directional: folder({
       intensity: {
@@ -43,11 +39,15 @@ export function DirectionalLight() {
 
   return (
     <directionalLight
-      ref={light}
       position={[x, y, z]}
       color={color}
       intensity={intensity}
       castShadow
-    ></directionalLight>
+    >
+      <Helper
+        type={DirectionalLightHelper}
+        args={[2, 'crimson']}
+      />
+    </directionalLight>
   );
 }

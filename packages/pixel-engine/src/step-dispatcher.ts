@@ -70,7 +70,7 @@ export function dispatchStep({
   scheduler: FusionScheduler;
 }) {
   const definition = context.registry.get(step.id);
-  const options = (step as { options?: Record<string, unknown> }).options || {};
+  const options = (step as { options?: Record<string, unknown> }).options ?? {};
 
   const executor = executors[definition.access];
   if (executor) {

@@ -14,7 +14,7 @@ function ManipulationSelector() {
       <Select
         variant="primary"
         value={manipulationId}
-        onChange={(e) => setManipulationId(e.target.value)}
+        onChange={(e) => { setManipulationId(e.target.value); }}
         label="Manipulation"
       >
         {manipulationIds.map((id) => (
@@ -27,7 +27,7 @@ function ManipulationSelector() {
         ))}
       </Select>
 
-      <Button onClick={() => addWorkflowStep(manipulationId)}>Add to Workflow</Button>
+      <Button onClick={() => { addWorkflowStep(manipulationId); }}>Add to Workflow</Button>
     </div>
   );
 }

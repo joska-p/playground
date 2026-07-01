@@ -14,7 +14,7 @@ function CompareToggle({ mode, onChange }: CompareToggleProps) {
       <Button
         variant={mode === 'grid' ? 'primary' : 'ghost'}
         size="sm"
-        onClick={() => onChange('grid')}
+        onClick={() => { onChange('grid'); }}
         role="tab"
         aria-selected={mode === 'grid'}
       >
@@ -23,7 +23,7 @@ function CompareToggle({ mode, onChange }: CompareToggleProps) {
       <Button
         variant={mode === 'compare' ? 'primary' : 'ghost'}
         size="sm"
-        onClick={() => onChange('compare')}
+        onClick={() => { onChange('compare'); }}
         role="tab"
         aria-selected={mode === 'compare'}
       >

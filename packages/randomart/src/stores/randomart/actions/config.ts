@@ -24,7 +24,7 @@ export function toggleRule(ruleId: string): void {
     if (isCurrentlyEnabled && rule.category === 'terminal') {
       const activeTerminalsCount = state.enabledRuleIds.filter((id) => {
         const targetRule = getRule(id);
-        return targetRule && targetRule.category === 'terminal';
+        return targetRule?.category === 'terminal';
       }).length;
 
       // Block the change explicitly if it compromises the absolute fallback terminal leaf node boundary

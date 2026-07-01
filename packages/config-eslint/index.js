@@ -13,7 +13,8 @@ export default function createConfig(dirname) {
       files: ['**/*.{ts,tsx}'],
       extends: [
         js.configs.recommended,
-        ...tseslint.configs.recommended,
+        ...tseslint.configs.strictTypeChecked,
+        ...tseslint.configs.stylisticTypeChecked,
         reactHooks.configs.flat.recommended,
         reactRefresh.configs.vite
       ],
@@ -24,6 +25,7 @@ export default function createConfig(dirname) {
         globals: globals.browser,
         parser: tseslint.parser,
         parserOptions: {
+          projectService: true,
           tsconfigRootDir: dirname
         }
       },

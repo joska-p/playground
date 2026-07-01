@@ -13,7 +13,7 @@ export type ManipulationInfo = {
   readonly description: string;
   readonly longDescription: string;
   readonly defaultArgs: Readonly<Record<string, number>>;
-  readonly argDefinitions: ReadonlyArray<ArgDefinition>;
+  readonly argDefinitions: readonly ArgDefinition[];
 };
 
 export type RunConfig = {
@@ -22,8 +22,39 @@ export type RunConfig = {
   maximumPixels?: number;
 };
 
+type SerializedImageData = {
+  data: Uint8ClampedArray;
+  width: number;
+  height: number;
+};
+
+function isSerializedImageDataArray(data: unknown): data is SerializedImageData[] {
+  return (
+    Array.isArray(data) &&
+    data.every((item: unknown) => {
+      // 1. Verify it's a non-null object first
+      if (typeof item !== 'object' || item === null) {
+        return false;
+      }
+
+      // 2. Cast to a Record so the linter knows property access is safe
+      const obj = item as Record<string, unknown>;
+
+      // 3. Perform your runtime checks safely
+      return (
+        'data' in obj &&
+        'width' in obj &&
+        'height' in obj &&
+        obj['data'] instanceof Uint8ClampedArray &&
+        typeof obj['width'] === 'number' &&
+        typeof obj['height'] === 'number'
+      );
+    })
+  );
+}
+
 const pool = new WorkerPool<RunConfig, ImageData[]>({
-  maxPoolSize: navigator.hardwareConcurrency ?? 4,
+  maxPoolSize: navigator.hardwareConcurrency,
   workerFactory: () =>
     new Worker(new URL('./pipeline-worker', import.meta.url), {
       type: 'module'
@@ -44,16 +75,20 @@ const pool = new WorkerPool<RunConfig, ImageData[]>({
       transfer: [clampedCopy.buffer]
     };
   },
-  deserialize: (event) => {
-    if ('error' in event.data) return { ok: false, error: new Error(event.data.error) };
-    const rawResults = event.data as Array<{
-      data: Uint8ClampedArray;
-      width: number;
-      height: number;
-    }>;
+  deserialize: (event: MessageEvent<Record<string, unknown>>) => {
+    if ('error' in event.data)
+      return { ok: false, error: new Error(event.data['error'] as string) };
+
+    if (!isSerializedImageDataArray(event.data)) {
+      return { ok: false, error: new Error('Invalid serialized ImageData format') };
+    }
+
     return {
       ok: true,
-      value: rawResults.map((r) => new ImageData(r.data, r.width, r.height))
+      value: event.data.map((r) => {
+        const clonedData = Uint8ClampedArray.from(r.data);
+        return new ImageData(clonedData, r.width, r.height);
+      })
     };
   }
 });

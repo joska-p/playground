@@ -9,5 +9,5 @@ export const circleSdf: ShaderModule = {
   params: {
     radius: { type: 'range', min: 0.3, max: 1.5 }
   },
-  getCall: ({ uv, radius }) => `float dist = sdCircle(${uv}, ${radius});`
+  getCall: ({ uv, radius }) => `float dist = sdCircle(${uv ?? 'uv'}, ${radius ?? '0.5'});`
 };

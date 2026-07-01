@@ -14,13 +14,13 @@ function readFileAsImageData(file: File): Promise<ImageData> {
         try {
           resolve(imageElementToImageData(image));
         } catch (err) {
-          reject(err);
+          reject(err instanceof Error ? err : new Error(String(err)));
         }
       };
-      image.onerror = () => reject(new Error('Failed to load image from source'));
+      image.onerror = () => { reject(new Error('Failed to load image from source')); };
       image.src = reader.result as string;
     };
-    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.onerror = () => { reject(new Error('Failed to read file')); };
     reader.readAsDataURL(file);
   });
 }

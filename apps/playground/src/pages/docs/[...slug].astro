@@ -22,7 +22,7 @@ const categoryEntry = await getEntry(doc.data.category);
     badgeText="Documentation"
     highlight="Knowledge"
     title={categoryEntry.data.name}
-    description={doc.data.description}
+    description={doc.data.description ?? ''}
   />
   <div class="flex justify-center">
     <article

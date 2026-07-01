@@ -12,7 +12,7 @@ function createCreature({
   return {
     id,
     name,
-    width: cells[0]!.length,
+    width: cells[0]?.length ?? 0,
     height: cells.length,
     cells
   };

@@ -1,7 +1,7 @@
 import { getRule } from '../grammar/registry';
 import type { ExpressionNode } from '../types';
 
-export function evaluateNode(node: ExpressionNode, x: number, y: number, t: number = 0): number {
+export function evaluateNode(node: ExpressionNode, x: number, y: number, t = 0): number {
   // Terminal nodes: early-exit before any rule lookup or arg construction
   if (node.ruleId === 'x') return x;
   if (node.ruleId === 'y') return y;

@@ -12,7 +12,7 @@ export function renderTreesToBuffer(
   treeG: ExpressionNode,
   treeB: ExpressionNode,
   size: number,
-  time: number = 0
+  time = 0
 ): Uint8ClampedArray {
   const buffer = new Uint8ClampedArray(size * size * 4);
 

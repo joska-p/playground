@@ -26,11 +26,11 @@ function useImageUpload() {
   function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
-    processFile(file);
+    void processFile(file);
   }
 
   function handleFileDrop(file: File) {
-    processFile(file);
+    void processFile(file);
   }
 
   function clearImage() {

@@ -34,7 +34,7 @@ function SeedCanvas() {
         materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
       }
       if (materialRef.current.uniforms['u_mouse']) {
-        materialRef.current.uniforms['u_mouse'].value.copy(state.pointer);
+        (materialRef.current.uniforms['u_mouse'].value as THREE.Vector2).copy(state.pointer);
       }
     }
   });

@@ -22,9 +22,9 @@ export function computeEdgeBuffers(
   const discArr: number[] = [];
 
   for (let i = 0; i < links.length; i++) {
-    const link = links[i];
-    const source = nodes[link.sourceIdx];
-    const target = nodes[link.targetIdx];
+    const link = links[i]!;
+    const source = nodes[link.sourceIdx]!;
+    const target = nodes[link.targetIdx]!;
 
     if (
       (visibleCommunities.size > 0 && !visibleCommunities.has(source.community)) ||

@@ -16,7 +16,7 @@ function UploadZone() {
     clearImage
   } = useUploadZone();
 
-  if (imageSource) {
+  if (imageSource && fileName) {
     return (
       <UploadedPreview
         imageSource={imageSource}

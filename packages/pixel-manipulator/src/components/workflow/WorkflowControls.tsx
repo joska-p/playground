@@ -12,14 +12,14 @@ function WorkflowControls() {
       <WorkflowList steps={workflow} />
       <Button
         isLoading={isProcessing}
-        onClick={() => executeWorkflow()}
+        onClick={() => void executeWorkflow()}
       >
         Execute workflow
       </Button>
       <Button
         variant="outline"
         isLoading={isProcessing}
-        onClick={() => clearWorkflowSteps()}
+        onClick={() => { clearWorkflowSteps(); }}
       >
         Clear Workflow
       </Button>

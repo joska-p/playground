@@ -27,7 +27,7 @@ export function drawExpressions({ ctx, stage, layers }: drawExpressionsProps) {
   // We'll use individual beginPaths for simplicity, but a single loop
   const paths = layers.map(() => new Path2D());
 
-  const prevMathY = new Array(totalLayers).fill(null);
+  const prevMathY = new Array<number | null>(totalLayers).fill(null);
 
   // 2. RUN THE SINGLE LOOP ACROSS SCREEN PIXELS
   for (let screenX = 0; screenX < width; screenX++) {
@@ -37,6 +37,7 @@ export function drawExpressions({ ctx, stage, layers }: drawExpressionsProps) {
     // Evaluate all layers at this exact X coordinate
     for (let i = 0; i < totalLayers; i++) {
       const layer = layers[i];
+      if (!layer) return;
       const mathY = layer.formula(mathX);
 
       // Safe domain check
@@ -49,6 +50,12 @@ export function drawExpressions({ ctx, stage, layers }: drawExpressionsProps) {
       // Asymptote Jump Detection
       if (prevMathY[i] !== null) {
         const lastY = prevMathY[i];
+        if (!lastY) return;
+        if (isNaN(lastY) || !isFinite(lastY)) {
+          isFirstPoint[i] = true;
+          prevMathY[i] = null;
+          continue;
+        }
 
         // If the signs flipped (one positive, one negative)
         const signChanged = Math.sign(mathY) !== Math.sign(lastY);
@@ -63,6 +70,7 @@ export function drawExpressions({ ctx, stage, layers }: drawExpressionsProps) {
       // Project and draw
       const { sy: screenY } = stage.toScreen2D(mathX, mathY);
       const path = paths[i];
+      if (!path) return;
 
       if (isFirstPoint[i]) {
         path.moveTo(screenX, screenY);

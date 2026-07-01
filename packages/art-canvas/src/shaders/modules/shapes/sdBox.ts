@@ -10,5 +10,6 @@ export const sdBox: ShaderModule = {
     width: { type: 'range', min: 0.15, max: 0.4 },
     height: { type: 'range', min: 0.15, max: 0.4 }
   },
-  getCall: ({ uv, width, height }) => `float dist = sdBox(${uv}, vec2(${width}, ${height}));`
+  getCall: ({ uv, width, height }) =>
+    `float dist = sdBox(${uv ?? 'uv'}, vec2(${width ?? '0.2'}, ${height ?? '0.2'}));`
 };

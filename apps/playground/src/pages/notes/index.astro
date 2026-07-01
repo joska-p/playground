@@ -74,7 +74,7 @@ const notesByCategory = notebookCategories.map((cat) => {
                 <DocCard
                   href={noteUrl}
                   title={note.data.title}
-                  description={note.data.description}
+                  description={note.data.description ?? ''}
                 />
               );
             })}

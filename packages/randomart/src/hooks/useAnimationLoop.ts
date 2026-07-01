@@ -28,9 +28,7 @@ export function useAnimationLoop(
       // Call the latest captured frame logic directly
       onFrameRef.current(delta);
 
-      if (!cancelled) {
-        animationFrameId = requestAnimationFrame(tick);
-      }
+      animationFrameId = requestAnimationFrame(tick);
     };
 
     animationFrameId = requestAnimationFrame(tick);

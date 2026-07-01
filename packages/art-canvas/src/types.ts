@@ -9,14 +9,14 @@ export type PalettePreset = {
 
 export type SeededRandom = {
   next: () => number;
-  pick: <T>(arr: T[]) => T;
+  pick: <T>(arr: T[]) => T | undefined;
   pickWeighted: <
     T extends {
       weight?: number;
     }
   >(
     arr: T[]
-  ) => T;
+  ) => T | undefined;
   range: (min: number, max: number, precision?: number) => string;
   readonly choiceHistory: number[];
   readonly initialHash: number;

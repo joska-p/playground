@@ -27,7 +27,7 @@ type ModeId = (typeof MODES)[number]['id'];
 
 function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
   const [selected, setSelected] = useState<ModeId>('width');
-  const mode = MODES.find((m) => m.id === selected)!;
+  const mode = MODES.find((m) => m.id === selected) ?? MODES[0];
   const steps = [{ id: 'resize', options: mode.options }] as const;
   const result = usePixel(sourceData, steps);
 
@@ -39,7 +39,9 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
             key={m.id}
             variant={selected === m.id ? 'primary' : 'outline'}
             size="sm"
-            onClick={() => setSelected(m.id)}
+            onClick={() => {
+              setSelected(m.id);
+            }}
           >
             {m.label}
           </Button>
@@ -48,20 +50,16 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
 
       <div className="flex items-center gap-4">
         <div className="w-20 shrink-0">
-          {result && (
-            <img
-              src={imageDataToUrl(result[0])}
-              alt="resized"
-              className="border-border w-full rounded border"
-              style={{ imageRendering: 'pixelated' }}
-            />
-          )}
+          <img
+            src={result[0] ? imageDataToUrl(result[0]) : ''}
+            alt="resized"
+            className="border-border w-full rounded border"
+            style={{ imageRendering: 'pixelated' }}
+          />
         </div>
-        {result && (
-          <div className="text-muted-foreground text-xs">
-            {result[0].width}×{result[0].height}
-          </div>
-        )}
+        <div className="text-muted-foreground text-xs">
+          {result[0]?.width}×{result[0]?.height}
+        </div>
       </div>
     </div>
   );

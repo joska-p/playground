@@ -6,7 +6,7 @@ function SidebarMain({ children, ref, className, ...props }: ComponentProps<'div
   return (
     <div
       ref={ref}
-      className={cn(styles.main, className)}
+      className={cn(styles['main'], className)}
       {...props}
     >
       {children}

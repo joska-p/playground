@@ -59,15 +59,13 @@ function DefaultFallback({
           <h3 className="text-card-foreground text-lg font-semibold">Something went wrong</h3>
         </div>
         <p className="text-muted-foreground text-sm">{getErrorMessage(error)}</p>
-        {resetErrorBoundary && (
-          <Button
+        <Button
             onClick={resetErrorBoundary}
             variant="destructive"
             size="sm"
           >
             Try again
           </Button>
-        )}
       </div>
     </div>
   );

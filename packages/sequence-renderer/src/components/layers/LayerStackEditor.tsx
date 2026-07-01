@@ -42,12 +42,12 @@ function LayerStackEditor() {
               enabled={entry.enabled}
               params={entry.params}
               isExpanded={expandedLayerId === entry.id}
-              onToggle={() => handleToggleLayer(entry.id)}
+              onToggle={() => { handleToggleLayer(entry.id); }}
               onToggleExpand={() =>
-                setExpandedLayerId(expandedLayerId === entry.id ? null : entry.id)
+                { setExpandedLayerId(expandedLayerId === entry.id ? null : entry.id); }
               }
-              onParamChange={(key, value) => updateLayerParams(entry.id, { [key]: value })}
-              onRemove={() => handleRemoveLayer(entry.id)}
+              onParamChange={(key, value) => { updateLayerParams(entry.id, { [key]: value }); }}
+              onRemove={() => { handleRemoveLayer(entry.id); }}
             />
           );
         })}
@@ -59,7 +59,7 @@ function LayerStackEditor() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setShowAddDropdown(!showAddDropdown)}
+              onClick={() => { setShowAddDropdown(!showAddDropdown); }}
             >
               + Add Layer
             </Button>
@@ -70,7 +70,7 @@ function LayerStackEditor() {
                   <button
                     key={meta.id}
                     type="button"
-                    onClick={() => handleAddLayer(meta.id)}
+                    onClick={() => { handleAddLayer(meta.id); }}
                     className="text-foreground hover:bg-muted w-full cursor-pointer px-2 py-1 text-left text-xs transition-colors"
                   >
                     {meta.name}

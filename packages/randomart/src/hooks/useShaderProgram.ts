@@ -104,7 +104,7 @@ function createShader(gl: WebGLRenderingContext, type: number, source: string): 
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
     const info = gl.getShaderInfoLog(shader);
     gl.deleteShader(shader);
-    throw new Error('Shader compile error: ' + info);
+    throw new Error('Shader compile error: ' + String(info));
   }
   return shader;
 }
@@ -117,7 +117,6 @@ function createProgram(
   const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
   const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
   const program = gl.createProgram();
-  if (!program) throw new Error('Failed to create program');
   gl.attachShader(program, vs);
   gl.attachShader(program, fs);
   gl.linkProgram(program);
@@ -126,7 +125,7 @@ function createProgram(
     gl.deleteProgram(program);
     gl.deleteShader(vs);
     gl.deleteShader(fs);
-    throw new Error('Program link error: ' + info);
+    throw new Error('Program link error: ' + String(info));
   }
   // Safe to detach and delete individual intermediate shader objects once linked
   gl.detachShader(program, vs);

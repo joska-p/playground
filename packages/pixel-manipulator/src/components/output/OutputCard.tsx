@@ -85,7 +85,7 @@ function OutputCard({
       {isZoomed && (
         <ImageLightbox
           imageData={output.imageData}
-          onClose={() => setIsZoomed(false)}
+          onClose={() => { setIsZoomed(false); }}
         />
       )}
     </>

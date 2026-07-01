@@ -22,11 +22,13 @@ function useRuleSection() {
 
   const stateColorControls = rule
     ? stateColors.slice(0, rule.stateCount).map((color, i) => ({
-        id: `stateColor-${i}`,
+        id: `stateColor-${String(i)}`,
         type: 'color' as const,
-        label: i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${i}`,
+        label: i === 0 ? 'Dead' : i === 1 ? 'Alive' : `State ${String(i)}`,
         value: color,
-        onChange: (c: string) => setStateColor(i, c)
+        onChange: (c: string) => {
+          setStateColor(i, c);
+        }
       }))
     : [];
 

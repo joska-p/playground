@@ -40,13 +40,13 @@ function createFakeWorker() {
 
 describe('MockWorkerPool', () => {
   it('resolves with the handler return value', async () => {
-    const pool = new MockWorkerPool<number, string>((n) => `got ${n}`);
+    const pool = new MockWorkerPool<number, string>((n) => `got ${String(n)}`);
     await expect(pool.run(42)).resolves.toBe('got 42');
   });
 
   it('teardown does not throw', () => {
     const pool = new MockWorkerPool((n: number) => n);
-    expect(() => pool.teardown()).not.toThrow();
+    expect(() => { pool.teardown(); }).not.toThrow();
   });
 });
 
@@ -85,7 +85,7 @@ describe('WorkerPool', () => {
     const fake = createFakeWorker();
     const pool = new WorkerPool<number, string>({
       workerFactory: () => fake.worker,
-      serialize: (n) => ({ message: `task-${n}` }),
+      serialize: (n) => ({ message: `task-${String(n)}` }),
       deserialize: (event) => ({ ok: true, value: event.data })
     });
 
@@ -103,7 +103,7 @@ describe('WorkerPool', () => {
       serialize: (n) => ({ message: n }),
       deserialize: (event) => ({
         ok: true,
-        value: `deserialized-${event.data}`
+        value: `deserialized-${String(event.data)}`
       })
     });
 
@@ -374,8 +374,8 @@ describe('WorkerPool — teardown', () => {
     const p3 = pool.run(3); // queues
 
     // Suppress unhandled rejections for queued promises
-    p2.catch(() => {});
-    p3.catch(() => {});
+    p2.catch(() => { return undefined; });
+    p3.catch(() => { return undefined; });
 
     pool.teardown();
 

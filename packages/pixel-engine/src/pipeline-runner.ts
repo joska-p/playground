@@ -24,7 +24,7 @@ function buildAutoDownscaleStep({
   };
 }
 
-export async function runPipeline({
+export function runPipeline({
   source,
   steps,
   context
@@ -32,7 +32,7 @@ export async function runPipeline({
   source: PixelData;
   steps: Step[];
   context: PipelineContext;
-}): Promise<PixelData[]> {
+}): PixelData[] {
   const downscale = buildAutoDownscaleStep({
     source,
     steps,
@@ -41,7 +41,7 @@ export async function runPipeline({
 
   if (downscale) {
     console.warn(
-      `[pixel-engine] Auto-scaling source image to within ${downscale.options.maximumPixels} pixels.`
+      `[pixel-engine] Auto-scaling source image to within ${String(downscale.options.maximumPixels)} pixels.`
     );
   }
 

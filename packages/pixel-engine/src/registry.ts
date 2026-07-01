@@ -18,7 +18,7 @@ export class Registry {
 
     if (
       definition.access === 'neighborhood' &&
-      (definition.radius == null || definition.radius < 0)
+      (      definition.radius < 0)
     ) {
       throw new Error(
         `[pixel-engine] Neighborhood manipulation "${definition.id}" must declare a non-negative radius`

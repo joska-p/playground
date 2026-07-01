@@ -35,7 +35,7 @@ const formatedDate = date.toLocaleDateString('fr-FR', options);
     badgeText={formatedDate}
     highlight={categoryEntry.data.name}
     title={note.data.title}
-    description={note.data.description}
+    description={note.data.description ?? ''}
   />
 
   <div class="mx-auto max-w-4xl px-6 py-12">

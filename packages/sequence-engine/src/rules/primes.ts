@@ -16,7 +16,7 @@ export const primesRule: SequenceRule = {
   description: 'The sequence of prime numbers: 2, 3, 5, 7, 11...',
   maxSteps: 300,
   getNext: ({ current }) => {
-    const start = current === undefined || current === null ? 1 : current;
+    const start = current;
     let next = start + 1;
     while (!isPrime(next)) next++;
     return next;

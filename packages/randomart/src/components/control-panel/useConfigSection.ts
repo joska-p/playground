@@ -18,7 +18,7 @@ function useConfigSection() {
     id: 'shuffle',
     type: 'button',
     label: 'Shuffle',
-    onClick: () => setSeedText(Math.random().toString(36).slice(2, 10))
+    onClick: () => { setSeedText(Math.random().toString(36).slice(2, 10)); }
   };
 
   const maxDepthControl: Control = {

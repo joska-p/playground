@@ -7,7 +7,7 @@ export function renderTreesToPngBuffer(
   treeG: ExpressionNode,
   treeB: ExpressionNode,
   size: number,
-  time: number = 0
+  time = 0
 ): Uint8Array {
   const buffer = renderTreesToBuffer(treeR, treeG, treeB, size, time);
   const encoded = encode({
@@ -25,7 +25,7 @@ export function renderTreesToPngBlob(
   treeG: ExpressionNode,
   treeB: ExpressionNode,
   size: number,
-  time: number = 0
+  time = 0
 ): Blob {
   const pngBuffer = renderTreesToPngBuffer(treeR, treeG, treeB, size, time);
   return new Blob([new Uint8Array(pngBuffer)], { type: 'image/png' });

@@ -7,18 +7,26 @@ import { GRAMMARS } from '../grammars';
 import { Scene } from './Scene';
 
 export function LSystemApp() {
+  if (!GRAMMARS[0]) {
+    throw new Error('No grammars available');
+  }
+
   const [iterations, setIterations] = useState(0);
 
   const grammarOptions = useMemo(() => Object.fromEntries(GRAMMARS.map((g) => [g.name, g.id])), []);
 
   const { grammarId } = useControls('Grammar', {
-    grammarId: { value: GRAMMARS[0]!.id, options: grammarOptions }
+    grammarId: { value: GRAMMARS[0].id, options: grammarOptions }
   });
 
   const { autoStep, interval } = useControls('Animation', {
     autoStep: { value: false },
-    Step: button(() => setIterations((prev) => prev + 1)),
-    Reset: button(() => setIterations(0)),
+    Step: button(() => {
+      setIterations((prev) => prev + 1);
+    }),
+    Reset: button(() => {
+      setIterations(0);
+    }),
     interval: {
       value: 1,
       min: 0.25,
@@ -42,7 +50,7 @@ export function LSystemApp() {
     setIterations(0);
   }
 
-  const currentGrammar = GRAMMARS.find((g) => g.id === grammarId) ?? GRAMMARS[0]!;
+  const currentGrammar = GRAMMARS.find((g) => g.id === grammarId) ?? GRAMMARS[0];
 
   useEffect(() => {
     if (!autoStep) return;
@@ -52,7 +60,9 @@ export function LSystemApp() {
         return prev + 1;
       });
     }, interval * 1000);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+    };
   }, [autoStep, interval, currentGrammar.maxIterations]);
 
   const segments = useMemo(() => {

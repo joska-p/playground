@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc -b --noEmit",
     "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {

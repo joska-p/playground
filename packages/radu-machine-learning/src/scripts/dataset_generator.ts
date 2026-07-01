@@ -26,19 +26,11 @@ let id = 1;
 
 fileNames.forEach((fileName) => {
   const fileContent = fs.readFileSync(path.join(CONSTANTS.RAW_DIR, fileName), 'utf8');
-  const { session, student, drawings } = JSON.parse(fileContent);
-
-  if (!samplesMap[session]) {
-    samplesMap[session] = {
-      student_id: String(session),
-      student_name: student,
-      drawings: []
-    };
-  }
+  const { session, drawings } = JSON.parse(fileContent);
 
   for (const label in drawings) {
     const paths = drawings[label];
-
+    if (!samplesMap[session]) return;
     // Push the sample directly into that specific student's sample array
     samplesMap[session].drawings.push({
       id,

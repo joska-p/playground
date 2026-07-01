@@ -7,14 +7,14 @@ type Dimensions = {
 
 const DEBOUNCE_MS = 120;
 
-export function useResizeObserver<T extends HTMLElement>(): [(node: T | null) => void, Dimensions] {
+export function useResizeObserver(): [(node: HTMLElement | null) => void, Dimensions] {
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
     height: 0
   });
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const ref = useCallback((node: T | null) => {
+  const ref = useCallback((node: HTMLElement | null) => {
     if (!node) return;
 
     function applySize(width: number, height: number) {

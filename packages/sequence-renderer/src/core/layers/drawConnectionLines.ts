@@ -40,7 +40,7 @@ const drawConnectionLines: VisualLayer = {
       hueCycle = 360,
       saturation = 80,
       lightness = 60
-    } = params as Record<string, unknown>;
+    } = params;
     const { valueScale, offsetX, offsetY } = layout;
     if (data.length < 2) return;
 
@@ -53,7 +53,7 @@ const drawConnectionLines: VisualLayer = {
       const d2 = data[i];
       if (d1 === undefined || d2 === undefined) continue;
       const hue = ((i / data.length) * (hueCycle as number)) % 360;
-      ctx.strokeStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      ctx.strokeStyle = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
       ctx.beginPath();
       ctx.moveTo(offsetX + d1 * valueScale, offsetY);
       ctx.lineTo(offsetX + d2 * valueScale, offsetY);

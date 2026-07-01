@@ -2,11 +2,8 @@ import type { Step } from '@repo/pixel-engine/manipulations/manifest';
 import { useEffect, useState } from 'react';
 import { pixel } from '../api/pixel';
 
-export function usePixel<const T extends readonly Step[]>(
-  sourceImageData: ImageData | null,
-  steps: T
-): ImageData[] | null {
-  const [result, setResult] = useState<ImageData[] | null>(null);
+export function usePixel(sourceImageData: ImageData | null, steps: readonly Step[]) {
+  const [result, setResult] = useState<ImageData[]>([]);
 
   useEffect(() => {
     if (!sourceImageData) return;

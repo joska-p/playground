@@ -18,14 +18,12 @@ type StepResponse = {
 };
 
 self.onmessage = (e: MessageEvent<StepRequest>) => {
-  const { type, grid, cols, rows, ruleId } = e.data;
-
-  if (type !== WORKER_MESSAGE_STEP) return;
+  const { grid, cols, rows, ruleId } = e.data;
 
   const rule = getRule(ruleId);
   if (!rule) return;
 
-  if (!nextGrid || nextGrid.length !== grid.length) {
+  if (nextGrid?.length !== grid.length) {
     nextGrid = new Uint8Array(grid.length);
   }
 

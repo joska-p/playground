@@ -12,7 +12,7 @@ type WorkerMessage = {
   maximumPixels?: number;
 };
 
-self.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
+self.addEventListener('message', (event: MessageEvent<WorkerMessage>) => {
   const { sourceImageData, steps, maximumPixels } = event.data;
 
   try {
@@ -23,7 +23,7 @@ self.addEventListener('message', async (event: MessageEvent<WorkerMessage>) => {
       sourceImageData.data
     );
 
-    const pipelineResult = await runPipeline({
+    const pipelineResult = runPipeline({
       source,
       steps,
       context: {

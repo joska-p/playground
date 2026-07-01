@@ -9,7 +9,7 @@ export function FloatingInspector() {
       {/* Toggle button — positioned in the top-right of the canvas area */}
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => { setOpen((v) => !v); }}
         aria-label={open ? 'Close inspector' : 'Open inspector'}
         aria-expanded={open}
         className="border-border bg-card/80 text-foreground hover:bg-card focus-visible:ring-ring absolute top-3 left-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border shadow-md backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"

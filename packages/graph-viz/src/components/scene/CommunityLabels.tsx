@@ -31,7 +31,6 @@ function CommunityLabels() {
               color={color.getStyle()}
               anchorX="center"
               anchorY="bottom"
-              font={undefined}
               outlineWidth={labels.outlineWidth}
               outlineColor={labels.outlineColor}
             >

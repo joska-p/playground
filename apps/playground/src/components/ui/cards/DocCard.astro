@@ -20,7 +20,7 @@ const accentColor = `var(--category-${type}, var(--color-primary))`;
   href={href}
   accentColor={accentColor}
   variant="doc"
-  className={className}
+  className={className ?? ''}
 >
   <span
     class="pointer-events-none absolute top-0 right-0 h-0 w-0 [border-width:0_28px_28px_0] border-solid border-[transparent_var(--card-accent)_transparent_transparent] opacity-50 transition-opacity duration-200 group-hover:opacity-100"

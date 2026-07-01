@@ -11,7 +11,8 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
   const keep = grammar.unmatchedSymbol !== 'remove';
 
   for (let i = 0; i < word.length; i++) {
-    const sym = word[i]!;
+    const sym = word[i];
+    if (!sym) continue;
     const context: Context = { word, index: i, random };
 
     let matched = false;
@@ -43,7 +44,7 @@ function rewrite(word: Word, grammar: Grammar, random: () => number): Word {
  * const iteration0 = iter.next().value; // axiom
  * const iteration1 = iter.next().value; // after one rewrite
  */
-export function steps(grammar: Grammar, options?: ExpandOptions): Iterator<Word> {
+export function steps(grammar: Grammar, options?: ExpandOptions): Iterator<Word, Word> {
   const seed = options?.seed ?? (Math.random() * 2 ** 32) | 0;
   const random = createRandom(seed);
   let current: Word = grammar.axiom;

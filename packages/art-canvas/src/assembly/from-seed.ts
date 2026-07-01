@@ -8,7 +8,7 @@ import { createSeededRandom } from './seeded-random';
 
 export function generateShaderFromSeed(
   seed: string,
-  complexity: number = 3,
+  complexity = 3,
   selectedMood?: string,
   selectedPalette?: string
 ): string {

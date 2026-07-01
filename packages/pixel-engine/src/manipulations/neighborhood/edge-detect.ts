@@ -18,8 +18,8 @@ export const edgeDetect = defineManip({
             const wx = sobelX[ky * 3 + kx] ?? 0;
             const wy = sobelY[ky * 3 + kx] ?? 0;
             for (let c = 0; c < 3; c++) {
-              gradientX[c] += getPixel(source, x + kx - half, y + ky - half, width, height, c) * wx;
-              gradientY[c] += getPixel(source, x + kx - half, y + ky - half, width, height, c) * wy;
+              gradientX[c] = (gradientX[c] ?? 0) + getPixel(source, x + kx - half, y + ky - half, width, height, c) * wx;
+              gradientY[c] = (gradientY[c] ?? 0) + getPixel(source, x + kx - half, y + ky - half, width, height, c) * wy;
             }
           }
         }

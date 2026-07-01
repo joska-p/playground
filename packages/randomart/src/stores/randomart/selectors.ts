@@ -2,6 +2,7 @@ import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
 import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
+import type { RandomartState } from './types';
 
 // --- Direct Configuration Selectors ---
 export function useSeedText(): string {
@@ -41,18 +42,21 @@ export function useTreeB(): ExpressionNode {
 }
 
 // --- Defensive Structure Projection Selector ---
+function getChannelIndex(s: RandomartState) {
+  if (s.activeChannel === 'red') return 0;
+  if (s.activeChannel === 'green') return 1;
+  return 2;
+}
+
 export function useSelectedTree(): ExpressionNode {
   return useStore(randomartStore, (s) => {
     const rootTree =
       s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
 
-    if (s.correlatedRGB && rootTree && rootTree.args) {
-      const idx = s.activeChannel === 'red' ? 0 : s.activeChannel === 'green' ? 1 : 2;
-      // Safely fetch channel-specific subtree, fallback cleanly to root context if layout shifts
-      return rootTree.args[idx] ?? rootTree;
-    }
+    const idx = getChannelIndex(s);
 
-    return rootTree;
+    // Safely fetch channel-specific subtree, fallback cleanly to root context if layout shifts
+    return rootTree.args[idx] ?? rootTree;
   });
 }
 
@@ -74,7 +78,7 @@ export function useSelectedChoiceCount(): number {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
     const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
-    return rng.choiceHistory?.length || 0;
+    return rng.choiceHistory.length || 0;
   });
 }
 
@@ -82,6 +86,6 @@ export function useSelectedChoiceHistory(): number[] {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
     const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
-    return rng.choiceHistory || [];
+    return rng.choiceHistory;
   });
 }

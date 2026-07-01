@@ -7,7 +7,7 @@ export function processArgs(mod: ShaderModule, rng: SeededRandom): Record<string
   for (const [paramName, rule] of Object.entries(mod.params)) {
     if (rule.type === 'global' || rule.type === 'literal') {
       resolvedArgs[paramName] = String(rule.value);
-    } else if (rule.type === 'range') {
+    } else {
       resolvedArgs[paramName] = rng.range(rule.min, rule.max, rule.precision ?? 3);
     }
   }

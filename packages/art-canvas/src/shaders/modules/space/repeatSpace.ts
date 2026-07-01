@@ -9,5 +9,5 @@ export const repeatSpace: ShaderModule = {
   params: {
     count: { type: 'range', min: 1.5, max: 4.5, precision: 1 }
   },
-  getCall: ({ uv, count }) => `uv = repeatSpace(${uv}, ${count});`
+  getCall: ({ uv, count }) => `uv = repeatSpace(${String(uv)}, ${String(count)});`
 };

@@ -20,11 +20,11 @@ function MosaicDisplay() {
   const mosaicRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (mosaicRef) setRef(mosaicRef);
+    setRef(mosaicRef);
   }, [mosaicRef]);
 
   useEffect(() => {
-    initPalettes();
+    void initPalettes();
   }, []);
 
   return (

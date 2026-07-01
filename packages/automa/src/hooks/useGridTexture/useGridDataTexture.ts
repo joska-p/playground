@@ -10,7 +10,7 @@ export const useGridDataTexture = (cols: number, rows: number): THREE.DataTextur
   const texture = useMemo(() => createGridDataTexture(cols, rows), [cols, rows]);
 
   useEffect(() => {
-    return () => texture.dispose();
+    return () => { texture.dispose(); };
   }, [texture]);
 
   return texture;

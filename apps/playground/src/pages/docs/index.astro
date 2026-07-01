@@ -78,7 +78,7 @@ const docsByCategory = docsCategories.map((cat) => {
                   <DocCard
                     href={docUrl}
                     title={doc.data.title}
-                    description={doc.data.description}
+                    description={doc.data.description ?? ''}
                     type={category.id}
                     iconName={category.iconName}
                   />

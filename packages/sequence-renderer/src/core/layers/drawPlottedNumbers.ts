@@ -11,16 +11,15 @@ const drawPlottedNumbers: VisualLayer = {
     color: { label: 'Color', type: 'color', default: '' }
   },
   draw: (ctx, data, params, layout) => {
-    const { radius = 3, alpha = 0.4, color } = params as Record<string, unknown>;
+    const { radius = 3, alpha = 0.4, color } = params;
     const { valueScale, offsetX, offsetY } = layout;
-    const textColor = getComputedStyle(ctx.canvas).color || 'black';
 
     const plotted = new Set<number>();
     data.forEach((val) => {
       if (!plotted.has(val)) {
         plotted.add(val);
         ctx.save();
-        ctx.fillStyle = (color as string) ?? textColor;
+        ctx.fillStyle = color as string;
         ctx.globalAlpha = alpha as number;
         ctx.beginPath();
         ctx.arc(offsetX + val * valueScale, offsetY, radius as number, 0, 2 * Math.PI);

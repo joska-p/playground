@@ -33,7 +33,7 @@ export function ControlRenderer({ control }: { control: Control }) {
     case 'text':
       return <TextControl control={control} />;
     default:
-      console.warn(`[ControlRenderer] Unknown control type: ${control}`);
+      console.warn(`[ControlRenderer] Unknown control type: ${String(control)}`);
       return null;
   }
 }

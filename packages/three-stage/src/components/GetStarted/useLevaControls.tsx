@@ -6,7 +6,7 @@ function useLevaControls() {
     useControls('Branches', {
       preset: {
         label: 'Spawn',
-        value: 'icosahedron' as PresetName,
+        value: 'icosahedron',
         options: [
           'circle',
           'fsphere',

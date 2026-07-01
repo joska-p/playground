@@ -66,7 +66,7 @@ function initParticles(imageData: ImageData) {
   // Count visible pixels first
   let visiblePixels = 0;
   for (let i = 3; i < imageData.data.length; i += 4) {
-    if (imageData.data[i]! > 128) visiblePixels++;
+    if (imageData.data[i] && imageData.data[i] > 128) visiblePixels++;
   }
 
   // Adjust sampling rate based on visible pixels
@@ -75,10 +75,10 @@ function initParticles(imageData: ImageData) {
   for (let y = 0; y < imageData.height; y += samplingRate) {
     for (let x = 0; x < imageData.width; x += samplingRate) {
       const i = (y * imageData.width + x) * 4;
-      const r = imageData.data[i]!;
-      const g = imageData.data[i + 1]!;
-      const b = imageData.data[i + 2]!;
-      const a = imageData.data[i + 3]!;
+      const r = imageData.data[i] ?? 0;
+      const g = imageData.data[i + 1] ?? 0;
+      const b = imageData.data[i + 2] ?? 0;
+      const a = imageData.data[i + 3] ?? 0;
 
       if (a > 128) {
         const randomVelocityX =
@@ -100,7 +100,7 @@ function initParticles(imageData: ImageData) {
           y: -10,
           originX: x,
           originY: y,
-          color: `rgba(${adjustedR},${adjustedG},${adjustedB},${a})`,
+          color: `rgba(${String(adjustedR)},${String(adjustedG)},${String(adjustedB)},${String(a)})`,
           size: randomSize,
           velocity: {
             x: randomVelocityX,

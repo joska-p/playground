@@ -40,7 +40,7 @@ const drawFactorWaves: VisualLayer = {
       amplitudeScale = 0.4,
       saturation = 85,
       lightness = 55
-    } = params as Record<string, unknown>;
+    } = params;
     const { maxVal, valueScale, offsetX, offsetY } = layout;
     if (maxVal <= 0) return;
 
@@ -51,7 +51,7 @@ const drawFactorWaves: VisualLayer = {
       const hue = (p * 137.5) % 360;
 
       ctx.save();
-      ctx.strokeStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+      ctx.strokeStyle = `hsla(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%, ${String(alpha)})`;
       ctx.lineWidth = lineWidth as number;
       ctx.beginPath();
 

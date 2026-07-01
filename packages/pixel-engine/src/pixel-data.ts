@@ -3,8 +3,6 @@ export class PixelData {
   readonly width: number;
   readonly height: number;
 
-  constructor(width: number, height: number);
-  constructor(width: number, height: number, data: Uint8ClampedArray);
   constructor(width: number, height: number, data?: Uint8ClampedArray) {
     this.width = width;
     this.height = height;

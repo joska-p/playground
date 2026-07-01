@@ -12,5 +12,6 @@ export const surfaceLighting: ShaderModule = {
         return normalize(vec3(dx, dy, 0.03));
     }
   `,
-  getCall: ({ uv }) => `vec3 normal = calculateNormal(${uv}, dist);`
+  getCall: ({ uv, dist }) =>
+    `vec3 normal = calculateNormal(${uv ?? 'vec2(0.0)'}, ${dist ?? 'dist'});`
 };

@@ -20,7 +20,7 @@ function usePlaybackSection() {
     type: 'button',
     label: 'Step',
     disabled: running,
-    onClick: step
+    onClick: () => void step()
   };
 
   const speedControl: Control = {

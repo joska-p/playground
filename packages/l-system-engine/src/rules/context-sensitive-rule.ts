@@ -27,8 +27,8 @@ const DEFAULT_IGNORED = new Set(['[', ']']);
  */
 function findLeftNeighbor(word: Word, index: number, ignored: ReadonlySet<string>): LSymbol | null {
   for (let i = index - 1; i >= 0; i--) {
-    const sym = word[i]!;
-    if (!ignored.has(sym.name)) return sym;
+    const sym = word[i];
+    if (sym && !ignored.has(sym.name)) return sym;
   }
   return null;
 }
@@ -43,8 +43,8 @@ function findRightNeighbor(
   ignored: ReadonlySet<string>
 ): LSymbol | null {
   for (let i = index + 1; i < word.length; i++) {
-    const sym = word[i]!;
-    if (!ignored.has(sym.name)) return sym;
+    const sym = word[i];
+    if (sym && !ignored.has(sym.name)) return sym;
   }
   return null;
 }
@@ -71,12 +71,12 @@ export function contextSensitiveRule(options: ContextSensitiveOptions): Rule {
 
       if (options.leftContext !== undefined) {
         const left = findLeftNeighbor(context.word, context.index, ignored);
-        if (left === null || left.name !== options.leftContext) return false;
+        if (left?.name !== options.leftContext) return false;
       }
 
       if (options.rightContext !== undefined) {
         const right = findRightNeighbor(context.word, context.index, ignored);
-        if (right === null || right.name !== options.rightContext) return false;
+        if (right?.name !== options.rightContext) return false;
       }
 
       return true;

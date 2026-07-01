@@ -49,7 +49,7 @@ const drawRadialSpokes: VisualLayer = {
       saturation = 85,
       lightness = 55,
       scale = 0.8
-    } = params as Record<string, unknown>;
+    } = params;
     const { maxVal, offsetX, offsetY } = layout;
     if (data.length === 0) return;
 
@@ -70,14 +70,14 @@ const drawRadialSpokes: VisualLayer = {
       const y = r * Math.sin(angle);
       const hue = (i * 137.5) % 360;
 
-      ctx.strokeStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      ctx.strokeStyle = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.lineTo(x, y);
       ctx.stroke();
 
       if ((dotRadius as number) > 0) {
-        ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        ctx.fillStyle = `hsl(${String(hue)}, ${String(saturation)}%, ${String(lightness)}%)`;
         ctx.beginPath();
         ctx.arc(x, y, dotRadius as number, 0, 2 * Math.PI);
         ctx.fill();

@@ -21,7 +21,7 @@ function Outputs() {
 
   const selectedOutput = outputs.find((o) => o.id === activeOutputId);
 
-  if (!imageSource && outputs.length === 0) {
+  if (!imageSource || outputs.length === 0) {
     return <EmptyState message="Upload an image to begin" />;
   }
 
@@ -39,29 +39,31 @@ function Outputs() {
       {mode === 'compare' && selectedOutput && (
         <div className="px-4 pt-4">
           <CompareSlider
-            source={imageSource!.imageData}
+            source={imageSource.imageData}
             result={selectedOutput.imageData}
           />
         </div>
       )}
 
       <ul className="grid grid-cols-2 gap-4 p-4 lg:grid-cols-3">
-        {imageSource && (
-          <li key={imageSource.id}>
-            <OutputCard
-              output={imageSource}
-              index={0}
-              isSource
-            />
-          </li>
-        )}
+        <li key={imageSource.id}>
+          <OutputCard
+            output={imageSource}
+            index={0}
+            isSource
+          />
+        </li>
         {outputs.map((output, index) => (
           <li key={output.id}>
             <OutputCard
               output={output}
               index={index + 1}
               isSelected={mode === 'compare' && activeOutputId === output.id}
-              onSelect={mode === 'compare' ? () => setSelectedOutputId(output.id) : undefined}
+              {...(mode === 'compare' && {
+                onSelect: () => {
+                  setSelectedOutputId(output.id);
+                }
+              })}
             />
           </li>
         ))}

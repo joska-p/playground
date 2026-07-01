@@ -25,7 +25,7 @@ export const IconImage = createIcon({
       {opacities.map((row, r) =>
         row.map((op, c) => (
           <rect
-            key={`${r}-${c}`}
+            key={`${String(r)}-${String(c)}`}
             x={startX + c * (size + gap)}
             y={startY + r * (size + gap)}
             width={size}

@@ -34,9 +34,7 @@ export function useWebGLContext(
     gl.bufferData(gl.ARRAY_BUFFER, POSITIONS, gl.STATIC_DRAW);
 
     return () => {
-      if (gl) {
-        gl.deleteBuffer(positionBuffer);
-      }
+      gl.deleteBuffer(positionBuffer);
       glRef.current = null;
     };
   }, [canvasRef]);
@@ -52,8 +50,8 @@ export function useWebGLContext(
     canvasEl.height = bitmapSize;
 
     // Adjust CSS layout layout boundaries
-    canvasEl.style.width = `${logicalSize}px`;
-    canvasEl.style.height = `${logicalSize}px`;
+    canvasEl.style.width = `${String(logicalSize)}px`;
+    canvasEl.style.height = `${String(logicalSize)}px`;
 
     // Map normalized device coordinates to the newly allocated texture size
     gl.viewport(0, 0, bitmapSize, bitmapSize);

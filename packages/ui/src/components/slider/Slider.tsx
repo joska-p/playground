@@ -77,7 +77,7 @@ function Slider({
         step={step}
         value={value}
         onChange={handleChange}
-        aria-valuetext={unit ? `${value}${unit}` : undefined}
+        aria-valuetext={unit ? `${String(value)}${unit}` : undefined}
         aria-describedby={helperText ? helperId : undefined}
         aria-label={!label ? (props['aria-label'] ?? 'Slider') : undefined}
         className={cn('w-full min-w-0 cursor-pointer disabled:cursor-not-allowed', {

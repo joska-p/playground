@@ -16,7 +16,7 @@ function useCreatureSection() {
       { label: 'None', value: '' },
       ...creatures.map((c) => ({ label: c.name, value: c.id }))
     ],
-    onChange: (v: string) => setPaletteBrush(v || null)
+    onChange: (v: string) => { setPaletteBrush(v || null); }
   };
 
   const creatureSection: ControlSection = {

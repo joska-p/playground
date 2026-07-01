@@ -12,7 +12,7 @@ export const drawRecamanArcs: VisualLayer = {
   },
   draw: (ctx, data, params, layout) => {
     const { valueScale, offsetX, offsetY } = layout;
-    const { lineWidth, alpha, color } = params as Record<string, unknown>;
+    const { lineWidth, alpha, color } = params;
     if (data.length < 2) return;
 
     ctx.save();

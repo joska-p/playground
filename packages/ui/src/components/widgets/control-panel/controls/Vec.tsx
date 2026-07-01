@@ -46,7 +46,7 @@ function VecInput({
           ref={inputRef}
           type="number"
           value={editValue}
-          onChange={(e) => setEditValue(e.target.value)}
+          onChange={(e) => { setEditValue(e.target.value); }}
           onBlur={commit}
           onKeyDown={(e) => {
             if (e.key === 'Enter') commit();
@@ -103,7 +103,7 @@ export function VecControl({ control }: { control: VecControl }) {
             step={step}
             min={min}
             max={max}
-            onChange={(v) => handleChange(i, v)}
+            onChange={(v) => { handleChange(i, v); }}
           />
         ))}
       </div>

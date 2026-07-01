@@ -9,5 +9,5 @@ export const rotate2d: ShaderModule = {
   params: {
     angle: { type: 'global', value: 'u_time * 0.15' }
   },
-  getCall: ({ uv, angle }) => `${uv} = rotate2d(${uv}, ${angle});`
+  getCall: ({ uv, angle }) => `${String(uv)} = rotate2d(${String(uv)}, ${String(angle)});`
 };

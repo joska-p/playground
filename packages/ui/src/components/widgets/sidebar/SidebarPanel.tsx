@@ -6,7 +6,7 @@ function SidebarPanel({ children, ref, className, ...props }: ComponentProps<'di
   return (
     <div
       ref={ref}
-      className={cn(styles.panel, className)}
+      className={cn(styles['panel'], className)}
       {...props}
     >
       {children}

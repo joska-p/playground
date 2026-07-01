@@ -9,7 +9,7 @@ const nodes = [
   { id: 'f', cx: 40, cy: 40 }
 ];
 
-const edges = [
+const edges: [string, string][] = [
   ['a', 'b'],
   ['a', 'd'],
   ['b', 'c'],
@@ -29,10 +29,10 @@ export const IconGraphify = createIcon({
       {edges.map(([a, b]) => (
         <line
           key={`${a}-${b}`}
-          x1={pos[a].cx}
-          y1={pos[a].cy}
-          x2={pos[b].cx}
-          y2={pos[b].cy}
+          x1={pos[a]?.cx ?? 0}
+          y1={pos[a]?.cy ?? 0}
+          x2={pos[b]?.cx ?? 0}
+          y2={pos[b]?.cy ?? 0}
           stroke="currentColor"
           strokeWidth="1"
           opacity={0.3}
@@ -50,7 +50,7 @@ export const IconGraphify = createIcon({
       ))}
       {nodes.map(({ cx, cy }, i) => (
         <circle
-          key={`o-${i}`}
+          key={`o-${String(i)}`}
           cx={cx}
           cy={cy}
           r="6"

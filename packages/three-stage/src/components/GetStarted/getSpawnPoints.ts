@@ -136,19 +136,22 @@ export function getSpawnPoints({
   }
 
   // 3. Handle pure mathematical vertex processing
-  const rawVertices = VERTEX_PRESETS[preset] || [];
-  const vertexVec = new Vector3();
+  const rawVertices = VERTEX_PRESETS[preset];
 
-  for (let i = 0; i < rawVertices.length; i++) {
-    // Load coordinates and normalize it to make it a true direction vector pointing out from origin center
-    vertexVec.fromArray(rawVertices[i]).normalize();
+  if (!rawVertices) throw new Error(`No raw vertices found for preset: ${preset}`);
+
+  const vertexVec = new Vector3();
+  let idCounter = 0;
+
+  for (const vertex of rawVertices) {
+    vertexVec.fromArray(vertex).normalize();
 
     const position = vertexVec.clone().multiplyScalar(totalDistance);
     const rotation = new Euler().setFromQuaternion(
       new Quaternion().setFromUnitVectors(LOCAL_UP, vertexVec)
     );
 
-    points.push({ id: i, position, rotation });
+    points.push({ id: idCounter++, position, rotation });
   }
 
   return points;

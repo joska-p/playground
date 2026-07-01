@@ -24,7 +24,7 @@ function CompareSlider({ source, result }: CompareSliderProps) {
       style={{
         width: '100%',
         maxWidth: width,
-        aspectRatio: `${width} / ${height}`,
+        aspectRatio: `${String(width)} / ${String(height)}`,
         cursor: 'ew-resize'
       }}
       onMouseDown={handleMouseDown}

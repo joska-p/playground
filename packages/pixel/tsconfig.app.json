@@ -1,4 +1,4 @@
 {
   "extends": "@repo/config-typescript/app.json",
-  "include": ["src"]
+  "include": ["src", "vitest.setup.ts"]
 }

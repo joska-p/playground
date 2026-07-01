@@ -32,7 +32,10 @@ function ManipView({
       manip.params && manip.params.length > 0
         ? ', options: { ' +
           manip.params
-            .map((p) => `${p.key}: ${paramValues[`${manip.id}:${p.key}`] ?? p.default}`)
+            .map((p) => {
+              const value = paramValues[`${manip.id}:${p.key}`] ?? p.default;
+              return `${p.key}: ${String(value)}`;
+            })
             .join(', ') +
           ' }'
         : ''
