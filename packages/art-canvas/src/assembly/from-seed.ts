@@ -1,3 +1,4 @@
+import { MOOD_REGISTRY } from './moods';
 import { PALETTE_REGISTRY } from '../palettes/registry';
 import { noiseField } from '../shaders/modules/shapes/noiseField';
 import { sdBox } from '../shaders/modules/shapes/sdBox';
@@ -12,7 +13,7 @@ import { ClassicTemplate } from '../shaders/templates/classic';
 import { DirectNoiseTemplate } from '../shaders/templates/DirectNoiseTemplate';
 import noisePreamble from '../shaders/preamble/noise2d.glsl?raw';
 import fbmPreamble from '../shaders/preamble/fbm.glsl?raw';
-import type { SeededRandom, ShaderModule, ShaderTemplate } from '../types';
+import type { Mood, SeededRandom, ShaderModule, ShaderTemplate } from '../types';
 import { createSeededRandom } from './seeded-random';
 
 const PREAMBLE_REGISTRY: Record<string, string> = {
@@ -36,6 +37,17 @@ const TEMPLATE_REGISTRY: ShaderTemplate[] = [
   // MultiFieldTemplate, OneShotTemplate, etc.
 ];
 
+function applyMood<T extends { name: string; weight?: number }>(
+  registry: readonly T[],
+  moodWeights?: Record<string, number>
+): T[] {
+  if (!moodWeights) return [...registry];
+  return registry.map((item) => ({
+    ...item,
+    weight: (item.weight ?? 1.0) * (moodWeights[item.name] ?? 1.0),
+  }));
+}
+
 function processArgs(mod: ShaderModule, rng: SeededRandom): Record<string, string> {
   const resolvedArgs: Record<string, string> = { uv: 'uv' };
   if (!mod.params) return resolvedArgs;
@@ -54,19 +66,30 @@ export function generateShaderFromSeed(seed: string, complexity: number = 3): st
   const rng = createSeededRandom(seed);
   const activeModules: ShaderModule[] = [];
 
-  // 1. Pick the structural grammar first
-  const pickedTemplate = rng.pickWeighted(TEMPLATE_REGISTRY);
+  // 0. Pick mood — biases everything downstream
+  const mood: Mood = rng.pickWeighted(MOOD_REGISTRY);
+  const effectiveComplexity = Math.max(
+    1,
+    Math.min(5, complexity + (mood.complexityBias ?? 0))
+  );
 
-  // 2. Resolve spaces, shapes, and effects — complexity controls how many
+  // 1. Pick the structural grammar, biased by mood
+  const pickedTemplate = rng.pickWeighted(
+    applyMood(TEMPLATE_REGISTRY, mood.templateWeights)
+  );
+
+  // 2. Resolve spaces, shapes, and effects — biased by mood
+  const moodSpaceRegistry = applyMood(SPACE_REGISTRY, mood.moduleWeights);
   let spaceBlock = '';
 
-  for (let d = 0; d < complexity; d++) {
-    const space = rng.pickWeighted(SPACE_REGISTRY);
+  for (let d = 0; d < effectiveComplexity; d++) {
+    const space = rng.pickWeighted(moodSpaceRegistry);
     activeModules.push(space);
     spaceBlock += `\n${space.getCall(processArgs(space, rng))}`;
   }
 
-  const shape = rng.pickWeighted(SHAPE_REGISTRY);
+  const moodShapeRegistry = applyMood(SHAPE_REGISTRY, mood.moduleWeights);
+  const shape = rng.pickWeighted(moodShapeRegistry);
   activeModules.push(shape);
 
   // 3. Collect unique preamble deps from template + modules
@@ -81,11 +104,13 @@ export function generateShaderFromSeed(seed: string, complexity: number = 3): st
   const uniqueInjectedCode = preambleCode
     ? preambleCode + '\n' + moduleCode
     : moduleCode;
-  const palette = rng.pickWeighted(PALETTE_REGISTRY);
+  const palette = rng.pickWeighted(
+    applyMood(PALETTE_REGISTRY, mood.paletteWeights)
+  );
 
   // 4. Delegate compilation to the chosen grammar sentence
   return pickedTemplate.generate({
-    complexity,
+    complexity: effectiveComplexity,
     rng,
     spaceBlock,
     shapeBlock: shape.getCall(processArgs(shape, rng)),

@@ -1,0 +1,86 @@
+import type { Mood } from '../types';
+
+const MOOD_REGISTRY: Mood[] = [
+  {
+    name: 'organic',
+    weight: 1.0,
+    templateWeights: { classic: 0.7, 'direct-noise': 2.0 },
+    moduleWeights: {
+      noiseField: 3.0,
+      flowField: 2.0,
+      domainWarp: 1.8,
+      sdBox: 0.2,
+      voronoi: 0.5,
+      mouseAttractor: 0.3,
+    },
+    paletteWeights: {
+      iridescent_opal: 1.2,
+      biomorphic_flesh: 3.0,
+      deep_ocean: 0.5,
+    },
+    complexityBias: -1,
+  },
+  {
+    name: 'geometric',
+    weight: 1.0,
+    templateWeights: { classic: 2.5, 'direct-noise': 0.3 },
+    moduleWeights: {
+      noiseField: 0.2,
+      sdBox: 3.0,
+      voronoi: 2.5,
+      rotate2d: 1.8,
+      repeatSpace: 1.5,
+      domainWarp: 0.5,
+      polarCoords: 1.5,
+    },
+    paletteWeights: {
+      neon_cyber: 3.0,
+      iridescent_opal: 1.0,
+      biomorphic_flesh: 0.3,
+    },
+    complexityBias: 0,
+  },
+  {
+    name: 'calm',
+    weight: 1.0,
+    templateWeights: { classic: 0.5, 'direct-noise': 3.0 },
+    moduleWeights: {
+      noiseField: 2.5,
+      flowField: 0.5,
+      domainWarp: 0.5,
+      mouseAttractor: 0.1,
+      repeatSpace: 2.0,
+      polarCoords: 1.5,
+      voronoi: 0.3,
+    },
+    paletteWeights: {
+      deep_ocean: 3.0,
+      iridescent_opal: 2.0,
+      biomorphic_flesh: 0.5,
+    },
+    complexityBias: -1,
+  },
+  {
+    name: 'energetic',
+    weight: 1.0,
+    templateWeights: { classic: 2.0, 'direct-noise': 0.5 },
+    moduleWeights: {
+      domainWarp: 2.5,
+      flowField: 1.5,
+      mouseAttractor: 2.0,
+      rotate2d: 1.5,
+      voronoi: 2.0,
+      sdBox: 1.5,
+      noiseField: 0.5,
+    },
+    paletteWeights: {
+      volcanic_magma: 3.0,
+      neon_cyber: 2.0,
+      biomorphic_flesh: 1.5,
+      deep_ocean: 0.3,
+    },
+    complexityBias: 1,
+  },
+];
+
+export { MOOD_REGISTRY };

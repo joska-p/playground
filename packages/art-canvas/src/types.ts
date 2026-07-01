@@ -37,6 +37,15 @@ export type ShaderModule = {
   deps?: string[];
 };
 
+export type Mood = {
+  name: string;
+  weight?: number;
+  templateWeights?: Record<string, number>;
+  moduleWeights?: Record<string, number>;
+  paletteWeights?: Record<string, number>;
+  complexityBias?: number;
+};
+
 export type ShaderTemplate = {
   name: string;
   weight: number;
