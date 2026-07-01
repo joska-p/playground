@@ -4,7 +4,7 @@ import code from './repeatSpace.glsl?raw';
 export const repeatSpace: ShaderModule = {
   name: 'repeatSpace',
   category: 'space',
-  weight: 0.7, // Lower weight to avoid breaking continuity too often
+  weight: 0.1, // Lower weight to avoid breaking continuity too often
   code,
   params: {
     count: { type: 'range', min: 1.5, max: 4.5, precision: 1 }
