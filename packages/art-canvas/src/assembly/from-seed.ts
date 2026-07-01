@@ -1,17 +1,17 @@
-import { cosinePalette } from '../../shaders/effects/cosinePalette';
-import { posterize } from '../../shaders/effects/posterize';
-import { surfaceLighting } from '../../shaders/effects/surfaceLighting';
-import { sdBox } from '../../shaders/shapes/sdBox';
-import { voronoiModule } from '../../shaders/shapes/voronoi';
-import { domainWarp } from '../../shaders/space/domainWarp';
-import { flowField } from '../../shaders/space/flowField';
-import { mouseAttractor } from '../../shaders/space/mouseAttractor';
-import { polarCoords } from '../../shaders/space/polarCoords';
-import { repeatSpace } from '../../shaders/space/repeatSpace';
-import { rotate2d } from '../../shaders/space/rotate2d';
-import type { ShaderModule } from '../../shaders/types';
-import { PALETTE_REGISTRY } from './utils/palette-registry';
-import { SeededRandom } from './utils/seededRandom';
+import { cosinePalette } from '../shaders/effects/cosinePalette';
+import { posterize } from '../shaders/effects/posterize';
+import { surfaceLighting } from '../shaders/effects/surfaceLighting';
+import { sdBox } from '../shaders/shapes/sdBox';
+import { voronoiModule } from '../shaders/shapes/voronoi';
+import { domainWarp } from '../shaders/space/domainWarp';
+import { flowField } from '../shaders/space/flowField';
+import { mouseAttractor } from '../shaders/space/mouseAttractor';
+import { polarCoords } from '../shaders/space/polarCoords';
+import { repeatSpace } from '../shaders/space/repeatSpace';
+import { rotate2d } from '../shaders/space/rotate2d';
+import type { ShaderModule } from '../shaders/types';
+import { PALETTE_REGISTRY } from '../palettes/registry';
+import { SeededRandom } from './seeded-random';
 
 const SPACE_REGISTRY: ShaderModule[] = [
   domainWarp,
@@ -42,7 +42,6 @@ export function generateShaderFromSeed(seed: string, maxDepth: number = 3): stri
     return resolvedArgs;
   };
 
-  // 1. AST Construction
   let spaceExecutionBlock = '';
   for (let d = 0; d < maxDepth; d++) {
     const pickedSpace = rng.pickWeighted(SPACE_REGISTRY);
@@ -50,12 +49,10 @@ export function generateShaderFromSeed(seed: string, maxDepth: number = 3): stri
     spaceExecutionBlock += `\n          ${pickedSpace.getCall(processArgs(pickedSpace))}`;
   }
 
-  // 2. Select structural field evaluator
   const pickedShape = rng.pickWeighted(SHAPE_REGISTRY);
   activeModules.push(pickedShape);
   const shapeExecutionLine = pickedShape.getCall(processArgs(pickedShape));
 
-  // 3. Post Effects
   const hasPosterize = rng.next() > 0.6;
   const hasLighting = rng.next() > 0.4;
 

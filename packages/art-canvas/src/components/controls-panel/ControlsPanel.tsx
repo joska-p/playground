@@ -1,6 +1,6 @@
 import type { Control, ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
-import { useFromSeedSection } from '../../features/from-seed/controls/useFromSeedSection';
+import { useSeedControls } from '../../input-modes/seed/useControls';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';
 import type { InputMode } from '../../stores/ui/types';
@@ -32,7 +32,7 @@ function ControlsPanel() {
     }
   ];
 
-  const fromSeedSection = useFromSeedSection();
+  const fromSeedSection = useSeedControls();
 
   if (inputMode === 'seed') {
     sections.push(fromSeedSection);

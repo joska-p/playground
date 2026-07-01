@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { FromSeed } from '../features/from-seed/FromSeed';
+import { SeedCanvas } from '../input-modes/seed/SeedCanvas';
 import { useInputMode } from '../stores/ui/selectors';
 import { ControlsPanel } from './controls-panel/ControlsPanel';
 import { FoldedSpace } from './folded-space/FoldedSpace';
@@ -11,7 +11,7 @@ export function ArtCanvas() {
     <>
       <ControlsPanel />
       <Canvas camera={{ position: [0, 0, 1] }}>
-        {inputMode === 'seed' && <FromSeed />}
+        {inputMode === 'seed' && <SeedCanvas />}
         {inputMode === 'manual' && <FoldedSpace />}
       </Canvas>
     </>

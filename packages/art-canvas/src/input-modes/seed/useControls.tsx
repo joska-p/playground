@@ -1,8 +1,8 @@
 import type { Control, ControlSection } from '@repo/ui/ControlPanel';
-import { setDepth, setSeed } from '../../../stores/ui/actions';
-import { useDepth, useSeed } from '../../../stores/ui/selectors';
+import { setDepth, setSeed } from '../../stores/ui/actions';
+import { useDepth, useSeed } from '../../stores/ui/selectors';
 
-function useFromSeedSection(): ControlSection {
+function useSeedControls(): ControlSection {
   const seed = useSeed();
   const depth = useDepth();
 
@@ -25,10 +25,10 @@ function useFromSeedSection(): ControlSection {
   };
 
   return {
-    id: 'from-seed',
-    label: 'From Seed',
+    id: 'seed',
+    label: 'Seed',
     controls: [seedControl, depthControl]
   };
 }
 
-export { useFromSeedSection };
+export { useSeedControls };

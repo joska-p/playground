@@ -2,18 +2,18 @@ import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useDepth, useSeed } from '../../stores/ui/selectors';
-import { generateShaderFromSeed } from './generateShaderFromSeed';
+import { generateShaderFromSeed } from '../../assembly/from-seed';
 
 const vertexShader = `
   varying vec2 vUv;
 
   void main() {
-    vUv = uv; // Three.js injects 'uv' automatically as an attribute
-    gl_Position = vec4(position, 1.0); // Map vertex to clip coordinates
+    vUv = uv;
+    gl_Position = vec4(position, 1.0);
   }
 `;
 
-function FromSeed() {
+function SeedCanvas() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const seed = useSeed();
   const depth = useDepth();
@@ -29,11 +29,9 @@ function FromSeed() {
 
   useFrame((state) => {
     if (materialRef.current) {
-      // 1. Update time uniform
       if (materialRef.current.uniforms['u_time']) {
-        materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime(); //
+        materialRef.current.uniforms['u_time'].value = state.clock.getElapsedTime();
       }
-      // 2. Pass mouse uniforms: state.pointer holds normalized device coordinates (-1 to +1)
       if (materialRef.current.uniforms['u_mouse']) {
         materialRef.current.uniforms['u_mouse'].value.copy(state.pointer);
       }
@@ -56,4 +54,4 @@ function FromSeed() {
   );
 }
 
-export { FromSeed };
+export { SeedCanvas };
