@@ -1,5 +1,5 @@
-import { defineConfig } from 'eslint/config';
 import createConfig from '@repo/config-eslint';
+import { defineConfig } from 'eslint/config';
 
 const baseConfig = createConfig(import.meta.dirname);
 

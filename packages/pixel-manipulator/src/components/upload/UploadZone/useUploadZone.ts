@@ -13,7 +13,7 @@ export function useUploadZone() {
     e.preventDefault();
     e.stopPropagation();
     dragCounter.current++;
-    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+    if (e.dataTransfer.items.length > 0) {
       setIsDragging(true);
     }
   }, []);
@@ -39,7 +39,7 @@ export function useUploadZone() {
       setIsDragging(false);
       dragCounter.current = 0;
 
-      const file = e.dataTransfer.files?.[0];
+      const file = e.dataTransfer.files[0];
       if (file) handleFileDrop(file);
     },
     [handleFileDrop]

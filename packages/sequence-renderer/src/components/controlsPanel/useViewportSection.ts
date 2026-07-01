@@ -10,7 +10,9 @@ function useViewportSection() {
     type: 'toggle',
     label: 'Manual Viewport',
     value: viewport.enabled,
-    onChange: (enabled) => { setViewport({ enabled, zoom: 1, panX: 0, panY: 0 }); }
+    onChange: (enabled) => {
+      setViewport({ enabled, zoom: 1, panX: 0, panY: 0 });
+    }
   };
 
   const zoomControl: Control = {
@@ -21,7 +23,9 @@ function useViewportSection() {
     min: 0.1,
     max: 5,
     step: 0.05,
-    onChange: (zoom) => { setViewport({ zoom }); },
+    onChange: (zoom) => {
+      setViewport({ zoom });
+    },
     hidden: !viewport.enabled
   };
 
@@ -33,7 +37,9 @@ function useViewportSection() {
     min: -2000,
     max: 2000,
     step: 1,
-    onChange: (panX) => { setViewport({ panX }); },
+    onChange: (panX) => {
+      setViewport({ panX });
+    },
     hidden: !viewport.enabled
   };
 
@@ -45,7 +51,9 @@ function useViewportSection() {
     min: -2000,
     max: 2000,
     step: 1,
-    onChange: (panY) => { setViewport({ panY }); },
+    onChange: (panY) => {
+      setViewport({ panY });
+    },
     hidden: !viewport.enabled
   };
 

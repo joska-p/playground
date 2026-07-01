@@ -11,5 +11,6 @@ export const noiseField: ShaderModule = {
     scale: { type: 'range', min: 1.0, max: 5.0 },
     speed: { type: 'range', min: 0.2, max: 1.5 }
   },
-  getCall: (args) => `float dist = noiseField(${args.uv ?? 'uv'}, ${args.scale ?? '1.0'}, u_time, ${args.speed ?? '1.0'});`
+  getCall: (args) =>
+    `float dist = noiseField(${args.uv ?? 'uv'}, ${args.scale ?? '1.0'}, u_time, ${args.speed ?? '1.0'});`
 };

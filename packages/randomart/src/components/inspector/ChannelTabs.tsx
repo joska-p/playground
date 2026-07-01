@@ -71,7 +71,13 @@ export function ChannelTabs() {
           return (
             <Button
               key={channel}
-              onClick={correlated ? undefined : () => { setActiveChannel(channel); }}
+              onClick={
+                correlated
+                  ? undefined
+                  : () => {
+                      setActiveChannel(channel);
+                    }
+              }
               disabled={correlated}
               variant="primary"
               className={cn('inline-flex flex-col text-xs break-all', {

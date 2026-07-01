@@ -30,9 +30,15 @@ function WorkflowNode({ step, index, isFirst, isLast, name, argDefinitions }: Wo
         <WorkflowNodeControls
           isFirst={isFirst}
           isLast={isLast}
-          onMoveUp={() => { moveWorkflowStep(index, -1); }}
-          onMoveDown={() => { moveWorkflowStep(index, 1); }}
-          onRemove={() => { removeWorkflowStep(index); }}
+          onMoveUp={() => {
+            moveWorkflowStep(index, -1);
+          }}
+          onMoveDown={() => {
+            moveWorkflowStep(index, 1);
+          }}
+          onRemove={() => {
+            removeWorkflowStep(index);
+          }}
         />
       </header>
 
@@ -43,12 +49,12 @@ function WorkflowNode({ step, index, isFirst, isLast, name, argDefinitions }: Wo
               key={def.key}
               def={def}
               value={(step.options[def.key] as number | undefined) ?? def.min}
-              onChange={(value) =>
-                { updateStepOptions(index, {
+              onChange={(value) => {
+                updateStepOptions(index, {
                   ...step.options,
                   [def.key]: value
-                } as Record<string, number>); }
-              }
+                } as Record<string, number>);
+              }}
             />
           ))}
         </section>

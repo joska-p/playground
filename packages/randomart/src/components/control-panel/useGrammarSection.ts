@@ -12,7 +12,9 @@ function useGrammarSection() {
     type: 'button',
     label: rule.name,
     variant: enabledRuleIds.includes(rule.id) ? 'primary' : 'default',
-    onClick: () => { toggleRule(rule.id); }
+    onClick: () => {
+      toggleRule(rule.id);
+    }
   }));
 
   const section: ControlSection = {

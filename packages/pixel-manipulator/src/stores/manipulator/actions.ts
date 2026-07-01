@@ -2,12 +2,13 @@ import { pixel } from '@repo/pixel';
 import { manipulatorStore } from './store';
 import type { OutputType, WorkflowStep } from './types';
 
-function setImageSource(imageSource?: OutputType) {
+function setImageSource(imageSource: OutputType) {
   manipulatorStore.setState({ imageSource });
 }
 
 function clearImageSource() {
-  manipulatorStore.setState({ imageSource: undefined });
+  const imageSource = null;
+  manipulatorStore.setState({ imageSource });
 }
 
 function setOutputs(outputs: OutputType[]) {
@@ -46,7 +47,12 @@ function moveWorkflowStep(index: number, direction: -1 | 1) {
   if (targetIndex < 0 || targetIndex >= workflow.length) return;
 
   const updated = [...workflow];
-  [updated[index], updated[targetIndex]] = [updated[targetIndex], updated[index]];
+  const current = updated[index];
+  const target = updated[targetIndex];
+  if (!current || !target) return; // narrows types, also guards runtime
+
+  updated[index] = target;
+  updated[targetIndex] = current;
   manipulatorStore.setState({ workflow: updated });
 }
 
@@ -75,14 +81,17 @@ async function executeWorkflow() {
       steps: workflow.map((step) => ({ id: step.id, options: step.options }))
     });
 
-    setOutputs(
-      results.map((imageData, i) => ({
-        id: `step-${i + 1}`,
-        name: `Step ${i + 1}`,
-        description: workflow[i].id,
-        imageData
-      }))
-    );
+    const outputs = [];
+    for (const result of results) {
+      outputs.push({
+        id: `step-${String(outputs.length + 1)}`,
+        name: `Step ${String(outputs.length + 1)}`,
+        description: `Step ${String(outputs.length + 1)}`,
+        imageData: result
+      });
+    }
+
+    setOutputs(outputs);
   } catch (err) {
     console.error('Pipeline execution failed:', err);
   } finally {

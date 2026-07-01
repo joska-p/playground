@@ -8,7 +8,9 @@ export function TextControl({ control }: { control: TextControlType }) {
       </label>
       <input
         value={control.value}
-        onChange={(e) => { control.onChange(e.target.value); }}
+        onChange={(e) => {
+          control.onChange(e.target.value);
+        }}
         disabled={control.disabled}
         className="bg-muted border-border text-foreground focus:ring-primary h-9 w-full rounded-lg border px-3 text-sm focus:ring-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
       />

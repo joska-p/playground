@@ -18,8 +18,8 @@ function getConnections(nodes: GraphNode[], links: GraphLink[], idx: number) {
   const incoming: GraphNode[] = [];
   const outgoing: GraphNode[] = [];
   for (const { sourceIdx, targetIdx } of links) {
-    if (targetIdx === idx) incoming.push(nodes[sourceIdx]!);
-    if (sourceIdx === idx) outgoing.push(nodes[targetIdx]!);
+    if (targetIdx === idx) incoming.push(nodes[sourceIdx]);
+    if (sourceIdx === idx) outgoing.push(nodes[targetIdx]);
   }
   return { incoming, outgoing };
 }

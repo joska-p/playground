@@ -9,7 +9,9 @@ function ImageSourceControls() {
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => { clearOutputs(); }}
+        onClick={() => {
+          clearOutputs();
+        }}
         className="self-end"
       >
         Clear Outputs

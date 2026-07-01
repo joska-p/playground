@@ -82,10 +82,15 @@ function GraphCanvas() {
       }}
       className="bg-background h-full w-full"
       gl={{ antialias: true, alpha: false }}
-      onContextMenu={(e: React.MouseEvent) => { e.preventDefault(); }}
+      onContextMenu={(e: React.MouseEvent) => {
+        e.preventDefault();
+      }}
       onCreated={(state: RootState) => {
-        const bg = getComputedStyle(state.gl.domElement.parentElement!).backgroundColor;
-        state.gl.setClearColor(new THREE.Color(bg));
+        const parentElement = state.gl.domElement.parentElement;
+        if (parentElement) {
+          const bg = getComputedStyle(parentElement).backgroundColor;
+          state.gl.setClearColor(new THREE.Color(bg));
+        }
       }}
       onPointerMissed={(event: MouseEvent) => {
         if (event.button === 0) selectNode(null);

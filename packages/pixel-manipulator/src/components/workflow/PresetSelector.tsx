@@ -19,7 +19,9 @@ function PresetSelector() {
       {WORKFLOW_PRESETS.map((preset, index) => (
         <li key={preset.name}>
           <button
-            onClick={() => { loadPreset(index); }}
+            onClick={() => {
+              loadPreset(index);
+            }}
             className="border-border bg-card hover:bg-foreground/5 cursor-pointer rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors"
           >
             {preset.name}

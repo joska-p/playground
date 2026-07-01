@@ -19,7 +19,9 @@ function WorkflowControls() {
       <Button
         variant="outline"
         isLoading={isProcessing}
-        onClick={() => { clearWorkflowSteps(); }}
+        onClick={() => {
+          clearWorkflowSteps();
+        }}
       >
         Clear Workflow
       </Button>

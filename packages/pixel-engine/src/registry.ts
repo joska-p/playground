@@ -16,10 +16,7 @@ export class Registry {
       throw new Error(`[pixel-engine] Manipulation must have a non-empty string identifier`);
     }
 
-    if (
-      definition.access === 'neighborhood' &&
-      (      definition.radius < 0)
-    ) {
+    if (definition.access === 'neighborhood' && definition.radius < 0) {
       throw new Error(
         `[pixel-engine] Neighborhood manipulation "${definition.id}" must declare a non-negative radius`
       );

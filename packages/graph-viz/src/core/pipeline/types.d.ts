@@ -34,8 +34,12 @@ declare module 'd3-force-3d' {
   export type ForceLink = {
     links(links: SimulationLinkDatum<SimulationNodeDatum>[]): ForceLink;
     id(accessor: (node: SimulationNodeDatum) => string | number): ForceLink;
-    distance(d: number | ((link: SimulationLinkDatum<SimulationNodeDatum>, i: number) => number)): ForceLink;
-    strength(s: number | ((link: SimulationLinkDatum<SimulationNodeDatum>, i: number) => number)): ForceLink;
+    distance(
+      d: number | ((link: SimulationLinkDatum<SimulationNodeDatum>, i: number) => number)
+    ): ForceLink;
+    strength(
+      s: number | ((link: SimulationLinkDatum<SimulationNodeDatum>, i: number) => number)
+    ): ForceLink;
     iterations(count: number): ForceLink;
   } & Force;
 

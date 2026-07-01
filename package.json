@@ -17,13 +17,13 @@
     "fallow": "fallow"
   },
   "devDependencies": {
-    "@turbo/codemod": "^2.10.1",
+    "@turbo/codemod": "^2.10.2",
     "fallow": "^2.91.0",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
-    "turbo": "^2.10.1",
+    "turbo": "^2.10.2",
     "typescript": "catalog:"
   },
   "packageManager": "pnpm@11.9.0"

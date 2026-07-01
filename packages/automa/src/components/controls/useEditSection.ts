@@ -30,7 +30,9 @@ function useEditSection() {
       { label: 'Draw', value: 'draw' },
       { label: 'Erase', value: 'erase' }
     ],
-    onChange: (v: string) => { setToolMode(v as 'draw' | 'erase'); }
+    onChange: (v: string) => {
+      setToolMode(v as 'draw' | 'erase');
+    }
   };
 
   const editSection: ControlSection = {

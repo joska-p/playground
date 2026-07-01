@@ -60,12 +60,12 @@ function DefaultFallback({
         </div>
         <p className="text-muted-foreground text-sm">{getErrorMessage(error)}</p>
         <Button
-            onClick={resetErrorBoundary}
-            variant="destructive"
-            size="sm"
-          >
-            Try again
-          </Button>
+          onClick={resetErrorBoundary}
+          variant="destructive"
+          size="sm"
+        >
+          Try again
+        </Button>
       </div>
     </div>
   );

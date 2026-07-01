@@ -44,7 +44,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
             <ul className="max-h-60 space-y-0.5 overflow-y-auto pr-1">
               {shown.map((n, i) => (
                 <ConnectionRow
-                  key={`${n.id}-${i}`}
+                  key={`${n.id}-${String(i)}`}
                   node={n}
                   direction={i < outgoing.length ? 'out' : 'in'}
                 />

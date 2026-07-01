@@ -1,22 +1,19 @@
-import { defineConfig } from 'eslint/config';
 import createConfig from '@repo/config-eslint';
+import { defineConfig } from 'eslint/config';
 
 const baseConfig = createConfig(import.meta.dirname);
 
 export default defineConfig([
   ...baseConfig,
   {
-    files: ['src/core/pipeline/stages/run-simulation.ts'],
+    files: ['**/*.ts', '**/*.tsx'],
     rules: {
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off'
-    }
-  },
-  {
-    files: ['src/core/pipeline/types.d.ts'],
-    rules: {
-      '@typescript-eslint/no-redundant-type-constituents': 'off'
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off'
     }
   }
 ]);

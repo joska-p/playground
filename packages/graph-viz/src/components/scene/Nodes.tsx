@@ -38,7 +38,7 @@ function Nodes() {
     const globalIdx = lookup[instanceId];
     if (globalIdx === undefined) return;
 
-    const node = nodes[globalIdx]!;
+    const node = nodes[globalIdx];
     if (!visibleCommunities.has(node.community)) return;
 
     selectNode(selectedNodeIdx === globalIdx ? null : globalIdx);
@@ -51,7 +51,9 @@ function Nodes() {
         args={[undefined, undefined, codeToGlobal.length]}
         frustumCulled={false}
         onClick={handleClick}
-        onPointerDown={(e) => { e.stopPropagation(); }}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+        }}
       >
         <sphereGeometry
           args={[
@@ -68,7 +70,9 @@ function Nodes() {
         args={[undefined, undefined, docToGlobal.length]}
         frustumCulled={false}
         onClick={handleClick}
-        onPointerDown={(e) => { e.stopPropagation(); }}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+        }}
       >
         <boxGeometry args={[boxGeometry.width, boxGeometry.height, boxGeometry.depth]} />
         <meshStandardMaterial toneMapped={false} />

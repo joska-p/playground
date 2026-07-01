@@ -37,7 +37,9 @@ function Controls() {
           <Button
             key={key}
             title={rule.info.description}
-            onClick={() => { handleGeneratePalette(baseColor, key as RuleKey); }}
+            onClick={() => {
+              handleGeneratePalette(baseColor, key as RuleKey);
+            }}
           >
             Generate {rule.info.name}
           </Button>

@@ -21,12 +21,13 @@ export function computeEdgeBuffers(
   const connArr: number[] = [];
   const discArr: number[] = [];
 
-  for (let i = 0; i < links.length; i++) {
-    const link = links[i]!;
-    const source = nodes[link.sourceIdx]!;
-    const target = nodes[link.targetIdx]!;
+  for (const link of links) {
+    const source = nodes[link.sourceIdx];
+    const target = nodes[link.targetIdx];
 
     if (
+      !source ||
+      !target ||
       (visibleCommunities.size > 0 && !visibleCommunities.has(source.community)) ||
       (visibleCommunities.size > 0 && !visibleCommunities.has(target.community))
     ) {

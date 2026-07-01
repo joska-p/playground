@@ -18,7 +18,9 @@ function ImageLightbox({ imageData, onClose }: ImageLightboxProps) {
     >
       <div
         className="relative max-h-[90vh] max-w-[90vw]"
-        onClick={(e) => { e.stopPropagation(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <button
           onClick={onClose}

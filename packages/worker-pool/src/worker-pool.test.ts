@@ -46,7 +46,9 @@ describe('MockWorkerPool', () => {
 
   it('teardown does not throw', () => {
     const pool = new MockWorkerPool((n: number) => n);
-    expect(() => { pool.teardown(); }).not.toThrow();
+    expect(() => {
+      pool.teardown();
+    }).not.toThrow();
   });
 });
 
@@ -374,8 +376,12 @@ describe('WorkerPool — teardown', () => {
     const p3 = pool.run(3); // queues
 
     // Suppress unhandled rejections for queued promises
-    p2.catch(() => { return undefined; });
-    p3.catch(() => { return undefined; });
+    p2.catch(() => {
+      return undefined;
+    });
+    p3.catch(() => {
+      return undefined;
+    });
 
     pool.teardown();
 

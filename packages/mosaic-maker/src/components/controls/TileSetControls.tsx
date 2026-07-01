@@ -36,7 +36,9 @@ function TileSetControls() {
               <input
                 type="checkbox"
                 checked={tileSet.includes(tileName)}
-                onChange={() => { toggleTileInSet(tileName); }}
+                onChange={() => {
+                  toggleTileInSet(tileName);
+                }}
                 className="peer sr-only"
               />
               <Tile

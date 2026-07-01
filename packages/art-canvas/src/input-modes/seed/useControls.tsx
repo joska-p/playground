@@ -28,7 +28,9 @@ function useSeedControls(): ControlSection {
     label: 'Seed',
     type: 'text',
     value: seed,
-    onChange: (v: string) => { setSeed(v); }
+    onChange: (v: string) => {
+      setSeed(v);
+    }
   };
 
   const complexityControl: Control = {
@@ -38,7 +40,9 @@ function useSeedControls(): ControlSection {
     min: 1,
     max: 5,
     value: complexity,
-    onChange: (v: number) => { setComplexity(v); }
+    onChange: (v: number) => {
+      setComplexity(v);
+    }
   };
 
   const moodControl: Control = {
@@ -47,7 +51,9 @@ function useSeedControls(): ControlSection {
     type: 'select',
     value: mood,
     options: MOOD_OPTIONS,
-    onChange: (v: string) => { setMood(v); }
+    onChange: (v: string) => {
+      setMood(v);
+    }
   };
 
   const paletteControl: Control = {
@@ -56,7 +62,9 @@ function useSeedControls(): ControlSection {
     type: 'select',
     value: palette,
     options: PALETTE_OPTIONS,
-    onChange: (v: string) => { setPalette(v); }
+    onChange: (v: string) => {
+      setPalette(v);
+    }
   };
 
   return {

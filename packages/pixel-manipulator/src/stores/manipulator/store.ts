@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import type { OutputType, WorkflowStep } from './types';
 
 type ManipulatorState = {
-  imageSource?: OutputType;
+  imageSource?: OutputType | null;
   outputs: OutputType[];
   isProcessing: boolean;
   workflow: WorkflowStep[];

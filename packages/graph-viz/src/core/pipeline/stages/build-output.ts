@@ -14,7 +14,7 @@ function deriveCommunityName(nodes: Pick<GraphNode, 'id'>[]): string {
     const parts = id.split('_');
     for (let d = 2; d <= 4 && d <= parts.length; d++) {
       const prefix = parts.slice(0, d).join('/');
-      prefixCounts.set(prefix, (prefixCounts.get(prefix) || 0) + 1);
+      prefixCounts.set(prefix, (prefixCounts.get(prefix) ?? 0) + 1);
     }
   }
   const sorted = [...prefixCounts.entries()].sort(
@@ -56,7 +56,7 @@ export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutp
 
   const nodeIndex = new Map<string, number>();
   for (let i = 0; i < nodes.length; i++) {
-    nodeIndex.set(nodes[i]!.id, i);
+    nodeIndex.set(nodes[i].id, i);
   }
 
   const links: GraphLink[] = simLinks.map((l) => {
@@ -97,7 +97,7 @@ export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutp
 
   const communitySizeRank = Array.from(commAccum.entries())
     .sort((a, b) => b[1].count - a[1].count)
-    .map(([id], rank) => ({ id, color: PALETTE[rank % PALETTE.length]! }));
+    .map(([id], rank) => ({ id, color: PALETTE[rank % PALETTE.length] }));
 
   const communityColor = new Map<number, string>();
   for (const c of communitySizeRank) {

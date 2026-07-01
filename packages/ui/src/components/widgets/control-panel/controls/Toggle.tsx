@@ -9,7 +9,9 @@ export function ToggleControl({ control }: { control: ToggleControlType }) {
         type="button"
         role="switch"
         aria-checked={control.value}
-        onClick={() => { control.onChange(!control.value); }}
+        onClick={() => {
+          control.onChange(!control.value);
+        }}
         disabled={control.disabled}
         className={cn(
           'relative h-[22px] w-10 rounded-full transition-colors duration-150',

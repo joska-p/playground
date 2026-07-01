@@ -49,7 +49,9 @@ export class WorkerPool<TTask, TResult> {
       job.reject(err);
     }
     this.queue.length = 0;
-    this.pool.forEach((entry) => { entry.worker.terminate(); });
+    this.pool.forEach((entry) => {
+      entry.worker.terminate();
+    });
     this.pool = [];
   }
 

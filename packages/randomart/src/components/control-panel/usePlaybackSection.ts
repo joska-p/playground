@@ -19,7 +19,9 @@ function usePlaybackSection() {
     id: 'resetTime',
     type: 'button',
     label: 'Reset Time',
-    onClick: () => { setTime(0); }
+    onClick: () => {
+      setTime(0);
+    }
   };
 
   const speedControl: Control = {

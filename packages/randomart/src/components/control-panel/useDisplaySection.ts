@@ -19,7 +19,9 @@ function triggerDownload(blob: Blob, filename: string) {
   link.download = filename;
   link.href = url;
   link.click();
-  setTimeout(() => { URL.revokeObjectURL(url); }, 1000);
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 1000);
 }
 
 function useDisplaySection() {

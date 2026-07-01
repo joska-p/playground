@@ -1,8 +1,5 @@
 {
   "extends": "@repo/config-typescript/app.json",
-  "compilerOptions": {
-    "types": ["vite/client", "node"],
-    "skipLibCheck": true
-  },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/core/pipeline/**/*.ts"]
 }

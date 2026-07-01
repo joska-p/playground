@@ -30,7 +30,9 @@ function LayerOptionsPanel({ params, values, onChange }: LayerOptionsPanelProps)
               <Slider
                 variant="secondary"
                 value={currentValue as number}
-                onChange={(value) => { onChange(key, value); }}
+                onChange={(value) => {
+                  onChange(key, value);
+                }}
                 min={descriptor.min}
                 max={descriptor.max}
                 step={descriptor.step}
@@ -43,7 +45,9 @@ function LayerOptionsPanel({ params, values, onChange }: LayerOptionsPanelProps)
                 <input
                   type="color"
                   value={(currentValue as string) || '#ffffff'}
-                  onChange={(e) => { onChange(key, e.target.value); }}
+                  onChange={(e) => {
+                    onChange(key, e.target.value);
+                  }}
                   className="border-border h-6 w-8 cursor-pointer rounded border bg-transparent"
                 />
                 <span className="text-muted-foreground font-mono text-xs">
@@ -56,7 +60,9 @@ function LayerOptionsPanel({ params, values, onChange }: LayerOptionsPanelProps)
               <Input
                 type="text"
                 value={currentValue as string}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { onChange(key, e.target.value); }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange(key, e.target.value);
+                }}
                 className="border-border h-6 w-full cursor-pointer rounded border bg-transparent"
               />
             )}
@@ -65,9 +71,9 @@ function LayerOptionsPanel({ params, values, onChange }: LayerOptionsPanelProps)
               <input
                 type="checkbox"
                 checked={currentValue as boolean}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  { onChange(key, e.target.checked); }
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange(key, e.target.checked);
+                }}
                 className="border-border h-6 cursor-pointer rounded border bg-transparent"
               />
             )}

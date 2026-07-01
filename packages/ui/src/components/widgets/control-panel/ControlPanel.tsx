@@ -48,7 +48,9 @@ export function ControlPanel({
       {/* ─── Portrait Mode Trigger: Floating Action Button ─── */}
       <button
         type="button"
-        onClick={() => { setIsOpen(true); }}
+        onClick={() => {
+          setIsOpen(true);
+        }}
         className="bg-primary text-primary-foreground shadow-primary/20 absolute right-5 bottom-5 z-30 flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg transition-transform duration-150 hover:scale-105 active:scale-95 portrait:flex landscape:hidden"
         aria-label="Open controls"
       >
@@ -69,7 +71,9 @@ export function ControlPanel({
 
       {/* ─── Portrait Overlay Backing ─── */}
       <div
-        onClick={() => { setIsOpen(false); }}
+        onClick={() => {
+          setIsOpen(false);
+        }}
         className={cn(
           'fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity duration-200 portrait:block landscape:hidden',
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'

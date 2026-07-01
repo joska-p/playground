@@ -27,17 +27,16 @@ export function ColorPaletteControl({ control }: { control: ColorPaletteControlT
           value={control.value}
           checked={control.checked}
           disabled={control.disabled}
-          onChange={(e) => { control.onChange(e.target.value); }}
+          onChange={(e) => {
+            control.onChange(e.target.value);
+          }}
           className="sr-only"
         />
         {control.colors.map((color, index) => (
           <div
             key={`${color}-${String(index)}`}
             style={{ backgroundColor: color }}
-            className={cn(
-              'shrink-0 transition-transform hover:scale-105',
-              sizeMap[control.size]
-            )}
+            className={cn('shrink-0 transition-transform hover:scale-105', sizeMap[control.size])}
             title={color}
           />
         ))}

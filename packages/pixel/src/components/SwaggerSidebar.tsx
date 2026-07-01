@@ -77,7 +77,9 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
           >
             <button
               type="button"
-              onClick={() => { toggleGroup(group.label); }}
+              onClick={() => {
+                toggleGroup(group.label);
+              }}
               aria-expanded={isExpanded}
               className="text-foreground/70 hover:text-foreground flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-xs font-semibold uppercase transition-colors"
             >
@@ -106,7 +108,9 @@ function SwaggerSidebar({ groups, activeEndpoint, onSelect }: SwaggerSidebarProp
                     <li key={item.id}>
                       <button
                         type="button"
-                        onClick={() => { handleSelect(item); }}
+                        onClick={() => {
+                          handleSelect(item);
+                        }}
                         aria-current={isActive ? 'page' : undefined}
                         style={
                           {
