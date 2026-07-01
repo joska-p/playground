@@ -93,4 +93,26 @@ We fixed a bug that would have become a wall. Now we can grow.
 
 ---
 
+## Captain's log, the craft — stardate 2026.07.01
+
+The hierarchy is clear now. From smallest to largest:
+
+**GLSL functions** — raw function definitions in `.glsl` files. Each is a single bit or bob: `flowField`, `voronoi`, `noise2d`, `fbm`, `rotate2d`. Some are shared preambles (available to any module), others belong to a single module.
+
+**ShaderModules** — wrappers around GLSL functions with metadata: category (space/shape/effect), `deps` for shared preamble requirements, `getCall` for invocation, `params` for parameterized ranges. This is what lives in the registries. The module is the unit of selection.
+
+**ShaderTemplates** — structural skeletons that define a `main()` body with named slots (space, shape, effect, color). The generator picks a template first, then fills its slots by picking modules. The template is the unit of composition.
+
+The generator sits above all three: pick a template, pick modules, resolve deps, hand off to the template's `generate()`.
+
+Two templates and nine modules is enough to prove the architecture but not enough to produce a meaningful range of output. The dictionary needs to grow. More space transforms (twirl, kaleidoscope, spherical), more shapes (circle, lines, truchet), more effects (bloom, chromatic aberration, color masks).
+
+But composition matters just as much as the dictionary. A well-structured module with poor composition still looks bad. The generator should eventually reason about which combinations work — not just randomly pick and pray.
+
+Colour is its own frontier. Right now every shader gets a palette from `PALETTE_REGISTRY` — four `vec3` constants feeding a cosine palette function. But there's no notion of **mood**: vibrant, muted, monochrome, warm, cold, pastel. The palette registry could carry mood tags, and the generator could select a palette that fits the template and modules it has already chosen. A delicate field like `noiseField` with muted pastels. A sharp `voronoi` with high-contrast neons.
+
+The pieces are all in place. The work ahead is building — more modules, more templates, and a colour system with intent.
+
+---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
