@@ -47,4 +47,25 @@ A shader grammar, in other words. Not procedural code that assembles strings, bu
 
 ---
 
+## Captain's log, supplemental — stardate 2026.07.01
+
+The template layer exists now. The generator picks a template first, then fills its slots from the registries. Two templates so far: the **classic** (loop: space → shape → color) and **direct-noise** (skip the shape, let noise drive color directly). Different skeletons, same dictionary.
+
+We also added our first organic shape — `noiseField`, a distance field built from layered Fractal Brownian Motion noise instead of a geometric signed distance function. It gets picked alongside `voronoi` and `sdBox` at generation time, weighted toward organic output.
+
+But the dictionary grew faster than the assembler could handle. When `noiseField` and `flowField` were selected together, the generated shader defined `noise2d` twice — once inlined from each module's code. GLSL doesn't forgive duplicate definitions. WebGL rejected the program.
+
+The fix: **preamble dependencies.** Shared utility functions (`noise2d`, `fbm`) no longer get inlined per module. Each module declares what it needs via a `deps` array:
+
+```
+flowField → deps: ['noise2d']
+noiseField → deps: ['noise2d', 'fbm']  
+```
+
+The generator collects all unique deps from active modules, resolves them through a `PREAMBLE_REGISTRY`, and includes each preamble exactly once — regardless of how many modules depend on it. Module code is still deduplicated by the Set, but preambles are resolved by name. The two collision domains are now separate.
+
+This pattern scales. As the dictionary grows to dozens of modules, any shared utility (noise functions, hash functions, blending helpers) lives in `shaders/preamble/` and is pulled in by name. No duplicates, no collisions, no debugging GLSL link errors at 2 AM.
+
+---
+
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_

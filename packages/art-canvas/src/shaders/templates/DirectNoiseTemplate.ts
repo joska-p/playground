@@ -3,6 +3,7 @@ import type { ShaderTemplate } from '../../types';
 const DirectNoiseTemplate: ShaderTemplate = {
   name: 'direct-noise',
   weight: 0.6,
+  deps: ['noise2d'],
   generate: ({ spaceBlock, uniqueInjectedCode, palette }) => `
     uniform float u_time;
     uniform vec2 u_mouse;

@@ -10,8 +10,15 @@ import { repeatSpace } from '../shaders/modules/space/repeatSpace';
 import { rotate2d } from '../shaders/modules/space/rotate2d';
 import { ClassicTemplate } from '../shaders/templates/classic';
 import { DirectNoiseTemplate } from '../shaders/templates/DirectNoiseTemplate';
+import noisePreamble from '../shaders/preamble/noise2d.glsl?raw';
+import fbmPreamble from '../shaders/preamble/fbm.glsl?raw';
 import type { SeededRandom, ShaderModule, ShaderTemplate } from '../types';
 import { createSeededRandom } from './seeded-random';
+
+const PREAMBLE_REGISTRY: Record<string, string> = {
+  noise2d: noisePreamble,
+  fbm: fbmPreamble,
+};
 
 const SPACE_REGISTRY: ShaderModule[] = [
   domainWarp,
@@ -64,8 +71,18 @@ export function generateShaderFromSeed(seed: string): string {
   const shape = rng.pickWeighted(SHAPE_REGISTRY);
   activeModules.push(shape);
 
-  // 3. Clean injection code setup
-  const uniqueInjectedCode = Array.from(new Set(activeModules.map((m) => m.code))).join('\n');
+  // 3. Collect unique preamble deps from template + modules
+  const deps = Array.from(
+    new Set([
+      ...(pickedTemplate.deps ?? []),
+      ...activeModules.flatMap((m) => m.deps ?? []),
+    ])
+  );
+  const preambleCode = deps.map((name) => PREAMBLE_REGISTRY[name]).join('\n');
+  const moduleCode = Array.from(new Set(activeModules.map((m) => m.code))).join('\n');
+  const uniqueInjectedCode = preambleCode
+    ? preambleCode + '\n' + moduleCode
+    : moduleCode;
   const palette = rng.pickWeighted(PALETTE_REGISTRY);
 
   // 4. Delegate compilation to the chosen grammar sentence

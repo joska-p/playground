@@ -1,13 +1,12 @@
 import type { ShaderModule } from '../../../types';
-import noiseCode from '../../preamble/noise2d.glsl?raw';
-import fbmCode from '../../preamble/fbm.glsl?raw';
 import code from '../../glsl/shapes/noiseField.glsl?raw';
 
 export const noiseField: ShaderModule = {
   name: 'noiseField',
   category: 'shapes',
   weight: 2.5,
-  code: `${noiseCode}\n${fbmCode}\n${code}`,
+  code,
+  deps: ['noise2d', 'fbm'],
   params: {
     scale: { type: 'range', min: 1.0, max: 5.0 },
     speed: { type: 'range', min: 0.2, max: 1.5 }

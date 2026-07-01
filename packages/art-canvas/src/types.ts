@@ -31,14 +31,16 @@ export type ShaderModule = {
   name: string;
   category: 'space' | 'shapes' | 'effects';
   code: string;
-  weight?: number; // Relative priority selector weight
-  params?: Record<string, ParamDefinition>; // Declares semantic parameter requirements
-  getCall: (args: Record<string, string>) => string; // Emits direct GLSL execution line
+  weight?: number;
+  params?: Record<string, ParamDefinition>;
+  getCall: (args: Record<string, string>) => string;
+  deps?: string[];
 };
 
 export type ShaderTemplate = {
   name: string;
   weight: number;
+  deps?: string[];
   generate: (args: {
     rng: SeededRandom;
     spaceBlock: string;

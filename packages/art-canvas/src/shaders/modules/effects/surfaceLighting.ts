@@ -1,4 +1,4 @@
-import type { ShaderModule } from '../../types';
+import type { ShaderModule } from '../../../types';
 
 export const surfaceLighting: ShaderModule = {
   name: 'surfaceLighting',
