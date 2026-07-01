@@ -11,6 +11,9 @@ const MOOD_REGISTRY: Mood[] = [
       domainWarp: 1.8,
       sdBox: 0.2,
       voronoi: 0.5,
+      circleSdf: 0.3,
+      truchet: 0.1,
+      lineSdf: 0.1,
       mouseAttractor: 0.3,
     },
     paletteWeights: {
@@ -28,6 +31,9 @@ const MOOD_REGISTRY: Mood[] = [
       noiseField: 0.2,
       sdBox: 3.0,
       voronoi: 2.5,
+      circleSdf: 2.0,
+      truchet: 2.5,
+      lineSdf: 1.5,
       rotate2d: 1.8,
       repeatSpace: 1.5,
       domainWarp: 0.5,
@@ -46,6 +52,7 @@ const MOOD_REGISTRY: Mood[] = [
     templateWeights: { classic: 0.5, 'direct-noise': 3.0 },
     moduleWeights: {
       noiseField: 2.5,
+      circleSdf: 1.5,
       flowField: 0.5,
       domainWarp: 0.5,
       mouseAttractor: 0.1,
@@ -71,6 +78,8 @@ const MOOD_REGISTRY: Mood[] = [
       rotate2d: 1.5,
       voronoi: 2.0,
       sdBox: 1.5,
+      circleSdf: 1.5,
+      lineSdf: 1.2,
       noiseField: 0.5,
     },
     paletteWeights: {

@@ -1,5 +1,8 @@
+import { circleSdf } from '../shaders/modules/shapes/sdCircle';
+import { lineSdf } from '../shaders/modules/shapes/lineSdf';
 import { noiseField } from '../shaders/modules/shapes/noiseField';
 import { sdBox } from '../shaders/modules/shapes/sdBox';
+import { truchet } from '../shaders/modules/shapes/truchet';
 import { voronoiModule } from '../shaders/modules/shapes/voronoi';
 import { domainWarp } from '../shaders/modules/space/domainWarp';
 import { flowField } from '../shaders/modules/space/flowField';
@@ -27,7 +30,14 @@ export const SPACE_REGISTRY: ShaderModule[] = [
   mouseAttractor,
 ];
 
-export const SHAPE_REGISTRY: ShaderModule[] = [voronoiModule, noiseField, sdBox];
+export const SHAPE_REGISTRY: ShaderModule[] = [
+  voronoiModule,
+  noiseField,
+  sdBox,
+  circleSdf,
+  truchet,
+  lineSdf,
+];
 
 export const TEMPLATE_REGISTRY: ShaderTemplate[] = [
   ClassicTemplate,
