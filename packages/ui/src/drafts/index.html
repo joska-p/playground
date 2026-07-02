@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — buttons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+    --color-surface-raised: var(--surface-raised);
+    --color-foreground: var(--foreground);
+    --color-foreground-muted: var(--foreground-muted);
+    --color-foreground-dim: var(--foreground-dim);
+    --color-border: var(--border);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-red: var(--red);
+    --color-green: var(--green);
+    --color-yellow: var(--yellow);
+    --color-blue: var(--blue);
+    --color-purple: var(--purple);
+    --color-aqua: var(--aqua);
+    --color-orange: var(--orange);
+    --font-sans: 'JetBrainsMono Nerd Font','JetBrains Mono',ui-monospace,monospace;
+    --font-mono: 'JetBrainsMono Nerd Font','JetBrains Mono',ui-monospace,monospace;
+  }
+  @layer base {
+    :root {
+      --background: #1d2021;
+      --surface: #282828;
+      --surface-raised: #3c3836;
+      --foreground: #ebdbb2;
+      --foreground-muted: #a89984;
+      --foreground-dim: #665c54;
+      --border: rgba(235,219,178,0.07);
+      --primary: #83a598;
+      --primary-foreground: #1d2021;
+      --secondary: #b8bb26;
+      --secondary-foreground: #1d2021;
+      --destructive: #fb4934;
+      --destructive-foreground: #1d2021;
+      --accent: #d3869b;
+      --accent-foreground: #1d2021;
+      --warning: #fabd2f;
+      --warning-foreground: #1d2021;
+      --red: #fb4934; --green: #b8bb26; --yellow: #fabd2f;
+      --blue: #83a598; --purple: #d3869b; --aqua: #8ec07c; --orange: #fe8019;
+      color-scheme: dark;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    html[data-theme='light'] {
+      --background: #fbf1c7;
+      --surface: #f2e5bc;
+      --surface-raised: #ebdbb2;
+      --foreground: #3c3836;
+      --foreground-muted: #665c54;
+      --foreground-dim: #928374;
+      --border: rgba(60,56,54,0.1);
+      --primary: #076678;
+      --primary-foreground: #fbf1c7;
+      --secondary: #79740e;
+      --secondary-foreground: #fbf1c7;
+      --destructive: #9d0006;
+      --destructive-foreground: #fbf1c7;
+      --accent: #8f3f71;
+      --accent-foreground: #fbf1c7;
+      --warning: #b57614;
+      --warning-foreground: #fbf1c7;
+      --red: #9d0006; --green: #79740e; --yellow: #b57614;
+      --blue: #076678; --purple: #8f3f71; --aqua: #427b58; --orange: #af3a03;
+      color-scheme: light;
+      --shadow-sm: 0 1px 3px rgba(60,56,54,0.06);
+      --shadow-md: 0 4px 12px rgba(60,56,54,0.08);
+      --shadow-lg: 0 8px 24px rgba(60,56,54,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--background); color:var(--foreground); transition:background 0.4s,color 0.4s; -webkit-font-smoothing:antialiased; }
+    h1,h2,h3 { text-wrap:balance; } p { text-wrap:pretty; }
+    ::selection { background:var(--primary); color:var(--primary-foreground); }
+    :focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+    .carousel { overflow-x:scroll; scroll-snap-type:x mandatory; scrollbar-width:none; }
+    .carousel::-webkit-scrollbar { display:none; }
+    .carousel-slide { scroll-snap-align:center; }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms!important; transition-duration:0.01ms!important; } }
+  }
+  @layer components {
+    .floating-nav {
+      position:fixed; top:12px; left:50%; z-index:50;
+      transform:translateX(-50%) translateY(-80px);
+      display:flex; align-items:center; gap:6px;
+      padding:6px 14px; border-radius:999px;
+      background:color-mix(in srgb,var(--surface) 88%,transparent);
+      backdrop-filter:blur(20px) saturate(1.4);
+      box-shadow:var(--shadow-lg); border:1px solid var(--border);
+      transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .floating-nav.visible { transform:translateX(-50%) translateY(0); }
+    .input-wrapper { transition:border-color 0.2s,box-shadow 0.2s; }
+    .input-wrapper:focus-within { border-color:var(--primary); box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 15%,transparent); }
+    .input-wrapper:focus-within i { color:var(--primary); }
+    .search-expandable { width:200px; transition:width 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .search-expandable:focus-within { width:320px; }
+    .textarea-auto { field-sizing:content; min-height:3lh; max-height:15lh; }
+    .toggle { appearance:none; width:44px; height:24px; border-radius:12px; background:var(--foreground-dim); cursor:pointer; position:relative; transition:background 0.25s; flex-shrink:0; }
+    .toggle::before { content:''; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:var(--shadow-sm); transition:transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+    .toggle:checked { background:var(--primary); }
+    .toggle:checked::before { transform:translateX(20px); }
+    .card-interactive:has(.card-actions:hover) { box-shadow:var(--shadow-md),0 0 0 2px color-mix(in srgb,var(--primary) 12%,transparent)!important; }
+    .accordion-trigger { list-style:none; cursor:pointer; }
+    .accordion-trigger::-webkit-details-marker { display:none; }
+    .accordion-trigger::after { content:''; width:8px; height:8px; flex-shrink:0; margin-left:12px; border-right:1.5px solid var(--foreground-muted); border-bottom:1.5px solid var(--foreground-muted); transform:rotate(-45deg); transition:transform 0.25s; }
+    details[open]>.accordion-trigger::after { transform:rotate(45deg); }
+    .accordion-body { @starting-style { opacity:0; transform:translateY(-6px); } animation:accordionIn 0.25s ease; }
+    @keyframes accordionIn { from { opacity:0; transform:translateY(-6px); } }
+    .tabs-container input[type='radio'] { display:none; }
+    .tab-trigger { position:relative; cursor:pointer; user-select:none; }
+    .tab-trigger::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:var(--primary); border-radius:1px; transform:scaleX(0); transition:transform 0.25s; }
+    .tab-panel { display:none; }
+    .tabs-container:has(#tab1:checked) .tab-trigger[for='tab1'],.tabs-container:has(#tab2:checked) .tab-trigger[for='tab2'],.tabs-container:has(#tab3:checked) .tab-trigger[for='tab3'] { color:var(--foreground)!important; }
+    .tabs-container:has(#tab1:checked) .tab-trigger[for='tab1']::after,.tabs-container:has(#tab2:checked) .tab-trigger[for='tab2']::after,.tabs-container:has(#tab3:checked) .tab-trigger[for='tab3']::after { transform:scaleX(1); }
+    .tabs-container:has(#tab1:checked) #panel1,.tabs-container:has(#tab2:checked) #panel2,.tabs-container:has(#tab3:checked) #panel3 { display:block; @starting-style { opacity:0; transform:translateY(4px); } animation:tabIn 0.2s ease; }
+    @keyframes tabIn { from { opacity:0; transform:translateY(4px); } }
+    .dialog-modal { @starting-style { opacity:0; transform:scale(0.96) translateY(10px); } animation:dialogIn 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .dialog-modal::backdrop { background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); @starting-style { opacity:0; } animation:fadeIn 0.25s ease; }
+    @keyframes dialogIn { from { opacity:0; transform:scale(0.96) translateY(10px); } }
+    @keyframes fadeIn { from { opacity:0; } }
+    .toast-item { @starting-style { opacity:0; transform:translateX(40px) scale(0.95); } animation:toastIn 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+    .toast-item.exit { animation:toastOut 0.3s ease both; }
+    @keyframes toastIn { from { opacity:0; transform:translateX(40px) scale(0.95); } }
+    @keyframes toastOut { to { opacity:0; transform:translateX(40px) scale(0.95); } }
+    .tooltip { position:relative; }
+    .tooltip::after { content:attr(data-tooltip); position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); padding:4px 10px; background:var(--foreground); color:var(--background); border-radius:4px; font-size:11px; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity 0.15s; z-index:100; }
+    .tooltip:hover::after { opacity:1; }
+    .button-loading { color:transparent!important; pointer-events:none; position:relative; }
+    .button-loading::before { content:''; width:16px; height:16px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin 0.6s linear infinite; color:var(--primary-foreground); }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .badge-soft { background:color-mix(in srgb,var(--_color) 15%,transparent); color:var(--_color); }
+    .badge-solid { background:var(--_color); color:var(--background); }
+    .badge-outline { background:transparent; border:1px solid var(--_color); color:var(--_color); }
+    .badge-dot::before { margin-right:4px; content:''; width:6px; height:6px; border-radius:50%; background:var(--_color); flex-shrink:0; }
+    .reveal { opacity:0; transform:translateY(16px); transition:opacity 0.5s ease,transform 0.5s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+  }
+  </style>
+</head>
+<body class="pt-16">
+<nav class="floating-nav" id="floatingNav">
+  <a href="#" class="text-primary text-sm font-semibold tracking-tight">pg_lab</a>
+  <div class="hidden md:flex items-center gap-0.5">
+    <a href="#buttons" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">buttons</a>
+    <a href="#badges" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">badges</a>
+    <a href="#inputs" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">inputs</a>
+    <a href="#cards" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">cards</a>
+    <a href="#accordion" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">accordion</a>
+    <a href="#tabs" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">tabs</a>
+    <a href="#carousel" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">carousel</a>
+    <a href="#popover" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">popover</a>
+    <a href="#alerts" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">alerts</a>
+    <a href="#toasts" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">toasts</a>
+    <a href="#palette" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">palette</a>
+    <a href="#react-guide" class="text-foreground-dim hover:text-foreground rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase transition-colors">docs</a>
+  </div>
+  <button class="tooltip text-foreground-dim hover:text-foreground flex h-7 w-7 flex-shrink-0 cursor-pointer items-center justify-center rounded-full text-xs transition-colors" data-tooltip="Toggle theme" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+</nav>
+<div id="toastContainer" class="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2"></div>
+
+  <main class="mx-auto max-w-[960px] px-6 py-14  flex flex-col gap-16">
+    <section class="reveal" id="buttons">
+      <p class="text-primary mb-1 text-xs font-medium tracking-[2px] uppercase">interactive</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">buttons</h2>
+
+      <div class="mt-8 space-y-8">
+        <!-- Variants -->
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">variants</p>
+          <div class="flex flex-wrap items-center gap-2">
+            <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">primary</button>
+            <button class="bg-secondary text-secondary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">secondary</button>
+            <button class="bg-destructive text-destructive-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">destructive</button>
+            <button class="bg-accent text-accent-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">accent</button>
+            <button class="bg-warning text-warning-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">warning</button>
+          </div>
+        </div>
+
+        <!-- Subtle -->
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">subtle</p>
+          <div class="flex flex-wrap items-center gap-2">
+            <button class="text-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-surface-raised active:scale-[.97]">ghost</button>
+            <button class="text-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-surface-raised active:scale-[.97]"><i class="fa-solid fa-arrow-left text-xs"></i> back</button>
+            <button class="text-primary inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-primary/10 active:scale-[.97]">link <i class="fa-solid fa-arrow-right text-xs"></i></button>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">sizes</p>
+          <div class="flex flex-wrap items-end gap-2">
+            <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-1.5 text-[12px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">small</button>
+            <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">default</button>
+            <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-[14px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">large</button>
+          </div>
+        </div>
+
+        <!-- With icons -->
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">icons &amp; states</p>
+          <div class="flex flex-wrap items-end gap-2">
+            <button class="bg-primary text-primary-foreground tooltip inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]" data-tooltip="settings"><i class="fa-solid fa-gear"></i></button>
+            <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]"><i class="fa-solid fa-download text-xs"></i> download</button>
+            <button class="bg-primary text-primary-foreground button-loading inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200">loading</button>
+            <button class="bg-primary text-primary-foreground pointer-events-none inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium opacity-40">disabled</button>
+          </div>
+        </div>
+
+        <!-- Orientation demo -->
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">orientation layout</p>
+          <p class="text-foreground-dim text-xs mb-3">resize your window or rotate your device</p>
+          <div class="grid grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-3 gap-3">
+            <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-3 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">landscape col 1</button>
+            <button class="bg-secondary text-secondary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-3 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">landscape col 2</button>
+            <button class="bg-accent text-accent-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-3 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">landscape col 3</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="badges">
+      <p class="text-secondary mb-1 text-xs font-medium tracking-[2px] uppercase">display</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">badges</h2>
+
+      <div class="mt-8 space-y-6">
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">soft — one --_color drives everything</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--green)">generative</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--blue)">shader</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--purple)">color</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--aqua)">simulation</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--yellow)">experiment</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--orange)">visual</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--red)">audio</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">solid</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--primary)">primary</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--secondary)">secondary</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--destructive)">destructive</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--accent)">accent</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--warning)">warning</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">outline</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--green)">generative</span>
+            <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--purple)">color</span>
+            <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--blue)">shader</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">dot status</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--secondary)">active</span>
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--warning)">draft</span>
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--destructive)">archived</span>
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium" style="--_color:var(--accent)">review</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="inputs">
+      <p class="text-warning mb-1 text-xs font-medium tracking-[2px] uppercase">form</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">inputs</h2>
+
+      <div class="mt-8 grid gap-6 grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-2">
+        <div>
+          <p class="text-foreground-dim mb-2 text-xs font-medium tracking-tight uppercase">default</p>
+          <div class="input-wrapper bg-surface flex items-center gap-2 rounded-md px-3"><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" placeholder="type something..."/></div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-2 text-xs font-medium tracking-tight uppercase">with icon</p>
+          <div class="input-wrapper bg-surface flex items-center gap-2 rounded-md px-3"><i class="fa-solid fa-search text-foreground-dim text-xs transition-colors"></i><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" placeholder="search..."/></div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-2 text-xs font-medium tracking-tight uppercase">expanding on focus</p>
+          <div class="input-wrapper search-expandable bg-surface flex items-center gap-2 rounded-md px-3"><i class="fa-solid fa-search text-foreground-dim text-xs transition-colors"></i><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" placeholder="focus to expand..."/></div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-2 text-xs font-medium tracking-tight uppercase">with trailing action</p>
+          <div class="input-wrapper bg-surface flex items-center gap-2 rounded-md px-3"><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" type="url" placeholder="https://..."/><button class="text-foreground-dim hover:text-foreground cursor-pointer bg-transparent p-1 text-xs transition-colors"><i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <p class="text-foreground-dim mb-2 text-xs font-medium tracking-tight uppercase">auto-growing textarea</p>
+        <textarea class="textarea-auto bg-surface text-foreground placeholder:text-foreground-dim input-wrapper w-full resize-y rounded-md p-3 text-[13px] outline-none" placeholder="start typing — grows with content..."></textarea>
+      </div>
+
+      <div class="mt-8 grid gap-6 grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-3">
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">checkboxes</p>
+          <div class="flex flex-col gap-2.5">
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded" checked/> generative</label>
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded"/> shader</label>
+            <label class="pointer-events-none flex items-center gap-2.5 text-[13px] opacity-40 select-none"><input type="checkbox" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded" disabled/> disabled</label>
+          </div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">radios</p>
+          <div class="flex flex-col gap-2.5">
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="radio" name="radioGroup1" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded-full" checked/> 2d</label>
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="radio" name="radioGroup1" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded-full"/> 3d</label>
+          </div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">toggles</p>
+          <div class="flex flex-col gap-2.5">
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="toggle" checked/> fullscreen</label>
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="toggle"/> loop</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 max-w-xs">
+        <p class="text-foreground-dim mb-2 text-xs font-medium tracking-tight uppercase">range</p>
+        <input type="range" class="accent-primary h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none" min="0" max="100" value="65" style="background:var(--foreground-dim)"/>
+        <div class="text-foreground-dim mt-1 flex justify-between text-xs"><span>0</span><span>50</span><span>100</span></div>
+      </div>
+    </section>
+
+    <section class="reveal" id="cards">
+      <p class="text-blue mb-1 text-xs font-medium tracking-[2px] uppercase">layout</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">cards</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">spacing instead of borders. hover the right card's icons.</p>
+
+      <div class="mt-8 grid gap-4 grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-2">
+        <!-- Simple card -->
+        <div class="bg-surface rounded-lg overflow-hidden transition-shadow duration-200 hover:shadow-md" style="box-shadow:var(--shadow-sm)">
+          <img src="https://picsum.photos/seed/pg1/400/225.jpg" alt="" class="aspect-video w-full object-cover"/>
+          <div class="p-4">
+            <span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--green)">generative</span>
+            <p class="text-foreground text-[14px] font-medium">flow field exploration</p>
+            <p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">perlin noise fields and particle tracing.</p>
+          </div>
+          <div class="flex items-center justify-between px-4 py-2.5 bg-surface-raised/50">
+            <span class="text-foreground-dim text-xs">2 days ago</span>
+            <button class="text-foreground inline-flex cursor-pointer items-center rounded-md px-3 py-1 text-[12px] font-medium transition-all duration-200 hover:bg-surface-raised">view</button>
+          </div>
+        </div>
+
+        <!-- Interactive card — :has() glow -->
+        <div class="card-interactive bg-surface rounded-lg overflow-hidden transition-all duration-200" style="box-shadow:var(--shadow-sm)">
+          <img src="https://picsum.photos/seed/pg2/400/225.jpg" alt="" class="aspect-video w-full object-cover"/>
+          <div class="p-4">
+            <span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--accent)">color</span>
+            <p class="text-foreground text-[14px] font-medium">oklch palette generator</p>
+            <p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">harmonious palettes in perceptually uniform space.</p>
+          </div>
+          <div class="card-actions flex gap-0.5 px-4 pb-3">
+            <button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center rounded-md p-2 text-xs transition-all duration-200 hover:bg-surface-raised" data-tooltip="save"><i class="fa-regular fa-bookmark"></i></button>
+            <button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center rounded-md p-2 text-xs transition-all duration-200 hover:bg-surface-raised" data-tooltip="share"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center rounded-md p-2 text-xs transition-all duration-200 hover:bg-surface-raised" data-tooltip="more"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal card — orientation responsive -->
+      <div class="mt-6">
+        <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">horizontal — switches orientation with device</p>
+        <div class="bg-surface rounded-lg overflow-hidden transition-shadow duration-200 hover:shadow-md grid grid-cols-1 landscape:grid-cols-[200px_1fr]" style="box-shadow:var(--shadow-sm)">
+          <img src="https://picsum.photos/seed/pg3/360/240.jpg" alt="" class="aspect-video landscape:aspect-auto w-full h-full object-cover"/>
+          <div class="p-4">
+            <span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--blue)">shader</span>
+            <p class="text-foreground text-[14px] font-medium">radial chart patterns</p>
+            <p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">circular layouts for multi-dimensional data.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="accordion">
+      <p class="text-accent mb-1 text-xs font-medium tracking-[2px] uppercase">disclosure</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">accordion</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">native &lt;details&gt; with @starting-style animation. spacing, no borders.</p>
+
+      <div class="mt-8 flex flex-col gap-2">
+        <details class="bg-surface rounded-lg overflow-hidden" open>
+          <summary class="accordion-trigger text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">what makes this different?</summary>
+          <div class="accordion-body text-foreground-muted px-5 pb-4 text-[13px] leading-relaxed">every component uses modern css features like :has(), @starting-style, and color-mix() instead of javascript state management. simpler, faster, more resilient.</div>
+        </details>
+        <details class="bg-surface rounded-lg overflow-hidden">
+          <summary class="accordion-trigger text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">why gruvbox?</summary>
+          <div class="accordion-body text-foreground-muted px-5 pb-4 text-[13px] leading-relaxed">warm, easy on the eyes, distinctive. feels like a workshop. blue as primary keeps the accent calm and focused.</div>
+        </details>
+        <details class="bg-surface rounded-lg overflow-hidden">
+          <summary class="accordion-trigger text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">single mono font?</summary>
+          <div class="accordion-body text-foreground-muted px-5 pb-4 text-[13px] leading-relaxed">creative coding toolkit. monospace is the native habitat. one font, one voice, less noise.</div>
+        </details>
+        <details class="bg-surface rounded-lg overflow-hidden">
+          <summary class="accordion-trigger text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">how does the floating nav work?</summary>
+          <div class="accordion-body text-foreground-muted px-5 pb-4 text-[13px] leading-relaxed">fixed position, centered with translateX(-50%), hidden above viewport with translateY(-80px). appears on scroll, hides 1.5s after scrolling stops. pill shape with backdrop-blur.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="reveal" id="tabs">
+      <p class="text-blue mb-1 text-xs font-medium tracking-[2px] uppercase">navigation</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">tabs</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">css-only via hidden radio inputs + :has(). no javascript.</p>
+
+      <div class="mt-8 bg-surface rounded-lg overflow-hidden" style="box-shadow:var(--shadow-sm)">
+        <div class="tabs-container">
+          <div class="flex border-b border-border">
+            <label class="tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors" for="tab1">overview</label>
+            <label class="tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors" for="tab2">features</label>
+            <label class="tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors" for="tab3">changelog</label>
+          </div>
+          <input type="radio" name="tabGroup" id="tab1" checked/>
+          <div class="tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed" id="panel1"><p>pg_lab is a design-first toolkit built on modern css. every interactive state is handled through css selectors, not javascript. gruvbox dark with blue primary keeps things warm yet focused.</p></div>
+          <input type="radio" name="tabGroup" id="tab2"/>
+          <div class="tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed" id="panel2">
+            <ul class="list-disc pl-5 space-y-1.5">
+              <li>css-only states via :has() and :focus-within</li>
+              <li>entry animations with @starting-style</li>
+              <li>dynamic theming with color-mix()</li>
+              <li>zero-js accordion, tabs, toggles</li>
+              <li>floating nav appears on scroll</li>
+              <li>orientation-based layouts</li>
+            </ul>
+          </div>
+          <input type="radio" name="tabGroup" id="tab3"/>
+          <div class="tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed" id="panel3">
+            <div class="space-y-2.5">
+              <div class="flex gap-4"><span class="text-primary text-xs font-medium w-16 flex-shrink-0">v1.3</span><span>semantic colors, floating nav, darker dark mode, orientation layouts</span></div>
+              <div class="flex gap-4"><span class="text-primary text-xs font-medium w-16 flex-shrink-0">v1.2</span><span>popover, carousel fix, gruvbox theme</span></div>
+              <div class="flex gap-4"><span class="text-primary text-xs font-medium w-16 flex-shrink-0">v1.1</span><span>tabs, accordion, dialog</span></div>
+              <div class="flex gap-4"><span class="text-primary text-xs font-medium w-16 flex-shrink-0">v1.0</span><span>initial release</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="carousel">
+      <p class="text-blue mb-1 text-xs font-medium tracking-[2px] uppercase">layout</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">carousel</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">overflow-x: scroll with snap. no borders, just shadow and spacing.</p>
+
+      <div class="mt-8 relative">
+        <button onclick="document.getElementById('carouselTrack').scrollBy({left:-280,behavior:'smooth'})" class="absolute left-1 top-1/2 z-10 -translate-y-1/2 bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs transition-colors backdrop-blur-sm" style="box-shadow:var(--shadow-md)" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
+        <button onclick="document.getElementById('carouselTrack').scrollBy({left:280,behavior:'smooth'})" class="absolute right-1 top-1/2 z-10 -translate-y-1/2 bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs transition-colors backdrop-blur-sm" style="box-shadow:var(--shadow-md)" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
+        <div id="carouselTrack" class="carousel flex gap-4 py-2 px-1">
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc1/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--green)">generative</span><p class="text-foreground text-[12px] font-medium">noise landscapes</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc2/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--accent)">color</span><p class="text-foreground text-[12px] font-medium">gradient meshes</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc3/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--blue)">shader</span><p class="text-foreground text-[12px] font-medium">ray marching</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc4/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--aqua)">simulation</span><p class="text-foreground text-[12px] font-medium">flocking agents</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc5/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--warning)">experiment</span><p class="text-foreground text-[12px] font-medium">distributed seeds</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc6/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-xs font-medium" style="--_color:var(--orange)">visual</span><p class="text-foreground text-[12px] font-medium">pixel sorting</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="popover">
+      <p class="text-accent mb-1 text-xs font-medium tracking-[2px] uppercase">overlay</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">popover</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">hover-triggered. centered via left:50% + translateX(-50%). arrow included.</p>
+
+      <div class="mt-8 flex flex-wrap items-end gap-8">
+        <div class="group relative inline-block">
+          <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]"><i class="fa-solid fa-user"></i> profile</button>
+          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-60 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50">
+            <div class="bg-surface rounded-lg p-4" style="box-shadow:var(--shadow-lg)">
+              <div class="flex items-center gap-3 mb-3"><div class="bg-primary/15 text-primary flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-[12px] font-semibold">pg</div><div><p class="text-foreground text-[13px] font-medium">pg_lab</p><p class="text-foreground-dim text-xs">creative playground</p></div></div>
+              <div class="border-t border-border pt-2"><p class="text-foreground-muted text-xs leading-relaxed">generative art, creative code, experiments.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group relative inline-block">
+          <button class="bg-surface text-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-surface-raised active:scale-[.97]"><i class="fa-solid fa-bell"></i> alerts</button>
+          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-64 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50">
+            <div class="bg-surface rounded-lg p-4" style="box-shadow:var(--shadow-lg)">
+              <p class="text-foreground text-[13px] font-medium mb-3">notifications</p>
+              <div class="space-y-2.5">
+                <div class="flex gap-2.5"><div class="bg-secondary/15 text-secondary flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs"><i class="fa-solid fa-check"></i></div><div><p class="text-foreground text-xs font-medium">build ok</p><p class="text-foreground-dim text-xs">2 min ago</p></div></div>
+                <div class="flex gap-2.5"><div class="bg-accent/15 text-accent flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs"><i class="fa-solid fa-comment"></i></div><div><p class="text-foreground text-xs font-medium">new note</p><p class="text-foreground-dim text-xs">1 hour ago</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group relative inline-block">
+          <button class="text-foreground inline-flex cursor-pointer items-center rounded-md p-2 text-[13px] transition-all duration-200 hover:bg-surface-raised"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-40 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50">
+            <div class="bg-surface rounded-lg py-1" style="box-shadow:var(--shadow-lg)">
+              <button class="text-foreground hover:bg-surface-raised w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer rounded-sm mx-1"><i class="fa-solid fa-pen w-4 text-xs mr-2"></i>edit</button>
+              <button class="text-foreground hover:bg-surface-raised w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer rounded-sm mx-1"><i class="fa-solid fa-copy w-4 text-xs mr-2"></i>duplicate</button>
+              <div class="border-t border-border my-1 mx-2"></div>
+              <button class="text-destructive hover:bg-destructive/10 w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer rounded-sm mx-1"><i class="fa-solid fa-trash w-4 text-xs mr-2"></i>delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dialog -->
+    <section class="reveal" id="dialog">
+      <p class="text-accent mb-1 text-xs font-medium tracking-[2px] uppercase">overlay</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">dialog</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">native &lt;dialog&gt; with @starting-style entrance and backdrop blur.</p>
+
+      <div class="mt-8">
+        <button onclick="document.getElementById('demoDialog').showModal()" class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">open dialog</button>
+        <dialog id="demoDialog" class="self-center justify-self-center dialog-modal bg-surface w-full max-w-md rounded-lg p-0" style="box-shadow:var(--shadow-lg)">
+          <div class="p-5"><h3 class="text-foreground text-[15px] font-medium mb-2">confirm action</h3><p class="text-foreground-muted text-[13px] leading-relaxed">are you sure? this will apply changes and notify collaborators.</p></div>
+          <div class="flex justify-end gap-2 px-5 py-3 bg-surface-raised/50 rounded-b-lg">
+            <button onclick="document.getElementById('demoDialog').close()" class="text-foreground inline-flex cursor-pointer items-center rounded-md px-4 py-1.5 text-[13px] font-medium transition-all duration-200 hover:bg-surface">cancel</button>
+            <button onclick="document.getElementById('demoDialog').close()" class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center rounded-md px-4 py-1.5 text-[13px] font-medium transition-all duration-200 hover:brightness-110">confirm</button>
+          </div>
+        </dialog>
+      </div>
+    </section>
+
+    <section class="reveal" id="alerts">
+      <p class="text-destructive mb-1 text-xs font-medium tracking-[2px] uppercase">feedback</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">alerts</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">colored left accent, no borders. spacing separates them.</p>
+
+      <div class="mt-8 space-y-3 max-w-lg">
+        <div class="bg-primary/8 rounded-lg px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-circle-info text-primary mt-0.5 text-xs"></i><div><p class="text-foreground text-[13px] font-medium">info</p><p class="text-foreground-muted text-xs mt-0.5">project updated with latest changes.</p></div></div>
+        <div class="bg-secondary/8 rounded-lg px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-circle-check text-secondary mt-0.5 text-xs"></i><div><p class="text-foreground text-[13px] font-medium">success</p><p class="text-foreground-muted text-xs mt-0.5">all changes saved.</p></div></div>
+        <div class="bg-warning/8 rounded-lg px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-triangle-exclamation text-warning mt-0.5 text-xs"></i><div><p class="text-foreground text-[13px] font-medium">warning</p><p class="text-foreground-muted text-xs mt-0.5">unsaved changes may be lost.</p></div></div>
+        <div class="bg-destructive/8 rounded-lg px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-circle-xmark text-destructive mt-0.5 text-xs"></i><div><p class="text-foreground text-[13px] font-medium">error</p><p class="text-foreground-muted text-xs mt-0.5">deployment failed. check config.</p></div></div>
+      </div>
+    </section>
+
+    <!-- Toasts -->
+    <section class="reveal" id="toasts">
+      <p class="text-destructive mb-1 text-xs font-medium tracking-[2px] uppercase">feedback</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">toasts</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">temporary notifications with @starting-style slide-in. auto-dismiss after 4s.</p>
+
+      <div class="mt-8 flex flex-wrap gap-2">
+        <button onclick="showToast('info','saved','work saved to disk.')" class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">info toast</button>
+        <button onclick="showToast('success','deployed','project is live.')" class="bg-secondary text-secondary-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">success toast</button>
+        <button onclick="showToast('error','failed','upload exceeded limit.')" class="bg-destructive text-destructive-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">error toast</button>
+      </div>
+    </section>
+
+    <section class="reveal" id="palette">
+      <p class="text-primary mb-1 text-xs font-medium tracking-[2px] uppercase">tokens</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">color palette</h2>
+
+      <div class="mt-8 space-y-6">
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">semantic</p>
+          <div class="grid gap-3 grid-cols-2 landscape:grid-cols-3">
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--primary)"></div><div><p class="text-foreground text-xs font-medium">primary</p><p class="text-foreground-dim text-xs">--primary (blue)</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--secondary)"></div><div><p class="text-foreground text-xs font-medium">secondary</p><p class="text-foreground-dim text-xs">--secondary (green)</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--destructive)"></div><div><p class="text-foreground text-xs font-medium">destructive</p><p class="text-foreground-dim text-xs">--destructive (red)</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--accent)"></div><div><p class="text-foreground text-xs font-medium">accent</p><p class="text-foreground-dim text-xs">--accent (purple)</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--warning)"></div><div><p class="text-foreground text-xs font-medium">warning</p><p class="text-foreground-dim text-xs">--warning (yellow)</p></div></div>
+          </div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">neutrals</p>
+          <div class="grid gap-3 grid-cols-2 landscape:grid-cols-4">
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--background)"></div><div><p class="text-foreground text-xs font-medium">background</p><p class="text-foreground-dim text-xs">--background</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--surface)"></div><div><p class="text-foreground text-xs font-medium">surface</p><p class="text-foreground-dim text-xs">--surface</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--foreground)"></div><div><p class="text-foreground text-xs font-medium">foreground</p><p class="text-foreground-dim text-xs">--foreground</p></div></div>
+            <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded-md" style="background:var(--foreground-dim)"></div><div><p class="text-foreground text-xs font-medium">foreground-dim</p><p class="text-foreground-dim text-xs">--foreground-dim</p></div></div>
+          </div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-3 text-xs font-medium tracking-tight uppercase">gruvbox raw (for badges, canvas, generative art)</p>
+          <div class="flex flex-wrap gap-2">
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--red)"></div><span class="text-foreground-dim text-xs">red</span></div>
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--green)"></div><span class="text-foreground-dim text-xs">green</span></div>
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--yellow)"></div><span class="text-foreground-dim text-xs">yellow</span></div>
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--blue)"></div><span class="text-foreground-dim text-xs">blue</span></div>
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--purple)"></div><span class="text-foreground-dim text-xs">purple</span></div>
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--aqua)"></div><span class="text-foreground-dim text-xs">aqua</span></div>
+            <div class="flex items-center gap-2"><div class="h-7 w-7 rounded" style="background:var(--orange)"></div><span class="text-foreground-dim text-xs">orange</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- React Guide -->
+    <section class="reveal" id="react-guide">
+      <p class="text-secondary mb-1 text-xs font-medium tracking-[2px] uppercase">guide</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">html to react + astro</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">converting this into a react library consumed by an astro site with home, projects, notes, docs pages.</p>
+
+      <div class="mt-8 space-y-4">
+        <div class="bg-surface rounded-lg p-5" style="box-shadow:var(--shadow-sm)">
+          <div class="flex items-center gap-3 mb-3"><span class="bg-primary text-primary-foreground flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold">1</span><h3 class="text-foreground text-[14px] font-medium">scaffold</h3></div>
+          <p class="text-foreground-muted text-[12px] leading-relaxed"><code class="text-primary bg-background px-1.5 py-0.5 rounded text-xs">npm create vite@latest pg-lab-ui -- --template react-ts</code> — install tailwindcss + @tailwindcss/vite. configure <code class="text-primary bg-background px-1.5 py-0.5 rounded text-xs">build.lib</code> for library mode with <code class="text-primary bg-background px-1.5 py-0.5 rounded text-xs">cssFileName: 'pg-lab-ui'</code>.</p>
+        </div>
+        <div class="bg-surface rounded-lg p-5" style="box-shadow:var(--shadow-sm)">
+          <div class="flex items-center gap-3 mb-3"><span class="bg-primary text-primary-foreground flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold">2</span><h3 class="text-foreground text-[14px] font-medium">port css</h3></div>
+          <p class="text-foreground-muted text-[12px] leading-relaxed">copy the entire &lt;style&gt; block into <code class="text-primary bg-background px-1.5 py-0.5 rounded text-xs">src/styles/pg-lab.css</code>. import once in <code class="text-primary bg-background px-1.5 py-0.5 rounded text-xs">src/index.ts</code>. dark is :root default, light via <code class="text-primary bg-background px-1.5 py-0.5 rounded text-xs">data-theme="light"</code>.</p>
+        </div>
+        <div class="bg-surface rounded-lg p-5" style="box-shadow:var(--shadow-sm)">
+          <div class="flex items-center gap-3 mb-3"><span class="bg-primary text-primary-foreground flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold">3</span><h3 class="text-foreground text-[14px] font-medium">component patterns</h3></div>
+          <div class="bg-background rounded p-3 text-xs leading-relaxed space-y-1.5 font-mono overflow-x-auto">
+            <p class="text-foreground-dim">// button: variant record → tailwind classes</p>
+            <p class="text-foreground">const variants = { primary:'bg-primary text-primary-foreground', secondary:'bg-secondary text-secondary-foreground', destructive:'bg-destructive text-destructive-foreground', accent:'bg-accent text-accent-foreground', warning:'bg-warning text-warning-foreground' }</p>
+            <p class="text-foreground-dim">// badge: --_color via style prop</p>
+            <p class="text-foreground">&lt;span className="badge-soft" style={{'--_color':'var(--green)'}}&gt;generative&lt;/span&gt;</p>
+            <p class="text-foreground-dim">// accordion: keep &lt;details&gt;, use open prop</p>
+            <p class="text-foreground-dim">// carousel: useRef + scrollBy, .carousel handles overflow-x:scroll</p>
+            <p class="text-foreground-dim">// popover: left:50% + -translate-x-1/2 for centering</p>
+            <p class="text-foreground-dim">// dialog: useRef + .showModal()/.close()</p>
+            <p class="text-foreground-dim">// toast: listener set + createPortal</p>
+          </div>
+        </div>
+        <div class="bg-surface rounded-lg p-5" style="box-shadow:var(--shadow-sm)">
+          <div class="flex items-center gap-3 mb-3"><span class="bg-primary text-primary-foreground flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold">4</span><h3 class="text-foreground text-[14px] font-medium">css-only features need no react equivalent</h3></div>
+          <div class="overflow-x-auto"><table class="w-full text-xs"><thead><tr class="border-b border-border text-left"><th class="text-foreground pb-2 pr-4 font-medium">technique</th><th class="text-foreground pb-2 font-medium">in react</th></tr></thead><tbody class="text-foreground-muted"><tr class="border-b border-border"><td class="py-2 pr-4 font-mono text-primary">:has()</td><td class="py-2">keep as-is. browser handles it.</td></tr><tr class="border-b border-border"><td class="py-2 pr-4 font-mono text-primary">:focus-within</td><td class="py-2">keep as-is. react inputs trigger it.</td></tr><tr class="border-b border-border"><td class="py-2 pr-4 font-mono text-primary">@starting-style</td><td class="py-2">keep as-is. fires on mount.</td></tr><tr class="border-b border-border"><td class="py-2 pr-4 font-mono text-primary">color-mix()</td><td class="py-2">keep in css. dynamic values via inline style.</td></tr><tr><td class="py-2 pr-4 font-mono text-primary">&lt;dialog&gt;</td><td class="py-2">useRef → .showModal()/.close(). ::backdrop auto-applies.</td></tr></tbody></table></div>
+        </div>
+        <div class="bg-surface rounded-lg p-5" style="box-shadow:var(--shadow-sm)">
+          <div class="flex items-center gap-3 mb-3"><span class="bg-primary text-primary-foreground flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold">5</span><h3 class="text-foreground text-[14px] font-medium">astro site — four pages</h3></div>
+          <div class="bg-background rounded p-3 text-xs leading-relaxed space-y-1.5 font-mono overflow-x-auto">
+            <p class="text-foreground-dim"># pages</p>
+            <p class="text-foreground">src/pages/index.astro       # home — hero + featured projects</p>
+            <p class="text-foreground">src/pages/projects.astro    # projects — filterable card grid</p>
+            <p class="text-foreground">src/pages/notes.astro       # notes — chronological, accordion for long ones</p>
+            <p class="text-foreground">src/pages/docs.astro        # docs — tabs for sections, alerts for callouts</p>
+            <br>
+            <p class="text-foreground-dim"># layout.astro</p>
+            <p class="text-foreground">import { ThemeProvider } from 'pg-lab-ui'</p>
+            <p class="text-foreground">import 'pg-lab-ui/pg-lab-ui.css'</p>
+            <p class="text-foreground">&lt;ThemeProvider client:load&gt;&lt;slot /&gt;&lt;/ThemeProvider&gt;</p>
+            <br>
+            <p class="text-foreground-dim"># css-only components need no client directive:</p>
+            <p class="text-foreground">&lt;div class="badge-soft" style="--_color:var(--green)"&gt;gen&lt;/div&gt;</p>
+            <p class="text-foreground-dim"># interactive ones use client:visible or client:idle</p>
+            <p class="text-foreground">&lt;Button variant="primary" client:visible&gt;go&lt;/Button&gt;</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← PASTE SHARED JS HERE → -->
+  <script>
+  var themeToggle = document.getElementById('themeToggle'),
+      floatingNav = document.getElementById('floatingNav'),
+      scrollTimeout,
+      navHovered = false;
+
+  themeToggle.addEventListener('click', function() {
+    var h = document.documentElement, isLight = h.getAttribute('data-theme') === 'light';
+    if (isLight) h.removeAttribute('data-theme'); else h.setAttribute('data-theme', 'light');
+    themeToggle.querySelector('i').className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  });
+
+  function isAtTop() {
+    return document.documentElement.scrollTop < 50;
+  }
+
+  function showNav() {
+    floatingNav.classList.add('visible');
+  }
+  function scheduleHideNav() {
+    clearTimeout(scrollTimeout);
+    if (isAtTop() || navHovered) return;
+    scrollTimeout = setTimeout(function() {
+      if (!navHovered && !isAtTop()) floatingNav.classList.remove('visible');
+    }, 1500);
+  }
+  function updateNavVisibility() {
+    if (isAtTop() || navHovered) {
+      showNav();
+    } else {
+      scheduleHideNav();
+    }
+  }
+
+  window.addEventListener('scroll', function() {
+    updateNavVisibility();
+  }, { passive: true });
+
+  floatingNav.addEventListener('mouseenter', function() {
+    navHovered = true;
+    clearTimeout(scrollTimeout);
+    showNav();
+  });
+  floatingNav.addEventListener('mouseleave', function() {
+    navHovered = false;
+    scheduleHideNav();
+  });
+
+  // show immediately on load if at top
+  updateNavVisibility();
+
+  var revealEls = document.querySelectorAll('.reveal'),
+      revealObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.08 });
+  revealEls.forEach(function(el) { revealObs.observe(el); });
+  setTimeout(function() {
+    revealEls.forEach(function(el) {
+      if (!el.classList.contains('visible')) el.classList.add('visible');
+    });
+  }, 2000);
+
+  function showToast(type, title, desc) {
+    var c = document.getElementById('toastContainer'),
+        t = document.createElement('div'),
+        icons = {
+          info: 'fa-solid fa-circle-info text-primary',
+          success: 'fa-solid fa-circle-check text-secondary',
+          error: 'fa-solid fa-circle-xmark text-destructive'
+        };
+    t.className = 'toast-item bg-surface-raised rounded-lg p-4 w-72';
+    t.style.boxShadow = 'var(--shadow-lg)';
+    t.innerHTML = '<div class="flex gap-3"><i class="' + icons[type] + ' mt-0.5 text-xs"></i><div class="flex-1"><p class="text-foreground text-[13px] font-medium">' + title + '</p><p class="text-foreground-muted text-[11px] mt-1">' + desc + '</p></div><button onclick="dismissToast(this.parentElement.parentElement)" class="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs"><i class="fa-solid fa-xmark"></i></button></div>';
+    c.appendChild(t);
+    setTimeout(function() { dismissToast(t); }, 4000);
+  }
+  function dismissToast(el) {
+    if (!el || el.classList.contains('exit')) return;
+    el.classList.add('exit');
+    el.addEventListener('animationend', function() { el.remove(); });
+  }
+  </script>
+</body>
+</html>
