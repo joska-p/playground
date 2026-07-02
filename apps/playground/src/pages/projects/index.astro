@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/ui/features/Hero.astro';
-import ExperimentCard from '../../components/ui/cards/ExperimentCard.astro';
-import SectionHeader from '../../components/ui/features/SectionHeader.astro';
+import { Hero } from '@repo/ui/Hero';
+import { SectionHeader } from '@repo/ui/SectionHeader';
+import { ProjectCard } from '@repo/ui/ProjectCard';
 import Footer from '../../layouts/Footer.astro';
 
 const allCategories = await getCollection('projects-categories');
@@ -46,7 +46,7 @@ const categories = allCategories
           />
           <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
             {projects.map((project) => (
-              <ExperimentCard
+              <ProjectCard
                 href={`${projectsBaseUrl}${project.category.id}/${project.slug}/`}
                 title={project.name}
                 description={project.description}

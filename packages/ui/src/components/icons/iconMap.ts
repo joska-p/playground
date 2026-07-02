@@ -15,6 +15,7 @@ import { IconDocumentation } from './components/IconDocumentation';
 import { IconFlame } from './components/IconFlame';
 import { IconGenerative } from './components/IconGenerative';
 import { IconGithub } from './components/IconGithub';
+import { IconGitlab } from './components/IconGitlab';
 import { IconGraphify } from './components/IconGraphify';
 import { IconGrid } from './components/IconGrid';
 import { IconGrid3x3 } from './components/IconGrid3x3';
@@ -37,6 +38,7 @@ import { IconSimulation } from './components/IconSimulation';
 import { IconSocial } from './components/IconSocial';
 import { IconSparkles } from './components/IconSparkles';
 import { IconSpinner } from './components/IconSpinner';
+import { IconStorybook } from './components/IconStorybook';
 import { IconThreeStage } from './components/IconThreeStage';
 import { IconWrench } from './components/IconWrench';
 import { IconX } from './components/IconX';
@@ -58,6 +60,7 @@ export const iconMap = {
   flame: IconFlame,
   generative: IconGenerative,
   github: IconGithub,
+  gitlab: IconGitlab,
   graphify: IconGraphify,
   grid: IconGrid,
   'grid-3x3': IconGrid3x3,
@@ -80,6 +83,7 @@ export const iconMap = {
   social: IconSocial,
   sparkles: IconSparkles,
   spinner: IconSpinner,
+  storybook: IconStorybook,
   'three-stage': IconThreeStage,
   wrench: IconWrench,
   x: IconX

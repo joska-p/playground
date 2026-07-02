@@ -1,4 +1,6 @@
 import React, { Suspense } from 'react';
+import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
+import { DefaultFallback } from '@repo/ui/DefaultFallback';
 
 const ArtCanvasApp = React.lazy(() => import('@repo/art-canvas').then((m) => ({ default: m.App })));
 const AutomaApp = React.lazy(() => import('@repo/automa').then((m) => ({ default: m.App })));
@@ -42,8 +44,10 @@ export function DynamicProjectApp({ slug }: { slug: string }) {
   const Component = components[slug];
   if (!Component) return null;
   return (
-    <Suspense fallback={<div>Loading project...</div>}>
-      <Component />
-    </Suspense>
+    <ErrorBoundary FallbackComponent={DefaultFallback}>
+      <Suspense fallback={<div>Loading project...</div>}>
+        <Component />
+      </Suspense>
+    </ErrorBoundary>
   );
 }

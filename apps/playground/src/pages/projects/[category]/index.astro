@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import ExperimentCard from '../../../components/ui/cards/ExperimentCard.astro';
-import Hero from '../../../components/ui/features/Hero.astro';
+import { Hero } from '@repo/ui/Hero';
+import { ProjectCard } from '@repo/ui/ProjectCard';
 import Footer from '../../../layouts/Footer.astro';
 
 export async function getStaticPaths() {
@@ -39,7 +39,7 @@ const { name, description } = categoryMeta.data;
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
       {
         categoryProjects.map((project) => (
-          <ExperimentCard
+          <ProjectCard
             href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
             title={project.data.name}
             description={project.data.description}

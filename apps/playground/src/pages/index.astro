@@ -1,13 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/ui/features/Hero.astro';
+import { Hero } from '@repo/ui/Hero';
+import { SectionHeader } from '@repo/ui/SectionHeader';
+import { ProjectCard } from '@repo/ui/ProjectCard';
+import { DocCard } from '@repo/ui/DocCard';
 import ExperimentsPreview from '../components/ui/features/ExperimentsPreview.astro';
-import FeaturedProjects from '../components/ui/projects/FeaturedProjects.astro';
-import FeaturedDocs from '../components/ui/docs/FeaturedDocs.astro';
 import Footer from '../layouts/Footer.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { buttonVariants } from '@repo/ui/buttonVariants';
+import { Icon } from '@repo/ui/Icon';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
+const docsBaseUrl = `${baseUrl}docs/`;
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects.filter((p) => p.data.featured);
+
+const featuredDocs = await getCollection('docs', ({ data }) => data.featured && !data.draft);
+const featuredDocsWithMeta = await Promise.all(
+  featuredDocs.map(async (doc) => {
+    const categoryEntry = await getEntry(doc.data.category);
+    return {
+      ...doc,
+      categoryId: doc.data.category.id,
+      iconName: categoryEntry.data.icon
+    };
+  })
+);
 ---
 
 <BaseLayout title="Playground">
@@ -16,55 +36,89 @@ const projectsBaseUrl = `${baseUrl}projects/`;
     highlight="Experimental"
     title="Playground"
     description="A high-performance lab for interactive visualizations, math sequences, and color tools. Built to experiment without limits."
-  >
-    <div slot="cta">
-      <a
-        href="#experiments"
-        class="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 relative inline-flex h-10 items-center gap-2 overflow-hidden rounded-full px-6 text-xs font-bold uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl active:scale-95"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="transition-transform group-hover:translate-x-0.5"
-          aria-hidden="true"
+    cta={
+      <div class="flex flex-wrap items-center gap-4">
+        <a
+          href="#experiments"
+          class={buttonVariants({ variant: 'default' }) + ' shadow-primary/20 hover:shadow-primary/30 rounded-full shadow-lg hover:-translate-y-0.5 hover:shadow-xl uppercase text-xs px-6 h-10'}
         >
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line
-            x1="12"
-            y1="19"
-            x2="20"
-            y2="19"
-          ></line>
-        </svg>
-        Explore
-      </a>
-
-      <a
-        href={projectsBaseUrl}
-        class="group border-border/50 text-muted-foreground hover:border-primary/40 hover:bg-muted/30 hover:text-primary inline-flex h-10 items-center gap-2 rounded-full border-2 bg-transparent px-6 text-xs font-bold uppercase transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
-      >
-        All Projects
-      </a>
-    </div>
-  </Hero>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          Explore
+        </a>
+        <a
+          href={projectsBaseUrl}
+          class="border-border/50 text-muted-foreground hover:border-primary/40 hover:bg-muted/30 hover:text-primary inline-flex h-10 items-center gap-2 rounded-full border-2 bg-transparent px-6 text-xs font-bold uppercase transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
+        >
+          All Projects
+        </a>
+      </div>
+    }
+  />
 
   <ExperimentsPreview />
+
   <div class="mx-auto w-full max-w-6xl px-6 py-20 lg:py-24">
-    <section
-      id="experiments"
-      class="mb-24 scroll-mt-20"
-    >
-      <FeaturedProjects />
+    <section id="experiments" class="mb-24 scroll-mt-20">
+      <SectionHeader
+        iconName="sparkles"
+        title="Engines & Labs"
+        description="Volatile experiments in high-interactivity canvas rendering."
+        href="https://joska-p.github.io/playground/"
+        linkText="View on GitLab"
+        className="mb-12"
+      />
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          featuredProjects.map((project) => (
+            <ProjectCard
+              href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
+              title={project.data.name}
+              description={project.data.description}
+              iconName={project.data.icon}
+              category={project.data.category.id}
+              tags={project.data.tags.map((t) => t.id)}
+            />
+          ))
+        }
+      </div>
     </section>
+
     <div class="border-border bg-card/30 rounded-xl border p-8 lg:p-12">
-      <FeaturedDocs />
+      <SectionHeader
+        iconName="book"
+        title="Documentation"
+        description="Manifesto, guides, and references for collaborators."
+        align="center"
+        className="mb-12"
+      />
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+        {
+          featuredDocsWithMeta.map((doc) => (
+            <DocCard
+              href={`${docsBaseUrl}${doc.id}/`}
+              type={doc.categoryId}
+              iconName={doc.iconName}
+              title={doc.data.title}
+              description={doc.data.description ?? ''}
+            />
+          ))
+        }
+      </div>
+      <div class="mt-10 text-center">
+        <a
+          href={docsBaseUrl}
+          class="group text-primary/60 hover:text-primary inline-flex items-center gap-2 text-xs font-bold uppercase transition-colors"
+        >
+          Browse all docs
+          <Icon
+            name="arrow-right"
+            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+          />
+        </a>
+      </div>
     </div>
   </div>
 
