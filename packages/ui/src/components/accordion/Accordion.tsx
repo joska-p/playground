@@ -1,7 +1,8 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
-import { accordionVariants, accordionItemVariants } from './accordionVariants';
+import './Accordion.module.css';
+import { accordionItemVariants, accordionVariants } from './accordionVariants';
 
 type AccordionProps = {
   children: ReactNode;
@@ -10,7 +11,10 @@ type AccordionProps = {
 
 function Accordion({ children, className, variant, ...props }: AccordionProps) {
   return (
-    <div className={cn(accordionVariants({ variant }), className)} {...props}>
+    <div
+      className={cn(accordionVariants({ variant }), className)}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -23,7 +27,14 @@ type AccordionItemProps = {
 } & ComponentProps<'details'> &
   VariantProps<typeof accordionItemVariants>;
 
-function AccordionItem({ title, defaultOpen, children, className, variant, ...props }: AccordionItemProps) {
+function AccordionItem({
+  title,
+  defaultOpen,
+  children,
+  className,
+  variant,
+  ...props
+}: AccordionItemProps) {
   return (
     <details
       open={defaultOpen}
@@ -32,25 +43,23 @@ function AccordionItem({ title, defaultOpen, children, className, variant, ...pr
     >
       <summary
         className={cn(
-          'text-foreground flex items-center justify-between px-5 py-4 text-sm font-medium cursor-pointer',
+          'text-foreground flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium',
           'list-none [&::-webkit-details-marker]:hidden',
-          'after:block after:w-2 after:h-2 after:shrink-0',
-          'after:border-r-2 after:border-b-2 after:border-muted-foreground',
+          'after:block after:h-2 after:w-2 after:shrink-0',
+          'after:border-muted-foreground after:border-r-2 after:border-b-2',
           'after:-rotate-45 after:transition-transform after:duration-200',
           'group-open:after:rotate-45'
         )}
       >
         {title}
       </summary>
-      <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-open:grid-rows-[1fr]">
-        <div
-          className={cn(
-            'overflow-hidden',
-            'px-5 pb-4 text-sm text-muted-foreground leading-relaxed'
-          )}
-        >
-          {children}
-        </div>
+      <div
+        className={cn(
+          'overflow-hidden',
+          'text-muted-foreground px-5 pb-4 text-sm leading-relaxed transition-all transition-discrete'
+        )}
+      >
+        {children}
       </div>
     </details>
   );
@@ -59,4 +68,4 @@ function AccordionItem({ title, defaultOpen, children, className, variant, ...pr
 Accordion.Item = AccordionItem;
 
 export { Accordion };
-export type { AccordionProps, AccordionItemProps };
+export type { AccordionItemProps, AccordionProps };
