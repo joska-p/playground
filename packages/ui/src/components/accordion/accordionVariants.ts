@@ -5,11 +5,11 @@ export const accordionVariants = createVariant({
   variants: {
     variant: {
       default: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-      destructive: '',
-      warning: ''
+      primary: 'bg-primary/[3%] rounded-lg',
+      secondary: 'bg-secondary/[3%] rounded-lg',
+      accent: 'bg-accent/[3%] rounded-lg',
+      destructive: 'bg-destructive/[3%] rounded-lg',
+      warning: 'bg-warning/[3%] rounded-lg'
     }
   },
   defaultVariants: {
