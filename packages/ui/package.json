@@ -6,6 +6,9 @@
   "exports": {
     "./Badge": "./src/components/badge/Badge.tsx",
     "./badgeVariants": "./src/components/badge/badgeVariants.ts",
+    "./Checkbox": "./src/components/checkbox/Checkbox.tsx",
+    "./Radio": "./src/components/radio/Radio.tsx",
+    "./Textarea": "./src/components/textarea/Textarea.tsx",
     "./Button": "./src/components/button/Button.tsx",
     "./buttonVariants": "./src/components/button/buttonVariants.ts",
     "./Card": "./src/components/card/Card.tsx",

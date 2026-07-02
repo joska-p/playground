@@ -1,15 +1,21 @@
 import { createVariant } from '../../lib/variants/create-variant';
 
 export const selectVariants = createVariant({
-  base: 'bg-input ring-offset-background focus-visible:ring-ring flex h-10 w-full cursor-pointer appearance-none rounded-md border px-3 py-2  text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+  base: 'flex items-center gap-2 rounded-md px-3 transition-shadow duration-200',
   variants: {
     variant: {
-      primary: 'border-border hover:border-primary/50',
-      secondary: 'border-secondary/50 hover:border-secondary',
-      accent: 'border-accent/50 hover:border-accent',
-      destructive: 'border-destructive text-destructive focus-visible:ring-destructive',
-      outline: 'border-border hover:border-primary/50 bg-transparent',
-      ghost: 'hover:bg-foreground/5 border-transparent bg-transparent'
+      primary:
+        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--primary)_15%,transparent)]',
+      secondary:
+        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--secondary)_15%,transparent)]',
+      accent:
+        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_15%,transparent)]',
+      destructive:
+        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--destructive)_15%,transparent)]',
+      outline:
+        'bg-transparent border border-border focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--primary)_15%,transparent)]',
+      ghost:
+        'bg-transparent focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--foreground)_15%,transparent)]'
     }
   },
   defaultVariants: {

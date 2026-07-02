@@ -1,23 +1,18 @@
 import { createVariant } from '../../lib/variants/create-variant';
 
 export const sliderVariants = createVariant({
-  base: 'w-full rounded-md py-2 transition-colors',
+  base: 'h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none',
   variants: {
     variant: {
-      primary: 'accent-primary text-primary',
-      secondary: 'accent-secondary text-secondary',
-      accent: 'accent-accent text-accent',
-      destructive: 'accent-destructive text-destructive',
-      outline: 'accent-primary text-foreground border border-border',
-      ghost: 'accent-primary text-foreground/70'
-    },
-    layout: {
-      stacked: 'mt-2',
-      inline: 'flex items-center gap-3 py-0 max-sm:flex-col max-sm:gap-1.5 max-sm:py-2'
+      primary: 'accent-primary',
+      secondary: 'accent-secondary',
+      accent: 'accent-accent',
+      destructive: 'accent-destructive',
+      outline: 'accent-primary',
+      ghost: 'accent-foreground'
     }
   },
   defaultVariants: {
-    variant: 'primary',
-    layout: 'stacked'
+    variant: 'primary'
   }
 });

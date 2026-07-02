@@ -29,27 +29,25 @@ function Select({
   const selectId = id ?? generatedId;
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className={cn('flex flex-col gap-1.5', fullWidth && 'w-full')}>
       {label && (
-        <label
-          htmlFor={selectId}
-          className="text-foreground/80 text-xs"
-        >
+        <label htmlFor={selectId} className="text-muted-foreground text-xs">
           {label}
         </label>
       )}
-      <div className={cn('relative', fullWidth && 'w-full')}>
+      <div className={cn(selectVariants({ variant }), fullWidth && 'w-full')}>
         <select
           id={selectId}
           ref={ref}
-          className={cn(selectVariants({ variant, className }), fullWidth && 'w-full')}
+          className={cn(
+            'w-full bg-transparent py-2 outline-none appearance-none cursor-pointer',
+            className
+          )}
           {...props}
         >
           {children}
         </select>
-        <div className="text-foreground/50 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-          <IconChevronDown className="h-4 w-4" />
-        </div>
+        <IconChevronDown className="text-foreground-dim shrink-0 size-4 pointer-events-none" />
       </div>
       {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
     </div>
