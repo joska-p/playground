@@ -15,8 +15,6 @@ export type Control =
   | ToggleControl
   | SelectControl
   | NumberControl
-  | Vec2Control
-  | Vec3Control
   | ButtonControl
   | ColorPaletteControl
   | CustomControl;
@@ -90,26 +88,6 @@ export type NumberControl = ControlBase & {
   step?: number;
   onChange: (value: number) => void;
 } & Omit<ComponentProps<typeof Input>, 'value' | 'onChange' | 'type' | 'min' | 'max' | 'step'>;
-
-export type Vec2Control = ControlBase & {
-  type: 'vec2';
-  value: [number, number];
-  min?: number;
-  max?: number;
-  step?: number;
-  labels?: [string, string];
-  onChange: (value: [number, number]) => void;
-};
-
-export type Vec3Control = ControlBase & {
-  type: 'vec3';
-  value: [number, number, number];
-  min?: number;
-  max?: number;
-  step?: number;
-  labels?: [string, string, string];
-  onChange: (value: [number, number, number]) => void;
-};
 
 export type ButtonControl = ControlBase & {
   type: 'button';

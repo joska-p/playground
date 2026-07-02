@@ -27,90 +27,97 @@ function ControlsPanel() {
     value: id
   }));
 
+  const presetsControl: Control[] = WORKFLOW_PRESETS.map((preset, i) => ({
+    id: `preset-${String(i)}`,
+    label: preset.name,
+    type: 'button',
+    variant: 'default',
+    onClick: () => {
+      setWorkflowSteps(
+        preset.steps.map((step) => ({
+          ...step,
+          options: step.options ?? {},
+          uid: crypto.randomUUID()
+        }))
+      );
+    },
+    tooltip: preset.description
+  }));
+
+  const manipulationsControls: Control[] = [
+    {
+      id: 'select-manip',
+      label: 'Manipulation',
+      type: 'select',
+      value: selectedManip,
+      options: manipulationOptions,
+      onChange: (v: string) => {
+        setSelectedManip(v);
+      }
+    },
+    {
+      id: 'add-step',
+      label: 'Add to Workflow',
+      type: 'button',
+      variant: 'primary',
+      onClick: () => {
+        addWorkflowStep(selectedManip);
+      }
+    }
+  ];
+
+  const imageSourceControl: Control = {
+    id: 'clear-source',
+    label: 'Clear Source',
+    type: 'button',
+    variant: 'default',
+    onClick: () => {
+      clearImageSource();
+    }
+  } as const;
+
+  const outputsControl: Control = {
+    id: 'clear-outputs',
+    label: 'Clear Outputs',
+    type: 'button',
+    variant: 'default',
+    onClick: () => {
+      clearOutputs();
+    }
+  };
+
+  const ioSection: ControlSection = {
+    id: 'input-output',
+    label: 'Input Output',
+    icon: iconMap.image,
+    controls: []
+  };
+
+  if (imageSource) {
+    ioSection.controls.push(imageSourceControl);
+  }
+
+  if (outputs.length > 0) {
+    ioSection.controls.push(outputsControl);
+  }
+
   const sections: ControlSection[] = [
     {
       id: 'presets',
       label: 'Presets',
       icon: iconMap.sparkles,
-      controls: WORKFLOW_PRESETS.map((preset, i) => ({
-        id: `preset-${String(i)}`,
-        label: preset.name,
-        type: 'button',
-        variant: 'default',
-        onClick: () => {
-          setWorkflowSteps(
-            preset.steps.map((step) => ({
-              ...step,
-              options: step.options ?? {},
-              uid: crypto.randomUUID()
-            }))
-          );
-        },
-        tooltip: preset.description
-      }))
+      controls: presetsControl
     },
     {
       id: 'manipulations',
       label: 'Manipulations',
       icon: iconMap.pipeline,
-      controls: [
-        {
-          id: 'select-manip',
-          label: 'Manipulation',
-          type: 'select' as const,
-          value: selectedManip,
-          options: manipulationOptions,
-          onChange: (v: string) => {
-            setSelectedManip(v);
-          }
-        },
-        {
-          id: 'add-step',
-          label: 'Add to Workflow',
-          type: 'button' as const,
-          variant: 'primary' as const,
-          onClick: () => {
-            addWorkflowStep(selectedManip);
-          }
-        }
-      ]
+      controls: manipulationsControls
     }
   ];
 
-  if (outputs.length > 0 || imageSource) {
-    sections.push({
-      id: 'source',
-      label: 'Source',
-      icon: iconMap.image,
-      controls: [
-        ...(imageSource
-          ? [
-              {
-                id: 'clear-source',
-                label: 'Clear Source',
-                type: 'button' as const,
-                variant: 'default' as const,
-                onClick: () => {
-                  clearImageSource();
-                }
-              } as Control
-            ]
-          : []),
-        ...(outputs.length > 0
-          ? [
-              {
-                id: 'clear-outputs',
-                label: 'Clear Outputs',
-                type: 'button' as const,
-                variant: 'danger' as const,
-                onClick: () => {
-                  clearOutputs();
-                }
-              } as Control
-            ]
-          : [])
-      ]
-    });
+  if (ioSection.controls.length > 0) {
+    sections.push(ioSection);
   }
 
   return (

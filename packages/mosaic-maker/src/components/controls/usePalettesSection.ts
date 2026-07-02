@@ -24,7 +24,7 @@ function usePalettesSection() {
       colors,
       checked: palette.id === currentPalette.id,
       orientation: 'vertical',
-      size: 'small',
+      size: 'sm',
       onChange: (id: string) => {
         const selected = currentPalettes.find((p) => p.id === id);
         if (selected) applyPalette(selected);
