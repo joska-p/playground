@@ -85,7 +85,7 @@ function Tabs({ tabs, className, variant }: TabsProps) {
         .tabs-container:has(#${prefix}-7:checked) label[for="${prefix}-7"]::after,
         .tabs-container:has(#${prefix}-8:checked) label[for="${prefix}-8"]::after,
         .tabs-container:has(#${prefix}-9:checked) label[for="${prefix}-9"]::after {
-          transform: scaleX(1);
+          scale: 1;
         }
         .tabs-container:has(#${prefix}-0:checked) #panel-${prefix}-0,
         .tabs-container:has(#${prefix}-1:checked) #panel-${prefix}-1,
