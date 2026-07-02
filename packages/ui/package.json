@@ -27,6 +27,7 @@
     "./ToastContainer": "./src/components/feedback/toast/Toast.tsx",
     "./useToast": "./src/components/feedback/toast/useToast.ts",
     "./ControlPanel": "./src/components/widgets/control-panel/ControlPanel.tsx",
+    "./ControlPanel/types": "./src/components/widgets/control-panel/types.ts",
     "./ControlSection": "./src/components/widgets/control-panel/ControlSection.tsx",
     "./DefaultFallback": "./src/components/error-boundary/DefaultFallback.tsx",
     "./ErrorBoundary": "./src/components/error-boundary/ErrorBoundary.tsx",

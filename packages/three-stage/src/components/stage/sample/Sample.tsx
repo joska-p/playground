@@ -6,7 +6,7 @@ import type { Mesh } from 'three';
 import { geometries } from '../../../utils/geometry';
 import { materials } from '../../../utils/material';
 
-function Sample() {
+export function Sample() {
   const sampleRef = useRef<Mesh>(null);
   const { speed, geometry, color, material } = useControls('Object', {
     speed: {

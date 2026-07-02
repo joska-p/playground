@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setComplexity, setMood, setPalette, setSeed } from '../../stores/ui/actions';
 import { useComplexity, useMood, usePalette, useSeed } from '../../stores/ui/selectors';
 

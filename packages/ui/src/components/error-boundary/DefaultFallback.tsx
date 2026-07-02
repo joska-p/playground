@@ -6,15 +6,10 @@ import { Button } from '../elements/button/Button';
 
 type DefaultFallbackProps = FallbackProps & ComponentProps<'div'>;
 
-function DefaultFallback({
-  error,
-  resetErrorBoundary,
-  className,
-  ...props
-}: DefaultFallbackProps) {
+function DefaultFallback({ error, resetErrorBoundary, className, ...props }: DefaultFallbackProps) {
   return (
     <div
-      className={cn('flex items-center justify-center h-full', className)}
+      className={cn('flex h-full items-center justify-center', className)}
       role="alert"
       {...props}
     >
@@ -32,15 +27,33 @@ function DefaultFallback({
               strokeLinejoin="round"
               aria-hidden="true"
             >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <line
+                x1="12"
+                y1="8"
+                x2="12"
+                y2="12"
+              />
+              <line
+                x1="12"
+                y1="16"
+                x2="12.01"
+                y2="16"
+              />
             </svg>
           </div>
           <h3 className="text-card-foreground text-lg font-semibold">Something went wrong</h3>
         </div>
         <p className="text-muted-foreground text-sm">{getErrorMessage(error)}</p>
-        <Button onClick={resetErrorBoundary} variant="destructive" size="sm">
+        <Button
+          onClick={resetErrorBoundary}
+          variant="destructive"
+          size="sm"
+        >
           Try again
         </Button>
       </div>

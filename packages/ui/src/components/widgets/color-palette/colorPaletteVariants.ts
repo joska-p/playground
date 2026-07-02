@@ -13,18 +13,12 @@ export const colorPaletteVariants = createVariant({
       lg: '[--cell-size:--spacing(8)]'
     },
     variant: {
-      primary:
-        'has-checked:shadow-[0_0_0_2px_var(--primary)]',
-      secondary:
-        'has-checked:shadow-[0_0_0_2px_var(--secondary)]',
-      accent:
-        'has-checked:shadow-[0_0_0_2px_var(--accent)]',
-      destructive:
-        'has-checked:shadow-[0_0_0_2px_var(--destructive)]',
-      outline:
-        'has-checked:shadow-[0_0_0_2px_var(--foreground)]',
-      ghost:
-        'has-checked:shadow-[0_0_0_1px_var(--foreground-dim)]'
+      primary: 'has-checked:shadow-[0_0_0_2px_var(--primary)]',
+      secondary: 'has-checked:shadow-[0_0_0_2px_var(--secondary)]',
+      accent: 'has-checked:shadow-[0_0_0_2px_var(--accent)]',
+      destructive: 'has-checked:shadow-[0_0_0_2px_var(--destructive)]',
+      outline: 'has-checked:shadow-[0_0_0_2px_var(--foreground)]',
+      ghost: 'has-checked:shadow-[0_0_0_1px_var(--foreground-dim)]'
     }
   },
   defaultVariants: {

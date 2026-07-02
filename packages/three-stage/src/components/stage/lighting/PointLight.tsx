@@ -2,7 +2,7 @@ import { Helper } from '@react-three/drei';
 import { folder, useControls } from 'leva';
 import { PointLightHelper } from 'three';
 
-function PointLight() {
+export function PointLight() {
   const { intensity, color, decay, x, y, z } = useControls('Lighting', {
     Point: folder({
       intensity: {

@@ -1,6 +1,6 @@
 import { pixel } from '@repo/pixel';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { iconMap } from '@repo/ui/icons';
 import { useState } from 'react';
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';

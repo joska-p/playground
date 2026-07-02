@@ -1,5 +1,5 @@
 import { getAllRules, getRule } from '@repo/automa-engine/rules/registry';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setRule } from '../../stores/simulation/actions';
 import { useRuleId } from '../../stores/simulation/selectors';
 import { setStateColor } from '../../stores/ui/actions';

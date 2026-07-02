@@ -1,29 +1,23 @@
-import { cn } from '../../../../utils/cn';
+import { Button } from '../../../elements/button/Button';
 import type { ButtonControl as ButtonControlType } from '../types';
 
 export function ButtonControl({ control }: { control: ButtonControlType }) {
-  const variantStyles = {
-    default: 'bg-muted text-foreground hover:bg-muted/80',
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-    danger: 'bg-red-500/10 text-red-500 hover:bg-red-500/20'
-  };
+  const coreVariant =
+    control.variant === 'primary'
+      ? 'primary'
+      : control.variant === 'danger'
+        ? 'destructive'
+        : 'secondary';
 
   return (
-    <button
-      type="button"
+    <Button
+      variant={coreVariant}
       onClick={control.onClick}
       disabled={control.disabled}
-      className={cn(
-        'flex w-full items-center justify-center gap-2',
-        'h-8 rounded-lg px-3 text-sm font-medium',
-        'transition-colors duration-100',
-        'focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none',
-        'disabled:cursor-not-allowed disabled:opacity-50',
-        variantStyles[control.variant ?? 'default']
-      )}
+      fullWidth
     >
-      {control.icon && <control.icon className="h-4 w-4" />}
+      {control.icon && <control.icon className="size-4 shrink-0" />}
       {control.label}
-    </button>
+    </Button>
   );
 }

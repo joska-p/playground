@@ -1,5 +1,5 @@
-import type { ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel as Panel } from '@repo/ui/ControlPanel';
+import type { ControlSection } from '@repo/ui/ControlPanel/types';
 import { useAnimationSection } from './useAnimationSection';
 import { useConfigSection } from './useConfigSection';
 import { useDisplaySection } from './useDisplaySection';

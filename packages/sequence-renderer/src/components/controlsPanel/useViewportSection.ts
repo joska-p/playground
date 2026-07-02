@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setViewport } from '../../stores/ui/actions';
 import { useViewport } from '../../stores/ui/selectors';
 

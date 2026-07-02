@@ -39,11 +39,29 @@ const featuredDocsWithMeta = await Promise.all(
   >
     <a
       href="#experiments"
-      class={buttonVariants({ variant: 'default' }) + ' shadow-primary/20 hover:shadow-primary/30 rounded-full shadow-lg hover:-translate-y-0.5 hover:shadow-xl uppercase text-xs px-6 h-10'}
+      class={buttonVariants({ variant: 'default' }) +
+        ' shadow-primary/20 hover:shadow-primary/30 rounded-full shadow-lg hover:-translate-y-0.5 hover:shadow-xl uppercase text-xs px-6 h-10'}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform group-hover:translate-x-0.5"
+        aria-hidden="true"
+      >
         <polyline points="4 17 10 11 4 5"></polyline>
-        <line x1="12" y1="19" x2="20" y2="19"></line>
+        <line
+          x1="12"
+          y1="19"
+          x2="20"
+          y2="19"
+        ></line>
       </svg>
       Explore
     </a>
@@ -58,7 +76,10 @@ const featuredDocsWithMeta = await Promise.all(
   <ExperimentsPreview />
 
   <div class="mx-auto w-full max-w-6xl px-6 py-20 lg:py-24">
-    <section id="experiments" class="mb-24 scroll-mt-20">
+    <section
+      id="experiments"
+      class="mb-24 scroll-mt-20"
+    >
       <SectionHeader
         iconName="sparkles"
         title="Engines & Labs"
@@ -83,7 +104,7 @@ const featuredDocsWithMeta = await Promise.all(
       </div>
     </section>
 
-    <div class="bg-surface rounded-xl p-8 lg:p-12 shadow-sm">
+    <div class="bg-surface rounded-xl p-8 shadow-sm lg:p-12">
       <SectionHeader
         iconName="book"
         title="Documentation"

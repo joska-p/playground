@@ -1,5 +1,5 @@
-import type { ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
+import type { ControlSection } from '@repo/ui/ControlPanel/types';
 import { useStepTimer } from '../../hooks/useStepTimer';
 import { useCreatureSection } from './useCreatureSection';
 import { useDebugSection } from './useDebugSection';

@@ -19,11 +19,9 @@ function Tabs({ tabs, className, variant }: TabsProps) {
   const prefix = `tab-${id}`;
 
   return (
-    <div
-      className={cn(tabsVariants({ variant }), className)}
-    >
+    <div className={cn(tabsVariants({ variant }), className)}>
       <div className="tabs-container">
-        <div className="flex border-b border-border">
+        <div className="border-border flex border-b">
           {tabs.map((tab, i) => (
             <label
               key={i}
@@ -51,8 +49,8 @@ function Tabs({ tabs, className, variant }: TabsProps) {
             key={i}
             id={`panel-${prefix}-${String(i)}`}
             className={cn(
-              'hidden px-5 py-5 text-sm text-muted-foreground leading-relaxed',
-              'starting:opacity-0 starting:translate-y-1',
+              'text-muted-foreground hidden px-5 py-5 text-sm leading-relaxed',
+              'starting:translate-y-1 starting:opacity-0',
               'animate-[tabIn_0.2s_ease]'
             )}
           >
@@ -105,4 +103,4 @@ function Tabs({ tabs, className, variant }: TabsProps) {
 }
 
 export { Tabs };
-export type { TabsProps, Tab };
+export type { Tab, TabsProps };

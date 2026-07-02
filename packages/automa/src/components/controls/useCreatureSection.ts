@@ -1,5 +1,5 @@
 import { getAllCreatures } from '@repo/automa-engine/creature/registry';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setPaletteBrush } from '../../stores/ui/actions';
 import { usePaletteBrush } from '../../stores/ui/selectors';
 

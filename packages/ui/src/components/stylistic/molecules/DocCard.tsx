@@ -50,13 +50,18 @@ function DocCard({
       <div className="flex flex-1 flex-col gap-4 p-4">
         {/* Type badge */}
         <div
-          className="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold uppercase text-(--card-accent)"
+          className="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold text-(--card-accent) uppercase"
           style={{
             background: 'color-mix(in srgb, var(--card-accent) 12%, transparent)',
             border: '1px solid color-mix(in srgb, var(--card-accent) 25%, transparent)'
           }}
         >
-          {iconName && <Icon name={iconName} className="h-4 w-4" />}
+          {iconName && (
+            <Icon
+              name={iconName}
+              className="h-4 w-4"
+            />
+          )}
           <span>{type}</span>
         </div>
 

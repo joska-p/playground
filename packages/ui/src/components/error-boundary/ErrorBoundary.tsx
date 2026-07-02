@@ -21,9 +21,7 @@ type ErrorBoundaryProps = {
 function ErrorBoundary({ children, ...props }: ErrorBoundaryProps) {
   return (
     <ReactErrorBoundary
-      fallbackRender={(fallbackProps: FallbackProps) => (
-        <DefaultFallback {...fallbackProps} />
-      )}
+      fallbackRender={(fallbackProps: FallbackProps) => <DefaultFallback {...fallbackProps} />}
       {...props}
     >
       {children}

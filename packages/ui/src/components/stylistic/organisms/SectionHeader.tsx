@@ -25,9 +25,7 @@ function SectionHeader({
   ...props
 }: SectionHeaderProps) {
   const isCenter = align === 'center';
-  const accentColor = category
-    ? `var(--category-${category}, var(--primary))`
-    : `var(--primary)`;
+  const accentColor = category ? `var(--category-${category}, var(--primary))` : `var(--primary)`;
 
   return (
     <div
@@ -42,7 +40,10 @@ function SectionHeader({
       <div className={cn('flex items-center gap-3', isCenter && 'justify-center')}>
         {iconName && (
           <span className="text-accent flex shrink-0 items-center justify-center">
-            <Icon name={iconName} className="h-7 w-7" />
+            <Icon
+              name={iconName}
+              className="h-7 w-7"
+            />
           </span>
         )}
         <h2 className="text-accent m-0 text-xs font-bold uppercase">{title}</h2>

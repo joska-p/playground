@@ -1,5 +1,5 @@
-import type { ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
+import type { ControlSection } from '@repo/ui/ControlPanel/types';
 import { useIsPalettesLoading } from '../../stores/mosaic/selectors';
 import { TileSetControls } from './TileSetControls';
 import { useActionsSection } from './useActionsSection';

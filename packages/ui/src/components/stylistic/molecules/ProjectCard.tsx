@@ -33,7 +33,9 @@ function ProjectCard({
         'hover:[border-color:color-mix(in_srgb,var(--card-accent)_35%,var(--color-border))]',
         className
       )}
-      style={{ '--card-accent': `var(--category-${category}, var(--primary))` } as React.CSSProperties}
+      style={
+        { '--card-accent': `var(--category-${category}, var(--primary))` } as React.CSSProperties
+      }
       {...props}
     >
       {/* Hover gradient line */}
@@ -57,9 +59,7 @@ function ProjectCard({
           </div>
         </div>
 
-        {description && (
-          <p className="text-muted-foreground line-clamp-2 text-sm">{description}</p>
-        )}
+        {description && <p className="text-muted-foreground line-clamp-2 text-sm">{description}</p>}
       </div>
 
       {tags.length > 0 && (

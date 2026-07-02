@@ -12,8 +12,7 @@ export function SidebarToggle({ className, children, ...props }: ComponentProps<
   return (
     <Button
       type="button"
-      size="icon"
-      variant="ghost"
+      size="md"
       onClick={toggleSidebar}
       className={cn(styles['toggle'], className)}
       aria-expanded={isOpen}

@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { clear, randomize } from '../../stores/simulation/actions';
 import { setToolMode } from '../../stores/ui/actions';
 import { useBrushMode } from '../../stores/ui/selectors';

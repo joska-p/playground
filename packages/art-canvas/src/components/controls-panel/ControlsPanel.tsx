@@ -1,6 +1,6 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
-import { useSeedControls } from '../../input-modes/seed/useControls';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
+import { useSeedControls } from '../../input-modes/seed/useSeedControls';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';
 import type { InputMode } from '../../stores/ui/types';

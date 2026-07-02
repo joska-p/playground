@@ -37,7 +37,9 @@ export const Primary: Story = {
       <Card {...args}>
         <div className="flex flex-col space-y-1.5 p-6">
           <h3 className="text-xl font-semibold">Project Configuration</h3>
-          <p className="text-muted-foreground text-sm italic">Adjust the parameters for your current experiment.</p>
+          <p className="text-muted-foreground text-sm italic">
+            Adjust the parameters for your current experiment.
+          </p>
         </div>
         <div className="p-6 pt-0">
           <p>Configure particle density and canvas resolution before generating.</p>
@@ -162,4 +164,3 @@ export const Muted: Story = {
     </div>
   )
 };
-

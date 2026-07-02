@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setShowDebug } from '../../stores/ui/actions';
 import { useShowDebug } from '../../stores/ui/selectors';
 

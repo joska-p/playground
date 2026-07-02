@@ -47,18 +47,21 @@ function FilterControls() {
       <h2 className="text-base">Filters</h2>
       <div className="space-y-4">
         <div className="item-center grid grid-cols-2 gap-4">
-          <Switch
-            checked={edgesVisible}
-            onCheckedChange={toggleEdges}
-            label="Show edges"
-            size="sm"
-          />
-          <Switch
-            checked={labelsVisible}
-            onCheckedChange={toggleLabels}
-            label="Show labels"
-            size="sm"
-          />
+          <label className="text-xs">
+            Show edges
+            <Switch
+              checked={edgesVisible}
+              onChange={toggleEdges}
+            />
+          </label>
+
+          <label className="text-xs">
+            Show labels
+            <Switch
+              checked={labelsVisible}
+              onChange={toggleLabels}
+            />
+          </label>
         </div>
 
         <div className="space-y-2">
@@ -68,7 +71,6 @@ function FilterControls() {
             </span>
             <div className="flex gap-1">
               <Button
-                variant="ghost"
                 size="sm"
                 className="h-6 px-2 text-xs"
                 onClick={showAllCommunities}
@@ -76,7 +78,6 @@ function FilterControls() {
                 All
               </Button>
               <Button
-                variant="ghost"
                 size="sm"
                 className="h-6 px-2 text-xs"
                 onClick={hideAllCommunities}
@@ -110,12 +111,7 @@ function FilterControls() {
                     className={`h-2.5 w-2.5 shrink-0 rounded-full ${isActive ? 'bg-(--node-color)' : 'border border-current bg-transparent'}`}
                   />
                   <span className="flex-1 truncate">{c.name}</span>
-                  <Badge
-                    variant="ghost"
-                    className="px-1.5 py-0 font-mono text-xs"
-                  >
-                    {c.count}
-                  </Badge>
+                  <Badge className="px-1.5 py-0 font-mono text-xs">{c.count}</Badge>
                 </button>
               );
             })}

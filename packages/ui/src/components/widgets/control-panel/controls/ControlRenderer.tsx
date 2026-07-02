@@ -7,7 +7,6 @@ import { SelectControl } from './Select';
 import { SliderControl } from './Slider';
 import { TextControl } from './Text';
 import { ToggleControl } from './Toggle';
-import { VecControl } from './Vec';
 
 export function ControlRenderer({ control }: { control: Control }) {
   if (control.hidden) return null;
@@ -25,15 +24,14 @@ export function ControlRenderer({ control }: { control: Control }) {
       return <SelectControl control={control} />;
     case 'number':
       return <NumberControl control={control} />;
-    case 'vec2':
-    case 'vec3':
-      return <VecControl control={control} />;
     case 'button':
       return <ButtonControl control={control} />;
     case 'text':
       return <TextControl control={control} />;
+    case 'custom':
+      return <>{control.render()}</>;
     default:
-      console.warn(`[ControlRenderer] Unknown control type: ${String(control)}`);
+      console.warn(`[ControlRenderer] Unknown control type: ${control.type}`);
       return null;
   }
 }

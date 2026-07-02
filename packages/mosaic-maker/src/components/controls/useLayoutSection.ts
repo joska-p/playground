@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE } from '../../core/constants';
 import { regenerateTiles } from '../../stores/mosaic/actions';

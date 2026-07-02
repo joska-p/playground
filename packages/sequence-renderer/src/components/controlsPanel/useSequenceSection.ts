@@ -1,5 +1,5 @@
 import { getAllRules } from '@repo/sequence-engine/rules';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setSeed, setSequenceRule, setSequenceSteps } from '../../stores/sequence/actions';
 import { useSeed, useSequenceRule, useSequenceSteps } from '../../stores/sequence/selectors';
 

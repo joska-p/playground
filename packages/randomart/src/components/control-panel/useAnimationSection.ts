@@ -1,5 +1,5 @@
 import { animationRegistry } from '@repo/randomart-engine/animation/behaviors';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { toggleAnimationBehavior } from '../../stores/randomart/actions/animation';
 import { useActiveAnimationBehaviorIds } from '../../stores/randomart/selectors';
 

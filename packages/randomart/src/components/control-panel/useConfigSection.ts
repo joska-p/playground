@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setMaxDepth, setSeedText } from '../../stores/randomart/actions/config';
 import { useMaxDepth, useSeedText } from '../../stores/randomart/selectors';
 

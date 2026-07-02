@@ -20,4 +20,4 @@ const torusKnot = {
   geometry: () => new THREE.TorusKnotGeometry(1, 0.4, 64, 8, 2, 3)
 } as const;
 
-const geometries = [box, torusKnot, sphere, cylinder] as const;
+export const geometries = [box, torusKnot, sphere, cylinder] as const;

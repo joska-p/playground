@@ -1,4 +1,3 @@
-import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
 import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
@@ -60,12 +59,6 @@ export function useSelectedTree(): ExpressionNode {
   });
 }
 
-function useSelectedRng(): SeededRandom {
-  return useStore(randomartStore, (s) => {
-    return s.activeChannel === 'red' ? s.rngR : s.activeChannel === 'green' ? s.rngG : s.rngB;
-  });
-}
-
 export function useSelectedInitialHash(): number {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
@@ -79,13 +72,5 @@ export function useSelectedChoiceCount(): number {
     const channel = s.activeChannel;
     const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
     return rng.choiceHistory.length || 0;
-  });
-}
-
-function useSelectedChoiceHistory(): number[] {
-  return useStore(randomartStore, (s) => {
-    const channel = s.activeChannel;
-    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
-    return rng.choiceHistory;
   });
 }

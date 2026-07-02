@@ -1,4 +1,10 @@
-import type { ComponentType } from 'react';
+import type { ComponentProps, ComponentType } from 'react';
+import type { Button } from '../../elements/button/Button';
+import type { Slider } from '../../elements/slider/Slider';
+import type { Switch } from '../../elements/switch/Switch';
+import type { Input } from '../../form/input/Input';
+import type { Select } from '../../form/select/Select';
+import type { ColorPalette } from '../color-palette/ColorPalette';
 
 // ─── Controls ────────────────────────────────────────────
 
@@ -12,7 +18,8 @@ export type Control =
   | Vec2Control
   | Vec3Control
   | ButtonControl
-  | ColorPaletteControl;
+  | ColorPaletteControl
+  | CustomControl;
 
 type ControlBase = {
   id: string;
@@ -22,22 +29,30 @@ type ControlBase = {
   tooltip?: string;
 };
 
+export type CustomControl = ControlBase & {
+  type: 'custom';
+  render: () => React.ReactNode;
+};
+
 export type ColorPaletteControl = ControlBase & {
   type: 'color-palette';
   value: string;
   colors: string[];
   name: string;
   checked: boolean;
-  orientation: 'horizontal' | 'vertical';
-  size: 'small' | 'medium' | 'large';
+  orientation?: 'horizontal' | 'vertical';
+  size?: 'sm' | 'md' | 'lg';
   onChange: (palette: string) => void;
-};
+} & Omit<
+    ComponentProps<typeof ColorPalette>,
+    'value' | 'onChange' | 'colors' | 'name' | 'checked' | 'orientation' | 'size'
+  >;
 
 export type TextControl = ControlBase & {
   type: 'text';
   value: string;
   onChange: (value: string) => void;
-};
+} & Omit<ComponentProps<typeof Input>, 'value' | 'onChange' | 'type'>;
 
 export type SliderControl = ControlBase & {
   type: 'slider';
@@ -46,26 +61,26 @@ export type SliderControl = ControlBase & {
   max?: number;
   step?: number;
   onChange: (value: number) => void;
-};
+} & Omit<ComponentProps<typeof Slider>, 'value' | 'onChange' | 'min' | 'max' | 'step'>;
 
 export type ColorControl = ControlBase & {
   type: 'color';
   value: string;
   onChange: (value: string) => void;
-};
+} & Omit<ComponentProps<typeof Input>, 'value' | 'onChange' | 'type'>;
 
 export type ToggleControl = ControlBase & {
   type: 'toggle';
   value: boolean;
   onChange: (value: boolean) => void;
-};
+} & Omit<ComponentProps<typeof Switch>, 'value' | 'onChange' | 'checked'>;
 
 export type SelectControl = ControlBase & {
   type: 'select';
   value: string;
   options: { label: string; value: string }[];
   onChange: (value: string) => void;
-};
+} & Omit<ComponentProps<typeof Select>, 'value' | 'onChange' | 'children'>;
 
 export type NumberControl = ControlBase & {
   type: 'number';
@@ -74,7 +89,7 @@ export type NumberControl = ControlBase & {
   max?: number;
   step?: number;
   onChange: (value: number) => void;
-};
+} & Omit<ComponentProps<typeof Input>, 'value' | 'onChange' | 'type' | 'min' | 'max' | 'step'>;
 
 export type Vec2Control = ControlBase & {
   type: 'vec2';
@@ -101,7 +116,7 @@ export type ButtonControl = ControlBase & {
   variant?: 'default' | 'primary' | 'danger';
   icon?: ComponentType<{ className?: string }>;
   onClick: () => void;
-};
+} & Omit<ComponentProps<typeof Button>, 'onClick' | 'children'>;
 
 // ─── Sections ────────────────────────────────────────────
 

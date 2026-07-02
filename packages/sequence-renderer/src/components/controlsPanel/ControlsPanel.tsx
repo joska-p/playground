@@ -1,5 +1,5 @@
-import type { ControlSection } from '@repo/ui/ControlPanel';
 import { ControlPanel } from '@repo/ui/ControlPanel';
+import type { ControlSection } from '@repo/ui/ControlPanel/types';
 import { LayerStackEditor } from '../layers/LayerStackEditor';
 import { useSequenceSection } from './useSequenceSection';
 import { useViewportSection } from './useViewportSection';

@@ -22,28 +22,50 @@ function Carousel({ children, className, 'aria-label': ariaLabel }: CarouselProp
   return (
     <div className={cn('relative', className)}>
       <button
-        onClick={() => { scroll('left'); }}
+        onClick={() => {
+          scroll('left');
+        }}
         className={cn(
-          'absolute left-1 top-1/2 z-10 -translate-y-1/2',
-          'bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs transition-colors backdrop-blur-sm shadow-md',
+          'absolute top-1/2 left-1 z-10 -translate-y-1/2',
+          'bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs shadow-md backdrop-blur-sm transition-colors',
           'text-muted-foreground hover:text-foreground'
         )}
         aria-label="Scroll left"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </button>
       <button
-        onClick={() => { scroll('right'); }}
+        onClick={() => {
+          scroll('right');
+        }}
         className={cn(
-          'absolute right-1 top-1/2 z-10 -translate-y-1/2',
-          'bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs transition-colors backdrop-blur-sm shadow-md',
+          'absolute top-1/2 right-1 z-10 -translate-y-1/2',
+          'bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs shadow-md backdrop-blur-sm transition-colors',
           'text-muted-foreground hover:text-foreground'
         )}
         aria-label="Scroll right"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polyline points="9 18 15 12 9 6" />
         </svg>
       </button>
@@ -52,7 +74,7 @@ function Carousel({ children, className, 'aria-label': ariaLabel }: CarouselProp
         role="region"
         aria-label={ariaLabel ?? 'Carousel'}
         className={cn(
-          'flex gap-4 py-2 px-1 overflow-x-auto scroll-smooth',
+          'flex gap-4 overflow-x-auto scroll-smooth px-1 py-2',
           'scrollbar-none [&::-webkit-scrollbar]:hidden',
           'snap-x snap-mandatory'
         )}
@@ -69,7 +91,10 @@ type CarouselSlideProps = {
 
 function CarouselSlide({ children, className, ...props }: CarouselSlideProps) {
   return (
-    <div className={cn(carouselSlideVariants(), className)} {...props}>
+    <div
+      className={cn(carouselSlideVariants(), className)}
+      {...props}
+    >
       {children}
     </div>
   );

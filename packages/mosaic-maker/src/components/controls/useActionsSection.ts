@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { initialRotations } from '../../core/constants';
 import { cyclePalettes, regenerateTiles } from '../../stores/mosaic/actions';
 import {

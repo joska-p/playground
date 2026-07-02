@@ -79,9 +79,7 @@ function Hero({
           </p>
         )}
 
-        {children && (
-          <div className="mt-10 flex flex-wrap items-center gap-4">{children}</div>
-        )}
+        {children && <div className="mt-10 flex flex-wrap items-center gap-4">{children}</div>}
       </div>
     </section>
   );

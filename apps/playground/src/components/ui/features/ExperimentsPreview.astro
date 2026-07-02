@@ -24,8 +24,12 @@ const groups = allCategories
 >
   <div class="mx-auto max-w-6xl space-y-6">
     <header class="flex items-center gap-3">
-      <span class="text-muted-foreground text-sm tracking-widest uppercase"> experiments </span>
-      <div class="bg-border h-px flex-1" aria-hidden="true"></div>
+      <span class="text-muted-foreground text-sm tracking-widest uppercase">experiments</span>
+      <div
+        class="bg-border h-px flex-1"
+        aria-hidden="true"
+      >
+      </div>
       <span class="text-muted-foreground/60 text-sm">
         {groups.length}&nbsp;categories
       </span>
@@ -33,7 +37,7 @@ const groups = allCategories
 
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {
-        groups.map((group) => (
+        groups.map((group, index) => (
           <CategoryCard
             href={`${baseUrl}projects/${group.id}/`}
             id={group.id}
@@ -41,9 +45,53 @@ const groups = allCategories
             description={group.description}
             iconName={group.icon}
             count={group.count}
+            delay={index * 0.3}
           />
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  /* floating cards — pure css, no js */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-4px) rotate(0.3deg);
+    }
+    66% {
+      transform: translateY(-2px) rotate(-0.3deg);
+    }
+  }
+  [data-tilt] {
+    animation: float 6s ease-in-out infinite;
+    transition:
+      transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  [data-tilt]:hover {
+    animation-play-state: paused;
+    transform: perspective(500px) rotateX(-4deg) rotateY(3deg) translateY(-6px) scale(1.04);
+  }
+
+  /* icon gets a subtle pulse glow on card hover */
+  [data-tilt]:hover .fa-solid {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--primary) 50%, transparent));
+    transition: filter 0.4s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-tilt] {
+      animation: none;
+    }
+    [data-tilt]:hover {
+      transform: none;
+    }
+  }
+</style>

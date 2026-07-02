@@ -24,7 +24,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
         <dl className="grid grid-cols-[auto_1fr] items-center gap-4 text-xs">
           <dt className="text-muted-foreground">Community</dt>
           <dd>
-            <Badge variant="accent">{node.community}</Badge>
+            <Badge>{node.community}</Badge>
             {(() => {
               const comm = communities.find((c) => c.id === node.community);
               return comm ? (

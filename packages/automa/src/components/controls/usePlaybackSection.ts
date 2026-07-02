@@ -1,5 +1,5 @@
 import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '@repo/automa-engine/config';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setSpeed, step, toggleRunning } from '../../stores/simulation/actions';
 import { useRunning, useSpeedMs } from '../../stores/ui/selectors';
 

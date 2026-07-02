@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { setAnimationSpeed } from '../../stores/randomart/actions/config';
 import { setTime, toggleRunning } from '../../stores/randomart/actions/playback';
 import { useAnimationSpeed, useRunning } from '../../stores/randomart/selectors';

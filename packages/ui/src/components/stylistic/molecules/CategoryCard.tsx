@@ -10,6 +10,7 @@ type CategoryCardProps = {
   description?: string;
   iconName: IconName;
   count: number;
+  delay?: number;
 } & Omit<ComponentProps<'a'>, 'href'>;
 
 function CategoryCard({
@@ -19,6 +20,7 @@ function CategoryCard({
   description,
   iconName,
   count,
+  delay = 0,
   className,
   ...props
 }: CategoryCardProps) {
@@ -26,15 +28,16 @@ function CategoryCard({
 
   return (
     <a
+      data-tilt
       href={href}
       className={cn(
         'group border-border bg-card relative flex cursor-pointer flex-col rounded-lg border',
-        'select-none transition-[border-color,box-shadow] duration-300',
+        'transition-[border-color,box-shadow] duration-300 select-none',
         'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
         'hover:shadow-[0_0_28px_-6px_var(--accent)]',
         className
       )}
-      style={{ '--accent': accentStyle } as React.CSSProperties}
+      style={{ animationDelay: `${delay}s`, '--accent': accentStyle } as React.CSSProperties}
       {...props}
     >
       {/* Icon area */}
@@ -56,9 +59,7 @@ function CategoryCard({
           {label}
         </p>
         {description && (
-          <p className="text-muted-foreground/60 hidden truncate text-xs sm:block">
-            {description}
-          </p>
+          <p className="text-muted-foreground/60 hidden truncate text-xs sm:block">{description}</p>
         )}
         <div className="flex items-baseline gap-1 pt-1">
           <span className="text-accent text-xl leading-none font-bold transition-colors duration-300">

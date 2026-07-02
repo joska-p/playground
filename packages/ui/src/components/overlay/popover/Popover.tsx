@@ -9,7 +9,10 @@ type PopoverProps = {
 
 function Popover({ children, className, ...props }: PopoverProps) {
   return (
-    <div className={cn('group relative inline-block', className)} {...props}>
+    <div
+      className={cn('group relative inline-block', className)}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -21,7 +24,10 @@ type PopoverTriggerProps = {
 
 function PopoverTrigger({ children, className, ...props }: PopoverTriggerProps) {
   return (
-    <div className={cn('inline-flex', className)} {...props}>
+    <div
+      className={cn('inline-flex', className)}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -47,4 +53,4 @@ Popover.Trigger = PopoverTrigger;
 Popover.Content = PopoverContent;
 
 export { Popover };
-export type { PopoverProps, PopoverTriggerProps, PopoverContentProps };
+export type { PopoverContentProps, PopoverProps, PopoverTriggerProps };

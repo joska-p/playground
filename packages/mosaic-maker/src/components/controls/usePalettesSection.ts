@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel';
+import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
 import { applyPalette } from '../../stores/mosaic/actions';
 import { useCurrentPalette, useCurrentPalettes } from '../../stores/mosaic/selectors';
 

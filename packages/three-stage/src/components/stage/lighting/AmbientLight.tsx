@@ -1,6 +1,6 @@
 import { folder, useControls } from 'leva';
 
-function AmbientLight() {
+export function AmbientLight() {
   const { intensity, color } = useControls('Lighting', {
     Ambient: folder({
       intensity: {

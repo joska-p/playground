@@ -34,7 +34,7 @@ function Button({
     >
       {isLoading ? (
         <span className="flex items-center gap-2">
-          <IconSpinner className="animate-spin size-4" />
+          <IconSpinner className="size-4 animate-spin" />
           {loadingText ?? children}
         </span>
       ) : (
