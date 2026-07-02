@@ -461,13 +461,20 @@ function App() {
               <Button variant="primary">profile</Button>
             </Popover.Trigger>
             <Popover.Content>
-              <div className="mb-3 flex items-center gap-3">
-                <div className="bg-primary/15 text-primary flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
-                  pg
+              <div className="p-4">
+                <div className="mb-3 flex items-center gap-3">
+                  <div className="bg-primary/15 text-primary flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
+                    pg
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">pg_lab</p>
+                    <p className="text-foreground-dim text-xs">creative playground</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-medium">pg_lab</p>
-                  <p className="text-foreground-dim text-xs">creative playground</p>
+                <div className="border-border border-t pt-2">
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    generative art, creative code, experiments.
+                  </p>
                 </div>
               </div>
             </Popover.Content>
