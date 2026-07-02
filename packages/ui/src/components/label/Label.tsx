@@ -5,11 +5,7 @@ type LabelProps = {} & ComponentProps<'label'>;
 
 function Label({ children, ref, className, ...props }: LabelProps) {
   return (
-    <label
-      className={cn('text-sm font-semibold', className)}
-      ref={ref}
-      {...props}
-    >
+    <label className={cn('text-sm font-medium', className)} ref={ref} {...props}>
       {children}
     </label>
   );

@@ -1,19 +1,16 @@
 import { createVariant } from '../../lib/variants/create-variant';
 
 export const badgeVariants = createVariant({
-  base: 'focus-visible:ring-ring inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+  base: 'inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium',
   variants: {
     variant: {
-      primary: 'bg-primary text-primary-foreground hover:bg-primary/80 border-transparent',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 border-transparent',
-      accent: 'bg-accent text-accent-foreground hover:bg-accent/80 border-transparent',
-      destructive:
-        'bg-destructive text-destructive-foreground hover:bg-destructive/80 border-transparent',
-      outline: 'text-foreground',
-      ghost: 'bg-transparent text-foreground/70 border-transparent hover:bg-foreground/5'
+      soft: 'bg-(--_color)/15 text-(--_color)',
+      solid: 'bg-(--_color) text-background',
+      outline: 'bg-transparent border border-(--_color) text-(--_color)',
+      dot: 'bg-(--_color)/15 text-(--_color)'
     }
   },
   defaultVariants: {
-    variant: 'primary'
+    variant: 'soft'
   }
 });
