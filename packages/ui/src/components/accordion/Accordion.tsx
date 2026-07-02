@@ -42,14 +42,15 @@ function AccordionItem({ title, defaultOpen, children, className, variant, ...pr
       >
         {title}
       </summary>
-      <div
-        className={cn(
-          'px-5 pb-4 text-sm text-muted-foreground leading-relaxed',
-          'starting:opacity-0 starting:-translate-y-1.5',
-          'animate-[accordionIn_0.25s_ease]'
-        )}
-      >
-        {children}
+      <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-open:grid-rows-[1fr]">
+        <div
+          className={cn(
+            'overflow-hidden',
+            'px-5 pb-4 text-sm text-muted-foreground leading-relaxed'
+          )}
+        >
+          {children}
+        </div>
       </div>
     </details>
   );
