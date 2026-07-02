@@ -22,11 +22,11 @@ export const accordionItemVariants = createVariant({
   variants: {
     variant: {
       default: '',
-      primary: 'ring-1 ring-primary/20',
-      secondary: 'ring-1 ring-secondary/20',
-      accent: 'ring-1 ring-accent/20',
-      destructive: 'ring-1 ring-destructive/20',
-      warning: 'ring-1 ring-warning/20'
+      primary: 'bg-primary/5 ring-1 ring-primary/20',
+      secondary: 'bg-secondary/5 ring-1 ring-secondary/20',
+      accent: 'bg-accent/5 ring-1 ring-accent/20',
+      destructive: 'bg-destructive/5 ring-1 ring-destructive/20',
+      warning: 'bg-warning/5 ring-1 ring-warning/20'
     }
   },
   defaultVariants: {
