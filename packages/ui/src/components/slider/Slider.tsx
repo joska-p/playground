@@ -20,7 +20,7 @@ function Slider({
   step: _step = 1,
   ...props
 }: SliderProps) {
-  const controlled = value !== undefined;
+  const controlled = !!value;
   const min = Number(_min);
   const max = Number(_max);
   const step = Number(_step);
