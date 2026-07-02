@@ -1,12 +1,5 @@
 import { Button } from '@repo/ui/Button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@repo/ui/Card';
+import { Card } from '@repo/ui/Card';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 /**
@@ -42,17 +35,17 @@ export const Primary: Story = {
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
-        <CardHeader>
-          <CardTitle>Project Configuration</CardTitle>
-          <CardDescription>Adjust the parameters for your current experiment.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="text-xl font-semibold">Project Configuration</h3>
+          <p className="text-muted-foreground text-sm italic">Adjust the parameters for your current experiment.</p>
+        </div>
+        <div className="p-6 pt-0">
           <p>Configure particle density and canvas resolution before generating.</p>
-        </CardContent>
-        <CardFooter className="flex justify-end gap-2">
+        </div>
+        <div className="flex items-center justify-end gap-2 p-6 pt-0">
           <Button variant="outline">Reset</Button>
           <Button>Generate</Button>
-        </CardFooter>
+        </div>
       </Card>
     </div>
   )
@@ -69,13 +62,13 @@ export const Secondary: Story = {
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
-        <CardHeader>
-          <CardTitle>Additional Settings</CardTitle>
-          <CardDescription>Optional configurations.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="text-xl font-semibold">Additional Settings</h3>
+          <p className="text-muted-foreground text-sm italic">Optional configurations.</p>
+        </div>
+        <div className="p-6 pt-0">
           <p>Advanced options for power users.</p>
-        </CardContent>
+        </div>
       </Card>
     </div>
   )
@@ -92,16 +85,16 @@ export const Accent: Story = {
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
-        <CardHeader>
-          <CardTitle>Special Offer</CardTitle>
-          <CardDescription>Limited time deal!</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="text-xl font-semibold">Special Offer</h3>
+          <p className="text-muted-foreground text-sm italic">Limited time deal!</p>
+        </div>
+        <div className="p-6 pt-0">
           <p>Get 50% off on your next generation.</p>
-        </CardContent>
-        <CardFooter>
+        </div>
+        <div className="flex items-center p-6 pt-0">
           <Button>Claim Now</Button>
-        </CardFooter>
+        </div>
       </Card>
     </div>
   )
@@ -118,12 +111,12 @@ export const Outline: Story = {
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
-        <CardHeader>
-          <CardTitle>Preview Mode</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="text-xl font-semibold">Preview Mode</h3>
+        </div>
+        <div className="p-6 pt-0">
           <p>This card is for preview purposes.</p>
-        </CardContent>
+        </div>
       </Card>
     </div>
   )
@@ -140,9 +133,9 @@ export const Ghost: Story = {
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
-        <CardContent>
+        <div className="p-6 pt-0">
           <p>Minimal inline card content.</p>
-        </CardContent>
+        </div>
       </Card>
     </div>
   )
@@ -159,13 +152,14 @@ export const Muted: Story = {
   render: (args) => (
     <div className="w-full max-w-sm">
       <Card {...args}>
-        <CardHeader>
-          <CardTitle>Metadata</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="text-xl font-semibold">Metadata</h3>
+        </div>
+        <div className="p-6 pt-0">
           <p className="text-xs">Generated on 2024-05-20. Version 1.0.4-beta.</p>
-        </CardContent>
+        </div>
       </Card>
     </div>
   )
 };
+
