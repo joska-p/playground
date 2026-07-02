@@ -1,7 +1,7 @@
 import { createVariant } from '../../lib/variants/create-variant';
 
 export const popoverContentVariants = createVariant({
-  base: 'bg-surface rounded-lg shadow-lg pointer-events-none absolute z-50 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100',
+  base: 'bg-surface rounded-lg shadow-lg pointer-events-none absolute w-max z-50 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100',
   variants: {
     side: {
       top: 'left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)]',
