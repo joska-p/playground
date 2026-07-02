@@ -62,6 +62,7 @@ function Tabs({ tabs, className, variant }: TabsProps) {
       </div>
 
       <style>{`
+        @keyframes tabIn { from { opacity:0; transform:translateY(4px); } }
         .tabs-container:has(#${prefix}-0:checked) label[for="${prefix}-0"],
         .tabs-container:has(#${prefix}-1:checked) label[for="${prefix}-1"],
         .tabs-container:has(#${prefix}-2:checked) label[for="${prefix}-2"],
