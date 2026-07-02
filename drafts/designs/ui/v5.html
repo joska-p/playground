@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pg_lab — creative playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme inline {
+        --color-background: var(--background);
+        --color-surface: var(--surface);
+        --color-surface-raised: var(--surface-raised);
+        --color-foreground: var(--foreground);
+        --color-foreground-muted: var(--foreground-muted);
+        --color-foreground-dim: var(--foreground-dim);
+        --color-border: var(--border);
+        --color-border-subtle: var(--border-subtle);
+        --color-red: var(--red);
+        --color-green: var(--green);
+        --color-yellow: var(--yellow);
+        --color-blue: var(--blue);
+        --color-purple: var(--purple);
+        --color-aqua: var(--aqua);
+        --color-orange: var(--orange);
+        --font-sans: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+        --font-mono: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+      }
+      @layer base {
+        :root {
+          --background: #282828;
+          --surface: #3c3836;
+          --surface-raised: #504945;
+          --foreground: #ebdbb2;
+          --foreground-muted: #a89984;
+          --foreground-dim: #665c54;
+          --border: #665c54;
+          --border-subtle: #3c3836;
+          --red: #fb4934;
+          --green: #b8bb26;
+          --yellow: #fabd2f;
+          --blue: #83a598;
+          --purple: #d3869b;
+          --aqua: #8ec07c;
+          --orange: #fe8019;
+          color-scheme: dark;
+          --shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
+          --shadow-md: 0 2px 6px rgba(0,0,0,0.3);
+          --shadow-lg: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        html[data-theme='light'] {
+          --background: #fbf1c7;
+          --surface: #f2e5bc;
+          --surface-raised: #ebdbb2;
+          --foreground: #3c3836;
+          --foreground-muted: #665c54;
+          --foreground-dim: #928374;
+          --border: #d5c4a1;
+          --border-subtle: #ebdbb2;
+          --red: #9d0006;
+          --green: #79740e;
+          --yellow: #b57614;
+          --blue: #076678;
+          --purple: #8f3f71;
+          --aqua: #427b58;
+          --orange: #af3a03;
+          color-scheme: light;
+          --shadow-sm: 0 1px 2px rgba(60,56,54,0.05);
+          --shadow-md: 0 2px 6px rgba(60,56,54,0.08);
+          --shadow-lg: 0 6px 16px rgba(60,56,54,0.1);
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--background); color: var(--foreground); transition: background 0.4s, color 0.4s; -webkit-font-smoothing: antialiased; }
+        h1,h2,h3 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+        ::selection { background: var(--orange); color: var(--background); }
+        :focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+        .carousel { overflow-x: scroll; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .carousel::-webkit-scrollbar { display: none; }
+        .carousel-slide { scroll-snap-align: center; }
+        @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+      }
+      @layer components {
+        .input-wrapper { transition: border-color 0.2s, box-shadow 0.2s; }
+        .input-wrapper:focus-within { border-color: var(--orange); box-shadow: 0 0 0 3px color-mix(in srgb, var(--orange) 20%, transparent); }
+        .input-wrapper:focus-within i { color: var(--orange); }
+        .search-expandable { width: 200px; transition: width 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .search-expandable:focus-within { width: 320px; }
+        .textarea-auto { field-sizing: content; min-height: 3lh; max-height: 15lh; }
+        .toggle { appearance: none; width: 44px; height: 24px; border-radius: 12px; background: var(--border); cursor: pointer; position: relative; transition: background 0.25s; flex-shrink: 0; }
+        .toggle::before { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-sm); transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+        .toggle:checked { background: var(--orange); }
+        .toggle:checked::before { transform: translateX(20px); }
+        .card-interactive:has(.card-actions:hover) { border-color: var(--orange) !important; box-shadow: var(--shadow-md), 0 0 0 3px color-mix(in srgb, var(--orange) 12%, transparent) !important; }
+        .accordion-trigger { list-style: none; cursor: pointer; }
+        .accordion-trigger::-webkit-details-marker { display: none; }
+        .accordion-trigger::after { content: ''; width: 8px; height: 8px; flex-shrink: 0; margin-left: 12px; border-right: 1.5px solid var(--foreground-muted); border-bottom: 1.5px solid var(--foreground-muted); transform: rotate(-45deg); transition: transform 0.25s; }
+        details[open] > .accordion-trigger::after { transform: rotate(45deg); }
+        details[open] > .accordion-trigger { border-bottom: 1px solid var(--border); }
+        .accordion-body { @starting-style { opacity: 0; transform: translateY(-6px); } animation: accordionIn 0.25s ease; }
+        @keyframes accordionIn { from { opacity: 0; transform: translateY(-6px); } }
+        .tabs-container input[type='radio'] { display: none; }
+        .tab-trigger { position: relative; cursor: pointer; user-select: none; }
+        .tab-trigger::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--orange); border-radius: 1px; transform: scaleX(0); transition: transform 0.25s; }
+        .tab-panel { display: none; }
+        .tabs-container:has(#tab1:checked) .tab-trigger[for='tab1'],.tabs-container:has(#tab2:checked) .tab-trigger[for='tab2'],.tabs-container:has(#tab3:checked) .tab-trigger[for='tab3'] { color: var(--foreground) !important; }
+        .tabs-container:has(#tab1:checked) .tab-trigger[for='tab1']::after,.tabs-container:has(#tab2:checked) .tab-trigger[for='tab2']::after,.tabs-container:has(#tab3:checked) .tab-trigger[for='tab3']::after { transform: scaleX(1); }
+        .tabs-container:has(#tab1:checked) #panel1,.tabs-container:has(#tab2:checked) #panel2,.tabs-container:has(#tab3:checked) #panel3 { display: block; @starting-style { opacity: 0; transform: translateY(4px); } animation: tabIn 0.2s ease; }
+        @keyframes tabIn { from { opacity: 0; transform: translateY(4px); } }
+        .dialog-modal { @starting-style { opacity: 0; transform: scale(0.96) translateY(10px); } animation: dialogIn 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .dialog-modal::backdrop { background: rgba(40,40,40,0.6); backdrop-filter: blur(4px); @starting-style { opacity: 0; } animation: fadeIn 0.25s ease; }
+        @keyframes dialogIn { from { opacity: 0; transform: scale(0.96) translateY(10px); } }
+        @keyframes fadeIn { from { opacity: 0; } }
+        .toast-item { @starting-style { opacity: 0; transform: translateX(40px) scale(0.95); } animation: toastIn 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+        .toast-item.exit { animation: toastOut 0.3s ease both; }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(40px) scale(0.95); } }
+        @keyframes toastOut { to { opacity: 0; transform: translateX(40px) scale(0.95); } }
+        .tooltip { position: relative; }
+        .tooltip::after { content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 4px 10px; background: var(--foreground); color: var(--background); border-radius: 4px; font-size: 11px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 100; }
+        .tooltip:hover::after { opacity: 1; }
+        .button-loading { color: transparent !important; pointer-events: none; position: relative; }
+        .button-loading::before { content: ''; width: 16px; height: 16px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; color: var(--background); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .badge-soft { background: color-mix(in srgb, var(--_color) 15%, transparent); color: var(--_color); }
+        .badge-solid { background: var(--_color); color: var(--background); }
+        .badge-outline { background: transparent; border: 1px solid var(--_color); color: var(--_color); }
+        .badge-dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--_color); flex-shrink: 0; }
+        .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-orange fixed top-0 left-0 z-[9999] h-0.5 w-full origin-left" id="scrollProgress" style="will-change:transform"></div>
+
+    <header class="border-border sticky top-0 z-50 border-b transition-colors duration-300" style="background:color-mix(in srgb,var(--background) 85%,transparent);backdrop-filter:blur(16px) saturate(1.4)">
+      <div class="mx-auto flex h-12 max-w-[960px] items-center justify-between px-6">
+        <a href="#" class="text-orange text-sm font-semibold tracking-tight">pg_lab</a>
+        <nav class="hidden items-center gap-0.5 overflow-x-auto md:flex">
+          <a href="#hero" class="text-foreground-dim hover:text-foreground rounded px-2.5 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors">home</a>
+          <span class="text-foreground-dim text-[10px] mx-1">/</span>
+          <a href="#buttons" class="text-foreground-dim hover:text-foreground rounded px-2.5 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors">projects</a>
+          <span class="text-foreground-dim text-[10px] mx-1">/</span>
+          <a href="#accordion" class="text-foreground-dim hover:text-foreground rounded px-2.5 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors">notes</a>
+          <span class="text-foreground-dim text-[10px] mx-1">/</span>
+          <a href="#react-guide" class="text-foreground-dim hover:text-foreground rounded px-2.5 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors">docs</a>
+        </nav>
+        <button class="tooltip border-border bg-surface text-foreground-muted hover:text-foreground hover:border-foreground-dim flex h-8 w-8 flex-shrink-0 cursor-pointer items-center justify-center rounded border text-xs transition-colors" data-tooltip="Toggle theme" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="relative overflow-hidden" id="hero">
+        <canvas id="heroCanvas" class="absolute inset-0 h-full w-full pointer-events-none"></canvas>
+        <div class="relative z-10 mx-auto max-w-[960px] px-6 pt-20 pb-14">
+          <p class="text-foreground-dim text-[11px] tracking-[3px] uppercase mb-5 font-light">// creative playground</p>
+          <h1 class="text-foreground font-light tracking-tighter leading-none" style="font-size:clamp(52px,9vw,88px);letter-spacing:-4px">pg_lab</h1>
+          <p class="text-foreground-muted mt-5 max-w-[460px] text-[13px] leading-relaxed font-light">a personal ui toolkit for generative art, creative code, and recreational programming experiments.</p>
+          <div class="mt-6 flex items-center gap-3">
+            <a href="#buttons" class="bg-orange text-background inline-flex cursor-pointer items-center gap-2 rounded border border-transparent px-5 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">components</a>
+            <a href="#react-guide" class="border-border text-foreground-muted hover:text-foreground hover:border-foreground-dim inline-flex cursor-pointer items-center gap-2 rounded border bg-transparent px-5 py-2 text-[13px] font-medium transition-all duration-200 active:scale-[.97]">react guide</a>
+          </div>
+          <div class="mt-8 flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-red opacity-70"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-green opacity-70"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-yellow opacity-70"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-blue opacity-70"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-purple opacity-70"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-aqua opacity-70"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-orange opacity-70"></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="mx-auto max-w-[960px] px-6">
+
+        <!-- Buttons -->
+        <section class="reveal border-border border-t py-14" id="buttons">
+          <p class="text-orange mb-1 text-[10px] font-medium tracking-[2px] uppercase">interactive</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">buttons</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">variants</p>
+            <div class="flex flex-wrap items-center gap-2">
+              <button class="bg-orange text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">primary</button>
+              <button class="bg-green text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">success</button>
+              <button class="bg-red text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">destructive</button>
+              <button class="bg-purple text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">accent</button>
+              <button class="bg-yellow text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">warning</button>
+              <button class="bg-blue text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">info</button>
+            </div>
+            <p class="text-foreground-dim mt-5 mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">subtle</p>
+            <div class="flex flex-wrap items-center gap-2">
+              <button class="border-border text-foreground hover:bg-surface-raised hover:border-foreground-dim inline-flex cursor-pointer items-center justify-center gap-2 rounded border bg-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 active:scale-[.97]">outline</button>
+              <button class="text-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent bg-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-surface-raised active:scale-[.97]">ghost</button>
+            </div>
+            <p class="text-foreground-dim mt-5 mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">sizes &amp; states</p>
+            <div class="flex flex-wrap items-end gap-2">
+              <button class="bg-orange text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-3 py-1.5 text-[12px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">sm</button>
+              <button class="bg-orange text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">default</button>
+              <button class="bg-orange text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-6 py-3 text-[14px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">large</button>
+              <button class="bg-orange text-background tooltip inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-2.5 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]" data-tooltip="settings"><i class="fa-solid fa-gear"></i></button>
+              <button class="bg-orange text-background button-loading inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200">loading</button>
+              <button class="bg-orange text-background pointer-events-none inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium opacity-50">disabled</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Badges -->
+        <section class="reveal border-border border-t py-14" id="badges">
+          <p class="text-aqua mb-1 text-[10px] font-medium tracking-[2px] uppercase">display</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">badges</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">soft</p>
+            <div class="mb-5 flex flex-wrap gap-2">
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--green)">generative</span>
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--blue)">shader</span>
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--purple)">color</span>
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--aqua)">simulation</span>
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--yellow)">experiment</span>
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--orange)">visual</span>
+              <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--red)">audio</span>
+            </div>
+            <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">solid</p>
+            <div class="mb-5 flex flex-wrap gap-2">
+              <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--green)">generative</span>
+              <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--blue)">shader</span>
+              <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--purple)">color</span>
+              <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--orange)">visual</span>
+            </div>
+            <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">outline + dot</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--green)">generative</span>
+              <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--purple)">color</span>
+              <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--green)">active</span>
+              <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--yellow)">draft</span>
+              <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--red)">archived</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Inputs -->
+        <section class="reveal border-border border-t py-14" id="inputs">
+          <p class="text-yellow mb-1 text-[10px] font-medium tracking-[2px] uppercase">form</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">inputs</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div><p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">default</p><div class="input-wrapper bg-background border-border flex items-center gap-2 rounded border px-3"><input class="text-foreground placeholder:text-foreground-dim w-full border-none bg-transparent py-2 text-[13px] outline-none" placeholder="type something..." /></div></div>
+              <div><p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">with icon</p><div class="input-wrapper bg-background border-border flex items-center gap-2 rounded border px-3"><i class="fa-solid fa-search text-foreground-dim text-xs transition-colors"></i><input class="text-foreground placeholder:text-foreground-dim w-full border-none bg-transparent py-2 text-[13px] outline-none" placeholder="search..." /></div></div>
+              <div><p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">expanding</p><div class="input-wrapper search-expandable bg-background border-border flex items-center gap-2 rounded border px-3"><i class="fa-solid fa-search text-foreground-dim text-xs transition-colors"></i><input class="text-foreground placeholder:text-foreground-dim w-full border-none bg-transparent py-2 text-[13px] outline-none" placeholder="focus to expand..." /></div></div>
+              <div><p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">with action</p><div class="input-wrapper bg-background border-border flex items-center gap-2 rounded border px-3"><input class="text-foreground placeholder:text-foreground-dim w-full border-none bg-transparent py-2 text-[13px] outline-none" type="url" placeholder="https://..." /><button class="text-foreground-dim hover:text-foreground inline-flex cursor-pointer items-center justify-center rounded bg-transparent p-1 text-xs transition-colors"><i class="fa-solid fa-arrow-up-right-from-square"></i></button></div></div>
+            </div>
+            <div class="mt-5"><p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">auto-growing textarea</p><textarea class="textarea-auto bg-background border-border text-foreground placeholder:text-foreground-dim input-wrapper w-full resize-y rounded border p-3 text-[13px] outline-none" placeholder="start typing..."></textarea></div>
+          </div>
+        </section>
+
+        <!-- Controls -->
+        <section class="reveal border-border border-t py-14" id="controls">
+          <p class="text-yellow mb-1 text-[10px] font-medium tracking-[2px] uppercase">form</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">selection controls</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="grid gap-5 sm:grid-cols-3">
+              <div><p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">checkboxes</p><div class="flex flex-col gap-2.5"><label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="accent-orange h-4 w-4 flex-shrink-0 cursor-pointer rounded" checked /> generative</label><label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="accent-orange h-4 w-4 flex-shrink-0 cursor-pointer rounded" /> shader</label><label class="pointer-events-none flex items-center gap-2.5 text-[13px] opacity-50 select-none"><input type="checkbox" class="accent-orange h-4 w-4 flex-shrink-0 cursor-pointer rounded" disabled /> disabled</label></div></div>
+              <div><p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">radios</p><div class="flex flex-col gap-2.5"><label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="radio" name="radioGroup1" class="accent-orange h-4 w-4 flex-shrink-0 cursor-pointer rounded-full" checked /> 2d</label><label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="radio" name="radioGroup1" class="accent-orange h-4 w-4 flex-shrink-0 cursor-pointer rounded-full" /> 3d</label><label class="pointer-events-none flex items-center gap-2.5 text-[13px] opacity-50 select-none"><input type="radio" name="radioGroup1" class="accent-orange h-4 w-4 flex-shrink-0 cursor-pointer rounded-full" disabled /> disabled</label></div></div>
+              <div><p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">toggles</p><div class="flex flex-col gap-2.5"><label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="toggle" checked /> fullscreen</label><label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="toggle" /> loop</label><label class="pointer-events-none flex items-center gap-2.5 text-[13px] opacity-50 select-none"><input type="checkbox" class="toggle" disabled /> locked</label></div></div>
+            </div>
+            <div class="mt-6 max-w-xs"><p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">range</p><input type="range" class="accent-orange h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none" min="0" max="100" value="65" style="background:var(--border)" /><div class="text-foreground-dim mt-1 flex justify-between text-[10px]"><span>0</span><span>50</span><span>100</span></div></div>
+          </div>
+        </section>
+
+        <!-- Cards -->
+        <section class="reveal border-border border-t py-14" id="cards">
+          <p class="text-blue mb-1 text-[10px] font-medium tracking-[2px] uppercase">layout</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">cards</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="bg-surface-raised border-border overflow-hidden rounded-lg border transition-all duration-200 hover:shadow-md" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pg1/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-4"><span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--green)">generative</span><p class="text-foreground text-[14px] font-medium">flow field exploration</p><p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">perlin noise fields and particle tracing.</p></div><div class="border-border flex items-center justify-between border-t px-4 py-2.5"><span class="text-foreground-dim text-[11px]">2 days ago</span><button class="text-foreground inline-flex cursor-pointer items-center justify-center rounded bg-transparent px-3 py-1 text-[12px] font-medium transition-all duration-200 hover:bg-surface-raised">view</button></div></div>
+              <div class="card-interactive bg-surface-raised border-border overflow-hidden rounded-lg border transition-all duration-200" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pg2/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-4"><span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--purple)">color</span><p class="text-foreground text-[14px] font-medium">oklch palette generator</p><p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">harmonious palettes in perceptually uniform space.</p></div><div class="card-actions flex gap-0.5 px-4 pb-3"><button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center justify-center rounded bg-transparent p-2 text-xs transition-all duration-200 hover:bg-surface" data-tooltip="save"><i class="fa-regular fa-bookmark"></i></button><button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center justify-center rounded bg-transparent p-2 text-xs transition-all duration-200 hover:bg-surface" data-tooltip="share"><i class="fa-solid fa-share-nodes"></i></button><button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center justify-center rounded bg-transparent p-2 text-xs transition-all duration-200 hover:bg-surface" data-tooltip="more"><i class="fa-solid fa-ellipsis"></i></button></div></div>
+            </div>
+            <p class="text-foreground-dim mt-3 text-center text-[11px]"><i class="fa-solid fa-arrow-pointer mr-1"></i>hover the icons on the right card</p>
+          </div>
+        </section>
+
+        <!-- Accordion -->
+        <section class="reveal border-border border-t py-14" id="accordion">
+          <p class="text-purple mb-1 text-[10px] font-medium tracking-[2px] uppercase">disclosure</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">accordion</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="flex flex-col gap-2">
+              <details class="border-border bg-surface-raised overflow-hidden rounded border" open><summary class="accordion-trigger text-foreground flex items-center justify-between px-4 py-3.5 text-[13px] font-medium">what makes this different?</summary><div class="accordion-body text-foreground-muted px-4 pb-3.5 text-[13px] leading-relaxed">every component uses modern css features like :has(), @starting-style, and color-mix() instead of javascript state management. simpler, faster, more resilient.</div></details>
+              <details class="border-border bg-surface-raised overflow-hidden rounded border"><summary class="accordion-trigger text-foreground flex items-center justify-between px-4 py-3.5 text-[13px] font-medium">gruvbox?</summary><div class="accordion-body text-foreground-muted px-4 pb-3.5 text-[13px] leading-relaxed">warm, easy on the eyes, distinctive. feels like a workshop, not a corporate dashboard. orange accent ties everything together.</div></details>
+              <details class="border-border bg-surface-raised overflow-hidden rounded border"><summary class="accordion-trigger text-foreground flex items-center justify-between px-4 py-3.5 text-[13px] font-medium">why a single mono font?</summary><div class="accordion-body text-foreground-muted px-4 pb-3.5 text-[13px] leading-relaxed">creative coding toolkit. monospace is the native habitat. one font, one voice, less noise.</div></details>
+              <details class="border-border bg-surface-raised overflow-hidden rounded border"><summary class="accordion-trigger text-foreground flex items-center justify-between px-4 py-3.5 text-[13px] font-medium">can i use this with astro?</summary><div class="accordion-body text-foreground-muted px-4 pb-3.5 text-[13px] leading-relaxed">yes. the css works as-is. for interactive components, convert to react and use @astrojs/react, or keep the css-only approach with astro islands.</div></details>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabs -->
+        <section class="reveal border-border border-t py-14" id="tabs">
+          <p class="text-blue mb-1 text-[10px] font-medium tracking-[2px] uppercase">navigation</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">tabs</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="tabs-container">
+              <div class="border-border flex border-b"><label class="tab-trigger text-foreground-dim px-4 py-2.5 text-[13px] font-medium transition-colors" for="tab1">overview</label><label class="tab-trigger text-foreground-dim px-4 py-2.5 text-[13px] font-medium transition-colors" for="tab2">features</label><label class="tab-trigger text-foreground-dim px-4 py-2.5 text-[13px] font-medium transition-colors" for="tab3">changelog</label></div>
+              <input type="radio" name="tabGroup" id="tab1" checked /><div class="tab-panel text-foreground-muted py-4 text-[13px] leading-relaxed" id="panel1"><p>pg_lab is a design-first toolkit built on modern css. every interactive state is handled through css selectors, not javascript. gruvbox keeps things warm and personal.</p></div>
+              <input type="radio" name="tabGroup" id="tab2" /><div class="tab-panel text-foreground-muted py-4 text-[13px] leading-relaxed" id="panel2"><ul class="list-disc pl-5 space-y-1"><li>css-only states via :has() and :focus-within</li><li>entry animations with @starting-style</li><li>dynamic theming with color-mix()</li><li>zero-js accordion, tabs, toggles</li><li>light/dark gruvbox with smooth transitions</li></ul></div>
+              <input type="radio" name="tabGroup" id="tab3" /><div class="tab-panel text-foreground-muted py-4 text-[13px] leading-relaxed" id="panel3"><div class="space-y-2"><div class="flex gap-3"><span class="text-orange text-[11px] font-medium w-16 flex-shrink-0">v1.2</span><span>popover, carousel fix, gruvbox theme</span></div><div class="flex gap-3"><span class="text-orange text-[11px] font-medium w-16 flex-shrink-0">v1.1</span><span>tabs, accordion, dialog</span></div><div class="flex gap-3"><span class="text-orange text-[11px] font-medium w-16 flex-shrink-0">v1.0</span><span>initial release</span></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Carousel -->
+        <section class="reveal border-border border-t py-14" id="carousel">
+          <p class="text-blue mb-1 text-[10px] font-medium tracking-[2px] uppercase">layout</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">carousel</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="relative">
+              <button onclick="document.getElementById('carouselTrack').scrollBy({left:-300,behavior:'smooth'})" class="absolute left-0.5 top-1/2 z-10 -translate-y-1/2 bg-background/80 hover:bg-background border-border flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border text-[11px] transition-colors backdrop-blur-sm" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
+              <button onclick="document.getElementById('carouselTrack').scrollBy({left:300,behavior:'smooth'})" class="absolute right-0.5 top-1/2 z-10 -translate-y-1/2 bg-background/80 hover:bg-background border-border flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border text-[11px] transition-colors backdrop-blur-sm" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
+              <div id="carouselTrack" class="carousel flex gap-3 py-2 px-0.5">
+                <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg border border-border bg-surface-raised" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc1/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--green)">generative</span><p class="text-foreground text-[12px] font-medium">noise landscapes</p></div></div>
+                <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg border border-border bg-surface-raised" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc2/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--purple)">color</span><p class="text-foreground text-[12px] font-medium">gradient meshes</p></div></div>
+                <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg border border-border bg-surface-raised" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc3/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--blue)">shader</span><p class="text-foreground text-[12px] font-medium">ray marching</p></div></div>
+                <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg border border-border bg-surface-raised" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc4/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--aqua)">simulation</span><p class="text-foreground text-[12px] font-medium">flocking agents</p></div></div>
+                <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg border border-border bg-surface-raised" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc5/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--yellow)">experiment</span><p class="text-foreground text-[12px] font-medium">distributed seeds</p></div></div>
+                <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg border border-border bg-surface-raised" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc6/400/225.jpg" alt="" class="aspect-video w-full object-cover" /><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--orange)">visual</span><p class="text-foreground text-[12px] font-medium">pixel sorting</p></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Popover -->
+        <section class="reveal border-border border-t py-14" id="popover">
+          <p class="text-purple mb-1 text-[10px] font-medium tracking-[2px] uppercase">overlay</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">popover</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="flex flex-wrap items-end gap-8">
+              <div class="group relative inline-block"><button class="bg-orange text-background inline-flex cursor-pointer items-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]"><i class="fa-solid fa-user"></i> profile</button><div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-60 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50"><div class="bg-surface-raised border-border rounded-lg border p-4" style="box-shadow:var(--shadow-lg)"><div class="flex items-center gap-3 mb-3"><div class="bg-orange/15 text-orange flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-[12px] font-semibold">pg</div><div><p class="text-foreground text-[13px] font-medium">pg_lab</p><p class="text-foreground-dim text-[11px]">creative playground</p></div></div><div class="border-border border-t pt-2"><p class="text-foreground-muted text-[11px] leading-relaxed">generative art, creative code, experiments.</p></div><div class="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-[10px] w-[10px] rotate-45 border-border border-r border-b bg-surface-raised"></div></div></div></div>
+              <div class="group relative inline-block"><button class="border-border text-foreground hover:bg-surface-raised hover:border-foreground-dim inline-flex cursor-pointer items-center gap-2 rounded border bg-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 active:scale-[.97]"><i class="fa-solid fa-bell"></i> alerts</button><div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-64 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50"><div class="bg-surface-raised border-border rounded-lg border p-4" style="box-shadow:var(--shadow-lg)"><p class="text-foreground text-[13px] font-medium mb-3">notifications</p><div class="space-y-2.5"><div class="flex gap-2.5"><div class="bg-green/15 text-green flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[10px]"><i class="fa-solid fa-check"></i></div><div><p class="text-foreground text-[11px] font-medium">build ok</p><p class="text-foreground-dim text-[10px]">2 min ago</p></div></div><div class="flex gap-2.5"><div class="bg-purple/15 text-purple flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[10px]"><i class="fa-solid fa-comment"></i></div><div><p class="text-foreground text-[11px] font-medium">new note</p><p class="text-foreground-dim text-[10px]">1 hour ago</p></div></div></div><div class="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-[10px] w-[10px] rotate-45 border-border border-r border-b bg-surface-raised"></div></div></div></div>
+              <div class="group relative inline-block"><button class="text-foreground inline-flex cursor-pointer items-center gap-2 rounded border border-transparent bg-transparent px-3 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-surface-raised"><i class="fa-solid fa-ellipsis-vertical"></i></button><div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-40 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50"><div class="bg-surface-raised border-border rounded-lg border py-1" style="box-shadow:var(--shadow-lg)"><button class="text-foreground hover:bg-surface w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer"><i class="fa-solid fa-pen w-4 text-[10px] mr-2"></i>edit</button><button class="text-foreground hover:bg-surface w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer"><i class="fa-solid fa-copy w-4 text-[10px] mr-2"></i>duplicate</button><div class="border-border border-t my-1"></div><button class="text-red hover:bg-red/10 w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer"><i class="fa-solid fa-trash w-4 text-[10px] mr-2"></i>delete</button></div><div class="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-[10px] w-[10px] rotate-45 border-border border-r border-b bg-surface-raised"></div></div></div>
+            </div>
+            <p class="text-foreground-dim mt-5 text-[11px]"><i class="fa-solid fa-arrow-pointer mr-1"></i>hover — centered via left:50% + translateX(-50%)</p>
+          </div>
+        </section>
+
+        <!-- Dialog -->
+        <section class="reveal border-border border-t py-14" id="dialog">
+          <p class="text-purple mb-1 text-[10px] font-medium tracking-[2px] uppercase">overlay</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">dialog</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <button onclick="document.getElementById('demoDialog').showModal()" class="bg-orange text-background inline-flex cursor-pointer items-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">open dialog</button>
+            <dialog id="demoDialog" class="dialog-modal bg-surface border-border w-full max-w-md rounded-lg border p-0" style="box-shadow:var(--shadow-lg)"><div class="p-5"><h3 class="text-foreground text-[15px] font-medium mb-2">confirm action</h3><p class="text-foreground-muted text-[13px] leading-relaxed">are you sure? this will apply changes and notify collaborators.</p></div><div class="border-border border-t flex justify-end gap-2 px-5 py-3"><button onclick="document.getElementById('demoDialog').close()" class="border-border text-foreground hover:bg-surface-raised inline-flex cursor-pointer items-center justify-center gap-2 rounded border bg-transparent px-4 py-1.5 text-[13px] font-medium transition-all duration-200">cancel</button><button onclick="document.getElementById('demoDialog').close()" class="bg-orange text-background inline-flex cursor-pointer items-center justify-center gap-2 rounded border border-transparent px-4 py-1.5 text-[13px] font-medium transition-all duration-200 hover:brightness-110">confirm</button></div></dialog>
+          </div>
+        </section>
+
+        <!-- Alerts -->
+        <section class="reveal border-border border-t py-14" id="alerts">
+          <p class="text-red mb-1 text-[10px] font-medium tracking-[2px] uppercase">feedback</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">alerts</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="space-y-2.5">
+              <div class="border-blue/30 bg-blue/5 rounded border px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-circle-info text-blue mt-0.5 text-xs"></i><div class="flex-1"><p class="text-foreground text-[13px] font-medium">info</p><p class="text-foreground-muted text-[11px] mt-0.5">project updated with latest changes.</p></div></div>
+              <div class="border-green/30 bg-green/5 rounded border px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-circle-check text-green mt-0.5 text-xs"></i><div class="flex-1"><p class="text-foreground text-[13px] font-medium">success</p><p class="text-foreground-muted text-[11px] mt-0.5">all changes saved.</p></div></div>
+              <div class="border-yellow/30 bg-yellow/5 rounded border px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-triangle-exclamation text-yellow mt-0.5 text-xs"></i><div class="flex-1"><p class="text-foreground text-[13px] font-medium">warning</p><p class="text-foreground-muted text-[11px] mt-0.5">unsaved changes may be lost.</p></div></div>
+              <div class="border-red/30 bg-red/5 rounded border px-4 py-3 flex items-start gap-3"><i class="fa-solid fa-circle-xmark text-red mt-0.5 text-xs"></i><div class="flex-1"><p class="text-foreground text-[13px] font-medium">error</p><p class="text-foreground-muted text-[11px] mt-0.5">deployment failed. check config.</p></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Toasts -->
+        <section class="reveal border-border border-t py-14" id="toasts">
+          <p class="text-red mb-1 text-[10px] font-medium tracking-[2px] uppercase">feedback</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">toasts</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <div class="flex flex-wrap gap-2">
+              <button onclick="showToast('info','saved','work saved to disk.')" class="bg-blue text-background inline-flex cursor-pointer items-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">info</button>
+              <button onclick="showToast('success','deployed','project is live.')" class="bg-green text-background inline-flex cursor-pointer items-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">success</button>
+              <button onclick="showToast('error','failed','upload exceeded limit.')" class="bg-red text-background inline-flex cursor-pointer items-center gap-2 rounded border border-transparent px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">error</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Palette -->
+        <section class="reveal border-border border-t py-14" id="palette">
+          <p class="text-orange mb-1 text-[10px] font-medium tracking-[2px] uppercase">tokens</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">gruvbox palette</h2>
+          <div class="bg-surface border-border rounded-lg border p-6 mt-6" style="box-shadow:var(--shadow-sm)">
+            <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">neutrals</p>
+            <div class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4 mb-5">
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--background)"></div><div><p class="text-foreground text-[11px] font-medium">background</p><p class="text-foreground-dim text-[10px]">--background</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--surface)"></div><div><p class="text-foreground text-[11px] font-medium">surface</p><p class="text-foreground-dim text-[10px]">--surface</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--surface-raised)"></div><div><p class="text-foreground text-[11px] font-medium">surface-raised</p><p class="text-foreground-dim text-[10px]">--surface-raised</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--foreground)"></div><div><p class="text-foreground text-[11px] font-medium">foreground</p><p class="text-foreground-dim text-[10px]">--foreground</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--foreground-muted)"></div><div><p class="text-foreground text-[11px] font-medium">foreground-muted</p><p class="text-foreground-dim text-[10px]">--foreground-muted</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--foreground-dim)"></div><div><p class="text-foreground text-[11px] font-medium">foreground-dim</p><p class="text-foreground-dim text-[10px]">--foreground-dim</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--border)"></div><div><p class="text-foreground text-[11px] font-medium">border</p><p class="text-foreground-dim text-[10px]">--border</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--border-subtle)"></div><div><p class="text-foreground text-[11px] font-medium">border-subtle</p><p class="text-foreground-dim text-[10px]">--border-subtle</p></div></div>
+            </div>
+            <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">colors</p>
+            <div class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--red)"></div><div><p class="text-foreground text-[11px] font-medium">red</p><p class="text-foreground-dim text-[10px]">--red</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--green)"></div><div><p class="text-foreground text-[11px] font-medium">green</p><p class="text-foreground-dim text-[10px]">--green</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--yellow)"></div><div><p class="text-foreground text-[11px] font-medium">yellow</p><p class="text-foreground-dim text-[10px]">--yellow</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--blue)"></div><div><p class="text-foreground text-[11px] font-medium">blue</p><p class="text-foreground-dim text-[10px]">--blue</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--purple)"></div><div><p class="text-foreground text-[11px] font-medium">purple</p><p class="text-foreground-dim text-[10px]">--purple</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--aqua)"></div><div><p class="text-foreground text-[11px] font-medium">aqua</p><p class="text-foreground-dim text-[10px]">--aqua</p></div></div>
+              <div class="flex items-center gap-3"><div class="h-9 w-9 flex-shrink-0 rounded border border-border" style="background:var(--orange)"></div><div><p class="text-foreground text-[11px] font-medium">orange</p><p class="text-foreground-dim text-[10px]">--orange</p></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- React Guide -->
+        <section class="reveal border-border border-t py-14" id="react-guide">
+          <p class="text-green mb-1 text-[10px] font-medium tracking-[2px] uppercase">guide</p>
+          <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">html to react + astro</h2>
+          <p class="text-foreground-muted mt-2 max-w-lg text-[13px]">how to convert this into a react component library and use it inside an astro site with four pages: home, projects, notes, docs.</p>
+          <div class="mt-6 space-y-4">
+            <div class="bg-surface border-border rounded-lg border p-6" style="box-shadow:var(--shadow-sm)">
+              <div class="flex items-center gap-3 mb-3"><span class="bg-orange text-background flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold">1</span><h3 class="text-foreground text-[14px] font-medium">scaffold the react library</h3></div>
+              <p class="text-foreground-muted text-[12px] leading-relaxed"><code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">npm create vite@latest pg-lab-ui -- --template react-ts</code> then install tailwindcss + @tailwindcss/vite. configure vite for library mode: <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">build.lib: { entry: 'src/index.ts', name: 'PgLabUI', fileName: 'pg-lab-ui' }</code>. export css separately via <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">cssFileName: 'pg-lab-ui'</code>.</p>
+            </div>
+            <div class="bg-surface border-border rounded-lg border p-6" style="box-shadow:var(--shadow-sm)">
+              <div class="flex items-center gap-3 mb-3"><span class="bg-orange text-background flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold">2</span><h3 class="text-foreground text-[14px] font-medium">port the css wholesale</h3></div>
+              <p class="text-foreground-muted text-[12px] leading-relaxed">copy the entire <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">&lt;style type="text/tailwindcss"&gt;</code> block into <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">src/styles/pg-lab.css</code>. import it once in <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">src/index.ts</code>. the @theme inline, @layer base, @layer components all compile identically. dark gruvbox is :root default; light overrides via <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">html[data-theme='light']</code>.</p>
+            </div>
+            <div class="bg-surface border-border rounded-lg border p-6" style="box-shadow:var(--shadow-sm)">
+              <div class="flex items-center gap-3 mb-3"><span class="bg-orange text-background flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold">3</span><h3 class="text-foreground text-[14px] font-medium">convert components — pattern reference</h3></div>
+              <p class="text-foreground-muted text-[12px] leading-relaxed mb-3">most interactivity is css-only. react components mainly accept variant/size/children props and apply the same tailwind classes. key patterns:</p>
+              <div class="bg-background rounded p-4 text-[12px] leading-relaxed space-y-2 font-mono overflow-x-auto">
+                <p class="text-foreground-dim">// button: variant record maps to tailwind class strings</p>
+                <p class="text-foreground">const variants = { primary: 'bg-orange text-background', success: 'bg-green text-background', ... }</p>
+                <p class="text-foreground-dim">// badge: --_color custom property passed via style prop</p>
+                <p class="text-foreground">&lt;span className="badge-soft" style={{ '--_color': 'var(--green)' }}&gt;generative&lt;/span&gt;</p>
+                <p class="text-foreground-dim">// accordion: keep native &lt;details&gt;, use open prop</p>
+                <p class="text-foreground">&lt;details open={defaultOpen}&gt;&lt;summary className="accordion-trigger"&gt;...&lt;/summary&gt;&lt;/details&gt;</p>
+                <p class="text-foreground-dim">// carousel: useRef for scroll, .carousel class handles overflow-x: scroll</p>
+                <p class="text-foreground">const scrollContainerRef = useRef&lt;HTMLDivElement&gt;(null)</p>
+                <p class="text-foreground-dim">// popover: state for isOpen, left:50% + -translate-x-1/2 for centering</p>
+                <p class="text-foreground-dim">// dialog: useRef + .showModal() / .close(), css handles animation</p>
+                <p class="text-foreground-dim">// toast: useToast hook writes to a listener set, ToastContainer renders via createPortal</p>
+              </div>
+            </div>
+            <div class="bg-surface border-border rounded-lg border p-6" style="box-shadow:var(--shadow-sm)">
+              <div class="flex items-center gap-3 mb-3"><span class="bg-orange text-background flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold">4</span><h3 class="text-foreground text-[14px] font-medium">css-only features — no react equivalent needed</h3></div>
+              <div class="overflow-x-auto"><table class="w-full text-[12px]"><thead><tr class="border-border border-b text-left"><th class="text-foreground pb-2 pr-4 font-medium">css technique</th><th class="text-foreground pb-2 font-medium">in react</th></tr></thead><tbody class="text-foreground-muted"><tr class="border-border border-b"><td class="py-2 pr-4 font-mono text-orange text-[11px]">:has(selector)</td><td class="py-2">keep as-is. browser handles it with react-rendered dom.</td></tr><tr class="border-border border-b"><td class="py-2 pr-4 font-mono text-orange text-[11px]">:focus-within</td><td class="py-2">keep as-is. react inputs trigger it naturally.</td></tr><tr class="border-border border-b"><td class="py-2 pr-4 font-mono text-orange text-[11px]">@starting-style</td><td class="py-2">keep as-is. fires on mount for dialog/accordion/toast.</td></tr><tr class="border-border border-b"><td class="py-2 pr-4 font-mono text-orange text-[11px]">color-mix()</td><td class="py-2">keep in css. for dynamic values use inline style.</td></tr><tr class="border-border border-b"><td class="py-2 pr-4 font-mono text-orange text-[11px]">&lt;details&gt;</td><td class="py-2">use open prop as controlled or uncontrolled.</td></tr><tr class="border-border border-b"><td class="py-2 pr-4 font-mono text-orange text-[11px]">radio tabs</td><td class="py-2">keep radio approach (css-only) or convert to react state.</td></tr><tr><td class="py-2 pr-4 font-mono text-orange text-[11px]">&lt;dialog&gt;</td><td class="py-2">useRef to call .showModal()/.close(). ::backdrop + animation auto-apply.</td></tr></tbody></table></div>
+            </div>
+            <div class="bg-surface border-border rounded-lg border p-6" style="box-shadow:var(--shadow-sm)">
+              <div class="flex items-center gap-3 mb-3"><span class="bg-orange text-background flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold">5</span><h3 class="text-foreground text-[14px] font-medium">consume in astro — four pages</h3></div>
+              <div class="bg-background rounded p-4 text-[12px] leading-relaxed space-y-2 font-mono overflow-x-auto">
+                <p class="text-foreground-dim"># astro site structure</p>
+                <p class="text-foreground">src/pages/index.astro       # home — hero + featured projects grid</p>
+                <p class="text-foreground">src/pages/projects.astro    # projects — filterable card grid using Badge + Card</p>
+                <p class="text-foreground">src/pages/notes.astro       # notes — chronological list, Accordion for long notes</p>
+                <p class="text-foreground">src/pages/docs.astro        # docs — Tabs for sections, Alert for callouts</p>
+                <br>
+                <p class="text-foreground-dim"># layout.astro — wrap in ThemeProvider, import css once</p>
+                <p class="text-foreground">---</p>
+                <p class="text-foreground">import { ThemeProvider } from 'pg-lab-ui'</p>
+                <p class="text-foreground">import 'pg-lab-ui/pg-lab-ui.css'</p>
+                <p class="text-foreground">---</p>
+                <p class="text-foreground">&lt;html&gt;</p>
+                <p class="text-foreground">&nbsp;&nbsp;&lt;body&gt;</p>
+                <p class="text-foreground">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ThemeProvider client:load&gt;</p>
+                <p class="text-foreground">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;slot /&gt;</p>
+                <p class="text-foreground">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ThemeProvider&gt;</p>
+                <p class="text-foreground">&nbsp;&nbsp;&lt;/body&gt;</p>
+                <p class="text-foreground">&lt;/html&gt;</p>
+                <br>
+                <p class="text-foreground-dim"># in any .astro page, use react components as islands:</p>
+                <p class="text-foreground">import { Button, Badge, Carousel, Tabs } from 'pg-lab-ui'</p>
+                <p class="text-foreground">&lt;Button variant="primary" client:visible&gt;launch&lt;/Button&gt;</p>
+                <p class="text-foreground">&lt;Badge color="green" density="soft"&gt;generative&lt;/Badge&gt;</p>
+                <br>
+                <p class="text-foreground-dim"># for purely css components (badges, alerts), no client directive needed:</p>
+                <p class="text-foreground">&lt;div class="badge-soft" style="--_color:var(--green)"&gt;generative&lt;/div&gt;</p>
+                <p class="text-foreground">&lt;div class="border-green/30 bg-green/5 rounded border px-4 py-3"&gt;...&lt;/div&gt;</p>
+              </div>
+            </div>
+            <div class="bg-surface border-border rounded-lg border p-6" style="box-shadow:var(--shadow-sm)">
+              <div class="flex items-center gap-3 mb-3"><span class="bg-orange text-background flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold">6</span><h3 class="text-foreground text-[14px] font-medium">build &amp; publish</h3></div>
+              <p class="text-foreground-muted text-[12px] leading-relaxed"><code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">npm run build</code> outputs dist/pg-lab-ui.js + dist/pg-lab-ui.css. test locally with <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">npm link</code>. consumers import components from 'pg-lab-ui' and the css file once in their layout. publish with <code class="text-orange bg-background px-1.5 py-0.5 rounded text-[11px]">npm publish</code>.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-border border-t mt-8">
+      <div class="mx-auto max-w-[960px] px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-foreground-dim text-[12px]"><span class="text-orange font-medium">pg_lab</span> — creative playground</p>
+        <div class="flex items-center gap-3 text-foreground-dim text-[11px]">
+          <span>tailwind v4</span><span class="text-border">/</span>
+          <span>gruvbox</span><span class="text-border">/</span>
+          <span>no component js</span>
+        </div>
+      </div>
+    </footer>
+
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2"></div>
+
+    <script>
+      /* theme toggle */
+      var themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('click', function() {
+        var html = document.documentElement;
+        var isLight = html.getAttribute('data-theme') === 'light';
+        if (isLight) { html.removeAttribute('data-theme'); } else { html.setAttribute('data-theme', 'light'); }
+        themeToggle.querySelector('i').className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      });
+
+      /* scroll progress */
+      var scrollProgressBar = document.getElementById('scrollProgress');
+      window.addEventListener('scroll', function() {
+        var scrollTop = document.documentElement.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgressBar.style.transform = 'scaleX(' + (scrollHeight > 0 ? scrollTop / scrollHeight : 0) + ')';
+      }, { passive: true });
+
+      /* reveal on scroll — with safety fallback */
+      var revealElements = document.querySelectorAll('.reveal');
+      var revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.08 });
+      revealElements.forEach(function(el) { revealObserver.observe(el); });
+      /* fallback: if observer doesn't fire within 2s, show everything */
+      setTimeout(function() {
+        revealElements.forEach(function(el) { if (!el.classList.contains('visible')) el.classList.add('visible'); });
+      }, 2000);
+
+      /* hero canvas — algorithmic art background */
+      (function() {
+        var canvas = document.getElementById('heroCanvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var particleCount = 60;
+        var connectionDistance = 120;
+        var mouse = { x: -1000, y: -1000 };
+
+        function resize() {
+          var rect = canvas.parentElement.getBoundingClientRect();
+          canvas.width = rect.width;
+          canvas.height = rect.height;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        canvas.parentElement.addEventListener('mousemove', function(e) {
+          var rect = canvas.getBoundingClientRect();
+          mouse.x = e.clientX - rect.left;
+          mouse.y = e.clientY - rect.top;
+        });
+        canvas.parentElement.addEventListener('mouseleave', function() { mouse.x = -1000; mouse.y = -1000; });
+
+        var colors = ['#fb4934','#b8bb26','#fabd2f','#83a598','#d3869b','#8ec07c','#fe8019'];
+        for (var i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            radius: Math.random() * 2 + 1
+          });
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+            var dx = mouse.x - p.x, dy = mouse.y - p.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) { p.x -= dx * 0.008; p.y -= dy * 0.008; }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = 0.6;
+            ctx.fill();
+
+            for (var j = i + 1; j < particles.length; j++) {
+              var p2 = particles[j];
+              var cdx = p.x - p2.x, cdy = p.y - p2.y;
+              var cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+              if (cdist < connectionDistance) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = p.color;
+                ctx.globalAlpha = 0.08 * (1 - cdist / connectionDistance);
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+          ctx.globalAlpha = 1;
+          requestAnimationFrame(animate);
+        }
+        animate();
+      })();
+
+      /* toast system */
+      function showToast(type, title, description) {
+        var container = document.getElementById('toastContainer');
+        var toast = document.createElement('div');
+        var iconMap = { info: 'fa-solid fa-circle-info text-blue', success: 'fa-solid fa-circle-check text-green', error: 'fa-solid fa-circle-xmark text-red' };
+        toast.className = 'toast-item bg-surface-raised border-border rounded-lg border p-4 w-72';
+        toast.style.boxShadow = 'var(--shadow-lg)';
+        toast.innerHTML = '<div class="flex gap-3"><i class="' + iconMap[type] + ' mt-0.5 text-xs"></i><div class="flex-1"><p class="text-foreground text-[13px] font-medium">' + title + '</p><p class="text-foreground-muted text-[11px] mt-1">' + description + '</p></div><button onclick="dismissToast(this.parentElement.parentElement)" class="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs transition-colors"><i class="fa-solid fa-xmark"></i></button></div>';
+        container.appendChild(toast);
+        setTimeout(function() { dismissToast(toast); }, 4000);
+      }
+      function dismissToast(el) {
+        if (!el || el.classList.contains('exit')) return;
+        el.classList.add('exit');
+        el.addEventListener('animationend', function() { el.remove(); });
+      }
+    </script>
+  </body>
+</html>

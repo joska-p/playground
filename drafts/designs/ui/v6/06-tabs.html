@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — tabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* ← SHARED CSS → */
+  </style>
+</head>
+<body class="pt-16">
+  <!-- ← SHARED HTML → -->
+
+  <main class="mx-auto max-w-[960px] px-6 py-14">
+    <section class="reveal" id="tabs">
+      <p class="text-blue mb-1 text-[10px] font-medium tracking-[2px] uppercase">navigation</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">tabs</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">css-only via hidden radio inputs + :has(). no javascript.</p>
+
+      <div class="mt-8 bg-surface rounded-lg overflow-hidden" style="box-shadow:var(--shadow-sm)">
+        <div class="tabs-container">
+          <div class="flex border-b border-border">
+            <label class="tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors" for="tab1">overview</label>
+            <label class="tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors" for="tab2">features</label>
+            <label class="tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors" for="tab3">changelog</label>
+          </div>
+          <input type="radio" name="tabGroup" id="tab1" checked/>
+          <div class="tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed" id="panel1"><p>pg_lab is a design-first toolkit built on modern css. every interactive state is handled through css selectors, not javascript. gruvbox dark with blue primary keeps things warm yet focused.</p></div>
+          <input type="radio" name="tabGroup" id="tab2"/>
+          <div class="tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed" id="panel2">
+            <ul class="list-disc pl-5 space-y-1.5">
+              <li>css-only states via :has() and :focus-within</li>
+              <li>entry animations with @starting-style</li>
+              <li>dynamic theming with color-mix()</li>
+              <li>zero-js accordion, tabs, toggles</li>
+              <li>floating nav appears on scroll</li>
+              <li>orientation-based layouts</li>
+            </ul>
+          </div>
+          <input type="radio" name="tabGroup" id="tab3"/>
+          <div class="tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed" id="panel3">
+            <div class="space-y-2.5">
+              <div class="flex gap-4"><span class="text-primary text-[11px] font-medium w-16 flex-shrink-0">v1.3</span><span>semantic colors, floating nav, darker dark mode, orientation layouts</span></div>
+              <div class="flex gap-4"><span class="text-primary text-[11px] font-medium w-16 flex-shrink-0">v1.2</span><span>popover, carousel fix, gruvbox theme</span></div>
+              <div class="flex gap-4"><span class="text-primary text-[11px] font-medium w-16 flex-shrink-0">v1.1</span><span>tabs, accordion, dialog</span></div>
+              <div class="flex gap-4"><span class="text-primary text-[11px] font-medium w-16 flex-shrink-0">v1.0</span><span>initial release</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← SHARED JS → -->
+</body>
+</html>

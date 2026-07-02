@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — carousel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* ← SHARED CSS → */
+  </style>
+</head>
+<body class="pt-16">
+  <!-- ← SHARED HTML → -->
+
+  <main class="mx-auto max-w-[960px] px-6 py-14">
+    <section class="reveal" id="carousel">
+      <p class="text-blue mb-1 text-[10px] font-medium tracking-[2px] uppercase">layout</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">carousel</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">overflow-x: scroll with snap. no borders, just shadow and spacing.</p>
+
+      <div class="mt-8 relative">
+        <button onclick="document.getElementById('carouselTrack').scrollBy({left:-280,behavior:'smooth'})" class="absolute left-1 top-1/2 z-10 -translate-y-1/2 bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-[11px] transition-colors backdrop-blur-sm" style="box-shadow:var(--shadow-md)" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
+        <button onclick="document.getElementById('carouselTrack').scrollBy({left:280,behavior:'smooth'})" class="absolute right-1 top-1/2 z-10 -translate-y-1/2 bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-[11px] transition-colors backdrop-blur-sm" style="box-shadow:var(--shadow-md)" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
+        <div id="carouselTrack" class="carousel flex gap-4 py-2 px-1">
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc1/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--green)">generative</span><p class="text-foreground text-[12px] font-medium">noise landscapes</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc2/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--accent)">color</span><p class="text-foreground text-[12px] font-medium">gradient meshes</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc3/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--blue)">shader</span><p class="text-foreground text-[12px] font-medium">ray marching</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc4/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--aqua)">simulation</span><p class="text-foreground text-[12px] font-medium">flocking agents</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc5/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--warning)">experiment</span><p class="text-foreground text-[12px] font-medium">distributed seeds</p></div></div>
+          <div class="carousel-slide w-[240px] flex-shrink-0 overflow-hidden rounded-lg bg-surface" style="box-shadow:var(--shadow-sm)"><img src="https://picsum.photos/seed/pgc6/400/225.jpg" alt="" class="aspect-video w-full object-cover"/><div class="p-3"><span class="badge-soft mb-1.5 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--orange)">visual</span><p class="text-foreground text-[12px] font-medium">pixel sorting</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← SHARED JS → -->
+</body>
+</html>
