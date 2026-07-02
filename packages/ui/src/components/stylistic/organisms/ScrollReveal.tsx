@@ -17,7 +17,7 @@ function ScrollReveal({ children, threshold = 0.08, className, ...props }: Scrol
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setVisible(true);
           observer.unobserve(el);
         }

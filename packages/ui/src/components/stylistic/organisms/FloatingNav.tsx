@@ -16,7 +16,7 @@ type FloatingNavProps = {
 function FloatingNav({ brand, links, themeToggle, className, ...props }: FloatingNavProps) {
   const navRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(true);
-  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
   const navHoveredRef = useRef(false);
 
   const isAtTop = useCallback(() => document.documentElement.scrollTop < 50, []);
@@ -26,7 +26,7 @@ function FloatingNav({ brand, links, themeToggle, className, ...props }: Floatin
   }, []);
 
   const scheduleHide = useCallback(() => {
-    clearTimeout(scrollTimeoutRef.current);
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     if (isAtTop() || navHoveredRef.current) return;
     scrollTimeoutRef.current = setTimeout(() => {
       if (!navHoveredRef.current && !isAtTop()) setVisible(false);
@@ -69,7 +69,7 @@ function FloatingNav({ brand, links, themeToggle, className, ...props }: Floatin
       }}
       onMouseEnter={() => {
         navHoveredRef.current = true;
-        clearTimeout(scrollTimeoutRef.current);
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
         show();
       }}
       onMouseLeave={() => {

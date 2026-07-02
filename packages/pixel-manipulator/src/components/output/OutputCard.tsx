@@ -1,6 +1,6 @@
 import { Badge } from '@repo/ui/Badge';
 import { Button } from '@repo/ui/Button';
-import { Card, CardContent, CardFooter, CardHeader } from '@repo/ui/Card';
+import { Card } from '@repo/ui/Card';
 import { useRef, useState } from 'react';
 import type { OutputType } from '../../stores/manipulator/types';
 import { downloadCanvas } from '../../utils/download';
@@ -49,36 +49,36 @@ function OutputCard({
             isSelected ? 'ring-primary ring-2' : ''
           }`}
         >
-          <CardHeader className="flex flex-row items-start justify-between gap-2 p-3 pb-0">
+          <div className="flex flex-row items-start justify-between gap-2 p-3 pb-0">
             <h3 className="text-sm">
               {index}. {output.description}
             </h3>
             <div className="flex shrink-0 items-center gap-1.5">
-              {isSource && <Badge variant="primary">Original</Badge>}
+              {isSource && <Badge color="--color-primary">Original</Badge>}
               <Badge variant="outline">
                 {output.imageData.width}&times;{output.imageData.height}
               </Badge>
             </div>
-          </CardHeader>
-          <CardContent className="p-3">
+          </div>
+          <div className="p-3">
             <Output imageData={output.imageData} />
-          </CardContent>
-          <CardFooter className="flex gap-2 p-3 pt-0">
+          </div>
+          <div className="flex gap-2 p-3 pt-0">
             <Button
-              variant="ghost"
+              variant="default"
               size="sm"
               onClick={handleDownload}
             >
               Download
             </Button>
             <Button
-              variant="ghost"
+              variant="default"
               size="sm"
               onClick={handleZoom}
             >
               Zoom
             </Button>
-          </CardFooter>
+          </div>
         </Card>
       </article>
 
