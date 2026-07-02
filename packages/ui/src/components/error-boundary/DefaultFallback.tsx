@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { getErrorMessage } from 'react-error-boundary';
 import { cn } from '../../utils/cn';
-import { Button } from '../button/Button';
+import { Button } from '../elements/button/Button';
 
 type DefaultFallbackProps = FallbackProps & ComponentProps<'div'>;
 

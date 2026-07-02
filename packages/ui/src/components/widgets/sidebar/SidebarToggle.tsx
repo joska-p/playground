@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
-import { Button } from '../../button/Button';
+import { Button } from '../../elements/button/Button';
 import { IconClose } from '../../icons/components/IconClose';
 import { IconHamburger } from '../../icons/components/IconHamburger';
 import styles from './sidebar.module.css';

@@ -1,23 +1,30 @@
-import { Accordion } from './components/accordion/Accordion';
-import { Alert } from './components/alert/Alert';
-import { Badge } from './components/badge/Badge';
-import { Button } from './components/button/Button';
-import { Card } from './components/card/Card';
-import { Carousel } from './components/carousel/Carousel';
-import { Checkbox } from './components/checkbox/Checkbox';
-import { Dialog } from './components/dialog/Dialog';
-import { Input } from './components/input/Input';
-import { Popover } from './components/popover/Popover';
-import { Radio } from './components/radio/Radio';
-import { Select } from './components/select/Select';
-import { Slider } from './components/slider/Slider';
-import { Switch } from './components/switch/Switch';
-import { Tabs } from './components/tabs/Tabs';
-import { Textarea } from './components/textarea/Textarea';
-import { ToastContainer } from './components/toast/Toast';
-import { useToast } from './components/toast/useToast';
-import { Tooltip } from './components/tooltip/Tooltip';
+import { Accordion } from './components/layout/accordion/Accordion';
+import { Alert } from './components/feedback/alert/Alert';
+import { Badge } from './components/elements/badge/Badge';
+import { Button } from './components/elements/button/Button';
+import { Card } from './components/layout/card/Card';
+import { Carousel } from './components/layout/carousel/Carousel';
+import { Checkbox } from './components/form/checkbox/Checkbox';
+import { Dialog } from './components/overlay/dialog/Dialog';
+import { Input } from './components/form/input/Input';
+import { Popover } from './components/overlay/popover/Popover';
+import { Radio } from './components/form/radio/Radio';
+import { Select } from './components/form/select/Select';
+import { Slider } from './components/elements/slider/Slider';
+import { Switch } from './components/elements/switch/Switch';
+import { Tabs } from './components/navigation/tabs/Tabs';
+import { Textarea } from './components/form/textarea/Textarea';
+import { ToastContainer } from './components/feedback/toast/Toast';
+import { useToast } from './components/feedback/toast/useToast';
+import { Tooltip } from './components/overlay/tooltip/Tooltip';
 import { ColorPalette } from './components/widgets/color-palette/ColorPalette';
+import { SectionHeading } from './components/stylistic/atoms/SectionHeading';
+import { ColorSwatch } from './components/stylistic/atoms/ColorSwatch';
+import { NotificationItem } from './components/stylistic/molecules/NotificationItem';
+import { ChangelogItem } from './components/stylistic/molecules/ChangelogItem';
+import { MenuItem } from './components/stylistic/molecules/MenuItem';
+import { ScrollReveal } from './components/stylistic/organisms/ScrollReveal';
+import { FloatingNav } from './components/stylistic/organisms/FloatingNav';
 
 const variants = ['default', 'primary', 'secondary', 'accent', 'destructive', 'warning'] as const;
 
@@ -25,7 +32,34 @@ const sizes = ['sm', 'md', 'lg'] as const;
 
 function App() {
   return (
-    <div className="bg-background text-foreground mx-auto min-h-screen max-w-2xl space-y-12 p-8">
+    <>
+      <FloatingNav
+        brand={{ label: 'pg_lab', href: '#' }}
+        links={[
+          { label: 'buttons', href: '#buttons' },
+          { label: 'badges', href: '#badges' },
+          { label: 'inputs', href: '#inputs' },
+          { label: 'cards', href: '#cards' },
+          { label: 'stylistic', href: '#stylistic' },
+        ]}
+        themeToggle={
+          <button
+            className="text-foreground-dim hover:text-foreground flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-xs transition-colors"
+            aria-label="Toggle theme"
+            onClick={() => {
+              const h = document.documentElement;
+              const isLight = h.getAttribute('data-theme') === 'light';
+              if (isLight) h.removeAttribute('data-theme');
+              else h.setAttribute('data-theme', 'light');
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        }
+      />
+      <div className="bg-background text-foreground mx-auto min-h-screen max-w-2xl space-y-12 p-8">
       <section>
         <h2 className="text-muted-foreground mb-4 text-sm font-medium tracking-wide uppercase">
           Button variants
@@ -594,7 +628,118 @@ function App() {
           />
         </div>
       </section>
+
+      {/* ─── Stylistic components ─── */}
+
+      <section id="stylistic">
+        <h2 className="text-muted-foreground mb-6 text-sm font-medium tracking-wide uppercase">
+          Stylistic — atoms
+        </h2>
+
+        <div className="mb-8 space-y-4">
+          <p className="text-foreground-dim text-xs font-medium tracking-tight uppercase">SectionHeading labelColor variants</p>
+          <div className="space-y-6">
+            <SectionHeading label="interactive" title="buttons" labelColor="primary" />
+            <SectionHeading label="display" title="badges" labelColor="secondary" />
+            <SectionHeading label="form" title="inputs" labelColor="warning" />
+            <SectionHeading label="disclosure" title="accordion" labelColor="accent" />
+            <SectionHeading label="feedback" title="alerts" labelColor="destructive" />
+            <SectionHeading label="layout" title="carousel" labelColor="blue" description="a reusable carousel with snap scrolling." />
+          </div>
+        </div>
+
+        <div className="mb-8 space-y-4">
+          <p className="text-foreground-dim text-xs font-medium tracking-tight uppercase">ColorSwatch sizes</p>
+          <div className="grid gap-3 grid-cols-2 landscape:grid-cols-3">
+            <ColorSwatch color="var(--primary)" name="primary" token="--primary (blue)" />
+            <ColorSwatch color="var(--secondary)" name="secondary" token="--secondary (green)" />
+            <ColorSwatch color="var(--destructive)" name="destructive" token="--destructive (red)" />
+            <ColorSwatch color="var(--accent)" name="accent" token="--accent (purple)" />
+            <ColorSwatch color="var(--warning)" name="warning" token="--warning (yellow)" />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <ColorSwatch color="var(--red)" name="red" size="sm" />
+            <ColorSwatch color="var(--green)" name="green" size="sm" />
+            <ColorSwatch color="var(--blue)" name="blue" size="sm" />
+            <ColorSwatch color="var(--purple)" name="purple" size="sm" />
+            <ColorSwatch color="var(--aqua)" name="aqua" size="sm" />
+            <ColorSwatch color="var(--orange)" name="orange" size="sm" />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-muted-foreground mb-6 text-sm font-medium tracking-wide uppercase">
+          Stylistic — molecules
+        </h2>
+
+        <div className="mb-8 space-y-4">
+          <p className="text-foreground-dim text-xs font-medium tracking-tight uppercase">NotificationItem</p>
+          <div className="space-y-2.5 max-w-sm">
+            <NotificationItem
+              icon={<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>}
+              iconColor="bg-secondary/15 text-secondary"
+              title="build ok"
+              timestamp="2 min ago"
+            />
+            <NotificationItem
+              icon={<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>}
+              iconColor="bg-accent/15 text-accent"
+              title="new comment"
+              timestamp="1 hour ago"
+            />
+            <NotificationItem
+              icon={<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>}
+              iconColor="bg-destructive/15 text-destructive"
+              title="deployment failed"
+              timestamp="just now"
+            />
+          </div>
+        </div>
+
+        <div className="mb-8 space-y-4">
+          <p className="text-foreground-dim text-xs font-medium tracking-tight uppercase">ChangelogItem</p>
+          <div className="space-y-2">
+            <ChangelogItem version="v1.3">semantic colors, floating nav, darker dark mode</ChangelogItem>
+            <ChangelogItem version="v1.2">popover, carousel fix, gruvbox theme</ChangelogItem>
+            <ChangelogItem version="v1.1">tabs, accordion, dialog</ChangelogItem>
+            <ChangelogItem version="v1.0">initial release</ChangelogItem>
+          </div>
+        </div>
+
+        <div className="mb-8 space-y-4">
+          <p className="text-foreground-dim text-xs font-medium tracking-tight uppercase">MenuItem variants</p>
+          <div className="bg-surface max-w-[160px] rounded-lg py-1 shadow-sm">
+            <MenuItem icon={<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /></svg>} label="edit" />
+            <MenuItem icon={<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>} label="duplicate" />
+            <div className="border-border mx-2 my-1 border-t" />
+            <MenuItem icon={<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>} label="delete" destructive />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-muted-foreground mb-6 text-sm font-medium tracking-wide uppercase">
+          Stylistic — organisms
+        </h2>
+
+        <div className="space-y-4">
+          <p className="text-foreground-dim text-xs font-medium tracking-tight uppercase">ScrollReveal (scroll down to see)</p>
+          <ScrollReveal className="bg-surface rounded-lg p-6 shadow-sm">
+            <p className="text-foreground text-sm font-medium">this section fades in when scrolled into view</p>
+            <p className="text-foreground-muted mt-1 text-xs">intersection observer with 0.08 threshold, 2s fallback.</p>
+          </ScrollReveal>
+          <ScrollReveal className="bg-surface rounded-lg p-6 shadow-sm">
+            <p className="text-foreground text-sm font-medium">another reveal section</p>
+            <p className="text-foreground-muted mt-1 text-xs">each one triggers independently.</p>
+          </ScrollReveal>
+        </div>
+
+        <p className="text-foreground-dim mt-6 text-xs font-medium tracking-tight uppercase">FloatingNav</p>
+        <p className="text-foreground-muted text-[13px]">the fixed pill nav at the top of this page is the FloatingNav component. scroll to see it hide, hover to keep it visible.</p>
+      </section>
     </div>
+    </>
   );
 }
 
