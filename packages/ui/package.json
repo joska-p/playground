@@ -22,6 +22,7 @@
     "./carouselVariants": "./src/components/carousel/Carousel.tsx",
     "./Dialog": "./src/components/dialog/Dialog.tsx",
     "./Popover": "./src/components/popover/Popover.tsx",
+    "./popoverVariants": "./src/components/popover/popoverVariants.ts",
     "./Tabs": "./src/components/tabs/Tabs.tsx",
     "./ToastContainer": "./src/components/toast/Toast.tsx",
     "./useToast": "./src/components/toast/Toast.tsx",

@@ -6,20 +6,39 @@ import { alertVariants } from './alertVariants';
 
 type AlertVariant = NonNullable<VariantProps<typeof alertVariants>['variant']>;
 
-const AlertContext = createContext<AlertVariant>('info');
+const AlertContext = createContext<AlertVariant>('default');
 
-const iconMap = {
-  info: (
+const iconMap: Record<AlertVariant, ReactNode> = {
+  default: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="16" x2="12" y2="12" />
       <line x1="12" y1="8" x2="12.01" y2="8" />
     </svg>
   ),
-  success: (
+  primary: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="16" x2="12" y2="12" />
+      <line x1="12" y1="8" x2="12.01" y2="8" />
+    </svg>
+  ),
+  secondary: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
       <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  ),
+  accent: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  ),
+  destructive: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="15" y1="9" x2="9" y2="15" />
+      <line x1="9" y1="9" x2="15" y2="15" />
     </svg>
   ),
   warning: (
@@ -28,28 +47,23 @@ const iconMap = {
       <line x1="12" y1="9" x2="12" y2="13" />
       <line x1="12" y1="17" x2="12.01" y2="17" />
     </svg>
-  ),
-  error: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <line x1="15" y1="9" x2="9" y2="15" />
-      <line x1="9" y1="9" x2="15" y2="15" />
-    </svg>
   )
-} as const;
+};
 
-const iconColorMap = {
-  info: 'text-primary',
-  success: 'text-secondary',
-  warning: 'text-warning',
-  error: 'text-destructive'
-} as const;
+const iconColorMap: Record<AlertVariant, string> = {
+  default: 'text-primary',
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  accent: 'text-accent',
+  destructive: 'text-destructive',
+  warning: 'text-warning'
+};
 
 type AlertProps = {
   children: ReactNode;
 } & VariantProps<typeof alertVariants>;
 
-function Alert({ variant = 'info', children }: AlertProps) {
+function Alert({ variant = 'default', children }: AlertProps) {
   return (
     <AlertContext.Provider value={variant}>
       <div className={cn(alertVariants({ variant }))}>

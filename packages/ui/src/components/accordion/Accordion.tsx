@@ -1,13 +1,16 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { accordionVariants, accordionItemVariants } from './accordionVariants';
 
 type AccordionProps = {
   children: ReactNode;
-} & ComponentProps<'div'>;
+} & ComponentProps<'div'> &
+  VariantProps<typeof accordionVariants>;
 
-function Accordion({ children, className, ...props }: AccordionProps) {
+function Accordion({ children, className, variant, ...props }: AccordionProps) {
   return (
-    <div className={cn('flex flex-col gap-2', className)} {...props}>
+    <div className={cn(accordionVariants({ variant }), className)} {...props}>
       {children}
     </div>
   );
@@ -17,13 +20,14 @@ type AccordionItemProps = {
   title: string;
   defaultOpen?: boolean;
   children: ReactNode;
-} & ComponentProps<'details'>;
+} & ComponentProps<'details'> &
+  VariantProps<typeof accordionItemVariants>;
 
-function AccordionItem({ title, defaultOpen, children, className, ...props }: AccordionItemProps) {
+function AccordionItem({ title, defaultOpen, children, className, variant, ...props }: AccordionItemProps) {
   return (
     <details
       open={defaultOpen}
-      className={cn('bg-surface rounded-lg overflow-hidden group', className)}
+      className={cn(accordionItemVariants({ variant }), className)}
       {...props}
     >
       <summary

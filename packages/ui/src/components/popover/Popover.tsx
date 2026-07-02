@@ -1,5 +1,7 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { popoverContentVariants } from './popoverVariants';
 
 type PopoverProps = {
   children: ReactNode;
@@ -27,17 +29,13 @@ function PopoverTrigger({ children, className, ...props }: PopoverTriggerProps) 
 
 type PopoverContentProps = {
   children: ReactNode;
-} & ComponentProps<'div'>;
+} & ComponentProps<'div'> &
+  VariantProps<typeof popoverContentVariants>;
 
-function PopoverContent({ children, className, ...props }: PopoverContentProps) {
+function PopoverContent({ children, className, side, variant, ...props }: PopoverContentProps) {
   return (
     <div
-      className={cn(
-        'pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] z-50',
-        'opacity-0 transition-all duration-200',
-        'group-hover:pointer-events-auto group-hover:opacity-100',
-        className
-      )}
+      className={cn(popoverContentVariants({ side, variant }), className)}
       {...props}
     >
       {children}

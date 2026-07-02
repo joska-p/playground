@@ -1,21 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { useRef } from 'react';
 import { cn } from '../../utils/cn';
-import { createVariant } from '../../lib/variants/create-variant';
-
-const slideVariants = createVariant({
-  base: 'w-[240px] flex-shrink-0 scroll-snap-align-center',
-  variants: {
-    size: {
-      sm: 'w-[180px]',
-      md: 'w-[240px]',
-      lg: 'w-[320px]'
-    }
-  },
-  defaultVariants: {
-    size: 'md'
-  }
-});
+import { carouselSlideVariants } from './carouselSlideVariants';
 
 type CarouselProps = {
   children: ReactNode;
@@ -83,7 +69,7 @@ type CarouselSlideProps = {
 
 function CarouselSlide({ children, className, ...props }: CarouselSlideProps) {
   return (
-    <div className={cn(slideVariants(), className)} {...props}>
+    <div className={cn(carouselSlideVariants(), className)} {...props}>
       {children}
     </div>
   );

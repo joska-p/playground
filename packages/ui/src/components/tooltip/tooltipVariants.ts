@@ -6,7 +6,10 @@ export const tooltipVariants = createVariant({
     variant: {
       default: 'after:bg-foreground after:text-background',
       primary: 'after:bg-primary after:text-primary-foreground',
-      destructive: 'after:bg-destructive after:text-destructive-foreground'
+      secondary: 'after:bg-secondary after:text-secondary-foreground',
+      accent: 'after:bg-accent after:text-accent-foreground',
+      destructive: 'after:bg-destructive after:text-destructive-foreground',
+      warning: 'after:bg-warning after:text-warning-foreground'
     }
   },
   defaultVariants: {

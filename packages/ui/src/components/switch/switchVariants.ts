@@ -4,10 +4,12 @@ export const switchVariants = createVariant({
   base: 'appearance-none relative inline-flex shrink-0 cursor-pointer rounded-full bg-foreground-dim transition-colors duration-250 before:content-[""] before:absolute before:top-0.5 before:left-0.5 before:rounded-full before:bg-white before:shadow-sm before:transition-transform before:duration-250 before:[transition-timing-function:cubic-bezier(0.4,0,0.2,1)] checked:bg-(--_switch)',
   variants: {
     variant: {
+      default: '[--_switch:var(--primary)]',
       primary: '[--_switch:var(--primary)]',
       secondary: '[--_switch:var(--secondary)]',
       accent: '[--_switch:var(--accent)]',
-      destructive: '[--_switch:var(--destructive)]'
+      destructive: '[--_switch:var(--destructive)]',
+      warning: '[--_switch:var(--warning)]'
     },
     size: {
       sm: 'h-5 w-9 before:size-4 checked:before:translate-x-4',
@@ -16,9 +18,7 @@ export const switchVariants = createVariant({
     }
   },
   defaultVariants: {
-    variant: 'primary',
+    variant: 'default',
     size: 'md'
   }
 });
-
-

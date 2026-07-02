@@ -1,6 +1,8 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
+import { tabsVariants, tabTriggerVariants } from './tabsVariants';
 
 type Tab = {
   label: string;
@@ -10,15 +12,15 @@ type Tab = {
 type TabsProps = {
   tabs: Tab[];
   className?: string;
-};
+} & VariantProps<typeof tabsVariants>;
 
-function Tabs({ tabs, className }: TabsProps) {
+function Tabs({ tabs, className, variant }: TabsProps) {
   const id = useId();
   const prefix = `tab-${id}`;
 
   return (
     <div
-      className={cn('bg-surface rounded-lg overflow-hidden shadow-sm', className)}
+      className={cn(tabsVariants({ variant }), className)}
     >
       <div className="tabs-container">
         <div className="flex border-b border-border">
@@ -26,10 +28,7 @@ function Tabs({ tabs, className }: TabsProps) {
             <label
               key={i}
               htmlFor={`${prefix}-${String(i)}`}
-              className={cn(
-                'text-muted-foreground px-5 py-3 text-sm font-medium transition-colors cursor-pointer',
-                'relative after:absolute after:bottom-[-1px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full after:scale-x-0 after:transition-transform after:duration-200'
-              )}
+              className={cn(tabTriggerVariants({ variant }))}
             >
               {tab.label}
             </label>

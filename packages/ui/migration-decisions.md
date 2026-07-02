@@ -390,7 +390,10 @@ Types: info (primary), success (secondary), error (destructive). 4s auto-dismiss
 |---|---|
 | default | `bg-foreground text-background` |
 | primary | `bg-primary text-primary-foreground` |
+| secondary | `bg-secondary text-secondary-foreground` |
+| accent | `bg-accent text-accent-foreground` |
 | destructive | `bg-destructive text-destructive-foreground` |
+| warning | `bg-warning text-warning-foreground` |
 
 - **Trigger:** `position:relative` (on wrapper)
 - **Content:** `::after` pseudo-element with `content:attr(data-content)`, positioned above
@@ -428,25 +431,6 @@ Types: info (primary), success (secondary), error (destructive). 4s auto-dismiss
 ## Remaining: ControlPanel
 
 **Verdict:** Excluded per user instruction. No changes.
-
-**Verdict:** Thin wrapper component. Hover-triggered, renders content via `::after` pseudo-element. Color variants for visual theming. Default position: top.
-
-```tsx
-<Tooltip content="settings" variant="default">
-  <Button><Icon name="gear" /></Button>
-</Tooltip>
-```
-
-| Variant | bg / text |
-|---|---|
-| default | `bg-foreground text-background` |
-| primary | `bg-primary text-primary-foreground` |
-| destructive | `bg-destructive text-destructive-foreground` |
-
-- **Trigger:** `position:relative` (on wrapper)
-- **Content:** `::after` pseudo-element with `content:attr(data-content)`, positioned above
-- **Animation:** `opacity 0.15s`, `pointer-events:none` → `pointer-events:auto` on hover
-- **Sizing:** `text-xs`, `px-2.5 py-1`, `rounded`, `whitespace-nowrap`
 - **Position (default):** `bottom:calc(100% + 8px); left:50%; transform:translateX(-50%)`
 
 **Verdict:** Same wrapper pattern as Input — bg-surface wrapper, focus ring, 6 variants. Auto-growing via `field-sizing:content`. Content-based padding (p-3).
