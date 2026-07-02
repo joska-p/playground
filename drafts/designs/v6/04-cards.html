@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* ← SHARED CSS → */
+  </style>
+</head>
+<body class="pt-16">
+  <!-- ← SHARED HTML → -->
+
+  <main class="mx-auto max-w-[960px] px-6 py-14">
+    <section class="reveal" id="cards">
+      <p class="text-blue mb-1 text-[10px] font-medium tracking-[2px] uppercase">layout</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">cards</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">spacing instead of borders. hover the right card's icons.</p>
+
+      <div class="mt-8 grid gap-4 grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-2">
+        <!-- Simple card -->
+        <div class="bg-surface rounded-lg overflow-hidden transition-shadow duration-200 hover:shadow-md" style="box-shadow:var(--shadow-sm)">
+          <img src="https://picsum.photos/seed/pg1/400/225.jpg" alt="" class="aspect-video w-full object-cover"/>
+          <div class="p-4">
+            <span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--green)">generative</span>
+            <p class="text-foreground text-[14px] font-medium">flow field exploration</p>
+            <p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">perlin noise fields and particle tracing.</p>
+          </div>
+          <div class="flex items-center justify-between px-4 py-2.5 bg-surface-raised/50">
+            <span class="text-foreground-dim text-[11px]">2 days ago</span>
+            <button class="text-foreground inline-flex cursor-pointer items-center rounded-md px-3 py-1 text-[12px] font-medium transition-all duration-200 hover:bg-surface-raised">view</button>
+          </div>
+        </div>
+
+        <!-- Interactive card — :has() glow -->
+        <div class="card-interactive bg-surface rounded-lg overflow-hidden transition-all duration-200" style="box-shadow:var(--shadow-sm)">
+          <img src="https://picsum.photos/seed/pg2/400/225.jpg" alt="" class="aspect-video w-full object-cover"/>
+          <div class="p-4">
+            <span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--accent)">color</span>
+            <p class="text-foreground text-[14px] font-medium">oklch palette generator</p>
+            <p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">harmonious palettes in perceptually uniform space.</p>
+          </div>
+          <div class="card-actions flex gap-0.5 px-4 pb-3">
+            <button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center rounded-md p-2 text-xs transition-all duration-200 hover:bg-surface-raised" data-tooltip="save"><i class="fa-regular fa-bookmark"></i></button>
+            <button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center rounded-md p-2 text-xs transition-all duration-200 hover:bg-surface-raised" data-tooltip="share"><i class="fa-solid fa-share-nodes"></i></button>
+            <button class="text-foreground-dim hover:text-foreground tooltip inline-flex cursor-pointer items-center rounded-md p-2 text-xs transition-all duration-200 hover:bg-surface-raised" data-tooltip="more"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal card — orientation responsive -->
+      <div class="mt-6">
+        <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">horizontal — switches orientation with device</p>
+        <div class="bg-surface rounded-lg overflow-hidden transition-shadow duration-200 hover:shadow-md grid grid-cols-1 landscape:grid-cols-[200px_1fr]" style="box-shadow:var(--shadow-sm)">
+          <img src="https://picsum.photos/seed/pg3/360/240.jpg" alt="" class="aspect-video landscape:aspect-auto w-full h-full object-cover"/>
+          <div class="p-4">
+            <span class="badge-soft mb-2 inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium" style="--_color:var(--blue)">shader</span>
+            <p class="text-foreground text-[14px] font-medium">radial chart patterns</p>
+            <p class="text-foreground-muted mt-1 text-[12px] leading-relaxed">circular layouts for multi-dimensional data.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← SHARED JS → -->
+</body>
+</html>

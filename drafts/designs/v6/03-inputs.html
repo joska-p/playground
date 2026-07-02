@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — inputs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* ← SHARED CSS → */
+  </style>
+</head>
+<body class="pt-16">
+  <!-- ← SHARED HTML → -->
+
+  <main class="mx-auto max-w-[960px] px-6 py-14">
+    <section class="reveal" id="inputs">
+      <p class="text-warning mb-1 text-[10px] font-medium tracking-[2px] uppercase">form</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">inputs</h2>
+
+      <div class="mt-8 grid gap-6 grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-2">
+        <div>
+          <p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">default</p>
+          <div class="input-wrapper bg-surface flex items-center gap-2 rounded-md px-3"><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" placeholder="type something..."/></div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">with icon</p>
+          <div class="input-wrapper bg-surface flex items-center gap-2 rounded-md px-3"><i class="fa-solid fa-search text-foreground-dim text-xs transition-colors"></i><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" placeholder="search..."/></div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">expanding on focus</p>
+          <div class="input-wrapper search-expandable bg-surface flex items-center gap-2 rounded-md px-3"><i class="fa-solid fa-search text-foreground-dim text-xs transition-colors"></i><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" placeholder="focus to expand..."/></div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">with trailing action</p>
+          <div class="input-wrapper bg-surface flex items-center gap-2 rounded-md px-3"><input class="text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none" type="url" placeholder="https://..."/><button class="text-foreground-dim hover:text-foreground cursor-pointer bg-transparent p-1 text-xs transition-colors"><i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">auto-growing textarea</p>
+        <textarea class="textarea-auto bg-surface text-foreground placeholder:text-foreground-dim input-wrapper w-full resize-y rounded-md p-3 text-[13px] outline-none" placeholder="start typing — grows with content..."></textarea>
+      </div>
+
+      <div class="mt-8 grid gap-6 grid-cols-1 portrait:grid-cols-1 landscape:grid-cols-3">
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">checkboxes</p>
+          <div class="flex flex-col gap-2.5">
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded" checked/> generative</label>
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded"/> shader</label>
+            <label class="pointer-events-none flex items-center gap-2.5 text-[13px] opacity-40 select-none"><input type="checkbox" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded" disabled/> disabled</label>
+          </div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">radios</p>
+          <div class="flex flex-col gap-2.5">
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="radio" name="radioGroup1" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded-full" checked/> 2d</label>
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="radio" name="radioGroup1" class="accent-primary h-4 w-4 flex-shrink-0 cursor-pointer rounded-full"/> 3d</label>
+          </div>
+        </div>
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">toggles</p>
+          <div class="flex flex-col gap-2.5">
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="toggle" checked/> fullscreen</label>
+            <label class="flex cursor-pointer items-center gap-2.5 text-[13px] select-none"><input type="checkbox" class="toggle"/> loop</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 max-w-xs">
+        <p class="text-foreground-dim mb-2 text-[10px] font-medium tracking-[1.5px] uppercase">range</p>
+        <input type="range" class="accent-primary h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none" min="0" max="100" value="65" style="background:var(--foreground-dim)"/>
+        <div class="text-foreground-dim mt-1 flex justify-between text-[10px]"><span>0</span><span>50</span><span>100</span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← SHARED JS → -->
+</body>
+</html>

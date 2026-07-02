@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — badges</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* ← SHARED CSS → */
+  </style>
+</head>
+<body class="pt-16">
+  <!-- ← SHARED HTML → -->
+
+  <main class="mx-auto max-w-[960px] px-6 py-14">
+    <section class="reveal" id="badges">
+      <p class="text-secondary mb-1 text-[10px] font-medium tracking-[2px] uppercase">display</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">badges</h2>
+
+      <div class="mt-8 space-y-6">
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">soft — one --_color drives everything</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--green)">generative</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--blue)">shader</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--purple)">color</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--aqua)">simulation</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--yellow)">experiment</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--orange)">visual</span>
+            <span class="badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--red)">audio</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">solid</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--primary)">primary</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--secondary)">secondary</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--destructive)">destructive</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--accent)">accent</span>
+            <span class="badge-solid inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--warning)">warning</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">outline</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--green)">generative</span>
+            <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--purple)">color</span>
+            <span class="badge-outline inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--blue)">shader</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-foreground-dim mb-3 text-[10px] font-medium tracking-[1.5px] uppercase">dot status</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--secondary)">active</span>
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--warning)">draft</span>
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--destructive)">archived</span>
+            <span class="badge-dot badge-soft inline-flex items-center rounded px-2.5 py-0.5 text-[11px] font-medium" style="--_color:var(--accent)">review</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← SHARED JS → -->
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>pg_lab — popover &amp; dialog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /* ← SHARED CSS → */
+  </style>
+</head>
+<body class="pt-16">
+  <!-- ← SHARED HTML → -->
+
+  <main class="mx-auto max-w-[960px] px-6 py-14 space-y-16">
+    <!-- Popover -->
+    <section class="reveal" id="popover">
+      <p class="text-accent mb-1 text-[10px] font-medium tracking-[2px] uppercase">overlay</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">popover</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">hover-triggered. centered via left:50% + translateX(-50%). arrow included.</p>
+
+      <div class="mt-8 flex flex-wrap items-end gap-8">
+        <div class="group relative inline-block">
+          <button class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]"><i class="fa-solid fa-user"></i> profile</button>
+          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-60 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50">
+            <div class="bg-surface rounded-lg p-4" style="box-shadow:var(--shadow-lg)">
+              <div class="flex items-center gap-3 mb-3"><div class="bg-primary/15 text-primary flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-[12px] font-semibold">pg</div><div><p class="text-foreground text-[13px] font-medium">pg_lab</p><p class="text-foreground-dim text-[11px]">creative playground</p></div></div>
+              <div class="border-t border-border pt-2"><p class="text-foreground-muted text-[11px] leading-relaxed">generative art, creative code, experiments.</p></div>
+              <div class="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-[10px] w-[10px] rotate-45 border-r border-b border-border bg-surface"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group relative inline-block">
+          <button class="bg-surface text-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:bg-surface-raised active:scale-[.97]"><i class="fa-solid fa-bell"></i> alerts</button>
+          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-64 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50">
+            <div class="bg-surface rounded-lg p-4" style="box-shadow:var(--shadow-lg)">
+              <p class="text-foreground text-[13px] font-medium mb-3">notifications</p>
+              <div class="space-y-2.5">
+                <div class="flex gap-2.5"><div class="bg-secondary/15 text-secondary flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[10px]"><i class="fa-solid fa-check"></i></div><div><p class="text-foreground text-[11px] font-medium">build ok</p><p class="text-foreground-dim text-[10px]">2 min ago</p></div></div>
+                <div class="flex gap-2.5"><div class="bg-accent/15 text-accent flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[10px]"><i class="fa-solid fa-comment"></i></div><div><p class="text-foreground text-[11px] font-medium">new note</p><p class="text-foreground-dim text-[10px]">1 hour ago</p></div></div>
+              </div>
+              <div class="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-[10px] w-[10px] rotate-45 border-r border-b border-border bg-surface"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group relative inline-block">
+          <button class="text-foreground inline-flex cursor-pointer items-center rounded-md p-2 text-[13px] transition-all duration-200 hover:bg-surface-raised"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[calc(100%+12px)] w-40 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 z-50">
+            <div class="bg-surface rounded-lg py-1" style="box-shadow:var(--shadow-lg)">
+              <button class="text-foreground hover:bg-surface-raised w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer rounded-sm mx-1"><i class="fa-solid fa-pen w-4 text-[10px] mr-2"></i>edit</button>
+              <button class="text-foreground hover:bg-surface-raised w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer rounded-sm mx-1"><i class="fa-solid fa-copy w-4 text-[10px] mr-2"></i>duplicate</button>
+              <div class="border-t border-border my-1 mx-2"></div>
+              <button class="text-destructive hover:bg-destructive/10 w-full px-3 py-1.5 text-left text-[12px] transition-colors cursor-pointer rounded-sm mx-1"><i class="fa-solid fa-trash w-4 text-[10px] mr-2"></i>delete</button>
+            </div>
+            <div class="absolute left-1/2 -translate-x-1/2 -bottom-[5px] h-[10px] w-[10px] rotate-45 border-r border-b border-border bg-surface"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dialog -->
+    <section class="reveal" id="dialog">
+      <p class="text-accent mb-1 text-[10px] font-medium tracking-[2px] uppercase">overlay</p>
+      <h2 class="text-foreground font-light tracking-tight" style="font-size:clamp(24px,3.5vw,32px)">dialog</h2>
+      <p class="text-foreground-muted mt-1.5 text-[13px]">native &lt;dialog&gt; with @starting-style entrance and backdrop blur.</p>
+
+      <div class="mt-8">
+        <button onclick="document.getElementById('demoDialog').showModal()" class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:brightness-110 active:scale-[.97]">open dialog</button>
+        <dialog id="demoDialog" class="dialog-modal bg-surface w-full max-w-md rounded-lg p-0" style="box-shadow:var(--shadow-lg)">
+          <div class="p-5"><h3 class="text-foreground text-[15px] font-medium mb-2">confirm action</h3><p class="text-foreground-muted text-[13px] leading-relaxed">are you sure? this will apply changes and notify collaborators.</p></div>
+          <div class="flex justify-end gap-2 px-5 py-3 bg-surface-raised/50 rounded-b-lg">
+            <button onclick="document.getElementById('demoDialog').close()" class="text-foreground inline-flex cursor-pointer items-center rounded-md px-4 py-1.5 text-[13px] font-medium transition-all duration-200 hover:bg-surface">cancel</button>
+            <button onclick="document.getElementById('demoDialog').close()" class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center rounded-md px-4 py-1.5 text-[13px] font-medium transition-all duration-200 hover:brightness-110">confirm</button>
+          </div>
+        </dialog>
+      </div>
+    </section>
+  </main>
+
+  <!-- ← SHARED JS → -->
+</body>
+</html>
