@@ -14,18 +14,12 @@ import { Slider } from './components/slider/Slider';
 import { Switch } from './components/switch/Switch';
 import { Tabs } from './components/tabs/Tabs';
 import { Textarea } from './components/textarea/Textarea';
-import { ToastContainer, useToast } from './components/toast/Toast';
+import { ToastContainer } from './components/toast/Toast';
+import { useToast } from './components/toast/useToast';
 import { Tooltip } from './components/tooltip/Tooltip';
 import { ColorPalette } from './components/widgets/color-palette/ColorPalette';
 
-const variants = [
-  'default',
-  'primary',
-  'secondary',
-  'accent',
-  'destructive',
-  'warning'
-] as const;
+const variants = ['default', 'primary', 'secondary', 'accent', 'destructive', 'warning'] as const;
 
 const sizes = ['sm', 'md', 'lg'] as const;
 
@@ -436,7 +430,7 @@ function App() {
               <button
                 command="close"
                 commandfor="demo-dialog"
-                className="text-foreground inline-flex cursor-pointer items-center rounded-md px-4 py-1.5 text-sm font-medium transition-all duration-200 hover:bg-surface"
+                className="text-foreground hover:bg-surface inline-flex cursor-pointer items-center rounded-md px-4 py-1.5 text-sm font-medium transition-all duration-200"
               >
                 cancel
               </button>
@@ -481,7 +475,7 @@ function App() {
           </Popover>
           <Popover>
             <Popover.Trigger>
-              <button className="text-foreground inline-flex cursor-pointer items-center rounded-md p-2 text-sm transition-all duration-200 hover:bg-surface-raised">
+              <button className="text-foreground hover:bg-surface-raised inline-flex cursor-pointer items-center rounded-md p-2 text-sm transition-all duration-200">
                 <span>&#8942;</span>
               </button>
             </Popover.Trigger>

@@ -25,7 +25,7 @@
     "./popoverVariants": "./src/components/popover/popoverVariants.ts",
     "./Tabs": "./src/components/tabs/Tabs.tsx",
     "./ToastContainer": "./src/components/toast/Toast.tsx",
-    "./useToast": "./src/components/toast/Toast.tsx",
+    "./useToast": "./src/components/toast/useToast.ts",
     "./ControlPanel": "./src/components/widgets/control-panel/index.ts",
     "./DefaultFallback": "./src/components/error-boundary/DefaultFallback.tsx",
     "./ErrorBoundary": "./src/components/error-boundary/ErrorBoundary.tsx",
