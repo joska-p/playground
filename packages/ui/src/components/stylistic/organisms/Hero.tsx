@@ -6,15 +6,15 @@ type HeroProps = {
   title?: string;
   highlight?: string;
   description?: string;
-  cta?: ReactNode;
-} & Omit<ComponentProps<'section'>, 'children'>;
+  children?: ReactNode;
+} & ComponentProps<'section'>;
 
 function Hero({
   badgeText,
   title = 'Creative',
   highlight = 'Playground',
   description,
-  cta,
+  children,
   className,
   ...props
 }: HeroProps) {
@@ -79,8 +79,8 @@ function Hero({
           </p>
         )}
 
-        {cta && (
-          <div className="mt-10 flex flex-wrap items-center gap-4">{cta}</div>
+        {children && (
+          <div className="mt-10 flex flex-wrap items-center gap-4">{children}</div>
         )}
       </div>
     </section>
