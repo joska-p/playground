@@ -2,7 +2,7 @@ import { Helper } from '@react-three/drei';
 import { folder, useControls } from 'leva';
 import { DirectionalLightHelper } from 'three';
 
-export function DirectionalLight() {
+function DirectionalLight() {
   const { intensity, color, x, y, z } = useControls('Lighting', {
     Directional: folder({
       intensity: {

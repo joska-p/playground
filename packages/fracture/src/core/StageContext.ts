@@ -7,7 +7,7 @@ export type Viewport = {
   yMax: number;
 };
 
-export class StageContext {
+class StageContext {
   public readonly view: Viewport;
   public readonly width: number;
   public readonly height: number;

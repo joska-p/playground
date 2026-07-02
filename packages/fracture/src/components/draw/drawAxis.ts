@@ -29,4 +29,3 @@ function drawAxis({ ctx, stage }: LayerProps) {
   ctx.restore();
 }
 
-export { drawAxis };

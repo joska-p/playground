@@ -1,5 +1,5 @@
 import { cn } from '../../../utils/cn';
-import { ControlRenderer } from './controls';
+import { ControlRenderer } from './controls/ControlRenderer';
 import type { ControlSection as ControlSectionType } from './types';
 
 type ControlSectionProps = {

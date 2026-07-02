@@ -11,7 +11,7 @@ type drawExpressionsProps = {
   layers: PlotLayer[];
 };
 
-export function drawExpressions({ ctx, stage, layers }: drawExpressionsProps) {
+function drawExpressions({ ctx, stage, layers }: drawExpressionsProps) {
   const width = stage.width;
   const view = stage.view;
   const xSpan = view.xMax - view.xMin;

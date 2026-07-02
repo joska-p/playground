@@ -2,7 +2,7 @@ import { Helper } from '@react-three/drei';
 import { folder, useControls } from 'leva';
 import { SpotLightHelper } from 'three';
 
-export function SpotLight() {
+function SpotLight() {
   const { intensity, color, angle, penumbra, x, y, z } = useControls('Lighting', {
     Spot: folder({
       intensity: {

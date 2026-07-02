@@ -35,4 +35,4 @@ const depth = {
   material: () => new THREE.MeshDepthMaterial()
 };
 
-export const materials = [standard, toon, basic, lambert, normal, phong, depth] as const;
+const materials = [standard, toon, basic, lambert, normal, phong, depth] as const;

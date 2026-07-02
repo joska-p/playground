@@ -45,4 +45,3 @@ function drawTicks({ ctx, stage, stepX, stepY }: TicksConfig) {
   ctx.restore();
 }
 
-export { drawTicks };

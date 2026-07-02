@@ -60,7 +60,7 @@ export function useSelectedTree(): ExpressionNode {
   });
 }
 
-export function useSelectedRng(): SeededRandom {
+function useSelectedRng(): SeededRandom {
   return useStore(randomartStore, (s) => {
     return s.activeChannel === 'red' ? s.rngR : s.activeChannel === 'green' ? s.rngG : s.rngB;
   });
@@ -82,7 +82,7 @@ export function useSelectedChoiceCount(): number {
   });
 }
 
-export function useSelectedChoiceHistory(): number[] {
+function useSelectedChoiceHistory(): number[] {
   return useStore(randomartStore, (s) => {
     const channel = s.activeChannel;
     const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
