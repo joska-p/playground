@@ -56,7 +56,8 @@ export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutp
 
   const nodeIndex = new Map<string, number>();
   for (let i = 0; i < nodes.length; i++) {
-    nodeIndex.set(nodes[i].id, i);
+    const id = nodes[i]?.id ?? `node-${i}`;
+    nodeIndex.set(id, i);
   }
 
   const links: GraphLink[] = simLinks.map((l) => {
@@ -101,7 +102,8 @@ export function buildOutput(simNodes: SimNode[], simLinks: SimLink[]): BuildOutp
 
   const communityColor = new Map<number, string>();
   for (const c of communitySizeRank) {
-    communityColor.set(c.id, c.color);
+    const color = c.color ?? '#888888';
+    communityColor.set(c.id, color);
   }
 
   for (const [id, data] of commAccum) {

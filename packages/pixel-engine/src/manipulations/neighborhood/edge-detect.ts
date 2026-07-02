@@ -29,9 +29,9 @@ export const edgeDetect = defineManip({
         }
         const i = (y * width + x) * 4;
         for (let c = 0; c < 3; c++) {
-          destination[i + c] = clamp(
-            Math.sqrt(gradientX[c] * gradientX[c] + gradientY[c] * gradientY[c])
-          );
+          const gx = gradientX[c] ?? 0;
+          const gy = gradientY[c] ?? 0;
+          destination[i + c] = clamp(Math.sqrt(gx * gx + gy * gy));
         }
         destination[i + 3] = getPixel(source, x, y, width, height, 3);
       }

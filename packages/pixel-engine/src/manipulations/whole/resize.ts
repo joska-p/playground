@@ -49,10 +49,13 @@ function bilinearResize({
       const destinationIndex = (y * targetWidth + x) * 4;
 
       for (let channel = 0; channel < 4; channel++) {
-        const top =
-          sourceData[i00 + channel] * (1 - xFraction) + sourceData[i10 + channel] * xFraction;
-        const bottom =
-          sourceData[i01 + channel] * (1 - xFraction) + sourceData[i11 + channel] * xFraction;
+        const p00 = sourceData[i00 + channel] ?? 0;
+        const p10 = sourceData[i10 + channel] ?? 0;
+        const p01 = sourceData[i01 + channel] ?? 0;
+        const p11 = sourceData[i11 + channel] ?? 0;
+
+        const top = p00 * (1 - xFraction) + p10 * xFraction;
+        const bottom = p01 * (1 - xFraction) + p11 * xFraction;
         destinationData[destinationIndex + channel] = Math.round(
           top * (1 - yFraction) + bottom * yFraction
         );

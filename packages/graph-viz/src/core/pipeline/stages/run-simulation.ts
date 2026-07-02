@@ -4,20 +4,24 @@
 import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } from 'd3-force-3d';
 import type { SimLink, SimNode } from './sim-types.js';
 
+export type ForceSimulation3D = {
+  nodes(nodes: SimNode[]): ForceSimulation3D;
+  force(name: string, force: unknown): ForceSimulation3D;
+  alpha(alpha: number): ForceSimulation3D;
+  alphaDecay(decay: number): ForceSimulation3D;
+  numDimensions(dimensions: number): ForceSimulation3D;
+  tick(): void;
+  stop(): void;
+};
+
 // ── Configuration ────────────────────────────────────────────────────────────
 
 export type SimulationConfig = {
-  /** Number of simulation ticks */
   ticks: number;
-  /** Link distance */
   linkDistance: number;
-  /** Many-body charge strength (negative = repulsion) */
   chargeStrength: number;
-  /** Collision radius */
   collideRadius: number;
-  /** Initial alpha */
   alpha: number;
-  /** Alpha decay rate */
   alphaDecay: number;
 };
 
@@ -48,8 +52,7 @@ export function runSimulation(
   const cfg = { ...DEFAULT_SIMULATION_CONFIG, ...config };
   const stats: string[] = [];
 
-  const simulation = forceSimulation()
-    .numDimensions(3)
+  const simulation = (forceSimulation() as unknown as ForceSimulation3D)
     .nodes(simNodes)
     .force(
       'link',
@@ -61,7 +64,8 @@ export function runSimulation(
     .force('center', forceCenter(0, 0, 0))
     .force('collide', forceCollide(cfg.collideRadius))
     .alpha(cfg.alpha)
-    .alphaDecay(cfg.alphaDecay);
+    .alphaDecay(cfg.alphaDecay)
+    .numDimensions(3);
 
   for (let i = 0; i < cfg.ticks; i++) {
     simulation.tick();

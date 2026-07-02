@@ -21,6 +21,8 @@ export function writeInstanceData(
 ): void {
   let localIdx = 0;
   for (const globalIdx of globalIndices) {
+    if (!nodes[globalIdx]) throw new Error(`Node at index ${globalIdx} is undefined`);
+
     const node = nodes[globalIdx];
     const isVisible = visibleCommunities.has(node.community);
     const scale = isVisible ? getNodeSize(node) : CONFIG.nodes.hiddenScale;

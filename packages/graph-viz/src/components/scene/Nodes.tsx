@@ -39,7 +39,7 @@ function Nodes() {
     if (globalIdx === undefined) return;
 
     const node = nodes[globalIdx];
-    if (!visibleCommunities.has(node.community)) return;
+    if (node && !visibleCommunities.has(node.community)) return;
 
     selectNode(selectedNodeIdx === globalIdx ? null : globalIdx);
   }

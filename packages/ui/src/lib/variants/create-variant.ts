@@ -3,10 +3,8 @@ import { cva } from 'class-variance-authority';
 export function createVariant<V extends Record<string, Record<string, string>>>(config: {
   base: string;
   variants: V;
-  defaultVariants: Record<string, string>;
+  defaultVariants?: { [K in keyof V]?: keyof V[K] };
 }) {
-  return cva<V>(config.base, {
-    variants: config.variants,
-    defaultVariants: config.defaultVariants
-  });
+  const { base, variants, defaultVariants } = config;
+  return cva<V>(base, { variants, defaultVariants } as Parameters<typeof cva<V>>[1]);
 }

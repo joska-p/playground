@@ -20,8 +20,8 @@
     "@react-three/drei": "catalog:",
     "@react-three/fiber": "catalog:",
     "@repo/ui": "workspace:*",
-    "zod": "catalog:",
     "three": "catalog:",
+    "zod": "catalog:",
     "zustand": "catalog:"
   },
   "peerDependencies": {
@@ -36,6 +36,7 @@
     "@tailwindcss/vite": "catalog:",
     "@tsconfig/strictest": "catalog:",
     "@types/babel__core": "catalog:",
+    "@types/d3-force": "^3.0.10",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

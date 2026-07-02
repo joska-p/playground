@@ -17,10 +17,10 @@ function runFusedPixelBatch({
 }) {
   for (let i = 0; i < pixelCount; i++) {
     const offset = i * 4;
-    let red = source[offset];
-    let green = source[offset + 1];
-    let blue = source[offset + 2];
-    let alpha = source[offset + 3];
+    let red = source[offset] ?? 0;
+    let green = source[offset + 1] ?? 0;
+    let blue = source[offset + 2] ?? 0;
+    let alpha = source[offset + 3] ?? 0;
 
     for (const { definition, options } of batch) {
       if (definition.access === 'pixel') {
@@ -53,6 +53,10 @@ export class FusionScheduler {
 
   flush(bufferManager: BufferManager) {
     if (this.batch.length === 0) return;
+
+    if (!bufferManager.other) {
+      throw new Error("FusionScheduler: destination buffer ('bufferManager.other') is undefined.");
+    }
 
     runFusedPixelBatch({
       source: bufferManager.current,

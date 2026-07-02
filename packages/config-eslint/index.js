@@ -42,8 +42,11 @@ export default function createConfig(dirname) {
         // enforce import type for type-only imports
         '@typescript-eslint/consistent-type-imports': [
           'error',
-          { prefer: 'type-imports', fixStyle: 'inline-type-imports' }
-        ]
+          { prefer: 'type-imports', fixStyle: 'separate-type-imports' }
+        ],
+
+        // enforce consistent type exports
+        '@typescript-eslint/consistent-type-exports': 'error'
       }
     },
     {

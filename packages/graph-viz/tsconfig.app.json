@@ -1,5 +1,8 @@
 {
   "extends": "@repo/config-typescript/app.json",
   "include": ["src"],
-  "exclude": ["src/core/pipeline/**/*.ts"]
+  "exclude": ["src/core/pipeline/**/*.ts"],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
 }

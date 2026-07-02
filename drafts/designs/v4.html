@@ -1,0 +1,2609 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>pg_lab — Creative Playground</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme inline {
+        --color-background: var(--background);
+        --color-foreground: var(--foreground);
+        --color-card: var(--card);
+        --color-card-foreground: var(--card-foreground);
+        --color-popover: var(--popover);
+        --color-popover-foreground: var(--popover-foreground);
+        --color-primary: var(--primary);
+        --color-primary-foreground: var(--primary-foreground);
+        --color-secondary: var(--secondary);
+        --color-secondary-foreground: var(--secondary-foreground);
+        --color-muted: var(--muted);
+        --color-muted-foreground: var(--muted-foreground);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--accent-foreground);
+        --color-destructive: var(--destructive);
+        --color-destructive-foreground: var(--destructive-foreground);
+        --color-border: var(--border);
+        --color-input: var(--input);
+        --color-ring: var(--ring);
+        --color-category-generative: var(--category-generative);
+        --color-category-color: var(--category-color);
+        --color-category-image: var(--category-image);
+        --color-category-dataviz: var(--category-dataviz);
+        --color-category-random: var(--category-random);
+        --color-category-simulation: var(--category-simulation);
+        --font-mono:
+          'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+      @layer base {
+        :root {
+          --background: oklch(0.888 0.059 89.012);
+          --foreground: oklch(0.409 0.011 50.327);
+          --card: oklch(0.953 0.056 95.604);
+          --card-foreground: oklch(0.341 0.006 48.534);
+          --popover: oklch(0.96 0.042 99.947);
+          --popover-foreground: oklch(0.409 0.011 50.327);
+          --primary: oklch(0.34 0.082 214.349);
+          --primary-foreground: oklch(0.888 0.059 89.012);
+          --secondary: oklch(0.42 0.11 107.44);
+          --secondary-foreground: oklch(0.953 0.056 95.604);
+          --muted: oklch(0.888 0.059 89.012);
+          --muted-foreground: oklch(0.37 0.017 59.8);
+          --accent: oklch(0.48 0.118 351.672);
+          --accent-foreground: oklch(0.311 0.003 48.623);
+          --destructive: oklch(0.539 0.201 28.478);
+          --destructive-foreground: oklch(0.257 0.089 27.735);
+          --border: oklch(0.684 0.035 76.295);
+          --input: oklch(0.96 0.042 99.947);
+          --ring: oklch(0.787 0.172 68.864);
+          --category-generative: oklch(0.558 0.097 167.141);
+          --category-color: oklch(0.544 0.164 313.001);
+          --category-image: oklch(0.559 0.143 38.532);
+          --category-dataviz: oklch(0.619 0.128 237.422);
+          --category-random: oklch(0.597 0.154 81.796);
+          --category-simulation: oklch(0.568 0.135 130.491);
+          color-scheme: light;
+          --shadow-xs: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.03);
+          --shadow-sm:
+            0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.06),
+            0px 1px 2px -1px oklch(0.331 0.02 76.196 / 0.06);
+          --shadow-md:
+            0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.06),
+            0px 2px 4px -1px oklch(0.331 0.02 76.196 / 0.06);
+          --shadow-lg:
+            0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.06),
+            0px 4px 6px -1px oklch(0.331 0.02 76.196 / 0.06);
+          --shadow-xl:
+            0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.06),
+            0px 8px 10px -1px oklch(0.331 0.02 76.196 / 0.06);
+          --shadow-2xl: 0px 1px 2.5px 0px oklch(0.331 0.02 76.196 / 0.15);
+        }
+        html[data-theme='dark'] {
+          --background: oklch(0.239 0.004 219.659);
+          --foreground: oklch(0.822 0.051 84.515);
+          --card: oklch(0.311 0.003 48.623);
+          --card-foreground: oklch(0.953 0.056 95.604);
+          --popover: oklch(0.27 0 0);
+          --popover-foreground: oklch(0.822 0.051 84.515);
+          --primary: oklch(0.78 0.055 169.812);
+          --primary-foreground: oklch(0.239 0.004 219.659);
+          --secondary: oklch(0.639 0.131 108.548);
+          --secondary-foreground: oklch(0.27 0 0);
+          --muted: oklch(0.341 0.006 48.534);
+          --muted-foreground: oklch(0.81 0.045 81.345);
+          --accent: oklch(0.73 0.12 351.672);
+          --accent-foreground: oklch(0.311 0.003 48.623);
+          --destructive: oklch(0.539 0.201 28.478);
+          --destructive-foreground: oklch(0.239 0.004 219.659);
+          --border: oklch(0.409 0.011 50.327);
+          --input: oklch(0.341 0.006 48.534);
+          --ring: oklch(0.862 0.135 84.271);
+          --category-generative: oklch(0.644 0.1 168.409);
+          --category-color: oklch(0.592 0.131 313.642);
+          --category-image: oklch(0.596 0.131 38.922);
+          --category-dataviz: oklch(0.635 0.103 233.501);
+          --category-random: oklch(0.664 0.123 80.938);
+          --category-simulation: oklch(0.638 0.106 130.196);
+          color-scheme: dark;
+          --shadow-xs: 0px 1px 2px 0px oklch(0 0 0 / 0.01);
+          --shadow-sm: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 1px 2px -1px oklch(0 0 0 / 0.01);
+          --shadow-md: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 2px 4px -1px oklch(0 0 0 / 0.01);
+          --shadow-lg: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 4px 6px -1px oklch(0 0 0 / 0.01);
+          --shadow-xl: 0px 1px 2px 0px oklch(0 0 0 / 0.01), 0px 8px 10px -1px oklch(0 0 0 / 0.01);
+          --shadow-2xl: 0px 1px 2px 0px oklch(0 0 0 / 0.03);
+        }
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+        }
+        html {
+          scroll-behavior: smooth;
+        }
+        body {
+          font-family:
+            'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          background: var(--background);
+          color: var(--foreground);
+          transition:
+            background 0.45s ease,
+            color 0.45s ease;
+          -webkit-font-smoothing: antialiased;
+        }
+        h1,
+        h2,
+        h3 {
+          text-wrap: balance;
+        }
+        p {
+          text-wrap: pretty;
+        }
+        ::selection {
+          background: var(--primary);
+          color: var(--primary-foreground);
+        }
+        :focus-visible {
+          outline: 2px solid var(--ring);
+          outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      }
+      @layer components {
+        .input-wrap {
+          transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+        }
+        .input-wrap:focus-within {
+          border-color: var(--primary);
+          box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary) 15%, transparent);
+        }
+        .input-wrap:focus-within i {
+          color: var(--primary);
+        }
+        .search-expand {
+          width: 200px;
+          transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .search-expand:focus-within {
+          width: 320px;
+        }
+        .textarea-auto {
+          field-sizing: content;
+          min-height: 3lh;
+          max-height: 15lh;
+        }
+        .toggle-switch {
+          appearance: none;
+          width: 44px;
+          height: 24px;
+          border-radius: 12px;
+          background: var(--border);
+          cursor: pointer;
+          position: relative;
+          transition: background 0.25s ease;
+          flex-shrink: 0;
+        }
+        .toggle-switch::before {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: white;
+          box-shadow: var(--shadow-sm);
+          transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toggle-switch:checked {
+          background: var(--primary);
+        }
+        .toggle-switch:checked::before {
+          transform: translateX(20px);
+        }
+        .card-interactive:has(.card-actions:hover) {
+          border-color: var(--primary) !important;
+          box-shadow:
+            var(--shadow-md),
+            0 0 0 3px color-mix(in oklch, var(--primary) 10%, transparent) !important;
+        }
+        .accordion-trigger {
+          list-style: none;
+          cursor: pointer;
+        }
+        .accordion-trigger::-webkit-details-marker {
+          display: none;
+        }
+        .accordion-trigger::after {
+          content: '';
+          width: 8px;
+          height: 8px;
+          flex-shrink: 0;
+          margin-left: 12px;
+          border-right: 1.5px solid var(--muted-foreground);
+          border-bottom: 1.5px solid var(--muted-foreground);
+          transform: rotate(-45deg);
+          transition: transform 0.25s ease;
+        }
+        details[open] > .accordion-trigger::after {
+          transform: rotate(45deg);
+        }
+        details[open] > .accordion-trigger {
+          border-bottom: 1px solid var(--border);
+        }
+        .accordion-body {
+          @starting-style {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+          animation: accordionIn 0.25s ease;
+        }
+        @keyframes accordionIn {
+          from {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+        }
+        .css-tabs input[type='radio'] {
+          display: none;
+        }
+        .tab-trigger {
+          position: relative;
+          cursor: pointer;
+          user-select: none;
+        }
+        .tab-trigger::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: var(--primary);
+          border-radius: 1px;
+          transform: scaleX(0);
+          transition: transform 0.25s ease;
+        }
+        .tab-panel {
+          display: none;
+        }
+        .css-tabs:has(#tab1:checked) .tab-trigger[for='tab1'],
+        .css-tabs:has(#tab2:checked) .tab-trigger[for='tab2'],
+        .css-tabs:has(#tab3:checked) .tab-trigger[for='tab3'] {
+          color: var(--foreground) !important;
+        }
+        .css-tabs:has(#tab1:checked) .tab-trigger[for='tab1']::after,
+        .css-tabs:has(#tab2:checked) .tab-trigger[for='tab2']::after,
+        .css-tabs:has(#tab3:checked) .tab-trigger[for='tab3']::after {
+          transform: scaleX(1);
+        }
+        .css-tabs:has(#tab1:checked) #panel1,
+        .css-tabs:has(#tab2:checked) #panel2,
+        .css-tabs:has(#tab3:checked) #panel3 {
+          display: block;
+          @starting-style {
+            opacity: 0;
+            transform: translateY(4px);
+          }
+          animation: tabIn 0.2s ease;
+        }
+        @keyframes tabIn {
+          from {
+            opacity: 0;
+            transform: translateY(4px);
+          }
+        }
+        .dialog-animated {
+          @starting-style {
+            opacity: 0;
+            transform: scale(0.96) translateY(10px);
+          }
+          animation: dialogIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          &::backdrop {
+            background: oklch(0.15 0 0 / 0.5);
+            backdrop-filter: blur(4px);
+            @starting-style {
+              opacity: 0;
+            }
+            animation: fadeIn 0.25s ease;
+          }
+        }
+        @keyframes dialogIn {
+          from {
+            opacity: 0;
+            transform: scale(0.96) translateY(10px);
+          }
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+        }
+        [popover] {
+          @starting-style {
+            opacity: 0;
+            transform: translateY(-6px) scale(0.97);
+          }
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toast-item {
+          @starting-style {
+            opacity: 0;
+            transform: translateX(40px) scale(0.95);
+          }
+          animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+        .toast-item.exit {
+          animation: toastOut 0.3s ease both;
+        }
+        @keyframes toastIn {
+          from {
+            opacity: 0;
+            transform: translateX(40px) scale(0.95);
+          }
+        }
+        @keyframes toastOut {
+          to {
+            opacity: 0;
+            transform: translateX(40px) scale(0.95);
+          }
+        }
+        .tooltip-wrap {
+          position: relative;
+        }
+        .tooltip-wrap::after {
+          content: attr(data-tip);
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 4px 10px;
+          background: var(--popover-foreground);
+          color: var(--popover);
+          border-radius: 0.25rem;
+          font-size: 11px;
+          white-space: nowrap;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.15s ease;
+          z-index: 100;
+        }
+        .tooltip-wrap:hover::after {
+          opacity: 1;
+        }
+        .btn-loading {
+          color: transparent !important;
+          pointer-events: none;
+          position: relative;
+        }
+        .btn-loading::after {
+          content: '';
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          border: 2px solid currentColor;
+          border-right-color: transparent;
+          border-radius: 50%;
+          animation: spin 0.6s linear infinite;
+          color: var(--primary-foreground);
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .badge-soft {
+          background: color-mix(in oklch, var(--_badge-color) 15%, transparent);
+          color: var(--_badge-color);
+        }
+        .badge-solid {
+          background: var(--_badge-color);
+          color: white;
+        }
+        .badge-outline {
+          background: transparent;
+          border: 1px solid var(--_badge-color);
+          color: var(--_badge-color);
+        }
+        .badge-dot::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--_badge-color);
+          flex-shrink: 0;
+        }
+        .swatch-box {
+          border: 1px solid color-mix(in oklch, var(--_swatch-color) 20%, var(--border));
+        }
+        .reveal {
+          opacity: 0;
+          transform: translateY(16px);
+          transition:
+            opacity 0.5s ease,
+            transform 0.5s ease;
+        }
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .scroll-progress {
+          transform-origin: left;
+          will-change: transform;
+        }
+        .code-block {
+          background: var(--background);
+          border: 1px solid var(--border);
+          border-radius: 0.5rem;
+          overflow: hidden;
+        }
+        .code-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 8px 16px;
+          border-bottom: 1px solid var(--border);
+        }
+        .code-header span {
+          font-size: 11px;
+          color: var(--muted-foreground);
+        }
+        .copy-btn {
+          background: none;
+          border: 1px solid var(--border);
+          color: var(--muted-foreground);
+          padding: 3px 10px;
+          border-radius: 4px;
+          font-size: 11px;
+          font-family: inherit;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .copy-btn:hover {
+          border-color: var(--foreground);
+          color: var(--foreground);
+        }
+        .copy-btn.copied {
+          border-color: var(--secondary);
+          color: var(--secondary);
+        }
+        .code-block pre {
+          padding: 16px;
+          overflow-x: auto;
+          font-size: 12px;
+          line-height: 1.7;
+          color: var(--muted-foreground);
+          white-space: pre;
+          margin: 0;
+        }
+        .gen-art {
+          position: relative;
+          width: 80px;
+          height: 80px;
+          flex-shrink: 0;
+        }
+        .gen-art span {
+          position: absolute;
+          border-radius: 50%;
+          border: 1.5px solid;
+        }
+        .gen-art span:nth-child(1) {
+          inset: 0;
+          border-color: var(--category-generative);
+          animation: spin 20s linear infinite;
+        }
+        .gen-art span:nth-child(2) {
+          inset: 10px;
+          border-color: var(--category-color);
+          animation: spin 15s linear infinite reverse;
+        }
+        .gen-art span:nth-child(3) {
+          inset: 20px;
+          border-color: var(--category-dataviz);
+          animation: spin 10s linear infinite;
+        }
+        .gen-art span:nth-child(4) {
+          inset: 30px;
+          border-color: var(--category-random);
+          animation: spin 7s linear infinite reverse;
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .dot-grid {
+          background-image: radial-gradient(circle, var(--border) 0.8px, transparent 0.8px);
+          background-size: 24px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body class="dot-grid">
+    <div
+      class="scroll-progress bg-primary fixed top-0 left-0 z-[9999] h-0.5 w-full"
+      id="scrollBar"
+    ></div>
+
+    <header
+      class="border-border sticky top-0 z-50 border-b transition-colors"
+      style="
+        background: color-mix(in oklch, var(--background) 85%, transparent);
+        backdrop-filter: blur(16px) saturate(1.4);
+      "
+    >
+      <div class="mx-auto flex h-12 max-w-[900px] items-center justify-between px-6">
+        <a
+          href="#"
+          class="text-foreground text-sm font-semibold tracking-tight transition-colors"
+          >pg_lab<span class="text-muted-foreground font-normal"> / creative playground</span></a
+        >
+        <nav class="hidden items-center gap-1 md:flex">
+          <a
+            href="#setup"
+            class="text-muted-foreground hover:text-foreground px-2.5 py-1 text-[11px] transition-colors"
+            >setup</a
+          >
+          <a
+            href="#components"
+            class="text-muted-foreground hover:text-foreground px-2.5 py-1 text-[11px] transition-colors"
+            >components</a
+          >
+          <a
+            href="#astro"
+            class="text-muted-foreground hover:text-foreground px-2.5 py-1 text-[11px] transition-colors"
+            >astro shell</a
+          >
+        </nav>
+        <button
+          class="tooltip-wrap border-border bg-card text-foreground hover:border-foreground flex h-8 w-8 flex-shrink-0 cursor-pointer items-center justify-center rounded border text-xs transition-colors"
+          data-tip="theme"
+          id="themeBtn"
+          aria-label="Toggle theme"
+        >
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="mx-auto max-w-[900px] px-6 pt-16 pb-10">
+        <div class="flex items-start gap-6">
+          <div class="gen-art mt-1 hidden sm:block"></div>
+          <div>
+            <h1
+              class="text-foreground font-semibold tracking-tight transition-colors"
+              style="font-size: clamp(32px, 6vw, 52px); letter-spacing: -1.5px; line-height: 1.1"
+            >
+              creative<br />playground
+            </h1>
+            <p class="text-muted-foreground mt-3 max-w-[420px] text-sm leading-relaxed font-light">
+              A React UI library for generative art, creative code, and recreational programming.
+              Built on modern CSS — minimal JavaScript.
+            </p>
+            <div class="mt-5 flex flex-wrap gap-1.5">
+              <span
+                class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                style="--_badge-color: var(--category-generative)"
+                >generative</span
+              >
+              <span
+                class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                style="--_badge-color: var(--category-color)"
+                >color</span
+              >
+              <span
+                class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                style="--_badge-color: var(--category-image)"
+                >image</span
+              >
+              <span
+                class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                style="--_badge-color: var(--category-dataviz)"
+                >data viz</span
+              >
+              <span
+                class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                style="--_badge-color: var(--category-random)"
+                >random</span
+              >
+              <span
+                class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                style="--_badge-color: var(--category-simulation)"
+                >simulation</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="mx-auto max-w-[900px] px-6">
+        <!-- ═══ SETUP ═══ -->
+        <section
+          class="reveal border-border border-t py-14"
+          id="setup"
+        >
+          <p class="text-muted-foreground mb-6 text-[10px] font-semibold tracking-[2px] uppercase">
+            01 — setup
+          </p>
+          <div class="code-block mb-4">
+            <div class="code-header">
+              <span>src/styles/atelier.css</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-css"></pre>
+          </div>
+          <p class="text-muted-foreground mt-4 text-xs">
+            Copy the CSS above into your project. It contains all theme tokens, @theme inline for
+            Tailwind v4, and component styles. Then import it in your app entry point:
+          </p>
+          <div class="code-block mt-3">
+            <div class="code-header"><span>src/app.tsx</span></div>
+            <pre id="code-entry"></pre>
+          </div>
+          <div
+            class="mt-4 flex gap-2 rounded-lg border p-3.5 text-[12px] leading-relaxed"
+            style="
+              background: color-mix(in oklch, var(--secondary) 8%, var(--card));
+              border-color: color-mix(in oklch, var(--secondary) 20%, var(--border));
+            "
+          >
+            <i
+              class="fa-solid fa-circle-check mt-0.5 flex-shrink-0"
+              style="color: var(--secondary)"
+            ></i>
+            <span class="text-muted-foreground"
+              >Swap
+              <code class="text-foreground bg-input rounded px-1 text-[11px]">JetBrains Mono</code>
+              for
+              <code class="text-foreground bg-input rounded px-1 text-[11px]"
+                >JetBrainsMono Nerd Font</code
+              >
+              if you want icon glyphs. The CSS uses the generic
+              <code class="text-foreground bg-input rounded px-1 text-[11px]">monospace</code>
+              fallback so it works either way.</span
+            >
+          </div>
+        </section>
+
+        <!-- ═══ COMPONENTS ═══ -->
+        <section
+          class="reveal border-border border-t py-14"
+          id="components"
+        >
+          <p class="text-muted-foreground mb-6 text-[10px] font-semibold tracking-[2px] uppercase">
+            02 — components
+          </p>
+          <p class="text-muted-foreground mb-8 max-w-lg text-sm">
+            Of 15 components below, only 3 need JavaScript:
+            <code class="text-foreground bg-input rounded px-1 text-[11px]">ThemeProvider</code>,
+            <code class="text-foreground bg-input rounded px-1 text-[11px]">Dialog</code>, and
+            <code class="text-foreground bg-input rounded px-1 text-[11px]">Toast</code>. The rest
+            are pure CSS — in React they are just className composition.
+          </p>
+
+          <!-- ThemeProvider -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">ThemeProvider</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Flips data-theme on html. Only JS in the entire theme system.
+            </p>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/ThemeProvider.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-themeprovider"></pre>
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Button</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Hover darkening via color-mix(). Press scale via transform. Loading spinner via
+              ::after.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="flex flex-wrap items-center gap-2">
+                <button
+                  class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--primary),black_10%)] active:scale-[0.97]"
+                >
+                  Primary
+                </button>
+                <button
+                  class="bg-secondary text-secondary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--secondary),black_10%)] active:scale-[0.97]"
+                >
+                  Secondary
+                </button>
+                <button
+                  class="border-border text-foreground hover:bg-muted hover:border-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-transparent px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.97]"
+                >
+                  Outline
+                </button>
+                <button
+                  class="text-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-4 py-2 text-xs font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--foreground),var(--background)_88%)] active:scale-[0.97]"
+                >
+                  Ghost
+                </button>
+                <button
+                  class="bg-primary text-primary-foreground btn-loading inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200"
+                >
+                  Loading
+                </button>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Button.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-button"></pre>
+            </div>
+          </div>
+
+          <!-- Badge -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Badge</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Zero JS. One --_badge-color drives soft/solid/outline/dot variants.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                  style="--_badge-color: var(--category-generative)"
+                  >generative</span
+                >
+                <span
+                  class="badge-solid inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                  style="--_badge-color: var(--category-color)"
+                  >color</span
+                >
+                <span
+                  class="badge-outline inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                  style="--_badge-color: var(--category-image)"
+                  >image</span
+                >
+                <span
+                  class="badge-dot badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                  style="--_badge-color: var(--secondary)"
+                  >active</span
+                >
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Badge.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-badge"></pre>
+            </div>
+          </div>
+
+          <!-- Input -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Input</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              :focus-within highlights the wrapper. Search variant expands on focus.
+            </p>
+            <div
+              class="bg-card border-border mb-4 grid gap-4 rounded-lg border p-5 sm:grid-cols-2"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div>
+                <p class="text-muted-foreground mb-1.5 text-[10px] tracking-wider uppercase">
+                  default
+                </p>
+                <div
+                  class="input-wrap bg-input border-border flex items-center gap-2 rounded-md border px-3"
+                >
+                  <input
+                    class="text-foreground placeholder:text-muted-foreground w-full border-none bg-transparent py-2 text-xs outline-none"
+                    placeholder="type something..."
+                  />
+                </div>
+              </div>
+              <div>
+                <p class="text-muted-foreground mb-1.5 text-[10px] tracking-wider uppercase">
+                  with icon
+                </p>
+                <div
+                  class="input-wrap bg-input border-border flex items-center gap-2 rounded-md border px-3"
+                >
+                  <i
+                    class="fa-solid fa-search text-muted-foreground text-[11px] transition-colors"
+                  ></i
+                  ><input
+                    class="text-foreground placeholder:text-muted-foreground w-full border-none bg-transparent py-2 text-xs outline-none"
+                    placeholder="search..."
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <p class="text-muted-foreground mb-1.5 text-[10px] tracking-wider uppercase">
+                  expanding search
+                </p>
+                <div
+                  class="input-wrap search-expand bg-input border-border flex items-center gap-2 rounded-md border px-3"
+                >
+                  <i
+                    class="fa-solid fa-search text-muted-foreground text-[11px] transition-colors"
+                  ></i
+                  ><input
+                    class="text-foreground placeholder:text-muted-foreground w-full border-none bg-transparent py-2 text-xs outline-none"
+                    placeholder="focus to expand..."
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Input.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-input"></pre>
+            </div>
+          </div>
+
+          <!-- Toggle -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Toggle</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Pure CSS. ::before slides on checked via transform.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="flex items-center gap-6">
+                <label class="flex cursor-pointer items-center gap-2.5 text-xs select-none"
+                  ><input
+                    type="checkbox"
+                    class="toggle-switch"
+                    checked
+                  />
+                  notifications</label
+                >
+                <label class="flex cursor-pointer items-center gap-2.5 text-xs select-none"
+                  ><input
+                    type="checkbox"
+                    class="toggle-switch"
+                  />
+                  auto-save</label
+                >
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Toggle.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-toggle"></pre>
+            </div>
+          </div>
+
+          <!-- CodeBlock -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">CodeBlock</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Filename header + copy button. Only JS is navigator.clipboard.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="code-block">
+                <div class="code-header">
+                  <span>sketch.js</span
+                  ><button
+                    class="copy-btn"
+                    onclick="copyCode(this)"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <pre>
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  noLoop();
+}
+
+function draw() {
+  background(30);
+  for (let i = 0; i < 1000; i++) {
+    const x = random(width);
+    const y = random(height);
+    const r = random(2, 8);
+    circle(x, y, r);
+  }
+}</pre>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/CodeBlock.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-codeblock"></pre>
+            </div>
+          </div>
+
+          <!-- Card + ProjectCard -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">ProjectCard</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Uses :has(.card-actions:hover) to light the border when hovering action icons.
+            </p>
+            <div
+              class="bg-card border-border mb-4 grid gap-4 rounded-lg border p-5 sm:grid-cols-2"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div
+                class="bg-card border-border overflow-hidden rounded-lg border transition-all duration-200 hover:shadow-md"
+                style="box-shadow: var(--shadow-xs)"
+              >
+                <div
+                  class="bg-background text-muted-foreground border-border flex aspect-video w-full items-center justify-center border-b text-[10px]"
+                >
+                  canvas preview
+                </div>
+                <div class="p-3">
+                  <span
+                    class="badge-soft mb-1.5 inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                    style="--_badge-color: var(--category-generative)"
+                    >generative</span
+                  >
+                  <p class="text-card-foreground text-xs font-semibold">flow fields</p>
+                  <p class="text-muted-foreground mt-0.5 text-[11px]">
+                    perlin noise particle tracing
+                  </p>
+                </div>
+              </div>
+              <div
+                class="card-interactive bg-card border-border overflow-hidden rounded-lg border transition-all duration-200"
+                style="box-shadow: var(--shadow-xs)"
+              >
+                <div
+                  class="bg-background text-muted-foreground border-border flex aspect-video w-full items-center justify-center border-b text-[10px]"
+                >
+                  canvas preview
+                </div>
+                <div class="p-3">
+                  <span
+                    class="badge-soft mb-1.5 inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                    style="--_badge-color: var(--category-dataviz)"
+                    >data viz</span
+                  >
+                  <p class="text-card-foreground text-xs font-semibold">radial charts</p>
+                  <p class="text-muted-foreground mt-0.5 text-[11px]">
+                    circular multi-dimensional layout
+                  </p>
+                </div>
+                <div class="card-actions flex gap-1 px-3 pb-3">
+                  <button
+                    class="tooltip-wrap text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center justify-center rounded border border-transparent bg-transparent p-1.5 text-[11px] transition-all hover:bg-[color-mix(in_oklch,var(--foreground),var(--background)_88%)]"
+                    data-tip="save"
+                  >
+                    <i class="fa-regular fa-bookmark"></i></button
+                  ><button
+                    class="tooltip-wrap text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center justify-center rounded border border-transparent bg-transparent p-1.5 text-[11px] transition-all hover:bg-[color-mix(in_oklch,var(--foreground),var(--background)_88%)]"
+                    data-tip="link"
+                  >
+                    <i class="fa-solid fa-link"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted-foreground mb-4 text-[10px]">
+              <i class="fa-solid fa-arrow-pointer mr-1"></i>hover the save/link icons on the right
+              card
+            </p>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/ProjectCard.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-projectcard"></pre>
+            </div>
+          </div>
+
+          <!-- NoteCard -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">NoteCard</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              For the notes page. Code-first, not a blog. Optional code snippet preview.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div
+                class="bg-card border-border overflow-hidden rounded-lg border transition-all duration-200 hover:shadow-md"
+                style="box-shadow: var(--shadow-xs)"
+              >
+                <div class="bg-background border-border overflow-hidden border-b p-3">
+                  <pre class="text-muted-foreground m-0 truncate text-[10px]">
+const noise = (x, y) => Math.sin(x * 12.9898 + y * 78.233) * 43758.5453 % 1;</pre>
+                </div>
+                <div class="p-3">
+                  <div class="mb-1.5 flex gap-1.5">
+                    <span
+                      class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                      style="--_badge-color: var(--category-random)"
+                      >random</span
+                    ><span
+                      class="badge-soft inline-flex items-center rounded-full px-2 py-px text-[10px] font-medium"
+                      style="--_badge-color: var(--category-generative)"
+                      >generative</span
+                    >
+                  </div>
+                  <p class="text-card-foreground text-xs font-semibold">
+                    hash-based noise functions
+                  </p>
+                  <p class="text-muted-foreground mt-0.5 text-[11px]">
+                    comparing sin-hash vs cosine-hash for uv-based randomness
+                  </p>
+                  <p class="text-muted-foreground mt-2 text-[10px]">modified 2 days ago</p>
+                </div>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/NoteCard.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-notecard"></pre>
+            </div>
+          </div>
+
+          <!-- Accordion -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Accordion</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Native details/summary. Zero JS. @starting-style animates content.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <details
+                class="border-border bg-card overflow-hidden rounded-lg border"
+                open
+              >
+                <summary
+                  class="accordion-trigger text-foreground flex items-center justify-between px-4 py-3 text-xs font-medium transition-colors select-none hover:bg-[color-mix(in_oklch,var(--foreground)_4%,var(--card))]"
+                >
+                  what CSS features power this library?
+                </summary>
+                <div
+                  class="accordion-body text-muted-foreground border-border border-b px-4 py-3 text-[11px] leading-relaxed"
+                >
+                  :has(), :focus-within, details/summary, dialog, popover, color-mix(),
+                  @starting-style, CSS nesting, @layer, accent-color, field-sizing, scroll-snap,
+                  text-wrap: balance/pretty
+                </div>
+              </details>
+              <details
+                class="border-border bg-card -mt-px overflow-hidden rounded-lg rounded-t-none border"
+              >
+                <summary
+                  class="accordion-trigger text-foreground flex items-center justify-between px-4 py-3 text-xs font-medium transition-colors select-none hover:bg-[color-mix(in_oklch,var(--foreground)_4%,var(--card))]"
+                >
+                  why oklch for colors?
+                </summary>
+                <div
+                  class="accordion-body text-muted-foreground border-border border-b px-4 py-3 text-[11px] leading-relaxed"
+                >
+                  perceptually uniform. equal lightness changes look equal to humans. makes
+                  generating palettes and color-mix() results predictable.
+                </div>
+              </details>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Accordion.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-accordion"></pre>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Tabs</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Pure CSS. :has() + hidden radios. Zero JS.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="css-tabs">
+                <input
+                  type="radio"
+                  name="doc-tabs"
+                  id="tab1"
+                  checked
+                /><input
+                  type="radio"
+                  name="doc-tabs"
+                  id="tab2"
+                /><input
+                  type="radio"
+                  name="doc-tabs"
+                  id="tab3"
+                />
+                <div class="border-border mb-3 flex gap-1 border-b">
+                  <label
+                    class="tab-trigger text-muted-foreground hover:text-foreground px-3 py-2 text-[11px] font-medium transition-colors"
+                    for="tab1"
+                    >usage</label
+                  ><label
+                    class="tab-trigger text-muted-foreground hover:text-foreground px-3 py-2 text-[11px] font-medium transition-colors"
+                    for="tab2"
+                    >props</label
+                  ><label
+                    class="tab-trigger text-muted-foreground hover:text-foreground px-3 py-2 text-[11px] font-medium transition-colors"
+                    for="tab3"
+                    >source</label
+                  >
+                </div>
+                <div
+                  class="tab-panel text-muted-foreground text-[11px] leading-relaxed"
+                  id="panel1"
+                >
+                  import the component and pass props. most components are className-only — no JS
+                  runtime needed.
+                </div>
+                <div
+                  class="tab-panel text-muted-foreground text-[11px] leading-relaxed"
+                  id="panel2"
+                >
+                  variant: soft | solid | outline. color: any oklch value or css variable. dot?:
+                  boolean.
+                </div>
+                <div
+                  class="tab-panel text-muted-foreground text-[11px] leading-relaxed"
+                  id="panel3"
+                >
+                  see the code block below this demo for the full component source.
+                </div>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Tabs.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-tabs"></pre>
+            </div>
+          </div>
+
+          <!-- Dialog -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Dialog</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Needs useRef for showModal(). Focus trap + Escape + backdrop are native.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <button
+                class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.97]"
+                id="openDialog"
+              >
+                open dialog
+              </button>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Dialog.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-dialog"></pre>
+            </div>
+          </div>
+
+          <!-- Toast -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Toast</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              createPortal + queue. @starting-style for enter, .exit for leave.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="flex flex-wrap gap-2">
+                <button
+                  class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.97]"
+                  onclick="showToast('success', 'sketch saved.')"
+                >
+                  success
+                </button>
+                <button
+                  class="bg-destructive text-destructive-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.97]"
+                  onclick="showToast('error', 'export failed.')"
+                >
+                  error
+                </button>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Toast.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-toast"></pre>
+            </div>
+          </div>
+
+          <!-- Tooltip -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Tooltip</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Pure CSS. Add class tooltip-wrap + data-tip attribute.
+            </p>
+            <div
+              class="bg-card border-border mb-4 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div class="flex gap-4">
+                <button
+                  class="tooltip-wrap border-border text-muted-foreground hover:text-foreground hover:border-foreground inline-flex cursor-pointer items-center justify-center rounded border bg-transparent p-2 text-xs transition-all"
+                  data-tip="delete sketch"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+                <button
+                  class="tooltip-wrap border-border text-muted-foreground hover:text-foreground hover:border-foreground inline-flex cursor-pointer items-center justify-center rounded border bg-transparent p-2 text-xs transition-all"
+                  data-tip="fork"
+                >
+                  <i class="fa-solid fa-code-fork"></i>
+                </button>
+                <button
+                  class="tooltip-wrap border-border text-muted-foreground hover:text-foreground hover:border-foreground inline-flex cursor-pointer items-center justify-center rounded border bg-transparent p-2 text-xs transition-all"
+                  data-tip="fullscreen"
+                >
+                  <i class="fa-solid fa-expand"></i>
+                </button>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Tooltip.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-tooltip"></pre>
+            </div>
+          </div>
+
+          <!-- Alert -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Alert</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              color-mix() at 8% bg / 20% border. One pattern, four semantics.
+            </p>
+            <div
+              class="bg-card border-border mb-4 flex flex-col gap-2 rounded-lg border p-5"
+              style="box-shadow: var(--shadow-xs)"
+            >
+              <div
+                class="flex gap-2.5 rounded-md p-3 text-[11px] leading-relaxed"
+                style="
+                  background: color-mix(in oklch, var(--primary) 8%, var(--card));
+                  border: 1px solid color-mix(in oklch, var(--primary) 20%, var(--border));
+                "
+              >
+                <i class="fa-solid fa-circle-info text-primary mt-0.5 flex-shrink-0 text-[10px]"></i
+                ><span
+                  >p5.js v2.0 is available. run
+                  <code class="bg-input rounded px-1 text-[10px]">npm update p5</code></span
+                >
+              </div>
+              <div
+                class="flex gap-2.5 rounded-md p-3 text-[11px] leading-relaxed"
+                style="
+                  background: color-mix(in oklch, var(--secondary) 8%, var(--card));
+                  border: 1px solid color-mix(in oklch, var(--secondary) 20%, var(--border));
+                "
+              >
+                <i
+                  class="fa-solid fa-circle-check mt-0.5 flex-shrink-0 text-[10px]"
+                  style="color: var(--secondary)"
+                ></i
+                ><span>canvas exported to png.</span>
+              </div>
+              <div
+                class="flex gap-2.5 rounded-md p-3 text-[11px] leading-relaxed"
+                style="
+                  background: color-mix(in oklch, var(--destructive) 8%, var(--card));
+                  border: 1px solid color-mix(in oklch, var(--destructive) 20%, var(--border));
+                "
+              >
+                <i
+                  class="fa-solid fa-circle-xmark text-destructive mt-0.5 flex-shrink-0 text-[10px]"
+                ></i
+                ><span>webgl context lost.</span>
+              </div>
+            </div>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Alert.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-alert"></pre>
+            </div>
+          </div>
+
+          <!-- Canvas -->
+          <div class="mb-12">
+            <h2 class="text-foreground mb-1 text-lg font-semibold">Canvas</h2>
+            <p class="text-muted-foreground mb-4 text-xs">
+              Ref + ResizeObserver. Hands a canvas element to your sketch function. Works with p5,
+              three.js, raw canvas2d.
+            </p>
+            <div class="code-block">
+              <div class="code-header">
+                <span>components/Canvas.tsx</span
+                ><button
+                  class="copy-btn"
+                  onclick="copyCode(this)"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre id="code-canvas"></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══ ASTRO SHELL ═══ -->
+        <section
+          class="reveal border-border border-t py-14"
+          id="astro"
+        >
+          <p class="text-muted-foreground mb-6 text-[10px] font-semibold tracking-[2px] uppercase">
+            03 — astro shell
+          </p>
+          <p class="text-muted-foreground mb-6 max-w-lg text-sm">
+            The Astro site structure. Four pages, all using pg_lab components. Astro islands for the
+            3 JS components, everything else is zero-JS HTML.
+          </p>
+
+          <div class="code-block mb-4">
+            <div class="code-header"><span>directory structure</span></div>
+            <pre id="code-astro-structure"></pre>
+          </div>
+          <div class="code-block mb-4">
+            <div class="code-header">
+              <span>src/layouts/Shell.astro</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-astro-shell"></pre>
+          </div>
+          <div class="code-block mb-4">
+            <div class="code-header">
+              <span>src/pages/index.astro — home</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-astro-home"></pre>
+          </div>
+          <div class="code-block mb-4">
+            <div class="code-header">
+              <span>src/pages/projects.astro</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-astro-projects"></pre>
+          </div>
+          <div class="code-block mb-4">
+            <div class="code-header">
+              <span>src/pages/notes.astro</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-astro-notes"></pre>
+          </div>
+          <div class="code-block">
+            <div class="code-header">
+              <span>src/pages/docs/[...slug].astro</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-astro-docs"></pre>
+          </div>
+        </section>
+
+        <!-- ═══ BARREL EXPORT ═══ -->
+        <section
+          class="reveal border-border border-t py-14"
+          id="export"
+        >
+          <p class="text-muted-foreground mb-6 text-[10px] font-semibold tracking-[2px] uppercase">
+            04 — barrel export
+          </p>
+          <div class="code-block">
+            <div class="code-header">
+              <span>lib/pg-lab/index.ts</span
+              ><button
+                class="copy-btn"
+                onclick="copyCode(this)"
+              >
+                Copy
+              </button>
+            </div>
+            <pre id="code-barrel"></pre>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer
+      class="border-border text-muted-foreground mx-auto flex max-w-[900px] flex-wrap items-center justify-between gap-2 border-t px-6 py-6 text-[10px]"
+    >
+      <span>pg_lab — creative playground</span>
+      <span>oklch gruvbox + tailwind v4 + modern css</span>
+    </footer>
+
+    <button
+      class="tooltip-wrap bg-card border-border text-muted-foreground hover:text-foreground hover:border-foreground pointer-events-none fixed bottom-5 left-5 z-[100] flex h-8 w-8 translate-y-2 cursor-pointer items-center justify-center rounded-full border text-[10px] opacity-0 transition-all duration-300"
+      style="box-shadow: var(--shadow-lg)"
+      id="backTop"
+      data-tip="top"
+      aria-label="Back to top"
+    >
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <div
+      class="pointer-events-none fixed right-5 bottom-5 z-[9999] flex flex-col-reverse gap-2"
+      id="toastStack"
+    ></div>
+
+    <dialog
+      class="dialog-animated bg-card border-border text-card-foreground w-[90%] max-w-[400px] rounded-lg border p-0"
+      id="demoDialog"
+      style="box-shadow: var(--shadow-2xl)"
+    >
+      <div class="p-4 pb-0">
+        <h3 class="text-sm font-semibold">confirm action</h3>
+        <p class="text-muted-foreground mt-1 text-[11px]">press escape or click outside.</p>
+      </div>
+      <div class="p-4">
+        <div
+          class="input-wrap bg-input border-border flex items-center gap-2 rounded-md border px-3"
+        >
+          <input
+            class="text-foreground placeholder:text-muted-foreground w-full border-none bg-transparent py-2 text-xs outline-none"
+            placeholder="sketch name..."
+          />
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 px-4 pt-2 pb-4">
+        <button
+          class="border-border text-foreground hover:bg-muted inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-transparent px-4 py-2 text-xs font-medium transition-all duration-200"
+          onclick="this.closest('dialog').close()"
+        >
+          cancel</button
+        ><button
+          class="bg-primary text-primary-foreground inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-xs font-medium transition-all duration-200"
+          onclick="this.closest('dialog').close()"
+        >
+          confirm
+        </button>
+      </div>
+    </dialog>
+
+    <script>
+      /* ── All component source code ── */
+      var CODES = {};
+
+      CODES['code-css'] = [
+        '@import "tailwindcss";',
+        '',
+        '@theme inline {',
+        '  --color-background: var(--background);',
+        '  --color-foreground: var(--foreground);',
+        '  --color-card: var(--card);',
+        '  --color-card-foreground: var(--card-foreground);',
+        '  --color-popover: var(--popover);',
+        '  --color-popover-foreground: var(--popover-foreground);',
+        '  --color-primary: var(--primary);',
+        '  --color-primary-foreground: var(--primary-foreground);',
+        '  --color-secondary: var(--secondary);',
+        '  --color-secondary-foreground: var(--secondary-foreground);',
+        '  --color-muted: var(--muted);',
+        '  --color-muted-foreground: var(--muted-foreground);',
+        '  --color-accent: var(--accent);',
+        '  --color-accent-foreground: var(--accent-foreground);',
+        '  --color-destructive: var(--destructive);',
+        '  --color-destructive-foreground: var(--destructive-foreground);',
+        '  --color-border: var(--border);',
+        '  --color-input: var(--input);',
+        '  --color-ring: var(--ring);',
+        '  --color-category-generative: var(--category-generative);',
+        '  --color-category-color: var(--category-color);',
+        '  --color-category-image: var(--category-image);',
+        '  --color-category-dataviz: var(--category-dataviz);',
+        '  --color-category-random: var(--category-random);',
+        '  --color-category-simulation: var(--category-simulation);',
+        '  --font-mono: "JetBrains Mono", ui-monospace, monospace;',
+        '}',
+        '',
+        '/* ── oklch gruvbox tokens (light + dark) ── */',
+        '/* ── @layer base: :root + html[data-theme=dark] ── */',
+        '/* ── @layer components: all .input-wrap, .toggle-switch, ── */',
+        '/* ──   .accordion-trigger, .tab-trigger, .dialog-animated, ── */',
+        '/* ──   .toast-item, .tooltip-wrap, .badge-*, .card-interactive ── */',
+        '/* ── copy the full CSS from the source of this page ── */',
+      ].join('\n');
+
+      CODES['code-entry'] = [
+        "import '@your-scope/pg-lab/styles/atelier.css';",
+        "import { ThemeProvider } from '@your-scope/pg-lab';",
+        "",
+        "export default function App({ children }: { children: React.ReactNode }) {",
+        "  return <ThemeProvider>{children}</ThemeProvider>;",
+        "}",
+      ].join('\n');
+
+      CODES['code-themeprovider'] = [
+        "import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';",
+        "",
+        "const ThemeCtx = createContext<{",
+        "  theme: 'light' | 'dark';",
+        "  toggle: () => void;",
+        "}>({ theme: 'light', toggle: () => {} });",
+        "",
+        "export function ThemeProvider({ children }: { children: ReactNode }) {",
+        "  const [theme, setTheme] = useState<'light' | 'dark'>(() => {",
+        "    const s = localStorage.getItem('pg-lab-theme');",
+        "    if (s === 'dark') return 'dark';",
+        "    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';",
+        "  });",
+        "",
+        "  useEffect(() => {",
+        "    document.documentElement.setAttribute('data-theme', theme);",
+        "    localStorage.setItem('pg-lab-theme', theme);",
+        "  }, [theme]);",
+        "",
+        "  return (",
+        "    <ThemeCtx.Provider value={{",
+        "      theme,",
+        "      toggle: () => setTheme(t => t === 'light' ? 'dark' : 'light'),",
+        "    }}>{children}</ThemeCtx.Provider>",
+        "  );",
+        "}",
+        "",
+        "export const useTheme = () => useContext(ThemeCtx);",
+      ].join('\n');
+
+      CODES['code-button'] = [
+        "import { type ButtonHTMLAttributes } from 'react';",
+        "",
+        "const variants = {",
+        "  primary: 'bg-primary text-primary-foreground hover:bg-[color-mix(in_oklch,var(--primary),black_10%)]',",
+        "  secondary: 'bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),black_10%)]',",
+        "  destructive: 'bg-destructive text-destructive-foreground hover:bg-[color-mix(in_oklch,var(--destructive),black_12%)]',",
+        "  outline: 'border border-border bg-transparent text-foreground hover:bg-muted hover:border-foreground',",
+        "  ghost: 'border border-transparent bg-transparent text-foreground hover:bg-[color-mix(in_oklch,var(--foreground),var(--background)_88%)]',",
+        "} as const;",
+        "",
+        "const sizes = {",
+        "  small: 'px-3 py-1.5 text-[11px]',",
+        "  default: 'px-4 py-2 text-xs',",
+        "  large: 'px-6 py-3 text-sm',",
+        "} as const;",
+        "",
+        "type Variant = keyof typeof variants;",
+        "type Size = keyof typeof sizes;",
+        "",
+        "interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {",
+        "  variant?: Variant;",
+        "  size?: Size;",
+        "  loading?: boolean;",
+        "}",
+        "",
+        "export function Button({",
+        "  variant = 'primary', size = 'default', loading, children, className, ...props",
+        "}: Props) {",
+        "  return (",
+        "    <button",
+        "      className={[",
+        "        'inline-flex items-center justify-center gap-2 font-medium rounded-md',
+        "        'border border-transparent cursor-pointer transition-all duration-200',",
+        "        'active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none',",
+        "        variants[variant], sizes[size],",
+        "        loading && 'btn-loading',",
+        "        className,",
+        "      ].filter(Boolean).join(' ')}",
+        "      disabled={loading || props.disabled}",
+        "      {...props}",
+        "    >{children}</button>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-badge'] = [
+        "import { type ReactNode } from 'react';",
+        "",
+        "type Variant = 'soft' | 'solid' | 'outline';",
+        "",
+        "interface Props {",
+        "  variant?: Variant;",
+        "  color: string;",
+        "  dot?: boolean;",
+        "  children: ReactNode;",
+        "  className?: string;",
+        "}",
+        "",
+        "export function Badge({ variant = 'soft', color, dot, children, className }: Props) {",
+        "  return (",
+        "    <span",
+        "      className={[",
+        "        `badge-${variant} inline-flex items-center`,",
+        "        'text-[10px] font-medium px-2 py-px rounded-full',",
+        "        dot && 'badge-dot',",
+        "        className,",
+        "      ].join(' ')}",
+        "      style={{ '--badge-color': color } as React.CSSProperties}",
+        "    >{children}</span>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-input'] = [
+        "import { type InputHTMLAttributes, type ReactNode } from 'react';",
+        "",
+        "interface Props extends InputHTMLAttributes<HTMLInputElement> {",
+        "  icon?: ReactNode;",
+        "  expandable?: boolean;",
+        "}",
+        "",
+        "export function Input({ icon, expandable, className, ...props }: Props) {",
+        "  return (",
+        "    <div className={[",
+        "      'input-wrap flex items-center gap-2 bg-input border border-border rounded-md px-3',",
+        "      expandable && 'search-expand',",
+        "      className,",
+        "    ].join(' ')}>",
+        "      {icon && <span className='text-[11px] text-muted-foreground transition-colors'>{icon}</span>}",
+        "      <input",
+        "        className='w-full bg-transparent border-none outline-none text-xs text-foreground py-2 placeholder:text-muted-foreground'",
+        "        {...props}",
+        "      />",
+        "    </div>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-toggle'] = [
+        "// No React component needed. Pure CSS.",
+        "// Just use the native input with the toggle-switch class:",
+        "",
+        '<label className="flex items-center gap-2.5 text-xs cursor-pointer select-none">',
+        '  <input type="checkbox" className="toggle-switch" />',
+        "  label text",
+        "</label>",
+        "",
+        "// If you want a thin wrapper for consistency:",
+        "",
+        "interface Props {",
+        "  checked?: boolean;",
+        "  onChange?: (checked: boolean) => void;",
+        "  label: string;",
+        "  disabled?: boolean;",
+        "}",
+        "",
+        "export function Toggle({ checked, onChange, label, disabled }: Props) {",
+        "  return (",
+        "    <label className={[",
+        "      'flex items-center gap-2.5 text-xs cursor-pointer select-none',",
+        "      disabled && 'opacity-50 pointer-events-none',",
+        "    ].join(' ')}>",
+        "      <input",
+        "        type='checkbox'",
+        "        className='toggle-switch'",
+        "        checked={checked}",
+        "        onChange={e => onChange?.(e.target.checked)}",
+        "        disabled={disabled}",
+        "      />",
+        "      {label}",
+        "    </label>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-codeblock'] = [
+        "import { useState, useRef, type ReactNode } from 'react';",
+        "",
+        "interface Props {",
+        "  filename?: string;",
+        "  children: string;",
+        "  className?: string;",
+        "}",
+        "",
+        "export function CodeBlock({ filename, children, className }: Props) {",
+        "  const [copied, setCopied] = useState(false);",
+        "",
+        "  const copy = async () => {",
+        "    await navigator.clipboard.writeText(children);",
+        "    setCopied(true);",
+        "    setTimeout(() => setCopied(false), 2000);",
+        "  };",
+        "",
+        "  return (",
+        "    <div className={['code-block', className].join(' ')}>",
+        "      {filename && (",
+        "        <div className='code-header'>",
+        "          <span>{filename}</span>",
+        "          <button",
+        "            className={['copy-btn', copied && 'copied'].filter(Boolean).join(' ')}",
+        "            onClick={copy}",
+        "          >{copied ? 'Copied' : 'Copy'}</button>",
+        "        </div>",
+        "      )}",
+        "      <pre>{children}</pre>",
+        "    </div>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-projectcard'] = [
+        "import { Badge } from './Badge';",
+        "",
+        "interface Props {",
+        "  title: string;",
+        "  description: string;",
+        "  category: { label: string; color: string };",
+        "  href?: string;",
+        "  actions?: boolean;",
+        "}",
+        "",
+        "export function ProjectCard({ title, description, category, href, actions }: Props) {",
+        "  const card = (",
+        "    <div className={[",
+        "      'bg-card border border-border rounded-lg overflow-hidden',
+        "      'transition-all duration-200 hover:shadow-md',",
+        "      actions && 'card-interactive',",
+        "    ].join(' ')}",
+        "      style={{ boxShadow: 'var(--shadow-xs)' }}",
+        "    >",
+        "      <div className='w-full aspect-video bg-background flex items-center justify-center",
+        "        text-[10px] text-muted-foreground border-b border-border'",
+        "      >canvas preview</div>",
+        "      <div className='p-3'>",
+        "        <Badge variant='soft' color={category.color} className='mb-1.5'>",
+        "          {category.label}",
+        "        </Badge>",
+        "        <p className='text-xs font-semibold text-card-foreground'>{title}</p>",
+        "        <p className='text-[11px] text-muted-foreground mt-0.5'>{description}</p>",
+        "      </div>",
+        "      {actions && (",
+        "        <div className='card-actions flex gap-1 px-3 pb-3'>",
+        "          <button className='tooltip-wrap inline-flex items-center justify-center",
+        "            p-1.5 rounded border border-transparent bg-transparent text-muted-foreground",
+        "            cursor-pointer transition-all hover:text-foreground text-[11px]'",
+        "            data-tip='save'><i className='fa-regular fa-bookmark'></i></button>",
+        "          <button className='tooltip-wrap inline-flex items-center justify-center",
+        "            p-1.5 rounded border border-transparent bg-transparent text-muted-foreground",
+        "            cursor-pointer transition-all hover:text-foreground text-[11px]'",
+        "            data-tip='link'><i className='fa-solid fa-link'></i></button>",
+        "        </div>",
+        "      )}",
+        "    </div>",
+        "  );",
+        "",
+        "  return href ? <a href={href} className='block'>{card}</a> : card;",
+        "}",
+      ].join('\n');
+
+      CODES['code-notecard'] = [
+        "import { Badge } from './Badge';",
+        "",
+        "interface Props {",
+        "  title: string;",
+        "  excerpt?: string;",
+        "  codeSnippet?: string;",
+        "  tags?: { label: string; color: string }[];",
+        "  date?: string;",
+        "  href?: string;",
+        "}",
+        "",
+        "export function NoteCard({ title, excerpt, codeSnippet, tags, date, href }: Props) {",
+        "  const card = (",
+        "    <div className='bg-card border border-border rounded-lg overflow-hidden",
+        "      transition-all duration-200 hover:shadow-md'",
+        "      style={{ boxShadow: 'var(--shadow-xs)' }}",
+        "    >",
+        "      {codeSnippet && (",
+        "        <div className='bg-background border-b border-border p-3 overflow-hidden'>",
+        "          <pre className='text-[10px] text-muted-foreground truncate m-0'",
+        "          >{codeSnippet}</pre>",
+        "        </div>",
+        "      )}",
+        "      <div className='p-3'>",
+        "        {tags && (",
+        "          <div className='flex gap-1.5 flex-wrap mb-1.5'>",
+        "            {tags.map((t, i) => (",
+        "              <Badge key={i} variant='soft' color={t.color}>{t.label}</Badge>",
+        "            ))}",
+        "          </div>",
+        "        )}",
+        "        <p className='text-xs font-semibold text-card-foreground'>{title}</p>",
+        "        {excerpt && <p className='text-[11px] text-muted-foreground mt-0.5'>{excerpt}</p>}",
+        "        {date && <p className='text-[10px] text-muted-foreground mt-2'>{date}</p>}",
+        "      </div>",
+        "    </div>",
+        "  );",
+        "",
+        "  return href ? <a href={href} className='block'>{card}</a> : card;",
+        "}",
+      ].join('\n');
+
+      CODES['code-accordion'] = [
+        "// Zero JS. Just map items to native details/summary.",
+        "import { type ReactNode } from 'react';",
+        "",
+        "interface AccordionItem {",
+        "  title: string;",
+        "  content: ReactNode;",
+        "  defaultOpen?: boolean;",
+        "}",
+        "",
+        "interface Props {",
+        "  items: AccordionItem[];",
+        "}",
+        "",
+        "export function Accordion({ items }: Props) {",
+        "  return (",
+        "    <div className='flex flex-col'>",
+        "      {items.map((item, i) => (",
+        "        <details",
+        "          key={i}",
+        "          className={[",
+        "            'border border-border rounded-lg overflow-hidden bg-card',",
+        "            i > 0 && '-mt-px rounded-t-none',",
+        "            i === items.length - 1 && 'rounded-b-lg',",
+        "          ].filter(Boolean).join(' ')}",
+        "          {item.defaultOpen ? 'open' : ''}",
+        "        >",
+        "          <summary className='accordion-trigger flex items-center justify-between",
+        "            px-4 py-3 text-xs font-medium text-foreground select-none",
+        "            transition-colors hover:bg-[color-mix(in_oklch,var(--foreground)_4%,var(--card))]'",
+        "          >{item.title}</summary>",
+        "          <div className='accordion-body px-4 py-3 text-[11px] text-muted-foreground",
+        "            leading-relaxed border-b border-border'",
+        "          >{item.content}</div>",
+        "        </details>",
+        "      ))}",
+        "    </div>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-tabs'] = [
+        "// Pure CSS. Map items to radio + label + panel.",
+        "import { type ReactNode } from 'react';",
+        "",
+        "interface TabItem {",
+        "  label: string;",
+        "  content: ReactNode;",
+        "}",
+        "",
+        "interface Props {",
+        "  name: string;",
+        "  items: TabItem[];",
+        "}",
+        "",
+        "export function Tabs({ name, items }: Props) {",
+        "  const id = (i: number) => `tab-${name}-${i}`;",
+        "  return (",
+        "    <div className='css-tabs'>",
+        "      {items.map((item, i) => (",
+        "        <input key={i} type='radio' name={name} id={id(i)} defaultChecked={i === 0} />",
+        "      ))}",
+        "      <div className='flex gap-1 border-b border-border mb-3'>",
+        "        {items.map((item, i) => (",
+        "          <label key={i} className='tab-trigger px-3 py-2 text-[11px] font-medium",
+        "            text-muted-foreground transition-colors hover:text-foreground'",
+        "            htmlFor={id(i)}",
+        "          >{item.label}</label>",
+        "        ))}",
+        "      </div>",
+        "      {items.map((item, i) => (",
+        "        <div key={i} className='tab-panel text-[11px] text-muted-foreground leading-relaxed'",
+        "          id={`panel-${name}-${i}`}",
+        "        >{item.content}</div>",
+        "      ))}",
+        "    </div>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-dialog'] = [
+        "import { useRef, useEffect, type ReactNode } from 'react';",
+        "",
+        "interface Props {",
+        "  open: boolean;",
+        "  onClose: () => void;",
+        "  children: ReactNode;",
+        "}",
+        "",
+        "export function Dialog({ open, onClose, children }: Props) {",
+        "  const ref = useRef<HTMLDialogElement>(null);",
+        "",
+        "  useEffect(() => {",
+        "    const el = ref.current;",
+        "    if (!el) return;",
+        "    if (open) el.showModal(); else el.close();",
+        "  }, [open]);",
+        "",
+        "  useEffect(() => {",
+        "    const el = ref.current;",
+        "    if (!el) return;",
+        "    const handler = () => onClose();",
+        "    el.addEventListener('close', handler);",
+        "    return () => el.removeEventListener('close', handler);",
+        "  }, [onClose]);",
+        "",
+        "  return (",
+        "    <dialog",
+        "      ref={ref}",
+        "      className='dialog-animated bg-card border border-border rounded-lg",
+        "        text-card-foreground max-w-[400px] w-[90%] p-0'",
+        "      style={{ boxShadow: 'var(--shadow-2xl)' }}",
+        "      onClick={e => { if (e.target === ref.current) onClose(); }}",
+        "    >{children}</dialog>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-toast'] = [
+        "import { createPortal } from 'react-dom';",
+        "import { useState, useCallback } from 'react';",
+        "",
+        "const icons = {",
+        "  success: 'fa-solid fa-circle-check',",
+        "  error: 'fa-solid fa-circle-xmark',",
+        "  info: 'fa-solid fa-circle-info',",
+        "} as const;",
+        "",
+        "const colors = { success: 'secondary', error: 'destructive', info: 'primary' } as const;",
+        "",
+        "type Type = keyof typeof icons;",
+        "",
+        "let addFn: ((type: Type, msg: string) => void) | null = null;",
+        "",
+        "function ToastContainer() {",
+        "  const [toasts, setToasts] = useState<{ id: number; type: Type; msg: string }[]>([]);",
+        "",
+        "  addFn = useCallback((type: Type, msg: string) => {",
+        "    const id = Date.now();",
+        "    setToasts(t => [...t, { id, type, msg }]);",
+        "    setTimeout(() => {",
+        "      setToasts(t => t.filter(x => x.id !== id));",
+        "    }, 4000);",
+        "  }, []);",
+        "",
+        "  return createPortal(",
+        "    <div className='fixed bottom-5 right-5 flex flex-col-reverse gap-2 z-[9999]'>",
+        "      {toasts.map(t => (",
+        "        <div key={t.id} className='toast-item flex items-center gap-2.5 px-4 py-3",
+        "          bg-card border border-border rounded-lg text-[11px] text-card-foreground",
+        "          min-w-[240px]'",
+        "          style={{ boxShadow: 'var(--shadow-xl)' }}",
+        "        >",
+        "          <i className={icons[t.type]} style={{ color: `var(--${colors[t.type]})` }} />",
+        "          <span className='flex-1'>{t.msg}</span>",
+        "        </div>",
+        "      ))}",
+        "    </div>,",
+        "    document.body,",
+        "  );",
+        "}",
+        "",
+        "export function showToast(type: Type, msg: string) {",
+        "  addFn?.(type, msg);",
+        "}",
+        "",
+        "export { ToastContainer };",
+      ].join('\n');
+
+      CODES['code-tooltip'] = [
+        "// No React component. Pure CSS.",
+        "// Add tooltip-wrap class + data-tip attribute to any element:",
+        "",
+        '<button className="tooltip-wrap ..." data-tip="delete">',
+        "  <i className='fa-solid fa-trash'></i>",
+        "</button>",
+      ].join('\n');
+
+      CODES['code-alert'] = [
+        "import { type ReactNode } from 'react';",
+        "",
+        "type Variant = 'info' | 'success' | 'warning' | 'error';",
+        "",
+        "const config = {",
+        "  info:       { icon: 'fa-solid fa-circle-info',         color: 'primary' },",
+        "  success:    { icon: 'fa-solid fa-circle-check',        color: 'secondary' },",
+        "  warning:    { icon: 'fa-solid fa-triangle-exclamation', color: 'ring' },",
+        "  error:      { icon: 'fa-solid fa-circle-xmark',        color: 'destructive' },",
+        "} as const;",
+        "",
+        "interface Props {",
+        "  variant?: Variant;",
+        "  title?: string;",
+        "  children: ReactNode;",
+        "}",
+        "",
+        "export function Alert({ variant = 'info', title, children }: Props) {",
+        "  const { icon, color } = config[variant];",
+        "  return (",
+        "    <div className='flex gap-2.5 p-3 rounded-md text-[11px] leading-relaxed'",
+        "      style={{",
+        "        background: `color-mix(in oklch, var(--${color}) 8%, var(--card))`,",
+        "        border: `1px solid color-mix(in oklch, var(--${color}) 20%, var(--border))`,",
+        "      }}",
+        "    >",
+        "      <i className={`${icon} mt-0.5 flex-shrink-0 text-[10px]`} style={{ color: `var(--${color})` }} />",
+        "      <div>",
+        "        {title && <p className='font-semibold mb-px'>{title}</p>}",
+        "        {children}",
+        "      </div>",
+        "    </div>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-canvas'] = [
+        "import { useRef, useEffect } from 'react';",
+        "",
+        "interface Props {",
+        "  sketch: (canvas: HTMLCanvasElement, container: HTMLDivElement) => (() => void) | void;",
+        "  className?: string;",
+        "}",
+        "",
+        "export function Canvas({ sketch, className }: Props) {",
+        "  const ref = useRef<HTMLDivElement>(null);",
+        "",
+        "  useEffect(() => {",
+        "    const container = ref.current;",
+        "    const canvas = container?.querySelector('canvas');",
+        "    if (!container || !canvas) return;",
+        "",
+        "    const resize = () => {",
+        "      const dpr = devicePixelRatio;",
+        "      canvas.width = container.clientWidth * dpr;",
+        "      canvas.height = container.clientHeight * dpr;",
+        "      canvas.style.width = container.clientWidth + 'px';",
+        "      canvas.style.height = container.clientHeight + 'px';",
+        "    };",
+        "",
+        "    resize();",
+        "    const cleanup = sketch(canvas, container);",
+        "    const observer = new ResizeObserver(resize);",
+        "    observer.observe(container);",
+        "",
+        "    return () => {",
+        "      cleanup?.();",
+        "      observer.disconnect();",
+        "    };",
+        "  }, [sketch]);",
+        "",
+        "  return (",
+        "    <div ref={ref} className={className}>",
+        "      <canvas className='block w-full h-full' />",
+        "    </div>",
+        "  );",
+        "}",
+      ].join('\n');
+
+      CODES['code-astro-structure'] = [
+        "pg-lab-site/",
+        "├── src/",
+        "│   ├── styles/",
+        "│   │   └── atelier.css          ← the CSS file from step 01",
+        "│   ├── components/",
+        "│   │   ├── ThemeProvider.tsx     ← Astro island (client:load)",
+        "│   │   ├── Dialog.tsx           ← Astro island (client:idle)",
+        "│   │   ├── Toast.tsx            ← Astro island (client:load)",
+        "│   │   └── CodeBlock.tsx        ← Astro island (client:idle)",
+        "│   ├── layouts/",
+        "│   │   └── Shell.astro         ← shared layout with nav + footer",
+        "│   ├── pages/",
+        "│   │   ├── index.astro         ← home: hero + featured projects",
+        "│   │   ├── projects.astro      ← project grid with badge filters",
+        "│   │   ├── notes.astro         ← note cards with code snippets",
+        "│   │   └── docs/",
+        "│   │       └── [...slug].astro ← sidebar + tabs + code blocks",
+        "│   └── content/",
+        "│       ├── projects.ts         ← project metadata",
+        "│       └── notes.ts            ← note metadata",
+        "├── astro.config.mjs",
+        "├── tailwind.config.mjs         ← not needed with v4 @theme inline",
+        "└── package.json",
+      ].join('\n');
+
+      CODES['code-astro-shell'] = [
+        "---",
+        "import '@your-scope/pg-lab/styles/atelier.css';",
+        "import { ThemeProvider } from '@your-scope/pg-lab/components/ThemeProvider';",
+        "import { ToastContainer } from '@your-scope/pg-lab/components/Toast';",
+        "",
+        "interface Props {",
+        "  title: string;",
+        "}",
+        "",
+        "const { title } = Astro.props;",
+        "",
+        "const navLinks = [",
+        "  { href: '/', label: 'home' },",
+        "  { href: '/projects', label: 'projects' },",
+        "  { href: '/notes', label: 'notes' },",
+        "  { href: '/docs/getting-started', label: 'docs' },",
+        "];",
+        "---",
+        "",
+        "<html lang='en'>",
+        "  <head>",
+        "    <meta charset='utf-8' />",
+        "    <meta name='viewport' content='width=device-width, initial-scale=1' />",
+        "    <title>{title} — pg_lab</title>",
+        "    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />",
+        "  </head>",
+        "  <body class='dot-grid'>",
+        "    <ThemeProvider client:load>",
+        "      <header class='sticky top-0 z-50 border-b border-border'",
+        "        style='background:color-mix(in oklch,var(--background) 85%,transparent);backdrop-filter:blur(16px)'>",
+        "        <div class='max-w-[900px] mx-auto px-6 h-12 flex items-center justify-between'>",
+        "          <a href='/' class='text-sm font-semibold text-foreground tracking-tight'>",
+        "            pg_lab<span class='text-muted-foreground font-normal'> / creative playground</span>",
+        "          </a>",
+        "          <nav class='flex items-center gap-1'>",
+        "            {navLinks.map(link => (",
+        "              <a href={link.href} class='px-2.5 py-1 text-[11px] text-muted-foreground",
+        "                hover:text-foreground transition-colors'>{link.label}</a>",
+        "            ))}",
+        "          </nav>",
+        "        </div>",
+        "      </header>",
+        "",
+        "      <main>",
+        "        <slot />",
+        "      </main>",
+        "",
+        "      <footer class='max-w-[900px] mx-auto px-6 py-6 border-t border-border",
+        "        text-[10px] text-muted-foreground'>",
+        "        pg_lab — creative playground",
+        "      </footer>",
+        "",
+        "      <ToastContainer client:load />",
+        "    </ThemeProvider>",
+        "  </body>",
+        "</html>",
+      ].join('\n');
+
+      CODES['code-astro-home'] = [
+        "---",
+        "import Shell from '../layouts/Shell.astro';",
+        "import { ProjectCard } from '@your-scope/pg-lab/components/ProjectCard';",
+        "import { Badge } from '@your-scope/pg-lab/components/Badge';",
+        "import { projects } from '../content/projects';",
+        "",
+        "const featured = projects.filter(p => p.featured);",
+        "---",
+        "",
+        "<Shell title='home'>",
+        "  <section class='max-w-[900px] mx-auto px-6 pt-16 pb-10'>",
+        "    <h1 class='text-foreground font-semibold tracking-tight'",
+        "      style='font-size:clamp(32px,6vw,52px);letter-spacing:-1.5px;line-height:1.1'>",
+        "      creative<br>playground",
+        "    </h1>",
+        "    <p class='text-muted-foreground text-sm mt-3 max-w-[420px] font-light'>",
+        "      generative art, creative code, recreational programming.",
+        "    </p>",
+        "  </section>",
+        "",
+        "  <section class='max-w-[900px] mx-auto px-6 pb-16'>",
+        "    <p class='text-[10px] font-semibold uppercase tracking-[2px]",
+        "      text-muted-foreground mb-4'>featured</p>",
+        "    <div class='grid gap-4 sm:grid-cols-2'>",
+        "      {featured.map(project => (",
+        "        <ProjectCard",
+        "          title={project.title}",
+        "          description={project.description}",
+        "          category={project.category}",
+        "          href={`/projects/${project.slug}`}",
+        "          actions",
+        "        />",
+        "      ))}",
+        "    </div>",
+        "  </section>",
+        "</Shell>",
+      ].join('\n');
+
+      CODES['code-astro-projects'] = [
+        "---",
+        "import Shell from '../layouts/Shell.astro';",
+        "import { ProjectCard } from '@your-scope/pg-lab/components/ProjectCard';",
+        "import { Badge } from '@your-scope/pg-lab/components/Badge';",
+        "import { projects } from '../content/projects';",
+        "",
+        "const categories = ['all', ...new Set(projects.map(p => p.category.label))];",
+        "---",
+        "",
+        "<Shell title='projects'>",
+        "  <section class='max-w-[900px] mx-auto px-6 py-14'>",
+        "    <p class='text-[10px] font-semibold uppercase tracking-[2px]",
+        "      text-muted-foreground mb-4'>projects</p>",
+        "",
+        "    <!-- Pure CSS filter tabs -->",
+        "    <div class='css-tabs'>",
+        "      {categories.map((cat, i) => (",
+        "        <>",
+        "          <input type='radio' name='proj-filter' id={`pf-${i}`}",
+        "            defaultChecked={i === 0} />",
+        "          <label className='tab-trigger px-3 py-2 text-[11px] font-medium",
+        "            text-muted-foreground transition-colors hover:text-foreground'",
+        "            htmlFor={`pf-${i}`}>{cat}</label>",
+        "        </>",
+        "      ))}",
+        "    </div>",
+        "",
+        "    <!-- Project grid (in real app, use JS filtering or content collections) -->",
+        "    <div class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-6'>",
+        "      {projects.map(project => (",
+        "        <ProjectCard",
+        "          title={project.title}",
+        "          description={project.description}",
+        "          category={project.category}",
+        "          href={`/projects/${project.slug}`}",
+        "        />",
+        "      ))}",
+        "    </div>",
+        "  </section>",
+        "</Shell>",
+      ].join('\n');
+
+      CODES['code-astro-notes'] = [
+        "---",
+        "import Shell from '../layouts/Shell.astro';",
+        "import { NoteCard } from '@your-scope/pg-lab/components/NoteCard';",
+        "import { notes } from '../content/notes';",
+        "---",
+        "",
+        "<Shell title='notes'>",
+        "  <section class='max-w-[900px] mx-auto px-6 py-14'>",
+        "    <p class='text-[10px] font-semibold uppercase tracking-[2px]",
+        "      text-muted-foreground mb-2'>notes</p>",
+        "    <p class='text-xs text-muted-foreground mb-6'>",
+        "      not a blog. code-first observations and experiments.",
+        "    </p>",
+        "",
+        "    <div class='flex flex-col gap-4'>",
+        "      {notes.map(note => (",
+        "        <NoteCard",
+        "          title={note.title}",
+        "          excerpt={note.excerpt}",
+        "          codeSnippet={note.codeSnippet}",
+        "          tags={note.tags}",
+        "          date={`modified ${note.modified}`}",
+        "          href={`/notes/${note.slug}`}",
+        "        />",
+        "      ))}",
+        "    </div>",
+        "  </section>",
+        "</Shell>",
+      ].join('\n');
+
+      CODES['code-astro-docs'] = [
+        "---",
+        "import Shell from '../../layouts/Shell.astro';",
+        "import { CodeBlock } from '@your-scope/pg-lab/components/CodeBlock';",
+        "import { Tabs } from '@your-scope/pg-lab/components/Tabs';",
+        "import { Accordion } from '@your-scope/pg-lab/components/Accordion';",
+        "import { Alert } from '@your-scope/pg-lab/components/Alert';",
+        "",
+        "export function getStaticPaths() {",
+        "  return [",
+        "    { params: { slug: 'getting-started' } },",
+        "    { params: { slug: 'canvas-api' } },",
+        "    { params: { slug: 'theming' } },",
+        "  ];",
+        "}",
+        "",
+        "const { slug } = Astro.params;",
+        "---",
+        "",
+        "<Shell title={`docs / ${slug}`}>",
+        "  <section class='max-w-[900px] mx-auto px-6 py-14'>",
+        "    <p class='text-[10px] font-semibold uppercase tracking-[2px]",
+        "      text-muted-foreground mb-4'>docs / {slug}</p>",
+        "",
+        "    <Tabs name={slug} items={[",
+        "      { label: 'usage', content: `import { Canvas } from 'pg-lab';` },",
+        "      { label: 'example', content: `<Canvas sketch={(canvas) => { ... }} />` },",
+        "      { label: 'api', content: 'sketch: (canvas, container) => cleanup' },",
+        "    ]} />",
+        "",
+        "    <div class='mt-8'>",
+        "      <CodeBlock filename='example.tsx'>",
+        "        {`<Canvas",
+        "  className='w-full aspect-video rounded-lg border border-border'",
+        "  sketch={(canvas, container) => {",
+        "    const ctx = canvas.getContext('2d');",
+        "    // ... your sketch here",
+        "  }}",
+        "/>`}",
+        "      </CodeBlock>",
+        "    </div>",
+        "",
+        "    <div class='mt-8'>",
+        "      <Alert variant='info' title='note'>",
+        "        The canvas auto-resizes with its container via ResizeObserver.",
+        "      </Alert>",
+        "    </div>",
+        "",
+        "    <div class='mt-8'>",
+        "      <Accordion items={[",
+        "        { title: 'how does resizing work?',",
+        "          content: 'ResizeObserver watches the container. On resize, the canvas",
+        "            dimensions are updated to match at devicePixelRatio for sharp rendering.' },",
+        "        { title: 'can i use p5.js?',",
+        "          content: 'Yes. Pass instanceMode: \"static\" to p5 and attach it to the',
+        "            canvas element from the ref.' },",
+        "      ]} />",
+        "    </div>",
+        "  </section>",
+        "</Shell>",
+      ].join('\n');
+
+      CODES['code-barrel'] = [
+        "// lib/pg-lab/index.ts",
+        "",
+        "// JS components (Astro islands)",
+        "export { ThemeProvider, useTheme } from '../components/ThemeProvider';",
+        "export { Dialog } from '../components/Dialog';",
+        "export { ToastContainer, showToast } from '../components/Toast';",
+        "export { CodeBlock } from '../components/CodeBlock';",
+        "",
+        "// Pure CSS components (no islands needed in Astro)",
+        "export { Button } from '../components/Button';",
+        "export { Badge } from '../components/Badge';",
+        "export { Input } from '../components/Input';",
+        "export { Toggle } from '../components/Toggle';",
+        "export { Alert } from '../components/Alert';",
+        "export { ProjectCard } from '../components/ProjectCard';",
+        "export { NoteCard } from '../components/NoteCard';",
+        "export { Accordion } from '../components/Accordion';",
+        "export { Tabs } from '../components/Tabs';",
+        "export { Canvas } from '../components/Canvas';",
+        "// Tooltip: no export needed. use className='tooltip-wrap' + data-tip",
+      ].join('\n');
+
+      /* ── Populate code blocks ── */
+      Object.entries(CODES).forEach(function(entry) {
+        var el = document.getElementById(entry[0]);
+        if (el) el.textContent = entry[1];
+      });
+
+      /* ── Theme Toggle ── */
+      var html = document.documentElement;
+      var themeBtn = document.getElementById('themeBtn');
+
+      function setTheme(dark) {
+        html.setAttribute('data-theme', dark ? 'dark' : 'light');
+        themeBtn.innerHTML = dark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        localStorage.setItem('pg-lab-theme', dark ? 'dark' : 'light');
+      }
+
+      var saved = localStorage.getItem('pg-lab-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        setTheme(true);
+      }
+
+      themeBtn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') !== 'dark');
+      });
+
+      /* ── Dialog ── */
+      document.getElementById('openDialog').addEventListener('click', function() {
+        document.getElementById('demoDialog').showModal();
+      });
+      document.getElementById('demoDialog').addEventListener('click', function(e) {
+        if (e.target === this) this.close();
+      });
+
+      /* ── Toasts ── */
+      var toastIcons = { success: 'fa-solid fa-circle-check', error: 'fa-solid fa-circle-xmark', info: 'fa-solid fa-circle-info' };
+      var toastColors = { success: 'secondary', error: 'destructive', info: 'primary' };
+
+      function showToast(type, message) {
+        var stack = document.getElementById('toastStack');
+        var el = document.createElement('div');
+        el.className = 'toast-item flex items-center gap-2.5 px-4 py-3 bg-card border border-border rounded-lg text-[11px] text-card-foreground min-w-[240px] pointer-events-auto';
+        el.style.boxShadow = 'var(--shadow-xl)';
+        el.innerHTML = '<i class="' + toastIcons[type] + ' flex-shrink-0 text-[10px]" style="color:var(--' + toastColors[type] + ')"></i><span class="flex-1">' + message + '</span>';
+        stack.appendChild(el);
+        setTimeout(function() {
+          el.classList.add('exit');
+          el.addEventListener('animationend', function() { el.remove(); });
+        }, 4000);
+      }
+
+      /* ── Copy Code ── */
+      function copyCode(btn) {
+        var pre = btn.closest('.code-block').querySelector('pre');
+        if (!pre) return;
+        navigator.clipboard.writeText(pre.textContent).then(function() {
+          btn.classList.add('copied');
+          btn.textContent = 'Copied';
+          setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.textContent = 'Copy';
+          }, 2000);
+        });
+      }
+
+      /* ── Scroll Progress + Back to Top ── */
+      var scrollBar = document.getElementById('scrollBar');
+      var backTop = document.getElementById('backTop');
+
+      window.addEventListener('scroll', function() {
+        var st = document.documentElement.scrollTop || document.body.scrollTop;
+        var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        scrollBar.style.transform = 'scaleX(' + (sh > 0 ? st / sh : 0) + ')';
+        backTop.style.visibility = st > 400 ? 'visible' : 'hidden';
+      }, { passive: true });
+
+      backTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* ── Section Reveal ── */
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+      } else {
+        document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+      }
+    </script>
+  </body>
+</html>

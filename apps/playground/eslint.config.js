@@ -5,10 +5,11 @@ export default [
   ...createConfig(import.meta.dirname),
   ...eslintPluginAstro.configs.recommended,
   {
-    files: ['**/*.astro'],
+    files: ['**/*.astro', 'src/content.config.ts'],
     rules: {
       'astro/no-set-html-directive': 'error',
-      'import/no-default-export': 'off'
+      'import/no-default-export': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off'
     }
   }
 ];

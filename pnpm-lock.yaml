@@ -689,6 +689,9 @@ importers:
       '@types/babel__core':
         specifier: 'catalog:'
         version: 7.20.5
+      '@types/d3-force':
+        specifier: ^3.0.10
+        version: 3.0.10
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.2
@@ -4593,6 +4596,12 @@ packages:
     resolution:
       {
         integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==
+      }
+
+  '@types/d3-force@3.0.10':
+    resolution:
+      {
+        integrity: sha512-ZYeSaCF3p73RdOKcjj+swRlZfnYpK1EbaDiYICEEp5Q6sUiqFaFQ9qgoshp5CzIyyb/yD09kD9o2zEltCexlgw==
       }
 
   '@types/debug@4.1.13':
@@ -12207,6 +12216,8 @@ snapshots:
     dependencies:
       '@types/deep-eql': 4.0.2
       assertion-error: 2.0.1
+
+  '@types/d3-force@3.0.10': {}
 
   '@types/debug@4.1.13':
     dependencies:
