@@ -13,13 +13,17 @@ function Slider({
   ref,
   className,
   variant,
-  value = 0,
+  value,
   onChange,
-  min = 0,
-  max = 100,
-  step = 1,
+  min: _min = 0,
+  max: _max = 100,
+  step: _step = 1,
   ...props
 }: SliderProps) {
+  const controlled = value !== undefined;
+  const min = Number(_min);
+  const max = Number(_max);
+  const step = Number(_step);
   return (
     <input
       ref={ref}
@@ -27,7 +31,7 @@ function Slider({
       min={min}
       max={max}
       step={step}
-      value={value}
+      {...(controlled ? { value } : { defaultValue: min + (max - min) / 2 })}
       onChange={(e) => onChange?.(parseFloat(e.target.value))}
       className={cn(sliderVariants({ variant }), className)}
       {...props}

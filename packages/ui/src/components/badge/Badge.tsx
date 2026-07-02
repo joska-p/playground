@@ -18,7 +18,7 @@ function Badge({ className, variant, color = 'primary', children, ...props }: Ba
       {variant === 'dot' && (
         <span
           className="mr-1 inline-block size-1.5 shrink-0 rounded-full"
-          style={{ backgroundColor: `var(--${color})` } as React.CSSProperties}
+          style={{ backgroundColor: `var(--${color})` }}
         />
       )}
       {children}

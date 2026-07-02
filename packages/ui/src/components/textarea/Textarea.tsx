@@ -3,13 +3,13 @@ import type { ComponentProps } from 'react';
 import { useId } from 'react';
 import { cn } from '../../utils/cn';
 import { HelperText } from '../helper-text/HelperText';
-import { inputVariants } from '../input/inputVariants';
+import { textareaVariants } from './textareaVariants';
 
 type TextareaProps = {
   label?: string;
   helperText?: string;
 } & ComponentProps<'textarea'> &
-  VariantProps<typeof inputVariants>;
+  VariantProps<typeof textareaVariants>;
 
 function Textarea({
   ref,
@@ -30,13 +30,12 @@ function Textarea({
           {label}
         </label>
       )}
-      <div className={cn(inputVariants({ variant }), 'items-start')}>
+      <div className={cn(textareaVariants({ variant }), className)}>
         <textarea
           id={textareaId}
           ref={ref}
           className={cn(
-            'field-sizing-content min-h-[3lh] max-h-[15lh] w-full resize-y bg-transparent py-2 outline-none placeholder:text-foreground-dim',
-            className
+            'field-sizing-content min-h-[3lh] max-h-[15lh] w-full resize-y bg-transparent py-2 outline-none placeholder:text-foreground-dim'
           )}
           {...props}
         />

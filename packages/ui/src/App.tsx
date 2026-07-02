@@ -1,12 +1,22 @@
+import { Accordion } from './components/accordion/Accordion';
+import { Alert } from './components/alert/Alert';
 import { Badge } from './components/badge/Badge';
 import { Button } from './components/button/Button';
+import { Card } from './components/card/Card';
+import { Carousel } from './components/carousel/Carousel';
 import { Checkbox } from './components/checkbox/Checkbox';
+import { ColorPalette } from './components/widgets/color-palette/ColorPalette';
+import { Dialog } from './components/dialog/Dialog';
 import { Input } from './components/input/Input';
+import { Popover } from './components/popover/Popover';
 import { Radio } from './components/radio/Radio';
 import { Select } from './components/select/Select';
 import { Slider } from './components/slider/Slider';
 import { Switch } from './components/switch/Switch';
+import { Tabs } from './components/tabs/Tabs';
 import { Textarea } from './components/textarea/Textarea';
+import { ToastContainer, useToast } from './components/toast/Toast';
+import { Tooltip } from './components/tooltip/Tooltip';
 
 const variants = [
   'primary', 'secondary', 'accent', 'destructive', 'warning', 'ghost', 'link'
@@ -145,6 +155,190 @@ function App() {
           </label>
         </div>
       </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Card</h2>
+        <div className="grid gap-4 grid-cols-1 landscape:grid-cols-2 max-w-2xl">
+          <Card>
+            <img src="https://picsum.photos/seed/pg1/400/225.jpg" alt="" className="aspect-video w-full object-cover" />
+            <div className="p-4">
+              <Badge variant="soft" color="green">generative</Badge>
+              <p className="text-sm font-medium mt-2">flow field exploration</p>
+              <p className="text-xs text-muted-foreground mt-1">perlin noise fields and particle tracing.</p>
+            </div>
+            <div className="flex items-center justify-between px-4 py-2.5 bg-surface-raised/50">
+              <span className="text-xs text-foreground-dim">2 days ago</span>
+              <Button variant="ghost" size="sm">view</Button>
+            </div>
+          </Card>
+          <Card variant="interactive">
+            <img src="https://picsum.photos/seed/pg2/400/225.jpg" alt="" className="aspect-video w-full object-cover" />
+            <div className="p-4">
+              <Badge variant="soft" color="purple">color</Badge>
+              <p className="text-sm font-medium mt-2">oklch palette generator</p>
+              <p className="text-xs text-muted-foreground mt-1">harmonious palettes in perceptually uniform space.</p>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Alert</h2>
+        <div className="space-y-3 max-w-lg">
+          <Alert variant="info">
+            <Alert.Icon />
+            <div>
+              <Alert.Title>info</Alert.Title>
+              <Alert.Description>project updated with latest changes.</Alert.Description>
+            </div>
+          </Alert>
+          <Alert variant="success">
+            <Alert.Icon />
+            <div>
+              <Alert.Title>success</Alert.Title>
+              <Alert.Description>all changes saved.</Alert.Description>
+            </div>
+          </Alert>
+          <Alert variant="warning">
+            <Alert.Icon />
+            <div>
+              <Alert.Title>warning</Alert.Title>
+              <Alert.Description>unsaved changes may be lost.</Alert.Description>
+            </div>
+          </Alert>
+          <Alert variant="error">
+            <Alert.Icon />
+            <div>
+              <Alert.Title>error</Alert.Title>
+              <Alert.Description>deployment failed. check config.</Alert.Description>
+            </div>
+          </Alert>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Accordion</h2>
+        <div className="max-w-lg">
+          <Accordion>
+            <Accordion.Item title="what makes this different?" defaultOpen>
+              <p className="text-sm text-muted-foreground leading-relaxed">every component uses modern css features like :has(), @starting-style, and color-mix() instead of javascript state management.</p>
+            </Accordion.Item>
+            <Accordion.Item title="why gruvbox?">
+              <p className="text-sm text-muted-foreground leading-relaxed">warm, easy on the eyes, distinctive. feels like a workshop.</p>
+            </Accordion.Item>
+            <Accordion.Item title="single mono font?">
+              <p className="text-sm text-muted-foreground leading-relaxed">creative coding toolkit. monospace is the native habitat.</p>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Tabs</h2>
+        <div className="max-w-lg">
+          <Tabs
+            tabs={[
+              { label: 'overview', content: <p className="text-sm text-muted-foreground leading-relaxed">pg_lab is a design-first toolkit built on modern css.</p> },
+              { label: 'features', content: <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-5"><li>css-only states via :has()</li><li>entry animations with @starting-style</li><li>zero-js accordion, tabs, toggles</li></ul> },
+              { label: 'changelog', content: <div className="text-sm text-muted-foreground space-y-1"><p>v1.3 — semantic colors</p><p>v1.2 — popover, carousel</p></div> },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Dialog</h2>
+        <div>
+          <Button command="show-modal" commandfor="demo-dialog">open dialog</Button>
+          <Dialog id="demo-dialog">
+            <div className="p-5">
+              <h3 className="text-sm font-medium mb-2">confirm action</h3>
+              <p className="text-sm text-muted-foreground">are you sure? this will apply changes.</p>
+            </div>
+            <div className="flex justify-end gap-2 px-5 py-3 bg-surface-raised/50 rounded-b-lg">
+              <Button command="close" commandfor="demo-dialog" variant="ghost">cancel</Button>
+              <Button command="close" commandfor="demo-dialog">confirm</Button>
+            </div>
+          </Dialog>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Popover</h2>
+        <div className="flex gap-8">
+          <Popover>
+            <Popover.Trigger><Button variant="primary">profile</Button></Popover.Trigger>
+            <Popover.Content>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-primary/15 text-primary flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold">pg</div>
+                <div><p className="text-sm font-medium">pg_lab</p><p className="text-xs text-foreground-dim">creative playground</p></div>
+              </div>
+            </Popover.Content>
+          </Popover>
+          <Popover>
+            <Popover.Trigger><Button variant="ghost"><span>&#8942;</span></Button></Popover.Trigger>
+            <Popover.Content>
+              <div className="py-1">
+                <button className="text-foreground hover:bg-surface-raised w-full px-3 py-1.5 text-left text-xs transition-colors rounded-sm">edit</button>
+                <button className="text-foreground hover:bg-surface-raised w-full px-3 py-1.5 text-left text-xs transition-colors rounded-sm">duplicate</button>
+                <div className="border-t border-border my-1 mx-2" />
+                <button className="text-destructive hover:bg-destructive/10 w-full px-3 py-1.5 text-left text-xs transition-colors rounded-sm">delete</button>
+              </div>
+            </Popover.Content>
+          </Popover>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Toast</h2>
+        <ToastContainer>
+          <ToastDemo />
+        </ToastContainer>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Carousel</h2>
+        <Carousel aria-label="projects">
+          <Carousel.Slide size="sm">
+            <img src="https://picsum.photos/seed/pgc1/400/225.jpg" alt="" className="aspect-video w-full object-cover" />
+            <div className="p-3"><Badge variant="soft" color="green">generative</Badge><p className="text-xs font-medium mt-1">noise landscapes</p></div>
+          </Carousel.Slide>
+          <Carousel.Slide size="sm">
+            <img src="https://picsum.photos/seed/pgc2/400/225.jpg" alt="" className="aspect-video w-full object-cover" />
+            <div className="p-3"><Badge variant="soft" color="purple">color</Badge><p className="text-xs font-medium mt-1">gradient meshes</p></div>
+          </Carousel.Slide>
+          <Carousel.Slide size="sm">
+            <img src="https://picsum.photos/seed/pgc3/400/225.jpg" alt="" className="aspect-video w-full object-cover" />
+            <div className="p-3"><Badge variant="soft" color="blue">shader</Badge><p className="text-xs font-medium mt-1">ray marching</p></div>
+          </Carousel.Slide>
+        </Carousel>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Tooltip</h2>
+        <div className="flex gap-3">
+          <Tooltip content="settings"><Button><span>&#9881;</span></Button></Tooltip>
+          <Tooltip content="delete" variant="destructive"><Button variant="destructive"><span>&#128465;</span></Button></Tooltip>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">ColorPalette</h2>
+        <div className="flex flex-wrap gap-4">
+          <ColorPalette colors={['#83a598', '#b8bb26', '#fb4934', '#d3869b', '#8ec07c']} name="demo-palette" />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ToastDemo() {
+  const toast = useToast();
+  return (
+    <div className="flex gap-2">
+      <Button onClick={() => { toast.info('saved', 'work saved to disk.'); }}>info toast</Button>
+      <Button onClick={() => { toast.success('deployed', 'project is live.'); }} variant="secondary">success toast</Button>
+      <Button onClick={() => { toast.error('failed', 'upload exceeded limit.'); }} variant="destructive">error toast</Button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { createVariant } from '../../../lib/variants/create-variant';
 
 export const colorPaletteVariants = createVariant({
-  base: 'border-border flex w-fit cursor-pointer overflow-hidden border transition-all hover:ring-4',
+  base: 'flex w-fit cursor-pointer overflow-hidden rounded-lg bg-surface transition-all hover:shadow-sm',
   variants: {
     orientation: {
       horizontal: 'flex-row',
@@ -14,17 +14,17 @@ export const colorPaletteVariants = createVariant({
     },
     variant: {
       primary:
-        'hover:ring-primary/50 has-checked:ring-primary has-checked:shadow-md has-checked:ring-4',
+        'has-checked:shadow-[0_0_0_2px_var(--primary)]',
       secondary:
-        'hover:ring-secondary/50 has-checked:ring-secondary has-checked:shadow-md has-checked:ring-4',
+        'has-checked:shadow-[0_0_0_2px_var(--secondary)]',
       accent:
-        'hover:ring-accent/50 has-checked:ring-accent has-checked:shadow-md has-checked:ring-4',
+        'has-checked:shadow-[0_0_0_2px_var(--accent)]',
       destructive:
-        'hover:ring-destructive/50 has-checked:ring-destructive has-checked:shadow-md has-checked:ring-4',
+        'has-checked:shadow-[0_0_0_2px_var(--destructive)]',
       outline:
-        'hover:ring-border has-checked:ring-foreground has-checked:shadow-md has-checked:ring-4 border',
+        'has-checked:shadow-[0_0_0_2px_var(--foreground)]',
       ghost:
-        'hover:ring-foreground/20 has-checked:ring-foreground/50 has-checked:shadow-none has-checked:ring-2'
+        'has-checked:shadow-[0_0_0_1px_var(--foreground-dim)]'
     }
   },
   defaultVariants: {
