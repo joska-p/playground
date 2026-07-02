@@ -1,0 +1,2023 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Atelier — UI Library</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme inline {
+        --color-bg: var(--bg);
+        --color-fg: var(--fg);
+        --color-cd: var(--cd);
+        --color-cdf: var(--cdf);
+        --color-pop: var(--pop);
+        --color-popf: var(--popf);
+        --color-pri: var(--pri);
+        --color-prif: var(--prif);
+        --color-sec: var(--sec);
+        --color-secf: var(--secf);
+        --color-mut: var(--mut);
+        --color-mutf: var(--mutf);
+        --color-acc: var(--acc);
+        --color-accf: var(--accf);
+        --color-des: var(--des);
+        --color-desf: var(--desf);
+        --color-bdr: var(--bdr);
+        --color-inp: var(--inp);
+        --color-rng: var(--rng);
+        --color-cg: var(--cg);
+        --color-cc: var(--cc);
+        --color-ci: var(--ci);
+        --color-cd2: var(--cd2);
+        --color-cr: var(--cr);
+        --color-cs: var(--cs);
+        --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+        --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+      @layer base {
+        :root {
+          --bg: oklch(0.888 0.059 89.012);
+          --fg: oklch(0.409 0.011 50.327);
+          --cd: oklch(0.953 0.056 95.604);
+          --cdf: oklch(0.341 0.006 48.534);
+          --pop: oklch(0.96 0.042 99.947);
+          --popf: oklch(0.409 0.011 50.327);
+          --pri: oklch(0.34 0.082 214.349);
+          --prif: oklch(0.888 0.059 89.012);
+          --sec: oklch(0.42 0.11 107.44);
+          --secf: oklch(0.953 0.056 95.604);
+          --mut: oklch(0.888 0.059 89.012);
+          --mutf: oklch(0.37 0.017 59.8);
+          --acc: oklch(0.48 0.118 351.672);
+          --accf: oklch(0.311 0.003 48.623);
+          --des: oklch(0.539 0.201 28.478);
+          --desf: oklch(0.257 0.089 27.735);
+          --bdr: oklch(0.684 0.035 76.295);
+          --inp: oklch(0.96 0.042 99.947);
+          --rng: oklch(0.787 0.172 68.864);
+          color-scheme: light;
+          --cg: oklch(0.558 0.097 167.141);
+          --cc: oklch(0.544 0.164 313.001);
+          --ci: oklch(0.559 0.143 38.532);
+          --cd2: oklch(0.619 0.128 237.422);
+          --cr: oklch(0.597 0.154 81.796);
+          --cs: oklch(0.568 0.135 130.491);
+          --sx: 0 1px 2.5px 0 oklch(0.331 0.02 76.196/0.03);
+          --sm:
+            0 1px 2.5px 0 oklch(0.331 0.02 76.196/0.06),
+            0 1px 2px -1px oklch(0.331 0.02 76.196/0.06);
+          --smd:
+            0 1px 2.5px 0 oklch(0.331 0.02 76.196/0.06),
+            0 2px 4px -1px oklch(0.331 0.02 76.196/0.06);
+          --slg:
+            0 1px 2.5px 0 oklch(0.331 0.02 76.196/0.06),
+            0 4px 6px -1px oklch(0.331 0.02 76.196/0.06);
+          --sxl:
+            0 1px 2.5px 0 oklch(0.331 0.02 76.196/0.06),
+            0 8px 10px -1px oklch(0.331 0.02 76.196/0.06);
+          --s2xl: 0 1px 2.5px 0 oklch(0.331 0.02 76.196/0.15);
+        }
+        html[data-theme='dark'] {
+          --bg: oklch(0.239 0.004 219.659);
+          --fg: oklch(0.822 0.051 84.515);
+          --cd: oklch(0.311 0.003 48.623);
+          --cdf: oklch(0.953 0.056 95.604);
+          --pop: oklch(0.27 0 0);
+          --popf: oklch(0.822 0.051 84.515);
+          --pri: oklch(0.78 0.055 169.812);
+          --prif: oklch(0.239 0.004 219.659);
+          --sec: oklch(0.639 0.131 108.548);
+          --secf: oklch(0.27 0 0);
+          --mut: oklch(0.341 0.006 48.534);
+          --mutf: oklch(0.81 0.045 81.345);
+          --acc: oklch(0.73 0.12 351.672);
+          --accf: oklch(0.311 0.003 48.623);
+          --des: oklch(0.539 0.201 28.478);
+          --desf: oklch(0.239 0.004 219.659);
+          --bdr: oklch(0.409 0.011 50.327);
+          --inp: oklch(0.341 0.006 48.534);
+          --rng: oklch(0.862 0.135 84.271);
+          color-scheme: dark;
+          --cg: oklch(0.644 0.1 168.409);
+          --cc: oklch(0.592 0.131 313.642);
+          --ci: oklch(0.596 0.131 38.922);
+          --cd2: oklch(0.635 0.103 233.501);
+          --cr: oklch(0.664 0.123 80.938);
+          --cs: oklch(0.638 0.106 130.196);
+          --sx: 0 1px 2px 0 oklch(0 0 0/0.01);
+          --sm: 0 1px 2px 0 oklch(0 0 0/0.01), 0 1px 2px -1px oklch(0 0 0/0.01);
+          --smd: 0 1px 2px 0 oklch(0 0 0/0.01), 0 2px 4px -1px oklch(0 0 0/0.01);
+          --slg: 0 1px 2px 0 oklch(0 0 0/0.01), 0 4px 6px -1px oklch(0 0 0/0.01);
+          --sxl: 0 1px 2px 0 oklch(0 0 0/0.01), 0 8px 10px -1px oklch(0 0 0/0.01);
+          --s2xl: 0 1px 2px 0 oklch(0 0 0/0.03);
+        }
+        html {
+          scroll-behavior: smooth;
+        }
+        body {
+          background: var(--bg);
+          color: var(--fg);
+          transition:
+            background 0.45s,
+            color 0.45s;
+          -webkit-font-smoothing: antialiased;
+        }
+        h1,
+        h2,
+        h3 {
+          text-wrap: balance;
+        }
+        p {
+          text-wrap: pretty;
+        }
+        ::selection {
+          background: var(--pri);
+          color: var(--prif);
+        }
+        :focus-visible {
+          outline: 2px solid var(--rng);
+          outline-offset: 2px;
+        }
+        .car {
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+        }
+        .car::-webkit-scrollbar {
+          display: none;
+        }
+        .car-sl {
+          scroll-snap-align: center;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      }
+      @layer components {
+        .iw {
+          transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+        }
+        .iw:focus-within {
+          border-color: var(--pri);
+          box-shadow: 0 0 0 3px color-mix(in oklch, var(--pri) 15%, transparent);
+        }
+        .iw:focus-within i {
+          color: var(--pri);
+        }
+        .se {
+          width: 200px;
+          transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .se:focus-within {
+          width: 320px;
+        }
+        .ta {
+          field-sizing: content;
+          min-height: 3lh;
+          max-height: 15lh;
+        }
+        .tgl {
+          appearance: none;
+          width: 44px;
+          height: 24px;
+          border-radius: 12px;
+          background: var(--bdr);
+          cursor: pointer;
+          position: relative;
+          transition: background 0.25s;
+          flex-shrink: 0;
+        }
+        .tgl::before {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #fff;
+          box-shadow: var(--sm);
+          transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tgl:checked {
+          background: var(--pri);
+        }
+        .tgl:checked::before {
+          transform: translateX(20px);
+        }
+        .ci:has(.ca:hover) {
+          border-color: var(--pri) !important;
+          box-shadow:
+            var(--smd),
+            0 0 0 3px color-mix(in oklch, var(--pri) 10%, transparent) !important;
+        }
+        .at {
+          list-style: none;
+          cursor: pointer;
+        }
+        .at::-webkit-details-marker {
+          display: none;
+        }
+        .at::after {
+          content: '';
+          width: 8px;
+          height: 8px;
+          flex-shrink: 0;
+          margin-left: 12px;
+          border-right: 1.5px solid var(--mutf);
+          border-bottom: 1.5px solid var(--mutf);
+          transform: rotate(-45deg);
+          transition: transform 0.25s;
+        }
+        details[open] > .at::after {
+          transform: rotate(45deg);
+        }
+        details[open] > .at {
+          border-bottom: 1px solid var(--bdr);
+        }
+        .ab {
+          @starting-style {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+          animation: ai 0.25s ease;
+        }
+        @keyframes ai {
+          from {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+        }
+        .ct input[type='radio'] {
+          display: none;
+        }
+        .tt {
+          position: relative;
+          cursor: pointer;
+          user-select: none;
+        }
+        .tt::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: var(--pri);
+          border-radius: 1px;
+          transform: scaleX(0);
+          transition: transform 0.25s;
+        }
+        .tp {
+          display: none;
+        }
+        .ct:has(#t1:checked) .tt[for='t1'],
+        .ct:has(#t2:checked) .tt[for='t2'],
+        .ct:has(#t3:checked) .tt[for='t3'] {
+          color: var(--fg) !important;
+        }
+        .ct:has(#t1:checked) .tt[for='t1']::after,
+        .ct:has(#t2:checked) .tt[for='t2']::after,
+        .ct:has(#t3:checked) .tt[for='t3']::after {
+          transform: scaleX(1);
+        }
+        .ct:has(#t1:checked) #p1,
+        .ct:has(#t2:checked) #p2,
+        .ct:has(#t3:checked) #p3 {
+          display: block;
+          @starting-style {
+            opacity: 0;
+            transform: translateY(4px);
+          }
+          animation: ti 0.2s ease;
+        }
+        @keyframes ti {
+          from {
+            opacity: 0;
+            transform: translateY(4px);
+          }
+        }
+        .dl {
+          @starting-style {
+            opacity: 0;
+            transform: scale(0.96) translateY(10px);
+          }
+          animation: di 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dl::backdrop {
+          background: oklch(0.15 0 0/0.5);
+          backdrop-filter: blur(4px);
+          @starting-style {
+            opacity: 0;
+          }
+          animation: fi 0.25s ease;
+        }
+        @keyframes di {
+          from {
+            opacity: 0;
+            transform: scale(0.96) translateY(10px);
+          }
+        }
+        @keyframes fi {
+          from {
+            opacity: 0;
+          }
+        }
+        [popover] {
+          @starting-style {
+            opacity: 0;
+            transform: translateY(-6px) scale(0.97);
+          }
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .to {
+          @starting-style {
+            opacity: 0;
+            transform: translateX(40px) scale(0.95);
+          }
+          animation: toin 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+        .to.exit {
+          animation: toout 0.3s ease both;
+        }
+        @keyframes toin {
+          from {
+            opacity: 0;
+            transform: translateX(40px) scale(0.95);
+          }
+        }
+        @keyframes toout {
+          to {
+            opacity: 0;
+            transform: translateX(40px) scale(0.95);
+          }
+        }
+        .tip {
+          position: relative;
+        }
+        .tip::after {
+          content: attr(data-tip);
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 4px 10px;
+          background: var(--popf);
+          color: var(--pop);
+          border-radius: 0.25rem;
+          font-size: 12px;
+          white-space: nowrap;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.15s;
+          z-index: 100;
+        }
+        .tip:hover::after {
+          opacity: 1;
+        }
+        .bl {
+          color: transparent !important;
+          pointer-events: none;
+          position: relative;
+        }
+        .bl::after {
+          content: '';
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          border: 2px solid currentColor;
+          border-right-color: transparent;
+          border-radius: 50%;
+          animation: sp 0.6s linear infinite;
+          color: var(--prif);
+        }
+        @keyframes sp {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .bs {
+          background: color-mix(in oklch, var(--_c) 15%, transparent);
+          color: var(--_c);
+        }
+        .bd {
+          background: var(--_c);
+          color: #fff;
+        }
+        .bo {
+          background: transparent;
+          border: 1px solid var(--_c);
+          color: var(--_c);
+        }
+        .bt::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--_c);
+          flex-shrink: 0;
+        }
+        .sw {
+          border: 1px solid color-mix(in oklch, var(--_c) 20%, var(--bdr));
+        }
+        .rv {
+          opacity: 0;
+          transform: translateY(16px);
+          transition:
+            opacity 0.5s,
+            transform 0.5s;
+        }
+        .rv.vis {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @utility prose-playground {
+        --tw-prose-body: var(--fg);
+        --tw-prose-headings: var(--fg);
+        --tw-prose-lead: var(--mutf);
+        --tw-prose-links: var(--pri);
+        --tw-prose-bold: var(--fg);
+        --tw-prose-counters: var(--mutf);
+        --tw-prose-bullets: var(--bdr);
+        --tw-prose-hr: var(--bdr);
+        --tw-prose-quotes: var(--fg);
+        --tw-prose-quote-borders: var(--pri);
+        --tw-prose-captions: var(--mutf);
+        --tw-prose-code: var(--fg);
+        --tw-prose-pre-code: var(--fg);
+        --tw-prose-pre-bg: var(--cd);
+        --tw-prose-th-borders: var(--bdr);
+        --tw-prose-td-borders: var(--bdr);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="bg-pri fixed top-0 left-0 z-[9999] h-0.5 w-full origin-left"
+      id="sb"
+      style="will-change: transform"
+    ></div>
+
+    <header
+      class="border-bdr sticky top-0 z-50 border-b transition-colors duration-300"
+      style="
+        background: color-mix(in oklch, var(--bg) 85%, transparent);
+        backdrop-filter: blur(16px) saturate(1.4);
+      "
+    >
+      <div class="mx-auto flex h-14 max-w-[960px] items-center justify-between px-6">
+        <a
+          href="#"
+          class="text-fg font-serif text-xl italic"
+          >Atelier</a
+        >
+        <nav class="hidden items-center gap-1 overflow-x-auto md:flex">
+          <a
+            href="#buttons"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Buttons</a
+          >
+          <a
+            href="#badges"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Badges</a
+          >
+          <a
+            href="#inputs"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Inputs</a
+          >
+          <a
+            href="#controls"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Controls</a
+          >
+          <a
+            href="#cards"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Cards</a
+          >
+          <a
+            href="#accordion"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Accordion</a
+          >
+          <a
+            href="#tabs"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Tabs</a
+          >
+          <a
+            href="#carousel"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Carousel</a
+          >
+          <a
+            href="#dialog"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Dialog</a
+          >
+          <a
+            href="#alerts"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Alerts</a
+          >
+          <a
+            href="#toasts"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Toasts</a
+          >
+          <a
+            href="#palette"
+            class="text-mutf hover:text-fg rounded-sm px-3 py-1.5 text-xs font-medium transition-colors"
+            >Palette</a
+          >
+        </nav>
+        <button
+          class="tip border-bdr bg-cd text-fg hover:border-fg flex h-9 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border text-sm transition-colors"
+          data-tip="Toggle theme"
+          id="thm"
+          aria-label="Toggle theme"
+        >
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="relative mx-auto max-w-[960px] px-6 pt-20 pb-12">
+        <div
+          class="bg-cg pointer-events-none absolute -top-16 -right-10 h-[300px] w-[300px] rounded-full opacity-20 blur-[60px] transition-colors duration-500"
+        ></div>
+        <div
+          class="bg-cc pointer-events-none absolute bottom-0 left-[10%] h-[200px] w-[200px] rounded-full opacity-15 blur-[60px] transition-colors duration-500"
+        ></div>
+        <h1
+          class="text-fg font-serif leading-none font-normal tracking-tight transition-colors duration-300"
+          style="font-size: clamp(48px, 8vw, 80px); letter-spacing: -2px"
+        >
+          Build with<br /><em class="text-pri italic transition-colors duration-300">modern CSS</em>
+        </h1>
+        <p
+          class="text-mutf mt-4 max-w-[500px] leading-relaxed font-light transition-colors duration-300"
+          style="font-size: clamp(15px, 2vw, 17px)"
+        >
+          A component library for creative projects. No component JavaScript — just the features the
+          browser gives you for free.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-2">
+          <span
+            class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style="--_c: var(--cg)"
+            >Generative</span
+          >
+          <span
+            class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style="--_c: var(--cc)"
+            >Color</span
+          >
+          <span
+            class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style="--_c: var(--ci)"
+            >Image</span
+          >
+          <span
+            class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style="--_c: var(--cd2)"
+            >Data Viz</span
+          >
+          <span
+            class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style="--_c: var(--cr)"
+            >Random</span
+          >
+          <span
+            class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style="--_c: var(--cs)"
+            >Simulation</span
+          >
+        </div>
+        <div class="mt-10 flex flex-wrap gap-5">
+          <div class="text-mutf flex items-center gap-2 text-xs">
+            <i
+              class="text-pri flex h-7 w-7 items-center justify-center rounded-md text-[11px]"
+              style="background: color-mix(in oklch, var(--pri) 10%, transparent)"
+              ><i class="fa-solid fa-wand-magic-sparkles"></i></i
+            >:has() states
+          </div>
+          <div class="text-mutf flex items-center gap-2 text-xs">
+            <i
+              class="text-pri flex h-7 w-7 items-center justify-center rounded-md text-[11px]"
+              style="background: color-mix(in oklch, var(--pri) 10%, transparent)"
+              ><i class="fa-solid fa-layer-group"></i></i
+            >@layer cascade
+          </div>
+          <div class="text-mutf flex items-center gap-2 text-xs">
+            <i
+              class="text-pri flex h-7 w-7 items-center justify-center rounded-md text-[11px]"
+              style="background: color-mix(in oklch, var(--pri) 10%, transparent)"
+              ><i class="fa-solid fa-palette"></i></i
+            >color-mix()
+          </div>
+          <div class="text-mutf flex items-center gap-2 text-xs">
+            <i
+              class="text-pri flex h-7 w-7 items-center justify-center rounded-md text-[11px]"
+              style="background: color-mix(in oklch, var(--pri) 10%, transparent)"
+              ><i class="fa-solid fa-play"></i></i
+            >@starting-style
+          </div>
+          <div class="text-mutf flex items-center gap-2 text-xs">
+            <i
+              class="text-pri flex h-7 w-7 items-center justify-center rounded-md text-[11px]"
+              style="background: color-mix(in oklch, var(--pri) 10%, transparent)"
+              ><i class="fa-solid fa-window-restore"></i></i
+            >&lt;dialog&gt;
+          </div>
+        </div>
+      </section>
+
+      <div class="mx-auto max-w-[960px] px-6">
+        <!-- Buttons -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="buttons"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Interactive
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Buttons
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              Hover via color-mix(), press feedback with transform, CSS-only loading spinner.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Variants</p>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button
+                class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--pri),black_10%)] active:scale-[.97]"
+              >
+                Primary
+              </button>
+              <button
+                class="bg-sec text-secf inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--sec),black_10%)] active:scale-[.97]"
+              >
+                Secondary
+              </button>
+              <button
+                class="bg-des text-desf inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--des),black_12%)] active:scale-[.97]"
+              >
+                Destructive
+              </button>
+              <button
+                class="bg-acc text-accf inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--acc),black_10%)] active:scale-[.97]"
+              >
+                Accent
+              </button>
+            </div>
+            <p class="text-mutf mt-6 mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+              Subtle
+            </p>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button
+                class="border-bdr text-fg hover:bg-mut hover:border-fg inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+              >
+                Outline
+              </button>
+              <button
+                class="text-fg inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--fg),var(--bg)_88%)] active:scale-[.97]"
+              >
+                Ghost
+              </button>
+            </div>
+            <p class="text-mutf mt-6 mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+              Sizes & icons
+            </p>
+            <div class="flex flex-wrap items-end gap-2.5">
+              <button
+                class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-3.5 py-1.5 text-[13px] font-medium transition-all duration-200 active:scale-[.97]"
+              >
+                Small
+              </button>
+              <button
+                class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+              >
+                Default
+              </button>
+              <button
+                class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-7 py-3.5 text-[15px] font-medium transition-all duration-200 active:scale-[.97]"
+              >
+                Large
+              </button>
+              <button
+                class="bg-pri text-prif tip inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-2.5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+                data-tip="Settings"
+              >
+                <i class="fa-solid fa-gear"></i>
+              </button>
+              <button
+                class="bg-pri text-prif bl inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200"
+              >
+                Loading
+              </button>
+            </div>
+            <p class="text-mutf mt-6 mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+              Disabled
+            </p>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button
+                class="bg-pri text-prif pointer-events-none inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium opacity-50 transition-all duration-200"
+              >
+                Primary
+              </button>
+              <button
+                class="border-bdr text-fg pointer-events-none inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-transparent px-5 py-2.5 text-sm font-medium opacity-50 transition-all duration-200"
+              >
+                Outline
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Badges -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="badges"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Display
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Badges
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              One --_c custom property drives three visual densities across all category colors.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Soft</p>
+            <div class="mb-6 flex flex-wrap gap-2">
+              <span
+                class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cg)"
+                >Generative</span
+              >
+              <span
+                class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cc)"
+                >Color</span
+              >
+              <span
+                class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--ci)"
+                >Image</span
+              >
+              <span
+                class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cd2)"
+                >Data Viz</span
+              >
+              <span
+                class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cr)"
+                >Random</span
+              >
+              <span
+                class="bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cs)"
+                >Simulation</span
+              >
+            </div>
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Solid</p>
+            <div class="mb-6 flex flex-wrap gap-2">
+              <span
+                class="bd inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cg)"
+                >Generative</span
+              >
+              <span
+                class="bd inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cc)"
+                >Color</span
+              >
+              <span
+                class="bd inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--ci)"
+                >Image</span
+              >
+              <span
+                class="bd inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cd2)"
+                >Data Viz</span
+              >
+            </div>
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Outline</p>
+            <div class="mb-6 flex flex-wrap gap-2">
+              <span
+                class="bo inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cg)"
+                >Generative</span
+              >
+              <span
+                class="bo inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cc)"
+                >Color</span
+              >
+              <span
+                class="bo inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--ci)"
+                >Image</span
+              >
+              <span
+                class="bo inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cd2)"
+                >Data Viz</span
+              >
+            </div>
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+              Dot status
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="bt bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--sec)"
+                >Published</span
+              >
+              <span
+                class="bt bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--rng)"
+                >Draft</span
+              >
+              <span
+                class="bt bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--des)"
+                >Archived</span
+              >
+              <span
+                class="bt bs inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style="--_c: var(--cc)"
+                >Review</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- Inputs -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="inputs"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Form
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Inputs
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              :focus-within highlights the wrapper. Search expands on focus. Textarea auto-grows
+              with field-sizing.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <p class="text-mutf mb-2 text-[11px] font-medium tracking-[1px] uppercase">
+                  Default
+                </p>
+                <div class="iw bg-inp border-bdr flex items-center gap-2 rounded-md border px-3">
+                  <input
+                    class="text-fg placeholder:text-mutf w-full border-none bg-transparent py-2.5 font-sans text-sm outline-none"
+                    placeholder="Type something..."
+                  />
+                </div>
+              </div>
+              <div>
+                <p class="text-mutf mb-2 text-[11px] font-medium tracking-[1px] uppercase">
+                  With icon
+                </p>
+                <div class="iw bg-inp border-bdr flex items-center gap-2 rounded-md border px-3">
+                  <i class="fa-solid fa-search text-mutf text-sm transition-colors"></i
+                  ><input
+                    class="text-fg placeholder:text-mutf w-full border-none bg-transparent py-2.5 font-sans text-sm outline-none"
+                    placeholder="Search..."
+                  />
+                </div>
+              </div>
+              <div>
+                <p class="text-mutf mb-2 text-[11px] font-medium tracking-[1px] uppercase">
+                  Expanding (:focus-within)
+                </p>
+                <div class="iw se bg-inp border-bdr flex items-center gap-2 rounded-md border px-3">
+                  <i class="fa-solid fa-search text-mutf text-sm transition-colors"></i
+                  ><input
+                    class="text-fg placeholder:text-mutf w-full border-none bg-transparent py-2.5 font-sans text-sm outline-none"
+                    placeholder="Focus to expand..."
+                  />
+                </div>
+              </div>
+              <div>
+                <p class="text-mutf mb-2 text-[11px] font-medium tracking-[1px] uppercase">
+                  With trailing action
+                </p>
+                <div class="iw bg-inp border-bdr flex items-center gap-2 rounded-md border px-3">
+                  <input
+                    class="text-fg placeholder:text-mutf w-full border-none bg-transparent py-2.5 font-sans text-sm outline-none"
+                    type="url"
+                    placeholder="https://..."
+                  /><button
+                    class="text-mutf hover:text-fg inline-flex cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-1.5 text-sm transition-colors"
+                  >
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6">
+              <p class="text-mutf mb-2 text-[11px] font-medium tracking-[1px] uppercase">
+                Auto-growing textarea (field-sizing: content)
+              </p>
+              <textarea
+                class="ta bg-inp border-bdr text-fg placeholder:text-mutf iw w-full resize-y rounded-md border p-3 font-sans text-sm outline-none"
+                placeholder="Start typing — this grows with content and shrinks back..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Controls -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="controls"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Form
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Selection Controls
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              Native controls styled with accent-color. CSS-only toggle switch via ::before
+              transform.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <div class="grid gap-6 sm:grid-cols-3">
+              <div>
+                <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+                  Checkboxes
+                </p>
+                <div class="flex flex-col gap-2.5">
+                  <label class="flex cursor-pointer items-center gap-2.5 text-sm select-none"
+                    ><input
+                      type="checkbox"
+                      class="accent-pri h-[18px] w-[18px] flex-shrink-0 cursor-pointer rounded"
+                      checked
+                    />
+                    Generative</label
+                  ><label class="flex cursor-pointer items-center gap-2.5 text-sm select-none"
+                    ><input
+                      type="checkbox"
+                      class="accent-pri h-[18px] w-[18px] flex-shrink-0 cursor-pointer rounded"
+                    />
+                    Color</label
+                  ><label
+                    class="pointer-events-none flex cursor-pointer items-center gap-2.5 text-sm opacity-50 select-none"
+                    ><input
+                      type="checkbox"
+                      class="accent-pri h-[18px] w-[18px] flex-shrink-0 cursor-pointer rounded"
+                      disabled
+                    />
+                    Disabled</label
+                  >
+                </div>
+              </div>
+              <div>
+                <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+                  Radios
+                </p>
+                <div class="flex flex-col gap-2.5">
+                  <label class="flex cursor-pointer items-center gap-2.5 text-sm select-none"
+                    ><input
+                      type="radio"
+                      name="r1"
+                      class="accent-pri h-[18px] w-[18px] flex-shrink-0 cursor-pointer rounded-full"
+                      checked
+                    />
+                    Tutorial</label
+                  ><label class="flex cursor-pointer items-center gap-2.5 text-sm select-none"
+                    ><input
+                      type="radio"
+                      name="r1"
+                      class="accent-pri h-[18px] w-[18px] flex-shrink-0 cursor-pointer rounded-full"
+                    />
+                    How-to</label
+                  ><label
+                    class="pointer-events-none flex cursor-pointer items-center gap-2.5 text-sm opacity-50 select-none"
+                    ><input
+                      type="radio"
+                      name="r1"
+                      class="accent-pri h-[18px] w-[18px] flex-shrink-0 cursor-pointer rounded-full"
+                      disabled
+                    />
+                    Disabled</label
+                  >
+                </div>
+              </div>
+              <div>
+                <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+                  Toggles
+                </p>
+                <div class="flex flex-col gap-2.5">
+                  <label class="flex cursor-pointer items-center gap-2.5 text-sm select-none"
+                    ><input
+                      type="checkbox"
+                      class="tgl"
+                      checked
+                    />
+                    Notifications</label
+                  ><label class="flex cursor-pointer items-center gap-2.5 text-sm select-none"
+                    ><input
+                      type="checkbox"
+                      class="tgl"
+                    />
+                    Auto-save</label
+                  ><label
+                    class="pointer-events-none flex cursor-pointer items-center gap-2.5 text-sm opacity-50 select-none"
+                    ><input
+                      type="checkbox"
+                      class="tgl"
+                      disabled
+                    />
+                    Locked</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 max-w-sm">
+              <p class="text-mutf mb-2 text-[11px] font-medium tracking-[1px] uppercase">
+                Range slider
+              </p>
+              <input
+                type="range"
+                class="accent-pri h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none"
+                min="0"
+                max="100"
+                value="65"
+                style="background: var(--bdr)"
+              />
+              <div class="text-mutf mt-1 flex justify-between text-[11px]">
+                <span>0</span><span>50</span><span>100</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cards -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="cards"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Layout
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Cards
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              The right card uses :has(.card-actions:hover) — hover the icons and watch the border
+              light up.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div
+                class="bg-cd border-bdr overflow-hidden rounded-lg border transition-all duration-250 hover:shadow-md"
+                style="box-shadow: var(--sx)"
+              >
+                <img
+                  src="https://picsum.photos/seed/at1/400/225.jpg"
+                  alt=""
+                  class="aspect-video w-full object-cover"
+                />
+                <div class="p-4">
+                  <span
+                    class="bs mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                    style="--_c: var(--cg)"
+                    >Generative</span
+                  >
+                  <p class="text-cdf text-[16px] font-semibold">Flow Field Exploration</p>
+                  <p class="text-mutf mt-1 text-[13px] leading-relaxed">
+                    A study in Perlin noise fields and particle tracing.
+                  </p>
+                </div>
+                <div class="border-bdr flex items-center justify-between border-t px-4 py-3">
+                  <span class="text-mutf text-xs">2 days ago</span
+                  ><button
+                    class="text-fg inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-3.5 py-1.5 text-sm font-medium transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--fg),var(--bg)_88%)]"
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+              <div
+                class="ci bg-cd border-bdr overflow-hidden rounded-lg border transition-all duration-250"
+                style="box-shadow: var(--sx)"
+              >
+                <img
+                  src="https://picsum.photos/seed/at2/400/225.jpg"
+                  alt=""
+                  class="aspect-video w-full object-cover"
+                />
+                <div class="p-4">
+                  <span
+                    class="bs mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                    style="--_c: var(--cc)"
+                    >Color</span
+                  >
+                  <p class="text-cdf text-[16px] font-semibold">OKLCH Palette Generator</p>
+                  <p class="text-mutf mt-1 text-[13px] leading-relaxed">
+                    Harmonious palettes in perceptually uniform space.
+                  </p>
+                </div>
+                <div class="ca flex gap-1 px-4 pb-3">
+                  <button
+                    class="text-mutf hover:text-fg tip inline-flex cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-2 transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--fg),var(--bg)_88%)]"
+                    data-tip="Save"
+                  >
+                    <i class="fa-regular fa-bookmark"></i>
+                  </button>
+                  <button
+                    class="text-mutf hover:text-fg tip inline-flex cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-2 transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--fg),var(--bg)_88%)]"
+                    data-tip="Share"
+                  >
+                    <i class="fa-solid fa-share-nodes"></i>
+                  </button>
+                  <button
+                    class="text-mutf hover:text-fg tip inline-flex cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-2 transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--fg),var(--bg)_88%)]"
+                    data-tip="More"
+                  >
+                    <i class="fa-solid fa-ellipsis"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p class="text-mutf mt-3 text-center text-xs">
+              <i class="fa-solid fa-arrow-pointer mr-1"></i>Hover the bookmark / share / more icons
+              on the right card
+            </p>
+            <div class="mt-6">
+              <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">
+                Horizontal
+              </p>
+              <div
+                class="bg-cd border-bdr grid overflow-hidden rounded-lg border transition-all duration-250 hover:shadow-md sm:grid-cols-[180px_1fr]"
+                style="box-shadow: var(--sx)"
+              >
+                <img
+                  src="https://picsum.photos/seed/at3/360/240.jpg"
+                  alt=""
+                  class="aspect-video h-full w-full object-cover sm:aspect-auto"
+                />
+                <div class="p-4">
+                  <span
+                    class="bs mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                    style="--_c: var(--cd2)"
+                    >Data Viz</span
+                  >
+                  <p class="text-cdf text-[16px] font-semibold">Radial Chart Patterns</p>
+                  <p class="text-mutf mt-1 text-[13px] leading-relaxed">
+                    Circular layouts for multi-dimensional data.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Accordion -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="accordion"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Disclosure
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Accordion
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              Native &lt;details&gt;/&lt;summary&gt; with CSS chevron and @starting-style content
+              animation.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <details
+              class="border-bdr bg-cd open overflow-hidden rounded-lg border transition-colors duration-300"
+              open
+            >
+              <summary
+                class="at text-fg flex items-center justify-between px-4 py-3.5 text-sm font-medium transition-colors select-none hover:bg-[color-mix(in_oklch,var(--fg)_4%,var(--cd))]"
+              >
+                What modern CSS features does this use?
+              </summary>
+              <div class="ab text-mutf border-bdr border-b px-4 py-3.5 text-[13px] leading-relaxed">
+                :has(), :focus-within, &lt;details&gt;, &lt;dialog&gt;, popover, color-mix(),
+                @starting-style, CSS nesting, @layer, accent-color, field-sizing, scroll-snap,
+                text-wrap: balance/pretty, and CSS-only tabs via :has() + radio inputs.
+              </div>
+            </details>
+            <details
+              class="border-bdr bg-cd -mt-px overflow-hidden rounded-lg rounded-t-none border transition-colors duration-300"
+            >
+              <summary
+                class="at text-fg flex items-center justify-between px-4 py-3.5 text-sm font-medium transition-colors select-none hover:bg-[color-mix(in_oklch,var(--fg)_4%,var(--cd))]"
+              >
+                Do I need JavaScript for these components?
+              </summary>
+              <div class="ab text-mutf border-bdr border-b px-4 py-3.5 text-[13px] leading-relaxed">
+                Almost none. Theme toggle, toast triggering, and dialog showModal() are the only JS
+                on this page. Every animation, state change, and hover effect is pure CSS.
+              </div>
+            </details>
+            <details
+              class="border-bdr bg-cd -mt-px overflow-hidden rounded-lg rounded-t-none border transition-colors duration-300"
+            >
+              <summary
+                class="at text-fg flex items-center justify-between px-4 py-3.5 text-sm font-medium transition-colors select-none hover:bg-[color-mix(in_oklch,var(--fg)_4%,var(--cd))]"
+              >
+                How does theme switching work?
+              </summary>
+              <div class="ab text-mutf border-bdr border-b px-4 py-3.5 text-[13px] leading-relaxed">
+                Colors are oklch() custom properties on :root and html[data-theme=dark]. Flipping
+                the attribute swaps everything. The body has a CSS transition for a smooth
+                crossfade.
+              </div>
+            </details>
+            <details
+              class="border-bdr bg-cd -mt-px overflow-hidden rounded-lg rounded-t-none rounded-b-lg border transition-colors duration-300"
+            >
+              <summary
+                class="at text-fg flex items-center justify-between px-4 py-3.5 text-sm font-medium transition-colors select-none hover:bg-[color-mix(in_oklch,var(--fg)_4%,var(--cd))]"
+              >
+                Compatible with Tailwind v4?
+              </summary>
+              <div class="ab text-mutf px-4 py-3.5 text-[13px] leading-relaxed">
+                Yes. The @theme inline block maps custom properties to Tailwind's --color-*
+                namespace, so you can use bg-pri, text-mutf, border-bdr etc. alongside these
+                component classes.
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Tabs -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="tabs"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Navigation
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Tabs
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              Pure CSS via :has() + hidden radio inputs. Zero JS click handlers.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <div class="ct">
+              <input
+                type="radio"
+                name="dt"
+                id="t1"
+                checked
+              />
+              <input
+                type="radio"
+                name="dt"
+                id="t2"
+              />
+              <input
+                type="radio"
+                name="dt"
+                id="t3"
+              />
+              <div class="border-bdr mb-4 flex gap-1 border-b">
+                <label
+                  class="tt text-mutf hover:text-fg px-4 py-2.5 text-[13px] font-medium transition-colors"
+                  for="t1"
+                  >Overview</label
+                >
+                <label
+                  class="tt text-mutf hover:text-fg px-4 py-2.5 text-[13px] font-medium transition-colors"
+                  for="t2"
+                  >Implementation</label
+                >
+                <label
+                  class="tt text-mutf hover:text-fg px-4 py-2.5 text-[13px] font-medium transition-colors"
+                  for="t3"
+                  >Browser Support</label
+                >
+              </div>
+              <div
+                class="tp text-mutf text-[13px] leading-relaxed"
+                id="p1"
+              >
+                The tab system uses three hidden radio inputs. When a radio is checked, :has() on
+                the parent matches the corresponding trigger and panel, applying the active
+                indicator and displaying content.
+              </div>
+              <div
+                class="tp text-mutf text-[13px] leading-relaxed"
+                id="p2"
+              >
+                The active tab gets an underline via ::after with scaleX(1). The panel uses
+                display:none/block with a @starting-style fade-in animation. No JavaScript touches
+                the DOM.
+              </div>
+              <div
+                class="tp text-mutf text-[13px] leading-relaxed"
+                id="p3"
+              >
+                :has() is supported in Chrome 105+, Safari 15.4+, Firefox 121+. The radio input
+                pattern works everywhere. Safe for production today.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Carousel -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="carousel"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Layout
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Carousel
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              scroll-snap-type: x mandatory. Browser handles momentum, snapping, touch. Zero JS.
+            </p>
+          </div>
+          <div class="car flex gap-3 py-1">
+            <div class="car-sl bg-cd border-bdr flex-[0_0_72%] overflow-hidden rounded-lg border">
+              <img
+                src="https://picsum.photos/seed/sl1/600/338.jpg"
+                alt=""
+                class="aspect-video w-full object-cover"
+              />
+              <div class="p-3">
+                <p class="text-cdf text-sm font-semibold">Particle Systems</p>
+                <p class="text-mutf mt-0.5 text-xs">Emitter patterns and force fields</p>
+              </div>
+            </div>
+            <div class="car-sl bg-cd border-bdr flex-[0_0_72%] overflow-hidden rounded-lg border">
+              <img
+                src="https://picsum.photos/seed/sl2/600/338.jpg"
+                alt=""
+                class="aspect-video w-full object-cover"
+              />
+              <div class="p-3">
+                <p class="text-cdf text-sm font-semibold">Gradient Meshes</p>
+                <p class="text-mutf mt-0.5 text-xs">Smooth color interpolation</p>
+              </div>
+            </div>
+            <div class="car-sl bg-cd border-bdr flex-[0_0_72%] overflow-hidden rounded-lg border">
+              <img
+                src="https://picsum.photos/seed/sl3/600/338.jpg"
+                alt=""
+                class="aspect-video w-full object-cover"
+              />
+              <div class="p-3">
+                <p class="text-cdf text-sm font-semibold">Voronoi Diagrams</p>
+                <p class="text-mutf mt-0.5 text-xs">Cell-based spatial partitioning</p>
+              </div>
+            </div>
+            <div class="car-sl bg-cd border-bdr flex-[0_0_72%] overflow-hidden rounded-lg border">
+              <img
+                src="https://picsum.photos/seed/sl4/600/338.jpg"
+                alt=""
+                class="aspect-video w-full object-cover"
+              />
+              <div class="p-3">
+                <p class="text-cdf text-sm font-semibold">Noise Landscapes</p>
+                <p class="text-mutf mt-0.5 text-xs">Terrain with layered octaves</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dialog -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="dialog"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Overlay
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Dialog
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              Native &lt;dialog&gt; with focus trap, Escape-to-close, backdrop. @starting-style
+              animates entrance.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <button
+              class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+              id="odlg"
+            >
+              Open Dialog
+            </button>
+          </div>
+        </section>
+
+        <dialog
+          class="dl bg-cd border-bdr text-cdf w-[90%] max-w-[440px] rounded-xl border p-0"
+          id="mdlg"
+          style="box-shadow: var(--s2xl)"
+        >
+          <div class="p-5 pb-0">
+            <h3 class="text-[17px] font-semibold">Create New Project</h3>
+            <p class="text-mutf mt-1 text-[13px]">Press Escape or click outside to close.</p>
+          </div>
+          <div class="flex flex-col gap-3 p-5">
+            <div>
+              <p class="text-mutf mb-1.5 text-[11px] font-medium tracking-[1px] uppercase">
+                Project name
+              </p>
+              <div class="iw bg-inp border-bdr flex items-center gap-2 rounded-md border px-3">
+                <input
+                  class="text-fg placeholder:text-mutf w-full border-none bg-transparent py-2.5 font-sans text-sm outline-none"
+                  placeholder="My creative project"
+                />
+              </div>
+            </div>
+            <div>
+              <p class="text-mutf mb-1.5 text-[11px] font-medium tracking-[1px] uppercase">
+                Category
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <label class="flex cursor-pointer items-center gap-2 text-xs select-none"
+                  ><input
+                    type="radio"
+                    name="dc"
+                    class="accent-pri h-4 w-4 cursor-pointer rounded-full"
+                    checked
+                  />
+                  Generative</label
+                ><label class="flex cursor-pointer items-center gap-2 text-xs select-none"
+                  ><input
+                    type="radio"
+                    name="dc"
+                    class="accent-pri h-4 w-4 cursor-pointer rounded-full"
+                  />
+                  Color</label
+                ><label class="flex cursor-pointer items-center gap-2 text-xs select-none"
+                  ><input
+                    type="radio"
+                    name="dc"
+                    class="accent-pri h-4 w-4 cursor-pointer rounded-full"
+                  />
+                  Image</label
+                ><label class="flex cursor-pointer items-center gap-2 text-xs select-none"
+                  ><input
+                    type="radio"
+                    name="dc"
+                    class="accent-pri h-4 w-4 cursor-pointer rounded-full"
+                  />
+                  Data Viz</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2 px-5 pt-3 pb-5">
+            <button
+              class="border-bdr text-fg hover:bg-mut inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200"
+              onclick="this.closest('dialog').close()"
+            >
+              Cancel
+            </button>
+            <button
+              class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200"
+              onclick="this.closest('dialog').close()"
+            >
+              Create
+            </button>
+          </div>
+        </dialog>
+
+        <!-- Alerts -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="alerts"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Feedback
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Alerts
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              color-mix() at 8% bg / 20% border — one pattern, four semantic colors.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr flex flex-col gap-3 rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <div
+              class="flex gap-3 rounded-lg p-3.5 text-[13px] leading-relaxed"
+              style="
+                background: color-mix(in oklch, var(--pri) 8%, var(--cd));
+                border: 1px solid color-mix(in oklch, var(--pri) 20%, var(--bdr));
+              "
+            >
+              <i class="fa-solid fa-circle-info text-pri mt-0.5 flex-shrink-0"></i>
+              <div>
+                <p class="mb-0.5 font-semibold">New feature available</p>
+                Container queries now supported in all major browsers.
+              </div>
+            </div>
+            <div
+              class="flex gap-3 rounded-lg p-3.5 text-[13px] leading-relaxed"
+              style="
+                background: color-mix(in oklch, var(--sec) 8%, var(--cd));
+                border: 1px solid color-mix(in oklch, var(--sec) 20%, var(--bdr));
+              "
+            >
+              <i
+                class="fa-solid fa-circle-check mt-0.5 flex-shrink-0"
+                style="color: var(--sec)"
+              ></i>
+              <div>
+                <p class="mb-0.5 font-semibold">Project published</p>
+                Your generative art piece is now live.
+              </div>
+            </div>
+            <div
+              class="flex gap-3 rounded-lg p-3.5 text-[13px] leading-relaxed"
+              style="
+                background: color-mix(in oklch, var(--rng) 10%, var(--cd));
+                border: 1px solid color-mix(in oklch, var(--rng) 25%, var(--bdr));
+              "
+            >
+              <i
+                class="fa-solid fa-triangle-exclamation mt-0.5 flex-shrink-0"
+                style="color: oklch(0.65 0.15 70)"
+              ></i>
+              <div>
+                <p class="mb-0.5 font-semibold">Storage almost full</p>
+                You've used 92% of your project storage.
+              </div>
+            </div>
+            <div
+              class="flex gap-3 rounded-lg p-3.5 text-[13px] leading-relaxed"
+              style="
+                background: color-mix(in oklch, var(--des) 8%, var(--cd));
+                border: 1px solid color-mix(in oklch, var(--des) 20%, var(--bdr));
+              "
+            >
+              <i class="fa-solid fa-circle-xmark text-des mt-0.5 flex-shrink-0"></i>
+              <div>
+                <p class="mb-0.5 font-semibold">Export failed</p>
+                The GLTF export timed out.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Toasts -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="toasts"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Feedback
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Toasts
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              @starting-style for enter, .exit class for leave. Only a few lines of JS manage the
+              queue.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button
+                class="bg-pri text-prif inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+                onclick="toast('success', 'Project saved successfully.')"
+              >
+                Success Toast
+              </button>
+              <button
+                class="bg-des text-desf inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+                onclick="toast('error', 'Failed to delete project.')"
+              >
+                Error Toast
+              </button>
+              <button
+                class="border-bdr text-fg hover:bg-mut inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-transparent px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[.97]"
+                onclick="toast('info', 'New version available.')"
+              >
+                Info Toast
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Palette -->
+        <section
+          class="rv border-bdr border-t py-16"
+          id="palette"
+        >
+          <div class="mb-8">
+            <p class="text-mutf mb-2.5 text-[11px] font-semibold tracking-[1.5px] uppercase">
+              Design Tokens
+            </p>
+            <h2
+              class="text-fg font-serif font-normal tracking-tight"
+              style="font-size: clamp(28px, 4vw, 36px)"
+            >
+              Color Palette
+            </h2>
+            <p class="text-mutf mt-1.5 max-w-lg text-sm">
+              Your complete oklch token set. Every color adapts between light and dark themes.
+            </p>
+          </div>
+          <div
+            class="bg-cd border-bdr rounded-xl border p-7 transition-colors duration-300"
+            style="box-shadow: var(--sx)"
+          >
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Semantic</p>
+            <div class="mb-6 grid gap-4 sm:grid-cols-3">
+              <div>
+                <div
+                  class="bg-pri sw h-14 rounded-md"
+                  style="--_c: var(--pri)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Primary</p>
+                <p class="text-mutf font-mono text-[11px]">--pri</p>
+              </div>
+              <div>
+                <div
+                  class="bg-sec sw h-14 rounded-md"
+                  style="--_c: var(--sec)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Secondary</p>
+                <p class="text-mutf font-mono text-[11px]">--sec</p>
+              </div>
+              <div>
+                <div
+                  class="bg-acc sw h-14 rounded-md"
+                  style="--_c: var(--acc)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Accent</p>
+                <p class="text-mutf font-mono text-[11px]">--acc</p>
+              </div>
+              <div>
+                <div
+                  class="bg-des sw h-14 rounded-md"
+                  style="--_c: var(--des)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Destructive</p>
+                <p class="text-mutf font-mono text-[11px]">--des</p>
+              </div>
+              <div>
+                <div
+                  class="bg-mut sw h-14 rounded-md"
+                  style="--_c: var(--mut)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Muted</p>
+                <p class="text-mutf font-mono text-[11px]">--mut</p>
+              </div>
+              <div>
+                <div
+                  class="bg-rng sw h-14 rounded-md"
+                  style="--_c: var(--rng)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Ring</p>
+                <p class="text-mutf font-mono text-[11px]">--rng</p>
+              </div>
+            </div>
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Surface</p>
+            <div class="mb-6 grid gap-4 sm:grid-cols-3">
+              <div>
+                <div
+                  class="bg-bg sw h-14 rounded-md"
+                  style="--_c: var(--bg)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Background</p>
+                <p class="text-mutf font-mono text-[11px]">--bg</p>
+              </div>
+              <div>
+                <div
+                  class="bg-cd sw h-14 rounded-md"
+                  style="--_c: var(--cd)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Card</p>
+                <p class="text-mutf font-mono text-[11px]">--cd</p>
+              </div>
+              <div>
+                <div
+                  class="bg-bdr sw h-14 rounded-md"
+                  style="--_c: var(--bdr)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Border</p>
+                <p class="text-mutf font-mono text-[11px]">--bdr</p>
+              </div>
+            </div>
+            <p class="text-mutf mb-3 text-[11px] font-medium tracking-[1px] uppercase">Category</p>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div>
+                <div
+                  class="bg-cg sw h-14 rounded-md"
+                  style="--_c: var(--cg)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Generative</p>
+                <p class="text-mutf font-mono text-[11px]">--cg</p>
+              </div>
+              <div>
+                <div
+                  class="bg-cc sw h-14 rounded-md"
+                  style="--_c: var(--cc)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Color</p>
+                <p class="text-mutf font-mono text-[11px]">--cc</p>
+              </div>
+              <div>
+                <div
+                  class="bg-ci sw h-14 rounded-md"
+                  style="--_c: var(--ci)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Image</p>
+                <p class="text-mutf font-mono text-[11px]">--ci</p>
+              </div>
+              <div>
+                <div
+                  class="bg-cd2 sw h-14 rounded-md"
+                  style="--_c: var(--cd2)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Data Viz</p>
+                <p class="text-mutf font-mono text-[11px]">--cd2</p>
+              </div>
+              <div>
+                <div
+                  class="bg-cr sw h-14 rounded-md"
+                  style="--_c: var(--cr)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Random</p>
+                <p class="text-mutf font-mono text-[11px]">--cr</p>
+              </div>
+              <div>
+                <div
+                  class="bg-cs sw h-14 rounded-md"
+                  style="--_c: var(--cs)"
+                ></div>
+                <p class="text-fg mt-1.5 text-xs font-medium">Simulation</p>
+                <p class="text-mutf font-mono text-[11px]">--cs</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer
+      class="border-bdr text-mutf mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-3 border-t px-6 py-8 text-xs transition-colors duration-300"
+    >
+      <span>Built with modern CSS — no component JavaScript</span>
+      <div class="flex gap-4">
+        <a
+          href="https://moderncss.dev"
+          target="_blank"
+          rel="noopener"
+          class="text-mutf hover:text-pri transition-colors"
+          >moderncss.dev</a
+        >
+        <a
+          href="https://developer.mozilla.org"
+          target="_blank"
+          rel="noopener"
+          class="text-mutf hover:text-pri transition-colors"
+          >MDN</a
+        >
+        <a
+          href="https://caniuse.com"
+          target="_blank"
+          rel="noopener"
+          class="text-mutf hover:text-pri transition-colors"
+          >Can I Use</a
+        >
+      </div>
+    </footer>
+
+    <button
+      class="tip bg-cd border-bdr text-mutf hover:text-fg hover:border-fg pointer-events-none fixed bottom-6 left-6 z-[100] flex h-10 w-10 translate-y-2 cursor-pointer items-center justify-center rounded-full border text-sm opacity-0 transition-all duration-300"
+      style="box-shadow: var(--slg)"
+      id="btt"
+      data-tip="Back to top"
+      aria-label="Back to top"
+    >
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <div
+      class="pointer-events-none fixed right-6 bottom-6 z-[9999] flex flex-col-reverse gap-2"
+      id="ts"
+    ></div>
+
+    <script>
+      var h = document.documentElement,
+        thm = document.getElementById('thm');
+      function setTh(d) {
+        h.setAttribute('data-theme', d ? 'dark' : 'light');
+        thm.innerHTML = d ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        localStorage.setItem('at', d ? 'dark' : 'light');
+      }
+      var sv = localStorage.getItem('at');
+      if (sv === 'dark' || (!sv && matchMedia('(prefers-color-scheme:dark)').matches)) setTh(true);
+      thm.onclick = function () {
+        setTh(h.getAttribute('data-theme') !== 'dark');
+      };
+      document.getElementById('odlg').onclick = function () {
+        document.getElementById('mdlg').showModal();
+      };
+      document.getElementById('mdlg').onclick = function (e) {
+        if (e.target === this) this.close();
+      };
+      var ti = {
+        success: 'fa-solid fa-circle-check',
+        error: 'fa-solid fa-circle-xmark',
+        info: 'fa-solid fa-circle-info'
+      };
+      function toast(t, m) {
+        var s = document.getElementById('ts'),
+          d = document.createElement('div');
+        d.className =
+          'to flex items-center gap-2.5 px-4 py-3 bg-cd border border-bdr rounded-lg text-[13px] text-cdf min-w-[280px] max-w-[380px] pointer-events-auto';
+        d.style.boxShadow = 'var(--sxl)';
+        d.innerHTML =
+          '<i class="' +
+          ti[t] +
+          ' flex-shrink-0" style="color:var(--' +
+          (t === 'success' ? 'sec' : t === 'error' ? 'des' : 'pri') +
+          ')"></i><span class="flex-1">' +
+          m +
+          '</span><button class="bg-transparent border-none text-mutf cursor-pointer p-0.5 text-sm leading-none hover:text-fg transition-colors" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>';
+        d.querySelector('button').onclick = function () {
+          kill(d);
+        };
+        s.appendChild(d);
+        setTimeout(function () {
+          kill(d);
+        }, 4000);
+      }
+      function kill(d) {
+        if (d.classList.contains('exit')) return;
+        d.classList.add('exit');
+        d.onanimationend = function () {
+          d.remove();
+        };
+      }
+      var sb = document.getElementById('sb'),
+        btt = document.getElementById('btt');
+      addEventListener(
+        'scroll',
+        function () {
+          var s = documentElement.scrollTop,
+            sh = documentElement.scrollHeight - documentElement.clientHeight,
+            p = sh > 0 ? s / sh : 0;
+          sb.style.transform = 'scaleX(' + p + ')';
+          btt.style.visibility = s > 600 ? 'visible' : 'hidden';
+        },
+        { passive: true }
+      );
+      btt.onclick = function () {
+        scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      if ('IntersectionObserver' in window) {
+        var ob = new IntersectionObserver(
+          function (es) {
+            es.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('vis');
+                ob.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.rv').forEach(function (el) {
+          ob.observe(el);
+        });
+      } else {
+        document.querySelectorAll('.rv').forEach(function (el) {
+          el.classList.add('vis');
+        });
+      }
+    </script>
+  </body>
+</html>
