@@ -1,10 +1,10 @@
-import type { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../utils/cn';
 import './Accordion.module.css';
 import { accordionItemVariants, accordionVariants } from './accordionVariants';
 
-type AccordionProps = {
+export type AccordionProps = {
   children: ReactNode;
 } & ComponentProps<'div'> &
   VariantProps<typeof accordionVariants>;
@@ -20,7 +20,7 @@ function Accordion({ children, className, variant, ...props }: AccordionProps) {
   );
 }
 
-type AccordionItemProps = {
+export type AccordionItemProps = {
   title: string;
   defaultOpen?: boolean;
   children: ReactNode;
@@ -45,20 +45,14 @@ function AccordionItem({
         className={cn(
           'text-foreground flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium',
           'list-none [&::-webkit-details-marker]:hidden',
-          'after:block after:h-2 after:w-2 after:shrink-0',
+          'after:block after:h-2 after:w-2 after:shrink-0 after:-rotate-45',
           'after:border-muted-foreground after:border-r-2 after:border-b-2',
-          'after:-rotate-45 after:transition-transform after:duration-200',
-          'group-open:after:rotate-45'
+          'after:transition-transform after:duration-200 group-open:after:rotate-45'
         )}
       >
         {title}
       </summary>
-      <div
-        className={cn(
-          'overflow-hidden',
-          'text-muted-foreground px-5 pb-4 text-sm leading-relaxed transition-all transition-discrete'
-        )}
-      >
+      <div className="text-muted-foreground overflow-hidden px-5 pb-4 text-sm leading-relaxed">
         {children}
       </div>
     </details>
@@ -68,4 +62,3 @@ function AccordionItem({
 Accordion.Item = AccordionItem;
 
 export { Accordion };
-export type { AccordionItemProps, AccordionProps };
