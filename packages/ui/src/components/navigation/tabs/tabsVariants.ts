@@ -1,35 +1,27 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const tabsVariants = createVariant({
-  base: 'bg-surface rounded-lg overflow-hidden shadow-sm',
-  variants: {
-    variant: {
-      default: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-      destructive: '',
-      warning: ''
+export const tabsVariants = cva(
+  'bg-surface rounded-lg overflow-hidden border border-border shadow-sm',
+  {
+    variants: {
+      variant: {
+        primary: '[--tab-accent:var(--color-primary)]',
+        secondary: '[--tab-accent:var(--color-secondary)]',
+        accent: '[--tab-accent:var(--color-accent)]',
+        destructive: '[--tab-accent:var(--color-destructive)]',
+        warning: '[--tab-accent:var(--color-warning)]'
+      }
+    },
+    defaultVariants: {
+      variant: 'primary'
     }
-  },
-  defaultVariants: {
-    variant: 'default'
   }
-});
+);
 
-export const tabTriggerVariants = createVariant({
-  base: 'text-muted-foreground px-5 py-3 text-sm font-medium transition-colors cursor-pointer relative after:absolute after:bottom-[-1px] after:left-0 after:right-0 after:h-0.5 after:rounded-full after:scale-x-0 after:transition-transform after:duration-200',
-  variants: {
-    variant: {
-      default: 'after:bg-primary',
-      primary: 'after:bg-primary',
-      secondary: 'after:bg-secondary',
-      accent: 'after:bg-accent',
-      destructive: 'after:bg-destructive',
-      warning: 'after:bg-warning'
-    }
-  },
-  defaultVariants: {
-    variant: 'default'
-  }
-});
+export const tabTriggerVariants = cva(
+  [
+    'text-muted-foreground px-5 py-3 text-sm font-medium transition-colors cursor-pointer relative block select-none',
+    'after:absolute after:bottom-px after:left-0 after:right-0 after:h-0.5 after:rounded-full after:scale-x-0 after:transition-transform after:duration-200',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+  ].join(' ')
+);

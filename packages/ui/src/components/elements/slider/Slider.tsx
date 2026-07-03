@@ -13,17 +13,20 @@ function Slider({
   ref,
   className,
   variant,
+  size,
   value,
   onChange,
   min: _min = 0,
   max: _max = 100,
   step: _step = 1,
+  disabled,
   ...props
 }: SliderProps) {
-  const controlled = !!value;
+  const isControlled = value !== undefined;
   const min = Number(_min);
   const max = Number(_max);
   const step = Number(_step);
+
   return (
     <input
       ref={ref}
@@ -31,12 +34,17 @@ function Slider({
       min={min}
       max={max}
       step={step}
-      {...(controlled ? { value } : { defaultValue: min + (max - min) / 2 })}
-      onChange={(e) => onChange?.(parseFloat(e.target.value))}
-      className={cn(sliderVariants({ variant }), className)}
+      disabled={disabled}
+      {...(isControlled ? { value } : { defaultValue: min + (max - min) / 2 })}
+      onChange={(e) => {
+        if (disabled) return;
+        onChange?.(parseFloat(e.target.value));
+      }}
+      className={cn(sliderVariants({ variant, size }), className)}
       {...props}
     />
   );
 }
 
 export { Slider };
+export type { SliderProps };

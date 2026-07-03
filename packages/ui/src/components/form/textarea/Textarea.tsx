@@ -11,7 +11,7 @@ export type TextAreaProps = {
 } & ComponentProps<'textarea'> &
   VariantProps<typeof textareaVariants>;
 
-function TextArea({
+function Textarea({
   ref,
   className,
   variant,
@@ -46,4 +46,4 @@ function TextArea({
   );
 }
 
-export { TextArea };
+export { Textarea };
