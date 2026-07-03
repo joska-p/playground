@@ -33,6 +33,7 @@
     "./ErrorBoundary": "./src/components/error-boundary/ErrorBoundary.tsx",
     "./ColorPalette": "./src/components/widgets/color-palette/ColorPalette.tsx",
     "./colorPaletteVariants": "./src/components/widgets/color-palette/colorPaletteVariants.ts",
+    "./HelperText": "./src/components/elements/helper-text/HelperText.tsx",
     "./Icon": "./src/components/icons/Icon.tsx",
     "./icons": "./src/components/icons/index.ts",
     "./Input": "./src/components/form/input/Input.tsx",
