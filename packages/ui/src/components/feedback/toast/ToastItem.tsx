@@ -15,6 +15,8 @@ const iconColorMap: Record<ToastItemData['variant'], string> = {
 function ToastItem({ item }: { item: ToastItemData }) {
   return (
     <div
+      role="status"
+      aria-live="polite"
       className={cn(
         toastVariants({ variant: item.variant }),
         item.exiting && 'animate-[toastOut_0.3s_ease_both]'
