@@ -30,7 +30,7 @@ function ProjectCard({
         'group border-border bg-card relative flex flex-col overflow-hidden rounded-lg border',
         'shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md',
         'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-        'hover:[border-color:color-mix(in_srgb,var(--card-accent)_35%,var(--color-border))]',
+        'hover:border-[color-mix(in_srgb,var(--card-accent)_35%,var(--color-border))]',
         className
       )}
       style={
