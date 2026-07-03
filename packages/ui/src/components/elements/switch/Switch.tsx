@@ -1,9 +1,10 @@
-import type { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { switchVariants } from './switchVariants';
 
-type SwitchProps = {} & ComponentProps<'input'> & VariantProps<typeof switchVariants>;
+export type SwitchProps = Omit<ComponentProps<'input'>, 'type'> &
+  VariantProps<typeof switchVariants>;
 
 function Switch({ ref, className, variant, size, ...props }: SwitchProps) {
   return (
@@ -11,7 +12,7 @@ function Switch({ ref, className, variant, size, ...props }: SwitchProps) {
       ref={ref}
       type="checkbox"
       role="switch"
-      className={cn(switchVariants({ variant, size }), className)}
+      className={cn(switchVariants({ variant, size, className }))}
       {...props}
     />
   );
