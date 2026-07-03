@@ -1,4 +1,4 @@
-import type { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 import { cn } from '../../../utils/cn';
@@ -6,39 +6,9 @@ import { alertVariants } from './alertVariants';
 
 type AlertVariant = NonNullable<VariantProps<typeof alertVariants>['variant']>;
 
-const AlertContext = createContext<AlertVariant>('default');
+const AlertContext = createContext<AlertVariant>('primary');
 
 const iconMap: Record<AlertVariant, ReactNode> = {
-  default: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="10"
-      />
-      <line
-        x1="12"
-        y1="16"
-        x2="12"
-        y2="12"
-      />
-      <line
-        x1="12"
-        y1="8"
-        x2="12.01"
-        y2="8"
-      />
-    </svg>
-  ),
   primary: (
     <svg
       width="16"
@@ -157,7 +127,6 @@ const iconMap: Record<AlertVariant, ReactNode> = {
 };
 
 const iconColorMap: Record<AlertVariant, string> = {
-  default: 'text-primary',
   primary: 'text-primary',
   secondary: 'text-secondary',
   accent: 'text-accent',
@@ -165,24 +134,32 @@ const iconColorMap: Record<AlertVariant, string> = {
   warning: 'text-warning'
 };
 
-type AlertProps = {
-  children: ReactNode;
-} & VariantProps<typeof alertVariants>;
+export type AlertProps = ComponentProps<'div'> & VariantProps<typeof alertVariants>;
 
-function Alert({ variant = 'default', children }: AlertProps) {
+function Alert({ ref, className, variant = 'primary', children, ...props }: AlertProps) {
+  const safeVariant = variant ?? 'primary';
+
   return (
-    <AlertContext.Provider value={variant}>
-      <div className={cn(alertVariants({ variant }))}>{children}</div>
+    <AlertContext.Provider value={safeVariant}>
+      <div
+        ref={ref}
+        role="alert"
+        className={cn(alertVariants({ variant }), className)}
+        {...props}
+      >
+        {children}
+      </div>
     </AlertContext.Provider>
   );
 }
 
-type AlertIconProps = ComponentProps<'span'>;
+export type AlertIconProps = ComponentProps<'span'>;
 
-function AlertIcon({ className, ...props }: AlertIconProps) {
+function AlertIcon({ ref, className, ...props }: AlertIconProps) {
   const variant = useContext(AlertContext);
   return (
     <span
+      ref={ref}
       className={cn('mt-0.5 shrink-0', iconColorMap[variant], className)}
       {...props}
     >
@@ -191,33 +168,31 @@ function AlertIcon({ className, ...props }: AlertIconProps) {
   );
 }
 
-type AlertTitleProps = {
-  children: ReactNode;
-} & ComponentProps<'p'>;
+export type AlertTitleProps = ComponentProps<'h5'>;
 
-function AlertTitle({ children, className, ...props }: AlertTitleProps) {
+function AlertTitle({ ref, children, className, ...props }: AlertTitleProps) {
   return (
-    <p
-      className={cn('text-sm font-medium', className)}
+    <h5
+      ref={ref}
+      className={cn('mb-1 leading-none font-medium tracking-tight', className)}
       {...props}
     >
       {children}
-    </p>
+    </h5>
   );
 }
 
-type AlertDescriptionProps = {
-  children: ReactNode;
-} & ComponentProps<'p'>;
+export type AlertDescriptionProps = ComponentProps<'div'>;
 
-function AlertDescription({ children, className, ...props }: AlertDescriptionProps) {
+function AlertDescription({ ref, children, className, ...props }: AlertDescriptionProps) {
   return (
-    <p
-      className={cn('text-muted-foreground mt-0.5 text-xs', className)}
+    <div
+      ref={ref}
+      className={cn('text-muted-foreground text-sm [&_p]:leading-relaxed', className)}
       {...props}
     >
       {children}
-    </p>
+    </div>
   );
 }
 
@@ -226,4 +201,3 @@ Alert.Title = AlertTitle;
 Alert.Description = AlertDescription;
 
 export { Alert };
-export type { AlertDescriptionProps, AlertIconProps, AlertProps, AlertTitleProps };

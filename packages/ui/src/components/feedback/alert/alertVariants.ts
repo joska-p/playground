@@ -1,18 +1,19 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const alertVariants = createVariant({
-  base: 'flex items-start gap-3 rounded-lg px-4 py-3',
-  variants: {
-    variant: {
-      default: 'bg-primary/8',
-      primary: 'bg-primary/8',
-      secondary: 'bg-secondary/8',
-      accent: 'bg-accent/8',
-      destructive: 'bg-destructive/8',
-      warning: 'bg-warning/8'
+export const alertVariants = cva(
+  'flex items-start gap-3 rounded-lg border px-4 py-3 text-sm transition-colors',
+  {
+    variants: {
+      variant: {
+        primary: 'border-primary/20 bg-primary/10 text-foreground',
+        secondary: 'border-secondary/20 bg-secondary/10 text-foreground',
+        accent: 'border-accent/20 bg-accent/10 text-foreground',
+        destructive: 'border-destructive/20 bg-destructive/10 text-foreground',
+        warning: 'border-warning/20 bg-warning/10 text-foreground'
+      }
+    },
+    defaultVariants: {
+      variant: 'primary'
     }
-  },
-  defaultVariants: {
-    variant: 'default'
   }
-});
+);
