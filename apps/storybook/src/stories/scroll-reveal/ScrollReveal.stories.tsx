@@ -38,21 +38,27 @@ export const Default: Story = {
         <ScrollReveal>
           <div className="bg-surface rounded-lg p-8 text-center">
             <h2 className="text-xl font-bold">Section 1</h2>
-            <p className="text-muted-foreground mt-2 text-sm">Scroll down to reveal the next sections.</p>
+            <p className="text-muted-foreground mt-2 text-sm">
+              Scroll down to reveal the next sections.
+            </p>
           </div>
         </ScrollReveal>
         <div className="h-96" />
         <ScrollReveal>
           <div className="bg-surface rounded-lg p-8 text-center">
             <h2 className="text-xl font-bold">Section 2</h2>
-            <p className="text-muted-foreground mt-2 text-sm">This section fades in when scrolled into view.</p>
+            <p className="text-muted-foreground mt-2 text-sm">
+              This section fades in when scrolled into view.
+            </p>
           </div>
         </ScrollReveal>
         <div className="h-96" />
         <ScrollReveal>
           <div className="bg-surface rounded-lg p-8 text-center">
             <h2 className="text-xl font-bold">Section 3</h2>
-            <p className="text-muted-foreground mt-2 text-sm">Scroll-based reveal animations enhance the browsing experience.</p>
+            <p className="text-muted-foreground mt-2 text-sm">
+              Scroll-based reveal animations enhance the browsing experience.
+            </p>
           </div>
         </ScrollReveal>
       </div>

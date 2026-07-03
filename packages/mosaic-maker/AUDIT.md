@@ -76,12 +76,12 @@ Total source files: 28 (excluding configs, assets, node_modules)
 
 ## Summary: Smell Counts
 
-| Smell Type | Count | Severity |
-|---|---|---|
-| Universal Function / Hyper-Generic | 0 | — |
-| Linter Workaround (type assertions) | 5 sites across 5 files | Low |
-| React Compiler Friction | 1 (`useCallback`) | Low |
-| Mix of concerns (moderate) | 1 (`fetchPalettes.ts`) | Medium |
+| Smell Type                          | Count                  | Severity |
+| ----------------------------------- | ---------------------- | -------- |
+| Universal Function / Hyper-Generic  | 0                      | —        |
+| Linter Workaround (type assertions) | 5 sites across 5 files | Low      |
+| React Compiler Friction             | 1 (`useCallback`)      | Low      |
+| Mix of concerns (moderate)          | 1 (`fetchPalettes.ts`) | Medium   |
 
 ## Key Architectural Observations
 

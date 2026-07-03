@@ -1,5 +1,6 @@
-import { ToastContainer, useToast } from '@repo/ui/ToastContainer';
 import { Button } from '@repo/ui/Button';
+import { ToastContainer } from '@repo/ui/ToastContainer';
+import { useToast } from '@repo/ui/useToast';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 function ToastDemo() {

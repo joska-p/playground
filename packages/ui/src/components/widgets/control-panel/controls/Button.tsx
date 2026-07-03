@@ -2,16 +2,9 @@ import { Button } from '../../../elements/button/Button';
 import type { ButtonControl as ButtonControlType } from '../types';
 
 export function ButtonControl({ control }: { control: ButtonControlType }) {
-  const coreVariant =
-    control.variant === 'primary'
-      ? 'primary'
-      : control.variant === 'danger'
-        ? 'destructive'
-        : 'secondary';
-
   return (
     <Button
-      variant={coreVariant}
+      variant={control.variant}
       onClick={control.onClick}
       disabled={control.disabled}
       fullWidth

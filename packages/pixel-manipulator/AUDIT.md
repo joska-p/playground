@@ -75,14 +75,14 @@ This package implements a full image manipulation UI: file upload (drag-and-drop
 
 ### Summary
 
-| Smell | File | Severity |
-|---|---|---|
-| React Compiler Friction | `useCompareSlider.ts` | Medium — 5× `useCallback`, 1× `useEffect` mixing concerns, **1 runtime bug** (wrong canvas context on line 41) |
-| React Compiler Friction | `useUploadZone.ts` | Low — 5× `useCallback` on trivial handlers |
-| React Compiler Friction | `useEscapeKey.ts` | Low — manual `useEffect` hoisted by compiler |
-| Type Escape | `actions.ts` → `WorkflowNode.tsx` | Low — `as Record<string, number>` caused by `WorkflowStep.options: Record<string, unknown>` |
-| Type Escape | `file-reader.ts` | Low — `as string` on `FileReader.result` |
-| Architectural | `UploadedPreview.tsx` | Low — stale canvas dimensions on layout change |
-| Resource Lifecycle | `download.ts` | Trivial — unlinked anchor element |
+| Smell                   | File                              | Severity                                                                                                       |
+| ----------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| React Compiler Friction | `useCompareSlider.ts`             | Medium — 5× `useCallback`, 1× `useEffect` mixing concerns, **1 runtime bug** (wrong canvas context on line 41) |
+| React Compiler Friction | `useUploadZone.ts`                | Low — 5× `useCallback` on trivial handlers                                                                     |
+| React Compiler Friction | `useEscapeKey.ts`                 | Low — manual `useEffect` hoisted by compiler                                                                   |
+| Type Escape             | `actions.ts` → `WorkflowNode.tsx` | Low — `as Record<string, number>` caused by `WorkflowStep.options: Record<string, unknown>`                    |
+| Type Escape             | `file-reader.ts`                  | Low — `as string` on `FileReader.result`                                                                       |
+| Architectural           | `UploadedPreview.tsx`             | Low — stale canvas dimensions on layout change                                                                 |
+| Resource Lifecycle      | `download.ts`                     | Trivial — unlinked anchor element                                                                              |
 
 No `eslint-disable` comments, no `any`, no `@ts-*` pragmas, and no `ts-expect-error` were found anywhere in the package. The codebase maintains strict type/ESLint hygiene well.

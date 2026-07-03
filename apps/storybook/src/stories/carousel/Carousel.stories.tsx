@@ -60,9 +60,7 @@ export const WithCustomSlides: Story = {
               <p className="text-muted-foreground text-sm">
                 A brief description of this creative project.
               </p>
-              <span className="text-primary text-xs uppercase tracking-wider">
-                Experiment
-              </span>
+              <span className="text-primary text-xs tracking-wider uppercase">Experiment</span>
             </div>
           </Carousel.Slide>
         ))}

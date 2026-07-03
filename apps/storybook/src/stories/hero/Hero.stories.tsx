@@ -1,5 +1,5 @@
-import { Hero } from '@repo/ui/Hero';
 import { Button } from '@repo/ui/Button';
+import { Hero } from '@repo/ui/Hero';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Hero> = {
@@ -26,7 +26,8 @@ export const Default: Story = {
     badgeText: 'Now in beta',
     title: 'Creative',
     highlight: 'Playground',
-    description: 'Explore generative art, data visualization, and interactive experiences in your browser.'
+    description:
+      'Explore generative art, data visualization, and interactive experiences in your browser.'
   },
   render: (args) => (
     <Hero {...args}>

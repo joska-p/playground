@@ -210,15 +210,15 @@
 
 ## Summary
 
-| Category | Count | Max Severity |
-|---|---|---|
-| Universal Function / Hyper-Generic | 3 files | Medium |
-| Type Assertions / Linter Workarounds | 7 files (incl. 1 global config) | High |
-| React Compiler Redundant Memoization | 4 files | Medium |
-| Code Duplication | 2 files (one structural) | Medium |
-| Empty / Zombie Variants | 5 variant files | Low |
-| Redundant `{} &` Intersection Types | 5 files | Low |
-| Missing Edge Case Guards | 2 files | Low |
-| Potentially Broken CSS | 1 file | Low |
+| Category                             | Count                           | Max Severity |
+| ------------------------------------ | ------------------------------- | ------------ |
+| Universal Function / Hyper-Generic   | 3 files                         | Medium       |
+| Type Assertions / Linter Workarounds | 7 files (incl. 1 global config) | High         |
+| React Compiler Redundant Memoization | 4 files                         | Medium       |
+| Code Duplication                     | 2 files (one structural)        | Medium       |
+| Empty / Zombie Variants              | 5 variant files                 | Low          |
+| Redundant `{} &` Intersection Types  | 5 files                         | Low          |
+| Missing Edge Case Guards             | 2 files                         | Low          |
+| Potentially Broken CSS               | 1 file                          | Low          |
 
 **Total files with findings:** ~25 (out of ~90 source files)

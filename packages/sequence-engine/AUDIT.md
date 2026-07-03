@@ -78,13 +78,13 @@
 
 ### Aggregate Summary
 
-| Smell Category | Count | Severity |
-|---|---|---|
-| Correctness / Data Loss | 1 (lookAndSay) | High |
-| Speculative Generality | 1 (types.ts) | Low |
-| Open-Closed Violation | 1 (registry.ts) | Low |
-| Dead Code Path | 1 (engine.ts) | Low |
-| Leaky API Surface | 1 (package.json) | Low |
-| Documentation Decay | 1 (README.md) | Low |
+| Smell Category          | Count            | Severity |
+| ----------------------- | ---------------- | -------- |
+| Correctness / Data Loss | 1 (lookAndSay)   | High     |
+| Speculative Generality  | 1 (types.ts)     | Low      |
+| Open-Closed Violation   | 1 (registry.ts)  | Low      |
+| Dead Code Path          | 1 (engine.ts)    | Low      |
+| Leaky API Surface       | 1 (package.json) | Low      |
+| Documentation Decay     | 1 (README.md)    | Low      |
 
 **No linter-fighting, no type assertions, no React friction** — this package is otherwise clean, well-structured, and passes the strictest TypeScript config without any escape hatches. The dominant remediation need is the `lookAndSay` bug, followed by README alignment with actual code.

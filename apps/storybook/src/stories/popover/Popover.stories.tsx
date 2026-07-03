@@ -1,5 +1,5 @@
-import { Popover } from '@repo/ui/Popover';
 import { Button } from '@repo/ui/Button';
+import { Popover } from '@repo/ui/Popover';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Popover> = {
@@ -42,7 +42,7 @@ export const Top: Story = {
           side={args.side}
           variant={args.variant}
         >
-          <div className="whitespace-nowrap px-3 py-2">
+          <div className="px-3 py-2 whitespace-nowrap">
             <p className="text-sm font-medium">Popover Title</p>
             <p className="text-muted-foreground text-xs">And a short description here.</p>
           </div>
@@ -66,7 +66,7 @@ export const Bottom: Story = {
           side={args.side}
           variant={args.variant}
         >
-          <div className="whitespace-nowrap px-3 py-2">
+          <div className="px-3 py-2 whitespace-nowrap">
             <p className="text-sm font-medium">Settings</p>
             <p className="text-muted-foreground text-xs">Adjust your preferences here.</p>
           </div>
@@ -90,7 +90,7 @@ export const Left: Story = {
           side={args.side}
           variant={args.variant}
         >
-          <div className="whitespace-nowrap px-3 py-2">
+          <div className="px-3 py-2 whitespace-nowrap">
             <p className="text-sm font-medium">Info</p>
             <p className="text-muted-foreground text-xs">Additional context on the left.</p>
           </div>
@@ -114,7 +114,7 @@ export const Right: Story = {
           side={args.side}
           variant={args.variant}
         >
-          <div className="whitespace-nowrap px-3 py-2">
+          <div className="px-3 py-2 whitespace-nowrap">
             <p className="text-sm font-medium">Details</p>
             <p className="text-muted-foreground text-xs">More information on the right.</p>
           </div>

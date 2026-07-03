@@ -1,5 +1,5 @@
-import { NotificationItem } from '@repo/ui/NotificationItem';
 import { Icon } from '@repo/ui/Icon';
+import { NotificationItem } from '@repo/ui/NotificationItem';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof NotificationItem> = {

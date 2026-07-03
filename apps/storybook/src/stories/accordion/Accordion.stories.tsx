@@ -33,8 +33,8 @@ export const Default: Story = {
         parameters. Each experiment comes with a set of controls.
       </Accordion.Item>
       <Accordion.Item title="Can I contribute?">
-        Absolutely! Check out the contributing guide in the repository for details on how to add
-        new experiments or improve existing ones.
+        Absolutely! Check out the contributing guide in the repository for details on how to add new
+        experiments or improve existing ones.
       </Accordion.Item>
     </Accordion>
   )
@@ -69,9 +69,7 @@ export const PrimaryVariant: Story = {
       >
         This item uses the primary theme ring and background.
       </Accordion.Item>
-      <Accordion.Item title="Default Item">
-        This item uses the default styling.
-      </Accordion.Item>
+      <Accordion.Item title="Default Item">This item uses the default styling.</Accordion.Item>
     </Accordion>
   )
 };
@@ -88,9 +86,7 @@ export const AccentVariant: Story = {
       >
         This item uses the accent theme ring and background.
       </Accordion.Item>
-      <Accordion.Item title="Default Item">
-        This item uses the default styling.
-      </Accordion.Item>
+      <Accordion.Item title="Default Item">This item uses the default styling.</Accordion.Item>
     </Accordion>
   )
 };
