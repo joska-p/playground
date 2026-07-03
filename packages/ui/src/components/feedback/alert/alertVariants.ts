@@ -1,10 +1,9 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const alertVariants = createVariant({
+export const alertVariants = cva({
   base: 'flex items-start gap-3 rounded-lg px-4 py-3',
   variants: {
     variant: {
-      default: 'bg-primary/8',
       primary: 'bg-primary/8',
       secondary: 'bg-secondary/8',
       accent: 'bg-accent/8',
@@ -13,6 +12,6 @@ export const alertVariants = createVariant({
     }
   },
   defaultVariants: {
-    variant: 'default'
+    variant: 'primary'
   }
 });

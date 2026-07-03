@@ -1,12 +1,13 @@
 import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
+import { labelVariants } from './labelVariants';
 
-type LabelProps = {} & ComponentProps<'label'>;
+type LabelProps = ComponentProps<'label'>;
 
 function Label({ children, ref, className, ...props }: LabelProps) {
   return (
     <label
-      className={cn('text-sm font-medium', className)}
+      className={cn(labelVariants(), className)}
       ref={ref}
       {...props}
     >

@@ -1,5 +1,6 @@
 import { cn } from '../../../utils/cn';
 import { ControlRenderer } from './controls/ControlRenderer';
+import { controlSectionHeaderVariants, controlSectionVariants } from './controlSectionVariants';
 import type { ControlSection as ControlSectionType } from './types';
 
 type ControlSectionProps = {
@@ -20,11 +21,11 @@ export function ControlSection({
   if (visibleControls.length === 0) return null;
 
   return (
-    <div className="border-border border-b last:border-b-0">
+    <div className={cn(controlSectionVariants())}>
       <button
         type="button"
         onClick={onToggle}
-        className="text-muted-foreground hover:text-foreground hover:bg-muted/50 flex w-full items-center justify-between px-4 py-3 text-sm font-medium transition-colors duration-100"
+        className={cn(controlSectionHeaderVariants({ variant: 'default' }))}
         aria-expanded={isOpen}
       >
         <span className="flex items-center gap-2">

@@ -35,7 +35,11 @@ function Textarea({ ref, className, variant, label, helperText, id, ...props }: 
           {...props}
         />
       </div>
-      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
+      {helperText && (
+        <HelperText variant={variant === 'destructive' ? 'destructive' : 'default'}>
+          {helperText}
+        </HelperText>
+      )}
     </div>
   );
 }

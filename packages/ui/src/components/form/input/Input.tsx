@@ -67,7 +67,11 @@ function Input({
           <span className="text-muted-foreground shrink-0 [&_svg]:size-4">{endIcon}</span>
         )}
       </div>
-      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
+      {helperText && (
+        <HelperText variant={variant === 'destructive' ? 'destructive' : 'default'}>
+          {helperText}
+        </HelperText>
+      )}
     </div>
   );
 }

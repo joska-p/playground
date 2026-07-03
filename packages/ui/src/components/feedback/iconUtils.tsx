@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
-import type { ToastItemData } from './types';
 
-export const iconMap: Record<ToastItemData['variant'], ReactNode> = {
+export type FeedbackVariant =
+  'default' | 'primary' | 'secondary' | 'accent' | 'destructive' | 'warning';
+
+export const feedbackIconMap: Record<FeedbackVariant, ReactNode> = {
   default: (
     <svg
       width="16"
@@ -147,4 +149,13 @@ export const iconMap: Record<ToastItemData['variant'], ReactNode> = {
       />
     </svg>
   )
+};
+
+export const feedbackIconColorMap: Record<FeedbackVariant, string> = {
+  default: 'text-primary',
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  accent: 'text-accent',
+  destructive: 'text-destructive',
+  warning: 'text-warning'
 };

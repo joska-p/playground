@@ -1,6 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../../utils/cn';
+import { scrollRevealVariants } from './scrollRevealVariants';
 
 type ScrollRevealProps = {
   children: ReactNode;
@@ -40,11 +41,7 @@ function ScrollReveal({ children, threshold = 0.08, className, ...props }: Scrol
   return (
     <section
       ref={ref}
-      className={cn(
-        'translate-y-4 opacity-0 transition-all duration-500 ease-out',
-        visible && 'translate-y-0 opacity-100',
-        className
-      )}
+      className={cn(scrollRevealVariants(), visible && 'translate-y-0 opacity-100', className)}
       {...props}
     >
       {children}

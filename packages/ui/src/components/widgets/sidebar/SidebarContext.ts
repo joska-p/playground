@@ -8,6 +8,7 @@ export type SidebarContextValue = {
   panelId: string;
   desktopPosition: 'top' | 'right' | 'bottom' | 'left';
   mobilePosition: 'top' | 'right' | 'bottom' | 'left';
+  variant: 'primary' | 'secondary' | 'accent' | 'destructive' | 'outline' | 'ghost';
 };
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);

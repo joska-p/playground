@@ -80,14 +80,14 @@
 
 ## Summary
 
-| File | Smell Category | Severity |
-|------|---------------|----------|
-| `Controls.tsx` | Linter Workaround (2 type assertions) | Low |
-| `ColorSpaceCanvas.tsx` | React Compiler friction + duplicated math | Medium |
-| `color.ts` | Dead code in signature | Low |
-| `Display.tsx` | Weak React keys | Low |
-| `ColorSpaceControls.tsx` | Loose runtime default type | Low |
-| `maths.ts` | Over-engineered utility (minor) | Low |
-| `store.ts` | Library-class leak | Low |
+| File                     | Smell Category                            | Severity |
+| ------------------------ | ----------------------------------------- | -------- |
+| `Controls.tsx`           | Linter Workaround (2 type assertions)     | Low      |
+| `ColorSpaceCanvas.tsx`   | React Compiler friction + duplicated math | Medium   |
+| `color.ts`               | Dead code in signature                    | Low      |
+| `Display.tsx`            | Weak React keys                           | Low      |
+| `ColorSpaceControls.tsx` | Loose runtime default type                | Low      |
+| `maths.ts`               | Over-engineered utility (minor)           | Low      |
+| `store.ts`               | Library-class leak                        | Low      |
 
 **No instances found of:** Massive `if/else`/`switch` blocks, hyper-generic config objects, `eslint-disable` directives, `as any`, `@ts-ignore`, manual `useCallback`, or render-phase math outside of the isolated canvas paint loop. The package is a well-scoped UI layer that delegates all color math to `@repo/palette-engine`.

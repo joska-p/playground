@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { cn } from '../../../utils/cn';
 import { PanelContent } from './PanelContent';
+import {
+  controlPanelDrawerVariants,
+  controlPanelOverlayVariants,
+  controlPanelSidebarVariants
+} from './controlPanelVariants';
 import type { ControlPanelProps } from './types';
 
 export function ControlPanel({
@@ -34,11 +39,7 @@ export function ControlPanel({
     <>
       {/* ─── Landscape Mode: Absolute Sidebar Panel ─── */}
       <aside
-        className={cn(
-          'bg-surface border-border absolute top-0 right-0 z-40 flex h-full flex-col border-l portrait:hidden landscape:flex',
-          width,
-          className
-        )}
+        className={cn(controlPanelSidebarVariants(), width, className)}
         role="region"
         aria-label="Controls"
       >
@@ -75,7 +76,7 @@ export function ControlPanel({
           setIsOpen(false);
         }}
         className={cn(
-          'fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity duration-200 portrait:block landscape:hidden',
+          controlPanelOverlayVariants(),
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         )}
         aria-hidden="true"
@@ -87,10 +88,7 @@ export function ControlPanel({
         role="dialog"
         aria-modal={isOpen}
         aria-label="Controls"
-        className={cn(
-          'bg-surface border-border fixed inset-x-0 bottom-0 z-50 flex max-h-[85dvh] flex-col rounded-t-2xl border-t transition-transform duration-300 ease-out portrait:flex landscape:hidden',
-          isOpen ? 'translate-y-0' : 'translate-y-full'
-        )}
+        className={cn(controlPanelDrawerVariants(), isOpen ? 'translate-y-0' : 'translate-y-full')}
       >
         <div className="flex shrink-0 justify-center pt-3 pb-1">
           <div className="bg-border h-1 w-10 rounded-full" />

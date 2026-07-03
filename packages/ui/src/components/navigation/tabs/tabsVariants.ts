@@ -1,15 +1,15 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const tabsVariants = createVariant({
+export const tabsVariants = cva({
   base: 'bg-surface rounded-lg overflow-hidden shadow-sm',
   variants: {
     variant: {
-      default: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-      destructive: '',
-      warning: ''
+      default: 'bg-surface',
+      primary: 'bg-primary/5',
+      secondary: 'bg-secondary/5',
+      accent: 'bg-accent/5',
+      destructive: 'bg-destructive/5',
+      warning: 'bg-warning/5'
     }
   },
   defaultVariants: {
@@ -17,8 +17,8 @@ export const tabsVariants = createVariant({
   }
 });
 
-export const tabTriggerVariants = createVariant({
-  base: 'text-muted-foreground px-5 py-3 text-sm font-medium transition-colors cursor-pointer relative after:absolute after:bottom-[-1px] after:left-0 after:right-0 after:h-0.5 after:rounded-full after:scale-x-0 after:transition-transform after:duration-200',
+export const tabTriggerVariants = cva({
+  base: 'text-muted-foreground px-5 py-3 text-sm font-medium transition-colors cursor-pointer relative after:absolute after:bottom-px after:left-0 after:right-0 after:h-0.5 after:rounded-full after:scale-x-0 after:transition-transform after:duration-200',
   variants: {
     variant: {
       default: 'after:bg-primary',

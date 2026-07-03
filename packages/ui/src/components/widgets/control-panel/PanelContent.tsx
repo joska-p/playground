@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { cn } from '../../../utils/cn';
 import { ControlSection } from './ControlSection';
+import { panelContentVariants } from './panelContentVariants';
 import type { ControlSection as ControlSectionType } from './types';
 
 type PanelContentProps = {
@@ -37,7 +39,7 @@ export function PanelContent({
   };
 
   return (
-    <div className="flex-1 overflow-y-auto overscroll-contain">
+    <div className={cn(panelContentVariants())}>
       {sections.map((section) => (
         <ControlSection
           key={section.id}

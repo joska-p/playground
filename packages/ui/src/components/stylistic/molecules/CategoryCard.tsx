@@ -2,6 +2,7 @@ import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { Icon } from '../../icons/Icon';
 import type { IconName } from '../../icons/iconMap';
+import { categoryCardVariants } from './categoryCardVariants';
 
 type CategoryCardProps = {
   href: string;
@@ -29,13 +30,7 @@ function CategoryCard({
     <a
       data-tilt
       href={href}
-      className={cn(
-        'group border-border/30 bg-card relative flex cursor-pointer flex-col rounded-lg border',
-        'transition-[border-color,box-shadow] duration-300 select-none',
-        'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-        'hover:border-border hover:shadow-[0_0_28px_-6px_var(--accent)]',
-        className
-      )}
+      className={cn(categoryCardVariants(), className)}
       style={{ '--border': accentStyle, '--accent': accentStyle } as React.CSSProperties}
       {...props}
     >

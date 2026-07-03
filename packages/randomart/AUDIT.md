@@ -137,14 +137,14 @@ Audited: 22 source files across `packages/randomart` and its engine dependency `
 
 ## Summary
 
-| Category | Count | Severity |
-|---|---|---|
-| Universal Function / Hyper-Generic Abstraction | 5 files | High (GrammarRule interface, compileToGLSL) |
-| Interface Lying (dead/misleading methods) | 2 files | Medium (nested-oscillation, radial-symmetry) |
-| Data Integrity (duplicate map keys) | 1 file | Low (registry.ts) |
-| Orchestrator Coupling | 2 files | Medium (useWebGLRenderer, compileToGLSL) |
-| React 19 Compiler Friction | 1 file | Low (useAnimationLoop ref capture) |
-| Code Duplication | 1 file | Low (selectors channel dispatch) |
-| Linter Workarounds | 0 files | None found — package passes strict checks cleanly |
+| Category                                       | Count   | Severity                                          |
+| ---------------------------------------------- | ------- | ------------------------------------------------- |
+| Universal Function / Hyper-Generic Abstraction | 5 files | High (GrammarRule interface, compileToGLSL)       |
+| Interface Lying (dead/misleading methods)      | 2 files | Medium (nested-oscillation, radial-symmetry)      |
+| Data Integrity (duplicate map keys)            | 1 file  | Low (registry.ts)                                 |
+| Orchestrator Coupling                          | 2 files | Medium (useWebGLRenderer, compileToGLSL)          |
+| React 19 Compiler Friction                     | 1 file  | Low (useAnimationLoop ref capture)                |
+| Code Duplication                               | 1 file  | Low (selectors channel dispatch)                  |
+| Linter Workarounds                             | 0 files | None found — package passes strict checks cleanly |
 
 **No `as any`, `as unknown`, `// eslint-disable`, or `@ts-expect-error` escapes were found anywhere in the package.** The codebase maintains type safety under maximum strictness.

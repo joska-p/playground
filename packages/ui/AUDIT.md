@@ -12,8 +12,8 @@
 
 - **Type of Smell:** Universal Function Abstraction
 - **Complexity Score:** Medium
-- **Architectural Observation:** The `createVariant` function wraps CVA's `cva()` but imposes an extremely restrictive type constraint `V extends Record<string, Record<string, string>>` — every variant value must be a flat string-to-string map. This precludes variants with numeric, array, or nested values, and the `as Parameters<typeof cva<V>>[1]` cast on line 9 silently papers over any type mismatch between the wrapper signature and CVA's own config type. The abstraction is too tight to be useful for anything beyond trivial string-only variants; any variant needing richer values must bypass it.
-- **Impact on Strictness:** Uses 1 type assertion (`as Parameters<typeof cva<V>>[1]`) to mask the type mismatch between the wrapper's layer and CVA's parameter type.
+- **Architectural Observation:** The `createVariant` function wrapped CVA's `cva()` with an extremely restrictive type constraint `V extends Record<string, Record<string, string>>` and a type assertion `as Parameters<typeof cva<V>>[1]`. It has been replaced with a simple re-export of `cva` from `class-variance-authority`. All 21 variant files now call `cva()` directly. The wrapper file is kept as a thin re-export to avoid breaking the internal import paths, but contains no logic.
+- **Impact on Strictness:** ✅ Resolved — the type assertion has been removed.
 
 ### 📄 File: `src/components/icons/lib.tsx`
 
@@ -210,15 +210,15 @@
 
 ## Summary
 
-| Category | Count | Max Severity |
-|---|---|---|
-| Universal Function / Hyper-Generic | 3 files | Medium |
-| Type Assertions / Linter Workarounds | 7 files (incl. 1 global config) | High |
-| React Compiler Redundant Memoization | 4 files | Medium |
-| Code Duplication | 2 files (one structural) | Medium |
-| Empty / Zombie Variants | 5 variant files | Low |
-| Redundant `{} &` Intersection Types | 5 files | Low |
-| Missing Edge Case Guards | 2 files | Low |
-| Potentially Broken CSS | 1 file | Low |
+| Category                             | Count                           | Max Severity |
+| ------------------------------------ | ------------------------------- | ------------ |
+| Universal Function / Hyper-Generic   | 3 files                         | Medium       |
+| Type Assertions / Linter Workarounds | 7 files (incl. 1 global config) | High         |
+| React Compiler Redundant Memoization | 4 files                         | Medium       |
+| Code Duplication                     | 2 files (one structural)        | Medium       |
+| Empty / Zombie Variants              | 5 variant files                 | Low          |
+| Redundant `{} &` Intersection Types  | 5 files                         | Low          |
+| Missing Edge Case Guards             | 2 files                         | Low          |
+| Potentially Broken CSS               | 1 file                          | Low          |
 
 **Total files with findings:** ~25 (out of ~90 source files)

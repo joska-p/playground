@@ -1,3 +1,4 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useRef } from 'react';
 import { cn } from '../../../utils/cn';
@@ -87,12 +88,13 @@ function Carousel({ children, className, 'aria-label': ariaLabel }: CarouselProp
 
 type CarouselSlideProps = {
   children: ReactNode;
-} & ComponentProps<'div'>;
+} & ComponentProps<'div'> &
+  VariantProps<typeof carouselSlideVariants>;
 
-function CarouselSlide({ children, className, ...props }: CarouselSlideProps) {
+function CarouselSlide({ children, className, size, variant, ...props }: CarouselSlideProps) {
   return (
     <div
-      className={cn(carouselSlideVariants(), className)}
+      className={cn(carouselSlideVariants({ size, variant }), className)}
       {...props}
     >
       {children}

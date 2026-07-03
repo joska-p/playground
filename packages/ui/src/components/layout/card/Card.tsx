@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { cardVariants } from './cardVariants';
 
-type CardProps = {} & ComponentProps<'div'> & VariantProps<typeof cardVariants>;
+type CardProps = ComponentProps<'div'> & VariantProps<typeof cardVariants>;
 
 function Card({ className, variant, ...props }: CardProps) {
   return (

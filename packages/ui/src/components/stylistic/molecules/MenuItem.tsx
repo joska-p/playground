@@ -1,22 +1,18 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../utils/cn';
+import { menuItemVariants } from './menuItemVariants';
 
 type MenuItemProps = {
   icon?: ReactNode;
   label: string;
-  destructive?: boolean;
-} & ComponentProps<'button'>;
+} & ComponentProps<'button'> &
+  VariantProps<typeof menuItemVariants>;
 
-function MenuItem({ icon, label, destructive, className, ...props }: MenuItemProps) {
+function MenuItem({ icon, label, variant, className, ...props }: MenuItemProps) {
   return (
     <button
-      className={cn(
-        'flex w-full cursor-pointer items-center rounded-sm px-3 py-1.5 text-left text-[12px] transition-colors',
-        destructive
-          ? 'text-destructive hover:bg-destructive/10'
-          : 'text-foreground hover:bg-surface-raised',
-        className
-      )}
+      className={cn(menuItemVariants({ variant }), className)}
       {...props}
     >
       {icon && <span className="mr-2 w-4 text-xs">{icon}</span>}

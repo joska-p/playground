@@ -1,20 +1,20 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const carouselSlideVariants = createVariant({
-  base: 'flex-shrink-0 scroll-snap-align-center',
+export const carouselSlideVariants = cva({
+  base: 'shrink-0 scroll-snap-align-center',
   variants: {
     size: {
-      sm: 'w-[180px]',
-      md: 'w-[240px]',
-      lg: 'w-[320px]'
+      sm: 'w-32',
+      md: 'w-60',
+      lg: 'w-80'
     },
     variant: {
-      default: '',
-      primary: '',
-      secondary: '',
-      accent: '',
-      destructive: '',
-      warning: ''
+      default: 'bg-surface',
+      primary: 'bg-primary/5',
+      secondary: 'bg-secondary/5',
+      accent: 'bg-accent/5',
+      destructive: 'bg-destructive/5',
+      warning: 'bg-warning/5'
     }
   },
   defaultVariants: {

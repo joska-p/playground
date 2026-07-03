@@ -1,3 +1,4 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { useCallback, useId, useMemo, useState } from 'react';
 import { cn } from '../../../utils/cn';
@@ -7,6 +8,7 @@ import { SidebarContext } from './SidebarContext';
 import { SidebarMain } from './SidebarMain';
 import { SidebarPanel } from './SidebarPanel';
 import { SidebarToggle } from './SidebarToggle';
+import { sidebarVariants } from './sidebarVariants';
 import { useSidebarContext } from './useSidebarContext';
 
 export type SidebarProps = {
@@ -18,10 +20,10 @@ export type SidebarProps = {
   onOpenChange?: (open: boolean) => void;
   mobilePosition?: 'top' | 'right' | 'bottom' | 'left';
   desktopPosition?: 'top' | 'right' | 'bottom' | 'left';
-  variant?: 'primary' | 'secondary' | 'accent' | 'destructive' | 'outline' | 'ghost';
   panelWidth?: string;
   panelHeight?: string;
-} & Omit<ComponentProps<'div'>, 'open'>;
+} & Omit<ComponentProps<'div'>, 'open'> &
+  VariantProps<typeof sidebarVariants>;
 
 export function Sidebar({
   children,
@@ -71,9 +73,19 @@ export function Sidebar({
       closeSidebar,
       panelId,
       desktopPosition,
-      mobilePosition
+      mobilePosition,
+      variant
     }),
-    [isOpen, toggleSidebar, openSidebar, closeSidebar, panelId, desktopPosition, mobilePosition]
+    [
+      isOpen,
+      toggleSidebar,
+      openSidebar,
+      closeSidebar,
+      panelId,
+      desktopPosition,
+      mobilePosition,
+      variant
+    ]
   );
 
   const sidebarStyles = useMemo(
@@ -92,8 +104,7 @@ export function Sidebar({
         data-state={isOpen ? 'open' : 'closed'}
         data-mobile-position={mobilePosition}
         data-desktop-position={desktopPosition}
-        data-variant={variant}
-        className={cn(styles['sidebar'], className)}
+        className={cn(sidebarVariants({ variant }), styles['sidebar'], className)}
         style={sidebarStyles}
         {...props}
       >

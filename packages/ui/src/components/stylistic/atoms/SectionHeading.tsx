@@ -1,5 +1,7 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../utils/cn';
+import { sectionHeadingVariants } from './sectionHeadingVariants';
 
 type LabelColor = 'primary' | 'secondary' | 'accent' | 'destructive' | 'warning' | 'blue';
 
@@ -17,19 +19,21 @@ type SectionHeadingProps = {
   title: string;
   description?: ReactNode;
   labelColor?: LabelColor;
-} & ComponentProps<'div'>;
+} & ComponentProps<'div'> &
+  VariantProps<typeof sectionHeadingVariants>;
 
 function SectionHeading({
   label,
   title,
   description,
   labelColor = 'primary',
+  align,
   className,
   ...props
 }: SectionHeadingProps) {
   return (
     <div
-      className={cn(className)}
+      className={cn(sectionHeadingVariants({ align }), className)}
       {...props}
     >
       <p
