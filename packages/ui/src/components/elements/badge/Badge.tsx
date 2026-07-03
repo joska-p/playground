@@ -3,28 +3,16 @@ import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { badgeVariants } from './badgeVariants';
 
-type BadgeProps = {
-  color?: string;
-} & ComponentProps<'span'> &
-  VariantProps<typeof badgeVariants>;
+export type BadgeProps = ComponentProps<'span'> & VariantProps<typeof badgeVariants>;
 
-function Badge({ className, variant, color = 'primary', children, ...props }: BadgeProps) {
+function Badge({ ref, className, variant, ...props }: BadgeProps) {
   return (
     <span
+      ref={ref}
       className={cn(badgeVariants({ variant }), className)}
-      style={{ '--_color': `var(--${color})` } as React.CSSProperties}
       {...props}
-    >
-      {variant === 'dot' && (
-        <span
-          className="mr-1 inline-block size-1.5 shrink-0 rounded-full"
-          style={{ backgroundColor: `var(--${color})` }}
-        />
-      )}
-      {children}
-    </span>
+    />
   );
 }
 
 export { Badge };
-export type { BadgeProps };

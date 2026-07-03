@@ -1,20 +1,17 @@
-import type { ReactNode } from 'react';
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
+import { helperTextVariants } from './HelperTextVariants';
 
-type HelperTextProps = {
-  children: ReactNode;
-  destructive?: boolean;
-  id?: string;
-};
+export type HelperTextProps = ComponentProps<'p'> & VariantProps<typeof helperTextVariants>;
 
-function HelperText({ children, destructive, id }: HelperTextProps) {
+function HelperText({ ref, className, variant, ...props }: HelperTextProps) {
   return (
     <p
-      id={id}
-      className={cn('text-xs', destructive ? 'text-destructive' : 'text-muted-foreground')}
-    >
-      {children}
-    </p>
+      ref={ref}
+      className={cn(helperTextVariants({ variant, className }))}
+      {...props}
+    />
   );
 }
 

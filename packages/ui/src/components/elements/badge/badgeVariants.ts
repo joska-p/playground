@@ -1,16 +1,24 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const badgeVariants = createVariant({
-  base: 'inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium',
-  variants: {
-    variant: {
-      soft: 'bg-(--_color)/15 text-(--_color)',
-      solid: 'bg-(--_color) text-background',
-      outline: 'bg-transparent border border-(--_color) text-(--_color)',
-      dot: 'bg-(--_color)/15 text-(--_color)'
+export const badgeVariants = cva(
+  'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  {
+    variants: {
+      variant: {
+        default: 'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
+        secondary:
+          'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        destructive:
+          'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
+        outline: 'text-foreground',
+        generative: 'border-transparent bg-category-generative text-background hover:opacity-90',
+        image: 'border-transparent bg-category-image text-background hover:opacity-90',
+        random: 'border-transparent bg-category-random text-background hover:opacity-90',
+        simulation: 'border-transparent bg-category-simulation text-background hover:opacity-90'
+      }
+    },
+    defaultVariants: {
+      variant: 'default'
     }
-  },
-  defaultVariants: {
-    variant: 'soft'
   }
-});
+);
