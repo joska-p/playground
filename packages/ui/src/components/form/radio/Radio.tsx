@@ -1,9 +1,9 @@
-import type { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { radioVariants } from './radioVariants';
 
-type RadioProps = {} & ComponentProps<'input'> & VariantProps<typeof radioVariants>;
+export type RadioProps = ComponentProps<'input'> & VariantProps<typeof radioVariants>;
 
 function Radio({ ref, className, variant, size, ...props }: RadioProps) {
   return (

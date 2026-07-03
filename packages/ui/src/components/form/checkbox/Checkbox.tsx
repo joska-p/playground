@@ -1,9 +1,9 @@
-import type { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { checkboxVariants } from './checkboxVariants';
 
-type CheckboxProps = {} & ComponentProps<'input'> & VariantProps<typeof checkboxVariants>;
+export type CheckboxProps = ComponentProps<'input'> & VariantProps<typeof checkboxVariants>;
 
 function Checkbox({ ref, className, variant, size, ...props }: CheckboxProps) {
   return (

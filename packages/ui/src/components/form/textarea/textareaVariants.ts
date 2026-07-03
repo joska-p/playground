@@ -1,24 +1,19 @@
-import { createVariant } from '../../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const textareaVariants = createVariant({
-  base: 'flex items-start gap-2 rounded-md px-3 transition-shadow duration-200',
-  variants: {
-    variant: {
-      default:
-        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--primary)_15%,transparent)]',
-      primary:
-        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--primary)_15%,transparent)]',
-      secondary:
-        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--secondary)_15%,transparent)]',
-      accent:
-        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_15%,transparent)]',
-      destructive:
-        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--destructive)_15%,transparent)]',
-      warning:
-        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--warning)_15%,transparent)]'
+export const textareaVariants = cva(
+  'w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-70 field-sizing:content min-h-20',
+  {
+    variants: {
+      variant: {
+        primary: 'focus-visible:border-primary',
+        secondary: 'focus-visible:border-secondary',
+        accent: 'focus-visible:border-accent',
+        destructive: 'focus-visible:border-destructive',
+        warning: 'focus-visible:border-warning'
+      }
+    },
+    defaultVariants: {
+      variant: 'primary'
     }
-  },
-  defaultVariants: {
-    variant: 'default'
   }
-});
+);

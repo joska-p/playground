@@ -1,4 +1,4 @@
-import type { VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { useId } from 'react';
 import { cn } from '../../../utils/cn';
@@ -6,7 +6,7 @@ import { HelperText } from '../../elements/helper-text/HelperText';
 import { IconSpinner } from '../../icons/components/IconSpinner';
 import { inputVariants } from './inputVariants';
 
-type InputProps = {
+export type InputProps = {
   label?: string;
   helperText?: string;
   isLoading?: boolean;
@@ -67,7 +67,11 @@ function Input({
           <span className="text-muted-foreground shrink-0 [&_svg]:size-4">{endIcon}</span>
         )}
       </div>
-      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
+      {helperText && (
+        <HelperText variant={variant === 'destructive' ? 'destructive' : 'default'}>
+          {helperText}
+        </HelperText>
+      )}
     </div>
   );
 }
