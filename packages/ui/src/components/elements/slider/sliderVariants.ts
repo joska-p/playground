@@ -4,12 +4,7 @@ export const sliderVariants = createVariant({
   base: 'h-1.5 w-full cursor-pointer rounded-full outline-none',
   variants: {
     variant: {
-      default: 'accent-primary',
-      primary: 'accent-primary',
-      secondary: 'accent-secondary',
-      accent: 'accent-accent',
-      destructive: 'accent-destructive',
-      warning: 'accent-warning'
+      default: ''
     }
   },
   defaultVariants: {

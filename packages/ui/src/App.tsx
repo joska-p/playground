@@ -237,8 +237,6 @@ function App() {
           </h2>
           <div className="max-w-xs space-y-4">
             <Slider />
-            <Slider variant="secondary" />
-            <Slider variant="destructive" />
           </div>
         </section>
 
@@ -251,10 +249,14 @@ function App() {
               <Checkbox defaultChecked /> generative
             </label>
             <label className="flex cursor-pointer items-center gap-2.5 text-sm select-none">
-              <Checkbox /> shader
+              <Checkbox variant="accent" /> shader
             </label>
             <label className="flex cursor-pointer items-center gap-2.5 text-sm select-none">
-              <Checkbox disabled /> disabled
+              <Checkbox
+                disabled
+                variant="secondary"
+              />{' '}
+              disabled
             </label>
           </div>
           <div className="mt-4 flex gap-6">
@@ -280,7 +282,7 @@ function App() {
               <Switch defaultChecked /> fullscreen
             </label>
             <label className="flex cursor-pointer items-center gap-2.5 text-sm select-none">
-              <Switch /> loop
+              <Switch variant="outline" /> loop
             </label>
             <label className="flex cursor-pointer items-center gap-2.5 text-sm select-none">
               <Switch
