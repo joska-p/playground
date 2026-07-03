@@ -22,20 +22,20 @@ function ProjectCard({
   className,
   ...props
 }: ProjectCardProps) {
+  const accentColor = `var(--category-${category}, var(--primary))`;
+
   return (
     <a
       href={href}
       data-variant="experiment"
       className={cn(
-        'group border-border bg-card relative flex flex-col overflow-hidden rounded-lg border',
+        'group border-border/30 bg-card relative flex flex-col overflow-hidden rounded-lg border',
         'shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md',
         'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-        'hover:border-[color-mix(in_srgb,var(--card-accent)_35%,var(--color-border))]',
+        'hover:border-border',
         className
       )}
-      style={
-        { '--card-accent': `var(--category-${category}, var(--primary))` } as React.CSSProperties
-      }
+      style={{ '--border': accentColor, '--card-accent': accentColor } as React.CSSProperties}
       {...props}
     >
       {/* Hover gradient line */}

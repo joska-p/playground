@@ -20,7 +20,6 @@ function CategoryCard({
   description,
   iconName,
   count,
-  delay = 0,
   className,
   ...props
 }: CategoryCardProps) {
@@ -31,13 +30,13 @@ function CategoryCard({
       data-tilt
       href={href}
       className={cn(
-        'group border-border bg-card relative flex cursor-pointer flex-col rounded-lg border',
+        'group border-border/30 bg-card relative flex cursor-pointer flex-col rounded-lg border',
         'transition-[border-color,box-shadow] duration-300 select-none',
         'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-        'hover:shadow-[0_0_28px_-6px_var(--accent)]',
+        'hover:border-border hover:shadow-[0_0_28px_-6px_var(--accent)]',
         className
       )}
-      style={{ animationDelay: `${delay}s`, '--accent': accentStyle } as React.CSSProperties}
+      style={{ '--border': accentStyle, '--accent': accentStyle } as React.CSSProperties}
       {...props}
     >
       {/* Icon area */}

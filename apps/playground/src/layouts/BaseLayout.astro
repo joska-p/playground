@@ -2,7 +2,7 @@
 import Navbar from './nav-bar/NavBar.astro';
 import { Font } from 'astro:assets';
 import '../styles/styles.css';
-import HeroCanvas from '../components/ui/features/HeroCanvas.astro';
+import BackgroundCanvas from '../components/ui/features/BackgroundCanvas.astro';
 
 const baseUrl = import.meta.env.BASE_URL || '';
 
@@ -127,97 +127,10 @@ const { className } = Astro.props;
     <Font cssVariable="--font-jetbrains-mono" />
   </head>
   <body class="bg-background text-foreground min-h-screen antialiased">
-    <HeroCanvas />
+    <BackgroundCanvas />
     <Navbar />
     <main class:list={className}>
       <slot />
     </main>
   </body>
 </html>
-
-<script>
-  /* hero canvas — algorithmic art background */
-  (function () {
-    var canvas = document.getElementById('heroCanvas');
-
-    var ctx = canvas.getContext('2d');
-    var particles = [];
-    var particleCount = 60;
-    var connectionDistance = 120;
-    var mouse = { x: -1000, y: -1000 };
-
-    function resize() {
-      var rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    canvas.parentElement.addEventListener('mousemove', function (e) {
-      var rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-    canvas.parentElement.addEventListener('mouseleave', function () {
-      mouse.x = -1000;
-      mouse.y = -1000;
-    });
-
-    var colors = ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fe8019'];
-    for (var i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        radius: Math.random() * 2 + 1
-      });
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        var dx = mouse.x - p.x,
-          dy = mouse.y - p.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          p.x -= dx * 0.008;
-          p.y -= dy * 0.008;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = 0.6;
-        ctx.fill();
-
-        for (var j = i + 1; j < particles.length; j++) {
-          var p2 = particles[j];
-          var cdx = p.x - p2.x,
-            cdy = p.y - p2.y;
-          var cdist = Math.sqrt(cdx * cdx + cdy * cdy);
-          if (cdist < connectionDistance) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = 0.08 * (1 - cdist / connectionDistance);
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(animate);
-    }
-    animate();
-  })();
-</script>

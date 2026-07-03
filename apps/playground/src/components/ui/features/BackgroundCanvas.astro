@@ -3,7 +3,7 @@
 ---
 
 <hero-canvas>
-  <canvas class="pointer-events-none absolute inset-0 h-full w-full"></canvas>
+  <canvas class="pointer-events-none fixed inset-0 h-screen w-screen"></canvas>
 </hero-canvas>
 
 <script is:inline>
@@ -64,7 +64,16 @@
       }
 
       // Palette initialization
-      const colors = ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fe8019'];
+      const colors = [
+        '#2c8668',
+        '#904db2',
+        '#b8502e',
+        '#1d90c9',
+        '#ac7300',
+        '#5b8624',
+        '#bf535a',
+        '#717cbb'
+      ];
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,

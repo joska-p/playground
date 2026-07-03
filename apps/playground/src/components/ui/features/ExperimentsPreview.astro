@@ -32,16 +32,20 @@ const groups = allCategories
 
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {
-        groups.map((group) => (
-          <CategoryCard
-            href={`${baseUrl}projects/${group.id}/`}
-            id={group.id}
-            label={group.label}
-            description={group.description}
-            iconName={group.icon}
-            count={group.count}
-          />
-        ))
+        groups.map((group) => {
+          const { id, label, description, icon, count } = group;
+          const link = `${baseUrl}projects/${id}/`;
+          return (
+            <CategoryCard
+              href={link}
+              id={id}
+              label={label}
+              description={description}
+              iconName={icon}
+              count={count}
+            />
+          );
+        })
       }
     </div>
   </div>
