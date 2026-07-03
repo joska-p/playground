@@ -1,9 +1,11 @@
+import { type VariantProps } from 'class-variance-authority';
 import type { ErrorInfo, ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import { DefaultFallback } from './DefaultFallback';
+import type { defaultFallbackVariants } from './defaultFallbackVariants';
 
-type ErrorBoundaryProps = {
+export type ErrorBoundaryProps = {
   children: ReactNode;
   onError?: (error: unknown, info: ErrorInfo) => void;
   onReset?: (
@@ -16,12 +18,17 @@ type ErrorBoundaryProps = {
         }
   ) => void;
   resetKeys?: unknown[];
-};
+} & VariantProps<typeof defaultFallbackVariants>;
 
-function ErrorBoundary({ children, ...props }: ErrorBoundaryProps) {
+function ErrorBoundary({ children, variant, ...props }: ErrorBoundaryProps) {
   return (
     <ReactErrorBoundary
-      fallbackRender={(fallbackProps: FallbackProps) => <DefaultFallback {...fallbackProps} />}
+      fallbackRender={(fallbackProps: FallbackProps) => (
+        <DefaultFallback
+          variant={variant}
+          {...fallbackProps}
+        />
+      )}
       {...props}
     >
       {children}
@@ -30,4 +37,3 @@ function ErrorBoundary({ children, ...props }: ErrorBoundaryProps) {
 }
 
 export { ErrorBoundary };
-export type { ErrorBoundaryProps };

@@ -1,7 +1,6 @@
-import { createVariant } from '../../lib/variants/create-variant';
+import { cva } from 'class-variance-authority';
 
-export const defaultFallbackVariants = createVariant({
-  base: 'flex items-center justify-center h-full',
+export const defaultFallbackVariants = cva('flex h-full items-center justify-center', {
   variants: {
     variant: {
       destructive: 'bg-destructive/5',
@@ -16,3 +15,22 @@ export const defaultFallbackVariants = createVariant({
     variant: 'destructive'
   }
 });
+
+export const fallbackIconVariants = cva(
+  'flex h-10 w-10 shrink-0 items-center justify-center rounded-full',
+  {
+    variants: {
+      variant: {
+        destructive: 'bg-destructive/10 text-destructive',
+        primary: 'bg-primary/10 text-primary',
+        secondary: 'bg-secondary/10 text-secondary',
+        accent: 'bg-accent/10 text-accent',
+        outline: 'bg-muted text-muted-foreground',
+        ghost: 'bg-muted text-muted-foreground'
+      }
+    },
+    defaultVariants: {
+      variant: 'destructive'
+    }
+  }
+);

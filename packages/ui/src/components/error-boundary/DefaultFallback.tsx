@@ -1,21 +1,36 @@
+import { type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { getErrorMessage } from 'react-error-boundary';
 import { cn } from '../../utils/cn';
 import { Button } from '../elements/button/Button';
+import { defaultFallbackVariants, fallbackIconVariants } from './defaultFallbackVariants';
 
-type DefaultFallbackProps = FallbackProps & ComponentProps<'div'>;
+export type DefaultFallbackProps = FallbackProps &
+  ComponentProps<'div'> &
+  VariantProps<typeof defaultFallbackVariants>;
 
-function DefaultFallback({ error, resetErrorBoundary, className, ...props }: DefaultFallbackProps) {
+function DefaultFallback({
+  ref,
+  error,
+  resetErrorBoundary,
+  className,
+  variant,
+  ...props
+}: DefaultFallbackProps) {
+  // Map non-semantic variants to a safe button color
+  const buttonVariant = variant === 'outline' || variant === 'ghost' ? 'secondary' : variant;
+
   return (
     <div
-      className={cn('flex h-full items-center justify-center', className)}
+      ref={ref}
+      className={cn(defaultFallbackVariants({ variant }), className)}
       role="alert"
       {...props}
     >
       <div className="bg-surface text-card-foreground flex w-full max-w-sm flex-col gap-4 rounded-lg p-6 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="bg-destructive/10 text-destructive flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+          <div className={cn(fallbackIconVariants({ variant }))}>
             <svg
               width="20"
               height="20"
@@ -51,7 +66,7 @@ function DefaultFallback({ error, resetErrorBoundary, className, ...props }: Def
         <p className="text-muted-foreground text-sm">{getErrorMessage(error)}</p>
         <Button
           onClick={resetErrorBoundary}
-          variant="destructive"
+          variant={buttonVariant}
           size="sm"
         >
           Try again
