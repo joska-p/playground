@@ -26,7 +26,7 @@ import { FloatingNav } from './components/stylistic/organisms/FloatingNav';
 import { ScrollReveal } from './components/stylistic/organisms/ScrollReveal';
 import { ColorPalette } from './components/widgets/color-palette/ColorPalette';
 
-const variants = ['default', 'primary', 'secondary', 'accent', 'destructive', 'warning'] as const;
+const variants = ['outline', 'primary', 'secondary', 'accent', 'destructive', 'warning'] as const;
 
 const sizes = ['sm', 'md', 'lg'] as const;
 
@@ -288,7 +288,7 @@ function App() {
               <Switch
                 variant="secondary"
                 defaultChecked
-              />{' '}
+              />
               dark mode
             </label>
           </div>
@@ -320,7 +320,7 @@ function App() {
               <div className="bg-surface-raised/50 flex items-center justify-between px-4 py-2.5">
                 <span className="text-foreground-dim text-xs">2 days ago</span>
                 <Button
-                  variant="default"
+                  variant="primary"
                   size="sm"
                 >
                   view
