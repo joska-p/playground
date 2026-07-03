@@ -915,7 +915,7 @@ function App() {
                   </svg>
                 }
                 label="delete"
-                variant="destructive"
+                destructive
               />
             </div>
           </div>

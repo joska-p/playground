@@ -14,7 +14,7 @@ This package is a canvas-based interactive renderer for mathematical sequences. 
 
 - **Type of Smell:** Leaky Abstraction / Under-Specified Contract
 - **Complexity Score:** Medium
-- **Architectural Observation:** The `VisualLayer.draw` signature takes `params: Record<string, unknown>`, forcing every layer implementation to do runtime type narrowing via `as` assertions. `ParamDescriptor` is a tagged union that _describes_ param types but never feeds a type-safe accessor, so the type information encoded in `ParamDescriptor` is effectively dead at render time. The `draw` callback is incapable of expressing per-layer param shapes, which is the root cause of the ~30 type assertions across all layer files.
+- **Architectural Observation:** The `VisualLayer.draw` signature takes `params: Record<string, unknown>`, forcing every layer implementation to do runtime type narrowing via `as` assertions. `ParamDescriptor` is a tagged union that *describes* param types but never feeds a type-safe accessor, so the type information encoded in `ParamDescriptor` is effectively dead at render time. The `draw` callback is incapable of expressing per-layer param shapes, which is the root cause of the ~30 type assertions across all layer files.
 - **Impact on Strictness:** The `Record<string, unknown>` params bag creates a type hole every layer must punch through with `as` assertions.
 
 ---
@@ -32,7 +32,7 @@ This package is a canvas-based interactive renderer for mathematical sequences. 
 
 - **Type of Smell:** Hyper-Generic Abstraction / Performance Trap
 - **Complexity Score:** High
-- **Architectural Observation:** This layer draws a sine wave radiating from _each_ data point. The draw loop is O(data × pixelWidth): for every sequence value, it iterates pixel-by-pixel from `startX` to `endX` (canvas-wide), computing `Math.sin` per pixel. For a 1000-element sequence on a 1920px canvas, that is ~1.9M trig calls per frame. The `params as unknown` pattern forces 4 type assertions in the draw body. The per-pixel inner loop is unbounded — it runs to `endX` regardless of whether the sine wave is still visible.
+- **Architectural Observation:** This layer draws a sine wave radiating from *each* data point. The draw loop is O(data × pixelWidth): for every sequence value, it iterates pixel-by-pixel from `startX` to `endX` (canvas-wide), computing `Math.sin` per pixel. For a 1000-element sequence on a 1920px canvas, that is ~1.9M trig calls per frame. The `params as unknown` pattern forces 4 type assertions in the draw body. The per-pixel inner loop is unbounded — it runs to `endX` regardless of whether the sine wave is still visible.
 - **Impact on Strictness:** 4+ type assertions on params destructure; `as number` for lineWidth, alpha, amplitudeScale.
 
 ---
@@ -149,7 +149,7 @@ This package is a canvas-based interactive renderer for mathematical sequences. 
 
 - **Type of Smell:** Performance Bug (Recalculation)
 - **Complexity Score:** Low
-- **Architectural Observation:** `generateHarmonics(seed)` is called inside `getNext()` — which runs once _per step_. For a 1000-step sequence, the same 4 harmonics are regenerated 1000 times from the same seed, including 4 `floor(rng.next() * 12)` calls each time. The harmonics should be computed once (e.g. in a factory or closure) and reused across all `getNext` invocations. Currently each step re-rolls the same pseudo-random values, producing identical results but wasting compute.
+- **Architectural Observation:** `generateHarmonics(seed)` is called inside `getNext()` — which runs once *per step*. For a 1000-step sequence, the same 4 harmonics are regenerated 1000 times from the same seed, including 4 `floor(rng.next() * 12)` calls each time. The harmonics should be computed once (e.g. in a factory or closure) and reused across all `getNext` invocations. Currently each step re-rolls the same pseudo-random values, producing identical results but wasting compute.
 - **Impact on Strictness:** None.
 
 ---
@@ -176,17 +176,17 @@ This package is a canvas-based interactive renderer for mathematical sequences. 
 
 - **Type of Smell:** Comment/Implementation Mismatch
 - **Complexity Score:** Low
-- **Architectural Observation:** The comment on line 10 reads _"A more robust string hashing algorithm (MurmurHash-inspired)"_ but the implementation is FNV-1a (initializing 2166136261, multiplier 16777619), not MurmurHash. The PRNG below is correctly labeled as Mulberry32. Minor documentation inaccuracy.
+- **Architectural Observation:** The comment on line 10 reads *"A more robust string hashing algorithm (MurmurHash-inspired)"* but the implementation is FNV-1a (initializing 2166136261, multiplier 16777619), not MurmurHash. The PRNG below is correctly labeled as Mulberry32. Minor documentation inaccuracy.
 - **Impact on Strictness:** None.
 
 ---
 
 ## Summary: Smell Frequency
 
-| Smell Category                                 | Occurrences                                                                                                      |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Smell Category | Occurrences |
+|---|---|
 | Universal Function / Hyper-Generic Abstraction | **5** (`render.ts`, `drawFactorWaves.ts`, `drawMountain.ts`, `drawFourierEpicycles.ts`, `LayerOptionsPanel.tsx`) |
-| Linter Workaround (type assertions)            | **10 files** (all 9 layer files + `drawFourierEpicycles.ts`) — ~30 `as` assertions total                         |
-| React 19 / Compiler Friction                   | **2** (`useCanvasRenderer.ts`, `useCanvasInteraction.ts`)                                                        |
-| Performance Bug                                | **1** (`harmonicPath.ts` — harmonic regeneration per step)                                                       |
-| Documentation Inaccuracy                       | **1** (`SeededRandom.ts` — FNV-1a labeled as MurmurHash)                                                         |
+| Linter Workaround (type assertions) | **10 files** (all 9 layer files + `drawFourierEpicycles.ts`) — ~30 `as` assertions total |
+| React 19 / Compiler Friction | **2** (`useCanvasRenderer.ts`, `useCanvasInteraction.ts`) |
+| Performance Bug | **1** (`harmonicPath.ts` — harmonic regeneration per step) |
+| Documentation Inaccuracy | **1** (`SeededRandom.ts` — FNV-1a labeled as MurmurHash) |

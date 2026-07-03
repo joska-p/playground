@@ -1,10 +1,8 @@
-import { cn } from '../../../../utils/cn';
 import type { ColorControl as ColorControlType } from '../types';
-import { colorControlVariants } from './colorControlVariants';
 
 export function ColorControl({ control }: { control: ColorControlType }) {
   return (
-    <div className={cn(colorControlVariants())}>
+    <div className="flex w-full items-center justify-between gap-3">
       <label className="text-muted-foreground text-xs font-medium select-none">
         {control.label}
       </label>

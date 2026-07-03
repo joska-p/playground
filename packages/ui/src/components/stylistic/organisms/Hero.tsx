@@ -1,6 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../utils/cn';
-import { heroVariants } from './heroVariants';
 
 type HeroProps = {
   badgeText?: string;
@@ -21,7 +20,10 @@ function Hero({
 }: HeroProps) {
   return (
     <section
-      className={cn(heroVariants(), className)}
+      className={cn(
+        'relative flex min-h-[65vh] flex-col justify-center overflow-hidden px-6 py-[clamp(5rem,8vw,8rem)]',
+        className
+      )}
       {...props}
     >
       {/* Grid background */}

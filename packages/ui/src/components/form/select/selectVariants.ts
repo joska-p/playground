@@ -1,9 +1,11 @@
-import { cva } from 'class-variance-authority';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const selectVariants = cva({
+export const selectVariants = createVariant({
   base: 'flex items-center gap-2 rounded-md px-3 transition-shadow duration-200',
   variants: {
     variant: {
+      default:
+        'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--primary)_15%,transparent)]',
       primary:
         'bg-surface focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--primary)_15%,transparent)]',
       secondary:
@@ -17,6 +19,6 @@ export const selectVariants = cva({
     }
   },
   defaultVariants: {
-    variant: 'primary'
+    variant: 'default'
   }
 });

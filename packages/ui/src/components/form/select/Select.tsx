@@ -52,11 +52,7 @@ function Select({
         </select>
         <IconChevronDown className="text-foreground-dim pointer-events-none size-4 shrink-0" />
       </div>
-      {helperText && (
-        <HelperText variant={variant === 'destructive' ? 'destructive' : 'default'}>
-          {helperText}
-        </HelperText>
-      )}
+      {helperText && <HelperText destructive={variant === 'destructive'}>{helperText}</HelperText>}
     </div>
   );
 }

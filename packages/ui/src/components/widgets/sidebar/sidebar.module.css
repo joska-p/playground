@@ -1,7 +1,19 @@
 @reference "../../../styles/styles.css";
 
-/* Grid layout — position variants drive grid-template-areas */
+/* ─────────────────────────────────────────────────────────────
+   Root
+   The sidebar is a CSS grid. The panel lives in the grid and
+   always pushes the main area — it never overlays it.
+───────────────────────────────────────────────────────────── */
 .sidebar {
+  display: grid;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  touch-action: manipulation;
+
+  /* Mobile grid templates */
   &[data-mobile-position='left'] {
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr;
@@ -23,6 +35,7 @@
     grid-template-areas: 'main' 'panel';
   }
 
+  /* Desktop overrides (≥ 768 px) */
   @media (min-width: 1024px) {
     &[data-desktop-position='left'] {
       grid-template-columns: auto 1fr;
@@ -47,18 +60,73 @@
   }
 }
 
-/* Panel placement and open/closed transitions */
-.panel {
-  grid-area: panel;
-  overflow: hidden;
+/* ─────────────────────────────────────────────────────────────
+   Variants — Panel backgrounds
+───────────────────────────────────────────────────────────── */
+.sidebar[data-variant='primary'] .panel {
+  @apply bg-card;
+}
+.sidebar[data-variant='secondary'] .panel {
+  @apply bg-secondary/30;
+}
+.sidebar[data-variant='accent'] .panel {
+  @apply bg-accent/30;
+}
+.sidebar[data-variant='destructive'] .panel {
+  @apply bg-destructive/20;
+}
+.sidebar[data-variant='outline'] .panel {
+  @apply border-border border bg-transparent;
+}
+.sidebar[data-variant='ghost'] .panel {
+  @apply bg-transparent;
 }
 
-/* Open dimensions */
+/* Variants — Toggle styles */
+.sidebar[data-variant='primary'] .toggle {
+  @apply text-card-foreground bg-accent/10 hover:bg-accent/20;
+}
+.sidebar[data-variant='secondary'] .toggle {
+  @apply text-secondary-foreground bg-secondary/20 hover:bg-secondary/50;
+}
+.sidebar[data-variant='accent'] .toggle {
+  @apply text-accent-foreground bg-accent/20 hover:bg-accent/50;
+}
+.sidebar[data-variant='destructive'] .toggle {
+  @apply text-destructive-foreground bg-destructive/20 hover:bg-destructive/50;
+}
+.sidebar[data-variant='outline'] .toggle {
+  @apply text-foreground border-border hover:bg-foreground/10 border bg-transparent;
+}
+.sidebar[data-variant='ghost'] .toggle {
+  @apply text-foreground/70 hover:bg-foreground/10 bg-transparent;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Panel
+   Uses grid-area so it's placed by the grid — no absolute
+   positioning, no z-index tricks. Transitions width or height
+   to 0 when closed, which collapses the grid track with it.
+───────────────────────────────────────────────────────────── */
+.panel {
+  grid-area: panel;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition:
+    width 300ms ease-in-out,
+    height 300ms ease-in-out,
+    opacity 300ms ease-in-out,
+    visibility 300ms ease-in-out;
+}
+
+/* --- Open dimensions: mobile --- */
 .sidebar[data-mobile-position='left'] .panel,
 .sidebar[data-mobile-position='right'] .panel {
   height: 100%;
 }
 
+/* --- Open dimensions: desktop (override mobile) --- */
 @media (min-width: 1024px) {
   .sidebar[data-desktop-position='left'] .panel,
   .sidebar[data-desktop-position='right'] .panel {
@@ -66,7 +134,7 @@
   }
 }
 
-/* Closed: horizontal */
+/* --- Closed: mobile horizontal --- */
 .sidebar[data-state='closed'][data-mobile-position='left'] .panel,
 .sidebar[data-state='closed'][data-mobile-position='right'] .panel {
   width: 0;
@@ -74,7 +142,7 @@
   opacity: 0;
 }
 
-/* Closed: vertical */
+/* --- Closed: mobile vertical --- */
 .sidebar[data-state='closed'][data-mobile-position='top'] .panel,
 .sidebar[data-state='closed'][data-mobile-position='bottom'] .panel {
   height: 0;
@@ -82,34 +150,52 @@
   opacity: 0;
 }
 
+/* --- Closed: desktop horizontal (also resets height in case mobile was vertical) --- */
 @media (min-width: 1024px) {
   .sidebar[data-state='closed'][data-desktop-position='left'] .panel,
   .sidebar[data-state='closed'][data-desktop-position='right'] .panel {
     width: 0;
-    height: 100%;
+    height: 100%; /* reset vertical dimension */
     visibility: hidden;
     opacity: 0;
   }
 
+  /* --- Closed: desktop vertical (also resets width in case mobile was horizontal) --- */
   .sidebar[data-state='closed'][data-desktop-position='top'] .panel,
   .sidebar[data-state='closed'][data-desktop-position='bottom'] .panel {
     height: 0;
-    width: 100%;
+    width: 100%; /* reset horizontal dimension */
     visibility: hidden;
     opacity: 0;
   }
 }
 
-/* Main grid area */
+/* ─────────────────────────────────────────────────────────────
+   Main
+───────────────────────────────────────────────────────────── */
 .main {
   grid-area: main;
   position: relative;
   height: 100%;
   width: 100%;
-  min-height: 0;
+  min-height: 0; /* prevents grid blowout */
   min-width: 0;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Toggle
+   No grid-area here — the toggle lives wherever the consumer
+   places it inside <Sidebar.Main> or anywhere in the tree.
+───────────────────────────────────────────────────────────── */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Reduced motion
+───────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .sidebar,
   .panel,

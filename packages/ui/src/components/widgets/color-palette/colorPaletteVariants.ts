@@ -1,6 +1,6 @@
-import { cva } from 'class-variance-authority';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const colorPaletteVariants = cva({
+export const colorPaletteVariants = createVariant({
   base: 'flex w-fit cursor-pointer overflow-hidden rounded-lg bg-surface transition-all hover:shadow-sm',
   variants: {
     orientation: {

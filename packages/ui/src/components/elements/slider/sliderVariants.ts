@@ -1,9 +1,10 @@
-import { cva } from 'class-variance-authority';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const sliderVariants = cva({
+export const sliderVariants = createVariant({
   base: 'h-1.5 w-full cursor-pointer rounded-full outline-none',
   variants: {
     variant: {
+      default: 'accent-primary',
       primary: 'accent-primary',
       secondary: 'accent-secondary',
       accent: 'accent-accent',
@@ -12,6 +13,6 @@ export const sliderVariants = cva({
     }
   },
   defaultVariants: {
-    variant: 'primary'
+    variant: 'default'
   }
 });

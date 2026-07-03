@@ -4,18 +4,17 @@ import { Button } from '../../elements/button/Button';
 import { IconClose } from '../../icons/components/IconClose';
 import { IconHamburger } from '../../icons/components/IconHamburger';
 import styles from './sidebar.module.css';
-import { sidebarToggleVariants } from './sidebarVariants';
 import { useSidebarContext } from './useSidebarContext';
 
 export function SidebarToggle({ className, children, ...props }: ComponentProps<'button'>) {
-  const { isOpen, toggleSidebar, variant } = useSidebarContext();
+  const { isOpen, toggleSidebar } = useSidebarContext();
 
   return (
     <Button
       type="button"
       size="md"
       onClick={toggleSidebar}
-      className={cn(sidebarToggleVariants({ variant }), styles['toggle'], className)}
+      className={cn(styles['toggle'], className)}
       aria-expanded={isOpen}
       aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
       {...props}

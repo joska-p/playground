@@ -18,14 +18,14 @@ This package is small (~150 lines total), cleanly modular, and notably free of t
 
 - **Type of Smell:** Universal Function / Hyper-Generic Abstraction (minor)
 - **Complexity Score:** Low
-- **Architectural Observation:** The `Axis` type conflates two distinct concepts — a plot axis (which needs `label`, `min`, `max`) and a slider control (which additionally needs `step`). The `step` field is optional on the base `Axis` type but is _only ever_ populated on `zSlider` definitions (lines 21, 31, 41, 51). This means every `Axis` consumer must handle the `step` being potentially absent even though the distinction is structural, not data-driven. A cleaner approach would split this into `Axis` and `SliderAxis` or use a discriminated union. That said, the module is only 60 lines total and this smell has zero downstream impact.
+- **Architectural Observation:** The `Axis` type conflates two distinct concepts — a plot axis (which needs `label`, `min`, `max`) and a slider control (which additionally needs `step`). The `step` field is optional on the base `Axis` type but is *only ever* populated on `zSlider` definitions (lines 21, 31, 41, 51). This means every `Axis` consumer must handle the `step` being potentially absent even though the distinction is structural, not data-driven. A cleaner approach would split this into `Axis` and `SliderAxis` or use a discriminated union. That said, the module is only 60 lines total and this smell has zero downstream impact.
 - **Impact on Strictness:** None. No type assertions or eslint disables used.
 
 ### 📄 File: `src/rules/complementary.ts`
 
 - **Type of Smell:** Universal Function / Hyper-Generic Abstraction (minor observation)
 - **Complexity Score:** Low
-- **Architectural Observation:** The lightness-variation generation for base and complement colors is cleanly duplicated four times (lines 16–26): `baseLight`, `baseDark`, `compLight`, `compDark`. Each follows the pattern `clone() → Math.min/max(lightness ± 0.2)`. This _intentionally_ avoids a shared helper, which aligns with the preferred philosophy. However, there is a minor inconsistency: `baseDark` reads `base.oklch['l']` (line 20) while `baseLight` reads `baseLight.oklch['l']` (line 17) and `compLight` reads `complement.oklch['l']` (line 23) — all equivalent at runtime since `base` is unmodified at that point, but the inconsistency signals code that was assembled by copy-paste and would be a source of subtle bugs if the order of operations shifted.
+- **Architectural Observation:** The lightness-variation generation for base and complement colors is cleanly duplicated four times (lines 16–26): `baseLight`, `baseDark`, `compLight`, `compDark`. Each follows the pattern `clone() → Math.min/max(lightness ± 0.2)`. This *intentionally* avoids a shared helper, which aligns with the preferred philosophy. However, there is a minor inconsistency: `baseDark` reads `base.oklch['l']` (line 20) while `baseLight` reads `baseLight.oklch['l']` (line 17) and `compLight` reads `complement.oklch['l']` (line 23) — all equivalent at runtime since `base` is unmodified at that point, but the inconsistency signals code that was assembled by copy-paste and would be a source of subtle bugs if the order of operations shifted.
 - **Impact on Strictness:** None.
 
 ### 📄 File: `src/rules/monochromatic.ts`
@@ -77,14 +77,14 @@ Both `eslint.config.js` and `tsconfig.json` are trivial passthroughs to shared w
 
 ## Summary Matrix
 
-| File                         | Universal Function | Linter Fighting  | React Friction | Score      |
-| ---------------------------- | ------------------ | ---------------- | -------------- | ---------- |
-| `src/types.ts`               | —                  | —                | N/A            | Clean      |
-| `src/generatePalette.ts`     | —                  | —                | N/A            | Clean      |
-| `src/colorSpaces.ts`         | Minor              | —                | N/A            | Near-clean |
-| `src/rules/analogous.ts`     | —                  | Mild (`??`)      | N/A            | Near-clean |
-| `src/rules/complementary.ts` | Minor (clean dup)  | Mild (`??`)      | N/A            | Near-clean |
-| `src/rules/monochromatic.ts` | —                  | Mild (`!= null`) | N/A            | Near-clean |
-| `src/rules/triadic.ts`       | —                  | Mild (`!= null`) | N/A            | Near-clean |
+| File | Universal Function | Linter Fighting | React Friction | Score |
+|---|---|---|---|---|
+| `src/types.ts` | — | — | N/A | Clean |
+| `src/generatePalette.ts` | — | — | N/A | Clean |
+| `src/colorSpaces.ts` | Minor | — | N/A | Near-clean |
+| `src/rules/analogous.ts` | — | Mild (`??`) | N/A | Near-clean |
+| `src/rules/complementary.ts` | Minor (clean dup) | Mild (`??`) | N/A | Near-clean |
+| `src/rules/monochromatic.ts` | — | Mild (`!= null`) | N/A | Near-clean |
+| `src/rules/triadic.ts` | — | Mild (`!= null`) | N/A | Near-clean |
 
 **Overall assessment:** Clean, well-structured, small package. The primary architectural concern is the ripple of defensive `?? 0` / `!= null` patterns caused by upstream `colorjs.io` type definitions. No refactoring urgency.

@@ -56,7 +56,6 @@
   3. `@typescript-eslint/no-floating-promises` — 'off' — test setup often has intentionally floating promises (e.g., `p2.catch(() => undefined)` on line 379).
 
   These are narrow, well-justified relaxations. The `eslint.config.js` is only 16 lines and does not engage in broad rule disabling. **No universal-function smell.**
-
 - **Impact on Strictness:** Three rules disabled for all test files — small blast radius, but means test code is not checked for unsafe assignments, unbound methods, or floating promises anywhere in the test suite.
 
 ---
@@ -81,15 +80,15 @@
 
 ## Summary
 
-| File                      | Smell Type                                      | Severity |
-| ------------------------- | ----------------------------------------------- | -------- |
-| `src/worker-pool.ts`      | None                                            | —        |
-| `src/types.ts`            | None                                            | —        |
-| `src/mock-worker-pool.ts` | None                                            | —        |
-| `src/worker-pool.test.ts` | Linter Workaround (1 type assertion)            | Low      |
-| `eslint.config.js`        | Linter Workaround (3 rule relaxations for test) | Low      |
-| `tsconfig.json`           | None                                            | —        |
-| `README.md`               | None (defensive design documented)              | —        |
+| File | Smell Type | Severity |
+|---|---|---|
+| `src/worker-pool.ts` | None | — |
+| `src/types.ts` | None | — |
+| `src/mock-worker-pool.ts` | None | — |
+| `src/worker-pool.test.ts` | Linter Workaround (1 type assertion) | Low |
+| `eslint.config.js` | Linter Workaround (3 rule relaxations for test) | Low |
+| `tsconfig.json` | None | — |
+| `README.md` | None (defensive design documented) | — |
 
 ### React 19 / React Compiler Friction
 
@@ -98,7 +97,6 @@
 ### Key Takeaway
 
 `@repo/worker-pool` is a well-scoped, clean module. The only code-health notes are:
-
 1. **`as unknown as Worker`** in tests — necessary to mock the DOM `Worker` interface without pulling in jsdom.
 2. **Three ESLint rules relaxed for test files** — narrow, justified, but technically a weakening of the monorepo's hyper-strict config at the test boundary.
 

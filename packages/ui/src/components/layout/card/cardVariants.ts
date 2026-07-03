@@ -1,15 +1,15 @@
-import { cva } from 'class-variance-authority';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const cardVariants = cva({
+export const cardVariants = createVariant({
   base: 'bg-surface rounded-lg overflow-hidden transition-shadow duration-200 shadow-sm',
   variants: {
     variant: {
-      default: 'bg-surface',
-      primary: 'bg-primary/5',
-      secondary: 'bg-secondary/5',
-      accent: 'bg-accent/5',
-      destructive: 'bg-destructive/5',
-      warning: 'bg-warning/5',
+      default: '',
+      primary: '',
+      secondary: '',
+      accent: '',
+      destructive: '',
+      warning: '',
       interactive:
         'hover:shadow-md has-[.card-actions:hover]:shadow-md has-[.card-actions:hover]:ring-2 has-[.card-actions:hover]:ring-primary/10'
     }

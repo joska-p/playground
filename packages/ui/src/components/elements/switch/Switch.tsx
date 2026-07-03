@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 import { cn } from '../../../utils/cn';
 import { switchVariants } from './switchVariants';
 
-type SwitchProps = ComponentProps<'input'> & VariantProps<typeof switchVariants>;
+type SwitchProps = {} & ComponentProps<'input'> & VariantProps<typeof switchVariants>;
 
 function Switch({ ref, className, variant, size, ...props }: SwitchProps) {
   return (

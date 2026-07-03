@@ -1,6 +1,6 @@
-import { cva } from 'class-variance-authority';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const badgeVariants = cva({
+export const badgeVariants = createVariant({
   base: 'inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium',
   variants: {
     variant: {

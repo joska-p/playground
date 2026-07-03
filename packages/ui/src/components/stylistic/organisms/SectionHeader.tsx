@@ -1,9 +1,7 @@
-import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../utils/cn';
 import { Icon } from '../../icons/Icon';
 import type { IconName } from '../../icons/iconMap';
-import { sectionHeaderVariants } from './sectionHeaderVariants';
 
 type SectionHeaderProps = {
   title: string;
@@ -12,8 +10,8 @@ type SectionHeaderProps = {
   href?: string;
   linkText?: ReactNode;
   category?: string;
-} & Omit<ComponentProps<'div'>, 'children'> &
-  VariantProps<typeof sectionHeaderVariants>;
+  align?: 'left' | 'center';
+} & Omit<ComponentProps<'div'>, 'children'>;
 
 function SectionHeader({
   title,
@@ -31,7 +29,11 @@ function SectionHeader({
 
   return (
     <div
-      className={cn(sectionHeaderVariants({ align }), className)}
+      className={cn(
+        'flex flex-col gap-2',
+        isCenter ? 'items-center text-center' : 'items-start',
+        className
+      )}
       style={{ '--accent': accentColor } as React.CSSProperties}
       {...props}
     >

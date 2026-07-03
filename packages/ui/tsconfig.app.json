@@ -1,7 +1,4 @@
 {
   "extends": "@repo/config-typescript/app.json",
-  "compilerOptions": {
-    "skipLibCheck": true
-  },
   "include": ["src"]
 }

@@ -1,9 +1,10 @@
-import { cva } from 'class-variance-authority';
+import { createVariant } from '../../../lib/variants/create-variant';
 
-export const radioVariants = cva({
-  base: 'appearance-none h-4 w-4 shrink-0 cursor-pointer rounded-full border border-border bg-surface transition-colors duration-200 `checked:bg-(--_accent) checked:border-(--_accent) disabled:cursor-not-allowed disabled:opacity-40',
+export const radioVariants = createVariant({
+  base: 'appearance-none h-4 w-4 shrink-0 cursor-pointer rounded-full border border-border bg-surface transition-colors duration-200 checked:bg-[color:var(--_accent)] checked:border-[color:var(--_accent)] disabled:cursor-not-allowed disabled:opacity-40',
   variants: {
     variant: {
+      default: '[--_accent:var(--primary)]',
       primary: '[--_accent:var(--primary)]',
       secondary: '[--_accent:var(--secondary)]',
       accent: '[--_accent:var(--accent)]',
@@ -17,7 +18,7 @@ export const radioVariants = cva({
     }
   },
   defaultVariants: {
-    variant: 'primary',
+    variant: 'default',
     size: 'md'
   }
 });

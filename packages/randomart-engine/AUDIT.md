@@ -99,13 +99,13 @@ Audited Tue Jul 14 2026. 19 source files across 5 modules. No React/UI code pres
 
 ## Aggregate Metrics
 
-| Smell Category                          | Count | Avg Complexity |
-| --------------------------------------- | ----- | -------------- |
-| Universal Function / Interface Overload | 3     | Medium         |
-| Cross-Target Logic Duplication          | 2     | Low            |
-| Inert Convention / Dead Weight          | 1     | Low            |
-| TS Strictness Relaxation                | 1     | Low            |
-| Latent GLSL Bug                         | 2     | Low            |
+| Smell Category | Count | Avg Complexity |
+|---|---|---|
+| Universal Function / Interface Overload | 3 | Medium |
+| Cross-Target Logic Duplication | 2 | Low |
+| Inert Convention / Dead Weight | 1 | Low |
+| TS Strictness Relaxation | 1 | Low |
+| Latent GLSL Bug | 2 | Low |
 
 **Total findings:** 11
 

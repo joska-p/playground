@@ -1,11 +1,9 @@
-import { cn } from '../../../../utils/cn';
 import { ColorPalette } from '../../color-palette/ColorPalette';
 import type { ColorPaletteControl as ColorPaletteControlType } from '../types';
-import { colorPaletteControlVariants } from './colorPaletteControlVariants';
 
 export function ColorPaletteControl({ control }: { control: ColorPaletteControlType }) {
   return (
-    <div className={cn(colorPaletteControlVariants())}>
+    <div className="flex w-full flex-col gap-1.5">
       <label className="sr-only">{control.label}</label>
 
       <ColorPalette

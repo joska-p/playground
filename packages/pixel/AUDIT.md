@@ -13,13 +13,13 @@
 
 **Smell distribution:**
 
-| Category                                       | Count |
-| ---------------------------------------------- | ----- |
-| Universal Function / Hyper-Generic Abstraction | 2     |
-| Linter Workaround                              | 2     |
-| React 19 / React Compiler Friction             | 1     |
-| Navigation Logic Duplication                   | 1     |
-| Errored CSS custom property patterns           | 1     |
+| Category | Count |
+|---|---|
+| Universal Function / Hyper-Generic Abstraction | 2 |
+| Linter Workaround | 2 |
+| React 19 / React Compiler Friction | 1 |
+| Navigation Logic Duplication | 1 |
+| Errored CSS custom property patterns | 1 |
 
 ---
 

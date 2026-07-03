@@ -1,18 +1,16 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../../utils/cn';
-import { notificationItemVariants } from './notificationItemVariants';
 
 type NotificationItemProps = {
   icon: ReactNode;
   iconColor: string;
   title: string;
   timestamp: string;
-  className?: string;
 };
 
-function NotificationItem({ icon, iconColor, title, timestamp, className }: NotificationItemProps) {
+function NotificationItem({ icon, iconColor, title, timestamp }: NotificationItemProps) {
   return (
-    <div className={cn(notificationItemVariants(), className)}>
+    <div className="flex gap-2.5">
       <div
         className={cn(
           'flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs',

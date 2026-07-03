@@ -8,11 +8,11 @@
 
 ## Summary
 
-| Category                                       | Count | Severity               |
-| ---------------------------------------------- | ----- | ---------------------- |
-| Universal Function / Hyper-Generic Abstraction | 3     | Medium                 |
-| Linter Fighting & Config Loosening             | 1     | Medium                 |
-| React 19 / React Compiler Friction             | 0     | N/A (not a UI package) |
+| Category | Count | Severity |
+|---|---|---|
+| Universal Function / Hyper-Generic Abstraction | 3 | Medium |
+| Linter Fighting & Config Loosening | 1 | Medium |
+| React 19 / React Compiler Friction | 0 | N/A (not a UI package) |
 
 ---
 
@@ -57,7 +57,7 @@
 
 - **Type of Smell:** Universal Function / Kernel Convolution Abstraction
 - **Complexity Score:** Low
-- **Architectural Observation:** `applyKernel()` is a well-factored convolution helper — this is clean abstraction, not problematic. Included here only as a point of contrast: it demonstrates the package _can_ extract shared logic cleanly. The function takes a flat `kernel: number[]` array and a `kernelSize` dimension, iterates the image, applies the kernel per-channel, divides, and clamps. Three of four neighborhood manipulations (box-blur, gaussian-blur, sharpen) reuse it. Edge-detect does not (it uses inline Sobel logic via `getPixel`/`clamp` from the same file). The edge-detect function duplicates the convolution loop structure manually because its kernel application (two kernels, gradient computation) diverges from the single-kernel pattern. This is acceptable clean duplication — a single `applyKernel` that tried to handle both single-kernel and dual-kernel (gradient) convolution would be a worse abstraction.
+- **Architectural Observation:** `applyKernel()` is a well-factored convolution helper — this is clean abstraction, not problematic. Included here only as a point of contrast: it demonstrates the package *can* extract shared logic cleanly. The function takes a flat `kernel: number[]` array and a `kernelSize` dimension, iterates the image, applies the kernel per-channel, divides, and clamps. Three of four neighborhood manipulations (box-blur, gaussian-blur, sharpen) reuse it. Edge-detect does not (it uses inline Sobel logic via `getPixel`/`clamp` from the same file). The edge-detect function duplicates the convolution loop structure manually because its kernel application (two kernels, gradient computation) diverges from the single-kernel pattern. This is acceptable clean duplication — a single `applyKernel` that tried to handle both single-kernel and dual-kernel (gradient) convolution would be a worse abstraction.
 - **Impact on Strictness:** None.
 
 ---
@@ -65,17 +65,13 @@
 ## Cross-Cutting Observations
 
 ### No React/UI Code
-
 This package is a pure TypeScript data-processing engine with no React components, hooks, or JSX. React 19 / React Compiler friction is therefore not applicable.
 
 ### Strong Separation of Concerns
-
 The pipeline architecture (runner → dispatcher → scheduler → buffer manager → tiling) is well-segmented. The `FusionScheduler` cleanly batches consecutive pixel operations. The `BufferManager` cleanly abstracts double-buffering. No single file is bloated beyond ~140 lines.
 
 ### Discriminated Union Design
-
 The `access: 'pixel' | 'neighborhood' | 'global'` taxonomy (in `types.ts`) is the central architectural seam. It works well for the three execution models but is stretched by flip operations (neighborhood with radius 0) and the resize function (global but with complex options). If the package grows more whole-image remap operations (shear, warp, affine), a fourth access type would improve clarity and eliminate unnecessary tiling overhead.
 
 ### Fusion Scheduling Constraint
-
 The `FusionScheduler` requires `bufferManager.other` to be non-null (line 57–59), but this is a runtime-only invariant — no type system mechanism enforces that a double buffer is available when fusion is active. An optional `BufferManager.lock()` or compile-time marker pattern could make this safer.

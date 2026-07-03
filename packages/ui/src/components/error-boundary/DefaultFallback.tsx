@@ -1,25 +1,15 @@
-import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { getErrorMessage } from 'react-error-boundary';
 import { cn } from '../../utils/cn';
 import { Button } from '../elements/button/Button';
-import { defaultFallbackVariants } from './defaultFallbackVariants';
 
-type DefaultFallbackProps = FallbackProps &
-  ComponentProps<'div'> &
-  VariantProps<typeof defaultFallbackVariants>;
+type DefaultFallbackProps = FallbackProps & ComponentProps<'div'>;
 
-function DefaultFallback({
-  error,
-  resetErrorBoundary,
-  className,
-  variant,
-  ...props
-}: DefaultFallbackProps) {
+function DefaultFallback({ error, resetErrorBoundary, className, ...props }: DefaultFallbackProps) {
   return (
     <div
-      className={cn(defaultFallbackVariants({ variant }), className)}
+      className={cn('flex h-full items-center justify-center', className)}
       role="alert"
       {...props}
     >
