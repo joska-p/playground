@@ -1,0 +1,153 @@
+---
+// HeroCanvas.astro - Pure Astro component for your UI library
+---
+
+<hero-canvas>
+  <canvas class="pointer-events-none absolute inset-0 h-full w-full"></canvas>
+</hero-canvas>
+
+<script is:inline>
+  class HeroCanvas extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      const canvas = this.querySelector('canvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const particles = [];
+      const particleCount = 60;
+      const connectionDistance = 120;
+      const mouse = { x: -1000, y: -1000 };
+      const parent = this.parentElement;
+
+      // Handle resizing relative to parent container
+      const resize = () => {
+        if (!parent) return;
+        const rect = parent.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+
+        // Scale the actual canvas drawing surface
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+
+        // Keep the CSS display size the same
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+
+        // Scale the context so your coordinate system stays normal
+        ctx.scale(dpr, dpr);
+      };
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Mouse tracking
+      const handleMouseMove = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      };
+
+      const handleMouseLeave = () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+      };
+
+      if (parent) {
+        parent.addEventListener('mousemove', handleMouseMove);
+        parent.addEventListener('mouseleave', handleMouseLeave);
+      }
+
+      // Palette initialization
+      const colors = ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fe8019'];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          radius: Math.random() * 2 + 1
+        });
+      }
+
+      // Animation Loop
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const maxDistSq = connectionDistance * connectionDistance;
+        const mouseDistSq = 150 * 150;
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const mDistSq = dx * dx + dy * dy;
+
+          if (mDistSq < mouseDistSq) {
+            const dist = Math.sqrt(mDistSq);
+            p.x -= dx * 0.008;
+            p.y -= dy * 0.008;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = 0.6;
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const cdx = p.x - p2.x;
+            const cdy = p.y - p2.y;
+            const cdistSq = cdx * cdx + cdy * cdy;
+
+            // Check squared distance first (Lightning fast skip!)
+            if (cdistSq < maxDistSq) {
+              const cdist = Math.sqrt(cdistSq); // Only run sqrt when drawing
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = p.color;
+              ctx.globalAlpha = 0.08 * (1 - cdist / connectionDistance);
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+        this.animationFrameId = requestAnimationFrame(animate);
+      };
+
+      animate();
+
+      // Store clean-up functions for when the component is unmounted
+      this.cleanup = () => {
+        window.removeEventListener('resize', resize);
+        if (parent) {
+          parent.removeEventListener('mousemove', handleMouseMove);
+          parent.removeEventListener('mouseleave', handleMouseLeave);
+        }
+        cancelAnimationFrame(this.animationFrameId);
+      };
+    }
+
+    disconnectedCallback() {
+      if (this.cleanup) this.cleanup();
+    }
+  }
+
+  // Register the custom element so Astro/Browser handles it automatically
+  customElements.define('hero-canvas', HeroCanvas);
+</script>
