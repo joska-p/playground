@@ -1,6 +1,5 @@
 import type { ThreeEvent } from '@react-three/fiber';
 import { getCreature } from '@repo/automa-engine/creature/registry';
-import { useCallback } from 'react';
 import { useCellPainting } from '../../hooks/useCellPainting';
 import { useGridTexture } from '../../hooks/useGridTexture';
 import { getShader } from '../../shaders/registry';
@@ -29,12 +28,9 @@ function CellMesh() {
     placePattern
   );
 
-  const onPointerMove = useCallback(
-    (e: ThreeEvent<PointerEvent>) => {
-      uniforms.mouse.value.set((e.point.x + cols / 2) / cols, (e.point.y + rows / 2) / rows);
-    },
-    [uniforms, cols, rows]
-  );
+  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
+    uniforms.mouse.value.set((e.point.x + cols / 2) / cols, (e.point.y + rows / 2) / rows);
+  };
 
   if (!shader) return null;
 
