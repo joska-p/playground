@@ -54,6 +54,7 @@ export {
   Carousel,
   CarouselSlide,
   ColorSwatch,
+  NotificationItem,
   Popover,
   SectionHeading,
   Tooltip,
@@ -64,6 +65,7 @@ export {
   type CarouselProps,
   type ColorSwatchProps,
   type ColorSwatchSize,
+  type NotificationItemProps,
   type PopoverProps,
   type SectionHeadingProps,
   type TooltipProps
