@@ -117,3 +117,11 @@ export {
 
 // ControlGrid — a grid of control rows within a ControlSection.
 export { ControlGrid, type ControlGridProps } from './components/ControlPanel/ControlGrid';
+
+// CardBody — layout-only wrapper for a card's main content.
+export { accentTokens, type AccentToken } from './components/Cards/accentTokens';
+export { CardBody as CardBodyWithAccent, type CardBodyProps } from './components/Cards/CardBody';
+export { CardLink, type CardLinkProps } from './components/Cards/CardLink';
+export { CategoryCard, type CategoryCardProps } from './components/Cards/CategoryCard';
+export { DocCard, type DocCardProps } from './components/Cards/DocCard';
+export { ProjectCard, type ProjectCardProps } from './components/Cards/ProjectCard';

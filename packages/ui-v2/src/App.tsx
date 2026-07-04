@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import guidelines from '../GUIDELINES.md?raw';
 import type { ControlPanelProps } from './index';
 import {
+  accentTokens,
   Accordion,
   AccordionItem,
   Alert,
@@ -16,6 +17,7 @@ import {
   CardTitle,
   Carousel,
   CarouselSlide,
+  CategoryCard,
   Checkbox,
   ControlConditional,
   ControlGrid,
@@ -28,11 +30,13 @@ import {
   DialogBody,
   DialogDescription,
   DialogTitle,
+  DocCard,
   ErrorBoundary,
   HelperText,
   Input,
   Label,
   Popover,
+  ProjectCard,
   Radio,
   Select,
   Slider,
@@ -245,6 +249,52 @@ function ErrorBoundaryDemo() {
       >
         <BuggyWidget />
       </ErrorBoundary>
+    </section>
+  );
+}
+
+function CategoryCardDemo() {
+  return (
+    <section className="space-y-3">
+      <h2 className="text-foreground text-lg font-medium">Category Card</h2>
+      <CategoryCard
+        title="Category Card"
+        description="A category card that displays a category."
+        iconName="color"
+        href="/"
+        label="Category card"
+        color={accentTokens.primary}
+      />
+    </section>
+  );
+}
+
+function DocCardDemo() {
+  return (
+    <section className="space-y-3">
+      <h2 className="text-foreground text-lg font-medium">Doc Card</h2>
+      <DocCard
+        title="Doc Card"
+        description="A doc card that displays a document."
+        iconName="color"
+        href="/"
+        color={accentTokens.secondary}
+      />
+    </section>
+  );
+}
+
+function ProjectCardDemo() {
+  return (
+    <section className="space-y-3">
+      <h2 className="text-foreground text-lg font-medium">Project Card</h2>
+      <ProjectCard
+        title="Project Card"
+        description="A project card that displays a project."
+        iconName="color"
+        href="/"
+        style={{ '--_color': accentTokens.accent } as React.CSSProperties}
+      />
     </section>
   );
 }
@@ -519,6 +569,10 @@ function AppContent() {
       >
         <ControlPanelSectionDemo />
       </ControlPanelDemo>
+
+      <CategoryCardDemo />
+      <DocCardDemo />
+      <ProjectCardDemo />
 
       <section className="space-y-3">
         <h2 className="text-foreground text-lg font-medium">Guidelines</h2>
