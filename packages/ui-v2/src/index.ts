@@ -142,9 +142,18 @@ export {
 // Widgets — interactive UI widgets
 export {
   ColorPalette,
+  Sidebar,
+  SidebarMain,
+  SidebarPanel,
+  SidebarToggle,
   colorPaletteVariants,
-  type ColorPaletteProps
+  type ColorPaletteProps,
+  type SidebarMainProps,
+  type SidebarPanelProps,
+  type SidebarProps,
+  type SidebarToggleProps
 } from './components/widgets/index';
+export { useSidebarState, type SidebarState } from './hooks/useSidebarState';
 
 // Cards — app-specific card variants
 export { accentTokens, type AccentToken } from './components/Cards/accentTokens';
