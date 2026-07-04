@@ -4,6 +4,9 @@ import { cn } from '../../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 import { colorPaletteVariants } from './ColorPalette.variants';
 
+// Explicitly extract variant props to solve the TypeScript error
+type PaletteVariants = VariantProps<typeof colorPaletteVariants>;
+
 export type ColorPaletteProps = {
   colors: string[];
   name?: string;
@@ -11,8 +14,8 @@ export type ColorPaletteProps = {
   checked?: boolean;
   onChange?: (palette: string) => void;
   variant?: ColorVariant;
-  orientation?: VariantProps<typeof colorPaletteVariants>['orientation'];
-  size?: VariantProps<typeof colorPaletteVariants>['size'];
+  orientation?: PaletteVariants['orientation'];
+  size?: PaletteVariants['size'];
   ref?: Ref<HTMLLabelElement>;
 } & Omit<HTMLAttributes<HTMLLabelElement>, 'onChange'>;
 
@@ -49,7 +52,7 @@ function ColorPalette({
         <div
           key={index}
           style={{ backgroundColor: color }}
-          className="size-(--cell-size) shrink-0 transition-transform hover:scale-110"
+          className="size-(--cell-size) shrink-0"
         />
       ))}
     </label>

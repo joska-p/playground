@@ -25,9 +25,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Sidebar
-        mobilePosition="bottom"
-        desktopPosition="right"
-        variant="ghost"
+        position="right"
         className="bg-background text-foreground min-h-screen"
       >
         <Sidebar.Main>

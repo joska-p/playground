@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui/cn';
+import { cn } from '@repo/ui';
 import { initialPalette } from '../../core/initialPalette';
 import { initialTileSet } from '../../core/initialTileSet';
 import { toggleTileInSet } from '../../stores/mosaic/actions';

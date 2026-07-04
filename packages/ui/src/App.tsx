@@ -1869,24 +1869,30 @@ function ColorPaletteDemo() {
       code={`<ColorPalette colors={["#83a598","#b8bb26"]} name="palette" value="gruvbox" />`}
     >
       <div className="flex flex-wrap gap-4">
-        <ColorPalette
-          colors={['#83a598', '#b8bb26', '#d3869b', '#fabd2f', '#fb4934']}
-          name="palette-1"
-          value="gruvbox"
-          defaultChecked
-        />
-        <ColorPalette
-          colors={['#076678', '#79740e', '#8f3f71', '#b57614', '#9d0006']}
-          name="palette-1"
-          value="light"
-          orientation="vertical"
-        />
-        <ColorPalette
-          colors={['#fb4934', '#fe8019', '#fabd2f', '#b8bb26', '#8ec07c']}
-          name="palette-1"
-          value="warm"
-          size="sm"
-        />
+        <div>
+          <ColorPalette
+            colors={['#83a598', '#b8bb26', '#d3869b', '#fabd2f', '#fb4934']}
+            name="palette-1"
+            value="gruvbox"
+            defaultChecked
+          />
+        </div>
+        <div>
+          <ColorPalette
+            colors={['#076678', '#79740e', '#8f3f71', '#b57614', '#9d0006']}
+            name="palette-1"
+            value="light"
+            orientation="vertical"
+          />
+        </div>
+        <div>
+          <ColorPalette
+            colors={['#fb4934', '#fe8019', '#fabd2f', '#b8bb26', '#8ec07c']}
+            name="palette-1"
+            value="warm"
+            size="sm"
+          />
+        </div>
       </div>
     </DemoSection>
   );
