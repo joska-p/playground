@@ -2,12 +2,11 @@ import { forwardRef, type InputHTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 import { colorVar, type ColorVariant } from "../lib/colorVariant";
 
-export interface SliderProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+export type SliderProps = {
   variant?: ColorVariant;
   /** Show min/max/current tick labels beneath the track. Defaults to true. */
   showTicks?: boolean;
-}
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
 
 export const Slider = forwardRef<HTMLInputElement, SliderProps>(
   (

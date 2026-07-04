@@ -24,11 +24,9 @@ const badgeVariants = cva(
   }
 );
 
-export interface BadgeProps
-  extends HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof badgeVariants> {
+export type BadgeProps = {
   variant?: ColorVariant;
-}
+} & HTMLAttributes<HTMLSpanElement> & VariantProps<typeof badgeVariants>
 
 /**
  * Badge — a single `--_color` custom property drives soft/solid/outline/dot

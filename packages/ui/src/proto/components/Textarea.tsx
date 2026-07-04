@@ -2,13 +2,13 @@ import { forwardRef, type TextareaHTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 import { colorVar, type ColorVariant } from "../lib/colorVariant";
 
-export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+export type TextareaProps = {
   variant?: ColorVariant;
   /** Auto-grows with content via CSS `field-sizing: content` (progressive
    *  enhancement — falls back to a plain resizable textarea in browsers
    *  that don't support it yet). Defaults to true. */
   autoGrow?: boolean;
-}
+} & TextareaHTMLAttributes<HTMLTextAreaElement>
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, variant = "primary", autoGrow = true, style, ...props }, ref) => {

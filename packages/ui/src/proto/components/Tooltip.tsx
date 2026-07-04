@@ -1,7 +1,7 @@
 import { cloneElement, isValidElement, type ReactElement, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export interface TooltipProps {
+export type TooltipProps = {
   content: string;
   children: ReactElement<{ className?: string; "data-tooltip"?: string }>;
 }

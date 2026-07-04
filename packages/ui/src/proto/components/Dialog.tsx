@@ -9,12 +9,12 @@ import { cn } from "../lib/cn";
 import { Button } from "./Button";
 import type { ColorVariant } from "../lib/colorVariant";
 
-export interface DialogHandle {
+export type DialogHandle = {
   open: () => void;
   close: () => void;
 }
 
-export interface DialogProps {
+export type DialogProps = {
   children: ReactNode;
   className?: string;
   /** Called when the dialog closes for any reason (Esc, backdrop, button). */

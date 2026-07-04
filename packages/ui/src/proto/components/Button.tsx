@@ -46,14 +46,12 @@ export const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+export type ButtonProps = {
   /** Shows an inline spinner and hides the label; button becomes inert. */
   loading?: boolean;
   /** Native title text used for the built-in CSS-only tooltip. */
   tooltip?: string;
-}
+} & ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (

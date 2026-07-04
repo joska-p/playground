@@ -2,11 +2,10 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { colorVar, type ColorVariant } from "../lib/colorVariant";
 
-export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+export type CheckboxProps = {
   variant?: ColorVariant;
   label?: ReactNode;
-}
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
 
 /**
  * Checkbox — native input, styled with `accent-color`. Works with zero CSS

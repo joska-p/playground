@@ -12,7 +12,7 @@ import { Info, CheckCircle2, TriangleAlert, XCircle, Circle, X } from "lucide-re
 import { cn } from "../lib/cn";
 import type { ColorVariant } from "../lib/colorVariant";
 
-export interface ToastOptions {
+export type ToastOptions = {
   title: ReactNode;
   description?: ReactNode;
   variant?: ColorVariant;
@@ -20,12 +20,12 @@ export interface ToastOptions {
   duration?: number;
 }
 
-interface ToastItem extends ToastOptions {
+type ToastItem = {
   id: number;
   exiting?: boolean;
-}
+} & ToastOptions
 
-interface ToastContextValue {
+type ToastContextValue = {
   toast: (options: ToastOptions) => number;
   dismiss: (id: number) => void;
 }
@@ -78,7 +78,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       if (duration > 0) {
         timers.current.set(
           id,
-          setTimeout(() => dismiss(id), duration)
+          setTimeout(() => { dismiss(id); }, duration)
         );
       }
       return id;
@@ -112,7 +112,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                       )}
                     </div>
                     <button
-                      onClick={() => dismiss(t.id)}
+                      onClick={() => { dismiss(t.id); }}
                       aria-label="Dismiss notification"
                       className="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs"
                     >

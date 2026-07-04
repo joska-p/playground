@@ -2,7 +2,7 @@ import { useRef, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "../lib/cn";
 
-export interface CarouselProps {
+export type CarouselProps = {
   children: ReactNode;
   className?: string;
   /** Pixels scrolled per arrow click. */
@@ -31,7 +31,7 @@ export function Carousel({ children, className, scrollAmount = 280, hideArrows }
           <button
             type="button"
             aria-label="Scroll left"
-            onClick={() => scroll(-1)}
+            onClick={() => { scroll(-1); }}
             className="absolute left-1 top-1/2 z-10 -translate-y-1/2 bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs transition-colors backdrop-blur-sm"
             style={{ boxShadow: "var(--shadow-md)" }}
           >
@@ -40,7 +40,7 @@ export function Carousel({ children, className, scrollAmount = 280, hideArrows }
           <button
             type="button"
             aria-label="Scroll right"
-            onClick={() => scroll(1)}
+            onClick={() => { scroll(1); }}
             className="absolute right-1 top-1/2 z-10 -translate-y-1/2 bg-surface/90 hover:bg-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-xs transition-colors backdrop-blur-sm"
             style={{ boxShadow: "var(--shadow-md)" }}
           >

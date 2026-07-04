@@ -1,11 +1,10 @@
 import { forwardRef, type DetailsHTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export interface AccordionItemProps
-  extends Omit<DetailsHTMLAttributes<HTMLDetailsElement>, "title"> {
+export type AccordionItemProps = {
   title: ReactNode;
   children: ReactNode;
-}
+} & Omit<DetailsHTMLAttributes<HTMLDetailsElement>, "title">
 
 /**
  * AccordionItem — a native <details>/<summary> pair. This is the pattern

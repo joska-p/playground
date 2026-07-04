@@ -20,9 +20,7 @@ const wrapperVariants = cva(
   }
 );
 
-export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof wrapperVariants> {
+export type InputProps = {
   /** Focus-ring color token. Defaults to "primary". */
   variant?: ColorVariant;
   /** Icon or element rendered before the input (e.g. a search glyph). */
@@ -30,7 +28,7 @@ export interface InputProps
   /** Icon/button rendered after the input (e.g. an "open" action). */
   trailingAction?: ReactNode;
   wrapperClassName?: string;
-}
+} & InputHTMLAttributes<HTMLInputElement> & VariantProps<typeof wrapperVariants>
 
 /**
  * Input

@@ -2,11 +2,10 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { colorVarStyle, type ColorVariant } from "../lib/colorVariant";
 
-export interface SwitchProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+export type SwitchProps = {
   variant?: ColorVariant;
   label?: ReactNode;
-}
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
 
 /**
  * Switch — a native checkbox visually rebuilt as a toggle via the `.toggle`

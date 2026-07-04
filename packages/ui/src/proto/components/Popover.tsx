@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/cn";
 
-export interface PopoverProps {
+export type PopoverProps = {
   trigger: ReactNode;
   children: ReactNode;
   className?: string;

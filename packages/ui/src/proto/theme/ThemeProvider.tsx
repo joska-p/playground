@@ -10,7 +10,7 @@ import {
 
 type Theme = "dark" | "light";
 
-interface ThemeContextValue {
+type ThemeContextValue = {
   theme: Theme;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
@@ -26,7 +26,7 @@ function applyTheme(theme: Theme) {
   else html.removeAttribute("data-theme");
 }
 
-export interface ThemeProviderProps {
+export type ThemeProviderProps = {
   children: ReactNode;
   /** Defaults to "dark" — mirrors the source design's `:root` default. */
   defaultTheme?: Theme;
@@ -61,9 +61,9 @@ export function ThemeProvider({
     if (persist) window.localStorage.setItem(STORAGE_KEY, theme);
   }, [theme, persist]);
 
-  const setTheme = useCallback((next: Theme) => setThemeState(next), []);
+  const setTheme = useCallback((next: Theme) => { setThemeState(next); }, []);
   const toggleTheme = useCallback(
-    () => setThemeState((t) => (t === "light" ? "dark" : "light")),
+    () => { setThemeState((t) => (t === "light" ? "dark" : "light")); },
     []
   );
 

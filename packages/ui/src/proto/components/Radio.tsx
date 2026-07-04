@@ -2,11 +2,10 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { colorVar, type ColorVariant } from "../lib/colorVariant";
 
-export interface RadioProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+export type RadioProps = {
   variant?: ColorVariant;
   label?: ReactNode;
-}
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   ({ className, variant = "primary", label, style, disabled, id, ...props }, ref) => {

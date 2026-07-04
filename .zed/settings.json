@@ -1,0 +1,23 @@
+{
+  "lsp": {
+    "typescript-language-server": {
+      "settings": {
+        "typescript": {
+          "tsdk": "node_modules/typescript/lib",
+          "enablePromptUseWorkspaceTsdk": true
+        }
+      }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "tailwindCSS": {
+          "includeLanguages": {
+            "astro": "html"
+          }
+        }
+      }
+    }
+  },
+
+  "file_scan_exclusions": ["**/node_modules/.pnpm", "**/.turbo", "**/storybook-static", "**/.astro"]
+}

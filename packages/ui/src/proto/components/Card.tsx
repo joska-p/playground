@@ -2,14 +2,14 @@ import { forwardRef, type HTMLAttributes, type ImgHTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 import { colorVarStyle, type ColorVariant } from "../lib/colorVariant";
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+export type CardProps = {
   /** Enables the zero-JS `:has()` glow when `.card-actions` is hovered. */
   interactive?: boolean;
   /** Color used for the interactive glow. Ignored when `interactive` is false. */
   variant?: ColorVariant;
   /** Lay out as a row on landscape/desktop, stacked on mobile. */
   horizontal?: boolean;
-}
+} & HTMLAttributes<HTMLDivElement>
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   (

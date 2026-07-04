@@ -8,7 +8,7 @@ import {
 import { cn } from "../lib/cn";
 import { colorVarStyle, type ColorVariant } from "../lib/colorVariant";
 
-interface TabsContextValue {
+type TabsContextValue = {
   value: string;
   setValue: (v: string) => void;
   name: string;
@@ -21,7 +21,7 @@ function useTabsContext() {
   return ctx;
 }
 
-export interface TabsProps {
+export type TabsProps = {
   /** Uncontrolled initial tab. */
   defaultValue: string;
   /** Controlled active tab. */
@@ -93,7 +93,7 @@ export function TabsTrigger({
         name={name}
         value={value}
         checked={isActive}
-        onChange={() => setValue(value)}
+        onChange={() => { setValue(value); }}
         className="sr-only"
       />
       {children}
