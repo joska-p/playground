@@ -247,8 +247,8 @@
     height: 8px;
     flex-shrink: 0;
     margin-left: 12px;
-    border-right: 1.5px solid var(--foreground-muted);
-    border-bottom: 1.5px solid var(--foreground-muted);
+    border-right: 1.5px solid var(--_color, var(--foreground-muted));
+    border-bottom: 1.5px solid var(--_color, var(--foreground-muted));
     transform: rotate(-45deg);
     transition: transform 0.25s;
   }
@@ -377,7 +377,7 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 4px 10px;
-    background: var(--foreground);
+    background: var(--_color, var(--foreground));
     color: var(--background);
     border-radius: 4px;
     font-size: 11px;

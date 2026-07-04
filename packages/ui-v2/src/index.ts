@@ -1,68 +1,95 @@
 // styles — import once at your app root:
 // import "pg-lab-ui/styles/globals.css"
 
-export { cn } from "./lib/cn";
-export { colorVar, colorVarStyle, COLOR_VARIANTS, type ColorVariant } from "./lib/colorVariant";
+export { cn } from './lib/cn';
+export { COLOR_VARIANTS, colorVar, colorVarStyle, type ColorVariant } from './lib/colorVariant';
 
 // Theme — stateless provider + the hook that actually holds state
-export { ThemeProvider, useTheme, type ThemeProviderProps } from "./theme/ThemeProvider";
-export { useThemeState, type Theme } from "./hooks/useThemeState";
+export { useThemeState, type Theme } from './hooks/useThemeState';
+export { ThemeProvider, useTheme, type ThemeProviderProps } from './theme/ThemeProvider';
 
-export { Button } from "./components/Button";
-export { buttonVariants } from "./components/Button.variants";
-export type { ButtonProps } from "./components/Button";
+export { Button } from './components/Button';
+export type { ButtonProps } from './components/Button';
+export { buttonVariants } from './components/Button.variants';
 
-export { Badge } from "./components/Badge";
-export { badgeVariants } from "./components/Badge.variants";
-export type { BadgeProps } from "./components/Badge";
+export { Badge } from './components/Badge';
+export type { BadgeProps } from './components/Badge';
+export { badgeVariants } from './components/Badge.variants';
 
-export { Input } from "./components/Input";
-export { inputWrapperVariants } from "./components/Input.variants";
-export type { InputProps } from "./components/Input";
+export { Input } from './components/Input';
+export type { InputProps } from './components/Input';
+export { inputWrapperVariants } from './components/Input.variants';
 
-export { Textarea, type TextareaProps } from "./components/Textarea";
-export { Checkbox, type CheckboxProps } from "./components/Checkbox";
-export { Radio, type RadioProps } from "./components/Radio";
-export { Switch, type SwitchProps } from "./components/Switch";
-export { Slider, type SliderProps } from "./components/Slider";
+export { Textarea, type TextareaProps } from './components/Textarea';
+
+export { Select } from './components/Select';
+export type { SelectProps } from './components/Select';
+export { selectVariants, selectWrapperVariants } from './components/Select.variants';
+
+export { Label } from './components/Label';
+export type { LabelProps } from './components/Label';
+export { labelVariants } from './components/Label.variants';
+
+export { HelperText } from './components/HelperText';
+export type { HelperTextProps } from './components/HelperText';
+export { helperTextVariants } from './components/HelperText.variants';
+
+export { Checkbox, type CheckboxProps } from './components/Checkbox';
+export { Radio, type RadioProps } from './components/Radio';
+export { Slider, type SliderProps } from './components/Slider';
+export { Switch, type SwitchProps } from './components/Switch';
 
 export {
   Card,
-  CardImage,
+  CardActions,
   CardBody,
-  CardTitle,
   CardDescription,
   CardFooter,
-  CardActions,
-  type CardProps,
-} from "./components/Card";
+  CardImage,
+  CardTitle,
+  type CardProps
+} from './components/Card';
 
-export { Accordion, AccordionItem, type AccordionItemProps } from "./components/Accordion";
+export { Accordion, AccordionItem, type AccordionItemProps } from './components/Accordion';
 
 // Tabs — fully controlled/stateless component + the hook that holds state
-export { Tabs, TabsList, TabsTrigger, TabsContent, type TabsProps } from "./components/Tabs";
-export { useTabsState } from "./hooks/useTabsState";
+export { Tabs, TabsContent, TabsList, TabsTrigger, type TabsProps } from './components/Tabs';
+export { useTabsState } from './hooks/useTabsState';
 
-export { Carousel, CarouselSlide, type CarouselProps } from "./components/Carousel";
+export { Carousel, CarouselSlide, type CarouselProps } from './components/Carousel';
 
-export { Popover, type PopoverProps } from "./components/Popover";
+export { Popover, type PopoverProps } from './components/Popover';
 
-export { Tooltip, type TooltipProps } from "./components/Tooltip";
+export { Tooltip, type TooltipProps } from './components/Tooltip';
 
 export {
   Dialog,
+  DialogActions,
   DialogBody,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogActions,
+  DialogTitle,
   type DialogHandle,
-  type DialogProps,
-} from "./components/Dialog";
+  type DialogProps
+} from './components/Dialog';
 
-export { Alert, type AlertProps } from "./components/Alert";
-export { alertVariants } from "./components/Alert.variants";
+export { Alert, type AlertProps } from './components/Alert';
+export { alertVariants } from './components/Alert.variants';
 
 // Toasts — stateless provider/viewport + the hook that holds state
-export { ToastProvider, ToastViewport, useToast, type ToastProviderProps } from "./components/Toast";
-export { useToastQueue, type ToastOptions, type ToastItem } from "./hooks/useToastQueue";
+export {
+  ToastProvider,
+  ToastViewport,
+  useToast,
+  type ToastProviderProps
+} from './components/Toast';
+export { useToastQueue, type ToastItem, type ToastOptions } from './hooks/useToastQueue';
+
+// ErrorBoundary — the one class-component exception; see its own file for why.
+export { DefaultFallback, type DefaultFallbackProps } from './components/DefaultFallback';
+export { defaultFallbackVariants } from './components/DefaultFallback.variants';
+export {
+  ErrorBoundary,
+  type ErrorBoundaryProps,
+  type FallbackRenderer
+} from './components/ErrorBoundary';

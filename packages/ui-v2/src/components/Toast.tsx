@@ -1,13 +1,13 @@
-import { createContext, useContext, type ReactNode } from "react";
-import { createPortal } from "react-dom";
-import { Info, CheckCircle2, TriangleAlert, XCircle, Circle, X } from "lucide-react";
-import { cn } from "../lib/cn";
-import type { ToastItem, ToastOptions } from "../hooks/useToastQueue";
+import { CheckCircle2, Circle, Info, TriangleAlert, X, XCircle } from 'lucide-react';
+import { createContext, useContext, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+import type { ToastItem, ToastOptions } from '../hooks/useToastQueue';
+import { cn } from '../lib/cn';
 
-interface ToastContextValue {
+type ToastContextValue = {
   toast: (options: ToastOptions) => number;
   dismiss: (id: number) => void;
-}
+};
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
@@ -17,16 +17,16 @@ const iconMap: Record<string, ReactNode> = {
   secondary: <CheckCircle2 className="h-3.5 w-3.5" />,
   accent: <Info className="h-3.5 w-3.5" />,
   warning: <TriangleAlert className="h-3.5 w-3.5" />,
-  destructive: <XCircle className="h-3.5 w-3.5" />,
+  destructive: <XCircle className="h-3.5 w-3.5" />
 };
 
 const iconColor: Record<string, string> = {
-  default: "text-foreground-dim",
-  primary: "text-primary",
-  secondary: "text-secondary",
-  accent: "text-accent",
-  warning: "text-warning",
-  destructive: "text-destructive",
+  default: 'text-foreground-dim',
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  accent: 'text-accent',
+  warning: 'text-warning',
+  destructive: 'text-destructive'
 };
 
 /**
@@ -37,34 +37,36 @@ const iconColor: Record<string, string> = {
  */
 export function ToastViewport({
   toasts,
-  onDismiss,
+  onDismiss
 }: {
   toasts: ToastItem[];
   onDismiss: (id: number) => void;
 }) {
-  if (typeof document === "undefined") return null;
+  if (typeof document === 'undefined') return null;
 
   return createPortal(
-    <div className="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2">
+    <div className="fixed right-4 bottom-4 z-9999 flex flex-col gap-2">
       {toasts.map((t) => {
-        const key = t.variant ?? "default";
+        const key = t.variant ?? 'default';
         return (
           <div
             key={t.id}
-            className={cn("toast-item bg-surface-raised rounded-lg p-4 w-72", t.exiting && "exit")}
-            style={{ boxShadow: "var(--shadow-lg)" }}
+            className={cn('toast-item bg-surface-raised w-72 rounded-lg p-4', t.exiting && 'exit')}
+            style={{ boxShadow: 'var(--shadow-lg)' }}
             role="status"
           >
             <div className="flex gap-3">
-              <span className={cn("mt-0.5 text-xs", iconColor[key])}>{iconMap[key]}</span>
+              <span className={cn('mt-0.5 text-xs', iconColor[key])}>{iconMap[key]}</span>
               <div className="flex-1">
                 <p className="text-foreground text-[13px] font-medium">{t.title}</p>
                 {t.description && (
-                  <p className="text-foreground-muted text-[11px] mt-1">{t.description}</p>
+                  <p className="text-foreground-muted mt-1 text-[11px]">{t.description}</p>
                 )}
               </div>
               <button
-                onClick={() => onDismiss(t.id)}
+                onClick={() => {
+                  onDismiss(t.id);
+                }}
                 aria-label="Dismiss notification"
                 className="text-foreground-dim hover:text-foreground cursor-pointer border-0 bg-transparent p-1 text-xs"
               >
@@ -79,12 +81,12 @@ export function ToastViewport({
   );
 }
 
-export interface ToastProviderProps {
+export type ToastProviderProps = {
   toasts: ToastItem[];
   toast: (options: ToastOptions) => number;
   dismiss: (id: number) => void;
   children: ReactNode;
-}
+};
 
 /**
  * ToastProvider — stateless. It never calls `useState`; `toasts`/`toast`/
@@ -96,13 +98,16 @@ export function ToastProvider({ toasts, toast, dismiss, children }: ToastProvide
   return (
     <ToastContext.Provider value={{ toast, dismiss }}>
       {children}
-      <ToastViewport toasts={toasts} onDismiss={dismiss} />
+      <ToastViewport
+        toasts={toasts}
+        onDismiss={dismiss}
+      />
     </ToastContext.Provider>
   );
 }
 
 export function useToast() {
   const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error("useToast must be used within a <ToastProvider>");
+  if (!ctx) throw new Error('useToast must be used within a <ToastProvider>');
   return ctx;
 }

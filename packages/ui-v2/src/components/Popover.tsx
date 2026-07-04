@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
-import { cn } from "../lib/cn";
+import type { ReactNode } from 'react';
+import { cn } from '../lib/cn';
+import { colorVar, type ColorVariant } from '../lib/colorVariant';
 
 export interface PopoverProps {
   trigger: ReactNode;
@@ -7,7 +8,9 @@ export interface PopoverProps {
   className?: string;
   /** Width of the popover panel. Defaults to "w-60". */
   widthClassName?: string;
-  align?: "left" | "center";
+  align?: 'left' | 'center';
+  /** Colors a thin top accent strip on the panel. Defaults to neutral. */
+  variant?: ColorVariant;
 }
 
 /**
@@ -19,20 +22,24 @@ export function Popover({
   trigger,
   children,
   className,
-  widthClassName = "w-60",
-  align = "center",
+  widthClassName = 'w-60',
+  align = 'center',
+  variant = 'default'
 }: PopoverProps) {
   return (
-    <div className={cn("group relative inline-block", className)}>
+    <div className={cn('group relative inline-block', className)}>
       {trigger}
       <div
         className={cn(
-          "pointer-events-none absolute bottom-[calc(100%+12px)] opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 z-50",
-          align === "center" ? "left-1/2 -translate-x-1/2" : "left-0",
+          'pointer-events-none absolute bottom-[calc(100%+12px)] z-50 opacity-0 transition-all duration-200 group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:opacity-100',
+          align === 'center' ? 'left-1/2 -translate-x-1/2' : 'left-0',
           widthClassName
         )}
       >
-        <div className="bg-surface rounded-lg p-4" style={{ boxShadow: "var(--shadow-lg)" }}>
+        <div
+          className="bg-surface rounded-lg border-t-2 p-4"
+          style={{ boxShadow: 'var(--shadow-lg)', borderTopColor: colorVar(variant) }}
+        >
           {children}
         </div>
       </div>

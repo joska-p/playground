@@ -21,10 +21,7 @@ import {
   DialogBody,
   DialogDescription,
   DialogTitle,
-  ErrorBoundary,
-  HelperText,
   Input,
-  Label,
   Popover,
   Radio,
   Select,
@@ -217,24 +214,6 @@ function TabsDemo() {
   );
 }
 
-function BuggyWidget() {
-  throw new Error('this widget always crashes — demo purposes only.');
-}
-
-function ErrorBoundaryDemo() {
-  return (
-    <section className="space-y-3">
-      <h2 className="text-foreground text-lg font-medium">Error Boundary</h2>
-      <ErrorBoundary
-        variant="destructive"
-        onError={(e) => console.error(e)}
-      >
-        <BuggyWidget />
-      </ErrorBoundary>
-    </section>
-  );
-}
-
 function AppContent() {
   return (
     <main className="mx-auto flex max-w-[960px] flex-col gap-14 px-4 py-10 sm:px-6">
@@ -248,43 +227,11 @@ function AppContent() {
 
       <section className="space-y-3">
         <h2 className="text-foreground text-lg font-medium">Inputs</h2>
-        <div className="space-y-1.5">
-          <Label
-            htmlFor="search-input"
-            required
-          >
-            search
-          </Label>
-          <Input
-            id="search-input"
-            variant="primary"
-            leadingIcon={<Search className="h-3.5 w-3.5" />}
-            placeholder="search..."
-            aria-describedby="search-hint"
-          />
-          <HelperText id="search-hint">searches titles and tags.</HelperText>
-        </div>
-        <div className="space-y-1.5">
-          <Label
-            htmlFor="email-input"
-            variant="destructive"
-          >
-            email
-          </Label>
-          <Input
-            id="email-input"
-            variant="destructive"
-            defaultValue="not-an-email"
-            aria-describedby="email-error"
-          />
-          <HelperText
-            id="email-error"
-            variant="destructive"
-            icon
-          >
-            enter a valid email address.
-          </HelperText>
-        </div>
+        <Input
+          variant="primary"
+          leadingIcon={<Search className="h-3.5 w-3.5" />}
+          placeholder="search..."
+        />
         <Select
           variant="primary"
           placeholder="choose a category..."
@@ -413,8 +360,6 @@ function AppContent() {
           ))}
         </div>
       </section>
-
-      <ErrorBoundaryDemo />
 
       <ToastDemo />
 

@@ -12,6 +12,23 @@ npm install class-variance-authority clsx tailwind-merge lucide-react
 
 (`react`, `react-dom` ≥ 19 are peer dependencies you already have.)
 
+## Architecture: stateless components, stateful hooks
+
+Every component in `src/components/` is a plain function of its props —
+none of them call `useState`. Anywhere the original design needed state
+(theme, toasts, tabs), that state lives in a dedicated hook in
+`src/hooks/`, and the component just renders whatever it's handed:
+
+| Stateless component | Its state hook |
+|---|---|
+| `ThemeProvider` | `useThemeState()` |
+| `ToastProvider` / `ToastViewport` | `useToastQueue()` |
+| `Tabs` | `useTabsState(defaultValue)` |
+
+This also means every component uses React 19's ref-as-prop pattern —
+`ref` is declared as a normal prop in each component's type, no
+`forwardRef` anywhere in the codebase.
+
 ## Setup
 
 1. Copy `src/styles/globals.css` into your project and import it once at
@@ -27,21 +44,33 @@ npm install class-variance-authority clsx tailwind-merge lucide-react
    (`:has()`, `:focus-within`, `@starting-style`, native `<details>`/
    `<dialog>` styling, etc).
 
-2. Wrap your app:
+2. Wire up state with the hooks, then hand it to the stateless providers:
 
    ```tsx
-   import { ThemeProvider, ToastProvider } from "pg-lab-ui";
+   import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from "pg-lab-ui";
 
    export default function App() {
+     const theme = useThemeState();
+     const toastQueue = useToastQueue();
+
      return (
-       <ThemeProvider>
-         <ToastProvider>{/* your app */}</ToastProvider>
+       <ThemeProvider theme={theme.theme} setTheme={theme.setTheme} toggleTheme={theme.toggleTheme}>
+         <ToastProvider toasts={toastQueue.toasts} toast={toastQueue.toast} dismiss={toastQueue.dismiss}>
+           {/* your app */}
+         </ToastProvider>
        </ThemeProvider>
      );
    }
    ```
 
-3. Import components from `pg-lab-ui` (see `src/App.example.tsx` for a
+3. `Tabs` works the same way — pull state from `useTabsState`:
+
+   ```tsx
+   const tabs = useTabsState("overview");
+   <Tabs value={tabs.value} onValueChange={tabs.setValue}>...</Tabs>
+   ```
+
+4. Import components from `pg-lab-ui` (see `src/App.example.tsx` for a
    full tour of every component).
 
 ## The variant system
@@ -62,11 +91,15 @@ Two ways components consume the variant, matching the source design:
 
 - **Full color** (Button, Alert, Toast): `variant` resolves to Tailwind
   utility classes like `bg-primary text-primary-foreground` via `cva`.
+  Each of these `cva` configs lives in its own sibling file
+  (`Button.variants.ts`, `Badge.variants.ts`, `Alert.variants.ts`,
+  `Input.variants.ts`) so the variant definitions can be imported,
+  previewed, or extended independently of the component itself.
 - **Single accent** (Badge, Switch, Card glow, Tabs indicator, Input
   focus ring, Checkbox/Radio/Slider accent-color): `variant` resolves to
-  one CSS custom property (`--_color` or `accent-color`) that a shared
-  CSS rule reads — the same `--_color` trick the original design used
-  for badges, just generalized to every component.
+  one CSS custom property (`--_color` or `accent-color`) via the shared
+  `src/lib/colorVariant.ts` — the same `--_color` trick the original
+  design used for badges, just generalized to every component.
 
 ## Components
 

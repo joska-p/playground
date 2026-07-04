@@ -315,6 +315,7 @@ indicator), `Checkbox`/`Radio`/`Slider` (`accent-color`), `Input`/
 | `Button` | cva | `default` | background + text |
 | `Badge` | `--_color` | `default` | soft/solid/outline/dot fill |
 | `Input` / `Textarea` | `--_ring` | `primary` | focus border + ring |
+| `Select` | `--_ring` | `primary` | focus border + ring |
 | `Switch` | `--_color` | `primary` | checked-state fill |
 | `Checkbox` / `Radio` / `Slider` | `accent-color` | `primary` | native accent |
 | `Card` | `--_color` | `primary` | `:has()` hover glow (only when `interactive`) |
@@ -392,6 +393,29 @@ element, plus the sub-components in a compound family.
 |---|---|---|
 | `variant` | `ColorVariant` | `"primary"` |
 | `autoGrow` | `boolean` | `true` — uses `field-sizing: content` |
+
+### Select
+
+```tsx
+<Select variant="primary" placeholder="choose a category...">
+  <option value="generative">generative</option>
+  <option value="shader">shader</option>
+</Select>
+```
+
+| Prop | Type | Default |
+|---|---|---|
+| `variant` | `ColorVariant` | `"primary"` — focus ring color |
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` |
+| `leadingIcon` | `ReactNode` | — |
+| `placeholder` | `string` | — renders a disabled, hidden first `<option>` |
+| `wrapperClassName` | `string` | — class for the outer `.input-wrapper` div |
+
+A native `<select>` styled to match `Input`/`Textarea` — children are
+plain `<option>`/`<optgroup>` elements. The browser supplies the picker
+UI (native wheel/sheet on touch, native dropdown on desktop), keyboard
+support, and type-ahead search for free. Pass `value`/`defaultValue`/
+`onChange` exactly as on a plain `<select>`.
 
 ### Checkbox / Radio / Switch
 
