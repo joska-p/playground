@@ -487,7 +487,7 @@ function AppContent() {
       <section className="space-y-3">
         <h2 className="text-foreground text-lg font-medium">Guidelines</h2>
         <div className="mx-auto max-w-2xl">
-          <pre className="bg-background/50 rounded p-4">{guidelines}</pre>
+          <pre className="bg-background/50 rounded p-4 whitespace-pre-line">{guidelines}</pre>
         </div>
       </section>
     </main>
