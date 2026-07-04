@@ -12,7 +12,7 @@ export type ProjectCardProps = {
   description?: string;
   iconName: IconName;
   tags?: string[];
-} & Omit<ComponentProps<typeof CardLink>, 'children'>
+} & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
 /**
  * A project/experiment card — icon top-right, a gradient hairline that

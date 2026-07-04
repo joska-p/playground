@@ -19,9 +19,8 @@
   ],
   "forwardPorts": [2222, 3000, 4321, 4322, 5000, 5173, 5174, 5175, 6006, 8080, 8888],
   "runArgs": ["--name", "playground", "--shm-size=2g"],
-  "containerEnv":{
+  "containerEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096"
   },
   "postStartCommand": "sudo sysctl -w fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=1024 && bash .devcontainer/scripts/setup.sh && usermod --shell /bin/zsh vscode"
 }
-

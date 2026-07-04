@@ -19,11 +19,11 @@ none of them call `useState`. Anywhere the original design needed state
 (theme, toasts, tabs), that state lives in a dedicated hook in
 `src/hooks/`, and the component just renders whatever it's handed:
 
-| Stateless component | Its state hook |
-|---|---|
-| `ThemeProvider` | `useThemeState()` |
-| `ToastProvider` / `ToastViewport` | `useToastQueue()` |
-| `Tabs` | `useTabsState(defaultValue)` |
+| Stateless component               | Its state hook               |
+| --------------------------------- | ---------------------------- |
+| `ThemeProvider`                   | `useThemeState()`            |
+| `ToastProvider` / `ToastViewport` | `useToastQueue()`            |
+| `Tabs`                            | `useTabsState(defaultValue)` |
 
 This also means every component uses React 19's ref-as-prop pattern —
 `ref` is declared as a normal prop in each component's type, no
@@ -35,27 +35,35 @@ This also means every component uses React 19's ref-as-prop pattern —
    your app root:
 
    ```ts
-   import "./styles/globals.css";
+   import './styles/globals.css';
    ```
 
    This file uses Tailwind v4's CSS-first config (`@import "tailwindcss"`
-   + `@theme inline`) — no `tailwind.config.js` needed. It defines the
-   gruvbox dark/light tokens and every CSS-only interactive behavior
-   (`:has()`, `:focus-within`, `@starting-style`, native `<details>`/
-   `<dialog>` styling, etc).
+   - `@theme inline`) — no `tailwind.config.js` needed. It defines the
+     gruvbox dark/light tokens and every CSS-only interactive behavior
+     (`:has()`, `:focus-within`, `@starting-style`, native `<details>`/
+     `<dialog>` styling, etc).
 
 2. Wire up state with the hooks, then hand it to the stateless providers:
 
    ```tsx
-   import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from "pg-lab-ui";
+   import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from 'pg-lab-ui';
 
    export default function App() {
      const theme = useThemeState();
      const toastQueue = useToastQueue();
 
      return (
-       <ThemeProvider theme={theme.theme} setTheme={theme.setTheme} toggleTheme={theme.toggleTheme}>
-         <ToastProvider toasts={toastQueue.toasts} toast={toastQueue.toast} dismiss={toastQueue.dismiss}>
+       <ThemeProvider
+         theme={theme.theme}
+         setTheme={theme.setTheme}
+         toggleTheme={theme.toggleTheme}
+       >
+         <ToastProvider
+           toasts={toastQueue.toasts}
+           toast={toastQueue.toast}
+           dismiss={toastQueue.dismiss}
+         >
            {/* your app */}
          </ToastProvider>
        </ThemeProvider>
@@ -66,8 +74,13 @@ This also means every component uses React 19's ref-as-prop pattern —
 3. `Tabs` works the same way — pull state from `useTabsState`:
 
    ```tsx
-   const tabs = useTabsState("overview");
-   <Tabs value={tabs.value} onValueChange={tabs.setValue}>...</Tabs>
+   const tabs = useTabsState('overview');
+   <Tabs
+     value={tabs.value}
+     onValueChange={tabs.setValue}
+   >
+     ...
+   </Tabs>;
    ```
 
 4. Import components from `pg-lab-ui` (see `src/App.example.tsx` for a
@@ -78,7 +91,7 @@ This also means every component uses React 19's ref-as-prop pattern —
 Every component accepts the same `variant` prop with six values:
 
 ```ts
-type ColorVariant = "default" | "primary" | "secondary" | "accent" | "warning" | "destructive";
+type ColorVariant = 'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive';
 ```
 
 - `default` is a neutral/grey token (`--foreground-dim`) — used for
@@ -103,24 +116,24 @@ Two ways components consume the variant, matching the source design:
 
 ## Components
 
-| Component | Notes |
-|---|---|
-| `Button` | 6 variants + `ghost`/`link` extras, 4 sizes, `loading`, `tooltip` |
-| `Badge` | soft / solid / outline appearances, optional status `dot` |
-| `Input` | leading icon, trailing action, `expandable` (focus-grow) |
-| `Textarea` | auto-growing via `field-sizing: content` |
-| `Checkbox` / `Radio` | native inputs, `accent-color` theming |
-| `Switch` | native checkbox restyled as a toggle |
-| `Slider` | native range input with tick labels |
-| `Card` + `CardImage/Body/Title/Description/Footer/Actions` | `interactive` glow via `:has()`, `horizontal` responsive layout |
-| `Accordion` / `AccordionItem` | native `<details>`/`<summary>` |
-| `Tabs` / `TabsList` / `TabsTrigger` / `TabsContent` | radio-based tab group |
-| `Carousel` / `CarouselSlide` | scroll-snap track + `scrollBy` arrows |
-| `Popover` | hover-triggered via `group`/`group-hover`, no JS |
-| `Tooltip` | CSS `::after` bubble via `data-tooltip` |
-| `Dialog` + parts + `DialogActions` | native `<dialog>`, `showModal()`/`close()` |
-| `Alert` | colored accent banner, icon per variant |
-| `ToastProvider` / `useToast` | `createPortal` toast stack, auto-dismiss |
+| Component                                                  | Notes                                                             |
+| ---------------------------------------------------------- | ----------------------------------------------------------------- |
+| `Button`                                                   | 6 variants + `ghost`/`link` extras, 4 sizes, `loading`, `tooltip` |
+| `Badge`                                                    | soft / solid / outline appearances, optional status `dot`         |
+| `Input`                                                    | leading icon, trailing action, `expandable` (focus-grow)          |
+| `Textarea`                                                 | auto-growing via `field-sizing: content`                          |
+| `Checkbox` / `Radio`                                       | native inputs, `accent-color` theming                             |
+| `Switch`                                                   | native checkbox restyled as a toggle                              |
+| `Slider`                                                   | native range input with tick labels                               |
+| `Card` + `CardImage/Body/Title/Description/Footer/Actions` | `interactive` glow via `:has()`, `horizontal` responsive layout   |
+| `Accordion` / `AccordionItem`                              | native `<details>`/`<summary>`                                    |
+| `Tabs` / `TabsList` / `TabsTrigger` / `TabsContent`        | radio-based tab group                                             |
+| `Carousel` / `CarouselSlide`                               | scroll-snap track + `scrollBy` arrows                             |
+| `Popover`                                                  | hover-triggered via `group`/`group-hover`, no JS                  |
+| `Tooltip`                                                  | CSS `::after` bubble via `data-tooltip`                           |
+| `Dialog` + parts + `DialogActions`                         | native `<dialog>`, `showModal()`/`close()`                        |
+| `Alert`                                                    | colored accent banner, icon per variant                           |
+| `ToastProvider` / `useToast`                               | `createPortal` toast stack, auto-dismiss                          |
 
 ## Progressive enhancement notes
 

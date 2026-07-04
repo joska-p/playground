@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 /**
  * useTabsState — the state hook for <Tabs>. `Tabs` itself is a stateless,

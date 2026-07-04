@@ -12,42 +12,37 @@
  *  - `colorVariant` is the shared type used across every component's props.
  */
 
-import type { CSSProperties } from "react";
+import type { CSSProperties } from 'react';
 
 export type ColorVariant =
-  | "default"
-  | "primary"
-  | "secondary"
-  | "accent"
-  | "warning"
-  | "destructive";
+  'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive';
 
 export const COLOR_VARIANTS: ColorVariant[] = [
-  "default",
-  "primary",
-  "secondary",
-  "accent",
-  "warning",
-  "destructive",
+  'default',
+  'primary',
+  'secondary',
+  'accent',
+  'warning',
+  'destructive'
 ];
 
 /** Raw CSS custom-property reference for a given variant. */
-export function colorVar(variant: ColorVariant = "default"): string {
+export function colorVar(variant: ColorVariant = 'default'): string {
   const map: Record<ColorVariant, string> = {
-    default: "var(--foreground-dim)",
-    primary: "var(--primary)",
-    secondary: "var(--secondary)",
-    accent: "var(--accent)",
-    warning: "var(--warning)",
-    destructive: "var(--destructive)",
+    default: 'var(--foreground-dim)',
+    primary: 'var(--primary)',
+    secondary: 'var(--secondary)',
+    accent: 'var(--accent)',
+    warning: 'var(--warning)',
+    destructive: 'var(--destructive)'
   };
   return map[variant];
 }
 
 /** Convenience style object for components using the `--_color` pattern. */
 export function colorVarStyle(
-  variant: ColorVariant = "default",
+  variant: ColorVariant = 'default',
   extra?: CSSProperties
 ): CSSProperties {
-  return { ["--_color" as string]: colorVar(variant), ...extra };
+  return { ['--_color' as string]: colorVar(variant), ...extra };
 }

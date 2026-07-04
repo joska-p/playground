@@ -7,22 +7,16 @@ type CarouselProps = {
   'aria-label'?: string;
 } & ComponentProps<'div'>;
 
-function Carousel({
-  ref,
-  children,
-  className,
-  'aria-label': ariaLabel,
-  ...props
-}: CarouselProps) {
+function Carousel({ ref, children, className, 'aria-label': ariaLabel, ...props }: CarouselProps) {
   return (
     <div
       ref={ref}
       role="region"
       aria-label={ariaLabel ?? 'Project Carousel'}
       className={cn(
-        'flex gap-4 overflow-x-auto scroll-smooth py-3 px-1',
+        'flex gap-4 overflow-x-auto scroll-smooth px-1 py-3',
         'scrollbar-none [&::-webkit-scrollbar]:hidden', // Completely hides standard layout scrollbars
-        'snap-x snap-mandatory touch-pan-x',
+        'touch-pan-x snap-x snap-mandatory',
         className
       )}
       {...props}
@@ -34,14 +28,7 @@ function Carousel({
 
 type CarouselSlideProps = ComponentProps<'div'> & VariantProps<typeof carouselSlideVariants>;
 
-function CarouselSlide({
-  ref,
-  children,
-  className,
-  variant,
-  size,
-  ...props
-}: CarouselSlideProps) {
+function CarouselSlide({ ref, children, className, variant, size, ...props }: CarouselSlideProps) {
   return (
     <div
       ref={ref}

@@ -19,7 +19,7 @@ export const accentTokens = {
   blue: 'var(--blue)',
   purple: 'var(--purple)',
   aqua: 'var(--aqua)',
-  orange: 'var(--orange)',
+  orange: 'var(--orange)'
 } as const;
 
 export type AccentToken = keyof typeof accentTokens;

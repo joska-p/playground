@@ -12,7 +12,7 @@ export type CardLinkProps = {
    * category or a color means. That's entirely the consumer's call.
    */
   accent?: string;
-} & Omit<ComponentProps<'a'>, 'href'>
+} & Omit<ComponentProps<'a'>, 'href'>;
 
 /**
  * The anchor-rooted sibling of Card. Card wraps content that has its

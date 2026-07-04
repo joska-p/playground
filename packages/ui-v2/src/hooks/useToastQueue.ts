@@ -1,6 +1,6 @@
-import { useCallback, useRef, useState } from "react";
-import type { ReactNode } from "react";
-import type { ColorVariant } from "../lib/colorVariant";
+import type { ReactNode } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import type { ColorVariant } from '../lib/colorVariant';
 
 export type ToastOptions = {
   title: ReactNode;
@@ -8,12 +8,12 @@ export type ToastOptions = {
   variant?: ColorVariant;
   /** Milliseconds before auto-dismiss. Defaults to 4000. Pass 0 to disable. */
   duration?: number;
-}
+};
 
 export type ToastItem = {
   id: number;
   exiting?: boolean;
-} & ToastOptions
+} & ToastOptions;
 
 /**
  * useToastQueue — the state hook behind the toast system. `ToastProvider`
@@ -46,7 +46,9 @@ export function useToastQueue() {
       if (duration > 0) {
         timers.current.set(
           id,
-          setTimeout(() => { dismiss(id); }, duration)
+          setTimeout(() => {
+            dismiss(id);
+          }, duration)
         );
       }
       return id;

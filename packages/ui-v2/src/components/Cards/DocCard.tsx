@@ -12,7 +12,7 @@ export type DocCardProps = {
   description?: string;
   type?: string;
   iconName?: IconName;
-} & Omit<ComponentProps<typeof CardLink>, 'children'>
+} & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
 /**
  * A doc card — folded-corner decoration, a type badge, the same
