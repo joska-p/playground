@@ -33,4 +33,15 @@ step_node_setup() {
   export PNPM_HOME="$HOME/.local/share/pnpm"
   export PATH="$PNPM_HOME:$PATH"
   ok "pnpm $(pnpm --version) ready."
+
+  # --- Zed LSP tools --------------------------------------------------------
+  log "Installing language servers for Zed..."
+
+  # Tailwind CSS v4 language server
+  pnpm add -g @tailwindcss/language-server
+
+  # TypeScript language server (usually comes with typescript, but ensure it)
+  pnpm add -g typescript
+
+  ok "Language servers installed."
 }
