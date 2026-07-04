@@ -10,8 +10,8 @@ export type CategoryCardProps = {
   label: string;
   description?: string;
   iconName: IconName;
-  count: number;
-} & Omit<ComponentProps<typeof CardLink>, 'children'>
+  count?: number;
+} & Omit<ComponentProps<typeof CardLink>, 'children'>;
 
 /**
  * A category tile — centered icon, a divider that switches to the
@@ -28,7 +28,7 @@ function CategoryCard({
   label,
   description,
   iconName,
-  count,
+  count = 0,
   className,
   ...props
 }: CategoryCardProps) {

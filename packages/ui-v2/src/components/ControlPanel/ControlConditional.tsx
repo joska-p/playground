@@ -5,7 +5,7 @@ export type ControlConditionalProps = {
   when: boolean;
   className?: string;
   children: ReactNode;
-}
+};
 
 /**
  * Shows or folds away a run of ControlRows depending on `when` — e.g.

@@ -7,7 +7,7 @@ export type ControlRowProps = {
   hint?: string;
   className?: string;
   children: ReactNode;
-}
+};
 
 /**
  * The atomic unit of the control panel: a label, an optional live

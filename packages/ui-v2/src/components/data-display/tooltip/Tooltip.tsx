@@ -1,10 +1,10 @@
-import { cloneElement, isValidElement, type ReactElement, type ReactNode } from "react";
-import { cn } from "../../lib/cn";
+import { cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
+import { cn } from '../../../lib/cn';
 
 export type TooltipProps = {
   content: string;
-  children: ReactElement<{ className?: string; "data-tooltip"?: string }>;
-}
+  children: ReactElement<{ className?: string; 'data-tooltip'?: string }>;
+};
 
 /**
  * Tooltip — a CSS-only `::after` bubble driven by `data-tooltip` (see
@@ -14,7 +14,7 @@ export type TooltipProps = {
 export function Tooltip({ content, children }: TooltipProps) {
   if (!isValidElement(children)) return children as ReactNode as ReactElement;
   return cloneElement(children, {
-    className: cn(children.props.className, "tooltip"),
-    "data-tooltip": content,
+    className: cn(children.props.className, 'tooltip'),
+    'data-tooltip': content
   });
 }

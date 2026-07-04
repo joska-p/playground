@@ -1,6 +1,6 @@
 import type { DetailsHTMLAttributes, ReactNode, Ref } from 'react';
-import { cn } from '../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../lib/colorVariant';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 
 export type AccordionItemProps = {
   title: ReactNode;
@@ -10,10 +10,7 @@ export type AccordionItemProps = {
    *  status one — color is a subtle accent here, not the main signal). */
   variant?: ColorVariant;
   ref?: Ref<HTMLDetailsElement>;
-} & Omit<
-  DetailsHTMLAttributes<HTMLDetailsElement>,
-  'title'
->
+} & Omit<DetailsHTMLAttributes<HTMLDetailsElement>, 'title'>;
 
 /**
  * AccordionItem — a native <details>/<summary> pair. This is the pattern

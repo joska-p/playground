@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, type ReactNode } from 'react';
-import { cn } from '../../lib/cn';
-import { colorVar, type ColorVariant } from '../../lib/colorVariant';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
 
 export type CarouselProps = {
   children: ReactNode;
@@ -12,7 +12,7 @@ export type CarouselProps = {
   hideArrows?: boolean;
   /** Colors the arrow icons. Defaults to a neutral foreground tone. */
   variant?: ColorVariant;
-}
+};
 
 /**
  * Carousel — overflow-x:scroll + scroll-snap does all the heavy lifting in
@@ -41,7 +41,9 @@ export function Carousel({
           <button
             type="button"
             aria-label="Scroll left"
-            onClick={() => { scroll(-1); }}
+            onClick={() => {
+              scroll(-1);
+            }}
             className="bg-surface/90 hover:bg-surface absolute top-1/2 left-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors"
             style={{ boxShadow: 'var(--shadow-md)', color: iconColor }}
           >
@@ -50,7 +52,9 @@ export function Carousel({
           <button
             type="button"
             aria-label="Scroll right"
-            onClick={() => { scroll(1); }}
+            onClick={() => {
+              scroll(1);
+            }}
             className="bg-surface/90 hover:bg-surface absolute top-1/2 right-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors"
             style={{ boxShadow: 'var(--shadow-md)', color: iconColor }}
           >

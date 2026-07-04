@@ -1,17 +1,17 @@
-import { createContext, useContext, useId, type ReactNode } from "react";
-import { cn } from "../../lib/cn";
-import { colorVarStyle, type ColorVariant } from "../../lib/colorVariant";
+import { createContext, useContext, useId, type ReactNode } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 
 type TabsContextValue = {
   value: string;
   setValue: (v: string) => void;
   name: string;
-}
+};
 const TabsContext = createContext<TabsContextValue | null>(null);
 
 function useTabsContext() {
   const ctx = useContext(TabsContext);
-  if (!ctx) throw new Error("Tabs.* must be used inside <Tabs>");
+  if (!ctx) throw new Error('Tabs.* must be used inside <Tabs>');
   return ctx;
 }
 
@@ -24,7 +24,7 @@ export type TabsProps = {
   children: ReactNode;
   className?: string;
   variant?: ColorVariant;
-}
+};
 
 /**
  * Tabs — built on real (visually-hidden) radio inputs, so the tab group is
@@ -33,14 +33,20 @@ export type TabsProps = {
  * itself is stateless — `value`/`onValueChange` are required, and the
  * radio's checked state is derived from props on every render.
  */
-export function Tabs({ value, onValueChange, children, className, variant = "primary" }: TabsProps) {
+export function Tabs({
+  value,
+  onValueChange,
+  children,
+  className,
+  variant = 'primary'
+}: TabsProps) {
   const name = useId();
 
   return (
     <TabsContext.Provider value={{ value, setValue: onValueChange, name }}>
       <div
-        className={cn("tabs-container bg-surface rounded-lg overflow-hidden", className)}
-        style={{ boxShadow: "var(--shadow-sm)", ...colorVarStyle(variant) }}
+        className={cn('tabs-container bg-surface overflow-hidden rounded-lg', className)}
+        style={{ boxShadow: 'var(--shadow-sm)', ...colorVarStyle(variant) }}
       >
         {children}
       </div>
@@ -49,13 +55,13 @@ export function Tabs({ value, onValueChange, children, className, variant = "pri
 }
 
 export function TabsList({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("flex border-b border-border", className)}>{children}</div>;
+  return <div className={cn('border-border flex border-b', className)}>{children}</div>;
 }
 
 export function TabsTrigger({
   value,
   children,
-  className,
+  className
 }: {
   value: string;
   children: ReactNode;
@@ -66,7 +72,7 @@ export function TabsTrigger({
   return (
     <label
       className={cn(
-        "tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors",
+        'tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors',
         className
       )}
       data-active={isActive}
@@ -76,7 +82,9 @@ export function TabsTrigger({
         name={name}
         value={value}
         checked={isActive}
-        onChange={() => { setValue(value); }}
+        onChange={() => {
+          setValue(value);
+        }}
         className="sr-only"
       />
       {children}
@@ -87,7 +95,7 @@ export function TabsTrigger({
 export function TabsContent({
   value,
   children,
-  className,
+  className
 }: {
   value: string;
   children: ReactNode;
@@ -100,7 +108,10 @@ export function TabsContent({
       role="tabpanel"
       hidden={!isActive}
       data-active={isActive}
-      className={cn("tab-panel px-5 py-5 text-[13px] leading-relaxed text-foreground-muted", className)}
+      className={cn(
+        'tab-panel text-foreground-muted px-5 py-5 text-[13px] leading-relaxed',
+        className
+      )}
     >
       {children}
     </div>

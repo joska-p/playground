@@ -1,20 +1,13 @@
-import { createContext, useContext, type ReactNode } from "react";
-import type { Theme } from "../hooks/useThemeState";
-
-type ThemeContextValue = {
-  theme: Theme;
-  toggleTheme: () => void;
-  setTheme: (theme: Theme) => void;
-}
-
-const ThemeContext = createContext<ThemeContextValue | null>(null);
+import { type ReactNode } from 'react';
+import type { Theme } from '../hooks/useThemeState';
+import { ThemeContext } from './useTheme';
 
 export type ThemeProviderProps = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
   children: ReactNode;
-}
+};
 
 /**
  * ThemeProvider — stateless. It never calls `useState` itself; `theme`,
@@ -29,10 +22,4 @@ export function ThemeProvider({ theme, setTheme, toggleTheme, children }: ThemeP
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be used within a <ThemeProvider>");
-  return ctx;
 }

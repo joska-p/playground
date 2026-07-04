@@ -1,15 +1,9 @@
 import { CheckCircle2, Circle, Info, TriangleAlert, X, XCircle } from 'lucide-react';
-import { createContext, useContext, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import type { ToastItem, ToastOptions } from '../../hooks/useToastQueue';
-import { cn } from '../../lib/cn';
-
-type ToastContextValue = {
-  toast: (options: ToastOptions) => number;
-  dismiss: (id: number) => void;
-};
-
-const ToastContext = createContext<ToastContextValue | null>(null);
+import type { ToastItem, ToastOptions } from '../../../hooks/useToastQueue';
+import { cn } from '../../../lib/cn';
+import { ToastContext } from './useToast';
 
 const iconMap: Record<string, ReactNode> = {
   default: <Circle className="h-3.5 w-3.5" />,
@@ -104,10 +98,4 @@ export function ToastProvider({ toasts, toast, dismiss, children }: ToastProvide
       />
     </ToastContext.Provider>
   );
-}
-
-export function useToast() {
-  const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error('useToast must be used within a <ToastProvider>');
-  return ctx;
 }

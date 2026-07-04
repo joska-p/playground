@@ -1,7 +1,7 @@
-import type { ButtonHTMLAttributes, Ref } from "react";
-import type { VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/cn";
-import { buttonVariants } from "./Button.variants";
+import type { VariantProps } from 'class-variance-authority';
+import type { ButtonHTMLAttributes, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { buttonVariants } from './Button.variants';
 
 /**
  * Button — React 19 pattern: `ref` is a plain prop, no `forwardRef` wrapper
@@ -14,7 +14,8 @@ export type ButtonProps = {
   /** Native title text used for the built-in CSS-only tooltip. */
   tooltip?: string;
   ref?: Ref<HTMLButtonElement>;
-} & ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>
+} & ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants>;
 
 export function Button({
   className,
@@ -32,13 +33,13 @@ export function Button({
       ref={ref}
       className={cn(
         buttonVariants({ variant, size }),
-        loading && "button-loading",
-        tooltip && "tooltip",
+        loading && 'button-loading',
+        tooltip && 'tooltip',
         className
       )}
       data-tooltip={tooltip}
-      disabled={disabled || loading}
-      aria-busy={loading || undefined}
+      disabled={disabled ?? loading}
+      aria-busy={loading ?? undefined}
       {...props}
     >
       {children}

@@ -1,9 +1,9 @@
-import type { ReactNode, Ref, SelectHTMLAttributes } from "react";
-import type { VariantProps } from "class-variance-authority";
-import { ChevronDown } from "lucide-react";
-import { cn } from "../../lib/cn";
-import { colorVar, type ColorVariant } from "../../lib/colorVariant";
-import { selectVariants, selectWrapperVariants } from "./Select.variants";
+import type { VariantProps } from 'class-variance-authority';
+import { ChevronDown } from 'lucide-react';
+import type { ReactNode, Ref, SelectHTMLAttributes } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
+import { selectVariants, selectWrapperVariants } from './Select.variants';
 
 export type SelectProps = {
   /** Focus-ring color token. Defaults to "primary" — same pattern as Input. */
@@ -15,7 +15,8 @@ export type SelectProps = {
   placeholder?: string;
   wrapperClassName?: string;
   ref?: Ref<HTMLSelectElement>;
-} & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> & VariantProps<typeof selectVariants>
+} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> &
+  VariantProps<typeof selectVariants>;
 
 /**
  * Select — a native <select>, styled to match Input/Textarea. Mobile-first
@@ -29,7 +30,7 @@ export function Select({
   className,
   wrapperClassName,
   size,
-  variant = "primary",
+  variant = 'primary',
   leadingIcon,
   placeholder,
   style,
@@ -40,7 +41,7 @@ export function Select({
   return (
     <div
       className={cn(selectWrapperVariants({ size }), wrapperClassName)}
-      style={{ ["--_ring" as string]: colorVar(variant), ...style }}
+      style={{ ['--_ring' as string]: colorVar(variant), ...style }}
     >
       {leadingIcon && (
         <span className="text-foreground-dim flex-shrink-0 text-xs transition-colors">
@@ -48,15 +49,23 @@ export function Select({
         </span>
       )}
       <div className="relative w-full">
-        <select ref={ref} className={cn(selectVariants({ size }), className)} {...props}>
+        <select
+          ref={ref}
+          className={cn(selectVariants({ size }), className)}
+          {...props}
+        >
           {placeholder && (
-            <option value="" disabled hidden>
+            <option
+              value=""
+              disabled
+              hidden
+            >
               {placeholder}
             </option>
           )}
           {children}
         </select>
-        <ChevronDown className="text-foreground-dim pointer-events-none absolute right-0 top-1/2 h-3.5 w-3.5 -translate-y-1/2" />
+        <ChevronDown className="text-foreground-dim pointer-events-none absolute top-1/2 right-0 h-3.5 w-3.5 -translate-y-1/2" />
       </div>
     </div>
   );

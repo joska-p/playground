@@ -3,7 +3,7 @@ import { cn } from '../../lib/cn';
 
 export type CardTitleProps = {
   ref?: Ref<HTMLHeadingElement>;
-} & ComponentProps<'h3'>
+} & ComponentProps<'h3'>;
 
 /**
  * A card's heading — typography only, no props beyond standard

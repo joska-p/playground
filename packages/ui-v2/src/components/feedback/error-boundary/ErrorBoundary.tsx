@@ -1,5 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
-import type { ColorVariant } from '../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
 import { DefaultFallback } from './DefaultFallback';
 
 export type FallbackRenderer = (props: { error: Error; reset: () => void }) => ReactNode;
@@ -14,11 +14,11 @@ export type ErrorBoundaryProps = {
    *  Ignored if `fallback` is provided. */
   variant?: ColorVariant;
   onError?: (error: Error, info: ErrorInfo) => void;
-}
+};
 
 type ErrorBoundaryState = {
   error: Error | null;
-}
+};
 
 /**
  * ErrorBoundary
@@ -44,7 +44,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     this.props.onError?.(error, info);
   }
 
-  reset = () => { this.setState({ error: null }); };
+  reset = () => {
+    this.setState({ error: null });
+  };
 
   render() {
     const { error } = this.state;

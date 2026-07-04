@@ -1,6 +1,6 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { LabelHTMLAttributes, Ref } from 'react';
-import { cn } from '../../lib/cn';
+import { cn } from '../../../lib/cn';
 import { labelVariants } from './Label.variants';
 
 export type LabelProps = {
@@ -8,7 +8,8 @@ export type LabelProps = {
   required?: boolean;
   disabled?: boolean;
   ref?: Ref<HTMLLabelElement>;
-} & LabelHTMLAttributes<HTMLLabelElement> & VariantProps<typeof labelVariants>
+} & LabelHTMLAttributes<HTMLLabelElement> &
+  VariantProps<typeof labelVariants>;
 
 /**
  * Label — a plain <label>, colorable and sizable like every other form

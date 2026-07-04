@@ -6,7 +6,8 @@ export { COLOR_VARIANTS, colorVar, colorVarStyle, type ColorVariant } from './li
 
 // Theme — stateless provider + the hook that actually holds state
 export { useThemeState, type Theme } from './hooks/useThemeState';
-export { ThemeProvider, useTheme, type ThemeProviderProps } from './theme/ThemeProvider';
+export { ThemeProvider, type ThemeProviderProps } from './theme/ThemeProvider';
+export { useTheme } from './theme/useTheme';
 
 // Data Entry — forms, inputs, user text entry
 export {

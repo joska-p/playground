@@ -1,17 +1,17 @@
-import type { InputHTMLAttributes, Ref } from "react";
-import { cn } from "../../lib/cn";
-import { colorVar, type ColorVariant } from "../../lib/colorVariant";
+import type { InputHTMLAttributes, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
 
 export type SliderProps = {
   variant?: ColorVariant;
   /** Show min/max/current tick labels beneath the track. Defaults to true. */
   showTicks?: boolean;
   ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 export function Slider({
   className,
-  variant = "primary",
+  variant = 'primary',
   showTicks = true,
   style,
   min = 0,
@@ -27,13 +27,13 @@ export function Slider({
         min={min}
         max={max}
         className={cn(
-          "h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none",
+          'h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none',
           className
         )}
         style={{
           accentColor: colorVar(variant),
-          background: "var(--foreground-dim)",
-          ...style,
+          background: 'var(--foreground-dim)',
+          ...style
         }}
         {...props}
       />

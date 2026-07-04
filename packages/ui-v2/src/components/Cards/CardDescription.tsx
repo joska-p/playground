@@ -3,7 +3,7 @@ import { cn } from '../../lib/cn';
 
 export type CardDescriptionProps = {
   ref?: Ref<HTMLParagraphElement>;
-} & ComponentProps<'p'>
+} & ComponentProps<'p'>;
 
 /**
  * A card's supporting text — typography only, no props beyond

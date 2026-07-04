@@ -10,7 +10,7 @@ export type ControlSectionProps = {
   defaultOpen?: boolean;
   className?: string;
   children: ReactNode;
-}
+};
 
 /**
  * A named, collapsible group of ControlRows (and nested

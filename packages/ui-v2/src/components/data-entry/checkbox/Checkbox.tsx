@@ -1,12 +1,12 @@
-import type { InputHTMLAttributes, ReactNode, Ref } from "react";
-import { cn } from "../../lib/cn";
-import { colorVar, type ColorVariant } from "../../lib/colorVariant";
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
 
 export type CheckboxProps = {
   variant?: ColorVariant;
   label?: ReactNode;
   ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 /**
  * Checkbox — native input, styled with `accent-color`. Works with zero CSS
@@ -16,7 +16,7 @@ export type CheckboxProps = {
  */
 export function Checkbox({
   className,
-  variant = "primary",
+  variant = 'primary',
   label,
   style,
   disabled,
@@ -30,7 +30,7 @@ export function Checkbox({
       type="checkbox"
       id={id}
       disabled={disabled}
-      className={cn("h-4 w-4 flex-shrink-0 cursor-pointer rounded", className)}
+      className={cn('h-4 w-4 flex-shrink-0 cursor-pointer rounded', className)}
       style={{ accentColor: colorVar(variant), ...style }}
       {...props}
     />
@@ -42,8 +42,8 @@ export function Checkbox({
     <label
       htmlFor={id}
       className={cn(
-        "flex items-center gap-2.5 text-[13px] select-none",
-        disabled ? "pointer-events-none opacity-40" : "cursor-pointer"
+        'flex items-center gap-2.5 text-[13px] select-none',
+        disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'
       )}
     >
       {input}

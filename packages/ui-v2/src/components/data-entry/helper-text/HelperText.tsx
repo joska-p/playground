@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import { CheckCircle2, Circle, Info, TriangleAlert, XCircle } from 'lucide-react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
-import { cn } from '../../lib/cn';
+import { cn } from '../../../lib/cn';
 import { helperTextVariants } from './HelperText.variants';
 
 const defaultIcon: Record<string, ReactNode> = {
@@ -18,7 +18,8 @@ export type HelperTextProps = {
    *  a custom node. Off by default — most hint text needs no icon. */
   icon?: boolean | ReactNode;
   ref?: Ref<HTMLParagraphElement>;
-} & HTMLAttributes<HTMLParagraphElement> & VariantProps<typeof helperTextVariants>
+} & HTMLAttributes<HTMLParagraphElement> &
+  VariantProps<typeof helperTextVariants>;
 
 /**
  * HelperText — hint/description/validation text for a form field. Pair it

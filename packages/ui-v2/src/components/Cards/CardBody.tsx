@@ -3,7 +3,7 @@ import { cn } from '../../lib/cn';
 
 export type CardBodyProps = {
   ref?: Ref<HTMLDivElement>;
-} & ComponentProps<'div'>
+} & ComponentProps<'div'>;
 
 /**
  * Layout-only wrapper for a card's main content — padding + vertical

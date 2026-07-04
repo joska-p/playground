@@ -1,6 +1,6 @@
-import type { HTMLAttributes, ImgHTMLAttributes, Ref } from "react";
-import { cn } from "../../lib/cn";
-import { colorVarStyle, type ColorVariant } from "../../lib/colorVariant";
+import type { HTMLAttributes, ImgHTMLAttributes, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 
 export type CardProps = {
   /** Enables the zero-JS `:has()` glow when `.card-actions` is hovered. */
@@ -10,12 +10,12 @@ export type CardProps = {
   /** Lay out as a row on landscape/desktop, stacked on mobile. */
   horizontal?: boolean;
   ref?: Ref<HTMLDivElement>;
-} & HTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>;
 
 export function Card({
   className,
   interactive,
-  variant = "primary",
+  variant = 'primary',
   horizontal,
   style,
   ref,
@@ -25,12 +25,12 @@ export function Card({
     <div
       ref={ref}
       className={cn(
-        "bg-surface rounded-lg overflow-hidden transition-shadow duration-200 hover:shadow-md",
-        interactive && "card-interactive transition-all",
-        horizontal && "grid grid-cols-1 landscape:grid-cols-[200px_1fr]",
+        'bg-surface overflow-hidden rounded-lg transition-shadow duration-200 hover:shadow-md',
+        interactive && 'card-interactive transition-all',
+        horizontal && 'grid grid-cols-1 landscape:grid-cols-[200px_1fr]',
         className
       )}
-      style={{ boxShadow: "var(--shadow-sm)", ...colorVarStyle(variant, style) }}
+      style={{ boxShadow: 'var(--shadow-sm)', ...colorVarStyle(variant, style) }}
       {...props}
     />
   );
@@ -38,7 +38,7 @@ export function Card({
 
 export function CardImage({
   className,
-  alt = "",
+  alt = '',
   ref,
   ...props
 }: ImgHTMLAttributes<HTMLImageElement> & { ref?: Ref<HTMLImageElement> }) {
@@ -46,7 +46,7 @@ export function CardImage({
     <img
       ref={ref}
       alt={alt}
-      className={cn("aspect-video landscape:aspect-auto w-full h-full object-cover", className)}
+      className={cn('aspect-video h-full w-full object-cover landscape:aspect-auto', className)}
       {...props}
     />
   );
@@ -57,7 +57,13 @@ export function CardBody({
   ref,
   ...props
 }: HTMLAttributes<HTMLDivElement> & { ref?: Ref<HTMLDivElement> }) {
-  return <div ref={ref} className={cn("p-4", className)} {...props} />;
+  return (
+    <div
+      ref={ref}
+      className={cn('p-4', className)}
+      {...props}
+    />
+  );
 }
 
 export function CardTitle({
@@ -65,7 +71,13 @@ export function CardTitle({
   ref,
   ...props
 }: HTMLAttributes<HTMLParagraphElement> & { ref?: Ref<HTMLParagraphElement> }) {
-  return <p ref={ref} className={cn("text-foreground text-[14px] font-medium", className)} {...props} />;
+  return (
+    <p
+      ref={ref}
+      className={cn('text-foreground text-[14px] font-medium', className)}
+      {...props}
+    />
+  );
 }
 
 export function CardDescription({
@@ -76,7 +88,7 @@ export function CardDescription({
   return (
     <p
       ref={ref}
-      className={cn("text-foreground-muted mt-1 text-[12px] leading-relaxed", className)}
+      className={cn('text-foreground-muted mt-1 text-[12px] leading-relaxed', className)}
       {...props}
     />
   );
@@ -91,7 +103,7 @@ export function CardFooter({
     <div
       ref={ref}
       className={cn(
-        "flex items-center justify-between px-4 py-2.5 bg-surface-raised/50",
+        'bg-surface-raised/50 flex items-center justify-between px-4 py-2.5',
         className
       )}
       {...props}
@@ -106,5 +118,11 @@ export function CardActions({
   ref,
   ...props
 }: HTMLAttributes<HTMLDivElement> & { ref?: Ref<HTMLDivElement> }) {
-  return <div ref={ref} className={cn("card-actions flex gap-0.5 px-4 pb-3", className)} {...props} />;
+  return (
+    <div
+      ref={ref}
+      className={cn('card-actions flex gap-0.5 px-4 pb-3', className)}
+      {...props}
+    />
+  );
 }

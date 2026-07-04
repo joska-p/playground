@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { cn } from '../../lib/cn';
-import { colorVar, type ColorVariant } from '../../lib/colorVariant';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
 
 export type PopoverProps = {
   trigger: ReactNode;
@@ -11,7 +11,7 @@ export type PopoverProps = {
   align?: 'left' | 'center';
   /** Colors a thin top accent strip on the panel. Defaults to neutral. */
   variant?: ColorVariant;
-}
+};
 
 /**
  * Popover — hover-triggered via Tailwind's `group`/`group-hover`, the exact

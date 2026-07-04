@@ -1,8 +1,8 @@
 import type { VariantProps } from 'class-variance-authority';
 import { TriangleAlert } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { cn } from '../../../lib/cn';
 import { Button } from '../../data-entry/button/Button';
-import { cn } from '../../lib/cn';
 import { defaultFallbackVariants, fallbackIconColor } from './DefaultFallback.variants';
 
 export type DefaultFallbackProps = {
@@ -13,7 +13,7 @@ export type DefaultFallbackProps = {
   /** Label for the recovery button. Defaults to "try again". */
   resetLabel?: string;
   className?: string;
-} & VariantProps<typeof defaultFallbackVariants>
+} & VariantProps<typeof defaultFallbackVariants>;
 
 /**
  * DefaultFallback — the panel <ErrorBoundary> renders when it catches an

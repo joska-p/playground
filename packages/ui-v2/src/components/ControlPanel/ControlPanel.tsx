@@ -11,7 +11,7 @@ export type ControlPanelProps = {
   defaultOpen?: boolean;
   className?: string;
   children: ReactNode;
-} & ControlPanelVariantProps
+} & ControlPanelVariantProps;
 
 /**
  * ControlPanel is a pure layout shell — it doesn't know what a

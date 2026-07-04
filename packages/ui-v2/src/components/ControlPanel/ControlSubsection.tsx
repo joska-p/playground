@@ -8,7 +8,7 @@ export type ControlSubsectionProps = {
   defaultOpen?: boolean;
   className?: string;
   children: ReactNode;
-}
+};
 
 /**
  * One level of nesting below ControlSection — same disclosure

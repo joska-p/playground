@@ -1,12 +1,12 @@
 import { useImperativeHandle, useRef, type ReactNode, type Ref, type RefObject } from 'react';
+import { cn } from '../../../lib/cn';
+import type { ColorVariant } from '../../../lib/colorVariant';
 import { Button } from '../../data-entry/button/Button';
-import { cn } from '../../lib/cn';
-import type { ColorVariant } from '../../lib/colorVariant';
 
 export type DialogHandle = {
   open: () => void;
   close: () => void;
-}
+};
 
 export type DialogProps = {
   children: ReactNode;
@@ -14,7 +14,7 @@ export type DialogProps = {
   /** Called when the dialog closes for any reason (Esc, backdrop, button). */
   onClose?: () => void;
   ref?: Ref<DialogHandle>;
-}
+};
 
 /**
  * Dialog — wraps the native <dialog> element exactly as the source design's

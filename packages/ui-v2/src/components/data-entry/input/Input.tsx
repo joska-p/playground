@@ -1,8 +1,8 @@
-import type { InputHTMLAttributes, ReactNode, Ref } from "react";
-import type { VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/cn";
-import { colorVar, type ColorVariant } from "../../lib/colorVariant";
-import { inputWrapperVariants } from "./Input.variants";
+import type { VariantProps } from 'class-variance-authority';
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
+import { inputWrapperVariants } from './Input.variants';
 
 export type InputProps = {
   /** Focus-ring color token. Defaults to "primary". */
@@ -13,7 +13,8 @@ export type InputProps = {
   trailingAction?: ReactNode;
   wrapperClassName?: string;
   ref?: Ref<HTMLInputElement>;
-} & InputHTMLAttributes<HTMLInputElement> & VariantProps<typeof inputWrapperVariants>
+} & InputHTMLAttributes<HTMLInputElement> &
+  VariantProps<typeof inputWrapperVariants>;
 
 /**
  * Input — mobile-first: full width by default. `expandable` opts into the
@@ -24,7 +25,7 @@ export function Input({
   className,
   wrapperClassName,
   expandable,
-  variant = "primary",
+  variant = 'primary',
   leadingIcon,
   trailingAction,
   style,
@@ -34,7 +35,7 @@ export function Input({
   return (
     <div
       className={cn(inputWrapperVariants({ expandable }), wrapperClassName)}
-      style={{ ["--_ring" as string]: colorVar(variant), ...style }}
+      style={{ ['--_ring' as string]: colorVar(variant), ...style }}
     >
       {leadingIcon && (
         <span className="text-foreground-dim flex-shrink-0 text-xs transition-colors">
@@ -44,7 +45,7 @@ export function Input({
       <input
         ref={ref}
         className={cn(
-          "text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none",
+          'text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none',
           className
         )}
         {...props}

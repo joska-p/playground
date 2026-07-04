@@ -1,12 +1,12 @@
-import type { InputHTMLAttributes, ReactNode, Ref } from "react";
-import { cn } from "../../lib/cn";
-import { colorVarStyle, type ColorVariant } from "../../lib/colorVariant";
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 
 export type SwitchProps = {
   variant?: ColorVariant;
   label?: ReactNode;
   ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 /**
  * Switch — a native checkbox visually rebuilt as a toggle via the `.toggle`
@@ -16,7 +16,7 @@ export type SwitchProps = {
  */
 export function Switch({
   className,
-  variant = "primary",
+  variant = 'primary',
   label,
   style,
   disabled,
@@ -31,7 +31,7 @@ export function Switch({
       role="switch"
       id={id}
       disabled={disabled}
-      className={cn("toggle", className)}
+      className={cn('toggle', className)}
       style={colorVarStyle(variant, style)}
       {...props}
     />
@@ -43,8 +43,8 @@ export function Switch({
     <label
       htmlFor={id}
       className={cn(
-        "flex items-center gap-2.5 text-[13px] select-none",
-        disabled ? "pointer-events-none opacity-40" : "cursor-pointer"
+        'flex items-center gap-2.5 text-[13px] select-none',
+        disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'
       )}
     >
       {input}

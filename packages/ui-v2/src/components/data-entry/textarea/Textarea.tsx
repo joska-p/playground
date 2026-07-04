@@ -1,6 +1,6 @@
-import type { TextareaHTMLAttributes, Ref } from "react";
-import { cn } from "../../lib/cn";
-import { colorVar, type ColorVariant } from "../../lib/colorVariant";
+import type { Ref, TextareaHTMLAttributes } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
 
 export type TextareaProps = {
   variant?: ColorVariant;
@@ -9,11 +9,11 @@ export type TextareaProps = {
    *  that don't support it yet). Defaults to true. */
   autoGrow?: boolean;
   ref?: Ref<HTMLTextAreaElement>;
-} & TextareaHTMLAttributes<HTMLTextAreaElement>
+} & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export function Textarea({
   className,
-  variant = "primary",
+  variant = 'primary',
   autoGrow = true,
   style,
   ref,
@@ -23,11 +23,11 @@ export function Textarea({
     <textarea
       ref={ref}
       className={cn(
-        "input-wrapper bg-surface text-foreground placeholder:text-foreground-dim w-full resize-y rounded-md p-3 text-[13px] outline-none",
-        autoGrow && "textarea-auto",
+        'input-wrapper bg-surface text-foreground placeholder:text-foreground-dim w-full resize-y rounded-md p-3 text-[13px] outline-none',
+        autoGrow && 'textarea-auto',
         className
       )}
-      style={{ ["--_ring" as string]: colorVar(variant), ...style }}
+      style={{ ['--_ring' as string]: colorVar(variant), ...style }}
       {...props}
     />
   );

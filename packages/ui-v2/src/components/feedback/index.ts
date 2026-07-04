@@ -17,4 +17,5 @@ export {
   type ErrorBoundaryProps,
   type FallbackRenderer
 } from './error-boundary/ErrorBoundary';
-export { ToastProvider, ToastViewport, useToast, type ToastProviderProps } from './toast/Toast';
+export { ToastProvider, ToastViewport, type ToastProviderProps } from './toast/Toast';
+export { useToast } from './toast/useToast';
