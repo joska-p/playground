@@ -1,4 +1,17 @@
-import { Bell, Book, Globe, Moon, Search, Settings, Sun, User, Zap } from 'lucide-react';
+import {
+  Book,
+  CircleCheck,
+  Cog,
+  Globe,
+  Info,
+  Moon,
+  Search,
+  Settings,
+  Sun,
+  TriangleAlert,
+  User,
+  Zap
+} from 'lucide-react';
 import { useRef, useState } from 'react';
 import {
   accentTokens,
@@ -11,6 +24,7 @@ import {
   CardActions,
   CardBody,
   CardDescription,
+  CardFooter,
   CardImage,
   CardLink,
   CardTitle,
@@ -173,17 +187,8 @@ function DemoSection({
         </Prose>
       )}
       {apiRows && <ApiTable rows={apiRows} />}
+      {code && <CodeBlock code={code} />}
       <div className="pt-2">{children}</div>
-      {code && (
-        <details className="group">
-          <summary className="text-foreground-dim hover:text-foreground cursor-pointer text-xs font-medium tracking-wide uppercase transition-colors select-none">
-            source
-          </summary>
-          <div className="mt-2">
-            <CodeBlock code={code} />
-          </div>
-        </details>
-      )}
     </section>
   );
 }
@@ -209,12 +214,466 @@ function ThemeToggleButton() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Interactive demos                                                  */
+/*  §1 — Philosophy                                                   */
+/* ------------------------------------------------------------------ */
+
+function PhilosophySection() {
+  return (
+    <section
+      id="philosophy"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">1. Philosophy</DocHeading>
+      <Prose>
+        <p>Four rules shape every decision in this library:</p>
+      </Prose>
+      <div className="grid grid-cols-1 gap-4 landscape:grid-cols-2">
+        {[
+          {
+            title: 'Mobile-first',
+            body: 'Base classes (no breakpoint prefix) are the complete, working experience. landscape: / sm: prefixes only ever add refinements — never fix something that was broken on mobile.'
+          },
+          {
+            title: 'Progressive enhancement',
+            body: 'Prefer the platform. Native &lt;details&gt;, &lt;dialog&gt;, &lt;input&gt;, :has(), :focus-within, @starting-style do real work — they are not decoration on top of JS.'
+          },
+          {
+            title: 'Stateless components, stateful hooks',
+            body: 'No component calls useState. State is extracted into hooks (useThemeState, useToastQueue, useTabsState, useSidebarState…). Components are pure (props) =&gt; JSX functions.'
+          },
+          {
+            title: 'One variant system, everywhere',
+            body: 'Every component that has any notion of "color" accepts the same six-value variant prop (default/primary/secondary/accent/warning/destructive). Learn it once, use it everywhere.'
+          }
+        ].map(({ title, body }) => (
+          <div
+            key={title}
+            className="bg-surface-raised space-y-2 rounded-lg p-5 shadow-xs"
+          >
+            <h4 className="text-foreground text-sm font-medium">{title}</h4>
+            <p className="text-foreground-muted text-xs leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §2 — Installation & setup                                         */
+/* ------------------------------------------------------------------ */
+
+function SetupSection() {
+  return (
+    <section
+      id="setup"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">2. Installation &amp; setup</DocHeading>
+      <Prose>
+        <p>Install the package and its peer dependencies:</p>
+      </Prose>
+      <CodeBlock
+        code={`pnpm add @repo/ui-v2 class-variance-authority clsx tailwind-merge lucide-react`}
+      />
+      <Prose>
+        <p>
+          <strong>Step 1</strong> — import the stylesheet once at your app root:
+        </p>
+      </Prose>
+      <CodeBlock code={`import "@repo/ui-v2/styles";`} />
+      <Prose>
+        <p>
+          The stylesheet is Tailwind v4 CSS-first config — no tailwind.config.js. It defines the
+          gruvbox color tokens for dark (:root) and light (html[data-theme="light"]), plus every
+          CSS-only interactive behavior the components rely on.
+        </p>
+        <p>
+          <strong>Step 2</strong> — wire up stateful providers. State lives in hooks; providers just
+          relay it:
+        </p>
+      </Prose>
+      <CodeBlock
+        code={`import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from "@repo/ui-v2";
+
+export default function App() {
+  const theme = useThemeState();
+  const toastQueue = useToastQueue();
+
+  return (
+    <ThemeProvider theme={theme.theme} setTheme={theme.setTheme} toggleTheme={theme.toggleTheme}>
+      <ToastProvider toasts={toastQueue.toasts} toast={toastQueue.toast} dismiss={toastQueue.dismiss}>
+        <AppContent />
+      </ToastProvider>
+    </ThemeProvider>
+  );
+}`}
+      />
+      <Prose>
+        <p>
+          Both providers are optional. Dark is the CSS :root default, so an app that never renders
+          ThemeProvider still gets the full dark theme.
+        </p>
+      </Prose>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §3 — Design Tokens                                                */
+/* ------------------------------------------------------------------ */
+
+function DesignTokensSection() {
+  return (
+    <section
+      id="tokens"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">3. Design Tokens</DocHeading>
+      <Prose>
+        <p>
+          All tokens are CSS custom properties, re-exposed to Tailwind via @theme inline so they are
+          usable as ordinary utility classes (bg-primary, text-foreground-muted, border-border, …).
+        </p>
+      </Prose>
+
+      <DocHeading level="h3">3.1 Semantic tokens</DocHeading>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-border border-b">
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Token</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Dark</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Light</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Foreground</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['--background', '#1d2021', '#fbf1c7', '—'],
+              ['--surface', '#282828', '#f2e5bc', '—'],
+              ['--surface-raised', '#3c3836', '#ebdbb2', '—'],
+              ['--foreground', '#ebdbb2', '#3c3836', '—'],
+              ['--foreground-muted', '#a89984', '#665c54', '—'],
+              ['--foreground-dim', '#665c54', '#928374', '—'],
+              ['--border', 'rgba(235,219,178,.07)', 'rgba(60,56,54,.1)', '—'],
+              ['--primary', '#83a598', '#076678', '--primary-foreground'],
+              ['--secondary', '#b8bb26', '#79740e', '--secondary-foreground'],
+              ['--accent', '#d3869b', '#8f3f71', '--accent-foreground'],
+              ['--warning', '#fabd2f', '#b57614', '--warning-foreground'],
+              ['--destructive', '#fb4934', '#9d0006', '--destructive-foreground']
+            ].map(([token, dark, light, fg]) => (
+              <tr
+                key={token}
+                className="border-border border-b"
+              >
+                <td className="text-foreground px-3 py-2 font-mono">{token}</td>
+                <td className="text-foreground-muted px-3 py-2 font-mono">{dark}</td>
+                <td className="text-foreground-muted px-3 py-2 font-mono">{light}</td>
+                <td className="text-foreground-dim px-3 py-2 font-mono">{fg}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Prose>
+        <p>
+          Switching theme is one attribute: &lt;html data-theme="light"&gt; (absence of the
+          attribute = dark). ThemeProvider / useThemeState do this for you and persist the choice to
+          localStorage.
+        </p>
+      </Prose>
+
+      <DocHeading level="h3">3.2 Raw palette</DocHeading>
+      <Prose>
+        <p>Used in badges, charts, generative content — not for UI variant props.</p>
+      </Prose>
+      <div className="flex flex-wrap gap-3">
+        {[
+          ['--red', '#cc241d'],
+          ['--green', '#98971a'],
+          ['--yellow', '#d79921'],
+          ['--blue', '#458588'],
+          ['--purple', '#b16286'],
+          ['--aqua', '#689d6a'],
+          ['--orange', '#d65d0e']
+        ].map(([token]) => (
+          <ColorSwatch
+            key={token}
+            color={`var(${token})`}
+            name={token?.replace('--', '') ?? String(token)}
+            token={token}
+            size="sm"
+          />
+        ))}
+      </div>
+
+      <DocHeading level="h3">3.3 Elevation &amp; shape</DocHeading>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-border border-b">
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Token</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['--shadow-sm / --shadow-md / --shadow-lg', 'Card, Dialog, toast elevation'],
+              ['rounded-md', 'Inputs, buttons'],
+              ['rounded-lg', 'Cards, panels, dialogs'],
+              ['rounded-full', 'Pills, avatars, floating nav'],
+              ['JetBrains Mono (monospace-only)', '--font-sans and --font-mono are the same stack']
+            ].map(([token, usage]) => (
+              <tr
+                key={token}
+                className="border-border border-b"
+              >
+                <td className="text-foreground px-3 py-2 font-mono">{token}</td>
+                <td className="text-foreground-muted px-3 py-2">{usage}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §4 — Architecture                                                  */
+/* ------------------------------------------------------------------ */
+
+function ArchitectureSection() {
+  return (
+    <section
+      id="architecture"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">4. Architecture</DocHeading>
+
+      <DocHeading level="h3">4.1 React 19 ref-as-prop</DocHeading>
+      <Prose>
+        <p>No component uses forwardRef. ref is declared as an ordinary prop:</p>
+      </Prose>
+      <CodeBlock
+        code={`export function Button({ ref, ...props }: ButtonProps) {
+  return <button ref={ref} {...props} />;
+}`}
+      />
+      <Prose>
+        <p>Dialog goes further and calls useImperativeHandle directly on the ref:</p>
+      </Prose>
+      <CodeBlock
+        code={`export function Dialog({ children, ref }: DialogProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  useImperativeHandle(ref, () => ({
+    open: () => dialogRef.current?.showModal(),
+    close: () => dialogRef.current?.close(),
+  }));
+  return <dialog ref={dialogRef}>{children}</dialog>;
+}`}
+      />
+
+      <DocHeading level="h3">4.2 Variant files</DocHeading>
+      <Prose>
+        <p>
+          Every cva() call lives in its own ComponentName.variants.ts file beside the component.
+          This means the variant config can be imported and tested independently.
+        </p>
+      </Prose>
+
+      <DocHeading level="h3">4.3 Stateless components, stateful hooks</DocHeading>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-border border-b">
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">
+                Needs state?
+              </th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Component</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">
+                Hook that owns the state
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Yes', 'ThemeProvider', 'useThemeState(defaultTheme?, persist?)'],
+              ['Yes', 'ToastProvider / ToastViewport', 'useToastQueue()'],
+              ['Yes', 'Tabs', 'useTabsState(defaultValue)'],
+              ['Yes', 'Sidebar', 'useSidebarState(defaultOpen?)'],
+              ['Yes', 'FloatingNav', 'useFloatingNavState()'],
+              ['Yes', 'ScrollReveal', 'useScrollRevealState(threshold?)'],
+              [
+                'No — native element owns state',
+                'AccordionItem, Dialog, Checkbox, Radio, Switch, Slider',
+                '—'
+              ],
+              ['No — pure CSS', 'Popover, Tooltip', '—'],
+              ['No — ref only', 'Carousel, ColorPalette', '—']
+            ].map(([needs, comp, hook]) => (
+              <tr
+                key={comp}
+                className="border-border border-b"
+              >
+                <td className="text-foreground-dim px-3 py-2">{needs}</td>
+                <td className="text-foreground px-3 py-2 font-mono">{comp}</td>
+                <td className="text-foreground-muted px-3 py-2 font-mono">{hook}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <DocHeading level="h3">4.4 File layout</DocHeading>
+      <CodeBlock
+        code={`src/
+  styles/
+    styles.css              @import "tailwindcss"
+    gruvbox-theme.css       theme tokens + CSS-only component behaviors
+  lib/
+    cn.ts                   clsx + tailwind-merge helper
+    colorVariant.ts         shared 6-value ColorVariant type + helpers
+  hooks/
+    useThemeState.ts        useToastQueue.ts    useTabsState.ts
+    useFloatingNavState.ts  useScrollRevealState.ts
+    useSidebarState.ts      useResizeObserver.ts
+  theme/
+    ThemeProvider.tsx       useTheme.ts
+  components/
+    data-entry/     Button, Checkbox, HelperText, Input, Label,
+                    Radio, Select, Slider, Switch, Textarea
+    data-display/   Accordion, Badge, Card, Carousel, ChangelogItem,
+                    ColorSwatch, Hero, MenuItem, NotificationItem,
+                    Popover, ScrollReveal, SectionHeader, SectionHeading, Tooltip
+    feedback/       Alert, Dialog, ErrorBoundary, Toast
+    navigation/     FloatingNav, Tabs
+    widgets/        ColorPalette, Sidebar
+    Cards/          CategoryCard, DocCard, ProjectCard, CardLink
+    ControlPanel/   ControlPanel, ControlSection, ControlRow, etc.
+    icons/          Icon, iconMap, createIcon
+  index.ts          barrel export`}
+      />
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §5 — Variant system                                                */
+/* ------------------------------------------------------------------ */
+
+function VariantSystemSection() {
+  return (
+    <section
+      id="variants"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">5. Variant system</DocHeading>
+      <Prose>
+        <p>Defined once in lib/colorVariant.ts, used by every component:</p>
+      </Prose>
+      <CodeBlock
+        code={`type ColorVariant = "default" | "primary" | "secondary" | "accent" | "warning" | "destructive";`}
+      />
+      <Prose>
+        <p>
+          <strong>default</strong> is neutral (--foreground-dim); the other five map to the semantic
+          CSS variables.
+        </p>
+        <p>There are two ways a component consumes variant:</p>
+      </Prose>
+
+      <DocHeading level="h4">5.1 Full color, via cva</DocHeading>
+      <Prose>
+        <p>
+          Used when the variant changes multiple properties at once (background AND text color AND
+          focus ring).
+        </p>
+      </Prose>
+      <CodeBlock
+        code={`export const buttonVariants = cva("inline-flex ...", {
+  variants: {
+    variant: {
+      default: "bg-surface-raised text-foreground ...",
+      primary: "bg-primary text-primary-foreground ...",
+    },
+    size: { sm: "...", default: "...", lg: "...", icon: "..." },
+  },
+  defaultVariants: { variant: "default", size: "default" },
+});`}
+      />
+
+      <DocHeading level="h4">5.2 Single accent, via --_color</DocHeading>
+      <Prose>
+        <p>
+          Used when only one value changes — a focus ring, an accent dot, a glow color. The
+          component sets --_color from colorVar(variant) and CSS reads it.
+        </p>
+      </Prose>
+      <CodeBlock code={`<span style={colorVarStyle(variant)} />`} />
+
+      <DocHeading level="h3">5.3 Component variant reference</DocHeading>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-border border-b">
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Component</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Mechanism</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Default</th>
+              <th className="text-foreground-muted px-3 py-2 text-left font-medium">
+                What it colors
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Button', 'cva', 'default', 'background + text'],
+              ['Badge', '--_color', 'default', 'soft/solid/outline/dot fill'],
+              ['Input / Textarea', '--_ring', 'primary', 'focus border + ring'],
+              ['Select', '--_ring', 'primary', 'focus border + ring'],
+              ['Switch', '--_color', 'primary', 'checked-state fill'],
+              ['Checkbox / Radio / Slider', 'accent-color', 'primary', 'native accent'],
+              ['Card', '--_color', 'primary', ':has() hover glow'],
+              ['Tabs', '--_color', 'primary', 'active tab underline'],
+              ['Alert', 'cva', 'default', 'tinted background + icon'],
+              ['Label / HelperText', 'cva', 'default', 'text color'],
+              ['ChangelogItem', '--_color', 'primary', 'version label'],
+              ['Hero', '--_color', 'primary', 'gradient accent'],
+              ['MenuItem', '--_color', 'default', 'icon background'],
+              ['NotificationItem', '--_color', 'primary', 'icon background'],
+              ['SectionHeader / SectionHeading', '--_color', 'primary', 'title + link'],
+              ['ColorPalette', '--_color', 'primary', 'selection ring'],
+              ['SidebarPanel / SidebarToggle', '--_color', 'default', 'panel accent / button'],
+              ['FloatingNav', '--_color', 'primary', 'brand text'],
+              ['ErrorBoundary', '--_color', 'destructive', 'fallback accent'],
+              ['ControlSection', 'cva', 'default', 'header + border']
+            ].map(([comp, mech, def, colors]) => (
+              <tr
+                key={comp}
+                className="border-border border-b"
+              >
+                <td className="text-foreground px-3 py-2 font-mono">{comp}</td>
+                <td className="text-foreground-muted px-3 py-2 font-mono">{mech}</td>
+                <td className="text-foreground-dim px-3 py-2 font-mono">{def}</td>
+                <td className="text-foreground-dim px-3 py-2">{colors}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §6 — Component demos                                               */
 /* ------------------------------------------------------------------ */
 
 function HeroDemo() {
   return (
     <DemoSection
+      id="component-hero"
       title="Hero"
       intro="Full-width hero section with badge, gradient headline, optional description, and CTA slot."
       code={`<Hero
@@ -239,6 +698,7 @@ function HeroDemo() {
 function ButtonGallery() {
   return (
     <DemoSection
+      id="component-button"
       title="Button"
       intro="All 6 semantic variants plus ghost/link. Four sizes including icon-only. Loading, disabled, and full-width states."
       apiRows={[
@@ -250,7 +710,7 @@ function ButtonGallery() {
         },
         { prop: 'size', type: '"sm" | "default" | "lg" | "icon"', default: '"default"' },
         {
-          prop: 'isLoading',
+          prop: 'loading',
           type: 'boolean',
           default: 'false',
           notes: 'swaps label for spinner, sets aria-busy'
@@ -259,7 +719,7 @@ function ButtonGallery() {
       ]}
       code={`<Button variant="primary">click me</Button>
 <Button size="sm">small</Button>
-<Button isLoading>loading</Button>
+<Button loading>loading</Button>
 <Button disabled>disabled</Button>
 <Button fullWidth>full width</Button>`}
     >
@@ -299,6 +759,7 @@ function ButtonGallery() {
 function BadgeGallery() {
   return (
     <DemoSection
+      id="component-badge"
       title="Badge"
       intro="Color-driven via --_color. Supports soft (default), solid, and outline appearances plus a dot indicator."
       apiRows={[
@@ -361,130 +822,281 @@ function BadgeGallery() {
   );
 }
 
-function InputGallery() {
+function InputDemo() {
   return (
     <DemoSection
-      title="Input / Label / HelperText / Select / Textarea / Checkbox / Radio / Switch / Slider"
-      intro="All data-entry components share the same ColorVariant prop. Native elements underneath — no custom state management."
+      id="component-input"
+      title="Input"
+      intro="Text input with optional icon, loading spinner, and error state. Focus ring color via variant prop."
       apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"', notes: 'focus ring color' },
+        { prop: 'leadingIcon', type: 'ReactNode', default: '—' },
+        { prop: 'loading', type: 'boolean', default: 'false' },
         {
-          prop: 'Input variant',
-          type: 'ColorVariant',
-          default: '"primary"',
-          notes: 'focus ring color'
-        },
-        { prop: 'Input leadingIcon', type: 'ReactNode', default: '—' },
-        { prop: 'Input isLoading', type: 'boolean', default: 'false' },
-        { prop: 'Label variant', type: 'ColorVariant', default: '"default"' },
-        { prop: 'Label required', type: 'boolean', default: 'false', notes: 'adds * indicator' },
-        { prop: 'HelperText variant', type: 'ColorVariant', default: '"default"' },
-        { prop: 'HelperText icon', type: 'boolean', default: 'false', notes: 'shows alert icon' },
-        { prop: 'Select variant', type: 'ColorVariant', default: '"primary"' },
-        {
-          prop: 'Select placeholder',
-          type: 'string',
-          default: '—',
-          notes: 'disabled first option'
-        },
-        { prop: 'Checkbox / Radio / Switch variant', type: 'ColorVariant', default: '"primary"' },
-        { prop: 'Slider variant', type: 'ColorVariant', default: '"primary"' }
+          prop: 'expandable',
+          type: 'boolean',
+          default: 'false',
+          notes: 'grows from 200px→320px on focus'
+        }
       ]}
-      code={`<Label htmlFor="id">label</Label>
-<Input id="id" placeholder="type..." />
-<HelperText>hint</HelperText>
-<Select><option>opt</option></Select>
-<Textarea placeholder="write..." />
-<Checkbox defaultChecked label="option" />
-<Radio name="g" defaultChecked label="2d" />
-<Switch defaultChecked label="fullscreen" />
-<Slider defaultValue={65} />`}
+      code={`<Input placeholder="type something..." />
+<Input placeholder="search..." leadingIcon={<Search />} />
+<Input variant="destructive" defaultValue="bad input" />
+<Input disabled value="cant touch this" />`}
     >
-      <div className="max-w-sm space-y-4">
-        <div className="space-y-1.5">
-          <Label htmlFor="input-default">default</Label>
-          <Input
-            id="input-default"
-            placeholder="type something..."
-          />
+      <div className="max-w-sm space-y-3">
+        <Input placeholder="type something..." />
+        <Input
+          placeholder="search..."
+          leadingIcon={<Search className="h-3.5 w-3.5" />}
+        />
+        <Input
+          variant="destructive"
+          defaultValue="bad input"
+        />
+        <Input
+          disabled
+          value="cant touch this"
+        />
+      </div>
+    </DemoSection>
+  );
+}
+
+function LabelDemo() {
+  return (
+    <DemoSection
+      id="component-label"
+      title="Label"
+      intro="Form label with optional required indicator. Variant controls the text color."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"default"' },
+        { prop: 'required', type: 'boolean', default: 'false', notes: 'adds * indicator' }
+      ]}
+      code={`<Label htmlFor="input-id">Username</Label>
+<Label htmlFor="req" required>Email</Label>
+<Label htmlFor="err" variant="destructive">Error field</Label>`}
+    >
+      <div className="max-w-sm space-y-3">
+        <div className="space-y-1">
+          <Label htmlFor="label-default">Username</Label>
+          <Input id="label-default" />
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="input-icon">with icon</Label>
-          <Input
-            id="input-icon"
-            placeholder="search..."
-            leadingIcon={<Search className="h-3.5 w-3.5" />}
-          />
-        </div>
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           <Label
-            htmlFor="input-error"
+            htmlFor="label-req"
+            required
+          >
+            Email
+          </Label>
+          <Input id="label-req" />
+        </div>
+        <div className="space-y-1">
+          <Label
+            htmlFor="label-err"
             variant="destructive"
           >
-            email
+            Password
           </Label>
           <Input
-            id="input-error"
+            id="label-err"
             variant="destructive"
-            defaultValue="not-an-email"
-            aria-describedby="email-error"
+          />
+        </div>
+      </div>
+    </DemoSection>
+  );
+}
+
+function HelperTextDemo() {
+  return (
+    <DemoSection
+      id="component-helpertext"
+      title="HelperText"
+      intro="Hint or error text displayed below an input. Variant controls text color; icon mode shows an alert icon."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"default"' },
+        { prop: 'icon', type: 'boolean', default: 'false', notes: 'shows alert icon' }
+      ]}
+      code={`<HelperText>Must be at least 8 characters.</HelperText>
+<HelperText variant="destructive" icon>This field is required.</HelperText>`}
+    >
+      <div className="max-w-sm space-y-3">
+        <div>
+          <Input placeholder="password" />
+          <HelperText>Must be at least 8 characters.</HelperText>
+        </div>
+        <div>
+          <Input
+            variant="destructive"
+            defaultValue="short"
           />
           <HelperText
-            id="email-error"
             variant="destructive"
             icon
           >
-            enter a valid email address.
+            Too short — min 8 characters.
           </HelperText>
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="input-disabled">disabled</Label>
-          <Input
-            id="input-disabled"
-            disabled
-            value="cant touch this"
-          />
-        </div>
+      </div>
+    </DemoSection>
+  );
+}
 
-        <Select
-          variant="primary"
-          placeholder="choose a category..."
-        >
+function TextareaDemo() {
+  return (
+    <DemoSection
+      id="component-textarea"
+      title="Textarea"
+      intro="Auto-growing textarea using field-sizing: content. Focus ring color via variant."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"' },
+        { prop: 'autoGrow', type: 'boolean', default: 'true', notes: 'uses field-sizing: content' }
+      ]}
+      code={`<Textarea placeholder="start typing..." />`}
+    >
+      <div className="max-w-sm">
+        <Textarea placeholder="start typing — grows with content..." />
+      </div>
+    </DemoSection>
+  );
+}
+
+function SelectDemo() {
+  return (
+    <DemoSection
+      id="component-select"
+      title="Select"
+      intro="Native &lt;select&gt; styled to match Input/Textarea. The browser supplies the picker UI, keyboard support, and type-ahead search."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"', notes: 'focus ring color' },
+        { prop: 'size', type: '"sm" | "default" | "lg"', default: '"default"' },
+        {
+          prop: 'placeholder',
+          type: 'string',
+          default: '—',
+          notes: 'renders a disabled first option'
+        },
+        { prop: 'leadingIcon', type: 'ReactNode', default: '—' }
+      ]}
+      code={`<Select placeholder="choose...">
+  <option value="generative">generative</option>
+  <option value="shader">shader</option>
+</Select>`}
+    >
+      <div className="max-w-sm space-y-3">
+        <Select placeholder="choose a category...">
           <option value="generative">generative</option>
           <option value="shader">shader</option>
           <option value="simulation">simulation</option>
         </Select>
-        <Textarea placeholder="start typing — grows with content..." />
-        <div className="flex flex-col gap-2.5">
-          <Checkbox
-            id="chk1"
-            defaultChecked
-            label="generative"
-          />
-          <Checkbox
-            id="chk2"
-            variant="accent"
-            label="color"
-          />
-          <Checkbox
-            id="chk3"
-            variant="secondary"
-            disabled
-            label="disabled"
-          />
-        </div>
-        <div className="flex gap-6">
-          <Radio
-            id="r1"
-            name="group-1"
-            defaultChecked
-            label="2d"
-          />
-          <Radio
-            id="r2"
-            name="group-1"
-            label="3d"
-          />
-        </div>
+        <Select
+          variant="destructive"
+          placeholder="required field"
+        >
+          <option value="">select...</option>
+          <option value="opt1">option 1</option>
+        </Select>
+      </div>
+    </DemoSection>
+  );
+}
+
+function CheckboxDemo() {
+  return (
+    <DemoSection
+      id="component-checkbox"
+      title="Checkbox"
+      intro="Native checkbox with accent-color via variant prop. Supports label prop for a styled &lt;label&gt; wrapper."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"' },
+        {
+          prop: 'label',
+          type: 'ReactNode',
+          default: '—',
+          notes: 'wraps input + label in a <label>'
+        }
+      ]}
+      code={`<Checkbox defaultChecked label="option" />
+<Checkbox variant="accent" label="accent" />
+<Checkbox disabled label="disabled" />`}
+    >
+      <div className="flex flex-col gap-2.5">
+        <Checkbox
+          id="chk1"
+          defaultChecked
+          label="generative"
+        />
+        <Checkbox
+          id="chk2"
+          variant="accent"
+          label="color"
+        />
+        <Checkbox
+          id="chk3"
+          variant="secondary"
+          label="shader"
+        />
+        <Checkbox
+          id="chk4"
+          disabled
+          label="disabled"
+        />
+      </div>
+    </DemoSection>
+  );
+}
+
+function RadioDemo() {
+  return (
+    <DemoSection
+      id="component-radio"
+      title="Radio"
+      intro="Native radio input with accent-color via variant. Share a name prop to group radios."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"' },
+        { prop: 'label', type: 'ReactNode', default: '—' }
+      ]}
+      code={`<Radio name="group" defaultChecked label="2d" />
+<Radio name="group" label="3d" />`}
+    >
+      <div className="flex gap-6">
+        <Radio
+          id="r1"
+          name="radio-demo"
+          defaultChecked
+          label="2d"
+        />
+        <Radio
+          id="r2"
+          name="radio-demo"
+          label="3d"
+        />
+        <Radio
+          id="r3"
+          name="radio-demo"
+          label="simulation"
+        />
+      </div>
+    </DemoSection>
+  );
+}
+
+function SwitchDemo() {
+  return (
+    <DemoSection
+      id="component-switch"
+      title="Switch"
+      intro='Restyled checkbox with role="switch". Checked-state fill color via variant.'
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"' },
+        { prop: 'label', type: 'ReactNode', default: '—' }
+      ]}
+      code={`<Switch defaultChecked label="fullscreen" />
+<Switch variant="accent" label="loop" />
+<Switch variant="secondary" label="dark mode" />`}
+    >
+      <div className="flex flex-col gap-2.5">
         <Switch
           id="sw1"
           defaultChecked
@@ -492,40 +1104,64 @@ function InputGallery() {
         />
         <Switch
           id="sw2"
-          variant="secondary"
+          variant="accent"
           label="loop"
         />
-        <Slider defaultValue={65} />
+        <Switch
+          id="sw3"
+          variant="secondary"
+          defaultChecked
+          label="dark mode"
+        />
       </div>
     </DemoSection>
   );
 }
 
-function CardGallery() {
+function SliderDemo() {
   return (
     <DemoSection
-      title="Card / CardLink"
-      intro="Card has an interactive variant with :has() hover glow. CardLink makes the entire surface a click target with neon tube glow."
+      id="component-slider"
+      title="Slider"
+      intro="Native range input with accent-color via variant. Optional tick labels below the track."
       apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"' },
         {
-          prop: 'Card interactive',
+          prop: 'showTicks',
           type: 'boolean',
-          default: 'false',
-          notes: 'enables :has() glow on .card-actions hover'
-        },
+          default: 'true',
+          notes: 'min/mid/max labels below track'
+        }
+      ]}
+      code={`<Slider defaultValue={65} />`}
+    >
+      <div className="max-w-xs space-y-4">
+        <Slider defaultValue={65} />
+        <Slider
+          variant="accent"
+          defaultValue={30}
+        />
+      </div>
+    </DemoSection>
+  );
+}
+
+function CardDemo() {
+  const [count, setCount] = useState(1);
+  return (
+    <DemoSection
+      id="component-card"
+      title="Card"
+      intro="Card has an interactive variant with :has() hover glow. Sub-components: CardImage, CardBody, CardTitle, CardDescription, CardFooter, CardActions."
+      apiRows={[
+        { prop: 'interactive', type: 'boolean', default: 'false', notes: 'enables :has() glow' },
         {
-          prop: 'Card variant',
+          prop: 'variant',
           type: 'ColorVariant',
           default: '"primary"',
-          notes: 'glow color, only if interactive'
+          notes: 'glow color (if interactive)'
         },
-        { prop: 'CardLink href', type: 'string', default: 'required' },
-        {
-          prop: 'CardLink accent',
-          type: 'string',
-          default: 'accentTokens.primary',
-          notes: 'any CSS color'
-        }
+        { prop: 'horizontal', type: 'boolean', default: 'false', notes: 'row layout on landscape+' }
       ]}
       code={`<Card interactive variant="accent">
   <CardImage src="..." />
@@ -534,13 +1170,9 @@ function CardGallery() {
     <CardDescription>description</CardDescription>
   </CardBody>
   <CardActions>
-    <Button variant="ghost" size="icon"><Settings /></Button>
+    <Button variant="ghost" size="icon"><Cog /></Button>
   </CardActions>
-</Card>
-
-<CardLink href="/" accent={accentTokens.primary}>
-  <CardTitle>link card</CardTitle>
-</CardLink>`}
+</Card>`}
     >
       <div className="grid grid-cols-1 gap-4 landscape:grid-cols-2">
         <Card
@@ -558,35 +1190,94 @@ function CardGallery() {
             <CardTitle>oklch palette generator</CardTitle>
             <CardDescription>harmonious palettes in perceptually uniform space.</CardDescription>
           </CardBody>
+          <CardFooter>
+            <span className="text-foreground-dim text-xs">2 days ago</span>
+            <span className="text-foreground-dim text-xs">{count} views</span>
+          </CardFooter>
           <CardActions>
-            <Tooltip content="save">
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="save"
-              >
-                <User className="h-3.5 w-3.5" />
-              </Button>
-            </Tooltip>
             <Tooltip content="settings">
               <Button
                 variant="ghost"
                 size="icon"
                 aria-label="settings"
+                onClick={() => {
+                  setCount((c) => c + 1);
+                }}
               >
-                <Settings className="h-3.5 w-3.5" />
+                <Cog className="h-3.5 w-3.5" />
               </Button>
             </Tooltip>
           </CardActions>
         </Card>
+        <Card>
+          <CardImage src="https://picsum.photos/seed/pg1/400/225.jpg" />
+          <CardBody>
+            <Badge
+              variant="primary"
+              className="mb-2"
+            >
+              generative
+            </Badge>
+            <CardTitle>flow field exploration</CardTitle>
+            <CardDescription>perlin noise fields and particle tracing.</CardDescription>
+          </CardBody>
+          <CardFooter>
+            <span className="text-foreground-dim text-xs">2 days ago</span>
+            <Button
+              variant="primary"
+              size="sm"
+            >
+              view
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    </DemoSection>
+  );
+}
+
+function CardLinkDemo() {
+  return (
+    <DemoSection
+      id="component-cardlink"
+      title="CardLink"
+      intro="Makes the entire card surface a click target with neon tube glow. Uses the accentTokens system."
+      apiRows={[
+        { prop: 'href', type: 'string', default: 'required' },
+        { prop: 'accent', type: 'string', default: 'accentTokens.primary', notes: 'any CSS color' }
+      ]}
+      code={`<CardLink href="/" accent={accentTokens.primary}>
+  <CardImage src="..." />
+  <CardBody>
+    <CardTitle>link card</CardTitle>
+    <CardDescription>description</CardDescription>
+  </CardBody>
+</CardLink>`}
+    >
+      <div className="grid grid-cols-1 gap-4 landscape:grid-cols-2">
         <CardLink
           href="/"
           accent={accentTokens.primary}
         >
           <CardImage src="https://picsum.photos/seed/pg3/400/225.jpg" />
           <CardBody>
-            <CardTitle>card link</CardTitle>
+            <CardTitle>primary link</CardTitle>
             <CardDescription>entire surface is the click target.</CardDescription>
+          </CardBody>
+        </CardLink>
+        <CardLink
+          href="/"
+          accent={accentTokens.accent}
+        >
+          <CardBody>
+            <Badge
+              variant="accent"
+              className="mb-2"
+            >
+              accent
+            </Badge>
+            <CardTitle>accent glow</CardTitle>
+            <CardDescription>neon tube effect with color-mix().</CardDescription>
           </CardBody>
         </CardLink>
       </div>
@@ -597,8 +1288,9 @@ function CardGallery() {
 function AccordionDemo() {
   return (
     <DemoSection
-      title="Accordion"
-      intro="Built on native <details> elements. Accordion is just a styled wrapper; AccordionItem is a <details> with a CSS rotating chevron."
+      id="component-accordion"
+      title="Accordion / AccordionItem"
+      intro="Built on native &lt;details&gt; elements. Accordion is a styled wrapper; AccordionItem is a &lt;details&gt; with a CSS rotating chevron."
       code={`<Accordion>
   <AccordionItem title="question?" open>answer</AccordionItem>
   <AccordionItem title="another?">answer</AccordionItem>
@@ -627,8 +1319,14 @@ function TabsDemo() {
   const tabs = useTabsState('overview');
   return (
     <DemoSection
+      id="component-tabs"
       title="Tabs"
-      intro="Fully controlled via useTabsState. Built on a native radio group (visually-hidden inputs) with CSS-only underline animation."
+      intro="Fully controlled via useTabsState. Built on a native radio group with CSS-only underline animation."
+      apiRows={[
+        { prop: 'Tabs value', type: 'string', default: 'required' },
+        { prop: 'Tabs onValueChange', type: '(v: string) => void', default: 'required' },
+        { prop: 'variant', type: 'ColorVariant', default: '"primary"', notes: 'underline color' }
+      ]}
       code={`const tabs = useTabsState("overview");
 <Tabs value={tabs.value} onValueChange={tabs.setValue}>
   <TabsList>
@@ -675,13 +1373,16 @@ function TabsDemo() {
 function CarouselDemo() {
   return (
     <DemoSection
-      title="Carousel"
+      id="component-carousel"
+      title="Carousel / CarouselSlide"
       intro="CSS scroll-snap with overflow-x: scroll. Arrow buttons call scrollBy on the track ref. Touch users can swipe without JS."
+      apiRows={[
+        { prop: 'scrollAmount', type: 'number', default: '280', notes: 'px per arrow click' },
+        { prop: 'hideArrows', type: 'boolean', default: 'false' }
+      ]}
       code={`<Carousel>
-  <CarouselSlide>
-    <img src="..." />
-    <div className="p-3"><p>label</p></div>
-  </CarouselSlide>
+  <CarouselSlide>...</CarouselSlide>
+  <CarouselSlide>...</CarouselSlide>
 </Carousel>`}
     >
       <Carousel>
@@ -705,10 +1406,12 @@ function CarouselDemo() {
 function PopoverDemo() {
   return (
     <DemoSection
+      id="component-popover"
       title="Popover"
       intro="Hover/focus-triggered via Tailwind group/group-hover — no JS, no positioning library, no portal."
       apiRows={[
         { prop: 'trigger', type: 'ReactNode', default: 'required' },
+        { prop: 'widthClassName', type: 'string', default: '"w-60"' },
         { prop: 'align', type: '"left" | "center"', default: '"center"' }
       ]}
       code={`<Popover trigger={<Button>profile</Button>}>
@@ -745,18 +1448,83 @@ function PopoverDemo() {
   );
 }
 
+function TooltipDemo() {
+  return (
+    <DemoSection
+      id="component-tooltip"
+      title="Tooltip"
+      intro="CSS-only ::after bubble on hover/focus-visible. Clones the child element and adds data-tooltip attribute. No portal, no measurement."
+      apiRows={[
+        { prop: 'content', type: 'string', default: 'required' },
+        { prop: 'variant', type: 'ColorVariant', default: '"default"' }
+      ]}
+      code={`<Tooltip content="settings">
+  <Button variant="ghost" size="icon"><Settings /></Button>
+</Tooltip>`}
+    >
+      <div className="flex gap-3">
+        <Tooltip content="settings">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="settings"
+          >
+            <Settings className="h-3.5 w-3.5" />
+          </Button>
+        </Tooltip>
+        <Tooltip content="delete">
+          <Button
+            variant="destructive"
+            size="icon"
+            aria-label="delete"
+          >
+            <Globe className="h-3.5 w-3.5" />
+          </Button>
+        </Tooltip>
+        <Tooltip content="save">
+          <Button
+            variant="primary"
+            size="icon"
+            aria-label="save"
+          >
+            <Info className="h-3.5 w-3.5" />
+          </Button>
+        </Tooltip>
+      </div>
+    </DemoSection>
+  );
+}
+
 function DialogDemo() {
   const dialogRef = useRef<DialogHandle>(null);
   return (
     <DemoSection
+      id="component-dialog"
       title="Dialog"
-      intro="Wraps native <dialog>. The ref exposes open/close via useImperativeHandle. Focus trapping, Esc-to-close, and ::backdrop blur are all native."
+      intro="Wraps native &lt;dialog&gt;. The ref exposes open/close via useImperativeHandle. Focus trapping, Esc-to-close, and ::backdrop blur are all native."
+      apiRows={[
+        {
+          prop: 'ref',
+          type: 'Ref<DialogHandle>',
+          default: 'required',
+          notes: '{ open(), close() }'
+        },
+        { prop: 'onClose', type: '() => void', default: '—' },
+        {
+          prop: 'DialogActions variant',
+          type: 'ColorVariant',
+          default: '"primary"',
+          notes: 'confirm button color'
+        }
+      ]}
       code={`const ref = useRef<DialogHandle>(null);
 <Button onClick={() => ref.current?.open()}>open</Button>
 <Dialog ref={ref}>
-  <DialogTitle>title</DialogTitle>
-  <DialogDescription>description</DialogDescription>
-  <DialogActions dialogRef={ref} variant="primary" />
+  <DialogBody>
+    <DialogTitle>title</DialogTitle>
+    <DialogDescription>description</DialogDescription>
+  </DialogBody>
+  <DialogActions dialogRef={ref} />
 </Dialog>`}
     >
       <Button onClick={() => dialogRef.current?.open()}>open dialog</Button>
@@ -779,18 +1547,14 @@ function DialogDemo() {
 function AlertGallery() {
   return (
     <DemoSection
+      id="component-alert"
       title="Alert"
       intro="Each of the 6 variants gets a tinted background and a per-variant icon. Optional title, description, and custom icon."
       apiRows={[
         { prop: 'variant', type: 'ColorVariant', default: '"default"' },
         { prop: 'title', type: 'ReactNode', default: 'required' },
         { prop: 'description', type: 'ReactNode', default: '—' },
-        {
-          prop: 'icon',
-          type: 'ReactNode',
-          default: '—',
-          notes: 'overrides per-variant default icon'
-        }
+        { prop: 'icon', type: 'ReactNode', default: '—', notes: 'overrides default icon' }
       ]}
       code={`<Alert variant="primary" title="info" description="description" />`}
     >
@@ -808,49 +1572,13 @@ function AlertGallery() {
   );
 }
 
-function TooltipDemo() {
-  return (
-    <DemoSection
-      title="Tooltip"
-      intro="CSS-only ::after bubble on hover/focus-visible. Clones the child element and adds data-tooltip attribute. No portal, no measurement."
-      apiRows={[
-        { prop: 'content', type: 'string', default: 'required' },
-        { prop: 'variant', type: 'ColorVariant', default: '"default"' }
-      ]}
-      code={`<Tooltip content="settings">
-  <Button>hover me</Button>
-</Tooltip>`}
-    >
-      <div className="flex gap-3">
-        <Tooltip content="settings">
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="settings"
-          >
-            <Settings className="h-3.5 w-3.5" />
-          </Button>
-        </Tooltip>
-        <Tooltip content="delete">
-          <Button
-            variant="destructive"
-            size="icon"
-            aria-label="delete"
-          >
-            <Bell className="h-3.5 w-3.5" />
-          </Button>
-        </Tooltip>
-      </div>
-    </DemoSection>
-  );
-}
-
 function ToastDemo() {
   const { toast } = useToast();
   return (
     <DemoSection
+      id="component-toast"
       title="Toast"
-      intro="Stateless ToastProvider + ToastViewport relay state from useToastQueue. The useToast() hook is the consumer API. Animates in/out with CSS @starting-style."
+      intro="Stateless ToastProvider + ToastViewport relay state from useToastQueue. Animates in/out with CSS @starting-style."
       code={`const { toast } = useToast();
 toast({ variant: "primary", title: "saved", description: "done." });`}
     >
@@ -872,8 +1600,9 @@ toast({ variant: "primary", title: "saved", description: "done." });`}
 function SectionHeaderDemo() {
   return (
     <DemoSection
+      id="component-sectionheader"
       title="SectionHeader"
-      intro="Section header with optional icon, description, and a 'View all' link. Accent color via variant prop."
+      intro="Section header with optional icon, description, and a 'View all' link. Accent color via variant."
       apiRows={[
         { prop: 'title', type: 'string', default: 'required' },
         { prop: 'description', type: 'string', default: '—' },
@@ -884,7 +1613,7 @@ function SectionHeaderDemo() {
       ]}
       code={`<SectionHeader
   title="projects"
-  description="explore creative coding experiments."
+  description="explore creative coding."
   icon={<Zap />}
   href="/projects"
 />`}
@@ -902,6 +1631,7 @@ function SectionHeaderDemo() {
 function SectionHeadingDemo() {
   return (
     <DemoSection
+      id="component-sectionheading"
       title="SectionHeading"
       intro="Decorative heading pair: a small uppercase label + a larger title. Good for page sections."
       apiRows={[
@@ -928,6 +1658,7 @@ function SectionHeadingDemo() {
 function ColorSwatchGallery() {
   return (
     <DemoSection
+      id="component-colorswatch"
       title="ColorSwatch"
       intro="Displays a color box with its name and optional CSS token reference. Two sizes available."
       apiRows={[
@@ -957,25 +1688,6 @@ function ColorSwatchGallery() {
           />
         ))}
       </div>
-      <div className="mt-3 flex flex-wrap gap-6">
-        {(
-          [
-            ['var(--red)', 'Red'],
-            ['var(--green)', 'Green'],
-            ['var(--blue)', 'Blue'],
-            ['var(--purple)', 'Purple'],
-            ['var(--aqua)', 'Aqua'],
-            ['var(--orange)', 'Orange']
-          ] as const
-        ).map(([c, n]) => (
-          <ColorSwatch
-            key={n}
-            color={c}
-            name={n}
-            size="sm"
-          />
-        ))}
-      </div>
     </DemoSection>
   );
 }
@@ -983,6 +1695,7 @@ function ColorSwatchGallery() {
 function ChangelogGallery() {
   return (
     <DemoSection
+      id="component-changelogitem"
       title="ChangelogItem"
       intro="A version + description pair for changelogs. The version label is colored via variant."
       apiRows={[
@@ -1018,6 +1731,7 @@ function ChangelogGallery() {
 function NotificationItemDemo() {
   return (
     <DemoSection
+      id="component-notificationitem"
       title="NotificationItem"
       intro="Notification row with icon, title, and timestamp. The icon background picks up the variant color."
       apiRows={[
@@ -1035,7 +1749,7 @@ function NotificationItemDemo() {
     >
       <div className="max-w-sm space-y-3">
         <NotificationItem
-          icon={<Bell className="h-4 w-4" />}
+          icon={<CircleCheck className="h-4 w-4" />}
           title="New version released"
           timestamp="2 hours ago"
           variant="primary"
@@ -1047,9 +1761,90 @@ function NotificationItemDemo() {
           variant="secondary"
         />
         <NotificationItem
-          icon={<Zap className="h-4 w-4" />}
+          icon={<TriangleAlert className="h-4 w-4" />}
           title="Build failed"
           timestamp="3 days ago"
+          variant="destructive"
+        />
+      </div>
+    </DemoSection>
+  );
+}
+
+function IconGallery() {
+  const names: { name: string; label: string }[] = [
+    { name: 'color', label: 'color' },
+    { name: 'generative', label: 'generative' },
+    { name: 'flame', label: 'flame' },
+    { name: 'simulation', label: 'simulation' },
+    { name: 'data-viz', label: 'data-viz' },
+    { name: 'particles', label: 'particles' },
+    { name: 'automa', label: 'automa' },
+    { name: 'palette', label: 'palette' },
+    { name: 'sparkles', label: 'sparkles' },
+    { name: 'infinity', label: 'infinity' },
+    { name: 'book', label: 'book' },
+    { name: 'code', label: 'code' }
+  ];
+  return (
+    <DemoSection
+      id="component-icon"
+      title="Icon"
+      intro={
+        '44 hand-crafted SVG icons. Use the &lt;Icon name="..." /&gt; component or import individual icons from iconMap. Create your own with createIcon().'
+      }
+      code={`<Icon name="color" className="h-5 w-5" />`}
+    >
+      <div className="flex flex-wrap gap-4">
+        {names.map(({ name, label }) => (
+          <div
+            key={name}
+            className="flex flex-col items-center gap-1.5"
+          >
+            <div className="bg-surface-raised flex size-10 items-center justify-center rounded-lg shadow-xs">
+              <Icon
+                name={name as never}
+                className="h-5 w-5"
+              />
+            </div>
+            <span className="text-foreground-dim text-[10px]">{label}</span>
+          </div>
+        ))}
+      </div>
+    </DemoSection>
+  );
+}
+
+function MenuItemDemo() {
+  return (
+    <DemoSection
+      id="component-menuitem"
+      title="MenuItem"
+      intro="A styled button row with optional icon. The icon background picks up the variant color."
+      apiRows={[
+        { prop: 'icon', type: 'ReactNode', default: '—' },
+        { prop: 'label', type: 'string', default: 'required' },
+        { prop: 'variant', type: 'ColorVariant', default: '"default"' }
+      ]}
+      code={`<MenuItem icon={<Book />} label="docs" />
+<MenuItem label="delete" variant="destructive" />`}
+    >
+      <div className="max-w-50 space-y-1 rounded-lg p-2 shadow-xs">
+        <MenuItem
+          icon={<Book className="h-4 w-4" />}
+          label="documentation"
+        />
+        <MenuItem
+          icon={<Cog className="h-4 w-4" />}
+          label="settings"
+        />
+        <MenuItem
+          icon={<User className="h-4 w-4" />}
+          label="profile"
+        />
+        <hr className="border-border my-1" />
+        <MenuItem
+          label="delete"
           variant="destructive"
         />
       </div>
@@ -1060,6 +1855,7 @@ function NotificationItemDemo() {
 function ColorPaletteDemo() {
   return (
     <DemoSection
+      id="component-colorpalette"
       title="ColorPalette"
       intro="A row/column of color swatches acting as a radio group. The selected palette gets a variant-colored ring."
       apiRows={[
@@ -1099,6 +1895,7 @@ function ColorPaletteDemo() {
 function ScrollRevealDemo() {
   return (
     <DemoSection
+      id="component-scrollreveal"
       title="ScrollReveal"
       intro="Fades and slides up when scrolled into view. Uses IntersectionObserver with a 2s fallback timeout."
       code={`<ScrollReveal>
@@ -1112,91 +1909,13 @@ function ScrollRevealDemo() {
   );
 }
 
-function IconGallery() {
-  const names: { name: string; label: string }[] = [
-    { name: 'color', label: 'color' },
-    { name: 'generative', label: 'generative' },
-    { name: 'flame', label: 'flame' },
-    { name: 'simulation', label: 'simulation' },
-    { name: 'data-viz', label: 'data-viz' },
-    { name: 'particles', label: 'particles' },
-    { name: 'automa', label: 'automa' },
-    { name: 'palette', label: 'palette' },
-    { name: 'sparkles', label: 'sparkles' },
-    { name: 'infinity', label: 'infinity' },
-    { name: 'book', label: 'book' },
-    { name: 'code', label: 'code' }
-  ];
-  return (
-    <DemoSection
-      title="Icon"
-      intro={
-        '44 hand-crafted SVG icons. Use the <Icon name="..." /> component or import individual icons from iconMap. Create your own with createIcon().'
-      }
-      code={`<Icon name="color" className="h-5 w-5" />`}
-    >
-      <div className="flex flex-wrap gap-4">
-        {names.map(({ name, label }) => (
-          <div
-            key={name}
-            className="flex flex-col items-center gap-1.5"
-          >
-            <div className="bg-surface-raised flex size-10 items-center justify-center rounded-lg shadow-xs">
-              <Icon
-                name={name as never}
-                className="h-5 w-5"
-              />
-            </div>
-            <span className="text-foreground-dim text-[10px]">{label}</span>
-          </div>
-        ))}
-      </div>
-    </DemoSection>
-  );
-}
-
-function MenuItemDemo() {
-  return (
-    <DemoSection
-      title="MenuItem"
-      intro="A styled button row with optional icon. The icon background picks up the variant color."
-      apiRows={[
-        { prop: 'icon', type: 'ReactNode', default: '—' },
-        { prop: 'label', type: 'string', default: 'required' },
-        { prop: 'variant', type: 'ColorVariant', default: '"default"' }
-      ]}
-      code={`<MenuItem icon={<Book />} label="docs" />
-<MenuItem label="delete" variant="destructive" />`}
-    >
-      <div className="max-w-50 space-y-1 rounded-lg p-2 shadow-xs">
-        <MenuItem
-          icon={<Book className="h-4 w-4" />}
-          label="documentation"
-        />
-        <MenuItem
-          icon={<Settings className="h-4 w-4" />}
-          label="settings"
-        />
-        <MenuItem
-          icon={<User className="h-4 w-4" />}
-          label="profile"
-        />
-        <hr className="border-border my-1" />
-        <MenuItem
-          label="delete"
-          variant="destructive"
-        />
-      </div>
-    </DemoSection>
-  );
-}
-
 function SidebarDemo() {
   const sidebar = useSidebarState(true);
   return (
     <DemoSection
+      id="component-sidebar"
       title="Sidebar"
-      intro="A compound component (Sidebar, Sidebar.Panel, Sidebar.Main, Sidebar.Toggle) supporting 4 dock positions. State via useSidebarState."
+      intro="A compound component (Sidebar, SidebarPanel, SidebarMain, SidebarToggle) supporting 4 dock positions. State via useSidebarState."
       apiRows={[
         { prop: 'position', type: '"top" | "right" | "bottom" | "left"', default: '"left"' },
         { prop: 'defaultOpen', type: 'boolean', default: 'true' },
@@ -1251,58 +1970,20 @@ function SidebarDemo() {
   );
 }
 
-function throwErrorDemo() {
-  throw new Error('this widget always crashes — demo purposes only.');
-}
-
-function BuggyWidget() {
-  throwErrorDemo();
-  return null;
-}
-
-function ErrorBoundaryDemo() {
-  return (
-    <DemoSection
-      title="ErrorBoundary"
-      intro="Catches React render errors and shows a themed fallback. Custom fallback renderer and onError callback supported."
-      apiRows={[
-        { prop: 'variant', type: 'ColorVariant', default: '"destructive"' },
-        { prop: 'onError', type: '(error: Error) => void', default: '—' },
-        { prop: 'fallback', type: 'FallbackRenderer', default: 'DefaultFallback' }
-      ]}
-      code={`<ErrorBoundary variant="destructive" onError={(e) => console.error(e)}>
-  <BuggyWidget />
-</ErrorBoundary>`}
-    >
-      <ErrorBoundary
-        variant="destructive"
-        onError={(e) => {
-          console.error(e);
-        }}
-      >
-        <BuggyWidget />
-      </ErrorBoundary>
-    </DemoSection>
-  );
-}
-
-function ControlSectionDemo() {
+function ControlPanelDemo() {
   const [seed, setSeed] = useState(0);
   const [noiseOn, setNoiseOn] = useState(false);
 
   return (
     <DemoSection
+      id="component-controlpanel"
       title="ControlPanel"
-      intro="Collapsible control panel for creative-coding tools. ControlSection groups controls by category, ControlConditional conditionally reveals controls."
+      intro="Collapsible control panel for creative-coding tools. Includes ControlSection, ControlRow, ControlConditional, ControlGrid, ControlSubsection."
       code={`<ControlPanel title="parameters" variant="default" dock="bottom-sheet">
   <ControlSection title="noise" variant="secondary">
-    <ControlRow label="enabled">
-      <Switch />
-    </ControlRow>
+    <ControlRow label="enabled"><Switch /></ControlRow>
     <ControlConditional when={visible}>
-      <ControlRow label="seed">
-        <Slider />
-      </ControlRow>
+      <ControlRow label="seed"><Slider /></ControlRow>
     </ControlConditional>
   </ControlSection>
 </ControlPanel>`}
@@ -1380,6 +2061,7 @@ function ControlSectionDemo() {
 function CardGalleries() {
   return (
     <DemoSection
+      id="component-categorycards"
       title="CategoryCard / DocCard / ProjectCard"
       intro="App-specific card variants built on CardLink. Each uses the accentTokens system for its neon glow."
       code={`<CategoryCard title="color" iconName="color" href="/" color={accentTokens.primary} />
@@ -1414,350 +2096,51 @@ function CardGalleries() {
   );
 }
 
+function throwErrorDemo() {
+  throw new Error('this widget always crashes — demo purposes only.');
+}
+
+function BuggyWidget() {
+  throwErrorDemo();
+  return <p>this widget always crashes — demo purposes only.</p>;
+}
+
+function ErrorBoundaryDemo() {
+  return (
+    <DemoSection
+      id="component-errorboundary"
+      title="ErrorBoundary"
+      intro="Catches React render errors and shows a themed fallback. Custom fallback renderer and onError callback supported."
+      apiRows={[
+        { prop: 'variant', type: 'ColorVariant', default: '"destructive"' },
+        { prop: 'onError', type: '(error: Error) => void', default: '—' },
+        { prop: 'fallback', type: 'FallbackRenderer', default: 'DefaultFallback' }
+      ]}
+      code={`<ErrorBoundary variant="destructive" onError={(e) => console.error(e)}>
+  <BuggyWidget />
+</ErrorBoundary>`}
+    >
+      <ErrorBoundary
+        variant="destructive"
+        onError={(e) => {
+          console.error(e);
+        }}
+      >
+        <BuggyWidget />
+      </ErrorBoundary>
+    </DemoSection>
+  );
+}
+
 /* ------------------------------------------------------------------ */
-/*  Documentation sections                                             */
+/*  §7 — Hooks reference                                              */
 /* ------------------------------------------------------------------ */
-
-function PhilosophySection() {
-  return (
-    <section
-      id="philosophy"
-      className="space-y-6"
-    >
-      <DocHeading level="h2">1. Philosophy</DocHeading>
-      <Prose>
-        <p>Four rules shape every decision in this library:</p>
-      </Prose>
-      <div className="grid grid-cols-1 gap-4 landscape:grid-cols-2">
-        {[
-          {
-            title: 'Mobile-first',
-            body: 'Base classes (no breakpoint prefix) are the complete, working experience. landscape: / sm: prefixes only ever add refinements — never fix something that was broken on mobile.'
-          },
-          {
-            title: 'Progressive enhancement',
-            body: 'Prefer the platform. Native &lt;details&gt;, &lt;dialog&gt;, &lt;input&gt;, :has(), :focus-within, @starting-style do real work — they are not decoration on top of JS.'
-          },
-          {
-            title: 'Stateless components, stateful hooks',
-            body: 'No component calls useState. State is extracted into hooks (useThemeState, useToastQueue, useTabsState, useSidebarState…). Components are pure (props) =&gt; JSX functions.'
-          },
-          {
-            title: 'One variant system, everywhere',
-            body: 'Every component that has any notion of "color" accepts the same six-value variant prop (default/primary/secondary/accent/warning/destructive). Learn it once, use it everywhere.'
-          }
-        ].map(({ title, body }) => (
-          <div
-            key={title}
-            className="bg-surface-raised space-y-2 rounded-lg p-5 shadow-xs"
-          >
-            <h4 className="text-foreground text-sm font-medium">{title}</h4>
-            <p className="text-foreground-muted text-xs leading-relaxed">{body}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function SetupSection() {
-  return (
-    <section
-      id="setup"
-      className="space-y-6"
-    >
-      <DocHeading level="h2">2. Installation &amp; setup</DocHeading>
-      <Prose>
-        <p>Install the package and its peer dependencies:</p>
-      </Prose>
-      <CodeBlock
-        code={`pnpm add @repo/ui-v2 class-variance-authority clsx tailwind-merge lucide-react`}
-      />
-      <Prose>
-        <p>
-          <strong>Step 1</strong> — import the stylesheet once at your app root:
-        </p>
-      </Prose>
-      <CodeBlock code={`import "@repo/ui-v2/styles";`} />
-      <Prose>
-        <p>
-          The stylesheet is Tailwind v4 CSS-first config — no tailwind.config.js. It defines the
-          gruvbox color tokens for dark (:root) and light (html[data-theme="light"]), plus every
-          CSS-only interactive behavior the components rely on.
-        </p>
-        <p>
-          <strong>Step 2</strong> — wire up stateful providers. State lives in hooks; providers just
-          relay it:
-        </p>
-      </Prose>
-      <CodeBlock
-        code={`import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from "@repo/ui-v2";
-
-export default function App() {
-  const theme = useThemeState();
-  const toastQueue = useToastQueue();
-
-  return (
-    <ThemeProvider theme={theme.theme} setTheme={theme.setTheme} toggleTheme={theme.toggleTheme}>
-      <ToastProvider toasts={toastQueue.toasts} toast={toastQueue.toast} dismiss={toastQueue.dismiss}>
-        <AppContent />
-      </ToastProvider>
-    </ThemeProvider>
-  );
-}`}
-      />
-      <Prose>
-        <p>
-          Both providers are optional. Dark is the CSS :root default, so an app that never renders
-          ThemeProvider still gets the full dark theme.
-        </p>
-      </Prose>
-    </section>
-  );
-}
-
-function ArchitectureSection() {
-  return (
-    <section
-      id="architecture"
-      className="space-y-6"
-    >
-      <DocHeading level="h2">3. Architecture</DocHeading>
-
-      <DocHeading level="h3">3.1 React 19 ref-as-prop</DocHeading>
-      <Prose>
-        <p>No component uses forwardRef. ref is declared as an ordinary prop:</p>
-      </Prose>
-      <CodeBlock
-        code={`export function Button({ ref, ...props }: ButtonProps) {
-  return <button ref={ref} {...props} />;
-}`}
-      />
-      <Prose>
-        <p>Dialog goes further and calls useImperativeHandle directly on the ref:</p>
-      </Prose>
-      <CodeBlock
-        code={`export function Dialog({ children, ref }: DialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  useImperativeHandle(ref, () => ({
-    open: () => dialogRef.current?.showModal(),
-    close: () => dialogRef.current?.close(),
-  }));
-  return <dialog ref={dialogRef}>{children}</dialog>;
-}`}
-      />
-
-      <DocHeading level="h3">3.2 Variant files</DocHeading>
-      <Prose>
-        <p>
-          Every cva() call lives in its own ComponentName.variants.ts file beside the component.
-          This means the variant config can be imported and tested independently.
-        </p>
-      </Prose>
-
-      <DocHeading level="h3">3.3 Stateless components, stateful hooks</DocHeading>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-xs">
-          <thead>
-            <tr className="border-border border-b">
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">
-                Needs state?
-              </th>
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Component</th>
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">
-                Hook that owns the state
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ['Yes', 'ThemeProvider', 'useThemeState(defaultTheme?, persist?)'],
-              ['Yes', 'ToastProvider / ToastViewport', 'useToastQueue()'],
-              ['Yes', 'Tabs', 'useTabsState(defaultValue)'],
-              ['Yes', 'Sidebar', 'useSidebarState(defaultOpen?)'],
-              ['Yes', 'FloatingNav', 'useFloatingNavState()'],
-              ['Yes', 'ScrollReveal', 'useScrollRevealState(threshold?)'],
-              [
-                'No — native element owns state',
-                'AccordionItem, Dialog, Checkbox, Radio, Switch, Slider',
-                '—'
-              ],
-              ['No — pure CSS', 'Popover, Tooltip', '—'],
-              ['No — ref only', 'Carousel, ColorPalette', '—']
-            ].map(([needs, comp, hook]) => (
-              <tr
-                key={comp}
-                className="border-border border-b"
-              >
-                <td className="text-foreground-dim px-3 py-2">{needs}</td>
-                <td className="text-foreground px-3 py-2 font-mono">{comp}</td>
-                <td className="text-foreground-muted px-3 py-2 font-mono">{hook}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <DocHeading level="h3">3.4 File layout</DocHeading>
-      <CodeBlock
-        code={`src/
-  styles/
-    styles.css              @import "tailwindcss"
-    gruvbox-theme.css       theme tokens + CSS-only component behaviors
-  lib/
-    cn.ts                   clsx + tailwind-merge helper
-    colorVariant.ts         shared 6-value ColorVariant type + helpers
-  hooks/
-    useThemeState.ts        useToastQueue.ts    useTabsState.ts
-    useFloatingNavState.ts  useScrollRevealState.ts
-    useSidebarState.ts      useResizeObserver.ts
-  theme/
-    ThemeProvider.tsx       useTheme.ts
-  components/
-    data-entry/     Button, Checkbox, HelperText, Input, Label,
-                    Radio, Select, Slider, Switch, Textarea
-    data-display/   Accordion, Badge, Card, Carousel, ChangelogItem,
-                    ColorSwatch, Hero, MenuItem, NotificationItem,
-                    Popover, ScrollReveal, SectionHeader, SectionHeading, Tooltip
-    feedback/       Alert, Dialog, ErrorBoundary, Toast
-    navigation/     FloatingNav, Tabs
-    widgets/        ColorPalette, Sidebar
-    Cards/          CategoryCard, DocCard, ProjectCard, CardLink
-    ControlPanel/   ControlPanel, ControlSection, ControlRow, etc.
-    icons/          Icon, iconMap, createIcon
-  index.ts          barrel export`}
-      />
-    </section>
-  );
-}
-
-function VariantSystemSection() {
-  return (
-    <section
-      id="variants"
-      className="space-y-6"
-    >
-      <DocHeading level="h2">4. Variant system</DocHeading>
-      <Prose>
-        <p>Defined once in lib/colorVariant.ts, used by every component:</p>
-      </Prose>
-      <CodeBlock
-        code={`type ColorVariant = "default" | "primary" | "secondary" | "accent" | "warning" | "destructive";`}
-      />
-      <Prose>
-        <p>
-          <strong>default</strong> is neutral (--foreground-dim); the other five map to the semantic
-          CSS variables.
-        </p>
-        <p>There are two ways a component consumes variant. Pick whichever fits:</p>
-      </Prose>
-
-      <DocHeading level="h4">4.1 Full color, via cva</DocHeading>
-      <Prose>
-        <p>
-          Used when the variant changes multiple properties at once (background AND text color AND
-          focus ring).
-        </p>
-      </Prose>
-      <CodeBlock
-        code={`export const buttonVariants = cva("inline-flex ...", {
-  variants: {
-    variant: {
-      default: "bg-surface-raised text-foreground ...",
-      primary: "bg-primary text-primary-foreground ...",
-      // secondary, accent, warning, destructive
-    },
-    size: { sm: "...", default: "...", lg: "...", icon: "..." },
-  },
-  defaultVariants: { variant: "default", size: "default" },
-});`}
-      />
-      <Prose>
-        <p>Used by: Button, Alert, Toast, Input, Label, HelperText, Select, DefaultFallback.</p>
-      </Prose>
-
-      <DocHeading level="h4">4.2 Single accent, via --_color</DocHeading>
-      <Prose>
-        <p>
-          Used when only one value changes — a focus ring, an accent dot, a glow color. The
-          component sets --_color from colorVar(variant) and CSS reads it.
-        </p>
-      </Prose>
-      <CodeBlock
-        code={`import { colorVarStyle, type ColorVariant } from "../lib/colorVariant";
-<span style={colorVarStyle(variant)} />`}
-      />
-      <CodeBlock
-        code={`.badge-soft {
-  background: color-mix(in srgb, var(--_color) 15%, transparent);
-  color: var(--_color);
-}`}
-      />
-      <Prose>
-        <p>
-          Used by: Badge, Switch, Card (glow), Tabs (underline), Checkbox/Radio/Slider
-          (accent-color), Input/Textarea (focus ring), SidebarPanel/SidebarToggle, ChangelogItem,
-          Hero, MenuItem, NotificationItem, SectionHeader/SectionHeading, ColorPalette, FloatingNav.
-        </p>
-      </Prose>
-
-      <DocHeading level="h3">4.3 Component variant reference</DocHeading>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-xs">
-          <thead>
-            <tr className="border-border border-b">
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Component</th>
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Mechanism</th>
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">Default</th>
-              <th className="text-foreground-muted px-3 py-2 text-left font-medium">
-                What it colors
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ['Button', 'cva', 'default', 'background + text'],
-              ['Badge', '--_color', 'default', 'soft/solid/outline/dot fill'],
-              ['Input / Textarea', '--_ring', 'primary', 'focus border + ring'],
-              ['Select', '--_ring', 'primary', 'focus border + ring'],
-              ['Switch', '--_color', 'primary', 'checked-state fill'],
-              ['Checkbox / Radio / Slider', 'accent-color', 'primary', 'native accent'],
-              ['Card', '--_color', 'primary', ':has() hover glow'],
-              ['Tabs', '--_color', 'primary', 'active tab underline'],
-              ['Alert', 'cva', 'default', 'tinted background + icon'],
-              ['Label / HelperText', 'cva', 'default', 'text color'],
-              ['ChangelogItem', '--_color', 'primary', 'version label'],
-              ['Hero', '--_color', 'primary', 'gradient accent'],
-              ['MenuItem', '--_color', 'default', 'icon background'],
-              ['NotificationItem', '--_color', 'primary', 'icon background'],
-              ['SectionHeader / SectionHeading', '--_color', 'primary', 'title + link'],
-              ['ColorPalette', '--_color', 'primary', 'selection ring'],
-              ['SidebarPanel / SidebarToggle', '--_color', 'default', 'panel accent / button'],
-              ['FloatingNav', '--_color', 'primary', 'brand text'],
-              ['ErrorBoundary', '--_color', 'destructive', 'fallback accent'],
-              ['ControlSection', 'cva', 'default', 'header + border']
-            ].map(([comp, mech, def, colors]) => (
-              <tr
-                key={comp}
-                className="border-border border-b"
-              >
-                <td className="text-foreground px-3 py-2 font-mono">{comp}</td>
-                <td className="text-foreground-muted px-3 py-2 font-mono">{mech}</td>
-                <td className="text-foreground-dim px-3 py-2 font-mono">{def}</td>
-                <td className="text-foreground-dim px-3 py-2">{colors}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-}
 
 function HooksSection() {
   return (
     <DemoSection
-      title="Hooks reference"
+      id="hooks"
+      title="7. Hooks reference"
       intro="All stateful hooks in the library. Components never call useState — hooks do."
     >
       <div className="overflow-x-auto">
@@ -1805,18 +2188,104 @@ function HooksSection() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  §8 — Progressive enhancement checklist                             */
+/* ------------------------------------------------------------------ */
+
+function ChecklistSection() {
+  return (
+    <section
+      id="checklist"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">8. Progressive enhancement checklist</DocHeading>
+      <Prose>
+        <p>When touching or extending a component, verify:</p>
+      </Prose>
+      <ul className="text-foreground-muted list-inside list-disc space-y-2 text-sm">
+        <li>
+          Base (mobile) styles have no breakpoint prefix and are fully functional on their own.
+        </li>
+        <li>
+          landscape: / sm: classes only <em>add</em> — removing them should degrade gracefully,
+          never break layout or hide content.
+        </li>
+        <li>
+          If the browser has a native element for this (checkbox, radio, range, details, dialog),
+          you are using it — not reimplementing it with role + aria-* + custom key handlers.
+        </li>
+        <li>
+          :has(), :focus-within, @starting-style, color-mix() stay in globals.css. React only
+          toggles attributes (open, checked, data-active, --_color) on top of them.
+        </li>
+        <li>prefers-reduced-motion is respected (handled globally in globals.css).</li>
+      </ul>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §9 — Accessibility                                                  */
+/* ------------------------------------------------------------------ */
+
+function AccessibilitySection() {
+  return (
+    <section
+      id="accessibility"
+      className="space-y-6"
+    >
+      <DocHeading level="h2">9. Accessibility</DocHeading>
+      <ul className="text-foreground-muted list-inside list-disc space-y-2 text-sm">
+        <li>
+          <strong>Button</strong> sets <code>aria-busy</code> and <code>disabled</code> while{' '}
+          <code>loading</code>.
+        </li>
+        <li>
+          <strong>Switch</strong> sets <code>role="switch"</code> on the underlying checkbox.
+        </li>
+        <li>
+          <strong>Carousel</strong> arrow buttons have explicit <code>aria-label</code>s; the track
+          itself is native scroll, so screen readers and keyboard users can also tab through slide
+          content.
+        </li>
+        <li>
+          <strong>Tabs</strong> uses a real radio group (shared <code>name</code>, native{' '}
+          <code>checked</code>), so arrow-key navigation between triggers is native browser
+          behavior.
+        </li>
+        <li>
+          <strong>Dialog</strong> inherits native <code>&lt;dialog&gt;</code> focus-trap and
+          Esc-to-close.
+        </li>
+        <li>
+          <strong>Toast</strong> items render with <code>role="status"</code>; the dismiss button
+          always has an <code>aria-label</code>.
+        </li>
+        <li>
+          Always pass your own <code>aria-label</code> on icon-only <code>Button</code>s (
+          <code>size="icon"</code>) — the library cannot infer one from an icon alone.
+        </li>
+      </ul>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  §10 — Contributing conventions                                     */
+/* ------------------------------------------------------------------ */
+
 function ContributingSection() {
   return (
     <section
       id="contributing"
       className="space-y-6"
     >
-      <DocHeading level="h2">5. Conventions for contributing</DocHeading>
+      <DocHeading level="h2">10. Conventions for contributing</DocHeading>
       <Prose>
         <ol className="list-inside list-decimal space-y-2">
           <li>
             <strong>File location</strong>:
-            src/components/&lt;category&gt;/&lt;Name&gt;/&lt;Name&gt;.tsx. If it needs cva, add
+            src/components/&lt;category&gt;/&lt;name&gt;/&lt;Name&gt;.tsx. If it needs cva, add
             &lt;Name&gt;.variants.ts beside it.
           </li>
           <li>
@@ -1829,8 +2298,8 @@ function ContributingSection() {
           </li>
           <li>
             <strong>Color, if any</strong>, uses the shared ColorVariant type from
-            lib/colorVariant.ts — don&apos;t invent a parallel color enum. Decide between cva (§4.1)
-            and --_color (§4.2).
+            lib/colorVariant.ts — do not invent a parallel color enum. Decide between cva (§5.1) and
+            --_color (§5.2).
           </li>
           <li>
             <strong>Mobile-first.</strong> No-prefix styles are the complete experience;
@@ -1845,28 +2314,10 @@ function ContributingSection() {
             export (if any), and its state hook (if any).
           </li>
           <li>
-            <strong>Update this page</strong> — add a row to the variant table (§4.3) if it takes
+            <strong>Update this page</strong> — add a row to the variant table (§5.3) if it takes
             variant, and a DemoSection to the component gallery below.
           </li>
         </ol>
-      </Prose>
-      <Prose>
-        <h4 className="text-foreground text-sm font-medium">Progressive enhancement checklist</h4>
-        <ul className="list-inside list-disc space-y-1">
-          <li>
-            Base (mobile) styles have no breakpoint prefix and are fully functional on their own.
-          </li>
-          <li>landscape:/sm: classes only add — removing them degrades gracefully.</li>
-          <li>
-            If the browser has a native element (checkbox, radio, range, details, dialog),
-            you&apos;re using it.
-          </li>
-          <li>
-            :has(), :focus-within, @starting-style, color-mix() stay in CSS. React only toggles
-            attributes.
-          </li>
-          <li>prefers-reduced-motion is respected (handled globally in gruvbox-theme.css).</li>
-        </ul>
       </Prose>
     </section>
   );
@@ -1891,44 +2342,56 @@ function AppContent() {
 
       <PhilosophySection />
       <SetupSection />
+      <DesignTokensSection />
       <ArchitectureSection />
       <VariantSystemSection />
 
-      <DocHeading level="h2">Component reference</DocHeading>
+      <DocHeading level="h2">6. Component reference</DocHeading>
       <Prose>
         <p>
-          Each component entry includes the API table, an interactive example, and collapsible
-          source code.
+          Each component entry includes the API table, a code example, and an interactive live
+          preview.
         </p>
       </Prose>
 
       <ButtonGallery />
       <BadgeGallery />
-      <InputGallery />
-      <CardGallery />
+      <InputDemo />
+      <LabelDemo />
+      <HelperTextDemo />
+      <TextareaDemo />
+      <SelectDemo />
+      <CheckboxDemo />
+      <RadioDemo />
+      <SwitchDemo />
+      <SliderDemo />
+      <CardDemo />
+      <CardLinkDemo />
       <AccordionDemo />
       <TabsDemo />
       <CarouselDemo />
       <PopoverDemo />
+      <TooltipDemo />
       <DialogDemo />
       <AlertGallery />
-      <TooltipDemo />
       <ToastDemo />
       <SectionHeaderDemo />
       <SectionHeadingDemo />
-      <ScrollRevealDemo />
       <ColorSwatchGallery />
       <ChangelogGallery />
       <NotificationItemDemo />
       <IconGallery />
       <MenuItemDemo />
       <ColorPaletteDemo />
+      <ScrollRevealDemo />
       <SidebarDemo />
-      <ControlSectionDemo />
+      <ControlPanelDemo />
       <CardGalleries />
       <ErrorBoundaryDemo />
 
       <HooksSection />
+      <ChecklistSection />
+      <AccessibilitySection />
       <ContributingSection />
     </main>
   );
@@ -1954,9 +2417,13 @@ export function App() {
           links={[
             { label: 'philosophy', href: '#philosophy' },
             { label: 'setup', href: '#setup' },
+            { label: 'tokens', href: '#tokens' },
             { label: 'architecture', href: '#architecture' },
             { label: 'variants', href: '#variants' },
             { label: 'components', href: '#components' },
+            { label: 'hooks', href: '#hooks' },
+            { label: 'checklist', href: '#checklist' },
+            { label: 'a11y', href: '#accessibility' },
             { label: 'contributing', href: '#contributing' }
           ]}
           themeToggle={<ThemeToggleButton />}
