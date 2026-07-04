@@ -82,7 +82,7 @@ export function CarouselSlide({
   return (
     <div
       className={cn(
-        'carousel-slide bg-surface w-[240px] flex-shrink-0 overflow-hidden rounded-lg',
+        'carousel-slide bg-surface w-60 shrink-0 overflow-hidden rounded-lg',
         className
       )}
       style={{ boxShadow: 'var(--shadow-sm)' }}

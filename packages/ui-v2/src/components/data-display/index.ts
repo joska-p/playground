@@ -12,6 +12,7 @@ export {
   type CardProps
 } from './card/Card';
 export { Carousel, CarouselSlide, type CarouselProps } from './carousel/Carousel';
+export { ChangelogItem, type ChangelogItemProps } from './changelog-item/ChangelogItem';
 export {
   ColorSwatch,
   type ColorSwatchProps,
