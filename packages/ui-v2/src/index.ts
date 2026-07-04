@@ -117,25 +117,3 @@ export {
 
 // ControlGrid — a grid of control rows within a ControlSection.
 export { ControlGrid, type ControlGridProps } from './components/ControlPanel/ControlGrid';
-
-// <ControlPanel title="params" variant="primary" dock="top-right">
-//   <ControlSection title="noise" variant="secondary">
-//     <ControlRow label="enabled">
-//       <Switch checked={noiseOn} onChange={e => setNoiseOn(e.target.checked)} />
-//     </ControlRow>
-
-//     <ControlConditional when={noiseOn}>
-//       <ControlRow label="seed" value={seed}>
-//         <Slider min={0} max={9999} value={seed} onChange={e => setSeed(+e.target.value)} />
-//       </ControlRow>
-
-//       <ControlSubsection title="octaves">
-//         <ControlGrid columns={3}>
-//           <ControlRow label="x"><Input type="number" /></ControlRow>
-//           <ControlRow label="y"><Input type="number" /></ControlRow>
-//           <ControlRow label="z"><Input type="number" /></ControlRow>
-//         </ControlGrid>
-//       </ControlSubsection>
-//     </ControlConditional>
-//   </ControlSection>
-// </ControlPanel>

@@ -1,6 +1,7 @@
 import { Moon, Search, Settings, Sun, User } from 'lucide-react';
 import { useRef, useState } from 'react';
 import guidelines from '../GUIDELINES.md?raw';
+import type { ControlPanelProps } from './index';
 import {
   Accordion,
   AccordionItem,
@@ -223,8 +224,13 @@ function TabsDemo() {
   );
 }
 
-function BuggyWidget() {
+function throwError() {
   throw new Error('this widget always crashes — demo purposes only.');
+}
+
+function BuggyWidget() {
+  throwError();
+  return null;
 }
 
 function ErrorBoundaryDemo() {
@@ -233,7 +239,9 @@ function ErrorBoundaryDemo() {
       <h2 className="text-foreground text-lg font-medium">Error Boundary</h2>
       <ErrorBoundary
         variant="destructive"
-        onError={(e) => console.error(e)}
+        onError={(e) => {
+          console.error(e);
+        }}
       >
         <BuggyWidget />
       </ErrorBoundary>
@@ -241,58 +249,74 @@ function ErrorBoundaryDemo() {
   );
 }
 
-function ControlPanelDemo() {
+function ControlPanelSectionDemo() {
   const [seed, setSeed] = useState(0);
   const [noiseOn, setNoiseOn] = useState(false);
 
   return (
+    <ControlSection
+      title="noise"
+      variant="secondary"
+    >
+      <ControlRow label="enabled">
+        <Switch
+          checked={noiseOn}
+          onChange={(e) => {
+            setNoiseOn(e.target.checked);
+          }}
+        />
+      </ControlRow>
+
+      <ControlConditional when={noiseOn}>
+        <ControlRow
+          label="seed"
+          value={seed}
+        >
+          <Slider
+            min={0}
+            max={9999}
+            value={seed}
+            onChange={(e) => {
+              setSeed(+e.target.value);
+            }}
+          />
+        </ControlRow>
+
+        <ControlSubsection title="octaves">
+          <ControlGrid columns={3}>
+            <ControlRow label="x">
+              <Input type="number" />
+            </ControlRow>
+            <ControlRow label="y">
+              <Input type="number" />
+            </ControlRow>
+            <ControlRow label="z">
+              <Input type="number" />
+            </ControlRow>
+          </ControlGrid>
+        </ControlSubsection>
+      </ControlConditional>
+    </ControlSection>
+  );
+}
+
+function ControlPanelDemo({
+  variant = 'default',
+  dock = 'bottom-sheet',
+  children
+}: ControlPanelProps) {
+  return (
     <section className="space-y-3">
-      <h2 className="text-foreground text-lg font-medium">Control Panel</h2>
+      <h2 className="text-foreground text-lg font-medium">
+        Control Panel dock "{dock}", variant "{variant}"
+      </h2>
       <div className="max-w-lg space-y-2">
         <ControlPanel
-          title="params"
-          variant="primary"
-          dock="top-right"
+          title="⚙︎"
+          variant={variant}
+          dock={dock}
         >
-          <ControlSection
-            title="noise"
-            variant="secondary"
-          >
-            <ControlRow label="enabled">
-              <Switch
-                checked={noiseOn}
-                onChange={(e) => setNoiseOn(e.target.checked)}
-              />
-            </ControlRow>
-
-            <ControlConditional when={noiseOn}>
-              <ControlRow
-                label="seed"
-                value={seed}
-              >
-                <Slider
-                  min={0}
-                  max={9999}
-                  value={seed}
-                  onChange={(e) => setSeed(+e.target.value)}
-                />
-              </ControlRow>
-
-              <ControlSubsection title="octaves">
-                <ControlGrid columns={3}>
-                  <ControlRow label="x">
-                    <Input type="number" />
-                  </ControlRow>
-                  <ControlRow label="y">
-                    <Input type="number" />
-                  </ControlRow>
-                  <ControlRow label="z">
-                    <Input type="number" />
-                  </ControlRow>
-                </ControlGrid>
-              </ControlSubsection>
-            </ControlConditional>
-          </ControlSection>
+          {children}
         </ControlPanel>
       </div>
     </section>
@@ -482,7 +506,19 @@ function AppContent() {
 
       <ToastDemo />
 
-      <ControlPanelDemo />
+      <ControlPanelDemo
+        variant="default"
+        dock="bottom-sheet"
+      >
+        <ControlPanelSectionDemo />
+      </ControlPanelDemo>
+
+      <ControlPanelDemo
+        variant="secondary"
+        dock="top-left"
+      >
+        <ControlPanelSectionDemo />
+      </ControlPanelDemo>
 
       <section className="space-y-3">
         <h2 className="text-foreground text-lg font-medium">Guidelines</h2>

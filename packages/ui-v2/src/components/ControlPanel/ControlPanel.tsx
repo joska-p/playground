@@ -52,8 +52,7 @@ export function ControlPanel({
       <summary
         className={cn(
           'flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 select-none',
-          '[&::-webkit-details-marker]:hidden',
-          'landscape:pointer-events-none'
+          '[&::-webkit-details-marker]:hidden'
         )}
       >
         <span className="text-foreground-muted truncate text-sm font-medium tracking-wide">
@@ -64,7 +63,7 @@ export function ControlPanel({
           className="text-foreground-dim shrink-0 transition-transform group-open:rotate-180 landscape:hidden"
         />
       </summary>
-      <div className="hidden flex-col gap-3 overflow-y-auto px-4 pb-4 group-open:flex landscape:!flex">
+      <div className="hidden flex-col gap-3 overflow-y-auto px-4 pb-4 group-open:flex">
         {children}
       </div>
     </details>
