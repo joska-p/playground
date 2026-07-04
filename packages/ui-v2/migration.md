@@ -16,6 +16,7 @@ Core form elements (could be gaps):
    Error handling:
 4. ErrorBoundary — packages/ui/src/components/error-boundary/ErrorBoundary.tsx
 5. DefaultFallback — packages/ui/src/components/error-boundary/DefaultFallback.tsx
+
    Widgets (app-specific, may not belong in a v2 UI lib):
 6. ControlPanel + ControlSection — interactive control panel widget
 7. ColorPalette — color palette widget

@@ -93,3 +93,49 @@ export {
   type ErrorBoundaryProps,
   type FallbackRenderer
 } from './components/ErrorBoundary';
+
+// ControlPanel — a container for control sections, with optional title and variant.
+export { ControlPanel, type ControlPanelProps } from './components/ControlPanel/ControlPanel';
+
+// ControlSection — a section within a ControlPanel, with optional title and variant.
+export { ControlSection, type ControlSectionProps } from './components/ControlPanel/ControlSection';
+
+// ControlRow — a single row of controls within a ControlSection.
+export { ControlRow, type ControlRowProps } from './components/ControlPanel/ControlRow';
+
+// ControlConditional — a conditional wrapper for control rows, based on a condition.
+export {
+  ControlConditional,
+  type ControlConditionalProps
+} from './components/ControlPanel/ControlConditional';
+
+// ControlSubsection — a subsection within a ControlSection, with optional title and variant.
+export {
+  ControlSubsection,
+  type ControlSubsectionProps
+} from './components/ControlPanel/ControlSubsection';
+
+// ControlGrid — a grid of control rows within a ControlSection.
+export { ControlGrid, type ControlGridProps } from './components/ControlPanel/ControlGrid';
+
+// <ControlPanel title="params" variant="primary" dock="top-right">
+//   <ControlSection title="noise" variant="secondary">
+//     <ControlRow label="enabled">
+//       <Switch checked={noiseOn} onChange={e => setNoiseOn(e.target.checked)} />
+//     </ControlRow>
+
+//     <ControlConditional when={noiseOn}>
+//       <ControlRow label="seed" value={seed}>
+//         <Slider min={0} max={9999} value={seed} onChange={e => setSeed(+e.target.value)} />
+//       </ControlRow>
+
+//       <ControlSubsection title="octaves">
+//         <ControlGrid columns={3}>
+//           <ControlRow label="x"><Input type="number" /></ControlRow>
+//           <ControlRow label="y"><Input type="number" /></ControlRow>
+//           <ControlRow label="z"><Input type="number" /></ControlRow>
+//         </ControlGrid>
+//       </ControlSubsection>
+//     </ControlConditional>
+//   </ControlSection>
+// </ControlPanel>

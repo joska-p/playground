@@ -1,6 +1,6 @@
 import { Moon, Search, Settings, Sun, User } from 'lucide-react';
-import { useRef } from 'react';
-import guidelines from './GUIDELINES.md?raw';
+import { useRef, useState } from 'react';
+import guidelines from '../GUIDELINES.md?raw';
 import {
   Accordion,
   AccordionItem,
@@ -16,6 +16,12 @@ import {
   Carousel,
   CarouselSlide,
   Checkbox,
+  ControlConditional,
+  ControlGrid,
+  ControlPanel,
+  ControlRow,
+  ControlSection,
+  ControlSubsection,
   Dialog,
   DialogActions,
   DialogBody,
@@ -235,6 +241,64 @@ function ErrorBoundaryDemo() {
   );
 }
 
+function ControlPanelDemo() {
+  const [seed, setSeed] = useState(0);
+  const [noiseOn, setNoiseOn] = useState(false);
+
+  return (
+    <section className="space-y-3">
+      <h2 className="text-foreground text-lg font-medium">Control Panel</h2>
+      <div className="max-w-lg space-y-2">
+        <ControlPanel
+          title="params"
+          variant="primary"
+          dock="top-right"
+        >
+          <ControlSection
+            title="noise"
+            variant="secondary"
+          >
+            <ControlRow label="enabled">
+              <Switch
+                checked={noiseOn}
+                onChange={(e) => setNoiseOn(e.target.checked)}
+              />
+            </ControlRow>
+
+            <ControlConditional when={noiseOn}>
+              <ControlRow
+                label="seed"
+                value={seed}
+              >
+                <Slider
+                  min={0}
+                  max={9999}
+                  value={seed}
+                  onChange={(e) => setSeed(+e.target.value)}
+                />
+              </ControlRow>
+
+              <ControlSubsection title="octaves">
+                <ControlGrid columns={3}>
+                  <ControlRow label="x">
+                    <Input type="number" />
+                  </ControlRow>
+                  <ControlRow label="y">
+                    <Input type="number" />
+                  </ControlRow>
+                  <ControlRow label="z">
+                    <Input type="number" />
+                  </ControlRow>
+                </ControlGrid>
+              </ControlSubsection>
+            </ControlConditional>
+          </ControlSection>
+        </ControlPanel>
+      </div>
+    </section>
+  );
+}
+
 function AppContent() {
   return (
     <main className="mx-auto flex max-w-[960px] flex-col gap-14 px-4 py-10 sm:px-6">
@@ -417,6 +481,8 @@ function AppContent() {
       <ErrorBoundaryDemo />
 
       <ToastDemo />
+
+      <ControlPanelDemo />
 
       <section className="space-y-3">
         <h2 className="text-foreground text-lg font-medium">Guidelines</h2>

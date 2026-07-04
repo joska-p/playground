@@ -35,7 +35,7 @@ Four rules shape every decision in this library:
 ## 2. Installation & setup
 
 ```bash
-npm install class-variance-authority clsx tailwind-merge lucide-react
+pnpm add class-variance-authority clsx tailwind-merge lucide-react
 ```
 
 `react` and `react-dom` are peer dependencies — this library targets
