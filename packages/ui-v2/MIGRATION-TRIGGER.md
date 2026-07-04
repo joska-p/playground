@@ -1,7 +1,7 @@
 # Migration trigger — paste this in a new session
 
 ```
-Migrate component #8 and #9 #10 from the old packages/ui to packages/ui-v2.
+Migrate component #11 from the old packages/ui to packages/ui-v2.
 ! DON'T DELETE the old one
 
 Read packages/ui-v2/MIGRATE-COMPONENT.md for full context (directory structure, redesign rules, import map, existing components list).

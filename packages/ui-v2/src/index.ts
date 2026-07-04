@@ -80,6 +80,7 @@ export {
   type SectionHeadingProps,
   type TooltipProps
 } from './components/data-display/index';
+export { useResizeObserver } from './hooks/useResizeObserver';
 export { useScrollRevealState } from './hooks/useScrollRevealState';
 
 // Navigation — moving around the app
