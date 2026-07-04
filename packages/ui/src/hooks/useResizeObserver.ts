@@ -7,47 +7,39 @@ type Dimensions = {
 
 const DEBOUNCE_MS = 120;
 
-export function useResizeObserver(): [(node: HTMLElement | null) => void, Dimensions] {
-  const [dimensions, setDimensions] = useState<Dimensions>({
-    width: 0,
-    height: 0
-  });
-  const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+export function useResizeObserver(
+  debounceMs = DEBOUNCE_MS
+): [(node: HTMLElement | null) => void, Dimensions] {
+  const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 });
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const ref = useCallback((node: HTMLElement | null) => {
-    if (!node) return;
+  const ref = useCallback(
+    (node: HTMLElement | null) => {
+      if (!node) return;
 
-    function applySize(width: number, height: number) {
-      setDimensions((prev) =>
-        prev.width === width && prev.height === height ? prev : { width, height }
-      );
-    }
+      const initial = node.getBoundingClientRect();
+      setDimensions({ width: initial.width, height: initial.height });
 
-    // Measure immediately on mount so the first render isn't delayed
-    // by the debounce below.
-    const initial = node.getBoundingClientRect();
-    applySize(initial.width, initial.height);
+      const observer = new ResizeObserver((entries) => {
+        const { width, height } = entries[0].contentRect;
 
-    const observer = new ResizeObserver((entries) => {
-      const { width, height } = entries[0].contentRect;
+        if (timeout.current) clearTimeout(timeout.current);
+        timeout.current = setTimeout(() => {
+          setDimensions((prev) =>
+            prev.width === width && prev.height === height ? prev : { width, height }
+          );
+        }, debounceMs);
+      });
 
-      if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
-      }
-      debounceTimeout.current = setTimeout(() => {
-        applySize(width, height);
-      }, DEBOUNCE_MS);
-    });
+      observer.observe(node);
 
-    observer.observe(node);
-
-    return () => {
-      if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
-      }
-      observer.disconnect();
-    };
-  }, []);
+      return () => {
+        if (timeout.current) clearTimeout(timeout.current);
+        observer.disconnect();
+      };
+    },
+    [debounceMs]
+  );
 
   return [ref, dimensions];
 }

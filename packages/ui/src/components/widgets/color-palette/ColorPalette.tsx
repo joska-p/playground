@@ -1,44 +1,40 @@
 import type { VariantProps } from 'class-variance-authority';
-import type { ComponentProps } from 'react';
-import { cn } from '../../../utils/cn';
-import { colorPaletteVariants } from './colorPaletteVariants';
+import type { HTMLAttributes, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { colorPaletteVariants } from './ColorPalette.variants';
 
-type ColorPaletteProps = {
+export type ColorPaletteProps = {
   colors: string[];
   name?: string;
   value?: string;
   checked?: boolean;
   onChange?: (palette: string) => void;
-} & Omit<ComponentProps<'label'>, 'onChange'> &
-  VariantProps<typeof colorPaletteVariants>;
+  variant?: ColorVariant;
+  orientation?: VariantProps<typeof colorPaletteVariants>['orientation'];
+  size?: VariantProps<typeof colorPaletteVariants>['size'];
+  ref?: Ref<HTMLLabelElement>;
+} & Omit<HTMLAttributes<HTMLLabelElement>, 'onChange'>;
 
-/**
- * A reusable Color Palette component using CVA for variants.
- */
 function ColorPalette({
-  ref,
   colors,
   name = 'palette',
   value,
   checked,
   onChange,
-  className,
+  variant: colorVariant = 'primary',
   orientation,
   size,
-  variant,
+  className,
+  style,
+  ref,
   ...props
 }: ColorPaletteProps) {
   return (
     <label
       ref={ref}
-      className={cn(
-        colorPaletteVariants({
-          orientation,
-          size,
-          variant,
-          className
-        })
-      )}
+      className={cn(colorPaletteVariants({ orientation, size, className }))}
+      style={{ boxShadow: 'var(--shadow-sm)', ...colorVarStyle(colorVariant, style) }}
       {...props}
     >
       <input
@@ -53,7 +49,7 @@ function ColorPalette({
         <div
           key={index}
           style={{ backgroundColor: color }}
-          className="size-(--cell-size) shrink-0 transition-transform"
+          className="size-(--cell-size) shrink-0 transition-transform hover:scale-110"
         />
       ))}
     </label>

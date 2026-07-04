@@ -2,12 +2,11 @@ import { createContext } from 'react';
 
 export type SidebarContextValue = {
   isOpen: boolean;
-  toggleSidebar: () => void;
-  openSidebar: () => void;
-  closeSidebar: () => void;
+  toggle: () => void;
+  open: () => void;
+  close: () => void;
   panelId: string;
-  desktopPosition: 'top' | 'right' | 'bottom' | 'left';
-  mobilePosition: 'top' | 'right' | 'bottom' | 'left';
+  position: 'top' | 'right' | 'bottom' | 'left';
 };
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);

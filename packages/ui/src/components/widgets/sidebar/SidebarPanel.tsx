@@ -1,12 +1,32 @@
-import type { ComponentProps } from 'react';
-import { cn } from '../../../utils/cn';
-import styles from './sidebar.module.css';
+import type { HTMLAttributes, Ref } from 'react';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { useSidebarContext } from './useSidebarContext';
 
-function SidebarPanel({ children, ref, className, ...props }: ComponentProps<'div'>) {
+export type SidebarPanelProps = {
+  variant?: ColorVariant;
+  ref?: Ref<HTMLDivElement>;
+} & HTMLAttributes<HTMLDivElement>;
+
+function SidebarPanel({ children, variant, ref, className, style, ...props }: SidebarPanelProps) {
+  const { isOpen, position } = useSidebarContext();
+  const isHorizontal = position === 'left' || position === 'right';
+  const isRightOrBottom = position === 'right' || position === 'bottom';
+
   return (
     <div
       ref={ref}
-      className={cn(styles['panel'], className)}
+      data-open={isOpen}
+      className={cn(
+        'bg-surface-raised flex flex-col overflow-hidden shadow-xs transition-all duration-300 ease-in-out',
+        isHorizontal && (isOpen ? 'w-[var(--sidebar-width,280px)]' : 'w-0'),
+        !isHorizontal && (isOpen ? 'h-[var(--sidebar-height,200px)]' : 'h-0'),
+        isHorizontal && 'h-full',
+        !isHorizontal && 'w-full',
+        isRightOrBottom && 'order-last',
+        className
+      )}
+      style={colorVarStyle(variant, style)}
       {...props}
     >
       {children}

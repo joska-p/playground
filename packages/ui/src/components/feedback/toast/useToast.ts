@@ -1,14 +1,15 @@
 import { createContext, useContext } from 'react';
-import type { ToastContextValue } from './types';
+import type { ToastOptions } from '../../../hooks/useToastQueue';
 
-const ToastContext = createContext<ToastContextValue | null>(null);
+type ToastContextValue = {
+  toast: (options: ToastOptions) => number;
+  dismiss: (id: number) => void;
+};
 
-function useToast(): ToastContextValue {
+export const ToastContext = createContext<ToastContextValue | null>(null);
+
+export function useToast() {
   const ctx = useContext(ToastContext);
-  if (!ctx) {
-    throw new Error('useToast must be used within a <ToastContainer>');
-  }
+  if (!ctx) throw new Error('useToast must be used within a <ToastProvider>');
   return ctx;
 }
-
-export { ToastContext, useToast };

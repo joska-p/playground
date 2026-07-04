@@ -1,100 +1,98 @@
-import type { ComponentProps } from 'react';
-import { useCallback, useId, useMemo, useState } from 'react';
-import { cn } from '../../../utils/cn';
-import styles from './sidebar.module.css';
-import type { SidebarContextValue } from './SidebarContext';
-import { SidebarContext } from './SidebarContext';
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
+import { useCallback, useId, useMemo } from 'react';
+import { useSidebarState } from '../../../hooks/useSidebarState';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { SidebarContext, type SidebarContextValue } from './SidebarContext';
 import { SidebarMain } from './SidebarMain';
 import { SidebarPanel } from './SidebarPanel';
 import { SidebarToggle } from './SidebarToggle';
 import { useSidebarContext } from './useSidebarContext';
 
 export type SidebarProps = {
-  /** Uncontrolled: initial open state. Ignored when `open` is provided. */
   defaultOpen?: boolean;
-  /** Controlled: drives the open state from the outside. */
   open?: boolean;
-  /** Fires whenever the sidebar wants to change state. */
   onOpenChange?: (open: boolean) => void;
-  mobilePosition?: 'top' | 'right' | 'bottom' | 'left';
-  desktopPosition?: 'top' | 'right' | 'bottom' | 'left';
-  variant?: 'primary' | 'secondary' | 'accent' | 'destructive' | 'outline' | 'ghost';
+  position?: 'top' | 'right' | 'bottom' | 'left';
+  variant?: ColorVariant;
   panelWidth?: string;
   panelHeight?: string;
-} & Omit<ComponentProps<'div'>, 'open'>;
+  children?: ReactNode;
+  ref?: Ref<HTMLDivElement>;
+} & HTMLAttributes<HTMLDivElement>;
 
-export function Sidebar({
+function Sidebar({
   children,
   ref,
   className,
-  mobilePosition = 'bottom',
-  desktopPosition = 'bottom',
-  variant = 'primary',
+  style,
+  position = 'left',
+  variant = 'default',
   defaultOpen = true,
   open: controlledOpen,
   onOpenChange,
   panelWidth,
   panelHeight,
-  style,
   ...props
 }: SidebarProps) {
-  const generatedId = useId();
-  const panelId = `sidebar-panel-${generatedId}`;
-
-  // Uncontrolled internal state — ignored when `open` is provided.
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const panelId = `sidebar-panel-${useId()}`;
+  const internal = useSidebarState(defaultOpen);
 
   const isControlled = controlledOpen !== undefined;
-  const isOpen = isControlled ? controlledOpen : internalOpen;
+  const isOpen = isControlled ? controlledOpen : internal.isOpen;
 
-  const openSidebar = useCallback(() => {
-    if (!isControlled) setInternalOpen(true);
-    onOpenChange?.(true);
-  }, [isControlled, onOpenChange]);
-
-  const closeSidebar = useCallback(() => {
-    if (!isControlled) setInternalOpen(false);
-    onOpenChange?.(false);
-  }, [isControlled, onOpenChange]);
-
-  const toggleSidebar = useCallback(() => {
+  const toggle = useCallback(() => {
     const next = !isOpen;
-    if (!isControlled) setInternalOpen(next);
+    if (!isControlled) internal.toggle();
     onOpenChange?.(next);
-  }, [isControlled, isOpen, onOpenChange]);
+  }, [isOpen, isControlled, onOpenChange, internal]);
 
-  const value = useMemo(
+  const open = useCallback(() => {
+    if (!isControlled) internal.open();
+    onOpenChange?.(true);
+  }, [isControlled, onOpenChange, internal]);
+
+  const close = useCallback(() => {
+    if (!isControlled) internal.close();
+    onOpenChange?.(false);
+  }, [isControlled, onOpenChange, internal]);
+
+  const ctx = useMemo(
     (): SidebarContextValue => ({
       isOpen,
-      toggleSidebar,
-      openSidebar,
-      closeSidebar,
+      toggle,
+      open,
+      close,
       panelId,
-      desktopPosition,
-      mobilePosition
+      position
     }),
-    [isOpen, toggleSidebar, openSidebar, closeSidebar, panelId, desktopPosition, mobilePosition]
+    [isOpen, toggle, open, close, panelId, position]
   );
 
-  const sidebarStyles = useMemo(
-    () => ({
-      ...style,
-      ...(panelWidth && { '--sidebar-width': panelWidth }),
-      ...(panelHeight && { '--sidebar-height': panelHeight })
-    }),
-    [style, panelWidth, panelHeight]
-  );
+  const isHorizontal = position === 'left' || position === 'right';
 
   return (
-    <SidebarContext.Provider value={value}>
+    <SidebarContext.Provider value={ctx}>
       <div
         ref={ref}
         data-state={isOpen ? 'open' : 'closed'}
-        data-mobile-position={mobilePosition}
-        data-desktop-position={desktopPosition}
-        data-variant={variant}
-        className={cn(styles['sidebar'], className)}
-        style={sidebarStyles}
+        data-position={position}
+        className={cn(
+          'grid overflow-hidden',
+          isHorizontal
+            ? position === 'left'
+              ? 'grid-cols-[auto_1fr] grid-rows-[1fr]'
+              : 'grid-cols-[1fr_auto] grid-rows-[1fr]'
+            : position === 'top'
+              ? 'grid-cols-[1fr] grid-rows-[auto_1fr]'
+              : 'grid-cols-[1fr] grid-rows-[1fr_auto]',
+          className
+        )}
+        style={{
+          ...colorVarStyle(variant, style),
+          ...(panelWidth && { '--sidebar-width': panelWidth }),
+          ...(panelHeight && { '--sidebar-height': panelHeight })
+        }}
         {...props}
       >
         {children}
@@ -107,3 +105,5 @@ Sidebar.Panel = SidebarPanel;
 Sidebar.Main = SidebarMain;
 Sidebar.Toggle = SidebarToggle;
 Sidebar.use = useSidebarContext;
+
+export { Sidebar };

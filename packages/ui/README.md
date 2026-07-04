@@ -1,163 +1,146 @@
-# @repo/ui
+# pg-lab-ui
 
-> Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.
+React 19 + Tailwind v4 + CVA port of the `pg_lab` gruvbox design system.
+Mobile-first, progressively enhanced, dark by default with an optional
+light theme (`data-theme="light"`).
 
-## Quick Start
+## Install
 
 ```bash
-pnpm add @repo/ui
+npm install class-variance-authority clsx tailwind-merge lucide-react
 ```
 
-```tsx
-import { Button, Sidebar, Card } from '@repo/ui';
+(`react`, `react-dom` ≥ 19 are peer dependencies you already have.)
 
-export function MyComponent() {
-  return (
-    <Card variant="primary">
-      <Button variant="accent">Creative Action</Button>
-    </Card>
-  );
-}
+## Architecture: stateless components, stateful hooks
+
+Every component in `src/components/` is a plain function of its props —
+none of them call `useState`. Anywhere the original design needed state
+(theme, toasts, tabs), that state lives in a dedicated hook in
+`src/hooks/`, and the component just renders whatever it's handed:
+
+| Stateless component               | Its state hook               |
+| --------------------------------- | ---------------------------- |
+| `ThemeProvider`                   | `useThemeState()`            |
+| `ToastProvider` / `ToastViewport` | `useToastQueue()`            |
+| `Tabs`                            | `useTabsState(defaultValue)` |
+
+This also means every component uses React 19's ref-as-prop pattern —
+`ref` is declared as a normal prop in each component's type, no
+`forwardRef` anywhere in the codebase.
+
+## Setup
+
+1. Copy `src/styles/globals.css` into your project and import it once at
+   your app root:
+
+   ```ts
+   import './styles/globals.css';
+   ```
+
+   This file uses Tailwind v4's CSS-first config (`@import "tailwindcss"`
+   - `@theme inline`) — no `tailwind.config.js` needed. It defines the
+     gruvbox dark/light tokens and every CSS-only interactive behavior
+     (`:has()`, `:focus-within`, `@starting-style`, native `<details>`/
+     `<dialog>` styling, etc).
+
+2. Wire up state with the hooks, then hand it to the stateless providers:
+
+   ```tsx
+   import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from 'pg-lab-ui';
+
+   export default function App() {
+     const theme = useThemeState();
+     const toastQueue = useToastQueue();
+
+     return (
+       <ThemeProvider
+         theme={theme.theme}
+         setTheme={theme.setTheme}
+         toggleTheme={theme.toggleTheme}
+       >
+         <ToastProvider
+           toasts={toastQueue.toasts}
+           toast={toastQueue.toast}
+           dismiss={toastQueue.dismiss}
+         >
+           {/* your app */}
+         </ToastProvider>
+       </ThemeProvider>
+     );
+   }
+   ```
+
+3. `Tabs` works the same way — pull state from `useTabsState`:
+
+   ```tsx
+   const tabs = useTabsState('overview');
+   <Tabs
+     value={tabs.value}
+     onValueChange={tabs.setValue}
+   >
+     ...
+   </Tabs>;
+   ```
+
+4. Import components from `pg-lab-ui` (see `src/App.example.tsx` for a
+   full tour of every component).
+
+## The variant system
+
+Every component accepts the same `variant` prop with six values:
+
+```ts
+type ColorVariant = 'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive';
 ```
 
-## Available Components
+- `default` is a neutral/grey token (`--foreground-dim`) — used for
+  components that don't have a strong semantic meaning by default.
+- The other five map 1:1 to the CSS custom properties defined in
+  `globals.css` (`--primary`, `--secondary`, `--accent`, `--warning`,
+  `--destructive`), each with a paired `-foreground` color for contrast.
 
-| Component         | Export Subpath             | Description                               |
-| ----------------- | -------------------------- | ----------------------------------------- |
-| `Button`          | `@repo/ui/Button`          | Actions, links, form submits              |
-| `Input`           | `@repo/ui/Input`           | Text input with label and helper text     |
-| `Select`          | `@repo/ui/Select`          | Dropdown selection                        |
-| `Slider`          | `@repo/ui/Slider`          | Range input with label and unit display   |
-| `Switch`          | `@repo/ui/Switch`          | Toggle switch                             |
-| `Card`            | `@repo/ui/Card`            | Content container                         |
-| `Badge`           | `@repo/ui/Badge`           | Small label/tag                           |
-| `Label`           | `@repo/ui/Label`           | Form label                                |
-| `DefaultFallback` | `@repo/ui/DefaultFallback` | Pre-styled error fallback UI              |
-| `ErrorBoundary`   | `@repo/ui/ErrorBoundary`   | Error boundary wrapper with variants      |
-| `ColorPalette`    | `@repo/ui/ColorPalette`    | Color swatch display                      |
-| `Sidebar`         | `@repo/ui/Sidebar`         | Collapsible sidebar with panel/main areas |
+Two ways components consume the variant, matching the source design:
 
-Each component also exports its CVA variants (e.g. `@repo/ui/buttonVariants`, `@repo/ui/defaultFallbackVariants`) and types (e.g. `@repo/ui/Button`, `@repo/ui/ErrorBoundary`).
+- **Full color** (Button, Alert, Toast): `variant` resolves to Tailwind
+  utility classes like `bg-primary text-primary-foreground` via `cva`.
+  Each of these `cva` configs lives in its own sibling file
+  (`Button.variants.ts`, `Badge.variants.ts`, `Alert.variants.ts`,
+  `Input.variants.ts`) so the variant definitions can be imported,
+  previewed, or extended independently of the component itself.
+- **Single accent** (Badge, Switch, Card glow, Tabs indicator, Input
+  focus ring, Checkbox/Radio/Slider accent-color): `variant` resolves to
+  one CSS custom property (`--_color` or `accent-color`) via the shared
+  `src/lib/colorVariant.ts` — the same `--_color` trick the original
+  design used for badges, just generalized to every component.
 
-## Variants
+## Components
 
-Most components support these variants:
+| Component                                                  | Notes                                                             |
+| ---------------------------------------------------------- | ----------------------------------------------------------------- |
+| `Button`                                                   | 6 variants + `ghost`/`link` extras, 4 sizes, `loading`, `tooltip` |
+| `Badge`                                                    | soft / solid / outline appearances, optional status `dot`         |
+| `Input`                                                    | leading icon, trailing action, `expandable` (focus-grow)          |
+| `Textarea`                                                 | auto-growing via `field-sizing: content`                          |
+| `Checkbox` / `Radio`                                       | native inputs, `accent-color` theming                             |
+| `Switch`                                                   | native checkbox restyled as a toggle                              |
+| `Slider`                                                   | native range input with tick labels                               |
+| `Card` + `CardImage/Body/Title/Description/Footer/Actions` | `interactive` glow via `:has()`, `horizontal` responsive layout   |
+| `Accordion` / `AccordionItem`                              | native `<details>`/`<summary>`                                    |
+| `Tabs` / `TabsList` / `TabsTrigger` / `TabsContent`        | radio-based tab group                                             |
+| `Carousel` / `CarouselSlide`                               | scroll-snap track + `scrollBy` arrows                             |
+| `Popover`                                                  | hover-triggered via `group`/`group-hover`, no JS                  |
+| `Tooltip`                                                  | CSS `::after` bubble via `data-tooltip`                           |
+| `Dialog` + parts + `DialogActions`                         | native `<dialog>`, `showModal()`/`close()`                        |
+| `Alert`                                                    | colored accent banner, icon per variant                           |
+| `ToastProvider` / `useToast`                               | `createPortal` toast stack, auto-dismiss                          |
 
-| Variant       | Usage                  |
-| ------------- | ---------------------- |
-| `primary`     | Main action (default)  |
-| `secondary`   | Alternative action     |
-| `accent`      | Highlight, emphasis    |
-| `destructive` | Delete, reset, danger  |
-| `outline`     | Secondary with border  |
-| `ghost`       | Minimal, no background |
+## Progressive enhancement notes
 
-## Sizes
-
-| Size   | Usage             |
-| ------ | ----------------- |
-| `sm`   | Compact UI        |
-| `md`   | Default           |
-| `lg`   | Emphasis          |
-| `icon` | Square, icon-only |
-
-## Import Pattern
-
-All components are imported via subpath exports, not from a root barrel:
-
-```typescript
-import { Button } from '@repo/ui/Button';
-import { Input } from '@repo/ui/Input';
-import { Sidebar } from '@repo/ui/Sidebar';
-
-import type { ButtonProps } from '@repo/ui/Button';
-import { buttonVariants } from '@repo/ui/buttonVariants';
-```
-
-The public API is declared in `package.json` under the `exports` field — one subpath per component.
-
-## Usage Examples
-
-### Button
-
-```typescript
-import { Button } from "@repo/ui/Button";
-
-<Button variant="primary" size="medium">
-  Click me
-</Button>
-
-<Button variant="destructive" isLoading={false}>
-  Delete
-</Button>
-```
-
-### Input with Label
-
-```typescript
-import { Input } from "@repo/ui/Input";
-
-<Input
-  label="Email"
-  type="email"
-  placeholder="you@example.com"
-  helperText="We'll never share your email"
-/>;
-```
-
-### Slider
-
-```typescript
-import { Slider } from "@repo/ui/Slider";
-
-<Slider
-  label="Volume"
-  value={50}
-  min={0}
-  max={100}
-  unit="%"
-  onChange={(v) => console.log(v)}
-/>;
-```
-
-### Sidebar
-
-```typescript
-import { Sidebar } from "@repo/ui/Sidebar";
-
-<Sidebar variant="primary" desktopPosition="left">
-  <Sidebar.Panel>
-    <Sidebar.Toggle />
-    <p>Controls</p>
-  </Sidebar.Panel>
-  <Sidebar.Main>
-    <p>Content</p>
-  </Sidebar.Main>
-</Sidebar>;
-```
-
-### ErrorBoundary
-
-```typescript
-import { ErrorBoundary } from "@repo/ui/ErrorBoundary";
-
-<ErrorBoundary variant="destructive">
-  <MyComponent />
-</ErrorBoundary>
-
-<ErrorBoundary variant="primary">
-  <MyComponent />
-</ErrorBoundary>
-```
-
-The `ErrorBoundary` wraps `react-error-boundary` and renders a `DefaultFallback` on error. The `variant` prop controls the fallback's background tint. Supports the same variant set as other components: `primary`, `secondary`, `accent`, `destructive`, `outline`, `ghost`.
-
-## Design Tokens
-
-Full design token reference (colors, typography, spacing, radii) is available at:
-
-**→ [Design Tokens & Theme](/docs/reference/design-tokens/)**
-
----
-
-_Part of the [Creative Playground](https://joska-p.github.io/playground)_
+- Dark theme is the `:root` default — the light theme is purely additive
+  (`data-theme="light"` on `<html>`), so `ThemeProvider` is optional.
+- Accordion, Dialog, checkboxes/radios/range all use native HTML elements
+  — fully functional and accessible with CSS disabled.
+- `:has()`, `:focus-within`, `@starting-style`, and `color-mix()` all stay
+  in CSS exactly as in the source design; React only ever toggles
+  attributes (`open`, `checked`, `data-active`) on top.
