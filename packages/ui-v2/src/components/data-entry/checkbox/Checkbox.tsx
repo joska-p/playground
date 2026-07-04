@@ -30,7 +30,7 @@ export function Checkbox({
       type="checkbox"
       id={id}
       disabled={disabled}
-      className={cn('h-4 w-4 flex-shrink-0 cursor-pointer rounded', className)}
+      className={cn('h-4 w-4 shrink-0 cursor-pointer rounded', className)}
       style={{ accentColor: colorVar(variant), ...style }}
       {...props}
     />

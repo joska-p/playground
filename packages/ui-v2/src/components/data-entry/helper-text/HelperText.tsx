@@ -46,7 +46,7 @@ export function HelperText({
       className={cn(helperTextVariants({ variant }), className)}
       {...props}
     >
-      {resolvedIcon && <span className="mt-0.5 flex-shrink-0">{resolvedIcon}</span>}
+      {resolvedIcon && <span className="mt-0.5 shrink-0">{resolvedIcon}</span>}
       <span>{children}</span>
     </p>
   );

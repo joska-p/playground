@@ -24,7 +24,7 @@ export function Radio({
       type="radio"
       id={id}
       disabled={disabled}
-      className={cn('h-4 w-4 flex-shrink-0 cursor-pointer rounded-full', className)}
+      className={cn('h-4 w-4 shrink-0 cursor-pointer rounded-full', className)}
       style={{ accentColor: colorVar(variant), ...style }}
       {...props}
     />

@@ -38,7 +38,7 @@ export function DefaultFallback({
       role="alert"
     >
       <div className="flex items-center gap-3">
-        <TriangleAlert className={cn('h-4 w-4 flex-shrink-0', fallbackIconColor[key])} />
+        <TriangleAlert className={cn('h-4 w-4 shrink-0', fallbackIconColor[key])} />
         <p className="text-foreground text-[14px] font-medium">{title}</p>
       </div>
       <p className="text-foreground-muted text-[12px] leading-relaxed">

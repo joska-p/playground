@@ -18,8 +18,10 @@ export {
   type ColorSwatchProps,
   type ColorSwatchSize
 } from './color-swatch/ColorSwatch';
+export { Hero, type HeroProps } from './hero/Hero';
 export { MenuItem, type MenuItemProps } from './menu-item/MenuItem';
 export { NotificationItem, type NotificationItemProps } from './notification-item/NotificationItem';
 export { Popover, type PopoverProps } from './popover/Popover';
+export { SectionHeader, type SectionHeaderProps } from './section-header/SectionHeader';
 export { SectionHeading, type SectionHeadingProps } from './section-heading/SectionHeading';
 export { Tooltip, type TooltipProps } from './tooltip/Tooltip';

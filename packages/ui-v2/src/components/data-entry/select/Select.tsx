@@ -44,7 +44,7 @@ export function Select({
       style={{ ['--_ring' as string]: colorVar(variant), ...style }}
     >
       {leadingIcon && (
-        <span className="text-foreground-dim flex-shrink-0 text-xs transition-colors">
+        <span className="text-foreground-dim shrink-0 text-xs transition-colors">
           {leadingIcon}
         </span>
       )}

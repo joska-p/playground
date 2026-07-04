@@ -43,7 +43,7 @@ export function Alert({
       className={cn(alertVariants({ variant }), className)}
       {...props}
     >
-      <span className={cn('mt-0.5 flex-shrink-0', iconColor[key])}>{icon ?? defaultIcon[key]}</span>
+      <span className={cn('mt-0.5 shrink-0', iconColor[key])}>{icon ?? defaultIcon[key]}</span>
       <div>
         <p className="text-foreground text-[13px] font-medium">{title}</p>
         {description && <p className="text-foreground-muted mt-0.5 text-xs">{description}</p>}

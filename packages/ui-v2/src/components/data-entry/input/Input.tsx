@@ -38,7 +38,7 @@ export function Input({
       style={{ ['--_ring' as string]: colorVar(variant), ...style }}
     >
       {leadingIcon && (
-        <span className="text-foreground-dim flex-shrink-0 text-xs transition-colors">
+        <span className="text-foreground-dim shrink-0 text-xs transition-colors">
           {leadingIcon}
         </span>
       )}
@@ -51,7 +51,7 @@ export function Input({
         {...props}
       />
       {trailingAction && (
-        <span className="text-foreground-dim hover:text-foreground flex-shrink-0 text-xs transition-colors">
+        <span className="text-foreground-dim hover:text-foreground shrink-0 text-xs transition-colors">
           {trailingAction}
         </span>
       )}

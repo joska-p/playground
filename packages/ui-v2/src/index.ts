@@ -55,9 +55,11 @@ export {
   CarouselSlide,
   ChangelogItem,
   ColorSwatch,
+  Hero,
   MenuItem,
   NotificationItem,
   Popover,
+  SectionHeader,
   SectionHeading,
   Tooltip,
   badgeVariants,
@@ -68,9 +70,11 @@ export {
   type ChangelogItemProps,
   type ColorSwatchProps,
   type ColorSwatchSize,
+  type HeroProps,
   type MenuItemProps,
   type NotificationItemProps,
   type PopoverProps,
+  type SectionHeaderProps,
   type SectionHeadingProps,
   type TooltipProps
 } from './components/data-display/index';
