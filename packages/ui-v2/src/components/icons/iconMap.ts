@@ -90,3 +90,9 @@ export const iconMap = {
 } as const;
 
 export type IconName = keyof typeof iconMap;
+export type IconEntry = { name: IconName; label: (typeof iconMap)[IconName] };
+
+export const iconArray = Object.entries(iconMap).map(([name]) => ({
+  name,
+  label: name.replace(/-/g, ' ')
+}));

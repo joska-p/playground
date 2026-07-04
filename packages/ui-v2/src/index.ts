@@ -162,3 +162,9 @@ export { CardLink, type CardLinkProps } from './components/Cards/CardLink';
 export { CategoryCard, type CategoryCardProps } from './components/Cards/CategoryCard';
 export { DocCard, type DocCardProps } from './components/Cards/DocCard';
 export { ProjectCard, type ProjectCardProps } from './components/Cards/ProjectCard';
+
+// Icons
+export { Icon } from './components/icons/Icon';
+export { iconMap, type IconName } from './components/icons/iconMap';
+export { createIcon } from './components/icons/lib';
+export type { IconProps } from './components/icons/lib';
