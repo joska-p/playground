@@ -59,6 +59,7 @@ export {
   MenuItem,
   NotificationItem,
   Popover,
+  ScrollReveal,
   SectionHeader,
   SectionHeading,
   Tooltip,
@@ -74,19 +75,25 @@ export {
   type MenuItemProps,
   type NotificationItemProps,
   type PopoverProps,
+  type ScrollRevealProps,
   type SectionHeaderProps,
   type SectionHeadingProps,
   type TooltipProps
 } from './components/data-display/index';
+export { useScrollRevealState } from './hooks/useScrollRevealState';
 
 // Navigation — moving around the app
 export {
+  FloatingNav,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
+  type FloatingNavProps,
+  type NavLink,
   type TabsProps
 } from './components/navigation/index';
+export { useFloatingNavState, type FloatingNavState } from './hooks/useFloatingNavState';
 export { useTabsState } from './hooks/useTabsState';
 
 // Feedback — alerts, loading states, modals
@@ -130,6 +137,13 @@ export {
   ControlSubsection,
   type ControlSubsectionProps
 } from './components/ControlPanel/ControlSubsection';
+
+// Widgets — interactive UI widgets
+export {
+  ColorPalette,
+  colorPaletteVariants,
+  type ColorPaletteProps
+} from './components/widgets/index';
 
 // Cards — app-specific card variants
 export { accentTokens, type AccentToken } from './components/Cards/accentTokens';

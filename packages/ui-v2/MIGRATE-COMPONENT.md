@@ -62,7 +62,7 @@ The old component is reference only. Rewrite it from scratch to match the v2 des
 8. **Exports from barrel** — update the category's `index.ts` AND `src/index.ts`.
 9. **TypeScript `type` only** — use `type` not `interface` for type definitions.
 10. **Mobile-first** — base classes are the complete experience; `landscape:`/`sm:` only add refinements.
-11. **No orphaned source files** — delete the old flat file if one existed at the old location.
+11. removed.
 12. **CSS class name mapping** from old → new:
     - `text-muted-foreground` → `text-foreground-muted`
     - `bg-card` / `bg-surface` → `bg-surface` (v2 uses `bg-surface-raised` for elevated)
