@@ -41,6 +41,7 @@ import {
   type ColorVariant,
   type DialogHandle
 } from './index';
+import guidelines from './pg-lab-ui-GUIDELINES.md?raw';
 
 const VARIANTS: ColorVariant[] = [
   'default',
@@ -352,6 +353,13 @@ function AppContent() {
       </section>
 
       <ToastDemo />
+
+      <section className="space-y-3">
+        <h2 className="text-foreground text-lg font-medium">Guidelines</h2>
+        <div className="mx-auto max-w-2xl">
+          <pre className="bg-background/50 rounded p-4">{guidelines}</pre>
+        </div>
+      </section>
     </main>
   );
 }
