@@ -1527,9 +1527,6 @@ importers:
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
-      lucide-react:
-        specifier: ^1.23.0
-        version: 1.23.0(react@19.2.7)
       react-error-boundary:
         specifier: 'catalog:'
         version: 6.1.2(react@19.2.7)
@@ -1555,6 +1552,76 @@ importers:
       '@tsconfig/strictest':
         specifier: 'catalog:'
         version: 2.0.8
+      '@types/babel__core':
+        specifier: 'catalog:'
+        version: 7.20.5
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.3(@types/react@19.2.17)
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.1.3)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
+      babel-plugin-react-compiler:
+        specifier: 'catalog:'
+        version: 1.0.0
+      eslint:
+        specifier: 'catalog:'
+        version: 10.6.0(jiti@2.7.0)
+      react:
+        specifier: 'catalog:'
+        version: 19.2.7
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.7(react@19.2.7)
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.3.1
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vite:
+        specifier: 'catalog:'
+        version: 8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0)
+
+  packages/ui-v2:
+    dependencies:
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../ui
+      class-variance-authority:
+        specifier: 'catalog:'
+        version: 0.7.1
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
+      lucide-react:
+        specifier: ^1.23.0
+        version: 1.23.0(react@19.2.7)
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 3.6.0
+    devDependencies:
+      '@babel/core':
+        specifier: 'catalog:'
+        version: 7.29.7
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../config-eslint
+      '@repo/config-typescript':
+        specifier: workspace:*
+        version: link:../config-typescript
+      '@rolldown/plugin-babel':
+        specifier: 'catalog:'
+        version: 0.2.3(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.1.3)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
+      '@tailwindcss/vite':
+        specifier: 'catalog:'
+        version: 4.3.1(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
       '@types/babel__core':
         specifier: 'catalog:'
         version: 7.20.5
