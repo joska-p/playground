@@ -56,7 +56,7 @@ function FloatingNav({
     >
       <a
         href={brand.href}
-        className="text-sm font-semibold tracking-tight"
+        className="min-w-fit text-sm font-semibold tracking-tight"
         style={{ color: 'var(--_color)' }}
       >
         {brand.label}

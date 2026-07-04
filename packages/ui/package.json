@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui-v2",
+  "name": "@repo/ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,7 +15,6 @@
     "check-types": "tsc -p tsconfig.check.json --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
     "lucide-react": "^1.23.0",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
