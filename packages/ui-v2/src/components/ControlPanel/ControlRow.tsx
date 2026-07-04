@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../lib/cn';
 
-export interface ControlRowProps {
+export type ControlRowProps = {
   label: ReactNode;
   value?: ReactNode;
   hint?: string;

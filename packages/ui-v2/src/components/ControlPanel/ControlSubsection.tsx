@@ -2,7 +2,7 @@ import { ChevronRight } from 'lucide-react';
 import type { ReactNode, Ref } from 'react';
 import { cn } from '../../lib/cn';
 
-export interface ControlSubsectionProps {
+export type ControlSubsectionProps = {
   ref?: Ref<HTMLDetailsElement>;
   title: ReactNode;
   defaultOpen?: boolean;

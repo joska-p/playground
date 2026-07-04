@@ -4,14 +4,14 @@ import { cn } from '../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../lib/colorVariant';
 import { controlPanelVariants, type ControlPanelVariantProps } from './ControlPanel.variants';
 
-export interface ControlPanelProps extends ControlPanelVariantProps {
+export type ControlPanelProps = {
   ref?: Ref<HTMLDetailsElement>;
   title?: ReactNode;
   variant?: ColorVariant;
   defaultOpen?: boolean;
   className?: string;
   children: ReactNode;
-}
+} & ControlPanelVariantProps
 
 /**
  * ControlPanel is a pure layout shell — it doesn't know what a

@@ -1,9 +1,9 @@
 import type { ComponentProps, Ref } from 'react';
 import { cn } from '../../lib/cn';
 
-export interface CardDescriptionProps extends ComponentProps<'p'> {
+export type CardDescriptionProps = {
   ref?: Ref<HTMLParagraphElement>;
-}
+} & ComponentProps<'p'>
 
 /**
  * A card's supporting text — typography only, no props beyond

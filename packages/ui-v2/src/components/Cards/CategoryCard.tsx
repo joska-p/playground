@@ -5,13 +5,13 @@ import type { IconName } from '../icons/iconMap';
 import { CardBody } from './CardBody';
 import { CardLink } from './CardLink';
 
-export interface CategoryCardProps extends Omit<ComponentProps<typeof CardLink>, 'children'> {
+export type CategoryCardProps = {
   ref?: Ref<HTMLAnchorElement>;
   label: string;
   description?: string;
   iconName: IconName;
   count: number;
-}
+} & Omit<ComponentProps<typeof CardLink>, 'children'>
 
 /**
  * A category tile — centered icon, a divider that switches to the

@@ -1,9 +1,9 @@
 import type { ComponentProps, Ref } from 'react';
 import { cn } from '../../lib/cn';
 
-export interface CardBodyProps extends ComponentProps<'div'> {
+export type CardBodyProps = {
   ref?: Ref<HTMLDivElement>;
-}
+} & ComponentProps<'div'>
 
 /**
  * Layout-only wrapper for a card's main content — padding + vertical

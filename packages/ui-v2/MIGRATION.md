@@ -35,46 +35,70 @@ Core form elements (could be gaps):
 13. useResizeObserver — hook
 14. variantConfig — lib utility
 
-plan for the directory structure
+plan for the directory structure as an example. all those directory do not have to be in the final package
 
-# CORE: The actual React components
-
-│ │ ├── src/
-│ │ │ ├── components/
-│ │ │ │ ├── button/
-│ │ │ │ │ ├── button.tsx
-│ │ │ │ │ ├── button.test.tsx
-│ │ │ │ │ ├── button.stories.tsx
-│ │ │ │ │ └── index.ts
-│ │ │ │ ├── input/
-│ │ │ │ │ └── ...
-│ │ │ │ └── dialog/
+│ ├── components/
+│ │ │
+│ │ ├── data-entry/ # Forms, inputs, user text entry
+│ │ │ ├── button/
+│ │ │ │ ├── button.tsx
+│ │ │ ├── input/
+│ │ │ ├── select/
+│ │ │ ├── checkbox/
+│ │ │ ├── radio-group/
+│ │ │ ├── switch/
+│ │ │ ├── textarea/
+│ │ │ └── index.ts # Re-exports all data-entry components
+│ │ │
+│ │ ├── data-display/ # Showing information to the user
+│ │ │ ├── table/
+│ │ │ ├── card/
+│ │ │ ├── badge/
+│ │ │ ├── avatar/
+│ │ │ ├── tooltip/
+│ │ │ ├── tag/
+│ │ │ └── index.ts
+│ │ │
+│ │ ├── navigation/ # Moving around the app
+│ │ │ ├── tabs/
+│ │ │ ├── breadcrumb/
+│ │ │ ├── pagination/
+│ │ │ ├── navbar/
+│ │ │ ├── sidebar/
+│ │ │ └── index.ts
+│ │ │
+│ │ ├── feedback/ # Alerts, loading states, modals
+│ │ │ ├── dialog/ # Compound component (Dialog, Trigger, Content)
 │ │ │ │ ├── dialog.tsx
 │ │ │ │ ├── dialog-content.tsx
 │ │ │ │ ├── dialog-trigger.tsx
 │ │ │ │ └── index.ts
-│ │ │ ├── hooks/ # UI-specific hooks (e.g., useDisclosure)
-│ │ │ ├── primitives/ # Unstyled, accessible base components (Radix-style)
-│ │ │ └── index.ts # Main barrel export
-│ │ ├── package.json # "main", "module", "types", "exports" (CJS/ESM)
-│ │ ├── tsconfig.json
-│ │ └── vite.config.ts # Build config using Vite in library mode
-│ │
-│ ├── theme/ # Design tokens, CSS variables, Tailwind preset
-│ │ ├── src/
-│ │ │ ├── tokens.ts # Spacing, colors, radii as JS objects
-│ │ │ ├── styles.css # Global CSS reset & variables
-│ │ │ └── tailwind-preset.ts # If using Tailwind
-│ │ └── package.json
-│ │
-│ ├── utils/ # Framework-agnostic vanilla TS utilities
-│ │ ├── src/
-│ │ │ ├── cx.ts # Class name merger (cn utility)
-│ │ │ ├── merge-refs.ts # React ref merging utility
+│ │ │ ├── alert/
+│ │ │ ├── toast/ # Toast + Toaster provider
+│ │ │ ├── progress-bar/
+│ │ │ ├── skeleton/
 │ │ │ └── index.ts
-│ │ └── package.json
+│ │ │
+│ │ ├── layout/ # Structural building blocks
+│ │ │ ├── stack/ # Flexbox row/col
+│ │ │ ├── grid/
+│ │ │ ├── container/
+│ │ │ ├── divider/
+│ │ │ ├── aspect-ratio/
+│ │ │ └── index.ts
+│ │ │
+│ │ └── typography/ # Text elements
+│ │ ├── heading/
+│ │ ├── text/
+│ │ ├── code/
+│ │ └── index.ts
 │ │
-│ └── icons/ # Optional: Icon library wrapper
-│ ├── src/
-│ └── package.json
-│
+│ ├── hooks/ # UI-specific React hooks
+│ │ ├── use-disclosure.ts # For modals/drawers
+│ │ ├── use-toast.ts
+│ │ └── index.ts
+│ │
+│ ├── primitives/ # Unstyled, accessible base components (Optional)
+│ │ └── ...
+│ │
+│ └── index.ts # THE MAGIC: Single entry point for consumers

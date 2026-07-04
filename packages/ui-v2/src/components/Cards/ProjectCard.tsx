@@ -6,13 +6,13 @@ import { CardDescription } from './CardDescription';
 import { CardLink } from './CardLink';
 import { CardTitle } from './CardTitle';
 
-export interface ProjectCardProps extends Omit<ComponentProps<typeof CardLink>, 'children'> {
+export type ProjectCardProps = {
   ref?: Ref<HTMLAnchorElement>;
   title: string;
   description?: string;
   iconName: IconName;
   tags?: string[];
-}
+} & Omit<ComponentProps<typeof CardLink>, 'children'>
 
 /**
  * A project/experiment card — icon top-right, a gradient hairline that

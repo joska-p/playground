@@ -1,9 +1,9 @@
 import type { ComponentProps, Ref } from 'react';
 import { cn } from '../../lib/cn';
 
-export interface CardTitleProps extends ComponentProps<'h3'> {
+export type CardTitleProps = {
   ref?: Ref<HTMLHeadingElement>;
-}
+} & ComponentProps<'h3'>
 
 /**
  * A card's heading — typography only, no props beyond standard

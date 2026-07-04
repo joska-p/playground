@@ -6,13 +6,13 @@ import { CardDescription } from './CardDescription';
 import { CardLink } from './CardLink';
 import { CardTitle } from './CardTitle';
 
-export interface DocCardProps extends Omit<ComponentProps<typeof CardLink>, 'children'> {
+export type DocCardProps = {
   ref?: Ref<HTMLAnchorElement>;
   title: string;
   description?: string;
   type?: string;
   iconName?: IconName;
-}
+} & Omit<ComponentProps<typeof CardLink>, 'children'>
 
 /**
  * A doc card — folded-corner decoration, a type badge, the same

@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import type { Theme } from "../hooks/useThemeState";
 
-interface ThemeContextValue {
+type ThemeContextValue = {
   theme: Theme;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
@@ -9,7 +9,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-export interface ThemeProviderProps {
+export type ThemeProviderProps = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;

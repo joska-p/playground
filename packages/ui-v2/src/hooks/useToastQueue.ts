@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import type { ColorVariant } from "../lib/colorVariant";
 
-export interface ToastOptions {
+export type ToastOptions = {
   title: ReactNode;
   description?: ReactNode;
   variant?: ColorVariant;
@@ -10,10 +10,10 @@ export interface ToastOptions {
   duration?: number;
 }
 
-export interface ToastItem extends ToastOptions {
+export type ToastItem = {
   id: number;
   exiting?: boolean;
-}
+} & ToastOptions
 
 /**
  * useToastQueue — the state hook behind the toast system. `ToastProvider`
@@ -46,7 +46,7 @@ export function useToastQueue() {
       if (duration > 0) {
         timers.current.set(
           id,
-          setTimeout(() => dismiss(id), duration)
+          setTimeout(() => { dismiss(id); }, duration)
         );
       }
       return id;

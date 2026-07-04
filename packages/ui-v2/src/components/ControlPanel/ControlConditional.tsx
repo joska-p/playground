@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../lib/cn';
 
-export interface ControlConditionalProps {
+export type ControlConditionalProps = {
   when: boolean;
   className?: string;
   children: ReactNode;

@@ -3,7 +3,7 @@ import type { ReactNode, Ref } from 'react';
 import { cn } from '../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../lib/colorVariant';
 
-export interface ControlSectionProps {
+export type ControlSectionProps = {
   ref?: Ref<HTMLDetailsElement>;
   title: ReactNode;
   variant?: ColorVariant;

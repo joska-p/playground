@@ -2,7 +2,7 @@ import type { ComponentProps, CSSProperties, Ref } from 'react';
 import { cn } from '../../lib/cn';
 import { accentTokens } from './accentTokens';
 
-export interface CardLinkProps extends Omit<ComponentProps<'a'>, 'href'> {
+export type CardLinkProps = {
   ref?: Ref<HTMLAnchorElement>;
   href: string;
   /**
@@ -12,7 +12,7 @@ export interface CardLinkProps extends Omit<ComponentProps<'a'>, 'href'> {
    * category or a color means. That's entirely the consumer's call.
    */
   accent?: string;
-}
+} & Omit<ComponentProps<'a'>, 'href'>
 
 /**
  * The anchor-rooted sibling of Card. Card wraps content that has its

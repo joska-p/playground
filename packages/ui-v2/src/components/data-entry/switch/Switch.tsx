@@ -1,0 +1,54 @@
+import type { InputHTMLAttributes, ReactNode, Ref } from "react";
+import { cn } from "../../lib/cn";
+import { colorVarStyle, type ColorVariant } from "../../lib/colorVariant";
+
+export type SwitchProps = {
+  variant?: ColorVariant;
+  label?: ReactNode;
+  ref?: Ref<HTMLInputElement>;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
+
+/**
+ * Switch — a native checkbox visually rebuilt as a toggle via the `.toggle`
+ * class in globals.css (appearance:none + ::before thumb). Fully keyboard
+ * accessible since it's still a real checkbox underneath. Stateless: pass
+ * `checked`/`defaultChecked` like any native input.
+ */
+export function Switch({
+  className,
+  variant = "primary",
+  label,
+  style,
+  disabled,
+  id,
+  ref,
+  ...props
+}: SwitchProps) {
+  const input = (
+    <input
+      ref={ref}
+      type="checkbox"
+      role="switch"
+      id={id}
+      disabled={disabled}
+      className={cn("toggle", className)}
+      style={colorVarStyle(variant, style)}
+      {...props}
+    />
+  );
+
+  if (!label) return input;
+
+  return (
+    <label
+      htmlFor={id}
+      className={cn(
+        "flex items-center gap-2.5 text-[13px] select-none",
+        disabled ? "pointer-events-none opacity-40" : "cursor-pointer"
+      )}
+    >
+      {input}
+      {label}
+    </label>
+  );
+}
