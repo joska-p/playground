@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui/Badge';
+import { Badge } from '@repo/ui';
 import { useLinks, useNodes } from '../../../stores/content/selectors';
 import { getStats } from '../utils';
 import { Stat } from './Stat';
@@ -39,7 +39,7 @@ function GraphOverview() {
                 className="flex items-center justify-between text-xs"
               >
                 <Badge
-                  variant="outline"
+                  appearance="outline"
                   className="font-mono"
                 >
                   {type}

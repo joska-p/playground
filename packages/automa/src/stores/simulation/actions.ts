@@ -90,7 +90,7 @@ const setRule = (ruleId: string): void => {
   if (rule.stateCount > stateColors.length) {
     const next = [...stateColors];
     for (let i = stateColors.length; i < rule.stateCount; i++) {
-      next[i] = getDefaultStateColor(i);
+      next[i] = getDefaultStateColor(i) ?? '#000000';
     }
     uiStore.setState({ stateColors: next });
   }
@@ -152,8 +152,10 @@ const placePattern = (col: number, row: number, creature: Creature): void => {
 
   let changed = false;
   for (let y = 0; y < creature.height; y++) {
+    const rowCells = creature.cells[y];
+    if (!rowCells) continue;
     for (let x = 0; x < creature.width; x++) {
-      const val = creature.cells[y][x];
+      const val = rowCells[x];
       if (!val) continue;
       const gx = col - offsetX + x;
       const gy = row - offsetY + y;

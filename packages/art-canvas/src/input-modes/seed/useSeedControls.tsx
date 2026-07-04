@@ -1,4 +1,4 @@
-import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
+import { ControlRow, ControlSection, Input, Select, Slider } from '@repo/ui';
 import { setComplexity, setMood, setPalette, setSeed } from '../../stores/ui/actions';
 import { useComplexity, useMood, usePalette, useSeed } from '../../stores/ui/selectors';
 
@@ -17,61 +17,71 @@ const PALETTE_OPTIONS = [
   { label: 'Deep Ocean', value: 'deep_ocean' }
 ];
 
-function useSeedControls(): ControlSection {
+function SeedControls() {
   const seed = useSeed();
   const complexity = useComplexity();
   const mood = useMood();
   const palette = usePalette();
 
-  const seedControl: Control = {
-    id: 'seed',
-    label: 'Seed',
-    type: 'text',
-    value: seed,
-    onChange: (v: string) => {
-      setSeed(v);
-    }
-  };
-
-  const complexityControl: Control = {
-    id: 'complexity',
-    label: 'Complexity',
-    type: 'number',
-    min: 1,
-    max: 5,
-    value: complexity,
-    onChange: (v: number) => {
-      setComplexity(v);
-    }
-  };
-
-  const moodControl: Control = {
-    id: 'mood',
-    label: 'Mood',
-    type: 'select',
-    value: mood,
-    options: MOOD_OPTIONS,
-    onChange: (v: string) => {
-      setMood(v);
-    }
-  };
-
-  const paletteControl: Control = {
-    id: 'palette',
-    label: 'Palette',
-    type: 'select',
-    value: palette,
-    options: PALETTE_OPTIONS,
-    onChange: (v: string) => {
-      setPalette(v);
-    }
-  };
-
-  return {
-    id: 'seed',
-    label: 'Seed',
-    controls: [seedControl, complexityControl, moodControl, paletteControl]
-  };
+  return (
+    <ControlSection
+      title="Seed"
+      defaultOpen
+    >
+      <ControlRow label="Seed">
+        <Input
+          value={seed}
+          onChange={(e) => {
+            setSeed(e.target.value);
+          }}
+        />
+      </ControlRow>
+      <ControlRow label="Complexity">
+        <Slider
+          value={complexity}
+          onChange={(e) => {
+            setComplexity(Number(e.target.value));
+          }}
+          min={1}
+          max={5}
+        />
+      </ControlRow>
+      <ControlRow label="Mood">
+        <Select
+          value={mood}
+          onChange={(e) => {
+            setMood(e.target.value);
+          }}
+        >
+          {MOOD_OPTIONS.map((opt) => (
+            <option
+              key={opt.value}
+              value={opt.value}
+            >
+              {opt.label}
+            </option>
+          ))}
+        </Select>
+      </ControlRow>
+      <ControlRow label="Palette">
+        <Select
+          value={palette}
+          onChange={(e) => {
+            setPalette(e.target.value);
+          }}
+        >
+          {PALETTE_OPTIONS.map((opt) => (
+            <option
+              key={opt.value}
+              value={opt.value}
+            >
+              {opt.label}
+            </option>
+          ))}
+        </Select>
+      </ControlRow>
+    </ControlSection>
+  );
 }
 
-export { useSeedControls };
+export { SeedControls };

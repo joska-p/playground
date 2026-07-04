@@ -1,4 +1,4 @@
-import { Icon } from '@repo/ui/Icon';
+import { Icon } from '@repo/ui';
 import type { GraphNode } from '../../../core/pipeline/graphData.schema';
 
 function ConnectionRow({ node, direction }: { node: GraphNode; direction: 'in' | 'out' }) {

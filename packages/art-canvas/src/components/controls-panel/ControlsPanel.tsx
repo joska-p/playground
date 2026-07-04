@@ -1,6 +1,5 @@
-import { ControlPanel } from '@repo/ui/ControlPanel';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
-import { useSeedControls } from '../../input-modes/seed/useSeedControls';
+import { ControlPanel, ControlRow, ControlSection, Select } from '@repo/ui';
+import { SeedControls } from '../../input-modes/seed/useSeedControls';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';
 import type { InputMode } from '../../stores/ui/types';
@@ -14,33 +13,33 @@ const inputModeOptions = inputModes.map((mode) => ({
 function ControlsPanel() {
   const inputMode = useInputMode();
 
-  const inputControl: Control = {
-    id: 'inputMode',
-    label: 'Mode',
-    type: 'select',
-    value: inputMode,
-    options: inputModeOptions,
-    onChange: (v: string) => {
-      setUiMode(v as InputMode);
-    }
-  };
-
-  const sections: ControlSection[] = [
-    {
-      id: 'input',
-      label: 'Input',
-      defaultOpen: true,
-      controls: [inputControl]
-    }
-  ];
-
-  const fromSeedSection = useSeedControls();
-
-  if (inputMode === 'seed') {
-    sections.push(fromSeedSection);
-  }
-
-  return <ControlPanel sections={sections} />;
+  return (
+    <ControlPanel title="controls">
+      <ControlSection
+        title="Input"
+        defaultOpen
+      >
+        <ControlRow label="Mode">
+          <Select
+            value={inputMode}
+            onChange={(e) => {
+              setUiMode(e.target.value as InputMode);
+            }}
+          >
+            {inputModeOptions.map((opt) => (
+              <option
+                key={opt.value}
+                value={opt.value}
+              >
+                {opt.label}
+              </option>
+            ))}
+          </Select>
+        </ControlRow>
+      </ControlSection>
+      {inputMode === 'seed' && <SeedControls />}
+    </ControlPanel>
+  );
 }
 
 export { ControlsPanel };

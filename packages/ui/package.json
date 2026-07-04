@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/App.tsx",
-    "./styles": "./src/styles/styles.css"
+    ".": "./src/index.ts",
+    "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
+    "./styles": "./src/styles/styles.css",
+    "./*": "./src/index.ts"
   },
   "scripts": {
     "dev": "vite --host",

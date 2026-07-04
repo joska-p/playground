@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui/Badge';
+import { Badge } from '@repo/ui';
 import { CONFIG } from '../../../core/config.ts';
 import type { GraphNode } from '../../../core/pipeline/graphData.schema';
 import { useCommunities, useLinks, useNodes } from '../../../stores/content/selectors';
@@ -34,7 +34,7 @@ function NodeDetails({ node, idx }: { node: GraphNode; idx: number }) {
           </dd>
           <dt className="text-muted-foreground">Type</dt>
           <dd>
-            <Badge variant="outline">{node.file_type}</Badge>
+            <Badge appearance="outline">{node.file_type}</Badge>
           </dd>
         </dl>
 

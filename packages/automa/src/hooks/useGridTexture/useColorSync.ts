@@ -14,7 +14,7 @@ export const useColorSync = (
 ): void => {
   useEffect(() => {
     for (let i = 0; i < MAX_STATE_COUNT; i++) {
-      uniforms.stateColors.value[i].set(stateColors[i] ?? '#000000');
+      uniforms.stateColors.value[i]?.set(stateColors[i] ?? '#000000');
     }
     uniforms.glowColor.value.set(glowColor);
   }, [stateColors, glowColor, uniforms]);
