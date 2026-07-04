@@ -98,7 +98,7 @@ function DocHeading({ level = 'h2', children }: { level?: 'h2' | 'h3' | 'h4'; ch
 
 function Prose({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-foreground-muted max-w-[640px] space-y-3 text-sm leading-relaxed">
+    <div className="text-foreground-muted max-w-160 space-y-3 text-sm leading-relaxed">
       {children}
     </div>
   );
@@ -106,7 +106,7 @@ function Prose({ children }: { children: React.ReactNode }) {
 
 function CodeBlock({ code }: { code: string }) {
   return (
-    <pre className="bg-surface max-h-80 overflow-x-auto rounded-lg border border-[var(--border)] p-4 text-xs leading-relaxed">
+    <pre className="bg-surface border-border max-h-80 overflow-x-auto rounded-lg border p-4 text-xs leading-relaxed">
       <code>{code}</code>
     </pre>
   );
@@ -121,7 +121,7 @@ function ApiTable({
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-xs">
         <thead>
-          <tr className="border-b border-[var(--border)]">
+          <tr className="border-border border-b">
             <th className="text-foreground-muted px-3 py-2 text-left font-medium">Prop</th>
             <th className="text-foreground-muted px-3 py-2 text-left font-medium">Type</th>
             <th className="text-foreground-muted px-3 py-2 text-left font-medium">Default</th>
@@ -132,7 +132,7 @@ function ApiTable({
           {rows.map((r) => (
             <tr
               key={r.prop}
-              className="border-b border-[var(--border)]"
+              className="border-border border-b"
             >
               <td className="text-foreground px-3 py-2 font-mono">{r.prop}</td>
               <td className="text-foreground-muted px-3 py-2 font-mono">{r.type}</td>
@@ -288,9 +288,8 @@ function ButtonGallery() {
           </Button>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button isLoading>Loading</Button>
+          <Button loading>Loading</Button>
           <Button disabled>Disabled</Button>
-          <Button fullWidth>Full width</Button>
         </div>
       </div>
     </DemoSection>
@@ -445,14 +444,7 @@ function InputGallery() {
             value="cant touch this"
           />
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="input-loading">loading</Label>
-          <Input
-            id="input-loading"
-            isLoading
-            value="validating..."
-          />
-        </div>
+
         <Select
           variant="primary"
           placeholder="choose a category..."
@@ -839,10 +831,7 @@ function TooltipDemo() {
             <Settings className="h-3.5 w-3.5" />
           </Button>
         </Tooltip>
-        <Tooltip
-          content="delete"
-          variant="destructive"
-        >
+        <Tooltip content="delete">
           <Button
             variant="destructive"
             size="icon"
@@ -1179,7 +1168,7 @@ function MenuItemDemo() {
       code={`<MenuItem icon={<Book />} label="docs" />
 <MenuItem label="delete" variant="destructive" />`}
     >
-      <div className="max-w-[200px] space-y-1 rounded-lg p-2 shadow-xs">
+      <div className="max-w-50 space-y-1 rounded-lg p-2 shadow-xs">
         <MenuItem
           icon={<Book className="h-4 w-4" />}
           label="documentation"
@@ -1262,6 +1251,14 @@ function SidebarDemo() {
   );
 }
 
+function throwError() {
+  throw new Error('this widget always crashes — demo purposes only.');
+}
+
+function BuggyWidget() {
+  return <div onClick={throwError}></div>;
+}
+
 function ErrorBoundaryDemo() {
   return (
     <DemoSection
@@ -1286,10 +1283,6 @@ function ErrorBoundaryDemo() {
       </ErrorBoundary>
     </DemoSection>
   );
-}
-
-function BuggyWidget() {
-  throw new Error('this widget always crashes — demo purposes only.');
 }
 
 function ControlSectionDemo() {
@@ -1394,6 +1387,7 @@ function CardGalleries() {
     >
       <div className="grid grid-cols-1 gap-4 landscape:grid-cols-3">
         <CategoryCard
+          label="Color"
           title="color"
           description="palette exploration in oklch space."
           iconName="color"
@@ -1564,7 +1558,7 @@ function ArchitectureSection() {
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[var(--border)]">
+            <tr className="border-border border-b">
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">
                 Needs state?
               </th>
@@ -1592,7 +1586,7 @@ function ArchitectureSection() {
             ].map(([needs, comp, hook]) => (
               <tr
                 key={comp}
-                className="border-b border-[var(--border)]"
+                className="border-border border-b"
               >
                 <td className="text-foreground-dim px-3 py-2">{needs}</td>
                 <td className="text-foreground px-3 py-2 font-mono">{comp}</td>
@@ -1710,7 +1704,7 @@ function VariantSystemSection() {
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[var(--border)]">
+            <tr className="border-border border-b">
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">Component</th>
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">Mechanism</th>
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">Default</th>
@@ -1744,7 +1738,7 @@ function VariantSystemSection() {
             ].map(([comp, mech, def, colors]) => (
               <tr
                 key={comp}
-                className="border-b border-[var(--border)]"
+                className="border-border border-b"
               >
                 <td className="text-foreground px-3 py-2 font-mono">{comp}</td>
                 <td className="text-foreground-muted px-3 py-2 font-mono">{mech}</td>
@@ -1768,7 +1762,7 @@ function HooksSection() {
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[var(--border)]">
+            <tr className="border-border border-b">
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">Hook</th>
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">Returns</th>
               <th className="text-foreground-muted px-3 py-2 text-left font-medium">Used by</th>
@@ -1796,7 +1790,7 @@ function HooksSection() {
             ].map(([hook, returns, usedBy]) => (
               <tr
                 key={hook}
-                className="border-b border-[var(--border)]"
+                className="border-border border-b"
               >
                 <td className="text-foreground px-3 py-2 font-mono">{hook}</td>
                 <td className="text-foreground-muted px-3 py-2 font-mono">{returns}</td>
@@ -1883,7 +1877,7 @@ function ContributingSection() {
 
 function AppContent() {
   return (
-    <main className="mx-auto flex max-w-[960px] flex-col px-4 py-10 sm:px-6">
+    <main className="mx-auto flex max-w-240 flex-col px-4 py-10 sm:px-6">
       <header className="mb-14 flex items-center justify-between">
         <div>
           <span className="text-primary text-sm font-semibold tracking-tight">pg_lab-ui v2</span>
