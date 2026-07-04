@@ -18,6 +18,7 @@ export {
   type ColorSwatchProps,
   type ColorSwatchSize
 } from './color-swatch/ColorSwatch';
+export { MenuItem, type MenuItemProps } from './menu-item/MenuItem';
 export { NotificationItem, type NotificationItemProps } from './notification-item/NotificationItem';
 export { Popover, type PopoverProps } from './popover/Popover';
 export { SectionHeading, type SectionHeadingProps } from './section-heading/SectionHeading';
