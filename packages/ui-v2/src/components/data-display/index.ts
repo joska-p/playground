@@ -12,5 +12,11 @@ export {
   type CardProps
 } from './card/Card';
 export { Carousel, CarouselSlide, type CarouselProps } from './carousel/Carousel';
+export {
+  ColorSwatch,
+  type ColorSwatchProps,
+  type ColorSwatchSize
+} from './color-swatch/ColorSwatch';
 export { Popover, type PopoverProps } from './popover/Popover';
+export { SectionHeading, type SectionHeadingProps } from './section-heading/SectionHeading';
 export { Tooltip, type TooltipProps } from './tooltip/Tooltip';

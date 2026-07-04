@@ -10,7 +10,7 @@ import { Icon } from '@repo/ui/Icon';
       href="https://github.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-muted/50 text-muted-foreground hover:border-primary/40 hover:bg-card hover:text-primary focus-visible:ring-ring flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none active:scale-[.97]"
+      class="bg-muted/50 text-muted-foreground hover:border-primary/40 hover:bg-card hover:text-primary flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--primary)_50%,transparent),0_0_14px_-4px_color-mix(in_srgb,var(--primary)_60%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--primary)_70%,var(--ring))] focus-visible:outline-none active:scale-[.97]"
       aria-label="GitHub"
     >
       <Icon
@@ -23,7 +23,7 @@ import { Icon } from '@repo/ui/Icon';
       href="https://gitlab.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-muted/50 text-muted-foreground hover:border-primary/40 hover:bg-card hover:text-primary focus-visible:ring-ring flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none active:scale-[.97]"
+      class="bg-muted/50 text-muted-foreground hover:border-primary/40 hover:bg-card hover:text-primary flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--primary)_50%,transparent),0_0_14px_-4px_color-mix(in_srgb,var(--primary)_60%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--primary)_70%,var(--ring))] focus-visible:outline-none active:scale-[.97]"
       aria-label="GitLab"
     >
       <Icon
@@ -36,7 +36,7 @@ import { Icon } from '@repo/ui/Icon';
   <!-- Theme toggle -->
   <button
     id="theme-toggle"
-    class="bg-muted/50 text-muted-foreground hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus-visible:ring-ring flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none active:scale-[.97]"
+    class="bg-muted/50 text-muted-foreground hover:border-primary/40 hover:bg-primary/10 hover:text-primary flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--primary)_50%,transparent),0_0_14px_-4px_color-mix(in_srgb,var(--primary)_60%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--primary)_70%,var(--ring))] focus-visible:outline-none active:scale-[.97]"
     aria-label="Toggle theme"
   >
     <svg
@@ -81,7 +81,7 @@ import { Icon } from '@repo/ui/Icon';
   <button
     id="mobile-menu-toggle"
     aria-expanded="false"
-    class="bg-muted/50 text-muted-foreground focus-visible:ring-ring flex h-8 w-8 flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none active:scale-[.97] md:hidden"
+    class="bg-muted/50 text-muted-foreground flex h-8 w-8 flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-200 hover:shadow-[0_0_14px_-4px_var(--primary)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--primary)_70%,var(--ring))] focus-visible:outline-none active:scale-[.97] md:hidden"
     aria-label="Toggle menu"
   >
     <span
@@ -93,20 +93,20 @@ import { Icon } from '@repo/ui/Icon';
       id="burger-bottom"
     ></span>
   </button>
+
+  <style>
+    html[data-theme='dark'] #icon-moon {
+      display: none;
+    }
+    html[data-theme='light'] #icon-sun {
+      display: none;
+    }
+
+    #mobile-menu-toggle[aria-expanded='true'] #burger-top {
+      transform: translateY(4px) rotate(45deg);
+    }
+    #mobile-menu-toggle[aria-expanded='true'] #burger-bottom {
+      transform: translateY(-4px) rotate(-45deg);
+    }
+  </style>
 </div>
-
-<style>
-  html[data-theme='dark'] #icon-moon {
-    display: none;
-  }
-  html[data-theme='light'] #icon-sun {
-    display: none;
-  }
-
-  #mobile-menu-toggle[aria-expanded='true'] #burger-top {
-    transform: translateY(4px) rotate(45deg);
-  }
-  #mobile-menu-toggle[aria-expanded='true'] #burger-bottom {
-    transform: translateY(-4px) rotate(-45deg);
-  }
-</style>

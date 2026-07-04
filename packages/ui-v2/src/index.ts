@@ -53,14 +53,19 @@ export {
   CardTitle,
   Carousel,
   CarouselSlide,
+  ColorSwatch,
   Popover,
+  SectionHeading,
   Tooltip,
   badgeVariants,
   type AccordionItemProps,
   type BadgeProps,
   type CardProps,
   type CarouselProps,
+  type ColorSwatchProps,
+  type ColorSwatchSize,
   type PopoverProps,
+  type SectionHeadingProps,
   type TooltipProps
 } from './components/data-display/index';
 
