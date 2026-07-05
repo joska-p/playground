@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { SeedCanvas } from '../input-modes/seed/SeedCanvas';
 import { useInputMode } from '../stores/ui/selectors';
-import { ControlsPanel } from './controls-panel/ControlsPanel';
+import { ControlsPanel } from './controls/ControlsPanel';
 import { FoldedSpace } from './folded-space/FoldedSpace';
 
 export function ArtCanvas() {

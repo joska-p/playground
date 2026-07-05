@@ -1,6 +1,6 @@
 import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
 import { SequenceCanvas } from './components/SequenceCanvas';
-import { ControlsPanel } from './components/controlsPanel/ControlsPanel';
+import { ControlsPanel } from './components/controls/ControlsPanel';
 import { register } from './modules/fourier';
 
 register();
