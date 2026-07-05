@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Button,
   ColorPalette,
@@ -8,7 +7,13 @@ import {
   ControlSection,
   Slider
 } from '@repo/ui';
-import { CSS_VARS, DEFAULT_GAP_SIZE, DEFAULT_TILE_SIZE, initialRotations } from '../../core/constants';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  CSS_VARS,
+  DEFAULT_GAP_SIZE,
+  DEFAULT_TILE_SIZE,
+  initialRotations
+} from '../../core/constants';
 import { applyPalette, cyclePalettes, regenerateTiles } from '../../stores/mosaic/actions';
 import {
   useCurrentPalette,
@@ -79,25 +84,48 @@ function MosaicControlsPanel() {
     >
       <TileSetControls />
 
-      <ControlSection title="Actions" defaultOpen={true}>
+      <ControlSection
+        title="Actions"
+        defaultOpen={true}
+      >
         <ControlGrid columns={2}>
-          <Button variant="primary" onClick={shuffleColors} size="sm">
+          <Button
+            variant="primary"
+            onClick={shuffleColors}
+            size="sm"
+          >
             Shuffle Colors
           </Button>
-          <Button onClick={shuffleRotations} size="sm">
+          <Button
+            onClick={shuffleRotations}
+            size="sm"
+          >
             Shuffle Rotations
           </Button>
-          <Button disabled={isPalettesLoading} onClick={cyclePalettes} size="sm">
+          <Button
+            disabled={isPalettesLoading}
+            onClick={cyclePalettes}
+            size="sm"
+          >
             Cycle Palettes
           </Button>
-          <Button onClick={regenerateTiles} size="sm">
+          <Button
+            onClick={regenerateTiles}
+            size="sm"
+          >
             Regenerate Tiles
           </Button>
         </ControlGrid>
       </ControlSection>
 
-      <ControlSection title="Layout" defaultOpen={true}>
-        <ControlRow label="Tile Size" value={tileSize.value.toString() + 'px'}>
+      <ControlSection
+        title="Layout"
+        defaultOpen={true}
+      >
+        <ControlRow
+          label="Tile Size"
+          value={tileSize.value.toString() + 'px'}
+        >
           <Slider
             value={tileSize.value}
             min={32}
@@ -109,7 +137,10 @@ function MosaicControlsPanel() {
             showTicks={false}
           />
         </ControlRow>
-        <ControlRow label="Gap Size" value={gapSize.value.toString() + 'px'}>
+        <ControlRow
+          label="Gap Size"
+          value={gapSize.value.toString() + 'px'}
+        >
           <Slider
             value={gapSize.value}
             min={0}
@@ -123,7 +154,10 @@ function MosaicControlsPanel() {
         </ControlRow>
       </ControlSection>
 
-      <ControlSection title="Palettes" defaultOpen={true}>
+      <ControlSection
+        title="Palettes"
+        defaultOpen={true}
+      >
         <div className="flex flex-wrap gap-2">
           {currentPalettes.map((palette) => {
             const colors = [
