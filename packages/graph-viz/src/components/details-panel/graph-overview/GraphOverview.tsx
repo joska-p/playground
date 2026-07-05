@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui';
+import { Badge } from '@repo/ui/data-display';
 import { useLinks, useNodes } from '../../../stores/content/selectors';
 import { getStats } from '../utils';
 import { Stat } from './Stat';

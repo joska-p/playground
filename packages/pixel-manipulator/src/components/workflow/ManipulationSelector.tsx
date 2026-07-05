@@ -1,5 +1,6 @@
 import { pixel } from '@repo/pixel';
-import { Button, ControlRow, Select } from '@repo/ui';
+import { ControlRow } from '@repo/ui/control-panel';
+import { Button, Select } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { addWorkflowStep } from '../../stores/manipulator/actions';
 

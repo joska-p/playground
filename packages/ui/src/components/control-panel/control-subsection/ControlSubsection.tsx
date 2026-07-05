@@ -1,6 +1,6 @@
 import { ChevronRight } from 'lucide-react';
 import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
-import { cn } from '../../lib/cn';
+import { cn } from '../../../lib/cn';
 
 export type ControlSubsectionProps = {
   ref?: Ref<HTMLDetailsElement>;

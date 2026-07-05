@@ -1,4 +1,4 @@
-import { Sidebar } from '@repo/ui/Sidebar';
+import { Sidebar } from '@repo/ui/widgets';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 

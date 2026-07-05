@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui/Badge';
+import { Badge } from '@repo/ui/data-display';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Badge> = {

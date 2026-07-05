@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
-import { badgeVariants } from './Badge.variants';
+import { badgeVariants } from './variants';
 
 export type BadgeProps = {
   variant?: ColorVariant;

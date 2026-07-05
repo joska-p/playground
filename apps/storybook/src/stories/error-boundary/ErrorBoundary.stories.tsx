@@ -1,5 +1,5 @@
-import { Button } from '@repo/ui/Button';
-import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
+import { Button } from '@repo/ui/data-entry';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 

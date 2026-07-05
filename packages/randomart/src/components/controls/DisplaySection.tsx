@@ -1,5 +1,6 @@
 import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
-import { Button, ControlRow, ControlSection, Input } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Button, Input } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
 import {

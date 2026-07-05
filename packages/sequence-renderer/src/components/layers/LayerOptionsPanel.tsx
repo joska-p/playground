@@ -1,6 +1,4 @@
-import { Input } from '@repo/ui/Input';
-import { Label } from '@repo/ui/Label';
-import { Slider } from '@repo/ui/Slider';
+import { Input, Label, Slider } from '@repo/ui/data-entry';
 import type { ParamDescriptor } from '../../core/types';
 
 type Params = Record<string, ParamDescriptor>;

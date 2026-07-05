@@ -1,4 +1,4 @@
-import { Carousel } from '@repo/ui/Carousel';
+import { Carousel } from '@repo/ui/data-display';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const items = [

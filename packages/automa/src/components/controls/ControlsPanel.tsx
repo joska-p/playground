@@ -1,4 +1,4 @@
-import { ControlPanel } from '@repo/ui';
+import { ControlPanel } from '@repo/ui/control-panel';
 import { useStepTimer } from '../../hooks/useStepTimer';
 import { useCols, useGeneration, useRows } from '../../stores/simulation/selectors';
 import { useShowDebug } from '../../stores/ui/selectors';

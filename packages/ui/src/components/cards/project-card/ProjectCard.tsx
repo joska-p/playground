@@ -1,10 +1,10 @@
 import type { ComponentProps, Ref } from 'react';
-import { Icon } from '../icons/Icon';
-import type { IconName } from '../icons/iconMap';
-import { CardBody } from './CardBody';
-import { CardDescription } from './CardDescription';
-import { CardLink } from './CardLink';
-import { CardTitle } from './CardTitle';
+import { Icon } from '../../icons/Icon';
+import type { IconName } from '../../icons/iconMap';
+import { CardBody } from '../card-body/CardBody';
+import { CardDescription } from '../card-description/CardDescription';
+import { CardLink } from '../card-link/CardLink';
+import { CardTitle } from '../card-title/CardTitle';
 
 export type ProjectCardProps = {
   ref?: Ref<HTMLAnchorElement>;

@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { Outputs } from '../output/Outputs';
 import { ControlsPanel } from './ControlsPanel';
 

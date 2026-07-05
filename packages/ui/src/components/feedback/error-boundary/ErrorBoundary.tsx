@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import type { ColorVariant } from '../../../lib/colorVariant';
-import { DefaultFallback } from './DefaultFallback';
+import { DefaultFallback } from '../default-fallback/DefaultFallback';
 
 export type FallbackRenderer = (props: { error: Error; reset: () => void }) => ReactNode;
 

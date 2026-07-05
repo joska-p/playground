@@ -1,4 +1,4 @@
-import { ProjectCard } from '@repo/ui/ProjectCard';
+import { ProjectCard } from '@repo/ui/cards';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof ProjectCard> = {

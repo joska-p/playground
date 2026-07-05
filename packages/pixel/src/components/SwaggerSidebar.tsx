@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui/cn';
+import { cn } from '@repo/ui/lib/cn';
 import { useState } from 'react';
 import type { EndpointGroup, EndpointId } from './data/pipeline-docs-data';
 import { isActiveEndpoint } from './data/pipeline-docs-data';

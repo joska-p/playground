@@ -1,9 +1,9 @@
 import type { ComponentProps, Ref } from 'react';
-import { cn } from '../../lib/cn';
-import { Icon } from '../icons/Icon';
-import type { IconName } from '../icons/iconMap';
-import { CardBody } from './CardBody';
-import { CardLink } from './CardLink';
+import { cn } from '../../../lib/cn';
+import { Icon } from '../../icons/Icon';
+import type { IconName } from '../../icons/iconMap';
+import { CardBody } from '../card-body/CardBody';
+import { CardLink } from '../card-link/CardLink';
 
 export type CategoryCardProps = {
   ref?: Ref<HTMLAnchorElement>;

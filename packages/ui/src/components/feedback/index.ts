@@ -1,21 +1,24 @@
-export { Alert, type AlertProps } from './alert/Alert';
-export { alertVariants } from './alert/Alert.variants';
+export { Alert } from './alert/Alert';
+export type { AlertProps } from './alert/Alert';
+export { alertVariants } from './alert/variants';
+
+export { DefaultFallback } from './default-fallback/DefaultFallback';
+export type { DefaultFallbackProps } from './default-fallback/DefaultFallback';
+export { defaultFallbackVariants } from './default-fallback/variants';
+
 export {
   Dialog,
   DialogActions,
   DialogBody,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
-  type DialogHandle,
-  type DialogProps
+  DialogTitle
 } from './dialog/Dialog';
-export { DefaultFallback, type DefaultFallbackProps } from './error-boundary/DefaultFallback';
-export { defaultFallbackVariants } from './error-boundary/DefaultFallback.variants';
-export {
-  ErrorBoundary,
-  type ErrorBoundaryProps,
-  type FallbackRenderer
-} from './error-boundary/ErrorBoundary';
-export { ToastProvider, ToastViewport, type ToastProviderProps } from './toast/Toast';
+export type { DialogHandle, DialogProps } from './dialog/Dialog';
+
+export { ErrorBoundary } from './error-boundary/ErrorBoundary';
+export type { ErrorBoundaryProps, FallbackRenderer } from './error-boundary/ErrorBoundary';
+
+export { ToastProvider, ToastViewport } from './toast/Toast';
+export type { ToastProviderProps } from './toast/Toast';
 export { useToast } from './toast/useToast';

@@ -1,6 +1,5 @@
-import { Badge } from '@repo/ui/Badge';
-import { Button } from '@repo/ui/Button';
-import { Card } from '@repo/ui/Card';
+import { Badge, Card } from '@repo/ui/data-display';
+import { Button } from '@repo/ui/data-entry';
 import { useRef, useState } from 'react';
 import type { OutputType } from '../../stores/manipulator/types';
 import { downloadCanvas } from '../../utils/download';

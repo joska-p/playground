@@ -1,6 +1,10 @@
-export { Accordion, AccordionItem, type AccordionItemProps } from './accordion/Accordion';
-export { Badge, type BadgeProps } from './badge/Badge';
-export { badgeVariants } from './badge/Badge.variants';
+export { Accordion, AccordionItem } from './accordion/Accordion';
+export type { AccordionItemProps } from './accordion/Accordion';
+
+export { Badge } from './badge/Badge';
+export type { BadgeProps } from './badge/Badge';
+export { badgeVariants } from './badge/variants';
+
 export {
   Card,
   CardActions,
@@ -8,21 +12,39 @@ export {
   CardDescription,
   CardFooter,
   CardImage,
-  CardTitle,
-  type CardProps
+  CardTitle
 } from './card/Card';
-export { Carousel, CarouselSlide, type CarouselProps } from './carousel/Carousel';
-export { ChangelogItem, type ChangelogItemProps } from './changelog-item/ChangelogItem';
-export {
-  ColorSwatch,
-  type ColorSwatchProps,
-  type ColorSwatchSize
-} from './color-swatch/ColorSwatch';
-export { Hero, type HeroProps } from './hero/Hero';
-export { MenuItem, type MenuItemProps } from './menu-item/MenuItem';
-export { NotificationItem, type NotificationItemProps } from './notification-item/NotificationItem';
-export { Popover, type PopoverProps } from './popover/Popover';
-export { ScrollReveal, type ScrollRevealProps } from './scroll-reveal/ScrollReveal';
-export { SectionHeader, type SectionHeaderProps } from './section-header/SectionHeader';
-export { SectionHeading, type SectionHeadingProps } from './section-heading/SectionHeading';
-export { Tooltip, type TooltipProps } from './tooltip/Tooltip';
+export type { CardProps } from './card/Card';
+
+export { Carousel, CarouselSlide } from './carousel/Carousel';
+export type { CarouselProps } from './carousel/Carousel';
+
+export { ChangelogItem } from './changelog-item/ChangelogItem';
+export type { ChangelogItemProps } from './changelog-item/ChangelogItem';
+
+export { ColorSwatch } from './color-swatch/ColorSwatch';
+export type { ColorSwatchProps, ColorSwatchSize } from './color-swatch/ColorSwatch';
+
+export { Hero } from './hero/Hero';
+export type { HeroProps } from './hero/Hero';
+
+export { MenuItem } from './menu-item/MenuItem';
+export type { MenuItemProps } from './menu-item/MenuItem';
+
+export { NotificationItem } from './notification-item/NotificationItem';
+export type { NotificationItemProps } from './notification-item/NotificationItem';
+
+export { Popover } from './popover/Popover';
+export type { PopoverProps } from './popover/Popover';
+
+export { ScrollReveal } from './scroll-reveal/ScrollReveal';
+export type { ScrollRevealProps } from './scroll-reveal/ScrollReveal';
+
+export { SectionHeader } from './section-header/SectionHeader';
+export type { SectionHeaderProps } from './section-header/SectionHeader';
+
+export { SectionHeading } from './section-heading/SectionHeading';
+export type { SectionHeadingProps } from './section-heading/SectionHeading';
+
+export { Tooltip } from './tooltip/Tooltip';
+export type { TooltipProps } from './tooltip/Tooltip';

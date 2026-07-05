@@ -1,4 +1,4 @@
-import { Alert } from '@repo/ui/Alert';
+import { Alert } from '@repo/ui/feedback';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Alert> = {

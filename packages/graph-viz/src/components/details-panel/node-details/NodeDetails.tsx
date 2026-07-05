@@ -1,4 +1,4 @@
-import { Badge } from '@repo/ui';
+import { Badge } from '@repo/ui/data-display';
 import { CONFIG } from '../../../core/config.ts';
 import type { GraphNode } from '../../../core/pipeline/graphData.schema';
 import { useCommunities, useLinks, useNodes } from '../../../stores/content/selectors';

@@ -1,4 +1,4 @@
-import { ChangelogItem } from '@repo/ui/ChangelogItem';
+import { ChangelogItem } from '@repo/ui/data-display';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof ChangelogItem> = {

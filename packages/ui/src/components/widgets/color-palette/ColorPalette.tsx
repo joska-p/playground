@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
-import { colorPaletteVariants } from './ColorPalette.variants';
+import { colorPaletteVariants } from './variants';
 
 // Explicitly extract variant props to solve the TypeScript error
 type PaletteVariants = VariantProps<typeof colorPaletteVariants>;

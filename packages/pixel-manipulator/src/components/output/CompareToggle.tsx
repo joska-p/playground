@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/Button';
+import { Button } from '@repo/ui/data-entry';
 
 type CompareToggleProps = {
   mode: 'grid' | 'compare';

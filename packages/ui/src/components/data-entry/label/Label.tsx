@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { LabelHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { labelVariants } from './Label.variants';
+import { labelVariants } from './variants';
 
 export type LabelProps = {
   /** Shows a colored "*" after the label text. */

@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { MosaicControlsPanel } from './components/controls/MosaicControlsPanel';
 import { MosaicDisplay } from './components/MosaicDisplay';
 

@@ -1,4 +1,5 @@
-import { ControlRow, ControlSection, Input, Select, Slider } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Input, Select, Slider } from '@repo/ui/data-entry';
 import { setComplexity, setMood, setPalette, setSeed } from '../../stores/ui/actions';
 import { useComplexity, useMood, usePalette, useSeed } from '../../stores/ui/selectors';
 

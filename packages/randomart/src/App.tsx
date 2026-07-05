@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { ControlPanel } from './components/controls/ControlPanel';
 import { FloatingInspector } from './components/inspector/FloatingInspector';
 import { RandomArtCanvas } from './components/RandomArtCanvas';

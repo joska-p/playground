@@ -1,4 +1,4 @@
-import { ControlPanel } from '@repo/ui/ControlPanel';
+import { ControlPanel } from '@repo/ui/control-panel';
 import { LayerStackEditor } from '../layers/LayerStackEditor';
 import { SequenceSection } from './SequenceSection';
 import { ViewportSection } from './ViewportSection';

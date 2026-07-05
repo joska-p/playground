@@ -1,4 +1,5 @@
-import { Button, ControlSection } from '@repo/ui';
+import { ControlSection } from '@repo/ui/control-panel';
+import { Button } from '@repo/ui/data-entry';
 import { clearOutputs } from '../../stores/manipulator/actions';
 import { UploadZone } from './UploadZone/UploadZone';
 

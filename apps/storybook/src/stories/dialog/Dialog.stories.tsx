@@ -1,5 +1,5 @@
-import { Button } from '@repo/ui/Button';
-import { Dialog } from '@repo/ui/Dialog';
+import { Button } from '@repo/ui/data-entry';
+import { Dialog } from '@repo/ui/feedback';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
 

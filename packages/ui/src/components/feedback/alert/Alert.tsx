@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import { CheckCircle2, Circle, Info, TriangleAlert, XCircle } from 'lucide-react';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
-import { alertVariants } from './Alert.variants';
+import { alertVariants } from './variants';
 
 const iconColor: Record<string, string> = {
   default: 'text-foreground-dim',

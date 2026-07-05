@@ -1,4 +1,4 @@
-import { useResizeObserver } from '@repo/ui/useResizeObserver';
+import { useResizeObserver } from '@repo/ui/hooks/useResizeObserver';
 import { useRef } from 'react';
 import { useWebGLRenderer } from '../hooks/useWebGLRenderer';
 import { useRunning, useTreeB, useTreeG, useTreeR } from '../stores/randomart/selectors';

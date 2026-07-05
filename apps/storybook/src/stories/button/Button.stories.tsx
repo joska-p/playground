@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/Button';
+import { Button } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 

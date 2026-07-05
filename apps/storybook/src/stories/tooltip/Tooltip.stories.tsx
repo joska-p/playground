@@ -1,5 +1,5 @@
-import { Button } from '@repo/ui/Button';
-import { Tooltip } from '@repo/ui/Tooltip';
+import { Tooltip } from '@repo/ui/data-display';
+import { Button } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Tooltip> = {

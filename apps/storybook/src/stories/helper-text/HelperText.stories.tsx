@@ -1,4 +1,4 @@
-import { HelperText } from '@repo/ui/HelperText';
+import { HelperText } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof HelperText> = {

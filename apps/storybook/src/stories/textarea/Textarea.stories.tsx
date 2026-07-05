@@ -1,4 +1,4 @@
-import { Textarea } from '@repo/ui/Textarea';
+import { Textarea } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Textarea> = {

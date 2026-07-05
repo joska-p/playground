@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
-import { inputWrapperVariants } from './Input.variants';
+import { inputWrapperVariants } from './variants';
 
 export type InputProps = {
   /** Focus-ring color token. Defaults to "primary". */

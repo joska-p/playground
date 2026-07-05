@@ -1,4 +1,4 @@
-import { ScrollReveal } from '@repo/ui/ScrollReveal';
+import { ScrollReveal } from '@repo/ui/data-display';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useSyncExternalStore } from 'react';
 

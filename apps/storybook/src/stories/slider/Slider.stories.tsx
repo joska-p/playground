@@ -1,4 +1,4 @@
-import { Slider } from '@repo/ui/Slider';
+import { Slider } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 

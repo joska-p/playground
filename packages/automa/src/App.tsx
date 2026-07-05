@@ -3,7 +3,7 @@ import {
   GRID_DEFAULT_DENSITY,
   GRID_DEFAULT_ROWS
 } from '@repo/automa-engine/config';
-import { ErrorBoundary } from '@repo/ui';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { useEffect } from 'react';
 import { AutomatonCanvas } from './components/canvas/AutomatonCanvas.tsx';
 import { ControlsPanel } from './components/controls/ControlsPanel.tsx';

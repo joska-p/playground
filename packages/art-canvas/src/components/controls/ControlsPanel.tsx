@@ -1,4 +1,5 @@
-import { ControlPanel, ControlRow, ControlSection, Select } from '@repo/ui';
+import { ControlPanel, ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Select } from '@repo/ui/data-entry';
 import { SeedControls } from '../../input-modes/seed/useSeedControls';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';

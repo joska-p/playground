@@ -1,5 +1,5 @@
-import { Button } from '@repo/ui/Button';
-import { Card } from '@repo/ui/Card';
+import { Card } from '@repo/ui/data-display';
+import { Button } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 /**

@@ -1,4 +1,4 @@
-import { ControlPanel } from '@repo/ui/ControlPanel';
+import { ControlPanel } from '@repo/ui/control-panel';
 import { iconMap } from '@repo/ui/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';

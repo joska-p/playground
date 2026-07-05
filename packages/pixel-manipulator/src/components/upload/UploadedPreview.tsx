@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/Button';
+import { Button } from '@repo/ui/data-entry';
 import { useEffect, useRef } from 'react';
 import type { OutputType } from '../../stores/manipulator/types';
 import { CloseIcon } from '../shared/CloseIcon';

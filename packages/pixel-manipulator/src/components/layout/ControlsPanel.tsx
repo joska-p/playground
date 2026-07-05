@@ -1,6 +1,6 @@
 import { pixel } from '@repo/pixel';
-import { Button } from '@repo/ui/Button';
-import { ControlGrid, ControlPanel, ControlSection, Select } from '@repo/ui/ControlPanel';
+import { ControlGrid, ControlPanel, ControlSection } from '@repo/ui/control-panel';
+import { Button, Select } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';
 import {

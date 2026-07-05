@@ -1,5 +1,6 @@
 import { allRules } from '@repo/sequence-engine/rules';
-import { ControlRow, ControlSection, Input, Select, Slider } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Input, Select, Slider } from '@repo/ui/data-entry';
 import { setSeed, setSequenceRule, setSequenceSteps } from '../../stores/sequence/actions';
 import { useSeed, useSequenceRule, useSequenceSteps } from '../../stores/sequence/selectors';
 

@@ -1,4 +1,4 @@
-import { Slider } from '@repo/ui/Slider';
+import { Slider } from '@repo/ui/data-entry';
 import { useEffect, useState } from 'react';
 import { pixel } from '../../api/pixel';
 import type { ManipInfo } from '../data/pipeline-docs-data';

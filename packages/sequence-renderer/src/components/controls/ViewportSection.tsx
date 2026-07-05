@@ -1,4 +1,5 @@
-import { ControlRow, ControlSection, Slider, Switch } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Slider, Switch } from '@repo/ui/data-entry';
 import { setViewport } from '../../stores/ui/actions';
 import { useViewport } from '../../stores/ui/selectors';
 

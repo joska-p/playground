@@ -2,7 +2,7 @@ import type { VariantProps } from 'class-variance-authority';
 import { CheckCircle2, Circle, Info, TriangleAlert, XCircle } from 'lucide-react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { helperTextVariants } from './HelperText.variants';
+import { helperTextVariants } from './variants';
 
 const defaultIcon: Record<string, ReactNode> = {
   default: <Circle className="h-3 w-3" />,

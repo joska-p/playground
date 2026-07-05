@@ -1,8 +1,8 @@
 import { ChevronUp } from 'lucide-react';
 import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
-import { cn } from '../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../lib/colorVariant';
-import { controlPanelVariants, type ControlPanelVariantProps } from './ControlPanel.variants';
+import { cn } from '../../../lib/cn';
+import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { controlPanelVariants, type ControlPanelVariantProps } from '../variants';
 
 export type ControlPanelProps = {
   ref?: Ref<HTMLDetailsElement>;

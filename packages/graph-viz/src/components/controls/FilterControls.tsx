@@ -1,4 +1,5 @@
-import { Badge, Button, Switch } from '@repo/ui';
+import { Badge } from '@repo/ui/data-display';
+import { Button, Switch } from '@repo/ui/data-entry';
 import { useCommunities, useNodes } from '../../stores/content/selectors';
 import {
   hideAllCommunities,

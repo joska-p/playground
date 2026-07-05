@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { ArtCanvas } from './components/ArtCanvas';
 
 function App() {

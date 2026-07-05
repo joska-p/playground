@@ -1,4 +1,5 @@
-import { Button, ControlRow, ControlSection, Input, Textarea } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Button, Input, Textarea } from '@repo/ui/data-entry';
 import { setMaxDepth, setSeedText } from '../../stores/randomart/actions/config';
 import { useMaxDepth, useSeedText } from '../../stores/randomart/selectors';
 

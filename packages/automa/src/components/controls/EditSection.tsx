@@ -1,4 +1,5 @@
-import { Button, ControlRow, ControlSection, Select } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Button, Select } from '@repo/ui/data-entry';
 import { clear, randomize } from '../../stores/simulation/actions';
 import { setToolMode } from '../../stores/ui/actions';
 import { useBrushMode } from '../../stores/ui/selectors';

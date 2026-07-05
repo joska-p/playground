@@ -1,4 +1,4 @@
-import { Switch } from '@repo/ui/Switch';
+import { Switch } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 

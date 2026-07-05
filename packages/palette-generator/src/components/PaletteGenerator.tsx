@@ -1,4 +1,4 @@
-import { Sidebar } from '@repo/ui/Sidebar';
+import { Sidebar } from '@repo/ui/widgets';
 import { Controls } from './controls/Controls';
 import { Display } from './display/Display';
 

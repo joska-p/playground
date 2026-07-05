@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { ButtonHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { buttonVariants } from './Button.variants';
+import { buttonVariants } from './variants';
 
 /**
  * Button — React 19 pattern: `ref` is a plain prop, no `forwardRef` wrapper

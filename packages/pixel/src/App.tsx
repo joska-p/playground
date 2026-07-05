@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '@repo/ui/ErrorBoundary';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { Docs } from './components/Docs';
 
 function App() {

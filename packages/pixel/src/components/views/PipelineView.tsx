@@ -1,4 +1,4 @@
-import { Card } from '@repo/ui/Card';
+import { Card } from '@repo/ui/data-display';
 import { CodeBlock } from '../CodeBlock';
 import { ENDPOINT_GROUPS, findItemForEndpoint } from '../data/pipeline-docs-data';
 import { ChainDemo } from '../demos/ChainDemo';

@@ -3,7 +3,7 @@ import { TriangleAlert } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 import { Button } from '../../data-entry/button/Button';
-import { defaultFallbackVariants, fallbackIconColor } from './DefaultFallback.variants';
+import { defaultFallbackVariants, fallbackIconColor } from './variants';
 
 export type DefaultFallbackProps = {
   error: Error;

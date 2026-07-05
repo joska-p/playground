@@ -1,4 +1,5 @@
-import { ErrorBoundary, Sidebar } from '@repo/ui';
+import { ErrorBoundary } from '@repo/ui/feedback';
+import { Sidebar } from '@repo/ui/widgets';
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
 import { GraphCanvas } from './components/scene/GraphCanvas.tsx';

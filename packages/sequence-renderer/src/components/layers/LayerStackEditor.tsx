@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/Button';
+import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { getAllLayers } from '../../core/layers/registry';
 import { addLayer, removeLayer, toggleLayer, updateLayerParams } from '../../stores/ui/actions';

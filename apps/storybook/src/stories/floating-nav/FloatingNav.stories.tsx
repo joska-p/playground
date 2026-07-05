@@ -1,4 +1,4 @@
-import { FloatingNav } from '@repo/ui/FloatingNav';
+import { FloatingNav } from '@repo/ui/navigation';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const links = [

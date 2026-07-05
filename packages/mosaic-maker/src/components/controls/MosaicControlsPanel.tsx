@@ -1,12 +1,6 @@
-import {
-  Button,
-  ColorPalette,
-  ControlGrid,
-  ControlPanel,
-  ControlRow,
-  ControlSection,
-  Slider
-} from '@repo/ui';
+import { ControlGrid, ControlPanel, ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Button, Slider } from '@repo/ui/data-entry';
+import { ColorPalette } from '@repo/ui/widgets';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   CSS_VARS,

@@ -1,4 +1,5 @@
-import { Button, ControlGrid } from '@repo/ui';
+import { ControlGrid } from '@repo/ui/control-panel';
+import { Button } from '@repo/ui/data-entry';
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';
 import { setWorkflowSteps } from '../../stores/manipulator/actions';
 

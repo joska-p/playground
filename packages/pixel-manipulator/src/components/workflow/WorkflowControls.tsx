@@ -1,5 +1,5 @@
 import { pixel } from '@repo/pixel';
-import { ControlSection } from '@repo/ui';
+import { ControlSection } from '@repo/ui/control-panel';
 import { useWorkflowSteps } from '../../stores/manipulator/selectors';
 import { EmptyState } from '../shared/EmptyState';
 import { WorkEmptyStateSvg } from './WorkEmptyStateSvg';

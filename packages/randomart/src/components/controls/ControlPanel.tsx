@@ -1,4 +1,4 @@
-import { ControlPanel as Panel } from '@repo/ui/ControlPanel';
+import { ControlPanel as Panel } from '@repo/ui/control-panel';
 
 import { AnimationSection } from './AnimationSection';
 import { ConfigSection } from './ConfigSection';

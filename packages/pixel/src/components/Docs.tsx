@@ -1,4 +1,4 @@
-import { Sidebar } from '@repo/ui/Sidebar';
+import { Sidebar } from '@repo/ui/widgets';
 import { useEffect, useState } from 'react';
 import type { EndpointId } from './data/pipeline-docs-data';
 import { ENDPOINT_GROUPS } from './data/pipeline-docs-data';

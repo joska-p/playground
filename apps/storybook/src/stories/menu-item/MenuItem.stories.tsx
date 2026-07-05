@@ -1,5 +1,5 @@
-import { Icon } from '@repo/ui/Icon';
-import { MenuItem } from '@repo/ui/MenuItem';
+import { MenuItem } from '@repo/ui/data-display';
+import { Icon } from '@repo/ui/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 

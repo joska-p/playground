@@ -1,4 +1,4 @@
-import { Card } from '@repo/ui/Card';
+import { Card } from '@repo/ui/data-display';
 import { CodeBlock } from '../CodeBlock';
 import { ParamTable } from '../ParamTable';
 import type { ManipInfo } from '../data/pipeline-docs-data';

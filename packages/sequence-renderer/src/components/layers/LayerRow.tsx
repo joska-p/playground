@@ -1,5 +1,4 @@
-import { Button } from '@repo/ui/Button';
-import { Switch } from '@repo/ui/Switch';
+import { Button, Switch } from '@repo/ui/data-entry';
 import type { VisualLayer } from '../../core/types';
 import { LayerOptionsPanel } from './LayerOptionsPanel';
 

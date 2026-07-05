@@ -1,4 +1,5 @@
-import { ControlRow, ControlSection, Switch } from '@repo/ui';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Switch } from '@repo/ui/data-entry';
 import { setShowDebug } from '../../stores/ui/actions';
 import { useShowDebug } from '../../stores/ui/selectors';
 

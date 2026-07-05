@@ -1,4 +1,4 @@
-import { DocCard } from '@repo/ui/DocCard';
+import { DocCard } from '@repo/ui/cards';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof DocCard> = {

@@ -1,5 +1,6 @@
 import type { ArgDefinition } from '@repo/pixel';
-import { ControlRow, ControlSubsection, Slider } from '@repo/ui';
+import { ControlRow, ControlSubsection } from '@repo/ui/control-panel';
+import { Slider } from '@repo/ui/data-entry';
 import { updateStepOptions } from '../../stores/manipulator/actions';
 
 import type { WorkflowStep } from '../../stores/manipulator/types';

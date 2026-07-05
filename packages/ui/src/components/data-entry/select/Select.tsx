@@ -3,7 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import type { ReactNode, Ref, SelectHTMLAttributes } from 'react';
 import { cn } from '../../../lib/cn';
 import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
-import { selectVariants, selectWrapperVariants } from './Select.variants';
+import { selectVariants, selectWrapperVariants } from './variants';
 
 export type SelectProps = {
   /** Focus-ring color token. Defaults to "primary" — same pattern as Input. */

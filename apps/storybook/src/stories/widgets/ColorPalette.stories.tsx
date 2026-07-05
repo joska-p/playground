@@ -1,4 +1,4 @@
-import { ColorPalette } from '@repo/ui/ColorPalette';
+import { ColorPalette } from '@repo/ui/widgets';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 

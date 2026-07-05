@@ -1,5 +1,6 @@
 import { getAllRules } from '@repo/randomart-engine/grammar/registry';
-import { Button, ControlSection } from '@repo/ui';
+import { ControlSection } from '@repo/ui/control-panel';
+import { Button } from '@repo/ui/data-entry';
 import { toggleRule } from '../../stores/randomart/actions/config';
 import { useEnabledRuleIds } from '../../stores/randomart/selectors';
 
