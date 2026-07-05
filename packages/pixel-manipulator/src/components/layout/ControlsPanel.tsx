@@ -1,22 +1,20 @@
 import { pixel } from '@repo/pixel';
-import { ControlPanel } from '@repo/ui/ControlPanel';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
-import { iconMap } from '@repo/ui/icons';
+import { Button } from '@repo/ui/Button';
+import { ControlGrid, ControlPanel, ControlSection, Select } from '@repo/ui/ControlPanel';
 import { useState } from 'react';
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';
 import {
   addWorkflowStep,
-  clearImageSource,
-  clearOutputs,
+  clearWorkflowSteps,
+  executeWorkflow,
   setWorkflowSteps
 } from '../../stores/manipulator/actions';
-import { useImageSource, useOutputs } from '../../stores/manipulator/selectors';
+import { useIsProcessing } from '../../stores/manipulator/selectors';
 import { ImageSourceControls } from '../upload/ImageSourceControls';
 import { WorkflowControls } from '../workflow/WorkflowControls';
 
 function ControlsPanel() {
-  const outputs = useOutputs();
-  const imageSource = useImageSource();
+  const isProcessing = useIsProcessing();
   const [selectedManip, setSelectedManip] = useState(
     () => Object.keys(pixel.manipulations)[0] ?? ''
   );
@@ -27,115 +25,83 @@ function ControlsPanel() {
     value: id
   }));
 
-  const presetsControl: Control[] = WORKFLOW_PRESETS.map((preset, i) => ({
-    id: `preset-${String(i)}`,
-    label: preset.name,
-    type: 'button',
-    variant: 'default',
-    onClick: () => {
-      setWorkflowSteps(
-        preset.steps.map((step) => ({
-          ...step,
-          options: step.options ?? {},
-          uid: crypto.randomUUID()
-        }))
-      );
-    },
-    tooltip: preset.description
-  }));
-
-  const manipulationsControls: Control[] = [
-    {
-      id: 'select-manip',
-      label: 'Manipulation',
-      type: 'select',
-      value: selectedManip,
-      options: manipulationOptions,
-      onChange: (v: string) => {
-        setSelectedManip(v);
-      }
-    },
-    {
-      id: 'add-step',
-      label: 'Add to Workflow',
-      type: 'button',
-      variant: 'primary',
-      onClick: () => {
-        addWorkflowStep(selectedManip);
-      }
-    }
-  ];
-
-  const imageSourceControl: Control = {
-    id: 'clear-source',
-    label: 'Clear Source',
-    type: 'button',
-    variant: 'default',
-    onClick: () => {
-      clearImageSource();
-    }
-  } as const;
-
-  const outputsControl: Control = {
-    id: 'clear-outputs',
-    label: 'Clear Outputs',
-    type: 'button',
-    variant: 'default',
-    onClick: () => {
-      clearOutputs();
-    }
-  };
-
-  const ioSection: ControlSection = {
-    id: 'input-output',
-    label: 'Input Output',
-    icon: iconMap.image,
-    controls: []
-  };
-
-  if (imageSource) {
-    ioSection.controls.push(imageSourceControl);
-  }
-
-  if (outputs.length > 0) {
-    ioSection.controls.push(outputsControl);
-  }
-
-  const sections: ControlSection[] = [
-    {
-      id: 'presets',
-      label: 'Presets',
-      icon: iconMap.sparkles,
-      controls: presetsControl
-    },
-    {
-      id: 'manipulations',
-      label: 'Manipulations',
-      icon: iconMap.pipeline,
-      controls: manipulationsControls
-    }
-  ];
-
-  if (ioSection.controls.length > 0) {
-    sections.push(ioSection);
-  }
-
   return (
-    <ControlPanel
-      header={
-        <div className="p-3">
-          <ImageSourceControls />
-        </div>
-      }
-      sections={sections}
-      accordion={true}
-      defaultOpenSections={['presets', 'manipulations']}
-      footer={
-        <div className="p-3">
-          <WorkflowControls />
-        </div>
-      }
-    />
+    <ControlPanel title="controls">
+      <ImageSourceControls />
+      <ControlSection title="presets">
+        <ControlGrid columns={2}>
+          {WORKFLOW_PRESETS.map((preset) => (
+            <Button
+              key={preset.name}
+              size="sm"
+              tooltip={preset.description}
+              onClick={() => {
+                setWorkflowSteps(
+                  preset.steps.map((step) => ({
+                    ...step,
+                    options: step.options ?? {},
+                    uid: crypto.randomUUID()
+                  }))
+                );
+              }}
+            >
+              {preset.name}
+            </Button>
+          ))}
+        </ControlGrid>
+      </ControlSection>
+
+      <ControlSection title="manipulation">
+        <ControlGrid columns={2}>
+          <Select
+            id="select-manip"
+            value={selectedManip}
+            onChange={(e) => {
+              setSelectedManip(e.target.value);
+            }}
+          >
+            <option value="">Select a manipulation</option>
+            {manipulationOptions.map((option) => (
+              <option
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </option>
+            ))}
+          </Select>
+
+          <Button
+            id="add-step"
+            variant="primary"
+            onClick={() => {
+              addWorkflowStep(selectedManip);
+            }}
+          >
+            Add to Workflow
+          </Button>
+        </ControlGrid>
+      </ControlSection>
+
+      <WorkflowControls />
+
+      <ControlGrid columns={2}>
+        <Button
+          loading={isProcessing}
+          onClick={() => void executeWorkflow()}
+        >
+          Execute workflow
+        </Button>
+        <Button
+          loading={isProcessing}
+          onClick={() => {
+            clearWorkflowSteps();
+          }}
+        >
+          Clear Workflow
+        </Button>
+      </ControlGrid>
+    </ControlPanel>
   );
 }
 

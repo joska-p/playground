@@ -1,31 +1,25 @@
-import { Button } from '@repo/ui/Button';
+import { Button, ControlGrid } from '@repo/ui';
+import { moveWorkflowStep, removeWorkflowStep } from '../../stores/manipulator/actions';
+import { useWorkflowSteps } from '../../stores/manipulator/selectors';
 
 type WorkflowNodeControlsProps = {
-  isFirst: boolean;
-  isLast: boolean;
-  onMoveUp: () => void;
-  onMoveDown: () => void;
-  onRemove: () => void;
+  index: number;
 };
 
-function WorkflowNodeControls({
-  isFirst,
-  isLast,
-  onMoveUp,
-  onMoveDown,
-  onRemove
-}: WorkflowNodeControlsProps) {
+function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
+  const steps = useWorkflowSteps();
+  const isFirst = index === 0;
+  const isLast = index === steps.length - 1;
+
   return (
-    <div
-      className="flex gap-0.5"
-      role="toolbar"
-    >
+    <ControlGrid columns={3}>
       <Button
         variant="ghost"
         size="icon"
-        className="h-6 w-6"
         disabled={isFirst}
-        onClick={onMoveUp}
+        onClick={() => {
+          moveWorkflowStep(index, -1);
+        }}
         aria-label="Move up"
       >
         <svg
@@ -44,9 +38,10 @@ function WorkflowNodeControls({
       <Button
         variant="ghost"
         size="icon"
-        className="h-6 w-6"
         disabled={isLast}
-        onClick={onMoveDown}
+        onClick={() => {
+          moveWorkflowStep(index, 1);
+        }}
         aria-label="Move down"
       >
         <svg
@@ -63,10 +58,11 @@ function WorkflowNodeControls({
         </svg>
       </Button>
       <Button
-        variant="ghost"
+        variant="destructive"
         size="icon"
-        className="text-destructive h-6 w-6"
-        onClick={onRemove}
+        onClick={() => {
+          removeWorkflowStep(index);
+        }}
         aria-label="Remove step"
       >
         <svg
@@ -83,7 +79,7 @@ function WorkflowNodeControls({
           <path d="m6 6 12 12" />
         </svg>
       </Button>
-    </div>
+    </ControlGrid>
   );
 }
 

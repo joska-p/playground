@@ -1,3 +1,4 @@
+import { Button, ControlGrid } from '@repo/ui';
 import { WORKFLOW_PRESETS } from '../../core/workflows/workflows';
 import { setWorkflowSteps } from '../../stores/manipulator/actions';
 
@@ -15,20 +16,19 @@ function PresetSelector() {
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-2">
+    <ControlGrid>
       {WORKFLOW_PRESETS.map((preset, index) => (
-        <li key={preset.name}>
-          <button
-            onClick={() => {
-              loadPreset(index);
-            }}
-            className="border-border bg-card hover:bg-foreground/5 cursor-pointer rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors"
-          >
-            {preset.name}
-          </button>
-        </li>
+        <Button
+          key={preset.name}
+          value={preset.name}
+          onChange={() => {
+            loadPreset(index);
+          }}
+        >
+          {preset.name}
+        </Button>
       ))}
-    </ul>
+    </ControlGrid>
   );
 }
 

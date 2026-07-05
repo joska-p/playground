@@ -1,10 +1,10 @@
-import { Button } from '@repo/ui/Button';
+import { Button, ControlSection } from '@repo/ui';
 import { clearOutputs } from '../../stores/manipulator/actions';
-import { UploadZone } from './UploadZone';
+import { UploadZone } from './UploadZone/UploadZone';
 
 function ImageSourceControls() {
   return (
-    <div className="flex flex-col gap-2">
+    <ControlSection title="image source">
       <UploadZone />
       <Button
         variant="ghost"
@@ -16,7 +16,7 @@ function ImageSourceControls() {
       >
         Clear Outputs
       </Button>
-    </div>
+    </ControlSection>
   );
 }
 

@@ -1,31 +1,42 @@
-import { Button } from '@repo/ui/Button';
-import { clearWorkflowSteps, executeWorkflow } from '../../stores/manipulator/actions';
-import { useIsProcessing, useWorkflowSteps } from '../../stores/manipulator/selectors';
-import { WorkflowList } from './WorkflowList';
+import { pixel } from '@repo/pixel';
+import { ControlSection } from '@repo/ui';
+import { useWorkflowSteps } from '../../stores/manipulator/selectors';
+import { EmptyState } from '../shared/EmptyState';
+import { WorkEmptyStateSvg } from './WorkEmptyStateSvg';
+import { WorkflowNode } from './WorkflowNode';
 
 function WorkflowControls() {
-  const workflow = useWorkflowSteps();
-  const isProcessing = useIsProcessing();
+  const steps = useWorkflowSteps();
+
+  if (steps.length === 0) {
+    return (
+      <ControlSection title="workflow empty">
+        <EmptyState
+          message="Add manipulations to build your pipeline"
+          icon={<WorkEmptyStateSvg />}
+        />
+      </ControlSection>
+    );
+  }
 
   return (
-    <div className="flex flex-col gap-2">
-      <WorkflowList steps={workflow} />
-      <Button
-        isLoading={isProcessing}
-        onClick={() => void executeWorkflow()}
-      >
-        Execute workflow
-      </Button>
-      <Button
-        variant="outline"
-        isLoading={isProcessing}
-        onClick={() => {
-          clearWorkflowSteps();
-        }}
-      >
-        Clear Workflow
-      </Button>
-    </div>
+    <ControlSection title="workflow">
+      {steps.map((step, index) => {
+        const manip = pixel.manipulations[step.id];
+        if (!manip)
+          return <p key={step.uid}>Step number: {step.id} that is not a valid manipulation</p>;
+
+        return (
+          <WorkflowNode
+            key={step.uid}
+            step={step}
+            index={index}
+            name={manip.name}
+            argDefinitions={manip.argDefinitions}
+          />
+        );
+      })}
+    </ControlSection>
   );
 }
 
