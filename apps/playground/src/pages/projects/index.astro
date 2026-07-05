@@ -5,7 +5,6 @@ import { Hero } from '@repo/ui/Hero';
 import { SectionHeader } from '@repo/ui/SectionHeader';
 import { ProjectCard } from '@repo/ui/ProjectCard';
 import Footer from '../../layouts/Footer.astro';
-import { Icon } from '@repo/ui/Icon';
 import type { CSSProperties } from 'react';
 
 const allCategories = await getCollection('projects-categories');
@@ -36,29 +35,32 @@ const categories = allCategories
   />
 
   <div class="mx-auto w-full max-w-6xl space-y-16 px-6 py-16 lg:py-20">
-    {
-      categories.map(({ name, description, icon, id, projects }) => {
-        const cssColorToken = `_--color: --color-cat-${id}` as CSSProperties;
+    {categories.map(({ name, description, icon, id, projects }) => {
+        const cardStyle = {
+          '--_color': `var(--color-projects-${id})`
+        } as CSSProperties;
 
         return (
           <section>
             <SectionHeader
               title={name}
               description={description}
-              icon={<Icon name={icon} />}
+              iconName={icon}
               className="mb-12"
-              style={cssColorToken}
+              style={cardStyle}
             />
             <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
               {projects.map((project) => {
-                const cssColorToken = `_--color: --color-project-${id}` as CSSProperties;
+                const cardStyle = {
+                  '--_color': `var(--color-projects-${id})`
+                } as CSSProperties;
                 return (
                   <ProjectCard
                     href={`${projectsBaseUrl}${project.category.id}/${project.slug}/`}
                     title={project.name}
                     description={project.description}
                     iconName={project.icon}
-                    style={cssColorToken}
+                    style={cardStyle}
                     tags={project.tags.map((t) => t.id)}
                   />
                 );

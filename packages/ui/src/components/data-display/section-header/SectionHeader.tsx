@@ -44,7 +44,7 @@ function SectionHeader({
     >
       <div className={cn('flex items-center gap-3', isCenter && 'justify-center')}>
         <span
-          className="flex shrink-0 items-center justify-center"
+          className="flex h-8 w-8 shrink-0 items-center justify-center"
           style={{ color: 'var(--_color)' }}
         >
           <Icon name={iconName} />

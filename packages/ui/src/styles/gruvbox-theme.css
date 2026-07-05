@@ -54,7 +54,7 @@
   --color-projects-random: var(--projects-random);
   --color-projects-simulation: var(--projects-simulation);
 
-  --color-docs-explaination: var(--docs-explaination);
+  --color-docs-explanation: var(--docs-explanation);
   --color-docs-how-to: var(--docs-how-to);
   --color-docs-reference: var(--docs-reference);
   --color-docs-tutorial: var(--docs-tutorial);
@@ -142,7 +142,7 @@
     --color-projects-random: oklch(0.58 0.12 320); /* purple  */
     --color-projects-simulation: oklch(0.59 0.11 155); /* aqua    */
 
-    --color-docs-explaination: oklch(0.65 0.15 45); /* orange  */
+    --color-docs-explanation: oklch(0.65 0.15 45); /* orange  */
     --color-docs-how-to: oklch(0.55 0.18 25); /* red     */
     --color-docs-reference: oklch(0.62 0.13 135); /* green   */
     --color-docs-tutorial: oklch(0.71 0.14 78); /* yellow  */
@@ -195,7 +195,7 @@
     --projects-random: oklch(0.42 0.11 320); /* darker purple */
     --projects-simulation: oklch(0.43 0.1 155); /* darker aqua   */
 
-    --docs-explaination: oklch(0.52 0.14 45);
+    --docs-explanation: oklch(0.52 0.14 45);
     --docs-how-to: oklch(0.48 0.15 25);
     --docs-reference: oklch(0.45 0.12 135);
     --docs-tutorial: oklch(0.55 0.13 78);

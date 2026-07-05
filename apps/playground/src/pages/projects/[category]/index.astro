@@ -40,14 +40,16 @@ const { name, description } = categoryMeta.data;
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
       {
         categoryProjects.map((project) => {
-          const cssColorToken = `_--color: --color-project-${project.id}` as CSSProperties;
+          const cardStyle = {
+            '--_color': `var(--color-projects-${project.id})`
+          } as CSSProperties;
           return (
             <ProjectCard
               href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
               title={project.data.name}
               description={project.data.description}
               iconName={project.data.icon}
-              style={cssColorToken}
+              style={cardStyle}
               tags={project.data.tags.map((t) => t.id)}
             />
           );
