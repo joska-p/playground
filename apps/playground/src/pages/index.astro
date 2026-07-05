@@ -1,14 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/Hero';
-import { SectionHeader } from '@repo/ui/SectionHeader';
-import { ProjectCard } from '@repo/ui/ProjectCard';
-import { DocCard } from '@repo/ui/DocCard';
+import { Hero } from '@repo/ui';
+import { SectionHeader } from '@repo/ui';
+import { ProjectCard } from '@repo/ui';
+import { DocCard } from '@repo/ui';
 import ExperimentsPreview from '../components/ui/features/ExperimentsPreview.astro';
 import Footer from '../layouts/Footer.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { buttonVariants } from '@repo/ui/buttonVariants';
-import { Icon } from '@repo/ui/Icon';
+import { Icon } from '@repo/ui';
+import type { CSSProperties } from 'react';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
@@ -90,16 +91,21 @@ const featuredDocsWithMeta = await Promise.all(
       />
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
-          featuredProjects.map((project) => (
-            <ProjectCard
-              href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
-              title={project.data.name}
-              description={project.data.description}
-              iconName={project.data.icon}
-              category={project.data.category.id}
-              tags={project.data.tags.map((t) => t.id)}
-            />
-          ))
+          featuredProjects.map((project) => {
+            const cardStyle = {
+              '--_color': `var(--color-projects-${project.data.category.id})`
+            } as CSSProperties;
+            return (
+              <ProjectCard
+                href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
+                title={project.data.name}
+                description={project.data.description}
+                iconName={project.data.icon}
+                style={cardStyle}
+                tags={project.data.tags.map((t) => t.id)}
+              />
+            );
+          })
         }
       </div>
     </section>
@@ -114,15 +120,22 @@ const featuredDocsWithMeta = await Promise.all(
       />
       <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
         {
-          featuredDocsWithMeta.map((doc) => (
-            <DocCard
-              href={`${docsBaseUrl}${doc.id}/`}
-              type={doc.categoryId}
-              iconName={doc.iconName}
-              title={doc.data.title}
-              description={doc.data.description ?? ''}
-            />
-          ))
+          featuredDocsWithMeta.map((doc) => {
+            const cardStyle = {
+              '--_color': `var(--color-docs-${doc.categoryId})`
+            } as CSSProperties;
+
+            return (
+              <DocCard
+                href={`${docsBaseUrl}${doc.id}/`}
+                type={doc.categoryId}
+                iconName={doc.iconName}
+                title={doc.data.title}
+                description={doc.data.description ?? ''}
+                style={cardStyle}
+              />
+            );
+          })
         }
       </div>
       <div class="mt-10 text-center">

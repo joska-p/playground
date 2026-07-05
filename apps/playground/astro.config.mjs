@@ -22,7 +22,9 @@ export default defineConfig({
   site: siteUrl,
   base: basePath,
   trailingSlash: 'always',
-
+  devToolbar: {
+    enabled: false
+  },
   fonts: [
     {
       provider: fontProviders.fontsource(),

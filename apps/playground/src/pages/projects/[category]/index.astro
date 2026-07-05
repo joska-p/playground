@@ -4,6 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { Hero } from '@repo/ui/Hero';
 import { ProjectCard } from '@repo/ui/ProjectCard';
 import Footer from '../../../layouts/Footer.astro';
+import type { CSSProperties } from 'react';
 
 export async function getStaticPaths() {
   const categories = await getCollection('projects-categories');
@@ -38,16 +39,19 @@ const { name, description } = categoryMeta.data;
   <div class="mx-auto w-full max-w-6xl px-6 py-16 lg:py-20">
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
       {
-        categoryProjects.map((project) => (
-          <ProjectCard
-            href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
-            title={project.data.name}
-            description={project.data.description}
-            iconName={project.data.icon}
-            category={project.data.category.id}
-            tags={project.data.tags.map((t) => t.id)}
-          />
-        ))
+        categoryProjects.map((project) => {
+          const cssColorToken = `_--color: --color-project-${project.id}` as CSSProperties;
+          return (
+            <ProjectCard
+              href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
+              title={project.data.name}
+              description={project.data.description}
+              iconName={project.data.icon}
+              style={cssColorToken}
+              tags={project.data.tags.map((t) => t.id)}
+            />
+          );
+        })
       }
     </div>
   </div>

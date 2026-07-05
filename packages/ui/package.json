@@ -10,7 +10,7 @@
     "./*": "./src/index.ts"
   },
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",

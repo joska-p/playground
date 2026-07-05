@@ -2,11 +2,13 @@ import { ArrowRight } from 'lucide-react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import type { IconName } from '../../icons';
+import { Icon } from '../../icons';
 
 type SectionHeaderProps = {
   title: string;
   description?: string;
-  icon?: ReactNode;
+  iconName?: IconName;
   href?: string;
   linkText?: ReactNode;
   variant?: ColorVariant;
@@ -17,7 +19,7 @@ type SectionHeaderProps = {
 function SectionHeader({
   title,
   description,
-  icon,
+  iconName = 'home',
   href,
   linkText = 'View all',
   variant = 'primary',
@@ -41,14 +43,12 @@ function SectionHeader({
       {...props}
     >
       <div className={cn('flex items-center gap-3', isCenter && 'justify-center')}>
-        {icon && (
-          <span
-            className="flex shrink-0 items-center justify-center"
-            style={{ color: 'var(--_color)' }}
-          >
-            {icon}
-          </span>
-        )}
+        <span
+          className="flex shrink-0 items-center justify-center"
+          style={{ color: 'var(--_color)' }}
+        >
+          <Icon name={iconName} />
+        </span>
         <h2
           className="m-0 text-xs font-bold tracking-wide uppercase"
           style={{ color: 'var(--_color)' }}
@@ -61,8 +61,8 @@ function SectionHeader({
         <p
           className={cn(
             'text-foreground-muted max-w-xl text-sm leading-relaxed',
-            isCenter && 'text-center',
-            icon && !isCenter ? 'ml-10' : ''
+            { 'text-center': isCenter },
+            { 'ml-10': !isCenter }
           )}
         >
           {description}
@@ -74,13 +74,13 @@ function SectionHeader({
           href={href}
           className={cn(
             'group mt-1 inline-flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase',
-            icon && !isCenter ? 'ml-10' : ''
+            { 'ml-10': !isCenter }
           )}
         >
-          <span className="text-[var(--_color)] opacity-60 transition-[opacity,color] group-hover:opacity-100">
+          <span className="text-(--_color) opacity-60 transition-[opacity,color] group-hover:opacity-100">
             {linkText}
           </span>
-          <ArrowRight className="h-4 w-4 text-[var(--_color)] opacity-60 transition-[opacity,transform] group-hover:translate-x-0.5 group-hover:opacity-100" />
+          <ArrowRight className="h-4 w-4 text-(--_color) opacity-60 transition-[opacity,transform] group-hover:translate-x-0.5 group-hover:opacity-100" />
         </a>
       )}
     </div>

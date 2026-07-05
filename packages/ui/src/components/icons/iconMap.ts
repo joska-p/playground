@@ -42,6 +42,7 @@ import { IconStorybook } from './components/IconStorybook';
 import { IconThreeStage } from './components/IconThreeStage';
 import { IconWrench } from './components/IconWrench';
 import { IconX } from './components/IconX';
+
 export const iconMap = {
   'arrow-diagonal': IconArrowDiagonal,
   'arrow-right': IconArrowRight,
