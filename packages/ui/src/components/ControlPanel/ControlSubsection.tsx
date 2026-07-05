@@ -1,5 +1,5 @@
 import { ChevronRight } from 'lucide-react';
-import type { ReactNode, Ref } from 'react';
+import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
 import { cn } from '../../lib/cn';
 
 export type ControlSubsectionProps = {
@@ -24,10 +24,20 @@ export function ControlSubsection({
   className,
   children
 }: ControlSubsectionProps) {
+  // See ControlSection: `open` is owned as state and driven by
+  // onToggle, otherwise any re-render elsewhere in the panel
+  // reasserts `defaultOpen` and undoes the user's click.
+  const [open, setOpen] = useState(defaultOpen);
+
+  const handleToggle = (event: SyntheticEvent<HTMLDetailsElement>) => {
+    setOpen(event.currentTarget.open);
+  };
+
   return (
     <details
       ref={ref}
-      open={defaultOpen}
+      open={open}
+      onToggle={handleToggle}
       className={cn('group', className)}
     >
       <summary className="flex cursor-pointer list-none items-center gap-1.5 pb-1.5 select-none [&::-webkit-details-marker]:hidden">

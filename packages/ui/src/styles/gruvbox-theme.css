@@ -239,6 +239,7 @@
   }
 
   /* ---------- Accordion (native <details>) ---------- */
+
   .accordion-trigger {
     list-style: none;
     cursor: pointer;
@@ -260,6 +261,7 @@
   details[open] > .accordion-trigger::after {
     transform: rotate(45deg);
   }
+
   .accordion-body {
     @starting-style {
       opacity: 0;

@@ -1,5 +1,5 @@
 import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
-import type { Control, ControlSection } from '@repo/ui/ControlPanel/types';
+import { Button, ControlRow, ControlSection, Input } from '@repo/ui';
 import { useState } from 'react';
 import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
 import {
@@ -24,21 +24,13 @@ function triggerDownload(blob: Blob, filename: string) {
   }, 1000);
 }
 
-function useDisplaySection() {
+function DisplaySection() {
   const correlatedRGB = useCorrelatedRGB();
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
   const seedText = useSeedText();
   const [downloading, setDownloading] = useState(false);
-
-  const correlatedControl: Control = {
-    id: 'correlatedRGB',
-    type: 'toggle',
-    label: 'Correlated RGB',
-    value: correlatedRGB,
-    onChange: setCorrelatedRGB
-  };
 
   const filename = `randomart-${(seedText || 'untitled').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
 
@@ -77,23 +69,31 @@ function useDisplaySection() {
     }
   }
 
-  const downloadControl: Control = {
-    id: 'download',
-    type: 'button',
-    label: downloading ? 'Rendering...' : 'Download PNG',
-    variant: 'primary',
-    disabled: downloading,
-    onClick: handleDownload
-  };
-
-  const section: ControlSection = {
-    id: 'display',
-    label: 'Display',
-    defaultOpen: true,
-    controls: [correlatedControl, downloadControl]
-  };
-
-  return section;
+  return (
+    <ControlSection
+      title="display"
+      defaultOpen={true}
+    >
+      <ControlRow label="Correlated RGB">
+        <Input
+          type="checkbox"
+          checked={correlatedRGB}
+          onChange={() => {
+            setCorrelatedRGB(!correlatedRGB);
+          }}
+        />
+      </ControlRow>
+      <ControlRow label="Download PNG">
+        <Button
+          variant="primary"
+          disabled={downloading}
+          onClick={handleDownload}
+        >
+          {downloading ? 'Rendering...' : 'Download PNG'}
+        </Button>
+      </ControlRow>
+    </ControlSection>
+  );
 }
 
-export { useDisplaySection };
+export { DisplaySection };

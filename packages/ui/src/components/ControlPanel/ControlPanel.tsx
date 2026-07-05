@@ -1,5 +1,5 @@
 import { ChevronUp } from 'lucide-react';
-import type { ReactNode, Ref } from 'react';
+import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
 import { cn } from '../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../lib/colorVariant';
 import { controlPanelVariants, type ControlPanelVariantProps } from './ControlPanel.variants';
@@ -38,34 +38,52 @@ export function ControlPanel({
   className,
   children
 }: ControlPanelProps) {
+  // `open` is owned as state, driven by onToggle, rather than a
+  // static `open={defaultOpen}` prop. React treats <details open>
+  // as a tracked property (like `value`/`checked` on inputs): it
+  // gets reasserted on every commit, not just when the prop value
+  // changes. Any re-render elsewhere in the panel (a slider moving,
+  // a value updating) would otherwise snap the panel back to
+  // `defaultOpen` and undo whatever the user just clicked.
+  const [open, setOpen] = useState(defaultOpen);
+
+  const handleToggle = (event: SyntheticEvent<HTMLDetailsElement>) => {
+    setOpen(event.currentTarget.open);
+  };
+
   return (
-    <details
-      ref={ref}
-      open={defaultOpen}
-      className={cn(controlPanelVariants({ dock, size }), 'group border-l-2', className)}
+    <aside
+      className={cn(controlPanelVariants({ dock, size }), 'border-l-2', className)}
       style={{
         ...colorVarStyle(variant),
         borderLeftColor: 'var(--_color)',
         boxShadow: 'var(--shadow-lg)'
       }}
     >
-      <summary
-        className={cn(
-          'flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 select-none',
-          '[&::-webkit-details-marker]:hidden'
-        )}
+      <details
+        ref={ref}
+        open={open}
+        onToggle={handleToggle}
+        className="group flex h-full min-h-0 w-full flex-col"
       >
-        <span className="text-foreground-muted truncate text-sm font-medium tracking-wide">
-          {title}
-        </span>
-        <ChevronUp
-          size={16}
-          className="text-foreground-dim shrink-0 transition-transform group-open:rotate-180 landscape:hidden"
-        />
-      </summary>
-      <div className="hidden flex-col gap-3 overflow-y-auto px-4 pb-4 group-open:flex">
-        {children}
-      </div>
-    </details>
+        <summary
+          className={cn(
+            'flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 select-none',
+            '[&::-webkit-details-marker]:hidden'
+          )}
+        >
+          <span className="text-foreground-muted truncate text-sm font-medium tracking-wide">
+            {title}
+          </span>
+          <ChevronUp
+            size={16}
+            className="text-foreground-dim shrink-0 transition-transform group-open:rotate-180 landscape:hidden"
+          />
+        </summary>
+        <div className="hidden min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-4 pb-4 group-open:flex">
+          {children}
+        </div>
+      </details>
+    </aside>
   );
 }
