@@ -47,7 +47,7 @@ export function ControlSubsection({
         />
         <span className="text-foreground-muted truncate text-xs">{title}</span>
       </summary>
-      <div className="border-border hidden flex-col gap-2.5 border-l pb-1 pl-3 group-open:flex">
+      <div className="border-border hidden min-h-0 flex-1 flex-col gap-2.5 border-l pb-1 pl-3 group-open:flex">
         {children}
       </div>
     </details>

@@ -80,7 +80,7 @@ export function ControlPanel({
             className="text-foreground-dim shrink-0 transition-transform group-open:rotate-180 landscape:hidden"
           />
         </summary>
-        <div className="hidden min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-4 pb-4 group-open:flex">
+        <div className="hidden min-h-0 flex-1 flex-col gap-3 px-4 pb-1 group-open:flex group-open/section:flex">
           {children}
         </div>
       </details>

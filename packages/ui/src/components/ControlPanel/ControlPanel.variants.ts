@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const controlPanelVariants = cva(
-  'fixed z-40 flex flex-col overflow-hidden rounded-lg border border-border bg-surface/95 backdrop-blur-sm text-foreground min-h-0',
+  'absolute z-40 flex flex-col overflow-hidden overflow-y-auto rounded-lg border border-border bg-surface/95 backdrop-blur-sm text-foreground min-h-0',
   {
     variants: {
       dock: {

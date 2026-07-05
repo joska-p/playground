@@ -48,15 +48,11 @@ export function ControlSection({
           size={14}
           className="text-foreground-dim shrink-0 transition-transform group-open/section:rotate-90"
         />
-        <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full"
-          style={{ background: 'var(--_color, var(--foreground-dim))' }}
-        />
         <span className="text-foreground-muted truncate text-xs font-semibold tracking-wider uppercase">
           {title}
         </span>
       </summary>
-      <div className="hidden min-h-0 flex-col gap-3 pb-1 pl-5 group-open:flex group-open/section:flex">
+      <div className="hidden min-h-0 flex-col gap-3 pb-1 group-open:flex group-open/section:flex">
         {children}
       </div>
     </details>
