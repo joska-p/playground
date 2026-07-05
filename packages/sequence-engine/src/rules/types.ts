@@ -6,9 +6,9 @@ export type NextStepOptions = {
   seed?: string | undefined;
 };
 
-export type SequenceRule = {
-  name: string;
-  id: string;
+export type SequenceRule<TId extends string = string, TName extends string = string> = {
+  name: TName;
+  id: TId;
   description: string;
   maxSteps: number;
   getNext: (options: NextStepOptions) => number;

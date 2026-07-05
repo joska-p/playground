@@ -10,7 +10,7 @@ function isPrime(num: number): boolean {
   return true;
 }
 
-export const primesRule: SequenceRule = {
+export const primesRule = {
   id: 'primes',
   name: 'Primes',
   description: 'The sequence of prime numbers: 2, 3, 5, 7, 11...',
@@ -21,4 +21,4 @@ export const primesRule: SequenceRule = {
     while (!isPrime(next)) next++;
     return next;
   }
-};
+} as const satisfies SequenceRule;

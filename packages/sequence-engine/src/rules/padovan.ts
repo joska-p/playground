@@ -1,6 +1,6 @@
 import type { SequenceRule } from './types';
 
-export const padovanRule: SequenceRule = {
+export const padovanRule = {
   id: 'padovan',
   name: 'Padovan',
   description: 'P(n) = P(n-2) + P(n-3). Begins 1, 1, 1, 2, 2, 3, 4, 5, 7, 9...',
@@ -9,4 +9,4 @@ export const padovanRule: SequenceRule = {
     if (index <= 2) return 1;
     return (sequence[index - 2] ?? 0) + (sequence[index - 3] ?? 0);
   }
-};
+} as const satisfies SequenceRule;

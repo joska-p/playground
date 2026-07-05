@@ -1,3 +1,5 @@
+import type { SequenceRule } from './types';
+
 import { collatzRule } from './collatz';
 import { fibonacciRule } from './fibonacci';
 import { lookAndSayRule } from './lookAndSay';
@@ -7,24 +9,31 @@ import { recamanRule } from './recaman';
 import { squareNumbersRule } from './squareNumbers';
 import { sternDiatomicRule } from './sternDiatomic';
 import { triangularRule } from './triangular';
-import type { SequenceRule } from './types';
 
-const rules = new Map<string, SequenceRule>([
-  [recamanRule.id, recamanRule],
-  [fibonacciRule.id, fibonacciRule],
-  [primesRule.id, primesRule],
-  [triangularRule.id, triangularRule],
-  [collatzRule.id, collatzRule],
-  [lookAndSayRule.id, lookAndSayRule],
-  [padovanRule.id, padovanRule],
-  [squareNumbersRule.id, squareNumbersRule],
-  [sternDiatomicRule.id, sternDiatomicRule]
-]);
+// Define the initial rules as a const array for type inference
+const initialRules = [
+  recamanRule,
+  fibonacciRule,
+  primesRule,
+  triangularRule,
+  collatzRule,
+  lookAndSayRule,
+  padovanRule,
+  squareNumbersRule,
+  sternDiatomicRule
+] as const;
 
-export function getAllRules(): SequenceRule[] {
-  return Array.from(rules.values());
+// Extract union types for RuleId and RuleName
+export type RuleId = (typeof initialRules)[number]['id']; // e.g., "recaman" | "fibonacci" | ...
+export type RuleName = (typeof initialRules)[number]['name']; // e.g., "Recaman's Rule" | "Fibonacci" | ...
+
+// Create a mutable array for runtime use
+const allRules: SequenceRule[] = [...initialRules];
+
+// Function to register a new rule
+export function registerRule(rule: SequenceRule) {
+  allRules.push(rule);
 }
 
-export function registerRule(rule: SequenceRule): void {
-  rules.set(rule.id, rule);
-}
+// Export the mutable array and types
+export { allRules };

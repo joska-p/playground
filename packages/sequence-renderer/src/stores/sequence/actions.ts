@@ -10,7 +10,7 @@ function regenerateSequence(sequenceRule: SequenceRule, steps: number, seed?: st
   return generateSequence({ sequenceRule, steps, seed });
 }
 
-export function setSequenceRule({ sequenceRule }: { sequenceRule: SequenceRule }): void {
+export function setSequenceRule({ sequenceRule }: { sequenceRule: SequenceRule }) {
   const currentSteps = sequenceStore.getState().steps;
   const currentSeed = sequenceStore.getState().seed;
 
@@ -22,7 +22,7 @@ export function setSequenceRule({ sequenceRule }: { sequenceRule: SequenceRule }
   });
 }
 
-export function setSequenceSteps({ steps }: { steps: number }): void {
+export function setSequenceSteps({ steps }: { steps: number }) {
   const state = sequenceStore.getState();
   const currentSeed = state.seed;
   const clampedSteps = clampSteps(steps, state.sequenceRule.maxSteps);
@@ -32,7 +32,7 @@ export function setSequenceSteps({ steps }: { steps: number }): void {
   });
 }
 
-export function setSeed(seed: string | undefined): void {
+export function setSeed(seed: string) {
   const state = sequenceStore.getState();
   sequenceStore.setState({
     seed,

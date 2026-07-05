@@ -15,7 +15,7 @@ function nextLookAndSay(current: number): number {
   return Number(result);
 }
 
-export const lookAndSayRule: SequenceRule = {
+export const lookAndSayRule = {
   id: 'look-and-say',
   name: 'Look and Say',
   description: '1, 11, 21, 1211, 111221... each term describes the previous.',
@@ -24,4 +24,4 @@ export const lookAndSayRule: SequenceRule = {
     if (index === 1) return 1;
     return nextLookAndSay(current);
   }
-};
+} as const satisfies SequenceRule;
