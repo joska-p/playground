@@ -76,82 +76,77 @@ const featuredDocsWithMeta = await Promise.all(
 
   <ExperimentsPreview />
 
-  <div class="mx-auto w-full max-w-6xl px-6 py-20 lg:py-24">
-    <section
-      id="experiments"
-      class="mb-24 scroll-mt-20"
-    >
-      <SectionHeader
-        iconName="sparkles"
-        title="Engines & Labs"
-        description="Volatile experiments in high-interactivity canvas rendering."
-        href="https://joska-p.github.io/playground/"
-        linkText="View on GitLab"
-        className="mb-12"
-      />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          featuredProjects.map((project) => {
-            const cardStyle = {
-              '--_color': `var(--color-projects-${project.data.category.id})`
-            } as CSSProperties;
-            return (
-              <ProjectCard
-                href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
-                title={project.data.name}
-                description={project.data.description}
-                iconName={project.data.icon}
-                style={cardStyle}
-                tags={project.data.tags.map((t) => t.id)}
-              />
-            );
-          })
-        }
-      </div>
-    </section>
-
-    <div class="bg-surface rounded-xl p-8 shadow-sm lg:p-12">
-      <SectionHeader
-        iconName="book"
-        title="Documentation"
-        description="Manifesto, guides, and references for collaborators."
-        align="center"
-        className="mb-12"
-      />
-      <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-        {
-          featuredDocsWithMeta.map((doc) => {
-            const cardStyle = {
-              '--_color': `var(--color-docs-${doc.categoryId})`
-            } as CSSProperties;
-
-            return (
-              <DocCard
-                href={`${docsBaseUrl}${doc.id}/`}
-                type={doc.categoryId}
-                iconName={doc.iconName}
-                title={doc.data.title}
-                description={doc.data.description ?? ''}
-                style={cardStyle}
-              />
-            );
-          })
-        }
-      </div>
-      <div class="mt-10 text-center">
-        <a
-          href={docsBaseUrl}
-          class="group text-primary/60 hover:text-primary inline-flex items-center gap-2 text-xs font-bold uppercase transition-colors"
-        >
-          Browse all docs
-          <Icon
-            name="arrow-right"
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-          />
-        </a>
-      </div>
+  <section class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24">
+    <SectionHeader
+      iconName="bluesky"
+      title="Engines & Labs"
+      description="Volatile experiments in high-interactivity canvas rendering."
+      href="https://joska-p.github.io/playground/"
+      linkText="View on GitLab"
+      className="mb-12"
+    />
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        featuredProjects.map((project) => {
+          const cardStyle = {
+            '--_color': `var(--color-projects-${project.data.category.id})`
+          } as CSSProperties;
+          return (
+            <ProjectCard
+              href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
+              title={project.data.name}
+              description={project.data.description}
+              iconName={project.data.icon}
+              style={cardStyle}
+              tags={project.data.tags.map((t) => t.id)}
+            />
+          );
+        })
+      }
     </div>
-  </div>
+  </section>
+
+  <section class="mx-auto mb-24 w-full max-w-6xl p-8 px-6 py-20 lg:p-12 lg:py-24">
+    <SectionHeader
+      iconName="bluesky"
+      title="Documentation"
+      description="Manifesto, guides, and references for collaborators."
+      align="center"
+      className="mb-12"
+    />
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+      {
+        featuredDocsWithMeta.map((doc) => {
+          const cardStyle = {
+            '--_color': `var(--color-docs-${doc.categoryId})`
+          } as CSSProperties;
+
+          return (
+            <DocCard
+              href={`${docsBaseUrl}${doc.id}/`}
+              type={doc.categoryId}
+              iconName={doc.iconName}
+              title={doc.data.title}
+              description={doc.data.description ?? ''}
+              style={cardStyle}
+            />
+          );
+        })
+      }
+    </div>
+    <div class="mt-10 text-center">
+      <a
+        href={docsBaseUrl}
+        class="group text-primary/60 hover:text-primary inline-flex items-center gap-2 text-xs font-bold uppercase transition-colors"
+      >
+        Browse all docs
+        <Icon
+          name="arrow-right"
+          className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+        />
+      </a>
+    </div>
+  </section>
 
   <Footer>
     <span slot="default">Crafted with creativity.</span>

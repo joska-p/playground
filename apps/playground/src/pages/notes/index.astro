@@ -55,12 +55,16 @@ const notesByCategory = notebookCategories.map((cat) => {
             />
             <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
               {category.articles.map((note) => {
+                const cardStyle = {
+                  '--_color': `var(--color-notes-${note.data.category.id})`
+                } as CSSProperties;
                 const noteUrl = `${notesBaseUrl}${note.id}/`;
                 return (
                   <DocCard
                     href={noteUrl}
                     title={note.data.title}
                     description={note.data.description ?? ''}
+                    style={cardStyle}
                   />
                 );
               })}
