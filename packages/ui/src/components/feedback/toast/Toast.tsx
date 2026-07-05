@@ -1,5 +1,5 @@
 import { CheckCircle2, Circle, Info, TriangleAlert, X, XCircle } from 'lucide-react';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { ToastItem, ToastOptions } from '../../../hooks/useToastQueue';
 import { cn } from '../../../lib/cn';
