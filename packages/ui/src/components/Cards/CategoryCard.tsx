@@ -73,4 +73,3 @@ function CategoryCard({
 }
 
 export { CategoryCard };
-export type { CategoryCardProps };

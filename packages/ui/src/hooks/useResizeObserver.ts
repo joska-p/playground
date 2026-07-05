@@ -21,6 +21,7 @@ export function useResizeObserver(
       setDimensions({ width: initial.width, height: initial.height });
 
       const observer = new ResizeObserver((entries) => {
+        if (!entries[0]) return;
         const { width, height } = entries[0].contentRect;
 
         if (timeout.current) clearTimeout(timeout.current);

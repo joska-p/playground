@@ -83,4 +83,3 @@ function ProjectCard({
 }
 
 export { ProjectCard };
-export type { ProjectCardProps };
