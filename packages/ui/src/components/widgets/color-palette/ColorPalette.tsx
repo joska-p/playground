@@ -2,9 +2,10 @@ import type { VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
-import { colorPaletteVariants } from './variants';
+import { colorPaletteVariants, colorSwatchVariants } from './variants';
 
 type PaletteVariants = VariantProps<typeof colorPaletteVariants>;
+type SwatchVariants = VariantProps<typeof colorSwatchVariants>;
 
 export type ColorPaletteProps = {
   colors: string[];
@@ -14,7 +15,7 @@ export type ColorPaletteProps = {
   onChange?: (palette: string) => void;
   variant?: ColorVariant;
   orientation?: PaletteVariants['orientation'];
-  size?: PaletteVariants['size'];
+  size?: SwatchVariants['size'];
   ref?: Ref<HTMLLabelElement>;
 } & Omit<HTMLAttributes<HTMLLabelElement>, 'onChange'>;
 
@@ -35,7 +36,7 @@ function ColorPalette({
   return (
     <label
       ref={ref}
-      className={cn(colorPaletteVariants({ orientation, size, className }))}
+      className={cn(colorPaletteVariants({ orientation, className }))}
       style={colorVarStyle(colorVariant, style)}
       {...props}
     >
@@ -51,7 +52,7 @@ function ColorPalette({
         <div
           key={index}
           style={{ backgroundColor: color }}
-          className="size-(--cell-size) shrink-0"
+          className={cn(colorSwatchVariants({ size }))}
         />
       ))}
     </label>
