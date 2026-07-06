@@ -1,4 +1,8 @@
-import { FloatingNav, ThemeProvider, ToastProvider, useThemeState, useToastQueue } from './index';
+import { ToastProvider } from './components/feedback';
+import { FloatingNav } from './components/navigation';
+import { useThemeState } from './hooks/useThemeState';
+import { useToastQueue } from './hooks/useToastQueue';
+import { ThemeProvider } from './theme/ThemeProvider';
 
 /* Showcase imports */
 import { DocHeading } from './showcase/layout/DocHeading';
@@ -56,7 +60,7 @@ import { ChecklistSection } from './showcase/references/ChecklistSection';
 import { ContributingSection } from './showcase/references/ContributingSection';
 import { HooksSection } from './showcase/references/HooksSection';
 
-import { ErrorBoundary } from '';
+import { ErrorBoundary } from './components/feedback';
 
 function AppContent() {
   return (
@@ -169,6 +173,8 @@ export function App() {
 }
 
 export function AppWithoutThemeProvider() {
+  const toastQueue = useToastQueue();
+
   return (
     <ToastProvider
       toasts={toastQueue.toasts}
