@@ -1,8 +1,9 @@
+import { ControlGrid, ControlSubsection } from '@repo/ui/control-panel';
 import { Button, Switch } from '@repo/ui/data-entry';
 import type { VisualLayer } from '../../core/types';
-import { LayerOptionsPanel } from './LayerOptionsPanel';
+import { LayerOptionSection } from './LayerOptionSection';
 
-type LayerRowProps = {
+type LayerRowSectionProps = {
   meta: VisualLayer;
   enabled: boolean;
   params: Record<string, unknown>;
@@ -13,7 +14,7 @@ type LayerRowProps = {
   onRemove: () => void;
 };
 
-function LayerRow({
+function LayerRowSection({
   meta,
   enabled,
   params,
@@ -22,25 +23,18 @@ function LayerRow({
   onToggleExpand,
   onParamChange,
   onRemove
-}: LayerRowProps) {
+}: LayerRowSectionProps) {
   return (
-    <div className="border-border bg-card flex flex-col gap-2 rounded border px-2 py-1.5">
-      <div className="flex items-center gap-1.5">
+    <ControlSubsection title={meta.name}>
+      <ControlGrid
+        columns={3}
+        className="items-center"
+      >
         <Switch
           variant="secondary"
-          size="sm"
           checked={enabled}
-          onCheckedChange={onToggle}
+          onChange={onToggle}
         />
-
-        <span
-          className={`flex-1 cursor-pointer text-xs font-medium ${
-            enabled ? 'text-foreground' : 'text-muted-foreground'
-          }`}
-          onClick={onToggle}
-        >
-          {meta.name}
-        </span>
 
         <Button
           variant="ghost"
@@ -94,17 +88,17 @@ function LayerRow({
             <path d="M6 6l12 12" />
           </svg>
         </Button>
-      </div>
+      </ControlGrid>
 
       {isExpanded && (
-        <LayerOptionsPanel
-          params={meta.params} // No unsafe casting needed anymore!
+        <LayerOptionSection
+          params={meta.params}
           values={params}
           onChange={onParamChange}
         />
       )}
-    </div>
+    </ControlSubsection>
   );
 }
 
-export { LayerRow };
+export { LayerRowSection };

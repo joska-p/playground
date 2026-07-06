@@ -45,7 +45,7 @@ export function Input({
       <input
         ref={ref}
         className={cn(
-          'text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-[13px] outline-none',
+          'text-foreground placeholder:text-foreground-dim w-full bg-transparent py-2 text-sm outline-none',
           className
         )}
         {...props}

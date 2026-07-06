@@ -1,9 +1,10 @@
-import { Button } from '@repo/ui/data-entry';
+import { Button } from '@repo/ui/button';
+import { ControlSection } from '@repo/ui/control-panel';
 import { useState } from 'react';
 import { getAllLayers } from '../../core/layers/registry';
 import { addLayer, removeLayer, toggleLayer, updateLayerParams } from '../../stores/ui/actions';
 import { useLayersConfig } from '../../stores/ui/selectors';
-import { LayerRow } from './LayerRow';
+import { LayerRowSection } from './LayerRowSection';
 
 function LayerStackEditor() {
   const layers = useLayersConfig();
@@ -27,71 +28,58 @@ function LayerStackEditor() {
   }
 
   return (
-    <div className="border-border flex w-full flex-col gap-2 border-t px-3 py-2">
-      <div className="flex flex-col gap-1">
-        <span className="text-muted-foreground text-xs font-medium">Layers</span>
+    <ControlSection title="Layers">
+      {layers.map((entry) => {
+        const meta = allLayerMetas.find((m) => m.id === entry.id);
+        if (!meta) return null;
 
-        {layers.map((entry) => {
-          const meta = allLayerMetas.find((m) => m.id === entry.id);
-          if (!meta) return null;
-
-          return (
-            <LayerRow
-              key={entry.id}
-              meta={meta}
-              enabled={entry.enabled}
-              params={entry.params}
-              isExpanded={expandedLayerId === entry.id}
-              onToggle={() => {
-                handleToggleLayer(entry.id);
-              }}
-              onToggleExpand={() => {
-                setExpandedLayerId(expandedLayerId === entry.id ? null : entry.id);
-              }}
-              onParamChange={(key, value) => {
-                updateLayerParams(entry.id, { [key]: value });
-              }}
-              onRemove={() => {
-                handleRemoveLayer(entry.id);
-              }}
-            />
-          );
-        })}
-      </div>
-
-      <div className="flex items-center gap-2">
-        {availableLayers.length > 0 && (
-          <div className="relative">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setShowAddDropdown(!showAddDropdown);
-              }}
-            >
-              + Add Layer
-            </Button>
-
-            {showAddDropdown && (
-              <div className="border-border bg-card absolute bottom-full left-0 mb-1 w-44 rounded border shadow-lg">
-                {availableLayers.map((meta) => (
-                  <button
-                    key={meta.id}
-                    type="button"
-                    onClick={() => {
-                      handleAddLayer(meta.id);
-                    }}
-                    className="text-foreground hover:bg-muted w-full cursor-pointer px-2 py-1 text-left text-xs transition-colors"
-                  >
-                    {meta.name}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+        return (
+          <LayerRowSection
+            key={entry.id}
+            meta={meta}
+            enabled={entry.enabled}
+            params={entry.params}
+            isExpanded={expandedLayerId === entry.id}
+            onToggle={() => {
+              handleToggleLayer(entry.id);
+            }}
+            onToggleExpand={() => {
+              setExpandedLayerId(expandedLayerId === entry.id ? null : entry.id);
+            }}
+            onParamChange={(key, value) => {
+              updateLayerParams(entry.id, { [key]: value });
+            }}
+            onRemove={() => {
+              handleRemoveLayer(entry.id);
+            }}
+          />
+        );
+      })}
+      {availableLayers.length > 0 && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            setShowAddDropdown(!showAddDropdown);
+          }}
+        >
+          + Add Layer
+        </Button>
+      )}
+      {showAddDropdown &&
+        availableLayers.map((meta) => (
+          <Button
+            key={meta.id}
+            className="w-full px-4 py-2 text-left hover:bg-gray-100"
+            onClick={() => {
+              handleAddLayer(meta.id);
+              setShowAddDropdown(false);
+            }}
+          >
+            {meta.name}
+          </Button>
+        ))}
+    </ControlSection>
   );
 }
 
