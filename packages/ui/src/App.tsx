@@ -71,7 +71,6 @@ function AppContent() {
             <span className="text-primary text-sm font-semibold tracking-tight">pg_lab-ui v2</span>
             <span className="text-foreground-dim ml-2 text-xs">guidelines + showcase</span>
           </div>
-          <ThemeToggleButton />
         </header>
 
         <HeroSection />
