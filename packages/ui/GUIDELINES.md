@@ -156,10 +156,10 @@ or alert `variant`s — those are semantic tokens above.
 No component uses `forwardRef`. `ref` is declared as an ordinary prop:
 
 ```tsx
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   ref?: Ref<HTMLButtonElement>;
   // ...
-}
+};
 
 export function Button({ ref, ...props }: ButtonProps) {
   return (
@@ -193,8 +193,11 @@ export function Dialog({ children, onClose, ref }: DialogProps) {
 ```
 
 **Convention for new components:** add `ref?: Ref<TElement>` to the
-props interface, destructure it alongside other props, forward it to the
-underlying DOM node. Never reach for `forwardRef`.
+props type, destructure it alongside other props, forward it to the
+underlying DOM node. Never reach for `forwardRef`. Props are declared as
+`type`, not `interface` — see
+[`reference/conventions`](/docs/reference/conventions/) on TypeScript
+style; use an intersection (`&`) where you'd have reached for `extends`.
 
 ### 4.2 Variant files live next to their component
 
@@ -221,7 +224,7 @@ class-string bookkeeping.
 Components that don't need `cva` (because they key off the single
 shared `--_color` custom property instead — see §5.2) don't get a
 variants file; they import `colorVar`/`colorVarStyle` from
-`lib/colorVariant.ts` directly.
+`utils/colorVariant.ts` directly.
 
 ### 4.3 Stateless components, stateful hooks
 
@@ -247,7 +250,7 @@ call. This keeps every component in `src/components/` a pure
 ```
 src/
   styles/globals.css        theme tokens + CSS-only component behaviors
-  lib/
+  utils/
     cn.ts                   clsx + tailwind-merge helper
     colorVariant.ts          shared 6-value ColorVariant type + helpers
   hooks/
@@ -257,11 +260,55 @@ src/
   theme/
     ThemeProvider.tsx
   components/
-    <Name>.tsx
-    <Name>.variants.ts        (only for cva-based components)
-  index.ts                   barrel export
+    navigation/
+      <Name>.tsx
+      <Name>.variants.ts      (only for cva-based components)
+      index.ts                 barrel for this category only
+    feedback/
+      ...same shape, own index.ts
+    control-panel/
+    widgets/
+    cards/
   App.example.tsx            full usage tour
 ```
+
+`cn.ts` and `colorVariant.ts` live in `utils/`, not `lib/` — neither wraps
+a third-party library (see [`reference/conventions`](/docs/reference/conventions/)
+on the `lib/`-vs-`utils/` split); they're this library's own helpers.
+
+There is no single root barrel. Instead, `package.json` `exports` declares
+one subpath per component category, each backed by its own small
+`index.ts`:
+
+```json
+{
+  "./navigation": {
+    "types": "./src/components/navigation/index.ts",
+    "default": "./src/components/navigation/index.ts"
+  },
+  "./feedback": {
+    "types": "./src/components/feedback/index.ts",
+    "default": "./src/components/feedback/index.ts"
+  },
+  "./control-panel": {
+    "types": "./src/components/control-panel/index.ts",
+    "default": "./src/components/control-panel/index.ts"
+  },
+  "./widgets": {
+    "types": "./src/components/widgets/index.ts",
+    "default": "./src/components/widgets/index.ts"
+  },
+  "./cards": {
+    "types": "./src/components/cards/index.ts",
+    "default": "./src/components/cards/index.ts"
+  }
+}
+```
+
+This is the sanctioned exception in `reference/conventions` for
+component-catalog packages: each `index.ts` is a deliberate barrel for one
+category, tied 1:1 to an exports subpath — never one barrel re-exporting
+the whole library.
 
 ---
 
@@ -271,7 +318,7 @@ src/
 type ColorVariant = 'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive';
 ```
 
-Defined once in `lib/colorVariant.ts`, used by every component that has
+Defined once in `utils/colorVariant.ts`, used by every component that has
 any notion of color. `default` is a neutral/grey token
 (`--foreground-dim`); the other five map 1:1 to the semantic CSS
 variables in §3.
@@ -312,7 +359,7 @@ dot, a glow color. The component sets a CSS custom property from
 
 ```ts
 // any component
-import { colorVar, colorVarStyle, type ColorVariant } from "../lib/colorVariant";
+import { colorVar, colorVarStyle, type ColorVariant } from "../utils/colorVariant";
 
 <span style={colorVarStyle(variant)} />          // sets --_color
 <input style={{ accentColor: colorVar(variant) }} /> // native accent-color
@@ -363,7 +410,7 @@ semantic color.
    in `globals.css` (e.g. `--info` / `--info-foreground`).
 2. Add it to `@theme inline` so `bg-info`/`text-info-foreground`
    Tailwind classes exist.
-3. Add the key to `ColorVariant` in `lib/colorVariant.ts` and to the
+3. Add the key to `ColorVariant` in `utils/colorVariant.ts` and to the
    `colorVar()` map.
 4. Add the corresponding branch to every `*.variants.ts` file's
    `variant` map (`Button.variants.ts`, `Badge` doesn't need this since
@@ -721,15 +768,16 @@ When you touch or extend a component, verify:
 
 ## 9. Conventions for contributing a new component
 
-1. **File name**: `ComponentName.tsx` in `src/components/`. If it needs
-   `cva`, add `ComponentName.variants.ts` beside it.
+1. **File name**: `ComponentName.tsx` in `src/components/<category>/`
+   (e.g. `src/components/feedback/`). If it needs `cva`, add
+   `ComponentName.variants.ts` beside it.
 2. **No `forwardRef`.** Add `ref?: Ref<TElement>` to the props type,
    destructure and forward it.
 3. **No `useState`/`useReducer` inside the component.** If it needs
    memory, write `useComponentNameState()` in `src/hooks/` and accept
    the resulting values as props (controlled component).
 4. **Color, if any**, uses the shared `ColorVariant` type from
-   `lib/colorVariant.ts` — don't invent a parallel color enum. Decide
+   `utils/colorVariant.ts` — don't invent a parallel color enum. Decide
    between the `cva` pattern (§5.1) and the `--_color` pattern (§5.2)
    based on whether one or several CSS properties change.
 5. **Mobile-first.** Write the no-prefix styles as the complete
@@ -738,8 +786,9 @@ When you touch or extend a component, verify:
 6. **Prefer the platform.** Before writing interaction logic, check
    whether a native element (`<details>`, `<dialog>`, `<input>` types,
    `popover` attribute) already does it.
-7. **Export from `index.ts`**: the component, its props type, its
-   variants export (if any), and its state hook (if any) — following
-   the existing grouping/comment style in that file.
+7. **Export from that category's `index.ts`**: the component, its props
+   type, its variants export (if any), and its state hook (if any) —
+   following the existing grouping/comment style in that file. A new
+   category earns its own `index.ts` and its own `package.json` exports
+   subpath, following the pattern in §4.4.
 8. **Update this document** — add a row to §5.3 if it takes `variant`,
-   and an entry to §6.

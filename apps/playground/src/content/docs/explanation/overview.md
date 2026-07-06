@@ -53,13 +53,15 @@ The codebase follows a **monorepo** structure with clear separation between the 
 | `packages/pixel-manipulator`  | Image upload, transform, and compare UI                 |
 | `packages/graph-viz`          | Interactive graph visualization                         |
 
-### Data Flow
+For what any of these packages actually do internally, its README under
+[`reference/packages`](/docs/reference/packages/) is the source of truth —
+this table is just a map of what exists, not how it works.
 
-```
-User Action → Engine Rule → Data → Visualization → Canvas/DOM
-```
-
-The shell (Astro) provides layout and navigation. Engines own their logic. UI components bridge them.
+The shell (Astro) provides layout and navigation. Engines own their logic.
+UI components bridge them. For the shape engines tend to follow — and the
+tradeoffs behind that shape — see
+[Architecture](/docs/explanation/architecture/) and
+[Engine Patterns](/docs/explanation/engine-patterns/).
 
 ---
 
@@ -83,5 +85,5 @@ The shell (Astro) provides layout and navigation. Engines own their logic. UI co
 
 - **New here?** Start with [Your First Visualization](/docs/tutorial/first-visualization/)
 - **Adding a project?** See [Adding Projects](/docs/how-to/adding-projects/)
-- **Understanding engines?** Read [Engines](/docs/explanation/engines/)
-- **UI components?** Browse [Storybook](/storybook/) or [UI Components Reference](/docs/reference/ui-components/)
+- **Understanding the architecture?** Read [Architecture](/docs/explanation/architecture/) and [Engine Patterns](/docs/explanation/engine-patterns/)
+- **UI components?** Browse [Storybook](/storybook/) or [UI Design-tokens Reference](/docs/reference/design-tokens/)

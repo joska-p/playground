@@ -100,5 +100,3 @@ plan for the directory structure as an example. all those directory do not have 
 │ │
 │ ├── primitives/ # Unstyled, accessible base components (Optional)
 │ │ └── ...
-│ │
-│ └── index.ts # THE MAGIC: Single entry point for consumers
