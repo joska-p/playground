@@ -28,12 +28,9 @@ export function useFloatingNavState(): FloatingNavState {
   }, [isAtTop]);
 
   const updateVisibility = useCallback(() => {
-    if (isAtTop() || navHoveredRef.current) {
-      show();
-    } else {
-      scheduleHide();
-    }
-  }, [isAtTop, show, scheduleHide]);
+    show();
+    scheduleHide();
+  }, [show, scheduleHide]);
 
   useEffect(() => {
     const onScroll = () => {
