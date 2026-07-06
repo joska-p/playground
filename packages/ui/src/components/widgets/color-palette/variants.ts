@@ -12,9 +12,9 @@ export const colorPaletteVariants = cva(
         vertical: 'flex-col'
       },
       size: {
-        sm: '[--cell-size:var(--spacing-4)]',
-        md: '[--cell-size:var(--spacing-6)]',
-        lg: '[--cell-size:var(--spacing-8)]'
+        sm: 'h-4 w-4',
+        md: 'h-6 w-6',
+        lg: 'h-8 w-8'
       }
     },
     defaultVariants: {

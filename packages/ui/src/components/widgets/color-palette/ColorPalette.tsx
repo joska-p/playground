@@ -4,7 +4,6 @@ import { cn } from '../../../lib/cn';
 import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 import { colorPaletteVariants } from './variants';
 
-// Explicitly extract variant props to solve the TypeScript error
 type PaletteVariants = VariantProps<typeof colorPaletteVariants>;
 
 export type ColorPaletteProps = {
@@ -37,7 +36,7 @@ function ColorPalette({
     <label
       ref={ref}
       className={cn(colorPaletteVariants({ orientation, size, className }))}
-      style={{ boxShadow: 'var(--shadow-sm)', ...colorVarStyle(colorVariant, style) }}
+      style={colorVarStyle(colorVariant, style)}
       {...props}
     >
       <input
