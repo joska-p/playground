@@ -22,8 +22,8 @@ function LayerOptionSection({ params, values, onChange }: LayerOptionSectionProp
               <Slider
                 variant="secondary"
                 value={currentValue as number}
-                onChange={(value) => {
-                  onChange(key, value);
+                onChange={(e) => {
+                  onChange(key, Number(e.target.value));
                 }}
                 min={descriptor.min}
                 max={descriptor.max}

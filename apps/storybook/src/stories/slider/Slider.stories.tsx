@@ -76,7 +76,9 @@ function InteractiveSlider(args: SliderStoryProps & React.ComponentProps<typeof 
       <Slider
         {...args}
         value={value}
-        onChange={setValue}
+        onChange={(e) => {
+          setValue(Number(e.target.value));
+        }}
       />
     </div>
   );

@@ -50,7 +50,9 @@ function ColorSpaceControls({ spaceId = 'oklch', size = 200 }: ColorSliceProps) 
         max={max}
         step={step ?? 1}
         value={zValue}
-        onChange={setZValue}
+        onChange={(e) => {
+          setZValue(Number(e.target.value));
+        }}
       />
     </div>
   );

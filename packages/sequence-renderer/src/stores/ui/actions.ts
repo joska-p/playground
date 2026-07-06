@@ -39,6 +39,12 @@ export function setViewport(v: Partial<CanvasViewport>): void {
   uiStore.setState({ viewport: { ...current, ...v } });
 }
 
+export function resetViewport(): void {
+  uiStore.setState({
+    viewport: { enabled: false, zoom: 1, panX: 0, panY: 0 }
+  });
+}
+
 export function updateLayerParams(id: string, params: Record<string, unknown>): void {
   const state = uiStore.getState();
   const layers = state.layers.map((layer) =>
