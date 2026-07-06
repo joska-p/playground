@@ -63,7 +63,7 @@ function LayerStackEditor() {
         {availableLayers.length > 0 && (
           <div className="relative">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
               onClick={() => {
                 setShowAddDropdown(!showAddDropdown);

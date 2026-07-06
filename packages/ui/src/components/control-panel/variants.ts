@@ -15,9 +15,9 @@ export const controlPanelVariants = cva(
         inline: '!static !inset-auto max-h-none w-full'
       },
       size: {
-        sm: 'w-auto open:w-full open:landscape:w-64',
-        default: 'w-auto open:w-full open:landscape:w-80',
-        lg: 'w-auto open:w-full open:landscape:w-96'
+        sm: 'w-auto group-open:w-full landscape:group-open:w-64',
+        default: 'w-auto group-open:w-full landscape:group-open:w-80',
+        lg: 'w-auto group-open:w-full landscape:group-open:w-96'
       }
     },
     compoundVariants: [
