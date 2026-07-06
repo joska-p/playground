@@ -1,4 +1,4 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
 import { setAnimationSpeed } from '../../stores/randomart/actions/config';
 import { setTime, toggleRunning } from '../../stores/randomart/actions/playback';
@@ -8,73 +8,37 @@ function PlaybackSection() {
   const running = useRunning();
   const animationSpeed = useAnimationSpeed();
 
-  // const playPauseControl: Control = {
-  //   id: 'playPause',
-  //   type: 'button',
-  //   label: running ? 'Pause' : 'Play',
-  //   variant: 'primary',
-  //   onClick: toggleRunning
-  // };
-
-  // const resetTimeControl: Control = {
-  //   id: 'resetTime',
-  //   type: 'button',
-  //   label: 'Reset Time',
-  //   onClick: () => {
-  //     setTime(0);
-  //   }
-  // };
-
-  // const speedControl: Control = {
-  //   id: 'speed',
-  //   type: 'slider',
-  //   label: 'Speed',
-  //   value: animationSpeed,
-  //   min: 0,
-  //   max: 2,
-  //   step: 0.1,
-  //   onChange: setAnimationSpeed
-  // };
-
-  // const section: ControlSection = {
-  //   id: 'playback',
-  //   label: 'Playback',
-  //   defaultOpen: true,
-  //   controls: [playPauseControl, resetTimeControl, speedControl]
-  // };
-
-  // return section;
-
   return (
     <ControlSection
       title="Playback"
       defaultOpen={true}
     >
-      <Button
-        variant="primary"
-        onClick={toggleRunning}
-      >
-        {running ? 'Pause' : 'Play'}
-      </Button>
-      <Button
-        onClick={() => {
-          setTime(0);
-        }}
-      >
-        Reset Time
-      </Button>
-
-      <ControlRow label="speed">
-        <Slider
-          value={animationSpeed}
-          min={0}
-          max={2}
-          step={0.1}
-          onChange={(e) => {
-            setAnimationSpeed(Number(e.target.value));
+      <ControlGrid columns={2}>
+        <Button
+          variant="primary"
+          onClick={toggleRunning}
+        >
+          {running ? 'Pause' : 'Play'}
+        </Button>
+        <Button
+          onClick={() => {
+            setTime(0);
           }}
-        />
-      </ControlRow>
+        >
+          Reset Time
+        </Button>
+      </ControlGrid>
+      <Slider
+        className="col-span-full"
+        aria-label="animation speed"
+        value={animationSpeed}
+        min={0}
+        max={2}
+        step={0.1}
+        onChange={(e) => {
+          setAnimationSpeed(Number(e.target.value));
+        }}
+      />
     </ControlSection>
   );
 }

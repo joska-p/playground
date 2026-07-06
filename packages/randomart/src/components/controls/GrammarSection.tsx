@@ -1,5 +1,5 @@
 import { getAllRules } from '@repo/randomart-engine/grammar/registry';
-import { ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
 import { toggleRule } from '../../stores/randomart/actions/config';
 import { useEnabledRuleIds } from '../../stores/randomart/selectors';
@@ -13,17 +13,20 @@ function GrammarSection() {
       title="Grammar"
       defaultOpen={false}
     >
-      {rules.map((rule) => (
-        <Button
-          key={`rule-${rule.id}`}
-          variant={enabledRuleIds.includes(rule.id) ? 'primary' : 'default'}
-          onClick={() => {
-            toggleRule(rule.id);
-          }}
-        >
-          {rule.name}
-        </Button>
-      ))}
+      <ControlGrid columns={2}>
+        {rules.map((rule) => (
+          <Button
+            key={`rule-${rule.id}`}
+            variant={enabledRuleIds.includes(rule.id) ? 'secondary' : 'default'}
+            size="sm"
+            onClick={() => {
+              toggleRule(rule.id);
+            }}
+          >
+            {rule.name}
+          </Button>
+        ))}
+      </ControlGrid>
     </ControlSection>
   );
 }

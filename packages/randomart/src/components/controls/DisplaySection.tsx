@@ -1,6 +1,6 @@
 import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Button, Input } from '@repo/ui/data-entry';
+import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
+import { Button, Checkbox } from '@repo/ui/data-entry';
 import { useState } from 'react';
 import { setCorrelatedRGB } from '../../stores/randomart/actions/display';
 import {
@@ -59,6 +59,8 @@ function DisplaySection() {
       const exportR = correlatedRGB ? treeR.args[0] : treeR;
       const exportG = correlatedRGB ? treeR.args[1] : treeG;
       const exportB = correlatedRGB ? treeR.args[2] : treeB;
+      if (!exportR || !exportG || !exportB) return;
+
       const currentTime = randomartStore.getState().time;
 
       const blob = renderTreesToPngBlob(exportR, exportG, exportB, DOWNLOAD_SIZE, currentTime);
@@ -75,16 +77,15 @@ function DisplaySection() {
       title="display"
       defaultOpen={true}
     >
-      <ControlRow label="Correlated RGB">
-        <Input
-          type="checkbox"
+      <ControlGrid columns={2}>
+        <Checkbox
+          label="correlated RGB"
           checked={correlatedRGB}
+          variant="primary"
           onChange={() => {
             setCorrelatedRGB(!correlatedRGB);
           }}
         />
-      </ControlRow>
-      <ControlRow label="Download PNG">
         <Button
           variant="primary"
           disabled={downloading}
@@ -92,7 +93,7 @@ function DisplaySection() {
         >
           {downloading ? 'Rendering...' : 'Download PNG'}
         </Button>
-      </ControlRow>
+      </ControlGrid>
     </ControlSection>
   );
 }

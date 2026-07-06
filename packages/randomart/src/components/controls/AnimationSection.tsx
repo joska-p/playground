@@ -16,7 +16,7 @@ function AnimationSection() {
         {animationRegistry.map((behavior) => (
           <Button
             key={`animation-${behavior.id}`}
-            variant={activeIds.includes(behavior.id) ? 'primary' : 'default'}
+            variant={activeIds.includes(behavior.id) ? 'accent' : 'default'}
             onClick={() => {
               toggleAnimationBehavior(behavior.id);
             }}

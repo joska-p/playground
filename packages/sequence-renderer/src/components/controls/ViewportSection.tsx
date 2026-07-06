@@ -33,7 +33,7 @@ function ViewportSection() {
           max={5}
           step={0.05}
           onChange={(e) => {
-            setViewport({ zoom: Number(Number(e.target.value).toFixed(2)) });
+            setViewport({ zoom: Number(e.target.value) });
           }}
           showTicks={false}
         />
@@ -49,7 +49,7 @@ function ViewportSection() {
           max={1}
           step={0.05}
           onChange={(e) => {
-            setViewport({ panX: Number(Number(e.target.value).toFixed(2)) });
+            setViewport({ panX: Number(e.target.value) });
           }}
           showTicks={false}
         />
@@ -65,7 +65,7 @@ function ViewportSection() {
           max={1}
           step={0.05}
           onChange={(e) => {
-            setViewport({ panY: Number(Number(e.target.value).toFixed(2)) });
+            setViewport({ panY: Number(e.target.value) });
           }}
           showTicks={false}
         />

@@ -1,4 +1,4 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Input, Textarea } from '@repo/ui/data-entry';
 import { setMaxDepth, setSeedText } from '../../stores/randomart/actions/config';
 import { useMaxDepth, useSeedText } from '../../stores/randomart/selectors';
@@ -12,15 +12,15 @@ function ConfigSection() {
       title="config"
       defaultOpen={true}
     >
-      <ControlRow label="Seed">
+      <ControlGrid columns={2}>
         <Textarea
+          className="col-span-full"
+          autoGrow={false}
           value={seedText}
           onChange={(e) => {
             setSeedText(e.target.value);
           }}
         />
-      </ControlRow>
-      <ControlRow label="Shuffle">
         <Button
           onClick={() => {
             setSeedText(Math.random().toString(36).slice(2, 10));
@@ -28,16 +28,16 @@ function ConfigSection() {
         >
           Randomize
         </Button>
-      </ControlRow>
-      <ControlRow label="Max Depth">
+
         <Input
+          aria-label="Max Depth"
           type="number"
           value={maxDepth}
           onChange={(e) => {
             setMaxDepth(Number(e.target.value));
           }}
         />
-      </ControlRow>
+      </ControlGrid>
     </ControlSection>
   );
 }

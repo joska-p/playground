@@ -27,9 +27,9 @@ export function useCanvasInteraction(canvasRef: React.RefObject<HTMLCanvasElemen
 
       setViewport({
         enabled: true,
-        zoom: newZoom,
-        panX: newPanX,
-        panY: newPanY
+        zoom: Number(newZoom.toFixed(2)),
+        panX: Number(newPanX.toFixed(2)),
+        panY: Number(newPanY.toFixed(2))
       });
     }
 
