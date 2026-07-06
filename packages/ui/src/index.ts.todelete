@@ -31,3 +31,7 @@ export type { IconProps } from './components/icons/lib';
 
 // App-specific Cards
 export * from './components/cards';
+
+// Showcase
+export { App } from './App';
+export { AppWithoutThemeProvider } from './AppWithoutThemeProvider';

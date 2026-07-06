@@ -1,4 +1,5 @@
-import { Button, useToast } from '../..';
+import { Button } from '../../components/data-entry';
+import { useToast } from '../../components/feedback';
 import { DemoSection } from '../layout/DemoSection';
 import { VARIANTS } from '../layout/constants';
 

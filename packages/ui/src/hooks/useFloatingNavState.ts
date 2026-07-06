@@ -13,19 +13,27 @@ export function useFloatingNavState(): FloatingNavState {
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
   const navHoveredRef = useRef(false);
 
-  const isAtTop = useCallback(() => document.documentElement.scrollTop < 50, []);
+  const isAtTop = () => document.documentElement.scrollTop < 50;
+  const isAtTopRef = useRef(isAtTop);
+  useEffect(() => {
+    isAtTopRef.current = isAtTop;
+  });
 
   const show = useCallback(() => {
     setVisible(true);
   }, []);
 
   const scheduleHide = useCallback(() => {
-    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-    if (isAtTop() || navHoveredRef.current) return;
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    if (isAtTopRef.current() || navHoveredRef.current) return;
     scrollTimeoutRef.current = setTimeout(() => {
-      if (!navHoveredRef.current && !isAtTop()) setVisible(false);
+      if (!navHoveredRef.current && !isAtTopRef.current()) {
+        setVisible(false);
+      }
     }, 1500);
-  }, [isAtTop]);
+  }, []);
 
   const updateVisibility = useCallback(() => {
     show();
@@ -43,8 +51,8 @@ export function useFloatingNavState(): FloatingNavState {
   }, [updateVisibility]);
 
   useEffect(() => {
-    updateVisibility();
-  }, [updateVisibility]);
+    scheduleHide();
+  }, [scheduleHide]);
 
   return { visible, navHoveredRef, show, scheduleHide };
 }

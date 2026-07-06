@@ -56,74 +56,78 @@ import { ChecklistSection } from './showcase/references/ChecklistSection';
 import { ContributingSection } from './showcase/references/ContributingSection';
 import { HooksSection } from './showcase/references/HooksSection';
 
+import { ErrorBoundary } from '';
+
 function AppContent() {
   return (
-    <main className="mx-auto flex max-w-240 flex-col px-4 py-10 sm:px-6">
-      <header className="mb-14 flex items-center justify-between">
-        <div>
-          <span className="text-primary text-sm font-semibold tracking-tight">pg_lab-ui v2</span>
-          <span className="text-foreground-dim ml-2 text-xs">guidelines + showcase</span>
-        </div>
-        <ThemeToggleButton />
-      </header>
+    <ErrorBoundary>
+      <main className="mx-auto flex max-w-240 flex-col px-4 py-10 sm:px-6">
+        <header className="mb-14 flex items-center justify-between">
+          <div>
+            <span className="text-primary text-sm font-semibold tracking-tight">pg_lab-ui v2</span>
+            <span className="text-foreground-dim ml-2 text-xs">guidelines + showcase</span>
+          </div>
+          <ThemeToggleButton />
+        </header>
 
-      <HeroSection />
+        <HeroSection />
 
-      <PhilosophySection />
-      <SetupSection />
-      <DesignTokensSection />
-      <ArchitectureSection />
-      <VariantSystemSection />
+        <PhilosophySection />
+        <SetupSection />
+        <DesignTokensSection />
+        <ArchitectureSection />
+        <VariantSystemSection />
 
-      <DocHeading level="h2">6. Component reference</DocHeading>
-      <Prose>
-        <p>
-          Each component entry includes the API table, a code example, and an interactive live
-          preview.
-        </p>
-      </Prose>
+        <DocHeading level="h2">6. Component reference</DocHeading>
+        <Prose>
+          <p>
+            Each component entry includes the API table, a code example, and an interactive live
+            preview.
+          </p>
+        </Prose>
 
-      <ButtonGallery />
-      <BadgeGallery />
-      <InputDemo />
-      <LabelDemo />
-      <HelperTextDemo />
-      <TextareaDemo />
-      <SelectDemo />
-      <CheckboxDemo />
-      <RadioDemo />
-      <SwitchDemo />
-      <SliderDemo />
-      <CardDemo />
-      <CardLinkDemo />
-      <AccordionDemo />
-      <TabsDemo />
-      <CarouselDemo />
-      <PopoverDemo />
-      <TooltipDemo />
-      <DialogDemo />
-      <AlertGallery />
-      <ToastDemo />
-      <SectionHeaderDemo />
-      <SectionHeadingDemo />
-      <ColorSwatchGallery />
-      <ChangelogGallery />
-      <NotificationItemDemo />
-      <IconGallery />
-      <MenuItemDemo />
-      <ColorPaletteDemo />
-      <ScrollRevealDemo />
-      <SidebarDemo />
-      <ControlPanelDemo />
-      <CardGalleries />
-      <ErrorBoundaryDemo />
-      <FloatingNavDemo />
+        <ButtonGallery />
+        <BadgeGallery />
+        <InputDemo />
+        <LabelDemo />
+        <HelperTextDemo />
+        <TextareaDemo />
+        <SelectDemo />
+        <CheckboxDemo />
+        <RadioDemo />
+        <SwitchDemo />
+        <SliderDemo />
+        <CardDemo />
+        <CardLinkDemo />
+        <AccordionDemo />
+        <TabsDemo />
+        <CarouselDemo />
+        <PopoverDemo />
+        <TooltipDemo />
+        <DialogDemo />
+        <AlertGallery />
+        <ToastDemo />
+        <SectionHeaderDemo />
+        <SectionHeadingDemo />
+        <ColorSwatchGallery />
+        <ChangelogGallery />
+        <NotificationItemDemo />
+        <IconGallery />
+        <MenuItemDemo />
+        <ColorPaletteDemo />
+        <ScrollRevealDemo />
+        <SidebarDemo />
+        <ControlPanelDemo />
+        <CardGalleries />
+        <ErrorBoundaryDemo />
+        <FloatingNavDemo />
 
-      <HooksSection />
-      <ChecklistSection />
-      <AccessibilitySection />
-      <ContributingSection />
-    </main>
+        <HooksSection />
+        <ChecklistSection />
+        <AccessibilitySection />
+        <ContributingSection />
+      </main>
+    </ErrorBoundary>
   );
 }
 
@@ -161,5 +165,17 @@ export function App() {
         <AppContent />
       </ToastProvider>
     </ThemeProvider>
+  );
+}
+
+export function AppWithoutThemeProvider() {
+  return (
+    <ToastProvider
+      toasts={toastQueue.toasts}
+      toast={toastQueue.toast}
+      dismiss={toastQueue.dismiss}
+    >
+      <AppContent />
+    </ToastProvider>
   );
 }

@@ -1,0 +1,9 @@
+order: 2
+name: UI library
+description: Guidelines and showcase of the ui components
+category: random
+tags:
+  - docs
+icon: bluesky
+featured: false
+packageDir: ui

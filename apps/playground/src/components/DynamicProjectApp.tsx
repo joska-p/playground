@@ -22,6 +22,9 @@ const ThreeStageApp = React.lazy(() =>
   import('@repo/three-stage').then((m) => ({ default: m.App }))
 );
 const LSystemApp = React.lazy(() => import('@repo/l-system').then((m) => ({ default: m.App })));
+const UIApp = React.lazy(() =>
+  import('@repo/ui/AppWithoutThemeProvider').then((m) => ({ default: m.AppWithoutThemeProvider }))
+);
 
 const components: Record<string, React.ComponentType> = {
   mosaic: MosaicApp,
@@ -35,12 +38,12 @@ const components: Record<string, React.ComponentType> = {
   'three-stage': ThreeStageApp,
   automa: AutomaApp,
   'l-system': LSystemApp,
-  'art-canvas': ArtCanvasApp
+  'art-canvas': ArtCanvasApp,
+  ui: UIApp
 };
 
 export function DynamicProjectApp({ slug }: { slug: string }) {
   const Component = components[slug];
-  if (!Component) return null;
   return (
     <Suspense fallback={<div>Loading project...</div>}>
       <Component />

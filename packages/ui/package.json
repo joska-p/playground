@@ -4,73 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
-    },
+    "./App": "./src/App.tsx",
+    "./AppWithoutThemeProvider": "./src/AppWithoutThemeProvider.tsx",
     "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
     "./styles": "./src/styles/styles.css",
-    "./data-entry": {
-      "types": "./src/components/data-entry/index.ts",
-      "default": "./src/components/data-entry/index.ts"
-    },
-    "./data-display": {
-      "types": "./src/components/data-display/index.ts",
-      "default": "./src/components/data-display/index.ts"
-    },
-    "./navigation": {
-      "types": "./src/components/navigation/index.ts",
-      "default": "./src/components/navigation/index.ts"
-    },
-    "./feedback": {
-      "types": "./src/components/feedback/index.ts",
-      "default": "./src/components/feedback/index.ts"
-    },
-    "./control-panel": {
-      "types": "./src/components/control-panel/index.ts",
-      "default": "./src/components/control-panel/index.ts"
-    },
-    "./widgets": {
-      "types": "./src/components/widgets/index.ts",
-      "default": "./src/components/widgets/index.ts"
-    },
-    "./cards": {
-      "types": "./src/components/cards/index.ts",
-      "default": "./src/components/cards/index.ts"
-    },
-    "./icons": {
-      "types": "./src/components/icons/index.ts",
-      "default": "./src/components/icons/index.ts"
-    },
-    "./button": {
-      "types": "./src/components/data-entry/button/Button.tsx",
-      "default": "./src/components/data-entry/button/Button.tsx"
-    },
-    "./card": {
-      "types": "./src/components/data-display/card/Card.tsx",
-      "default": "./src/components/data-display/card/Card.tsx"
-    },
-    "./dialog": {
-      "types": "./src/components/feedback/dialog/Dialog.tsx",
-      "default": "./src/components/feedback/dialog/Dialog.tsx"
-    },
-    "./sidebar": {
-      "types": "./src/components/widgets/sidebar/Sidebar.tsx",
-      "default": "./src/components/widgets/sidebar/Sidebar.tsx"
-    },
-    "./hooks/*": {
-      "types": "./src/hooks/*.ts",
-      "default": "./src/hooks/*.ts"
-    },
-    "./lib/*": {
-      "types": "./src/lib/*.ts",
-      "default": "./src/lib/*.ts"
-    },
-    "./theme/*": {
-      "types": "./src/theme/*.ts",
-      "default": "./src/theme/*.ts"
-    },
-    "./*": "./src/index.ts"
+    "./data-entry": "./src/components/data-entry/index.ts",
+    "./data-display": "./src/components/data-display/index.ts",
+    "./navigation": "./src/components/navigation/index.ts",
+    "./feedback": "./src/components/feedback/index.ts",
+    "./control-panel": "./src/components/control-panel/index.ts",
+    "./widgets": "./src/components/widgets/index.ts",
+    "./cards": "./src/components/cards/index.ts",
+    "./icons": "./src/components/icons/index.ts",
+    "./button": "./src/components/data-entry/button/Button.tsx",
+    "./card": "./src/components/data-display/card/Card.tsx",
+    "./dialog": "./src/components/feedback/dialog/Dialog.tsx",
+    "./sidebar": "./src/components/widgets/sidebar/Sidebar.tsx",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./lib/*": "./src/lib/*.ts",
+    "./theme/*": "./src/theme/*.ts"
   },
   "scripts": {
     "dev": "vite",

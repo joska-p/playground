@@ -1,13 +1,13 @@
 import { useRef } from 'react';
+import { Button } from '../../components/data-entry';
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogBody,
   DialogDescription,
   DialogTitle,
   type DialogHandle
-} from '../..';
+} from '../../components/feedback';
 import { DemoSection } from '../layout/DemoSection';
 
 export function DialogDemo() {

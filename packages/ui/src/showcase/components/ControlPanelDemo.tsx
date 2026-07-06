@@ -1,11 +1,7 @@
-import { useState } from 'react';
 import { ControlPanel, ControlRow, ControlSection, Switch } from '../..';
 import { DemoSection } from '../layout/DemoSection';
 
 export function ControlPanelDemo() {
-  const [seed, setSeed] = useState(0);
-  const [noiseOn, setNoiseOn] = useState(false);
-
   return (
     <DemoSection
       id="component-controlpanel"
