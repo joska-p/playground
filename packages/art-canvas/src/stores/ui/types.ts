@@ -1,4 +1,4 @@
-export type InputMode = 'seed' | 'controled' | 'manual';
+export type InputMode = 'seed' | 'folded-space' | 'atlas';
 
 export type UiStoreState = {
   inputMode: InputMode;

@@ -4,8 +4,9 @@ import { SeedControls } from '../../input-modes/seed/useSeedControls';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';
 import type { InputMode } from '../../stores/ui/types';
+import { AtlasControls } from '../atlas/controls/AtlasControls';
 
-const inputModes: InputMode[] = ['seed', 'controled', 'manual'];
+const inputModes: InputMode[] = ['seed', 'folded-space', 'atlas'];
 const inputModeOptions = inputModes.map((mode) => ({
   label: mode.charAt(0).toUpperCase() + mode.slice(1),
   value: mode
@@ -39,6 +40,7 @@ function ControlsPanel() {
         </ControlRow>
       </ControlSection>
       {inputMode === 'seed' && <SeedControls />}
+      {inputMode === 'atlas' && <AtlasControls />}
     </ControlPanel>
   );
 }
