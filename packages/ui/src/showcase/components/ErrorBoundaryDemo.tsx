@@ -1,4 +1,4 @@
-import { ErrorBoundary } from '../..';
+import { ErrorBoundary } from '../../components/feedback';
 import { DemoSection } from '../layout/DemoSection';
 
 function throwErrorDemo() {

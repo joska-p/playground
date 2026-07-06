@@ -1,4 +1,4 @@
-import { Switch } from '../..';
+import { Switch } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function SwitchDemo() {

@@ -1,4 +1,4 @@
-import { ColorPalette } from '../..';
+import { ColorPalette } from '../../components/widgets';
 import { DemoSection } from '../layout/DemoSection';
 
 export function ColorPaletteDemo() {

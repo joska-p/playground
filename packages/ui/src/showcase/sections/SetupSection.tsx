@@ -13,14 +13,14 @@ export function SetupSection() {
         <p>Install the package and its peer dependencies:</p>
       </Prose>
       <CodeBlock
-        code={`pnpm add @repo/ui-v2 class-variance-authority clsx tailwind-merge lucide-react`}
+        code={`pnpm add @repo/ui class-variance-authority clsx tailwind-merge lucide-react`}
       />
       <Prose>
         <p>
           <strong>Step 1</strong> — import the stylesheet once at your app root:
         </p>
       </Prose>
-      <CodeBlock code={`import "@repo/ui-v2/styles";`} />
+      <CodeBlock code={`import "@repo/ui/styles";`} />
       <Prose>
         <p>
           The stylesheet is Tailwind v4 CSS-first config — no tailwind.config.js. It defines the
@@ -33,7 +33,7 @@ export function SetupSection() {
         </p>
       </Prose>
       <CodeBlock
-        code={`import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from "@repo/ui-v2";
+        code={`import { ThemeProvider, useThemeState, ToastProvider, useToastQueue } from "@repo/ui";
 
 export default function App() {
   const theme = useThemeState();

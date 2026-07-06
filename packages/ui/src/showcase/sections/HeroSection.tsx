@@ -1,4 +1,4 @@
-import { Hero } from '../..';
+import { Hero } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function HeroSection() {

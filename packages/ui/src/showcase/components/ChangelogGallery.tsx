@@ -1,4 +1,4 @@
-import { ChangelogItem } from '../..';
+import { ChangelogItem } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function ChangelogGallery() {

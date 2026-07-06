@@ -1,6 +1,6 @@
-import { Badge } from '../..';
 import { accentTokens } from '../../components/cards/accent-tokens/accentTokens';
 import { CardLink } from '../../components/cards/card-link/CardLink';
+import { Badge } from '../../components/data-display';
 import {
   CardBody,
   CardDescription,

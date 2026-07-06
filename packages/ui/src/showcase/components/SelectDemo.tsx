@@ -1,4 +1,4 @@
-import { Select } from '../..';
+import { Select } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function SelectDemo() {

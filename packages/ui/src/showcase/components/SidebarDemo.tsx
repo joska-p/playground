@@ -1,4 +1,6 @@
-import { Badge, Sidebar, SidebarMain, SidebarPanel, SidebarToggle, useSidebarState } from '../..';
+import { Badge } from '../../components/data-display';
+import { Sidebar, SidebarMain, SidebarPanel, SidebarToggle } from '../../components/widgets';
+import { useSidebarState } from '../../hooks/useSidebarState';
 import { DemoSection } from '../layout/DemoSection';
 
 export function SidebarDemo() {

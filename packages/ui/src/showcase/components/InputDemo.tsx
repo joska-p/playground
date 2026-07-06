@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react';
-import { Input } from '../..';
+import { Input } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function InputDemo() {

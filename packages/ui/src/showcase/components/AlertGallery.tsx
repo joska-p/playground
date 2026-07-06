@@ -1,4 +1,4 @@
-import { Alert } from '../..';
+import { Alert } from '../../components/feedback';
 import { DemoSection } from '../layout/DemoSection';
 import { VARIANTS } from '../layout/constants';
 

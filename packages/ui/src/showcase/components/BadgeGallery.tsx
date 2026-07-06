@@ -1,4 +1,4 @@
-import { Badge } from '../..';
+import { Badge } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 import { VARIANTS } from '../layout/constants';
 

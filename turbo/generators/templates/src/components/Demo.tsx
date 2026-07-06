@@ -1,14 +1,13 @@
-import { Badge } from '@repo/ui/Badge';
-import { Button } from '@repo/ui/Button';
+import { Badge } from '@repo/ui/data-display';
+import { Button } from '@repo/ui/data-entry';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
   CardTitle,
-} from '@repo/ui/Card';
-import { Input } from '@repo/ui/Input';
+} from '@repo/ui/data-display';
+import { Input } from '@repo/ui/data-entry';
+import { ErrorBoundary } from '@repo/ui/feedback';
 import { useState } from 'react';
 import { demoSchema } from '../demo.schema.ts';
 import {
@@ -41,15 +40,15 @@ function Demo() {
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4 sm:p-8">
         <Card className="w-full max-w-md">
-          <CardHeader>
+          <div className="p-4">
             <CardTitle>Zustand + Zod Demo</CardTitle>
             <CardDescription>
               A minimal showcase of state management with Zustand and runtime
               validation with Zod.
             </CardDescription>
-          </CardHeader>
+          </div>
 
-          <CardContent className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 px-4 pb-4">
             <div className="flex items-center gap-3">
               <span className="text-sm">Submissions:</span>
               <Badge variant="secondary">{count}</Badge>
@@ -97,14 +96,14 @@ function Demo() {
                 </ul>
               </div>
             )}
-          </CardContent>
+          </div>
 
           {count > 0 && (
             <CardFooter>
               <Button
                 variant="ghost"
                 onClick={resetDemo}
-                size="small"
+                size="sm"
               >
                 Reset
               </Button>

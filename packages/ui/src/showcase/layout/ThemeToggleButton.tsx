@@ -1,5 +1,7 @@
 import { Moon, Sun } from 'lucide-react';
-import { Button, Tooltip, useTheme } from '../..';
+import { Tooltip } from '../../components/data-display';
+import { Button } from '../../components/data-entry';
+import { useTheme } from '../../theme/useTheme';
 
 export function ThemeToggleButton() {
   const { theme, toggleTheme } = useTheme();

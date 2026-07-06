@@ -1,4 +1,5 @@
-import { Button, MenuItem, Popover } from '../..';
+import { MenuItem, Popover } from '../../components/data-display';
+import { Button } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function PopoverDemo() {

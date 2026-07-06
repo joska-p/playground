@@ -1,4 +1,4 @@
-import { Icon } from '../..';
+import { Icon } from '../../components/icons';
 import { DemoSection } from '../layout/DemoSection';
 
 const ICON_NAMES = [

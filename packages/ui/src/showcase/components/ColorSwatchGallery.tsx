@@ -1,4 +1,4 @@
-import { ColorSwatch } from '../..';
+import { ColorSwatch } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function ColorSwatchGallery() {

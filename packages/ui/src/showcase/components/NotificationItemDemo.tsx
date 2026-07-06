@@ -1,5 +1,5 @@
 import { CircleCheck, Globe, TriangleAlert } from 'lucide-react';
-import { NotificationItem } from '../..';
+import { NotificationItem } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function NotificationItemDemo() {

@@ -5,7 +5,7 @@
   "type": "module",
   "exports": {
     "./App": "./src/App.tsx",
-    "./AppWithoutThemeProvider": "./src/AppWithoutThemeProvider.tsx",
+    "./AppWithoutThemeProvider": "./src/App.tsx",
     "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
     "./styles": "./src/styles/styles.css",
     "./data-entry": "./src/components/data-entry/index.ts",

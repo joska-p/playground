@@ -1,5 +1,5 @@
 import { Book, Cog, User } from 'lucide-react';
-import { MenuItem } from '../..';
+import { MenuItem } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function MenuItemDemo() {

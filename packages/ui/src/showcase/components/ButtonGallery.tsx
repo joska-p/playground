@@ -1,5 +1,5 @@
 import { Settings } from 'lucide-react';
-import { Button } from '../..';
+import { Button } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 import { VARIANTS } from '../layout/constants';
 

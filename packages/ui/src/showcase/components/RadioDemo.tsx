@@ -1,4 +1,4 @@
-import { Radio } from '../..';
+import { Radio } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function RadioDemo() {

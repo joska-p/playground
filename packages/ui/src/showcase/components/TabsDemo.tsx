@@ -1,4 +1,6 @@
-import { ChangelogItem, Tabs, TabsContent, TabsList, TabsTrigger, useTabsState } from '../..';
+import { ChangelogItem } from '../../components/data-display';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/navigation';
+import { useTabsState } from '../../hooks/useTabsState';
 import { DemoSection } from '../layout/DemoSection';
 
 export function TabsDemo() {

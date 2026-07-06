@@ -1,6 +1,6 @@
 import { Cog } from 'lucide-react';
 import { useState } from 'react';
-import { Badge, Button, Tooltip } from '../..';
+import { Badge, Tooltip } from '../../components/data-display';
 import {
   Card,
   CardActions,
@@ -10,6 +10,7 @@ import {
   CardImage,
   CardTitle
 } from '../../components/data-display/card/Card';
+import { Button } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function CardDemo() {

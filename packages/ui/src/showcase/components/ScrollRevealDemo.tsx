@@ -1,4 +1,4 @@
-import { ScrollReveal } from '../..';
+import { ScrollReveal } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function ScrollRevealDemo() {

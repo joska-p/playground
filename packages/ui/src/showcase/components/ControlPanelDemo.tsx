@@ -1,4 +1,5 @@
-import { ControlPanel, ControlRow, ControlSection, Switch } from '../..';
+import { ControlPanel, ControlRow, ControlSection } from '../../components/control-panel';
+import { Switch } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function ControlPanelDemo() {

@@ -1,4 +1,4 @@
-import { accentTokens, CategoryCard, DocCard, ProjectCard } from '../..';
+import { accentTokens, CategoryCard, DocCard, ProjectCard } from '../../components/cards';
 import { DemoSection } from '../layout/DemoSection';
 
 export function CardGalleries() {

@@ -1,4 +1,4 @@
-import { SectionHeading } from '../..';
+import { SectionHeading } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function SectionHeadingDemo() {

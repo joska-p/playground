@@ -1,4 +1,4 @@
-import { Carousel, CarouselSlide } from '../..';
+import { Carousel, CarouselSlide } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function CarouselDemo() {

@@ -1,4 +1,4 @@
-import { type ColorVariant } from '../..';
+import type { ColorVariant } from '../../lib/colorVariant';
 
 export const VARIANTS: ColorVariant[] = [
   'default',

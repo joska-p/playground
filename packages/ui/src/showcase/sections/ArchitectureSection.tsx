@@ -110,8 +110,7 @@ export function ArchitectureSection() {
     widgets/        ColorPalette, Sidebar
     Cards/          CategoryCard, DocCard, ProjectCard, CardLink
     ControlPanel/   ControlPanel, ControlSection, ControlRow, etc.
-    icons/          Icon, iconMap, createIcon
-  index.ts          barrel export`}
+    icons/          Icon, iconMap, createIcon`}
       />
     </section>
   );

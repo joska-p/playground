@@ -1,4 +1,4 @@
-import { ColorSwatch } from '../..';
+import { ColorSwatch } from '../../components/data-display';
 import { DocHeading } from '../layout/DocHeading';
 import { Prose } from '../layout/Prose';
 

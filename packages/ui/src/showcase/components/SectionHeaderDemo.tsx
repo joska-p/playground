@@ -1,5 +1,4 @@
-import { Zap } from 'lucide-react';
-import { SectionHeader } from '../..';
+import { SectionHeader } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function SectionHeaderDemo() {
@@ -26,7 +25,7 @@ export function SectionHeaderDemo() {
       <SectionHeader
         title="projects"
         description="explore creative coding experiments."
-        icon={<Zap className="h-5 w-5" />}
+        iconName="bluesky"
         href="/projects"
       />
     </DemoSection>

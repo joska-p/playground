@@ -1,4 +1,4 @@
-import { Textarea } from '../..';
+import { Textarea } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function TextareaDemo() {

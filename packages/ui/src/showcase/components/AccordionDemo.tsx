@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem } from '../..';
+import { Accordion, AccordionItem } from '../../components/data-display';
 import { DemoSection } from '../layout/DemoSection';
 
 export function AccordionDemo() {

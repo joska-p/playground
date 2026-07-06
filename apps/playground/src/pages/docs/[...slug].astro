@@ -2,7 +2,7 @@
 import { render, getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DocNav from '../../components/ui/docs/DocNav.astro';
-import { Hero } from '@repo/ui/Hero';
+import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');

@@ -1,4 +1,4 @@
-import { Checkbox } from '../..';
+import { Checkbox } from '../../components/data-entry';
 import { DemoSection } from '../layout/DemoSection';
 
 export function CheckboxDemo() {
