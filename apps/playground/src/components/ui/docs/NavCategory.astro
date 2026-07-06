@@ -38,12 +38,12 @@ const hasActiveArticle = category.articles.some((doc) => {
     <div
       class="flex items-center gap-2"
       style={{
-        '--color-current': `var(--category-${category.id}, var(--color-primary))`
+        '--_color': `var(--color-docs-${category.id}, var(--color-primary))`
       }}
     >
       <Icon
         name={category.iconName}
-        className="h-4 w-4 shrink-0 text-(--color-current)"
+        className="h-4 w-4 shrink-0 text-(--_color)"
         aria-hidden="true"
       />
       <span class="text-muted-foreground/50 text-[9px] font-bold uppercase">
