@@ -15,7 +15,7 @@
 import type { CSSProperties } from 'react';
 
 export type ColorVariant =
-  'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive';
+  'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive' | 'ghost';
 
 export const COLOR_VARIANTS: ColorVariant[] = [
   'default',
@@ -23,7 +23,8 @@ export const COLOR_VARIANTS: ColorVariant[] = [
   'secondary',
   'accent',
   'warning',
-  'destructive'
+  'destructive',
+  'ghost'
 ];
 
 /** Raw CSS custom-property reference for a given variant. */
@@ -34,7 +35,8 @@ export function colorVar(variant: ColorVariant = 'default'): string {
     secondary: 'var(--secondary)',
     accent: 'var(--accent)',
     warning: 'var(--warning)',
-    destructive: 'var(--destructive)'
+    destructive: 'var(--destructive)',
+    ghost: 'var(--ghost)'
   };
   return map[variant];
 }

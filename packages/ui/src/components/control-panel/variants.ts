@@ -1,16 +1,18 @@
+import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
 
 export const controlPanelVariants = cva(
-  'absolute z-40 flex flex-col overflow-hidden bg-surface/95 backdrop-blur-sm text-foreground min-h-0 transition-all duration-300 shadow-xs',
+  'absolute z-40 flex flex-col overflow-hidden text-foreground min-h-0 transition-all duration-300 shadow-xs backdrop-blur-sm',
   {
     variants: {
       variant: {
-        default: 'border-border',
-        primary: 'border-primary',
-        secondary: 'border-secondary',
-        accent: 'border-accent',
-        warning: 'border-warning',
-        destructive: 'border-destructive'
+        default: 'border-border bg-surface/1',
+        primary: 'border-primary bg-primary/1',
+        secondary: 'border-secondary bg-secondary/1',
+        accent: 'border-accent bg-accent/1',
+        warning: 'border-warning bg-warning/1',
+        destructive: 'border-destructive bg-destructive/1',
+        ghost: 'border-none bg-none'
       },
       position: {
         top: 'left-0 right-0 top-0 rounded-b-lg border-b-2',
@@ -75,3 +77,5 @@ export const controlPanelVariants = cva(
     ]
   }
 );
+
+export type ControlPanelVariants = VariantProps<typeof controlPanelVariants>;
