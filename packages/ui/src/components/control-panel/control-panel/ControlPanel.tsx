@@ -21,7 +21,7 @@ export function ControlPanel({
   ref,
   title = 'controls',
   variant = 'primary',
-  position = 'bottom',
+  position = 'right',
   size = 'md',
   defaultCollapsed = false,
   className,

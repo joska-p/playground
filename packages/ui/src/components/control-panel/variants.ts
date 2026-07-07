@@ -15,8 +15,9 @@ export const controlPanelVariants = cva(
       position: {
         top: 'left-0 right-0 top-0 rounded-b-lg border-b-2',
         bottom: 'left-0 right-0 bottom-0 rounded-t-lg border-t-2',
-        left: 'left-0 top-0 bottom-0 rounded-r-lg border-r-2',
-        right: 'right-0 top-0 bottom-0 rounded-l-lg border-l-2'
+        left: 'left-0 top-0 bottom-0 landscape:rounded-r-lg landscape:border-r-2 portrait:rounded-t-lg portrait:border-t-2',
+        right:
+          'right-0 top-0 bottom-0 landscape:rounded-l-lg landscape:border-l-2 portrait:rounded-t-lg portrait:border-t-2'
       },
       size: {
         sm: '',
@@ -28,8 +29,7 @@ export const controlPanelVariants = cva(
       // === Portrait: force horizontal behavior ===
       {
         position: ['left', 'right'],
-        class:
-          'portrait:left-0 portrait:right-0 portrait:top-auto portrait:bottom-0 portrait:rounded-t-lg'
+        class: 'portrait:left-0 portrait:right-0 portrait:top-auto portrait:bottom-0'
       },
 
       // Portrait heights
@@ -56,7 +56,7 @@ export const controlPanelVariants = cva(
       // Horizontal (top/bottom) collapsed
       {
         position: ['top', 'bottom'],
-        class: 'data-[collapsed=true]:h-11 data-[collapsed=true]:overflow-hidden'
+        class: 'data-[collapsed=true]:h-fit data-[collapsed=true]:overflow-hidden'
       },
 
       // Vertical collapsed - keep full header button (no width shrink)
