@@ -1,5 +1,5 @@
-import { cosinePalette } from '../../shaders/modules/effects/cosinePalette';
-import { repeatSpace } from '../../shaders/modules/space/repeatSpace';
+import { cosinePalette } from '../../../shaders/modules/effects/cosinePalette';
+import { repeatSpace } from '../../../shaders/modules/space/repeatSpace';
 
 const fragmentShader = `
   uniform float u_time;
