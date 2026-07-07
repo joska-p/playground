@@ -72,10 +72,7 @@ function MosaicControlsPanel() {
   }
 
   return (
-    <ControlPanel
-      className="bg-background/95 text-foreground"
-      title="Mosaic Controls"
-    >
+    <ControlPanel title="Mosaic Controls">
       <TileSetControls />
 
       <ControlSection
