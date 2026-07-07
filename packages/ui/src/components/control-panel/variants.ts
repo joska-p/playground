@@ -12,7 +12,8 @@ export const controlPanelVariants = cva(
         accent: 'border-accent bg-accent/1',
         warning: 'border-warning bg-warning/1',
         destructive: 'border-destructive bg-destructive/1',
-        ghost: 'border-none bg-none'
+        ghost: 'border-none bg-none',
+        outline: 'border-border bg-transparent'
       },
       position: {
         top: 'left-0 right-0 top-0 rounded-b-lg border-b-2',

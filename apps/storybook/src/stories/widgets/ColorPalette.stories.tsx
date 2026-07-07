@@ -2,92 +2,69 @@ import { ColorPalette } from '@repo/ui/widgets';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
-type Story = StoryObj<typeof ColorPalette>;
+const gruvboxColors = ['#fb4934', '#fabd2f', '#b8bb26', '#83a598', '#d3869b', '#8ec07c'];
+const nordColors = ['#bf616a', '#d08770', '#ebcb8b', '#a3be8c', '#b48ead', '#88c0d0'];
+const catppuccinColors = ['#f38ba8', '#fab387', '#f9e2af', '#a6e3a1', '#cba6f7', '#94e2d5'];
 
-/**
- * A reusable Color Palette component that displays a series of colors.
- * It functions as a radio input, allowing users to select a palette.
- */
 const meta: Meta<typeof ColorPalette> = {
   title: 'Widgets/ColorPalette',
   component: ColorPalette,
   tags: ['autodocs'],
   argTypes: {
+    variant: {
+      description: 'Accent color for the selected state indicator.',
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      control: { type: 'select' }
+    },
+    name: {
+      description: 'Radio group name.',
+      control: 'text'
+    },
     colors: {
-      description: 'An array of CSS color strings to display in the palette.',
+      description: 'Array of CSS color strings.',
       control: 'object'
     },
-    orientation: {
-      description: 'The layout orientation of the color cells.',
-      options: ['horizontal', 'vertical'],
-      control: { type: 'radio' }
-    },
-    size: {
-      description: 'The size of each color cell.',
-      options: ['sm', 'md', 'lg'],
-      control: { type: 'select' }
-    },
-    variant: {
-      description: 'Visual style of the palette border and selection ring.',
-      options: ['primary', 'secondary', 'accent', 'destructive', 'outline', 'ghost'],
-      control: { type: 'select' }
-    },
     checked: {
-      description: 'Whether this palette is currently selected.',
+      description: 'Controlled checked state.',
       control: 'boolean'
     }
   },
   args: {
     onChange: fn(),
-    colors: ['#282828', '#cc241d', '#98971a', '#d79921', '#458588'],
-    name: 'demo-palette'
+    name: 'palette'
   }
 };
 
-// Required by Storybook CSF (Component Story Format) tooling
 export default meta;
 
-/**
- * Primary variant with horizontal orientation.
- */
+type Story = StoryObj<typeof ColorPalette>;
+
 export const PrimaryHorizontal: Story = {
   args: {
+    colors: gruvboxColors,
     variant: 'primary',
-    orientation: 'horizontal',
     checked: true
   }
 };
 
-/**
- * Secondary variant with vertical orientation.
- */
 export const SecondaryVertical: Story = {
   args: {
-    variant: 'secondary',
-    orientation: 'vertical',
-    colors: ['#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b'],
-    checked: true
+    colors: nordColors,
+    variant: 'secondary'
   }
 };
 
-/**
- * Accent variant with large cells.
- */
 export const AccentLarge: Story = {
   args: {
+    colors: catppuccinColors,
     variant: 'accent',
-    size: 'lg',
-    colors: ['#ebdbb2', '#d5c4a1', '#bdae93', '#a89984', '#928374'],
     checked: true
   }
 };
 
-/**
- * Small cells for compact UI areas.
- */
 export const SmallCompact: Story = {
   args: {
-    size: 'sm',
+    colors: gruvboxColors,
     variant: 'primary'
   }
 };
