@@ -13,7 +13,6 @@ import { useWebGLContext } from './useWebGLContext';
  */
 export function useWebGLRenderer(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
-  dimensions: { width: number; height: number },
   trees: {
     treeR: ExpressionNode;
     treeG: ExpressionNode;
@@ -25,7 +24,7 @@ export function useWebGLRenderer(
   const speedRef = useRef(randomartStore.getState().animationSpeed);
 
   // 1. Initialize WebGL Context and manage canvas sizing bounds
-  const { glRef, bitmapSize } = useWebGLContext(canvasRef, dimensions);
+  const { glRef, bitmapSize } = useWebGLContext(canvasRef);
 
   // 2. Extract active animation behavior configuration states from the store
   const activeAnimationBehaviorIds = useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);

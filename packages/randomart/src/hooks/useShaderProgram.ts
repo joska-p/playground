@@ -1,6 +1,7 @@
 import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
 import type { AnimationBehavior, ExpressionNode } from '@repo/randomart-engine/types';
 import { useEffect, useRef } from 'react';
+import type { BitmapSize } from './useWebGLContext';
 
 const VERTEX_SHADER_SOURCE = `
 attribute vec2 a_position;
@@ -18,11 +19,10 @@ export type UniformLocs = {
 
 /**
  * Owns shader compilation and the resulting WebGLProgram lifecycle.
- * Re-compiles only when math trees or animation behaviors explicitly change.
  */
 export function useShaderProgram(
   glRef: React.RefObject<WebGLRenderingContext | null>,
-  bitmapSize: number,
+  bitmapSize: BitmapSize,
   trees: {
     treeR: ExpressionNode;
     treeG: ExpressionNode;
@@ -38,11 +38,9 @@ export function useShaderProgram(
     const gl = glRef.current;
     if (!gl) return;
 
-    // Compile trees and behaviors into an optimized fragment shader string
     const fragmentShaderSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB, behaviors);
 
     let program: WebGLProgram | null = null;
-
     try {
       program = createProgram(gl, VERTEX_SHADER_SOURCE, fragmentShaderSource);
     } catch (error) {
@@ -50,7 +48,7 @@ export function useShaderProgram(
       return;
     }
 
-    // Clean up previous program context assets
+    // Clean up old program
     const oldProgram = programRef.current;
     if (oldProgram) {
       gl.deleteProgram(oldProgram);
@@ -59,23 +57,24 @@ export function useShaderProgram(
     programRef.current = program;
     gl.useProgram(program);
 
-    // Bind buffer attributes to shader variables
+    // Bind position attribute
     const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
     gl.enableVertexAttribArray(positionAttributeLocation);
     gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-    // Map and cache uniform locations
+    // Cache uniform locations
     const locs: UniformLocs = {
       time: gl.getUniformLocation(program, 'u_time'),
       animSpeed: gl.getUniformLocation(program, 'u_animSpeed')
     };
     uniformLocsRef.current = locs;
 
-    // Bind resolution vector boundaries
+    // Update resolution uniform (now supports rectangles!)
     const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
-    gl.uniform2f(resolutionLocation, bitmapSize, bitmapSize);
+    if (resolutionLocation) {
+      gl.uniform2f(resolutionLocation, bitmapSize.width, bitmapSize.height);
+    }
 
-    // Callback trigger for post-compilation frame setup
     if (onReady) {
       onReady(gl, locs);
     }
@@ -87,7 +86,7 @@ export function useShaderProgram(
         uniformLocsRef.current = { time: null, animSpeed: null };
       }
     };
-  }, [trees, bitmapSize, behaviors, glRef, onReady]);
+  }, [glRef, bitmapSize, trees, behaviors, onReady]); // ← bitmapSize is now an object
 
   return { programRef, uniformLocsRef };
 }
