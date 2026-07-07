@@ -1,10 +1,10 @@
 import { ControlPanel, ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
-import { SeedControls } from '../../input-modes/seed/useSeedControls';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';
 import type { InputMode } from '../../stores/ui/types';
-import { AtlasControls } from '../atlas/controls/AtlasControls';
+import { AtlasControls } from '../input-modes/atlas/controls/AtlasControls';
+import { SeedControls } from '../input-modes/seed/useSeedControls';
 
 const inputModes: InputMode[] = ['seed', 'folded-space', 'atlas'];
 const inputModeOptions = inputModes.map((mode) => ({
