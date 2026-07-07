@@ -1,4 +1,4 @@
-import { ControlPanel, ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { ControlConditional, ControlPanel, ControlRow } from '@repo/ui/control-panel';
 import { Select } from '@repo/ui/data-entry';
 import { setUiMode } from '../../stores/ui/actions';
 import { useInputMode } from '../../stores/ui/selectors';
@@ -17,30 +17,30 @@ function ControlsPanel() {
 
   return (
     <ControlPanel title="controls">
-      <ControlSection
-        title="Input"
-        defaultOpen
-      >
-        <ControlRow label="Mode">
-          <Select
-            value={inputMode}
-            onChange={(e) => {
-              setUiMode(e.target.value as InputMode);
-            }}
-          >
-            {inputModeOptions.map((opt) => (
-              <option
-                key={opt.value}
-                value={opt.value}
-              >
-                {opt.label}
-              </option>
-            ))}
-          </Select>
-        </ControlRow>
-      </ControlSection>
-      {inputMode === 'seed' && <SeedControls />}
-      {inputMode === 'atlas' && <AtlasControls />}
+      <ControlRow label="Mode">
+        <Select
+          value={inputMode}
+          onChange={(e) => {
+            setUiMode(e.target.value as InputMode);
+          }}
+        >
+          {inputModeOptions.map((opt) => (
+            <option
+              key={opt.value}
+              value={opt.value}
+            >
+              {opt.label}
+            </option>
+          ))}
+        </Select>
+      </ControlRow>
+
+      <ControlConditional when={inputMode === 'seed'}>
+        <SeedControls />
+      </ControlConditional>
+      <ControlConditional when={inputMode === 'atlas'}>
+        <AtlasControls />
+      </ControlConditional>
     </ControlPanel>
   );
 }

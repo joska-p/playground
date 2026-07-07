@@ -1,4 +1,4 @@
-import { ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider, Textarea } from '@repo/ui/data-entry';
 import { startTransition, useMemo } from 'react';
 import {
@@ -73,7 +73,7 @@ function AtlasControls() {
 
   return (
     <>
-      <ControlSection title="Atlas controls">
+      <ControlSection title="generation">
         <Textarea
           value={seed}
           onChange={(e) => {
@@ -99,48 +99,59 @@ function AtlasControls() {
           value={complexity}
           onChange={handleComplexityChange}
         />
-        {symbolSample.map((btn) => (
-          <Button
-            className={
-              symbolType === btn.id
-                ? 'border-teal-400/80 bg-teal-500/15 text-teal-300'
-                : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
-            }
-            key={btn.id}
-            onClick={() => {
-              setSymbolType(String(btn.id));
-            }}
-          >
-            {btn.label.split(' ')[1]}
-          </Button>
-        ))}
+      </ControlSection>
+      <ControlSection title="symbols">
+        <ControlGrid columns={2}>
+          {symbolSample.map((btn) => (
+            <Button
+              className={
+                symbolType === btn.id
+                  ? 'border-teal-400/80 bg-teal-500/15 text-teal-300'
+                  : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
+              }
+              key={btn.id}
+              onClick={() => {
+                setSymbolType(String(btn.id));
+              }}
+            >
+              {btn.label.split(' ')[1]}
+            </Button>
+          ))}
+        </ControlGrid>
+      </ControlSection>
+      <ControlSection title="palette">
+        <ControlGrid columns={2}>
+          {paletteSample.map((btn) => (
+            <Button
+              className={
+                palette === btn.id
+                  ? 'border-teal-400/80 bg-teal-500/15 text-teal-300'
+                  : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
+              }
+              key={btn.id}
+              onClick={() => {
+                setPalette(String(btn.id));
+              }}
+            >
+              {btn.name}
+            </Button>
+          ))}
+        </ControlGrid>
+      </ControlSection>
 
-        {paletteSample.map((btn) => (
-          <Button
-            className={
-              palette === btn.id
-                ? 'border-teal-400/80 bg-teal-500/15 text-teal-300'
-                : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
-            }
-            key={btn.id}
-            onClick={() => {
-              setPalette(String(btn.id));
+      <ControlSection title="effects">
+        <ControlRow label="glitch">
+          <Slider
+            title="Glitch"
+            min={0}
+            max={1}
+            step={0.05}
+            value={glitch}
+            onChange={(e) => {
+              setGlitch(e.target.value);
             }}
-          >
-            {btn.name}
-          </Button>
-        ))}
-
-        <Slider
-          title="Glitch"
-          min={0}
-          max={1}
-          step={0.05}
-          value={glitch}
-          onChange={(e) => {
-            setGlitch(e.target.value);
-          }}
-        />
+          />
+        </ControlRow>
       </ControlSection>
 
       <ControlSection title="infos">

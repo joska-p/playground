@@ -1,4 +1,4 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { ControlRow } from '@repo/ui/control-panel';
 import { Input, Select, Slider } from '@repo/ui/data-entry';
 import { setComplexity, setMood, setPalette, setSeed } from '../../../stores/ui/actions';
 import { useComplexity, useMood, usePalette, useSeed } from '../../../stores/ui/selectors';
@@ -25,10 +25,7 @@ function SeedControls() {
   const palette = usePalette();
 
   return (
-    <ControlSection
-      title="Seed"
-      defaultOpen
-    >
+    <>
       <ControlRow label="Seed">
         <Input
           value={seed}
@@ -81,7 +78,7 @@ function SeedControls() {
           ))}
         </Select>
       </ControlRow>
-    </ControlSection>
+    </>
   );
 }
 
