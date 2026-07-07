@@ -73,7 +73,7 @@ export function ControlPanel({
       {/* Content */}
       <div
         className={cn(
-          'min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-4',
+          'min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-5',
           isCollapsed ? 'hidden' : 'flex'
         )}
       >

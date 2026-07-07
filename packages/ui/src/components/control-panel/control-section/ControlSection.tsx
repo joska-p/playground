@@ -20,12 +20,6 @@ export function ControlSection({
   className,
   children
 }: ControlSectionProps) {
-  // `open` must be real state, not a re-passed prop: React treats
-  // <details open> like a tracked property (same bucket as `value`/
-  // `checked`), so it gets reasserted on every commit — not just when
-  // the prop changes. Without local state, any unrelated re-render in
-  // the panel (a slider dragging, a value updating) snaps this back
-  // to `defaultOpen`, which reads as "the section won't open".
   const [open, setOpen] = useState(defaultOpen);
 
   const handleToggle = (event: SyntheticEvent<HTMLDetailsElement>) => {
@@ -38,12 +32,14 @@ export function ControlSection({
       open={open}
       onToggle={handleToggle}
       className={cn(
-        'group/section border-border min-h-0 border-t pt-3 first:border-t-0 first:pt-0',
+        'group/section border-border flex min-h-0 flex-col border-t pt-4 first:border-t-0 first:pt-0', // ← added flex flex-col
         className
       )}
       style={colorVarStyle(variant)}
     >
-      <summary className="flex cursor-pointer list-none items-center gap-2 pb-2 select-none [&::-webkit-details-marker]:hidden">
+      <summary className="flex flex-shrink-0 cursor-pointer list-none items-center gap-2 pb-3 select-none [&::-webkit-details-marker]:hidden">
+        {' '}
+        {/* ← flex-shrink-0 */}
         <ChevronRight
           size={14}
           className="text-foreground-dim shrink-0 transition-transform group-open/section:rotate-90"
@@ -52,7 +48,11 @@ export function ControlSection({
           {title}
         </span>
       </summary>
-      <div className="hidden min-h-0 flex-col gap-3 pb-1 group-open:flex group-open/section:flex">
+
+      {/* Content wrapper - critical for flex behavior */}
+      <div className="hidden min-h-0 flex-1 flex-col gap-4 overflow-y-auto pb-3 group-open:flex group-open/section:flex">
+        {' '}
+        {/* ← flex-1 + overflow-y-auto */}
         {children}
       </div>
     </details>

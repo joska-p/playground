@@ -38,13 +38,13 @@ export const controlPanelVariants = cva(
       { size: 'lg', class: 'portrait:max-h-[55vh]' },
 
       // Landscape sizes
-      { position: ['top', 'bottom'], size: 'sm', class: 'landscape:max-h-[24vh]' },
-      { position: ['top', 'bottom'], size: 'md', class: 'landscape:max-h-[34vh]' },
-      { position: ['top', 'bottom'], size: 'lg', class: 'landscape:max-h-[45vh]' },
+      { position: ['top', 'bottom'], size: 'sm', class: 'landscape:max-h-[28vh]' },
+      { position: ['top', 'bottom'], size: 'md', class: 'landscape:max-h-[42vh]' },
+      { position: ['top', 'bottom'], size: 'lg', class: 'landscape:max-h-[55vh]' },
 
-      { position: ['left', 'right'], size: 'sm', class: 'landscape:w-64' },
-      { position: ['left', 'right'], size: 'md', class: 'landscape:w-72' },
-      { position: ['left', 'right'], size: 'lg', class: 'landscape:w-80' },
+      { position: ['left', 'right'], size: 'sm', class: 'landscape:w-[40ch]' },
+      { position: ['left', 'right'], size: 'md', class: 'landscape:w-[50ch]' },
+      { position: ['left', 'right'], size: 'lg', class: 'landscape:w-[60ch]' },
 
       // === Vertical (left/right) spacing in landscape ===
       {
@@ -56,7 +56,11 @@ export const controlPanelVariants = cva(
       // Horizontal (top/bottom) collapsed
       {
         position: ['top', 'bottom'],
-        class: 'data-[collapsed=true]:h-fit data-[collapsed=true]:overflow-hidden'
+        class: `
+          data-[collapsed=true]:h-fit
+          data-[collapsed=true]:overflow-hidden
+          data-[collapsed=true]:bg-surface/98 data-[collapsed=true]:shadow-sm
+          `
       },
 
       // Vertical collapsed - keep full header button (no width shrink)

@@ -25,7 +25,7 @@ export function ControlRow({ label, value, hint, className, children }: ControlR
   return (
     <div
       className={cn(
-        'flex flex-col gap-1.5 landscape:flex-row landscape:items-center landscape:gap-3',
+        'flex min-h-10 flex-col gap-2 landscape:flex-row landscape:items-center landscape:gap-3', // ← better gaps + min height
         className
       )}
     >
