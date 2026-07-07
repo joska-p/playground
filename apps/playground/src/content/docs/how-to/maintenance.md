@@ -1,7 +1,6 @@
 ---
-title: 'Project Maintenance'
-description: 'Clean build artifacts and reset your local environment.'
-category: 'how-to'
+title: Project Maintenance
+description: Clean build artifacts and reset your local environment.
 tags:
   - how-to
 featured: true

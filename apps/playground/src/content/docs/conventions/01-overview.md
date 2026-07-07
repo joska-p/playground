@@ -1,9 +1,9 @@
 ---
-title: 'Conventions — Overview'
-description: 'Cross-cutting coding rules used across the project — naming, structure, and patterns.'
-category: 'conventions'
+title: Conventions — Overview
+description: Cross-cutting coding rules used across the project — naming, structure, and patterns.
 featured: true
 tags:
+  - conventions
   - reference
 ---
 

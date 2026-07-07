@@ -1,8 +1,8 @@
 order: 2
 name: Sequence Renderer
 description: Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.
-category: generative
 tags:
+  - generative
   - math
   - svg
 icon: sequences

@@ -1,7 +1,6 @@
 ---
-title: 'Dynamic Tailwind Colors with CSS Variables'
-description: "Use CSS custom properties to apply dynamic colors via Tailwind v4's arbitrary value syntax."
-category: 'how-to'
+title: Dynamic Tailwind Colors with CSS Variables
+description: Use CSS custom properties to apply dynamic colors via Tailwind v4's arbitrary value syntax.
 tags:
   - how-to
 ---

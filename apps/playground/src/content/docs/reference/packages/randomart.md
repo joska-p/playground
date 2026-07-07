@@ -1,7 +1,6 @@
 ---
-title: 'Randomart'
-description: 'React UI for the random expression-tree art generator. Consumes [`@repo/randomart-engine`](../engines/randomart-engine/) which provides the grammar-driven AST engine, CPU evaluation, GLSL compilation, and PNG export.'
-category: 'reference'
+title: Randomart
+description: React UI for the random expression-tree art generator. Consumes [`@repo/randomart-engine`](../engines/randomart-engine/) which provides the grammar-driven AST engine, CPU evaluation, GLSL compilation, and PNG export.
 tags:
   - reference
   - randomart

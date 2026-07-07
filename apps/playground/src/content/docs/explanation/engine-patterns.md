@@ -1,7 +1,6 @@
 ---
-title: 'Engine Patterns'
-description: 'A closer look at how the Logic/Bridge/Screen model plays out in practice — the tradeoffs behind each choice, since this is a learning/WIP codebase, not a rulebook.'
-category: 'explanation'
+title: Engine Patterns
+description: A closer look at how the Logic/Bridge/Screen model plays out in practice — the tradeoffs behind each choice, since this is a learning/WIP codebase, not a rulebook.
 featured: true
 tags:
   - explanation

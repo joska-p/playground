@@ -1,7 +1,6 @@
 ---
-title: 'Mosaic Maker'
-description: 'Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering.'
-category: 'reference'
+title: Mosaic Maker
+description: Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering.
 tags:
   - reference
   - mosaic-maker

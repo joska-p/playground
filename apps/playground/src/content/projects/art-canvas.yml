@@ -1,8 +1,8 @@
 order: 8
 name: Art canvas
 description: Create "art" in the canvas using shaders and logarithmic.
-category: random
 tags:
+  - random
   - webgl
 icon: three-stage
 featured: false

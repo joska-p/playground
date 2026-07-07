@@ -1,7 +1,6 @@
 ---
-title: 'L System'
-description: 'Scaffolded demo showcasing Zustand + Zod.'
-category: 'reference'
+title: L System
+description: Scaffolded demo showcasing Zustand + Zod.
 tags:
   - reference
   - l-system

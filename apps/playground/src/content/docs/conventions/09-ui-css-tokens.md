@@ -1,8 +1,8 @@
 ---
-title: 'UI Components — CSS Tokens'
-description: 'Using project CSS tokens instead of hardcoded colors, spacing, or radius values.'
-category: 'conventions'
+title: UI Components — CSS Tokens
+description: Using project CSS tokens instead of hardcoded colors, spacing, or radius values.
 tags:
+  - conventions
   - reference
 ---
 

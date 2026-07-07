@@ -7,7 +7,7 @@ import { Hero } from '@repo/ui/data-display';
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map((project) => ({
-    params: { slug: `${project.data.category.id}/${project.id}` }
+    params: { slug: `${project.data.tags[0]}/${project.id}` }
   }));
 }
 
@@ -21,9 +21,8 @@ if (!project) {
 }
 
 const { name, description } = project.data;
-const categoryId = project.data.category.id;
-const tagIds = project.data.tags.map((t) => t.id);
-const keywords = tagIds.join(', ');
+const mainTag = project.data.tags[0];
+const keywords = project.data.tags.join(', ');
 ---
 
 <BaseLayout
@@ -34,7 +33,7 @@ const keywords = tagIds.join(', ');
   <Hero
     badgeText={keywords}
     title={name}
-    highlight={categoryId}
+    highlight={mainTag}
     description={description}
   />
   <div class="h-0 min-h-screen">

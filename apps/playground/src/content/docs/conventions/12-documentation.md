@@ -1,8 +1,8 @@
 ---
-title: 'Documentation'
-description: 'READMEs as the source of truth, synced to the Astro docs site.'
-category: 'conventions'
+title: Documentation
+description: READMEs as the source of truth, synced to the Astro docs site.
 tags:
+  - conventions
   - reference
 ---
 

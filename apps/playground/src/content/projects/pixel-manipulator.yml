@@ -1,8 +1,8 @@
 order: 5
 name: Pixel Manipulator
 description: A tool for manipulating images using canvas and web workers.
-category: image
 tags:
+  - image
   - images
   - canvas
 icon: pixel-manipulator

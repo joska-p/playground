@@ -1,7 +1,6 @@
 ---
-title: 'Worker pool'
-description: 'You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.'
-category: 'reference'
+title: Worker pool
+description: You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.
 tags:
   - reference
   - worker-pool

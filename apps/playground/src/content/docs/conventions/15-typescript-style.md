@@ -1,8 +1,8 @@
 ---
-title: 'TypeScript Style'
-description: 'type over interface, and three patterns for handling absence.'
-category: 'conventions'
+title: TypeScript Style
+description: type over interface, and three patterns for handling absence.
 tags:
+  - conventions
   - reference
 ---
 

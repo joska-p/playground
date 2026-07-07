@@ -7,11 +7,11 @@ const meta: Meta<typeof CategoryCard> = {
   tags: ['autodocs'],
   argTypes: {
     label: {
-      description: 'Category name displayed below the icon.',
+      description: 'Tag name displayed below the icon.',
       control: 'text'
     },
     description: {
-      description: 'Short description of the category.',
+      description: 'Short description of the tag.',
       control: 'text'
     },
     iconName: {
@@ -19,12 +19,12 @@ const meta: Meta<typeof CategoryCard> = {
       control: 'text'
     },
     count: {
-      description: 'Number of experiments in this category.',
+      description: 'Number of experiments with this tag.',
       control: { type: 'number', min: 0 }
     }
   },
   args: {
-    href: '/category/'
+    href: '/projects/generative/'
   }
 };
 
@@ -38,7 +38,7 @@ export const Generative: Story = {
     description: 'Procedural patterns and generative art',
     iconName: 'sparkles',
     count: 24,
-    href: '/category/generative'
+    href: '/projects/generative/'
   }
 };
 
@@ -48,7 +48,7 @@ export const DataViz: Story = {
     description: 'Interactive data visualizations',
     iconName: 'data-viz',
     count: 18,
-    href: '/category/data-viz'
+    href: '/projects/data-viz/'
   }
 };
 
@@ -58,6 +58,6 @@ export const Simulation: Story = {
     description: 'Physics and particle simulations',
     iconName: 'simulation',
     count: 12,
-    href: '/category/simulation'
+    href: '/projects/simulation/'
   }
 };

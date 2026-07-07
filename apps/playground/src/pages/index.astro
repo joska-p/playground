@@ -6,27 +6,29 @@ import { buttonVariants } from '@repo/ui/data-entry';
 import { Icon } from '@repo/ui/icons';
 import ExperimentsPreview from '../components/ui/features/ExperimentsPreview.astro';
 import Footer from '../layouts/Footer.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import type { CSSProperties } from 'react';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
 const docsBaseUrl = `${baseUrl}docs/`;
 
+const allTags = await getCollection('tags');
+const tagBySlug = (slug: string) => allTags.find((t) => t.data.slug === slug);
+
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.filter((p) => p.data.featured);
 
 const featuredDocs = await getCollection('docs', ({ data }) => data.featured && !data.draft);
-const featuredDocsWithMeta = await Promise.all(
-  featuredDocs.map(async (doc) => {
-    const categoryEntry = await getEntry(doc.data.category);
-    return {
-      ...doc,
-      categoryId: doc.data.category.id,
-      iconName: categoryEntry.data.icon
-    };
-  })
-);
+const featuredDocsWithMeta = featuredDocs.map((doc) => {
+  const mainTag = doc.data.tags[0];
+  const tagEntry = tagBySlug(mainTag);
+  return {
+    ...doc,
+    mainTag,
+    iconName: tagEntry?.data.icon
+  };
+});
 ---
 
 <BaseLayout title="Playground">
@@ -86,17 +88,18 @@ const featuredDocsWithMeta = await Promise.all(
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         featuredProjects.map((project) => {
+          const mainTag = project.data.tags[0];
           const cardStyle = {
-            '--_color': `var(--color-projects-${project.data.category.id})`
+            '--_color': `var(--color-projects-${mainTag})`
           } as CSSProperties;
           return (
             <ProjectCard
-              href={`${projectsBaseUrl}${project.data.category.id}/${project.id}/`}
+              href={`${projectsBaseUrl}${mainTag}/${project.id}/`}
               title={project.data.name}
               description={project.data.description}
               iconName={project.data.icon}
               style={cardStyle}
-              tags={project.data.tags.map((t) => t.id)}
+              tags={project.data.tags}
             />
           );
         })
@@ -116,13 +119,13 @@ const featuredDocsWithMeta = await Promise.all(
       {
         featuredDocsWithMeta.map((doc) => {
           const cardStyle = {
-            '--_color': `var(--color-docs-${doc.categoryId})`
+            '--_color': `var(--color-docs-${doc.mainTag})`
           } as CSSProperties;
 
           return (
             <DocCard
               href={`${docsBaseUrl}${doc.id}/`}
-              type={doc.categoryId}
+              type={doc.mainTag}
               iconName={doc.iconName}
               title={doc.data.title}
               description={doc.data.description ?? ''}

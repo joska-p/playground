@@ -1,7 +1,6 @@
 ---
-title: 'Sequence Engine'
-description: 'Pure engine for mathematical sequence generation — independent of UI, no browser APIs.'
-category: 'reference'
+title: Sequence Engine
+description: Pure engine for mathematical sequence generation — independent of UI, no browser APIs.
 tags:
   - reference
   - sequence-engine

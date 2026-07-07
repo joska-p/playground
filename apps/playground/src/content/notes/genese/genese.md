@@ -1,10 +1,10 @@
 ---
-title: "Généalogie d'un Système"
-description: 'Hallucination collective.'
+title: Généalogie d'un Système
+description: Hallucination collective.
 date: 2026-06-28
 draft: false
-category: 'log'
 tags:
+  - log
   - maths
   - complex-systems
   - philosophy

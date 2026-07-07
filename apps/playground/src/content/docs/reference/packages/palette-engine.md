@@ -1,7 +1,6 @@
 ---
-title: 'PaletteEngine'
-description: 'Color space definitions and harmony rule engine. Pure TypeScript, no React — used by `@repo/palette-generator`.'
-category: 'reference'
+title: PaletteEngine
+description: Color space definitions and harmony rule engine. Pure TypeScript, no React — used by `@repo/palette-generator`.
 tags:
   - reference
   - palette-engine

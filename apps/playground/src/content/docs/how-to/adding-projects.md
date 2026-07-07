@@ -1,7 +1,6 @@
 ---
-title: 'Adding Projects'
-description: 'Add new visualizations to the playground.'
-category: 'how-to'
+title: Adding Projects
+description: Add new visualizations to the playground.
 tags:
   - how-to
 featured: true
@@ -42,8 +41,8 @@ Create `apps/playground/src/content/projects/my-project.yml`:
 order: 10
 name: My Project
 description: What it does.
-category: generative
 tags:
+  - generative
   - canvas
 icon: sparkles
 featured: false
@@ -52,16 +51,15 @@ packageDir: my-project
 
 **Fields:**
 
-| Field         | Description                                                             |
-| ------------- | ----------------------------------------------------------------------- |
-| `order`       | Sort order on the projects index (1–9 reserved)                         |
-| `name`        | Display name                                                            |
-| `description` | Short description                                                       |
-| `category`    | Reference to a category ID (`generative`, `color`, `image`, `data-viz`) |
-| `tags`        | Array of tag ID references (e.g. `canvas`, `zustand`, `three`)          |
-| `icon`        | Icon name from the `@repo/ui/icons` icon map                            |
-| `featured`    | Show on the homepage                                                    |
-| `packageDir`  | Package directory name under `packages/` (used only for reference)      |
+| Field         | Description                                                                   |
+| ------------- | ----------------------------------------------------------------------------- |
+| `order`       | Sort order on the projects index (1–9 reserved)                               |
+| `name`        | Display name                                                                  |
+| `description` | Short description                                                             |
+| `tags`        | Array of tags. The first tag is the main tag — controls styling and grouping. |
+| `icon`        | Icon name from the `@repo/ui/icons` icon map                                  |
+| `featured`    | Show on the homepage                                                          |
+| `packageDir`  | Package directory name under `packages/` (used only for reference)            |
 
 ## Step 3: Register the Component
 
@@ -88,10 +86,9 @@ Check the package's `package.json` `"exports"` field to confirm.
 
 The project is automatically available at:
 
-- `/projects/<category>/<slug>/` — the project page
-- `/projects/<category>/` — category listing
+- `/projects/<main-tag>/<slug>/` — the project page
+- `/projects/<main-tag>/` — tag listing
 - `/projects/` — all projects index
-- `/projects/tags/<tag>/` — tag-filtered listing
 - Homepage (if `featured: true`)
 
 No route files need to be created — the catch-all `[...slug].astro` handles rendering.

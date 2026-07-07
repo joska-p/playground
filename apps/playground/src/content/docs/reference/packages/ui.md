@@ -1,7 +1,6 @@
 ---
-title: 'UI Components'
-description: 'Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.'
-category: 'reference'
+title: UI Components
+description: Shared atomic UI components for the Creative Playground. Built with **React 19**, **CVA**, and styled with the **Gruvbox** design system.
 tags:
   - reference
   - ui

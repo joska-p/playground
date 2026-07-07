@@ -1,7 +1,6 @@
 ---
-title: 'Three Stage'
-description: 'React Three Fiber 3D scene explorer with interactive Leva controls for geometry, material, and lighting.'
-category: 'reference'
+title: Three Stage
+description: React Three Fiber 3D scene explorer with interactive Leva controls for geometry, material, and lighting.
 tags:
   - reference
   - three-stage

@@ -1,7 +1,6 @@
 ---
-title: 'Randomart Engine'
-description: 'Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React.'
-category: 'reference'
+title: Randomart Engine
+description: Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React.
 tags:
   - reference
   - randomart-engine

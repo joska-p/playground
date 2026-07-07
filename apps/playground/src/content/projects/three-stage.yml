@@ -1,8 +1,8 @@
 order: 8
 name: Three Stage
 description: A 3D stage for rendering and animating 3D objects.
-category: random
 tags:
+  - random
   - three-js
   - 3d
   - webgl

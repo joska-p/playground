@@ -1,8 +1,8 @@
 ---
-title: 'UI Components — Responsive Layout'
-description: 'Preferring CSS Grid and intrinsic layout over breakpoint-driven layout.'
-category: 'conventions'
+title: UI Components — Responsive Layout
+description: Preferring CSS Grid and intrinsic layout over breakpoint-driven layout.
 tags:
+  - conventions
   - reference
 ---
 

@@ -1,7 +1,6 @@
 ---
-title: 'Architecture'
-description: 'The mental model behind every package in this repo — layers, the definition/registry pattern, and how state flows from data to pixels.'
-category: 'explanation'
+title: Architecture
+description: The mental model behind every package in this repo — layers, the definition/registry pattern, and how state flows from data to pixels.
 featured: true
 tags:
   - explanation

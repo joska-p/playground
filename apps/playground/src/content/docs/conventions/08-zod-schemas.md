@@ -1,8 +1,8 @@
 ---
-title: 'Zod Schemas'
-description: 'Co-locating schemas and deriving types with z.infer.'
-category: 'conventions'
+title: Zod Schemas
+description: Co-locating schemas and deriving types with z.infer.
 tags:
+  - conventions
   - reference
 ---
 

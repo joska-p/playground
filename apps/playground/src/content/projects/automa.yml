@@ -1,10 +1,9 @@
 order: 9
 name: Automa
 description: Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.
-category: simulation
 tags:
-  - three-js
   - simulation
+  - three-js
   - webgl
 icon: automa
 featured: true

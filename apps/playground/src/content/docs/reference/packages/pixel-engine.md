@@ -1,7 +1,6 @@
 ---
-title: 'Pixel Engine'
-description: 'Pure TypeScript image-manipulation core — no framework, no DOM, no React.'
-category: 'reference'
+title: Pixel Engine
+description: Pure TypeScript image-manipulation core — no framework, no DOM, no React.
 tags:
   - reference
   - pixel-engine

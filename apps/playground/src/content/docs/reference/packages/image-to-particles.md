@@ -1,7 +1,6 @@
 ---
-title: 'Image to Particles'
-description: 'Transform images into interactive falling particle animations.'
-category: 'reference'
+title: Image to Particles
+description: Transform images into interactive falling particle animations.
 tags:
   - reference
   - image-to-particles

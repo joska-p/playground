@@ -1,8 +1,8 @@
 ---
-title: 'Zustand Stores'
-description: 'Store structure, naming, async orchestration, and when/how to split a growing store.'
-category: 'conventions'
+title: Zustand Stores
+description: Store structure, naming, async orchestration, and when/how to split a growing store.
 tags:
+  - conventions
   - reference
 ---
 

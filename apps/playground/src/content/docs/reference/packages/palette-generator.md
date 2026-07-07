@@ -1,7 +1,6 @@
 ---
-title: 'Palette Generator'
-description: 'Color palette generation and manipulation tool. Pick, edit, and preview color schemes using colorjs.io.'
-category: 'reference'
+title: Palette Generator
+description: Color palette generation and manipulation tool. Pick, edit, and preview color schemes using colorjs.io.
 tags:
   - reference
   - palette-generator

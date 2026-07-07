@@ -1,7 +1,6 @@
 ---
-title: 'Adding a Visualization'
-description: 'Add a new visualization to the Sequence Renderer engine using the layered architecture.'
-category: 'how-to'
+title: Adding a Visualization
+description: Add a new visualization to the Sequence Renderer engine using the layered architecture.
 tags:
   - how-to
 ---

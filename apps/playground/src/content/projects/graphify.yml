@@ -1,8 +1,8 @@
 order: 7
 name: Graphify
 description: Interactive graph, click nodes, search, filter by community.
-category: data-viz
 tags:
+  - data-viz
   - graph
   - d3
 icon: graphify

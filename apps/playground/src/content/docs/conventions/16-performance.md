@@ -1,8 +1,8 @@
 ---
-title: 'Performance'
-description: 'Throttling high-frequency inputs and using deterministic keys.'
-category: 'conventions'
+title: Performance
+description: Throttling high-frequency inputs and using deterministic keys.
 tags:
+  - conventions
   - reference
 ---
 

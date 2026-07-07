@@ -1,7 +1,6 @@
 ---
-title: 'Real Life'
-description: 'Continuous automaton'
-category: 'reference'
+title: Real Life
+description: Continuous automaton
 tags:
   - reference
   - real-life

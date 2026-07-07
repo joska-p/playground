@@ -1,7 +1,6 @@
 ---
-title: 'Automa Engine'
-description: 'Core engine for cellular automaton simulation — generic evolve, rule parsing, and Web Worker stepping.'
-category: 'reference'
+title: Automa Engine
+description: Core engine for cellular automaton simulation — generic evolve, rule parsing, and Web Worker stepping.
 tags:
   - reference
   - automa-engine

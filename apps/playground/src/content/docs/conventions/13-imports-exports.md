@@ -1,8 +1,8 @@
 ---
-title: 'Imports & Exports'
-description: 'Public API via package.json exports, named exports only, and the no-root-barrel rule.'
-category: 'conventions'
+title: Imports & Exports
+description: Public API via package.json exports, named exports only, and the no-root-barrel rule.
 tags:
+  - conventions
   - reference
 ---
 

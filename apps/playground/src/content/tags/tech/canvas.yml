@@ -1,0 +1,3 @@
+slug: canvas
+name: Canvas
+description: HTML5 Canvas 2D rendering and interactive graphics. Used for pixel manipulation, particle systems, mathematical visualizations, and real-time image processing with typed arrays.

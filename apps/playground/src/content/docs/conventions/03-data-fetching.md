@@ -1,8 +1,8 @@
 ---
-title: 'Data Fetching'
-description: 'Rules for server/async data fetching and its separation from client state.'
-category: 'conventions'
+title: Data Fetching
+description: Rules for server/async data fetching and its separation from client state.
 tags:
+  - conventions
   - reference
 ---
 

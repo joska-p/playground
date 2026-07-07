@@ -1,7 +1,6 @@
 ---
-title: 'Documenting a Package'
-description: 'How to write package documentation — the README is the single source of truth.'
-category: 'how-to'
+title: Documenting a Package
+description: How to write package documentation — the README is the single source of truth.
 tags:
   - how-to
 ---

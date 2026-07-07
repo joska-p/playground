@@ -1,8 +1,8 @@
 ---
-title: 'Error Handling'
-description: 'Using the shared ErrorBoundary and never silently swallowing errors.'
-category: 'conventions'
+title: Error Handling
+description: Using the shared ErrorBoundary and never silently swallowing errors.
 tags:
+  - conventions
   - reference
 ---
 

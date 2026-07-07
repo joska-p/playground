@@ -1,8 +1,8 @@
 ---
-title: 'Package src/ Structure'
-description: 'The directory layout a package tends to follow inside src/.'
-category: 'conventions'
+title: Package src/ Structure
+description: The directory layout a package tends to follow inside src/.
 tags:
+  - conventions
   - reference
 ---
 

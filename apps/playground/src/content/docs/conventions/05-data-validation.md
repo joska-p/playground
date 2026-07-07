@@ -1,8 +1,8 @@
 ---
-title: 'Data Validation'
-description: 'Validating external data with Zod at the entry point.'
-category: 'conventions'
+title: Data Validation
+description: Validating external data with Zod at the entry point.
 tags:
+  - conventions
   - reference
 ---
 

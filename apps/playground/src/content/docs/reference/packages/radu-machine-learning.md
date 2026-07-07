@@ -1,7 +1,6 @@
 ---
-title: 'Radu Machine Learning'
-description: 'Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration.'
-category: 'reference'
+title: Radu Machine Learning
+description: Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration.
 tags:
   - reference
   - radu-machine-learning

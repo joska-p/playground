@@ -1,7 +1,6 @@
 ---
-title: 'Pixel'
-description: 'TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.'
-category: 'reference'
+title: Pixel
+description: TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.
 tags:
   - reference
   - pixel

@@ -1,8 +1,8 @@
 order: 11
 name: L-System
 description: An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics.
-category: generative
 tags:
+  - generative
   - three-js
   - 3d
   - webgl

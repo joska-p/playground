@@ -1,8 +1,8 @@
 order: 3
 name: Palettes Generator
 description: Generate harmonious color schemes using mathematical color theory models.
-category: color
 tags:
+  - color
   - design
   - theory
 icon: palettes

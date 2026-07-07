@@ -1,0 +1,3 @@
+slug: webgl
+name: WebGL
+description: WebGL low-level GPU-accelerated graphics. Shader-based rendering, procedural art canvases, and 3D scenes — both raw GLSL and via Three.js abstractions.

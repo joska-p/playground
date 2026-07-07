@@ -1,0 +1,3 @@
+slug: l-system
+name: L-System
+description: Lindenmayer systems — parallel rewriting grammars that model plant growth, fractals, and recursive structures. Supports deterministic, stochastic, context-sensitive, and parametric rules.

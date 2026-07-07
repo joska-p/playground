@@ -1,0 +1,5 @@
+slug: image
+name: Image Processing
+description: Transform, deconstruct, and manipulate images through pixel pipelines, Web Workers, and creative algorithms. Canvas 2D + typed arrays.
+icon: image
+order: 2

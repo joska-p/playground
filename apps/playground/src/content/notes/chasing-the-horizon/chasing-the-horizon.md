@@ -1,10 +1,10 @@
 ---
-title: 'Chasing the Horizon'
-description: 'A cosmic journey full of inspiration.'
+title: Chasing the Horizon
+description: A cosmic journey full of inspiration.
 date: 2026-07-06
 draft: false
-category: 'log'
 tags:
+  - log
   - maths
   - complex-systems
   - philosophy

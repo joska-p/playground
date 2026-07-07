@@ -4,21 +4,32 @@ import NavCategory from './NavCategory.astro';
 
 const currentPath = Astro.url.pathname;
 
-const docCategories = await getCollection('docs-categories');
+const allTags = await getCollection('tags');
 const allDocs = await getCollection('docs', ({ data }) => !data.draft);
 
-const categories = docCategories.map((cat) => {
-  const articles = allDocs
-    .filter((doc) => doc.data.category.id === cat.id)
-    .sort((a, b) => a.data.order - b.data.order);
-  return {
-    id: cat.id,
-    label: cat.data.name,
-    description: cat.data.description,
-    iconName: cat.data.icon,
-    articles
-  };
-});
+interface NavGroup {
+  id: string;
+  label: string;
+  description: string;
+  iconName: string;
+  articles: typeof allDocs;
+}
+
+const groups: NavGroup[] = allTags
+  .filter((tag) => ['tutorial', 'how-to', 'explanation', 'reference', 'conventions'].includes(tag.data.slug))
+  .map((tag) => {
+    const articles = allDocs
+      .filter((doc) => doc.data.tags[0] === tag.data.slug)
+      .sort((a, b) => a.data.order - b.data.order);
+    return {
+      id: tag.data.slug,
+      label: tag.data.name,
+      description: tag.data.description,
+      iconName: tag.data.icon ?? 'bluesky',
+      articles
+    };
+  })
+  .filter((g) => g.articles.length > 0);
 ---
 
 <aside class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex">
@@ -33,7 +44,7 @@ const categories = docCategories.map((cat) => {
   >
     <div class="space-y-5 py-1">
       {
-        categories.map((category) => (
+        groups.map((category) => (
           <NavCategory
             category={category}
             currentPath={currentPath}
