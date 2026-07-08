@@ -29,16 +29,39 @@ export const Default: Story = {
   args: { defaultValue: 50 }
 };
 
-export const VariantDefault: Story = {
-  args: { variant: 'default', defaultValue: 50 }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-4">
+      <Slider
+        variant="default"
+        defaultValue={50}
+      />
+      <Slider
+        variant="primary"
+        defaultValue={50}
+      />
+      <Slider
+        variant="accent"
+        defaultValue={30}
+      />
+      <Slider
+        variant="destructive"
+        defaultValue={70}
+      />
+    </div>
+  )
 };
 
-export const VariantAccent: Story = {
-  args: { variant: 'accent', defaultValue: 30 }
-};
-
-export const VariantDestructive: Story = {
-  args: { variant: 'destructive', defaultValue: 70 }
+export const States: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-4">
+      <Slider defaultValue={50} />
+      <Slider
+        disabled
+        defaultValue={40}
+      />
+    </div>
+  )
 };
 
 export const WithoutTicks: Story = {
@@ -47,8 +70,4 @@ export const WithoutTicks: Story = {
 
 export const CustomRange: Story = {
   args: { min: 0, max: 255, defaultValue: 128 }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, defaultValue: 40 }
 };

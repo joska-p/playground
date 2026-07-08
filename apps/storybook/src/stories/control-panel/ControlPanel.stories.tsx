@@ -86,34 +86,35 @@ export const Default: Story = {
   }
 };
 
-export const VariantPrimary: Story = {
-  args: {
-    title: 'Primary',
-    variant: 'primary',
-    position: 'left',
-    size: 'lg',
-    children: simpleChildren
-  }
-};
-
-export const VariantAccent: Story = {
-  args: {
-    title: 'Accent',
-    variant: 'accent',
-    position: 'right',
-    size: 'md',
-    children: simpleChildren
-  }
-};
-
-export const VariantOutline: Story = {
-  args: {
-    title: 'Outline',
-    variant: 'outline',
-    position: 'bottom',
-    size: 'sm',
-    children: simpleChildren
-  }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex h-dvh gap-4 p-4">
+      <ControlPanel
+        title="Primary"
+        variant="primary"
+        position="left"
+        size="lg"
+      >
+        {simpleChildren}
+      </ControlPanel>
+      <ControlPanel
+        title="Accent"
+        variant="accent"
+        position="right"
+        size="md"
+      >
+        {simpleChildren}
+      </ControlPanel>
+      <ControlPanel
+        title="Outline"
+        variant="outline"
+        position="bottom"
+        size="sm"
+      >
+        {simpleChildren}
+      </ControlPanel>
+    </div>
+  )
 };
 
 export const Collapsed: Story = {

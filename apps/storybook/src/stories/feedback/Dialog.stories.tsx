@@ -47,19 +47,36 @@ export const Default: Story = {
   }
 };
 
-export const VariantDestructive: Story = {
+export const Variants: Story = {
   render: () => {
-    const ref = useRef<DialogHandle>(null);
+    const refA = useRef<DialogHandle>(null);
+    const refB = useRef<DialogHandle>(null);
+    const refC = useRef<DialogHandle>(null);
     return (
-      <div className="flex min-h-48 items-center justify-center">
+      <div className="flex min-h-48 items-center justify-center gap-3">
         <Button
-          onClick={() => ref.current?.open()}
+          onClick={() => refA.current?.open()}
           variant="destructive"
           size="sm"
         >
           Delete Project
         </Button>
-        <Dialog ref={ref}>
+        <Button
+          onClick={() => refB.current?.open()}
+          variant="warning"
+          size="sm"
+        >
+          Storage Warning
+        </Button>
+        <Button
+          onClick={() => refC.current?.open()}
+          variant="accent"
+          size="sm"
+        >
+          Pro Tip
+        </Button>
+
+        <Dialog ref={refA}>
           <DialogBody>
             <DialogTitle>Delete project?</DialogTitle>
             <DialogDescription>
@@ -67,31 +84,15 @@ export const VariantDestructive: Story = {
             </DialogDescription>
           </DialogBody>
           <DialogActions
-            dialogRef={ref}
+            dialogRef={refA}
             onConfirm={() => {}}
             confirmLabel="Delete"
             cancelLabel="Keep"
             variant="destructive"
           />
         </Dialog>
-      </div>
-    );
-  }
-};
 
-export const VariantWarning: Story = {
-  render: () => {
-    const ref = useRef<DialogHandle>(null);
-    return (
-      <div className="flex min-h-48 items-center justify-center">
-        <Button
-          onClick={() => ref.current?.open()}
-          variant="warning"
-          size="sm"
-        >
-          Storage Warning
-        </Button>
-        <Dialog ref={ref}>
+        <Dialog ref={refB}>
           <DialogBody>
             <DialogTitle>Storage limit reached</DialogTitle>
             <DialogDescription>
@@ -99,29 +100,13 @@ export const VariantWarning: Story = {
             </DialogDescription>
           </DialogBody>
           <DialogActions
-            dialogRef={ref}
+            dialogRef={refB}
             confirmLabel="Manage Storage"
             cancelLabel="Dismiss"
           />
         </Dialog>
-      </div>
-    );
-  }
-};
 
-export const VariantAccent: Story = {
-  render: () => {
-    const ref = useRef<DialogHandle>(null);
-    return (
-      <div className="flex min-h-48 items-center justify-center">
-        <Button
-          onClick={() => ref.current?.open()}
-          variant="accent"
-          size="sm"
-        >
-          Pro Tip
-        </Button>
-        <Dialog ref={ref}>
+        <Dialog ref={refC}>
           <DialogBody>
             <DialogTitle>Did you know?</DialogTitle>
             <DialogDescription>
@@ -129,7 +114,7 @@ export const VariantAccent: Story = {
             </DialogDescription>
           </DialogBody>
           <DialogActions
-            dialogRef={ref}
+            dialogRef={refC}
             confirmLabel="Got it"
             cancelLabel="Show again"
             variant="accent"

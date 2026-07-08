@@ -34,16 +34,41 @@ export const Default: Story = {
   args: {}
 };
 
-export const VariantDefault: Story = {
-  args: { variant: 'default' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-3">
+      <Input
+        variant="default"
+        placeholder="Default variant"
+      />
+      <Input
+        variant="primary"
+        placeholder="Primary variant"
+      />
+      <Input
+        variant="accent"
+        placeholder="Accent variant"
+      />
+      <Input
+        variant="destructive"
+        placeholder="Destructive variant"
+        defaultValue="bad@input"
+      />
+    </div>
+  )
 };
 
-export const VariantAccent: Story = {
-  args: { variant: 'accent', placeholder: 'Enter your email' }
-};
-
-export const VariantDestructive: Story = {
-  args: { variant: 'destructive', placeholder: 'Enter your email', defaultValue: 'bad@input' }
+export const States: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-3">
+      <Input placeholder="Default state" />
+      <Input
+        disabled
+        placeholder="This field is locked"
+        value="Read only content"
+      />
+    </div>
+  )
 };
 
 export const WithLeadingIcon: Story = {
@@ -60,8 +85,4 @@ export const WithTrailingAction: Story = {
 
 export const Expandable: Story = {
   args: { expandable: true, placeholder: 'Search\u2026' }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, placeholder: 'This field is locked', value: 'Read only content' }
 };

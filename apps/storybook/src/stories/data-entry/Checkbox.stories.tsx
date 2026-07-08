@@ -8,22 +8,12 @@ const meta: Meta<typeof Checkbox> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Accent color of the checkbox.',
       options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
       control: { type: 'select' }
     },
-    label: {
-      description: 'Text label displayed next to the checkbox.',
-      control: 'text'
-    },
-    disabled: {
-      description: 'Disables interaction and dims the appearance.',
-      control: 'boolean'
-    },
-    checked: {
-      description: 'Controlled checked state.',
-      control: 'boolean'
-    }
+    label: { control: 'text' },
+    disabled: { control: 'boolean' },
+    checked: { control: 'boolean' }
   },
   args: {
     onChange: fn()
@@ -34,38 +24,57 @@ export default meta;
 
 type Story = StoryObj<typeof Checkbox>;
 
-export const Unchecked: Story = {
-  args: { label: 'Enable notifications' }
-};
-
-export const Checked: Story = {
+export const Default: Story = {
   args: { label: 'Enable notifications', defaultChecked: true }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary', label: 'Primary option', defaultChecked: true }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Checkbox
+        label="Default"
+        variant="default"
+        defaultChecked
+      />
+      <Checkbox
+        label="Primary"
+        variant="primary"
+        defaultChecked
+      />
+      <Checkbox
+        label="Accent"
+        variant="accent"
+        defaultChecked
+      />
+      <Checkbox
+        label="Destructive"
+        variant="destructive"
+      />
+    </div>
+  )
 };
 
-export const Secondary: Story = {
-  args: { variant: 'secondary', label: 'Secondary option' }
-};
-
-export const Accent: Story = {
-  args: { variant: 'accent', label: 'Accent option', defaultChecked: true }
-};
-
-export const Destructive: Story = {
-  args: { variant: 'destructive', label: 'Destructive action' }
-};
-
-export const DisabledChecked: Story = {
-  args: { disabled: true, label: 'Read only setting', checked: true }
-};
-
-export const DisabledUnchecked: Story = {
-  args: { disabled: true, label: 'Locked preference' }
+export const States: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Checkbox label="Unchecked" />
+      <Checkbox
+        label="Checked"
+        defaultChecked
+      />
+      <Checkbox
+        label="Disabled checked"
+        disabled
+        checked
+      />
+      <Checkbox
+        label="Disabled unchecked"
+        disabled
+      />
+    </div>
+  )
 };
 
 export const NoLabel: Story = {
-  args: {}
+  args: { defaultChecked: true }
 };

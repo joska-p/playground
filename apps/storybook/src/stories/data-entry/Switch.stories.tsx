@@ -28,30 +28,66 @@ export const Default: Story = {
   args: { label: 'Dark mode', defaultChecked: true }
 };
 
-export const Off: Story = {
-  args: { label: 'Dark mode' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Switch
+        label="Default"
+        variant="default"
+        defaultChecked
+      />
+      <Switch
+        label="Primary"
+        variant="primary"
+        defaultChecked
+      />
+      <Switch
+        label="Secondary"
+        variant="secondary"
+      />
+      <Switch
+        label="Accent"
+        variant="accent"
+        defaultChecked
+      />
+      <Switch
+        label="Warning"
+        variant="warning"
+      />
+      <Switch
+        label="Destructive"
+        variant="destructive"
+        defaultChecked
+      />
+      <Switch
+        label="Ghost"
+        variant="ghost"
+      />
+    </div>
+  )
 };
 
-export const VariantPrimary: Story = {
-  args: { variant: 'primary', label: 'Enable notifications', defaultChecked: true }
+export const States: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Switch label="Off" />
+      <Switch
+        label="On"
+        defaultChecked
+      />
+      <Switch
+        label="Disabled checked"
+        disabled
+        checked
+      />
+      <Switch
+        label="Disabled unchecked"
+        disabled
+      />
+    </div>
+  )
 };
 
-export const VariantSecondary: Story = {
-  args: { variant: 'secondary', label: 'Reduce motion' }
-};
-
-export const VariantAccent: Story = {
-  args: { variant: 'accent', label: 'High contrast mode', defaultChecked: true }
-};
-
-export const VariantDestructive: Story = {
-  args: { variant: 'destructive', label: 'Experimental features' }
-};
-
-export const VariantWarning: Story = {
-  args: { variant: 'warning', label: 'Sensitive mode' }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, label: 'Auto-save', checked: true }
+export const NoLabel: Story = {
+  args: { defaultChecked: true }
 };

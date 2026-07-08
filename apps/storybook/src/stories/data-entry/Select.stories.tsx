@@ -55,16 +55,64 @@ export const Default: Story = {
   args: {}
 };
 
-export const VariantDefault: Story = {
-  args: { variant: 'default' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex w-60 flex-col gap-3">
+      <Select variant="default">
+        <FruitOptions />
+      </Select>
+      <Select variant="primary">
+        <FruitOptions />
+      </Select>
+      <Select variant="accent">
+        <FruitOptions />
+      </Select>
+      <Select variant="destructive">
+        <FruitOptions />
+      </Select>
+    </div>
+  )
 };
 
-export const VariantAccent: Story = {
-  args: { variant: 'accent' }
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex w-60 flex-col gap-3">
+      <Select
+        size="sm"
+        placeholder="Small"
+      >
+        <FruitOptions />
+      </Select>
+      <Select
+        size="default"
+        placeholder="Default"
+      >
+        <FruitOptions />
+      </Select>
+      <Select
+        size="lg"
+        placeholder="Large"
+      >
+        <FruitOptions />
+      </Select>
+    </div>
+  )
 };
 
-export const VariantDestructive: Story = {
-  args: { variant: 'destructive' }
+export const States: Story = {
+  render: () => (
+    <div className="flex w-60 flex-col gap-3">
+      <Select placeholder="Default state">
+        <FruitOptions />
+      </Select>
+      <Select
+        disabled
+        placeholder="Selection locked"
+      >
+        <FruitOptions />
+      </Select>
+    </div>
+  )
 };
 
 export const WithPlaceholder: Story = {
@@ -73,16 +121,4 @@ export const WithPlaceholder: Story = {
 
 export const WithLeadingIcon: Story = {
   args: { leadingIcon: <Palette className="h-4 w-4" />, placeholder: 'Pick a color' }
-};
-
-export const SizeSm: Story = {
-  args: { size: 'sm' }
-};
-
-export const SizeLg: Story = {
-  args: { size: 'lg', placeholder: 'Choose a fruit' }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, placeholder: 'Selection locked' }
 };
