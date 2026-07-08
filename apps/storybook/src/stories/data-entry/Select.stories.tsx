@@ -31,23 +31,15 @@ const meta: Meta<typeof Select> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Focus-ring color token.',
       options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
       control: { type: 'select' }
     },
     size: {
-      description: 'Controls the dimensions.',
       options: ['sm', 'default', 'lg'],
       control: { type: 'select' }
     },
-    placeholder: {
-      description: 'Renders a disabled hidden first option as placeholder.',
-      control: 'text'
-    },
-    disabled: {
-      description: 'Disables interaction and dims the appearance.',
-      control: 'boolean'
-    }
+    placeholder: { control: 'text' },
+    disabled: { control: 'boolean' }
   },
   args: {
     onChange: fn(),
@@ -60,11 +52,19 @@ export default meta;
 type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
+  args: {}
+};
+
+export const VariantDefault: Story = {
   args: { variant: 'default' }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary' }
+export const VariantAccent: Story = {
+  args: { variant: 'accent' }
+};
+
+export const VariantDestructive: Story = {
+  args: { variant: 'destructive' }
 };
 
 export const WithPlaceholder: Story = {
@@ -75,14 +75,14 @@ export const WithLeadingIcon: Story = {
   args: { leadingIcon: <Palette className="h-4 w-4" />, placeholder: 'Pick a color' }
 };
 
-export const Disabled: Story = {
-  args: { disabled: true, placeholder: 'Selection locked' }
-};
-
-export const Small: Story = {
+export const SizeSm: Story = {
   args: { size: 'sm' }
 };
 
-export const Large: Story = {
+export const SizeLg: Story = {
   args: { size: 'lg', placeholder: 'Choose a fruit' }
+};
+
+export const Disabled: Story = {
+  args: { disabled: true, placeholder: 'Selection locked' }
 };

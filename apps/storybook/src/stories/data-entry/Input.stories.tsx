@@ -9,27 +9,16 @@ const meta: Meta<typeof Input> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Focus-ring color token.',
       options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
       control: { type: 'select' }
     },
-    placeholder: {
-      description: 'Placeholder text inside the input.',
-      control: 'text'
-    },
-    disabled: {
-      description: 'Disables interaction and dims the appearance.',
-      control: 'boolean'
-    },
+    placeholder: { control: 'text' },
+    disabled: { control: 'boolean' },
     type: {
-      description: 'HTML input type.',
       options: ['text', 'email', 'password', 'number', 'url', 'search'],
       control: { type: 'select' }
     },
-    expandable: {
-      description: 'Expands on focus via CSS transition.',
-      control: 'boolean'
-    }
+    expandable: { control: 'boolean' }
   },
   args: {
     onChange: fn(),
@@ -42,11 +31,19 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
+  args: {}
+};
+
+export const VariantDefault: Story = {
   args: { variant: 'default' }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary', placeholder: 'Enter your name' }
+export const VariantAccent: Story = {
+  args: { variant: 'accent', placeholder: 'Enter your email' }
+};
+
+export const VariantDestructive: Story = {
+  args: { variant: 'destructive', placeholder: 'Enter your email', defaultValue: 'bad@input' }
 };
 
 export const WithLeadingIcon: Story = {
@@ -61,10 +58,10 @@ export const WithTrailingAction: Story = {
   }
 };
 
-export const Disabled: Story = {
-  args: { disabled: true, placeholder: 'This field is locked', value: 'Read only content' }
-};
-
 export const Expandable: Story = {
   args: { expandable: true, placeholder: 'Search\u2026' }
+};
+
+export const Disabled: Story = {
+  args: { disabled: true, placeholder: 'This field is locked', value: 'Read only content' }
 };

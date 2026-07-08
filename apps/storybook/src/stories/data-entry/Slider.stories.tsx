@@ -8,26 +8,13 @@ const meta: Meta<typeof Slider> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Accent color of the slider track.',
       options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
       control: { type: 'select' }
     },
-    showTicks: {
-      description: 'Show min/mid/max tick labels beneath the track.',
-      control: 'boolean'
-    },
-    min: {
-      description: 'Minimum value.',
-      control: 'number'
-    },
-    max: {
-      description: 'Maximum value.',
-      control: 'number'
-    },
-    disabled: {
-      description: 'Disables interaction and dims the appearance.',
-      control: 'boolean'
-    }
+    showTicks: { control: 'boolean' },
+    min: { control: 'number' },
+    max: { control: 'number' },
+    disabled: { control: 'boolean' }
   },
   args: {
     onChange: fn()
@@ -39,11 +26,19 @@ export default meta;
 type Story = StoryObj<typeof Slider>;
 
 export const Default: Story = {
-  args: { variant: 'default' }
+  args: { defaultValue: 50 }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary', defaultValue: 50 }
+export const VariantDefault: Story = {
+  args: { variant: 'default', defaultValue: 50 }
+};
+
+export const VariantAccent: Story = {
+  args: { variant: 'accent', defaultValue: 30 }
+};
+
+export const VariantDestructive: Story = {
+  args: { variant: 'destructive', defaultValue: 70 }
 };
 
 export const WithoutTicks: Story = {
