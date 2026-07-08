@@ -8,7 +8,6 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Visual style of the button.',
       options: [
         'default',
         'primary',
@@ -17,31 +16,19 @@ const meta: Meta<typeof Button> = {
         'warning',
         'destructive',
         'ghost',
-        'link'
+        'link',
+        'outline'
       ],
       control: { type: 'select' }
     },
     size: {
-      description: 'Controls the physical dimensions.',
       options: ['sm', 'default', 'lg', 'icon'],
       control: { type: 'select' }
     },
-    loading: {
-      description: 'Shows a loading spinner and disables the button.',
-      control: 'boolean'
-    },
-    tooltip: {
-      description: 'Native title text shown on hover.',
-      control: 'text'
-    },
-    disabled: {
-      description: 'Disables interaction and dims the appearance.',
-      control: 'boolean'
-    },
-    children: {
-      description: 'Content inside the button.',
-      control: 'text'
-    }
+    loading: { control: 'boolean' },
+    tooltip: { control: 'text' },
+    disabled: { control: 'boolean' },
+    children: { control: 'text' }
   },
   args: {
     onClick: fn(),
@@ -54,10 +41,10 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
-  args: { variant: 'default' }
+  args: { variant: 'default', size: 'default' }
 };
 
-export const Primary: Story = {
+export const VariantPrimary: Story = {
   args: { variant: 'primary', children: 'Primary' },
   play: async ({ canvas, args }) => {
     await userEvent.click(canvas.getByRole('button'));
@@ -65,28 +52,44 @@ export const Primary: Story = {
   }
 };
 
-export const Secondary: Story = {
+export const VariantSecondary: Story = {
   args: { variant: 'secondary', children: 'Secondary' }
 };
 
-export const Accent: Story = {
+export const VariantAccent: Story = {
   args: { variant: 'accent', children: 'Accent' }
 };
 
-export const Destructive: Story = {
+export const VariantDestructive: Story = {
   args: { variant: 'destructive', children: 'Delete' }
 };
 
-export const Warning: Story = {
+export const VariantWarning: Story = {
   args: { variant: 'warning', children: 'Warning' }
 };
 
-export const Ghost: Story = {
+export const VariantGhost: Story = {
   args: { variant: 'ghost', children: 'Ghost' }
 };
 
-export const Link: Story = {
+export const VariantOutline: Story = {
+  args: { variant: 'outline', children: 'Outline' }
+};
+
+export const VariantLink: Story = {
   args: { variant: 'link', children: 'Link' }
+};
+
+export const SizeSm: Story = {
+  args: { size: 'sm', children: 'Small' }
+};
+
+export const SizeLg: Story = {
+  args: { size: 'lg', children: 'Large' }
+};
+
+export const SizeIcon: Story = {
+  args: { size: 'icon', children: '★' }
 };
 
 export const Loading: Story = {

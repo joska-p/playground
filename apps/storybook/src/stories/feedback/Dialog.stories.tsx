@@ -1,6 +1,13 @@
 import { Button } from '@repo/ui/data-entry';
 import type { DialogHandle } from '@repo/ui/feedback';
-import { Dialog } from '@repo/ui/feedback';
+import {
+  Dialog,
+  DialogActions,
+  DialogBody,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle
+} from '@repo/ui/feedback';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
 
@@ -27,35 +34,20 @@ export const Default: Story = {
           Open Dialog
         </Button>
         <Dialog ref={ref}>
-          <Dialog.Body>
-            <Dialog.Title>Confirm Action</Dialog.Title>
-            <Dialog.Description>
+          <DialogBody>
+            <DialogTitle>Confirm Action</DialogTitle>
+            <DialogDescription>
               Are you sure you want to proceed with this action?
-            </Dialog.Description>
-          </Dialog.Body>
-          <Dialog.Footer>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => ref.current?.close()}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => ref.current?.close()}
-            >
-              Confirm
-            </Button>
-          </Dialog.Footer>
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions dialogRef={ref} />
         </Dialog>
       </div>
     );
   }
 };
 
-export const Destructive: Story = {
+export const VariantDestructive: Story = {
   render: () => {
     const ref = useRef<DialogHandle>(null);
     return (
@@ -68,13 +60,13 @@ export const Destructive: Story = {
           Delete Project
         </Button>
         <Dialog ref={ref}>
-          <Dialog.Body>
-            <Dialog.Title>Delete project?</Dialog.Title>
-            <Dialog.Description>
+          <DialogBody>
+            <DialogTitle>Delete project?</DialogTitle>
+            <DialogDescription>
               This will permanently delete all files and cannot be undone.
-            </Dialog.Description>
-          </Dialog.Body>
-          <Dialog.Actions
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
             dialogRef={ref}
             onConfirm={() => {}}
             confirmLabel="Delete"
@@ -87,7 +79,7 @@ export const Destructive: Story = {
   }
 };
 
-export const Warning: Story = {
+export const VariantWarning: Story = {
   render: () => {
     const ref = useRef<DialogHandle>(null);
     return (
@@ -100,13 +92,13 @@ export const Warning: Story = {
           Storage Warning
         </Button>
         <Dialog ref={ref}>
-          <Dialog.Body>
-            <Dialog.Title>Storage limit reached</Dialog.Title>
-            <Dialog.Description>
+          <DialogBody>
+            <DialogTitle>Storage limit reached</DialogTitle>
+            <DialogDescription>
               You are at 95% capacity. Please free up space to continue creating.
-            </Dialog.Description>
-          </Dialog.Body>
-          <Dialog.Actions
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
             dialogRef={ref}
             confirmLabel="Manage Storage"
             cancelLabel="Dismiss"
@@ -117,7 +109,7 @@ export const Warning: Story = {
   }
 };
 
-export const Accent: Story = {
+export const VariantAccent: Story = {
   render: () => {
     const ref = useRef<DialogHandle>(null);
     return (
@@ -130,18 +122,64 @@ export const Accent: Story = {
           Pro Tip
         </Button>
         <Dialog ref={ref}>
-          <Dialog.Body>
-            <Dialog.Title>Did you know?</Dialog.Title>
-            <Dialog.Description>
+          <DialogBody>
+            <DialogTitle>Did you know?</DialogTitle>
+            <DialogDescription>
               You can drag and drop images directly onto the canvas to use them as texture sources.
-            </Dialog.Description>
-          </Dialog.Body>
-          <Dialog.Actions
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
             dialogRef={ref}
             confirmLabel="Got it"
             cancelLabel="Show again"
             variant="accent"
           />
+        </Dialog>
+      </div>
+    );
+  }
+};
+
+export const WithCustomFooter: Story = {
+  render: () => {
+    const ref = useRef<DialogHandle>(null);
+    return (
+      <div className="flex min-h-48 items-center justify-center">
+        <Button
+          onClick={() => ref.current?.open()}
+          variant="default"
+          size="sm"
+        >
+          Export Options
+        </Button>
+        <Dialog ref={ref}>
+          <DialogBody>
+            <DialogTitle>Export Settings</DialogTitle>
+            <DialogDescription>Choose your preferred export format and options.</DialogDescription>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => ref.current?.close()}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => ref.current?.close()}
+            >
+              Export PNG
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => ref.current?.close()}
+            >
+              Export All
+            </Button>
+          </DialogFooter>
         </Dialog>
       </div>
     );
