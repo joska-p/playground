@@ -36,7 +36,7 @@ const isActive = (href: string): boolean => {
           <a
             href={route.href}
             data-active={active ? '' : undefined}
-            class="text-foreground-muted flex items-center rounded-xl px-4 py-3 text-sm font-bold uppercase transition-all active:scale-95 data-active:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] data-active:text-[var(--glow-color)] data-active:shadow-[0_0_18px_-4px_var(--glow-color)]"
+            class="text-foreground-muted `data-active:text-(--glow-color) flex items-center rounded-xl px-4 py-3 text-sm font-bold uppercase transition-all active:scale-95 data-active:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] data-active:shadow-[0_0_18px_-4px_var(--glow-color)]"
             aria-current={active ? 'page' : undefined}
           >
             {route.label}
@@ -51,7 +51,7 @@ const isActive = (href: string): boolean => {
       href="https://gitlab.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="text-foreground-muted flex items-center gap-2 text-xs hover:text-[var(--glow-color)]"
+      class="text-foreground-muted flex items-center gap-2 text-xs hover:text-(--glow-color)"
       >GitLab</a
     >
 
@@ -59,7 +59,7 @@ const isActive = (href: string): boolean => {
       href="https://github.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="text-foreground-muted flex items-center gap-2 text-xs hover:text-[var(--glow-color)]"
+      class="text-foreground-muted flex items-center gap-2 text-xs hover:text-(--glow-color)"
       >GitHub</a
     >
   </div>
