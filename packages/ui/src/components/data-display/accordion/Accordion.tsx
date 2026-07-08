@@ -1,6 +1,7 @@
 import type { DetailsHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
+import { accordionItemVariants } from './variants';
 
 export type AccordionItemProps = {
   title: ReactNode;
@@ -25,19 +26,23 @@ export function AccordionItem({
   title,
   children,
   variant = 'default',
-  style,
   ref,
   ...props
 }: AccordionItemProps) {
   return (
     <details
       ref={ref}
-      className={cn('bg-surface overflow-hidden rounded-lg', className)}
-      style={colorVarStyle(variant, style)}
+      className={cn('group bg-surface overflow-hidden rounded-lg', className)}
       {...props}
     >
-      <summary className="accordion-trigger text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">
+      <summary className="text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">
         {title}
+        <span
+          className={cn(
+            'ml-3 block size-2 shrink-0 -rotate-45 border-r-[1.5px] border-b-[1.5px] border-current transition-transform group-open:rotate-45',
+            accordionItemVariants({ variant })
+          )}
+        />
       </summary>
       <div className="accordion-body text-foreground-muted px-5 pb-4 text-[13px] leading-relaxed">
         {children}

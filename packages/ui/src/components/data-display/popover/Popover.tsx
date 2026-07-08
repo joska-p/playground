@@ -1,23 +1,17 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
+import { popoverVariants } from './variants';
 
 export type PopoverProps = {
   trigger: ReactNode;
   children: ReactNode;
   className?: string;
-  /** Width of the popover panel. Defaults to "w-60". */
   widthClassName?: string;
   align?: 'left' | 'center';
-  /** Colors a thin top accent strip on the panel. Defaults to neutral. */
   variant?: ColorVariant;
 };
 
-/**
- * Popover — hover-triggered via Tailwind's `group`/`group-hover`, the exact
- * mechanism as the source design (no JS, no portal, no positioning library).
- * Centered with `left-1/2 -translate-x-1/2`.
- */
 export function Popover({
   trigger,
   children,
@@ -37,8 +31,8 @@ export function Popover({
         )}
       >
         <div
-          className="bg-surface rounded-lg border-t-2 p-4"
-          style={{ boxShadow: 'var(--shadow-lg)', borderTopColor: colorVar(variant) }}
+          className={cn('bg-surface rounded-lg border-t-2 p-4', popoverVariants({ variant }))}
+          style={{ boxShadow: 'var(--shadow-lg)' }}
         >
           {children}
         </div>

@@ -382,37 +382,6 @@
     transform: translateX(20px);
   }
 
-  /* ---------- Card :has() glow on action hover — zero JS ---------- */
-  .card-interactive:has(.card-actions:hover) {
-    box-shadow:
-      var(--shadow-md),
-      0 0 0 2px color-mix(in srgb, var(--_color, var(--primary)) 12%, transparent) !important;
-  }
-
-  /* ---------- Accordion (native <details>) ---------- */
-
-  .accordion-trigger {
-    list-style: none;
-    cursor: pointer;
-  }
-  .accordion-trigger::-webkit-details-marker {
-    display: none;
-  }
-  .accordion-trigger::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    flex-shrink: 0;
-    margin-left: 12px;
-    border-right: 1.5px solid var(--_color, var(--foreground-muted));
-    border-bottom: 1.5px solid var(--_color, var(--foreground-muted));
-    transform: rotate(-45deg);
-    transition: transform 0.25s;
-  }
-  details[open] > .accordion-trigger::after {
-    transform: rotate(45deg);
-  }
-
   .accordion-body {
     @starting-style {
       opacity: 0;
@@ -535,7 +504,7 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 4px 10px;
-    background: var(--_color, var(--foreground));
+    background: var(--foreground);
     color: var(--background);
     border-radius: 4px;
     font-size: 11px;
@@ -570,30 +539,6 @@
     to {
       transform: rotate(360deg);
     }
-  }
-
-  /* ---------- Badges — one --_color custom prop drives everything ---------- */
-  .badge-soft {
-    background: color-mix(in srgb, var(--_color) 15%, transparent);
-    color: var(--_color);
-  }
-  .badge-solid {
-    background: var(--_color);
-    color: var(--background);
-  }
-  .badge-outline {
-    background: transparent;
-    border: 1px solid var(--_color);
-    color: var(--_color);
-  }
-  .badge-dot::before {
-    margin-right: 4px;
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--_color);
-    flex-shrink: 0;
   }
 
   /* ---------- Scroll reveal ---------- */

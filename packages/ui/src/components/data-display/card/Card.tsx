@@ -1,20 +1,16 @@
 import type { HTMLAttributes, ImgHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
+import { cardVariants } from './variants';
 
 export type CardProps = {
-  /** Enables the zero-JS `:has()` glow when `.card-actions` is hovered. */
-  interactive?: boolean;
-  /** Color used for the interactive glow. Ignored when `interactive` is false. */
   variant?: ColorVariant;
-  /** Lay out as a row on landscape/desktop, stacked on mobile. */
   horizontal?: boolean;
   ref?: Ref<HTMLDivElement>;
 } & HTMLAttributes<HTMLDivElement>;
 
 export function Card({
   className,
-  interactive,
   variant = 'primary',
   horizontal,
   style,
@@ -26,11 +22,11 @@ export function Card({
       ref={ref}
       className={cn(
         'bg-surface overflow-hidden rounded-lg transition-shadow duration-200 hover:shadow-md',
-        interactive && 'card-interactive transition-all',
+        cardVariants({ variant }),
         horizontal && 'grid grid-cols-1 landscape:grid-cols-[200px_1fr]',
         className
       )}
-      style={{ boxShadow: 'var(--shadow-sm)', ...colorVarStyle(variant, style) }}
+      style={{ boxShadow: 'var(--shadow-sm)', ...style }}
       {...props}
     />
   );

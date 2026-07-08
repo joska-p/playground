@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
 import { badgeVariants } from './variants';
 
 export type BadgeProps = {
@@ -11,9 +11,8 @@ export type BadgeProps = {
   VariantProps<typeof badgeVariants>;
 
 /**
- * Badge — a single `--_color` custom property drives soft/solid/outline/dot
- * appearances (see globals.css). `variant` picks which semantic token feeds
- * that custom property. Stateless: pure props in, markup out.
+ * Badge — soft/solid/outline appearances with optional dot indicator.
+ * Uses CVA compound variants for appearance × variant combinations.
  */
 export function Badge({
   className,
@@ -27,8 +26,8 @@ export function Badge({
   return (
     <span
       ref={ref}
-      className={cn(badgeVariants({ appearance, dot }), className)}
-      style={colorVarStyle(variant, style)}
+      className={cn(badgeVariants({ variant, appearance, dot }), className)}
+      style={style}
       {...props}
     />
   );

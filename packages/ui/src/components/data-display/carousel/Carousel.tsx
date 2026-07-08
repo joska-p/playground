@@ -1,25 +1,17 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, type ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { carouselVariants } from './variants';
 
 export type CarouselProps = {
   children: ReactNode;
   className?: string;
-  /** Pixels scrolled per arrow click. */
   scrollAmount?: number;
-  /** Hide the prev/next arrow buttons (touch users can still swipe). */
   hideArrows?: boolean;
-  /** Colors the arrow icons. Defaults to a neutral foreground tone. */
   variant?: ColorVariant;
 };
 
-/**
- * Carousel — overflow-x:scroll + scroll-snap does all the heavy lifting in
- * CSS (see `.carousel`/`.carousel-slide` in globals.css). React only wires
- * up the optional prev/next buttons via `scrollBy`, exactly as noted in the
- * source design's own conversion guide.
- */
 export function Carousel({
   children,
   className,
@@ -28,7 +20,6 @@ export function Carousel({
   variant = 'default'
 }: CarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const iconColor = colorVar(variant);
 
   const scroll = (dir: 1 | -1) => {
     trackRef.current?.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
@@ -44,8 +35,11 @@ export function Carousel({
             onClick={() => {
               scroll(-1);
             }}
-            className="bg-surface/90 hover:bg-surface absolute top-1/2 left-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors"
-            style={{ boxShadow: 'var(--shadow-md)', color: iconColor }}
+            className={cn(
+              'bg-surface/90 hover:bg-surface absolute top-1/2 left-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors',
+              carouselVariants({ variant })
+            )}
+            style={{ boxShadow: 'var(--shadow-md)' }}
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -55,8 +49,11 @@ export function Carousel({
             onClick={() => {
               scroll(1);
             }}
-            className="bg-surface/90 hover:bg-surface absolute top-1/2 right-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors"
-            style={{ boxShadow: 'var(--shadow-md)', color: iconColor }}
+            className={cn(
+              'bg-surface/90 hover:bg-surface absolute top-1/2 right-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors',
+              carouselVariants({ variant })
+            )}
+            style={{ boxShadow: 'var(--shadow-md)' }}
           >
             <ChevronRight className="h-4 w-4" />
           </button>
