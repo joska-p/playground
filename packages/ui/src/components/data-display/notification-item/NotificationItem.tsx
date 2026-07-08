@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { notificationItemVariants } from './variants';
 
 type NotificationItemProps = {
   icon: ReactNode;
@@ -23,17 +24,15 @@ function NotificationItem({
   return (
     <div
       ref={ref}
-      className={cn('flex items-start gap-3 font-mono', className)}
-      style={colorVarStyle(variant, style)}
+      className={cn(
+        'flex items-start gap-3 font-mono',
+        notificationItemVariants({ variant }),
+        className
+      )}
+      style={style}
       {...props}
     >
-      <span
-        className="flex size-8 shrink-0 items-center justify-center rounded-lg text-sm shadow-xs"
-        style={{
-          background: 'color-mix(in srgb, var(--_color) 15%, transparent)',
-          color: 'var(--_color)'
-        }}
-      >
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-sm shadow-xs">
         {icon}
       </span>
       <div className="min-w-0">

@@ -6,27 +6,37 @@ import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
   const notes = await getCollection('notes');
-  return notes.map((note) => ({
-    params: { slug: note.id },
-    props: { note }
-  }));
+
+  return notes.map((note) => {
+    return {
+      params: {
+        slug: note.id
+      },
+      props: {
+        note
+      }
+    };
+  });
 }
 
 const { note } = Astro.props;
+
+if (!note) {
+  return Astro.redirect('/404');
+}
+
 const { Content } = await render(note);
+const mainTag = note.data.tags?.[0].id || 'other';
 const allTags = await getCollection('tags');
-const mainTag = note.data.tags[0];
-const tagEntry = allTags.find((t) => t.data.slug === mainTag);
+const tagEntry = allTags.find((tag) => tag.id === mainTag);
 
 const date = new Date(note.data.date);
-const options = {
+const formattedDate = date.toLocaleDateString('fr-FR', {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric'
-} as const;
-
-const formatedDate = date.toLocaleDateString('fr-FR', options);
+} as const);
 ---
 
 <BaseLayout
@@ -34,14 +44,14 @@ const formatedDate = date.toLocaleDateString('fr-FR', options);
   katex={true}
 >
   <Hero
-    badgeText={formatedDate}
-    highlight={tagEntry?.data.name ?? mainTag}
+    badgeText={formattedDate}
+    highlight={tagEntry?.data.title ?? mainTag}
     title={note.data.title}
     description={note.data.description ?? ''}
   />
 
   <article
-    class="prose prose-playground bg-surface/30 text-foreground t mx-auto max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_22%,transparent),0_1px_28px_-10px_color-mix(in_oklch,var(--glow-color)_35%,transparent)] backdrop-blur-md"
+    class="prose prose-playground bg-surface/30 text-foreground t mx-auto max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-md backdrop-blur-md"
   >
     <Content />
   </article>

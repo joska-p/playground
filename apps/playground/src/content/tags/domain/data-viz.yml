@@ -1,5 +1,0 @@
-slug: data-viz
-name: Data Visualization
-description: Interactive charts, graphs, and visual representations of data using D3.js, force-directed layouts, and Three.js 3D rendering.
-icon: data-viz
-order: 3

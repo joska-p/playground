@@ -1,9 +1,0 @@
-order: 5
-name: RandomArt
-description: Generate unique abstract art from any text string using seeded randomness and math expression trees.
-tags:
-  - generative
-  - canvas
-icon: sparkles
-featured: false
-packageDir: randomart

@@ -1,3 +1,0 @@
-slug: worker-pool
-name: Web Workers
-description: Background thread execution for CPU-intensive tasks — cellular automaton stepping, pixel pipeline processing, sequence rendering. Pooled, queued, and lifecycle-managed.

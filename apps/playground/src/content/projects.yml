@@ -1,0 +1,154 @@
+- id: art-canvas
+  order: 8
+  title: Art canvas
+  description: Create "art" in the canvas using shaders and logarithmic.
+  tags:
+    - random
+    - webgl
+  iconName: bluesky
+  featured: false
+  packageDir: art-canvas
+
+- id: automa
+  order: 9
+  title: Automa
+  description: Interactive Conway's Game of Life simulator with Web Worker stepping, editable grid, and R3F orthographic rendering.
+  tags:
+    - simulation
+    - three-js
+    - webgl
+  iconName: automa
+  featured: true
+  packageDir: automa
+
+- id: graphify
+  order: 7
+  title: Graphify
+  description: Interactive graph, click nodes, search, filter by community.
+  tags:
+    - data-viz
+    - graph
+    - d3
+  iconName: graphify
+  featured: true
+  packageDir: graph-viz
+
+- id: l-system
+  order: 11
+  title: L-System
+  description: An L-system (Lindenmayer system) 3D visualizer with interactive turtle graphics.
+  tags:
+    - generative
+    - three-js
+    - 3d
+    - webgl
+    - simulation
+  iconName: three-stage
+  featured: false
+  packageDir: l-system
+
+- id: mosaic
+  order: 1
+  title: Mosaic Maker
+  description: Transform color palettes into beautiful procedural mosaic patterns using CSS Grid.
+  tags:
+    - generative
+    - canvas
+    - zustand
+  iconName: mosaic
+  featured: true
+  packageDir: mosaic-maker
+
+- id: palettes
+  order: 3
+  title: Palettes Generator
+  description: Generate harmonious color schemes using mathematical color theory models.
+  tags:
+    - color
+    - design
+    - theory
+  iconName: palettes
+  featured: false
+  packageDir: palette-generator
+
+- id: particles
+  order: 4
+  title: Image to Particles
+  description: Deconstruct images into physics-based particle systems with real-time interaction.
+  tags:
+    - image
+    - physics
+    - canvas
+  iconName: particles
+  featured: false
+  packageDir: image-to-particles
+
+- id: pixel-manipulator
+  order: 5
+  title: Pixel Manipulator
+  description: A tool for manipulating images using canvas and web workers.
+  tags:
+    - image
+    - canvas
+  iconName: pixel-manipulator
+  featured: true
+  packageDir: pixel-manipulator
+
+- id: pixel
+  order: 6
+  title: Pixel
+  description: Interactive API documentation for the browser-based image manipulation pipeline with live visual examples.
+  tags:
+    - image
+    - pipeline
+    - docs
+  iconName: pipeline
+  featured: true
+  packageDir: pixel
+
+- id: randomart
+  order: 5
+  title: RandomArt
+  description: Generate unique abstract art from any text string using seeded randomness and math expression trees.
+  tags:
+    - generative
+    - canvas
+  iconName: sparkles
+  featured: false
+  packageDir: randomart
+
+- id: sequences
+  order: 2
+  title: Sequence Renderer
+  description: Visualize mathematical sequences like Recamán and Fibonacci with pluggable renderers.
+  tags:
+    - generative
+    - math
+    - svg
+  iconName: sequences
+  featured: true
+  packageDir: sequence-renderer
+
+- id: three-stage
+  order: 8
+  title: Three Stage
+  description: A 3D stage for rendering and animating 3D objects.
+  tags:
+    - random
+    - three-js
+    - 3d
+    - webgl
+  iconName: three-stage
+  featured: false
+  packageDir: three-stage
+
+- id: ui
+  order: 2
+  title: UI library
+  description: Guidelines and showcase of the ui components
+  tags:
+    - random
+    - docs
+  iconName: bluesky
+  featured: false
+  packageDir: ui

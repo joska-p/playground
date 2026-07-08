@@ -1,5 +1,0 @@
-slug: color
-name: Color & Design
-description: Tools for exploring color theory, generating harmonious palettes, and design utilities. Powered by OKLab/OKLCh color spaces via colorjs.io.
-icon: color
-order: 1

@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
+import { sectionHeadingVariants } from './variants';
 
 type SectionHeadingProps = {
   label: string;
@@ -23,11 +24,11 @@ function SectionHeading({
   return (
     <div
       ref={ref}
-      className={cn(className)}
-      style={colorVarStyle(variant, style)}
+      className={cn(sectionHeadingVariants({ variant }), className)}
+      style={style}
       {...props}
     >
-      <p className="mb-1 text-xs font-medium tracking-[2px] text-(--_color) uppercase">{label}</p>
+      <p className="mb-1 text-xs font-medium tracking-[2px] uppercase">{label}</p>
       <h2 className="text-foreground text-xl font-light tracking-tight landscape:text-2xl">
         {title}
       </h2>

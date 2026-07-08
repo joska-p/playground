@@ -1,7 +1,8 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useFloatingNavState } from '../../../hooks/useFloatingNavState';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
+import { floatingNavVariants } from './variants';
 
 export type NavLink = {
   label: string;
@@ -33,6 +34,7 @@ function FloatingNav({
       ref={ref}
       className={cn(
         'fixed top-3 left-1/2 z-50 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono shadow-lg transition-[transform,box-shadow] duration-350 ease-out',
+        floatingNavVariants({ variant }),
         visible ? 'translate-y-0' : '-translate-y-20',
         className
       )}
@@ -42,7 +44,7 @@ function FloatingNav({
           : 'translateX(-50%) translateY(-80px)',
         background: 'color-mix(in srgb, var(--surface-raised) 92%, transparent)',
         boxShadow: 'var(--shadow-lg)',
-        ...colorVarStyle(variant, style)
+        ...style
       }}
       onMouseEnter={() => {
         navHoveredRef.current = true;
@@ -57,7 +59,6 @@ function FloatingNav({
       <a
         href={brand.href}
         className="min-w-fit text-sm font-semibold tracking-tight"
-        style={{ color: 'var(--_color)' }}
       >
         {brand.label}
       </a>

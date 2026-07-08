@@ -1,5 +1,0 @@
-slug: simulation
-name: Simulation
-description: Cellular automata, particle systems, and process simulations that model emergent behavior from simple rules. Includes Conway's Game of Life and continuous automata.
-icon: simulation
-order: 5

@@ -1,13 +1,13 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
-import type { ColorVariant } from '../../../lib/colorVariant';
 import { DefaultFallback } from '../default-fallback/DefaultFallback';
+import type { FallbackIconColor } from '../default-fallback/variants';
 
 export type FallbackRenderer = (props: { error: Error; reset: () => void }) => ReactNode;
 
 export type ErrorBoundaryProps = {
   children: ReactNode;
   fallback?: ReactNode | FallbackRenderer;
-  variant?: ColorVariant;
+  variant?: FallbackIconColor;
   onError?: (error: Error, info: ErrorInfo) => void;
 };
 

@@ -1,3 +1,0 @@
-slug: pipeline
-name: Pipeline
-description: Image processing pipeline — chainable, typed pixel transformations with tiled execution, buffer fusion, and Web Worker offloading. The pixel-manipulation architecture runs entirely in the browser.

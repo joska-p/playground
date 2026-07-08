@@ -6,18 +6,30 @@ import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
-  return docs.map((doc) => ({
-    params: { slug: doc.id },
-    props: { doc }
-  }));
+
+  return docs.map((doc) => {
+    return {
+      params: {
+        slug: doc.id
+      },
+      props: {
+        doc
+      }
+    };
+  });
 }
 
 const { doc } = Astro.props;
+
+if (!doc) {
+  return Astro.redirect('/404');
+}
+
 const { Content } = await render(doc);
+const mainTag = doc.data.tags[0].id;
 const allTags = await getCollection('tags');
-const mainTag = doc.data.tags[0];
-const tagEntry = allTags.find((t) => t.data.slug === mainTag);
-const heroTitle = tagEntry?.data.name ?? mainTag;
+const tagEntry = allTags.find((tag) => tag.id === mainTag);
+const heroTitle = tagEntry?.data.title ?? mainTag;
 ---
 
 <BaseLayout title={doc.data.title}>
@@ -29,7 +41,7 @@ const heroTitle = tagEntry?.data.name ?? mainTag;
   />
   <div class="flex justify-center">
     <article
-      class="prose prose-playground bg-surface/30 text-foreground t max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--glow-color)_22%,transparent),0_1px_28px_-10px_color-mix(in_oklch,var(--glow-color)_35%,transparent)] backdrop-blur-md"
+      class="prose prose-playground bg-surface/30 text-foreground t max-w-3xl flex-1 place-self-center rounded px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(3rem,4vw,4rem)] shadow-md backdrop-blur-md"
     >
       <Content />
     </article>

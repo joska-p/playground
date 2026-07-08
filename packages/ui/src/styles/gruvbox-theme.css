@@ -46,22 +46,42 @@
   --color-aqua: var(--aqua);
   --color-orange: var(--orange);
 
-  /* Project & Docs semantic colors */
-  --color-projects-color: var(--projects-color);
-  --color-projects-data-viz: var(--projects-data-viz);
-  --color-projects-generative: var(--projects-generative);
-  --color-projects-image: var(--projects-image);
-  --color-projects-random: var(--projects-random);
-  --color-projects-simulation: var(--projects-simulation);
-
-  --color-docs-explanation: var(--docs-explanation);
-  --color-docs-how-to: var(--docs-how-to);
-  --color-docs-reference: var(--docs-reference);
-  --color-docs-tutorial: var(--docs-tutorial);
-  --color-docs-conventions: var(--docs-conventions);
-
-  --color-notes-log: var(--notes-log);
-  --color-notes-maths: var(--notes-maths);
+  /* Tags semantic colors */
+  --color-tags-canvas: var(--tags-canvas);
+  --color-tags-cellular-automata: var(--tags-cellular-automata);
+  --color-tags-charts: var(--tags-charts);
+  --color-tags-color: var(--tags-color);
+  --color-tags-complex-systems: var(--tags-complex-systems);
+  --color-tags-conventions: var(--tags-conventions);
+  --color-tags-3d: var(--tags-3d);
+  --color-tags-data-viz: var(--tags-data-viz);
+  --color-tags-design: var(--tags-design);
+  --color-tags-docs: var(--tags-docs);
+  --color-tags-explanation: var(--tags-explanation);
+  --color-tags-generative: var(--tags-generative);
+  --color-tags-graph: var(--tags-graph);
+  --color-tags-how-to: var(--tags-how-to);
+  --color-tags-image: var(--tags-image);
+  --color-tags-l-system: var(--tags-l-system);
+  --color-tags-log: var(--tags-log);
+  --color-tags-machine-learning: var(--tags-machine-learning);
+  --color-tags-math: var(--tags-math);
+  --color-tags-particle-system: var(--tags-particle-system);
+  --color-tags-philosophy: var(--tags-philosophy);
+  --color-tags-physics: var(--tags-physics);
+  --color-tags-pipeline: var(--tags-pipeline);
+  --color-tags-procedural: var(--tags-procedural);
+  --color-tags-random: var(--tags-random);
+  --color-tags-reference: var(--tags-reference);
+  --color-tags-shader: var(--tags-shader);
+  --color-tags-simulation: var(--tags-simulation);
+  --color-tags-svg: var(--tags-svg);
+  --color-tags-theory: var(--tags-theory);
+  --color-tags-three-js: var(--tags-three-js);
+  --color-tags-tutorial: var(--tags-tutorial);
+  --color-tags-webgl: var(--tags-webgl);
+  --color-tags-worker-pool: var(--tags-worker-pool);
+  --color-tags-zustand: var(--tags-zustand);
 
   /* Typography */
   --font-sans: 'JetBrainsMono Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
@@ -136,20 +156,42 @@
     --glow-strength-hover: 70%;
 
     /* Semantic aliases */
-    --color-projects-color: oklch(0.731 0.182 51.693); /* orange   */
-    --color-projects-data-viz: oklch(0.62 0.13 135); /* green   */
-    --color-projects-generative: oklch(0.71 0.14 78); /* yellow  */
-    --color-projects-image: oklch(0.52 0.09 200); /* blue    */
-    --color-projects-random: oklch(0.58 0.12 320); /* purple  */
-    --color-projects-simulation: oklch(0.59 0.11 155); /* aqua    */
-
-    --color-docs-explanation: oklch(0.65 0.15 45); /* orange  */
-    --color-docs-how-to: oklch(0.52 0.09 200); /* blue    */
-    --color-docs-reference: oklch(0.62 0.13 135); /* green   */
-    --color-docs-tutorial: oklch(0.71 0.14 78); /* yellow  */
-    --color-docs-conventions: oklch(0.731 0.182 51.693); /* orange  */
-    --color-notes-log: oklch(0.52 0.09 200); /* blue    */
-    --color-notes-maths: oklch(0.58 0.12 320); /* purple  */
+    --tags-3d: oklch(0.68 0.13 200); /* blue-cyan */
+    --tags-canvas: oklch(0.71 0.14 78); /* yellow-gold */
+    --tags-cellular-automata: oklch(0.59 0.11 155); /* aqua */
+    --tags-charts: oklch(0.62 0.13 135); /* green (same as data-viz) */
+    --tags-color: oklch(0.731 0.182 51.693); /* orange (existing) */
+    --tags-complex-systems: oklch(0.65 0.12 280); /* purple */
+    --tags-conventions: oklch(0.731 0.182 51.693); /* orange (existing) */
+    --tags-d3: oklch(0.693 0.042 169.768); /* blue (existing primary) */
+    --tags-data-viz: oklch(0.62 0.13 135); /* green (existing) */
+    --tags-design: oklch(0.705 0.098 2.189); /* purple-pink (existing accent) */
+    --tags-docs: oklch(0.69 0.035 76.307); /* muted foreground */
+    --tags-explanation: oklch(0.65 0.15 45); /* orange (existing) */
+    --tags-generative: oklch(0.71 0.14 78); /* yellow (existing) */
+    --tags-graph: oklch(0.693 0.042 169.768); /* blue */
+    --tags-how-to: oklch(0.52 0.09 200); /* blue (existing) */
+    --tags-image: oklch(0.52 0.09 200); /* blue (existing) */
+    --tags-l-system: oklch(0.71 0.14 78); /* yellow */
+    --tags-log: oklch(0.52 0.09 200); /* blue (existing) */
+    --tags-machine-learning: oklch(0.58 0.12 320); /* purple */
+    --tags-math: oklch(0.58 0.12 320); /* purple (existing) */
+    --tags-particle-system: oklch(0.756 0.108 137.676); /* aqua */
+    --tags-philosophy: oklch(0.65 0.08 250); /* soft blue-purple */
+    --tags-physics: oklch(0.59 0.11 155); /* aqua */
+    --tags-pipeline: oklch(0.693 0.042 169.768); /* blue */
+    --tags-procedural: oklch(0.71 0.14 78); /* yellow */
+    --tags-random: oklch(0.58 0.12 320); /* purple (existing) */
+    --tags-reference: oklch(0.62 0.13 135); /* green (existing) */
+    --tags-shader: oklch(0.68 0.13 200); /* bright blue-cyan */
+    --tags-simulation: oklch(0.59 0.11 155); /* aqua (existing) */
+    --tags-svg: oklch(0.693 0.042 169.768); /* blue */
+    --tags-theory: oklch(0.705 0.098 2.189); /* purple-pink */
+    --tags-three-js: oklch(0.68 0.13 200); /* blue-cyan */
+    --tags-tutorial: oklch(0.71 0.14 78); /* yellow (existing) */
+    --tags-webgl: oklch(0.68 0.13 200); /* blue-cyan */
+    --tags-worker-pool: oklch(0.69 0.035 76.307); /* muted */
+    --tags-zustand: oklch(0.765 0.158 110.835); /* green (secondary) */
   }
 
   html[data-theme='light'] {
@@ -189,20 +231,42 @@
     --glow-strength-hover: 55%;
 
     /* Semantic aliases */
-    --projects-color: oklch(0.48 0.15 25); /* darker red    */
-    --projects-data-viz: oklch(0.45 0.12 135); /* darker green  */
-    --projects-generative: oklch(0.55 0.13 78); /* darker yellow */
-    --projects-image: oklch(0.4 0.1 200); /* darker blue   */
-    --projects-random: oklch(0.42 0.11 320); /* darker purple */
-    --projects-simulation: oklch(0.43 0.1 155); /* darker aqua   */
-
-    --docs-explanation: oklch(0.52 0.14 45);
-    --docs-how-to: oklch(0.48 0.15 25);
-    --docs-reference: oklch(0.45 0.12 135);
-    --docs-tutorial: oklch(0.55 0.13 78);
-
-    --notes-log: oklch(0.4 0.1 200);
-    --notes-maths: oklch(0.42 0.11 320);
+    --tags-3d: oklch(0.45 0.11 200);
+    --tags-canvas: oklch(0.55 0.13 78);
+    --tags-cellular-automata: oklch(0.43 0.1 155);
+    --tags-charts: oklch(0.45 0.12 135);
+    --tags-color: oklch(0.48 0.15 25);
+    --tags-complex-systems: oklch(0.42 0.11 280);
+    --tags-conventions: oklch(0.48 0.15 25);
+    --tags-d3: oklch(0.471 0.082 215.806);
+    --tags-data-viz: oklch(0.45 0.12 135);
+    --tags-design: oklch(0.489 0.124 344.276);
+    --tags-docs: oklch(0.482 0.018 61.042);
+    --tags-explanation: oklch(0.52 0.14 45);
+    --tags-generative: oklch(0.55 0.13 78);
+    --tags-graph: oklch(0.471 0.082 215.806);
+    --tags-how-to: oklch(0.48 0.15 25);
+    --tags-image: oklch(0.4 0.1 200);
+    --tags-l-system: oklch(0.55 0.13 78);
+    --tags-log: oklch(0.4 0.1 200);
+    --tags-machine-learning: oklch(0.42 0.11 320);
+    --tags-math: oklch(0.42 0.11 320);
+    --tags-particle-system: oklch(0.43 0.1 155);
+    --tags-philosophy: oklch(0.4 0.08 250);
+    --tags-physics: oklch(0.43 0.1 155);
+    --tags-pipeline: oklch(0.471 0.082 215.806);
+    --tags-procedural: oklch(0.55 0.13 78);
+    --tags-random: oklch(0.42 0.11 320);
+    --tags-reference: oklch(0.45 0.12 135);
+    --tags-shader: oklch(0.45 0.11 200);
+    --tags-simulation: oklch(0.43 0.1 155);
+    --tags-svg: oklch(0.471 0.082 215.806);
+    --tags-theory: oklch(0.489 0.124 344.276);
+    --tags-three-js: oklch(0.45 0.11 200);
+    --tags-tutorial: oklch(0.55 0.13 78);
+    --tags-webgl: oklch(0.45 0.11 200);
+    --tags-worker-pool: oklch(0.482 0.018 61.042);
+    --tags-zustand: oklch(0.546 0.112 106.464);
   }
 
   html {

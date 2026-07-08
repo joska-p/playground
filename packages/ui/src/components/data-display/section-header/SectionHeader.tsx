@@ -1,9 +1,10 @@
 import { ArrowRight } from 'lucide-react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
 import type { IconName } from '../../icons';
 import { Icon } from '../../icons';
+import { sectionHeaderVariants } from './variants';
 
 type SectionHeaderProps = {
   title: string;
@@ -36,25 +37,18 @@ function SectionHeader({
       ref={ref}
       className={cn(
         'flex flex-col gap-2 font-mono',
+        sectionHeaderVariants({ variant }),
         isCenter ? 'items-center text-center' : 'items-start',
         className
       )}
-      style={colorVarStyle(variant, style)}
+      style={style}
       {...props}
     >
       <div className={cn('flex items-center gap-3', isCenter && 'justify-center')}>
-        <span
-          className="flex h-8 w-8 shrink-0 items-center justify-center"
-          style={{ color: 'var(--_color)' }}
-        >
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center">
           <Icon name={iconName} />
         </span>
-        <h2
-          className="m-0 text-xs font-bold tracking-wide uppercase"
-          style={{ color: 'var(--_color)' }}
-        >
-          {title}
-        </h2>
+        <h2 className="m-0 text-xs font-bold tracking-wide uppercase">{title}</h2>
       </div>
 
       {description && (
@@ -77,10 +71,10 @@ function SectionHeader({
             { 'ml-10': !isCenter }
           )}
         >
-          <span className="text-(--_color) opacity-60 transition-[opacity,color] group-hover:opacity-100">
+          <span className="opacity-60 transition-[opacity,color] group-hover:opacity-100">
             {linkText}
           </span>
-          <ArrowRight className="h-4 w-4 text-(--_color) opacity-60 transition-[opacity,transform] group-hover:translate-x-0.5 group-hover:opacity-100" />
+          <ArrowRight className="h-4 w-4 opacity-60 transition-[opacity,transform] group-hover:translate-x-0.5 group-hover:opacity-100" />
         </a>
       )}
     </div>

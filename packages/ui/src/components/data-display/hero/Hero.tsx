@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { COLOR_GRADIENT_FROM, type ColorVariant } from '../../../lib/colorVariant';
+import { heroVariants } from './variants';
 
 type HeroProps = {
   badgeText?: string;
@@ -24,31 +25,32 @@ function Hero({
   ref,
   ...props
 }: HeroProps) {
+  const fromColor = COLOR_GRADIENT_FROM[variant];
+
   return (
     <section
       ref={ref}
       className={cn(
         'relative flex min-h-[65vh] flex-col justify-center overflow-hidden px-6 py-[clamp(5rem,8vw,8rem)] font-mono',
+        heroVariants({ variant }),
         className
       )}
-      style={colorVarStyle(variant, style)}
+      style={style}
       {...props}
     >
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         {badgeText && (
-          <div
-            className="mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide uppercase shadow-xs"
-            style={{
-              background: 'color-mix(in srgb, var(--_color) 15%, transparent)',
-              color: 'var(--_color)'
-            }}
-          >
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide uppercase shadow-xs">
             {badgeText}
           </div>
         )}
 
         <h1
-          className="via-accent to-secondary from-(--_color bg-linear-to-br bg-clip-text leading-tight font-black text-transparent"
+          className={cn(
+            'bg-linear-to-br bg-clip-text leading-tight font-black text-transparent',
+            fromColor,
+            'via-accent to-secondary'
+          )}
           style={{ fontSize: 'clamp(2.75rem,7.5vw,5.5rem)' }}
         >
           <span

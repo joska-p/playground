@@ -18,15 +18,15 @@ interface NavGroup {
 
 const groups: NavGroup[] = allTags
   .filter((tag) =>
-    ['tutorial', 'how-to', 'explanation', 'reference', 'conventions'].includes(tag.data.slug)
+    ['tutorial', 'how-to', 'explanation', 'reference', 'conventions'].includes(tag.id)
   )
   .map((tag) => {
     const articles = allDocs
-      .filter((doc) => doc.data.tags[0] === tag.data.slug)
+      .filter((doc) => doc.data.tags[0] === tag.id)
       .sort((a, b) => a.data.order - b.data.order);
     return {
-      id: tag.data.slug,
-      label: tag.data.name,
+      id: tag.id,
+      label: tag.data.title,
       description: tag.data.description,
       iconName: tag.data.icon ?? 'bluesky',
       articles

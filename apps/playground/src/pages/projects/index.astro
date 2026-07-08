@@ -1,52 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero, SectionHeader } from '@repo/ui/data-display';
+import { Hero } from '@repo/ui/data-display';
 import { ProjectCard } from '@repo/ui/cards';
 import Footer from '../../layouts/Footer.astro';
 import type { CSSProperties } from 'react';
-import type { IconName } from '@repo/ui/icons';
 
-const allTags = await getCollection('tags');
 const allProjects = await getCollection('projects');
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
-
-interface Group {
-  id: string;
-  name: string;
-  description: string;
-  icon: IconName;
-  order: number;
-  projects: Array<{
-    slug: string;
-    tags: string[];
-    name: string;
-    description: string;
-    icon: IconName;
-  }>;
-}
-
-const groups: Group[] = allTags
-  .filter((tag) => tag.data.order !== undefined && tag.data.icon !== undefined)
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((tag) => ({
-    id: tag.data.slug,
-    name: tag.data.name,
-    description: tag.data.description,
-    icon: tag.data.icon!,
-    order: tag.data.order,
-    projects: allProjects
-      .filter((p) => p.data.tags[0] === tag.data.slug)
-      .map((p) => ({
-        slug: p.id,
-        tags: p.data.tags,
-        name: p.data.name,
-        description: p.data.description,
-        icon: p.data.icon
-      }))
-  }))
-  .filter((g) => g.projects.length > 0);
 ---
 
 <BaseLayout title="Projects">
@@ -58,42 +20,26 @@ const groups: Group[] = allTags
   />
 
   <div class="mx-auto w-full max-w-6xl space-y-16 px-6 py-16 lg:py-20">
-    {
-      groups.map(({ name, description, id, projects }) => {
-        const cardStyle = {
-          '--_color': `var(--color-projects-${id})`
-        } as CSSProperties;
-
-        return (
-          <section>
-            <SectionHeader
-              title={name}
-              description={description}
-              className="mb-12"
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+      {
+        allProjects.map((project) => {
+          const mainTag = project.data.tags[0].id;
+          const cardStyle = {
+            '--_color': `var(--color-tags-${mainTag})`
+          } as CSSProperties;
+          return (
+            <ProjectCard
+              href={`${projectsBaseUrl}${project.id}`}
+              title={project.data.title}
+              description={project.data.description}
+              iconName={project.data.iconName}
               style={cardStyle}
-              iconName="bluesky"
+              tags={project.data.tags.map((tag) => tag.id)}
             />
-            <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
-              {projects.map((project) => {
-                const cardStyle = {
-                  '--_color': `var(--color-projects-${id})`
-                } as CSSProperties;
-                return (
-                  <ProjectCard
-                    href={`${projectsBaseUrl}${id}/${project.slug}/`}
-                    title={project.name}
-                    description={project.description}
-                    iconName={project.icon}
-                    style={cardStyle}
-                    tags={project.tags}
-                  />
-                );
-              })}
-            </div>
-          </section>
-        );
-      })
-    }
+          );
+        })
+      }
+    </div>
   </div>
 
   <Footer>

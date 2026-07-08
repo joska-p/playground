@@ -4,7 +4,8 @@ export { alertVariants } from './alert/variants';
 
 export { DefaultFallback } from './default-fallback/DefaultFallback';
 export type { DefaultFallbackProps } from './default-fallback/DefaultFallback';
-export { defaultFallbackVariants } from './default-fallback/variants';
+export { defaultFallbackVariants, fallbackIconColor } from './default-fallback/variants';
+export type { FallbackIconColor, FallbackIconColorProps } from './default-fallback/variants';
 
 export {
   Dialog,

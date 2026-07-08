@@ -1,3 +1,0 @@
-slug: physics
-name: Physics
-description: Physics simulation — particle systems with velocity, gravity, and collision. Image-to-particles transforms each pixel into a physically simulated element.

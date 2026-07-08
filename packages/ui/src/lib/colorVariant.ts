@@ -2,17 +2,13 @@
  * Shared color-variant system.
  * -----------------------------
  * Every component in this library accepts the same `variant` prop with
- * these six values: one neutral `default` plus the five semantic tokens
- * defined in globals.css (primary, secondary, accent, warning, destructive).
+ * these values: default, primary, secondary, accent, warning, destructive,
+ * ghost, outline.
  *
- * Two helpers are exported:
- *  - `colorVar(variant)` returns the raw CSS var (e.g. "var(--primary)"),
- *    for components that key off a single `--_color` custom property
- *    (badges, the toggle switch, tab indicators, card glow, accents...).
- *  - `colorVariant` is the shared type used across every component's props.
+ * `COLOR_CLASSES` is the single source of truth mapping each variant to
+ * its canonical bg + text Tailwind classes. CVA variant configs in
+ * individual components spread this object and add any overrides.
  */
-
-import type { CSSProperties } from 'react';
 
 export type ColorVariant =
   'default' | 'primary' | 'secondary' | 'accent' | 'warning' | 'destructive' | 'ghost' | 'outline';
@@ -28,25 +24,26 @@ export const COLOR_VARIANTS: ColorVariant[] = [
   'outline'
 ];
 
-/** Raw CSS custom-property reference for a given variant. */
-export function colorVar(variant: ColorVariant = 'default'): string {
-  const map: Record<ColorVariant, string> = {
-    default: 'var(--foreground-dim)',
-    primary: 'var(--primary)',
-    secondary: 'var(--secondary)',
-    accent: 'var(--accent)',
-    warning: 'var(--warning)',
-    destructive: 'var(--destructive)',
-    ghost: 'var(--ghost)',
-    outline: 'var(--outline)'
-  };
-  return map[variant];
-}
+/** Canonical bg + text Tailwind classes per variant. */
+export const COLOR_CLASSES: Record<ColorVariant, string> = {
+  default: 'bg-surface-raised text-foreground',
+  primary: 'bg-primary text-primary-foreground',
+  secondary: 'bg-secondary text-secondary-foreground',
+  accent: 'bg-accent text-accent-foreground',
+  warning: 'bg-warning text-warning-foreground',
+  destructive: 'bg-destructive text-destructive-foreground',
+  ghost: 'text-foreground',
+  outline: 'text-foreground-dim border border-border bg-transparent'
+};
 
-/** Convenience style object for components using the `--_color` pattern. */
-export function colorVarStyle(
-  variant: ColorVariant = 'default',
-  extra?: CSSProperties
-): CSSProperties {
-  return { ['--_color' as string]: colorVar(variant), ...extra };
-}
+/** Gradient `from-` stop class per variant, for gradient headings and accents. */
+export const COLOR_GRADIENT_FROM: Record<ColorVariant, string> = {
+  default: 'from-foreground-dim',
+  primary: 'from-primary',
+  secondary: 'from-secondary',
+  accent: 'from-accent',
+  warning: 'from-warning',
+  destructive: 'from-destructive',
+  ghost: 'from-foreground',
+  outline: 'from-foreground-dim'
+};

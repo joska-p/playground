@@ -1,19 +1,19 @@
-import type { IconName } from '@repo/ui/icons';
 import { iconMap } from '@repo/ui/icons';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 
-const iconSchema = z.enum(Object.keys(iconMap) as [IconName, ...IconName[]]);
+const iconNameSchema = z.enum(Object.keys(iconMap));
+
+export type IconNameSchemaType = z.infer<typeof iconNameSchema>;
 
 const tags = defineCollection({
-  loader: glob({ pattern: '**/*.yml', base: './src/content/tags' }),
+  loader: file('src/content/tags.yml'),
   schema: z.object({
-    slug: z.string(),
-    name: z.string(),
+    title: z.string(),
     description: z.string(),
-    icon: iconSchema.optional(),
-    order: z.number().default(0)
+    iconName: iconNameSchema.optional(),
+    order: z.number().default(0).optional()
   })
 });
 
@@ -26,7 +26,7 @@ const docs = defineCollection({
     order: z.number().default(0),
     draft: z.boolean().default(false),
     // First tag is the main tag — controls the visual style
-    tags: z.array(z.string()).default([])
+    tags: z.array(reference('tags'))
   })
 });
 
@@ -40,21 +40,21 @@ const notes = defineCollection({
     order: z.number().default(0),
     draft: z.boolean().default(false),
     // First tag is the main tag — controls the visual style
-    tags: z.array(z.string()).default([])
+    tags: z.array(reference('tags'))
   })
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: '*.yml', base: './src/content/projects' }),
+  loader: file('src/content/projects.yml'),
   schema: z.object({
-    name: z.string(),
+    title: z.string(),
     description: z.string(),
-    icon: iconSchema,
+    iconName: iconNameSchema,
     packageDir: z.string(),
     featured: z.boolean().default(false),
     order: z.number().default(0),
     // First tag is the main tag — controls the visual style
-    tags: z.array(z.string()).default([])
+    tags: z.array(reference('tags'))
   })
 });
 

@@ -12,23 +12,10 @@ import type { CSSProperties } from 'react';
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
 const docsBaseUrl = `${baseUrl}docs/`;
-
-const allTags = await getCollection('tags');
-const tagBySlug = (slug: string) => allTags.find((t) => t.data.slug === slug);
-
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.filter((p) => p.data.featured);
-
-const featuredDocs = await getCollection('docs', ({ data }) => data.featured && !data.draft);
-const featuredDocsWithMeta = featuredDocs.map((doc) => {
-  const mainTag = doc.data.tags[0];
-  const tagEntry = tagBySlug(mainTag);
-  return {
-    ...doc,
-    mainTag,
-    iconName: tagEntry?.data.icon
-  };
-});
+const allDocs = await getCollection('docs');
+const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
 ---
 
 <BaseLayout title="Playground">
@@ -90,16 +77,16 @@ const featuredDocsWithMeta = featuredDocs.map((doc) => {
         featuredProjects.map((project) => {
           const mainTag = project.data.tags[0];
           const cardStyle = {
-            '--_color': `var(--color-projects-${mainTag})`
+            '--_color': `var(--color-tags-${mainTag})`
           } as CSSProperties;
           return (
             <ProjectCard
               href={`${projectsBaseUrl}${mainTag}/${project.id}/`}
-              title={project.data.name}
+              title={project.data.title}
               description={project.data.description}
-              iconName={project.data.icon}
+              iconName={project.data.iconName}
               style={cardStyle}
-              tags={project.data.tags}
+              tags={project.data.tags.map((tag) => tag.id)}
             />
           );
         })
@@ -117,18 +104,18 @@ const featuredDocsWithMeta = featuredDocs.map((doc) => {
     />
     <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
       {
-        featuredDocsWithMeta.map((doc) => {
+        featuredDocs.map((doc) => {
+          const mainTag = doc.data.tags[0].id;
           const cardStyle = {
-            '--_color': `var(--color-docs-${doc.mainTag})`
+            '--_color': `var(--color-docs-${mainTag})`
           } as CSSProperties;
 
           return (
             <DocCard
               href={`${docsBaseUrl}${doc.id}/`}
-              type={doc.mainTag}
-              iconName={doc.iconName}
+              type={mainTag}
               title={doc.data.title}
-              description={doc.data.description ?? ''}
+              description={doc.data.description}
               style={cardStyle}
             />
           );

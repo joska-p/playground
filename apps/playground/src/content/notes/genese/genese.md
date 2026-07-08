@@ -5,7 +5,7 @@ date: 2026-06-28
 draft: false
 tags:
   - log
-  - maths
+  - math
   - complex-systems
   - philosophy
 ---

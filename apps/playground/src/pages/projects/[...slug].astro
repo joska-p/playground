@@ -6,39 +6,44 @@ import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map((project) => ({
-    params: { slug: `${project.data.tags[0]}/${project.id}` }
-  }));
+
+  return projects.map((project) => {
+    return {
+      params: {
+        slug: project.id
+      },
+      props: {
+        project
+      }
+    };
+  });
 }
 
-const slug = Astro.params.slug;
-const projectSlug = slug.split('/').pop()!;
-const allProjects = await getCollection('projects');
-const project = allProjects.find((p) => p.id === projectSlug);
+const { project } = Astro.props;
 
 if (!project) {
   return Astro.redirect('/404');
 }
 
-const { name, description } = project.data;
-const mainTag = project.data.tags[0];
-const keywords = project.data.tags.join(', ');
+const { title, description } = project.data;
+const mainTag = project.data.tags?.[0].id || 'other';
+const keywords = project.data.tags?.join(', ').slice(1) || '';
 ---
 
 <BaseLayout
-  title={name}
+  title={title}
   description={description}
   keywords={keywords}
 >
   <Hero
     badgeText={keywords}
-    title={name}
+    title={title}
     highlight={mainTag}
     description={description}
   />
   <div class="h-0 min-h-screen">
     <DynamicProjectApp
-      slug={projectSlug}
+      slug={project.id}
       client:only="react"
     />
   </div>
