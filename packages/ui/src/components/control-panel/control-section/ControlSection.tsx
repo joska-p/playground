@@ -1,7 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
 
 export type ControlSectionProps = {
   ref?: Ref<HTMLDetailsElement>;
@@ -15,7 +15,6 @@ export type ControlSectionProps = {
 export function ControlSection({
   ref,
   title,
-  variant = 'default',
   defaultOpen = true,
   className,
   children
@@ -35,7 +34,6 @@ export function ControlSection({
         'group/section border-border flex flex-none flex-col border-t pt-4 first:border-t-0 first:pt-0',
         className
       )}
-      style={colorVarStyle(variant)}
     >
       <summary className="flex shrink-0 cursor-pointer list-none items-center gap-2 pb-3 select-none [&::-webkit-details-marker]:hidden">
         <ChevronRight
