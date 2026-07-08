@@ -112,7 +112,7 @@ function EdgeFilter({ id, seed, baseFrequency, glowColor, blur }: FilterDefProps
 
 export function EdgeField() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 h-screen w-screen">
       {/* Calm base contour field */}
       <svg
         className="drift absolute inset-0 h-full w-full"

@@ -93,6 +93,9 @@ export const iconMap = {
 export type IconName = keyof typeof iconMap;
 export type IconEntry = { name: IconName; label: (typeof iconMap)[IconName] };
 
+// a runtime tuple Zod can consume, typed to match IconName exactly
+export const iconNames = Object.keys(iconMap) as [IconName, ...IconName[]];
+
 export const iconArray = Object.entries(iconMap).map(([name]) => ({
   name,
   label: name.replace(/-/g, ' ')

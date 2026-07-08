@@ -1,4 +1,3 @@
-import { ErrorBoundary } from '@repo/ui/feedback';
 import { Sidebar } from '@repo/ui/widgets';
 import { FilterControls } from './components/controls/FilterControls.tsx';
 import { DetailsPanel } from './components/details-panel/DetailsPanel.tsx';
@@ -24,21 +23,19 @@ function App() {
   }
 
   return (
-    <ErrorBoundary>
-      <Sidebar
-        position="right"
-        className="bg-background text-foreground min-h-screen"
-      >
-        <Sidebar.Main>
-          <GraphCanvas />
-        </Sidebar.Main>
+    <Sidebar
+      position="right"
+      className="bg-background text-foreground min-h-screen"
+    >
+      <Sidebar.Main>
+        <GraphCanvas />
+      </Sidebar.Main>
 
-        <Sidebar.Panel className="w-100 space-y-4 p-4">
-          <DetailsPanel />
-          <FilterControls />
-        </Sidebar.Panel>
-      </Sidebar>
-    </ErrorBoundary>
+      <Sidebar.Panel className="w-100 space-y-4 p-4">
+        <DetailsPanel />
+        <FilterControls />
+      </Sidebar.Panel>
+    </Sidebar>
   );
 }
 

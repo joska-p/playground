@@ -1,38 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
 import NavCategory from './NavCategory.astro';
-import type { IconName } from '@repo/ui/icons';
 
 const currentPath = Astro.url.pathname;
-
-const allTags = await getCollection('tags');
-const allDocs = await getCollection('docs', ({ data }) => !data.draft);
-
-interface NavGroup {
-  id: string;
-  label: string;
-  description: string;
-  iconName: IconName;
-  articles: typeof allDocs;
-}
-
-const groups: NavGroup[] = allTags
-  .filter((tag) =>
-    ['tutorial', 'how-to', 'explanation', 'reference', 'conventions'].includes(tag.id)
-  )
-  .map((tag) => {
-    const articles = allDocs
-      .filter((doc) => doc.data.tags[0] === tag.id)
-      .sort((a, b) => a.data.order - b.data.order);
-    return {
-      id: tag.id,
-      label: tag.data.title,
-      description: tag.data.description,
-      iconName: tag.data.icon ?? 'bluesky',
-      articles
-    };
-  })
-  .filter((g) => g.articles.length > 0);
 ---
 
 <aside class="sticky top-24 hidden h-full w-60 shrink-0 flex-col overflow-y-auto md:flex">
@@ -47,9 +16,9 @@ const groups: NavGroup[] = allTags
   >
     <div class="space-y-5 py-1">
       {
-        groups.map((tag) => (
+        ['tutorial', 'how-to', 'explanation', 'reference', 'conventions'].map((categoryName) => (
           <NavCategory
-            category={tag}
+            categoryName={categoryName}
             currentPath={currentPath}
           />
         ))

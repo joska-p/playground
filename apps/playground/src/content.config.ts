@@ -1,9 +1,9 @@
-import { iconMap } from '@repo/ui/icons';
+import { iconNames } from '@repo/ui/icons';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { defineCollection, reference } from 'astro:content';
 
-const iconNameSchema = z.enum(Object.keys(iconMap));
+const iconNameSchema = z.enum(iconNames);
 
 export type IconNameSchemaType = z.infer<typeof iconNameSchema>;
 
