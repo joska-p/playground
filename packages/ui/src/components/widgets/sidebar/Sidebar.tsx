@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useCallback, useId, useMemo } from 'react';
 import { useSidebarState } from '../../../hooks/useSidebarState';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
 import { SidebarContext, type SidebarContextValue } from './SidebarContext';
 import { SidebarMain } from './SidebarMain';
 import { SidebarPanel } from './SidebarPanel';
@@ -64,9 +64,10 @@ function Sidebar({
       open,
       close,
       panelId,
-      position
+      position,
+      variant
     }),
-    [isOpen, toggle, open, close, panelId, position]
+    [isOpen, toggle, open, close, panelId, position, variant]
   );
 
   const isHorizontal = position === 'left' || position === 'right';
@@ -89,7 +90,7 @@ function Sidebar({
           className
         )}
         style={{
-          ...colorVarStyle(variant, style),
+          ...style,
           ...(panelWidth && { '--sidebar-width': panelWidth }),
           ...(panelHeight && { '--sidebar-height': panelHeight })
         }}

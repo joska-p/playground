@@ -1,16 +1,25 @@
 import { Menu, X } from 'lucide-react';
 import type { ButtonHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
 import { useSidebarContext } from './useSidebarContext';
+import { sidebarToggleVariants } from './variants';
 
 export type SidebarToggleProps = {
   variant?: ColorVariant;
   ref?: Ref<HTMLButtonElement>;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-function SidebarToggle({ className, children, variant, style, ref, ...props }: SidebarToggleProps) {
-  const { isOpen, toggle } = useSidebarContext();
+function SidebarToggle({
+  className,
+  children,
+  variant: explicitVariant,
+  style,
+  ref,
+  ...props
+}: SidebarToggleProps) {
+  const { isOpen, toggle, variant: contextVariant } = useSidebarContext();
+  const variant = explicitVariant ?? contextVariant;
 
   return (
     <button
@@ -19,13 +28,10 @@ function SidebarToggle({ className, children, variant, style, ref, ...props }: S
       onClick={toggle}
       className={cn(
         'inline-flex items-center justify-center rounded-md p-2 font-mono text-sm transition-all hover:brightness-110 active:scale-[.97]',
+        sidebarToggleVariants({ variant }),
         className
       )}
-      style={{
-        ...colorVarStyle(variant, style),
-        color: 'var(--_color)',
-        background: 'color-mix(in srgb, var(--_color) 10%, transparent)'
-      }}
+      style={style}
       aria-expanded={isOpen}
       aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
       {...props}

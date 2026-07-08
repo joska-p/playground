@@ -25,8 +25,8 @@ export function ContributingSection() {
           </li>
           <li>
             <strong>Color, if any</strong>, uses the shared ColorVariant type from
-            lib/colorVariant.ts — do not invent a parallel color enum. Decide between cva (§5.1) and
-            --_color (§5.2).
+            lib/colorVariant.ts — do not invent a parallel color enum. Use cva (§5.1) with a variant
+            axis that spreads COLOR_CLASSES or defines per-variant Tailwind classes.
           </li>
           <li>
             <strong>Mobile-first.</strong> No-prefix styles are the complete experience;

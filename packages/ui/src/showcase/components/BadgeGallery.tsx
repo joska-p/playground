@@ -7,7 +7,7 @@ export function BadgeGallery() {
     <DemoSection
       id="component-badge"
       title="Badge"
-      intro="Color-driven via --_color. Supports soft (default), solid, and outline appearances plus a dot indicator."
+      intro="Uses cva compound variants (variant x appearance). Supports soft (default), solid, and outline appearances plus a dot indicator."
       apiRows={[
         { prop: 'variant', type: 'ColorVariant', default: '"default"' },
         { prop: 'appearance', type: '"soft" | "solid" | "outline"', default: '"soft"' },

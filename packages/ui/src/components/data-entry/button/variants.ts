@@ -1,10 +1,5 @@
 import { cva } from 'class-variance-authority';
 
-/**
- * Button variants — kept in its own file so the variant config can be
- * imported independently of the component (e.g. for style previews,
- * Storybook controls, or reused by another primitive).
- */
 export const buttonVariants = cva(
   'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-medium ' +
     'transition-all duration-200 active:scale-[.97] disabled:pointer-events-none disabled:opacity-40 ' +

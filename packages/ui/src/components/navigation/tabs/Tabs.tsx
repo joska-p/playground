@@ -1,11 +1,13 @@
 import { createContext, useContext, useId, type ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { tabUnderlineVariants } from './variants';
 
 type TabsContextValue = {
   value: string;
   setValue: (v: string) => void;
   name: string;
+  variant: ColorVariant;
 };
 const TabsContext = createContext<TabsContextValue | null>(null);
 
@@ -16,9 +18,6 @@ function useTabsContext() {
 }
 
 export type TabsProps = {
-  /** Active tab. Tabs is fully controlled — there is no internal state;
-   *  pair with the `useTabsState` hook if you want the classic
-   *  "uncontrolled" ergonomics without putting state inside the component. */
   value: string;
   onValueChange: (value: string) => void;
   children: ReactNode;
@@ -26,13 +25,6 @@ export type TabsProps = {
   variant?: ColorVariant;
 };
 
-/**
- * Tabs — built on real (visually-hidden) radio inputs, so the tab group is
- * a native, form-participating radio group under the hood: arrow-key
- * navigation and screen-reader semantics come for free. The component
- * itself is stateless — `value`/`onValueChange` are required, and the
- * radio's checked state is derived from props on every render.
- */
 export function Tabs({
   value,
   onValueChange,
@@ -43,10 +35,9 @@ export function Tabs({
   const name = useId();
 
   return (
-    <TabsContext.Provider value={{ value, setValue: onValueChange, name }}>
+    <TabsContext.Provider value={{ value, setValue: onValueChange, name, variant }}>
       <div
-        className={cn('tabs-container bg-surface overflow-hidden rounded-lg', className)}
-        style={{ boxShadow: 'var(--shadow-sm)', ...colorVarStyle(variant) }}
+        className={cn('tabs-container bg-surface overflow-hidden rounded-lg shadow-sm', className)}
       >
         {children}
       </div>
@@ -67,12 +58,12 @@ export function TabsTrigger({
   children: ReactNode;
   className?: string;
 }) {
-  const { value: active, setValue, name } = useTabsContext();
+  const { value: active, setValue, name, variant } = useTabsContext();
   const isActive = active === value;
   return (
     <label
       className={cn(
-        'tab-trigger text-foreground-dim px-5 py-3 text-[13px] font-medium transition-colors',
+        'group tab-trigger text-foreground-dim relative cursor-pointer px-5 py-3 text-[13px] font-medium transition-colors select-none',
         className
       )}
       data-active={isActive}
@@ -88,6 +79,13 @@ export function TabsTrigger({
         className="sr-only"
       />
       {children}
+      <span
+        className={cn(
+          'absolute inset-x-0 -bottom-px h-0.5 scale-x-0 rounded-sm transition-transform duration-200',
+          'group-data-[active=true]:scale-x-100',
+          tabUnderlineVariants({ variant })
+        )}
+      />
     </label>
   );
 }

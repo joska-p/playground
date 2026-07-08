@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
-export const selectWrapperVariants = cva(
-  'bg-surface flex w-full items-center gap-2 rounded-md px-3',
+export const textareaVariants = cva(
+  'bg-surface text-foreground placeholder:text-foreground-dim w-full resize-y rounded-md p-3 text-[13px] transition-[border-color,box-shadow] duration-200 outline-none border-border border',
   {
     variants: {
       variant: {
@@ -21,27 +21,8 @@ export const selectWrapperVariants = cva(
           'focus-within:border-transparent focus-within:ring-[3px] focus-within:ring-transparent focus-within:text-foreground',
         outline:
           'focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15 focus-within:text-foreground-dim'
-      },
-      size: {
-        sm: 'py-1',
-        default: 'py-0',
-        lg: 'py-1.5'
       }
     },
-    defaultVariants: { variant: 'primary', size: 'default' }
-  }
-);
-
-export const selectVariants = cva(
-  'text-foreground w-full cursor-pointer appearance-none bg-transparent py-2 pr-6 outline-none disabled:cursor-not-allowed disabled:opacity-40',
-  {
-    variants: {
-      size: {
-        sm: 'text-[12px]',
-        default: 'text-[13px]',
-        lg: 'text-[14px]'
-      }
-    },
-    defaultVariants: { size: 'default' }
+    defaultVariants: { variant: 'primary' }
   }
 );

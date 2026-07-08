@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
+import { type ColorVariant } from '../../../lib/colorVariant';
 import { colorPaletteVariants, colorSwatchVariants } from './variants';
 
 type PaletteVariants = VariantProps<typeof colorPaletteVariants>;
@@ -36,8 +36,8 @@ function ColorPalette({
   return (
     <label
       ref={ref}
-      className={cn(colorPaletteVariants({ orientation, className }))}
-      style={colorVarStyle(colorVariant, style)}
+      className={cn(colorPaletteVariants({ orientation, variant: colorVariant, className }))}
+      style={style}
       {...props}
     >
       <input

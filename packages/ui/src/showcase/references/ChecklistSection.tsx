@@ -25,7 +25,7 @@ export function ChecklistSection() {
         </li>
         <li>
           :has(), :focus-within, @starting-style, color-mix() stay in globals.css. React only
-          toggles attributes (open, checked, data-active, --_color) on top of them.
+          toggles attributes (open, checked, data-active) on top of them.
         </li>
         <li>prefers-reduced-motion is respected (handled globally in globals.css).</li>
       </ul>

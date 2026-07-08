@@ -1,9 +1,9 @@
 import { cva } from 'class-variance-authority';
 import { COLOR_CLASSES } from '../../../lib/colorVariant';
 
-export const helperTextVariants = cva('flex items-start gap-1.5 text-xs leading-relaxed', {
+export const sliderVariants = cva('w-full', {
   variants: {
     variant: { ...COLOR_CLASSES }
   },
-  defaultVariants: { variant: 'default' }
+  defaultVariants: { variant: 'primary' }
 });

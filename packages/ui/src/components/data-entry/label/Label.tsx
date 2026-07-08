@@ -11,12 +11,6 @@ export type LabelProps = {
 } & LabelHTMLAttributes<HTMLLabelElement> &
   VariantProps<typeof labelVariants>;
 
-/**
- * Label — a plain <label>, colorable and sizable like every other form
- * primitive. Size is meaningful here (a label in a dense filter bar reads
- * smaller than one above a hero form field), so both `variant` and `size`
- * are exposed. Stateless: pass `htmlFor` and pair it with the field's `id`.
- */
 export function Label({
   className,
   variant,

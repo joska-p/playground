@@ -1,6 +1,18 @@
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { radioVariants } from './variants';
+
+const ACCENT_COLOR: Record<ColorVariant, string> = {
+  default: 'var(--foreground-dim)',
+  primary: 'var(--primary)',
+  secondary: 'var(--secondary)',
+  accent: 'var(--accent)',
+  warning: 'var(--warning)',
+  destructive: 'var(--destructive)',
+  ghost: 'var(--foreground)',
+  outline: 'var(--foreground-dim)'
+};
 
 export type RadioProps = {
   variant?: ColorVariant;
@@ -24,8 +36,8 @@ export function Radio({
       type="radio"
       id={id}
       disabled={disabled}
-      className={cn('h-4 w-4 shrink-0 cursor-pointer rounded-full', className)}
-      style={{ accentColor: colorVar(variant), ...style }}
+      className={cn(className)}
+      style={{ accentColor: ACCENT_COLOR[variant], ...style }}
       {...props}
     />
   );
@@ -36,7 +48,7 @@ export function Radio({
     <label
       htmlFor={id}
       className={cn(
-        'flex items-center gap-2.5 text-[13px] select-none',
+        radioVariants({ variant }),
         disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'
       )}
     >

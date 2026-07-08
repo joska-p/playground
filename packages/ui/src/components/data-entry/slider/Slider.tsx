@@ -1,6 +1,18 @@
 import type { InputHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVar, type ColorVariant } from '../../../lib/colorVariant';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { sliderVariants } from './variants';
+
+const ACCENT_COLOR: Record<ColorVariant, string> = {
+  default: 'var(--foreground-dim)',
+  primary: 'var(--primary)',
+  secondary: 'var(--secondary)',
+  accent: 'var(--accent)',
+  warning: 'var(--warning)',
+  destructive: 'var(--destructive)',
+  ghost: 'var(--foreground)',
+  outline: 'var(--foreground-dim)'
+};
 
 export type SliderProps = {
   variant?: ColorVariant;
@@ -20,7 +32,7 @@ export function Slider({
   ...props
 }: SliderProps) {
   return (
-    <div className="w-full">
+    <div className={cn(sliderVariants({ variant }))}>
       <input
         ref={ref}
         type="range"
@@ -31,7 +43,7 @@ export function Slider({
           className
         )}
         style={{
-          accentColor: colorVar(variant),
+          accentColor: ACCENT_COLOR[variant],
           background: 'var(--foreground-dim)',
           ...style
         }}

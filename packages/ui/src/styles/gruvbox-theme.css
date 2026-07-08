@@ -321,21 +321,6 @@
     scroll-snap-align: center;
   }
 
-  /* ---------- Input focus ring ---------- */
-  .input-wrapper {
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
-  }
-  .input-wrapper:focus-within {
-    border-color: var(--_ring, var(--primary));
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--_ring, var(--primary)) 15%, transparent);
-  }
-  .input-wrapper:focus-within i,
-  .input-wrapper:focus-within svg {
-    color: var(--_ring, var(--primary));
-  }
-
   /* progressive enhancement: expands only when JS/CSS focus-within is available */
   .search-expandable {
     width: 200px;
@@ -375,13 +360,6 @@
     box-shadow: var(--shadow-sm);
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .toggle:checked {
-    background: var(--_color, var(--primary));
-  }
-  .toggle:checked::before {
-    transform: translateX(20px);
-  }
-
   .accordion-body {
     @starting-style {
       opacity: 0;
@@ -400,23 +378,6 @@
   .tabs-container input[type='radio'] {
     display: none;
   }
-  .tab-trigger {
-    position: relative;
-    cursor: pointer;
-    user-select: none;
-  }
-  .tab-trigger::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--_color, var(--primary));
-    border-radius: 1px;
-    transform: scaleX(0);
-    transition: transform 0.25s;
-  }
   .tab-panel {
     display: none;
   }
@@ -430,9 +391,6 @@
   }
   .tab-trigger[data-active='true'] {
     color: var(--foreground) !important;
-  }
-  .tab-trigger[data-active='true']::after {
-    transform: scaleX(1);
   }
   @keyframes tabIn {
     from {

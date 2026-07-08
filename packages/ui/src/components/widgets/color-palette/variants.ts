@@ -1,16 +1,27 @@
 import { cva } from 'class-variance-authority';
 
 export const colorPaletteVariants = cva(
-  'flex w-fit h-fit cursor-pointer overflow-hidden rounded-sm bg-surface transition-all hover:brightness-110 active:scale-[.97] has-checked:shadow-[0_0_0_2px_var(--_color)] hover:scale-110 has-checked:scale-110',
+  'flex w-fit h-fit cursor-pointer overflow-hidden rounded-sm bg-surface transition-all hover:brightness-110 active:scale-[.97] hover:scale-110 has-checked:scale-110',
   {
     variants: {
       orientation: {
         horizontal: 'flex-row',
         vertical: 'flex-col'
+      },
+      variant: {
+        default: 'has-checked:shadow-[0_0_0_2px_var(--foreground-dim)]',
+        primary: 'has-checked:shadow-[0_0_0_2px_var(--primary)]',
+        secondary: 'has-checked:shadow-[0_0_0_2px_var(--secondary)]',
+        accent: 'has-checked:shadow-[0_0_0_2px_var(--accent)]',
+        warning: 'has-checked:shadow-[0_0_0_2px_var(--warning)]',
+        destructive: 'has-checked:shadow-[0_0_0_2px_var(--destructive)]',
+        ghost: 'has-checked:shadow-[0_0_0_2px_transparent]',
+        outline: 'has-checked:shadow-[0_0_0_2px_var(--foreground-dim)]'
       }
     },
     defaultVariants: {
-      orientation: 'horizontal'
+      orientation: 'horizontal',
+      variant: 'primary'
     }
   }
 );

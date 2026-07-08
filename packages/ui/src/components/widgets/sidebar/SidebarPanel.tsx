@@ -1,14 +1,12 @@
 import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { colorVarStyle, type ColorVariant } from '../../../lib/colorVariant';
 import { useSidebarContext } from './useSidebarContext';
 
 export type SidebarPanelProps = {
-  variant?: ColorVariant;
   ref?: Ref<HTMLDivElement>;
 } & HTMLAttributes<HTMLDivElement>;
 
-function SidebarPanel({ children, variant, ref, className, style, ...props }: SidebarPanelProps) {
+function SidebarPanel({ children, ref, className, style, ...props }: SidebarPanelProps) {
   const { isOpen, position } = useSidebarContext();
   const isHorizontal = position === 'left' || position === 'right';
   const isRightOrBottom = position === 'right' || position === 'bottom';
@@ -26,7 +24,7 @@ function SidebarPanel({ children, variant, ref, className, style, ...props }: Si
         isRightOrBottom && 'order-last',
         className
       )}
-      style={colorVarStyle(variant, style)}
+      style={style}
       {...props}
     >
       {children}

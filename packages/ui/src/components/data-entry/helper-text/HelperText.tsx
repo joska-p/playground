@@ -14,21 +14,11 @@ const defaultIcon: Record<string, ReactNode> = {
 };
 
 export type HelperTextProps = {
-  /** Show a status icon. Pass `true` for the default per-variant icon, or
-   *  a custom node. Off by default — most hint text needs no icon. */
   icon?: boolean | ReactNode;
   ref?: Ref<HTMLParagraphElement>;
 } & HTMLAttributes<HTMLParagraphElement> &
   VariantProps<typeof helperTextVariants>;
 
-/**
- * HelperText — hint/description/validation text for a form field. Pair it
- * with `Input`/`Select`/`Textarea` via `aria-describedby` for accessible
- * error messaging:
- *
- *   <Input aria-describedby="email-hint" />
- *   <HelperText id="email-hint" variant="destructive" icon>invalid email</HelperText>
- */
 export function HelperText({
   className,
   variant = 'default',
