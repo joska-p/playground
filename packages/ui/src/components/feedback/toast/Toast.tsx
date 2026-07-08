@@ -23,12 +23,6 @@ const iconColor: Record<string, string> = {
   destructive: 'text-destructive'
 };
 
-/**
- * ToastViewport — pure presentation. Renders whatever `toasts` array it's
- * given via a portal, matching the source design's own guidance verbatim:
- * "toast: listener set + createPortal." No internal state at all — this
- * component just maps props to markup.
- */
 export function ToastViewport({
   toasts,
   onDismiss
@@ -82,12 +76,6 @@ export type ToastProviderProps = {
   children: ReactNode;
 };
 
-/**
- * ToastProvider — stateless. It never calls `useState`; `toasts`/`toast`/
- * `dismiss` are supplied by the caller (typically from the `useToastQueue`
- * hook) and relayed through context, with `ToastViewport` doing the actual
- * rendering.
- */
 export function ToastProvider({ toasts, toast, dismiss, children }: ToastProviderProps) {
   return (
     <ToastContext.Provider value={{ toast, dismiss }}>

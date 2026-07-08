@@ -10,18 +10,10 @@ export type DefaultFallbackProps = {
   reset: () => void;
   title?: ReactNode;
   description?: ReactNode;
-  /** Label for the recovery button. Defaults to "try again". */
   resetLabel?: string;
   className?: string;
 } & DefaultFallbackVariants;
 
-/**
- * DefaultFallback — the panel <ErrorBoundary> renders when it catches an
- * error and no custom `fallback` prop was given. Stateless: purely a
- * function of `error`/`reset`/`variant`, exactly like every other
- * component in this library — the class-component state lives in
- * ErrorBoundary alone (see that file for why).
- */
 export function DefaultFallback({
   error,
   reset,
