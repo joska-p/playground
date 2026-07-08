@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+}
+const { href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group text-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-all duration-300"
+  aria-label="Playground home"
+>
+  <span
+    class="relative flex h-2.5 w-2.5"
+    aria-hidden="true"
+  >
+    <span
+      class="bg-primary group-hover:bg-accent absolute inset-0 animate-ping rounded-full opacity-60"
+    ></span>
+    <span
+      class="bg-primary group-hover:bg-accent relative h-2.5 w-2.5 rounded-full shadow-[0_0_6px_1px_var(--primary)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_10px_2px_var(--accent)]"
+    ></span>
+  </span>
+  PG_LAB
+</a>

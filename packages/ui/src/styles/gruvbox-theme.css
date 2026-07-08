@@ -108,7 +108,7 @@
     --background: oklch(0.241 0.005 219.672);
     --surface: oklch(0.277 0 0);
     --surface-raised: oklch(0.344 0.007 48.523);
-    --foreground: oklch(0.894 0.057 89.24);
+    --foreground: oklch(0.74 0.035 76.31);
     --foreground-muted: oklch(0.69 0.035 76.307);
     --foreground-dim: oklch(0.482 0.018 61.042);
     --border: oklch(0.894 0.057 89.24 / 0.07);

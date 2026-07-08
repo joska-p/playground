@@ -1,14 +1,14 @@
 ---
-type Route = {
+interface Route {
   label: string;
   href: string;
-};
+}
 
-type Props = {
+interface Props {
   routes: Route[];
   currentPath: string;
   baseUrl: string;
-};
+}
 
 const { routes, currentPath, baseUrl } = Astro.props;
 
@@ -31,7 +31,7 @@ const isActive = (href: string): boolean => {
         <a
           href={route.href}
           data-active={active ? '' : undefined}
-          class="text-foreground-muted data-active:bg-primary data-active:text-primary-foreground data-active:hover:bg-primary/90 relative flex items-center justify-center rounded-full px-4 py-1.5 text-xs font-bold uppercase transition-all duration-200 hover:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] hover:text-[var(--glow-color)] hover:shadow-[0_0_14px_-4px_var(--glow-color)] active:translate-y-0 active:scale-95 data-active:shadow-[0_0_20px_-3px_var(--glow-color),0_0_5px_-1px_var(--glow-color)]"
+          class="text-muted-foreground hover:bg-primary/10 hover:text-primary data-active:bg-primary data-active:text-primary-foreground data-active:hover:bg-primary/90 relative flex items-center justify-center rounded-full px-4 py-1.5 text-xs font-bold uppercase transition-all duration-200 hover:shadow-[0_0_12px_-4px_var(--primary)] active:translate-y-0 active:scale-95 data-active:shadow-[0_0_18px_-3px_var(--primary),0_0_4px_-1px_var(--primary)]"
           aria-current={active ? 'page' : false}
         >
           {route.label}
