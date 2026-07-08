@@ -34,25 +34,6 @@ function Hero({
       style={colorVarStyle(variant, style)}
       {...props}
     >
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'linear-gradient(var(--foreground-dim) 1px, transparent 1px), linear-gradient(to right, var(--foreground-dim) 1px, transparent 1px)',
-          backgroundSize: '4rem 4rem'
-        }}
-        aria-hidden="true"
-      />
-
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 50%, var(--background) 100%)'
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         {badgeText && (
           <div
@@ -67,7 +48,7 @@ function Hero({
         )}
 
         <h1
-          className="via-accent to-secondary bg-linear-to-br from-[var(--_color)] bg-clip-text leading-tight font-black text-transparent"
+          className="via-accent to-secondary from-(--_color bg-linear-to-br bg-clip-text leading-tight font-black text-transparent"
           style={{ fontSize: 'clamp(2.75rem,7.5vw,5.5rem)' }}
         >
           <span
@@ -77,7 +58,7 @@ function Hero({
             {highlight}
           </span>
           {title}
-          <span className="ml-1 font-light">_</span>
+          <span className="ml-1 animate-ping font-light">_</span>
         </h1>
 
         {description && (

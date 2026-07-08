@@ -5,4 +5,6 @@ export { CardLink, type CardLinkProps } from './card-link/CardLink';
 export { CardTitle, type CardTitleProps } from './card-title/CardTitle';
 export { CategoryCard, type CategoryCardProps } from './category-card/CategoryCard';
 export { DocCard, type DocCardProps } from './doc-card/DocCard';
+export { EdgeCard, type EdgeCardProps } from './edge-card/EdgeCard';
+export { EdgeCardAnimated, type EdgeCardAnimatedProps } from './edge-card/EdgeCardAnimated';
 export { ProjectCard, type ProjectCardProps } from './project-card/ProjectCard';

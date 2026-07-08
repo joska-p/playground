@@ -43,6 +43,7 @@ export function CardLink({
         // this is where "less spread" happens vs the earlier version.
         'hover:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--_color)_var(--glow-strength-hover),transparent),0_0_6px_-1px_color-mix(in_srgb,var(--_color)_var(--glow-strength-hover),transparent),0_0_16px_-4px_color-mix(in_srgb,var(--_color)_calc(var(--glow-strength-hover)*0.6),transparent),var(--shadow-md)]',
         'focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--_color)_70%,var(--ring))] focus-visible:outline-none',
+        'hover:animate-bounce',
         className
       )}
       style={{ '--_color': accent, ...style } as CSSProperties}

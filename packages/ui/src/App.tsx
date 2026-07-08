@@ -17,6 +17,7 @@ import { SetupSection } from './showcase/sections/SetupSection';
 import { VariantSystemSection } from './showcase/sections/VariantSystemSection';
 
 // component demos
+import { EdgeField } from './components/widgets';
 import { AccordionDemo } from './showcase/components/AccordionDemo';
 import { AlertGallery } from './showcase/components/AlertGallery';
 import { BadgeGallery } from './showcase/components/BadgeGallery';
@@ -31,6 +32,7 @@ import { ColorPaletteDemo } from './showcase/components/ColorPaletteDemo';
 import { ColorSwatchGallery } from './showcase/components/ColorSwatchGallery';
 import { ControlPanelDemo } from './showcase/components/ControlPanelDemo';
 import { DialogDemo } from './showcase/components/DialogDemo';
+import { EdgeCardDemo } from './showcase/components/EdgeCardDemo';
 import { ErrorBoundaryDemo } from './showcase/components/ErrorBoundaryDemo';
 import { FloatingNavDemo } from './showcase/components/FloatingNavDemo';
 import { HelperTextDemo } from './showcase/components/HelperTextDemo';
@@ -75,6 +77,10 @@ function AppContent() {
 
         <HeroSection />
 
+        <div className="fixed inset-0 h-screen">
+          <EdgeField />
+        </div>
+
         <PhilosophySection />
         <SetupSection />
         <DesignTokensSection />
@@ -102,6 +108,7 @@ function AppContent() {
         <SliderDemo />
         <CardDemo />
         <CardLinkDemo />
+        <EdgeCardDemo />
         <AccordionDemo />
         <TabsDemo />
         <CarouselDemo />

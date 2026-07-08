@@ -10,3 +10,5 @@ export { SidebarPanel } from './sidebar/SidebarPanel';
 export type { SidebarPanelProps } from './sidebar/SidebarPanel';
 export { SidebarToggle } from './sidebar/SidebarToggle';
 export type { SidebarToggleProps } from './sidebar/SidebarToggle';
+
+export { EdgeField } from './edge-field/EdgeField';
