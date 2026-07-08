@@ -4,7 +4,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta: Meta<typeof Accordion> = {
   title: 'Data Display/Accordion',
   component: Accordion,
-  tags: ['autodocs']
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      description: 'Color of the chevron indicator on each item.',
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      control: { type: 'select' }
+    }
+  }
 };
 
 export default meta;
@@ -29,75 +36,71 @@ export const Default: Story = {
   )
 };
 
-export const DefaultOpen: Story = {
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Accordion>
+        <AccordionItem
+          title="Default chevron"
+          variant="default"
+        >
+          Neutral grey chevron — the standard look for structural content.
+        </AccordionItem>
+      </Accordion>
+      <Accordion>
+        <AccordionItem
+          title="Primary chevron"
+          variant="primary"
+        >
+          A primary-coloured chevron for important sections.
+        </AccordionItem>
+      </Accordion>
+      <Accordion>
+        <AccordionItem
+          title="Accent chevron"
+          variant="accent"
+        >
+          Accent colour draws extra attention to this section.
+        </AccordionItem>
+      </Accordion>
+      <Accordion>
+        <AccordionItem
+          title="Destructive chevron"
+          variant="destructive"
+        >
+          Used for destructive actions in a danger zone.
+        </AccordionItem>
+      </Accordion>
+    </div>
+  )
+};
+
+export const States: Story = {
   render: () => (
     <Accordion>
-      <AccordionItem title="Getting Started">
-        Start by exploring the gallery of presets or create a new blank canvas. Use the toolbar on
-        the left to access all available tools.
+      <AccordionItem title="Closed by default">
+        This section starts closed. Click to expand.
       </AccordionItem>
+      <AccordionItem
+        title="Open by default"
+        open
+      >
+        This section starts open, showing its content immediately.
+      </AccordionItem>
+    </Accordion>
+  )
+};
+
+export const WithRichContent: Story = {
+  render: () => (
+    <Accordion>
       <AccordionItem title="Keyboard Shortcuts">
         <kbd className="bg-surface-raised rounded border px-1.5 py-0.5 text-xs">Ctrl+Space</kbd> to
         toggle the control panel.
       </AccordionItem>
-    </Accordion>
-  )
-};
-
-export const PrimaryVariant: Story = {
-  render: () => (
-    <Accordion>
-      <AccordionItem
-        title="Installation"
-        variant="primary"
-      >
+      <AccordionItem title="Installation">
         Run <code className="bg-surface-raised rounded px-1 text-xs">npm install @repo/ui</code> to
         add the component library to your project.
-      </AccordionItem>
-      <AccordionItem
-        title="Configuration"
-        variant="primary"
-      >
-        Import the stylesheet and wrap your app with the ThemeProvider.
-      </AccordionItem>
-    </Accordion>
-  )
-};
-
-export const AccentVariant: Story = {
-  render: () => (
-    <Accordion>
-      <AccordionItem
-        title="Pro Tips"
-        variant="accent"
-      >
-        Use the search bar to quickly find experiments by name or tag.
-      </AccordionItem>
-      <AccordionItem
-        title="Shortcuts"
-        variant="accent"
-      >
-        Press <kbd className="bg-surface-raised rounded border px-1.5 py-0.5 text-xs">G</kbd> to
-        toggle the grid overlay.
-      </AccordionItem>
-    </Accordion>
-  )
-};
-
-export const DestructiveVariant: Story = {
-  render: () => (
-    <Accordion>
-      <AccordionItem
-        title="Danger Zone"
-        variant="destructive"
-      >
-        Clearing your workspace will remove all unsaved experiments. This action cannot be undone.
-      </AccordionItem>
-      <AccordionItem
-        title="Reset Settings"
-        variant="destructive"
-      >
-        Restore all settings to their default values. Custom presets will be preserved.
       </AccordionItem>
     </Accordion>
   )

@@ -34,44 +34,57 @@ export const Default: Story = {
   }
 };
 
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    title: 'Update available',
-    description: 'A new version of the library is ready to install.'
-  }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-3">
+      <Alert
+        variant="default"
+        title="Default"
+        description="Default alert with contextual information."
+      />
+      <Alert
+        variant="primary"
+        title="Update available"
+        description="A new version of the library is ready to install."
+      />
+      <Alert
+        variant="secondary"
+        title="Operation complete"
+        description="Your export has been processed successfully."
+      />
+      <Alert
+        variant="accent"
+        title="Pro tip"
+        description="Use keyboard shortcuts to speed up your workflow."
+      />
+      <Alert
+        variant="warning"
+        title="Storage nearly full"
+        description="You are using 95% of your available storage."
+      />
+      <Alert
+        variant="destructive"
+        title="Error saving file"
+        description="The server returned a 500 error. Please try again."
+      />
+    </div>
+  )
 };
 
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    title: 'Operation complete',
-    description: 'Your export has been processed successfully.'
-  }
-};
-
-export const Accent: Story = {
-  args: {
-    variant: 'accent',
-    title: 'Pro tip',
-    description: 'Use keyboard shortcuts to speed up your workflow.'
-  }
-};
-
-export const Destructive: Story = {
-  args: {
-    variant: 'destructive',
-    title: 'Error saving file',
-    description: 'The server returned a 500 error. Please try again.'
-  }
-};
-
-export const Warning: Story = {
-  args: {
-    variant: 'warning',
-    title: 'Storage nearly full',
-    description: 'You are using 95% of your available storage.'
-  }
+export const States: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-3">
+      <Alert
+        variant="primary"
+        title="With description"
+        description="This alert has both a title and description for extra context."
+      />
+      <Alert
+        variant="primary"
+        title="Title only"
+      />
+    </div>
+  )
 };
 
 export const TitleOnly: Story = {

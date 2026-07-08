@@ -43,21 +43,46 @@ export const Default: Story = {
   args: { variant: 'default' }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary', placeholder: 'Describe your experiment\u2026' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-4">
+      <Textarea
+        variant="default"
+        placeholder="Default\u2026"
+      />
+      <Textarea
+        variant="primary"
+        placeholder="Primary\u2026"
+      />
+      <Textarea
+        variant="accent"
+        placeholder="Accent\u2026"
+      />
+      <Textarea
+        variant="destructive"
+        placeholder="Destructive\u2026"
+      />
+    </div>
+  )
 };
 
-export const WithValue: Story = {
-  args: {
-    defaultValue:
-      'This is a longer piece of content that demonstrates how the textarea handles multiple lines of text in its natural state.'
-  }
+export const States: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-4">
+      <Textarea placeholder="Empty field\u2026" />
+      <Textarea defaultValue="This field has content filled in." />
+      <Textarea
+        disabled
+        value="This field is read only."
+      />
+    </div>
+  )
 };
 
 export const WithoutAutoGrow: Story = {
   args: { autoGrow: false, rows: 4, placeholder: 'Fixed height textarea\u2026' }
 };
 
-export const Disabled: Story = {
-  args: { disabled: true, value: 'This field is read only.' }
+export const CustomRows: Story = {
+  args: { rows: 6, placeholder: 'A taller textarea with 6 rows\u2026' }
 };

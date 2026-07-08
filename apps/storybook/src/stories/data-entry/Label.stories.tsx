@@ -35,38 +35,41 @@ export const Default: Story = {
   args: { children: 'Username' }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary', children: 'Project Name' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Label variant="default">Default</Label>
+      <Label variant="primary">Primary</Label>
+      <Label variant="secondary">Secondary</Label>
+      <Label variant="accent">Accent</Label>
+      <Label variant="warning">Warning</Label>
+      <Label variant="destructive">Destructive</Label>
+    </div>
+  )
 };
 
-export const Secondary: Story = {
-  args: { variant: 'secondary', children: 'Optional Notes' }
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Label size="sm">Small</Label>
+      <Label size="default">Default</Label>
+      <Label size="lg">Large</Label>
+    </div>
+  )
 };
 
-export const Accent: Story = {
-  args: { variant: 'accent', children: 'Promo Code' }
-};
-
-export const Warning: Story = {
-  args: { variant: 'warning', children: 'Storage Limit' }
-};
-
-export const Destructive: Story = {
-  args: { variant: 'destructive', children: 'Password' }
-};
-
-export const Required: Story = {
-  args: { required: true, children: 'Email Address' }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, children: 'Read Only Field' }
-};
-
-export const Small: Story = {
-  args: { size: 'sm', children: 'Filter by tag' }
-};
-
-export const Large: Story = {
-  args: { size: 'lg', children: 'Section Title' }
+export const States: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Label>Default</Label>
+      <Label required>Required</Label>
+      <Label disabled>Disabled</Label>
+      <Label
+        required
+        disabled
+      >
+        Required &amp; disabled
+      </Label>
+    </div>
+  )
 };

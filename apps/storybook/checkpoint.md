@@ -12,11 +12,18 @@
 - [x] Select — rewritten, validated
 - [x] Checkbox — rewritten, validated
 
+## Done (rewritten, not yet validated)
+
+- [x] HelperText — rewritten
+- [x] Label — rewritten
+- [x] Radio — rewritten
+- [x] Textarea — rewritten
+
 ## To do
 
-- [ ] Accordion
-- [ ] Alert
-- [ ] Badge
+- [x] Accordion
+- [x] Alert
+- [x] Badge
 - [ ] Card
 - [ ] Carousel
 - [ ] CategoryCard
@@ -27,19 +34,15 @@
 - [ ] DocCard
 - [ ] ErrorBoundary
 - [ ] FloatingNav
-- [ ] HelperText
 - [ ] Hero
 - [ ] Icon
-- [ ] Label
 - [ ] MenuItem
 - [ ] NotificationItem
 - [ ] Popover
 - [ ] ProjectCard
-- [ ] Radio
 - [ ] ScrollReveal
 - [ ] SectionHeader
 - [ ] SectionHeading
 - [ ] Sidebar
 - [ ] Tabs
-- [ ] Textarea
 - [ ] Tooltip

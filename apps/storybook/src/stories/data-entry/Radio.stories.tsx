@@ -34,30 +34,86 @@ export default meta;
 
 type Story = StoryObj<typeof Radio>;
 
-export const Unchecked: Story = {
-  args: { label: 'Standard' }
-};
-
-export const Checked: Story = {
+export const Default: Story = {
   args: { label: 'Standard', defaultChecked: true }
 };
 
-export const Primary: Story = {
-  args: { variant: 'primary', label: 'Primary option', defaultChecked: true }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Radio
+        label="Default"
+        variant="default"
+        defaultChecked
+      />
+      <Radio
+        label="Primary"
+        variant="primary"
+        defaultChecked
+      />
+      <Radio
+        label="Secondary"
+        variant="secondary"
+      />
+      <Radio
+        label="Accent"
+        variant="accent"
+        defaultChecked
+      />
+      <Radio
+        label="Warning"
+        variant="warning"
+      />
+      <Radio
+        label="Destructive"
+        variant="destructive"
+      />
+      <Radio
+        label="Ghost"
+        variant="ghost"
+        defaultChecked
+      />
+    </div>
+  )
 };
 
-export const Secondary: Story = {
-  args: { variant: 'secondary', label: 'Secondary option' }
+export const States: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <Radio label="Unchecked" />
+      <Radio
+        label="Checked"
+        defaultChecked
+      />
+      <Radio
+        label="Disabled unchecked"
+        disabled
+      />
+      <Radio
+        label="Disabled checked"
+        disabled
+        checked
+      />
+    </div>
+  )
 };
 
-export const Accent: Story = {
-  args: { variant: 'accent', label: 'Accent option', defaultChecked: true }
-};
-
-export const Destructive: Story = {
-  args: { variant: 'destructive', label: 'Destructive option' }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, label: 'Unavailable choice', checked: true }
+export const RadioGroup: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      <Radio
+        label="Basic"
+        name="group"
+        defaultChecked
+      />
+      <Radio
+        label="Standard"
+        name="group"
+      />
+      <Radio
+        label="Premium"
+        name="group"
+      />
+    </div>
+  )
 };

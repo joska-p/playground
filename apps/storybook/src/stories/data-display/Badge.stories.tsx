@@ -34,30 +34,149 @@ export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
-export const Soft: Story = {
+export const Default: Story = {
   args: { appearance: 'soft', children: 'Stable' }
 };
 
-export const Solid: Story = {
-  args: { appearance: 'solid', children: 'New' }
-};
-
-export const Outline: Story = {
-  args: { appearance: 'outline', children: 'Beta' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center gap-3">
+        <Badge
+          appearance="soft"
+          variant="default"
+        >
+          Default
+        </Badge>
+        <Badge
+          appearance="soft"
+          variant="primary"
+        >
+          Primary
+        </Badge>
+        <Badge
+          appearance="soft"
+          variant="secondary"
+        >
+          Secondary
+        </Badge>
+        <Badge
+          appearance="soft"
+          variant="accent"
+        >
+          Accent
+        </Badge>
+        <Badge
+          appearance="soft"
+          variant="warning"
+        >
+          Warning
+        </Badge>
+        <Badge
+          appearance="soft"
+          variant="destructive"
+        >
+          Destructive
+        </Badge>
+        <Badge
+          appearance="soft"
+          variant="ghost"
+        >
+          Ghost
+        </Badge>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Badge
+          appearance="solid"
+          variant="default"
+        >
+          Default
+        </Badge>
+        <Badge
+          appearance="solid"
+          variant="primary"
+        >
+          Primary
+        </Badge>
+        <Badge
+          appearance="solid"
+          variant="secondary"
+        >
+          Secondary
+        </Badge>
+        <Badge
+          appearance="solid"
+          variant="accent"
+        >
+          Accent
+        </Badge>
+        <Badge
+          appearance="solid"
+          variant="warning"
+        >
+          Warning
+        </Badge>
+        <Badge
+          appearance="solid"
+          variant="destructive"
+        >
+          Destructive
+        </Badge>
+        <Badge
+          appearance="solid"
+          variant="ghost"
+        >
+          Ghost
+        </Badge>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Badge
+          appearance="outline"
+          variant="default"
+        >
+          Default
+        </Badge>
+        <Badge
+          appearance="outline"
+          variant="primary"
+        >
+          Primary
+        </Badge>
+        <Badge
+          appearance="outline"
+          variant="secondary"
+        >
+          Secondary
+        </Badge>
+        <Badge
+          appearance="outline"
+          variant="accent"
+        >
+          Accent
+        </Badge>
+        <Badge
+          appearance="outline"
+          variant="warning"
+        >
+          Warning
+        </Badge>
+        <Badge
+          appearance="outline"
+          variant="destructive"
+        >
+          Destructive
+        </Badge>
+        <Badge
+          appearance="outline"
+          variant="ghost"
+        >
+          Ghost
+        </Badge>
+      </div>
+    </div>
+  )
 };
 
 export const Dot: Story = {
   args: { dot: true, children: 'Online' }
-};
-
-export const AccentColor: Story = {
-  args: { appearance: 'solid', variant: 'accent', children: 'Featured' }
-};
-
-export const Destructive: Story = {
-  args: { appearance: 'soft', variant: 'destructive', children: 'Deprecated' }
-};
-
-export const Secondary: Story = {
-  args: { appearance: 'soft', variant: 'secondary', children: 'Optional' }
 };

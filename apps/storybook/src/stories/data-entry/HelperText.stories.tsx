@@ -30,8 +30,17 @@ export const Default: Story = {
   args: { variant: 'default' }
 };
 
-export const Destructive: Story = {
-  args: { variant: 'destructive', children: 'Please enter a valid email address.' }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <HelperText variant="default">Default hint text.</HelperText>
+      <HelperText variant="primary">Primary hint text.</HelperText>
+      <HelperText variant="secondary">Secondary hint text.</HelperText>
+      <HelperText variant="accent">Accent hint text.</HelperText>
+      <HelperText variant="warning">Warning hint text.</HelperText>
+      <HelperText variant="destructive">Destructive hint text.</HelperText>
+    </div>
+  )
 };
 
 export const WithIcon: Story = {
