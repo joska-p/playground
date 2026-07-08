@@ -29,11 +29,11 @@ function SectionHeading({
       {...props}
     >
       <p className="mb-1 text-xs font-medium tracking-[2px] uppercase">{label}</p>
-      <h2 className="text-foreground text-xl font-light tracking-tight landscape:text-2xl">
+      <h2 className="text-xl font-light tracking-tight text-(--variant-color) landscape:text-2xl">
         {title}
       </h2>
       {description && (
-        <p className="text-foreground-muted mt-1.5 text-sm leading-relaxed">{description}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-(--variant-color)/80">{description}</p>
       )}
     </div>
   );

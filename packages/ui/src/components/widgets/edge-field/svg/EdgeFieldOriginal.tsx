@@ -110,7 +110,7 @@ function EdgeFilter({ id, seed, baseFrequency, glowColor, blur }: FilterDefProps
   );
 }
 
-export function EdgeField() {
+export function EdgeFieldOriginal() {
   return (
     <div className="pointer-events-none fixed inset-0 h-screen w-screen">
       {/* Calm base contour field */}

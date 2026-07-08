@@ -42,7 +42,7 @@ function DocCard({
         style={{
           borderWidth: '0 28px 28px 0',
           borderStyle: 'solid',
-          borderColor: 'transparent var(--_color) transparent transparent'
+          borderColor: 'transparent var(--variant-color) transparent transparent'
         }}
         aria-hidden="true"
       />
@@ -50,10 +50,10 @@ function DocCard({
       <CardBody className="flex-1 flex-col gap-4">
         {/* Type badge */}
         <div
-          className="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold text-(--_color) uppercase"
+          className="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold text-(--variant-color) uppercase"
           style={{
-            background: 'color-mix(in srgb, var(--_color) 12%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--_color) 25%, transparent)'
+            background: 'color-mix(in srgb, var(--variant-color) 12%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--variant-color) 25%, transparent)'
           }}
         >
           {iconName && (
@@ -74,7 +74,7 @@ function DocCard({
       {/* Arrow icon on hover */}
       <Icon
         name="arrow-diagonal"
-        className="absolute right-5 bottom-5 h-4 w-4 text-(--_color) opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+        className="absolute right-5 bottom-5 h-4 w-4 text-(--variant-color) opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
       />
     </CardLink>
   );

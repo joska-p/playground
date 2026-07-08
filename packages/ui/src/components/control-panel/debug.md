@@ -54,7 +54,7 @@ getStyles([976], ["position","top","right","bottom","left","inset-inline-start",
       "border-left-color": "oklch(0.693 0.042 169.768)"
     },
     "authored": {
-      "border-left-color": "var(--_color)",
+      "border-left-color": "var(--variant-color)",
       "left": "auto",
       "right": "calc(var(--spacing) * 4)",
       "top": "calc(var(--spacing) * 4)",

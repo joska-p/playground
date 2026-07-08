@@ -3,7 +3,7 @@ import Navbar from './nav-bar/NavBar.astro';
 import { Font } from 'astro:assets';
 import '../styles/styles.css';
 import BackgroundCanvas from '../components/ui/features/BackgroundCanvas.astro';
-import { EdgeField } from '@repo/ui/widgets';
+import { EdgeFieldMask } from '@repo/ui/widgets';
 
 const baseUrl = import.meta.env.BASE_URL || '';
 
@@ -128,7 +128,7 @@ const { className } = Astro.props;
     <Font cssVariable="--font-jetbrains-mono" />
   </head>
   <body class="bg-background text-foreground relative min-h-screen antialiased">
-    <EdgeField />
+    <EdgeFieldMask />
     <BackgroundCanvas />
     <Navbar />
     <main class:list={className}>

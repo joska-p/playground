@@ -1,0 +1,475 @@
+---
+
+---
+
+<edge-field-hero>
+  <canvas class="pointer-events-none fixed inset-0 h-screen w-screen"></canvas>
+</edge-field-hero>
+
+<script is:inline>
+  // ---- shared helpers ----
+
+  function compileShader(gl, type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      const info = gl.getShaderInfoLog(shader);
+      gl.deleteShader(shader);
+      throw new Error('Shader compile error: ' + info);
+    }
+    return shader;
+  }
+
+  function createProgram(gl, vsSource, fsSource) {
+    const vs = compileShader(gl, gl.VERTEX_SHADER, vsSource);
+    const fs = compileShader(gl, gl.FRAGMENT_SHADER, fsSource);
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      const info = gl.getProgramInfoLog(program);
+      gl.deleteProgram(program);
+      throw new Error('Program link error: ' + info);
+    }
+    return program;
+  }
+
+  // JS mirror of the shader's noise functions, used so particles can react
+  // to the exact same field the background is drawing (gradient = flow
+  // direction, gradient magnitude = "near a contour line" glow boost).
+  function fractf(v) {
+    return v - Math.floor(v);
+  }
+  function hash2(x, y) {
+    let px = fractf(x * 123.34);
+    let py = fractf(y * 456.21);
+    const d = px * (px + 45.32) + py * (py + 45.32);
+    px += d;
+    py += d;
+    return fractf(px * py);
+  }
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+  function valueNoise(x, y) {
+    const ix = Math.floor(x);
+    const iy = Math.floor(y);
+    const fx = x - ix;
+    const fy = y - iy;
+    const a = hash2(ix, iy);
+    const b = hash2(ix + 1, iy);
+    const c = hash2(ix, iy + 1);
+    const d = hash2(ix + 1, iy + 1);
+    const ux = fx * fx * (3 - 2 * fx);
+    const uy = fy * fy * (3 - 2 * fy);
+    return lerp(lerp(a, b, ux), lerp(c, d, ux), uy);
+  }
+  function fbm(x, y) {
+    let value = 0;
+    let amplitude = 0.5;
+    for (let i = 0; i < 3; i++) {
+      value += amplitude * valueNoise(x, y);
+      x *= 2;
+      y *= 2;
+      amplitude *= 0.5;
+    }
+    return value;
+  }
+  function banded(u, v, scale, seed, bands) {
+    const n = fbm(u * scale + seed, v * scale + seed);
+    return Math.floor(n * bands) / bands;
+  }
+  function bandedGradient(u, v, scale, seed, bands, eps) {
+    const dx =
+      (banded(u + eps, v, scale, seed, bands) - banded(u - eps, v, scale, seed, bands)) / (2 * eps);
+    const dy =
+      (banded(u, v + eps, scale, seed, bands) - banded(u, v - eps, scale, seed, bands)) / (2 * eps);
+    return { dx, dy };
+  }
+
+  function hexToRgb(hex) {
+    const n = parseInt(hex.slice(1), 16);
+    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+  }
+
+  // ---- shaders ----
+
+  const EDGE_VERTEX_SRC = `#version 300 es
+    const vec2 POSITIONS[3] = vec2[3](
+      vec2(-1.0, -1.0),
+      vec2(3.0, -1.0),
+      vec2(-1.0, 3.0)
+    );
+    void main() {
+      gl_Position = vec4(POSITIONS[gl_VertexID], 0.0, 1.0);
+    }
+  `;
+
+  const EDGE_FRAGMENT_SRC = `#version 300 es
+    precision highp float;
+    uniform vec2 u_resolution;
+    uniform vec2 u_mouse;
+    uniform float u_seed;
+    uniform float u_scale;
+    uniform float u_bands;
+    uniform vec3 u_colorCold;
+    uniform vec3 u_colorHot;
+    uniform float u_hotRadius;
+    out vec4 fragColor;
+
+    float hash(vec2 p) {
+      p = fract(p * vec2(123.34, 456.21));
+      p += dot(p, p + 45.32);
+      return fract(p.x * p.y);
+    }
+    float valueNoise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      float a = hash(i);
+      float b = hash(i + vec2(1.0, 0.0));
+      float c = hash(i + vec2(0.0, 1.0));
+      float d = hash(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+    }
+    float fbm(vec2 p) {
+      float value = 0.0;
+      float amplitude = 0.5;
+      for (int i = 0; i < 3; i++) {
+        value += amplitude * valueNoise(p);
+        p *= 2.0;
+        amplitude *= 0.5;
+      }
+      return value;
+    }
+    float banded(vec2 uv) {
+      float n = fbm(uv * u_scale + u_seed);
+      return floor(n * u_bands) / u_bands;
+    }
+    float edgeDetect(vec2 uv, float spread) {
+      vec2 texel = spread / u_resolution;
+      float sum = 0.0;
+      sum += banded(uv + texel * vec2(-1.0, -1.0));
+      sum += banded(uv + texel * vec2(0.0, -1.0));
+      sum += banded(uv + texel * vec2(1.0, -1.0));
+      sum += banded(uv + texel * vec2(-1.0, 0.0));
+      sum += banded(uv + texel * vec2(0.0, 0.0)) * -8.0;
+      sum += banded(uv + texel * vec2(1.0, 0.0));
+      sum += banded(uv + texel * vec2(-1.0, 1.0));
+      sum += banded(uv + texel * vec2(0.0, 1.0));
+      sum += banded(uv + texel * vec2(1.0, 1.0));
+      return abs(sum);
+    }
+    void main() {
+      vec2 fragPx = vec2(gl_FragCoord.x, u_resolution.y - gl_FragCoord.y);
+      vec2 uv = fragPx / u_resolution;
+      float sharp = edgeDetect(uv, 1.0);
+      float bloom = edgeDetect(uv, 4.0);
+      float edge = clamp(sharp + bloom * 0.6, 0.0, 1.0);
+      float distToMouse = length(fragPx - u_mouse);
+      float hot = 1.0 - smoothstep(0.0, u_hotRadius, distToMouse);
+      vec3 color = mix(u_colorCold, u_colorHot, hot);
+      fragColor = vec4(color, edge);
+    }
+  `;
+
+  // Shared by both particle points and connection lines: position (px),
+  // rgb color, alpha, and point size (ignored when drawing LINES).
+  const PARTICLE_VERTEX_SRC = `#version 300 es
+    layout(location = 0) in vec2 a_position;
+    layout(location = 1) in vec4 a_colorAlpha;
+    layout(location = 2) in float a_size;
+    uniform vec2 u_resolution;
+    out vec4 v_colorAlpha;
+    void main() {
+      vec2 clip = (a_position / u_resolution) * 2.0 - 1.0;
+      clip.y *= -1.0;
+      gl_Position = vec4(clip, 0.0, 1.0);
+      gl_PointSize = a_size;
+      v_colorAlpha = a_colorAlpha;
+    }
+  `;
+
+  const PARTICLE_FRAGMENT_SRC = `#version 300 es
+    precision highp float;
+    in vec4 v_colorAlpha;
+    out vec4 fragColor;
+    uniform bool u_isPoint;
+    void main() {
+      if (u_isPoint) {
+        vec2 d = gl_PointCoord - 0.5;
+        if (dot(d, d) > 0.25) discard;
+      }
+      fragColor = vec4(v_colorAlpha.rgb, v_colorAlpha.a);
+    }
+  `;
+
+  // ---- field parameters (kept in one place since both the background
+  // shader and the particle flow field must agree on them) ----
+  const NOISE_SCALE = 6.0;
+  const NOISE_SEED = 11.0;
+  const NOISE_BANDS = 8.0;
+  const FLOW_STRENGTH = 0.015;
+  const EDGE_GLOW_SCALE = 40.0;
+
+  class EdgeFieldHero extends HTMLElement {
+    connectedCallback() {
+      const canvas = this.querySelector('canvas');
+      if (!canvas) return;
+
+      const gl = canvas.getContext('webgl2', {
+        alpha: true,
+        antialias: false,
+        premultipliedAlpha: true
+      });
+      if (!gl) {
+        console.warn('<edge-field-hero>: WebGL2 unavailable, skipping render.');
+        return;
+      }
+
+      const parent = this.parentElement;
+      const particleCount = 60;
+      const connectionDistance = 120;
+      const mouse = { x: -1000, y: -1000 };
+
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+      // -- background program --
+      const edgeProgram = createProgram(gl, EDGE_VERTEX_SRC, EDGE_FRAGMENT_SRC);
+      const edgeUniforms = {
+        resolution: gl.getUniformLocation(edgeProgram, 'u_resolution'),
+        mouse: gl.getUniformLocation(edgeProgram, 'u_mouse'),
+        seed: gl.getUniformLocation(edgeProgram, 'u_seed'),
+        scale: gl.getUniformLocation(edgeProgram, 'u_scale'),
+        bands: gl.getUniformLocation(edgeProgram, 'u_bands'),
+        colorCold: gl.getUniformLocation(edgeProgram, 'u_colorCold'),
+        colorHot: gl.getUniformLocation(edgeProgram, 'u_colorHot'),
+        hotRadius: gl.getUniformLocation(edgeProgram, 'u_hotRadius')
+      };
+
+      // -- particle program --
+      const particleProgram = createProgram(gl, PARTICLE_VERTEX_SRC, PARTICLE_FRAGMENT_SRC);
+      const particleUniforms = {
+        resolution: gl.getUniformLocation(particleProgram, 'u_resolution'),
+        isPoint: gl.getUniformLocation(particleProgram, 'u_isPoint')
+      };
+
+      const particleVao = gl.createVertexArray();
+      const particleBuffer = gl.createBuffer();
+      gl.bindVertexArray(particleVao);
+      gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
+      const STRIDE = 7 * 4; // x, y, r, g, b, a, size
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, STRIDE, 0);
+      gl.enableVertexAttribArray(1);
+      gl.vertexAttribPointer(1, 4, gl.FLOAT, false, STRIDE, 2 * 4);
+      gl.enableVertexAttribArray(2);
+      gl.vertexAttribPointer(2, 1, gl.FLOAT, false, STRIDE, 6 * 4);
+      gl.bindVertexArray(null);
+
+      const lineVao = gl.createVertexArray();
+      const lineBuffer = gl.createBuffer();
+      gl.bindVertexArray(lineVao);
+      gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, STRIDE, 0);
+      gl.enableVertexAttribArray(1);
+      gl.vertexAttribPointer(1, 4, gl.FLOAT, false, STRIDE, 2 * 4);
+      gl.enableVertexAttribArray(2);
+      gl.vertexAttribPointer(2, 1, gl.FLOAT, false, STRIDE, 6 * 4);
+      gl.bindVertexArray(null);
+
+      const resize = () => {
+        if (!parent) return;
+        const rect = parent.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      };
+      resize();
+      window.addEventListener('resize', resize);
+
+      const handleMouseMove = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        mouse.x = (e.clientX - rect.left) * dpr;
+        mouse.y = (e.clientY - rect.top) * dpr;
+      };
+      const handleMouseLeave = () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+      };
+      if (parent) {
+        parent.addEventListener('mousemove', handleMouseMove);
+        parent.addEventListener('mouseleave', handleMouseLeave);
+      }
+
+      const colors = [
+        '#2c8668',
+        '#904db2',
+        '#b8502e',
+        '#1d90c9',
+        '#ac7300',
+        '#5b8624',
+        '#bf535a',
+        '#717cbb'
+      ].map(hexToRgb);
+      const particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          radius: Math.random() * 2 + 1
+        });
+      }
+
+      // Reused every frame: 7 floats/vertex, worst case every particle
+      // connects to every other particle once.
+      const pointData = new Float32Array(particleCount * 7);
+      const lineData = new Float32Array(particleCount * particleCount * 7 * 2);
+
+      let animationFrameId;
+
+      const animate = () => {
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        // -- background pass --
+        gl.useProgram(edgeProgram);
+        gl.uniform2f(edgeUniforms.resolution, canvas.width, canvas.height);
+        gl.uniform2f(edgeUniforms.mouse, mouse.x, mouse.y);
+        gl.uniform1f(edgeUniforms.seed, NOISE_SEED);
+        gl.uniform1f(edgeUniforms.scale, NOISE_SCALE);
+        gl.uniform1f(edgeUniforms.bands, NOISE_BANDS);
+        gl.uniform3fv(edgeUniforms.colorCold, [0.86, 0.78, 0.35]);
+        gl.uniform3fv(edgeUniforms.colorHot, [0.55, 0.85, 0.62]);
+        gl.uniform1f(edgeUniforms.hotRadius, 260.0);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+        // -- particle update (CPU) --
+        const maxDistSq = connectionDistance * connectionDistance;
+        const mouseDistSq = 150 * 150;
+        let lineCount = 0;
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+
+          // Flow along the same contour field the background is drawing:
+          // gradient of banded() points across contour lines, so the
+          // perpendicular (tangent) direction nudges particles to drift
+          // along them instead of straight through.
+          const u = p.x / canvas.width;
+          const v = p.y / canvas.height;
+          const grad = bandedGradient(u, v, NOISE_SCALE, NOISE_SEED, NOISE_BANDS, 0.004);
+          const gradLen = Math.hypot(grad.dx, grad.dy);
+          if (gradLen > 0.0001) {
+            p.vx += (-grad.dy / gradLen) * FLOW_STRENGTH;
+            p.vy += (grad.dx / gradLen) * FLOW_STRENGTH;
+          }
+          p.vx *= 0.98;
+          p.vy *= 0.98;
+          const edgeGlow = Math.min(1, gradLen * EDGE_GLOW_SCALE);
+
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const mDistSq = dx * dx + dy * dy;
+          if (mDistSq < mouseDistSq) {
+            p.x -= dx * 0.008;
+            p.y -= dy * 0.008;
+          }
+
+          const base = i * 7;
+          pointData[base] = p.x;
+          pointData[base + 1] = p.y;
+          pointData[base + 2] = p.color[0];
+          pointData[base + 3] = p.color[1];
+          pointData[base + 4] = p.color[2];
+          pointData[base + 5] = 0.6 + edgeGlow * 0.4;
+          pointData[base + 6] =
+            (p.radius * 2 + edgeGlow * 2) * Math.min(window.devicePixelRatio || 1, 1.5);
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const cdx = p.x - p2.x;
+            const cdy = p.y - p2.y;
+            const cdistSq = cdx * cdx + cdy * cdy;
+            if (cdistSq < maxDistSq) {
+              const cdist = Math.sqrt(cdistSq);
+              const alpha = 0.08 * (1 - cdist / connectionDistance);
+              const lb = lineCount * 14;
+              lineData[lb] = p.x;
+              lineData[lb + 1] = p.y;
+              lineData[lb + 2] = p.color[0];
+              lineData[lb + 3] = p.color[1];
+              lineData[lb + 4] = p.color[2];
+              lineData[lb + 5] = alpha;
+              lineData[lb + 6] = 0;
+              lineData[lb + 7] = p2.x;
+              lineData[lb + 8] = p2.y;
+              lineData[lb + 9] = p.color[0];
+              lineData[lb + 10] = p.color[1];
+              lineData[lb + 11] = p.color[2];
+              lineData[lb + 12] = alpha;
+              lineData[lb + 13] = 0;
+              lineCount++;
+            }
+          }
+        }
+
+        // -- lines pass (behind points) --
+        gl.useProgram(particleProgram);
+        gl.uniform2f(particleUniforms.resolution, canvas.width, canvas.height);
+        gl.uniform1i(particleUniforms.isPoint, 0);
+        gl.bindVertexArray(lineVao);
+        gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, lineData.subarray(0, lineCount * 14), gl.DYNAMIC_DRAW);
+        gl.drawArrays(gl.LINES, 0, lineCount * 2);
+
+        // -- points pass --
+        gl.uniform1i(particleUniforms.isPoint, 1);
+        gl.bindVertexArray(particleVao);
+        gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, pointData, gl.DYNAMIC_DRAW);
+        gl.drawArrays(gl.POINTS, 0, particleCount);
+
+        animationFrameId = requestAnimationFrame(animate);
+      };
+
+      animate();
+
+      this.cleanup = () => {
+        cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('resize', resize);
+        if (parent) {
+          parent.removeEventListener('mousemove', handleMouseMove);
+          parent.removeEventListener('mouseleave', handleMouseLeave);
+        }
+        gl.deleteProgram(edgeProgram);
+        gl.deleteProgram(particleProgram);
+        gl.deleteBuffer(particleBuffer);
+        gl.deleteBuffer(lineBuffer);
+        gl.deleteVertexArray(particleVao);
+        gl.deleteVertexArray(lineVao);
+      };
+    }
+
+    disconnectedCallback() {
+      if (this.cleanup) this.cleanup();
+    }
+  }
+
+  customElements.define('edge-field-hero', EdgeFieldHero);
+</script>

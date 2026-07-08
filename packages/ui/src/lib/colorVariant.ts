@@ -36,6 +36,18 @@ export const COLOR_CLASSES: Record<ColorVariant, string> = {
   outline: 'text-foreground-dim border border-border bg-transparent'
 };
 
+/** Sets a generic CSS variable (--variant-color) for components to consume via Tailwind arbitrary values. */
+export const COLOR_VARIABLE_CLASSES: Record<ColorVariant, string> = {
+  default: '[--variant-color:var(--foreground-dim)]',
+  primary: '[--variant-color:var(--primary)]',
+  secondary: '[--variant-color:var(--secondary)]',
+  accent: '[--variant-color:var(--accent)]',
+  warning: '[--variant-color:var(--warning)]',
+  destructive: '[--variant-color:var(--destructive)]',
+  ghost: '[--variant-color:var(--foreground)]',
+  outline: '[--variant-color:var(--foreground-dim)]'
+};
+
 /** Gradient `from-` stop class per variant, for gradient headings and accents. */
 export const COLOR_GRADIENT_FROM: Record<ColorVariant, string> = {
   default: 'from-foreground-dim',

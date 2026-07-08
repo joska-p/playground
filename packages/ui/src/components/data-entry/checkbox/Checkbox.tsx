@@ -3,17 +3,6 @@ import { cn } from '../../../lib/cn';
 import type { ColorVariant } from '../../../lib/colorVariant';
 import { checkboxVariants } from './variants';
 
-const ACCENT_COLOR: Record<ColorVariant, string> = {
-  default: 'var(--foreground-dim)',
-  primary: 'var(--primary)',
-  secondary: 'var(--secondary)',
-  accent: 'var(--accent)',
-  warning: 'var(--warning)',
-  destructive: 'var(--destructive)',
-  ghost: 'var(--foreground)',
-  outline: 'var(--foreground-dim)'
-};
-
 export type CheckboxProps = {
   variant?: ColorVariant;
   label?: ReactNode;
@@ -24,7 +13,6 @@ export function Checkbox({
   className,
   variant = 'primary',
   label,
-  style,
   disabled,
   id,
   ref,
@@ -36,8 +24,7 @@ export function Checkbox({
       type="checkbox"
       id={id}
       disabled={disabled}
-      className={cn(className)}
-      style={{ accentColor: ACCENT_COLOR[variant], ...style }}
+      className={cn(checkboxVariants({ variant }), className)}
       {...props}
     />
   );
@@ -48,7 +35,7 @@ export function Checkbox({
     <label
       htmlFor={id}
       className={cn(
-        checkboxVariants({ variant }),
+        'flex items-center gap-2.5 text-sm select-none',
         disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'
       )}
     >

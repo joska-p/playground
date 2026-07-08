@@ -32,7 +32,7 @@ export function CardGalleries() {
           description="particle tracing on perlin noise."
           iconName="generative"
           href="/"
-          style={{ '--_color': accentTokens.accent } as React.CSSProperties}
+          style={{ '--variant-color': accentTokens.accent } as React.CSSProperties}
         />
       </div>
     </DemoSection>

@@ -24,7 +24,7 @@ const allDocs = await getCollection('docs', ({ data }) => !data.draft);
         allDocs.map((doc) => {
           const mainTag = doc.data.tags[0].id;
           const cardStyle = {
-            '--_color': `var(--color-tags-${mainTag})`
+            '--variant-color': `var(--tags-${mainTag})`
           } as CSSProperties;
           const docUrl = `${docsBaseUrl}${doc.id}/`;
           return (

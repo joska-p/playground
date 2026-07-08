@@ -421,24 +421,24 @@
           }
         }
         .badge-soft {
-          background: color-mix(in oklch, var(--_color) 15%, transparent);
-          color: var(--_color);
+          background: color-mix(in oklch, var(--variant-color) 15%, transparent);
+          color: var(--variant-color);
         }
         .badge-solid {
-          background: var(--_color);
+          background: var(--variant-color);
           color: #fff;
         }
         .badge-outline {
           background: transparent;
-          border: 1px solid var(--_color);
-          color: var(--_color);
+          border: 1px solid var(--variant-color);
+          color: var(--variant-color);
         }
         .badge-dot::before {
           content: '';
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: var(--_color);
+          background: var(--variant-color);
           flex-shrink: 0;
         }
         .reveal {
@@ -605,32 +605,32 @@
         <div class="mt-7 flex flex-wrap gap-2">
           <span
             class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-            style="--_color: var(--category-generative)"
+            style="--variant-color: var(--category-generative)"
             >Generative</span
           >
           <span
             class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-            style="--_color: var(--category-color)"
+            style="--variant-color: var(--category-color)"
             >Color</span
           >
           <span
             class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-            style="--_color: var(--category-image)"
+            style="--variant-color: var(--category-image)"
             >Image</span
           >
           <span
             class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-            style="--_color: var(--category-dataviz)"
+            style="--variant-color: var(--category-dataviz)"
             >Data Viz</span
           >
           <span
             class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-            style="--_color: var(--category-random)"
+            style="--variant-color: var(--category-random)"
             >Random</span
           >
           <span
             class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-            style="--_color: var(--category-simulation)"
+            style="--variant-color: var(--category-simulation)"
             >Simulation</span
           >
         </div>
@@ -812,7 +812,7 @@
               Badges
             </h2>
             <p class="text-muted-foreground mt-1.5 max-w-lg text-sm">
-              One --_color custom property drives three visual densities across all category colors.
+              One --variant-color custom property drives three visual densities across all category colors.
             </p>
           </div>
           <div
@@ -825,32 +825,32 @@
             <div class="mb-6 flex flex-wrap gap-2">
               <span
                 class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-generative)"
+                style="--variant-color: var(--category-generative)"
                 >Generative</span
               >
               <span
                 class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-color)"
+                style="--variant-color: var(--category-color)"
                 >Color</span
               >
               <span
                 class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-image)"
+                style="--variant-color: var(--category-image)"
                 >Image</span
               >
               <span
                 class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-dataviz)"
+                style="--variant-color: var(--category-dataviz)"
                 >Data Viz</span
               >
               <span
                 class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-random)"
+                style="--variant-color: var(--category-random)"
                 >Random</span
               >
               <span
                 class="badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-simulation)"
+                style="--variant-color: var(--category-simulation)"
                 >Simulation</span
               >
             </div>
@@ -860,22 +860,22 @@
             <div class="mb-6 flex flex-wrap gap-2">
               <span
                 class="badge-solid inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-generative)"
+                style="--variant-color: var(--category-generative)"
                 >Generative</span
               >
               <span
                 class="badge-solid inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-color)"
+                style="--variant-color: var(--category-color)"
                 >Color</span
               >
               <span
                 class="badge-solid inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-image)"
+                style="--variant-color: var(--category-image)"
                 >Image</span
               >
               <span
                 class="badge-solid inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-dataviz)"
+                style="--variant-color: var(--category-dataviz)"
                 >Data Viz</span
               >
             </div>
@@ -885,22 +885,22 @@
             <div class="mb-6 flex flex-wrap gap-2">
               <span
                 class="badge-outline inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-generative)"
+                style="--variant-color: var(--category-generative)"
                 >Generative</span
               >
               <span
                 class="badge-outline inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-color)"
+                style="--variant-color: var(--category-color)"
                 >Color</span
               >
               <span
                 class="badge-outline inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-image)"
+                style="--variant-color: var(--category-image)"
                 >Image</span
               >
               <span
                 class="badge-outline inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-dataviz)"
+                style="--variant-color: var(--category-dataviz)"
                 >Data Viz</span
               >
             </div>
@@ -910,22 +910,22 @@
             <div class="flex flex-wrap gap-2">
               <span
                 class="badge-dot badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--secondary)"
+                style="--variant-color: var(--secondary)"
                 >Published</span
               >
               <span
                 class="badge-dot badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--ring)"
+                style="--variant-color: var(--ring)"
                 >Draft</span
               >
               <span
                 class="badge-dot badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--destructive)"
+                style="--variant-color: var(--destructive)"
                 >Archived</span
               >
               <span
                 class="badge-dot badge-soft inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style="--_color: var(--category-color)"
+                style="--variant-color: var(--category-color)"
                 >Review</span
               >
             </div>
@@ -1232,7 +1232,7 @@
                 <div class="p-4">
                   <span
                     class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                    style="--_color: var(--category-generative)"
+                    style="--variant-color: var(--category-generative)"
                     >Generative</span
                   >
                   <p class="text-card-foreground text-[16px] font-semibold">
@@ -1263,7 +1263,7 @@
                 <div class="p-4">
                   <span
                     class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                    style="--_color: var(--category-color)"
+                    style="--variant-color: var(--category-color)"
                     >Color</span
                   >
                   <p class="text-card-foreground text-[16px] font-semibold">
@@ -1317,7 +1317,7 @@
                 <div class="p-4">
                   <span
                     class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                    style="--_color: var(--category-dataviz)"
+                    style="--variant-color: var(--category-dataviz)"
                     >Data Viz</span
                   >
                   <p class="text-card-foreground text-[16px] font-semibold">
@@ -1594,7 +1594,7 @@
                   <div class="p-4">
                     <span
                       class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                      style="--_color: var(--category-generative)"
+                      style="--variant-color: var(--category-generative)"
                       >Generative</span
                     >
                     <p class="text-card-foreground text-sm font-semibold">Noise Landscapes</p>
@@ -1612,7 +1612,7 @@
                   <div class="p-4">
                     <span
                       class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                      style="--_color: var(--category-color)"
+                      style="--variant-color: var(--category-color)"
                       >Color</span
                     >
                     <p class="text-card-foreground text-sm font-semibold">Gradient Meshes</p>
@@ -1630,7 +1630,7 @@
                   <div class="p-4">
                     <span
                       class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                      style="--_color: var(--category-image)"
+                      style="--variant-color: var(--category-image)"
                       >Image</span
                     >
                     <p class="text-card-foreground text-sm font-semibold">Pixel Sorting</p>
@@ -1648,7 +1648,7 @@
                   <div class="p-4">
                     <span
                       class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                      style="--_color: var(--category-dataviz)"
+                      style="--variant-color: var(--category-dataviz)"
                       >Data Viz</span
                     >
                     <p class="text-card-foreground text-sm font-semibold">Force Graphs</p>
@@ -1666,7 +1666,7 @@
                   <div class="p-4">
                     <span
                       class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                      style="--_color: var(--category-random)"
+                      style="--variant-color: var(--category-random)"
                       >Random</span
                     >
                     <p class="text-card-foreground text-sm font-semibold">Distributed Seeds</p>
@@ -1684,7 +1684,7 @@
                   <div class="p-4">
                     <span
                       class="badge-soft mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
-                      style="--_color: var(--category-simulation)"
+                      style="--variant-color: var(--category-simulation)"
                       >Simulation</span
                     >
                     <p class="text-card-foreground text-sm font-semibold">Flocking Agents</p>
@@ -2621,7 +2621,7 @@
                       ''}${densityClasses[density]}`}
                     </p>
                     <p class="text-foreground">
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style={{ '--_color': colorVariables[color]
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style={{ '--variant-color': colorVariables[color]
                       } as React.CSSProperties}
                     </p>
                     <p class="text-foreground">

@@ -1,0 +1,294 @@
+/**
+ * <edge-field-canvas>
+ *
+ * Same shader pipeline as EdgeFieldCanvas.tsx, packaged as a plain Web
+ * Component instead of a React component. Works in any framework (or none)
+ * since custom elements are a browser primitive, not a React concept.
+ *
+ * Usage:
+ *   <script type="module" src="/edge-field-canvas.js"></script>
+ *   <edge-field-canvas></edge-field-canvas>
+ *
+ * Optional attributes (all live-updatable after mount):
+ *   color-cold="0.86,0.78,0.35"   RGB 0-1, comma separated
+ *   color-hot="0.55,0.85,0.62"
+ *   scale="6"                     noise frequency
+ *   bands="8"                     posterization steps
+ *   hot-radius="440"              cursor glow radius in px
+ *
+ * See EdgeFieldCanvas.tsx for the full feX -> shader primitive mapping —
+ * that comment block isn't duplicated here, the shader itself is identical.
+ */
+
+const VERTEX_SRC = `#version 300 es
+const vec2 POSITIONS[3] = vec2[3](
+  vec2(-1.0, -1.0),
+  vec2(3.0, -1.0),
+  vec2(-1.0, 3.0)
+);
+void main() {
+  gl_Position = vec4(POSITIONS[gl_VertexID], 0.0, 1.0);
+}
+`;
+
+const FRAGMENT_SRC = `#version 300 es
+precision highp float;
+
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform vec2 u_mouse;
+uniform float u_seed;
+uniform float u_scale;
+uniform float u_bands;
+uniform vec3 u_colorCold;
+uniform vec3 u_colorHot;
+uniform float u_hotRadius;
+
+out vec4 fragColor;
+
+float hash(vec2 p) {
+  p = fract(p * vec2(123.34, 456.21));
+  p += dot(p, p + 45.32);
+  return fract(p.x * p.y);
+}
+
+float valueNoise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  float a = hash(i);
+  float b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0));
+  float d = hash(i + vec2(1.0, 1.0));
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float fbm(vec2 p) {
+  float value = 0.0;
+  float amplitude = 0.5;
+  for (int i = 0; i < 3; i++) {
+    value += amplitude * valueNoise(p);
+    p *= 2.0;
+    amplitude *= 0.5;
+  }
+  return value;
+}
+
+float banded(vec2 uv) {
+  float n = fbm(uv * u_scale + u_seed);
+  return floor(n * u_bands) / u_bands;
+}
+
+float edgeDetect(vec2 uv, float spread) {
+  vec2 texel = spread / u_resolution;
+  float sum = 0.0;
+  sum += banded(uv + texel * vec2(-1.0, -1.0));
+  sum += banded(uv + texel * vec2(0.0, -1.0));
+  sum += banded(uv + texel * vec2(1.0, -1.0));
+  sum += banded(uv + texel * vec2(-1.0, 0.0));
+  sum += banded(uv + texel * vec2(0.0, 0.0)) * -8.0;
+  sum += banded(uv + texel * vec2(1.0, 0.0));
+  sum += banded(uv + texel * vec2(-1.0, 1.0));
+  sum += banded(uv + texel * vec2(0.0, 1.0));
+  sum += banded(uv + texel * vec2(1.0, 1.0));
+  return abs(sum);
+}
+
+void main() {
+  vec2 fragPx = vec2(gl_FragCoord.x, u_resolution.y - gl_FragCoord.y);
+  vec2 uv = fragPx / u_resolution;
+
+  float sharp = edgeDetect(uv, 1.0);
+  float bloom = edgeDetect(uv, 4.0);
+  float edge = clamp(sharp + bloom * 0.6, 0.0, 1.0);
+
+  float distToMouse = length(fragPx - u_mouse);
+  float hot = 1.0 - smoothstep(0.0, u_hotRadius, distToMouse);
+
+  vec3 color = mix(u_colorCold, u_colorHot, hot);
+  fragColor = vec4(color, edge);
+}
+`;
+
+function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
+  const shader = gl.createShader(type);
+  if (!shader) throw new Error('Failed to create shader');
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    const info = gl.getShaderInfoLog(shader);
+    gl.deleteShader(shader);
+    throw new Error(`Shader compile error: ${String(info)}`);
+  }
+  return shader;
+}
+
+function createProgram(gl: WebGL2RenderingContext): WebGLProgram {
+  const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SRC);
+  const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SRC);
+  const program = gl.createProgram();
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    const info = gl.getProgramInfoLog(program);
+    gl.deleteProgram(program);
+    throw new Error(`Program link error: ${String(info)}`);
+  }
+  return program;
+}
+
+function parseRgb(
+  value: string | null,
+  fallback: [number, number, number]
+): [number, number, number] {
+  if (!value) return fallback;
+  const parts = value.split(',').map((v) => parseFloat(v.trim()));
+  if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return fallback;
+  return [parts[0], parts[1], parts[2]];
+}
+
+const MAX_DPR = 1.5;
+
+class EdgeFieldCanvasElement extends HTMLElement {
+  static observedAttributes = ['color-cold', 'color-hot', 'scale', 'bands', 'hot-radius', 'seed'];
+
+  private canvas: HTMLCanvasElement;
+  private gl: WebGL2RenderingContext | null = null;
+  private program: WebGLProgram | null = null;
+  private uniforms: Record<string, WebGLUniformLocation | null> = {};
+  private rafId = 0;
+  private startTime = 0;
+  private mouse = { x: -9999, y: -9999 };
+  private boundResize = () => {
+    this.resize();
+  };
+  private boundMouseMove = (e: MouseEvent) => {
+    this.mouse.x = e.clientX;
+    this.mouse.y = e.clientY;
+  };
+  private boundContextLost = (e: Event) => {
+    e.preventDefault();
+    cancelAnimationFrame(this.rafId);
+  };
+
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    const style = document.createElement('style');
+    style.textContent = `
+      :host { position: fixed; inset: 0; display: block; pointer-events: none; }
+      canvas { width: 100%; height: 100%; display: block; }
+    `;
+    this.canvas = document.createElement('canvas');
+    shadow.append(style, this.canvas);
+  }
+
+  connectedCallback() {
+    const gl = this.canvas.getContext('webgl2', {
+      alpha: true,
+      antialias: false,
+      premultipliedAlpha: true
+    });
+    if (!gl) {
+      console.warn('<edge-field-canvas>: WebGL2 unavailable, skipping render.');
+      return;
+    }
+    this.gl = gl;
+    this.program = createProgram(gl);
+    gl.useProgram(this.program);
+
+    this.uniforms = {
+      resolution: gl.getUniformLocation(this.program, 'u_resolution'),
+      time: gl.getUniformLocation(this.program, 'u_time'),
+      mouse: gl.getUniformLocation(this.program, 'u_mouse'),
+      seed: gl.getUniformLocation(this.program, 'u_seed'),
+      scale: gl.getUniformLocation(this.program, 'u_scale'),
+      bands: gl.getUniformLocation(this.program, 'u_bands'),
+      colorCold: gl.getUniformLocation(this.program, 'u_colorCold'),
+      colorHot: gl.getUniformLocation(this.program, 'u_colorHot'),
+      hotRadius: gl.getUniformLocation(this.program, 'u_hotRadius')
+    };
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    this.applyAttributes();
+    this.resize();
+
+    window.addEventListener('resize', this.boundResize);
+    window.addEventListener('mousemove', this.boundMouseMove, { passive: true });
+    this.canvas.addEventListener('webglcontextlost', this.boundContextLost);
+
+    this.startTime = performance.now();
+    this.rafId = requestAnimationFrame(this.frame);
+  }
+
+  disconnectedCallback() {
+    cancelAnimationFrame(this.rafId);
+    window.removeEventListener('resize', this.boundResize);
+    window.removeEventListener('mousemove', this.boundMouseMove);
+    this.canvas.removeEventListener('webglcontextlost', this.boundContextLost);
+    if (this.gl && this.program) this.gl.deleteProgram(this.program);
+    this.gl = null;
+    this.program = null;
+  }
+
+  attributeChangedCallback() {
+    if (this.gl && this.program) {
+      this.gl.useProgram(this.program);
+      this.applyAttributes();
+    }
+  }
+
+  private applyAttributes() {
+    const gl = this.gl;
+    if (!gl) return;
+    const colorCold = parseRgb(this.getAttribute('color-cold'), [0.86, 0.78, 0.35]);
+    const colorHot = parseRgb(this.getAttribute('color-hot'), [0.55, 0.85, 0.62]);
+    const scale = parseFloat(this.getAttribute('scale') ?? '6');
+    const bands = parseFloat(this.getAttribute('bands') ?? '8');
+    const hotRadius = parseFloat(this.getAttribute('hot-radius') ?? '440');
+    const seed = parseFloat(this.getAttribute('seed') ?? '11');
+
+    gl.uniform3fv(this.uniforms.colorCold, colorCold);
+    gl.uniform3fv(this.uniforms.colorHot, colorHot);
+    gl.uniform1f(this.uniforms.scale, Number.isNaN(scale) ? 6 : scale);
+    gl.uniform1f(this.uniforms.bands, Number.isNaN(bands) ? 8 : bands);
+    gl.uniform1f(this.uniforms.hotRadius, Number.isNaN(hotRadius) ? 440 : hotRadius);
+    gl.uniform1f(this.uniforms.seed, Number.isNaN(seed) ? 11 : seed);
+  }
+
+  private resize() {
+    const gl = this.gl;
+    if (!gl) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    const width = Math.floor(window.innerWidth * dpr);
+    const height = Math.floor(window.innerHeight * dpr);
+    if (this.canvas.width !== width || this.canvas.height !== height) {
+      this.canvas.width = width;
+      this.canvas.height = height;
+      gl.viewport(0, 0, width, height);
+    }
+  }
+
+  private frame = (now: number) => {
+    const gl = this.gl;
+    if (!gl) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    gl.uniform2f(this.uniforms.resolution, this.canvas.width, this.canvas.height);
+    gl.uniform1f(this.uniforms.time, (now - this.startTime) / 1000);
+    gl.uniform2f(this.uniforms.mouse, this.mouse.x * dpr, this.mouse.y * dpr);
+
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    this.rafId = requestAnimationFrame(this.frame);
+  };
+}
+
+if (!customElements.get('edge-field-canvas')) {
+  customElements.define('edge-field-canvas', EdgeFieldCanvasElement);
+}
+
+export { EdgeFieldCanvasElement };

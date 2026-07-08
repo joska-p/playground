@@ -110,8 +110,8 @@ Two ways components consume the variant, matching the source design:
   previewed, or extended independently of the component itself.
 - **Single accent** (Badge, Switch, Card glow, Tabs indicator, Input
   focus ring, Checkbox/Radio/Slider accent-color): `variant` resolves to
-  one CSS custom property (`--_color` or `accent-color`) via the shared
-  `src/lib/colorVariant.ts` — the same `--_color` trick the original
+  one CSS custom property (`--variant-color` or `accent-color`) via the shared
+  `src/lib/colorVariant.ts` — the same `--variant-color` trick the original
   design used for badges, just generalized to every component.
 
 ## Components

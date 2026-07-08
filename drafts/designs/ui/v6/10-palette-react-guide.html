@@ -76,8 +76,8 @@
           <div class="bg-background rounded p-3 text-[11px] leading-relaxed space-y-1.5 font-mono overflow-x-auto">
             <p class="text-foreground-dim">// button: variant record → tailwind classes</p>
             <p class="text-foreground">const variants = { primary:'bg-primary text-primary-foreground', secondary:'bg-secondary text-secondary-foreground', destructive:'bg-destructive text-destructive-foreground', accent:'bg-accent text-accent-foreground', warning:'bg-warning text-warning-foreground' }</p>
-            <p class="text-foreground-dim">// badge: --_color via style prop</p>
-            <p class="text-foreground">&lt;span className="badge-soft" style={{'--_color':'var(--green)'}}&gt;generative&lt;/span&gt;</p>
+            <p class="text-foreground-dim">// badge: --variant-color via style prop</p>
+            <p class="text-foreground">&lt;span className="badge-soft" style={{'--variant-color':'var(--green)'}}&gt;generative&lt;/span&gt;</p>
             <p class="text-foreground-dim">// accordion: keep &lt;details&gt;, use open prop</p>
             <p class="text-foreground-dim">// carousel: useRef + scrollBy, .carousel handles overflow-x:scroll</p>
             <p class="text-foreground-dim">// popover: left:50% + -translate-x-1/2 for centering</p>
@@ -104,7 +104,7 @@
             <p class="text-foreground">&lt;ThemeProvider client:load&gt;&lt;slot /&gt;&lt;/ThemeProvider&gt;</p>
             <br>
             <p class="text-foreground-dim"># css-only components need no client directive:</p>
-            <p class="text-foreground">&lt;div class="badge-soft" style="--_color:var(--green)"&gt;gen&lt;/div&gt;</p>
+            <p class="text-foreground">&lt;div class="badge-soft" style="--variant-color:var(--green)"&gt;gen&lt;/div&gt;</p>
             <p class="text-foreground-dim"># interactive ones use client:visible or client:idle</p>
             <p class="text-foreground">&lt;Button variant="primary" client:visible&gt;go&lt;/Button&gt;</p>
           </div>

@@ -28,7 +28,7 @@ const allNotes = await getCollection('notes', ({ data }) => !data.draft);
         allNotes.map((note) => {
           const mainTag = note.data.tags[0].id;
           const cardStyle = {
-            '--_color': `var(--color-tags-${mainTag})`
+            '--variant-color': `var(--tags-${mainTag})`
           } as CSSProperties;
           const noteUrl = `${notesBaseUrl}${note.id}/`;
           return (

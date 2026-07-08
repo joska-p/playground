@@ -37,7 +37,7 @@ const groups = allTags
           const { id, label, description, iconName, count } = group;
           const link = `${baseUrl}projects/${id}/`;
           const cardStyle = {
-            '--_color': `var(--color-tags-${id})`
+            '--variant-color': `var(--tags-${id})`
           } as CSSProperties;
           return (
             <CategoryCard

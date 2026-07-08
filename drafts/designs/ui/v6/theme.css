@@ -138,10 +138,10 @@
   .button-loading { color:transparent!important; pointer-events:none; position:relative; }
   .button-loading::before { content:''; width:16px; height:16px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin 0.6s linear infinite; color:var(--primary-foreground); }
   @keyframes spin { to { transform:rotate(360deg); } }
-  .badge-soft { background:color-mix(in srgb,var(--_color) 15%,transparent); color:var(--_color); }
-  .badge-solid { background:var(--_color); color:var(--background); }
-  .badge-outline { background:transparent; border:1px solid var(--_color); color:var(--_color); }
-  .badge-dot::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--_color); flex-shrink:0; }
+  .badge-soft { background:color-mix(in srgb,var(--variant-color) 15%,transparent); color:var(--variant-color); }
+  .badge-solid { background:var(--variant-color); color:var(--background); }
+  .badge-outline { background:transparent; border:1px solid var(--variant-color); color:var(--variant-color); }
+  .badge-dot::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--variant-color); flex-shrink:0; }
   .reveal { opacity:0; transform:translateY(16px); transition:opacity 0.5s ease,transform 0.5s ease; }
   .reveal.visible { opacity:1; transform:translateY(0); }
 }

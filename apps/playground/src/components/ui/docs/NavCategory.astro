@@ -31,12 +31,12 @@ const hasActiveArticle = docs.some((category) => {
     <div
       class="flex items-center gap-2"
       style={{
-        '--_color': `var(--color-docs-${category[0].id}, var(--color-primary))`
+        '--variant-color': `var(--tags-${category[0].id}, var(--color-primary))`
       }}
     >
       <Icon
         name={category[0].data.iconName ?? 'bluesky'}
-        className="h-4 w-4 shrink-0 text-(--_color)"
+        className="h-4 w-4 shrink-0 text-(--variant-color)"
         aria-hidden="true"
       />
       <span class="text-muted-foreground/50 text-[9px] font-bold uppercase">

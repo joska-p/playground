@@ -36,7 +36,7 @@ function SectionHeader({
     <div
       ref={ref}
       className={cn(
-        'flex flex-col gap-2 font-mono',
+        'text-(--variant-color)',
         sectionHeaderVariants({ variant }),
         isCenter ? 'items-center text-center' : 'items-start',
         className
@@ -54,7 +54,7 @@ function SectionHeader({
       {description && (
         <p
           className={cn(
-            'text-foreground-muted max-w-xl text-sm leading-relaxed',
+            'max-w-xl text-sm leading-relaxed text-(--variant-color)/80',
             { 'text-center': isCenter },
             { 'ml-10': !isCenter }
           )}

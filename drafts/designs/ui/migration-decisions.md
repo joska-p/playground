@@ -49,13 +49,13 @@ Text that was 13px in the draft maps to `text-sm` (14px in TW v4). Text that was
 
 ## Decision 4: Badge Architecture ✓
 
-**Verdict:** CVA for the 4 visual modes (soft/solid/outline/dot). `color` prop sets `--_color` CSS variable via inline style. `cn()` composes them on the root element.
+**Verdict:** CVA for the 4 visual modes (soft/solid/outline/dot). `color` prop sets `--variant-color` CSS variable via inline style. `cn()` composes them on the root element.
 
 The color is treated as data, not a variant — no CVA entry needed per color. Any theme color works. The CVA only encodes the backdrop treatment (soft tint, solid fill, outline border, dot indicator).
 
 ```tsx
 // badgeVariants handles: soft | solid | outline | dot
-// color prop handles: any theme color → --_color
+// color prop handles: any theme color → --variant-color
 <Badge variant="soft" color="green">generative</Badge>
 <Badge variant="solid" color="purple">color</Badge>
 ```
@@ -526,4 +526,3 @@ Types: info (primary), success (secondary), error (destructive). 4s auto-dismiss
 - **Variants preserve:** primary/secondary/accent/destructive/outline/ghost — but now the variant controls the wrapper's border tint vs bg tint, and the focus ring color
 
 ---
-

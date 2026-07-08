@@ -43,15 +43,15 @@ function CategoryCard({
         className="flex items-center justify-center px-4 pt-5 pb-3"
         aria-hidden="true"
       >
-        <div className="w-full max-w-22 text-(--_color)">
+        <div className="w-full max-w-22 text-(--variant-color)">
           <Icon name={iconName} />
         </div>
       </div>
 
       {/* Divider line — a tint at rest, full accent on hover */}
       <div
-        className="mx-4 h-px transition-colors duration-300 group-hover:bg-(--_color)"
-        style={{ background: 'color-mix(in srgb, var(--_color) 30%, var(--muted))' }}
+        className="mx-4 h-px transition-colors duration-300 group-hover:bg-(--variant-color)"
+        style={{ background: 'color-mix(in srgb, var(--variant-color) 30%, var(--muted))' }}
       />
 
       <CardBody className="flex-col gap-0.5 space-y-0.5 px-4 pt-3 pb-4">
@@ -62,7 +62,7 @@ function CategoryCard({
           <p className="text-muted-foreground/60 hidden truncate text-xs sm:block">{description}</p>
         )}
         <div className="flex items-baseline gap-1 pt-1">
-          <span className="text-xl leading-none font-bold text-(--_color) transition-colors duration-300">
+          <span className="text-xl leading-none font-bold text-(--variant-color) transition-colors duration-300">
             {count}
           </span>
           <span className="text-muted-foreground/60 text-xs"> exp </span>

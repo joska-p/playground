@@ -42,7 +42,7 @@ function ProjectCard({
         className="h-1 w-full opacity-40 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            'linear-gradient(90deg, transparent, var(--_color) 30%, var(--_color) 70%, transparent)'
+            'linear-gradient(90deg, transparent, var(--variant-color) 30%, var(--variant-color) 70%, transparent)'
         }}
         aria-hidden="true"
       />
@@ -51,7 +51,7 @@ function ProjectCard({
         <div className="flex items-start justify-between gap-3">
           <CardTitle>{title}</CardTitle>
           <div
-            className="mt-0.5 shrink-0 text-(--_color) [&_svg]:h-10 [&_svg]:w-10"
+            className="mt-0.5 shrink-0 text-(--variant-color) [&_svg]:h-10 [&_svg]:w-10"
             aria-hidden="true"
           >
             <Icon name={iconName} />
@@ -76,7 +76,7 @@ function ProjectCard({
       {/* Arrow icon on hover */}
       <Icon
         name="arrow-diagonal"
-        className="absolute right-5 bottom-5 h-4 w-4 text-(--_color) opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+        className="absolute right-5 bottom-5 h-4 w-4 text-(--variant-color) opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
       />
     </CardLink>
   );

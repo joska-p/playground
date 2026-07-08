@@ -4,7 +4,7 @@
 
 The `ColorVariant` type (`default | primary | secondary | accent | warning | destructive`) is genuinely the right abstraction. Learning it once and using it on Button, Badge, Alert, Input, Checkbox, Switch, Card, Tabs, and more means zero context-switching. You never wonder "does this component use a color prop or a variant prop?" — it's always `variant`.
 
-**Design insight:** The two-mechanism approach (cva for multi-prop changes, `--_color` for single-accent) is invisible to the consumer. As an app developer you just pass `variant="primary"` and don't care about the internals. That's the right trade-off.
+**Design insight:** The two-mechanism approach (cva for multi-prop changes, `--variant-color` for single-accent) is invisible to the consumer. As an app developer you just pass `variant="primary"` and don't care about the internals. That's the right trade-off.
 
 ## Stateless components + stateful hooks is clean — with one edge
 

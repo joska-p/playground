@@ -2,9 +2,9 @@
 
 ## Goal
 
-Remove the dual `--_color` / CVA variant systems. Unify everything on CVA + `COLOR_CLASSES` in `colorVariant.ts` as the single source of truth.
+Remove the dual `--variant-color` / CVA variant systems. Unify everything on CVA + `COLOR_CLASSES` in `colorVariant.ts` as the single source of truth.
 
-The consumer-facing `--_color` override feature is removed. Components use Tailwind classes driven by CVA variant configs. `colorVar()` and `colorVarStyle()` are deleted.
+The consumer-facing `--variant-color` override feature is removed. Components use Tailwind classes driven by CVA variant configs. `colorVar()` and `colorVarStyle()` are deleted.
 
 ---
 
@@ -37,20 +37,20 @@ export const COLOR_CLASSES: Record<ColorVariant, string> = {
 
 ---
 
-## Phase B — Migrate `colorVarStyle()` consumers (components that set `--_color`)
+## Phase B — Migrate `colorVarStyle()` consumers (components that set `--variant-color`)
 
-Each of these currently calls `colorVarStyle(variant)` to set `--_color` on a DOM element, then CSS reads `--_color` to apply visual styles. Replace with a CVA variant axis using Tailwind classes directly.
+Each of these currently calls `colorVarStyle(variant)` to set `--variant-color` on a DOM element, then CSS reads `--variant-color` to apply visual styles. Replace with a CVA variant axis using Tailwind classes directly.
 
 ### B1 — Simple accent color (text-only)
 
-These use `--_color` only for text color. Replace with `text-{variant}` in a CVA variant axis.
+These use `--variant-color` only for text color. Replace with `text-{variant}` in a CVA variant axis.
 
-| Component          | Current                                                      | Migration                                                  |
-| ------------------ | ------------------------------------------------------------ | ---------------------------------------------------------- |
-| **SectionHeader**  | `colorVarStyle(variant)` → `color: var(--_color)`            | Add CVA `variant` axis: `{ primary: 'text-primary', ... }` |
-| **SectionHeading** | `colorVarStyle(variant)` → `text-(--_color)`                 | Same as above                                              |
-| **FloatingNav**    | `colorVarStyle(variant)` → `color: var(--_color)`            | Same as above                                              |
-| **ChangelogItem**  | `colorVarStyle(variant)` → uses `--_color` for version label | Same as above                                              |
+| Component          | Current                                                             | Migration                                                  |
+| ------------------ | ------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **SectionHeader**  | `colorVarStyle(variant)` → `color: var(--variant-color)`            | Add CVA `variant` axis: `{ primary: 'text-primary', ... }` |
+| **SectionHeading** | `colorVarStyle(variant)` → `text-(--variant-color)`                 | Same as above                                              |
+| **FloatingNav**    | `colorVarStyle(variant)` → `color: var(--variant-color)`            | Same as above                                              |
+| **ChangelogItem**  | `colorVarStyle(variant)` → uses `--variant-color` for version label | Same as above                                              |
 
 These don't have a `variants.ts` yet. Create one with a CVA `variant` axis.
 
@@ -80,17 +80,17 @@ className={cn(componentVariants({ variant }), className)}
 
 ### B2 — Tinted background + text
 
-These use `--_color` for a soft tinted background and matching text.
+These use `--variant-color` for a soft tinted background and matching text.
 
-| Component            | Current                                                                  | Migration                                             |
-| -------------------- | ------------------------------------------------------------------------ | ----------------------------------------------------- |
-| **MenuItem**         | `colorVarStyle(variant)` → `bg: color-mix(15%)` + `color: var(--_color)` | CVA: `{ primary: 'bg-primary/15 text-primary', ... }` |
-| **NotificationItem** | Same pattern as MenuItem                                                 | Same as above                                         |
-| **Hero**             | `colorVarStyle(variant)` → bg tint + text + gradient                     | CVA with compound variants if needed                  |
+| Component            | Current                                                                         | Migration                                             |
+| -------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **MenuItem**         | `colorVarStyle(variant)` → `bg: color-mix(15%)` + `color: var(--variant-color)` | CVA: `{ primary: 'bg-primary/15 text-primary', ... }` |
+| **NotificationItem** | Same pattern as MenuItem                                                        | Same as above                                         |
+| **Hero**             | `colorVarStyle(variant)` → bg tint + text + gradient                            | CVA with compound variants if needed                  |
 
 ### B3 — Badge (complex — appearance + variant)
 
-**Current:** `colorVarStyle(variant)` drives badge-soft/solid/outline via CSS `var(--_color)`. Badge CVA already handles `appearance` and `dot` axes.
+**Current:** `colorVarStyle(variant)` drives badge-soft/solid/outline via CSS `var(--variant-color)`. Badge CVA already handles `appearance` and `dot` axes.
 
 **Migration:** Replace the CSS-driven styles with CVA compound variants:
 
@@ -138,13 +138,13 @@ This eliminates the need for `.badge-soft`, `.badge-solid`, `.badge-outline`, `.
 
 ### B4 — Switch (toggle)
 
-**Current:** `colorVarStyle(variant)` → CSS `.toggle:checked { background: var(--_color) }`
+**Current:** `colorVarStyle(variant)` → CSS `.toggle:checked { background: var(--variant-color) }`
 
 **Migration:** Replace with CVA variant axis for the checked-state background. Switch already has a custom CSS toggle. Replace the CSS with a variant-aware class that sets background directly.
 
 ### B5 — Tabs (underline)
 
-**Current:** `colorVarStyle(variant)` → CSS `.tab-trigger::after { background: var(--_color) }`
+**Current:** `colorVarStyle(variant)` → CSS `.tab-trigger::after { background: var(--variant-color) }`
 
 **Migration:** The underline is a pseudo-element; can't Tailwind it directly. Options:
 
@@ -153,7 +153,7 @@ This eliminates the need for `.badge-soft`, `.badge-solid`, `.badge-outline`, `.
 
 ### B6 — Accordion (arrow)
 
-**Current:** `colorVarStyle(variant)` → CSS `.accordion-trigger::after { border-color: var(--_color) }`
+**Current:** `colorVarStyle(variant)` → CSS `.accordion-trigger::after { border-color: var(--variant-color) }`
 
 **Migration:** Same problem as Tabs (pseudo-element). Options:
 
@@ -162,9 +162,9 @@ This eliminates the need for `.badge-soft`, `.badge-solid`, `.badge-outline`, `.
 
 ### B7 — Card (interactive glow)
 
-**Current:** `colorVarStyle(variant)` → CSS `.card-interactive:has(...) { box-shadow: ... var(--_color) ... }`
+**Current:** `colorVarStyle(variant)` → CSS `.card-interactive:has(...) { box-shadow: ... var(--variant-color) ... }`
 
-**Migration:** The glow uses `color-mix` and `var(--_color)` in a complex `:has()` selector. Options:
+**Migration:** The glow uses `color-mix` and `var(--variant-color)` in a complex `:has()` selector. Options:
 
 - Replace with a CVA variant axis that sets variant-specific shadow classes
 - Or define variant CSS in a component-level CSS file
@@ -177,9 +177,9 @@ This eliminates the need for `.badge-soft`, `.badge-solid`, `.badge-outline`, `.
 
 ### B9 — ColorPalette (selection ring)
 
-**Current:** `colorVarStyle(variant)` → CSS `has-checked:shadow-[0_0_0_2px_var(--_color)]`
+**Current:** `colorVarStyle(variant)` → CSS `has-checked:shadow-[0_0_0_2px_var(--variant-color)]`
 
-**Migration:** Replace `shadow-[0_0_0_2px_var(--_color)]` with variant-specific shadow or ring classes in the CVA.
+**Migration:** Replace `shadow-[0_0_0_2px_var(--variant-color)]` with variant-specific shadow or ring classes in the CVA.
 
 ### B10 — ControlSection
 
@@ -202,7 +202,7 @@ This eliminates the need for `.badge-soft`, `.badge-solid`, `.badge-outline`, `.
 - **Option 1:** Keep a mapping function in a local utility or in `colorVariant.ts` (renamed, not as `colorVar`). This is the cleanest since `accentColor` fundamentally needs a CSS var reference.
 - **Option 2:** Inline the mapping per component (duplication, but small — only 3 variants that actually get used: primary, warning, destructive).
 
-**Recommendation:** Add a minimal `VARIANT_CSS_VARS: Record<ColorVariant, string>` export to `colorVariant.ts` that returns the CSS var names — NOT as `var(--primary)` but just for the cases where you truly need a CSS value at runtime (accentColor). This is separate from `--_color`.
+**Recommendation:** Add a minimal `VARIANT_CSS_VARS: Record<ColorVariant, string>` export to `colorVariant.ts` that returns the CSS var names — NOT as `var(--primary)` but just for the cases where you truly need a CSS value at runtime (accentColor). This is separate from `--variant-color`.
 
 Actually simplest: just inline a small `accentColorMap` in each of Radio, Checkbox, Slider. It's just a few lines per component.
 
@@ -228,55 +228,55 @@ If Tailwind's ring color utilities are set up for the theme, `focus-visible:ring
 
 ---
 
-## Phase D — Migrate card components (direct `--_color` in JSX)
+## Phase D — Migrate card components (direct `--variant-color` in JSX)
 
-These components DON'T import `colorVarStyle`. They receive `--_color` value via a parent component's inline style and use Tailwind arbitrary values to read it.
+These components DON'T import `colorVarStyle`. They receive `--variant-color` value via a parent component's inline style and use Tailwind arbitrary values to read it.
 
-| Component        | Usage                                                                     |
-| ---------------- | ------------------------------------------------------------------------- |
-| **ProjectCard**  | `text-(--_color)`, `linear-gradient(... var(--_color) ...)`               |
-| **DocCard**      | `borderColor: 'transparent var(--_color)...'`, `text-(--_color)`, bg tint |
-| **CategoryCard** | `text-(--_color)`, `bg-(--_color)/10`                                     |
-| **CardLink**     | Complex: `bg-(--_color)/10`, `shadow-[...var(--_color)...]`, glow effects |
+| Component        | Usage                                                                                   |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| **ProjectCard**  | `text-(--variant-color)`, `linear-gradient(... var(--variant-color) ...)`               |
+| **DocCard**      | `borderColor: 'transparent var(--variant-color)...'`, `text-(--variant-color)`, bg tint |
+| **CategoryCard** | `text-(--variant-color)`, `bg-(--variant-color)/10`                                     |
+| **CardLink**     | Complex: `bg-(--variant-color)/10`, `shadow-[...var(--variant-color)...]`, glow effects |
 
-**Migration:** Pass `variant` prop directly to these card components. Each gets a CVA variant axis that renders the correct Tailwind classes instead of reading `--_color` from a CSS var.
+**Migration:** Pass `variant` prop directly to these card components. Each gets a CVA variant axis that renders the correct Tailwind classes instead of reading `--variant-color` from a CSS var.
 
 Alternatively, for cards that receive `accent` as a raw color value (not a variant name), they need a different mechanism. Let me check...
 
 Let me look at CardLink specifically — it receives `accent: string` (a raw color) and uses it directly:
 
 ```tsx
-style={{ '--_color': accent, ...style } as CSSProperties}
+style={{ '--variant-color': accent, ...style } as CSSProperties}
 ```
 
 This is a different pattern: the consumer passes an actual color value (like `#ff0000`), not a variant name. This is the true consumer-override use case.
 
-**For CardLink:** This IS the `--_color` consumer-override feature. If we're removing it, CardLink needs a `variant` prop instead of an `accent` string prop. Or the parent component that renders CardLink needs to compute classes.
+**For CardLink:** This IS the `--variant-color` consumer-override feature. If we're removing it, CardLink needs a `variant` prop instead of an `accent` string prop. Or the parent component that renders CardLink needs to compute classes.
 
 Let me check how CardLink is used.
 
 ---
 
-## Phase E — Remove `--_color` from CSS
+## Phase E — Remove `--variant-color` from CSS
 
 **File:** `packages/ui/src/styles/gruvbox-theme.css`
 
-Remove or replace these `--_color` rules:
+Remove or replace these `--variant-color` rules:
 
-| Lines   | CSS Class                    | Replacement                                                    |
-| ------- | ---------------------------- | -------------------------------------------------------------- |
-| 378-379 | `.toggle:checked`            | Replace with variant-aware Tailwind in Switch                  |
-| 386-390 | `.card-interactive:has(...)` | Replace with variant-aware shadow classes                      |
-| 407-408 | `.accordion-trigger::after`  | Replace with child element or variant CSS                      |
-| 446     | `.tab-trigger::after`        | Replace with child element or variant CSS                      |
-| 538     | `.tooltip::after`            | Tooltip uses `--_color` as fallback — replace with fixed value |
-| 575-597 | `.badge-*`                   | Replace with CVA compound variants in Badge                    |
+| Lines   | CSS Class                    | Replacement                                                           |
+| ------- | ---------------------------- | --------------------------------------------------------------------- |
+| 378-379 | `.toggle:checked`            | Replace with variant-aware Tailwind in Switch                         |
+| 386-390 | `.card-interactive:has(...)` | Replace with variant-aware shadow classes                             |
+| 407-408 | `.accordion-trigger::after`  | Replace with child element or variant CSS                             |
+| 446     | `.tab-trigger::after`        | Replace with child element or variant CSS                             |
+| 538     | `.tooltip::after`            | Tooltip uses `--variant-color` as fallback — replace with fixed value |
+| 575-597 | `.badge-*`                   | Replace with CVA compound variants in Badge                           |
 
 ---
 
 ## Phase F — Update showcase / docs
 
-- `packages/ui/src/showcase/sections/VariantSystemSection.tsx` — remove §5.2 (`--_color` section), update table
+- `packages/ui/src/showcase/sections/VariantSystemSection.tsx` — remove §5.2 (`--variant-color` section), update table
 - `packages/ui/src/showcase/references/ContributingSection.tsx` — update guidance
 - `packages/ui/src/showcase/references/ChecklistSection.tsx` — update checklist
 - `packages/ui/src/showcase/components/BadgeGallery.tsx` — update intro text
@@ -323,9 +323,9 @@ Phase G: Build + verify
 Component: ___________
 
 [Before — understand current state]
-☐ Does it use colorVarStyle()? → What does --_color affect?
+☐ Does it use colorVarStyle()? → What does --variant-color affect?
 ☐ Does it use colorVar()? → Which CSS property?
-☐ Does it use --_color directly in JSX/CSS?
+☐ Does it use --variant-color directly in JSX/CSS?
 
 [Migration]
 ☐ Does it need a new variants.ts? (create if yes)
@@ -335,7 +335,7 @@ Component: ___________
 ☐ Does it use accentColor and need a local mapping? (Radio, Checkbox, Slider)
 ☐ Remove imports of colorVar / colorVarStyle
 ☐ Add import of COLOR_CLASSES if spreading
-☐ Remove any inline style that sets --_color or reads colorVar(variant)
+☐ Remove any inline style that sets --variant-color or reads colorVar(variant)
 ☐ Update component JSX to use CVA class instead of inline style
 
 [After]
@@ -349,9 +349,9 @@ Component: ___________
 | #   | Phase | Component        | File                                          | Current variant mechanism                                                     | Strategy                                                     |
 | --- | ----- | ---------------- | --------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | 1   | A     | colorVariant.ts  | `lib/colorVariant.ts`                         | Defines colorVar + colorVarStyle                                              | Add COLOR_CLASSES, remove colorVar/colorVarStyle             |
-| 2   | B1    | SectionHeader    | `data-display/section-header/`                | colorVarStyle → `color: var(--_color)`                                        | CVA variant axis with COLOR_CLASSES                          |
-| 3   | B1    | SectionHeading   | `data-display/section-heading/`               | colorVarStyle → `text-(--_color)`                                             | CVA variant axis with COLOR_CLASSES                          |
-| 4   | B1    | FloatingNav      | `navigation/floating-nav/`                    | colorVarStyle → `color: var(--_color)`                                        | CVA variant axis                                             |
+| 2   | B1    | SectionHeader    | `data-display/section-header/`                | colorVarStyle → `color: var(--variant-color)`                                 | CVA variant axis with COLOR_CLASSES                          |
+| 3   | B1    | SectionHeading   | `data-display/section-heading/`               | colorVarStyle → `text-(--variant-color)`                                      | CVA variant axis with COLOR_CLASSES                          |
+| 4   | B1    | FloatingNav      | `navigation/floating-nav/`                    | colorVarStyle → `color: var(--variant-color)`                                 | CVA variant axis                                             |
 | 5   | B1    | ChangelogItem    | `data-display/changelog-item/`                | colorVarStyle → label color                                                   | CVA variant axis                                             |
 | 6   | B2    | MenuItem         | `data-display/menu-item/`                     | colorVarStyle → bg tint + text                                                | CVA variant axis                                             |
 | 7   | B2    | NotificationItem | `data-display/notification-item/`             | colorVarStyle → bg tint + text                                                | CVA variant axis                                             |
@@ -374,15 +374,15 @@ Component: ___________
 | 24  | C2    | Textarea         | `data-entry/textarea/`                        | colorVar → --_ring                                                            | CVA focus ring classes                                       |
 | 25  | C3    | Popover          | `data-display/popover/`                       | colorVar → borderTopColor                                                     | CVA variant axis                                             |
 | 26  | C4    | Carousel         | `data-display/carousel/`                      | colorVar → icon fill                                                          | CVA variant axis                                             |
-| 27  | D     | ProjectCard      | `components/cards/project-card/`              | Direct `--_color` in JSX                                                      | CVA variant axis                                             |
-| 28  | D     | DocCard          | `components/cards/doc-card/`                  | Direct `--_color` in JSX                                                      | CVA variant axis                                             |
-| 29  | D     | CategoryCard     | `components/cards/category-card/`             | Direct `--_color` in JSX                                                      | CVA variant axis                                             |
-| 30  | D     | CardLink         | `components/cards/card-link/`                 | Direct `--_color` in JSX + raw `accent` prop                                  | Change prop from `accent: string` to `variant: ColorVariant` |
+| 27  | D     | ProjectCard      | `components/cards/project-card/`              | Direct `--variant-color` in JSX                                               | CVA variant axis                                             |
+| 28  | D     | DocCard          | `components/cards/doc-card/`                  | Direct `--variant-color` in JSX                                               | CVA variant axis                                             |
+| 29  | D     | CategoryCard     | `components/cards/category-card/`             | Direct `--variant-color` in JSX                                               | CVA variant axis                                             |
+| 30  | D     | CardLink         | `components/cards/card-link/`                 | Direct `--variant-color` in JSX + raw `accent` prop                           | Change prop from `accent: string` to `variant: ColorVariant` |
 | 31  | E     | CSS cleanup      | `styles/gruvbox-theme.css`                    | `.badge-*`, `.toggle`, `.card-interactive`, `.accordion`, `.tabs`, `.tooltip` | Remove or inline variant-aware rules                         |
-| 32  | F     | Showcase         | `showcase/sections/VariantSystemSection.tsx`  | Documents --_color                                                            | Remove §5.2, update                                          |
-| 33  | F     | Showcase         | `showcase/references/ContributingSection.tsx` | References --_color                                                           | Update                                                       |
-| 34  | F     | Showcase         | `showcase/references/ChecklistSection.tsx`    | References --_color                                                           | Update                                                       |
-| 35  | F     | Showcase         | `showcase/components/BadgeGallery.tsx`        | --_color intro                                                                | Update                                                       |
+| 32  | F     | Showcase         | `showcase/sections/VariantSystemSection.tsx`  | Documents --variant-color                                                     | Remove §5.2, update                                          |
+| 33  | F     | Showcase         | `showcase/references/ContributingSection.tsx` | References --variant-color                                                    | Update                                                       |
+| 34  | F     | Showcase         | `showcase/references/ChecklistSection.tsx`    | References --variant-color                                                    | Update                                                       |
+| 35  | F     | Showcase         | `showcase/components/BadgeGallery.tsx`        | --variant-color intro                                                         | Update                                                       |
 
 ---
 
@@ -391,7 +391,7 @@ Component: ___________
 Copy-paste the entire block below into a fresh CLI session to resume:
 
 ```
-I am consolidating the variant system in my UI library by removing --_color
+I am consolidating the variant system in my UI library by removing --variant-color
 and unifying on CVA + COLOR_CLASSES. The plan is at variant-consolidation-plan.md.
 
 Current state:
@@ -411,12 +411,12 @@ Current state:
 - Phase C3 (Popover borderTopColor): DONE
 - Phase C4 (Carousel icon color): DONE
 - Phase D (card components): SKIP — do not touch cards
-- Phase E (CSS cleanup): DONE — zero --_color remaining in CSS
+- Phase E (CSS cleanup): DONE — zero --variant-color remaining in CSS
 - Phase F (showcase/docs): DONE
 - Phase G (build verify): DONE — tsc + lint pass
 
 Everything that can be done without touching control-panel/ or cards/ is done.
-If you want to audit the remaining --_color references in those two directories,
+If you want to audit the remaining --variant-color references in those two directories,
 check: packages/ui/src/components/control-panel/ and packages/ui/src/components/cards/
 
 The plan file is at packages/ui/variant-consolidation-plan.md.

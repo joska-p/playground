@@ -75,9 +75,9 @@ const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         featuredProjects.map((project) => {
-          const mainTag = project.data.tags[0];
+          const mainTag = project.data.tags[0].id;
           const cardStyle = {
-            '--_color': `var(--color-tags-${mainTag})`
+            '--variant-color': `var(--tags-${mainTag})`
           } as CSSProperties;
           return (
             <ProjectCard
@@ -107,7 +107,7 @@ const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
         featuredDocs.map((doc) => {
           const mainTag = doc.data.tags[0].id;
           const cardStyle = {
-            '--_color': `var(--color-docs-${mainTag})`
+            '--variant-color': `var(--tags-${mainTag})`
           } as CSSProperties;
 
           return (

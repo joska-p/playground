@@ -25,7 +25,7 @@ const projectsBaseUrl = `${baseUrl}projects/`;
         allProjects.map((project) => {
           const mainTag = project.data.tags[0].id;
           const cardStyle = {
-            '--_color': `var(--color-tags-${mainTag})`
+            '--variant-color': `var(--tags-${mainTag})`
           } as CSSProperties;
           return (
             <ProjectCard

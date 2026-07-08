@@ -17,7 +17,7 @@ import { SetupSection } from './showcase/sections/SetupSection';
 import { VariantSystemSection } from './showcase/sections/VariantSystemSection';
 
 // component demos
-import { EdgeField } from './components/widgets';
+import { EdgeFieldMask } from './components/widgets';
 import { AccordionDemo } from './showcase/components/AccordionDemo';
 import { AlertGallery } from './showcase/components/AlertGallery';
 import { BadgeGallery } from './showcase/components/BadgeGallery';
@@ -78,7 +78,7 @@ function AppContent() {
         <HeroSection />
 
         <div className="fixed inset-0 h-screen">
-          <EdgeField />
+          <EdgeFieldMask />
         </div>
 
         <PhilosophySection />

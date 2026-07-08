@@ -303,20 +303,20 @@ export { ProjectCard, type ProjectCardProps } from './components/Cards/ProjectCa
 }
 ```
 
-### 3. Variant Strategy — CVA vs `colorVariant` vs raw `--_color`
+### 3. Variant Strategy — CVA vs `colorVariant` vs raw `--variant-color`
 
-You already have three mechanisms in the lib (`buttonVariants`/`badgeVariants`/`alertVariants`/`colorPaletteVariants` via CVA, `COLOR_VARIANTS`/`colorVar`/`colorVarStyle` in `lib/colorVariant.ts`, and the raw `--_color` custom-property pattern on `CardLink`/`ProjectCard`/`DocCard`). Rather than converging on one, keep all three — they solve three different shapes of problem. The rule is about the *axis being varied*, not the component:
+You already have three mechanisms in the lib (`buttonVariants`/`badgeVariants`/`alertVariants`/`colorPaletteVariants` via CVA, `COLOR_VARIANTS`/`colorVar`/`colorVarStyle` in `lib/colorVariant.ts`, and the raw `--variant-color` custom-property pattern on `CardLink`/`ProjectCard`/`DocCard`). Rather than converging on one, keep all three — they solve three different shapes of problem. The rule is about the *axis being varied*, not the component:
 
 | Axis | Tool | Why |
 |---|---|---|
 | **Closed structural set** (`size: sm/md/lg`, `intent: solid/outline/ghost`) | **CVA** | Fixed number of known combinations, each a fixed class string. Adding a new size is a deliberate lib change, not a consumer choice. |
 | **Closed but themed color set** (badge/alert `intent: success/warning/destructive/info`) | **CVA + `colorVar`** | Still a closed enum, but each branch resolves to a *token*, not a literal Tailwind class — so it can output `colorVarStyle('destructive')` instead of hardcoding `bg-red-500`. Keeps CVA's variant safety while reusing the theme's color tokens instead of re-declaring them per component. |
-| **Open, consumer-supplied color** (`accent` on `CardLink`, `ProjectCard`, `DocCard`, category tags) | **raw `--_color`** | The value isn't drawn from a known set — it's `accentTokens.primary`, a raw hex, or `var(--color-projects-generative)`, decided entirely by the consumer. CVA can't model "any valid CSS color" as a variant; enumerating it defeats the point and breaks the moment a new project category is added. |
+| **Open, consumer-supplied color** (`accent` on `CardLink`, `ProjectCard`, `DocCard`, category tags) | **raw `--variant-color`** | The value isn't drawn from a known set — it's `accentTokens.primary`, a raw hex, or `var(--color-projects-generative)`, decided entirely by the consumer. CVA can't model "any valid CSS color" as a variant; enumerating it defeats the point and breaks the moment a new project category is added. |
 
 **Decision test, in order:**
 1. Is the set of allowed values fixed and owned by the lib (not by per-usage data)? → **CVA**.
 2. Is it fixed *and* every option should resolve to a semantic theme color (success/danger/etc.), not a specific hex? → **CVA, but have each branch call `colorVar`/`colorVarStyle` instead of writing utility classes directly.** This is the one case where CVA and `colorVariant` compose rather than compete.
-3. Is the value open-ended / arbitrary / passed straight through from data (category id, tag color, user pick)? → **`--_color` custom property**, read via `var(--_color, <fallback>)` in the component's own CSS/Tailwind arbitrary values. No CVA branch for it.
+3. Is the value open-ended / arbitrary / passed straight through from data (category id, tag color, user pick)? → **`--variant-color` custom property**, read via `var(--variant-color, <fallback>)` in the component's own CSS/Tailwind arbitrary values. No CVA branch for it.
 
 **What this avoids:** the two failure modes seen in most component libs —
 - Using CVA for open values (ends up with a `color?: string` escape-hatch prop bolted onto a CVA variant object, which defeats CVA's whole type-safety pitch), or
@@ -324,7 +324,7 @@ You already have three mechanisms in the lib (`buttonVariants`/`badgeVariants`/`
 
 **Concretely, per component family already in the barrel:**
 - `Button`, `Alert`, `DefaultFallback`, `Badge`, `ColorPalette` — closed variants, stay on CVA. If any of their variants currently hardcode a Tailwind color class per branch, migrate that one branch to call `colorVar`/`colorVarStyle` so the semantic-color list has one source of truth (`lib/colorVariant.ts`), instead of two (CVA's `variants` object *and* the theme file).
-- `CardLink`, `ProjectCard`, `DocCard`, `CategoryCard`, `ColorSwatch` — accent is data-driven (category/tag/user), keep `accent` as an open string prop assigned straight to `--_color`. Do not add a CVA `color` variant to these even if it's tempting for consistency — it will always be one enum behind whatever categories/tags actually exist.
-- Anything with *both* axes (e.g. a future `Tag` component that has a closed `size` but an open `color`): compose them — `className={tagVariants({ size })}` for structure, `style={{ '--_color': accent }}` for color. Don't try to fold the color into the CVA config.
+- `CardLink`, `ProjectCard`, `DocCard`, `CategoryCard`, `ColorSwatch` — accent is data-driven (category/tag/user), keep `accent` as an open string prop assigned straight to `--variant-color`. Do not add a CVA `color` variant to these even if it's tempting for consistency — it will always be one enum behind whatever categories/tags actually exist.
+- Anything with *both* axes (e.g. a future `Tag` component that has a closed `size` but an open `color`): compose them — `className={tagVariants({ size })}` for structure, `style={{ '--variant-color': accent }}` for color. Don't try to fold the color into the CVA config.
 
-**One naming convention worth adding to the note:** since both "closed-but-themed" and "open" paths end up producing a color the component consumes, standardize on components always reading through `--_color` at the CSS level (`var(--_color, var(--primary))`) regardless of which path set it — CVA branches call `colorVarStyle('destructive')` which itself just sets `--_color` inline, same contract as passing `accent` directly. That way every component's actual CSS/Tailwind layer only ever needs to know about one variable, and the CVA-vs-open decision stays entirely at the prop-API level, not duplicated into the styling layer too.
+**One naming convention worth adding to the note:** since both "closed-but-themed" and "open" paths end up producing a color the component consumes, standardize on components always reading through `--variant-color` at the CSS level (`var(--variant-color, var(--primary))`) regardless of which path set it — CVA branches call `colorVarStyle('destructive')` which itself just sets `--variant-color` inline, same contract as passing `accent` directly. That way every component's actual CSS/Tailwind layer only ever needs to know about one variable, and the CVA-vs-open decision stays entirely at the prop-API level, not duplicated into the styling layer too.

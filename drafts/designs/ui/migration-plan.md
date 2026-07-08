@@ -13,7 +13,7 @@
 | **Theme** | Oklch-based Gruvbox (oklch values) | CSS-variable-based Gruvbox (`--background: #1d2021`, etc.) |
 | **Surfaces** | Borders, shadows, opacity | **Flat surfaces** separated by spacing/color, subtle shadows, no visible borders on cards |
 | **Buttons** | `hover:bg-X/80` fade transitions | `hover:brightness-110 active:scale-[.97]` — tactile snap |
-| **Badges** | CVA variants (primary/secondary/accent/outline/ghost) | CSS variable `--_color` drives soft/solid/outline/dot — one pattern, any color |
+| **Badges** | CVA variants (primary/secondary/accent/outline/ghost) | CSS variable `--variant-color` drives soft/solid/outline/dot — one pattern, any color |
 | **Form inputs** | Label + input + helper + icon pattern | Simpler wrapper with `:focus-within` glow, expanding search, auto-growing textarea |
 | **Switch** | `<button role="switch">` with JS state | Pure CSS `.toggle` via `appearance:none` on checkbox |
 | **Card interaction** | `interactive` prop → cursor-pointer | `:has()` glow on child hover (`card-interactive:has(.card-actions:hover)`) |
@@ -32,7 +32,7 @@
 | Component | Status | Changes Needed |
 |---|---|---|
 | `Button` | **Refactor** | New variant set: primary, secondary, destructive, accent, warning, ghost, link. Sizes: sm/default/lg (drop icon size). Add `active:scale-[.97]`, `hover:brightness-110`. Loading state with spinner. Tooltip support. |
-| `Badge` | **Rewrite** | Drop CVA-based variants. Use `--_color` CSS variable approach. Four modes: soft, solid, outline, dot. Accept any color from theme. |
+| `Badge` | **Rewrite** | Drop CVA-based variants. Use `--variant-color` CSS variable approach. Four modes: soft, solid, outline, dot. Accept any color from theme. |
 | `Card` | **Refactor** | Simpler structure. No borders. Shadow-based separation. Support `interactive` with `:has()` glow. Sub-components: Card.Image, Card.Content, Card.Footer, Card.Actions. Responsive grid. |
 | `Input` | **Refactor** | Update to new input-wrapper pattern with `:focus-within:border-color-primary`. Support startIcon, endIcon, loading, expanding variant, trailing action. Auto-growing textarea. |
 | `Select` | **Refactor** | Restyle to match draft aesthetic. Keep existing API surface. |
