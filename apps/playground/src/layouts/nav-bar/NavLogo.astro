@@ -7,19 +7,50 @@ const { href } = Astro.props;
 
 <a
   href={href}
-  class="group text-foreground hover:text-accent flex items-center gap-2 text-xs font-bold transition-all duration-300"
+  class="group text-foreground flex items-center gap-2 text-xs font-bold transition-all duration-300"
   aria-label="Playground home"
 >
   <span
-    class="relative flex h-2.5 w-2.5"
+    class="relative flex h-6 w-6 items-center justify-center"
     aria-hidden="true"
   >
     <span
-      class="group-hover:bg-accent absolute inset-0 animate-ping rounded-full bg-(--glow-color) opacity-60"
+      class="group-hover:bg-accent absolute inset-0 animate-ping rounded-full border-2 border-(--glow-color) bg-(--glow-color) opacity-30"
     ></span>
     <span
-      class="group-hover:bg-accent relative h-2.5 w-2.5 rounded-full bg-(--glow-color) shadow-[0_0_8px_1px_var(--glow-color)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_12px_2px_var(--accent)]"
+      class="group-hover:bg-accent group-hover:before:bg-accent group-hover:after:bg-accent relative flex h-3 w-3 items-center justify-center rounded-full border-3 border-transparent bg-(--glow-color) shadow-[0_0_8px_1px_var(--glow-color)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_12px_2px_var(--accent)]"
     ></span>
   </span>
   PG_LAB
 </a>
+
+{
+  /*
+
+---
+type Props = {
+  href: string;
+}
+const { href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group flex items-center gap-3.5 text-[13px] font-bold uppercase tracking-[0.12em] text-[oklch(0.894_0.057_89.24)] transition-colors duration-300 hover:text-[oklch(0.75_0.15_90)]"
+  aria-label="Playground home"
+>
+  <span
+    class="relative flex h-7 w-7"
+    aria-hidden="true"
+  >
+    <span
+      class="absolute inset-0 animate-ping rounded-full border-2 border-[oklch(0.75_0.15_90)] opacity-30"
+    ></span>
+    <span
+      class="relative flex h-7 w-7 items-center justify-center before:absolute before:h-5 before:w-px before:bg-[oklch(0.75_0.15_90)] before:shadow-[0_0_4px_oklch(0.75_0.15_90)] after:absolute after:h-px after:w-5 after:bg-[oklch(0.75_0.15_90)] after:shadow-[0_0_4px_oklch(0.75_0.15_90)]"
+    ></span>
+  </span>
+  PG_LAB
+</a>
+*/
+}
