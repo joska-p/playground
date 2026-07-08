@@ -1,16 +1,16 @@
 import { cva } from 'class-variance-authority';
 
-export const switchVariants = cva('flex items-center gap-2.5 text-[13px] select-none', {
+export const switchVariants = cva('', {
   variants: {
     variant: {
-      default: 'checked:bg-surface-raised',
-      primary: 'checked:bg-primary',
-      secondary: 'checked:bg-secondary',
-      accent: 'checked:bg-accent',
-      warning: 'checked:bg-warning',
-      destructive: 'checked:bg-destructive',
-      ghost: 'checked:bg-transparent',
-      outline: 'checked:bg-transparent'
+      default: 'peer-checked:bg-surface-raised',
+      primary: 'peer-checked:bg-primary',
+      secondary: 'peer-checked:bg-secondary',
+      accent: 'peer-checked:bg-accent',
+      warning: 'peer-checked:bg-warning',
+      destructive: 'peer-checked:bg-destructive',
+      ghost: 'peer-checked:bg-transparent',
+      outline: 'peer-checked:bg-transparent'
     }
   },
   defaultVariants: { variant: 'primary' }

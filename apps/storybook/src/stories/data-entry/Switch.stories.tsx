@@ -8,22 +8,12 @@ const meta: Meta<typeof Switch> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Accent color of the switch toggle.',
       options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
       control: { type: 'select' }
     },
-    label: {
-      description: 'Text label displayed next to the switch.',
-      control: 'text'
-    },
-    disabled: {
-      description: 'Disables interaction and dims the appearance.',
-      control: 'boolean'
-    },
-    checked: {
-      description: 'Controlled checked state.',
-      control: 'boolean'
-    }
+    label: { control: 'text' },
+    disabled: { control: 'boolean' },
+    checked: { control: 'boolean' }
   },
   args: {
     onChange: fn()
@@ -34,28 +24,32 @@ export default meta;
 
 type Story = StoryObj<typeof Switch>;
 
+export const Default: Story = {
+  args: { label: 'Dark mode', defaultChecked: true }
+};
+
 export const Off: Story = {
   args: { label: 'Dark mode' }
 };
 
-export const On: Story = {
-  args: { label: 'Dark mode', defaultChecked: true }
-};
-
-export const Primary: Story = {
+export const VariantPrimary: Story = {
   args: { variant: 'primary', label: 'Enable notifications', defaultChecked: true }
 };
 
-export const Secondary: Story = {
+export const VariantSecondary: Story = {
   args: { variant: 'secondary', label: 'Reduce motion' }
 };
 
-export const Accent: Story = {
+export const VariantAccent: Story = {
   args: { variant: 'accent', label: 'High contrast mode', defaultChecked: true }
 };
 
-export const Destructive: Story = {
+export const VariantDestructive: Story = {
   args: { variant: 'destructive', label: 'Experimental features' }
+};
+
+export const VariantWarning: Story = {
+  args: { variant: 'warning', label: 'Sensitive mode' }
 };
 
 export const Disabled: Story = {
