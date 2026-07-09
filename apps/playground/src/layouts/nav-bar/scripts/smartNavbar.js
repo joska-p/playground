@@ -1,4 +1,4 @@
-const SCROLL_THRESHOLD = 80; // px from top before hiding kicks in
+const SCROLL_THRESHOLD = 40; // px from top before hiding kicks in
 const IDLE_DELAY = 2000; // ms before hiding after scroll stops
 
 let smartNavScrollHandler = null;

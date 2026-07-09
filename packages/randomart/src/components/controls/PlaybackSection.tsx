@@ -28,9 +28,7 @@ function PlaybackSection() {
           min={0}
           max={2}
           step={0.1}
-          onChange={(e) => {
-            setAnimationSpeed(Number(e.target.value));
-          }}
+          onChange={setAnimationSpeed}
         />
       </ControlGrid>
     </ControlSection>

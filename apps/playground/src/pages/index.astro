@@ -1,20 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Hero, SectionHeader } from '@repo/ui/data-display';
-import { ProjectCard, DocCard } from '@repo/ui/cards';
 import { buttonVariants } from '@repo/ui/data-entry';
-import { Icon } from '@repo/ui/icons';
 import Footer from '../layouts/Footer.astro';
-import { getCollection } from 'astro:content';
-import type { CSSProperties } from 'react';
+import ProjectsList from '../components/ProjectsList.astro';
+import NotesList from '../components/NotesList.astro';
+import DocumentsList from '../components/DocumentsList.astro';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const projectsBaseUrl = `${baseUrl}projects/`;
-const docsBaseUrl = `${baseUrl}docs/`;
-const allProjects = await getCollection('projects');
-const featuredProjects = allProjects.filter((p) => p.data.featured);
-const allDocs = await getCollection('docs');
-const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
 ---
 
 <BaseLayout title="Playground">
@@ -60,38 +54,36 @@ const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
     </a>
   </Hero>
 
-  <section class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24">
+  <section
+    id="projects"
+    class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+  >
     <SectionHeader
       iconName="bluesky"
       title="Engines & Labs"
       description="Volatile experiments in high-interactivity canvas rendering."
-      href="https://joska-p.github.io/playground/"
-      linkText="View on GitLab"
       className="mb-12"
     />
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        featuredProjects.map((project) => {
-          const mainTag = project.data.tags[0].id;
-          const cardStyle = {
-            '--variant-color': `var(--tags-${mainTag})`
-          } as CSSProperties;
-          return (
-            <ProjectCard
-              href={`${projectsBaseUrl}${project.id}/`}
-              title={project.data.title}
-              description={project.data.description}
-              iconName={project.data.iconName}
-              style={cardStyle}
-              tags={project.data.tags.map((tag) => tag.id)}
-            />
-          );
-        })
-      }
-    </div>
+    <ProjectsList />
   </section>
 
-  <section class="mx-auto mb-24 w-full max-w-6xl p-8 px-6 py-20 lg:p-12 lg:py-24">
+  <section
+    id="notes"
+    class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+  >
+    <SectionHeader
+      iconName="bluesky"
+      title="Not a blog"
+      description="A repository of ideas and notes that don't fit anywhere else."
+      className="mb-12"
+    />
+    <NotesList />
+  </section>
+
+  <section
+    id="documents"
+    class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24"
+  >
     <SectionHeader
       iconName="bluesky"
       title="Documentation"
@@ -99,38 +91,7 @@ const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
       align="center"
       className="mb-12"
     />
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-      {
-        featuredDocs.map((doc) => {
-          const mainTag = doc.data.tags[0].id;
-          const cardStyle = {
-            '--variant-color': `var(--tags-${mainTag})`
-          } as CSSProperties;
-
-          return (
-            <DocCard
-              href={`${docsBaseUrl}${doc.id}/`}
-              type={mainTag}
-              title={doc.data.title}
-              description={doc.data.description}
-              style={cardStyle}
-            />
-          );
-        })
-      }
-    </div>
-    <div class="mt-10 text-center">
-      <a
-        href={docsBaseUrl}
-        class="group text-primary/60 hover:text-primary inline-flex items-center gap-2 text-xs font-bold uppercase transition-colors"
-      >
-        Browse all docs
-        <Icon
-          name="arrow-right"
-          className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-        />
-      </a>
-    </div>
+    <DocumentsList />
   </section>
 
   <Footer>

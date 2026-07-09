@@ -30,9 +30,7 @@ function PlaybackSection() {
       <ControlRow label="Speed">
         <Slider
           value={speedMs}
-          onChange={(e) => {
-            setSpeed(Number(e.target.value));
-          }}
+          onChange={setSpeed}
           min={SPEED_MIN_MS}
           max={SPEED_MAX_MS}
           step={SPEED_STEP_MS}

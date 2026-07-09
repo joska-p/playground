@@ -87,9 +87,7 @@ function AtlasControls() {
           max={16}
           step={1}
           value={modulo}
-          onChange={(e) => {
-            setModulo(Number(e.target.value));
-          }}
+          onChange={setModulo}
         />
         <Slider
           title="Complexity"
@@ -147,9 +145,7 @@ function AtlasControls() {
             max={1}
             step={0.05}
             value={glitch}
-            onChange={(e) => {
-              setGlitch(e.target.value);
-            }}
+            onChange={setGlitch}
           />
         </ControlRow>
       </ControlSection>

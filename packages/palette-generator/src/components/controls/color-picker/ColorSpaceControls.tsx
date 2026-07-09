@@ -45,14 +45,11 @@ function ColorSpaceControls({ spaceId = 'oklch', size = 200 }: ColorSliceProps) 
       />
 
       <Slider
-        label={label}
         min={min}
         max={max}
         step={step ?? 1}
         value={zValue}
-        onChange={(e) => {
-          setZValue(Number(e.target.value));
-        }}
+        onChange={setZValue}
       />
     </div>
   );

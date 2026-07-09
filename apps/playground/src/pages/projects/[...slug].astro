@@ -35,12 +35,6 @@ const keywords = project.data.tags?.join(', ').slice(1) || '';
   description={description}
   keywords={keywords}
 >
-  <Hero
-    badgeText={keywords}
-    title={title}
-    highlight={mainTag}
-    description={description}
-  />
   <div class="h-0 min-h-screen">
     <DynamicProjectApp
       slug={project.id}

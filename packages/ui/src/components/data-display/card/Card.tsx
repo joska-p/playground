@@ -9,25 +9,15 @@ export type CardProps = {
   ref?: Ref<HTMLDivElement>;
 } & HTMLAttributes<HTMLDivElement>;
 
-export function Card({
-  className,
-  variant = 'primary',
-  horizontal,
-  style,
-  ref,
-  ...props
-}: CardProps) {
+export function Card({ className, variant = 'primary', horizontal, ref }: CardProps) {
   return (
     <div
       ref={ref}
       className={cn(
-        'bg-surface overflow-hidden rounded-lg transition-shadow duration-200 hover:shadow-md',
         cardVariants({ variant }),
-        horizontal && 'grid grid-cols-1 landscape:grid-cols-[200px_1fr]',
+        horizontal && 'grid grid-cols-1 shadow-xs landscape:grid-cols-[200px_1fr]',
         className
       )}
-      style={{ boxShadow: 'var(--shadow-sm)', ...style }}
-      {...props}
     />
   );
 }

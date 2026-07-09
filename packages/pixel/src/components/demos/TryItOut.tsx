@@ -68,8 +68,8 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
                   max={parameter.max}
                   step={parameter.step}
                   value={value}
-                  onChange={(e) => {
-                    onParamChange(manip.id, parameter.key, Number(e.target.value));
+                  onChange={(value) => {
+                    onParamChange(manip.id, parameter.key, value);
                   }}
                 />
               </div>

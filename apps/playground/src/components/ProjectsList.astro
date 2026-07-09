@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import { ProjectCard } from '@repo/ui/cards';
+import type { CSSProperties } from 'react';
+
+const allProjects = await getCollection('projects');
+const baseUrl = import.meta.env.BASE_URL || '/';
+const projectsBaseUrl = `${baseUrl}projects/`;
+---
+
+<div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+  {
+    allProjects.map((project) => {
+      const mainTag = project.data.tags[0].id;
+      const cardStyle = {
+        '--variant-color': `var(--tags-${mainTag})`
+      } as CSSProperties;
+      return (
+        <ProjectCard
+          href={`${projectsBaseUrl}${project.id}/#main`}
+          title={project.data.title}
+          description={project.data.description}
+          iconName={project.data.iconName}
+          style={cardStyle}
+          tags={project.data.tags.map((tag) => tag.id)}
+        />
+      );
+    })
+  }
+</div>

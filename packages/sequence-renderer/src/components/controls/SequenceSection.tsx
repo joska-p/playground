@@ -43,8 +43,8 @@ function SequenceSection() {
           min={1}
           max={sequenceRule.maxSteps}
           step={1}
-          onChange={(e) => {
-            setSequenceSteps({ steps: Number(e.target.value) });
+          onChange={(value) => {
+            setSequenceSteps({ steps: value });
           }}
           showTicks={false}
         />

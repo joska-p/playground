@@ -122,9 +122,7 @@ function MosaicControlsPanel() {
             min={32}
             max={256}
             step={2}
-            onChange={(e) => {
-              tileSize.onChange(Number(e.target.value));
-            }}
+            onChange={tileSize.onChange}
             showTicks={false}
           />
         </ControlRow>
@@ -137,9 +135,7 @@ function MosaicControlsPanel() {
             min={0}
             max={64}
             step={2}
-            onChange={(e) => {
-              gapSize.onChange(Number(e.target.value));
-            }}
+            onChange={gapSize.onChange}
             showTicks={false}
           />
         </ControlRow>

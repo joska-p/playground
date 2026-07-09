@@ -131,7 +131,10 @@ const { className } = Astro.props;
     <EdgeFieldMask />
     <BackgroundCanvas />
     <Navbar />
-    <main class:list={className}>
+    <main
+      class:list={className}
+      id="main"
+    >
       <slot />
     </main>
 

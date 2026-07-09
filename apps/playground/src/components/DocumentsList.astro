@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import { DocCard } from '@repo/ui/cards';
+import type { CSSProperties } from 'react';
+
+const baseUrl = import.meta.env.BASE_URL || '/';
+const docsBaseUrl = `${baseUrl}docs/`;
+const allDocs = await getCollection('docs', ({ data }) => !data.draft);
+---
+
+<div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+  {
+    allDocs.map((doc) => {
+      const mainTag = doc.data.tags[0].id;
+      const cardStyle = {
+        '--variant-color': `var(--tags-${mainTag})`
+      } as CSSProperties;
+      const docUrl = `${docsBaseUrl}${doc.id}/#main`;
+      return (
+        <DocCard
+          href={docUrl}
+          title={doc.data.title}
+          description={doc.data.description ?? ''}
+          type={doc.data.tags[0].id}
+          iconName="bluesky"
+          style={cardStyle}
+        />
+      );
+    })
+  }
+</div>

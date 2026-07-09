@@ -30,10 +30,10 @@ function WorkflowNode({ step, index, name, argDefinitions }: WorkflowNodeProps) 
             min={def.min}
             max={def.max}
             step={def.step}
-            onChange={(e) => {
+            onChange={(value) => {
               updateStepOptions(index, {
                 ...step.options,
-                [def.key]: Number(e.target.value)
+                [def.key]: value
               } as Record<string, number>);
             }}
           />

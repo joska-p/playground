@@ -37,9 +37,7 @@ function SeedControls() {
       <ControlRow label="Complexity">
         <Slider
           value={complexity}
-          onChange={(e) => {
-            setComplexity(Number(e.target.value));
-          }}
+          onChange={setComplexity}
           min={1}
           max={5}
         />
