@@ -6,11 +6,12 @@ import type { CSSProperties } from 'react';
 const baseUrl = import.meta.env.BASE_URL || '/';
 const notesBaseUrl = `${baseUrl}notes/`;
 const allNotes = await getCollection('notes', ({ data }) => !data.draft);
+const sortedNotes = allNotes.sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
   {
-    allNotes.map((note) => {
+    sortedNotes.map((note) => {
       const mainTag = note.data.tags[0].id;
       const cardStyle = {
         '--variant-color': `var(--tags-${mainTag})`
