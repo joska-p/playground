@@ -1,5 +1,6 @@
 import { ToastProvider } from './components/feedback';
 import { FloatingNav } from './components/navigation';
+import { EdgeFieldOriginal } from './components/widgets';
 import { useThemeState } from './hooks/useThemeState';
 import { useToastQueue } from './hooks/useToastQueue';
 import { ThemeProvider } from './theme/ThemeProvider';
@@ -173,6 +174,7 @@ export function App() {
           themeToggle={<ThemeToggleButton />}
         />
         <AppContent />
+        <EdgeFieldOriginal />
       </ToastProvider>
     </ThemeProvider>
   );
