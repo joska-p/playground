@@ -30,7 +30,7 @@ function MosaicDisplay() {
   return (
     <div
       ref={mosaicRef}
-      className="grid h-screen w-full"
+      className="grid h-screen w-full content-center"
       style={MOSAIC_STYLES}
     >
       {tiles.map((tile) => (

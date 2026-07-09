@@ -32,7 +32,7 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
         steps: [{ id: manip.id, options }]
       })
       .then((snapshots) => {
-        if (!cancelled) setResult(snapshots[0]);
+        if (!cancelled && snapshots[0]) setResult(snapshots[0]);
       })
       .catch((cause: unknown) => {
         if (!cancelled) setError(String(cause));
@@ -88,7 +88,7 @@ function TryItOut({ sourceData, manip, paramValues, onParamChange }: TryItOutPro
         <div className="flex items-center gap-4">
           <div className="w-20 shrink-0">
             <img
-              src={imageDataToUrl(result)}
+              src={imageDataToUrl(result) ?? ''}
               alt={`${manip.label} result`}
               className="border-border w-full rounded border"
               style={{ imageRendering: 'pixelated' }}

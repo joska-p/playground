@@ -13,7 +13,7 @@ type ColorSliceProps = {
 function ColorSpaceControls({ spaceId = 'oklch', size = 200 }: ColorSliceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { zSlider, getColor, xAxis, yAxis } = colorSpaces[spaceId];
-  const { label, min, max, step } = zSlider;
+  const { min, max, step } = zSlider;
   const [zValue, setZValue] = useState<number>(max / 2);
 
   const handlePointer = (e: React.PointerEvent<HTMLCanvasElement>) => {
