@@ -4,7 +4,7 @@ import { Docs } from './components/Docs';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="bg-background text-foreground min-h-screen">
+      <div className="min-h-screen">
         <Docs />
       </div>
     </ErrorBoundary>

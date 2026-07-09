@@ -33,7 +33,7 @@ function App({
   }, [cols, initialDensity, rows, seed]);
 
   return (
-    <div className="bg-background text-foreground relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden">
       <ErrorBoundary>
         <AutomatonCanvas />
         <ControlsPanel />

@@ -134,5 +134,12 @@ const { className } = Astro.props;
     <main class:list={className}>
       <slot />
     </main>
+
+    <script>
+      import { initDrift } from '../scripts/theme-drift.ts';
+
+      initDrift();
+      document.addEventListener('astro:page-load', initDrift);
+    </script>
   </body>
 </html>

@@ -78,7 +78,7 @@ const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
           } as CSSProperties;
           return (
             <ProjectCard
-              href={`${projectsBaseUrl}${mainTag}/${project.id}/`}
+              href={`${projectsBaseUrl}${project.id}/`}
               title={project.data.title}
               description={project.data.description}
               iconName={project.data.iconName}

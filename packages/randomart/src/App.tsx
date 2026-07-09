@@ -5,7 +5,7 @@ import { RandomArtCanvas } from './components/RandomArtCanvas';
 
 function App() {
   return (
-    <div className="bg-background text-foreground relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden">
       <ErrorBoundary>
         <RandomArtCanvas />
         <ControlPanel />

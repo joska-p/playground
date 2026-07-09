@@ -25,7 +25,7 @@ function App() {
   return (
     <Sidebar
       position="right"
-      className="bg-background text-foreground min-h-screen"
+      className="min-h-screen"
     >
       <Sidebar.Main>
         <GraphCanvas />

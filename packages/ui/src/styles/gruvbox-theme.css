@@ -1,21 +1,51 @@
 /**
- * pg_lab-ui — global theme stylesheet
- * -----------------------------------
- * Import this ONCE at the root of your app:
- *   import "pg-lab-ui/styles/globals.css"
- *
- * Everything here is deliberately still plain CSS. These are the
- * "CSS-only features that need no React equivalent" from the original
- * design (see the react-guide section of the source file):
- *   :has(), :focus-within, @starting-style, color-mix() are all kept
- *   in CSS — only the *stateful* pieces (open/checked/aria-*) come
- *   from React props/attributes.
+ * ---------------------------------------------------------------------
+ * OKLCH Color Space & Variable Split Architecture
+ * ---------------------------------------------------------------------
+ * * WHAT IS OKLCH?
+ * OKLCH is a perceptually uniform color space.
+ * - L (Lightness): Perceived brightness (0.0 to 1.0)
+ * - C (Chroma): Color intensity or saturation (0.0 to ~0.4)
+ * - H (Hue): The color angle on a color wheel (0 to 360 degrees)
+ * * WHY USE OKLCH FOR THIS THEME?
+ * In standard color spaces like HSL or RGB, shifting the hue causes
+ * massive, jarring changes in perceived brightness. For example, pure
+ * yellow looks much brighter than pure blue, even if their "Lightness"
+ * value in HSL is identical. OKLCH fixes this. If you rotate the Hue
+ * in OKLCH, the perceived brightness and intensity remain perfectly
+ * uniform, making it the absolute best choice for organic, ambient
+ * color drifting.
+ * * WHY ARE THE VARIABLES SPLIT?
+ * To achieve a 60fps "breathing" UI effect, we need to mathematically
+ * animate the colors via JavaScript. Forcing the browser to parse and
+ * update full color strings (e.g., "oklch(0.7 0.1 200)") on every single
+ * frame is terrible for performance.
+ * * Instead, we isolate the channels:
+ * --primary-l: 0.693;
+ * --primary-c: 0.042;
+ * --primary-h: 169.768; <-- JS only updates this single raw number
+ * * The base token then automatically reconstructs itself:
+ * --primary: oklch(var(--primary-l) var(--primary-c) var(--primary-h));
+ * * This allows JavaScript to smoothly sweep the `--primary-h` value
+ * back and forth, letting the CSS engine handle the color composition
+ * natively and efficiently.
+ * ---------------------------------------------------------------------
+ * * SINGLE SOURCE OF TRUTH
+ * There is exactly ONE place where a real numeric L/C/H triplet is
+ * written down per mode: the BASE PALETTE block below. Every semantic
+ * token (--primary, --destructive, ...) and every --tags-* token is a
+ * pure var() alias back to one of those base channels. This means:
+ * - Retuning a base hue (e.g. --blue-h) updates every token derived
+ *   from it automatically.
+ * - A drift script can target ANY single channel var — a base color
+ *   (--blue-h), a semantic token (--primary-h), or nothing tag-specific
+ *   at all, since tags simply reference the reconstructed base color.
+ * - Setting a var directly via JS (element.style.setProperty) on :root
+ *   overrides the var() reference for that one token, so you can still
+ *   "unlink" and animate a single semantic token independently if
+ *   needed without touching the base hue.
+ * ---------------------------------------------------------------------
  */
-
-/**
-  * pg_lab-ui — global theme stylesheet
-  * -----------------------------------
-  */
 
 @theme inline {
   /* Semantic color mappings for Tailwind utilities */
@@ -125,148 +155,458 @@
 
 @layer base {
   :root {
-    --background: oklch(0.241 0.005 219.672);
-    --surface: oklch(0.277 0 0);
-    --surface-raised: oklch(0.344 0.007 48.523);
-    --foreground: oklch(0.74 0.035 76.31);
-    --foreground-muted: oklch(0.69 0.035 76.307);
-    --foreground-dim: oklch(0.482 0.018 61.042);
-    --border: oklch(0.894 0.057 89.24 / 0.07);
-    --primary: oklch(0.693 0.042 169.768);
-    --primary-foreground: oklch(0.241 0.005 219.672);
-    --secondary: oklch(0.765 0.158 110.835);
-    --secondary-foreground: oklch(0.241 0.005 219.672);
-    --destructive: oklch(0.66 0.218 30.392);
-    --destructive-foreground: oklch(0.241 0.005 219.672);
-    --accent: oklch(0.705 0.098 2.189);
-    --accent-foreground: oklch(0.241 0.005 219.672);
-    --warning: oklch(0.832 0.159 82.987);
-    --warning-foreground: oklch(0.241 0.005 219.672);
+    /* ==================================================================
+       BASE PALETTE — DARK MODE (single source of truth, all real numbers)
+       ================================================================== */
 
-    --red: oklch(0.66 0.218 30.392);
-    --green: oklch(0.765 0.158 110.835);
-    --yellow: oklch(0.832 0.159 82.987);
-    --blue: oklch(0.693 0.042 169.768);
-    --purple: oklch(0.705 0.098 2.189);
-    --aqua: oklch(0.756 0.108 137.676);
-    --orange: oklch(0.731 0.182 51.693);
+    /* Neutrals */
+    --background-l: 0.241;
+    --background-c: 0.005;
+    --background-h: 219.672;
+    --surface-l: 0.277;
+    --surface-c: 0;
+    --surface-h: 0;
+    --surface-raised-l: 0.344;
+    --surface-raised-c: 0.007;
+    --surface-raised-h: 48.523;
+    --foreground-l: 0.74;
+    --foreground-c: 0.035;
+    --foreground-h: 76.31;
+    --foreground-muted-l: 0.69;
+    --foreground-muted-c: 0.035;
+    --foreground-muted-h: 76.307;
+    --foreground-dim-l: 0.482;
+    --foreground-dim-c: 0.018;
+    --foreground-dim-h: 61.042;
+    --border-l: 0.894;
+    --border-c: 0.057;
+    --border-h: 89.24;
+    --border-a: 0.07;
 
-    --glow-color: oklch(0.75 0.15 90);
+    /* Core gruvbox hues */
+    --red-l: 0.66;
+    --red-c: 0.218;
+    --red-h: 30.392;
+    --green-l: 0.765;
+    --green-c: 0.158;
+    --green-h: 110.835;
+    --yellow-l: 0.832;
+    --yellow-c: 0.159;
+    --yellow-h: 82.987;
+    --blue-l: 0.693;
+    --blue-c: 0.042;
+    --blue-h: 169.768;
+    --purple-l: 0.705;
+    --purple-c: 0.098;
+    --purple-h: 2.189;
+    --aqua-l: 0.756;
+    --aqua-c: 0.108;
+    --aqua-h: 137.676;
+    --orange-l: 0.731;
+    --orange-c: 0.182;
+    --orange-h: 51.693;
+
+    /* Extended hues — used only by tags, but pulled out of the tag list
+       into the base palette since each is reused by several tags */
+    --cyan-l: 0.68;
+    --cyan-c: 0.13;
+    --cyan-h: 200;
+    --steel-l: 0.52;
+    --steel-c: 0.09;
+    --steel-h: 200;
+    --gold-l: 0.71;
+    --gold-c: 0.14;
+    --gold-h: 78;
+    --teal-l: 0.59;
+    --teal-c: 0.11;
+    --teal-h: 155;
+    --lime-l: 0.62;
+    --lime-c: 0.13;
+    --lime-h: 135;
+    --magenta-l: 0.58;
+    --magenta-c: 0.12;
+    --magenta-h: 320;
+    --violet-l: 0.65;
+    --violet-c: 0.12;
+    --violet-h: 280;
+    --amber-l: 0.65;
+    --amber-c: 0.15;
+    --amber-h: 45;
+    --slate-l: 0.65;
+    --slate-c: 0.08;
+    --slate-h: 250;
+
+    --glow-color-l: 0.75;
+    --glow-color-c: 0.15;
+    --glow-color-h: 90;
+
+    /* ------------------------------------------------------------------
+       SEMANTIC TOKENS — pure channel aliases onto the base palette above.
+       Nothing here is a real number; every -l/-c/-h is a var() reference.
+       ------------------------------------------------------------------ */
+    --primary-l: var(--blue-l);
+    --primary-c: var(--blue-c);
+    --primary-h: var(--blue-h);
+    --primary-foreground-l: var(--background-l);
+    --primary-foreground-c: var(--background-c);
+    --primary-foreground-h: var(--background-h);
+
+    --secondary-l: var(--green-l);
+    --secondary-c: var(--green-c);
+    --secondary-h: var(--green-h);
+    --secondary-foreground-l: var(--background-l);
+    --secondary-foreground-c: var(--background-c);
+    --secondary-foreground-h: var(--background-h);
+
+    --destructive-l: var(--red-l);
+    --destructive-c: var(--red-c);
+    --destructive-h: var(--red-h);
+    --destructive-foreground-l: var(--background-l);
+    --destructive-foreground-c: var(--background-c);
+    --destructive-foreground-h: var(--background-h);
+
+    --accent-l: var(--purple-l);
+    --accent-c: var(--purple-c);
+    --accent-h: var(--purple-h);
+    --accent-foreground-l: var(--background-l);
+    --accent-foreground-c: var(--background-c);
+    --accent-foreground-h: var(--background-h);
+
+    --warning-l: var(--yellow-l);
+    --warning-c: var(--yellow-c);
+    --warning-h: var(--yellow-h);
+    --warning-foreground-l: var(--background-l);
+    --warning-foreground-c: var(--background-c);
+    --warning-foreground-h: var(--background-h);
+
+    /* Reconstructed Tailwind Colors */
+    --background: oklch(var(--background-l) var(--background-c) var(--background-h));
+    --surface: oklch(var(--surface-l) var(--surface-c) var(--surface-h));
+    --surface-raised: oklch(
+      var(--surface-raised-l) var(--surface-raised-c) var(--surface-raised-h)
+    );
+    --foreground: oklch(var(--foreground-l) var(--foreground-c) var(--foreground-h));
+    --foreground-muted: oklch(
+      var(--foreground-muted-l) var(--foreground-muted-c) var(--foreground-muted-h)
+    );
+    --foreground-dim: oklch(
+      var(--foreground-dim-l) var(--foreground-dim-c) var(--foreground-dim-h)
+    );
+    --border: oklch(var(--border-l) var(--border-c) var(--border-h) / var(--border-a));
+
+    --primary: oklch(var(--primary-l) var(--primary-c) var(--primary-h));
+    --primary-foreground: oklch(
+      var(--primary-foreground-l) var(--primary-foreground-c) var(--primary-foreground-h)
+    );
+    --secondary: oklch(var(--secondary-l) var(--secondary-c) var(--secondary-h));
+    --secondary-foreground: oklch(
+      var(--secondary-foreground-l) var(--secondary-foreground-c) var(--secondary-foreground-h)
+    );
+    --destructive: oklch(var(--destructive-l) var(--destructive-c) var(--destructive-h));
+    --destructive-foreground: oklch(
+      var(--destructive-foreground-l) var(--destructive-foreground-c)
+        var(--destructive-foreground-h)
+    );
+    --accent: oklch(var(--accent-l) var(--accent-c) var(--accent-h));
+    --accent-foreground: oklch(
+      var(--accent-foreground-l) var(--accent-foreground-c) var(--accent-foreground-h)
+    );
+    --warning: oklch(var(--warning-l) var(--warning-c) var(--warning-h));
+    --warning-foreground: oklch(
+      var(--warning-foreground-l) var(--warning-foreground-c) var(--warning-foreground-h)
+    );
+
+    --red: oklch(var(--red-l) var(--red-c) var(--red-h));
+    --green: oklch(var(--green-l) var(--green-c) var(--green-h));
+    --yellow: oklch(var(--yellow-l) var(--yellow-c) var(--yellow-h));
+    --blue: oklch(var(--blue-l) var(--blue-c) var(--blue-h));
+    --purple: oklch(var(--purple-l) var(--purple-c) var(--purple-h));
+    --aqua: oklch(var(--aqua-l) var(--aqua-c) var(--aqua-h));
+    --orange: oklch(var(--orange-l) var(--orange-c) var(--orange-h));
+
+    --cyan: oklch(var(--cyan-l) var(--cyan-c) var(--cyan-h));
+    --steel: oklch(var(--steel-l) var(--steel-c) var(--steel-h));
+    --gold: oklch(var(--gold-l) var(--gold-c) var(--gold-h));
+    --teal: oklch(var(--teal-l) var(--teal-c) var(--teal-h));
+    --lime: oklch(var(--lime-l) var(--lime-c) var(--lime-h));
+    --magenta: oklch(var(--magenta-l) var(--magenta-c) var(--magenta-h));
+    --violet: oklch(var(--violet-l) var(--violet-c) var(--violet-h));
+    --amber: oklch(var(--amber-l) var(--amber-c) var(--amber-h));
+    --slate: oklch(var(--slate-l) var(--slate-c) var(--slate-h));
+
+    --glow-color: oklch(var(--glow-color-l) var(--glow-color-c) var(--glow-color-h));
     --glow-strength-rest: 45%;
     --glow-strength-hover: 70%;
 
-    /* Semantic aliases */
-    --tags-3d: oklch(0.68 0.13 200); /* blue-cyan */
-    --tags-canvas: oklch(0.71 0.14 78); /* yellow-gold */
-    --tags-cellular-automata: oklch(0.59 0.11 155); /* aqua */
-    --tags-charts: oklch(0.62 0.13 135); /* green (same as data-viz) */
-    --tags-color: oklch(0.731 0.182 51.693); /* orange (existing) */
-    --tags-complex-systems: oklch(0.65 0.12 280); /* purple */
-    --tags-conventions: oklch(0.731 0.182 51.693); /* orange (existing) */
-    --tags-d3: oklch(0.693 0.042 169.768); /* blue (existing primary) */
-    --tags-data-viz: oklch(0.62 0.13 135); /* green (existing) */
-    --tags-design: oklch(0.705 0.098 2.189); /* purple-pink (existing accent) */
-    --tags-docs: oklch(0.69 0.035 76.307); /* muted foreground */
-    --tags-explanation: oklch(0.65 0.15 45); /* orange (existing) */
-    --tags-generative: oklch(0.71 0.14 78); /* yellow (existing) */
-    --tags-graph: oklch(0.693 0.042 169.768); /* blue */
-    --tags-how-to: oklch(0.52 0.09 200); /* blue (existing) */
-    --tags-image: oklch(0.52 0.09 200); /* blue (existing) */
-    --tags-l-system: oklch(0.71 0.14 78); /* yellow */
-    --tags-log: oklch(0.52 0.09 200); /* blue (existing) */
-    --tags-machine-learning: oklch(0.58 0.12 320); /* purple */
-    --tags-math: oklch(0.58 0.12 320); /* purple (existing) */
-    --tags-particle-system: oklch(0.756 0.108 137.676); /* aqua */
-    --tags-philosophy: oklch(0.65 0.08 250); /* soft blue-purple */
-    --tags-physics: oklch(0.59 0.11 155); /* aqua */
-    --tags-pipeline: oklch(0.693 0.042 169.768); /* blue */
-    --tags-procedural: oklch(0.71 0.14 78); /* yellow */
-    --tags-random: oklch(0.58 0.12 320); /* purple (existing) */
-    --tags-reference: oklch(0.62 0.13 135); /* green (existing) */
-    --tags-shader: oklch(0.68 0.13 200); /* bright blue-cyan */
-    --tags-simulation: oklch(0.59 0.11 155); /* aqua (existing) */
-    --tags-svg: oklch(0.693 0.042 169.768); /* blue */
-    --tags-theory: oklch(0.705 0.098 2.189); /* purple-pink */
-    --tags-three-js: oklch(0.68 0.13 200); /* blue-cyan */
-    --tags-tutorial: oklch(0.71 0.14 78); /* yellow (existing) */
-    --tags-webgl: oklch(0.68 0.13 200); /* blue-cyan */
-    --tags-worker-pool: oklch(0.69 0.035 76.307); /* muted */
-    --tags-zustand: oklch(0.765 0.158 110.835); /* green (secondary) */
+    /* --------------------------------------------------------------
+       TAGS — every value is a var() alias, no literal oklch() left.
+       -------------------------------------------------------------- */
+    --tags-3d: var(--cyan);
+    --tags-canvas: var(--gold);
+    --tags-cellular-automata: var(--teal);
+    --tags-charts: var(--lime);
+    --tags-color: var(--orange);
+    --tags-complex-systems: var(--violet);
+    --tags-conventions: var(--orange);
+    --tags-d3: var(--primary);
+    --tags-data-viz: var(--lime);
+    --tags-design: var(--accent);
+    --tags-docs: var(--foreground-muted);
+    --tags-explanation: var(--amber);
+    --tags-generative: var(--gold);
+    --tags-graph: var(--primary);
+    --tags-how-to: var(--steel);
+    --tags-image: var(--steel);
+    --tags-l-system: var(--gold);
+    --tags-log: var(--steel);
+    --tags-machine-learning: var(--magenta);
+    --tags-math: var(--magenta);
+    --tags-particle-system: var(--aqua);
+    --tags-philosophy: var(--slate);
+    --tags-physics: var(--teal);
+    --tags-pipeline: var(--primary);
+    --tags-procedural: var(--gold);
+    --tags-random: var(--magenta);
+    --tags-reference: var(--lime);
+    --tags-shader: var(--cyan);
+    --tags-simulation: var(--teal);
+    --tags-svg: var(--primary);
+    --tags-theory: var(--accent);
+    --tags-three-js: var(--cyan);
+    --tags-tutorial: var(--gold);
+    --tags-webgl: var(--cyan);
+    --tags-worker-pool: var(--foreground-muted);
+    --tags-zustand: var(--secondary);
   }
 
   html[data-theme='light'] {
-    --background: oklch(0.956 0.055 96.155);
-    --surface: oklch(0.922 0.055 92.526);
-    --surface-raised: oklch(0.894 0.057 89.24);
-    --foreground: oklch(0.344 0.007 48.523);
-    --foreground-muted: oklch(0.482 0.018 61.042);
-    --foreground-dim: oklch(0.619 0.029 67.258);
-    --border: oklch(0.344 0.007 48.523 / 0.1);
+    /* ==================================================================
+       BASE PALETTE — LIGHT MODE (single source of truth, all real numbers)
+       ================================================================== */
 
-    --primary: oklch(0.471 0.082 215.806);
-    --primary-foreground: oklch(0.956 0.055 96.155);
-    --secondary: oklch(0.546 0.112 106.464);
-    --secondary-foreground: oklch(0.956 0.055 96.155);
-    --destructive: oklch(0.437 0.179 28.26);
-    --destructive-foreground: oklch(0.956 0.055 96.155);
-    --accent: oklch(0.489 0.124 344.276);
-    --accent-foreground: oklch(0.956 0.055 96.155);
-    --warning: oklch(0.618 0.128 70.674);
-    --warning-foreground: oklch(0.956 0.055 96.155);
+    /* Neutrals */
+    --background-l: 0.956;
+    --background-c: 0.055;
+    --background-h: 96.155;
+    --surface-l: 0.922;
+    --surface-c: 0.055;
+    --surface-h: 92.526;
+    --surface-raised-l: 0.894;
+    --surface-raised-c: 0.057;
+    --surface-raised-h: 89.24;
+    --foreground-l: 0.344;
+    --foreground-c: 0.007;
+    --foreground-h: 48.523;
+    --foreground-muted-l: 0.482;
+    --foreground-muted-c: 0.018;
+    --foreground-muted-h: 61.042;
+    --foreground-dim-l: 0.619;
+    --foreground-dim-c: 0.029;
+    --foreground-dim-h: 67.258;
+    --border-l: 0.344;
+    --border-c: 0.007;
+    --border-h: 48.523;
+    --border-a: 0.1;
 
-    --red: oklch(0.437 0.179 28.26);
-    --green: oklch(0.546 0.112 106.464);
-    --yellow: oklch(0.618 0.128 70.674);
-    --blue: oklch(0.471 0.082 215.806);
-    --purple: oklch(0.489 0.124 344.276);
-    --aqua: oklch(0.534 0.082 155.401);
-    --orange: oklch(0.513 0.162 39.297);
+    /* Core gruvbox hues */
+    --red-l: 0.437;
+    --red-c: 0.179;
+    --red-h: 28.26;
+    --green-l: 0.546;
+    --green-c: 0.112;
+    --green-h: 106.464;
+    --yellow-l: 0.618;
+    --yellow-c: 0.128;
+    --yellow-h: 70.674;
+    --blue-l: 0.471;
+    --blue-c: 0.082;
+    --blue-h: 215.806;
+    --purple-l: 0.489;
+    --purple-c: 0.124;
+    --purple-h: 344.276;
+    --aqua-l: 0.534;
+    --aqua-c: 0.082;
+    --aqua-h: 155.401;
+    --orange-l: 0.513;
+    --orange-c: 0.162;
+    --orange-h: 39.297;
 
-    --shadow-sm: 0 1px 3px oklch(0.344 0.007 48.523 / 0.06);
-    --shadow-md: 0 4px 12px oklch(0.344 0.007 48.523 / 0.08);
-    --shadow-lg: 0 8px 24px oklch(0.344 0.007 48.523 / 0.12);
+    /* Extended hues — used only by tags, but pulled out of the tag list
+       into the base palette since each is reused by several tags */
+    --cyan-l: 0.45;
+    --cyan-c: 0.11;
+    --cyan-h: 200;
+    --steel-l: 0.4;
+    --steel-c: 0.1;
+    --steel-h: 200;
+    --gold-l: 0.55;
+    --gold-c: 0.13;
+    --gold-h: 78;
+    --teal-l: 0.43;
+    --teal-c: 0.1;
+    --teal-h: 155;
+    --lime-l: 0.45;
+    --lime-c: 0.12;
+    --lime-h: 135;
+    --magenta-l: 0.42;
+    --magenta-c: 0.11;
+    --magenta-h: 320;
+    --violet-l: 0.42;
+    --violet-c: 0.11;
+    --violet-h: 280;
+    --amber-l: 0.52;
+    --amber-c: 0.14;
+    --amber-h: 45;
+    --slate-l: 0.4;
+    --slate-c: 0.08;
+    --slate-h: 250;
 
-    --glow-color: oklch(0.55 0.14 90);
+    --glow-color-l: 0.55;
+    --glow-color-c: 0.14;
+    --glow-color-h: 90;
+
+    /* ------------------------------------------------------------------
+       SEMANTIC TOKENS — pure channel aliases onto the base palette above.
+       ------------------------------------------------------------------ */
+    --primary-l: var(--blue-l);
+    --primary-c: var(--blue-c);
+    --primary-h: var(--blue-h);
+    --primary-foreground-l: var(--background-l);
+    --primary-foreground-c: var(--background-c);
+    --primary-foreground-h: var(--background-h);
+
+    --secondary-l: var(--green-l);
+    --secondary-c: var(--green-c);
+    --secondary-h: var(--green-h);
+    --secondary-foreground-l: var(--background-l);
+    --secondary-foreground-c: var(--background-c);
+    --secondary-foreground-h: var(--background-h);
+
+    --destructive-l: var(--red-l);
+    --destructive-c: var(--red-c);
+    --destructive-h: var(--red-h);
+    --destructive-foreground-l: var(--background-l);
+    --destructive-foreground-c: var(--background-c);
+    --destructive-foreground-h: var(--background-h);
+
+    --accent-l: var(--purple-l);
+    --accent-c: var(--purple-c);
+    --accent-h: var(--purple-h);
+    --accent-foreground-l: var(--background-l);
+    --accent-foreground-c: var(--background-c);
+    --accent-foreground-h: var(--background-h);
+
+    --warning-l: var(--yellow-l);
+    --warning-c: var(--yellow-c);
+    --warning-h: var(--yellow-h);
+    --warning-foreground-l: var(--background-l);
+    --warning-foreground-c: var(--background-c);
+    --warning-foreground-h: var(--background-h);
+
+    /* Reconstructed Tailwind Colors */
+    --background: oklch(var(--background-l) var(--background-c) var(--background-h));
+    --surface: oklch(var(--surface-l) var(--surface-c) var(--surface-h));
+    --surface-raised: oklch(
+      var(--surface-raised-l) var(--surface-raised-c) var(--surface-raised-h)
+    );
+    --foreground: oklch(var(--foreground-l) var(--foreground-c) var(--foreground-h));
+    --foreground-muted: oklch(
+      var(--foreground-muted-l) var(--foreground-muted-c) var(--foreground-muted-h)
+    );
+    --foreground-dim: oklch(
+      var(--foreground-dim-l) var(--foreground-dim-c) var(--foreground-dim-h)
+    );
+    --border: oklch(var(--border-l) var(--border-c) var(--border-h) / var(--border-a));
+
+    --primary: oklch(var(--primary-l) var(--primary-c) var(--primary-h));
+    --primary-foreground: oklch(
+      var(--primary-foreground-l) var(--primary-foreground-c) var(--primary-foreground-h)
+    );
+    --secondary: oklch(var(--secondary-l) var(--secondary-c) var(--secondary-h));
+    --secondary-foreground: oklch(
+      var(--secondary-foreground-l) var(--secondary-foreground-c) var(--secondary-foreground-h)
+    );
+    --destructive: oklch(var(--destructive-l) var(--destructive-c) var(--destructive-h));
+    --destructive-foreground: oklch(
+      var(--destructive-foreground-l) var(--destructive-foreground-c)
+        var(--destructive-foreground-h)
+    );
+    --accent: oklch(var(--accent-l) var(--accent-c) var(--accent-h));
+    --accent-foreground: oklch(
+      var(--accent-foreground-l) var(--accent-foreground-c) var(--accent-foreground-h)
+    );
+    --warning: oklch(var(--warning-l) var(--warning-c) var(--warning-h));
+    --warning-foreground: oklch(
+      var(--warning-foreground-l) var(--warning-foreground-c) var(--warning-foreground-h)
+    );
+
+    --red: oklch(var(--red-l) var(--red-c) var(--red-h));
+    --green: oklch(var(--green-l) var(--green-c) var(--green-h));
+    --yellow: oklch(var(--yellow-l) var(--yellow-c) var(--yellow-h));
+    --blue: oklch(var(--blue-l) var(--blue-c) var(--blue-h));
+    --purple: oklch(var(--purple-l) var(--purple-c) var(--purple-h));
+    --aqua: oklch(var(--aqua-l) var(--aqua-c) var(--aqua-h));
+    --orange: oklch(var(--orange-l) var(--orange-c) var(--orange-h));
+
+    --cyan: oklch(var(--cyan-l) var(--cyan-c) var(--cyan-h));
+    --steel: oklch(var(--steel-l) var(--steel-c) var(--steel-h));
+    --gold: oklch(var(--gold-l) var(--gold-c) var(--gold-h));
+    --teal: oklch(var(--teal-l) var(--teal-c) var(--teal-h));
+    --lime: oklch(var(--lime-l) var(--lime-c) var(--lime-h));
+    --magenta: oklch(var(--magenta-l) var(--magenta-c) var(--magenta-h));
+    --violet: oklch(var(--violet-l) var(--violet-c) var(--violet-h));
+    --amber: oklch(var(--amber-l) var(--amber-c) var(--amber-h));
+    --slate: oklch(var(--slate-l) var(--slate-c) var(--slate-h));
+
+    --shadow-sm: 0 1px 3px oklch(var(--foreground-l) var(--foreground-c) var(--foreground-h) / 0.06);
+    --shadow-md: 0 4px 12px
+      oklch(var(--foreground-l) var(--foreground-c) var(--foreground-h) / 0.08);
+    --shadow-lg: 0 8px 24px
+      oklch(var(--foreground-l) var(--foreground-c) var(--foreground-h) / 0.12);
+
+    --glow-color: oklch(var(--glow-color-l) var(--glow-color-c) var(--glow-color-h));
     --glow-strength-rest: 30%;
     --glow-strength-hover: 55%;
 
-    /* Semantic aliases */
-    --tags-3d: oklch(0.45 0.11 200);
-    --tags-canvas: oklch(0.55 0.13 78);
-    --tags-cellular-automata: oklch(0.43 0.1 155);
-    --tags-charts: oklch(0.45 0.12 135);
-    --tags-color: oklch(0.48 0.15 25);
-    --tags-complex-systems: oklch(0.42 0.11 280);
-    --tags-conventions: oklch(0.48 0.15 25);
-    --tags-d3: oklch(0.471 0.082 215.806);
-    --tags-data-viz: oklch(0.45 0.12 135);
-    --tags-design: oklch(0.489 0.124 344.276);
-    --tags-docs: oklch(0.482 0.018 61.042);
-    --tags-explanation: oklch(0.52 0.14 45);
-    --tags-generative: oklch(0.55 0.13 78);
-    --tags-graph: oklch(0.471 0.082 215.806);
-    --tags-how-to: oklch(0.48 0.15 25);
-    --tags-image: oklch(0.4 0.1 200);
-    --tags-l-system: oklch(0.55 0.13 78);
-    --tags-log: oklch(0.4 0.1 200);
-    --tags-machine-learning: oklch(0.42 0.11 320);
-    --tags-math: oklch(0.42 0.11 320);
-    --tags-particle-system: oklch(0.43 0.1 155);
-    --tags-philosophy: oklch(0.4 0.08 250);
-    --tags-physics: oklch(0.43 0.1 155);
-    --tags-pipeline: oklch(0.471 0.082 215.806);
-    --tags-procedural: oklch(0.55 0.13 78);
-    --tags-random: oklch(0.42 0.11 320);
-    --tags-reference: oklch(0.45 0.12 135);
-    --tags-shader: oklch(0.45 0.11 200);
-    --tags-simulation: oklch(0.43 0.1 155);
-    --tags-svg: oklch(0.471 0.082 215.806);
-    --tags-theory: oklch(0.489 0.124 344.276);
-    --tags-three-js: oklch(0.45 0.11 200);
-    --tags-tutorial: oklch(0.55 0.13 78);
-    --tags-webgl: oklch(0.45 0.11 200);
-    --tags-worker-pool: oklch(0.482 0.018 61.042);
-    --tags-zustand: oklch(0.546 0.112 106.464);
+    /* --------------------------------------------------------------
+       TAGS — every value is a var() alias, no literal oklch() left.
+       -------------------------------------------------------------- */
+    --tags-3d: var(--cyan);
+    --tags-canvas: var(--gold);
+    --tags-cellular-automata: var(--teal);
+    --tags-charts: var(--lime);
+    --tags-color: var(--orange);
+    --tags-complex-systems: var(--violet);
+    --tags-conventions: var(--orange);
+    --tags-d3: var(--primary);
+    --tags-data-viz: var(--lime);
+    --tags-design: var(--accent);
+    --tags-docs: var(--foreground-muted);
+    --tags-explanation: var(--amber);
+    --tags-generative: var(--gold);
+    --tags-graph: var(--primary);
+    --tags-how-to: var(--steel);
+    --tags-image: var(--steel);
+    --tags-l-system: var(--gold);
+    --tags-log: var(--steel);
+    --tags-machine-learning: var(--magenta);
+    --tags-math: var(--magenta);
+    --tags-particle-system: var(--aqua);
+    --tags-philosophy: var(--slate);
+    --tags-physics: var(--teal);
+    --tags-pipeline: var(--primary);
+    --tags-procedural: var(--gold);
+    --tags-random: var(--magenta);
+    --tags-reference: var(--lime);
+    --tags-shader: var(--cyan);
+    --tags-simulation: var(--teal);
+    --tags-svg: var(--primary);
+    --tags-theory: var(--accent);
+    --tags-three-js: var(--cyan);
+    --tags-tutorial: var(--gold);
+    --tags-webgl: var(--cyan);
+    --tags-worker-pool: var(--foreground-muted);
+    --tags-zustand: var(--secondary);
   }
 
   html {
