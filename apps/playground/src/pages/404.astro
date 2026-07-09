@@ -2,79 +2,38 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Icon } from '@repo/ui/icons';
 import Footer from '../layouts/Footer.astro';
+import { Hero } from '@repo/ui/data-display';
+import { buttonVariants } from '@repo/ui/data-entry';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
+const projectsBaseUrl = `${baseUrl}projects/`;
 ---
 
 <BaseLayout title="404 — Not Found">
-  <div class="relative flex flex-1 items-center justify-center overflow-hidden px-6 py-24">
-    <!-- Grid bg -->
-    <div
-      class="absolute inset-0 z-0 bg-[linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(to_right,var(--border)_1px,transparent_1px)] bg-[length:4rem_4rem] opacity-10"
-      aria-hidden="true"
+  <Hero
+    badgeText="Lost in the woods"
+    highlight="404"
+    title="PAGE NOT FOUND"
+    description="You've ventured into the void. This page doesn't exist — perhaps it was lost in the multiverse, or maybe it never was."
+  >
+    <a
+      href={`${baseUrl}`}
+      class={buttonVariants({ variant: 'primary' }) +
+        ' shadow-primary/20 hover:shadow-primary/30 rounded-full shadow-lg hover:-translate-y-0.5 hover:shadow-xl uppercase text-xs px-6 h-10'}
     >
-    </div>
-
-    <!-- Radial fade mask -->
-    <div
-      class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,transparent_50%,var(--background)_100%)]"
-      aria-hidden="true"
+      <Icon
+        name="home"
+        className="h-3.5 w-3.5"
+      />
+      Go Home
+    </a>
+    <a
+      href={projectsBaseUrl}
+      class="border-border/50 text-muted-foreground hover:border-primary/40 hover:bg-muted/30 hover:text-primary inline-flex h-10 items-center gap-2 rounded-full border-2 bg-transparent px-6 text-xs font-bold uppercase transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
     >
-    </div>
-
-    <div class="relative z-10 mx-auto max-w-lg text-center">
-      <!-- 404 numeral -->
-      <p
-        class="from-primary via-accent to-secondary mb-2 bg-linear-to-br bg-clip-text text-9xl font-black text-transparent"
-      >
-        404
-      </p>
-
-      <!-- Heading -->
-      <h1 class="mb-4 text-lg font-bold uppercase">Page not found</h1>
-
-      <p class="text-muted-foreground mx-auto mb-10 max-w-sm text-sm">
-        You've ventured into the void. This page doesn't exist — perhaps it was lost in the
-        multiverse, or maybe it never was.
-      </p>
-
-      <!-- Actions -->
-      <div class="flex flex-wrap items-center justify-center gap-3">
-        <a
-          href={`${baseUrl}/`}
-          class="bg-primary text-primary-foreground inline-flex h-10 items-center gap-2 rounded-md px-6 text-xs font-bold uppercase transition-all hover:-translate-y-px hover:opacity-90 active:translate-y-0"
-        >
-          <Icon
-            name="home"
-            className="h-3.5 w-3.5"
-          />
-          Go Home
-        </a>
-        <a
-          href={`${baseUrl}projects/`}
-          class="border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-foreground inline-flex h-10 items-center gap-2 rounded-md border px-6 text-xs font-bold uppercase transition-all active:scale-95"
-        >
-          <Icon
-            name="sparkles"
-            className="h-3.5 w-3.5"
-          />
-          Explore
-        </a>
-      </div>
-    </div>
-
-    <!-- Decorative corners -->
-    <div
-      class="border-border/40 pointer-events-none absolute bottom-8 left-8 z-10 h-16 w-16 border-b border-l"
-      aria-hidden="true"
-    >
-    </div>
-    <div
-      class="border-border/40 pointer-events-none absolute top-8 right-8 z-10 h-16 w-16 border-t border-r"
-      aria-hidden="true"
-    >
-    </div>
-  </div>
+      All Projects
+    </a>
+  </Hero>
 
   <Footer>
     <span slot="default">Crafted with creativity.</span>

@@ -47,27 +47,19 @@ function Hero({
 
         <h1
           className={cn(
+            'text-[clamp(2.75rem,7.5vw,5.5rem)]',
             'bg-linear-to-br bg-clip-text leading-tight font-black text-transparent',
             fromColor,
             'via-accent to-secondary'
           )}
-          style={{ fontSize: 'clamp(2.75rem,7.5vw,5.5rem)' }}
         >
-          <span
-            className="block font-black"
-            style={{ fontSize: 'clamp(0.75rem,5.5vw,3.5rem)' }}
-          >
-            {highlight}
-          </span>
+          <span className="block text-[clamp(0.75rem,5.5vw,3.5rem)] font-black">{highlight}</span>
           {title}
           <span className="ml-1 animate-ping font-light">_</span>
         </h1>
 
         {description && (
-          <p
-            className="text-foreground-muted mt-6 max-w-xl"
-            style={{ fontSize: 'clamp(1rem,2.5vw,1.125rem)' }}
-          >
+          <p className="text-foreground-muted mt-6 max-w-xl text-[clamp(1rem,2.5vw,1.125rem)]">
             {description}
           </p>
         )}
