@@ -1,5 +1,5 @@
 import type { VariantProps } from 'class-variance-authority';
-import type { HTMLAttributes, Ref } from 'react';
+import type { CSSProperties, HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { type ColorVariant } from '../../../lib/colorVariant';
 import { badgeVariants } from './variants';
@@ -7,6 +7,7 @@ import { badgeVariants } from './variants';
 export type BadgeProps = {
   variant?: ColorVariant;
   ref?: Ref<HTMLSpanElement>;
+  color?: string;
 } & HTMLAttributes<HTMLSpanElement> &
   VariantProps<typeof badgeVariants>;
 
@@ -19,15 +20,15 @@ export function Badge({
   appearance,
   dot,
   variant = 'default',
-  style,
   ref,
+  color,
   ...props
 }: BadgeProps) {
   return (
     <span
       ref={ref}
       className={cn(badgeVariants({ variant, appearance, dot }), className)}
-      style={style}
+      style={{ '--surface-raised': color } as CSSProperties}
       {...props}
     />
   );

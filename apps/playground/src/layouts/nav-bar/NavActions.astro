@@ -1,6 +1,5 @@
 ---
 import { Icon } from '@repo/ui/icons';
-// Social links, theme toggle button, and mobile burger button
 ---
 
 <div class="flex items-center gap-2">
@@ -10,24 +9,11 @@ import { Icon } from '@repo/ui/icons';
       href="https://github.com/joska-p/playground"
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-surface-raised/50 text-foreground-muted hover:bg-surface hover:text--glow-color) flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
+      class="bg-surface-raised/50 text-foreground-muted hover:bg-surface hover:text--glow-color) pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
       aria-label="GitHub"
     >
       <Icon
         name="github"
-        className="h-3.5 w-3.5"
-      />
-    </a>
-
-    <a
-      href="https://gitlab.com/joska-p/playground"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="bg-surface-raised/50 text-foreground-muted hover:bg-surface hover:text--glow-color) flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
-      aria-label="GitLab"
-    >
-      <Icon
-        name="gitlab"
         className="h-3.5 w-3.5"
       />
     </a>
@@ -36,7 +22,7 @@ import { Icon } from '@repo/ui/icons';
   <!-- Theme toggle -->
   <button
     id="theme-toggle"
-    class="bg-surface-raised/50 text-foreground-muted hover:text--glow-color) flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
+    class="bg-surface-raised/50 text-foreground-muted hover:text--glow-color) pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full border-2 border-transparent transition-all duration-200 hover:border-[color-mix(in_oklch,var(--glow-color)_40%,transparent)] hover:bg-[color-mix(in_oklch,var(--glow-color)_12%,transparent)] hover:shadow-[0_0_0_1px_color-mix(in_oklch,var(--glow-color)_50%,transparent),0_0_16px_-4px_color-mix(in_oklch,var(--glow-color)_65%,transparent)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97]"
     aria-label="Toggle theme"
   >
     <svg
@@ -81,7 +67,7 @@ import { Icon } from '@repo/ui/icons';
   <button
     id="mobile-menu-toggle"
     aria-expanded="false"
-    class="bg-surface-raised/50 text-foreground-muted flex h-8 w-8 flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-200 hover:shadow-[0_0_16px_-4px_var(--glow-color)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97] md:hidden"
+    class="bg-surface-raised/50 text-foreground-muted pointer-events-auto flex h-8 w-8 flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-200 hover:shadow-[0_0_16px_-4px_var(--glow-color)] focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklch,var(--glow-color)_70%,var(--border))] focus-visible:outline-none active:scale-[.97] md:hidden"
     aria-label="Toggle menu"
   >
     <span

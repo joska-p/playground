@@ -127,7 +127,10 @@ const { className } = Astro.props;
 
     <Font cssVariable="--font-jetbrains-mono" />
   </head>
-  <body class="bg-background text-foreground relative min-h-screen antialiased">
+  <body
+    id="body"
+    class="bg-background text-foreground relative min-h-screen antialiased"
+  >
     <EdgeFieldMask />
     <BackgroundCanvas />
     <Navbar />

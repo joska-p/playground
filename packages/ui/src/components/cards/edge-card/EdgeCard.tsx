@@ -1,3 +1,10 @@
+import type { VariantProps } from 'class-variance-authority';
+import type { HTMLAttributes } from 'react';
+import { cn } from '../../../lib/cn';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { Badge } from '../../data-display';
+import { edgeCardVariants } from './variants';
+
 // --- 1. Seeded PRNG (Mulberry32) ---
 // Generates deterministic random numbers based on a seed.
 function mulberry32(seed: number) {
@@ -70,8 +77,8 @@ function generateEdgePaths(seed: number) {
 }
 
 // --- 3. The React Component ---
-
 export type EdgeCardProps = {
+  variant?: ColorVariant;
   seed: number;
   id: string;
   title: string;
@@ -79,30 +86,32 @@ export type EdgeCardProps = {
   density: string;
   resolution: string;
   color?: string; // e.g. 'var(--blue)', 'var(--orange)'
-};
+} & HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof edgeCardVariants>;
 
 export function EdgeCard({
+  variant,
   seed,
   id,
   title,
   classification,
   density,
   resolution,
-  color = 'var(--glow-color)'
+  color
 }: EdgeCardProps) {
   const paths = generateEdgePaths(seed);
 
   return (
     <div
-      className="group relative aspect-square overflow-hidden border p-5 transition-all duration-450 ease-in-out"
+      className={cn('', edgeCardVariants({ variant }))}
       style={
         {
-          borderColor: `color-mix(in oklch, ${color} 22%, transparent)`,
-          backgroundColor: 'color-mix(in oklch, var(--surface) 25%, transparent)',
+          borderColor: `color-mix(in oklch, var(--variant-color) 22%, transparent)`,
+          backgroundColor: 'color-mix(in oklch, var(--variant-color) 5%, transparent)',
           backdropFilter: 'blur(8px)',
           '--mx': '50%',
           '--my': '50%',
-          '--glow': color
+          '--variant-color': `${color}`
         } as React.CSSProperties
       }
     >
@@ -110,7 +119,7 @@ export function EdgeCard({
       <div
         className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-400"
         style={{
-          background: `radial-gradient(circle at var(--mx) var(--my), color-mix(in oklch, ${color} 18%, transparent), transparent 50%)`
+          background: `radial-gradient(circle at var(--mx) var(--my), color-mix(in oklch, var(--variant-color) 18%, transparent), transparent 50%)`
         }}
       />
 
@@ -118,22 +127,22 @@ export function EdgeCard({
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-450 group-hover:opacity-100"
         style={{
-          boxShadow: `0 0 50px color-mix(in oklch, ${color} 25%, transparent), inset 0 0 60px color-mix(in oklch, ${color} 6%, transparent)`,
-          border: '1px solid color-mix(in oklch, var(--glow) 75%, transparent)'
+          boxShadow: `0 0 50px color-mix(in oklch, var(--variant-color) 25%, transparent), inset 0 0 60px color-mix(in oklch, var(--variant-color) 6%, transparent)`,
+          border: '1px solid color-mix(in oklch, var(--variant-color) 75%, transparent)'
         }}
       />
 
       {/* The generated SVG lines */}
       <svg
         className="absolute inset-0 z-0 h-full w-full opacity-40 transition-all duration-500 group-hover:opacity-100"
-        style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+        style={{ filter: `drop-shadow(0 0 6px var(--variant-color))` }}
         viewBox="0 0 300 300"
         preserveAspectRatio="none"
       >
         <path
           d={paths.openPaths}
           fill="none"
-          stroke={color}
+          stroke="var(--variant-color)"
           strokeWidth="0.6"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -142,7 +151,7 @@ export function EdgeCard({
         <path
           d={paths.closedPaths}
           fill="none"
-          stroke={color}
+          stroke="var(--variant-color)"
           strokeWidth="0.6"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -154,7 +163,7 @@ export function EdgeCard({
             cx={dot.cx}
             cy={dot.cy}
             r={dot.r}
-            fill={color}
+            fill="var(--variant-color)"
             opacity="0.55"
           />
         ))}
@@ -163,30 +172,24 @@ export function EdgeCard({
       {/* Card Content */}
       <div className="relative z-20 flex h-full flex-col justify-between">
         <div className="flex items-start justify-between">
-          <span
-            className="text-[10px] font-medium tracking-widest"
-            style={{ color }}
+          <Badge
+            appearance="solid"
+            color="var(--variant-color)"
           >
             {id}
-          </span>
-          <span
-            className="text-foreground-dim border px-2 py-1 text-[9px] tracking-wider uppercase"
-            style={{ borderColor: 'var(--border)' }}
-          >
+          </Badge>
+          <span className="text-foreground-dim border border-(--variant-color) px-2 py-1 text-xs tracking-wider uppercase">
             {classification}
           </span>
         </div>
 
         <div className="mt-auto">
-          <h3 className="text-foreground mb-1.5 text-xl font-light tracking-tight transition-colors group-hover:text-[var(--glow)]">
+          <h3 className="text-foreground mb-1.5 text-xl font-light tracking-tight transition-colors group-hover:text-(--variant-color)">
             {title}
           </h3>
-          <div
-            className="text-foreground-dim mt-3 flex justify-between border-t pt-3 text-[10px] tracking-wider"
-            style={{ borderColor: 'var(--border)' }}
-          >
+          <div className="text-foreground-dim mt-3 flex justify-between border-t border-(--variant-color) pt-3 text-sm tracking-wider">
             <span>{resolution}</span>
-            <span style={{ color }}>{density}</span>
+            <span>{density}</span>
           </div>
         </div>
       </div>

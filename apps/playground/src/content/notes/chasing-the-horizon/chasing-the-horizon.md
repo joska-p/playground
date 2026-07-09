@@ -1,6 +1,6 @@
 ---
 title: Chasing the Horizon
-description: A cosmic journey full of inspiration.
+description: A cosmic journey.
 date: 2026-07-06
 draft: false
 tags:
