@@ -22,6 +22,7 @@ export function useWebGLRenderer(
 ) {
   const timeRef = useRef(0);
   const speedRef = useRef(randomartStore.getState().animationSpeed);
+  const mouseRef = useRef({ x: 0, y: 0 });
 
   // 1. Initialize WebGL Context and manage canvas sizing bounds
   const { glRef, bitmapSize } = useWebGLContext(canvasRef);
@@ -36,6 +37,26 @@ export function useWebGLRenderer(
 
   // 3. Keep mutable animation speed reference updated without triggering component redraw loops
   const animationSpeed = useStore(randomartStore, (s) => s.animationSpeed);
+
+  // Track cursor tracking events across the surface bounding box elements
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      // Calculate continuous scale properties mapping to canvas pixels directly
+      mouseRef.current = {
+        x: (e.clientX - rect.left) * (canvas.width / rect.width),
+        y: (e.clientY - rect.top) * (canvas.height / rect.height)
+      };
+    };
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      canvas.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [canvasRef]);
 
   // 4. Handle shader program compilation pipelines
   const { programRef, uniformLocsRef } = useShaderProgram(

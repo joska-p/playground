@@ -3,9 +3,10 @@ import type { AnimationBehavior, ExpressionNode } from '@repo/randomart-engine/t
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
 
-const VERTEX_SHADER_SOURCE = `
-attribute vec2 a_position;
-varying vec2 v_texCoord;
+// WebGL2 GLSL ES 3.00 Vertex Shader
+const VERTEX_SHADER_SOURCE = `#version 300 es
+in vec2 a_position;
+out vec2 v_texCoord;
 void main() {
   v_texCoord = (a_position + 1.0) / 2.0;
   gl_Position = vec4(a_position, 0.0, 1.0);
@@ -15,13 +16,15 @@ void main() {
 export type UniformLocs = {
   time: WebGLUniformLocation | null;
   animSpeed: WebGLUniformLocation | null;
+  resolution: WebGLUniformLocation | null;
+  mouse: WebGLUniformLocation | null;
 };
 
 /**
  * Owns shader compilation and the resulting WebGLProgram lifecycle.
  */
 export function useShaderProgram(
-  glRef: React.RefObject<WebGLRenderingContext | null>,
+  glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
   bitmapSize: BitmapSize,
   trees: {
     treeR: ExpressionNode;
@@ -29,15 +32,22 @@ export function useShaderProgram(
     treeB: ExpressionNode;
   },
   behaviors: AnimationBehavior[],
-  onReady?: (gl: WebGLRenderingContext, uniformLocs: UniformLocs) => void
+  onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void
 ) {
   const programRef = useRef<WebGLProgram | null>(null);
-  const uniformLocsRef = useRef<UniformLocs>({ time: null, animSpeed: null });
+  const uniformLocsRef = useRef<UniformLocs>({
+    time: null,
+    animSpeed: null,
+    resolution: null,
+    mouse: null
+  });
 
   useEffect(() => {
     const gl = glRef.current;
     if (!gl) return;
 
+    // Note: Make sure your compileToGLSL outputs a string starting with "#version 300 es",
+    // uses "in vec2 v_texCoord;", and defines a custom fragment output variable like "out vec4 fragColor;"
     const fragmentShaderSource = compileToGLSL(trees.treeR, trees.treeG, trees.treeB, behaviors);
 
     let program: WebGLProgram | null = null;
@@ -65,11 +75,13 @@ export function useShaderProgram(
     // Cache uniform locations
     const locs: UniformLocs = {
       time: gl.getUniformLocation(program, 'u_time'),
-      animSpeed: gl.getUniformLocation(program, 'u_animSpeed')
+      animSpeed: gl.getUniformLocation(program, 'u_animSpeed'),
+      resolution: gl.getUniformLocation(program, 'u_resolution'),
+      mouse: gl.getUniformLocation(program, 'u_mouse')
     };
     uniformLocsRef.current = locs;
 
-    // Update resolution uniform (now supports rectangles!)
+    // Update resolution uniform
     const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
     if (resolutionLocation) {
       gl.uniform2f(resolutionLocation, bitmapSize.width, bitmapSize.height);
@@ -83,19 +95,19 @@ export function useShaderProgram(
       if (programRef.current === program) {
         gl.deleteProgram(program);
         programRef.current = null;
-        uniformLocsRef.current = { time: null, animSpeed: null };
+        uniformLocsRef.current = { time: null, animSpeed: null, resolution: null, mouse: null };
       }
     };
-  }, [glRef, bitmapSize, trees, behaviors, onReady]); // ← bitmapSize is now an object
+  }, [glRef, bitmapSize, trees, behaviors, onReady]);
 
   return { programRef, uniformLocsRef };
 }
 
 // ---------------------------------------------------------------------------
-// WebGL boilerplate (pure functions)
+// WebGL2 boilerplate (pure functions)
 // ---------------------------------------------------------------------------
 
-function createShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
+function createShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
   const shader = gl.createShader(type);
   if (!shader) throw new Error('Failed to create shader');
   gl.shaderSource(shader, source);
@@ -109,7 +121,7 @@ function createShader(gl: WebGLRenderingContext, type: number, source: string): 
 }
 
 function createProgram(
-  gl: WebGLRenderingContext,
+  gl: WebGL2RenderingContext,
   vsSource: string,
   fsSource: string
 ): WebGLProgram {
@@ -126,7 +138,6 @@ function createProgram(
     gl.deleteShader(fs);
     throw new Error('Program link error: ' + String(info));
   }
-  // Safe to detach and delete individual intermediate shader objects once linked
   gl.detachShader(program, vs);
   gl.detachShader(program, fs);
   gl.deleteShader(vs);

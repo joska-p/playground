@@ -39,8 +39,8 @@ export const rotateBehavior: AnimationBehavior = {
   name: 'Rotate',
   glslFunction: `
 mat2 rotate2d(float _angle){
-    return mat2(cos(_angle),-sin(_angle),
-                sin(_angle),cos(_angle));
+  return mat2(cos(_angle),-sin(_angle),
+  sin(_angle),cos(_angle));
 }
 `,
   type: 'spatial',
@@ -52,9 +52,9 @@ export const swirlBehavior: AnimationBehavior = {
   name: 'Swirl',
   glslFunction: `
 vec2 swirl(vec2 coords, float angle) {
-    float r = length(coords);
-    float a = atan(coords.y, coords.x) + angle * (1.0 - r);
-    return vec2(cos(a) * r, sin(a) * r);
+  float r = length(coords);
+  float a = atan(coords.y, coords.x) + angle * (1.0 - r);
+  return vec2(cos(a) * r, sin(a) * r);
 }
 `,
   type: 'spatial',
@@ -193,6 +193,76 @@ export const colorDriftBehavior: AnimationBehavior = {
     ].join('\n  ')
 };
 
+export const recamanPulseBehavior: AnimationBehavior = {
+  id: 'recaman-pulse',
+  name: 'Recamán Pulse',
+  glslFunction: `
+vec2 recamanWarp(vec2 coords, float t, float speed) {
+  float timeFactor = t * speed * 0.4;
+  float r = length(coords);
+  float theta = atan(coords.y, coords.x);
+
+  // Instead of floor/fract steps, use smooth continuous trigonometric oscillations
+  float waveSelector = sin(r * 4.0 + timeFactor);
+
+  // Smoothly scale the warp magnitude without hard integer cuts
+  float arcWarp = sin(theta * 2.0 + timeFactor) * (timeFactor * 0.01);
+
+  // A smooth continuous pulse instead of a hard directional sign-flip snap
+  r += waveSelector * 0.1 + arcWarp;
+
+  return vec2(cos(theta) * r, sin(theta) * r);
+}`,
+  type: 'spatial',
+  applyCode: (timeVar, speedVar) => `p = recamanWarp(p, ${timeVar}, ${speedVar});`
+};
+
+export const edgeDetectBehavior: AnimationBehavior = {
+  id: 'edge-detect',
+  name: 'Laplacian Edge Contour',
+  type: 'color',
+  glslFunction: `
+vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
+    float centerLuminance = dot(baseColor, vec3(0.299, 0.587, 0.114));
+
+    // Screen-space derivatives for clean edge isolation
+    float dX = dFdx(centerLuminance);
+    float dY = dFdy(centerLuminance);
+    float edge = length(vec2(dX, dY));
+
+    // Animate edge intensity slightly
+    float intensityModifier = 1.0 + smoothNoise(time * 0.3) * 1.0;
+    edge *= intensityModifier;
+
+    // Generate a cycling neon color palette using cosine waves based on position + time
+    vec3 edgeColor = 0.5 + 0.5 * cos(time + uv.xyx + vec3(0.0, 2.0, 4.0));
+
+    // Boost the brightness of the neon line
+    edgeColor *= 1.5;
+
+    // Mix the glowing neon color into your generative base color matrix
+    return mix(baseColor, edgeColor, smoothstep(0.04, 0.2, edge));
+}
+`,
+  applyCode: (timeVar, speedVar) =>
+    `color = applyLaplacianEdges(color, v_texCoord, ${timeVar} * ${speedVar});`
+};
+
+export const mouseProximityBehavior: AnimationBehavior = {
+  id: 'mouse-proximity',
+  name: 'Mouse Distortion Field',
+  type: 'spatial',
+  glslFunction: ``,
+  applyCode: () => {
+    return [
+      `vec2 fragPx = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);`,
+      `float distToMouse = length(fragPx - u_mouse);`,
+      `float force = 1.0 - smoothstep(0.0, 300.0, distToMouse);`,
+      `p += normalize(fragPx - u_mouse) * force * 0.25;`
+    ].join('\n  ');
+  }
+};
+
 export const animationRegistry: AnimationBehavior[] = [
   hueShiftBehavior,
   zoomBehavior,
@@ -208,5 +278,8 @@ export const animationRegistry: AnimationBehavior[] = [
   contrastPulseBehavior,
   goldenWanderBehavior,
   noiseCrawlBehavior,
-  colorDriftBehavior
+  colorDriftBehavior,
+  recamanPulseBehavior,
+  edgeDetectBehavior,
+  mouseProximityBehavior
 ];

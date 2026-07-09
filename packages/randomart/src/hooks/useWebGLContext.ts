@@ -8,7 +8,7 @@ export type BitmapSize = {
 };
 
 export function useWebGLContext(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
-  const glRef = useRef<WebGLRenderingContext | null>(null);
+  const glRef = useRef<WebGL2RenderingContext | null>(null);
 
   const [bitmapSize, setBitmapSize] = useState<BitmapSize>({ width: 0, height: 0 });
 
@@ -17,7 +17,7 @@ export function useWebGLContext(canvasRef: React.RefObject<HTMLCanvasElement | n
     const canvasEl = canvasRef.current;
     if (!canvasEl) return;
 
-    const gl = canvasEl.getContext('webgl', {
+    const gl = canvasEl.getContext('webgl2', {
       preserveDrawingBuffer: true,
       alpha: false,
       antialias: false

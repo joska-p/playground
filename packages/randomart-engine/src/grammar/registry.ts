@@ -2,6 +2,7 @@ import type { GrammarRule } from '../types';
 
 import { absRule } from './rules/abs';
 import { addRule } from './rules/add';
+import { bandedNoiseRule } from './rules/bandedNoise';
 import { constantRule } from './rules/constant';
 import { cosRule } from './rules/cos';
 import { expRule } from './rules/exp';
@@ -15,6 +16,7 @@ import { nestedOscillationRule } from './rules/nested-oscillation';
 import { pixelRandomRule } from './rules/pixel-random';
 import { powRule } from './rules/pow';
 import { radialSymmetryRule } from './rules/radial-symmetry';
+import { recamanPatternRule } from './rules/recamanPattern';
 import { sinRule } from './rules/sin';
 import { sqrtRule } from './rules/sqrt';
 import { terminalXRule } from './rules/terminal-x';
@@ -41,7 +43,9 @@ const rules = new Map<string, GrammarRule>([
   [greaterThanRule.id, greaterThanRule],
   [ifRule.id, ifRule],
   [radialSymmetryRule.id, radialSymmetryRule],
-  [nestedOscillationRule.id, nestedOscillationRule]
+  [nestedOscillationRule.id, nestedOscillationRule],
+  [recamanPatternRule.id, recamanPatternRule],
+  [bandedNoiseRule.id, bandedNoiseRule]
 ]);
 
 export function getRule(id: string): GrammarRule | undefined {

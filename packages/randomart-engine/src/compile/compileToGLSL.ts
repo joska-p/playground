@@ -22,6 +22,43 @@ float smoothNoise(float t) {
 vec2 smoothNoise2(float t) {
   return vec2(smoothNoise(t), smoothNoise(t + 31.71));
 }
+
+float pseudoRecaman(vec2 coords) {
+  float d = length(coords);
+  // Separate the step into a continuous float, a floor, and a fractional remainder
+  float continuousStep = clamp(d * 15.0, 1.0, 15.0);
+  int lowStep = int(floor(continuousStep));
+  float stepFract = fract(continuousStep);
+
+  float val = 0.0;
+  float nextVal = 0.0;
+
+  // Single loop to gather both current and next step values
+  for(int i = 1; i < 16; i++) {
+    // Calculate the sequence logic up to our current floor step
+    if (i <= lowStep + 1) {
+      float flip = fract(sin(val * 12.9898) * 43758.5453);
+      float nextFlipped = (flip > 0.5 && (val - float(i)) > 0.0) ? (val - float(i)) : (val + float(i));
+
+      if (i <= lowStep) {
+        val = nextFlipped;
+      }
+      if (i == lowStep + 1) {
+        nextVal = nextFlipped;
+      }
+    }
+  }
+
+  // Smoothly blend across the step boundary using the fraction
+  float finalVal = mix(val, nextVal, stepFract);
+  return fract(finalVal * 0.2);
+}
+
+float bandedNoise(vec2 coords) {
+  float n = smoothNoise(coords.x * 3.0) * smoothNoise(coords.y * 3.0);
+  float bands = 6.0; // The number of flat color posterization steps
+  return floor(n * bands) / bands;
+}
 `;
 
 function buildPreamble(behaviors: AnimationBehavior[]): string {
@@ -53,8 +90,7 @@ function compileNode(node: ExpressionNode): string {
   return rule.toGLSL(node.args.map(compileNode));
 }
 
-// Produces a single vec3(...) GLSL expression for all three color channels,
-// regardless of whether the input is a vec3 node or three separate R/G/B trees.
+// Produces a single vec3(...) GLSL expression for all three color channels
 function compileColorExpr(
   treeR: ExpressionNode,
   treeG: ExpressionNode,
@@ -78,12 +114,20 @@ export function compileToGLSL(
   const spatialCode = applyBehaviors(behaviors, 'spatial');
   const colorCode = applyBehaviors(behaviors, 'color');
 
-  return `precision highp float;
+  // CRITICAL: #version 300 es MUST be on the very first line without leading whitespace!
+  return `#version 300 es
+precision highp float;
 
 uniform float u_time;
 uniform float u_animSpeed;
 uniform vec2 u_resolution;
-varying vec2 v_texCoord;
+uniform vec2 u_mouse;
+
+// WebGL 2 syntax swaps 'varying' for 'in'
+in vec2 v_texCoord;
+
+// WebGL 2 syntax requires declaring an explicit output vec4 variable
+out vec4 fragColor;
 
 ${buildPreamble(behaviors)}
 
@@ -103,7 +147,8 @@ void main() {
   // 4. Inject color adjustments
   ${colorCode}
 
-  gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
+  // WebGL 2 output assignment
+  fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
 }
 `;
 }

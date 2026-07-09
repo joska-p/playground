@@ -12,7 +12,7 @@ export function RandomArtCanvas() {
   useWebGLRenderer(canvasRef, { treeR, treeG, treeB }, running);
 
   return (
-    <div className="relative flex h-screen items-center justify-center overflow-hidden p-4">
+    <div className="relative mx-auto flex aspect-square h-screen items-center justify-center overflow-hidden p-4">
       <canvas
         ref={canvasRef}
         className="rounded-sm"
