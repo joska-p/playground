@@ -1,16 +1,16 @@
 import { cva } from 'class-variance-authority';
 
-export const heroVariants = cva('backdrop-blur-lg', {
+export const heroVariants = cva('', {
   variants: {
     variant: {
-      default: 'bg-surface-raised/5 text-foreground-dim from-foreground-dim',
-      primary: 'bg-primary/5 text-primary from-primary',
-      secondary: 'bg-secondary/5 text-secondary from-secondary',
-      accent: 'bg-accent/5 text-accent from-accent',
-      warning: 'bg-warning/5 text-warning from-warning',
-      destructive: 'bg-destructive/5 text-destructive from-destructive',
+      default: 'bg-surface-raised/5 text-foreground-dim from-foreground-dim backdrop-blur-xs',
+      primary: 'bg-primary/5 text-primary from-primary backdrop-blur-xs',
+      secondary: 'bg-secondary/5 text-secondary from-secondary backdrop-blur-xs',
+      accent: 'bg-accent/5 text-accent from-accent backdrop-blur-xs',
+      warning: 'bg-warning/5 text-warning from-warning backdrop-blur-xs',
+      destructive: 'bg-destructive/5 text-destructive from-destructive backdrop-blur-xs',
       ghost: 'text-foreground',
-      outline: 'bg-transparent text-foreground-dim border border-border'
+      outline: 'bg-transparent text-foreground-dim border border-border backdrop-blur-xs'
     }
   },
   defaultVariants: { variant: 'primary' }

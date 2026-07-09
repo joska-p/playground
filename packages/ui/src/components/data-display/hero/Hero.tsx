@@ -19,7 +19,7 @@ function Hero({
   highlight = 'Playground',
   description,
   children,
-  variant = 'primary',
+  variant = 'ghost',
   className,
   style,
   ref,

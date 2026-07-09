@@ -4,7 +4,6 @@ import { Hero, SectionHeader } from '@repo/ui/data-display';
 import { ProjectCard, DocCard } from '@repo/ui/cards';
 import { buttonVariants } from '@repo/ui/data-entry';
 import { Icon } from '@repo/ui/icons';
-import ExperimentsPreview from '../components/ui/features/ExperimentsPreview.astro';
 import Footer from '../layouts/Footer.astro';
 import { getCollection } from 'astro:content';
 import type { CSSProperties } from 'react';
@@ -60,8 +59,6 @@ const featuredDocs = allDocs.filter((d) => d.data.featured && !d.data.draft);
       All Projects
     </a>
   </Hero>
-
-  <ExperimentsPreview />
 
   <section class="mx-auto mb-24 w-full max-w-6xl px-6 py-20 lg:py-24">
     <SectionHeader
