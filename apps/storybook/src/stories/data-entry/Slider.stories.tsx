@@ -8,13 +8,15 @@ const meta: Meta<typeof Slider> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
-      control: { type: 'select' }
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
+      control: { type: 'select' },
+      size: { control: 'select', options: ['full', 'auto', 'sm', 'lg'] }
     },
     showTicks: { control: 'boolean' },
     min: { control: 'number' },
     max: { control: 'number' },
-    disabled: { control: 'boolean' }
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' }
   },
   args: {
     onChange: fn()
@@ -31,7 +33,7 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div className="flex w-80 flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <Slider
         variant="default"
         defaultValue={50}
@@ -41,8 +43,16 @@ export const Variants: Story = {
         defaultValue={50}
       />
       <Slider
+        variant="secondary"
+        defaultValue={50}
+      />
+      <Slider
         variant="accent"
         defaultValue={30}
+      />
+      <Slider
+        variant="warning"
+        defaultValue={50}
       />
       <Slider
         variant="destructive"
@@ -54,7 +64,7 @@ export const Variants: Story = {
 
 export const States: Story = {
   render: () => (
-    <div className="flex w-80 flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <Slider defaultValue={50} />
       <Slider
         disabled
@@ -64,10 +74,10 @@ export const States: Story = {
   )
 };
 
-export const WithoutTicks: Story = {
-  args: { showTicks: false, defaultValue: 75 }
+export const Loading: Story = {
+  args: { loading: true, defaultValue: 50 }
 };
 
-export const CustomRange: Story = {
-  args: { min: 0, max: 255, defaultValue: 128 }
+export const WithoutTicks: Story = {
+  args: { showTicks: false, defaultValue: 75 }
 };
