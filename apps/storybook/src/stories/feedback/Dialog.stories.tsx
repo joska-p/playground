@@ -144,7 +144,6 @@ export const WithCustomFooter: Story = {
           </DialogBody>
           <DialogFooter>
             <Button
-              variant="ghost"
               size="sm"
               onClick={() => ref.current?.close()}
             >

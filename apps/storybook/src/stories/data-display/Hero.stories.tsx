@@ -62,7 +62,7 @@ export const WithCustomChildren: Story = {
   render: (args) => (
     <Hero {...args}>
       <Button variant="primary">Get Started</Button>
-      <Button variant="ghost">Learn More</Button>
+      <Button>Learn More</Button>
     </Hero>
   )
 };

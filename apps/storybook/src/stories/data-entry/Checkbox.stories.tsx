@@ -25,38 +25,38 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  args: { label: 'Enable notifications', defaultChecked: true }
+  args: { label: 'Enable notifications' }
 };
 
 export const Variants: Story = {
   render: () => (
-    <div className="flex flex-col gap-3">
-      <Checkbox
-        label="Default"
-        variant="default"
-        defaultChecked
-      />
-      <Checkbox
-        label="Primary"
-        variant="primary"
-        defaultChecked
-      />
-      <Checkbox
-        label="Accent"
-        variant="accent"
-        defaultChecked
-      />
-      <Checkbox
-        label="Destructive"
-        variant="destructive"
-      />
+    <div className="flex justify-between gap-4">
+      {(
+        [
+          'default',
+          'primary',
+          'secondary',
+          'accent',
+          'warning',
+          'destructive',
+          'ghost',
+          'outline'
+        ] as const
+      ).map((variant) => (
+        <Checkbox
+          key={variant}
+          label={variant.charAt(0).toUpperCase() + variant.slice(1)}
+          variant={variant}
+          defaultChecked
+        />
+      ))}
     </div>
   )
 };
 
 export const States: Story = {
   render: () => (
-    <div className="flex flex-col gap-3">
+    <div className="flex justify-between gap-4">
       <Checkbox label="Unchecked" />
       <Checkbox
         label="Checked"
@@ -73,8 +73,4 @@ export const States: Story = {
       />
     </div>
   )
-};
-
-export const NoLabel: Story = {
-  args: { defaultChecked: true }
 };

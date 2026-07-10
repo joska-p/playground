@@ -27,7 +27,7 @@ type Story = StoryObj<typeof Popover>;
 export const Default: Story = {
   args: {
     variant: 'default',
-    trigger: <Button variant="ghost">Hover me</Button>,
+    trigger: <Button>Hover me</Button>,
     children: <p className="text-sm">Popover content goes here.</p>
   }
 };
@@ -79,7 +79,7 @@ export const LongTooltip: Story = {
   args: {
     variant: 'default',
     widthClassName: 'w-72',
-    trigger: <Button variant="ghost">More info</Button>,
+    trigger: <Button>More info</Button>,
     children: (
       <div className="flex flex-col gap-2">
         <p className="text-sm font-medium">About this parameter</p>

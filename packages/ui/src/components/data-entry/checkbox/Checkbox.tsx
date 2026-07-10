@@ -1,19 +1,21 @@
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { checkboxVariants } from './variants';
+import { Spinner } from '../../widgets/spinner/Spinner';
+import { checkboxVariants, type CheckboxVariants } from './variants';
 
-export type CheckboxProps = {
-  variant?: ColorVariant;
+export interface CheckboxProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, CheckboxVariants {
   label?: ReactNode;
+  loading?: boolean;
   ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
+}
 
 export function Checkbox({
   className,
   variant = 'primary',
   label,
-  disabled,
+  disabled = false,
+  loading = false,
   id,
   ref,
   ...props
@@ -23,7 +25,8 @@ export function Checkbox({
       ref={ref}
       type="checkbox"
       id={id}
-      disabled={disabled}
+      disabled={disabled || loading}
+      aria-busy={loading}
       className={cn(checkboxVariants({ variant }), className)}
       {...props}
     />
@@ -36,10 +39,11 @@ export function Checkbox({
       htmlFor={id}
       className={cn(
         'flex items-center gap-2.5 text-sm select-none',
-        disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'
+        disabled || loading ? 'pointer-events-none opacity-40' : 'cursor-pointer'
       )}
     >
       {input}
+      {loading && <Spinner />}
       {label}
     </label>
   );
