@@ -39,6 +39,3 @@ export type { SectionHeaderVariants } from './section-header/variants';
 
 export { SectionHeading } from './section-heading/SectionHeading';
 export type { SectionHeadingProps } from './section-heading/SectionHeading';
-
-export { Tooltip } from './tooltip/Tooltip';
-export type { TooltipProps } from './tooltip/Tooltip';
