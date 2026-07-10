@@ -1,18 +1,19 @@
 import { TriangleAlert } from 'lucide-react';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 import { Button } from '../../data-entry/button/Button';
 import type { DefaultFallbackVariants } from './variants';
 import { defaultFallbackVariants, fallbackIconColor } from './variants';
 
-export type DefaultFallbackProps = {
+export interface DefaultFallbackProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, DefaultFallbackVariants {
   error: Error;
   reset: () => void;
   title?: ReactNode;
   description?: ReactNode;
   resetLabel?: string;
   className?: string;
-} & DefaultFallbackVariants;
+}
 
 export function DefaultFallback({
   error,

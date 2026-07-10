@@ -22,12 +22,12 @@ const defaultIcon: Record<string, ReactNode> = {
   destructive: <XCircle className="h-3.5 w-3.5" />
 };
 
-export type AlertProps = {
+export interface AlertProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, VariantProps<typeof alertVariants> {
   title: ReactNode;
   description?: ReactNode;
   icon?: ReactNode;
-} & Omit<HTMLAttributes<HTMLDivElement>, 'title'> &
-  VariantProps<typeof alertVariants>;
+}
 
 export function Alert({
   className,
