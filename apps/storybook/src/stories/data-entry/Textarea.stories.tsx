@@ -82,7 +82,3 @@ export const States: Story = {
 export const WithoutAutoGrow: Story = {
   args: { autoGrow: false, rows: 4, placeholder: 'Fixed height textarea\u2026' }
 };
-
-export const CustomRows: Story = {
-  args: { rows: 6, placeholder: 'A taller textarea with 6 rows\u2026' }
-};
