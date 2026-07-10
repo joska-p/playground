@@ -134,4 +134,4 @@ note: Don't try to lint checktypes or build. the package is in construction.
 Don't look at lib/colorVariant.ts. It is gonna be replaced
 
 base on this information can you refactor
-./packages/ui/src/components/data-display/accordion/
+./packages/ui/src/components/data-display/badge/
