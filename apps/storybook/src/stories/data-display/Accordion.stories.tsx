@@ -1,14 +1,14 @@
 import { Accordion, AccordionItem } from '@repo/ui/data-display';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof Accordion> = {
+const meta: Meta<typeof AccordionItem> = {
   title: 'Data Display/Accordion',
-  component: Accordion,
+  component: AccordionItem,
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Color of the chevron indicator on each item.',
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      description: 'Color of the chevron indicator and background faided.',
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
       control: { type: 'select' }
     }
   }
@@ -16,7 +16,7 @@ const meta: Meta<typeof Accordion> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Accordion>;
+type Story = StoryObj<typeof AccordionItem>;
 
 export const Default: Story = {
   render: () => (
@@ -41,7 +41,7 @@ export const Variants: Story = {
     <div className="flex flex-col gap-4">
       <Accordion>
         <AccordionItem
-          title="Default chevron"
+          title="Default"
           variant="default"
         >
           Neutral grey chevron — the standard look for structural content.
@@ -49,7 +49,7 @@ export const Variants: Story = {
       </Accordion>
       <Accordion>
         <AccordionItem
-          title="Primary chevron"
+          title="Primary"
           variant="primary"
         >
           A primary-coloured chevron for important sections.
@@ -57,7 +57,15 @@ export const Variants: Story = {
       </Accordion>
       <Accordion>
         <AccordionItem
-          title="Accent chevron"
+          title="Secondary"
+          variant="secondary"
+        >
+          Secondary colour for supporting sections.
+        </AccordionItem>
+      </Accordion>
+      <Accordion>
+        <AccordionItem
+          title="Accent"
           variant="accent"
         >
           Accent colour draws extra attention to this section.
@@ -65,7 +73,15 @@ export const Variants: Story = {
       </Accordion>
       <Accordion>
         <AccordionItem
-          title="Destructive chevron"
+          title="Warning"
+          variant="warning"
+        >
+          Warning colour for cautionary content.
+        </AccordionItem>
+      </Accordion>
+      <Accordion>
+        <AccordionItem
+          title="Destructive"
           variant="destructive"
         >
           Used for destructive actions in a danger zone.
@@ -75,7 +91,7 @@ export const Variants: Story = {
   )
 };
 
-export const States: Story = {
+export const OpenByDefault: Story = {
   render: () => (
     <Accordion>
       <AccordionItem title="Closed by default">
@@ -86,21 +102,6 @@ export const States: Story = {
         open
       >
         This section starts open, showing its content immediately.
-      </AccordionItem>
-    </Accordion>
-  )
-};
-
-export const WithRichContent: Story = {
-  render: () => (
-    <Accordion>
-      <AccordionItem title="Keyboard Shortcuts">
-        <kbd className="bg-surface-raised rounded border px-1.5 py-0.5 text-xs">Ctrl+Space</kbd> to
-        toggle the control panel.
-      </AccordionItem>
-      <AccordionItem title="Installation">
-        Run <code className="bg-surface-raised rounded px-1 text-xs">npm install @repo/ui</code> to
-        add the component library to your project.
       </AccordionItem>
     </Accordion>
   )

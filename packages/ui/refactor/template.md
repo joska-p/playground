@@ -127,11 +127,11 @@ export const Default: Story = {
 };
 ```
 
-./packages/ui/src/components/data-entry/button/ can also be use as a reference.
+any component in ./packages/ui/src/components/data-entry/ can also be use as a reference.
 show all the variants in the variants story
 
 note: Don't try to lint checktypes or build. the package is in construction.
 Don't look at lib/colorVariant.ts. It is gonna be replaced
 
 base on this information can you refactor
-./packages/ui/src/components/data-entry/switch/
+./packages/ui/src/components/data-display/accordion/

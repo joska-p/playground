@@ -1,31 +1,19 @@
-import type { DetailsHTMLAttributes, ReactNode, Ref } from 'react';
+import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
-import { accordionItemVariants } from './variants';
+import { accordionItemVariants, type AccordionItemVariants } from './variants';
 
-export type AccordionItemProps = {
-  title: ReactNode;
+export interface AccordionItemProps
+  extends DetailsHTMLAttributes<HTMLDetailsElement>, AccordionItemVariants {
+  title: string;
   children: ReactNode;
-  /** Colors the chevron indicator. Defaults to a neutral grey, matching
-   *  the source design (accordions are a structural pattern, not a
-   *  status one — color is a subtle accent here, not the main signal). */
-  variant?: ColorVariant;
   ref?: Ref<HTMLDetailsElement>;
-} & Omit<DetailsHTMLAttributes<HTMLDetailsElement>, 'title'>;
+}
 
-/**
- * AccordionItem — a native <details>/<summary> pair. This is the pattern
- * called out explicitly in the source design's own react-guide: "keep
- * <details>, use open prop." The browser owns the open/closed state
- * entirely — this component is a stateless wrapper that only renders
- * markup from props (pass `open`/`defaultOpen`-style native attributes
- * as needed).
- */
 export function AccordionItem({
   className,
   title,
   children,
-  variant = 'default',
+  variant,
   ref,
   ...props
 }: AccordionItemProps) {
@@ -35,22 +23,30 @@ export function AccordionItem({
       className={cn('group bg-surface overflow-hidden rounded-lg', className)}
       {...props}
     >
-      <summary className="text-foreground flex items-center justify-between px-5 py-4 text-[13px] font-medium">
+      <summary className="text-foreground flex cursor-pointer items-center justify-between px-5 py-4 font-medium">
         {title}
-        <span
-          className={cn(
-            'ml-3 block size-2 shrink-0 -rotate-45 border-r-[1.5px] border-b-[1.5px] border-current transition-transform group-open:rotate-45',
-            accordionItemVariants({ variant })
-          )}
-        />
+        <span className={cn(accordionItemVariants({ variant }))} />
       </summary>
-      <div className="accordion-body text-foreground-muted px-5 pb-4 text-[13px] leading-relaxed">
+      <div className={'accordion-body text-foreground-muted px-5 pb-4 leading-relaxed'}>
         {children}
       </div>
     </details>
   );
 }
 
-export function Accordion({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn('flex flex-col gap-2', className)}>{children}</div>;
+export interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+  ref?: Ref<HTMLDivElement>;
+}
+
+export function Accordion({ className, children, ref, ...props }: AccordionProps) {
+  return (
+    <div
+      ref={ref}
+      className={cn('flex flex-col gap-2', className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 }
