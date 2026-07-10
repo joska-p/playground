@@ -8,13 +8,19 @@ export function SelectDemo() {
       title="Select"
       intro="Native &lt;select&gt; styled to match Input/Textarea. The browser supplies the picker UI, keyboard support, and type-ahead search."
       apiRows={[
-        { prop: 'variant', type: 'ColorVariant', default: '"primary"', notes: 'focus ring color' },
+        { prop: 'variant', type: 'VariantProps', default: '"primary"', notes: 'focus ring color' },
         { prop: 'size', type: '"sm" | "default" | "lg"', default: '"default"' },
         {
           prop: 'placeholder',
           type: 'string',
           default: '—',
           notes: 'renders a disabled first option'
+        },
+        {
+          prop: 'loading',
+          type: 'boolean',
+          default: 'false',
+          notes: 'disables input and shows spinner'
         },
         { prop: 'leadingIcon', type: 'ReactNode', default: '—' }
       ]}
@@ -34,6 +40,12 @@ export function SelectDemo() {
           placeholder="required field"
         >
           <option value="">select...</option>
+          <option value="opt1">option 1</option>
+        </Select>
+        <Select
+          loading
+          placeholder="Loading state"
+        >
           <option value="opt1">option 1</option>
         </Select>
       </div>

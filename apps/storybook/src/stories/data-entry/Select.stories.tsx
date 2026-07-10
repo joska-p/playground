@@ -31,7 +31,7 @@ const meta: Meta<typeof Select> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
       control: { type: 'select' }
     },
     size: {
@@ -39,7 +39,8 @@ const meta: Meta<typeof Select> = {
       control: { type: 'select' }
     },
     placeholder: { control: 'text' },
-    disabled: { control: 'boolean' }
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' }
   },
   args: {
     onChange: fn(),
@@ -57,14 +58,20 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div className="flex w-60 flex-col gap-3">
+    <div className="grid w-full max-w-2xl grid-cols-3 gap-4">
       <Select variant="default">
         <FruitOptions />
       </Select>
       <Select variant="primary">
         <FruitOptions />
       </Select>
+      <Select variant="secondary">
+        <FruitOptions />
+      </Select>
       <Select variant="accent">
+        <FruitOptions />
+      </Select>
+      <Select variant="warning">
         <FruitOptions />
       </Select>
       <Select variant="destructive">
@@ -76,7 +83,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex w-60 flex-col gap-3">
+    <div className="grid w-full max-w-2xl grid-cols-3 gap-4">
       <Select
         size="sm"
         placeholder="Small"
@@ -111,12 +118,14 @@ export const States: Story = {
       >
         <FruitOptions />
       </Select>
+      <Select
+        loading
+        placeholder="Loading..."
+      >
+        <FruitOptions />
+      </Select>
     </div>
   )
-};
-
-export const WithPlaceholder: Story = {
-  args: { placeholder: 'Choose a fruit' }
 };
 
 export const WithLeadingIcon: Story = {

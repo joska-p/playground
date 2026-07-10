@@ -1,18 +1,25 @@
-import type { VariantProps } from 'class-variance-authority';
-import { ChevronDown } from 'lucide-react';
 import type { ReactNode, Ref, SelectHTMLAttributes } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { selectVariants, selectWrapperVariants } from './variants';
+import { Icon } from '../../icons';
+import { Spinner } from '../../widgets/spinner/Spinner';
+import {
+  selectVariants,
+  selectWrapperVariants,
+  type SelectVariants,
+  type SelectWrapperVariants
+} from './variants';
 
-export type SelectProps = {
-  variant?: ColorVariant;
+export interface SelectProps
+  extends
+    Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
+    SelectWrapperVariants,
+    Pick<SelectVariants, 'size'> {
   leadingIcon?: ReactNode;
   placeholder?: string;
   wrapperClassName?: string;
+  loading?: boolean;
   ref?: Ref<HTMLSelectElement>;
-} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> &
-  VariantProps<typeof selectVariants>;
+}
 
 export function Select({
   className,
@@ -21,6 +28,8 @@ export function Select({
   variant = 'primary',
   leadingIcon,
   placeholder,
+  loading = false,
+  disabled = false,
   style,
   children,
   ref,
@@ -30,7 +39,9 @@ export function Select({
     <div
       className={cn(selectWrapperVariants({ variant, size }), wrapperClassName)}
       style={style}
+      aria-busy={loading}
     >
+      {loading && <Spinner />}
       {leadingIcon && (
         <span className="text-foreground-dim shrink-0 text-xs transition-colors">
           {leadingIcon}
@@ -40,6 +51,7 @@ export function Select({
         <select
           ref={ref}
           className={cn(selectVariants({ size }), className)}
+          disabled={disabled || loading}
           {...props}
         >
           {placeholder && (
@@ -53,7 +65,10 @@ export function Select({
           )}
           {children}
         </select>
-        <ChevronDown className="text-foreground-dim pointer-events-none absolute top-1/2 right-0 h-3.5 w-3.5 -translate-y-1/2" />
+        <Icon
+          name="chevron-down"
+          className="text-foreground-dim pointer-events-none absolute top-1/2 right-0 h-3.5 w-3.5 -translate-y-1/2"
+        />
       </div>
     </div>
   );
