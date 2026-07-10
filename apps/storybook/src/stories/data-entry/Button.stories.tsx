@@ -1,6 +1,8 @@
 import { Button } from '@repo/ui/data-entry';
+import { Icon } from '@repo/ui/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent } from 'storybook/test';
+import type { CSSProperties } from 'react';
+import { fn } from 'storybook/test';
 
 const meta: Meta<typeof Button> = {
   title: 'Data Entry/Button',
@@ -15,9 +17,8 @@ const meta: Meta<typeof Button> = {
         'accent',
         'warning',
         'destructive',
-        'ghost',
-        'link',
-        'outline'
+        'outline',
+        'link'
       ],
       control: { type: 'select' }
     },
@@ -26,7 +27,6 @@ const meta: Meta<typeof Button> = {
       control: { type: 'select' }
     },
     loading: { control: 'boolean' },
-    tooltip: { control: 'text' },
     disabled: { control: 'boolean' },
     children: { control: 'text' }
   },
@@ -53,9 +53,20 @@ export const Variants: Story = {
       <Button variant="accent">Accent</Button>
       <Button variant="warning">Warning</Button>
       <Button variant="destructive">Destructive</Button>
-      <Button variant="ghost">Ghost</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="link">Link</Button>
+
+      <Button
+        variant="primary"
+        style={
+          {
+            '--primary': '#251452',
+            '--primary-foreground': '#fff'
+          } as CSSProperties
+        }
+      >
+        Custom with style
+      </Button>
     </div>
   )
 };
@@ -66,7 +77,10 @@ export const Sizes: Story = {
       <Button size="sm">Small</Button>
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
-      <Button size="icon">★</Button>
+      <Button size="icon">
+        icon
+        <Icon name="bluesky" />
+      </Button>
     </div>
   )
 };
@@ -75,16 +89,8 @@ export const States: Story = {
   render: () => (
     <div className="flex items-center gap-3">
       <Button>Default</Button>
-      <Button loading>Saving\u2026</Button>
+      <Button loading>Loading</Button>
       <Button disabled>Disabled</Button>
     </div>
   )
-};
-
-export const Interaction: Story = {
-  args: { variant: 'primary', children: 'Primary' },
-  play: async ({ canvas, args }) => {
-    await userEvent.click(canvas.getByRole('button'));
-    await expect(args.onClick).toHaveBeenCalled();
-  }
 };

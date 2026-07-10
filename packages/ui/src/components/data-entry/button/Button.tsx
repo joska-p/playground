@@ -1,22 +1,19 @@
-import type { VariantProps } from 'class-variance-authority';
 import type { ButtonHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { buttonVariants } from './variants';
+import { Spinner } from '../../widgets/spinner/Spinner';
+import { buttonVariants, type ButtonVariants } from './variants';
 
-export type ButtonProps = {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
   loading?: boolean;
-  tooltip?: string;
   ref?: Ref<HTMLButtonElement>;
-} & ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants>;
+}
 
 export function Button({
   className,
-  variant,
-  size,
-  loading,
-  tooltip,
-  disabled,
+  variant = 'default',
+  size = 'default',
+  loading = false,
+  disabled = false,
   children,
   ref,
   ...props
@@ -24,17 +21,12 @@ export function Button({
   return (
     <button
       ref={ref}
-      className={cn(
-        buttonVariants({ variant, size }),
-        loading && 'button-loading',
-        tooltip && 'tooltip',
-        className
-      )}
-      data-tooltip={tooltip}
-      disabled={disabled ?? loading}
-      aria-busy={loading ?? undefined}
+      className={cn(buttonVariants({ variant, size }), className)}
+      disabled={disabled || loading}
+      aria-busy={loading}
       {...props}
     >
+      {loading && <Spinner />}
       {children}
     </button>
   );

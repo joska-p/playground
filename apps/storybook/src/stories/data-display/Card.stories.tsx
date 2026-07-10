@@ -3,23 +3,15 @@ import { Button } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof Card> = {
-  title: 'Data Display/Card',
+  title: 'Data Entry/Card',
   component: Card,
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Color used for the interactive glow.',
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'outline'],
       control: { type: 'select' }
     },
-    interactive: {
-      description: 'Enables the hover glow effect.',
-      control: 'boolean'
-    },
-    horizontal: {
-      description: 'Lay out as a row on desktop.',
-      control: 'boolean'
-    }
+    children: { control: 'text' }
   }
 };
 
@@ -27,49 +19,61 @@ export default meta;
 
 type Story = StoryObj<typeof Card>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: { variant: 'primary' },
   render: (args) => (
-    <div className="w-full max-w-sm">
+    <div className="grid grid-cols-2 gap-4 p-4">
       <Card {...args}>
-        <Card.Body>
-          <Card.Title>Project Configuration</Card.Title>
-          <Card.Description>Adjust the parameters to control the output.</Card.Description>
-        </Card.Body>
-        <Card.Footer>
-          <span className="text-foreground-muted text-xs">Last edited 2h ago</span>
-          <Button
-            variant="ghost"
-            size="sm"
-          >
-            Edit
-          </Button>
-        </Card.Footer>
+        <h3>Default</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <span className="text-foreground-muted text-xs">Last edited 2h ago</span>
       </Card>
     </div>
   )
 };
 
-export const Interactive: Story = {
-  args: { interactive: true, variant: 'accent' },
-  render: (args) => (
-    <div className="w-full max-w-sm">
-      <Card {...args}>
-        <Card.Image
+export const Variants: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 gap-4 p-4">
+      <Card variant="default">
+        <h3>Default</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <span className="text-foreground-muted text-xs">Last edited 2h ago</span>
+      </Card>
+
+      <Card variant="primary">
+        <img
           src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop"
           alt="Abstract generative art"
         />
-        <Card.Body>
-          <Card.Title>Generative Waves</Card.Title>
-          <Card.Description>
-            A real-time wave simulation with adjustable frequency and amplitude.
-          </Card.Description>
-        </Card.Body>
-        <Card.Actions>
-          <Button
-            variant="ghost"
-            size="icon"
-          >
+        <div>
+          <h3>Primary</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </Card>
+
+      <Card variant="secondary">
+        <img
+          src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop"
+          alt="Preview"
+        />
+        <div>
+          <h3>Secondary</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </Card>
+
+      <Card variant="accent">
+        <img
+          src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop"
+          alt="Abstract generative art"
+        />
+        <div>
+          <h3>Accent</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div className="flex gap-4">
+          <Button size="icon">
             <svg
               className="h-4 w-4"
               fill="none"
@@ -84,10 +88,7 @@ export const Interactive: Story = {
               />
             </svg>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-          >
+          <Button size="icon">
             <svg
               className="h-4 w-4"
               fill="none"
@@ -102,41 +103,29 @@ export const Interactive: Story = {
               />
             </svg>
           </Button>
-        </Card.Actions>
+        </div>
       </Card>
-    </div>
-  )
-};
 
-export const Horizontal: Story = {
-  args: { horizontal: true, variant: 'secondary' },
-  render: (args) => (
-    <div className="w-full max-w-lg">
-      <Card {...args}>
-        <Card.Image
+      <Card variant="warning">
+        <img
           src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop"
           alt="Preview"
         />
-        <Card.Body>
-          <Card.Title>Horizontal Layout</Card.Title>
-          <Card.Description>
-            On landscape screens this card displays as a row with the image on the left.
-          </Card.Description>
-        </Card.Body>
+        <div>
+          <h3>Warning</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
       </Card>
-    </div>
-  )
-};
 
-export const Outline: Story = {
-  args: { variant: 'default' },
-  render: (args) => (
-    <div className="w-full max-w-sm">
-      <Card {...args}>
-        <Card.Body>
-          <Card.Title>Outline Card</Card.Title>
-          <Card.Description>Cards use a subtle shadow by default with no border.</Card.Description>
-        </Card.Body>
+      <Card variant="destructive">
+        <img
+          src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop"
+          alt="Preview"
+        />
+        <div>
+          <h3>Destructive</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
       </Card>
     </div>
   )

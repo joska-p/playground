@@ -1,12 +1,21 @@
-import { cva } from 'class-variance-authority';
-import { COLOR_CLASSES } from '../../../lib/colorVariant';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const cardVariants = cva(
-  'bg-surface overflow-hidden rounded-lg transition-shadow duration-200 hover:shadow-md',
+  'overflow-hidden rounded backdrop-blur transition-shadow shadow-xs duration-200 hover:shadow-md',
   {
     variants: {
-      variant: { ...COLOR_CLASSES }
+      variant: {
+        default: 'bg-surface-raised/10',
+        primary: 'bg-primary/10',
+        secondary: 'bg-secondary/10',
+        accent: 'bg-accent/10',
+        warning: 'bg-warning/10',
+        destructive: 'bg-destructive/10',
+        outline: 'border border-border bg-transparent'
+      }
     },
-    defaultVariants: { variant: 'primary' }
+    defaultVariants: { variant: 'default' }
   }
 );
+
+export type CardVariantProps = VariantProps<typeof cardVariants>;

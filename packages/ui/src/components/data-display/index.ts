@@ -5,15 +5,7 @@ export { Badge } from './badge/Badge';
 export type { BadgeProps } from './badge/Badge';
 export { badgeVariants } from './badge/variants';
 
-export {
-  Card,
-  CardActions,
-  CardBody,
-  CardDescription,
-  CardFooter,
-  CardImage,
-  CardTitle
-} from './card/Card';
+export { Card } from './card/Card';
 export type { CardProps } from './card/Card';
 
 export { Carousel, CarouselSlide } from './carousel/Carousel';

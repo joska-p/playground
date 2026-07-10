@@ -6,5 +6,10 @@ type Props = IconProps & { name: IconName };
 
 export function Icon({ name, ...props }: Props) {
   const Component = iconMap[name];
-  return <Component {...props} />;
+  return (
+    <Component
+      className="h-4 w-4"
+      {...props}
+    />
+  );
 }
