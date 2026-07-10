@@ -1,8 +1,7 @@
-import type { VariantProps } from 'class-variance-authority';
 import { CheckCircle2, Circle, Info, TriangleAlert, XCircle } from 'lucide-react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { helperTextVariants } from './variants';
+import { helperTextVariants, type HelperTextVariants } from './variants';
 
 const defaultIcon: Record<string, ReactNode> = {
   default: <Circle className="h-3 w-3" />,
@@ -13,22 +12,13 @@ const defaultIcon: Record<string, ReactNode> = {
   destructive: <XCircle className="h-3 w-3" />
 };
 
-export type HelperTextProps = {
+export interface HelperTextProps extends HTMLAttributes<HTMLParagraphElement>, HelperTextVariants {
   icon?: boolean | ReactNode;
   ref?: Ref<HTMLParagraphElement>;
-} & HTMLAttributes<HTMLParagraphElement> &
-  VariantProps<typeof helperTextVariants>;
+}
 
-export function HelperText({
-  className,
-  variant = 'default',
-  icon,
-  children,
-  ref,
-  ...props
-}: HelperTextProps) {
-  const key = variant ?? 'default';
-  const resolvedIcon = icon === true ? defaultIcon[key] : (icon ?? null);
+export function HelperText({ className, variant, icon, children, ref, ...props }: HelperTextProps) {
+  const resolvedIcon = icon === true ? defaultIcon[variant ?? 'default'] : (icon ?? null);
 
   return (
     <p
