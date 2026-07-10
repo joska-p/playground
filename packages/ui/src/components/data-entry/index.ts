@@ -10,6 +10,7 @@ export type { HelperTextProps } from './helper-text/HelperText';
 
 export { Input } from './input/Input';
 export type { InputProps } from './input/Input';
+export { inputVariants } from './input/variants';
 
 export { Label } from './label/Label';
 export type { LabelProps } from './label/Label';

@@ -3,8 +3,7 @@ import { cn } from '../../../lib/cn';
 import { Spinner } from '../../widgets/spinner/Spinner';
 import { checkboxVariants, type CheckboxVariants } from './variants';
 
-export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, CheckboxVariants {
+export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement>, CheckboxVariants {
   label?: ReactNode;
   loading?: boolean;
   ref?: Ref<HTMLInputElement>;

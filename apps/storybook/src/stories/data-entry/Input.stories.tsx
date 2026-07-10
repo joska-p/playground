@@ -1,6 +1,6 @@
 import { Input } from '@repo/ui/data-entry';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { EyeOff, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { fn } from 'storybook/test';
 
 const meta: Meta<typeof Input> = {
@@ -9,16 +9,29 @@ const meta: Meta<typeof Input> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'accent',
+        'warning',
+        'destructive',
+        'ghost',
+        'outline'
+      ],
+      control: { type: 'select' }
+    },
+    size: {
+      options: ['sm', 'default', 'lg'],
       control: { type: 'select' }
     },
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
     type: {
       options: ['text', 'email', 'password', 'number', 'url', 'search'],
       control: { type: 'select' }
-    },
-    expandable: { control: 'boolean' }
+    }
   },
   args: {
     onChange: fn(),
@@ -58,6 +71,25 @@ export const Variants: Story = {
   )
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-3">
+      <Input
+        size="sm"
+        placeholder="Small input"
+      />
+      <Input
+        size="default"
+        placeholder="Default input"
+      />
+      <Input
+        size="lg"
+        placeholder="Large input"
+      />
+    </div>
+  )
+};
+
 export const States: Story = {
   render: () => (
     <div className="flex w-80 flex-col gap-3">
@@ -67,22 +99,14 @@ export const States: Story = {
         placeholder="This field is locked"
         value="Read only content"
       />
+      <Input
+        loading
+        placeholder="Loading state"
+      />
     </div>
   )
 };
 
 export const WithLeadingIcon: Story = {
-  args: { leadingIcon: <Search className="h-4 w-4" />, placeholder: 'Search experiments\u2026' }
-};
-
-export const WithTrailingAction: Story = {
-  args: {
-    type: 'password',
-    placeholder: 'Enter password',
-    trailingAction: <EyeOff className="h-4 w-4" />
-  }
-};
-
-export const Expandable: Story = {
-  args: { expandable: true, placeholder: 'Search\u2026' }
+  args: { icon: <Search className="h-4 w-4" />, placeholder: 'Search experiments\u2026' }
 };

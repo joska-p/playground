@@ -1,29 +1,38 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export const inputWrapperVariants = cva('bg-surface flex items-center gap-2 rounded-md px-3', {
-  variants: {
-    variant: {
-      default:
-        'focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15 focus-within:text-foreground-dim',
-      primary:
-        'focus-within:border-primary focus-within:ring-[3px] focus-within:ring-primary/15 focus-within:text-primary',
-      secondary:
-        'focus-within:border-secondary focus-within:ring-[3px] focus-within:ring-secondary/15 focus-within:text-secondary',
-      accent:
-        'focus-within:border-accent focus-within:ring-[3px] focus-within:ring-accent/15 focus-within:text-accent',
-      warning:
-        'focus-within:border-warning focus-within:ring-[3px] focus-within:ring-warning/15 focus-within:text-warning',
-      destructive:
-        'focus-within:border-destructive focus-within:ring-[3px] focus-within:ring-destructive/15 focus-within:text-destructive',
-      ghost:
-        'focus-within:border-transparent focus-within:ring-[3px] focus-within:ring-transparent focus-within:text-foreground',
-      outline:
-        'focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15 focus-within:text-foreground-dim'
+export const inputVariants = cva(
+  'bg-surface flex items-center gap-2 rounded-md px-3 transition-all duration-200 disabled:pointer-events-none disabled:opacity-40',
+  {
+    variants: {
+      variant: {
+        default:
+          'border-border focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15',
+        primary:
+          'border-primary focus-within:border-primary focus-within:ring-[3px] focus-within:ring-primary/15',
+        secondary:
+          'border-secondary focus-within:border-secondary focus-within:ring-[3px] focus-within:ring-secondary/15',
+        accent:
+          'border-accent focus-within:border-accent focus-within:ring-[3px] focus-within:ring-accent/15',
+        warning:
+          'border-warning focus-within:border-warning focus-within:ring-[3px] focus-within:ring-warning/15',
+        destructive:
+          'border-destructive focus-within:border-destructive focus-within:ring-[3px] focus-within:ring-destructive/15',
+        ghost:
+          'border-transparent focus-within:border-transparent focus-within:ring-[3px] focus-within:ring-transparent',
+        outline:
+          'border-border focus-within:border-foreground-dim focus-within:ring-[3px] focus-within:ring-foreground-dim/15'
+      },
+      size: {
+        sm: 'h-8 text-sm',
+        default: 'h-10 text-base',
+        lg: 'h-12 text-lg'
+      }
     },
-    expandable: {
-      true: 'search-expandable',
-      false: 'w-full'
+    defaultVariants: {
+      variant: 'default',
+      size: 'default'
     }
-  },
-  defaultVariants: { variant: 'primary', expandable: false }
-});
+  }
+);
+
+export type InputVariants = VariantProps<typeof inputVariants>;
