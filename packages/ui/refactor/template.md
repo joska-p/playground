@@ -46,7 +46,7 @@ export const baseVariants = cva(
       },
       size: {
         sm: 'px-3 py-1.5 text-sm',
-        default: 'px-4 py-2 text-base',
+        md: 'px-4 py-2 text-base',
         lg: 'px-6 py-3 text-lg'
       }
     },
@@ -113,7 +113,7 @@ const meta: Meta<typeof ComponentName> = {
       control: { type: 'select' }
     },
     size: {
-      options: ['sm', 'default', 'lg'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'select' }
     }
   }
@@ -134,4 +134,4 @@ note: Don't try to lint checktypes or build. the package is in construction.
 Don't look at lib/colorVariant.ts. It is gonna be replaced
 
 base on this information can you refactor
-./packages/ui/src/components/data-display/badge/
+./packages/ui/src/components/data-display/carousel/

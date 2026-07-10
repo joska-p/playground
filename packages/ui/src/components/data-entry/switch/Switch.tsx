@@ -12,7 +12,7 @@ export interface SwitchProps
 
 export function Switch({
   className,
-  variant = 'primary',
+  variant,
   label,
   loading = false,
   disabled = false,

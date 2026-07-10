@@ -11,7 +11,7 @@ export type TextareaProps = {
 
 export function Textarea({
   className,
-  variant = 'primary',
+  variant,
   autoGrow = true,
   style,
   ref,

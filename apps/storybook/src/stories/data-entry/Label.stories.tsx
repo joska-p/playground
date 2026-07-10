@@ -11,7 +11,7 @@ const meta: Meta<typeof Label> = {
       control: { type: 'select' }
     },
     size: {
-      options: ['sm', 'default', 'lg'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'select' }
     },
     required: { control: 'boolean' },
@@ -45,7 +45,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Label size="sm">Small</Label>
-      <Label size="default">Default</Label>
+      <Label size="md">Medium</Label>
       <Label size="lg">Large</Label>
     </div>
   )

@@ -23,14 +23,14 @@ export const buttonVariants = cva(
       },
       size: {
         sm: 'px-3 py-1.5 text-sm',
-        default: 'px-4 py-2 text-base',
+        md: 'px-4 py-2 text-base',
         lg: 'px-6 py-3 text-lg',
         icon: 'p-2.5 text-xs'
       }
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'default'
+      size: 'md'
     }
   }
 );

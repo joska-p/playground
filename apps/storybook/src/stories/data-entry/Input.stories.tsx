@@ -22,7 +22,7 @@ const meta: Meta<typeof Input> = {
       control: { type: 'select' }
     },
     size: {
-      options: ['sm', 'default', 'lg'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'select' }
     },
     placeholder: { control: 'text' },
@@ -79,8 +79,8 @@ export const Sizes: Story = {
         placeholder="Small input"
       />
       <Input
-        size="default"
-        placeholder="Default input"
+        size="md"
+        placeholder="Medium input"
       />
       <Input
         size="lg"

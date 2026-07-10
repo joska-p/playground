@@ -1,23 +1,27 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRef, type ReactNode } from 'react';
+import { useRef, type HTMLAttributes, type ReactNode, type Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { carouselVariants } from './variants';
+import { Spinner } from '../../widgets/spinner/Spinner';
+import { carouselArrowVariants, type CarouselArrowVariants } from './variants';
 
-export type CarouselProps = {
+export interface CarouselProps extends HTMLAttributes<HTMLDivElement>, CarouselArrowVariants {
   children: ReactNode;
-  className?: string;
   scrollAmount?: number;
   hideArrows?: boolean;
-  variant?: ColorVariant;
-};
+  loading?: boolean;
+  ref?: Ref<HTMLDivElement>;
+}
 
 export function Carousel({
   children,
   className,
   scrollAmount = 280,
-  hideArrows,
-  variant = 'default'
+  hideArrows = false,
+  loading = false,
+  variant,
+  size,
+  ref,
+  ...props
 }: CarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -26,7 +30,13 @@ export function Carousel({
   };
 
   return (
-    <div className={cn('relative', className)}>
+    <div
+      ref={ref}
+      className={cn('relative', className)}
+      aria-busy={loading}
+      aria-label={loading ? 'Loading carousel content' : undefined}
+      {...props}
+    >
       {!hideArrows && (
         <>
           <button
@@ -35,11 +45,8 @@ export function Carousel({
             onClick={() => {
               scroll(-1);
             }}
-            className={cn(
-              'bg-surface/90 hover:bg-surface absolute top-1/2 left-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors',
-              carouselVariants({ variant })
-            )}
-            style={{ boxShadow: 'var(--shadow-md)' }}
+            className={cn(carouselArrowVariants({ variant, size }))}
+            style={{ left: '0.25rem', boxShadow: 'var(--shadow-md)' }}
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -49,11 +56,8 @@ export function Carousel({
             onClick={() => {
               scroll(1);
             }}
-            className={cn(
-              'bg-surface/90 hover:bg-surface absolute top-1/2 right-1 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-xs backdrop-blur-sm transition-colors',
-              carouselVariants({ variant })
-            )}
-            style={{ boxShadow: 'var(--shadow-md)' }}
+            className={cn(carouselArrowVariants({ variant, size }))}
+            style={{ right: '0.25rem', boxShadow: 'var(--shadow-md)' }}
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -62,27 +66,34 @@ export function Carousel({
       <div
         ref={trackRef}
         className="carousel flex gap-4 px-1 py-2"
+        aria-hidden={loading}
       >
+        {loading && (
+          <div className="flex items-center justify-center">
+            <Spinner />
+          </div>
+        )}
         {children}
       </div>
     </div>
   );
 }
 
-export function CarouselSlide({
-  children,
-  className
-}: {
+export interface CarouselSlideProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
-  className?: string;
-}) {
+  ref?: Ref<HTMLDivElement>;
+}
+
+export function CarouselSlide({ children, className, ref, ...props }: CarouselSlideProps) {
   return (
     <div
+      ref={ref}
       className={cn(
         'carousel-slide bg-surface w-60 shrink-0 overflow-hidden rounded-lg',
         className
       )}
       style={{ boxShadow: 'var(--shadow-sm)' }}
+      {...props}
     >
       {children}
     </div>

@@ -10,8 +10,8 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement>, Label
 
 export function Label({
   className,
-  variant = 'default',
-  size = 'default',
+  variant,
+  size,
   disabled = false,
   required,
   children,

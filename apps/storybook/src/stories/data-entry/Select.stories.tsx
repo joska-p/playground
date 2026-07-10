@@ -35,7 +35,7 @@ const meta: Meta<typeof Select> = {
       control: { type: 'select' }
     },
     size: {
-      options: ['sm', 'default', 'lg'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'select' }
     },
     placeholder: { control: 'text' },
@@ -91,8 +91,8 @@ export const Sizes: Story = {
         <FruitOptions />
       </Select>
       <Select
-        size="default"
-        placeholder="Default"
+        size="md"
+        placeholder="Medium"
       >
         <FruitOptions />
       </Select>

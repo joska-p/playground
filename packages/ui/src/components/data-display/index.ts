@@ -10,7 +10,9 @@ export { Card } from './card/Card';
 export type { CardProps } from './card/Card';
 
 export { Carousel, CarouselSlide } from './carousel/Carousel';
-export type { CarouselProps } from './carousel/Carousel';
+export type { CarouselProps, CarouselSlideProps } from './carousel/Carousel';
+export { carouselArrowVariants } from './carousel/variants';
+export type { CarouselArrowVariants } from './carousel/variants';
 
 export { ChangelogItem } from './changelog-item/ChangelogItem';
 export type { ChangelogItemProps } from './changelog-item/ChangelogItem';

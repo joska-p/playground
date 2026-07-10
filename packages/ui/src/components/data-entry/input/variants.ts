@@ -24,13 +24,13 @@ export const inputVariants = cva(
       },
       size: {
         sm: 'h-8 text-sm',
-        default: 'h-10 text-base',
+        md: 'h-10 text-base',
         lg: 'h-12 text-lg'
       }
     },
     defaultVariants: {
       variant: 'default',
-      size: 'default'
+      size: 'md'
     }
   }
 );

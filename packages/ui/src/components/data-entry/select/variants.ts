@@ -20,11 +20,11 @@ export const selectWrapperVariants = cva(
       },
       size: {
         sm: 'py-1',
-        default: 'py-0',
-        lg: 'py-1.5'
+        md: 'py-2',
+        lg: 'py-3'
       }
     },
-    defaultVariants: { variant: 'primary', size: 'default' }
+    defaultVariants: { variant: 'primary', size: 'md' }
   }
 );
 

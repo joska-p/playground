@@ -14,7 +14,7 @@ export const labelVariants = cva(
       },
       size: {
         sm: 'text-xs',
-        default: 'text-base',
+        md: 'text-base',
         lg: 'text-lg'
       },
       disabled: {
@@ -24,7 +24,7 @@ export const labelVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
-      size: 'default',
+      size: 'md',
       disabled: false
     }
   }

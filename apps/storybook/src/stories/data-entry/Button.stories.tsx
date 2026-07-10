@@ -23,7 +23,7 @@ const meta: Meta<typeof Button> = {
       control: { type: 'select' }
     },
     size: {
-      options: ['sm', 'default', 'lg', 'icon'],
+      options: ['sm', 'md', 'lg', 'icon'],
       control: { type: 'select' }
     },
     loading: { control: 'boolean' },
@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
-  args: { variant: 'default', size: 'default' }
+  args: { variant: 'default', size: 'md' }
 };
 
 export const Variants: Story = {
@@ -75,7 +75,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-3">
       <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
+      <Button size="md">Default</Button>
       <Button size="lg">Large</Button>
       <Button size="icon">
         icon

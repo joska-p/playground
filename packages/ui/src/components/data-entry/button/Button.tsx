@@ -10,8 +10,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, Bu
 
 export function Button({
   className,
-  variant = 'default',
-  size = 'default',
+  variant,
+  size,
   loading = false,
   disabled = false,
   children,
