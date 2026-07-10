@@ -19,7 +19,7 @@ export function Carousel({
   hideArrows = false,
   loading = false,
   variant,
-  size,
+
   ref,
   ...props
 }: CarouselProps) {
@@ -45,7 +45,7 @@ export function Carousel({
             onClick={() => {
               scroll(-1);
             }}
-            className={cn(carouselArrowVariants({ variant, size }))}
+            className={cn(carouselArrowVariants({ variant }))}
             style={{ left: '0.25rem', boxShadow: 'var(--shadow-md)' }}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -56,7 +56,7 @@ export function Carousel({
             onClick={() => {
               scroll(1);
             }}
-            className={cn(carouselArrowVariants({ variant, size }))}
+            className={cn(carouselArrowVariants({ variant }))}
             style={{ right: '0.25rem', boxShadow: 'var(--shadow-md)' }}
           >
             <ChevronRight className="h-4 w-4" />
