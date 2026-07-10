@@ -136,4 +136,4 @@ Don't get lost reading to many files. you have almost all the context in this pr
 Don't run test
 
 base on this information can you refactor
-./packages/ui/src/components/feedback/dialog/
+./packages/ui/src/components/navigation/floating-nav/
