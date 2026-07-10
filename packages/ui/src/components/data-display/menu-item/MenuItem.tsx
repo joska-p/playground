@@ -1,34 +1,28 @@
 import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { menuItemVariants } from './variants';
+import { menuItemVariants, type MenuItemVariants } from './variants';
 
-type MenuItemProps = {
+export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement>, MenuItemVariants {
   icon?: ReactNode;
   label: string;
-  variant?: ColorVariant;
+  loading?: boolean;
   ref?: Ref<HTMLButtonElement>;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+}
 
-function MenuItem({
+export function MenuItem({
   icon,
   label,
-  variant = 'default',
+  variant,
   className,
-  style,
+  disabled,
   ref,
   ...props
 }: MenuItemProps) {
   return (
     <button
       ref={ref}
-      className={cn(
-        'flex w-full items-center gap-3 px-3 py-2 text-left font-mono text-sm',
-        'transition-all duration-150 hover:brightness-110 active:scale-[.97]',
-        menuItemVariants({ variant }),
-        className
-      )}
-      style={style}
+      className={cn(menuItemVariants({ variant }), className)}
+      disabled={disabled}
       {...props}
     >
       {icon && (
@@ -40,6 +34,3 @@ function MenuItem({
     </button>
   );
 }
-
-export { MenuItem };
-export type { MenuItemProps };

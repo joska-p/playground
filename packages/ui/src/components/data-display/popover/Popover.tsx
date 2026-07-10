@@ -1,16 +1,14 @@
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
-import { popoverVariants } from './variants';
+import { popoverVariants, type PopoverVariants } from './variants';
 
-export type PopoverProps = {
+export interface PopoverProps extends HTMLAttributes<HTMLDivElement>, PopoverVariants {
   trigger: ReactNode;
   children: ReactNode;
-  className?: string;
   widthClassName?: string;
   align?: 'left' | 'center';
-  variant?: ColorVariant;
-};
+  ref?: Ref<HTMLDivElement>;
+}
 
 export function Popover({
   trigger,
@@ -18,10 +16,16 @@ export function Popover({
   className,
   widthClassName = 'w-60',
   align = 'center',
-  variant = 'default'
+  variant = 'default',
+  ref,
+  ...props
 }: PopoverProps) {
   return (
-    <div className={cn('group relative inline-block', className)}>
+    <div
+      ref={ref}
+      className={cn('group relative inline-block', className)}
+      {...props}
+    >
       {trigger}
       <div
         className={cn(
@@ -31,7 +35,7 @@ export function Popover({
         )}
       >
         <div
-          className={cn('bg-surface rounded-lg border-t-2 p-4', popoverVariants({ variant }))}
+          className={cn(popoverVariants({ variant }))}
           style={{ boxShadow: 'var(--shadow-lg)' }}
         >
           {children}

@@ -1,35 +1,29 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { notificationItemVariants } from './variants';
+import { notificationItemVariants, type NotificationItemVariants } from './variants';
 
-type NotificationItemProps = {
+export interface NotificationItemProps
+  extends HTMLAttributes<HTMLDivElement>, NotificationItemVariants {
   icon: ReactNode;
   title: string;
   timestamp: string;
-  variant?: ColorVariant;
+  loading?: boolean;
   ref?: Ref<HTMLDivElement>;
-} & HTMLAttributes<HTMLDivElement>;
+}
 
-function NotificationItem({
+export function NotificationItem({
   icon,
   title,
   timestamp,
-  variant = 'primary',
+  variant,
   className,
-  style,
   ref,
   ...props
 }: NotificationItemProps) {
   return (
     <div
       ref={ref}
-      className={cn(
-        'flex items-start gap-3 font-mono',
-        notificationItemVariants({ variant }),
-        className
-      )}
-      style={style}
+      className={cn(notificationItemVariants({ variant }), className)}
       {...props}
     >
       <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-sm shadow-xs">
@@ -42,6 +36,3 @@ function NotificationItem({
     </div>
   );
 }
-
-export { NotificationItem };
-export type { NotificationItemProps };
