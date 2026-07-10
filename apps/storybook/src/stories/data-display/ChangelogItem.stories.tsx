@@ -11,8 +11,8 @@ const meta: Meta<typeof ChangelogItem> = {
       control: 'text'
     },
     variant: {
-      description: 'Accent color for the version label.',
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      description: 'Accent color for the left border.',
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
       control: { type: 'select' }
     }
   }
@@ -24,39 +24,50 @@ type Story = StoryObj<typeof ChangelogItem>;
 
 export const Default: Story = {
   args: {
-    variant: 'default',
+    variant: 'primary',
     version: 'v2.1',
     children: 'Added support for custom color palettes in the generative engine.'
   }
 };
 
-export const Patch: Story = {
-  args: {
-    version: 'v2.0.1',
-    children: 'Fixed a race condition in the render pipeline that caused occasional flickering.'
-  }
-};
-
-export const Multiple: Story = {
+export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <ChangelogItem
-        variant="accent"
-        version="v3.0"
+        variant="default"
+        version="v1.0"
       >
-        Major overhaul of the shader compiler with support for WebGPU.
+        Default variant with neutral border accent.
       </ChangelogItem>
       <ChangelogItem
         variant="primary"
-        version="v2.1"
-      >
-        Added preset management and experiment sharing.
-      </ChangelogItem>
-      <ChangelogItem
-        variant="default"
         version="v2.0"
       >
-        Initial public release with core generative features.
+        Primary variant with brand-colored border.
+      </ChangelogItem>
+      <ChangelogItem
+        variant="secondary"
+        version="v2.1"
+      >
+        Secondary variant for muted emphasis.
+      </ChangelogItem>
+      <ChangelogItem
+        variant="accent"
+        version="v2.2"
+      >
+        Accent variant for highlighted entries.
+      </ChangelogItem>
+      <ChangelogItem
+        variant="warning"
+        version="v2.3"
+      >
+        Warning variant for deprecation notices.
+      </ChangelogItem>
+      <ChangelogItem
+        variant="destructive"
+        version="v2.4"
+      >
+        Destructive variant for breaking changes.
       </ChangelogItem>
     </div>
   )
