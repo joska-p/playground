@@ -1,12 +1,23 @@
-import { cva } from 'class-variance-authority';
-import { COLOR_CLASSES } from '../../../lib/colorVariant';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const radioVariants = cva(
-  'h-4 w-4 shrink-0 cursor-pointer rounded-full flex items-center gap-2.5 text-[13px] select-none',
+  'inline-flex items-center gap-2.5 text-sm select-none transition-all duration-200 disabled:pointer-events-none disabled:opacity-40',
   {
     variants: {
-      variant: { ...COLOR_CLASSES }
+      variant: {
+        default: 'text-foreground',
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        accent: 'text-accent',
+        warning: 'text-warning',
+        destructive: 'text-destructive',
+        outline: 'text-foreground-dim'
+      }
     },
-    defaultVariants: { variant: 'primary' }
+    defaultVariants: {
+      variant: 'primary'
+    }
   }
 );
+
+export type RadioVariants = VariantProps<typeof radioVariants>;

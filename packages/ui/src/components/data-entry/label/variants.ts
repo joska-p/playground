@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const labelVariants = cva(
-  'inline-flex select-none items-center gap-1 font-medium transition-all duration-200',
+  'inline-flex select-none w-fit items-center gap-1 font-medium transition-all duration-200',
   {
     variants: {
       variant: {

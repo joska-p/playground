@@ -1,31 +1,32 @@
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { radioVariants } from './variants';
+import { Spinner } from '../../widgets/spinner/Spinner';
+import { Label } from '../label/Label';
+import { radioVariants, type RadioVariants } from './variants';
 
-const ACCENT_COLOR: Record<ColorVariant, string> = {
+const ACCENT_COLORS: Record<string, string> = {
   default: 'var(--foreground-dim)',
   primary: 'var(--primary)',
   secondary: 'var(--secondary)',
   accent: 'var(--accent)',
   warning: 'var(--warning)',
   destructive: 'var(--destructive)',
-  ghost: 'var(--foreground)',
   outline: 'var(--foreground-dim)'
 };
 
-export type RadioProps = {
-  variant?: ColorVariant;
+export interface RadioProps extends InputHTMLAttributes<HTMLInputElement>, RadioVariants {
   label?: ReactNode;
+  loading?: boolean;
   ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
+}
 
 export function Radio({
   className,
-  variant = 'primary',
+  variant,
   label,
   style,
-  disabled,
+  disabled = false,
+  loading = false,
   id,
   ref,
   ...props
@@ -35,9 +36,13 @@ export function Radio({
       ref={ref}
       type="radio"
       id={id}
-      disabled={disabled}
-      className={cn(className)}
-      style={{ accentColor: ACCENT_COLOR[variant], ...style }}
+      disabled={disabled || loading}
+      aria-busy={loading}
+      className={cn('shrink-0 cursor-pointer accent-current', className)}
+      style={{
+        accentColor: ACCENT_COLORS[variant as string] ?? ACCENT_COLORS['default'],
+        ...style
+      }}
       {...props}
     />
   );
@@ -45,15 +50,16 @@ export function Radio({
   if (!label) return input;
 
   return (
-    <label
+    <Label
       htmlFor={id}
       className={cn(
         radioVariants({ variant }),
-        disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'
+        disabled || loading ? 'pointer-events-none opacity-40' : 'cursor-pointer'
       )}
     >
       {input}
+      {loading && <Spinner />}
       {label}
-    </label>
+    </Label>
   );
 }

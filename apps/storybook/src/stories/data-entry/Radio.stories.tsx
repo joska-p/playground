@@ -9,7 +9,7 @@ const meta: Meta<typeof Radio> = {
   argTypes: {
     variant: {
       description: 'Accent color of the radio button.',
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'outline'],
       control: { type: 'select' }
     },
     label: {
@@ -44,34 +44,38 @@ export const Variants: Story = {
       <Radio
         label="Default"
         variant="default"
-        defaultChecked
+        name="group1"
       />
       <Radio
         label="Primary"
         variant="primary"
+        name="group1"
         defaultChecked
       />
       <Radio
         label="Secondary"
         variant="secondary"
+        name="group1"
       />
       <Radio
         label="Accent"
         variant="accent"
-        defaultChecked
+        name="group1"
       />
       <Radio
         label="Warning"
         variant="warning"
+        name="group1"
       />
       <Radio
         label="Destructive"
         variant="destructive"
+        name="group1"
       />
       <Radio
-        label="Ghost"
-        variant="ghost"
-        defaultChecked
+        label="Outline"
+        variant="outline"
+        name="group1"
       />
     </div>
   )
@@ -80,39 +84,25 @@ export const Variants: Story = {
 export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
-      <Radio label="Unchecked" />
+      <Radio
+        label="Unchecked"
+        variant="warning"
+      />
       <Radio
         label="Checked"
         defaultChecked
+        variant="destructive"
       />
       <Radio
         label="Disabled unchecked"
         disabled
+        variant="accent"
       />
       <Radio
         label="Disabled checked"
         disabled
         checked
-      />
-    </div>
-  )
-};
-
-export const RadioGroup: Story = {
-  render: () => (
-    <div className="flex flex-col gap-2">
-      <Radio
-        label="Basic"
-        name="group"
-        defaultChecked
-      />
-      <Radio
-        label="Standard"
-        name="group"
-      />
-      <Radio
-        label="Premium"
-        name="group"
+        variant="default"
       />
     </div>
   )
