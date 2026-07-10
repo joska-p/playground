@@ -1,29 +1,33 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const labelVariants = cva(
-  'font-medium select-none inline-flex items-center gap-1 backdrop-blur-sm',
+  'inline-flex select-none items-center gap-1 font-medium transition-all duration-200',
   {
     variants: {
       variant: {
-        default: 'text-foreground bg-surface/1',
-        primary: 'text-primary bg-primary/1',
-        secondary: 'text-secondary bg-secondary/1',
-        accent: 'text-accent bg-accent/1',
-        warning: 'text-warning bg-warning/1',
-        destructive: 'text-destructive bg-destructive/1',
-        ghost: 'text-foreground bg-none',
-        outline: 'text-foreground bg-none border border-border'
+        default: 'text-foreground',
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        accent: 'text-accent',
+        warning: 'text-warning',
+        destructive: 'text-destructive'
       },
       size: {
         sm: 'text-xs',
         default: 'text-base',
-        lg: 'text-sm'
+        lg: 'text-lg'
       },
       disabled: {
-        true: 'opacity-40 cursor-not-allowed',
-        false: 'cursor-pointer'
+        true: 'pointer-events-none opacity-40',
+        false: ''
       }
     },
-    defaultVariants: { variant: 'default', size: 'default', disabled: false }
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+      disabled: false
+    }
   }
 );
+
+export type LabelVariants = VariantProps<typeof labelVariants>;

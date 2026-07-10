@@ -7,23 +7,16 @@ const meta: Meta<typeof Label> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Color variant of the label text.',
       options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
       control: { type: 'select' }
     },
     size: {
-      description: 'Controls the font size.',
       options: ['sm', 'default', 'lg'],
       control: { type: 'select' }
     },
-    required: {
-      description: 'Shows a colored asterisk after the label text.',
-      control: 'boolean'
-    },
-    disabled: {
-      description: 'Applies dimmed styling.',
-      control: 'boolean'
-    }
+    required: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    children: { control: 'text' }
   }
 };
 

@@ -1,20 +1,17 @@
-import type { VariantProps } from 'class-variance-authority';
 import type { LabelHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { labelVariants } from './variants';
+import { labelVariants, type LabelVariants } from './variants';
 
-export type LabelProps = {
+export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement>, LabelVariants {
   /** Shows a colored "*" after the label text. */
   required?: boolean;
-  disabled?: boolean;
   ref?: Ref<HTMLLabelElement>;
-} & LabelHTMLAttributes<HTMLLabelElement> &
-  VariantProps<typeof labelVariants>;
+}
 
 export function Label({
   className,
-  variant,
-  size,
+  variant = 'default',
+  size = 'default',
   disabled = false,
   required,
   children,
@@ -25,6 +22,7 @@ export function Label({
     <label
       ref={ref}
       className={cn(labelVariants({ variant, size, disabled }), className)}
+      aria-disabled={disabled ?? undefined}
       {...props}
     >
       {children}
