@@ -1,9 +1,19 @@
-import { cva } from 'class-variance-authority';
-import { COLOR_VARIABLE_CLASSES } from '../../../lib/colorVariant';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const sectionHeadingVariants = cva('', {
   variants: {
-    variant: { ...COLOR_VARIABLE_CLASSES }
+    variant: {
+      default: 'text-foreground',
+      primary: 'text-primary',
+      secondary: 'text-secondary',
+      accent: 'text-accent',
+      warning: 'text-warning',
+      destructive: 'text-destructive'
+    }
   },
-  defaultVariants: { variant: 'primary' }
+  defaultVariants: {
+    variant: 'primary'
+  }
 });
+
+export type SectionHeadingVariants = VariantProps<typeof sectionHeadingVariants>;

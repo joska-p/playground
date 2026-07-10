@@ -7,66 +7,55 @@ const meta: Meta<typeof SectionHeading> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'Color of the uppercase label text.',
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
       control: { type: 'select' }
-    },
-    label: {
-      description: 'Small uppercase label above the title.',
-      control: 'text'
-    },
-    title: {
-      description: 'Main heading text.',
-      control: 'text'
-    },
-    description: {
-      description: 'Optional paragraph below the title.',
-      control: 'text'
     }
   }
 };
 
 export default meta;
-
 type Story = StoryObj<typeof SectionHeading>;
 
 export const Default: Story = {
   args: {
-    label: 'Overview',
-    title: 'Getting Started',
-    description: 'Everything you need to begin creating generative art in minutes.'
+    label: 'Getting Started',
+    title: 'Welcome to the Platform',
+    description: 'This section provides an overview of the platform and its core features.',
+    variant: 'default'
   }
 };
 
-export const PrimaryLabel: Story = {
+export const Primary: Story = {
   args: {
-    variant: 'primary',
-    label: 'Features',
-    title: 'What&#8217;s Included'
+    ...Default.args,
+    variant: 'primary'
   }
 };
 
-export const AccentLabel: Story = {
+export const Secondary: Story = {
   args: {
-    variant: 'accent',
-    label: 'New',
-    title: 'Latest Updates',
-    description: 'Check out what&#8217;s new in the latest release.'
+    ...Default.args,
+    variant: 'secondary'
   }
 };
 
-export const WarningLabel: Story = {
+export const Accent: Story = {
   args: {
-    variant: 'warning',
-    label: 'Notice',
-    title: 'Deprecation Warning',
-    description: 'The legacy API will be removed in v3.0. Migrate your projects.'
+    ...Default.args,
+    variant: 'accent'
   }
 };
 
-export const NoDescription: Story = {
+export const Warning: Story = {
   args: {
-    label: 'Title Only',
-    title: 'Compact Section'
+    ...Default.args,
+    variant: 'warning'
+  }
+};
+
+export const Destructive: Story = {
+  args: {
+    ...Default.args,
+    variant: 'destructive'
   }
 };

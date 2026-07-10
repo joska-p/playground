@@ -135,4 +135,4 @@ Don't read the existing stories. write a new one from scratch
 Don't get lost reading to many files. you have almost all the context in this prompt that you need
 
 base on this information can you refactor
-./packages/ui/src/components/data-display/section-header/
+./packages/ui/src/components/data-display/section-heading/
