@@ -4,7 +4,7 @@ import { Spinner } from '../../widgets/spinner/Spinner';
 import { sliderVariants, type SliderVariants } from './variants';
 
 export interface SliderProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>, SliderVariants {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, SliderVariants {
   loading?: boolean;
   showTicks?: boolean;
   ref?: Ref<HTMLInputElement>;
@@ -16,7 +16,6 @@ export function Slider({
   showTicks = true,
   loading = false,
   disabled = false,
-  size,
   min = 0,
   max = 100,
   step = 1,
