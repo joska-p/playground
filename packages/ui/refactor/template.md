@@ -133,6 +133,7 @@ Don't try to lint checktypes or build. the package is in construction.
 Don't look at lib/colorVariant.ts. It is gonna be replaced
 Don't read the existing stories. replace it by a new one from scratch
 Don't get lost reading to many files. you have almost all the context in this prompt that you need
+Don't run test
 
 base on this information can you refactor
-./packages/ui/src/components/data-display/tooltip/
+./packages/ui/src/components/feedback/dialog/

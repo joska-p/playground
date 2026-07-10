@@ -1,0 +1,457 @@
+## Part 1: UI Engineering Guidelines ./packages/ui
+
+### 1. Component Architecture
+
+- **Separation of Concerns:** Split components into three distinct files when variations are involved:
+- `ComponentName.tsx`: Main component logic and DOM structure.
+- `variants.ts`: Style tokens, Tailwind classes, and recipe definitions via CVA.
+- `ComponentName.stories.tsx`: Storybook isolated state testing and documentation.
+
+- **HTML Element Extension:** Components should always extend their native HTML element attributes (e.g., `ButtonHTMLAttributes<HTMLButtonElement>`) to ensure native properties like `type`, `form`, or `aria-*` work out of the box.
+
+### 2. Styling & Token Management
+
+- **CVA First:** All variant logic (colors, sizes, states) must live inside a `cva()` wrapper. Avoid conditional string interpolation inside the component JSX.
+- **Utility Merging:** Use the `cn()` utility wrapper on every component to allow consumer-side overrides via `className` without style clashing.
+- **Semantic Overrides:** Support design token overrides via CSS custom properties passed through the native `style` prop (e.g., `--primary`).
+
+### 3. UX & Accessibility (a11y)
+
+- **Loading States:** Explicitly support a `loading` prop. When `loading` is true:
+- Inject a semantic `<Spinner />` (or equivalent loader) before the children.
+- Set `disabled={disabled || loading}` to prevent double submissions.
+- Set `aria-busy={loading}` for screen readers.
+
+- **Keyboard Focus & States:** Every interactive component must define `:focus-visible` outlines matching the variant color schema, active scaling effects (`active:scale-[.97]`), and disabled states (`disabled:pointer-events-none`).
+
+---
+
+## Part 2: Component Refactor Template
+
+Use this blueprint when refactoring or creating new interactive components (e.g., `Input`, `Badge`, `Alert`).
+
+### 1. The Styles & Variants (`variants.ts`)
+
+```typescript
+import { cva, type VariantProps } from 'class-variance-authority';
+
+export const baseVariants = cva(
+  'inline-flex items-center justify-center transition-all duration-200 disabled:pointer-events-none disabled:opacity-40', // Base styles
+  {
+    variants: {
+      variant: {
+        default: 'bg-surface-raised text-foreground',
+        primary: 'bg-primary text-primary-foreground'
+        // Add component specific variations...
+      },
+      size: {
+        sm: 'px-3 py-1.5 text-sm',
+        md: 'px-4 py-2 text-base',
+        lg: 'px-6 py-3 text-lg'
+      }
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default'
+    }
+  }
+);
+
+export type BaseVariants = VariantProps<typeof baseVariants>;
+```
+
+### 2. The Implementation (`ComponentName.tsx`)
+
+```typescript
+import type { HTMLAttributes, Ref } from 'react';
+import { cn } from '../../../lib/cn'; // Standardized path
+import { baseVariants, type BaseVariants } from './variants';
+
+// 1. Extend Native HTML Attributes + CVA Variant Types
+export interface ComponentNameProps extends HTMLAttributes<HTMLDivElement>, BaseVariants {
+  loading?: boolean;
+  ref?: Ref<HTMLDivElement>;
+}
+
+export function ComponentName({
+  className,
+  variant = 'default',
+  size = 'default',
+  loading = false,
+  children,
+  ref,
+  ...props
+}: ComponentNameProps) {
+  return (
+    <div
+      ref={ref}
+      className={cn(baseVariants({ variant, size }), className)}
+      aria-busy={loading}
+      {...props}
+    >
+      {loading && <span>Loading...</span>}
+      {children}
+    </div>
+  );
+}
+
+```
+
+### 3. The Documentation (`ComponentName.stories.tsx`) the stories live in a standalone storybook app in ./apps/storybook/src/stories/<subpath>
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ComponentName } from './ComponentName';
+
+const meta: Meta<typeof ComponentName> = {
+  title: 'Category/ComponentName', // E.g., 'Data Entry/Input'
+  component: ComponentName,
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      options: ['default', 'primary'],
+      control: { type: 'select' }
+    },
+    size: {
+      options: ['sm', 'md', 'lg'],
+      control: { type: 'select' }
+    }
+  }
+};
+
+export default meta;
+type Story = StoryObj<typeof ComponentName>;
+
+export const Default: Story = {
+  args: { variant: 'default', size: 'default', children: 'Content' }
+};
+```
+
+base on this information can you refactor this component and storybook
+
+import { useImperativeHandle, useRef, type ReactNode, type Ref, type RefObject } from 'react';
+import { cn } from '../../../lib/cn';
+import type { ColorVariant } from '../../../lib/colorVariant';
+import { Button } from '../../data-entry/button/Button';
+
+export type DialogHandle = {
+  open: () => void;
+  close: () => void;
+};
+
+export type DialogProps = {
+  children: ReactNode;
+  className?: string;
+  /** Called when the dialog closes for any reason (Esc, backdrop, button). */
+  onClose?: () => void;
+  ref?: Ref<DialogHandle>;
+};
+
+```
+export function Dialog({ children, className, onClose, ref }: DialogProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    open: () => dialogRef.current?.showModal(),
+    close: () => dialogRef.current?.close()
+  }));
+
+  return (
+    <dialog
+      ref={dialogRef}
+      onClose={onClose}
+      className={cn(
+        'dialog-modal bg-surface w-full max-w-md self-center justify-self-center rounded-lg p-0',
+        className
+      )}
+      style={{ boxShadow: 'var(--shadow-lg)' }}
+    >
+      {children}
+    </dialog>
+  );
+}
+
+export function DialogBody({ children, className }: { children: ReactNode; className?: string }) {
+  return <div className={cn('p-5', className)}>{children}</div>;
+}
+
+export function DialogTitle({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <h3 className={cn('text-foreground mb-2 text-[15px] font-medium', className)}>{children}</h3>
+  );
+}
+
+export function DialogDescription({
+  children,
+  className
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p className={cn('text-foreground-muted text-[13px] leading-relaxed', className)}>{children}</p>
+  );
+}
+
+export function DialogFooter({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn(
+        'bg-surface-raised/50 flex justify-end gap-2 rounded-b-lg px-5 py-3',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Convenience footer with cancel/confirm wired to a DialogHandle ref. */
+export function DialogActions({
+  dialogRef,
+  onConfirm,
+  cancelLabel = 'cancel',
+  confirmLabel = 'confirm',
+  variant = 'primary'
+}: {
+  dialogRef: RefObject<DialogHandle | null>;
+  onConfirm?: () => void;
+  cancelLabel?: string;
+  confirmLabel?: string;
+  variant?: ColorVariant;
+}) {
+  return (
+    <DialogFooter>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => dialogRef.current?.close()}
+      >
+        {cancelLabel}
+      </Button>
+      <Button
+        variant={variant}
+        size="sm"
+        onClick={() => {
+          onConfirm?.();
+          dialogRef.current?.close();
+        }}
+      >
+        {confirmLabel}
+      </Button>
+    </DialogFooter>
+  );
+}
+```
+
+```
+import { cva, type VariantProps } from 'class-variance-authority';
+
+export const dialogVariants = cva(
+  'bg-surface w-full self-center justify-self-center rounded-lg p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground-dim',
+  {
+    variants: {
+      size: {
+        sm: 'max-w-sm',
+        md: 'max-w-md',
+        lg: 'max-w-lg',
+        xl: 'max-w-xl',
+        full: 'max-w-[90vw]'
+      }
+    },
+    defaultVariants: {
+      size: 'md'
+    }
+  }
+);
+
+export const dialogBodyVariants = cva('p-5');
+
+export const dialogTitleVariants = cva('text-foreground mb-2 text-[15px] font-medium');
+
+export const dialogDescriptionVariants = cva('text-foreground-muted text-[13px] leading-relaxed');
+
+export const dialogFooterVariants = cva(
+  'bg-surface-raised/50 flex justify-end gap-2 rounded-b-lg px-5 py-3'
+);
+
+export type DialogVariants = VariantProps<typeof dialogVariants>;
+```
+
+```
+import { Button } from '@repo/ui/data-entry';
+import type { DialogHandle } from '@repo/ui/feedback';
+import {
+  Dialog,
+  DialogActions,
+  DialogBody,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle
+} from '@repo/ui/feedback';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef } from 'react';
+
+const meta: Meta<typeof Dialog> = {
+  title: 'Feedback/Dialog',
+  component: Dialog,
+  tags: ['autodocs']
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Dialog>;
+
+export const Default: Story = {
+  render: () => {
+    const ref = useRef<DialogHandle>(null);
+    return (
+      <div className="flex min-h-48 items-center justify-center">
+        <Button
+          onClick={() => ref.current?.open()}
+          variant="primary"
+          size="sm"
+        >
+          Open Dialog
+        </Button>
+        <Dialog ref={ref}>
+          <DialogBody>
+            <DialogTitle>Confirm Action</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to proceed with this action?
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions dialogRef={ref} />
+        </Dialog>
+      </div>
+    );
+  }
+};
+
+export const Variants: Story = {
+  render: () => {
+    const refA = useRef<DialogHandle>(null);
+    const refB = useRef<DialogHandle>(null);
+    const refC = useRef<DialogHandle>(null);
+    return (
+      <div className="flex min-h-48 items-center justify-center gap-3">
+        <Button
+          onClick={() => refA.current?.open()}
+          variant="destructive"
+          size="sm"
+        >
+          Delete Project
+        </Button>
+        <Button
+          onClick={() => refB.current?.open()}
+          variant="warning"
+          size="sm"
+        >
+          Storage Warning
+        </Button>
+        <Button
+          onClick={() => refC.current?.open()}
+          variant="accent"
+          size="sm"
+        >
+          Pro Tip
+        </Button>
+
+        <Dialog ref={refA}>
+          <DialogBody>
+            <DialogTitle>Delete project?</DialogTitle>
+            <DialogDescription>
+              This will permanently delete all files and cannot be undone.
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
+            dialogRef={refA}
+            onConfirm={() => {}}
+            confirmLabel="Delete"
+            cancelLabel="Keep"
+            variant="destructive"
+          />
+        </Dialog>
+
+        <Dialog ref={refB}>
+          <DialogBody>
+            <DialogTitle>Storage limit reached</DialogTitle>
+            <DialogDescription>
+              You are at 95% capacity. Please free up space to continue creating.
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
+            dialogRef={refB}
+            confirmLabel="Manage Storage"
+            cancelLabel="Dismiss"
+          />
+        </Dialog>
+
+        <Dialog ref={refC}>
+          <DialogBody>
+            <DialogTitle>Did you know?</DialogTitle>
+            <DialogDescription>
+              You can drag and drop images directly onto the canvas to use them as texture sources.
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
+            dialogRef={refC}
+            confirmLabel="Got it"
+            cancelLabel="Show again"
+            variant="accent"
+          />
+        </Dialog>
+      </div>
+    );
+  }
+};
+
+export const WithCustomFooter: Story = {
+  render: () => {
+    const ref = useRef<DialogHandle>(null);
+    return (
+      <div className="flex min-h-48 items-center justify-center">
+        <Button
+          onClick={() => ref.current?.open()}
+          variant="default"
+          size="sm"
+        >
+          Export Options
+        </Button>
+        <Dialog ref={ref}>
+          <DialogBody>
+            <DialogTitle>Export Settings</DialogTitle>
+            <DialogDescription>Choose your preferred export format and options.</DialogDescription>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              size="sm"
+              onClick={() => ref.current?.close()}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => ref.current?.close()}
+            >
+              Export PNG
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => ref.current?.close()}
+            >
+              Export All
+            </Button>
+          </DialogFooter>
+        </Dialog>
+      </div>
+    );
+  }
+};
+
+```
+
+i want to make this component fully stateless using the modern api https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog
+ the component must be stateless it can take a prop "open:boolean" and a "toogle:(open)=> void if the consumer want to control the component he can do it. but the component still work uncontrolled

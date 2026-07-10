@@ -1,46 +1,62 @@
 import { Button } from '@repo/ui/data-entry';
-import type { DialogHandle } from '@repo/ui/feedback';
 import {
   Dialog,
   DialogActions,
   DialogBody,
   DialogDescription,
-  DialogFooter,
   DialogTitle
 } from '@repo/ui/feedback';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useRef } from 'react';
+import { useState } from 'react';
 
 const meta: Meta<typeof Dialog> = {
   title: 'Feedback/Dialog',
   component: Dialog,
-  tags: ['autodocs']
+  tags: ['autodocs'],
+  argTypes: {
+    size: {
+      options: ['sm', 'md', 'lg', 'xl', 'full'],
+      control: { type: 'select' }
+    },
+    open: { control: 'boolean' }
+  }
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Dialog>;
 
 export const Default: Story = {
   render: () => {
-    const ref = useRef<DialogHandle>(null);
+    const [open, setOpen] = useState(false);
+
     return (
       <div className="flex min-h-48 items-center justify-center">
         <Button
-          onClick={() => ref.current?.open()}
+          onClick={() => setOpen(true)}
           variant="primary"
           size="sm"
         >
           Open Dialog
         </Button>
-        <Dialog ref={ref}>
+
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+        >
           <DialogBody>
             <DialogTitle>Confirm Action</DialogTitle>
             <DialogDescription>
               Are you sure you want to proceed with this action?
             </DialogDescription>
           </DialogBody>
-          <DialogActions dialogRef={ref} />
+
+          <DialogActions
+            open={open}
+            onOpenChange={setOpen}
+            onConfirm={() => console.log('Action confirmed')}
+            confirmLabel="Confirm"
+            cancelLabel="Cancel"
+          />
         </Dialog>
       </div>
     );
@@ -49,64 +65,58 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: () => {
-    const refA = useRef<DialogHandle>(null);
-    const refB = useRef<DialogHandle>(null);
-    const refC = useRef<DialogHandle>(null);
+    const [openPrimary, setOpenPrimary] = useState(false);
+    const [openSecondary, setOpenSecondary] = useState(false);
+    const [openAccent, setOpenAccent] = useState(false);
+    const [openWarning, setOpenWarning] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+
     return (
       <div className="flex min-h-48 items-center justify-center gap-3">
         <Button
-          onClick={() => refA.current?.open()}
-          variant="destructive"
+          onClick={() => setOpenPrimary(true)}
+          variant="primary"
           size="sm"
         >
-          Delete Project
+          Primary
         </Button>
+
         <Button
-          onClick={() => refB.current?.open()}
-          variant="warning"
+          onClick={() => setOpenSecondary(true)}
+          variant="secondary"
           size="sm"
         >
-          Storage Warning
+          Secondary
         </Button>
+
         <Button
-          onClick={() => refC.current?.open()}
+          onClick={() => setOpenAccent(true)}
           variant="accent"
           size="sm"
         >
           Pro Tip
         </Button>
 
-        <Dialog ref={refA}>
-          <DialogBody>
-            <DialogTitle>Delete project?</DialogTitle>
-            <DialogDescription>
-              This will permanently delete all files and cannot be undone.
-            </DialogDescription>
-          </DialogBody>
-          <DialogActions
-            dialogRef={refA}
-            onConfirm={() => {}}
-            confirmLabel="Delete"
-            cancelLabel="Keep"
-            variant="destructive"
-          />
-        </Dialog>
+        <Button
+          onClick={() => setOpenWarning(true)}
+          variant="warning"
+          size="sm"
+        >
+          Storage Warning
+        </Button>
 
-        <Dialog ref={refB}>
-          <DialogBody>
-            <DialogTitle>Storage limit reached</DialogTitle>
-            <DialogDescription>
-              You are at 95% capacity. Please free up space to continue creating.
-            </DialogDescription>
-          </DialogBody>
-          <DialogActions
-            dialogRef={refB}
-            confirmLabel="Manage Storage"
-            cancelLabel="Dismiss"
-          />
-        </Dialog>
+        <Button
+          onClick={() => setOpenDelete(true)}
+          variant="destructive"
+          size="sm"
+        >
+          Delete Project
+        </Button>
 
-        <Dialog ref={refC}>
+        <Dialog
+          open={openPrimary}
+          onClose={() => setOpenPrimary(false)}
+        >
           <DialogBody>
             <DialogTitle>Did you know?</DialogTitle>
             <DialogDescription>
@@ -114,56 +124,92 @@ export const Variants: Story = {
             </DialogDescription>
           </DialogBody>
           <DialogActions
-            dialogRef={refC}
+            open={openPrimary}
+            onOpenChange={setOpenPrimary}
+            confirmLabel="Got it"
+            cancelLabel="Show again"
+            variant="primary"
+          />
+        </Dialog>
+
+        <Dialog
+          open={openSecondary}
+          onClose={() => setOpenSecondary(false)}
+        >
+          <DialogBody>
+            <DialogTitle>Did you know?</DialogTitle>
+            <DialogDescription>
+              You can drag and drop images directly onto the canvas to use them as texture sources.
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
+            open={openSecondary}
+            onOpenChange={setOpenSecondary}
+            confirmLabel="Got it"
+            cancelLabel="Show again"
+            variant="secondary"
+          />
+        </Dialog>
+
+        {/* Pro Tip Dialog */}
+        <Dialog
+          open={openAccent}
+          onClose={() => setOpenAccent(false)}
+        >
+          <DialogBody>
+            <DialogTitle>Did you know?</DialogTitle>
+            <DialogDescription>
+              You can drag and drop images directly onto the canvas to use them as texture sources.
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
+            open={openAccent}
+            onOpenChange={setOpenAccent}
             confirmLabel="Got it"
             cancelLabel="Show again"
             variant="accent"
           />
         </Dialog>
-      </div>
-    );
-  }
-};
 
-export const WithCustomFooter: Story = {
-  render: () => {
-    const ref = useRef<DialogHandle>(null);
-    return (
-      <div className="flex min-h-48 items-center justify-center">
-        <Button
-          onClick={() => ref.current?.open()}
-          variant="default"
-          size="sm"
+        {/* Storage Warning Dialog */}
+        <Dialog
+          open={openWarning}
+          onClose={() => setOpenWarning(false)}
         >
-          Export Options
-        </Button>
-        <Dialog ref={ref}>
           <DialogBody>
-            <DialogTitle>Export Settings</DialogTitle>
-            <DialogDescription>Choose your preferred export format and options.</DialogDescription>
+            <DialogTitle>Storage limit reached</DialogTitle>
+            <DialogDescription>
+              You are at 95% capacity. Please free up space to continue creating.
+            </DialogDescription>
           </DialogBody>
-          <DialogFooter>
-            <Button
-              size="sm"
-              onClick={() => ref.current?.close()}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => ref.current?.close()}
-            >
-              Export PNG
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => ref.current?.close()}
-            >
-              Export All
-            </Button>
-          </DialogFooter>
+          <DialogActions
+            variant="warning"
+            open={openWarning}
+            onOpenChange={setOpenWarning}
+            confirmLabel="Manage Storage"
+            cancelLabel="Dismiss"
+          />
+        </Dialog>
+
+        {/* Delete Dialog */}
+        <Dialog
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+        >
+          <DialogBody>
+            <DialogTitle>Delete project?</DialogTitle>
+            <DialogDescription>
+              This will permanently delete all files and cannot be undone.
+            </DialogDescription>
+          </DialogBody>
+          <DialogActions
+            open={openDelete}
+            onOpenChange={setOpenDelete}
+            onConfirm={() => console.log('Delete confirmed')}
+            confirmLabel="Delete"
+            cancelLabel="Keep"
+            variant="destructive"
+          />
         </Dialog>
       </div>
     );

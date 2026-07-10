@@ -1,61 +1,53 @@
-import { useImperativeHandle, useRef, type ReactNode, type Ref, type RefObject } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
-import { Button } from '../../data-entry/button/Button';
+import { Button } from '../../data-entry';
+import type { ButtonVariants } from '../../data-entry/button/variants';
+import {
+  dialogBodyVariants,
+  dialogDescriptionVariants,
+  dialogFooterVariants,
+  dialogTitleVariants,
+  dialogVariants,
+  type DialogVariants
+} from './variants';
 
-export type DialogHandle = {
-  open: () => void;
-  close: () => void;
-};
-
-export type DialogProps = {
-  children: ReactNode;
-  className?: string;
-  /** Called when the dialog closes for any reason (Esc, backdrop, button). */
+export interface DialogProps
+  extends Omit<HTMLAttributes<HTMLDialogElement>, 'open'>, DialogVariants {
+  /** Controls whether the dialog is open (required for stateless mode) */
+  open?: boolean;
+  /** Called when the dialog is closed by the browser (Esc, backdrop click, etc.) */
   onClose?: () => void;
-  ref?: Ref<DialogHandle>;
-};
+  children: ReactNode;
+}
 
-/**
- * Dialog — wraps the native <dialog> element exactly as the source design's
- * conversion guide prescribes: "useRef → .showModal()/.close(). ::backdrop
- * auto-applies." Focus trapping, Esc-to-close, and the backdrop are all
- * handled natively by the browser. React 19 lets `useImperativeHandle`
- * attach straight to the `ref` prop — no `forwardRef` wrapper required.
- * The component holds no React state of its own; open/closed state lives
- * entirely in the DOM via the native dialog element.
- */
-export function Dialog({ children, className, onClose, ref }: DialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useImperativeHandle(ref, () => ({
-    open: () => dialogRef.current?.showModal(),
-    close: () => dialogRef.current?.close()
-  }));
-
+export function Dialog({
+  open = false,
+  onClose,
+  children,
+  className,
+  size = 'md',
+  ...props
+}: DialogProps) {
   return (
     <dialog
-      ref={dialogRef}
+      open={open}
       onClose={onClose}
-      className={cn(
-        'dialog-modal bg-surface w-full max-w-md self-center justify-self-center rounded-lg p-0',
-        className
-      )}
+      className={cn(dialogVariants({ size }), className)}
       style={{ boxShadow: 'var(--shadow-lg)' }}
+      {...props}
     >
       {children}
     </dialog>
   );
 }
 
+// Sub-components (pure & stateless)
 export function DialogBody({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn('p-5', className)}>{children}</div>;
+  return <div className={cn(dialogBodyVariants(), className)}>{children}</div>;
 }
 
 export function DialogTitle({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <h3 className={cn('text-foreground mb-2 text-[15px] font-medium', className)}>{children}</h3>
-  );
+  return <h3 className={cn(dialogTitleVariants(), className)}>{children}</h3>;
 }
 
 export function DialogDescription({
@@ -65,44 +57,35 @@ export function DialogDescription({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <p className={cn('text-foreground-muted text-[13px] leading-relaxed', className)}>{children}</p>
-  );
+  return <p className={cn(dialogDescriptionVariants(), className)}>{children}</p>;
 }
 
 export function DialogFooter({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <div
-      className={cn(
-        'bg-surface-raised/50 flex justify-end gap-2 rounded-b-lg px-5 py-3',
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+  return <div className={cn(dialogFooterVariants(), className)}>{children}</div>;
 }
 
-/** Convenience footer with cancel/confirm wired to a DialogHandle ref. */
 export function DialogActions({
-  dialogRef,
+  onOpenChange,
   onConfirm,
-  cancelLabel = 'cancel',
-  confirmLabel = 'confirm',
-  variant = 'primary'
+  cancelLabel = 'Cancel',
+  confirmLabel = 'Confirm',
+  variant
 }: {
-  dialogRef: RefObject<DialogHandle | null>;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   onConfirm?: () => void;
   cancelLabel?: string;
   confirmLabel?: string;
-  variant?: ColorVariant;
+  variant?: ButtonVariants['variant'];
 }) {
   return (
     <DialogFooter>
       <Button
-        variant="ghost"
+        variant="default"
         size="sm"
-        onClick={() => dialogRef.current?.close()}
+        onClick={() => {
+          onOpenChange(false);
+        }}
       >
         {cancelLabel}
       </Button>
@@ -111,7 +94,7 @@ export function DialogActions({
         size="sm"
         onClick={() => {
           onConfirm?.();
-          dialogRef.current?.close();
+          onOpenChange(false);
         }}
       >
         {confirmLabel}

@@ -5,7 +5,7 @@ export { alertVariants } from './alert/variants';
 export { DefaultFallback } from './default-fallback/DefaultFallback';
 export type { DefaultFallbackProps } from './default-fallback/DefaultFallback';
 export { defaultFallbackVariants, fallbackIconColor } from './default-fallback/variants';
-export type { FallbackIconColor, FallbackIconColorProps } from './default-fallback/variants';
+export type { DefaultFallbackVariants, FallbackIconColor } from './default-fallback/variants';
 
 export {
   Dialog,
@@ -15,7 +15,7 @@ export {
   DialogFooter,
   DialogTitle
 } from './dialog/Dialog';
-export type { DialogHandle, DialogProps } from './dialog/Dialog';
+export type { DialogProps } from './dialog/Dialog';
 
 export { ErrorBoundary } from './error-boundary/ErrorBoundary';
 export type { ErrorBoundaryProps, FallbackRenderer } from './error-boundary/ErrorBoundary';
