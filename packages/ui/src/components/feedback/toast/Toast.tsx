@@ -69,12 +69,12 @@ export function ToastViewport({
   );
 }
 
-export type ToastProviderProps = {
+export interface ToastProviderProps {
   toasts: ToastItem[];
   toast: (options: ToastOptions) => number;
   dismiss: (id: number) => void;
   children: ReactNode;
-};
+}
 
 export function ToastProvider({ toasts, toast, dismiss, children }: ToastProviderProps) {
   return (
