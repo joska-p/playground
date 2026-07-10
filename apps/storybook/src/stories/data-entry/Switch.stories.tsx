@@ -8,11 +8,12 @@ const meta: Meta<typeof Switch> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'],
       control: { type: 'select' }
     },
     label: { control: 'text' },
     disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
     checked: { control: 'boolean' }
   },
   args: {
@@ -59,10 +60,6 @@ export const Variants: Story = {
         variant="destructive"
         defaultChecked
       />
-      <Switch
-        label="Ghost"
-        variant="ghost"
-      />
     </div>
   )
 };
@@ -73,6 +70,11 @@ export const States: Story = {
       <Switch label="Off" />
       <Switch
         label="On"
+        defaultChecked
+      />
+      <Switch
+        label="Loading"
+        loading
         defaultChecked
       />
       <Switch

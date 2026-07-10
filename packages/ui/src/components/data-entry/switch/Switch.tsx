@@ -1,20 +1,21 @@
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
-import { switchVariants } from './variants';
+import { Spinner } from '../../widgets/spinner/Spinner';
+import { switchVariants, type SwitchVariants } from './variants';
 
-export type SwitchProps = {
-  variant?: ColorVariant;
+export interface SwitchProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, SwitchVariants {
   label?: ReactNode;
+  loading?: boolean;
   ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
+}
 
 export function Switch({
   className,
   variant = 'primary',
   label,
-  style,
-  disabled,
+  loading = false,
+  disabled = false,
   id,
   ref,
   ...props
@@ -25,24 +26,17 @@ export function Switch({
       type="checkbox"
       role="switch"
       id={id}
-      disabled={disabled}
+      disabled={disabled || loading}
+      aria-busy={loading || undefined}
       className="peer sr-only"
-      style={style}
       {...props}
     />
   );
 
   const track = (
-    <span
-      className={cn(
-        'bg-foreground-dim peer-checked:bg-primary relative block h-6 w-11 shrink-0 cursor-pointer rounded-full transition-colors duration-200',
-        'after:absolute after:top-0.5 after:left-0.5 after:block after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform after:duration-250',
-        'peer-checked:after:translate-x-5',
-        disabled && 'pointer-events-none opacity-40',
-        switchVariants({ variant }),
-        className
-      )}
-    />
+    <span className={cn(switchVariants({ variant }), className)}>
+      {loading && <Spinner className="absolute inset-0 m-auto h-3.5 w-3.5 text-white" />}
+    </span>
   );
 
   if (!label)
