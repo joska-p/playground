@@ -8,7 +8,7 @@ const meta: Meta<typeof SectionHeader> = {
   argTypes: {
     variant: {
       description: 'Color of the icon and title text.',
-      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'ghost'],
+      options: ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive', 'outline'],
       control: { type: 'select' }
     },
     align: {
@@ -43,6 +43,8 @@ export default meta;
 
 type Story = StoryObj<typeof SectionHeader>;
 
+const VARIANTS = ['default', 'primary', 'secondary', 'accent', 'warning', 'destructive'] as const;
+
 export const Default: Story = {
   args: {
     title: 'Experiments',
@@ -59,29 +61,18 @@ export const CenterAligned: Story = {
   }
 };
 
-export const WithCategory: Story = {
-  args: {
-    variant: 'accent',
-    title: 'Data Visualization',
-    description: 'Transform complex datasets into beautiful interactive visual stories.',
-    iconName: 'data-viz',
-    href: '/category/data-viz'
-  }
-};
-
-export const TitleOnly: Story = {
-  args: {
-    title: 'Quick Links'
-  }
-};
-
-export const DataVizSection: Story = {
-  args: {
-    variant: 'secondary',
-    title: 'Simulation',
-    description: 'Explore physics-based simulations and particle systems.',
-    iconName: 'simulation',
-    href: '/category/simulation',
-    linkText: 'Explore simulations'
-  }
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      {VARIANTS.map((variant) => (
+        <SectionHeader
+          key={variant}
+          variant={variant}
+          title={variant}
+          description="Section description with variant-colored text."
+          iconName="home"
+        />
+      ))}
+    </div>
+  )
 };

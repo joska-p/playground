@@ -32,11 +32,10 @@ export type { NotificationItemProps } from './notification-item/NotificationItem
 export { Popover } from './popover/Popover';
 export type { PopoverProps } from './popover/Popover';
 
-export { ScrollReveal } from './scroll-reveal/ScrollReveal';
-export type { ScrollRevealProps } from './scroll-reveal/ScrollReveal';
-
 export { SectionHeader } from './section-header/SectionHeader';
 export type { SectionHeaderProps } from './section-header/SectionHeader';
+export { sectionHeaderVariants } from './section-header/variants';
+export type { SectionHeaderVariants } from './section-header/variants';
 
 export { SectionHeading } from './section-heading/SectionHeading';
 export type { SectionHeadingProps } from './section-heading/SectionHeading';

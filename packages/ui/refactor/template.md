@@ -129,11 +129,10 @@ export const Default: Story = {
 
 any component in ./packages/ui/src/components/data-entry/ can also be use as a reference.
 show all the variants in the variants story
-
-note: Don't try to lint checktypes or build. the package is in construction.
+Don't try to lint checktypes or build. the package is in construction.
 Don't look at lib/colorVariant.ts. It is gonna be replaced
+Don't read the existing stories. write a new one from scratch
+Don't get lost reading to many files. you have almost all the context in this prompt that you need
 
 base on this information can you refactor
-./packages/ui/src/components/data-display/menu-item/
-./packages/ui/src/components/data-display/notification-item/
-./packages/ui/src/components/data-display/popover/
+./packages/ui/src/components/data-display/section-header/

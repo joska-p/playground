@@ -1,30 +1,28 @@
 import { ArrowRight } from 'lucide-react';
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
 import type { IconName } from '../../icons';
 import { Icon } from '../../icons';
-import { sectionHeaderVariants } from './variants';
+import { sectionHeaderVariants, type SectionHeaderVariants } from './variants';
 
-type SectionHeaderProps = {
+export interface SectionHeaderProps extends HTMLAttributes<HTMLDivElement>, SectionHeaderVariants {
   title: string;
   description?: string;
   iconName?: IconName;
   href?: string;
   linkText?: ReactNode;
-  variant?: ColorVariant;
   align?: 'left' | 'center';
   ref?: Ref<HTMLDivElement>;
-} & HTMLAttributes<HTMLDivElement>;
+}
 
-function SectionHeader({
+export function SectionHeader({
   title,
   description,
   iconName = 'home',
   href,
   linkText = 'View all',
-  variant = 'primary',
-  align = 'left',
+  variant,
+  align,
   className,
   style,
   ref,
@@ -36,7 +34,6 @@ function SectionHeader({
     <div
       ref={ref}
       className={cn(
-        'text-(--variant-color)',
         sectionHeaderVariants({ variant }),
         isCenter ? 'items-center text-center' : 'items-start',
         className
@@ -54,10 +51,13 @@ function SectionHeader({
       {description && (
         <p
           className={cn(
-            'max-w-xl text-sm leading-relaxed text-(--variant-color)/80',
+            'max-w-xl text-sm leading-relaxed',
             { 'text-center': isCenter },
             { 'ml-10': !isCenter }
           )}
+          style={{
+            color: `color-mix(in srgb, var(--variant-color, currentColor) 80%, transparent)`
+          }}
         >
           {description}
         </p>
@@ -80,6 +80,3 @@ function SectionHeader({
     </div>
   );
 }
-
-export { SectionHeader };
-export type { SectionHeaderProps };
