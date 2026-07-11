@@ -1,4 +1,4 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const colorPaletteVariants = cva(
   'flex w-fit h-fit cursor-pointer overflow-hidden rounded-sm bg-surface transition-all hover:brightness-110 active:scale-[.97] hover:scale-110 has-checked:scale-110',
@@ -38,3 +38,5 @@ export const colorSwatchVariants = cva('shrink-0', {
     size: 'md'
   }
 });
+
+export type ColorSwatchVariants = VariantProps<typeof colorSwatchVariants>;

@@ -1,13 +1,14 @@
 import type { VariantProps } from 'class-variance-authority';
-import type { HTMLAttributes, Ref } from 'react';
+import type { LabelHTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
 import { type ColorVariant } from '../../../lib/colorVariant';
-import { colorPaletteVariants, colorSwatchVariants } from './variants';
+import { colorPaletteVariants, colorSwatchVariants, type ColorSwatchVariants } from './variants';
 
 type PaletteVariants = VariantProps<typeof colorPaletteVariants>;
 type SwatchVariants = VariantProps<typeof colorSwatchVariants>;
 
-export type ColorPaletteProps = {
+export interface ColorPaletteProps
+  extends Omit<LabelHTMLAttributes<HTMLLabelElement>, 'onChange'>, ColorSwatchVariants {
   colors: string[];
   name?: string;
   value?: string;
@@ -17,7 +18,7 @@ export type ColorPaletteProps = {
   orientation?: PaletteVariants['orientation'];
   size?: SwatchVariants['size'];
   ref?: Ref<HTMLLabelElement>;
-} & Omit<HTMLAttributes<HTMLLabelElement>, 'onChange'>;
+}
 
 function ColorPalette({
   colors,
