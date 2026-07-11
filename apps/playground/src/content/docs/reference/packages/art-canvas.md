@@ -1,7 +1,7 @@
 ---
-title: "Art Canvas"
-description: "Art Canvas package"
-category: "reference"
+title: 'Art Canvas'
+description: 'Art Canvas package'
+category: 'reference'
 tags:
   - reference
   - art-canvas
@@ -170,4 +170,3 @@ The tally: 3 templates, 8 space modules, 6 shapes, 1 effect. The architecture is
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

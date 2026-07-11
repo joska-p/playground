@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const floatingNavVariants = cva(
-  'rounded-full absolute top-3  z-50 flex items-center gap-1.5 px-3.5 py-1.5 shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 bg-(--surface-raised)/80 backdrop-blur shadow-lg transition-[transform,box-shadow] duration-350 ease-out',
+  'absolute top-3  z-50 flex items-center gap-1.5 px-3.5 py-1.5 shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 bg-(--surface-raised)/80 backdrop-blur shadow-lg transition-[transform,box-shadow] duration-350 ease-out',
   {
     variants: {
       variant: {

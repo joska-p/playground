@@ -1,3 +1,5 @@
+import { AtlasLanding } from './atlas';
+
 export function App() {
-  return null;
+  return <AtlasLanding />;
 }
