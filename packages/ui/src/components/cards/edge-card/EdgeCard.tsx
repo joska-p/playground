@@ -168,12 +168,13 @@ export function EdgeCard({
       <div className="relative z-20 flex h-full flex-col justify-between">
         <div className="flex items-start justify-between">
           <Badge
-            appearance="solid"
-            color="var(--variant-color)"
+            appearance="soft"
+            variant="primary"
+            style={{ '--primary': 'var(--variant-color)' } as React.CSSProperties}
           >
             {id}
           </Badge>
-          <span className="text-foreground-dim border border-(--variant-color) px-2 py-1 text-xs tracking-wider uppercase">
+          <span className="border border-(--variant-color) px-2 py-1 text-xs tracking-wider text-(--variant-color) uppercase">
             {classification}
           </span>
         </div>
