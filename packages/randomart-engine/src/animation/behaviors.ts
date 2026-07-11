@@ -263,6 +263,86 @@ export const mouseProximityBehavior: AnimationBehavior = {
   }
 };
 
+export const pixelationBehavior: AnimationBehavior = {
+  id: 'pixelation',
+  name: 'Pixelation',
+  type: 'spatial',
+  glslFunction: ``,
+  applyCode: (timeVar, speedVar) => {
+    return [
+      `float pix_res = 20.0 + 80.0 * (0.5 + 0.5 * sin(${timeVar} * ${speedVar} * 0.3));`,
+      `p = floor(p * pix_res + 0.5) / pix_res;`
+    ].join('\n  ');
+  }
+};
+
+export const inversionBehavior: AnimationBehavior = {
+  id: 'inversion',
+  name: 'Inversion',
+  type: 'color',
+  glslFunction: ``,
+  applyCode: (timeVar, speedVar) =>
+    `color = mix(color, 1.0 - color, 0.5 + 0.5 * sin(${timeVar} * ${speedVar} * 0.5));`
+};
+
+export const chromaticAberrationBehavior: AnimationBehavior = {
+  id: 'chromatic-aberration',
+  name: 'Chromatic Aberration',
+  type: 'color',
+  glslFunction: ``,
+  applyCode: (timeVar, speedVar) => {
+    return [
+      `float ca_offset = 0.003 * sin(${timeVar} * ${speedVar} * 0.7);`,
+      `vec2 ca_dir = normalize(p) * ca_offset;`,
+      `color.r = color.r + ca_dir.x;`,
+      `color.b = color.b - ca_dir.y;`
+    ].join('\n  ');
+  }
+};
+
+export const vignetteBehavior: AnimationBehavior = {
+  id: 'vignette',
+  name: 'Vignette',
+  type: 'color',
+  glslFunction: ``,
+  applyCode: (timeVar, speedVar) => {
+    return [
+      `float vig_t = ${timeVar} * ${speedVar};`,
+      `float vig_radius = 0.8 + 0.2 * sin(vig_t * 0.2);`,
+      `float vig = 1.0 - smoothstep(vig_radius * 0.5, vig_radius, length(p));`,
+      `color *= vig;`
+    ].join('\n  ');
+  }
+};
+
+export const filmGrainBehavior: AnimationBehavior = {
+  id: 'film-grain',
+  name: 'Film Grain',
+  type: 'color',
+  glslFunction: ``,
+  applyCode: (timeVar, speedVar) => {
+    return [
+      `float grain_seed = fract(${timeVar} * ${speedVar});`,
+      `float grain = random2d(p * 100.0 + grain_seed) * 0.15;`,
+      `color += grain - 0.075;`
+    ].join('\n  ');
+  }
+};
+
+export const scanLinesBehavior: AnimationBehavior = {
+  id: 'scan-lines',
+  name: 'Scan Lines',
+  type: 'color',
+  glslFunction: ``,
+  applyCode: (timeVar, speedVar) => {
+    return [
+      `float scan_freq = 80.0 + 40.0 * sin(${timeVar} * ${speedVar} * 0.1);`,
+      `float scan = 0.9 + 0.1 * sin(p.y * scan_freq);`,
+      `color *= scan;`
+    ].join('\n  ');
+  }
+};
+
 export const animationRegistry: AnimationBehavior[] = [
   hueShiftBehavior,
   zoomBehavior,
@@ -281,5 +361,11 @@ export const animationRegistry: AnimationBehavior[] = [
   colorDriftBehavior,
   recamanPulseBehavior,
   edgeDetectBehavior,
-  mouseProximityBehavior
+  mouseProximityBehavior,
+  pixelationBehavior,
+  inversionBehavior,
+  chromaticAberrationBehavior,
+  vignetteBehavior,
+  filmGrainBehavior,
+  scanLinesBehavior
 ];

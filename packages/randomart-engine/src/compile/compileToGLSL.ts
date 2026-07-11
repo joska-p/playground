@@ -59,6 +59,39 @@ float bandedNoise(vec2 coords) {
   float bands = 6.0; // The number of flat color posterization steps
   return floor(n * bands) / bands;
 }
+
+vec2 voronoiHash(vec2 p) {
+  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+  return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+}
+
+float voronoiCells(vec2 p) {
+  vec2 n = floor(p);
+  vec2 f = fract(p);
+  float md = 8.0;
+  for (int j = -1; j <= 1; j++) {
+    for (int i = -1; i <= 1; i++) {
+      vec2 g = vec2(float(i), float(j));
+      vec2 o = voronoiHash(n + g);
+      o = 0.5 + 0.5 * sin(u_time * 0.0 + 6.2831 * o);
+      vec2 r = g + o - f;
+      float d = dot(r, r);
+      md = min(md, d);
+    }
+  }
+  return md * 2.0 - 1.0;
+}
+
+float fbmNoise(vec2 p) {
+  float value = 0.0;
+  float amplitude = 0.5;
+  for (int i = 0; i < 5; i++) {
+    value += amplitude * random2d(p);
+    p *= 2.0;
+    amplitude *= 0.5;
+  }
+  return value * 2.0 - 1.0;
+}
 `;
 
 function buildPreamble(behaviors: AnimationBehavior[]): string {
