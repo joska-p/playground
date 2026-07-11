@@ -1,5 +1,16 @@
 import type { GrammarRule } from '../../types';
 
+function hash1(n: number): number {
+  return (((Math.sin(n * 127.1) * 43758.5453) % 1) + 1) % 1;
+}
+
+function smoothNoise(t: number): number {
+  const i = Math.floor(t);
+  const f = t - i;
+  const u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
+  return hash1(i) * (1 - u) + hash1(i + 1) * u;
+}
+
 export const bandedNoiseRule = {
   id: 'banded-noise',
   name: 'Banded Noise',
@@ -7,8 +18,8 @@ export const bandedNoiseRule = {
   weight: 0.6,
   category: 'structural',
   evaluate: (_args, x, y) => {
-    const n = Math.sin(x) * Math.cos(y);
-    const bands = 8.0;
+    const n = smoothNoise(x * 3.0) * smoothNoise(y * 3.0);
+    const bands = 6.0;
     return Math.floor(n * bands) / bands;
   },
   toMathString: () => 'bandedNoise(p)',
