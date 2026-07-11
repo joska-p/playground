@@ -1,26 +1,21 @@
 import { ChevronUp, SlidersHorizontal } from 'lucide-react';
-import { useState, type ReactNode, type Ref } from 'react';
+import type { HTMLAttributes, Ref } from 'react';
+import { useState } from 'react';
 import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
-import { controlPanelVariants } from '../variants';
+import { controlPanelVariants, type ControlPanelVariants } from '../variants';
 
 export type Position = 'top' | 'bottom' | 'left' | 'right';
 
-export type ControlPanelProps = {
+export interface ControlPanelProps extends HTMLAttributes<HTMLDivElement>, ControlPanelVariants {
   ref?: Ref<HTMLDivElement>;
-  title?: ReactNode;
-  variant?: ColorVariant;
-  position?: Position;
-  size?: 'sm' | 'md' | 'lg';
+  title?: string;
   defaultCollapsed?: boolean;
-  className?: string;
-  children: ReactNode;
-};
+}
 
 export function ControlPanel({
   ref,
   title = 'controls',
-  variant = 'primary',
+  variant,
   position = 'right',
   size = 'md',
   defaultCollapsed = false,
