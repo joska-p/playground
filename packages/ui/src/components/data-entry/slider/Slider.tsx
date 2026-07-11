@@ -13,6 +13,8 @@ export interface SliderProps
 export function Slider({
   className,
   variant,
+  onChange,
+  value,
   showTicks = true,
   loading = false,
   disabled = false,
@@ -32,6 +34,8 @@ export function Slider({
   return (
     <div className="w-full">
       <input
+        onChange={onChange}
+        value={value}
         ref={ref}
         type="range"
         min={min}
