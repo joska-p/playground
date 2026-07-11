@@ -28,13 +28,13 @@ export const recamanPatternRule = {
   toMathString: () => 'recaman(p)',
   toGLSL: () => 'pseudoRecaman(p)',
 
-  toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── recaman-signal\n`,
+  toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── recaman-pattern\n`,
 
   buildNode: () => {
     const xNode = { ruleId: 'x', args: [] };
     const yNode = { ruleId: 'y', args: [] };
     return {
-      ruleId: 'recaman-signal',
+      ruleId: 'recaman-pattern',
       args: [xNode, yNode]
     };
   }

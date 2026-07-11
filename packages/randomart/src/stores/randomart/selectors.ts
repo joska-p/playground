@@ -1,7 +1,6 @@
 import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
-import type { RandomartState } from './types';
 
 // --- Direct Configuration Selectors ---
 export function useSeedText(): string {
@@ -43,22 +42,9 @@ export function useTreeB(): ExpressionNode {
   return useStore(randomartStore, (s) => s.treeB);
 }
 
-// --- Defensive Structure Projection Selector ---
-function getChannelIndex(s: RandomartState) {
-  if (s.activeChannel === 'red') return 0;
-  if (s.activeChannel === 'green') return 1;
-  return 2;
-}
-
 export function useSelectedTree(): ExpressionNode {
   return useStore(randomartStore, (s) => {
-    const rootTree =
-      s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
-
-    const idx = getChannelIndex(s);
-
-    // Safely fetch channel-specific subtree, fallback cleanly to root context if layout shifts
-    return rootTree.args[idx] ?? rootTree;
+    return s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
   });
 }
 
