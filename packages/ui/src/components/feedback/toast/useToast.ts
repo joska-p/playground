@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react';
 import type { ToastOptions } from '../../../hooks/useToastQueue';
 
-type ToastContextValue = {
+interface ToastContextValue {
   toast: (options: ToastOptions) => number;
   dismiss: (id: number) => void;
-};
+}
 
 export const ToastContext = createContext<ToastContextValue | null>(null);
 

@@ -2,13 +2,13 @@ import { ChevronRight } from 'lucide-react';
 import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
 import { cn } from '../../../lib/cn';
 
-export type ControlSubsectionProps = {
+export interface ControlSubsectionProps {
   ref?: Ref<HTMLDetailsElement>;
   title: ReactNode;
   defaultOpen?: boolean;
   className?: string;
   children: ReactNode;
-};
+}
 
 /**
  * One level of nesting below ControlSection — same disclosure

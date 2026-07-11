@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 
-export type ControlGridProps = {
+export interface ControlGridProps {
   columns?: 2 | 3 | 4;
   className?: string;
   children: ReactNode;
-};
+}
 
 const COLUMN_CLASS: Record<2 | 3 | 4, string> = {
   2: 'grid-cols-2',

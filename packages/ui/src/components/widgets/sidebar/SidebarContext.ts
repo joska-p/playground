@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import type { ColorVariant } from '../../../lib/colorVariant';
 
-export type SidebarContextValue = {
+export interface SidebarContextValue {
   isOpen: boolean;
   toggle: () => void;
   open: () => void;
@@ -9,7 +9,7 @@ export type SidebarContextValue = {
   panelId: string;
   position: 'top' | 'right' | 'bottom' | 'left';
   variant: ColorVariant;
-};
+}
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);
 

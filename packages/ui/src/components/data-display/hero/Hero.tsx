@@ -1,17 +1,26 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { cn } from '../../../lib/cn';
-import { COLOR_GRADIENT_FROM, type ColorVariant } from '../../../lib/colorVariant';
-import { heroVariants } from './variants';
+import { heroVariants, type HeroVariants } from './variants';
 
-type HeroProps = {
+const COLOR_GRADIENT_FROM = {
+  default: 'from-foreground-dim',
+  primary: 'from-primary',
+  secondary: 'from-secondary',
+  accent: 'from-accent',
+  warning: 'from-warning',
+  destructive: 'from-destructive',
+  ghost: 'from-foreground',
+  outline: 'from-foreground-dim'
+};
+
+interface HeroProps extends HTMLAttributes<HTMLElement>, HeroVariants {
   badgeText?: string;
   title?: string;
   highlight?: string;
   description?: string;
   children?: ReactNode;
-  variant?: ColorVariant;
   ref?: Ref<HTMLElement>;
-} & HTMLAttributes<HTMLElement>;
+}
 
 function Hero({
   badgeText,
@@ -19,13 +28,13 @@ function Hero({
   highlight = 'Playground',
   description,
   children,
-  variant = 'ghost',
+  variant,
   className,
   style,
   ref,
   ...props
 }: HeroProps) {
-  const fromColor = COLOR_GRADIENT_FROM[variant];
+  const fromColor = COLOR_GRADIENT_FROM[variant ?? 'default'];
 
   return (
     <section

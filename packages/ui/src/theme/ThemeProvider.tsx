@@ -2,12 +2,12 @@ import { type ReactNode } from 'react';
 import type { Theme } from '../hooks/useThemeState';
 import { ThemeContext } from './useTheme';
 
-export type ThemeProviderProps = {
+export interface ThemeProviderProps {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
   children: ReactNode;
-};
+}
 
 /**
  * ThemeProvider — stateless. It never calls `useState` itself; `theme`,

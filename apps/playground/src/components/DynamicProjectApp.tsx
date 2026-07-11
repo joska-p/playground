@@ -22,9 +22,7 @@ const ThreeStageApp = React.lazy(() =>
   import('@repo/three-stage').then((m) => ({ default: m.App }))
 );
 const LSystemApp = React.lazy(() => import('@repo/l-system').then((m) => ({ default: m.App })));
-const UIApp = React.lazy(() =>
-  import('@repo/ui/AppWithoutThemeProvider').then((m) => ({ default: m.AppWithoutThemeProvider }))
-);
+const UIApp = React.lazy(() => import('@repo/ui/App').then((m) => ({ default: m.App })));
 
 const components: Record<string, React.ComponentType> = {
   mosaic: MosaicApp,

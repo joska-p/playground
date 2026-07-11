@@ -11,8 +11,8 @@ export interface InputProps
 
 export function Input({
   className,
-  variant = 'default',
-  size = 'default',
+  variant,
+  size,
   disabled = false,
   icon,
   ref,

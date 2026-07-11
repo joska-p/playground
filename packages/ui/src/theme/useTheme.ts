@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react';
 import type { Theme } from '../hooks/useThemeState';
 
-type ThemeContextValue = {
+interface ThemeContextValue {
   theme: Theme;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
-};
+}
 
 export const ThemeContext = createContext<ThemeContextValue | null>(null);
 

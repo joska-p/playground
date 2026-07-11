@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../../lib/cn';
 
-export type ControlRowProps = {
+export interface ControlRowProps {
   label: ReactNode;
   value?: ReactNode;
   hint?: string;
   className?: string;
   children: ReactNode;
-};
+}
 
 /**
  * The atomic unit of the control panel: a label, an optional live

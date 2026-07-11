@@ -1,4 +1,4 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const heroVariants = cva('', {
   variants: {
@@ -15,3 +15,5 @@ export const heroVariants = cva('', {
   },
   defaultVariants: { variant: 'primary' }
 });
+
+export type HeroVariants = VariantProps<typeof heroVariants>;

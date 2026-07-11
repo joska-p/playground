@@ -2,18 +2,10 @@ import type { ReactNode, Ref, SelectHTMLAttributes } from 'react';
 import { cn } from '../../../lib/cn';
 import { Icon } from '../../icons';
 import { Spinner } from '../../widgets/spinner/Spinner';
-import {
-  selectVariants,
-  selectWrapperVariants,
-  type SelectVariants,
-  type SelectWrapperVariants
-} from './variants';
+import { selectVariants, selectWrapperVariants, type SelectWrapperVariants } from './variants';
 
 export interface SelectProps
-  extends
-    Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
-    SelectWrapperVariants,
-    Pick<SelectVariants, 'size'> {
+  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>, SelectWrapperVariants {
   leadingIcon?: ReactNode;
   placeholder?: string;
   wrapperClassName?: string;
@@ -25,7 +17,7 @@ export function Select({
   className,
   wrapperClassName,
   size,
-  variant = 'primary',
+  variant,
   leadingIcon,
   placeholder,
   loading = false,

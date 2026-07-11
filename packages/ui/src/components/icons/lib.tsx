@@ -2,12 +2,12 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 export type IconProps = ComponentPropsWithoutRef<'svg'>;
 
-type CreateIconConfig = {
+interface CreateIconConfig {
   name: string;
   children: ReactNode;
   viewBox?: string;
   defaultProps?: Partial<IconProps>;
-};
+}
 
 export function createIcon(config: CreateIconConfig) {
   // Extract configuration options with smart defaults

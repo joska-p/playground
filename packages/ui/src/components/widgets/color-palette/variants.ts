@@ -4,10 +4,6 @@ export const colorPaletteVariants = cva(
   'flex w-fit h-fit cursor-pointer overflow-hidden rounded-sm bg-surface transition-all hover:brightness-110 active:scale-[.97] hover:scale-110 has-checked:scale-110',
   {
     variants: {
-      orientation: {
-        horizontal: 'flex-row',
-        vertical: 'flex-col'
-      },
       variant: {
         default: 'has-checked:shadow-[0_0_0_2px_var(--foreground-dim)]',
         primary: 'has-checked:shadow-[0_0_0_2px_var(--primary)]',
@@ -17,6 +13,10 @@ export const colorPaletteVariants = cva(
         destructive: 'has-checked:shadow-[0_0_0_2px_var(--destructive)]',
         ghost: 'has-checked:shadow-[0_0_0_2px_transparent]',
         outline: 'has-checked:shadow-[0_0_0_2px_var(--foreground-dim)]'
+      },
+      orientation: {
+        horizontal: 'flex-row',
+        vertical: 'flex-col'
       }
     },
     defaultVariants: {
@@ -39,4 +39,4 @@ export const colorSwatchVariants = cva('shrink-0', {
   }
 });
 
-export type ColorSwatchVariants = VariantProps<typeof colorSwatchVariants>;
+export type ColorPaletteVariants = VariantProps<typeof colorPaletteVariants>;

@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import { DynamicProjectApp } from '../../components/DynamicProjectApp';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Hero } from '@repo/ui/data-display';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -26,7 +25,6 @@ if (!project) {
 }
 
 const { title, description } = project.data;
-const mainTag = project.data.tags?.[0].id || 'other';
 const keywords = project.data.tags?.join(', ').slice(1) || '';
 ---
 

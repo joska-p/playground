@@ -4,16 +4,16 @@ import { DefaultFallback } from '../default-fallback/DefaultFallback';
 
 export type FallbackRenderer = (props: { error: Error; reset: () => void }) => ReactNode;
 
-export type ErrorBoundaryProps = {
+export interface ErrorBoundaryProps {
   children: ReactNode;
   fallback?: ReactNode | FallbackRenderer;
   variant?: ColorVariant;
   onError?: (error: Error, info: ErrorInfo) => void;
-};
+}
 
-type ErrorBoundaryState = {
+interface ErrorBoundaryState {
   error: Error | null;
-};
+}
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   public override state: ErrorBoundaryState = { error: null };

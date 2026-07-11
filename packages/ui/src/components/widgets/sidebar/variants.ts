@@ -1,4 +1,4 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const sidebarToggleVariants = cva('', {
   variants: {
@@ -8,10 +8,10 @@ export const sidebarToggleVariants = cva('', {
       secondary: 'text-secondary bg-secondary/15',
       accent: 'text-accent bg-accent/15',
       warning: 'text-warning bg-warning/15',
-      destructive: 'text-destructive bg-destructive/15',
-      ghost: 'text-foreground',
-      outline: 'text-foreground-dim bg-transparent border border-border'
+      destructive: 'text-destructive bg-destructive/15'
     }
   },
   defaultVariants: { variant: 'default' }
 });
+
+export type SidebarToggleVariantProps = VariantProps<typeof sidebarToggleVariants>;

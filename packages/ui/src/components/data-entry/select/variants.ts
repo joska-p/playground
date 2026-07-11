@@ -34,11 +34,13 @@ export const selectVariants = cva(
     variants: {
       size: {
         sm: 'text-sm',
-        default: 'text-base',
+        md: 'text-base',
         lg: 'text-lg'
       }
     },
-    defaultVariants: { size: 'default' }
+    defaultVariants: {
+      size: 'md'
+    }
   }
 );
 

@@ -91,7 +91,10 @@ export const iconMap = {
 } as const;
 
 export type IconName = keyof typeof iconMap;
-export type IconEntry = { name: IconName; label: (typeof iconMap)[IconName] };
+export interface IconEntry {
+  name: IconName;
+  label: (typeof iconMap)[IconName];
+}
 
 // a runtime tuple Zod can consume, typed to match IconName exactly
 export const iconNames = Object.keys(iconMap) as [IconName, ...IconName[]];

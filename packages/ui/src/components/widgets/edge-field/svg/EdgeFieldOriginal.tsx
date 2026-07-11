@@ -24,13 +24,13 @@ const EDGE_KERNEL = '1 1 1 1 -8 1 1 1 1';
 // Posterization steps -> the number of contour "rings" in the field.
 const BANDS = '0 0.12 0.24 0.36 0.48 0.6 0.72 0.84';
 
-type FilterDefProps = {
+interface FilterDefProps {
   id: string;
   seed: number;
   baseFrequency: string;
   glowColor: string;
   blur: number;
-};
+}
 
 function EdgeFilter({ id, seed, baseFrequency, glowColor, blur }: FilterDefProps) {
   return (

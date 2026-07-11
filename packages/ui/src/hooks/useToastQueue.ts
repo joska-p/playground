@@ -2,13 +2,13 @@ import type { ReactNode } from 'react';
 import { useCallback, useRef, useState } from 'react';
 import type { ColorVariant } from '../lib/colorVariant';
 
-export type ToastOptions = {
+export interface ToastOptions {
   title: ReactNode;
   description?: ReactNode;
   variant?: ColorVariant;
   /** Milliseconds before auto-dismiss. Defaults to 4000. Pass 0 to disable. */
   duration?: number;
-};
+}
 
 export type ToastItem = {
   id: number;

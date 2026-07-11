@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 
-type Dimensions = {
+interface Dimensions {
   width: number;
   height: number;
-};
+}
 
 const DEBOUNCE_MS = 120;
 

@@ -3,14 +3,14 @@ import { useState, type ReactNode, type Ref, type SyntheticEvent } from 'react';
 import { cn } from '../../../lib/cn';
 import type { ColorVariant } from '../../../lib/colorVariant';
 
-export type ControlSectionProps = {
+export interface ControlSectionProps {
   ref?: Ref<HTMLDetailsElement>;
   title: ReactNode;
   variant?: ColorVariant;
   defaultOpen?: boolean;
   className?: string;
   children: ReactNode;
-};
+}
 
 export function ControlSection({
   ref,
