@@ -9,8 +9,7 @@ export const heroVariants = cva('', {
       accent: 'bg-accent/5 text-accent from-accent backdrop-blur-xs',
       warning: 'bg-warning/5 text-warning from-warning backdrop-blur-xs',
       destructive: 'bg-destructive/5 text-destructive from-destructive backdrop-blur-xs',
-      ghost: 'text-foreground',
-      outline: 'bg-transparent text-foreground-dim border border-border backdrop-blur-xs'
+      ghost: 'text-foreground'
     }
   },
   defaultVariants: { variant: 'primary' }
