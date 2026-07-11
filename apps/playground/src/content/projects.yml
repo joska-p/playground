@@ -144,8 +144,8 @@
 
 - id: ui
   order: 2
-  title: UI library
-  description: Guidelines and showcase of the ui components
+  title: Atlas
+  description: Cartographer's Toolkit
   tags:
     - random
     - docs
