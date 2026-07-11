@@ -1,4 +1,4 @@
-import { EdgeCardAnimated } from '../components/cards/edge-card/EdgeCardAnimated';
+import { AtlasCard } from '../components/cards/atlas-card';
 import { Badge } from '../components/data-display/badge/Badge';
 import { SectionHeader } from '../components/data-display/section-header/SectionHeader';
 
@@ -96,11 +96,12 @@ export function RegionGrid() {
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {REGIONS.map((r) => (
-          <EdgeCardAnimated
+          <AtlasCard
             key={r.id}
+            animated={true}
             seed={r.seed}
-            id={r.id}
-            title={r.title}
+            cardId={r.id}
+            cardTitle={r.title}
             classification={r.classification}
             density={r.density}
             resolution={r.resolution}
