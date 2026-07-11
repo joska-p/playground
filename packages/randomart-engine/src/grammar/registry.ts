@@ -1,34 +1,35 @@
 import type { GrammarRule } from '../types';
 
-import { absRule } from './rules/abs';
-import { addRule } from './rules/add';
-import { atanRule } from './rules/atan';
-import { bandedNoiseRule } from './rules/bandedNoise';
-import { clampRule } from './rules/clamp';
-import { constantRule } from './rules/constant';
-import { cosRule } from './rules/cos';
-import { expRule } from './rules/exp';
-import { fbmRule } from './rules/fbm';
-import { fractRule } from './rules/fract';
-import { greaterThanRule } from './rules/greater-than';
-import { ifRule } from './rules/if';
-import { lengthRule } from './rules/length';
-import { lessThanRule } from './rules/less-than';
-import { logRule } from './rules/log';
-import { moduloRule } from './rules/modulo';
-import { multiplyRule } from './rules/multiply';
-import { nestedOscillationRule } from './rules/nested-oscillation';
-import { pixelRandomRule } from './rules/pixel-random';
-import { powRule } from './rules/pow';
-import { radialSymmetryRule } from './rules/radial-symmetry';
-import { recamanPatternRule } from './rules/recamanPattern';
-import { sinRule } from './rules/sin';
-import { smoothstepRule } from './rules/smoothstep';
-import { sqrtRule } from './rules/sqrt';
-import { stepRule } from './rules/step';
-import { terminalXRule } from './rules/terminal-x';
-import { terminalYRule } from './rules/terminal-y';
-import { voronoiRule } from './rules/voronoi';
+import {
+  absRule,
+  addRule,
+  bandedNoiseRule,
+  clampRule,
+  constantRule,
+  cosRule,
+  expRule,
+  fbmRule,
+  fractRule,
+  greaterThanRule,
+  ifRule,
+  lessThanRule,
+  logRule,
+  moduloRule,
+  multiplyRule,
+  nestedOscillationRule,
+  pixelRandomRule,
+  powRule,
+  radialRule,
+  recamanPatternRule,
+  sinRule,
+  smoothstepRule,
+  sqrtRule,
+  stepRule,
+  sweepRule,
+  terminalXRule,
+  terminalYRule,
+  voronoiRule
+} from './rules';
 
 const rules = new Map<string, GrammarRule>([
   [terminalXRule.id, terminalXRule],
@@ -46,7 +47,7 @@ const rules = new Map<string, GrammarRule>([
   [expRule.id, expRule],
   [logRule.id, logRule],
   [powRule.id, powRule],
-  [radialSymmetryRule.id, radialSymmetryRule],
+
   [lessThanRule.id, lessThanRule],
   [greaterThanRule.id, greaterThanRule],
   [ifRule.id, ifRule],
@@ -56,8 +57,8 @@ const rules = new Map<string, GrammarRule>([
   [fbmRule.id, fbmRule],
   [stepRule.id, stepRule],
   [smoothstepRule.id, smoothstepRule],
-  [lengthRule.id, lengthRule],
-  [atanRule.id, atanRule],
+  [radialRule.id, radialRule],
+  [sweepRule.id, sweepRule],
   [fractRule.id, fractRule],
   [clampRule.id, clampRule]
 ]);
