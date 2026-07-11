@@ -3,12 +3,12 @@ import { cn } from '../../../lib/cn';
 import type { ColorVariant } from '../../../lib/colorVariant';
 import { tabUnderlineVariants } from './variants';
 
-type TabsContextValue = {
+interface TabsContextValue {
   value: string;
   setValue: (v: string) => void;
   name: string;
   variant: ColorVariant;
-};
+}
 const TabsContext = createContext<TabsContextValue | null>(null);
 
 function useTabsContext() {
@@ -17,13 +17,13 @@ function useTabsContext() {
   return ctx;
 }
 
-export type TabsProps = {
+export interface TabsProps {
   value: string;
   onValueChange: (value: string) => void;
   children: ReactNode;
   className?: string;
   variant?: ColorVariant;
-};
+}
 
 export function Tabs({
   value,

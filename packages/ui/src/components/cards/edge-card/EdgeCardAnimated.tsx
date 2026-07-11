@@ -1,4 +1,8 @@
+import type { HTMLAttributes } from 'react';
 import { useMemo, useRef, type MouseEvent } from 'react';
+import { cn } from '../../../lib/cn';
+import { Badge } from '../../data-display';
+import { edgeCardVariants, type EdgeCardVariantProps } from './variants';
 
 // --- 1. Seeded PRNG (Mulberry32) ---
 function mulberry32(seed: number) {
@@ -66,7 +70,8 @@ function generateEdgePaths(seed: number) {
 
 // --- 3. The React Component ---
 
-export type EdgeCardAnimatedProps = {
+export interface EdgeCardAnimatedProps
+  extends HTMLAttributes<HTMLDivElement>, EdgeCardVariantProps {
   seed: number;
   id: string;
   title: string;
@@ -74,9 +79,10 @@ export type EdgeCardAnimatedProps = {
   density: string;
   resolution: string;
   color?: string;
-};
+}
 
 export function EdgeCardAnimated({
+  variant,
   seed,
   id,
   title,
@@ -100,23 +106,23 @@ export function EdgeCardAnimated({
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className="group relative aspect-square cursor-none overflow-hidden border p-5 transition-all duration-450 ease-[cubic-bezier(0.4,0,0.2,1)]"
+      className={cn('', edgeCardVariants({ variant }))}
       style={
         {
-          borderColor: `color-mix(in oklch, ${color} 22%, transparent)`,
-          backgroundColor: 'color-mix(in oklch, var(--surface) 25%, transparent)',
+          borderColor: `color-mix(in oklch, var(--variant-color) 22%, transparent)`,
+          backgroundColor: 'color-mix(in oklch, var(--variant-color) 5%, transparent)',
           backdropFilter: 'blur(8px)',
           '--mx': '50%',
           '--my': '50%',
-          '--glow': color
+          '--variant-color': color
         } as React.CSSProperties
       }
     >
       {/* Radial mouse-tracking glow */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-400 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-400"
         style={{
-          background: `radial-gradient(circle at var(--mx) var(--my), color-mix(in oklch, ${color} 18%, transparent), transparent 50%)`
+          background: `radial-gradient(circle at var(--mx) var(--my), color-mix(in oklch, var(--variant-color) 18%, transparent), transparent 50%)`
         }}
       />
 
@@ -124,69 +130,44 @@ export function EdgeCardAnimated({
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-450 group-hover:opacity-100"
         style={{
-          boxShadow: `0 0 50px color-mix(in oklch, ${color} 25%, transparent), inset 0 0 60px color-mix(in oklch, ${color} 6%, transparent)`,
-          border: '1px solid color-mix(in oklch, ${color} 75%, transparent)'
+          boxShadow: `0 0 50px color-mix(in oklch, var(--variant-color) 25%, transparent), inset 0 0 60px color-mix(in oklch, var(--variant-color) 6%, transparent)`,
+          border: '1px solid color-mix(in oklch, var(--variant-color) 75%, transparent)'
         }}
       />
 
-      {/* The Animated SVG lines */}
+      {/* The generated SVG lines */}
       <svg
         className="absolute inset-0 z-0 h-full w-full opacity-40 transition-all duration-500 group-hover:opacity-100"
-        style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+        style={{ filter: `drop-shadow(0 0 6px var(--variant-color))` }}
         viewBox="0 0 300 300"
         preserveAspectRatio="none"
       >
-        {/*
-          1. Open Paths: "Marching Ants" effect
-          We use strokeDasharray to create dashes, and animate strokeDashoffset
-          via CSS keyframes to make them flow continuously.
-        */}
         <path
           d={paths.openPaths}
           fill="none"
-          stroke={color}
+          stroke="var(--variant-color)"
           strokeWidth="0.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{
-            strokeDasharray: '100 50',
-            animation: 'march-ants 60s linear infinite'
-          }}
+          opacity="0.85"
         />
-
-        {/*
-          2. Closed Paths: "Draw-In" effect on hover
-          We use a huge dasharray (1000) and offset it by 1000 so it's invisible.
-          On group hover, we transition the offset to 0, causing it to draw itself.
-        */}
         <path
           d={paths.closedPaths}
           fill="none"
-          stroke={color}
+          stroke="var(--variant-color)"
           strokeWidth="0.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="edge-draw-path"
-          style={{
-            strokeDasharray: 1000,
-            strokeDashoffset: 1000,
-            transition: 'stroke-dashoffset 1.5s ease-in-out'
-          }}
+          opacity="0.85"
         />
-
-        {/* 3. Sample Dots: Pulsing scanning points */}
         {paths.dots.map((dot, i) => (
           <circle
             key={i}
             cx={dot.cx}
             cy={dot.cy}
             r={dot.r}
-            fill={color}
-            style={{
-              opacity: 0.4,
-              transformOrigin: `${dot.cx}px ${dot.cy}px`,
-              animation: `pulse-dot 2s ease-in-out ${dot.delay} infinite`
-            }}
+            fill="var(--variant-color)"
+            opacity="0.55"
           />
         ))}
       </svg>
@@ -194,51 +175,27 @@ export function EdgeCardAnimated({
       {/* Card Content */}
       <div className="relative z-20 flex h-full flex-col justify-between">
         <div className="flex items-start justify-between">
-          <span
-            className="text-[10px] font-medium tracking-widest"
-            style={{ color }}
+          <Badge
+            appearance="solid"
+            color="var(--variant-color)"
           >
             {id}
-          </span>
-          <span
-            className="text-foreground-dim border px-2 py-1 text-[9px] tracking-wider uppercase"
-            style={{ borderColor: 'var(--border)' }}
-          >
+          </Badge>
+          <span className="text-foreground-dim border border-(--variant-color) px-2 py-1 text-xs tracking-wider uppercase">
             {classification}
           </span>
         </div>
 
         <div className="mt-auto">
-          <h3 className="text-foreground mb-1.5 text-xl font-light tracking-tight transition-colors group-hover:text-(--glow)">
+          <h3 className="text-foreground mb-1.5 text-xl font-light tracking-tight transition-colors group-hover:text-(--variant-color)">
             {title}
           </h3>
-          <div
-            className="text-foreground-dim mt-3 flex justify-between border-t pt-3 text-[10px] tracking-wider"
-            style={{ borderColor: 'var(--border)' }}
-          >
+          <div className="text-foreground-dim mt-3 flex justify-between border-t border-(--variant-color) pt-3 text-sm tracking-wider">
             <span>{resolution}</span>
-            <span style={{ color }}>{density}</span>
+            <span>{density}</span>
           </div>
         </div>
       </div>
-
-      {/* Scoped CSS Keyframes for this component */}
-      <style>{`
-        @keyframes march-ants {
-          from { stroke-dashoffset: 0; }
-          to { stroke-dashoffset: -300; } /* Must equal the sum of dasharray (4+6=10) * 2 for seamless loop */
-        }
-
-        @keyframes pulse-dot {
-          0%, 100% { opacity: 0.2; transform: scale(0.8); }
-          50% { opacity: 0.8; transform: scale(1.5); }
-        }
-
-        /* Trigger the draw-in effect when the card is hovered */
-        .group:hover .edge-draw-path {
-          stroke-dashoffset: 0 !important;
-        }
-      `}</style>
     </div>
   );
 }

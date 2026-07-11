@@ -1,9 +1,7 @@
-import type { VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes } from 'react';
 import { cn } from '../../../lib/cn';
-import type { ColorVariant } from '../../../lib/colorVariant';
 import { Badge } from '../../data-display';
-import { edgeCardVariants } from './variants';
+import { edgeCardVariants, type EdgeCardVariantProps } from './variants';
 
 // --- 1. Seeded PRNG (Mulberry32) ---
 // Generates deterministic random numbers based on a seed.
@@ -76,9 +74,7 @@ function generateEdgePaths(seed: number) {
   return { openPaths, closedPaths, dots };
 }
 
-// --- 3. The React Component ---
-export type EdgeCardProps = {
-  variant?: ColorVariant;
+export interface EdgeCardProps extends HTMLAttributes<HTMLDivElement>, EdgeCardVariantProps {
   seed: number;
   id: string;
   title: string;
@@ -86,8 +82,7 @@ export type EdgeCardProps = {
   density: string;
   resolution: string;
   color?: string; // e.g. 'var(--blue)', 'var(--orange)'
-} & HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof edgeCardVariants>;
+}
 
 export function EdgeCard({
   variant,
@@ -111,7 +106,7 @@ export function EdgeCard({
           backdropFilter: 'blur(8px)',
           '--mx': '50%',
           '--my': '50%',
-          '--variant-color': `${color}`
+          '--variant-color': color
         } as React.CSSProperties
       }
     >
