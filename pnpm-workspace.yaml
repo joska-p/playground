@@ -27,6 +27,7 @@ minimumReleaseAgeExclude:
   - '@turbo/windows-64@2.10.1'
   - '@turbo/windows-arm64@2.10.1'
   - turbo@2.10.1
+  - '@storybook/addon-mcp@0.7.0'
 catalog:
   '@babel/core': '^7.29.0'
   '@eslint/js': '^10.0.1'
