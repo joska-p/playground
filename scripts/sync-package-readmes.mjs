@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const PACKAGES_DIR = path.join(ROOT, 'packages');
-const ENGINES_DIR = path.join(ROOT, 'packages/engines');
 const REF_DIR = path.join(ROOT, 'apps/playground/src/content/docs/reference/packages');
 
 const PACKAGE_NAMES = {
@@ -55,12 +54,8 @@ async function main() {
   await mkdir(REF_DIR, { recursive: true });
 
   const rootEntries = await readdir(PACKAGES_DIR, { withFileTypes: true });
-  const engineEntries = await readdir(ENGINES_DIR, { withFileTypes: true });
   const allPackages = [
-    ...rootEntries
-      .filter((e) => e.isDirectory() && e.name !== 'engines')
-      .map((e) => ({ dir: PACKAGES_DIR, name: e.name })),
-    ...engineEntries.filter((e) => e.isDirectory()).map((e) => ({ dir: ENGINES_DIR, name: e.name }))
+    ...rootEntries.filter((e) => e.isDirectory()).map((e) => ({ dir: PACKAGES_DIR, name: e.name }))
   ];
 
   let count = 0;

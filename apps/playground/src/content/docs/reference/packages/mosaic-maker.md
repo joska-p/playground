@@ -1,6 +1,7 @@
 ---
-title: Mosaic Maker
-description: Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering.
+title: "Mosaic Maker"
+description: "Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering."
+category: "reference"
 tags:
   - reference
   - mosaic-maker
@@ -252,3 +253,4 @@ SVG shapes use `transition-all duration-500` for smooth cross-fades.
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

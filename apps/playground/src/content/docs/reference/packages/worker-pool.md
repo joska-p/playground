@@ -1,6 +1,7 @@
 ---
-title: Worker pool
-description: You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown.
+title: "Worker pool"
+description: "You write the worker. This package runs it — pooling, queuing, lifecycle, and teardown."
+category: "reference"
 tags:
   - reference
   - worker-pool
@@ -239,3 +240,4 @@ pnpm --filter @repo/worker-pool check-types
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
+

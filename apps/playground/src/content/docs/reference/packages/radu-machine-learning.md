@@ -1,6 +1,7 @@
 ---
-title: Radu Machine Learning
-description: Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration.
+title: "Radu Machine Learning"
+description: "Hand-drawn stroke data viewer. Displays hand-writing samples organized by session for machine learning exploration."
+category: "reference"
 tags:
   - reference
   - radu-machine-learning
@@ -77,3 +78,4 @@ No state management library. Data is loaded from the bundled `sampleData.json` a
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
+

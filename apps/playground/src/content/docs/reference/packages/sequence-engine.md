@@ -1,11 +1,13 @@
 ---
-title: Sequence Engine
-description: Pure engine for mathematical sequence generation — independent of UI, no browser APIs.
+title: "Sequence Engine"
+description: "Pure engine for mathematical sequence generation — independent of UI, no browser APIs."
+category: "reference"
 tags:
   - reference
   - sequence-engine
 order: 20
 ---
+
 
 # @repo/sequence-engine
 
@@ -54,3 +56,4 @@ registerRule(myRule);
 | `./rules/types`   | `SequenceRule`, `NextStepOptions`                                      |
 | `./rules/recaman` | `recamanRule`                                                          |
 | `./types`         | `ParamDescriptor`, `LayerCategory`, `LayerConfigEntry`, `PresetRecord` |
+

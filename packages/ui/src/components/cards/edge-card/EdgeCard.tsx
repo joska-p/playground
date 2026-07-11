@@ -98,7 +98,7 @@ export function EdgeCard({
 
   return (
     <div
-      className={cn('', edgeCardVariants({ variant }))}
+      className={cn(edgeCardVariants({ variant }))}
       style={
         {
           borderColor: `color-mix(in oklch, var(--variant-color) 22%, transparent)`,

@@ -1,11 +1,13 @@
 ---
-title: Automa Engine
-description: Core engine for cellular automaton simulation — generic evolve, rule parsing, and Web Worker stepping.
+title: "Automa Engine"
+description: "Core engine for cellular automaton simulation — generic evolve, rule parsing, and Web Worker stepping."
+category: "reference"
 tags:
   - reference
   - automa-engine
 order: 20
 ---
+
 
 # @repo/automa-engine
 
@@ -76,3 +78,4 @@ src/
 ## Engine
 
 Simulation runs in a **Web Worker** (via `@repo/worker-pool`) to avoid blocking the UI thread. The pool is configured with `maxPoolSize: 1` and uses `Transferable` buffers for zero-copy grid transfer. The `evolve` function in `engine.ts` is fully generic — it reads `birth[]`/`survive[]` lookups from the rule object and handles multi-state aging via the `stateCount` field.
+
