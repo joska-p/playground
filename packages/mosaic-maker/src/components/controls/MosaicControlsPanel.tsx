@@ -73,7 +73,9 @@ function MosaicControlsPanel() {
 
   return (
     <ControlPanel title="Mosaic Controls">
-      <TileSetControls />
+      <ControlSection title="Tile set">
+        <TileSetControls />
+      </ControlSection>
 
       <ControlSection
         title="Actions"
@@ -114,7 +116,7 @@ function MosaicControlsPanel() {
         defaultOpen={true}
       >
         <ControlRow
-          label="Tile Size"
+          label="Tile:"
           value={tileSize.value.toString() + 'px'}
         >
           <Slider
@@ -127,7 +129,7 @@ function MosaicControlsPanel() {
           />
         </ControlRow>
         <ControlRow
-          label="Gap Size"
+          label="Gap:"
           value={gapSize.value.toString() + 'px'}
         >
           <Slider

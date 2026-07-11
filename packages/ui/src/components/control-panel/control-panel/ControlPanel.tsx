@@ -15,9 +15,9 @@ export interface ControlPanelProps extends HTMLAttributes<HTMLDivElement>, Contr
 export function ControlPanel({
   ref,
   title = 'controls',
-  variant,
+  variant = 'primary',
   position = 'right',
-  size = 'md',
+  size = 'sm',
   defaultCollapsed = false,
   className,
   children

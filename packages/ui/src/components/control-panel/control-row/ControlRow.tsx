@@ -30,14 +30,12 @@ export function ControlRow({ label, value, hint, className, children }: ControlR
       )}
     >
       <span
-        className="text-foreground-muted flex shrink-0 items-center gap-1 text-xs landscape:w-24"
+        className="text-foreground flex shrink-0 items-center justify-between gap-2 text-sm landscape:w-24"
         title={hint}
       >
         <span className="truncate">{label}</span>
         {value !== undefined && (
-          <span className="text-foreground-dim ml-auto shrink-0 font-mono text-[11px] landscape:ml-2">
-            {value}
-          </span>
+          <span className="text-foreground ml-auto shrink-0 text-sm landscape:ml-2">{value}</span>
         )}
       </span>
       <div className="min-w-0 flex-1">{children}</div>
