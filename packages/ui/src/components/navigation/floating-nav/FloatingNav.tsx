@@ -1,21 +1,18 @@
 import type { HTMLAttributes, ReactNode, Ref } from 'react';
-import { useFloatingNavState } from '../../../hooks/useFloatingNavState';
 import { cn } from '../../../lib/cn';
-import { type ColorVariant } from '../../../lib/colorVariant';
-import { floatingNavVariants } from './variants';
+import { floatingNavVariants, type FloatingNavVariants } from './variants';
 
-export type NavLink = {
+export interface NavLink {
   label: string;
   href: string;
-};
+}
 
-export type FloatingNavProps = {
+export interface FloatingNavProps extends HTMLAttributes<HTMLElement>, FloatingNavVariants {
   brand: { label: string; href: string };
   links: NavLink[];
   themeToggle?: ReactNode;
-  variant?: ColorVariant;
   ref?: Ref<HTMLElement>;
-} & HTMLAttributes<HTMLElement>;
+}
 
 function FloatingNav({
   brand,
@@ -23,37 +20,13 @@ function FloatingNav({
   themeToggle,
   variant = 'primary',
   className,
-  style,
   ref,
   ...props
 }: FloatingNavProps) {
-  const { visible, navHoveredRef, show, scheduleHide } = useFloatingNavState();
-
   return (
     <nav
       ref={ref}
-      className={cn(
-        'fixed top-3 left-1/2 z-50 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono shadow-lg transition-[transform,box-shadow] duration-350 ease-out',
-        floatingNavVariants({ variant }),
-        visible ? 'translate-y-0' : '-translate-y-20',
-        className
-      )}
-      style={{
-        transform: visible
-          ? 'translateX(-50%) translateY(0)'
-          : 'translateX(-50%) translateY(-80px)',
-        background: 'color-mix(in srgb, var(--surface-raised) 92%, transparent)',
-        boxShadow: 'var(--shadow-lg)',
-        ...style
-      }}
-      onMouseEnter={() => {
-        navHoveredRef.current = true;
-        show();
-      }}
-      onMouseLeave={() => {
-        navHoveredRef.current = false;
-        scheduleHide();
-      }}
+      className={cn(floatingNavVariants({ variant }), className)}
       {...props}
     >
       <a

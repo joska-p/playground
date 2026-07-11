@@ -1,12 +1,12 @@
 import type { RefObject } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export type FloatingNavState = {
+export interface FloatingNavState {
   visible: boolean;
   navHoveredRef: RefObject<boolean>;
   show: () => void;
   scheduleHide: () => void;
-};
+}
 
 export function useFloatingNavState(): FloatingNavState {
   const [visible, setVisible] = useState(true);
