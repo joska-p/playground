@@ -38,7 +38,10 @@ export function Slider({
   };
 
   return (
-    <div className="w-full">
+    <label
+      aria-label="slider"
+      className={cn('w-full', className)}
+    >
       <input
         onChange={handleChange}
         value={value}
@@ -49,7 +52,7 @@ export function Slider({
         step={step}
         disabled={disabled || loading}
         aria-busy={loading}
-        className={cn(sliderVariants({ variant }), className)}
+        className={cn(sliderVariants({ variant }))}
         {...props}
       />
       {showTicks && (
@@ -59,6 +62,6 @@ export function Slider({
           <span>{max}</span>
         </div>
       )}
-    </div>
+    </label>
   );
 }

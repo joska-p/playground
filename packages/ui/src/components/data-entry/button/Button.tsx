@@ -5,6 +5,7 @@ import { buttonVariants, type ButtonVariants } from './variants';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
   loading?: boolean;
+  isActive?: boolean;
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -16,12 +17,13 @@ export function Button({
   disabled = false,
   children,
   ref,
+  isActive = false,
   ...props
 }: ButtonProps) {
   return (
     <button
       ref={ref}
-      className={cn(buttonVariants({ variant, size }), className)}
+      className={cn(buttonVariants({ variant, size }), className, { 'scale-90': isActive })}
       disabled={disabled || loading}
       aria-busy={loading}
       {...props}

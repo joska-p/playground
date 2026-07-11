@@ -1,5 +1,5 @@
 import { SPEED_MAX_MS, SPEED_MIN_MS, SPEED_STEP_MS } from '@repo/automa-engine/config';
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button, Slider } from '@repo/ui/data-entry';
 import { setSpeed, step, toggleRunning } from '../../stores/simulation/actions';
 import { useRunning, useSpeedMs } from '../../stores/ui/selectors';
@@ -13,7 +13,7 @@ function PlaybackSection() {
       title="Playback"
       defaultOpen
     >
-      <ControlRow label="">
+      <ControlGrid columns={2}>
         <Button
           variant="primary"
           onClick={toggleRunning}
@@ -26,16 +26,15 @@ function PlaybackSection() {
         >
           Step
         </Button>
-      </ControlRow>
-      <ControlRow label="Speed">
         <Slider
+          className="col-span-full"
           value={speedMs}
           onChange={setSpeed}
           min={SPEED_MIN_MS}
           max={SPEED_MAX_MS}
           step={SPEED_STEP_MS}
         />
-      </ControlRow>
+      </ControlGrid>
     </ControlSection>
   );
 }

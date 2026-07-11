@@ -1,5 +1,5 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Button, Select } from '@repo/ui/data-entry';
+import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
+import { Button } from '@repo/ui/data-entry';
 import { clear, randomize } from '../../stores/simulation/actions';
 import { setToolMode } from '../../stores/ui/actions';
 import { useBrushMode } from '../../stores/ui/selectors';
@@ -12,7 +12,15 @@ function EditSection() {
       title="Edit"
       defaultOpen
     >
-      <ControlRow label="">
+      <ControlGrid columns={2}>
+        <Button
+          onClick={() => {
+            randomize();
+          }}
+        >
+          Randomize
+        </Button>
+
         <Button
           variant="destructive"
           onClick={() => {
@@ -21,25 +29,26 @@ function EditSection() {
         >
           Clear
         </Button>
+
         <Button
+          isActive={brushMode === 'draw'}
+          variant="secondary"
           onClick={() => {
-            randomize();
+            setToolMode('draw');
           }}
         >
-          Randomize
+          Draw
         </Button>
-      </ControlRow>
-      <ControlRow label="Brush">
-        <Select
-          value={brushMode}
-          onChange={(e) => {
-            setToolMode(e.target.value as 'draw' | 'erase');
+        <Button
+          isActive={brushMode === 'erase'}
+          variant="warning"
+          onClick={() => {
+            setToolMode('erase');
           }}
         >
-          <option value="draw">Draw</option>
-          <option value="erase">Erase</option>
-        </Select>
-      </ControlRow>
+          Erase
+        </Button>
+      </ControlGrid>
     </ControlSection>
   );
 }
