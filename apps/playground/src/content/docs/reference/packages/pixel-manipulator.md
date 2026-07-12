@@ -1,7 +1,7 @@
 ---
-title: 'Pixel Manipulator'
-description: 'Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data.'
-category: 'reference'
+title: "Pixel Manipulator"
+description: "Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data."
+category: "reference"
 tags:
   - reference
   - pixel-manipulator
@@ -197,3 +197,4 @@ Returns `[dataUrl: string | null, onChangeHandler]`.
 ---
 
 _Part of @repo/playground_
+

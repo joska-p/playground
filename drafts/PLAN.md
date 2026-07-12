@@ -261,7 +261,7 @@ Each session is one conversation. The goal is to finish a session with a
 ### Progress checklist
 
 - [x] Session 1: Homepage restructure
-- [ ] Session 2: README — pixel
+- [x] Session 2: README — pixel
 - [ ] Session 3: README — pixel-engine
 - [ ] Session 4: README — pixel-manipulator
 - [ ] Session 5: README — mosaic-maker

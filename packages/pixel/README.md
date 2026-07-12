@@ -1,8 +1,37 @@
+---
+title: 'Pixel'
+coordinates: '/algorithms/visuals'
+status: 'Active'
+date_discovered: 2024-01-15
+---
+
 # @repo/pixel
 
-> TypeScript-first, browser-based image manipulation pipeline. Zero external image-processing dependencies.
+> A pipeline that translates raw pixel data through chains of transforms, each
+> step breathing a new visual texture into the image.
 
-## Quick Start
+---
+
+## Essence
+
+Pixel is a TypeScript-native image manipulation engine that runs entirely in the
+browser. It gives you a declarative pipeline: declare the steps, hand over an
+`ImageData`, and watch it pass through a choreography of per-pixel fusions,
+neighborhood convolutions, and geometry-bending global transforms — all
+orchestrated across a Web Worker pool without touching a single line of
+off-thread code.
+
+The goal is simple: zero external image-processing dependencies, full
+compile-time safety on every step and option shape, and a single facade that
+hides the machinery of worker pools, buffer management, and fusion scheduling.
+
+## Quick Launch
+
+```bash
+pnpm dev --filter @repo/playground
+```
+
+Or install it into your own project:
 
 ```bash
 pnpm add @repo/pixel
@@ -18,7 +47,28 @@ const results = await pixel.run({
 // results[0] = grayscale, results[1] = brightness
 ```
 
-## Usage
+## Field Notes
+
+- **The Catalyst:** The realization that every browser-based image editor
+  reaches for the same off-the-shelf canvas filters or C++ WASM modules. What
+  if the entire pipeline — from per-pixel math to convolution tiling — lived in
+  pure TypeScript, fully typed, fully observable?
+
+- **Quirks & Anomalies:** Consecutive pixel operations are silently fused into a
+  single pass by the `FusionScheduler`. You write three steps; the engine
+  executes one loop. The intermediate snapshots still appear in the results, but
+  the pixels only touch memory once. Neighborhood and global ops act as fences,
+  flushing the scheduler before they run — a detail that matters when you're
+  composing aggressive contrast stretches with sharpening kernels.
+
+- **Future Horizons:** A plugin manifest that lets you register custom
+  manipulations at runtime, tiling strategies that adapt to available memory
+  pressure, and a streaming mode for processing video frames without the
+  overhead of full `ImageData` copies between steps.
+
+---
+
+## Pipeline API
 
 ### Run a pipeline
 
@@ -31,7 +81,9 @@ const snapshots = await pixel.run({
 });
 ```
 
-Returns one `ImageData` snapshot per step. Work is dispatched to a Web Worker pool (up to `hardwareConcurrency` workers). If all workers are busy the job is queued.
+Returns one `ImageData` snapshot per step. Work is dispatched to a Web Worker
+pool (up to `hardwareConcurrency` workers). If all workers are busy the job is
+queued.
 
 ### Browse available manipulations
 
@@ -49,7 +101,8 @@ pixel.getManipulationsByAccess('global');
 
 ### Compile-time-safe steps
 
-The `Step` type is derived from the manifest — invalid step IDs and option shapes are caught at compile time:
+The `Step` type is derived from the manifest — invalid step IDs and option
+shapes are caught at compile time:
 
 ```typescript
 import type { Step } from '@repo/pixel';
@@ -66,26 +119,6 @@ import { pixel } from '@repo/pixel';
 // On app teardown — terminates workers and clears queue
 pixel.teardown();
 ```
-
-## Architecture
-
-```
-pixel.run(config)
-  │
-  ├─ Web Worker pool (lazy, up to hardwareConcurrency)
-  ├─ Auto-downscale (if source exceeds maximumPixels)
-  ├─ BufferManager (double-buffered Uint8ClampedArray)
-  ├─ FusionScheduler (batches consecutive pixel ops)
-  │
-  └─ For each step:
-       ├─ pixel       → queue in FusionScheduler (deferred)
-       ├─ neighborhood → flush scheduler → run convolution
-       │                   └─ Tiling for large images (512×512 tiles + halo)
-       └─ global      → flush scheduler → run transform function
-            └─ Return: step snapshots (source excluded — caller manages it)
-```
-
-Everything below `pixel.run()` is an implementation detail — the `WorkerPool`, registry, buffer manager, and fusion scheduler are hidden behind the facade.
 
 ## Step Types
 
@@ -148,11 +181,15 @@ const result = await pixel.run({
 }); // still produces 3 intermediate snapshots
 ```
 
-The `FusionScheduler` queues pixel ops and applies them per-pixel when flushed. Neighborhood and global ops flush the scheduler before executing.
+The `FusionScheduler` queues pixel ops and applies them per-pixel when flushed.
+Neighborhood and global ops flush the scheduler before executing.
 
 ## Tiling for Large Images
 
-Neighborhood (convolution) operations on large images are split into 512×512 tiles with a halo border matching the kernel radius. Each tile is processed independently, then non-halo regions are blitted back. This keeps peak memory proportional to tile size rather than full image size:
+Neighborhood (convolution) operations on large images are split into 512×512
+tiles with a halo border matching the kernel radius. Each tile is processed
+independently, then non-halo regions are blitted back. This keeps peak memory
+proportional to tile size rather than full image size:
 
 ```
 W×H image → split into (512+2r)² tiles → convolve per tile → blit non-halo regions
@@ -160,7 +197,8 @@ W×H image → split into (512+2r)² tiles → convolve per tile → blit non-ha
 
 ## Web Worker Support
 
-The `pixel.run()` method automatically uses a pool of Web Workers (via `@repo/worker-pool`) for off-thread execution:
+The `pixel.run()` method automatically uses a pool of Web Workers (via
+`@repo/worker-pool`) for off-thread execution:
 
 - Lazy-creates up to `hardwareConcurrency` workers
 - FIFO queue when all workers are busy
@@ -176,7 +214,10 @@ The package exports a single entry — no sub-path imports:
 @repo/pixel   →   pixel facade + types
 ```
 
-Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`, `/runPipeline`, `/usePipeline`) have been replaced by the `pixel` facade. The hand-rolled `PipelineGateway` has been replaced with `@repo/worker-pool`'s `WorkerPool`.
+Previously exposed sub-paths (`/Registry`, `/PipelineGateway`, `/manipulations`,
+`/runPipeline`, `/usePipeline`) have been replaced by the `pixel` facade. The
+hand-rolled `PipelineGateway` has been replaced with `@repo/worker-pool`'s
+`WorkerPool`.
 
 ---
 
