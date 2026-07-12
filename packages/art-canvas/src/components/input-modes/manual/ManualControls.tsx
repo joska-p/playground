@@ -16,7 +16,7 @@ function ManualControls() {
   return (
     <>
       <ControlSection title="manual">
-        <ControlRow label={`division: ${String(divisions)}`}>
+        <ControlRow label={`div: ${String(divisions)}`}>
           <Slider
             value={divisions}
             onChange={setDivisions}
