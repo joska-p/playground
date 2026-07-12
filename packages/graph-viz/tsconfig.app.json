@@ -6,8 +6,9 @@
     "declarationMap": true,
     "rootDir": "./src",
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
-  "include": ["src"],
-  "exclude": ["src/core/pipeline/**/*.ts"]
+  "include": ["src", "src/**/*.json"],
+  "exclude": ["src/core/pipeline/prepare.ts"]
 }
