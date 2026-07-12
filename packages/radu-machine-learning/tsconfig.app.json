@@ -1,13 +1,13 @@
 {
   "extends": "@repo/config-typescript/app.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
     "rootDir": "./src",
-    "noEmit": true,
-    "skipLibCheck": true
+    "noEmit": true
   },
-  "include": ["src"],
-  "exclude": ["src/scripts"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/scripts"
+  ]
 }

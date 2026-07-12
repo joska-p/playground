@@ -1,12 +1,10 @@
 {
   "extends": "@repo/config-typescript/node.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
     "rootDir": ".",
-    "noEmit": true,
-    "skipLibCheck": true
+    "noEmit": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts"
+  ]
 }

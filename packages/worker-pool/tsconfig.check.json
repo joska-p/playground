@@ -1,6 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "skipLibCheck": true // TODO find an alternative to happy-dom to avoid this.
-  }
-}
