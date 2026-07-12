@@ -266,8 +266,8 @@ Each session is one conversation. The goal is to finish a session with a
 - [x] Session 4: README — pixel-manipulator
 - [ ] Session 5: README — mosaic-maker
 - [x] Session 6: README — randomart + randomart-engine
-- [ ] Session 7: README — art-canvas ✏️ prompt ready
-- [ ] Session 8: README — automa + automa-engine
+- [x] Session 7: README — art-canvas ✏️ prompt ready
+- [ ] Session 8: README — automa + automa-engine ✏️ prompt ready
 - [ ] Session 9: README — sequence-renderer + sequence-engine
 - [ ] Session 10: README — palette-generator + palette-engine
 - [ ] Session 11: README — image-to-particles

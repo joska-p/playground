@@ -1,6 +1,6 @@
 ---
 title: "Art Canvas"
-description: "Art Canvas package"
+description: "An interactive WebGL canvas that composes procedural shader art from a mood-biased, seed-deterministic pipeline — pick a seed, pick a mood, and watch the generator assemble space transforms, shapes, and colour palettes into a fragment shader that never repeats the same way twice."
 category: "reference"
 tags:
   - reference
@@ -8,164 +8,234 @@ tags:
 order: 20
 ---
 
+---
+title: 'Art Canvas'
+coordinates: '/visuals/generative'
+status: 'Active'
+date_discovered: 2025-06-01
+---
+
 # @repo/art-canvas
 
-An interactive WebGL canvas for exploring procedural shader art — from deterministic seed-based generation to manual composition of space, shapes, and effects.
+---
+
+## Essence
+
+Art Canvas exists to answer a deceptively simple question: what happens when you
+treat a fragment shader as a _composed sentence_ rather than a monolithic
+program? Each module is a word, each template is a grammar, and the generator
+is the storyteller — picking a structural skeleton, filling its slots from
+registries of space transforms, shapes, and effects, then handing everything
+to a palette for colour.
+
+The interesting tension is between _determinism_ and _surprise_. A seed
+produces a deterministic PRNG, which produces a deterministic sequence of
+module picks — yet the mood system acts as a probability lens, biasing the
+same seed toward organic softness or geometric sharpness. The user can also
+override mood and palette independently, asking questions like "what does this
+seed look like under every mood?" or "can I run the same organic seed through
+a neon palette?" The pipeline stays honest: every combination is valid, even
+when the result is beautifully strange.
+
+The assembly pipeline decomposes into eight small functions, each with one
+job. The complexity hasn't gone anywhere — it's properly distributed behind
+named seams. Adding a new step means adding a new file and one more call in
+the orchestrator. No existing step needs to change.
+
+## Quick Launch
+
+```bash
+pnpm dev --filter @repo/art-canvas
+```
+
+Or install it into your own project:
+
+```bash
+pnpm add @repo/art-canvas
+```
+
+```tsx
+import App from '@repo/art-canvas';
+
+export default function Artwork() {
+  return <App />;
+}
+```
+
+## Field Notes
+
+- **The Catalyst:** The realization that most procedural shader generators
+  produce valid-but-predictable output — two shapes, six space transforms, one
+  template. The pieces exist; what's missing is a system that composes them in
+  fundamentally different ways. The fix wasn't a new module, it was a new
+  _grammar_: structural templates that define named slots, filled at generation
+  time from registries of modules. The modules are the words. The templates
+  are the sentences.
+
+- **Quirks & Anomalies:** When `noiseField` and `flowField` were first
+  combined, the generated shader defined `noise2d` twice — once inlined from
+  each module. GLSL doesn't forgive duplicate definitions. The collision
+  revealed that the assembly had no concept of shared dependencies, only string
+  deduplication. The fix was an explicit `deps` array per module and a
+  `PREAMBLE_REGISTRY` that injects each shared utility exactly once. The two
+  collision domains — module code and preamble utilities — are now separate.
+  Also, the `mouseAttractor` module embeds its GLSL inline in TypeScript rather
+  than importing a `.glsl` file, a pragmatic exception to the pattern that
+  proves the architecture tolerates variation in module authoring.
+
+- **Future Horizons:** More templates (multi-field blending, compositing
+  strategies), more shapes (circle SDF, lines, truchet — already landing),
+  more effects (bloom, chromatic aberration, colour masks). A mood-tagged
+  palette system where the generator selects palettes that _fit_ the template
+  and modules already chosen — a delicate noise field with muted pastels, a
+  sharp voronoi with high-contrast neons. Eventually, the generator should
+  reason about which combinations work rather than randomly picking and praying.
 
 ---
 
-## Captain's log, stardate 2026.07.01
+## Shader Assembly Pipeline
 
-The generator works. It picks modules, assembles them into a fragment shader, and the result renders on screen. But the output is predictable — two shapes, six space transforms, three effects, one template. Every shader follows the same skeleton:
+The pipeline is a linear orchestrator: `pickMood → pickTemplate → pickModules
+→ pickEffects → resolveDeps → pickPalette → generate`. Each step is a
+function in `src/assembly/`, each in its own file.
 
 ```
-loop: space → shape → wave → effects → color
+generateShaderFromSeed(seed, complexity, selectedMood?, selectedPalette?)
+  ├─ createSeededRandom(seed)        ← FNV-1a + xorshift32 deterministic PRNG
+  ├─ pickMood(rng, selectedMood?)    ← weighted random from MOOD_REGISTRY
+  ├─ pickTemplate(rng, mood)         ← weighted random from TEMPLATE_REGISTRY
+  ├─ pickModules(rng, mood, complexity) ← N space modules + 1 shape module
+  ├─ pickEffects(rng, mood)          ← 40% chance of 1 effect module
+  ├─ resolveDeps(template, modules)  ← collects + deduplicates preamble code
+  ├─ pickPalette(rng, mood, selectedPalette?) ← weighted random from PALETTE_REGISTRY
+  └─ template.generate({...})        ← stitches everything into GLSL
 ```
 
-It only varies _which_ module fills each slot, never the structure itself. Two different seeds produce different modules, but the same pipeline. For truly organic variation, the assembly needs to vary along deeper dimensions.
+### Templates (structural skeletons)
 
-**The problem is not the dictionary — it's the grammar.** The pieces exist. What's missing is a system that can compose them in fundamentally different ways.
+Templates define a `main()` body with named slots. The generator picks a
+template first, then fills its slots from the registries — module selection
+and structural variation become independent axes.
 
-### What we need
+| Template       | Weight | Structure                                                                                              |
+| -------------- | ------ | ------------------------------------------------------------------------------------------------------ |
+| `classic`      | 1.0    | 3-iteration loop: reset uv → space transforms → shape SDF → wave → effects → cosine palette            |
+| `direct-noise` | 0.6    | Single-pass: space transforms → noise → direct colour. No shape SDF. Fluid, cloud-like.                |
+| `single-pass`  | 0.8    | Single-pass: space transforms → shape SDF → interest mask → wave → effects → palette. One brushstroke. |
 
-**Structural templates** — different `main()` skeletons the generator can choose from:
+Each template also declares its own `deps` — the `direct-noise` template
+depends on `noise2d` because it samples noise directly instead of through a
+shape module.
 
-- **The classic** — space transforms, evaluate a distance field, color it. This is what we have now.
-- **Direct noise** — skip the shape layer entirely. Map noise directly to color. Fluid, cloud-like, no geometry.
-- **Multi-field** — blend two fields (voronoi + fbm, or noise + SDF) before coloring. Richer surfaces.
-- **Single-pass** — no accumulation loop. Heavy domain warp, one-shot color evaluation. Cleaner, more abstract.
+### Shader Modules (the dictionary)
 
-**Color paths** — not always `cosinePalette(dist + offset)`:
+Modules wrap GLSL functions with metadata: a category, a `deps` array for
+shared preamble requirements, a `getCall()` function that produces a GLSL
+invocation string, and `params` for parameterized ranges resolved at
+generation time.
 
-- Direct UV → color mapping
-- Noise → color (no distance field at all)
-- Two palettes blended through a noise mask
-- HSV derived from angle or radius
+**Space transforms** (8 modules) — chain-coordinate transformations applied
+to `uv` before shape evaluation. Complexity controls how many layers stack:
 
-**Compositing strategies** — how loop iterations combine:
+| Module           | Weight | Deps      | Notable params                            |
+| ---------------- | ------ | --------- | ----------------------------------------- |
+| `domainWarp`     | 2.0    | —         | `intensity` (0.1–0.5), `time` (u_time)    |
+| `flowField`      | 1.5    | `noise2d` | `strength` (0.05–0.2)                     |
+| `rotate2d`       | 1.2    | —         | `angle` (u_time × 0.15)                   |
+| `repeatSpace`    | 0.1    | —         | `count` (1.5–4.5)                         |
+| `polarCoords`    | 0.4    | —         | —                                         |
+| `mouseAttractor` | 3.0    | —         | `strength` (0.02–0.12), `mouse` (u_mouse) |
+| `twirl`          | 1.0    | —         | `strength` (0.5–4.0)                      |
+| `kaleidoscope`   | 0.8    | —         | `segments` (3–12)                         |
 
-- Additive (current) — layers of light
-- Max — glow-like intensity stacking
-- Alpha overlay — transparency depth
-- Single — no accumulation, pure one-shot
+**Shape modules** (6 modules) — each produces a `float dist` distance field:
 
-### The next layer
+| Module       | Weight | Deps             | Notable params               |
+| ------------ | ------ | ---------------- | ---------------------------- |
+| `voronoi`    | 2.0    | —                | `scale` (2–7), `animSpeed`   |
+| `noiseField` | 2.5    | `noise2d`, `fbm` | `scale` (1–5), `speed`       |
+| `sdBox`      | 0.8    | —                | `width`, `height` (0.15–0.4) |
+| `circleSdf`  | 1.5    | —                | `radius` (0.3–1.5)           |
+| `truchet`    | 1.2    | —                | `scale` (1–6)                |
+| `lineSdf`    | 0.8    | —                | `x1`, `y1`, `x2`, `y2`       |
 
-The `getCall()` abstraction handles per-module invocation cleanly. What comes next is a **template layer** above it. Each template defines a `main()` body with named slots. The generator picks a template first, then fills its slots from the registries. Module selection and structural variation become independent axes.
+**Effect modules** (1 registered) — post-process the wave/color signal:
 
-A shader grammar, in other words. Not procedural code that assembles strings, but a declarative description of valid compositions. The modules are the words. The templates are the sentences. The generator is the storyteller.
+| Module      | Weight | Notable params              |
+| ----------- | ------ | --------------------------- |
+| `posterize` | 1.0    | `steps` (3–12), `val: wave` |
 
----
+### Preamble Dependencies
 
-## Captain's log, supplemental — stardate 2026.07.01
-
-The template layer exists now. The generator picks a template first, then fills its slots from the registries. Two templates so far: the **classic** (loop: space → shape → color) and **direct-noise** (skip the shape, let noise drive color directly). Different skeletons, same dictionary.
-
-We also added our first organic shape — `noiseField`, a distance field built from layered Fractal Brownian Motion noise instead of a geometric signed distance function. It gets picked alongside `voronoi` and `sdBox` at generation time, weighted toward organic output.
-
-But the dictionary grew faster than the assembler could handle. When `noiseField` and `flowField` were selected together, the generated shader defined `noise2d` twice — once inlined from each module's code. GLSL doesn't forgive duplicate definitions. WebGL rejected the program.
-
-The fix: **preamble dependencies.** Shared utility functions (`noise2d`, `fbm`) no longer get inlined per module. Each module declares what it needs via a `deps` array:
+Shared GLSL utility functions (`noise2d`, `fbm`) live in `shaders/preamble/`
+and are injected by name when modules declare them as dependencies. The
+`resolveDeps()` step collects all unique `deps` from active modules and the
+template, deduplicates them, looks each up in `PREAMBLE_REGISTRY`, and
+concatenates the preamble code once — regardless of how many modules depend
+on it. Module code is deduplicated separately. The two collision domains are
+independent.
 
 ```
 flowField → deps: ['noise2d']
 noiseField → deps: ['noise2d', 'fbm']
+
+resolveDeps collects: { noise2d, fbm }
+→ each preamble injected exactly once
+→ no duplicates, no GLSL link errors
 ```
 
-The generator collects all unique deps from active modules, resolves them through a `PREAMBLE_REGISTRY`, and includes each preamble exactly once — regardless of how many modules depend on it. Module code is still deduplicated by the Set, but preambles are resolved by name. The two collision domains are now separate.
+## Mood System
 
-This pattern scales. As the dictionary grows to dozens of modules, any shared utility (noise functions, hash functions, blending helpers) lives in `shaders/preamble/` and is pulled in by name. No duplicates, no collisions, no debugging GLSL link errors at 2 AM.
+The mood is a probability lens — it doesn't change what modules exist, only
+how likely they are to be picked. Each mood provides weight overrides for
+templates, modules, and palettes, plus a `complexityBias` that shifts the
+number of space transform layers.
 
----
+| Mood        | Bias | Favours                                                        |
+| ----------- | ---- | -------------------------------------------------------------- |
+| `organic`   | −1   | `noiseField`, `flowField`, biomorphic palettes, direct-noise   |
+| `geometric` | 0    | `sdBox`, `voronoi`, `kaleidoscope`, neon palettes, classic     |
+| `calm`      | −1   | `noiseField`, `repeatSpace`, deep-ocean palettes, direct-noise |
+| `energetic` | +1   | `domainWarp`, `twirl`, `voronoi`, volcanic palettes, classic   |
 
-## Captain's log, aftermath — stardate 2026.07.01
+The user can override mood and palette independently — two orthogonal axes
+of expression. Without overrides, the generator falls back to weighted
+random selection.
 
-A quiet watch. The shader compiles. I've been cycling through seeds and the generator keeps producing valid programs — not always beautiful, but always valid. The collision bug is behind us. Time to reflect on what we learned.
+## Palette System
 
-**The collision seemed like a small bug** — two modules defining the same GLSL function. But it revealed a fundamental tension in the architecture. Modules were pretending to be self-contained (each inlines everything it needs), yet they relied on shared utilities. The `Set`-based dedup worked fine when nothing shared anything. The moment `noiseField` joined `flowField`, both pulling `noise2d`, the assumption broke.
+Five cosine palette presets, each defined by the Inigo Quilez formula
+`a + b * cos(6.28318 * (c * t + d))`:
 
-The real problem wasn't the duplicate. **The assembly had no concept of shared dependencies.** It only understood "give me every module's code string, keep unique strings." That's not an abstraction — it's string deduplication masquerading as one.
+| Palette            | Weight | Character            |
+| ------------------ | ------ | -------------------- |
+| `iridescent_opal`  | 1.5    | Soft rainbow shimmer |
+| `neon_cyber`       | 1.0    | High-contrast neon   |
+| `biomorphic_flesh` | 1.2    | Warm organic tones   |
+| `volcanic_magma`   | 1.0    | Hot reds and oranges |
+| `deep_ocean`       | 1.3    | Cool blues and teals |
 
-**Was the fix right?** Yes. The `deps` approach makes the dependency graph explicit. A module says "I need noise2d", the generator resolves it by name, and each preamble appears exactly once. No string tricks, no hope-based dedup. The extra complexity is minimal — one array per module, one flat map in the generator. And it scales: adding a shared utility to `preamble/` will never cause a collision, even if a dozen modules reference it.
+Palette selection is mood-biased when no override is provided. The user
+can pick any palette regardless of mood.
 
-But more importantly, **the architecture is now honest about its composition model:**
+## React Layer
 
-- Modules are function snippets with explicit needs (`deps`) and outputs (`getCall`)
-- Preambles are shared utilities resolved once by name
-- Templates are structural skeletons that also declare their dependencies
-- The generator is the orchestrator — it knows the dependency graph, not just the strings
+The package ships a React Three Fiber canvas with three input modes:
 
-This means the next module, the next template, the next shared utility — none of them will require rethinking the assembly layer. The groundwork is solid.
+- **Seed mode** — the procedural generator. Inputs: seed string, complexity
+  slider, mood selector, palette selector. A `SeedCanvas` component renders
+  a full-screen mesh with a `ShaderMaterial` driven by
+  `generateShaderFromSeed()`.
+- **Folded Space** — a hardcoded shader demonstrating module composition
+  (repeatSpace + cosinePalette). Useful for testing template output without
+  the generator.
+- **Atlas** — a completely separate Fibonacci-Syllabics shader with its own
+  store, controls, and `THREE.ShaderMaterial` subclass. Renders modular
+  arithmetic symbols (arrows, boxes, arcs, chevrons) with glitch controls.
 
-The output quality isn't there yet — two templates and a handful of modules won't produce a lifetime of art. But the system is ready to compound. Every new module is a drop-in addition. Every new template is a new way to use what exists. The limiting factor is now the **dictionary's size**, not the architecture's correctness.
-
-We fixed a bug that would have become a wall. Now we can grow.
-
----
-
-## Captain's log, the craft — stardate 2026.07.01
-
-The hierarchy is clear now. From smallest to largest:
-
-**GLSL functions** — raw function definitions in `.glsl` files. Each is a single bit or bob: `flowField`, `voronoi`, `noise2d`, `fbm`, `rotate2d`. Some are shared preambles (available to any module), others belong to a single module.
-
-**ShaderModules** — wrappers around GLSL functions with metadata: category (space/shape/effect), `deps` for shared preamble requirements, `getCall` for invocation, `params` for parameterized ranges. This is what lives in the registries. The module is the unit of selection.
-
-**ShaderTemplates** — structural skeletons that define a `main()` body with named slots (space, shape, effect, color). The generator picks a template first, then fills its slots by picking modules. The template is the unit of composition.
-
-The generator sits above all three: pick a template, pick modules, resolve deps, hand off to the template's `generate()`.
-
-Two templates and nine modules is enough to prove the architecture but not enough to produce a meaningful range of output. The dictionary needs to grow. More space transforms (twirl, kaleidoscope, spherical), more shapes (circle, lines, truchet), more effects (bloom, chromatic aberration, color masks).
-
-But composition matters just as much as the dictionary. A well-structured module with poor composition still looks bad. The generator should eventually reason about which combinations work — not just randomly pick and pray.
-
-Colour is its own frontier. Right now every shader gets a palette from `PALETTE_REGISTRY` — four `vec3` constants feeding a cosine palette function. But there's no notion of **mood**: vibrant, muted, monochrome, warm, cold, pastel. The palette registry could carry mood tags, and the generator could select a palette that fits the template and modules it has already chosen. A delicate field like `noiseField` with muted pastels. A sharp `voronoi` with high-contrast neons.
-
-The pieces are all in place. The work ahead is building — more modules, more templates, and a colour system with intent.
-
----
-
-## Captain's log, the controls — stardate 2026.07.01
-
-The mood system was designed as an internal bias — pick a mood at random, let it nudge template/module/palette selection. But a mood the user can't choose is not a mood, it's a hidden parameter. And a palette locked behind a mood's weight table is a colour you can't reach when you want it.
-
-So mood and palette surfaced as independent controls — two dropdowns, passed directly to the generator alongside seed and complexity. The user picks the mood, the mood biases the template and module selection. The user picks the palette, that palette is used regardless of mood. Two axes of expression, orthogonal.
-
-The generator still works without either override — if nothing is selected, it falls back to random selection. But with the controls live, the user can now ask questions like "what does this seed look like under every mood?" or "can I run the same organic seed through a neon palette?" That's the kind of exploration the system was built for.
-
----
-
-## Captain's log, the decomposition — stardate 2026.07.01
-
-The generator was one 130-line function that did everything — pick a mood, pick a template, pick modules, resolve dependencies, pick a palette, assemble the shader. It worked, but it was hard to read and harder to change. Every new feature meant wading through a linear wall of logic.
-
-Today it's eight small functions, each in its own file, each with exactly one job:
-
-- **pickMood** — selects a mood (or uses the user's choice)
-- **pickTemplate** — biased by mood, picks a structural skeleton
-- **pickModules** — picks space transforms and a shape, resolves their GLSL args
-- **resolveDeps** — collects preamble dependencies, deduplicates, assembles the code block
-- **pickPalette** — selects a palette (or uses the user's choice)
-
-The orchestrator (`from-seed.ts`) is now 28 lines that read like a recipe — import, call, pass results to the next step. The import graph tells the story: follow the arrows from `from-seed.ts` outward, and you see the entire pipeline without reading a single function body.
-
-This is what the codebase-design people call **depth**: each module has a small interface and a clear responsibility. The complexity hasn't gone anywhere — it's just properly distributed behind named seams. Adding a new step (say, an effects pass or a compositing strategy) means adding a new file to `assembly/` and one more call in the orchestrator. No existing step needs to change.
-
----
-
-## Captain's log, the enrichment — stardate 2026.07.01
-
-A building session. Three shapes landed last time (circleSdf, truchet, lineSdf). Today the dictionary grew again: two new space transforms, a third template, and the first effect wired into the pipeline.
-
-**Twirl** rotates UV by an angle proportional to distance from center — a spiral vortex that twists everything through it. Paired with domain warp you get smoke rings. Paired with kaleidoscope you get mandalas.
-
-**Kaleidoscope** folds UV into radial segments — 3 for triangles, 6 for hexagons, 12 for dense symmetry. It's a mirror, not a distortion: atan chops the angle, abs folds it, radius stays. Clean, fast, and transforms any shape into a rosette.
-
-**Single-pass template** has no loop. One evaluation, one color, done. The classic template accumulates layers; single-pass is a single brushstroke. It trades richness for clarity — better for shapes that speak for themselves (truchet, lineSdf) than for layered noise fields.
-
-**Posterize** finally works. It was registered as a ShaderModule but never assembled — the effectBlock was empty, so the wave variable was computed and discarded. Now the generator picks effects with 40% probability, calls `getCall()` to produce `wave = posterize(wave, 4.0)`, and inserts it between wave and the palette evaluation. One line, but it transforms a smooth color ramp into discrete bands. A small step, but it proves the effects pipeline works.
-
-The tally: 3 templates, 8 space modules, 6 shapes, 1 effect. The architecture is stable. The dictionary is growing. The output is getting richer.
+State management splits into two Zustand stores: a global `uiStore` for mode
+selection and seed controls, and a dedicated `atlasStore` for Atlas-mode
+parameters.
 
 ---
 
