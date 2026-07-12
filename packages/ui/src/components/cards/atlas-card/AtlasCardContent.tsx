@@ -13,7 +13,7 @@ export function AtlasCardContent({
     <div className="relative z-20 flex h-full flex-col justify-between">
       <div className="flex items-start justify-between gap-4">
         <Badge appearance="outline">{cardId}</Badge>
-        <h3 className="border border-(--variant-color) px-2 py-1 tracking-wider text-(--variant-color) uppercase">
+        <h3 className="text-foreground border border-(--variant-color) px-2 py-1 text-xl tracking-wider uppercase">
           {cardTitle}
         </h3>
       </div>
