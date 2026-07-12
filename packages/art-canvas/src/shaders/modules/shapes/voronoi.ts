@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/shapes/voronoi.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const voronoiModule: ShaderModule = {
   name: 'voronoi',

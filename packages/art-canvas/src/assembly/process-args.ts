@@ -1,4 +1,5 @@
-import type { SeededRandom, ShaderModule } from '../types';
+import type { ShaderModule } from '../shaders/types';
+import type { SeededRandom } from './seeded-random';
 
 export function processArgs(mod: ShaderModule, rng: SeededRandom): Record<string, string> {
   const resolvedArgs: Record<string, string> = { uv: 'uv' };

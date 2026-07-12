@@ -1,7 +1,9 @@
-import type { Mood, SeededRandom, ShaderModule } from '../types';
+import type { ShaderModule } from '../shaders/types';
 import { applyMood } from './apply-mood';
+import type { Mood } from './moods';
 import { processArgs } from './process-args';
 import { SHAPE_REGISTRY, SPACE_REGISTRY } from './registries';
+import type { SeededRandom } from './seeded-random';
 
 export function pickModules(
   rng: SeededRandom,

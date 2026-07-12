@@ -1,6 +1,4 @@
-import type { Mood } from '../types';
-
-const MOOD_REGISTRY: Mood[] = [
+const MOOD_REGISTRY = [
   {
     name: 'organic',
     weight: 1.0,
@@ -98,6 +96,9 @@ const MOOD_REGISTRY: Mood[] = [
     },
     complexityBias: 1
   }
-];
+] as const;
+
+export type Mood = (typeof MOOD_REGISTRY)[number];
+export type MoodName = Mood['name'];
 
 export { MOOD_REGISTRY };

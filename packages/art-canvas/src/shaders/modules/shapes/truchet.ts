@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/shapes/truchet.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const truchet: ShaderModule = {
   name: 'truchet',

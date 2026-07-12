@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/effects/posterize.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const posterize: ShaderModule = {
   name: 'posterize',

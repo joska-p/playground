@@ -1,10 +1,10 @@
 import { Canvas } from '@react-three/fiber';
-import { useInputMode } from '../stores/ui/selectors';
+import { Atlas } from '../modules/atlas/Atlas';
+import { FoldedSpace } from '../modules/folded-space/FoldedSpace';
+import { Manual } from '../modules/manual/Manual';
+import { SeedCanvas } from '../modules/seed/SeedCanvas';
+import { useInputMode } from '../stores/ui/store';
 import { ControlsPanel } from './controls/ControlsPanel';
-import { Atlas } from './input-modes/atlas/Atlas';
-import { FoldedSpace } from './input-modes/folded-space/FoldedSpace';
-import { Manual } from './input-modes/manual/Manual';
-import { SeedCanvas } from './input-modes/seed/SeedCanvas';
 
 export function ArtCanvas() {
   const inputMode = useInputMode();

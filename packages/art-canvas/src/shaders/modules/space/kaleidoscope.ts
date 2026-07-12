@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/space/kaleidoscope.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const kaleidoscope: ShaderModule = {
   name: 'kaleidoscope',

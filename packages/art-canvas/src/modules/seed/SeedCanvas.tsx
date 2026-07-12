@@ -1,8 +1,8 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { generateShaderFromSeed } from '../../../assembly/from-seed';
-import { useComplexity, useMood, usePalette, useSeed } from '../../../stores/ui/selectors';
+import { generateShaderFromSeed } from '../../assembly/from-seed';
+import { useComplexity, useMood, usePalette, useSeed } from './store';
 
 const vertexShader = `
   varying vec2 vUv;

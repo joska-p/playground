@@ -1,4 +1,4 @@
-import type { ShaderModule, ShaderTemplate } from '../types';
+import type { ShaderModule, ShaderTemplate } from '../shaders/types';
 import { PREAMBLE_REGISTRY } from './registries';
 
 export function resolveDeps(template: ShaderTemplate, activeModules: ShaderModule[]): string {

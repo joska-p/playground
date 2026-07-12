@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/shapes/sdCircle.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const circleSdf: ShaderModule = {
   name: 'circleSdf',

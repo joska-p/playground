@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/space/twirl.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const twirl: ShaderModule = {
   name: 'twirl',

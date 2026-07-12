@@ -18,7 +18,7 @@ import noisePreamble from '../shaders/preamble/noise2d.glsl?raw';
 import { ClassicTemplate } from '../shaders/templates/classic';
 import { DirectNoiseTemplate } from '../shaders/templates/DirectNoiseTemplate';
 import { SinglePassTemplate } from '../shaders/templates/SinglePassTemplate';
-import type { ShaderModule, ShaderTemplate } from '../types';
+import type { ShaderModule, ShaderTemplate } from '../shaders/types';
 
 export const PREAMBLE_REGISTRY: Record<string, string> = {
   noise2d: noisePreamble,

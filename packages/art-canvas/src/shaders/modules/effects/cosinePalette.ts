@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/effects/cosinePalette.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const cosinePalette: ShaderModule = {
   name: 'cosinePalette',

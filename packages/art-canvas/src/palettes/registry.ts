@@ -1,6 +1,4 @@
-import type { PalettePreset } from '../types';
-
-const PALETTE_REGISTRY: PalettePreset[] = [
+const PALETTE_REGISTRY = [
   {
     name: 'iridescent_opal',
     weight: 1.5,
@@ -41,6 +39,8 @@ const PALETTE_REGISTRY: PalettePreset[] = [
     c: 'vec3(1.0, 0.7, 0.4)',
     d: 'vec3(0.0, 0.15, 0.20)'
   }
-];
+] as const;
 
+export type PalettePreset = (typeof PALETTE_REGISTRY)[number];
+export type PalettePresetName = PalettePreset['name'];
 export { PALETTE_REGISTRY };

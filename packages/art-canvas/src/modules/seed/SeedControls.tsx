@@ -1,7 +1,15 @@
 import { ControlRow } from '@repo/ui/control-panel';
 import { Input, Select, Slider } from '@repo/ui/data-entry';
-import { setComplexity, setMood, setPalette, setSeed } from '../../../stores/ui/actions';
-import { useComplexity, useMood, usePalette, useSeed } from '../../../stores/ui/selectors';
+import {
+  setComplexity,
+  setMood,
+  setPalette,
+  setSeed,
+  useComplexity,
+  useMood,
+  usePalette,
+  useSeed
+} from './store';
 
 const MOOD_OPTIONS = [
   { label: 'Organic', value: 'organic' },

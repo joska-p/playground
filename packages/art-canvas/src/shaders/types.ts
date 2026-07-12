@@ -1,26 +1,5 @@
-export type PalettePreset = {
-  name: string;
-  weight?: number;
-  a: string;
-  b: string;
-  c: string;
-  d: string;
-};
-
-export type SeededRandom = {
-  next: () => number;
-  pick: <T>(arr: T[]) => T | undefined;
-  pickWeighted: <
-    T extends {
-      weight?: number;
-    }
-  >(
-    arr: T[]
-  ) => T | undefined;
-  range: (min: number, max: number, precision?: number) => string;
-  readonly choiceHistory: number[];
-  readonly initialHash: number;
-};
+import type { SeededRandom } from '../assembly/seeded-random';
+import type { PalettePreset } from '../palettes/registry';
 
 export type ParamDefinition =
   | { type: 'global'; value: string } // e.g. 'u_time', 'u_mouse'
@@ -35,15 +14,6 @@ export type ShaderModule = {
   params?: Record<string, ParamDefinition>;
   getCall: (args: Record<string, string>) => string;
   deps?: string[];
-};
-
-export type Mood = {
-  name: string;
-  weight?: number;
-  templateWeights?: Record<string, number>;
-  moduleWeights?: Record<string, number>;
-  paletteWeights?: Record<string, number>;
-  complexityBias?: number;
 };
 
 export type ShaderTemplate = {

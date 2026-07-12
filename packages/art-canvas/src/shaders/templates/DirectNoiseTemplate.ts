@@ -1,4 +1,4 @@
-import type { ShaderTemplate } from '../../types';
+import type { ShaderTemplate } from '../types';
 
 const DirectNoiseTemplate: ShaderTemplate = {
   name: 'direct-noise',

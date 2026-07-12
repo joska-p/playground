@@ -1,5 +1,5 @@
-import type { ShaderModule } from '../../../types';
 import code from '../../glsl/shapes/noiseField.glsl?raw';
+import type { ShaderModule } from '../../types';
 
 export const noiseField: ShaderModule = {
   name: 'noiseField',
@@ -12,5 +12,5 @@ export const noiseField: ShaderModule = {
     speed: { type: 'range', min: 0.2, max: 1.5 }
   },
   getCall: (args) =>
-    `float dist = noiseField(${args.uv ?? 'uv'}, ${args.scale ?? '1.0'}, u_time, ${args.speed ?? '1.0'});`
+    `float dist = noiseField(${args['uv'] ?? 'uv'}, ${args['scale'] ?? '1.0'}, u_time, ${args['speed'] ?? '1.0'});`
 };
