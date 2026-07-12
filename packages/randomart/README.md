@@ -1,12 +1,78 @@
+---
+title: 'Randomart'
+coordinates: '/visuals/generative'
+status: 'Active'
+date_discovered: 2024-04-01
+---
+
 # @repo/randomart
 
-> React UI for the random expression-tree art generator. Consumes [`@repo/randomart-engine`](../engines/randomart-engine/) which provides the grammar-driven AST engine, CPU evaluation, GLSL compilation, and PNG export.
+> A React window into expression-tree art — type a seed phrase, watch a
+> mathematical landscape grow, and inspect the grammar that shaped it.
 
-## Quick Start
+---
+
+## Essence
+
+Randomart is the visible half of a two-package system. The engine
+([`@repo/randomart-engine`](../randomart-engine/)) handles all the math —
+grammar-driven AST generation, CPU evaluation, GLSL compilation, PNG export.
+This package handles everything the human sees and touches: a WebGL canvas that
+renders expression trees as fullscreen shaders, an inspector that peels back the
+AST to show the formula and RNG history, and controls that let you reshape the
+output in real time.
+
+The interesting design tension is between the Zustand store and the WebGL
+pipeline. The store is the source of truth — seed, depth, grammar toggles, RGB
+mode — and every config change triggers a subscriber that calls `generateTrees()`
+from the engine. The canvas reads those trees and compiles them into a GLSL
+fragment shader via `compileToGLSL()`. Animation is a `requestAnimationFrame`
+loop that writes `u_time` and `u_animSpeed` uniforms each frame, with the local
+time throttled back to the store every 6 frames for UI display. The result is a
+rendering system where the math lives in the engine, the state lives in the
+store, and the GPU executes the bridge between them.
+
+## Quick Launch
 
 ```bash
-pnpm --filter @repo/randomart dev
+pnpm dev --filter @repo/playground
 ```
+
+Or install the package into your own project:
+
+```bash
+pnpm add @repo/randomart
+```
+
+```tsx
+import { RandomArtCanvas } from '@repo/randomart';
+
+export default function Art() {
+  return <RandomArtCanvas />;
+}
+```
+
+## Field Notes
+
+- **The Catalyst:** The desire to make expression-tree art interactive — not just
+  a static render, but a living canvas where the seed, depth, and grammar rules
+  are knobs you can turn while the art is still running. The engine existed
+  first; this package was built to make it explorable.
+
+- **Quirks & Anomalies:** The WebGL pipeline runs a `requestAnimationFrame` loop
+  even when animation is paused — the shader still evaluates per-pixel, but
+  `u_time` stays frozen. The inspector panel uses `nodeToTreeView()` and
+  `nodeToMathString()` from the engine to render the AST as a collapsible tree
+  and a mathematical formula, giving a dual view of the same structure. The
+  store subscriber that regenerates trees on config change is a vanilla Zustand
+  pattern, not a React effect — so tree generation happens outside the React
+  render cycle, keeping re-renders fast.
+
+- **Future Horizons:** A grammar rule editor that lets you author rules visually,
+  multi-frame export for animation sequences, and a side-by-side comparison mode
+  where two seeds render next to each other.
+
+---
 
 ## Architecture
 
@@ -36,7 +102,7 @@ pnpm --filter @repo/randomart dev
 └─────────────────────────────────────────────────────┘
 ```
 
-## Package split
+## Package Split
 
 | Concern                                        | Package                  |
 | ---------------------------------------------- | ------------------------ |
@@ -53,9 +119,12 @@ pnpm --filter @repo/randomart dev
 
 ## Store (`src/stores/randomart/`)
 
-Vanilla Zustand store with selector hooks and action functions. On every config change (`seedText`, `maxDepth`, `enabledRuleIds`, `correlatedRGB`) a store subscriber auto-regenerates trees via `generateTrees()` from `@repo/randomart-engine`.
+Vanilla Zustand store with selector hooks and action functions. On every config
+change (`seedText`, `maxDepth`, `enabledRuleIds`, `correlatedRGB`) a store
+subscriber auto-regenerates trees via `generateTrees()` from
+`@repo/randomart-engine`.
 
-### State shape
+### State Shape
 
 | Field                        | Type                         | Default                                         | Description                                         |
 | ---------------------------- | ---------------------------- | ----------------------------------------------- | --------------------------------------------------- |
@@ -72,7 +141,7 @@ Vanilla Zustand store with selector hooks and action functions. On every config 
 | `activeChannel`              | `'red' \| 'green' \| 'blue'` | `'red'`                                         | Inspector tab selection                             |
 | `activeAnimationBehaviorIds` | `string[]`                   | `[]`                                            | Enabled animation behaviors                         |
 
-### Action files
+### Action Files
 
 | File                   | Exports                                                                         |
 | ---------------------- | ------------------------------------------------------------------------------- |
@@ -155,15 +224,6 @@ The GPU render pipeline:
 | `TimeDisplay`      | Read-only current time               |
 | `DownloadButton`   | Download PNG                         |
 | `GrammarList`      | Toggleable grammar rule badges       |
-
-## Conventions
-
-- **Named exports only** — no `export default`
-- **No barrel files** — import directly from source paths
-- **Zustand store** — unexported `createStore()`, getter hooks (`use*`), plain setter functions
-- **React 19 compiler** — no manual `useMemo`/`useCallback`; the compiler handles stable references
-- **`@repo/ui` components** for all UI
-- **CSS tokens** — no hardcoded colors, spacing, or radius values
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Randomart Engine"
-description: "Pure TypeScript expression-tree engine — grammar-driven AST generation, evaluation, and GLSL compilation. No framework, no DOM, no React."
+description: "A grammar-driven expression tree that compiles to both CPU pixel buffers and GLSL fragment shaders — the mathematical heart of generative art, built to be consumed by any renderer."
 category: "reference"
 tags:
   - reference
@@ -8,9 +8,102 @@ tags:
 order: 20
 ---
 
+---
+title: 'Randomart Engine'
+coordinates: '/algorithms/generative'
+status: 'Active'
+date_discovered: 2024-04-01
+---
+
 # @repo/randomart-engine
 
-Used by [`@repo/randomart`](../../randomart/) which adds the React UI, WebGL rendering, and animation controls.
+---
+
+## Essence
+
+Randomart Engine exists because generative art needs a shared vocabulary between
+math and pixels. It defines a grammar of mathematical operations — sine, cosine,
+modulo, nested oscillation, radial symmetry — and assembles them into expression
+trees via weighted stochastic generation. Each tree is a compact representation
+of a visual function: given an (x, y) coordinate and a time value, it produces
+a color.
+
+The engine offers two evaluation paths from the same AST. The CPU path walks the
+tree node-by-node, evaluating each expression in sequence — useful for export,
+debugging, and non-WebGL contexts. The GLSL path compiles the same tree into a
+fragment shader string, pushing the entire evaluation to the GPU where each pixel
+runs in parallel. The grammar rules are the bridge: every rule implements both
+`evaluate` and `toGLSL`, so the AST is agnostic to where it runs.
+
+This separation of _what_ from _where_ is the engine's central idea. The
+expression tree doesn't know if it's being evaluated on a CPU core or a GPU
+shader unit. It just describes math.
+
+## Quick Launch
+
+The engine is a library — no dev server needed. Install and import:
+
+```bash
+pnpm add @repo/randomart-engine
+```
+
+```ts
+import { generateTrees } from '@repo/randomart-engine/tree/generate';
+import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
+
+const { treeR, treeG, treeB } = generateTrees({
+  seedText: 'De deux choses lune l'autre c est le soleil',
+  maxDepth: 8,
+  enabledRuleIds: ['x', 'y', 'sin', 'cos', 'add', 'multiply', 'constant'],
+  correlated: false
+});
+
+const shaderSource = compileToGLSL(treeR, treeG, treeB, []);
+```
+
+Or run the playground UI that consumes it:
+
+```bash
+pnpm dev --filter @repo/playground
+```
+
+## Field Notes
+
+- **The Catalyst:** The question of whether a single mathematical expression
+  could serve as both a CPU evaluation function and a GPU shader — a compact
+  AST that compiles to GLSL without losing the ability to walk it by hand. The
+  answer is the grammar rule interface: every operator knows how to `evaluate`,
+  `toGLSL`, `toMathString`, and `toTreeView` itself.
+
+- **Quirks & Anomalies:** The `SeededRandom` instances are per-channel by
+  default — R, G, and B each get their own PRNG, so correlated mode (one shared
+  PRNG) produces visibly different art from split mode with the same seed. The
+  GLSL path wraps `sin` and `cos` inputs in π scaling, which creates
+  characteristic wave patterns at low tree depths. The `random` rule uses a
+  per-pixel hash rather than the seeded PRNG, so it's deterministic across frames
+  but position-dependent — a deliberate choice for texture richness.
+
+- **Future Horizons:** A visual grammar editor where rules are drag-and-droppable
+  nodes, custom rule bundles that can be published as packages, and a
+  WebGPU evaluation path that keeps the same AST but targets compute shaders
+  instead of fragment shaders.
+
+---
+
+## Architecture
+
+```
+Grammar rules (19 built-in)
+       │
+       ▼
+  Registry — Map<string, GrammarRule>
+       │
+       ▼
+  buildTree() — weighted stochastic AST generation
+       │
+       ├── evaluateNode()  → CPU pixel-by-pixel evaluation
+       └── compileToGLSL() → WebGL fragment shader
+```
 
 ## Exports
 
@@ -36,26 +129,11 @@ import { renderTreesToBuffer } from '@repo/randomart-engine/render/cpu-renderer'
 import { renderTreesToPngBuffer, renderTreesToPngBlob } from '@repo/randomart-engine/png';
 ```
 
-## Architecture
-
-```
-Grammar rules (19 built-in)
-       │
-       ▼
-  Registry — Map<string, GrammarRule>
-       │
-       ▼
-  buildTree() — weighted stochastic AST generation
-       │
-       ├── evaluateNode()  → CPU pixel-by-pixel evaluation
-       └── compileToGLSL() → WebGL fragment shader
-```
-
-## Key concepts
+## Key Concepts
 
 ### ExpressionNode
 
-Recursive AST node representing a mathematical expression:
+The atomic unit — a recursive AST node representing a mathematical expression:
 
 ```ts
 type ExpressionNode = {
@@ -67,7 +145,8 @@ type ExpressionNode = {
 
 ### generateTrees
 
-The main entry point for creating trees. Uses separate `SeededRandom` instances per channel (or one shared for correlated mode):
+The main entry point for creating trees. Uses separate `SeededRandom` instances
+per channel (or one shared for correlated mode):
 
 ```ts
 const { treeR, treeG, treeB } = generateTrees({
@@ -80,7 +159,8 @@ const { treeR, treeG, treeB } = generateTrees({
 
 ### GrammarRule
 
-Each operator is a pluggable rule implementing this interface:
+Each operator is a pluggable rule implementing this interface — the plugin
+system that makes the grammar extensible:
 
 ```ts
 type GrammarRule = {
@@ -97,7 +177,11 @@ type GrammarRule = {
 };
 ```
 
-### Built-in grammar rules
+The interface is the contract: implement all five methods and the rule works
+with every consumer — CPU evaluator, GLSL compiler, math printer, tree viewer,
+and tree builder.
+
+### Built-in Grammar Rules
 
 | Rule ID        | Arity | Description             | GLSL output              |
 | -------------- | ----- | ----------------------- | ------------------------ |
@@ -121,7 +205,9 @@ type GrammarRule = {
 | `nested-osc`   | 1     | Nested oscillation      | `nestedOscillation(arg)` |
 | `radial-sym`   | 1     | Radial symmetry         | `radialSymmetry(arg)`    |
 
-### Adding a new rule
+### Adding a New Rule
+
+The grammar is open — any object satisfying `GrammarRule` can be registered:
 
 ```ts
 import type { GrammarRule } from '@repo/randomart-engine';
@@ -141,9 +227,12 @@ export const myRule = {
 } satisfies GrammarRule;
 ```
 
-Then register it in `registry.ts` — or if using from the UI package, it auto-discovers via `getAllRules()`.
+Register it in `registry.ts` — or if using from the UI package, it auto-discovers
+via `getAllRules()`.
 
-### CPU rendering
+## CPU Rendering
+
+For non-WebGL contexts — export, debugging, server-side generation:
 
 ```ts
 import { renderTreesToBuffer } from '@repo/randomart-engine';
@@ -159,7 +248,11 @@ const png = encode({
 });
 ```
 
-### GLSL compilation
+## GLSL Compilation
+
+The same AST becomes a fragment shader — every expression node compiles to its
+GLSL equivalent, and the full tree is assembled into a shader string ready for
+`gl.compileShader()`:
 
 ```ts
 import { compileToGLSL, animationRegistry } from '@repo/randomart-engine';
@@ -169,7 +262,7 @@ const activeBehaviors = animationRegistry.filter((b) => ['hue-shift', 'zoom'].in
 const shaderSource = compileToGLSL(treeR, treeG, treeB, activeBehaviors);
 ```
 
-## File layout
+## File Layout
 
 ```
 src/
@@ -197,5 +290,5 @@ src/
 
 ---
 
-_Part of [Creative Playground](https://joska-p.github.io/playground)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_
 
