@@ -9,5 +9,5 @@
     "skipLibCheck": true
   },
   "include": ["src"],
-  "exclude": ["src/scripts/dataset_generator.ts"]
+  "exclude": ["src/scripts"]
 }

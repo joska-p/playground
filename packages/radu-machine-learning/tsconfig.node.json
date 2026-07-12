@@ -6,7 +6,9 @@
     "declarationMap": true,
     "rootDir": ".",
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": ["node"]
   },
-  "include": ["vite.config.ts", "src/scripts/dataset_generator.ts"]
+  "include": ["vite.config.ts", "src/scripts/**/*.ts"]
 }
