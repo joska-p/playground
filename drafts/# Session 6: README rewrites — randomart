@@ -43,4 +43,4 @@ pnpm sync-package-docs
 Progress tracking
 After completing, update drafts/PLAN.md checklist:
 - Mark Session 9 as done
-- Produce the new prompt for Session 10 (palette-generator + palette-engine READMEs)
+- Produce the new prompt for Session 14 (l-system-engine + l-system READMEs)

@@ -18,7 +18,7 @@ function stringToSeed(str: string): number {
 }
 ---
 
-<div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+<div class="grid grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-4">
   {
     sortedProjects.map((project) => {
       const mainTag = project.data.tags[0].id;
@@ -32,8 +32,8 @@ function stringToSeed(str: string): number {
             cardId={project.data.tags[0].id}
             cardTitle={project.data.title}
             classification={project.data.description}
-            density={project.data.packageDir}
-            resolution={project.data.tags[0].id}
+            density={String(stringToSeed(project.data.description))}
+            resolution={String(stringToSeed(project.data.title))}
             color={`var(--tags-${mainTag})`}
           />
         </a>

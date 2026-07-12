@@ -271,9 +271,9 @@ Each session is one conversation. The goal is to finish a session with a
 - [x] Session 9: README — sequence-renderer + sequence-engine
 - [x] Session 10: README — palette-generator + palette-engine
 - [x] Session 11: README — image-to-particles ✏️ prompt ready
-- [ ] Session 12: README — graph-viz ✏️ prompt ready
-- [ ] Session 13: README — three-stage
-- [ ] Session 14: README — l-system-engine + l-system
+- [x] Session 12: README — graph-viz ✏️ prompt ready
+- [x] Session 13: README — three-stage
+- [ ] Session 14: README — l-system-engine + l-system ✏️ prompt ready
 - [ ] Session 15: README — radu-machine-learning
 - [ ] Session 16: Sync script adaptation
 - [ ] Session 17: Final validation
