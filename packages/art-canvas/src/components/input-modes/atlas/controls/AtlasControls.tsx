@@ -55,10 +55,9 @@ function AtlasControls() {
   const palette = usePalette();
   const glitch = useGlitch();
 
-  const handleComplexityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
+  const handleComplexityChange = (value: number) => {
     startTransition(() => {
-      setComplexity(val);
+      setComplexity(value);
     });
   };
 
