@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { EdgeCard } from '@repo/ui/cards';
+import { AtlasCard } from '@repo/ui/cards';
 
 const baseUrl = import.meta.env.BASE_URL || '/';
 const notesBaseUrl = `${baseUrl}notes/`;
@@ -34,15 +34,14 @@ function stringToSeed(str: string): number {
           href={noteUrl}
           title={note.data.title}
         >
-          <EdgeCard
-            id={mainTag}
+          <AtlasCard
             seed={seed}
-            title={note.data.description ?? 'NC'}
+            cardId={note.data.tags[0].id}
+            cardTitle={note.data.description ?? 'NC'}
             classification={note.data.title}
-            resolution={date}
             density={String(seed)}
+            resolution={date}
             color={`var(--tags-${mainTag})`}
-            variant="default"
           />
         </a>
       );
