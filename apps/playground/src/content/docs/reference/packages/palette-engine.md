@@ -1,18 +1,11 @@
 ---
-title: "PaletteEngine"
-description: "A pure engine that maps a base color to harmonious palettes — four color spaces, four harmony rules, no UI, no rendering, no opinions about how the result should be shown."
-category: "reference"
+title: 'PaletteEngine'
+description: 'A pure engine that maps a base color to harmonious palettes — four color spaces, four harmony rules, no UI, no rendering, no opinions about how the result should be shown.'
+category: 'reference'
 tags:
   - reference
   - palette-engine
 order: 20
----
-
----
-title: 'Palette Engine'
-coordinates: '/visuals/color'
-status: 'Active'
-date_discovered: 2025-06-01
 ---
 
 # @repo/palette-engine
@@ -135,4 +128,3 @@ All rules operate in OKLCh space, producing 6 colors per call:
 _See [@repo/palette-generator](/docs/reference/packages/palette-generator) for the React UI layer, color-space canvases, and interactive controls._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

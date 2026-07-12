@@ -1,18 +1,11 @@
 ---
-title: "Mosaic Maker"
-description: "A procedural engine that breathes color palettes into ordered grids of SVG shapes — each tile a small geometry, each mosaic a composition that never repeats the same way twice."
-category: "reference"
+title: 'Mosaic Maker'
+description: 'A procedural engine that breathes color palettes into ordered grids of SVG shapes — each tile a small geometry, each mosaic a composition that never repeats the same way twice.'
+category: 'reference'
 tags:
   - reference
   - mosaic-maker
 order: 20
----
-
----
-title: 'Mosaic Maker'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2024-03-10
 ---
 
 # @repo/mosaic-maker
@@ -308,4 +301,3 @@ use `transition-all duration-500` for smooth cross-fades.
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

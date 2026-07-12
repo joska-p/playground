@@ -51,7 +51,7 @@ export function AtlasCardVisual({
 
       {/* Generated Atlas-detection artwork */}
       <svg
-        className="absolute inset-0 z-0 h-full w-full opacity-40 transition-all duration-500 group-hover:opacity-100"
+        className="absolute inset-0 z-0 h-full w-full opacity-70 transition-all duration-500 group-hover:opacity-100"
         style={{ filter: 'drop-shadow(0 0 6px var(--variant-color))' }}
         viewBox="0 0 300 300"
         preserveAspectRatio="none"

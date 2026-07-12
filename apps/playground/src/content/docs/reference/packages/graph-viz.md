@@ -1,18 +1,11 @@
 ---
-title: "Graph Visualization"
-description: "A codebase rendered as a galaxy — files become spheres and boxes floating in 3D space, their dependency edges drawn as luminous threads, community clusters glowing in twenty-four palette colours."
-category: "reference"
+title: 'Graph Visualization'
+description: 'A codebase rendered as a galaxy — files become spheres and boxes floating in 3D space, their dependency edges drawn as luminous threads, community clusters glowing in twenty-four palette colours.'
+category: 'reference'
 tags:
   - reference
   - graph-viz
 order: 20
----
-
----
-title: 'Graph Viz'
-coordinates: '/algorithms/topology'
-status: 'Active'
-date_discovered: 2025-06-01
 ---
 
 # @repo/graph-viz
@@ -181,4 +174,3 @@ every user action.
 _See the [source](https://github.com/joska-p/playground/tree/main/packages/graph-viz) for the full pipeline, rendering logic, and configuration._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

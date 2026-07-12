@@ -1,18 +1,11 @@
 ---
-title: "Sequence Renderer"
-description: "A canvas that unfurls mathematical sequences into visible form — Fourier epicycles tracing harmonic paths, layers stacking like transparencies on a light table, and a viewport you can orbit with two fingers."
-category: "reference"
+title: 'Sequence Renderer'
+description: 'A canvas that unfurls mathematical sequences into visible form — Fourier epicycles tracing harmonic paths, layers stacking like transparencies on a light table, and a viewport you can orbit with two fingers.'
+category: 'reference'
 tags:
   - reference
   - sequence-renderer
 order: 20
----
-
----
-title: 'Sequence Renderer'
-coordinates: '/math/visuals'
-status: 'Active'
-date_discovered: 2025-06-01
 ---
 
 # @repo/sequence-renderer
@@ -157,4 +150,3 @@ App
 _See [@repo/sequence-engine](/docs/reference/packages/sequence-engine) for the pure generation engine, rule system, and PresetStore interface._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

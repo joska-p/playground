@@ -1,18 +1,11 @@
 ---
-title: "Image to Particles"
-description: "An image disintegrates into thousands of particles that tumble from the top of the canvas, drift under gravity, and spring back to their origin — turning a photograph into a moment of organized collapse and recovery."
-category: "reference"
+title: 'Image to Particles'
+description: 'An image disintegrates into thousands of particles that tumble from the top of the canvas, drift under gravity, and spring back to their origin — turning a photograph into a moment of organized collapse and recovery.'
+category: 'reference'
 tags:
   - reference
   - image-to-particles
 order: 20
----
-
----
-title: 'Image to Particles'
-coordinates: '/visuals/particles'
-status: 'Active'
-date_discovered: 2025-06-15
 ---
 
 # @repo/image-to-particles
@@ -157,4 +150,3 @@ On image load, the system:
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

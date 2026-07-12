@@ -1,18 +1,11 @@
 ---
-title: "Palette Generator"
-description: "A color-picking experience that renders four color spaces as interactive canvases — tap a pixel, pick a base color, apply a harmony rule, and watch a palette accumulate in the display."
-category: "reference"
+title: 'Palette Generator'
+description: 'A color-picking experience that renders four color spaces as interactive canvases — tap a pixel, pick a base color, apply a harmony rule, and watch a palette accumulate in the display.'
+category: 'reference'
 tags:
   - reference
   - palette-generator
 order: 20
----
-
----
-title: 'Palette Generator'
-coordinates: '/visuals/color'
-status: 'Active'
-date_discovered: 2025-06-01
 ---
 
 # @repo/palette-generator
@@ -155,4 +148,3 @@ OKLCh teal (`[0.7, 0.1, 196]`).
 _See [@repo/palette-engine](/docs/reference/packages/palette-engine) for the pure color math engine, color space definitions, and harmony rules._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

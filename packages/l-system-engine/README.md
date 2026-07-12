@@ -1,16 +1,40 @@
+---
+title: 'L-System Engine'
+coordinates: '/algorithms/rewriting'
+status: 'Active'
+date_discovered: 2025-06-01
+---
+
 # @repo/l-system-engine
 
-> A grammar-agnostic L-system rewriting engine in TypeScript — pure, reproducible, and renderer-independent.
-
-## Purpose
-
-An L-system rewrites a sequence of symbols in parallel, step by step. After several iterations, the resulting sequence is interpreted as drawing instructions — producing plants, trees, fractals, and other organic structures.
-
-This package is the **rewriting engine only**. It has no knowledge of angles, turtle graphics, or rendering. It takes a grammar in, and returns a sequence of symbols out. The interpreter and renderer live in the UI layer.
+> A grammar-agnostic L-system rewriting engine — pure symbol rewriting with
+> no knowledge of angles, turtles, or rendering. Feed it a grammar, get a
+> sequence of symbols back.
 
 ---
 
-## Quick Start
+## Essence
+
+An L-system rewrites a sequence of symbols in parallel, step by step. After
+several iterations, the resulting sequence is interpreted as drawing
+instructions — producing plants, trees, fractals, and other organic structures.
+This package is the **rewriting engine only**. It has no knowledge of angles,
+turtle graphics, or rendering. It takes a grammar in and returns a sequence of
+symbols out. The interpreter and renderer live in the UI layer.
+
+The interesting tension is between _generality_ and _determinism_. The engine
+loops over symbols and calls `match` / `apply` — it never checks rule type.
+Four built-in rule types cover the canonical L-system spectrum: deterministic
+(Always the same expansion), stochastic (weighted random choices, reproducible
+via seed), context-sensitive (a symbol's expansion depends on its left or
+right neighbours), and parametric (guards and productions that read symbol
+parameters). A fifth type is just a `Rule` interface you implement yourself.
+Symbol metadata is an opaque bag of plain values — the engine passes it
+through untouched, never interpreting it. `validate()` returns errors, never
+throws. `steps()` is the core iterator primitive; `expand()` is a thin wrapper.
+Same inputs always produce the same outputs.
+
+## Quick Launch
 
 ```bash
 pnpm add @repo/l-system-engine
@@ -27,8 +51,6 @@ const grammar = {
 const word = expand(grammar, 3);
 // → [{ name: 'F', params: [] }, { name: '+', params: [] }, ...]
 ```
-
----
 
 ## Exports
 
@@ -56,51 +78,37 @@ const word = expand(grammar, 3);
 
 ---
 
-## Architecture
+## Field Notes
 
-```
-Grammar (plain data)
-  │  axiom: Word
-  │  rules: Rule[]
-  │
-  ▼
-steps(grammar)          ← core iterator, one Word per call
-  │
-  ▼  (consumed N+1 times)
-expand(grammar, N)      ← thin wrapper, returns final Word
-  │
-  ▼
-Word (readonly LSymbol[])
-  │
-  ▼
-Interpreter (UI layer)  ← maps symbols → turtle commands → path → render
-```
+- **The Catalyst:** L-systems are one of the oldest formalisms for modelling
+  plant growth (Lindenmayer, 1968). The canonical examples — Koch curve,
+  fractal trees, signal propagation — are well understood, but most
+  implementations tie the rewriting step to a specific renderer. Splitting
+  the engine out means the same grammar can feed a 2D canvas, a 3D turtle,
+  a string printer, or a test suite without any code change. The engine is
+  pure — same inputs always produce the same outputs, making stochastic
+  grammars reproducible via seed and deterministic grammars trivially
+  testable.
 
-### Directory layout
+- **Quirks & Anomalies:** Rule resolution order is declaration order — the
+  first rule whose `match()` returns `true` is applied, no priority field
+  needed. A deterministic rule declared before a context-sensitive rule will
+  always shadow it. This is intentional but surprising if you expect
+  specificity-based dispatch. Bracket symbols (`[` and `]`) are skipped
+  during context-sensitive lookup by default (Prusinkiewicz standard), which
+  means branch-stack markers don't pollute left/right context matching.
+  Stochastic weight validation uses a ±0.001 tolerance — floating-point
+  math means exact `1.0` sums are fragile, so the validator is pragmatic
+  rather than strict.
 
-```
-src/
-  types.ts                    ← all core types
-  symbol.ts                   ← symbol() / symbolWithMeta() helpers
-  random.ts                   ← Mulberry32 seeded PRNG
-  rules/
-    deterministic-rule.ts
-    stochastic-rule.ts
-    context-sensitive-rule.ts
-    parametric-rule.ts
-  steps.ts                    ← core rewriting iterator (the primitive)
-  expand.ts                   ← thin wrapper over steps()
-  validate.ts                 ← ValidationError[] — never throws
-  engine.ts                   ← public re-export surface
-```
-
-### Design principles
-
-1. **Grammar-agnostic** — the engine loops over symbols and calls `match` / `apply`. It never checks rule type.
-2. **Rule types are separate** — each grammar type is an independent `Rule` implementation, not a switch branch inside the engine.
-3. **Pure** — `expand` is a pure function. No global state. Same inputs → same outputs.
-4. **`steps` is the primitive** — `expand` is derived from it (`consume N+1 steps`). Animation calls `steps().next()` per frame.
-5. **Renderer-agnostic** — `metadata` on symbols is an opaque bag of plain values. The engine passes it through untouched.
+- **Future Horizons:** A streaming API that yields words lazily instead of
+  collecting the full result — useful for infinite grammars or very large
+  iteration counts. A grammar serialization format (JSON or YAML) that
+  includes metadata, allowing grammars to be authored in a data file rather
+  than code. Integration with a visual grammar editor that shows the
+  expansion tree at each step. Parametric rules that can mutate symbol
+  parameters during expansion (e.g., age-based decay), enabling more
+  biologically accurate growth models.
 
 ---
 
@@ -312,6 +320,54 @@ Checked: stochastic weights must sum to 1.0 (±0.001 tolerance).
 
 ---
 
+## Architecture
+
+```
+Grammar (plain data)
+  │  axiom: Word
+  │  rules: Rule[]
+  │
+  ▼
+steps(grammar)          ← core iterator, one Word per call
+  │
+  ▼  (consumed N+1 times)
+expand(grammar, N)      ← thin wrapper, returns final Word
+  │
+  ▼
+Word (readonly LSymbol[])
+  │
+  ▼
+Interpreter (UI layer)  ← maps symbols → turtle commands → path → render
+```
+
+### Directory layout
+
+```
+src/
+  types.ts                    ← all core types
+  symbol.ts                   ← symbol() / symbolWithMeta() helpers
+  random.ts                   ← Mulberry32 seeded PRNG
+  rules/
+    deterministic-rule.ts
+    stochastic-rule.ts
+    context-sensitive-rule.ts
+    parametric-rule.ts
+  steps.ts                    ← core rewriting iterator (the primitive)
+  expand.ts                   ← thin wrapper over steps()
+  validate.ts                 ← ValidationError[] — never throws
+  engine.ts                   ← public re-export surface
+```
+
+### Design principles
+
+1. **Grammar-agnostic** — the engine loops over symbols and calls `match` / `apply`. It never checks rule type.
+2. **Rule types are separate** — each grammar type is an independent `Rule` implementation, not a switch branch inside the engine.
+3. **Pure** — `expand` is a pure function. No global state. Same inputs → same outputs.
+4. **`steps` is the primitive** — `expand` is derived from it (`consume N+1 steps`). Animation calls `steps().next()` per frame.
+5. **Renderer-agnostic** — `metadata` on symbols is an opaque bag of plain values. The engine passes it through untouched.
+
+---
+
 ## Testing
 
 ```bash
@@ -333,4 +389,4 @@ Follows SemVer. See [CHANGELOG.md].
 
 ---
 
-_Part of [Creative Playground](https://joska-p.github.io/playground/)_
+_Part of the [Creative Playground](https://joska-p.github.io/playground)_

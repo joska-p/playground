@@ -1,18 +1,11 @@
 ---
-title: "Art Canvas"
-description: "An interactive WebGL canvas that composes procedural shader art from a mood-biased, seed-deterministic pipeline — pick a seed, pick a mood, and watch the generator assemble space transforms, shapes, and colour palettes into a fragment shader that never repeats the same way twice."
-category: "reference"
+title: 'Art Canvas'
+description: 'An interactive WebGL canvas that composes procedural shader art from a mood-biased, seed-deterministic pipeline — pick a seed, pick a mood, and watch the generator assemble space transforms, shapes, and colour palettes into a fragment shader that never repeats the same way twice.'
+category: 'reference'
 tags:
   - reference
   - art-canvas
 order: 20
----
-
----
-title: 'Art Canvas'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-06-01
 ---
 
 # @repo/art-canvas
@@ -240,4 +233,3 @@ parameters.
 ---
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

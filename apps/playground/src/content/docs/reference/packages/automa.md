@@ -1,18 +1,11 @@
 ---
-title: "automa"
+title: 'automa'
 description: "An interactive cellular automaton that lets you paint life onto a grid, watch it evolve under pluggable rules, and orbit the result in a full-screen React Three Fiber viewport — Conway's Game of Life as a playground you can reach into."
-category: "reference"
+category: 'reference'
 tags:
   - reference
   - automa
 order: 20
----
-
----
-title: 'Automa'
-coordinates: '/visuals/generative'
-status: 'Active'
-date_discovered: 2025-06-01
 ---
 
 # @repo/automa
@@ -154,4 +147,3 @@ object and adapts.
 _See [@repo/automa-engine](/docs/reference/packages/automa-engine) for the core simulation engine, rule system, and Web Worker stepping._
 
 _Part of the [Creative Playground](https://joska-p.github.io/playground)_
-

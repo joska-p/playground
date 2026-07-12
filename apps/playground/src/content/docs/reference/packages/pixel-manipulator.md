@@ -1,18 +1,11 @@
 ---
-title: "Pixel Manipulator"
-description: "A fluent pipeline that chains small, testable pixel transforms into a single loop pass — turning raw image data into something alive, one callback at a time."
-category: "reference"
+title: 'Pixel Manipulator'
+description: 'A fluent pipeline that chains small, testable pixel transforms into a single loop pass — turning raw image data into something alive, one callback at a time.'
+category: 'reference'
 tags:
   - reference
   - pixel-manipulator
 order: 20
----
-
----
-title: 'Pixel Manipulator'
-coordinates: '/visuals/pipelines'
-status: 'Active'
-date_discovered: 2024-01-15
 ---
 
 # @repo/pixel-manipulator
@@ -263,4 +256,3 @@ Returns `[dataUrl: string | null, onChangeHandler]`.
 ---
 
 _Part of [Creative Playground](https://joska-p.github.io/playground)_
-

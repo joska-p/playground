@@ -27,7 +27,9 @@ const PACKAGE_NAMES = {
   'radu-machine-learning': 'Radu Machine Learning',
   ui: 'UI Components',
   'worker-pool': 'Worker pool',
-  'l-system-engine': 'L-system engine'
+  'l-system': 'L-system',
+  'l-system-engine': 'L-system engine',
+  'real-life': 'Real Life'
 };
 
 function kebabToTitle(name) {
@@ -48,6 +50,13 @@ async function hasPackageJson(dir) {
 
 function escapeFrontmatter(value) {
   return value.replace(/"/g, '\\"').replace(/\n/g, ' ');
+}
+
+function stripFrontmatter(content) {
+  if (!content.startsWith('---\n')) return content;
+  const end = content.indexOf('\n---\n', 4);
+  if (end === -1) return content;
+  return content.slice(end + 5);
 }
 
 async function main() {
@@ -77,6 +86,8 @@ async function main() {
     }
 
     const displayName = PACKAGE_NAMES[pkg.name] || kebabToTitle(pkg.name);
+
+    content = stripFrontmatter(content);
 
     const lines = content.split('\n');
 
@@ -135,18 +146,12 @@ ${cleanContent}
       if (!file.endsWith('.md')) continue;
       const pkgName = file.replace(/\.md$/, '');
 
-      const pkgDirRoot = path.join(PACKAGES_DIR, pkgName);
-      const pkgDirEngine = path.join(ENGINES_DIR, pkgName);
-
       let exists = false;
-      for (const dir of [pkgDirRoot, pkgDirEngine]) {
-        try {
-          await readFile(path.join(dir, 'README.md'), 'utf-8');
-          exists = true;
-          break;
-        } catch {
-          // ignore
-        }
+      try {
+        await readFile(path.join(PACKAGES_DIR, pkgName, 'README.md'), 'utf-8');
+        exists = true;
+      } catch {
+        // no README found — will be pruned
       }
 
       if (!exists) {
