@@ -22,6 +22,10 @@ const ThreeStageApp = React.lazy(() =>
   import('@repo/three-stage').then((m) => ({ default: m.App }))
 );
 const LSystemApp = React.lazy(() => import('@repo/l-system').then((m) => ({ default: m.App })));
+const RealLifeApp = React.lazy(() => import('@repo/real-life').then((m) => ({ default: m.App })));
+const RaduMLApp = React.lazy(() =>
+  import('@repo/radu-machine-learning/App').then((m) => ({ default: m.App }))
+);
 const UIApp = React.lazy(() => import('@repo/ui/App').then((m) => ({ default: m.App })));
 
 const components: Record<string, React.ComponentType> = {
@@ -37,6 +41,8 @@ const components: Record<string, React.ComponentType> = {
   automa: AutomaApp,
   'l-system': LSystemApp,
   'art-canvas': ArtCanvasApp,
+  'real-life': RealLifeApp,
+  'radu-machine-learning': RaduMLApp,
   ui: UIApp
 };
 

@@ -20,6 +20,8 @@
 @source '../../node_modules/@repo/automa';
 @source '../../node_modules/@repo/randomart';
 @source '../../node_modules/@repo/l-system';
+@source '../../node_modules/@repo/real-life';
+@source '../../node_modules/@repo/radu-machine-learning';
 
 @view-transition {
   navigation: auto;

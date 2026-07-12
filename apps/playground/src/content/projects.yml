@@ -152,3 +152,28 @@
   iconName: bluesky
   featured: false
   packageDir: ui
+
+- id: real-life
+  order: 10
+  title: Real Life
+  description: A continuous cellular automaton running on the GPU — Conway's Game of Life reimagined as smooth, flowing fields of growth and decay.
+  tags:
+    - simulation
+    - three-js
+    - webgl
+    - generative
+  iconName: automa
+  featured: false
+  packageDir: real-life
+
+- id: radu-machine-learning
+  order: 12
+  title: Radu Machine Learning
+  description: Interactive machine learning visualizations — decision boundaries, sample distributions, and student model training.
+  tags:
+    - ml
+    - data-viz
+    - canvas
+  iconName: graphify
+  featured: false
+  packageDir: radu-machine-learning

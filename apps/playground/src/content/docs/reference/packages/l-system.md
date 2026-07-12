@@ -1,5 +1,5 @@
 ---
-title: 'L System'
+title: 'L-system'
 description: 'An interactive 3D fractal visualizer that turns L-system grammars into turtle-graphics geometry — pick a grammar, watch it grow, tweak the angles and watch the branches reshape themselves.'
 category: 'reference'
 tags:

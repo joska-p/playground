@@ -29,7 +29,9 @@ const PACKAGE_NAMES = {
   'worker-pool': 'Worker pool',
   'l-system': 'L-system',
   'l-system-engine': 'L-system engine',
-  'real-life': 'Real Life'
+  'real-life': 'Real Life',
+  'config-eslint': 'ESLint Config',
+  'config-typescript': 'TypeScript Config'
 };
 
 function kebabToTitle(name) {

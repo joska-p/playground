@@ -205,9 +205,15 @@ importers:
       '@repo/pixel-manipulator':
         specifier: workspace:*
         version: link:../../packages/pixel-manipulator
+      '@repo/radu-machine-learning':
+        specifier: workspace:*
+        version: link:../../packages/radu-machine-learning
       '@repo/randomart':
         specifier: workspace:*
         version: link:../../packages/randomart
+      '@repo/real-life':
+        specifier: workspace:*
+        version: link:../../packages/real-life
       '@repo/sequence-renderer':
         specifier: workspace:*
         version: link:../../packages/sequence-renderer
