@@ -263,7 +263,7 @@ Each session is one conversation. The goal is to finish a session with a
 - [x] Session 1: Homepage restructure
 - [x] Session 2: README — pixel
 - [x] Session 3: README — pixel-engine
-- [ ] Session 4: README — pixel-manipulator
+- [x] Session 4: README — pixel-manipulator
 - [ ] Session 5: README — mosaic-maker
 - [ ] Session 6: README — randomart + randomart-engine
 - [ ] Session 7: README — art-canvas

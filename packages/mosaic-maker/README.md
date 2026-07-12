@@ -1,8 +1,45 @@
+---
+title: 'Mosaic Maker'
+coordinates: '/visuals/generative'
+status: 'Active'
+date_discovered: 2024-03-10
+---
+
 # @repo/mosaic-maker
 
-> Procedural pattern generation engine. Transforms color palettes into complex mosaic grids using CSS Grid and optimized React rendering.
+> A procedural engine that breathes color palettes into ordered grids of SVG
+> shapes — each tile a small geometry, each mosaic a composition that never
+> repeats the same way twice.
 
-## Quick Start
+---
+
+## Essence
+
+Mosaic Maker sits at the intersection of declarative tile design and high-
+frequency performance engineering. You hand it a color palette and a set of
+tile shapes; it builds a CSS Grid mosaic where every cell is an SVG primitive —
+circles, rectangles, paths, polygons — rendered with palette-driven fills and
+animated transitions.
+
+The interesting tension is between _what_ gets rendered and _how fast_ it can
+change. The tile and palette system is fully declarative: a registry defines
+eight tile geometries as composable SVG shape lists, and a palette is just five
+CSS custom properties (`--color-0` through `--color-4`). The performance
+strategy is fully imperative: during slider drags, `style.setProperty()` writes
+tile sizes and gaps directly to the DOM, bypassing React entirely. The React
+tree re-renders only when the _set_ of tiles or palettes changes — never during
+continuous input.
+
+The result is a mosaic engine that feels responsive at 60fps while keeping its
+data model clean enough to reason about.
+
+## Quick Launch
+
+```bash
+pnpm dev --filter @repo/playground
+```
+
+Or install it into your own project:
 
 ```bash
 pnpm add @repo/mosaic-maker
@@ -15,6 +52,29 @@ export default function Patterns() {
   return <MosaicMaker />;
 }
 ```
+
+## Field Notes
+
+- **The Catalyst:** The question of whether a React app could animate a
+  full-screen grid at interactive frame rates without reaching for Canvas or
+  WebGL. The answer turned out to be a split strategy — React for structure,
+  CSS custom properties for the hot path — and a tile registry that treats SVG
+  shapes as first-class composable primitives rather than bespoke components.
+
+- **Quirks & Anomalies:** The palette fetch is fire-and-forget. On first load
+  the mosaic renders with a grayscale fallback; a brief gray flash precedes the
+  real palette arrival. This is intentional — the UI is immediately interactive
+  even before the network responds. Also, `setRef` quietly doubles as the
+  regeneration trigger: it persists the DOM ref _and_ kicks off tile
+  recomputation, a dual role that keeps the resize-to-tile pipeline a single
+  function call.
+
+- **Future Horizons:** A tile composition language where shapes reference each
+  other's color indices, palette interpolation that morphs between two palettes
+  over time, and a tile-aware virtualization layer for mosaics that exceed a
+  few hundred cells.
+
+---
 
 ## Architecture
 
@@ -61,21 +121,21 @@ core/
 
 ## Initialization
 
-When `MosaicDisplay` mounts, two independent effects fire.
+When `MosaicDisplay` mounts, two independent effects fire in parallel.
 
-### 1. Palette fetch (one-shot)
+### Palette fetch (one-shot)
 
-`initPalettes()` checks localStorage cache (`"palettes"`, v2, 7-day TTL).
-On miss: fetches `unpkg.com/nice-color-palettes@3.0.0/1000.json` → Zod validates
-→ transforms to `--color-N` CSS var map → caches → sets store.
-On hit: returns cached.
-The UI renders immediately with a grayscale fallback; the palette swap happens asynchronously.
+`initPalettes()` checks a localStorage cache (`"palettes"`, v2, 7-day TTL).
+On miss: fetches `unpkg.com/nice-color-palettes@3.0.0/1000.json`, validates
+through Zod, transforms into a `--color-N` CSS variable map, caches, and sets
+the store. On hit: returns the cached data. The UI renders immediately with a
+grayscale fallback; the real palette swaps in asynchronously.
 
-### 2. Resize + tile generation (continuous)
+### Resize + tile generation (continuous)
 
-`useResizeObserver` binds a `ResizeObserver` to the mosaic `<div>`.
-Dimension changes pass through a 150ms debounce, then call `setRef()`
-which persists the ref and triggers `regenerateTiles()`.
+`useResizeObserver` binds a `ResizeObserver` to the mosaic `<div>`. Dimension
+changes pass through a 150ms debounce, then call `setRef()` which persists the
+ref and triggers `regenerateTiles()`:
 
 ```
 dimensions change
@@ -108,16 +168,18 @@ tilesPerColumn = Math.floor((height + gap) / (tileSize + gap));
 return tilesPerRow * tilesPerColumn;
 ```
 
-Derivation: `n` tiles × `tileSize` + `(n - 1)` gaps ≤ `width` → `n × (tileSize + gap) ≤ width + gap`.
-The `+ gap` in the numerator accounts for the last tile having no trailing gap.
-The grid's CSS declaration `grid-template-columns: repeat(auto-fill, var(--tile-size))`
-uses the same arithmetic, so JS count and CSS grid always agree.
+Derivation: `n` tiles × `tileSize` + `(n - 1)` gaps ≤ `width` →
+`n × (tileSize + gap) ≤ width + gap`. The `+ gap` in the numerator accounts
+for the last tile having no trailing gap. The grid's CSS declaration
+`grid-template-columns: repeat(auto-fill, var(--tile-size))` uses the same
+arithmetic, so the JS count and CSS grid always agree.
 
 ## Tile System
 
 ### Registry (8 definitions)
 
-Each tile in `TILE_REGISTRY.ts` is a `TileDefinition` with an array of `Shape` objects:
+Each tile in `TILE_REGISTRY.ts` is a `TileDefinition` containing an array of
+`Shape` objects — the composable SVG primitives that make up one tile:
 
 ```ts
 type Shape =
@@ -134,21 +196,25 @@ type Shape =
   | { type: 'polygon'; points: string; colorIndex: number };
 ```
 
-`colorIndex` maps into the 5-element `--color-N` array. Tiles use subsets of indices 0–4.
+`colorIndex` maps into the 5-element `--color-N` array. Tiles use subsets of
+indices 0–4, giving each shape its own palette slot while keeping the palette
+itself small and manageable.
 
 ### Instance generation (`computeInitialTiles.ts`)
 
 Each tile instance gets:
 
-- `id`: `"${i}"` — stable index-based key (preserves DOM nodes across regenerations)
-- `name`: random pick from active `tileSet`
-- `colors`: shuffled copy of CSS var key array
+- `id`: `"${i}"` — stable index-based key (preserves DOM nodes across
+  regenerations)
+- `name`: random pick from the active `tileSet`
+- `colors`: shuffled copy of the CSS variable key array
 - `rotation`: random rotation variable key
 
 ### Renderer (`Tile.tsx`)
 
-Looks up `name` in registry → renders SVG primitives with `fill: var(--color-N)`
-and CSS transitions → applies rotation via `transform: rotate(var(--rotation-N))`.
+Looks up `name` in the registry, renders SVG primitives with
+`fill: var(--color-N)` and CSS transitions, then applies rotation via
+`transform: rotate(var(--rotation-N))`.
 
 ## Palette System
 
@@ -177,13 +243,14 @@ type Palette = {
 
 ### Cycling
 
-`cyclePalettes()` slides a window of 33 over `paletteStock`.
-When it reaches the end it wraps to 0.
+`cyclePalettes()` slides a window of 33 over `paletteStock`. When it reaches
+the end it wraps to 0.
 
 ## State Management
 
-Uses Zustand with an unexported store. Consumers interact only through exported
-getter hooks and setter functions.
+The store is Zustand, deliberately unexported. Consumers interact only through
+exported getter hooks and setter functions — the store is an implementation
+detail, not a public API:
 
 ```ts
 type MosaicState = {
@@ -197,9 +264,15 @@ type MosaicState = {
 };
 ```
 
-Fine-grained Zustand selectors (`useTiles`, `useCurrentPalette`, etc.) isolate re-renders — sidebar controls don't repaint on tile regeneration and vice versa.
+Fine-grained Zustand selectors (`useTiles`, `useCurrentPalette`, etc.) isolate
+re-renders — sidebar controls don't repaint on tile regeneration and vice
+versa.
 
 ## CSS Strategy
+
+The performance split lives here. Everything that changes at human-interaction
+frequency goes through CSS custom properties; everything that changes at
+structural frequency goes through React.
 
 | Property  | Mechanism                                                    |
 | --------- | ------------------------------------------------------------ |
@@ -212,10 +285,10 @@ Fine-grained Zustand selectors (`useTiles`, `useCurrentPalette`, etc.) isolate r
 
 High-frequency updates (slider drags) write CSS custom properties directly via
 `style.setProperty()` — no React re-render. Palette changes use
-`updateElementStyles()` to batch-set all `--color-N` vars at once.
-SVG shapes use `transition-all duration-500` for smooth cross-fades.
+`updateElementStyles()` to batch-set all `--color-N` vars at once. SVG shapes
+use `transition-all duration-500` for smooth cross-fades.
 
-## Performance
+## Performance Notes
 
 | Concern               | Notes                                                                                                 |
 | --------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -225,22 +298,6 @@ SVG shapes use `transition-all duration-500` for smooth cross-fades.
 | **Palette caching**   | localStorage with 7-day TTL, version-bumped key                                                       |
 | **Zustand isolation** | Per-slice selectors prevent cascade re-renders                                                        |
 | **Slider updates**    | Direct DOM — no React overhead during drag                                                            |
-
-## Patterns & Gotchas
-
-- **`setRef` doubles as regeneration trigger** — persists the ref **and**
-  calls `regenerateTiles()` internally.
-- **`shuffleObject`** preserves insertion order of keys but shuffles values.
-  Used for both color and rotation shuffling.
-- **`getPaletteId`** sorts hex values alphabetically and joins with `-` for
-  order-independent palette comparison.
-- **Palette fetch is fire-and-forget** — UI mounts with grayscale fallback;
-  palette loads asynchronously causing a brief grayscale flash on first load.
-- **Identity instability** — tile IDs use random suffixes (`${i}-${randomStr}`),
-  preventing React reconciliation across regenerations. Stable property-derived
-  IDs would fix this but add complexity.
-- **Dev-mode double fire** — React StrictMode unmounts and remounts every
-  component. Init chain runs twice in development.
 
 ---
 

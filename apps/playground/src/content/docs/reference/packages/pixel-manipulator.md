@@ -1,6 +1,6 @@
 ---
 title: "Pixel Manipulator"
-description: "Fluent pixel-manipulation pipeline for the browser. Build image-processing effects by chaining small, testable `PixelCallback` functions into a single loop pass over the image data."
+description: "A fluent pipeline that chains small, testable pixel transforms into a single loop pass — turning raw image data into something alive, one callback at a time."
 category: "reference"
 tags:
   - reference
@@ -8,9 +8,41 @@ tags:
 order: 20
 ---
 
+---
+title: 'Pixel Manipulator'
+coordinates: '/visuals/pipelines'
+status: 'Active'
+date_discovered: 2024-01-15
+---
+
 # @repo/pixel-manipulator
 
-## Quick Start
+---
+
+## Essence
+
+Pixel Manipulator is a browser-native image processing pipeline built on a
+deceptively simple idea: describe your visual transforms as tiny functions, snap
+them into a chain, and let a single pixel loop execute them all. Each step
+receives the output of the previous one per pixel — no intermediate `ImageData`
+allocations, no redundant traversals.
+
+But it doesn't stop at the math. The package ships a complete React UI layer —
+a component that renders the pipeline as a visual workflow, a hook for image
+upload handling, and DOM helpers that bridge `<img>` elements to raw pixel data
+and back. The manipulation core is pure and framework-agnostic; the React layer
+is a convenience wrapper you can ignore entirely.
+
+The result is a two-world package: a chainable pipeline engine for
+programmatic use, and a ready-made interface for interactive experimentation.
+
+## Quick Launch
+
+```bash
+pnpm dev --filter @repo/playground
+```
+
+Or install it into your own project:
 
 ```bash
 pnpm add @repo/pixel-manipulator
@@ -28,7 +60,33 @@ const result = manipulate(source).apply(grayscale()).apply(brightness(1.3)).toIm
 putImageData(canvas, result);
 ```
 
+## Field Notes
+
+- **The Catalyst:** The realization that most browser image manipulation APIs
+  force you into either a single monolithic filter call or a hand-rolled pixel
+  loop with all the boilerplate that entails. What if building an image
+  pipeline felt like composing a sentence — each verb a small, testable
+  transformation, each chain a complete thought?
+
+- **Quirks & Anomalies:** Every callback runs in a single pixel loop, so the
+  output of one transform feeds directly into the next at the per-pixel level
+  — there's no intermediate `ImageData` between steps. The `sourceData` field
+  on `PixelContext` always points to the _original_ unmodified pixels, which
+  means neighbour-dependent effects like blur and edge detection work correctly
+  even mid-chain. This is a subtle but critical design choice: the pipeline
+  is sequential in intent but the data it reads from is immutable.
+
+- **Future Horizons:** Streaming pixel callbacks for video frame processing, a
+  plugin registry where custom manipulations declare their metadata and
+  parameter ranges, and GPU-accelerated pipeline execution via WebGPU compute
+  shaders — all while keeping the same fluent `.apply()` surface.
+
+---
+
 ## Pipeline Model
+
+The flow is linear and explicit — raw pixels in, transformed pixels out, with
+every intermediate stage observable:
 
 ```
 HTMLImageElement
@@ -81,9 +139,10 @@ type PixelContext = {
 type PixelCallback = (ctx: PixelContext) => RGBA;
 ```
 
-## Manipulations
+## Built-in Manipulations
 
-Built-in `PixelCallback` factories:
+Each factory returns a `PixelCallback` — a small, composable function that
+knows how to transform one pixel:
 
 | Factory                | Args                | Description                                   |
 | ---------------------- | ------------------- | --------------------------------------------- |
@@ -96,11 +155,9 @@ Built-in `PixelCallback` factories:
 | `threshold(threshold)` | `threshold` (0–255) | Binary black/white by luminance               |
 | `energyMap()`          | —                   | Sobel gradient magnitude (edge detection)     |
 
-## Usage
+## Composing a Pipeline
 
-### Creating a pipeline
-
-Callbacks are chained with `manipulate`. They run **in a single pixel loop** —
+Callbacks chain with `manipulate`. They run **in a single pixel loop** —
 the output of each callback feeds into the next per pixel:
 
 ```ts
@@ -117,7 +174,8 @@ putImageData(canvasElement, result);
 
 ### Inspecting intermediate steps
 
-Use `.toArray()` to get every step's output, including the original:
+Use `.toArray()` to get every step's output, including the original — useful
+for debugging or building a visual history of the pipeline:
 
 ```ts
 const [original, grayed, brightened] = manipulate(source)
@@ -126,9 +184,11 @@ const [original, grayed, brightened] = manipulate(source)
   .toArray();
 ```
 
-## Custom Manipulations
+## Authoring Custom Manipulations
 
-A manipulation is just a factory that returns a `PixelCallback`:
+A manipulation is just a factory that returns a `PixelCallback`. The pattern
+is deliberately minimal — you describe what happens to one pixel, and the
+pipeline handles the rest:
 
 ```ts
 import type { PixelCallback } from '@repo/pixel-manipulator';
@@ -145,15 +205,16 @@ const tint =
 manipulate(source).apply(grayscale()).apply(tint(30)).toImageData();
 ```
 
-Use `sourceData` on `PixelContext` for neighbour-dependent effects
-(blur, edge detection, etc.) — it always points to the original unmodified data
-for the current pass.
+For neighbour-dependent effects (blur, edge detection), use `sourceData` on
+`PixelContext` — it always points to the original unmodified data for the
+current pass, giving you a stable reference even mid-chain.
 
 ## Workflow Presets
 
-The built-in UI includes 9 pre-configured multi-step workflows.
-Selecting a preset and clicking **Load Workflow** populates the workflow editor
-with all steps and their tuned arguments.
+The built-in UI ships 9 pre-configured multi-step workflows. Selecting a
+preset and clicking **Load Workflow** populates the workflow editor with all
+steps and their tuned arguments — a quick way to see the pipeline in action
+without wiring anything up manually:
 
 | Preset        | Steps                                           |
 | ------------- | ----------------------------------------------- |
@@ -167,9 +228,14 @@ with all steps and their tuned arguments.
 | High Contrast | contrast(2.5) → saturate(1.6)                   |
 | Edge Ink      | grayscale → energyMap                           |
 
-Once loaded, steps can be reordered, removed, or tuned via sliders before executing.
+Once loaded, steps can be reordered, removed, or tuned via sliders before
+executing.
 
 ## React Component
+
+The package ships a self-contained React component that renders the full
+manipulation interface — file upload, manipulation selector, workflow builder
+with preset support, and canvases showing the result of each pipeline step:
 
 ```tsx
 import { ImageManipulator } from '@repo/pixel-manipulator';
@@ -179,10 +245,10 @@ function App() {
 }
 ```
 
-Renders a file upload, a manipulation selector, a workflow builder with
-preset support, and canvases showing the result of each pipeline step.
-
 ## Hook
+
+For cases where you need the upload logic without the full UI, the
+`useImageUpload` hook decouples image selection from rendering:
 
 ```ts
 import { useImageUpload } from "@repo/pixel-manipulator";
@@ -196,5 +262,5 @@ Returns `[dataUrl: string | null, onChangeHandler]`.
 
 ---
 
-_Part of @repo/playground_
+_Part of [Creative Playground](https://joska-p.github.io/playground)_
 
