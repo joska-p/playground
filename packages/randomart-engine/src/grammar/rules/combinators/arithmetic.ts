@@ -14,7 +14,7 @@ export const addRule = {
     ruleId: 'add',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const multiplyRule = {
   id: 'multiply',
@@ -30,7 +30,7 @@ export const multiplyRule = {
     ruleId: 'multiply',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const moduloRule = {
   id: 'modulo',
@@ -50,7 +50,7 @@ export const moduloRule = {
     ruleId: 'modulo',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const powRule = {
   id: 'pow',
@@ -73,4 +73,4 @@ export const powRule = {
     ruleId: 'pow',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

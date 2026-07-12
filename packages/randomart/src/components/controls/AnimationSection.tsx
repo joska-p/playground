@@ -15,6 +15,7 @@ function AnimationSection() {
       <ControlGrid columns={2}>
         {animationRegistry.map((behavior) => (
           <Button
+            size="sm"
             key={`animation-${behavior.id}`}
             variant={activeIds.includes(behavior.id) ? 'accent' : 'default'}
             onClick={() => {

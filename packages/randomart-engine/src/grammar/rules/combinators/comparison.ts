@@ -14,7 +14,7 @@ export const lessThanRule = {
     ruleId: 'less-than',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const greaterThanRule = {
   id: 'greater-than',
@@ -30,7 +30,7 @@ export const greaterThanRule = {
     ruleId: 'greater-than',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const stepRule = {
   id: 'step',
@@ -46,4 +46,4 @@ export const stepRule = {
     ruleId: 'step',
     args: [buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

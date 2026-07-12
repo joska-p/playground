@@ -1,4 +1,5 @@
-import { getRule } from '@repo/randomart-engine/grammar/registry';
+import type { RuleId } from '@repo/randomart-engine/grammar/registry';
+import { getInitialWeights, getRule } from '@repo/randomart-engine/grammar/registry';
 import { randomartStore, updateTreeConfig } from '../store';
 
 export function setSeedText(seedText: string): void {
@@ -13,21 +14,19 @@ export function setAnimationSpeed(speed: number): void {
   randomartStore.setState({ animationSpeed: speed }, false, 'config/setAnimationSpeed');
 }
 
-export function toggleRule(ruleId: string): void {
+export function toggleRule(ruleId: RuleId): void {
   updateTreeConfig((state) => {
     const rule = getRule(ruleId);
     if (!rule) return {};
 
     const isCurrentlyEnabled = state.enabledRuleIds.includes(ruleId);
 
-    // Safeguard: Check if this is a terminal rule, and if disabling it leaves the pool empty
     if (isCurrentlyEnabled && rule.category === 'terminal') {
       const activeTerminalsCount = state.enabledRuleIds.filter((id) => {
         const targetRule = getRule(id);
         return targetRule?.category === 'terminal';
       }).length;
 
-      // Block the change explicitly if it compromises the absolute fallback terminal leaf node boundary
       if (activeTerminalsCount <= 1) {
         return {};
       }
@@ -39,4 +38,18 @@ export function toggleRule(ruleId: string): void {
 
     return { enabledRuleIds: nextEnabledIds };
   }, `config/toggleRule (${ruleId})`);
+}
+
+export function setRuleWeight(ruleId: string, weight: number): void {
+  updateTreeConfig(
+    (state) => ({
+      ruleWeights: { ...state.ruleWeights, [ruleId]: weight }
+    }),
+    `config/setRuleWeight (${ruleId})`
+  );
+}
+
+export function resetAllWeights(): void {
+  const ruleWeights = getInitialWeights();
+  updateTreeConfig(() => ({ ruleWeights }), 'config/resetAllWeights');
 }

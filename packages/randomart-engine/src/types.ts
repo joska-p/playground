@@ -1,3 +1,4 @@
+import type { RuleId as RuleIdInternal } from './grammar/registry';
 import type { SeededRandom } from './random/SeededRandom';
 
 export type ExpressionNode = {
@@ -26,6 +27,10 @@ export type GrammarRule = {
 
   buildNode: (rng: SeededRandom, buildChild: () => ExpressionNode) => ExpressionNode;
 };
+
+export type RuleId = RuleIdInternal;
+export type RuleWeights = Record<RuleId, number>;
+//export type RuleWeights = Partial<RuleWeight>;
 
 export type AnimationBehavior = {
   id: string;

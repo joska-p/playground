@@ -11,7 +11,7 @@ export const terminalXRule = {
   toGLSL: () => 'p.x',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── x\n`,
   buildNode: () => ({ ruleId: 'x', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const terminalYRule = {
   id: 'y',
@@ -24,4 +24,4 @@ export const terminalYRule = {
   toGLSL: () => 'p.y', // Directly maps to centered Y
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── y\n`,
   buildNode: () => ({ ruleId: 'y', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

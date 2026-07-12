@@ -5,7 +5,7 @@ export const fbmRule = {
   name: 'Cloud',
   arity: 0,
   weight: 0.8,
-  category: 'structural',
+  category: 'terminal',
   evaluate: (_args, x, y) => {
     let value = 0.0;
     let amplitude = 0.5;
@@ -24,14 +24,14 @@ export const fbmRule = {
   toGLSL: () => 'fbmNoise(p)',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── fbm\n`,
   buildNode: () => ({ ruleId: 'fbm', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const voronoiRule = {
   id: 'voronoi',
   name: 'Cells',
   arity: 0,
   weight: 0.7,
-  category: 'structural',
+  category: 'terminal',
   evaluate: (_args, x, y) => {
     const gx = Math.floor(x * 3.0);
     const gy = Math.floor(y * 3.0);
@@ -50,7 +50,7 @@ export const voronoiRule = {
   toGLSL: () => 'voronoiCells(p)',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── voronoi\n`,
   buildNode: () => ({ ruleId: 'voronoi', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 function hash1(n: number): number {
   return (((Math.sin(n * 127.1) * 43758.5453) % 1) + 1) % 1;
@@ -68,25 +68,24 @@ export const bandedNoiseRule = {
   name: 'Grain',
   arity: 0,
   weight: 0.6,
-  category: 'structural',
-  evaluate: (_args, x, y, _t, node) => {
-    const seed = node?.constantValue ?? 0.0;
-    const n = smoothNoise((x + seed) * 3.0) * smoothNoise((y + seed) * 3.0);
+  category: 'terminal',
+  evaluate: (_args, x, y) => {
+    const n = smoothNoise(x * 3.0) * smoothNoise(y * 3.0);
     const bands = 6.0;
     return Math.floor(n * bands) / bands;
   },
   toMathString: () => 'bandedNoise(p)',
   toGLSL: () => 'bandedNoise(p)',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── banded-noise\n`,
-  buildNode: (rng) => ({ ruleId: 'banded-noise', args: [], constantValue: rng.initialHash })
-} satisfies GrammarRule;
+  buildNode: () => ({ ruleId: 'banded-noise', args: [] })
+} as const satisfies GrammarRule;
 
 export const recamanPatternRule = {
   id: 'recaman-pattern',
   name: 'Spiral',
   arity: 0,
   weight: 0.7,
-  category: 'structural',
+  category: 'terminal',
 
   // CPU-side evaluation matching the GLSL behavior
   evaluate: (_args, x, y) => {
@@ -96,7 +95,8 @@ export const recamanPatternRule = {
     let val = 0.0;
     for (let i = 1; i < 12; i++) {
       if (i > step) break;
-      const flip = (Math.sin(val * 12.9898) * 43758.5453) % 1;
+      const raw = Math.sin(val * 12.9898) * 43758.5453;
+      const flip = raw - Math.floor(raw);
       if (flip > 0.5 && val - i > 0.0) {
         val -= i;
       } else {
@@ -119,4 +119,4 @@ export const recamanPatternRule = {
       args: [xNode, yNode]
     };
   }
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

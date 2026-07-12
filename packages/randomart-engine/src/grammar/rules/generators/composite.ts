@@ -5,7 +5,7 @@ export const nestedOscillationRule = {
   name: 'Moire',
   arity: 0,
   weight: 0.05, // Treat macro-macros with lower weights so normal generation can build unique combinations
-  category: 'structural',
+  category: 'terminal',
   evaluate: (_args, x, y) => Math.sin(x * Math.sin(y * Math.PI) * Math.PI), // Added explicit fallback matching the syntax tree intent
   toMathString: () => 'nested-oscillation',
   toGLSL: () => 'nested-oscillation',
@@ -28,4 +28,4 @@ export const nestedOscillationRule = {
       ]
     };
   }
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

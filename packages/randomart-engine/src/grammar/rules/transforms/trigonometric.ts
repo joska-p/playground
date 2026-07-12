@@ -14,7 +14,7 @@ export const sinRule = {
     ruleId: 'sin',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const cosRule = {
   id: 'cos',
@@ -30,4 +30,4 @@ export const cosRule = {
     ruleId: 'cos',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

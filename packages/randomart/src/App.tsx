@@ -2,6 +2,7 @@ import { ErrorBoundary } from '@repo/ui/feedback';
 import { ControlPanel } from './components/controls/ControlPanel';
 import { FloatingInspector } from './components/inspector/FloatingInspector';
 import { RandomArtCanvas } from './components/RandomArtCanvas';
+import { FloatingWeightPanel } from './components/weights/FloatingWeightPanel';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <RandomArtCanvas />
         <ControlPanel />
         <FloatingInspector />
+        <FloatingWeightPanel />
       </ErrorBoundary>
     </div>
   );

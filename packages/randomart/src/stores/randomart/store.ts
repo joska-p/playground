@@ -1,4 +1,5 @@
-import { getAllRules } from '@repo/randomart-engine/grammar/registry';
+import type { RuleId } from '@repo/randomart-engine/grammar/registry';
+import { getAllRules, getInitialWeights } from '@repo/randomart-engine/grammar/registry';
 import { generateTrees } from '@repo/randomart-engine/tree/generate';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
@@ -7,12 +8,14 @@ import type { RandomartState } from './types';
 function generateInitial(): RandomartState {
   const seedText = "De deux choses lune l'autre c'est le soleil";
   const maxDepth = 8;
-  const enabledRuleIds = getAllRules().map((r) => r.id);
+  const enabledRuleIds = getAllRules().map((rule) => rule.id as RuleId);
+  const ruleWeights = getInitialWeights();
   const trees = generateTrees({
     seedText,
     maxDepth,
     enabledRuleIds,
-    correlated: false
+    correlated: false,
+    ruleWeights
   });
 
   return {
@@ -20,6 +23,7 @@ function generateInitial(): RandomartState {
     activeChannel: 'red',
     maxDepth,
     enabledRuleIds,
+    ruleWeights,
     ...trees,
     running: false,
     time: 0,
@@ -51,7 +55,8 @@ export function updateTreeConfig(
     seedText: nextState.seedText,
     maxDepth: nextState.maxDepth,
     enabledRuleIds: nextState.enabledRuleIds,
-    correlated: nextState.correlatedRGB
+    correlated: nextState.correlatedRGB,
+    ruleWeights: nextState.ruleWeights
   });
 
   randomartStore.setState(

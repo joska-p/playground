@@ -11,7 +11,7 @@ export const radialRule = {
   toGLSL: () => '(length(p) * 2.0 - 1.0)',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── radial\n`,
   buildNode: () => ({ ruleId: 'radial', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const sweepRule = {
   id: 'sweep',
@@ -24,4 +24,4 @@ export const sweepRule = {
   toGLSL: () => '(atan(p.y, p.x) / 3.1415926535 * 2.0 - 1.0)',
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── sweep\n`,
   buildNode: () => ({ ruleId: 'sweep', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

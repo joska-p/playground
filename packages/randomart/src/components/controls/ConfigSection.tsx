@@ -22,6 +22,7 @@ function ConfigSection() {
           }}
         />
         <Button
+          size="sm"
           onClick={() => {
             setSeedText(Math.random().toString(36).slice(2, 10));
           }}

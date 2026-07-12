@@ -3,31 +3,34 @@ import { useStore } from 'zustand';
 import { randomartStore } from './store';
 
 // --- Direct Configuration Selectors ---
-export function useSeedText(): string {
+export function useSeedText() {
   return useStore(randomartStore, (s) => s.seedText);
 }
-export function useMaxDepth(): number {
+export function useMaxDepth() {
   return useStore(randomartStore, (s) => s.maxDepth);
 }
-export function useEnabledRuleIds(): string[] {
+export function useEnabledRuleIds() {
   return useStore(randomartStore, (s) => s.enabledRuleIds);
 }
-export function useCorrelatedRGB(): boolean {
+export function useRuleWeights() {
+  return useStore(randomartStore, (s) => s.ruleWeights);
+}
+export function useCorrelatedRGB() {
   return useStore(randomartStore, (s) => s.correlatedRGB);
 }
-export function useActiveChannel(): 'red' | 'green' | 'blue' {
+export function useActiveChannel() {
   return useStore(randomartStore, (s) => s.activeChannel);
 }
-export function useRunning(): boolean {
+export function useRunning() {
   return useStore(randomartStore, (s) => s.running);
 }
-export function useAnimationSpeed(): number {
+export function useAnimationSpeed() {
   return useStore(randomartStore, (s) => s.animationSpeed);
 }
-export function useTime(): number {
+export function useTime() {
   return useStore(randomartStore, (s) => s.time);
 }
-export function useActiveAnimationBehaviorIds(): string[] {
+export function useActiveAnimationBehaviorIds() {
   return useStore(randomartStore, (s) => s.activeAnimationBehaviorIds);
 }
 

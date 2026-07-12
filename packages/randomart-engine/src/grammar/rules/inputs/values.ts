@@ -18,7 +18,7 @@ export const constantRule = {
     args: [],
     constantValue: rng.next() * 2.0 - 1.0 // Range: [-1, 1]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const pixelRandomRule = {
   id: 'random',
@@ -35,4 +35,4 @@ export const pixelRandomRule = {
   toGLSL: () => '(random2d(p) * 2.0 - 1.0)', // Seamlessly uses centered p
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── random\n`,
   buildNode: () => ({ ruleId: 'random', args: [] })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

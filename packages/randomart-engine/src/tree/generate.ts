@@ -1,13 +1,14 @@
 import { getAllRules } from '../grammar/registry';
 import { SeededRandom } from '../random/SeededRandom';
-import type { ExpressionNode } from '../types';
+import type { ExpressionNode, RuleId, RuleWeights } from '../types';
 import { buildTree } from './build';
 
 export type TreeConfig = {
   seedText: string;
   maxDepth: number;
-  enabledRuleIds: string[];
+  enabledRuleIds: RuleId[];
   correlated: boolean;
+  ruleWeights: RuleWeights;
 };
 
 export type TreeOutput = {
@@ -20,7 +21,12 @@ export type TreeOutput = {
 };
 
 export function generateTrees(config: TreeConfig): TreeOutput {
-  const rules = getAllRules().filter((r) => config.enabledRuleIds.includes(r.id));
+  const rules = getAllRules()
+    .filter((rule) => config.enabledRuleIds.includes(rule.id as RuleId))
+    .map((rule) => {
+      const override = config.ruleWeights[rule.id as RuleId];
+      return override !== undefined ? { ...rule, weight: override } : rule;
+    });
 
   if (config.correlated) {
     // All three channels share one RNG stream so they get the same structural

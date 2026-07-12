@@ -14,7 +14,7 @@ export const ifRule = {
     ruleId: 'if',
     args: [buildChild(), buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const smoothstepRule = {
   id: 'smoothstep',
@@ -37,7 +37,7 @@ export const smoothstepRule = {
     ruleId: 'smoothstep',
     args: [buildChild(), buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const clampRule = {
   id: 'clamp',
@@ -58,4 +58,4 @@ export const clampRule = {
     ruleId: 'clamp',
     args: [buildChild(), buildChild(), buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

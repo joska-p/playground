@@ -1,5 +1,4 @@
 import type { GrammarRule } from '../types';
-
 import {
   absRule,
   addRule,
@@ -31,42 +30,59 @@ import {
   voronoiRule
 } from './rules';
 
-const rules = new Map<string, GrammarRule>([
-  [terminalXRule.id, terminalXRule],
-  [terminalYRule.id, terminalYRule],
-  [constantRule.id, constantRule],
-  [pixelRandomRule.id, pixelRandomRule],
-  [sinRule.id, sinRule],
-  [cosRule.id, cosRule],
-  [sqrtRule.id, sqrtRule],
-  [absRule.id, absRule],
-  [multiplyRule.id, multiplyRule],
-  [nestedOscillationRule.id, nestedOscillationRule],
-  [addRule.id, addRule],
-  [moduloRule.id, moduloRule],
-  [expRule.id, expRule],
-  [logRule.id, logRule],
-  [powRule.id, powRule],
+export const allRules = [
+  terminalXRule,
+  terminalYRule,
+  constantRule,
+  pixelRandomRule,
+  sinRule,
+  cosRule,
+  sqrtRule,
+  absRule,
+  multiplyRule,
+  nestedOscillationRule,
+  addRule,
+  moduloRule,
+  expRule,
+  logRule,
+  powRule,
+  lessThanRule,
+  greaterThanRule,
+  ifRule,
+  recamanPatternRule,
+  bandedNoiseRule,
+  voronoiRule,
+  fbmRule,
+  stepRule,
+  smoothstepRule,
+  radialRule,
+  sweepRule,
+  fractRule,
+  clampRule
+] as const;
 
-  [lessThanRule.id, lessThanRule],
-  [greaterThanRule.id, greaterThanRule],
-  [ifRule.id, ifRule],
-  [recamanPatternRule.id, recamanPatternRule],
-  [bandedNoiseRule.id, bandedNoiseRule],
-  [voronoiRule.id, voronoiRule],
-  [fbmRule.id, fbmRule],
-  [stepRule.id, stepRule],
-  [smoothstepRule.id, smoothstepRule],
-  [radialRule.id, radialRule],
-  [sweepRule.id, sweepRule],
-  [fractRule.id, fractRule],
-  [clampRule.id, clampRule]
-]);
+export type RuleId = (typeof allRules)[number]['id'];
 
-export function getRule(id: string): GrammarRule | undefined {
+const rules = new Map<RuleId, GrammarRule>(allRules.map((r) => [r.id, r]));
+
+export function getRule(id: RuleId) {
   return rules.get(id);
 }
 
-export function getAllRules(): GrammarRule[] {
+export function getAllRules() {
   return Array.from(rules.values());
+}
+
+export function getAllRuleIds() {
+  return allRules.map((rule) => rule.id);
+}
+
+export function getInitialWeights() {
+  return allRules.reduce(
+    (acc, rule) => {
+      acc[rule.id] = rule.weight;
+      return acc;
+    },
+    {} as Record<RuleId, number>
+  );
 }

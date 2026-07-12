@@ -15,6 +15,7 @@ function PlaybackSection() {
     >
       <ControlGrid columns={2}>
         <Button
+          size="sm"
           variant="primary"
           onClick={toggleRunning}
         >
@@ -22,7 +23,6 @@ function PlaybackSection() {
         </Button>
 
         <Slider
-          className="col-span-full"
           aria-label="animation speed"
           value={animationSpeed}
           min={0}

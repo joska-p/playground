@@ -14,7 +14,7 @@ export const absRule = {
     ruleId: 'abs',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const sqrtRule = {
   id: 'sqrt',
@@ -30,7 +30,7 @@ export const sqrtRule = {
     ruleId: 'sqrt',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const expRule = {
   id: 'exp',
@@ -39,14 +39,12 @@ export const expRule = {
   weight: 0.8, // Lowered weight slightly because exp climbs aggressively
   category: 'structural',
   evaluate: (args) => {
-    // Clamp input to avoid Math.exp exploding into Infinity in JavaScript
-    const val = Math.max(-5.0, Math.min(5.0, args[0]()));
+    const val = Math.max(-1.0, Math.min(1.0, args[0]()));
     return ((Math.exp(val) - 0.36787944117) / 2.35040238729) * 2.0 - 1.0;
   },
   toMathString: (args) => `normalized_e^(${args[0]})`,
   toGLSL: (args) => {
-    // Clamp in GLSL to prevent whiteout artifacts
-    const clamped = `clamp(${args[0]}, -5.0, 5.0)`;
+    const clamped = `clamp(${args[0]}, -1.0, 1.0)`;
     return `(((exp(${clamped}) - 0.36787944117) / 2.35040238729) * 2.0 - 1.0)`;
   },
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── exp\n${args[0]}`,
@@ -54,7 +52,7 @@ export const expRule = {
     ruleId: 'exp',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const logRule = {
   id: 'log',
@@ -73,7 +71,7 @@ export const logRule = {
     ruleId: 'log',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;
 
 export const fractRule = {
   id: 'fract',
@@ -92,4 +90,4 @@ export const fractRule = {
     ruleId: 'fract',
     args: [buildChild()]
   })
-} satisfies GrammarRule;
+} as const satisfies GrammarRule;

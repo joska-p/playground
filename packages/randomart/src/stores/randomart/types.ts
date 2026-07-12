@@ -1,11 +1,12 @@
 import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
-import type { ExpressionNode } from '@repo/randomart-engine/types';
+import type { ExpressionNode, RuleId, RuleWeights } from '@repo/randomart-engine/types';
 
 export type RandomartState = {
   seedText: string;
   activeChannel: 'red' | 'green' | 'blue';
   maxDepth: number;
-  enabledRuleIds: string[];
+  enabledRuleIds: RuleId[];
+  ruleWeights: RuleWeights;
   treeR: ExpressionNode;
   treeG: ExpressionNode;
   treeB: ExpressionNode;
