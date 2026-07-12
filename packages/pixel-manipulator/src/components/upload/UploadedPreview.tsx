@@ -39,7 +39,7 @@ function UploadedPreview({ imageSource, fileName, onClear }: UploadedPreviewProp
         </p>
       </figcaption>
       <Button
-        variant="ghost"
+        variant="default"
         size="icon"
         onClick={onClear}
         aria-label="Remove image"

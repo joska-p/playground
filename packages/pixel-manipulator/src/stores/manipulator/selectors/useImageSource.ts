@@ -1,7 +1,6 @@
 import { manipulatorStore } from '../store';
-import type { OutputType } from '../types';
 
-function useImageSource(): OutputType | undefined {
+function useImageSource() {
   return manipulatorStore((s) => s.imageSource);
 }
 

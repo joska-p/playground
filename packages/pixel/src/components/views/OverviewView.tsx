@@ -93,7 +93,7 @@ function OverviewView({ sourceData }: { sourceData: ImageData | null }) {
           <div className="w-20 shrink-0">
             <p className="text-muted-foreground mb-1 text-xs">Demo Image</p>
             <img
-              src={imageDataToUrl(sourceData)}
+              src={imageDataToUrl(sourceData) ?? ''}
               alt="demo"
               className="border-border w-full rounded border"
               style={{ imageRendering: 'pixelated' }}

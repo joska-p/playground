@@ -54,7 +54,7 @@ function OutputCard({
             </h3>
             <div className="flex shrink-0 items-center gap-1.5">
               {isSource && <Badge color="--color-primary">Original</Badge>}
-              <Badge variant="outline">
+              <Badge appearance="outline">
                 {output.imageData.width}&times;{output.imageData.height}
               </Badge>
             </div>

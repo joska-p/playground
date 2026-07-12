@@ -11,9 +11,10 @@ export const lessThanRule = {
     const b = args[1]?.() ?? 0;
     return a < b ? 1.0 : -1.0;
   },
-  toMathString: (args) => `(${args[0]} < ${args[1]} ? 1 : -1)`,
-  toGLSL: (args) => `(${args[0]} < ${args[1]} ? 1.0 : -1.0)`,
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── less-than\n${args[0]}${args[1]}`,
+  toMathString: (args) => `(${args[0] ?? '0.0'} < ${args[1] ?? '0.0'} ? 1 : -1)`,
+  toGLSL: (args) => `(${args[0] ?? '0.0'} < ${args[1] ?? '0.0'} ? 1.0 : -1.0)`,
+  toTreeView: (args, depth) =>
+    `${'  '.repeat(depth)}├── less-than\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'less-than',
     args: [buildChild(), buildChild()]
@@ -31,9 +32,10 @@ export const greaterThanRule = {
     const b = args[1]?.() ?? 0;
     return a > b ? 1.0 : -1.0;
   },
-  toMathString: (args) => `(${args[0]} > ${args[1]} ? 1 : -1)`,
-  toGLSL: (args) => `(${args[0]} > ${args[1]} ? 1.0 : -1.0)`,
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── greater-than\n${args[0]}${args[1]}`,
+  toMathString: (args) => `(${args[0] ?? '0.0'} > ${args[1] ?? '0.0'} ? 1 : -1)`,
+  toGLSL: (args) => `(${args[0] ?? '0.0'} > ${args[1] ?? '0.0'} ? 1.0 : -1.0)`,
+  toTreeView: (args, depth) =>
+    `${'  '.repeat(depth)}├── greater-than\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'greater-than',
     args: [buildChild(), buildChild()]
@@ -51,9 +53,9 @@ export const stepRule = {
     const b = args[1]?.() ?? 0;
     return a >= b ? 1.0 : -1.0;
   },
-  toMathString: (args) => `step(${args[0]}, ${args[1]})`,
-  toGLSL: (args) => `(2.0 * step(${args[0]}, ${args[1]}) - 1.0)`,
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── step\n${args[0]}${args[1]}`,
+  toMathString: (args) => `step(${args[0] ?? '0.0'}, ${args[1] ?? '0.0'})`,
+  toGLSL: (args) => `(2.0 * step(${args[0] ?? '0.0'}, ${args[1] ?? '0.0'}) - 1.0)`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── step\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'step',
     args: [buildChild(), buildChild()]

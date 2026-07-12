@@ -12,7 +12,7 @@ function PipelineView({
   sourceData: ImageData | null;
 }) {
   const item = findItemForEndpoint(ENDPOINT_GROUPS, { kind: 'pipeline', id });
-  const codeSamples: Record<string, string> = {
+  const codeSamples: Record<'resize' | 'chaining', string> = {
     resize: [
       `pixel.run({`,
       `  sourceImageData: source,`,
@@ -33,7 +33,10 @@ function PipelineView({
     ].join('\n')
   };
 
-  const demos: Record<string, (props: { sourceData: ImageData | null }) => React.JSX.Element> = {
+  const demos: Record<
+    'resize' | 'chaining',
+    (props: { sourceData: ImageData | null }) => React.JSX.Element
+  > = {
     resize: ResizeDemo,
     chaining: ChainDemo
   };

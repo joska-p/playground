@@ -11,9 +11,9 @@ export const addRule = {
     const b = args[1] ?? (() => 0);
     return (a() + b()) * 0.5;
   },
-  toMathString: (args) => `((${args[0]} + ${args[1]}) / 2)`,
-  toGLSL: (args) => `((${args[0]} + ${args[1]}) * 0.5)`,
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── add\n${args[0]}${args[1]}`,
+  toMathString: (args) => `((${args[0] ?? '0.0'} + ${args[1] ?? '0.0'}) / 2)`,
+  toGLSL: (args) => `((${args[0] ?? '0.0'} + ${args[1] ?? '0.0'}) * 0.5)`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── add\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'add',
     args: [buildChild(), buildChild()]
@@ -31,9 +31,10 @@ export const multiplyRule = {
     const b = args[1] ?? (() => 0);
     return a() * b();
   },
-  toMathString: (args) => `(${args[0]} · ${args[1]})`,
-  toGLSL: (args) => `(${args[0]} * ${args[1]})`,
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── multiply\n${args[0]}${args[1]}`,
+  toMathString: (args) => `(${args[0] ?? '0.0'} · ${args[1] ?? '0.0'})`,
+  toGLSL: (args) => `(${args[0] ?? '0.0'} * ${args[1] ?? '0.0'})`,
+  toTreeView: (args, depth) =>
+    `${'  '.repeat(depth)}├── multiply\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'multiply',
     args: [buildChild(), buildChild()]
@@ -51,9 +52,10 @@ export const moduloRule = {
     const mod = args[1]?.() ?? 1;
     return mod === 0.0 ? 0.0 : base % mod;
   },
-  toMathString: (args) => `(${args[0]} % ${args[1]})`,
-  toGLSL: (args) => `(${args[1]} == 0.0 ? 0.0 : mod(${args[0]}, ${args[1]}))`,
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── modulo\n${args[0]}${args[1]}`,
+  toMathString: (args) => `(${args[0] ?? '0.0'} % ${args[1] ?? '1.0'})`,
+  toGLSL: (args) =>
+    `(${args[1] ?? '1.0'} == 0.0 ? 0.0 : mod(${args[0] ?? '0.0'}, ${args[1] ?? '1.0'}))`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── modulo\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'modulo',
     args: [buildChild(), buildChild()]
@@ -71,12 +73,12 @@ export const powRule = {
     const exp = Math.max(-3.0, Math.min(3.0, args[1]?.() ?? 0));
     return Math.sign(base) * Math.pow(Math.abs(base), exp);
   },
-  toMathString: (args) => `(${args[0]}^${args[1]})`,
+  toMathString: (args) => `(${args[0] ?? '0.0'}^${args[1] ?? '0.0'})`,
   toGLSL: (args) => {
-    const safeExp = `clamp(${args[1]}, -3.0, 3.0)`;
-    return `(sign(${args[0]}) * pow(abs(${args[0]}), ${safeExp}))`;
+    const safeExp = `clamp(${args[1] ?? '0.0'}, -3.0, 3.0)`;
+    return `(sign(${args[0] ?? '0.0'}) * pow(abs(${args[0] ?? '0.0'}), ${safeExp}))`;
   },
-  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── pow\n${args[0]}${args[1]}`,
+  toTreeView: (args, depth) => `${'  '.repeat(depth)}├── pow\n${args[0] ?? ''}${args[1] ?? ''}`,
   buildNode: (_rng, buildChild) => ({
     ruleId: 'pow',
     args: [buildChild(), buildChild()]

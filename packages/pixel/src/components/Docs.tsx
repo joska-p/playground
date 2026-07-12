@@ -31,8 +31,7 @@ function Docs() {
 
   return (
     <Sidebar
-      desktopPosition="left"
-      mobilePosition="bottom"
+      position="left"
       panelWidth="280px"
       className="min-h-dvh"
     >

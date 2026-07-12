@@ -34,7 +34,6 @@ function ControlsPanel() {
             <Button
               key={preset.name}
               size="sm"
-              tooltip={preset.description}
               onClick={() => {
                 setWorkflowSteps(
                   preset.steps.map((step) => ({

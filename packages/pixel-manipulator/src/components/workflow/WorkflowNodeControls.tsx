@@ -15,7 +15,7 @@ function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
   return (
     <ControlGrid columns={3}>
       <Button
-        variant="ghost"
+        variant="default"
         size="icon"
         disabled={isFirst}
         onClick={() => {
@@ -37,7 +37,7 @@ function WorkflowNodeControls({ index }: WorkflowNodeControlsProps) {
         </svg>
       </Button>
       <Button
-        variant="ghost"
+        variant="default"
         size="icon"
         disabled={isLast}
         onClick={() => {

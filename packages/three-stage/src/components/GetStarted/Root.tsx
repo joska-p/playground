@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import type { Group } from 'three';
 import { Branch } from './Branch';
 import { getDebugGeometry } from './getDebugGeometry';
-import { getSpawnPoints } from './getSpawnPoints';
+import { getSpawnPoints, type PresetName } from './getSpawnPoints';
 import { useLevaControls } from './useLevaControls';
 
 export function Root() {
@@ -12,14 +12,19 @@ export function Root() {
     useLevaControls();
 
   const branches = getSpawnPoints({
-    preset,
+    preset: preset as PresetName,
     radius,
     offset,
     circleSegments,
     fsphereFaces
   });
 
-  const debugGeometry = getDebugGeometry(preset, radius, circleSegments, fsphereFaces);
+  const debugGeometry = getDebugGeometry(
+    preset as PresetName,
+    radius,
+    circleSegments,
+    fsphereFaces
+  );
 
   useFrame(() => {
     if (groupRef.current && autoRotation) {

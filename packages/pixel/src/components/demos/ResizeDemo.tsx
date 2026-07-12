@@ -51,7 +51,7 @@ function ResizeDemo({ sourceData }: { sourceData: ImageData | null }) {
       <div className="flex items-center gap-4">
         <div className="w-20 shrink-0">
           <img
-            src={result[0] ? imageDataToUrl(result[0]) : ''}
+            src={result[0] ? (imageDataToUrl(result[0]) ?? '') : ''}
             alt="resized"
             className="border-border w-full rounded border"
             style={{ imageRendering: 'pixelated' }}

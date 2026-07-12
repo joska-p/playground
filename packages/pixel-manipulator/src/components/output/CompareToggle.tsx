@@ -12,7 +12,7 @@ function CompareToggle({ mode, onChange }: CompareToggleProps) {
       role="tablist"
     >
       <Button
-        variant={mode === 'grid' ? 'primary' : 'ghost'}
+        variant={mode === 'grid' ? 'primary' : 'default'}
         size="sm"
         onClick={() => {
           onChange('grid');
@@ -23,7 +23,7 @@ function CompareToggle({ mode, onChange }: CompareToggleProps) {
         Grid View
       </Button>
       <Button
-        variant={mode === 'compare' ? 'primary' : 'ghost'}
+        variant={mode === 'compare' ? 'primary' : 'default'}
         size="sm"
         onClick={() => {
           onChange('compare');

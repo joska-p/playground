@@ -32,8 +32,8 @@ export const useSimulationScene = (size: number, initialTexture: THREE.Texture) 
   }, [size, initialTexture]);
 
   const updateGridTexture = (texture: THREE.Texture) => {
-    if (simObjects.current) {
-      simObjects.current.material.uniforms.uGridTexture.value = texture;
+    if (simObjects.current?.material.uniforms['uGridTexture']) {
+      simObjects.current.material.uniforms['uGridTexture'].value = texture;
     }
   };
 

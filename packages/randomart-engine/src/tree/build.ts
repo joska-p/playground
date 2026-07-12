@@ -7,6 +7,7 @@ import type { ExpressionNode, GrammarRule } from '../types';
 const STRUCTURE_RNG_DEPTH = 3;
 
 function weightedPick(rng: SeededRandom, rules: GrammarRule[]): number {
+  if (rules.length === 0) return -1;
   const totalWeight = rules.reduce((sum, r) => sum + r.weight, 0);
   let threshold = rng.next() * totalWeight;
   for (let i = 0; i < rules.length; i++) {
@@ -51,8 +52,9 @@ export function buildTree(
   const pool = buildPool(rngToUse, availableRules, structuralProbability);
   const idx = weightedPick(rngToUse, pool);
   const rule = pool[idx];
+
   if (!rule) {
-    throw new Error('No rule found in pool');
+    throw new Error('No rule found to build node');
   }
 
   return rule.buildNode(rngToUse, () =>

@@ -8,7 +8,7 @@ function ImageSourceControls() {
     <ControlSection title="image source">
       <UploadZone />
       <Button
-        variant="ghost"
+        variant="default"
         size="sm"
         onClick={() => {
           clearOutputs();

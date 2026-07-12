@@ -109,7 +109,10 @@ function applyBehaviors(behaviors: AnimationBehavior[], type: AnimationBehavior[
 // Recursively compiles an ExpressionNode into a GLSL expression string
 function compileNode(node: ExpressionNode): string {
   if (node.ruleId === 'vec3') {
-    const [r, g, b] = node.args.map(compileNode);
+    const args = node.args.map(compileNode);
+    const r = args[0] ?? '0.0';
+    const g = args[1] ?? '0.0';
+    const b = args[2] ?? '0.0';
     return `vec3(${r}, ${g}, ${b})`;
   }
 
