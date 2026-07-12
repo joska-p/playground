@@ -2,7 +2,6 @@ import type { GrammarRule } from '../types';
 import {
   absRule,
   addRule,
-  bandedNoiseRule,
   clampRule,
   constantRule,
   cosRule,
@@ -50,7 +49,6 @@ export const allRules = [
   greaterThanRule,
   ifRule,
   recamanPatternRule,
-  bandedNoiseRule,
   voronoiRule,
   fbmRule,
   stepRule,
@@ -63,13 +61,13 @@ export const allRules = [
 
 export type RuleId = (typeof allRules)[number]['id'];
 
-const rules = new Map<RuleId, GrammarRule>(allRules.map((r) => [r.id, r]));
+const rules = new Map<RuleId, GrammarRule>(allRules.map((rule) => [rule.id, rule]));
 
 export function getRule(id: RuleId) {
   return rules.get(id);
 }
 
-export function getAllRules() {
+export function getAllRules(): GrammarRule[] {
   return Array.from(rules.values());
 }
 

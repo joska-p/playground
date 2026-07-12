@@ -1,6 +1,6 @@
 import { getAllRules } from '../grammar/registry';
 import { SeededRandom } from '../random/SeededRandom';
-import type { ExpressionNode, RuleId, RuleWeights } from '../types';
+import type { ExpressionNode, GrammarRule, RuleId, RuleWeights } from '../types';
 import { buildTree } from './build';
 
 export type TreeConfig = {
@@ -24,9 +24,9 @@ export function generateTrees(config: TreeConfig): TreeOutput {
   const rules = getAllRules()
     .filter((rule) => config.enabledRuleIds.includes(rule.id as RuleId))
     .map((rule) => {
-      const override = config.ruleWeights[rule.id as RuleId];
-      return override !== undefined ? { ...rule, weight: override } : rule;
-    });
+      const weightsOverride = config.ruleWeights[rule.id as RuleId] ?? rule.weight;
+      return { ...rule, weight: weightsOverride };
+    }) satisfies GrammarRule[];
 
   if (config.correlated) {
     // All three channels share one RNG stream so they get the same structural

@@ -1,4 +1,4 @@
-import { getAllRules } from '@repo/randomart-engine/grammar/registry';
+import { getAllRules, type RuleId } from '@repo/randomart-engine/grammar/registry';
 import { Slider } from '@repo/ui/data-entry';
 import { setRuleWeight } from '../../stores/randomart/actions/config';
 import { useRuleWeights } from '../../stores/randomart/selectors';
@@ -10,7 +10,7 @@ export function WeightSliders() {
   return (
     <div className="flex flex-col gap-3">
       {rules.map((rule) => {
-        const currentWeight = ruleWeights[rule.id] ?? rule.weight;
+        const currentWeight = ruleWeights[rule.id as RuleId];
         return (
           <div
             key={rule.id}
@@ -19,7 +19,7 @@ export function WeightSliders() {
             <div className="flex items-center justify-between">
               <span className="text-foreground text-xs font-medium">{rule.name}</span>
               <span className="text-muted-foreground text-xs tabular-nums">
-                {currentWeight.toFixed(1)}
+                {currentWeight?.toFixed(1)}
               </span>
             </div>
             <Slider

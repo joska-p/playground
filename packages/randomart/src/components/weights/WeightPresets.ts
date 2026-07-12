@@ -9,7 +9,6 @@ export const organic = {
   abs: 1.5,
   fbm: 1.5,
   voronoi: 0.3,
-  'banded-noise': 0.2,
   modulo: 0.1,
   'less-than': 0.1,
   'greater-than': 0.1,
@@ -50,3 +49,5 @@ export const WEIGHT_PRESETS = {
   geometric,
   chaotic
 } as const;
+
+export type PresetName = keyof typeof WEIGHT_PRESETS;

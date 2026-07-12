@@ -29,8 +29,8 @@ export type GrammarRule = {
 };
 
 export type RuleId = RuleIdInternal;
-export type RuleWeights = Record<RuleId, number>;
-//export type RuleWeights = Partial<RuleWeight>;
+export type RuleWeight = Record<RuleId, number>;
+export type RuleWeights = Partial<RuleWeight>;
 
 export type AnimationBehavior = {
   id: string;

@@ -1,4 +1,4 @@
-import { getRule } from '../grammar/registry';
+import { getRule, type RuleId } from '../grammar/registry';
 import type { AnimationBehavior, ExpressionNode } from '../types';
 
 // Pseudo-random / noise helpers available to every shader
@@ -113,7 +113,7 @@ function compileNode(node: ExpressionNode): string {
     return `vec3(${r}, ${g}, ${b})`;
   }
 
-  const rule = getRule(node.ruleId);
+  const rule = getRule(node.ruleId as RuleId);
   if (!rule) return '0.0';
 
   if (rule.id === 'constant' && node.constantValue !== undefined) {

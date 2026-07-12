@@ -1,4 +1,4 @@
-import { getRule } from '../grammar/registry';
+import { getRule, type RuleId } from '../grammar/registry';
 import type { ExpressionNode } from '../types';
 
 export function nodeToMathString(node: ExpressionNode): string {
@@ -6,7 +6,7 @@ export function nodeToMathString(node: ExpressionNode): string {
   if (node.ruleId === 'y') return 'y';
   if (node.ruleId === 'constant') return (node.constantValue ?? 0).toFixed(2);
 
-  const rule = getRule(node.ruleId);
+  const rule = getRule(node.ruleId as RuleId);
   if (!rule) return '?';
 
   return rule.toMathString(node.args.map(nodeToMathString));
@@ -22,7 +22,7 @@ export function nodeToTreeView(node: ExpressionNode, depth = 0): string {
     return `${indent}└── const(${(node.constantValue ?? 0).toFixed(2)})\n`;
   }
 
-  const rule = getRule(node.ruleId);
+  const rule = getRule(node.ruleId as RuleId);
   if (!rule) return `${indent}└── ?\n`;
 
   return rule.toTreeView(

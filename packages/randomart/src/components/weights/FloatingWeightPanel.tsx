@@ -119,7 +119,7 @@ export function FloatingWeightPanel() {
           </div>
 
           <div className="flex flex-wrap gap-1">
-            {(['balanced', 'organic', 'geometric', 'chaotic'] as const).map((name) => (
+            {(['organic', 'geometric', 'chaotic'] as const).map((name) => (
               <Button
                 key={name}
                 variant="secondary"
