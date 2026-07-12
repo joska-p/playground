@@ -6,7 +6,11 @@ export const addRule = {
   arity: 2,
   weight: 1.0,
   category: 'structural',
-  evaluate: (args) => (args[0]() + args[1]()) * 0.5, // Multiplication is slightly faster than division
+  evaluate: (args) => {
+    const a = args[0] ?? (() => 0);
+    const b = args[1] ?? (() => 0);
+    return (a() + b()) * 0.5;
+  },
   toMathString: (args) => `((${args[0]} + ${args[1]}) / 2)`,
   toGLSL: (args) => `((${args[0]} + ${args[1]}) * 0.5)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── add\n${args[0]}${args[1]}`,
@@ -22,7 +26,11 @@ export const multiplyRule = {
   arity: 2,
   weight: 1.0, // High structural variety
   category: 'structural',
-  evaluate: (args) => args[0]() * args[1](),
+  evaluate: (args) => {
+    const a = args[0] ?? (() => 0);
+    const b = args[1] ?? (() => 0);
+    return a() * b();
+  },
   toMathString: (args) => `(${args[0]} · ${args[1]})`,
   toGLSL: (args) => `(${args[0]} * ${args[1]})`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── multiply\n${args[0]}${args[1]}`,
@@ -39,8 +47,8 @@ export const moduloRule = {
   weight: 0.4, // Keep lower to restrict repetitive harsh stripes
   category: 'structural',
   evaluate: (args) => {
-    const base = args[0]();
-    const mod = args[1]();
+    const base = args[0]?.() ?? 0;
+    const mod = args[1]?.() ?? 1;
     return mod === 0.0 ? 0.0 : base % mod;
   },
   toMathString: (args) => `(${args[0]} % ${args[1]})`,
@@ -59,8 +67,8 @@ export const powRule = {
   weight: 0.7, // Keep slightly tamed to prevent flat color clamping values
   category: 'structural',
   evaluate: (args) => {
-    const base = args[0]();
-    const exp = Math.max(-3.0, Math.min(3.0, args[1]())); // Safe clamping bounds for JavaScript
+    const base = args[0]?.() ?? 0;
+    const exp = Math.max(-3.0, Math.min(3.0, args[1]?.() ?? 0));
     return Math.sign(base) * Math.pow(Math.abs(base), exp);
   },
   toMathString: (args) => `(${args[0]}^${args[1]})`,

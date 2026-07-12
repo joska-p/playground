@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "check-types": "tsc -p tsconfig.check.json --noEmit",
+    "check-types": "tsc -b",
     "clean": "rm -rf node_modules dist .turbo"
   },
   "dependencies": {

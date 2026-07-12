@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
-    "check-types": "tsc -p tsconfig.check.json --noEmit",
+    "check-types": "tsc -b",
     "test": "vitest run",
     "clean": "rm -rf node_modules dist .turbo"
   },

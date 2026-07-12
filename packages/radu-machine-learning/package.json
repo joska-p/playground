@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
-    "check-types": "tsc -p tsconfig.check.json --noEmit",
+    "check-types": "tsc -b",
     "clean": "rm -rf node_modules dist .turbo",
     "process-data": "pnpm exec node ./src/scripts/processData.ts",
     "gen-dataset": "pnpm exec node ./src/scripts/dataset_generator.ts"

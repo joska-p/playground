@@ -4,11 +4,7 @@ import { Display } from './display/Display';
 
 function PaletteGenerator() {
   return (
-    <Sidebar
-      mobilePosition="left"
-      desktopPosition="left"
-      className="min-h-dvh"
-    >
+    <Sidebar className="min-h-dvh">
       <Sidebar.Panel className="flex flex-col gap-3 p-3">
         <Controls />
       </Sidebar.Panel>

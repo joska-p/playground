@@ -1,5 +1,7 @@
 import { ControlRow } from '@repo/ui/control-panel';
 import { Input, Select, Slider } from '@repo/ui/data-entry';
+import type { MoodName } from '../../assembly/moods';
+import type { PalettePresetName } from '../../palettes/registry';
 import {
   setComplexity,
   setMood,
@@ -16,7 +18,7 @@ const MOOD_OPTIONS = [
   { label: 'Geometric', value: 'geometric' },
   { label: 'Calm', value: 'calm' },
   { label: 'Energetic', value: 'energetic' }
-];
+] as const;
 
 const PALETTE_OPTIONS = [
   { label: 'Iridescent Opal', value: 'iridescent_opal' },
@@ -24,7 +26,7 @@ const PALETTE_OPTIONS = [
   { label: 'Biomorphic Flesh', value: 'biomorphic_flesh' },
   { label: 'Volcanic Magma', value: 'volcanic_magma' },
   { label: 'Deep Ocean', value: 'deep_ocean' }
-];
+] as const;
 
 function SeedControls() {
   const seed = useSeed();
@@ -54,7 +56,7 @@ function SeedControls() {
         <Select
           value={mood}
           onChange={(e) => {
-            setMood(e.target.value);
+            setMood(e.target.value as MoodName);
           }}
         >
           {MOOD_OPTIONS.map((opt) => (
@@ -71,7 +73,7 @@ function SeedControls() {
         <Select
           value={palette}
           onChange={(e) => {
-            setPalette(e.target.value);
+            setPalette(e.target.value as PalettePresetName);
           }}
         >
           {PALETTE_OPTIONS.map((opt) => (

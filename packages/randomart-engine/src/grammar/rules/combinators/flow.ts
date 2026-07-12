@@ -6,7 +6,12 @@ export const ifRule = {
   arity: 3,
   weight: 0.6,
   category: 'structural',
-  evaluate: (args) => (args[0]() > 0.0 ? args[1]() : args[2]()),
+  evaluate: (args) => {
+    const condition = args[0]?.() ?? 0;
+    const trueBranch = args[1]?.() ?? 0;
+    const falseBranch = args[2]?.() ?? 0;
+    return condition > 0.0 ? trueBranch : falseBranch;
+  },
   toMathString: (args) => `(if ${args[0]} > 0 ? ${args[1]} : ${args[2]})`,
   toGLSL: (args) => `(${args[0]} > 0.0 ? ${args[1]} : ${args[2]})`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── if\n${args[0]}${args[1]}${args[2]}`,
@@ -23,10 +28,10 @@ export const smoothstepRule = {
   weight: 0.5,
   category: 'structural',
   evaluate: (args) => {
-    const edge0 = args[0]();
-    const edge1 = args[1]();
-    const x = args[2]();
-    const t = Math.max(0.0, Math.min(1.0, (x - edge0) / (edge1 - edge0)));
+    const edge0 = args[0]?.() ?? 0;
+    const edge1 = args[1]?.() ?? 1;
+    const x = args[2]?.() ?? 0;
+    const t = Math.max(0.0, Math.min(1.0, (x - edge0) / (edge1 - edge0 || 1)));
     return t * t * (3.0 - 2.0 * t) * 2.0 - 1.0;
   },
   toMathString: (args) => `smoothstep(${args[0]}, ${args[1]}, ${args[2]})`,
@@ -46,9 +51,9 @@ export const clampRule = {
   weight: 0.5,
   category: 'structural',
   evaluate: (args) => {
-    const x = args[0]();
-    const lo = args[1]();
-    const hi = args[2]();
+    const x = args[0]?.() ?? 0;
+    const lo = args[1]?.() ?? 0;
+    const hi = args[2]?.() ?? 0;
     return Math.min(hi, Math.max(lo, x));
   },
   toMathString: (args) => `clamp(${args[0]}, ${args[1]}, ${args[2]})`,

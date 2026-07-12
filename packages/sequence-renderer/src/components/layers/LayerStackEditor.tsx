@@ -57,7 +57,7 @@ function LayerStackEditor() {
       })}
       {availableLayers.length > 0 && (
         <Button
-          variant="ghost"
+          variant="default"
           size="sm"
           onClick={() => {
             setShowAddDropdown(!showAddDropdown);

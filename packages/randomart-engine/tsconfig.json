@@ -1,7 +1,13 @@
 {
   "extends": "@repo/config-typescript/node.json",
   "compilerOptions": {
-    "noUncheckedIndexedAccess": false
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "rootDir": "./src",
+    "noUncheckedIndexedAccess": false,
+    "noEmit": true,
+    "skipLibCheck": true
   },
   "include": ["src"]
 }

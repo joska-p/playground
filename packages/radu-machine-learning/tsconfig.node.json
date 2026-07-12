@@ -1,4 +1,12 @@
 {
   "extends": "@repo/config-typescript/node.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "rootDir": ".",
+    "noEmit": true,
+    "skipLibCheck": true
+  },
   "include": ["vite.config.ts", "src/scripts/dataset_generator.ts"]
 }

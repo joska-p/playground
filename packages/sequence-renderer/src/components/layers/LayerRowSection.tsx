@@ -37,7 +37,7 @@ function LayerRowSection({
         />
 
         <Button
-          variant="ghost"
+          variant="default"
           size="icon"
           onClick={onToggleExpand}
           title="Options"
@@ -70,7 +70,7 @@ function LayerRowSection({
         </Button>
 
         <Button
-          variant="ghost"
+          variant="default"
           size="icon"
           onClick={onRemove}
           title="Remove layer"

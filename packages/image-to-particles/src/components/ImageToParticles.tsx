@@ -57,7 +57,6 @@ export function ImageToParticles() {
     const ctx = canvasRef.current.getContext('2d');
     if (!ctx) {
       throw new Error('Could not get canvas context');
-      return;
     }
 
     const image = new Image();

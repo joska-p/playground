@@ -6,7 +6,11 @@ export const lessThanRule = {
   arity: 2,
   weight: 0.4, // Keep low: Step functions create harsh line artifacts
   category: 'structural',
-  evaluate: (args) => (args[0]() < args[1]() ? 1.0 : -1.0),
+  evaluate: (args) => {
+    const a = args[0]?.() ?? 0;
+    const b = args[1]?.() ?? 0;
+    return a < b ? 1.0 : -1.0;
+  },
   toMathString: (args) => `(${args[0]} < ${args[1]} ? 1 : -1)`,
   toGLSL: (args) => `(${args[0]} < ${args[1]} ? 1.0 : -1.0)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── less-than\n${args[0]}${args[1]}`,
@@ -22,7 +26,11 @@ export const greaterThanRule = {
   arity: 2,
   weight: 0.4, // Keep low: Step functions create harsh, non-organic line artifacts
   category: 'structural',
-  evaluate: (args) => (args[0]() > args[1]() ? 1.0 : -1.0),
+  evaluate: (args) => {
+    const a = args[0]?.() ?? 0;
+    const b = args[1]?.() ?? 0;
+    return a > b ? 1.0 : -1.0;
+  },
   toMathString: (args) => `(${args[0]} > ${args[1]} ? 1 : -1)`,
   toGLSL: (args) => `(${args[0]} > ${args[1]} ? 1.0 : -1.0)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── greater-than\n${args[0]}${args[1]}`,
@@ -38,7 +46,11 @@ export const stepRule = {
   arity: 2,
   weight: 0.4,
   category: 'structural',
-  evaluate: (args) => (args[0]() >= args[1]() ? 1.0 : -1.0),
+  evaluate: (args) => {
+    const a = args[0]?.() ?? 0;
+    const b = args[1]?.() ?? 0;
+    return a >= b ? 1.0 : -1.0;
+  },
   toMathString: (args) => `step(${args[0]}, ${args[1]})`,
   toGLSL: (args) => `(2.0 * step(${args[0]}, ${args[1]}) - 1.0)`,
   toTreeView: (args, depth) => `${'  '.repeat(depth)}├── step\n${args[0]}${args[1]}`,

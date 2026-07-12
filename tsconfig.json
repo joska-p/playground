@@ -1,0 +1,28 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/worker-pool" },
+    { "path": "packages/palette-engine" },
+    { "path": "packages/l-system-engine" },
+    { "path": "packages/automa-engine" },
+    { "path": "packages/sequence-engine" },
+    { "path": "packages/pixel-engine" },
+    { "path": "packages/randomart-engine" },
+    { "path": "packages/ui" },
+    { "path": "packages/art-canvas" },
+    { "path": "packages/automa" },
+    { "path": "packages/graph-viz" },
+    { "path": "packages/image-to-particles" },
+    { "path": "packages/l-system" },
+    { "path": "packages/mosaic-maker" },
+    { "path": "packages/palette-generator" },
+    { "path": "packages/pixel" },
+    { "path": "packages/pixel-manipulator" },
+    { "path": "packages/radu-machine-learning" },
+    { "path": "packages/randomart" },
+    { "path": "packages/real-life" },
+    { "path": "packages/sequence-renderer" },
+    { "path": "packages/three-stage" },
+    { "path": "apps/storybook" }
+  ]
+}

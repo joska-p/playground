@@ -44,7 +44,10 @@ function getPaletteId(colors: string[]): string {
 function createPalette(colors: string[]): Palette {
   const palette = {} as Palette;
   for (let i = 0; i < COLOR_NAMES.length; i++) {
-    palette[COLOR_NAMES[i]] = colors[i] ?? '#000000';
+    const colorName = COLOR_NAMES[i];
+    if (colorName) {
+      palette[colorName] = colors[i] ?? '#000000';
+    }
   }
   palette.id = getPaletteId(colors);
   return palette;

@@ -67,6 +67,7 @@ storybook-static/
 
 # --- Dev tools & caches ---
 .turbo/
+*.tsbuildinfo
 .direnv/
 result
 result-*

@@ -1,10 +1,12 @@
 import { createStore, useStore } from 'zustand';
+import type { MoodName } from '../../assembly/moods';
+import type { PalettePresetName } from '../../palettes/registry';
 
 export type StoreState = {
   seed: string;
   complexity: number;
-  mood: string;
-  palette: string;
+  mood: MoodName;
+  palette: PalettePresetName;
 };
 
 const store = createStore<StoreState>(() => ({
@@ -41,10 +43,10 @@ export const setComplexity = (complexity: number) => {
   store.setState({ complexity });
 };
 
-export const setMood = (mood: string) => {
+export const setMood = (mood: MoodName) => {
   store.setState({ mood });
 };
 
-export const setPalette = (palette: string) => {
+export const setPalette = (palette: PalettePresetName) => {
   store.setState({ palette });
 };

@@ -3,8 +3,13 @@ import { ErrorBoundary } from '@repo/ui/feedback';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
-function ThrowOnRender() {
+function throwOnRender() {
   throw new Error('Something went wrong while rendering this component.');
+}
+
+function ThrowOnRender() {
+  throwOnRender();
+  return <div>Error: Something went wrong while rendering this component.</div>;
 }
 
 function RiskyComponent() {

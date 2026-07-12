@@ -1,4 +1,12 @@
 {
   "extends": "@repo/config-typescript/app.json",
-  "include": ["src", "vitest.setup.ts"]
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "rootDir": "./src",
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
 }

@@ -1,4 +1,4 @@
-import { Tabs } from '@repo/ui/navigation';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repo/ui/navigation';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
@@ -28,20 +28,20 @@ export const Default: Story = {
         onValueChange={setTab}
         {...args}
       >
-        <Tabs.List>
-          <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-          <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
-          <Tabs.Trigger value="code">Code</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="overview">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsTrigger value="code">Code</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview">
           Overview content goes here. This tab provides a high-level summary of the experiment.
-        </Tabs.Content>
-        <Tabs.Content value="settings">
+        </TabsContent>
+        <TabsContent value="settings">
           Adjust parameters like scale, rotation, and color palette to customize your output.
-        </Tabs.Content>
-        <Tabs.Content value="code">
+        </TabsContent>
+        <TabsContent value="code">
           View and edit the underlying code that powers this experiment.
-        </Tabs.Content>
+        </TabsContent>
       </Tabs>
     );
   }
@@ -57,20 +57,20 @@ export const Primary: Story = {
         variant="primary"
         {...args}
       >
-        <Tabs.List>
-          <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
-          <Tabs.Trigger value="controls">Controls</Tabs.Trigger>
-          <Tabs.Trigger value="info">Info</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="preview">
+        <TabsList>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
+          <TabsTrigger value="controls">Controls</TabsTrigger>
+          <TabsTrigger value="info">Info</TabsTrigger>
+        </TabsList>
+        <TabsContent value="preview">
           See a live preview of your changes as you tweak parameters in real time.
-        </Tabs.Content>
-        <Tabs.Content value="controls">
+        </TabsContent>
+        <TabsContent value="controls">
           Fine-tune every aspect of the visualization with precision sliders and toggles.
-        </Tabs.Content>
-        <Tabs.Content value="info">
+        </TabsContent>
+        <TabsContent value="info">
           Technical details, version history, and attribution information.
-        </Tabs.Content>
+        </TabsContent>
       </Tabs>
     );
   }
@@ -86,20 +86,20 @@ export const Accent: Story = {
         variant="accent"
         {...args}
       >
-        <Tabs.List>
-          <Tabs.Trigger value="design">Design</Tabs.Trigger>
-          <Tabs.Trigger value="prototype">Prototype</Tabs.Trigger>
-          <Tabs.Trigger value="export">Export</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="design">
+        <TabsList>
+          <TabsTrigger value="design">Design</TabsTrigger>
+          <TabsTrigger value="prototype">Prototype</TabsTrigger>
+          <TabsTrigger value="export">Export</TabsTrigger>
+        </TabsList>
+        <TabsContent value="design">
           Explore the design system tokens and visual primitives used across the playground.
-        </Tabs.Content>
-        <Tabs.Content value="prototype">
+        </TabsContent>
+        <TabsContent value="prototype">
           Rapidly prototype new interactions with hot-reloading and instant feedback.
-        </Tabs.Content>
-        <Tabs.Content value="export">
+        </TabsContent>
+        <TabsContent value="export">
           Export your creation as SVG, PNG, or embed code for use elsewhere.
-        </Tabs.Content>
+        </TabsContent>
       </Tabs>
     );
   }
@@ -115,16 +115,16 @@ export const Destructive: Story = {
         variant="destructive"
         {...args}
       >
-        <Tabs.List>
-          <Tabs.Trigger value="errors">Errors</Tabs.Trigger>
-          <Tabs.Trigger value="details">Details</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="errors">
+        <TabsList>
+          <TabsTrigger value="errors">Errors</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
+        </TabsList>
+        <TabsContent value="errors">
           A log of recent errors and warnings that occurred during the session.
-        </Tabs.Content>
-        <Tabs.Content value="details">
+        </TabsContent>
+        <TabsContent value="details">
           Detailed error stack traces and debugging information for developers.
-        </Tabs.Content>
+        </TabsContent>
       </Tabs>
     );
   }
@@ -139,23 +139,23 @@ export const ManyTabs: Story = {
         onValueChange={setTab}
         {...args}
       >
-        <Tabs.List>
+        <TabsList>
           {['a', 'b', 'c', 'd', 'e'].map((t) => (
-            <Tabs.Trigger
+            <TabsTrigger
               key={t}
               value={t}
             >
               Tab {t.toUpperCase()}
-            </Tabs.Trigger>
+            </TabsTrigger>
           ))}
-        </Tabs.List>
+        </TabsList>
         {['a', 'b', 'c', 'd', 'e'].map((t) => (
-          <Tabs.Content
+          <TabsContent
             key={t}
             value={t}
           >
             Content for tab {t.toUpperCase()}.
-          </Tabs.Content>
+          </TabsContent>
         ))}
       </Tabs>
     );
