@@ -24,9 +24,9 @@ export const Default: Story = {
     const [tab, setTab] = useState('overview');
     return (
       <Tabs
+        {...args}
         value={tab}
         onValueChange={setTab}
-        {...args}
       >
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -52,10 +52,10 @@ export const Primary: Story = {
     const [tab, setTab] = useState('preview');
     return (
       <Tabs
+        {...args}
         value={tab}
         onValueChange={setTab}
         variant="primary"
-        {...args}
       >
         <TabsList>
           <TabsTrigger value="preview">Preview</TabsTrigger>
@@ -81,10 +81,10 @@ export const Accent: Story = {
     const [tab, setTab] = useState('design');
     return (
       <Tabs
+        {...args}
         value={tab}
         onValueChange={setTab}
         variant="accent"
-        {...args}
       >
         <TabsList>
           <TabsTrigger value="design">Design</TabsTrigger>
@@ -110,10 +110,10 @@ export const Destructive: Story = {
     const [tab, setTab] = useState('errors');
     return (
       <Tabs
+        {...args}
         value={tab}
         onValueChange={setTab}
         variant="destructive"
-        {...args}
       >
         <TabsList>
           <TabsTrigger value="errors">Errors</TabsTrigger>
@@ -135,9 +135,9 @@ export const ManyTabs: Story = {
     const [tab, setTab] = useState('a');
     return (
       <Tabs
+        {...args}
         value={tab}
         onValueChange={setTab}
-        {...args}
       >
         <TabsList>
           {['a', 'b', 'c', 'd', 'e'].map((t) => (

@@ -1,4 +1,14 @@
-export const samples = [
+export type Samples = {
+  student_id: string;
+  student_name: string;
+  drawings: {
+    id: number;
+    label: string;
+    paths: [number, number][][];
+  }[];
+}[];
+
+export const samples: Samples = [
   {
     student_id: '1663053145814',
     student_name: 'Radu',
@@ -111084,4 +111094,4 @@ export const samples = [
       },
     ],
   },
-] as const;
+];
