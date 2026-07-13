@@ -17,7 +17,10 @@
   "dependencies": {
     "@repo/randomart-engine": "workspace:*",
     "@repo/ui": "workspace:*",
-    "zustand": "catalog:"
+    "zustand": "catalog:",
+    "@react-three/fiber": "catalog:",
+    "@types/three": "catalog:",
+    "three": "catalog:"
   },
   "peerDependencies": {
     "react": "catalog:",

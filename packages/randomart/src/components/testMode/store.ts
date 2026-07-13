@@ -2,6 +2,7 @@ import { createStore, useStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 export type ArgPreset = 'gradient' | 'symmetric' | 'interactive';
+export type RenderMode = 'cpu' | 'gpu' | 'compare';
 
 type TestModeState = {
   globalT: number;
@@ -9,6 +10,7 @@ type TestModeState = {
   seed: number;
   ruleSeedOverrides: Record<string, number>;
   resolution: number;
+  renderMode: RenderMode;
   query: string;
   category: string;
   selectedRuleId: string | null;
@@ -24,6 +26,7 @@ const testModeStore = createStore<TestModeState>()(
       seed: 1,
       ruleSeedOverrides: {},
       resolution: 96,
+      renderMode: 'cpu',
       query: '',
       category: 'all',
       selectedRuleId: null,
@@ -40,6 +43,7 @@ export const useArgPreset = () => useStore(testModeStore, (s) => s.argPreset);
 export const useSeed = () => useStore(testModeStore, (s) => s.seed);
 export const useRuleSeedOverrides = () => useStore(testModeStore, (s) => s.ruleSeedOverrides);
 export const useResolution = () => useStore(testModeStore, (s) => s.resolution);
+export const useRenderMode = () => useStore(testModeStore, (s) => s.renderMode);
 export const useQuery = () => useStore(testModeStore, (s) => s.query);
 export const useCategory = () => useStore(testModeStore, (s) => s.category);
 export const useSelectedRuleId = () => useStore(testModeStore, (s) => s.selectedRuleId);
@@ -76,6 +80,10 @@ export function rerollRule(ruleId: string): void {
 
 export function setResolution(resolution: number): void {
   testModeStore.setState({ resolution }, false, 'testMode/setResolution');
+}
+
+export function setRenderMode(renderMode: RenderMode): void {
+  testModeStore.setState({ renderMode }, false, 'testMode/setRenderMode');
 }
 
 export function setQuery(query: string): void {

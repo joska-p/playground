@@ -1235,12 +1235,21 @@ importers:
 
   packages/randomart:
     dependencies:
+      '@react-three/fiber':
+        specifier: 'catalog:'
+        version: 9.6.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.184.0)
       '@repo/randomart-engine':
         specifier: workspace:*
         version: link:../randomart-engine
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
+      '@types/three':
+        specifier: 'catalog:'
+        version: 0.184.1
+      three:
+        specifier: 'catalog:'
+        version: 0.184.0
       zustand:
         specifier: 'catalog:'
         version: 5.0.14(@types/react@19.2.17)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
