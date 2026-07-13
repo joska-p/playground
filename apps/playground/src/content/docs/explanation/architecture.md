@@ -20,10 +20,8 @@ engine — currently follows a similar shape. This document describes that
 shape once, at the concept level, so it doesn't need to change when a
 package is added, removed, or rewritten.
 
-For what a _specific_ package does with this shape, see its README under
-[`reference/packages`](/docs/reference/packages/). This document never lists
-package names as a source of truth — treat any package name below as an
-example, not an inventory.
+For what a _specific_ package does with this shape, see its README.
+This document never lists package names as a source of truth — treat any package name below as an example, not an inventory.
 
 ---
 

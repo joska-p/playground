@@ -43,6 +43,51 @@ export default defineConfig({
     resolve: {
       tsconfigPaths: true
     },
+    server: {
+      fs: {
+        // Allow Vite to grab raw files from outside the Astro app directory
+        allow: ['../../']
+      }
+    },
+    optimizeDeps: {
+      // EXCLUDE your local packages so they support fast Hot Module Replacement (HMR)
+      exclude: [
+        '@repo/art-canvas',
+        '@repo/automa',
+        '@repo/graph-viz',
+        '@repo/pixel-manipulator',
+        '@repo/pixel',
+        '@repo/image-to-particles',
+        '@repo/mosaic-maker',
+        '@repo/palette-generator',
+        '@repo/randomart',
+        '@repo/sequence-renderer',
+        '@repo/three-stage',
+        '@repo/l-system',
+        '@repo/real-life',
+        '@repo/radu-machine-learning',
+        '@repo/ui'
+      ],
+
+      // INCLUDE the heavy 3D and utility third-party libraries used inside those projects
+      include: [
+        // --- React Core ---
+        'react',
+        'react-dom',
+
+        // --- The 3D Graphics Stack (Heavy Bottleneck) ---
+        'three',
+        '@react-three/fiber',
+        '@react-three/drei',
+        'three-mesh-bvh', // <-- Extracted from your stats! Safely bundle this heavy BVH math.
+
+        // --- Math & Canvas Utilities ---
+        'p5',
+        'fast-png', // <-- Extracted from your stats! Keep pixel parsing fast.
+        'zustand',
+        'leva'
+      ]
+    },
     build: {
       sourcemap: true,
       chunkSizeWarningLimit: 1200,

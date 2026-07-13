@@ -1,5 +1,6 @@
-import type { HTMLAttributes, ReactNode, Ref } from 'react';
+import type { HTMLAttributes, Ref } from 'react';
 import { cn } from '../../../lib/cn';
+import { Badge } from '../badge/Badge';
 import { heroVariants, type HeroVariants } from './variants';
 
 const COLOR_GRADIENT_FROM = {
@@ -18,7 +19,6 @@ interface HeroProps extends HTMLAttributes<HTMLElement>, HeroVariants {
   title?: string;
   highlight?: string;
   description?: string;
-  children?: ReactNode;
   ref?: Ref<HTMLElement>;
 }
 
@@ -30,29 +30,17 @@ function Hero({
   children,
   variant,
   className,
-  style,
-  ref,
-  ...props
+  ref
 }: HeroProps) {
   const fromColor = COLOR_GRADIENT_FROM[variant ?? 'default'];
 
   return (
     <section
       ref={ref}
-      className={cn(
-        'relative flex min-h-[65vh] flex-col justify-center overflow-hidden px-6 py-[clamp(5rem,8vw,8rem)] font-mono',
-        heroVariants({ variant }),
-        className
-      )}
-      style={style}
-      {...props}
+      className={cn(heroVariants({ variant }), className)}
     >
       <div className="relative z-10 mx-auto w-full max-w-6xl">
-        {badgeText && (
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide uppercase shadow-xs">
-            {badgeText}
-          </div>
-        )}
+        {badgeText && <Badge>{badgeText}</Badge>}
 
         <h1
           className={cn(
