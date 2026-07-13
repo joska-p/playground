@@ -20,8 +20,6 @@ function ModeSelect() {
   const mode = useMode();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
     setMode(e.target.value as Mode);
   };
 

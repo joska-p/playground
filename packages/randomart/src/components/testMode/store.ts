@@ -1,23 +1,101 @@
 import { createStore, useStore } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export type ArgPreset = 'gradient' | 'symmetric' | 'interactive';
 
 type TestModeState = {
   globalT: number;
   argPreset: ArgPreset;
+  seed: number;
+  ruleSeedOverrides: Record<string, number>;
+  resolution: number;
+  query: string;
+  category: string;
+  selectedRuleId: string | null;
+  t: number;
+  animate: boolean;
 };
 
-const testModeStore = createStore<TestModeState>()(() => ({
-  globalT: 0.5,
-  argPreset: 'gradient'
-}));
+const testModeStore = createStore<TestModeState>()(
+  devtools(
+    () => ({
+      globalT: 0.5,
+      argPreset: 'gradient',
+      seed: 1,
+      ruleSeedOverrides: {},
+      resolution: 96,
+      query: '',
+      category: 'all',
+      selectedRuleId: null,
+      t: 0,
+      animate: false
+    }),
+    { name: 'testModeStore' }
+  )
+);
 
-export function useGlobalT(): number {
-  return useStore(testModeStore, (s) => s.globalT);
+// Hooks
+export const useGlobalT = () => useStore(testModeStore, (s) => s.globalT);
+export const useArgPreset = () => useStore(testModeStore, (s) => s.argPreset);
+export const useSeed = () => useStore(testModeStore, (s) => s.seed);
+export const useRuleSeedOverrides = () => useStore(testModeStore, (s) => s.ruleSeedOverrides);
+export const useResolution = () => useStore(testModeStore, (s) => s.resolution);
+export const useQuery = () => useStore(testModeStore, (s) => s.query);
+export const useCategory = () => useStore(testModeStore, (s) => s.category);
+export const useSelectedRuleId = () => useStore(testModeStore, (s) => s.selectedRuleId);
+export const useT = () => useStore(testModeStore, (s) => s.t);
+export const useAnimate = () => useStore(testModeStore, (s) => s.animate);
+export const useSeedForRule = (ruleId: string) =>
+  useStore(testModeStore, (s) => s.ruleSeedOverrides[ruleId] ?? s.seed);
+
+// Actions
+export function setSeed(seed: number): void {
+  testModeStore.setState({ seed, ruleSeedOverrides: {} }, false, 'testMode/setSeed');
 }
 
-export function useArgPreset(): ArgPreset {
-  return useStore(testModeStore, (s) => s.argPreset);
+export function rerollGlobalSeed(): void {
+  testModeStore.setState(
+    { seed: Math.floor(Math.random() * 1_000_000), ruleSeedOverrides: {} },
+    false,
+    'testMode/rerollGlobalSeed'
+  );
+}
+
+export function rerollRule(ruleId: string): void {
+  testModeStore.setState(
+    (state) => ({
+      ruleSeedOverrides: {
+        ...state.ruleSeedOverrides,
+        [ruleId]: Math.floor(Math.random() * 1_000_000)
+      }
+    }),
+    false,
+    'testMode/rerollRule'
+  );
+}
+
+export function setResolution(resolution: number): void {
+  testModeStore.setState({ resolution }, false, 'testMode/setResolution');
+}
+
+export function setQuery(query: string): void {
+  testModeStore.setState({ query }, false, 'testMode/setQuery');
+}
+
+export function setCategory(category: string): void {
+  testModeStore.setState({ category }, false, 'testMode/setCategory');
+}
+
+export function selectRule(ruleId: string | null): void {
+  testModeStore.setState({ selectedRuleId: ruleId }, false, 'testMode/selectRule');
+}
+
+export function setT(t: number): void {
+  testModeStore.setState({ t }, false, 'testMode/setT');
+}
+
+export function toggleAnimate(): void {
+  testModeStore.setState((state) => ({ animate: !state.animate }), false, 'testMode/toggleAnimate');
 }
 
 export function setGlobalT(value: number): void {
@@ -27,3 +105,14 @@ export function setGlobalT(value: number): void {
 export function setArgPreset(value: ArgPreset): void {
   testModeStore.setState({ argPreset: value }, false, 'testMode/setArgPreset');
 }
+
+export function seedForRule(ruleId: string): number {
+  const state = testModeStore.getState();
+  return state.ruleSeedOverrides[ruleId] ?? state.seed;
+}
+
+export function getStoreState() {
+  return testModeStore.getState();
+}
+
+export { testModeStore };
