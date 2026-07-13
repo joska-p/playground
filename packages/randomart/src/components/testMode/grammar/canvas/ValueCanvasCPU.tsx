@@ -1,5 +1,5 @@
 import type { GrammarRule } from '@repo/randomart-engine/types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { valueToRGB } from '../../lib/colormap';
 import { buildPreviewNode, makeDefaultEvalArgs } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
@@ -14,12 +14,11 @@ type ValueCanvasCPUProps = {
 
 export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanvasCPUProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [error, setError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    setError(null);
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -51,10 +50,13 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
       }
 
       ctx.putImageData(new ImageData(buffer, resolution, resolution), 0, 0);
+      if (errorRef.current) errorRef.current.style.display = 'none';
     } catch (e) {
-      // NOTE: original implementation only console.log'd here, so render
-      // errors never reached the UI. Surfacing it via state instead.
-      setError(e instanceof Error ? e.message : 'Render error');
+      const msg = e instanceof Error ? e.message : 'Render error';
+      if (errorRef.current) {
+        errorRef.current.textContent = msg;
+        errorRef.current.style.display = 'flex';
+      }
     }
   }, [rule, seed, resolution, t]);
 
@@ -66,11 +68,11 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
         height={resolution}
         style={{ width: sizePx, height: sizePx, imageRendering: 'pixelated' }}
       />
-      {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400">
-          {error}
-        </div>
-      )}
+      <div
+        ref={errorRef}
+        className="absolute inset-0 flex items-center justify-center bg-black/70 p-1 text-center text-[10px] text-red-400"
+        style={{ display: 'none' }}
+      />
     </Corners>
   );
 }

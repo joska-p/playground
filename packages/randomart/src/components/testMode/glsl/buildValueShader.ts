@@ -1,4 +1,4 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
+import type { ExpressionNode, GrammarRule } from '@repo/randomart-engine/types';
 import { colormapGLSL } from '../lib/colormap';
 import { GLSL_ARGS } from '../lib/evalHelpers';
 
@@ -20,7 +20,7 @@ void main() {
  * Throws if the rule doesn't implement toGLSL (e.g. some structural rules) -
  * callers should catch this and fall back to an error state.
  */
-export function buildValueFragmentShader(rule: GrammarRule, node: unknown): string {
+export function buildValueFragmentShader(rule: GrammarRule, node: ExpressionNode): string {
   const expression = rule.toGLSL(GLSL_ARGS, node);
 
   return `
