@@ -3,9 +3,6 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.worker.json" },
-    { "path": "../ui" },
-    { "path": "../pixel-engine" },
-    { "path": "../worker-pool" }
+    { "path": "./tsconfig.worker.json" }
   ]
 }

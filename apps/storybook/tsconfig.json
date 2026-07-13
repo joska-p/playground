@@ -1,9 +1,4 @@
 {
-  "extends": "@tsconfig/strictest",
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" },
-    { "path": "../../packages/ui" }
-  ]
+  "extends": "@repo/config-typescript/app.json",
+  "files": []
 }

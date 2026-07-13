@@ -1,15 +1,8 @@
 {
   "extends": "@repo/config-typescript/app.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "noEmit": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src",
-    "src/**/*.json"
-  ],
-  "exclude": [
-    "src/core/pipeline/prepare.ts"
-  ]
+  "include": ["src"],
+  "exclude": ["src/core/pipeline/prepare.ts"]
 }

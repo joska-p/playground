@@ -1,4 +1,4 @@
-import geant from '../assets/geant.jpg';
+import { geant } from './geant';
 
 function loadImage(url: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {

@@ -1,12 +1,4 @@
 {
   "extends": "@repo/config-typescript/node.json",
-  "compilerOptions": {
-    "rootDir": ".",
-    "noEmit": true
-  },
-  "include": [
-    "vite.config.ts",
-    "src/core/pipeline/**/*.ts",
-    "src/core/config.ts"
-  ]
+  "include": ["vite.config.ts", "src/core/pipeline/**/*.ts", "src/core/config.ts"]
 }

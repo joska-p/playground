@@ -4,8 +4,7 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "lib": ["webworker", "esnext"],
-    "noEmit": true
+    "lib": ["webworker", "esnext"]
   },
   "include": ["src/**/*.worker.ts"]
 }

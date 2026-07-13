@@ -23,6 +23,7 @@
     { "path": "packages/real-life" },
     { "path": "packages/sequence-renderer" },
     { "path": "packages/three-stage" },
-    { "path": "apps/storybook" }
+    { "path": "apps/storybook" },
+    { "path": "apps/playground" }
   ]
 }

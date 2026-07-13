@@ -1,13 +1,7 @@
 {
   "extends": "@repo/config-typescript/node.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "rootDir": "./src",
-    "lib": ["ES2022", "webworker"],
-    "noEmit": true,
-    "skipLibCheck": true
+    "lib": ["ES2022", "webworker"]
   },
   "include": ["src"]
 }

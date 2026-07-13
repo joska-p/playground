@@ -1,12 +1,5 @@
 {
   "extends": "@repo/config-typescript/node.json",
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "rootDir": "./src",
-    "noEmit": true,
-    "skipLibCheck": true
-  },
+
   "include": ["src"]
 }

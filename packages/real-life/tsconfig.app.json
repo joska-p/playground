@@ -1,14 +1,5 @@
 {
   "extends": "@repo/config-typescript/app.json",
-  "compilerOptions": {
-    "rootDir": "./src",
-    "noEmit": true,
-    "types": [
-      "node",
-      "vite/client"
-    ]
-  },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  "exclude": ["src/core/engine.ts"]
 }

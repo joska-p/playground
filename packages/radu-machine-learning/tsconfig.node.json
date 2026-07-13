@@ -1,15 +1,7 @@
 {
   "extends": "@repo/config-typescript/node.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "noEmit": true,
-    "esModuleInterop": true,
-    "types": [
-      "node"
-    ]
+    "esModuleInterop": true
   },
-  "include": [
-    "vite.config.ts",
-    "src/scripts/**/*.ts"
-  ]
+  "include": ["vite.config.ts", "src/scripts/**/*.ts"]
 }

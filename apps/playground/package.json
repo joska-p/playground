@@ -12,7 +12,7 @@
     "astro": "astro",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "check-types": "astro check",
+    "check-types": "tsc --noEmit && astro check",
     "clean": "rm -rf node_modules .astro dist .turbo"
   },
   "dependencies": {

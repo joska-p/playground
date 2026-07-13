@@ -28,7 +28,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "preview": "vite preview --host",
-    "check-types": "tsc -b"
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^1.23.0",
