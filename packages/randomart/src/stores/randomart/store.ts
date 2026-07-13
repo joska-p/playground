@@ -6,6 +6,7 @@ import { devtools } from 'zustand/middleware';
 import type { RandomartState } from './types';
 
 function generateInitial(): RandomartState {
+  const mode = 'play';
   const seedText = "De deux choses lune l'autre c'est le soleil";
   const maxDepth = 8;
   const enabledRuleIds = getAllRules().map((rule) => rule.id as RuleId);
@@ -19,6 +20,7 @@ function generateInitial(): RandomartState {
   });
 
   return {
+    mode,
     seedText,
     activeChannel: 'red',
     maxDepth,

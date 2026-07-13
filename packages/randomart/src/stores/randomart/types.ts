@@ -1,7 +1,10 @@
 import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
 import type { ExpressionNode, RuleId, RuleWeights } from '@repo/randomart-engine/types';
 
+export type Mode = 'test' | 'play';
+
 export type RandomartState = {
+  mode: Mode;
   seedText: string;
   activeChannel: 'red' | 'green' | 'blue';
   maxDepth: number;

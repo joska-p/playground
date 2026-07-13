@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const radialRule = {
   id: 'radial',
-  name: 'Radial',
+  name: 'Radial Distance',
   arity: 0,
   weight: 0.6,
   category: 'terminal',
@@ -15,7 +15,7 @@ export const radialRule = {
 
 export const sweepRule = {
   id: 'sweep',
-  name: 'Sweep',
+  name: 'Angular Sweep',
   arity: 0,
   weight: 0.5,
   category: 'terminal',

@@ -1,14 +1,15 @@
 import { ChevronUp, SlidersHorizontal } from 'lucide-react';
-import type { HTMLAttributes, Ref } from 'react';
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
 import { useState } from 'react';
 import { cn } from '../../../lib/cn';
 import { controlPanelVariants, type ControlPanelVariants } from '../variants';
 
 export type Position = 'top' | 'bottom' | 'left' | 'right';
 
-export interface ControlPanelProps extends HTMLAttributes<HTMLDivElement>, ControlPanelVariants {
+export interface ControlPanelProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, ControlPanelVariants {
   ref?: Ref<HTMLDivElement>;
-  title?: string;
+  title?: ReactNode;
   defaultCollapsed?: boolean;
 }
 
@@ -48,9 +49,9 @@ export function ControlPanel({
             'landscape:data-[collapsed=true]:bg-surface/98 landscape:data-[collapsed=true]:shadow-sm'
         )}
       >
-        <span className="text-foreground-muted truncate text-sm font-medium tracking-wide">
+        <div className="text-foreground-muted w-full truncate text-sm font-medium tracking-wide">
           {title}
-        </span>
+        </div>
         <ChevronUp
           size={16}
           className={cn(

@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const absRule = {
   id: 'abs',
-  name: 'Fold',
+  name: 'Absolute Value',
   arity: 1,
   weight: 1.0,
   category: 'structural',
@@ -18,7 +18,7 @@ export const absRule = {
 
 export const sqrtRule = {
   id: 'sqrt',
-  name: 'Soften',
+  name: 'Square Root',
   arity: 1,
   weight: 0.8,
   category: 'structural',
@@ -34,7 +34,7 @@ export const sqrtRule = {
 
 export const expRule = {
   id: 'exp',
-  name: 'Surge',
+  name: 'Exponential',
   arity: 1,
   weight: 0.8, // Lowered weight slightly because exp climbs aggressively
   category: 'structural',
@@ -56,7 +56,7 @@ export const expRule = {
 
 export const logRule = {
   id: 'log',
-  name: 'Dampen',
+  name: 'Logarithm',
   arity: 1,
   weight: 0.8,
   category: 'structural',
@@ -75,7 +75,7 @@ export const logRule = {
 
 export const fractRule = {
   id: 'fract',
-  name: 'Tiles',
+  name: 'Fractional Part',
   arity: 1,
   weight: 0.6,
   category: 'structural',

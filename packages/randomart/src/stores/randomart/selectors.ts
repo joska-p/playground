@@ -2,6 +2,11 @@ import type { ExpressionNode } from '@repo/randomart-engine/types';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
 
+// --- Mode Selectors ---
+export function useMode() {
+  return useStore(randomartStore, (s) => s.mode);
+}
+
 // --- Direct Configuration Selectors ---
 export function useSeedText() {
   return useStore(randomartStore, (s) => s.seedText);

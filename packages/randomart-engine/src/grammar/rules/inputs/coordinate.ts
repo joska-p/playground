@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const terminalXRule = {
   id: 'x',
-  name: 'Horizontal',
+  name: 'X Coordinate',
   arity: 0,
   weight: 1.0,
   category: 'terminal',
@@ -15,7 +15,7 @@ export const terminalXRule = {
 
 export const terminalYRule = {
   id: 'y',
-  name: 'Vertical',
+  name: 'Y Coordinate',
   arity: 0,
   weight: 1.0,
   category: 'terminal',

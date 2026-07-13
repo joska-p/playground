@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const addRule = {
   id: 'add',
-  name: 'Blend',
+  name: 'Add',
   arity: 2,
   weight: 1.0,
   category: 'structural',
@@ -22,7 +22,7 @@ export const addRule = {
 
 export const multiplyRule = {
   id: 'multiply',
-  name: 'Mix',
+  name: 'Multiply',
   arity: 2,
   weight: 1.0, // High structural variety
   category: 'structural',
@@ -43,7 +43,7 @@ export const multiplyRule = {
 
 export const moduloRule = {
   id: 'modulo',
-  name: 'Bands',
+  name: 'Modulo',
   arity: 2,
   weight: 0.4, // Keep lower to restrict repetitive harsh stripes
   category: 'structural',
@@ -64,7 +64,7 @@ export const moduloRule = {
 
 export const powRule = {
   id: 'pow',
-  name: 'Curve',
+  name: 'Power',
   arity: 2,
   weight: 0.7, // Keep slightly tamed to prevent flat color clamping values
   category: 'structural',

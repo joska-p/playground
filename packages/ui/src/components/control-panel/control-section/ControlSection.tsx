@@ -40,9 +40,9 @@ export function ControlSection({
           size={14}
           className="text-foreground-dim shrink-0 transition-transform group-open/section:rotate-90"
         />
-        <span className="text-foreground-muted truncate text-xs font-semibold tracking-wider uppercase">
+        <div className="text-foreground-muted w-full truncate text-xs font-semibold tracking-wider uppercase">
           {title}
-        </span>
+        </div>
       </summary>
 
       {/* Content wrapper */}

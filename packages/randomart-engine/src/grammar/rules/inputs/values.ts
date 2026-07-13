@@ -3,7 +3,7 @@ import type { ExpressionNode, GrammarRule } from '../../../types';
 
 export const constantRule = {
   id: 'constant',
-  name: 'Flat',
+  name: 'Constant',
   arity: 0,
   weight: 0.5, // Lowered weight slightly so trees don't collapse into dead constants too early
   category: 'terminal',
@@ -22,7 +22,7 @@ export const constantRule = {
 
 export const pixelRandomRule = {
   id: 'random',
-  name: 'Static',
+  name: 'Pseudo-Random',
   arity: 0,
   weight: 0.3,
   category: 'terminal',

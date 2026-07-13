@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const nestedOscillationRule = {
   id: 'nested-oscillation',
-  name: 'Moire',
+  name: 'Nested Oscillation',
   arity: 0,
   weight: 0.05, // Treat macro-macros with lower weights so normal generation can build unique combinations
   category: 'terminal',

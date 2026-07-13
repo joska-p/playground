@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const lessThanRule = {
   id: 'less-than',
-  name: 'Cliff',
+  name: 'Less Than',
   arity: 2,
   weight: 0.4, // Keep low: Step functions create harsh line artifacts
   category: 'structural',
@@ -23,7 +23,7 @@ export const lessThanRule = {
 
 export const greaterThanRule = {
   id: 'greater-than',
-  name: 'Peak',
+  name: 'Greater Than',
   arity: 2,
   weight: 0.4, // Keep low: Step functions create harsh, non-organic line artifacts
   category: 'structural',
@@ -44,7 +44,7 @@ export const greaterThanRule = {
 
 export const stepRule = {
   id: 'step',
-  name: 'Ridge',
+  name: 'Step',
   arity: 2,
   weight: 0.4,
   category: 'structural',

@@ -1,6 +1,11 @@
 import type { RuleId } from '@repo/randomart-engine/grammar/registry';
 import { getInitialWeights, getRule } from '@repo/randomart-engine/grammar/registry';
 import { randomartStore, updateTreeConfig } from '../store';
+import type { Mode } from '../types';
+
+export function setMode(mode: Mode): void {
+  randomartStore.setState({ mode }, false, 'config/setMode');
+}
 
 export function setSeedText(seedText: string): void {
   updateTreeConfig(() => ({ seedText }), 'config/setSeedText');
