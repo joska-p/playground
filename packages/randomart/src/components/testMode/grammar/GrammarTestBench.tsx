@@ -17,17 +17,23 @@ export function GrammarTestBench({ rules }: { rules: GrammarRule[] }) {
   });
 
   return (
-    <div className="min-h-screen bg-neutral-950 p-6 text-neutral-100">
-      <h1 className="mb-4 text-lg font-bold">Grammar Rule Test Bench</h1>
+    <div className="bg-background text-foreground min-h-screen p-6">
+      <h1 className="text-foreground mb-4 text-lg font-bold">Grammar Rule Test Bench</h1>
 
       <div className="grid grid-cols-3 gap-4">
         {filtered.map((rule, i) => (
-          <SpecimenCard key={rule.id} rule={rule} index={i} />
+          <SpecimenCard
+            key={rule.id}
+            rule={rule}
+            index={i}
+          />
         ))}
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-8 text-center text-sm text-neutral-500">No rules match your filters.</p>
+        <p className="text-foreground-muted mt-8 text-center text-sm">
+          No rules match your filters.
+        </p>
       )}
 
       <DetailPanel rules={rules} />

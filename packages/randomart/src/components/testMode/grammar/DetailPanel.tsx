@@ -1,7 +1,16 @@
 import type { GrammarRule } from '@repo/randomart-engine/types';
+import { Button } from '@repo/ui/data-entry';
 import { useEffect } from 'react';
 import { STRING_ARGS, buildPreviewNode } from '../lib/evalHelpers';
-import { rerollRule, selectRule, useRenderMode, useResolution, useSeedForRule, useSelectedRuleId, useT } from '../store';
+import {
+  rerollRule,
+  selectRule,
+  useRenderMode,
+  useResolution,
+  useSeedForRule,
+  useSelectedRuleId,
+  useT
+} from '../store';
 import { RuleCanvas } from './canvas/RuleCanvas';
 import { Badge } from './ui/Badge';
 
@@ -36,28 +45,30 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      className="bg-background/60 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
       onClick={() => {
         selectRule(null);
       }}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-neutral-700 bg-neutral-900 p-6 shadow-2xl"
+        className="border-border bg-surface relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border p-6 shadow-2xl"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <button
-          className="absolute top-3 right-3 rounded border border-neutral-600 px-2 py-1 text-xs text-neutral-400 hover:border-neutral-400 hover:text-neutral-200"
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute top-3 right-3"
           onClick={() => {
             selectRule(null);
           }}
         >
-          ✕
-        </button>
+          x
+        </Button>
 
-        <h2 className="mb-1 text-lg font-bold">
-          {rule.name} <span className="text-neutral-400">({rule.id})</span>
+        <h2 className="text-foreground mb-1 text-lg font-bold">
+          {rule.name} <span className="text-foreground-muted">({rule.id})</span>
         </h2>
 
         <div className="mb-4 flex flex-wrap gap-1">
@@ -78,34 +89,41 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
         </div>
 
         <div className="mb-4 flex justify-center">
-          <button
-            className="rounded border border-neutral-600 px-3 py-1.5 text-xs text-neutral-400 hover:border-neutral-400 hover:text-neutral-200"
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => {
               rerollRule(rule.id);
             }}
           >
-            ↻ reroll
-          </button>
+            reroll
+          </Button>
         </div>
 
         <div className="space-y-3">
           <div>
-            <h3 className="mb-1 text-xs font-semibold tracking-wider text-neutral-400 uppercase">Math</h3>
-            <pre className="overflow-x-auto rounded bg-neutral-950 p-2 font-mono text-xs text-amber-400">
+            <h3 className="text-foreground-muted mb-1 text-xs font-semibold tracking-wider uppercase">
+              Math
+            </h3>
+            <pre className="bg-background text-warning overflow-x-auto rounded-md p-2 font-mono text-xs">
               {rule.toMathString(STRING_ARGS, node)}
             </pre>
           </div>
 
           <div>
-            <h3 className="mb-1 text-xs font-semibold tracking-wider text-neutral-400 uppercase">GLSL</h3>
-            <pre className="overflow-x-auto rounded bg-neutral-950 p-2 font-mono text-xs text-green-400">
+            <h3 className="text-foreground-muted mb-1 text-xs font-semibold tracking-wider uppercase">
+              GLSL
+            </h3>
+            <pre className="bg-background text-green overflow-x-auto rounded-md p-2 font-mono text-xs">
               {rule.toGLSL(STRING_ARGS, node)}
             </pre>
           </div>
 
           <div>
-            <h3 className="mb-1 text-xs font-semibold tracking-wider text-neutral-400 uppercase">Tree</h3>
-            <pre className="overflow-x-auto rounded bg-neutral-950 p-2 font-mono text-xs text-blue-400">
+            <h3 className="text-foreground-muted mb-1 text-xs font-semibold tracking-wider uppercase">
+              Tree
+            </h3>
+            <pre className="bg-background text-blue overflow-x-auto rounded-md p-2 font-mono text-xs">
               {rule.toTreeView(STRING_ARGS, 0, node)}
             </pre>
           </div>

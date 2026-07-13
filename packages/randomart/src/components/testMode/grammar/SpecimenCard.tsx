@@ -1,4 +1,5 @@
 import type { GrammarRule } from '@repo/randomart-engine/types';
+import { Button } from '@repo/ui/data-entry';
 import { STRING_ARGS } from '../lib/evalHelpers';
 import {
   rerollRule,
@@ -26,26 +27,26 @@ export function SpecimenCard({ rule, index }: { rule: GrammarRule; index: number
 
   return (
     <div
-      className={`cursor-pointer rounded border p-3 transition-colors ${
-        isSelected
-          ? 'border-amber-500/60 bg-amber-500/10'
-          : 'border-neutral-700 bg-neutral-900 hover:border-neutral-500'
+      className={`border-border bg-surface cursor-pointer rounded-md border p-3 transition-colors ${
+        isSelected ? 'border-primary/60 bg-primary/10' : 'hover:border-foreground-dim'
       }`}
       onClick={() => {
         selectRule(isSelected ? null : rule.id);
       }}
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="font-mono text-xs text-neutral-400">#{index}</span>
-        <button
-          className="rounded border border-neutral-600 px-1.5 py-0.5 text-[10px] text-neutral-400 hover:border-neutral-400 hover:text-neutral-200"
+        <span className="text-foreground-muted font-mono text-xs">#{index}</span>
+        <Button
+          variant="outline"
+          size="sm"
           onClick={(e) => {
             e.stopPropagation();
             rerollRule(rule.id);
           }}
+          className="px-1.5 py-0.5 text-[10px]"
         >
           reroll
-        </button>
+        </Button>
       </div>
 
       <div className="mb-2 flex justify-center">
@@ -59,8 +60,8 @@ export function SpecimenCard({ rule, index }: { rule: GrammarRule; index: number
         />
       </div>
 
-      <h3 className="mb-1 text-sm font-semibold">
-        {rule.name} <span className="text-neutral-400">({rule.id})</span>
+      <h3 className="text-foreground mb-1 text-sm font-semibold">
+        {rule.name} <span className="text-foreground-muted">({rule.id})</span>
       </h3>
 
       <div className="mb-2 flex flex-wrap gap-1">
@@ -68,7 +69,7 @@ export function SpecimenCard({ rule, index }: { rule: GrammarRule; index: number
         <Badge>arity {rule.arity}</Badge>
       </div>
 
-      <pre className="overflow-x-auto rounded bg-neutral-950 p-1.5 font-mono text-[10px] text-amber-400">
+      <pre className="bg-background text-warning overflow-x-auto rounded-md p-1.5 font-mono text-[10px]">
         f({STRING_ARGS.join(', ')}) = {rule.toMathString(STRING_ARGS)}
       </pre>
     </div>

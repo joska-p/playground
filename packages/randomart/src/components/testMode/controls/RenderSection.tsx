@@ -1,7 +1,14 @@
-import { ControlSection } from '@repo/ui/control-panel';
-import { Select, Switch } from '@repo/ui/data-entry';
+import { ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Button, Select, Switch } from '@repo/ui/data-entry';
 import { RENDER_MODE_OPTIONS } from '../lib/renderModes';
-import { setRenderMode, setResolution, toggleAnimate, useAnimate, useRenderMode, useResolution } from '../store';
+import {
+  setRenderMode,
+  setResolution,
+  toggleAnimate,
+  useAnimate,
+  useRenderMode,
+  useResolution
+} from '../store';
 
 export function RenderSection() {
   const resolution = useResolution();
@@ -9,32 +16,29 @@ export function RenderSection() {
   const renderMode = useRenderMode();
 
   return (
-    <ControlSection title="render" defaultOpen>
-      <div className="flex items-center justify-between">
-        <span className="text-foreground-muted text-xs">Renderer</span>
+    <ControlSection
+      title="render"
+      defaultOpen
+    >
+      <ControlRow label="Renderer">
         <div className="flex gap-1">
           {RENDER_MODE_OPTIONS.map((option) => (
-            <button
+            <Button
               key={option.value}
+              variant={renderMode === option.value ? 'primary' : 'outline'}
+              size="sm"
               onClick={() => {
                 setRenderMode(option.value);
               }}
-              className={`rounded px-2 py-1 font-mono text-xs transition-colors ${
-                renderMode === option.value
-                  ? 'bg-neutral-600 text-white'
-                  : 'bg-neutral-800 text-neutral-400 hover:bg-neutral-700'
-              }`}
+              className="px-2 py-1 text-xs"
             >
               {option.label}
-            </button>
+            </Button>
           ))}
         </div>
-      </div>
+      </ControlRow>
 
-      <div className="flex items-center justify-between">
-        <span className="text-foreground-muted text-xs">
-          Resolution{renderMode === 'gpu' ? ' (CPU only)' : ''}
-        </span>
+      <ControlRow label={`Resolution${renderMode === 'gpu' ? ' (CPU only)' : ''}`}>
         <Select
           value={resolution}
           disabled={renderMode === 'gpu'}
@@ -48,12 +52,15 @@ export function RenderSection() {
           <option value={128}>128</option>
           <option value={192}>192</option>
         </Select>
-      </div>
+      </ControlRow>
 
-      <div className="flex items-center justify-between">
-        <span className="text-foreground-muted text-xs">Animate</span>
-        <Switch checked={animate} onChange={toggleAnimate} label={animate ? 'On' : 'Off'} />
-      </div>
+      <ControlRow label="Animate">
+        <Switch
+          checked={animate}
+          onChange={toggleAnimate}
+          label={animate ? 'On' : 'Off'}
+        />
+      </ControlRow>
     </ControlSection>
   );
 }

@@ -1,5 +1,5 @@
 import { ControlSection } from '@repo/ui/control-panel';
-import { Input } from '@repo/ui/data-entry';
+import { Button, Input } from '@repo/ui/data-entry';
 import { setCategory, setQuery, useCategory, useQuery } from '../store';
 
 const CATEGORIES = ['all', 'terminal', 'structural'] as const;
@@ -9,9 +9,12 @@ export function SearchSection() {
   const category = useCategory();
 
   return (
-    <ControlSection title="search" defaultOpen>
+    <ControlSection
+      title="search"
+      defaultOpen
+    >
       <Input
-        placeholder="Search rules…"
+        placeholder="Search rules..."
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
@@ -19,19 +22,17 @@ export function SearchSection() {
       />
       <div className="flex gap-1">
         {CATEGORIES.map((cat) => (
-          <button
+          <Button
             key={cat}
+            variant={category === cat ? 'primary' : 'outline'}
+            size="sm"
             onClick={() => {
               setCategory(cat);
             }}
-            className={`rounded px-2 py-1 font-mono text-xs transition-colors ${
-              category === cat
-                ? 'bg-neutral-600 text-white'
-                : 'bg-neutral-800 text-neutral-400 hover:bg-neutral-700'
-            }`}
+            className="px-2 py-1 text-xs"
           >
             {cat}
-          </button>
+          </Button>
         ))}
       </div>
     </ControlSection>

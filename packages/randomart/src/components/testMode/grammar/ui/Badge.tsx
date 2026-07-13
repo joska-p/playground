@@ -1,9 +1,13 @@
-import type { ReactNode } from 'react';
+import { Badge as UIBadge, type BadgeProps } from '@repo/ui/data-display';
 
-export function Badge({ children }: { children: ReactNode }) {
+export function Badge({ children, ...props }: BadgeProps) {
   return (
-    <span className="border-white/10 bg-white/[0.03] font-mono text-[10px] tracking-wider uppercase">
+    <UIBadge
+      variant="default"
+      size="sm"
+      {...props}
+    >
       {children}
-    </span>
+    </UIBadge>
   );
 }

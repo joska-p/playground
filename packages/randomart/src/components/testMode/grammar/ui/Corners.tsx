@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 const CORNER_SIZE = 10;
 
 const cornerBaseStyle: CSSProperties = {
-  borderColor: 'rgba(251,191,36,0.7)',
+  borderColor: 'var(--primary)',
   borderStyle: 'solid',
   position: 'absolute',
   width: CORNER_SIZE,
