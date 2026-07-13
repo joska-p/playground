@@ -99,7 +99,7 @@ float voronoiCells(vec2 p) {
     for (int i = -1; i <= 1; i++) {
       vec2 g = vec2(float(i), float(j));
       vec2 o = voronoiHash(n + g);
-      o = 0.5 + 0.5 * sin(u_time * 0.0 + 6.2831 * o);
+      o = 0.5 + 0.5 * sin(uT * 0.0 + 6.2831 * o);
       vec2 r = g + o - f;
       float d = dot(r, r);
       md = min(md, d);

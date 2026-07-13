@@ -35,11 +35,14 @@ export function ValueCanvasGPU({ rule, seed, t, sizePx }: ValueCanvasGPUProps) {
         {shader && (
           <Canvas
             orthographic
-            camera={{ position: [0, 0, 1] }}
+            camera={{ position: [0, 0, 1], zoom: sizePx / 2 }}
             gl={{ antialias: false, preserveDrawingBuffer: false }}
             dpr={[1, 1]}
           >
-            <ValuePlane fragmentShader={shader} t={t} />
+            <ValuePlane
+              fragmentShader={shader}
+              t={t}
+            />
           </Canvas>
         )}
       </div>

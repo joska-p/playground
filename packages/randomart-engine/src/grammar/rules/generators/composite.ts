@@ -8,7 +8,8 @@ export const nestedOscillationRule = {
   category: 'terminal',
   evaluate: (_args, x, y) => Math.sin(x * Math.sin(y * Math.PI) * Math.PI), // Added explicit fallback matching the syntax tree intent
   toMathString: () => 'nested-oscillation',
-  toGLSL: () => 'nested-oscillation',
+  toGLSL: (args) =>
+    `sin(${args[0] ?? 'x'} * sin(${args[1] ?? 'y'} * 3.141592653589793) * 3.141592653589793)`,
   toTreeView: (_args, depth) => `${'  '.repeat(depth)}└── nested-oscillation\n`,
   buildNode: () => {
     // sin(multiply(x, sin(y)))
