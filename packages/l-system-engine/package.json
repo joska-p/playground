@@ -7,8 +7,6 @@
     ".": "./src/engine.ts"
   },
   "scripts": {
-    "test": "vitest run",
-    "test-watch": "vitest",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "check-types": "tsc --noEmit",
@@ -19,8 +17,6 @@
     "@repo/config-typescript": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "typescript": "catalog:",
-    "vite": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   }
 }
