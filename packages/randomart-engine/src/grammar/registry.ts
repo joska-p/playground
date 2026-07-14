@@ -14,11 +14,9 @@ import {
   logRule,
   moduloRule,
   multiplyRule,
-  nestedOscillationRule,
   pixelRandomRule,
   powRule,
   radialRule,
-  recamanPatternRule,
   sinRule,
   smoothstepRule,
   sqrtRule,
@@ -37,7 +35,6 @@ export const allRules = [
   sqrtRule,
   absRule,
   multiplyRule,
-  nestedOscillationRule,
   addRule,
   moduloRule,
   expRule,
@@ -46,7 +43,6 @@ export const allRules = [
   lessThanRule,
   greaterThanRule,
   ifRule,
-  recamanPatternRule,
   fbmRule,
   smoothstepRule,
   radialRule,
@@ -82,3 +78,5 @@ export function getInitialWeights() {
 }
 
 /* removed the stepRule as it produce the same thing as > */
+/* recamanPatternRule */
+/* nestedOscillationRule */

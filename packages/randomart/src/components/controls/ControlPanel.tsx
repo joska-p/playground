@@ -8,8 +8,6 @@ import { ConfigSection } from './ConfigSection';
 import { DisplaySection } from './DisplaySection';
 import { GrammarSection } from './GrammarSection';
 
-import { PlaybackSection } from './PlaybackSection';
-
 const modeOptions = [
   { value: 'play', label: 'Play' },
   { value: 'test', label: 'Test' }
@@ -45,7 +43,6 @@ function PlayModeControlPanel() {
       <ControlSection title="config">
         <ConfigSection />
         <DisplaySection />
-        <PlaybackSection />
       </ControlSection>
       <GrammarSection />
       <AnimationSection />
