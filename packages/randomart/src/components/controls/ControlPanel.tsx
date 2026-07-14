@@ -1,4 +1,4 @@
-import { ControlPanel as Panel } from '@repo/ui/control-panel';
+import { ControlSection, ControlPanel as Panel } from '@repo/ui/control-panel';
 import { setMode } from '../../stores/randomart/actions/config';
 import { useMode } from '../../stores/randomart/selectors';
 import type { Mode } from '../../stores/randomart/types';
@@ -42,9 +42,11 @@ function ModeSelect() {
 function PlayModeControlPanel() {
   return (
     <>
-      <ConfigSection />
-      <PlaybackSection />
-      <DisplaySection />
+      <ControlSection title="config">
+        <ConfigSection />
+        <DisplaySection />
+        <PlaybackSection />
+      </ControlSection>
       <GrammarSection />
       <AnimationSection />
     </>
