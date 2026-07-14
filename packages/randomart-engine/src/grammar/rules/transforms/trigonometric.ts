@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const sinRule = {
   id: 'sin',
-  name: 'Sine',
+  name: 'sin',
   arity: 1,
   weight: 1.2, // Slightly bumped: Sin/Cos oscillations create excellent texture patterns
   category: 'structural',
@@ -18,7 +18,7 @@ export const sinRule = {
 
 export const cosRule = {
   id: 'cos',
-  name: 'Cosine',
+  name: 'cos',
   arity: 1,
   weight: 1.0,
   category: 'structural',

@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const fbmRule = {
   id: 'fbm',
-  name: 'FBM Noise',
+  name: 'fbm',
   arity: 0,
   weight: 0.8,
   category: 'terminal',
@@ -28,7 +28,7 @@ export const fbmRule = {
 
 export const voronoiRule = {
   id: 'voronoi',
-  name: 'Voronoi Cells',
+  name: 'voronoi',
   arity: 0,
   weight: 0.7,
   category: 'terminal',
@@ -54,7 +54,7 @@ export const voronoiRule = {
 
 export const recamanPatternRule = {
   id: 'recaman-pattern',
-  name: 'Recaman Spiral',
+  name: 'spiral',
   arity: 0,
   weight: 0.7,
   category: 'terminal',

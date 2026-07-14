@@ -103,7 +103,7 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
 
 export const domainWarpBehavior: AnimationBehavior = {
   id: 'domain-warp',
-  name: 'Domain Warp',
+  name: 'Warp',
   glslFunction: `
 vec2 domainWarp(vec2 coords, float t, float speed) {
   vec2 q = vec2(
@@ -119,7 +119,7 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
 
 export const mirrorTileBehavior: AnimationBehavior = {
   id: 'mirror-tile',
-  name: 'Mirror Tile',
+  name: 'Mirror',
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
@@ -143,7 +143,7 @@ vec2 tunnel(vec2 coords, float t, float speed) {
 
 export const contrastPulseBehavior: AnimationBehavior = {
   id: 'contrast-pulse',
-  name: 'Contrast Pulse',
+  name: 'Pulse',
   glslFunction: `
 vec3 contrastPulse(vec3 color, float t, float speed) {
   float k = 1.5 + 1.0 * sin(t * speed * 0.5);
@@ -156,7 +156,7 @@ vec3 contrastPulse(vec3 color, float t, float speed) {
 
 export const goldenWanderBehavior: AnimationBehavior = {
   id: 'golden-wander',
-  name: 'Golden Wander',
+  name: 'Wander',
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) => {
@@ -170,7 +170,7 @@ export const goldenWanderBehavior: AnimationBehavior = {
 
 export const noiseCrawlBehavior: AnimationBehavior = {
   id: 'noise-crawl',
-  name: 'Noise Crawl',
+  name: 'Crawl',
   glslFunction: ``,
   type: 'spatial',
   applyCode: (timeVar, speedVar) =>
@@ -195,7 +195,7 @@ export const colorDriftBehavior: AnimationBehavior = {
 
 export const recamanPulseBehavior: AnimationBehavior = {
   id: 'recaman-pulse',
-  name: 'Recamán Pulse',
+  name: 'Recamán',
   glslFunction: `
 vec2 recamanWarp(vec2 coords, float t, float speed) {
   float timeFactor = t * speed * 0.4;
@@ -219,7 +219,7 @@ vec2 recamanWarp(vec2 coords, float t, float speed) {
 
 export const edgeDetectBehavior: AnimationBehavior = {
   id: 'edge-detect',
-  name: 'Laplacian Edge Contour',
+  name: 'Contour',
   type: 'color',
   glslFunction: `
 vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
@@ -250,7 +250,7 @@ vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
 
 export const mouseProximityBehavior: AnimationBehavior = {
   id: 'mouse-proximity',
-  name: 'Mouse Distortion Field',
+  name: 'Mouse Field',
   type: 'spatial',
   glslFunction: ``,
   applyCode: () => {
@@ -287,7 +287,7 @@ export const inversionBehavior: AnimationBehavior = {
 
 export const chromaticAberrationBehavior: AnimationBehavior = {
   id: 'chromatic-aberration',
-  name: 'Chromatic Aberration',
+  name: 'Aberration',
   type: 'color',
   glslFunction: ``,
   applyCode: (timeVar, speedVar) => {
@@ -317,7 +317,7 @@ export const vignetteBehavior: AnimationBehavior = {
 
 export const filmGrainBehavior: AnimationBehavior = {
   id: 'film-grain',
-  name: 'Film Grain',
+  name: 'Grain',
   type: 'color',
   glslFunction: ``,
   applyCode: (timeVar, speedVar) => {
@@ -331,7 +331,7 @@ export const filmGrainBehavior: AnimationBehavior = {
 
 export const scanLinesBehavior: AnimationBehavior = {
   id: 'scan-lines',
-  name: 'Scan Lines',
+  name: 'Scan',
   type: 'color',
   glslFunction: ``,
   applyCode: (timeVar, speedVar) => {

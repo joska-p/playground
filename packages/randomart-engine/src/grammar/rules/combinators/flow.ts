@@ -2,7 +2,7 @@ import type { GrammarRule } from '../../../types';
 
 export const ifRule = {
   id: 'if',
-  name: 'Conditional',
+  name: 'if',
   arity: 3,
   weight: 0.6,
   category: 'structural',
@@ -25,7 +25,7 @@ export const ifRule = {
 
 export const smoothstepRule = {
   id: 'smoothstep',
-  name: 'Smoothstep',
+  name: 'smoothstep',
   arity: 3,
   weight: 0.5,
   category: 'structural',
@@ -50,7 +50,7 @@ export const smoothstepRule = {
 
 export const clampRule = {
   id: 'clamp',
-  name: 'Clamp',
+  name: 'clamp',
   arity: 3,
   weight: 0.5,
   category: 'structural',
