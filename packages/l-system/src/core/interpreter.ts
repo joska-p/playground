@@ -1,4 +1,4 @@
-import type { Word } from '@repo/l-system-engine';
+import type { Word } from '@repo/l-system-engine/types';
 import * as THREE from 'three';
 
 export type TurtleOptions = {

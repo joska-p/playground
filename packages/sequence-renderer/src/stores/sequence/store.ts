@@ -1,4 +1,4 @@
-import { generateSequence } from '@repo/sequence-engine';
+import { generateSequence } from '@repo/sequence-engine/engine';
 import { recamanRule } from '@repo/sequence-engine/rules/recaman';
 import { create } from 'zustand';
 import type { SequenceState } from './types';

@@ -50,7 +50,7 @@ reference material, and `ValueCanvasGPU` calls `rule.toGLSL()` on it as-is.
 
 - **CPU**: same as before — `ValueCanvasCPU` walks every pixel, calls
   `rule.evaluate(...)` in JS, and paints a `Uint8ClampedArray` onto a 2D canvas.
-- **GPU**: `buildValueShader.ts` takes the *same* rule, calls `rule.toGLSL(['x','y','t'], node)`
+- **GPU**: `buildValueShader.ts` takes the _same_ rule, calls `rule.toGLSL(['x','y','t'], node)`
   to get its raw GLSL expression, and drops it into a full-screen shader that
   declares `p`, `x`, `y`, and an animated `t` uniform, then applies the exact
   same colormap (`colormapGLSL()` is templated from the same constants as

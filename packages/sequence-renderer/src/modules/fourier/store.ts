@@ -1,4 +1,4 @@
-import { WorkerPool } from '@repo/worker-pool';
+import { WorkerPool } from '@repo/worker-pool/worker-pool';
 import type { Epicycle } from './types';
 
 const fourierPool = new WorkerPool<Float32Array, Epicycle[]>({

@@ -1,17 +1,3 @@
-// Public API of @repo/l-system-engine
-// ---------------------------------------------------------------------------
-// Types
-export type {
-  Context,
-  ExpandOptions,
-  Grammar,
-  LSymbol,
-  Parameter,
-  Rule,
-  ValidationError,
-  Word
-} from './types';
-
 // Helpers
 export { symbol, symbolWithMeta } from './symbol';
 

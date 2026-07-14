@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/engine.ts"
+    "./engine": "./src/engine.ts",
+    "./types": "./src/types.ts"
   },
   "scripts": {
     "lint": "eslint .",

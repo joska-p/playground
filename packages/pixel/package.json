@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/api/pixel.ts",
+    "./api/pixel": "./src/api/pixel.ts",
     "./hooks/usePixel": "./src/hooks/usePixel.ts",
-    "./App": "./src/App.tsx"
+    "./pixel": "./src/App.tsx"
   },
   "scripts": {
     "dev": "vite --host",

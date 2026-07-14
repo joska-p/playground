@@ -1,4 +1,4 @@
-import { pixel } from '@repo/pixel';
+import { pixel } from '@repo/pixel/api/pixel';
 import { ControlGrid, ControlPanel, ControlSection } from '@repo/ui/control-panel';
 import { Button, Select } from '@repo/ui/data-entry';
 import { useState } from 'react';

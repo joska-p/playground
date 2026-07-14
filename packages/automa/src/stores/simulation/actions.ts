@@ -7,7 +7,7 @@ import type { Creature } from '@repo/automa-engine/creature/types';
 import { createGrid, seedGrid } from '@repo/automa-engine/grid';
 import { getRule } from '@repo/automa-engine/rules/registry';
 import type { CellValue } from '@repo/automa-engine/types';
-import { WorkerPool } from '@repo/worker-pool';
+import { WorkerPool } from '@repo/worker-pool/worker-pool';
 import { uiStore } from '../ui/store';
 import { simulationStore } from './store';
 

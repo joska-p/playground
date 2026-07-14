@@ -1,4 +1,4 @@
-import { pixel } from '@repo/pixel';
+import { pixel } from '@repo/pixel/api/pixel';
 import { manipulatorStore } from './store';
 import type { OutputType, WorkflowStep } from './types';
 

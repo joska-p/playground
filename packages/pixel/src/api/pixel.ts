@@ -2,7 +2,7 @@ import type { Step } from '@repo/pixel-engine/manipulations/manifest';
 import { ALL_MANIPULATIONS } from '@repo/pixel-engine/manipulations/manifest';
 import { PixelData } from '@repo/pixel-engine/pixel-data';
 import type { ArgDefinition } from '@repo/pixel-engine/types';
-import { WorkerPool } from '@repo/worker-pool';
+import { WorkerPool } from '@repo/worker-pool/worker-pool';
 
 export type { ArgDefinition, Step };
 

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./App": "./src/App.tsx",
+    "./ui": "./src/App.tsx",
     "./gruvbox-theme": "./src/styles/gruvbox-theme.css",
     "./styles": "./src/styles/styles.css",
     "./data-entry": "./src/components/data-entry/index.ts",

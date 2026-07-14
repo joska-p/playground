@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { expand } from '@repo/l-system-engine';
+import { expand } from '@repo/l-system-engine/engine';
 import { button, useControls } from 'leva';
 import { useEffect, useMemo, useState } from 'react';
 import { interpretWord } from '../core/interpreter';

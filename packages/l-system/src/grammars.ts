@@ -1,5 +1,10 @@
-import type { Grammar } from '@repo/l-system-engine';
-import { deterministicRule, parametricRule, stochasticRule, symbol } from '@repo/l-system-engine';
+import {
+  deterministicRule,
+  parametricRule,
+  stochasticRule,
+  symbol
+} from '@repo/l-system-engine/engine';
+import type { Grammar } from '@repo/l-system-engine/types';
 
 export const GRUVBOX_DEPTH = [
   '#b8bb26',

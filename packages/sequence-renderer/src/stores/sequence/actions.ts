@@ -1,4 +1,4 @@
-import { generateSequence } from '@repo/sequence-engine';
+import { generateSequence } from '@repo/sequence-engine/engine';
 import type { SequenceRule } from '@repo/sequence-engine/rules/types';
 import { sequenceStore } from './store';
 

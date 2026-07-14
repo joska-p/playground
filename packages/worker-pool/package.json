@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/worker-pool.ts",
+    "./worker-pool": "./src/worker-pool.ts",
     "./mock": "./src/mock-worker-pool.ts"
   },
   "scripts": {

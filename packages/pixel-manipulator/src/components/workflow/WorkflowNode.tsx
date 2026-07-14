@@ -1,4 +1,4 @@
-import type { ArgDefinition } from '@repo/pixel';
+import type { ArgDefinition } from '@repo/pixel/api/pixel';
 import { ControlRow, ControlSubsection } from '@repo/ui/control-panel';
 import { Slider } from '@repo/ui/data-entry';
 import { updateStepOptions } from '../../stores/manipulator/actions';

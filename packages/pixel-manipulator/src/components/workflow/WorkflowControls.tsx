@@ -1,4 +1,4 @@
-import { pixel } from '@repo/pixel';
+import { pixel } from '@repo/pixel/api/pixel';
 import { ControlSection } from '@repo/ui/control-panel';
 import { useWorkflowSteps } from '../../stores/manipulator/selectors';
 import { EmptyState } from '../shared/EmptyState';

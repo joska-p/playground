@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/engine.ts",
+    "./engine": "./src/engine.ts",
     "./config": "./src/config.ts",
     "./grid": "./src/grid.ts",
     "./types": "./src/types.ts",

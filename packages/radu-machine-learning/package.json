@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/App.tsx",
-    "./App": "./src/App.tsx",
-    "./RaduMachineLearning": "./src/components/RaduMachineLearning.tsx",
+    "./radu-machine-learning": "./src/App.tsx",
     "./styles": "./src/styles/styles.css"
   },
   "scripts": {
