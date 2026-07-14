@@ -1,3 +1,4 @@
+import type { GlslFunctionsNames } from './compile/glslLibrary';
 import type { RuleId as RuleIdInternal } from './grammar/registry';
 import type { SeededRandom } from './random/SeededRandom';
 
@@ -25,8 +26,8 @@ export type GrammarRule = {
   toGLSL: (args: string[], node?: ExpressionNode) => string;
   toTreeView: (args: string[], depth: number, node?: ExpressionNode) => string;
 
-  noiseDependencies?: string[];
   buildNode: (rng: SeededRandom, buildChild: () => ExpressionNode) => ExpressionNode;
+  noiseDependencies?: GlslFunctionsNames[];
 };
 
 export type RuleId = RuleIdInternal;
@@ -38,6 +39,6 @@ export type AnimationBehavior = {
   name: string;
   glslFunction: string;
   type: 'spatial' | 'color';
-  noiseDependencies?: string[];
   applyCode: (timeVar: string, speedVar: string) => string;
+  noiseDependencies?: GlslFunctionsNames[];
 };

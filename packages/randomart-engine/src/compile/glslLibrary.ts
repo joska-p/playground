@@ -4,22 +4,22 @@ export type GlslFunction = {
   dependencies?: string[];
 };
 
-const random2d: GlslFunction = {
+const random2d = {
   id: 'random2d',
   glsl: `float random2d(vec2 co) {
   float dot_ = dot(co, vec2(12.9898, 78.233));
   return fract(sin(dot_) * 43758.5453);
 }`
-};
+} as const satisfies GlslFunction;
 
-const hash1: GlslFunction = {
+const hash1 = {
   id: 'hash1',
   glsl: `float hash1(float n) {
   return fract(sin(n * 127.1) * 43758.5453);
 }`
-};
+} as const satisfies GlslFunction;
 
-const smoothNoise: GlslFunction = {
+const smoothNoise = {
   id: 'smoothNoise',
   dependencies: ['hash1'],
   glsl: `float smoothNoise(float t) {
@@ -28,17 +28,17 @@ const smoothNoise: GlslFunction = {
   float u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
   return mix(hash1(i), hash1(i + 1.0), u);
 }`
-};
+} as const satisfies GlslFunction;
 
-const smoothNoise2: GlslFunction = {
+const smoothNoise2 = {
   id: 'smoothNoise2',
   dependencies: ['smoothNoise'],
   glsl: `vec2 smoothNoise2(float t) {
   return vec2(smoothNoise(t), smoothNoise(t + 31.71));
 }`
-};
+} as const satisfies GlslFunction;
 
-const pseudoRecaman: GlslFunction = {
+const pseudoRecaman = {
   id: 'pseudoRecaman',
   glsl: `float pseudoRecaman(vec2 coords) {
   float d = length(coords);
@@ -66,17 +66,17 @@ const pseudoRecaman: GlslFunction = {
   float finalVal = mix(val, nextVal, stepFract);
   return fract(finalVal * 0.2);
 }`
-};
+} as const satisfies GlslFunction;
 
-const voronoiHash: GlslFunction = {
+const voronoiHash = {
   id: 'voronoiHash',
   glsl: `vec2 voronoiHash(vec2 p) {
   p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
   return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
 }`
-};
+} as const satisfies GlslFunction;
 
-const voronoiCells: GlslFunction = {
+const voronoiCells = {
   id: 'voronoiCells',
   dependencies: ['voronoiHash'],
   glsl: `float voronoiCells(vec2 p) {
@@ -95,9 +95,9 @@ const voronoiCells: GlslFunction = {
   }
   return md * 2.0 - 1.0;
 }`
-};
+} as const satisfies GlslFunction;
 
-const fbmNoise: GlslFunction = {
+const fbmNoise = {
   id: 'fbmNoise',
   dependencies: ['random2d'],
   glsl: `float fbmNoise(vec2 p) {
@@ -110,9 +110,9 @@ const fbmNoise: GlslFunction = {
   }
   return value * 2.0 - 1.0;
 }`
-};
+} as const satisfies GlslFunction;
 
-export const glslFunctions: GlslFunction[] = [
+export const glslFunctions = [
   random2d,
   hash1,
   smoothNoise,
@@ -121,9 +121,11 @@ export const glslFunctions: GlslFunction[] = [
   voronoiHash,
   voronoiCells,
   fbmNoise
-];
+] as const satisfies GlslFunction[];
 
-const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
+export type GlslFunctionsNames = (typeof glslFunctions)[number]['id'];
+
+export const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 export function resolveGlslDeps(requiredIds: string[]): string {
   const visited = new Set<string>();
