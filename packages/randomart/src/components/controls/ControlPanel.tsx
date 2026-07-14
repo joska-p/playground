@@ -1,5 +1,4 @@
 import { ControlPanel as Panel } from '@repo/ui/control-panel';
-import { Select } from '@repo/ui/data-entry';
 import { setMode } from '../../stores/randomart/actions/config';
 import { useMode } from '../../stores/randomart/selectors';
 import type { Mode } from '../../stores/randomart/types';
@@ -24,21 +23,19 @@ function ModeSelect() {
   };
 
   return (
-    <div className="flex items-center justify-between gap-8">
-      <Select
-        value={mode}
-        onChange={handleOnChange}
-      >
-        {modeOptions.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
-      </Select>
-    </div>
+    <select
+      value={mode}
+      onChange={handleOnChange}
+    >
+      {modeOptions.map((option) => (
+        <option
+          key={option.value}
+          value={option.value}
+        >
+          {option.label}
+        </option>
+      ))}
+    </select>
   );
 }
 

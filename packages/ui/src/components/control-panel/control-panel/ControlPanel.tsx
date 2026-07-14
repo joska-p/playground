@@ -39,27 +39,29 @@ export function ControlPanel({
       className={cn(controlPanelVariants({ variant, position, size }), className)}
     >
       {/* Header - always visible */}
-      <button
-        onClick={handleToggle}
-        className={cn(
-          'flex w-full cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 select-none',
-          'text-foreground-muted hover:text-foreground text-left transition-colors',
-          // For vertical collapsed: make it prominent
-          isVertical &&
-            'landscape:data-[collapsed=true]:bg-surface/98 landscape:data-[collapsed=true]:shadow-sm'
-        )}
-      >
-        <div className="text-foreground-muted w-full truncate text-sm font-medium tracking-wide">
+      <div className="flex items-center justify-between">
+        <div className="text-foreground-muted w-fit truncate px-4 py-3 text-sm font-medium tracking-wide">
           {title}
         </div>
-        <ChevronUp
-          size={16}
+        <button
+          onClick={handleToggle}
           className={cn(
-            'text-foreground-dim shrink-0 transition-transform',
-            isCollapsed ? 'rotate-180' : ''
+            'flex w-full grow cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-right select-none',
+            'text-foreground-muted hover:text-foreground text-left transition-colors',
+            // For vertical collapsed: make it prominent
+            isVertical &&
+              'landscape:data-[collapsed=true]:bg-surface/98 landscape:data-[collapsed=true]:shadow-sm'
           )}
-        />
-      </button>
+        >
+          <ChevronUp
+            size={16}
+            className={cn(
+              'text-foreground-dim ml-auto shrink-0 transition-transform',
+              isCollapsed ? 'rotate-180' : ''
+            )}
+          />
+        </button>
+      </div>
 
       {/* Collapsed vertical icon fallback (portrait only) */}
       <div className="hidden h-full w-full items-center justify-center data-[position=left]:portrait:data-[collapsed=true]:flex data-[position=right]:portrait:data-[collapsed=true]:flex">

@@ -8,7 +8,6 @@ import type { AtlasCardBaseProps } from './types';
 import { atlasCardVariants } from './variants';
 
 export interface AtlasCardProps extends HTMLAttributes<HTMLDivElement>, AtlasCardBaseProps {
-  /** Enables mouse-tracking glow + pulsing sample dots. Defaults to false. */
   cardId?: string;
   cardTitle?: string;
   animated?: boolean;
