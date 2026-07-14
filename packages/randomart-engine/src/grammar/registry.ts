@@ -22,11 +22,9 @@ import {
   sinRule,
   smoothstepRule,
   sqrtRule,
-  stepRule,
   sweepRule,
   terminalXRule,
-  terminalYRule,
-  voronoiRule
+  terminalYRule
 } from './rules';
 
 export const allRules = [
@@ -49,9 +47,7 @@ export const allRules = [
   greaterThanRule,
   ifRule,
   recamanPatternRule,
-  voronoiRule,
   fbmRule,
-  stepRule,
   smoothstepRule,
   radialRule,
   sweepRule,
@@ -84,3 +80,5 @@ export function getInitialWeights() {
     {} as Record<RuleId, number>
   );
 }
+
+/* removed the stepRule as it produce the same thing as > */

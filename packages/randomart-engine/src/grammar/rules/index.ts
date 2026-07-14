@@ -10,4 +10,4 @@ export { greaterThanRule, lessThanRule, stepRule } from './combinators/compariso
 export { clampRule, ifRule, smoothstepRule } from './combinators/flow';
 
 export { nestedOscillationRule } from './generators/composite';
-export { fbmRule, recamanPatternRule, voronoiRule } from './generators/noise';
+export { fbmRule, recamanPatternRule } from './generators/noise';

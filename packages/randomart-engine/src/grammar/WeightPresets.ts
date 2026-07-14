@@ -6,7 +6,6 @@ export const WEIGHT_PRESETS = {
     sqrt: 1.2,
     abs: 1.5,
     fbm: 1.5,
-    voronoi: 0.3,
     'banded-noise': 0.2,
     modulo: 0.1,
     'less-than': 0.1,
@@ -20,7 +19,6 @@ export const WEIGHT_PRESETS = {
     fract: 2.0,
     modulo: 1.5,
     fbm: 0.2,
-    voronoi: 1.5,
     sweep: 1.5,
     radial: 1.5,
     'less-than': 1.0,
@@ -35,7 +33,6 @@ export const WEIGHT_PRESETS = {
     exp: 2.0,
     random: 1.5,
     fbm: 2.0,
-    voronoi: 1.5,
     'recaman-pattern': 1.5,
     if: 1.5,
     smoothstep: 0.2

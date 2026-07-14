@@ -68,35 +68,6 @@ const pseudoRecaman = {
 }`
 } as const satisfies GlslFunction;
 
-const voronoiHash = {
-  id: 'voronoiHash',
-  glsl: `vec2 voronoiHash(vec2 p) {
-  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
-  return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
-}`
-} as const satisfies GlslFunction;
-
-const voronoiCells = {
-  id: 'voronoiCells',
-  dependencies: ['voronoiHash'],
-  glsl: `float voronoiCells(vec2 p) {
-  vec2 n = floor(p);
-  vec2 f = fract(p);
-  float md = 8.0;
-  for (int j = -1; j <= 1; j++) {
-    for (int i = -1; i <= 1; i++) {
-      vec2 g = vec2(float(i), float(j));
-      vec2 o = voronoiHash(n + g);
-      o = 0.5 + 0.5 * sin(u_time * 0.0 + 6.2831 * o);
-      vec2 r = g + o - f;
-      float d = dot(r, r);
-      md = min(md, d);
-    }
-  }
-  return md * 2.0 - 1.0;
-}`
-} as const satisfies GlslFunction;
-
 const fbmNoise = {
   id: 'fbmNoise',
   dependencies: ['random2d'],
@@ -118,8 +89,6 @@ export const glslFunctions = [
   smoothNoise,
   smoothNoise2,
   pseudoRecaman,
-  voronoiHash,
-  voronoiCells,
   fbmNoise
 ] as const satisfies GlslFunction[];
 
