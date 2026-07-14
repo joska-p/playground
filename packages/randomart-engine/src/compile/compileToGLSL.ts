@@ -49,9 +49,6 @@ function compileColorExpr(
   treeB: ExpressionNode,
   deps: Set<string>
 ): string {
-  if (treeR.ruleId === 'vec3') {
-    return compileNode(treeR, deps);
-  }
   return `vec3(${compileNode(treeR, deps)}, ${compileNode(treeG, deps)}, ${compileNode(treeB, deps)})`;
 }
 
