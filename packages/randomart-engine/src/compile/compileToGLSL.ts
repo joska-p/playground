@@ -1,17 +1,31 @@
 import { getRule, type RuleId } from '../grammar/registry';
-import type { AnimationBehavior, ExpressionNode } from '../types';
+import type { AnimationBehavior, ApplyCodeContext, ExpressionNode } from '../types';
 import { resolveGlslDeps } from './glslLibrary';
 
 function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): string {
   const noiseFunctions = resolveGlslDeps(noiseIds);
-  const behaviorFunctions = behaviors.map((b) => b.glslFunction).join('\n');
+  const seen = new Set<string>();
+  const behaviorFunctions = behaviors
+    .filter((b) => {
+      if (seen.has(b.id)) return false;
+      seen.add(b.id);
+      return true;
+    })
+    .map((b) => b.glslFunction)
+    .join('\n');
   return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }
 
 function applyBehaviors(behaviors: AnimationBehavior[], type: AnimationBehavior['type']): string {
+  const ctx: ApplyCodeContext = {
+    time: 'u_time',
+    speed: 'u_animSpeed',
+    spatial: 'p',
+    color: 'color'
+  };
   return behaviors
     .filter((b) => b.type === type)
-    .map((b) => b.applyCode('u_time', 'u_animSpeed'))
+    .map((b) => b.applyCode(ctx))
     .join('\n');
 }
 

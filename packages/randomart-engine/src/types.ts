@@ -34,11 +34,18 @@ export type RuleId = RuleIdInternal;
 export type RuleWeight = Record<RuleId, number>;
 export type RuleWeights = Partial<RuleWeight>;
 
+export type ApplyCodeContext = {
+  time: string;
+  speed: string;
+  spatial: string;
+  color: string;
+};
+
 export type AnimationBehavior = {
   id: string;
   name: string;
   glslFunction: string;
   type: 'spatial' | 'color';
-  applyCode: (timeVar: string, speedVar: string) => string;
+  applyCode: (ctx: ApplyCodeContext) => string;
   noiseDependencies?: GlslFunctionsNames[];
 };

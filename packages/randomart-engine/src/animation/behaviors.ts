@@ -15,7 +15,7 @@ vec3 hueRotate(vec3 color, float angle) {
 }
 `,
   type: 'color',
-  applyCode: (timeVar, speedVar) => `color = hueRotate(color, ${timeVar} * ${speedVar});`
+  applyCode: ({ time, speed, color }) => `${color} = hueRotate(${color}, ${time} * ${speed});`
 };
 
 export const zoomBehavior: AnimationBehavior = {
@@ -23,7 +23,7 @@ export const zoomBehavior: AnimationBehavior = {
   name: 'Zoom',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p *= (1.0 + 0.5 * sin(${timeVar} * ${speedVar}));`
+  applyCode: ({ time, speed, spatial }) => `${spatial} *= (1.0 + 0.5 * sin(${time} * ${speed}));`
 };
 
 export const rippleBehavior: AnimationBehavior = {
@@ -31,7 +31,8 @@ export const rippleBehavior: AnimationBehavior = {
   name: 'Ripple',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p += 0.1 * sin(p * 5.0 + ${timeVar} * ${speedVar});`
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} += 0.1 * sin(${spatial} * 5.0 + ${time} * ${speed});`
 };
 
 export const rotateBehavior: AnimationBehavior = {
@@ -44,7 +45,8 @@ mat2 rotate2d(float _angle){
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p = rotate2d(${timeVar} * ${speedVar} * 0.5) * p;`
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = rotate2d(${time} * ${speed} * 0.5) * ${spatial};`
 };
 
 export const swirlBehavior: AnimationBehavior = {
@@ -58,7 +60,8 @@ vec2 swirl(vec2 coords, float angle) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p = swirl(p, sin(${timeVar} * ${speedVar}) * 2.0);`
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = swirl(${spatial}, sin(${time} * ${speed}) * 2.0);`
 };
 
 export const driftBehavior: AnimationBehavior = {
@@ -66,7 +69,7 @@ export const driftBehavior: AnimationBehavior = {
   name: 'Drift',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p += ${timeVar} * ${speedVar} * 0.1;`
+  applyCode: ({ time, speed, spatial }) => `${spatial} += ${time} * ${speed} * 0.1;`
 };
 
 export const expandBehavior: AnimationBehavior = {
@@ -74,7 +77,7 @@ export const expandBehavior: AnimationBehavior = {
   name: 'Expand',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p /= (1.0 + ${timeVar} * ${speedVar} * 0.1);`
+  applyCode: ({ time, speed, spatial }) => `${spatial} /= (1.0 + ${time} * ${speed} * 0.1);`
 };
 
 export const kaleidoscopeBehavior: AnimationBehavior = {
@@ -98,7 +101,8 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p = kaleidoscope(p, ${timeVar}, ${speedVar});`
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = kaleidoscope(${spatial}, ${time}, ${speed});`
 };
 
 export const domainWarpBehavior: AnimationBehavior = {
@@ -114,7 +118,7 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p = domainWarp(p, ${timeVar}, ${speedVar});`
+  applyCode: ({ time, speed, spatial }) => `${spatial} = domainWarp(${spatial}, ${time}, ${speed});`
 };
 
 export const mirrorTileBehavior: AnimationBehavior = {
@@ -122,8 +126,8 @@ export const mirrorTileBehavior: AnimationBehavior = {
   name: 'Mirror',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) =>
-    `p = abs(mod(p * 1.4 + ${timeVar} * ${speedVar} * 0.08, 2.0) - 1.0);`
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = abs(mod(${spatial} * 1.4 + ${time} * ${speed} * 0.08, 2.0) - 1.0);`
 };
 
 export const tunnelBehavior: AnimationBehavior = {
@@ -138,7 +142,7 @@ vec2 tunnel(vec2 coords, float t, float speed) {
 }
 `,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p = tunnel(p, ${timeVar}, ${speedVar});`
+  applyCode: ({ time, speed, spatial }) => `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
 };
 
 export const contrastPulseBehavior: AnimationBehavior = {
@@ -151,7 +155,7 @@ vec3 contrastPulse(vec3 color, float t, float speed) {
 }
 `,
   type: 'color',
-  applyCode: (timeVar, speedVar) => `color = contrastPulse(color, ${timeVar}, ${speedVar});`
+  applyCode: ({ time, speed, color }) => `${color} = contrastPulse(${color}, ${time}, ${speed});`
 };
 
 export const goldenWanderBehavior: AnimationBehavior = {
@@ -159,11 +163,11 @@ export const goldenWanderBehavior: AnimationBehavior = {
   name: 'Wander',
   glslFunction: ``,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => {
+  applyCode: ({ time, speed, spatial }) => {
     const phi = '1.6180339887';
     return [
-      `float gw_t = ${timeVar} * ${speedVar} * 0.3;`,
-      `p += vec2(sin(gw_t), cos(gw_t * ${phi})) * 0.4;`
+      `float gw_t = ${time} * ${speed} * 0.3;`,
+      `${spatial} += vec2(sin(gw_t), cos(gw_t * ${phi})) * 0.4;`
     ].join('\n  ');
   }
 };
@@ -174,10 +178,10 @@ export const noiseCrawlBehavior: AnimationBehavior = {
   glslFunction: ``,
   type: 'spatial',
   noiseDependencies: ['smoothNoise2'],
-  applyCode: (timeVar, speedVar) =>
+  applyCode: ({ time, speed, spatial }) =>
     [
-      `vec2 nc_offset = smoothNoise2(${timeVar} * ${speedVar} * 0.15) * 2.0 - 1.0;`,
-      `p += nc_offset * 0.6;`
+      `vec2 nc_offset = smoothNoise2(${time} * ${speed} * 0.15) * 2.0 - 1.0;`,
+      `${spatial} += nc_offset * 0.6;`
     ].join('\n  ')
 };
 
@@ -187,11 +191,11 @@ export const colorDriftBehavior: AnimationBehavior = {
   glslFunction: ``,
   type: 'color',
   noiseDependencies: ['smoothNoise'],
-  applyCode: (timeVar, speedVar) =>
+  applyCode: ({ time, speed, color }) =>
     [
-      `float cd_t = ${timeVar} * ${speedVar} * 0.1;`,
+      `float cd_t = ${time} * ${speed} * 0.1;`,
       `vec3 cd_tint = vec3(smoothNoise(cd_t), smoothNoise(cd_t + 17.3), smoothNoise(cd_t + 53.9));`,
-      `color = mix(color, color * (0.6 + 0.8 * cd_tint), 0.4);`
+      `${color} = mix(${color}, ${color} * (0.6 + 0.8 * cd_tint), 0.4);`
     ].join('\n  ')
 };
 
@@ -216,7 +220,8 @@ vec2 recamanWarp(vec2 coords, float t, float speed) {
   return vec2(cos(theta) * r, sin(theta) * r);
 }`,
   type: 'spatial',
-  applyCode: (timeVar, speedVar) => `p = recamanWarp(p, ${timeVar}, ${speedVar});`
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = recamanWarp(${spatial}, ${time}, ${speed});`
 };
 
 export const edgeDetectBehavior: AnimationBehavior = {
@@ -247,8 +252,8 @@ vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
     return mix(baseColor, edgeColor, smoothstep(0.04, 0.2, edge));
 }
 `,
-  applyCode: (timeVar, speedVar) =>
-    `color = applyLaplacianEdges(color, v_texCoord, ${timeVar} * ${speedVar});`
+  applyCode: ({ time, speed, color }) =>
+    `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
 };
 
 export const mouseProximityBehavior: AnimationBehavior = {
@@ -256,12 +261,12 @@ export const mouseProximityBehavior: AnimationBehavior = {
   name: 'Mouse Field',
   type: 'spatial',
   glslFunction: ``,
-  applyCode: () => {
+  applyCode: ({ spatial }) => {
     return [
       `vec2 fragPx = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);`,
       `float distToMouse = length(fragPx - u_mouse);`,
       `float force = 1.0 - smoothstep(0.0, 300.0, distToMouse);`,
-      `p += normalize(fragPx - u_mouse) * force * 0.25;`
+      `${spatial} += normalize(fragPx - u_mouse) * force * 0.25;`
     ].join('\n  ');
   }
 };
@@ -271,10 +276,10 @@ export const pixelationBehavior: AnimationBehavior = {
   name: 'Pixelation',
   type: 'spatial',
   glslFunction: ``,
-  applyCode: (timeVar, speedVar) => {
+  applyCode: ({ time, speed, spatial }) => {
     return [
-      `float pix_res = 20.0 + 80.0 * (0.5 + 0.5 * sin(${timeVar} * ${speedVar} * 0.3));`,
-      `p = floor(p * pix_res + 0.5) / pix_res;`
+      `float pix_res = 20.0 + 80.0 * (0.5 + 0.5 * sin(${time} * ${speed} * 0.3));`,
+      `${spatial} = floor(${spatial} * pix_res + 0.5) / pix_res;`
     ].join('\n  ');
   }
 };
@@ -284,8 +289,8 @@ export const inversionBehavior: AnimationBehavior = {
   name: 'Inversion',
   type: 'color',
   glslFunction: ``,
-  applyCode: (timeVar, speedVar) =>
-    `color = mix(color, 1.0 - color, 0.5 + 0.5 * sin(${timeVar} * ${speedVar} * 0.5));`
+  applyCode: ({ time, speed, color }) =>
+    `${color} = mix(${color}, 1.0 - ${color}, 0.5 + 0.5 * sin(${time} * ${speed} * 0.5));`
 };
 
 export const chromaticAberrationBehavior: AnimationBehavior = {
@@ -293,12 +298,12 @@ export const chromaticAberrationBehavior: AnimationBehavior = {
   name: 'Aberration',
   type: 'color',
   glslFunction: ``,
-  applyCode: (timeVar, speedVar) => {
+  applyCode: ({ time, speed, spatial, color }) => {
     return [
-      `float ca_offset = 0.003 * sin(${timeVar} * ${speedVar} * 0.7);`,
-      `vec2 ca_dir = normalize(p) * ca_offset;`,
-      `color.r = color.r + ca_dir.x;`,
-      `color.b = color.b - ca_dir.y;`
+      `float ca_offset = 0.003 * sin(${time} * ${speed} * 0.7);`,
+      `vec2 ca_dir = normalize(${spatial}) * ca_offset;`,
+      `${color}.r = ${color}.r + ca_dir.x;`,
+      `${color}.b = ${color}.b - ca_dir.y;`
     ].join('\n  ');
   }
 };
@@ -308,12 +313,12 @@ export const vignetteBehavior: AnimationBehavior = {
   name: 'Vignette',
   type: 'color',
   glslFunction: ``,
-  applyCode: (timeVar, speedVar) => {
+  applyCode: ({ time, speed, spatial, color }) => {
     return [
-      `float vig_t = ${timeVar} * ${speedVar};`,
+      `float vig_t = ${time} * ${speed};`,
       `float vig_radius = 0.8 + 0.2 * sin(vig_t * 0.2);`,
-      `float vig = 1.0 - smoothstep(vig_radius * 0.5, vig_radius, length(p));`,
-      `color *= vig;`
+      `float vig = 1.0 - smoothstep(vig_radius * 0.5, vig_radius, length(${spatial}));`,
+      `${color} *= vig;`
     ].join('\n  ');
   }
 };
@@ -324,11 +329,11 @@ export const filmGrainBehavior: AnimationBehavior = {
   type: 'color',
   noiseDependencies: ['random2d'],
   glslFunction: ``,
-  applyCode: (timeVar, speedVar) => {
+  applyCode: ({ time, speed, spatial, color }) => {
     return [
-      `float grain_seed = fract(${timeVar} * ${speedVar});`,
-      `float grain = random2d(p * 100.0 + grain_seed) * 0.15;`,
-      `color += grain - 0.075;`
+      `float grain_seed = fract(${time} * ${speed});`,
+      `float grain = random2d(${spatial} * 100.0 + grain_seed) * 0.15;`,
+      `${color} += grain - 0.075;`
     ].join('\n  ');
   }
 };
@@ -338,11 +343,11 @@ export const scanLinesBehavior: AnimationBehavior = {
   name: 'Scan',
   type: 'color',
   glslFunction: ``,
-  applyCode: (timeVar, speedVar) => {
+  applyCode: ({ time, speed, spatial, color }) => {
     return [
-      `float scan_freq = 80.0 + 40.0 * sin(${timeVar} * ${speedVar} * 0.1);`,
-      `float scan = 0.9 + 0.1 * sin(p.y * scan_freq);`,
-      `color *= scan;`
+      `float scan_freq = 80.0 + 40.0 * sin(${time} * ${speed} * 0.1);`,
+      `float scan = 0.9 + 0.1 * sin(${spatial}.y * scan_freq);`,
+      `${color} *= scan;`
     ].join('\n  ');
   }
 };

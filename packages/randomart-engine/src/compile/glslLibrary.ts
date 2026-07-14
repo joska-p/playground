@@ -123,22 +123,38 @@ export const glslFunctions = [
   fbmNoise
 ] as const satisfies GlslFunction[];
 
-export type GlslFunctionsNames = (typeof glslFunctions)[number]['id'];
+export type GlslFunctionsIds = (typeof glslFunctions)[number]['id'];
 
 export const functionById = new Map<string, GlslFunction>(glslFunctions.map((f) => [f.id, f]));
 
 export function resolveGlslDeps(requiredIds: string[]): string {
   const visited = new Set<string>();
+  const resolving = new Set<string>();
+  const path: string[] = [];
   const ordered: GlslFunction[] = [];
 
   function resolve(id: string) {
     if (visited.has(id)) return;
-    visited.add(id);
+    if (resolving.has(id)) {
+      const cycleStart = path.indexOf(id);
+      const cycle = path.slice(cycleStart).concat(id);
+      throw new Error(`Dependency cycle detected: ${cycle.join(' → ')}`);
+    }
+    resolving.add(id);
+    path.push(id);
     const fn = functionById.get(id);
-    if (!fn) return;
+    if (!fn) {
+      path.pop();
+      resolving.delete(id);
+      visited.add(id);
+      return;
+    }
     for (const dep of fn.dependencies ?? []) {
       resolve(dep);
     }
+    path.pop();
+    resolving.delete(id);
+    visited.add(id);
     ordered.push(fn);
   }
 
