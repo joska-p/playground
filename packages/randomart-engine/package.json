@@ -6,6 +6,7 @@
   "exports": {
     "./animation/behaviors": "./src/animation/behaviors.ts",
     "./compile/compileToGLSL": "./src/compile/compileToGLSL.ts",
+    "./compile/glslLibrary": "./src/compile/glslLibrary.ts",
     "./format/treePrinter": "./src/format/treePrinter.ts",
     "./grammar/registry": "./src/grammar/registry.ts",
     "./random/SeededRandom": "./src/random/SeededRandom.ts",

@@ -26,6 +26,7 @@ export const pixelRandomRule = {
   arity: 0,
   weight: 0.3,
   category: 'terminal',
+  noiseDependencies: ['random2d'],
   evaluate: (_args, x, y) => {
     const dot = Math.abs(x) * 12.9898 + Math.abs(y) * 78.233;
     const val = Math.sin(dot) * 43758.5453;

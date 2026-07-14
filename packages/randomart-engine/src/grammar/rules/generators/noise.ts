@@ -6,6 +6,7 @@ export const fbmRule = {
   arity: 0,
   weight: 0.8,
   category: 'terminal',
+  noiseDependencies: ['fbmNoise'],
   evaluate: (_args, x, y) => {
     let value = 0.0;
     let amplitude = 0.5;
@@ -32,6 +33,7 @@ export const voronoiRule = {
   arity: 0,
   weight: 0.7,
   category: 'terminal',
+  noiseDependencies: ['voronoiCells'],
   evaluate: (_args, x, y) => {
     const gx = Math.floor(x * 3.0);
     const gy = Math.floor(y * 3.0);
@@ -58,6 +60,7 @@ export const recamanPatternRule = {
   arity: 0,
   weight: 0.7,
   category: 'terminal',
+  noiseDependencies: ['pseudoRecaman'],
 
   // CPU-side evaluation matching the GLSL behavior
   evaluate: (_args, x, y) => {

@@ -173,6 +173,7 @@ export const noiseCrawlBehavior: AnimationBehavior = {
   name: 'Crawl',
   glslFunction: ``,
   type: 'spatial',
+  noiseDependencies: ['smoothNoise2'],
   applyCode: (timeVar, speedVar) =>
     [
       `vec2 nc_offset = smoothNoise2(${timeVar} * ${speedVar} * 0.15) * 2.0 - 1.0;`,
@@ -185,6 +186,7 @@ export const colorDriftBehavior: AnimationBehavior = {
   name: 'Color Drift',
   glslFunction: ``,
   type: 'color',
+  noiseDependencies: ['smoothNoise'],
   applyCode: (timeVar, speedVar) =>
     [
       `float cd_t = ${timeVar} * ${speedVar} * 0.1;`,
@@ -221,6 +223,7 @@ export const edgeDetectBehavior: AnimationBehavior = {
   id: 'edge-detect',
   name: 'Contour',
   type: 'color',
+  noiseDependencies: ['smoothNoise'],
   glslFunction: `
 vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
     float centerLuminance = dot(baseColor, vec3(0.299, 0.587, 0.114));
@@ -319,6 +322,7 @@ export const filmGrainBehavior: AnimationBehavior = {
   id: 'film-grain',
   name: 'Grain',
   type: 'color',
+  noiseDependencies: ['random2d'],
   glslFunction: ``,
   applyCode: (timeVar, speedVar) => {
     return [

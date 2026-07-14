@@ -25,6 +25,7 @@ export type GrammarRule = {
   toGLSL: (args: string[], node?: ExpressionNode) => string;
   toTreeView: (args: string[], depth: number, node?: ExpressionNode) => string;
 
+  noiseDependencies?: string[];
   buildNode: (rng: SeededRandom, buildChild: () => ExpressionNode) => ExpressionNode;
 };
 
@@ -37,5 +38,6 @@ export type AnimationBehavior = {
   name: string;
   glslFunction: string;
   type: 'spatial' | 'color';
+  noiseDependencies?: string[];
   applyCode: (timeVar: string, speedVar: string) => string;
 };
