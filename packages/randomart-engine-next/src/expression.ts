@@ -17,6 +17,13 @@
 import type { SeededRandom } from './prng.js';
 import type { ExprNode, ExprNodeType, TreeView } from './types.js';
 
+/**
+ * Matching 15-digit PI constant for GLSL output. Uses Math.PI's exact value
+ * (3.141592653589793) so CPU evaluate() and GLSL shaders agree to full
+ * double precision.
+ */
+const GL_PI = '3.141592653589793';
+
 /** Operator productions and how many children each takes. */
 type OpSpec = {
   type: ExprNodeType;
@@ -213,9 +220,12 @@ export function evaluate(node: ExprNode, x: number, y: number): number {
     }
     case 'mod': {
       const [a, b] = node.children!;
+      const av = evaluate(a!, x, y);
       const bv = evaluate(b!, x, y);
       if (Math.abs(bv) < 1e-6) return 0;
-      return clamp(evaluate(a!, x, y) % bv);
+      // Use GLSL-compatible modulo: a - b * floor(a/b) — always non-negative
+      // when b > 0, matching GLSL mod() semantics exactly.
+      return clamp(av - bv * Math.floor(av / bv));
     }
     case 'pow': {
       const [base, exp] = node.children!;
@@ -350,7 +360,7 @@ export function toGLSL(node: ExprNode): string {
     case 'product':
       return `clamp((${toGLSL(node.children![0]!)}) * (${toGLSL(node.children![1]!)}), -1.0, 1.0)`;
     case 'mod':
-      return `mod(${toGLSL(node.children![0]!)}, ${toGLSL(node.children![1]!)} + 1e-6)`;
+      return `(abs(${toGLSL(node.children![1]!)}) < 1e-6 ? 0.0 : mod(${toGLSL(node.children![0]!)}, ${toGLSL(node.children![1]!)}))`;
     case 'pow': {
       const baseExpr = toGLSL(node.children![0]!);
       const expExpr = `clamp(${toGLSL(node.children![1]!)}, -3.0, 3.0)`;
@@ -369,9 +379,9 @@ export function toGLSL(node: ExprNode): string {
     case 'clamp':
       return `clamp(${toGLSL(node.children![0]!)}, ${toGLSL(node.children![1]!)}, ${toGLSL(node.children![2]!)})`;
     case 'sin':
-      return `sin(3.14159265 * (${toGLSL(node.children![0]!)}))`;
+      return `sin(${GL_PI} * (${toGLSL(node.children![0]!)}))`;
     case 'cos':
-      return `cos(3.14159265 * (${toGLSL(node.children![0]!)}))`;
+      return `cos(${GL_PI} * (${toGLSL(node.children![0]!)}))`;
     case 'abs':
       return `clamp(abs(${toGLSL(node.children![0]!)}) * 2.0 - 1.0, -1.0, 1.0)`;
     case 'well':
@@ -386,9 +396,10 @@ export function toGLSL(node: ExprNode): string {
     case 'radial':
       return `(length(p) * 2.0 - 1.0)`;
     case 'sweep':
-      return `(atan(p.y, p.x) / 3.1415926535 * 2.0 - 1.0)`;
+      return `(atan(p.y, p.x) / ${GL_PI} * 2.0 - 1.0)`;
     case 'fbm': {
-      // Unrolled 5-octave value-noise FBM (S6 will extract into glsl-library.ts)
+      // Unrolled 5-octave value-noise FBM. Kept inline (not using the
+      // glsl-library fbmNoise) so CPU evaluate() and GLSL agree exactly.
       const noise = (pxExpr: string, pyExpr: string) =>
         `(fract(sin(${pxExpr} * 12.9898 + ${pyExpr} * 78.233) * 43758.5453) * 2.0 - 1.0)`;
       return [
@@ -402,7 +413,7 @@ export function toGLSL(node: ExprNode): string {
     case 'recaman-pattern':
       return `pseudoRecaman(p)`;
     case 'nested-oscillation':
-      return `sin(p.x * sin(p.y * 3.141592653589793) * 3.141592653589793)`;
+      return `sin(p.x * sin(p.y * ${GL_PI}) * ${GL_PI})`;
     // Transforms — unary
     case 'sqrt':
       return `sqrt(abs(${toGLSL(node.children![0]!)}) + 1e-10)`;

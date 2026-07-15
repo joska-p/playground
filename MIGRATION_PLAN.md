@@ -48,7 +48,24 @@ old packages when done.
 - [x] S4 — Weighted pool builder, dual RNG, weight presets
 - [x] S5 — GLSL compiler core + dependency resolver
 - [x] S5.5 — Audit/preserve per-rule enable/disable + rule enumeration
-- [ ] S6 — GLSL library functions, PI fix, vec3 fix, wire into toGPU()
+- [x] S6 — GLSL library functions, PI fix, vec3 fix, wire into toGPU()
+
+  **S6 note:** Extracted GLSL library functions into `glsl-library.ts` (single
+  source of truth); `glsl.ts` now re-exports from it. Fixed PI precision: all
+  GLSL sin/cos/sweep/nested-oscillation output now uses `3.141592653589793`
+  (15-digit Math.PI match). Fixed mod operator: CPU now uses
+  `a - b * floor(a/b)` matching GLSL `mod()` semantics; GLSL side got a
+  proper zero-divisor guard (`abs(b) < 1e-6 ? 0.0 : mod(a, b)`). The vec3
+  pseudo-rule was already eliminated by architecture — the new `compileToGLSL`
+  wraps three channel trees in `vec3()` at the compiler level; no special-case
+  node type needed. Noise dependency collection walks the expression tree and
+  maps node types to library function IDs (currently only `recaman-pattern` →
+  `pseudoRecaman`). `toGPU()` now calls `compileToGLSL(node, node, node, [])`
+  to produce a full WebGL 2 fragment shader with noise library preamble,
+  replacing the old grayscale WebGL 1 stub. Files touched: new
+  `glsl-library.ts`, `glsl.ts`, `expression.ts`, `compileToGLSL.ts`,
+  `rules.ts`.
+
 - [ ] S7 — Animation: spatial behaviors
 - [ ] S8 — Animation: color behaviors + resolver registration
 - [ ] S8.5 — Audit/preserve behavior enumeration + multi-behavior composition
@@ -133,14 +150,28 @@ old packages when done.
   They are minimal forward-portals that match the engine's definitions exactly,
   enabling the compiler to typecheck cleanly. Behaviors themselves are imported
   and populated in S7/S8.
+- **S6: vec3 pseudo-rule eliminated by architecture, not registered.** The old
+  engine had a hard-coded `ruleId === 'vec3'` special case in `compileNode()`
+  because the TreeConfig API could produce a single vec3 node combining R/G/B.
+  In the new package, the architecture already handles this cleanly:
+  `compileToGLSL()` takes three separate `ExprNode` trees and wraps them in
+  `vec3()` at the compiler level. No special-case node type is needed, no
+  hidden coupling exists. The vec3 pseudo-rule is simply not applicable.
+- **S6: Noise dependency collection via static node-type map.** Instead of
+  having each rule declare `noiseDependencies` (old engine), a static
+  `NOISE_DEPS_BY_NODE` map in `compileToGLSL.ts` associates expression node
+  types with their required GLSL library function IDs. The compiler walks each
+  tree and collects deps. Currently only `recaman-pattern` → `pseudoRecaman`.
+  This is extensible: adding a new node that references a library function
+  requires only adding an entry to the map.
 
 ## Known Issues To Fix (carried over from analysis)
 
 - [x] fnv1a() truncates to low byte of char codes — needs proper UTF-8 (S1)
 - [x] Weight presets reference non-existent rule IDs (S4)
-- [ ] mod operator behaves differently CPU vs GLSL (S6)
-- [ ] PI precision inconsistent JS vs GLSL (S6)
-- [ ] Hard-coded 'vec3' pseudo-rule, hidden coupling (S6)
+- [x] mod operator behaves differently CPU vs GLSL (S6)
+- [x] PI precision inconsistent JS vs GLSL (S6)
+- [x] Hard-coded 'vec3' pseudo-rule, hidden coupling (S6)
 - [ ] 15 of 25 animation behaviors have empty glslFunction strings (S7/S8)
 - [ ] Unbounded memoization cache — needs LRU/max-size (S10)
 - [ ] bin field points to raw TS, requires tsx (S10)

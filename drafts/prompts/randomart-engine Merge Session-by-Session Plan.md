@@ -84,9 +84,11 @@ old packages when done.
 - [ ] S3 — Rules: combinators
 - [ ] S4 — Weighted pool builder, dual RNG, weight presets
 - [ ] S5 — GLSL compiler core + dependency resolver
+- [ ] S5.5 — Audit/preserve per-rule enable/disable + rule enumeration
 - [ ] S6 — GLSL library functions, PI fix, vec3 fix, wire into toGPU()
 - [ ] S7 — Animation: spatial behaviors
 - [ ] S8 — Animation: color behaviors + resolver registration
+- [ ] S8.5 — Audit/preserve behavior enumeration + multi-behavior composition
 - [ ] S9 — Formatting (format.ts) + CLI
 - [ ] S10 — Cleanup pass (boilerplate, README, build, cache eviction, dead exports)
 - [ ] S11 — Swap @repo/randomart to new package, delete old packages
@@ -105,6 +107,11 @@ old packages when done.
 - [ ] bin field points to raw TS, requires tsx (S10)
 - [ ] README documents scripts not in package.json (S10)
 - [ ] Dead exports: stepRule, recamanPatternRule, nestedOscillationRule (S10)
+- [ ] Confirm per-rule enable/disable + rule enumeration survived the
+  merge — the UI consumer relies on both (S5.5)
+- [ ] Confirm behavior enumeration + running multiple animation behaviors
+  composed together (not just one active behavior) survived the merge —
+  the UI consumer's play/pause + multi-select relies on it (S8.5)
 ```
 
 ---
@@ -296,6 +303,12 @@ ripple, rotate, swirl, kaleidoscope, domain-warp, tunnel, etc.) into a new
 `animation.ts`. Make `glslFunction` optional on the behavior type for
 behaviors that only use `applyCode`.
 
+Design note: keep behaviors independently applicable (each one a
+self-contained function), not mutually exclusive alternatives — the
+consumer runs several at once. Don't collapse toward a single-active-
+behavior model even if that's simpler; S8.5 will formally verify this once
+the full set is ported.
+
 **Files touched:** new `animation.ts`, `types.ts`.
 **Done when:** spatial behaviors apply correctly on the CPU path; GLSL path
 can be a stub for behaviors not yet wired to the resolver (finished in S8).
@@ -311,6 +324,48 @@ compiles end-to-end.
 **Files touched:** `animation.ts`, `glsl.ts`.
 **Done when:** all 25 behaviors work on CPU, and GLSL output compiles for
 at least one representative behavior of each kind (spatial + color).
+
+---
+
+### S8.5 — Audit/preserve behavior enumeration + multi-behavior composition
+
+**Why this session exists:** the UI consumer (`store.ts`) keeps
+`activeAnimationBehaviorIds` as a list, not a single id, and drives it
+with a play/pause `running` flag — meaning the UI lets you enable,
+disable, and freely compose any subset of animation behaviors
+simultaneously, not just pick one at a time. Nothing in S7/S8 as scoped
+explicitly requires the ported animation system to support running
+multiple behaviors stacked together (spatial + color combos, or several
+spatial behaviors at once) rather than a single selected behavior. This
+session confirms that composition actually works end-to-end — CPU and
+GLSL both — before the UI migration is written against it.
+
+**Scope:**
+- Check whether there's an enumerable list of all behaviors (id + enough
+  metadata to label a checkbox/toggle), equivalent to what the UI needs
+  to render its behavior list. If not, add it.
+- Check whether the CPU render path can apply an arbitrary *set* of
+  active behavior ids together in one pass (not just one at a time).
+  Verify order-of-application is deterministic and documented if it
+  affects output (e.g. does zoom-then-hue-shift differ from
+  hue-shift-then-zoom?).
+- Check the GLSL path: confirm the dependency resolver from S5/S8 can
+  compile a shader with multiple simultaneously-active behaviors, not
+  just one. This is the likely failure point — resolving several
+  behaviors' GLSL functions together is more complex than one at a time.
+- If true multi-behavior composition wasn't part of the design and would
+  be a significant rework, don't silently force it in — log the tradeoff
+  and the effort estimate in the Decisions Log, and flag it clearly so
+  the UI session can decide whether to scope the play button down to
+  single-behavior-at-a-time as a fallback.
+- Do not touch the UI/consumer repo in this session.
+
+**Files touched:** `animation.ts`, `glsl.ts` (only if composition needs to
+be added or fixed).
+**Done when:** there's a confirmed, documented answer for whether/how a
+consumer can (a) enumerate all behaviors and (b) run an arbitrary subset
+of them composed together, on both CPU and GLSL paths — logged in the
+Decisions Log either way.
 
 ---
 

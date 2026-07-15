@@ -1,7 +1,7 @@
 Read MIGRATION_PLAN.md in this repo. Find the first unchecked session in
 the Session Checklist — that is your ONLY task this session.
 
-[Run session: S<5.5>]
+[Run session: S<7>]
 
 Scope for this session, and nothing beyond it, is defined below. Source
 material for what to port is in the original engine/library packages
@@ -15,31 +15,26 @@ is explicitly S11.
 
 ---
 
-S6 — GLSL library functions, precision/vec3 fixes, wire into toGPU()
+### S7 — Animation: spatial behaviors
+**Scope:** Port the spatial half of the 25 animation behaviors (zoom,
+ripple, rotate, swirl, kaleidoscope, domain-warp, tunnel, etc.) into a new
+`animation.ts`. Make `glslFunction` optional on the behavior type for
+behaviors that only use `applyCode`.
 
-Scope:
+Design note: keep behaviors independently applicable (each one a
+self-contained function), not mutually exclusive alternatives — the
+consumer runs several at once. Don't collapse toward a single-active-
+behavior model even if that's simpler; S8.5 will formally verify this once
+the full set is ported.
 
-
-Port glslLibrary.ts → glsl-library.ts (the reusable GLSL helper
-functions for each rule).
-Fix the PI precision inconsistency: use Math.PI in JS and a matching
-15-digit constant in GLSL.
-Remove the hard-coded 'vec3' pseudo-rule — register it as a proper
-grammar rule instead, or inline it cleanly (agent's judgment; log the
-choice).
-Fix the mod operator so CPU and GLSL paths agree.
-Replace the library's grayscale toGPU() stub with the full compiler
-from S5+S6.
-
-
-Files touched: new glsl-library.ts, glsl.ts, rules.ts, generate.ts.
-Done when: toGPU() produces full-color GLSL matching CPU output for a
-handful of test trees.
+**Files touched:** new `animation.ts`, `types.ts`.
+**Done when:** spatial behaviors apply correctly on the CPU path; GLSL path
+can be a stub for behaviors not yet wired to the resolver (finished in S8).
 
 ---
 
 When done:
-1. Verify the code compiles/typechecks.
+1. Verify the code compiles/typechecks/lint.
 2. Check the box for this session in MIGRATION_PLAN.md.
 3. Add a short note under the session describing what you did, any
    deviations from the plan, and anything you deferred.

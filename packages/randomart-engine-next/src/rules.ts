@@ -10,13 +10,13 @@
  * construction happens once even when multiple representations are requested.
  */
 
+import { compileToGLSL } from './compileToGLSL.js';
 import type { GrammarSpec } from './expression.js';
 import {
   grow,
   toMathString as nodeToMathString,
   toTreeView as nodeToTreeView,
-  toBytes,
-  toGLSL
+  toBytes
 } from './expression.js';
 import { SeededRandom } from './prng.js';
 import type { ExprNode, GrammarRule, TreeView } from './types.js';
@@ -47,21 +47,11 @@ function createRule(id: string, displayName: string, spec: GrammarSpec): Grammar
     buildNode: (textSeed: string): ExprNode => build(textSeed),
     toCPU: (textSeed: string): Uint8Array => toBytes(build(textSeed)),
     toGPU: (textSeed: string): string => {
-      const expr = toGLSL(build(textSeed));
-      // A self-contained fragment shader that reproduces the CPU output.
-      return [
-        'precision highp float;',
-        'uniform vec2 uResolution;',
-        'float channel(vec2 p) {',
-        `  return ${expr};`,
-        '}',
-        'void main() {',
-        '  vec2 p = (gl_FragCoord.xy / uResolution) * 2.0 - 1.0;',
-        '  float v = channel(p);',
-        '  float t = v * 0.5 + 0.5;',
-        '  gl_FragColor = vec4(vec3(t), 1.0);',
-        '}'
-      ].join('\n');
+      const node = build(textSeed);
+      // Single-channel rule: use the same tree for all three RGB channels.
+      // This produces the same grayscale output as the CPU path, but via the
+      // full WebGL 2 compiler with noise library resolution.
+      return compileToGLSL(node, node, node, []);
     },
     toMathString: (textSeed: string): string => nodeToMathString(build(textSeed)),
     toTreeView: (textSeed: string): TreeView => nodeToTreeView(build(textSeed))

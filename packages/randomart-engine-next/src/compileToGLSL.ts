@@ -7,8 +7,13 @@
  */
 
 import { toGLSL } from './expression.js';
-import { resolveGlslDeps } from './glsl.js';
+import { resolveGlslDeps } from './glsl-library.js';
 import type { AnimationBehavior, ApplyCodeContext, ExprNode } from './types.js';
+
+/** Map expression node types to their required GLSL library function IDs. */
+const NOISE_DEPS_BY_NODE: Partial<Record<ExprNode['type'], string[]>> = {
+  'recaman-pattern': ['pseudoRecaman']
+};
 
 function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): string {
   const noiseFunctions = resolveGlslDeps(noiseIds);
@@ -22,6 +27,21 @@ function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): stri
     .map((b) => b.glslFunction)
     .join('\n');
   return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
+}
+
+/** Recursively collect noise library dependency IDs referenced by a tree. */
+function collectNoiseDeps(node: ExprNode, deps: Set<string>): void {
+  const nodeDeps = NOISE_DEPS_BY_NODE[node.type];
+  if (nodeDeps) {
+    for (const id of nodeDeps) {
+      deps.add(id);
+    }
+  }
+  if (node.children) {
+    for (const child of node.children) {
+      collectNoiseDeps(child, deps);
+    }
+  }
 }
 
 function applyBehaviors(
@@ -74,6 +94,12 @@ export function compileToGLSL(
   const spatialCode = applyBehaviors(behaviors, 'spatial');
   const colorCode = applyBehaviors(behaviors, 'color');
 
+  // Collect noise dependencies from expression trees
+  collectNoiseDeps(treeR, noiseDeps);
+  collectNoiseDeps(treeG, noiseDeps);
+  collectNoiseDeps(treeB, noiseDeps);
+
+  // Collect noise dependencies from active behaviors
   for (const b of behaviors) {
     for (const id of b.noiseDependencies ?? []) {
       noiseDeps.add(id);
