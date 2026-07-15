@@ -62,3 +62,44 @@ export class SeededRandom {
     return min + this.next() * (max - min);
   }
 }
+
+/**
+ * A pair of structure and channel RNGs for correlated-but-varied generation.
+ *
+ * The structure RNG drives tree-shape decisions that should be consistent across
+ * R/G/B channels; the channel RNGs provide per-channel variation.
+ */
+export type DualRng = {
+  structure: SeededRandom;
+  channels: [SeededRandom, SeededRandom, SeededRandom];
+};
+
+/**
+ * Create dual RNGs for uncorrelated (per-channel) generation.
+ *
+ * The structure RNG is seeded independently from each channel RNG so that
+ * structural decisions vary across seeds but stay consistent across channels
+ * within a single seed.
+ */
+export function createDualRng(seedText: string, maxDepth: number): DualRng {
+  return {
+    structure: new SeededRandom(`${seedText}_struct_${String(maxDepth)}`),
+    channels: [
+      new SeededRandom(`${seedText}_red`),
+      new SeededRandom(`${seedText}_green`),
+      new SeededRandom(`${seedText}_blue`)
+    ]
+  };
+}
+
+/**
+ * Create dual RNGs for fully-correlated generation.
+ *
+ * All three channels share one RNG instance so structural decisions are
+ * identical across R/G/B — the channels diverge only because the expression
+ * tree is built as separate instances.
+ */
+export function createCorrelatedRng(seedText: string): DualRng {
+  const rng = new SeededRandom(`${seedText}_rgb`);
+  return { structure: rng, channels: [rng, rng, rng] };
+}

@@ -21,6 +21,10 @@ import type { ExprNode, ExprNodeType, TreeView } from './types.js';
 type OpSpec = {
   type: ExprNodeType;
   arity: number;
+  /** Weight for weighted random selection. Default: 1.0 */
+  weight?: number;
+  /** Category for pool building. Default: 'terminal' if arity === 0, 'structural' otherwise. */
+  category?: 'structural' | 'terminal';
 };
 
 /**
@@ -30,7 +34,10 @@ type OpSpec = {
 export type GrammarSpec = {
   /** Operator productions available at internal (non-terminal) nodes. */
   operators: OpSpec[];
-  /** Probability of stopping early (choosing a terminal) before max depth. */
+  /**
+   * @deprecated Kept for backward compatibility. Growth now uses depth-dependent
+   * structuralProbability instead of a fixed coin-flip.
+   */
   terminalBias: number;
   /** Maximum tree depth. */
   maxDepth: number;
@@ -42,35 +49,149 @@ export type GrammarSpec = {
   minDepth: number;
 };
 
+/**
+ * Depth below which the shared structureRng drives category selection,
+ * keeping the overall tree shape consistent across R/G/B channels.
+ * Matches the engine's STRUCTURE_RNG_DEPTH.
+ */
+const STRUCTURE_RNG_DEPTH = 3;
+
+const DEFAULT_WEIGHT = 1.0;
+
+const DEFAULT_TERMINALS: readonly OpSpec[] = [
+  { type: 'x', arity: 0, weight: 1.0, category: 'terminal' },
+  { type: 'y', arity: 0, weight: 1.0, category: 'terminal' },
+  { type: 'const', arity: 0, weight: 0.5, category: 'terminal' }
+] as const;
+
+const categoryOf = (op: OpSpec): 'structural' | 'terminal' =>
+  op.category ?? (op.arity === 0 ? 'terminal' : 'structural');
+
+/**
+ * Builds the candidate pool by rolling each structural rule independently
+ * against structuralProbability. Each rule gets its own RNG draw, so different
+ * seeds produce pools of different sizes — this per-rule variance is what drives
+ * tree variety. Terminals are always included as a guaranteed fallback.
+ */
+function buildPool(
+  rng: SeededRandom,
+  operators: OpSpec[],
+  structuralProbability: number
+): OpSpec[] {
+  const pool: OpSpec[] = [];
+  for (const op of operators) {
+    if (categoryOf(op) === 'terminal' || rng.next() < structuralProbability) {
+      pool.push(op);
+    }
+  }
+  return pool.length > 0 ? pool : [...DEFAULT_TERMINALS];
+}
+
+function weightedPick(rng: SeededRandom, pool: OpSpec[]): OpSpec {
+  if (pool.length === 0) return DEFAULT_TERMINALS[0]!;
+  const totalWeight = pool.reduce((sum, op) => sum + (op.weight ?? DEFAULT_WEIGHT), 0);
+  let threshold = rng.next() * totalWeight;
+  for (const op of pool) {
+    threshold -= op.weight ?? DEFAULT_WEIGHT;
+    if (threshold <= 0) return op;
+  }
+  return pool[pool.length - 1]!;
+}
+
 const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
 
 /**
  * Recursively grow an expression node.
+ *
+ * Uses depth-dependent structuralProbability: at the root all structural rules
+ * are candidates, near the leaves only terminals survive — matching the engine's
+ * pool-builder approach instead of a fixed coin-flip.
  *
  * @param rng    Seeded random stream (advances as the tree grows).
  * @param spec   Grammar variant controlling operators and growth.
  * @param depth  Remaining depth budget (counts down toward the leaves).
  */
 export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprNode {
-  // How deep we currently are, measured from the root.
   const currentDepth = spec.maxDepth - depth;
   const forceTerminal = depth <= 0;
   const forceOperator = currentDepth < spec.minDepth;
-  const chooseTerminal = !forceOperator && (forceTerminal || rng.next() < spec.terminalBias);
 
-  if (chooseTerminal) {
-    const pick = rng.nextInt(3);
-    if (pick === 0) return { type: 'x' };
-    if (pick === 1) return { type: 'y' };
+  // Build operator list: spec operators + default terminals if no terminals in spec
+  const hasTerminals = spec.operators.some((op) => categoryOf(op) === 'terminal');
+  const operators = hasTerminals ? spec.operators : [...spec.operators, ...DEFAULT_TERMINALS];
+
+  let pool: OpSpec[];
+
+  if (forceTerminal) {
+    pool = operators.filter((op) => categoryOf(op) === 'terminal');
+    if (pool.length === 0) pool = [...DEFAULT_TERMINALS];
+  } else if (forceOperator) {
+    pool = operators.filter((op) => categoryOf(op) === 'structural');
+    if (pool.length === 0) pool = [...operators];
+  } else {
+    const structuralProbability = 1 - currentDepth / spec.maxDepth;
+    pool = buildPool(rng, operators, structuralProbability);
+  }
+
+  const pick = weightedPick(rng, pool);
+
+  if (pick.type === 'const') {
     return { type: 'const', value: Number(rng.nextRange(-1, 1).toFixed(4)) };
   }
 
-  const op = spec.operators[rng.nextInt(spec.operators.length)]!;
+  if (pick.arity === 0) {
+    return { type: pick.type };
+  }
+
   const children: ExprNode[] = [];
-  for (let i = 0; i < op.arity; i++) {
+  for (let i = 0; i < pick.arity; i++) {
     children.push(grow(rng, spec, depth - 1));
   }
-  return { type: op.type, children };
+  return { type: pick.type, children };
+}
+
+/**
+ * Build a tree using dual-RNG separation for correlated-but-varied color channels.
+ *
+ * Below STRUCTURE_RNG_DEPTH the shared structureRng drives category selection,
+ * keeping the overall tree shape consistent across R/G/B channels. Above that
+ * threshold the per-channel channelRng takes over for per-channel variation.
+ *
+ * @param structureRng  Shared RNG for structural decisions (shape consistency).
+ * @param channelRng    Per-channel RNG for per-channel variation.
+ * @param currentDepth  Current depth from root (starts at 0).
+ * @param maxDepth      Maximum tree depth.
+ * @param spec          Grammar variant.
+ */
+export function buildTree(
+  structureRng: SeededRandom,
+  channelRng: SeededRandom,
+  currentDepth: number,
+  maxDepth: number,
+  spec: GrammarSpec
+): ExprNode {
+  const rngToUse = currentDepth < STRUCTURE_RNG_DEPTH ? structureRng : channelRng;
+
+  const hasTerminals = spec.operators.some((op) => categoryOf(op) === 'terminal');
+  const operators = hasTerminals ? spec.operators : [...spec.operators, ...DEFAULT_TERMINALS];
+
+  const structuralProbability = 1 - currentDepth / maxDepth;
+  const pool = buildPool(rngToUse, operators, structuralProbability);
+  const pick = weightedPick(rngToUse, pool);
+
+  if (pick.type === 'const') {
+    return { type: 'const', value: Number(rngToUse.nextRange(-1, 1).toFixed(4)) };
+  }
+
+  if (pick.arity === 0) {
+    return { type: pick.type };
+  }
+
+  const children: ExprNode[] = [];
+  for (let i = 0; i < pick.arity; i++) {
+    children.push(buildTree(structureRng, channelRng, currentDepth + 1, maxDepth, spec));
+  }
+  return { type: pick.type, children };
 }
 
 /** Evaluate a node at normalized coordinates x, y (each in [-1, 1]). */

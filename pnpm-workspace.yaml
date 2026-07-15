@@ -66,6 +66,7 @@ catalog:
   'tailwind-merge': '^3.6.0'
   'tailwindcss': '^4.3.0'
   'three': '^0.184.0'
+  'tsx': '^4.23.0'
   'typescript': '~6.0.3'
   'typescript-eslint': '^8.59.2'
   'vite': '^8.0.12'

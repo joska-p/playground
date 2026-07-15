@@ -6,8 +6,14 @@
  * Perrig & Song. The grammar-rules registry is the core extensibility point.
  */
 
+export { buildTree, grow } from './expression.js';
 export { generate } from './generate.js';
+export { createCorrelatedRng, createDualRng } from './prng.js';
 export { DEFAULT_RULE_ID, getRule, hasRule, listRules } from './rules.js';
+export { WEIGHT_PRESETS, getPresetWeights } from './weight-presets.js';
+
+export type { DualRng } from './prng.js';
+export type { PresetName, WeightOverrides } from './weight-presets.js';
 
 export type {
   ExprNode,

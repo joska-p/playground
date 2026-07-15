@@ -12,6 +12,7 @@
     }
   },
   "scripts": {
+    "randomart": "npx tsx src/cli.ts",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "check-types": "tsc --noEmit",
@@ -31,6 +32,7 @@
     "@repo/config-typescript": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "tsx": "catalog:"
   }
 }

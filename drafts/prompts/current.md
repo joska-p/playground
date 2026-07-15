@@ -1,7 +1,7 @@
 Read MIGRATION_PLAN.md in this repo. Find the first unchecked session in
 the Session Checklist — that is your ONLY task this session.
 
-[Run session: S<3>]
+[Run session: S<4>]
 
 Scope for this session, and nothing beyond it, is defined below. Source
 material for what to port is in the original engine/library packages
@@ -15,19 +15,21 @@ is explicitly S11.
 
 ---
 
-### S3 — Rules: combinators
-**Scope:** Port the remaining rules:
-- `add`→`sum`, `multiply`→`product`, `modulo`→`mod`, `pow`, `less-than`,
-  `greater-than`, `step`, `if`, `smoothstep`, `clamp`
+### S4 — Weighted pool builder, dual RNG, weight presets
+**Scope:**
+- Port the engine's `buildPool()` with depth-dependent
+  `structuralProbability` into `expression.ts`, replacing the library's
+  simple coin-flip depth approach.
+- Port `structureRng`/`channelRng` dual-RNG separation into `prng.ts` for
+  correlated-but-varied color channels.
+- Port weight presets (`balanced`, `organic`, `geometric`, `chaotic`) into
+  `weight-presets.ts`, **fixing** the broken rule-ID references using the
+  rule-name mapping from S3's Decisions Log entry.
 
-Same framework as S2. Note the naming remaps explicitly (e.g. engine's
-`add` becomes `sum` in the new `ExprNodeType`) — keep this mapping written
-down in the Decisions Log since S11 migration will need it.
-
-**Files touched:** `rules.ts`, `types.ts`.
-**Done when:** all 23+ rules are registered; a full random tree can be
-grown and evaluated end-to-end (even without the improved pool builder).
-
+**Files touched:** `expression.ts`, `prng.ts`, new `weight-presets.ts`.
+**Done when:** tree generation with weight presets produces trees matching
+the depth/shape characteristics of the original engine (spot-check a few
+seeds).
 
 ---
 

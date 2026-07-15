@@ -85,7 +85,32 @@ old packages when done.
   `smoothstep` maps GLSL output to [-1,1] via `2*t-1`, and `clamp` uses
   `clamp(lo, hi, x)` in GLSL directly. Typecheck and lint pass clean.
 
-- [ ] S4 — Weighted pool builder, dual RNG, weight presets
+- [x] S4 — Weighted pool builder, dual RNG, weight presets
+
+  Ported `buildPool()` with depth-dependent `structuralProbability` into
+  `expression.ts`, replacing the library's simple `terminalBias` coin-flip.
+  `structuralProbability = 1 - currentDepth / maxDepth` now drives pool
+  composition: high near the root (all structural rules included), low near
+  the leaves (only terminals). Added `weightedPick()` for weight-based
+  selection from the pool. Added default terminals (x, y, const with engine
+  weights 1.0, 1.0, 0.5) that are injected when a spec has no terminals.
+  `OpSpec` gained optional `weight` and `category` fields (defaults: 1.0 and
+  inferred from arity). `terminalBias` is kept in `GrammarSpec` for backward
+  compatibility but is no longer read by `grow()`.
+
+  Added `buildTree()` in `expression.ts` implementing the engine's dual-RNG
+  separation: `structureRng` drives category selection below
+  `STRUCTURE_RNG_DEPTH = 3`, `channelRng` takes over above. Added
+  `createDualRng()` and `createCorrelatedRng()` helpers in `prng.ts`.
+
+  Created `weight-presets.ts` with `balanced`, `organic`, `geometric`,
+  `chaotic` presets. Fixed broken rule-ID references from the engine:
+  `modulo` → `mod`, `multiply` → `product`, `banded-noise` removed (never
+  existed as a real rule in the engine). Added `getPresetWeights()` helper
+  and `PresetName`/`WeightOverrides` types. Spot-checked tree generation
+  with 50 seeds — depth stats (min 3, max 8, avg 6.0 for maxDepth=8 /
+  minDepth=3) match expected depth/shape characteristics.
+
 - [ ] S5 — GLSL compiler core + dependency resolver
 - [ ] S6 — GLSL library functions, PI fix, vec3 fix, wire into toGPU()
 - [ ] S7 — Animation: spatial behaviors
@@ -131,11 +156,25 @@ old packages when done.
   uses `smoothstep(edge0, edge1, x)` which returns [0,1], then maps to
   [-1,1] via `t*2-1`. The new package follows the same convention, with
   the GLSL output wrapped as `(2.0 * smoothstep(...) - 1.0)`.
+- **S4: `terminalBias` kept in `GrammarSpec` but no longer used by `grow()`.**
+  The engine's pool-builder approach replaces the library's coin-flip. The
+  field remains for backward compatibility with existing rule definitions
+  in `rules.ts` — those definitions still reference `terminalBias` values
+  that are now ignored. A future cleanup pass can remove them.
+- **S4: Default terminals injected when spec has none.** When a `GrammarSpec`
+  has no terminal operators (arity 0 with category 'terminal'), the pool
+  builder injects x (weight 1.0), y (weight 1.0), and const (weight 0.5)
+  matching the engine's terminal rule weights. Specs that already include
+  terminals (e.g. `terminal-x`) are left as-is.
+- **S4: `banded-noise` removed from weight presets.** The engine's organic
+  preset referenced `banded-noise` at weight 0.2, but no such rule exists
+  in the engine's grammar registry (grep confirmed it only appears in
+  WeightPresets.ts). It was a dead reference and has been dropped.
 
 ## Known Issues To Fix (carried over from analysis)
 
 - [x] fnv1a() truncates to low byte of char codes — needs proper UTF-8 (S1)
-- [ ] Weight presets reference non-existent rule IDs (S4)
+- [x] Weight presets reference non-existent rule IDs (S4)
 - [ ] mod operator behaves differently CPU vs GLSL (S6)
 - [ ] PI precision inconsistent JS vs GLSL (S6)
 - [ ] Hard-coded 'vec3' pseudo-rule, hidden coupling (S6)
