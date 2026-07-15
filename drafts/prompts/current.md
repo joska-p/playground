@@ -1,7 +1,7 @@
 Read MIGRATION_PLAN.md in this repo. Find the first unchecked session in
 the Session Checklist — that is your ONLY task this session.
 
-[Run session: S<4>]
+[Run session: S<5>]
 
 Scope for this session, and nothing beyond it, is defined below. Source
 material for what to port is in the original engine/library packages
@@ -15,21 +15,16 @@ is explicitly S11.
 
 ---
 
-### S4 — Weighted pool builder, dual RNG, weight presets
-**Scope:**
-- Port the engine's `buildPool()` with depth-dependent
-  `structuralProbability` into `expression.ts`, replacing the library's
-  simple coin-flip depth approach.
-- Port `structureRng`/`channelRng` dual-RNG separation into `prng.ts` for
-  correlated-but-varied color channels.
-- Port weight presets (`balanced`, `organic`, `geometric`, `chaotic`) into
-  `weight-presets.ts`, **fixing** the broken rule-ID references using the
-  rule-name mapping from S3's Decisions Log entry.
+### S5 — GLSL compiler core + dependency resolver
+**Scope:** Port `compileToGLSL.ts` and the dependency-resolution logic
+(topological sort) from the engine into a new `glsl.ts`. This session is
+about the compiler skeleton and AST→GLSL traversal — not the full function
+library (that's S6).
 
-**Files touched:** `expression.ts`, `prng.ts`, new `weight-presets.ts`.
-**Done when:** tree generation with weight presets produces trees matching
-the depth/shape characteristics of the original engine (spot-check a few
-seeds).
+**Files touched:** new `glsl.ts`.
+**Done when:** the compiler can turn a simple tree (e.g. just terminals +
+one transform) into valid GLSL source, with dependencies resolved in
+correct order.
 
 ---
 
