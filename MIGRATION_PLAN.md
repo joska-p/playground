@@ -42,7 +42,18 @@ old packages when done.
 
 ## Session Checklist
 
-- [ ] S1 — Scaffold + foundation files (from library)
+- [x] S1 — Scaffold + foundation files (from library)
+
+  Created `packages/randomart-engine-next/` with full target layout. Ported 8
+  files as-is from `randomart-engine-library`: `types.ts`, `prng.ts`,
+  `expression.ts`, `rules.ts`, `color.ts`, `png.ts`, `generate.ts`, `index.ts`.
+  Fixed `fnv1a()` to use `TextEncoder` for proper multi-byte UTF-8 encoding
+  instead of `charCodeAt() & 0xff` which truncated non-ASCII characters. Also
+  added missing non-null assertion on `opcodes[n.type]` in `toBytes()` to
+  satisfy `noUncheckedIndexedAccess`. Package typechecks clean. Rules ported
+  are the library's4 built-in rules (classic, trig, blocky, smooth) as
+  placeholder — the full 23+ rules land in S2/S3.
+
 - [ ] S2 — Rules: terminals + transforms
 - [ ] S3 — Rules: combinators
 - [ ] S4 — Weighted pool builder, dual RNG, weight presets
@@ -56,11 +67,19 @@ old packages when done.
 
 ## Decisions Log
 
-(agent appends here as it goes)
+- **S1: `fnv1a()` fix approach.** Used `new TextEncoder().encode(text)` for
+  proper UTF-8 instead of `charCodeAt(i) & 0xff`. The `TextEncoder` API is
+  available in Node 16+ and is the standard way to get UTF-8 bytes from a
+  string. A module-level singleton avoids re-creating it per call.
+- **S1: `rules.ts` included despite S2/S3 scope.** The library's 4 built-in
+  rules (classic, trig, blocky, smooth) were ported as-is because `generate.ts`
+  depends on the rule registry. These are the library's existing rules, not the
+  full 23+ from the engine package. They serve as the "minimal placeholder"
+  described in the S1 scope.
 
 ## Known Issues To Fix (carried over from analysis)
 
-- [ ] fnv1a() truncates to low byte of char codes — needs proper UTF-8 (S1)
+- [x] fnv1a() truncates to low byte of char codes — needs proper UTF-8 (S1)
 - [ ] Weight presets reference non-existent rule IDs (S4)
 - [ ] mod operator behaves differently CPU vs GLSL (S6)
 - [ ] PI precision inconsistent JS vs GLSL (S6)

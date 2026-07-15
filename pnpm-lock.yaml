@@ -1357,6 +1357,24 @@ importers:
         specifier: 'catalog:'
         version: 6.0.3
 
+  packages/randomart-engine-next:
+    devDependencies:
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../config-eslint
+      '@repo/config-typescript':
+        specifier: workspace:*
+        version: link:../config-typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      eslint:
+        specifier: 'catalog:'
+        version: 10.6.0(jiti@2.7.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
   packages/real-life:
     dependencies:
       '@react-three/drei':

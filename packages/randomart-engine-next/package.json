@@ -1,0 +1,36 @@
+{
+  "name": "@repo/randomart-engine-next",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "check-types": "tsc --noEmit",
+    "build": "tsc --noEmit",
+    "clean": "rm -rf node_modules dist .turbo"
+  },
+  "keywords": [
+    "randomart",
+    "hash-visualization",
+    "drunken-bishop",
+    "identicon",
+    "png"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}
