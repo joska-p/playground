@@ -27,7 +27,40 @@ export type ExprNode = {
 
 /** The set of grammar productions understood by the evaluator. */
 export type ExprNodeType =
-  'x' | 'y' | 'const' | 'sum' | 'product' | 'mod' | 'sin' | 'cos' | 'abs' | 'well' | 'tent' | 'mix';
+  // Terminals
+  | 'x'
+  | 'y'
+  | 'const'
+  | 'random'
+  | 'radial'
+  | 'sweep'
+  | 'fbm'
+  | 'recaman-pattern'
+  | 'nested-oscillation'
+  // Transforms (unary)
+  | 'sin'
+  | 'cos'
+  | 'abs'
+  | 'sqrt'
+  | 'exp'
+  | 'log'
+  | 'fract'
+  // Combinators (binary)
+  | 'sum'
+  | 'product'
+  | 'mod'
+  | 'pow'
+  | 'less-than'
+  | 'greater-than'
+  | 'step'
+  // Combinators (ternary)
+  | 'if'
+  | 'smoothstep'
+  | 'clamp'
+  // Combinators (existing unary)
+  | 'well'
+  | 'tent'
+  | 'mix';
 
 /** A structured, presentation-friendly tree view of an {@link ExprNode}. */
 export type TreeView = {

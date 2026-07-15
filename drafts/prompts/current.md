@@ -1,7 +1,7 @@
 Read MIGRATION_PLAN.md in this repo. Find the first unchecked session in
 the Session Checklist — that is your ONLY task this session.
 
-[Run session: S<1>]
+[Run session: S<3>]
 
 Scope for this session, and nothing beyond it, is defined below. Source
 material for what to port is in the original engine/library packages
@@ -13,22 +13,23 @@ be refactored separately later. Do not check it, do not fix it, do not add
 any compatibility shims for it. Ignore it completely unless this session
 is explicitly S11.
 
-### S1 — Scaffold + foundation (from library)
-**Scope:** Create `packages/randomart-engine-next/` (working name until S11
-migration) with the target layout. Port, as-is with minimal changes, from
-`randomart-engine-library`:
-- `types.ts`, `prng.ts`, `expression.ts` (base only — grow/evaluate/serialize,
-  not the pool builder yet), `color.ts`, `png.ts`, `generate.ts`,
-  `index.ts`.
+---
 
-Fix `fnv1a()` to use proper UTF-8 encoding instead of truncating to the low
-byte of char codes.
+### S3 — Rules: combinators
+**Scope:** Port the remaining rules:
+- `add`→`sum`, `multiply`→`product`, `modulo`→`mod`, `pow`, `less-than`,
+  `greater-than`, `step`, `if`, `smoothstep`, `clamp`
 
-**Do not** port rules yet (S2/S3), animation (S7/S8), or GLSL (S5/S6).
-**Files touched:** ~7 new files.
-**Done when:** package builds standalone, exports the base types/PRNG/PNG
-encoder, `generate()` exists but rule set is still whatever minimal
-placeholder the library had (real rules land in S2/S3).
+Same framework as S2. Note the naming remaps explicitly (e.g. engine's
+`add` becomes `sum` in the new `ExprNodeType`) — keep this mapping written
+down in the Decisions Log since S11 migration will need it.
+
+**Files touched:** `rules.ts`, `types.ts`.
+**Done when:** all 23+ rules are registered; a full random tree can be
+grown and evaluated end-to-end (even without the improved pool builder).
+
+
+---
 
 When done:
 1. Verify the code compiles/typechecks.

@@ -69,6 +69,7 @@ function createRule(id: string, displayName: string, spec: GrammarSpec): Grammar
 }
 
 const RULE_DEFINITIONS: GrammarRule[] = [
+  // S1 — original library rules (kept as-is)
   createRule('classic', 'Classic Random Art', {
     operators: [
       { type: 'sum', arity: 2 },
@@ -115,6 +116,209 @@ const RULE_DEFINITIONS: GrammarRule[] = [
     terminalBias: 0.28,
     minDepth: 4,
     maxDepth: 11
+  }),
+
+  // S2 — individual terminal rules (0-arity operators)
+  createRule('terminal-x', 'Terminal: x', {
+    operators: [{ type: 'x', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-y', 'Terminal: y', {
+    operators: [{ type: 'y', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-const', 'Terminal: const', {
+    operators: [{ type: 'const', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-random', 'Terminal: random', {
+    operators: [{ type: 'random', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-radial', 'Terminal: radial', {
+    operators: [{ type: 'radial', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-sweep', 'Terminal: sweep', {
+    operators: [{ type: 'sweep', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-fbm', 'Terminal: fbm', {
+    operators: [{ type: 'fbm', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-recaman', 'Terminal: recaman-pattern', {
+    operators: [{ type: 'recaman-pattern', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+  createRule('terminal-nested-oscillation', 'Terminal: nested-oscillation', {
+    operators: [{ type: 'nested-oscillation', arity: 0 }],
+    terminalBias: 0.3,
+    minDepth: 2,
+    maxDepth: 6
+  }),
+
+  // S2 — individual transform rules (unary operators)
+  createRule('transform-sin', 'Transform: sin', {
+    operators: [{ type: 'sin', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('transform-cos', 'Transform: cos', {
+    operators: [{ type: 'cos', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('transform-abs', 'Transform: abs', {
+    operators: [{ type: 'abs', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('transform-sqrt', 'Transform: sqrt', {
+    operators: [{ type: 'sqrt', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('transform-exp', 'Transform: exp', {
+    operators: [{ type: 'exp', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('transform-log', 'Transform: log', {
+    operators: [{ type: 'log', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('transform-fract', 'Transform: fract', {
+    operators: [{ type: 'fract', arity: 1 }],
+    terminalBias: 0.35,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+
+  // S3 — individual combinator rules (binary)
+  createRule('combinator-sum', 'Combinator: sum', {
+    operators: [{ type: 'sum', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-product', 'Combinator: product', {
+    operators: [{ type: 'product', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-mod', 'Combinator: mod', {
+    operators: [{ type: 'mod', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-pow', 'Combinator: pow', {
+    operators: [{ type: 'pow', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-less-than', 'Combinator: less-than', {
+    operators: [{ type: 'less-than', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-greater-than', 'Combinator: greater-than', {
+    operators: [{ type: 'greater-than', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-step', 'Combinator: step', {
+    operators: [{ type: 'step', arity: 2 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+
+  // S3 — individual combinator rules (ternary)
+  createRule('combinator-if', 'Combinator: if', {
+    operators: [{ type: 'if', arity: 3 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-smoothstep', 'Combinator: smoothstep', {
+    operators: [{ type: 'smoothstep', arity: 3 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+  createRule('combinator-clamp', 'Combinator: clamp', {
+    operators: [{ type: 'clamp', arity: 3 }],
+    terminalBias: 0.3,
+    minDepth: 3,
+    maxDepth: 8
+  }),
+
+  // S3 — composite rules mixing new combinators with existing operators
+  createRule('arithmetic-mix', 'Arithmetic Mix', {
+    operators: [
+      { type: 'sum', arity: 2 },
+      { type: 'product', arity: 2 },
+      { type: 'pow', arity: 2 },
+      { type: 'mod', arity: 2 },
+      { type: 'sin', arity: 1 },
+      { type: 'abs', arity: 1 }
+    ],
+    terminalBias: 0.3,
+    minDepth: 4,
+    maxDepth: 10
+  }),
+  createRule('flow-art', 'Flow Art', {
+    operators: [
+      { type: 'if', arity: 3 },
+      { type: 'smoothstep', arity: 3 },
+      { type: 'sum', arity: 2 },
+      { type: 'sin', arity: 1 }
+    ],
+    terminalBias: 0.28,
+    minDepth: 4,
+    maxDepth: 10
+  }),
+  createRule('compare-and-clamp', 'Compare and Clamp', {
+    operators: [
+      { type: 'clamp', arity: 3 },
+      { type: 'less-than', arity: 2 },
+      { type: 'greater-than', arity: 2 },
+      { type: 'step', arity: 2 },
+      { type: 'sum', arity: 2 },
+      { type: 'product', arity: 2 }
+    ],
+    terminalBias: 0.3,
+    minDepth: 4,
+    maxDepth: 10
   })
 ];
 
