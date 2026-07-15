@@ -35,6 +35,9 @@ export function generate(
     }
 
     const ruleId = options.ruleId ?? DEFAULT_RULE_ID;
+    if (options.enabledRuleIds && !options.enabledRuleIds.includes(ruleId)) {
+      return { error: `Rule "${ruleId}" is not enabled.` };
+    }
     const rule = getRule(ruleId);
     if (!rule) {
       return { error: `Unknown ruleId "${ruleId}".` };

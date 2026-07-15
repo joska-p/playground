@@ -78,6 +78,14 @@ export type TreeView = {
 export type GenerateOptions = {
   /** Id of the grammar rule to use. Defaults to `"classic"`. */
   ruleId?: string;
+  /**
+   * Subset of rule ids that are currently enabled. When provided, `generate()`
+   * rejects any `ruleId` not in this list — the consumer is expected to iterate
+   * over `listRules()`, filter by this set, and call `generate()` for each
+   * enabled rule.  Composes with weight presets: the preset selects relative
+   * weights; the enabled-list restricts which rules can appear at all.
+   */
+  enabledRuleIds?: string[];
   /** Ordered list of hex colors (e.g. `"#ff0000"`) used to map output values. */
   colorPalette?: string[];
   /** Square output size in pixels. Defaults to 256. */

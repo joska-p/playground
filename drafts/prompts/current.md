@@ -15,47 +15,26 @@ is explicitly S11.
 
 ---
 
-### S5.5 — Audit/preserve per-rule enable/disable + rule enumeration
+S6 — GLSL library functions, precision/vec3 fixes, wire into toGPU()
 
-**Why this session exists:** the UI consumer (`store.ts`) toggles
-individual rules on/off independently of any weight preset — it calls
-`getAllRules()` to render one checkbox per rule, and passes
-`enabledRuleIds` into `generateTrees()` to exclude unchecked rules from
-generation. Nothing in Phases 1–4 of this plan explicitly requires the new
-package to preserve that. Weight presets (S4) are a *different* UX model
-— they pick a whole named ruleset with relative weights, not an
-independent per-rule on/off filter. It's easy for the new package to have
-ended up with presets but no per-rule filter. This session finds out and
-fixes it if needed, before S6–S9 build further on top of `generate.ts`'s
-contract.
+Scope:
 
-**Scope:**
-- Check whether the new package currently exposes something equivalent to
-  `getAllRules()` — an enumerable list of all registered rules (id +
-  enough metadata to label a checkbox). If not, add it to `rules.ts` /
-  `index.ts`.
-- Check whether `generate()` (or whatever composes tree generation) still
-  accepts an explicit include/exclude list of rule ids, independent of
-  whatever weight preset is active. If not, add that parameter — it
-  should compose with weight presets, not replace them (e.g. a preset
-  picks default weights, the enabled-list further filters which rules can
-  appear at all).
-- If either was dropped intentionally as part of the presets redesign,
-  don't silently restore it — write the tradeoff in the Decisions Log and
-  make an explicit call, since a downstream UI session depends on
-  whichever way this goes.
-- Do not touch the UI/consumer repo in this session — this is purely
-  about confirming and, if needed, extending the new package's public
-  API. The UI-side session that consumes this comes later, in the
-  separate UI migration plan.
 
-**Files touched:** `rules.ts`, `generate.ts`, `index.ts` (only if the
-capability needs to be added or exposed differently).
-**Done when:** there's a confirmed, documented way for a consumer to (a)
-enumerate all rules and (b) generate a tree restricted to an arbitrary
-subset of them, independent of preset choice — and the Decisions Log
-states clearly whether this was already present, added, or intentionally
-dropped.
+Port glslLibrary.ts → glsl-library.ts (the reusable GLSL helper
+functions for each rule).
+Fix the PI precision inconsistency: use Math.PI in JS and a matching
+15-digit constant in GLSL.
+Remove the hard-coded 'vec3' pseudo-rule — register it as a proper
+grammar rule instead, or inline it cleanly (agent's judgment; log the
+choice).
+Fix the mod operator so CPU and GLSL paths agree.
+Replace the library's grayscale toGPU() stub with the full compiler
+from S5+S6.
+
+
+Files touched: new glsl-library.ts, glsl.ts, rules.ts, generate.ts.
+Done when: toGPU() produces full-color GLSL matching CPU output for a
+handful of test trees.
 
 ---
 

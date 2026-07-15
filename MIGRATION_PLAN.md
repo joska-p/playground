@@ -43,139 +43,15 @@ old packages when done.
 ## Session Checklist
 
 - [x] S1 — Scaffold + foundation files (from library)
-
-  Created `packages/randomart-engine-next/` with full target layout. Ported 8
-  files as-is from `randomart-engine-library`: `types.ts`, `prng.ts`,
-  `expression.ts`, `rules.ts`, `color.ts`, `png.ts`, `generate.ts`, `index.ts`.
-  Fixed `fnv1a()` to use `TextEncoder` for proper multi-byte UTF-8 encoding
-  instead of `charCodeAt() & 0xff` which truncated non-ASCII characters. Also
-  added missing non-null assertion on `opcodes[n.type]` in `toBytes()` to
-  satisfy `noUncheckedIndexedAccess`. Package typechecks clean. Rules ported
-  are the library's4 built-in rules (classic, trig, blocky, smooth) as
-  placeholder — the full 23+ rules land in S2/S3.
-
 - [x] S2 — Rules: terminals + transforms
-
-  Extended `ExprNodeType` in `types.ts` with 10 new members: 6 terminals
-  (`random`, `radial`, `sweep`, `fbm`, `recaman-pattern`, `nested-oscillation`)
-  and 4 transforms (`sqrt`, `exp`, `log`, `fract`). Added `evaluate()`,
-  `toGLSL()`, `toMathString()`, and `toBytes()` cases for all 16 rules in
-  `expression.ts` (6 — `x`, `y`, `const`, `sin`, `cos`, `abs` — already
-  existed). Registered 13 new individual test rules in `rules.ts` (16 total
-  including the 3 original composite rules). New terminals are registered as
-  0-arity operators in `GrammarSpec`, so they appear in trees via the existing
-  `grow()` mechanism without modifying it. `fbm` GLSL is inlined as unrolled
-  octaves; `recaman-pattern` GLSL returns `pseudoRecaman(p)` (to be resolved
-  in S6 with the GLSL library). `nested-oscillation` is a self-contained node
-  type rather than a composite subtree, evaluating to `sin(x * sin(y * PI) * PI)`.
-  All deviations from the engine: sin/cos still multiply by PI (matching
-  existing library convention, engine does the same); `random` uses `abs(p.x)`
-  matching the engine. Typecheck and lint pass clean.
-
 - [x] S3 — Rules: combinators
-
-  Added 7 new `ExprNodeType` members: `pow`, `less-than`, `greater-than`,
-  `step`, `if`, `smoothstep`, `clamp`. Implemented `evaluate()`, `toGLSL()`,
-  `toMathString()`, and `toBytes()` (opcodes 23–29) for all 7 in
-  `expression.ts`. Registered 10 new individual combinator rules in `rules.ts`
-  (7 single-combinator + 3 composite: arithmetic-mix, flow-art,
-  compare-and-clamp). Total rule count is now 33 (up from 23 in S2).
-  Naming maps: engine's `add`→`sum`, `multiply`→`product`, `modulo`→`mod`
-  (all three existed pre-S3). The `if` rule evaluates `condition > 0`,
-  `smoothstep` maps GLSL output to [-1,1] via `2*t-1`, and `clamp` uses
-  `clamp(lo, hi, x)` in GLSL directly. Typecheck and lint pass clean.
-
 - [x] S4 — Weighted pool builder, dual RNG, weight presets
-
-  Ported `buildPool()` with depth-dependent `structuralProbability` into
-  `expression.ts`, replacing the library's simple `terminalBias` coin-flip.
-  `structuralProbability = 1 - currentDepth / maxDepth` now drives pool
-  composition: high near the root (all structural rules included), low near
-  the leaves (only terminals). Added `weightedPick()` for weight-based
-  selection from the pool. Added default terminals (x, y, const with engine
-  weights 1.0, 1.0, 0.5) that are injected when a spec has no terminals.
-  `OpSpec` gained optional `weight` and `category` fields (defaults: 1.0 and
-  inferred from arity). `terminalBias` is kept in `GrammarSpec` for backward
-  compatibility but is no longer read by `grow()`.
-
-  Added `buildTree()` in `expression.ts` implementing the engine's dual-RNG
-  separation: `structureRng` drives category selection below
-  `STRUCTURE_RNG_DEPTH = 3`, `channelRng` takes over above. Added
-  `createDualRng()` and `createCorrelatedRng()` helpers in `prng.ts`.
-
-  Created `weight-presets.ts` with `balanced`, `organic`, `geometric`,
-  `chaotic` presets. Fixed broken rule-ID references from the engine:
-  `modulo` → `mod`, `multiply` → `product`, `banded-noise` removed (never
-  existed as a real rule in the engine). Added `getPresetWeights()` helper
-  and `PresetName`/`WeightOverrides` types. Spot-checked tree generation
-  with 50 seeds — depth stats (min 3, max 8, avg 6.0 for maxDepth=8 /
-  minDepth=3) match expected depth/shape characteristics.
-
 - [x] S5 — GLSL compiler core + dependency resolver
-
-  Created `glsl.ts` with the full dependency resolver ported from the engine's
-  `glslLibrary.ts`: same 6 functions (random2d, hash1, smoothNoise, smoothNoise2,
-  pseudoRecaman, fbmNoise), same topological sort with cycle detection via
-  depth-first visited/resolving sets. Created `compileToGLSL.ts` wrapping the
-  existing `toGLSL()` from `expression.ts` into a full `#version 300 es` fragment
-  shader. Added `AnimationBehavior` and `ApplyCodeContext` types to `types.ts` for
-  the compiler's behavior injection logic. Compiler signature matches the engine:
-  `compileToGLSL(treeR, treeG, treeB, behaviors)`, with the expression trees
-  compiled via the library-style per-node `toGLSL()` and the behaviors stubbed
-  out (ready for S7/S8 to populate). Package typechecks and lints clean. One
-  deviation: the engine's compileToGLSL also collects `noiseDependencies` from
-  each rule during recursive compilation (via the old `GrammarRule.noiseDependencies`
-  pattern); in the new architecture this is handled entirely through the
-  `AnimationBehavior.noiseDependencies` field since expression nodes themselves
-  reference library functions directly in their `toGLSL()` output strings —
-  dependency collection happens declaratively through behaviors.
-
-- S5.5 — Audit/preserve per-rule enable/disable + rule enumeration
-
-  Why this session exists: the UI consumer (store.ts) toggles
-  individual rules on/off independently of any weight preset — it calls
-  getAllRules() to render one checkbox per rule, and passes
-  enabledRuleIds into generateTrees() to exclude unchecked rules from
-  generation. Nothing in Phases 1–4 of this plan explicitly requires the new
-  package to preserve that. Weight presets (S4) are a different UX model
-  — they pick a whole named ruleset with relative weights, not an
-  independent per-rule on/off filter. It's easy for the new package to have
-  ended up with presets but no per-rule filter. This session finds out and
-  fixes it if needed, before S6–S9 build further on top of generate.ts's
-  contract.
-
-  Scope:
-
-  Check whether the new package currently exposes something equivalent to
-  getAllRules() — an enumerable list of all registered rules (id +
-  enough metadata to label a checkbox). If not, add it to rules.ts /
-  index.ts.
-  Check whether generate() (or whatever composes tree generation) still
-  accepts an explicit include/exclude list of rule ids, independent of
-  whatever weight preset is active. If not, add that parameter — it
-  should compose with weight presets, not replace them (e.g. a preset
-  picks default weights, the enabled-list further filters which rules can
-  appear at all).
-  If either was dropped intentionally as part of the presets redesign,
-  don't silently restore it — write the tradeoff in the Decisions Log and
-  make an explicit call, since a downstream UI session depends on
-  whichever way this goes.
-  Do not touch the UI/consumer repo in this session — this is purely
-  about confirming and, if needed, extending the new package's public
-  API. The UI-side session that consumes this comes later, in the
-  separate UI migration plan.
-
-  Files touched: rules.ts, generate.ts, index.ts (only if the
-  capability needs to be added or exposed differently).
-  Done when: there's a confirmed, documented way for a consumer to (a)
-  enumerate all rules and (b) generate a tree restricted to an arbitrary
-  subset of them, independent of preset choice — and the Decisions Log
-  states clearly whether this was already present, added, or intentionally
-  dropped.
-
+- [x] S5.5 — Audit/preserve per-rule enable/disable + rule enumeration
 - [ ] S6 — GLSL library functions, PI fix, vec3 fix, wire into toGPU()
 - [ ] S7 — Animation: spatial behaviors
 - [ ] S8 — Animation: color behaviors + resolver registration
+- [ ] S8.5 — Audit/preserve behavior enumeration + multi-behavior composition
 - [ ] S9 — Formatting (format.ts) + CLI
 - [ ] S10 — Cleanup pass (boilerplate, README, build, cache eviction, dead exports)
 - [ ] S11 — Swap @repo/randomart to new package, delete old packages
@@ -242,6 +118,16 @@ old packages when done.
   GLSL output string for function references, but for now this is sufficient
   and matches the actual use case: library functions are wired to their
   consumer nodes either via behaviors or by direct compilation (S6).
+- **S5.5: `enabledRuleIds` added to `GenerateOptions`, not to `buildTree`/`grow`.**
+  The old engine's `generateTrees()` accepted `enabledRuleIds` and filtered
+  `getAllRules()` before calling `buildTree()`. In the new package, `buildTree()`
+  operates on a single `GrammarSpec` (one rule), so per-rule filtering is
+  better placed at the `generate()` entry point where the caller picks which
+  rule to use. This keeps the internal tree-building functions rule-agnostic
+  and composes cleanly: the consumer calls `listRules()`, filters by
+  `enabledRuleIds`, and passes each enabled rule's id to `generate()`.
+  Weight presets are orthogonal — they adjust per-node-type weights within a
+  rule's grammar, not which rules are available.
 - **S5: AnimationBehavior and ApplyCodeContext types added to the new package
   ahead of S7/S8.** The compileToGLSL function signature requires these types.
   They are minimal forward-portals that match the engine's definitions exactly,
@@ -260,3 +146,8 @@ old packages when done.
 - [ ] bin field points to raw TS, requires tsx (S10)
 - [ ] README documents scripts not in package.json (S10)
 - [ ] Dead exports: stepRule, recamanPatternRule, nestedOscillationRule (S10)
+- [ ] Confirm per-rule enable/disable + rule enumeration survived the
+      merge — the UI consumer relies on both (S5.5)
+- [ ] Confirm behavior enumeration + running multiple animation behaviors
+      composed together (not just one active behavior) survived the merge —
+      the UI consumer's play/pause + multi-select relies on it (S8.5)
