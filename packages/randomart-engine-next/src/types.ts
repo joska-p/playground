@@ -123,3 +123,26 @@ export type GrammarRule = {
   /** The underlying expression node for further processing. */
   buildNode(textSeed: string): ExprNode;
 };
+
+/** Context variable keys passed to AnimationBehavior#applyCode. */
+export type ApplyCodeContext = {
+  time: string;
+  speed: string;
+  spatial: string;
+  color: string;
+};
+
+/**
+ * An animation behavior that modifies spatial coordinates or the final color.
+ * The glsl definition and noise dependencies are resolved into the compiled
+ * shader preamble; applyCode emits the line(s) injected at the appropriate
+ * point in the fragment shader main body.
+ */
+export type AnimationBehavior = {
+  id: string;
+  name: string;
+  glslFunction: string;
+  type: 'spatial' | 'color';
+  applyCode: (ctx: ApplyCodeContext) => string;
+  noiseDependencies?: string[];
+};

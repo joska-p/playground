@@ -6,16 +6,19 @@
  * Perrig & Song. The grammar-rules registry is the core extensibility point.
  */
 
+export { compileToGLSL } from './compileToGLSL.js';
 export { buildTree, grow } from './expression.js';
 export { generate } from './generate.js';
+export { functionById, glslFunctions, resolveGlslDeps } from './glsl.js';
 export { createCorrelatedRng, createDualRng } from './prng.js';
 export { DEFAULT_RULE_ID, getRule, hasRule, listRules } from './rules.js';
 export { WEIGHT_PRESETS, getPresetWeights } from './weight-presets.js';
 
+export type { GlslFunction, GlslFunctionsIds } from './glsl.js';
 export type { DualRng } from './prng.js';
-export type { PresetName, WeightOverrides } from './weight-presets.js';
-
 export type {
+  AnimationBehavior,
+  ApplyCodeContext,
   ExprNode,
   ExprNodeType,
   GenerateError,
@@ -24,3 +27,4 @@ export type {
   GrammarRule,
   TreeView
 } from './types.js';
+export type { PresetName, WeightOverrides } from './weight-presets.js';

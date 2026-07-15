@@ -111,7 +111,68 @@ old packages when done.
   with 50 seeds — depth stats (min 3, max 8, avg 6.0 for maxDepth=8 /
   minDepth=3) match expected depth/shape characteristics.
 
-- [ ] S5 — GLSL compiler core + dependency resolver
+- [x] S5 — GLSL compiler core + dependency resolver
+
+  Created `glsl.ts` with the full dependency resolver ported from the engine's
+  `glslLibrary.ts`: same 6 functions (random2d, hash1, smoothNoise, smoothNoise2,
+  pseudoRecaman, fbmNoise), same topological sort with cycle detection via
+  depth-first visited/resolving sets. Created `compileToGLSL.ts` wrapping the
+  existing `toGLSL()` from `expression.ts` into a full `#version 300 es` fragment
+  shader. Added `AnimationBehavior` and `ApplyCodeContext` types to `types.ts` for
+  the compiler's behavior injection logic. Compiler signature matches the engine:
+  `compileToGLSL(treeR, treeG, treeB, behaviors)`, with the expression trees
+  compiled via the library-style per-node `toGLSL()` and the behaviors stubbed
+  out (ready for S7/S8 to populate). Package typechecks and lints clean. One
+  deviation: the engine's compileToGLSL also collects `noiseDependencies` from
+  each rule during recursive compilation (via the old `GrammarRule.noiseDependencies`
+  pattern); in the new architecture this is handled entirely through the
+  `AnimationBehavior.noiseDependencies` field since expression nodes themselves
+  reference library functions directly in their `toGLSL()` output strings —
+  dependency collection happens declaratively through behaviors.
+
+- S5.5 — Audit/preserve per-rule enable/disable + rule enumeration
+
+  Why this session exists: the UI consumer (store.ts) toggles
+  individual rules on/off independently of any weight preset — it calls
+  getAllRules() to render one checkbox per rule, and passes
+  enabledRuleIds into generateTrees() to exclude unchecked rules from
+  generation. Nothing in Phases 1–4 of this plan explicitly requires the new
+  package to preserve that. Weight presets (S4) are a different UX model
+  — they pick a whole named ruleset with relative weights, not an
+  independent per-rule on/off filter. It's easy for the new package to have
+  ended up with presets but no per-rule filter. This session finds out and
+  fixes it if needed, before S6–S9 build further on top of generate.ts's
+  contract.
+
+  Scope:
+
+  Check whether the new package currently exposes something equivalent to
+  getAllRules() — an enumerable list of all registered rules (id +
+  enough metadata to label a checkbox). If not, add it to rules.ts /
+  index.ts.
+  Check whether generate() (or whatever composes tree generation) still
+  accepts an explicit include/exclude list of rule ids, independent of
+  whatever weight preset is active. If not, add that parameter — it
+  should compose with weight presets, not replace them (e.g. a preset
+  picks default weights, the enabled-list further filters which rules can
+  appear at all).
+  If either was dropped intentionally as part of the presets redesign,
+  don't silently restore it — write the tradeoff in the Decisions Log and
+  make an explicit call, since a downstream UI session depends on
+  whichever way this goes.
+  Do not touch the UI/consumer repo in this session — this is purely
+  about confirming and, if needed, extending the new package's public
+  API. The UI-side session that consumes this comes later, in the
+  separate UI migration plan.
+
+  Files touched: rules.ts, generate.ts, index.ts (only if the
+  capability needs to be added or exposed differently).
+  Done when: there's a confirmed, documented way for a consumer to (a)
+  enumerate all rules and (b) generate a tree restricted to an arbitrary
+  subset of them, independent of preset choice — and the Decisions Log
+  states clearly whether this was already present, added, or intentionally
+  dropped.
+
 - [ ] S6 — GLSL library functions, PI fix, vec3 fix, wire into toGPU()
 - [ ] S7 — Animation: spatial behaviors
 - [ ] S8 — Animation: color behaviors + resolver registration
@@ -170,6 +231,22 @@ old packages when done.
   preset referenced `banded-noise` at weight 0.2, but no such rule exists
   in the engine's grammar registry (grep confirmed it only appears in
   WeightPresets.ts). It was a dead reference and has been dropped.
+- **S5: Dependency collection through behaviors, not rule traversal.** The
+  engine's compileToGLSL collects noiseDependencies from each GrammarRule during
+  recursive compileNode traversal. In the new architecture, expression nodes
+  reference GLSL library functions directly in their static toGLSL() output
+  strings, so the compiler cannot discover those dependencies statically by
+  walking the tree. Instead, dependency collection happens through
+  AnimationBehavior.noiseDependencies, which is already how the engine handles
+  behavior-specific noise needs. A future enhancement could scan the compiled
+  GLSL output string for function references, but for now this is sufficient
+  and matches the actual use case: library functions are wired to their
+  consumer nodes either via behaviors or by direct compilation (S6).
+- **S5: AnimationBehavior and ApplyCodeContext types added to the new package
+  ahead of S7/S8.** The compileToGLSL function signature requires these types.
+  They are minimal forward-portals that match the engine's definitions exactly,
+  enabling the compiler to typecheck cleanly. Behaviors themselves are imported
+  and populated in S7/S8.
 
 ## Known Issues To Fix (carried over from analysis)
 
