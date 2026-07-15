@@ -6,6 +6,7 @@
  * Perrig & Song. The grammar-rules registry is the core extensibility point.
  */
 
+export { animationRegistry } from './animation.js';
 export { compileToGLSL } from './compileToGLSL.js';
 export { buildTree, grow } from './expression.js';
 export { generate } from './generate.js';

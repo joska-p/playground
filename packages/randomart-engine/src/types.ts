@@ -44,7 +44,7 @@ export type ApplyCodeContext = {
 export type AnimationBehavior = {
   id: string;
   name: string;
-  glslFunction: string;
+  glslFunction?: string;
   type: 'spatial' | 'color';
   applyCode: (ctx: ApplyCodeContext) => string;
   noiseDependencies?: GlslFunctionsIds[];

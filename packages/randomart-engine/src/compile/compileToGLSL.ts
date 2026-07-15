@@ -11,7 +11,8 @@ function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): stri
       seen.add(b.id);
       return true;
     })
-    .map((b) => b.glslFunction)
+    .map((b) => b.glslFunction ?? '')
+    .filter((fn) => fn.length > 0)
     .join('\n');
   return (noiseFunctions ? noiseFunctions + '\n\n' : '') + behaviorFunctions;
 }

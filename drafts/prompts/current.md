@@ -1,7 +1,7 @@
 Read MIGRATION_PLAN.md in this repo. Find the first unchecked session in
 the Session Checklist — that is your ONLY task this session.
 
-[Run session: S<7>]
+[Run session: S<9>]
 
 Scope for this session, and nothing beyond it, is defined below. Source
 material for what to port is in the original engine/library packages
@@ -15,21 +15,16 @@ is explicitly S11.
 
 ---
 
-### S7 — Animation: spatial behaviors
-**Scope:** Port the spatial half of the 25 animation behaviors (zoom,
-ripple, rotate, swirl, kaleidoscope, domain-warp, tunnel, etc.) into a new
-`animation.ts`. Make `glslFunction` optional on the behavior type for
-behaviors that only use `applyCode`.
+### S9 — Formatting (format.ts) + CLI
+**Scope:**
+- Port math-string and tree-view formatting from the engine (Unicode
+  operators: π, ·, mod) into new `format.ts`.
+- Port/keep the library's CLI (`cli.ts`), pointed at the new package's API.
 
-Design note: keep behaviors independently applicable (each one a
-self-contained function), not mutually exclusive alternatives — the
-consumer runs several at once. Don't collapse toward a single-active-
-behavior model even if that's simpler; S8.5 will formally verify this once
-the full set is ported.
+**Files touched:** new `format.ts`, `cli.ts`.
+**Done when:** CLI can generate an image and print a formatted expression
+tree using the new package end-to-end.
 
-**Files touched:** new `animation.ts`, `types.ts`.
-**Done when:** spatial behaviors apply correctly on the CPU path; GLSL path
-can be a stub for behaviors not yet wired to the resolver (finished in S8).
 
 ---
 

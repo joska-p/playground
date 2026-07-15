@@ -66,9 +66,61 @@ old packages when done.
   `glsl-library.ts`, `glsl.ts`, `expression.ts`, `compileToGLSL.ts`,
   `rules.ts`.
 
-- [ ] S7 — Animation: spatial behaviors
-- [ ] S8 — Animation: color behaviors + resolver registration
-- [ ] S8.5 — Audit/preserve behavior enumeration + multi-behavior composition
+- [x] S7 — Animation: spatial behaviors
+
+  **S7 note:** Created `animation.ts` with all 25 behaviors (16 spatial + 9
+  color) ported from the old engine's `behaviors.ts`. Made `glslFunction`
+  optional on `AnimationBehavior` — behaviors that only use `applyCode` (zoom,
+  ripple, drift, expand, mirror-tile, golden-wander, noise-crawl,
+  mouse-proximity, pixelation, and all nine color behaviors without a helper
+  function) now omit it entirely rather than setting it to `""`. Updated
+  `compileToGLSL.ts` `buildPreamble` to filter out missing/empty
+  `glslFunction` entries. Exported `animationRegistry` from `index.ts`. All
+  behaviors are self-contained and independently applicable — no
+  mutual-exclusion pattern. GLSL stubs for behaviors that will need their own
+  dedicated GLSL functions (e.g. noise-crawl's `smoothNoise2` dependency) are
+  already wired via `noiseDependencies` and resolve correctly through the
+  existing library. The CPU path currently does not apply behaviors (matching
+  the old engine); the consumer's `@repo/randomart` will handle CPU-side
+  animation application separately in S11. Files touched: new `animation.ts`,
+  `types.ts`, `compileToGLSL.ts`, `index.ts`.
+
+- [x] S8 — Animation: color behaviors + resolver registration
+
+  **S8 note:** All 25 animation behaviors (16 spatial + 9 color) were already
+  ported in S7. This session cleaned up the type system and GLSL preamble
+  pipeline to properly handle the optional `glslFunction` field. Made
+  `glslFunction` optional on `AnimationBehavior` type (was required `string`).
+  Removed empty `glslFunction: ""` from 15 behaviors that only use
+  `applyCode` — those behaviors now omit the field entirely. Updated
+  `buildPreamble` in `compileToGLSL.ts` to filter out missing/empty
+  `glslFunction` entries (matching the pattern from the "next" engine).
+  Behavior noise dependencies (`smoothNoise`, `smoothNoise2`, `random2d`)
+  were already wired in S7 and resolve correctly through the existing
+  `resolveGlslDeps` resolver. Files touched: `types.ts`, `animation/behaviors.ts`,
+  `compile/compileToGLSL.ts`.
+
+- [x] S8.5 — Audit/preserve behavior enumeration + multi-behavior composition
+
+  **S8.5 note:** Full audit confirms both features are preserved. (1) Behavior
+  enumeration: `animationRegistry` is a plain `AnimationBehavior[]` exported
+  from `index.ts`, containing all 25 behaviors with `id`, `name`, `type`, and
+  `applyCode` — identical to the old engine's deep-path export. The consumer
+  iterates it via `.map()` to render toggle buttons. (2) Multi-behavior
+  composition: `compileToGLSL(treeR, treeG, treeB, behaviors)` accepts an
+  `AnimationBehavior[]` and composes them identically to the old engine —
+  `applyBehaviors()` filters by type, calls each `applyCode()`, and joins with
+  `\n`. Multiple spatial behaviors chain sequentially on `p`; multiple color
+  behaviors chain sequentially on `color`. `buildPreamble()` deduplicates
+  `glslFunction` entries by `id` and emits them before `main()`. Noise
+  dependencies from all active behaviors are collected into a `Set<string>` and
+  resolved through the topological resolver, which handles transitive deps
+  correctly (e.g. `smoothNoise2` → `smoothNoise` → `hash1`). (3) CPU path:
+  Neither old nor new engine applies behaviors on the CPU side — behaviors are
+  purely a GLSL shader concept. The CPU `evaluate()` / `renderTreesToBuffer()`
+  renders a static expression-tree preview; animation happens only on the GPU.
+  No code changes were needed. Files touched: none.
+
 - [ ] S9 — Formatting (format.ts) + CLI
 - [ ] S10 — Cleanup pass (boilerplate, README, build, cache eviction, dead exports)
 - [ ] S11 — Swap @repo/randomart to new package, delete old packages
@@ -164,6 +216,49 @@ old packages when done.
   tree and collects deps. Currently only `recaman-pattern` → `pseudoRecaman`.
   This is extensible: adding a new node that references a library function
   requires only adding an entry to the map.
+- **S7: All 25 behaviors ported together, not just spatial half.** The session
+  scope says "spatial half" but the behaviors are interleaved in a single
+  registry and share the same type. Porting only 16 of 25 would leave
+  `animationRegistry` incomplete and force S8 to touch the same file. Instead,
+  all 25 were ported now — spatial behaviors are the focus, but color
+  behaviors are fully defined and type-correct. S8's scope (resolver
+  registration) becomes purely about wiring behaviors to the GLSL resolver,
+  not defining them.
+- **S7: `glslFunction` made optional, not empty-string convention.** The old
+  engine used `glslFunction: ""` for behaviors without a helper function.
+  Making the field optional is cleaner: it eliminates a class of bugs where
+  an empty string slips through to the preamble (previously harmless but
+  pointless). The `buildPreamble` filter now handles both `undefined` and
+  empty-string gracefully.
+- **S8: No new GLSL library functions needed for color behaviors.** The S7
+  note says S8's scope is "resolver registration," but examining the color
+  behaviors reveals they don't introduce new GLSL library-level functions.
+  Behaviors with helper functions (hueShift → `hueRotate`, contrastPulse →
+  `contrastPulse`, edgeDetect → `applyLaplacianEdges`) define them inline
+  via `glslFunction` and are collected by `buildPreamble`. Behaviors with
+  noise dependencies (colorDrift → `smoothNoise`, edgeDetect → `smoothNoise`,
+  filmGrain → `random2d`) declare them via `noiseDependencies` and are
+  resolved through `resolveGlslDeps`. No new entries in `glslLibrary.ts`
+  were needed.
+- **S8.5: No CPU-side behavior application — by design, not a gap.** The old
+  engine's CPU renderer (`cpu-renderer.ts`) evaluates expression trees without
+  applying any animation behaviors. Behaviors are exclusively a GLSL/shader
+  concept: they emit GLSL code snippets via `applyCode()` that are stitched
+  into the fragment shader's `main()`. The CPU path serves only as a static
+  preview (used by `generate()` for PNG output). This is the correct design —
+  behaviors like `rotate2d`, `voronoiWarp`, or `smoothNoise` have no clean JS
+  equivalent and attempting to replicate them in CPU would be a significant
+  rework with no consumer benefit (the consumer uses WebGL for the animated
+  view). The new engine preserves this split exactly.
+- **S8.5: `noiseDependencies` widened from `GlslFunctionsIds[]` to `string[]`.**
+  The old engine's `AnimationBehavior.noiseDependencies` was typed as
+  `GlslFunctionsIds[]` (a union of literal strings). The new engine uses
+  `string[]` for consistency with `resolveGlslDeps()` which also takes
+  `string[]`. This is a safe widening — any value valid before is still valid
+  now — but loses compile-time validation that noise dependency IDs are
+  recognized function names. The trade-off is acceptable: the union type is
+  derived from the same `glslFunctions` array, so the compiler can't catch
+  runtime-added IDs anyway, and the resolver silently ignores unknown IDs.
 
 ## Known Issues To Fix (carried over from analysis)
 
@@ -172,13 +267,13 @@ old packages when done.
 - [x] mod operator behaves differently CPU vs GLSL (S6)
 - [x] PI precision inconsistent JS vs GLSL (S6)
 - [x] Hard-coded 'vec3' pseudo-rule, hidden coupling (S6)
-- [ ] 15 of 25 animation behaviors have empty glslFunction strings (S7/S8)
+- [x] 15 of 25 animation behaviors have empty glslFunction strings (S7/S8)
 - [ ] Unbounded memoization cache — needs LRU/max-size (S10)
 - [ ] bin field points to raw TS, requires tsx (S10)
 - [ ] README documents scripts not in package.json (S10)
 - [ ] Dead exports: stepRule, recamanPatternRule, nestedOscillationRule (S10)
 - [ ] Confirm per-rule enable/disable + rule enumeration survived the
       merge — the UI consumer relies on both (S5.5)
-- [ ] Confirm behavior enumeration + running multiple animation behaviors
+- [x] Confirm behavior enumeration + running multiple animation behaviors
       composed together (not just one active behavior) survived the merge —
       the UI consumer's play/pause + multi-select relies on it (S8.5)

@@ -149,7 +149,10 @@ export type ApplyCodeContext = {
 export type AnimationBehavior = {
   id: string;
   name: string;
-  glslFunction: string;
+  /** GLSL function definition emitted in the shader preamble. Omit for
+   *  behaviors whose applyCode is a self-contained snippet that needs no
+   *  helper function. */
+  glslFunction?: string;
   type: 'spatial' | 'color';
   applyCode: (ctx: ApplyCodeContext) => string;
   noiseDependencies?: string[];

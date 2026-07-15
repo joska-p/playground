@@ -1,27 +1,25 @@
-import type { AnimationBehavior } from '../types';
+/**
+ * Animation behaviors.
+ *
+ * Each behavior is a self-contained function that modifies either spatial
+ * coordinates or the final color during shader execution. Behaviors are
+ * independently applicable — the consumer runs several at once.
+ *
+ * Spatial behaviors warp the coordinate space (zoom, rotate, swirl, etc.);
+ * color behaviors post-process the fragment color (hue shift, contrast, etc.).
+ *
+ * Ported from randomart-engine/src/animation/behaviors.ts (S7).
+ */
 
-export const hueShiftBehavior: AnimationBehavior = {
-  id: 'hue-shift',
-  name: 'Hue Shift',
-  glslFunction: `
-vec3 hueRotate(vec3 color, float angle) {
-  float c = cos(angle);
-  float s = sin(angle);
-  return vec3(
-    (0.299 + 0.701*c + 0.168*s) * color.r + (0.587 - 0.587*c + 0.330*s) * color.g + (0.114 - 0.114*c - 0.331*s) * color.b,
-    (0.299 - 0.299*c - 0.328*s) * color.r + (0.587 + 0.413*c + 0.035*s) * color.g + (0.114 - 0.114*c + 0.292*s) * color.b,
-    (0.299 - 0.299*c + 1.250*s) * color.r + (0.587 - 0.587*c - 1.050*s) * color.g + (0.114 + 0.886*c - 0.203*s) * color.b
-  );
-}
-`,
-  type: 'color',
-  applyCode: ({ time, speed, color }) => `${color} = hueRotate(${color}, ${time} * ${speed});`
-};
+import type { AnimationBehavior } from './types.js';
+
+// ---------------------------------------------------------------------------
+// Spatial behaviors
+// ---------------------------------------------------------------------------
 
 export const zoomBehavior: AnimationBehavior = {
   id: 'zoom',
   name: 'Zoom',
-
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} *= (1.0 + 0.5 * sin(${time} * ${speed}));`
 };
@@ -29,7 +27,6 @@ export const zoomBehavior: AnimationBehavior = {
 export const rippleBehavior: AnimationBehavior = {
   id: 'ripple',
   name: 'Ripple',
-
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} += 0.1 * sin(${spatial} * 5.0 + ${time} * ${speed});`
@@ -38,7 +35,7 @@ export const rippleBehavior: AnimationBehavior = {
 export const rotateBehavior: AnimationBehavior = {
   id: 'rotate',
   name: 'Rotate',
-  glslFunction: `
+  glslFunction: `\
 mat2 rotate2d(float _angle){
   return mat2(cos(_angle),-sin(_angle),
   sin(_angle),cos(_angle));
@@ -52,7 +49,7 @@ mat2 rotate2d(float _angle){
 export const swirlBehavior: AnimationBehavior = {
   id: 'swirl',
   name: 'Swirl',
-  glslFunction: `
+  glslFunction: `\
 vec2 swirl(vec2 coords, float angle) {
   float r = length(coords);
   float a = atan(coords.y, coords.x) + angle * (1.0 - r);
@@ -67,7 +64,6 @@ vec2 swirl(vec2 coords, float angle) {
 export const driftBehavior: AnimationBehavior = {
   id: 'drift',
   name: 'Drift',
-
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} += ${time} * ${speed} * 0.1;`
 };
@@ -75,7 +71,6 @@ export const driftBehavior: AnimationBehavior = {
 export const expandBehavior: AnimationBehavior = {
   id: 'expand',
   name: 'Expand',
-
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} /= (1.0 + ${time} * ${speed} * 0.1);`
 };
@@ -83,7 +78,7 @@ export const expandBehavior: AnimationBehavior = {
 export const kaleidoscopeBehavior: AnimationBehavior = {
   id: 'kaleidoscope',
   name: 'Kaleidoscope',
-  glslFunction: `
+  glslFunction: `\
 vec2 kaleidoscope(vec2 coords, float t, float speed) {
   float rot = t * speed * 0.1;
   float c = cos(rot);
@@ -108,7 +103,7 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
 export const domainWarpBehavior: AnimationBehavior = {
   id: 'domain-warp',
   name: 'Warp',
-  glslFunction: `
+  glslFunction: `\
 vec2 domainWarp(vec2 coords, float t, float speed) {
   vec2 q = vec2(
     sin(coords.y * 1.7 + t * speed * 0.6) * 0.5 + sin(coords.x * 2.3 + 1.2) * 0.3,
@@ -124,7 +119,6 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
 export const mirrorTileBehavior: AnimationBehavior = {
   id: 'mirror-tile',
   name: 'Mirror',
-
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) =>
     `${spatial} = abs(mod(${spatial} * 1.4 + ${time} * ${speed} * 0.08, 2.0) - 1.0);`
@@ -133,7 +127,7 @@ export const mirrorTileBehavior: AnimationBehavior = {
 export const tunnelBehavior: AnimationBehavior = {
   id: 'tunnel',
   name: 'Tunnel',
-  glslFunction: `
+  glslFunction: `\
 vec2 tunnel(vec2 coords, float t, float speed) {
   float r = length(coords) + 0.0001;
   float a = atan(coords.y, coords.x);
@@ -145,23 +139,9 @@ vec2 tunnel(vec2 coords, float t, float speed) {
   applyCode: ({ time, speed, spatial }) => `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
 };
 
-export const contrastPulseBehavior: AnimationBehavior = {
-  id: 'contrast-pulse',
-  name: 'Pulse',
-  glslFunction: `
-vec3 contrastPulse(vec3 color, float t, float speed) {
-  float k = 1.5 + 1.0 * sin(t * speed * 0.5);
-  return clamp((color - 0.5) * k + 0.5, 0.0, 1.0);
-}
-`,
-  type: 'color',
-  applyCode: ({ time, speed, color }) => `${color} = contrastPulse(${color}, ${time}, ${speed});`
-};
-
 export const goldenWanderBehavior: AnimationBehavior = {
   id: 'golden-wander',
   name: 'Wander',
-
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => {
     const phi = '1.6180339887';
@@ -175,7 +155,6 @@ export const goldenWanderBehavior: AnimationBehavior = {
 export const noiseCrawlBehavior: AnimationBehavior = {
   id: 'noise-crawl',
   name: 'Crawl',
-
   type: 'spatial',
   noiseDependencies: ['smoothNoise2'],
   applyCode: ({ time, speed, spatial }) =>
@@ -185,24 +164,10 @@ export const noiseCrawlBehavior: AnimationBehavior = {
     ].join('\n  ')
 };
 
-export const colorDriftBehavior: AnimationBehavior = {
-  id: 'color-drift',
-  name: 'Color Drift',
-
-  type: 'color',
-  noiseDependencies: ['smoothNoise'],
-  applyCode: ({ time, speed, color }) =>
-    [
-      `float cd_t = ${time} * ${speed} * 0.1;`,
-      `vec3 cd_tint = vec3(smoothNoise(cd_t), smoothNoise(cd_t + 17.3), smoothNoise(cd_t + 53.9));`,
-      `${color} = mix(${color}, ${color} * (0.6 + 0.8 * cd_tint), 0.4);`
-    ].join('\n  ')
-};
-
 export const recamanPulseBehavior: AnimationBehavior = {
   id: 'recaman-pulse',
   name: 'Recamán',
-  glslFunction: `
+  glslFunction: `\
 vec2 recamanWarp(vec2 coords, float t, float speed) {
   float timeFactor = t * speed * 0.4;
   float r = length(coords);
@@ -224,43 +189,10 @@ vec2 recamanWarp(vec2 coords, float t, float speed) {
     `${spatial} = recamanWarp(${spatial}, ${time}, ${speed});`
 };
 
-export const edgeDetectBehavior: AnimationBehavior = {
-  id: 'edge-detect',
-  name: 'Contour',
-  type: 'color',
-  noiseDependencies: ['smoothNoise'],
-  glslFunction: `
-vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
-    float centerLuminance = dot(baseColor, vec3(0.299, 0.587, 0.114));
-
-    // Screen-space derivatives for clean edge isolation
-    float dX = dFdx(centerLuminance);
-    float dY = dFdy(centerLuminance);
-    float edge = length(vec2(dX, dY));
-
-    // Animate edge intensity slightly
-    float intensityModifier = 1.0 + smoothNoise(time * 0.3) * 1.0;
-    edge *= intensityModifier;
-
-    // Generate a cycling neon color palette using cosine waves based on position + time
-    vec3 edgeColor = 0.5 + 0.5 * cos(time + uv.xyx + vec3(0.0, 2.0, 4.0));
-
-    // Boost the brightness of the neon line
-    edgeColor *= 1.5;
-
-    // Mix the glowing neon color into your generative base color matrix
-    return mix(baseColor, edgeColor, smoothstep(0.04, 0.2, edge));
-}
-`,
-  applyCode: ({ time, speed, color }) =>
-    `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
-};
-
 export const mouseProximityBehavior: AnimationBehavior = {
   id: 'mouse-proximity',
   name: 'Mouse Field',
   type: 'spatial',
-
   applyCode: ({ spatial }) => {
     return [
       `vec2 fragPx = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);`,
@@ -275,7 +207,6 @@ export const pixelationBehavior: AnimationBehavior = {
   id: 'pixelation',
   name: 'Pixelation',
   type: 'spatial',
-
   applyCode: ({ time, speed, spatial }) => {
     return [
       `float pix_res = 20.0 + 80.0 * (0.5 + 0.5 * sin(${time} * ${speed} * 0.3));`,
@@ -284,78 +215,10 @@ export const pixelationBehavior: AnimationBehavior = {
   }
 };
 
-export const inversionBehavior: AnimationBehavior = {
-  id: 'inversion',
-  name: 'Inversion',
-  type: 'color',
-
-  applyCode: ({ time, speed, color }) =>
-    `${color} = mix(${color}, 1.0 - ${color}, 0.5 + 0.5 * sin(${time} * ${speed} * 0.5));`
-};
-
-export const chromaticAberrationBehavior: AnimationBehavior = {
-  id: 'chromatic-aberration',
-  name: 'Aberration',
-  type: 'color',
-
-  applyCode: ({ time, speed, spatial, color }) => {
-    return [
-      `float ca_offset = 0.003 * sin(${time} * ${speed} * 0.7);`,
-      `vec2 ca_dir = normalize(${spatial}) * ca_offset;`,
-      `${color}.r = ${color}.r + ca_dir.x;`,
-      `${color}.b = ${color}.b - ca_dir.y;`
-    ].join('\n  ');
-  }
-};
-
-export const vignetteBehavior: AnimationBehavior = {
-  id: 'vignette',
-  name: 'Vignette',
-  type: 'color',
-
-  applyCode: ({ time, speed, spatial, color }) => {
-    return [
-      `float vig_t = ${time} * ${speed};`,
-      `float vig_radius = 0.8 + 0.2 * sin(vig_t * 0.2);`,
-      `float vig = 1.0 - smoothstep(vig_radius * 0.5, vig_radius, length(${spatial}));`,
-      `${color} *= vig;`
-    ].join('\n  ');
-  }
-};
-
-export const filmGrainBehavior: AnimationBehavior = {
-  id: 'film-grain',
-  name: 'Grain',
-  type: 'color',
-  noiseDependencies: ['random2d'],
-
-  applyCode: ({ time, speed, spatial, color }) => {
-    return [
-      `float grain_seed = fract(${time} * ${speed});`,
-      `float grain = random2d(${spatial} * 100.0 + grain_seed) * 0.15;`,
-      `${color} += grain - 0.075;`
-    ].join('\n  ');
-  }
-};
-
-export const scanLinesBehavior: AnimationBehavior = {
-  id: 'scan-lines',
-  name: 'Scan',
-  type: 'color',
-
-  applyCode: ({ time, speed, spatial, color }) => {
-    return [
-      `float scan_freq = 80.0 + 40.0 * sin(${time} * ${speed} * 0.1);`,
-      `float scan = 0.9 + 0.1 * sin(${spatial}.y * scan_freq);`,
-      `${color} *= scan;`
-    ].join('\n  ');
-  }
-};
-
 export const voronoiBehavior: AnimationBehavior = {
   id: 'voronoi',
   name: 'Voronoi',
-  glslFunction: `
+  glslFunction: `\
 vec2 voronoiHash(vec2 p) {
   p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
   return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
@@ -387,8 +250,155 @@ vec2 voronoiWarp(vec2 x, float t, float speed) {
     `${spatial} = voronoiWarp(${spatial}, ${time}, ${speed});`
 };
 
+// ---------------------------------------------------------------------------
+// Color behaviors
+// ---------------------------------------------------------------------------
+
+export const hueShiftBehavior: AnimationBehavior = {
+  id: 'hue-shift',
+  name: 'Hue Shift',
+  glslFunction: `\
+vec3 hueRotate(vec3 color, float angle) {
+  float c = cos(angle);
+  float s = sin(angle);
+  return vec3(
+    (0.299 + 0.701*c + 0.168*s) * color.r + (0.587 - 0.587*c + 0.330*s) * color.g + (0.114 - 0.114*c - 0.331*s) * color.b,
+    (0.299 - 0.299*c - 0.328*s) * color.r + (0.587 + 0.413*c + 0.035*s) * color.g + (0.114 - 0.114*c + 0.292*s) * color.b,
+    (0.299 - 0.299*c + 1.250*s) * color.r + (0.587 - 0.587*c - 1.050*s) * color.g + (0.114 + 0.886*c - 0.203*s) * color.b
+  );
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) => `${color} = hueRotate(${color}, ${time} * ${speed});`
+};
+
+export const contrastPulseBehavior: AnimationBehavior = {
+  id: 'contrast-pulse',
+  name: 'Pulse',
+  glslFunction: `\
+vec3 contrastPulse(vec3 color, float t, float speed) {
+  float k = 1.5 + 1.0 * sin(t * speed * 0.5);
+  return clamp((color - 0.5) * k + 0.5, 0.0, 1.0);
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) => `${color} = contrastPulse(${color}, ${time}, ${speed});`
+};
+
+export const colorDriftBehavior: AnimationBehavior = {
+  id: 'color-drift',
+  name: 'Color Drift',
+  type: 'color',
+  noiseDependencies: ['smoothNoise'],
+  applyCode: ({ time, speed, color }) =>
+    [
+      `float cd_t = ${time} * ${speed} * 0.1;`,
+      `vec3 cd_tint = vec3(smoothNoise(cd_t), smoothNoise(cd_t + 17.3), smoothNoise(cd_t + 53.9));`,
+      `${color} = mix(${color}, ${color} * (0.6 + 0.8 * cd_tint), 0.4);`
+    ].join('\n  ')
+};
+
+export const edgeDetectBehavior: AnimationBehavior = {
+  id: 'edge-detect',
+  name: 'Contour',
+  type: 'color',
+  noiseDependencies: ['smoothNoise'],
+  glslFunction: `\
+vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
+    float centerLuminance = dot(baseColor, vec3(0.299, 0.587, 0.114));
+
+    // Screen-space derivatives for clean edge isolation
+    float dX = dFdx(centerLuminance);
+    float dY = dFdy(centerLuminance);
+    float edge = length(vec2(dX, dY));
+
+    // Animate edge intensity slightly
+    float intensityModifier = 1.0 + smoothNoise(time * 0.3) * 1.0;
+    edge *= intensityModifier;
+
+    // Generate a cycling neon color palette using cosine waves based on position + time
+    vec3 edgeColor = 0.5 + 0.5 * cos(time + uv.xyx + vec3(0.0, 2.0, 4.0));
+
+    // Boost the brightness of the neon line
+    edgeColor *= 1.5;
+
+    // Mix the glowing neon color into your generative base color matrix
+    return mix(baseColor, edgeColor, smoothstep(0.04, 0.2, edge));
+}
+`,
+  applyCode: ({ time, speed, color }) =>
+    `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
+};
+
+export const inversionBehavior: AnimationBehavior = {
+  id: 'inversion',
+  name: 'Inversion',
+  type: 'color',
+  applyCode: ({ time, speed, color }) =>
+    `${color} = mix(${color}, 1.0 - ${color}, 0.5 + 0.5 * sin(${time} * ${speed} * 0.5));`
+};
+
+export const chromaticAberrationBehavior: AnimationBehavior = {
+  id: 'chromatic-aberration',
+  name: 'Aberration',
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float ca_offset = 0.003 * sin(${time} * ${speed} * 0.7);`,
+      `vec2 ca_dir = normalize(${spatial}) * ca_offset;`,
+      `${color}.r = ${color}.r + ca_dir.x;`,
+      `${color}.b = ${color}.b - ca_dir.y;`
+    ].join('\n  ');
+  }
+};
+
+export const vignetteBehavior: AnimationBehavior = {
+  id: 'vignette',
+  name: 'Vignette',
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float vig_t = ${time} * ${speed};`,
+      `float vig_radius = 0.8 + 0.2 * sin(vig_t * 0.2);`,
+      `float vig = 1.0 - smoothstep(vig_radius * 0.5, vig_radius, length(${spatial}));`,
+      `${color} *= vig;`
+    ].join('\n  ');
+  }
+};
+
+export const filmGrainBehavior: AnimationBehavior = {
+  id: 'film-grain',
+  name: 'Grain',
+  type: 'color',
+  noiseDependencies: ['random2d'],
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float grain_seed = fract(${time} * ${speed});`,
+      `float grain = random2d(${spatial} * 100.0 + grain_seed) * 0.15;`,
+      `${color} += grain - 0.075;`
+    ].join('\n  ');
+  }
+};
+
+export const scanLinesBehavior: AnimationBehavior = {
+  id: 'scan-lines',
+  name: 'Scan',
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float scan_freq = 80.0 + 40.0 * sin(${time} * ${speed} * 0.1);`,
+      `float scan = 0.9 + 0.1 * sin(${spatial}.y * scan_freq);`,
+      `${color} *= scan;`
+    ].join('\n  ');
+  }
+};
+
+// ---------------------------------------------------------------------------
+// Registry
+// ---------------------------------------------------------------------------
+
 export const animationRegistry: AnimationBehavior[] = [
-  hueShiftBehavior,
+  // Spatial
   zoomBehavior,
   rippleBehavior,
   rotateBehavior,
@@ -399,18 +409,20 @@ export const animationRegistry: AnimationBehavior[] = [
   domainWarpBehavior,
   mirrorTileBehavior,
   tunnelBehavior,
-  contrastPulseBehavior,
   goldenWanderBehavior,
   noiseCrawlBehavior,
-  colorDriftBehavior,
   recamanPulseBehavior,
-  edgeDetectBehavior,
   mouseProximityBehavior,
   pixelationBehavior,
+  voronoiBehavior,
+  // Color
+  hueShiftBehavior,
+  contrastPulseBehavior,
+  colorDriftBehavior,
+  edgeDetectBehavior,
   inversionBehavior,
   chromaticAberrationBehavior,
   vignetteBehavior,
-  voronoiBehavior,
   filmGrainBehavior,
   scanLinesBehavior
 ];

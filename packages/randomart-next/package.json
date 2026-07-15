@@ -1,0 +1,48 @@
+{
+  "name": "@repo/randomart-next",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./randomart": "./src/App.tsx",
+    "./styles": "./src/styles/global.css"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "preview": "vite preview --host",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/randomart-engine-next": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "zustand": "catalog:",
+    "@react-three/fiber": "catalog:",
+    "@types/three": "catalog:",
+    "three": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@babel/core": "catalog:",
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "@rolldown/plugin-babel": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@types/babel__core": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "babel-plugin-react-compiler": "catalog:",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}
