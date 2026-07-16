@@ -117,6 +117,17 @@
   featured: false
   packageDir: randomart
 
+- id: randomart-next
+  order: 5
+  title: RandomArt-next
+  description: Generate unique abstract art from any text string using seeded randomness and math expression trees.
+  tags:
+    - generative
+    - canvas
+  iconName: sparkles
+  featured: false
+  packageDir: randomart-next
+
 - id: sequences
   order: 2
   title: Sequence Renderer

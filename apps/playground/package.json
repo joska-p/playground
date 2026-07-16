@@ -35,6 +35,7 @@
     "@repo/pixel-manipulator": "workspace:*",
     "@repo/radu-machine-learning": "workspace:*",
     "@repo/randomart": "workspace:*",
+    "@repo/randomart-next": "workspace:*",
     "@repo/real-life": "workspace:*",
     "@repo/sequence-renderer": "workspace:*",
     "@repo/three-stage": "workspace:*",

@@ -1,9 +1,9 @@
 ---
 import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { App } from '@repo/radu-machine-learning/radu-machine-learning';
+import { App } from '@repo/randomart-next/randomart-next';
 
-const project = await getEntry('projects', 'radu-machine-learning');
+const project = await getEntry('projects', 'randomart-next');
 if (!project) return Astro.redirect('/404');
 
 const { title, description } = project.data;

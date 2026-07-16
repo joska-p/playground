@@ -2,7 +2,7 @@
 ---
 import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { App as ProjectApp } from '@repo/{{packageDir}}/{{packageDir}}';
+import { App } from '@repo/{{packageDir}}/{{packageDir}}';
 
 const project = await getEntry('projects', '{{id}}');
 if (!project) return Astro.redirect('/404');
@@ -13,6 +13,6 @@ const keywords = project.data.tags?.join(', ').slice(1) || '';
 
 <BaseLayout title={title} description={description} keywords={keywords}>
   <div class="h-0 min-h-screen">
-    <ProjectApp client:only="react" />
+    <App client:only="react" />
   </div>
 </BaseLayout>

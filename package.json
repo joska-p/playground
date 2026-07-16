@@ -22,7 +22,7 @@
     "prettier-plugin-astro": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
-    "turbo": "^2.10.4",
+    "turbo": "^2.10.5",
     "typescript": "catalog:",
     "@turbo/gen": "^2.10.5",
     "@types/node": "catalog:",

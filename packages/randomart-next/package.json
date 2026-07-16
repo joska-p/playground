@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./randomart": "./src/App.tsx",
+    "./randomart-next": "./src/App.tsx",
     "./styles": "./src/styles/global.css"
   },
   "scripts": {
