@@ -1,3 +1,5 @@
+import type { OperatorId } from '@repo/randomart-engine-next';
+import { getRule } from '@repo/randomart-engine-next';
 import { randomartStore, updateTreeConfig } from '../store';
 import type { Mode } from '../types';
 
@@ -13,18 +15,38 @@ export function setMaxDepth(maxDepth: number): void {
   updateTreeConfig(() => ({ maxDepth }), 'config/setMaxDepth');
 }
 
+export function setMinDepth(minDepth: number): void {
+  updateTreeConfig(() => ({ minDepth }), 'config/setMinDepth');
+}
+
 export function setAnimationSpeed(speed: number): void {
   randomartStore.setState({ animationSpeed: speed }, false, 'config/setAnimationSpeed');
 }
 
-export function toggleRule(ruleId: string): void {
+export function selectRule(ruleId: string): void {
+  const rule = getRule(ruleId);
+  if (!rule) return;
+  updateTreeConfig(
+    () => ({
+      selectedRuleId: ruleId,
+      customOperators: null,
+      minDepth: rule.minDepth,
+      maxDepth: rule.maxDepth
+    }),
+    `config/selectRule (${ruleId})`
+  );
+}
+
+export function toggleOperator(operatorId: OperatorId): void {
   updateTreeConfig((state) => {
-    const isCurrentlyEnabled = state.enabledRuleIds.includes(ruleId);
+    const rule = getRule(state.selectedRuleId);
+    const base = state.customOperators ?? rule?.operators ?? [];
+    const isCurrentlyEnabled = base.includes(operatorId);
 
-    const nextEnabledIds = isCurrentlyEnabled
-      ? state.enabledRuleIds.filter((id) => id !== ruleId)
-      : [...state.enabledRuleIds, ruleId];
+    const nextOperators = isCurrentlyEnabled
+      ? base.filter((id) => id !== operatorId)
+      : [...base, operatorId];
 
-    return { enabledRuleIds: nextEnabledIds };
-  }, `config/toggleRule (${ruleId})`);
+    return { customOperators: nextOperators };
+  }, `config/toggleOperator (${operatorId})`);
 }

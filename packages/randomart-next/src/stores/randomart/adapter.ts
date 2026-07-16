@@ -1,5 +1,5 @@
-import type { ExprNode } from '@repo/randomart-engine-next';
-import { listRules } from '@repo/randomart-engine-next';
+import type { ExprNode, OperatorId } from '@repo/randomart-engine-next';
+import { createRule, getRule, listRules } from '@repo/randomart-engine-next';
 
 export type TreeOutput = {
   treeR: ExprNode;
@@ -9,17 +9,31 @@ export type TreeOutput = {
 
 export type TreeConfig = {
   seedText: string;
-  enabledRuleIds: string[];
+  selectedRuleId: string;
+  customOperators: OperatorId[] | null;
+  minDepth: number;
+  maxDepth: number;
   correlated: boolean;
 };
 
 export function generateTrees(config: TreeConfig): TreeOutput {
-  const enabledRules = listRules().filter((r) => config.enabledRuleIds.includes(r.id));
-  const rule = enabledRules.length > 0 ? enabledRules[0] : listRules()[0];
+  const preset = getRule(config.selectedRuleId) ?? listRules()[0];
 
-  if (!rule) {
+  if (!preset) {
     throw new Error('No rules registered');
   }
+
+  const operators = config.customOperators ?? preset.operators;
+
+  const spec = {
+    id: config.selectedRuleId,
+    displayName: preset.displayName,
+    operators,
+    minDepth: config.minDepth,
+    maxDepth: config.maxDepth
+  };
+
+  const rule = createRule(spec);
 
   if (config.correlated) {
     const node = rule.buildNode(config.seedText);

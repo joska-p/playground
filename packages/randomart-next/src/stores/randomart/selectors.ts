@@ -14,8 +14,14 @@ export function useSeedText() {
 export function useMaxDepth() {
   return useStore(randomartStore, (s) => s.maxDepth);
 }
-export function useEnabledRuleIds() {
-  return useStore(randomartStore, (s) => s.enabledRuleIds);
+export function useSelectedRuleId() {
+  return useStore(randomartStore, (s) => s.selectedRuleId);
+}
+export function useCustomOperators() {
+  return useStore(randomartStore, (s) => s.customOperators);
+}
+export function useMinDepth() {
+  return useStore(randomartStore, (s) => s.minDepth);
 }
 export function useCorrelatedRGB() {
   return useStore(randomartStore, (s) => s.correlatedRGB);
