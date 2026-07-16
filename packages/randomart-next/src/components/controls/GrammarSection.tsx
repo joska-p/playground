@@ -1,4 +1,4 @@
-import { getAllRules, type RuleId } from '@repo/randomart-engine/grammar/registry';
+import { listRules } from '@repo/randomart-engine-next';
 import { ControlGrid, ControlSection } from '@repo/ui/control-panel';
 import { Button } from '@repo/ui/data-entry';
 import { toggleRule } from '../../stores/randomart/actions/config';
@@ -6,7 +6,7 @@ import { useEnabledRuleIds } from '../../stores/randomart/selectors';
 
 function GrammarSection() {
   const enabledRuleIds = useEnabledRuleIds();
-  const rules = getAllRules();
+  const rules = listRules();
 
   return (
     <ControlSection
@@ -14,21 +14,18 @@ function GrammarSection() {
       defaultOpen={false}
     >
       <ControlGrid columns={3}>
-        {rules.map((rule) => {
-          const ruleId = rule.id as RuleId;
-          return (
-            <Button
-              key={`rule-${ruleId}`}
-              variant={enabledRuleIds.includes(ruleId) ? 'secondary' : 'default'}
-              size="sm"
-              onClick={() => {
-                toggleRule(ruleId);
-              }}
-            >
-              {rule.name}
-            </Button>
-          );
-        })}
+        {rules.map((rule) => (
+          <Button
+            key={`rule-${rule.id}`}
+            variant={enabledRuleIds.includes(rule.id) ? 'secondary' : 'default'}
+            size="sm"
+            onClick={() => {
+              toggleRule(rule.id);
+            }}
+          >
+            {rule.displayName}
+          </Button>
+        ))}
       </ControlGrid>
     </ControlSection>
   );

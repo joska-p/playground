@@ -1,5 +1,4 @@
-import type { SeededRandom } from '@repo/randomart-engine/random/SeededRandom';
-import type { ExpressionNode, RuleId, RuleWeights } from '@repo/randomart-engine/types';
+import type { ExprNode } from '@repo/randomart-engine-next';
 
 export type Mode = 'test' | 'play';
 
@@ -8,14 +7,10 @@ export type RandomartState = {
   seedText: string;
   activeChannel: 'red' | 'green' | 'blue';
   maxDepth: number;
-  enabledRuleIds: RuleId[];
-  ruleWeights: RuleWeights;
-  treeR: ExpressionNode;
-  treeG: ExpressionNode;
-  treeB: ExpressionNode;
-  rngR: SeededRandom;
-  rngG: SeededRandom;
-  rngB: SeededRandom;
+  enabledRuleIds: string[];
+  treeR: ExprNode;
+  treeG: ExprNode;
+  treeB: ExprNode;
   running: boolean;
   time: number;
   animationSpeed: number;

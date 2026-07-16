@@ -1,4 +1,4 @@
-import { nodeToMathString } from '@repo/randomart-engine/format/treePrinter';
+import { toMathString } from '@repo/randomart-engine-next';
 import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function MathFormula() {
@@ -10,7 +10,7 @@ export function MathFormula() {
         Evaluated Math String Formula
       </h4>
       <div className="bg-background text-foreground overflow-x-auto rounded-sm p-4 text-sm leading-relaxed break-all whitespace-normal shadow-inner">
-        f(x, y) = {nodeToMathString(selectedTree)}
+        f(x, y) = {toMathString(selectedTree)}
       </div>
     </div>
   );

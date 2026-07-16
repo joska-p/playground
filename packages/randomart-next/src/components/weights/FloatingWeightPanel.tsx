@@ -1,17 +1,9 @@
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
-import { resetAllWeights } from '../../stores/randomart/actions/config';
-import { updateTreeConfig } from '../../stores/randomart/store';
-import { WEIGHT_PRESETS, type PresetName } from './WeightPresets';
-import { WeightSliders } from './WeightSliders';
+import { WEIGHT_PRESETS } from './WeightPresets';
 
 export function FloatingWeightPanel() {
   const [open, setOpen] = useState(false);
-
-  function applyPreset(name: PresetName) {
-    const preset = WEIGHT_PRESETS[name];
-    updateTreeConfig(() => ({ ruleWeights: { ...preset } }), `config/applyPreset (${name})`);
-  }
 
   return (
     <>
@@ -115,37 +107,25 @@ export function FloatingWeightPanel() {
       {open && (
         <div className="border-r-border bg-card/95 animate-in slide-in-from-left absolute top-0 left-0 z-10 flex h-full w-80 flex-col gap-4 overflow-y-auto border-r p-4 shadow-2xl backdrop-blur-md duration-200">
           <div className="border-border mt-8 flex items-center justify-between border-b pb-2">
-            <h3 className="text-foreground text-sm font-bold tracking-tight">Rule Weights</h3>
+            <h3 className="text-foreground text-sm font-bold tracking-tight">Weight Presets</h3>
           </div>
 
           <div className="flex flex-wrap gap-1">
-            {(['organic', 'geometric', 'chaotic'] as const).map((name) => (
+            {Object.keys(WEIGHT_PRESETS).map((name) => (
               <Button
                 key={name}
                 variant="secondary"
                 size="sm"
-                onClick={() => {
-                  applyPreset(name);
-                }}
+                disabled
               >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Button>
             ))}
-            <Button
-              variant="default"
-              size="sm"
-              onClick={() => {
-                resetAllWeights();
-              }}
-            >
-              Reset
-            </Button>
           </div>
 
-          <WeightSliders />
-
           <p className="text-muted-foreground text-xs italic">
-            Overrides applied on next generation
+            Per-node-type weight presets from the engine. Preset application via the store is not
+            yet wired up.
           </p>
         </div>
       )}

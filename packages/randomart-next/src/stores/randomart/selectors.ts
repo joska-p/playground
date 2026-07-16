@@ -1,4 +1,4 @@
-import type { ExpressionNode } from '@repo/randomart-engine/types';
+import type { ExprNode } from '@repo/randomart-engine-next';
 import { useStore } from 'zustand';
 import { randomartStore } from './store';
 
@@ -16,9 +16,6 @@ export function useMaxDepth() {
 }
 export function useEnabledRuleIds() {
   return useStore(randomartStore, (s) => s.enabledRuleIds);
-}
-export function useRuleWeights() {
-  return useStore(randomartStore, (s) => s.ruleWeights);
 }
 export function useCorrelatedRGB() {
   return useStore(randomartStore, (s) => s.correlatedRGB);
@@ -40,34 +37,18 @@ export function useActiveAnimationBehaviorIds() {
 }
 
 // --- Raw Channel Selectors ---
-export function useTreeR(): ExpressionNode {
+export function useTreeR(): ExprNode {
   return useStore(randomartStore, (s) => s.treeR);
 }
-export function useTreeG(): ExpressionNode {
+export function useTreeG(): ExprNode {
   return useStore(randomartStore, (s) => s.treeG);
 }
-export function useTreeB(): ExpressionNode {
+export function useTreeB(): ExprNode {
   return useStore(randomartStore, (s) => s.treeB);
 }
 
-export function useSelectedTree(): ExpressionNode {
+export function useSelectedTree(): ExprNode {
   return useStore(randomartStore, (s) => {
     return s.activeChannel === 'red' ? s.treeR : s.activeChannel === 'green' ? s.treeG : s.treeB;
-  });
-}
-
-export function useSelectedInitialHash(): number {
-  return useStore(randomartStore, (s) => {
-    const channel = s.activeChannel;
-    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
-    return rng.initialHash;
-  });
-}
-
-export function useSelectedChoiceCount(): number {
-  return useStore(randomartStore, (s) => {
-    const channel = s.activeChannel;
-    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
-    return rng.choiceHistory.length || 0;
   });
 }

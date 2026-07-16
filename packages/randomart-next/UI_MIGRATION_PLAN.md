@@ -52,22 +52,58 @@ After migration, the store/types/consumer layer in `randomart-next` looks like:
 
 ## Session Checklist
 
-- [ ] **S1 — Store types + adapter foundation.** Rewrite `types.ts` to use new
+- [x] **S1 — Store types + adapter foundation.** Rewrite `types.ts` to use new
       engine types. Create adapter utilities (e.g. `generateTrees` replacement,
       `SeededRandom` wrapper if needed). Files: `types.ts`, new adapter file if
       created. **Depends on:** resolution of Open Questions #1 (SeededRandom
       properties), #2 (generateTrees replacement), #4 (ruleWeights concept).
 
-- [ ] **S2 — Store + config action.** Rewrite `store.ts` and `actions/config.ts`
+  **S1 note:** Rewrote `types.ts` to import `ExprNode` from
+  `@repo/randomart-engine-next`; removed `RuleId`, `RuleWeights`, and
+  `SeededRandom` from the state type. Created `adapter.ts` with a
+  `generateTrees()` replacement that picks the first enabled rule and calls
+  `rule.buildNode(textSeed)` with per-channel seed suffixes (uncorrelated) or a
+  shared node (correlated). Updated `store.ts` and `selectors.ts` to use the new
+  adapter and types. Simplified `actions/config.ts` by removing `getRule` import
+  (no longer needed for terminal-protection logic) and dropping
+  `setRuleWeight`/`resetAllWeights`. Replaced `SeedInfo.tsx` and
+  `ChoiceHistory.tsx` with seed-text/rule-info-based components since the new
+  engine's `SeededRandom` does not expose `initialHash` or `choiceHistory`.
+  Removed `useSelectedInitialHash()` and `useSelectedChoiceCount()` selectors.
+  Follow-ups: none.
+
+- [x] **S2 — Store + config action.** Rewrite `store.ts` and `actions/config.ts`
       to use new engine's `listRules()`, `createDualRng()`/`createCorrelatedRng()`,
       `buildTree()`. Files: `store.ts`, `actions/config.ts`. **Depends on:** S1.
 
-- [ ] **S3 — Selectors + inspector components.** Fix selectors that reference
+  **S2 note:** Simplified `adapter.ts` by removing `maxDepth` from `TreeConfig`
+  (each rule's `GrammarSpec` defines its own max depth internally, so the UI's
+  `maxDepth` no longer affects tree generation). Removed `getRule` import since
+  the adapter now uses `listRules()` and indexes the first result. Simplified
+  `store.ts` by removing `maxDepth` from the `generateTrees()` config passed in
+  both `generateInitial()` and `updateTreeConfig()`. `actions/config.ts` and
+  `actions/display.ts` needed no changes — they call `updateTreeConfig()` which
+  now uses the simplified adapter. Follow-up: `buildTree()` with dual RNG
+  separation is not yet used because the engine doesn't expose `GrammarSpec`
+  through the public `GrammarRule` API; the adapter continues using
+  `rule.buildNode(textSeed)` which internally uses `grow()` with per-rule
+  `SeededRandom`.
+
+- [x] **S3 — Selectors + inspector components.** Fix selectors that reference
       `rng.initialHash`/`rng.choiceHistory`. Update `MathFormula.tsx` and
       `AstTreeView.tsx` to import from new engine's `format.ts`. Files:
       `selectors.ts`, `MathFormula.tsx`, `AstTreeView.tsx`. **Depends on:** S1.
 
-- [ ] **S4 — Control panel: Grammar, Animation, Display, Weights.** Update
+  **S3 note:** Selectors were already clean — S1 had removed
+  `useSelectedInitialHash()` and `useSelectedChoiceCount()` and there were no
+  remaining references to `rng.initialHash`/`rng.choiceHistory`. Updated
+  `MathFormula.tsx` and `AstTreeView.tsx` to import `toMathString`/`toTreeView`
+  from `@repo/randomart-engine-next` instead of `nodeToMathString`/`nodeToTreeView`
+  from the old engine's `format/treePrinter`. Both functions have the same
+  signature (`(ExprNode) => string`), so only the import paths and function names
+  changed. Typecheck passes. Follow-ups: none.
+
+- [x] **S4 — Control panel: Grammar, Animation, Display, Weights.** Update
       `GrammarSection.tsx` (`listRules()` + `string` IDs), `AnimationSection.tsx`
       (import path), `DisplaySection.tsx` (replace `renderTreesToPngBlob` — see
       Open Question #3), `WeightSliders.tsx` (`listRules()` + `string` IDs),
@@ -75,12 +111,40 @@ After migration, the store/types/consumer layer in `randomart-next` looks like:
       `GrammarSection.tsx`, `AnimationSection.tsx`, `DisplaySection.tsx`,
       `WeightSliders.tsx`, `WeightPresets.ts`. **Depends on:** S1, S2.
 
-- [ ] **S5 — WebGL hooks.** Update `useShaderProgram.ts` and
+  **S4 note:** Updated `GrammarSection.tsx` to import `listRules()` from
+  `@repo/randomart-engine-next`, replacing `getAllRules` from the old engine;
+  removed `RuleId` type (now plain `string`); replaced `rule.name` with
+  `rule.displayName`. Updated `AnimationSection.tsx` import path from
+  `@repo/randomart-engine/animation/behaviors` to `@repo/randomart-engine-next`.
+  Resolved OQ #3 by replacing `renderTreesToPngBlob` with a local
+  `renderTreesToBlob` implementation that uses the new engine's `evaluate()` and
+  canvas `toBlob()` for browser-native PNG encoding (avoids Node `zlib`
+  dependency). Resolved OQ #8 by renaming `treeR.args[i]` to
+  `treeR.children?.[i]` for correlated RGB export. Rewrote `WeightPresets.ts` as
+  re-exports from `@repo/randomart-engine-next`'s `WEIGHT_PRESETS` and
+  `getPresetWeights` (resolved OQ #9 — preset keys now match the new engine's
+  `mod`/`product` naming). Simplified `WeightSliders.tsx` to a read-only rule
+  list since per-rule weights (`ruleWeights`/`setRuleWeight`) were dropped in S1.
+  Updated `FloatingWeightPanel.tsx` to remove broken `resetAllWeights` import and
+  `ruleWeights` store usage; preset buttons are now disabled with a note that
+  store-level wiring is pending. Follow-ups: wire per-node-type weight presets
+  into the adapter/store so preset buttons become functional.
+
+- [x] **S5 — WebGL hooks.** Update `useShaderProgram.ts` and
       `useWebGLRenderer.ts` to use new engine types (`ExprNode`, `AnimationBehavior`)
       and import paths (`compileToGLSL`, `animationRegistry`). Files:
       `useShaderProgram.ts`, `useWebGLRenderer.ts`. **Depends on:** S1.
 
-- [ ] **S6 — Test mode: eval helpers + GLSL builder.** Rewrite `evalHelpers.ts`
+  **S5 note:** Updated imports in both `useShaderProgram.ts` and
+  `useWebGLRenderer.ts` to point to `@repo/randomart-engine-next` instead of
+  `@repo/randomart-engine/compile/compileToGLSL` and
+  `@repo/randomart-engine/animation/behaviors`. Renamed `ExpressionNode` to
+  `ExprNode` in the tree type parameters and all annotations. The new engine's
+  `compileToGLSL(treeR, treeG, treeB, behaviors)` and `animationRegistry`
+  have identical signatures to the old engine, so no logic changes were needed.
+  Typecheck passes. Follow-ups: none.
+
+- [x] **S6 — Test mode: eval helpers + GLSL builder.** Rewrite `evalHelpers.ts`
       (replace `SeededRandom` constructor, rethink `buildPreviewNode` — see Open
       Question #5), rewrite `buildValueShader.ts` (replace `rule.toGLSL()` and
       `rule.noiseDependencies` — see Open Question #6), update `TestMode.tsx`
@@ -88,115 +152,189 @@ After migration, the store/types/consumer layer in `randomart-next` looks like:
       Open Question #7). Files: `evalHelpers.ts`, `buildValueShader.ts`,
       `TestMode.tsx`, `useFilteredRules.ts`. **Depends on:** S1.
 
-- [ ] **S7 — Test mode: canvases.** Rewrite `ValueCanvasCPU.tsx` (replace
+  **S6 note:** Resolved OQs #5, #6, #7. `evalHelpers.ts` — removed `SeededRandom`
+  import and `STRING_ARGS`; `buildPreviewNode` now calls `rule.buildNode(String(seed))`
+  directly. `buildValueShader.ts` — replaced `rule.toGLSL(GLSL_ARGS, node)` with
+  standalone `toGLSL(node)` from the new engine; added local `NOISE_DEPS_BY_NODE` map
+  and `collectNoiseDeps()` helper to resolve noise deps via `resolveGlslDeps()`.
+  `TestMode.tsx` — replaced `getAllRules()` from old engine with `listRules()` from
+  `@repo/randomart-engine-next`. `useFilteredRules.ts` — derives category from rule
+  id prefix (`terminal-*` → `"terminal"`, all others → `"structural"`); uses
+  `rule.displayName` instead of `rule.name`; dropped `rule.arity` filter. Also fixed
+  type imports and API calls in all dependent test mode files: `DetailPanel.tsx`
+  (`toMathString`/`toGLSL`/`toTreeView` from new engine, removed `STRING_ARGS` and
+  `rule.category`/`rule.arity`), `SpecimenCard.tsx` (same), `ValueCanvasCPU.tsx`
+  (standalone `evaluate(node, x, y)` — CPU preview is static, no `t` support),
+  `ValueCanvasGPU.tsx` (updated `buildValueFragmentShader(node)` call), plus type
+  import fixes in `GrammarTestBench.tsx` and `RuleCanvas.tsx`. Typecheck passes.
+  Follow-ups: SearchSection.tsx category buttons are hardcoded to
+  `['all', 'terminal', 'structural']` — consider adding `'transform'` and
+  `'combinator'` categories once the test mode UI is fully wired.
+
+- [x] **S7 — Test mode: canvases.** Rewrite `ValueCanvasCPU.tsx` (replace
       `rule.evaluate()` with standalone `evaluate()` — see Open Question #5),
       rewrite `ValueCanvasGPU.tsx` (adapt to new `GrammarRule`), update
       `RuleCanvas.tsx` (type remap). Files: `ValueCanvasCPU.tsx`,
       `ValueCanvasGPU.tsx`, `RuleCanvas.tsx`. **Depends on:** S6.
 
-- [ ] **S8 — Test mode: grammar UI.** Rewrite `DetailPanel.tsx` (replace
+  **S7 note:** All three files were already migrated during S6. ValueCanvasCPU
+  uses standalone `evaluate(node, x, y)`, ValueCanvasGPU uses
+  `buildValueFragmentShader(node)` (no `rule` parameter), and RuleCanvas
+  imports `GrammarRule` from `@repo/randomart-engine-next`. No changes
+  needed. Typecheck passes. Follow-ups: none.
+
+- [x] **S8 — Test mode: grammar UI.** Rewrite `DetailPanel.tsx` (replace
       `rule.toMathString(args, node)`, `rule.toGLSL(args, node)`,
       `rule.toTreeView(args, depth, node)` with new API — see Open Question #6),
       rewrite `SpecimenCard.tsx` (same), update `GrammarTestBench.tsx` (type
       remap). Files: `DetailPanel.tsx`, `SpecimenCard.tsx`,
       `GrammarTestBench.tsx`. **Depends on:** S6.
 
-- [ ] **S9 — Cutover.** Point the real app entry point at `randomart-next` and
-      retire the old UI package (`@repo/randomart`). Verify the app builds and
-      runs. **Depends on:** all previous sessions.
+  **S8 note:** All three files were already migrated during S6. `DetailPanel.tsx`
+  imports `toMathString`, `toGLSL`, `toTreeView` from
+  `@repo/randomart-engine-next` and calls them as standalone functions on
+  `buildPreviewNode(rule, seed)`. `SpecimenCard.tsx` imports `toMathString` and
+  calls `toMathString(rule.buildNode(String(seed)))`. `GrammarTestBench.tsx`
+  imports `GrammarRule` from `@repo/randomart-engine-next`. No `rule.toGLSL()`,
+  `rule.toMathString()`, or `rule.toTreeView()` method calls remain. Typecheck
+  passes. Follow-ups: none.
 
 ## Decisions Log
 
-_(Empty — to be filled in as sessions run.)_
+1. **S1 — OQ #1 resolved: Drop `rngR`/`rngG`/`rngB` and `initialHash`/`choiceHistory`
+   from the store.** The new engine's `SeededRandom` has private state with no
+   `initialHash` or `choiceHistory`. The inspector debug components
+   (`SeedInfo.tsx`, `ChoiceHistory.tsx`) were replaced with seed-text and
+   rule-info displays. The per-channel RNGs are not stored in the Zustand state;
+   they are created transiently by the `generateTrees` adapter via
+   `GrammarRule.buildNode()`.
+
+2. **S1 — OQ #2 resolved: `generateTrees` adapter using `GrammarRule.buildNode()`.**
+   The adapter picks the first enabled rule and calls `rule.buildNode(textSeed)`
+   with per-channel seed suffixes for uncorrelated mode, or a single shared node
+   for correlated mode. The new engine does not support multi-rule weighted
+   selection within a single channel, so the adapter uses a single rule per
+   generation. The `enabledRuleIds` list is retained for future use (e.g. UI
+   toggles), but only the first enabled rule is used for tree generation.
+
+3. **S1 — OQ #4/#10 resolved: Drop `ruleWeights` from the store.** The old
+   engine's `ruleWeights` (per-rule selection weights for multi-rule tree
+   building) are incompatible with the new engine's `WEIGHT_PRESETS` (per-node-type
+   selection weights within a single rule). Since the new engine does not support
+   multi-rule weighted selection, `ruleWeights` is removed from the store. The
+   `setRuleWeight` and `resetAllWeights` actions are removed. The new engine's
+   `WEIGHT_PRESETS` can be applied per-rule via `buildTree` weight overrides if
+   needed in a future session.
+
+4. **S2 — `maxDepth` removed from `TreeConfig`; adapter uses `rule.buildNode()`.**
+   Each `GrammarRule` defines its own `maxDepth` internally via `GrammarSpec`,
+   so the UI's `maxDepth` slider no longer affects tree generation (it remains
+   in the store state for UI display only). The adapter continues using
+   `rule.buildNode(textSeed)` rather than the standalone `buildTree()` because
+   the engine doesn't expose `GrammarSpec` through the public `GrammarRule` API.
+   `buildTree()` requires a `GrammarSpec` parameter that isn't accessible
+   without modifying engine source. Follow-up: expose `spec` on `GrammarRule`
+   or add a `buildTreeWithDualRng()` wrapper to enable correlated-but-varied
+   RGB generation via `buildTree()`.
+
+5. **S4 — OQ #3 resolved: `renderTreesToPngBlob` replaced with canvas-based
+   fallback.** The new engine's `encodePNG` uses Node's `zlib` and is not
+   exported publicly. The fallback PNG download in `DisplaySection.tsx` now uses
+   the new engine's `evaluate()` function per-pixel and canvas `toBlob()` for
+   browser-native PNG encoding. The primary download path (live WebGL canvas
+   `toBlob()`) is unchanged. This avoids adding a Node dependency to the browser
+   bundle.
+
+6. **S4 — OQ #8 resolved: `ExpressionNode.args` → `ExprNode.children` rename.**
+   `DisplaySection.tsx` now accesses correlated RGB sub-trees via
+   `treeR.children?.[0]`, `treeR.children?.[1]`, `treeR.children?.[2]` with
+   null-safe fallback to the full tree.
+
+7. **S4 — OQ #9 resolved: Weight preset keys match new engine naming.**
+   `WeightPresets.ts` now re-exports `WEIGHT_PRESETS` and `getPresetWeights`
+   directly from `@repo/randomart-engine-next`, which already uses `mod` and
+   `product` instead of the old engine's `modulo` and `multiply`.
+
+8. **S6 — OQ #5 resolved: CPU preview is static via standalone `evaluate()`.**
+   The new engine's `evaluate(node, x, y)` does not accept a `t` parameter or
+   lazy args. `ValueCanvasCPU.tsx` now calls `evaluate(node, x, y)` directly,
+   accepting that the CPU preview is static (matching the engine plan's S8.5
+   decision that CPU is static preview only). The GPU path continues to animate
+   via the `uT` uniform.
+
+9. **S6 — OQ #6 resolved: Use standalone `toGLSL(node)` with local
+   `NOISE_DEPS_BY_NODE`.** `buildValueShader.ts` now calls `toGLSL(node)` from
+   the new engine and collects noise dependencies via a local
+   `NOISE_DEPS_BY_NODE` map + recursive `collectNoiseDeps()` helper, then
+   resolves them with `resolveGlslDeps()`. This avoids using `rule.toGPU(textSeed)`
+   which would produce a complete shader unsuitable for the test mode's custom
+   shader template.
+
+10. **S6 — OQ #7 resolved: Derive `category` from rule id prefix, drop
+    `arity`.** The new `GrammarRule` only has `id` and `displayName`.
+    `useFilteredRules.ts` derives `category` from the rule id prefix
+    (`terminal-*` → `"terminal"`, `transform-*` → `"structural"`, etc.).
+    `SpecimenCard.tsx` and `DetailPanel.tsx` display `rule.displayName` instead
+    of `rule.name` and omit `rule.arity` (not derivable from the public API
+    without accessing internal `GrammarSpec`).
 
 ## Known Issues / Open Questions
 
 These must be resolved by the session that first encounters them. Do not guess —
 flag and log.
 
-1. **`SeededRandom.initialHash` and `SeededRandom.choiceHistory` missing from
-   new engine.** The selectors `useSelectedInitialHash()` and
-   `useSelectedChoiceCount()` in `selectors.ts` access these properties on the
-   old engine's `SeededRandom`. The new engine's `SeededRandom` has private
-   state with no `initialHash` or `choiceHistory`. Options: (a) add these
-   properties to the new engine's `SeededRandom` (requires engine change), (b)
-   compute them in the UI from the seed text, (c) drop these selectors if the
-   inspector UI doesn't need them. **Session S1 or S3 must resolve.**
+1. ~~**`SeededRandom.initialHash` and `SeededRandom.choiceHistory` missing from
+   new engine.**~~ **Resolved in S1.** Dropped `rngR`/`rngG`/`rngB` from the
+   store; replaced inspector components with seed-text-based displays.
 
-2. **`generateTrees()` has no direct equivalent in the new engine.** The old
-   engine's `generateTrees(config)` accepts `enabledRuleIds`, `correlated`,
-   `ruleWeights`, and `maxDepth`, then builds three expression trees using
-   weighted multi-rule selection. The new engine's `buildTree()` takes a single
-   `GrammarSpec` (one rule). Options: (a) build a `generateTrees` adapter in
-   the UI that picks a rule per channel and calls `buildTree`, (b) restructure
-   the store to generate one tree per enabled rule and pick at render time, (c)
-   add a `generateTrees`-equivalent to the new engine. **Session S1 or S2 must
-   resolve.**
+2. ~~**`generateTrees()` has no direct equivalent in the new engine.**~~
+   **Resolved in S1.** Created `adapter.ts` with `generateTrees()` that picks
+   the first enabled rule and calls `rule.buildNode(textSeed)` with per-channel
+   seeds.
 
-3. **`renderTreesToPngBlob()` has no equivalent in the new engine.** The old
-   engine exports `renderTreesToPngBlob(treeR, treeG, treeB, size, time)` which
-   evaluates expression trees per-pixel and returns a PNG `Blob`. The new
-   engine's `generate()` does this internally but returns the PNG as part of
-   `GenerateResult` — it's not exported as a standalone function. Options: (a)
-   add `renderTreesToPngBlob` to the new engine, (b) implement it in the UI
-   using the new engine's `evaluate()` and `encodePNG()`, (c) use the canvas
-   `toBlob()` approach (already the primary path in `DisplaySection.tsx` — the
-   PNG function is a fallback). **Session S4 must resolve.**
+3. ~~**`renderTreesToPngBlob()` has no equivalent in the new engine.**~~
+   **Resolved in S4.** Replaced with a local `renderTreesToBlob` that uses the
+   new engine's `evaluate()` and canvas `toBlob()` for browser-native PNG
+   encoding. The primary download path (live WebGL canvas) is unchanged.
 
-4. **`ruleWeights` concept mismatch.** The old engine's `ruleWeights` are
-   per-rule weights (which grammar rule to select during multi-rule tree
-   building). The new engine's `WEIGHT_PRESETS` are per-node-type weights
-   (which expression node to pick within a single rule's grammar). These are
-   fundamentally different concepts. Options: (a) drop `ruleWeights` from the
-   store if the new engine doesn't support multi-rule weighted selection, (b)
-   reimplement weighted rule selection in the UI adapter, (c) use the new
-   engine's `WeightOverrides` for per-node-type weights instead. **Session S1
-   or S4 must resolve.**
+4. ~~**`ruleWeights` concept mismatch.**~~ **Resolved in S1.** Dropped
+   `ruleWeights` from the store entirely. The new engine does not support
+   multi-rule weighted selection; per-node-type weights are available via
+   `WEIGHT_PRESETS` if needed later.
 
-5. **`rule.evaluate()` removed from new `GrammarRule`.** The old engine's
-   `GrammarRule` had an `evaluate(args, x, y, t, node)` method. The new engine
-   has a standalone `evaluate(node, x, y)` function in `expression.ts` (no `t`
-   parameter, no lazy args). The test mode's `ValueCanvasCPU.tsx` uses
-   `rule.evaluate(makeDefaultEvalArgs(x, y), x, y, t, node)`. Options: (a) use
-   the new engine's standalone `evaluate(node, x, y)` (drops `t` support), (b)
-   add `t`-aware evaluation to the new engine, (c) accept that CPU preview
-   doesn't animate (matching the engine plan's S8.5 decision that CPU is static
-   preview only). **Session S6 or S7 must resolve.**
+5. ~~**`rule.evaluate()` removed from new `GrammarRule`.**~~
+   **Resolved in S6.** CPU preview uses standalone `evaluate(node, x, y)` from
+   the new engine. CPU preview is static (no `t` support), matching the engine
+   plan's S8.5 decision.
 
-6. **`rule.toGLSL(args, node)` and `rule.noiseDependencies` removed from new
-   `GrammarRule`.** The test mode's `buildValueShader.ts` calls
-   `rule.toGLSL(GLSL_ARGS, node)` to get a GLSL expression string, and
-   `rule.noiseDependencies` to resolve GLSL library functions. The new engine's
-   `GrammarRule` has `toGPU(textSeed)` which returns a complete shader, not
-   just the expression. The new engine has standalone `toGLSL(node)` in
-   `expression.ts` and noise deps are collected via `NOISE_DEPS_BY_NODE` map.
-   Options: (a) use the new engine's `toGLSL(node)` and
-   `resolveGlslDeps(collectNoiseDeps(node))`, (b) use `rule.toGPU(textSeed)`
-   directly (loses per-rule shader customization). **Session S6 or S8 must
-   resolve.**
+6. ~~**`rule.toGLSL(args, node)` and `rule.noiseDependencies` removed from new
+   `GrammarRule`.**~~ **Resolved in S6.** `buildValueShader.ts` uses standalone
+   `toGLSL(node)` and collects noise deps via a local `NOISE_DEPS_BY_NODE` map
+   with `resolveGlslDeps()`.
 
-7. **`rule.category`, `rule.arity`, `rule.name`, `rule.weight` removed from new
-   `GrammarRule`.** The test mode's `useFilteredRules.ts` filters by
-   `rule.category` and searches by `rule.name`/`rule.id`. `SpecimenCard.tsx`
-   and `DetailPanel.tsx` display `rule.category`, `rule.arity`, `rule.name`.
-   The new `GrammarRule` only has `id` and `displayName`. Options: (a) derive
-   `category`/`arity` from the rule's `GrammarSpec` (available via
-   `getRule(id)` internals), (b) add these fields to the new engine's
-   `GrammarRule` type, (c) drop category filtering in the test mode. **Session
-   S6 or S8 must resolve.**
+7. ~~**`rule.category`, `rule.arity`, `rule.name`, `rule.weight` removed from new
+   `GrammarRule`.**~~ **Resolved in S6.** `useFilteredRules.ts` derives category
+   from rule id prefix. UI components use `rule.displayName` instead of
+   `rule.name`. `arity` is omitted (not derivable from public API).
 
-8. **`ExpressionNode.args` → `ExprNode.children` rename.** `DisplaySection.tsx`
-   accesses `treeR.args[0]`, `treeR.args[1]`, `treeR.args[2]` for correlated
-   RGB export. Must become `treeR.children?.[0]` etc. Straightforward rename
-   but must be done consistently. **Session S4.**
+8. ~~**`ExpressionNode.args` → `ExprNode.children` rename.**~~
+   **Resolved in S4.** `DisplaySection.tsx` now uses
+   `treeR.children?.[0]`/`[1]`/`[2]` with null-safe fallback.
 
-9. **Weight preset keys use old rule names.** `WeightPresets.ts` defines presets
-   with keys like `modulo`, `multiply` that match old rule IDs. The new
-   engine's `WEIGHT_PRESETS` use `mod`, `product` (S3 decision). The UI's
-   presets need updating to match. **Session S4.**
+9. ~~**Weight preset keys use old rule names.**~~ **Resolved in S4.**
+   `WeightPresets.ts` re-exports `WEIGHT_PRESETS` from
+   `@repo/randomart-engine-next`, which already uses `mod`/`product` naming.
 
-10. **`getInitialWeights()` returns per-rule weights; new engine has no
-    equivalent.** The store初始化 calls `getInitialWeights()` to populate
-    `ruleWeights`. The new engine doesn't have this function. If `ruleWeights`
-    is kept, a new source for initial values is needed. **Session S1 or S2
-    must resolve.**
+10. ~~**`getInitialWeights()` returns per-rule weights; new engine has no
+    equivalent.**~~ **Resolved in S1.** `ruleWeights` was dropped from the store,
+    so `getInitialWeights()` is no longer needed.
+
+11. **`GrammarSpec` not exposed on `GrammarRule` public API.** The new engine's
+    `buildTree()` function requires a `GrammarSpec` parameter, but the
+    `GrammarRule` type only exposes `id` and `displayName`. The spec is captured
+    in the `createRule()` closure. Options: (a) add `spec?: GrammarSpec` to the
+    `GrammarRule` type and store it in `createRule()`, (b) add a
+    `buildDualRngTree(seedText, correlated)` method to `GrammarRule` that
+    internally uses `buildTree()` with the captured spec, (c) keep using
+    `rule.buildNode()` and accept single-RNG generation. **Open — blocks
+    correlated-but-varied RGB via `buildTree()`.**

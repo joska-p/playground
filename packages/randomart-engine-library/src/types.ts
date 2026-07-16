@@ -23,22 +23,11 @@ export type ExprNode = {
   readonly value?: number;
   /** Child sub-expressions, present for operator nodes. */
   readonly children?: ExprNode[];
-}
+};
 
 /** The set of grammar productions understood by the evaluator. */
 export type ExprNodeType =
-  | "x"
-  | "y"
-  | "const"
-  | "sum"
-  | "product"
-  | "mod"
-  | "sin"
-  | "cos"
-  | "abs"
-  | "well"
-  | "tent"
-  | "mix";
+  'x' | 'y' | 'const' | 'sum' | 'product' | 'mod' | 'sin' | 'cos' | 'abs' | 'well' | 'tent' | 'mix';
 
 /** A structured, presentation-friendly tree view of an {@link ExprNode}. */
 export type TreeView = {
@@ -50,7 +39,7 @@ export type TreeView = {
   value?: number;
   /** Nested child tree views. */
   children?: TreeView[];
-}
+};
 
 /** Options accepted by {@link generate}. */
 export type GenerateOptions = {
@@ -60,7 +49,7 @@ export type GenerateOptions = {
   colorPalette?: string[];
   /** Square output size in pixels. Defaults to 256. */
   size?: number;
-}
+};
 
 /** Successful result returned by {@link generate}. */
 export type GenerateResult = {
@@ -74,12 +63,12 @@ export type GenerateResult = {
   tree: TreeView;
   /** Serializable expression node for further processing. */
   node: ExprNode;
-}
+};
 
 /** Structured error result returned by {@link generate}. */
 export type GenerateError = {
   error: string;
-}
+};
 
 /**
  * A grammar rule in the registry. Each rule knows how to turn a text seed into
@@ -100,4 +89,4 @@ export type GrammarRule = {
   toTreeView(textSeed: string): TreeView;
   /** The underlying expression node for further processing. */
   buildNode(textSeed: string): ExprNode;
-}
+};

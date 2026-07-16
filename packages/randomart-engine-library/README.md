@@ -25,23 +25,23 @@ pnpm install
 The main entry point is `generate`:
 
 ```ts
-import { generate } from "randomart";
-import { writeFile } from "node:fs/promises";
+import { generate } from 'randomart';
+import { writeFile } from 'node:fs/promises';
 
-const result = await generate("hello world", {
-  ruleId: "classic",                       // optional, defaults to "classic"
-  size: 256,                               // optional, defaults to 256
-  colorPalette: ["#0a0a0a", "#38bdf8", "#f8fafc"], // optional, defaults to grayscale
+const result = await generate('hello world', {
+  ruleId: 'classic', // optional, defaults to "classic"
+  size: 256, // optional, defaults to 256
+  colorPalette: ['#0a0a0a', '#38bdf8', '#f8fafc'] // optional, defaults to grayscale
 });
 
-if ("error" in result) {
+if ('error' in result) {
   console.error(result.error);
 } else {
-  await writeFile("art.png", result.png); // Buffer
-  console.log(result.math);   // "mix(sin(π·...), ...)"
+  await writeFile('art.png', result.png); // Buffer
+  console.log(result.math); // "mix(sin(π·...), ...)"
   console.log(result.shader); // valid GLSL fragment shader
-  console.log(result.tree);   // nested { label, type, children } object
-  console.log(result.node);   // serializable expression node
+  console.log(result.tree); // nested { label, type, children } object
+  console.log(result.node); // serializable expression node
 }
 ```
 
@@ -49,21 +49,21 @@ if ("error" in result) {
 
 Returns `Promise<GenerateResult | GenerateError>`.
 
-| Option         | Type       | Default       | Description                                   |
-| -------------- | ---------- | ------------- | --------------------------------------------- |
-| `ruleId`       | `string`   | `"classic"`   | Grammar rule to use (see registry below).     |
-| `size`         | `number`   | `256`         | Square output size in pixels (1–4096).        |
-| `colorPalette` | `string[]` | grayscale     | Hex colors interpolated across the value range.|
+| Option         | Type       | Default     | Description                                     |
+| -------------- | ---------- | ----------- | ----------------------------------------------- |
+| `ruleId`       | `string`   | `"classic"` | Grammar rule to use (see registry below).       |
+| `size`         | `number`   | `256`       | Square output size in pixels (1–4096).          |
+| `colorPalette` | `string[]` | grayscale   | Hex colors interpolated across the value range. |
 
 `GenerateResult` contains:
 
-| Field    | Type       | Description                                     |
-| -------- | ---------- | ----------------------------------------------- |
-| `png`    | `Buffer`   | Encoded PNG image.                              |
-| `shader` | `string`   | GLSL fragment shader reproducing the image.     |
-| `math`   | `string`   | Human-readable mathematical expression.         |
-| `tree`   | `TreeView` | Nested structure describing the expression.     |
-| `node`   | `ExprNode` | Serializable expression node for further use.   |
+| Field    | Type       | Description                                   |
+| -------- | ---------- | --------------------------------------------- |
+| `png`    | `Buffer`   | Encoded PNG image.                            |
+| `shader` | `string`   | GLSL fragment shader reproducing the image.   |
+| `math`   | `string`   | Human-readable mathematical expression.       |
+| `tree`   | `TreeView` | Nested structure describing the expression.   |
+| `node`   | `ExprNode` | Serializable expression node for further use. |
 
 Invalid input (empty seed, unknown `ruleId`, bad `size`, malformed hex color) is
 returned as a structured `{ error: string }` object rather than thrown.
@@ -71,16 +71,16 @@ returned as a structured `{ error: string }` object rather than thrown.
 ### Working with rules directly
 
 ```ts
-import { listRules, getRule } from "randomart";
+import { listRules, getRule } from 'randomart';
 
-listRules().forEach((r) => console.log(r.id, "-", r.displayName));
+listRules().forEach((r) => console.log(r.id, '-', r.displayName));
 
-const rule = getRule("trig")!;
-rule.toCPU("seed");        // Uint8Array  (raw byte representation)
-rule.toGPU("seed");        // string      (GLSL snippet)
-rule.toMathString("seed"); // string      (math expression)
-rule.toTreeView("seed");   // TreeView     (structured tree)
-rule.buildNode("seed");    // ExprNode     (node for further processing)
+const rule = getRule('trig')!;
+rule.toCPU('seed'); // Uint8Array  (raw byte representation)
+rule.toGPU('seed'); // string      (GLSL snippet)
+rule.toMathString('seed'); // string      (math expression)
+rule.toTreeView('seed'); // TreeView     (structured tree)
+rule.buildNode('seed'); // ExprNode     (node for further processing)
 ```
 
 ## CLI
@@ -99,12 +99,12 @@ pnpm randomart "hello world" out.png
 
 **Options**
 
-| Flag                   | Description                                          |
-| ---------------------- | ---------------------------------------------------- |
-| `--rule <id>`          | Grammar rule id (default `classic`).                 |
-| `--size <number>`      | Square output size in pixels (default `256`).        |
-| `--colors <h1,h2,...>` | Comma-separated hex colors (default grayscale).      |
-| `-h`, `--help`         | Show usage and the list of available rules.          |
+| Flag                   | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `--rule <id>`          | Grammar rule id (default `classic`).            |
+| `--size <number>`      | Square output size in pixels (default `256`).   |
+| `--colors <h1,h2,...>` | Comma-separated hex colors (default grayscale). |
+| `-h`, `--help`         | Show usage and the list of available rules.     |
 
 **Examples**
 
@@ -140,12 +140,12 @@ Rules differ only in their **grammar spec** — which operators are available an
 how the tree grows — producing visually distinct families of art from the same
 engine:
 
-| Id        | Name                    | Character                                  |
-| --------- | ----------------------- | ------------------------------------------ |
-| `classic` | Classic Random Art      | Balanced mix of trig, products, and wells. |
-| `trig`    | Trigonometric Waves     | Smooth interference / wave patterns.       |
-| `blocky`  | Blocky Modular          | Hard edges via modulo and absolute value.  |
-| `smooth`  | Smooth Wells            | Soft blends of well and mix primitives.    |
+| Id        | Name                | Character                                  |
+| --------- | ------------------- | ------------------------------------------ |
+| `classic` | Classic Random Art  | Balanced mix of trig, products, and wells. |
+| `trig`    | Trigonometric Waves | Smooth interference / wave patterns.       |
+| `blocky`  | Blocky Modular      | Hard edges via modulo and absolute value.  |
+| `smooth`  | Smooth Wells        | Soft blends of well and mix primitives.    |
 
 ### How generation works
 
@@ -161,15 +161,15 @@ engine:
 To add a new rule, register another `GrammarSpec` in `src/rules.ts`:
 
 ```ts
-createRule("swirl", "Swirl", {
+createRule('swirl', 'Swirl', {
   operators: [
-    { type: "sin", arity: 1 },
-    { type: "product", arity: 2 },
-    { type: "mix", arity: 3 },
+    { type: 'sin', arity: 1 },
+    { type: 'product', arity: 2 },
+    { type: 'mix', arity: 3 }
   ],
   terminalBias: 0.28, // chance of stopping at a leaf once past minDepth
-  minDepth: 4,        // guarantees a non-trivial tree
-  maxDepth: 11,       // caps overall complexity
+  minDepth: 4, // guarantees a non-trivial tree
+  maxDepth: 11 // caps overall complexity
 });
 ```
 
@@ -180,12 +180,12 @@ tree, and byte forms in `src/expression.ts` and reference it from a spec.
 
 ## Scripts
 
-| Script            | Description                       |
-| ----------------- | --------------------------------- |
-| `pnpm lint`       | Run ESLint.                       |
-| `pnpm typecheck`  | Type-check with TypeScript.       |
-| `pnpm build`      | Emit compiled JS + types to `dist`. |
-| `pnpm randomart`  | Run the CLI.                      |
+| Script           | Description                         |
+| ---------------- | ----------------------------------- |
+| `pnpm lint`      | Run ESLint.                         |
+| `pnpm typecheck` | Type-check with TypeScript.         |
+| `pnpm build`     | Emit compiled JS + types to `dist`. |
+| `pnpm randomart` | Run the CLI.                        |
 
 ## License
 

@@ -1,7 +1,8 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
+import type { GrammarRule } from '@repo/randomart-engine-next';
+import { toGLSL, toMathString, toTreeView } from '@repo/randomart-engine-next';
 import { Button } from '@repo/ui/data-entry';
 import { useEffect } from 'react';
-import { STRING_ARGS, buildPreviewNode } from '../lib/evalHelpers';
+import { buildPreviewNode } from '../lib/evalHelpers';
 import {
   rerollRule,
   selectRule,
@@ -68,12 +69,10 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
         </Button>
 
         <h2 className="text-foreground mb-1 text-lg font-bold">
-          {rule.name} <span className="text-foreground-muted">({rule.id})</span>
+          {rule.displayName} <span className="text-foreground-muted">({rule.id})</span>
         </h2>
 
         <div className="mb-4 flex flex-wrap gap-1">
-          <Badge>{rule.category}</Badge>
-          <Badge>arity {rule.arity}</Badge>
           <Badge>seed {seed}</Badge>
         </div>
 
@@ -106,7 +105,7 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
               Math
             </h3>
             <pre className="bg-background text-warning overflow-x-auto rounded-md p-2 font-mono text-xs">
-              {rule.toMathString(STRING_ARGS, node)}
+              {toMathString(node)}
             </pre>
           </div>
 
@@ -115,7 +114,7 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
               GLSL
             </h3>
             <pre className="bg-background text-green overflow-x-auto rounded-md p-2 font-mono text-xs">
-              {rule.toGLSL(STRING_ARGS, node)}
+              {toGLSL(node)}
             </pre>
           </div>
 
@@ -124,7 +123,7 @@ export function DetailPanel({ rules }: { rules: GrammarRule[] }) {
               Tree
             </h3>
             <pre className="bg-background text-blue overflow-x-auto rounded-md p-2 font-mono text-xs">
-              {rule.toTreeView(STRING_ARGS, 0, node)}
+              {toTreeView(node)}
             </pre>
           </div>
         </div>

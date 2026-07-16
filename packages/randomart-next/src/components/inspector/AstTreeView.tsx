@@ -1,4 +1,4 @@
-import { nodeToTreeView } from '@repo/randomart-engine/format/treePrinter';
+import { toTreeView } from '@repo/randomart-engine-next';
 import { useSelectedTree } from '../../stores/randomart/selectors';
 
 export function AstTreeView() {
@@ -10,7 +10,7 @@ export function AstTreeView() {
         Abstract Syntax Tree (AST)
       </h4>
       <pre className="bg-background text-utility-3 overflow-x-auto rounded-sm p-4 text-xs leading-normal whitespace-pre shadow-inner">
-        {nodeToTreeView(selectedTree)}
+        {toTreeView(selectedTree)}
       </pre>
     </div>
   );

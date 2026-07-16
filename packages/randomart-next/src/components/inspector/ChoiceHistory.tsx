@@ -1,31 +1,23 @@
-import { useStore } from 'zustand';
-import { randomartStore } from '../../stores/randomart/store';
+import { useEnabledRuleIds } from '../../stores/randomart/selectors';
 
 export function ChoiceHistory() {
-  const choiceHistory = useStore(randomartStore, (s) => {
-    const channel = s.activeChannel;
-    const rng = channel === 'red' ? s.rngR : channel === 'green' ? s.rngG : s.rngB;
-    return rng.choiceHistory;
-  });
+  const enabledRuleIds = useEnabledRuleIds();
 
   return (
     <div>
       <h4 className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
-        Deterministic Choice Stream (.next())
+        Enabled Rules ({enabledRuleIds.length})
       </h4>
-      {choiceHistory.length === 0 ? (
-        <div className="text-muted-foreground/60 py-2 text-xs italic">
-          No numbers generated in this channel context.
-        </div>
+      {enabledRuleIds.length === 0 ? (
+        <div className="text-muted-foreground/60 py-2 text-xs italic">No rules enabled.</div>
       ) : (
         <div className="flex max-h-48 flex-wrap gap-1.5 overflow-y-auto text-sm">
-          {choiceHistory.map((val, idx) => (
+          {enabledRuleIds.map((ruleId) => (
             <span
-              key={idx}
+              key={ruleId}
               className="bg-background text-utility-2 rounded-sm px-1.5 py-0.5"
             >
-              <span className="text-muted-foreground/70 mr-0.5">{idx}:</span>
-              {val.toFixed(4)}
+              {ruleId}
             </span>
           ))}
         </div>

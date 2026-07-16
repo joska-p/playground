@@ -1,4 +1,5 @@
-import { renderTreesToPngBlob } from '@repo/randomart-engine/png';
+import type { ExprNode } from '@repo/randomart-engine-next';
+import { evaluate } from '@repo/randomart-engine-next';
 import { ControlGrid } from '@repo/ui/control-panel';
 import { Button, Switch } from '@repo/ui/data-entry';
 import { useState } from 'react';
@@ -10,7 +11,6 @@ import {
   useTreeG,
   useTreeR
 } from '../../stores/randomart/selectors';
-import { randomartStore } from '../../stores/randomart/store';
 
 const DOWNLOAD_SIZE = 1024;
 
@@ -23,6 +23,48 @@ function triggerDownload(blob: Blob, filename: string) {
   setTimeout(() => {
     URL.revokeObjectURL(url);
   }, 1000);
+}
+
+function renderTreesToBlob(
+  treeR: ExprNode,
+  treeG: ExprNode,
+  treeB: ExprNode,
+  size: number
+): Promise<Blob> {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not get 2d context');
+  const imageData = ctx.createImageData(size, size);
+  const data = imageData.data;
+
+  for (let py = 0; py < size; py++) {
+    const y = (py / (size - 1 || 1)) * 2 - 1;
+    for (let px = 0; px < size; px++) {
+      const x = (px / (size - 1 || 1)) * 2 - 1;
+      const r = evaluate(treeR, x, y);
+      const g = evaluate(treeG, x, y);
+      const b = evaluate(treeB, x, y);
+      const idx = (py * size + px) * 4;
+      data[idx] = Math.round(((r + 1) / 2) * 255);
+      data[idx + 1] = Math.round(((g + 1) / 2) * 255);
+      data[idx + 2] = Math.round(((b + 1) / 2) * 255);
+      data[idx + 3] = 255;
+    }
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob && blob.size > 0) {
+        resolve(blob);
+      } else {
+        reject(new Error('Failed to render PNG'));
+      }
+    }, 'image/png');
+  });
 }
 
 function DisplaySection() {
@@ -56,18 +98,22 @@ function DisplaySection() {
 
   function fallbackDownload() {
     try {
-      const exportR = correlatedRGB ? treeR.args[0] : treeR;
-      const exportG = correlatedRGB ? treeR.args[1] : treeG;
-      const exportB = correlatedRGB ? treeR.args[2] : treeB;
-      if (!exportR || !exportG || !exportB) return;
+      const exportR = correlatedRGB ? (treeR.children?.[0] ?? treeR) : treeR;
+      const exportG = correlatedRGB ? (treeR.children?.[1] ?? treeG) : treeG;
+      const exportB = correlatedRGB ? (treeR.children?.[2] ?? treeB) : treeB;
 
-      const currentTime = randomartStore.getState().time;
-
-      const blob = renderTreesToPngBlob(exportR, exportG, exportB, DOWNLOAD_SIZE, currentTime);
-      triggerDownload(blob, filename);
+      renderTreesToBlob(exportR, exportG, exportB, DOWNLOAD_SIZE)
+        .then((blob) => {
+          triggerDownload(blob, filename);
+        })
+        .catch((err: unknown) => {
+          console.error('Fallback render failed:', err);
+        })
+        .finally(() => {
+          setDownloading(false);
+        });
     } catch (err) {
       console.error('Fallback render failed:', err);
-    } finally {
       setDownloading(false);
     }
   }

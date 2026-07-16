@@ -1,7 +1,6 @@
-import { resolveGlslDeps } from '@repo/randomart-engine/compile/glslLibrary';
-import type { ExpressionNode, GrammarRule } from '@repo/randomart-engine/types';
+import type { ExprNode } from '@repo/randomart-engine-next';
+import { resolveGlslDeps, toGLSL } from '@repo/randomart-engine-next';
 import { colormapGLSL } from '../lib/colormap';
-import { GLSL_ARGS } from '../lib/evalHelpers';
 
 export const VALUE_VERTEX_SHADER = `
 varying vec2 vUv;
@@ -11,19 +10,41 @@ void main() {
 }
 `;
 
+/** Map expression node types to their required GLSL library function IDs. */
+const NOISE_DEPS_BY_NODE: Partial<Record<ExprNode['type'], string[]>> = {
+  'recaman-pattern': ['pseudoRecaman']
+};
+
+/** Recursively collect noise library dependency IDs referenced by a tree. */
+function collectNoiseDeps(node: ExprNode, deps: Set<string>): void {
+  const nodeDeps = NOISE_DEPS_BY_NODE[node.type];
+  if (nodeDeps) {
+    for (const id of nodeDeps) {
+      deps.add(id);
+    }
+  }
+  if (node.children) {
+    for (const child of node.children) {
+      collectNoiseDeps(child, deps);
+    }
+  }
+}
+
 /**
- * Wraps a rule's raw GLSL expression (rule.toGLSL) in a standalone fragment
+ * Wraps a node's raw GLSL expression (toGLSL) in a standalone fragment
  * shader that:
  *  - maps the [-1, 1] plane onto `p` / `x` / `y`, mirroring the CPU renderer
  *  - exposes an animated `t` uniform so the GPU preview can match `useT()`
  *  - reuses the exact same colormap as ValueCanvasCPU
  *
- * Throws if the rule doesn't implement toGLSL (e.g. some structural rules) -
- * callers should catch this and fall back to an error state.
+ * Throws if the node can't be compiled to GLSL — callers should catch this
+ * and fall back to an error state.
  */
-export function buildValueFragmentShader(rule: GrammarRule, node: ExpressionNode): string {
-  const expression = rule.toGLSL(GLSL_ARGS, node);
-  const noiseFunctions = resolveGlslDeps(rule.noiseDependencies ?? []);
+export function buildValueFragmentShader(node: ExprNode): string {
+  const expression = toGLSL(node);
+  const noiseDeps = new Set<string>();
+  collectNoiseDeps(node, noiseDeps);
+  const noiseFunctions = resolveGlslDeps([...noiseDeps]);
 
   return `
 precision highp float;

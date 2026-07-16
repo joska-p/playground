@@ -1,5 +1,5 @@
-import { compileToGLSL } from '@repo/randomart-engine/compile/compileToGLSL';
-import type { AnimationBehavior, ExpressionNode } from '@repo/randomart-engine/types';
+import type { AnimationBehavior, ExprNode } from '@repo/randomart-engine-next';
+import { compileToGLSL } from '@repo/randomart-engine-next';
 import { useEffect, useRef } from 'react';
 import type { BitmapSize } from './useWebGLContext';
 
@@ -27,9 +27,9 @@ export function useShaderProgram(
   glRef: React.RefObject<WebGL2RenderingContext | null>, // Upgraded to WebGL2RenderingContext
   bitmapSize: BitmapSize,
   trees: {
-    treeR: ExpressionNode;
-    treeG: ExpressionNode;
-    treeB: ExpressionNode;
+    treeR: ExprNode;
+    treeG: ExprNode;
+    treeB: ExprNode;
   },
   behaviors: AnimationBehavior[],
   onReady?: (gl: WebGL2RenderingContext, uniformLocs: UniformLocs) => void

@@ -10,16 +10,16 @@ export type RGB = {
   r: number;
   g: number;
   b: number;
-}
+};
 
 /** Parse a `#rgb` or `#rrggbb` hex color into RGB (0-255). */
 export function parseHex(hex: string): RGB {
-  let h = hex.trim().replace(/^#/, "");
+  let h = hex.trim().replace(/^#/, '');
   if (h.length === 3) {
     h = h
-      .split("")
+      .split('')
       .map((c) => c + c)
-      .join("");
+      .join('');
   }
   if (!/^[0-9a-fA-F]{6}$/.test(h)) {
     throw new Error(`Invalid hex color: "${hex}"`);
@@ -27,7 +27,7 @@ export function parseHex(hex: string): RGB {
   return {
     r: parseInt(h.slice(0, 2), 16),
     g: parseInt(h.slice(2, 4), 16),
-    b: parseInt(h.slice(4, 6), 16),
+    b: parseInt(h.slice(4, 6), 16)
   };
 }
 
@@ -44,7 +44,7 @@ export function makeColorMapper(palette?: string[]): (v: number) => RGB {
       ? palette.map(parseHex)
       : [
           { r: 0, g: 0, b: 0 },
-          { r: 255, g: 255, b: 255 },
+          { r: 255, g: 255, b: 255 }
         ];
 
   if (stops.length === 1) {
@@ -62,7 +62,7 @@ export function makeColorMapper(palette?: string[]): (v: number) => RGB {
     return {
       r: Math.round(a.r + (b.r - a.r) * frac),
       g: Math.round(a.g + (b.g - a.g) * frac),
-      b: Math.round(a.b + (b.b - a.b) * frac),
+      b: Math.round(a.b + (b.b - a.b) * frac)
     };
   };
 }

@@ -6,20 +6,15 @@
  * Perrig & Song. The grammar-rules registry is the core extensibility point.
  */
 
-export { generate } from "./generate.js";
-export {
-  listRules,
-  getRule,
-  hasRule,
-  DEFAULT_RULE_ID,
-} from "./rules.js";
+export { generate } from './generate.js';
+export { DEFAULT_RULE_ID, getRule, hasRule, listRules } from './rules.js';
 
 export type {
   ExprNode,
   ExprNodeType,
-  TreeView,
-  GrammarRule,
+  GenerateError,
   GenerateOptions,
   GenerateResult,
-  GenerateError,
-} from "./types.js";
+  GrammarRule,
+  TreeView
+} from './types.js';

@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import type { GrammarRule } from '@repo/randomart-engine/types';
+import type { GrammarRule } from '@repo/randomart-engine-next';
 import { useMemo, useRef } from 'react';
 import type * as THREE from 'three';
 import { buildValueFragmentShader, VALUE_VERTEX_SHADER } from '../../glsl/buildValueShader';
@@ -23,7 +23,7 @@ export function ValueCanvasGPU({ rule, seed, t, sizePx }: ValueCanvasGPUProps) {
   const { shader, error } = useMemo(() => {
     try {
       const node = buildPreviewNode(rule, seed);
-      return { shader: buildValueFragmentShader(rule, node), error: null as string | null };
+      return { shader: buildValueFragmentShader(node), error: null as string | null };
     } catch (e) {
       return { shader: null, error: e instanceof Error ? e.message : 'GLSL build error' };
     }

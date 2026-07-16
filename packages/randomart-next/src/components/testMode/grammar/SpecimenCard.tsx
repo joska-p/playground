@@ -1,6 +1,6 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
+import type { GrammarRule } from '@repo/randomart-engine-next';
+import { toMathString } from '@repo/randomart-engine-next';
 import { Button } from '@repo/ui/data-entry';
-import { STRING_ARGS } from '../lib/evalHelpers';
 import {
   rerollRule,
   selectRule,
@@ -61,16 +61,15 @@ export function SpecimenCard({ rule, index }: { rule: GrammarRule; index: number
       </div>
 
       <h3 className="text-foreground mb-1 text-sm font-semibold">
-        {rule.name} <span className="text-foreground-muted">({rule.id})</span>
+        {rule.displayName} <span className="text-foreground-muted">({rule.id})</span>
       </h3>
 
       <div className="mb-2 flex flex-wrap gap-1">
-        <Badge>{rule.category}</Badge>
-        <Badge>arity {rule.arity}</Badge>
+        <Badge>{rule.id}</Badge>
       </div>
 
       <pre className="bg-background text-warning overflow-x-auto rounded-md p-1.5 font-mono text-[10px]">
-        f({STRING_ARGS.join(', ')}) = {rule.toMathString(STRING_ARGS)}
+        f(x, y) = {toMathString(rule.buildNode(String(seed)))}
       </pre>
     </div>
   );

@@ -1,7 +1,8 @@
-import type { GrammarRule } from '@repo/randomart-engine/types';
+import type { GrammarRule } from '@repo/randomart-engine-next';
+import { evaluate } from '@repo/randomart-engine-next';
 import { useEffect, useRef } from 'react';
 import { valueToRGB } from '../../lib/colormap';
-import { buildPreviewNode, makeDefaultEvalArgs } from '../../lib/evalHelpers';
+import { buildPreviewNode } from '../../lib/evalHelpers';
 import { Corners } from '../ui/Corners';
 
 type ValueCanvasCPUProps = {
@@ -33,7 +34,7 @@ export function ValueCanvasCPU({ rule, seed, resolution, t, sizePx }: ValueCanva
           const y = (py / resolution) * 2 - 1;
           const idx = (py * resolution + px) * 4;
 
-          const value = rule.evaluate(makeDefaultEvalArgs(x, y), x, y, t, node);
+          const value = evaluate(node, x, y);
 
           if (!Number.isFinite(value)) {
             buffer[idx] = 0;
