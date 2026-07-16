@@ -11,9 +11,9 @@
  * `banded-noise` removed (never existed as a real rule).
  */
 
-import type { ExprNodeType } from './types.js';
+import type { OperatorId } from './grammar/operators/registry.js';
 
-export type WeightOverrides = Partial<Record<ExprNodeType, number>>;
+export type WeightOverrides = Partial<Record<OperatorId, number>>;
 
 export const WEIGHT_PRESETS: Record<string, WeightOverrides> = {
   balanced: {},
@@ -53,8 +53,7 @@ export const WEIGHT_PRESETS: Record<string, WeightOverrides> = {
     random: 1.5,
     fbm: 2.0,
     'recaman-pattern': 1.5,
-    if: 1.5,
-    smoothstep: 0.2
+    if: 1.5
   }
 } as const;
 

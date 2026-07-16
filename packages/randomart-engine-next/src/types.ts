@@ -27,7 +27,7 @@ export type ExprNode = {
 
 /** The set of grammar productions understood by the evaluator. */
 export type ExprNodeType =
-  // Terminals
+  // Terminals (9)
   | 'x'
   | 'y'
   | 'const'
@@ -37,7 +37,7 @@ export type ExprNodeType =
   | 'fbm'
   | 'recaman-pattern'
   | 'nested-oscillation'
-  // Transforms (unary)
+  // Transforms — unary (7)
   | 'sin'
   | 'cos'
   | 'abs'
@@ -45,7 +45,7 @@ export type ExprNodeType =
   | 'exp'
   | 'log'
   | 'fract'
-  // Combinators (binary)
+  // Combinators — binary (7)
   | 'sum'
   | 'product'
   | 'mod'
@@ -53,14 +53,8 @@ export type ExprNodeType =
   | 'less-than'
   | 'greater-than'
   | 'step'
-  // Combinators (ternary)
-  | 'if'
-  | 'smoothstep'
-  | 'clamp'
-  // Combinators (existing unary)
-  | 'well'
-  | 'tent'
-  | 'mix';
+  // Combinators — ternary (1)
+  | 'if';
 
 /** A structured, presentation-friendly tree view of an {@link ExprNode}. */
 export type TreeView = {
@@ -109,27 +103,6 @@ export type GenerateResult = {
 /** Structured error result returned by {@link generate}. */
 export type GenerateError = {
   error: string;
-};
-
-/**
- * A grammar rule in the registry. Each rule knows how to turn a text seed into
- * every supported representation. All methods are deterministic in the seed.
- */
-export type GrammarRule = {
-  /** Unique identifier used to select the rule. */
-  readonly id: string;
-  /** Human readable name. */
-  readonly displayName: string;
-  /** Raw byte-array representation of the generated expression. */
-  toCPU(textSeed: string): Uint8Array;
-  /** GLSL shader snippet reproducing the expression. */
-  toGPU(textSeed: string): string;
-  /** Mathematical expression string. */
-  toMathString(textSeed: string): string;
-  /** Structured tree representation. */
-  toTreeView(textSeed: string): TreeView;
-  /** The underlying expression node for further processing. */
-  buildNode(textSeed: string): ExprNode;
 };
 
 /** Context variable keys passed to AnimationBehavior#applyCode. */

@@ -8,12 +8,8 @@
 
 import { toGLSL } from './expression.js';
 import { resolveGlslDeps } from './glsl-library.js';
+import { OPERATORS } from './grammar/operators/registry.js';
 import type { AnimationBehavior, ApplyCodeContext, ExprNode } from './types.js';
-
-/** Map expression node types to their required GLSL library function IDs. */
-const NOISE_DEPS_BY_NODE: Partial<Record<ExprNode['type'], string[]>> = {
-  'recaman-pattern': ['pseudoRecaman']
-};
 
 function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): string {
   const noiseFunctions = resolveGlslDeps(noiseIds);
@@ -32,9 +28,9 @@ function buildPreamble(noiseIds: string[], behaviors: AnimationBehavior[]): stri
 
 /** Recursively collect noise library dependency IDs referenced by a tree. */
 function collectNoiseDeps(node: ExprNode, deps: Set<string>): void {
-  const nodeDeps = NOISE_DEPS_BY_NODE[node.type];
-  if (nodeDeps) {
-    for (const id of nodeDeps) {
+  const op = OPERATORS[node.type];
+  if ('noiseDependencies' in op) {
+    for (const id of op.noiseDependencies) {
       deps.add(id);
     }
   }
