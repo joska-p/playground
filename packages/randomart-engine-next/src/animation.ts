@@ -544,6 +544,234 @@ vec3 thermalVision(vec3 color, float t, float speed) {
   applyCode: ({ time, speed, color }) => `${color} = thermalVision(${color}, ${time}, ${speed});`
 } as const satisfies AnimationBehavior;
 
+const cosmicMaelstromBehavior = {
+  id: 'cosmic-maelstrom',
+  name: 'Cosmic Maelstrom',
+  glslFunction: `
+vec2 cosmicMaelstrom(vec2 coords, float t, float speed) {
+  float r = length(coords);
+  float theta = atan(coords.y, coords.x);
+
+  // Prevent log(0) artifacts using max limit
+  float logR = log(max(r, 0.04));
+
+  // Multi-frequency wave resonance to twist space non-linearly
+  float twist = 4.0 * logR + sin(r * 8.0 - t * speed) * 0.5;
+  theta += twist * 0.4;
+
+  // Radial pulse contraction
+  float pulse = 1.0 + 0.15 * sin(t * speed * 0.8 - r * 3.0);
+  return vec2(cos(theta), sin(theta)) * (r * pulse);
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = cosmicMaelstrom(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const quantumTessellationBehavior = {
+  id: 'quantum-tessellation',
+  name: 'Quantum Grid',
+  glslFunction: `
+vec2 quantumGridHash(vec2 p) {
+  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+  return fract(sin(p) * 43758.5453123);
+}
+
+vec2 quantumTessellation(vec2 p, float t, float speed) {
+  vec2 scaled = p * 4.0;
+  vec2 ip = floor(scaled);
+  vec2 fp = fract(scaled);
+
+  float minDist = 4.0;
+  vec2 targetOffset = vec2(0.0);
+
+  // Unrolled-style voronoi lattice with temporal pulsation
+  for (int j = -1; j <= 1; j++) {
+    for (int i = -1; i <= 1; i++) {
+      vec2 g = vec2(float(i), float(j));
+      vec2 o = quantumGridHash(ip + g);
+      o = 0.5 + 0.5 * sin(t * speed * 0.5 + o * 6.2831);
+      vec2 r = g + o - fp;
+      float d = dot(r, r);
+      if (d < minDist) {
+        minDist = d;
+        targetOffset = o;
+      }
+    }
+  }
+  // Sub-facet rotational shear
+  float angle = t * speed * 0.15 + (targetOffset.x - targetOffset.y) * 2.0;
+  mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+  return mix(p, rot * p, smoothstep(0.1, 0.9, minDist));
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = quantumTessellation(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const gravityWellBehavior = {
+  id: 'gravity-well',
+  name: 'Singularity Lens',
+  glslFunction: `
+vec2 gravityWell(vec2 coords, float t, float speed) {
+  // Dual-singularity orbiting attractor nodes
+  vec2 p1 = 0.5 * vec2(cos(t * speed * 0.4), sin(t * speed * 0.4));
+  vec2 p2 = 0.5 * vec2(cos(t * speed * 0.3 + 3.1415), sin(t * speed * 0.5));
+
+  float d1 = length(coords - p1);
+  float d2 = length(coords - p2);
+
+  // Guarded inverse-distance pull maps
+  vec2 pull1 = (p1 - coords) * (0.08 / (d1 * d1 + 0.04));
+  vec2 pull2 = (p2 - coords) * (0.08 / (d2 * d2 + 0.04));
+
+  return coords + pull1 + pull2;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = gravityWell(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+const plasmaFluidBehavior = {
+  id: 'plasma-fluid',
+  name: 'Fluid Dynamics',
+  type: 'spatial',
+  noiseDependencies: ['smoothNoise2'],
+  applyCode: ({ time, speed, spatial }) =>
+    [
+      `vec2 pf_uv = ${spatial} * 1.5;`,
+      `vec2 pf_n1 = smoothNoise2(pf_uv + vec2(${time} * ${speed} * 0.1, ${time} * ${speed} * 0.05));`,
+      `vec2 pf_n2 = smoothNoise2(pf_uv * 2.0 - pf_n1 + vec2(-${time} * ${speed} * 0.08, ${time} * ${speed} * 0.12));`,
+      `${spatial} += (pf_n2 - 0.5) * 0.35;`
+    ].join('\n  ')
+} as const satisfies AnimationBehavior;
+
+const cyberChromaGlitchBehavior = {
+  id: 'cyber-chroma-glitch',
+  name: 'Matrix Fragmentation',
+  glslFunction: `
+vec2 cyberGlitch(vec2 coords, float t, float speed) {
+  float row = floor(coords.y * 24.0);
+  float timeline = floor(t * speed * 6.0);
+
+  // High-frequency hash evaluation for chaotic but precise snapping triggers
+  float trigger = step(0.92, fract(sin(row * 41.134 + timeline) * 43758.5453));
+  float shift = (fract(sin(row * 92.73 + timeline) * 23412.18) - 0.5) * 0.3 * trigger;
+
+  coords.x += shift;
+  return coords;
+}
+`,
+  type: 'spatial',
+  applyCode: ({ time, speed, spatial }) =>
+    `${spatial} = cyberGlitch(${spatial}, ${time}, ${speed});`
+} as const satisfies AnimationBehavior;
+
+// ===========================================================================
+// Color Behaviors (Complex Chromatic Shifts & Spectral Bleeds)
+// ===========================================================================
+
+const spectralShiftBehavior = {
+  id: 'spectral-shift',
+  name: 'Cosine Palettizer',
+  glslFunction: `
+vec3 spectralPalette(float t) {
+  // Inigo Quilez parametric design: highly intricate psychedelic gradients
+  vec3 a = vec3(0.5, 0.5, 0.5);
+  vec3 b = vec3(0.5, 0.5, 0.5);
+  vec3 c = vec3(2.0, 1.0, 0.0);
+  vec3 d = vec3(0.5, 0.20, 0.25);
+  return a + b * cos(6.28318 * (c * t + d));
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) =>
+    [
+      `float sp_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
+      `${color} = mix(${color}, spectralPalette(sp_lum + ${time} * ${speed} * 0.08), 0.85);`
+    ].join('\n  ')
+} as const satisfies AnimationBehavior;
+
+const TrueChromaticAberrationBehavior = {
+  id: 'true-chromatic-aberration',
+  name: 'Spectral Dispersion',
+  type: 'color',
+  // Requires 'color' variables mapped cleanly to UV spaces to accurately emulate prism splits
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float t_ca = ${time} * ${speed} * 0.8;`,
+      `vec2 ca_dir = normalize(${spatial} + vec2(0.0001)) * (0.015 * sin(t_ca));`,
+      // Branchless edge clamping to prevent hard texture wrapping artifacts
+      `float r_edge = clamp(${color}.r + ca_dir.x, 0.0, 1.0);`,
+      `float g_edge = clamp(${color}.g + ca_dir.y, 0.0, 1.0);`,
+      `float b_edge = clamp(${color}.b - ca_dir.x, 0.0, 1.0);`,
+      `${color} = vec3(r_edge, mix(${color}.g, g_edge, 0.3), b_edge);`
+    ].join('\n  ');
+  }
+} as const satisfies AnimationBehavior;
+
+const iridescentSheenBehavior = {
+  id: 'iridescent-sheen',
+  name: 'Iridescence',
+  glslFunction: `
+vec3 applyIridescence(vec3 baseColor, vec2 coords, float t) {
+  float factor = sin(coords.x * 2.5 + t) * cos(coords.y * 2.5 - t);
+  vec3 sheen = 0.5 + 0.5 * cos(t + coords.xyx * 3.0 + vec3(0.0, 2.0, 4.0));
+  return mix(baseColor, baseColor + sheen * 0.4, smoothstep(-0.5, 0.5, factor));
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) =>
+    `${color} = applyIridescence(${color}, ${spatial}, ${time} * ${speed} * 0.5);`
+} as const satisfies AnimationBehavior;
+
+const thermalRadianceBehavior = {
+  id: 'thermal-radiance',
+  name: 'Thermal Infusion',
+  glslFunction: `
+vec3 branchlessThermal(float t) {
+  // Complete replacement of conditional if-statements to prevent mobile GPU pipeline stalls
+  vec3 c1 = vec3(0.0, 0.0, 0.15);
+  vec3 c2 = vec3(0.7, 0.0, 0.55);
+  vec3 c3 = vec3(1.0, 0.5, 0.0);
+  vec3 c4 = vec3(0.98, 0.98, 0.8);
+
+  float ramp1 = smoothstep(0.0, 0.33, t);
+  float ramp2 = smoothstep(0.33, 0.66, t);
+  float ramp3 = smoothstep(0.66, 1.0, t);
+
+  vec3 col = mix(c1, c2, ramp1);
+  col = mix(col, c3, ramp2);
+  col = mix(col, c4, ramp3);
+  return col;
+}
+`,
+  type: 'color',
+  applyCode: ({ time, speed, color }) =>
+    [
+      `float th_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
+      `float th_cycle = fract(th_lum + ${time} * ${speed} * 0.04);`,
+      `${color} = mix(${color}, branchlessThermal(th_cycle), 0.75);`
+    ].join('\n  ')
+} as const satisfies AnimationBehavior;
+
+const neonReactivePulseBehavior = {
+  id: 'neon-reactive',
+  name: 'Neon Reactive',
+  type: 'color',
+  applyCode: ({ time, speed, spatial, color }) => {
+    return [
+      `float nr_lum = dot(${color}, vec3(0.299, 0.587, 0.114));`,
+      `float nr_pulse = 0.5 + 0.5 * sin(${time} * ${speed} * 1.2 - length(${spatial}) * 2.0);`,
+      `vec3 nr_glow = vec3(0.1, 0.85, 1.0) * smoothstep(0.45, 0.85, nr_lum) * nr_pulse;`,
+      `${color} = clamp(${color} + nr_glow * 1.4, 0.0, 1.0);`
+    ].join('\n  ');
+  }
+} as const satisfies AnimationBehavior;
+
 // ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
@@ -567,6 +795,11 @@ export const animationRegistry = [
   crystalFacetBehavior,
   glitchBlocksBehavior,
   liquidMetalBehavior,
+  cosmicMaelstromBehavior,
+  quantumTessellationBehavior,
+  gravityWellBehavior,
+  plasmaFluidBehavior,
+  cyberChromaGlitchBehavior,
   // Color — kept
   hueShiftBehavior,
   colorDriftBehavior,
@@ -575,6 +808,11 @@ export const animationRegistry = [
   vignetteBehavior,
   filmGrainBehavior,
   scanLinesBehavior,
+  spectralShiftBehavior,
+  TrueChromaticAberrationBehavior,
+  iridescentSheenBehavior,
+  thermalRadianceBehavior,
+  neonReactivePulseBehavior,
   // Color — new
   paletteCycleBehavior,
   neonGlowPulseBehavior,
