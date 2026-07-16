@@ -1,4 +1,4 @@
-import { DEFAULT_RULE_ID, getRule, listRules } from '@repo/randomart-engine-next';
+import { DEFAULT_RULE_ID, getRule } from '@repo/randomart-engine-next';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { generateTrees } from './adapter';
@@ -7,7 +7,7 @@ import type { RandomartState } from './types';
 function generateInitial(): RandomartState {
   const mode = 'play';
   const seedText = "De deux choses lune l'autre c'est le soleil";
-  const preset = getRule(DEFAULT_RULE_ID) ?? listRules()[0];
+  const preset = getRule(DEFAULT_RULE_ID);
   const selectedRuleId = DEFAULT_RULE_ID;
   const minDepth = preset.minDepth;
   const maxDepth = preset.maxDepth;
@@ -17,8 +17,7 @@ function generateInitial(): RandomartState {
     selectedRuleId,
     customOperators: null,
     minDepth,
-    maxDepth,
-    correlated: false
+    maxDepth
   });
 
   return {
@@ -33,7 +32,6 @@ function generateInitial(): RandomartState {
     running: false,
     time: 0,
     animationSpeed: 0.3,
-    correlatedRGB: false,
     activeAnimationBehaviorIds: ['hue-shift']
   };
 }
@@ -56,8 +54,7 @@ export function updateTreeConfig(
     selectedRuleId: nextState.selectedRuleId,
     customOperators: nextState.customOperators,
     minDepth: nextState.minDepth,
-    maxDepth: nextState.maxDepth,
-    correlated: nextState.correlatedRGB
+    maxDepth: nextState.maxDepth
   });
 
   randomartStore.setState(

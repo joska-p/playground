@@ -25,7 +25,6 @@ export function setAnimationSpeed(speed: number): void {
 
 export function selectRule(ruleId: string): void {
   const rule = getRule(ruleId);
-  if (!rule) return;
   updateTreeConfig(
     () => ({
       selectedRuleId: ruleId,
@@ -40,7 +39,7 @@ export function selectRule(ruleId: string): void {
 export function toggleOperator(operatorId: OperatorId): void {
   updateTreeConfig((state) => {
     const rule = getRule(state.selectedRuleId);
-    const base = state.customOperators ?? rule?.operators ?? [];
+    const base = state.customOperators ?? rule.operators;
     const isCurrentlyEnabled = base.includes(operatorId);
 
     const nextOperators = isCurrentlyEnabled

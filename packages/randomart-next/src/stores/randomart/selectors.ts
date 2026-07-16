@@ -23,9 +23,6 @@ export function useCustomOperators() {
 export function useMinDepth() {
   return useStore(randomartStore, (s) => s.minDepth);
 }
-export function useCorrelatedRGB() {
-  return useStore(randomartStore, (s) => s.correlatedRGB);
-}
 export function useActiveChannel() {
   return useStore(randomartStore, (s) => s.activeChannel);
 }

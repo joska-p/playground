@@ -92,9 +92,9 @@ export function listRules(): GrammarRule[] {
   return [...REGISTRY.values()];
 }
 
-/** Look up a rule by id, or `undefined` if it does not exist. */
-export function getRule(id: string): GrammarRule | undefined {
-  return REGISTRY.get(id);
+/** Look up a rule by id, or `classicRule` if it does not exist. */
+export function getRule(id: string): GrammarRule {
+  return REGISTRY.get(id) ?? classicRule;
 }
 
 /** Whether a rule id is registered. */

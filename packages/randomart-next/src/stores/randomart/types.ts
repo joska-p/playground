@@ -16,6 +16,5 @@ export type RandomartState = {
   running: boolean;
   time: number;
   animationSpeed: number;
-  correlatedRGB: boolean;
   activeAnimationBehaviorIds: string[];
 };

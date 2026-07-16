@@ -116,7 +116,7 @@ function GrammarSection() {
   const maxDepth = useMaxDepth();
 
   const preset = getRule(selectedRuleId);
-  const activeOperators = customOperators ?? preset?.operators ?? [];
+  const activeOperators = customOperators ?? preset.operators;
 
   return (
     <ControlSection

@@ -2,13 +2,7 @@ import type { ExprNode } from '@repo/randomart-engine-next';
 import { evaluate } from '@repo/randomart-engine-next';
 import { Button } from '@repo/ui/data-entry';
 import { useState } from 'react';
-import {
-  useCorrelatedRGB,
-  useSeedText,
-  useTreeB,
-  useTreeG,
-  useTreeR
-} from '../../stores/randomart/selectors';
+import { useSeedText, useTreeB, useTreeG, useTreeR } from '../../stores/randomart/selectors';
 
 const DOWNLOAD_SIZE = 1024;
 
@@ -66,7 +60,6 @@ function renderTreesToBlob(
 }
 
 function DownloadSection() {
-  const correlatedRGB = useCorrelatedRGB();
   const treeR = useTreeR();
   const treeG = useTreeG();
   const treeB = useTreeB();
@@ -96,9 +89,9 @@ function DownloadSection() {
 
   function fallbackDownload() {
     try {
-      const exportR = correlatedRGB ? (treeR.children?.[0] ?? treeR) : treeR;
-      const exportG = correlatedRGB ? (treeR.children?.[1] ?? treeG) : treeG;
-      const exportB = correlatedRGB ? (treeR.children?.[2] ?? treeB) : treeB;
+      const exportR = treeR;
+      const exportG = treeG;
+      const exportB = treeB;
 
       renderTreesToBlob(exportR, exportG, exportB, DOWNLOAD_SIZE)
         .then((blob) => {
