@@ -5,6 +5,7 @@ const fragmentShader = `
   uniform float uDivisions;
   uniform float uChroma;
   uniform float uLightness;
+  uniform float uTime;
 
   in vec2 vUv;
 
@@ -57,10 +58,12 @@ const fragmentShader = `
       // Column Logic: Compute normalized discrete IDs per column block
       float columnId = floor(vUv.x * uDivisions);
       float normalizedId = columnId / (uDivisions - 1.0 == 0.0 ? 1.0 : uDivisions - 1.0);
+      bool isTop = vUv.y > 0.5;
 
       // Define constant target properties for Lightness and Chroma
       float targetLightness = uLightness;
       float targetChroma = uChroma;
+      float t_time = uTime;
 
       // Map normalized column positions across a complete wheel cycle
       float hueRadians = normalizedId * 2.0 * PI;
@@ -69,7 +72,11 @@ const fragmentShader = `
       vec3 finalColor = oklchToRgb(vec3(targetLightness, targetChroma, hueRadians));
 
       // Return final computed pixel state
-      pc_fragColor = vec4(finalColor, 1.0);
+      if (isTop) {
+        pc_fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+      } else {
+        pc_fragColor = vec4(finalColor, 1.0);
+      }
   }
  `;
 

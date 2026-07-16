@@ -12,14 +12,10 @@
 
 import { compileToGLSL } from './compileToGLSL.js';
 import type { GrammarSpec } from './expression.js';
-import {
-  grow,
-  toMathString as nodeToMathString,
-  toTreeView as nodeToTreeView,
-  toBytes
-} from './expression.js';
+import { grow, toBytes, toStructuredView } from './expression.js';
+import { toMathString as nodeToMathString } from './format.js';
 import { SeededRandom } from './prng.js';
-import type { ExprNode, GrammarRule, TreeView } from './types.js';
+import type { ExprNode, GrammarRule } from './types.js';
 
 /**
  * Create a {@link GrammarRule} from a spec. Handles per-seed memoization of the
@@ -54,7 +50,7 @@ function createRule(id: string, displayName: string, spec: GrammarSpec): Grammar
       return compileToGLSL(node, node, node, []);
     },
     toMathString: (textSeed: string): string => nodeToMathString(build(textSeed)),
-    toTreeView: (textSeed: string): TreeView => nodeToTreeView(build(textSeed))
+    toTreeView: (textSeed: string) => toStructuredView(build(textSeed))
   };
 }
 

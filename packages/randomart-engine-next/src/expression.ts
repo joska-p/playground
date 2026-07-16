@@ -430,81 +430,19 @@ export function toGLSL(node: ExprNode): string {
   }
 }
 
-/** Render a node as a human-readable math string. */
-export function toMathString(node: ExprNode): string {
-  switch (node.type) {
-    case 'x':
-      return 'x';
-    case 'y':
-      return 'y';
-    case 'const':
-      return String(node.value ?? 0);
-    case 'sum':
-      return `(${toMathString(node.children![0]!)} + ${toMathString(node.children![1]!)}) / 2`;
-    case 'product':
-      return `(${toMathString(node.children![0]!)} · ${toMathString(node.children![1]!)})`;
-    case 'mod':
-      return `(${toMathString(node.children![0]!)} mod ${toMathString(node.children![1]!)})`;
-    case 'pow':
-      return `(${toMathString(node.children![0]!)}^${toMathString(node.children![1]!)})`;
-    case 'less-than':
-      return `(${toMathString(node.children![0]!)} < ${toMathString(node.children![1]!)} ? 1 : -1)`;
-    case 'greater-than':
-      return `(${toMathString(node.children![0]!)} > ${toMathString(node.children![1]!)} ? 1 : -1)`;
-    case 'step':
-      return `step(${toMathString(node.children![0]!)}, ${toMathString(node.children![1]!)})`;
-    case 'if':
-      return `(if ${toMathString(node.children![0]!)} > 0 ? ${toMathString(node.children![1]!)} : ${toMathString(node.children![2]!)})`;
-    case 'smoothstep':
-      return `smoothstep(${toMathString(node.children![0]!)}, ${toMathString(node.children![1]!)}, ${toMathString(node.children![2]!)})`;
-    case 'clamp':
-      return `clamp(${toMathString(node.children![0]!)}, ${toMathString(node.children![1]!)}, ${toMathString(node.children![2]!)})`;
-    case 'sin':
-      return `sin(π·${toMathString(node.children![0]!)})`;
-    case 'cos':
-      return `cos(π·${toMathString(node.children![0]!)})`;
-    case 'abs':
-      return `(2·|${toMathString(node.children![0]!)}| − 1)`;
-    case 'well':
-      return `well(${toMathString(node.children![0]!)})`;
-    case 'tent':
-      return `(1 − 2·|${toMathString(node.children![0]!)}|)`;
-    case 'mix':
-      return `mix(${toMathString(node.children![0]!)}, ${toMathString(node.children![1]!)}, ${toMathString(node.children![2]!)})`;
-    // Terminals — pixel-space derived
-    case 'random':
-      return 'random(p)';
-    case 'radial':
-      return 'radial(p)';
-    case 'sweep':
-      return 'sweep(p)';
-    case 'fbm':
-      return 'fbm(p)';
-    case 'recaman-pattern':
-      return 'recaman(p)';
-    case 'nested-oscillation':
-      return 'nested-oscillation(p)';
-    // Transforms — unary
-    case 'sqrt':
-      return `sqrt(|${toMathString(node.children![0]!)}|)`;
-    case 'exp':
-      return `normalized_e^(${toMathString(node.children![0]!)})`;
-    case 'log':
-      return `normalized_log(${toMathString(node.children![0]!)})`;
-    case 'fract':
-      return `fract(${toMathString(node.children![0]!)})`;
-    default:
-      return '0';
-  }
-}
-
-/** Render a node as a nested, serializable tree view. */
-export function toTreeView(node: ExprNode): TreeView {
+/**
+ * Build a structured, serializable tree view from an expression node.
+ *
+ * The ASCII-rendered version lives in `format.ts`; this function produces the
+ * underlying data structure that both the structured API and the ASCII renderer
+ * consume.
+ */
+export function toStructuredView(node: ExprNode): TreeView {
   const label = node.type === 'const' ? `const(${node.value ?? 0})` : node.type;
   const view: TreeView = { label, type: node.type };
   if (node.type === 'const') view.value = node.value ?? 0;
   if (node.children && node.children.length > 0) {
-    view.children = node.children.map(toTreeView);
+    view.children = node.children.map(toStructuredView);
   }
   return view;
 }

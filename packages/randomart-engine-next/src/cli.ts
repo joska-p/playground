@@ -5,11 +5,13 @@
  * Usage:
  *   tsx randomart <textseed> <outputfile> [--rule <id>] [--size <n>] [--colors <hex1,hex2,...>]
  *
- * Writes a PNG to <outputfile> and prints the math expression to stdout. On any
- * invalid input it prints an error plus the usage message and exits non-zero.
+ * Writes a PNG to <outputfile>, prints the math expression and an ASCII tree
+ * to stdout. On any invalid input it prints an error plus the usage message
+ * and exits non-zero.
  */
 
 import { writeFile } from 'node:fs/promises';
+import { toTreeView } from './format.js';
 import { generate } from './generate.js';
 import { listRules } from './rules.js';
 
@@ -31,7 +33,7 @@ Options:
 
 Available rules:
 ${listRules()
-  .map((r) => `  ${r.id.padEnd(10)} ${r.displayName}`)
+  .map((r) => `  ${r.id.padEnd(30)} ${r.displayName}`)
   .join('\n')}
 
 Example:
@@ -140,6 +142,9 @@ async function main(): Promise<void> {
   console.log(`Wrote ${result.png.length} bytes to ${parsed.outputFile}`);
   console.log(`Rule:  ${parsed.ruleId ?? 'classic'}`);
   console.log(`Math:  ${result.math}`);
+  console.log();
+  console.log('Expression tree:');
+  console.log(toTreeView(result.node));
 }
 
 void main();

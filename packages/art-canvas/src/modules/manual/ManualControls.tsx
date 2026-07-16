@@ -1,11 +1,13 @@
-import { ControlRow, ControlSection } from '@repo/ui/control-panel';
-import { Slider } from '@repo/ui/data-entry';
+import { ControlGrid, ControlRow, ControlSection } from '@repo/ui/control-panel';
+import { Button, Slider } from '@repo/ui/data-entry';
 import {
   setChroma,
   setDivisions,
+  setIsPlaying,
   setLightness,
   useChroma,
   useDivisions,
+  useIsPlaying,
   useLightness
 } from './store';
 
@@ -13,6 +15,12 @@ function ManualControls() {
   const divisions = useDivisions();
   const chroma = useChroma();
   const lightness = useLightness();
+  const isPlaying = useIsPlaying();
+
+  function handlePlay() {
+    setIsPlaying(!isPlaying);
+  }
+
   return (
     <>
       <ControlSection title="manual">
@@ -45,6 +53,10 @@ function ManualControls() {
             step={0.1}
           />
         </ControlRow>
+
+        <ControlGrid columns={2}>
+          <Button onClick={handlePlay}>{isPlaying ? 'Stop' : 'Play'}</Button>
+        </ControlGrid>
       </ControlSection>
     </>
   );
