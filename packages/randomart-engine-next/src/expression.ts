@@ -282,25 +282,6 @@ export function toGLSL(node: ExprNode): string {
 }
 
 /**
- * Render an expression node as a human-readable math formula.
- *
- * Used for debugging and display — e.g. showing "sin(x + 0.3421) * y" in the
- * UI. The formula is not meant to be parsed back; it's purely for human
- * consumption.
- */
-export function toMathString(node: ExprNode): string {
-  const op = OPERATORS[node.type];
-
-  if (node.type === 'const') return String(node.value ?? 0);
-  if (op.arity === 0) return op.toMathString({} as never);
-
-  const args = Object.fromEntries(
-    op.argNames.map((name, i) => [name, toMathString(node.children![i]!)])
-  ) as Record<string, string>;
-  return op.toMathString(args as never);
-}
-
-/**
  * Serialize a node into a compact byte array (the CPU representation).
  *
  * Layout is a pre-order traversal: one opcode byte per node, and for `const`

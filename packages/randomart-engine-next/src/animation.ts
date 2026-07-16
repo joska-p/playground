@@ -17,14 +17,14 @@ import type { AnimationBehavior } from './types.js';
 // Spatial behaviors
 // ---------------------------------------------------------------------------
 
-export const zoomBehavior: AnimationBehavior = {
+const zoomBehavior: AnimationBehavior = {
   id: 'zoom',
   name: 'Zoom',
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} *= (1.0 + 0.5 * sin(${time} * ${speed}));`
 };
 
-export const rippleBehavior: AnimationBehavior = {
+const rippleBehavior: AnimationBehavior = {
   id: 'ripple',
   name: 'Ripple',
   type: 'spatial',
@@ -32,7 +32,7 @@ export const rippleBehavior: AnimationBehavior = {
     `${spatial} += 0.1 * sin(${spatial} * 5.0 + ${time} * ${speed});`
 };
 
-export const rotateBehavior: AnimationBehavior = {
+const rotateBehavior: AnimationBehavior = {
   id: 'rotate',
   name: 'Rotate',
   glslFunction: `\
@@ -46,7 +46,7 @@ mat2 rotate2d(float _angle){
     `${spatial} = rotate2d(${time} * ${speed} * 0.5) * ${spatial};`
 };
 
-export const swirlBehavior: AnimationBehavior = {
+const swirlBehavior: AnimationBehavior = {
   id: 'swirl',
   name: 'Swirl',
   glslFunction: `\
@@ -61,21 +61,21 @@ vec2 swirl(vec2 coords, float angle) {
     `${spatial} = swirl(${spatial}, sin(${time} * ${speed}) * 2.0);`
 };
 
-export const driftBehavior: AnimationBehavior = {
+const driftBehavior: AnimationBehavior = {
   id: 'drift',
   name: 'Drift',
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} += ${time} * ${speed} * 0.1;`
 };
 
-export const expandBehavior: AnimationBehavior = {
+const expandBehavior: AnimationBehavior = {
   id: 'expand',
   name: 'Expand',
   type: 'spatial',
   applyCode: ({ time, speed, spatial }) => `${spatial} /= (1.0 + ${time} * ${speed} * 0.1);`
 };
 
-export const kaleidoscopeBehavior: AnimationBehavior = {
+const kaleidoscopeBehavior: AnimationBehavior = {
   id: 'kaleidoscope',
   name: 'Kaleidoscope',
   glslFunction: `\
@@ -100,7 +100,7 @@ vec2 kaleidoscope(vec2 coords, float t, float speed) {
     `${spatial} = kaleidoscope(${spatial}, ${time}, ${speed});`
 };
 
-export const domainWarpBehavior: AnimationBehavior = {
+const domainWarpBehavior: AnimationBehavior = {
   id: 'domain-warp',
   name: 'Warp',
   glslFunction: `\
@@ -116,7 +116,7 @@ vec2 domainWarp(vec2 coords, float t, float speed) {
   applyCode: ({ time, speed, spatial }) => `${spatial} = domainWarp(${spatial}, ${time}, ${speed});`
 };
 
-export const mirrorTileBehavior: AnimationBehavior = {
+const mirrorTileBehavior: AnimationBehavior = {
   id: 'mirror-tile',
   name: 'Mirror',
   type: 'spatial',
@@ -124,7 +124,7 @@ export const mirrorTileBehavior: AnimationBehavior = {
     `${spatial} = abs(mod(${spatial} * 1.4 + ${time} * ${speed} * 0.08, 2.0) - 1.0);`
 };
 
-export const tunnelBehavior: AnimationBehavior = {
+const tunnelBehavior: AnimationBehavior = {
   id: 'tunnel',
   name: 'Tunnel',
   glslFunction: `\
@@ -139,7 +139,7 @@ vec2 tunnel(vec2 coords, float t, float speed) {
   applyCode: ({ time, speed, spatial }) => `${spatial} = tunnel(${spatial}, ${time}, ${speed});`
 };
 
-export const goldenWanderBehavior: AnimationBehavior = {
+const goldenWanderBehavior: AnimationBehavior = {
   id: 'golden-wander',
   name: 'Wander',
   type: 'spatial',
@@ -152,7 +152,7 @@ export const goldenWanderBehavior: AnimationBehavior = {
   }
 };
 
-export const noiseCrawlBehavior: AnimationBehavior = {
+const noiseCrawlBehavior: AnimationBehavior = {
   id: 'noise-crawl',
   name: 'Crawl',
   type: 'spatial',
@@ -164,7 +164,7 @@ export const noiseCrawlBehavior: AnimationBehavior = {
     ].join('\n  ')
 };
 
-export const recamanPulseBehavior: AnimationBehavior = {
+const recamanPulseBehavior: AnimationBehavior = {
   id: 'recaman-pulse',
   name: 'Recamán',
   glslFunction: `\
@@ -189,7 +189,7 @@ vec2 recamanWarp(vec2 coords, float t, float speed) {
     `${spatial} = recamanWarp(${spatial}, ${time}, ${speed});`
 };
 
-export const mouseProximityBehavior: AnimationBehavior = {
+const mouseProximityBehavior: AnimationBehavior = {
   id: 'mouse-proximity',
   name: 'Mouse Field',
   type: 'spatial',
@@ -203,7 +203,7 @@ export const mouseProximityBehavior: AnimationBehavior = {
   }
 };
 
-export const pixelationBehavior: AnimationBehavior = {
+const pixelationBehavior: AnimationBehavior = {
   id: 'pixelation',
   name: 'Pixelation',
   type: 'spatial',
@@ -215,7 +215,7 @@ export const pixelationBehavior: AnimationBehavior = {
   }
 };
 
-export const voronoiBehavior: AnimationBehavior = {
+const voronoiBehavior: AnimationBehavior = {
   id: 'voronoi',
   name: 'Voronoi',
   glslFunction: `\
@@ -254,7 +254,7 @@ vec2 voronoiWarp(vec2 x, float t, float speed) {
 // Color behaviors
 // ---------------------------------------------------------------------------
 
-export const hueShiftBehavior: AnimationBehavior = {
+const hueShiftBehavior: AnimationBehavior = {
   id: 'hue-shift',
   name: 'Hue Shift',
   glslFunction: `\
@@ -272,7 +272,7 @@ vec3 hueRotate(vec3 color, float angle) {
   applyCode: ({ time, speed, color }) => `${color} = hueRotate(${color}, ${time} * ${speed});`
 };
 
-export const contrastPulseBehavior: AnimationBehavior = {
+const contrastPulseBehavior: AnimationBehavior = {
   id: 'contrast-pulse',
   name: 'Pulse',
   glslFunction: `\
@@ -285,7 +285,7 @@ vec3 contrastPulse(vec3 color, float t, float speed) {
   applyCode: ({ time, speed, color }) => `${color} = contrastPulse(${color}, ${time}, ${speed});`
 };
 
-export const colorDriftBehavior: AnimationBehavior = {
+const colorDriftBehavior: AnimationBehavior = {
   id: 'color-drift',
   name: 'Color Drift',
   type: 'color',
@@ -298,7 +298,7 @@ export const colorDriftBehavior: AnimationBehavior = {
     ].join('\n  ')
 };
 
-export const edgeDetectBehavior: AnimationBehavior = {
+const edgeDetectBehavior: AnimationBehavior = {
   id: 'edge-detect',
   name: 'Contour',
   type: 'color',
@@ -330,7 +330,7 @@ vec3 applyLaplacianEdges(vec3 baseColor, vec2 uv, float time) {
     `${color} = applyLaplacianEdges(${color}, v_texCoord, ${time} * ${speed});`
 };
 
-export const inversionBehavior: AnimationBehavior = {
+const inversionBehavior: AnimationBehavior = {
   id: 'inversion',
   name: 'Inversion',
   type: 'color',
@@ -338,7 +338,7 @@ export const inversionBehavior: AnimationBehavior = {
     `${color} = mix(${color}, 1.0 - ${color}, 0.5 + 0.5 * sin(${time} * ${speed} * 0.5));`
 };
 
-export const chromaticAberrationBehavior: AnimationBehavior = {
+const chromaticAberrationBehavior: AnimationBehavior = {
   id: 'chromatic-aberration',
   name: 'Aberration',
   type: 'color',
@@ -352,7 +352,7 @@ export const chromaticAberrationBehavior: AnimationBehavior = {
   }
 };
 
-export const vignetteBehavior: AnimationBehavior = {
+const vignetteBehavior: AnimationBehavior = {
   id: 'vignette',
   name: 'Vignette',
   type: 'color',
@@ -366,7 +366,7 @@ export const vignetteBehavior: AnimationBehavior = {
   }
 };
 
-export const filmGrainBehavior: AnimationBehavior = {
+const filmGrainBehavior: AnimationBehavior = {
   id: 'film-grain',
   name: 'Grain',
   type: 'color',
@@ -380,7 +380,7 @@ export const filmGrainBehavior: AnimationBehavior = {
   }
 };
 
-export const scanLinesBehavior: AnimationBehavior = {
+const scanLinesBehavior: AnimationBehavior = {
   id: 'scan-lines',
   name: 'Scan',
   type: 'color',
