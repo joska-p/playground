@@ -10,7 +10,11 @@ const { title, description } = project.data;
 const keywords = project.data.tags?.join(', ').slice(1) || '';
 ---
 
-<BaseLayout title={title} description={description} keywords={keywords}>
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+>
   <div class="h-0 min-h-screen">
     <App client:only="react" />
   </div>
