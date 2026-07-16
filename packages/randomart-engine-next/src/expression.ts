@@ -25,8 +25,12 @@ const clamp = (v: number): number => (v < -1 ? -1 : v > 1 ? 1 : v);
 // ── Pool building for grow() / buildTree() ──────────────────────
 
 /**
- * Depth below which the shared structureRng drives category selection,
- * keeping the overall tree shape consistent across R/G/B channels.
+ * The tree-growth algorithm uses two RNG streams: one for structure (which nodes
+ * appear where) and one for per-channel detail. At shallow depths — the "skeleton"
+ * of the tree — both streams share the structure RNG so the R/G/B channels get
+ * the same branching shape. Beyond this threshold the per-channel RNG takes over,
+ * letting each channel diverge. The result is images that share broad structure
+ * across color channels but differ in fine detail, producing richer color mixing.
  */
 const STRUCTURE_RNG_DEPTH = 3;
 
@@ -36,6 +40,16 @@ type PoolEntry = {
   weight: number;
 };
 
+/**
+ * Guaranteed fallback terminals, injected by `grow`/`buildTree` when a grammar
+ * spec omits them. Every tree needs leaves to terminate — without these, a
+ * grammar that only defines structural operators (e.g. add, sin) would produce
+ * infinite trees.
+ *
+ * `const` is weighted at 0.5 (half as likely as x/y) so random constants appear
+ * in roughly a third of terminal picks, avoiding over-reliance on magic numbers
+ * while still giving each image a unique color palette.
+ */
 const DEFAULT_TERMINALS: readonly PoolEntry[] = [
   { type: 'x', arity: 0, weight: 1.0 },
   { type: 'y', arity: 0, weight: 1.0 },
@@ -49,10 +63,23 @@ const toEntry = (id: OperatorId): PoolEntry => ({
 });
 
 /**
- * Builds the candidate pool by rolling each structural rule independently
- * against structuralProbability. Each rule gets its own RNG draw, so different
- * seeds produce pools of different sizes — this per-rule variance is what drives
- * tree variety. Terminals are always included as a guaranteed fallback.
+ * Probabilistically filters which operators are available at a given depth.
+ *
+ * Assumes the input includes terminals (arity-0 entries) — callers guarantee
+ * this by appending DEFAULT_TERMINALS when the spec omits them. Terminals always
+ * pass the filter, so the output is never empty.
+ *
+ * The effect is a depth-dependent "temperature" for tree complexity:
+ *  - Near the root (structuralProbability ≈ 0), most structural operators are
+ *    filtered out, so the pool is small and the root stays simple.
+ *  - Near the leaves (structuralProbability ≈ 1), almost everything survives,
+ *    giving maximum variety at the bottom — but depth pressure forces terminals
+ *    anyway, so this doesn't create overly deep trees.
+ *
+ * Each operator gets its own independent coin flip, so different random seeds
+ * produce pools of different sizes. This per-rule variance is the primary driver
+ * of tree variety across seeds — two seeds with the same operators can produce
+ * very different pool compositions.
  */
 function buildPool(
   rng: SeededRandom,
@@ -65,11 +92,21 @@ function buildPool(
       pool.push(op);
     }
   }
-  return pool.length > 0 ? pool : [...DEFAULT_TERMINALS];
+  return pool;
 }
 
+/**
+ * Biased random selection from the pool. Assumes a non-empty pool — callers
+ * guarantee this by ensuring terminals are always present.
+ *
+ * Higher weight means more likely to be picked, but every entry has a non-zero
+ * chance. This is how `const` gets its reduced frequency: it has weight 0.5 vs
+ * 1.0 for everything else. In a pool of [x, y, const, sin], const has ~17%
+ * chance (0.5/3.0) while each other entry has ~33% (1.0/3.0). The effect is
+ * that images lean toward coordinate-based and operator-based expression, with
+ * constants sprinkled in for palette variation rather than dominating the tree.
+ */
 function weightedPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry {
-  if (pool.length === 0) return DEFAULT_TERMINALS[0]!;
   const totalWeight = pool.reduce((sum, op) => sum + op.weight, 0);
   let threshold = rng.next() * totalWeight;
   for (const op of pool) {
@@ -82,15 +119,29 @@ function weightedPick(rng: SeededRandom, pool: readonly PoolEntry[]): PoolEntry 
 // ── Tree growth ─────────────────────────────────────────────────
 
 /**
- * Recursively grow an expression node.
+ * Recursively grow an expression node from the root down.
  *
- * Uses depth-dependent structuralProbability: at the root all structural rules
- * are candidates, near the leaves only terminals survive — matching the engine's
- * pool-builder approach instead of a fixed coin-flip.
+ * The key design choice is the three-way pool strategy:
+ *  1. forceOperator (depth < minDepth): only structural operators — guarantees
+ *     the tree has a minimum level of complexity before it's allowed to terminate.
+ *  2. forceTerminal (depth = 0): only terminals — enforces a hard depth limit
+ *     so trees are always finite.
+ *  3. Normal growth: probabilistic filtering via buildPool, where the
+ *     structuralProbability rises from 0 (root) to 1 (leaves). This creates a
+ *     natural gradient: complex branching near the root, simple leaves near the
+ *     bottom. The effect is trees that are "top-heavy" — visually interesting
+ *     large-scale structure with fine detail at the leaves.
  *
- * @param rng    Seeded random stream (advances as the tree grows).
- * @param spec   Grammar variant controlling operators and growth.
- * @param depth  Remaining depth budget (counts down toward the leaves).
+ * If the grammar spec has no terminals, DEFAULT_TERMINALS are appended here —
+ * this is the single point where the fallback lives (buildPool and weightedPick
+ * no longer guard against empty pools).
+ *
+ * @param rng    Seeded random stream — advances as the tree grows, so the
+ *               entire tree shape is determined by this stream's state.
+ * @param spec   Grammar variant controlling which operators are available and
+ *               the depth bounds that shape tree complexity.
+ * @param depth  Remaining depth budget — counts down toward 0 (the leaves).
+ *               At 0, only terminals are allowed.
  */
 export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprNode {
   const currentDepth = spec.maxDepth - depth;
@@ -134,9 +185,21 @@ export function grow(rng: SeededRandom, spec: GrammarSpec, depth: number): ExprN
 /**
  * Build a tree using dual-RNG separation for correlated-but-varied color channels.
  *
- * Below STRUCTURE_RNG_DEPTH the shared structureRng drives category selection,
- * keeping the overall tree shape consistent across R/G/B channels. Above that
- * threshold the per-channel channelRng takes over for per-channel variation.
+ * This is the entry point for generating the R/G/B expression trees. The
+ * structural consistency comes from sharing the structureRng below
+ * STRUCTURE_RNG_DEPTH: all three channels get the same branching decisions at
+ * the top of the tree, so their overall shape is similar. Above that threshold
+ * the per-channel channelRng takes over, letting each color channel diverge
+ * independently.
+ *
+ * The visual effect: images that have a coherent structural identity (shared
+ * branching pattern) but with per-channel variation that produces interesting
+ * color mixing. Purely correlated generation (same RNG everywhere) looks flat;
+ * purely uncorrelated generation looks noisy. This hybrid approach hits the
+ * sweet spot.
+ *
+ * Unlike grow(), this function tracks currentDepth directly (incrementing up)
+ * rather than counting down, which makes the dual-RNG switching logic clearer.
  */
 export function buildTree(
   structureRng: SeededRandom,
@@ -172,7 +235,15 @@ export function buildTree(
 
 // ── Registry-based walkers ──────────────────────────────────────
 
-/** Evaluate a node at normalized coordinates x, y (each in [-1, 1]). */
+/**
+ * Evaluate a node at normalized coordinates x, y (each in [-1, 1]).
+ *
+ * This is the CPU rendering path — it walks the tree and computes a numeric
+ * output for each pixel. The returned value is always in [-1, 1], which gets
+ * mapped to a color in the rendering pipeline. The tree structure means each
+ * pixel evaluation is O(tree size), which is why CPU rendering is slower than
+ * the GPU path (toGLSL).
+ */
 export function evaluate(node: ExprNode, x: number, y: number): number {
   const op = OPERATORS[node.type];
 
@@ -187,7 +258,15 @@ export function evaluate(node: ExprNode, x: number, y: number): number {
   return op.evaluate(args as never, x, y);
 }
 
-/** Render a node as a GLSL expression string (all values kept in [-1, 1]). */
+/**
+ * Render a node as a GLSL expression string (all values kept in [-1, 1]).
+ *
+ * This is the GPU rendering path — it converts the tree into a single GLSL
+ * expression that gets injected into a fragment shader. The GPU evaluates this
+ * expression in parallel across all pixels, making it orders of magnitude faster
+ * than the CPU path for large images. The expression is inlined directly (no
+ * function calls), which matters for shader compiler optimization.
+ */
 export function toGLSL(node: ExprNode): string {
   const op = OPERATORS[node.type];
 
@@ -202,7 +281,13 @@ export function toGLSL(node: ExprNode): string {
   return op.toGLSL(args as never);
 }
 
-/** Render an expression node as a human-readable math formula. */
+/**
+ * Render an expression node as a human-readable math formula.
+ *
+ * Used for debugging and display — e.g. showing "sin(x + 0.3421) * y" in the
+ * UI. The formula is not meant to be parsed back; it's purely for human
+ * consumption.
+ */
 export function toMathString(node: ExprNode): string {
   const op = OPERATORS[node.type];
 
@@ -220,6 +305,10 @@ export function toMathString(node: ExprNode): string {
  *
  * Layout is a pre-order traversal: one opcode byte per node, and for `const`
  * nodes a following signed byte encoding the value quantized to [-1, 1].
+ *
+ * This byte format is consumed by the CPU rasterizer — it can walk the byte
+ * array without needing the full ExprNode tree in memory, which is useful for
+ * streaming or embedded contexts where memory is tight.
  */
 export function toBytes(node: ExprNode): Uint8Array {
   const out: number[] = [];
@@ -240,7 +329,8 @@ export function toBytes(node: ExprNode): Uint8Array {
  *
  * The ASCII-rendered version lives in `format.ts`; this function produces the
  * underlying data structure that both the structured API and the ASCII renderer
- * consume.
+ * consume. The TreeView format is intentionally JSON-serializable so the tree
+ * can be sent over the wire or stored without losing information.
  */
 export function toStructuredView(node: ExprNode): TreeView {
   const label = node.type === 'const' ? `const(${node.value ?? 0})` : node.type;
